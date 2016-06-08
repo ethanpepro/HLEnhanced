@@ -346,7 +346,11 @@ void CL_LoadParticleMan( void )
 
 cldll_func_dst_t *g_pcldstAddrs;
 
-extern "C" void CL_DLLEXPORT F(void *pv)
+/**
+*	This function is used to load secure clients. It's actually obsolete, but the engine will reload the dll if it's not here.
+*	Since it prevents CreateInterface from being used, it has to be disabled.
+*/
+extern "C" void /*CL_DLLEXPORT*/ F(void *pv)
 {
 	cldll_func_t *pcldll_func = (cldll_func_t *)pv;
 
@@ -445,3 +449,11 @@ public:
 };
 
 EXPOSE_SINGLE_INTERFACE(CClientExports, IGameClientExports, GAMECLIENTEXPORTS_INTERFACE_VERSION);
+
+/**
+*	This function is never called, but it has to exist in order for the engine to load stuff from the client.
+*/
+extern "C" CL_DLLEXPORT void* ClientFactory( ... )
+{
+	return nullptr;
+}

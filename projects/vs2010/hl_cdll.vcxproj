@@ -42,13 +42,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(Configuration)\$(ProjectName)\</OutDir>
+    <OutDir>$(SteamCommon)\Half-Life\hlenhanced\cl_dlls\</OutDir>
     <TargetName>client</TargetName>
     <IntDir>$(Configuration)\$(ProjectName)\int\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(Configuration)\$(ProjectName)\</OutDir>
+    <OutDir>$(SteamCommon)\Half-Life\hlenhanced\cl_dlls\</OutDir>
     <TargetName>client</TargetName>
     <IntDir>$(Configuration)\$(ProjectName)\int\</IntDir>
   </PropertyGroup>
@@ -141,6 +141,7 @@
     <ClCompile Include="..\..\cl_dll\text_message.cpp" />
     <ClCompile Include="..\..\cl_dll\train.cpp" />
     <ClCompile Include="..\..\cl_dll\tri.cpp" />
+    <ClCompile Include="..\..\cl_dll\ui\CClientVGUI.cpp" />
     <ClCompile Include="..\..\cl_dll\util.cpp" />
     <ClCompile Include="..\..\cl_dll\vgui_ClassMenu.cpp" />
     <ClCompile Include="..\..\cl_dll\vgui_ControlConfigPanel.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="..\..\cl_dll\kbutton.h" />
     <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h" />
     <ClInclude Include="..\..\cl_dll\tri.h" />
+    <ClInclude Include="..\..\cl_dll\ui\CClientVGUI.h" />
     <ClInclude Include="..\..\cl_dll\util_vector.h" />
     <ClInclude Include="..\..\cl_dll\vgui_ControlConfigPanel.h" />
     <ClInclude Include="..\..\cl_dll\vgui_int.h" />
@@ -215,6 +217,7 @@
     <ClInclude Include="..\..\cl_dll\wrect.h" />
     <ClInclude Include="..\..\common\parsemsg.h" />
     <ClInclude Include="..\..\common\Platform.h" />
+    <ClInclude Include="..\..\engine\IClientVGUI.h" />
     <ClInclude Include="..\..\game_shared\vgui_scrollbar2.h" />
     <ClInclude Include="..\..\game_shared\vgui_slider2.h" />
     <ClInclude Include="..\..\game_shared\voice_banmgr.h" />

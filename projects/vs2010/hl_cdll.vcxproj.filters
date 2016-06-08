@@ -55,6 +55,15 @@
     <Filter Include="Source Files\_hl\cl_dll\hl">
       <UniqueIdentifier>{bd9d5958-4e67-4bff-bbd8-6ba6dfcdb720}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine">
+      <UniqueIdentifier>{a503e72a-049f-488c-a14e-b69a2f6b9c46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\cl_dll\ui">
+      <UniqueIdentifier>{2b048104-38be-4ef9-9ef5-033896f57b99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\cl_dll\ui">
+      <UniqueIdentifier>{66a765e7-aa0e-4e7c-8b2b-4a92ca3704f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -306,6 +315,9 @@
     <ClCompile Include="..\..\public\interface.cpp">
       <Filter>Source Files\public</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\cl_dll\ui\CClientVGUI.cpp">
+      <Filter>Source Files\cl_dll\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -430,6 +442,12 @@
     </ClInclude>
     <ClInclude Include="..\..\common\Platform.h">
       <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\engine\IClientVGUI.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\cl_dll\ui\CClientVGUI.h">
+      <Filter>Header Files\cl_dll\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
