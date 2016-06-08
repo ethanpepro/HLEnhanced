@@ -63,6 +63,8 @@ typedef int BOOL;
 #endif
 #endif //_WIN32
 
+#include "Platform.h"
+
 // Misc C-runtime library headers
 #include "stdio.h"
 #include "stdlib.h"

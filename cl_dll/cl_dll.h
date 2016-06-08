@@ -37,6 +37,8 @@ typedef int (*pfnUserMsgHook)(const char *pszName, int iSize, void *pbuf);
 #define EXPORT	__attribute__ ((visibility("default")))
 #endif
 
+#include "Platform.h"
+
 #include "../engine/cdll_int.h"
 #include "../dlls/cdll_dll.h"
 

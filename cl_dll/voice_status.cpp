@@ -6,6 +6,7 @@
 //=============================================================================
 
 // There are hud.h's coming out of the woodwork so this ensures that we get the right one.
+//TODO: only dmc hud is public, continue to support it?
 #if defined(THREEWAVE) || defined(DMC_BUILD)
 	#include "../dmc/cl_dll/hud.h"
 #elif defined(CSTRIKE)
@@ -98,6 +99,7 @@ void ForEachBannedPlayer(char id[16])
 		id[12], id[13], id[14], id[15]
 		);
 #ifdef _WIN32
+	//TODO: figure out if this is needed or not. It's Windows specific.
 	strupr(str);
 #endif
 	gEngfuncs.pfnConsolePrint(str);
