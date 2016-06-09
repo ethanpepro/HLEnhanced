@@ -21,11 +21,9 @@
 #include	"gamerules.h"
 #include	"game.h"
 
-void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd );
+#include "pm_shared.h"
 
-extern "C" void PM_Move ( struct playermove_s *ppmove, int server );
-extern "C" void PM_Init ( struct playermove_s *ppmove  );
-extern "C" char PM_FindTextureType( char *name );
+void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd );
 
 extern Vector VecBModelOrigin( entvars_t* pevBModel );
 extern DLL_GLOBAL Vector		g_vecAttackDir;

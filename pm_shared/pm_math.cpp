@@ -311,8 +311,6 @@ void CrossProduct (const vec3_t v1, const vec3_t v2, vec3_t cross)
 }
 #endif
 
-double sqrt(double x);
-
 #ifndef DISABLE_VEC_FUNCS
 float Length(const vec3_t v)
 {
@@ -327,7 +325,7 @@ float Length(const vec3_t v)
 }
 #endif
 
-float Distance(const vec3_t v1, const vec3_t v2)
+float Distance(const float* v1, const float* v2)
 {
 	vec3_t d;
 	VectorSubtract(v2,v1,d);

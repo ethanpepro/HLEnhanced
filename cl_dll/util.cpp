@@ -32,8 +32,6 @@
 
 vec3_t vec3_origin( 0, 0, 0 );
 
-double sqrt(double x);
-
 float Length(const float *v)
 {
 	int		i;

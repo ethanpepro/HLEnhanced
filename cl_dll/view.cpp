@@ -33,14 +33,17 @@
 
 	void PM_ParticleLine( float *start, float *end, int pcolor, float life, float vert);
 	int		PM_GetVisEntInfo( int ent );
-	extern "C" int		PM_GetPhysEntInfo( int ent );
+	extern int		PM_GetPhysEntInfo( int ent );
 	void	InterpolateAngles(  float * start, float * end, float * output, float frac );
 	void	NormalizeAngles( float * angles );
-	extern "C" float	Distance(const float * v1, const float * v2);
+	extern float	Distance(const float * v1, const float * v2);
 	float	AngleBetweenVectors(  const float * v1,  const float * v2 );
 
+	//Never used, and conflicts with pm_shared version. Removed. - Solokiller
+	/*
 	float	vJumpOrigin[3];
 	float	vJumpAngles[3];
+	*/
 
 
 void V_DropPunchAngle ( float frametime, float *ev_punchangle );
@@ -1241,9 +1244,12 @@ void V_GetChasePos(int target, float * cl_angles, float * origin, float * angles
 	
 	if (!ent)
 	{
+		//Never used, and conflicts with pm_shared version. Removed. - Solokiller
+		/*
 		// just copy a save in-map position
 		VectorCopy ( vJumpAngles, angles );
 		VectorCopy ( vJumpOrigin, origin );
+		*/
 		return;
 	}
 	
@@ -1289,9 +1295,12 @@ void V_GetInEyePos(int target, float * origin, float * angles )
 {
 	if ( !target)
 	{
+		//Never used, and conflicts with pm_shared version. Removed. - Solokiller
+		/*
 		// just copy a save in-map position
 		VectorCopy ( vJumpAngles, angles );
 		VectorCopy ( vJumpOrigin, origin );
+		*/
 		return;
 	};
 
