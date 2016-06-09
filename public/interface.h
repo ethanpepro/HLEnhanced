@@ -15,7 +15,7 @@
 //    expose it for the old interface.
 
 //#if _MSC_VER >= 1300  // VC7
-//#include "tier1/interface.h"
+//#include "interface.h"
 //#else
 
 #ifndef INTERFACE_H

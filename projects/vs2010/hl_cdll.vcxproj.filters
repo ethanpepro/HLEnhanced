@@ -318,6 +318,9 @@
     <ClCompile Include="..\..\cl_dll\ui\CClientVGUI.cpp">
       <Filter>Source Files\cl_dll\ui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\source_sdk\public\tier0\memoverride.cpp">
+      <Filter>Source Files\public</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -448,6 +451,9 @@
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\ui\CClientVGUI.h">
       <Filter>Header Files\cl_dll\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\engine\IGameUIFuncs.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,6 +3,12 @@
 
 #include "interface.h"
 
+//TODO: remove once VGUI1 is removed.
+#undef VGUI_H
+
+#include "../../source_sdk/public/vgui/VGUI.h"
+#include "../../source_sdk/public/vgui/ipanel.h"
+
 /**
 *	Client VGUI2 interface. Enables the client library to use VGUI2.
 */
@@ -26,7 +32,7 @@ public:
 	*	Sets the parent panel. The root client panel should set this as its parent.
 	*	TODO: needs the panel type (vgui2::Panel)
 	*/
-	virtual void SetParent( unsigned int pParentPanel ) = 0;
+	virtual void SetParent( vgui2::VPANEL parent ) = 0;
 
 	/**
 	*	@return 1 if VGUI1 should be used, 0 if VGUI2 should be used.
