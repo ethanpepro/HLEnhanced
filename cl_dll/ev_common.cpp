@@ -149,7 +149,11 @@ EV_GetDefaultShellInfo
 Determine where to eject shells from
 =================
 */
-void EV_GetDefaultShellInfo( event_args_t *args, float *origin, float *velocity, float *ShellVelocity, float *ShellOrigin, float *forward, float *right, float *up, float forwardScale, float upScale, float rightScale )
+void EV_GetDefaultShellInfo( event_args_t *args, 
+							 float *origin, float *velocity, 
+							 float *ShellVelocity, float *ShellOrigin, 
+							 float *forward, float *right, float *up, 
+							 float forwardScale, float upScale, float rightScale )
 {
 	int i;
 	vec3_t view_ofs;

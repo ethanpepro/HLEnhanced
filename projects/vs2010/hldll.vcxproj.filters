@@ -43,6 +43,9 @@
     <Filter Include="Header Files\public\math">
       <UniqueIdentifier>{80d83e4f-3668-42b9-96cf-f8e4f8dd2bd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game_shared">
+      <UniqueIdentifier>{7a081d79-9e3c-48a6-8d9e-e66c8fe32950}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -490,6 +493,9 @@
     </ClInclude>
     <ClInclude Include="..\..\public\math\vector.h">
       <Filter>Header Files\public\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game_shared\Damage.h">
+      <Filter>Header Files\game_shared</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

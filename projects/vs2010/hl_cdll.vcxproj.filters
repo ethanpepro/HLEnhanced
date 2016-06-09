@@ -437,6 +437,9 @@
     <ClInclude Include="..\..\engine\IGameUIFuncs.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game_shared\Damage.h">
+      <Filter>Header Files\game_shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\game_controls.lib" />
