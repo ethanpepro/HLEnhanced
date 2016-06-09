@@ -27,6 +27,8 @@
 #include <stdlib.h> // atoi
 #include <ctype.h>  // isspace
 
+#include "Platform.h"
+
 #ifdef CLIENT_DLL
 	// Spectator Mode
 	int		iJumpSpectator;

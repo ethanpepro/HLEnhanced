@@ -37,6 +37,12 @@
     <Filter Include="Header Files\common">
       <UniqueIdentifier>{5d87fa07-0411-4d28-97c7-5743c33c22a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\public">
+      <UniqueIdentifier>{8f34858a-b7a7-488d-b92e-d419f890fdea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\public\math">
+      <UniqueIdentifier>{80d83e4f-3668-42b9-96cf-f8e4f8dd2bd6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -479,11 +485,11 @@
     <ClInclude Include="..\..\dlls\util.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\dlls\vector.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\common\Platform.h">
       <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\math\vector.h">
+      <Filter>Header Files\public\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

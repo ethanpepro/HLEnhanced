@@ -12,19 +12,10 @@
 *   without written permission from Valve LLC.
 *
 ****/
-//  Vector.h
-// A subset of the extdll.h in the project HL Entity DLL
-//
+#ifndef VECTOR_H
+#define VECTOR_H
 
-// Misc C-runtime library headers
-#include "stdio.h"
-#include "stdlib.h"
-#include "math.h"
-
-// Header file containing definition of globalvars_t and entvars_t
-typedef unsigned int	func_t;		//
-typedef unsigned int	string_t;	// from engine's pr_comp.h;
-typedef float vec_t;				// needed before including progdefs.h
+#include <cmath>
 
 //=========================================================
 // 2DVector - used for many pathfinding and many other 
@@ -40,7 +31,7 @@ public:
 	inline Vector2D operator*(float fl)				const	{ return Vector2D(x*fl, y*fl);	}
 	inline Vector2D operator/(float fl)				const	{ return Vector2D(x/fl, y/fl);	}
 	
-	inline float Length(void)						const	{ return (float)sqrt(x*x + y*y );		}
+	inline float Length(void)						const	{ return sqrt(x*x + y*y );		}
 
 	inline Vector2D Normalize ( void ) const
 	{
@@ -49,7 +40,7 @@ public:
 		float flLen = Length();
 		if ( flLen == 0 )
 		{
-			return Vector2D( (float)0, (float)0 );
+			return Vector2D( 0, 0 );
 		}
 		else
 		{
@@ -61,7 +52,6 @@ public:
 	vec_t	x, y;
 };
 
-#undef DotProduct
 inline float DotProduct(const Vector2D& a, const Vector2D& b) { return( a.x*b.x + a.y*b.y ); }
 inline Vector2D operator*(float fl, const Vector2D& v)	{ return v * fl; }
 
@@ -74,8 +64,8 @@ public:
 	// Construction/destruction
 	inline Vector(void)								{ }
 	inline Vector(float X, float Y, float Z)		{ x = X; y = Y; z = Z;						}
-	inline Vector(double X, double Y, double Z)		{ x = (float)X; y = (float)Y; z = (float)Z;	}
-	inline Vector(int X, int Y, int Z)				{ x = (float)X; y = (float)Y; z = (float)Z;	}
+	//inline Vector(double X, double Y, double Z)		{ x = (float)X; y = (float)Y; z = (float)Z;	}
+	//inline Vector(int X, int Y, int Z)				{ x = (float)X; y = (float)Y; z = (float)Z;	}
 	inline Vector(const Vector& v)					{ x = v.x; y = v.y; z = v.z;				} 
 	inline Vector(float rgfl[3])					{ x = rgfl[0]; y = rgfl[1]; z = rgfl[2];	}
 
@@ -90,7 +80,7 @@ public:
 	
 	// Methods
 	inline void CopyToArray(float* rgfl) const		{ rgfl[0] = x, rgfl[1] = y, rgfl[2] = z; }
-	inline float Length(void) const					{ return (float)sqrt(x*x + y*y + z*z); }
+	inline float Length(void) const					{ return sqrt(x*x + y*y + z*z); }
 	operator float *()								{ return &x; } // Vectors will now automatically convert to float * when needed
 	operator const float *() const					{ return &x; } // Vectors will now automatically convert to float * when needed
 	inline Vector Normalize(void) const
@@ -110,7 +100,7 @@ public:
 
 		return Vec2;
 	}
-	inline float Length2D(void) const					{ return (float)sqrt(x*x + y*y); }
+	inline float Length2D(void) const					{ return sqrt(x*x + y*y); }
 
 	// Members
 	vec_t x, y, z;
@@ -119,7 +109,6 @@ inline Vector operator*(float fl, const Vector& v)	{ return v * fl; }
 inline float DotProduct(const Vector& a, const Vector& b) { return(a.x*b.x+a.y*b.y+a.z*b.z); }
 inline Vector CrossProduct(const Vector& a, const Vector& b) { return Vector( a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x ); }
 
-#ifndef DID_VEC3_T_DEFINE
-#define DID_VEC3_T_DEFINE
-#define vec3_t Vector
+
+
 #endif

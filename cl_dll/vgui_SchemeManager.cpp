@@ -21,6 +21,7 @@
 #include "cvardef.h"
 
 #include <string.h>
+#include <cstdio>
 
 
 cvar_t *g_CV_BitmapFonts;

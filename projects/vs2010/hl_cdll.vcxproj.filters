@@ -407,9 +407,6 @@
     <ClInclude Include="..\..\cl_dll\tri.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\cl_dll\util_vector.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\cl_dll\vgui_ControlConfigPanel.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
