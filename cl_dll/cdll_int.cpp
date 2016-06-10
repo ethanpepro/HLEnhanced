@@ -67,8 +67,6 @@ HUD_GetHullBounds
 */
 int CL_DLLEXPORT HUD_GetHullBounds( int hullnumber, float *mins, float *maxs )
 {
-//	RecClGetHullBounds(hullnumber, mins, maxs);
-
 	int iret = 0;
 
 	switch ( hullnumber )
@@ -103,8 +101,6 @@ HUD_ConnectionlessPacket
 */
 int	CL_DLLEXPORT HUD_ConnectionlessPacket( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size )
 {
-//	RecClConnectionlessPacket(net_from, args, response_buffer, response_buffer_size);
-
 	// Parse stuff from args
 	int max_buffer_size = *response_buffer_size;
 
@@ -119,30 +115,22 @@ int	CL_DLLEXPORT HUD_ConnectionlessPacket( const struct netadr_s *net_from, cons
 
 void CL_DLLEXPORT HUD_PlayerMoveInit( struct playermove_s *ppmove )
 {
-//	RecClClientMoveInit(ppmove);
-
 	PM_Init( ppmove );
 }
 
 char CL_DLLEXPORT HUD_PlayerMoveTexture( char *name )
 {
-//	RecClClientTextureType(name);
-
 	return PM_FindTextureType( name );
 }
 
 void CL_DLLEXPORT HUD_PlayerMove( struct playermove_s *ppmove, int server )
 {
-//	RecClClientMove(ppmove, server);
-
 	PM_Move( ppmove, server );
 }
 
 int CL_DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 {
 	gEngfuncs = *pEnginefuncs;
-
-//	RecClInitialize(pEnginefuncs, iVersion);
 
 	if (iVersion != CLDLL_INTERFACE_VERSION)
 		return 0;
@@ -169,7 +157,6 @@ so the HUD can reinitialize itself.
 
 int CL_DLLEXPORT HUD_VidInit( void )
 {
-//	RecClHudVidInit();
 	gHUD.VidInit();
 
 	VGui_Startup();
@@ -189,7 +176,6 @@ the hud variables.
 
 void CL_DLLEXPORT HUD_Init( void )
 {
-//	RecClHudInit();
 	InitInput();
 	gHUD.Init();
 	Scheme_Init();
@@ -207,8 +193,6 @@ redraw the HUD.
 
 int CL_DLLEXPORT HUD_Redraw( float time, int intermission )
 {
-//	RecClHudRedraw(time, intermission);
-
 	gHUD.Redraw( time, intermission );
 
 	return 1;
@@ -230,8 +214,6 @@ returns 1 if anything has been changed, 0 otherwise.
 
 int CL_DLLEXPORT HUD_UpdateClientData(client_data_t *pcldata, float flTime )
 {
-//	RecClHudUpdateClientData(pcldata, flTime);
-
 	IN_Commands();
 
 	return gHUD.UpdateClientData(pcldata, flTime );
@@ -247,8 +229,6 @@ Called at start and end of demos to restore to "non"HUD state.
 
 void CL_DLLEXPORT HUD_Reset( void )
 {
-//	RecClHudReset();
-
 	gHUD.VidInit();
 }
 
@@ -262,8 +242,6 @@ Called by engine every frame that client .dll is loaded
 
 void CL_DLLEXPORT HUD_Frame( double time )
 {
-//	RecClHudFrame(time);
-
 	GetClientVoiceMgr()->Frame(time);
 }
 
@@ -278,8 +256,6 @@ Called when a player starts or stops talking.
 
 void CL_DLLEXPORT HUD_VoiceStatus(int entindex, qboolean bTalking)
 {
-////	RecClVoiceStatus(entindex, bTalking);
-
 	GetClientVoiceMgr()->UpdateSpeakerStatus(entindex, bTalking);
 }
 
@@ -293,8 +269,6 @@ Called when a director event message was received
 
 void CL_DLLEXPORT HUD_DirectorMessage( int iSize, void *pbuf )
 {
-//	RecClDirectorMessage(iSize, pbuf);
-
 	gHUD.m_Spectator.DirectorMessage( iSize, pbuf );
 }
 
@@ -338,18 +312,20 @@ void CL_LoadParticleMan( void )
 	}
 }
 
-cldll_func_dst_t *g_pcldstAddrs;
+/**
+*	This function is never called, but it has to exist in order for the engine to load stuff from the client. - Solokiller
+*/
+extern "C" CL_DLLEXPORT void* ClientFactory()
+{
+	return nullptr;
+}
 
 /**
-*	This function is used to load secure clients. It's actually obsolete, but the engine will reload the dll if it's not here.
-*	Since it prevents CreateInterface from being used, it has to be disabled.
+*	This function is used to load secure clients. It's actually obsolete, but the engine will reload the dll if it's not here. - Solokiller
 */
-extern "C" void /*CL_DLLEXPORT*/ F(void *pv)
+extern "C" void CL_DLLEXPORT F(void *pv)
 {
 	cldll_func_t *pcldll_func = (cldll_func_t *)pv;
-
-	// Hack!
-	g_pcldstAddrs = ((cldll_func_dst_t *)pcldll_func->pHudVidInitFunc);
 
 	cldll_func_t cldll_func = 
 	{
@@ -394,6 +370,8 @@ extern "C" void /*CL_DLLEXPORT*/ F(void *pv)
 	HUD_DirectorMessage,
 	HUD_GetStudioModelInterface,
 	HUD_ChatInputPosition,
+	nullptr,
+	ClientFactory,	//NOTE: Needed for the engine to query CreateInterface for interface instantiation. - Solokiller
 	};
 
 	*pcldll_func = cldll_func;
@@ -443,11 +421,3 @@ public:
 };
 
 EXPOSE_SINGLE_INTERFACE(CClientExports, IGameClientExports, GAMECLIENTEXPORTS_INTERFACE_VERSION);
-
-/**
-*	This function is never called, but it has to exist in order for the engine to load stuff from the client.
-*/
-extern "C" CL_DLLEXPORT void* ClientFactory( ... )
-{
-	return nullptr;
-}

@@ -1640,8 +1640,6 @@ void V_CalcSpectatorRefdef ( struct ref_params_s * pparams )
 
 void CL_DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
 {
-//	RecClCalcRefdef(pparams);
-
 	// intermission / finale rendering
 	if ( pparams->intermission )
 	{	

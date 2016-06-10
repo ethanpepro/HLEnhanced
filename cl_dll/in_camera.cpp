@@ -152,8 +152,6 @@ extern trace_t SV_ClipMoveToEntity (edict_t *ent, vec3_t start, vec3_t mins, vec
 
 void CL_DLLEXPORT CAM_Think( void )
 {
-//	RecClCamThink();
-
 	vec3_t origin;
 	vec3_t ext, pnt, camForward, camRight, camUp;
 	moveclip_t	clip;
@@ -618,14 +616,10 @@ void CAM_EndDistance(void)
 
 int CL_DLLEXPORT CL_IsThirdPerson( void )
 {
-//	RecClCL_IsThirdPerson();
-
 	return (cam_thirdperson ? 1 : 0) || (g_iUser1 && (g_iUser2 == gEngfuncs.GetLocalPlayer()->index) );
 }
 
 void CL_DLLEXPORT CL_CameraOffset( float *ofs )
 {
-//	RecClCL_GetCameraOffsets(ofs);
-
 	VectorCopy( cam_ofs, ofs );
 }
