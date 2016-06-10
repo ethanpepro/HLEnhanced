@@ -12,10 +12,10 @@
 #include "event_args.h"
 
 // defaults for clientinfo messages
+//TODO: defined in client.cpp - Solokiller
 #define	DEFAULT_VIEWHEIGHT	28
+//TODO: defined in util.h - Solokiller
 #define VEC_DUCK_VIEW 12
-
-#define FTENT_FADEOUT			0x00000080
 
 #include "Damage.h"
 
@@ -23,12 +23,12 @@
 void EV_EjectBrass( float *origin, float *velocity, float rotation, int model, int soundtype );
 void EV_GetGunPosition( event_args_t *args, float *pos, float *origin );
 void EV_GetDefaultShellInfo( event_args_t *args, 
-							 float *origin, float *velocity, 
-							 float *ShellVelocity, float *ShellOrigin, 
-							 float *forward, float *right, float *up, 
+							 const Vector& origin, const Vector& velocity,
+							 Vector& ShellVelocity, Vector& ShellOrigin,
+							 const Vector& forward, const Vector& right, const Vector& up,
 							 float forwardScale, float upScale, float rightScale );
-qboolean EV_IsLocal( int idx );
-qboolean EV_IsPlayer( int idx );
+bool EV_IsLocal( int idx );
+bool EV_IsPlayer( int idx );
 void EV_CreateTracer( float *start, float *end );
 
 struct cl_entity_s *GetEntity( int idx );

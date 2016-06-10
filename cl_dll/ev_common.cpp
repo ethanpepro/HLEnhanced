@@ -69,7 +69,7 @@ EV_IsPlayer
 Is the entity's index in the player range?
 =================
 */
-qboolean EV_IsPlayer( int idx )
+bool EV_IsPlayer( int idx )
 {
 	if ( idx >= 1 && idx <= gEngfuncs.GetMaxClients() )
 		return true;
@@ -84,7 +84,7 @@ EV_IsLocal
 Is the entity == the local player
 =================
 */
-qboolean EV_IsLocal( int idx )
+bool EV_IsLocal( int idx )
 {
 	// check if we are in some way in first person spec mode
 	if ( IS_FIRSTPERSON_SPEC  )
@@ -150,13 +150,13 @@ Determine where to eject shells from
 =================
 */
 void EV_GetDefaultShellInfo( event_args_t *args, 
-							 float *origin, float *velocity, 
-							 float *ShellVelocity, float *ShellOrigin, 
-							 float *forward, float *right, float *up, 
+							 const Vector& origin, const Vector& velocity, 
+							 Vector& ShellVelocity, Vector& ShellOrigin, 
+							 const Vector& forward, const Vector& right, const Vector& up, 
 							 float forwardScale, float upScale, float rightScale )
 {
 	int i;
-	vec3_t view_ofs;
+	Vector view_ofs;
 	float fR, fU;
 
 	int idx;
