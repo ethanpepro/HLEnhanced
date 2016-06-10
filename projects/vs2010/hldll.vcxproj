@@ -195,6 +195,7 @@
     <ClCompile Include="..\..\dlls\wpn_shared\hl_wpn_glock.cpp" />
     <ClCompile Include="..\..\dlls\xen.cpp" />
     <ClCompile Include="..\..\dlls\zombie.cpp" />
+    <ClCompile Include="..\..\game_shared\shared_game_utils.cpp" />
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_math.cpp" />
@@ -241,6 +242,7 @@
     <ClInclude Include="..\..\dlls\weapons.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />
+    <ClInclude Include="..\..\game_shared\shared_game_utils.h" />
     <ClInclude Include="..\..\pm_shared\pm_debug.h" />
     <ClInclude Include="..\..\pm_shared\pm_defs.h" />
     <ClInclude Include="..\..\pm_shared\pm_info.h" />

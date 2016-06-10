@@ -315,6 +315,9 @@
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp">
       <Filter>Source Files\pm_shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game_shared\shared_game_utils.cpp">
+      <Filter>Source Files\game_shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -438,6 +441,9 @@
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game_shared\Damage.h">
+      <Filter>Header Files\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game_shared\shared_game_utils.h">
       <Filter>Header Files\game_shared</Filter>
     </ClInclude>
   </ItemGroup>
