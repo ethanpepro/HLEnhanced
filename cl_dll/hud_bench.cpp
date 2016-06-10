@@ -77,7 +77,7 @@ const char *g_stage3[2] =
 };
 const char *g_stage4 = "  Composite Score:  %i";
 
-extern vec3_t v_origin;
+extern Vector v_origin;
 
 static int g_isPowerPlay = 0;
 static int g_currentstage = 0;
