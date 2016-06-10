@@ -14,11 +14,18 @@
 ****/
 
 #include <assert.h>
+
+//TODO: remove once conflicts are resolved - Solokiller
+typedef float vec_t;
+
+#include "vector.h"
+
 #include "mathlib.h"
 #include "const.h"
 #include "usercmd.h"
 #include "pm_defs.h"
 #include "pm_shared.h"
+#include "pm_materials.h"
 #include "pm_movevars.h"
 #include "pm_debug.h"
 #include <stdio.h>  // NULL
@@ -27,17 +34,19 @@
 #include <stdlib.h> // atoi
 #include <ctype.h>  // isspace
 
+#include "com_model.h"
+
 #include "Platform.h"
 
 #ifdef CLIENT_DLL
 	// Spectator Mode
 	int		iJumpSpectator;
 #ifndef DISABLE_JUMP_ORIGIN
-	float	vJumpOrigin[3];
-	float	vJumpAngles[3];
+	Vector vJumpOrigin;
+	Vector vJumpAngles;
 #else
-	extern float	vJumpOrigin[3];
-	extern float	vJumpAngles[3];
+	extern Vector vJumpOrigin;
+	extern Vector vJumpAngles;
 #endif
 #endif
 
@@ -45,34 +54,7 @@ static int pm_shared_initialized = 0;
 
 #pragma warning( disable : 4305 )
 
-typedef enum {mod_brush, mod_sprite, mod_alias, mod_studio} modtype_t;
-
 playermove_t *pmove = NULL;
-
-typedef struct
-{
-	int			planenum;
-	short		children[2];	// negative numbers are contents
-} dclipnode_t;
-
-typedef struct mplane_s
-{
-	vec3_t	normal;			// surface normal
-	float	dist;			// closest appoach to origin
-	byte	type;			// for texture axis selection and fast side tests
-	byte	signbits;		// signx + signy<<1 + signz<<1
-	byte	pad[2];
-} mplane_t;
-
-typedef struct hull_s
-{
-	dclipnode_t	*clipnodes;
-	mplane_t	*planes;
-	int			firstclipnode;
-	int			lastclipnode;
-	vec3_t		clip_mins;
-	vec3_t		clip_maxs;
-} hull_t;
 
 // Ducking time
 #define TIME_TO_DUCK		0.4
@@ -88,20 +70,8 @@ typedef struct hull_s
 #define VEC_VIEW			28
 #define	STOP_EPSILON		0.1
 
+//TODO: also defined in sound.cpp - Solokiller
 #define CTEXTURESMAX		512			// max number of textures loaded
-#define CBTEXTURENAMEMAX	13			// only load first n chars of name
-
-#define CHAR_TEX_CONCRETE	'C'			// texture types
-#define CHAR_TEX_METAL		'M'
-#define CHAR_TEX_DIRT		'D'
-#define CHAR_TEX_VENT		'V'
-#define CHAR_TEX_GRATE		'G'
-#define CHAR_TEX_TILE		'T'
-#define CHAR_TEX_SLOSH		'S'
-#define CHAR_TEX_WOOD		'W'
-#define CHAR_TEX_COMPUTER	'P'
-#define CHAR_TEX_GLASS		'Y'
-#define CHAR_TEX_FLESH		'F'
 
 #define STEP_CONCRETE	0		// default step sound
 #define STEP_METAL		1		// metal floor
@@ -113,6 +83,7 @@ typedef struct hull_s
 #define STEP_WADE		7		// wading in liquid
 #define STEP_LADDER		8		// climbing ladder
 
+//TODO: also defined in player.h - Solokiller
 #define PLAYER_FATAL_FALL_SPEED		1024// approx 60 feet
 #define PLAYER_MAX_SAFE_FALL_SPEED	580// approx 20 feet
 #define DAMAGE_FOR_FALL_SPEED		(float) 100 / ( PLAYER_FATAL_FALL_SPEED - PLAYER_MAX_SAFE_FALL_SPEED )// damage per unit per second.
@@ -125,8 +96,10 @@ typedef struct hull_s
 
 // double to float warning
 #pragma warning(disable : 4244)
+//TODO: defined in multiple places - Solokiller
 #define max(a, b)  (((a) > (b)) ? (a) : (b))
 #define min(a, b)  (((a) < (b)) ? (a) : (b))
+//TODO: defined in multiple places - Solokiller
 // up / down
 #define	PITCH	0
 // left / right
@@ -134,8 +107,10 @@ typedef struct hull_s
 // fall over
 #define	ROLL	2 
 
+//TODO: defined in multiple places - Solokiller
 #define MAX_CLIENTS 32
 
+//TODO: defined in const.h - Solokiller
 #define	CONTENTS_CURRENT_0		-9
 #define	CONTENTS_CURRENT_90		-10
 #define	CONTENTS_CURRENT_180	-11
@@ -155,6 +130,7 @@ static char grgchTextureType[CTEXTURESMAX];
 
 int g_onladder = 0;
 
+//TODO: this should be in its own file - Solokiller
 void PM_SwapTextures( int i, int j )
 {
 	char chTemp;

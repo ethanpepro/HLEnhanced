@@ -13,6 +13,11 @@
 *
 ****/
 
+//TODO: remove once conflicts are resolved - Solokiller
+typedef float vec_t;
+
+#include "vector.h"
+
 #include "mathlib.h"
 #include "const.h"
 #include "usercmd.h"
@@ -20,6 +25,8 @@
 #include "pm_shared.h"
 #include "pm_movevars.h"
 #include "pm_debug.h"
+
+#include "com_model.h"
 
 #include <string.h>
 
@@ -44,8 +51,8 @@ static int PM_boxpnt[6][4] =
 void PM_ShowClipBox( void )
 {
 #if defined( _DEBUG )
-	vec3_t org;
-	vec3_t offset = { 0, 0, 0 };
+	Vector org;
+	Vector offset( 0, 0, 0 );
 
 	if ( !pmove->runfuncs )
 		return;
@@ -60,15 +67,15 @@ void PM_ShowClipBox( void )
 	//  trail at the intersection point.
 	PM_ViewEntity();
 
-	VectorCopy( pmove->origin, org );
+	org = pmove->origin;
 
 	if ( pmove->server )
 	{
-		VectorAdd( org, offset, org );
+		org = org + offset;
 	}
 	else
 	{
-		VectorSubtract( org, offset, org );
+		org = org - offset;
 	}
 
 	// Show our BBOX in particles.
@@ -101,9 +108,8 @@ void PM_ParticleLine(vec3_t start, vec3_t end, int pcolor, float life, float ver
 	float linestep = 2.0f;
 	float curdist;
 	float len;
-	vec3_t curpos;
-	vec3_t diff;
-	int i;
+	Vector curpos;
+	Vector diff;
 	// Determine distance;
 
 	VectorSubtract(end, start, diff);
@@ -113,8 +119,7 @@ void PM_ParticleLine(vec3_t start, vec3_t end, int pcolor, float life, float ver
 	curdist = 0;
 	while (curdist <= len)
 	{
-		for (i = 0; i < 3; i++)
-			curpos[i] = start[i] + curdist * diff[i];
+		VectorMA( start, curdist, diff, curpos );
 		
 		pmove->PM_Particle( curpos, pcolor, life, 0, vert);
 		curdist += linestep;
@@ -145,12 +150,11 @@ PM_DrawPhysEntBBox(int num)
 void PM_DrawPhysEntBBox(int num, int pcolor, float life)
 {
 	physent_t *pe;
-	vec3_t org;
 	int j;
-	vec3_t tmp;
-	vec3_t		p[8];
+	Vector tmp;
+	Vector p[8];
 	float gap = BOX_GAP;
-	vec3_t modelmins, modelmaxs;
+	Vector modelmins, modelmaxs;
 
 	if (num >= pmove->numphysent ||
 		num <= 0)
@@ -160,7 +164,7 @@ void PM_DrawPhysEntBBox(int num, int pcolor, float life)
 
 	if (pe->model)
 	{
-		VectorCopy(pe->origin, org);
+		const Vector org = pe->origin;
 
 		pmove->PM_GetModelBounds( pe->model, modelmins, modelmaxs );
 		for (j = 0; j < 8; j++)
@@ -169,18 +173,18 @@ void PM_DrawPhysEntBBox(int num, int pcolor, float life)
 			tmp[1] = (j & 2) ? modelmins[1] - gap : modelmaxs[1] + gap;
 			tmp[2] = (j & 4) ? modelmins[2] - gap : modelmaxs[2] + gap;
 
-			VectorCopy(tmp, p[j]);
+			p[ j ] = tmp;
 		}
 
 		// If the bbox should be rotated, do that
 		if (pe->angles[0] || pe->angles[1] || pe->angles[2])
 		{
-			vec3_t	forward, right, up;
+			Vector forward, right, up;
 
 			AngleVectorsTranspose(pe->angles, forward, right, up);
 			for (j = 0; j < 8; j++)
 			{
-				VectorCopy(p[j], tmp);
+				tmp = p[ j ];
 				p[j][0] = DotProduct  ( tmp, forward );
 				p[j][1] = DotProduct ( tmp, right );
 				p[j][2] = DotProduct  ( tmp, up );
@@ -189,7 +193,9 @@ void PM_DrawPhysEntBBox(int num, int pcolor, float life)
 
 		// Offset by entity origin, if any.
 		for (j = 0; j < 8; j++)
-			VectorAdd(p[j], org, p[j]);
+		{
+			p[ j ] = p[ j ] + org;
+		}
 
 		for (j = 0; j < 6; j++)
 		{
@@ -209,8 +215,8 @@ void PM_DrawPhysEntBBox(int num, int pcolor, float life)
 			tmp[1] = (j & 2) ? pe->mins[1] : pe->maxs[1];
 			tmp[2] = (j & 4) ? pe->mins[2] : pe->maxs[2];
 
-			VectorAdd(tmp, pe->origin, tmp);
-			VectorCopy(tmp, p[j]);
+			tmp = tmp + pe->origin;
+			p[ j ] = tmp;
 		}
 
 		for (j = 0; j < 6; j++)
@@ -236,8 +242,8 @@ void PM_DrawBBox(vec3_t mins, vec3_t maxs, vec3_t origin, int pcolor, float life
 {
 	int j;
 	
-	vec3_t tmp;
-	vec3_t		p[8];
+	Vector tmp;
+	Vector p[8];
 	float gap = BOX_GAP;
 
 	for (j = 0; j < 8; j++)
@@ -246,8 +252,8 @@ void PM_DrawBBox(vec3_t mins, vec3_t maxs, vec3_t origin, int pcolor, float life
 		tmp[1] = (j & 2) ? mins[1] - gap : maxs[1] + gap ;
 		tmp[2] = (j & 4) ? mins[2] - gap : maxs[2] + gap ;
 
-		VectorAdd(tmp, origin, tmp);
-		VectorCopy(tmp, p[j]);
+		tmp = tmp + origin;
+		p[ j ] = tmp;
 	}
 
 	for (j = 0; j < 6; j++)
@@ -276,10 +282,9 @@ Tries to shoot a ray out by about 128 units.
 */
 void PM_ViewEntity( void )
 {
-	vec3_t forward, right, up;
+	Vector forward, right, up;
 	float raydist = 256.0f;
-	vec3_t origin;
-	vec3_t end;
+	Vector end;
 	int i;
 	pmtrace_t trace;
 	int pcolor = 77;
@@ -292,7 +297,7 @@ void PM_ViewEntity( void )
 
 	AngleVectors (pmove->angles, forward, right, up);  // Determine movement angles
 
-	VectorCopy( pmove->origin, origin);
+	const Vector origin = pmove->origin;
 
 	fup = 0.5*( pmove->player_mins[pmove->usehull][2] + pmove->player_maxs[pmove->usehull][2] );
 	fup += pmove->view_ofs[2];

@@ -39,11 +39,13 @@
 	extern float	Distance(const float * v1, const float * v2);
 	float	AngleBetweenVectors(  const float * v1,  const float * v2 );
 
-	//Never used, and conflicts with pm_shared version. Removed. - Solokiller
-	/*
-	float	vJumpOrigin[3];
-	float	vJumpAngles[3];
-	*/
+/*
+*	These used to be unitialized. They're meant to use globals defined in pm_shared, but that was a C file before, so they had different linkage.
+*	That means they were never updated. They're only used if observer targets aren't found, so it was rarely an issue.
+*	- Solokiller
+*/
+extern Vector vJumpOrigin;
+extern Vector vJumpAngles;
 
 
 void V_DropPunchAngle ( float frametime, float *ev_punchangle );
@@ -1244,12 +1246,9 @@ void V_GetChasePos(int target, float * cl_angles, float * origin, float * angles
 	
 	if (!ent)
 	{
-		//Never used, and conflicts with pm_shared version. Removed. - Solokiller
-		/*
 		// just copy a save in-map position
 		VectorCopy ( vJumpAngles, angles );
 		VectorCopy ( vJumpOrigin, origin );
-		*/
 		return;
 	}
 	
@@ -1295,12 +1294,9 @@ void V_GetInEyePos(int target, float * origin, float * angles )
 {
 	if ( !target)
 	{
-		//Never used, and conflicts with pm_shared version. Removed. - Solokiller
-		/*
 		// just copy a save in-map position
 		VectorCopy ( vJumpAngles, angles );
 		VectorCopy ( vJumpOrigin, origin );
-		*/
 		return;
 	};
 
