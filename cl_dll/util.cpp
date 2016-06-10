@@ -30,7 +30,7 @@
 #define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
 #endif
 
-vec3_t vec3_origin( 0, 0, 0 );
+const Vector vec3_origin( 0, 0, 0 );
 
 float Length(const float *v)
 {

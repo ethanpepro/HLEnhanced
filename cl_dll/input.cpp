@@ -763,7 +763,7 @@ void CL_DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int ac
 		VectorCopy( oldangles, cmd->viewangles );
 	}
 
-	Bench_SetViewAngles( 1, (float *)&cmd->viewangles, frametime, cmd );
+	Bench_SetViewAngles( 1, cmd->viewangles, frametime, cmd );
 }
 
 /*

@@ -28,6 +28,7 @@
 #pragma warning(disable : 4244)
 
 #ifndef DISABLE_VEC_ORIGIN
+//TODO: this has to go. There's a Vector version elsewhere that should be used. It should also be defined in a dll agnostic source file - Solokiller
 vec3_t vec3_origin = {0,0,0};
 #endif
 int nanmask = 255<<23;

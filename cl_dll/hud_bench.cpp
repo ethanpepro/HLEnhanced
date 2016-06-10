@@ -12,6 +12,7 @@
 #include "usercmd.h"
 #include "pm_defs.h"
 #include "event_api.h"
+#include "com_model.h"
 
 #include "bench.h"
 
@@ -27,6 +28,8 @@
 #include "net_api.h"
 
 #include "entity_types.h"
+
+//TODO: this file should use mathlib.h for maths stuff. It conflicts with the engine functions interface (#define stuff) and potentially other problems. - Solokiller
 
 #ifndef M_PI
 #define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
@@ -51,7 +54,7 @@
 //  Non-pp has 0 - 60 range
 const float weights[3] = { 0.2f, 0.3f, 0.5f };
 
-const char *g_title = "PowerPlay QoS Test"; //uality of Service Test";
+const char *g_title = "PowerPlay QoS Test"; //Quality of Service Test";
 const char *pp_strings[2] =
 {
 	"  PowerPlay Detected",
@@ -185,7 +188,7 @@ void CHudBenchmark::StartNextSection( int section )
 
 	switch ( section )
 	{
-	case 1:
+	case FIRST_STAGE:
 		// Stage 2 requires that we tell the server to "drop" an item
 		m_fSendTime = gHUD.m_flTime;
 		m_fReceiveTime = 0.0;
@@ -195,7 +198,7 @@ void CHudBenchmark::StartNextSection( int section )
 		m_nTraceDone = 0;
 		ServerCmd( "ppdemo 1 start\n" );
 		break;
-	case 2:
+	case SECOND_STAGE:
 		if ( m_nTraceDone )
 		{
 			gEngfuncs.pNetAPI->Status( &status );
@@ -208,10 +211,12 @@ void CHudBenchmark::StartNextSection( int section )
 		m_nSentFinish = 0;	// added by minman
 		ServerCmd( "ppdemo 2\n" );
 		break;
-	case 3:
+	case THIRD_STAGE:
 		m_nSentFinish = 0;	// added by minman
 		ServerCmd( "ppdemo 3\n" );
 		break;
+
+		//TODO: fourth stage undefined?
 	default:
 		break;
 	}
@@ -418,7 +423,7 @@ int CHudBenchmark::Bench_ScoreForValue( int stage, float raw )
 	
 	switch ( stage )
 	{
-	case 1:  // ping
+	case FIRST_STAGE:  // ping
 		score = 100.0 * ( m_StoredLatency );
 		score = max( score, 0 );
 		score = min( score, 100 );
@@ -427,7 +432,7 @@ int CHudBenchmark::Bench_ScoreForValue( int stage, float raw )
 		score = 100 - score;
 
 		break;
-	case 2:  // framerate/performance
+	case SECOND_STAGE:  // framerate/performance
 		score = (int)( 100 * m_fAvgFrameRate ) / 72;
 		score = min( score, 100 );
 		score = max( score, 0 );
@@ -438,7 +443,7 @@ int CHudBenchmark::Bench_ScoreForValue( int stage, float raw )
 			score += ( 100 - BENCH_RANGE );
 		}
 		break;
-	case 3:  // tracking
+	case THIRD_STAGE:  // tracking
 		score = (100 * m_fAvgScore) / 40;
 		score = max( score, 0 );
 		score = min( score, 100 );
@@ -452,6 +457,8 @@ int CHudBenchmark::Bench_ScoreForValue( int stage, float raw )
 			score += ( 100 - BENCH_RANGE );
 		}
 		break;
+
+		//TODO: missing fourth stage?
 	}
 
 	return score;
@@ -589,55 +596,32 @@ int Bench_GetDotAdded( void )
 	return g_renderedBenchmarkDot;
 }
 
-void Bench_SpotPosition( vec3_t dot, vec3_t target )
+void Bench_SpotPosition( const Vector& dot, const Vector& target )
 {
 	// Compute new score
-	vec3_t delta;
-
-	VectorSubtract( target, dot, delta );
+	Vector delta = target - dot;
 
 	gHUD.m_Benchmark.SetScore( delta.Length() );
 }
 
-typedef struct model_s
-{
-	char		name[64];
-	qboolean	needload;		// bmodels and sprites don't cache normally
-
-	int			type;
-	int			numframes;
-	int			synctype;
-	
-	int			flags;
-
-//
-// volume occupied by the model
-//		
-	vec3_t		mins, maxs;
-} model_t;
-
-static vec3_t g_dotorg;
-vec3_t g_aimorg;
+static Vector g_dotorg;
+Vector g_aimorg;
 float g_fZAdjust = 0.0;
 
 void Bench_CheckEntity( int type, struct cl_entity_s *ent, const char *modelname )
 {
 	if ( Bench_InStage( THIRD_STAGE ) && !stricmp( modelname, "*3" ) )
 	{
-		model_t *pmod;
-		vec3_t v;
-		pmod = (model_t *)( ent->model );
+		model_t *pmod = ent->model;
+		const Vector v = ( pmod->mins + pmod->maxs ) * 0.5;
 
-		VectorAdd( pmod->mins, pmod->maxs, v );
-		VectorScale( v, 0.5, v );
-
-		VectorAdd( v, ent->origin, g_aimorg );
+		g_aimorg = v + ent->origin;
 	}
 
 	if ( Bench_InStage( THIRD_STAGE ) && strstr( modelname, "ppdemodot" ) )
 	{
 		Bench_SetDotAdded( 1 );
-		VectorCopy( ent->origin, g_dotorg );
+		g_dotorg = ent->origin;
 
 		// Adjust end position
 		if ( Bench_Active() && Bench_InStage( THIRD_STAGE ) )
@@ -664,35 +648,17 @@ void Bench_CheckEntity( int type, struct cl_entity_s *ent, const char *modelname
 	}
 }
 
-
-void NormalizeVector( vec3_t v )
-{
-	int i;
-	for ( i = 0; i < 3; i++ )
-	{
-		while ( v[i] < -180.0 )
-		{
-			v[i] += 360.0;
-		}
-
-		while ( v[i] > 180.0 )
-		{
-			v[i] -= 360.0;
-		}
-	}
-}
-
 float g_flStartTime;
-int HUD_SetupBenchObjects( cl_entity_t *bench, int plindex, vec3_t origin )
+int HUD_SetupBenchObjects( cl_entity_t *bench, int plindex, const Vector origin )
 {
 	int i, j;
-	vec3_t ang;
+	Vector ang;
 	float offset;
 	struct model_s *mdl;
 	int index;
-	vec3_t forward, right, up;
-	vec3_t farpoint;
-	vec3_t centerspot;
+	Vector forward, right, up;
+	Vector farpoint;
+	Vector centerspot;
 	pmtrace_t tr;
 	
 	ang = vec3_origin;
@@ -719,7 +685,7 @@ int HUD_SetupBenchObjects( cl_entity_t *bench, int plindex, vec3_t origin )
 	centerspot = origin;
 	centerspot[2] -= 512;
 
-	gEngfuncs.pEventAPI->EV_PlayerTrace( (float *)&origin, (float *)&centerspot, PM_NORMAL, -1, &tr );
+	gEngfuncs.pEventAPI->EV_PlayerTrace( origin, centerspot, PM_NORMAL, -1, &tr );
 
 	centerspot = tr.endpos;
 	centerspot[2] += BENCH_BALLHEIGHT;
@@ -738,7 +704,7 @@ int HUD_SetupBenchObjects( cl_entity_t *bench, int plindex, vec3_t origin )
 		ang[ 1 ] = BENCH_SWEEP * offset;
 
 		// normalize
-		NormalizeVector( ang );
+		ang = ang.Normalize();
 
 		// Determine forward vector
 		AngleVectors ( ang, forward, right, up );
@@ -754,7 +720,7 @@ int HUD_SetupBenchObjects( cl_entity_t *bench, int plindex, vec3_t origin )
 		// Get a far point for ray trace
 		farpoint = centerspot + BENCH_RADIUS * forward;
 
-		gEngfuncs.pEventAPI->EV_PlayerTrace( (float *)&centerspot, (float *)&farpoint, PM_NORMAL, -1, &tr );
+		gEngfuncs.pEventAPI->EV_PlayerTrace( centerspot, farpoint, PM_NORMAL, -1, &tr );
 
 		// Move dot to trace endpoint
 		bench[ i ].origin			= tr.endpos;
@@ -791,13 +757,14 @@ int HUD_SetupBenchObjects( cl_entity_t *bench, int plindex, vec3_t origin )
 	return 1;
 }
 
-void HUD_CreateBenchObjects( vec3_t origin )
+//TODO: this looks an awful lot like the function above. Consider refactoring - Solokiller
+void HUD_CreateBenchObjects( const Vector& origin )
 {
 	static cl_entity_t bench[ NUM_BENCH_OBJ ];
 	cl_entity_t *player;
-	vec3_t forward, right, up;
-	vec3_t farpoint;
-	vec3_t centerspot;
+	Vector forward, right, up;
+	Vector farpoint;
+	Vector centerspot;
 	static int first = true;
 	static int failed = false;
 	static float last_time;
@@ -871,7 +838,7 @@ void HUD_CreateBenchObjects( vec3_t origin )
 	centerspot = origin;
 	centerspot[2] -= 512;
 
-	gEngfuncs.pEventAPI->EV_PlayerTrace( (float *)&origin, (float *)&centerspot, PM_NORMAL, -1, &tr );
+	gEngfuncs.pEventAPI->EV_PlayerTrace( origin, centerspot, PM_NORMAL, -1, &tr );
 
 	centerspot = tr.endpos;
 	centerspot[2] += BENCH_BALLHEIGHT;
@@ -887,14 +854,14 @@ void HUD_CreateBenchObjects( vec3_t origin )
 		float offset;
 		float ofs_radius = 5.0;
 
-		vec3_t ang;
+		Vector ang;
 		offset = ( float ) i / (float) ( NUM_BENCH_OBJ - 1 );
 
 		ang[ 0 ] = 0;
 		ang[ 2 ] = 0;
 		ang[ 1 ] = BENCH_SWEEP * offset + frac * 360.0;
 		// normalize
-		NormalizeVector( ang );
+		ang = ang.Normalize();
 
 		// Determine forward vector
 		AngleVectors ( ang, forward, right, up );
@@ -903,12 +870,12 @@ void HUD_CreateBenchObjects( vec3_t origin )
 		farpoint = centerspot + ( BENCH_RADIUS + ofs_radius * sin( BENCH_SWEEP * offset + frac2 * 2 * M_PI ) ) * forward;
 		farpoint[2] += 10 * cos( BENCH_SWEEP * offset + frac2 * 2 * M_PI );
 
-		gEngfuncs.pEventAPI->EV_PlayerTrace( (float *)&centerspot, (float *)&farpoint, PM_NORMAL, -1, &tr );
+		gEngfuncs.pEventAPI->EV_PlayerTrace( centerspot, farpoint, PM_NORMAL, -1, &tr );
 
 		// Add angular velocity
 		VectorMA( bench[ i ].curstate.angles, frametime, bench[ i ].baseline.angles, bench[ i ].curstate.angles );
 
-		NormalizeVector( bench[ i ].curstate.angles );
+		bench[ i ].curstate.angles = bench[ i ].curstate.angles.Normalize();
 		
 		jfrac = ( (float)gHUD.m_Benchmark.GetObjects() / (float)NUM_BENCH_OBJ );
 
@@ -921,7 +888,7 @@ void HUD_CreateBenchObjects( vec3_t origin )
 		{
 			float damp;
 			float proj;
-			vec3_t traceNormal;
+			Vector traceNormal;
 			int j;
 
 			traceNormal = tr.plane.normal;
@@ -1019,27 +986,24 @@ void Bench_AddObjects( void )
 }
 
 
-static vec3_t v_stochastic;
+static Vector v_stochastic;
 
-void Bench_SetViewAngles( int recalc_wander, float *viewangles, float frametime, struct usercmd_s *cmd )
+void Bench_SetViewAngles( int recalc_wander, Vector& viewangles, float frametime, struct usercmd_s *cmd )
 {
 	if ( !Bench_Active() )
 		return;
 
-	int i;
-	vec3_t lookdir;
-
 	// Clear stochastic offset between runs
 	if ( Bench_InStage( FIRST_STAGE ) )
 	{
-		VectorCopy( vec3_origin, v_stochastic );
+		v_stochastic = vec3_origin;
 	}
 
 	if ( Bench_InStage( SECOND_STAGE ) || Bench_InStage( THIRD_STAGE ) )
 	{
-		VectorSubtract( g_aimorg, v_origin, lookdir );
-		VectorNormalize( lookdir );
-		VectorAngles( (float *)&lookdir, viewangles );
+		Vector lookdir = g_aimorg - v_origin;
+		lookdir = lookdir.Normalize();
+		VectorAngles( lookdir, viewangles );
 		
 		viewangles[0] = -viewangles[0];
 
@@ -1063,19 +1027,13 @@ void Bench_SetViewAngles( int recalc_wander, float *viewangles, float frametime,
 		}
 		*/
 
-		VectorAdd( viewangles, v_stochastic, viewangles );
+		viewangles = viewangles + v_stochastic;
 
-		for ( i = 0; i < 3; i++ )
-		{
-			if ( viewangles[ i ] > 180 )
-				viewangles[ i ] -= 360;
-			if ( viewangles[ i ] < -180 )
-				viewangles[ i ] += 360;
-		}
+		NormalizeAngles( viewangles );
 	}
 	else
 	{
-		VectorCopy( vec3_origin, viewangles )
+		viewangles = vec3_origin;
 
 		if ( Bench_InStage( FIRST_STAGE ) )
 		{
@@ -1096,14 +1054,14 @@ void Bench_SetViewAngles( int recalc_wander, float *viewangles, float frametime,
 	}
 }
 
-void Bench_SetViewOrigin( float *vieworigin, float frametime )
+void Bench_SetViewOrigin( Vector& vieworigin, float frametime )
 {
 	float dt;
 	float frac;
 	float offset_amt = BENCH_BALL_VIEWDRIFT;
 	float drift;
-	vec3_t ang, right;
-	vec3_t move;
+	Vector ang, right;
+	Vector move;
 
 	if ( !Bench_InStage( SECOND_STAGE ) )
 		return;
@@ -1123,7 +1081,7 @@ void Bench_SetViewOrigin( float *vieworigin, float frametime )
 
 	// offset along right axis
 	move = right * drift;
-	
-	VectorAdd( vieworigin, move, vieworigin );
+
+	vieworigin = vieworigin + move;
 }
 
