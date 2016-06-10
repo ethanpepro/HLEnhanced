@@ -60,7 +60,7 @@ cvar_t	*c_maxdistance;
 cvar_t	*c_mindistance;
 
 // pitch, yaw, dist
-vec3_t cam_ofs;
+Vector cam_ofs;
 
 
 // In third person
@@ -138,9 +138,9 @@ float MoveToward( float cur, float goal, float maxspeed )
 
 typedef struct
 {
-	vec3_t		boxmins, boxmaxs;// enclose the test object along entire move
+	Vector		boxmins, boxmaxs;// enclose the test object along entire move
 	float		*mins, *maxs;	// size of the moving object
-	vec3_t		mins2, maxs2;	// size when clipping against mosnters
+	Vector		mins2, maxs2;	// size when clipping against mosnters
 	float		*start, *end;
 	trace_t		trace;
 	int			type;
@@ -148,20 +148,21 @@ typedef struct
 	qboolean	monsterclip;
 } moveclip_t;
 
-extern trace_t SV_ClipMoveToEntity (edict_t *ent, vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end);
+//This is defined in the engine.
+extern trace_t SV_ClipMoveToEntity (edict_t *ent, const Vector& start, const Vector& mins, const Vector& maxs, const Vector& end);
 
 void CL_DLLEXPORT CAM_Think( void )
 {
-	vec3_t origin;
-	vec3_t ext, pnt, camForward, camRight, camUp;
+	Vector origin;
+	Vector ext, pnt, camForward, camRight, camUp;
 	moveclip_t	clip;
 	float dist;
-	vec3_t camAngles;
+	Vector camAngles;
 	float flSensitivity;
 #ifdef LATER
 	int i;
 #endif
-	vec3_t viewangles;
+	Vector viewangles;
 
 	switch( (int) cam_command->value )
 	{
@@ -429,7 +430,7 @@ void CAM_OutUp(void) { KeyUp( &cam_out ); }
 
 void CAM_ToThirdPerson(void)
 { 
-	vec3_t viewangles;
+	Vector viewangles;
 
 #if !defined( _DEBUG )
 	if ( gEngfuncs.GetMaxClients() > 1 )
@@ -439,7 +440,7 @@ void CAM_ToThirdPerson(void)
 	}
 #endif
 
-	gEngfuncs.GetViewAngles( (float *)viewangles );
+	gEngfuncs.GetViewAngles( viewangles );
 
 	if( !cam_thirdperson )
 	{
@@ -504,7 +505,7 @@ void CAM_Init( void )
 
 void CAM_ClearStates( void )
 {
-	vec3_t viewangles;
+	Vector viewangles;
 
 	gEngfuncs.GetViewAngles( (float *)viewangles );
 

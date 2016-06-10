@@ -20,7 +20,7 @@ extern IParticleMan *g_pParticleMan;
 
 void Game_AddObjects( void );
 
-extern vec3_t v_origin;
+extern Vector v_origin;
 
 int g_iAlive = 1;
 
@@ -215,6 +215,7 @@ void CL_DLLEXPORT HUD_TxferPredictionData ( struct entity_state_s *ps, const str
 	VectorCopy( ppcd->vuser3, pcd->vuser3 );
 	VectorCopy( ppcd->vuser4, pcd->vuser4 );
 
+	//TODO: should be MAX_WEAPONS - Solokiller
 	memcpy( wd, pwd, 32 * sizeof( weapon_data_t ) );
 }
 
@@ -333,6 +334,7 @@ void CL_DLLEXPORT HUD_StudioEvent( const struct mstudioevent_s *event, const str
 
 #endif 
 
+	//TODO: should make these into constants - Solokiller
 	switch( event->event )
 	{
 	case 5001:
@@ -570,7 +572,7 @@ void CL_DLLEXPORT HUD_TempEntUpdate (
 
 			if ( pTemp->flags & (FTENT_COLLIDEALL | FTENT_COLLIDEWORLD) )
 			{
-				vec3_t	traceNormal;
+				Vector	traceNormal;
 				float	traceFraction = 1;
 
 				if ( pTemp->flags & FTENT_COLLIDEALL )
