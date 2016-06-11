@@ -35,7 +35,6 @@ extern "C" void CL_CameraOffset( Vector& ofs );
 	void PM_ParticleLine( float *start, float *end, int pcolor, float life, float vert);
 	int		PM_GetVisEntInfo( int ent );
 	extern int		PM_GetPhysEntInfo( int ent );
-	void	InterpolateAngles(  float * start, float * end, float * output, float frac );
 	void	NormalizeAngles( float * angles );
 	extern float	Distance(const Vector& v1, const Vector& v2);
 	float	AngleBetweenVectors(  const float * v1,  const float * v2 );
@@ -891,8 +890,8 @@ void V_GetChaseOrigin( const Vector& angles, const Vector& origin, float distanc
 	
 	// Trace back from the target using the player's view angles
 	AngleVectors(angles, forward, NULL, NULL);
-	
-	VectorScale(forward,-1,forward);
+
+	forward = forward * -1;
 
 	vecStart = origin;
 
@@ -1367,7 +1366,7 @@ void V_GetMapChasePosition(int target, const Vector& cl_angles, Vector& origin, 
 
 	AngleVectors(angles, forward, NULL, NULL);
 
-	VectorNormalize(forward);
+	forward = forward.Normalize();
 
 	VectorMA(origin, -1536, forward, origin); 
 }
@@ -1471,7 +1470,7 @@ void V_CalcSpectatorRefdef ( struct ref_params_s * pparams )
 		if ( timeDiff > 0 )
 		{
 			Vector distance = ent->prevstate.origin - ent->curstate.origin;
-			VectorScale(distance, 1/timeDiff, distance );
+			distance = distance * ( 1 / timeDiff );
 
 			velocity[0] = velocity[0]*0.9f + distance[0]*0.1f;
 			velocity[1] = velocity[1]*0.9f + distance[1]*0.1f;
@@ -1658,6 +1657,7 @@ V_DropPunchAngle
 
 =============
 */
+//TODO: defined as PM_DropPunchAngle as well. Refactor. - Solokiller
 void V_DropPunchAngle ( float frametime, Vector& ev_punchangle )
 {
 	float	len;
@@ -1665,7 +1665,7 @@ void V_DropPunchAngle ( float frametime, Vector& ev_punchangle )
 	len = VectorNormalize ( ev_punchangle );
 	len -= (10.0 + len * 0.5) * frametime;
 	len = max( len, 0.0 );
-	VectorScale ( ev_punchangle, len, ev_punchangle );
+	ev_punchangle = ev_punchangle * len;
 }
 
 /*

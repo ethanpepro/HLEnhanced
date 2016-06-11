@@ -169,6 +169,7 @@ inline void PlaySound( int iSound, float vol ) { gEngfuncs.pfnPlaySoundByIndex( 
 
 void ScaleColors( int &r, int &g, int &b, int a );
 
+//TODO: defined in mathlib.h - Solokiller
 float Length(const float *v);
 void VectorMA (const float *veca, float scale, const float *vecb, float *vecc);
 void VectorScale (const float *in, float scale, float *out);

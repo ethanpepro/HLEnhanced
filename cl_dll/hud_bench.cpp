@@ -916,7 +916,7 @@ void HUD_CreateBenchObjects( const Vector& origin )
 
 				bench[ i ].baseline.angles[1] = -bench[ i ].baseline.angles[1];
 
-				VectorScale( bench[ i ].curstate.velocity, damp, bench[ i ].curstate.velocity );
+				bench[ i ].curstate.velocity = bench[ i ].curstate.velocity * damp;
 			}
 		}
 		*/

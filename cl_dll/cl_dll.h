@@ -32,12 +32,6 @@ typedef int (*pfnUserMsgHook)(const char *pszName, int iSize, void *pbuf);
 
 #include "vector.h"
 
-//TODO: all uses of vec3_t can be replaced with Vector. Locals and members are direct replacements, engine function parameters can be turned into references.
-#ifndef DID_VEC3_T_DEFINE
-#define DID_VEC3_T_DEFINE
-#define vec3_t Vector
-#endif
-
 #ifdef _WIN32
 #define EXPORT	_declspec( dllexport )
 #else

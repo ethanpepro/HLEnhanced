@@ -15,11 +15,6 @@
 
 #include <assert.h>
 
-//TODO: remove once conflicts are resolved - Solokiller
-typedef float vec_t;
-
-#include "vector.h"
-
 #include "mathlib.h"
 #include "const.h"
 #include "usercmd.h"
@@ -928,9 +923,9 @@ int PM_FlyMove (void)
 
 					break;
 				}
-				CrossProduct (planes[0], planes[1], dir);
+				dir = CrossProduct (planes[0], planes[1]);
 				d = DotProduct (dir, pmove->velocity);
-				VectorScale (dir, d, pmove->velocity );
+				pmove->velocity = dir * d;
 			}
 
 	//
@@ -1047,7 +1042,7 @@ void PM_WalkMove ()
 //
 	if (wishspeed > pmove->maxspeed)
 	{
-		VectorScale (wishvel, pmove->maxspeed/wishspeed, wishvel);
+		wishvel = wishvel * ( pmove->maxspeed / wishspeed );
 		wishspeed = pmove->maxspeed;
 	}
 
@@ -1322,7 +1317,7 @@ void PM_WaterMove (void)
 	// Cap speed.
 	if (wishspeed > pmove->maxspeed)
 	{
-		VectorScale (wishvel, pmove->maxspeed/wishspeed, wishvel);
+		wishvel = wishvel * ( pmove->maxspeed / wishspeed );
 		wishspeed = pmove->maxspeed;
 	}
 	// Slow us down a bit.
@@ -1338,7 +1333,7 @@ void PM_WaterMove (void)
 
 		if (newspeed < 0)
 			newspeed = 0;
-		VectorScale (pmove->velocity, newspeed/speed, pmove->velocity);
+		pmove->velocity = pmove->velocity * ( newspeed / speed );
 	}
 	else
 		newspeed = 0;
@@ -1421,7 +1416,7 @@ void PM_AirMove (void)
 	// Clamp to server defined max speed
 	if (wishspeed > pmove->maxspeed)
 	{
-		VectorScale (wishvel, pmove->maxspeed/wishspeed, wishvel);
+		wishvel = wishvel * ( pmove->maxspeed / wishspeed );
 		wishspeed = pmove->maxspeed;
 	}
 	
@@ -1779,7 +1774,7 @@ void PM_SpectatorMove (void)
 				newspeed = 0;
 			newspeed /= speed;
 
-			VectorScale (pmove->velocity, newspeed, pmove->velocity);
+			pmove->velocity = pmove->velocity * newspeed;
 		}
 
 		// accelerate
@@ -1803,7 +1798,7 @@ void PM_SpectatorMove (void)
 		//
 		if (wishspeed > pmove->movevars->spectatormaxspeed)
 		{
-			VectorScale (wishvel, pmove->movevars->spectatormaxspeed/wishspeed, wishvel);
+			wishvel = wishvel * ( pmove->movevars->spectatormaxspeed / wishspeed );
 			wishspeed = pmove->movevars->spectatormaxspeed;
 		}
 
@@ -2049,7 +2044,7 @@ void PM_LadderMove( physent_t *pLadder )
 	pmove->PM_GetModelBounds( pLadder->model, modelmins, modelmaxs );
 
 	ladderCenter = modelmins + modelmaxs;
-	VectorScale( ladderCenter, 0.5, ladderCenter );
+	ladderCenter = ladderCenter * 0.5;
 
 	pmove->movetype = MOVETYPE_FLY;
 
@@ -2077,7 +2072,7 @@ void PM_LadderMove( physent_t *pLadder )
 			flSpeed = pmove->maxspeed;
 		}
 
-		AngleVectors( pmove->angles, vpn, v_right, NULL );
+		AngleVectors( pmove->angles, &vpn, &v_right, nullptr );
 
 		if ( pmove->flags & FL_DUCKING )
 		{
@@ -2104,7 +2099,7 @@ void PM_LadderMove( physent_t *pLadder )
 		if ( pmove->cmd.buttons & IN_JUMP )
 		{
 			pmove->movetype = MOVETYPE_WALK;
-			VectorScale( trace.plane.normal, 270, pmove->velocity );
+			pmove->velocity = trace.plane.normal * 270;
 		}
 		else
 		{
@@ -2117,7 +2112,7 @@ void PM_LadderMove( physent_t *pLadder )
 				//	pev->velocity.x, pev->velocity.y, pev->velocity.z);
 				// Calculate player's intended velocity
 				//Vector velocity = (forward * gpGlobals->v_forward) + (right * gpGlobals->v_right);
-				VectorScale( vpn, forward, velocity );
+				velocity = vpn * forward;
 				VectorMA( velocity, right, v_right, velocity );
 
 				
@@ -2126,14 +2121,14 @@ void PM_LadderMove( physent_t *pLadder )
 	//					perp = perp.Normalize();
 				tmp = 0;
 				tmp[2] = 1;
-				CrossProduct( tmp, trace.plane.normal, perp );
-				VectorNormalize( perp );
+				perp = CrossProduct( tmp, trace.plane.normal );
+				perp = perp.Normalize();
 
 
 				// decompose velocity into ladder plane
 				normal = DotProduct( velocity, trace.plane.normal );
 				// This is the velocity into the face of the ladder
-				VectorScale( trace.plane.normal, normal, cross );
+				cross = trace.plane.normal * normal;
 
 
 				// This is the player's additional velocity
@@ -2144,7 +2139,7 @@ void PM_LadderMove( physent_t *pLadder )
 				// NOTE: It IS possible to face up and move down or face down and move up
 				// because the velocity is a sum of the directional velocity and the converted
 				// velocity through the face of the ladder -- by design.
-				CrossProduct( trace.plane.normal, perp, tmp );
+				tmp = CrossProduct( trace.plane.normal, perp );
 				VectorMA( lateral, -normal, tmp, pmove->velocity );
 				if ( onFloor && normal > 0 )	// On ground moving away from the ladder
 				{
@@ -2303,7 +2298,7 @@ void PM_Physics_Toss()
 	pmove->velocity = pmove->velocity + pmove->basevelocity;
 	
 	PM_CheckVelocity();
-	VectorScale (pmove->velocity, pmove->frametime, move);
+	move = pmove->velocity * pmove->frametime;
 	pmove->velocity = pmove->velocity - pmove->basevelocity;
 
 	trace = PM_PushEntity (move);	// Should this clear basevelocity
@@ -2358,7 +2353,7 @@ void PM_Physics_Toss()
 		}
 		else
 		{
-			VectorScale (pmove->velocity, (1.0 - trace.fraction) * pmove->frametime * 0.9, move);
+			move = pmove->velocity * ( ( 1.0 - trace.fraction ) * pmove->frametime * 0.9 );
 			trace = PM_PushEntity (move);
 		}
 		pmove->velocity = pmove->velocity - base;
@@ -2432,7 +2427,7 @@ void PM_PreventMegaBunnyJumping( void )
 
 	fraction = ( maxscaledspeed / spd ) * 0.65; //Returns the modifier for the velocity
 	
-	VectorScale( pmove->velocity, fraction, pmove->velocity ); //Crop it down!.
+	pmove->velocity = pmove->velocity * fraction; //Crop it down!.
 }
 
 /*
@@ -2794,7 +2789,7 @@ void PM_DropPunchAngle ( Vector& punchangle )
 	len = VectorNormalize ( punchangle );
 	len -= (10.0 + len * 0.5) * pmove->frametime;
 	len = max( len, 0.0 );
-	VectorScale ( punchangle, len, punchangle);
+	punchangle = punchangle * len;
 }
 
 /*
@@ -2996,7 +2991,7 @@ void PM_PlayerMove ( qboolean server )
 	// Slow down, I'm pulling it! (a box maybe) but only when I'm standing on ground
 	if ( ( pmove->onground != -1 ) && ( pmove->cmd.buttons & IN_USE) )
 	{
-		VectorScale( pmove->velocity, 0.3, pmove->velocity );
+		pmove->velocity = pmove->velocity * 0.3;
 	}
 #endif
 

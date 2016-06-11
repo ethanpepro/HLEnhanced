@@ -318,9 +318,6 @@
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp">
       <Filter>Source Files\pm_shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\pm_shared\pm_math.cpp">
-      <Filter>Source Files\pm_shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp">
       <Filter>Source Files\pm_shared</Filter>
     </ClCompile>
@@ -458,7 +455,10 @@
     <ClInclude Include="..\..\game_shared\shared_game_utils.h">
       <Filter>Header Files\game_shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\public\math\mathlib2.h">
+    <ClInclude Include="..\..\public\math\mathlib.h">
+      <Filter>Header Files\public\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\math\vector.h">
       <Filter>Header Files\public\math</Filter>
     </ClInclude>
   </ItemGroup>

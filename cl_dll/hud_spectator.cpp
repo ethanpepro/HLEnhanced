@@ -101,7 +101,7 @@ void SpectatorSpray(void)
 		return;
 
 	AngleVectors(v_angles,forward,NULL,NULL);
-	VectorScale(forward, 128, forward);
+	forward = forward * 128;
 	forward = forward + v_origin;
 	pmtrace_t * trace = gEngfuncs.PM_TraceLine( v_origin, forward, PM_TRACELINE_PHYSENTSONLY, 2, -1 );
 	if ( trace->fraction != 1.0 )
@@ -627,8 +627,8 @@ int CHudSpectator::Draw(float flTime)
 	{
 		Vector	right;
 		AngleVectors(v_angles, NULL, right, NULL);
-		VectorNormalize(right);
-		VectorScale(right, m_moveDelta, right );
+		right = right.Normalize();
+		right = right * m_moveDelta;
 
 		m_mapOrigin = m_mapOrigin + right;
 	}
@@ -1716,7 +1716,7 @@ void CHudSpectator::DrawOverviewEntities()
 	gEngfuncs.pTriAPI->Color4f( r, g, b, 1.0 );
 
 	AngleVectors(angles, forward, NULL, NULL );
-	VectorScale (forward, 512.0f, forward);
+	forward = forward * 512.0f;
 	
 	offset[0] =  0.0f; 
 	offset[1] = 45.0f; 
