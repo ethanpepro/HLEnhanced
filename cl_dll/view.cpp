@@ -31,6 +31,7 @@
 
 	void CL_DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams );
 
+	//TODO: some of these may not exist - Solokiller
 	void PM_ParticleLine( float *start, float *end, int pcolor, float life, float vert);
 	int		PM_GetVisEntInfo( int ent );
 	extern int		PM_GetPhysEntInfo( int ent );

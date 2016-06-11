@@ -15,6 +15,7 @@
 // pm_math.c -- math primitives
 
 #include "mathlib.h"
+#include "vector.h"
 #include "const.h"
 #include <math.h>
 
@@ -24,6 +25,8 @@
 #define	YAW		1
 // fall over
 #define	ROLL	2 
+
+#define DotProduct(x,y) ((x)[0]*(y)[0]+(x)[1]*(y)[1]+(x)[2]*(y)[2])
 
 #pragma warning(disable : 4244)
 
