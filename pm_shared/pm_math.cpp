@@ -30,12 +30,6 @@
 
 #pragma warning(disable : 4244)
 
-#ifndef DISABLE_VEC_ORIGIN
-//TODO: this has to go. There's a Vector version elsewhere that should be used. It should also be defined in a dll agnostic source file - Solokiller
-vec3_t vec3_origin = {0,0,0};
-#endif
-int nanmask = 255<<23;
-
 float	anglemod(float a)
 {
 	a = (360.0/65536) * ((int)(a*(65536/360.0)) & 65535);
@@ -230,6 +224,19 @@ void InterpolateAngles( float *start, float *end, float *output, float frac )
 	NormalizeAngles( output );
 }
  
+#ifndef DISABLE_VEC_FUNCS
+float Length( const vec3_t v )
+{
+	int		i;
+	float	length = 0.0f;
+
+	for( i = 0; i< 3; i++ )
+		length += v[ i ] * v[ i ];
+	length = sqrt( length );		// FIXME
+
+	return length;
+}
+#endif
 
 /*
 ===================
@@ -260,17 +267,6 @@ void VectorTransform (const vec3_t in1, float in2[3][4], vec3_t out)
 	out[2] = DotProduct(in1, in2[2]) + in2[2][3];
 }
 
-int VectorCompare (const vec3_t v1, const vec3_t v2)
-{
-	int		i;
-	
-	for (i=0 ; i<3 ; i++)
-		if (v1[i] != v2[i])
-			return 0;
-			
-	return 1;
-}
-
 void VectorMA (const vec3_t veca, float scale, const vec3_t vecb, vec3_t vecc)
 {
 	vecc[0] = veca[0] + scale*vecb[0];
@@ -279,53 +275,12 @@ void VectorMA (const vec3_t veca, float scale, const vec3_t vecb, vec3_t vecc)
 }
 #endif
 
-
-vec_t _DotProduct (vec3_t v1, vec3_t v2)
-{
-	return v1[0]*v2[0] + v1[1]*v2[1] + v1[2]*v2[2];
-}
-
-void _VectorSubtract (vec3_t veca, vec3_t vecb, vec3_t out)
-{
-	out[0] = veca[0]-vecb[0];
-	out[1] = veca[1]-vecb[1];
-	out[2] = veca[2]-vecb[2];
-}
-
-void _VectorAdd (vec3_t veca, vec3_t vecb, vec3_t out)
-{
-	out[0] = veca[0]+vecb[0];
-	out[1] = veca[1]+vecb[1];
-	out[2] = veca[2]+vecb[2];
-}
-
-void _VectorCopy (vec3_t in, vec3_t out)
-{
-	out[0] = in[0];
-	out[1] = in[1];
-	out[2] = in[2];
-}
-
 #ifndef DISABLE_VEC_FUNCS
 void CrossProduct (const vec3_t v1, const vec3_t v2, vec3_t cross)
 {
 	cross[0] = v1[1]*v2[2] - v1[2]*v2[1];
 	cross[1] = v1[2]*v2[0] - v1[0]*v2[2];
 	cross[2] = v1[0]*v2[1] - v1[1]*v2[0];
-}
-#endif
-
-#ifndef DISABLE_VEC_FUNCS
-float Length(const vec3_t v)
-{
-	int		i;
-	float	length = 0.0f;
-		
-	for (i=0 ; i< 3 ; i++)
-		length += v[i]*v[i];
-	length = sqrt (length);		// FIXME
-
-	return length;
 }
 #endif
 

@@ -243,7 +243,7 @@ void CStudioModelRenderer::StudioCalcBoneQuaterion( int frame, float s, mstudiob
 		}
 	}
 
-	if (!VectorCompare( angle1, angle2 ))
+	if ( angle1 != angle2 )
 	{
 		AngleQuaternion( angle1, q1 );
 		AngleQuaternion( angle2, q2 );

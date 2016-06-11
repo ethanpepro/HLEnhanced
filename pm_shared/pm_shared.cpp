@@ -290,7 +290,7 @@ void PM_PlayStepSound( int step, float fvol )
 	VectorCopy( pmove->velocity, hvel );
 	hvel[2] = 0.0;
 
-	if ( pmove->multiplayer && ( !g_onladder && Length( hvel ) <= 220 ) )
+	if ( pmove->multiplayer && ( !g_onladder && hvel.Length() <= 220 ) )
 		return;
 
 	// irand - 0,1 for right foot, 2,3 for left foot
@@ -495,7 +495,7 @@ void PM_UpdateStepSound( void )
 
 	PM_CatagorizeTextureType();
 
-	speed = Length( pmove->velocity );
+	speed = pmove->velocity.Length();
 
 	// determine if we are on a ladder
 	fLadder = ( pmove->movetype == MOVETYPE_FLY );// IsOnLadder();
@@ -518,7 +518,7 @@ void PM_UpdateStepSound( void )
 	//  play step sound.  Also, if pmove->flTimeStepSound is zero, get the new
 	//  sound right away - we just started moving in new level.
 	if ( (fLadder || ( pmove->onground != -1 ) ) &&
-		( Length( pmove->velocity ) > 0.0 ) &&
+		( pmove->velocity.Length() > 0.0 ) &&
 		( speed >= velwalk || !pmove->flTimeStepSound ) )
 	{
 		fWalking = speed < velrun;		
@@ -1060,7 +1060,7 @@ void PM_WalkMove ()
 	// Add in any base velocity to the current velocity.
 	VectorAdd (pmove->velocity, pmove->basevelocity, pmove->velocity );
 
-	spd = Length( pmove->velocity );
+	spd = pmove->velocity.Length();
 
 	if (spd < 1.0f)
 	{
@@ -1761,7 +1761,7 @@ void PM_SpectatorMove (void)
 #endif
 		// Move around in normal spectator method
 	
-		speed = Length (pmove->velocity);
+		speed = pmove->velocity.Length();
 		if (speed < 1)
 		{
 			VectorCopy (vec3_origin, pmove->velocity)
@@ -2289,8 +2289,8 @@ void PM_Physics_Toss()
 	// If on ground and not moving, return.
 	if ( pmove->onground != -1 )
 	{
-		if (VectorCompare(pmove->basevelocity, vec3_origin) &&
-		    VectorCompare(pmove->velocity, vec3_origin))
+		if (pmove->basevelocity == vec3_origin &&
+		    pmove->velocity == vec3_origin)
 			return;
 	}
 
@@ -2432,7 +2432,7 @@ void PM_PreventMegaBunnyJumping( void )
 	if ( maxscaledspeed <= 0.0f )
 		return;
 
-	spd = Length( pmove->velocity );
+	spd = pmove->velocity.Length();
 
 	if ( spd <= maxscaledspeed )
 		return;
@@ -2556,7 +2556,7 @@ void PM_Jump (void)
 		if ( cansuperjump &&
 			( pmove->cmd.buttons & IN_DUCK ) &&
 			( pmove->flDuckTime > 0 ) &&
-			Length( pmove->velocity ) > 50 )
+			pmove->velocity.Length() > 50 )
 		{
 			pmove->punchangle[0] = -5;
 

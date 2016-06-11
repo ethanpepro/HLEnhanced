@@ -12,6 +12,8 @@
 #include "com_model.h"
 #include "studio_util.h"
 
+//TODO: these should be moved - Solokiller
+
 /*
 ====================
 AngleMatrix
@@ -46,23 +48,6 @@ void AngleMatrix (const float *angles, float (*matrix)[4] )
 	matrix[0][3] = 0.0;
 	matrix[1][3] = 0.0;
 	matrix[2][3] = 0.0;
-}
-
-/*
-====================
-VectorCompare
-
-====================
-*/
-int VectorCompare (const float *v1, const float *v2)
-{
-	int		i;
-	
-	for (i=0 ; i<3 ; i++)
-		if (v1[i] != v2[i])
-			return 0;
-			
-	return 1;
 }
 
 /*

@@ -64,6 +64,15 @@
     <Filter Include="Source Files\cl_dll\ui">
       <UniqueIdentifier>{66a765e7-aa0e-4e7c-8b2b-4a92ca3704f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\public\math">
+      <UniqueIdentifier>{12640e9b-752f-4329-896a-d88d64ee5314}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\public">
+      <UniqueIdentifier>{4fd51903-7edf-4c8c-a7bb-3b9489c41f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\public\math">
+      <UniqueIdentifier>{cd902acd-b14e-4bbb-b2e0-f117e0856b11}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -318,6 +327,9 @@
     <ClCompile Include="..\..\game_shared\shared_game_utils.cpp">
       <Filter>Source Files\game_shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\public\math\mathlib.cpp">
+      <Filter>Source Files\public\math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -445,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game_shared\shared_game_utils.h">
       <Filter>Header Files\game_shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\math\mathlib2.h">
+      <Filter>Header Files\public\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
