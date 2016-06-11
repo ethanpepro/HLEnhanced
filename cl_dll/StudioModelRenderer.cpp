@@ -1359,7 +1359,7 @@ void CStudioModelRenderer::StudioEstimateGait( entity_state_t *pplayer )
 	// VectorAdd( pplayer->velocity, pplayer->prediction_error, est_velocity );
 	if ( m_fGaitEstimation )
 	{
-		VectorSubtract( m_pCurrentEntity->origin, m_pPlayerInfo->prevgaitorigin, est_velocity );
+		est_velocity = m_pCurrentEntity->origin - m_pPlayerInfo->prevgaitorigin;
 		VectorCopy( m_pCurrentEntity->origin, m_pPlayerInfo->prevgaitorigin );
 		m_flGaitMovement = Length( est_velocity );
 		if (dt <= 0 || m_flGaitMovement / dt < 5)

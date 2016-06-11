@@ -286,7 +286,7 @@ void CrossProduct (const vec3_t v1, const vec3_t v2, vec3_t cross)
 
 float Distance(const float* v1, const float* v2)
 {
-	vec3_t d;
+	Vector d;
 	VectorSubtract(v2,v1,d);
 	return Length(d);
 }
@@ -309,13 +309,6 @@ float VectorNormalize (vec3_t v)
 		
 	return length;
 
-}
-
-void VectorInverse (vec3_t v)
-{
-	v[0] = -v[0];
-	v[1] = -v[1];
-	v[2] = -v[2];
 }
 
 void VectorScale (const vec3_t in, vec_t scale, vec3_t out)

@@ -112,7 +112,7 @@ void PM_ParticleLine(const Vector& start, const Vector& end, int pcolor, float l
 	Vector diff;
 	// Determine distance;
 
-	VectorSubtract(end, start, diff);
+	diff = end - start;
 	
 	len = VectorNormalize(diff);
 

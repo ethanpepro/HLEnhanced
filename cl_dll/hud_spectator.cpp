@@ -1670,7 +1670,7 @@ void CHudSpectator::DrawOverviewEntities()
 		offset[1] = YPROJECT(offset[1]);
 		offset[2] = 0.0f;
 			
-		VectorSubtract(offset, screen, offset );
+		offset = offset - screen;
 
 		int playerNum = ent->index - 1;
 

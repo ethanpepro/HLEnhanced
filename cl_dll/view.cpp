@@ -477,10 +477,10 @@ void V_CalcIntermissionRefdef ( struct ref_params_s *pparams )
 
 typedef struct 
 {
-	float Origins[ ORIGIN_BACKUP ][3];
+	Vector Origins[ ORIGIN_BACKUP ];
 	float OriginTime[ ORIGIN_BACKUP ];
 
-	float Angles[ ORIGIN_BACKUP ][3];
+	Vector Angles[ ORIGIN_BACKUP ];
 	float AngleTime[ ORIGIN_BACKUP ];
 
 	int CurrentOrigin;
@@ -726,18 +726,16 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 #endif
 
 	{
-		static float lastorg[3];
-		Vector delta;
-
-		VectorSubtract( pparams->simorg, lastorg, delta );
+		static Vector lastorg;
+		const Vector delta = pparams->simorg - lastorg;
 
 		if ( Length( delta ) != 0.0 )
 		{
-			VectorCopy( pparams->simorg, ViewInterp.Origins[ ViewInterp.CurrentOrigin & ORIGIN_MASK ] );
+			ViewInterp.Origins[ ViewInterp.CurrentOrigin & ORIGIN_MASK ] = pparams->simorg;
 			ViewInterp.OriginTime[ ViewInterp.CurrentOrigin & ORIGIN_MASK ] = pparams->time;
 			ViewInterp.CurrentOrigin++;
 
-			VectorCopy( pparams->simorg, lastorg );
+			lastorg = pparams->simorg;
 		}
 	}
 
@@ -776,13 +774,13 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 			{
 				frac = ( t - ViewInterp.OriginTime[ foundidx & ORIGIN_MASK] ) / dt;
 				frac = min( 1.0, frac );
-				VectorSubtract( ViewInterp.Origins[ ( foundidx + 1 ) & ORIGIN_MASK ], ViewInterp.Origins[ foundidx & ORIGIN_MASK ], delta );
+				delta = ViewInterp.Origins[ ( foundidx + 1 ) & ORIGIN_MASK ] - ViewInterp.Origins[ foundidx & ORIGIN_MASK ];
 				VectorMA( ViewInterp.Origins[ foundidx & ORIGIN_MASK ], frac, delta, neworg );
 
 				// Dont interpolate large changes
 				if ( Length( delta ) < 64 )
 				{
-					VectorSubtract( neworg, pparams->simorg, delta );
+					delta = neworg - pparams->simorg;
 
 					VectorAdd( pparams->simorg, delta, pparams->simorg );
 					VectorAdd( pparams->vieworg, delta, pparams->vieworg );
@@ -961,7 +959,7 @@ void V_GetChaseOrigin( float * angles, float * origin, float distance, float * r
 
 /*void V_GetDeathCam(cl_entity_t * ent1, cl_entity_t * ent2, float * angle, float * origin)
 {
-	float newAngle[3]; float newOrigin[3]; 
+	Vector newAngle; Vector newOrigin; 
 
 	float distance = 168.0f;
 
@@ -981,7 +979,7 @@ void V_GetChaseOrigin( float * angles, float * origin, float distance, float * r
 	// get new angle towards second target
 	if ( ent2 )
 	{
-		VectorSubtract( ent2->origin, ent1->origin, newAngle );
+		newAngle = ent2->origin - ent1->origin;
 		VectorAngles( newAngle, newAngle );
 		newAngle[0] = -newAngle[0];
 	}
@@ -1096,7 +1094,7 @@ float MaxAngleBetweenAngles(  float * a1, float * a2 )
 
 void V_GetDoubleTargetsCam(cl_entity_t	 * ent1, cl_entity_t * ent2,float * angle, float * origin)
 {
-	float newAngle[3]; float newOrigin[3]; float tempVec[3];
+	Vector newAngle; Vector newOrigin; Vector tempVec;
 
 	int flags 	   = gHUD.m_Spectator.m_iObserverFlags;
 
@@ -1122,7 +1120,7 @@ void V_GetDoubleTargetsCam(cl_entity_t	 * ent1, cl_entity_t * ent2,float * angle
 		newOrigin[2]+= 8;	// object, tricky, must be above bomb in CS
 
 	// get new angle towards second target
-	VectorSubtract( ent2->origin, ent1->origin, newAngle );
+	newAngle = ent2->origin - ent1->origin;
 
 	VectorAngles( newAngle, newAngle );
 	newAngle[0] = -newAngle[0];
@@ -1487,8 +1485,7 @@ void V_CalcSpectatorRefdef ( struct ref_params_s * pparams )
 
 		if ( timeDiff > 0 )
 		{
-			Vector distance;
-			VectorSubtract(ent->prevstate.origin, ent->curstate.origin, distance);
+			Vector distance = ent->prevstate.origin - ent->curstate.origin;
 			VectorScale(distance, 1/timeDiff, distance );
 
 			velocity[0] = velocity[0]*0.9f + distance[0]*0.1f;

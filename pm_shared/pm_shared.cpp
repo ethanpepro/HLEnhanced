@@ -2140,7 +2140,7 @@ void PM_LadderMove( physent_t *pLadder )
 
 
 				// This is the player's additional velocity
-				VectorSubtract( velocity, cross, lateral );
+				lateral = velocity - cross;
 
 				// This turns the velocity into the face of the ladder into velocity that
 				// is roughly vertically perpendicular to the face of the ladder.
@@ -2182,7 +2182,7 @@ physent_t *PM_Ladder( void )
 			num = hull->firstclipnode;
 
 			// Offset the test point appropriately for this hull.
-			VectorSubtract ( pmove->origin, test, test);
+			test = pmove->origin - test;
 
 			// Test the player's hull for intersection with this model
 			if ( pmove->PM_HullPointContents (hull, num, test) == CONTENTS_EMPTY)
@@ -2309,7 +2309,7 @@ void PM_Physics_Toss()
 	
 	PM_CheckVelocity();
 	VectorScale (pmove->velocity, pmove->frametime, move);
-	VectorSubtract (pmove->velocity, pmove->basevelocity, pmove->velocity);
+	pmove->velocity = pmove->velocity - pmove->basevelocity;
 
 	trace = PM_PushEntity (move);	// Should this clear basevelocity
 
@@ -2367,7 +2367,7 @@ void PM_Physics_Toss()
 			VectorScale (pmove->velocity, (1.0 - trace.fraction) * pmove->frametime * 0.9, move);
 			trace = PM_PushEntity (move);
 		}
-		VectorSubtract( pmove->velocity, base, pmove->velocity )
+		pmove->velocity = pmove->velocity - base;
 	}
 	
 // check for in water
@@ -3048,7 +3048,7 @@ void PM_PlayerMove ( qboolean server )
 		// Perform the move accounting for any base velocity.
 		VectorAdd (pmove->velocity, pmove->basevelocity, pmove->velocity);
 		PM_FlyMove ();
-		VectorSubtract (pmove->velocity, pmove->basevelocity, pmove->velocity);
+		pmove->velocity = pmove->velocity - pmove->basevelocity;
 		break;
 
 	case MOVETYPE_WALK:
@@ -3096,7 +3096,7 @@ void PM_PlayerMove ( qboolean server )
 			// Perform regular water movement
 			PM_WaterMove();
 			
-			VectorSubtract (pmove->velocity, pmove->basevelocity, pmove->velocity);
+			pmove->velocity = pmove->velocity - pmove->basevelocity;
 
 			// Get a final position
 			PM_CatagorizePosition();
@@ -3145,7 +3145,7 @@ void PM_PlayerMove ( qboolean server )
 			// Now pull the base velocity back out.
 			// Base velocity is set if you are on a moving object, like
 			//  a conveyor (or maybe another monster?)
-			VectorSubtract (pmove->velocity, pmove->basevelocity, pmove->velocity );
+			pmove->velocity = pmove->velocity - pmove->basevelocity;
 				
 			// Make sure velocity is valid.
 			PM_CheckVelocity();
