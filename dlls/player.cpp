@@ -3211,7 +3211,7 @@ void CBasePlayer::SelectPrevItem( int iItem )
 }
 
 
-const char *CBasePlayer::TeamID( void )
+const char *CBasePlayer::TeamID() const
 {
 	if ( pev == NULL )		// Not fully connected yet
 		return "";

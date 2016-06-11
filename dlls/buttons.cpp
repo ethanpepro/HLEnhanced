@@ -211,7 +211,7 @@ void CMultiSource::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 }
 
 
-BOOL CMultiSource::IsTriggered( CBaseEntity * )
+bool CMultiSource::IsTriggered( CBaseEntity * ) const
 {
 	// Is everything triggered?
 	int i = 0;
@@ -230,10 +230,10 @@ BOOL CMultiSource::IsTriggered( CBaseEntity * )
 	if (i == m_iTotal)
 	{
 		if ( !m_globalstate || gGlobalState.EntityGetState( m_globalstate ) == GLOBAL_ON )
-			return 1;
+			return true;
 	}
 	
-	return 0;
+	return false;
 }
 
 void CMultiSource::Register(void)

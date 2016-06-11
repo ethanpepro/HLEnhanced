@@ -355,13 +355,13 @@ public:
 	void		Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	int			ObjectCaps( void ) { return CRulePointEntity:: ObjectCaps() | FCAP_MASTER; }
 
-	BOOL		IsTriggered( CBaseEntity *pActivator );
-	const char	*TeamID( void );
+	bool		IsTriggered( CBaseEntity *pActivator ) const override;
+	const char	*TeamID() const override;
 	inline BOOL RemoveOnFire( void ) { return (pev->spawnflags & SF_TEAMMASTER_FIREONCE) ? TRUE : FALSE; }
-	inline BOOL AnyTeam( void ) { return (pev->spawnflags & SF_TEAMMASTER_ANYTEAM) ? TRUE : FALSE; }
+	inline bool AnyTeam() const { return (pev->spawnflags & SF_TEAMMASTER_ANYTEAM) != 0; }
 
 private:
-	BOOL		TeamMatch( CBaseEntity *pActivator );
+	bool		TeamMatch( CBaseEntity *pActivator ) const;
 
 	int			m_teamIndex;
 	USE_TYPE	triggerType;
@@ -425,13 +425,13 @@ void CGameTeamMaster::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 }
 
 
-BOOL CGameTeamMaster::IsTriggered( CBaseEntity *pActivator )
+bool CGameTeamMaster::IsTriggered( CBaseEntity *pActivator ) const
 {
 	return TeamMatch( pActivator );
 }
 
 
-const char *CGameTeamMaster::TeamID( void )
+const char *CGameTeamMaster::TeamID() const
 {
 	if ( m_teamIndex < 0 )		// Currently set to "no team"
 		return "";
@@ -440,13 +440,13 @@ const char *CGameTeamMaster::TeamID( void )
 }
 
 
-BOOL CGameTeamMaster::TeamMatch( CBaseEntity *pActivator )
+bool CGameTeamMaster::TeamMatch( CBaseEntity *pActivator ) const
 {
 	if ( m_teamIndex < 0 && AnyTeam() )
-		return TRUE;
+		return true;
 
 	if ( !pActivator )
-		return FALSE;
+		return false;
 
 	return UTIL_TeamsMatch( pActivator->TeamID(), TeamID() );
 }

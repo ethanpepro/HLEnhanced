@@ -60,7 +60,7 @@ class CBaseDMStart : public CPointEntity
 {
 public:
 	void		KeyValue( KeyValueData *pkvd );
-	BOOL		IsTriggered( CBaseEntity *pEntity );
+	bool		IsTriggered( CBaseEntity *pEntity ) const override;
 
 private:
 };
@@ -81,9 +81,9 @@ void CBaseDMStart::KeyValue( KeyValueData *pkvd )
 		CPointEntity::KeyValue( pkvd );
 }
 
-BOOL CBaseDMStart::IsTriggered( CBaseEntity *pEntity )
+bool CBaseDMStart::IsTriggered( CBaseEntity *pEntity ) const
 {
-	BOOL master = UTIL_IsMasterTriggered( pev->netname, pEntity );
+	bool master = UTIL_IsMasterTriggered( pev->netname, pEntity );
 
 	return master;
 }

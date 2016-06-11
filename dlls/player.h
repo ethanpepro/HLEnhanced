@@ -44,8 +44,8 @@
 //-----------------------------------------------------
 #define CSUITPLAYLIST	4		// max of 4 suit sentences queued up at any time
 
-#define SUIT_GROUP			TRUE
-#define	SUIT_SENTENCE		FALSE
+#define SUIT_GROUP			1
+#define	SUIT_SENTENCE		0
 
 #define	SUIT_REPEAT_OK		0
 #define SUIT_NEXT_IN_30SEC	30
@@ -214,14 +214,14 @@ public:
 	virtual Vector BodyTarget( const Vector &posSrc ) { return Center( ) + pev->view_ofs * RANDOM_FLOAT( 0.5, 1.1 ); };		// position to shoot at
 	virtual void StartSneaking( void ) { m_tSneaking = gpGlobals->time - 1; }
 	virtual void StopSneaking( void ) { m_tSneaking = gpGlobals->time + 30; }
-	virtual BOOL IsSneaking( void ) { return m_tSneaking <= gpGlobals->time; }
-	virtual BOOL IsAlive( void ) { return (pev->deadflag == DEAD_NO) && pev->health > 0; }
+	virtual bool IsSneaking() override { return m_tSneaking <= gpGlobals->time; }
+	virtual bool IsAlive() const override { return (pev->deadflag == DEAD_NO) && pev->health > 0; }
 	virtual BOOL ShouldFadeOnDeath( void ) { return FALSE; }
-	virtual	BOOL IsPlayer( void ) { return TRUE; }			// Spectators should return FALSE for this, they aren't "players" as far as game logic is concerned
+	virtual	bool IsPlayer() const override { return true; }			// Spectators should return false for this, they aren't "players" as far as game logic is concerned
 
-	virtual BOOL IsNetClient( void ) { return TRUE; }		// Bots should return FALSE for this, they can't receive NET messages
-															// Spectators should return TRUE for this
-	virtual const char *TeamID( void );
+	virtual bool IsNetClient() const override { return true; }		// Bots should return false for this, they can't receive NET messages
+																	// Spectators should return true for this
+	virtual const char *TeamID() const override;
 
 	virtual int		Save( CSave &save );
 	virtual int		Restore( CRestore &restore );

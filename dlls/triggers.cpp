@@ -272,7 +272,7 @@ public:
 	void EXPORT ManagerReport( void );
 #endif
 
-	BOOL		HasTarget( string_t targetname );
+	bool		HasTarget( string_t targetname ) const override;
 	
 	int ObjectCaps( void ) { return CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
@@ -372,13 +372,13 @@ void CMultiManager :: Spawn( void )
 }
 
 
-BOOL CMultiManager::HasTarget( string_t targetname )
+bool CMultiManager::HasTarget( string_t targetname ) const
 { 
 	for ( int i = 0; i < m_cTargets; i++ )
 		if ( FStrEq(STRING(targetname), STRING(m_iTargetName[i])) )
-			return TRUE;
+			return true;
 	
-	return FALSE;
+	return false;
 }
 
 

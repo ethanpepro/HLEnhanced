@@ -89,8 +89,8 @@ public:
 	virtual int	Restore( CRestore &restore );
 	static	TYPEDESCRIPTION m_SaveData[];
 
-	BOOL OnControls( entvars_t *pevTest );
-	BOOL StartControl( CBasePlayer* pController );
+	bool OnControls( entvars_t *pevTest ) override;
+	bool StartControl( CBasePlayer* pController );
 	void StopControl( void );
 	void ControllerPostFrame( void );
 
@@ -326,7 +326,7 @@ void CFuncTank :: KeyValue( KeyValueData *pkvd )
 
 //==================================================================================
 // TANK CONTROLLING
-BOOL CFuncTank :: OnControls( entvars_t *pevTest )
+bool CFuncTank :: OnControls( entvars_t *pevTest )
 {
 	if ( !(pev->spawnflags & SF_TANK_CANCONTROL) )
 		return FALSE;
@@ -334,21 +334,21 @@ BOOL CFuncTank :: OnControls( entvars_t *pevTest )
 	Vector offset = pevTest->origin - pev->origin;
 
 	if ( (m_vecControllerUsePos - pevTest->origin).Length() < 30 )
-		return TRUE;
+		return true;
 
-	return FALSE;
+	return false;
 }
 
-BOOL CFuncTank :: StartControl( CBasePlayer *pController )
+bool CFuncTank :: StartControl( CBasePlayer *pController )
 {
 	if ( m_pController != NULL )
-		return FALSE;
+		return false;
 
 	// Team only or disabled?
 	if ( m_iszMaster )
 	{
 		if ( !UTIL_IsMasterTriggered( m_iszMaster, pController ) )
-			return FALSE;
+			return false;
 	}
 
 	ALERT( at_console, "using TANK!\n");
@@ -367,7 +367,7 @@ BOOL CFuncTank :: StartControl( CBasePlayer *pController )
 	
 	pev->nextthink = pev->ltime + 0.1;
 	
-	return TRUE;
+	return true;
 }
 
 void CFuncTank :: StopControl()

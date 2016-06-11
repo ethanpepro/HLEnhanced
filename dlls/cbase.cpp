@@ -701,24 +701,25 @@ int CBaseEntity :: IsDormant( void )
 	return FBitSet( pev->flags, FL_DORMANT );
 }
 
-BOOL CBaseEntity :: IsInWorld( void )
+bool CBaseEntity :: IsInWorld() const
 {
+	//TODO: use constants. - Solokiller
 	// position 
-	if (pev->origin.x >= 4096) return FALSE;
-	if (pev->origin.y >= 4096) return FALSE;
-	if (pev->origin.z >= 4096) return FALSE;
-	if (pev->origin.x <= -4096) return FALSE;
-	if (pev->origin.y <= -4096) return FALSE;
-	if (pev->origin.z <= -4096) return FALSE;
+	if (pev->origin.x >= 4096) return false;
+	if (pev->origin.y >= 4096) return false;
+	if (pev->origin.z >= 4096) return false;
+	if (pev->origin.x <= -4096) return false;
+	if (pev->origin.y <= -4096) return false;
+	if (pev->origin.z <= -4096) return false;
 	// speed
-	if (pev->velocity.x >= 2000) return FALSE;
-	if (pev->velocity.y >= 2000) return FALSE;
-	if (pev->velocity.z >= 2000) return FALSE;
-	if (pev->velocity.x <= -2000) return FALSE;
-	if (pev->velocity.y <= -2000) return FALSE;
-	if (pev->velocity.z <= -2000) return FALSE;
+	if (pev->velocity.x >= 2000) return false;
+	if (pev->velocity.y >= 2000) return false;
+	if (pev->velocity.z >= 2000) return false;
+	if (pev->velocity.x <= -2000) return false;
+	if (pev->velocity.y <= -2000) return false;
+	if (pev->velocity.z <= -2000) return false;
 
-	return TRUE;
+	return true;
 }
 
 int CBaseEntity::ShouldToggle( USE_TYPE useType, BOOL currentState )

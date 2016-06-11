@@ -50,7 +50,7 @@ void CBaseEntity::SetObjectCollisionBox( void ) { }
 int	CBaseEntity :: Intersects( CBaseEntity *pOther ) { return 0; }
 void CBaseEntity :: MakeDormant( void ) { }
 int CBaseEntity :: IsDormant( void ) { return 0; }
-BOOL CBaseEntity :: IsInWorld( void ) { return TRUE; }
+bool CBaseEntity :: IsInWorld() const { return true; }
 int CBaseEntity::ShouldToggle( USE_TYPE useType, BOOL currentState ) { return 0; }
 int	CBaseEntity :: DamageDecal( int bitsDamageType ) { return -1; }
 CBaseEntity * CBaseEntity::Create( char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner ) { return NULL; }
@@ -297,7 +297,7 @@ void CBasePlayer::DropPlayerItem ( char *pszItemName ) { }
 BOOL CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) { return FALSE; }
 BOOL CBasePlayer :: SwitchWeapon( CBasePlayerItem *pWeapon )  { return FALSE; }
 Vector CBasePlayer :: GetGunPosition( void ) { return g_vecZero; }
-const char *CBasePlayer::TeamID( void ) { return ""; }
+const char *CBasePlayer::TeamID() const { return ""; }
 int CBasePlayer :: GiveAmmo( int iCount, char *szName, int iMax ) { return 0; }
 void CBasePlayer::AddPoints( int score, BOOL bAllowNegativeScore ) { } 
 void CBasePlayer::AddPointsToTeam( int score, BOOL bAllowNegativeScore ) { } 
