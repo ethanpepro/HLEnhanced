@@ -620,7 +620,7 @@ void CL_DLLEXPORT HUD_TempEntUpdate (
 							//
 							pTemp->entity.baseline.origin = pTemp->entity.baseline.origin * 0.6;
 
-							if ( Length( pTemp->entity.baseline.origin ) < 10 )
+							if ( pTemp->entity.baseline.origin.Length() < 10 )
 							{
 								pTemp->entity.baseline.framerate = 0.0;								
 							}

@@ -84,12 +84,34 @@ public:
 	inline float Length(void) const					{ return sqrt(x*x + y*y + z*z); }
 	operator float *()								{ return &x; } // Vectors will now automatically convert to float * when needed
 	operator const float *() const					{ return &x; } // Vectors will now automatically convert to float * when needed
-	inline Vector Normalize(void) const
+
+	/**
+	*	Normalizes the vector's components.
+	*	@return Old length.
+	*/
+	inline vec_t NormalizeInPlace()
 	{
 		float flLen = Length();
-		if (flLen == 0) return Vector(0,0,1); // ????
+
+		//This used to cause it to return a vector that was 0, 0, 1 if Normalize was called. A 0 length vector is 0, 0, 0. - Solokiller
+		if( flLen == 0 ) return flLen;
+
 		flLen = 1 / flLen;
-		return Vector(x * flLen, y * flLen, z * flLen);
+
+		x *= flLen;
+		y *= flLen;
+		z *= flLen;
+
+		return flLen;
+	}
+
+	inline Vector Normalize() const
+	{
+		Vector vec = *this;
+
+		vec.NormalizeInPlace();
+
+		return vec;
 	}
 
 	inline Vector2D Make2D ( void ) const

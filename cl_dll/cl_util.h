@@ -170,10 +170,8 @@ inline void PlaySound( int iSound, float vol ) { gEngfuncs.pfnPlaySoundByIndex( 
 void ScaleColors( int &r, int &g, int &b, int a );
 
 //TODO: defined in mathlib.h - Solokiller
-float Length(const float *v);
-void VectorMA (const float *veca, float scale, const float *vecb, float *vecc);
+void VectorMA (const Vector& veca, float scale, const Vector& vecb, Vector& vecc);
 void VectorScale (const float *in, float scale, float *out);
-float VectorNormalize (float *v);
 void VectorInverse ( float *v );
 
 extern const Vector vec3_origin;
@@ -183,11 +181,11 @@ extern const Vector vec3_origin;
 // disable 'truncation from 'const double' to 'float' warning message
 #pragma warning( disable: 4305 )
 
-inline void UnpackRGB(int &r, int &g, int &b, unsigned long ulRGB)\
-{\
-	r = (ulRGB & 0xFF0000) >>16;\
-	g = (ulRGB & 0xFF00) >> 8;\
-	b = ulRGB & 0xFF;\
+inline void UnpackRGB(int &r, int &g, int &b, unsigned long ulRGB)
+{
+	r = (ulRGB & 0xFF0000) >>16;
+	g = (ulRGB & 0xFF00) >> 8;
+	b = ulRGB & 0xFF;
 }
 
 HSPRITE LoadSprite(const char *pszName);

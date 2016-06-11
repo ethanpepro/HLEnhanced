@@ -712,7 +712,7 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 		static Vector lastorg;
 		const Vector delta = pparams->simorg - lastorg;
 
-		if ( Length( delta ) != 0.0 )
+		if ( delta.Length() != 0.0 )
 		{
 			ViewInterp.Origins[ ViewInterp.CurrentOrigin & ORIGIN_MASK ] = pparams->simorg;
 			ViewInterp.OriginTime[ ViewInterp.CurrentOrigin & ORIGIN_MASK ] = pparams->time;
@@ -761,7 +761,7 @@ void V_CalcNormalRefdef ( struct ref_params_s *pparams )
 				VectorMA( ViewInterp.Origins[ foundidx & ORIGIN_MASK ], frac, delta, neworg );
 
 				// Dont interpolate large changes
-				if ( Length( delta ) < 64 )
+				if ( delta.Length() < 64 )
 				{
 					delta = neworg - pparams->simorg;
 
@@ -1660,9 +1660,8 @@ V_DropPunchAngle
 //TODO: defined as PM_DropPunchAngle as well. Refactor. - Solokiller
 void V_DropPunchAngle ( float frametime, Vector& ev_punchangle )
 {
-	float	len;
+	float len = ev_punchangle.NormalizeInPlace();
 	
-	len = VectorNormalize ( ev_punchangle );
 	len -= (10.0 + len * 0.5) * frametime;
 	len = max( len, 0.0 );
 	ev_punchangle = ev_punchangle * len;
