@@ -43,7 +43,7 @@ extern "C"
 	// From in_camera
 	void CL_DLLEXPORT CAM_Think( void );
 	int CL_DLLEXPORT CL_IsThirdPerson( void );
-	void CL_DLLEXPORT CL_CameraOffset( float *ofs );
+	void CL_DLLEXPORT CL_CameraOffset( Vector& ofs );
 
 	// From input
 	struct kbutton_s CL_DLLEXPORT *KB_Find( const char *name );

@@ -62,8 +62,8 @@ typedef enum
 
 typedef struct
 {
-	float		mins[3], maxs[3];
-	float		origin[3];
+	Vector		mins, maxs;
+	Vector		origin;
 	int			headnode[MAX_MAP_HULLS];
 	int			visleafs;		// not including the solid leaf 0
 	int			firstface, numfaces;
@@ -307,7 +307,7 @@ typedef struct alight_s
 
 typedef struct auxvert_s
 {
-	float	fv[3];		// viewspace x, y
+	Vector	fv;		// viewspace x, y
 } auxvert_t;
 
 #include "custom.h"

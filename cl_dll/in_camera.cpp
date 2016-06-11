@@ -620,7 +620,7 @@ int CL_DLLEXPORT CL_IsThirdPerson( void )
 	return (cam_thirdperson ? 1 : 0) || (g_iUser1 && (g_iUser2 == gEngfuncs.GetLocalPlayer()->index) );
 }
 
-void CL_DLLEXPORT CL_CameraOffset( float *ofs )
+void CL_DLLEXPORT CL_CameraOffset( Vector& ofs )
 {
-	VectorCopy( cam_ofs, ofs );
+	ofs = cam_ofs;
 }

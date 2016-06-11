@@ -40,7 +40,7 @@ typedef void (*HUD_IN_CLEARSTATES_FUNC)		( void );
 typedef void (*HUD_IN_ACCUMULATE_FUNC ) ( void );
 typedef void (*HUD_CL_CREATEMOVE_FUNC)		( float frametime, struct usercmd_s *cmd, int active );
 typedef int (*HUD_CL_ISTHIRDPERSON_FUNC) ( void );
-typedef void (*HUD_CL_GETCAMERAOFFSETS_FUNC )( float *ofs );
+typedef void (*HUD_CL_GETCAMERAOFFSETS_FUNC )( Vector& ofs );
 typedef struct kbutton_s * (*HUD_KB_FIND_FUNC) ( const char *name );
 typedef void ( *HUD_CAMTHINK_FUNC )( void );
 typedef void ( *HUD_CALCREF_FUNC ) ( struct ref_params_s *pparams );
