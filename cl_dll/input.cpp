@@ -749,12 +749,12 @@ void CL_DLLEXPORT CL_CreateMove ( float frametime, struct usercmd_s *cmd, int ac
 
 	if ( g_iAlive )
 	{
-		VectorCopy( viewangles, cmd->viewangles );
-		VectorCopy( viewangles, oldangles );
+		cmd->viewangles = viewangles;
+		oldangles = viewangles;
 	}
 	else
 	{
-		VectorCopy( oldangles, cmd->viewangles );
+		cmd->viewangles = oldangles;
 	}
 
 	Bench_SetViewAngles( 1, cmd->viewangles, frametime, cmd );

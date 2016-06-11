@@ -100,14 +100,15 @@ EV_GetGunPosition
 Figure out the height of the gun
 =================
 */
-void EV_GetGunPosition( event_args_t *args, float *pos, float *origin )
+void EV_GetGunPosition( event_args_t *args, Vector& pos, const Vector& origin )
 {
 	int idx;
 	Vector view_ofs;
 
 	idx = args->entindex;
 
-	VectorClear( view_ofs );
+	view_ofs = 0;
+
 	view_ofs[2] = DEFAULT_VIEWHEIGHT;
 
 	if ( EV_IsPlayer( idx ) )
@@ -124,7 +125,7 @@ void EV_GetGunPosition( event_args_t *args, float *pos, float *origin )
 		}
 	}
 
-	VectorAdd( origin, view_ofs, pos );
+	pos = origin + view_ofs;
 }
 
 /*
@@ -136,8 +137,7 @@ Bullet shell casings
 */
 void EV_EjectBrass( float *origin, float *velocity, float rotation, int model, int soundtype )
 {
-	Vector endpos;
-	VectorClear( endpos );
+	Vector endpos = 0;
 	endpos[1] = rotation;
 	gEngfuncs.pEfxAPI->R_TempModel( origin, velocity, endpos, 2.5, model, soundtype );
 }
@@ -156,14 +156,13 @@ void EV_GetDefaultShellInfo( event_args_t *args,
 							 float forwardScale, float upScale, float rightScale )
 {
 	int i;
-	Vector view_ofs;
+	Vector view_ofs = 0;
 	float fR, fU;
 
 	int idx;
 
 	idx = args->entindex;
 
-	VectorClear( view_ofs );
 	view_ofs[2] = DEFAULT_VIEWHEIGHT;
 
 	if ( EV_IsPlayer( idx ) )

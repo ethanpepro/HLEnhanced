@@ -32,6 +32,9 @@ extern extra_player_info_t  g_PlayerExtraInfo[MAX_PLAYERS+1];
 #define TEAM3_COLOR		45
 #define TEAM4_COLOR		100
 
+//TODO: remove this once matrices work without it - Solokiller
+#define VectorCopy(a,b) {(b)[0]=(a)[0];(b)[1]=(a)[1];(b)[2]=(a)[2];}
+
 int m_nPlayerGaitSequences[MAX_CLIENTS];
 
 // Global engine <-> studio model rendering code interface
@@ -503,7 +506,7 @@ void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 	}
 	else if ( m_pCurrentEntity->curstate.movetype != MOVETYPE_NONE ) 
 	{
-		VectorCopy( m_pCurrentEntity->angles, angles );
+		angles = m_pCurrentEntity->angles;
 	}
 
 	//Con_DPrintf("%.0f %0.f %0.f\n", modelpos[0], modelpos[1], modelpos[2] );
@@ -1178,8 +1181,8 @@ int CStudioModelRenderer::StudioDrawModel( int flags )
 		deadplayer.gaitsequence = 0;
 
 		deadplayer.movetype = MOVETYPE_NONE;
-		VectorCopy( m_pCurrentEntity->curstate.angles, deadplayer.angles );
-		VectorCopy( m_pCurrentEntity->curstate.origin, deadplayer.origin );
+		deadplayer.angles = m_pCurrentEntity->curstate.angles;
+		deadplayer.origin = m_pCurrentEntity->curstate.origin;
 
 		save_interp = m_fDoInterp;
 		m_fDoInterp = 0;
@@ -1356,11 +1359,11 @@ void CStudioModelRenderer::StudioEstimateGait( entity_state_t *pplayer )
 		return;
 	}
 
-	// VectorAdd( pplayer->velocity, pplayer->prediction_error, est_velocity );
+	//est_velocity pplayer->velocity + pplayer->prediction_error;
 	if ( m_fGaitEstimation )
 	{
 		est_velocity = m_pCurrentEntity->origin - m_pPlayerInfo->prevgaitorigin;
-		VectorCopy( m_pCurrentEntity->origin, m_pPlayerInfo->prevgaitorigin );
+		m_pPlayerInfo->prevgaitorigin = m_pCurrentEntity->origin;
 		m_flGaitMovement = Length( est_velocity );
 		if (dt <= 0 || m_flGaitMovement / dt < 5)
 		{
@@ -1371,7 +1374,7 @@ void CStudioModelRenderer::StudioEstimateGait( entity_state_t *pplayer )
 	}
 	else
 	{
-		VectorCopy( pplayer->velocity, est_velocity );
+		est_velocity = pplayer->velocity;
 		m_flGaitMovement = Length( est_velocity ) * dt;
 	}
 
@@ -1704,7 +1707,7 @@ int CStudioModelRenderer::StudioDrawPlayer( int flags, entity_state_t *pplayer )
 		Vector orig_angles;
 		m_pPlayerInfo = IEngineStudio.PlayerInfo( m_nPlayerIndex );
 
-		VectorCopy( m_pCurrentEntity->angles, orig_angles );
+		orig_angles = m_pCurrentEntity->angles;
 	
 		StudioProcessGait( pplayer );
 
@@ -1712,7 +1715,7 @@ int CStudioModelRenderer::StudioDrawPlayer( int flags, entity_state_t *pplayer )
 		m_pPlayerInfo = NULL;
 
 		StudioSetUpTransform( 0 );
-		VectorCopy( orig_angles, m_pCurrentEntity->angles );
+		m_pCurrentEntity->angles = orig_angles;
 	}
 	else
 	{

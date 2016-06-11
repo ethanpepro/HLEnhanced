@@ -12,6 +12,9 @@
 #include "com_model.h"
 #include "studio_util.h"
 
+//TODO: this should be replaced with the function variant - Solokiller
+#define DotProduct(x,y) ((x)[0]*(y)[0]+(x)[1]*(y)[1]+(x)[2]*(y)[2])
+
 //TODO: these should be moved - Solokiller
 
 /*

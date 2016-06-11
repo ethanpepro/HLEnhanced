@@ -338,7 +338,7 @@ void CL_DLLEXPORT CAM_Think( void )
 	if( cam_contain->value )
 	{
 		// check new ideal
-		VectorCopy( origin, pnt );
+		pnt = origin, pnt;
 		AngleVectors( camAngles, camForward, camRight, camUp );
 		for (i=0 ; i<3 ; i++)
 			pnt[i] += -dist*camForward[i];
@@ -364,7 +364,7 @@ void CL_DLLEXPORT CAM_Think( void )
 	}
 
 	// Move towards ideal
-	VectorCopy( cam_ofs, camAngles );
+	camAngles = cam_ofs;
 
 	gEngfuncs.GetViewAngles( (float *)viewangles );
 
@@ -394,7 +394,7 @@ void CL_DLLEXPORT CAM_Think( void )
 		dist = camAngles[ ROLL ];
 		camAngles[ ROLL ] = 0;
 
-		VectorCopy( origin, pnt );
+		pnt = origin;
 		AngleVectors( camAngles, camForward, camRight, camUp );
 		for (i=0 ; i<3 ; i++)
 			pnt[i] += -dist*camForward[i];

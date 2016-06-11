@@ -141,7 +141,7 @@ int LookupActivityHeaviest( void *pmodel, entvars_t *pev, int activity )
 	return seq;
 }
 
-void GetEyePosition ( void *pmodel, float *vecEyePosition )
+void GetEyePosition ( void *pmodel, Vector& vecEyePosition )
 {
 	studiohdr_t *pstudiohdr;
 	
@@ -153,7 +153,7 @@ void GetEyePosition ( void *pmodel, float *vecEyePosition )
 		return;
 	}
 
-	VectorCopy ( pstudiohdr->eyeposition, vecEyePosition );
+	vecEyePosition = pstudiohdr->eyeposition;
 }
 
 int LookupSequence( void *pmodel, const char *label )

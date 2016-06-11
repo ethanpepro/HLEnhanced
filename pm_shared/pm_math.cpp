@@ -284,11 +284,9 @@ void CrossProduct (const vec3_t v1, const vec3_t v2, vec3_t cross)
 }
 #endif
 
-float Distance(const float* v1, const float* v2)
+float Distance(const Vector& v1, const Vector& v2)
 {
-	Vector d;
-	VectorSubtract(v2,v1,d);
-	return Length(d);
+	return ( v2 - v1 ).Length();
 }
 
 #ifndef DISABLE_VEC_FUNCS

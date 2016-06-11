@@ -296,7 +296,7 @@ int EV_HLDM_CheckTracer( int idx, float *vecSrc, float *end, float *forward, flo
 		}
 		else
 		{
-			VectorCopy( vecSrc, vecTracerSrc );
+			vecTracerSrc = vecSrc;
 		}
 		
 		if ( iTracerFreq != 1 )		// guns that always trace also always decal
@@ -670,8 +670,6 @@ void EV_FireMP52( event_args_t *args )
 {
 	const int idx = args->entindex;
 	Vector origin = args->origin;
-	
-	VectorCopy( args->origin, origin );
 
 	if ( EV_IsLocal( idx ) )
 	{

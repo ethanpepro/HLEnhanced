@@ -67,6 +67,7 @@ public:
 	//inline Vector(double X, double Y, double Z)		{ x = (float)X; y = (float)Y; z = (float)Z;	}
 	//inline Vector(int X, int Y, int Z)				{ x = (float)X; y = (float)Y; z = (float)Z;	}
 	inline Vector(const Vector& v)					{ x = v.x; y = v.y; z = v.z;				} 
+	//TODO: shouldn't support this. Decays into a pointer, collides with numbers - Solokiller
 	inline Vector(float rgfl[3])					{ x = rgfl[0]; y = rgfl[1]; z = rgfl[2];	}
 
 	// Operators
@@ -101,6 +102,18 @@ public:
 		return Vec2;
 	}
 	inline float Length2D(void) const					{ return sqrt(x*x + y*y); }
+
+	inline void Clear()
+	{
+		x = y = z = 0;
+	}
+
+	inline Vector& operator=( const float flScalar )
+	{
+		x = y = z = flScalar;
+
+		return *this;
+	}
 
 	// Members
 	vec_t x, y, z;

@@ -21,7 +21,7 @@
 
 // Some of these are HL/TFC specific?
 void EV_EjectBrass( float *origin, float *velocity, float rotation, int model, int soundtype );
-void EV_GetGunPosition( event_args_t *args, float *pos, float *origin );
+void EV_GetGunPosition( event_args_t *args, Vector& pos, const Vector& origin );
 void EV_GetDefaultShellInfo( event_args_t *args, 
 							 const Vector& origin, const Vector& velocity,
 							 Vector& ShellVelocity, Vector& ShellOrigin,
