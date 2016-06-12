@@ -1421,7 +1421,7 @@ void CHudSpectator::DrawOverviewLayer()
 	float screenaspect, xs, ys, xStep, yStep, x,y,z;
 	int ix,iy,i,xTiles,yTiles,frame;
 
-	qboolean	hasMapImage = m_MapSprite?TRUE:FALSE;
+	const bool	hasMapImage = m_MapSprite != nullptr;
 	model_t *   dummySprite = (struct model_s *)gEngfuncs.GetSpritePointer( m_hsprUnkownMap);
 
 	if ( hasMapImage)

@@ -562,7 +562,7 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 {
 	static wrect_t nullrc;
-	int fOnTarget = FALSE;
+	bool fOnTarget = false;
 
 	BEGIN_READ( pbuf, iSize );
 
@@ -573,7 +573,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 	// detect if we're also on target
 	if ( iState > 1 )
 	{
-		fOnTarget = TRUE;
+		fOnTarget = true;
 	}
 
 	if ( iId < 1 )
