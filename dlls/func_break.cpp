@@ -751,7 +751,7 @@ void CBreakable::Die( void )
 
 	if ( Explodable() )
 	{
-		ExplosionCreate( Center(), pev->angles, edict(), ExplosionMagnitude(), TRUE );
+		ExplosionCreate( Center(), pev->angles, edict(), ExplosionMagnitude(), true );
 	}
 }
 

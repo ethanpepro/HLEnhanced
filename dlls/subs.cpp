@@ -29,7 +29,7 @@
 
 extern CGraph WorldGraph;
 
-extern BOOL FEntIsVisible(entvars_t* pev, entvars_t* pevTarget);
+extern bool FEntIsVisible(entvars_t* pev, entvars_t* pevTarget);
 
 extern DLL_GLOBAL int g_iSkillLevel;
 
@@ -60,7 +60,7 @@ class CBaseDMStart : public CPointEntity
 {
 public:
 	void		KeyValue( KeyValueData *pkvd ) override;
-	bool		IsTriggered( CBaseEntity *pEntity ) const override;
+	bool		IsTriggered( const CBaseEntity* const pActivator ) const override;
 
 private:
 };
@@ -81,7 +81,7 @@ void CBaseDMStart::KeyValue( KeyValueData *pkvd )
 		CPointEntity::KeyValue( pkvd );
 }
 
-bool CBaseDMStart::IsTriggered( CBaseEntity *pEntity ) const
+bool CBaseDMStart::IsTriggered( const CBaseEntity* const pEntity ) const
 {
 	bool master = UTIL_IsMasterTriggered( pev->netname, pEntity );
 
@@ -541,11 +541,11 @@ FEntIsVisible
 returns TRUE if the passed entity is visible to caller, even if not infront ()
 =============
 */
-	BOOL
+bool
 FEntIsVisible(
 	entvars_t*		pev,
 	entvars_t*		pevTarget)
-	{
+{
 	Vector vecSpot1 = pev->origin + pev->view_ofs;
 	Vector vecSpot2 = pevTarget->origin + pevTarget->view_ofs;
 	TraceResult tr;
@@ -553,12 +553,12 @@ FEntIsVisible(
 	UTIL_TraceLine(vecSpot1, vecSpot2, ignore_monsters, ENT(pev), &tr);
 	
 	if (tr.fInOpen && tr.fInWater)
-		return FALSE;                   // sight line crossed contents
+		return false;                   // sight line crossed contents
 
 	if (tr.flFraction == 1)
-		return TRUE;
+		return true;
 
-	return FALSE;
-	}
+	return false;
+}
 
 

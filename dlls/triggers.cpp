@@ -35,7 +35,7 @@
 #define SF_TRIGGER_HURT_CLIENTONLYFIRE	16// trigger hurt will only fire its target if it is hurting a client
 #define SF_TRIGGER_HURT_CLIENTONLYTOUCH 32// only clients may touch this trigger.
 
-extern DLL_GLOBAL BOOL		g_fGameOver;
+extern DLL_GLOBAL bool		g_fGameOver;
 
 extern void SetMovedir(entvars_t* pev);
 extern Vector VecBModelOrigin( entvars_t* pevBModel );
@@ -1728,7 +1728,7 @@ void NextLevel( void )
 		pChange = GetClassPtr( (CChangeLevel *)VARS(pent));
 	
 	strcpy(st_szNextMap, pChange->m_szMapName);
-	g_fGameOver = TRUE;
+	g_fGameOver = true;
 	
 	if (pChange->pev->nextthink < gpGlobals->time)
 	{

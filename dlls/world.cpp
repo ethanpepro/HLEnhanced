@@ -450,7 +450,7 @@ void RestoreGlobalState( SAVERESTOREDATA *pSaveData )
 void ResetGlobalState( void )
 {
 	gGlobalState.ClearStates();
-	gInitHUD = TRUE;	// Init the HUD on a new game / load game
+	gInitHUD = true;	// Init the HUD on a new game / load game
 }
 
 // moved CWorld class definition to cbase.h
@@ -466,12 +466,12 @@ LINK_ENTITY_TO_CLASS( worldspawn, CWorld );
 #define SF_WORLD_TITLE		0x0002		// Display game title at startup
 #define SF_WORLD_FORCETEAM	0x0004		// Force teams
 
-extern DLL_GLOBAL BOOL		g_fGameOver;
+extern DLL_GLOBAL bool		g_fGameOver;
 float g_flWeaponCheat; 
 
 void CWorld :: Spawn( void )
 {
-	g_fGameOver = FALSE;
+	g_fGameOver = false;
 	Precache( );
 	g_flWeaponCheat = CVAR_GET_FLOAT( "sv_cheats" );  // Is the impulse 101 command allowed?
 }

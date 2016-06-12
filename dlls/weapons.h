@@ -440,7 +440,7 @@ class CWeaponBox : public CBaseEntity
 	void Spawn( void ) override;
 	void Touch( CBaseEntity *pOther ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
-	BOOL IsEmpty( void );
+	bool IsEmpty() const;
 	int  GiveAmmo( int iCount, char *szName, int iMax, int *pIndex = NULL );
 	void SetObjectCollisionBox( void ) override;
 
@@ -450,9 +450,9 @@ public:
 	int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
-	BOOL HasWeapon( CBasePlayerItem *pCheckItem );
-	BOOL PackWeapon( CBasePlayerItem *pWeapon );
-	BOOL PackAmmo( int iszName, int iCount );
+	bool HasWeapon( CBasePlayerItem *pCheckItem ) const;
+	bool PackWeapon( CBasePlayerItem *pWeapon );
+	bool PackAmmo( int iszName, int iCount );
 	
 	CBasePlayerItem	*m_rgpPlayerItems[MAX_ITEM_TYPES];// one slot for each 
 

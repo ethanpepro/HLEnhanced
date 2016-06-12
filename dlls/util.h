@@ -261,14 +261,14 @@ extern void			UTIL_TraceModel			(const Vector &vecStart, const Vector &vecEnd, i
 extern Vector		UTIL_GetAimVector		(edict_t* pent, float flSpeed);
 extern int			UTIL_PointContents		(const Vector &vec);
 
-extern bool			UTIL_IsMasterTriggered	(string_t sMaster, CBaseEntity *pActivator);
+extern bool			UTIL_IsMasterTriggered( string_t sMaster, const CBaseEntity* const pActivator );
 extern void			UTIL_BloodStream( const Vector &origin, const Vector &direction, int color, int amount );
 extern void			UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, int amount );
 extern Vector		UTIL_RandomBloodVector( void );
-extern BOOL			UTIL_ShouldShowBlood( int bloodColor );
+extern bool			UTIL_ShouldShowBlood( int bloodColor );
 extern void			UTIL_BloodDecalTrace( TraceResult *pTrace, int bloodColor );
 extern void			UTIL_DecalTrace( TraceResult *pTrace, int decalNumber );
-extern void			UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int decalNumber, BOOL bIsCustom );
+extern void			UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int decalNumber, const bool bIsCustom );
 extern void			UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber );
 extern void			UTIL_Sparks( const Vector &position );
 extern void			UTIL_Ricochet( const Vector &position, float scale );
@@ -281,7 +281,7 @@ extern float		UTIL_AngleDistance( float next, float cur );
 
 extern char			*UTIL_VarArgs( char *format, ... );
 extern void			UTIL_Remove( CBaseEntity *pEntity );
-extern BOOL			UTIL_IsValidEntity( edict_t *pent );
+extern bool			UTIL_IsValidEntity( edict_t *pent );
 extern bool			UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 );
 
 // Use for ease-in, ease-out style interpolation (accel/decel)
@@ -355,7 +355,7 @@ extern int BuildChangeList( LEVELLIST *pLevelList, int maxList );
 // How did I ever live without ASSERT?
 //
 #ifdef	DEBUG
-void DBG_AssertFunction(BOOL fExpr, const char* szExpr, const char* szFile, int szLine, const char* szMessage);
+void DBG_AssertFunction(const bool fExpr, const char* szExpr, const char* szFile, int szLine, const char* szMessage);
 #define ASSERT(f)		DBG_AssertFunction(f, #f, __FILE__, __LINE__, NULL)
 #define ASSERTSZ(f, sz)	DBG_AssertFunction(f, #f, __FILE__, __LINE__, sz)
 #else	// !DEBUG

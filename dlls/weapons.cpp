@@ -1378,12 +1378,12 @@ void CWeaponBox::Touch( CBaseEntity *pOther )
 //=========================================================
 // CWeaponBox - PackWeapon: Add this weapon to the box
 //=========================================================
-BOOL CWeaponBox::PackWeapon( CBasePlayerItem *pWeapon )
+bool CWeaponBox::PackWeapon( CBasePlayerItem *pWeapon )
 {
 	// is one of these weapons already packed in this box?
 	if ( HasWeapon( pWeapon ) )
 	{
-		return FALSE;// box can only hold one of each weapon type
+		return false;// box can only hold one of each weapon type
 	}
 
 	if ( pWeapon->m_pPlayer )
@@ -1391,7 +1391,7 @@ BOOL CWeaponBox::PackWeapon( CBasePlayerItem *pWeapon )
 		if ( !pWeapon->m_pPlayer->RemovePlayerItem( pWeapon ) )
 		{
 			// failed to unhook the weapon from the player!
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -1423,13 +1423,13 @@ BOOL CWeaponBox::PackWeapon( CBasePlayerItem *pWeapon )
 
 	//ALERT ( at_console, "packed %s\n", STRING(pWeapon->pev->classname) );
 
-	return TRUE;
+	return true;
 }
 
 //=========================================================
 // CWeaponBox - PackAmmo
 //=========================================================
-BOOL CWeaponBox::PackAmmo( int iszName, int iCount )
+bool CWeaponBox::PackAmmo( int iszName, int iCount )
 {
 	int iMaxCarry;
 
@@ -1437,7 +1437,7 @@ BOOL CWeaponBox::PackAmmo( int iszName, int iCount )
 	{
 		// error here
 		ALERT ( at_console, "NULL String in PackAmmo!\n" );
-		return FALSE;
+		return false;
 	}
 	
 	iMaxCarry = MaxAmmoCarry( iszName );
@@ -1446,10 +1446,10 @@ BOOL CWeaponBox::PackAmmo( int iszName, int iCount )
 	{
 		//ALERT ( at_console, "Packed %d rounds of %s\n", iCount, STRING(iszName) );
 		GiveAmmo( iCount, (char *)STRING( iszName ), iMaxCarry );
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -1494,7 +1494,7 @@ int CWeaponBox::GiveAmmo( int iCount, char *szName, int iMax, int *pIndex/* = NU
 // CWeaponBox::HasWeapon - is a weapon of this type already
 // packed in this box?
 //=========================================================
-BOOL CWeaponBox::HasWeapon( CBasePlayerItem *pCheckItem )
+bool CWeaponBox::HasWeapon( CBasePlayerItem *pCheckItem ) const
 {
 	CBasePlayerItem *pItem = m_rgpPlayerItems[pCheckItem->iItemSlot()];
 
@@ -1502,18 +1502,18 @@ BOOL CWeaponBox::HasWeapon( CBasePlayerItem *pCheckItem )
 	{
 		if (FClassnameIs( pItem->pev, STRING( pCheckItem->pev->classname) ))
 		{
-			return TRUE;
+			return true;
 		}
 		pItem = pItem->m_pNext;
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================
 // CWeaponBox::IsEmpty - is there anything in this box?
 //=========================================================
-BOOL CWeaponBox::IsEmpty( void )
+bool CWeaponBox::IsEmpty() const
 {
 	int i;
 
@@ -1521,7 +1521,7 @@ BOOL CWeaponBox::IsEmpty( void )
 	{
 		if ( m_rgpPlayerItems[ i ] )
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -1530,11 +1530,11 @@ BOOL CWeaponBox::IsEmpty( void )
 		if ( !FStringNull( m_rgiszAmmo[ i ] ) )
 		{
 			// still have a bit of this type of ammo
-			return FALSE;
+			return false;
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 //=========================================================

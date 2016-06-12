@@ -128,12 +128,15 @@ public:
 	edict_t *Get() const;
 	edict_t *Set( edict_t *pent );
 
-	operator int ();
+	operator CBaseEntity *();
 
-	operator CBaseEntity *() const;
+	operator const CBaseEntity*() const;
 
 	CBaseEntity * operator = (CBaseEntity *pEntity);
 	CBaseEntity * operator ->() const;
+
+	const CBaseEntity* GetEntity() const { return *this; }
+	CBaseEntity* GetEntity() { return *this; }
 };
 
 
@@ -177,7 +180,7 @@ public:
 	virtual void	Killed( entvars_t *pevAttacker, int iGib );
 	virtual int		BloodColor( void ) { return DONT_BLEED; }
 	virtual void	TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
-	virtual bool    IsTriggered( CBaseEntity *pActivator ) const { return true; }
+	virtual bool    IsTriggered( const CBaseEntity* const pActivator ) const { return true; }
 	virtual CBaseMonster *MyMonsterPointer( void ) { return NULL;}
 	virtual CSquadMonster *MySquadMonsterPointer( void ) { return NULL;}
 	virtual	int		GetToggleState( void ) { return TS_AT_TOP; }
@@ -434,7 +437,7 @@ public:
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	int	ObjectCaps( void ) override { return (CPointEntity::ObjectCaps() | FCAP_MASTER); }
-	bool IsTriggered( CBaseEntity *pActivator ) const override;
+	bool IsTriggered( const CBaseEntity* const pActivator ) const override;
 	void EXPORT Register( void );
 	virtual int		Save( CSave &save ) override;
 	virtual int		Restore( CRestore &restore ) override;

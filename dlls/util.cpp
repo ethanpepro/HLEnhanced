@@ -329,7 +329,7 @@ edict_t *DBG_EntOfVars( const entvars_t *pev )
 #ifdef	DEBUG
 	void
 DBG_AssertFunction(
-	BOOL		fExpr,
+	const bool	fExpr,
 	const char*	szExpr,
 	const char*	szFile,
 	int			szLine,
@@ -1095,7 +1095,7 @@ Vector UTIL_GetAimVector( edict_t *pent, float flSpeed )
 	return tmp;
 }
 
-bool UTIL_IsMasterTriggered(string_t sMaster, CBaseEntity *pActivator)
+bool UTIL_IsMasterTriggered( string_t sMaster, const CBaseEntity* const pActivator )
 {
 	if (sMaster)
 	{
@@ -1115,22 +1115,22 @@ bool UTIL_IsMasterTriggered(string_t sMaster, CBaseEntity *pActivator)
 	return true;
 }
 
-BOOL UTIL_ShouldShowBlood( int color )
+bool UTIL_ShouldShowBlood( int color )
 {
 	if ( color != DONT_BLEED )
 	{
 		if ( color == BLOOD_COLOR_RED )
 		{
 			if ( CVAR_GET_FLOAT("violence_hblood") != 0 )
-				return TRUE;
+				return true;
 		}
 		else
 		{
 			if ( CVAR_GET_FLOAT("violence_ablood") != 0 )
-				return TRUE;
+				return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 int UTIL_PointContents(	const Vector &vec )
@@ -1283,7 +1283,7 @@ Tell connected clients to display it, or use the default spray can decal
 if the custom can't be loaded.
 ==============
 */
-void UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int decalNumber, BOOL bIsCustom )
+void UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int decalNumber, const bool bIsCustom )
 {
 	int index;
 	
@@ -1563,11 +1563,11 @@ void UTIL_Remove( CBaseEntity *pEntity )
 }
 
 
-BOOL UTIL_IsValidEntity( edict_t *pent )
+bool UTIL_IsValidEntity( edict_t *pent )
 {
 	if ( !pent || pent->free || (pent->v.flags & FL_KILLME) )
-		return FALSE;
-	return TRUE;
+		return false;
+	return true;
 }
 
 

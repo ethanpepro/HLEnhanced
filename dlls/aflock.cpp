@@ -61,6 +61,7 @@ IMPLEMENT_SAVERESTORE( CFlockingFlyerFlock, CBaseMonster );
 
 //=========================================================
 //=========================================================
+//TODO: this entity has copy pasted squad monster code in it. Refactor - Solokiller
 class CFlockingFlyer : public CBaseMonster
 {
 public:
@@ -87,8 +88,8 @@ public:
 	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
-	int IsLeader( void ) { return m_pSquadLeader == this; }
-	int	InSquad( void ) { return m_pSquadLeader != NULL; }
+	bool IsLeader() const { return m_pSquadLeader == this; }
+	bool InSquad() const { return m_pSquadLeader != nullptr; }
 	int	SquadCount( void );
 	void SquadRemove( CFlockingFlyer *pRemove );
 	void SquadUnlink( void );

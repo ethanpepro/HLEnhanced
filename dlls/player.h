@@ -332,6 +332,6 @@ public:
 
 
 extern int	gmsgHudText;
-extern BOOL gInitHUD;
+extern bool gInitHUD;
 
 #endif // PLAYER_H

@@ -39,7 +39,7 @@
 
 Vector VecBModelOrigin( entvars_t* pevBModel );
 
-extern DLL_GLOBAL	BOOL	g_fDrawLines;
+extern DLL_GLOBAL	bool	g_fDrawLines;
 extern DLL_GLOBAL	short	g_sModelIndexLaser;// holds the index for the laser beam
 extern DLL_GLOBAL	short	g_sModelIndexLaserDot;// holds the index for the laser beam dot
 

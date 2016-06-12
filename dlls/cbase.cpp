@@ -455,11 +455,15 @@ edict_t * EHANDLE::Set( edict_t *pent )
 }
 
 
-EHANDLE :: operator CBaseEntity *() const
+EHANDLE :: operator CBaseEntity *()
 { 
 	return (CBaseEntity *)GET_PRIVATE( Get( ) ); 
 }
 
+EHANDLE::operator const CBaseEntity*() const
+{
+	return ( CBaseEntity * ) GET_PRIVATE( Get() );
+}
 
 CBaseEntity * EHANDLE :: operator = (CBaseEntity *pEntity)
 {
@@ -475,11 +479,6 @@ CBaseEntity * EHANDLE :: operator = (CBaseEntity *pEntity)
 		m_serialnumber = 0;
 	}
 	return pEntity;
-}
-
-EHANDLE :: operator int ()
-{
-	return Get() != NULL;
 }
 
 CBaseEntity * EHANDLE :: operator -> () const

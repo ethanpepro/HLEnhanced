@@ -42,13 +42,13 @@
 // #define DUCKFIX
 
 extern DLL_GLOBAL ULONG		g_ulModelIndexPlayer;
-extern DLL_GLOBAL BOOL		g_fGameOver;
-extern DLL_GLOBAL	BOOL	g_fDrawLines;
+extern DLL_GLOBAL bool		g_fGameOver;
+extern DLL_GLOBAL	bool	g_fDrawLines;
 int gEvilImpulse101;
 extern DLL_GLOBAL int		g_iSkillLevel, gDisplayTitle;
 
 
-BOOL gInitHUD = TRUE;
+bool gInitHUD = true;
 
 extern void CopyToBodyQue(entvars_t* pev);
 extern void respawn(entvars_t *pev, BOOL fCopyCorpse);
@@ -3953,7 +3953,7 @@ void CBasePlayer :: UpdateClientData( void )
 	if (m_fInitHUD)
 	{
 		m_fInitHUD = FALSE;
-		gInitHUD = FALSE;
+		gInitHUD = false;
 		
 		MESSAGE_BEGIN( MSG_ONE, gmsgResetHUD, NULL, pev );
 			WRITE_BYTE( 0 );
