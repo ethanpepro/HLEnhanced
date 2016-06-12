@@ -96,11 +96,11 @@ public:
 		//This used to cause it to return a vector that was 0, 0, 1 if Normalize was called. A 0 length vector is 0, 0, 0. - Solokiller
 		if( flLen == 0 ) return flLen;
 
-		flLen = 1 / flLen;
+		const float flInvertedLen = 1 / flLen;
 
-		x *= flLen;
-		y *= flLen;
-		z *= flLen;
+		x *= flInvertedLen;
+		y *= flInvertedLen;
+		z *= flInvertedLen;
 
 		return flLen;
 	}
