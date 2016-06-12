@@ -31,15 +31,15 @@
 class CFuncMortarField : public CBaseToggle
 {
 public:
-	void Spawn( void );
-	void Precache( void );
-	void KeyValue( KeyValueData *pkvd );
+	void Spawn( void ) override;
+	void Precache( void ) override;
+	void KeyValue( KeyValueData *pkvd ) override;
 
 	// Bmodels don't go across transitions
-	virtual int	ObjectCaps( void ) { return CBaseToggle :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps( void ) override { return CBaseToggle :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
-	virtual int	Save( CSave &save );
-	virtual int	Restore( CRestore &restore );
+	virtual int	Save( CSave &save ) override;
+	virtual int	Restore( CRestore &restore ) override;
 
 	static	TYPEDESCRIPTION m_SaveData[];
 
@@ -192,8 +192,8 @@ void CFuncMortarField :: FieldUse( CBaseEntity *pActivator, CBaseEntity *pCaller
 class CMortar : public CGrenade
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn( void ) override;
+	void Precache( void ) override;
 
 	void EXPORT MortarExplode( void );
 

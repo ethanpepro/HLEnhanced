@@ -37,13 +37,13 @@
 class CPathTrack : public CPointEntity
 {
 public:
-	void		Spawn( void );
-	void		Activate( void );
-	void		KeyValue( KeyValueData* pkvd);
+	void		Spawn( void ) override;
+	void		Activate( void ) override;
+	void		KeyValue( KeyValueData* pkvd) override;
 	
 	void		SetPrevious( CPathTrack *pprevious );
 	void		Link( void );
-	void		Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void		Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
 	CPathTrack	*ValidPath( CPathTrack *ppath, int testFlag );		// Returns ppath if enabled, NULL otherwise
 	void		Project( CPathTrack *pstart, CPathTrack *pend, Vector *origin, float dist );
@@ -56,8 +56,8 @@ public:
 	CPathTrack	*GetNext( void );
 	CPathTrack	*GetPrevious( void );
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	
 	static	TYPEDESCRIPTION m_SaveData[];
 #if PATH_SPARKLE_DEBUG
@@ -75,12 +75,12 @@ public:
 class CFuncTrackTrain : public CBaseEntity
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn( void ) override;
+	void Precache( void ) override;
 
-	void Blocked( CBaseEntity *pOther );
-	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void KeyValue( KeyValueData* pkvd );
+	void Blocked( CBaseEntity *pOther ) override;
+	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
+	void KeyValue( KeyValueData* pkvd ) override;
 
 	void EXPORT Next( void );
 	void EXPORT Find( void );
@@ -98,13 +98,13 @@ public:
 	
 	static CFuncTrackTrain *Instance( edict_t *pent );
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	
 	static	TYPEDESCRIPTION m_SaveData[];
-	virtual int	ObjectCaps( void ) { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DIRECTIONAL_USE; }
+	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DIRECTIONAL_USE; }
 
-	virtual void	OverrideReset( void );
+	virtual void	OverrideReset( void ) override;
 
 	CPathTrack	*m_ppath;
 	float		m_length;

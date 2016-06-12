@@ -46,16 +46,16 @@ enum SS_INTERRUPT
 class CCineMonster : public CBaseMonster
 {
 public:
-	void Spawn( void );
-	virtual void KeyValue( KeyValueData *pkvd );
-	virtual void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	virtual void Blocked( CBaseEntity *pOther );
-	virtual void Touch( CBaseEntity *pOther );
-	virtual int	 ObjectCaps( void ) { return (CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
-	virtual void Activate( void );
+	void Spawn( void ) override;
+	virtual void KeyValue( KeyValueData *pkvd ) override;
+	virtual void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
+	virtual void Blocked( CBaseEntity *pOther ) override;
+	virtual void Touch( CBaseEntity *pOther ) override;
+	virtual int	 ObjectCaps( void ) override { return (CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	virtual void Activate( void ) override;
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	
 	static	TYPEDESCRIPTION m_SaveData[];
 
@@ -97,10 +97,10 @@ public:
 
 class CCineAI : public CCineMonster
 {
-	BOOL StartSequence( CBaseMonster *pTarget, int iszSeq, BOOL completeOnEmpty );
-	void PossessEntity( void );
-	BOOL FCanOverrideState ( void );
-	virtual void FixScriptMonsterSchedule( CBaseMonster *pMonster );
+	BOOL StartSequence( CBaseMonster *pTarget, int iszSeq, BOOL completeOnEmpty ) override;
+	void PossessEntity( void ) override;
+	BOOL FCanOverrideState ( void ) override;
+	virtual void FixScriptMonsterSchedule( CBaseMonster *pMonster ) override;
 };
 
 

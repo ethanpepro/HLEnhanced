@@ -52,39 +52,39 @@ extern CGraph WorldGraph;
 class CIchthyosaur : public CFlyingMonster
 {
 public:
-	void  Spawn( void );
-	void  Precache( void );
-	void  SetYawSpeed( void );
-	int   Classify( void );
-	void  HandleAnimEvent( MonsterEvent_t *pEvent );
+	void  Spawn( void ) override;
+	void  Precache( void ) override;
+	void  SetYawSpeed( void ) override;
+	int   Classify( void ) override;
+	void  HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	CUSTOM_SCHEDULES;
 
-	int	Save( CSave &save ); 
-	int Restore( CRestore &restore );
+	int	Save( CSave &save ) override;
+	int Restore( CRestore &restore ) override;
 	static TYPEDESCRIPTION m_SaveData[];
 
-	Schedule_t *GetSchedule( void );
-	Schedule_t *GetScheduleOfType ( int Type );
+	Schedule_t *GetSchedule( void ) override;
+	Schedule_t *GetScheduleOfType ( int Type ) override;
 
-	void Killed( entvars_t *pevAttacker, int iGib );
-	void BecomeDead( void );
+	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void BecomeDead( void ) override;
 
 	void EXPORT CombatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void EXPORT BiteTouch( CBaseEntity *pOther );
 
-	void  StartTask( Task_t *pTask );
-	void  RunTask( Task_t *pTask );
+	void  StartTask( Task_t *pTask ) override;
+	void  RunTask( Task_t *pTask ) override;
 
-	BOOL  CheckMeleeAttack1 ( float flDot, float flDist );
-	BOOL  CheckRangeAttack1 ( float flDot, float flDist );
+	BOOL  CheckMeleeAttack1 ( float flDot, float flDist ) override;
+	BOOL  CheckRangeAttack1 ( float flDot, float flDist ) override;
 
-	float ChangeYaw( int speed );
-	Activity GetStoppedActivity( void );
+	float ChangeYaw( int speed ) override;
+	Activity GetStoppedActivity( void ) override;
 
-	void  Move( float flInterval );
-	void  MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval );
-	void  MonsterThink( void );
-	void  Stop( void );
+	void  Move( float flInterval ) override;
+	void  MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval ) override;
+	void  MonsterThink( void ) override;
+	void  Stop( void ) override;
 	void  Swim( void );
 	Vector DoProbe(const Vector &Probe);
 
@@ -115,12 +115,12 @@ public:
 	static const char *pDieSounds[];
 	static const char *pPainSounds[];
 
-	void IdleSound( void );
-	void AlertSound( void );
+	void IdleSound( void ) override;
+	void AlertSound( void ) override;
 	void AttackSound( void );
 	void BiteSound( void );
-	void DeathSound( void );
-	void PainSound( void );
+	void DeathSound( void ) override;
+	void PainSound( void ) override;
 };
 
 LINK_ENTITY_TO_CLASS( monster_ichthyosaur, CIchthyosaur );

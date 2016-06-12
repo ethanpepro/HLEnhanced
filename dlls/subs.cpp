@@ -45,7 +45,7 @@ void CPointEntity :: Spawn( void )
 class CNullEntity : public CBaseEntity
 {
 public:
-	void Spawn( void );
+	void Spawn( void ) override;
 };
 
 
@@ -59,7 +59,7 @@ LINK_ENTITY_TO_CLASS(info_null,CNullEntity);
 class CBaseDMStart : public CPointEntity
 {
 public:
-	void		KeyValue( KeyValueData *pkvd );
+	void		KeyValue( KeyValueData *pkvd ) override;
 	bool		IsTriggered( CBaseEntity *pEntity ) const override;
 
 private:

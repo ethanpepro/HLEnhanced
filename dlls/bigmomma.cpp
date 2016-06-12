@@ -33,8 +33,8 @@
 class CInfoBM : public CPointEntity
 {
 public:
-	void Spawn( void );
-	void KeyValue( KeyValueData* pkvd );
+	void Spawn( void ) override;
+	void KeyValue( KeyValueData* pkvd ) override;
 
 	// name in pev->targetname
 	// next in pev->target
@@ -44,8 +44,8 @@ public:
 	// Reach delay in pev->speed
 	// Reach sequence in pev->netname
 	
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	int		m_preSequence;
@@ -102,14 +102,14 @@ void CInfoBM::KeyValue( KeyValueData* pkvd )
 class CBMortar : public CBaseEntity
 {
 public:
-	void Spawn( void );
+	void Spawn( void ) override;
 
 	static CBMortar *Shoot( edict_t *pOwner, Vector vecStart, Vector vecVelocity );
-	void Touch( CBaseEntity *pOther );
+	void Touch( CBaseEntity *pOther ) override;
 	void EXPORT Animate( void );
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	int  m_maxFrame;
@@ -175,25 +175,25 @@ void MortarSpray( const Vector &position, const Vector &direction, int spriteMod
 class CBigMomma : public CBaseMonster
 {
 public:
-	void Spawn( void );
-	void Precache( void );
-	void KeyValue( KeyValueData *pkvd );
-	void Activate( void );
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType );
+	void Spawn( void ) override;
+	void Precache( void ) override;
+	void KeyValue( KeyValueData *pkvd ) override;
+	void Activate( void ) override;
+	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
 
-	void		RunTask( Task_t *pTask );
-	void		StartTask( Task_t *pTask );
-	Schedule_t	*GetSchedule( void );
-	Schedule_t	*GetScheduleOfType( int Type );
-	void		TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
+	void		RunTask( Task_t *pTask ) override;
+	void		StartTask( Task_t *pTask ) override;
+	Schedule_t	*GetSchedule( void ) override;
+	Schedule_t	*GetScheduleOfType( int Type ) override;
+	void		TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
 
 	void NodeStart( int iszNextNode );
 	void NodeReach( void );
 	BOOL ShouldGoToNode( void );
 
-	void SetYawSpeed( void );
-	int  Classify ( void );
-	void HandleAnimEvent( MonsterEvent_t *pEvent );
+	void SetYawSpeed( void ) override;
+	int  Classify ( void ) override;
+	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void LayHeadcrab( void );
 
 	int GetNodeSequence( void )
@@ -249,12 +249,12 @@ public:
 	}
 	
 	// Restart the crab count on each new level
-	void OverrideReset( void )
+	void OverrideReset( void ) override
 	{
 		m_crabCount = 0;
 	}
 
-	void DeathNotice( entvars_t *pevChild );
+	void DeathNotice( entvars_t *pevChild ) override;
 
 	BOOL CanLayCrab( void ) 
 	{ 
@@ -279,18 +279,18 @@ public:
 
 	void LaunchMortar( void );
 
-	void SetObjectCollisionBox( void )
+	void SetObjectCollisionBox( void ) override
 	{
 		pev->absmin = pev->origin + Vector( -95, -95, 0 );
 		pev->absmax = pev->origin + Vector( 95, 95, 190 );
 	}
 
-	BOOL CheckMeleeAttack1( float flDot, float flDist );	// Slash
-	BOOL CheckMeleeAttack2( float flDot, float flDist );	// Lay a crab
-	BOOL CheckRangeAttack1( float flDot, float flDist );	// Mortar launch
+	BOOL CheckMeleeAttack1( float flDot, float flDist ) override;	// Slash
+	BOOL CheckMeleeAttack2( float flDot, float flDist ) override;	// Lay a crab
+	BOOL CheckRangeAttack1( float flDot, float flDist ) override;	// Mortar launch
 
-	virtual int	Save( CSave &save );
-	virtual int	Restore( CRestore &restore );
+	virtual int	Save( CSave &save ) override;
+	virtual int	Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	static const char *pChildDieSounds[];

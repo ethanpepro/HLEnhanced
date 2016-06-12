@@ -37,6 +37,8 @@
 #include "pm_shared.h"
 #include "hltv.h"
 
+//TODO: move classes out of this file - Solokiller
+
 // #define DUCKFIX
 
 extern DLL_GLOBAL ULONG		g_ulModelIndexPlayer;
@@ -3229,9 +3231,9 @@ class CSprayCan : public CBaseEntity
 {
 public:
 	void	Spawn ( entvars_t *pevOwner );
-	void	Think( void );
+	void	Think( void ) override;
 
-	virtual int	ObjectCaps( void ) { return FCAP_DONT_SAVE; }
+	virtual int	ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
 };
 
 void CSprayCan::Spawn ( entvars_t *pevOwner )
@@ -4671,8 +4673,8 @@ BOOL CBasePlayer :: SwitchWeapon( CBasePlayerItem *pWeapon )
 class CDeadHEV : public CBaseMonster
 {
 public:
-	void Spawn( void );
-	int	Classify ( void ) { return	CLASS_HUMAN_MILITARY; }
+	void Spawn( void ) override;
+	int	Classify ( void ) override { return	CLASS_HUMAN_MILITARY; }
 
 	void KeyValue( KeyValueData *pkvd );
 
@@ -4728,7 +4730,7 @@ void CDeadHEV :: Spawn( void )
 class CStripWeapons : public CPointEntity
 {
 public:
-	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
 private:
 };
@@ -4756,13 +4758,13 @@ void CStripWeapons :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 class CRevertSaved : public CPointEntity
 {
 public:
-	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void	EXPORT MessageThink( void );
 	void	EXPORT LoadThink( void );
-	void	KeyValue( KeyValueData *pkvd );
+	void	KeyValue( KeyValueData *pkvd ) override;
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	inline	float	Duration( void ) { return pev->dmg_take; }
@@ -4852,8 +4854,8 @@ void CRevertSaved :: LoadThink( void )
 //=========================================================
 class CInfoIntermission:public CPointEntity
 {
-	void Spawn( void );
-	void Think( void );
+	void Spawn( void ) override;
+	void Think( void ) override;
 };
 
 void CInfoIntermission::Spawn( void )

@@ -28,24 +28,24 @@
 class CNihilanth : public CBaseMonster
 {
 public:
-	int		Save( CSave &save );
-	int		Restore( CRestore &restore );
+	int		Save( CSave &save ) override;
+	int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
-	void Spawn( void );
-	void Precache( void );
-	int  Classify( void ) { return CLASS_ALIEN_MILITARY; };
-	int  BloodColor( void ) { return BLOOD_COLOR_YELLOW; }
-	void Killed( entvars_t *pevAttacker, int iGib );
-	void GibMonster( void );
+	void Spawn( void ) override;
+	void Precache( void ) override;
+	int  Classify( void ) override { return CLASS_ALIEN_MILITARY; };
+	int  BloodColor( void ) override { return BLOOD_COLOR_YELLOW; }
+	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void GibMonster( void ) override;
 
-	void SetObjectCollisionBox( void )
+	void SetObjectCollisionBox( void ) override
 	{
 		pev->absmin = pev->origin + Vector( -16 * N_SCALE, -16 * N_SCALE, -48 * N_SCALE );
 		pev->absmax = pev->origin + Vector( 16 * N_SCALE, 16 * N_SCALE, 28 * N_SCALE );
 	}
 
-	void HandleAnimEvent( MonsterEvent_t *pEvent );
+	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 
 	void EXPORT StartupThink( void );
 	void EXPORT HuntThink( void );
@@ -63,15 +63,16 @@ public:
 	BOOL AbsorbSphere( void );
 	BOOL EmitSphere( void );
 	void TargetSphere( USE_TYPE useType, float value );
+	//TODO: refactor out of class - Solokiller
 	CBaseEntity *RandomTargetname( const char *szName );
 	void ShootBalls( void );
 	void MakeFriend( Vector vecPos );
 	
-	int  TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType);
+	int  TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
 
-	void PainSound( void );
-	void DeathSound( void );
+	void PainSound( void ) override;
+	void DeathSound( void ) override;
 
 	static const char *pAttackSounds[];	// vocalization: play sometimes when he launches an attack
 	static const char *pBallSounds[];	// the sound of the lightening ball launch
@@ -172,12 +173,12 @@ IMPLEMENT_SAVERESTORE( CNihilanth, CBaseMonster );
 class CNihilanthHVR : public CBaseMonster
 {
 public:
-	int		Save( CSave &save );
-	int		Restore( CRestore &restore );
+	int		Save( CSave &save ) override;
+	int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
-	void Spawn( void );
-	void Precache( void );
+	void Spawn( void ) override;
+	void Precache( void ) override;
 
 	void CircleInit( CBaseEntity *pTarget );
 	void AbsorbInit( void );
@@ -197,6 +198,7 @@ public:
 	void EXPORT BounceTouch( CBaseEntity *pOther );
 	void EXPORT ZapTouch( CBaseEntity *pOther );
 
+	//TODO: refactor out of class - Solokiller
 	CBaseEntity *RandomClassname( const char *szName );
 
 	// void EXPORT SphereUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );

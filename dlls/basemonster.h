@@ -108,12 +108,12 @@ public:
 	SCRIPTSTATE			m_scriptState;		// internal cinematic state
 	CCineMonster		*m_pCine;
 
-	virtual int		Save( CSave &save ); 
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	
 	static	TYPEDESCRIPTION m_SaveData[];
 
-	void KeyValue( KeyValueData *pkvd );
+	void KeyValue( KeyValueData *pkvd ) override;
 
 // monster use function
 	void EXPORT			MonsterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
@@ -121,9 +121,9 @@ public:
 
 // overrideable Monster member functions
 	
-	virtual int	 BloodColor( void ) { return m_bloodColor; }
+	virtual int	 BloodColor( void ) override { return m_bloodColor; }
 
-	virtual CBaseMonster *MyMonsterPointer( void ) { return this; }
+	virtual CBaseMonster *MyMonsterPointer( void ) override { return this; }
 	virtual void Look ( int iDistance );// basic sight function for monsters
 	virtual void RunAI ( void );// core ai function!	
 	void Listen ( void );
@@ -152,7 +152,7 @@ public:
 		virtual CBaseEntity* BestVisibleEnemy ( void );// finds best visible enemy for attack
 		virtual BOOL FInViewCone ( CBaseEntity *pEntity );// see if pEntity is in monster's view cone
 		virtual BOOL FInViewCone ( Vector *pOrigin );// see if given location is in monster's view cone
-		virtual void HandleAnimEvent( MonsterEvent_t *pEvent );
+		virtual void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 
 		virtual int CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist );// check validity of a straight move through space
 		virtual void Move( float flInterval = 0.1 );
@@ -301,12 +301,12 @@ public:
 	virtual void	FadeMonster( void );	// Called instead of GibMonster() when gibs are disabled
 
 	Vector ShootAtEnemy( const Vector &shootOrigin );
-	virtual Vector BodyTarget( const Vector &posSrc ) { return Center( ) * 0.75 + EyePosition() * 0.25; };		// position to shoot at
+	virtual Vector BodyTarget( const Vector &posSrc ) override { return Center( ) * 0.75 + EyePosition() * 0.25; };		// position to shoot at
 
 	virtual	Vector  GetGunPosition( void );
 
-	virtual int TakeHealth( float flHealth, int bitsDamageType );
-	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType);
+	virtual int TakeHealth( float flHealth, int bitsDamageType ) override;
+	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
 	int			DeadTakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType );
 
 	void RadiusDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int iClassIgnore, int bitsDamageType );

@@ -31,6 +31,7 @@ globalvars_t  *gpGlobals;
 
 #undef DLLEXPORT
 #ifdef _WIN32
+//The one function in Half-Life 1 that uses stdcall. Be aware of this. - Solokiller
 #define DLLEXPORT __stdcall
 #else
 #define DLLEXPORT __attribute__ ((visibility("default")))

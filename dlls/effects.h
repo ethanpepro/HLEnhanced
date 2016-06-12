@@ -33,10 +33,10 @@
 class CSprite : public CPointEntity
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn( void ) override;
+	void Precache( void ) override;
 
-	int		ObjectCaps( void )
+	int		ObjectCaps( void ) override
 	{ 
 		int flags = 0;
 		if ( pev->spawnflags & SF_SPRITE_TEMPORARY )
@@ -45,7 +45,7 @@ public:
 	}
 	void EXPORT AnimateThink( void );
 	void EXPORT ExpandThink( void );
-	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void Animate( float frames );
 	void Expand( float scaleSpeed, float fadeSpeed );
 	void SpriteInit( const char *pSpriteName, const Vector &origin );
@@ -87,8 +87,8 @@ public:
 
 	void EXPORT AnimateUntilDead( void );
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 	static CSprite *SpriteCreate( const char *pSpriteName, const Vector &origin, BOOL animate );
 
@@ -102,9 +102,9 @@ private:
 class CBeam : public CBaseEntity
 {
 public:
-	void	Spawn( void );
-	void	Precache( void );
-	int		ObjectCaps( void )
+	void	Spawn( void ) override;
+	void	Precache( void ) override;
+	int		ObjectCaps( void ) override
 	{ 
 		int flags = 0;
 		if ( pev->spawnflags & SF_BEAM_TEMPORARY )
@@ -142,7 +142,7 @@ public:
 	const Vector &GetStartPos( void );
 	const Vector &GetEndPos( void );
 
-	Vector Center( void ) { return (GetStartPos() + GetEndPos()) * 0.5; }; // center point of beam
+	Vector Center( void ) override { return (GetStartPos() + GetEndPos()) * 0.5; }; // center point of beam
 
 	inline int  GetTexture( void ) { return pev->modelindex; }
 	inline int  GetWidth( void ) { return pev->scale; }
@@ -157,6 +157,7 @@ public:
 //	void		SetObjectCollisionBox( void );
 
 	void		DoSparks( const Vector &start, const Vector &end );
+	//TODO: refactor out of the class - Solokliler
 	CBaseEntity *RandomTargetname( const char *szName );
 	void		BeamDamage( TraceResult *ptr );
 	// Init after BeamCreate()
@@ -185,9 +186,9 @@ public:
 class CLaser : public CBeam
 {
 public:
-	void	Spawn( void );
-	void	Precache( void );
-	void	KeyValue( KeyValueData *pkvd );
+	void	Spawn( void ) override;
+	void	Precache( void ) override;
+	void	KeyValue( KeyValueData *pkvd ) override;
 
 	void	TurnOn( void );
 	void	TurnOff( void );
@@ -196,9 +197,9 @@ public:
 	void	FireAtPoint( TraceResult &point );
 
 	void	EXPORT StrikeThink( void );
-	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	CSprite	*m_pSprite;

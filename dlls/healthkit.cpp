@@ -26,13 +26,13 @@ extern int gmsgItemPickup;
 
 class CHealthKit : public CItem
 {
-	void Spawn( void );
-	void Precache( void );
-	BOOL MyTouch( CBasePlayer *pPlayer );
+	void Spawn( void ) override;
+	void Precache( void ) override;
+	BOOL MyTouch( CBasePlayer *pPlayer ) override;
 
 /*
-	virtual int		Save( CSave &save ); 
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override; 
+	virtual int		Restore( CRestore &restore ) override;
 	
 	static	TYPEDESCRIPTION m_SaveData[];
 */
@@ -104,15 +104,15 @@ BOOL CHealthKit::MyTouch( CBasePlayer *pPlayer )
 class CWallHealth : public CBaseToggle
 {
 public:
-	void Spawn( );
-	void Precache( void );
+	void Spawn( ) override;
+	void Precache( void ) override;
 	void EXPORT Off(void);
 	void EXPORT Recharge(void);
-	void KeyValue( KeyValueData *pkvd );
-	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	virtual int	ObjectCaps( void ) { return (CBaseToggle :: ObjectCaps() | FCAP_CONTINUOUS_USE) & ~FCAP_ACROSS_TRANSITION; }
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	void KeyValue( KeyValueData *pkvd ) override;
+	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
+	virtual int	ObjectCaps( void ) override { return (CBaseToggle :: ObjectCaps() | FCAP_CONTINUOUS_USE) & ~FCAP_ACROSS_TRANSITION; }
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 
 	static	TYPEDESCRIPTION m_SaveData[];
 

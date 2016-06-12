@@ -72,12 +72,12 @@
 class CLeech : public CBaseMonster
 {
 public:
-	void Spawn( void );
-	void Precache( void );
+	void Spawn( void ) override;
+	void Precache( void ) override;
 
 	void EXPORT SwimThink( void );
 	void EXPORT DeadThink( void );
-	void Touch( CBaseEntity *pOther )
+	void Touch( CBaseEntity *pOther ) override
 	{
 		if ( pOther->IsPlayer() )
 		{
@@ -90,14 +90,14 @@ public:
 		}
 	}
 
-	void SetObjectCollisionBox( void )
+	void SetObjectCollisionBox( void ) override
 	{
 		pev->absmin = pev->origin + Vector(-8,-8,0);
 		pev->absmax = pev->origin + Vector(8,8,2);
 	}
 
 	void AttackSound( void );
-	void AlertSound( void );
+	void AlertSound( void ) override;
 	void UpdateMotion( void );
 	float ObstacleDistance( CBaseEntity *pTarget );
 	void MakeVectors( void );
@@ -105,16 +105,16 @@ public:
 	void SwitchLeechState( void );
 	
 	// Base entity functions
-	void HandleAnimEvent( MonsterEvent_t *pEvent );
-	int	BloodColor( void ) { return DONT_BLEED; }
-	void Killed( entvars_t *pevAttacker, int iGib );
-	void Activate( void );
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType );
-	int	Classify( void ) { return CLASS_INSECT; }
-	int IRelationship( CBaseEntity *pTarget );
+	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	int	BloodColor( void ) override { return DONT_BLEED; }
+	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Activate( void ) override;
+	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	int	Classify( void ) override { return CLASS_INSECT; }
+	int IRelationship( CBaseEntity *pTarget ) override;
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	static const char *pAttackSounds[];

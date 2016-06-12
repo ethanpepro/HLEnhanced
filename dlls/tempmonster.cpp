@@ -15,6 +15,7 @@
 //=========================================================
 // monster template
 //=========================================================
+//TODO: this shouldn't be in the codebase. Move it somewhere else - Solokiller
 #if 0
 
 #include	"extdll.h"
@@ -30,11 +31,11 @@
 class CMyMonster : public CBaseMonster
 {
 public:
-	void Spawn( void );
-	void Precache( void );
-	void SetYawSpeed( void );
-	int  Classify ( void );
-	void HandleAnimEvent( MonsterEvent_t *pEvent );
+	void Spawn( void ) override;
+	void Precache( void ) override;
+	void SetYawSpeed( void ) override;
+	int  Classify ( void ) override;
+	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 };
 LINK_ENTITY_TO_CLASS( my_monster, CMyMonster );
 

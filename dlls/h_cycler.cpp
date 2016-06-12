@@ -36,18 +36,18 @@ class CCycler : public CBaseMonster
 {
 public:
 	void GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax);
-	virtual int	ObjectCaps( void ) { return (CBaseEntity :: ObjectCaps() | FCAP_IMPULSE_USE); }
-	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
-	void Spawn( void );
-	void Think( void );
+	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() | FCAP_IMPULSE_USE); }
+	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	void Spawn( void ) override;
+	void Think( void ) override;
 	//void Pain( float flDamage );
-	void Use ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void Use ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
 	// Don't treat as a live target
 	virtual bool IsAlive() const override { return false; }
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	int			m_animate;
@@ -67,7 +67,7 @@ IMPLEMENT_SAVERESTORE( CCycler, CBaseMonster );
 class CGenericCycler : public CCycler
 {
 public:
-	void Spawn( void ) { GenericCyclerSpawn( (char *)STRING(pev->model), Vector(-16, -16, 0), Vector(16, 16, 72) ); }
+	void Spawn( void ) override { GenericCyclerSpawn( (char *)STRING(pev->model), Vector(-16, -16, 0), Vector(16, 16, 72) ); }
 };
 LINK_ENTITY_TO_CLASS( cycler, CGenericCycler );
 
@@ -77,10 +77,11 @@ LINK_ENTITY_TO_CLASS( cycler, CGenericCycler );
 //
 // PROBE DROID
 //
+//TODO: model doesn't exist, remove this. - Solokiller
 class CCyclerProbe : public CCycler
 {
 public:	
-	void Spawn( void );
+	void Spawn( void ) override;
 };
 LINK_ENTITY_TO_CLASS( cycler_prdroid, CCyclerProbe );
 void CCyclerProbe :: Spawn( void )
@@ -214,19 +215,19 @@ int CCycler :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, floa
 
 #endif
 
-
+//TODO: not in the default fgd. Find a newer one or add it - Solokiller
 class CCyclerSprite : public CBaseEntity
 {
 public:
-	void Spawn( void );
-	void Think( void );
-	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	virtual int	ObjectCaps( void ) { return (CBaseEntity :: ObjectCaps() | FCAP_DONT_SAVE | FCAP_IMPULSE_USE); }
-	virtual int	TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
+	void Spawn( void ) override;
+	void Think( void ) override;
+	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
+	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() | FCAP_DONT_SAVE | FCAP_IMPULSE_USE); }
+	virtual int	TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
 	void	Animate( float frames );
 
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual int		Save( CSave &save ) override;
+	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	inline int		ShouldAnimate( void ) { return m_animate && m_maxFrame > 1.0; }
@@ -308,14 +309,14 @@ void CCyclerSprite::Animate( float frames )
 class CWeaponCycler : public CBasePlayerWeapon
 {
 public:
-	void Spawn( void );
-	int iItemSlot( void ) { return 1; }
-	int GetItemInfo(ItemInfo *p) {return 0; }
+	void Spawn( void ) override;
+	int iItemSlot( void ) override { return 1; }
+	int GetItemInfo(ItemInfo *p) override {return 0; }
 
-	void PrimaryAttack( void );
-	void SecondaryAttack( void );
-	BOOL Deploy( void );
-	void Holster( int skiplocal = 0 );
+	void PrimaryAttack( void ) override;
+	void SecondaryAttack( void ) override;
+	BOOL Deploy( void ) override;
+	void Holster( int skiplocal = 0 ) override;
 	int m_iszModel;
 	int m_iModel;
 };
@@ -390,13 +391,13 @@ void CWeaponCycler::SecondaryAttack( void )
 // Flaming Wreakage
 class CWreckage : public CBaseMonster
 {
-	int		Save( CSave &save );
-	int		Restore( CRestore &restore );
+	int		Save( CSave &save ) override;
+	int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
-	void Spawn( void );
-	void Precache( void );
-	void Think( void );
+	void Spawn( void ) override;
+	void Precache( void ) override;
+	void Think( void ) override;
 
 	int m_flStartTime;
 };

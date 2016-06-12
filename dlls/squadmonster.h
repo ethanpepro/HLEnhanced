@@ -66,11 +66,11 @@ public:
 	// squad member info
 	int		m_iMySlot;// this is the behaviour slot that the monster currently holds in the squad. 
 
-	int  CheckEnemy ( CBaseEntity *pEnemy );
-	void StartMonster ( void );
+	int  CheckEnemy ( CBaseEntity *pEnemy ) override;
+	void StartMonster ( void ) override;
 	void VacateSlot( void );
-	void ScheduleChange( void );
-	void Killed( entvars_t *pevAttacker, int iGib );
+	void ScheduleChange( void ) override;
+	void Killed( entvars_t *pevAttacker, int iGib ) override;
 	BOOL OccupySlot( int iDesiredSlot );
 	BOOL NoFriendlyFire( void );
 
@@ -105,16 +105,16 @@ public:
 	BOOL SquadEnemySplit ( void );
 	BOOL SquadMemberInRange( const Vector &vecLocation, float flDist );
 
-	virtual CSquadMonster *MySquadMonsterPointer( void ) { return this; }
+	virtual CSquadMonster *MySquadMonsterPointer( void ) override { return this; }
 
 	static TYPEDESCRIPTION m_SaveData[];
 
-	int	Save( CSave &save ); 
-	int Restore( CRestore &restore );
+	int	Save( CSave &save ) override;
+	int Restore( CRestore &restore ) override;
 
-	BOOL FValidateCover ( const Vector &vecCoverLocation );
+	BOOL FValidateCover ( const Vector &vecCoverLocation ) override;
 
-	MONSTERSTATE GetIdealState ( void );
-	Schedule_t	*GetScheduleOfType ( int iType );
+	MONSTERSTATE GetIdealState ( void ) override;
+	Schedule_t	*GetScheduleOfType ( int iType ) override;
 };
 

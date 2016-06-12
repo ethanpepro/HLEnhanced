@@ -42,9 +42,9 @@ enum satchel_radio_e {
 
 class CSatchelCharge : public CGrenade
 {
-	void Spawn( void );
-	void Precache( void );
-	void BounceSound( void );
+	void Spawn( void ) override;
+	void Precache( void ) override;
+	void BounceSound( void ) override;
 
 	void EXPORT SatchelSlide( CBaseEntity *pOther );
 	void EXPORT SatchelThink( void );
