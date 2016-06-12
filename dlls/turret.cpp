@@ -499,7 +499,7 @@ void CBaseTurret::ActiveThink(void)
 	Vector vecMidEnemy = m_hEnemy->BodyTarget( vecMid );
 
 	// Look for our current enemy
-	int fEnemyVisible = FBoxVisible(pev, m_hEnemy->pev, vecMidEnemy );	
+	bool fEnemyVisible = FBoxVisible(pev, m_hEnemy->pev, vecMidEnemy );	
 
 	vecDirToEnemy = vecMidEnemy - vecMid;	// calculate dir and dist to enemy
 	float flDistToEnemy = vecDirToEnemy.Length();
@@ -522,7 +522,7 @@ void CBaseTurret::ActiveThink(void)
 				return;
 			}
 		}
-		fEnemyVisible = 0;
+		fEnemyVisible = false;
 	}
 	else
 	{

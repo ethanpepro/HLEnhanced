@@ -405,7 +405,7 @@ void CFuncPlat :: PlatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	if ( IsTogglePlat() )
 	{
 		// Top is off, bottom is on
-		BOOL on = (m_toggle_state == TS_AT_BOTTOM) ? TRUE : FALSE;
+		const bool on = m_toggle_state == TS_AT_BOTTOM;
 
 		if ( !ShouldToggle( useType, on ) )
 			return;

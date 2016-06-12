@@ -189,7 +189,7 @@ public:
 
 	void NodeStart( int iszNextNode );
 	void NodeReach( void );
-	BOOL ShouldGoToNode( void );
+	bool ShouldGoToNode() const;
 
 	void SetYawSpeed( void ) override;
 	int  Classify ( void ) override;
@@ -256,7 +256,7 @@ public:
 
 	void DeathNotice( entvars_t *pevChild ) override;
 
-	BOOL CanLayCrab( void ) 
+	bool CanLayCrab() const
 	{ 
 		if ( m_crabTime < gpGlobals->time && m_crabCount < BIG_MAXCHILDREN )
 		{
@@ -269,12 +269,12 @@ public:
 			for ( int i = 0; i < count; i++ )
 			{
 				if ( pList[i] != this )	// Don't hurt yourself!
-					return FALSE;
+					return false;
 			}
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	void LaunchMortar( void );
@@ -895,14 +895,14 @@ Schedule_t *CBigMomma::GetScheduleOfType( int Type )
 }
 
 
-BOOL CBigMomma::ShouldGoToNode( void )
+bool CBigMomma::ShouldGoToNode() const
 {
 	if ( HasMemory( bits_MEMORY_ADVANCE_NODE ) )
 	{
 		if ( m_nodeTime < gpGlobals->time )
-			return TRUE;
+			return true;
 	}
-	return FALSE;
+	return false;
 }
 
 

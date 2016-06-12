@@ -45,12 +45,12 @@ DLL_GLOBAL	bool	g_fDrawLines = false;
 //
 // !!!UNDONE - make this CBaseMonster?
 //=========================================================
-BOOL FBoxVisible ( entvars_t *pevLooker, entvars_t *pevTarget, Vector &vecTargetOrigin, float flSize )
+bool FBoxVisible( entvars_t *pevLooker, entvars_t *pevTarget, Vector &vecTargetOrigin, float flSize )
 {
 	// don't look through water
 	if ((pevLooker->waterlevel != 3 && pevTarget->waterlevel == 3) 
 		|| (pevLooker->waterlevel == 3 && pevTarget->waterlevel == 0))
-		return FALSE;
+		return false;
 
 	TraceResult tr;
 	Vector	vecLookerOrigin = pevLooker->origin + pevLooker->view_ofs;//look through the monster's 'eyes'
@@ -66,10 +66,10 @@ BOOL FBoxVisible ( entvars_t *pevLooker, entvars_t *pevTarget, Vector &vecTarget
 		if (tr.flFraction == 1.0)
 		{
 			vecTargetOrigin = vecTarget;
-			return TRUE;// line of sight is valid.
+			return true;// line of sight is valid.
 		}
 	}
-	return FALSE;// Line of sight is not established
+	return false;// Line of sight is not established
 }
 
 //

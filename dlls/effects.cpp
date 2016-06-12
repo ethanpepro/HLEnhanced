@@ -384,11 +384,11 @@ public:
 	void	EXPORT StrikeUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void	EXPORT ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	
-	inline BOOL ServerSide( void )
+	inline bool ServerSide() const
 	{
 		if ( m_life == 0 && !(pev->spawnflags & SF_BEAM_RING) )
-			return TRUE;
-		return FALSE;
+			return true;
+		return false;
 	}
 
 	virtual int		Save( CSave &save ) override;

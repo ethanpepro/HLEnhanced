@@ -910,43 +910,43 @@ void CTalkMonster :: IdleRespond( void )
 	PlaySentence( m_szGrp[TLK_ANSWER], RANDOM_FLOAT(2.8, 3.2), VOL_NORM, ATTN_IDLE );
 }
 
-int CTalkMonster :: FOkToSpeak( void )
+bool CTalkMonster::FOkToSpeak() const
 {
 	// if in the grip of a barnacle, don't speak
 	if ( m_MonsterState == MONSTERSTATE_PRONE || m_IdealMonsterState == MONSTERSTATE_PRONE )
 	{
-		return FALSE;
+		return false;
 	}
 
 	// if not alive, certainly don't speak
 	if ( pev->deadflag != DEAD_NO )
 	{
-		return FALSE;
+		return false;
 	}
 
 	// if someone else is talking, don't speak
 	if (gpGlobals->time <= CTalkMonster::g_talkWaitTime)
-		return FALSE;
+		return false;
 
 	if ( pev->spawnflags & SF_MONSTER_GAG )
 		return FALSE;
 
 	if ( m_MonsterState == MONSTERSTATE_PRONE )
-		return FALSE;
+		return false;
 
 	// if player is not in pvs, don't speak
 	if (!IsAlive() || FNullEnt(FIND_CLIENT_IN_PVS(edict())))
-		return FALSE;
+		return false;
 
 	// don't talk if you're in combat
 	if (m_hEnemy != NULL && FVisible( m_hEnemy ))
-		return FALSE;
+		return false;
 
-	return TRUE;
+	return true;
 }
 
 
-int CTalkMonster::CanPlaySentence( BOOL fDisregardState ) 
+bool CTalkMonster::CanPlaySentence( const bool fDisregardState ) const
 { 
 	if ( fDisregardState )
 		return CBaseMonster::CanPlaySentence( fDisregardState );
@@ -1136,7 +1136,7 @@ int CTalkMonster :: FIdleSpeak ( void )
 	return FALSE;
 }
 
-void CTalkMonster::PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, BOOL bConcurrent, CBaseEntity *pListener )
+void CTalkMonster::PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener )
 {
 	if ( !bConcurrent )
 		ShutUpFriends();

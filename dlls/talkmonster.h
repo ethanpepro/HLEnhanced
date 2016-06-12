@@ -109,9 +109,9 @@ public:
 	void			Touch(	CBaseEntity *pOther ) override;
 	void			Killed( entvars_t *pevAttacker, int iGib ) override;
 	int				IRelationship ( CBaseEntity *pTarget ) override;
-	virtual int		CanPlaySentence( BOOL fDisregardState ) override;
+	virtual bool	CanPlaySentence( const bool fDisregardState ) const override;
 	virtual void	PlaySentence( const char *pszSentence, float duration, float volume, float attenuation ) override;
-	void			PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, BOOL bConcurrent, CBaseEntity *pListener ) override;
+	void			PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener ) override;
 	void			KeyValue( KeyValueData *pkvd ) override;
 
 	// AI functions
@@ -130,7 +130,7 @@ public:
 	int				FIdleStare( void );
 	int				FIdleHello( void );
 	void			IdleHeadTurn( Vector &vecFriend );
-	int				FOkToSpeak( void );
+	bool			FOkToSpeak() const;
 	void			TrySmellTalk( void );
 	CBaseEntity		*EnumFriends( CBaseEntity *pentPrevious, int listNumber, BOOL bTrace );
 	void			AlertFriends( void );

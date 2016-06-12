@@ -235,7 +235,7 @@ public:
 	void FlameUpdate( void );
 	void FlameControls( float angleX, float angleY );
 	void FlameDestroy( void );
-	inline BOOL FlameIsOn( void ) { return m_pFlame[0] != NULL; }
+	inline bool FlameIsOn() const { return m_pFlame[0] != nullptr; }
 
 	void FlameDamage( Vector vecStart, Vector vecEnd, entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int iClassIgnore, int bitsDamageType );
 
@@ -555,7 +555,7 @@ void CGargantua :: FlameUpdate( void )
 	static float	offset[2] = { 60, -60 };
 	TraceResult		trace;
 	Vector			vecStart, angleGun;
-	BOOL			streaks = FALSE;
+	bool			streaks = false;
 
 	for ( i = 0; i < 2; i++ )
 	{
@@ -578,7 +578,7 @@ void CGargantua :: FlameUpdate( void )
 			if ( trace.flFraction != 1.0 && gpGlobals->time > m_streakTime )
 			{
 				StreakSplash( trace.vecEndPos, trace.vecPlaneNormal, 6, 20, 50, 400 );
-				streaks = TRUE;
+				streaks = true;
 				UTIL_DecalTrace( &trace, DECAL_SMALLSCORCH1 + RANDOM_LONG(0,2) );
 			}
 			// RadiusDamage( trace.vecEndPos, pev, pev, gSkillData.gargantuaDmgFire, CLASS_ALIEN_MONSTER, DMG_BURN );
@@ -1199,7 +1199,7 @@ void CGargantua::RunTask( Task_t *pTask )
 		}
 		else
 		{
-			BOOL cancel = FALSE;
+			bool cancel = false;
 
 			Vector angles = g_vecZero;
 
@@ -1214,10 +1214,10 @@ void CGargantua::RunTask( Task_t *pTask )
 				angles.x = -angles.x;
 				angles.y -= pev->angles.y;
 				if ( dir.Length() > 400 )
-					cancel = TRUE;
+					cancel = true;
 			}
 			if ( fabs(angles.y) > 60 )
-				cancel = TRUE;
+				cancel = true;
 			
 			if ( cancel )
 			{

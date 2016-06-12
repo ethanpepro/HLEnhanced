@@ -94,7 +94,7 @@ public:
 	void SetActivity ( Activity NewActivity ) override;
 	void WriteBeamColor ( void );
 	BOOL CheckRangeAttack1 ( float flDot, float flDist ) override;
-	BOOL FValidateHintType ( short sHint ) override;
+	bool FValidateHintType ( short sHint ) const override;
 	BOOL FCanActiveIdle ( void ) override;
 	Schedule_t *GetScheduleOfType ( int Type ) override;
 	Schedule_t *GetSchedule( void ) override;
@@ -134,7 +134,7 @@ int	CHoundeye :: Classify ( void )
 //=========================================================
 //  FValidateHintType 
 //=========================================================
-BOOL CHoundeye :: FValidateHintType ( short sHint )
+bool CHoundeye::FValidateHintType( short sHint ) const
 {
 	int i;
 
@@ -150,12 +150,12 @@ BOOL CHoundeye :: FValidateHintType ( short sHint )
 	{
 		if ( sHoundHints[ i ] == sHint )
 		{
-			return TRUE;
+			return true;
 		}
 	}
 
 	ALERT ( at_aiconsole, "Couldn't validate hint type" );
-	return FALSE;
+	return false;
 }
 
 

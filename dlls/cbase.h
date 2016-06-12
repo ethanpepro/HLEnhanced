@@ -340,6 +340,7 @@ public:
 
 	virtual bool FBecomeProne() { return false; }
 	edict_t *edict() { return ENT( pev ); }
+	const edict_t* edict() const { return ENT( pev ); }
 	EOFFSET eoffset( ) { return OFFSET( pev ); }
 	int	  entindex( ) { return ENTINDEX( edict() ); }
 
@@ -351,7 +352,7 @@ public:
 
 	virtual int Illumination( ) { return GETENTITYILLUM( ENT( pev ) ); };
 
-	virtual	bool FVisible( CBaseEntity *pEntity ) const;
+	virtual	bool FVisible( const CBaseEntity *pEntity ) const;
 	virtual	bool FVisible( const Vector &vecOrigin ) const;
 
 	//We use this variables to store each ammo count.

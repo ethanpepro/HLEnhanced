@@ -83,9 +83,9 @@ public:
 	void DeclineFollowing( void ) override;
 
 	float	CoverRadius( void ) override { return 1200; }		// Need more room for cover because scientists want to get far away!
-	BOOL	DisregardEnemy( CBaseEntity *pEnemy ) { return !pEnemy->IsAlive() || (gpGlobals->time - m_fearTime) > 15; }
+	bool	DisregardEnemy( CBaseEntity *pEnemy ) const { return !pEnemy->IsAlive() || (gpGlobals->time - m_fearTime) > 15; }
 
-	BOOL	CanHeal( void );
+	bool	CanHeal() const;
 	void	Heal( void );
 	void	Scream( void );
 
@@ -1064,12 +1064,12 @@ MONSTERSTATE CScientist :: GetIdealState ( void )
 }
 
 
-BOOL CScientist::CanHeal( void )
+bool CScientist::CanHeal() const
 { 
 	if ( (m_healTime > gpGlobals->time) || (m_hTargetEnt == NULL) || (m_hTargetEnt->pev->health > (m_hTargetEnt->pev->max_health * 0.5)) )
-		return FALSE;
+		return false;
 
-	return TRUE;
+	return true;
 }
 
 void CScientist::Heal( void )

@@ -117,7 +117,7 @@ void CBaseMonster :: BarnacleVictimBitten ( entvars_t *pevBarnacle ) { }
 void CBaseMonster :: BarnacleVictimReleased ( void ) { }
 void CBaseMonster :: Listen ( void ) { }
 float CBaseMonster :: FLSoundVolume ( CSound *pSound ) { return 0.0; }
-BOOL CBaseMonster :: FValidateHintType ( short sHint ) { return FALSE; }
+bool CBaseMonster::FValidateHintType( short sHint ) const { return false; }
 void CBaseMonster :: Look ( int iDistance ) { }
 int CBaseMonster :: ISoundMask ( void ) { return 0; }
 CSound* CBaseMonster :: PBestSound ( void ) { return NULL; }
@@ -154,9 +154,9 @@ void CBaseMonster :: AdvanceRoute ( float distance ) { }
 int CBaseMonster :: RouteClassify( int iMoveFlag ) { return 0; }
 BOOL CBaseMonster :: BuildRoute ( const Vector &vecGoal, int iMoveFlag, CBaseEntity *pTarget ) { return FALSE; }
 void CBaseMonster :: InsertWaypoint ( Vector vecLocation, int afMoveFlags ) { }
-BOOL CBaseMonster :: FTriangulate ( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex ) { return FALSE; }
+bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex ) { return false; }
 void CBaseMonster :: Move ( float flInterval ) { }
-BOOL CBaseMonster:: ShouldAdvanceRoute( float flWaypointDist ) { return FALSE; }
+bool CBaseMonster::ShouldAdvanceRoute( float flWaypointDist ) { return false; }
 void CBaseMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval ) { }
 void CBaseMonster :: MonsterInit ( void ) { }
 void CBaseMonster :: MonsterInitThink ( void ) { }
@@ -169,7 +169,7 @@ BOOL CBaseMonster :: BuildNearestRoute ( Vector vecThreat, Vector vecViewOffset,
 CBaseEntity *CBaseMonster :: BestVisibleEnemy ( void ) { return NULL; }
 BOOL CBaseMonster :: FInViewCone ( CBaseEntity *pEntity ) { return FALSE; }
 BOOL CBaseMonster :: FInViewCone ( Vector *pOrigin ) { return FALSE; }
-bool CBaseEntity::FVisible( CBaseEntity *pEntity ) const { return false; }
+bool CBaseEntity::FVisible( const CBaseEntity *pEntity ) const { return false; }
 bool CBaseEntity::FVisible( const Vector &vecOrigin ) const { return false; }
 void CBaseMonster :: MakeIdealYaw( Vector vecTarget ) { }
 float	CBaseMonster::FlYawDiff ( void ) { return 0.0; }
@@ -208,7 +208,7 @@ Vector CBaseMonster :: ShootAtEnemy( const Vector &shootOrigin ) { return g_vecZ
 BOOL CBaseMonster :: FacingIdeal( void ) { return FALSE; }
 BOOL CBaseMonster :: FCanActiveIdle ( void ) { return FALSE; }
 void CBaseMonster::PlaySentence( const char *pszSentence, float duration, float volume, float attenuation ) { }
-void CBaseMonster::PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, BOOL bConcurrent, CBaseEntity *pListener ) { }
+void CBaseMonster::PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener ) { }
 void CBaseMonster::SentenceStop( void ) { }
 void CBaseMonster::CorpseFallThink( void ) { }
 void CBaseMonster :: MonsterInitDead( void ) { }

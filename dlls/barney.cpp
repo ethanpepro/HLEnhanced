@@ -488,7 +488,7 @@ void CBarney :: TalkInit()
 }
 
 
-static BOOL IsFacing( entvars_t *pevTest, const Vector &reference )
+static bool IsFacing( entvars_t *pevTest, const Vector &reference )
 {
 	Vector vecDir = (reference - pevTest->origin);
 	vecDir.z = 0;
@@ -500,9 +500,9 @@ static BOOL IsFacing( entvars_t *pevTest, const Vector &reference )
 	// He's facing me, he meant it
 	if ( DotProduct( forward, vecDir ) > 0.96 )	// +/- 15 degrees or so
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 

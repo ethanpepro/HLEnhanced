@@ -1312,7 +1312,7 @@ void CBasePlayer::PlayerDeathThink(void)
 	pev->effects |= EF_NOINTERP;
 	pev->framerate = 0.0;
 
-	BOOL fAnyButtonDown = (pev->button & ~IN_SCORE );
+	const bool fAnyButtonDown = ( pev->button & ~IN_SCORE ) != 0;
 	
 	// wait for all buttons released
 	if (pev->deadflag == DEAD_DEAD)
@@ -1791,7 +1791,7 @@ void CBasePlayer::UpdateStatusBar()
 		}
 	}
 
-	BOOL bForceResend = FALSE;
+	bool bForceResend = false;
 
 	if ( strcmp( sbuf0, m_SbarString0 ) )
 	{
@@ -1803,7 +1803,7 @@ void CBasePlayer::UpdateStatusBar()
 		strcpy( m_SbarString0, sbuf0 );
 
 		// make sure everything's resent
-		bForceResend = TRUE;
+		bForceResend = true;
 	}
 
 	if ( strcmp( sbuf1, m_SbarString1 ) )
@@ -1816,7 +1816,7 @@ void CBasePlayer::UpdateStatusBar()
 		strcpy( m_SbarString1, sbuf1 );
 
 		// make sure everything's resent
-		bForceResend = TRUE;
+		bForceResend = true;
 	}
 
 	// Check values and send if they don't match
@@ -2729,23 +2729,23 @@ pt_end:
 
 
 // checks if the spot is clear of players
-BOOL IsSpawnPointValid( CBaseEntity *pPlayer, CBaseEntity *pSpot )
+bool IsSpawnPointValid( CBaseEntity *pPlayer, CBaseEntity *pSpot )
 {
 	CBaseEntity *ent = NULL;
 
 	if ( !pSpot->IsTriggered( pPlayer ) )
 	{
-		return FALSE;
+		return false;
 	}
 
 	while ( (ent = UTIL_FindEntityInSphere( ent, pSpot->pev->origin, 128 )) != NULL )
 	{
 		// if ent is a client, don't spawn on 'em
 		if ( ent->IsPlayer() && ent != pPlayer )
-			return FALSE;
+			return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 

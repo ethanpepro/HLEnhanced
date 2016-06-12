@@ -158,7 +158,7 @@ public:
 
 	int IRelationship ( CBaseEntity *pTarget ) override;
 
-	BOOL FOkToSpeak( void );
+	bool FOkToSpeak() const;
 	void JustSpoke( void );
 
 	CUSTOM_SCHEDULES;
@@ -328,26 +328,26 @@ int CHGrunt :: ISoundMask ( void )
 //=========================================================
 // someone else is talking - don't speak
 //=========================================================
-BOOL CHGrunt :: FOkToSpeak( void )
+bool CHGrunt::FOkToSpeak() const
 {
 // if someone else is talking, don't speak
 	if (gpGlobals->time <= CTalkMonster::g_talkWaitTime)
-		return FALSE;
+		return false;
 
 	if ( pev->spawnflags & SF_MONSTER_GAG )
 	{
 		if ( m_MonsterState != MONSTERSTATE_COMBAT )
 		{
 			// no talking outside of combat if gagged.
-			return FALSE;
+			return false;
 		}
 	}
 
 	// if player is not in pvs, don't speak
 //	if (FNullEnt(FIND_CLIENT_IN_PVS(edict())))
-//		return FALSE;
+//		return false;
 	
-	return TRUE;
+	return true;
 }
 
 //=========================================================

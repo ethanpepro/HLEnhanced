@@ -1580,13 +1580,13 @@ void CTestHull :: ShowBadNode( void )
 	pev->nextthink = gpGlobals->time + 0.1;
 }
 
-extern BOOL gTouchDisabled;
+extern bool gTouchDisabled;
 void CTestHull::CallBuildNodeGraph( void )
 {
 	// TOUCH HACK -- Don't allow this entity to call anyone's "touch" function
-	gTouchDisabled = TRUE;
+	gTouchDisabled = true;
 	BuildNodeGraph();
-	gTouchDisabled = FALSE;
+	gTouchDisabled = false;
 	// Undo TOUCH HACK
 }
 

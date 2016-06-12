@@ -21,7 +21,7 @@ class CFlyingMonster : public CBaseMonster
 {
 public:
 	int 		CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist ) override;// check validity of a straight move through space
-	BOOL		FTriangulate ( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex ) override;
+	bool		FTriangulate ( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex ) override;
 	Activity	GetStoppedActivity( void ) override;
 	void		Killed( entvars_t *pevAttacker, int iGib ) override;
 	void		Stop( void ) override;
@@ -29,7 +29,7 @@ public:
 	void		HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void		MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval ) override;
 	void		Move( float flInterval = 0.1 ) override;
-	BOOL		ShouldAdvanceRoute( float flWaypointDist ) override;
+	bool		ShouldAdvanceRoute( float flWaypointDist ) override;
 
 	inline void	SetFlyingMomentum( float momentum ) { m_momentum = momentum; }
 	inline void	SetFlyingFlapSound( const char *pFlapSound ) { m_pFlapSound = pFlapSound; }

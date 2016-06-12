@@ -285,9 +285,9 @@ float CBaseMonster :: FLSoundVolume ( CSound *pSound )
 // FValidateHintType - tells use whether or not the monster cares
 // about the type of Hint Node given
 //=========================================================
-BOOL CBaseMonster :: FValidateHintType ( short sHint )
+bool CBaseMonster::FValidateHintType( short sHint ) const
 {
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -1623,7 +1623,7 @@ void CBaseMonster :: InsertWaypoint ( Vector vecLocation, int afMoveFlags )
 // iApexDist is how far the obstruction that we are trying
 // to triangulate around is from the monster.
 //=========================================================
-BOOL CBaseMonster :: FTriangulate ( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex )
+bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex )
 {
 	Vector		vecDir;
 	Vector		vecForward;
@@ -1730,7 +1730,7 @@ BOOL CBaseMonster :: FTriangulate ( const Vector &vecStart , const Vector &vecEn
 					*pApex = vecRight;
 				}
 
-				return TRUE;
+				return true;
 			}
 		}
 		if ( CheckLocalMove( pev->origin, vecLeft, pTargetEnt, NULL ) == LOCALMOVE_VALID )
@@ -1742,7 +1742,7 @@ BOOL CBaseMonster :: FTriangulate ( const Vector &vecStart , const Vector &vecEn
 					*pApex = vecLeft;
 				}
 
-				return TRUE;
+				return true;
 			}
 		}
 
@@ -1758,7 +1758,7 @@ BOOL CBaseMonster :: FTriangulate ( const Vector &vecStart , const Vector &vecEn
 						//ALERT(at_aiconsole, "triangulate over\n");
 					}
 
-					return TRUE;
+					return true;
 				}
 			}
 #if 1
@@ -1772,7 +1772,7 @@ BOOL CBaseMonster :: FTriangulate ( const Vector &vecStart , const Vector &vecEn
 						//ALERT(at_aiconsole, "triangulate under\n");
 					}
 
-					return TRUE;
+					return true;
 				}
 			}
 #endif
@@ -1787,7 +1787,7 @@ BOOL CBaseMonster :: FTriangulate ( const Vector &vecStart , const Vector &vecEn
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -1965,15 +1965,15 @@ void CBaseMonster :: Move ( float flInterval )
 }
 
 
-BOOL CBaseMonster:: ShouldAdvanceRoute( float flWaypointDist )
+bool CBaseMonster::ShouldAdvanceRoute( float flWaypointDist )
 {
 	if ( flWaypointDist <= MONSTER_CUT_CORNER_DIST )
 	{
 		// ALERT( at_console, "cut %f\n", flWaypointDist );
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -2665,12 +2665,12 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 	case SCRIPT_EVENT_NOINTERRUPT:		// Can't be interrupted from now on
 		if ( m_pCine )
-			m_pCine->AllowInterrupt( FALSE );
+			m_pCine->AllowInterrupt( false );
 		break;
 
 	case SCRIPT_EVENT_CANINTERRUPT:		// OK to interrupt now
 		if ( m_pCine )
-			m_pCine->AllowInterrupt( TRUE );
+			m_pCine->AllowInterrupt( true );
 		break;
 
 #if 0
@@ -3243,7 +3243,7 @@ void CBaseMonster::PlaySentence( const char *pszSentence, float duration, float 
 }
 
 
-void CBaseMonster::PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, BOOL bConcurrent, CBaseEntity *pListener )
+void CBaseMonster::PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener )
 { 
 	PlaySentence( pszSentence, duration, volume, attenuation );
 }

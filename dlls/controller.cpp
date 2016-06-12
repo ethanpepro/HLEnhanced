@@ -66,7 +66,7 @@ public:
 	int  CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist ) override;
 	void MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval ) override;
 	void SetActivity ( Activity NewActivity ) override;
-	BOOL ShouldAdvanceRoute( float flWaypointDist ) override;
+	bool ShouldAdvanceRoute( float flWaypointDist ) override;
 	int LookupFloat( );
 
 	float m_flNextFlinch;
@@ -1075,14 +1075,14 @@ void CController :: Move ( float flInterval )
 
 
 
-BOOL CController:: ShouldAdvanceRoute( float flWaypointDist )
+bool CController::ShouldAdvanceRoute( float flWaypointDist )
 {
 	if ( flWaypointDist <= 32  )
 	{
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 

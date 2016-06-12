@@ -123,7 +123,7 @@ typedef struct enginefuncs_s
 	edict_t*	(*pfnFindEntityByString)	(edict_t *pEdictStartSearchAfter, const char *pszField, const char *pszValue);
 	int			(*pfnGetEntityIllum)		(edict_t* pEnt);
 	edict_t*	(*pfnFindEntityInSphere)	(edict_t *pEdictStartSearchAfter, const float *org, float rad);
-	edict_t*	(*pfnFindClientInPVS)		(edict_t *pEdict);
+	edict_t*	(*pfnFindClientInPVS)		(const edict_t *pEdict);
 	edict_t* (*pfnEntitiesInPVS)			(edict_t *pplayer);
 	void		(*pfnMakeVectors)			(const float *rgflVector);
 	void		(*pfnAngleVectors)			(const float *rgflVector, float *forward, float *right, float *up);

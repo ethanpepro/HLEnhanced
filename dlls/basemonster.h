@@ -157,7 +157,7 @@ public:
 		virtual int CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist );// check validity of a straight move through space
 		virtual void Move( float flInterval = 0.1 );
 		virtual void MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval );
-		virtual BOOL ShouldAdvanceRoute( float flWaypointDist );
+		virtual bool ShouldAdvanceRoute( float flWaypointDist );
 
 		virtual Activity GetStoppedActivity( void ) { return ACT_IDLE; }
 		virtual void Stop( void ) { m_IdealActivity = GetStoppedActivity(); }
@@ -190,9 +190,9 @@ public:
 		virtual void ScheduleChange( void ) {}
 		// virtual int CanPlaySequence( void ) { return ((m_pCine == NULL) && (m_MonsterState == MONSTERSTATE_NONE || m_MonsterState == MONSTERSTATE_IDLE || m_IdealMonsterState == MONSTERSTATE_IDLE)); }
 		virtual int CanPlaySequence( BOOL fDisregardState, int interruptLevel );
-		virtual int CanPlaySentence( BOOL fDisregardState ) { return IsAlive(); }
+		virtual bool CanPlaySentence( const bool fDisregardState ) const { return IsAlive(); }
 		virtual void PlaySentence( const char *pszSentence, float duration, float volume, float attenuation );
-		virtual void PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, BOOL bConcurrent, CBaseEntity *pListener );
+		virtual void PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener );
 
 		virtual void SentenceStop( void );
 
@@ -223,7 +223,7 @@ public:
 		BOOL FRouteClear ( void );
 		void RouteSimplify( CBaseEntity *pTargetEnt );
 		void AdvanceRoute ( float distance );
-		virtual BOOL FTriangulate ( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex );
+		virtual bool FTriangulate ( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex );
 		void MakeIdealYaw( Vector vecTarget );
 		virtual void SetYawSpeed ( void ) { return; };// allows different yaw_speeds for each activity
 		BOOL BuildRoute ( const Vector &vecGoal, int iMoveFlag, CBaseEntity *pTarget );
@@ -245,7 +245,7 @@ public:
 		inline BOOL HasConditions( int iConditions ) { if ( m_afConditions & iConditions ) return TRUE; return FALSE; }
 		inline BOOL HasAllConditions( int iConditions ) { if ( (m_afConditions & iConditions) == iConditions ) return TRUE; return FALSE; }
 
-		virtual BOOL FValidateHintType( short sHint );
+		virtual bool FValidateHintType( short sHint ) const;
 		int FindHintNode ( void );
 		virtual BOOL FCanActiveIdle ( void );
 		void SetTurnActivity ( void );
@@ -325,8 +325,8 @@ public:
 
 	inline void	Remember( int iMemory ) { m_afMemory |= iMemory; }
 	inline void	Forget( int iMemory ) { m_afMemory &= ~iMemory; }
-	inline BOOL HasMemory( int iMemory ) { if ( m_afMemory & iMemory ) return TRUE; return FALSE; }
-	inline BOOL HasAllMemories( int iMemory ) { if ( (m_afMemory & iMemory) == iMemory ) return TRUE; return FALSE; }
+	inline bool HasMemory( int iMemory ) const { return ( m_afMemory & iMemory ) != 0; }
+	inline bool HasAllMemories( int iMemory ) const { return ( (m_afMemory & iMemory) == iMemory ); }
 
 	BOOL ExitScriptedSequence( );
 	BOOL CineCleanup( );

@@ -206,7 +206,7 @@ public:
 	BOOL CheckMeleeAttack2 ( float flDot, float flDist ) override;
 	BOOL CheckRangeAttack1 ( float flDot, float flDist ) override;
 	void RunAI( void ) override;
-	BOOL FValidateHintType ( short sHint ) override;
+	bool FValidateHintType( short sHint ) const override;
 	Schedule_t *GetSchedule( void ) override;
 	Schedule_t *GetScheduleOfType ( int Type ) override;
 	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
@@ -383,7 +383,7 @@ BOOL CBullsquid :: CheckMeleeAttack2 ( float flDot, float flDist )
 //=========================================================
 //  FValidateHintType 
 //=========================================================
-BOOL CBullsquid :: FValidateHintType ( short sHint )
+bool CBullsquid::FValidateHintType( short sHint ) const
 {
 	int i;
 
@@ -396,12 +396,12 @@ BOOL CBullsquid :: FValidateHintType ( short sHint )
 	{
 		if ( sSquidHints[ i ] == sHint )
 		{
-			return TRUE;
+			return true;
 		}
 	}
 
 	ALERT ( at_aiconsole, "Couldn't validate hint type" );
-	return FALSE;
+	return false;
 }
 
 //=========================================================
