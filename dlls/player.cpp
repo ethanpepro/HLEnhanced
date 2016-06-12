@@ -1690,7 +1690,7 @@ int  CBasePlayer::Classify ( void )
 }
 
 
-void CBasePlayer::AddPoints( int score, BOOL bAllowNegativeScore )
+void CBasePlayer::AddPoints( int score, const bool bAllowNegativeScore )
 {
 	// Positive score always adds
 	if ( score < 0 )
@@ -1719,7 +1719,7 @@ void CBasePlayer::AddPoints( int score, BOOL bAllowNegativeScore )
 }
 
 
-void CBasePlayer::AddPointsToTeam( int score, BOOL bAllowNegativeScore )
+void CBasePlayer::AddPointsToTeam( int score, const bool bAllowNegativeScore )
 {
 	int index = entindex();
 
@@ -3686,7 +3686,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 //
 // Add a weapon to the player (Item == Weapon == Selectable Object)
 //
-int CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
+bool CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
 {
 	CBasePlayerItem *pInsert;
 	
@@ -3713,7 +3713,7 @@ int CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
 				// FIXME: remove anyway for deathmatch testing
 				pItem->Kill( );
 			}
-			return FALSE;
+			return false;
 		}
 		pInsert = pInsert->m_pNext;
 	}
@@ -3733,19 +3733,19 @@ int CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
 			SwitchWeapon( pItem );
 		}
 
-		return TRUE;
+		return true;
 	}
 	else if (gEvilImpulse101)
 	{
 		// FIXME: remove anyway for deathmatch testing
 		pItem->Kill( );
 	}
-	return FALSE;
+	return false;
 }
 
 
 
-int CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem )
+bool CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem )
 {
 	if (m_pActiveItem == pItem)
 	{
@@ -3765,7 +3765,7 @@ int CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem )
 	if (pPrev == pItem)
 	{
 		m_rgpPlayerItems[pItem->iItemSlot()] = pItem->m_pNext;
-		return TRUE;
+		return true;
 	}
 	else
 	{
@@ -3776,10 +3776,10 @@ int CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem )
 		if (pPrev)
 		{
 			pPrev->m_pNext = pItem->m_pNext;
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -4187,10 +4187,10 @@ void CBasePlayer :: UpdateClientData( void )
 // FBecomeProne - Overridden for the player to set the proper
 // physics flags when a barnacle grabs player.
 //=========================================================
-BOOL CBasePlayer :: FBecomeProne ( void )
+bool CBasePlayer :: FBecomeProne ()
 {
 	m_afPhysicsFlags |= PFLAG_ONBARNACLE;
-	return TRUE;
+	return true;
 }
 
 //=========================================================

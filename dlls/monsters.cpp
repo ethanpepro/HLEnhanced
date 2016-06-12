@@ -930,7 +930,7 @@ void CBaseMonster :: RouteSimplify( CBaseEntity *pTargetEnt )
 // right now only used when a barnacle snatches someone, so 
 // may have some special case stuff for that.
 //=========================================================
-BOOL CBaseMonster :: FBecomeProne ( void )
+bool CBaseMonster::FBecomeProne()
 {
 	if ( FBitSet ( pev->flags, FL_ONGROUND ) )
 	{
@@ -938,7 +938,7 @@ BOOL CBaseMonster :: FBecomeProne ( void )
 	}
 
 	m_IdealMonsterState = MONSTERSTATE_PRONE;
-	return TRUE;
+	return true;
 }
 
 //=========================================================

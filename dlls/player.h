@@ -258,10 +258,10 @@ public:
 	void StartDeathCam( void );
 	void StartObserver( Vector vecPosition, Vector vecViewAngle );
 
-	void AddPoints( int score, BOOL bAllowNegativeScore ) override;
-	void AddPointsToTeam( int score, BOOL bAllowNegativeScore ) override;
-	BOOL AddPlayerItem( CBasePlayerItem *pItem ) override;
-	BOOL RemovePlayerItem( CBasePlayerItem *pItem ) override;
+	void AddPoints( int score, const bool bAllowNegativeScore ) override;
+	void AddPointsToTeam( int score, const bool bAllowNegativeScore ) override;
+	bool AddPlayerItem( CBasePlayerItem *pItem ) override;
+	bool RemovePlayerItem( CBasePlayerItem *pItem ) override;
 	void DropPlayerItem ( char *pszItemName );
 	BOOL HasPlayerItem( CBasePlayerItem *pCheckItem );
 	BOOL HasNamedPlayerItem( const char *pszItemName );
@@ -287,7 +287,7 @@ public:
 	void UpdateGeigerCounter( void );
 	void CheckTimeBasedDamage( void );
 
-	BOOL FBecomeProne ( void ) override;
+	bool FBecomeProne() override;
 	void BarnacleVictimBitten ( entvars_t *pevBarnacle ) override;
 	void BarnacleVictimReleased ( void ) override;
 	static int GetAmmoIndex(const char *psz);

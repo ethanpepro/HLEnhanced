@@ -442,12 +442,9 @@ void CBaseToggle :: LinearMoveDone( void )
 		(this->*m_pfnCallWhenMoveDone)();
 }
 
-BOOL CBaseToggle :: IsLockedByMaster( void )
+bool CBaseToggle :: IsLockedByMaster() const
 {
-	if (m_sMaster && !UTIL_IsMasterTriggered(m_sMaster, m_hActivator))
-		return TRUE;
-	else
-		return FALSE;
+	return m_sMaster && !UTIL_IsMasterTriggered(m_sMaster, m_hActivator);
 }
 
 /*

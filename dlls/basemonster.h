@@ -264,7 +264,7 @@ public:
 		virtual CSound* PBestScent ( void );
 		virtual float HearingSensitivity( void ) { return 1.0; };
 
-		BOOL FBecomeProne ( void );
+		bool FBecomeProne() override;
 		virtual void BarnacleVictimBitten( entvars_t *pevBarnacle );
 		virtual void BarnacleVictimReleased( void );
 

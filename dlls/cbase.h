@@ -125,15 +125,15 @@ private:
 	edict_t *m_pent;
 	int		m_serialnumber;
 public:
-	edict_t *Get( void );
+	edict_t *Get() const;
 	edict_t *Set( edict_t *pent );
 
 	operator int ();
 
-	operator CBaseEntity *();
+	operator CBaseEntity *() const;
 
 	CBaseEntity * operator = (CBaseEntity *pEntity);
-	CBaseEntity * operator ->();
+	CBaseEntity * operator ->() const;
 };
 
 
@@ -181,12 +181,12 @@ public:
 	virtual CBaseMonster *MyMonsterPointer( void ) { return NULL;}
 	virtual CSquadMonster *MySquadMonsterPointer( void ) { return NULL;}
 	virtual	int		GetToggleState( void ) { return TS_AT_TOP; }
-	virtual void	AddPoints( int score, BOOL bAllowNegativeScore ) {}
-	virtual void	AddPointsToTeam( int score, BOOL bAllowNegativeScore ) {}
 
 	//TODO: these shouldn't be here. Move to CBaseMonster or CBasePlayer - Solokiller
-	virtual BOOL	AddPlayerItem( CBasePlayerItem *pItem ) { return 0; }
-	virtual BOOL	RemovePlayerItem( CBasePlayerItem *pItem ) { return 0; }
+	virtual void	AddPoints( int score, const bool bAllowNegativeScore ) {}
+	virtual void	AddPointsToTeam( int score, const bool bAllowNegativeScore ) {}
+	virtual bool	AddPlayerItem( CBasePlayerItem *pItem ) { return false; }
+	virtual bool	RemovePlayerItem( CBasePlayerItem *pItem ) { return false; }
 	virtual int 	GiveAmmo( int iAmount, char *szName, int iMax ) { return -1; };
 
 	virtual float	GetDelay( void ) { return 0; }
@@ -260,7 +260,8 @@ public:
 	int		Intersects( CBaseEntity *pOther );
 	void	MakeDormant( void );
 	int		IsDormant( void );
-	BOOL    IsLockedByMaster( void ) { return FALSE; }
+	//Made this virtual. Used to be non-virtual and redeclared in CBaseToggle - Solokiller
+	virtual bool    IsLockedByMaster() const { return false; }
 
 	static CBaseEntity *Instance( edict_t *pent )
 	{ 
@@ -334,20 +335,21 @@ public:
 	//
 	static CBaseEntity *Create( char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner = NULL );
 
-	virtual BOOL FBecomeProne( void ) {return FALSE;};
-	edict_t *edict() { return ENT( pev ); };
-	EOFFSET eoffset( ) { return OFFSET( pev ); };
-	int	  entindex( ) { return ENTINDEX( edict() ); };
+	virtual bool FBecomeProne() { return false; }
+	edict_t *edict() { return ENT( pev ); }
+	EOFFSET eoffset( ) { return OFFSET( pev ); }
+	int	  entindex( ) { return ENTINDEX( edict() ); }
 
+	//TODO: make these const correct - Solokiller
 	virtual Vector Center( ) { return (pev->absmax + pev->absmin) * 0.5; }; // center point of entity
-	virtual Vector EyePosition( ) { return pev->origin + pev->view_ofs; };			// position of eyes
+	virtual Vector EyePosition() const { return pev->origin + pev->view_ofs; };			// position of eyes
 	virtual Vector EarPosition( ) { return pev->origin + pev->view_ofs; };			// position of ears
 	virtual Vector BodyTarget( const Vector &posSrc ) { return Center( ); };		// position to shoot at
 
 	virtual int Illumination( ) { return GETENTITYILLUM( ENT( pev ) ); };
 
-	virtual	BOOL FVisible ( CBaseEntity *pEntity );
-	virtual	BOOL FVisible ( const Vector &vecOrigin );
+	virtual	bool FVisible( CBaseEntity *pEntity ) const;
+	virtual	bool FVisible( const Vector &vecOrigin ) const;
 
 	//We use this variables to store each ammo count.
 	int ammo_9mm;
@@ -550,7 +552,7 @@ public:
 	void EXPORT LinearMoveDone( void );
 	void AngularMove( Vector vecDestAngle, float flSpeed );
 	void EXPORT AngularMoveDone( void );
-	BOOL IsLockedByMaster( void );
+	bool IsLockedByMaster() const override;
 
 	static float		AxisValue( int flags, const Vector &angles );
 	static void			AxisDir( entvars_t *pev );

@@ -138,9 +138,9 @@ public:
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
 
-	inline	int		Points( void ) { return pev->frags; }
-	inline	BOOL	AllowNegativeScore( void ) { return pev->spawnflags & SF_SCORE_NEGATIVE; }
-	inline	BOOL	AwardToTeam( void ) { return pev->spawnflags & SF_SCORE_TEAM; }
+	inline	int		Points() const { return pev->frags; }
+	inline	bool	AllowNegativeScore() const { return ( pev->spawnflags & SF_SCORE_NEGATIVE ) != 0; }
+	inline	bool	AwardToTeam() const { return ( pev->spawnflags & SF_SCORE_TEAM ) != 0; }
 
 	inline	void	SetPoints( int points ) { pev->frags = points; }
 
