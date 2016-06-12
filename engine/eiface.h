@@ -313,6 +313,7 @@ typedef struct KeyValueData_s
 
 typedef struct
 {
+	//TODO: use constants - Solokiller
 	char		mapName[ 32 ];
 	char		landmarkName[ 32 ];
 	edict_t	*pentLandmark;
@@ -358,6 +359,7 @@ struct saverestore_s
 	LEVELLIST	levelList[ MAX_LEVEL_CONNECTIONS ];		// List of connections from this level
 
 	// smooth transition
+	//TODO: use constants - Solokiller
 	int			fUseLandmark;
 	char		szLandmarkName[20];// landmark we'll spawn near in next level
 	Vector		vecLandmarkOffset;// for landmark transitions
@@ -394,6 +396,7 @@ typedef enum _fieldtypes
 	FIELD_TYPECOUNT,		// MUST BE LAST
 } FIELDTYPE;
 
+//TODO: define elsewhere - Solokiller
 #if !defined(offsetof)  && !defined(GNUC)
 #define offsetof(s,m)	(size_t)&(((s *)0)->m)
 #endif
@@ -417,6 +420,7 @@ typedef struct
 	short			flags;
 } TYPEDESCRIPTION;
 
+//TODO: define elsewhere - Solokiller
 #define ARRAYSIZE(p)		(sizeof(p)/sizeof(p[0]))
 
 typedef struct 
@@ -490,7 +494,7 @@ typedef struct
 	int				(*pfnConnectionlessPacket )	( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size );
 
 	// Enumerates player hulls.  Returns 0 if the hull number doesn't exist, 1 otherwise
-	int				(*pfnGetHullBounds)	( int hullnumber, float *mins, float *maxs );
+	int				(*pfnGetHullBounds)	( int hullnumber, Vector& mins, Vector& maxs );
 
 	// Create baselines for certain "unplaced" items.
 	void			(*pfnCreateInstancedBaselines) ( void );

@@ -21,7 +21,7 @@ extern "C"
 	void CL_DLLEXPORT HUD_PlayerMoveInit( struct playermove_s *ppmove );
 	char CL_DLLEXPORT HUD_PlayerMoveTexture( char *name );
 	int CL_DLLEXPORT HUD_ConnectionlessPacket( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size );
-	int CL_DLLEXPORT HUD_GetHullBounds( int hullnumber, float *mins, float *maxs );
+	int CL_DLLEXPORT HUD_GetHullBounds( int hullnumber, Vector& mins, Vector& maxs );
 	void CL_DLLEXPORT HUD_Frame( double time );
 	void CL_DLLEXPORT HUD_VoiceStatus(int entindex, qboolean bTalking);
 	void CL_DLLEXPORT HUD_DirectorMessage( int iSize, void *pbuf );

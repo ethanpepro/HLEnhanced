@@ -54,7 +54,7 @@ extern void	CmdEnd ( const edict_t *player );
 
 extern int	ConnectionlessPacket( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size );
 
-extern int GetHullBounds( int hullnumber, float *mins, float *maxs );
+extern int GetHullBounds( int hullnumber, Vector& mins, Vector& maxs );
 
 extern void	CreateInstancedBaselines ( void );
 

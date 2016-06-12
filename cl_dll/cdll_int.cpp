@@ -65,10 +65,11 @@ HUD_GetHullBounds
   Engine calls this to enumerate player collision hulls, for prediction.  Return 0 if the hullnumber doesn't exist.
 ================================
 */
-int CL_DLLEXPORT HUD_GetHullBounds( int hullnumber, float *mins, float *maxs )
+int CL_DLLEXPORT HUD_GetHullBounds( int hullnumber, Vector& mins, Vector& maxs )
 {
 	int iret = 0;
 
+	//TODO: identical to GetHullBounds on the server side. Should ideally use the same code. - Solokiller
 	switch ( hullnumber )
 	{
 	case 0:				// Normal player

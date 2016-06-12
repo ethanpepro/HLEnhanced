@@ -1839,7 +1839,7 @@ GetHullBounds
   Engine calls this to enumerate player collision hulls, for prediction.  Return 0 if the hullnumber doesn't exist.
 ================================
 */
-int GetHullBounds( int hullnumber, float *mins, float *maxs )
+int GetHullBounds( int hullnumber, Vector& mins, Vector& maxs )
 {
 	int iret = 0;
 
