@@ -36,8 +36,8 @@ public:
 	// To spark when hit
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
 
-	BOOL IsBreakable( void );
-	BOOL SparkWhenHit( void );
+	bool IsBreakable() const;
+	bool SparkWhenHit() const;
 
 	int	 DamageDecal( int bitsDamageType ) override;
 
@@ -46,8 +46,8 @@ public:
 	virtual int		Save( CSave &save ) override;
 	virtual int		Restore( CRestore &restore ) override;
 
-	inline BOOL		Explodable( void ) { return ExplosionMagnitude() > 0; }
-	inline int		ExplosionMagnitude( void ) { return pev->impulse; }
+	inline bool		Explodable() const { return ExplosionMagnitude() > 0; }
+	inline int		ExplosionMagnitude() const { return pev->impulse; }
 	inline void		ExplosionSetMagnitude( int magnitude ) { pev->impulse = magnitude; }
 
 	static void MaterialSoundPrecache( Materials precacheMaterial );

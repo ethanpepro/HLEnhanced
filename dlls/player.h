@@ -216,7 +216,7 @@ public:
 	virtual void StopSneaking( void ) override { m_tSneaking = gpGlobals->time + 30; }
 	virtual bool IsSneaking() override { return m_tSneaking <= gpGlobals->time; }
 	virtual bool IsAlive() const override { return (pev->deadflag == DEAD_NO) && pev->health > 0; }
-	virtual BOOL ShouldFadeOnDeath( void ) override { return FALSE; }
+	virtual bool ShouldFadeOnDeath() const override { return false; }
 	virtual	bool IsPlayer() const override { return true; }			// Spectators should return false for this, they aren't "players" as far as game logic is concerned
 
 	virtual bool IsNetClient() const override { return true; }		// Bots should return false for this, they can't receive NET messages
@@ -227,8 +227,8 @@ public:
 	virtual int		Restore( CRestore &restore ) override;
 	void RenewItems(void);
 	void PackDeadPlayerItems( void );
-	void RemoveAllItems( BOOL removeSuit );
-	BOOL SwitchWeapon( CBasePlayerItem *pWeapon );
+	void RemoveAllItems( const bool removeSuit );
+	bool SwitchWeapon( CBasePlayerItem *pWeapon );
 
 	// JOHN:  sends custom messages if player HUD data has changed  (eg health, ammo)
 	virtual void UpdateClientData( void );
@@ -238,8 +238,8 @@ public:
 	// Player is moved across the transition by other means
 	virtual int		ObjectCaps( void ) override { return CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	virtual void	Precache( void ) override;
-	BOOL			IsOnLadder( void );
-	BOOL			FlashlightIsOn( void );
+	bool			IsOnLadder() const;
+	bool			FlashlightIsOn() const;
 	void			FlashlightTurnOn( void );
 	void			FlashlightTurnOff( void );
 	
@@ -263,9 +263,9 @@ public:
 	bool AddPlayerItem( CBasePlayerItem *pItem ) override;
 	bool RemovePlayerItem( CBasePlayerItem *pItem ) override;
 	void DropPlayerItem ( char *pszItemName );
-	BOOL HasPlayerItem( CBasePlayerItem *pCheckItem );
-	BOOL HasNamedPlayerItem( const char *pszItemName );
-	BOOL HasWeapons( void );// do I have ANY weapons?
+	bool HasPlayerItem( CBasePlayerItem *pCheckItem ) const;
+	bool HasNamedPlayerItem( const char *pszItemName ) const;
+	bool HasWeapons() const;// do I have ANY weapons?
 	void SelectPrevItem( int iItem );
 	void SelectNextItem( int iItem );
 	void SelectLastItem(void);
@@ -273,7 +273,7 @@ public:
 	void ItemPreFrame( void );
 	void ItemPostFrame( void );
 	void GiveNamedItem( const char *szName );
-	void EnableControl(BOOL fControl);
+	void EnableControl(const bool fControl);
 
 	int  GiveAmmo( int iAmount, char *szName, int iMax ) override;
 	void SendAmmoUpdate(void);

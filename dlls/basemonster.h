@@ -129,7 +129,7 @@ public:
 	void Listen ( void );
 
 	virtual bool	IsAlive() const override { return (pev->deadflag != DEAD_DEAD); }
-	virtual BOOL	ShouldFadeOnDeath( void );
+	virtual bool	ShouldFadeOnDeath() const;
 
 // Basic Monster AI functions
 	virtual float ChangeYaw ( int speed );

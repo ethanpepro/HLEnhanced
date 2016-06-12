@@ -28,7 +28,7 @@ class CHealthKit : public CItem
 {
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	BOOL MyTouch( CBasePlayer *pPlayer ) override;
+	bool MyTouch( CBasePlayer *pPlayer ) override;
 
 /*
 	virtual int		Save( CSave &save ) override; 
@@ -66,11 +66,11 @@ void CHealthKit::Precache( void )
 	PRECACHE_SOUND("items/smallmedkit1.wav");
 }
 
-BOOL CHealthKit::MyTouch( CBasePlayer *pPlayer )
+bool CHealthKit::MyTouch( CBasePlayer *pPlayer )
 {
 	if ( pPlayer->pev->deadflag != DEAD_NO )
 	{
-		return FALSE;
+		return false;
 	}
 
 	if ( pPlayer->TakeHealth( gSkillData.healthkitCapacity, DMG_GENERIC ) )
@@ -90,10 +90,10 @@ BOOL CHealthKit::MyTouch( CBasePlayer *pPlayer )
 			UTIL_Remove(this);	
 		}
 
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 

@@ -684,7 +684,7 @@ void CNihilanth :: NextActivity( )
 	{
 		if (m_pBall == NULL)
 		{
-			m_pBall = CSprite::SpriteCreate( "sprites/tele1.spr", pev->origin, TRUE );
+			m_pBall = CSprite::SpriteCreate( "sprites/tele1.spr", pev->origin, true );
 			if (m_pBall)
 			{
 				m_pBall->SetTransparency( kRenderTransAdd, 255, 255, 255, 255, kRenderFxNoDissipation );

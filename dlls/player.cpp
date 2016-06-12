@@ -51,7 +51,7 @@ extern DLL_GLOBAL int		g_iSkillLevel, gDisplayTitle;
 bool gInitHUD = true;
 
 extern void CopyToBodyQue(entvars_t* pev);
-extern void respawn(entvars_t *pev, BOOL fCopyCorpse);
+extern void respawn(entvars_t *pev, const bool fCopyCorpse);
 extern Vector VecBModelOrigin(entvars_t *pevBModel );
 extern edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer );
 
@@ -701,7 +701,7 @@ void CBasePlayer::PackDeadPlayerItems( void )
 	if ( iWeaponRules == GR_PLR_DROP_GUN_NO && iAmmoRules == GR_PLR_DROP_AMMO_NO )
 	{
 		// nothing to pack. Remove the weapons and return. Don't call create on the box!
-		RemoveAllItems( TRUE );
+		RemoveAllItems( true );
 		return;
 	}
 
@@ -803,10 +803,10 @@ void CBasePlayer::PackDeadPlayerItems( void )
 
 	pWeaponBox->pev->velocity = pev->velocity * 1.2;// weaponbox has player's velocity, then some.
 
-	RemoveAllItems( TRUE );// now strip off everything that wasn't handled by the code above.
+	RemoveAllItems( true );// now strip off everything that wasn't handled by the code above.
 }
 
-void CBasePlayer::RemoveAllItems( BOOL removeSuit )
+void CBasePlayer::RemoveAllItems( const bool removeSuit )
 {
 	if (m_pActiveItem)
 	{
@@ -1262,7 +1262,7 @@ void CBasePlayer::WaterMove()
 
 
 // TRUE if the player is attached to a ladder
-BOOL CBasePlayer::IsOnLadder( void )
+bool CBasePlayer::IsOnLadder() const
 { 
 	return ( pev->movetype == MOVETYPE_FLY );
 }
@@ -1476,7 +1476,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	MESSAGE_END();
 
 	// Remove all the player's stuff
-	RemoveAllItems( FALSE );
+	RemoveAllItems( false );
 
 	// Move them to the new position
 	UTIL_SetOrigin( pev, vecPosition );
@@ -3193,7 +3193,7 @@ void CBasePlayer::SelectLastItem(void)
 //==============================================
 // HasWeapons - do I have any weapons at all?
 //==============================================
-BOOL CBasePlayer::HasWeapons( void )
+bool CBasePlayer::HasWeapons() const
 {
 	int i;
 
@@ -3201,11 +3201,11 @@ BOOL CBasePlayer::HasWeapons( void )
 	{
 		if ( m_rgpPlayerItems[ i ] )
 		{
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 void CBasePlayer::SelectPrevItem( int iItem )
@@ -3357,9 +3357,9 @@ CBaseEntity *FindEntityForward( CBaseEntity *pMe )
 }
 
 
-BOOL CBasePlayer :: FlashlightIsOn( void )
+bool CBasePlayer::FlashlightIsOn() const
 {
-	return FBitSet(pev->effects, EF_DIMLIGHT);
+	return FBitSet(pev->effects, EF_DIMLIGHT) != 0;
 }
 
 
@@ -4228,7 +4228,7 @@ int CBasePlayer :: Illumination( void )
 }
 
 
-void CBasePlayer :: EnableControl(BOOL fControl)
+void CBasePlayer::EnableControl(const bool fControl)
 {
 	if (!fControl)
 		pev->flags |= FL_FROZEN;
@@ -4603,7 +4603,7 @@ void CBasePlayer::DropPlayerItem ( char *pszItemName )
 //=========================================================
 // HasPlayerItem Does the player already have this item?
 //=========================================================
-BOOL CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem )
+bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const
 {
 	CBasePlayerItem *pItem = m_rgpPlayerItems[pCheckItem->iItemSlot()];
 
@@ -4611,18 +4611,18 @@ BOOL CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem )
 	{
 		if (FClassnameIs( pItem->pev, STRING( pCheckItem->pev->classname) ))
 		{
-			return TRUE;
+			return true;
 		}
 		pItem = pItem->m_pNext;
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================
 // HasNamedPlayerItem Does the player already have this item?
 //=========================================================
-BOOL CBasePlayer::HasNamedPlayerItem( const char *pszItemName )
+bool CBasePlayer::HasNamedPlayerItem( const char *pszItemName ) const
 {
 	CBasePlayerItem *pItem;
 	int i;
@@ -4635,23 +4635,23 @@ BOOL CBasePlayer::HasNamedPlayerItem( const char *pszItemName )
 		{
 			if ( !strcmp( pszItemName, STRING( pItem->pev->classname ) ) )
 			{
-				return TRUE;
+				return true;
 			}
 			pItem = pItem->m_pNext;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================
 // 
 //=========================================================
-BOOL CBasePlayer :: SwitchWeapon( CBasePlayerItem *pWeapon ) 
+bool CBasePlayer::SwitchWeapon( CBasePlayerItem *pWeapon ) 
 {
 	if ( !pWeapon->CanDeploy() )
 	{
-		return FALSE;
+		return false;
 	}
 	
 	ResetAutoaim( );
@@ -4664,7 +4664,7 @@ BOOL CBasePlayer :: SwitchWeapon( CBasePlayerItem *pWeapon )
 	m_pActiveItem = pWeapon;
 	pWeapon->Deploy( );
 
-	return TRUE;
+	return true;
 }
 
 //=========================================================
@@ -4751,7 +4751,7 @@ void CStripWeapons :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	}
 
 	if ( pPlayer )
-		pPlayer->RemoveAllItems( FALSE );
+		pPlayer->RemoveAllItems( false );
 }
 
 

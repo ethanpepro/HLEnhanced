@@ -149,13 +149,13 @@ inline void MESSAGE_BEGIN( int msg_dest, int msg_type, const float *pOrigin, ent
 
 // Testing the three types of "entity" for nullity
 #define eoNullEntity 0
-inline BOOL FNullEnt(EOFFSET eoffset)			{ return eoffset == 0; }
-inline BOOL FNullEnt(const edict_t* pent)	{ return pent == NULL || FNullEnt(OFFSET(pent)); }
-inline BOOL FNullEnt(entvars_t* pev)				{ return pev == NULL || FNullEnt(OFFSET(pev)); }
+inline bool FNullEnt(EOFFSET eoffset)		{ return eoffset == eoNullEntity; }
+inline bool FNullEnt(const edict_t* pent)	{ return pent == NULL || FNullEnt(OFFSET(pent)); }
+inline bool FNullEnt(entvars_t* pev)		{ return pev == NULL || FNullEnt(OFFSET(pev)); }
 
 // Testing strings for nullity
 #define iStringNull 0
-inline BOOL FStringNull(int iString)			{ return iString == iStringNull; }
+inline bool FStringNull(string_t iString)			{ return iString == iStringNull; }
 
 #define cchMapNameMost 32
 

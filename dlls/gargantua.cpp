@@ -153,7 +153,7 @@ void CStomp::Think( void )
 		pev->origin = pev->origin + pev->movedir * pev->speed * STOMP_INTERVAL;
 		for ( int i = 0; i < 2; i++ )
 		{
-			CSprite *pSprite = CSprite::SpriteCreate( GARG_STOMP_SPRITE_NAME, pev->origin, TRUE );
+			CSprite *pSprite = CSprite::SpriteCreate( GARG_STOMP_SPRITE_NAME, pev->origin, true );
 			if ( pSprite )
 			{
 				UTIL_TraceLine( pev->origin, pev->origin - Vector(0,0,500), ignore_monsters, edict(), &tr );
@@ -764,7 +764,7 @@ void CGargantua :: Spawn()
 
 	MonsterInit();
 
-	m_pEyeGlow = CSprite::SpriteCreate( GARG_EYE_SPRITE_NAME, pev->origin, FALSE );
+	m_pEyeGlow = CSprite::SpriteCreate( GARG_EYE_SPRITE_NAME, pev->origin, false );
 	m_pEyeGlow->SetTransparency( kRenderGlow, 255, 255, 255, 0, kRenderFxNoDissipation );
 	m_pEyeGlow->SetAttachment( edict(), 1 );
 	EyeOff();

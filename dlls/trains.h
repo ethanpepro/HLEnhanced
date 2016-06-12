@@ -87,7 +87,7 @@ public:
 	void EXPORT NearestPath( void );
 	void EXPORT DeadEnd( void );
 
-	void		NextThink( float thinkTime, BOOL alwaysThink );
+	void		NextThink( float thinkTime, const bool alwaysThink );
 
 	void SetTrack( CPathTrack *track ) { m_ppath = track->Nearest(pev->origin); }
 	void SetControls( entvars_t *pevControls );

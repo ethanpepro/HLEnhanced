@@ -974,7 +974,7 @@ void CLaser::Spawn( void )
 	PointsInit( pev->origin, pev->origin );
 
 	if ( !m_pSprite && m_iszSpriteName )
-		m_pSprite = CSprite::SpriteCreate( STRING(m_iszSpriteName), pev->origin, TRUE );
+		m_pSprite = CSprite::SpriteCreate( STRING(m_iszSpriteName), pev->origin, true );
 	else
 		m_pSprite = NULL;
 
@@ -1228,7 +1228,7 @@ void CSprite::SpriteInit( const char *pSpriteName, const Vector &origin )
 	Spawn();
 }
 
-CSprite *CSprite::SpriteCreate( const char *pSpriteName, const Vector &origin, BOOL animate )
+CSprite *CSprite::SpriteCreate( const char *pSpriteName, const Vector &origin, const bool animate )
 {
 	CSprite *pSprite = GetClassPtr( (CSprite *)NULL );
 	pSprite->SpriteInit( pSpriteName, origin );

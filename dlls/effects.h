@@ -90,7 +90,7 @@ public:
 	virtual int		Save( CSave &save ) override;
 	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
-	static CSprite *SpriteCreate( const char *pSpriteName, const Vector &origin, BOOL animate );
+	static CSprite *SpriteCreate( const char *pSpriteName, const Vector &origin, const bool animate );
 
 private:
 
