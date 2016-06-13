@@ -38,12 +38,12 @@ int CHudTrain::Init(void)
 	return 1;
 };
 
-int CHudTrain::VidInit(void)
+bool CHudTrain::VidInit()
 {
 	m_hSprite = 0;
 
-	return 1;
-};
+	return true;
+}
 
 int CHudTrain::Draw(float fTime)
 {

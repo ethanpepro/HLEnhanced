@@ -42,10 +42,10 @@ int CHudGeiger::Init(void)
 	return 1;
 };
 
-int CHudGeiger::VidInit(void)
+bool CHudGeiger::VidInit()
 {
-	return 1;
-};
+	return true;
+}
 
 int CHudGeiger::MsgFunc_Geiger(const char *pszName,  int iSize, void *pbuf)
 {

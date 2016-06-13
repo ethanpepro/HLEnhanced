@@ -71,7 +71,7 @@ public:
 	int	  m_iFlags; // active, moving, 
 	virtual		~CHudBase() {}
 	virtual int Init( void ) {return 0;}
-	virtual int VidInit( void ) {return 0;}
+	virtual bool VidInit() { return false; }
 	virtual int Draw(float flTime) {return 0;}
 	virtual void Think(void) {return;}
 	virtual void Reset(void) {return;}
@@ -100,7 +100,7 @@ class CHudAmmo: public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw(float flTime);
 	void Think(void);
 	void Reset(void);
@@ -145,7 +145,7 @@ class CHudAmmoSecondary: public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	void Reset( void );
 	int Draw(float flTime);
 
@@ -176,7 +176,7 @@ class CHudGeiger: public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw(float flTime);
 	int MsgFunc_Geiger(const char *pszName, int iSize, void *pbuf);
 	
@@ -192,7 +192,7 @@ class CHudTrain: public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw(float flTime);
 	int MsgFunc_Train(const char *pszName, int iSize, void *pbuf);
 
@@ -209,7 +209,7 @@ class CHudStatusBar : public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw( float flTime );
 	void Reset( void );
 	void ParseStatusString( int line_num );
@@ -228,7 +228,7 @@ protected:
 	char m_szStatusBar[MAX_STATUSBAR_LINES][MAX_STATUSTEXT_LENGTH];	// the constructed bar that is drawn
 	int m_iStatusValues[MAX_STATUSBAR_VALUES];  // an array of values for use in the status bar
 
-	int m_bReparseString; // set to TRUE whenever the m_szStatusBar needs to be recalculated
+	bool m_bReparseString; // set to true whenever the m_szStatusBar needs to be recalculated
 
 	// an array of colors...one color for each line
 	float *m_pflNameColors[MAX_STATUSBAR_LINES];
@@ -254,8 +254,8 @@ struct team_info_t
 	short packetloss;
 	short ownteam;
 	short players;
-	int already_drawn;
-	int scores_overriden;
+	bool already_drawn;
+	bool scores_overriden;
 	int teamnumber;
 };
 
@@ -269,7 +269,7 @@ class CHudDeathNotice : public CHudBase
 public:
 	int Init( void );
 	void InitHUDData( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw( float flTime );
 	int MsgFunc_DeathMsg( const char *pszName, int iSize, void *pbuf );
 
@@ -285,14 +285,14 @@ class CHudMenu : public CHudBase
 public:
 	int Init( void );
 	void InitHUDData( void );
-	int VidInit( void );
+	bool VidInit() override;
 	void Reset( void );
 	int Draw( float flTime );
 	int MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf );
 
 	void SelectMenuItem( int menu_item );
 
-	int m_fMenuDisplayed;
+	bool m_fMenuDisplayed;
 	int m_bitsValidSlots;
 	float m_flShutoffTime;
 	int m_fWaitingForMore;
@@ -306,7 +306,7 @@ class CHudSayText : public CHudBase
 public:
 	int Init( void );
 	void InitHUDData( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw( float flTime );
 	int MsgFunc_SayText( const char *pszName, int iSize, void *pbuf );
 	void SayTextPrint( const char *pszBuf, int iBufSize, int clientIndex = -1 );
@@ -326,7 +326,7 @@ class CHudBattery: public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw(float flTime);
 	int MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf );
 	
@@ -349,7 +349,7 @@ class CHudFlashlight: public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw(float flTime);
 	void Reset( void );
 	int MsgFunc_Flashlight(const char *pszName,  int iSize, void *pbuf );
@@ -412,7 +412,7 @@ class CHudMessage: public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw(float flTime);
 	int MsgFunc_HudText(const char *pszName, int iSize, void *pbuf);
 	int MsgFunc_HudTextPro(const char *pszName, int iSize, void *pbuf);
@@ -449,7 +449,7 @@ class CHudStatusIcons: public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	void Reset( void );
 	int Draw(float flTime);
 	int MsgFunc_StatusIcon(const char *pszName, int iSize, void *pbuf);
@@ -486,7 +486,7 @@ class CHudBenchmark : public CHudBase
 {
 public:
 	int Init( void );
-	int VidInit( void );
+	bool VidInit() override;
 	int Draw( float flTime );
 
 	void SetScore( float score );
@@ -635,7 +635,7 @@ public:
 	SCREENINFO	m_scrinfo;
 
 	int	m_iWeaponBits;
-	int	m_fPlayerDead;
+	bool m_bPlayerDead;
 	int m_iIntermission;
 
 	// sprite indexes

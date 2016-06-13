@@ -48,9 +48,9 @@ void CHudAmmoSecondary :: Reset( void )
 	m_fFade = 0;
 }
 
-int CHudAmmoSecondary :: VidInit( void )
+bool CHudAmmoSecondary::VidInit()
 {
-	return 1;
+	return true;
 }
 
 int CHudAmmoSecondary :: Draw(float flTime)

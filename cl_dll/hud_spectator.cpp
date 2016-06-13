@@ -568,7 +568,7 @@ bool CHudSpectator::GetDirectorCamera( Vector &position, Vector &angle)
 //-----------------------------------------------------------------------------
 // Purpose: Loads new icons
 //-----------------------------------------------------------------------------
-int CHudSpectator::VidInit()
+bool CHudSpectator::VidInit()
 {
 	m_hsprPlayer		= SPR_Load("sprites/iplayer.spr");
 	m_hsprPlayerBlue	= SPR_Load("sprites/iplayerblue.spr");
@@ -586,7 +586,7 @@ int CHudSpectator::VidInit()
 	iJumpSpectator	= 0;
 	g_iUser1 = g_iUser2 = 0;
 	
-	return 1;
+	return true;
 }
 
 float CHudSpectator::GetFOV()

@@ -411,9 +411,9 @@ int CHudBenchmark::Init( void )
 	return 1;
 }
 
-int CHudBenchmark::VidInit( void )
+bool CHudBenchmark::VidInit()
 {
-	return 1;
+	return true;
 }
 
 int CHudBenchmark::Bench_ScoreForValue( int stage, float raw )

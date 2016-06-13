@@ -80,14 +80,14 @@ public:
 	void SelectSlot( int iSlot, int fAdvance, int iDirection );
 	WEAPON* GetNextActivePos( int iSlot, int iSlotPos );
 
-	int HasAmmo( WEAPON *p );
+	bool HasAmmo( const WEAPON* const p ) const;
 
 ///// AMMO /////
 	AMMO GetAmmo( int iId ) { return iId; }
 
 	void SetAmmo( int iId, int iCount ) { riAmmo[ iId ] = iCount;	}
 
-	int CountAmmo( int iId );
+	int CountAmmo( int iId ) const;
 
 	HSPRITE* GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect );
 };

@@ -30,9 +30,9 @@ struct DeathNoticeItem {
 	char szKiller[MAX_PLAYER_NAME_LENGTH*2];
 	char szVictim[MAX_PLAYER_NAME_LENGTH*2];
 	int iId;	// the index number of the associated sprite
-	int iSuicide;
-	int iTeamKill;
-	int iNonPlayerKill;
+	bool bSuicide;
+	bool bTeamKill;
+	bool bNonPlayerKill;
 	float flDisplayTime;
 	float *KillerColor;
 	float *VictimColor;
@@ -85,11 +85,11 @@ void CHudDeathNotice :: InitHUDData( void )
 }
 
 
-int CHudDeathNotice :: VidInit( void )
+bool CHudDeathNotice::VidInit()
 {
 	m_HUD_d_skull = gHUD.GetSpriteIndex( "d_skull" );
 
-	return 1;
+	return true;
 }
 
 int CHudDeathNotice :: Draw( float flTime )
@@ -120,7 +120,7 @@ int CHudDeathNotice :: Draw( float flTime )
 			int id = (rgDeathNoticeList[i].iId == -1) ? m_HUD_d_skull : rgDeathNoticeList[i].iId;
 			x = ScreenWidth - ConsoleStringLen(rgDeathNoticeList[i].szVictim) - (gHUD.GetSpriteRect(id).right - gHUD.GetSpriteRect(id).left);
 
-			if ( !rgDeathNoticeList[i].iSuicide )
+			if ( !rgDeathNoticeList[i].bSuicide )
 			{
 				x -= (5 + ConsoleStringLen( rgDeathNoticeList[i].szKiller ) );
 
@@ -131,7 +131,7 @@ int CHudDeathNotice :: Draw( float flTime )
 			}
 
 			r = 255;  g = 80;	b = 0;
-			if ( rgDeathNoticeList[i].iTeamKill )
+			if ( rgDeathNoticeList[i].bTeamKill )
 			{
 				r = 10;	g = 240; b = 10;  // display it in sickly green
 			}
@@ -143,7 +143,7 @@ int CHudDeathNotice :: Draw( float flTime )
 			x += (gHUD.GetSpriteRect(id).right - gHUD.GetSpriteRect(id).left);
 
 			// Draw victims name (if it was a player that was killed)
-			if (rgDeathNoticeList[i].iNonPlayerKill == FALSE)
+			if ( !rgDeathNoticeList[i].bNonPlayerKill )
 			{
 				if ( rgDeathNoticeList[i].VictimColor )
 					gEngfuncs.pfnDrawSetTextColor( rgDeathNoticeList[i].VictimColor[0], rgDeathNoticeList[i].VictimColor[1], rgDeathNoticeList[i].VictimColor[2] );
@@ -222,7 +222,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 	// Is it a non-player object kill?
 	if ( ((char)victim) == -1 )
 	{
-		rgDeathNoticeList[i].iNonPlayerKill = TRUE;
+		rgDeathNoticeList[i].bNonPlayerKill = true;
 
 		// Store the object's name in the Victim slot (skip the d_ bit)
 		strcpy( rgDeathNoticeList[i].szVictim, killedwith+2 );
@@ -230,10 +230,10 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 	else
 	{
 		if ( killer == victim || killer == 0 )
-			rgDeathNoticeList[i].iSuicide = TRUE;
+			rgDeathNoticeList[i].bSuicide = true;
 
 		if ( !strcmp( killedwith, "d_teammate" ) )
-			rgDeathNoticeList[i].iTeamKill = TRUE;
+			rgDeathNoticeList[i].bTeamKill = true;
 	}
 
 	// Find the sprite in the list
@@ -244,7 +244,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 	DEATHNOTICE_DISPLAY_TIME = CVAR_GET_FLOAT( "hud_deathnotice_time" );
 	rgDeathNoticeList[i].flDisplayTime = gHUD.m_flTime + DEATHNOTICE_DISPLAY_TIME;
 
-	if (rgDeathNoticeList[i].iNonPlayerKill)
+	if (rgDeathNoticeList[i].bNonPlayerKill )
 	{
 		ConsolePrint( rgDeathNoticeList[i].szKiller );
 		ConsolePrint( " killed a " );
@@ -254,7 +254,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 	else
 	{
 		// record the death notice in the console
-		if ( rgDeathNoticeList[i].iSuicide )
+		if ( rgDeathNoticeList[i].bSuicide )
 		{
 			ConsolePrint( rgDeathNoticeList[i].szVictim );
 
@@ -267,7 +267,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 				ConsolePrint( " killed self" );
 			}
 		}
-		else if ( rgDeathNoticeList[i].iTeamKill )
+		else if ( rgDeathNoticeList[i].bTeamKill )
 		{
 			ConsolePrint( rgDeathNoticeList[i].szKiller );
 			ConsolePrint( " killed his teammate " );
@@ -280,7 +280,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 			ConsolePrint( rgDeathNoticeList[i].szVictim );
 		}
 
-		if ( killedwith && *killedwith && (*killedwith > 13 ) && strcmp( killedwith, "d_world" ) && !rgDeathNoticeList[i].iTeamKill )
+		if ( killedwith && *killedwith && (*killedwith > 13 ) && strcmp( killedwith, "d_world" ) && !rgDeathNoticeList[i].bTeamKill )
 		{
 			ConsolePrint( " with " );
 

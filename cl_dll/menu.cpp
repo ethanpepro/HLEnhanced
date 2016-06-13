@@ -47,7 +47,7 @@ int CHudMenu :: Init( void )
 
 void CHudMenu :: InitHUDData( void )
 {
-	m_fMenuDisplayed = 0;
+	m_fMenuDisplayed = false;
 	m_bitsValidSlots = 0;
 	Reset();
 }
@@ -58,9 +58,9 @@ void CHudMenu :: Reset( void )
 	m_fWaitingForMore = FALSE;
 }
 
-int CHudMenu :: VidInit( void )
+bool CHudMenu::VidInit()
 {
-	return 1;
+	return true;
 }
 
 
@@ -78,7 +78,9 @@ int CHudMenu :: VidInit( void )
    \R : Right-align (just for the remainder of the current line)
 =================================*/
 
-static int menu_r, menu_g, menu_b, menu_x, menu_ralign;
+static int menu_r, menu_g, menu_b, menu_x;
+
+static bool menu_ralign;
 
 static inline const char* ParseEscapeToken( const char* token )
 {
@@ -118,7 +120,7 @@ static inline const char* ParseEscapeToken( const char* token )
 
 	case 'R':
 		menu_x = ScreenWidth/2;
-		menu_ralign = TRUE;
+		menu_ralign = true;
 		break;
 	}
 
@@ -133,7 +135,7 @@ int CHudMenu :: Draw( float flTime )
 	{
 		if ( m_flShutoffTime <= gHUD.m_flTime )
 		{  // times up, shutoff
-			m_fMenuDisplayed = 0;
+			m_fMenuDisplayed = false;
 			m_iFlags &= ~HUD_ACTIVE;
 			return 1;
 		}
@@ -161,7 +163,7 @@ int CHudMenu :: Draw( float flTime )
 	menu_g		= 255;
 	menu_b		= 255;
 	menu_x		= 20;
-	menu_ralign	 = FALSE;
+	menu_ralign	 = false;
 
 	const char* sptr = g_szMenuString;
 	
@@ -173,7 +175,7 @@ int CHudMenu :: Draw( float flTime )
 		}
 		else if ( *sptr == '\n' )
 		{
-			menu_ralign	 = FALSE;
+			menu_ralign	 = false;
 			menu_x		 = 20;
 			y			+= (12);
 			
@@ -216,7 +218,7 @@ void CHudMenu :: SelectMenuItem( int menu_item )
 		EngineClientCmd( szbuf );
 
 		// remove the menu
-		m_fMenuDisplayed = 0;
+		m_fMenuDisplayed = false;
 		m_iFlags &= ~HUD_ACTIVE;
 	}
 }
@@ -226,7 +228,7 @@ void CHudMenu :: SelectMenuItem( int menu_item )
 // takes four values:
 //		short: a bitfield of keys that are valid input
 //		char : the duration, in seconds, the menu should stay up. -1 means is stays until something is chosen.
-//		byte : a boolean, TRUE if there is more string yet to be received before displaying the menu, FALSE if it's the last string
+//		byte : a boolean, true if there is more string yet to be received before displaying the menu, false if it's the last string
 //		string: menu string to display
 // if this message is never received, then scores will simply be the combined totals of the players.
 int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
@@ -237,7 +239,7 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 
 	m_bitsValidSlots = READ_SHORT();
 	int DisplayTime = READ_CHAR();
-	int NeedMore = READ_BYTE();
+	const bool NeedMore = READ_BYTE() != 0;
 
 	if ( DisplayTime > 0 )
 		m_flShutoffTime = DisplayTime + gHUD.m_flTime;
@@ -268,12 +270,12 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 			}
 		}
 
-		m_fMenuDisplayed = 1;
+		m_fMenuDisplayed = true;
 		m_iFlags |= HUD_ACTIVE;
 	}
 	else
 	{
-		m_fMenuDisplayed = 0; // no valid slots means that the menu should be turned off
+		m_fMenuDisplayed = false; // no valid slots means that the menu should be turned off
 		m_iFlags &= ~HUD_ACTIVE;
 	}
 

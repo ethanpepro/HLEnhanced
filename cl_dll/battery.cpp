@@ -41,7 +41,7 @@ int CHudBattery::Init(void)
 };
 
 
-int CHudBattery::VidInit(void)
+bool CHudBattery::VidInit()
 {
 	int HUD_suit_empty = gHUD.GetSpriteIndex( "suit_empty" );
 	int HUD_suit_full = gHUD.GetSpriteIndex( "suit_full" );
@@ -51,8 +51,8 @@ int CHudBattery::VidInit(void)
 	m_prc2 = &gHUD.GetSpriteRect( HUD_suit_full );
 	m_iHeight = m_prc2->bottom - m_prc1->top;
 	m_fFade = 0;
-	return 1;
-};
+	return true;
+}
 
 int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 {

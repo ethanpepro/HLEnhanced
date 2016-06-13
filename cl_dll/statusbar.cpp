@@ -52,11 +52,11 @@ int CHudStatusBar :: Init( void )
 	return 1;
 }
 
-int CHudStatusBar :: VidInit( void )
+bool CHudStatusBar::VidInit()
 {
 	// Load sprites here
 
-	return 1;
+	return true;
 }
 
 void CHudStatusBar :: Reset( void )
@@ -240,7 +240,7 @@ int CHudStatusBar :: MsgFunc_StatusText( const char *pszName, int iSize, void *p
 	m_szStatusText[line][MAX_STATUSTEXT_LENGTH-1] = 0;  // ensure it's null terminated ( strncpy() won't null terminate if read string too long)
 
 	m_iFlags |= HUD_ACTIVE;
-	m_bReparseString = TRUE;
+	m_bReparseString = true;
 
 	return 1;
 }
@@ -259,7 +259,7 @@ int CHudStatusBar :: MsgFunc_StatusValue( const char *pszName, int iSize, void *
 
 	m_iStatusValues[index] = READ_SHORT();
 
-	m_bReparseString = TRUE;
+	m_bReparseString = true;
 	
 	return 1;
 }

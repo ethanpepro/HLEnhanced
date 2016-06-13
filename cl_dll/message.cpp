@@ -44,13 +44,13 @@ int CHudMessage::Init(void)
 	return 1;
 };
 
-int CHudMessage::VidInit( void )
+bool CHudMessage::VidInit()
 {
 	m_HUD_title_half = gHUD.GetSpriteIndex( "title_half" );
 	m_HUD_title_life = gHUD.GetSpriteIndex( "title_life" );
 
-	return 1;
-};
+	return true;
+}
 
 
 void CHudMessage::Reset( void )

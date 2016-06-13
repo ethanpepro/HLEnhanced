@@ -530,7 +530,7 @@ private:
 
 	// Data for specific sections of the Command Menu
 	int			m_iValidClasses[5];
-	int			m_iIsFeigning;
+	bool		m_bIsFeigning;
 	int			m_iIsSettingDetpack;
 	int			m_iNumberOfTeams;
 	int			m_iBuildState;
@@ -575,7 +575,7 @@ public:
 	void HideScoreBoard( void );
 	bool IsScoreBoardVisible( void );
 
-	bool AllowedToPrintText( void );
+	bool AllowedToPrintText() const;
 
 	void ShowVGUIMenu( int iMenu );
 	void HideVGUIMenu( void );
@@ -588,7 +588,7 @@ public:
 	// Data Handlers
 	int GetValidClasses(int iTeam) { return m_iValidClasses[iTeam]; };
 	int GetNumberOfTeams() { return m_iNumberOfTeams; };
-	int GetIsFeigning() { return m_iIsFeigning; };
+	bool GetIsFeigning() const { return m_bIsFeigning; }
 	int GetIsSettingDetpack() { return m_iIsSettingDetpack; };
 	int GetBuildState() { return m_iBuildState; };
 	int IsRandomPC() { return m_iRandomPC; };
@@ -1016,11 +1016,11 @@ public:
 class FeignButton : public CommandButton
 {
 private:
-	int	m_iFeignState;
+	bool m_bFeignState;
 public:
-	FeignButton( int iState, const char* text,int x,int y,int wide,int tall ) : CommandButton( text,x,y,wide,tall)
+	FeignButton( const bool bState, const char* text,int x,int y,int wide,int tall ) : CommandButton( text,x,y,wide,tall)
 	{
-		m_iFeignState = iState;
+		m_bFeignState = bState;
 	}
 
 	virtual int IsNotValid()
@@ -1031,7 +1031,7 @@ public:
 			return true;
 #endif
 
-		if (m_iFeignState == gViewPort->GetIsFeigning())
+		if ( m_bFeignState == gViewPort->GetIsFeigning())
 			return false;
 		return true;
 	}

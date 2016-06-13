@@ -100,6 +100,13 @@ typedef struct
 	int	fPlayTrack;
 } CDStatus;
 
+typedef enum
+{
+	TRF_NONE			= 0,
+	TRF_IGNORE_MONSTERS = 1,
+	TRF_IGNORE_GLASS	= 0x100
+} TraceLineFlag;
+
 #include "../common/crc.h"
 
 

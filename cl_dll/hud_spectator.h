@@ -91,7 +91,7 @@ public:
 	void DirectorMessage( int iSize, void *pbuf );
 	void SetSpectatorStartPosition();
 	int Init();
-	int VidInit();
+	bool VidInit() override;
 
 	int Draw(float flTime);
 

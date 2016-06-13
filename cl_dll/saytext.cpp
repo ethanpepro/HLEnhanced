@@ -72,9 +72,9 @@ void CHudSayText :: InitHUDData( void )
 	memset( g_iNameLengths, 0, sizeof g_iNameLengths );
 }
 
-int CHudSayText :: VidInit( void )
+bool CHudSayText::VidInit()
 {
-	return 1;
+	return true;
 }
 
 

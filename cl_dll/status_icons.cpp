@@ -38,10 +38,9 @@ int CHudStatusIcons::Init( void )
 	return 1;
 }
 
-int CHudStatusIcons::VidInit( void )
+bool CHudStatusIcons::VidInit()
 {
-
-	return 1;
+	return true;
 }
 
 void CHudStatusIcons::Reset( void )
@@ -76,7 +75,7 @@ int CHudStatusIcons::Draw( float flTime )
 
 // Message handler for StatusIcon message
 // accepts five values:
-//		byte   : TRUE = ENABLE icon, FALSE = DISABLE icon
+//		byte   : true = ENABLE icon, false = DISABLE icon
 //		string : the sprite name to display
 //		byte   : red
 //		byte   : green
@@ -85,7 +84,7 @@ int CHudStatusIcons::MsgFunc_StatusIcon( const char *pszName, int iSize, void *p
 {
 	BEGIN_READ( pbuf, iSize );
 
-	int ShouldEnable = READ_BYTE();
+	const bool ShouldEnable = READ_BYTE() != 0;
 	char *pszIconName = READ_STRING();
 	if ( ShouldEnable )
 	{

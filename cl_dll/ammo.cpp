@@ -48,7 +48,7 @@ void WeaponsResource :: LoadAllWeaponSprites( void )
 	}
 }
 
-int WeaponsResource :: CountAmmo( int iId ) 
+int WeaponsResource::CountAmmo( int iId ) const
 { 
 	if ( iId < 0 )
 		return 0;
@@ -56,14 +56,14 @@ int WeaponsResource :: CountAmmo( int iId )
 	return riAmmo[iId];
 }
 
-int WeaponsResource :: HasAmmo( WEAPON *p )
+bool WeaponsResource::HasAmmo( const WEAPON* const p ) const
 {
 	if ( !p )
-		return FALSE;
+		return false;
 
 	// weapons with no max ammo can always be selected
 	if ( p->iMax1 == -1 )
-		return TRUE;
+		return true;
 
 	return (p->iAmmoType == -1) || p->iClip > 0 || CountAmmo(p->iAmmoType) 
 		|| CountAmmo(p->iAmmo2Type) || ( p->iFlags & WEAPON_FLAGS_SELECTONEMPTY );
@@ -310,7 +310,7 @@ void CHudAmmo::Reset(void)
 	gHR.Reset();
 }
 
-int CHudAmmo::VidInit(void)
+bool CHudAmmo::VidInit()
 {
 	// Load sprites for buckets (top row of weapon menu)
 	m_HUD_bucket0 = gHUD.GetSpriteIndex( "bucket1" );
@@ -336,7 +336,7 @@ int CHudAmmo::VidInit(void)
 		giABHeight = 2;
 	}
 
-	return 1;
+	return true;
 }
 
 //
@@ -345,7 +345,7 @@ int CHudAmmo::VidInit(void)
 //
 void CHudAmmo::Think(void)
 {
-	if ( gHUD.m_fPlayerDead )
+	if ( gHUD.m_bPlayerDead )
 		return;
 
 	if ( gHUD.m_iWeaponBits != gWR.iOldWeaponBits )
@@ -424,7 +424,7 @@ void WeaponsResource :: SelectSlot( int iSlot, int fAdvance, int iDirection )
 	if ( iSlot > MAX_WEAPON_SLOTS )
 		return;
 
-	if ( gHUD.m_fPlayerDead || gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( gHUD.m_bPlayerDead || gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
@@ -587,11 +587,11 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 		// Is player dead???
 		if ((iId == -1) && (iClip == -1))
 		{
-			gHUD.m_fPlayerDead = TRUE;
+			gHUD.m_bPlayerDead = true;
 			gpActiveSel = NULL;
 			return 1;
 		}
-		gHUD.m_fPlayerDead = FALSE;
+		gHUD.m_bPlayerDead = false;
 	}
 
 	WEAPON *pWeapon = gWR.GetWeapon( iId );
@@ -743,7 +743,7 @@ void CHudAmmo::UserCmd_Close(void)
 // Selects the next item in the weapon menu
 void CHudAmmo::UserCmd_NextWeapon(void)
 {
-	if ( gHUD.m_fPlayerDead || (gHUD.m_iHideHUDDisplay & (HIDEHUD_WEAPONS | HIDEHUD_ALL)) )
+	if ( gHUD.m_bPlayerDead || (gHUD.m_iHideHUDDisplay & (HIDEHUD_WEAPONS | HIDEHUD_ALL)) )
 		return;
 
 	if ( !gpActiveSel || gpActiveSel == (WEAPON*)1 )
@@ -784,7 +784,7 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 // Selects the previous item in the menu
 void CHudAmmo::UserCmd_PrevWeapon(void)
 {
-	if ( gHUD.m_fPlayerDead || (gHUD.m_iHideHUDDisplay & (HIDEHUD_WEAPONS | HIDEHUD_ALL)) )
+	if ( gHUD.m_bPlayerDead || (gHUD.m_iHideHUDDisplay & (HIDEHUD_WEAPONS | HIDEHUD_ALL)) )
 		return;
 
 	if ( !gpActiveSel || gpActiveSel == (WEAPON*)1 )

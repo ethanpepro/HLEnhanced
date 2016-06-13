@@ -85,7 +85,7 @@ void CHudHealth::Reset( void )
 	}
 }
 
-int CHudHealth::VidInit(void)
+bool CHudHealth::VidInit()
 {
 	m_hSprite = 0;
 
@@ -94,7 +94,7 @@ int CHudHealth::VidInit(void)
 
 	giDmgHeight = gHUD.GetSpriteRect(m_HUD_dmg_bio).right - gHUD.GetSpriteRect(m_HUD_dmg_bio).left;
 	giDmgWidth = gHUD.GetSpriteRect(m_HUD_dmg_bio).bottom - gHUD.GetSpriteRect(m_HUD_dmg_bio).top;
-	return 1;
+	return true;
 }
 
 int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
