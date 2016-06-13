@@ -4275,13 +4275,13 @@ Vector CBasePlayer :: GetAutoaimVector( float flDelta )
 		// flDelta *= 0.5;
 	}
 
-	BOOL m_fOldTargeting = m_fOnTarget;
+	const bool bOldTargeting = m_fOnTarget;
 	Vector angles = AutoaimDeflection(vecSrc, flDist, flDelta );
 
 	// update ontarget if changed
 	if ( !g_pGameRules->AllowAutoTargetCrosshair() )
 		m_fOnTarget = 0;
-	else if (m_fOldTargeting != m_fOnTarget)
+	else if ( bOldTargeting != m_fOnTarget)
 	{
 		m_pActiveItem->UpdateItemInfo( );
 	}
