@@ -137,12 +137,12 @@ void CFlockingFlyerFlock :: KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "iFlockSize"))
 	{
 		m_cFlockSize = atoi(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "flFlockRadius"))
 	{
 		m_flFlockRadius = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 }
 

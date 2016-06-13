@@ -2026,7 +2026,7 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 				ALERT( at_error, "Bad field in entity!!\n" );
 				break;
 			}
-			pkvd->fHandled = TRUE;
+			pkvd->fHandled = true;
 			return;
 		}
 	}

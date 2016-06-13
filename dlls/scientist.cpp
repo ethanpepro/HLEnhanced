@@ -1115,7 +1115,7 @@ void CDeadScientist::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "pose"))
 	{
 		m_iPose = atoi(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CBaseMonster::KeyValue( pkvd );

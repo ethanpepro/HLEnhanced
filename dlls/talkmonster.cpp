@@ -1450,12 +1450,12 @@ void CTalkMonster::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "UseSentence"))
 	{
 		m_iszUse = ALLOC_STRING(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "UnUseSentence"))
 	{
 		m_iszUnUse = ALLOC_STRING(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else 
 		CBaseMonster::KeyValue( pkvd );

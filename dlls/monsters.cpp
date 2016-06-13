@@ -2974,12 +2974,12 @@ void CBaseMonster :: KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "TriggerTarget"))
 	{
 		m_iszTriggerTarget = ALLOC_STRING( pkvd->szValue );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "TriggerCondition") )
 	{
 		m_iTriggerCondition = atoi( pkvd->szValue );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 	{

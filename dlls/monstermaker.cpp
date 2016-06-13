@@ -84,17 +84,17 @@ void CMonsterMaker :: KeyValue( KeyValueData *pkvd )
 	if ( FStrEq(pkvd->szKeyName, "monstercount") )
 	{
 		m_cNumMonsters = atoi(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if ( FStrEq(pkvd->szKeyName, "m_imaxlivechildren") )
 	{
 		m_iMaxLiveChildren = atoi(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if ( FStrEq(pkvd->szKeyName, "monstertype") )
 	{
 		m_iszMonsterClassname = ALLOC_STRING( pkvd->szValue );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CBaseMonster::KeyValue( pkvd );

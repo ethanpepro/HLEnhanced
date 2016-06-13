@@ -46,7 +46,7 @@ void CWorldItem::KeyValue(KeyValueData *pkvd)
 	if (FStrEq(pkvd->szKeyName, "type"))
 	{
 		m_iType = atoi(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CBaseEntity::KeyValue( pkvd );

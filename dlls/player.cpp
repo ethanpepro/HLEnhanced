@@ -4689,7 +4689,7 @@ void CDeadHEV::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "pose"))
 	{
 		m_iPose = atoi(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else 
 		CBaseMonster::KeyValue( pkvd );
@@ -4797,22 +4797,22 @@ void CRevertSaved :: KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "duration"))
 	{
 		SetDuration( atof(pkvd->szValue) );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "holdtime"))
 	{
 		SetHoldTime( atof(pkvd->szValue) );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "messagetime"))
 	{
 		SetMessageTime( atof(pkvd->szValue) );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "loadtime"))
 	{
 		SetLoadTime( atof(pkvd->szValue) );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else 
 		CPointEntity::KeyValue( pkvd );

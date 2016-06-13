@@ -68,7 +68,7 @@ LINK_ENTITY_TO_CLASS( env_global, CEnvGlobal );
 
 void CEnvGlobal::KeyValue( KeyValueData *pkvd )
 {
-	pkvd->fHandled = TRUE;
+	pkvd->fHandled = true;
 
 	if ( FStrEq(pkvd->szKeyName, "globalstate") )		// State name
 		m_globalstate = ALLOC_STRING( pkvd->szValue );
@@ -156,11 +156,11 @@ void CMultiSource::KeyValue( KeyValueData *pkvd )
 				FStrEq(pkvd->szKeyName, "value1") ||
 				FStrEq(pkvd->szKeyName, "value2") ||
 				FStrEq(pkvd->szKeyName, "value3"))
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	else if ( FStrEq(pkvd->szKeyName, "globalstate") )
 	{
 		m_globalstate = ALLOC_STRING( pkvd->szValue );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else 
 		CPointEntity::KeyValue( pkvd );
@@ -360,32 +360,32 @@ void CBaseButton::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "changetarget"))
 	{
 		m_strChangeTarget = ALLOC_STRING(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}	
 	else if (FStrEq(pkvd->szKeyName, "locked_sound"))
 	{
 		m_bLockedSound = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "locked_sentence"))
 	{
 		m_bLockedSentence = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "unlocked_sound"))
 	{
 		m_bUnlockedSound = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "unlocked_sentence"))
 	{
 		m_bUnlockedSentence = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "sounds"))
 	{
 		m_sounds = atoi(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else 
 		CBaseToggle::KeyValue( pkvd );
@@ -965,12 +965,12 @@ void CMomentaryRotButton::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "returnspeed"))
 	{
 		m_returnSpeed = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "sounds"))
 	{
 		m_sounds = atoi(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CBaseToggle::KeyValue( pkvd );
@@ -1195,7 +1195,7 @@ void CEnvSpark::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "MaxDelay"))
 	{
 		m_flDelay = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;	
+		pkvd->fHandled = true;	
 	}
 	else if (	FStrEq(pkvd->szKeyName, "style") ||
 				FStrEq(pkvd->szKeyName, "height") ||
@@ -1203,7 +1203,7 @@ void CEnvSpark::KeyValue( KeyValueData *pkvd )
 				FStrEq(pkvd->szKeyName, "value1") ||
 				FStrEq(pkvd->szKeyName, "value2") ||
 				FStrEq(pkvd->szKeyName, "value3"))
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	else
 		CBaseEntity::KeyValue( pkvd );
 }

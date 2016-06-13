@@ -198,47 +198,47 @@ void CBaseDoor::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "skin"))//skin is used for content type
 	{
 		pev->skin = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "movesnd"))
 	{
 		m_bMoveSnd = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "stopsnd"))
 	{
 		m_bStopSnd = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "healthvalue"))
 	{
 		m_bHealthValue = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "locked_sound"))
 	{
 		m_bLockedSound = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "locked_sentence"))
 	{
 		m_bLockedSentence = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "unlocked_sound"))
 	{
 		m_bUnlockedSound = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "unlocked_sentence"))
 	{
 		m_bUnlockedSentence = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "WaveHeight"))
 	{
 		pev->scale = atof(pkvd->szValue) * (1.0/8.0);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CBaseToggle::KeyValue( pkvd );
@@ -996,17 +996,17 @@ void CMomentaryDoor::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "movesnd"))
 	{
 		m_bMoveSnd = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "stopsnd"))
 	{
 //		m_bStopSnd = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "healthvalue"))
 	{
 //		m_bHealthValue = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CBaseToggle::KeyValue( pkvd );

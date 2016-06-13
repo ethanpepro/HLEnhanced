@@ -1505,13 +1505,13 @@ void CNodeEnt :: KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "hinttype"))
 	{
 		m_sHintType = (short)atoi( pkvd->szValue );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 
 	if (FStrEq(pkvd->szKeyName, "activity"))
 	{
 		m_sHintActivity = (short)atoi( pkvd->szValue );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CBaseEntity::KeyValue( pkvd );

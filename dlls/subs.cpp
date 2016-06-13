@@ -75,7 +75,7 @@ void CBaseDMStart::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "master"))
 	{
 		pev->netname = ALLOC_STRING(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CPointEntity::KeyValue( pkvd );
@@ -145,12 +145,12 @@ void CBaseDelay :: KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "delay"))
 	{
 		m_flDelay = atof( pkvd->szValue );
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "killtarget"))
 	{
 		m_iszKillTarget = ALLOC_STRING(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 	{
@@ -362,22 +362,22 @@ void CBaseToggle::KeyValue( KeyValueData *pkvd )
 	if (FStrEq(pkvd->szKeyName, "lip"))
 	{
 		m_flLip = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "wait"))
 	{
 		m_flWait = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "master"))
 	{
 		m_sMaster = ALLOC_STRING(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "distance"))
 	{
 		m_flMoveDistance = atof(pkvd->szValue);
-		pkvd->fHandled = TRUE;
+		pkvd->fHandled = true;
 	}
 	else
 		CBaseDelay::KeyValue( pkvd );
