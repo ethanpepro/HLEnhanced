@@ -329,7 +329,7 @@ void CFuncTank :: KeyValue( KeyValueData *pkvd )
 bool CFuncTank :: OnControls( entvars_t *pevTest )
 {
 	if ( !(pev->spawnflags & SF_TANK_CANCONTROL) )
-		return FALSE;
+		return false;
 
 	Vector offset = pevTest->origin - pev->origin;
 

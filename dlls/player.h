@@ -44,8 +44,11 @@
 //-----------------------------------------------------
 #define CSUITPLAYLIST	4		// max of 4 suit sentences queued up at any time
 
-#define SUIT_GROUP			1
-#define	SUIT_SENTENCE		0
+enum SuitUpdateType
+{
+	SUIT_GROUP		= 1,
+	SUIT_SENTENCE	= 0
+};
 
 #define	SUIT_REPEAT_OK		0
 #define SUIT_NEXT_IN_30SEC	30
@@ -161,7 +164,7 @@ public:
 	bool				m_fInitHUD;				// True when deferred HUD restart msg needs to be sent
 	bool				m_fGameHUDInitialized;
 	int					m_iTrain;				// Train control position
-	bool				m_fWeapon;				// Set this to FALSE to force a reset of the current weapon HUD info
+	bool				m_fWeapon;				// Set this to false to force a reset of the current weapon HUD info
 
 	EHANDLE				m_pTank;				// the tank which the player is currently controlling,  NULL if no tank
 	float				m_fDeadTime;			// the time at which the player died  (used in PlayerDeathThink())
@@ -283,7 +286,7 @@ public:
 	void PlayerUse( void );
 
 	void CheckSuitUpdate();
-	void SetSuitUpdate(char *name, int fgroup, int iNoRepeat);
+	void SetSuitUpdate(char *name, const SuitUpdateType updateType, int iNoRepeat);
 	void UpdateGeigerCounter( void );
 	void CheckTimeBasedDamage( void );
 

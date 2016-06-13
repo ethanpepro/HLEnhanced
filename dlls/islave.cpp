@@ -456,7 +456,7 @@ bool CISlave :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if (m_flNextAttack > gpGlobals->time)
 	{
-		return FALSE;
+		return false;
 	}
 
 	return CSquadMonster::CheckRangeAttack1( flDot, flDist );
@@ -467,11 +467,11 @@ bool CISlave :: CheckRangeAttack1 ( float flDot, float flDist )
 //=========================================================
 bool CISlave :: CheckRangeAttack2 ( float flDot, float flDist )
 {
-	return FALSE;
+	return false;
 
 	if (m_flNextAttack > gpGlobals->time)
 	{
-		return FALSE;
+		return false;
 	}
 
 	m_hDead = NULL;

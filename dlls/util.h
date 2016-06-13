@@ -471,14 +471,14 @@ extern char gszallsentencenames[CVOXFILESENTENCEMAX][CBSENTENCENAME_MAX];
 extern int gcallsentences;
 
 int USENTENCEG_Pick(int isentenceg, char *szfound);
-int USENTENCEG_PickSequential(int isentenceg, char *szfound, int ipick, int freset);
+int USENTENCEG_PickSequential(int isentenceg, char *szfound, int ipick, const bool bReset );
 void USENTENCEG_InitLRU(unsigned char *plru, int count);
 
 void SENTENCEG_Init();
 void SENTENCEG_Stop(edict_t *entity, int isentenceg, int ipick);
 int SENTENCEG_PlayRndI(edict_t *entity, int isentenceg, float volume, float attenuation, int flags, int pitch);
 int SENTENCEG_PlayRndSz(edict_t *entity, const char *szrootname, float volume, float attenuation, int flags, int pitch);
-int SENTENCEG_PlaySequentialSz(edict_t *entity, const char *szrootname, float volume, float attenuation, int flags, int pitch, int ipick, int freset);
+int SENTENCEG_PlaySequentialSz(edict_t *entity, const char *szrootname, float volume, float attenuation, int flags, int pitch, int ipick, const bool bReset );
 int SENTENCEG_GetIndex(const char *szrootname);
 int SENTENCEG_Lookup(const char *sample, char *sentencenum);
 

@@ -941,7 +941,7 @@ int CHalfLifeMultiplay :: WeaponShouldRespawn( CBasePlayerItem *pWeapon )
 }
 
 //=========================================================
-// CanHaveWeapon - returns FALSE if the player is not allowed
+// CanHaveWeapon - returns false if the player is not allowed
 // to pick up this weapon
 //=========================================================
 bool CHalfLifeMultiplay::CanHavePlayerItem( CBasePlayer *pPlayer, CBasePlayerItem *pItem )

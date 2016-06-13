@@ -1073,7 +1073,7 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 	{
 		SetConditions ( bits_COND_ENEMY_DEAD );
 		ClearConditions( bits_COND_SEE_ENEMY | bits_COND_ENEMY_OCCLUDED );
-		return FALSE;
+		return false;
 	}
 
 	Vector vecEnemyPos = pEnemy->pev->origin;
@@ -1332,7 +1332,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 
 		// since we've actually moved the monster during the check, undo the move.
 		pev->origin = vecStartPos;
-		return FALSE;
+		return false;
 	}
 */
 	// this loop takes single steps to the goal.
@@ -2274,7 +2274,7 @@ bool CBaseMonster::FindCover( Vector vecThreat, Vector vecViewOffset, float flMi
 	{
 		// ALERT ( at_aiconsole, "FindCover() - Threat has no nearest node!\n" );
 		iThreatNode = iMyNode;
-		// return FALSE;
+		// return false;
 	}
 
 	vecLookersOffset = vecThreat + vecViewOffset;// calculate location of enemy's eyes
@@ -3431,7 +3431,7 @@ CBaseEntity* CBaseMonster :: DropItem ( char *pszItemName, const Vector &vecPos,
 	else
 	{
 		ALERT ( at_console, "DropItem() - Didn't create!\n" );
-		return FALSE;
+		return false;
 	}
 
 }

@@ -55,7 +55,7 @@ void CHudMenu :: InitHUDData( void )
 void CHudMenu :: Reset( void )
 {
 	g_szPrelocalisedMenuString[0] = 0;
-	m_fWaitingForMore = FALSE;
+	m_fWaitingForMore = false;
 }
 
 bool CHudMenu::VidInit()

@@ -302,7 +302,7 @@ bool CCrossbow::Deploy()
 
 void CCrossbow::Holster( int skiplocal /* = 0 */ )
 {
-	m_fInReload = FALSE;// cancel any reload in progress.
+	m_fInReload = false;// cancel any reload in progress.
 
 	if ( m_fInZoom )
 	{
@@ -431,7 +431,7 @@ void CCrossbow::FireBolt()
 
 	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
 		// HEV suit - indicate out of ammo condition
-		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, 0);
+		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 
 	m_flNextPrimaryAttack = GetNextAttackDelay(0.75);
 

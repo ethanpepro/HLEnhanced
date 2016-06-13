@@ -355,7 +355,7 @@ public:
 	int		m_iClip;											// number of shots left in the primary weapon clip, -1 it not used
 	int		m_iClientClip;										// the last version of m_iClip sent to hud dll
 	int		m_iClientWeaponState;								// the last version of the weapon state sent to hud dll (is current weapon, is on target)
-	int		m_fInReload;										// Are we in the middle of a reload;
+	bool	m_fInReload;										// Are we in the middle of a reload;
 
 	int		m_iDefaultAmmo;// how much ammo you get when you pick up this weapon as placed by a level designer.
 	
@@ -651,7 +651,7 @@ public:
 	bool Deploy() override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
-	int m_fInReload;
+	int m_fInReload; //TODO: seems to be unused. Replaced with m_fInSpecialReload? - Solokiller
 	float m_flNextReload;
 	int m_iShell;
 

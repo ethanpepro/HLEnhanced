@@ -77,7 +77,7 @@ public:
 	void LoadWeaponSprites( WEAPON* wp );
 	void LoadAllWeaponSprites( void );
 	WEAPON* GetFirstPos( int iSlot );
-	void SelectSlot( int iSlot, int fAdvance, int iDirection );
+	void SelectSlot( int iSlot, const bool fAdvance, int iDirection );
 	WEAPON* GetNextActivePos( int iSlot, int iSlotPos );
 
 	bool HasAmmo( const WEAPON* const p ) const;

@@ -645,7 +645,7 @@ void CFuncRotating :: SpinDown( void )
 	} 
 	else
 	{
-		RampPitchVol(FALSE);
+		RampPitchVol( false );
 	}
 }
 

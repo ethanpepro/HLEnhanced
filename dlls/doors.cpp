@@ -142,7 +142,7 @@ void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const
 			int iprev = pls->iLockedSentence;
 			
 			pls->iLockedSentence = SENTENCEG_PlaySequentialSz(ENT(pev), STRING(pls->sLockedSentence), 
-					  0.85, ATTN_NORM, 0, 100, pls->iLockedSentence, FALSE);
+					  0.85, ATTN_NORM, 0, 100, pls->iLockedSentence, false);
 			pls->iUnlockedSentence = 0;
 
 			// make sure we don't keep calling last sentence in list
@@ -178,7 +178,7 @@ void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const
 			int iprev = pls->iUnlockedSentence;
 			
 			pls->iUnlockedSentence = SENTENCEG_PlaySequentialSz(ENT(pev), STRING(pls->sUnlockedSentence), 
-					  0.85, ATTN_NORM, 0, 100, pls->iUnlockedSentence, FALSE);
+					  0.85, ATTN_NORM, 0, 100, pls->iUnlockedSentence, false);
 			pls->iLockedSentence = 0;
 
 			// make sure we don't keep calling last sentence in list
@@ -548,7 +548,7 @@ int CBaseDoor::DoorActivate( )
 		}
 
 		// play door unlock sounds
-		PlayLockSounds(pev, &m_ls, FALSE, FALSE);
+		PlayLockSounds(pev, &m_ls, false, false);
 		
 		DoorGoUp();
 	}

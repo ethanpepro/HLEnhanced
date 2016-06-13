@@ -655,7 +655,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 
 		m_pPlayer->TabulateAmmo();
 
-		m_fInReload = FALSE;
+		m_fInReload = false;
 	}
 
 	if ( !(m_pPlayer->pev->button & IN_ATTACK ) )
@@ -1062,7 +1062,7 @@ int CBasePlayerWeapon::SecondaryAmmoIndex() const
 
 void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
 { 
-	m_fInReload = FALSE; // cancel any reload in progress.
+	m_fInReload = false; // cancel any reload in progress.
 	m_pPlayer->pev->viewmodel = 0; 
 	m_pPlayer->pev->weaponmodel = 0;
 }
@@ -1559,7 +1559,7 @@ void CBasePlayerWeapon::PrintState( void )
 //	ALERT( at_console, "nextpum:  %f\n", m_flPumpTime );
 
 //	ALERT( at_console, "m_frt  :  %f\n", m_fReloadTime );
-	ALERT( at_console, "m_finre:  %i\n", m_fInReload );
+	ALERT( at_console, "m_finre:  %s\n", m_fInReload ? "true" : "false" );
 //	ALERT( at_console, "m_finsr:  %i\n", m_fInSpecialReload );
 
 	ALERT( at_console, "m_iclip:  %i\n", m_iClip );

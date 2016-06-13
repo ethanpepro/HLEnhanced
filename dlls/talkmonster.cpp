@@ -929,7 +929,7 @@ bool CTalkMonster::FOkToSpeak() const
 		return false;
 
 	if ( pev->spawnflags & SF_MONSTER_GAG )
-		return FALSE;
+		return false;
 
 	if ( m_MonsterState == MONSTERSTATE_PRONE )
 		return false;
@@ -1197,7 +1197,7 @@ int CTalkMonster :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker,
 		// if player damaged this entity, have other friends talk about it
 		if (pevAttacker && m_MonsterState != MONSTERSTATE_PRONE && FBitSet(pevAttacker->flags, FL_CLIENT))
 		{
-			CBaseEntity *pFriend = FindNearestFriend(FALSE);
+			CBaseEntity *pFriend = FindNearestFriend( false );
 
 			if (pFriend && pFriend->IsAlive())
 			{

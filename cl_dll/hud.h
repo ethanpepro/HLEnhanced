@@ -295,7 +295,7 @@ public:
 	bool m_fMenuDisplayed;
 	int m_bitsValidSlots;
 	float m_flShutoffTime;
-	int m_fWaitingForMore;
+	bool m_fWaitingForMore;
 };
 
 //

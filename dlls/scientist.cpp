@@ -1399,7 +1399,7 @@ bool CSittingScientist::FIdleSpeak()
 	// if there is a friend nearby to speak to, play sentence, set friend's response time, return
 
 	// try to talk to any standing or sitting scientists nearby
-	CBaseEntity *pentFriend = FindNearestFriend(FALSE);
+	CBaseEntity *pentFriend = FindNearestFriend( false );
 
 	if (pentFriend && RANDOM_LONG(0,1))
 	{

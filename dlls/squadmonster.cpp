@@ -588,7 +588,7 @@ bool CSquadMonster::SquadEnemySplit()
 bool CSquadMonster::SquadMemberInRange( const Vector &vecLocation, float flDist )
 {
 	if (!InSquad())
-		return FALSE;
+		return false;
 
 	CSquadMonster *pSquadLeader = MySquadLeader();
 

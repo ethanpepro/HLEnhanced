@@ -47,7 +47,7 @@ static globalvars_t	Globals;
 static CBasePlayerWeapon *g_pWpns[ 32 ];
 
 float g_flApplyVel = 0.0;
-int   g_irunninggausspred = 0;
+bool   g_brunninggausspred = false;
 
 Vector previousorigin;
 
@@ -217,7 +217,7 @@ bool CBasePlayerWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, i
 	
 	SendWeaponAnim( iAnim, skiplocal, body );
 
-	g_irunninggausspred = false;
+	g_brunninggausspred = false;
 	m_pPlayer->m_flNextAttack = 0.5;
 	m_flTimeWeaponIdle = 1.0;
 	return true;
@@ -261,8 +261,8 @@ Put away weapon
 */
 void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
 { 
-	m_fInReload = FALSE; // cancel any reload in progress.
-	g_irunninggausspred = false;
+	m_fInReload = false; // cancel any reload in progress.
+	g_brunninggausspred = false;
 	m_pPlayer->pev->viewmodel = 0; 
 }
 
@@ -337,7 +337,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 #else	
 		m_iClip += 10;
 #endif
-		m_fInReload = FALSE;
+		m_fInReload = false;
 	}
 
 	if ((m_pPlayer->pev->button & IN_ATTACK2) && (m_flNextSecondaryAttack <= 0.0))
@@ -460,7 +460,7 @@ void CBasePlayer::Killed( entvars_t *pevAttacker, int iGib )
 	if ( m_pActiveItem )
 		 m_pActiveItem->Holster( );
 	
-	g_irunninggausspred = false;
+	g_brunninggausspred = false;
 }
 
 /*
@@ -474,7 +474,7 @@ void CBasePlayer::Spawn( void )
 	if (m_pActiveItem)
 		m_pActiveItem->Deploy( );
 
-	g_irunninggausspred = false;
+	g_brunninggausspred = false;
 }
 
 /*
@@ -1067,12 +1067,12 @@ void CL_DLLEXPORT HUD_PostRunCmd( struct local_state_s *from, struct local_state
 		to->client.fov = g_lastFOV;
 	}
 
-	if ( g_irunninggausspred == 1 )
+	if ( g_brunninggausspred )
 	{
 		Vector forward;
 		gEngfuncs.pfnAngleVectors( v_angles, forward, NULL, NULL );
 		to->client.velocity = to->client.velocity - forward * g_flApplyVel * 5; 
-		g_irunninggausspred = false;
+		g_brunninggausspred = false;
 	}
 	
 	// All games can use FOV state

@@ -32,8 +32,8 @@ extern DLL_GLOBAL bool		g_fGameOver;
 
 CHalfLifeTeamplay :: CHalfLifeTeamplay()
 {
-	m_DisableDeathMessages = FALSE;
-	m_DisableDeathPenalty = FALSE;
+	m_DisableDeathMessages = false;
+	m_DisableDeathPenalty = false;
 
 	memset( team_names, 0, sizeof(team_names) );
 	memset( team_scores, 0, sizeof(team_scores) );
@@ -281,8 +281,8 @@ void CHalfLifeTeamplay::ChangePlayerTeam( CBasePlayer *pPlayer, const char *pTea
 		entvars_t *pevWorld = VARS( INDEXENT(0) );
 		pPlayer->TakeDamage( pevWorld, pevWorld, 900, damageFlags );
 
-		m_DisableDeathMessages = FALSE;
-		m_DisableDeathPenalty = FALSE;
+		m_DisableDeathMessages = false;
+		m_DisableDeathPenalty = false;
 	}
 
 	// copy out the team name from the model
@@ -581,7 +581,7 @@ void CHalfLifeTeamplay::RecountTeams( bool bResendInfo )
 	if ( num_teams < 2 )
 	{
 		num_teams = 0;
-		m_teamLimit = FALSE;
+		m_teamLimit = false;
 	}
 
 	// Sanity check

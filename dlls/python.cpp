@@ -118,7 +118,7 @@ bool CPython::Deploy()
 
 void CPython::Holster( int skiplocal /* = 0 */ )
 {
-	m_fInReload = FALSE;// cancel any reload in progress.
+	m_fInReload = false;// cancel any reload in progress.
 
 	if ( m_fInZoom )
 	{
@@ -208,7 +208,7 @@ void CPython::PrimaryAttack()
 
 	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
 		// HEV suit - indicate out of ammo condition
-		m_pPlayer->SetSuitUpdate("!HEV_AMO0", FALSE, 0);
+		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 
 	m_flNextPrimaryAttack = 0.75;
 	m_flTimeWeaponIdle = UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
@@ -226,14 +226,15 @@ void CPython::Reload( void )
 		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 0;  // 0 means reset to default fov
 	}
 
-	int bUseScope = 0;
+	//TODO: same code is below this - Solokiller
+	int iScopeBody = 0;
 #ifdef CLIENT_DLL
-	bUseScope = bIsMultiplayer() ? 1 : 0;
+	iScopeBody = bIsMultiplayer() ? 1 : 0;
 #else
-	bUseScope = g_pGameRules->IsMultiplayer() ? 1 : 0;
+	iScopeBody = g_pGameRules->IsMultiplayer() ? 1 : 0;
 #endif
 
-	DefaultReload( 6, PYTHON_RELOAD, 2.0, bUseScope );
+	DefaultReload( 6, PYTHON_RELOAD, 2.0, iScopeBody );
 }
 
 
@@ -269,14 +270,14 @@ void CPython::WeaponIdle( void )
 		m_flTimeWeaponIdle = (170.0/30.0);
 	}
 	
-	int bUseScope = FALSE;
+	int iScopeBody = 0;
 #ifdef CLIENT_DLL
-	bUseScope = bIsMultiplayer();
+	iScopeBody = bIsMultiplayer() ? 1 : 0;
 #else
-	bUseScope = g_pGameRules->IsMultiplayer();
+	iScopeBody = g_pGameRules->IsMultiplayer() ? 1 : 0;
 #endif
 	
-	SendWeaponAnim( iAnim, UseDecrement() ? 1 : 0, bUseScope );
+	SendWeaponAnim( iAnim, UseDecrement() ? 1 : 0, iScopeBody );
 }
 
 

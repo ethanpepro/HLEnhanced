@@ -58,7 +58,7 @@ float CGauss::GetFullChargeTime( void )
 }
 
 #ifdef CLIENT_DLL
-extern int g_irunninggausspred;
+extern bool g_brunninggausspred;
 #endif
 
 void CGauss::Spawn( )
@@ -379,7 +379,7 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 
 #ifdef CLIENT_DLL
 	if ( !m_fPrimaryFire )
-		 g_irunninggausspred = true;
+		g_brunninggausspred = true;
 #endif
 	
 	// The main firing event is sent unreliably so it won't be delayed.

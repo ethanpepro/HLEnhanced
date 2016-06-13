@@ -320,7 +320,7 @@ int CTripmineGrenade :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttac
 		SetThink( &CTripmineGrenade::SUB_Remove );
 		pev->nextthink = gpGlobals->time + 0.1;
 		KillBeam();
-		return FALSE;
+		return 0;
 	}
 	return CGrenade::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
 }

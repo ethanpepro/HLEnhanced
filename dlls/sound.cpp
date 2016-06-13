@@ -262,7 +262,7 @@ void CAmbientGeneric :: RampThink( void )
 	int pitch = m_dpv.pitch; 
 	int vol = m_dpv.vol;
 	int flags = 0;
-	int fChanged = 0;		// FALSE if pitch and vol remain unchanged this round
+	bool fChanged = false;		// false if pitch and vol remain unchanged this round
 	int	prev;
 
 	if (!m_dpv.spinup && !m_dpv.spindown && !m_dpv.fadein && !m_dpv.fadeout && !m_dpv.lfotype)
@@ -1045,7 +1045,7 @@ void USENTENCEG_InitLRU(unsigned char *plru, int count)
 // ipick 'next' is returned.  
 // return of -1 indicates an error.
 
-int USENTENCEG_PickSequential(int isentenceg, char *szfound, int ipick, int freset)
+int USENTENCEG_PickSequential(int isentenceg, char *szfound, int ipick, const bool bReset )
 {
 	char *szgroupname;
 	unsigned char count;
@@ -1073,7 +1073,7 @@ int USENTENCEG_PickSequential(int isentenceg, char *szfound, int ipick, int fres
 	
 	if (ipick >= count)
 	{
-		if (freset)
+		if ( bReset )
 			// reset at end of list
 			return 0;
 		else
@@ -1216,7 +1216,7 @@ int SENTENCEG_PlayRndSz(edict_t *entity, const char *szgroupname,
 // play sentences in sequential order from sentence group.  Reset after last sentence.
 
 int SENTENCEG_PlaySequentialSz(edict_t *entity, const char *szgroupname, 
-					  float volume, float attenuation, int flags, int pitch, int ipick, int freset)
+					  float volume, float attenuation, int flags, int pitch, int ipick, const bool bReset )
 {
 	char name[64];
 	int ipicknext;
@@ -1231,7 +1231,7 @@ int SENTENCEG_PlaySequentialSz(edict_t *entity, const char *szgroupname,
 	if (isentenceg < 0)
 		return -1;
 
-	ipicknext = USENTENCEG_PickSequential(isentenceg, name, ipick, freset);
+	ipicknext = USENTENCEG_PickSequential(isentenceg, name, ipick, bReset );
 	if (ipicknext >= 0 && name[0])
 		EMIT_SOUND_DYN(entity, CHAN_VOICE, name, volume, attenuation, flags, pitch);
 	return ipicknext;

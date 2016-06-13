@@ -590,13 +590,13 @@ int CGraph :: FindShortestPath ( int *piPath, int iStart, int iDest, int iHull, 
 	if ( !m_fGraphPresent || !m_fGraphPointersSet )
 	{// protect us in the case that the node graph isn't available or built
 		ALERT ( at_aiconsole, "Graph not ready!\n" );
-		return FALSE;
+		return 0;
 	}
 	
 	if ( iStart < 0 || iStart > m_cNodes )
 	{// The start node is bad?
 		ALERT ( at_aiconsole, "Can't build a path, iStart is %d!\n", iStart );
-		return FALSE;
+		return 0;
 	}
 
 	if (iStart == iDest)
@@ -1157,7 +1157,7 @@ int CGraph :: LinkVisibleNodes ( CLink *pLinkPool, FILE *file, int *piBadNode )
 	if ( m_cNodes <= 0 )
 	{
 		ALERT ( at_aiconsole, "No Nodes!\n" );
-		return FALSE;
+		return 0;
 	}
 
 	// if the file pointer is bad, don't blow up, just don't write the
@@ -1295,13 +1295,13 @@ int CGraph :: LinkVisibleNodes ( CLink *pLinkPool, FILE *file, int *piBadNode )
 				ALERT ( at_aiconsole, "**LinkVisibleNodes:\nNode %d has NodeLinks > MAX_NODE_INITIAL_LINKS", i );
 				fprintf ( file, "** NODE %d HAS NodeLinks > MAX_NODE_INITIAL_LINKS **\n", i );
 				*piBadNode = i;
-				return	FALSE;
+				return	0;
 			}
 			else if ( cTotalLinks > MAX_NODE_INITIAL_LINKS * m_cNodes )
 			{// this is paranoia
 				ALERT ( at_aiconsole, "**LinkVisibleNodes:\nTotalLinks > MAX_NODE_INITIAL_LINKS * NUMNODES" );
 				*piBadNode = i;
-				return	FALSE;
+				return	0;
 			}
 
 			if ( cLinksThisNode == 0 )
@@ -2610,7 +2610,7 @@ bool CGraph::FSetGraphPointers()
 // ssociated .NOD file. If the NOD file is not present, or 
 // is older than the BSP file, we rebuild it.
 //
-// returns FALSE if the .NOD file doesn't qualify and needs
+// returns false if the .NOD file doesn't qualify and needs
 // to be rebuilt.
 //
 // !!!BUGBUG - the file times we get back are 20 hours ahead!
