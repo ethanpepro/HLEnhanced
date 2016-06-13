@@ -212,7 +212,7 @@ TYPEDESCRIPTION	gEntvarsDescription[] =
 	DEFINE_ENTITY_FIELD( avelocity, FIELD_VECTOR ),
 	DEFINE_ENTITY_FIELD( punchangle, FIELD_VECTOR ),
 	DEFINE_ENTITY_FIELD( v_angle, FIELD_VECTOR ),
-	DEFINE_ENTITY_FIELD( fixangle, FIELD_FLOAT ),
+	DEFINE_ENTITY_FIELD( fixangle, FIELD_FLOAT ),	//TODO: fixangle is an int. Why is this float? - Solokiller
 	DEFINE_ENTITY_FIELD( idealpitch, FIELD_FLOAT ),
 	DEFINE_ENTITY_FIELD( pitch_speed, FIELD_FLOAT ),
 	DEFINE_ENTITY_FIELD( ideal_yaw, FIELD_FLOAT ),

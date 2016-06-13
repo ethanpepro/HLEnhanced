@@ -204,7 +204,7 @@ public:
 		virtual void ReportAIState( void );
 
 		void CheckAttacks ( CBaseEntity *pTarget, float flDist );
-		virtual int CheckEnemy ( CBaseEntity *pEnemy );
+		virtual bool CheckEnemy ( CBaseEntity* pEnemy );
 		void PushEnemy( CBaseEntity *pEnemy, Vector &vecLastKnownPos );
 		bool PopEnemy();
 

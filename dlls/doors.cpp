@@ -103,7 +103,7 @@ IMPLEMENT_SAVERESTORE( CBaseDoor, CBaseToggle );
 // otherwise play 'door is unlocked' sound
 // NOTE: this routine is shared by doors and buttons
 
-void PlayLockSounds(entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
+void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const bool bButton )
 {
 	// LOCKED SOUND
 	
@@ -111,12 +111,12 @@ void PlayLockSounds(entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
 	// CONSIDER: and condense this code.
 	float flsoundwait;
 
-	if (fbutton)
+	if ( bButton )
 		flsoundwait = BUTTON_SOUNDWAIT;
 	else
 		flsoundwait = DOOR_SOUNDWAIT;
 
-	if (flocked)
+	if ( bLocked )
 	{
 		int fplaysound = (pls->sLockedSound && gpGlobals->time > pls->flwaitSound);
 		int fplaysentence = (pls->sLockedSentence && !pls->bEOFLocked && gpGlobals->time > pls->flwaitSentence);
@@ -155,25 +155,25 @@ void PlayLockSounds(entvars_t *pev, locksound_t *pls, int flocked, int fbutton)
 	{
 		// UNLOCKED SOUND
 
-		int fplaysound = (pls->sUnlockedSound && gpGlobals->time > pls->flwaitSound);
-		int fplaysentence = (pls->sUnlockedSentence && !pls->bEOFUnlocked && gpGlobals->time > pls->flwaitSentence);
+		const bool bPlaysound = (pls->sUnlockedSound && gpGlobals->time > pls->flwaitSound);
+		const bool bPlaysentence = (pls->sUnlockedSentence && !pls->bEOFUnlocked && gpGlobals->time > pls->flwaitSentence);
 		float fvol;
 
 		// if playing both sentence and sound, lower sound volume so we hear sentence
-		if (fplaysound && fplaysentence)
+		if ( bPlaysound && bPlaysentence )
 			fvol = 0.25;
 		else
 			fvol = 1.0;
 
 		// play 'door unlocked' sound if set
-		if (fplaysound)
+		if ( bPlaysound )
 		{
 			EMIT_SOUND(ENT(pev), CHAN_ITEM, (char*)STRING(pls->sUnlockedSound), fvol, ATTN_NORM);
 			pls->flwaitSound = gpGlobals->time + flsoundwait;
 		}
 
 		// play next 'door unlocked' sentence in group
-		if (fplaysentence)
+		if ( bPlaysentence )
 		{
 			int iprev = pls->iUnlockedSentence;
 			
@@ -494,7 +494,7 @@ void CBaseDoor::DoorTouch( CBaseEntity *pOther )
 	// play 'locked' sound
 
 	if (m_sMaster && !UTIL_IsMasterTriggered(m_sMaster, pOther))
-		PlayLockSounds(pev, &m_ls, TRUE, FALSE);
+		PlayLockSounds(pev, &m_ls, true, false);
 	
 	// If door is somebody's target, then touching does nothing.
 	// You have to activate the owner (e.g. button).
@@ -502,7 +502,7 @@ void CBaseDoor::DoorTouch( CBaseEntity *pOther )
 	if (!FStringNull(pev->targetname))
 	{
 		// play locked sound
-		PlayLockSounds(pev, &m_ls, TRUE, FALSE);
+		PlayLockSounds(pev, &m_ls, true, false);
 		return; 
 	}
 	

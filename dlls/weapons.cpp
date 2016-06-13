@@ -32,7 +32,7 @@
 #include "gamerules.h"
 
 extern CGraph	WorldGraph;
-extern int gEvilImpulse101;
+extern bool gEvilImpulse101;
 
 
 #define NOT_USED 255
@@ -254,8 +254,10 @@ void AddAmmoNameToAmmoRegistry( const char *szAmmoname )
 
 	giAmmoIndex++;
 	ASSERT( giAmmoIndex < MAX_AMMO_SLOTS );
+
+	//Ammo index 0 will cause problems here. Loops start at 1, so it would ignore ammo at index 0. - Solokiller
 	if ( giAmmoIndex >= MAX_AMMO_SLOTS )
-		giAmmoIndex = 0;
+		giAmmoIndex = 1;
 
 	CBasePlayerItem::AmmoInfoArray[giAmmoIndex].pszName = szAmmoname;
 	CBasePlayerItem::AmmoInfoArray[giAmmoIndex].iId = giAmmoIndex;   // yes, this info is redundant
@@ -1174,7 +1176,8 @@ bool CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon )
 		iAmmo = m_iClip;
 	}
 	
-	return pWeapon->m_pPlayer->GiveAmmo( iAmmo, (char *)pszAmmo1(), iMaxAmmo1() ); // , &m_iPrimaryAmmoType
+	//Used to return the return value directly, but this was never 0. It's supposed to return true if ammo is allowed to be added (even if no ammo was actually added). - Solokiller
+	return pWeapon->m_pPlayer->GiveAmmo( iAmmo, (char *)pszAmmo1(), iMaxAmmo1() ) != -1; // , &m_iPrimaryAmmoType
 }
 	
 //=========================================================

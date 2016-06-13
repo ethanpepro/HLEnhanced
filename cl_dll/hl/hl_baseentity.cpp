@@ -144,7 +144,7 @@ bool CBaseMonster::CheckMeleeAttack1( float flDot, float flDist ) { return false
 bool CBaseMonster::CheckMeleeAttack2( float flDot, float flDist ) { return false; }
 void CBaseMonster :: CheckAttacks ( CBaseEntity *pTarget, float flDist ) { }
 bool CBaseMonster::FCanCheckAttacks() const { return false; }
-int CBaseMonster :: CheckEnemy ( CBaseEntity *pEnemy ) { return 0; }
+bool CBaseMonster::CheckEnemy( CBaseEntity *pEnemy ) { return false; }
 void CBaseMonster :: PushEnemy( CBaseEntity *pEnemy, Vector &vecLastKnownPos ) { }
 bool CBaseMonster::PopEnemy() { return false; }
 void CBaseMonster :: SetActivity ( Activity NewActivity ) { }

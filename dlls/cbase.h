@@ -108,6 +108,29 @@ enum Classification
 	CLASS_BARNACLE			 = 99, //TODO: entities that want to be ignored use this. Rename. - Solokiller// special because no one pays attention to it, and it eats a wide cross-section of creatures.
 };
 
+/**
+*	Possible values for entvars_t::fixangle
+*
+*	Solokiller
+*/
+enum FixAngleMode
+{
+	/**
+	*	Do nothing
+	*/
+	FIXANGLE_NO			= 0,
+
+	/**
+	*	Set view angles to pev->angles
+	*/
+	FIXANGLE_SET		= 1,
+
+	/**
+	*	Add avelocity yaw value to view angles
+	*/
+	FIXANGLE_ADD_AVEL	= 2
+};
+
 class CBaseEntity;
 class CBaseMonster;
 class CBasePlayerItem;
@@ -422,7 +445,7 @@ typedef struct locksounds			// sounds that doors and buttons make when locked/un
 	BYTE	bEOFUnlocked;			// true if hit end of list of unlocked sentences
 } locksound_t;
 
-void PlayLockSounds(entvars_t *pev, locksound_t *pls, int flocked, int fbutton);
+void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const bool bButton );
 
 //
 // MultiSouce

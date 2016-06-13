@@ -103,7 +103,7 @@ void CItem::Spawn( void )
 	}
 }
 
-extern int gEvilImpulse101;
+extern bool gEvilImpulse101;
 
 void CItem::ItemTouch( CBaseEntity *pOther )
 {

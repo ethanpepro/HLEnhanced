@@ -1007,7 +1007,7 @@ typedef struct sentenceg
 // globals
 
 SENTENCEG rgsentenceg[CSENTENCEG_MAX];
-int fSentencesInit = FALSE;
+bool fSentencesInit = false;
 
 char gszallsentencenames[CVOXFILESENTENCEMAX][CBSENTENCENAME_MAX];
 int gcallsentences = 0;
@@ -1371,7 +1371,7 @@ void SENTENCEG_Init()
 
 	g_engfuncs.pfnFreeFile( pMemFile );
 	
-	fSentencesInit = TRUE;
+	fSentencesInit = true;
 
 	// init lru lists
 
@@ -1475,7 +1475,7 @@ void EMIT_GROUPNAME_SUIT(edict_t *entity, const char *groupname)
 // texture name to a material type.  Play footstep sound based
 // on material type.
 
-int fTextureTypeInit = FALSE;
+bool fTextureTypeInit = false;
 
 #define CTEXTURESMAX		512			// max number of textures loaded
 
@@ -1597,7 +1597,7 @@ void TEXTURETYPE_Init()
 
 	g_engfuncs.pfnFreeFile( pMemFile );
 	
-	fTextureTypeInit = TRUE;
+	fTextureTypeInit = true;
 }
 
 // given texture name, find texture type

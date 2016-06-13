@@ -1052,14 +1052,13 @@ bool CBaseMonster::FCanCheckAttacks() const
 //=========================================================
 // CheckEnemy - part of the Condition collection process,
 // gets and stores data and conditions pertaining to a monster's
-// enemy. Returns TRUE if Enemy LKP was updated.
+// enemy. Returns true if Enemy LKP was updated.
 //=========================================================
-int CBaseMonster :: CheckEnemy ( CBaseEntity *pEnemy )
+bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 {
 	float	flDistToEnemy;
-	int		iUpdatedLKP;// set this to TRUE if you update the EnemyLKP in this function.
+	bool bUpdatedLKP = false;// set this to true if you update the EnemyLKP in this function.
 
-	iUpdatedLKP = FALSE;
 	ClearConditions ( bits_COND_ENEMY_FACING_ME );
 	
 	if ( !FVisible( pEnemy ) )
@@ -1098,7 +1097,7 @@ int CBaseMonster :: CheckEnemy ( CBaseEntity *pEnemy )
 	{
 		CBaseMonster *pEnemyMonster;
 
-		iUpdatedLKP = TRUE;
+		bUpdatedLKP = true;
 		m_vecEnemyLKP = pEnemy->pev->origin;
 
 		pEnemyMonster = pEnemy->MyMonsterPointer();
@@ -1128,7 +1127,7 @@ int CBaseMonster :: CheckEnemy ( CBaseEntity *pEnemy )
 		// if the enemy is not occluded, and unseen, that means it is behind or beside the monster.
 		// if the enemy is near enough the monster, we go ahead and let the monster know where the
 		// enemy is. 
-		iUpdatedLKP = TRUE;
+		bUpdatedLKP = true;
 		m_vecEnemyLKP = pEnemy->pev->origin;
 	}
 
@@ -1156,13 +1155,13 @@ int CBaseMonster :: CheckEnemy ( CBaseEntity *pEnemy )
 				{
 					// Refresh
 					FRefreshRoute();
-					return iUpdatedLKP;
+					return bUpdatedLKP;
 				}
 			}
 		}
 	}
 
-	return iUpdatedLKP;
+	return bUpdatedLKP;
 }
 
 //=========================================================
@@ -1363,7 +1362,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 			{
 				// If we're going toward an entity, and we're almost getting there, it's OK.
 //				if ( pTarget && fabs( flDist - iStep ) < LOCAL_STEP_SIZE )
-//					fReturn = TRUE;
+//					fReturn = true;
 //				else
 				iReturn = LOCALMOVE_INVALID;
 				break;
@@ -2259,7 +2258,7 @@ bool CBaseMonster::FindCover( Vector vecThreat, Vector vecViewOffset, float flMi
 	if ( !WorldGraph.m_fGraphPresent || !WorldGraph.m_fGraphPointersSet )
 	{
 		ALERT ( at_aiconsole, "Graph not ready for findcover!\n" );
-		return FALSE;
+		return false;
 	}
 
 	iMyNode = WorldGraph.FindNearestNode( pev->origin, this );
@@ -2269,7 +2268,7 @@ bool CBaseMonster::FindCover( Vector vecThreat, Vector vecViewOffset, float flMi
 	if ( iMyNode == NO_NODE )
 	{
 		ALERT ( at_aiconsole, "FindCover() - %s has no nearest node!\n", STRING(pev->classname));
-		return FALSE;
+		return false;
 	}
 	if ( iThreatNode == NO_NODE )
 	{
@@ -2319,13 +2318,13 @@ bool CBaseMonster::FindCover( Vector vecThreat, Vector vecViewOffset, float flMi
 						MESSAGE_END();
 						*/
 
-						return TRUE;
+						return true;
 					}
 				}
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -2364,7 +2363,7 @@ bool CBaseMonster::BuildNearestRoute( Vector vecThreat, Vector vecViewOffset, fl
 	if ( !WorldGraph.m_fGraphPresent || !WorldGraph.m_fGraphPointersSet )
 	{
 		ALERT ( at_aiconsole, "Graph not ready for BuildNearestRoute!\n" );
-		return FALSE;
+		return false;
 	}
 
 	iMyNode = WorldGraph.FindNearestNode( pev->origin, this );
@@ -2373,7 +2372,7 @@ bool CBaseMonster::BuildNearestRoute( Vector vecThreat, Vector vecViewOffset, fl
 	if ( iMyNode == NO_NODE )
 	{
 		ALERT ( at_aiconsole, "BuildNearestRoute() - %s has no nearest node!\n", STRING(pev->classname));
-		return FALSE;
+		return false;
 	}
 
 	vecLookersOffset = vecThreat + vecViewOffset;// calculate location of enemy's eyes
@@ -2404,14 +2403,14 @@ bool CBaseMonster::BuildNearestRoute( Vector vecThreat, Vector vecViewOffset, fl
 					{
 						flMaxDist = flDist;
 						m_vecMoveGoal = node.m_vecOrigin;
-						return TRUE; // UNDONE: keep looking for something closer!
+						return true; // UNDONE: keep looking for something closer!
 					}
 				}
 			}
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 
@@ -2755,8 +2754,8 @@ Vector CBaseMonster :: GetGunPosition( )
 // FGetNodeRoute - tries to build an entire node path from
 // the callers origin to the passed vector. If this is 
 // possible, ROUTE_SIZE waypoints will be copied into the
-// callers m_Route. TRUE is returned if the operation 
-// succeeds (path is valid) or FALSE if failed (no path 
+// callers m_Route. true is returned if the operation 
+// succeeds (path is valid) or false if failed (no path 
 // exists )
 //=========================================================
 bool CBaseMonster::FGetNodeRoute( const Vector& vecDest )

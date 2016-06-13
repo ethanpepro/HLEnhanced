@@ -44,7 +44,8 @@
 extern DLL_GLOBAL ULONG		g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool		g_fGameOver;
 extern DLL_GLOBAL	bool	g_fDrawLines;
-int gEvilImpulse101;
+//Wasn't initialized - Solokiller
+bool gEvilImpulse101 = false;
 extern DLL_GLOBAL int		g_iSkillLevel;
 extern DLL_GLOBAL bool		gDisplayTitle;
 
@@ -124,7 +125,7 @@ TYPEDESCRIPTION	CBasePlayer::m_playerSaveData[] =
 	//DEFINE_FIELD( CBasePlayer, m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 	//DEFINE_FIELD( CBasePlayer, m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
 	//DEFINE_FIELD( CBasePlayer, m_flStopExtraSoundTime, FIELD_TIME ),
-	//DEFINE_FIELD( CBasePlayer, m_fKnownItem, FIELD_INTEGER ), // reset to zero on load
+	//DEFINE_FIELD( CBasePlayer, m_bKnownItem, FIELD_BOOLEAN ), // reset to zero on load
 	//DEFINE_FIELD( CBasePlayer, m_iPlayerSound, FIELD_INTEGER ),	// Don't restore, set in Precache()
 	//DEFINE_FIELD( CBasePlayer, m_pentSndLast, FIELD_EDICT ),	// Don't restore, client needs reset
 	//DEFINE_FIELD( CBasePlayer, m_flSndRoomtype, FIELD_FLOAT ),	// Don't restore, client needs reset
@@ -447,7 +448,6 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 {
 	// have suit diagnose the problem - ie: report damage type
 	int bitsDamage = bitsDamageType;
-	int ffound = TRUE;
 	int fmajor;
 	int fcritical;
 	int fTookDamage;
@@ -548,16 +548,18 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 	m_bitsDamageType |= bitsDamage; // Save this so we can report it to the client
 	m_bitsHUDDamage = -1;  // make sure the damage bits get resent
 
-	while (fTookDamage && (!ftrivial || (bitsDamage & DMG_TIMEBASED)) && ffound && bitsDamage)
+	bool bFound = true;
+
+	while (fTookDamage && (!ftrivial || (bitsDamage & DMG_TIMEBASED)) && bFound && bitsDamage)
 	{
-		ffound = FALSE;
+		bFound = false;
 
 		if (bitsDamage & DMG_CLUB)
 		{
 			if (fmajor)
 				SetSuitUpdate("!HEV_DMG4", FALSE, SUIT_NEXT_IN_30SEC);	// minor fracture
 			bitsDamage &= ~DMG_CLUB;
-			ffound = TRUE;
+			bFound = true;
 		}
 		if (bitsDamage & (DMG_FALL | DMG_CRUSH))
 		{
@@ -567,7 +569,7 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 				SetSuitUpdate("!HEV_DMG4", FALSE, SUIT_NEXT_IN_30SEC);	// minor fracture
 	
 			bitsDamage &= ~(DMG_FALL | DMG_CRUSH);
-			ffound = TRUE;
+			bFound = true;
 		}
 		
 		if (bitsDamage & DMG_BULLET)
@@ -578,7 +580,7 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 			//	SetSuitUpdate("!HEV_DMG0", FALSE, SUIT_NEXT_IN_30SEC);	// minor laceration
 			
 			bitsDamage &= ~DMG_BULLET;
-			ffound = TRUE;
+			bFound = true;
 		}
 
 		if (bitsDamage & DMG_SLASH)
@@ -589,7 +591,7 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 				SetSuitUpdate("!HEV_DMG0", FALSE, SUIT_NEXT_IN_30SEC);	// minor laceration
 
 			bitsDamage &= ~DMG_SLASH;
-			ffound = TRUE;
+			bFound = true;
 		}
 		
 		if (bitsDamage & DMG_SONIC)
@@ -597,40 +599,40 @@ int CBasePlayer :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 			if (fmajor)
 				SetSuitUpdate("!HEV_DMG2", FALSE, SUIT_NEXT_IN_1MIN);	// internal bleeding
 			bitsDamage &= ~DMG_SONIC;
-			ffound = TRUE;
+			bFound = true;
 		}
 
 		if (bitsDamage & (DMG_POISON | DMG_PARALYZE))
 		{
 			SetSuitUpdate("!HEV_DMG3", FALSE, SUIT_NEXT_IN_1MIN);	// blood toxins detected
 			bitsDamage &= ~(DMG_POISON | DMG_PARALYZE);
-			ffound = TRUE;
+			bFound = true;
 		}
 
 		if (bitsDamage & DMG_ACID)
 		{
 			SetSuitUpdate("!HEV_DET1", FALSE, SUIT_NEXT_IN_1MIN);	// hazardous chemicals detected
 			bitsDamage &= ~DMG_ACID;
-			ffound = TRUE;
+			bFound = true;
 		}
 
 		if (bitsDamage & DMG_NERVEGAS)
 		{
 			SetSuitUpdate("!HEV_DET0", FALSE, SUIT_NEXT_IN_1MIN);	// biohazard detected
 			bitsDamage &= ~DMG_NERVEGAS;
-			ffound = TRUE;
+			bFound = true;
 		}
 
 		if (bitsDamage & DMG_RADIATION)
 		{
 			SetSuitUpdate("!HEV_DET2", FALSE, SUIT_NEXT_IN_1MIN);	// radiation detected
 			bitsDamage &= ~DMG_RADIATION;
-			ffound = TRUE;
+			bFound = true;
 		}
 		if (bitsDamage & DMG_SHOCK)
 		{
 			bitsDamage &= ~DMG_SHOCK;
-			ffound = TRUE;
+			bFound = true;
 		}
 	}
 
@@ -1262,7 +1264,7 @@ void CBasePlayer::WaterMove()
 }
 
 
-// TRUE if the player is attached to a ladder
+// true if the player is attached to a ladder
 bool CBasePlayer::IsOnLadder() const
 { 
 	return ( pev->movetype == MOVETYPE_FLY );
@@ -1410,7 +1412,7 @@ void CBasePlayer::StartDeathCam( void )
 
 	m_afPhysicsFlags |= PFLAG_OBSERVER;
 	pev->view_ofs = g_vecZero;
-	pev->fixangle = TRUE;
+	pev->fixangle = FIXANGLE_SET;
 	pev->solid = SOLID_NOT;
 	pev->takedamage = DAMAGE_NO;
 	pev->movetype = MOVETYPE_NONE;
@@ -1458,7 +1460,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	pev->effects = EF_NODRAW;
 	pev->view_ofs = g_vecZero;
 	pev->angles = pev->v_angle = vecViewAngle;
-	pev->fixangle = TRUE;
+	pev->fixangle = FIXANGLE_SET;
 	pev->solid = SOLID_NOT;
 	pev->takedamage = DAMAGE_NO;
 	pev->movetype = MOVETYPE_NONE;
@@ -3027,7 +3029,7 @@ int CBasePlayer::Restore( CRestore &restore )
 	pev->v_angle.z = 0;	// Clear out roll
 	pev->angles = pev->v_angle;
 
-	pev->fixangle = TRUE;           // turn this way immediately
+	pev->fixangle = FIXANGLE_SET;           // turn this way immediately
 
 // Copied from spawn() for now
 	m_bloodColor	= BLOOD_COLOR_RED;
@@ -3277,7 +3279,7 @@ void CSprayCan::Think( void )
 	}
 	else
 	{
-		UTIL_PlayerDecalTrace( &tr, playernum, pev->frame, TRUE );
+		UTIL_PlayerDecalTrace( &tr, playernum, pev->frame, true );
 		// Just painted last custom frame.
 		if ( pev->frame++ >= (nFrames - 1))
 			UTIL_Remove( this );
@@ -3414,7 +3416,7 @@ void CBasePlayer :: ForceClientDllUpdate( void )
 	m_iClientBattery = -1;
 	m_iTrain |= TRAIN_NEW;  // Force new train message.
 	m_fWeapon = false;          // Force weapon send
-	m_fKnownItem = FALSE;    // Force weaponinit messages.
+	m_bKnownItem = false;    // Force weaponinit messages.
 	m_fInitHUD = true;		// Force HUD gmsgResetHUD message
 
 	// Now force all the necessary messages
@@ -3537,7 +3539,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 
 
 	case 101:
-		gEvilImpulse101 = TRUE;
+		gEvilImpulse101 = true;
 		GiveNamedItem( "item_suit" );
 		GiveNamedItem( "item_battery" );
 		GiveNamedItem( "weapon_crowbar" );
@@ -3564,7 +3566,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		GiveNamedItem( "weapon_snark" );
 		GiveNamedItem( "weapon_hornetgun" );
 #endif
-		gEvilImpulse101 = FALSE;
+		gEvilImpulse101 = false;
 		break;
 
 	case 102:
@@ -4114,9 +4116,9 @@ void CBasePlayer :: UpdateClientData( void )
 	//
 	// New Weapon?
 	//
-	if (!m_fKnownItem)
+	if (!m_bKnownItem )
 	{
-		m_fKnownItem = TRUE;
+		m_bKnownItem = true;
 
 	// WeaponInit Message
 	// byte  = # of weapons

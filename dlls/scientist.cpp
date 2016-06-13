@@ -1177,7 +1177,7 @@ public:
 	virtual void SetAnswerQuestion( CTalkMonster *pSpeaker ) override;
 	int FriendNumber( int arrayNumber ) const override;
 
-	int FIdleSpeak ( void );
+	bool FIdleSpeak();
 	int		m_baseSequence;	
 	int		m_headTurn;
 	float	m_flResponseDelay;
@@ -1383,13 +1383,13 @@ void CSittingScientist :: SetAnswerQuestion( CTalkMonster *pSpeaker )
 // FIdleSpeak
 // ask question of nearby friend, or make statement
 //=========================================================
-int CSittingScientist :: FIdleSpeak ( void )
+bool CSittingScientist::FIdleSpeak()
 { 
 	// try to start a conversation, or make statement
 	int pitch;
 	
 	if (!FOkToSpeak())
-		return FALSE;
+		return false;
 
 	// set global min delay for next conversation
 	CTalkMonster::g_talkWaitTime = gpGlobals->time + RANDOM_FLOAT(4.8, 5.2);
@@ -1410,7 +1410,7 @@ int CSittingScientist :: FIdleSpeak ( void )
 		SENTENCEG_PlayRndSz( ENT(pev), m_szGrp[TLK_PQUESTION], 1.0, ATTN_IDLE, 0, pitch );
 		// set global min delay for next conversation
 		CTalkMonster::g_talkWaitTime = gpGlobals->time + RANDOM_FLOAT(4.8, 5.2);
-		return TRUE;
+		return true;
 	}
 
 	// otherwise, play an idle statement
@@ -1419,10 +1419,10 @@ int CSittingScientist :: FIdleSpeak ( void )
 		SENTENCEG_PlayRndSz( ENT(pev), m_szGrp[TLK_PIDLE], 1.0, ATTN_IDLE, 0, pitch );
 		// set global min delay for next conversation
 		CTalkMonster::g_talkWaitTime = gpGlobals->time + RANDOM_FLOAT(4.8, 5.2);
-		return TRUE;
+		return true;
 	}
 
 	// never spoke
 	CTalkMonster::g_talkWaitTime = 0;
-	return FALSE;
+	return false;
 }

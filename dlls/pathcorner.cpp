@@ -233,12 +233,12 @@ void CPathTrack::Activate( void )
 		Link();
 }
 
-CPathTrack	*CPathTrack :: ValidPath( CPathTrack	*ppath, int testFlag )
+CPathTrack	*CPathTrack :: ValidPath( CPathTrack *ppath, const bool bTestFlag )
 {
 	if ( !ppath )
 		return NULL;
 
-	if ( testFlag && FBitSet( ppath->pev->spawnflags, SF_PATH_DISABLED ) )
+	if ( bTestFlag && FBitSet( ppath->pev->spawnflags, SF_PATH_DISABLED ) )
 		return NULL;
 
 	return ppath;
@@ -284,7 +284,7 @@ void CPathTrack::SetPrevious( CPathTrack *pprev )
 
 
 // Assumes this is ALWAYS enabled
-CPathTrack *CPathTrack :: LookAhead( Vector *origin, float dist, int move )
+CPathTrack *CPathTrack :: LookAhead( Vector *origin, float dist, const bool bMove )
 {
 	CPathTrack *pcurrent;
 	float originalDist = dist;
@@ -301,9 +301,9 @@ CPathTrack *CPathTrack :: LookAhead( Vector *origin, float dist, int move )
 			float length = dir.Length();
 			if ( !length )
 			{
-				if ( !ValidPath(pcurrent->GetPrevious(), move) ) 	// If there is no previous node, or it's disabled, return now.
+				if ( !ValidPath(pcurrent->GetPrevious(), bMove ) ) 	// If there is no previous node, or it's disabled, return now.
 				{
-					if ( !move )
+					if ( !bMove )
 						Project( pcurrent->GetNext(), pcurrent, origin, dist );
 					return NULL;
 				}
@@ -319,7 +319,7 @@ CPathTrack *CPathTrack :: LookAhead( Vector *origin, float dist, int move )
 				dist -= length;
 				currentPos = pcurrent->pev->origin;
 				*origin = currentPos;
-				if ( !ValidPath(pcurrent->GetPrevious(), move) )	// If there is no previous node, or it's disabled, return now.
+				if ( !ValidPath(pcurrent->GetPrevious(), bMove ) )	// If there is no previous node, or it's disabled, return now.
 					return NULL;
 
 				pcurrent = pcurrent->GetPrevious();
@@ -332,15 +332,15 @@ CPathTrack *CPathTrack :: LookAhead( Vector *origin, float dist, int move )
 	{
 		while ( dist > 0 )
 		{
-			if ( !ValidPath(pcurrent->GetNext(), move) )	// If there is no next node, or it's disabled, return now.
+			if ( !ValidPath(pcurrent->GetNext(), bMove ) )	// If there is no next node, or it's disabled, return now.
 			{
-				if ( !move )
+				if ( !bMove )
 					Project( pcurrent->GetPrevious(), pcurrent, origin, dist );
 				return NULL;
 			}
 			Vector dir = pcurrent->GetNext()->pev->origin - currentPos;
 			float length = dir.Length();
-			if ( !length  && !ValidPath( pcurrent->GetNext()->GetNext(), move ) )
+			if ( !length  && !ValidPath( pcurrent->GetNext()->GetNext(), bMove ) )
 			{
 				if ( dist == originalDist ) // HACK -- up against a dead end
 					return NULL;

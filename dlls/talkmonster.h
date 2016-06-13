@@ -126,9 +126,9 @@ public:
 	// Conversations / communication
 	int				GetVoicePitch( void );
 	void			IdleRespond( void );
-	int				FIdleSpeak( void );
-	int				FIdleStare( void );
-	int				FIdleHello( void );
+	bool			FIdleSpeak();
+	bool			FIdleStare();
+	bool			FIdleHello();
 	void			IdleHeadTurn( Vector &vecFriend );
 	bool			FOkToSpeak() const;
 	void			TrySmellTalk( void );

@@ -145,7 +145,7 @@ void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, float *mins, f
 
 void CCrowbar::PrimaryAttack()
 {
-	if (! Swing( 1 ))
+	if( !Swing( true ) )
 	{
 		SetThink( &CCrowbar::SwingAgain );
 		pev->nextthink = gpGlobals->time + 0.1;
@@ -161,13 +161,13 @@ void CCrowbar::Smack( )
 
 void CCrowbar::SwingAgain( void )
 {
-	Swing( 0 );
+	Swing( false );
 }
 
 
-int CCrowbar::Swing( int fFirst )
+bool CCrowbar::Swing( const bool bFirst )
 {
-	int fDidHit = FALSE;
+	bool bDidHit = false;
 
 	TraceResult tr;
 
@@ -200,7 +200,7 @@ int CCrowbar::Swing( int fFirst )
 
 	if ( tr.flFraction >= 1.0 )
 	{
-		if (fFirst)
+		if( bFirst )
 		{
 			// miss
 			m_flNextPrimaryAttack = GetNextAttackDelay(0.5);
@@ -227,7 +227,7 @@ int CCrowbar::Swing( int fFirst )
 #ifndef CLIENT_DLL
 
 		// hit
-		fDidHit = TRUE;
+		bDidHit = true;
 		CBaseEntity *pEntity = CBaseEntity::Instance(tr.pHit);
 
 		ClearMultiDamage( );
@@ -246,7 +246,7 @@ int CCrowbar::Swing( int fFirst )
 
 		// play thwack, smack, or dong sound
 		float flVol = 1.0;
-		int fHitWorld = TRUE;
+		bool bHitWorld = true;
 
 		if (pEntity)
 		{
@@ -264,18 +264,18 @@ int CCrowbar::Swing( int fFirst )
 				}
 				m_pPlayer->m_iWeaponVolume = CROWBAR_BODYHIT_VOLUME;
 				if ( !pEntity->IsAlive() )
-					  return TRUE;
+					  return true;
 				else
 					  flVol = 0.1;
 
-				fHitWorld = FALSE;
+				bHitWorld = false;
 			}
 		}
 
 		// play texture hit sound
 		// UNDONE: Calculate the correct point of intersection when we hit with the hull instead of the line
 
-		if (fHitWorld)
+		if( bHitWorld )
 		{
 			float fvolbar = TEXTURETYPE_PlaySound(&tr, vecSrc, vecSrc + (vecEnd-vecSrc)*2, BULLET_PLAYER_CROWBAR);
 
@@ -311,7 +311,7 @@ int CCrowbar::Swing( int fFirst )
 
 		
 	}
-	return fDidHit;
+	return bDidHit;
 }
 
 

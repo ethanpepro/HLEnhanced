@@ -516,7 +516,7 @@ public:
 	int GetItemInfo(ItemInfo *p) override;
 
 	void PrimaryAttack( void ) override;
-	int Swing( int fFirst );
+	bool Swing( const bool bFirst );
 	bool Deploy() override;
 	void Holster( int skiplocal = 0 ) override;
 	int m_iSwing;

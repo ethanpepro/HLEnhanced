@@ -1919,7 +1919,7 @@ void CBaseTrigger :: TeleportTouch( CBaseEntity *pOther )
 		pevToucher->v_angle = pentTarget->v.angles;
 	}
 
-	pevToucher->fixangle = TRUE;
+	pevToucher->fixangle = FIXANGLE_SET;
 	pevToucher->velocity = pevToucher->basevelocity = g_vecZero;
 }
 

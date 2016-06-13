@@ -956,25 +956,25 @@ bool CTalkMonster::CanPlaySentence( const bool fDisregardState ) const
 //=========================================================
 // FIdleStare
 //=========================================================
-int CTalkMonster :: FIdleStare( void )
+bool CTalkMonster::FIdleStare()
 {
 	if (!FOkToSpeak())
-		return FALSE;
+		return false;
 
 	PlaySentence( m_szGrp[TLK_STARE], RANDOM_FLOAT(5, 7.5), VOL_NORM, ATTN_IDLE );
 
 	m_hTalkTarget = FindNearestFriend( true );
-	return TRUE;
+	return true;
 }
 
 //=========================================================
 // IdleHello
 // Try to greet player first time he's seen
 //=========================================================
-int CTalkMonster :: FIdleHello( void )
+bool CTalkMonster::FIdleHello()
 {
 	if (!FOkToSpeak())
-		return FALSE;
+		return false;
 
 	// if this is first time scientist has seen player, greet him
 	if (!FBitSet(m_bitsSaid, bit_saidHelloPlayer))
@@ -995,11 +995,11 @@ int CTalkMonster :: FIdleHello( void )
 
 				SetBits(m_bitsSaid, bit_saidHelloPlayer);
 				
-				return TRUE;
+				return true;
 			}
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -1023,7 +1023,7 @@ void CTalkMonster :: IdleHeadTurn( Vector &vecFriend )
 // FIdleSpeak
 // ask question of nearby friend, or make statement
 //=========================================================
-int CTalkMonster :: FIdleSpeak ( void )
+bool CTalkMonster::FIdleSpeak()
 { 
 	// try to start a conversation, or make statement
 	int pitch;
@@ -1032,7 +1032,7 @@ int CTalkMonster :: FIdleSpeak ( void )
 	float duration;
 
 	if (!FOkToSpeak())
-		return FALSE;
+		return false;
 
 	// set idle groups based on pre/post disaster
 	if (FBitSet(pev->spawnflags, SF_MONSTER_PREDISASTER))
@@ -1069,7 +1069,7 @@ int CTalkMonster :: FIdleSpeak ( void )
 					//EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, m_szGrp[TLK_PLHURT3], 1.0, ATTN_IDLE, 0, pitch);
 					PlaySentence( m_szGrp[TLK_PLHURT3], duration, VOL_NORM, ATTN_IDLE );
 					SetBits(m_bitsSaid, bit_saidDamageHeavy);
-					return TRUE;
+					return true;
 				}
 				else if (!FBitSet(m_bitsSaid, bit_saidDamageMedium) && 
 					(m_hTargetEnt->pev->health <= m_hTargetEnt->pev->max_health / 4))
@@ -1077,7 +1077,7 @@ int CTalkMonster :: FIdleSpeak ( void )
 					//EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, m_szGrp[TLK_PLHURT2], 1.0, ATTN_IDLE, 0, pitch);
 					PlaySentence( m_szGrp[TLK_PLHURT2], duration, VOL_NORM, ATTN_IDLE );
 					SetBits(m_bitsSaid, bit_saidDamageMedium);
-					return TRUE;
+					return true;
 				}
 				else if (!FBitSet(m_bitsSaid, bit_saidDamageLight) &&
 					(m_hTargetEnt->pev->health <= m_hTargetEnt->pev->max_health / 2))
@@ -1085,7 +1085,7 @@ int CTalkMonster :: FIdleSpeak ( void )
 					//EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, m_szGrp[TLK_PLHURT1], 1.0, ATTN_IDLE, 0, pitch);
 					PlaySentence( m_szGrp[TLK_PLHURT1], duration, VOL_NORM, ATTN_IDLE );
 					SetBits(m_bitsSaid, bit_saidDamageLight);
-					return TRUE;
+					return true;
 				}
 			}
 			else
@@ -1098,7 +1098,7 @@ int CTalkMonster :: FIdleSpeak ( void )
 	}
 
 	// if there is a friend nearby to speak to, play sentence, set friend's response time, return
-	CBaseEntity *pFriend = FindNearestFriend(FALSE);
+	CBaseEntity *pFriend = FindNearestFriend( false );
 
 	if (pFriend && !(pFriend->IsMoving()) && (RANDOM_LONG(0,99) < 75))
 	{
@@ -1112,7 +1112,7 @@ int CTalkMonster :: FIdleSpeak ( void )
 		pTalkMonster->m_flStopTalkTime = m_flStopTalkTime;
 
 		m_nSpeak++;
-		return TRUE;
+		return true;
 	}
 
 	// otherwise, play an idle statement, try to face client when making a statement.
@@ -1126,14 +1126,14 @@ int CTalkMonster :: FIdleSpeak ( void )
 			m_hTalkTarget = pFriend;
 			PlaySentence( szIdleGroup, duration, VOL_NORM, ATTN_IDLE );
 			m_nSpeak++;
-			return TRUE;
+			return true;
 		}
 	}
 
 	// didn't speak
 	Talk( 0 );
 	CTalkMonster::g_talkWaitTime = 0;
-	return FALSE;
+	return false;
 }
 
 void CTalkMonster::PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener )

@@ -66,7 +66,7 @@ public:
 	// squad member info
 	int		m_iMySlot;// this is the behaviour slot that the monster currently holds in the squad. 
 
-	int  CheckEnemy ( CBaseEntity *pEnemy ) override;
+	bool CheckEnemy( CBaseEntity *pEnemy ) override;
 	void StartMonster ( void ) override;
 	void VacateSlot( void );
 	void ScheduleChange( void ) override;
