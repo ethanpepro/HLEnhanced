@@ -18,10 +18,6 @@
 
 #include "../common/nowin.h"
 
-typedef int BOOL;
-#define TRUE	 1	
-#define FALSE	0
-
 #include "Platform.h"
 
 // hack into header files that we can ship
