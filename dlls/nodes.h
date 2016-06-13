@@ -162,7 +162,7 @@ public:
 	int		LinkVisibleNodes ( CLink *pLinkPool, FILE *file, int *piBadNode );
 	int		RejectInlineLinks ( CLink *pLinkPool, FILE *file );
 	int		FindShortestPath ( int *piPath, int iStart, int iDest, int iHull, int afCapMask);
-	int		FindNearestNode ( const Vector &vecOrigin, CBaseEntity *pEntity );
+	int		FindNearestNode ( const Vector &vecOrigin, const CBaseEntity* const pEntity );
 	int		FindNearestNode ( const Vector &vecOrigin, int afNodeTypes );
 	//int		FindNearestLink ( const Vector &vecTestPoint, int *piNearestLink, BOOL *pfAlongLine );
 	float	PathLength( int iStart, int iDest, int iHull, int afCapMask );

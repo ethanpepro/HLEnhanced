@@ -52,9 +52,9 @@ public:
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 
 	void RunAI( void ) override;
-	BOOL CheckRangeAttack1 ( float flDot, float flDist ) override;	// balls
-	BOOL CheckRangeAttack2 ( float flDot, float flDist ) override;	// head
-	BOOL CheckMeleeAttack1 ( float flDot, float flDist ) override;	// block, throw
+	bool CheckRangeAttack1 ( float flDot, float flDist ) override;	// balls
+	bool CheckRangeAttack2 ( float flDot, float flDist ) override;	// head
+	bool CheckMeleeAttack1 ( float flDot, float flDist ) override;	// block, throw
 	Schedule_t* GetSchedule ( void ) override;
 	Schedule_t* GetScheduleOfType ( int Type ) override;
 	void StartTask ( Task_t *pTask ) override;
@@ -63,7 +63,7 @@ public:
 
 	void Stop( void ) override;
 	void Move ( float flInterval ) override;
-	int  CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist ) override;
+	int  CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, const CBaseEntity* const pTarget, float *pflDist ) override;
 	void MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval ) override;
 	void SetActivity ( Activity NewActivity ) override;
 	bool ShouldAdvanceRoute( float flWaypointDist ) override;
@@ -790,7 +790,7 @@ Schedule_t* CController :: GetScheduleOfType ( int Type )
 // CheckRangeAttack1  - shoot a bigass energy ball out of their head
 //
 //=========================================================
-BOOL CController :: CheckRangeAttack1 ( float flDot, float flDist )
+bool CController :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( flDot > 0.5 && flDist > 256 && flDist <= 2048 )
 	{
@@ -800,7 +800,7 @@ BOOL CController :: CheckRangeAttack1 ( float flDot, float flDist )
 }
 
 
-BOOL CController :: CheckRangeAttack2 ( float flDot, float flDist )
+bool CController :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	if ( flDot > 0.5 && flDist > 64 && flDist <= 2048 )
 	{
@@ -810,7 +810,7 @@ BOOL CController :: CheckRangeAttack2 ( float flDot, float flDist )
 }
 
 
-BOOL CController :: CheckMeleeAttack1 ( float flDot, float flDist )
+bool CController :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
 	return FALSE;
 }
@@ -1086,7 +1086,7 @@ bool CController::ShouldAdvanceRoute( float flWaypointDist )
 }
 
 
-int CController :: CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist )
+int CController :: CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, const CBaseEntity* const pTarget, float *pflDist )
 {
 	TraceResult tr;
 

@@ -253,7 +253,7 @@ void CGib :: SpawnRandomGibs( entvars_t *pevVictim, int cGibs, int human )
 }
 
 
-BOOL CBaseMonster :: HasHumanGibs( void )
+bool CBaseMonster::HasHumanGibs()
 {
 	int myClass = Classify();
 
@@ -262,13 +262,13 @@ BOOL CBaseMonster :: HasHumanGibs( void )
 		 myClass == CLASS_HUMAN_PASSIVE  ||
 		 myClass == CLASS_PLAYER )
 
-		 return TRUE;
+		 return true;
 
-	return FALSE;
+	return false;
 }
 
 
-BOOL CBaseMonster :: HasAlienGibs( void )
+bool CBaseMonster::HasAlienGibs()
 {
 	int myClass = Classify();
 
@@ -279,9 +279,9 @@ BOOL CBaseMonster :: HasAlienGibs( void )
 		 myClass == CLASS_ALIEN_PREDATOR  ||
 		 myClass == CLASS_ALIEN_PREY )
 
-		 return TRUE;
+		 return true;
 
-	return FALSE;
+	return false;
 }
 
 
@@ -532,12 +532,12 @@ void CBaseMonster::BecomeDead( void )
 }
 
 
-BOOL CBaseMonster::ShouldGibMonster( int iGib )
+bool CBaseMonster::ShouldGibMonster( int iGib )
 {
 	if ( ( iGib == GIB_NORMAL && pev->health < GIB_HEALTH_VALUE ) || ( iGib == GIB_ALWAYS ) )
-		return TRUE;
+		return true;
 	
-	return FALSE;
+	return false;
 }
 
 

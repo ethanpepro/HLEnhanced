@@ -72,7 +72,7 @@ public:
 	void ScheduleChange( void ) override;
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
 	BOOL OccupySlot( int iDesiredSlot );
-	BOOL NoFriendlyFire( void );
+	bool NoFriendlyFire();
 
 	// squad functions still left in base class
 	const CSquadMonster* MySquadLeader() const
@@ -124,7 +124,7 @@ public:
 	int	Save( CSave &save ) override;
 	int Restore( CRestore &restore ) override;
 
-	BOOL FValidateCover ( const Vector &vecCoverLocation ) override;
+	bool FValidateCover( const Vector &vecCoverLocation ) override;
 
 	MONSTERSTATE GetIdealState ( void ) override;
 	Schedule_t	*GetScheduleOfType ( int iType ) override;

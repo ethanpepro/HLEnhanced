@@ -85,9 +85,9 @@ public:
 
 	Schedule_t* GetSchedule ( void ) override;
 	Schedule_t* GetScheduleOfType ( int Type ) override;
-	BOOL FCanCheckAttacks ( void ) override;
-	BOOL CheckMeleeAttack1 ( float flDot, float flDist ) override;
-	BOOL CheckRangeAttack1 ( float flDot, float flDist ) override;
+	bool FCanCheckAttacks() const override;
+	bool CheckMeleeAttack1 ( float flDot, float flDist ) override;
+	bool CheckRangeAttack1 ( float flDot, float flDist ) override;
 	void StartTask ( Task_t *pTask ) override;
 	void AlertSound( void ) override;
 	void DeathSound ( void ) override;
@@ -891,15 +891,15 @@ IMPLEMENT_CUSTOM_SCHEDULES( CAGrunt, CSquadMonster );
 // because they can use their smart weapons against unseen
 // enemies. Base class doesn't attack anyone it can't see.
 //=========================================================
-BOOL CAGrunt :: FCanCheckAttacks ( void )
+bool CAGrunt::FCanCheckAttacks() const
 {
 	if ( !HasConditions( bits_COND_ENEMY_TOOFAR ) )
 	{
-		return TRUE;
+		return true;
 	}
 	else
 	{
-		return FALSE;
+		return false;
 	}
 }
 
@@ -907,13 +907,13 @@ BOOL CAGrunt :: FCanCheckAttacks ( void )
 // CheckMeleeAttack1 - alien grunts zap the crap out of 
 // any enemy that gets too close. 
 //=========================================================
-BOOL CAGrunt :: CheckMeleeAttack1 ( float flDot, float flDist )
+bool CAGrunt :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
 	if ( HasConditions ( bits_COND_SEE_ENEMY ) && flDist <= AGRUNT_MELEE_DIST && flDot >= 0.6 && m_hEnemy != NULL )
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -923,7 +923,7 @@ BOOL CAGrunt :: CheckMeleeAttack1 ( float flDot, float flDist )
 // tracelines are done, so we may not want to do this every
 // server frame. Definitely not while firing. 
 //=========================================================
-BOOL CAGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
+bool CAGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( gpGlobals->time < m_flNextHornetAttackCheck )
 	{
@@ -945,13 +945,13 @@ BOOL CAGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 		if ( tr.flFraction == 1.0 || tr.pHit == m_hEnemy->edict() )
 		{
 			m_flNextHornetAttackCheck = gpGlobals->time + RANDOM_FLOAT( 2, 5 );
-			m_fCanHornetAttack = TRUE;
+			m_fCanHornetAttack = true;
 			return m_fCanHornetAttack;
 		}
 	}
 	
 	m_flNextHornetAttackCheck = gpGlobals->time + 0.2;// don't check for half second if this check wasn't successful
-	m_fCanHornetAttack = FALSE;
+	m_fCanHornetAttack = false;
 	return m_fCanHornetAttack;
 }
 

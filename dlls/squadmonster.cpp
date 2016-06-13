@@ -450,11 +450,11 @@ void CSquadMonster :: StartMonster( void )
 // Builds a large box in front of the grunt and checks to see 
 // if any squad members are in that box. 
 //=========================================================
-BOOL CSquadMonster :: NoFriendlyFire( void )
+bool CSquadMonster::NoFriendlyFire()
 {
 	if ( !InSquad() )
 	{
-		return TRUE;
+		return true;
 	}
 
 	CPlane	backPlane;
@@ -474,7 +474,7 @@ BOOL CSquadMonster :: NoFriendlyFire( void )
 	else
 	{
 		// if there's no enemy, pretend there's a friendly in the way, so the grunt won't shoot.
-		return FALSE;
+		return false;
 	}
 
 	//UTIL_MakeVectors ( pev->angles );
@@ -505,12 +505,12 @@ BOOL CSquadMonster :: NoFriendlyFire( void )
 				 rightPlane.PointInFront ( pMember->pev->origin) )
 			{
 				// this guy is in the check volume! Don't shoot!
-				return FALSE;
+				return false;
 			}
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 //=========================================================
@@ -543,20 +543,20 @@ MONSTERSTATE CSquadMonster :: GetIdealState ( void )
 // cover location is a good one to move to. (currently based
 // on proximity to others in the squad)
 //=========================================================
-BOOL CSquadMonster :: FValidateCover ( const Vector &vecCoverLocation )
+bool CSquadMonster::FValidateCover( const Vector &vecCoverLocation )
 {
 	if ( !InSquad() )
 	{
-		return TRUE;
+		return true;
 	}
 
 	if (SquadMemberInRange( vecCoverLocation, 128 ))
 	{
 		// another squad member is too close to this piece of cover.
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 //=========================================================

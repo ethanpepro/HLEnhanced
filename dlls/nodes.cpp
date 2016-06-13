@@ -861,7 +861,7 @@ void CGraph :: CheckNode(Vector vecOrigin, int iNode)
 // the given vector -1 is failure (couldn't find a valid
 // near node )
 //=========================================================
-int	CGraph :: FindNearestNode ( const Vector &vecOrigin,  CBaseEntity *pEntity )
+int	CGraph :: FindNearestNode ( const Vector &vecOrigin,  const CBaseEntity* const pEntity )
 {
 	return FindNearestNode( vecOrigin, NodeType( pEntity ) );
 }

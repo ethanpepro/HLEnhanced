@@ -88,8 +88,8 @@ public:
 	void PrescheduleThink( void ) override;
 	int  Classify ( void ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	BOOL CheckRangeAttack1 ( float flDot, float flDist ) override;
-	BOOL CheckRangeAttack2 ( float flDot, float flDist ) override;
+	bool CheckRangeAttack1 ( float flDot, float flDist ) override;
+	bool CheckRangeAttack2 ( float flDot, float flDist ) override;
 	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
 
 	virtual float GetDamageAmount( void ) { return gSkillData.headcrabDmgBite; }
@@ -400,7 +400,7 @@ void CHeadCrab :: StartTask ( Task_t *pTask )
 //=========================================================
 // CheckRangeAttack1
 //=========================================================
-BOOL CHeadCrab :: CheckRangeAttack1 ( float flDot, float flDist )
+bool CHeadCrab :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( FBitSet( pev->flags, FL_ONGROUND ) && flDist <= 256 && flDot >= 0.65 )
 	{
@@ -412,7 +412,7 @@ BOOL CHeadCrab :: CheckRangeAttack1 ( float flDot, float flDist )
 //=========================================================
 // CheckRangeAttack2
 //=========================================================
-BOOL CHeadCrab :: CheckRangeAttack2 ( float flDot, float flDist )
+bool CHeadCrab :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	return FALSE;
 	// BUGBUG: Why is this code here?  There is no ACT_RANGE_ATTACK2 animation.  I've disabled it for now.
@@ -489,7 +489,7 @@ public:
 	void Precache( void ) override;
 	void SetYawSpeed ( void ) override;
 	float GetDamageAmount( void ) override { return gSkillData.headcrabDmgBite * 0.3; }
-	BOOL CheckRangeAttack1 ( float flDot, float flDist ) override;
+	bool CheckRangeAttack1 ( float flDot, float flDist ) override;
 	Schedule_t* GetScheduleOfType ( int Type ) override;
 	virtual int GetVoicePitch( void ) override { return PITCH_NORM + RANDOM_LONG(40,50); }
 	virtual float GetSoundVolue( void ) override { return 0.8; }
@@ -520,7 +520,7 @@ void CBabyCrab :: SetYawSpeed ( void )
 }
 
 
-BOOL CBabyCrab :: CheckRangeAttack1( float flDot, float flDist )
+bool CBabyCrab :: CheckRangeAttack1( float flDot, float flDist )
 {
 	if ( pev->flags & FL_ONGROUND )
 	{

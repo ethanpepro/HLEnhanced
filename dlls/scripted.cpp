@@ -624,14 +624,14 @@ void CCineAI :: FixScriptMonsterSchedule( CBaseMonster *pMonster )
 	}
 }
 
-BOOL CBaseMonster :: ExitScriptedSequence( )
+bool CBaseMonster::ExitScriptedSequence()
 {
 	if ( pev->deadflag == DEAD_DYING )
 	{
 		// is this legal?
 		// BUGBUG -- This doesn't call Killed()
 		m_IdealMonsterState = MONSTERSTATE_DEAD;
-		return FALSE;
+		return false;
 	}
 
 	if (m_pCine)
@@ -639,7 +639,7 @@ BOOL CBaseMonster :: ExitScriptedSequence( )
 		m_pCine->CancelScript( );
 	}
 
-	return TRUE;
+	return true;
 }
 
 
@@ -793,7 +793,7 @@ void CCineMonster :: Activate( void )
 }
 
 		
-BOOL CBaseMonster :: CineCleanup( )
+bool CBaseMonster::CineCleanup()
 {
 	CCineMonster *pOldCine = m_pCine;
 
@@ -837,7 +837,7 @@ BOOL CBaseMonster :: CineCleanup( )
 		StopAnimation();
 		pev->movetype = MOVETYPE_NONE;
 		pev->effects |= EF_NOINTERP;	// Don't interpolate either, assume the corpse is positioned in its final resting place
-		return FALSE;
+		return false;
 	}
 
 	// If we actually played a sequence
@@ -913,7 +913,7 @@ BOOL CBaseMonster :: CineCleanup( )
 	//	SetAnimation( m_MonsterState );
 	ClearBits(pev->spawnflags, SF_MONSTER_WAIT_FOR_SCRIPT );
 
-	return TRUE;
+	return true;
 }
 
 

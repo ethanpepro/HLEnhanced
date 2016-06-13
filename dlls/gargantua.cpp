@@ -208,9 +208,9 @@ public:
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 
-	BOOL CheckMeleeAttack1( float flDot, float flDist ) override;		// Swipe
-	BOOL CheckMeleeAttack2( float flDot, float flDist ) override;		// Flames
-	BOOL CheckRangeAttack1( float flDot, float flDist ) override;		// Stomp attack
+	bool CheckMeleeAttack1( float flDot, float flDist ) override;		// Swipe
+	bool CheckMeleeAttack2( float flDot, float flDist ) override;		// Flames
+	bool CheckRangeAttack1( float flDot, float flDist ) override;		// Stomp attack
 	void SetObjectCollisionBox( void ) override
 	{
 		pev->absmin = pev->origin + Vector( -80, -80, 0 );
@@ -917,7 +917,7 @@ void CGargantua::Killed( entvars_t *pevAttacker, int iGib )
 // Garg swipe attack
 // 
 //=========================================================
-BOOL CGargantua::CheckMeleeAttack1( float flDot, float flDist )
+bool CGargantua::CheckMeleeAttack1( float flDot, float flDist )
 {
 //	ALERT(at_aiconsole, "CheckMelee(%f, %f)\n", flDot, flDist);
 
@@ -931,7 +931,7 @@ BOOL CGargantua::CheckMeleeAttack1( float flDot, float flDist )
 
 
 // Flame thrower madness!
-BOOL CGargantua::CheckMeleeAttack2( float flDot, float flDist )
+bool CGargantua::CheckMeleeAttack2( float flDot, float flDist )
 {
 //	ALERT(at_aiconsole, "CheckMelee(%f, %f)\n", flDot, flDist);
 
@@ -956,7 +956,7 @@ BOOL CGargantua::CheckMeleeAttack2( float flDot, float flDist )
 // Stomp attack
 //
 //=========================================================
-BOOL CGargantua::CheckRangeAttack1( float flDot, float flDist )
+bool CGargantua::CheckRangeAttack1( float flDot, float flDist )
 {
 	if ( gpGlobals->time > m_seeTime )
 	{

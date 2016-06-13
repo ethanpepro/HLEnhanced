@@ -57,16 +57,16 @@ void CBaseMonster :: ClearSchedule( void )
 // FScheduleDone - Returns TRUE if the caller is on the
 // last task in the schedule
 //=========================================================
-BOOL CBaseMonster :: FScheduleDone ( void )
+bool CBaseMonster::FScheduleDone() const
 {
-	ASSERT( m_pSchedule != NULL );
+	ASSERT( m_pSchedule != nullptr );
 	
 	if ( m_iScheduleIndex == m_pSchedule->cTasks )
 	{
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================

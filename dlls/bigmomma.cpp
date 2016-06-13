@@ -285,9 +285,9 @@ public:
 		pev->absmax = pev->origin + Vector( 95, 95, 190 );
 	}
 
-	BOOL CheckMeleeAttack1( float flDot, float flDist ) override;	// Slash
-	BOOL CheckMeleeAttack2( float flDot, float flDist ) override;	// Lay a crab
-	BOOL CheckRangeAttack1( float flDot, float flDist ) override;	// Mortar launch
+	bool CheckMeleeAttack1( float flDot, float flDist ) override;	// Slash
+	bool CheckMeleeAttack2( float flDot, float flDist ) override;	// Lay a crab
+	bool CheckRangeAttack1( float flDot, float flDist ) override;	// Mortar launch
 
 	virtual int	Save( CSave &save ) override;
 	virtual int	Restore( CRestore &restore ) override;
@@ -762,7 +762,7 @@ void CBigMomma::NodeReach( void )
 
 
 	// Slash
-BOOL CBigMomma::CheckMeleeAttack1( float flDot, float flDist )
+bool CBigMomma::CheckMeleeAttack1( float flDot, float flDist )
 {
 	if (flDot >= 0.7)
 	{
@@ -774,14 +774,14 @@ BOOL CBigMomma::CheckMeleeAttack1( float flDot, float flDist )
 
 
 // Lay a crab
-BOOL CBigMomma::CheckMeleeAttack2( float flDot, float flDist )
+bool CBigMomma::CheckMeleeAttack2( float flDot, float flDist )
 {
 	return CanLayCrab();
 }
 
 
 // Mortar launch
-BOOL CBigMomma::CheckRangeAttack1( float flDot, float flDist )
+bool CBigMomma::CheckRangeAttack1( float flDot, float flDist )
 {
 	if ( flDist <= BIG_MORTARDIST && m_mortarTime < gpGlobals->time )
 	{

@@ -20,8 +20,8 @@
 class CFlyingMonster : public CBaseMonster
 {
 public:
-	int 		CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist ) override;// check validity of a straight move through space
-	bool		FTriangulate ( const Vector &vecStart , const Vector &vecEnd, float flDist, CBaseEntity *pTargetEnt, Vector *pApex ) override;
+	int 		CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, const CBaseEntity* const pTarget, float *pflDist ) override;// check validity of a straight move through space
+	bool		FTriangulate( const Vector &vecStart , const Vector &vecEnd, float flDist, const CBaseEntity* const pTargetEnt, Vector *pApex ) override;
 	Activity	GetStoppedActivity( void ) override;
 	void		Killed( entvars_t *pevAttacker, int iGib ) override;
 	void		Stop( void ) override;
