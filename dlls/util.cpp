@@ -346,7 +346,7 @@ DBG_AssertFunction(
 	}
 #endif	// DEBUG
 
-BOOL UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon )
+bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon )
 {
 	return g_pGameRules->GetNextBestWeapon( pPlayer, pCurrentWeapon );
 }

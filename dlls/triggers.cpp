@@ -287,13 +287,13 @@ public:
 	int		m_iTargetName	[ MAX_MULTI_TARGETS ];// list if indexes into global string array
 	float	m_flTargetDelay [ MAX_MULTI_TARGETS ];// delay (in seconds) from time of manager fire to target fire
 private:
-	inline BOOL IsClone( void ) { return (pev->spawnflags & SF_MULTIMAN_CLONE) ? TRUE : FALSE; }
-	inline BOOL ShouldClone( void ) 
+	inline bool IsClone() const { return ( pev->spawnflags & SF_MULTIMAN_CLONE ) != 0; }
+	inline bool ShouldClone() const 
 	{ 
 		if ( IsClone() )
-			return FALSE;
+			return false;
 
-		return (pev->spawnflags & SF_MULTIMAN_THREAD) ? TRUE : FALSE; 
+		return ( pev->spawnflags & SF_MULTIMAN_THREAD ) != 0; 
 	}
 
 	CMultiManager *Clone( void );
@@ -1217,10 +1217,11 @@ void CBaseTrigger::CounterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, US
 	if (m_cTriggersLeft < 0)
 		return;
 	
-	BOOL fTellActivator =
-		(m_hActivator != 0) &&
+	const bool fTellActivator =
+		(m_hActivator != nullptr) &&
 		FClassnameIs(m_hActivator->pev, "player") &&
 		!FBitSet(pev->spawnflags, SPAWNFLAG_NOMESSAGE);
+
 	if (m_cTriggersLeft != 0)
 	{
 		if (fTellActivator)

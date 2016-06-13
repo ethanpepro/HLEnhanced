@@ -624,7 +624,7 @@ void CBasePlayerItem::DefaultTouch( CBaseEntity *pOther )
 	SUB_UseTargets( pOther, USE_TOGGLE, 0 ); // UNDONE: when should this happen?
 }
 
-BOOL CanAttack( float attack_time, float curtime, BOOL isPredicted )
+bool CanAttack( float attack_time, float curtime, const bool isPredicted )
 {
 #if defined( CLIENT_WEAPONS )
 	if ( !isPredicted )
@@ -632,11 +632,11 @@ BOOL CanAttack( float attack_time, float curtime, BOOL isPredicted )
 	if ( 1 )
 #endif
 	{
-		return ( attack_time <= curtime ) ? TRUE : FALSE;
+		return attack_time <= curtime;
 	}
 	else
 	{
-		return ( attack_time <= 0.0 ) ? TRUE : FALSE;
+		return attack_time <= 0.0;
 	}
 }
 
@@ -809,20 +809,20 @@ int CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer )
 
 int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 {
-	BOOL bSend = FALSE;
+	bool bSend = false;
 	int state = 0;
 	if ( pPlayer->m_pActiveItem == this )
 	{
 		if ( pPlayer->m_fOnTarget )
 			state = WEAPON_IS_ONTARGET;
 		else
-			state = 1;
+			state = 1;//TODO: define constant - Solokiller
 	}
 
 	// Forcing send of all data!
 	if ( !pPlayer->m_fWeapon )
 	{
-		bSend = TRUE;
+		bSend = true;
 	}
 	
 	// This is the current or last weapon, so the state will need to be updated
@@ -831,7 +831,7 @@ int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 	{
 		if ( pPlayer->m_pActiveItem != pPlayer->m_pClientActiveItem )
 		{
-			bSend = TRUE;
+			bSend = true;
 		}
 	}
 
@@ -840,7 +840,7 @@ int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 		 state != m_iClientWeaponState || 
 		 pPlayer->m_iFOV != pPlayer->m_iClientFOV )
 	{
-		bSend = TRUE;
+		bSend = true;
 	}
 
 	if ( bSend )

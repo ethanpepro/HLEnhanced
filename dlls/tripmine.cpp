@@ -264,7 +264,7 @@ void CTripmineGrenade :: MakeBeam( void )
 
 void CTripmineGrenade :: BeamBreakThink( void  )
 {
-	BOOL bBlowup = 0;
+	bool bBlowup = false;
 
 	TraceResult tr;
 
@@ -284,16 +284,16 @@ void CTripmineGrenade :: BeamBreakThink( void  )
 
 	if (fabs( m_flBeamLength - tr.flFraction ) > 0.001)
 	{
-		bBlowup = 1;
+		bBlowup = true;
 	}
 	else
 	{
 		if (m_hOwner == NULL)
-			bBlowup = 1;
+			bBlowup = true;
 		else if (m_posOwner != m_hOwner->pev->origin)
-			bBlowup = 1;
+			bBlowup = true;
 		else if (m_angleOwner != m_hOwner->pev->angles)
-			bBlowup = 1;
+			bBlowup = true;
 	}
 
 	if (bBlowup)

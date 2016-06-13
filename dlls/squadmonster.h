@@ -71,7 +71,7 @@ public:
 	void VacateSlot( void );
 	void ScheduleChange( void ) override;
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
-	BOOL OccupySlot( int iDesiredSlot );
+	bool OccupySlot( int iDesiredSlot );
 	bool NoFriendlyFire();
 
 	// squad functions still left in base class
@@ -108,14 +108,14 @@ public:
 	int	SquadCount( void );
 	void SquadRemove( CSquadMonster *pRemove );
 	void SquadUnlink( void );
-	BOOL SquadAdd( CSquadMonster *pAdd );
+	bool SquadAdd( CSquadMonster *pAdd );
 	void SquadDisband( void );
 	void SquadAddConditions ( int iConditions );
 	void SquadMakeEnemy ( CBaseEntity *pEnemy );
 	void SquadPasteEnemyInfo ( void );
 	void SquadCopyEnemyInfo ( void );
-	BOOL SquadEnemySplit ( void );
-	BOOL SquadMemberInRange( const Vector &vecLocation, float flDist );
+	bool SquadEnemySplit();
+	bool SquadMemberInRange( const Vector &vecLocation, float flDist );
 
 	virtual CSquadMonster *MySquadMonsterPointer( void ) override { return this; }
 
