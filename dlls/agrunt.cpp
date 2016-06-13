@@ -97,7 +97,7 @@ public:
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
 	int IRelationship( CBaseEntity *pTarget ) override;
 	void StopTalking ( void );
-	BOOL ShouldSpeak( void );
+	bool ShouldSpeak();
 	CUSTOM_SCHEDULES;
 
 	virtual int		Save( CSave &save ) override;
@@ -273,12 +273,12 @@ void CAGrunt::StopTalking( void )
 //=========================================================
 // ShouldSpeak - Should this agrunt be talking?
 //=========================================================
-BOOL CAGrunt::ShouldSpeak( void )
+bool CAGrunt::ShouldSpeak()
 {
 	if ( m_flNextSpeakTime > gpGlobals->time )
 	{
 		// my time to talk is still in the future.
-		return FALSE;
+		return false;
 	}
 
 	if ( pev->spawnflags & SF_MONSTER_GAG )
@@ -290,11 +290,11 @@ BOOL CAGrunt::ShouldSpeak( void )
 			// into the future a bit, so we don't talk immediately after 
 			// going into combat
 			m_flNextSpeakTime = gpGlobals->time + 3;
-			return FALSE;
+			return false;
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 //=========================================================
@@ -990,9 +990,8 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 		{
 			Vector		vecCenter;
 			TraceResult	tr;
-			BOOL		fSkip;
+			bool		fSkip = false;
 
-			fSkip = FALSE;
 			vecCenter = Center();
 
 			UTIL_VecToAngles( m_vecEnemyLKP - pev->origin );
@@ -1001,7 +1000,7 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 			if ( tr.flFraction == 1.0 )
 			{
 				MakeIdealYaw ( pev->origin + gpGlobals->v_right * 128 );
-				fSkip = TRUE;
+				fSkip = true;
 				TaskComplete();
 			}
 			
@@ -1011,7 +1010,7 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 				if ( tr.flFraction == 1.0 )
 				{
 					MakeIdealYaw ( pev->origin - gpGlobals->v_right * 128 );
-					fSkip = TRUE;
+					fSkip = true;
 					TaskComplete();
 				}
 			}
@@ -1022,7 +1021,7 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 				if ( tr.flFraction == 1.0 )
 				{
 					MakeIdealYaw ( pev->origin + gpGlobals->v_right * 256 );
-					fSkip = TRUE;
+					fSkip = true;
 					TaskComplete();
 				}
 			}
@@ -1033,7 +1032,7 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 				if ( tr.flFraction == 1.0 )
 				{
 					MakeIdealYaw ( pev->origin - gpGlobals->v_right * 256 );
-					fSkip = TRUE;
+					fSkip = true;
 					TaskComplete();
 				}
 			}

@@ -164,7 +164,7 @@ public:
 	int		FindShortestPath ( int *piPath, int iStart, int iDest, int iHull, int afCapMask);
 	int		FindNearestNode ( const Vector &vecOrigin, const CBaseEntity* const pEntity );
 	int		FindNearestNode ( const Vector &vecOrigin, int afNodeTypes );
-	//int		FindNearestLink ( const Vector &vecTestPoint, int *piNearestLink, BOOL *pfAlongLine );
+	//int		FindNearestLink ( const Vector &vecTestPoint, int *piNearestLink, bool *pfAlongLine );
 	float	PathLength( int iStart, int iDest, int iHull, int afCapMask );
 	int		NextNodeInRoute( int iCurrentNode, int iDest, int iHull, int iCap );
 

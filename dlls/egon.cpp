@@ -86,7 +86,7 @@ void CEgon::Precache( void )
 }
 
 
-BOOL CEgon::Deploy( void )
+bool CEgon::Deploy()
 {
 	m_deployed = FALSE;
 	m_fireState = FIRE_OFF;
@@ -145,12 +145,12 @@ float CEgon::GetDischargeInterval( void )
 	return EGON_DISCHARGE_INTERVAL;
 }
 
-BOOL CEgon::HasAmmo( void )
+bool CEgon::HasAmmo() const
 {
 	if ( m_pPlayer->ammo_uranium <= 0 )
-		return FALSE;
+		return false;
 
-	return TRUE;
+	return true;
 }
 
 void CEgon::UseAmmo( int count )

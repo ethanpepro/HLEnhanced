@@ -145,26 +145,26 @@ void CBaseEntity :: Killed( entvars_t *pevAttacker, int iGib )
 CBasePlayerWeapon :: DefaultReload
 =====================
 */
-BOOL CBasePlayerWeapon :: DefaultReload( int iClipSize, int iAnim, float fDelay, int body )
+bool CBasePlayerWeapon::DefaultReload( int iClipSize, int iAnim, float fDelay, int body )
 {
 
 	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
-		return FALSE;
+		return false;
 
 	int j = min(iClipSize - m_iClip, m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]);	
 
 	if (j == 0)
-		return FALSE;
+		return false;
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + fDelay;
 
 	//!!UNDONE -- reload sound goes here !!!
 	SendWeaponAnim( iAnim, UseDecrement(), body );
 
-	m_fInReload = TRUE;
+	m_fInReload = true;
 
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 3;
-	return TRUE;
+	return true;
 }
 
 /*
@@ -208,10 +208,10 @@ CBasePlayerWeapon :: DefaultDeploy
 
 =====================
 */
-BOOL CBasePlayerWeapon :: DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal, int	body )
+bool CBasePlayerWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal, int	body )
 {
 	if ( !CanDeploy() )
-		return FALSE;
+		return false;
 
 	gEngfuncs.CL_LoadModel( szViewModel, &m_pPlayer->pev->viewmodel );
 	
@@ -220,7 +220,7 @@ BOOL CBasePlayerWeapon :: DefaultDeploy( char *szViewModel, char *szWeaponModel,
 	g_irunninggausspred = false;
 	m_pPlayer->m_flNextAttack = 0.5;
 	m_flTimeWeaponIdle = 1.0;
-	return TRUE;
+	return true;
 }
 
 /*
@@ -229,15 +229,16 @@ CBasePlayerWeapon :: PlayEmptySound
 
 =====================
 */
-BOOL CBasePlayerWeapon :: PlayEmptySound( void )
+//TODO: these 2 functions are virtually identical to the server side copy - Solokiller
+bool CBasePlayerWeapon::PlayEmptySound()
 {
-	if (m_iPlayEmptySound)
+	if ( m_bPlayEmptySound )
 	{
 		HUD_PlaySound( "weapons/357_cock1.wav", 0.8 );
-		m_iPlayEmptySound = 0;
-		return 0;
+		m_bPlayEmptySound = false;
+		return false;
 	}
-	return 0;
+	return false;
 }
 
 /*
@@ -246,9 +247,9 @@ CBasePlayerWeapon :: ResetEmptySound
 
 =====================
 */
-void CBasePlayerWeapon :: ResetEmptySound( void )
+void CBasePlayerWeapon::ResetEmptySound()
 {
-	m_iPlayEmptySound = 1;
+	m_bPlayEmptySound = true;
 }
 
 /*

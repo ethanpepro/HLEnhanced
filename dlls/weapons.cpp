@@ -883,7 +883,7 @@ void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
 	MESSAGE_END();
 }
 
-BOOL CBasePlayerWeapon :: AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry )
+bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry )
 {
 	int iIdAmmo;
 
@@ -917,11 +917,11 @@ BOOL CBasePlayerWeapon :: AddPrimaryAmmo( int iCount, char *szName, int iMaxClip
 		}
 	}
 
-	return iIdAmmo > 0 ? TRUE : FALSE;
+	return iIdAmmo > 0;
 }
 
 
-BOOL CBasePlayerWeapon :: AddSecondaryAmmo( int iCount, char *szName, int iMax )
+bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, char *szName, int iMax )
 {
 	int iIdAmmo;
 
@@ -934,7 +934,7 @@ BOOL CBasePlayerWeapon :: AddSecondaryAmmo( int iCount, char *szName, int iMax )
 		m_iSecondaryAmmoType = iIdAmmo;
 		EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
 	}
-	return iIdAmmo > 0 ? TRUE : FALSE;
+	return iIdAmmo > 0;
 }
 
 //=========================================================
@@ -943,18 +943,18 @@ BOOL CBasePlayerWeapon :: AddSecondaryAmmo( int iCount, char *szName, int iMax )
 // (does it have ammo loaded? do I have any ammo for the 
 // weapon?, etc)
 //=========================================================
-BOOL CBasePlayerWeapon :: IsUseable( void )
+bool CBasePlayerWeapon::IsUseable()
 {
 	if ( m_iClip <= 0 )
 	{
 		if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 && iMaxAmmo1() != -1 )			
 		{
 			// clip is empty (or nonexistant) and the player has no more ammo of this type. 
-			return FALSE;
+			return false;
 		}
 	}
 
-	return TRUE;
+	return true;
 }
 
 bool CBasePlayerWeapon::CanDeploy() const
@@ -987,10 +987,10 @@ bool CBasePlayerWeapon::CanDeploy() const
 	return true;
 }
 
-BOOL CBasePlayerWeapon :: DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal /* = 0 */, int body )
+bool CBasePlayerWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal /* = 0 */, int body )
 {
 	if (!CanDeploy( ))
-		return FALSE;
+		return false;
 
 	m_pPlayer->TabulateAmmo();
 	m_pPlayer->pev->viewmodel = MAKE_STRING(szViewModel);
@@ -1002,45 +1002,45 @@ BOOL CBasePlayerWeapon :: DefaultDeploy( char *szViewModel, char *szWeaponModel,
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.0;
 	m_flLastFireTime = 0.0;
 
-	return TRUE;
+	return true;
 }
 
 
-BOOL CBasePlayerWeapon :: DefaultReload( int iClipSize, int iAnim, float fDelay, int body )
+bool CBasePlayerWeapon::DefaultReload( int iClipSize, int iAnim, float fDelay, int body )
 {
 	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
-		return FALSE;
+		return false;
 
 	int j = min(iClipSize - m_iClip, m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]);	
 
 	if (j == 0)
-		return FALSE;
+		return false;
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + fDelay;
 
 	//!!UNDONE -- reload sound goes here !!!
 	SendWeaponAnim( iAnim, UseDecrement() ? 1 : 0 );
 
-	m_fInReload = TRUE;
+	m_fInReload = true;
 
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 3;
-	return TRUE;
+	return true;
 }
 
-BOOL CBasePlayerWeapon :: PlayEmptySound( void )
+bool CBasePlayerWeapon::PlayEmptySound()
 {
-	if (m_iPlayEmptySound)
+	if ( m_bPlayEmptySound )
 	{
 		EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM);
-		m_iPlayEmptySound = 0;
-		return 0;
+		m_bPlayEmptySound = false;
+		return false;
 	}
-	return 0;
+	return false;
 }
 
-void CBasePlayerWeapon :: ResetEmptySound( void )
+void CBasePlayerWeapon::ResetEmptySound()
 {
-	m_iPlayEmptySound = 1;
+	m_bPlayEmptySound = true;
 }
 
 //=========================================================

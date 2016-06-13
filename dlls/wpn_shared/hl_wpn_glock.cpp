@@ -87,7 +87,7 @@ int CGlock::GetItemInfo(ItemInfo *p)
 	return 1;
 }
 
-BOOL CGlock::Deploy( )
+bool CGlock::Deploy()
 {
 	// pev->body = 1;
 	return DefaultDeploy( "models/v_9mmhandgun.mdl", "models/p_9mmhandgun.mdl", GLOCK_DRAW, "onehanded", /*UseDecrement() ? 1 : 0*/ 0 );
@@ -95,15 +95,15 @@ BOOL CGlock::Deploy( )
 
 void CGlock::SecondaryAttack( void )
 {
-	GlockFire( 0.1, 0.2, FALSE );
+	GlockFire( 0.1, 0.2, false );
 }
 
 void CGlock::PrimaryAttack( void )
 {
-	GlockFire( 0.01, 0.3, TRUE );
+	GlockFire( 0.01, 0.3, true );
 }
 
-void CGlock::GlockFire( float flSpread , float flCycleTime, BOOL fUseAutoAim )
+void CGlock::GlockFire( float flSpread , float flCycleTime, const bool fUseAutoAim )
 {
 	if (m_iClip <= 0)
 	{
@@ -176,14 +176,14 @@ void CGlock::Reload( void )
 	if ( m_pPlayer->ammo_9mm <= 0 )
 		 return;
 
-	int iResult;
+	bool bResult;
 
 	if (m_iClip == 0)
-		iResult = DefaultReload( 17, GLOCK_RELOAD, 1.5 );
+		bResult = DefaultReload( 17, GLOCK_RELOAD, 1.5 );
 	else
-		iResult = DefaultReload( 17, GLOCK_RELOAD_NOT_EMPTY, 1.5 );
+		bResult = DefaultReload( 17, GLOCK_RELOAD_NOT_EMPTY, 1.5 );
 
-	if (iResult)
+	if ( bResult )
 	{
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
 	}

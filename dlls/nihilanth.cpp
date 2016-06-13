@@ -187,7 +187,7 @@ public:
 	void ZapInit( CBaseEntity *pEnemy );
 
 	void EXPORT HoverThink( void );
-	BOOL CircleTarget( Vector vecTarget );
+	bool CircleTarget( Vector vecTarget );
 	void EXPORT DissipateThink( void );
 
 	void EXPORT ZapThink( void );
@@ -1729,9 +1729,9 @@ void CNihilanthHVR :: DissipateThink( void  )
 }
 
 
-BOOL CNihilanthHVR :: CircleTarget( Vector vecTarget )
+bool CNihilanthHVR::CircleTarget( Vector vecTarget )
 {
-	BOOL fClose = FALSE;
+	bool fClose = false;
 
 	Vector vecDest = vecTarget;
 	Vector vecEst = pev->origin + pev->velocity * 0.5;
@@ -1761,7 +1761,7 @@ BOOL CNihilanthHVR :: CircleTarget( Vector vecTarget )
 
 	if (d1 < 32)
 	{
-		fClose = TRUE;
+		fClose = true;
 	}
 
 	m_vecIdeal = m_vecIdeal + Vector( RANDOM_FLOAT( -2, 2 ), RANDOM_FLOAT( -2, 2 ), RANDOM_FLOAT( -2, 2 ));

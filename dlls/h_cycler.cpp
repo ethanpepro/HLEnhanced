@@ -315,7 +315,7 @@ public:
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	BOOL Deploy( void ) override;
+	bool Deploy() override;
 	void Holster( int skiplocal = 0 ) override;
 	int m_iszModel;
 	int m_iModel;
@@ -340,13 +340,13 @@ void CWeaponCycler::Spawn( )
 
 
 
-BOOL CWeaponCycler::Deploy( )
+bool CWeaponCycler::Deploy()
 {
 	m_pPlayer->pev->viewmodel = m_iszModel;
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
 	SendWeaponAnim( 0 );
 	m_iClip = 0;
-	return TRUE;
+	return true;
 }
 
 

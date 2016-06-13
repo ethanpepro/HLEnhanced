@@ -238,10 +238,10 @@ public:
 	void CheckRespawn( void );
 	virtual int GetItemInfo(ItemInfo *p) { return 0; };	// returns 0 if struct not filled out
 	virtual bool CanDeploy() const { return true; }
-	virtual BOOL Deploy( )								// returns is deploy was successful
-		 { return TRUE; };
+	// returns if deploy was successful
+	virtual bool Deploy() { return true; }
 
-	virtual BOOL CanHolster( void ) { return TRUE; };// can this weapon be put away right now?
+	virtual bool CanHolster() { return true; } // can this weapon be put away right now?
 	virtual void Holster( int skiplocal = 0 );
 	virtual void UpdateItemInfo( void ) { return; };
 
@@ -307,23 +307,23 @@ public:
 	virtual int AddWeapon( void ) { ExtractAmmo( this ); return TRUE; };	// Return TRUE if you want to add yourself to the player
 
 	// generic "shared" ammo handlers
-	BOOL AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry );
-	BOOL AddSecondaryAmmo( int iCount, char *szName, int iMaxCarry );
+	bool AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry );
+	bool AddSecondaryAmmo( int iCount, char *szName, int iMaxCarry );
 
 	virtual void UpdateItemInfo( void ) override {};	// updates HUD state
 
-	int m_iPlayEmptySound;
+	bool m_bPlayEmptySound;
 	int m_fFireOnEmpty;		// True when the gun is empty and the player is still holding down the
 							// attack key(s)
-	virtual BOOL PlayEmptySound( void );
-	virtual void ResetEmptySound( void );
+	virtual bool PlayEmptySound();
+	virtual void ResetEmptySound();
 
 	virtual void SendWeaponAnim( int iAnim, int skiplocal = 1, int body = 0 );  // skiplocal is 1 if client is predicting weapon animations
 
 	virtual bool CanDeploy() const override;
-	virtual BOOL IsUseable( void );
-	BOOL DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal = 0, int body = 0 );
-	int DefaultReload( int iClipSize, int iAnim, float fDelay, int body = 0 );
+	virtual bool IsUseable();
+	bool DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal = 0, int body = 0 );
+	bool DefaultReload( int iClipSize, int iAnim, float fDelay, int body = 0 );
 
 	virtual void ItemPostFrame( void ) override;	// called each frame by the player PostThink
 	// called by CBasePlayerWeapons ItemPostFrame()
@@ -333,9 +333,9 @@ public:
 	virtual void WeaponIdle( void ) { return; }					// called when no buttons pressed
 	virtual int UpdateClientData( CBasePlayer *pPlayer ) override;		// sends hud info to client dll, if things have changed
 	virtual void RetireWeapon( void );
-	virtual BOOL ShouldWeaponIdle( void ) {return FALSE; };
+	virtual bool ShouldWeaponIdle() {return false; }
 	virtual void Holster( int skiplocal = 0 );
-	virtual BOOL UseDecrement( void ) { return FALSE; };
+	virtual bool UseDecrement() const { return false; }
 	
 	int	PrimaryAmmoIndex() const; 
 	int	SecondaryAmmoIndex() const; 
@@ -482,17 +482,17 @@ public:
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	void GlockFire( float flSpread, float flCycleTime, BOOL fUseAutoAim );
-	BOOL Deploy( void ) override;
+	void GlockFire( float flSpread, float flCycleTime, const bool fUseAutoAim );
+	bool Deploy() override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
 
-	virtual BOOL UseDecrement( void ) override
+	virtual bool UseDecrement() const override
 	{ 
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -517,17 +517,17 @@ public:
 
 	void PrimaryAttack( void ) override;
 	int Swing( int fFirst );
-	BOOL Deploy( void ) override;
+	bool Deploy() override;
 	void Holster( int skiplocal = 0 ) override;
 	int m_iSwing;
 	TraceResult m_trHit;
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 private:
@@ -544,19 +544,19 @@ public:
 	int AddToPlayer( CBasePlayer *pPlayer ) override;
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	BOOL Deploy( void ) override;
+	bool Deploy() override;
 	void Holster( int skiplocal = 0 ) override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
 
 	BOOL m_fInZoom;// don't save this. 
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -575,18 +575,18 @@ public:
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	BOOL Deploy( void ) override;
+	bool Deploy() override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
 	float m_flNextAnimTime;
 	int m_iShell;
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -608,19 +608,19 @@ public:
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
 	int AddToPlayer( CBasePlayer *pPlayer ) override;
-	BOOL Deploy( ) override;
+	bool Deploy() override;
 	void Holster( int skiplocal = 0 ) override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
 
 	int m_fInZoom; // don't save this
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -648,19 +648,19 @@ public:
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	BOOL Deploy( ) override;
+	bool Deploy() override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
 	int m_fInReload;
 	float m_flNextReload;
 	int m_iShell;
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -700,8 +700,8 @@ public:
 	int GetItemInfo(ItemInfo *p) override;
 	int AddToPlayer( CBasePlayer *pPlayer ) override;
 
-	BOOL Deploy( void ) override;
-	BOOL CanHolster( void ) override;
+	bool Deploy() override;
+	bool CanHolster() override;
 	void Holster( int skiplocal = 0 ) override;
 
 	void PrimaryAttack( void ) override;
@@ -709,18 +709,18 @@ public:
 	void WeaponIdle( void ) override;
 
 	void UpdateSpot( void );
-	BOOL ShouldWeaponIdle( void ) override { return TRUE; };
+	bool ShouldWeaponIdle() override { return true; }
 
 	CLaserSpot *m_pSpot;
 	int m_fSpotActive;
 	int m_cActiveRockets;// how many missiles in flight from this launcher right now?
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -763,7 +763,7 @@ public:
 	int GetItemInfo(ItemInfo *p) override;
 	int AddToPlayer( CBasePlayer *pPlayer ) override;
 
-	BOOL Deploy( void ) override;
+	bool Deploy() override;
 	void Holster( int skiplocal = 0  ) override;
 
 	void PrimaryAttack( void ) override;
@@ -782,12 +782,12 @@ public:
 	// we need to know so we can pick the right set of effects. 
 	BOOL m_fPrimaryFire;
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -811,7 +811,7 @@ public:
 	int GetItemInfo(ItemInfo *p) override;
 	int AddToPlayer( CBasePlayer *pPlayer ) override;
 
-	BOOL Deploy( void ) override;
+	bool Deploy() override;
 	void Holster( int skiplocal = 0 ) override;
 
 	void UpdateEffect( const Vector &startPoint, const Vector &endPoint, float timeBlend );
@@ -831,7 +831,7 @@ public:
 
 	void Fire( const Vector &vecOrigSrc, const Vector &vecDir );
 
-	BOOL HasAmmo( void );
+	bool HasAmmo() const;
 
 	void UseAmmo( int count );
 	
@@ -841,12 +841,12 @@ public:
 	CBeam				*m_pNoise;
 	CSprite				*m_pSprite;
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -872,8 +872,8 @@ public:
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	BOOL Deploy( void ) override;
-	BOOL IsUseable( void ) override;
+	bool Deploy() override;
+	bool IsUseable() override;
 	void Holster( int skiplocal = 0 ) override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
@@ -883,12 +883,12 @@ public:
 	
 	int m_iFirePhase;// don't save me.
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 private:
@@ -906,17 +906,17 @@ public:
 	int GetItemInfo(ItemInfo *p) override;
 
 	void PrimaryAttack( void ) override;
-	BOOL Deploy( void ) override;
-	BOOL CanHolster( void ) override;
+	bool Deploy() override;
+	bool CanHolster() override;
 	void Holster( int skiplocal = 0 ) override;
 	void WeaponIdle( void ) override;
 	
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 };
@@ -940,19 +940,19 @@ public:
 	void SecondaryAttack( void ) override;
 	int AddDuplicate( CBasePlayerItem *pOriginal ) override;
 	bool CanDeploy() const override;
-	BOOL Deploy( void ) override;
-	BOOL IsUseable( void ) override;
+	bool Deploy() override;
+	bool IsUseable() override;
 	
 	void Holster( int skiplocal = 0 ) override;
 	void WeaponIdle( void ) override;
 	void Throw( void );
 	
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 };
@@ -973,16 +973,16 @@ public:
 	}
 
 	void PrimaryAttack( void ) override;
-	BOOL Deploy( void ) override;
+	bool Deploy() override;
 	void Holster( int skiplocal = 0 ) override;
 	void WeaponIdle( void ) override;
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 
@@ -1001,17 +1001,17 @@ public:
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	BOOL Deploy( void ) override;
+	bool Deploy() override;
 	void Holster( int skiplocal = 0 ) override;
 	void WeaponIdle( void ) override;
 	int m_fJustThrown;
 
-	virtual BOOL UseDecrement( void ) override
-	{ 
+	virtual bool UseDecrement() const override
+	{
 #if defined( CLIENT_WEAPONS )
-		return TRUE;
+		return true;
 #else
-		return FALSE;
+		return false;
 #endif
 	}
 

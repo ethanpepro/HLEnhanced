@@ -255,21 +255,21 @@ int CSatchel::GetItemInfo(ItemInfo *p)
 
 //=========================================================
 //=========================================================
-BOOL CSatchel::IsUseable( void )
+bool CSatchel::IsUseable()
 {
 	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] > 0 ) 
 	{
 		// player is carrying some satchels
-		return TRUE;
+		return true;
 	}
 
 	if ( m_chargeReady != 0 )
 	{
 		// player isn't carrying any satchels, but has some out
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 bool CSatchel::CanDeploy() const
@@ -289,7 +289,7 @@ bool CSatchel::CanDeploy() const
 	return false;
 }
 
-BOOL CSatchel::Deploy( )
+bool CSatchel::Deploy()
 {
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
@@ -301,7 +301,7 @@ BOOL CSatchel::Deploy( )
 		return DefaultDeploy( "models/v_satchel.mdl", "models/p_satchel.mdl", SATCHEL_DRAW, "trip" );
 
 	
-	return TRUE;
+	return true;
 }
 
 

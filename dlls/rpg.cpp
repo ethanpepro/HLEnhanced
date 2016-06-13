@@ -284,8 +284,6 @@ void CRpgRocket :: FollowThink( void  )
 
 void CRpg::Reload( void )
 {
-	int iResult;
-
 	if ( m_iClip == 1 )
 	{
 		// don't bother with any of this if don't need to reload.
@@ -322,10 +320,13 @@ void CRpg::Reload( void )
 	}
 #endif
 
+	//Used to be uninitialized. Shouldn't have caused any problems, but still. - Solokiller
+	bool bResult = false;
+
 	if ( m_iClip == 0 )
-		iResult = DefaultReload( RPG_MAX_CLIP, RPG_RELOAD, 2 );
+		bResult = DefaultReload( RPG_MAX_CLIP, RPG_RELOAD, 2 );
 	
-	if ( iResult )
+	if ( bResult )
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );
 	
 }
@@ -403,7 +404,7 @@ int CRpg::AddToPlayer( CBasePlayer *pPlayer )
 	return FALSE;
 }
 
-BOOL CRpg::Deploy( )
+bool CRpg::Deploy()
 {
 	if ( m_iClip == 0 )
 	{
@@ -414,15 +415,15 @@ BOOL CRpg::Deploy( )
 }
 
 
-BOOL CRpg::CanHolster( void )
+bool CRpg::CanHolster()
 {
 	if ( m_fSpotActive && m_cActiveRockets )
 	{
 		// can't put away while guiding a missile.
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 void CRpg::Holster( int skiplocal /* = 0 */ )
