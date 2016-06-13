@@ -20,7 +20,11 @@
 #ifndef CDLL_DLL_H
 #define CDLL_DLL_H
 
-#define MAX_WEAPONS		32		// ???
+/**
+*	The maximum number of weapons that the engine can network. This is defined as 32 in the SDK, but ca handle up to 64.
+*	The weapons bitmask can only handle 32. Either use an iuser or another means of sending the weapon list.
+*/
+#define MAX_WEAPONS		64		// ???
 
 #define MAX_WEAPON_SLOTS		5	// hud item selection slots
 #define MAX_ITEM_TYPES			6	// hud item selection slots
