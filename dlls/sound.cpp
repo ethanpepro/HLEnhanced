@@ -136,8 +136,8 @@ public:
 	float m_flAttenuation;		// attenuation value
 	dynpitchvol_t m_dpv;	
 
-	BOOL	m_fActive;	// only TRUE when the entity is playing a looping sound
-	BOOL	m_fLooping;	// TRUE when the sound played will loop
+	bool	m_fActive;	// only true when the entity is playing a looping sound
+	bool	m_fLooping;	// true when the sound played will loop
 };
 
 LINK_ENTITY_TO_CLASS( ambient_generic, CAmbientGeneric );
@@ -214,12 +214,12 @@ void CAmbientGeneric :: Spawn( void )
 
 	SetUse ( &CAmbientGeneric::ToggleUse );
 	
-	m_fActive = FALSE;
+	m_fActive = false;
 
 	if ( FBitSet ( pev->spawnflags, AMBIENT_SOUND_NOT_LOOPING ) )
-		m_fLooping = FALSE;
+		m_fLooping = false;
 	else
-		m_fLooping = TRUE;
+		m_fLooping = true;
 	Precache( );
 }
 
@@ -240,7 +240,7 @@ void CAmbientGeneric :: Precache( void )
 	{
 		// start the sound ASAP
 		if (m_fLooping)
-			m_fActive = TRUE;
+			m_fActive = true;
 	}
 	if ( m_fActive )
 	{
@@ -565,7 +565,7 @@ void CAmbientGeneric :: ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCalle
 
 	// Toggle
 
-	// m_fActive is TRUE only if a looping sound is playing.
+	// m_fActive is true only if a looping sound is playing.
 	
 	if ( m_fActive )
 	{// turn sound off
@@ -596,7 +596,7 @@ void CAmbientGeneric :: ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCalle
 		}
 		else
 		{
-			m_fActive = FALSE;
+			m_fActive = false;
 			
 			// HACKHACK - this makes the code in Precache() work properly after a save/restore
 			pev->spawnflags |= AMBIENT_SOUND_START_SILENT;
@@ -625,7 +625,7 @@ void CAmbientGeneric :: ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCalle
 		// and then restarted.
 
 		if (m_fLooping)
-			m_fActive = TRUE;
+			m_fActive = true;
 		else
 			// shut sound off now - may be interrupting a long non-looping sound
 			UTIL_EmitAmbientSound(ENT(pev), pev->origin, szSoundFile, 

@@ -76,7 +76,7 @@ void CFuncWall :: Spawn( void )
 
 void CFuncWall :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if ( ShouldToggle( useType, (int)(pev->frame)) )
+	if ( ShouldToggle( useType, static_cast<int>( pev->frame ) != 0 ) )
 		pev->frame = 1 - pev->frame;
 }
 
@@ -129,7 +129,7 @@ bool CFuncWallToggle::IsOn() const
 
 void CFuncWallToggle :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	int status = IsOn();
+	const bool status = IsOn();
 
 	if ( ShouldToggle( useType, status ) )
 	{

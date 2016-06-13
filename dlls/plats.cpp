@@ -646,7 +646,7 @@ public:
 
 	entvars_t	*m_pevCurrentTarget;
 	int			m_sounds;
-	BOOL		m_activated;
+	bool		m_activated;
 };
 
 LINK_ENTITY_TO_CLASS( func_train, CFuncTrain );
@@ -813,7 +813,7 @@ void CFuncTrain :: Activate( void )
 	// Not yet active, so teleport to first target
 	if ( !m_activated )
 	{
-		m_activated = TRUE;
+		m_activated = true;
 		entvars_t	*pevTarg = VARS( FIND_ENTITY_BY_TARGETNAME (NULL, STRING(pev->target) ) );
 		
 		pev->target = pevTarg->target;
@@ -865,7 +865,7 @@ void CFuncTrain :: Spawn( void )
 	UTIL_SetSize (pev, pev->mins, pev->maxs);
 	UTIL_SetOrigin(pev, pev->origin);
 
-	m_activated = FALSE;
+	m_activated = false;
 
 	if ( m_volume == 0 )
 		m_volume = 0.85;
@@ -2081,7 +2081,7 @@ void CFuncTrackAuto :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	{
 		if ( pTarget )
 			pTarget = pTarget->GetNext();
-		if ( pTarget && m_train->m_ppath != pTarget && ShouldToggle( useType, m_targetState ) )
+		if ( pTarget && m_train->m_ppath != pTarget && ShouldToggle( useType, m_targetState != TS_AT_TOP ) )
 		{
 			if ( m_targetState == TS_AT_TOP )
 				m_targetState = TS_AT_BOTTOM;
@@ -2126,7 +2126,7 @@ public:
 	static	TYPEDESCRIPTION m_SaveData[];
 
 private:
-	BOOL			m_on;
+	bool			m_on;
 };
 
 
@@ -2155,7 +2155,7 @@ void CGunTarget::Spawn( void )
 	pev->takedamage = DAMAGE_NO;
 	pev->flags |= FL_MONSTER;
 
-	m_on = FALSE;
+	m_on = false;
 	pev->max_health = pev->health;
 
 	if ( pev->spawnflags & FGUNTARGET_START_ON )
@@ -2272,6 +2272,7 @@ void CGunTarget::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 	}
 	else
 	{
+		//TODO: m_on is never turned on here. - Solokiller
 		pev->takedamage = DAMAGE_AIM;
 		m_hTargetEnt = GetNextTarget();
 		if ( m_hTargetEnt == NULL )

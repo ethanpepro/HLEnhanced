@@ -88,7 +88,7 @@ void CEgon::Precache( void )
 
 bool CEgon::Deploy()
 {
-	m_deployed = FALSE;
+	m_deployed = false;
 	m_fireState = FIRE_OFF;
 	return DefaultDeploy( "models/v_egon.mdl", "models/p_egon.mdl", EGON_DRAW, "egon" );
 }
@@ -516,7 +516,7 @@ void CEgon::WeaponIdle( void )
 	}
 
 	SendWeaponAnim( iAnim );
-	m_deployed = TRUE;
+	m_deployed = true;
 }
 
 
@@ -553,14 +553,14 @@ class CEgonAmmo : public CBasePlayerAmmo
 		PRECACHE_MODEL ("models/w_chainammo.mdl");
 		PRECACHE_SOUND("items/9mmclip1.wav");
 	}
-	BOOL AddAmmo( CBaseEntity *pOther )  override
+	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
 		if (pOther->GiveAmmo( AMMO_URANIUMBOX_GIVE, "uranium", URANIUM_MAX_CARRY ) != -1)
 		{
 			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_egonclip, CEgonAmmo );

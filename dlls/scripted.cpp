@@ -149,9 +149,9 @@ void CCineMonster :: Spawn( void )
 			m_startTime = gpGlobals->time + 1E6;
 	}
 	if ( pev->spawnflags & SF_SCRIPT_NOINTERRUPT )
-		m_interruptable = FALSE;
+		m_interruptable = false;
 	else
-		m_interruptable = TRUE;
+		m_interruptable = true;
 }
 
 //=========================================================
@@ -947,7 +947,7 @@ private:
 	float	m_flRepeat;	// repeat rate
 	float	m_flAttenuation;
 	float	m_flVolume;
-	BOOL	m_active;
+	bool	m_active;
 	int		m_iszListener;	// name of entity to look at while talking
 };
 
@@ -1035,7 +1035,7 @@ void CScriptedSentence :: Spawn( void )
 {
 	pev->solid = SOLID_NOT;
 	
-	m_active = TRUE;
+	m_active = true;
 	// if no targetname, start now
 	if ( !pev->targetname )
 	{
@@ -1080,7 +1080,7 @@ void CScriptedSentence :: FindThink( void )
 			UTIL_Remove( this );
 		SetThink( &CScriptedSentence::DelayThink );
 		pev->nextthink = gpGlobals->time + m_flDuration + m_flRepeat;
-		m_active = FALSE;
+		m_active = false;
 //		ALERT( at_console, "%s: found monster %s\n", STRING(m_iszSentence), STRING(m_iszEntity) );
 	}
 	else
@@ -1093,7 +1093,7 @@ void CScriptedSentence :: FindThink( void )
 
 void CScriptedSentence :: DelayThink( void )
 {
-	m_active = TRUE;
+	m_active = true;
 	if ( !pev->targetname )
 		pev->nextthink = gpGlobals->time + 0.1;
 	SetThink( &CScriptedSentence::FindThink );

@@ -49,6 +49,13 @@ class CSave : public CSaveRestoreBuffer
 public:
 	CSave( SAVERESTOREDATA *pdata ) : CSaveRestoreBuffer( pdata ) {};
 
+	/**
+	*	Writes a boolean to the buffer.
+	*	@param pName Name of the variable
+	*	@param pValue Pointer to the first boolean
+	*	@param iCount Number of booleans to write.
+	*/
+	void	WriteBoolean( const char* const pName, const bool* const pValue, const int iCount );
 	void	WriteShort( const char *pname, const short *value, int count );
 	void	WriteInt( const char *pname, const int *value, int count );		// Save an int
 	void	WriteFloat( const char *pname, const float *value, int count );	// Save a float

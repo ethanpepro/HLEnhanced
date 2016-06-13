@@ -52,7 +52,7 @@ public:
 	virtual int	BloodColor( void ) override { return DONT_BLEED; }
 	virtual void Killed( entvars_t *pevAttacker, int iGib ) override;
 
-	BOOL m_fRegisteredSound;// whether or not this grenade has issued its DANGER sound to the world sound list yet.
+	bool m_fRegisteredSound;// whether or not this grenade has issued its DANGER sound to the world sound list yet.
 };
 
 
@@ -371,7 +371,7 @@ class CBasePlayerAmmo : public CBaseEntity
 public:
 	virtual void Spawn( void ) override;
 	void EXPORT DefaultTouch( CBaseEntity *pOther ); // default weapon touch
-	virtual BOOL AddAmmo( CBaseEntity *pOther ) { return TRUE; };
+	virtual bool AddAmmo( CBaseEntity *pOther ) { return true; }
 
 	CBaseEntity* Respawn( void ) override;
 	void EXPORT Materialize( void );
@@ -549,7 +549,7 @@ public:
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
 
-	BOOL m_fInZoom;// don't save this. 
+	bool m_fInZoom;// don't save this. 
 
 	virtual bool UseDecrement() const override
 	{
@@ -780,7 +780,7 @@ public:
 
 	// was this weapon just fired primary or secondary?
 	// we need to know so we can pick the right set of effects. 
-	BOOL m_fPrimaryFire;
+	bool m_fPrimaryFire;
 
 	virtual bool UseDecrement() const override
 	{
@@ -856,7 +856,7 @@ private:
 	float				m_shootTime;
 	EGON_FIREMODE		m_fireMode;
 	float				m_shakeTime;
-	BOOL				m_deployed;
+	bool				m_deployed;
 
 	unsigned short m_usEgonFire;
 };

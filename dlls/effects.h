@@ -192,7 +192,7 @@ public:
 
 	void	TurnOn( void );
 	void	TurnOff( void );
-	int		IsOn( void );
+	bool	IsOn() const;
 
 	void	FireAtPoint( TraceResult &point );
 

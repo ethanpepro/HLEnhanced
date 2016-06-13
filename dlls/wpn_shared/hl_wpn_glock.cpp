@@ -245,14 +245,14 @@ class CGlockAmmo : public CBasePlayerAmmo
 		PRECACHE_MODEL ("models/w_9mmclip.mdl");
 		PRECACHE_SOUND("items/9mmclip1.wav");
 	}
-	BOOL AddAmmo( CBaseEntity *pOther ) 
+	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
 		if (pOther->GiveAmmo( AMMO_GLOCKCLIP_GIVE, "9mm", _9MM_MAX_CARRY ) != -1)
 		{
 			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_glockclip, CGlockAmmo );

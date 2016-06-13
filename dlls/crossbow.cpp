@@ -449,12 +449,12 @@ void CCrossbow::SecondaryAttack()
 	if ( m_pPlayer->pev->fov != 0 )
 	{
 		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 0; // 0 means reset to default fov
-		m_fInZoom = 0;
+		m_fInZoom = false;
 	}
 	else if ( m_pPlayer->pev->fov != 20 )
 	{
 		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 20;
-		m_fInZoom = 1;
+		m_fInZoom = true;
 	}
 	
 	pev->nextthink = UTIL_WeaponTimeBase() + 0.1;
@@ -531,14 +531,14 @@ class CCrossbowAmmo : public CBasePlayerAmmo
 		PRECACHE_MODEL ("models/w_crossbow_clip.mdl");
 		PRECACHE_SOUND("items/9mmclip1.wav");
 	}
-	BOOL AddAmmo( CBaseEntity *pOther )  override
+	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
 		if (pOther->GiveAmmo( AMMO_CROSSBOWCLIP_GIVE, "bolts", BOLT_MAX_CARRY ) != -1)
 		{
 			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_crossbow, CCrossbowAmmo );

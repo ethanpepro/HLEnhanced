@@ -77,10 +77,10 @@ public:
 	virtual int		Restore( CRestore &restore ) override;
 	static	TYPEDESCRIPTION m_SaveData[];
 
-	BOOL	m_fGunDrawn;
+	bool	m_fGunDrawn;
 	float	m_painTime;
 	float	m_checkAttackTime;
-	BOOL	m_lastAttackCheck;
+	bool	m_lastAttackCheck;
 
 	// UNDONE: What is this for?  It isn't used?
 	float	m_flPlayerDamage;// how much pain has the player inflicted on me?
@@ -386,13 +386,13 @@ void CBarney :: HandleAnimEvent( MonsterEvent_t *pEvent )
 	case BARNEY_AE_DRAW:
 		// barney's bodygroup switches here so he can pull gun from holster
 		pev->body = BARNEY_BODY_GUNDRAWN;
-		m_fGunDrawn = TRUE;
+		m_fGunDrawn = true;
 		break;
 
 	case BARNEY_AE_HOLSTER:
 		// change bodygroup to replace gun in holster
 		pev->body = BARNEY_BODY_GUNHOLSTERED;
-		m_fGunDrawn = FALSE;
+		m_fGunDrawn = false;
 		break;
 
 	default:
@@ -419,7 +419,7 @@ void CBarney :: Spawn()
 	m_MonsterState		= MONSTERSTATE_NONE;
 
 	pev->body			= 0; // gun in holster
-	m_fGunDrawn			= FALSE;
+	m_fGunDrawn			= false;
 
 	m_afCapability		= bits_CAP_HEAR | bits_CAP_TURN_HEAD | bits_CAP_DOORS_GROUP;
 

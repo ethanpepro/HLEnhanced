@@ -143,12 +143,12 @@ void CPython::SecondaryAttack( void )
 
 	if ( m_pPlayer->pev->fov != 0 )
 	{
-		m_fInZoom = FALSE;
+		m_fInZoom = false;
 		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 0;  // 0 means reset to default fov
 	}
 	else if ( m_pPlayer->pev->fov != 40 )
 	{
-		m_fInZoom = TRUE;
+		m_fInZoom = true;
 		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 40;
 	}
 
@@ -222,15 +222,15 @@ void CPython::Reload( void )
 
 	if ( m_pPlayer->pev->fov != 0 )
 	{
-		m_fInZoom = FALSE;
+		m_fInZoom = false;
 		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 0;  // 0 means reset to default fov
 	}
 
-	int bUseScope = FALSE;
+	int bUseScope = 0;
 #ifdef CLIENT_DLL
-	bUseScope = bIsMultiplayer();
+	bUseScope = bIsMultiplayer() ? 1 : 0;
 #else
-	bUseScope = g_pGameRules->IsMultiplayer();
+	bUseScope = g_pGameRules->IsMultiplayer() ? 1 : 0;
 #endif
 
 	DefaultReload( 6, PYTHON_RELOAD, 2.0, bUseScope );
@@ -293,14 +293,14 @@ class CPythonAmmo : public CBasePlayerAmmo
 		PRECACHE_MODEL ("models/w_357ammobox.mdl");
 		PRECACHE_SOUND("items/9mmclip1.wav");
 	}
-	BOOL AddAmmo( CBaseEntity *pOther ) override
+	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
 		if (pOther->GiveAmmo( AMMO_357BOX_GIVE, "357", _357_MAX_CARRY ) != -1)
 		{
 			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_357, CPythonAmmo );

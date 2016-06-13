@@ -61,9 +61,9 @@ void CGraph :: InitGraph( void)
 
 	// Make the graph unavailable
 	//
-	m_fGraphPresent = FALSE;
-	m_fGraphPointersSet = FALSE;
-	m_fRoutingComplete = FALSE;
+	m_fGraphPresent = false;
+	m_fGraphPointersSet = false;
+	m_fRoutingComplete = false;
 
 	// Free the link pool
 	//
@@ -2047,9 +2047,9 @@ void CTestHull :: BuildNodeGraph( void )
 
 	// We now have some graphing capabilities.
 	//
-	WorldGraph.m_fGraphPresent = TRUE;//graph is in memory.
-	WorldGraph.m_fGraphPointersSet = TRUE;// since the graph was generated, the pointers are ready
-	WorldGraph.m_fRoutingComplete = FALSE; // Optimal routes aren't computed, yet.
+	WorldGraph.m_fGraphPresent = true;//graph is in memory.
+	WorldGraph.m_fGraphPointersSet = true;// since the graph was generated, the pointers are ready
+	WorldGraph.m_fRoutingComplete = false; // Optimal routes aren't computed, yet.
 
 	// Compute and compress the routing information.
 	//
@@ -2426,7 +2426,7 @@ int CGraph :: FLoadGraph ( char *szMapName )
 
 		// Malloc for the routing info.
 		//
-		m_fRoutingComplete = FALSE;
+		m_fRoutingComplete = false;
 		m_pRouteInfo = (char *)calloc( sizeof(char), m_nRouteInfo );
 		if ( !m_pRouteInfo )
 		{
@@ -2445,7 +2445,7 @@ int CGraph :: FLoadGraph ( char *szMapName )
 		if (length < 0) goto ShortFile;
 		memcpy(m_pRouteInfo, pMemFile, sizeof(char)*m_nRouteInfo);
 		pMemFile += sizeof(char)*m_nRouteInfo;
-		m_fRoutingComplete = TRUE;;
+		m_fRoutingComplete = true;
 
 		// malloc for the hash links
 		//
@@ -2465,8 +2465,8 @@ int CGraph :: FLoadGraph ( char *szMapName )
 
 		// Set the graph present flag, clear the pointers set flag
 		//
-		m_fGraphPresent = TRUE;
-		m_fGraphPointersSet = FALSE;
+		m_fGraphPresent = true;
+		m_fGraphPointersSet = false;
 		
 		FREE_FILE(aMemFile);
 
@@ -2475,13 +2475,13 @@ int CGraph :: FLoadGraph ( char *szMapName )
 			ALERT ( at_aiconsole, "***WARNING***:Node graph was longer than expected by %d bytes.!\n", length);
 		}
 
-		return TRUE;
+		return true;
 	}
 
 ShortFile:
 NoMemory:
 	FREE_FILE(aMemFile);
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -2600,8 +2600,8 @@ int CGraph :: FSetGraphPointers ( void )
 	}
 
 	// the pointers are now set.
-	m_fGraphPointersSet = TRUE;
-	return TRUE;
+	m_fGraphPointersSet = true;
+	return true;
 }
 
 //=========================================================
@@ -3339,7 +3339,7 @@ void CGraph :: ComputeStaticRoutingTables( void )
 #if 0
 	TestRoutingTables();
 #endif
-	m_fRoutingComplete = TRUE;
+	m_fRoutingComplete = true;
 }
 
 // Test those routing tables. Doesn't really work, yet.
@@ -3370,9 +3370,9 @@ void CGraph :: TestRoutingTables( void )
 				{
 					for (int iTo = 0; iTo < m_cNodes; iTo++)
 					{
-						m_fRoutingComplete = FALSE;
+						m_fRoutingComplete = false;
 						int cPathSize1 = FindShortestPath(pMyPath, iFrom, iTo, iHull, iCapMask);
-						m_fRoutingComplete = TRUE;
+						m_fRoutingComplete = true;
 						int cPathSize2 = FindShortestPath(pMyPath2, iFrom, iTo, iHull, iCapMask);
 
 						// Unless we can look at the entire path, we can verify that it's correct.
@@ -3447,9 +3447,9 @@ void CGraph :: TestRoutingTables( void )
 								ALERT(at_aiconsole, "%d ", pMyPath2[i]);
 							}
 							ALERT(at_aiconsole, "\n");
-							m_fRoutingComplete = FALSE;
+							m_fRoutingComplete = false;
 							cPathSize1 = FindShortestPath(pMyPath, iFrom, iTo, iHull, iCapMask);
-							m_fRoutingComplete = TRUE;
+							m_fRoutingComplete = true;
 							cPathSize2 = FindShortestPath(pMyPath2, iFrom, iTo, iHull, iCapMask);
 							goto EnoughSaid;
 						}

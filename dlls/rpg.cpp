@@ -587,7 +587,7 @@ class CRpgAmmo : public CBasePlayerAmmo
 		PRECACHE_MODEL ("models/w_rpgammo.mdl");
 		PRECACHE_SOUND("items/9mmclip1.wav");
 	}
-	BOOL AddAmmo( CBaseEntity *pOther ) override
+	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
 		int iGive;
 
@@ -608,9 +608,9 @@ class CRpgAmmo : public CBasePlayerAmmo
 		if (pOther->GiveAmmo( iGive, "rockets", ROCKET_MAX_CARRY ) != -1)
 		{
 			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_rpgclip, CRpgAmmo );

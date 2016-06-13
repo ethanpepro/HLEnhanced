@@ -146,7 +146,7 @@ void CPathTrack :: KeyValue( KeyValueData *pkvd )
 
 void CPathTrack :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	int on;
+	bool on;
 
 	// Use toggles between two paths
 	if ( m_paltpath )

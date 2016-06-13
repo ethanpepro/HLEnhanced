@@ -821,7 +821,7 @@ void EV_FireGauss( event_args_t *args )
 		V_PunchAxis( 0, -2.0 );
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( GAUSS_FIRE2, 2 );
 
-		if ( m_fPrimaryFire == false )
+		if ( !m_fPrimaryFire )
 			 g_flApplyVel = flDamage;	
 			 
 	}

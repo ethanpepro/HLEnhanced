@@ -98,7 +98,7 @@ public:
 	float m_flBlink;
 
 	float m_flEnemyTouched;
-	BOOL  m_bOnAttack;
+	bool  m_bOnAttack;
 
 	float m_flMaxSpeed;
 	float m_flMinSpeed;
@@ -348,7 +348,7 @@ void CIchthyosaur::BiteTouch( CBaseEntity *pOther )
 	if ( pOther == m_hEnemy ) 
 	{
 		m_flEnemyTouched = gpGlobals->time;
-		m_bOnAttack = TRUE;
+		m_bOnAttack = true;
 	}
 }
 
@@ -359,11 +359,11 @@ void CIchthyosaur::CombatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 
 	if (m_bOnAttack)
 	{
-		m_bOnAttack = 0;
+		m_bOnAttack = false;
 	}
 	else
 	{
-		m_bOnAttack = 1;
+		m_bOnAttack = true;
 	}
 }
 
@@ -438,7 +438,7 @@ void CIchthyosaur :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 				if (DotProduct( vecShootDir, gpGlobals->v_forward ) > 0.707)
 				{
-					m_bOnAttack = TRUE;
+					m_bOnAttack = true;
 					pHurt->pev->punchangle.z = -18;
 					pHurt->pev->punchangle.x = 5;
 					pHurt->pev->velocity = pHurt->pev->velocity - gpGlobals->v_right * 300;
@@ -553,11 +553,11 @@ Schedule_t* CIchthyosaur::GetSchedule()
 		}
 		if ( HasConditions( bits_COND_HEAVY_DAMAGE ) )
 		{
-			m_bOnAttack = TRUE;
+			m_bOnAttack = true;
 		}
 		if ( pev->health < pev->max_health - 20 )
 		{
-			m_bOnAttack = TRUE;
+			m_bOnAttack = true;
 		}
 
 		return GetScheduleOfType( SCHED_STANDOFF );
@@ -612,7 +612,7 @@ void CIchthyosaur::StartTask(Task_t *pTask)
 		}
 		else
 		{
-			m_bOnAttack = TRUE;
+			m_bOnAttack = true;
 		}
 		CFlyingMonster::StartTask(pTask);
 		break;

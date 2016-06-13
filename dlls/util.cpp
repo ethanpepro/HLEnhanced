@@ -1659,7 +1659,7 @@ static int gSizes[FIELD_TYPECOUNT] =
 #else
 	sizeof(int *),		// FIELD_FUNCTION	
 #endif
-	sizeof(int),		// FIELD_BOOLEAN
+	sizeof(bool),		// FIELD_BOOLEAN
 	sizeof(short),		// FIELD_SHORT
 	sizeof(char),		// FIELD_CHARACTER
 	sizeof(float),		// FIELD_TIME
@@ -1843,6 +1843,10 @@ void CSave :: WriteData( const char *pname, int size, const char *pdata )
 	BufferField( pname, size, pdata );
 }
 
+void CSave::WriteBoolean( const char* const pName, const bool* const pValue, const int iCount )
+{
+	BufferField( pName, sizeof( bool ) * iCount, ( const char* ) pValue );
+}
 
 void CSave :: WriteShort( const char *pname, const short *data, int count )
 {
@@ -2118,6 +2122,10 @@ int CSave :: WriteFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *p
 		break;
 
 		case FIELD_BOOLEAN:
+			//TODO: should be written as a bit perhaps? - Solokiller
+			WriteBoolean( pTest->fieldName, ( bool* ) pOutputData, pTest->fieldSize );
+		break;
+
 		case FIELD_INTEGER:
 			WriteInt( pTest->fieldName, (int *)pOutputData, pTest->fieldSize );
 		break;
@@ -2334,6 +2342,9 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 					break;
 
 					case FIELD_BOOLEAN:
+						*( ( bool* ) pOutputData ) = *( bool* ) pInputData;
+					break;
+
 					case FIELD_INTEGER:
 						*((int *)pOutputData) = *( int *)pInputData;
 					break;

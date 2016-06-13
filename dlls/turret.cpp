@@ -114,9 +114,9 @@ public:
 	int m_iBaseTurnRate;	// angles per second
 	float m_fTurnRate;		// actual turn rate
 	int m_iOrientation;		// 0 = floor, 1 = Ceiling
-	int	m_iOn;
-	int m_fBeserk;			// Sometimes this bitch will just freak out
-	int m_iAutoStart;		// true if the turret auto deploys when a target
+	bool m_bOn;
+	bool m_fBeserk;			// Sometimes this bitch will just freak out
+	bool m_bAutoStart;		// true if the turret auto deploys when a target
 							// enters its range
 
 	Vector m_vecLastSight;
@@ -149,9 +149,9 @@ TYPEDESCRIPTION	CBaseTurret::m_SaveData[] =
 	DEFINE_FIELD( CBaseTurret, m_iBaseTurnRate, FIELD_INTEGER ),
 	DEFINE_FIELD( CBaseTurret, m_fTurnRate, FIELD_FLOAT ),
 	DEFINE_FIELD( CBaseTurret, m_iOrientation, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseTurret, m_iOn, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseTurret, m_fBeserk, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseTurret, m_iAutoStart, FIELD_INTEGER ),
+	DEFINE_FIELD( CBaseTurret, m_bOn, FIELD_BOOLEAN ),
+	DEFINE_FIELD( CBaseTurret, m_fBeserk, FIELD_BOOLEAN ),
+	DEFINE_FIELD( CBaseTurret, m_bAutoStart, FIELD_BOOLEAN ),
 
 
 	DEFINE_FIELD( CBaseTurret, m_vecLastSight, FIELD_POSITION_VECTOR ),
@@ -262,7 +262,7 @@ void CBaseTurret::Spawn()
 	if (( pev->spawnflags & SF_MONSTER_TURRET_AUTOACTIVATE ) 
 		 && !( pev->spawnflags & SF_MONSTER_TURRET_STARTINACTIVE ))
 	{
-		m_iAutoStart = TRUE;
+		m_bAutoStart = true;
 	}
 
 	ResetSequenceInfo( );
@@ -355,8 +355,8 @@ void CMiniTurret::Precache()
 
 void CBaseTurret::Initialize(void)
 {
-	m_iOn = 0;
-	m_fBeserk = 0;
+	m_bOn = false;
+	m_fBeserk = false;
 	m_iSpin = 0;
 
 	SetBoneController( 0, 0 );
@@ -378,7 +378,7 @@ void CBaseTurret::Initialize(void)
 
 	m_vecGoalAngles.x = 0;
 
-	if (m_iAutoStart)
+	if ( m_bAutoStart )
 	{
 		m_flLastSight = gpGlobals->time + m_flMaxWait;
 		SetThink(&CBaseTurret::AutoSearchThink);		
@@ -390,14 +390,14 @@ void CBaseTurret::Initialize(void)
 
 void CBaseTurret::TurretUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if ( !ShouldToggle( useType, m_iOn ) )
+	if ( !ShouldToggle( useType, m_bOn ) )
 		return;
 
-	if (m_iOn)
+	if ( m_bOn )
 	{
 		m_hEnemy = NULL;
 		pev->nextthink = gpGlobals->time + 0.1;
-		m_iAutoStart = FALSE;// switching off a turret disables autostart
+		m_bAutoStart = false;// switching off a turret disables autostart
 		//!!!! this should spin down first!!BUGBUG
 		SetThink(&CBaseTurret::Retire);
 	}
@@ -408,7 +408,7 @@ void CBaseTurret::TurretUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 		// if the turret is flagged as an autoactivate turret, re-enable it's ability open self.
 		if ( pev->spawnflags & SF_MONSTER_TURRET_AUTOACTIVATE )
 		{
-			m_iAutoStart = TRUE;
+			m_bAutoStart = true;
 		}
 		
 		SetThink(&CBaseTurret::Deploy);
@@ -468,7 +468,7 @@ void CBaseTurret::ActiveThink(void)
 	pev->nextthink = gpGlobals->time + 0.1;
 	StudioFrameAdvance( );
 
-	if ((!m_iOn) || (m_hEnemy == NULL))
+	if ((!m_bOn ) || (m_hEnemy == NULL))
 	{
 		m_hEnemy = NULL;
 		m_flLastSight = gpGlobals->time + m_flMaxWait;
@@ -645,7 +645,7 @@ void CBaseTurret::Deploy(void)
 
 	if (pev->sequence != TURRET_ANIM_DEPLOY)
 	{
-		m_iOn = 1;
+		m_bOn = true;
 		SetTurretAnim(TURRET_ANIM_DEPLOY);
 		EMIT_SOUND(ENT(pev), CHAN_BODY, "turret/tu_deploy.wav", TURRET_MACHINE_VOLUME, ATTN_NORM);
 		SUB_UseTargets( this, USE_ON, 0 );
@@ -702,13 +702,13 @@ void CBaseTurret::Retire(void)
 		}
 		else if (m_fSequenceFinished) 
 		{	
-			m_iOn = 0;
+			m_bOn = false;
 			m_flLastSight = 0;
 			SetTurretAnim(TURRET_ANIM_NONE);
 			pev->maxs.z = m_iRetractHeight;
 			pev->mins.z = -m_iRetractHeight;
 			UTIL_SetSize(pev, pev->mins, pev->maxs);
-			if (m_iAutoStart)
+			if ( m_bAutoStart )
 			{
 				SetThink(&CBaseTurret::AutoSearchThink);		
 				pev->nextthink = gpGlobals->time + .1;
@@ -1012,7 +1012,7 @@ int CBaseTurret::TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, flo
 	if ( !pev->takedamage )
 		return 0;
 
-	if (!m_iOn)
+	if (!m_bOn )
 		flDamage /= 10.0;
 
 	pev->health -= flDamage;
@@ -1034,9 +1034,9 @@ int CBaseTurret::TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, flo
 
 	if (pev->health <= 10)
 	{
-		if (m_iOn && (1 || RANDOM_LONG(0, 0x7FFF) > 800))
+		if ( m_bOn && (1 || RANDOM_LONG(0, 0x7FFF) > 800))
 		{
-			m_fBeserk = 1;
+			m_fBeserk = true;
 			SetThink(&CBaseTurret::SearchThink);
 		}
 	}
@@ -1131,7 +1131,7 @@ int CBaseTurret::MoveTurret(void)
 //
 int	CBaseTurret::Classify ( void )
 {
-	if (m_iOn || m_iAutoStart)
+	if ( m_bOn || m_bAutoStart )
 		return	CLASS_MACHINE;
 	return CLASS_NONE;
 }
@@ -1202,7 +1202,7 @@ int CSentry::TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float f
 	if ( !pev->takedamage )
 		return 0;
 
-	if (!m_iOn)
+	if (!m_bOn )
 	{
 		SetThink( &CSentry::Deploy );
 		SetUse( NULL );
