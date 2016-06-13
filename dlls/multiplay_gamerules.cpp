@@ -1206,6 +1206,7 @@ COM_Parse
 Parse a token out of a string
 ==============
 */
+//TODO: move out of this file - Solokiller
 char *COM_Parse (char *data)
 {
 	int             c;

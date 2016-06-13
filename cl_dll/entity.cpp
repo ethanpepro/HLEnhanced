@@ -215,8 +215,7 @@ void CL_DLLEXPORT HUD_TxferPredictionData ( struct entity_state_s *ps, const str
 	pcd->vuser3 = ppcd->vuser3;
 	pcd->vuser4 = ppcd->vuser4;
 
-	//TODO: should be MAX_WEAPONS - Solokiller
-	memcpy( wd, pwd, 32 * sizeof( weapon_data_t ) );
+	memcpy( wd, pwd, MAX_WEAPONS * sizeof( weapon_data_t ) );
 }
 
 #if defined( BEAM_TEST )
@@ -312,7 +311,7 @@ void CL_DLLEXPORT HUD_CreateEntities( void )
 }
 
 #if defined( _TFC )
-extern int g_bACSpinning[33];
+extern int g_bACSpinning[ MAX_CLIENTS + 1 ];
 #endif 
 
 /*

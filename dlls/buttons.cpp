@@ -1158,6 +1158,7 @@ void CEnvSpark::Spawn(void)
 	SetThink( NULL );
 	SetUse( NULL );
 
+	//TODO: define spawn flags - Solokliler
 	if (FBitSet(pev->spawnflags, 32)) // Use for on/off
 	{
 		if (FBitSet(pev->spawnflags, 64)) // Start on
