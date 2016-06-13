@@ -1036,7 +1036,7 @@ Schedule_t *CBullsquid :: GetSchedule( void )
 
 				pSound = PBestScent();
 				
-				if ( pSound && (!FInViewCone ( &pSound->m_vecOrigin ) || !FVisible ( pSound->m_vecOrigin )) )
+				if ( pSound && (!FInViewCone ( pSound->m_vecOrigin ) || !FVisible ( pSound->m_vecOrigin )) )
 				{
 					// scent is behind or occluded
 					return GetScheduleOfType( SCHED_SQUID_SNIFF_AND_EAT );
@@ -1087,7 +1087,7 @@ Schedule_t *CBullsquid :: GetSchedule( void )
 
 				pSound = PBestScent();
 				
-				if ( pSound && (!FInViewCone ( &pSound->m_vecOrigin ) || !FVisible ( pSound->m_vecOrigin )) )
+				if ( pSound && (!FInViewCone ( pSound->m_vecOrigin ) || !FVisible ( pSound->m_vecOrigin )) )
 				{
 					// scent is behind or occluded
 					return GetScheduleOfType( SCHED_SQUID_SNIFF_AND_EAT );

@@ -172,14 +172,14 @@ BOOL CBasePlayerWeapon :: DefaultReload( int iClipSize, int iAnim, float fDelay,
 CBasePlayerWeapon :: CanDeploy
 =====================
 */
-BOOL CBasePlayerWeapon :: CanDeploy( void ) 
+bool CBasePlayerWeapon::CanDeploy() const
 {
-	BOOL bHasAmmo = 0;
+	bool bHasAmmo = false;
 
 	if ( !pszAmmo1() )
 	{
 		// this weapon doesn't use ammo, can always deploy.
-		return TRUE;
+		return true;
 	}
 
 	if ( pszAmmo1() )
@@ -196,10 +196,10 @@ BOOL CBasePlayerWeapon :: CanDeploy( void )
 	}
 	if (!bHasAmmo)
 	{
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 /*

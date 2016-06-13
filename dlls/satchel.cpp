@@ -272,21 +272,21 @@ BOOL CSatchel::IsUseable( void )
 	return FALSE;
 }
 
-BOOL CSatchel::CanDeploy( void )
+bool CSatchel::CanDeploy() const
 {
 	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] > 0 ) 
 	{
 		// player is carrying some satchels
-		return TRUE;
+		return true;
 	}
 
 	if ( m_chargeReady != 0 )
 	{
 		// player isn't carrying any satchels, but has some out
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 BOOL CSatchel::Deploy( )

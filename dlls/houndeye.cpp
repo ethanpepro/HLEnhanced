@@ -95,7 +95,7 @@ public:
 	void WriteBeamColor ( void );
 	BOOL CheckRangeAttack1 ( float flDot, float flDist ) override;
 	bool FValidateHintType ( short sHint ) const override;
-	BOOL FCanActiveIdle ( void ) override;
+	bool FCanActiveIdle() const override;
 	Schedule_t *GetScheduleOfType ( int Type ) override;
 	Schedule_t *GetSchedule( void ) override;
 
@@ -162,27 +162,27 @@ bool CHoundeye::FValidateHintType( short sHint ) const
 //=========================================================
 // FCanActiveIdle
 //=========================================================
-BOOL CHoundeye :: FCanActiveIdle ( void )
+bool CHoundeye::FCanActiveIdle() const
 {
 	if ( InSquad() )
 	{
-		CSquadMonster *pSquadLeader = MySquadLeader();
+		const CSquadMonster *pSquadLeader = MySquadLeader();
 
 		for (int i = 0; i < MAX_SQUAD_MEMBERS;i++)
 		{
-			CSquadMonster *pMember = pSquadLeader->MySquadMember(i);
+			const CSquadMonster *pMember = pSquadLeader->MySquadMember(i);
 			 
 			if ( pMember != NULL && pMember != this && pMember->m_iHintNode != NO_NODE )
 			{
 				// someone else in the group is active idling right now!
-				return FALSE;
+				return false;
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
-	return TRUE;
+	return true;
 }
 
 

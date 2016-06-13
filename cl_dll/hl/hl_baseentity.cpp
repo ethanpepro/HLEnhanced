@@ -167,8 +167,8 @@ int CBaseMonster::IRelationship ( CBaseEntity *pTarget ) { return 0; }
 BOOL CBaseMonster :: FindCover ( Vector vecThreat, Vector vecViewOffset, float flMinDist, float flMaxDist ) { return FALSE; }
 BOOL CBaseMonster :: BuildNearestRoute ( Vector vecThreat, Vector vecViewOffset, float flMinDist, float flMaxDist ) { return FALSE; }
 CBaseEntity *CBaseMonster :: BestVisibleEnemy ( void ) { return NULL; }
-BOOL CBaseMonster :: FInViewCone ( CBaseEntity *pEntity ) { return FALSE; }
-BOOL CBaseMonster :: FInViewCone ( Vector *pOrigin ) { return FALSE; }
+bool CBaseMonster::FInViewCone( const CBaseEntity *pEntity ) const { return false; }
+bool CBaseMonster::FInViewCone( const Vector& vecOrigin ) const { return false; }
 bool CBaseEntity::FVisible( const CBaseEntity *pEntity ) const { return false; }
 bool CBaseEntity::FVisible( const Vector &vecOrigin ) const { return false; }
 void CBaseMonster :: MakeIdealYaw( Vector vecTarget ) { }
@@ -206,7 +206,7 @@ int CBaseMonster :: CanPlaySequence( BOOL fDisregardMonsterState, int interruptL
 BOOL CBaseMonster :: FindLateralCover ( const Vector &vecThreat, const Vector &vecViewOffset ) { return FALSE; }
 Vector CBaseMonster :: ShootAtEnemy( const Vector &shootOrigin ) { return g_vecZero; }
 BOOL CBaseMonster :: FacingIdeal( void ) { return FALSE; }
-BOOL CBaseMonster :: FCanActiveIdle ( void ) { return FALSE; }
+bool CBaseMonster::FCanActiveIdle() const { return false; }
 void CBaseMonster::PlaySentence( const char *pszSentence, float duration, float volume, float attenuation ) { }
 void CBaseMonster::PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener ) { }
 void CBaseMonster::SentenceStop( void ) { }
@@ -336,8 +336,8 @@ int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer ) { return 0; }
 BOOL CBasePlayerWeapon :: AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry ) { return TRUE; }
 BOOL CBasePlayerWeapon :: AddSecondaryAmmo( int iCount, char *szName, int iMax ) { return TRUE; }
 BOOL CBasePlayerWeapon :: IsUseable( void ) { return TRUE; }
-int CBasePlayerWeapon::PrimaryAmmoIndex( void ) { return -1; }
-int CBasePlayerWeapon::SecondaryAmmoIndex( void ) {	return -1; }
+int CBasePlayerWeapon::PrimaryAmmoIndex() const { return -1; }
+int CBasePlayerWeapon::SecondaryAmmoIndex() const {	return -1; }
 void CBasePlayerAmmo::Spawn( void ) { }
 CBaseEntity* CBasePlayerAmmo::Respawn( void ) { return this; }
 void CBasePlayerAmmo::Materialize( void ) { }

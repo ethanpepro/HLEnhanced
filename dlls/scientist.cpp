@@ -76,7 +76,7 @@ public:
 	void StartTask( Task_t *pTask ) override;
 	int	ObjectCaps( void ) override { return CTalkMonster :: ObjectCaps() | FCAP_IMPULSE_USE; }
 	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
-	virtual int FriendNumber( int arrayNumber ) override;
+	virtual int FriendNumber( int arrayNumber ) const override;
 	void SetActivity ( Activity newActivity ) override;
 	Activity GetStoppedActivity( void ) override;
 	int ISoundMask( void ) override;
@@ -761,7 +761,7 @@ int CScientist :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, f
 	if ( pevInflictor && pevInflictor->flags & FL_CLIENT )
 	{
 		Remember( bits_MEMORY_PROVOKED );
-		StopFollowing( TRUE );
+		StopFollowing( true );
 	}
 
 	// make sure friends talk about it if player hurts scientist...
@@ -948,7 +948,7 @@ Schedule_t *CScientist :: GetSchedule ( void )
 			if ( !m_hTargetEnt->IsAlive() )
 			{
 				// UNDONE: Comment about the recently dead player here?
-				StopFollowing( FALSE );
+				StopFollowing( false );
 				break;
 			}
 
@@ -1018,14 +1018,14 @@ MONSTERSTATE CScientist :: GetIdealState ( void )
 					m_IdealMonsterState = MONSTERSTATE_ALERT;
 					return m_IdealMonsterState;
 				}
-				StopFollowing( TRUE );
+				StopFollowing( true );
 			}
 		}
 		else if ( HasConditions( bits_COND_LIGHT_DAMAGE | bits_COND_HEAVY_DAMAGE ) )
 		{
 			// Stop following if you take damage
 			if ( IsFollowing() )
-				StopFollowing( TRUE );
+				StopFollowing( true );
 		}
 		break;
 
@@ -1086,7 +1086,7 @@ void CScientist::Heal( void )
 	m_healTime = gpGlobals->time + 60;
 }
 
-int CScientist::FriendNumber( int arrayNumber )
+int CScientist::FriendNumber( int arrayNumber ) const
 {
 	static int array[3] = { 1, 2, 0 };
 	if ( arrayNumber < 3 )
@@ -1175,7 +1175,7 @@ public:
 	static	TYPEDESCRIPTION m_SaveData[];
 
 	virtual void SetAnswerQuestion( CTalkMonster *pSpeaker ) override;
-	int FriendNumber( int arrayNumber ) override;
+	int FriendNumber( int arrayNumber ) const override;
 
 	int FIdleSpeak ( void );
 	int		m_baseSequence;	
@@ -1261,7 +1261,7 @@ int	CSittingScientist :: Classify ( void )
 }
 
 
-int CSittingScientist::FriendNumber( int arrayNumber )
+int CSittingScientist::FriendNumber( int arrayNumber ) const
 {
 	static int array[3] = { 2, 1, 0 };
 	if ( arrayNumber < 3 )

@@ -29,17 +29,17 @@
 extern CGraph WorldGraph;
 
 //=========================================================
-// FHaveSchedule - Returns TRUE if monster's m_pSchedule
-// is anything other than NULL.
+// FHaveSchedule - Returns true if monster's m_pSchedule
+// is anything other than nullptr.
 //=========================================================
-BOOL CBaseMonster :: FHaveSchedule( void )
+bool CBaseMonster::FHaveSchedule() const
 {
-	if ( m_pSchedule == NULL )
+	if ( m_pSchedule == nullptr )
 	{
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 //=========================================================
@@ -167,16 +167,16 @@ int CBaseMonster :: IScheduleFlags ( void )
 }
 
 //=========================================================
-// FScheduleValid - returns TRUE as long as the current
+// FScheduleValid - returns true as long as the current
 // schedule is still the proper schedule to be executing,
 // taking into account all conditions
 //=========================================================
-BOOL CBaseMonster :: FScheduleValid ( void )
+bool CBaseMonster::FScheduleValid() const
 {
-	if ( m_pSchedule == NULL )
+	if ( m_pSchedule == nullptr )
 	{
 		// schedule is empty, and therefore not valid.
-		return FALSE;
+		return false;
 	}
 
 	if ( HasConditions( m_pSchedule->iInterruptMask | bits_COND_SCHEDULE_DONE | bits_COND_TASK_FAILED ) )
@@ -194,10 +194,10 @@ BOOL CBaseMonster :: FScheduleValid ( void )
 #endif // DEBUG
 
 		// some condition has interrupted the schedule, or the schedule is done
-		return FALSE;
+		return false;
 	}
 	
-	return TRUE;
+	return true;
 }
 
 //=========================================================

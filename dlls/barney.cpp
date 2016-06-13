@@ -528,7 +528,7 @@ int CBarney :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, floa
 				PlaySentence( "BA_MAD", 4, VOL_NORM, ATTN_NORM );
 
 				Remember( bits_MEMORY_PROVOKED );
-				StopFollowing( TRUE );
+				StopFollowing( true );
 			}
 			else
 			{
@@ -735,7 +735,7 @@ Schedule_t *CBarney :: GetSchedule ( void )
 			if ( !m_hTargetEnt->IsAlive() )
 			{
 				// UNDONE: Comment about the recently dead player here?
-				StopFollowing( FALSE );
+				StopFollowing( false );
 				break;
 			}
 			else

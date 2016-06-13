@@ -3219,15 +3219,15 @@ BOOL CBaseMonster :: FacingIdeal( void )
 //=========================================================
 // FCanActiveIdle
 //=========================================================
-BOOL CBaseMonster :: FCanActiveIdle ( void )
+bool CBaseMonster::FCanActiveIdle() const
 {
 	/*
 	if ( m_MonsterState == MONSTERSTATE_IDLE && m_IdealMonsterState == MONSTERSTATE_IDLE && !IsMoving() )
 	{
-		return TRUE;
+		return true;
 	}
 	*/
-	return FALSE;
+	return false;
 }
 
 

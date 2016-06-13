@@ -237,7 +237,7 @@ public:
 	void FallInit( void );
 	void CheckRespawn( void );
 	virtual int GetItemInfo(ItemInfo *p) { return 0; };	// returns 0 if struct not filled out
-	virtual BOOL CanDeploy( void ) { return TRUE; };
+	virtual bool CanDeploy() const { return true; }
 	virtual BOOL Deploy( )								// returns is deploy was successful
 		 { return TRUE; };
 
@@ -252,8 +252,8 @@ public:
 	virtual void Kill( void );
 	virtual void AttachToPlayer ( CBasePlayer *pPlayer );
 
-	virtual int PrimaryAmmoIndex() { return -1; };
-	virtual int SecondaryAmmoIndex() { return -1; };
+	virtual int PrimaryAmmoIndex() const { return -1; }
+	virtual int SecondaryAmmoIndex() const { return -1; }
 
 	virtual int UpdateClientData( CBasePlayer *pPlayer ) { return 0; }
 
@@ -268,15 +268,15 @@ public:
 
 	virtual int iItemSlot( void ) { return 0; }			// return 0 to MAX_ITEMS_SLOTS, used in hud
 
-	int			iItemPosition( void ) { return ItemInfoArray[ m_iId ].iPosition; }
-	const char	*pszAmmo1( void )	{ return ItemInfoArray[ m_iId ].pszAmmo1; }
-	int			iMaxAmmo1( void )	{ return ItemInfoArray[ m_iId ].iMaxAmmo1; }
-	const char	*pszAmmo2( void )	{ return ItemInfoArray[ m_iId ].pszAmmo2; }
-	int			iMaxAmmo2( void )	{ return ItemInfoArray[ m_iId ].iMaxAmmo2; }
-	const char	*pszName( void )	{ return ItemInfoArray[ m_iId ].pszName; }
-	int			iMaxClip( void )	{ return ItemInfoArray[ m_iId ].iMaxClip; }
-	int			iWeight( void )		{ return ItemInfoArray[ m_iId ].iWeight; }
-	int			iFlags( void )		{ return ItemInfoArray[ m_iId ].iFlags; }
+	int			iItemPosition() const { return ItemInfoArray[ m_iId ].iPosition; }
+	const char	*pszAmmo1() const	{ return ItemInfoArray[ m_iId ].pszAmmo1; }
+	int			iMaxAmmo1() const	{ return ItemInfoArray[ m_iId ].iMaxAmmo1; }
+	const char	*pszAmmo2() const	{ return ItemInfoArray[ m_iId ].pszAmmo2; }
+	int			iMaxAmmo2() const	{ return ItemInfoArray[ m_iId ].iMaxAmmo2; }
+	const char	*pszName() const	{ return ItemInfoArray[ m_iId ].pszName; }
+	int			iMaxClip() const	{ return ItemInfoArray[ m_iId ].iMaxClip; }
+	int			iWeight() const		{ return ItemInfoArray[ m_iId ].iWeight; }
+	int			iFlags() const		{ return ItemInfoArray[ m_iId ].iFlags; }
 
 	// int		m_iIdPrimary;										// Unique Id for primary ammo
 	// int		m_iIdSecondary;										// Unique Id for secondary ammo
@@ -287,6 +287,11 @@ public:
 class CBasePlayerWeapon : public CBasePlayerItem
 {
 public:
+	CBasePlayerWeapon()
+		: m_iSecondaryAmmoType( -1 ) //Default to -1 to achieve SDK behavior - Solokiller
+	{
+	}
+
 	virtual int		Save( CSave &save ) override;
 	virtual int		Restore( CRestore &restore ) override;
 	
@@ -315,7 +320,7 @@ public:
 
 	virtual void SendWeaponAnim( int iAnim, int skiplocal = 1, int body = 0 );  // skiplocal is 1 if client is predicting weapon animations
 
-	virtual BOOL CanDeploy( void ) override;
+	virtual bool CanDeploy() const override;
 	virtual BOOL IsUseable( void );
 	BOOL DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal = 0, int body = 0 );
 	int DefaultReload( int iClipSize, int iAnim, float fDelay, int body = 0 );
@@ -332,8 +337,8 @@ public:
 	virtual void Holster( int skiplocal = 0 );
 	virtual BOOL UseDecrement( void ) { return FALSE; };
 	
-	int	PrimaryAmmoIndex(); 
-	int	SecondaryAmmoIndex(); 
+	int	PrimaryAmmoIndex() const; 
+	int	SecondaryAmmoIndex() const; 
 
 	void PrintState( void );
 
@@ -570,7 +575,6 @@ public:
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	int SecondaryAmmoIndex( void ) override;
 	BOOL Deploy( void ) override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
@@ -935,7 +939,7 @@ public:
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
 	int AddDuplicate( CBasePlayerItem *pOriginal ) override;
-	BOOL CanDeploy( void ) override;
+	bool CanDeploy() const override;
 	BOOL Deploy( void ) override;
 	BOOL IsUseable( void ) override;
 	

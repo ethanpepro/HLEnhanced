@@ -99,7 +99,7 @@ class CTalkMonster : public CBaseMonster
 {
 public:
 	void			TalkInit( void );				
-	CBaseEntity		*FindNearestFriend(BOOL fPlayer);
+	CBaseEntity*	FindNearestFriend( const bool fPlayer ) const;
 	float			TargetDistance( void );
 	void			StopTalking( void ) { SentenceStop(); }
 	
@@ -132,15 +132,15 @@ public:
 	void			IdleHeadTurn( Vector &vecFriend );
 	bool			FOkToSpeak() const;
 	void			TrySmellTalk( void );
-	CBaseEntity		*EnumFriends( CBaseEntity *pentPrevious, int listNumber, BOOL bTrace );
+	CBaseEntity		*EnumFriends( CBaseEntity *pentPrevious, int listNumber, const bool bTrace );
 	void			AlertFriends( void );
 	void			ShutUpFriends( void );
-	BOOL			IsTalking( void );
+	bool			IsTalking() const;
 	void			Talk( float flDuration );	
 	// For following
-	BOOL			CanFollow( void );
-	BOOL			IsFollowing( void ) { return m_hTargetEnt != NULL && m_hTargetEnt->IsPlayer(); }
-	void			StopFollowing( BOOL clearSchedule );
+	bool			CanFollow() const;
+	bool			IsFollowing() const { return m_hTargetEnt != nullptr && m_hTargetEnt->IsPlayer(); }
+	void			StopFollowing( const bool clearSchedule ) override;
 	void			StartFollowing( CBaseEntity *pLeader );
 	virtual void	DeclineFollowing( void ) {}
 	void			LimitFollowers( CBaseEntity *pPlayer, int maxFollowers );
@@ -148,7 +148,7 @@ public:
 	void EXPORT		FollowerUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	
 	virtual void	SetAnswerQuestion( CTalkMonster *pSpeaker );
-	virtual int		FriendNumber( int arrayNumber )	{ return arrayNumber; }
+	virtual int		FriendNumber( int arrayNumber ) const { return arrayNumber; }
 
 	virtual int		Save( CSave &save ) override;
 	virtual int		Restore( CRestore &restore ) override;

@@ -60,8 +60,8 @@ public:
 
 	void Flight( void );
 
-	BOOL AbsorbSphere( void );
-	BOOL EmitSphere( void );
+	bool AbsorbSphere();
+	bool EmitSphere();
 	void TargetSphere( USE_TYPE useType, float value );
 	//TODO: refactor out of class - Solokiller
 	CBaseEntity *RandomTargetname( const char *szName );
@@ -971,7 +971,7 @@ void CNihilanth :: Flight( void )
 }
 
 
-BOOL CNihilanth :: AbsorbSphere( void )
+bool CNihilanth::AbsorbSphere()
 {
 	for (int i = 0; i < N_SPHERES; i++)
 	{
@@ -981,14 +981,14 @@ BOOL CNihilanth :: AbsorbSphere( void )
 			pSphere->AbsorbInit( );
 			m_hSphere[i] = NULL;
 			m_iActiveSpheres--;
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
-BOOL CNihilanth :: EmitSphere( void )
+bool CNihilanth::EmitSphere()
 {
 	m_iActiveSpheres = 0;
 	int empty = 0;
@@ -1006,7 +1006,7 @@ BOOL CNihilanth :: EmitSphere( void )
 	}
 
 	if (m_iActiveSpheres >= N_SPHERES)
-		return FALSE;
+		return false;
 
 	Vector vecSrc = m_hRecharger->pev->origin;
 	CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
@@ -1014,7 +1014,7 @@ BOOL CNihilanth :: EmitSphere( void )
 	pEntity->CircleInit( this );
 
 	m_hSphere[empty] = pEntity;
-	return TRUE;
+	return true;
 }
 
 

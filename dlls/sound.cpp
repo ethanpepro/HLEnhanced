@@ -847,7 +847,7 @@ void CEnvSound :: KeyValue( KeyValueData *pkvd )
 // returns TRUE if the given sound entity (pev) is in range 
 // and can see the given player entity (pevTarget)
 
-BOOL FEnvSoundInRange(entvars_t *pev, entvars_t *pevTarget, float *pflRange) 
+bool FEnvSoundInRange(entvars_t *pev, entvars_t *pevTarget, float *pflRange) 
 {
 	CEnvSound *pSound = GetClassPtr( (CEnvSound *)pev );
 	Vector vecSpot1 = pev->origin + pev->view_ofs;
@@ -861,7 +861,7 @@ BOOL FEnvSoundInRange(entvars_t *pev, entvars_t *pevTarget, float *pflRange)
 	// check if line of sight crosses water boundary, or is blocked
 
 	if ((tr.fInOpen && tr.fInWater) || tr.flFraction != 1)
-		return FALSE;
+		return false;
 
 	// calc range from sound entity to player
 
@@ -869,12 +869,12 @@ BOOL FEnvSoundInRange(entvars_t *pev, entvars_t *pevTarget, float *pflRange)
 	flRange = vecRange.Length();
 
 	if (pSound->m_flRadius < flRange)		
-		return FALSE;
+		return false;
 	
 	if (pflRange)
 		*pflRange = flRange;
 
-	return TRUE;
+	return true;
 }
 
 //

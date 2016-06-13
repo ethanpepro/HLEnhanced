@@ -75,20 +75,32 @@ public:
 	BOOL NoFriendlyFire( void );
 
 	// squad functions still left in base class
-	CSquadMonster *MySquadLeader( ) 
-	{ 
-		CSquadMonster *pSquadLeader = (CSquadMonster *)((CBaseEntity *)m_hSquadLeader); 
-		if (pSquadLeader != NULL)
+	const CSquadMonster* MySquadLeader() const
+	{
+		const CSquadMonster* pSquadLeader = ( const CSquadMonster * ) ( ( const CBaseEntity * ) m_hSquadLeader );
+		if( pSquadLeader )
 			return pSquadLeader;
 		return this;
 	}
-	CSquadMonster *MySquadMember( int i ) 
+
+	CSquadMonster* MySquadLeader() 
 	{ 
-		if (i >= MAX_SQUAD_MEMBERS-1)
+		return const_cast<CSquadMonster*>( const_cast<const CSquadMonster*>( this )->MySquadLeader() );
+	}
+
+	const CSquadMonster* MySquadMember( int i ) const
+	{
+		if( i >= MAX_SQUAD_MEMBERS - 1 )
 			return this;
 		else
-			return (CSquadMonster *)((CBaseEntity *)m_hSquadMember[i]); 
+			return ( const CSquadMonster* ) ( ( const CBaseEntity* ) m_hSquadMember[ i ] );
 	}
+
+	CSquadMonster* MySquadMember( int i ) 
+	{ 
+		return const_cast<CSquadMonster*>( const_cast<const CSquadMonster*>( this )->MySquadMember( i ) );
+	}
+
 	bool InSquad() const { return m_hSquadLeader != nullptr; }
 	bool IsLeader() const { return m_hSquadLeader == this; }
 	int SquadJoin ( int searchRadius );

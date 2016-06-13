@@ -446,7 +446,7 @@ void CTalkMonster :: StartTask( Task_t *pTask )
 		break;
 
 	case TASK_CANT_FOLLOW:
-		StopFollowing( FALSE );
+		StopFollowing( false );
 		PlaySentence( m_szGrp[TLK_STOP], RANDOM_FLOAT(2, 2.5), VOL_NORM, ATTN_NORM );
 		TaskComplete();
 		break;
@@ -646,7 +646,7 @@ void CTalkMonster :: Killed( entvars_t *pevAttacker, int iGib )
 
 
 
-CBaseEntity	*CTalkMonster::EnumFriends( CBaseEntity *pPrevious, int listNumber, BOOL bTrace )
+CBaseEntity	*CTalkMonster::EnumFriends( CBaseEntity *pPrevious, int listNumber, const bool bTrace )
 {
 	CBaseEntity *pFriend = pPrevious;
 	char *pszFriend;
@@ -687,7 +687,7 @@ void CTalkMonster::AlertFriends( void )
 	// for each friend in this bsp...
 	for ( i = 0; i < TLK_CFRIENDS; i++ )
 	{
-		while (pFriend = EnumFriends( pFriend, i, TRUE ))
+		while (pFriend = EnumFriends( pFriend, i, true ))
 		{
 			CBaseMonster *pMonster = pFriend->MyMonsterPointer();
 			if ( pMonster->IsAlive() )
@@ -709,7 +709,7 @@ void CTalkMonster::ShutUpFriends( void )
 	// for each friend in this bsp...
 	for ( i = 0; i < TLK_CFRIENDS; i++ )
 	{
-		while (pFriend = EnumFriends( pFriend, i, TRUE ))
+		while (pFriend = EnumFriends( pFriend, i, true ))
 		{
 			CBaseMonster *pMonster = pFriend->MyMonsterPointer();
 			if ( pMonster )
@@ -732,7 +732,7 @@ void CTalkMonster::LimitFollowers( CBaseEntity *pPlayer, int maxFollowers )
 	// for each friend in this bsp...
 	for ( i = 0; i < TLK_CFRIENDS; i++ )
 	{
-		while (pFriend = EnumFriends( pFriend, i, FALSE ))
+		while (pFriend = EnumFriends( pFriend, i, false ))
 		{
 			CBaseMonster *pMonster = pFriend->MyMonsterPointer();
 			if ( pMonster )
@@ -741,7 +741,7 @@ void CTalkMonster::LimitFollowers( CBaseEntity *pPlayer, int maxFollowers )
 				{
 					count++;
 					if ( count > maxFollowers )
-						pMonster->StopFollowing( TRUE );
+						pMonster->StopFollowing( true );
 				}
 			}
 		}
@@ -799,7 +799,7 @@ void CTalkMonster :: TalkInit( void )
 // Scan for nearest, visible friend. If fPlayer is true, look for
 // nearest player
 //=========================================================
-CBaseEntity *CTalkMonster :: FindNearestFriend(BOOL fPlayer)
+CBaseEntity* CTalkMonster::FindNearestFriend( const bool fPlayer ) const
 {
 	CBaseEntity *pFriend = NULL;
 	CBaseEntity *pNearest = NULL;
@@ -1308,14 +1308,14 @@ Schedule_t* CTalkMonster :: GetScheduleOfType ( int Type )
 //=========================================================
 // IsTalking - am I saying a sentence right now?
 //=========================================================
-BOOL CTalkMonster :: IsTalking( void )
+bool CTalkMonster::IsTalking() const
 {
 	if ( m_flStopTalkTime > gpGlobals->time )
 	{
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -1361,7 +1361,7 @@ int CTalkMonster::IRelationship( CBaseEntity *pTarget )
 }
 
 
-void CTalkMonster::StopFollowing( BOOL clearSchedule )
+void CTalkMonster::StopFollowing( const bool clearSchedule )
 {
 	if ( IsFollowing() )
 	{
@@ -1398,16 +1398,16 @@ void CTalkMonster::StartFollowing( CBaseEntity *pLeader )
 }
 
 
-BOOL CTalkMonster::CanFollow( void )
+bool CTalkMonster::CanFollow() const
 {
 	if ( m_MonsterState == MONSTERSTATE_SCRIPT )
 	{
 		if ( !m_pCine->CanInterrupt() )
-			return FALSE;
+			return false;
 	}
 	
 	if ( !IsAlive() )
-		return FALSE;
+		return false;
 
 	return !IsFollowing();
 }
@@ -1440,7 +1440,7 @@ void CTalkMonster :: FollowerUse( CBaseEntity *pActivator, CBaseEntity *pCaller,
 		}
 		else
 		{
-			StopFollowing( TRUE );
+			StopFollowing( true );
 		}
 	}
 }

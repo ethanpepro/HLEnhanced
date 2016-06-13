@@ -150,8 +150,8 @@ public:
 		void EXPORT MonsterInitThink ( void );
 		virtual void StartMonster ( void );
 		virtual CBaseEntity* BestVisibleEnemy ( void );// finds best visible enemy for attack
-		virtual BOOL FInViewCone ( CBaseEntity *pEntity );// see if pEntity is in monster's view cone
-		virtual BOOL FInViewCone ( Vector *pOrigin );// see if given location is in monster's view cone
+		virtual bool FInViewCone( const CBaseEntity *pEntity ) const;// see if pEntity is in monster's view cone
+		virtual bool FInViewCone( const Vector& vecOrigin ) const;// see if given location is in monster's view cone
 		virtual void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 
 		virtual int CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist );// check validity of a straight move through space
@@ -171,8 +171,8 @@ public:
 		virtual BOOL CheckMeleeAttack1( float flDot, float flDist );
 		virtual BOOL CheckMeleeAttack2( float flDot, float flDist );
 
-		BOOL FHaveSchedule( void );
-		BOOL FScheduleValid ( void );
+		bool FHaveSchedule() const;
+		bool FScheduleValid() const;
 		void ClearSchedule( void );
 		BOOL FScheduleDone ( void );
 		void ChangeSchedule ( Schedule_t *pNewSchedule );
@@ -242,12 +242,12 @@ public:
 		
 		inline void	SetConditions( int iConditions ) { m_afConditions |= iConditions; }
 		inline void	ClearConditions( int iConditions ) { m_afConditions &= ~iConditions; }
-		inline BOOL HasConditions( int iConditions ) { if ( m_afConditions & iConditions ) return TRUE; return FALSE; }
-		inline BOOL HasAllConditions( int iConditions ) { if ( (m_afConditions & iConditions) == iConditions ) return TRUE; return FALSE; }
+		inline bool HasConditions( int iConditions ) const { return ( m_afConditions & iConditions ) != 0; }
+		inline bool HasAllConditions( int iConditions ) const { return ( ( m_afConditions & iConditions ) == iConditions ); }
 
 		virtual bool FValidateHintType( short sHint ) const;
 		int FindHintNode ( void );
-		virtual BOOL FCanActiveIdle ( void );
+		virtual bool FCanActiveIdle() const;
 		void SetTurnActivity ( void );
 		float FLSoundVolume ( CSound *pSound );
 
@@ -321,7 +321,7 @@ public:
 	virtual void IdleSound ( void ) { return; };
 	virtual void PainSound ( void ) { return; };
 	
-	virtual void StopFollowing( BOOL clearSchedule ) {}
+	virtual void StopFollowing( const bool clearSchedule ) {}
 
 	inline void	Remember( int iMemory ) { m_afMemory |= iMemory; }
 	inline void	Forget( int iMemory ) { m_afMemory &= ~iMemory; }
