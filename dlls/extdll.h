@@ -45,8 +45,6 @@
 #include "windows.h"
 #include "winsani_out.h"
 #else // _WIN32
-#define FALSE 0
-#define TRUE (!FALSE)
 typedef uint32 ULONG;
 typedef unsigned char BYTE;
 #define MAX_PATH PATH_MAX

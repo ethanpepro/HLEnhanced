@@ -778,7 +778,7 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 
 		pfrom = &from->weapondata[ i ];
 		
-		pCurrent->m_fInReload			= pfrom->m_fInReload;
+		pCurrent->m_fInReload			= pfrom->m_fInReload != 0;
 		pCurrent->m_fInSpecialReload	= pfrom->m_fInSpecialReload;
 //		pCurrent->m_flPumpTime			= pfrom->m_flPumpTime;
 		pCurrent->m_iClip				= pfrom->m_iClip;

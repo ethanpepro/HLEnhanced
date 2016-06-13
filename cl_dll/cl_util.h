@@ -18,11 +18,6 @@
 
 #include "cvardef.h"
 
-#ifndef TRUE
-#define TRUE 1
-#define FALSE 0
-#endif
-
 #include <stdio.h> // for safe_sprintf()
 #include <stdarg.h>  // "
 #include <string.h> // for strncpy()
