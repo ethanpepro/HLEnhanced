@@ -420,7 +420,7 @@ bool CHGrunt :: CheckMeleeAttack1 ( float flDot, float flDist )
 
 		if ( !pEnemy )
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -428,9 +428,9 @@ bool CHGrunt :: CheckMeleeAttack1 ( float flDot, float flDist )
 		 pEnemy->Classify() != CLASS_ALIEN_BIOWEAPON &&
 		 pEnemy->Classify() != CLASS_PLAYER_BIOWEAPON )
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -450,7 +450,7 @@ bool CHGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 		if ( !m_hEnemy->IsPlayer() && flDist <= 64 )
 		{
 			// kick nonclients, but don't shoot at them.
-			return FALSE;
+			return false;
 		}
 
 		Vector vecSrc = GetGunPosition();
@@ -460,11 +460,11 @@ bool CHGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 
 		if ( tr.flFraction == 1.0 )
 		{
-			return TRUE;
+			return true;
 		}
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -475,7 +475,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	if (! FBitSet(pev->weapons, (HGRUNT_HANDGRENADE | HGRUNT_GRENADELAUNCHER)))
 	{
-		return FALSE;
+		return false;
 	}
 	
 	// if the grunt isn't moving, it's ok to check.

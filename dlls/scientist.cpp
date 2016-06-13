@@ -1283,7 +1283,7 @@ void CSittingScientist :: SittingThink( void )
 	// try to greet player
 	if (FIdleHello())
 	{
-		pent = FindNearestFriend(TRUE);
+		pent = FindNearestFriend(true);
 		if (pent)
 		{
 			float yaw = VecToYaw(pent->pev->origin - pev->origin) - pev->angles.y;
@@ -1320,9 +1320,9 @@ void CSittingScientist :: SittingThink( void )
 			// turn towards player or nearest friend and speak
 
 			if (!FBitSet(m_bitsSaid, bit_saidHelloPlayer))
-				pent = FindNearestFriend(TRUE);
+				pent = FindNearestFriend(true);
 			else
-				pent = FindNearestFriend(FALSE);
+				pent = FindNearestFriend(false);
 
 			if (!FIdleSpeak() || !pent)
 			{	

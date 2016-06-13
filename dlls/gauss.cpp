@@ -95,16 +95,16 @@ void CGauss::Precache( void )
 	m_usGaussSpin = PRECACHE_EVENT( 1, "events/gaussspin.sc" );
 }
 
-int CGauss::AddToPlayer( CBasePlayer *pPlayer )
+bool CGauss::AddToPlayer( CBasePlayer *pPlayer )
 {
 	if ( CBasePlayerWeapon::AddToPlayer( pPlayer ) )
 	{
 		MESSAGE_BEGIN( MSG_ONE, gmsgWeapPickup, NULL, pPlayer->pev );
 			WRITE_BYTE( m_iId );
 		MESSAGE_END();
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 int CGauss::GetItemInfo(ItemInfo *p)

@@ -107,7 +107,7 @@ void CGlock::GlockFire( float flSpread , float flCycleTime, const bool fUseAutoA
 {
 	if (m_iClip <= 0)
 	{
-		if (m_fFireOnEmpty)
+		if ( m_bFireOnEmpty )
 		{
 			PlayEmptySound();
 			m_flNextPrimaryAttack = GetNextAttackDelay(0.2);

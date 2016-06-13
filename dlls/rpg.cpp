@@ -392,16 +392,16 @@ int CRpg::GetItemInfo(ItemInfo *p)
 	return 1;
 }
 
-int CRpg::AddToPlayer( CBasePlayer *pPlayer )
+bool CRpg::AddToPlayer( CBasePlayer *pPlayer )
 {
 	if ( CBasePlayerWeapon::AddToPlayer( pPlayer ) )
 	{
 		MESSAGE_BEGIN( MSG_ONE, gmsgWeapPickup, NULL, pPlayer->pev );
 			WRITE_BYTE( m_iId );
 		MESSAGE_END();
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 bool CRpg::Deploy()

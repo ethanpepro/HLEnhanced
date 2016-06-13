@@ -195,9 +195,9 @@ bool CHoundeye :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( flDist <= ( HOUNDEYE_MAX_ATTACK_RADIUS * 0.5 ) && flDot >= 0.3 )
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 //=========================================================

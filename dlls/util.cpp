@@ -1813,10 +1813,10 @@ unsigned short CSaveRestoreBuffer :: TokenHash( const char *pszToken )
 	for ( int i=0; i<m_pdata->tokenCount; i++ )
 	{
 #if _DEBUG
-		static qboolean beentheredonethat = FALSE;
+		static bool beentheredonethat = false;
 		if ( i > 50 && !beentheredonethat )
 		{
-			beentheredonethat = TRUE;
+			beentheredonethat = true;
 			ALERT( at_error, "CSaveRestoreBuffer :: TokenHash() is getting too full!" );
 		}
 #endif

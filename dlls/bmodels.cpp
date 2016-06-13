@@ -283,7 +283,7 @@ public:
 	void EXPORT HurtTouch ( CBaseEntity *pOther );
 	void EXPORT RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void EXPORT Rotate( void );
-	void RampPitchVol (int fUp );
+	void RampPitchVol( const bool bUp );
 	void Blocked( CBaseEntity *pOther ) override;
 	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	virtual int		Save( CSave &save ) override;
@@ -537,9 +537,8 @@ void CFuncRotating :: HurtTouch ( CBaseEntity *pOther )
 #define FANPITCHMIN		30
 #define FANPITCHMAX		100
 
-void CFuncRotating :: RampPitchVol (int fUp)
+void CFuncRotating::RampPitchVol( const bool bUp )
 {
-
 	Vector vecAVel = pev->avelocity;
 	vec_t vecCur;
 	vec_t vecFinal;
@@ -561,7 +560,7 @@ void CFuncRotating :: RampPitchVol (int fUp)
 	// calc volume and pitch as % of final vol and pitch
 
 	fpct = vecCur / vecFinal;
-//	if (fUp)
+//	if (bUp)
 //		fvol = m_flVolume * (0.5 + fpct/2.0); // spinup volume ramps up from 50% max vol
 //	else
 		fvol = m_flVolume * fpct;			  // slowdown volume ramps down to 0
@@ -605,7 +604,7 @@ void CFuncRotating :: SpinUp( void )
 	} 
 	else
 	{
-		RampPitchVol(TRUE);
+		RampPitchVol( true );
 	}
 }
 

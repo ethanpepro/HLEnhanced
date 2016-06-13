@@ -375,10 +375,10 @@ bool CIchthyosaur :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( flDot > -0.7 && (m_bOnAttack || ( flDist <= 192 && m_idealDist <= 192)))
 	{
-		return TRUE;
+		return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -420,7 +420,7 @@ void CIchthyosaur::BecomeDead( void )
 //=========================================================
 void CIchthyosaur :: HandleAnimEvent( MonsterEvent_t *pEvent )
 {
-	int bDidAttack = FALSE;
+	bool bDidAttack = false;
 	switch( pEvent->event )
 	{
 	case ICHTHYOSAUR_AE_SHAKE_RIGHT:
@@ -454,7 +454,7 @@ void CIchthyosaur :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			}
 			BiteSound();
 
-			bDidAttack = TRUE;
+			bDidAttack = true;
 		}
 		break;
 	default:

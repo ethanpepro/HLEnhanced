@@ -924,9 +924,9 @@ bool CGargantua::CheckMeleeAttack1( float flDot, float flDist )
 	if (flDot >= 0.7)
 	{
 		if (flDist <= GARG_ATTACKDIST)
-			return TRUE;
+			return true;
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -940,10 +940,10 @@ bool CGargantua::CheckMeleeAttack2( float flDot, float flDist )
 		if (flDot >= 0.8 && flDist > GARG_ATTACKDIST)
 		{
 			if ( flDist <= GARG_FLAME_LENGTH )
-				return TRUE;
+				return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 
@@ -962,10 +962,10 @@ bool CGargantua::CheckRangeAttack1( float flDot, float flDist )
 	{
 		if (flDot >= 0.7 && flDist > GARG_ATTACKDIST)
 		{
-				return TRUE;
+				return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 

@@ -101,11 +101,11 @@ extern "C" {
 {
 	if ( !pFunctionTable || interfaceVersion != INTERFACE_VERSION )
 	{
-		return FALSE;
+		return false;
 	}
 	
 	memcpy( pFunctionTable, &gFunctionTable, sizeof( DLL_FUNCTIONS ) );
-	return TRUE;
+	return true;
 }
 
 int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion )
@@ -114,11 +114,11 @@ int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion )
 	{
 		// Tell engine what version we had, so it can figure out who is out of date.
 		*interfaceVersion = INTERFACE_VERSION;
-		return FALSE;
+		return false;
 	}
 	
 	memcpy( pFunctionTable, &gFunctionTable, sizeof( DLL_FUNCTIONS ) );
-	return TRUE;
+	return true;
 }
 
 }

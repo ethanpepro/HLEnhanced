@@ -808,13 +808,13 @@ void DrawRoute( entvars_t *pev, WayPoint_t *m_Route, int m_iRouteIndex, int r, i
 #endif
 
 
-int ShouldSimplify( int routeType )
+bool ShouldSimplify( int routeType )
 {
 	routeType &= ~bits_MF_IS_GOAL;
 
 	if ( (routeType == bits_MF_TO_PATHCORNER) || (routeType & bits_MF_DONT_SIMPLIFY) )
-		return FALSE;
-	return TRUE;
+		return false;
+	return true;
 }
 
 //=========================================================

@@ -134,7 +134,8 @@ bool CBaseMonster::MoveToEnemy( Activity movementAct, float waitTime ) { return 
 bool CBaseMonster::MoveToLocation( Activity movementAct, float waitTime, const Vector &goal ) { return false; }
 bool CBaseMonster::MoveToTarget( Activity movementAct, float waitTime ) { return false; }
 bool CBaseMonster::MoveToNode( Activity movementAct, float waitTime, const Vector &goal ) { return false; }
-int ShouldSimplify( int routeType ) { return TRUE; }
+//TODO: why is this even here? - Solokiller
+bool ShouldSimplify( int routeType ) { return true; }
 void CBaseMonster::RouteSimplify( const CBaseEntity* const pTargetEnt ) { }
 bool CBaseMonster :: FBecomeProne() { return true; }
 bool CBaseMonster::CheckRangeAttack1( float flDot, float flDist ) { return false; }
@@ -325,14 +326,14 @@ void CBasePlayerItem :: CheckRespawn ( void ) { }
 CBaseEntity* CBasePlayerItem::Respawn( void ) { return NULL; }
 void CBasePlayerItem::DefaultTouch( CBaseEntity *pOther ) { }
 void CBasePlayerItem::DestroyItem( void ) { }
-int CBasePlayerItem::AddToPlayer( CBasePlayer *pPlayer ) { return TRUE; }
+bool CBasePlayerItem::AddToPlayer( CBasePlayer *pPlayer ) { return true; }
 void CBasePlayerItem::Drop( void ) { }
 void CBasePlayerItem::Kill( void ) { }
 void CBasePlayerItem::Holster( int skiplocal ) { }
 void CBasePlayerItem::AttachToPlayer ( CBasePlayer *pPlayer ) { }
-int CBasePlayerWeapon::AddDuplicate( CBasePlayerItem *pOriginal ) { return 0; }
-int CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer ) { return FALSE; }
-int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer ) { return 0; }
+bool CBasePlayerWeapon::AddDuplicate( CBasePlayerItem *pOriginal ) { return false; }
+bool CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer ) { return false; }
+bool CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer ) { return false; }
 bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry ) { return true; }
 bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, char *szName, int iMax ) { return true; }
 bool CBasePlayerWeapon::IsUseable() { return true; }
@@ -342,8 +343,8 @@ void CBasePlayerAmmo::Spawn( void ) { }
 CBaseEntity* CBasePlayerAmmo::Respawn( void ) { return this; }
 void CBasePlayerAmmo::Materialize( void ) { }
 void CBasePlayerAmmo :: DefaultTouch( CBaseEntity *pOther ) { }
-int CBasePlayerWeapon::ExtractAmmo( CBasePlayerWeapon *pWeapon ) { return 0; }
-int CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon ) { return 0; }	
+bool CBasePlayerWeapon::ExtractAmmo( CBasePlayerWeapon *pWeapon ) { return false; }
+bool CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon ) { return false; }	
 void CBasePlayerWeapon::RetireWeapon( void ) { }
 void CSoundEnt::InsertSound ( int iType, const Vector &vecOrigin, int iVolume, float flDuration ) {}
 void RadiusDamage( Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, float flRadius, int iClassIgnore, int bitsDamageType ){}

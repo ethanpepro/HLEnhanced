@@ -40,7 +40,7 @@ extern CSoundEnt *pSoundEnt;
 extern CBaseEntity				*g_pLastSpawn;
 DLL_GLOBAL edict_t				*g_pBodyQueueHead;
 CGlobalState					gGlobalState;
-extern DLL_GLOBAL	int			gDisplayTitle;
+extern DLL_GLOBAL	bool		gDisplayTitle;
 
 extern void W_Precache(void);
 
@@ -653,9 +653,9 @@ void CWorld :: Precache( void )
 		CVAR_SET_FLOAT( "v_dark", 0.0 );
 
 	if ( pev->spawnflags & SF_WORLD_TITLE )
-		gDisplayTitle = TRUE;		// display the game title if this key is set
+		gDisplayTitle = true;		// display the game title if this key is set
 	else
-		gDisplayTitle = FALSE;
+		gDisplayTitle = false;
 
 	if ( pev->spawnflags & SF_WORLD_FORCETEAM )
 	{

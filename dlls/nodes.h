@@ -115,7 +115,7 @@ class CGraph
 {
 public:
 
-// the graph has two flags, and should not be accessed unless both flags are TRUE!
+// the graph has two flags, and should not be accessed unless both flags are true!
 	bool	m_fGraphPresent;// is the graph in memory?
 	bool	m_fGraphPointersSet;// are the entity pointers for the graph all set?
 	bool    m_fRoutingComplete; // are the optimal routes computed, yet?
@@ -177,16 +177,16 @@ public:
 	enum NODEQUERY { NODEGRAPH_DYNAMIC, NODEGRAPH_STATIC };
 	// A static query means we're asking about the possiblity of handling this entity at ANY time
 	// A dynamic query means we're asking about it RIGHT NOW.  So we should query the current state
-	int		HandleLinkEnt ( int iNode, entvars_t *pevLinkEnt, int afCapMask, NODEQUERY queryType );
+	bool	HandleLinkEnt ( int iNode, entvars_t *pevLinkEnt, int afCapMask, NODEQUERY queryType );
 	entvars_t*	LinkEntForLink ( CLink *pLink, CNode *pNode );
 	void	ShowNodeConnections ( int iNode );
 	void	InitGraph( void );
-	int		AllocNodes ( void );
+	bool	AllocNodes();
 	
-	int		CheckNODFile(char *szMapName);
-	int		FLoadGraph(char *szMapName);
-	int		FSaveGraph(char *szMapName);
-	int		FSetGraphPointers(void);
+	bool	CheckNODFile(char *szMapName);
+	bool	FLoadGraph(char *szMapName);
+	bool	FSaveGraph(char *szMapName);
+	bool	FSetGraphPointers();
 	void	CheckNode(Vector vecOrigin, int iNode);
 
 	void    BuildRegionTables(void);

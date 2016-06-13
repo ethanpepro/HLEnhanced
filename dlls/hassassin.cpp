@@ -635,7 +635,7 @@ bool CHAssassin :: CheckMeleeAttack1 ( float flDot, float flDist )
 
 		if ( tr.fStartSolid || tr.flFraction < 1.0)
 		{
-			return FALSE;
+			return false;
 		}
 
 		float flGravity = g_psv_gravity->value;
@@ -644,9 +644,9 @@ bool CHAssassin :: CheckMeleeAttack1 ( float flDot, float flDist )
 		float speed = flGravity * time / 160;
 		m_vecJumpVelocity = (vecDest - pev->origin) * speed;
 
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -666,10 +666,10 @@ bool CHAssassin :: CheckRangeAttack1 ( float flDot, float flDist )
 
 		if ( tr.flFraction == 1 || tr.pHit == m_hEnemy->edict() )
 		{
-			return TRUE;
+			return true;
 		}
 	}
-	return FALSE;
+	return false;
 }
 
 //=========================================================

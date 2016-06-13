@@ -102,16 +102,16 @@ int CMP5::GetItemInfo(ItemInfo *p)
 	return 1;
 }
 
-int CMP5::AddToPlayer( CBasePlayer *pPlayer )
+bool CMP5::AddToPlayer( CBasePlayer *pPlayer )
 {
 	if ( CBasePlayerWeapon::AddToPlayer( pPlayer ) )
 	{
 		MESSAGE_BEGIN( MSG_ONE, gmsgWeapPickup, NULL, pPlayer->pev );
 			WRITE_BYTE( m_iId );
 		MESSAGE_END();
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 bool CMP5::Deploy()

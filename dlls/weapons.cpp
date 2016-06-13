@@ -665,7 +665,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	{
 		if ( pszAmmo2() && !m_pPlayer->m_rgAmmo[SecondaryAmmoIndex()] )
 		{
-			m_fFireOnEmpty = TRUE;
+			m_bFireOnEmpty = true;
 		}
 
 		m_pPlayer->TabulateAmmo();
@@ -676,7 +676,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	{
 		if ( (m_iClip == 0 && pszAmmo1()) || (iMaxClip() == -1 && !m_pPlayer->m_rgAmmo[PrimaryAmmoIndex()] ) )
 		{
-			m_fFireOnEmpty = TRUE;
+			m_bFireOnEmpty = true;
 		}
 
 		m_pPlayer->TabulateAmmo();
@@ -691,7 +691,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	{
 		// no fire buttons down
 
-		m_fFireOnEmpty = FALSE;
+		m_bFireOnEmpty = false;
 
 		if ( !IsUseable() && m_flNextPrimaryAttack < ( UseDecrement() ? 0.0 : gpGlobals->time ) ) 
 		{
@@ -734,11 +734,11 @@ void CBasePlayerItem::DestroyItem( void )
 	Kill( );
 }
 
-int CBasePlayerItem::AddToPlayer( CBasePlayer *pPlayer )
+bool CBasePlayerItem::AddToPlayer( CBasePlayer *pPlayer )
 {
 	m_pPlayer = pPlayer;
 
-	return TRUE;
+	return true;
 }
 
 void CBasePlayerItem::Drop( void )
@@ -775,7 +775,7 @@ void CBasePlayerItem::AttachToPlayer ( CBasePlayer *pPlayer )
 }
 
 // CALLED THROUGH the newly-touched weapon's instance. The existing player weapon is pOriginal
-int CBasePlayerWeapon::AddDuplicate( CBasePlayerItem *pOriginal )
+bool CBasePlayerWeapon::AddDuplicate( CBasePlayerItem *pOriginal )
 {
 	if ( m_iDefaultAmmo )
 	{
@@ -789,9 +789,9 @@ int CBasePlayerWeapon::AddDuplicate( CBasePlayerItem *pOriginal )
 }
 
 
-int CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer )
+bool CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer )
 {
-	int bResult = CBasePlayerItem::AddToPlayer( pPlayer );
+	const bool bResult = CBasePlayerItem::AddToPlayer( pPlayer );
 
 	pPlayer->pev->weapons |= (1<<m_iId);
 
@@ -804,10 +804,10 @@ int CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer )
 
 	if (bResult)
 		return AddWeapon( );
-	return FALSE;
+	return false;
 }
 
-int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
+bool CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 {
 	bool bSend = false;
 	int state = 0;
@@ -859,7 +859,7 @@ int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 	if ( m_pNext )
 		m_pNext->UpdateClientData( pPlayer );
 
-	return 1;
+	return true;
 }
 
 
@@ -1138,30 +1138,30 @@ void CBasePlayerAmmo :: DefaultTouch( CBaseEntity *pOther )
 // if  this is a weapon dropped by a dying player, has 0 m_iDefaultAmmo, which means only the ammo in 
 // the weapon clip comes along. 
 //=========================================================
-int CBasePlayerWeapon::ExtractAmmo( CBasePlayerWeapon *pWeapon )
+bool CBasePlayerWeapon::ExtractAmmo( CBasePlayerWeapon *pWeapon )
 {
-	int			iReturn = 0;
+	bool bReturn = false;
 
 	if ( pszAmmo1() != NULL )
 	{
 		// blindly call with m_iDefaultAmmo. It's either going to be a value or zero. If it is zero,
 		// we only get the ammo in the weapon's clip, which is what we want. 
-		iReturn = pWeapon->AddPrimaryAmmo( m_iDefaultAmmo, (char *)pszAmmo1(), iMaxClip(), iMaxAmmo1() );
+		bReturn = pWeapon->AddPrimaryAmmo( m_iDefaultAmmo, (char *)pszAmmo1(), iMaxClip(), iMaxAmmo1() );
 		m_iDefaultAmmo = 0;
 	}
 
 	if ( pszAmmo2() != NULL )
 	{
-		iReturn = pWeapon->AddSecondaryAmmo( 0, (char *)pszAmmo2(), iMaxAmmo2() );
+		bReturn = pWeapon->AddSecondaryAmmo( 0, (char *)pszAmmo2(), iMaxAmmo2() );
 	}
 
-	return iReturn;
+	return bReturn;
 }
 
 //=========================================================
 // called by the new item's class with the existing item as parameter
 //=========================================================
-int CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon )
+bool CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon )
 {
 	int			iAmmo;
 

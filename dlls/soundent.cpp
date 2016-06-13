@@ -49,7 +49,7 @@ void CSound::Reset()
 }
 
 //=========================================================
-// FIsSound - returns TRUE if the sound is an Audible sound
+// FIsSound - returns true if the sound is an Audible sound
 //=========================================================
 bool CSound::FIsSound() const
 {
@@ -62,7 +62,7 @@ bool CSound::FIsSound() const
 }
 
 //=========================================================
-// FIsScent - returns TRUE if the sound is actually a scent
+// FIsScent - returns true if the sound is actually a scent
 //=========================================================
 bool CSound::FIsScent() const
 {

@@ -45,7 +45,8 @@ extern DLL_GLOBAL ULONG		g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool		g_fGameOver;
 extern DLL_GLOBAL	bool	g_fDrawLines;
 int gEvilImpulse101;
-extern DLL_GLOBAL int		g_iSkillLevel, gDisplayTitle;
+extern DLL_GLOBAL int		g_iSkillLevel;
+extern DLL_GLOBAL bool		gDisplayTitle;
 
 
 bool gInitHUD = true;
@@ -4004,7 +4005,7 @@ void CBasePlayer :: UpdateClientData( void )
 		MESSAGE_BEGIN( MSG_ONE, gmsgShowGameTitle, NULL, pev );
 		WRITE_BYTE( 0 );
 		MESSAGE_END();
-		gDisplayTitle = 0;
+		gDisplayTitle = false;
 	}
 
 	if (pev->health != m_iClientHealth)

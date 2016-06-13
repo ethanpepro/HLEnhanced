@@ -502,9 +502,9 @@ bool CISlave :: CheckRangeAttack2 ( float flDot, float flDist )
 		}
 	}
 	if (m_hDead != NULL)
-		return TRUE;
+		return true;
 	else
-		return FALSE;
+		return false;
 }
 
 

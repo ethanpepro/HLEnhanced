@@ -538,7 +538,7 @@ float CBaseToggle :: AxisDelta( int flags, const Vector &angle1, const Vector &a
 =============
 FEntIsVisible
 
-returns TRUE if the passed entity is visible to caller, even if not infront ()
+returns true if the passed entity is visible to caller, even if not infront ()
 =============
 */
 bool

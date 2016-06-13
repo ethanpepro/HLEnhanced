@@ -54,16 +54,16 @@ int CPython::GetItemInfo(ItemInfo *p)
 	return 1;
 }
 
-int CPython::AddToPlayer( CBasePlayer *pPlayer )
+bool CPython::AddToPlayer( CBasePlayer *pPlayer )
 {
 	if ( CBasePlayerWeapon::AddToPlayer( pPlayer ) )
 	{
 		MESSAGE_BEGIN( MSG_ONE, gmsgWeapPickup, NULL, pPlayer->pev );
 			WRITE_BYTE( m_iId );
 		MESSAGE_END();
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 void CPython::Spawn( )
@@ -167,7 +167,7 @@ void CPython::PrimaryAttack()
 
 	if (m_iClip <= 0)
 	{
-		if (!m_fFireOnEmpty)
+		if (!m_bFireOnEmpty )
 			Reload( );
 		else
 		{

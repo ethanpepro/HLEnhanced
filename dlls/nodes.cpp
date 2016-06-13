@@ -116,7 +116,7 @@ void CGraph :: InitGraph( void)
 // reasonable number of nodes so we can build the path which
 // will be saved to disk.
 //=========================================================
-int CGraph :: AllocNodes ( void )
+bool CGraph::AllocNodes()
 {
 //  malloc all of the nodes
 	WorldGraph.m_pNodes = (CNode *)calloc ( sizeof ( CNode ), MAX_NODES );
@@ -125,10 +125,10 @@ int CGraph :: AllocNodes ( void )
 	if ( !WorldGraph.m_pNodes )
 	{
 		ALERT ( at_aiconsole, "**ERROR**\nCouldn't malloc %d nodes!\n", WorldGraph.m_cNodes );
-		return FALSE;
+		return false;
 	}
 
-	return TRUE;
+	return true;
 }
 
 //=========================================================
@@ -213,7 +213,7 @@ entvars_t* CGraph :: LinkEntForLink ( CLink *pLink, CNode *pNode )
 // Given the monster's capability, determine whether
 // or not the monster can go this way. 
 //=========================================================
-int	CGraph :: HandleLinkEnt ( int iNode, entvars_t *pevLinkEnt, int afCapMask, NODEQUERY queryType )
+bool CGraph::HandleLinkEnt( int iNode, entvars_t *pevLinkEnt, int afCapMask, NODEQUERY queryType )
 {
 	edict_t  *pentWorld;
 	CBaseEntity	*pDoor;
@@ -222,13 +222,13 @@ int	CGraph :: HandleLinkEnt ( int iNode, entvars_t *pevLinkEnt, int afCapMask, N
 	if ( !m_fGraphPresent || !m_fGraphPointersSet )
 	{// protect us in the case that the node graph isn't available
 		ALERT ( at_aiconsole, "Graph not ready!\n" );
-		return FALSE;
+		return false;
 	}
 
 	if ( FNullEnt ( pevLinkEnt ) )
 	{
 		ALERT ( at_aiconsole, "dead path ent!\n" );
-		return TRUE;
+		return true;
 	}
 	pentWorld = NULL;
 
@@ -243,17 +243,17 @@ int	CGraph :: HandleLinkEnt ( int iNode, entvars_t *pevLinkEnt, int afCapMask, N
 
 			if  ( ( afCapMask & bits_CAP_OPEN_DOORS ) )
 			{// let monster right through if he can open doors
-				return TRUE;
+				return true;
 			}
 			else 
 			{
 				// monster should try for it if the door is open and looks as if it will stay that way
 				if ( pDoor->GetToggleState()== TS_AT_TOP && ( pevLinkEnt->spawnflags & SF_DOOR_NO_AUTO_RETURN ) )
 				{
-					return TRUE;
+					return true;
 				}
 
-				return FALSE;
+				return false;
 			}
 		}
 		else 
@@ -262,29 +262,29 @@ int	CGraph :: HandleLinkEnt ( int iNode, entvars_t *pevLinkEnt, int afCapMask, N
 			// monster should try for it if the door is open and looks as if it will stay that way
 			if ( pDoor->GetToggleState() == TS_AT_TOP && ( pevLinkEnt->spawnflags & SF_DOOR_NO_AUTO_RETURN ) )
 			{
-				return TRUE;
+				return true;
 			}
 			if  ( ( afCapMask & bits_CAP_OPEN_DOORS ) )
 			{
 				if ( !( pevLinkEnt->spawnflags & SF_DOOR_NOMONSTERS ) || queryType == NODEGRAPH_STATIC )
-					return TRUE;
+					return true;
 			}
 
-			return FALSE;
+			return false;
 		}
 	}
 // func_breakable	
 	else if ( FClassnameIs( pevLinkEnt, "func_breakable" ) && queryType == NODEGRAPH_STATIC )
 	{
-		return TRUE;
+		return true;
 	}
 	else
 	{
 		ALERT ( at_aiconsole, "Unhandled Ent in Path %s\n", STRING( pevLinkEnt->classname ) );
-		return FALSE;
+		return false;
 	}
 
-	return FALSE;
+	return false;
 }
 
 #if 0
@@ -1855,11 +1855,11 @@ void CTestHull :: BuildNodeGraph( void )
 
 					flDist = ( vecSpot - pev->origin ).Length2D();
 
-					int fWalkFailed = FALSE;
+					bool bWalkFailed = false;
 
 					// in this loop we take tiny steps from the current node to the nodes that it links to, one at a time.
 					// pev->angles.y = flYaw;
-					for ( step = 0 ; step < flDist && !fWalkFailed ; step += HULL_STEP_SIZE )
+					for ( step = 0 ; step < flDist && !bWalkFailed; step += HULL_STEP_SIZE )
 					{
 						float stepSize = HULL_STEP_SIZE;
 
@@ -1869,19 +1869,19 @@ void CTestHull :: BuildNodeGraph( void )
 						if ( !WALK_MOVE( ENT(pev), flYaw, stepSize, MoveMode ) )
 						{// can't take the next step
 
-							fWalkFailed = TRUE;
+							bWalkFailed = true;
 							break;
 						}
 					}
 
-					if (!fWalkFailed && (pev->origin - vecSpot).Length() > 64)
+					if (!bWalkFailed && (pev->origin - vecSpot).Length() > 64)
 					{
 						// ALERT( at_console, "bogus walk\n");
 						// we thought we 
-						fWalkFailed = TRUE;
+						bWalkFailed = true;
 					}
 
-					if (fWalkFailed)
+					if ( bWalkFailed )
 					{
 
 						//pTempPool[ pSrcNode->m_iFirstLink + j ] = pTempPool [ pSrcNode->m_iFirstLink + ( pSrcNode->m_cNumLinks - 1 ) ];
@@ -2314,7 +2314,7 @@ void CQueuePriority::Heap_SiftUp(void)
 // will be loaded. If file cannot be loaded, the node tree
 // will be created and saved to disk.
 //=========================================================
-int CGraph :: FLoadGraph ( char *szMapName )
+bool CGraph::FLoadGraph( char *szMapName )
 {
 	char	szFilename[MAX_PATH];
 	int		iVersion;
@@ -2338,7 +2338,7 @@ int CGraph :: FLoadGraph ( char *szMapName )
 
 	if ( !aMemFile )
 	{
-		return FALSE;
+		return false;
 	}
 	else
 	{
@@ -2488,7 +2488,7 @@ NoMemory:
 // CGraph - FSaveGraph - It's not rocket science.
 // this WILL overwrite existing files.
 //=========================================================
-int CGraph :: FSaveGraph ( char *szMapName )
+bool CGraph::FSaveGraph( char *szMapName )
 {
 	
 	int		iVersion = GRAPH_VERSION;
@@ -2498,7 +2498,7 @@ int CGraph :: FSaveGraph ( char *szMapName )
 	if ( !m_fGraphPresent || !m_fGraphPointersSet )
 	{// protect us in the case that the node graph isn't available or built
 		ALERT ( at_aiconsole, "Graph not ready!\n" );
-		return FALSE;
+		return false;
 	}
 
 	// make sure directories have been made
@@ -2519,7 +2519,7 @@ int CGraph :: FSaveGraph ( char *szMapName )
 	if ( !file )
 	{// couldn't create
 		ALERT ( at_aiconsole, "Couldn't Create: %s\n", szFilename );
-		return FALSE;
+		return false;
 	}
 	else
 	{
@@ -2549,7 +2549,7 @@ int CGraph :: FSaveGraph ( char *szMapName )
 			fwrite(m_pHashLinks, sizeof(short), m_nHashLinks, file);
 		}
 		fclose ( file );
-		return TRUE;
+		return true;
 	}
 }
 
@@ -2560,7 +2560,7 @@ int CGraph :: FSaveGraph ( char *szMapName )
 // this is done after loading the graph from disk, whereupon
 // the pointers are not valid.
 //=========================================================
-int CGraph :: FSetGraphPointers ( void )
+bool CGraph::FSetGraphPointers()
 {
 	int	i;
 	edict_t	*pentLinkEnt;
@@ -2619,9 +2619,9 @@ int CGraph :: FSetGraphPointers ( void )
 // though. ( I now suspect that we are getting GMT back from
 // these functions and must compensate for local time ) (sjb)
 //=========================================================
-int CGraph :: CheckNODFile ( char *szMapName )
+bool CGraph :: CheckNODFile ( char *szMapName )
 {
-	int 		retValue;
+	bool 		retValue;
 
 	char		szBspFilename[MAX_PATH];
 	char		szGraphFilename[MAX_PATH];
@@ -2635,7 +2635,7 @@ int CGraph :: CheckNODFile ( char *szMapName )
 	strcat ( szGraphFilename, szMapName );
 	strcat ( szGraphFilename, ".nod" );
 	
-	retValue = TRUE;
+	retValue = true;
 
 	int iCompare;
 	if (COMPARE_FILE_TIME(szBspFilename, szGraphFilename, &iCompare))
@@ -2643,12 +2643,12 @@ int CGraph :: CheckNODFile ( char *szMapName )
 		if ( iCompare > 0 )
 		{// BSP file is newer.
 			ALERT ( at_aiconsole, ".NOD File will be updated\n\n" );
-			retValue = FALSE;
+			retValue = false;
 		}
 	}
 	else
 	{
-		retValue = FALSE;
+		retValue = false;
 	}
 
 	return retValue;

@@ -99,10 +99,10 @@ public:
 	CFlockingFlyer *m_pSquadLeader;
 	CFlockingFlyer *m_pSquadNext;
 	bool	m_fTurning;// is this boid turning?
-	bool	m_fCourseAdjust;// followers set this flag TRUE to override flocking while they avoid something
-	bool	m_fPathBlocked;// TRUE if there is an obstacle ahead
+	bool	m_fCourseAdjust;// followers set this flag true to override flocking while they avoid something
+	bool	m_fPathBlocked;// true if there is an obstacle ahead
 	Vector	m_vecReferencePoint;// last place we saw leader
-	Vector	m_vecAdjustedVelocity;// adjusted velocity (used when fCourseAdjust is TRUE)
+	Vector	m_vecAdjustedVelocity;// adjusted velocity (used when fCourseAdjust is true)
 	float	m_flGoalSpeed;
 	float	m_flLastBlockedTime;
 	float	m_flFakeBlockedTime;

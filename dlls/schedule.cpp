@@ -54,7 +54,7 @@ void CBaseMonster :: ClearSchedule( void )
 }
 
 //=========================================================
-// FScheduleDone - Returns TRUE if the caller is on the
+// FScheduleDone - Returns true if the caller is on the
 // last task in the schedule
 //=========================================================
 bool CBaseMonster::FScheduleDone() const

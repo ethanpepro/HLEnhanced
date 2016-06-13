@@ -963,7 +963,7 @@ int CTalkMonster :: FIdleStare( void )
 
 	PlaySentence( m_szGrp[TLK_STARE], RANDOM_FLOAT(5, 7.5), VOL_NORM, ATTN_IDLE );
 
-	m_hTalkTarget = FindNearestFriend( TRUE );
+	m_hTalkTarget = FindNearestFriend( true );
 	return TRUE;
 }
 
@@ -980,7 +980,7 @@ int CTalkMonster :: FIdleHello( void )
 	if (!FBitSet(m_bitsSaid, bit_saidHelloPlayer))
 	{
 		// get a player
-		CBaseEntity *pPlayer = FindNearestFriend(TRUE);
+		CBaseEntity *pPlayer = FindNearestFriend(true);
 
 		if (pPlayer)
 		{
@@ -1119,7 +1119,7 @@ int CTalkMonster :: FIdleSpeak ( void )
 	if ( RANDOM_LONG(0,1) )
 	{
 		//SENTENCEG_PlayRndSz( ENT(pev), szIdleGroup, 1.0, ATTN_IDLE, 0, pitch );
-		CBaseEntity *pFriend = FindNearestFriend(TRUE);
+		CBaseEntity *pFriend = FindNearestFriend(true);
 
 		if ( pFriend )
 		{

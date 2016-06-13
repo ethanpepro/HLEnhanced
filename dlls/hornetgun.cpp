@@ -72,7 +72,7 @@ void CHgun::Precache( void )
 	UTIL_PrecacheOther("hornet");
 }
 
-int CHgun::AddToPlayer( CBasePlayer *pPlayer )
+bool CHgun::AddToPlayer( CBasePlayer *pPlayer )
 {
 	if ( CBasePlayerWeapon::AddToPlayer( pPlayer ) )
 	{
@@ -88,9 +88,9 @@ int CHgun::AddToPlayer( CBasePlayer *pPlayer )
 		MESSAGE_BEGIN( MSG_ONE, gmsgWeapPickup, NULL, pPlayer->pev );
 			WRITE_BYTE( m_iId );
 		MESSAGE_END();
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 int CHgun::GetItemInfo(ItemInfo *p)

@@ -844,7 +844,7 @@ void CEnvSound :: KeyValue( KeyValueData *pkvd )
 	}
 }
 
-// returns TRUE if the given sound entity (pev) is in range 
+// returns true if the given sound entity (pev) is in range 
 // and can see the given player entity (pevTarget)
 
 bool FEnvSoundInRange(entvars_t *pev, entvars_t *pevTarget, float *pflRange) 
@@ -1101,7 +1101,7 @@ int USENTENCEG_Pick(int isentenceg, char *szfound)
 	unsigned char count;
 	char sznum[8];
 	unsigned char ipick;
-	int ffound = FALSE;
+	bool ffound = false;
 	
 	if (!fSentencesInit)
 		return -1;
@@ -1120,7 +1120,7 @@ int USENTENCEG_Pick(int isentenceg, char *szfound)
 			{
 				ipick = plru[i];
 				plru[i] = 0xFF;
-				ffound = TRUE;
+				ffound = true;
 				break;
 			}
 
@@ -1923,9 +1923,9 @@ void CSpeaker :: SpeakerThink( void )
 //
 void CSpeaker :: ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	int fActive = (pev->nextthink > 0.0);
+	const bool fActive = (pev->nextthink > 0.0);
 
-	// fActive is TRUE only if an announcement is pending
+	// fActive is true only if an announcement is pending
 	
 	if ( useType != USE_TOGGLE )
 	{

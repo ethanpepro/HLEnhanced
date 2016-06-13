@@ -344,7 +344,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	{
 		if ( pszAmmo2() && !m_pPlayer->m_rgAmmo[SecondaryAmmoIndex()] )
 		{
-			m_fFireOnEmpty = TRUE;
+			m_bFireOnEmpty = true;
 		}
 
 		SecondaryAttack();
@@ -354,7 +354,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	{
 		if ( (m_iClip == 0 && pszAmmo1()) || (iMaxClip() == -1 && !m_pPlayer->m_rgAmmo[PrimaryAmmoIndex()] ) )
 		{
-			m_fFireOnEmpty = TRUE;
+			m_bFireOnEmpty = true;
 		}
 
 		PrimaryAttack();
@@ -368,7 +368,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	{
 		// no fire buttons down
 
-		m_fFireOnEmpty = FALSE;
+		m_bFireOnEmpty = false;
 
 		// weapon is useable. Reload if empty and weapon has waited as long as it has to after firing
 		if ( m_iClip == 0 && !(iFlags() & ITEM_FLAG_NOAUTORELOAD) && m_flNextPrimaryAttack < 0.0 )

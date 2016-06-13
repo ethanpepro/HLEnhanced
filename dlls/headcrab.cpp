@@ -404,9 +404,9 @@ bool CHeadCrab :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( FBitSet( pev->flags, FL_ONGROUND ) && flDist <= 256 && flDot >= 0.65 )
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 }
 
 //=========================================================
@@ -414,14 +414,14 @@ bool CHeadCrab :: CheckRangeAttack1 ( float flDot, float flDist )
 //=========================================================
 bool CHeadCrab :: CheckRangeAttack2 ( float flDot, float flDist )
 {
-	return FALSE;
+	return false;
 	// BUGBUG: Why is this code here?  There is no ACT_RANGE_ATTACK2 animation.  I've disabled it for now.
 #if 0
 	if ( FBitSet( pev->flags, FL_ONGROUND ) && flDist > 64 && flDist <= 256 && flDot >= 0.5 )
 	{
-		return TRUE;
+		return true;
 	}
-	return FALSE;
+	return false;
 #endif
 }
 
@@ -525,14 +525,14 @@ bool CBabyCrab :: CheckRangeAttack1( float flDot, float flDist )
 	if ( pev->flags & FL_ONGROUND )
 	{
 		if ( pev->groundentity && (pev->groundentity->v.flags & (FL_CLIENT|FL_MONSTER)) )
-			return TRUE;
+			return true;
 
 		// A little less accurate, but jump from closer
 		if ( flDist <= 180 && flDot >= 0.55 )
-			return TRUE;
+			return true;
 	}
 
-	return FALSE;
+	return false;
 }
 
 

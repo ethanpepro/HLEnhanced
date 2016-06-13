@@ -462,7 +462,7 @@ void CBaseTurret::EyeOff( )
 
 void CBaseTurret::ActiveThink(void)
 {
-	int fAttack = 0;
+	bool fAttack = false;
 	Vector vecDirToEnemy;
 
 	pev->nextthink = gpGlobals->time + 0.1;
@@ -542,9 +542,9 @@ void CBaseTurret::ActiveThink(void)
 
 	// Is the Gun looking at the target
 	if (DotProduct(vecLOS, gpGlobals->v_forward) <= 0.866) // 30 degree slop
-		fAttack = FALSE;
+		fAttack = false;
 	else
-		fAttack = TRUE;
+		fAttack = true;
 
 	// fire the gun
 	if (m_iSpin && ((fAttack) || (m_fBeserk)))

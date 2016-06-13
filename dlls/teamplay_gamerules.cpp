@@ -59,9 +59,9 @@ CHalfLifeTeamplay :: CHalfLifeTeamplay()
 	}
 	// Has the server set teams
 	if ( strlen( m_szTeamList ) )
-		m_teamLimit = TRUE;
+		m_teamLimit = true;
 	else
-		m_teamLimit = FALSE;
+		m_teamLimit = false;
 
 	RecountTeams();
 }
@@ -275,8 +275,8 @@ void CHalfLifeTeamplay::ChangePlayerTeam( CBasePlayer *pPlayer, const char *pTea
 	if ( bKill )
 	{
 		// kill the player,  remove a death,  and let them start on the new team
-		m_DisableDeathMessages = TRUE;
-		m_DisableDeathPenalty = TRUE;
+		m_DisableDeathMessages = true;
+		m_DisableDeathPenalty = true;
 
 		entvars_t *pevWorld = VARS( INDEXENT(0) );
 		pPlayer->TakeDamage( pevWorld, pevWorld, 900, damageFlags );
@@ -355,7 +355,7 @@ void CHalfLifeTeamplay::ClientUserInfoChanged( CBasePlayer *pPlayer, char *infob
 
 	ChangePlayerTeam( pPlayer, mdls, true, true );
 	// recound stuff
-	RecountTeams( TRUE );
+	RecountTeams( true );
 }
 
 extern int gmsgDeathMsg;
