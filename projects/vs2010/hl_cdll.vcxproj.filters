@@ -73,6 +73,12 @@
     <Filter Include="Header Files\public\math">
       <UniqueIdentifier>{cd902acd-b14e-4bbb-b2e0-f117e0856b11}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{2af29c73-a464-4a9d-b17a-b1da963bdd5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\shared">
+      <UniqueIdentifier>{20909575-f310-4135-b21c-46e0ab1d8bca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -326,6 +332,9 @@
     </ClCompile>
     <ClCompile Include="..\..\public\math\mathlib.cpp">
       <Filter>Source Files\public\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp">
+      <Filter>Source Files\game\shared</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -50,6 +50,8 @@ CBaseEntity
 #include "monsterevent.h"
 #endif
 
+#include "DataMapping.h"
+
 // C functions for external declarations that call the appropriate C++ methods
 
 #ifndef CBASE_DLLEXPORT
@@ -169,6 +171,9 @@ public:
 class CBaseEntity 
 {
 public:
+	DECLARE_CLASS_NOBASE( CBaseEntity );
+	DECLARE_DATADESC_NOBASE();
+
 	// Constructor.  Set engine to use C/C++ callback functions
 	// pointers to engine data
 	entvars_t *pev;		// Don't need to save/restore this pointer, the engine resets it
@@ -423,6 +428,8 @@ public:
 class CPointEntity : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CPointEntity, CBaseEntity );
+
 	void	Spawn( void ) override;
 	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 private:
@@ -457,6 +464,9 @@ void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const
 class CMultiSource : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CMultiSource, CPointEntity );
+	DECLARE_DATADESC();
+
 	void Spawn( ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;

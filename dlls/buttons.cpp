@@ -130,7 +130,12 @@ void CEnvGlobal::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 		gGlobalState.EntityAdd( m_globalstate, gpGlobals->mapname, newState );
 }
 
-
+BEGIN_DATADESC( CMultiSource )
+	DEFINE_ARRAY( CMultiSource, m_rgEntities, FIELD_EHANDLE, MS_MAX_TARGETS ),
+	DEFINE_ARRAY( CMultiSource, m_rgTriggered, FIELD_INTEGER, MS_MAX_TARGETS ),
+	DEFINE_FIELD( CMultiSource, m_iTotal, FIELD_INTEGER ),
+	DEFINE_FIELD( CMultiSource, m_globalstate, FIELD_STRING ),
+END_DATADESC()
 
 TYPEDESCRIPTION CMultiSource::m_SaveData[] =
 {

@@ -52,6 +52,18 @@
     <Filter Include="Source Files\public\math">
       <UniqueIdentifier>{3953bf7d-a4cd-427f-9da0-c6d20571f2bd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{62c23c93-f28c-4fcc-9443-1e2069275eaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\shared">
+      <UniqueIdentifier>{46c2928b-4517-494a-bbe2-0f95c5ccb606}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{8a3b04b0-3040-4c17-9581-a991d5d950e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\shared">
+      <UniqueIdentifier>{94a231ae-ad8c-4fce-bde5-287d3045cf7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -363,6 +375,9 @@
     <ClCompile Include="..\..\public\math\mathlib.cpp">
       <Filter>Source Files\public\math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp">
+      <Filter>Source Files\game\shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -511,6 +526,9 @@
     </ClInclude>
     <ClInclude Include="..\..\public\math\mathlib.h">
       <Filter>Header Files\public\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\DataMapping.h">
+      <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
