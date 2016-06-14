@@ -59,7 +59,7 @@ LINK_ENTITY_TO_CLASS( func_friction, CFrictionModifier );
 
 // Global Savedata for changelevel friction modifier
 BEGIN_DATADESC(	CFrictionModifier )
-	DEFINE_FIELD( CFrictionModifier, m_frictionFraction, FIELD_FLOAT ),
+	DEFINE_FIELD( m_frictionFraction, FIELD_FLOAT ),
 END_DATADESC()
 
 // Modify an entity's friction
@@ -119,8 +119,8 @@ private:
 LINK_ENTITY_TO_CLASS( trigger_auto, CAutoTrigger );
 
 BEGIN_DATADESC(	CAutoTrigger )
-	DEFINE_FIELD( CAutoTrigger, m_globalstate, FIELD_STRING ),
-	DEFINE_FIELD( CAutoTrigger, triggerType, FIELD_INTEGER ),
+	DEFINE_FIELD( m_globalstate, FIELD_STRING ),
+	DEFINE_FIELD( triggerType, FIELD_INTEGER ),
 END_DATADESC()
 
 void CAutoTrigger::KeyValue( KeyValueData *pkvd )
@@ -196,7 +196,7 @@ private:
 LINK_ENTITY_TO_CLASS( trigger_relay, CTriggerRelay );
 
 BEGIN_DATADESC(	CTriggerRelay )
-	DEFINE_FIELD( CTriggerRelay, triggerType, FIELD_INTEGER ),
+	DEFINE_FIELD( triggerType, FIELD_INTEGER ),
 END_DATADESC()
 
 void CTriggerRelay::KeyValue( KeyValueData *pkvd )
@@ -287,11 +287,11 @@ LINK_ENTITY_TO_CLASS( multi_manager, CMultiManager );
 
 // Global Savedata for multi_manager
 BEGIN_DATADESC(	CMultiManager )
-	DEFINE_FIELD( CMultiManager, m_cTargets, FIELD_INTEGER ),
-	DEFINE_FIELD( CMultiManager, m_index, FIELD_INTEGER ),
-	DEFINE_FIELD( CMultiManager, m_startTime, FIELD_TIME ),
-	DEFINE_ARRAY( CMultiManager, m_iTargetName, FIELD_STRING, MAX_MULTI_TARGETS ),
-	DEFINE_ARRAY( CMultiManager, m_flTargetDelay, FIELD_FLOAT, MAX_MULTI_TARGETS ),
+	DEFINE_FIELD( m_cTargets, FIELD_INTEGER ),
+	DEFINE_FIELD( m_index, FIELD_INTEGER ),
+	DEFINE_FIELD( m_startTime, FIELD_TIME ),
+	DEFINE_ARRAY( m_iTargetName, FIELD_STRING, MAX_MULTI_TARGETS ),
+	DEFINE_ARRAY( m_flTargetDelay, FIELD_FLOAT, MAX_MULTI_TARGETS ),
 END_DATADESC()
 
 void CMultiManager :: KeyValue( KeyValueData *pkvd )
@@ -1356,10 +1356,10 @@ LINK_ENTITY_TO_CLASS( trigger_changelevel, CChangeLevel );
 
 // Global Savedata for changelevel trigger
 BEGIN_DATADESC(	CChangeLevel )
-	DEFINE_ARRAY( CChangeLevel, m_szMapName, FIELD_CHARACTER, cchMapNameMost ),
-	DEFINE_ARRAY( CChangeLevel, m_szLandmarkName, FIELD_CHARACTER, cchMapNameMost ),
-	DEFINE_FIELD( CChangeLevel, m_changeTarget, FIELD_STRING ),
-	DEFINE_FIELD( CChangeLevel, m_changeTargetDelay, FIELD_FLOAT ),
+	DEFINE_ARRAY( m_szMapName, FIELD_CHARACTER, cchMapNameMost ),
+	DEFINE_ARRAY( m_szLandmarkName, FIELD_CHARACTER, cchMapNameMost ),
+	DEFINE_FIELD( m_changeTarget, FIELD_STRING ),
+	DEFINE_FIELD( m_changeTargetDelay, FIELD_FLOAT ),
 END_DATADESC()
 
 //
@@ -2109,7 +2109,7 @@ private:
 LINK_ENTITY_TO_CLASS( trigger_changetarget, CTriggerChangeTarget );
 
 BEGIN_DATADESC(	CTriggerChangeTarget )
-	DEFINE_FIELD( CTriggerChangeTarget, m_iszNewTarget, FIELD_STRING ),
+	DEFINE_FIELD( m_iszNewTarget, FIELD_STRING ),
 END_DATADESC()
 
 void CTriggerChangeTarget::KeyValue( KeyValueData *pkvd )
@@ -2183,19 +2183,19 @@ LINK_ENTITY_TO_CLASS( trigger_camera, CTriggerCamera );
 
 // Global Savedata for changelevel friction modifier
 BEGIN_DATADESC(	CTriggerCamera )
-	DEFINE_FIELD( CTriggerCamera, m_hPlayer, FIELD_EHANDLE ),
-	DEFINE_FIELD( CTriggerCamera, m_hTarget, FIELD_EHANDLE ),
-	DEFINE_FIELD( CTriggerCamera, m_pentPath, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CTriggerCamera, m_sPath, FIELD_STRING ),
-	DEFINE_FIELD( CTriggerCamera, m_flWait, FIELD_FLOAT ),
-	DEFINE_FIELD( CTriggerCamera, m_flReturnTime, FIELD_TIME ),
-	DEFINE_FIELD( CTriggerCamera, m_flStopTime, FIELD_TIME ),
-	DEFINE_FIELD( CTriggerCamera, m_moveDistance, FIELD_FLOAT ),
-	DEFINE_FIELD( CTriggerCamera, m_targetSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CTriggerCamera, m_initialSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CTriggerCamera, m_acceleration, FIELD_FLOAT ),
-	DEFINE_FIELD( CTriggerCamera, m_deceleration, FIELD_FLOAT ),
-	DEFINE_FIELD( CTriggerCamera, m_state, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_hPlayer, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_hTarget, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_pentPath, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_sPath, FIELD_STRING ),
+	DEFINE_FIELD( m_flWait, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flReturnTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flStopTime, FIELD_TIME ),
+	DEFINE_FIELD( m_moveDistance, FIELD_FLOAT ),
+	DEFINE_FIELD( m_targetSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_initialSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_acceleration, FIELD_FLOAT ),
+	DEFINE_FIELD( m_deceleration, FIELD_FLOAT ),
+	DEFINE_FIELD( m_state, FIELD_BOOLEAN ),
 END_DATADESC()
 
 void CTriggerCamera::Spawn( void )

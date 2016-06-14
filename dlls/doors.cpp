@@ -77,14 +77,14 @@ public:
 
 
 BEGIN_DATADESC(	CBaseDoor )
-	DEFINE_FIELD( CBaseDoor, m_bHealthValue, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBaseDoor, m_bMoveSnd, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBaseDoor, m_bStopSnd, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bHealthValue, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bMoveSnd, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bStopSnd, FIELD_CHARACTER ),
 	
-	DEFINE_FIELD( CBaseDoor, m_bLockedSound, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBaseDoor, m_bLockedSentence, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBaseDoor, m_bUnlockedSound, FIELD_CHARACTER ),	
-	DEFINE_FIELD( CBaseDoor, m_bUnlockedSentence, FIELD_CHARACTER ),	
+	DEFINE_FIELD( m_bLockedSound, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bLockedSentence, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bUnlockedSound, FIELD_CHARACTER ),	
+	DEFINE_FIELD( m_bUnlockedSentence, FIELD_CHARACTER ),	
 END_DATADESC()
 
 #define DOOR_SENTENCEWAIT	6
@@ -901,7 +901,7 @@ public:
 LINK_ENTITY_TO_CLASS( momentary_door, CMomentaryDoor );
 
 BEGIN_DATADESC(	CMomentaryDoor )
-	DEFINE_FIELD( CMomentaryDoor, m_bMoveSnd, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bMoveSnd, FIELD_CHARACTER ),
 END_DATADESC()
 
 void CMomentaryDoor::Spawn( void )

@@ -43,8 +43,8 @@ private:
 LINK_ENTITY_TO_CLASS( light, CLight );
 
 BEGIN_DATADESC( CLight )
-	DEFINE_FIELD( CLight, m_iStyle, FIELD_INTEGER ),
-	DEFINE_FIELD( CLight, m_iszPattern, FIELD_STRING ),
+	DEFINE_FIELD( m_iStyle, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iszPattern, FIELD_STRING ),
 END_DATADESC()
 
 

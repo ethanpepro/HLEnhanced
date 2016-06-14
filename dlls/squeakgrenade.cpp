@@ -74,12 +74,12 @@ float CSqueakGrenade::m_flNextBounceSoundTime = 0;
 LINK_ENTITY_TO_CLASS( monster_snark, CSqueakGrenade );
 
 BEGIN_DATADESC(	CSqueakGrenade )
-	DEFINE_FIELD( CSqueakGrenade, m_flDie, FIELD_TIME ),
-	DEFINE_FIELD( CSqueakGrenade, m_vecTarget, FIELD_VECTOR ),
-	DEFINE_FIELD( CSqueakGrenade, m_flNextHunt, FIELD_TIME ),
-	DEFINE_FIELD( CSqueakGrenade, m_flNextHit, FIELD_TIME ),
-	DEFINE_FIELD( CSqueakGrenade, m_posPrev, FIELD_POSITION_VECTOR ),
-	DEFINE_FIELD( CSqueakGrenade, m_hOwner, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_flDie, FIELD_TIME ),
+	DEFINE_FIELD( m_vecTarget, FIELD_VECTOR ),
+	DEFINE_FIELD( m_flNextHunt, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextHit, FIELD_TIME ),
+	DEFINE_FIELD( m_posPrev, FIELD_POSITION_VECTOR ),
+	DEFINE_FIELD( m_hOwner, FIELD_EHANDLE ),
 END_DATADESC()
 
 #define SQUEEK_DETONATE_DELAY	15.0

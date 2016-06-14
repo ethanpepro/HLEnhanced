@@ -49,7 +49,7 @@ private:
 };
 
 BEGIN_DATADESC(	CRuleEntity )
-	DEFINE_FIELD( CRuleEntity, m_iszMaster, FIELD_STRING),
+	DEFINE_FIELD( m_iszMaster, FIELD_STRING),
 END_DATADESC()
 
 
@@ -244,7 +244,7 @@ LINK_ENTITY_TO_CLASS( game_text, CGameText );
 // Save parms as a block.  Will break save/restore if the structure changes, but this entity didn't ship with Half-Life, so
 // it can't impact saved Half-Life games.
 BEGIN_DATADESC(	CGameText )
-	DEFINE_ARRAY( CGameText, m_textParms, FIELD_CHARACTER, sizeof(hudtextparms_t) ),
+	DEFINE_ARRAY( m_textParms, FIELD_CHARACTER, sizeof(hudtextparms_t) ),
 END_DATADESC()
 
 
@@ -519,10 +519,10 @@ private:
 LINK_ENTITY_TO_CLASS( game_zone_player, CGamePlayerZone );
 
 BEGIN_DATADESC(	CGamePlayerZone )
-	DEFINE_FIELD( CGamePlayerZone, m_iszInTarget, FIELD_STRING ),
-	DEFINE_FIELD( CGamePlayerZone, m_iszOutTarget, FIELD_STRING ),
-	DEFINE_FIELD( CGamePlayerZone, m_iszInCount, FIELD_STRING ),
-	DEFINE_FIELD( CGamePlayerZone, m_iszOutCount, FIELD_STRING ),
+	DEFINE_FIELD( m_iszInTarget, FIELD_STRING ),
+	DEFINE_FIELD( m_iszOutTarget, FIELD_STRING ),
+	DEFINE_FIELD( m_iszInCount, FIELD_STRING ),
+	DEFINE_FIELD( m_iszOutCount, FIELD_STRING ),
 END_DATADESC()
 
 void CGamePlayerZone::KeyValue( KeyValueData *pkvd )

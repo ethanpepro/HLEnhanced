@@ -298,11 +298,11 @@ public:
 };
 
 BEGIN_DATADESC(	CFuncRotating )
-	DEFINE_FIELD( CFuncRotating, m_flFanFriction, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncRotating, m_flAttenuation, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncRotating, m_flVolume, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncRotating, m_pitch, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncRotating, m_sounds, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flFanFriction, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flAttenuation, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flVolume, FIELD_FLOAT ),
+	DEFINE_FIELD( m_pitch, FIELD_FLOAT ),
+	DEFINE_FIELD( m_sounds, FIELD_INTEGER ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_rotating, CFuncRotating );
@@ -747,14 +747,14 @@ public:
 LINK_ENTITY_TO_CLASS( func_pendulum, CPendulum );
 
 BEGIN_DATADESC(	CPendulum )
-	DEFINE_FIELD( CPendulum, m_accel, FIELD_FLOAT ),
-	DEFINE_FIELD( CPendulum, m_distance, FIELD_FLOAT ),
-	DEFINE_FIELD( CPendulum, m_time, FIELD_TIME ),
-	DEFINE_FIELD( CPendulum, m_damp, FIELD_FLOAT ),
-	DEFINE_FIELD( CPendulum, m_maxSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CPendulum, m_dampSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CPendulum, m_center, FIELD_VECTOR ),
-	DEFINE_FIELD( CPendulum, m_start, FIELD_VECTOR ),
+	DEFINE_FIELD( m_accel, FIELD_FLOAT ),
+	DEFINE_FIELD( m_distance, FIELD_FLOAT ),
+	DEFINE_FIELD( m_time, FIELD_TIME ),
+	DEFINE_FIELD( m_damp, FIELD_FLOAT ),
+	DEFINE_FIELD( m_maxSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_dampSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_center, FIELD_VECTOR ),
+	DEFINE_FIELD( m_start, FIELD_VECTOR ),
 END_DATADESC()
 
 void CPendulum :: KeyValue( KeyValueData *pkvd )

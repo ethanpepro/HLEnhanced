@@ -97,15 +97,15 @@ LINK_ENTITY_TO_CLASS( monster_vortigaunt, CISlave );
 
 
 BEGIN_DATADESC(	CISlave )
-	DEFINE_FIELD( CISlave, m_iBravery, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iBravery, FIELD_INTEGER ),
 
-	DEFINE_ARRAY( CISlave, m_pBeam, FIELD_CLASSPTR, ISLAVE_MAX_BEAMS ),
-	DEFINE_FIELD( CISlave, m_iBeams, FIELD_INTEGER ),
-	DEFINE_FIELD( CISlave, m_flNextAttack, FIELD_TIME ),
+	DEFINE_ARRAY( m_pBeam, FIELD_CLASSPTR, ISLAVE_MAX_BEAMS ),
+	DEFINE_FIELD( m_iBeams, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flNextAttack, FIELD_TIME ),
 
-	DEFINE_FIELD( CISlave, m_voicePitch, FIELD_INTEGER ),
+	DEFINE_FIELD( m_voicePitch, FIELD_INTEGER ),
 
-	DEFINE_FIELD( CISlave, m_hDead, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_hDead, FIELD_EHANDLE ),
 END_DATADESC()
 
 const char *CISlave::pAttackHitSounds[] = 

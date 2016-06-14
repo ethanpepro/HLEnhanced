@@ -136,7 +136,7 @@ __BEGIN_DATADESC( thisClass )
 *	Ends the data descriptor.
 */
 #define END_DATADESC()											\
-		DEFINE_FIELD( ThisClass, m_DataMap, FIELD_CHARACTER )	\
+		DEFINE_FIELD( m_DataMap, FIELD_CHARACTER )	\
 	};															\
 																\
 	DataMap_t* pDataMap = &ThisClass::m_DataMap;				\

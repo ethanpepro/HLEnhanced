@@ -361,14 +361,14 @@ GLOBALESTATE CGlobalState :: EntityGetState( string_t globalname )
 
 // Global Savedata for Delay
 BEGIN_DATADESC_NOBASE( CGlobalState )
-	DEFINE_FIELD( CGlobalState, m_listCount, FIELD_INTEGER ),
+	DEFINE_FIELD( m_listCount, FIELD_INTEGER ),
 END_DATADESC()
 
 // Global Savedata for Delay
 BEGIN_DATADESC_NOBASE( globalentity_t )
-	DEFINE_ARRAY( globalentity_t, name, FIELD_CHARACTER, 64 ),
-	DEFINE_ARRAY( globalentity_t, levelName, FIELD_CHARACTER, 32 ),
-	DEFINE_FIELD( globalentity_t, state, FIELD_INTEGER ),
+	DEFINE_ARRAY( name, FIELD_CHARACTER, 64 ),
+	DEFINE_ARRAY( levelName, FIELD_CHARACTER, 32 ),
+	DEFINE_FIELD( state, FIELD_INTEGER ),
 END_DATADESC()
 
 bool CGlobalState::Save( CSave &save )

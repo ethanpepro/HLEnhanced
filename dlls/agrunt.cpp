@@ -124,12 +124,12 @@ public:
 LINK_ENTITY_TO_CLASS( monster_alien_grunt, CAGrunt );
 
 BEGIN_DATADESC(	CAGrunt )
-	DEFINE_FIELD( CAGrunt, m_fCanHornetAttack, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CAGrunt, m_flNextHornetAttackCheck, FIELD_TIME ),
-	DEFINE_FIELD( CAGrunt, m_flNextPainTime, FIELD_TIME ),
-	DEFINE_FIELD( CAGrunt, m_flNextSpeakTime, FIELD_TIME ),
-	DEFINE_FIELD( CAGrunt, m_flNextWordTime, FIELD_TIME ),
-	DEFINE_FIELD( CAGrunt, m_iLastWord, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fCanHornetAttack, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flNextHornetAttackCheck, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextPainTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextSpeakTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextWordTime, FIELD_TIME ),
+	DEFINE_FIELD( m_iLastWord, FIELD_INTEGER ),
 END_DATADESC()
 
 const char *CAGrunt::pAttackHitSounds[] = 

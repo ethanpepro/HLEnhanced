@@ -134,34 +134,34 @@ public:
 
 
 BEGIN_DATADESC(	CBaseTurret )
-	DEFINE_FIELD( CBaseTurret, m_flMaxSpin, FIELD_FLOAT ),
-	DEFINE_FIELD( CBaseTurret, m_iSpin, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flMaxSpin, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iSpin, FIELD_INTEGER ),
 
-	DEFINE_FIELD( CBaseTurret, m_pEyeGlow, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CBaseTurret, m_eyeBrightness, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseTurret, m_iDeployHeight, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseTurret, m_iRetractHeight, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseTurret, m_iMinPitch, FIELD_INTEGER ),
+	DEFINE_FIELD( m_pEyeGlow, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_eyeBrightness, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iDeployHeight, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iRetractHeight, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iMinPitch, FIELD_INTEGER ),
 
-	DEFINE_FIELD( CBaseTurret, m_iBaseTurnRate, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseTurret, m_fTurnRate, FIELD_FLOAT ),
-	DEFINE_FIELD( CBaseTurret, m_iOrientation, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseTurret, m_bOn, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CBaseTurret, m_fBeserk, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CBaseTurret, m_bAutoStart, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_iBaseTurnRate, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fTurnRate, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iOrientation, FIELD_INTEGER ),
+	DEFINE_FIELD( m_bOn, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fBeserk, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_bAutoStart, FIELD_BOOLEAN ),
 
 
-	DEFINE_FIELD( CBaseTurret, m_vecLastSight, FIELD_POSITION_VECTOR ),
-	DEFINE_FIELD( CBaseTurret, m_flLastSight, FIELD_TIME ),
-	DEFINE_FIELD( CBaseTurret, m_flMaxWait, FIELD_FLOAT ),
-	DEFINE_FIELD( CBaseTurret, m_iSearchSpeed, FIELD_INTEGER ),
+	DEFINE_FIELD( m_vecLastSight, FIELD_POSITION_VECTOR ),
+	DEFINE_FIELD( m_flLastSight, FIELD_TIME ),
+	DEFINE_FIELD( m_flMaxWait, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iSearchSpeed, FIELD_INTEGER ),
 
-	DEFINE_FIELD( CBaseTurret, m_flStartYaw, FIELD_FLOAT ),
-	DEFINE_FIELD( CBaseTurret, m_vecCurAngles, FIELD_VECTOR ),
-	DEFINE_FIELD( CBaseTurret, m_vecGoalAngles, FIELD_VECTOR ),
+	DEFINE_FIELD( m_flStartYaw, FIELD_FLOAT ),
+	DEFINE_FIELD( m_vecCurAngles, FIELD_VECTOR ),
+	DEFINE_FIELD( m_vecGoalAngles, FIELD_VECTOR ),
 
-	DEFINE_FIELD( CBaseTurret, m_flPingTime, FIELD_TIME ),
-	DEFINE_FIELD( CBaseTurret, m_flSpinUpTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flPingTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flSpinUpTime, FIELD_TIME ),
 END_DATADESC()
 
 class CTurret : public CBaseTurret
@@ -184,7 +184,7 @@ private:
 
 };
 BEGIN_DATADESC(	CTurret )
-	DEFINE_FIELD( CTurret, m_iStartSpin, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iStartSpin, FIELD_INTEGER ),
 END_DATADESC()
 
 

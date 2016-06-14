@@ -49,9 +49,9 @@ public:
 };
 
 BEGIN_DATADESC(	CBasePlatTrain )
-	DEFINE_FIELD( CBasePlatTrain, m_bMoveSnd, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBasePlatTrain, m_bStopSnd, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBasePlatTrain, m_volume, FIELD_FLOAT ),
+	DEFINE_FIELD( m_bMoveSnd, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bStopSnd, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_volume, FIELD_FLOAT ),
 END_DATADESC()
 
 void CBasePlatTrain :: KeyValue( KeyValueData *pkvd )
@@ -534,8 +534,8 @@ public:
 LINK_ENTITY_TO_CLASS( func_platrot, CFuncPlatRot );
 
 BEGIN_DATADESC(	CFuncPlatRot )
-	DEFINE_FIELD( CFuncPlatRot, m_end, FIELD_VECTOR ),
-	DEFINE_FIELD( CFuncPlatRot, m_start, FIELD_VECTOR ),
+	DEFINE_FIELD( m_end, FIELD_VECTOR ),
+	DEFINE_FIELD( m_start, FIELD_VECTOR ),
 END_DATADESC()
 
 
@@ -651,9 +651,9 @@ public:
 LINK_ENTITY_TO_CLASS( func_train, CFuncTrain );
 
 BEGIN_DATADESC(	CFuncTrain )
-	DEFINE_FIELD( CFuncTrain, m_sounds, FIELD_INTEGER ),
-	DEFINE_FIELD( CFuncTrain, m_pevCurrentTarget, FIELD_EVARS ),
-	DEFINE_FIELD( CFuncTrain, m_activated, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_sounds, FIELD_INTEGER ),
+	DEFINE_FIELD( m_pevCurrentTarget, FIELD_EVARS ),
+	DEFINE_FIELD( m_activated, FIELD_BOOLEAN ),
 END_DATADESC()
 
 
@@ -933,18 +933,18 @@ void CFuncTrain::OverrideReset( void )
 // ---------------------------------------------------------------------
 
 BEGIN_DATADESC(	CFuncTrackTrain )
-	DEFINE_FIELD( CFuncTrackTrain, m_ppath, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CFuncTrackTrain, m_length, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTrackTrain, m_height, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTrackTrain, m_speed, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTrackTrain, m_dir, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTrackTrain, m_startSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTrackTrain, m_controlMins, FIELD_VECTOR ),
-	DEFINE_FIELD( CFuncTrackTrain, m_controlMaxs, FIELD_VECTOR ),
-	DEFINE_FIELD( CFuncTrackTrain, m_sounds, FIELD_INTEGER ),
-	DEFINE_FIELD( CFuncTrackTrain, m_flVolume, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTrackTrain, m_flBank, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTrackTrain, m_oldSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_ppath, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_length, FIELD_FLOAT ),
+	DEFINE_FIELD( m_height, FIELD_FLOAT ),
+	DEFINE_FIELD( m_speed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_dir, FIELD_FLOAT ),
+	DEFINE_FIELD( m_startSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_controlMins, FIELD_VECTOR ),
+	DEFINE_FIELD( m_controlMaxs, FIELD_VECTOR ),
+	DEFINE_FIELD( m_sounds, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flVolume, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flBank, FIELD_FLOAT ),
+	DEFINE_FIELD( m_oldSpeed, FIELD_FLOAT ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_tracktrain, CFuncTrackTrain );
@@ -1658,15 +1658,15 @@ public:
 LINK_ENTITY_TO_CLASS( func_trackchange, CFuncTrackChange );
 
 BEGIN_DATADESC(	CFuncTrackChange )
-	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_trackTop, FIELD_CLASSPTR ),
-	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_trackBottom, FIELD_CLASSPTR ),
-	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_train, FIELD_CLASSPTR ),
-	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_trackTopName, FIELD_STRING ),
-	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_trackBottomName, FIELD_STRING ),
-	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_trainName, FIELD_STRING ),
-	DEFINE_FIELD( CFuncTrackChange, m_code, FIELD_INTEGER ),
-	DEFINE_FIELD( CFuncTrackChange, m_targetState, FIELD_INTEGER ),
-	DEFINE_FIELD( CFuncTrackChange, m_use, FIELD_INTEGER ),
+	DEFINE_GLOBAL_FIELD( m_trackTop, FIELD_CLASSPTR ),
+	DEFINE_GLOBAL_FIELD( m_trackBottom, FIELD_CLASSPTR ),
+	DEFINE_GLOBAL_FIELD( m_train, FIELD_CLASSPTR ),
+	DEFINE_GLOBAL_FIELD( m_trackTopName, FIELD_STRING ),
+	DEFINE_GLOBAL_FIELD( m_trackBottomName, FIELD_STRING ),
+	DEFINE_GLOBAL_FIELD( m_trainName, FIELD_STRING ),
+	DEFINE_FIELD( m_code, FIELD_INTEGER ),
+	DEFINE_FIELD( m_targetState, FIELD_INTEGER ),
+	DEFINE_FIELD( m_use, FIELD_INTEGER ),
 END_DATADESC()
 
 void CFuncTrackChange :: Spawn( void )
@@ -2126,7 +2126,7 @@ private:
 LINK_ENTITY_TO_CLASS( func_guntarget, CGunTarget );
 
 BEGIN_DATADESC(	CGunTarget )
-	DEFINE_FIELD( CGunTarget, m_on, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_on, FIELD_BOOLEAN ),
 END_DATADESC()
 
 void CGunTarget::Spawn( void )

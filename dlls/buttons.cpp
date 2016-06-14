@@ -54,9 +54,9 @@ public:
 };
 
 BEGIN_DATADESC( CEnvGlobal )
-	DEFINE_FIELD( CEnvGlobal, m_globalstate, FIELD_STRING ),
-	DEFINE_FIELD( CEnvGlobal, m_triggermode, FIELD_INTEGER ),
-	DEFINE_FIELD( CEnvGlobal, m_initialstate, FIELD_INTEGER ),
+	DEFINE_FIELD( m_globalstate, FIELD_STRING ),
+	DEFINE_FIELD( m_triggermode, FIELD_INTEGER ),
+	DEFINE_FIELD( m_initialstate, FIELD_INTEGER ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( env_global, CEnvGlobal );
@@ -127,10 +127,10 @@ void CEnvGlobal::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 
 BEGIN_DATADESC( CMultiSource )
 	//!!!BUGBUG FIX
-	DEFINE_ARRAY( CMultiSource, m_rgEntities, FIELD_EHANDLE, MS_MAX_TARGETS ),
-	DEFINE_ARRAY( CMultiSource, m_rgTriggered, FIELD_INTEGER, MS_MAX_TARGETS ),
-	DEFINE_FIELD( CMultiSource, m_iTotal, FIELD_INTEGER ),
-	DEFINE_FIELD( CMultiSource, m_globalstate, FIELD_STRING ),
+	DEFINE_ARRAY( m_rgEntities, FIELD_EHANDLE, MS_MAX_TARGETS ),
+	DEFINE_ARRAY( m_rgTriggered, FIELD_INTEGER, MS_MAX_TARGETS ),
+	DEFINE_FIELD( m_iTotal, FIELD_INTEGER ),
+	DEFINE_FIELD( m_globalstate, FIELD_STRING ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( multisource, CMultiSource );
@@ -263,16 +263,16 @@ void CMultiSource::Register(void)
 
 // CBaseButton
 BEGIN_DATADESC( CBaseButton )
-	DEFINE_FIELD( CBaseButton, m_fStayPushed, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CBaseButton, m_fRotating, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fStayPushed, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fRotating, FIELD_BOOLEAN ),
 
-	DEFINE_FIELD( CBaseButton, m_sounds, FIELD_INTEGER ),
-	DEFINE_FIELD( CBaseButton, m_bLockedSound, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBaseButton, m_bLockedSentence, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBaseButton, m_bUnlockedSound, FIELD_CHARACTER ),	
-	DEFINE_FIELD( CBaseButton, m_bUnlockedSentence, FIELD_CHARACTER ),
-	DEFINE_FIELD( CBaseButton, m_strChangeTarget, FIELD_STRING ),
-//	DEFINE_FIELD( CBaseButton, m_ls, FIELD_??? ),   // This is restored in Precache()
+	DEFINE_FIELD( m_sounds, FIELD_INTEGER ),
+	DEFINE_FIELD( m_bLockedSound, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bLockedSentence, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_bUnlockedSound, FIELD_CHARACTER ),	
+	DEFINE_FIELD( m_bUnlockedSentence, FIELD_CHARACTER ),
+	DEFINE_FIELD( m_strChangeTarget, FIELD_STRING ),
+//	DEFINE_FIELD( m_ls, FIELD_??? ),   // This is restored in Precache()
 END_DATADESC()
 
 void CBaseButton::Precache( void )
@@ -899,12 +899,12 @@ public:
 };
 
 BEGIN_DATADESC( CMomentaryRotButton )
-	DEFINE_FIELD( CMomentaryRotButton, m_lastUsed, FIELD_INTEGER ),
-	DEFINE_FIELD( CMomentaryRotButton, m_direction, FIELD_INTEGER ),
-	DEFINE_FIELD( CMomentaryRotButton, m_returnSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CMomentaryRotButton, m_start, FIELD_VECTOR ),
-	DEFINE_FIELD( CMomentaryRotButton, m_end, FIELD_VECTOR ),
-	DEFINE_FIELD( CMomentaryRotButton, m_sounds, FIELD_INTEGER ),
+	DEFINE_FIELD( m_lastUsed, FIELD_INTEGER ),
+	DEFINE_FIELD( m_direction, FIELD_INTEGER ),
+	DEFINE_FIELD( m_returnSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_start, FIELD_VECTOR ),
+	DEFINE_FIELD( m_end, FIELD_VECTOR ),
+	DEFINE_FIELD( m_sounds, FIELD_INTEGER ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( momentary_rot_button, CMomentaryRotButton );
@@ -1127,7 +1127,7 @@ public:
 
 
 BEGIN_DATADESC( CEnvSpark )
-	DEFINE_FIELD( CEnvSpark, m_flDelay, FIELD_FLOAT),
+	DEFINE_FIELD( m_flDelay, FIELD_FLOAT),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS(env_spark, CEnvSpark);

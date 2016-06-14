@@ -145,18 +145,18 @@ private:
 LINK_ENTITY_TO_CLASS( monster_leech, CLeech );
 
 BEGIN_DATADESC(	CLeech )
-	DEFINE_FIELD( CLeech, m_flTurning, FIELD_FLOAT ),
-	DEFINE_FIELD( CLeech, m_fPathBlocked, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CLeech, m_flAccelerate, FIELD_FLOAT ),
-	DEFINE_FIELD( CLeech, m_obstacle, FIELD_FLOAT ),
-	DEFINE_FIELD( CLeech, m_top, FIELD_FLOAT ),
-	DEFINE_FIELD( CLeech, m_bottom, FIELD_FLOAT ),
-	DEFINE_FIELD( CLeech, m_height, FIELD_FLOAT ),
-	DEFINE_FIELD( CLeech, m_waterTime, FIELD_TIME ),
-	DEFINE_FIELD( CLeech, m_sideTime, FIELD_TIME ),
-	DEFINE_FIELD( CLeech, m_zTime, FIELD_TIME ),
-	DEFINE_FIELD( CLeech, m_stateTime, FIELD_TIME ),
-	DEFINE_FIELD( CLeech, m_attackSoundTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flTurning, FIELD_FLOAT ),
+	DEFINE_FIELD( m_fPathBlocked, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flAccelerate, FIELD_FLOAT ),
+	DEFINE_FIELD( m_obstacle, FIELD_FLOAT ),
+	DEFINE_FIELD( m_top, FIELD_FLOAT ),
+	DEFINE_FIELD( m_bottom, FIELD_FLOAT ),
+	DEFINE_FIELD( m_height, FIELD_FLOAT ),
+	DEFINE_FIELD( m_waterTime, FIELD_TIME ),
+	DEFINE_FIELD( m_sideTime, FIELD_TIME ),
+	DEFINE_FIELD( m_zTime, FIELD_TIME ),
+	DEFINE_FIELD( m_stateTime, FIELD_TIME ),
+	DEFINE_FIELD( m_attackSoundTime, FIELD_TIME ),
 END_DATADESC()
 
 

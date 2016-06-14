@@ -54,12 +54,12 @@ public:
 LINK_ENTITY_TO_CLASS( func_mortar_field, CFuncMortarField );
 
 BEGIN_DATADESC(	CFuncMortarField )
-	DEFINE_FIELD( CFuncMortarField, m_iszXController, FIELD_STRING ),
-	DEFINE_FIELD( CFuncMortarField, m_iszYController, FIELD_STRING ),
-	DEFINE_FIELD( CFuncMortarField, m_flSpread, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncMortarField, m_flDelay, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncMortarField, m_iCount, FIELD_INTEGER ),
-	DEFINE_FIELD( CFuncMortarField, m_fControl, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iszXController, FIELD_STRING ),
+	DEFINE_FIELD( m_iszYController, FIELD_STRING ),
+	DEFINE_FIELD( m_flSpread, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flDelay, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iCount, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fControl, FIELD_INTEGER ),
 END_DATADESC()
 
 void CFuncMortarField :: KeyValue( KeyValueData *pkvd )

@@ -56,11 +56,11 @@ public:
 LINK_ENTITY_TO_CLASS( env_bubbles, CBubbling );
 
 BEGIN_DATADESC(	CBubbling )
-	DEFINE_FIELD( CBubbling, m_density, FIELD_INTEGER ),
-	DEFINE_FIELD( CBubbling, m_frequency, FIELD_INTEGER ),
-	DEFINE_FIELD( CBubbling, m_state, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_density, FIELD_INTEGER ),
+	DEFINE_FIELD( m_frequency, FIELD_INTEGER ),
+	DEFINE_FIELD( m_state, FIELD_BOOLEAN ),
 	// Let spawn restore this!
-	//	DEFINE_FIELD( CBubbling, m_bubbleModel, FIELD_INTEGER ),
+	//	DEFINE_FIELD( m_bubbleModel, FIELD_INTEGER ),
 END_DATADESC()
 
 #define SF_BUBBLES_STARTOFF		0x0001
@@ -436,19 +436,19 @@ void CTripBeam::Spawn( void )
 
 
 BEGIN_DATADESC(	CLightning )
-	DEFINE_FIELD( CLightning, m_active, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CLightning, m_iszStartEntity, FIELD_STRING ),
-	DEFINE_FIELD( CLightning, m_iszEndEntity, FIELD_STRING ),
-	DEFINE_FIELD( CLightning, m_life, FIELD_FLOAT ),
-	DEFINE_FIELD( CLightning, m_boltWidth, FIELD_INTEGER ),
-	DEFINE_FIELD( CLightning, m_noiseAmplitude, FIELD_INTEGER ),
-	DEFINE_FIELD( CLightning, m_brightness, FIELD_INTEGER ),
-	DEFINE_FIELD( CLightning, m_speed, FIELD_INTEGER ),
-	DEFINE_FIELD( CLightning, m_restrike, FIELD_FLOAT ),
-	DEFINE_FIELD( CLightning, m_spriteTexture, FIELD_INTEGER ),
-	DEFINE_FIELD( CLightning, m_iszSpriteName, FIELD_STRING ),
-	DEFINE_FIELD( CLightning, m_frameStart, FIELD_INTEGER ),
-	DEFINE_FIELD( CLightning, m_radius, FIELD_FLOAT ),
+	DEFINE_FIELD( m_active, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_iszStartEntity, FIELD_STRING ),
+	DEFINE_FIELD( m_iszEndEntity, FIELD_STRING ),
+	DEFINE_FIELD( m_life, FIELD_FLOAT ),
+	DEFINE_FIELD( m_boltWidth, FIELD_INTEGER ),
+	DEFINE_FIELD( m_noiseAmplitude, FIELD_INTEGER ),
+	DEFINE_FIELD( m_brightness, FIELD_INTEGER ),
+	DEFINE_FIELD( m_speed, FIELD_INTEGER ),
+	DEFINE_FIELD( m_restrike, FIELD_FLOAT ),
+	DEFINE_FIELD( m_spriteTexture, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iszSpriteName, FIELD_STRING ),
+	DEFINE_FIELD( m_frameStart, FIELD_INTEGER ),
+	DEFINE_FIELD( m_radius, FIELD_FLOAT ),
 END_DATADESC()
 
 void CLightning::Spawn( void )
@@ -945,9 +945,9 @@ void CLightning::BeamUpdateVars( void )
 LINK_ENTITY_TO_CLASS( env_laser, CLaser );
 
 BEGIN_DATADESC(	CLaser )
-	DEFINE_FIELD( CLaser, m_pSprite, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CLaser, m_iszSpriteName, FIELD_STRING ),
-	DEFINE_FIELD( CLaser, m_firePosition, FIELD_POSITION_VECTOR ),
+	DEFINE_FIELD( m_pSprite, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_iszSpriteName, FIELD_STRING ),
+	DEFINE_FIELD( m_firePosition, FIELD_POSITION_VECTOR ),
 END_DATADESC()
 
 void CLaser::Spawn( void )
@@ -1121,8 +1121,8 @@ public:
 LINK_ENTITY_TO_CLASS( env_glow, CGlow );
 
 BEGIN_DATADESC(	CGlow )
-	DEFINE_FIELD( CGlow, m_lastTime, FIELD_TIME ),
-	DEFINE_FIELD( CGlow, m_maxFrame, FIELD_FLOAT ),
+	DEFINE_FIELD( m_lastTime, FIELD_TIME ),
+	DEFINE_FIELD( m_maxFrame, FIELD_FLOAT ),
 END_DATADESC()
 
 void CGlow::Spawn( void )
@@ -1162,8 +1162,8 @@ void CGlow::Animate( float frames )
 LINK_ENTITY_TO_CLASS( env_sprite, CSprite );
 
 BEGIN_DATADESC(	CSprite )
-	DEFINE_FIELD( CSprite, m_lastTime, FIELD_TIME ),
-	DEFINE_FIELD( CSprite, m_maxFrame, FIELD_FLOAT ),
+	DEFINE_FIELD( m_lastTime, FIELD_TIME ),
+	DEFINE_FIELD( m_maxFrame, FIELD_FLOAT ),
 END_DATADESC()
 
 void CSprite::Spawn( void )
@@ -1355,13 +1355,13 @@ public:
 };
 
 BEGIN_DATADESC( CGibShooter )
-	DEFINE_FIELD( CGibShooter, m_iGibs, FIELD_INTEGER ),
-	DEFINE_FIELD( CGibShooter, m_iGibCapacity, FIELD_INTEGER ),
-	DEFINE_FIELD( CGibShooter, m_iGibMaterial, FIELD_INTEGER ),
-	DEFINE_FIELD( CGibShooter, m_iGibModelIndex, FIELD_INTEGER ),
-	DEFINE_FIELD( CGibShooter, m_flGibVelocity, FIELD_FLOAT ),
-	DEFINE_FIELD( CGibShooter, m_flVariance, FIELD_FLOAT ),
-	DEFINE_FIELD( CGibShooter, m_flGibLife, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iGibs, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iGibCapacity, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iGibMaterial, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iGibModelIndex, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flGibVelocity, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flVariance, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flGibLife, FIELD_FLOAT ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( gibshooter, CGibShooter );

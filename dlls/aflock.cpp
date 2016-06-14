@@ -51,8 +51,8 @@ public:
 };
 
 BEGIN_DATADESC(	CFlockingFlyerFlock )
-	DEFINE_FIELD( CFlockingFlyerFlock, m_cFlockSize, FIELD_INTEGER ),
-	DEFINE_FIELD( CFlockingFlyerFlock, m_flFlockRadius, FIELD_FLOAT ),
+	DEFINE_FIELD( m_cFlockSize, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flFlockRadius, FIELD_FLOAT ),
 END_DATADESC()
 
 //=========================================================
@@ -109,18 +109,18 @@ LINK_ENTITY_TO_CLASS( monster_flyer_flock, CFlockingFlyerFlock );
 
 
 BEGIN_DATADESC(	CFlockingFlyer )
-	DEFINE_FIELD( CFlockingFlyer, m_pSquadLeader, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CFlockingFlyer, m_pSquadNext, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CFlockingFlyer, m_fTurning, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CFlockingFlyer, m_fCourseAdjust, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CFlockingFlyer, m_fPathBlocked, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CFlockingFlyer, m_vecReferencePoint, FIELD_POSITION_VECTOR ),
-	DEFINE_FIELD( CFlockingFlyer, m_vecAdjustedVelocity, FIELD_VECTOR ),
-	DEFINE_FIELD( CFlockingFlyer, m_flGoalSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CFlockingFlyer, m_flLastBlockedTime, FIELD_TIME ),
-	DEFINE_FIELD( CFlockingFlyer, m_flFakeBlockedTime, FIELD_TIME ),
-	DEFINE_FIELD( CFlockingFlyer, m_flAlertTime, FIELD_TIME ),
-//	DEFINE_FIELD( CFlockingFlyer, m_flFlockNextSoundTime, FIELD_TIME ),	// don't need to save
+	DEFINE_FIELD( m_pSquadLeader, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_pSquadNext, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_fTurning, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fCourseAdjust, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fPathBlocked, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_vecReferencePoint, FIELD_POSITION_VECTOR ),
+	DEFINE_FIELD( m_vecAdjustedVelocity, FIELD_VECTOR ),
+	DEFINE_FIELD( m_flGoalSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flLastBlockedTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flFakeBlockedTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flAlertTime, FIELD_TIME ),
+//	DEFINE_FIELD( m_flFlockNextSoundTime, FIELD_TIME ),	// don't need to save
 END_DATADESC()
 
 //=========================================================

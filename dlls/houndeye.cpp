@@ -112,10 +112,10 @@ public:
 LINK_ENTITY_TO_CLASS( monster_houndeye, CHoundeye );
 
 BEGIN_DATADESC(	CHoundeye )
-	DEFINE_FIELD( CHoundeye, m_iSpriteTexture, FIELD_INTEGER ),
-	DEFINE_FIELD( CHoundeye, m_fAsleep, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CHoundeye, m_fDontBlink, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CHoundeye, m_vecPackCenter, FIELD_POSITION_VECTOR ),
+	DEFINE_FIELD( m_iSpriteTexture, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fAsleep, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fDontBlink, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_vecPackCenter, FIELD_POSITION_VECTOR ),
 END_DATADESC()
 
 //=========================================================

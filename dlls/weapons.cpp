@@ -1220,10 +1220,10 @@ float CBasePlayerWeapon::GetNextAttackDelay( float delay )
 LINK_ENTITY_TO_CLASS( weaponbox, CWeaponBox );
 
 BEGIN_DATADESC(	CWeaponBox )
-	DEFINE_ARRAY( CWeaponBox, m_rgAmmo, FIELD_INTEGER, MAX_AMMO_SLOTS ),
-	DEFINE_ARRAY( CWeaponBox, m_rgiszAmmo, FIELD_STRING, MAX_AMMO_SLOTS ),
-	DEFINE_ARRAY( CWeaponBox, m_rgpPlayerItems, FIELD_CLASSPTR, MAX_ITEM_TYPES ),
-	DEFINE_FIELD( CWeaponBox, m_cAmmoTypes, FIELD_INTEGER ),
+	DEFINE_ARRAY( m_rgAmmo, FIELD_INTEGER, MAX_AMMO_SLOTS ),
+	DEFINE_ARRAY( m_rgiszAmmo, FIELD_STRING, MAX_AMMO_SLOTS ),
+	DEFINE_ARRAY( m_rgpPlayerItems, FIELD_CLASSPTR, MAX_ITEM_TYPES ),
+	DEFINE_FIELD( m_cAmmoTypes, FIELD_INTEGER ),
 END_DATADESC()
 
 //=========================================================
@@ -1552,42 +1552,42 @@ void CBasePlayerWeapon::PrintState( void )
 
 
 BEGIN_DATADESC(	CRpg )
-	DEFINE_FIELD( CRpg, m_fSpotActive, FIELD_INTEGER ),
-	DEFINE_FIELD( CRpg, m_cActiveRockets, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fSpotActive, FIELD_INTEGER ),
+	DEFINE_FIELD( m_cActiveRockets, FIELD_INTEGER ),
 END_DATADESC()
 
 BEGIN_DATADESC(	CRpgRocket )
-	DEFINE_FIELD( CRpgRocket, m_flIgniteTime, FIELD_TIME ),
-	DEFINE_FIELD( CRpgRocket, m_pLauncher, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_flIgniteTime, FIELD_TIME ),
+	DEFINE_FIELD( m_pLauncher, FIELD_CLASSPTR ),
 END_DATADESC()
 
 BEGIN_DATADESC(	CShotgun )
-	DEFINE_FIELD( CShotgun, m_flNextReload, FIELD_TIME ),
-	DEFINE_FIELD( CShotgun, m_fInSpecialReload, FIELD_INTEGER ),
-	DEFINE_FIELD( CShotgun, m_flNextReload, FIELD_TIME ),
-	// DEFINE_FIELD( CShotgun, m_iShell, FIELD_INTEGER ),
-	DEFINE_FIELD( CShotgun, m_flPumpTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextReload, FIELD_TIME ),
+	DEFINE_FIELD( m_fInSpecialReload, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flNextReload, FIELD_TIME ),
+	// DEFINE_FIELD( m_iShell, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flPumpTime, FIELD_TIME ),
 END_DATADESC()
 
 BEGIN_DATADESC(	CGauss )
-	DEFINE_FIELD( CGauss, m_fInAttack, FIELD_INTEGER ),
-//	DEFINE_FIELD( CGauss, m_flStartCharge, FIELD_TIME ),
-//	DEFINE_FIELD( CGauss, m_flPlayAftershock, FIELD_TIME ),
-//	DEFINE_FIELD( CGauss, m_flNextAmmoBurn, FIELD_TIME ),
-	DEFINE_FIELD( CGauss, m_fPrimaryFire, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fInAttack, FIELD_INTEGER ),
+//	DEFINE_FIELD( m_flStartCharge, FIELD_TIME ),
+//	DEFINE_FIELD( m_flPlayAftershock, FIELD_TIME ),
+//	DEFINE_FIELD( m_flNextAmmoBurn, FIELD_TIME ),
+	DEFINE_FIELD( m_fPrimaryFire, FIELD_BOOLEAN ),
 END_DATADESC()
 
 BEGIN_DATADESC(	CEgon )
-//	DEFINE_FIELD( CEgon, m_pBeam, FIELD_CLASSPTR ),
-//	DEFINE_FIELD( CEgon, m_pNoise, FIELD_CLASSPTR ),
-//	DEFINE_FIELD( CEgon, m_pSprite, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CEgon, m_shootTime, FIELD_TIME ),
-	DEFINE_FIELD( CEgon, m_fireState, FIELD_INTEGER ),
-	DEFINE_FIELD( CEgon, m_fireMode, FIELD_INTEGER ),
-	DEFINE_FIELD( CEgon, m_shakeTime, FIELD_TIME ),
-	DEFINE_FIELD( CEgon, m_flAmmoUseTime, FIELD_TIME ),
+//	DEFINE_FIELD( m_pBeam, FIELD_CLASSPTR ),
+//	DEFINE_FIELD( m_pNoise, FIELD_CLASSPTR ),
+//	DEFINE_FIELD( m_pSprite, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_shootTime, FIELD_TIME ),
+	DEFINE_FIELD( m_fireState, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fireMode, FIELD_INTEGER ),
+	DEFINE_FIELD( m_shakeTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flAmmoUseTime, FIELD_TIME ),
 END_DATADESC()
 
 BEGIN_DATADESC(	CSatchel )
-	DEFINE_FIELD( CSatchel, m_chargeReady, FIELD_INTEGER ),
+	DEFINE_FIELD( m_chargeReady, FIELD_INTEGER ),
 END_DATADESC()

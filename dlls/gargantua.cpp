@@ -278,15 +278,15 @@ private:
 LINK_ENTITY_TO_CLASS( monster_gargantua, CGargantua );
 
 BEGIN_DATADESC(	CGargantua ) 
-	DEFINE_FIELD( CGargantua, m_pEyeGlow, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CGargantua, m_eyeBrightness, FIELD_INTEGER ),
-	DEFINE_FIELD( CGargantua, m_seeTime, FIELD_TIME ),
-	DEFINE_FIELD( CGargantua, m_flameTime, FIELD_TIME ),
-	DEFINE_FIELD( CGargantua, m_streakTime, FIELD_TIME ),
-	DEFINE_FIELD( CGargantua, m_painSoundTime, FIELD_TIME ),
-	DEFINE_ARRAY( CGargantua, m_pFlame, FIELD_CLASSPTR, 4 ),
-	DEFINE_FIELD( CGargantua, m_flameX, FIELD_FLOAT ),
-	DEFINE_FIELD( CGargantua, m_flameY, FIELD_FLOAT ),
+	DEFINE_FIELD( m_pEyeGlow, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_eyeBrightness, FIELD_INTEGER ),
+	DEFINE_FIELD( m_seeTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flameTime, FIELD_TIME ),
+	DEFINE_FIELD( m_streakTime, FIELD_TIME ),
+	DEFINE_FIELD( m_painSoundTime, FIELD_TIME ),
+	DEFINE_ARRAY( m_pFlame, FIELD_CLASSPTR, 4 ),
+	DEFINE_FIELD( m_flameX, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flameY, FIELD_FLOAT ),
 END_DATADESC()
 
 const char *CGargantua::pAttackHitSounds[] = 

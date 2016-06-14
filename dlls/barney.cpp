@@ -90,11 +90,11 @@ public:
 LINK_ENTITY_TO_CLASS( monster_barney, CBarney );
 
 BEGIN_DATADESC(	CBarney )
-	DEFINE_FIELD( CBarney, m_fGunDrawn, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CBarney, m_painTime, FIELD_TIME ),
-	DEFINE_FIELD( CBarney, m_checkAttackTime, FIELD_TIME ),
-	DEFINE_FIELD( CBarney, m_lastAttackCheck, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CBarney, m_flPlayerDamage, FIELD_FLOAT ),
+	DEFINE_FIELD( m_fGunDrawn, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_painTime, FIELD_TIME ),
+	DEFINE_FIELD( m_checkAttackTime, FIELD_TIME ),
+	DEFINE_FIELD( m_lastAttackCheck, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flPlayerDamage, FIELD_FLOAT ),
 END_DATADESC()
 
 //=========================================================

@@ -53,7 +53,7 @@ public:
 LINK_ENTITY_TO_CLASS( info_bigmomma, CInfoBM );
 
 BEGIN_DATADESC(	CInfoBM )
-	DEFINE_FIELD( CInfoBM, m_preSequence, FIELD_STRING ),
+	DEFINE_FIELD( m_preSequence, FIELD_STRING ),
 END_DATADESC()
 
 void CInfoBM::Spawn( void )
@@ -113,7 +113,7 @@ public:
 LINK_ENTITY_TO_CLASS( bmortar, CBMortar );
 
 BEGIN_DATADESC(	CBMortar )
-	DEFINE_FIELD( CBMortar, m_maxFrame, FIELD_INTEGER ),
+	DEFINE_FIELD( m_maxFrame, FIELD_INTEGER ),
 END_DATADESC()
 
 
@@ -306,11 +306,11 @@ private:
 LINK_ENTITY_TO_CLASS( monster_bigmomma, CBigMomma );
 
 BEGIN_DATADESC(	CBigMomma )
-	DEFINE_FIELD( CBigMomma, m_nodeTime, FIELD_TIME ),
-	DEFINE_FIELD( CBigMomma, m_crabTime, FIELD_TIME ),
-	DEFINE_FIELD( CBigMomma, m_mortarTime, FIELD_TIME ),
-	DEFINE_FIELD( CBigMomma, m_painSoundTime, FIELD_TIME ),
-	DEFINE_FIELD( CBigMomma, m_crabCount, FIELD_INTEGER ),
+	DEFINE_FIELD( m_nodeTime, FIELD_TIME ),
+	DEFINE_FIELD( m_crabTime, FIELD_TIME ),
+	DEFINE_FIELD( m_mortarTime, FIELD_TIME ),
+	DEFINE_FIELD( m_painSoundTime, FIELD_TIME ),
+	DEFINE_FIELD( m_crabCount, FIELD_INTEGER ),
 END_DATADESC()
 
 const char *CBigMomma::pChildDieSounds[] = 

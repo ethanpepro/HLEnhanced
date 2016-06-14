@@ -53,7 +53,7 @@ public:
 };
 
 BEGIN_DATADESC(	CCycler )
-	DEFINE_FIELD( CCycler, m_animate, FIELD_INTEGER ),
+	DEFINE_FIELD( m_animate, FIELD_INTEGER ),
 END_DATADESC()
 
 
@@ -213,9 +213,9 @@ public:
 LINK_ENTITY_TO_CLASS( cycler_sprite, CCyclerSprite );
 
 BEGIN_DATADESC(	CCyclerSprite )
-	DEFINE_FIELD( CCyclerSprite, m_animate, FIELD_INTEGER ),
-	DEFINE_FIELD( CCyclerSprite, m_lastTime, FIELD_TIME ),
-	DEFINE_FIELD( CCyclerSprite, m_maxFrame, FIELD_FLOAT ),
+	DEFINE_FIELD( m_animate, FIELD_INTEGER ),
+	DEFINE_FIELD( m_lastTime, FIELD_TIME ),
+	DEFINE_FIELD( m_maxFrame, FIELD_FLOAT ),
 END_DATADESC()
 
 
@@ -376,7 +376,7 @@ public:
 };
 
 BEGIN_DATADESC(	CWreckage )
-	DEFINE_FIELD( CWreckage, m_flStartTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flStartTime, FIELD_TIME ),
 END_DATADESC()
 
 

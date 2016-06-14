@@ -41,7 +41,7 @@ LINK_ENTITY_TO_CLASS( path_corner, CPathCorner );
 
 // Global Savedata for Delay
 BEGIN_DATADESC(	CPathCorner )
-	DEFINE_FIELD( CPathCorner, m_flWait, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flWait, FIELD_FLOAT ),
 END_DATADESC()
 
 //
@@ -115,11 +115,11 @@ void CPathCorner :: Touch( CBaseEntity *pOther )
 
 
 BEGIN_DATADESC(	CPathTrack )
-	DEFINE_FIELD( CPathTrack, m_length, FIELD_FLOAT ),
-	DEFINE_FIELD( CPathTrack, m_pnext, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CPathTrack, m_paltpath, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CPathTrack, m_pprevious, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CPathTrack, m_altName, FIELD_STRING ),
+	DEFINE_FIELD( m_length, FIELD_FLOAT ),
+	DEFINE_FIELD( m_pnext, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_paltpath, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_pprevious, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_altName, FIELD_STRING ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( path_track, CPathTrack );

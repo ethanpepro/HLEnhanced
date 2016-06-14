@@ -100,8 +100,8 @@ public:
 };
 
 BEGIN_DATADESC(	CEnvExplosion )
-	DEFINE_FIELD( CEnvExplosion, m_iMagnitude, FIELD_INTEGER ),
-	DEFINE_FIELD( CEnvExplosion, m_spriteScale, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iMagnitude, FIELD_INTEGER ),
+	DEFINE_FIELD( m_spriteScale, FIELD_INTEGER ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( env_explosion, CEnvExplosion );

@@ -402,11 +402,11 @@ typedef enum _fieldtypes
 
 #define _FIELD(type,name,fieldtype,count,flags)				{ fieldtype, #name, offsetof(type, name), count, flags }
 #define _BASEENT_FIELD( name, fieldtype, count, flags )		_FIELD( ThisClass, name, fieldtype, count, flags )
-#define DEFINE_FIELD(type,name,fieldtype)					_BASEENT_FIELD( name, fieldtype, 1, 0)
-#define DEFINE_ARRAY(type,name,fieldtype,count)				_BASEENT_FIELD( name, fieldtype, count, 0)
+#define DEFINE_FIELD( name,fieldtype)						_BASEENT_FIELD( name, fieldtype, 1, 0)
+#define DEFINE_ARRAY( name,fieldtype,count)					_BASEENT_FIELD( name, fieldtype, count, 0)
 #define DEFINE_ENTITY_FIELD(name,fieldtype)					_FIELD(entvars_t, name, fieldtype, 1, 0 )
 #define DEFINE_ENTITY_GLOBAL_FIELD(name,fieldtype)			_FIELD(entvars_t, name, fieldtype, 1, FTYPEDESC_GLOBAL )
-#define DEFINE_GLOBAL_FIELD(type,name,fieldtype)			_BASEENT_FIELD( name, fieldtype, 1, FTYPEDESC_GLOBAL )
+#define DEFINE_GLOBAL_FIELD( name,fieldtype)				_BASEENT_FIELD( name, fieldtype, 1, FTYPEDESC_GLOBAL )
 
 
 #define FTYPEDESC_GLOBAL			0x0001		// This field is masked for global entity save/restore

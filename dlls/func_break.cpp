@@ -125,15 +125,15 @@ void CBreakable::KeyValue( KeyValueData* pkvd )
 //
 LINK_ENTITY_TO_CLASS( func_breakable, CBreakable );
 BEGIN_DATADESC( CBreakable )
-	DEFINE_FIELD( CBreakable, m_Material, FIELD_INTEGER ),
-	DEFINE_FIELD( CBreakable, m_Explosion, FIELD_INTEGER ),
+	DEFINE_FIELD( m_Material, FIELD_INTEGER ),
+	DEFINE_FIELD( m_Explosion, FIELD_INTEGER ),
 
 // Don't need to save/restore these because we precache after restore
-//	DEFINE_FIELD( CBreakable, m_idShard, FIELD_INTEGER ),
+//	DEFINE_FIELD( m_idShard, FIELD_INTEGER ),
 
-	DEFINE_FIELD( CBreakable, m_angle, FIELD_FLOAT ),
-	DEFINE_FIELD( CBreakable, m_iszGibModel, FIELD_STRING ),
-	DEFINE_FIELD( CBreakable, m_iszSpawnObject, FIELD_STRING ),
+	DEFINE_FIELD( m_angle, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iszGibModel, FIELD_STRING ),
+	DEFINE_FIELD( m_iszSpawnObject, FIELD_STRING ),
 
 	// Explosion magnitude is stored in pev->impulse
 END_DATADESC()
@@ -801,8 +801,8 @@ public:
 };
 
 BEGIN_DATADESC(	CPushable )
-	DEFINE_FIELD( CPushable, m_maxSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CPushable, m_soundTime, FIELD_TIME ),
+	DEFINE_FIELD( m_maxSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_soundTime, FIELD_TIME ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_pushable, CPushable );

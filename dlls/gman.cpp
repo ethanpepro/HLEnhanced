@@ -54,8 +54,8 @@ LINK_ENTITY_TO_CLASS( monster_gman, CGMan );
 
 
 BEGIN_DATADESC(	CGMan )
-	DEFINE_FIELD( CGMan, m_hTalkTarget, FIELD_EHANDLE ),
-	DEFINE_FIELD( CGMan, m_flTalkTime, FIELD_TIME ),
+	DEFINE_FIELD( m_hTalkTarget, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_flTalkTime, FIELD_TIME ),
 END_DATADESC()
 
 

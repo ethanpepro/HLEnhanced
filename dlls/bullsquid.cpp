@@ -74,7 +74,7 @@ public:
 LINK_ENTITY_TO_CLASS( squidspit, CSquidSpit );
 
 BEGIN_DATADESC(	CSquidSpit )
-	DEFINE_FIELD( CSquidSpit, m_maxFrame, FIELD_INTEGER ),
+	DEFINE_FIELD( m_maxFrame, FIELD_INTEGER ),
 END_DATADESC()
 
 void CSquidSpit:: Spawn( void )
@@ -223,9 +223,9 @@ public:
 LINK_ENTITY_TO_CLASS( monster_bullchicken, CBullsquid );
 
 BEGIN_DATADESC(	CBullsquid )
-	DEFINE_FIELD( CBullsquid, m_fCanThreatDisplay, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CBullsquid, m_flLastHurtTime, FIELD_TIME ),
-	DEFINE_FIELD( CBullsquid, m_flNextSpitTime, FIELD_TIME ),
+	DEFINE_FIELD( m_fCanThreatDisplay, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flLastHurtTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextSpitTime, FIELD_TIME ),
 END_DATADESC()
 
 //=========================================================

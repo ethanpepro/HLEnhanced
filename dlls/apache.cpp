@@ -91,24 +91,24 @@ public:
 LINK_ENTITY_TO_CLASS( monster_apache, CApache );
 
 BEGIN_DATADESC(	CApache )
-	DEFINE_FIELD( CApache, m_iRockets, FIELD_INTEGER ),
-	DEFINE_FIELD( CApache, m_flForce, FIELD_FLOAT ),
-	DEFINE_FIELD( CApache, m_flNextRocket, FIELD_TIME ),
-	DEFINE_FIELD( CApache, m_vecTarget, FIELD_VECTOR ),
-	DEFINE_FIELD( CApache, m_posTarget, FIELD_POSITION_VECTOR ),
-	DEFINE_FIELD( CApache, m_vecDesired, FIELD_VECTOR ),
-	DEFINE_FIELD( CApache, m_posDesired, FIELD_POSITION_VECTOR ),
-	DEFINE_FIELD( CApache, m_vecGoal, FIELD_VECTOR ),
-	DEFINE_FIELD( CApache, m_angGun, FIELD_VECTOR ),
-	DEFINE_FIELD( CApache, m_flLastSeen, FIELD_TIME ),
-	DEFINE_FIELD( CApache, m_flPrevSeen, FIELD_TIME ),
-//	DEFINE_FIELD( CApache, m_iSoundState, FIELD_INTEGER ),		// Don't save, precached
-//	DEFINE_FIELD( CApache, m_iSpriteTexture, FIELD_INTEGER ),
-//	DEFINE_FIELD( CApache, m_iExplode, FIELD_INTEGER ),
-//	DEFINE_FIELD( CApache, m_iBodyGibs, FIELD_INTEGER ),
-	DEFINE_FIELD( CApache, m_pBeam, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CApache, m_flGoalSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CApache, m_iDoSmokePuff, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iRockets, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flForce, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flNextRocket, FIELD_TIME ),
+	DEFINE_FIELD( m_vecTarget, FIELD_VECTOR ),
+	DEFINE_FIELD( m_posTarget, FIELD_POSITION_VECTOR ),
+	DEFINE_FIELD( m_vecDesired, FIELD_VECTOR ),
+	DEFINE_FIELD( m_posDesired, FIELD_POSITION_VECTOR ),
+	DEFINE_FIELD( m_vecGoal, FIELD_VECTOR ),
+	DEFINE_FIELD( m_angGun, FIELD_VECTOR ),
+	DEFINE_FIELD( m_flLastSeen, FIELD_TIME ),
+	DEFINE_FIELD( m_flPrevSeen, FIELD_TIME ),
+//	DEFINE_FIELD( m_iSoundState, FIELD_INTEGER ),		// Don't save, precached
+//	DEFINE_FIELD( m_iSpriteTexture, FIELD_INTEGER ),
+//	DEFINE_FIELD( m_iExplode, FIELD_INTEGER ),
+//	DEFINE_FIELD( m_iBodyGibs, FIELD_INTEGER ),
+	DEFINE_FIELD( m_pBeam, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_flGoalSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iDoSmokePuff, FIELD_INTEGER ),
 END_DATADESC()
 
 
@@ -952,8 +952,8 @@ public:
 LINK_ENTITY_TO_CLASS( hvr_rocket, CApacheHVR );
 
 BEGIN_DATADESC(	CApacheHVR )
-//	DEFINE_FIELD( CApacheHVR, m_iTrail, FIELD_INTEGER ),	// Dont' save, precache
-	DEFINE_FIELD( CApacheHVR, m_vecForward, FIELD_VECTOR ),
+//	DEFINE_FIELD( m_iTrail, FIELD_INTEGER ),	// Dont' save, precache
+	DEFINE_FIELD( m_vecForward, FIELD_VECTOR ),
 END_DATADESC()
 
 void CApacheHVR :: Spawn( void )

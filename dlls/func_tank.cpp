@@ -131,32 +131,32 @@ protected:
 
 
 BEGIN_DATADESC(	CFuncTank )
-	DEFINE_FIELD( CFuncTank, m_yawCenter, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_yawRate, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_yawRange, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_yawTolerance, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_pitchCenter, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_pitchRate, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_pitchRange, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_pitchTolerance, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_fireLast, FIELD_TIME ),
-	DEFINE_FIELD( CFuncTank, m_fireRate, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_lastSightTime, FIELD_TIME ),
-	DEFINE_FIELD( CFuncTank, m_persist, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_minRange, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_maxRange, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_barrelPos, FIELD_VECTOR ),
-	DEFINE_FIELD( CFuncTank, m_spriteScale, FIELD_FLOAT ),
-	DEFINE_FIELD( CFuncTank, m_iszSpriteSmoke, FIELD_STRING ),
-	DEFINE_FIELD( CFuncTank, m_iszSpriteFlash, FIELD_STRING ),
-	DEFINE_FIELD( CFuncTank, m_bulletType, FIELD_INTEGER ),
-	DEFINE_FIELD( CFuncTank, m_sightOrigin, FIELD_VECTOR ),
-	DEFINE_FIELD( CFuncTank, m_spread, FIELD_INTEGER ),
-	DEFINE_FIELD( CFuncTank, m_pController, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CFuncTank, m_vecControllerUsePos, FIELD_VECTOR ),
-	DEFINE_FIELD( CFuncTank, m_flNextAttack, FIELD_TIME ),
-	DEFINE_FIELD( CFuncTank, m_iBulletDamage, FIELD_INTEGER ),
-	DEFINE_FIELD( CFuncTank, m_iszMaster, FIELD_STRING ),
+	DEFINE_FIELD( m_yawCenter, FIELD_FLOAT ),
+	DEFINE_FIELD( m_yawRate, FIELD_FLOAT ),
+	DEFINE_FIELD( m_yawRange, FIELD_FLOAT ),
+	DEFINE_FIELD( m_yawTolerance, FIELD_FLOAT ),
+	DEFINE_FIELD( m_pitchCenter, FIELD_FLOAT ),
+	DEFINE_FIELD( m_pitchRate, FIELD_FLOAT ),
+	DEFINE_FIELD( m_pitchRange, FIELD_FLOAT ),
+	DEFINE_FIELD( m_pitchTolerance, FIELD_FLOAT ),
+	DEFINE_FIELD( m_fireLast, FIELD_TIME ),
+	DEFINE_FIELD( m_fireRate, FIELD_FLOAT ),
+	DEFINE_FIELD( m_lastSightTime, FIELD_TIME ),
+	DEFINE_FIELD( m_persist, FIELD_FLOAT ),
+	DEFINE_FIELD( m_minRange, FIELD_FLOAT ),
+	DEFINE_FIELD( m_maxRange, FIELD_FLOAT ),
+	DEFINE_FIELD( m_barrelPos, FIELD_VECTOR ),
+	DEFINE_FIELD( m_spriteScale, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iszSpriteSmoke, FIELD_STRING ),
+	DEFINE_FIELD( m_iszSpriteFlash, FIELD_STRING ),
+	DEFINE_FIELD( m_bulletType, FIELD_INTEGER ),
+	DEFINE_FIELD( m_sightOrigin, FIELD_VECTOR ),
+	DEFINE_FIELD( m_spread, FIELD_INTEGER ),
+	DEFINE_FIELD( m_pController, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_vecControllerUsePos, FIELD_VECTOR ),
+	DEFINE_FIELD( m_flNextAttack, FIELD_TIME ),
+	DEFINE_FIELD( m_iBulletDamage, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iszMaster, FIELD_STRING ),
 END_DATADESC()
 
 static Vector gTankSpread[] =
@@ -778,8 +778,8 @@ private:
 LINK_ENTITY_TO_CLASS( func_tanklaser, CFuncTankLaser );
 
 BEGIN_DATADESC(	CFuncTankLaser )
-	DEFINE_FIELD( CFuncTankLaser, m_pLaser, FIELD_CLASSPTR ),
-	DEFINE_FIELD( CFuncTankLaser, m_laserTime, FIELD_TIME ),
+	DEFINE_FIELD( m_pLaser, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_laserTime, FIELD_TIME ),
 END_DATADESC()
 
 void CFuncTankLaser::Activate( void )
@@ -981,7 +981,7 @@ public:
 LINK_ENTITY_TO_CLASS( func_tankcontrols, CFuncTankControls );
 
 BEGIN_DATADESC(	CFuncTankControls )
-	DEFINE_FIELD( CFuncTankControls, m_pTank, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_pTank, FIELD_CLASSPTR ),
 END_DATADESC()
 
 int	CFuncTankControls :: ObjectCaps( void ) 

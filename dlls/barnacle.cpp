@@ -57,12 +57,12 @@ public:
 LINK_ENTITY_TO_CLASS( monster_barnacle, CBarnacle );
 
 BEGIN_DATADESC(	CBarnacle )
-	DEFINE_FIELD( CBarnacle, m_flAltitude, FIELD_FLOAT ),
-	DEFINE_FIELD( CBarnacle, m_flKillVictimTime, FIELD_TIME ),
-	DEFINE_FIELD( CBarnacle, m_cGibs, FIELD_INTEGER ),// barnacle loads up on gibs each time it kills something.
-	DEFINE_FIELD( CBarnacle, m_fTongueExtended, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CBarnacle, m_fLiftingPrey, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CBarnacle, m_flTongueAdj, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flAltitude, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flKillVictimTime, FIELD_TIME ),
+	DEFINE_FIELD( m_cGibs, FIELD_INTEGER ),// barnacle loads up on gibs each time it kills something.
+	DEFINE_FIELD( m_fTongueExtended, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fLiftingPrey, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flTongueAdj, FIELD_FLOAT ),
 END_DATADESC()
 
 

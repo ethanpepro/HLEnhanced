@@ -103,11 +103,11 @@ public:
 LINK_ENTITY_TO_CLASS( monster_alien_controller, CController );
 
 BEGIN_DATADESC(	CController )
-	DEFINE_ARRAY( CController, m_pBall, FIELD_CLASSPTR, 2 ),
-	DEFINE_ARRAY( CController, m_iBall, FIELD_INTEGER, 2 ),
-	DEFINE_ARRAY( CController, m_iBallTime, FIELD_TIME, 2 ),
-	DEFINE_ARRAY( CController, m_iBallCurrent, FIELD_INTEGER, 2 ),
-	DEFINE_FIELD( CController, m_vecEstVelocity, FIELD_VECTOR ),
+	DEFINE_ARRAY( m_pBall, FIELD_CLASSPTR, 2 ),
+	DEFINE_ARRAY( m_iBall, FIELD_INTEGER, 2 ),
+	DEFINE_ARRAY( m_iBallTime, FIELD_TIME, 2 ),
+	DEFINE_ARRAY( m_iBallCurrent, FIELD_INTEGER, 2 ),
+	DEFINE_FIELD( m_vecEstVelocity, FIELD_VECTOR ),
 END_DATADESC()
 
 

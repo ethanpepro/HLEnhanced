@@ -115,9 +115,9 @@ private:
 LINK_ENTITY_TO_CLASS( monster_scientist, CScientist );
 
 BEGIN_DATADESC(	CScientist )
-	DEFINE_FIELD( CScientist, m_painTime, FIELD_TIME ),
-	DEFINE_FIELD( CScientist, m_healTime, FIELD_TIME ),
-	DEFINE_FIELD( CScientist, m_fearTime, FIELD_TIME ),
+	DEFINE_FIELD( m_painTime, FIELD_TIME ),
+	DEFINE_FIELD( m_healTime, FIELD_TIME ),
+	DEFINE_FIELD( m_fearTime, FIELD_TIME ),
 END_DATADESC()
 
 //=========================================================
@@ -1185,8 +1185,8 @@ LINK_ENTITY_TO_CLASS( monster_sitting_scientist, CSittingScientist );
 
 BEGIN_DATADESC(	CSittingScientist )
 	// Don't need to save/restore m_baseSequence (recalced)
-	DEFINE_FIELD( CSittingScientist, m_headTurn, FIELD_INTEGER ),
-	DEFINE_FIELD( CSittingScientist, m_flResponseDelay, FIELD_FLOAT ),
+	DEFINE_FIELD( m_headTurn, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flResponseDelay, FIELD_FLOAT ),
 END_DATADESC()
 
 // animation sequence aliases 

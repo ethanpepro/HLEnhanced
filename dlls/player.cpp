@@ -4700,8 +4700,8 @@ private:
 LINK_ENTITY_TO_CLASS( player_loadsaved, CRevertSaved );
 
 BEGIN_DATADESC(	CRevertSaved )
-	DEFINE_FIELD( CRevertSaved, m_messageTime, FIELD_FLOAT ),	// These are not actual times, but durations, so save as floats
-	DEFINE_FIELD( CRevertSaved, m_loadTime, FIELD_FLOAT ),
+	DEFINE_FIELD( m_messageTime, FIELD_FLOAT ),	// These are not actual times, but durations, so save as floats
+	DEFINE_FIELD( m_loadTime, FIELD_FLOAT ),
 END_DATADESC()
 
 void CRevertSaved :: KeyValue( KeyValueData *pkvd )

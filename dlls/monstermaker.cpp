@@ -63,13 +63,13 @@ public:
 LINK_ENTITY_TO_CLASS( monstermaker, CMonsterMaker );
 
 BEGIN_DATADESC(	CMonsterMaker )
-	DEFINE_FIELD( CMonsterMaker, m_iszMonsterClassname, FIELD_STRING ),
-	DEFINE_FIELD( CMonsterMaker, m_cNumMonsters, FIELD_INTEGER ),
-	DEFINE_FIELD( CMonsterMaker, m_cLiveChildren, FIELD_INTEGER ),
-	DEFINE_FIELD( CMonsterMaker, m_flGround, FIELD_FLOAT ),
-	DEFINE_FIELD( CMonsterMaker, m_iMaxLiveChildren, FIELD_INTEGER ),
-	DEFINE_FIELD( CMonsterMaker, m_fActive, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CMonsterMaker, m_fFadeChildren, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_iszMonsterClassname, FIELD_STRING ),
+	DEFINE_FIELD( m_cNumMonsters, FIELD_INTEGER ),
+	DEFINE_FIELD( m_cLiveChildren, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flGround, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iMaxLiveChildren, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fActive, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fFadeChildren, FIELD_BOOLEAN ),
 END_DATADESC()
 
 void CMonsterMaker :: KeyValue( KeyValueData *pkvd )

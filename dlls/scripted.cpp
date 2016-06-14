@@ -99,21 +99,21 @@ void CCineMonster :: KeyValue( KeyValueData *pkvd )
 }
 
 BEGIN_DATADESC(	CCineMonster ) 
-	DEFINE_FIELD( CCineMonster, m_iszIdle, FIELD_STRING ),
-	DEFINE_FIELD( CCineMonster, m_iszPlay, FIELD_STRING ),
-	DEFINE_FIELD( CCineMonster, m_iszEntity, FIELD_STRING ),
-	DEFINE_FIELD( CCineMonster, m_fMoveTo, FIELD_INTEGER ),
-	DEFINE_FIELD( CCineMonster, m_flRepeat, FIELD_FLOAT ),
-	DEFINE_FIELD( CCineMonster, m_flRadius, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iszIdle, FIELD_STRING ),
+	DEFINE_FIELD( m_iszPlay, FIELD_STRING ),
+	DEFINE_FIELD( m_iszEntity, FIELD_STRING ),
+	DEFINE_FIELD( m_fMoveTo, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flRepeat, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flRadius, FIELD_FLOAT ),
 
-	DEFINE_FIELD( CCineMonster, m_iDelay, FIELD_INTEGER ),
-	DEFINE_FIELD( CCineMonster, m_startTime, FIELD_TIME ),
+	DEFINE_FIELD( m_iDelay, FIELD_INTEGER ),
+	DEFINE_FIELD( m_startTime, FIELD_TIME ),
 
-	DEFINE_FIELD( CCineMonster,	m_saved_movetype, FIELD_INTEGER ),
-	DEFINE_FIELD( CCineMonster,	m_saved_solid, FIELD_INTEGER ),
-	DEFINE_FIELD( CCineMonster, m_saved_effects, FIELD_INTEGER ),
-	DEFINE_FIELD( CCineMonster, m_iFinishSchedule, FIELD_INTEGER ),
-	DEFINE_FIELD( CCineMonster, m_interruptable, FIELD_BOOLEAN ),
+	DEFINE_FIELD(	m_saved_movetype, FIELD_INTEGER ),
+	DEFINE_FIELD(	m_saved_solid, FIELD_INTEGER ),
+	DEFINE_FIELD( m_saved_effects, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iFinishSchedule, FIELD_INTEGER ),
+	DEFINE_FIELD( m_interruptable, FIELD_BOOLEAN ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( scripted_sequence, CCineMonster );
@@ -951,15 +951,15 @@ private:
 #define SF_SENTENCE_CONCURRENT	0x0008	// allow other people to keep talking
 
 BEGIN_DATADESC(	CScriptedSentence )
-	DEFINE_FIELD( CScriptedSentence, m_iszSentence, FIELD_STRING ),
-	DEFINE_FIELD( CScriptedSentence, m_iszEntity, FIELD_STRING ),
-	DEFINE_FIELD( CScriptedSentence, m_flRadius, FIELD_FLOAT ),
-	DEFINE_FIELD( CScriptedSentence, m_flDuration, FIELD_FLOAT ),
-	DEFINE_FIELD( CScriptedSentence, m_flRepeat, FIELD_FLOAT ),
-	DEFINE_FIELD( CScriptedSentence, m_flAttenuation, FIELD_FLOAT ),
-	DEFINE_FIELD( CScriptedSentence, m_flVolume, FIELD_FLOAT ),
-	DEFINE_FIELD( CScriptedSentence, m_active, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CScriptedSentence, m_iszListener, FIELD_STRING ),
+	DEFINE_FIELD( m_iszSentence, FIELD_STRING ),
+	DEFINE_FIELD( m_iszEntity, FIELD_STRING ),
+	DEFINE_FIELD( m_flRadius, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flDuration, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flRepeat, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flAttenuation, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flVolume, FIELD_FLOAT ),
+	DEFINE_FIELD( m_active, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_iszListener, FIELD_STRING ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( scripted_sentence, CScriptedSentence );

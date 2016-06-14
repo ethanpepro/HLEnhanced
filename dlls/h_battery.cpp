@@ -49,11 +49,11 @@ public:
 };
 
 BEGIN_DATADESC( CRecharge )
-	DEFINE_FIELD( CRecharge, m_flNextCharge, FIELD_TIME ),
-	DEFINE_FIELD( CRecharge, m_iReactivate, FIELD_INTEGER),
-	DEFINE_FIELD( CRecharge, m_iJuice, FIELD_INTEGER),
-	DEFINE_FIELD( CRecharge, m_iOn, FIELD_INTEGER),
-	DEFINE_FIELD( CRecharge, m_flSoundTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextCharge, FIELD_TIME ),
+	DEFINE_FIELD( m_iReactivate, FIELD_INTEGER),
+	DEFINE_FIELD( m_iJuice, FIELD_INTEGER),
+	DEFINE_FIELD( m_iOn, FIELD_INTEGER),
+	DEFINE_FIELD( m_flSoundTime, FIELD_TIME ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS(func_recharge, CRecharge);

@@ -35,9 +35,9 @@ LINK_ENTITY_TO_CLASS( hornet, CHornet );
 // Save/Restore
 //=========================================================
 BEGIN_DATADESC(	CHornet )
-	DEFINE_FIELD( CHornet, m_flStopAttack, FIELD_TIME ),
-	DEFINE_FIELD( CHornet, m_iHornetType, FIELD_INTEGER ),
-	DEFINE_FIELD( CHornet, m_flFlySpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flStopAttack, FIELD_TIME ),
+	DEFINE_FIELD( m_iHornetType, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flFlySpeed, FIELD_FLOAT ),
 END_DATADESC()
 
 //=========================================================

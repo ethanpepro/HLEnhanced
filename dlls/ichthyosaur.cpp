@@ -125,15 +125,15 @@ public:
 LINK_ENTITY_TO_CLASS( monster_ichthyosaur, CIchthyosaur );
 
 BEGIN_DATADESC(	CIchthyosaur )
-	DEFINE_FIELD( CIchthyosaur, m_SaveVelocity, FIELD_VECTOR ),
-	DEFINE_FIELD( CIchthyosaur, m_idealDist, FIELD_FLOAT ),
-	DEFINE_FIELD( CIchthyosaur, m_flBlink, FIELD_FLOAT ),
-	DEFINE_FIELD( CIchthyosaur, m_flEnemyTouched, FIELD_FLOAT ),
-	DEFINE_FIELD( CIchthyosaur, m_bOnAttack, FIELD_BOOLEAN ),
-	DEFINE_FIELD( CIchthyosaur, m_flMaxSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CIchthyosaur, m_flMinSpeed, FIELD_FLOAT ),
-	DEFINE_FIELD( CIchthyosaur, m_flMaxDist, FIELD_FLOAT ),
-	DEFINE_FIELD( CIchthyosaur, m_flNextAlert, FIELD_TIME ),
+	DEFINE_FIELD( m_SaveVelocity, FIELD_VECTOR ),
+	DEFINE_FIELD( m_idealDist, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flBlink, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flEnemyTouched, FIELD_FLOAT ),
+	DEFINE_FIELD( m_bOnAttack, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flMaxSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flMinSpeed, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flMaxDist, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flNextAlert, FIELD_TIME ),
 END_DATADESC()
 
 

@@ -39,7 +39,7 @@ private:
 };
 
 BEGIN_DATADESC(	CActAnimating )
-	DEFINE_FIELD( CActAnimating, m_Activity, FIELD_INTEGER ),
+	DEFINE_FIELD( m_Activity, FIELD_INTEGER ),
 END_DATADESC()
 
 void CActAnimating :: SetActivity( Activity act ) 
@@ -78,7 +78,7 @@ private:
 LINK_ENTITY_TO_CLASS( xen_plantlight, CXenPLight );
 
 BEGIN_DATADESC(	CXenPLight )
-	DEFINE_FIELD( CXenPLight, m_pGlow, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_pGlow, FIELD_CLASSPTR ),
 END_DATADESC()
 
 void CXenPLight :: Spawn( void )
@@ -279,7 +279,7 @@ private:
 LINK_ENTITY_TO_CLASS( xen_tree, CXenTree );
 
 BEGIN_DATADESC(	CXenTree )
-	DEFINE_FIELD( CXenTree, m_pTrigger, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_pTrigger, FIELD_CLASSPTR ),
 END_DATADESC()
 
 void CXenTree :: Spawn( void )
