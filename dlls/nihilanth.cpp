@@ -1260,7 +1260,7 @@ void CNihilanth::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vec
 	}
 
 	// SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage * 5.0);// a little surface blood.
-	AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+	g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 }
 
 
@@ -1478,9 +1478,9 @@ void CNihilanthHVR :: ZapThink( void  )
 		CBaseEntity *pEntity = CBaseEntity::Instance(tr.pHit);
 		if (pEntity != NULL && pEntity->pev->takedamage)
 		{
-			ClearMultiDamage( );
+			g_MultiDamage.Clear( );
 			pEntity->TraceAttack( pev, gSkillData.nihilanthZap, pev->velocity, &tr, DMG_SHOCK );
-			ApplyMultiDamage( pev, pev );
+			g_MultiDamage.ApplyMultiDamage( pev, pev );
 		}
 
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );

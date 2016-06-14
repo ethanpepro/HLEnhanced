@@ -414,7 +414,7 @@ void CISlave :: HandleAnimEvent( MonsterEvent_t *pEvent )
 					break;
 				}
 			}
-			ClearMultiDamage();
+			g_MultiDamage.Clear();
 
 			UTIL_MakeAimVectors( pev->angles );
 
@@ -423,7 +423,7 @@ void CISlave :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			EMIT_SOUND_DYN( ENT(pev), CHAN_WEAPON, "hassault/hw_shoot1.wav", 1, ATTN_NORM, 0, RANDOM_LONG( 130, 160 ) );
 			// STOP_SOUND( ENT(pev), CHAN_WEAPON, "debris/zap4.wav" );
-			ApplyMultiDamage(pev, pev);
+			g_MultiDamage.ApplyMultiDamage(pev, pev);
 
 			m_flNextAttack = gpGlobals->time + RANDOM_FLOAT( 0.5, 4.0 );
 		}

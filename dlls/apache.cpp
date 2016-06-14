@@ -920,13 +920,13 @@ void CApache::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 	if (flDamage > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2)
 	{
 		// ALERT( at_console, "%.0f\n", flDamage );
-		AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 		m_iDoSmokePuff = 3 + (flDamage / 5.0);
 	}
 	else
 	{
 		// do half damage in the body
-		// AddMultiDamage( pevAttacker, this, flDamage / 2.0, bitsDamageType );
+		// g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage / 2.0, bitsDamageType );
 		UTIL_Ricochet( ptr->vecEndPos, 2.0 );
 	}
 }

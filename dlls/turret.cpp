@@ -994,7 +994,7 @@ void CBaseTurret :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector 
 	if ( !pev->takedamage )
 		return;
 
-	AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+	g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 }
 
 // take damage. bitsDamageType indicates type of damage sustained, ie: DMG_BULLET

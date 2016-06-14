@@ -229,9 +229,9 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 		if (pevOwner)
 		{
 			TraceResult tr = UTIL_GetGlobalTrace( );
-			ClearMultiDamage( );
+			g_MultiDamage.Clear( );
 			pOther->TraceAttack(pevOwner, 1, gpGlobals->v_forward, &tr, DMG_CLUB ); 
-			ApplyMultiDamage( pev, pevOwner);
+			g_MultiDamage.ApplyMultiDamage( pev, pevOwner);
 		}
 		m_flNextAttack = gpGlobals->time + 1.0; // debounce
 	}

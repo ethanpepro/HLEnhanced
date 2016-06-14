@@ -789,7 +789,7 @@ void COsprey::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 	if (flDamage > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2 || ptr->iHitgroup == 3)
 	{
 		// ALERT( at_console, "%.0f\n", flDamage );
-		AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 	}
 	else
 	{

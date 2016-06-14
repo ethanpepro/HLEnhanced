@@ -73,6 +73,9 @@
     <Filter Include="Source Files\game\server">
       <UniqueIdentifier>{9aadc9eb-c159-4c42-9bcd-4011e9476c56}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server">
+      <UniqueIdentifier>{e2b05fc6-4030-4feb-beb7-214583b49419}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -393,6 +396,9 @@
     <ClCompile Include="..\..\game\server\CBaseEntity.server.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\CMultiDamage.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -553,6 +559,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\CBaseEntity.shared.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CMultiDamage.h">
+      <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

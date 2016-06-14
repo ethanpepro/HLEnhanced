@@ -221,7 +221,7 @@ int CGMan :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float 
 void CGMan::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
 {
 	UTIL_Ricochet( ptr->vecEndPos, 1.0 );
-	AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+	g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 }
 
 

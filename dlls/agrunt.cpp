@@ -255,7 +255,7 @@ void CAGrunt :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecD
 		TraceBleed( flDamage, vecDir, ptr, bitsDamageType );
 	}
 
-	AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+	g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 }
 
 //=========================================================

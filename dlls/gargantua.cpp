@@ -660,9 +660,9 @@ void CGargantua :: FlameDamage( Vector vecStart, Vector vecEnd, entvars_t *pevIn
 				// ALERT( at_console, "hit %s\n", STRING( pEntity->pev->classname ) );
 				if (tr.flFraction != 1.0)
 				{
-					ClearMultiDamage( );
+					g_MultiDamage.Clear( );
 					pEntity->TraceAttack( pevInflictor, flAdjustedDamage, (tr.vecEndPos - vecSrc).Normalize( ), &tr, bitsDamageType );
-					ApplyMultiDamage( pevInflictor, pevAttacker );
+					g_MultiDamage.ApplyMultiDamage( pevInflictor, pevAttacker );
 				}
 				else
 				{

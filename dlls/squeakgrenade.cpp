@@ -348,12 +348,12 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 			if (tr.pHit->v.modelindex != pev->modelindex)
 			{
 				// ALERT( at_console, "hit enemy\n");
-				ClearMultiDamage( );
+				g_MultiDamage.Clear( );
 				pOther->TraceAttack(pev, gSkillData.snarkDmgBite, gpGlobals->v_forward, &tr, DMG_SLASH ); 
 				if (m_hOwner != NULL)
-					ApplyMultiDamage( pev, m_hOwner->pev );
+					g_MultiDamage.ApplyMultiDamage( pev, m_hOwner->pev );
 				else
-					ApplyMultiDamage( pev, pev );
+					g_MultiDamage.ApplyMultiDamage( pev, pev );
 
 				pev->dmg += gSkillData.snarkDmgPop; // add more explosion damage
 				// m_flDie += 2.0; // add more life

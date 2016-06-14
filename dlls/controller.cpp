@@ -1226,9 +1226,9 @@ void CControllerHeadBall :: HuntThink( void  )
 		CBaseEntity *pEntity = CBaseEntity::Instance(tr.pHit);
 		if (pEntity != NULL && pEntity->pev->takedamage)
 		{
-			ClearMultiDamage( );
+			g_MultiDamage.Clear( );
 			pEntity->TraceAttack( m_hOwner->pev, gSkillData.controllerDmgZap, pev->velocity, &tr, DMG_SHOCK );
-			ApplyMultiDamage( pev, m_hOwner->pev );
+			g_MultiDamage.ApplyMultiDamage( pev, m_hOwner->pev );
 		}
 
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
@@ -1408,9 +1408,9 @@ void CControllerZapBall::ExplodeTouch( CBaseEntity *pOther )
 			pevOwner = pev;
 		}
 
-		ClearMultiDamage( );
+		g_MultiDamage.Clear( );
 		pOther->TraceAttack(pevOwner, gSkillData.controllerDmgBall, pev->velocity.Normalize(), &tr, DMG_ENERGYBEAM ); 
-		ApplyMultiDamage( pevOwner, pevOwner );
+		g_MultiDamage.ApplyMultiDamage( pevOwner, pevOwner );
 
 		UTIL_EmitAmbientSound( ENT(pev), tr.vecEndPos, "weapons/electro4.wav", 0.3, ATTN_NORM, 0, RANDOM_LONG( 90, 99 ) );
 

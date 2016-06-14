@@ -230,7 +230,7 @@ bool CCrowbar::Swing( const bool bFirst )
 		bDidHit = true;
 		CBaseEntity *pEntity = CBaseEntity::Instance(tr.pHit);
 
-		ClearMultiDamage( );
+		g_MultiDamage.Clear( );
 
 		if ( (m_flNextPrimaryAttack + 1 < UTIL_WeaponTimeBase() ) || g_pGameRules->IsMultiplayer() )
 		{
@@ -242,7 +242,7 @@ bool CCrowbar::Swing( const bool bFirst )
 			// subsequent swings do half
 			pEntity->TraceAttack(m_pPlayer->pev, gSkillData.plrDmgCrowbar / 2, gpGlobals->v_forward, &tr, DMG_CLUB ); 
 		}	
-		ApplyMultiDamage( m_pPlayer->pev, m_pPlayer->pev );
+		g_MultiDamage.ApplyMultiDamage( m_pPlayer->pev, m_pPlayer->pev );
 
 		// play thwack, smack, or dong sound
 		float flVol = 1.0;

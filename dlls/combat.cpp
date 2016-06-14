@@ -1097,9 +1097,9 @@ void RadiusDamage( Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacke
 				// ALERT( at_console, "hit %s\n", STRING( pEntity->pev->classname ) );
 				if (tr.flFraction != 1.0)
 				{
-					ClearMultiDamage( );
+					g_MultiDamage.Clear( );
 					pEntity->TraceAttack( pevInflictor, flAdjustedDamage, (tr.vecEndPos - vecSrc).Normalize( ), &tr, bitsDamageType );
-					ApplyMultiDamage( pevInflictor, pevAttacker );
+					g_MultiDamage.ApplyMultiDamage( pevInflictor, pevAttacker );
 				}
 				else
 				{
@@ -1284,7 +1284,7 @@ void CBaseEntity::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vec
 
 	if ( pev->takedamage )
 	{
-		AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 
 		int blood = BloodColor();
 		
@@ -1310,7 +1310,7 @@ void CBaseMonster::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector ve
 
 	if ( pev->takedamage )
 	{
-		AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 
 		int blood = BloodColor();
 		
@@ -1358,7 +1358,7 @@ void CBaseMonster :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector
 
 		SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage);// a little surface blood.
 		TraceBleed( flDamage, vecDir, ptr, bitsDamageType );
-		AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 	}
 }
 
@@ -1382,8 +1382,8 @@ void CBaseEntity::FireBullets(ULONG cShots, Vector vecSrc, Vector vecDirShooting
 	if ( pevAttacker == NULL )
 		pevAttacker = pev;  // the default attacker is ourselves
 
-	ClearMultiDamage();
-	gMultiDamage.type = DMG_BULLET | DMG_NEVERGIB;
+	g_MultiDamage.Clear();
+	g_MultiDamage.SetDamageTypes( DMG_BULLET | DMG_NEVERGIB );
 
 	for (ULONG iShot = 1; iShot <= cShots; iShot++)
 	{
@@ -1492,7 +1492,7 @@ void CBaseEntity::FireBullets(ULONG cShots, Vector vecSrc, Vector vecDirShooting
 		// make bullet trails
 		UTIL_BubbleTrail( vecSrc, tr.vecEndPos, (flDistance * tr.flFraction) / 64.0 );
 	}
-	ApplyMultiDamage(pev, pevAttacker);
+	g_MultiDamage.ApplyMultiDamage(pev, pevAttacker);
 }
 
 
@@ -1516,8 +1516,8 @@ Vector CBaseEntity::FireBulletsPlayer ( ULONG cShots, Vector vecSrc, Vector vecD
 	if ( pevAttacker == NULL )
 		pevAttacker = pev;  // the default attacker is ourselves
 
-	ClearMultiDamage();
-	gMultiDamage.type = DMG_BULLET | DMG_NEVERGIB;
+	g_MultiDamage.Clear();
+	g_MultiDamage.SetDamageTypes( DMG_BULLET | DMG_NEVERGIB );
 
 	for ( ULONG iShot = 1; iShot <= cShots; iShot++ )
 	{
@@ -1582,7 +1582,7 @@ Vector CBaseEntity::FireBulletsPlayer ( ULONG cShots, Vector vecSrc, Vector vecD
 		// make bullet trails
 		UTIL_BubbleTrail( vecSrc, tr.vecEndPos, (flDistance * tr.flFraction) / 64.0 );
 	}
-	ApplyMultiDamage(pev, pevAttacker);
+	g_MultiDamage.ApplyMultiDamage(pev, pevAttacker);
 
 	return Vector( x * vecSpread.x, y * vecSpread.y, 0.0 );
 }

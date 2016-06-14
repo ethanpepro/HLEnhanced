@@ -52,7 +52,7 @@ AmmoInfo CBasePlayerItem::AmmoInfoArray[MAX_AMMO_SLOTS];
 
 extern int gmsgCurWeapon;
 
-MULTIDAMAGE gMultiDamage;
+CMultiDamage g_MultiDamage;
 
 //=========================================================
 // MaxAmmoCarry - pass in a name and this function will tell
@@ -71,67 +71,6 @@ int MaxAmmoCarry( int iszName )
 
 	ALERT( at_console, "MaxAmmoCarry() doesn't recognize '%s'!\n", STRING( iszName ) );
 	return -1;
-}
-
-	
-/*
-==============================================================================
-
-MULTI-DAMAGE
-
-Collects multiple small damages into a single damage
-
-==============================================================================
-*/
-
-//
-// ClearMultiDamage - resets the global multi damage accumulator
-//
-void ClearMultiDamage(void)
-{
-	gMultiDamage.pEntity = NULL;
-	gMultiDamage.amount	= 0;
-	gMultiDamage.type = 0;
-}
-
-
-//
-// ApplyMultiDamage - inflicts contents of global multi damage register on gMultiDamage.pEntity
-//
-// GLOBALS USED:
-//		gMultiDamage
-
-void ApplyMultiDamage(entvars_t *pevInflictor, entvars_t *pevAttacker )
-{
-	Vector		vecSpot1;//where blood comes from
-	Vector		vecDir;//direction blood should go
-	TraceResult	tr;
-	
-	if ( !gMultiDamage.pEntity )
-		return;
-
-	gMultiDamage.pEntity->TakeDamage(pevInflictor, pevAttacker, gMultiDamage.amount, gMultiDamage.type );
-}
-
-
-// GLOBALS USED:
-//		gMultiDamage
-
-void AddMultiDamage( entvars_t *pevInflictor, CBaseEntity *pEntity, float flDamage, int bitsDamageType)
-{
-	if ( !pEntity )
-		return;
-	
-	gMultiDamage.type |= bitsDamageType;
-
-	if ( pEntity != gMultiDamage.pEntity )
-	{
-		ApplyMultiDamage(pevInflictor,pevInflictor); // UNDONE: wrong attacker!
-		gMultiDamage.pEntity	= pEntity;
-		gMultiDamage.amount		= 0;
-	}
-
-	gMultiDamage.amount += flDamage;
 }
 
 /*
