@@ -67,27 +67,6 @@ public:
 };
 LINK_ENTITY_TO_CLASS( cycler, CGenericCycler );
 
-
-
-// Probe droid imported for tech demo compatibility
-//
-// PROBE DROID
-//
-//TODO: model doesn't exist, remove this. - Solokiller
-class CCyclerProbe : public CCycler
-{
-public:	
-	void Spawn( void ) override;
-};
-LINK_ENTITY_TO_CLASS( cycler_prdroid, CCyclerProbe );
-void CCyclerProbe :: Spawn( void )
-{
-	pev->origin = pev->origin + Vector ( 0, 0, 16 );
-	GenericCyclerSpawn( "models/prdroid.mdl", Vector(-16,-16,-16), Vector(16,16,16));
-}
-
-
-
 // Cycler member functions
 
 void CCycler :: GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax)

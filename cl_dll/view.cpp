@@ -29,7 +29,7 @@
 	int CL_IsThirdPerson( void );
 extern "C" void CL_CameraOffset( Vector& ofs );
 
-	void CL_DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams );
+	void DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams );
 
 	//TODO: some of these may not exist - Solokiller
 	void PM_ParticleLine( float *start, float *end, int pcolor, float life, float vert);
@@ -1615,7 +1615,7 @@ void V_CalcSpectatorRefdef ( struct ref_params_s * pparams )
 
 
 
-void CL_DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
+void DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
 {
 	// intermission / finale rendering
 	if ( pparams->intermission )

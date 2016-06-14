@@ -336,6 +336,9 @@
     <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp">
       <Filter>Source Files\game\shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\common\Platform.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">

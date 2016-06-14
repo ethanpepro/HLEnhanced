@@ -64,6 +64,9 @@
     <Filter Include="Source Files\game\shared">
       <UniqueIdentifier>{94a231ae-ad8c-4fce-bde5-287d3045cf7e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{254d1fdf-2374-4ff5-8c0b-cdf64a8f5fb5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -175,9 +178,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\h_battery.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\h_cine.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\h_cycler.cpp">
@@ -377,6 +377,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp">
       <Filter>Source Files\game\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\Platform.cpp">
+      <Filter>Source Files\common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

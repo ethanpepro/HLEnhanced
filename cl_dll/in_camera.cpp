@@ -151,7 +151,7 @@ typedef struct
 //This is defined in the engine.
 extern trace_t SV_ClipMoveToEntity (edict_t *ent, const Vector& start, const Vector& mins, const Vector& maxs, const Vector& end);
 
-void CL_DLLEXPORT CAM_Think( void )
+void DLLEXPORT CAM_Think( void )
 {
 	Vector origin;
 	Vector ext, pnt, camForward, camRight, camUp;
@@ -615,12 +615,12 @@ void CAM_EndDistance(void)
    iMouseInUse=0;
 }
 
-int CL_DLLEXPORT CL_IsThirdPerson( void )
+int DLLEXPORT CL_IsThirdPerson( void )
 {
 	return (cam_thirdperson ? 1 : 0) || (g_iUser1 && (g_iUser2 == gEngfuncs.GetLocalPlayer()->index) );
 }
 
-void CL_DLLEXPORT CL_CameraOffset( Vector& ofs )
+void DLLEXPORT CL_CameraOffset( Vector& ofs )
 {
 	ofs = cam_ofs;
 }

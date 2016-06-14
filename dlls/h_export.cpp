@@ -29,35 +29,16 @@
 enginefuncs_t g_engfuncs;
 globalvars_t  *gpGlobals;
 
-#undef DLLEXPORT
 #ifdef _WIN32
 //The one function in Half-Life 1 that uses stdcall. Be aware of this. - Solokiller
-#define DLLEXPORT __stdcall
+#define GIVEFNPTRS_DLLEXPORT __stdcall
 #else
-#define DLLEXPORT __attribute__ ((visibility("default")))
+#define GIVEFNPTRS_DLLEXPORT DLLEXPORT
 #endif
 
-#ifdef _WIN32
-
-// Required DLL entry point
-BOOL WINAPI DllMain(
-   HINSTANCE hinstDLL,
-   DWORD fdwReason,
-   LPVOID lpvReserved)
+extern "C" void GIVEFNPTRS_DLLEXPORT GiveFnptrsToDll( enginefuncs_t* pengfuncsFromEngine, globalvars_t* pGlobals )
 {
-	if      (fdwReason == DLL_PROCESS_ATTACH)
-    {
-    }
-	else if (fdwReason == DLL_PROCESS_DETACH)
-    {
-    }
-	return TRUE;
-}
-#endif
-
-extern "C" void DLLEXPORT GiveFnptrsToDll(	enginefuncs_t* pengfuncsFromEngine, globalvars_t *pGlobals )
-{
-	memcpy(&g_engfuncs, pengfuncsFromEngine, sizeof(enginefuncs_t));
+	memcpy( &g_engfuncs, pengfuncsFromEngine, sizeof( enginefuncs_t ) );
 	gpGlobals = pGlobals;
 }
 

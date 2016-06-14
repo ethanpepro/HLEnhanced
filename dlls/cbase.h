@@ -54,18 +54,11 @@ CBaseEntity
 
 // C functions for external declarations that call the appropriate C++ methods
 
-#ifndef CBASE_DLLEXPORT
-#ifdef _WIN32
-#define CBASE_DLLEXPORT _declspec( dllexport )
-#else
-#define CBASE_DLLEXPORT __attribute__ ((visibility("default")))
-#endif
-#endif
+//TODO: what's with all of the dllexport definitions? - Solokiller
+#define EXPORT DLLEXPORT
 
-#define EXPORT CBASE_DLLEXPORT
-
-extern "C" CBASE_DLLEXPORT int GetEntityAPI( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion );
-extern "C" CBASE_DLLEXPORT int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
+extern "C" DLLEXPORT int GetEntityAPI( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion );
+extern "C" DLLEXPORT int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
 
 extern int DispatchSpawn( edict_t *pent );
 extern void DispatchKeyValue( edict_t *pentKeyvalue, KeyValueData *pkvd );
