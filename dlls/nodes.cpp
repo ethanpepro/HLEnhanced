@@ -1435,8 +1435,9 @@ int	CGraph :: RejectInlineLinks ( CLink *pLinkPool, FILE *file )
 //=========================================================
 class CTestHull : public CBaseMonster
 {
-
 public:
+	DECLARE_CLASS( CTestHull, CBaseMonster );
+
 	void Spawn( entvars_t *pevMasterNode );
 	virtual int	ObjectCaps( void ) override { return CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void EXPORT CallBuildNodeGraph ( void );

@@ -577,33 +577,50 @@ CBaseEntity *CBaseEntity::GetNextTarget( void )
 	return Instance( pTarget );
 }
 
-// Global Savedata for Delay
-TYPEDESCRIPTION	CBaseEntity::m_SaveData[] = 
-{
-	DEFINE_FIELD( CBaseEntity, m_pGoalEnt, FIELD_CLASSPTR ),
-
-	DEFINE_FIELD( CBaseEntity, m_pfnThink, FIELD_FUNCTION ),		// UNDONE: Build table of these!!!
-	DEFINE_FIELD( CBaseEntity, m_pfnTouch, FIELD_FUNCTION ),
-	DEFINE_FIELD( CBaseEntity, m_pfnUse, FIELD_FUNCTION ),
-	DEFINE_FIELD( CBaseEntity, m_pfnBlocked, FIELD_FUNCTION ),
-};
-
-
-int CBaseEntity::Save( CSave &save )
+bool CBaseEntity::Save( CSave& save )
 {
 	if ( save.WriteEntVars( "ENTVARS", pev ) )
-		return save.WriteFields( "BASE", this, m_SaveData, ARRAYSIZE(m_SaveData) );
+	{
+		const DataMap_t* pDataMap = GetDataMap();
 
-	return 0;
+		bool bResult = true;
+
+		while( pDataMap )
+		{
+			//TODO: fix const correctness - Solokiller
+			bResult = save.WriteFields( pDataMap->pszClassName, this, const_cast<TYPEDESCRIPTION*>( pDataMap->pTypeDesc ), pDataMap->uiNumDescriptors );
+
+			if( !bResult )
+				return false;
+
+			pDataMap = pDataMap->pParent;
+		}
+
+		return bResult;
+	}
+
+	return false;
 }
 
-int CBaseEntity::Restore( CRestore &restore )
+bool CBaseEntity::Restore( CRestore &restore )
 {
-	int status;
+	bool bResult = restore.ReadEntVars( "ENTVARS", pev );
 
-	status = restore.ReadEntVars( "ENTVARS", pev );
-	if ( status )
-		status = restore.ReadFields( "BASE", this, m_SaveData, ARRAYSIZE(m_SaveData) );
+	if ( bResult )
+	{
+		const DataMap_t* pDataMap = GetDataMap();
+
+		while( pDataMap )
+		{
+			//TODO: fix const correctness - Solokiller
+			bResult = restore.ReadFields( pDataMap->pszClassName, this, const_cast<TYPEDESCRIPTION*>( pDataMap->pTypeDesc ), pDataMap->uiNumDescriptors );
+
+			if( !bResult )
+				break;
+
+			pDataMap = pDataMap->pParent;
+		}
+	}
 
     if ( pev->modelindex != 0 && !FStringNull(pev->model) )
 	{
@@ -617,7 +634,7 @@ int CBaseEntity::Restore( CRestore &restore )
 		UTIL_SetSize(pev, mins, maxs);	// Reset them
 	}
 
-	return status;
+	return bResult;
 }
 
 

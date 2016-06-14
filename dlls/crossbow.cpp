@@ -34,6 +34,9 @@
 // speed - the ideal magnitude of my velocity
 class CCrossbowBolt : public CBaseEntity
 {
+public:
+	DECLARE_CLASS( CCrossbowBolt, CBaseEntity );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int  Classify ( void ) override;
@@ -520,6 +523,9 @@ void CCrossbow::WeaponIdle( void )
 
 class CCrossbowAmmo : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CCrossbowAmmo, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );

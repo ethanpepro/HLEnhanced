@@ -46,6 +46,9 @@ enum TANKBULLET
 class CFuncTank : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CFuncTank, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
@@ -84,10 +87,6 @@ public:
 	}
 
 	void		AdjustAnglesForBarrel( Vector &angles, float distance );
-
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	bool OnControls( entvars_t *pevTest ) override;
 	bool StartControl( CBasePlayer* pController );
@@ -131,8 +130,7 @@ protected:
 };
 
 
-TYPEDESCRIPTION	CFuncTank::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CFuncTank )
 	DEFINE_FIELD( CFuncTank, m_yawCenter, FIELD_FLOAT ),
 	DEFINE_FIELD( CFuncTank, m_yawRate, FIELD_FLOAT ),
 	DEFINE_FIELD( CFuncTank, m_yawRange, FIELD_FLOAT ),
@@ -159,9 +157,7 @@ TYPEDESCRIPTION	CFuncTank::m_SaveData[] =
 	DEFINE_FIELD( CFuncTank, m_flNextAttack, FIELD_TIME ),
 	DEFINE_FIELD( CFuncTank, m_iBulletDamage, FIELD_INTEGER ),
 	DEFINE_FIELD( CFuncTank, m_iszMaster, FIELD_STRING ),
-};
-
-IMPLEMENT_SAVERESTORE( CFuncTank, CBaseEntity );
+END_DATADESC()
 
 static Vector gTankSpread[] =
 {
@@ -715,6 +711,8 @@ void CFuncTank::StopRotSound( void )
 class CFuncTankGun : public CFuncTank
 {
 public:
+	DECLARE_CLASS( CFuncTankGun, CFuncTank );
+
 	void Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker ) override;
 };
 LINK_ENTITY_TO_CLASS( func_tank, CFuncTankGun );
@@ -764,15 +762,14 @@ void CFuncTankGun::Fire( const Vector &barrelEnd, const Vector &forward, entvars
 class CFuncTankLaser : public CFuncTank
 {
 public:
+	DECLARE_CLASS( CFuncTankLaser, CFuncTank );
+	DECLARE_DATADESC();
+
 	void	Activate( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
 	void	Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker ) override;
 	void	Think( void ) override;
 	CLaser *GetLaser( void );
-
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 private:
 	CLaser	*m_pLaser;
@@ -780,13 +777,10 @@ private:
 };
 LINK_ENTITY_TO_CLASS( func_tanklaser, CFuncTankLaser );
 
-TYPEDESCRIPTION	CFuncTankLaser::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CFuncTankLaser )
 	DEFINE_FIELD( CFuncTankLaser, m_pLaser, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CFuncTankLaser, m_laserTime, FIELD_TIME ),
-};
-
-IMPLEMENT_SAVERESTORE( CFuncTankLaser, CFuncTank );
+END_DATADESC()
 
 void CFuncTankLaser::Activate( void )
 {
@@ -883,6 +877,8 @@ void CFuncTankLaser::Fire( const Vector &barrelEnd, const Vector &forward, entva
 class CFuncTankRocket : public CFuncTank
 {
 public:
+	DECLARE_CLASS( CFuncTankRocket, CFuncTank );
+
 	void Precache( void ) override;
 	void Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker ) override;
 };
@@ -920,6 +916,8 @@ void CFuncTankRocket::Fire( const Vector &barrelEnd, const Vector &forward, entv
 class CFuncTankMortar : public CFuncTank
 {
 public:
+	DECLARE_CLASS( CFuncTankMortar, CFuncTank );
+
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker ) override;
 };
@@ -970,25 +968,21 @@ void CFuncTankMortar::Fire( const Vector &barrelEnd, const Vector &forward, entv
 class CFuncTankControls : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CFuncTankControls, CBaseEntity );
+	DECLARE_DATADESC();
+
 	virtual int	ObjectCaps( void ) override;
 	void Spawn( void ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void Think( void ) override;
 
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static TYPEDESCRIPTION m_SaveData[];
-
 	CFuncTank *m_pTank;
 };
 LINK_ENTITY_TO_CLASS( func_tankcontrols, CFuncTankControls );
 
-TYPEDESCRIPTION	CFuncTankControls::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CFuncTankControls )
 	DEFINE_FIELD( CFuncTankControls, m_pTank, FIELD_CLASSPTR ),
-};
-
-IMPLEMENT_SAVERESTORE( CFuncTankControls, CBaseEntity );
+END_DATADESC()
 
 int	CFuncTankControls :: ObjectCaps( void ) 
 { 

@@ -59,27 +59,23 @@ enum
 class CSquidSpit : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CSquidSpit, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 
 	static void Shoot( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity );
 	void Touch( CBaseEntity *pOther ) override;
 	void EXPORT Animate( void );
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	int  m_maxFrame;
 };
 
 LINK_ENTITY_TO_CLASS( squidspit, CSquidSpit );
 
-TYPEDESCRIPTION	CSquidSpit::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CSquidSpit )
 	DEFINE_FIELD( CSquidSpit, m_maxFrame, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CSquidSpit, CBaseEntity );
+END_DATADESC()
 
 void CSquidSpit:: Spawn( void )
 {
@@ -189,6 +185,9 @@ void CSquidSpit :: Touch ( CBaseEntity *pOther )
 class CBullsquid : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CBullsquid, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
@@ -214,11 +213,7 @@ public:
 	int IgnoreConditions ( void ) override;
 	MONSTERSTATE GetIdealState ( void ) override;
 
-	int	Save( CSave &save ) override;
-	int Restore( CRestore &restore ) override;
-
 	CUSTOM_SCHEDULES;
-	static TYPEDESCRIPTION m_SaveData[];
 
 	bool m_fCanThreatDisplay;// this is so the squid only does the "I see a headcrab!" dance one time. 
 
@@ -227,14 +222,11 @@ public:
 };
 LINK_ENTITY_TO_CLASS( monster_bullchicken, CBullsquid );
 
-TYPEDESCRIPTION	CBullsquid::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBullsquid )
 	DEFINE_FIELD( CBullsquid, m_fCanThreatDisplay, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBullsquid, m_flLastHurtTime, FIELD_TIME ),
 	DEFINE_FIELD( CBullsquid, m_flNextSpitTime, FIELD_TIME ),
-};
-
-IMPLEMENT_SAVERESTORE( CBullsquid, CBaseMonster );
+END_DATADESC()
 
 //=========================================================
 // IgnoreConditions 

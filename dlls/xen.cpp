@@ -26,25 +26,21 @@
 class CActAnimating : public CBaseAnimating
 {
 public:
+	DECLARE_CLASS( CActAnimating, CBaseAnimating );
+	DECLARE_DATADESC();
+
 	void			SetActivity( Activity act );
 	inline Activity	GetActivity( void ) { return m_Activity; }
 
 	virtual int	ObjectCaps( void ) override { return CBaseAnimating :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 private:
 	Activity	m_Activity;
 };
 
-TYPEDESCRIPTION	CActAnimating::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CActAnimating )
 	DEFINE_FIELD( CActAnimating, m_Activity, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CActAnimating, CBaseAnimating );
+END_DATADESC()
 
 void CActAnimating :: SetActivity( Activity act ) 
 { 
@@ -64,6 +60,9 @@ void CActAnimating :: SetActivity( Activity act )
 class CXenPLight : public CActAnimating
 {
 public:
+	DECLARE_CLASS( CXenPLight, CActAnimating );
+	DECLARE_DATADESC();
+
 	void		Spawn( void ) override;
 	void		Precache( void ) override;
 	void		Touch( CBaseEntity *pOther ) override;
@@ -72,22 +71,15 @@ public:
 	void		LightOn( void );
 	void		LightOff( void );
 
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 private:
 	CSprite		*m_pGlow;
 };
 
 LINK_ENTITY_TO_CLASS( xen_plantlight, CXenPLight );
 
-TYPEDESCRIPTION	CXenPLight::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CXenPLight )
 	DEFINE_FIELD( CXenPLight, m_pGlow, FIELD_CLASSPTR ),
-};
-
-IMPLEMENT_SAVERESTORE( CXenPLight, CActAnimating );
+END_DATADESC()
 
 void CXenPLight :: Spawn( void )
 {
@@ -183,6 +175,8 @@ void CXenPLight :: LightOff( void )
 class CXenHair : public CActAnimating
 {
 public:
+	DECLARE_CLASS( CXenHair, CActAnimating );
+
 	void		Spawn( void ) override;
 	void		Precache( void ) override;
 	void		Think( void ) override;
@@ -228,6 +222,8 @@ void CXenHair::Precache( void )
 class CXenTreeTrigger : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CXenTreeTrigger, CBaseEntity );
+
 	void		Touch( CBaseEntity *pOther ) override;
 	static CXenTreeTrigger *TriggerCreate( edict_t *pOwner, const Vector &position );
 };
@@ -261,6 +257,9 @@ void CXenTreeTrigger::Touch( CBaseEntity *pOther )
 class CXenTree : public CActAnimating
 {
 public:
+	DECLARE_CLASS( CXenTree, CActAnimating );
+	DECLARE_DATADESC();
+
 	void		Spawn( void ) override;
 	void		Precache( void ) override;
 	void		Touch( CBaseEntity *pOther ) override;
@@ -269,10 +268,6 @@ public:
 	void		HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void		Attack( void );	
 	int			Classify( void ) override { return CLASS_BARNACLE; }
-
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	static const char *pAttackHitSounds[];
 	static const char *pAttackMissSounds[];
@@ -283,12 +278,9 @@ private:
 
 LINK_ENTITY_TO_CLASS( xen_tree, CXenTree );
 
-TYPEDESCRIPTION	CXenTree::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CXenTree )
 	DEFINE_FIELD( CXenTree, m_pTrigger, FIELD_CLASSPTR ),
-};
-
-IMPLEMENT_SAVERESTORE( CXenTree, CActAnimating );
+END_DATADESC()
 
 void CXenTree :: Spawn( void )
 {
@@ -428,6 +420,8 @@ void CXenTree :: Think( void )
 class CXenSpore : public CActAnimating
 {
 public:
+	DECLARE_CLASS( CXenSpore, CActAnimating );
+
 	void		Spawn( void ) override;
 	void		Precache( void ) override;
 	void		Touch( CBaseEntity *pOther ) override;
@@ -441,16 +435,25 @@ public:
 
 class CXenSporeSmall : public CXenSpore
 {
+public:
+	DECLARE_CLASS( CXenSporeSmall, CXenSpore );
+
 	void		Spawn( void ) override;
 };
 
 class CXenSporeMed : public CXenSpore
 {
+public:
+	DECLARE_CLASS( CXenSporeMed, CXenSpore );
+
 	void		Spawn( void ) override;
 };
 
 class CXenSporeLarge : public CXenSpore
 {
+public:
+	DECLARE_CLASS( CXenSporeLarge, CXenSpore );
+
 	void		Spawn( void ) override;
 
 	static const Vector m_hullSizes[];
@@ -460,6 +463,8 @@ class CXenSporeLarge : public CXenSpore
 class CXenHull : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CXenHull, CPointEntity );
+
 	static CXenHull	*CreateHull( CBaseEntity *source, const Vector &mins, const Vector &maxs, const Vector &offset );
 	int			Classify( void ) override { return CLASS_BARNACLE; }
 };

@@ -44,6 +44,10 @@ enum squeak_e {
 
 class CSqueakGrenade : public CGrenade
 {
+public:
+	DECLARE_CLASS( CSqueakGrenade, CGrenade );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int  Classify( void ) override;
@@ -52,11 +56,6 @@ class CSqueakGrenade : public CGrenade
 	int  BloodColor( void ) override { return BLOOD_COLOR_YELLOW; }
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
 	void GibMonster( void ) override;
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	static float m_flNextBounceSoundTime;
 
@@ -73,17 +72,15 @@ class CSqueakGrenade : public CGrenade
 float CSqueakGrenade::m_flNextBounceSoundTime = 0;
 
 LINK_ENTITY_TO_CLASS( monster_snark, CSqueakGrenade );
-TYPEDESCRIPTION	CSqueakGrenade::m_SaveData[] = 
-{
+
+BEGIN_DATADESC(	CSqueakGrenade )
 	DEFINE_FIELD( CSqueakGrenade, m_flDie, FIELD_TIME ),
 	DEFINE_FIELD( CSqueakGrenade, m_vecTarget, FIELD_VECTOR ),
 	DEFINE_FIELD( CSqueakGrenade, m_flNextHunt, FIELD_TIME ),
 	DEFINE_FIELD( CSqueakGrenade, m_flNextHit, FIELD_TIME ),
 	DEFINE_FIELD( CSqueakGrenade, m_posPrev, FIELD_POSITION_VECTOR ),
 	DEFINE_FIELD( CSqueakGrenade, m_hOwner, FIELD_EHANDLE ),
-};
-
-IMPLEMENT_SAVERESTORE( CSqueakGrenade, CGrenade );
+END_DATADESC()
 
 #define SQUEEK_DETONATE_DELAY	15.0
 

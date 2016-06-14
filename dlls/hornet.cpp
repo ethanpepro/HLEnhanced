@@ -34,14 +34,11 @@ LINK_ENTITY_TO_CLASS( hornet, CHornet );
 //=========================================================
 // Save/Restore
 //=========================================================
-TYPEDESCRIPTION	CHornet::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CHornet )
 	DEFINE_FIELD( CHornet, m_flStopAttack, FIELD_TIME ),
 	DEFINE_FIELD( CHornet, m_iHornetType, FIELD_INTEGER ),
 	DEFINE_FIELD( CHornet, m_flFlySpeed, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CHornet, CBaseMonster );
+END_DATADESC()
 
 //=========================================================
 // don't let hornets gib, ever.

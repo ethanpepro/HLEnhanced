@@ -76,6 +76,9 @@ enum
 class CHoundeye : public CSquadMonster
 {
 public:
+	DECLARE_CLASS( CHoundeye, CSquadMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int  Classify ( void ) override;
@@ -99,11 +102,7 @@ public:
 	Schedule_t *GetScheduleOfType ( int Type ) override;
 	Schedule_t *GetSchedule( void ) override;
 
-	int	Save( CSave &save ) override;
-	int Restore( CRestore &restore ) override;
-
 	CUSTOM_SCHEDULES;
-	static TYPEDESCRIPTION m_SaveData[];
 
 	int m_iSpriteTexture;
 	bool m_fAsleep;// some houndeyes sleep in idle mode if this is set, the houndeye is lying down
@@ -112,15 +111,12 @@ public:
 };
 LINK_ENTITY_TO_CLASS( monster_houndeye, CHoundeye );
 
-TYPEDESCRIPTION	CHoundeye::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CHoundeye )
 	DEFINE_FIELD( CHoundeye, m_iSpriteTexture, FIELD_INTEGER ),
 	DEFINE_FIELD( CHoundeye, m_fAsleep, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CHoundeye, m_fDontBlink, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CHoundeye, m_vecPackCenter, FIELD_POSITION_VECTOR ),
-};
-
-IMPLEMENT_SAVERESTORE( CHoundeye, CSquadMonster );
+END_DATADESC()
 
 //=========================================================
 // Classify - indicates this monster's place in the 

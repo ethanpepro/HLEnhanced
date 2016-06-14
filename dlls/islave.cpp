@@ -42,6 +42,9 @@ extern DLL_GLOBAL int		g_iSkillLevel;
 class CISlave : public CSquadMonster
 {
 public:
+	DECLARE_CLASS( CISlave, CSquadMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
@@ -66,10 +69,6 @@ public:
 	Schedule_t *GetSchedule( void ) override;
 	Schedule_t *GetScheduleOfType ( int Type ) override;
 	CUSTOM_SCHEDULES;
-
-	int	Save( CSave &save ) override;
-	int Restore( CRestore &restore ) override;
-	static TYPEDESCRIPTION m_SaveData[];
 
 	void ClearBeams( );
 	void ArmBeam( int side );
@@ -97,8 +96,7 @@ LINK_ENTITY_TO_CLASS( monster_alien_slave, CISlave );
 LINK_ENTITY_TO_CLASS( monster_vortigaunt, CISlave );
 
 
-TYPEDESCRIPTION	CISlave::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CISlave )
 	DEFINE_FIELD( CISlave, m_iBravery, FIELD_INTEGER ),
 
 	DEFINE_ARRAY( CISlave, m_pBeam, FIELD_CLASSPTR, ISLAVE_MAX_BEAMS ),
@@ -108,13 +106,7 @@ TYPEDESCRIPTION	CISlave::m_SaveData[] =
 	DEFINE_FIELD( CISlave, m_voicePitch, FIELD_INTEGER ),
 
 	DEFINE_FIELD( CISlave, m_hDead, FIELD_EHANDLE ),
-
-};
-
-IMPLEMENT_SAVERESTORE( CISlave, CSquadMonster );
-
-
-
+END_DATADESC()
 
 const char *CISlave::pAttackHitSounds[] = 
 {

@@ -68,6 +68,8 @@ class CSmoker;
 class CSpiral : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CSpiral, CBaseEntity );
+
 	void Spawn( void ) override;
 	void Think( void ) override;
 	int ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
@@ -79,6 +81,8 @@ LINK_ENTITY_TO_CLASS( streak_spiral, CSpiral );
 class CStomp : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CStomp, CBaseEntity );
+
 	void Spawn( void ) override;
 	void Think( void ) override;
 	static CStomp *StompCreate( const Vector &origin, const Vector &end, float speed );
@@ -200,6 +204,9 @@ void StreakSplash( const Vector &origin, const Vector &direction, int color, int
 class CGargantua : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CGargantua, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
@@ -239,10 +246,6 @@ public:
 
 	void FlameDamage( Vector vecStart, Vector vecEnd, entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int iClassIgnore, int bitsDamageType );
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	CUSTOM_SCHEDULES;
 
 private:
@@ -274,8 +277,7 @@ private:
 
 LINK_ENTITY_TO_CLASS( monster_gargantua, CGargantua );
 
-TYPEDESCRIPTION	CGargantua::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CGargantua ) 
 	DEFINE_FIELD( CGargantua, m_pEyeGlow, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CGargantua, m_eyeBrightness, FIELD_INTEGER ),
 	DEFINE_FIELD( CGargantua, m_seeTime, FIELD_TIME ),
@@ -285,9 +287,7 @@ TYPEDESCRIPTION	CGargantua::m_SaveData[] =
 	DEFINE_ARRAY( CGargantua, m_pFlame, FIELD_CLASSPTR, 4 ),
 	DEFINE_FIELD( CGargantua, m_flameX, FIELD_FLOAT ),
 	DEFINE_FIELD( CGargantua, m_flameY, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CGargantua, CBaseMonster );
+END_DATADESC()
 
 const char *CGargantua::pAttackHitSounds[] = 
 {
@@ -1239,6 +1239,8 @@ void CGargantua::RunTask( Task_t *pTask )
 class CSmoker : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CSmoker, CBaseEntity );
+
 	void Spawn( void ) override;
 	void Think( void ) override;
 };

@@ -30,6 +30,9 @@
 class CRecharge : public CBaseToggle
 {
 public:
+	DECLARE_CLASS( CRecharge, CBaseToggle );
+	DECLARE_DATADESC();
+
 	void Spawn( ) override;
 	void Precache( void ) override;
 	void EXPORT Off(void);
@@ -37,10 +40,6 @@ public:
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual int	ObjectCaps( void ) override { return (CBaseToggle :: ObjectCaps() | FCAP_CONTINUOUS_USE) & ~FCAP_ACROSS_TRANSITION; }
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	float m_flNextCharge; 
 	int		m_iReactivate ; // DeathMatch Delay until reactvated
@@ -49,16 +48,13 @@ public:
 	float   m_flSoundTime;
 };
 
-TYPEDESCRIPTION CRecharge::m_SaveData[] =
-{
+BEGIN_DATADESC( CRecharge )
 	DEFINE_FIELD( CRecharge, m_flNextCharge, FIELD_TIME ),
 	DEFINE_FIELD( CRecharge, m_iReactivate, FIELD_INTEGER),
 	DEFINE_FIELD( CRecharge, m_iJuice, FIELD_INTEGER),
 	DEFINE_FIELD( CRecharge, m_iOn, FIELD_INTEGER),
 	DEFINE_FIELD( CRecharge, m_flSoundTime, FIELD_TIME ),
-};
-
-IMPLEMENT_SAVERESTORE( CRecharge, CBaseEntity );
+END_DATADESC()
 
 LINK_ENTITY_TO_CLASS(func_recharge, CRecharge);
 

@@ -40,9 +40,9 @@ typedef struct
 class COsprey : public CBaseMonster
 {
 public:
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_CLASS( COsprey, CBaseMonster );
+	DECLARE_DATADESC();
+
 	int		ObjectCaps( void ) override { return CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	
 	void Spawn( void ) override;
@@ -107,8 +107,7 @@ public:
 
 LINK_ENTITY_TO_CLASS( monster_osprey, COsprey );
 
-TYPEDESCRIPTION	COsprey::m_SaveData[] = 
-{
+BEGIN_DATADESC(	COsprey )
 	DEFINE_FIELD( COsprey, m_pGoalEnt, FIELD_CLASSPTR ),
 	DEFINE_FIELD( COsprey, m_vel1, FIELD_VECTOR ),
 	DEFINE_FIELD( COsprey, m_vel2, FIELD_VECTOR ),
@@ -138,8 +137,7 @@ TYPEDESCRIPTION	COsprey::m_SaveData[] =
 
 	DEFINE_FIELD( COsprey, m_iDoLeftSmokePuff, FIELD_INTEGER ),
 	DEFINE_FIELD( COsprey, m_iDoRightSmokePuff, FIELD_INTEGER ),
-};
-IMPLEMENT_SAVERESTORE( COsprey, CBaseMonster );
+END_DATADESC()
 
 
 void COsprey :: Spawn( void )

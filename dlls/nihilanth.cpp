@@ -28,9 +28,8 @@
 class CNihilanth : public CBaseMonster
 {
 public:
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_CLASS( CNihilanth, CBaseMonster );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -134,8 +133,7 @@ public:
 
 LINK_ENTITY_TO_CLASS( monster_nihilanth, CNihilanth );
 
-TYPEDESCRIPTION	CNihilanth::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CNihilanth )
 	DEFINE_FIELD( CNihilanth, m_flForce, FIELD_FLOAT ),
 	DEFINE_FIELD( CNihilanth, m_flNextPainSound, FIELD_TIME ),
 	DEFINE_FIELD( CNihilanth, m_velocity, FIELD_VECTOR ),
@@ -166,16 +164,13 @@ TYPEDESCRIPTION	CNihilanth::m_SaveData[] =
 	DEFINE_FIELD( CNihilanth, m_flShootEnd, FIELD_TIME ),
 	DEFINE_FIELD( CNihilanth, m_flShootTime, FIELD_TIME ),
 	DEFINE_ARRAY( CNihilanth, m_hFriend, FIELD_EHANDLE, 3 ),
-};
-
-IMPLEMENT_SAVERESTORE( CNihilanth, CBaseMonster );
+END_DATADESC()
 
 class CNihilanthHVR : public CBaseMonster
 {
 public:
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_CLASS( CNihilanthHVR, CBaseMonster );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -219,17 +214,13 @@ public:
 LINK_ENTITY_TO_CLASS( nihilanth_energy_ball, CNihilanthHVR );
 
 
-TYPEDESCRIPTION	CNihilanthHVR::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CNihilanthHVR )
 	DEFINE_FIELD( CNihilanthHVR, m_flIdealVel, FIELD_FLOAT ),
 	DEFINE_FIELD( CNihilanthHVR, m_vecIdeal, FIELD_VECTOR ),
 	DEFINE_FIELD( CNihilanthHVR, m_pNihilanth, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CNihilanthHVR, m_hTouch, FIELD_EHANDLE ),
 	DEFINE_FIELD( CNihilanthHVR, m_nFrames, FIELD_INTEGER ),
-};
-
-
-IMPLEMENT_SAVERESTORE( CNihilanthHVR, CBaseMonster );
+END_DATADESC()
 
 
 //=========================================================

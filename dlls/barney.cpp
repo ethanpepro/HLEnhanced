@@ -43,6 +43,9 @@
 class CBarney : public CTalkMonster
 {
 public:
+	DECLARE_CLASS( CBarney, CTalkMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
@@ -72,10 +75,6 @@ public:
 
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
-	
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	bool	m_fGunDrawn;
 	float	m_painTime;
@@ -90,16 +89,13 @@ public:
 
 LINK_ENTITY_TO_CLASS( monster_barney, CBarney );
 
-TYPEDESCRIPTION	CBarney::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBarney )
 	DEFINE_FIELD( CBarney, m_fGunDrawn, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarney, m_painTime, FIELD_TIME ),
 	DEFINE_FIELD( CBarney, m_checkAttackTime, FIELD_TIME ),
 	DEFINE_FIELD( CBarney, m_lastAttackCheck, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarney, m_flPlayerDamage, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CBarney, CTalkMonster );
+END_DATADESC()
 
 //=========================================================
 // AI Schedules Specific to this monster
@@ -790,6 +786,8 @@ void CBarney::DeclineFollowing( void )
 class CDeadBarney : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CDeadBarney, CBaseMonster );
+
 	void Spawn( void );
 	int	Classify ( void ) { return	CLASS_PLAYER_ALLY; }
 

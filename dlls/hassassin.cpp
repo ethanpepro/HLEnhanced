@@ -64,6 +64,9 @@ enum
 class CHAssassin : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CHAssassin, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed ( void ) override;
@@ -84,10 +87,6 @@ public:
 	void IdleSound ( void ) override;
 	CUSTOM_SCHEDULES;
 
-	int	Save( CSave &save ) override;
-	int Restore( CRestore &restore ) override;
-	static TYPEDESCRIPTION m_SaveData[];
-
 	float m_flLastShot;
 	float m_flDiviation;
 
@@ -107,8 +106,7 @@ public:
 LINK_ENTITY_TO_CLASS( monster_human_assassin, CHAssassin );
 
 
-TYPEDESCRIPTION	CHAssassin::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CHAssassin )
 	DEFINE_FIELD( CHAssassin, m_flLastShot, FIELD_TIME ),
 	DEFINE_FIELD( CHAssassin, m_flDiviation, FIELD_FLOAT ),
 
@@ -121,9 +119,7 @@ TYPEDESCRIPTION	CHAssassin::m_SaveData[] =
 
 	DEFINE_FIELD( CHAssassin, m_iTargetRanderamt, FIELD_INTEGER ),
 	DEFINE_FIELD( CHAssassin, m_iFrustration, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CHAssassin, CBaseMonster );
+END_DATADESC()
 
 
 //=========================================================

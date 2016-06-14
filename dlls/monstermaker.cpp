@@ -34,6 +34,9 @@
 class CMonsterMaker : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CMonsterMaker, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void KeyValue( KeyValueData* pkvd) override;
@@ -42,11 +45,6 @@ public:
 	void EXPORT MakerThink ( void );
 	void DeathNotice ( entvars_t *pevChild ) override;// monster maker children use this to tell the monster maker that they have died.
 	void MakeMonster( void );
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-
-	static	TYPEDESCRIPTION m_SaveData[];
 	
 	string_t m_iszMonsterClassname;// classname of the monster(s) that will be created.
 	
@@ -64,8 +62,7 @@ public:
 
 LINK_ENTITY_TO_CLASS( monstermaker, CMonsterMaker );
 
-TYPEDESCRIPTION	CMonsterMaker::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CMonsterMaker )
 	DEFINE_FIELD( CMonsterMaker, m_iszMonsterClassname, FIELD_STRING ),
 	DEFINE_FIELD( CMonsterMaker, m_cNumMonsters, FIELD_INTEGER ),
 	DEFINE_FIELD( CMonsterMaker, m_cLiveChildren, FIELD_INTEGER ),
@@ -73,10 +70,7 @@ TYPEDESCRIPTION	CMonsterMaker::m_SaveData[] =
 	DEFINE_FIELD( CMonsterMaker, m_iMaxLiveChildren, FIELD_INTEGER ),
 	DEFINE_FIELD( CMonsterMaker, m_fActive, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CMonsterMaker, m_fFadeChildren, FIELD_BOOLEAN ),
-};
-
-
-IMPLEMENT_SAVERESTORE( CMonsterMaker, CBaseMonster );
+END_DATADESC()
 
 void CMonsterMaker :: KeyValue( KeyValueData *pkvd )
 {

@@ -35,14 +35,13 @@
 class CFlockingFlyerFlock : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CFlockingFlyerFlock, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void SpawnFlock( void );
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	// Sounds are shared by the flock
 	static  void PrecacheFlockSounds( void );
@@ -51,13 +50,10 @@ public:
 	float	m_flFlockRadius;
 };
 
-TYPEDESCRIPTION	CFlockingFlyerFlock::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CFlockingFlyerFlock )
 	DEFINE_FIELD( CFlockingFlyerFlock, m_cFlockSize, FIELD_INTEGER ),
 	DEFINE_FIELD( CFlockingFlyerFlock, m_flFlockRadius, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CFlockingFlyerFlock, CBaseMonster );
+END_DATADESC()
 
 //=========================================================
 //=========================================================
@@ -65,6 +61,9 @@ IMPLEMENT_SAVERESTORE( CFlockingFlyerFlock, CBaseMonster );
 class CFlockingFlyer : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CFlockingFlyer, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SpawnCommonCode( void );
@@ -83,10 +82,6 @@ public:
 	void Poop ( void );
 	bool FPathBlocked();
 	//void KeyValue( KeyValueData *pkvd );
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	bool IsLeader() const { return m_pSquadLeader == this; }
 	bool InSquad() const { return m_pSquadLeader != nullptr; }
@@ -112,8 +107,8 @@ public:
 LINK_ENTITY_TO_CLASS( monster_flyer, CFlockingFlyer );
 LINK_ENTITY_TO_CLASS( monster_flyer_flock, CFlockingFlyerFlock );
 
-TYPEDESCRIPTION	CFlockingFlyer::m_SaveData[] = 
-{
+
+BEGIN_DATADESC(	CFlockingFlyer )
 	DEFINE_FIELD( CFlockingFlyer, m_pSquadLeader, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CFlockingFlyer, m_pSquadNext, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CFlockingFlyer, m_fTurning, FIELD_BOOLEAN ),
@@ -126,9 +121,7 @@ TYPEDESCRIPTION	CFlockingFlyer::m_SaveData[] =
 	DEFINE_FIELD( CFlockingFlyer, m_flFakeBlockedTime, FIELD_TIME ),
 	DEFINE_FIELD( CFlockingFlyer, m_flAlertTime, FIELD_TIME ),
 //	DEFINE_FIELD( CFlockingFlyer, m_flFlockNextSoundTime, FIELD_TIME ),	// don't need to save
-};
-
-IMPLEMENT_SAVERESTORE( CFlockingFlyer, CBaseMonster );
+END_DATADESC()
 
 //=========================================================
 //=========================================================

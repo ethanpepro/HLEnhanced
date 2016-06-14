@@ -35,6 +35,9 @@ LINK_ENTITY_TO_CLASS( info_target, CPointEntity );
 class CBubbling : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CBubbling, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
@@ -42,10 +45,7 @@ public:
 	void	EXPORT FizzThink( void );
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
 	virtual int		ObjectCaps( void ) override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	int		m_density;
 	int		m_frequency;
@@ -55,17 +55,13 @@ public:
 
 LINK_ENTITY_TO_CLASS( env_bubbles, CBubbling );
 
-TYPEDESCRIPTION	CBubbling::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBubbling )
 	DEFINE_FIELD( CBubbling, m_density, FIELD_INTEGER ),
 	DEFINE_FIELD( CBubbling, m_frequency, FIELD_INTEGER ),
 	DEFINE_FIELD( CBubbling, m_state, FIELD_BOOLEAN ),
 	// Let spawn restore this!
 	//	DEFINE_FIELD( CBubbling, m_bubbleModel, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CBubbling, CBaseEntity );
-
+END_DATADESC()
 
 #define SF_BUBBLES_STARTOFF		0x0001
 
@@ -371,6 +367,9 @@ void CBeam::DoSparks( const Vector &start, const Vector &end )
 class CLightning : public CBeam
 {
 public:
+	DECLARE_CLASS( CLightning, CBeam );
+	DECLARE_DATADESC();
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
@@ -390,10 +389,6 @@ public:
 			return true;
 		return false;
 	}
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	void	BeamUpdateVars( void );
 
@@ -421,8 +416,12 @@ LINK_ENTITY_TO_CLASS( env_beam, CLightning );
 //TODO: remove - Solokiller
 class CTripBeam : public CLightning
 {
+public:
+	DECLARE_CLASS( CTripBeam, CLightning );
+
 	void Spawn( void ) override;
 };
+
 LINK_ENTITY_TO_CLASS( trip_beam, CTripBeam );
 
 void CTripBeam::Spawn( void )
@@ -436,8 +435,7 @@ void CTripBeam::Spawn( void )
 
 
 
-TYPEDESCRIPTION	CLightning::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CLightning )
 	DEFINE_FIELD( CLightning, m_active, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CLightning, m_iszStartEntity, FIELD_STRING ),
 	DEFINE_FIELD( CLightning, m_iszEndEntity, FIELD_STRING ),
@@ -451,10 +449,7 @@ TYPEDESCRIPTION	CLightning::m_SaveData[] =
 	DEFINE_FIELD( CLightning, m_iszSpriteName, FIELD_STRING ),
 	DEFINE_FIELD( CLightning, m_frameStart, FIELD_INTEGER ),
 	DEFINE_FIELD( CLightning, m_radius, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CLightning, CBeam );
-
+END_DATADESC()
 
 void CLightning::Spawn( void )
 {
@@ -949,14 +944,11 @@ void CLightning::BeamUpdateVars( void )
 
 LINK_ENTITY_TO_CLASS( env_laser, CLaser );
 
-TYPEDESCRIPTION	CLaser::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CLaser )
 	DEFINE_FIELD( CLaser, m_pSprite, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CLaser, m_iszSpriteName, FIELD_STRING ),
 	DEFINE_FIELD( CLaser, m_firePosition, FIELD_POSITION_VECTOR ),
-};
-
-IMPLEMENT_SAVERESTORE( CLaser, CBeam );
+END_DATADESC()
 
 void CLaser::Spawn( void )
 {
@@ -1115,12 +1107,12 @@ void CLaser::StrikeThink( void )
 class CGlow : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CGlow, CPointEntity );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Think( void ) override;
 	void Animate( float frames );
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	float		m_lastTime;
 	float		m_maxFrame;
@@ -1128,13 +1120,10 @@ public:
 
 LINK_ENTITY_TO_CLASS( env_glow, CGlow );
 
-TYPEDESCRIPTION	CGlow::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CGlow )
 	DEFINE_FIELD( CGlow, m_lastTime, FIELD_TIME ),
 	DEFINE_FIELD( CGlow, m_maxFrame, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CGlow, CPointEntity );
+END_DATADESC()
 
 void CGlow::Spawn( void )
 {
@@ -1172,13 +1161,10 @@ void CGlow::Animate( float frames )
 
 LINK_ENTITY_TO_CLASS( env_sprite, CSprite );
 
-TYPEDESCRIPTION	CSprite::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CSprite )
 	DEFINE_FIELD( CSprite, m_lastTime, FIELD_TIME ),
 	DEFINE_FIELD( CSprite, m_maxFrame, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CSprite, CPointEntity );
+END_DATADESC()
 
 void CSprite::Spawn( void )
 {
@@ -1348,6 +1334,9 @@ void CSprite::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useTy
 class CGibShooter : public CBaseDelay
 {
 public:
+	DECLARE_CLASS( CGibShooter, CBaseDelay );
+	DECLARE_DATADESC();
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
@@ -1355,10 +1344,6 @@ public:
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
 	virtual CGib *CreateGib( void );
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	int	m_iGibs;
 	int m_iGibCapacity;
@@ -1369,8 +1354,7 @@ public:
 	float m_flGibLife;
 };
 
-TYPEDESCRIPTION CGibShooter::m_SaveData[] =
-{
+BEGIN_DATADESC( CGibShooter )
 	DEFINE_FIELD( CGibShooter, m_iGibs, FIELD_INTEGER ),
 	DEFINE_FIELD( CGibShooter, m_iGibCapacity, FIELD_INTEGER ),
 	DEFINE_FIELD( CGibShooter, m_iGibMaterial, FIELD_INTEGER ),
@@ -1378,9 +1362,8 @@ TYPEDESCRIPTION CGibShooter::m_SaveData[] =
 	DEFINE_FIELD( CGibShooter, m_flGibVelocity, FIELD_FLOAT ),
 	DEFINE_FIELD( CGibShooter, m_flVariance, FIELD_FLOAT ),
 	DEFINE_FIELD( CGibShooter, m_flGibLife, FIELD_FLOAT ),
-};
+END_DATADESC()
 
-IMPLEMENT_SAVERESTORE( CGibShooter, CBaseDelay );
 LINK_ENTITY_TO_CLASS( gibshooter, CGibShooter );
 
 
@@ -1526,6 +1509,9 @@ void CGibShooter :: ShootThink ( void )
 
 class CEnvShooter : public CGibShooter
 {
+public:
+	DECLARE_CLASS( CEnvShooter, CGibShooter );
+
 	void		Precache( void ) override;
 	void		KeyValue( KeyValueData *pkvd ) override;
 
@@ -1614,6 +1600,8 @@ CGib *CEnvShooter :: CreateGib ( void )
 class CTestEffect : public CBaseDelay
 {
 public:
+	DECLARE_CLASS( CTestEffect, CBaseDelay );
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	// void	KeyValue( KeyValueData *pkvd );
@@ -1720,6 +1708,8 @@ void CTestEffect::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 class CBlood : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CBlood, CPointEntity );
+
 	void	Spawn( void ) override;
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
@@ -1836,6 +1826,8 @@ void CBlood::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useTyp
 class CShake : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CShake, CPointEntity );
+
 	void	Spawn( void ) override;
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
@@ -1914,6 +1906,8 @@ void CShake::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useTyp
 class CFade : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CFade, CPointEntity );
+
 	void	Spawn( void ) override;
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
@@ -1988,6 +1982,8 @@ void CFade::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType
 class CMessage : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CMessage, CPointEntity );
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
@@ -2095,6 +2091,8 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 class CEnvFunnel : public CBaseDelay
 {
 public:
+	DECLARE_CLASS( CEnvFunnel, CBaseDelay );
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
@@ -2149,6 +2147,8 @@ void CEnvFunnel::Spawn( void )
 class CEnvBeverage : public CBaseDelay
 {
 public:
+	DECLARE_CLASS( CEnvBeverage, CBaseDelay );
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
@@ -2208,6 +2208,8 @@ void CEnvBeverage::Spawn( void )
 class CItemSoda : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CItemSoda, CBaseEntity );
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	EXPORT CanThink ( void );

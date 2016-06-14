@@ -66,6 +66,9 @@ enum
 class CScientist : public CTalkMonster
 {
 public:
+	DECLARE_CLASS( CScientist, CTalkMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
@@ -100,10 +103,6 @@ public:
 	void TalkInit( void );
 
 	void			Killed( entvars_t *pevAttacker, int iGib ) override;
-	
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	CUSTOM_SCHEDULES;
 
@@ -115,14 +114,11 @@ private:
 
 LINK_ENTITY_TO_CLASS( monster_scientist, CScientist );
 
-TYPEDESCRIPTION	CScientist::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CScientist )
 	DEFINE_FIELD( CScientist, m_painTime, FIELD_TIME ),
 	DEFINE_FIELD( CScientist, m_healTime, FIELD_TIME ),
 	DEFINE_FIELD( CScientist, m_fearTime, FIELD_TIME ),
-};
-
-IMPLEMENT_SAVERESTORE( CScientist, CTalkMonster );
+END_DATADESC()
 
 //=========================================================
 // AI Schedules Specific to this monster
@@ -1101,6 +1097,8 @@ int CScientist::FriendNumber( int arrayNumber ) const
 class CDeadScientist : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CDeadScientist, CBaseMonster );
+
 	void Spawn( void ) override;
 	int	Classify ( void ) override { return	CLASS_HUMAN_PASSIVE; }
 
@@ -1165,14 +1163,14 @@ void CDeadScientist :: Spawn( )
 class CSittingScientist : public CScientist // kdb: changed from public CBaseMonster so he can speak
 {
 public:
+	DECLARE_CLASS( CSittingScientist, CScientist );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void  Precache( void ) override;
 
 	void EXPORT SittingThink( void );
 	int	Classify ( void ) override;
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	virtual void SetAnswerQuestion( CTalkMonster *pSpeaker ) override;
 	int FriendNumber( int arrayNumber ) const override;
@@ -1184,14 +1182,12 @@ public:
 };
 
 LINK_ENTITY_TO_CLASS( monster_sitting_scientist, CSittingScientist );
-TYPEDESCRIPTION	CSittingScientist::m_SaveData[] = 
-{
+
+BEGIN_DATADESC(	CSittingScientist )
 	// Don't need to save/restore m_baseSequence (recalced)
 	DEFINE_FIELD( CSittingScientist, m_headTurn, FIELD_INTEGER ),
 	DEFINE_FIELD( CSittingScientist, m_flResponseDelay, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CSittingScientist, CScientist );
+END_DATADESC()
 
 // animation sequence aliases 
 typedef enum

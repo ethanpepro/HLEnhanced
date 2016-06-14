@@ -46,6 +46,9 @@ enum SS_INTERRUPT
 class CCineMonster : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CCineMonster, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	virtual void KeyValue( KeyValueData *pkvd ) override;
 	virtual void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
@@ -53,11 +56,6 @@ public:
 	virtual void Touch( CBaseEntity *pOther ) override;
 	virtual int	 ObjectCaps( void ) override { return (CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
 	virtual void Activate( void ) override;
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	// void EXPORT CineSpawnThink( void );
 	void EXPORT CineThink( void );
@@ -97,6 +95,9 @@ public:
 
 class CCineAI : public CCineMonster
 {
+public:
+	DECLARE_CLASS( CCineAI, CCineMonster );
+
 	bool StartSequence( CBaseMonster *pTarget, int iszSeq, const bool completeOnEmpty ) override;
 	void PossessEntity() override;
 	bool FCanOverrideState() const override;

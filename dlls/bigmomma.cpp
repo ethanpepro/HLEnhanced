@@ -33,6 +33,9 @@
 class CInfoBM : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CInfoBM, CPointEntity );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void KeyValue( KeyValueData* pkvd ) override;
 
@@ -43,22 +46,15 @@ public:
 	// Reach target in pev->message
 	// Reach delay in pev->speed
 	// Reach sequence in pev->netname
-	
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	int		m_preSequence;
 };
 
 LINK_ENTITY_TO_CLASS( info_bigmomma, CInfoBM );
 
-TYPEDESCRIPTION	CInfoBM::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CInfoBM )
 	DEFINE_FIELD( CInfoBM, m_preSequence, FIELD_STRING ),
-};
-
-IMPLEMENT_SAVERESTORE( CInfoBM, CPointEntity );
+END_DATADESC()
 
 void CInfoBM::Spawn( void )
 {
@@ -102,27 +98,23 @@ void CInfoBM::KeyValue( KeyValueData* pkvd )
 class CBMortar : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CBMortar, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 
 	static CBMortar *Shoot( edict_t *pOwner, Vector vecStart, Vector vecVelocity );
 	void Touch( CBaseEntity *pOther ) override;
 	void EXPORT Animate( void );
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	int  m_maxFrame;
 };
 
 LINK_ENTITY_TO_CLASS( bmortar, CBMortar );
 
-TYPEDESCRIPTION	CBMortar::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBMortar )
 	DEFINE_FIELD( CBMortar, m_maxFrame, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CBMortar, CBaseEntity );
+END_DATADESC()
 
 
 //=========================================================
@@ -175,6 +167,9 @@ void MortarSpray( const Vector &position, const Vector &direction, int spriteMod
 class CBigMomma : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CBigMomma, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
@@ -289,10 +284,6 @@ public:
 	bool CheckMeleeAttack2( float flDot, float flDist ) override;	// Lay a crab
 	bool CheckRangeAttack1( float flDot, float flDist ) override;	// Mortar launch
 
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	static const char *pChildDieSounds[];
 	static const char *pSackSounds[];
 	static const char *pDeathSounds[];
@@ -314,16 +305,13 @@ private:
 };
 LINK_ENTITY_TO_CLASS( monster_bigmomma, CBigMomma );
 
-TYPEDESCRIPTION	CBigMomma::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBigMomma )
 	DEFINE_FIELD( CBigMomma, m_nodeTime, FIELD_TIME ),
 	DEFINE_FIELD( CBigMomma, m_crabTime, FIELD_TIME ),
 	DEFINE_FIELD( CBigMomma, m_mortarTime, FIELD_TIME ),
 	DEFINE_FIELD( CBigMomma, m_painSoundTime, FIELD_TIME ),
 	DEFINE_FIELD( CBigMomma, m_crabCount, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CBigMomma, CBaseMonster );
+END_DATADESC()
 
 const char *CBigMomma::pChildDieSounds[] = 
 {

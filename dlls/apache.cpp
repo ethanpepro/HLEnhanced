@@ -29,9 +29,9 @@ extern DLL_GLOBAL int		g_iSkillLevel;
 
 class CApache : public CBaseMonster
 {
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+public:
+	DECLARE_CLASS( CApache, CBaseMonster );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -90,8 +90,7 @@ class CApache : public CBaseMonster
 };
 LINK_ENTITY_TO_CLASS( monster_apache, CApache );
 
-TYPEDESCRIPTION	CApache::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CApache )
 	DEFINE_FIELD( CApache, m_iRockets, FIELD_INTEGER ),
 	DEFINE_FIELD( CApache, m_flForce, FIELD_FLOAT ),
 	DEFINE_FIELD( CApache, m_flNextRocket, FIELD_TIME ),
@@ -110,8 +109,7 @@ TYPEDESCRIPTION	CApache::m_SaveData[] =
 	DEFINE_FIELD( CApache, m_pBeam, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CApache, m_flGoalSpeed, FIELD_FLOAT ),
 	DEFINE_FIELD( CApache, m_iDoSmokePuff, FIELD_INTEGER ),
-};
-IMPLEMENT_SAVERESTORE( CApache, CBaseMonster );
+END_DATADESC()
 
 
 void CApache :: Spawn( void )
@@ -939,27 +937,24 @@ void CApache::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 
 class CApacheHVR : public CGrenade
 {
+public:
+	DECLARE_CLASS( CApacheHVR, CGrenade );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void EXPORT IgniteThink( void );
 	void EXPORT AccelerateThink( void );
-
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	int m_iTrail;
 	Vector m_vecForward;
 };
 LINK_ENTITY_TO_CLASS( hvr_rocket, CApacheHVR );
 
-TYPEDESCRIPTION	CApacheHVR::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CApacheHVR )
 //	DEFINE_FIELD( CApacheHVR, m_iTrail, FIELD_INTEGER ),	// Dont' save, precache
 	DEFINE_FIELD( CApacheHVR, m_vecForward, FIELD_VECTOR ),
-};
-
-IMPLEMENT_SAVERESTORE( CApacheHVR, CGrenade );
+END_DATADESC()
 
 void CApacheHVR :: Spawn( void )
 {

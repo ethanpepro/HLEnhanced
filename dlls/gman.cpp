@@ -29,16 +29,15 @@
 class CGMan : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CGMan, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
 	int  Classify ( void ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	int ISoundMask ( void ) override;
-
-	int	Save( CSave &save ) override;
-	int Restore( CRestore &restore ) override;
-	static TYPEDESCRIPTION m_SaveData[];
 
 	void StartTask( Task_t *pTask ) override;
 	void RunTask( Task_t *pTask ) override;
@@ -54,12 +53,10 @@ public:
 LINK_ENTITY_TO_CLASS( monster_gman, CGMan );
 
 
-TYPEDESCRIPTION	CGMan::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CGMan )
 	DEFINE_FIELD( CGMan, m_hTalkTarget, FIELD_EHANDLE ),
 	DEFINE_FIELD( CGMan, m_flTalkTime, FIELD_TIME ),
-};
-IMPLEMENT_SAVERESTORE( CGMan, CBaseMonster );
+END_DATADESC()
 
 
 //=========================================================

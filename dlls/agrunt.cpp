@@ -71,6 +71,9 @@ int iAgruntMuzzleFlash;
 class CAGrunt : public CSquadMonster
 {
 public:
+	DECLARE_CLASS( CAGrunt, CSquadMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed ( void ) override;
@@ -100,10 +103,6 @@ public:
 	bool ShouldSpeak();
 	CUSTOM_SCHEDULES;
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	static const char *pAttackHitSounds[];
 	static const char *pAttackMissSounds[];
 	static const char *pAttackSounds[];
@@ -124,17 +123,14 @@ public:
 };
 LINK_ENTITY_TO_CLASS( monster_alien_grunt, CAGrunt );
 
-TYPEDESCRIPTION	CAGrunt::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CAGrunt )
 	DEFINE_FIELD( CAGrunt, m_fCanHornetAttack, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CAGrunt, m_flNextHornetAttackCheck, FIELD_TIME ),
 	DEFINE_FIELD( CAGrunt, m_flNextPainTime, FIELD_TIME ),
 	DEFINE_FIELD( CAGrunt, m_flNextSpeakTime, FIELD_TIME ),
 	DEFINE_FIELD( CAGrunt, m_flNextWordTime, FIELD_TIME ),
 	DEFINE_FIELD( CAGrunt, m_iLastWord, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CAGrunt, CSquadMonster );
+END_DATADESC()
 
 const char *CAGrunt::pAttackHitSounds[] = 
 {

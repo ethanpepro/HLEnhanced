@@ -2034,14 +2034,14 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 
 
 
-int CSave :: WriteEntVars( const char *pname, entvars_t *pev )
+bool CSave::WriteEntVars( const char *pname, entvars_t *pev )
 {
 	return WriteFields( pname, pev, gEntvarsDescription, ENTVARS_COUNT );
 }
 
 
 
-int CSave :: WriteFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount )
+bool CSave::WriteFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount )
 {
 	int				i, j, actualCount, emptyCount;
 	TYPEDESCRIPTION	*pTest;
@@ -2151,7 +2151,7 @@ int CSave :: WriteFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *p
 		}
 	}
 
-	return 1;
+	return true;
 }
 
 
@@ -2386,13 +2386,13 @@ int CRestore::ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCou
 }
 
 
-int CRestore::ReadEntVars( const char *pname, entvars_t *pev )
+bool CRestore::ReadEntVars( const char *pname, entvars_t *pev )
 {
 	return ReadFields( pname, pev, gEntvarsDescription, ENTVARS_COUNT );
 }
 
 
-int CRestore::ReadFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount )
+bool CRestore::ReadFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount )
 {
 	unsigned short	i, token;
 	int		lastField, fileCount;
@@ -2408,7 +2408,7 @@ int CRestore::ReadFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *p
 	{
 //		ALERT( at_error, "Expected %s found %s!\n", pname, BufferPointer() );
 		BufferRewind( 2*sizeof(short) );
-		return 0;
+		return false;
 	}
 
 	// Skip over the struct name
@@ -2431,7 +2431,7 @@ int CRestore::ReadFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *p
 		lastField++;
 	}
 	
-	return 1;
+	return true;
 }
 
 

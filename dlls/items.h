@@ -19,6 +19,8 @@
 class CItem : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CItem, CBaseEntity );
+
 	void	Spawn( void ) override;
 	CBaseEntity*	Respawn( void ) override;
 	void	EXPORT ItemTouch( CBaseEntity *pOther );

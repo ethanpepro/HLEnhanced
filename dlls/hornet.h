@@ -33,13 +33,13 @@ extern int iHornetPuff;
 class CHornet : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CHornet, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int	 Classify ( void ) override;
 	int  IRelationship ( CBaseEntity *pTarget ) override;
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	void IgniteTrail( void );
 	void EXPORT StartTrack ( void );

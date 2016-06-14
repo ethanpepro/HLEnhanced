@@ -42,6 +42,9 @@ enum satchel_radio_e {
 
 class CSatchelCharge : public CGrenade
 {
+public:
+	DECLARE_CLASS( CSatchelCharge, CGrenade );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void BounceSound( void ) override;

@@ -34,6 +34,9 @@
 class CBarnacle : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CBarnacle, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	CBaseEntity *TongueTouchEnt ( float *pflLength );
@@ -43,9 +46,6 @@ public:
 	void EXPORT WaitTillDead ( void );
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
 	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	float m_flAltitude;
 	float m_flKillVictimTime;
@@ -56,17 +56,14 @@ public:
 };
 LINK_ENTITY_TO_CLASS( monster_barnacle, CBarnacle );
 
-TYPEDESCRIPTION	CBarnacle::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBarnacle )
 	DEFINE_FIELD( CBarnacle, m_flAltitude, FIELD_FLOAT ),
 	DEFINE_FIELD( CBarnacle, m_flKillVictimTime, FIELD_TIME ),
 	DEFINE_FIELD( CBarnacle, m_cGibs, FIELD_INTEGER ),// barnacle loads up on gibs each time it kills something.
 	DEFINE_FIELD( CBarnacle, m_fTongueExtended, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarnacle, m_fLiftingPrey, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CBarnacle, m_flTongueAdj, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CBarnacle, CBaseMonster );
+END_DATADESC()
 
 
 //=========================================================

@@ -144,6 +144,8 @@ enum
 class CGib : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CGib, CBaseEntity );
+
 	void Spawn( const char *szGibModel );
 	void EXPORT BounceGibTouch ( CBaseEntity *pOther );
 	void EXPORT StickyGibTouch ( CBaseEntity *pOther );

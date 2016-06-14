@@ -33,6 +33,9 @@ static void PlatSpawnInsideTrigger(entvars_t* pevPlatform);
 class CBasePlatTrain : public CBaseToggle
 {
 public:
+	DECLARE_CLASS( CBasePlatTrain, CBaseToggle );
+	DECLARE_DATADESC();
+
 	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void KeyValue( KeyValueData* pkvd) override;
 	void Precache( void ) override;
@@ -40,23 +43,16 @@ public:
 	// This is done to fix spawn flag collisions between this class and a derived class
 	virtual bool IsTogglePlat() const { return ( pev->spawnflags & SF_PLAT_TOGGLE ) != 0; }
 
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	BYTE	m_bMoveSnd;			// sound a plat makes while moving
 	BYTE	m_bStopSnd;			// sound a plat makes when it stops
 	float	m_volume;			// Sound volume
 };
 
-TYPEDESCRIPTION	CBasePlatTrain::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBasePlatTrain )
 	DEFINE_FIELD( CBasePlatTrain, m_bMoveSnd, FIELD_CHARACTER ),
 	DEFINE_FIELD( CBasePlatTrain, m_bStopSnd, FIELD_CHARACTER ),
 	DEFINE_FIELD( CBasePlatTrain, m_volume, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CBasePlatTrain, CBaseToggle );
+END_DATADESC()
 
 void CBasePlatTrain :: KeyValue( KeyValueData *pkvd )
 {
@@ -223,6 +219,8 @@ void CBasePlatTrain::Precache( void )
 class CFuncPlat : public CBasePlatTrain
 {
 public:
+	DECLARE_CLASS( CFuncPlat, CBasePlatTrain );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void Setup( void );
@@ -248,6 +246,8 @@ LINK_ENTITY_TO_CLASS( func_plat, CFuncPlat );
 class CPlatTrigger : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CPlatTrigger, CBaseEntity );
+
 	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DONT_SAVE; }
 	void SpawnInsideTrigger( CFuncPlat *pPlatform );
 	void Touch( CBaseEntity *pOther ) override;
@@ -515,6 +515,9 @@ void CFuncPlat :: Blocked( CBaseEntity *pOther )
 class CFuncPlatRot : public CFuncPlat
 {
 public:
+	DECLARE_CLASS( CFuncPlatRot, CFuncPlat );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void SetupRotation( void );
 
@@ -524,20 +527,16 @@ public:
 	virtual void	HitBottom( void ) override;
 	
 	void			RotMove( Vector &destAngle, float time );
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	Vector	m_end, m_start;
 };
+
 LINK_ENTITY_TO_CLASS( func_platrot, CFuncPlatRot );
-TYPEDESCRIPTION	CFuncPlatRot::m_SaveData[] = 
-{
+
+BEGIN_DATADESC(	CFuncPlatRot )
 	DEFINE_FIELD( CFuncPlatRot, m_end, FIELD_VECTOR ),
 	DEFINE_FIELD( CFuncPlatRot, m_start, FIELD_VECTOR ),
-};
-
-IMPLEMENT_SAVERESTORE( CFuncPlatRot, CFuncPlat );
+END_DATADESC()
 
 
 void CFuncPlatRot :: SetupRotation( void )
@@ -628,6 +627,9 @@ void CFuncPlatRot :: RotMove( Vector &destAngle, float time )
 class CFuncTrain : public CBasePlatTrain
 {
 public:
+	DECLARE_CLASS( CFuncTrain, CBasePlatTrain );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void Activate( void ) override;
@@ -640,9 +642,6 @@ public:
 
 	void EXPORT Wait( void );
 	void EXPORT Next( void );
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	entvars_t	*m_pevCurrentTarget;
 	int			m_sounds;
@@ -650,14 +649,12 @@ public:
 };
 
 LINK_ENTITY_TO_CLASS( func_train, CFuncTrain );
-TYPEDESCRIPTION	CFuncTrain::m_SaveData[] = 
-{
+
+BEGIN_DATADESC(	CFuncTrain )
 	DEFINE_FIELD( CFuncTrain, m_sounds, FIELD_INTEGER ),
 	DEFINE_FIELD( CFuncTrain, m_pevCurrentTarget, FIELD_EVARS ),
 	DEFINE_FIELD( CFuncTrain, m_activated, FIELD_BOOLEAN ),
-};
-
-IMPLEMENT_SAVERESTORE( CFuncTrain, CBasePlatTrain );
+END_DATADESC()
 
 
 void CFuncTrain :: KeyValue( KeyValueData *pkvd )
@@ -935,8 +932,7 @@ void CFuncTrain::OverrideReset( void )
 //
 // ---------------------------------------------------------------------
 
-TYPEDESCRIPTION	CFuncTrackTrain::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CFuncTrackTrain )
 	DEFINE_FIELD( CFuncTrackTrain, m_ppath, FIELD_CLASSPTR ),
 	DEFINE_FIELD( CFuncTrackTrain, m_length, FIELD_FLOAT ),
 	DEFINE_FIELD( CFuncTrackTrain, m_height, FIELD_FLOAT ),
@@ -949,9 +945,8 @@ TYPEDESCRIPTION	CFuncTrackTrain::m_SaveData[] =
 	DEFINE_FIELD( CFuncTrackTrain, m_flVolume, FIELD_FLOAT ),
 	DEFINE_FIELD( CFuncTrackTrain, m_flBank, FIELD_FLOAT ),
 	DEFINE_FIELD( CFuncTrackTrain, m_oldSpeed, FIELD_FLOAT ),
-};
+END_DATADESC()
 
-IMPLEMENT_SAVERESTORE( CFuncTrackTrain, CBaseEntity );
 LINK_ENTITY_TO_CLASS( func_tracktrain, CFuncTrackTrain );
 
 void CFuncTrackTrain :: KeyValue( KeyValueData *pkvd )
@@ -1552,6 +1547,8 @@ void CFuncTrackTrain :: Precache( void )
 class CFuncTrainControls : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CFuncTrainControls, CBaseEntity );
+
 	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void Spawn( void ) override;
 	void EXPORT Find( void );
@@ -1618,6 +1615,9 @@ typedef enum { TRAIN_SAFE, TRAIN_BLOCKING, TRAIN_FOLLOWING } TRAIN_CODE;
 class CFuncTrackChange : public CFuncPlatRot
 {
 public:
+	DECLARE_CLASS( CFuncTrackChange, CFuncPlatRot );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
@@ -1640,10 +1640,6 @@ public:
 	void			EnableUse( void ) { m_use = 1; }
 	int				UseEnabled( void ) { return m_use; }
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	virtual void	OverrideReset( void ) override;
 
 
@@ -1661,8 +1657,7 @@ public:
 };
 LINK_ENTITY_TO_CLASS( func_trackchange, CFuncTrackChange );
 
-TYPEDESCRIPTION	CFuncTrackChange::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CFuncTrackChange )
 	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_trackTop, FIELD_CLASSPTR ),
 	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_trackBottom, FIELD_CLASSPTR ),
 	DEFINE_GLOBAL_FIELD( CFuncTrackChange, m_train, FIELD_CLASSPTR ),
@@ -1672,9 +1667,7 @@ TYPEDESCRIPTION	CFuncTrackChange::m_SaveData[] =
 	DEFINE_FIELD( CFuncTrackChange, m_code, FIELD_INTEGER ),
 	DEFINE_FIELD( CFuncTrackChange, m_targetState, FIELD_INTEGER ),
 	DEFINE_FIELD( CFuncTrackChange, m_use, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CFuncTrackChange, CFuncPlatRot );
+END_DATADESC()
 
 void CFuncTrackChange :: Spawn( void )
 {
@@ -2013,6 +2006,8 @@ void CFuncTrackChange :: HitTop( void )
 class CFuncTrackAuto : public CFuncTrackChange
 {
 public:
+	DECLARE_CLASS( CFuncTrackAuto, CFuncTrackChange );
+
 	void			Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual void	UpdateAutoTargets( int toggleState ) override;
 };
@@ -2106,6 +2101,9 @@ void CFuncTrackAuto :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 class CGunTarget : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CGunTarget, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void			Spawn( void ) override;
 	void			Activate( void ) override;
 	void EXPORT		Next( void );
@@ -2120,25 +2118,16 @@ public:
 	Vector			BodyTarget( const Vector &posSrc ) override { return pev->origin; }
 
 	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-
-	static	TYPEDESCRIPTION m_SaveData[];
 
 private:
 	bool			m_on;
 };
 
-
 LINK_ENTITY_TO_CLASS( func_guntarget, CGunTarget );
 
-TYPEDESCRIPTION	CGunTarget::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CGunTarget )
 	DEFINE_FIELD( CGunTarget, m_on, FIELD_BOOLEAN ),
-};
-
-IMPLEMENT_SAVERESTORE( CGunTarget, CBaseMonster );
-
+END_DATADESC()
 
 void CGunTarget::Spawn( void )
 {

@@ -23,6 +23,9 @@ typedef enum { matGlass = 0, matWood, matMetal, matFlesh, matCinderBlock, matCei
 class CBreakable : public CBaseDelay
 {
 public:
+	DECLARE_CLASS( CBreakable, CBaseDelay );
+	DECLARE_DATADESC();
+
 	// basic functions
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -43,8 +46,6 @@ public:
 
 	void EXPORT		Die( void );
 	virtual int		ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
 
 	inline bool		Explodable() const { return ExplosionMagnitude() > 0; }
 	inline int		ExplosionMagnitude() const { return pev->impulse; }
@@ -60,8 +61,6 @@ public:
 	static const char *pSoundsMetal[];
 	static const char *pSoundsConcrete[];
 	static const char *pSpawnObjects[];
-
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	Materials	m_Material;
 	Explosions	m_Explosion;

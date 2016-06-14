@@ -576,6 +576,9 @@ void CRpg::UpdateSpot( void )
 
 class CRpgAmmo : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CRpgAmmo, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );

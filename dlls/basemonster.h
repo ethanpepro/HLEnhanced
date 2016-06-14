@@ -25,6 +25,9 @@ private:
 		int					m_afConditions;
 
 public:
+	DECLARE_CLASS( CBaseMonster, CBaseToggle );
+	DECLARE_DATADESC();
+
 		typedef enum
 		{
 			SCRIPT_PLAYING = 0,		// Playing the sequence
@@ -108,10 +111,7 @@ public:
 	SCRIPTSTATE			m_scriptState;		// internal cinematic state
 	CCineMonster		*m_pCine;
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
+	virtual bool Restore( CRestore& restore ) override;
 
 	void KeyValue( KeyValueData *pkvd ) override;
 

@@ -52,16 +52,15 @@ extern CGraph WorldGraph;
 class CIchthyosaur : public CFlyingMonster
 {
 public:
+	DECLARE_CLASS( CIchthyosaur, CFlyingMonster );
+	DECLARE_DATADESC();
+
 	void  Spawn( void ) override;
 	void  Precache( void ) override;
 	void  SetYawSpeed( void ) override;
 	int   Classify( void ) override;
 	void  HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	CUSTOM_SCHEDULES;
-
-	int	Save( CSave &save ) override;
-	int Restore( CRestore &restore ) override;
-	static TYPEDESCRIPTION m_SaveData[];
 
 	Schedule_t *GetSchedule( void ) override;
 	Schedule_t *GetScheduleOfType ( int Type ) override;
@@ -125,8 +124,7 @@ public:
 
 LINK_ENTITY_TO_CLASS( monster_ichthyosaur, CIchthyosaur );
 
-TYPEDESCRIPTION	CIchthyosaur::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CIchthyosaur )
 	DEFINE_FIELD( CIchthyosaur, m_SaveVelocity, FIELD_VECTOR ),
 	DEFINE_FIELD( CIchthyosaur, m_idealDist, FIELD_FLOAT ),
 	DEFINE_FIELD( CIchthyosaur, m_flBlink, FIELD_FLOAT ),
@@ -136,9 +134,7 @@ TYPEDESCRIPTION	CIchthyosaur::m_SaveData[] =
 	DEFINE_FIELD( CIchthyosaur, m_flMinSpeed, FIELD_FLOAT ),
 	DEFINE_FIELD( CIchthyosaur, m_flMaxDist, FIELD_FLOAT ),
 	DEFINE_FIELD( CIchthyosaur, m_flNextAlert, FIELD_TIME ),
-};
-
-IMPLEMENT_SAVERESTORE( CIchthyosaur, CFlyingMonster );
+END_DATADESC()
 
 
 const char *CIchthyosaur::pIdleSounds[] = 

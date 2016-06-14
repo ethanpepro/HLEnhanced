@@ -98,8 +98,7 @@ void CCineMonster :: KeyValue( KeyValueData *pkvd )
 	}
 }
 
-TYPEDESCRIPTION	CCineMonster::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CCineMonster ) 
 	DEFINE_FIELD( CCineMonster, m_iszIdle, FIELD_STRING ),
 	DEFINE_FIELD( CCineMonster, m_iszPlay, FIELD_STRING ),
 	DEFINE_FIELD( CCineMonster, m_iszEntity, FIELD_STRING ),
@@ -115,10 +114,7 @@ TYPEDESCRIPTION	CCineMonster::m_SaveData[] =
 	DEFINE_FIELD( CCineMonster, m_saved_effects, FIELD_INTEGER ),
 	DEFINE_FIELD( CCineMonster, m_iFinishSchedule, FIELD_INTEGER ),
 	DEFINE_FIELD( CCineMonster, m_interruptable, FIELD_BOOLEAN ),
-};
-
-
-IMPLEMENT_SAVERESTORE( CCineMonster, CBaseMonster );
+END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( scripted_sequence, CCineMonster );
 #define CLASSNAME "scripted_sequence"
@@ -922,17 +918,15 @@ bool CBaseMonster::CineCleanup()
 class CScriptedSentence : public CBaseToggle
 {
 public:
+	DECLARE_CLASS( CScriptedSentence, CBaseToggle );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void EXPORT FindThink( void );
 	void EXPORT DelayThink( void );
 	int	 ObjectCaps( void ) override { return (CBaseToggle :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	CBaseMonster *FindEntity( void );
 	bool AcceptableSpeaker( const CBaseMonster *pMonster ) const;
@@ -956,8 +950,7 @@ private:
 #define SF_SENTENCE_INTERRUPT	0x0004	// force talking except when dead
 #define SF_SENTENCE_CONCURRENT	0x0008	// allow other people to keep talking
 
-TYPEDESCRIPTION	CScriptedSentence::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CScriptedSentence )
 	DEFINE_FIELD( CScriptedSentence, m_iszSentence, FIELD_STRING ),
 	DEFINE_FIELD( CScriptedSentence, m_iszEntity, FIELD_STRING ),
 	DEFINE_FIELD( CScriptedSentence, m_flRadius, FIELD_FLOAT ),
@@ -967,10 +960,7 @@ TYPEDESCRIPTION	CScriptedSentence::m_SaveData[] =
 	DEFINE_FIELD( CScriptedSentence, m_flVolume, FIELD_FLOAT ),
 	DEFINE_FIELD( CScriptedSentence, m_active, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CScriptedSentence, m_iszListener, FIELD_STRING ),
-};
-
-
-IMPLEMENT_SAVERESTORE( CScriptedSentence, CBaseToggle );
+END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( scripted_sentence, CScriptedSentence );
 
@@ -1204,6 +1194,8 @@ bool CScriptedSentence::StartSentence( CBaseMonster *pTarget )
 class CFurniture : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CFurniture, CBaseMonster );
+
 	void Spawn ( void ) override;
 	void Die( void );
 	int	 Classify ( void ) override;

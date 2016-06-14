@@ -91,6 +91,8 @@ enum sbar_data
 class CBasePlayer : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CBasePlayer, CBaseMonster );
+	DECLARE_DATADESC();
 	
 	// Spectator camera
 	void	Observer_FindNextPlayer( bool bReverse );
@@ -226,8 +228,7 @@ public:
 																	// Spectators should return true for this
 	virtual const char *TeamID() const override;
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
+	virtual bool Restore( CRestore &restore ) override;
 	void RenewItems(void);
 	void PackDeadPlayerItems( void );
 	void RemoveAllItems( const bool removeSuit );
@@ -235,8 +236,6 @@ public:
 
 	// JOHN:  sends custom messages if player HUD data has changed  (eg health, ammo)
 	virtual void UpdateClientData( void );
-	
-	static	TYPEDESCRIPTION m_playerSaveData[];
 
 	// Player is moved across the transition by other means
 	virtual int		ObjectCaps( void ) override { return CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }

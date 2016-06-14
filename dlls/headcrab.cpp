@@ -73,6 +73,8 @@ Schedule_t	slHCRangeAttack1Fast[] =
 class CHeadCrab : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CHeadCrab, CBaseMonster );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void RunTask ( Task_t *pTask ) override;
@@ -485,6 +487,8 @@ Schedule_t* CHeadCrab :: GetScheduleOfType ( int Type )
 class CBabyCrab : public CHeadCrab
 {
 public:
+	DECLARE_CLASS( CBabyCrab, CHeadCrab );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed ( void ) override;

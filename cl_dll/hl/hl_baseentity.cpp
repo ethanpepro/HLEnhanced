@@ -44,8 +44,8 @@ void EMIT_SOUND_DYN(edict_t *entity, int channel, const char *sample, float volu
 int CBaseEntity :: TakeHealth( float flHealth, int bitsDamageType ) { return 1; }
 int CBaseEntity :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) { return 1; }
 CBaseEntity *CBaseEntity::GetNextTarget( void ) { return NULL; }
-int CBaseEntity::Save( CSave &save ) { return 1; }
-int CBaseEntity::Restore( CRestore &restore ) { return 1; }
+bool CBaseEntity::Save( CSave &save ) { return true; }
+bool CBaseEntity::Restore( CRestore &restore ) { return true; }
 void CBaseEntity::SetObjectCollisionBox( void ) { }
 int	CBaseEntity :: Intersects( CBaseEntity *pOther ) { return 0; }
 void CBaseEntity :: MakeDormant( void ) { }
@@ -58,12 +58,6 @@ void CBaseEntity::SUB_Remove( void ) { }
 
 // CBaseDelay Stubs
 void CBaseDelay :: KeyValue( struct KeyValueData_s * ) { }
-int CBaseDelay::Restore( class CRestore & ) { return 1; }
-int CBaseDelay::Save( class CSave & ) { return 1; }
-
-// CBaseAnimating Stubs
-int CBaseAnimating::Restore( class CRestore & ) { return 1; }
-int CBaseAnimating::Save( class CSave & ) { return 1; }
 
 // DEBUG Stubs
 edict_t *DBG_EntOfVars( const entvars_t *pev ) { return NULL; }
@@ -83,8 +77,6 @@ void UTIL_ClientPrintAll( int,char const *,char const *,char const *,char const 
 void ClientPrint( entvars_t *client, int msg_dest, const char *msg_name, const char *param1, const char *param2, const char *param3, const char *param4 ) { }
 
 // CBaseToggle Stubs
-int CBaseToggle::Restore( class CRestore & ) { return 1; }
-int CBaseToggle::Save( class CSave & ) { return 1; }
 void CBaseToggle :: KeyValue( struct KeyValueData_s * ) { }
 bool CBaseToggle::IsLockedByMaster() const { return false; }
 
@@ -236,8 +228,7 @@ void CBaseMonster :: RunAI ( void ) {}
 void CBaseMonster :: Killed( entvars_t *pevAttacker, int iGib ) {}
 int CBaseMonster :: TakeHealth (float flHealth, int bitsDamageType) { return 0; }
 int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) { return 0; }
-int CBaseMonster::Restore( class CRestore & ) { return 1; }
-int CBaseMonster::Save( class CSave & ) { return 1; }
+bool CBaseMonster::Restore( CRestore& ) { return true; }
 
 int TrainSpeed(int iSpeed, int iMax) { 	return 0; }
 void CBasePlayer :: DeathSound( void ) { }
@@ -264,9 +255,8 @@ void CBasePlayer::SetSuitUpdate(char *name, const SuitUpdateType updateType, int
 void CBasePlayer :: UpdatePlayerSound ( void ) { }
 void CBasePlayer::PostThink() { }
 void CBasePlayer :: Precache( void ) { }
-int CBasePlayer::Save( CSave &save ) { return 0; }
 void CBasePlayer::RenewItems(void) { }
-int CBasePlayer::Restore( CRestore &restore ) { return 0; }
+bool CBasePlayer::Restore( CRestore& restore ) { return false; }
 void CBasePlayer::SelectNextItem( int iItem ) { }
 bool CBasePlayer::HasWeapons() const { return false; }
 void CBasePlayer::SelectPrevItem( int iItem ) { }
@@ -312,10 +302,6 @@ int DamageDecal( CBaseEntity *pEntity, int bitsDamageType ) { return 0; }
 void DecalGunshot( TraceResult *pTrace, int iBulletType ) { }
 void EjectBrass ( const Vector &vecOrigin, const Vector &vecVelocity, float rotation, int model, int soundtype ) { }
 void AddAmmoNameToAmmoRegistry( const char *szAmmoname ) { }
-int CBasePlayerItem::Restore( class CRestore & ) { return 1; }
-int CBasePlayerItem::Save( class CSave & ) { return 1; }
-int CBasePlayerWeapon::Restore( class CRestore & ) { return 1; }
-int CBasePlayerWeapon::Save( class CSave & ) { return 1; }
 float CBasePlayerWeapon::GetNextAttackDelay( float flTime ) { return flTime; }
 void CBasePlayerItem :: SetObjectCollisionBox( void ) { }
 void CBasePlayerItem :: FallInit( void ) { }

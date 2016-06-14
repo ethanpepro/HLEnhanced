@@ -32,6 +32,8 @@
 class CBloater : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CBloater, CBaseMonster );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;

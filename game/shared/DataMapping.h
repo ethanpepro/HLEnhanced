@@ -16,6 +16,11 @@ typedef baseClass BaseClass
 struct DataMap_t final
 {
 	/**
+	*	Name of the class this belongs to.
+	*/
+	const char* pszClassName;
+
+	/**
 	*	Pointer to parent map, or null if no parent exists.
 	*/
 	const DataMap_t* pParent;
@@ -84,6 +89,8 @@ bool InitDataMap<thisClass>()						\
 {													\
 	typedef thisClass ThisClass;					\
 													\
+	const char* const pszClassName = #thisClass;	\
+													\
 	static TYPEDESCRIPTION typeDesc[] =				\
 	{
 
@@ -108,6 +115,7 @@ __BEGIN_DATADESC( thisClass )
 	};														\
 															\
 	DataMap_t* pDataMap = &ThisClass::m_DataMap;			\
+	pDataMap->pszClassName = pszClassName;					\
 	pDataMap->pParent = ThisClass::GetBaseDataMap();		\
 	pDataMap->pTypeDesc = typeDesc;							\
 	pDataMap->uiNumDescriptors = ARRAYSIZE( typeDesc ) - 1;	\

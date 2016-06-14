@@ -186,8 +186,8 @@ public:
 	virtual void	Spawn( void ) { return; }
 	virtual void	Precache( void ) { return; }
 	virtual void	KeyValue( KeyValueData* pkvd) { pkvd->fHandled = false; }
-	virtual int		Save( CSave &save );
-	virtual int		Restore( CRestore &restore );
+	virtual bool	Save( CSave &save );
+	virtual bool	Restore( CRestore &restore );
 	virtual int		ObjectCaps( void ) { return FCAP_ACROSS_TRANSITION; }
 	virtual void	Activate( void ) {}
 	
@@ -198,9 +198,6 @@ public:
 // still realize that they are teammates. (overridden for monsters that form groups)
 	virtual int Classify() { return CLASS_NONE; };
 	virtual void DeathNotice ( entvars_t *pevChild ) {}// monster maker children use this to tell the monster maker that they have died.
-
-
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	virtual void	TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType);
 	virtual int		TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
@@ -473,10 +470,6 @@ public:
 	int	ObjectCaps( void ) override { return (CPointEntity::ObjectCaps() | FCAP_MASTER); }
 	bool IsTriggered( const CBaseEntity* const pActivator ) const override;
 	void EXPORT Register( void );
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	EHANDLE		m_rgEntities[MS_MAX_TARGETS];
 	int			m_rgTriggered[MS_MAX_TARGETS];
@@ -492,14 +485,13 @@ public:
 class CBaseDelay : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CBaseDelay, CBaseEntity );
+	DECLARE_DATADESC();
+
 	float		m_flDelay;
 	int			m_iszKillTarget;
 
 	virtual void	KeyValue( KeyValueData* pkvd) override;
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 	// common member functions
 	void SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value );
 	void EXPORT DelayThink( void );
@@ -509,10 +501,8 @@ public:
 class CBaseAnimating : public CBaseDelay
 {
 public:
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_CLASS( CBaseAnimating, CBaseDelay );
+	DECLARE_DATADESC();
 
 	// Basic Monster Animation functions
 	float StudioFrameAdvance( float flInterval = 0.0 ); // accumulate animation frame time from last time called until now
@@ -552,6 +542,9 @@ public:
 class CBaseToggle : public CBaseAnimating
 {
 public:
+	DECLARE_CLASS( CBaseToggle, CBaseAnimating );
+	DECLARE_DATADESC();
+
 	void				KeyValue( KeyValueData *pkvd ) override;
 
 	TOGGLE_STATE		m_toggle_state;
@@ -575,11 +568,6 @@ public:
 	Vector				m_vecFinalAngle;
 
 	int					m_bitsDamageInflict;	// DMG_ damage type that the door or tigger does
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	virtual int		GetToggleState( void ) override { return m_toggle_state; }
 	virtual float	GetDelay( void ) override { return m_flWait; }
@@ -689,6 +677,9 @@ char *ButtonSound( int sound );				// get string of button sound number
 class CBaseButton : public CBaseToggle
 {
 public:
+	DECLARE_CLASS( CBaseButton, CBaseToggle );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	virtual void Precache( void ) override;
 	void RotSpawn( void );
@@ -705,13 +696,10 @@ public:
 	void EXPORT ButtonBackHome( void );
 	void EXPORT ButtonUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	virtual int		TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
 	
 	enum BUTTON_CODE { BUTTON_NOTHING, BUTTON_ACTIVATE, BUTTON_RETURN };
 	BUTTON_CODE	ButtonResponseToTouch( void );
 	
-	static	TYPEDESCRIPTION m_SaveData[];
 	// Buttons that don't take damage can be IMPULSE used
 	virtual int	ObjectCaps( void ) override { return (CBaseToggle:: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | (pev->takedamage?0:FCAP_IMPULSE_USE); }
 
@@ -805,6 +793,8 @@ typedef struct _SelAmmo
 class CWorld : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CWorld, CBaseEntity );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;

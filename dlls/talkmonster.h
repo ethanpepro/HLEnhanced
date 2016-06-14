@@ -98,6 +98,9 @@ enum
 class CTalkMonster : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CTalkMonster, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void			TalkInit( void );				
 	CBaseEntity*	FindNearestFriend( const bool fPlayer ) const;
 	float			TargetDistance( void );
@@ -149,11 +152,6 @@ public:
 	
 	virtual void	SetAnswerQuestion( CTalkMonster *pSpeaker );
 	virtual int		FriendNumber( int arrayNumber ) const { return arrayNumber; }
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	
 	static char *m_szFriends[TLK_CFRIENDS];		// array of friend names
 	static float g_talkWaitTime;

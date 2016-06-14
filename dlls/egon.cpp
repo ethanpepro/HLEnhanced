@@ -542,6 +542,9 @@ void CEgon::EndAttack( void )
 //TODO: this doesn't look right. Chain ammo? - Solokiller
 class CEgonAmmo : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CEgonAmmo, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );

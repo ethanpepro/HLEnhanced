@@ -20,6 +20,8 @@
 class CFlyingMonster : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CFlyingMonster, CBaseMonster );
+
 	int 		CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, const CBaseEntity* const pTarget, float *pflDist ) override;// check validity of a straight move through space
 	bool		FTriangulate( const Vector &vecStart , const Vector &vecEnd, float flDist, const CBaseEntity* const pTargetEnt, Vector *pApex ) override;
 	Activity	GetStoppedActivity( void ) override;

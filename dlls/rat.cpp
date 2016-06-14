@@ -29,6 +29,8 @@
 class CRat : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CRat, CBaseMonster );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;

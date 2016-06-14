@@ -33,6 +33,9 @@
 class CSprite : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CSprite, CPointEntity );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
@@ -87,9 +90,6 @@ public:
 
 	void EXPORT AnimateUntilDead( void );
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 	static CSprite *SpriteCreate( const char *pSpriteName, const Vector &origin, const bool animate );
 
 private:
@@ -102,6 +102,9 @@ private:
 class CBeam : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CBeam, CBaseEntity );
+	//TODO: empty datadesc so friend is in effect - Solokiller
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	int		ObjectCaps( void ) override
@@ -186,6 +189,9 @@ public:
 class CLaser : public CBeam
 {
 public:
+	DECLARE_CLASS( CLaser, CBeam );
+	DECLARE_DATADESC();
+
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
@@ -198,9 +204,6 @@ public:
 
 	void	EXPORT StrikeThink( void );
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	CSprite	*m_pSprite;
 	int		m_iszSpriteName;

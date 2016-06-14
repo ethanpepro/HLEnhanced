@@ -37,6 +37,8 @@
 class CRoach : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CRoach, CBaseMonster );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;

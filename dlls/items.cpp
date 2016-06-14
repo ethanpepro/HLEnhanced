@@ -34,6 +34,8 @@ extern int gmsgItemPickup;
 class CWorldItem : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CWorldItem, CItem );
+
 	void	KeyValue(KeyValueData *pkvd ) override;
 	void	Spawn( void ) override;
 	int		m_iType;
@@ -173,6 +175,9 @@ void CItem::Materialize( void )
 
 class CItemSuit : public CItem
 {
+public:
+	DECLARE_CLASS( CItemSuit, CItem );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );
@@ -204,6 +209,9 @@ LINK_ENTITY_TO_CLASS(item_suit, CItemSuit);
 
 class CItemBattery : public CItem
 {
+public:
+	DECLARE_CLASS( CItemBattery, CItem );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );
@@ -260,6 +268,9 @@ LINK_ENTITY_TO_CLASS(item_battery, CItemBattery);
 
 class CItemAntidote : public CItem
 {
+public:
+	DECLARE_CLASS( CItemAntidote, CItem );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );
@@ -284,6 +295,9 @@ LINK_ENTITY_TO_CLASS(item_antidote, CItemAntidote);
 
 class CItemSecurity : public CItem
 {
+public:
+	DECLARE_CLASS( CItemSecurity, CItem );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );
@@ -305,6 +319,9 @@ LINK_ENTITY_TO_CLASS(item_security, CItemSecurity);
 
 class CItemLongJump : public CItem
 {
+public:
+	DECLARE_CLASS( CItemLongJump, CItem );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );

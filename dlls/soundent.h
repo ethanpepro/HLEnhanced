@@ -67,6 +67,7 @@ public:
 class CSoundEnt : public CBaseEntity 
 {
 public:
+	DECLARE_CLASS( CSoundEnt, CBaseEntity );
 
 	void Precache ( void ) override;
 	void Spawn( void ) override;

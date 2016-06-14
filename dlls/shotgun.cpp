@@ -375,6 +375,9 @@ void CShotgun::WeaponIdle( void )
 
 class CShotgunAmmo : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CShotgunAmmo, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );

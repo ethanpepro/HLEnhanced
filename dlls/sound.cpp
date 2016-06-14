@@ -121,6 +121,9 @@ dynpitchvol_t rgdpvpreset[CDPVPRESETMAX] =
 class CAmbientGeneric : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CAmbientGeneric, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void KeyValue( KeyValueData* pkvd) override;
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -128,9 +131,6 @@ public:
 	void EXPORT RampThink( void );
 	void InitModulationParms(void);
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
 
 	float m_flAttenuation;		// attenuation value
@@ -141,8 +141,8 @@ public:
 };
 
 LINK_ENTITY_TO_CLASS( ambient_generic, CAmbientGeneric );
-TYPEDESCRIPTION	CAmbientGeneric::m_SaveData[] = 
-{
+
+BEGIN_DATADESC(	CAmbientGeneric )
 	DEFINE_FIELD( CAmbientGeneric, m_flAttenuation, FIELD_FLOAT ),
 	DEFINE_FIELD( CAmbientGeneric, m_fActive, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CAmbientGeneric, m_fLooping, FIELD_BOOLEAN ),
@@ -153,9 +153,7 @@ TYPEDESCRIPTION	CAmbientGeneric::m_SaveData[] =
 	// The right way to do this is to split the input parms (read in keyvalue) into members and re-init this
 	// struct in Precache(), but it's unlikely that the struct will change, so it's not worth the time right now.
 	DEFINE_ARRAY( CAmbientGeneric, m_dpv, FIELD_CHARACTER, sizeof(dynpitchvol_t) ),
-};
-
-IMPLEMENT_SAVERESTORE( CAmbientGeneric, CBaseEntity );
+END_DATADESC()
 
 //
 // ambient_generic - general-purpose user-defined static sound
@@ -806,28 +804,24 @@ void CAmbientGeneric :: KeyValue( KeyValueData *pkvd )
 class CEnvSound : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CEnvSound, CPointEntity );
+	DECLARE_DATADESC();
+
 	void KeyValue( KeyValueData* pkvd) override;
 	void Spawn( void ) override;
 
 	void Think( void ) override;
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	float m_flRadius;
 	float m_flRoomtype;
 };
 
 LINK_ENTITY_TO_CLASS( env_sound, CEnvSound );
-TYPEDESCRIPTION	CEnvSound::m_SaveData[] = 
-{
+
+BEGIN_DATADESC(	CEnvSound )
 	DEFINE_FIELD( CEnvSound, m_flRadius, FIELD_FLOAT ),
 	DEFINE_FIELD( CEnvSound, m_flRoomtype, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CEnvSound, CBaseEntity );
-
+END_DATADESC()
 
 void CEnvSound :: KeyValue( KeyValueData *pkvd )
 {
@@ -1794,15 +1788,14 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 class CSpeaker : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CSpeaker, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void KeyValue( KeyValueData* pkvd) override;
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void EXPORT ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void EXPORT SpeakerThink( void );
-	
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
 	
@@ -1810,12 +1803,10 @@ public:
 };
 
 LINK_ENTITY_TO_CLASS( speaker, CSpeaker );
-TYPEDESCRIPTION	CSpeaker::m_SaveData[] = 
-{
-	DEFINE_FIELD( CSpeaker, m_preset, FIELD_INTEGER ),
-};
 
-IMPLEMENT_SAVERESTORE( CSpeaker, CBaseEntity );
+BEGIN_DATADESC(	CSpeaker )
+	DEFINE_FIELD( CSpeaker, m_preset, FIELD_INTEGER ),
+END_DATADESC()
 
 //
 // ambient_generic - general-purpose user-defined static sound

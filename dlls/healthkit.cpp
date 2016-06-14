@@ -26,31 +26,16 @@ extern int gmsgItemPickup;
 
 class CHealthKit : public CItem
 {
+public:
+	DECLARE_CLASS( CHealthKit, CItem );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	bool MyTouch( CBasePlayer *pPlayer ) override;
-
-/*
-	virtual int		Save( CSave &save ) override; 
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
-*/
-
 };
 
 
 LINK_ENTITY_TO_CLASS( item_healthkit, CHealthKit );
-
-/*
-TYPEDESCRIPTION	CHealthKit::m_SaveData[] = 
-{
-
-};
-
-
-IMPLEMENT_SAVERESTORE( CHealthKit, CItem);
-*/
 
 void CHealthKit :: Spawn( void )
 {
@@ -104,6 +89,9 @@ bool CHealthKit::MyTouch( CBasePlayer *pPlayer )
 class CWallHealth : public CBaseToggle
 {
 public:
+	DECLARE_CLASS( CWallHealth, CBaseToggle );
+	DECLARE_DATADESC();
+
 	void Spawn( ) override;
 	void Precache( void ) override;
 	void EXPORT Off(void);
@@ -111,10 +99,6 @@ public:
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual int	ObjectCaps( void ) override { return (CBaseToggle :: ObjectCaps() | FCAP_CONTINUOUS_USE) & ~FCAP_ACROSS_TRANSITION; }
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	float m_flNextCharge; 
 	int		m_iReactivate ; // DeathMatch Delay until reactvated
@@ -123,16 +107,13 @@ public:
 	float   m_flSoundTime;
 };
 
-TYPEDESCRIPTION CWallHealth::m_SaveData[] =
-{
+BEGIN_DATADESC( CWallHealth )
 	DEFINE_FIELD( CWallHealth, m_flNextCharge, FIELD_TIME),
 	DEFINE_FIELD( CWallHealth, m_iReactivate, FIELD_INTEGER),
 	DEFINE_FIELD( CWallHealth, m_iJuice, FIELD_INTEGER),
 	DEFINE_FIELD( CWallHealth, m_iOn, FIELD_INTEGER),
 	DEFINE_FIELD( CWallHealth, m_flSoundTime, FIELD_TIME),
-};
-
-IMPLEMENT_SAVERESTORE( CWallHealth, CBaseEntity );
+END_DATADESC()
 
 LINK_ENTITY_TO_CLASS(func_healthcharger, CWallHealth);
 

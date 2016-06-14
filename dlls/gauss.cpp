@@ -597,6 +597,9 @@ void CGauss::WeaponIdle( void )
 
 class CGaussAmmo : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CGaussAmmo, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );

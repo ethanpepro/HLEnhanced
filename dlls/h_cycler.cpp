@@ -35,6 +35,9 @@
 class CCycler : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CCycler, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax);
 	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() | FCAP_IMPULSE_USE); }
 	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
@@ -46,19 +49,12 @@ public:
 	// Don't treat as a live target
 	virtual bool IsAlive() const override { return false; }
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	int			m_animate;
 };
 
-TYPEDESCRIPTION	CCycler::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CCycler )
 	DEFINE_FIELD( CCycler, m_animate, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CCycler, CBaseMonster );
+END_DATADESC()
 
 
 //
@@ -219,16 +215,15 @@ int CCycler :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, floa
 class CCyclerSprite : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CCyclerSprite, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Think( void ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() | FCAP_DONT_SAVE | FCAP_IMPULSE_USE); }
 	virtual int	TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
 	void	Animate( float frames );
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	inline int		ShouldAnimate( void ) { return m_animate && m_maxFrame > 1.0; }
 	int			m_animate;
@@ -238,14 +233,11 @@ public:
 
 LINK_ENTITY_TO_CLASS( cycler_sprite, CCyclerSprite );
 
-TYPEDESCRIPTION	CCyclerSprite::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CCyclerSprite )
 	DEFINE_FIELD( CCyclerSprite, m_animate, FIELD_INTEGER ),
 	DEFINE_FIELD( CCyclerSprite, m_lastTime, FIELD_TIME ),
 	DEFINE_FIELD( CCyclerSprite, m_maxFrame, FIELD_FLOAT ),
-};
-
-IMPLEMENT_SAVERESTORE( CCyclerSprite, CBaseEntity );
+END_DATADESC()
 
 
 void CCyclerSprite::Spawn( void )
@@ -309,6 +301,8 @@ void CCyclerSprite::Animate( float frames )
 class CWeaponCycler : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CWeaponCycler, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	int iItemSlot( void ) override { return 1; }
 	int GetItemInfo(ItemInfo *p) override {return 0; }
@@ -391,9 +385,9 @@ void CWeaponCycler::SecondaryAttack( void )
 // Flaming Wreakage
 class CWreckage : public CBaseMonster
 {
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+public:
+	DECLARE_CLASS( CWreckage, CBaseMonster );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -401,11 +395,10 @@ class CWreckage : public CBaseMonster
 
 	int m_flStartTime;
 };
-TYPEDESCRIPTION	CWreckage::m_SaveData[] = 
-{
+
+BEGIN_DATADESC(	CWreckage )
 	DEFINE_FIELD( CWreckage, m_flStartTime, FIELD_TIME ),
-};
-IMPLEMENT_SAVERESTORE( CWreckage, CBaseMonster );
+END_DATADESC()
 
 
 LINK_ENTITY_TO_CLASS( cycler_wreckage, CWreckage );

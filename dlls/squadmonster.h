@@ -56,6 +56,9 @@
 class CSquadMonster : public CBaseMonster 
 {
 public:
+	DECLARE_CLASS( CSquadMonster, CBaseMonster );
+	DECLARE_DATADESC();
+
 	// squad leader info
 	EHANDLE	m_hSquadLeader;		// who is my leader
 	EHANDLE	m_hSquadMember[MAX_SQUAD_MEMBERS-1];	// valid only for leader
@@ -118,11 +121,6 @@ public:
 	bool SquadMemberInRange( const Vector &vecLocation, float flDist );
 
 	virtual CSquadMonster *MySquadMonsterPointer( void ) override { return this; }
-
-	static TYPEDESCRIPTION m_SaveData[];
-
-	int	Save( CSave &save ) override;
-	int Restore( CRestore &restore ) override;
 
 	bool FValidateCover( const Vector &vecCoverLocation ) override;
 

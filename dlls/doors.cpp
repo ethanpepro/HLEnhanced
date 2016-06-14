@@ -32,6 +32,9 @@ extern void SetMovedir(entvars_t* ev);
 class CBaseDoor : public CBaseToggle
 {
 public:
+	DECLARE_CLASS( CBaseDoor, CBaseToggle );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	virtual void KeyValue( KeyValueData *pkvd ) override;
@@ -45,11 +48,7 @@ public:
 			return (CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_IMPULSE_USE;
 		else
 			return (CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION);
-	};
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-
-	static	TYPEDESCRIPTION m_SaveData[];
+	}
 	
 	virtual void SetToggleState( int state ) override;
 
@@ -77,8 +76,7 @@ public:
 };
 
 
-TYPEDESCRIPTION	CBaseDoor::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBaseDoor )
 	DEFINE_FIELD( CBaseDoor, m_bHealthValue, FIELD_CHARACTER ),
 	DEFINE_FIELD( CBaseDoor, m_bMoveSnd, FIELD_CHARACTER ),
 	DEFINE_FIELD( CBaseDoor, m_bStopSnd, FIELD_CHARACTER ),
@@ -87,11 +85,7 @@ TYPEDESCRIPTION	CBaseDoor::m_SaveData[] =
 	DEFINE_FIELD( CBaseDoor, m_bLockedSentence, FIELD_CHARACTER ),
 	DEFINE_FIELD( CBaseDoor, m_bUnlockedSound, FIELD_CHARACTER ),	
 	DEFINE_FIELD( CBaseDoor, m_bUnlockedSentence, FIELD_CHARACTER ),	
-
-};
-
-IMPLEMENT_SAVERESTORE( CBaseDoor, CBaseToggle );
-
+END_DATADESC()
 
 #define DOOR_SENTENCEWAIT	6
 #define DOOR_SOUNDWAIT		3
@@ -816,6 +810,8 @@ button or trigger field activates the door.
 class CRotDoor : public CBaseDoor
 {
 public:
+	DECLARE_CLASS( CRotDoor, CBaseDoor );
+
 	void Spawn( void ) override;
 	virtual void SetToggleState( int state ) override;
 };
@@ -887,16 +883,15 @@ void CRotDoor :: SetToggleState( int state )
 class CMomentaryDoor : public CBaseToggle
 {
 public:
+	DECLARE_CLASS( CMomentaryDoor, CBaseToggle );
+	DECLARE_DATADESC();
+
 	void	Spawn( void ) override;
 	void Precache( void ) override;
 
 	void	KeyValue( KeyValueData *pkvd ) override;
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual int	ObjectCaps( void ) override { return CBaseToggle :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-
-	virtual int	Save( CSave &save ) override;
-	virtual int	Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	void EXPORT DoorMoveDone( void );
 
@@ -905,12 +900,9 @@ public:
 
 LINK_ENTITY_TO_CLASS( momentary_door, CMomentaryDoor );
 
-TYPEDESCRIPTION	CMomentaryDoor::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CMomentaryDoor )
 	DEFINE_FIELD( CMomentaryDoor, m_bMoveSnd, FIELD_CHARACTER ),
-};
-
-IMPLEMENT_SAVERESTORE( CMomentaryDoor, CBaseToggle );
+END_DATADESC()
 
 void CMomentaryDoor::Spawn( void )
 {

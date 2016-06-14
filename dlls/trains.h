@@ -37,6 +37,9 @@
 class CPathTrack : public CPointEntity
 {
 public:
+	DECLARE_CLASS( CPathTrack, CPointEntity );
+	DECLARE_DATADESC();
+
 	void		Spawn( void ) override;
 	void		Activate( void ) override;
 	void		KeyValue( KeyValueData* pkvd) override;
@@ -56,10 +59,6 @@ public:
 	CPathTrack	*GetNext( void );
 	CPathTrack	*GetPrevious( void );
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 #if PATH_SPARKLE_DEBUG
 	void EXPORT Sparkle(void);
 #endif
@@ -75,6 +74,9 @@ public:
 class CFuncTrackTrain : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CFuncTrackTrain, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
@@ -98,10 +100,6 @@ public:
 	
 	static CFuncTrackTrain *Instance( edict_t *pent );
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DIRECTIONAL_USE; }
 
 	virtual void	OverrideReset( void ) override;

@@ -36,15 +36,14 @@
 class CTentacle : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CTentacle, CBaseMonster );
+	DECLARE_DATADESC();
+
 	CTentacle( void );
 
 	void Spawn( ) override;
 	void Precache( ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
-
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	// Don't allow the tentacle to go across transitions!!!
 	virtual int	ObjectCaps( void ) override { return CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
@@ -144,8 +143,7 @@ const char *CTentacle::pHitWater[] =
 };
 
 
-TYPEDESCRIPTION	CTentacle::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CTentacle )
 	DEFINE_FIELD( CTentacle, m_flInitialYaw, FIELD_FLOAT ),
 	DEFINE_FIELD( CTentacle, m_iGoalAnim, FIELD_INTEGER ),
 	DEFINE_FIELD( CTentacle, m_iLevel, FIELD_INTEGER ),
@@ -163,8 +161,7 @@ TYPEDESCRIPTION	CTentacle::m_SaveData[] =
 	DEFINE_FIELD( CTentacle, m_flMaxYaw, FIELD_FLOAT ),
 	DEFINE_FIELD( CTentacle, m_vecPrevSound, FIELD_POSITION_VECTOR ),
 	DEFINE_FIELD( CTentacle, m_flPrevSoundTime, FIELD_TIME ),
-};
-IMPLEMENT_SAVERESTORE( CTentacle, CBaseMonster );
+END_DATADESC()
 
 
 // animation sequence aliases 
@@ -1010,6 +1007,8 @@ void CTentacle :: Killed( entvars_t *pevAttacker, int iGib )
 class CTentacleMaw : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CTentacleMaw, CBaseMonster );
+
 	void Spawn( ) override;
 	void Precache( ) override;
 };

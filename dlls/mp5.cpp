@@ -282,6 +282,9 @@ void CMP5::WeaponIdle( void )
 
 class CMP5AmmoClip : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CMP5AmmoClip, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );
@@ -310,6 +313,9 @@ LINK_ENTITY_TO_CLASS( ammo_9mmAR, CMP5AmmoClip );
 
 class CMP5Chainammo : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CMP5Chainammo, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );
@@ -336,6 +342,9 @@ LINK_ENTITY_TO_CLASS( ammo_9mmbox, CMP5Chainammo );
 
 class CMP5AmmoGrenade : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CMP5AmmoGrenade, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );

@@ -28,6 +28,9 @@
 // Spark Shower
 class CShower : public CBaseEntity
 {
+public:
+	DECLARE_CLASS( CShower, CBaseEntity );
+
 	void Spawn( void ) override;
 	void Think( void ) override;
 	void Touch( CBaseEntity *pOther ) override;
@@ -84,26 +87,23 @@ void CShower::Touch( CBaseEntity *pOther )
 class CEnvExplosion : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CEnvExplosion, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( ) override;
 	void EXPORT Smoke ( void );
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	int m_iMagnitude;// how large is the fireball? how much damage?
 	int m_spriteScale; // what's the exact fireball sprite scale? 
 };
 
-TYPEDESCRIPTION	CEnvExplosion::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CEnvExplosion )
 	DEFINE_FIELD( CEnvExplosion, m_iMagnitude, FIELD_INTEGER ),
 	DEFINE_FIELD( CEnvExplosion, m_spriteScale, FIELD_INTEGER ),
-};
+END_DATADESC()
 
-IMPLEMENT_SAVERESTORE( CEnvExplosion, CBaseMonster );
 LINK_ENTITY_TO_CLASS( env_explosion, CEnvExplosion );
 
 void CEnvExplosion::KeyValue( KeyValueData *pkvd )

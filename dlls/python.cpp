@@ -283,6 +283,9 @@ void CPython::WeaponIdle( void )
 
 class CPythonAmmo : public CBasePlayerAmmo
 {
+public:
+	DECLARE_CLASS( CPythonAmmo, CBasePlayerAmmo );
+
 	void Spawn( void ) override
 	{ 
 		Precache( );

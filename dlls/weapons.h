@@ -26,6 +26,8 @@ void DeactivateSatchels( CBasePlayer *pOwner );
 class CGrenade : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CGrenade, CBaseMonster );
+
 	void Spawn( void ) override;
 
 	typedef enum { SATCHEL_DETONATE = 0, SATCHEL_RELEASE } SATCHELCODE;
@@ -216,12 +218,10 @@ typedef struct
 class CBasePlayerItem : public CBaseAnimating
 {
 public:
-	virtual void SetObjectCollisionBox( void ) override;
+	DECLARE_CLASS( CBasePlayerItem, CBaseAnimating );
+	DECLARE_DATADESC();
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
+	virtual void SetObjectCollisionBox( void ) override;
 
 	virtual bool AddToPlayer( CBasePlayer *pPlayer );	// return true if the item you want the item added to the player inventory
 	virtual bool AddDuplicate( CBasePlayerItem *pItem ) { return false; }	// return true if you want your duplicate removed from world
@@ -284,15 +284,13 @@ public:
 class CBasePlayerWeapon : public CBasePlayerItem
 {
 public:
+	DECLARE_CLASS( CBasePlayerWeapon, CBasePlayerItem );
+	DECLARE_DATADESC();
+
 	CBasePlayerWeapon()
 		: m_iSecondaryAmmoType( -1 ) //Default to -1 to achieve SDK behavior - Solokiller
 	{
 	}
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	// generic weapon versions of CBasePlayerItem calls
 	virtual bool AddToPlayer( CBasePlayer *pPlayer ) override;
@@ -366,6 +364,8 @@ public:
 class CBasePlayerAmmo : public CBaseEntity
 {
 public:
+	DECLARE_CLASS( CBasePlayerAmmo, CBaseEntity );
+
 	virtual void Spawn( void ) override;
 	void EXPORT DefaultTouch( CBaseEntity *pOther ); // default weapon touch
 	virtual bool AddAmmo( CBaseEntity *pOther ) { return true; }
@@ -438,19 +438,22 @@ extern MULTIDAMAGE gMultiDamage;
 //=========================================================
 class CWeaponBox : public CBaseEntity
 {
+public:
+	DECLARE_CLASS( CWeaponBox, CBaseEntity );
+	DECLARE_DATADESC();
+
 	void Precache( void ) override;
 	void Spawn( void ) override;
 	void Touch( CBaseEntity *pOther ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
+
+private:
 	bool IsEmpty() const;
 	int  GiveAmmo( int iCount, char *szName, int iMax, int *pIndex = NULL );
 	void SetObjectCollisionBox( void ) override;
 
 public:
 	void EXPORT Kill ( void );
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	bool HasWeapon( CBasePlayerItem *pCheckItem ) const;
 	bool PackWeapon( CBasePlayerItem *pWeapon );
@@ -472,6 +475,8 @@ void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer );
 class CGlock : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CGlock, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 2; }
@@ -505,6 +510,8 @@ private:
 class CCrowbar : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CCrowbar, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 1; }
@@ -534,6 +541,8 @@ private:
 class CPython : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CPython, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 2; }
@@ -564,6 +573,8 @@ private:
 class CMP5 : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CMP5, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 3; }
@@ -595,6 +606,8 @@ private:
 class CCrossbow : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CCrossbow, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( ) override { return 3; }
@@ -629,13 +642,10 @@ private:
 class CShotgun : public CBasePlayerWeapon
 {
 public:
-
+	DECLARE_CLASS( CShotgun, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_DATADESC();
 #endif
-
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -668,12 +678,14 @@ private:
 
 class CLaserSpot : public CBaseEntity
 {
+public:
+	DECLARE_CLASS( CLaserSpot, CBaseEntity );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
 	int	ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
 
-public:
 	void Suspend( float flSuspendTime );
 	void EXPORT Revive( void );
 	
@@ -683,11 +695,9 @@ public:
 class CRpg : public CBasePlayerWeapon
 {
 public:
-
+	DECLARE_CLASS( CRpg, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_DATADESC();
 #endif
 
 	void Spawn( void ) override;
@@ -729,9 +739,9 @@ private:
 class CRpgRocket : public CGrenade
 {
 public:
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_CLASS( CRpgRocket, CGrenade );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void EXPORT FollowThink( void );
@@ -747,11 +757,9 @@ public:
 class CGauss : public CBasePlayerWeapon
 {
 public:
-
+	DECLARE_CLASS( CGauss, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_DATADESC();
 #endif
 
 	void Spawn( void ) override;
@@ -796,10 +804,9 @@ private:
 class CEgon : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CEgon, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_DATADESC();
 #endif
 
 	void Spawn( void ) override;
@@ -861,6 +868,8 @@ private:
 class CHgun : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CHgun, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 4; }
@@ -897,6 +906,8 @@ private:
 class CHandGrenade : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CHandGrenade, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 5; }
@@ -921,11 +932,9 @@ public:
 class CSatchel : public CBasePlayerWeapon
 {
 public:
-
+	DECLARE_CLASS( CSatchel, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
-	int		Save( CSave &save ) override;
-	int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
+	DECLARE_DATADESC();
 #endif
 
 	void Spawn( void ) override;
@@ -958,6 +967,8 @@ public:
 class CTripmine : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CTripmine, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 5; }
@@ -991,6 +1002,8 @@ private:
 class CSqueak : public CBasePlayerWeapon
 {
 public:
+	DECLARE_CLASS( CSqueak, CBasePlayerWeapon );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 5; }

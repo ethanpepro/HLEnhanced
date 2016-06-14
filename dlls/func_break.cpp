@@ -124,8 +124,7 @@ void CBreakable::KeyValue( KeyValueData* pkvd )
 // func_breakable - bmodel that breaks into pieces after taking damage
 //
 LINK_ENTITY_TO_CLASS( func_breakable, CBreakable );
-TYPEDESCRIPTION CBreakable::m_SaveData[] =
-{
+BEGIN_DATADESC( CBreakable )
 	DEFINE_FIELD( CBreakable, m_Material, FIELD_INTEGER ),
 	DEFINE_FIELD( CBreakable, m_Explosion, FIELD_INTEGER ),
 
@@ -137,9 +136,7 @@ TYPEDESCRIPTION CBreakable::m_SaveData[] =
 	DEFINE_FIELD( CBreakable, m_iszSpawnObject, FIELD_STRING ),
 
 	// Explosion magnitude is stored in pev->impulse
-};
-
-IMPLEMENT_SAVERESTORE( CBreakable, CBaseEntity );
+END_DATADESC()
 
 void CBreakable::Spawn( void )
 {
@@ -778,6 +775,9 @@ int	CBreakable :: DamageDecal( int bitsDamageType )
 class CPushable : public CBreakable
 {
 public:
+	DECLARE_CLASS( CPushable, CBreakable );
+	DECLARE_DATADESC();
+
 	void	Spawn ( void ) override;
 	void	Precache( void ) override;
 	void	Touch ( CBaseEntity *pOther ) override;
@@ -788,15 +788,11 @@ public:
 //	virtual void	SetActivator( CBaseEntity *pActivator ) { m_pPusher = pActivator; }
 
 	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_CONTINUOUS_USE; }
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
 
 	inline float MaxSpeed( void ) { return m_maxSpeed; }
 	
 	// breakables use an overridden takedamage
 	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	static char *m_soundNames[3];
 	int		m_lastSound;	// no need to save/restore, just keeps the same sound from playing twice in a row
@@ -804,13 +800,10 @@ public:
 	float	m_soundTime;
 };
 
-TYPEDESCRIPTION	CPushable::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CPushable )
 	DEFINE_FIELD( CPushable, m_maxSpeed, FIELD_FLOAT ),
 	DEFINE_FIELD( CPushable, m_soundTime, FIELD_TIME ),
-};
-
-IMPLEMENT_SAVERESTORE( CPushable, CBreakable );
+END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_pushable, CPushable );
 

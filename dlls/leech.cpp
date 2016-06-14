@@ -72,6 +72,9 @@
 class CLeech : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CLeech, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
@@ -113,10 +116,6 @@ public:
 	int	Classify( void ) override { return CLASS_INSECT; }
 	int IRelationship( CBaseEntity *pTarget ) override;
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	static const char *pAttackSounds[];
 	static const char *pAlertSounds[];
 
@@ -145,8 +144,7 @@ private:
 
 LINK_ENTITY_TO_CLASS( monster_leech, CLeech );
 
-TYPEDESCRIPTION	CLeech::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CLeech )
 	DEFINE_FIELD( CLeech, m_flTurning, FIELD_FLOAT ),
 	DEFINE_FIELD( CLeech, m_fPathBlocked, FIELD_BOOLEAN ),
 	DEFINE_FIELD( CLeech, m_flAccelerate, FIELD_FLOAT ),
@@ -159,9 +157,7 @@ TYPEDESCRIPTION	CLeech::m_SaveData[] =
 	DEFINE_FIELD( CLeech, m_zTime, FIELD_TIME ),
 	DEFINE_FIELD( CLeech, m_stateTime, FIELD_TIME ),
 	DEFINE_FIELD( CLeech, m_attackSoundTime, FIELD_TIME ),
-};
-
-IMPLEMENT_SAVERESTORE( CLeech, CBaseMonster );
+END_DATADESC()
 
 
 const char *CLeech::pAttackSounds[] =

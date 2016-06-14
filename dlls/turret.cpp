@@ -54,6 +54,9 @@ typedef enum
 class CBaseTurret : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CBaseTurret, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn(void) override;
 	virtual void Precache(void) override;
 	void KeyValue( KeyValueData *pkvd ) override;
@@ -90,11 +93,6 @@ public:
 	virtual void Ping(void);
 	virtual void EyeOn(void);
 	virtual void EyeOff(void);
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	// other functions
 	void SetTurretAnim(TURRET_ANIM anim);
@@ -135,8 +133,7 @@ public:
 };
 
 
-TYPEDESCRIPTION	CBaseTurret::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CBaseTurret )
 	DEFINE_FIELD( CBaseTurret, m_flMaxSpin, FIELD_FLOAT ),
 	DEFINE_FIELD( CBaseTurret, m_iSpin, FIELD_INTEGER ),
 
@@ -165,23 +162,19 @@ TYPEDESCRIPTION	CBaseTurret::m_SaveData[] =
 
 	DEFINE_FIELD( CBaseTurret, m_flPingTime, FIELD_TIME ),
 	DEFINE_FIELD( CBaseTurret, m_flSpinUpTime, FIELD_TIME ),
-};
-
-IMPLEMENT_SAVERESTORE( CBaseTurret, CBaseMonster );
+END_DATADESC()
 
 class CTurret : public CBaseTurret
 {
 public:
+	DECLARE_CLASS( CTurret, CBaseTurret );
+	DECLARE_DATADESC();
+
 	void Spawn(void) override;
 	void Precache(void) override;
 	// Think functions
 	void SpinUpCall(void);
 	void SpinDownCall(void);
-
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
 
 	// other functions
 	void Shoot(Vector &vecSrc, Vector &vecDirToEnemy) override;
@@ -190,17 +183,16 @@ private:
 	int m_iStartSpin;
 
 };
-TYPEDESCRIPTION	CTurret::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CTurret )
 	DEFINE_FIELD( CTurret, m_iStartSpin, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CTurret, CBaseTurret );
+END_DATADESC()
 
 
 class CMiniTurret : public CBaseTurret
 {
 public:
+	DECLARE_CLASS( CMiniTurret, CBaseTurret );
+
 	void Spawn( ) override;
 	void Precache(void) override;
 	// other functions
@@ -1145,6 +1137,8 @@ int	CBaseTurret::Classify ( void )
 class CSentry : public CBaseTurret
 {
 public:
+	DECLARE_CLASS( CSentry, CBaseTurret );
+
 	void Spawn( ) override;
 	void Precache(void) override;
 	// other functions

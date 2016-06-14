@@ -22,6 +22,10 @@
 
 class CAirtank : public CGrenade
 {
+public:
+	DECLARE_CLASS( CAirtank, CGrenade );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void EXPORT TankThink( void );
@@ -29,22 +33,14 @@ class CAirtank : public CGrenade
 	int	 BloodColor( void ) override { return DONT_BLEED; };
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
 
-	virtual int		Save( CSave &save ) override;
-	virtual int		Restore( CRestore &restore ) override;
-	
-	static	TYPEDESCRIPTION m_SaveData[];
-
 	int	 m_state;
 };
 
 
 LINK_ENTITY_TO_CLASS( item_airtank, CAirtank );
-TYPEDESCRIPTION	CAirtank::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CAirtank )
 	DEFINE_FIELD( CAirtank, m_state, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CAirtank, CGrenade );
+END_DATADESC()
 
 
 void CAirtank :: Spawn( void )

@@ -123,6 +123,9 @@ enum
 class CHGrunt : public CSquadMonster
 {
 public:
+	DECLARE_CLASS( CHGrunt, CSquadMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed ( void ) override;
@@ -146,9 +149,6 @@ public:
 	void PrescheduleThink ( void ) override;
 	void GibMonster( void ) override;
 	void SpeakSentence( void );
-
-	int	Save( CSave &save ) override;
-	int Restore( CRestore &restore ) override;
 	
 	CBaseEntity	*Kick( void );
 	Schedule_t	*GetSchedule( void ) override;
@@ -162,7 +162,6 @@ public:
 	void JustSpoke( void );
 
 	CUSTOM_SCHEDULES;
-	static TYPEDESCRIPTION m_SaveData[];
 
 	// checking the feasibility of a grenade toss is kind of costly, so we do it every couple of seconds,
 	// not every server frame.
@@ -189,8 +188,7 @@ public:
 
 LINK_ENTITY_TO_CLASS( monster_human_grunt, CHGrunt );
 
-TYPEDESCRIPTION	CHGrunt::m_SaveData[] = 
-{
+BEGIN_DATADESC(	CHGrunt )
 	DEFINE_FIELD( CHGrunt, m_flNextGrenadeCheck, FIELD_TIME ),
 	DEFINE_FIELD( CHGrunt, m_flNextPainTime, FIELD_TIME ),
 //	DEFINE_FIELD( CHGrunt, m_flLastEnemySightTime, FIELD_TIME ), // don't save, go to zero
@@ -203,9 +201,7 @@ TYPEDESCRIPTION	CHGrunt::m_SaveData[] =
 //  DEFINE_FIELD( CShotgun, m_iBrassShell, FIELD_INTEGER ),
 //  DEFINE_FIELD( CShotgun, m_iShotgunShell, FIELD_INTEGER ),
 	DEFINE_FIELD( CHGrunt, m_iSentence, FIELD_INTEGER ),
-};
-
-IMPLEMENT_SAVERESTORE( CHGrunt, CSquadMonster );
+END_DATADESC()
 
 const char *CHGrunt::pGruntSentences[] = 
 {
@@ -2380,6 +2376,8 @@ Schedule_t* CHGrunt :: GetScheduleOfType ( int Type )
 class CHGruntRepel : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CHGruntRepel, CBaseMonster );
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void EXPORT RepelUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
@@ -2437,6 +2435,8 @@ void CHGruntRepel::RepelUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 class CDeadHGrunt : public CBaseMonster
 {
 public:
+	DECLARE_CLASS( CDeadHGrunt, CBaseMonster );
+
 	void Spawn( void ) override;
 	int	Classify ( void ) override { return	CLASS_HUMAN_MILITARY; }
 
