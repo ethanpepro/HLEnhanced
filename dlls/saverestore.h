@@ -71,7 +71,7 @@ public:
 	void	WritePositionVector( const char *pname, const float *value, int count );	// array of pos vectors
 	void	WriteFunction( const char *pname, void **value, int count );		// Save a function pointer
 	bool	WriteEntVars( const char *pname, entvars_t *pev );		// Save entvars_t (entvars_t)
-	bool	WriteFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount );
+	bool	WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount );
 
 private:
 	int		DataEmpty( const char *pdata, int size );
@@ -93,8 +93,8 @@ class CRestore : public CSaveRestoreBuffer
 public:
 	CRestore( SAVERESTOREDATA *pdata ) : CSaveRestoreBuffer( pdata ) { m_global = 0; m_precache = true; }
 	bool	ReadEntVars( const char *pname, entvars_t *pev );		// entvars_t
-	bool	ReadFields( const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount );
-	int		ReadField( void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount, int startField, int size, char *pName, void *pData );
+	bool	ReadFields( const char *pname, void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount );
+	int		ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount, int startField, int size, char *pName, void *pData );
 	int		ReadInt( void );
 	short	ReadShort( void );
 	int		ReadNamedInt( const char *pName );

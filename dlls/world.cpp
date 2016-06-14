@@ -375,8 +375,7 @@ bool CGlobalState::Save( CSave &save )
 {
 	const DataMap_t* pDataMap = GetDataMap();
 
-	//TODO: fix const correctness - Solokiller
-	if ( !save.WriteFields( "GLOBAL", this, const_cast<TYPEDESCRIPTION*>( pDataMap->pTypeDesc ), pDataMap->uiNumDescriptors ) )
+	if ( !save.WriteFields( "GLOBAL", this, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors ) )
 		return false;
 
 	const DataMap_t* pGlobalDataMap = globalentity_t::GetThisDataMap();
@@ -384,7 +383,7 @@ bool CGlobalState::Save( CSave &save )
 	globalentity_t *pEntity = m_pList;
 	for ( int i = 0; i < m_listCount && pEntity; i++ )
 	{
-		if ( !save.WriteFields( "GENT", pEntity, const_cast<TYPEDESCRIPTION*>( pGlobalDataMap->pTypeDesc ), pGlobalDataMap->uiNumDescriptors ) )
+		if ( !save.WriteFields( "GENT", pEntity, pGlobalDataMap->pTypeDesc, pGlobalDataMap->uiNumDescriptors ) )
 			return false;
 
 		pEntity = pEntity->pNext;
@@ -400,7 +399,7 @@ bool CGlobalState::Restore( CRestore &restore )
 	globalentity_t tmpEntity;
 
 	ClearStates();
-	if ( !restore.ReadFields( "GLOBAL", this, const_cast<TYPEDESCRIPTION*>( pDataMap->pTypeDesc ), pDataMap->uiNumDescriptors ) )
+	if ( !restore.ReadFields( "GLOBAL", this, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors ) )
 		return false;
 
 	const DataMap_t* pGlobalDataMap = globalentity_t::GetThisDataMap();
@@ -410,7 +409,7 @@ bool CGlobalState::Restore( CRestore &restore )
 
 	for ( int i = 0; i < listCount; i++ )
 	{
-		if ( !restore.ReadFields( "GENT", &tmpEntity, const_cast<TYPEDESCRIPTION*>( pGlobalDataMap->pTypeDesc ), pGlobalDataMap->uiNumDescriptors ) )
+		if ( !restore.ReadFields( "GENT", &tmpEntity, pGlobalDataMap->pTypeDesc, pGlobalDataMap->uiNumDescriptors ) )
 			return false;
 		EntityAdd( MAKE_STRING(tmpEntity.name), MAKE_STRING(tmpEntity.levelName), tmpEntity.state );
 	}

@@ -533,8 +533,7 @@ bool CBaseEntity::Save( CSave& save )
 
 		while( pDataMap )
 		{
-			//TODO: fix const correctness - Solokiller
-			bResult = save.WriteFields( pDataMap->pszClassName, this, const_cast<TYPEDESCRIPTION*>( pDataMap->pTypeDesc ), pDataMap->uiNumDescriptors );
+			bResult = save.WriteFields( pDataMap->pszClassName, this, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
 
 			if( !bResult )
 				return false;
@@ -558,8 +557,7 @@ bool CBaseEntity::Restore( CRestore &restore )
 
 		while( pDataMap )
 		{
-			//TODO: fix const correctness - Solokiller
-			bResult = restore.ReadFields( pDataMap->pszClassName, this, const_cast<TYPEDESCRIPTION*>( pDataMap->pTypeDesc ), pDataMap->uiNumDescriptors );
+			bResult = restore.ReadFields( pDataMap->pszClassName, this, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
 
 			if( !bResult )
 				break;
