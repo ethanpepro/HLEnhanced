@@ -47,7 +47,17 @@ public:
 
 	virtual void	TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
 	virtual int		TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
-	virtual int		TakeHealth( float flHealth, int bitsDamageType );
+
+	/**
+	*	Gives health to this entity. Negative values take health.
+	*	Used to be called TakeHealth.
+	*	- Solokiller
+	*	@param flHealth Amount of health to give. Negative values take health.
+	*	@param bitsDamageType Damage types bit vector. @see Damage enum.
+	*	@return Actual amount of health that was given/taken.
+	*/
+	virtual float	GiveHealth( float flHealth, int bitsDamageType );
+
 	virtual void	Killed( entvars_t *pevAttacker, int iGib );
 	virtual int		BloodColor( void ) { return DONT_BLEED; }
 	virtual void	TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );

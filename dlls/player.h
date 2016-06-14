@@ -212,7 +212,7 @@ public:
 	virtual void PreThink( void );
 	virtual void PostThink( void );
 	virtual Vector GetGunPosition( void ) override;
-	virtual int TakeHealth( float flHealth, int bitsDamageType ) override;
+	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
 	virtual void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
 	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
 	virtual void	Killed( entvars_t *pevAttacker, int iGib ) override;

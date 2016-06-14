@@ -10,7 +10,7 @@ extern DLL_GLOBAL Vector		g_vecAttackDir;
 void SetObjectCollisionBox( entvars_t *pev );
 
 // give health
-int CBaseEntity::TakeHealth( float flHealth, int bitsDamageType )
+float CBaseEntity::GiveHealth( float flHealth, int bitsDamageType )
 {
 	if( !pev->takedamage )
 		return 0;
@@ -19,12 +19,16 @@ int CBaseEntity::TakeHealth( float flHealth, int bitsDamageType )
 	if( pev->health >= pev->max_health )
 		return 0;
 
+	const float flOldHealth = pev->health;
+
 	pev->health += flHealth;
+
+	//TODO: if the entity's health drops below 1, kill it. - Solokiller
 
 	if( pev->health > pev->max_health )
 		pev->health = pev->max_health;
 
-	return 1;
+	return pev->health - flOldHealth;
 }
 
 // inflict damage on this entity.  bitsDamageType indicates type of damage inflicted, ie: DMG_CRUSH

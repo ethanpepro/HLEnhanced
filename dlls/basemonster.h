@@ -307,7 +307,7 @@ public:
 
 	virtual	Vector  GetGunPosition( void );
 
-	virtual int TakeHealth( float flHealth, int bitsDamageType ) override;
+	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
 	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
 	int			DeadTakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType );
 
