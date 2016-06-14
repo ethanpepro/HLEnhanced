@@ -260,10 +260,10 @@ public:
 	void StartDeathCam( void );
 	void StartObserver( Vector vecPosition, Vector vecViewAngle );
 
-	void AddPoints( int score, const bool bAllowNegativeScore ) override;
-	void AddPointsToTeam( int score, const bool bAllowNegativeScore ) override;
-	bool AddPlayerItem( CBasePlayerItem *pItem ) override;
-	bool RemovePlayerItem( CBasePlayerItem *pItem ) override;
+	void AddPoints( int score, const bool bAllowNegativeScore );
+	void AddPointsToTeam( int score, const bool bAllowNegativeScore );
+	bool AddPlayerItem( CBasePlayerItem *pItem );
+	bool RemovePlayerItem( CBasePlayerItem *pItem );
 	void DropPlayerItem ( char *pszItemName );
 	bool HasPlayerItem( CBasePlayerItem *pCheckItem ) const;
 	bool HasNamedPlayerItem( const char *pszItemName ) const;

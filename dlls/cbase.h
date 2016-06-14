@@ -181,12 +181,6 @@ public:
 	virtual CSquadMonster *MySquadMonsterPointer( void ) { return NULL;}
 	virtual	int		GetToggleState( void ) { return TS_AT_TOP; }
 
-	//TODO: these shouldn't be here. Move to CBaseMonster or CBasePlayer - Solokiller
-	virtual void	AddPoints( int score, const bool bAllowNegativeScore ) {}
-	virtual void	AddPointsToTeam( int score, const bool bAllowNegativeScore ) {}
-	virtual bool	AddPlayerItem( CBasePlayerItem *pItem ) { return false; }
-	virtual bool	RemovePlayerItem( CBasePlayerItem *pItem ) { return false; }
-
 	virtual float	GetDelay( void ) { return 0; }
 	virtual bool	IsMoving() const { return pev->velocity != g_vecZero; }
 	virtual void	OverrideReset( void ) {}

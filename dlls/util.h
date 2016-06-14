@@ -195,6 +195,8 @@ inline bool FClassnameIs(entvars_t* pev, const char* szClassname)
 	{ return FStrEq(STRING(pev->classname), szClassname); }
 
 class CBaseEntity;
+class CBasePlayerItem;
+class CBasePlayer;
 
 // Misc. Prototypes
 extern void			UTIL_SetSize			(entvars_t* pev, const Vector &vecMin, const Vector &vecMax);
@@ -209,10 +211,11 @@ extern CBaseEntity	*UTIL_FindEntityByClassname(CBaseEntity *pStartEntity, const 
 extern CBaseEntity	*UTIL_FindEntityByTargetname(CBaseEntity *pStartEntity, const char *szName );
 extern CBaseEntity	*UTIL_FindEntityGeneric(const char *szName, Vector &vecSrc, float flRadius );
 
-// returns a CBaseEntity pointer to a player by index.  Only returns if the player is spawned and connected
-// otherwise returns NULL
+// returns a CBasePlayer pointer to a player by index.  Only returns if the player is spawned and connected
+// otherwise returns nullptr
 // Index is 1 based
-extern CBaseEntity	*UTIL_PlayerByIndex( int playerIndex );
+// Now returns CBasePlayer - Solokiller
+extern CBasePlayer	*UTIL_PlayerByIndex( int playerIndex );
 
 #define UTIL_EntitiesInPVS(pent)			(*g_engfuncs.pfnEntitiesInPVS)(pent)
 extern void			UTIL_MakeVectors		(const Vector &vecAngles);
@@ -291,8 +294,6 @@ inline void			UTIL_CenterPrintAll( const char *msg_name, const char *param1 = NU
 	UTIL_ClientPrintAll( HUD_PRINTCENTER, msg_name, param1, param2, param3, param4 );
 }
 
-class CBasePlayerItem;
-class CBasePlayer;
 extern bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon );
 
 // prints messages through the HUD

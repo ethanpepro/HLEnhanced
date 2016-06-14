@@ -177,13 +177,15 @@ void CGameScore::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 	// Only players can use this
 	if ( pActivator->IsPlayer() )
 	{
+		CBasePlayer* const pPlayer = static_cast<CBasePlayer*>( pActivator );
+
 		if ( AwardToTeam() )
 		{
-			pActivator->AddPointsToTeam( Points(), AllowNegativeScore() );
+			pPlayer->AddPointsToTeam( Points(), AllowNegativeScore() );
 		}
 		else
 		{
-			pActivator->AddPoints( Points(), AllowNegativeScore() );
+			pPlayer->AddPoints( Points(), AllowNegativeScore() );
 		}
 	}
 }
