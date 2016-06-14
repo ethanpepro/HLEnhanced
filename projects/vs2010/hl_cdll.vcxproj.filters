@@ -79,6 +79,12 @@
     <Filter Include="Source Files\game\shared">
       <UniqueIdentifier>{20909575-f310-4135-b21c-46e0ab1d8bca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game">
+      <UniqueIdentifier>{33f00d22-87af-41a7-b78b-01a32b4fde61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\shared">
+      <UniqueIdentifier>{54c43810-1bd9-4fa3-ba06-a840bde2cff1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -339,6 +345,9 @@
     <ClCompile Include="..\..\common\Platform.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\EHandle.cpp">
+      <Filter>Source Files\game\shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -472,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="..\..\public\math\vector.h">
       <Filter>Header Files\public\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\EHandle.h">
+      <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

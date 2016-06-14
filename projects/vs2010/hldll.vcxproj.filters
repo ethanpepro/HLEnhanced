@@ -384,6 +384,9 @@
     <ClCompile Include="..\..\common\Platform.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\EHandle.cpp">
+      <Filter>Source Files\game\shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -538,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="..\..\engine\server\Server.h">
       <Filter>Header Files\engine\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\EHandle.h">
+      <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
