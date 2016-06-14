@@ -66,6 +66,13 @@ enum FCapability
 extern "C" DLLEXPORT int GetEntityAPI( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion );
 extern "C" DLLEXPORT int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
 
+/**
+*	Provides new game interfaces to the engine. Not included in the HL SDK, though Ricochet uses it.
+*	This is needed in order to trigger the CBaseEntity destructor, as well as provide several other functions.
+*	- Solokiller
+*/
+extern "C" DLLEXPORT int GetNewDLLFunctions( NEW_DLL_FUNCTIONS* pFunctionTable, int* pInterfaceVersion );
+
 extern int DispatchSpawn( edict_t *pent );
 extern void DispatchKeyValue( edict_t *pentKeyvalue, KeyValueData *pkvd );
 extern void DispatchTouch( edict_t *pentTouched, edict_t *pentOther );
@@ -440,12 +447,6 @@ public:
 };
 
 //
-// Weapons 
-//
-
-#define	BAD_WEAPON 0x00007FFF
-
-//
 // Converts a entvars_t * to a class pointer
 // It will allocate the class and entity if necessary
 //
@@ -465,6 +466,8 @@ template <class T> T * GetClassPtr( T *a )
 		// allocate private data 
 		a = new(pev) T;
 		a->pev = pev;
+		//Now calls OnCreate - Solokiller
+		a->OnCreate();
 	}
 	return a;
 }
@@ -495,15 +498,6 @@ push_trigger_data
 
 #define TRACER_FREQ		4			// Tracers fire every 4 bullets
 
-typedef struct _SelAmmo
-{
-	BYTE	Ammo1Type;
-	BYTE	Ammo1;
-	BYTE	Ammo2Type;
-	BYTE	Ammo2;
-} SelAmmo;
-
-
 // this moved here from world.cpp, to allow classes to be derived from it
 //=======================
 // CWorld
@@ -515,9 +509,24 @@ class CWorld : public CBaseEntity
 public:
 	DECLARE_CLASS( CWorld, CBaseEntity );
 
+	void OnCreate() override;
+
+	void OnDestroy() override;
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
+
+	/**
+	*	Gets the global instance of this entity.
+	*/
+	static CWorld* GetInstance()
+	{
+		return m_pInstance;
+	}
+
+private:
+	static CWorld* m_pInstance;
 };
 
 #endif //CBASE_H

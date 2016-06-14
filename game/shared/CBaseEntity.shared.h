@@ -18,7 +18,17 @@ public:
 	CBaseEntity			*m_pGoalEnt;// path corner we are heading towards
 	CBaseEntity			*m_pLink;// used for temporary link-list operations. 
 
-								 // initialization functions
+	/**
+	*	Called when the entity is first created. - Solokille
+	*/
+	virtual void OnCreate() {}
+
+	/**
+	*	Called when the entity is destroyed. - Solokiller
+	*/
+	virtual void  OnDestroy() {}
+
+	// initialization functions
 	virtual void	Spawn( void ) { return; }
 	virtual void	Precache( void ) { return; }
 	virtual void	KeyValue( KeyValueData* pkvd ) { pkvd->fHandled = false; }

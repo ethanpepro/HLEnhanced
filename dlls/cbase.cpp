@@ -93,6 +93,48 @@ static DLL_FUNCTIONS gFunctionTable =
 	AllowLagCompensation,		//pfnAllowLagCompensation
 };
 
+/**
+*	Called when an entity is freed by the engine. Calls OnDestroy and runs the destructor. - Solokiller
+*/
+void OnFreeEntPrivateData( edict_t* pEdict );
+
+/**
+*	Called when the game unloads this DLL. - Solokliler
+*/
+void GameDLLShutdown();
+
+/**
+*	Called when the engine believes two entities are about to collide. Return 0 if you
+*	want the two entities to just pass through each other without colliding or calling the
+*	touch function.
+*/
+int ShouldCollide( edict_t *pentTouched, edict_t *pentOther );
+
+/**
+*	Called when the engine has received a cvar value from the client in response to a pfnQueryClientCvarValue call.
+*	If the client isn't connected, or the cvar didn't exist, the value given is "Bad CVAR request".
+*	@param pEnt Client entity.
+*	@param value Cvar value.
+*/
+void CvarValue( const edict_t *pEnt, const char *value );
+
+/**
+*	Called when the engine has received a cvar value from the client in response to a pfnQueryClientCvarValue2 call.
+*	@param requestID The ID given to the pfnQueryClientCvarValue2 function.
+*	@param cvarName Name of the cvar that was queried.
+*	@see CvarValue
+*/
+void CvarValue2( const edict_t *pEnt, int requestID, const char *cvarName, const char *value );
+
+NEW_DLL_FUNCTIONS gNewDLLFunctions = 
+{
+	OnFreeEntPrivateData,
+	GameDLLShutdown,
+	ShouldCollide,
+	CvarValue,
+	CvarValue2
+};
+
 static void SetObjectCollisionBox( entvars_t *pev );
 
 extern "C" {
@@ -119,6 +161,18 @@ int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion )
 	
 	memcpy( pFunctionTable, &gFunctionTable, sizeof( DLL_FUNCTIONS ) );
 	return true;
+}
+
+int GetNewDLLFunctions( NEW_DLL_FUNCTIONS* pFunctionTable, int* pInterfaceVersion )
+{
+	if( !pFunctionTable || *pInterfaceVersion != NEW_DLL_FUNCTIONS_VERSION )
+	{
+		*pInterfaceVersion = NEW_DLL_FUNCTIONS_VERSION;
+		return FALSE;
+	}
+
+	memcpy( pFunctionTable, &gNewDLLFunctions, sizeof( gNewDLLFunctions ) );
+	return TRUE;
 }
 
 }
@@ -431,6 +485,31 @@ void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseD
 {
 	CRestore restoreHelper( pSaveData );
 	restoreHelper.ReadFields( pname, pBaseData, pFields, fieldCount );
+}
+
+void OnFreeEntPrivateData( edict_t* pEdict )
+{
+	if( pEdict && pEdict->pvPrivateData )
+	{
+		CBaseEntity* pEntity = GET_PRIVATE( pEdict );
+
+		pEntity->OnDestroy();
+
+		pEntity->~CBaseEntity();
+	}
+}
+
+int ShouldCollide( edict_t *pentTouched, edict_t *pentOther )
+{
+	return 1;
+}
+
+void CvarValue( const edict_t *pEnt, const char *value )
+{
+}
+
+void CvarValue2( const edict_t *pEnt, int requestID, const char *cvarName, const char *value )
+{
 }
 
 // give health

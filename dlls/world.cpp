@@ -474,6 +474,27 @@ LINK_ENTITY_TO_CLASS( worldspawn, CWorld );
 extern DLL_GLOBAL bool		g_fGameOver;
 float g_flWeaponCheat; 
 
+CWorld* CWorld::m_pInstance = nullptr;
+
+void CWorld::OnCreate()
+{
+	BaseClass::OnCreate();
+
+	//There should be only 1 worldspawn instance.
+	ASSERT( !m_pInstance );
+
+	m_pInstance = this;
+}
+
+void CWorld::OnDestroy()
+{
+	ASSERT( m_pInstance );
+
+	m_pInstance = nullptr;
+
+	BaseClass::OnDestroy();
+}
+
 void CWorld :: Spawn( void )
 {
 	g_fGameOver = false;
