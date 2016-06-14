@@ -244,6 +244,7 @@
     <ClInclude Include="..\..\dlls\weapons.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
+    <ClInclude Include="..\..\game\shared\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\DataMapping.h" />
     <ClInclude Include="..\..\game\shared\EHandle.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />

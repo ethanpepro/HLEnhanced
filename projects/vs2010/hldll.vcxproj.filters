@@ -545,5 +545,8 @@
     <ClInclude Include="..\..\game\shared\EHandle.h">
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\CBaseEntity.shared.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
