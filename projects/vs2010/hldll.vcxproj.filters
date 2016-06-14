@@ -70,6 +70,9 @@
     <Filter Include="Header Files\engine\server">
       <UniqueIdentifier>{e66a962b-db67-40b8-a51b-9e1067cea996}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\server">
+      <UniqueIdentifier>{9aadc9eb-c159-4c42-9bcd-4011e9476c56}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -386,6 +389,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\EHandle.cpp">
       <Filter>Source Files\game\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CBaseEntity.server.cpp">
+      <Filter>Source Files\game\server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

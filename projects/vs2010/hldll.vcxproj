@@ -195,6 +195,7 @@
     <ClCompile Include="..\..\dlls\wpn_shared\hl_wpn_glock.cpp" />
     <ClCompile Include="..\..\dlls\xen.cpp" />
     <ClCompile Include="..\..\dlls\zombie.cpp" />
+    <ClCompile Include="..\..\game\server\CBaseEntity.server.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\EHandle.cpp" />
     <ClCompile Include="..\..\game_shared\shared_game_utils.cpp" />
