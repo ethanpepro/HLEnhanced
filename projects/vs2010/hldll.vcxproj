@@ -242,6 +242,7 @@
     <ClInclude Include="..\..\dlls\util.h" />
     <ClInclude Include="..\..\dlls\weapons.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
+    <ClInclude Include="..\..\engine\server\Server.h" />
     <ClInclude Include="..\..\game\shared\DataMapping.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />
     <ClInclude Include="..\..\game_shared\shared_game_utils.h" />

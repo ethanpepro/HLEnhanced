@@ -67,6 +67,9 @@
     <Filter Include="Source Files\common">
       <UniqueIdentifier>{254d1fdf-2374-4ff5-8c0b-cdf64a8f5fb5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\engine\server">
+      <UniqueIdentifier>{e66a962b-db67-40b8-a51b-9e1067cea996}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -532,6 +535,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\DataMapping.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\engine\server\Server.h">
+      <Filter>Header Files\engine\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
