@@ -208,7 +208,6 @@ public:
 	virtual void	AddPointsToTeam( int score, const bool bAllowNegativeScore ) {}
 	virtual bool	AddPlayerItem( CBasePlayerItem *pItem ) { return false; }
 	virtual bool	RemovePlayerItem( CBasePlayerItem *pItem ) { return false; }
-	virtual int 	GiveAmmo( int iAmount, char *szName, int iMax ) { return -1; };
 
 	virtual float	GetDelay( void ) { return 0; }
 	virtual bool	IsMoving() const { return pev->velocity != g_vecZero; }

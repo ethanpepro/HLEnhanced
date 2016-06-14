@@ -360,31 +360,31 @@ GLOBALESTATE CGlobalState :: EntityGetState( string_t globalname )
 
 
 // Global Savedata for Delay
-TYPEDESCRIPTION	CGlobalState::m_SaveData[] = 
-{
+BEGIN_DATADESC_NOBASE( CGlobalState )
 	DEFINE_FIELD( CGlobalState, m_listCount, FIELD_INTEGER ),
-};
+END_DATADESC()
 
 // Global Savedata for Delay
-TYPEDESCRIPTION	gGlobalEntitySaveData[] = 
-{
+BEGIN_DATADESC_NOBASE( globalentity_t )
 	DEFINE_ARRAY( globalentity_t, name, FIELD_CHARACTER, 64 ),
 	DEFINE_ARRAY( globalentity_t, levelName, FIELD_CHARACTER, 32 ),
 	DEFINE_FIELD( globalentity_t, state, FIELD_INTEGER ),
-};
-
+END_DATADESC()
 
 bool CGlobalState::Save( CSave &save )
 {
-	globalentity_t *pEntity;
+	const DataMap_t* pDataMap = GetDataMap();
 
-	if ( !save.WriteFields( "GLOBAL", this, m_SaveData, ARRAYSIZE(m_SaveData) ) )
+	//TODO: fix const correctness - Solokiller
+	if ( !save.WriteFields( "GLOBAL", this, const_cast<TYPEDESCRIPTION*>( pDataMap->pTypeDesc ), pDataMap->uiNumDescriptors ) )
 		return false;
+
+	const DataMap_t* pGlobalDataMap = globalentity_t::GetThisDataMap();
 	
-	pEntity = m_pList;
+	globalentity_t *pEntity = m_pList;
 	for ( int i = 0; i < m_listCount && pEntity; i++ )
 	{
-		if ( !save.WriteFields( "GENT", pEntity, gGlobalEntitySaveData, ARRAYSIZE(gGlobalEntitySaveData) ) )
+		if ( !save.WriteFields( "GENT", pEntity, const_cast<TYPEDESCRIPTION*>( pGlobalDataMap->pTypeDesc ), pGlobalDataMap->uiNumDescriptors ) )
 			return false;
 
 		pEntity = pEntity->pNext;
@@ -395,18 +395,22 @@ bool CGlobalState::Save( CSave &save )
 
 bool CGlobalState::Restore( CRestore &restore )
 {
+	const DataMap_t* pDataMap = GetDataMap();
+
 	globalentity_t tmpEntity;
 
 	ClearStates();
-	if ( !restore.ReadFields( "GLOBAL", this, m_SaveData, ARRAYSIZE(m_SaveData) ) )
+	if ( !restore.ReadFields( "GLOBAL", this, const_cast<TYPEDESCRIPTION*>( pDataMap->pTypeDesc ), pDataMap->uiNumDescriptors ) )
 		return false;
+
+	const DataMap_t* pGlobalDataMap = globalentity_t::GetThisDataMap();
 	
 	const int listCount = m_listCount;	// Get new list count
 	m_listCount = 0;				// Clear loaded data
 
 	for ( int i = 0; i < listCount; i++ )
 	{
-		if ( !restore.ReadFields( "GENT", &tmpEntity, gGlobalEntitySaveData, ARRAYSIZE(gGlobalEntitySaveData) ) )
+		if ( !restore.ReadFields( "GENT", &tmpEntity, const_cast<TYPEDESCRIPTION*>( pGlobalDataMap->pTypeDesc ), pGlobalDataMap->uiNumDescriptors ) )
 			return false;
 		EntityAdd( MAKE_STRING(tmpEntity.name), MAKE_STRING(tmpEntity.levelName), tmpEntity.state );
 	}

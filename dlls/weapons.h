@@ -360,6 +360,21 @@ public:
 
 };
 
+#define DEFAULT_AMMO_PICKUP_SOUND "items/9mmclip1.wav"
+
+/**
+*	Gives ammo to the given player.
+*	@param pGiver Entity that is giving the ammo.
+*	@param pPlayer Player to give ammo to. If this is not a player, no ammo is given.
+*	@param iAmount Amount of ammo to give. Amount smaller than or equal to 0 are ignored.
+*	@param pszAmmoName Name of the ammo type to give ammo of.
+*	@param iMaxAmmo Maximum amount of ammo that the player can carry of this type. TODO: remove or make optional override.
+*	@param pszPickupSound Sound to play on pickup. Defaults to DEFAULT_AMMO_PICKUP_SOUND. If null, no sound is played.
+*	@return true if ammo was given, false otherwise.
+*/
+bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
+							const int iAmount, const char* const pszAmmoName, const int iMaxAmmo, 
+							const char* const pszPickupSound = DEFAULT_AMMO_PICKUP_SOUND );
 
 class CBasePlayerAmmo : public CBaseEntity
 {

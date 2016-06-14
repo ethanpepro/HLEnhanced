@@ -345,8 +345,8 @@ extern int BuildChangeList( LEVELLIST *pLevelList, int maxList );
 //
 #ifdef	DEBUG
 void DBG_AssertFunction(const bool fExpr, const char* szExpr, const char* szFile, int szLine, const char* szMessage);
-#define ASSERT(f)		DBG_AssertFunction(f, #f, __FILE__, __LINE__, NULL)
-#define ASSERTSZ(f, sz)	DBG_AssertFunction(f, #f, __FILE__, __LINE__, sz)
+#define ASSERT(f)		DBG_AssertFunction( !!( f ), #f, __FILE__, __LINE__, NULL )
+#define ASSERTSZ(f, sz)	DBG_AssertFunction( !!( f ), #f, __FILE__, __LINE__, sz )
 #else	// !DEBUG
 #define ASSERT(f)
 #define ASSERTSZ(f, sz)

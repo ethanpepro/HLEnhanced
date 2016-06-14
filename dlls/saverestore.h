@@ -16,6 +16,8 @@
 #ifndef SAVERESTORE_H
 #define SAVERESTORE_H
 
+#include "DataMapping.h"
+
 class CBaseEntity;
 
 class CSaveRestoreBuffer
@@ -124,6 +126,9 @@ typedef struct globalentity_s globalentity_t;
 
 struct globalentity_s
 {
+	DECLARE_CLASS_NOBASE( globalentity_t );
+	DECLARE_DATADESC_FINAL();
+
 	char			name[64];
 	char			levelName[32];
 	GLOBALESTATE	state;
@@ -133,6 +138,9 @@ struct globalentity_s
 class CGlobalState
 {
 public:
+	DECLARE_CLASS_NOBASE( CGlobalState );
+	DECLARE_DATADESC_FINAL();
+
 					CGlobalState();
 	void			Reset( void );
 	void			ClearStates( void );
@@ -144,7 +152,6 @@ public:
 	int				EntityInTable( string_t globalname ) { return (Find( globalname ) != NULL) ? 1 : 0; }
 	bool			Save( CSave &save );
 	bool			Restore( CRestore &restore );
-	static TYPEDESCRIPTION m_SaveData[];
 
 //#ifdef _DEBUG
 	void			DumpGlobals( void );

@@ -1030,6 +1030,31 @@ void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
 	m_pPlayer->pev->weaponmodel = 0;
 }
 
+bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
+							const int iAmount, const char* const pszAmmoName, const int iMaxAmmo,
+							const char* const pszPickupSound )
+{
+	ASSERT( pGiver );
+	ASSERT( pPlayer );
+
+	if( !pGiver || !pPlayer )
+		return false;
+
+	if( !pPlayer->IsPlayer() )
+		return false;
+
+	CBasePlayer* pPlayerEnt = static_cast<CBasePlayer*>( pPlayer );
+
+	const bool bResult = ( pPlayerEnt->GiveAmmo( iAmount, pszAmmoName, iMaxAmmo ) != -1 );
+
+	if( bResult && pszPickupSound )
+	{
+		EMIT_SOUND( pGiver->edict(), CHAN_ITEM, pszPickupSound, 1, ATTN_NORM );
+	}
+
+	return bResult;
+}
+
 void CBasePlayerAmmo::Spawn( void )
 {
 	pev->movetype = MOVETYPE_TOSS;

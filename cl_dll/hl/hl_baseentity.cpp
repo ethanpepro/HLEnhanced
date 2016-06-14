@@ -290,7 +290,7 @@ bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const { return fa
 bool CBasePlayer::SwitchWeapon( CBasePlayerItem *pWeapon )  { return false; }
 Vector CBasePlayer :: GetGunPosition( void ) { return g_vecZero; }
 const char *CBasePlayer::TeamID() const { return ""; }
-int CBasePlayer :: GiveAmmo( int iCount, char *szName, int iMax ) { return 0; }
+int CBasePlayer :: GiveAmmo( int iCount, const char *szName, int iMax ) { return 0; }
 void CBasePlayer::AddPoints( int score, const bool bAllowNegativeScore ) { }
 void CBasePlayer::AddPointsToTeam( int score, const bool bAllowNegativeScore ) { }
 
@@ -334,3 +334,10 @@ bool CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon ) { return f
 void CBasePlayerWeapon::RetireWeapon( void ) { }
 void CSoundEnt::InsertSound ( int iType, const Vector &vecOrigin, int iVolume, float flDuration ) {}
 void RadiusDamage( Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, float flRadius, int iClassIgnore, int bitsDamageType ){}
+
+bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
+							const int iAmount, const char* const pszAmmoName, const int iMaxAmmo,
+							const char* const pszPickupSound )
+{
+	return false;
+}

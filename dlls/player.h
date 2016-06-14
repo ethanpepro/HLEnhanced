@@ -277,7 +277,7 @@ public:
 	void GiveNamedItem( const char *szName );
 	void EnableControl(const bool fControl);
 
-	int  GiveAmmo( int iAmount, char *szName, int iMax ) override;
+	int  GiveAmmo( int iAmount, const char *szName, int iMax );
 	void SendAmmoUpdate(void);
 
 	void WaterMove( void );

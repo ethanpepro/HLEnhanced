@@ -298,12 +298,7 @@ public:
 	}
 	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
-		const bool bResult = (pOther->GiveAmmo( AMMO_MP5CLIP_GIVE, "9mm", _9MM_MAX_CARRY) != -1);
-		if (bResult)
-		{
-			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
-		}
-		return bResult;
+		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_MP5CLIP_GIVE, "9mm", _9MM_MAX_CARRY );
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_mp5clip, CMP5AmmoClip );
@@ -329,12 +324,7 @@ public:
 	}
 	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
-		const bool bResult = (pOther->GiveAmmo( AMMO_CHAINBOX_GIVE, "9mm", _9MM_MAX_CARRY) != -1);
-		if (bResult)
-		{
-			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
-		}
-		return bResult;
+		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_CHAINBOX_GIVE, "9mm", _9MM_MAX_CARRY );
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_9mmbox, CMP5Chainammo );
@@ -358,13 +348,7 @@ public:
 	}
 	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
-		const bool bResult = (pOther->GiveAmmo( AMMO_M203BOX_GIVE, "ARgrenades", M203_GRENADE_MAX_CARRY ) != -1);
-
-		if (bResult)
-		{
-			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM);
-		}
-		return bResult;
+		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_M203BOX_GIVE, "ARgrenades", M203_GRENADE_MAX_CARRY );
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_mp5grenades, CMP5AmmoGrenade );

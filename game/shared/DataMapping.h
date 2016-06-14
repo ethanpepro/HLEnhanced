@@ -47,7 +47,7 @@ bool InitDataMap()
 	return false;
 }
 
-#define DECLARE_DATADESC_NOBASE()				\
+#define __DECLARE_DATADESC_NOBASE()				\
 private:										\
 	static DataMap_t m_DataMap;					\
 												\
@@ -56,10 +56,26 @@ private:										\
 												\
 public:											\
 	static const DataMap_t* GetBaseDataMap();	\
-	static const DataMap_t* GetThisDataMap();	\
+	static const DataMap_t* GetThisDataMap()
+
+/**
+*	Data descriptor for classes that have no vtable.
+*/
+#define DECLARE_DATADESC_FINAL()				\
+__DECLARE_DATADESC_NOBASE();					\
+	const DataMap_t* GetDataMap() const
+
+/**
+*	Data descriptor for the root class, if it has a vtable.
+*/
+#define DECLARE_DATADESC_NOBASE()				\
+__DECLARE_DATADESC_NOBASE();					\
 	virtual const DataMap_t* GetDataMap() const
 
-#define DECLARE_DATADESC()					\
+/**
+*	Data descriptor for subclasses, if they have vtables.
+*/
+#define DECLARE_DATADESC()						\
 DECLARE_DATADESC_NOBASE()
 
 #define __BEGIN_DATADESC( thisClass )				\
@@ -94,6 +110,9 @@ bool InitDataMap<thisClass>()						\
 	static TYPEDESCRIPTION typeDesc[] =				\
 	{
 
+/**
+*	Begins the data descriptor for the base class.
+*/
 #define BEGIN_DATADESC_NOBASE( thisClass )			\
 const DataMap_t* thisClass::GetBaseDataMap()		\
 {													\
@@ -102,6 +121,9 @@ const DataMap_t* thisClass::GetBaseDataMap()		\
 													\
 __BEGIN_DATADESC( thisClass )
 
+/**
+*	Begins the data descriptor for subclasses.
+*/
 #define BEGIN_DATADESC( thisClass )					\
 const DataMap_t* thisClass::GetBaseDataMap()		\
 {													\
@@ -110,17 +132,20 @@ const DataMap_t* thisClass::GetBaseDataMap()		\
 													\
 __BEGIN_DATADESC( thisClass )
 
-#define END_DATADESC()										\
-		DEFINE_FIELD( ThisClass, pev, FIELD_EVARS )			\
-	};														\
-															\
-	DataMap_t* pDataMap = &ThisClass::m_DataMap;			\
-	pDataMap->pszClassName = pszClassName;					\
-	pDataMap->pParent = ThisClass::GetBaseDataMap();		\
-	pDataMap->pTypeDesc = typeDesc;							\
-	pDataMap->uiNumDescriptors = ARRAYSIZE( typeDesc ) - 1;	\
-															\
-	return true;											\
+/**
+*	Ends the data descriptor.
+*/
+#define END_DATADESC()											\
+		DEFINE_FIELD( ThisClass, m_DataMap, FIELD_CHARACTER )	\
+	};															\
+																\
+	DataMap_t* pDataMap = &ThisClass::m_DataMap;				\
+	pDataMap->pszClassName = pszClassName;						\
+	pDataMap->pParent = ThisClass::GetBaseDataMap();			\
+	pDataMap->pTypeDesc = typeDesc;								\
+	pDataMap->uiNumDescriptors = ARRAYSIZE( typeDesc ) - 1;		\
+																\
+	return true;												\
 }
 
 #endif //GAME_SHARED_DATAMAPPING_H
