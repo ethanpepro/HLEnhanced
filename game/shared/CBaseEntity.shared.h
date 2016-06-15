@@ -1,6 +1,8 @@
 #ifndef GAME_SHARED_CBASEENTITY_SHARED_H
 #define GAME_SHARED_CBASEENTITY_SHARED_H
 
+#include <cstddef>
+
 //
 // Base Entity.  All entity types derive from this
 //

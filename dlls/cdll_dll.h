@@ -21,8 +21,9 @@
 #define CDLL_DLL_H
 
 /**
-*	The maximum number of weapons that the engine can network. This is defined as 32 in the SDK, but ca handle up to 64.
+*	The maximum number of weapons that the engine can network. This is defined as 32 in the SDK, but can handle up to 64.
 *	The weapons bitmask can only handle 32. Either use an iuser or another means of sending the weapon list.
+*	 - Solokiller
 */
 #define MAX_WEAPONS		64		// ???
 

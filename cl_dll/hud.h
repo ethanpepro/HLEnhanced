@@ -99,11 +99,13 @@ struct HUDLIST {
 class CHudAmmo: public CHudBase
 {
 public:
-	int Init( void );
+	int Init() override;
 	bool VidInit() override;
-	int Draw(float flTime);
-	void Think(void);
-	void Reset(void);
+	int Draw( float flTime ) override;
+	void Think() override;
+	void Reset() override;
+	void InitHUDData() override;
+
 	int DrawWList(float flTime);
 	int MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf);
 	int MsgFunc_WeaponList(const char *pszName, int iSize, void *pbuf);

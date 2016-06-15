@@ -48,7 +48,6 @@ DLL_GLOBAL	short	g_sModelIndexBloodDrop;// holds the sprite index for the initia
 DLL_GLOBAL	short	g_sModelIndexBloodSpray;// holds the sprite index for splattered blood
 
 ItemInfo CBasePlayerItem::ItemInfoArray[MAX_WEAPONS];
-AmmoInfo CBasePlayerItem::AmmoInfoArray[MAX_AMMO_SLOTS];
 
 extern int gmsgCurWeapon;
 
@@ -172,35 +171,6 @@ void ExplodeModel( const Vector &vecOrigin, float speed, int model, int count )
 }
 #endif
 
-
-int giAmmoIndex = 0;
-
-// Precaches the ammo and queues the ammo info for sending to clients
-void AddAmmoNameToAmmoRegistry( const char *szAmmoname )
-{
-	// make sure it's not already in the registry
-	for ( int i = 0; i < MAX_AMMO_SLOTS; i++ )
-	{
-		if ( !CBasePlayerItem::AmmoInfoArray[i].pszName)
-			continue;
-
-		if ( stricmp( CBasePlayerItem::AmmoInfoArray[i].pszName, szAmmoname ) == 0 )
-			return; // ammo already in registry, just quite
-	}
-
-
-	giAmmoIndex++;
-	ASSERT( giAmmoIndex < MAX_AMMO_SLOTS );
-
-	//Ammo index 0 will cause problems here. Loops start at 1, so it would ignore ammo at index 0. - Solokiller
-	if ( giAmmoIndex >= MAX_AMMO_SLOTS )
-		giAmmoIndex = 1;
-
-	CBasePlayerItem::AmmoInfoArray[giAmmoIndex].pszName = szAmmoname;
-	CBasePlayerItem::AmmoInfoArray[giAmmoIndex].iId = giAmmoIndex;   // yes, this info is redundant
-}
-
-
 // Precaches the weapon and queues the weapon info for sending to clients
 void UTIL_PrecacheOtherWeapon( const char *szClassname )
 {
@@ -224,14 +194,15 @@ void UTIL_PrecacheOtherWeapon( const char *szClassname )
 		{
 			CBasePlayerItem::ItemInfoArray[II.iId] = II;
 
+			// Precaches the ammo and queues the ammo info for sending to clients
 			if ( II.pszAmmo1 && *II.pszAmmo1 )
 			{
-				AddAmmoNameToAmmoRegistry( II.pszAmmo1 );
+				g_AmmoTypes.AddAmmoType( II.pszAmmo1 );
 			}
 
 			if ( II.pszAmmo2 && *II.pszAmmo2 )
 			{
-				AddAmmoNameToAmmoRegistry( II.pszAmmo2 );
+				g_AmmoTypes.AddAmmoType( II.pszAmmo2 );
 			}
 
 			memset( &II, 0, sizeof II );
@@ -245,8 +216,10 @@ void UTIL_PrecacheOtherWeapon( const char *szClassname )
 void W_Precache(void)
 {
 	memset( CBasePlayerItem::ItemInfoArray, 0, sizeof(CBasePlayerItem::ItemInfoArray) );
-	memset( CBasePlayerItem::AmmoInfoArray, 0, sizeof(CBasePlayerItem::AmmoInfoArray) );
-	giAmmoIndex = 0;
+
+	g_AmmoTypes.Clear();
+
+	g_AmmoTypes.SetCanAddAmmoTypes( true );
 
 	// custom items...
 
@@ -333,6 +306,8 @@ void W_Precache(void)
 		UTIL_PrecacheOther( "weaponbox" );// container for dropped deathmatch weapons
 	}
 #endif
+
+	g_AmmoTypes.SetCanAddAmmoTypes( false );
 
 	g_sModelIndexFireball = PRECACHE_MODEL ("sprites/zerogxplode.spr");// fireball
 	g_sModelIndexWExplosion = PRECACHE_MODEL ("sprites/WXplo1.spr");// underwater fireball

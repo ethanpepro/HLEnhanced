@@ -395,11 +395,6 @@ typedef enum _fieldtypes
 	FIELD_TYPECOUNT,		// MUST BE LAST
 } FIELDTYPE;
 
-//TODO: define elsewhere - Solokiller
-#if !defined(offsetof)  && !defined(GNUC)
-#define offsetof(s,m)	(size_t)&(((s *)0)->m)
-#endif
-
 #define _FIELD(type,name,fieldtype,count,flags)				{ fieldtype, #name, offsetof(type, name), count, flags }
 #define _BASEENT_FIELD( name, fieldtype, count, flags )		_FIELD( ThisClass, name, fieldtype, count, flags )
 #define DEFINE_FIELD( name,fieldtype)						_BASEENT_FIELD( name, fieldtype, 1, 0)

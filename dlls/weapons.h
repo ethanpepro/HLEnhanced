@@ -19,6 +19,8 @@
 
 #include "CMultiDamage.h"
 
+#include "entities/weapons/CAmmoTypes.h"
+
 class CBasePlayer;
 extern int gmsgWeapPickup;
 
@@ -219,12 +221,6 @@ typedef struct
 	int		iWeight;// this value used to determine this weapon's importance in autoselection.
 } ItemInfo;
 
-typedef struct
-{
-	const char *pszName;
-	int iId;
-} AmmoInfo;
-
 // Items that the player has in their inventory that they can use
 class CBasePlayerItem : public CBaseAnimating
 {
@@ -268,7 +264,6 @@ public:
 	virtual CBasePlayerItem *GetWeaponPtr( void ) { return NULL; };
 
 	static ItemInfo ItemInfoArray[ MAX_WEAPONS ];
-	static AmmoInfo AmmoInfoArray[ MAX_AMMO_SLOTS ];
 
 	CBasePlayer	*m_pPlayer;
 	CBasePlayerItem *m_pNext;

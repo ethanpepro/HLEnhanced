@@ -85,6 +85,18 @@
     <Filter Include="Header Files\game\shared">
       <UniqueIdentifier>{54c43810-1bd9-4fa3-ba06-a840bde2cff1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\shared\entities">
+      <UniqueIdentifier>{1c7ead2d-96ab-42ad-be22-ac7fd88473ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\shared\entities\weapons">
+      <UniqueIdentifier>{c2fe6261-85fa-4a3e-8b00-fd0587e7297e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\shared\entities">
+      <UniqueIdentifier>{bfd0608c-397d-4ecf-a529-68ab05dfef18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\shared\entities\weapons">
+      <UniqueIdentifier>{614e8fa0-839f-434f-b873-cabdcab32dfc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -351,6 +363,12 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp">
       <Filter>Source Files\_hl\dlls</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\common\CHashStringPool.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp">
+      <Filter>Source Files\game\shared\entities\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -487,6 +505,15 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\EHandle.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\CAutoString.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\CHashStringPool.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\weapons\CAmmoTypes.h">
+      <Filter>Header Files\game\shared\entities\weapons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

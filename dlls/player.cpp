@@ -111,7 +111,7 @@ int gmsgTeamNames = 0;
 
 int gmsgStatusText = 0;
 int gmsgStatusValue = 0; 
-
+int gmsgAmmoType = 0;
 
 
 void LinkUserMessages( void )
@@ -159,6 +159,8 @@ void LinkUserMessages( void )
 	gmsgStatusText = REG_USER_MSG("StatusText", -1);
 	gmsgStatusValue = REG_USER_MSG("StatusValue", 3); 
 
+	//Send ammo type data.
+	gmsgAmmoType = REG_USER_MSG( "AmmoType", -1 );
 }
 
 LINK_ENTITY_TO_CLASS( player, CBasePlayer );
@@ -710,7 +712,7 @@ void CBasePlayer::PackDeadPlayerItems( void )
 // pack the ammo
 	while ( iPackAmmo[ iPA ] != -1 )
 	{
-		pWeaponBox->PackAmmo( MAKE_STRING( CBasePlayerItem::AmmoInfoArray[ iPackAmmo[ iPA ] ].pszName ), m_rgAmmo[ iPackAmmo[ iPA ] ] );
+		pWeaponBox->PackAmmo( MAKE_STRING( g_AmmoTypes.GetAmmoTypeByID( iPackAmmo[ iPA ] )->GetName() ), m_rgAmmo[ iPackAmmo[ iPA ] ] );
 		iPA++;
 	}
 
@@ -2967,6 +2969,9 @@ bool CBasePlayer::Restore( CRestore &restore )
 
 	RenewItems();
 
+	//Resync ammo data so you can reload - Solokiller
+	TabulateAmmo();
+
 #if defined( CLIENT_WEAPONS )
 	// HACK:	This variable is saved/restored in CBaseMonster as a time variable, but we're using it
 	//			as just a counter.  Ideally, this needs its own variable that's saved as a plain float.
@@ -3812,19 +3817,13 @@ int CBasePlayer::AmmoInventory( int iAmmoIndex )
 
 int CBasePlayer::GetAmmoIndex(const char *psz)
 {
-	int i;
-
 	if (!psz)
 		return -1;
 
-	for (i = 1; i < MAX_AMMO_SLOTS; i++)
-	{
-		if ( !CBasePlayerItem::AmmoInfoArray[i].pszName )
-			continue;
+	auto pType = g_AmmoTypes.GetAmmoTypeByName( psz );
 
-		if (stricmp( psz, CBasePlayerItem::AmmoInfoArray[i].pszName ) == 0)
-			return i;
-	}
+	if( pType )
+		return pType->GetID();
 
 	return -1;
 }
@@ -3887,6 +3886,9 @@ void CBasePlayer :: UpdateClientData( void )
 			{
 				FireTargets( "game_playerjoin", this, this, USE_TOGGLE, 0 );
 			}
+
+			//Send ammo types now. - Solokiller
+			g_AmmoTypes.SendAmmoTypes( this );
 		}
 
 		FireTargets( "game_playerspawn", this, this, USE_TOGGLE, 0 );

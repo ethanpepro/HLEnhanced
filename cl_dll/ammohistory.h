@@ -16,6 +16,8 @@
 // ammohistory.h
 //
 
+#include "entities/weapons/CAmmoTypes.h"
+
 // this is the max number of items in each bucket
 #define MAX_WEAPON_POSITIONS		MAX_WEAPON_SLOTS
 
@@ -27,14 +29,13 @@ private:
 
 	// counts of weapons * ammo
 	WEAPON*		rgSlots[MAX_WEAPON_SLOTS+1][MAX_WEAPON_POSITIONS+1];	// The slots currently in use by weapons.  The value is a pointer to the weapon;  if it's NULL, no weapon is there
-	int			riAmmo[MAX_AMMO_TYPES];							// count of each ammo type
+
+	//Rather than dynamically allocate the array (and reallocate it a bunch on connect), just use the maximum. - Solokiller
+	//TODO: revisit this if/when bulk data transfers become possible.
+	int riAmmo[ CAmmoTypes::LAST_VALID_ID + 1 ];							// count of each ammo type
 
 public:
-	void Init( void )
-	{
-		memset( rgWeapons, 0, sizeof rgWeapons );
-		Reset();
-	}
+	void Init();
 
 	void Reset( void )
 	{
@@ -42,6 +43,8 @@ public:
 		memset( rgSlots, 0, sizeof rgSlots );
 		memset( riAmmo, 0, sizeof riAmmo );
 	}
+
+	void InitHUDData();
 
 ///// WEAPON /////
 	int			iOldWeaponBits;
@@ -90,6 +93,8 @@ public:
 	int CountAmmo( int iId ) const;
 
 	HSPRITE* GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect );
+
+	int MsgFunc_AmmoType( const char* pszName, int iSize, void* pBuf );
 };
 
 extern WeaponsResource gWR;

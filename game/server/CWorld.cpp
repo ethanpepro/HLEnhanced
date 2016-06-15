@@ -68,6 +68,9 @@ void CWorld::OnDestroy()
 	m_pInstance = nullptr;
 
 	BaseClass::OnDestroy();
+
+	//TODO: this might not be the best place to put the pool clear call - Solokiller
+	g_StringPool.Clear();
 }
 
 void CWorld::Spawn( void )

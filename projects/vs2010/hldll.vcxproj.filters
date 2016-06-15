@@ -459,6 +459,12 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp">
       <Filter>Source Files\game\shared\entities\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp">
+      <Filter>Source Files\game\shared\entities\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\CHashStringPool.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -670,6 +676,18 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h">
       <Filter>Header Files\game\shared\entities\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\weapons\CAmmoTypes.h">
+      <Filter>Header Files\game\shared\entities\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\StringUtils.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\CAutoString.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\CHashStringPool.h">
+      <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -13,3 +13,5 @@ CBaseEntity* GET_PRIVATE( edict_t* pent )
 
 	return nullptr;
 }
+
+CHashStringPool g_StringPool;

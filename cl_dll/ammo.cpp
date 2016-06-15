@@ -39,6 +39,26 @@ WeaponsResource gWR;
 
 int g_weaponselect = 0;
 
+int __MsgFunc_AmmoType( const char* pszName, int iSize, void* pBuf )
+{
+	return gWR.MsgFunc_AmmoType( pszName, iSize, pBuf );
+}
+
+void WeaponsResource::Init()
+{
+	memset( rgWeapons, 0, sizeof rgWeapons );
+	Reset();
+
+	HOOK_MESSAGE( AmmoType );
+}
+
+void WeaponsResource::InitHUDData()
+{
+	//We've connected to a server, so clear our ammo data - Solokiller
+	//TODO: can this be called after getting ammo/weapons?
+	g_AmmoTypes.Clear();
+}
+
 void WeaponsResource :: LoadAllWeaponSprites( void )
 {
 	for (int i = 0; i < MAX_WEAPONS; i++)
@@ -226,6 +246,30 @@ WEAPON* WeaponsResource :: GetNextActivePos( int iSlot, int iSlotPos )
 	return p;
 }
 
+int WeaponsResource::MsgFunc_AmmoType( const char* pszName, int iSize, void* pBuf )
+{
+	BEGIN_READ( pBuf, iSize );
+
+	//This is pretty inefficient, but there's no other way. - Solokiller
+	//Until we can send bulk data all at once, we'll have to send each ammo type one at a time.
+	const char* pszAmmoName = READ_STRING();
+
+	const unsigned int uiID = READ_BYTE();
+
+	if( !g_AmmoTypes.IsEmpty() ? uiID != g_AmmoTypes.GetLastAmmoID() + 1 : uiID != CAmmoTypes::FIRST_VALID_ID )
+	{
+		gEngfuncs.Con_DPrintf( "WeaponsResource::MsgFunc_AmmoType: Received ammo type that has invalid ID!\n" );
+		return true;
+	}
+
+	g_AmmoTypes.SetCanAddAmmoTypes( true );
+
+	g_AmmoTypes.AddAmmoType( g_StringPool.Allocate( pszAmmoName ) );
+
+	g_AmmoTypes.SetCanAddAmmoTypes( false );
+
+	return true;
+}
 
 int giBucketHeight, giBucketWidth, giABHeight, giABWidth; // Ammo Bar width and height
 
@@ -308,6 +352,11 @@ void CHudAmmo::Reset(void)
 
 	gWR.Reset();
 	gHR.Reset();
+}
+
+void CHudAmmo::InitHUDData()
+{
+	gWR.InitHUDData();
 }
 
 bool CHudAmmo::VidInit()

@@ -60,7 +60,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;SERVER_DLL;_DEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <AdditionalIncludeDirectories>..\..\game\server;..\..\game\shared;..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -81,7 +81,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;SERVER_DLL;NDEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\game\server;..\..\game\shared;..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -97,6 +97,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
     <ClCompile Include="..\..\dlls\aflock.cpp" />
     <ClCompile Include="..\..\dlls\agrunt.cpp" />
@@ -214,6 +215,7 @@
     <ClCompile Include="..\..\game\server\Decals.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\EHandle.cpp" />
+    <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp" />
     <ClCompile Include="..\..\game_shared\shared_game_utils.cpp" />
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp" />
@@ -222,7 +224,10 @@
     <ClCompile Include="..\..\public\math\mathlib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\common\CAutoString.h" />
+    <ClInclude Include="..\..\common\CHashStringPool.h" />
     <ClInclude Include="..\..\common\Platform.h" />
+    <ClInclude Include="..\..\common\StringUtils.h" />
     <ClInclude Include="..\..\dlls\activity.h" />
     <ClInclude Include="..\..\dlls\activitymap.h" />
     <ClInclude Include="..\..\dlls\animation.h" />
@@ -281,6 +286,7 @@
     <ClInclude Include="..\..\game\shared\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\DataMapping.h" />
     <ClInclude Include="..\..\game\shared\EHandle.h" />
+    <ClInclude Include="..\..\game\shared\entities\weapons\CAmmoTypes.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />
     <ClInclude Include="..\..\game_shared\shared_game_utils.h" />
