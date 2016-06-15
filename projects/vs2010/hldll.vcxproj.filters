@@ -405,6 +405,15 @@
     <ClCompile Include="..\..\game\server\CMultiManager.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\CBaseDoor.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CRotDoor.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CMomentaryDoor.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -573,6 +582,15 @@
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\server\CMultiManager.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CBaseDoor.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CRotDoor.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CMomentaryDoor.h">
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
