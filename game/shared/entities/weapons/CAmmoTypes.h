@@ -156,6 +156,15 @@ public:
 	CAmmoType* GetAmmoTypeByID( const AmmoID_t ID );
 
 	/**
+	*	Pass in a name and this function will tell
+	*	you the maximum amount of that type of ammunition that a 
+	*	player can carry.
+	*	@param pszName Ammo type name.
+	*	@return Ammo type max carry value, or -1 if the given name is invalid.
+	*/
+	int GetMaxCarryByName( const char* const pszName ) const;
+
+	/**
 	*	@return Whether it is allowed to add new ammo types at this time.
 	*/
 	bool CanAddAmmoTypes() const { return m_bCanAddAmmoTypes; }

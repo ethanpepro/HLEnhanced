@@ -461,41 +461,6 @@ extern CMultiDamage g_MultiDamage;
 #define VECTOR_CONE_15DEGREES	Vector( 0.13053, 0.13053, 0.13053 )
 #define VECTOR_CONE_20DEGREES	Vector( 0.17365, 0.17365, 0.17365 )
 
-//=========================================================
-// CWeaponBox - a single entity that can store weapons
-// and ammo. 
-//=========================================================
-class CWeaponBox : public CBaseEntity
-{
-public:
-	DECLARE_CLASS( CWeaponBox, CBaseEntity );
-	DECLARE_DATADESC();
-
-	void Precache( void ) override;
-	void Spawn( void ) override;
-	void Touch( CBaseEntity *pOther ) override;
-	void KeyValue( KeyValueData *pkvd ) override;
-
-private:
-	bool IsEmpty() const;
-	int  GiveAmmo( int iCount, char *szName, int iMax, int *pIndex = NULL );
-	void SetObjectCollisionBox( void ) override;
-
-public:
-	void EXPORT Kill ( void );
-
-	bool HasWeapon( CBasePlayerItem *pCheckItem ) const;
-	bool PackWeapon( CBasePlayerItem *pWeapon );
-	bool PackAmmo( int iszName, int iCount );
-	
-	CBasePlayerItem	*m_rgpPlayerItems[MAX_ITEM_TYPES];// one slot for each 
-
-	int m_rgiszAmmo[MAX_AMMO_SLOTS];// ammo names
-	int	m_rgAmmo[MAX_AMMO_SLOTS];// ammo quantities
-
-	int m_cAmmoTypes;// how many ammo types packed into this box (if packed by a level designer)
-};
-
 #ifdef CLIENT_DLL
 bool bIsMultiplayer ( void );
 void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer );

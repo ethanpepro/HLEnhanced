@@ -99,6 +99,18 @@ CAmmoType* CAmmoTypes::GetAmmoTypeByID( const AmmoID_t ID )
 	return const_cast<CAmmoType*>( const_cast<const CAmmoTypes*>( this )->GetAmmoTypeByID( ID ) );
 }
 
+int CAmmoTypes::GetMaxCarryByName( const char* const pszName ) const
+{
+	auto pType = GetAmmoTypeByName( pszName );
+
+	if( pType )
+		return pType->GetMaxCarry();
+
+	ALERT( at_console, "CAmmoTypes::GetMaxCarryByName() doesn't recognize '%s'!\n", pszName );
+
+	return -1;
+}
+
 CAmmoType* CAmmoTypes::AddAmmoType( const char* const pszName, const int iMaxCarry )
 {
 	if( !m_bCanAddAmmoTypes )

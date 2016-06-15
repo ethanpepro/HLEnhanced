@@ -214,6 +214,7 @@
     <ClCompile Include="..\..\game\server\CRotDoor.cpp" />
     <ClCompile Include="..\..\game\server\CWorld.cpp" />
     <ClCompile Include="..\..\game\server\Decals.cpp" />
+    <ClCompile Include="..\..\game\server\entities\weapons\CWeaponBox.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\EHandle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp" />
@@ -285,6 +286,7 @@
     <ClInclude Include="..\..\game\server\CRotDoor.h" />
     <ClInclude Include="..\..\game\server\CWorld.h" />
     <ClInclude Include="..\..\game\server\Decals.h" />
+    <ClInclude Include="..\..\game\server\entities\weapons\CWeaponBox.h" />
     <ClInclude Include="..\..\game\shared\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\DataMapping.h" />
     <ClInclude Include="..\..\game\shared\EHandle.h" />
