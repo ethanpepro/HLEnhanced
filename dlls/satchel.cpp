@@ -244,9 +244,7 @@ bool CSatchel::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "Satchel Charge";
-	p->iMaxAmmo1 = SATCHEL_MAX_CARRY;
 	p->pszAmmo2 = NULL;
-	p->iMaxAmmo2 = -1;
 	p->iMaxClip = WEAPON_NOCLIP;
 	p->iSlot = 4;
 	p->iPosition = 1;

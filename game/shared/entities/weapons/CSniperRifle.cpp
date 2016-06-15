@@ -50,9 +50,7 @@ bool CSniperRifle::GetItemInfo( ItemInfo* pInfo )
 {
 	pInfo->pszName = STRING( pev->classname );
 	pInfo->pszAmmo1 = "762";
-	pInfo->iMaxAmmo1 = NATO762_MAX_CARRY;
 	pInfo->pszAmmo2 = nullptr;
-	pInfo->iMaxAmmo2 = WEAPON_NOCLIP;
 	pInfo->iMaxClip = SNIPERRIFLE_MAX_CLIP;
 	pInfo->iSlot = 5;
 	pInfo->iPosition = 2;
@@ -264,7 +262,7 @@ public:
 
 	bool AddAmmo( CBaseEntity *pOther ) override
 	{
-		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_SNIPERRIFLE_GIVE, "762", NATO762_MAX_CARRY );
+		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_SNIPERRIFLE_GIVE, "762" );
 	}
 };
 

@@ -89,9 +89,7 @@ bool CMP5::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "9mm";
-	p->iMaxAmmo1 = _9MM_MAX_CARRY;
 	p->pszAmmo2 = "ARgrenades";
-	p->iMaxAmmo2 = M203_GRENADE_MAX_CARRY;
 	p->iMaxClip = MP5_MAX_CLIP;
 	p->iSlot = 2;
 	p->iPosition = 0;
@@ -298,7 +296,7 @@ public:
 	}
 	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
-		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_MP5CLIP_GIVE, "9mm", _9MM_MAX_CARRY );
+		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_MP5CLIP_GIVE, "9mm" );
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_mp5clip, CMP5AmmoClip );
@@ -324,7 +322,7 @@ public:
 	}
 	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
-		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_CHAINBOX_GIVE, "9mm", _9MM_MAX_CARRY );
+		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_CHAINBOX_GIVE, "9mm" );
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_9mmbox, CMP5Chainammo );
@@ -348,7 +346,7 @@ public:
 	}
 	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
-		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_M203BOX_GIVE, "ARgrenades", M203_GRENADE_MAX_CARRY );
+		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_M203BOX_GIVE, "ARgrenades" );
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_mp5grenades, CMP5AmmoGrenade );

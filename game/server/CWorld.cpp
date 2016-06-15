@@ -32,6 +32,8 @@ precaches and defs for entities and other data that must always be available.
 #include "nodes.h"
 #include "Decals.h"
 
+#include "CMap.h"
+
 extern DLL_GLOBAL bool g_fGameOver;
 float g_flWeaponCheat;
 extern CBaseEntity				*g_pLastSpawn;
@@ -63,6 +65,9 @@ void CWorld::OnCreate()
 
 void CWorld::OnDestroy()
 {
+	//Should be the only place where this is called. - Solokiller
+	CMap::DestroyInstance();
+
 	ASSERT( m_pInstance );
 
 	m_pInstance = nullptr;
@@ -75,6 +80,10 @@ void CWorld::OnDestroy()
 
 void CWorld::Spawn( void )
 {
+	//Due to how save/restore works, we can't just move all of this stuff over to CMap.
+	//Only data that must be available before any entities are created should be moved over to CMap. - Solokiller
+	CMap::CreateIfNeeded();
+
 	g_fGameOver = false;
 	Precache();
 	g_flWeaponCheat = CVAR_GET_FLOAT( "sv_cheats" );  // Is the impulse 101 command allowed?

@@ -28,8 +28,9 @@ public:
 	*	Constructor.
 	*	@param pszName Name of this ammo type. Must point to memory that remains allocated as long as the map hasn't ended.
 	*	@param ID Ammo ID. Must be unique.
+	*	@param iMaxCarry Maximum amount of ammo of this type that a player can carry.
 	*/
-	CAmmoType( const char* const pszName, const AmmoID_t ID );
+	CAmmoType( const char* const pszName, const AmmoID_t ID, const int iMaxCarry );
 
 	/**
 	*	@return The name of this ammo type.
@@ -41,9 +42,15 @@ public:
 	*/
 	AmmoID_t GetID() const { return m_ID; }
 
+	/**
+	*	@return The maximum amount of ammo of this type that a player can carry.
+	*/
+	int GetMaxCarry() const { return m_iMaxCarry; }
+
 private:
 	const char* const m_pszName;
 	const AmmoID_t m_ID;
+	const int m_iMaxCarry;
 
 private:
 	CAmmoType( const CAmmoType& ) = delete;
@@ -164,9 +171,10 @@ public:
 	/**
 	*	Adds a new ammo type.
 	*	@param pszName Name of the ammo type. Must point to memory that remains allocated as long as the map hasn't ended.
+	*	@param iMaxCarry Maximum amount of ammo of this type that a player can carry.
 	*	@return If the type was successfully added, the object that represents the ammo type. If the ammo type already existed, returns the object for that type. Otherwise, returns null.
 	*/
-	CAmmoType* AddAmmoType( const char* const pszName );
+	CAmmoType* AddAmmoType( const char* const pszName, const int iMaxCarry );
 
 	/**
 	*	Removes all ammo types.

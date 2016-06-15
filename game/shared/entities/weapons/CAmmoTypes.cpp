@@ -11,9 +11,10 @@ CAmmoTypes g_AmmoTypes;
 extern int gmsgAmmoType;
 #endif
 
-CAmmoType::CAmmoType( const char* const pszName, const AmmoID_t ID )
+CAmmoType::CAmmoType( const char* const pszName, const AmmoID_t ID, const int iMaxCarry )
 	: m_pszName( pszName )
 	, m_ID( ID )
+	, m_iMaxCarry( iMaxCarry )
 {
 	ASSERT( pszName );
 }
@@ -66,9 +67,6 @@ CAmmoType* CAmmoTypes::GetAmmoTypeByIndex( const size_t uiIndex )
 
 const CAmmoType* CAmmoTypes::GetAmmoTypeByName( const char* const pszName ) const
 {
-	ASSERT( pszName );
-	ASSERT( *pszName );
-
 	if( !pszName || !( *pszName ) )
 		return nullptr;
 
@@ -101,7 +99,7 @@ CAmmoType* CAmmoTypes::GetAmmoTypeByID( const AmmoID_t ID )
 	return const_cast<CAmmoType*>( const_cast<const CAmmoTypes*>( this )->GetAmmoTypeByID( ID ) );
 }
 
-CAmmoType* CAmmoTypes::AddAmmoType( const char* const pszName )
+CAmmoType* CAmmoTypes::AddAmmoType( const char* const pszName, const int iMaxCarry )
 {
 	if( !m_bCanAddAmmoTypes )
 	{
@@ -129,7 +127,7 @@ CAmmoType* CAmmoTypes::AddAmmoType( const char* const pszName )
 		return nullptr;
 	}
 
-	auto pType = new CAmmoType( pszName, m_NextID );
+	auto pType = new CAmmoType( pszName, m_NextID, iMaxCarry );
 
 	m_AmmoList.push_back( pType );
 
@@ -180,6 +178,7 @@ void CAmmoTypes::SendAmmoTypes( CBasePlayer* const pPlayer ) const
 
 			WRITE_STRING( pType->GetName() );
 			WRITE_BYTE( pType->GetID() );
+			WRITE_LONG( pType->GetMaxCarry() );
 
 		MESSAGE_END();
 	}

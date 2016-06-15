@@ -23,13 +23,13 @@
 
 #define WEAPON_IS_ONTARGET 0x40
 
+class CAmmoType;
+
 struct WEAPON
 {
 	char	szName[MAX_WEAPON_NAME];
-	int		iAmmoType;
-	int		iAmmo2Type;
-	int		iMax1;
-	int		iMax2;
+	CAmmoType* pAmmo;
+	CAmmoType* pAmmo2;
 	int		iSlot;
 	int		iSlotPos;
 	int		iFlags;

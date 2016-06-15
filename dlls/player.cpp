@@ -3707,7 +3707,7 @@ bool CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem )
 //
 // Returns the unique ID for the ammo, or -1 if error
 //
-int CBasePlayer :: GiveAmmo( int iCount, const char *szName, int iMax )
+int CBasePlayer :: GiveAmmo( int iCount, const char *szName )
 {
 	if ( !szName )
 	{
@@ -3715,7 +3715,13 @@ int CBasePlayer :: GiveAmmo( int iCount, const char *szName, int iMax )
 		return -1;
 	}
 
-	if ( !g_pGameRules->CanHaveAmmo( this, szName, iMax ) )
+	auto pType = g_AmmoTypes.GetAmmoTypeByName( szName );
+
+	//Invalid name. - Solokiller
+	if( !pType )
+		return -1;
+
+	if ( !g_pGameRules->CanHaveAmmo( this, szName ) )
 	{
 		// game rules say I can't have any more of this ammo type.
 		return -1;
@@ -3728,7 +3734,7 @@ int CBasePlayer :: GiveAmmo( int iCount, const char *szName, int iMax )
 	if ( i < 0 || i >= MAX_AMMO_SLOTS )
 		return -1;
 
-	int iAdd = min( iCount, iMax - m_rgAmmo[i] );
+	int iAdd = min( iCount, pType->GetMaxCarry() - m_rgAmmo[i] );
 	if ( iAdd < 1 )
 		return i;
 
@@ -4065,9 +4071,7 @@ void CBasePlayer :: UpdateClientData( void )
 			MESSAGE_BEGIN( MSG_ONE, gmsgWeaponList, NULL, pev );  
 				WRITE_STRING(pszName);			// string	weapon name
 				WRITE_BYTE(GetAmmoIndex(II.pszAmmo1));	// byte		Ammo Type
-				WRITE_BYTE(II.iMaxAmmo1);				// byte     Max Ammo 1
 				WRITE_BYTE(GetAmmoIndex(II.pszAmmo2));	// byte		Ammo2 Type
-				WRITE_BYTE(II.iMaxAmmo2);				// byte     Max Ammo 2
 				WRITE_BYTE(II.iSlot);					// byte		bucket
 				WRITE_BYTE(II.iPosition);				// byte		bucket pos
 				WRITE_BYTE(II.iId);						// byte		id (bit index into pev->weapons)

@@ -211,9 +211,7 @@ typedef struct
 	int		iSlot;
 	int		iPosition;
 	const char	*pszAmmo1;	// ammo 1 type
-	int		iMaxAmmo1;		// max ammo 1
 	const char	*pszAmmo2;	// ammo 2 type
-	int		iMaxAmmo2;		// max ammo 2
 	const char	*pszName;
 	int		iMaxClip;
 	int		iId;
@@ -273,9 +271,7 @@ public:
 
 	int			iItemPosition() const { return ItemInfoArray[ m_iId ].iPosition; }
 	const char	*pszAmmo1() const	{ return ItemInfoArray[ m_iId ].pszAmmo1; }
-	int			iMaxAmmo1() const	{ return ItemInfoArray[ m_iId ].iMaxAmmo1; }
 	const char	*pszAmmo2() const	{ return ItemInfoArray[ m_iId ].pszAmmo2; }
-	int			iMaxAmmo2() const	{ return ItemInfoArray[ m_iId ].iMaxAmmo2; }
 	const char	*pszName() const	{ return ItemInfoArray[ m_iId ].pszName; }
 	int			iMaxClip() const	{ return ItemInfoArray[ m_iId ].iMaxClip; }
 	int			iWeight() const		{ return ItemInfoArray[ m_iId ].iWeight; }
@@ -298,6 +294,22 @@ public:
 	{
 	}
 
+	virtual void OnCreate() override
+	{
+		BaseClass::OnCreate();
+
+		ItemInfo II;
+
+		memset( &II, 0, sizeof( II ) );
+
+		//Set up the ammo types. - Solokiller
+		if( GetItemInfo( &II ) )
+		{
+			m_pPrimaryAmmo = g_AmmoTypes.GetAmmoTypeByName( II.pszAmmo1 );
+			m_pSecondaryAmmo = g_AmmoTypes.GetAmmoTypeByName( II.pszAmmo2 );
+		}
+	}
+
 	// generic weapon versions of CBasePlayerItem calls
 	virtual bool AddToPlayer( CBasePlayer *pPlayer ) override;
 	virtual bool AddDuplicate( CBasePlayerItem *pItem ) override;
@@ -308,8 +320,8 @@ public:
 	virtual bool AddWeapon() { ExtractAmmo( this ); return true; }	// Return true if you want to add yourself to the player
 
 	// generic "shared" ammo handlers
-	bool AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry );
-	bool AddSecondaryAmmo( int iCount, char *szName, int iMaxCarry );
+	bool AddPrimaryAmmo( int iCount, const char *szName, int iMaxClip );
+	bool AddSecondaryAmmo( int iCount, const char *szName );
 
 	virtual void UpdateItemInfo( void ) override {};	// updates HUD state
 
@@ -364,6 +376,15 @@ public:
 	float	m_flPrevPrimaryAttack;
 	float	m_flLastFireTime;			
 
+	/**
+	*	Pointer to the primary ammo type. - Solokiller
+	*/
+	CAmmoType* m_pPrimaryAmmo = nullptr;
+
+	/**
+	*	Pointer to the secondary ammo type. - Solokiller
+	*/
+	CAmmoType* m_pSecondaryAmmo = nullptr;
 };
 
 #define DEFAULT_AMMO_PICKUP_SOUND "items/9mmclip1.wav"
@@ -374,12 +395,11 @@ public:
 *	@param pPlayer Player to give ammo to. If this is not a player, no ammo is given.
 *	@param iAmount Amount of ammo to give. Amount smaller than or equal to 0 are ignored.
 *	@param pszAmmoName Name of the ammo type to give ammo of.
-*	@param iMaxAmmo Maximum amount of ammo that the player can carry of this type. TODO: remove or make optional override.
 *	@param pszPickupSound Sound to play on pickup. Defaults to DEFAULT_AMMO_PICKUP_SOUND. If null, no sound is played.
 *	@return true if ammo was given, false otherwise.
 */
 bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
-							const int iAmount, const char* const pszAmmoName, const int iMaxAmmo, 
+							const int iAmount, const char* const pszAmmoName, 
 							const char* const pszPickupSound = DEFAULT_AMMO_PICKUP_SOUND );
 
 class CBasePlayerAmmo : public CBaseEntity

@@ -465,6 +465,9 @@
     <ClCompile Include="..\..\common\CHashStringPool.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\CMap.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -688,6 +691,9 @@
     </ClInclude>
     <ClInclude Include="..\..\common\CHashStringPool.h">
       <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CMap.h">
+      <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

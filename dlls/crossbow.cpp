@@ -283,9 +283,7 @@ bool CCrossbow::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "bolts";
-	p->iMaxAmmo1 = BOLT_MAX_CARRY;
 	p->pszAmmo2 = NULL;
-	p->iMaxAmmo2 = -1;
 	p->iMaxClip = CROSSBOW_MAX_CLIP;
 	p->iSlot = 2;
 	p->iPosition = 2;
@@ -539,7 +537,7 @@ public:
 	}
 	bool AddAmmo( CBaseEntity *pOther ) override
 	{ 
-		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_CROSSBOWCLIP_GIVE, "bolts", BOLT_MAX_CARRY );
+		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_CROSSBOWCLIP_GIVE, "bolts" );
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_crossbow, CCrossbowAmmo );

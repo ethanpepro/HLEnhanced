@@ -380,9 +380,7 @@ bool CRpg::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "rockets";
-	p->iMaxAmmo1 = ROCKET_MAX_CARRY;
 	p->pszAmmo2 = NULL;
-	p->iMaxAmmo2 = -1;
 	p->iMaxClip = RPG_MAX_CLIP;
 	p->iSlot = 3;
 	p->iPosition = 0;
@@ -609,7 +607,7 @@ public:
 			iGive = AMMO_RPGCLIP_GIVE;
 		}
 
-		return UTIL_GiveAmmoToPlayer( this, pOther, iGive, "rockets", ROCKET_MAX_CARRY );
+		return UTIL_GiveAmmoToPlayer( this, pOther, iGive, "rockets" );
 	}
 };
 LINK_ENTITY_TO_CLASS( ammo_rpgclip, CRpgAmmo );

@@ -21,6 +21,8 @@
 
 #include "pm_shared.h"
 
+#include "CMap.h"
+
 void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd );
 
 void SetObjectCollisionBox( entvars_t *pev );
@@ -475,6 +477,15 @@ void SaveWriteFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBase
 
 void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount )
 {
+	if( strcmp( pname, "GameHeader" ) == 0 )
+	{
+		//Bit of a hack. The engine restores entities in the wrong order, so worldspawn ends up being created last.
+		//This results in some data being unavailable during entity creation.
+		//To work around this, we detect the first header that's parsed in and run our init code at this point.
+		// - Solokiller
+		CMap::CreateIfNeeded();
+	}
+
 	CRestore restoreHelper( pSaveData );
 	restoreHelper.ReadFields( pname, pBaseData, pFields, fieldCount );
 }

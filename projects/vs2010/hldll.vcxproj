@@ -203,6 +203,7 @@
     <ClCompile Include="..\..\game\server\CCorpse.cpp" />
     <ClCompile Include="..\..\game\server\CDecal.cpp" />
     <ClCompile Include="..\..\game\server\CGlobalState.cpp" />
+    <ClCompile Include="..\..\game\server\CMap.cpp" />
     <ClCompile Include="..\..\game\server\CMomentaryDoor.cpp" />
     <ClCompile Include="..\..\game\server\CMomentaryRotButton.cpp" />
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp" />
@@ -273,6 +274,7 @@
     <ClInclude Include="..\..\game\server\CBaseToggle.h" />
     <ClInclude Include="..\..\game\server\CCorpse.h" />
     <ClInclude Include="..\..\game\server\CDecal.h" />
+    <ClInclude Include="..\..\game\server\CMap.h" />
     <ClInclude Include="..\..\game\server\CMomentaryDoor.h" />
     <ClInclude Include="..\..\game\server\CMomentaryRotButton.h" />
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />

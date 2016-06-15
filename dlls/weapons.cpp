@@ -58,17 +58,16 @@ CMultiDamage g_MultiDamage;
 // you the maximum amount of that type of ammunition that a 
 // player can carry.
 //=========================================================
+//TODO: merge into CAmmoTypes? - Solokiller
 int MaxAmmoCarry( int iszName )
 {
-	for ( int i = 0;  i < MAX_WEAPONS; i++ )
-	{
-		if ( CBasePlayerItem::ItemInfoArray[i].pszAmmo1 && !strcmp( STRING(iszName), CBasePlayerItem::ItemInfoArray[i].pszAmmo1 ) )
-			return CBasePlayerItem::ItemInfoArray[i].iMaxAmmo1;
-		if ( CBasePlayerItem::ItemInfoArray[i].pszAmmo2 && !strcmp( STRING(iszName), CBasePlayerItem::ItemInfoArray[i].pszAmmo2 ) )
-			return CBasePlayerItem::ItemInfoArray[i].iMaxAmmo2;
-	}
+	auto pType = g_AmmoTypes.GetAmmoTypeByName( STRING( iszName ) );
+
+	if( pType )
+		return pType->GetMaxCarry();
 
 	ALERT( at_console, "MaxAmmoCarry() doesn't recognize '%s'!\n", STRING( iszName ) );
+
 	return -1;
 }
 
@@ -199,32 +198,35 @@ void UTIL_PrecacheOtherWeapon( const char *szClassname )
 	REMOVE_ENTITY(pent);
 }
 
-// called by worldspawn
-void W_Precache(void)
+void RegisterAmmoTypes()
 {
-	memset( CBasePlayerItem::ItemInfoArray, 0, sizeof(CBasePlayerItem::ItemInfoArray) );
-
 	g_AmmoTypes.Clear();
 
 	g_AmmoTypes.SetCanAddAmmoTypes( true );
 
 	// Precaches the ammo and queues the ammo info for sending to clients
-	g_AmmoTypes.AddAmmoType( "buckshot" );
-	g_AmmoTypes.AddAmmoType( "9mm" );
-	g_AmmoTypes.AddAmmoType( "ARgrenades" );
-	g_AmmoTypes.AddAmmoType( "357" );
-	g_AmmoTypes.AddAmmoType( "uranium" );
-	g_AmmoTypes.AddAmmoType( "rockets" );
-	g_AmmoTypes.AddAmmoType( "bolts" );
-	g_AmmoTypes.AddAmmoType( "Trip Mine" );
-	g_AmmoTypes.AddAmmoType( "Satchel Charge" );
-	g_AmmoTypes.AddAmmoType( "Hand Grenade" );
-	g_AmmoTypes.AddAmmoType( "Snarks" );
-	g_AmmoTypes.AddAmmoType( "Hornets" );
-	g_AmmoTypes.AddAmmoType( "762" );
+	g_AmmoTypes.AddAmmoType( "buckshot", BUCKSHOT_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "9mm", _9MM_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "ARgrenades", M203_GRENADE_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "357", _357_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "uranium", URANIUM_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "rockets", ROCKET_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "bolts", BOLT_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Trip Mine", TRIPMINE_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Satchel Charge", SATCHEL_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Hand Grenade", HANDGRENADE_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Snarks", SNARK_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Hornets", HORNET_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "762", NATO762_MAX_CARRY );
 
 	//No more letting weapons define ammo types. - Solokiller
 	g_AmmoTypes.SetCanAddAmmoTypes( false );
+}
+
+// called by worldspawn
+void W_Precache(void)
+{
+	memset( CBasePlayerItem::ItemInfoArray, 0, sizeof(CBasePlayerItem::ItemInfoArray) );
 
 	// custom items...
 
@@ -750,25 +752,25 @@ void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
 	MESSAGE_END();
 }
 
-bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry )
+bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, const char *szName, int iMaxClip )
 {
 	int iIdAmmo;
 
 	if (iMaxClip < 1)
 	{
 		m_iClip = -1;
-		iIdAmmo = m_pPlayer->GiveAmmo( iCount, szName, iMaxCarry );
+		iIdAmmo = m_pPlayer->GiveAmmo( iCount, szName );
 	}
 	else if (m_iClip == 0)
 	{
 		int i;
 		i = min( m_iClip + iCount, iMaxClip ) - m_iClip;
 		m_iClip += i;
-		iIdAmmo = m_pPlayer->GiveAmmo( iCount - i, szName, iMaxCarry );
+		iIdAmmo = m_pPlayer->GiveAmmo( iCount - i, szName );
 	}
 	else
 	{
-		iIdAmmo = m_pPlayer->GiveAmmo( iCount, szName, iMaxCarry );
+		iIdAmmo = m_pPlayer->GiveAmmo( iCount, szName );
 	}
 	
 	// m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] = iMaxCarry; // hack for testing
@@ -788,11 +790,11 @@ bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, 
 }
 
 
-bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, char *szName, int iMax )
+bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, const char *szName )
 {
 	int iIdAmmo;
 
-	iIdAmmo = m_pPlayer->GiveAmmo( iCount, szName, iMax );
+	iIdAmmo = m_pPlayer->GiveAmmo( iCount, szName );
 
 	//m_pPlayer->m_rgAmmo[m_iSecondaryAmmoType] = iMax; // hack for testing
 
@@ -814,7 +816,7 @@ bool CBasePlayerWeapon::IsUseable()
 {
 	if ( m_iClip <= 0 )
 	{
-		if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 && iMaxAmmo1() != -1 )			
+		if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 && ( m_pPrimaryAmmo && m_pPrimaryAmmo->GetMaxCarry() != -1 ) )
 		{
 			// clip is empty (or nonexistant) and the player has no more ammo of this type. 
 			return false;
@@ -933,7 +935,7 @@ void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
 }
 
 bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
-							const int iAmount, const char* const pszAmmoName, const int iMaxAmmo,
+							const int iAmount, const char* const pszAmmoName,
 							const char* const pszPickupSound )
 {
 	ASSERT( pGiver );
@@ -947,7 +949,7 @@ bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
 
 	CBasePlayer* pPlayerEnt = static_cast<CBasePlayer*>( pPlayer );
 
-	const bool bResult = ( pPlayerEnt->GiveAmmo( iAmount, pszAmmoName, iMaxAmmo ) != -1 );
+	const bool bResult = ( pPlayerEnt->GiveAmmo( iAmount, pszAmmoName ) != -1 );
 
 	if( bResult && pszPickupSound )
 	{
@@ -1038,13 +1040,13 @@ bool CBasePlayerWeapon::ExtractAmmo( CBasePlayerWeapon *pWeapon )
 	{
 		// blindly call with m_iDefaultAmmo. It's either going to be a value or zero. If it is zero,
 		// we only get the ammo in the weapon's clip, which is what we want. 
-		bReturn = pWeapon->AddPrimaryAmmo( m_iDefaultAmmo, (char *)pszAmmo1(), iMaxClip(), iMaxAmmo1() );
+		bReturn = pWeapon->AddPrimaryAmmo( m_iDefaultAmmo, (char *)pszAmmo1(), iMaxClip() );
 		m_iDefaultAmmo = 0;
 	}
 
 	if ( pszAmmo2() != NULL )
 	{
-		bReturn = pWeapon->AddSecondaryAmmo( 0, (char *)pszAmmo2(), iMaxAmmo2() );
+		bReturn = pWeapon->AddSecondaryAmmo( 0, pszAmmo2() );
 	}
 
 	return bReturn;
@@ -1067,7 +1069,7 @@ bool CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon )
 	}
 	
 	//Used to return the return value directly, but this was never 0. It's supposed to return true if ammo is allowed to be added (even if no ammo was actually added). - Solokiller
-	return pWeapon->m_pPlayer->GiveAmmo( iAmmo, (char *)pszAmmo1(), iMaxAmmo1() ) != -1; // , &m_iPrimaryAmmoType
+	return pWeapon->m_pPlayer->GiveAmmo( iAmmo, (char *)pszAmmo1() ) != -1; // , &m_iPrimaryAmmoType
 }
 	
 //=========================================================
@@ -1226,7 +1228,7 @@ void CWeaponBox::Touch( CBaseEntity *pOther )
 		if ( !FStringNull( m_rgiszAmmo[ i ] ) )
 		{
 			// there's some ammo of this type. 
-			pPlayer->GiveAmmo( m_rgAmmo[ i ], (char *)STRING( m_rgiszAmmo[ i ] ), MaxAmmoCarry( m_rgiszAmmo[ i ] ) );
+			pPlayer->GiveAmmo( m_rgAmmo[ i ], (char *)STRING( m_rgiszAmmo[ i ] ) );
 
 			//ALERT ( at_console, "Gave %d rounds of %s\n", m_rgAmmo[i], STRING(m_rgiszAmmo[i]) );
 

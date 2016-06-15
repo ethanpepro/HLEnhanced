@@ -290,7 +290,7 @@ bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const { return fa
 bool CBasePlayer::SwitchWeapon( CBasePlayerItem *pWeapon )  { return false; }
 Vector CBasePlayer :: GetGunPosition( void ) { return g_vecZero; }
 const char *CBasePlayer::TeamID() const { return ""; }
-int CBasePlayer :: GiveAmmo( int iCount, const char *szName, int iMax ) { return 0; }
+int CBasePlayer :: GiveAmmo( int iCount, const char *szName ) { return 0; }
 void CBasePlayer::AddPoints( int score, const bool bAllowNegativeScore ) { }
 void CBasePlayer::AddPointsToTeam( int score, const bool bAllowNegativeScore ) { }
 
@@ -318,8 +318,8 @@ void CBasePlayerItem::AttachToPlayer ( CBasePlayer *pPlayer ) { }
 bool CBasePlayerWeapon::AddDuplicate( CBasePlayerItem *pOriginal ) { return false; }
 bool CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer ) { return false; }
 bool CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer ) { return false; }
-bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, char *szName, int iMaxClip, int iMaxCarry ) { return true; }
-bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, char *szName, int iMax ) { return true; }
+bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, const char *szName, int iMaxClip ) { return true; }
+bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, const char *szName ) { return true; }
 bool CBasePlayerWeapon::IsUseable() { return true; }
 int CBasePlayerWeapon::PrimaryAmmoIndex() const { return -1; }
 int CBasePlayerWeapon::SecondaryAmmoIndex() const {	return -1; }
@@ -334,7 +334,7 @@ void CSoundEnt::InsertSound ( int iType, const Vector &vecOrigin, int iVolume, f
 void RadiusDamage( Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, float flRadius, int iClassIgnore, int bitsDamageType ){}
 
 bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
-							const int iAmount, const char* const pszAmmoName, const int iMaxAmmo,
+							const int iAmount, const char* const pszAmmoName,
 							const char* const pszPickupSound )
 {
 	return false;
