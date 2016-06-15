@@ -107,7 +107,7 @@ bool CGauss::AddToPlayer( CBasePlayer *pPlayer )
 	return false;
 }
 
-int CGauss::GetItemInfo(ItemInfo *p)
+bool CGauss::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "uranium";
@@ -121,7 +121,7 @@ int CGauss::GetItemInfo(ItemInfo *p)
 	p->iFlags = 0;
 	p->iWeight = GAUSS_WEIGHT;
 
-	return 1;
+	return true;
 }
 
 bool CGauss::Deploy()

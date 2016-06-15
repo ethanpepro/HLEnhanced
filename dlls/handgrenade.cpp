@@ -61,7 +61,7 @@ void CHandGrenade::Precache( void )
 	PRECACHE_MODEL("models/p_grenade.mdl");
 }
 
-int CHandGrenade::GetItemInfo(ItemInfo *p)
+bool CHandGrenade::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "Hand Grenade";
@@ -75,7 +75,7 @@ int CHandGrenade::GetItemInfo(ItemInfo *p)
 	p->iWeight = HANDGRENADE_WEIGHT;
 	p->iFlags = ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
 
-	return 1;
+	return true;
 }
 
 

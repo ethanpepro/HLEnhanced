@@ -30,7 +30,7 @@ public:
 
 	int iItemSlot() override { return 4; }
 
-	int GetItemInfo( ItemInfo* pInfo ) override;
+	bool GetItemInfo( ItemInfo* pInfo ) override;
 
 	bool AddToPlayer( CBasePlayer* pPlayer ) override;
 

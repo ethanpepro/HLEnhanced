@@ -376,7 +376,7 @@ void CRpg::Precache( void )
 }
 
 
-int CRpg::GetItemInfo(ItemInfo *p)
+bool CRpg::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "rockets";
@@ -390,7 +390,7 @@ int CRpg::GetItemInfo(ItemInfo *p)
 	p->iFlags = 0;
 	p->iWeight = RPG_WEIGHT;
 
-	return 1;
+	return true;
 }
 
 bool CRpg::AddToPlayer( CBasePlayer *pPlayer )

@@ -115,7 +115,7 @@ void CEgon::Holster( int skiplocal /* = 0 */ )
     EndAttack();
 }
 
-int CEgon::GetItemInfo(ItemInfo *p)
+bool CEgon::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "uranium";
@@ -129,7 +129,7 @@ int CEgon::GetItemInfo(ItemInfo *p)
 	p->iFlags = 0;
 	p->iWeight = EGON_WEIGHT;
 
-	return 1;
+	return true;
 }
 
 #define EGON_PULSE_INTERVAL			0.1

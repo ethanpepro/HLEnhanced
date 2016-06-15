@@ -438,7 +438,7 @@ void CSqueak::Precache( void )
 }
 
 
-int CSqueak::GetItemInfo(ItemInfo *p)
+bool CSqueak::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "Snarks";
@@ -452,7 +452,7 @@ int CSqueak::GetItemInfo(ItemInfo *p)
 	p->iWeight = SNARK_WEIGHT;
 	p->iFlags = ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
 
-	return 1;
+	return true;
 }
 
 

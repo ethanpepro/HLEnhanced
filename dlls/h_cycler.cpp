@@ -284,7 +284,7 @@ public:
 
 	void Spawn( void ) override;
 	int iItemSlot( void ) override { return 1; }
-	int GetItemInfo(ItemInfo *p) override {return 0; }
+	bool GetItemInfo( ItemInfo* p ) override {return false; }
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;

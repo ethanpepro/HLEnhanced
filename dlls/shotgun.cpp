@@ -92,7 +92,7 @@ bool CShotgun::AddToPlayer( CBasePlayer *pPlayer )
 }
 
 
-int CShotgun::GetItemInfo(ItemInfo *p)
+bool CShotgun::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "buckshot";
@@ -106,7 +106,7 @@ int CShotgun::GetItemInfo(ItemInfo *p)
 	p->iId = m_iId = WEAPON_SHOTGUN;
 	p->iWeight = SHOTGUN_WEIGHT;
 
-	return 1;
+	return true;
 }
 
 

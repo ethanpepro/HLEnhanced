@@ -85,7 +85,7 @@ void CMP5::Precache( void )
 	m_usMP52 = PRECACHE_EVENT( 1, "events/mp52.sc" );
 }
 
-int CMP5::GetItemInfo(ItemInfo *p)
+bool CMP5::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "9mm";
@@ -99,7 +99,7 @@ int CMP5::GetItemInfo(ItemInfo *p)
 	p->iId = m_iId = WEAPON_MP5;
 	p->iWeight = MP5_WEIGHT;
 
-	return 1;
+	return true;
 }
 
 bool CMP5::AddToPlayer( CBasePlayer *pPlayer )

@@ -244,7 +244,7 @@ public:
 	CBaseEntity* Respawn ( void ) override;// copy a weapon
 	void FallInit( void );
 	void CheckRespawn( void );
-	virtual int GetItemInfo(ItemInfo *p) { return 0; };	// returns 0 if struct not filled out
+	virtual bool GetItemInfo( ItemInfo* p ) { return false; } // returns false if struct not filled out
 	virtual bool CanDeploy() const { return true; }
 	// returns if deploy was successful
 	virtual bool Deploy() { return true; }
@@ -494,7 +494,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 2; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
@@ -531,7 +531,7 @@ public:
 	int iItemSlot( void ) override { return 1; }
 	void EXPORT SwingAgain( void );
 	void EXPORT Smack( void );
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 
 	void PrimaryAttack( void ) override;
 	bool Swing( const bool bFirst );
@@ -560,7 +560,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 2; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
@@ -592,7 +592,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 3; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	void PrimaryAttack( void ) override;
@@ -625,7 +625,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( ) override { return 3; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 
 	void FireBolt( void );
 	void FireSniperBolt( void );
@@ -664,7 +664,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( ) override { return 3; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	void PrimaryAttack( void ) override;
@@ -718,7 +718,7 @@ public:
 	void Precache( void ) override;
 	void Reload( void ) override;
 	int iItemSlot( void ) override { return 4; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	bool Deploy() override;
@@ -779,7 +779,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 4; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	bool Deploy() override;
@@ -826,7 +826,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 4; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	bool Deploy() override;
@@ -887,7 +887,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 4; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	void PrimaryAttack( void ) override;
@@ -925,7 +925,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 5; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 
 	void PrimaryAttack( void ) override;
 	bool Deploy() override;
@@ -954,7 +954,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 5; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
@@ -986,7 +986,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 5; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 	void SetObjectCollisionBox( void ) override
 	{
 		//!!!BUGBUG - fix the model!
@@ -1021,7 +1021,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int iItemSlot( void ) override { return 5; }
-	int GetItemInfo(ItemInfo *p) override;
+	bool GetItemInfo( ItemInfo* p ) override;
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;

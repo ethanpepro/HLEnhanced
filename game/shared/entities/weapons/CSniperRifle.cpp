@@ -46,7 +46,7 @@ void CSniperRifle::Spawn()
 	FallInit(); // get ready to fall down.
 }
 
-int CSniperRifle::GetItemInfo( ItemInfo* pInfo )
+bool CSniperRifle::GetItemInfo( ItemInfo* pInfo )
 {
 	pInfo->pszName = STRING( pev->classname );
 	pInfo->pszAmmo1 = "762";

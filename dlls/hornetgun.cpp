@@ -93,7 +93,7 @@ bool CHgun::AddToPlayer( CBasePlayer *pPlayer )
 	return false;
 }
 
-int CHgun::GetItemInfo(ItemInfo *p)
+bool CHgun::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "Hornets";
@@ -107,7 +107,7 @@ int CHgun::GetItemInfo(ItemInfo *p)
 	p->iFlags = ITEM_FLAG_NOAUTOSWITCHEMPTY | ITEM_FLAG_NOAUTORELOAD;
 	p->iWeight = HORNETGUN_WEIGHT;
 
-	return 1;
+	return true;
 }
 
 
