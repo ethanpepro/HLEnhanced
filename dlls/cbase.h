@@ -149,16 +149,7 @@ class CSquadMonster;
 
 #include "CBaseEntity.shared.h"
 
-class CPointEntity : public CBaseEntity
-{
-public:
-	DECLARE_CLASS( CPointEntity, CBaseEntity );
-
-	void	Spawn( void ) override;
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-private:
-};
-
+#include "CPointEntity.h"
 
 typedef struct locksounds			// sounds that doors and buttons make when locked/unlocked
 {
@@ -178,118 +169,11 @@ typedef struct locksounds			// sounds that doors and buttons make when locked/un
 
 void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const bool bButton );
 
-//
-// generic Delay entity.
-//
-class CBaseDelay : public CBaseEntity
-{
-public:
-	DECLARE_CLASS( CBaseDelay, CBaseEntity );
-	DECLARE_DATADESC();
+#include "CBaseDelay.h"
 
-	float		m_flDelay;
-	int			m_iszKillTarget;
+#include "CBaseAnimating.h"
 
-	virtual void	KeyValue( KeyValueData* pkvd) override;
-	// common member functions
-	void SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value );
-	void EXPORT DelayThink( void );
-};
-
-
-class CBaseAnimating : public CBaseDelay
-{
-public:
-	DECLARE_CLASS( CBaseAnimating, CBaseDelay );
-	DECLARE_DATADESC();
-
-	// Basic Monster Animation functions
-	float StudioFrameAdvance( float flInterval = 0.0 ); // accumulate animation frame time from last time called until now
-	int	 GetSequenceFlags() const;
-	int  LookupActivity ( int activity );
-	int  LookupActivityHeaviest ( int activity );
-	int  LookupSequence ( const char *label );
-	void ResetSequenceInfo ( );
-	void DispatchAnimEvents ( float flFutureInterval = 0.1 ); // Handle events that have happend since last time called up until X seconds into the future
-	virtual void HandleAnimEvent( MonsterEvent_t *pEvent ) { return; };
-	float SetBoneController ( int iController, float flValue );
-	void InitBoneControllers ( void );
-	float SetBlending ( int iBlender, float flValue );
-	void GetBonePosition ( int iBone, Vector &origin, Vector &angles );
-	void GetAutomovement( Vector &origin, Vector &angles, float flInterval = 0.1 );
-	int  FindTransition( int iEndingSequence, int iGoalSequence, int *piDir );
-	void GetAttachment ( int iAttachment, Vector &origin, Vector &angles );
-	void SetBodygroup( int iGroup, int iValue );
-	int GetBodygroup( int iGroup );
-	int ExtractBbox( int sequence, float *mins, float *maxs );
-	void SetSequenceBox( void );
-
-	// animation needs
-	float				m_flFrameRate;		// computed FPS for current sequence
-	float				m_flGroundSpeed;	// computed linear movement rate for current sequence
-	float				m_flLastEventCheck;	// last time the event list was checked
-	bool				m_fSequenceFinished;// flag set when StudioAdvanceFrame moves across a frame boundry
-	bool				m_fSequenceLoops;	// true if the sequence loops
-};
-
-
-//
-// generic Toggle entity.
-//
-#define	SF_ITEM_USE_ONLY	256 //  ITEM_USE_ONLY = BUTTON_USE_ONLY = DOOR_USE_ONLY!!! 
-
-class CBaseToggle : public CBaseAnimating
-{
-public:
-	DECLARE_CLASS( CBaseToggle, CBaseAnimating );
-	DECLARE_DATADESC();
-
-	void				KeyValue( KeyValueData *pkvd ) override;
-
-	TOGGLE_STATE		m_toggle_state;
-	float				m_flActivateFinished;//like attack_finished, but for doors
-	float				m_flMoveDistance;// how far a door should slide or rotate
-	float				m_flWait;
-	float				m_flLip;
-	float				m_flTWidth;// for plats
-	float				m_flTLength;// for plats
-
-	Vector				m_vecPosition1;
-	Vector				m_vecPosition2;
-	Vector				m_vecAngle1;
-	Vector				m_vecAngle2;
-
-	int					m_cTriggersLeft;		// trigger_counter only, # of activations remaining
-	float				m_flHeight;
-	EHANDLE				m_hActivator;
-	void (CBaseToggle::*m_pfnCallWhenMoveDone)(void);
-	Vector				m_vecFinalDest;
-	Vector				m_vecFinalAngle;
-
-	int					m_bitsDamageInflict;	// DMG_ damage type that the door or tigger does
-
-	virtual int		GetToggleState( void ) override { return m_toggle_state; }
-	virtual float	GetDelay( void ) override { return m_flWait; }
-
-	// common member functions
-	void LinearMove( Vector	vecDest, float flSpeed );
-	void EXPORT LinearMoveDone( void );
-	void AngularMove( Vector vecDestAngle, float flSpeed );
-	void EXPORT AngularMoveDone( void );
-	bool IsLockedByMaster() const override;
-
-	static float		AxisValue( int flags, const Vector &angles );
-	static void			AxisDir( entvars_t *pev );
-	static float		AxisDelta( int flags, const Vector &angle1, const Vector &angle2 );
-
-	string_t m_sMaster;		// If this button has a master switch, this is the targetname.
-							// A master switch must be of the multisource type. If all 
-							// of the switches in the multisource have been triggered, then
-							// the button will be allowed to operate. Otherwise, it will be
-							// deactivated.
-};
-#define SetMoveDone( a ) m_pfnCallWhenMoveDone = static_cast <void (CBaseToggle::*)(void)> (a)
-
+#include "CBaseToggle.h"
 
 // people gib if their health is <= this at the time of death
 #define	GIB_HEALTH_VALUE	-30
@@ -369,54 +253,7 @@ class CSound;
 
 char *ButtonSound( int sound );				// get string of button sound number
 
-
-//
-// Generic Button
-//
-class CBaseButton : public CBaseToggle
-{
-public:
-	DECLARE_CLASS( CBaseButton, CBaseToggle );
-	DECLARE_DATADESC();
-
-	void Spawn( void ) override;
-	virtual void Precache( void ) override;
-	void RotSpawn( void );
-	virtual void KeyValue( KeyValueData* pkvd) override;
-
-	void ButtonActivate( );
-	void SparkSoundCache( void );
-
-	void EXPORT ButtonShot( void );
-	void EXPORT ButtonTouch( CBaseEntity *pOther );
-	void EXPORT ButtonSpark ( void );
-	void EXPORT TriggerAndWait( void );
-	void EXPORT ButtonReturn( void );
-	void EXPORT ButtonBackHome( void );
-	void EXPORT ButtonUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	virtual int		TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
-	
-	enum BUTTON_CODE { BUTTON_NOTHING, BUTTON_ACTIVATE, BUTTON_RETURN };
-	BUTTON_CODE	ButtonResponseToTouch( void );
-	
-	// Buttons that don't take damage can be IMPULSE used
-	virtual int	ObjectCaps( void ) override { return (CBaseToggle:: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | (pev->takedamage?0:FCAP_IMPULSE_USE); }
-
-	bool	m_fStayPushed;	// button stays pushed in until touched again?
-	bool	m_fRotating;		// a rotating button?  default is a sliding button.
-
-	string_t m_strChangeTarget;	// if this field is not null, this is an index into the engine string array.
-							// when this button is touched, it's target entity's TARGET field will be set
-							// to the button's ChangeTarget. This allows you to make a func_train switch paths, etc.
-
-	locksound_t m_ls;			// door lock sounds
-	
-	BYTE	m_bLockedSound;		// ordinals from entity selection
-	BYTE	m_bLockedSentence;	
-	BYTE	m_bUnlockedSound;	
-	BYTE	m_bUnlockedSentence;
-	int		m_sounds;
-};
+#include "CBaseButton.h"
 
 //
 // Converts a entvars_t * to a class pointer
