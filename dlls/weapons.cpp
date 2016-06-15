@@ -193,19 +193,6 @@ void UTIL_PrecacheOtherWeapon( const char *szClassname )
 		if ( ((CBasePlayerItem*)pEntity)->GetItemInfo( &II ) )
 		{
 			CBasePlayerItem::ItemInfoArray[II.iId] = II;
-
-			// Precaches the ammo and queues the ammo info for sending to clients
-			if ( II.pszAmmo1 && *II.pszAmmo1 )
-			{
-				g_AmmoTypes.AddAmmoType( II.pszAmmo1 );
-			}
-
-			if ( II.pszAmmo2 && *II.pszAmmo2 )
-			{
-				g_AmmoTypes.AddAmmoType( II.pszAmmo2 );
-			}
-
-			memset( &II, 0, sizeof II );
 		}
 	}
 
@@ -221,6 +208,24 @@ void W_Precache(void)
 
 	g_AmmoTypes.SetCanAddAmmoTypes( true );
 
+	// Precaches the ammo and queues the ammo info for sending to clients
+	g_AmmoTypes.AddAmmoType( "buckshot" );
+	g_AmmoTypes.AddAmmoType( "9mm" );
+	g_AmmoTypes.AddAmmoType( "ARgrenades" );
+	g_AmmoTypes.AddAmmoType( "357" );
+	g_AmmoTypes.AddAmmoType( "uranium" );
+	g_AmmoTypes.AddAmmoType( "rockets" );
+	g_AmmoTypes.AddAmmoType( "bolts" );
+	g_AmmoTypes.AddAmmoType( "Trip Mine" );
+	g_AmmoTypes.AddAmmoType( "Satchel Charge" );
+	g_AmmoTypes.AddAmmoType( "Hand Grenade" );
+	g_AmmoTypes.AddAmmoType( "Snarks" );
+	g_AmmoTypes.AddAmmoType( "Hornets" );
+	g_AmmoTypes.AddAmmoType( "762" );
+
+	//No more letting weapons define ammo types. - Solokiller
+	g_AmmoTypes.SetCanAddAmmoTypes( false );
+
 	// custom items...
 
 	// common world objects
@@ -229,6 +234,8 @@ void W_Precache(void)
 	UTIL_PrecacheOther( "item_antidote" );
 	UTIL_PrecacheOther( "item_security" );
 	UTIL_PrecacheOther( "item_longjump" );
+
+	//TODO: weapons and ammo could be added to a list that is enumerated. Would make things like cheats and map config parsers easier to write - Solokiller
 
 	// shotgun
 	UTIL_PrecacheOtherWeapon( "weapon_shotgun" );
@@ -246,68 +253,48 @@ void W_Precache(void)
 	UTIL_PrecacheOther( "ammo_9mmAR" );
 	UTIL_PrecacheOther( "ammo_ARgrenades" );
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// python
 	UTIL_PrecacheOtherWeapon( "weapon_357" );
 	UTIL_PrecacheOther( "ammo_357" );
-#endif
 	
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// gauss
 	UTIL_PrecacheOtherWeapon( "weapon_gauss" );
 	UTIL_PrecacheOther( "ammo_gaussclip" );
-#endif
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// rpg
 	UTIL_PrecacheOtherWeapon( "weapon_rpg" );
 	UTIL_PrecacheOther( "ammo_rpgclip" );
-#endif
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// crossbow
 	UTIL_PrecacheOtherWeapon( "weapon_crossbow" );
 	UTIL_PrecacheOther( "ammo_crossbow" );
-#endif
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// egon
 	UTIL_PrecacheOtherWeapon( "weapon_egon" );
-#endif
 
 	// tripmine
 	UTIL_PrecacheOtherWeapon( "weapon_tripmine" );
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// satchel charge
 	UTIL_PrecacheOtherWeapon( "weapon_satchel" );
-#endif
 
 	// hand grenade
 	UTIL_PrecacheOtherWeapon("weapon_handgrenade");
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// squeak grenade
 	UTIL_PrecacheOtherWeapon( "weapon_snark" );
-#endif
 
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	// hornetgun
 	UTIL_PrecacheOtherWeapon( "weapon_hornetgun" );
-#endif
 
+	//Sniper rifle
 	UTIL_PrecacheOtherWeapon( "weapon_sniperrifle" );
 	UTIL_PrecacheOther( "ammo_762" );
 
-
-#if !defined( OEM_BUILD ) && !defined( HLDEMO_BUILD )
 	if ( g_pGameRules->IsDeathmatch() )
 	{
 		UTIL_PrecacheOther( "weaponbox" );// container for dropped deathmatch weapons
 	}
-#endif
-
-	g_AmmoTypes.SetCanAddAmmoTypes( false );
 
 	g_sModelIndexFireball = PRECACHE_MODEL ("sprites/zerogxplode.spr");// fireball
 	g_sModelIndexWExplosion = PRECACHE_MODEL ("sprites/WXplo1.spr");// underwater fireball
