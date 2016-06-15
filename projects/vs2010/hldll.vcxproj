@@ -190,7 +190,6 @@
     <ClCompile Include="..\..\dlls\turret.cpp" />
     <ClCompile Include="..\..\dlls\util.cpp" />
     <ClCompile Include="..\..\dlls\weapons.cpp" />
-    <ClCompile Include="..\..\dlls\world.cpp" />
     <ClCompile Include="..\..\dlls\wpn_shared\hl_wpn_glock.cpp" />
     <ClCompile Include="..\..\dlls\xen.cpp" />
     <ClCompile Include="..\..\dlls\zombie.cpp" />
@@ -201,6 +200,8 @@
     <ClCompile Include="..\..\game\server\CBaseEntity.server.cpp" />
     <ClCompile Include="..\..\game\server\CBaseToggle.cpp" />
     <ClCompile Include="..\..\game\server\CCorpse.cpp" />
+    <ClCompile Include="..\..\game\server\CDecal.cpp" />
+    <ClCompile Include="..\..\game\server\CGlobalState.cpp" />
     <ClCompile Include="..\..\game\server\CMomentaryDoor.cpp" />
     <ClCompile Include="..\..\game\server\CMomentaryRotButton.cpp" />
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp" />
@@ -265,6 +266,7 @@
     <ClInclude Include="..\..\game\server\CBaseDoor.h" />
     <ClInclude Include="..\..\game\server\CBaseToggle.h" />
     <ClInclude Include="..\..\game\server\CCorpse.h" />
+    <ClInclude Include="..\..\game\server\CDecal.h" />
     <ClInclude Include="..\..\game\server\CMomentaryDoor.h" />
     <ClInclude Include="..\..\game\server\CMomentaryRotButton.h" />
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />

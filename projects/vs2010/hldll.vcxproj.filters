@@ -363,9 +363,6 @@
     <ClCompile Include="..\..\dlls\weapons.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\world.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\xen.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -439,6 +436,12 @@
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\server\CCorpse.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CDecal.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CGlobalState.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
   </ItemGroup>
@@ -645,6 +648,9 @@
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\server\CCorpse.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CDecal.h">
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>

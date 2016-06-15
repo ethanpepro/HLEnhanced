@@ -12,6 +12,13 @@
 *   without written permission from Valve LLC.
 *
 ****/
+/*
+
+===== CWorld.cpp ========================================================
+
+precaches and defs for entities and other data that must always be available.
+
+*/
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
