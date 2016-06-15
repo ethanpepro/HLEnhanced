@@ -197,6 +197,8 @@
     <ClCompile Include="..\..\dlls\zombie.cpp" />
     <ClCompile Include="..\..\game\server\CBaseEntity.server.cpp" />
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp" />
+    <ClCompile Include="..\..\game\server\CMultiManager.cpp" />
+    <ClCompile Include="..\..\game\server\CMultiSource.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\EHandle.cpp" />
     <ClCompile Include="..\..\game_shared\shared_game_utils.cpp" />
@@ -247,6 +249,8 @@
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />
+    <ClInclude Include="..\..\game\server\CMultiManager.h" />
+    <ClInclude Include="..\..\game\server\CMultiSource.h" />
     <ClInclude Include="..\..\game\shared\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\DataMapping.h" />
     <ClInclude Include="..\..\game\shared\EHandle.h" />

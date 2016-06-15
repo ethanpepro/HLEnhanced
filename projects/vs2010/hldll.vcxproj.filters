@@ -399,6 +399,12 @@
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\CMultiSource.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CMultiManager.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -561,6 +567,12 @@
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\server\CMultiDamage.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CMultiSource.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CMultiManager.h">
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
