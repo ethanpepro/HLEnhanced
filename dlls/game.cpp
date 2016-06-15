@@ -364,6 +364,11 @@ cvar_t	sk_plr_tripmine1 = {"sk_plr_tripmine1","0"};
 cvar_t	sk_plr_tripmine2 = {"sk_plr_tripmine2","0"};
 cvar_t	sk_plr_tripmine3 = {"sk_plr_tripmine3","0"};
 
+// 762 Round
+cvar_t	sk_plr_762_bullet1 = { "sk_plr_762_bullet1","0" };
+cvar_t	sk_plr_762_bullet2 = { "sk_plr_762_bullet2","0" };
+cvar_t	sk_plr_762_bullet3 = { "sk_plr_762_bullet3","0" };
+
 
 // WORLD WEAPONS
 cvar_t	sk_12mm_bullet1 = {"sk_12mm_bullet1","0"};
@@ -800,6 +805,11 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_tripmine1 );// {"sk_plr_tripmine1","0"};
 	CVAR_REGISTER ( &sk_plr_tripmine2 );// {"sk_plr_tripmine2","0"};
 	CVAR_REGISTER ( &sk_plr_tripmine3 );// {"sk_plr_tripmine3","0"};
+
+	// 762 Round
+	CVAR_REGISTER( &sk_plr_762_bullet1 );// {"sk_plr_762_bullet1","0"};
+	CVAR_REGISTER( &sk_plr_762_bullet2 );// {"sk_plr_762_bullet2","0"};
+	CVAR_REGISTER( &sk_plr_762_bullet3 );// {"sk_plr_762_bullet3","0"};
 
 
 	// WORLD WEAPONS

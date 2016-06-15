@@ -266,6 +266,7 @@ void EV_HLDM_DecalGunshot( pmtrace_t *pTrace, int iBulletType )
 		case BULLET_MONSTER_MP5:
 		case BULLET_PLAYER_BUCKSHOT:
 		case BULLET_PLAYER_357:
+		case BULLET_PLAYER_762:
 		default:
 			// smoke and decal
 			EV_HLDM_GunshotDecalTrace( pTrace, EV_HLDM_DamageDecal( pe ) );
@@ -408,6 +409,13 @@ void EV_HLDM_FireBullets( int idx, float *forward, float *right, float *up, int 
 				
 				break;
 
+			case BULLET_PLAYER_762:
+				{
+					EV_HLDM_PlayTextureSound( idx, &tr, vecSrc, vecEnd, iBulletType );
+					EV_HLDM_DecalGunshot( &tr, iBulletType );
+
+					break;
+				}
 			}
 		}
 
@@ -1590,6 +1598,51 @@ void EV_TrainPitchAdjust( event_args_t *args )
 	{
 		gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_STATIC, sz, flVolume, ATTN_NORM, SND_CHANGE_PITCH, pitch );
 	}
+}
+
+void EV_SniperRifle( event_args_t* args )
+{
+	const int idx = args->entindex;
+	const Vector vecOrigin = args->origin;
+	const Vector vecAngles = args->angles;
+
+	const int iClip = args->iparam1;
+
+	Vector up, right, forward;
+
+	AngleVectors( vecAngles, forward, right, up );
+
+	if( EV_IsLocal( idx ) )
+	{
+		EV_MuzzleFlash();
+		//TODO: constant - Solokiller
+		gEngfuncs.pEventAPI->EV_WeaponAnimation( 3 - ( iClip < 1 ), 0 );
+		V_PunchAxis( 0, -2.0 );
+	}
+
+	gEngfuncs.pEventAPI->EV_PlaySound( idx, vecOrigin, 
+									   CHAN_WEAPON, "weapons/sniper_fire.wav", 
+									   gEngfuncs.pfnRandomFloat( 0.9f, 1.0f ), ATTN_NORM, 0, 98 + gEngfuncs.pfnRandomLong( 0, 3 ) );
+
+	Vector vecSrc;
+	Vector vecAiming = forward;
+
+	EV_GetGunPosition( args, vecSrc, vecOrigin );
+
+	EV_HLDM_FireBullets(
+		idx,
+		forward,
+		right,
+		up,
+		1,
+		vecSrc,
+		vecAiming,
+		8192.0,
+		BULLET_PLAYER_762,
+		0,
+		0,
+		args->fparam1,
+		args->fparam2 );
 }
 
 int EV_TFC_IsAllyTeam( int iTeam1, int iTeam2 )

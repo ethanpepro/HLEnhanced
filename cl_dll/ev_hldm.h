@@ -25,6 +25,9 @@ typedef	enum
 	BULLET_MONSTER_9MM,
 	BULLET_MONSTER_MP5,
 	BULLET_MONSTER_12MM,
+
+	//TODO: this is defined in another place - Solokiller
+	BULLET_PLAYER_762 = 10,
 } Bullet;
 
 enum glock_e {
@@ -121,6 +124,8 @@ void EV_SnarkFire( event_args_t *args );
 
 
 void EV_TrainPitchAdjust( event_args_t *args );
+
+void EV_SniperRifle( event_args_t* args );
 }
 
 #endif // EV_HLDMH

@@ -214,6 +214,7 @@
     <ClCompile Include="..\..\game\server\Decals.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\EHandle.cpp" />
+    <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp" />
     <ClCompile Include="..\..\game_shared\shared_game_utils.cpp" />
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp" />
@@ -280,6 +281,7 @@
     <ClInclude Include="..\..\game\shared\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\DataMapping.h" />
     <ClInclude Include="..\..\game\shared\EHandle.h" />
+    <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />
     <ClInclude Include="..\..\game_shared\shared_game_utils.h" />
     <ClInclude Include="..\..\pm_shared\pm_debug.h" />

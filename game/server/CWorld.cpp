@@ -205,7 +205,7 @@ void CWorld::Precache( void )
 	// 63 testing
 	LIGHT_STYLE( 63, "a" );
 
-	for( int i = 0; i < gDecalsSize; i++ )
+	for( size_t i = 0; i < gDecalsSize; i++ )
 		gDecals[ i ].index = DECAL_INDEX( gDecals[ i ].name );
 
 	// init the WorldGraph.

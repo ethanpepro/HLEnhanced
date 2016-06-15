@@ -76,6 +76,18 @@
     <Filter Include="Header Files\game\server">
       <UniqueIdentifier>{e2b05fc6-4030-4feb-beb7-214583b49419}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\shared\entities">
+      <UniqueIdentifier>{1907780c-e94b-49ed-86e0-0746ffd5adc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\shared\entities\weapons">
+      <UniqueIdentifier>{1f6b559b-cf8a-45b9-8e4a-4c8603a82a55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\shared\entities">
+      <UniqueIdentifier>{5a1ff71e-4ecc-42a2-8693-6b98a896c9e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\shared\entities\weapons">
+      <UniqueIdentifier>{d8396b44-72ce-4e9a-8cdd-0dc4e4811341}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -444,6 +456,9 @@
     <ClCompile Include="..\..\game\server\CGlobalState.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp">
+      <Filter>Source Files\game\shared\entities\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -652,6 +667,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\CDecal.h">
       <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h">
+      <Filter>Header Files\game\shared\entities\weapons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -348,6 +348,9 @@
     <ClCompile Include="..\..\game\shared\EHandle.cpp">
       <Filter>Source Files\game\shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp">
+      <Filter>Source Files\_hl\dlls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
