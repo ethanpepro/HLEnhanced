@@ -31,11 +31,13 @@
 #include "soundent.h"
 #include "monsters.h"
 #include "shake.h"
-#include "decals.h"
+#include "Decals.h"
 #include "gamerules.h"
 #include "game.h"
 #include "pm_shared.h"
 #include "hltv.h"
+
+#include "CCorpse.h"
 
 //TODO: move classes out of this file - Solokiller
 
@@ -52,7 +54,6 @@ extern DLL_GLOBAL bool		gDisplayTitle;
 
 bool gInitHUD = true;
 
-extern void CopyToBodyQue(entvars_t* pev);
 extern void respawn(entvars_t *pev, const bool fCopyCorpse);
 extern Vector VecBModelOrigin(entvars_t *pevBModel );
 extern edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer );

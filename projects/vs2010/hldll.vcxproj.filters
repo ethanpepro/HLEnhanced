@@ -432,6 +432,15 @@
     <ClCompile Include="..\..\game\server\CMomentaryRotButton.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\CWorld.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\Decals.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CCorpse.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -456,9 +465,6 @@
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\client.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\decals.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\defaultai.h">
@@ -630,6 +636,15 @@
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\server\CMomentaryRotButton.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CWorld.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Decals.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CCorpse.h">
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,8 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef DECALS_H
-#define DECALS_H
+#ifndef GAME_SERVER_DECALS_H
+#define GAME_SERVER_DECALS_H
 
 //
 // Dynamic Decals
@@ -64,12 +64,14 @@ enum decal_e
 	DECAL_MOMMASPLAT,
 };
 
-typedef struct 
+struct DLL_DECALLIST
 {
-	char	*name;
+	const char* name;
 	int		index;
-} DLL_DECALLIST;
+};
 
 extern DLL_DECALLIST gDecals[];
 
-#endif	// DECALS_H
+extern const size_t gDecalsSize;
+
+#endif	// GAME_SERVER_DECALS_H

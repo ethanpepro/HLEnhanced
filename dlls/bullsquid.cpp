@@ -23,7 +23,7 @@
 #include	"schedule.h"
 #include	"nodes.h"
 #include	"effects.h"
-#include	"decals.h"
+#include	"Decals.h"
 #include	"soundent.h"
 #include	"game.h"
 

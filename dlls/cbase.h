@@ -307,35 +307,6 @@ push_trigger_data
 
 #define TRACER_FREQ		4			// Tracers fire every 4 bullets
 
-// this moved here from world.cpp, to allow classes to be derived from it
-//=======================
-// CWorld
-//
-// This spawns first when each level begins.
-//=======================
-class CWorld : public CBaseEntity
-{
-public:
-	DECLARE_CLASS( CWorld, CBaseEntity );
-
-	void OnCreate() override;
-
-	void OnDestroy() override;
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void KeyValue( KeyValueData *pkvd ) override;
-
-	/**
-	*	Gets the global instance of this entity.
-	*/
-	static CWorld* GetInstance()
-	{
-		return m_pInstance;
-	}
-
-private:
-	static CWorld* m_pInstance;
-};
+#include "CWorld.h"
 
 #endif //CBASE_H

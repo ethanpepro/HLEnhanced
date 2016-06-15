@@ -15,7 +15,7 @@
 #include "extdll.h"
 #include "util.h"
 
-#include "decals.h"
+#include "Decals.h"
 
 #include "cbase.h"
 

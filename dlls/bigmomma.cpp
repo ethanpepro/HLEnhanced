@@ -22,7 +22,7 @@
 #include	"cbase.h"
 #include	"monsters.h"
 #include	"schedule.h"
-#include	"decals.h"
+#include	"Decals.h"
 #include	"weapons.h"
 #include	"game.h"
 

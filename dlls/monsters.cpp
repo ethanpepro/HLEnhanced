@@ -30,7 +30,7 @@
 #include "weapons.h"
 #include "scripted.h"
 #include "squadmonster.h"
-#include "decals.h"
+#include "Decals.h"
 #include "soundent.h"
 #include "gamerules.h"
 
