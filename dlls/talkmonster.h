@@ -110,7 +110,7 @@ public:
 	void			Precache( void ) override;
 	int				TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType) override;
 	void			Touch(	CBaseEntity *pOther ) override;
-	void			Killed( entvars_t *pevAttacker, int iGib ) override;
+	void			Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 	int				IRelationship ( CBaseEntity *pTarget ) override;
 	virtual bool	CanPlaySentence( const bool fDisregardState ) const override;
 	virtual void	PlaySentence( const char *pszSentence, float duration, float volume, float attenuation ) override;

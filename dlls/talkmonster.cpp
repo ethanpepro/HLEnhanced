@@ -625,7 +625,7 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 }
 
 
-void CTalkMonster :: Killed( entvars_t *pevAttacker, int iGib )
+void CTalkMonster :: Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	// If a client killed me (unless I was already Barnacle'd), make everyone else mad/afraid of him
 	if ( (pevAttacker->flags & FL_CLIENT) && m_MonsterState != MONSTERSTATE_PRONE )
@@ -638,7 +638,7 @@ void CTalkMonster :: Killed( entvars_t *pevAttacker, int iGib )
 	// Don't finish that sentence
 	StopTalking();
 	SetUse( NULL );
-	CBaseMonster::Killed( pevAttacker, iGib );
+	CBaseMonster::Killed( pevAttacker, gibAction );
 }
 
 

@@ -44,7 +44,7 @@ public:
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void EXPORT BarnacleThink ( void );
 	void EXPORT WaitTillDead ( void );
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
 
 	float m_flAltitude;
@@ -315,7 +315,7 @@ void CBarnacle :: BarnacleThink ( void )
 //=========================================================
 // Killed.
 //=========================================================
-void CBarnacle :: Killed( entvars_t *pevAttacker, int iGib )
+void CBarnacle::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	CBaseMonster *pVictim;
 

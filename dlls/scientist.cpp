@@ -102,7 +102,7 @@ public:
 	
 	void TalkInit( void );
 
-	void			Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 
 	CUSTOM_SCHEDULES;
 
@@ -807,10 +807,10 @@ void CScientist :: DeathSound ( void )
 }
 
 
-void CScientist::Killed( entvars_t *pevAttacker, int iGib )
+void CScientist::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	SetUse( NULL );	
-	CTalkMonster::Killed( pevAttacker, iGib );
+	CTalkMonster::Killed( pevAttacker, gibAction );
 }
 
 

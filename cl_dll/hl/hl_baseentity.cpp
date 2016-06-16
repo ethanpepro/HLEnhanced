@@ -85,7 +85,7 @@ bool CBaseToggle::IsLockedByMaster() const { return false; }
 void CGrenade::BounceSound( void ) { }
 void CGrenade::Explode( Vector, Vector ) { }
 void CGrenade::Explode( TraceResult *, int ) { }
-void CGrenade::Killed( entvars_t *, int ) { }
+void CGrenade::Killed( entvars_t *, GibAction gibAction ) { }
 void CGrenade::Spawn( void ) { }
 CGrenade * CGrenade:: ShootTimed( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, float time ){ return 0; }
 CGrenade *CGrenade::ShootContact( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity ){ return 0; }
@@ -233,7 +233,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask ) { }
 Schedule_t *CBaseMonster::ScheduleFromName( const char *pName ) { return NULL;}
 void CBaseMonster::BecomeDead( void ) {}
 void CBaseMonster :: RunAI ( void ) {}
-void CBaseMonster :: Killed( entvars_t *pevAttacker, int iGib ) {}
+void CBaseMonster::Killed( entvars_t *pevAttacker, GibAction gibAction ) {}
 float CBaseMonster::GiveHealth( float flHealth, int bitsDamageType ) { return 0; }
 int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) { return 0; }
 bool CBaseMonster::Restore( CRestore& ) { return true; }

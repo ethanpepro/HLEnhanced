@@ -63,7 +63,7 @@ public:
 	void AlertSound( void ) override;
 	void IdleSound( void ) override;
 
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 
     void StartTask ( Task_t *pTask ) override;
 	Schedule_t *GetSchedule( void ) override;
@@ -260,10 +260,10 @@ int CISlave :: ISoundMask ( void)
 }
 
 
-void CISlave::Killed( entvars_t *pevAttacker, int iGib )
+void CISlave::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	ClearBeams( );
-	CSquadMonster::Killed( pevAttacker, iGib );
+	CSquadMonster::Killed( pevAttacker, gibAction );
 }
 
 //=========================================================

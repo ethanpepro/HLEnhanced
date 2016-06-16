@@ -532,9 +532,9 @@ void CBaseMonster::BecomeDead( void )
 }
 
 
-bool CBaseMonster::ShouldGibMonster( int iGib )
+bool CBaseMonster::ShouldGibMonster( GibAction gibAction ) const
 {
-	if ( ( iGib == GIB_NORMAL && pev->health < GIB_HEALTH_VALUE ) || ( iGib == GIB_ALWAYS ) )
+	if ( ( gibAction == GIB_NORMAL && pev->health < GIB_HEALTH_VALUE ) || ( gibAction == GIB_ALWAYS ) )
 		return true;
 	
 	return false;
@@ -588,14 +588,14 @@ void CBaseMonster::CallGibMonster( void )
 Killed
 ============
 */
-void CBaseMonster :: Killed( entvars_t *pevAttacker, int iGib )
+void CBaseMonster::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	unsigned int	cCount = 0;
 	bool			fDone = false;
 
 	if ( HasMemory( bits_MEMORY_KILLED ) )
 	{
-		if ( ShouldGibMonster( iGib ) )
+		if ( ShouldGibMonster( gibAction ) )
 			CallGibMonster();
 		return;
 	}
@@ -615,7 +615,7 @@ void CBaseMonster :: Killed( entvars_t *pevAttacker, int iGib )
 		pOwner->DeathNotice( this );
 	}
 
-	if	( ShouldGibMonster( iGib ) )
+	if	( ShouldGibMonster( gibAction ) )
 	{
 		CallGibMonster();
 		return;

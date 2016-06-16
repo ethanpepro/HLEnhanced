@@ -84,7 +84,7 @@ public:
 	static const char *pDeathSounds[];
 
 	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 	void GibMonster( void ) override;
 
 	CSprite *m_pBall[2];	// hand balls
@@ -183,7 +183,7 @@ int CController :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, 
 }
 
 
-void CController::Killed( entvars_t *pevAttacker, int iGib )
+void CController::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	// shut off balls
 	/*
@@ -205,7 +205,7 @@ void CController::Killed( entvars_t *pevAttacker, int iGib )
 		m_pBall[1] = NULL;
 	}
 
-	CSquadMonster::Killed( pevAttacker, iGib );
+	CSquadMonster::Killed( pevAttacker, gibAction );
 }
 
 

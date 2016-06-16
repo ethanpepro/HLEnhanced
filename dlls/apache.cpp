@@ -35,7 +35,7 @@ public:
 	void Precache( void ) override;
 	int  Classify( void ) override { return CLASS_HUMAN_MILITARY; };
 	int  BloodColor() const override { return DONT_BLEED; }
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 	void GibMonster( void ) override;
 
 	void SetObjectCollisionBox( void ) override
@@ -188,7 +188,7 @@ void CApache::StartupUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	SetUse( NULL );
 }
 
-void CApache :: Killed( entvars_t *pevAttacker, int iGib )
+void CApache::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	pev->movetype = MOVETYPE_TOSS;
 	pev->gravity = 0.3;

@@ -31,7 +31,7 @@ public:
 	void EXPORT TankThink( void );
 	void EXPORT TankTouch( CBaseEntity *pOther );
 	int	 BloodColor() const override { return DONT_BLEED; }
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 
 	int	 m_state;
 };
@@ -71,7 +71,7 @@ void CAirtank::Precache( void )
 }
 
 
-void CAirtank :: Killed( entvars_t *pevAttacker, int iGib )
+void CAirtank::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	pev->owner = ENT( pevAttacker );
 

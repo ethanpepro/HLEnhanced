@@ -7,6 +7,27 @@ typedef void ( CBaseEntity::*BASEPTR )();
 typedef void ( CBaseEntity::*ENTITYFUNCPTR )( CBaseEntity *pOther );
 typedef void ( CBaseEntity::*USEPTR )( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
+/**
+*	When calling Killed(), a value that governs gib behavior is expected to be one of these three values.
+*/
+enum GibAction
+{
+	/**
+	*	Gib if entity was overkilled
+	*/
+	GIB_NORMAL = 0,
+
+	/**
+	*	Never gib, no matter how much death damage is done ( freezing, etc )
+	*/
+	GIB_NEVER = 1,
+
+	/**
+	*	Always gib ( Houndeye Shock, Barnacle Bite )
+	*/
+	GIB_ALWAYS = 2,
+};
+
 //
 // Base Entity.  All entity types derive from this
 //
@@ -247,8 +268,53 @@ public:
 	*/
 	virtual int Classify() { return CLASS_NONE; }
 
-	virtual void	TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
-	virtual int		TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
+	/**
+	*	@return This entity's blood color.
+	*	@see BloodColor
+	*/
+	virtual int BloodColor() const { return DONT_BLEED; }
+
+	/**
+	*	Used when handling damage.
+	*	This gives the entity a chance to filter damage. This should add the given damage to the global multi-damage instance if damage is not filtered.
+	*	This is where blood, ricochets, and other effects should be handled.
+	*	@param pevAttacker Entity that is responsible for attacking this one. If damage is dealt indirectly, such as through a weapon, this is the weapon's owner.
+	*	@param flDamage Amount of damage being dealt.
+	*	@param vecDir Direction of the attack.
+	*	@param ptr Traceline that represents the attack.
+	*	@param bitsDamageType Bit vector of damage types.
+	*	@see g_MultiDamage
+	*/
+	virtual void TraceAttack( entvars_t* pevAttacker, float flDamage, Vector vecDir, TraceResult* ptr, int bitsDamageType );
+
+	/**
+	*	Projects blood decals based on the given damage and traceline.
+	*	@param flDamage Amount of damage being dealt.
+	*	@param vecDir attack direction.
+	*	@param ptr Attack traceline.
+	*	@param bitsDamageType Bit vector of damage types.
+	*	@see Damage
+	*/
+	virtual void TraceBleed( float flDamage, Vector vecDir, TraceResult* ptr, int bitsDamageType );
+
+	/**
+	*	Deals damage to this entity.
+	*	@param pevInflictor The entity that is responsible for dealing the damage.
+	*	@param pevAttacker The entity that owns pevInflictor. This may be identical to pevInflictor if it directly attacked this entity.
+	*	@param flDamage Amount of damage to deal.
+	*	@param bitsDamageType Bit vector of damage types.
+	*	@return Whether any damage was dealt.
+	*	TODO: return value should be damage dealt.
+	*/
+	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
+
+	/**
+	*	Called when the entity has been killed.
+	*	@param pevAttacker The entity that attacked this entity.
+	*	@param gibAction how to handle the gibbing of this entity.
+	*	@see GibAction
+	*/
+	virtual void Killed( entvars_t* pevAttacker, GibAction gibAction );
 
 	/**
 	*	Gives health to this entity. Negative values take health.
@@ -259,24 +325,6 @@ public:
 	*	@return Actual amount of health that was given/taken.
 	*/
 	virtual float GiveHealth( float flHealth, int bitsDamageType );
-
-	virtual void	Killed( entvars_t *pevAttacker, int iGib );
-
-	/**
-	*	@return This entity's blood color.
-	*	@see BloodColor
-	*/
-	virtual int BloodColor() const { return DONT_BLEED; }
-
-	/**
-	*	Projects blood decals based on the given damage and traceline.
-	*	@param flDamage Amount of damage being dealt.
-	*	@param vecDir attack direction.
-	*	@param ptr Attack traceline.
-	*	@param bitsDamageType Bit vector of damage types.
-	*	@see Damage
-	*/
-	virtual void TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
 
 	/**
 	*	@param pActivator Activator.

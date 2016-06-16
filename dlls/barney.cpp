@@ -74,7 +74,7 @@ public:
 	void TalkInit( void );
 
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 
 	bool	m_fGunDrawn;
 	float	m_painTime;
@@ -605,7 +605,7 @@ void CBarney::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 }
 
 
-void CBarney::Killed( entvars_t *pevAttacker, int iGib )
+void CBarney::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	if ( pev->body < BARNEY_BODY_GUNGONE )
 	{// drop the gun!
@@ -620,7 +620,7 @@ void CBarney::Killed( entvars_t *pevAttacker, int iGib )
 	}
 
 	SetUse( NULL );	
-	CTalkMonster::Killed( pevAttacker, iGib );
+	CTalkMonster::Killed( pevAttacker, gibAction );
 }
 
 //=========================================================

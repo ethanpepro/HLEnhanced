@@ -49,7 +49,7 @@ public:
 	void Precache() override;
 	int  Classify() override { return CLASS_MACHINE; };
 	int  BloodColor() const override { return DONT_BLEED; }
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 
 	void UpdateGoal();
 	bool HasDead();
@@ -507,7 +507,7 @@ int COsprey::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float 
 
 
 
-void COsprey :: Killed( entvars_t *pevAttacker, int iGib )
+void COsprey::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	pev->movetype = MOVETYPE_TOSS;
 	pev->gravity = 0.3;

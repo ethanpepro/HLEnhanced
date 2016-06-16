@@ -228,7 +228,7 @@ public:
 
 	void PrescheduleThink( void ) override;
 
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 	void DeathEffect( void );
 
 	void EyeOff( void );
@@ -902,7 +902,7 @@ void CGargantua::DeathEffect( void )
 }
 
 
-void CGargantua::Killed( entvars_t *pevAttacker, int iGib )
+void CGargantua::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	EyeOff();
 	UTIL_Remove( m_pEyeGlow );

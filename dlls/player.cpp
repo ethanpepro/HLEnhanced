@@ -790,8 +790,9 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
  */
 entvars_t *g_pevLastInflictor;  // Set in combat.cpp.  Used to pass the damage inflictor for death messages.
 								// Better solution:  Add as parameter to all Killed() functions.
+//TODO: add it - Solokiller
 
-void CBasePlayer::Killed( entvars_t *pevAttacker, int iGib )
+void CBasePlayer::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	CSound *pSound;
 
@@ -855,7 +856,7 @@ void CBasePlayer::Killed( entvars_t *pevAttacker, int iGib )
 	// UNDONE: Put this in, but add FFADE_PERMANENT and make fade time 8.8 instead of 4.12
 	// UTIL_ScreenFade( edict(), Vector(128,0,0), 6, 15, 255, FFADE_OUT | FFADE_MODULATE );
 
-	if ( ( pev->health < -40 && iGib != GIB_NEVER ) || iGib == GIB_ALWAYS )
+	if ( ( pev->health < -40 && gibAction != GIB_NEVER ) || gibAction == GIB_ALWAYS )
 	{
 		pev->solid			= SOLID_NOT;
 		GibMonster();	// This clears pev->model

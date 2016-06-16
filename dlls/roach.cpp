@@ -46,7 +46,7 @@ public:
 	void Move ( float flInterval ) override;
 	void PickNewDest ( int iCondition );
 	void EXPORT Touch ( CBaseEntity *pOther ) override;
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 
 	float	m_flLastLightLevel;
 	float	m_flNextSmellTime;
@@ -160,7 +160,7 @@ void CRoach :: Precache()
 //=========================================================
 // Killed.
 //=========================================================
-void CRoach :: Killed( entvars_t *pevAttacker, int iGib )
+void CRoach :: Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	pev->solid = SOLID_NOT;
 

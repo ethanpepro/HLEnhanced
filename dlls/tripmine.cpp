@@ -56,7 +56,7 @@ public:
 	void EXPORT PowerupThink( void );
 	void EXPORT BeamBreakThink( void );
 	void EXPORT DelayDeathThink( void );
-	void Killed( entvars_t *pevAttacker, int iGib ) override;
+	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 
 	void MakeBeam( void );
 	void KillBeam( void );
@@ -321,7 +321,7 @@ int CTripmineGrenade :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttac
 	return CGrenade::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
 }
 
-void CTripmineGrenade::Killed( entvars_t *pevAttacker, int iGib )
+void CTripmineGrenade::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	pev->takedamage = DAMAGE_NO;
 	

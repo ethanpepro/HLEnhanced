@@ -294,9 +294,9 @@ public:
 	float UpdateTarget ( entvars_t *pevTarget );
 	virtual Activity GetDeathActivity ( void );
 	Activity GetSmallFlinchActivity( void );
-	virtual void Killed( entvars_t *pevAttacker, int iGib ) override;
+	virtual void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 	virtual void GibMonster( void );
-	bool		 ShouldGibMonster( int iGib );
+	bool ShouldGibMonster( GibAction gibAction ) const;
 	void		 CallGibMonster( void );
 	virtual bool	HasHumanGibs();
 	virtual bool	HasAlienGibs();
