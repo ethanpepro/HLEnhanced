@@ -309,10 +309,6 @@ public:
 	// This is ONLY used by the node graph to test movement through a door
 	virtual void	SetToggleState( int state ) {}
 
-	virtual void StartSneaking() {}
-	virtual void StopSneaking() {}
-	virtual bool IsSneaking() { return false; }
-
 	/**
 	*	Checks if the given entity can control this entity.
 	*	@param pTest Entity to check for control.

@@ -142,77 +142,76 @@ END_DATADESC()
 
 // Global Savedata for player
 BEGIN_DATADESC( CBasePlayer )
-DEFINE_FIELD( m_flFlashLightTime, FIELD_TIME ),
-DEFINE_FIELD( m_iFlashBattery, FIELD_INTEGER ),
-
-DEFINE_FIELD( m_afButtonLast, FIELD_INTEGER ),
-DEFINE_FIELD( m_afButtonPressed, FIELD_INTEGER ),
-DEFINE_FIELD( m_afButtonReleased, FIELD_INTEGER ),
-
-DEFINE_ARRAY( m_rgItems, FIELD_INTEGER, MAX_ITEMS ),
-DEFINE_FIELD( m_afPhysicsFlags, FIELD_INTEGER ),
-
-DEFINE_FIELD( m_flTimeStepSound, FIELD_TIME ),
-DEFINE_FIELD( m_flTimeWeaponIdle, FIELD_TIME ),
-DEFINE_FIELD( m_flSwimTime, FIELD_TIME ),
-DEFINE_FIELD( m_flDuckTime, FIELD_TIME ),
-DEFINE_FIELD( m_flWallJumpTime, FIELD_TIME ),
-
-DEFINE_FIELD( m_flSuitUpdate, FIELD_TIME ),
-DEFINE_ARRAY( m_rgSuitPlayList, FIELD_INTEGER, CSUITPLAYLIST ),
-DEFINE_FIELD( m_iSuitPlayNext, FIELD_INTEGER ),
-DEFINE_ARRAY( m_rgiSuitNoRepeat, FIELD_INTEGER, CSUITNOREPEAT ),
-DEFINE_ARRAY( m_rgflSuitNoRepeatTime, FIELD_TIME, CSUITNOREPEAT ),
-DEFINE_FIELD( m_lastDamageAmount, FIELD_INTEGER ),
-
-DEFINE_ARRAY( m_rgpPlayerItems, FIELD_CLASSPTR, MAX_ITEM_TYPES ),
-DEFINE_FIELD( m_pActiveItem, FIELD_CLASSPTR ),
-DEFINE_FIELD( m_pLastItem, FIELD_CLASSPTR ),
-
-DEFINE_ARRAY( m_rgAmmo, FIELD_INTEGER, MAX_AMMO_SLOTS ),
-DEFINE_FIELD( m_idrowndmg, FIELD_INTEGER ),
-DEFINE_FIELD( m_idrownrestored, FIELD_INTEGER ),
-DEFINE_FIELD( m_tSneaking, FIELD_TIME ),
-
-DEFINE_FIELD( m_iTrain, FIELD_INTEGER ),
-DEFINE_FIELD( m_bitsHUDDamage, FIELD_INTEGER ),
-DEFINE_FIELD( m_flFallVelocity, FIELD_FLOAT ),
-DEFINE_FIELD( m_iTargetVolume, FIELD_INTEGER ),
-DEFINE_FIELD( m_iWeaponVolume, FIELD_INTEGER ),
-DEFINE_FIELD( m_iExtraSoundTypes, FIELD_INTEGER ),
-DEFINE_FIELD( m_iWeaponFlash, FIELD_INTEGER ),
-DEFINE_FIELD( m_fLongJump, FIELD_BOOLEAN ),
-DEFINE_FIELD( m_fInitHUD, FIELD_BOOLEAN ),
-DEFINE_FIELD( m_tbdPrev, FIELD_TIME ),
-
-DEFINE_FIELD( m_pTank, FIELD_EHANDLE ),
-DEFINE_FIELD( m_iHideHUD, FIELD_INTEGER ),
-DEFINE_FIELD( m_iFOV, FIELD_INTEGER ),
-
-//DEFINE_FIELD( m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
-//DEFINE_FIELD( m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
-//DEFINE_FIELD( m_flStopExtraSoundTime, FIELD_TIME ),
-//DEFINE_FIELD( m_bKnownItem, FIELD_BOOLEAN ), // reset to zero on load
-//DEFINE_FIELD( m_iPlayerSound, FIELD_INTEGER ),	// Don't restore, set in Precache()
-//DEFINE_FIELD( m_pentSndLast, FIELD_EDICT ),	// Don't restore, client needs reset
-//DEFINE_FIELD( m_flSndRoomtype, FIELD_FLOAT ),	// Don't restore, client needs reset
-//DEFINE_FIELD( m_flSndRange, FIELD_FLOAT ),	// Don't restore, client needs reset
-//DEFINE_FIELD( m_fNewAmmo, FIELD_INTEGER ), // Don't restore, client needs reset
-//DEFINE_FIELD( m_flgeigerRange, FIELD_FLOAT ),	// Don't restore, reset in Precache()
-//DEFINE_FIELD( m_flgeigerDelay, FIELD_FLOAT ),	// Don't restore, reset in Precache()
-//DEFINE_FIELD( m_igeigerRangePrev, FIELD_FLOAT ),	// Don't restore, reset in Precache()
-//DEFINE_FIELD( m_iStepLeft, FIELD_INTEGER ), // Don't need to restore
-//DEFINE_ARRAY( m_szTextureName, FIELD_CHARACTER, CBTEXTURENAMEMAX ), // Don't need to restore
-//DEFINE_FIELD( m_chTextureType, FIELD_CHARACTER ), // Don't need to restore
-//DEFINE_FIELD( m_fNoPlayerSound, FIELD_BOOLEAN ), // Don't need to restore, debug
-//DEFINE_FIELD( m_iUpdateTime, FIELD_INTEGER ), // Don't need to restore
-//DEFINE_FIELD( m_iClientHealth, FIELD_INTEGER ), // Don't restore, client needs reset
-//DEFINE_FIELD( m_iClientBattery, FIELD_INTEGER ), // Don't restore, client needs reset
-//DEFINE_FIELD( m_iClientHideHUD, FIELD_INTEGER ), // Don't restore, client needs reset
-//DEFINE_FIELD( m_fWeapon, FIELD_BOOLEAN ),  // Don't restore, client needs reset
-//DEFINE_FIELD( m_nCustomSprayFrames, FIELD_INTEGER ), // Don't restore, depends on server message after spawning and only matters in multiplayer
-//DEFINE_FIELD( m_vecAutoAim, FIELD_VECTOR ), // Don't save/restore - this is recomputed
-//DEFINE_ARRAY( m_rgAmmoLast, FIELD_INTEGER, MAX_AMMO_SLOTS ), // Don't need to restore
-//DEFINE_FIELD( m_fOnTarget, FIELD_BOOLEAN ), // Don't need to restore
-//DEFINE_FIELD( m_nCustomSprayFrames, FIELD_INTEGER ), // Don't need to restore
+	DEFINE_FIELD( m_flFlashLightTime, FIELD_TIME ),
+	DEFINE_FIELD( m_iFlashBattery, FIELD_INTEGER ),
+	
+	DEFINE_FIELD( m_afButtonLast, FIELD_INTEGER ),
+	DEFINE_FIELD( m_afButtonPressed, FIELD_INTEGER ),
+	DEFINE_FIELD( m_afButtonReleased, FIELD_INTEGER ),
+	
+	DEFINE_ARRAY( m_rgItems, FIELD_INTEGER, MAX_ITEMS ),
+	DEFINE_FIELD( m_afPhysicsFlags, FIELD_INTEGER ),
+	
+	DEFINE_FIELD( m_flTimeStepSound, FIELD_TIME ),
+	DEFINE_FIELD( m_flTimeWeaponIdle, FIELD_TIME ),
+	DEFINE_FIELD( m_flSwimTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flDuckTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flWallJumpTime, FIELD_TIME ),
+	
+	DEFINE_FIELD( m_flSuitUpdate, FIELD_TIME ),
+	DEFINE_ARRAY( m_rgSuitPlayList, FIELD_INTEGER, CSUITPLAYLIST ),
+	DEFINE_FIELD( m_iSuitPlayNext, FIELD_INTEGER ),
+	DEFINE_ARRAY( m_rgiSuitNoRepeat, FIELD_INTEGER, CSUITNOREPEAT ),
+	DEFINE_ARRAY( m_rgflSuitNoRepeatTime, FIELD_TIME, CSUITNOREPEAT ),
+	DEFINE_FIELD( m_lastDamageAmount, FIELD_INTEGER ),
+	
+	DEFINE_ARRAY( m_rgpPlayerItems, FIELD_CLASSPTR, MAX_ITEM_TYPES ),
+	DEFINE_FIELD( m_pActiveItem, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_pLastItem, FIELD_CLASSPTR ),
+	
+	DEFINE_ARRAY( m_rgAmmo, FIELD_INTEGER, MAX_AMMO_SLOTS ),
+	DEFINE_FIELD( m_idrowndmg, FIELD_INTEGER ),
+	DEFINE_FIELD( m_idrownrestored, FIELD_INTEGER ),
+	
+	DEFINE_FIELD( m_iTrain, FIELD_INTEGER ),
+	DEFINE_FIELD( m_bitsHUDDamage, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flFallVelocity, FIELD_FLOAT ),
+	DEFINE_FIELD( m_iTargetVolume, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iWeaponVolume, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iExtraSoundTypes, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iWeaponFlash, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fLongJump, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_fInitHUD, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_tbdPrev, FIELD_TIME ),
+	
+	DEFINE_FIELD( m_pTank, FIELD_EHANDLE ),
+	DEFINE_FIELD( m_iHideHUD, FIELD_INTEGER ),
+	DEFINE_FIELD( m_iFOV, FIELD_INTEGER ),
+	
+	//DEFINE_FIELD( m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
+	//DEFINE_FIELD( m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
+	//DEFINE_FIELD( m_flStopExtraSoundTime, FIELD_TIME ),
+	//DEFINE_FIELD( m_bKnownItem, FIELD_BOOLEAN ), // reset to zero on load
+	//DEFINE_FIELD( m_iPlayerSound, FIELD_INTEGER ),	// Don't restore, set in Precache()
+	//DEFINE_FIELD( m_pentSndLast, FIELD_EDICT ),	// Don't restore, client needs reset
+	//DEFINE_FIELD( m_flSndRoomtype, FIELD_FLOAT ),	// Don't restore, client needs reset
+	//DEFINE_FIELD( m_flSndRange, FIELD_FLOAT ),	// Don't restore, client needs reset
+	//DEFINE_FIELD( m_fNewAmmo, FIELD_INTEGER ), // Don't restore, client needs reset
+	//DEFINE_FIELD( m_flgeigerRange, FIELD_FLOAT ),	// Don't restore, reset in Precache()
+	//DEFINE_FIELD( m_flgeigerDelay, FIELD_FLOAT ),	// Don't restore, reset in Precache()
+	//DEFINE_FIELD( m_igeigerRangePrev, FIELD_FLOAT ),	// Don't restore, reset in Precache()
+	//DEFINE_FIELD( m_iStepLeft, FIELD_INTEGER ), // Don't need to restore
+	//DEFINE_ARRAY( m_szTextureName, FIELD_CHARACTER, CBTEXTURENAMEMAX ), // Don't need to restore
+	//DEFINE_FIELD( m_chTextureType, FIELD_CHARACTER ), // Don't need to restore
+	//DEFINE_FIELD( m_fNoPlayerSound, FIELD_BOOLEAN ), // Don't need to restore, debug
+	//DEFINE_FIELD( m_iUpdateTime, FIELD_INTEGER ), // Don't need to restore
+	//DEFINE_FIELD( m_iClientHealth, FIELD_INTEGER ), // Don't restore, client needs reset
+	//DEFINE_FIELD( m_iClientBattery, FIELD_INTEGER ), // Don't restore, client needs reset
+	//DEFINE_FIELD( m_iClientHideHUD, FIELD_INTEGER ), // Don't restore, client needs reset
+	//DEFINE_FIELD( m_fWeapon, FIELD_BOOLEAN ),  // Don't restore, client needs reset
+	//DEFINE_FIELD( m_nCustomSprayFrames, FIELD_INTEGER ), // Don't restore, depends on server message after spawning and only matters in multiplayer
+	//DEFINE_FIELD( m_vecAutoAim, FIELD_VECTOR ), // Don't save/restore - this is recomputed
+	//DEFINE_ARRAY( m_rgAmmoLast, FIELD_INTEGER, MAX_AMMO_SLOTS ), // Don't need to restore
+	//DEFINE_FIELD( m_fOnTarget, FIELD_BOOLEAN ), // Don't need to restore
+	//DEFINE_FIELD( m_nCustomSprayFrames, FIELD_INTEGER ), // Don't need to restore
 END_DATADESC()
