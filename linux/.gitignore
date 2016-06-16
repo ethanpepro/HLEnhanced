@@ -1,0 +1,10 @@
+# Ignore build objects
+release/obj
+# Ignore built files
+release/*.dbg
+release/client.dylib
+release/client.so
+release/hl.dylib
+release/hl.so
+# Ignore map files
+*_map.txt
