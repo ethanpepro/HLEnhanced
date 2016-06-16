@@ -15,6 +15,8 @@
 
 #include <assert.h>
 
+#include "extdll.h"
+
 #include "mathlib.h"
 #include "const.h"
 #include "usercmd.h"
@@ -92,9 +94,6 @@ playermove_t *pmove = NULL;
 // double to float warning
 #pragma warning(disable : 4244)
 //TODO: defined in multiple places - Solokiller
-#define max(a, b)  (((a) > (b)) ? (a) : (b))
-#define min(a, b)  (((a) < (b)) ? (a) : (b))
-//TODO: defined in multiple places - Solokiller
 // up / down
 #define	PITCH	0
 // left / right
@@ -102,20 +101,9 @@ playermove_t *pmove = NULL;
 // fall over
 #define	ROLL	2 
 
-//TODO: defined in multiple places - Solokiller
-#define MAX_CLIENTS 32
+static const size_t STUCKTABLE_SIZE = 54;
 
-//TODO: defined in const.h - Solokiller
-#define	CONTENTS_CURRENT_0		-9
-#define	CONTENTS_CURRENT_90		-10
-#define	CONTENTS_CURRENT_180	-11
-#define	CONTENTS_CURRENT_270	-12
-#define	CONTENTS_CURRENT_UP		-13
-#define	CONTENTS_CURRENT_DOWN	-14
-
-#define CONTENTS_TRANSLUCENT	-15
-
-static Vector rgv3tStuckTable[54];
+static Vector rgv3tStuckTable[ STUCKTABLE_SIZE ];
 static int rgStuckLast[MAX_CLIENTS][2];
 
 // Texture names
@@ -1575,12 +1563,11 @@ Grab a test offset for the player based on a passed in index
 int PM_GetRandomStuckOffsets(int nIndex, int server, Vector& offset)
 {
  // Last time we did a full
-	int idx;
-	idx = rgStuckLast[nIndex][server]++;
+	int idx = rgStuckLast[nIndex][server]++;
 
-	offset = rgv3tStuckTable[idx % 54];
+	offset = rgv3tStuckTable[ idx % STUCKTABLE_SIZE ];
 
-	return (idx % 54);
+	return ( idx % STUCKTABLE_SIZE );
 }
 
 void PM_ResetStuckOffsets(int nIndex, int server)
@@ -1646,7 +1633,8 @@ int PM_CheckStuck (void)
 					return 0;
 				}
 				nReps++;
-			} while (nReps < 54);
+			}
+			while( nReps < STUCKTABLE_SIZE );
 		}
 	}
 
@@ -3171,8 +3159,7 @@ void PM_CreateStuckTable( void )
 	int i;
 	float zi[3];
 
-	//TODO: needs to use a constant.
-	memset(rgv3tStuckTable, 0, 54 * sizeof( Vector ));
+	memset( rgv3tStuckTable, 0, sizeof( rgv3tStuckTable ) );
 
 	idx = 0;
 	// Little Moves.
