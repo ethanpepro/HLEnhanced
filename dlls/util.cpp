@@ -2555,3 +2555,21 @@ int	CRestore::BufferCheckZString( const char *string )
 	return 0;
 }
 
+CBaseEntity* UTIL_RandomTargetname( const char* const pszName )
+{
+	int total = 0;
+
+	CBaseEntity *pEntity = nullptr;
+	CBaseEntity *pNewEntity = nullptr;
+
+	//Enumerate all entities with the given name and assign it to pEntity if a random check succeeds.
+	while( ( pNewEntity = UTIL_FindEntityByTargetname( pNewEntity, pszName ) ) != nullptr )
+	{
+		++total;
+
+		if( RANDOM_LONG( 0, total - 1 ) < 1 )
+			pEntity = pNewEntity;
+	}
+
+	return pEntity;
+}

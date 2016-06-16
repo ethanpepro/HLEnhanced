@@ -137,15 +137,15 @@ public:
 	inline void SetFrame( float frame ) { pev->frame = frame; }
 	inline void SetScrollRate( int speed ) { pev->animtime = speed; }
 
-	inline int	GetType( void ) { return pev->rendermode & 0x0F; }
-	inline int	GetFlags( void ) { return pev->rendermode & 0xF0; }
-	inline int	GetStartEntity( void ) { return pev->sequence & 0xFFF; }
-	inline int	GetEndEntity( void ) { return pev->skin & 0xFFF; }
+	inline int	GetType() const { return pev->rendermode & 0x0F; }
+	inline int	GetFlags() const { return pev->rendermode & 0xF0; }
+	inline int	GetStartEntity() const { return pev->sequence & 0xFFF; }
+	inline int	GetEndEntity() const { return pev->skin & 0xFFF; }
 
-	const Vector &GetStartPos( void );
-	const Vector &GetEndPos( void );
+	const Vector& GetStartPos() const;
+	const Vector& GetEndPos() const;
 
-	Vector Center( void ) override { return (GetStartPos() + GetEndPos()) * 0.5; }; // center point of beam
+	Vector Center() const override { return (GetStartPos() + GetEndPos()) * 0.5; } // center point of beam
 
 	inline int  GetTexture( void ) { return pev->modelindex; }
 	inline int  GetWidth( void ) { return pev->scale; }
@@ -160,8 +160,6 @@ public:
 //	void		SetObjectCollisionBox( void );
 
 	void		DoSparks( const Vector &start, const Vector &end );
-	//TODO: refactor out of the class - Solokliler
-	CBaseEntity *RandomTargetname( const char *szName );
 	void		BeamDamage( TraceResult *ptr );
 	// Init after BeamCreate()
 	void		BeamInit( const char *pSpriteName, int width );

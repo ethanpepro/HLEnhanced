@@ -303,7 +303,7 @@ public:
 	virtual void	FadeMonster( void );	// Called instead of GibMonster() when gibs are disabled
 
 	Vector ShootAtEnemy( const Vector &shootOrigin );
-	virtual Vector BodyTarget( const Vector &posSrc ) override { return Center( ) * 0.75 + EyePosition() * 0.25; };		// position to shoot at
+	virtual Vector BodyTarget( const Vector &posSrc ) const override { return Center( ) * 0.75 + EyePosition() * 0.25; }		// position to shoot at
 
 	virtual	Vector  GetGunPosition( void );
 

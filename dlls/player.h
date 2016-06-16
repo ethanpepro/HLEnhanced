@@ -216,7 +216,7 @@ public:
 	virtual void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
 	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
 	virtual void	Killed( entvars_t *pevAttacker, int iGib ) override;
-	virtual Vector BodyTarget( const Vector &posSrc ) override { return Center( ) + pev->view_ofs * RANDOM_FLOAT( 0.5, 1.1 ); };		// position to shoot at
+	virtual Vector BodyTarget( const Vector &posSrc ) const override { return Center() + pev->view_ofs * RANDOM_FLOAT( 0.5, 1.1 ); }		// position to shoot at
 	virtual void StartSneaking( void ) override { m_tSneaking = gpGlobals->time - 1; }
 	virtual void StopSneaking( void ) override { m_tSneaking = gpGlobals->time + 30; }
 	virtual bool IsSneaking() override { return m_tSneaking <= gpGlobals->time; }
@@ -294,7 +294,7 @@ public:
 	void BarnacleVictimReleased ( void ) override;
 	static int GetAmmoIndex(const char *psz);
 	int AmmoInventory( int iAmmoIndex );
-	int Illumination( void ) override;
+	int Illumination() const override;
 
 	void ResetAutoaim( void );
 	Vector GetAutoaimVector( float flDelta  );

@@ -188,7 +188,7 @@ void CBeam::SetEndEntity( int entityIndex )
 
 
 // These don't take attachments into account
-const Vector &CBeam::GetStartPos( void )
+const Vector& CBeam::GetStartPos() const
 {
 	if ( GetType() == BEAM_ENTS )
 	{
@@ -199,7 +199,7 @@ const Vector &CBeam::GetStartPos( void )
 }
 
 
-const Vector &CBeam::GetEndPos( void )
+const Vector& CBeam::GetEndPos() const
 {
 	int type = GetType();
 	if ( type == BEAM_POINTS || type == BEAM_HOSE )
@@ -330,23 +330,6 @@ void CBeam::TriggerTouch( CBaseEntity *pOther )
 		ALERT( at_console, "Firing targets!!!\n" );
 	}
 }
-
-
-CBaseEntity *CBeam::RandomTargetname( const char *szName )
-{
-	int total = 0;
-
-	CBaseEntity *pEntity = NULL;
-	CBaseEntity *pNewEntity = NULL;
-	while ((pNewEntity = UTIL_FindEntityByTargetname( pNewEntity, szName )) != NULL)
-	{
-		total++;
-		if (RANDOM_LONG(0,total-1) < 1)
-			pEntity = pNewEntity;
-	}
-	return pEntity;
-}
-
 
 void CBeam::DoSparks( const Vector &start, const Vector &end )
 {
@@ -651,7 +634,7 @@ void CLightning::StrikeThink( void )
 		}
 		else
 		{
-			CBaseEntity *pStart = RandomTargetname( STRING(m_iszStartEntity) );
+			CBaseEntity *pStart = UTIL_RandomTargetname( STRING(m_iszStartEntity) );
 			if (pStart != NULL)
 				RandomPoint( pStart->pev->origin );
 			else
@@ -660,8 +643,8 @@ void CLightning::StrikeThink( void )
 		return;
 	}
 
-	CBaseEntity *pStart = RandomTargetname( STRING(m_iszStartEntity) );
-	CBaseEntity *pEnd = RandomTargetname( STRING(m_iszEndEntity) );
+	CBaseEntity *pStart = UTIL_RandomTargetname( STRING(m_iszStartEntity) );
+	CBaseEntity *pEnd = UTIL_RandomTargetname( STRING(m_iszEndEntity) );
 
 	if ( pStart != NULL && pEnd != NULL )
 	{
@@ -1090,7 +1073,7 @@ void CLaser::FireAtPoint( TraceResult &tr )
 
 void CLaser::StrikeThink( void )
 {
-	CBaseEntity *pEnd = RandomTargetname( STRING(pev->message) );
+	CBaseEntity *pEnd = UTIL_RandomTargetname( STRING(pev->message) );
 
 	if ( pEnd )
 		m_firePosition = pEnd->pev->origin;

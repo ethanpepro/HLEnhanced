@@ -2115,7 +2115,7 @@ public:
 	int				Classify( void ) override { return CLASS_MACHINE; }
 	int				TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
 	void			Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	Vector			BodyTarget( const Vector &posSrc ) override { return pev->origin; }
+	Vector			BodyTarget( const Vector &posSrc ) const override { return pev->origin; }
 
 	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 

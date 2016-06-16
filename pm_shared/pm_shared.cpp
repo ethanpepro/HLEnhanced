@@ -93,13 +93,6 @@ playermove_t *pmove = NULL;
 
 // double to float warning
 #pragma warning(disable : 4244)
-//TODO: defined in multiple places - Solokiller
-// up / down
-#define	PITCH	0
-// left / right
-#define	YAW		1
-// fall over
-#define	ROLL	2 
 
 static const size_t STUCKTABLE_SIZE = 54;
 

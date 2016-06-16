@@ -3,6 +3,10 @@
 
 #include <cstddef>
 
+typedef void ( CBaseEntity::*BASEPTR )();
+typedef void ( CBaseEntity::*ENTITYFUNCPTR )( CBaseEntity *pOther );
+typedef void ( CBaseEntity::*USEPTR )( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+
 //
 // Base Entity.  All entity types derive from this
 //
@@ -31,20 +35,20 @@ public:
 	virtual void  OnDestroy() {}
 
 	// initialization functions
-	virtual void	Spawn( void ) { return; }
-	virtual void	Precache( void ) { return; }
+	virtual void	Spawn() {}
+	virtual void	Precache() {}
 	virtual void	KeyValue( KeyValueData* pkvd ) { pkvd->fHandled = false; }
 	virtual bool	Save( CSave &save );
 	virtual bool	Restore( CRestore &restore );
-	virtual int		ObjectCaps( void ) { return FCAP_ACROSS_TRANSITION; }
-	virtual void	Activate( void ) {}
+	virtual int		ObjectCaps() { return FCAP_ACROSS_TRANSITION; }
+	virtual void	Activate() {}
 
 	// Setup the object->object collision box (pev->mins / pev->maxs is the object->world collision box)
-	virtual void	SetObjectCollisionBox( void );
+	virtual void	SetObjectCollisionBox();
 
 	// Classify - returns the type of group (i.e, "houndeye", or "human military" so that monsters with different classnames
 	// still realize that they are teammates. (overridden for monsters that form groups)
-	virtual int Classify() { return CLASS_NONE; };
+	virtual int Classify() { return CLASS_NONE; }
 	virtual void DeathNotice( entvars_t *pevChild ) {}// monster maker children use this to tell the monster maker that they have died.
 
 	virtual void	TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
@@ -61,21 +65,21 @@ public:
 	virtual float	GiveHealth( float flHealth, int bitsDamageType );
 
 	virtual void	Killed( entvars_t *pevAttacker, int iGib );
-	virtual int		BloodColor( void ) { return DONT_BLEED; }
+	virtual int		BloodColor() { return DONT_BLEED; }
 	virtual void	TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
 	virtual bool    IsTriggered( const CBaseEntity* const pActivator ) const { return true; }
-	virtual CBaseMonster *MyMonsterPointer( void ) { return NULL; }
-	virtual CSquadMonster *MySquadMonsterPointer( void ) { return NULL; }
-	virtual	int		GetToggleState( void ) { return TS_AT_TOP; }
+	virtual CBaseMonster *MyMonsterPointer() { return nullptr; }
+	virtual CSquadMonster *MySquadMonsterPointer() { return nullptr; }
+	virtual	int		GetToggleState() { return TS_AT_TOP; }
 
-	virtual float	GetDelay( void ) { return 0; }
+	virtual float	GetDelay() { return 0; }
 	virtual bool	IsMoving() const { return pev->velocity != g_vecZero; }
-	virtual void	OverrideReset( void ) {}
+	virtual void	OverrideReset() {}
 	virtual int		DamageDecal( int bitsDamageType );
 	// This is ONLY used by the node graph to test movement through a door
 	virtual void	SetToggleState( int state ) {}
-	virtual void    StartSneaking( void ) {}
-	virtual void    StopSneaking( void ) {}
+	virtual void    StartSneaking() {}
+	virtual void    StopSneaking() {}
 	virtual bool	OnControls( entvars_t *pev ) { return false; }
 	virtual bool    IsSneaking() { return false; }
 	virtual bool	IsAlive() const { return ( pev->deadflag == DEAD_NO ) && pev->health > 0; }
@@ -89,63 +93,78 @@ public:
 
 
 	//	virtual void	SetActivator( CBaseEntity *pActivator ) {}
-	virtual CBaseEntity *GetNextTarget( void );
+	virtual CBaseEntity *GetNextTarget();
 
 	// fundamental callbacks
-	void ( CBaseEntity ::*m_pfnThink )( void );
-	void ( CBaseEntity ::*m_pfnTouch )( CBaseEntity *pOther );
-	void ( CBaseEntity ::*m_pfnUse )( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void ( CBaseEntity ::*m_pfnBlocked )( CBaseEntity *pOther );
+	BASEPTR			m_pfnThink;
+	ENTITYFUNCPTR	m_pfnTouch;
+	USEPTR			m_pfnUse;
+	ENTITYFUNCPTR	m_pfnBlocked;
 
-	virtual void Think( void ) { if( m_pfnThink ) ( this->*m_pfnThink )( ); };
-	virtual void Touch( CBaseEntity *pOther ) { if( m_pfnTouch ) ( this->*m_pfnTouch )( pOther ); };
+	virtual void Think()
+	{
+		if( m_pfnThink )
+			( this->*m_pfnThink )();
+	}
+
+	virtual void Touch( CBaseEntity *pOther )
+	{
+		if( m_pfnTouch )
+			( this->*m_pfnTouch )( pOther );
+	}
+
 	virtual void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 	{
 		if( m_pfnUse )
 			( this->*m_pfnUse )( pActivator, pCaller, useType, value );
 	}
-	virtual void Blocked( CBaseEntity *pOther ) { if( m_pfnBlocked ) ( this->*m_pfnBlocked )( pOther ); };
+
+	virtual void Blocked( CBaseEntity *pOther )
+	{
+		if( m_pfnBlocked )
+			( this->*m_pfnBlocked )( pOther );
+	}
 
 	// allow engine to allocate instance data
 	void *operator new( size_t stAllocateBlock, entvars_t *pev )
 	{
-		return ( void * ) ALLOC_PRIVATE( ENT( pev ), stAllocateBlock );
-	};
+		return ( void* ) ALLOC_PRIVATE( ENT( pev ), stAllocateBlock );
+	}
 
 	// don't use this.
 #if _MSC_VER >= 1200 // only build this code if MSVC++ 6.0 or higher
 	void operator delete( void *pMem, entvars_t *pev )
 	{
 		pev->flags |= FL_KILLME;
-	};
+	}
 #endif
 
-	void UpdateOnRemove( void );
+	void UpdateOnRemove();
 
 	// common member functions
-	void EXPORT SUB_Remove( void );
-	void EXPORT SUB_DoNothing( void );
-	void EXPORT SUB_StartFadeOut( void );
-	void EXPORT SUB_FadeOut( void );
-	void EXPORT SUB_CallUseToggle( void ) { this->Use( this, this, USE_TOGGLE, 0 ); }
+	void EXPORT SUB_Remove();
+	void EXPORT SUB_DoNothing();
+	void EXPORT SUB_StartFadeOut();
+	void EXPORT SUB_FadeOut();
+	void EXPORT SUB_CallUseToggle() { this->Use( this, this, USE_TOGGLE, 0 ); }
 	bool ShouldToggle( USE_TYPE useType, const bool currentState ) const;
 
 	void FireBullets( const unsigned int cShots,
 					  Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
 					  float flDistance, int iBulletType, 
-					  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = NULL );
+					  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = nullptr );
 
 	Vector FireBulletsPlayer( const unsigned int cShots,
 							  Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
 							  float flDistance, int iBulletType, 
-							  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = NULL, int shared_rand = 0 );
+							  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = nullptr, int shared_rand = 0 );
 
-	virtual CBaseEntity *Respawn( void ) { return NULL; }
+	virtual CBaseEntity *Respawn() { return nullptr; }
 
 	void SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value );
 	// Do the bounding boxes of these two intersect?
 	bool	Intersects( const CBaseEntity* const pOther ) const;
-	void	MakeDormant( void );
+	void	MakeDormant();
 	bool	IsDormant() const;
 	//Made this virtual. Used to be non-virtual and redeclared in CBaseToggle - Solokiller
 	virtual bool    IsLockedByMaster() const { return false; }
@@ -167,7 +186,7 @@ public:
 		CBaseEntity *pEntity = Instance( pevMonster );
 		if( pEntity )
 			return pEntity->MyMonsterPointer();
-		return NULL;
+		return nullptr;
 	}
 
 	static CBaseMonster *GetMonsterPointer( edict_t *pentMonster )
@@ -175,7 +194,7 @@ public:
 		CBaseEntity *pEntity = Instance( pentMonster );
 		if( pEntity )
 			return pEntity->MyMonsterPointer();
-		return NULL;
+		return nullptr;
 	}
 
 
@@ -213,30 +232,27 @@ public:
 	}
 
 #endif
-
-
 	// virtual functions used by a few classes
 
 	// used by monsters that are created by the MonsterMaker
-	virtual	void UpdateOwner( void ) { return; };
-
+	virtual	void UpdateOwner() {}
 
 	//
-	static CBaseEntity *Create( char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner = NULL );
+	static CBaseEntity *Create( char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner = nullptr );
 
 	virtual bool FBecomeProne() { return false; }
 	edict_t *edict() { return ENT( pev ); }
 	const edict_t* edict() const { return ENT( pev ); }
-	EOFFSET eoffset() { return OFFSET( pev ); }
-	int	  entindex() { return ENTINDEX( edict() ); }
+	EOFFSET eoffset() const { return OFFSET( pev ); }
+	int	  entindex() const { return ENTINDEX( edict() ); }
 
 	//TODO: make these const correct - Solokiller
-	virtual Vector Center() { return ( pev->absmax + pev->absmin ) * 0.5; }; // center point of entity
-	virtual Vector EyePosition() const { return pev->origin + pev->view_ofs; };			// position of eyes
-	virtual Vector EarPosition() { return pev->origin + pev->view_ofs; };			// position of ears
-	virtual Vector BodyTarget( const Vector &posSrc ) { return Center(); };		// position to shoot at
+	virtual Vector Center() const { return ( pev->absmax + pev->absmin ) * 0.5; }	// center point of entity
+	virtual Vector EyePosition() const { return pev->origin + pev->view_ofs; }		// position of eyes
+	virtual Vector EarPosition() const { return pev->origin + pev->view_ofs; }		// position of ears
+	virtual Vector BodyTarget( const Vector &posSrc ) const { return Center(); }			// position to shoot at
 
-	virtual int Illumination() { return GETENTITYILLUM( ENT( pev ) ); };
+	virtual int Illumination() const { return GETENTITYILLUM( ENT( pev ) ); }
 
 	virtual	bool FVisible( const CBaseEntity *pEntity ) const;
 	virtual	bool FVisible( const Vector &vecOrigin ) const;

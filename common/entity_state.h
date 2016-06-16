@@ -183,11 +183,13 @@ typedef struct clientdata_s
 
 #include "weaponinfo.h"
 
+#include "cdll_dll.h"
+
 typedef struct local_state_s
 {
 	entity_state_t playerstate;
 	clientdata_t   client;
-	weapon_data_t  weapondata[ 64 ]; //TODO: should be a constant MAX_WEAPONS - Solokiller
+	weapon_data_t  weapondata[ MAX_WEAPONS ];
 } local_state_t;
 
 #endif // !ENTITY_STATEH

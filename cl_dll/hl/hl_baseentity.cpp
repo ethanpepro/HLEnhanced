@@ -285,7 +285,7 @@ void CBasePlayer :: UpdateClientData( void ) { }
 bool CBasePlayer::FBecomeProne() { return true; }
 void CBasePlayer :: BarnacleVictimBitten ( entvars_t *pevBarnacle ) { }
 void CBasePlayer :: BarnacleVictimReleased ( void ) { }
-int CBasePlayer :: Illumination( void ) { return 0; }
+int CBasePlayer::Illumination() const { return 0; }
 void CBasePlayer :: EnableControl(const bool fControl) { }
 Vector CBasePlayer :: GetAutoaimVector( float flDelta ) { return g_vecZero; }
 Vector CBasePlayer :: AutoaimDeflection( Vector &vecSrc, float flDist, float flDelta  ) { return g_vecZero; }

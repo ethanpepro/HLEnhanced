@@ -60,8 +60,6 @@ public:
 	bool AbsorbSphere();
 	bool EmitSphere();
 	void TargetSphere( USE_TYPE useType, float value );
-	//TODO: refactor out of class - Solokiller
-	CBaseEntity *RandomTargetname( const char *szName );
 	void ShootBalls( void );
 	void MakeFriend( Vector vecPos );
 	
@@ -1260,31 +1258,6 @@ void CNihilanth::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vec
 	// SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage * 5.0);// a little surface blood.
 	g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
 }
-
-
-
-CBaseEntity *CNihilanth::RandomTargetname( const char *szName )
-{
-	int total = 0;
-
-	CBaseEntity *pEntity = NULL;
-	CBaseEntity *pNewEntity = NULL;
-	while ((pNewEntity = UTIL_FindEntityByTargetname( pNewEntity, szName )) != NULL)
-	{
-		total++;
-		if (RANDOM_LONG(0,total-1) < 1)
-			pEntity = pNewEntity;
-	}
-	return pEntity;
-}
-
-
-
-
-
-
-
-
 
 //=========================================================
 // Controller bouncy ball attack

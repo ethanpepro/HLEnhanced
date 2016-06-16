@@ -81,8 +81,8 @@ public:
 	void StartTask ( Task_t *pTask ) override;
 	void SetYawSpeed ( void ) override;
 	void EXPORT LeapTouch ( CBaseEntity *pOther );
-	Vector Center( void ) override;
-	Vector BodyTarget( const Vector &posSrc ) override;
+	Vector Center() const override;
+	Vector BodyTarget( const Vector &posSrc ) const override;
 	void PainSound( void ) override;
 	void DeathSound( void ) override;
 	void IdleSound( void ) override;
@@ -167,15 +167,15 @@ int	CHeadCrab :: Classify ( void )
 // bounding box is much larger than the actual creature so 
 // this is needed for targeting
 //=========================================================
-Vector CHeadCrab :: Center ( void )
+Vector CHeadCrab::Center() const
 {
 	return Vector( pev->origin.x, pev->origin.y, pev->origin.z + 6 );
 }
 
 
-Vector CHeadCrab :: BodyTarget( const Vector &posSrc ) 
+Vector CHeadCrab::BodyTarget( const Vector &posSrc ) const
 { 
-	return Center( );
+	return Center();
 }
 
 //=========================================================

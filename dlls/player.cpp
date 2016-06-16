@@ -4136,9 +4136,9 @@ void CBasePlayer :: BarnacleVictimReleased ( void )
 // Illumination 
 // return player light level plus virtual muzzle flash
 //=========================================================
-int CBasePlayer :: Illumination( void )
+int CBasePlayer::Illumination() const
 {
-	int iIllum = CBaseEntity::Illumination( );
+	int iIllum = CBaseEntity::Illumination();
 
 	iIllum += m_iWeaponFlash;
 	if (iIllum > 255)

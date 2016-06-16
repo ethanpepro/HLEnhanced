@@ -111,13 +111,13 @@ inline EOFFSET OFFSET(const edict_t *pent)
 #endif
 	return (*g_engfuncs.pfnEntOffsetOfPEntity)(pent); 
 }
-inline EOFFSET OFFSET(entvars_t *pev)				
+inline EOFFSET OFFSET( const entvars_t *pev )				
 { 
 #if _DEBUG
 	if ( !pev )
 		ALERT( at_error, "Bad pev in OFFSET()\n" );
 #endif
-	return OFFSET(ENT(pev)); 
+	return OFFSET( ENT( pev ) ); 
 }
 inline entvars_t *VARS(entvars_t *pev)					{ return pev; }
 
@@ -130,7 +130,7 @@ inline entvars_t *VARS(edict_t *pent)
 }
 
 inline entvars_t* VARS(EOFFSET eoffset)				{ return VARS(ENT(eoffset)); }
-inline int	  ENTINDEX(edict_t *pEdict)			{ return (*g_engfuncs.pfnIndexOfEdict)(pEdict); }
+inline int ENTINDEX( const edict_t *pEdict )			{ return (*g_engfuncs.pfnIndexOfEdict)(pEdict); }
 inline edict_t* INDEXENT( int iEdictNum )		{ return (*g_engfuncs.pfnPEntityOfEntIndex)(iEdictNum); }
 inline void MESSAGE_BEGIN( int msg_dest, int msg_type, const float *pOrigin, entvars_t *ent ) {
 	(*g_engfuncs.pfnMessageBegin)(msg_dest, msg_type, pOrigin, ENT(ent));
@@ -537,3 +537,10 @@ int UTIL_SharedRandomLong( unsigned int seed, int low, int high );
 float UTIL_SharedRandomFloat( unsigned int seed, float low, float high );
 
 float UTIL_WeaponTimeBase( void );
+
+/**
+*	From the set of entities named pszName, randomly selects one entity.
+*	@param pszName Entity targetname.
+*	@return Randomly selected entity, or null if no entities by that name exist.
+*/
+CBaseEntity* UTIL_RandomTargetname( const char* const pszName );
