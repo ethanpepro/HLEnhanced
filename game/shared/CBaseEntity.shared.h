@@ -129,16 +129,24 @@ public:
 	void EXPORT SUB_FadeOut( void );
 	void EXPORT SUB_CallUseToggle( void ) { this->Use( this, this, USE_TOGGLE, 0 ); }
 	bool ShouldToggle( USE_TYPE useType, const bool currentState ) const;
-	void		FireBullets( ULONG	cShots, Vector  vecSrc, Vector	vecDirShooting, Vector	vecSpread, float flDistance, int iBulletType, int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = NULL );
-	Vector		FireBulletsPlayer( ULONG	cShots, Vector  vecSrc, Vector	vecDirShooting, Vector	vecSpread, float flDistance, int iBulletType, int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = NULL, int shared_rand = 0 );
+
+	void FireBullets( const unsigned int cShots,
+					  Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
+					  float flDistance, int iBulletType, 
+					  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = NULL );
+
+	Vector FireBulletsPlayer( const unsigned int cShots,
+							  Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
+							  float flDistance, int iBulletType, 
+							  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = NULL, int shared_rand = 0 );
 
 	virtual CBaseEntity *Respawn( void ) { return NULL; }
 
 	void SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value );
 	// Do the bounding boxes of these two intersect?
-	int		Intersects( CBaseEntity *pOther );
+	bool	Intersects( const CBaseEntity* const pOther ) const;
 	void	MakeDormant( void );
-	int		IsDormant( void );
+	bool	IsDormant() const;
 	//Made this virtual. Used to be non-virtual and redeclared in CBaseToggle - Solokiller
 	virtual bool    IsLockedByMaster() const { return false; }
 
@@ -153,14 +161,16 @@ public:
 	static CBaseEntity *Instance( entvars_t *pev ) { return Instance( ENT( pev ) ); }
 	static CBaseEntity *Instance( int eoffset ) { return Instance( ENT( eoffset ) ); }
 
-	CBaseMonster *GetMonsterPointer( entvars_t *pevMonster )
+	//Made these static. No point in having member functions that don't access this. - Solokiller
+	static CBaseMonster *GetMonsterPointer( entvars_t *pevMonster )
 	{
 		CBaseEntity *pEntity = Instance( pevMonster );
 		if( pEntity )
 			return pEntity->MyMonsterPointer();
 		return NULL;
 	}
-	CBaseMonster *GetMonsterPointer( edict_t *pentMonster )
+
+	static CBaseMonster *GetMonsterPointer( edict_t *pentMonster )
 	{
 		CBaseEntity *pEntity = Instance( pentMonster );
 		if( pEntity )
@@ -231,6 +241,7 @@ public:
 	virtual	bool FVisible( const CBaseEntity *pEntity ) const;
 	virtual	bool FVisible( const Vector &vecOrigin ) const;
 
+	//TODO: find a way to get rid of this stuff. We need to be able to network arbitrary ammo counts - Solokiller
 	//We use this variables to store each ammo count.
 	int ammo_9mm;
 	int ammo_357;

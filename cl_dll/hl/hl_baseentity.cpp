@@ -47,9 +47,9 @@ CBaseEntity *CBaseEntity::GetNextTarget( void ) { return NULL; }
 bool CBaseEntity::Save( CSave &save ) { return true; }
 bool CBaseEntity::Restore( CRestore &restore ) { return true; }
 void CBaseEntity::SetObjectCollisionBox( void ) { }
-int	CBaseEntity :: Intersects( CBaseEntity *pOther ) { return 0; }
+bool CBaseEntity::Intersects( const CBaseEntity* const pOther ) const { return false; }
 void CBaseEntity :: MakeDormant( void ) { }
-int CBaseEntity :: IsDormant( void ) { return 0; }
+bool CBaseEntity::IsDormant() const { return false; }
 bool CBaseEntity :: IsInWorld() const { return true; }
 bool CBaseEntity::ShouldToggle( USE_TYPE useType, const bool currentState ) const { return false; }
 int	CBaseEntity :: DamageDecal( int bitsDamageType ) { return -1; }
@@ -187,7 +187,14 @@ void CBaseAnimating :: SetBodygroup( int iGroup, int iValue ) { }
 int CBaseAnimating :: GetBodygroup( int iGroup ) { return 0; }
 Vector CBaseMonster :: GetGunPosition( void ) { return g_vecZero; }
 void CBaseEntity::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) { }
-void CBaseEntity::FireBullets(ULONG cShots, Vector vecSrc, Vector vecDirShooting, Vector vecSpread, float flDistance, int iBulletType, int iTracerFreq, int iDamage, entvars_t *pevAttacker ) { }
+
+void CBaseEntity::FireBullets( const unsigned int cShots, 
+							   Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
+							   float flDistance, int iBulletType, 
+							   int iTracerFreq, int iDamage, entvars_t *pevAttacker )
+{
+}
+
 void CBaseEntity :: TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) { }
 void CBaseMonster :: MakeDamageBloodDecal ( int cCount, float flNoise, TraceResult *ptr, const Vector &vecDir ) { }
 bool CBaseMonster::FGetNodeRoute( const Vector& vecDest ) { return true; }

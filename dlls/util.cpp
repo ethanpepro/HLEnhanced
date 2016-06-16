@@ -1005,7 +1005,7 @@ void UTIL_SetOrigin( entvars_t *pev, const Vector &vecOrigin )
 		SET_ORIGIN( ent, vecOrigin );
 }
 
-void UTIL_ParticleEffect( const Vector &vecOrigin, const Vector &vecDirection, ULONG ulColor, ULONG ulCount )
+void UTIL_ParticleEffect( const Vector &vecOrigin, const Vector &vecDirection, const unsigned int ulColor, const unsigned int ulCount )
 {
 	PARTICLE_EFFECT( vecOrigin, vecDirection, (float)ulColor, (float)ulCount );
 }

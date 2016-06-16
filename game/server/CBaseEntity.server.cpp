@@ -179,7 +179,7 @@ void CBaseEntity::SetObjectCollisionBox( void )
 	::SetObjectCollisionBox( pev );
 }
 
-int	CBaseEntity::Intersects( CBaseEntity *pOther )
+bool CBaseEntity::Intersects( const CBaseEntity* const pOther ) const
 {
 	if( pOther->pev->absmin.x > pev->absmax.x ||
 		pOther->pev->absmin.y > pev->absmax.y ||
@@ -187,8 +187,8 @@ int	CBaseEntity::Intersects( CBaseEntity *pOther )
 		pOther->pev->absmax.x < pev->absmin.x ||
 		pOther->pev->absmax.y < pev->absmin.y ||
 		pOther->pev->absmax.z < pev->absmin.z )
-		return 0;
-	return 1;
+		return false;
+	return true;
 }
 
 void CBaseEntity::MakeDormant( void )
@@ -207,9 +207,9 @@ void CBaseEntity::MakeDormant( void )
 	UTIL_SetOrigin( pev, pev->origin );
 }
 
-int CBaseEntity::IsDormant( void )
+bool CBaseEntity::IsDormant() const
 {
-	return FBitSet( pev->flags, FL_DORMANT );
+	return FBitSet( pev->flags, FL_DORMANT ) != 0;
 }
 
 bool CBaseEntity::IsInWorld() const

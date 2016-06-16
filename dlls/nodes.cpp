@@ -779,7 +779,7 @@ int CGraph :: FindShortestPath ( int *piPath, int iStart, int iDest, int iHull, 
 	return iNumPathNodes;
 }
 
-inline ULONG Hash(void *p, int len)
+inline CRC32_t Hash(void *p, int len)
 {
 	CRC32_t ulCrc;
 	CRC32_INIT(&ulCrc);
@@ -879,7 +879,7 @@ int	CGraph :: FindNearestNode ( const Vector &vecOrigin,  int afNodeTypes )
 
 	// Check with the cache
 	//
-	ULONG iHash = ( NODE_CACHE_SIZE -1) & Hash((void *)(const float *)vecOrigin, sizeof(vecOrigin));
+	CRC32_t iHash = ( NODE_CACHE_SIZE -1) & Hash((void *)(const float *)vecOrigin, sizeof(vecOrigin));
 	if (m_Cache[iHash].v == vecOrigin)
 	{
 		//ALERT(at_aiconsole, "Cache Hit.\n");

@@ -44,13 +44,13 @@
 
 // #define DUCKFIX
 
-extern DLL_GLOBAL ULONG		g_ulModelIndexPlayer;
-extern DLL_GLOBAL bool		g_fGameOver;
-extern DLL_GLOBAL	bool	g_fDrawLines;
+extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
+extern DLL_GLOBAL bool			g_fGameOver;
+extern DLL_GLOBAL	bool		g_fDrawLines;
 //Wasn't initialized - Solokiller
 bool gEvilImpulse101 = false;
-extern DLL_GLOBAL int		g_iSkillLevel;
-extern DLL_GLOBAL bool		gDisplayTitle;
+extern DLL_GLOBAL int			g_iSkillLevel;
+extern DLL_GLOBAL bool			gDisplayTitle;
 
 
 bool gInitHUD = true;
