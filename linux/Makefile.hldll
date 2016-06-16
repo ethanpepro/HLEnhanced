@@ -142,7 +142,6 @@ COMMON_OBJS = \
 
 PM_OBJS = \
 	$(PM_OBJ_DIR)/pm_shared.o \
-	$(PM_OBJ_DIR)/pm_math.o \
 	$(PM_OBJ_DIR)/pm_debug.o
 
 GAME_SHARED_OBJS = \
@@ -175,7 +174,7 @@ $(HLDLL_OBJ_DIR)/%.o : $(HLDLL_SRC_DIR)/%.cpp
 $(COMMON_OBJ_DIR)/%.o : $(COMMON_SRC_DIR)/%.cpp
 	$(DO_COMMON_CC)
 
-$(PM_OBJ_DIR)/%.o : $(PM_SRC_DIR)/%.c
+$(PM_OBJ_DIR)/%.o : $(PM_SRC_DIR)/%.cpp
 	$(DO_PM_CC)
 
 $(GAME_SHARED_OBJ_DIR)/%.o : $(GAME_SHARED_SRC_DIR)/%.cpp
