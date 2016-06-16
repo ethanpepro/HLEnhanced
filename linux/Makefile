@@ -148,3 +148,6 @@ hl: build_dir
 
 clean:
 	-rm -rf $(BUILD_OBJ_DIR)
+
+mrproper:
+	-rm -rf $(BUILD_OBJ_DIR) release/*.dbg release/client.$(SHLIBEXT) release/hl.$(SHLIBEXT) *_map.txt
