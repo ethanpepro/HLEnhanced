@@ -47,10 +47,7 @@ CGraph	WorldGraph;
 
 LINK_ENTITY_TO_CLASS( info_node, CNodeEnt );
 LINK_ENTITY_TO_CLASS( info_node_air, CNodeEnt );
-#ifdef _LINUX
-#include <unistd.h>
-#define CreateDirectory(p, n) mkdir(p, 0777)
-#endif
+
 //=========================================================
 // CGraph - InitGraph - prepares the graph for use. Frees any
 // memory currently in use by the world graph, NULLs 
@@ -1655,9 +1652,9 @@ void CTestHull :: BuildNodeGraph( void )
 	// make sure directories have been made
 	GET_GAME_DIR( szNrpFilename );
 	strcat( szNrpFilename, "/maps" );
-	CreateDirectory( szNrpFilename, NULL );
+	MakeDirectory( szNrpFilename );
 	strcat( szNrpFilename, "/graphs" );
-	CreateDirectory( szNrpFilename, NULL );
+	MakeDirectory( szNrpFilename );
 
 	strcat( szNrpFilename, "/" );
 	strcat( szNrpFilename, STRING( gpGlobals->mapname ) );
@@ -2327,9 +2324,9 @@ bool CGraph::FLoadGraph( char *szMapName )
 	char	szDirName[MAX_PATH];
 	GET_GAME_DIR( szDirName );
 	strcat( szDirName, "/maps" );
-	CreateDirectory( szDirName, NULL );
+	MakeDirectory( szDirName );
 	strcat( szDirName, "/graphs" );
-	CreateDirectory( szDirName, NULL );
+	MakeDirectory( szDirName );
 
 	strcpy ( szFilename, "maps/graphs/" );
 	strcat ( szFilename, szMapName );
@@ -2505,9 +2502,9 @@ bool CGraph::FSaveGraph( char *szMapName )
 	// make sure directories have been made
 	GET_GAME_DIR( szFilename );
 	strcat( szFilename, "/maps" );
-	CreateDirectory( szFilename, NULL );
+	MakeDirectory( szFilename );
 	strcat( szFilename, "/graphs" );
-	CreateDirectory( szFilename, NULL );
+	MakeDirectory( szFilename );
 
 	strcat( szFilename, "/" );
 	strcat( szFilename, szMapName );

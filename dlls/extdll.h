@@ -34,31 +34,15 @@
 
 #include "archtypes.h"     // DAL
 
-// Prevent tons of unused windows definitions
-#ifdef _WIN32
-#define WIN32_LEAN_AND_MEAN
-#define NOWINRES
-#define NOSERVICE
-#define NOMCX
-#define NOIME
-#include "winsani_in.h"
-#include "windows.h"
-#include "winsani_out.h"
-#else // _WIN32
-#define MAX_PATH PATH_MAX
-#include <limits.h>
-#include <stdarg.h>
-#include <string.h> // memset 
+#include "Platform.h"
+
 #ifndef min
 #define min(a,b)  (((a) < (b)) ? (a) : (b))
 #endif
+
 #ifndef max
 #define max(a,b)  (((a) > (b)) ? (a) : (b))
-#define _vsnprintf(a,b,c,d) vsnprintf(a,b,c,d)
 #endif
-#endif //_WIN32
-
-#include "Platform.h"
 
 // Misc C-runtime library headers
 #include "stdio.h"

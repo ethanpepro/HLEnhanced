@@ -162,11 +162,11 @@ int GetNewDLLFunctions( NEW_DLL_FUNCTIONS* pFunctionTable, int* pInterfaceVersio
 	if( !pFunctionTable || *pInterfaceVersion != NEW_DLL_FUNCTIONS_VERSION )
 	{
 		*pInterfaceVersion = NEW_DLL_FUNCTIONS_VERSION;
-		return FALSE;
+		return false;
 	}
 
 	memcpy( pFunctionTable, &gNewDLLFunctions, sizeof( gNewDLLFunctions ) );
-	return TRUE;
+	return true;
 }
 
 }
