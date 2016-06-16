@@ -163,8 +163,8 @@ typedef struct locksounds			// sounds that doors and buttons make when locked/un
 
 	float	flwaitSound;			// time delay between playing consecutive 'locked/unlocked' sounds
 	float	flwaitSentence;			// time delay between playing consecutive sentences
-	BYTE	bEOFLocked;				// true if hit end of list of locked sentences
-	BYTE	bEOFUnlocked;			// true if hit end of list of unlocked sentences
+	bool	bEOFLocked;				// true if hit end of list of locked sentences
+	bool	bEOFUnlocked;			// true if hit end of list of unlocked sentences
 } locksound_t;
 
 void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const bool bButton );

@@ -45,7 +45,6 @@
 #include "windows.h"
 #include "winsani_out.h"
 #else // _WIN32
-typedef unsigned char BYTE;
 #define MAX_PATH PATH_MAX
 #include <limits.h>
 #include <stdarg.h>

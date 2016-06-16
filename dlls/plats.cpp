@@ -43,8 +43,8 @@ public:
 	// This is done to fix spawn flag collisions between this class and a derived class
 	virtual bool IsTogglePlat() const { return ( pev->spawnflags & SF_PLAT_TOGGLE ) != 0; }
 
-	BYTE	m_bMoveSnd;			// sound a plat makes while moving
-	BYTE	m_bStopSnd;			// sound a plat makes when it stops
+	byte	m_bMoveSnd;			// sound a plat makes while moving
+	byte	m_bStopSnd;			// sound a plat makes when it stops
 	float	m_volume;			// Sound volume
 };
 

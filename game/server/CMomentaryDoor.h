@@ -30,7 +30,7 @@ public:
 
 	void EXPORT DoorMoveDone( void );
 
-	BYTE	m_bMoveSnd;			// sound a door makes while moving	
+	byte	m_bMoveSnd;			// sound a door makes while moving	
 };
 
 
