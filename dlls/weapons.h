@@ -374,15 +374,8 @@ public:
 		data.m_flNextSecondaryAttack	= max( m_flNextSecondaryAttack, -0.001 );
 
 		data.m_fInReload				= m_fInReload;
-		data.m_fInSpecialReload			= m_fInSpecialReload;
-		//data.m_flPumpTime				= max( m_flPumpTime, -0.001 );
 
 		data.fuser1						= max( pev->fuser1, -0.001 );
-		data.fuser2						= m_flStartThrow;
-		data.fuser3						= m_flReleaseThrow;
-		data.iuser1						= m_chargeReady;
-		data.iuser2						= m_fInAttack;
-		data.iuser3						= m_fireState;
 	}
 
 	/**
@@ -399,19 +392,10 @@ public:
 		m_flNextSecondaryAttack		= data.m_flNextSecondaryAttack;
 
 		m_fInReload					= data.m_fInReload != 0;
-		m_fInSpecialReload			= data.m_fInSpecialReload;
-		//m_flPumpTime				= data.m_flPumpTime;
 
 		pev->fuser1					= data.fuser1;
-		m_flStartThrow				= data.fuser2;
-		m_flReleaseThrow			= data.fuser3;
-		m_chargeReady				= data.iuser1;
-		m_fInAttack					= data.iuser2;
-		m_fireState					= data.iuser3;
 	}
 
-	float m_flPumpTime;
-	int		m_fInSpecialReload;									// Are we in the middle of a reload for the shotguns
 	float	m_flNextPrimaryAttack;								// soonest time ItemPostFrame will call PrimaryAttack
 	float	m_flNextSecondaryAttack;							// soonest time ItemPostFrame will call SecondaryAttack
 	float	m_flTimeWeaponIdle;									// soonest time ItemPostFrame will call WeaponIdle
@@ -704,7 +688,6 @@ public:
 	bool Deploy() override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
-	int m_fInReload; //TODO: seems to be unused. Replaced with m_fInSpecialReload? - Solokiller
 	float m_flNextReload;
 	int m_iShell;
 
@@ -717,9 +700,29 @@ public:
 #endif
 	}
 
+	void GetWeaponData( weapon_data_t& data ) override
+	{
+		BaseClass::GetWeaponData( data );
+
+		data.m_fInSpecialReload = m_fInSpecialReload;
+
+		//data.m_flPumpTime		= max( m_flPumpTime, -0.001 );
+	}
+
+	void SetWeaponData( const weapon_data_t& data ) override
+	{
+		BaseClass::SetWeaponData( data );
+
+		m_fInSpecialReload	= data.m_fInSpecialReload;
+		//m_flPumpTime		= data.m_flPumpTime;
+	}
+
 private:
 	unsigned short m_usDoubleFire;
 	unsigned short m_usSingleFire;
+
+	int m_fInSpecialReload;		// Are we in the middle of a reload for the shotguns
+	float m_flPumpTime;
 };
 
 class CLaserSpot : public CBaseEntity
@@ -824,6 +827,21 @@ public:
 	void StartFire( void );
 	void Fire( Vector vecOrigSrc, Vector vecDirShooting, float flDamage );
 	float GetFullChargeTime( void );
+
+	void GetWeaponData( weapon_data_t& data ) override
+	{
+		BaseClass::GetWeaponData( data );
+
+		data.iuser2 = m_fInAttack;
+	}
+
+	void SetWeaponData( const weapon_data_t& data ) override
+	{
+		BaseClass::SetWeaponData( data );
+
+		m_fInAttack = data.iuser2;
+	}
+
 	int m_iBalls;
 	int m_iGlow;
 	int m_iBeam;
@@ -845,6 +863,9 @@ public:
 private:
 	unsigned short m_usGaussFire;
 	unsigned short m_usGaussSpin;
+
+	//TODO: this should be an enum - Solokiller
+	int m_fInAttack;
 };
 
 class CEgon : public CBasePlayerWeapon
@@ -884,8 +905,24 @@ public:
 	bool HasAmmo() const;
 
 	void UseAmmo( int count );
+
+	void GetWeaponData( weapon_data_t& data ) override
+	{
+		BaseClass::GetWeaponData( data );
+
+		data.iuser3 = m_fireState;
+	}
+
+	void SetWeaponData( const weapon_data_t& data ) override
+	{
+		BaseClass::SetWeaponData( data );
+
+		m_fireState = data.iuser3;
+	}
 	
 	enum EGON_FIREMODE { FIRE_NARROW, FIRE_WIDE};
+
+	enum EGON_FIRESTATE { FIRE_OFF, FIRE_CHARGE };
 
 	CBeam				*m_pBeam;
 	CBeam				*m_pNoise;
@@ -905,6 +942,7 @@ public:
 private:
 	float				m_shootTime;
 	EGON_FIREMODE		m_fireMode;
+	int					m_fireState;
 	float				m_shakeTime;
 	bool				m_deployed;
 
@@ -973,6 +1011,26 @@ public:
 		return false;
 #endif
 	}
+
+	void GetWeaponData( weapon_data_t& data ) override
+	{
+		BaseClass::GetWeaponData( data );
+
+		data.fuser2 = m_flStartThrow;
+		data.fuser3 = m_flReleaseThrow;
+	}
+
+	void SetWeaponData( const weapon_data_t& data ) override
+	{
+		BaseClass::SetWeaponData( data );
+
+		m_flStartThrow		= data.fuser2;
+		m_flReleaseThrow	= data.fuser3;
+	}
+
+private:
+	float m_flStartThrow;
+	float m_flReleaseThrow;
 };
 
 class CSatchel : public CBasePlayerWeapon
@@ -1007,6 +1065,24 @@ public:
 		return false;
 #endif
 	}
+
+	void GetWeaponData( weapon_data_t& data ) override
+	{
+		BaseClass::GetWeaponData( data );
+
+		data.iuser1 = m_chargeReady;
+	}
+
+	void SetWeaponData( const weapon_data_t& data ) override
+	{
+		BaseClass::SetWeaponData( data );
+
+		m_chargeReady = data.iuser1;
+	}
+
+private:
+	//TODO: make this an enum - Solokiller
+	int m_chargeReady;
 };
 
 
