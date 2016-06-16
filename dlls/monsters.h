@@ -66,8 +66,18 @@
 
 
 // MoveToOrigin stuff
-#define		MOVE_NORMAL				0// normal move in the direction monster is facing
-#define		MOVE_STRAFE				1// moves in direction specified, no matter which way monster is facing
+enum MoveType
+{
+	/**
+	*	Normal move in the direction monster is facing.
+	*/
+	MOVE_NORMAL		= 0,
+
+	/**
+	*	Moves in direction specified, no matter which way monster is facing.
+	*/
+	MOVE_STRAFE		= 1
+};
 
 // spawn flags 256 and above are already taken by the engine
 extern void UTIL_MoveToOrigin( edict_t* pent, const Vector &vecGoal, float flDist, int iMoveType ); 

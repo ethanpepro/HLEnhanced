@@ -16,14 +16,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-/**
-*	Called when the game loads this DLL. - Solokiller
-*/
 void GameDLLInit();
 
-/**
-*	Called when the game unloads this DLL. - Solokliler
-*/
 void GameDLLShutdown();
 
 extern cvar_t	displaysoundlist;

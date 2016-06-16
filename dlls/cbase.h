@@ -81,7 +81,7 @@ extern void DispatchThink( edict_t *pent );
 extern void DispatchBlocked( edict_t *pentBlocked, edict_t *pentOther );
 extern void DispatchSave( edict_t *pent, SAVERESTOREDATA *pSaveData );
 extern int  DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity );
-extern void	DispatchObjectCollsionBox( edict_t *pent );
+extern void	DispatchObjectCollisionBox( edict_t *pent );
 extern void SaveWriteFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount );
 extern void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount );
 extern void SaveGlobalState( SAVERESTOREDATA *pSaveData );

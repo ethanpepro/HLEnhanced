@@ -212,7 +212,7 @@ void PM_InitTextureTypes()
 	bTextureTypeInit = true;
 }
 
-char PM_FindTextureType( char *name )
+char PM_FindTextureType( const char* pszName )
 {
 	int left, right, pivot;
 	int val;
@@ -226,7 +226,7 @@ char PM_FindTextureType( char *name )
 	{
 		pivot = ( left + right ) / 2;
 
-		val = strnicmp( name, grgszTextureName[ pivot ], CBTEXTURENAMEMAX-1 );
+		val = strnicmp( pszName, grgszTextureName[ pivot ], CBTEXTURENAMEMAX-1 );
 		if ( val == 0 )
 		{
 			return grgchTextureType[ pivot ];

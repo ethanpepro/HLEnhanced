@@ -41,7 +41,7 @@ static DLL_FUNCTIONS gFunctionTable =
 	DispatchKeyValue,			//pfnKeyValue
 	DispatchSave,				//pfnSave
 	DispatchRestore,			//pfnRestore
-	DispatchObjectCollsionBox,	//pfnAbsBox
+	DispatchObjectCollisionBox,	//pfnAbsBox
 
 	SaveWriteFields,			//pfnSaveWriteFields
 	SaveReadFields,				//pfnSaveReadFields
@@ -94,32 +94,12 @@ static DLL_FUNCTIONS gFunctionTable =
 	AllowLagCompensation,		//pfnAllowLagCompensation
 };
 
-/**
-*	Called when an entity is freed by the engine. Calls OnDestroy and runs the destructor. - Solokiller
-*/
 void OnFreeEntPrivateData( edict_t* pEdict );
 
-/**
-*	Called when the engine believes two entities are about to collide. Return 0 if you
-*	want the two entities to just pass through each other without colliding or calling the
-*	touch function.
-*/
 int ShouldCollide( edict_t *pentTouched, edict_t *pentOther );
 
-/**
-*	Called when the engine has received a cvar value from the client in response to a pfnQueryClientCvarValue call.
-*	If the client isn't connected, or the cvar didn't exist, the value given is "Bad CVAR request".
-*	@param pEnt Client entity.
-*	@param value Cvar value.
-*/
 void CvarValue( const edict_t *pEnt, const char *value );
 
-/**
-*	Called when the engine has received a cvar value from the client in response to a pfnQueryClientCvarValue2 call.
-*	@param requestID The ID given to the pfnQueryClientCvarValue2 function.
-*	@param cvarName Name of the cvar that was queried.
-*	@see CvarValue
-*/
 void CvarValue2( const edict_t *pEnt, int requestID, const char *cvarName, const char *value );
 
 NEW_DLL_FUNCTIONS gNewDLLFunctions = 
@@ -456,7 +436,7 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 }
 
 
-void DispatchObjectCollsionBox( edict_t *pent )
+void DispatchObjectCollisionBox( edict_t *pent )
 {
 	CBaseEntity *pEntity = (CBaseEntity *)GET_PRIVATE(pent);
 	if (pEntity)

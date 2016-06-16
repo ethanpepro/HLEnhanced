@@ -51,15 +51,6 @@ inline edict_t *FIND_ENTITY_BY_TARGET(edict_t *entStart, const char *pszName)
 	return FIND_ENTITY_BY_STRING(entStart, "target", pszName);
 }	
 
-// Keeps clutter down a bit, when writing key-value pairs
-#define WRITEKEY_INT(pf, szKeyName, iKeyValue) ENGINE_FPRINTF(pf, "\"%s\" \"%d\"\n", szKeyName, iKeyValue)
-#define WRITEKEY_FLOAT(pf, szKeyName, flKeyValue)								\
-		ENGINE_FPRINTF(pf, "\"%s\" \"%f\"\n", szKeyName, flKeyValue)
-#define WRITEKEY_STRING(pf, szKeyName, szKeyValue)								\
-		ENGINE_FPRINTF(pf, "\"%s\" \"%s\"\n", szKeyName, szKeyValue)
-#define WRITEKEY_VECTOR(pf, szKeyName, flX, flY, flZ)							\
-		ENGINE_FPRINTF(pf, "\"%s\" \"%f %f %f\"\n", szKeyName, flX, flY, flZ)
-
 // Keeps clutter down a bit, when using a float as a bit-vector
 #define SetBits(flBitVector, bits)		((flBitVector) = (int)(flBitVector) | (bits))
 #define ClearBits(flBitVector, bits)	((flBitVector) = (int)(flBitVector) & ~(bits))
@@ -72,9 +63,6 @@ inline edict_t *FIND_ENTITY_BY_TARGET(edict_t *entStart, const char *pszName)
 // Until we figure out why "const" gives the compiler problems, we'll just have to use
 // this bogus "empty" define to mark things as constant.
 #define CONSTANT
-
-// More explicit than "int"
-typedef int EOFFSET;
 
 // In case this ever changes
 #define M_PI			3.14159265358979323846
@@ -132,8 +120,8 @@ inline entvars_t *VARS(edict_t *pent)
 inline entvars_t* VARS(EOFFSET eoffset)				{ return VARS(ENT(eoffset)); }
 inline int ENTINDEX( const edict_t *pEdict )			{ return (*g_engfuncs.pfnIndexOfEdict)(pEdict); }
 inline edict_t* INDEXENT( int iEdictNum )		{ return (*g_engfuncs.pfnPEntityOfEntIndex)(iEdictNum); }
-inline void MESSAGE_BEGIN( int msg_dest, int msg_type, const float *pOrigin, entvars_t *ent ) {
-	(*g_engfuncs.pfnMessageBegin)(msg_dest, msg_type, pOrigin, ENT(ent));
+inline void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float *pOrigin, entvars_t *ent ) {
+	(*g_engfuncs.pfnMessageBegin)( iMsgType, iMsgID, pOrigin, ENT(ent));
 }
 
 // Testing the three types of "entity" for nullity
@@ -523,8 +511,11 @@ void EMIT_GROUPNAME_SUIT(edict_t *entity, const char *groupname);
 #define PLAYBACK_EVENT( flags, who, index ) PLAYBACK_EVENT_FULL( flags, who, index, 0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, 0, 0, 0, 0 );
 #define PLAYBACK_EVENT_DELAY( flags, who, index, delay ) PLAYBACK_EVENT_FULL( flags, who, index, delay, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, 0, 0, 0, 0 );
 
-#define GROUP_OP_AND	0
-#define GROUP_OP_NAND	1
+enum GroupTraceOp
+{
+	GROUP_OP_AND	= 0,
+	GROUP_OP_NAND	= 1
+};
 
 extern int g_groupmask;
 extern int g_groupop;

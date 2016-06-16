@@ -15,6 +15,16 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+enum HostFlag
+{
+	HOSTFL_NONE			= 0,
+
+	/**
+	*	cl_lw is non-zero for this client.
+	*/
+	HOSTFL_WEAPONPRED	= 1 << 0
+};
+
 extern void respawn( entvars_t* pev, const bool fCopyCorpse );
 extern qboolean ClientConnect( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ 128 ] );
 extern void ClientDisconnect( edict_t *pEntity );
@@ -42,12 +52,12 @@ extern void SpectatorThink ( edict_t *pEntity );
 extern void Sys_Error( const char *error_string );
 
 extern void SetupVisibility( edict_t *pViewEntity, edict_t *pClient, unsigned char **pvs, unsigned char **pas );
-extern void	UpdateClientData ( const struct edict_s *ent, int sendweapons, struct clientdata_s *cd );
+extern void	UpdateClientData ( const edict_t* pClient, int sendweapons, struct clientdata_s* cd );
 extern int AddToFullPack( struct entity_state_s *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet );
-extern void CreateBaseline( int player, int eindex, struct entity_state_s *baseline, struct edict_s *entity, int playermodelindex, const Vector& player_mins, const Vector& player_maxs );
+extern void CreateBaseline( int player, int eindex, struct entity_state_s* baseline, edict_t* entity, int playermodelindex, const Vector player_mins[ 4 ], const Vector player_maxs[ 4 ] );
 extern void RegisterEncoders( void );
 
-extern int GetWeaponData( struct edict_s *player, struct weapon_data_s *info );
+extern int GetWeaponData( edict_t* pPlayer, struct weapon_data_s* pInfo );
 
 extern void	CmdStart( const edict_t *player, const struct usercmd_s *cmd, unsigned int random_seed );
 extern void	CmdEnd ( const edict_t *player );

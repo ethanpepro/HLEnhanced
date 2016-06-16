@@ -59,10 +59,26 @@
 #define FTRACE_SIMPLEBOX		(1<<0)	// Traceline with a simple box
 
 
-// walkmove modes
-#define	WALKMOVE_NORMAL		0 // normal walkmove
-#define WALKMOVE_WORLDONLY	1 // doesn't hit ANY entities, no matter what the solid type
-#define WALKMOVE_CHECKONLY	2 // move, but don't touch triggers
+/**
+*	Walkmove modes
+*/
+enum WalkMove
+{
+	/**
+	*	 Normal walkmove.
+	*/
+	WALKMOVE_NORMAL		= 0,
+
+	/**
+	*	Doesn't hit ANY entities, no matter what the solid type.
+	*/
+	WALKMOVE_WORLDONLY	= 1,
+
+	/**
+	*	Move, but don't touch triggers.
+	*/
+	WALKMOVE_CHECKONLY	= 2
+};
 
 // edict->movetype values
 #define	MOVETYPE_NONE			0		// never moves
@@ -566,41 +582,94 @@
 // byte ( length * 10 )
 
 
+enum NetMessageType
+{
+	/**
+	*	Unreliable to all
+	*/
+	MSG_BROADCAST		= 0,
 
-#define	MSG_BROADCAST		0		// unreliable to all
-#define	MSG_ONE				1		// reliable to one (msg_entity)
-#define	MSG_ALL				2		// reliable to all
-#define	MSG_INIT			3		// write to the init string
-#define MSG_PVS				4		// Ents in PVS of org
-#define MSG_PAS				5		// Ents in PAS of org
-#define MSG_PVS_R			6		// Reliable to PVS
-#define MSG_PAS_R			7		// Reliable to PAS
-#define MSG_ONE_UNRELIABLE	8		// Send to one client, but don't put in reliable stream, put in unreliable datagram ( could be dropped )
-#define	MSG_SPEC			9		// Sends to all spectator proxies
+	/**
+	*	Reliable to one (msg_entity)
+	*/
+	MSG_ONE				= 1,
 
-// contents of a spot in the world
-#define	CONTENTS_EMPTY		-1
-#define	CONTENTS_SOLID		-2
-#define	CONTENTS_WATER		-3
-#define	CONTENTS_SLIME		-4
-#define	CONTENTS_LAVA		-5
-#define	CONTENTS_SKY		-6
+	/**
+	*	Reliable to all
+	*/
+	MSG_ALL				= 2,
+
+	/**
+	*	Write to the init string
+	*/
+	MSG_INIT			= 3,
+
+	/**
+	*	Ents in PVS of org
+	*/
+	MSG_PVS				= 4,
+
+	/**
+	*	Ents in PAS of org
+	*/
+	MSG_PAS				= 5,
+
+	/**
+	*	Reliable to PVS
+	*/
+	MSG_PVS_R			= 6,
+
+	/**
+	*	Reliable to PAS
+	*/
+	MSG_PAS_R			= 7,
+
+	/**
+	*	Send to one client, but don't put in reliable stream, put in unreliable datagram ( could be dropped )
+	*/
+	MSG_ONE_UNRELIABLE	= 8,
+	
+	/**
+	*	Sends to all spectator proxies
+	*/
+	MSG_SPEC			= 9,
+};
+
+/**
+*	Contents of a spot in the world
+*/
+enum Contents
+{
+	CONTENTS_EMPTY				= -1,
+	CONTENTS_SOLID				= -2,
+	CONTENTS_WATER				= -3,
+	CONTENTS_SLIME				= -4,
+	CONTENTS_LAVA				= -5,
+	CONTENTS_SKY				= -6,
 //These additional contents constants are defined in bspfile.h
-#define	CONTENTS_ORIGIN		-7		// removed at csg time
-#define	CONTENTS_CLIP		-8		// changed to contents_solid
-#define	CONTENTS_CURRENT_0		-9
-#define	CONTENTS_CURRENT_90		-10
-#define	CONTENTS_CURRENT_180	-11
-#define	CONTENTS_CURRENT_270	-12
-#define	CONTENTS_CURRENT_UP		-13
-#define	CONTENTS_CURRENT_DOWN	-14
+	/**
+	*	Removed at CSG time.
+	*/
+	CONTENTS_ORIGIN				= -7,
 
-#define CONTENTS_TRANSLUCENT	-15
-#define	CONTENTS_LADDER				-16
-
-#define	CONTENT_FLYFIELD			-17
-#define	CONTENT_GRAVITY_FLYFIELD	-18
-#define	CONTENT_FOG					-19
+	/**
+	*	Changed to CONTENTS_SOLID
+	*/
+	CONTENTS_CLIP				= -8,
+	CONTENTS_CURRENT_0			= -9,
+	CONTENTS_CURRENT_90			= -10,
+	CONTENTS_CURRENT_180		= -11,
+	CONTENTS_CURRENT_270		= -12,
+	CONTENTS_CURRENT_UP			= -13,
+	CONTENTS_CURRENT_DOWN		= -14,
+	
+	CONTENTS_TRANSLUCENT		= -15,
+	CONTENTS_LADDER				= -16,
+	
+	CONTENT_FLYFIELD			= -17,
+	CONTENT_GRAVITY_FLYFIELD	= -18,
+	CONTENT_FOG					= -19,
+};
 
 #define CONTENT_EMPTY	-1
 #define CONTENT_SOLID	-2

@@ -78,7 +78,7 @@ AlertMessage
 Print debug messages to console
 ======================
 */
-void AlertMessage( ALERT_TYPE atype, char *szFmt, ... )
+void AlertMessage( ALERT_TYPE atype, const char* szFmt, ... )
 {
 	va_list		argptr;
 	static char	string[1024];

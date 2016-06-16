@@ -1125,7 +1125,7 @@ int AddToFullPack( struct entity_state_s *state, int e, edict_t *ent, edict_t *h
 	// Don't send entity to local client if the client says it's predicting the entity itself.
 	if ( ent->v.flags & FL_SKIPLOCALHOST )
 	{
-		if ( ( hostflags & 1 ) && ( ent->v.owner == host ) )
+		if ( ( hostflags & HOSTFL_WEAPONPRED ) && ( ent->v.owner == host ) )
 			return 0;
 	}
 	
@@ -1281,7 +1281,7 @@ CreateBaseline
 Creates baselines used for network encoding, especially for player data since players are not spawned until connect time.
 ===================
 */
-void CreateBaseline( int player, int eindex, struct entity_state_s *baseline, struct edict_s *entity, int playermodelindex, const Vector& player_mins, const Vector& player_maxs )
+void CreateBaseline( int player, int eindex, struct entity_state_s *baseline, edict_t* entity, int playermodelindex, const Vector player_mins[ 4 ], const Vector player_maxs[ 4 ] )
 {
 	baseline->origin		= entity->v.origin;
 	baseline->angles		= entity->v.angles;
@@ -1298,8 +1298,8 @@ void CreateBaseline( int player, int eindex, struct entity_state_s *baseline, st
 
 	if ( player )
 	{
-		baseline->mins			= player_mins;
-		baseline->maxs			= player_maxs;
+		baseline->mins			= player_mins[ 0 ];
+		baseline->maxs			= player_maxs[ 0 ];
 
 		baseline->colormap		= eindex;
 		baseline->modelindex	= playermodelindex;
@@ -1582,18 +1582,18 @@ void RegisterEncoders( void )
 	DELTA_ADDENCODER( "Player_Encode", Player_Encode );
 }
 
-int GetWeaponData( struct edict_s *player, struct weapon_data_s *info )
+int GetWeaponData( edict_t* pPlayer, struct weapon_data_s* pInfo )
 {
 #if defined( CLIENT_WEAPONS )
 	int i;
 	weapon_data_t *item;
-	entvars_t *pev = &player->v;
+	entvars_t *pev = &pPlayer->v;
 	CBasePlayer *pl = dynamic_cast< CBasePlayer *>( CBasePlayer::Instance( pev ) );
 	CBasePlayerWeapon *gun;
 	
 	ItemInfo II;
 
-	memset( info, 0, MAX_WEAPONS * sizeof( weapon_data_t ) );
+	memset( pInfo, 0, MAX_WEAPONS * sizeof( weapon_data_t ) );
 
 	if ( !pl )
 		return 1;
@@ -1617,7 +1617,7 @@ int GetWeaponData( struct edict_s *player, struct weapon_data_s *info )
 
 					if ( II.iId >= 0 && II.iId < MAX_WEAPONS )
 					{
-						item = &info[ II.iId ];
+						item = &pInfo[ II.iId ];
 					 	
 						item->m_iId = II.iId;
 
@@ -1642,11 +1642,11 @@ Data sent to current client only
 engine sets cd to 0 before calling.
 =================
 */
-void UpdateClientData ( const edict_t *ent, int sendweapons, struct clientdata_s *cd )
+void UpdateClientData( const edict_t* pClient, int sendweapons, struct clientdata_s* cd )
 {
-	if ( !ent || !ent->pvPrivateData )
+	if ( !pClient || !pClient->pvPrivateData )
 		return;
-	entvars_t *		pev	= (entvars_t *)&ent->v;
+	entvars_t *		pev	= (entvars_t *)&pClient->v;
 	CBasePlayer *	pl	= dynamic_cast< CBasePlayer *>(CBasePlayer::Instance( pev ));
 	entvars_t *		pevOrg = NULL;
 
@@ -1682,7 +1682,7 @@ void UpdateClientData ( const edict_t *ent, int sendweapons, struct clientdata_s
 	cd->flSwimTime		= pev->flSwimTime;
 	cd->waterjumptime	= pev->teleport_time;
 
-	strcpy( cd->physinfo, ENGINE_GETPHYSINFO( ent ) );
+	strcpy( cd->physinfo, ENGINE_GETPHYSINFO( pClient ) );
 
 	cd->maxspeed		= pev->maxspeed;
 	cd->fov				= pev->fov;

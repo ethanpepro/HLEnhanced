@@ -69,8 +69,8 @@ extern enginefuncs_t g_engfuncs;
 #define RANDOM_FLOAT	(*g_engfuncs.pfnRandomFloat)
 #define GETPLAYERAUTHID	(*g_engfuncs.pfnGetPlayerAuthId)
 
-inline void MESSAGE_BEGIN( int msg_dest, int msg_type, const float *pOrigin = NULL, edict_t *ed = NULL ) {
-	(*g_engfuncs.pfnMessageBegin)(msg_dest, msg_type, pOrigin, ed);
+inline void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float *pOrigin = NULL, edict_t *ed = NULL ) {
+	(*g_engfuncs.pfnMessageBegin)( iMsgType, iMsgID, pOrigin, ed);
 }
 #define MESSAGE_END		(*g_engfuncs.pfnMessageEnd)
 #define WRITE_BYTE		(*g_engfuncs.pfnWriteByte)
