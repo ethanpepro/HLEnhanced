@@ -1315,7 +1315,8 @@ void UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int decalNumber,
 
 void UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber )
 {
-	if ( decalNumber < 0 )
+	//Prevent array index out of bounds here - Solokiller
+	if ( decalNumber < 0 || static_cast<size_t>( decalNumber ) >= gDecalsSize )
 		return;
 
 	int index = gDecals[ decalNumber ].index;

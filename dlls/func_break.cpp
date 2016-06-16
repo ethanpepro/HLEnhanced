@@ -760,12 +760,12 @@ bool CBreakable::IsBreakable() const
 }
 
 
-int	CBreakable :: DamageDecal( int bitsDamageType )
+int	CBreakable::DamageDecal( int bitsDamageType ) const
 {
-	if ( m_Material == matGlass  )
-		return DECAL_GLASSBREAK1 + RANDOM_LONG(0,2);
+	if( m_Material == matGlass  )
+		return DECAL_GLASSBREAK1 + RANDOM_LONG( 0, 2 );
 
-	if ( m_Material == matUnbreakableGlass )
+	if( m_Material == matUnbreakableGlass )
 		return DECAL_BPROOF1;
 
 	return CBaseEntity::DamageDecal( bitsDamageType );

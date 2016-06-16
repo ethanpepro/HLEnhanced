@@ -42,7 +42,7 @@ public:
 	bool IsBreakable() const;
 	bool SparkWhenHit() const;
 
-	int	 DamageDecal( int bitsDamageType ) override;
+	int	 DamageDecal( int bitsDamageType ) const override;
 
 	void EXPORT		Die( void );
 	virtual int		ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }

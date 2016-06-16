@@ -258,20 +258,54 @@ public:
 	*	@param bitsDamageType Damage types bit vector. @see Damage enum.
 	*	@return Actual amount of health that was given/taken.
 	*/
-	virtual float	GiveHealth( float flHealth, int bitsDamageType );
+	virtual float GiveHealth( float flHealth, int bitsDamageType );
 
 	virtual void	Killed( entvars_t *pevAttacker, int iGib );
-	virtual int		BloodColor() const { return DONT_BLEED; }
-	virtual void	TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
-	virtual bool    IsTriggered( const CBaseEntity* const pActivator ) const { return true; }
-	virtual CBaseMonster *MyMonsterPointer() { return nullptr; }
-	virtual CSquadMonster *MySquadMonsterPointer() { return nullptr; }
+
+	/**
+	*	@return This entity's blood color.
+	*	@see BloodColor
+	*/
+	virtual int BloodColor() const { return DONT_BLEED; }
+
+	/**
+	*	Projects blood decals based on the given damage and traceline.
+	*	@param flDamage Amount of damage being dealt.
+	*	@param vecDir attack direction.
+	*	@param ptr Attack traceline.
+	*	@param bitsDamageType Bit vector of damage types.
+	*	@see Damage
+	*/
+	virtual void TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
+
+	/**
+	*	@param pActivator Activator.
+	*	@return Whether this entity would be triggered by the given activator.
+	*/
+	virtual bool IsTriggered( const CBaseEntity* const pActivator ) const { return true; }
+
+	/**
+	*	@return This entity as a CBaseMonster instance, or null if it isn't a monster.
+	*/
+	virtual CBaseMonster* MyMonsterPointer() { return nullptr; }
+
+	/**
+	*	@return This entity as a CSquadMonster instance, or null if it isn't a squad monster.
+	*/
+	virtual CSquadMonster* MySquadMonsterPointer() { return nullptr; }
 
 	//TODO: entities that use this function should check the classname, so casting to the actual type and using it is better than a costly virtual function hack - Solokiller
 	virtual float	GetDelay() { return 0; }
 	virtual bool	IsMoving() const { return pev->velocity != g_vecZero; }
 	virtual void	OverrideReset() {}
-	virtual int		DamageDecal( int bitsDamageType );
+
+	/**
+	*	Returns the decal to project onto this entity given the damage types inflicted upon it. If this entity is alpha tested, returns -1.
+	*	@param bitsDamageType
+	*	@return Decal to use, or -1.
+	*/
+	virtual int DamageDecal( int bitsDamageType ) const;
+
 	// This is ONLY used by the node graph to test movement through a door
 	virtual void	SetToggleState( int state ) {}
 

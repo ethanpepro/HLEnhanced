@@ -155,10 +155,13 @@ inline bool FStringNull(string_t iString)			{ return iString == iStringNull; }
 #define	VIEW_FIELD_ULTRA_NARROW	(float)0.9 // +-25 degrees, more narrow check used to set up ranged attacks
 
 // All monsters need this data
-#define		DONT_BLEED			-1
-#define		BLOOD_COLOR_RED		(byte)247
-#define		BLOOD_COLOR_YELLOW	(byte)195
-#define		BLOOD_COLOR_GREEN	BLOOD_COLOR_YELLOW
+enum BloodColor
+{
+	DONT_BLEED			 = -1,
+	BLOOD_COLOR_RED		 = 247,
+	BLOOD_COLOR_YELLOW	 = 195,
+	BLOOD_COLOR_GREEN	 = BLOOD_COLOR_YELLOW,
+};
 
 typedef enum 
 {
@@ -261,6 +264,12 @@ extern bool			UTIL_ShouldShowBlood( int bloodColor );
 extern void			UTIL_BloodDecalTrace( TraceResult *pTrace, int bloodColor );
 extern void			UTIL_DecalTrace( TraceResult *pTrace, int decalNumber );
 extern void			UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int decalNumber, const bool bIsCustom );
+
+/**
+*	Projects a gunshot decal.
+*	@param pTrace Trace to use when projecting. The decal is projected onto the entity it has hit.
+*	@param decalNumber Decal index to use.
+*/
 extern void			UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber );
 extern void			UTIL_Sparks( const Vector &position );
 extern void			UTIL_Ricochet( const Vector &position, float scale );

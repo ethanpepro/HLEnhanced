@@ -53,7 +53,7 @@ void CBaseEntity :: MakeDormant( void ) { }
 bool CBaseEntity::IsDormant() const { return false; }
 bool CBaseEntity :: IsInWorld() const { return true; }
 bool CBaseEntity::ShouldToggle( USE_TYPE useType, const bool currentState ) const { return false; }
-int	CBaseEntity :: DamageDecal( int bitsDamageType ) { return -1; }
+int	CBaseEntity::DamageDecal( int bitsDamageType ) const { return -1; }
 CBaseEntity * CBaseEntity::Create( char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner ) { return NULL; }
 void CBaseEntity::SUB_Remove( void ) { }
 

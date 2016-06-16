@@ -244,7 +244,7 @@ bool CBaseEntity::ShouldToggle( USE_TYPE useType, const bool currentState ) cons
 }
 
 
-int	CBaseEntity::DamageDecal( int bitsDamageType )
+int	CBaseEntity::DamageDecal( int bitsDamageType ) const
 {
 	if( pev->rendermode == kRenderTransAlpha )
 		return -1;
