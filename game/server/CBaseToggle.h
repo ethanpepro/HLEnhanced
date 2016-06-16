@@ -50,8 +50,8 @@ public:
 
 	int					m_bitsDamageInflict;	// DMG_ damage type that the door or tigger does
 
-	virtual int		GetToggleState( void ) override { return m_toggle_state; }
-	virtual float	GetDelay( void ) override { return m_flWait; }
+	int				GetToggleState() const { return m_toggle_state; }
+	virtual float	GetDelay() override { return m_flWait; }
 
 	// common member functions
 	void LinearMove( Vector	vecDest, float flSpeed );

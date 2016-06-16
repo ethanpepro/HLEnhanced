@@ -125,13 +125,13 @@ public:
 	DECLARE_DATADESC();
 
 	void KeyValue( KeyValueData* pkvd) override;
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void EXPORT ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT RampThink( void );
-	void InitModulationParms(void);
+	void Spawn() override;
+	void Precache() override;
+	void EXPORT ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void EXPORT RampThink();
+	void InitModulationParms();
 
-	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 
 	float m_flAttenuation;		// attenuation value
 	dynpitchvol_t m_dpv;	
@@ -1792,12 +1792,12 @@ public:
 	DECLARE_DATADESC();
 
 	void KeyValue( KeyValueData* pkvd) override;
-	void Spawn( void ) override;
-	void Precache( void ) override;
+	void Spawn() override;
+	void Precache() override;
 	void EXPORT ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT SpeakerThink( void );
+	void EXPORT SpeakerThink();
 
-	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 	
 	int	m_preset;			// preset number
 };

@@ -66,7 +66,7 @@ public:
 	void	StopRotSound( void );
 
 	// Bmodels don't go across transitions
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	inline bool IsActive() const { return ( pev->spawnflags & SF_TANK_ACTIVE ) != 0; }
 	inline void TankActivate( void ) { pev->spawnflags |= SF_TANK_ACTIVE; pev->nextthink = pev->ltime + 0.1; m_fireLast = 0; }
@@ -88,7 +88,7 @@ public:
 
 	void		AdjustAnglesForBarrel( Vector &angles, float distance );
 
-	bool OnControls( entvars_t *pevTest ) override;
+	bool OnControls( const CBaseEntity* const pTest ) const override;
 	bool StartControl( CBasePlayer* pController );
 	void StopControl( void );
 	void ControllerPostFrame( void );
@@ -322,14 +322,12 @@ void CFuncTank :: KeyValue( KeyValueData *pkvd )
 
 //==================================================================================
 // TANK CONTROLLING
-bool CFuncTank :: OnControls( entvars_t *pevTest )
+bool CFuncTank::OnControls( const CBaseEntity* const pTest ) const
 {
-	if ( !(pev->spawnflags & SF_TANK_CANCONTROL) )
+	if( !( pev->spawnflags & SF_TANK_CANCONTROL ) )
 		return false;
 
-	Vector offset = pevTest->origin - pev->origin;
-
-	if ( (m_vecControllerUsePos - pevTest->origin).Length() < 30 )
+	if( ( m_vecControllerUsePos - pTest->pev->origin ).Length() < 30 )
 		return true;
 
 	return false;
@@ -971,10 +969,10 @@ public:
 	DECLARE_CLASS( CFuncTankControls, CBaseEntity );
 	DECLARE_DATADESC();
 
-	virtual int	ObjectCaps( void ) override;
-	void Spawn( void ) override;
+	virtual int	ObjectCaps() const override;
+	void Spawn() override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	void Think( void ) override;
+	void Think() override;
 
 	CFuncTank *m_pTank;
 };
@@ -984,7 +982,7 @@ BEGIN_DATADESC(	CFuncTankControls )
 	DEFINE_FIELD( m_pTank, FIELD_CLASSPTR ),
 END_DATADESC()
 
-int	CFuncTankControls :: ObjectCaps( void ) 
+int	CFuncTankControls::ObjectCaps() const 
 { 
 	return (CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_IMPULSE_USE; 
 }

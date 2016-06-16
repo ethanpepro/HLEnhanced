@@ -121,7 +121,7 @@ public:
 
 // overrideable Monster member functions
 	
-	virtual int	 BloodColor( void ) override { return m_bloodColor; }
+	virtual int BloodColor() const override { return m_bloodColor; }
 
 	virtual CBaseMonster *MyMonsterPointer( void ) override { return this; }
 	virtual void Look ( int iDistance );// basic sight function for monsters

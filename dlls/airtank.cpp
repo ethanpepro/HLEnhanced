@@ -30,7 +30,7 @@ public:
 	void Precache( void ) override;
 	void EXPORT TankThink( void );
 	void EXPORT TankTouch( CBaseEntity *pOther );
-	int	 BloodColor( void ) override { return DONT_BLEED; };
+	int	 BloodColor() const override { return DONT_BLEED; }
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
 
 	int	 m_state;

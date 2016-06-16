@@ -29,7 +29,7 @@ public:
 
 	void	Spawn( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
-	virtual int	ObjectCaps( void ) override
+	virtual int	ObjectCaps() const override
 	{
 		int flags = CBaseToggle::ObjectCaps() & ( ~FCAP_ACROSS_TRANSITION );
 		if( pev->spawnflags & SF_MOMENTARY_DOOR )

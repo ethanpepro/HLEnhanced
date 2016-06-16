@@ -787,7 +787,7 @@ public:
 	void	EXPORT StopSound( void );
 //	virtual void	SetActivator( CBaseEntity *pActivator ) { m_pPusher = pActivator; }
 
-	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_CONTINUOUS_USE; }
+	virtual int	ObjectCaps() const override { return (CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_CONTINUOUS_USE; }
 
 	inline float MaxSpeed( void ) { return m_maxSpeed; }
 	

@@ -212,10 +212,6 @@ entvars_t* CGraph :: LinkEntForLink ( CLink *pLink, CNode *pNode )
 //=========================================================
 bool CGraph::HandleLinkEnt( int iNode, entvars_t *pevLinkEnt, int afCapMask, NODEQUERY queryType )
 {
-	edict_t  *pentWorld;
-	CBaseEntity	*pDoor;
-	TraceResult	tr;
-
 	if ( !m_fGraphPresent || !m_fGraphPointersSet )
 	{// protect us in the case that the node graph isn't available
 		ALERT ( at_aiconsole, "Graph not ready!\n" );
@@ -227,13 +223,12 @@ bool CGraph::HandleLinkEnt( int iNode, entvars_t *pevLinkEnt, int afCapMask, NOD
 		ALERT ( at_aiconsole, "dead path ent!\n" );
 		return true;
 	}
-	pentWorld = NULL;
 
 // func_door
 	if ( FClassnameIs( pevLinkEnt, "func_door" ) || FClassnameIs( pevLinkEnt, "func_door_rotating" ) )
-	{// ent is a door.
-
-		pDoor = ( CBaseEntity::Instance( pevLinkEnt ) );
+	{
+		// ent is a door.
+		CBaseToggle* pDoor = static_cast<CBaseToggle*>( CBaseEntity::Instance( pevLinkEnt ) );
 
 		if ( ( pevLinkEnt->spawnflags & SF_DOOR_USE_ONLY ) ) 
 		{// door is use only.
@@ -1436,12 +1431,12 @@ public:
 	DECLARE_CLASS( CTestHull, CBaseMonster );
 
 	void Spawn( entvars_t *pevMasterNode );
-	virtual int	ObjectCaps( void ) override { return CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-	void EXPORT CallBuildNodeGraph ( void );
-	void BuildNodeGraph ( void );
-	void EXPORT ShowBadNode ( void );
-	void EXPORT DropDelay ( void );
-	void EXPORT PathFind ( void );
+	virtual int	ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	void EXPORT CallBuildNodeGraph();
+	void BuildNodeGraph();
+	void EXPORT ShowBadNode();
+	void EXPORT DropDelay();
+	void EXPORT PathFind();
 
 	Vector	vecBadNodeOrigin;
 };

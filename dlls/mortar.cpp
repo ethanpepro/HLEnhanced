@@ -34,12 +34,12 @@ public:
 	DECLARE_CLASS( CFuncMortarField, CBaseToggle );
 	DECLARE_DATADESC();
 
-	void Spawn( void ) override;
-	void Precache( void ) override;
+	void Spawn() override;
+	void Precache() override;
 	void KeyValue( KeyValueData *pkvd ) override;
 
 	// Bmodels don't go across transitions
-	virtual int	ObjectCaps( void ) override { return CBaseToggle :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	void EXPORT FieldUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 

@@ -238,7 +238,7 @@ public:
 	virtual void UpdateClientData( void );
 
 	// Player is moved across the transition by other means
-	virtual int		ObjectCaps( void ) override { return CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int		ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	virtual void	Precache( void ) override;
 	bool			IsOnLadder() const;
 	bool			FlashlightIsOn() const;

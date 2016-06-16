@@ -20,8 +20,8 @@ class CPointEntity : public CBaseEntity
 public:
 	DECLARE_CLASS( CPointEntity, CBaseEntity );
 
-	void	Spawn( void ) override;
-	virtual int	ObjectCaps( void ) override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	void	Spawn() override;
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 private:
 };
 

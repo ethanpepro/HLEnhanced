@@ -46,11 +46,11 @@ public:
 	DECLARE_CLASS( CFrictionModifier, CBaseEntity );
 	DECLARE_DATADESC();
 
-	void		Spawn( void );
+	void		Spawn();
 	void		KeyValue( KeyValueData *pkvd );
 	void EXPORT	ChangeFriction( CBaseEntity *pOther );
 
-	virtual int	ObjectCaps( void ) { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	float		m_frictionFraction;		// Sorry, couldn't resist this name :)
 };
@@ -106,11 +106,11 @@ public:
 	DECLARE_DATADESC();
 
 	void KeyValue( KeyValueData *pkvd ) override;
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void Think( void ) override;
+	void Spawn() override;
+	void Precache() override;
+	void Think() override;
 
-	int ObjectCaps( void ) override { return CBaseDelay::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	int ObjectCaps() const override { return CBaseDelay::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 private:
 	int			m_globalstate;
@@ -185,10 +185,10 @@ public:
 	DECLARE_DATADESC();
 
 	void KeyValue( KeyValueData *pkvd ) override;
-	void Spawn( void ) override;
+	void Spawn() override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
-	int ObjectCaps( void ) override { return CBaseDelay::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	int ObjectCaps() const override { return CBaseDelay::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 private:
 	USE_TYPE	triggerType;
@@ -308,12 +308,12 @@ public:
 	void EXPORT HurtTouch ( CBaseEntity *pOther );
 	void EXPORT CDAudioTouch ( CBaseEntity *pOther );
 	void ActivateMultiTrigger( CBaseEntity *pActivator );
-	void EXPORT MultiWaitOver( void );
+	void EXPORT MultiWaitOver();
 	void EXPORT CounterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void EXPORT ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void InitTrigger( void );
+	void InitTrigger();
 
-	virtual int	ObjectCaps( void ) override { return CBaseToggle :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 };
 
 LINK_ENTITY_TO_CLASS( trigger, CBaseTrigger );
@@ -1094,10 +1094,10 @@ class CFireAndDie : public CBaseDelay
 public:
 	DECLARE_CLASS( CFireAndDie, CBaseDelay );
 
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void Think( void ) override;
-	int ObjectCaps( void ) override { return CBaseDelay::ObjectCaps() | FCAP_FORCE_TRANSITION; }	// Always go across transitions
+	void Spawn() override;
+	void Precache() override;
+	void Think() override;
+	int ObjectCaps() const override { return CBaseDelay::ObjectCaps() | FCAP_FORCE_TRANSITION; }	// Always go across transitions
 };
 LINK_ENTITY_TO_CLASS( fireanddie, CFireAndDie );
 
@@ -1893,10 +1893,10 @@ public:
 	DECLARE_DATADESC();
 
 	void KeyValue( KeyValueData *pkvd ) override;
-	void Spawn( void ) override;
+	void Spawn() override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
-	int ObjectCaps( void ) override { return CBaseDelay::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	int ObjectCaps() const override { return CBaseDelay::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 private:
 	int		m_iszNewTarget;
@@ -1951,13 +1951,13 @@ public:
 	DECLARE_CLASS( CTriggerCamera, CBaseDelay );
 	DECLARE_DATADESC();
 
-	void Spawn( void ) override;
+	void Spawn() override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	void EXPORT FollowTarget( void );
-	void Move(void);
+	void EXPORT FollowTarget();
+	void Move();
 
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	EHANDLE m_hPlayer;
 	EHANDLE m_hTarget;
@@ -2082,6 +2082,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 
 	if ( m_sPath )
 	{
+		//TODO: trigger_camera uses path_corner, so check the classname? - Solokiller
 		m_pentPath = Instance( FIND_ENTITY_BY_TARGETNAME ( NULL, STRING(m_sPath)) );
 	}
 	else

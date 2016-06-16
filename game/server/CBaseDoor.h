@@ -28,7 +28,7 @@ public:
 	virtual void Blocked( CBaseEntity *pOther ) override;
 
 
-	virtual int	ObjectCaps( void ) override
+	virtual int	ObjectCaps() const override
 	{
 		if( pev->spawnflags & SF_ITEM_USE_ONLY )
 			return ( CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | FCAP_IMPULSE_USE;

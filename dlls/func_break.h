@@ -45,7 +45,7 @@ public:
 	int	 DamageDecal( int bitsDamageType ) override;
 
 	void EXPORT		Die( void );
-	virtual int		ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	virtual int		ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 
 	inline bool		Explodable() const { return ExplosionMagnitude() > 0; }
 	inline int		ExplosionMagnitude() const { return pev->impulse; }

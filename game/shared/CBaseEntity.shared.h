@@ -25,7 +25,7 @@ public:
 	CBaseEntity			*m_pLink;// used for temporary link-list operations. 
 
 	/**
-	*	Called when the entity is first created. - Solokille
+	*	Called when the entity is first created. - Solokiller
 	*/
 	virtual void OnCreate() {}
 
@@ -40,7 +40,7 @@ public:
 	virtual void	KeyValue( KeyValueData* pkvd ) { pkvd->fHandled = false; }
 	virtual bool	Save( CSave &save );
 	virtual bool	Restore( CRestore &restore );
-	virtual int		ObjectCaps() { return FCAP_ACROSS_TRANSITION; }
+	virtual int		ObjectCaps() const { return FCAP_ACROSS_TRANSITION; }
 	virtual void	Activate() {}
 
 	// Setup the object->object collision box (pev->mins / pev->maxs is the object->world collision box)
@@ -49,7 +49,7 @@ public:
 	// Classify - returns the type of group (i.e, "houndeye", or "human military" so that monsters with different classnames
 	// still realize that they are teammates. (overridden for monsters that form groups)
 	virtual int Classify() { return CLASS_NONE; }
-	virtual void DeathNotice( entvars_t *pevChild ) {}// monster maker children use this to tell the monster maker that they have died.
+	virtual void DeathNotice( CBaseEntity* pChild ) {}// monster maker children use this to tell the monster maker that they have died.
 
 	virtual void	TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
 	virtual int		TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
@@ -65,34 +65,75 @@ public:
 	virtual float	GiveHealth( float flHealth, int bitsDamageType );
 
 	virtual void	Killed( entvars_t *pevAttacker, int iGib );
-	virtual int		BloodColor() { return DONT_BLEED; }
+	virtual int		BloodColor() const { return DONT_BLEED; }
 	virtual void	TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType );
 	virtual bool    IsTriggered( const CBaseEntity* const pActivator ) const { return true; }
 	virtual CBaseMonster *MyMonsterPointer() { return nullptr; }
 	virtual CSquadMonster *MySquadMonsterPointer() { return nullptr; }
-	virtual	int		GetToggleState() { return TS_AT_TOP; }
 
+	//TODO: entities that use this function should check the classname, so casting to the actual type and using it is better than a costly virtual function hack - Solokiller
 	virtual float	GetDelay() { return 0; }
 	virtual bool	IsMoving() const { return pev->velocity != g_vecZero; }
 	virtual void	OverrideReset() {}
 	virtual int		DamageDecal( int bitsDamageType );
 	// This is ONLY used by the node graph to test movement through a door
 	virtual void	SetToggleState( int state ) {}
-	virtual void    StartSneaking() {}
-	virtual void    StopSneaking() {}
-	virtual bool	OnControls( entvars_t *pev ) { return false; }
-	virtual bool    IsSneaking() { return false; }
-	virtual bool	IsAlive() const { return ( pev->deadflag == DEAD_NO ) && pev->health > 0; }
-	virtual bool	IsBSPModel() const { return pev->solid == SOLID_BSP || pev->movetype == MOVETYPE_PUSHSTEP; }
-	virtual bool	ReflectGauss() const { return ( IsBSPModel() && !pev->takedamage ); }
-	virtual bool	HasTarget( string_t targetname ) const { return FStrEq( STRING( targetname ), STRING( pev->targetname ) ); }
-	virtual bool    IsInWorld() const;
-	virtual	bool	IsPlayer() const { return false; }
-	virtual bool	IsNetClient() const { return false; }
-	virtual const char *TeamID() const { return ""; }
 
+	virtual void StartSneaking() {}
+	virtual void StopSneaking() {}
+	virtual bool IsSneaking() { return false; }
 
-	//	virtual void	SetActivator( CBaseEntity *pActivator ) {}
+	/**
+	*	Checks if the given entity can control this entity.
+	*	@param pTest Entity to check for control.
+	*	@return true if this entity can be controlled, false otherwise.
+	*/
+	virtual bool OnControls( const CBaseEntity* const pTest ) const { return false; }
+
+	/**
+	*	@return Whether this entity is alive.
+	*/
+	virtual bool IsAlive() const { return ( pev->deadflag == DEAD_NO ) && pev->health > 0; }
+
+	/**
+	*	@return Whether this is a BSP model.
+	*/
+	virtual bool IsBSPModel() const { return pev->solid == SOLID_BSP || pev->movetype == MOVETYPE_PUSHSTEP; }
+
+	/**
+	*	@return Whether gauss gun beams should reflect off of this entity.
+	*/
+	virtual bool ReflectGauss() const { return ( IsBSPModel() && !pev->takedamage ); }
+
+	/**
+	*	@return Whether this entity has the given target.
+	*/
+	virtual bool HasTarget( string_t targetname ) const { return FStrEq( STRING( targetname ), STRING( pev->targetname ) ); }
+
+	/**
+	*	@return Whether this entity is positioned in the world.
+	*/
+	virtual bool IsInWorld() const;
+
+	/**
+	*	@return Whether this is a player.
+	*/
+	virtual	bool IsPlayer() const { return false; }
+
+	/**
+	*	@return Whether this is a connected client. Fake clients do not qualify.
+	*	TODO: this only applies to players and spectators. Move it? - Solokiller
+	*/
+	virtual bool IsNetClient() const { return false; }
+
+	/**
+	*	@return This entity's team name.
+	*/
+	virtual const char* TeamID() const { return ""; }
+
+	/**
+	*	@return The next entity that this entity should target.
+	*/
 	virtual CBaseEntity *GetNextTarget();
 
 	// fundamental callbacks
@@ -235,6 +276,7 @@ public:
 	// virtual functions used by a few classes
 
 	// used by monsters that are created by the MonsterMaker
+	//TODO: seems to be unused. Remove? - Solokiller
 	virtual	void UpdateOwner() {}
 
 	//

@@ -39,12 +39,12 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
-	int		ObjectCaps( void ) override
+	int ObjectCaps() const override
 	{ 
 		int flags = 0;
 		if ( pev->spawnflags & SF_SPRITE_TEMPORARY )
 			flags = FCAP_DONT_SAVE;
-		return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | flags; 
+		return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | flags; 
 	}
 	void EXPORT AnimateThink( void );
 	void EXPORT ExpandThink( void );
@@ -107,12 +107,12 @@ public:
 
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
-	int		ObjectCaps( void ) override
+	int ObjectCaps() const override
 	{ 
 		int flags = 0;
 		if ( pev->spawnflags & SF_BEAM_TEMPORARY )
 			flags = FCAP_DONT_SAVE;
-		return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | flags; 
+		return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | flags; 
 	}
 
 	void EXPORT TriggerTouch( CBaseEntity *pOther );

@@ -51,7 +51,7 @@ public:
 	int  Classify( void ) override;
 	void EXPORT SuperBounceTouch( CBaseEntity *pOther );
 	void EXPORT HuntThink( void );
-	int  BloodColor( void ) override { return BLOOD_COLOR_YELLOW; }
+	int  BloodColor() const override { return BLOOD_COLOR_YELLOW; }
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
 	void GibMonster( void ) override;
 

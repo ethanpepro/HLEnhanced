@@ -355,7 +355,7 @@ public:
 
 	void		KeyValue( KeyValueData *pkvd ) override;
 	void		Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	int			ObjectCaps( void ) override { return CRulePointEntity:: ObjectCaps() | FCAP_MASTER; }
+	int			ObjectCaps() const override { return CRulePointEntity::ObjectCaps() | FCAP_MASTER; }
 
 	bool		IsTriggered( const CBaseEntity* const pActivator ) const override;
 	const char	*TeamID() const override;

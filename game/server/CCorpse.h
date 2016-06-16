@@ -21,7 +21,7 @@ class CCorpse : public CBaseEntity
 public:
 	DECLARE_CLASS( CCorpse, CBaseEntity );
 
-	virtual int ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
+	virtual int ObjectCaps() const override { return FCAP_DONT_SAVE; }
 };
 
 void InitBodyQue();

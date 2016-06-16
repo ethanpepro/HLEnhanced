@@ -57,7 +57,7 @@ public:
 	void EXPORT TumbleThink( void );
 
 	virtual void BounceSound( void );
-	virtual int	BloodColor( void ) override { return DONT_BLEED; }
+	virtual int	BloodColor() const override { return DONT_BLEED; }
 	virtual void Killed( entvars_t *pevAttacker, int iGib ) override;
 
 	bool m_fRegisteredSound;// whether or not this grenade has issued its DANGER sound to the world sound list yet.
@@ -733,7 +733,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
-	int	ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
+	int	ObjectCaps() const override { return FCAP_DONT_SAVE; }
 
 	void Suspend( float flSuspendTime );
 	void EXPORT Revive( void );

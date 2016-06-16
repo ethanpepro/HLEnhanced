@@ -921,14 +921,14 @@ public:
 	DECLARE_CLASS( CScriptedSentence, CBaseToggle );
 	DECLARE_DATADESC();
 
-	void Spawn( void ) override;
+	void Spawn() override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	void EXPORT FindThink( void );
-	void EXPORT DelayThink( void );
-	int	 ObjectCaps( void ) override { return (CBaseToggle :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	void EXPORT FindThink();
+	void EXPORT DelayThink();
+	int	 ObjectCaps() const override { return ( CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 
-	CBaseMonster *FindEntity( void );
+	CBaseMonster *FindEntity();
 	bool AcceptableSpeaker( const CBaseMonster *pMonster ) const;
 	bool StartSentence( CBaseMonster *pTarget );
 
@@ -1196,10 +1196,10 @@ class CFurniture : public CBaseMonster
 public:
 	DECLARE_CLASS( CFurniture, CBaseMonster );
 
-	void Spawn ( void ) override;
-	void Die( void );
-	int	 Classify ( void ) override;
-	virtual int	ObjectCaps( void ) override { return (CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION); }
+	void Spawn() override;
+	void Die();
+	int	 Classify() override;
+	virtual int	ObjectCaps() const override { return ( CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 };
 
 

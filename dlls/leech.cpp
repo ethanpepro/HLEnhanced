@@ -109,7 +109,7 @@ public:
 	
 	// Base entity functions
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	int	BloodColor( void ) override { return DONT_BLEED; }
+	int	BloodColor() const override { return DONT_BLEED; }
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
 	void Activate( void ) override;
 	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
@@ -692,7 +692,7 @@ void CLeech::Killed(entvars_t *pevAttacker, int iGib)
 	// tell owner ( if any ) that we're dead.This is mostly for MonsterMaker functionality.
 	CBaseEntity *pOwner = CBaseEntity::Instance(pev->owner);
 	if (pOwner)
-		pOwner->DeathNotice(pev);
+		pOwner->DeathNotice( this );
 
 	// When we hit the ground, play the "death_end" activity
 	if ( pev->waterlevel )

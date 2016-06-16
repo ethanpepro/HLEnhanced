@@ -66,7 +66,7 @@ public:
 	virtual int	 TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
 	virtual int	 Classify(void) override;
 
-	int BloodColor( void ) override { return DONT_BLEED; }
+	int BloodColor() const override { return DONT_BLEED; }
 	void GibMonster( void ) override {}	// UNDONE: Throw turret gibs?
 
 	// Think functions

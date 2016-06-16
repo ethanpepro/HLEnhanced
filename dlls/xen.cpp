@@ -30,9 +30,9 @@ public:
 	DECLARE_DATADESC();
 
 	void			SetActivity( Activity act );
-	inline Activity	GetActivity( void ) { return m_Activity; }
+	inline Activity	GetActivity() { return m_Activity; }
 
-	virtual int	ObjectCaps( void ) override { return CBaseAnimating :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseAnimating::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 private:
 	Activity	m_Activity;

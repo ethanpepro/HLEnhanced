@@ -34,7 +34,7 @@ public:
 	void Spawn( void ) override;
 	void Think( void ) override;
 	void Touch( CBaseEntity *pOther ) override;
-	int ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
+	int ObjectCaps() const override { return FCAP_DONT_SAVE; }
 };
 
 LINK_ENTITY_TO_CLASS( spark_shower, CShower );

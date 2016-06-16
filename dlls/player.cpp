@@ -1448,7 +1448,7 @@ void CBasePlayer::PlayerUse ( void )
 			{	// Start controlling the train!
 				CBaseEntity *pTrain = CBaseEntity::Instance( pev->groundentity );
 
-				if ( pTrain && !(pev->button & IN_JUMP) && FBitSet(pev->flags, FL_ONGROUND) && (pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE) && pTrain->OnControls(pev) )
+				if ( pTrain && !(pev->button & IN_JUMP) && FBitSet(pev->flags, FL_ONGROUND) && (pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE) && pTrain->OnControls( this ) )
 				{
 					m_afPhysicsFlags |= PFLAG_ONTRAIN;
 					m_iTrain = TrainSpeed(pTrain->pev->speed, pTrain->pev->impulse);
@@ -1845,7 +1845,7 @@ void CBasePlayer::PreThink(void)
 			pTrain = CBaseEntity::Instance( trainTrace.pHit );
 
 
-			if ( !pTrain || !(pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE) || !pTrain->OnControls(pev) )
+			if ( !pTrain || !(pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE) || !pTrain->OnControls( this ) )
 			{
 				//ALERT( at_error, "In train mode with no train!\n" );
 				m_afPhysicsFlags &= ~PFLAG_ONTRAIN;
@@ -2501,7 +2501,7 @@ void CBasePlayer::PostThink()
 	// Handle Tank controlling
 	if ( m_pTank != NULL )
 	{ // if they've moved too far from the gun,  or selected a weapon, unuse the gun
-		if ( m_pTank->OnControls( pev ) && !pev->weaponmodel )
+		if ( m_pTank->OnControls( this ) && !pev->weaponmodel )
 		{  
 			m_pTank->Use( this, this, USE_SET, 2 );	// try fire the gun
 		}
@@ -3150,7 +3150,7 @@ public:
 	void	Spawn ( entvars_t *pevOwner );
 	void	Think( void ) override;
 
-	virtual int	ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
+	virtual int	ObjectCaps() const override { return FCAP_DONT_SAVE; }
 };
 
 void CSprayCan::Spawn ( entvars_t *pevOwner )

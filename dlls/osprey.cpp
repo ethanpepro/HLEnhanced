@@ -43,15 +43,15 @@ public:
 	DECLARE_CLASS( COsprey, CBaseMonster );
 	DECLARE_DATADESC();
 
-	int		ObjectCaps( void ) override { return CBaseMonster :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	int		ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	int  Classify( void ) override { return CLASS_MACHINE; };
-	int  BloodColor( void ) override { return DONT_BLEED; }
+	void Spawn() override;
+	void Precache() override;
+	int  Classify() override { return CLASS_MACHINE; };
+	int  BloodColor() const override { return DONT_BLEED; }
 	void Killed( entvars_t *pevAttacker, int iGib ) override;
 
-	void UpdateGoal( void );
+	void UpdateGoal();
 	bool HasDead();
 	void EXPORT FlyThink( void );
 	void EXPORT DeployThink( void );

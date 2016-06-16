@@ -84,7 +84,7 @@ public:
 	bool	IsEmpty() const { return m_iActiveSound == SOUNDLIST_EMPTY; }
 	int		ISoundsInList ( int iListType );
 	int		IAllocSound ( void );
-	virtual int		ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
+	virtual int		ObjectCaps() const override { return FCAP_DONT_SAVE; }
 	
 	int		m_iFreeSound;	// index of the first sound in the free sound list
 	int		m_iActiveSound; // indes of the first sound in the active sound list

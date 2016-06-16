@@ -68,9 +68,9 @@ class CSpiral : public CBaseEntity
 public:
 	DECLARE_CLASS( CSpiral, CBaseEntity );
 
-	void Spawn( void ) override;
-	void Think( void ) override;
-	int ObjectCaps( void ) override { return FCAP_DONT_SAVE; }
+	void Spawn() override;
+	void Think() override;
+	int ObjectCaps() const override { return FCAP_DONT_SAVE; }
 	static CSpiral *Create( const Vector &origin, float height, float radius, float duration );
 };
 LINK_ENTITY_TO_CLASS( streak_spiral, CSpiral );

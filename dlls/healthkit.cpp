@@ -92,13 +92,13 @@ public:
 	DECLARE_CLASS( CWallHealth, CBaseToggle );
 	DECLARE_DATADESC();
 
-	void Spawn( ) override;
-	void Precache( void ) override;
-	void EXPORT Off(void);
-	void EXPORT Recharge(void);
+	void Spawn() override;
+	void Precache() override;
+	void EXPORT Off();
+	void EXPORT Recharge();
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	virtual int	ObjectCaps( void ) override { return (CBaseToggle :: ObjectCaps() | FCAP_CONTINUOUS_USE) & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return ( CBaseToggle::ObjectCaps() | FCAP_CONTINUOUS_USE ) & ~FCAP_ACROSS_TRANSITION; }
 
 	float m_flNextCharge; 
 	int		m_iReactivate ; // DeathMatch Delay until reactvated

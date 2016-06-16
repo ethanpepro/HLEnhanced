@@ -93,14 +93,14 @@ public:
 
 	void SetTrack( CPathTrack *track ) { m_ppath = track->Nearest(pev->origin); }
 	void SetControls( entvars_t *pevControls );
-	bool OnControls( entvars_t *pev ) override;
+	bool OnControls( const CBaseEntity* const pTest ) const override;
 
 	void StopSound ( void );
 	void UpdateSound ( void );
 	
 	static CFuncTrackTrain *Instance( edict_t *pent );
 
-	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DIRECTIONAL_USE; }
+	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | FCAP_DIRECTIONAL_USE; }
 
 	virtual void	OverrideReset( void ) override;
 

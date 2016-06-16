@@ -612,7 +612,7 @@ void CBaseMonster :: Killed( entvars_t *pevAttacker, int iGib )
 	CBaseEntity *pOwner = CBaseEntity::Instance(pev->owner);
 	if ( pOwner )
 	{
-		pOwner->DeathNotice( pev );
+		pOwner->DeathNotice( this );
 	}
 
 	if	( ShouldGibMonster( iGib ) )

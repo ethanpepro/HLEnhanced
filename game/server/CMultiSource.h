@@ -30,7 +30,7 @@ public:
 	void Spawn() override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	int	ObjectCaps( void ) override { return ( CPointEntity::ObjectCaps() | FCAP_MASTER ); }
+	int	ObjectCaps() const override { return ( CPointEntity::ObjectCaps() | FCAP_MASTER ); }
 	bool IsTriggered( const CBaseEntity* const pActivator ) const override;
 	void EXPORT Register( void );
 

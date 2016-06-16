@@ -69,28 +69,28 @@ public:
 	DECLARE_CLASS( CScientist, CTalkMonster );
 	DECLARE_DATADESC();
 
-	void Spawn( void ) override;
-	void Precache( void ) override;
+	void Spawn() override;
+	void Precache() override;
 
-	void SetYawSpeed( void ) override;
-	int  Classify ( void ) override;
+	void SetYawSpeed() override;
+	int  Classify() override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void RunTask( Task_t *pTask ) override;
 	void StartTask( Task_t *pTask ) override;
-	int	ObjectCaps( void ) override { return CTalkMonster :: ObjectCaps() | FCAP_IMPULSE_USE; }
+	int	ObjectCaps() const override { return CTalkMonster::ObjectCaps() | FCAP_IMPULSE_USE; }
 	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
 	virtual int FriendNumber( int arrayNumber ) const override;
 	void SetActivity ( Activity newActivity ) override;
-	Activity GetStoppedActivity( void ) override;
-	int ISoundMask( void ) override;
-	void DeclineFollowing( void ) override;
+	Activity GetStoppedActivity() override;
+	int ISoundMask() override;
+	void DeclineFollowing() override;
 
-	float	CoverRadius( void ) override { return 1200; }		// Need more room for cover because scientists want to get far away!
+	float	CoverRadius() override { return 1200; }		// Need more room for cover because scientists want to get far away!
 	bool	DisregardEnemy( CBaseEntity *pEnemy ) const { return !pEnemy->IsAlive() || (gpGlobals->time - m_fearTime) > 15; }
 
 	bool	CanHeal() const;
-	void	Heal( void );
-	void	Scream( void );
+	void	Heal();
+	void	Scream();
 
 	// Override these to set behavior
 	Schedule_t *GetScheduleOfType ( int Type ) override;

@@ -36,9 +36,9 @@ public:
 	DECLARE_CLASS( CBasePlatTrain, CBaseToggle );
 	DECLARE_DATADESC();
 
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void KeyValue( KeyValueData* pkvd) override;
-	void Precache( void ) override;
+	void Precache() override;
 
 	// This is done to fix spawn flag collisions between this class and a derived class
 	virtual bool IsTogglePlat() const { return ( pev->spawnflags & SF_PLAT_TOGGLE ) != 0; }
@@ -248,7 +248,7 @@ class CPlatTrigger : public CBaseEntity
 public:
 	DECLARE_CLASS( CPlatTrigger, CBaseEntity );
 
-	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION) | FCAP_DONT_SAVE; }
+	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | FCAP_DONT_SAVE; }
 	void SpawnInsideTrigger( CFuncPlat *pPlatform );
 	void Touch( CBaseEntity *pOther ) override;
 	CFuncPlat *m_pPlatform;
@@ -753,6 +753,8 @@ void CFuncTrain :: Next( void )
 
 	
 	// now find our next target
+	//TODO: this entity is supposed to work with path_corner only. Other entities will work, but will probably misbehave. - Solokiller
+	//Check for classname and ignore others?
 	pTarg = GetNextTarget();
 
     if ( !pTarg )
@@ -1345,9 +1347,9 @@ void CFuncTrackTrain :: SetControls( entvars_t *pevControls )
 }
 
 
-bool CFuncTrackTrain :: OnControls( entvars_t *pevTest )
+bool CFuncTrackTrain::OnControls( const CBaseEntity* const pTest ) const
 {
-	Vector offset = pevTest->origin - pev->origin;
+	const Vector offset = pTest->pev->origin - pev->origin;
 
 	if ( pev->spawnflags & SF_TRACKTRAIN_NOCONTROL )
 		return false;
@@ -1549,9 +1551,9 @@ class CFuncTrainControls : public CBaseEntity
 public:
 	DECLARE_CLASS( CFuncTrainControls, CBaseEntity );
 
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-	void Spawn( void ) override;
-	void EXPORT Find( void );
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	void Spawn() override;
+	void EXPORT Find();
 };
 LINK_ENTITY_TO_CLASS( func_traincontrols, CFuncTrainControls );
 
@@ -2104,20 +2106,20 @@ public:
 	DECLARE_CLASS( CGunTarget, CBaseMonster );
 	DECLARE_DATADESC();
 
-	void			Spawn( void ) override;
-	void			Activate( void ) override;
-	void EXPORT		Next( void );
-	void EXPORT		Start( void );
-	void EXPORT		Wait( void );
-	void			Stop( void ) override;
+	void			Spawn() override;
+	void			Activate() override;
+	void EXPORT		Next();
+	void EXPORT		Start();
+	void EXPORT		Wait();
+	void			Stop() override;
 
-	int				BloodColor( void ) override { return DONT_BLEED; }
-	int				Classify( void ) override { return CLASS_MACHINE; }
+	int				BloodColor() const override { return DONT_BLEED; }
+	int				Classify() override { return CLASS_MACHINE; }
 	int				TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
 	void			Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	Vector			BodyTarget( const Vector &posSrc ) const override { return pev->origin; }
 
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 private:
 	bool			m_on;

@@ -43,7 +43,7 @@ public:
 
 	bool		HasTarget( string_t targetname ) const override;
 
-	int ObjectCaps( void ) override { return CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	int ObjectCaps() const override { return CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	int		m_cTargets;	// the total number of targets in this manager's fire list.
 	int		m_index;	// Current target

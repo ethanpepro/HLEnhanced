@@ -57,7 +57,7 @@ public:
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
 	// Bmodels don't go across transitions
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 };
 
 LINK_ENTITY_TO_CLASS( func_wall, CFuncWall );
@@ -211,7 +211,7 @@ public:
 	void Spawn( void ) override;
 	void EXPORT SloshTouch( CBaseEntity *pOther );
 	void KeyValue( KeyValueData *pkvd ) override;
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 };
 
 LINK_ENTITY_TO_CLASS( func_illusionary, CFuncIllusionary );
@@ -288,7 +288,7 @@ public:
 	void EXPORT Rotate( void );
 	void RampPitchVol( const bool bUp );
 	void Blocked( CBaseEntity *pOther ) override;
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	float m_flFanFriction;
 	float m_flAttenuation;
@@ -731,7 +731,7 @@ public:
 	void	EXPORT Stop( void );
 	void	Touch( CBaseEntity *pOther ) override;
 	void	EXPORT RopeTouch ( CBaseEntity *pOther );// this touch func makes the pendulum a rope
-	virtual int	ObjectCaps( void ) override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void	Blocked( CBaseEntity *pOther ) override;
 	
 	float	m_accel;			// Acceleration

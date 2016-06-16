@@ -39,10 +39,10 @@ public:
 	DECLARE_DATADESC();
 
 	void GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax);
-	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() | FCAP_IMPULSE_USE); }
+	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() | FCAP_IMPULSE_USE ); }
 	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
-	void Spawn( void ) override;
-	void Think( void ) override;
+	void Spawn() override;
+	void Think() override;
 	//void Pain( float flDamage );
 	void Use ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
@@ -197,14 +197,14 @@ public:
 	DECLARE_CLASS( CCyclerSprite, CBaseEntity );
 	DECLARE_DATADESC();
 
-	void Spawn( void ) override;
-	void Think( void ) override;
+	void Spawn() override;
+	void Think() override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	virtual int	ObjectCaps( void ) override { return (CBaseEntity :: ObjectCaps() | FCAP_DONT_SAVE | FCAP_IMPULSE_USE); }
+	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() | FCAP_DONT_SAVE | FCAP_IMPULSE_USE ); }
 	virtual int	TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
 	void	Animate( float frames );
 
-	inline int		ShouldAnimate( void ) { return m_animate && m_maxFrame > 1.0; }
+	inline bool ShouldAnimate() const { return m_animate && m_maxFrame > 1.0; }
 	int			m_animate;
 	float		m_lastTime;
 	float		m_maxFrame;
