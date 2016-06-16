@@ -15,6 +15,8 @@
 #ifndef WEAPONS_H
 #define WEAPONS_H
 
+#include "weaponinfo.h"
+
 #include "effects.h"
 
 #include "CMultiDamage.h"
@@ -357,6 +359,56 @@ public:
 
 	virtual CBasePlayerItem *GetWeaponPtr( void ) override { return (CBasePlayerItem *)this; };
 	float GetNextAttackDelay( float delay );
+
+	/**
+	*	Copies weapon data to the weapon_data_t instance.
+	*	@param data Weapon data.
+	*/
+	virtual void GetWeaponData( weapon_data_t& data )
+	{
+		//TODO: move this to a source file once we have a shared weapon file - Solokiller
+		data.m_iClip					= m_iClip;
+
+		data.m_flTimeWeaponIdle			= max( m_flTimeWeaponIdle, -0.001 );
+		data.m_flNextPrimaryAttack		= max( m_flNextPrimaryAttack, -0.001 );
+		data.m_flNextSecondaryAttack	= max( m_flNextSecondaryAttack, -0.001 );
+
+		data.m_fInReload				= m_fInReload;
+		data.m_fInSpecialReload			= m_fInSpecialReload;
+		//data.m_flPumpTime				= max( m_flPumpTime, -0.001 );
+
+		data.fuser1						= max( pev->fuser1, -0.001 );
+		data.fuser2						= m_flStartThrow;
+		data.fuser3						= m_flReleaseThrow;
+		data.iuser1						= m_chargeReady;
+		data.iuser2						= m_fInAttack;
+		data.iuser3						= m_fireState;
+	}
+
+	/**
+	*	Copies weapon data from the weapon_data_t instance.
+	*	@param data Weapon data.
+	*/
+	virtual void SetWeaponData( const weapon_data_t& data )
+	{
+		//TODO: move this to a source file once we have a shared weapon file - Solokiller
+		m_iClip						= data.m_iClip;
+
+		m_flTimeWeaponIdle			= data.m_flTimeWeaponIdle;
+		m_flNextPrimaryAttack		= data.m_flNextPrimaryAttack;
+		m_flNextSecondaryAttack		= data.m_flNextSecondaryAttack;
+
+		m_fInReload					= data.m_fInReload != 0;
+		m_fInSpecialReload			= data.m_fInSpecialReload;
+		//m_flPumpTime				= data.m_flPumpTime;
+
+		pev->fuser1					= data.fuser1;
+		m_flStartThrow				= data.fuser2;
+		m_flReleaseThrow			= data.fuser3;
+		m_chargeReady				= data.iuser1;
+		m_fInAttack					= data.iuser2;
+		m_fireState					= data.iuser3;
+	}
 
 	float m_flPumpTime;
 	int		m_fInSpecialReload;									// Are we in the middle of a reload for the shotguns

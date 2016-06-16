@@ -1619,23 +1619,9 @@ int GetWeaponData( struct edict_s *player, struct weapon_data_s *info )
 					{
 						item = &info[ II.iId ];
 					 	
-						item->m_iId						= II.iId;
-						item->m_iClip					= gun->m_iClip;
+						item->m_iId = II.iId;
 
-						item->m_flTimeWeaponIdle		= max( gun->m_flTimeWeaponIdle, -0.001 );
-						item->m_flNextPrimaryAttack		= max( gun->m_flNextPrimaryAttack, -0.001 );
-						item->m_flNextSecondaryAttack	= max( gun->m_flNextSecondaryAttack, -0.001 );
-						item->m_fInReload				= gun->m_fInReload;
-						item->m_fInSpecialReload		= gun->m_fInSpecialReload;
-						item->fuser1					= max( gun->pev->fuser1, -0.001 );
-						item->fuser2					= gun->m_flStartThrow;
-						item->fuser3					= gun->m_flReleaseThrow;
-						item->iuser1					= gun->m_chargeReady;
-						item->iuser2					= gun->m_fInAttack;
-						item->iuser3					= gun->m_fireState;
-						
-											
-//						item->m_flPumpTime				= max( gun->m_flPumpTime, -0.001 );
+						gun->GetWeaponData( *item );
 					}
 				}
 				pPlayerItem = pPlayerItem->m_pNext;
