@@ -343,9 +343,17 @@ public:
 	virtual CSquadMonster* MySquadMonsterPointer() { return nullptr; }
 
 	//TODO: entities that use this function should check the classname, so casting to the actual type and using it is better than a costly virtual function hack - Solokiller
-	virtual float	GetDelay() { return 0; }
-	virtual bool	IsMoving() const { return pev->velocity != g_vecZero; }
-	virtual void	OverrideReset() {}
+	virtual float GetDelay() { return 0; }
+
+	/**
+	*	@return Whether this entity is moving.
+	*/
+	virtual bool IsMoving() const { return pev->velocity != g_vecZero; }
+
+	/**
+	*	Called when the entity is restored, and the entity either has a global name or was transitioned over. Resets the entity for the current level.
+	*/
+	virtual void OverrideReset() {}
 
 	/**
 	*	Returns the decal to project onto this entity given the damage types inflicted upon it. If this entity is alpha tested, returns -1.
@@ -355,7 +363,7 @@ public:
 	virtual int DamageDecal( int bitsDamageType ) const;
 
 	// This is ONLY used by the node graph to test movement through a door
-	virtual void	SetToggleState( int state ) {}
+	virtual void SetToggleState( int state ) {}
 
 	/**
 	*	Checks if the given entity can control this entity.
@@ -411,43 +419,124 @@ public:
 	virtual CBaseEntity *GetNextTarget();
 
 	// common member functions
+	/**
+	*	Think function. Removes this entity.
+	*/
 	void EXPORT SUB_Remove();
+
+	/**
+	*	Think function. Does nothing. Useful for when you need a think function that doesn't actually do anything.
+	*/
 	void EXPORT SUB_DoNothing();
+
+	/**
+	*	Think function. Sets up the entity to start fading out.
+	*/
 	void EXPORT SUB_StartFadeOut();
+
+	/**
+	*	Think function. Fades the entity out.
+	*/
 	void EXPORT SUB_FadeOut();
+
+	/**
+	*	Think function. Calls this entity's use method with USE_TOGGLE.
+	*/
 	void EXPORT SUB_CallUseToggle() { this->Use( this, this, USE_TOGGLE, 0 ); }
+
+	/**
+	*	Returns whether the entity should toggle, given the use type and current state.
+	*	@param useType Use type.
+	*	@param currentState The current entity state.
+	*	@return Whether the entity should toggle.
+	*/
 	bool ShouldToggle( USE_TYPE useType, const bool currentState ) const;
 
+	/**
+	*	Fires a number of bullets of a given bullet type.
+	*	@param cShots Number of shots to fire.
+	*	@param vecSrc Bullet origin.
+	*	@param vecDirShooting Bullet direction.
+	*	@param vecSpread Random bullet spread to apply.
+	*	@param flDistance Maximum bullet distance.
+	*	@param iBulletType Bullet type to shoot. @see Bullet.
+	*	@param iTracerFreq Show a tracer every this many bullets.
+	*	@param iDamage Amount of damage to deal. If 0, uses skill cfg settings for the given bullet type.
+	*	@param pevAttacker Entity responsible for firing the bullets.
+	*/
 	void FireBullets( const unsigned int cShots,
 					  Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
 					  float flDistance, int iBulletType, 
 					  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = nullptr );
 
+	/**
+	*	Fires a number of bullets of a given bullet type.
+	*	@param cShots Number of shots to fire.
+	*	@param vecSrc Bullet origin.
+	*	@param vecDirShooting Bullet direction.
+	*	@param vecSpread Random bullet spread to apply.
+	*	@param flDistance Maximum bullet distance.
+	*	@param iBulletType Bullet type to shoot. @see Bullet.
+	*	@param iTracerFreq Show a tracer every this many bullets.
+	*	@param iDamage Amount of damage to deal. If 0, uses skill cfg settings for the given bullet type.
+	*	@param pevAttacker Entity responsible for firing the bullets.
+	*	@param shared_rand Player specific shared random number seed.
+	*	@return Bullet spread angle of the last shot for the X and Y axes.
+	*/
 	Vector FireBulletsPlayer( const unsigned int cShots,
 							  Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
 							  float flDistance, int iBulletType, 
 							  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = nullptr, int shared_rand = 0 );
 
+	/**
+	*	Triggers all of the entities named this->pev->targetname.
+	*	@param pActivator Activator to pass.
+	*	@param useType Use type to pass.
+	*	@param value Value to pass.
+	*/
 	void SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value );
-	// Do the bounding boxes of these two intersect?
-	bool	Intersects( const CBaseEntity* const pOther ) const;
-	void	MakeDormant();
-	bool	IsDormant() const;
-	//Made this virtual. Used to be non-virtual and redeclared in CBaseToggle - Solokiller
-	virtual bool    IsLockedByMaster() const { return false; }
 
-	//Made these static. No point in having member functions that don't access this. - Solokiller
-	static CBaseMonster *GetMonsterPointer( entvars_t *pevMonster )
+	/**
+	*	@return Whether the bounding boxes of this and the given entity intersect.
+	*/
+	bool Intersects( const CBaseEntity* const pOther ) const;
+
+	/**
+	*	Makes this entity dormant. Dormant entities are not solid, don't move, don't think and have the FL_DORMANT flag set.
+	*	Activate will not be called on server activation for dormant entities.
+	*	@see Activate()
+	*/
+	void MakeDormant();
+
+	/**
+	*	@return Whether this entity is dormant.
+	*/
+	bool IsDormant() const;
+
+	/**
+	*	Made this virtual. Used to be non-virtual and redeclared in CBaseToggle - Solokiller
+	*	@return Whether this entity is locked by its master. Only applies to entities that support having a master.
+	*/
+	virtual bool IsLockedByMaster() const { return false; }
+
+	/**
+	*	Made these static. No point in having member functions that don't access this. - Solokiller
+	*	@return The given entity as a CBaseMonster, or null if the entity is not a monster.
+	*/
+	static CBaseMonster* GetMonsterPointer( entvars_t* pevMonster )
 	{
-		CBaseEntity *pEntity = Instance( pevMonster );
+		CBaseEntity* pEntity = Instance( pevMonster );
 		if( pEntity )
 			return pEntity->MyMonsterPointer();
 		return nullptr;
 	}
 
-	static CBaseMonster *GetMonsterPointer( edict_t *pentMonster )
+	/**
+	*	@copydoc GetMonsterPointer( entvars_t* pevMonster )
+	*/
+	static CBaseMonster* GetMonsterPointer( edict_t* pentMonster )
 	{
-		CBaseEntity *pEntity = Instance( pentMonster );
+		CBaseEntity* pEntity = Instance( pentMonster );
 		if( pEntity )
 			return pEntity->MyMonsterPointer();
 		return nullptr;
@@ -459,10 +548,6 @@ public:
 	*	Monster maker children use this to tell the monster maker that they have died.
 	*/
 	virtual void DeathNotice( CBaseEntity* pChild ) {}
-
-	// used by monsters that are created by the MonsterMaker
-	//TODO: seems to be unused. Remove? - Solokiller
-	virtual	void UpdateOwner() {}
 
 	/**
 	*	Tries to send a monster into PRONE state.
