@@ -250,41 +250,108 @@ struct WayPoint_t
 #define MOVEGOAL_LOCATION			(bits_MF_TO_LOCATION)
 #define MOVEGOAL_NODE				(bits_MF_TO_NODE)
 
-// these bits represent conditions that may befall the monster, of which some are allowed 
-// to interrupt certain schedules. 
-#define bits_COND_NO_AMMO_LOADED		( 1 << 0 ) // weapon needs to be reloaded!
-#define	bits_COND_SEE_HATE				( 1 << 1 ) // see something that you hate
-#define bits_COND_SEE_FEAR				( 1 << 2 ) // see something that you are afraid of
-#define bits_COND_SEE_DISLIKE			( 1 << 3 ) // see something that you dislike
-#define bits_COND_SEE_ENEMY				( 1 << 4 ) // target entity is in full view.
-#define bits_COND_ENEMY_OCCLUDED		( 1 << 5 ) // target entity occluded by the world
-#define bits_COND_SMELL_FOOD			( 1 << 6 )
-#define bits_COND_ENEMY_TOOFAR			( 1 << 7 )
-#define bits_COND_LIGHT_DAMAGE			( 1 << 8 ) // hurt a little 
-#define bits_COND_HEAVY_DAMAGE			( 1 << 9 ) // hurt a lot
-#define bits_COND_CAN_RANGE_ATTACK1		( 1 << 10)
-#define bits_COND_CAN_MELEE_ATTACK1		( 1 << 11)
-#define bits_COND_CAN_RANGE_ATTACK2		( 1 << 12)
-#define bits_COND_CAN_MELEE_ATTACK2		( 1 << 13)
-// #define bits_COND_CAN_RANGE_ATTACK3		( 1 << 14)
-#define bits_COND_PROVOKED				( 1 << 15)
-#define bits_COND_NEW_ENEMY				( 1 << 16)
-#define bits_COND_HEAR_SOUND			( 1 << 17) // there is an interesting sound
-#define bits_COND_SMELL					( 1 << 18) // there is an interesting scent
-#define bits_COND_ENEMY_FACING_ME		( 1 << 19) // enemy is facing me
-#define bits_COND_ENEMY_DEAD			( 1 << 20) // enemy was killed. If you get this in combat, try to find another enemy. If you get it in alert, victory dance.
-#define bits_COND_SEE_CLIENT			( 1 << 21) // see a client
-#define bits_COND_SEE_NEMESIS			( 1 << 22) // see my nemesis
+/**
+*	These bits represent conditions that may befall the monster, of which some are allowed 
+*	to interrupt certain schedules.
+*/
+enum MonsterCondition
+{
+	/**
+	*	Weapon needs to be reloaded!
+	*/
+	bits_COND_NO_AMMO_LOADED			= 1 << 0,
 
-#define bits_COND_SPECIAL1				( 1 << 28) // Defined by individual monster
-#define bits_COND_SPECIAL2				( 1 << 29) // Defined by individual monster
+	/**
+	*	See something that you hate.
+	*/
+	bits_COND_SEE_HATE					= 1 << 1, 
 
-#define bits_COND_TASK_FAILED			( 1 << 30)
-#define bits_COND_SCHEDULE_DONE			( 1 << 31)
+	/**
+	*	See something that you are afraid of.
+	*/
+	bits_COND_SEE_FEAR					= 1 << 2,
 
+	/**
+	*	See something that you dislike.
+	*/
+	bits_COND_SEE_DISLIKE				= 1 << 3,
 
-#define bits_COND_ALL_SPECIAL			(bits_COND_SPECIAL1 | bits_COND_SPECIAL2)
+	/**
+	*	Target entity is in full view.
+	*/
+	bits_COND_SEE_ENEMY					= 1 << 4,
 
-#define bits_COND_CAN_ATTACK			(bits_COND_CAN_RANGE_ATTACK1 | bits_COND_CAN_MELEE_ATTACK1 | bits_COND_CAN_RANGE_ATTACK2 | bits_COND_CAN_MELEE_ATTACK2)
+	/**
+	*	Target entity occluded by the world.
+	*/
+	bits_COND_ENEMY_OCCLUDED			= 1 << 5,
+	bits_COND_SMELL_FOOD				= 1 << 6,
+	bits_COND_ENEMY_TOOFAR				= 1 << 7,
+
+	/**
+	*	Hurt a little.
+	*/
+	bits_COND_LIGHT_DAMAGE				= 1 << 8,
+
+	/**
+	*	Hurt a lot.
+	*/
+	bits_COND_HEAVY_DAMAGE				= 1 << 9,
+	bits_COND_CAN_RANGE_ATTACK1			= 1 << 10,
+	bits_COND_CAN_MELEE_ATTACK1			= 1 << 11,
+	bits_COND_CAN_RANGE_ATTACK2			= 1 << 12,
+	bits_COND_CAN_MELEE_ATTACK2			= 1 << 13,
+	//bits_COND_CAN_RANGE_ATTACK3		= 1 << 14,
+	bits_COND_PROVOKED					= 1 << 15,
+	bits_COND_NEW_ENEMY					= 1 << 16,
+
+	/**
+	*	There is an interesting sound.
+	*/
+	bits_COND_HEAR_SOUND				= 1 << 17,
+
+	/**
+	*	There is an interesting scent.
+	*/
+	bits_COND_SMELL						= 1 << 18,
+
+	/**
+	*	Enemy is facing me.
+	*/
+	bits_COND_ENEMY_FACING_ME			= 1 << 19,
+
+	/**
+	*	Enemy was killed. If you get this in combat, try to find another enemy. If you get it in alert, victory dance.
+	*/
+	bits_COND_ENEMY_DEAD				= 1 << 20,
+
+	/**
+	*	Dee a client.
+	*/
+	bits_COND_SEE_CLIENT				= 1 << 21,
+
+	/**
+	*	Dee my nemesis.
+	*/
+	bits_COND_SEE_NEMESIS				= 1 << 22,
+	
+	/**
+	*	Defined by individual monster.
+	*/
+	bits_COND_SPECIAL1					= 1 << 28,
+
+	/**
+	*	Defined by individual monster.
+	*/
+	bits_COND_SPECIAL2					= 1 << 29,
+	
+	bits_COND_TASK_FAILED				= 1 << 30,
+	bits_COND_SCHEDULE_DONE				= 1 << 31,
+	
+	
+	bits_COND_ALL_SPECIAL				= bits_COND_SPECIAL1 | bits_COND_SPECIAL2,
+	
+	bits_COND_CAN_ATTACK				= bits_COND_CAN_RANGE_ATTACK1 | bits_COND_CAN_MELEE_ATTACK1 | bits_COND_CAN_RANGE_ATTACK2 | bits_COND_CAN_MELEE_ATTACK2
+};
 
 #endif	// SCHEDULE_H

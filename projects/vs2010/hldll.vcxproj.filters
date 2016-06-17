@@ -100,6 +100,9 @@
     <Filter Include="Source Files\game\server\entities\weapons">
       <UniqueIdentifier>{f6e874a2-c9f8-4353-b49f-a233390d1cff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\entities\NPCs">
+      <UniqueIdentifier>{625118d8-9d26-4a5b-a7c3-0652ebc51b33}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -497,9 +500,6 @@
     <ClInclude Include="..\..\dlls\animation.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\dlls\basemonster.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\dlls\cbase.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
@@ -712,6 +712,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\CPointEntity.h">
       <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CBaseMonster.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

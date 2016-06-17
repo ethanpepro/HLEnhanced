@@ -233,7 +233,6 @@
     <ClInclude Include="..\..\dlls\activity.h" />
     <ClInclude Include="..\..\dlls\activitymap.h" />
     <ClInclude Include="..\..\dlls\animation.h" />
-    <ClInclude Include="..\..\dlls\basemonster.h" />
     <ClInclude Include="..\..\dlls\cbase.h" />
     <ClInclude Include="..\..\dlls\cdll_dll.h" />
     <ClInclude Include="..\..\dlls\client.h" />
@@ -286,6 +285,7 @@
     <ClInclude Include="..\..\game\server\entities\CRotButton.h" />
     <ClInclude Include="..\..\game\server\entities\CRotDoor.h" />
     <ClInclude Include="..\..\game\server\entities\CWorld.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\CBaseMonster.h" />
     <ClInclude Include="..\..\game\server\entities\weapons\CWeaponBox.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />

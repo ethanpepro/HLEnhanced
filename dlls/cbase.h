@@ -238,8 +238,7 @@ class CBaseMonster;
 class CCineMonster;
 class CSound;
 
-#include "basemonster.h"
-
+#include "entities/NPCs/CBaseMonster.h"
 
 char *ButtonSound( int sound );				// get string of button sound number
 

@@ -12,17 +12,24 @@
 *   use or distribution of this code by or to any unlicensed person is illegal.
 *
 ****/
+#ifndef GAME_SERVER_ENTITIES_NPCS_BASEMONSTER_H
+#define GAME_SERVER_ENTITIES_NPCS_BASEMONSTER_H
 
-#ifndef BASEMONSTER_H
-#define BASEMONSTER_H
-
-//
-// generic Monster
-//
+/**
+*	Generic Monster
+*/
 class CBaseMonster : public CBaseToggle
 {
 private:
-		int					m_afConditions;
+	/**
+	*	Monster conditions. Bit vector of MonsterCondition flags.
+	*	@see MonsterCondition
+	*	@see SetConditions
+	*	@see ClearConditions
+	*	@see HasConditions
+	*	@see HasAllConditions
+	*/
+	int m_afConditions;
 
 public:
 	DECLARE_CLASS( CBaseMonster, CBaseToggle );
@@ -336,6 +343,4 @@ public:
 	CBaseEntity* DropItem ( char *pszItemName, const Vector &vecPos, const Vector &vecAng );// drop an item.
 };
 
-
-
-#endif // BASEMONSTER_H
+#endif //GAME_SERVER_ENTITIES_NPCS_BASEMONSTER_H
