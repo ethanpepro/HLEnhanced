@@ -21,19 +21,15 @@
 #include	"cbase.h"
 #include	"player.h"
 #include	"weapons.h"
-#include	"gamerules.h"
-#include	"teamplay_gamerules.h"
+#include	"gamerules/GameRules.h"
 #include	"skill.h"
 #include	"game.h"
 
 extern edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer );
 
-DLL_GLOBAL CGameRules*	g_pGameRules = NULL;
 extern DLL_GLOBAL bool	g_fGameOver;
 extern int gmsgDeathMsg;	// client dll messages
 extern int gmsgMOTD;
-
-int g_teamplay = 0;
 
 //=========================================================
 //=========================================================
@@ -303,45 +299,3 @@ void CGameRules::RefreshSkillData ( void )
 	gSkillData.plrLeg = GetSkillCvar( "sk_player_leg" );
 	gSkillData.plrArm = GetSkillCvar( "sk_player_arm" );
 }
-
-//=========================================================
-// instantiate the proper game rules object
-//=========================================================
-
-CGameRules *InstallGameRules()
-{
-	SERVER_COMMAND( "exec game.cfg\n" );
-	SERVER_EXECUTE( );
-
-	if ( !gpGlobals->deathmatch )
-	{
-		// generic half-life
-		g_teamplay = 0;
-		return new CHalfLifeRules;
-	}
-	else
-	{
-		if ( teamplay.value > 0 )
-		{
-			// teamplay
-
-			g_teamplay = 1;
-			return new CHalfLifeTeamplay;
-		}
-		if ((int)gpGlobals->deathmatch == 1)
-		{
-			// vanilla deathmatch
-			g_teamplay = 0;
-			return new CHalfLifeMultiplay;
-		}
-		else
-		{
-			// vanilla deathmatch??
-			g_teamplay = 0;
-			return new CHalfLifeMultiplay;
-		}
-	}
-}
-
-
-

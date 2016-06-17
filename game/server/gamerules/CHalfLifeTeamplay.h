@@ -12,15 +12,20 @@
 *   without written permission from Valve LLC.
 *
 ****/
-//
-// teamplay_gamerules.h
-//
+#ifndef GAME_SERVER_GAMERULES_CHALFLIFETEAMPLAY_H
+#define GAME_SERVER_GAMERULES_CHALFLIFETEAMPLAY_H
+
+#include "CHalfLifeMultiplay.h"
 
 #define MAX_TEAMNAME_LENGTH	16
 #define MAX_TEAMS			32
 
 #define TEAMPLAY_TEAMLISTLENGTH		MAX_TEAMS*MAX_TEAMNAME_LENGTH
 
+//=========================================================
+// CHalfLifeTeamplay - rules for the basic half life teamplay
+// competition
+//=========================================================
 class CHalfLifeTeamplay : public CHalfLifeMultiplay
 {
 public:
@@ -55,3 +60,5 @@ private:
 	bool m_teamLimit;				// This means the server set only some teams as valid
 	char m_szTeamList[TEAMPLAY_TEAMLISTLENGTH];
 };
+
+#endif //GAME_SERVER_GAMERULES_CHALFLIFETEAMPLAY_H

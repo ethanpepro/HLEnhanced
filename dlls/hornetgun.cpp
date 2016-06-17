@@ -20,7 +20,7 @@
 #include "nodes.h"
 #include "player.h"
 #include "hornet.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 
 
 enum hgun_e {

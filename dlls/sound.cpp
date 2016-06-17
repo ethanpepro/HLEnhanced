@@ -22,7 +22,7 @@
 #include "weapons.h"
 #include "player.h"
 #include "talkmonster.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 #include "com_model.h"
 
 #if !defined ( _WIN32 )

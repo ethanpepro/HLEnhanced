@@ -27,7 +27,7 @@ precaches and defs for entities and other data that must always be available.
 #include "CCorpse.h"
 
 #include "client.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 
 #include "nodes.h"
 #include "Decals.h"

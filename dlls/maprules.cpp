@@ -25,7 +25,7 @@
 #include "extdll.h"
 #include "eiface.h"
 #include "util.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 #include "maprules.h"
 #include "cbase.h"
 #include "player.h"

@@ -27,7 +27,7 @@
 #include "player.h"
 #include "skill.h"
 #include "items.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 
 extern int gmsgItemPickup;
 

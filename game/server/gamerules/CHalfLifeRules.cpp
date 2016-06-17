@@ -13,14 +13,14 @@
 *
 ****/
 //
-// teamplay_gamerules.cpp
+// CHalfLifeRules.cpp
 //
 #include	"extdll.h"
 #include	"util.h"
 #include	"cbase.h"
 #include	"player.h"
 #include	"weapons.h"
-#include	"gamerules.h"
+#include	"CHalfLifeRules.h"
 #include	"skill.h"
 #include	"items.h"
 

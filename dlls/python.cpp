@@ -18,7 +18,7 @@
 #include "weapons.h"
 #include "monsters.h"
 #include "player.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 
 
 enum python_e {

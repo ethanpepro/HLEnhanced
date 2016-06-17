@@ -20,7 +20,7 @@
 #include "nodes.h"
 #include "player.h"
 #include "soundent.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 
 enum w_squeak_e {
 	WSQUEAK_IDLE1 = 0,

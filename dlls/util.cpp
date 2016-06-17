@@ -29,7 +29,7 @@
 #include "Decals.h"
 #include "player.h"
 #include "weapons.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 
 float UTIL_WeaponTimeBase( void )
 {

@@ -29,7 +29,7 @@
 #include "nodes.h"
 #include "soundent.h"
 #include "Decals.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 
 extern CGraph	WorldGraph;
 extern bool gEvilImpulse101;

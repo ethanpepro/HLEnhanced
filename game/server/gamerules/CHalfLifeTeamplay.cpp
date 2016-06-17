@@ -13,15 +13,14 @@
 *
 ****/
 //
-// teamplay_gamerules.cpp
+// CHalfLifeTeamplay.cpp
 //
 #include	"extdll.h"
 #include	"util.h"
 #include	"cbase.h"
 #include	"player.h"
 #include	"weapons.h"
-#include	"gamerules.h"
-#include	"teamplay_gamerules.h"
+#include	"CHalfLifeTeamplay.h"
 #include	"game.h"
 
 static char team_names[MAX_TEAMS][MAX_TEAMNAME_LENGTH];
@@ -301,7 +300,7 @@ void CHalfLifeTeamplay::ChangePlayerTeam( CBasePlayer *pPlayer, const char *pTea
 		WRITE_SHORT( pPlayer->pev->frags );
 		WRITE_SHORT( pPlayer->m_iDeaths );
 		WRITE_SHORT( 0 );
-		WRITE_SHORT( g_pGameRules->GetTeamIndex( pPlayer->m_szTeamName ) + 1 );
+		WRITE_SHORT( GetTeamIndex( pPlayer->m_szTeamName ) + 1 );
 	MESSAGE_END();
 }
 

@@ -32,7 +32,7 @@
 #include "monsters.h"
 #include "shake.h"
 #include "Decals.h"
-#include "gamerules.h"
+#include "gamerules/GameRules.h"
 #include "game.h"
 #include "pm_shared.h"
 #include "hltv.h"
