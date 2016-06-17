@@ -622,17 +622,14 @@ void UTIL_MakeInvVectors( const Vector &vec, globalvars_t *pgv )
 
 void UTIL_EmitAmbientSound( edict_t *entity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch )
 {
-	float rgfl[3];
-	vecOrigin.CopyToArray(rgfl);
-
 	if (samp && *samp == '!')
 	{
 		char name[32];
 		if (SENTENCEG_Lookup(samp, name) >= 0)
-			EMIT_AMBIENT_SOUND(entity, rgfl, name, vol, attenuation, fFlags, pitch);
+			EMIT_AMBIENT_SOUND(entity, vecOrigin, name, vol, attenuation, fFlags, pitch);
 	}
 	else
-		EMIT_AMBIENT_SOUND(entity, rgfl, samp, vol, attenuation, fFlags, pitch);
+		EMIT_AMBIENT_SOUND(entity, vecOrigin, samp, vol, attenuation, fFlags, pitch);
 }
 
 static unsigned short FixedUnsigned16( float value, float scale )
