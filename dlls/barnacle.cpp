@@ -45,7 +45,7 @@ public:
 	void EXPORT BarnacleThink ( void );
 	void EXPORT WaitTillDead ( void );
 	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 
 	float m_flAltitude;
 	float m_flKillVictimTime;
@@ -127,14 +127,14 @@ void CBarnacle :: Spawn()
 	UTIL_SetOrigin ( pev, pev->origin );
 }
 
-int CBarnacle::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CBarnacle::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if ( bitsDamageType & DMG_CLUB )
 	{
 		flDamage = pev->health;
 	}
 
-	return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 //=========================================================
@@ -194,7 +194,7 @@ void CBarnacle :: BarnacleThink ( void )
 
 				if ( pVictim )
 				{
-					pVictim->BarnacleVictimBitten( pev );
+					pVictim->BarnacleVictimBitten( this );
 					SetActivity ( ACT_EAT );
 				}
 			}
@@ -212,7 +212,7 @@ void CBarnacle :: BarnacleThink ( void )
 				// kill!
 				if ( pVictim )
 				{
-					pVictim->TakeDamage ( pev, pev, pVictim->pev->health, DMG_SLASH | DMG_ALWAYSGIB );
+					pVictim->TakeDamage ( this, this, pVictim->pev->health, DMG_SLASH | DMG_ALWAYSGIB );
 					m_cGibs = 3;
 				}
 
@@ -229,7 +229,7 @@ void CBarnacle :: BarnacleThink ( void )
 				case 2:	EMIT_SOUND( ENT(pev), CHAN_WEAPON, "barnacle/bcl_chew3.wav", 1, ATTN_NORM );	break;
 				}
 
-				pVictim->BarnacleVictimBitten( pev );
+				pVictim->BarnacleVictimBitten( this );
 			}
 
 		}

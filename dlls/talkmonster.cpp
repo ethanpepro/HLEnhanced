@@ -1187,12 +1187,12 @@ void CTalkMonster :: SetAnswerQuestion( CTalkMonster *pSpeaker )
 	m_hTalkTarget = (CBaseMonster *)pSpeaker;
 }
 
-int CTalkMonster :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType)
+int CTalkMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if ( IsAlive() )
 	{
 		// if player damaged this entity, have other friends talk about it
-		if (pevAttacker && m_MonsterState != MONSTERSTATE_PRONE && FBitSet(pevAttacker->flags, FL_CLIENT))
+		if (pAttacker && m_MonsterState != MONSTERSTATE_PRONE && FBitSet(pAttacker->pev->flags, FL_CLIENT))
 		{
 			CBaseEntity *pFriend = FindNearestFriend( false );
 
@@ -1204,7 +1204,7 @@ int CTalkMonster :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker,
 			}
 		}
 	}
-	return CBaseMonster::TakeDamage(pevInflictor, pevAttacker, flDamage, bitsDamageType);
+	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 

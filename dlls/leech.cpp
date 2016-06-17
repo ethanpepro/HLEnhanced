@@ -112,7 +112,7 @@ public:
 	int	BloodColor() const override { return DONT_BLEED; }
 	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 	void Activate( void ) override;
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	int	Classify( void ) override { return CLASS_INSECT; }
 	int IRelationship( CBaseEntity *pTarget ) override;
 
@@ -300,17 +300,17 @@ void CLeech::Precache( void )
 }
 
 
-int CLeech::TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CLeech::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	pev->velocity = g_vecZero;
 
 	// Nudge the leech away from the damage
-	if ( pevInflictor )
+	if ( pInflictor )
 	{
-		pev->velocity = (pev->origin - pevInflictor->origin).Normalize() * 25;
+		pev->velocity = (pev->origin - pInflictor->pev->origin).Normalize() * 25;
 	}
 
-	return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 
@@ -336,7 +336,7 @@ void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			
 			if ( DotProduct(dir, face) > 0.9 )		// Only take damage if the leech is facing the prey
-				pEnemy->TakeDamage( pev, pev, gSkillData.leechDmgBite, DMG_SLASH );
+				pEnemy->TakeDamage( this, this, gSkillData.leechDmgBite, DMG_SLASH );
 		}
 		m_stateTime -= 2;
 		break;

@@ -83,7 +83,7 @@ public:
 	static const char *pPainSounds[];
 	static const char *pDeathSounds[];
 
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 	void GibMonster( void ) override;
 
@@ -174,12 +174,12 @@ void CController :: SetYawSpeed ( void )
 	pev->yaw_speed = ys;
 }
 
-int CController :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CController::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	// HACK HACK -- until we fix this.
 	if ( IsAlive() )
 		PainSound();
-	return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 
@@ -1226,7 +1226,7 @@ void CControllerHeadBall :: HuntThink( void  )
 		{
 			g_MultiDamage.Clear( );
 			pEntity->TraceAttack( m_hOwner->pev, gSkillData.controllerDmgZap, pev->velocity, &tr, DMG_SHOCK );
-			g_MultiDamage.ApplyMultiDamage( pev, m_hOwner->pev );
+			g_MultiDamage.ApplyMultiDamage( this, m_hOwner );
 		}
 
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
@@ -1396,19 +1396,19 @@ void CControllerZapBall::ExplodeTouch( CBaseEntity *pOther )
 	{
 		TraceResult tr = UTIL_GetGlobalTrace( );
 
-		entvars_t	*pevOwner;
-		if (m_hOwner != NULL)
+		CBaseEntity* pOwner;
+		if( m_hOwner != nullptr )
 		{
-			pevOwner = m_hOwner->pev;
+			pOwner = m_hOwner;
 		}
 		else
 		{
-			pevOwner = pev;
+			pOwner = this;
 		}
 
 		g_MultiDamage.Clear( );
-		pOther->TraceAttack(pevOwner, gSkillData.controllerDmgBall, pev->velocity.Normalize(), &tr, DMG_ENERGYBEAM ); 
-		g_MultiDamage.ApplyMultiDamage( pevOwner, pevOwner );
+		pOther->TraceAttack( pOwner->pev, gSkillData.controllerDmgBall, pev->velocity.Normalize(), &tr, DMG_ENERGYBEAM );
+		g_MultiDamage.ApplyMultiDamage( pOwner, pOwner );
 
 		UTIL_EmitAmbientSound( ENT(pev), tr.vecEndPos, "weapons/electro4.wav", 0.3, ATTN_NORM, 0, RANDOM_LONG( 90, 99 ) );
 

@@ -50,7 +50,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	
 	void EXPORT WarningThink( void );
 	void EXPORT PowerupThink( void );
@@ -307,7 +307,7 @@ void CTripmineGrenade :: BeamBreakThink( void  )
 	pev->nextthink = gpGlobals->time + 0.1;
 }
 
-int CTripmineGrenade :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CTripmineGrenade::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if (gpGlobals->time < m_flPowerUp && flDamage < pev->health)
 	{
@@ -318,7 +318,7 @@ int CTripmineGrenade :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttac
 		KillBeam();
 		return 0;
 	}
-	return CGrenade::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CGrenade::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 void CTripmineGrenade::Killed( entvars_t *pevAttacker, GibAction gibAction )

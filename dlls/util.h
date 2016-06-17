@@ -129,6 +129,7 @@ inline void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float *pOrigin, entva
 inline bool FNullEnt(EOFFSET eoffset)		{ return eoffset == eoNullEntity; }
 inline bool FNullEnt(const edict_t* pent)	{ return pent == NULL || FNullEnt(OFFSET(pent)); }
 inline bool FNullEnt(entvars_t* pev)		{ return pev == NULL || FNullEnt(OFFSET(pev)); }
+bool FNullEnt( const CBaseEntity* pEntity );
 
 // Testing strings for nullity
 #define iStringNull 0

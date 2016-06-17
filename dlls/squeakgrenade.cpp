@@ -349,9 +349,9 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 				g_MultiDamage.Clear( );
 				pOther->TraceAttack(pev, gSkillData.snarkDmgBite, gpGlobals->v_forward, &tr, DMG_SLASH ); 
 				if (m_hOwner != NULL)
-					g_MultiDamage.ApplyMultiDamage( pev, m_hOwner->pev );
+					g_MultiDamage.ApplyMultiDamage( this, m_hOwner );
 				else
-					g_MultiDamage.ApplyMultiDamage( pev, pev );
+					g_MultiDamage.ApplyMultiDamage( this, this );
 
 				pev->dmg += gSkillData.snarkDmgPop; // add more explosion damage
 				// m_flDie += 2.0; // add more life

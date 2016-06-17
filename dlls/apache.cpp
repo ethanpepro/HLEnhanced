@@ -56,7 +56,7 @@ public:
 	void FireRocket( void );
 	bool FireGun();
 	
-	int  TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	int  TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
 
 	int m_iRockets;
@@ -882,9 +882,9 @@ void CApache :: ShowDamage( void )
 }
 
 
-int CApache :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CApache :: TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
-	if (pevInflictor->owner == edict())
+	if (pInflictor->pev->owner == edict())
 		return 0;
 
 	if (bitsDamageType & DMG_BLAST)
@@ -901,7 +901,7 @@ int CApache :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, floa
 	*/
 
 	// ALERT( at_console, "%.0f\n", flDamage );
-	return CBaseEntity::TakeDamage(  pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CBaseEntity::TakeDamage(  pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 

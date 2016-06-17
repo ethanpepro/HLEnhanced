@@ -656,7 +656,7 @@ void CHoundeye :: SonicAttack ( void )
 
 				if (flAdjustedDamage > 0 )
 				{
-					pEntity->TakeDamage ( pev, pev, flAdjustedDamage, DMG_SONIC | DMG_ALWAYSGIB );
+					pEntity->TakeDamage ( this, this, flAdjustedDamage, DMG_SONIC | DMG_ALWAYSGIB );
 				}
 			}
 		}

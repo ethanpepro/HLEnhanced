@@ -240,7 +240,7 @@ bool CCrowbar::Swing( const bool bFirst )
 			// subsequent swings do half
 			pEntity->TraceAttack(m_pPlayer->pev, gSkillData.plrDmgCrowbar / 2, gpGlobals->v_forward, &tr, DMG_CLUB ); 
 		}	
-		g_MultiDamage.ApplyMultiDamage( m_pPlayer->pev, m_pPlayer->pev );
+		g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 
 		// play thwack, smack, or dong sound
 		float flVol = 1.0;

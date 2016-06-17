@@ -58,7 +58,7 @@ public:
 	void RunTask( Task_t *pTask ) override;
 	void StartTask( Task_t *pTask ) override;
 	virtual int	ObjectCaps() const override { return CTalkMonster::ObjectCaps() | FCAP_IMPULSE_USE; }
-	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType) override;
 	bool CheckRangeAttack1 ( float flDot, float flDist ) override;
 	
 	void DeclineFollowing( void ) override;
@@ -502,14 +502,14 @@ static bool IsFacing( entvars_t *pevTest, const Vector &reference )
 }
 
 
-int CBarney :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType)
+int CBarney::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType)
 {
 	// make sure friends talk about it if player hurts talkmonsters...
-	int ret = CTalkMonster::TakeDamage(pevInflictor, pevAttacker, flDamage, bitsDamageType);
+	int ret = CTalkMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 	if ( !IsAlive() || pev->deadflag == DEAD_DYING )
 		return ret;
 
-	if ( m_MonsterState != MONSTERSTATE_PRONE && (pevAttacker->flags & FL_CLIENT) )
+	if ( m_MonsterState != MONSTERSTATE_PRONE && (pAttacker->pev->flags & FL_CLIENT) )
 	{
 		m_flPlayerDamage += flDamage;
 
@@ -518,7 +518,7 @@ int CBarney :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, floa
 		if ( m_hEnemy == NULL )
 		{
 			// If the player was facing directly at me, or I'm already suspicious, get mad
-			if ( (m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing( pevAttacker, pev->origin ) )
+			if ( (m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing( pAttacker->pev, pev->origin ) )
 			{
 				// Alright, now I'm pissed!
 				PlaySentence( "BA_MAD", 4, VOL_NORM, ATTN_NORM );

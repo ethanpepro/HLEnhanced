@@ -63,7 +63,7 @@ public:
 	void ShootBalls( void );
 	void MakeFriend( Vector vecPos );
 	
-	int  TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	int  TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
 
 	void PainSound( void ) override;
@@ -1220,9 +1220,9 @@ void CNihilanth::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 }
 
 
-int CNihilanth :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CNihilanth::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
-	if (pevInflictor->owner == edict())
+	if ( pInflictor->pev->owner == edict() )
 		return 0;
 
 	if (flDamage >= pev->health)
@@ -1451,7 +1451,7 @@ void CNihilanthHVR :: ZapThink( void  )
 		{
 			g_MultiDamage.Clear( );
 			pEntity->TraceAttack( pev, gSkillData.nihilanthZap, pev->velocity, &tr, DMG_SHOCK );
-			g_MultiDamage.ApplyMultiDamage( pev, pev );
+			g_MultiDamage.ApplyMultiDamage( this, this );
 		}
 
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );

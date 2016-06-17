@@ -272,7 +272,7 @@ public:
 		virtual float HearingSensitivity( void ) { return 1.0; };
 
 		bool FBecomeProne() override;
-		virtual void BarnacleVictimBitten( entvars_t *pevBarnacle );
+		virtual void BarnacleVictimBitten( CBaseEntity* pBarnacle );
 		virtual void BarnacleVictimReleased( void );
 
 		void SetEyePosition ( void );
@@ -315,8 +315,8 @@ public:
 	virtual	Vector  GetGunPosition( void );
 
 	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
-	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
-	int			DeadTakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType );
+	virtual int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType) override;
+	int DeadTakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType );
 
 	void RadiusDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int iClassIgnore, int bitsDamageType );
 	void RadiusDamage(Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int iClassIgnore, int bitsDamageType );

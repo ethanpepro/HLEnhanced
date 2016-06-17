@@ -103,6 +103,7 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 	if (pOther->pev->takedamage)
 	{
 		TraceResult tr = UTIL_GetGlobalTrace( );
+		//TODO: remove pevOwner - Solokiller
 		entvars_t	*pevOwner;
 
 		pevOwner = VARS( pev->owner );
@@ -119,7 +120,7 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			pOther->TraceAttack(pevOwner, gSkillData.plrDmgCrossbowMonster, pev->velocity.Normalize(), &tr, DMG_BULLET | DMG_NEVERGIB ); 
 		}
 
-		g_MultiDamage.ApplyMultiDamage( pev, pevOwner );
+		g_MultiDamage.ApplyMultiDamage( this, Instance( pevOwner ) );
 
 		pev->velocity = Vector( 0, 0, 0 );
 		// play body "thwack" sound
@@ -371,7 +372,7 @@ void CCrossbow::FireSniperBolt()
 	{
 		g_MultiDamage.Clear( );
 		CBaseEntity::Instance(tr.pHit)->TraceAttack(m_pPlayer->pev, 120, vecDir, &tr, DMG_BULLET | DMG_NEVERGIB ); 
-		g_MultiDamage.ApplyMultiDamage( pev, m_pPlayer->pev );
+		g_MultiDamage.ApplyMultiDamage( this, m_pPlayer );
 	}
 #endif
 }

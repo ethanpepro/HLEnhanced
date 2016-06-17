@@ -299,14 +299,14 @@ public:
 
 	/**
 	*	Deals damage to this entity.
-	*	@param pevInflictor The entity that is responsible for dealing the damage.
-	*	@param pevAttacker The entity that owns pevInflictor. This may be identical to pevInflictor if it directly attacked this entity.
+	*	@param pInflictor The entity that is responsible for dealing the damage.
+	*	@param pAttacker The entity that owns pevInflictor. This may be identical to pInflictor if it directly attacked this entity.
 	*	@param flDamage Amount of damage to deal.
 	*	@param bitsDamageType Bit vector of damage types.
 	*	@return Whether any damage was dealt.
 	*	TODO: return value should be damage dealt.
 	*/
-	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType );
+	virtual int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType );
 
 	/**
 	*	Called when the entity has been killed.

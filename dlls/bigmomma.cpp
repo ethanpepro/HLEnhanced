@@ -172,7 +172,7 @@ public:
 	void Precache( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Activate( void ) override;
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 
 	void		RunTask( Task_t *pTask ) override;
 	void		StartTask( Task_t *pTask ) override;
@@ -451,7 +451,7 @@ void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
 					
 			if ( pHurt )
 			{
-				pHurt->TakeDamage( pev, pev, gSkillData.bigmommaDmgSlash, DMG_CRUSH | DMG_SLASH );
+				pHurt->TakeDamage( this, this, gSkillData.bigmommaDmgSlash, DMG_CRUSH | DMG_SLASH );
 				pHurt->pev->punchangle.x = 15;
 				switch( pEvent->event )
 				{
@@ -566,7 +566,7 @@ void CBigMomma :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector ve
 }
 
 
-int CBigMomma :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CBigMomma::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	// Don't take any acid damage -- BigMomma's mortar is acid
 	if ( bitsDamageType & DMG_ACID )
@@ -582,7 +582,7 @@ int CBigMomma :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, fl
 		}
 	}
 
-	return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 void CBigMomma :: LayHeadcrab( void )

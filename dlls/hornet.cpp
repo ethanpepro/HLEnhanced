@@ -43,13 +43,13 @@ END_DATADESC()
 //=========================================================
 // don't let hornets gib, ever.
 //=========================================================
-int CHornet :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CHornet::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	// filter these bits a little.
 	bitsDamageType &= ~ ( DMG_ALWAYSGIB );
 	bitsDamageType |= DMG_NEVERGIB;
 
-	return CBaseMonster :: TakeDamage ( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 //=========================================================
@@ -403,8 +403,14 @@ void CHornet::DieTouch ( CBaseEntity *pOther )
 			case 1:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_hornethit2.wav", 1, ATTN_NORM);	break;
 			case 2:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_hornethit3.wav", 1, ATTN_NORM);	break;
 		}
+
+		CBaseEntity* pOwner = Instance( pev->owner );
+
+		//Fall back to using yourself as the attacker if the owner is gone. - Solokiller
+		if( !pOwner )
+			pOwner = this;
 			
-		pOther->TakeDamage( pev, VARS( pev->owner ), pev->dmg, DMG_BULLET );
+		pOther->TakeDamage( this, pOwner, pev->dmg, DMG_BULLET );
 	}
 
 	pev->modelindex = 0;// so will disappear for the 0.1 secs we wait until NEXTTHINK gets rid

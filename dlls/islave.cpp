@@ -56,7 +56,7 @@ public:
 	bool CheckRangeAttack2 ( float flDot, float flDist ) override;
 	void CallForHelp( char *szClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation );
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
-	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType) override;
 
 	void DeathSound( void ) override;
 	void PainSound( void ) override;
@@ -423,7 +423,7 @@ void CISlave :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			EMIT_SOUND_DYN( ENT(pev), CHAN_WEAPON, "hassault/hw_shoot1.wav", 1, ATTN_NORM, 0, RANDOM_LONG( 130, 160 ) );
 			// STOP_SOUND( ENT(pev), CHAN_WEAPON, "debris/zap4.wav" );
-			g_MultiDamage.ApplyMultiDamage(pev, pev);
+			g_MultiDamage.ApplyMultiDamage( this, this );
 
 			m_flNextAttack = gpGlobals->time + RANDOM_FLOAT( 0.5, 4.0 );
 		}
@@ -573,14 +573,14 @@ void CISlave :: Precache()
 // TakeDamage - get provoked when injured
 //=========================================================
 
-int CISlave :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType)
+int CISlave::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	// don't slash one of your own
-	if ((bitsDamageType & DMG_SLASH) && pevAttacker && IRelationship( Instance(pevAttacker) ) < R_DL)
+	if ((bitsDamageType & DMG_SLASH) && pAttacker && IRelationship( pAttacker ) < R_DL)
 		return 0;
 
 	m_afMemory |= bits_MEMORY_PROVOKED;
-	return CSquadMonster::TakeDamage(pevInflictor, pevAttacker, flDamage, bitsDamageType);
+	return CSquadMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 

@@ -48,7 +48,7 @@ public:
 	// No range attacks
 	bool CheckRangeAttack1 ( float flDot, float flDist ) override { return false; }
 	bool CheckRangeAttack2 ( float flDot, float flDist ) override { return false; }
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 };
 
 LINK_ENTITY_TO_CLASS( monster_bloater, CBloater );
@@ -81,10 +81,10 @@ void CBloater :: SetYawSpeed ( void )
 	pev->yaw_speed = ys;
 }
 
-int CBloater :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CBloater::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	PainSound();
-	return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 void CBloater :: PainSound( void )

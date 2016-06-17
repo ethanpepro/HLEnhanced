@@ -443,10 +443,10 @@ void CBreakable::BreakTouch( CBaseEntity *pOther )
 		if (flDamage >= pev->health)
 		{
 			SetTouch( NULL );
-			TakeDamage(pevToucher, pevToucher, flDamage, DMG_CRUSH);
+			TakeDamage( pOther, pOther, flDamage, DMG_CRUSH);
 
 			// do a little damage to player if we broke glass or computer
-			pOther->TakeDamage( pev, pev, flDamage/4, DMG_SLASH );
+			pOther->TakeDamage( this, this, flDamage/4, DMG_SLASH );
 		}
 	}
 
@@ -523,25 +523,25 @@ void CBreakable::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vec
 // exceptions that are breakable-specific
 // bitsDamageType indicates the type of damage sustained ie: DMG_CRUSH
 //=========================================================
-int CBreakable :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CBreakable::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	Vector	vecTemp;
 
 	// if Attacker == Inflictor, the attack was a melee or other instant-hit attack.
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
-	if ( pevAttacker == pevInflictor )	
+	if ( pAttacker == pInflictor )	
 	{
-		vecTemp = pevInflictor->origin - ( pev->absmin + ( pev->size * 0.5 ) );
+		vecTemp = pInflictor->pev->origin - ( pev->absmin + ( pev->size * 0.5 ) );
 		
 		// if a client hit the breakable with a crowbar, and breakable is crowbar-sensitive, break it now.
-		if ( FBitSet ( pevAttacker->flags, FL_CLIENT ) &&
+		if ( FBitSet ( pAttacker->pev->flags, FL_CLIENT ) &&
 				 FBitSet ( pev->spawnflags, SF_BREAK_CROWBAR ) && (bitsDamageType & DMG_CLUB))
 			flDamage = pev->health;
 	}
 	else
 	// an actual missile was involved.
 	{
-		vecTemp = pevInflictor->origin - ( pev->absmin + ( pev->size * 0.5 ) );
+		vecTemp = pInflictor->pev->origin - ( pev->absmin + ( pev->size * 0.5 ) );
 	}
 	
 	if (!IsBreakable())
@@ -562,7 +562,7 @@ int CBreakable :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, f
 	pev->health -= flDamage;
 	if (pev->health <= 0)
 	{
-		Killed( pevAttacker, GIB_NORMAL );
+		Killed( pAttacker->pev, GIB_NORMAL );
 		Die();
 		return 0;
 	}
@@ -792,7 +792,7 @@ public:
 	inline float MaxSpeed( void ) { return m_maxSpeed; }
 	
 	// breakables use an overridden takedamage
-	virtual int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	virtual int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 
 	static char *m_soundNames[3];
 	int		m_lastSound;	// no need to save/restore, just keeps the same sound from playing twice in a row
@@ -987,10 +987,10 @@ void CPushable::StopSound( void )
 }
 #endif
 
-int CPushable::TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CPushable::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if ( pev->spawnflags & SF_PUSH_BREAKABLE )
-		return CBreakable::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+		return CBreakable::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 
 	return 1;
 }

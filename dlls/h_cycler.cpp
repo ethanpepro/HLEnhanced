@@ -40,7 +40,7 @@ public:
 
 	void GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax);
 	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() | FCAP_IMPULSE_USE ); }
-	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	void Spawn() override;
 	void Think() override;
 	//void Pain( float flDamage );
@@ -162,7 +162,7 @@ void CCycler :: Use ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 // CyclerPain , changes sequences when shot
 //
 //void CCycler :: Pain( float flDamage )
-int CCycler :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CCycler::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if (m_animate)
 	{
@@ -201,7 +201,7 @@ public:
 	void Think() override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() | FCAP_DONT_SAVE | FCAP_IMPULSE_USE ); }
-	virtual int	TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	virtual int	TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	void	Animate( float frames );
 
 	inline bool ShouldAnimate() const { return m_animate && m_maxFrame > 1.0; }
@@ -255,7 +255,7 @@ void CCyclerSprite::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 }
 
 
-int	CCyclerSprite::TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int	CCyclerSprite::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if ( m_maxFrame > 1.0 )
 	{

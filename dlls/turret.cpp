@@ -63,7 +63,7 @@ public:
 	void EXPORT TurretUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	
 	virtual void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
-	virtual int	 TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	virtual int	 TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	virtual int	 Classify(void) override;
 
 	int BloodColor() const override { return DONT_BLEED; }
@@ -558,7 +558,7 @@ void CBaseTurret::ActiveThink(void)
 		{
 			m_vecGoalAngles.y = RANDOM_FLOAT(0,360);
 			m_vecGoalAngles.x = RANDOM_FLOAT(0,90) - 90 * m_iOrientation;
-			TakeDamage(pev,pev,1, DMG_GENERIC); // don't beserk forever
+			TakeDamage( this, this, 1, DMG_GENERIC ); // don't beserk forever
 			return;
 		}
 	} 
@@ -999,7 +999,7 @@ void CBaseTurret :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector 
 
 // take damage. bitsDamageType indicates type of damage sustained, ie: DMG_BULLET
 
-int CBaseTurret::TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType)
+int CBaseTurret::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if ( !pev->takedamage )
 		return 0;
@@ -1143,7 +1143,7 @@ public:
 	void Precache(void) override;
 	// other functions
 	void Shoot(Vector &vecSrc, Vector &vecDirToEnemy) override;
-	int TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	void EXPORT SentryTouch( CBaseEntity *pOther );
 	void EXPORT SentryDeath( void );
 
@@ -1191,7 +1191,7 @@ void CSentry::Shoot(Vector &vecSrc, Vector &vecDirToEnemy)
 	pev->effects = pev->effects | EF_MUZZLEFLASH;
 }
 
-int CSentry::TakeDamage(entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType)
+int CSentry::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if ( !pev->takedamage )
 		return 0;
@@ -1228,7 +1228,7 @@ void CSentry::SentryTouch( CBaseEntity *pOther )
 {
 	if ( pOther && (pOther->IsPlayer() || (pOther->pev->flags & FL_MONSTER)) )
 	{
-		TakeDamage(pOther->pev, pOther->pev, 0, 0 );
+		TakeDamage( pOther, pOther, 0, 0 );
 	}
 }
 

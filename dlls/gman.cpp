@@ -41,7 +41,7 @@ public:
 
 	void StartTask( Task_t *pTask ) override;
 	void RunTask( Task_t *pTask ) override;
-	int  TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	int  TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
 
 	void PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener ) override;
@@ -201,7 +201,7 @@ void CGMan :: RunTask( Task_t *pTask )
 //=========================================================
 // Override all damage
 //=========================================================
-int CGMan :: TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CGMan::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	pev->health = pev->max_health / 2; // always trigger the 50% damage aitrigger
 

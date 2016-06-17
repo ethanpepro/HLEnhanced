@@ -443,7 +443,7 @@ void CBaseButton::ButtonUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 //
 // ButtonShot
 //
-int CBaseButton::TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CBaseButton::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	BUTTON_CODE code = ButtonResponseToTouch();
 
@@ -452,7 +452,7 @@ int CBaseButton::TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, fl
 	// Temporarily disable the touch function, until movement is finished.
 	SetTouch( NULL );
 
-	m_hActivator = CBaseEntity::Instance( pevAttacker );
+	m_hActivator = pAttacker;
 	if( m_hActivator == NULL )
 		return 0;
 

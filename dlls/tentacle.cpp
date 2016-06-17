@@ -63,7 +63,7 @@ public:
 
 	float HearingSensitivity() override { return 2.0; };
 
-	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
 
@@ -957,12 +957,12 @@ void CTentacle :: HitTouch( CBaseEntity *pOther )
 
 	if (tr.iHitgroup >= 3)
 	{
-		pOther->TakeDamage( pev, pev, m_iHitDmg, DMG_CRUSH );
+		pOther->TakeDamage( this, this, m_iHitDmg, DMG_CRUSH );
 		// ALERT( at_console, "wack %3d : ", m_iHitDmg );
 	}
 	else if (tr.iHitgroup != 0)
 	{
-		pOther->TakeDamage( pev, pev, 20, DMG_CRUSH );
+		pOther->TakeDamage( this, this, 20, DMG_CRUSH );
 		// ALERT( at_console, "tap  %3d : ", 20 );
 	}
 	else
@@ -978,7 +978,7 @@ void CTentacle :: HitTouch( CBaseEntity *pOther )
 }
 
 
-int CTentacle::TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CTentacle::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if (flDamage > pev->health)
 	{

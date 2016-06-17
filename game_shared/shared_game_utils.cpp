@@ -15,3 +15,8 @@ CBaseEntity* GET_PRIVATE( edict_t* pent )
 }
 
 CHashStringPool g_StringPool;
+
+bool FNullEnt( const CBaseEntity* pEntity )
+{
+	return pEntity == nullptr || FNullEnt( pEntity->pev );
+}

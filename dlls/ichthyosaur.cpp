@@ -443,7 +443,7 @@ void CIchthyosaur :: HandleAnimEvent( MonsterEvent_t *pEvent )
 						pHurt->pev->angles.z = 0;
 						pHurt->pev->fixangle = FIXANGLE_SET;
 					}
-					pHurt->TakeDamage( pev, pev, gSkillData.ichthyosaurDmgShake, DMG_SLASH );
+					pHurt->TakeDamage( this, this, gSkillData.ichthyosaurDmgShake, DMG_SLASH );
 				}
 			}
 			BiteSound();

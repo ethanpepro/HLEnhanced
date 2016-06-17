@@ -82,7 +82,7 @@ public:
 	*	@param pevInflictor Inflictor to pass to TakeDamage.
 	*	@param pevAttacker Attacker to pass to TakeDamage.
 	*/
-	void ApplyMultiDamage( entvars_t *pevInflictor, entvars_t *pevAttacker );
+	void ApplyMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker );
 
 private:
 	CBaseEntity* m_pEntity;

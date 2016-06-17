@@ -94,7 +94,7 @@ bool CBaseMonster::FShouldEat() const
 // by Barnacle victims when the barnacle pulls their head
 // into its mouth
 //=========================================================
-void CBaseMonster :: BarnacleVictimBitten ( entvars_t *pevBarnacle )
+void CBaseMonster::BarnacleVictimBitten( CBaseEntity* pBarnacle )
 {
 	Schedule_t	*pNewSchedule;
 

@@ -836,7 +836,7 @@ When a monster is poisoned via an arrow etc it takes all the poison damage at on
 GLOBALS ASSUMED SET:  g_iSkillLevel
 ============
 */
-int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	float	flTake;
 	Vector	vecDir;
@@ -846,7 +846,7 @@ int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker,
 
 	if ( !IsAlive() )
 	{
-		return DeadTakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+		return DeadTakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 	}
 
 	if ( pev->deadflag == DEAD_NO )
@@ -863,14 +863,10 @@ int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker,
 
 	// grab the vector of the incoming attack. ( pretend that the inflictor is a little lower than it really is, so the body will tend to fly upward a bit).
 	vecDir = Vector( 0, 0, 0 );
-	if (!FNullEnt( pevInflictor ))
+	if( !FNullEnt( pInflictor ) )
 	{
-		CBaseEntity *pInflictor = CBaseEntity :: Instance( pevInflictor );
-		if (pInflictor)
-		{
-			vecDir = ( pInflictor->Center() - Vector ( 0, 0, 10 ) - Center() ).Normalize();
-			vecDir = g_vecAttackDir = vecDir.Normalize();
-		}
+		vecDir = ( pInflictor->Center() - Vector ( 0, 0, 10 ) - Center() ).Normalize();
+		vecDir = g_vecAttackDir = vecDir.Normalize();
 	}
 
 	// add to the damage total for clients, which will be sent as a single
@@ -878,8 +874,8 @@ int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker,
 	// todo: remove after combining shotgun blasts?
 	if ( IsPlayer() )
 	{
-		if ( pevInflictor )
-			pev->dmg_inflictor = ENT(pevInflictor);
+		if ( pInflictor )
+			pev->dmg_inflictor = pInflictor->edict();
 
 		pev->dmg_take += flTake;
 
@@ -891,7 +887,7 @@ int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker,
 	}
 
 	// if this is a player, move him around!
-	if ( ( !FNullEnt( pevInflictor ) ) && (pev->movetype == MOVETYPE_WALK) && (!pevAttacker || pevAttacker->solid != SOLID_TRIGGER) )
+	if ( ( !FNullEnt( pInflictor ) ) && (pev->movetype == MOVETYPE_WALK) && (!pAttacker || pAttacker->pev->solid != SOLID_TRIGGER) )
 	{
 		pev->velocity = pev->velocity + vecDir * -DamageForce( flDamage );
 	}
@@ -909,38 +905,38 @@ int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker,
 
 	if ( pev->health <= 0 )
 	{
-		g_pevLastInflictor = pevInflictor;
+		g_pevLastInflictor = !FNullEnt( pInflictor ) ? pInflictor->pev : nullptr;
 
 		if ( bitsDamageType & DMG_ALWAYSGIB )
 		{
-			Killed( pevAttacker, GIB_ALWAYS );
+			Killed( pAttacker->pev, GIB_ALWAYS );
 		}
 		else if ( bitsDamageType & DMG_NEVERGIB )
 		{
-			Killed( pevAttacker, GIB_NEVER );
+			Killed( pAttacker->pev, GIB_NEVER );
 		}
 		else
 		{
-			Killed( pevAttacker, GIB_NORMAL );
+			Killed( pAttacker->pev, GIB_NORMAL );
 		}
 
-		g_pevLastInflictor = NULL;
+		g_pevLastInflictor = nullptr;
 
 		return 0;
 	}
 
 	// react to the damage (get mad)
-	if ( (pev->flags & FL_MONSTER) && !FNullEnt(pevAttacker) )
+	if ( (pev->flags & FL_MONSTER) && !FNullEnt( pAttacker ) )
 	{
-		if ( pevAttacker->flags & (FL_MONSTER | FL_CLIENT) )
+		if ( pAttacker->pev->flags & (FL_MONSTER | FL_CLIENT) )
 		{// only if the attack was a monster or client!
 			
 			// enemy's last known position is somewhere down the vector that the attack came from.
-			if (pevInflictor)
+			if ( pInflictor )
 			{
-				if (m_hEnemy == NULL || pevInflictor == m_hEnemy->pev || !HasConditions(bits_COND_SEE_ENEMY))
+				if (m_hEnemy == NULL || pInflictor->pev == m_hEnemy->pev || !HasConditions(bits_COND_SEE_ENEMY))
 				{
-					m_vecEnemyLKP = pevInflictor->origin;
+					m_vecEnemyLKP = pInflictor->pev->origin;
 				}
 			}
 			else
@@ -972,20 +968,16 @@ int CBaseMonster :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker,
 // DeadTakeDamage - takedamage function called when a monster's
 // corpse is damaged.
 //=========================================================
-int CBaseMonster :: DeadTakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CBaseMonster::DeadTakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	Vector			vecDir;
 
 	// grab the vector of the incoming attack. ( pretend that the inflictor is a little lower than it really is, so the body will tend to fly upward a bit).
 	vecDir = Vector( 0, 0, 0 );
-	if (!FNullEnt( pevInflictor ))
+	if( !FNullEnt( pInflictor ) )
 	{
-		CBaseEntity *pInflictor = CBaseEntity :: Instance( pevInflictor );
-		if (pInflictor)
-		{
-			vecDir = ( pInflictor->Center() - Vector ( 0, 0, 10 ) - Center() ).Normalize();
-			vecDir = g_vecAttackDir = vecDir.Normalize();
-		}
+		vecDir = ( pInflictor->Center() - Vector ( 0, 0, 10 ) - Center() ).Normalize();
+		vecDir = g_vecAttackDir = vecDir.Normalize();
 	}
 
 #if 0// turn this back on when the bounding box issues are resolved.
@@ -994,7 +986,7 @@ int CBaseMonster :: DeadTakeDamage( entvars_t *pevInflictor, entvars_t *pevAttac
 	pev->origin.z += 1;
 	
 	// let the damage scoot the corpse around a bit.
-	if ( !FNullEnt(pevInflictor) && (pevAttacker->solid != SOLID_TRIGGER) )
+	if ( !FNullEnt( pAttacker ) && ( pAttacker->pev->solid != SOLID_TRIGGER) )
 	{
 		pev->velocity = pev->velocity + vecDir * -DamageForce( flDamage );
 	}
@@ -1007,7 +999,7 @@ int CBaseMonster :: DeadTakeDamage( entvars_t *pevInflictor, entvars_t *pevAttac
 		if ( pev->health <= flDamage )
 		{
 			pev->health = -50;
-			Killed( pevAttacker, GIB_ALWAYS );
+			Killed( pAttacker->pev, GIB_ALWAYS );
 			return 0;
 		}
 		// Accumulate corpse gibbing damage, so you can gib with multiple hits
@@ -1055,6 +1047,9 @@ void RadiusDamage( Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacke
 	if ( !pevAttacker )
 		pevAttacker = pevInflictor;
 
+	CBaseEntity* pInflictor = CBaseEntity::Instance( pevInflictor );
+	CBaseEntity* pAttacker = CBaseEntity::Instance( pevAttacker );
+
 	// iterate on all entities in the vicinity.
 	while ((pEntity = UTIL_FindEntityInSphere( pEntity, vecSrc, flRadius )) != NULL)
 	{
@@ -1099,11 +1094,11 @@ void RadiusDamage( Vector vecSrc, entvars_t *pevInflictor, entvars_t *pevAttacke
 				{
 					g_MultiDamage.Clear( );
 					pEntity->TraceAttack( pevInflictor, flAdjustedDamage, (tr.vecEndPos - vecSrc).Normalize( ), &tr, bitsDamageType );
-					g_MultiDamage.ApplyMultiDamage( pevInflictor, pevAttacker );
+					g_MultiDamage.ApplyMultiDamage( pInflictor, pAttacker );
 				}
 				else
 				{
-					pEntity->TakeDamage ( pevInflictor, pevAttacker, flAdjustedDamage, bitsDamageType );
+					pEntity->TakeDamage ( pInflictor, pAttacker, flAdjustedDamage, bitsDamageType );
 				}
 			}
 		}
@@ -1152,7 +1147,7 @@ CBaseEntity* CBaseMonster :: CheckTraceHullAttack( float flDist, int iDamage, in
 
 		if ( iDamage > 0 )
 		{
-			pEntity->TakeDamage( pev, pev, iDamage, iDmgType );
+			pEntity->TakeDamage( this, this, iDamage, iDmgType );
 		}
 
 		return pEntity;
@@ -1495,7 +1490,7 @@ void CBaseEntity::FireBullets( const unsigned int cShots,
 		// make bullet trails
 		UTIL_BubbleTrail( vecSrc, tr.vecEndPos, (flDistance * tr.flFraction) / 64.0 );
 	}
-	g_MultiDamage.ApplyMultiDamage(pev, pevAttacker);
+	g_MultiDamage.ApplyMultiDamage( this, Instance( pevAttacker ) );
 }
 
 
@@ -1591,7 +1586,7 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 		// make bullet trails
 		UTIL_BubbleTrail( vecSrc, tr.vecEndPos, (flDistance * tr.flFraction) / 64.0 );
 	}
-	g_MultiDamage.ApplyMultiDamage(pev, pevAttacker);
+	g_MultiDamage.ApplyMultiDamage( this, Instance( pevAttacker ) );
 
 	return Vector( x * vecSpread.x, y * vecSpread.y, 0.0 );
 }

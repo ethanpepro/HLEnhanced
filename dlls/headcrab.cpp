@@ -92,7 +92,7 @@ public:
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	bool CheckRangeAttack1 ( float flDot, float flDist ) override;
 	bool CheckRangeAttack2 ( float flDot, float flDist ) override;
-	int TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 
 	virtual float GetDamageAmount( void ) { return gSkillData.headcrabDmgBite; }
 	virtual int GetVoicePitch( void ) { return 100; }
@@ -360,7 +360,7 @@ void CHeadCrab :: LeapTouch ( CBaseEntity *pOther )
 	{
 		EMIT_SOUND_DYN( edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY(pBiteSounds), GetSoundVolue(), ATTN_IDLE, 0, GetVoicePitch() );
 		
-		pOther->TakeDamage( pev, pev, GetDamageAmount(), DMG_SLASH );
+		pOther->TakeDamage( this, this, GetDamageAmount(), DMG_SLASH );
 	}
 
 	SetTouch( NULL );
@@ -427,13 +427,13 @@ bool CHeadCrab :: CheckRangeAttack2 ( float flDot, float flDist )
 #endif
 }
 
-int CHeadCrab :: TakeDamage( entvars_t *pevInflictor, entvars_t *pevAttacker, float flDamage, int bitsDamageType )
+int CHeadCrab::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	// Don't take any acid damage -- BigMomma's mortar is acid
 	if ( bitsDamageType & DMG_ACID )
 		flDamage = 0;
 
-	return CBaseMonster::TakeDamage( pevInflictor, pevAttacker, flDamage, bitsDamageType );
+	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
 
 //=========================================================

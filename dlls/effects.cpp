@@ -731,7 +731,7 @@ void CBeam::BeamDamage( TraceResult *ptr )
 		{
 			g_MultiDamage.Clear();
 			pHit->TraceAttack( pev, pev->dmg * (gpGlobals->time - pev->dmgtime), (ptr->vecEndPos - pev->origin).Normalize(), ptr, DMG_ENERGYBEAM );
-			g_MultiDamage.ApplyMultiDamage( pev, pev );
+			g_MultiDamage.ApplyMultiDamage( this, this );
 			if ( pev->spawnflags & SF_BEAM_DECALS )
 			{
 				if ( pHit->IsBSPModel() )

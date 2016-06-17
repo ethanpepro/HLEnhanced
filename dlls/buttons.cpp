@@ -275,7 +275,7 @@ public:
 
 	void Spawn( void ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	int TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType ) override;
+	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	int	ObjectCaps() const override;
 	
 };
@@ -316,9 +316,9 @@ int	CButtonTarget::ObjectCaps() const
 }
 
 
-int CButtonTarget::TakeDamage( entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType )
+int CButtonTarget::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
-	Use( Instance(pevAttacker), this, USE_TOGGLE, 0 );
+	Use( pAttacker, this, USE_TOGGLE, 0 );
 
 	return 1;
 }

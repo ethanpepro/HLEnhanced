@@ -27,7 +27,8 @@ void CMultiDamage::AddMultiDamage( entvars_t *pevInflictor, CBaseEntity *pEntity
 
 	if( pEntity != m_pEntity )
 	{
-		ApplyMultiDamage( pevInflictor, pevInflictor ); // UNDONE: wrong attacker!
+		//TODO: replace this - Solokiller
+		ApplyMultiDamage( CBaseEntity::Instance( pevInflictor ), CBaseEntity::Instance( pevInflictor ) ); // UNDONE: wrong attacker!
 		m_pEntity = pEntity;
 		m_flAmount = 0;
 	}
@@ -35,10 +36,10 @@ void CMultiDamage::AddMultiDamage( entvars_t *pevInflictor, CBaseEntity *pEntity
 	m_flAmount += flDamage;
 }
 
-void CMultiDamage::ApplyMultiDamage( entvars_t *pevInflictor, entvars_t *pevAttacker )
+void CMultiDamage::ApplyMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker )
 {
 	if( !m_pEntity )
 		return;
 
-	m_pEntity->TakeDamage( pevInflictor, pevAttacker, m_flAmount, m_bitsDamageTypes );
+	m_pEntity->TakeDamage( pInflictor, pAttacker, m_flAmount, m_bitsDamageTypes );
 }

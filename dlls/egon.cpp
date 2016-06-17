@@ -291,7 +291,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 			{
 				pEntity->TraceAttack( m_pPlayer->pev, gSkillData.plrDmgEgonNarrow, vecDir, &tr, DMG_ENERGYBEAM );
 			}
-			g_MultiDamage.ApplyMultiDamage(m_pPlayer->pev, m_pPlayer->pev);
+			g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 
 			if ( g_pGameRules->IsMultiplayer() )
 			{
@@ -328,7 +328,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 			{
 				pEntity->TraceAttack( m_pPlayer->pev, gSkillData.plrDmgEgonWide, vecDir, &tr, DMG_ENERGYBEAM | DMG_ALWAYSGIB);
 			}
-			g_MultiDamage.ApplyMultiDamage(m_pPlayer->pev, m_pPlayer->pev);
+			g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 
 			if ( g_pGameRules->IsMultiplayer() )
 			{
