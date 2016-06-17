@@ -37,7 +37,7 @@
 #include "pm_shared.h"
 #include "hltv.h"
 
-#include "CCorpse.h"
+#include "entities/CCorpse.h"
 #include "entities/weapons/CWeaponBox.h"
 
 //TODO: move classes out of this file - Solokiller

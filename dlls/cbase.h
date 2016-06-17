@@ -145,7 +145,7 @@ class CSquadMonster;
 
 #include "entities/CBaseEntity.shared.h"
 
-#include "CPointEntity.h"
+#include "entities/CPointEntity.h"
 
 typedef struct locksounds			// sounds that doors and buttons make when locked/unlocked
 {
@@ -165,11 +165,11 @@ typedef struct locksounds			// sounds that doors and buttons make when locked/un
 
 void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const bool bButton );
 
-#include "CBaseDelay.h"
+#include "entities/CBaseDelay.h"
 
-#include "CBaseAnimating.h"
+#include "entities/CBaseAnimating.h"
 
-#include "CBaseToggle.h"
+#include "entities/CBaseToggle.h"
 
 // people gib if their health is <= this at the time of death
 #define	GIB_HEALTH_VALUE	-30
@@ -243,7 +243,7 @@ class CSound;
 
 char *ButtonSound( int sound );				// get string of button sound number
 
-#include "CBaseButton.h"
+#include "entities/CBaseButton.h"
 
 //
 // Converts a entvars_t * to a class pointer
@@ -297,6 +297,6 @@ push_trigger_data
 
 #define TRACER_FREQ		4			// Tracers fire every 4 bullets
 
-#include "CWorld.h"
+#include "entities/CWorld.h"
 
 #endif //CBASE_H

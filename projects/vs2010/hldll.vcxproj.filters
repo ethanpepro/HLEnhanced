@@ -405,58 +405,10 @@
     <ClCompile Include="..\..\common\Platform.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\server\CBaseEntity.server.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\server\CMultiSource.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CMultiManager.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CBaseDoor.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CRotDoor.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CMomentaryDoor.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CPointEntity.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CBaseDelay.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CBaseAnimating.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CBaseToggle.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CBaseButton.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CRotButton.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CMomentaryRotButton.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CWorld.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\server\Decals.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CCorpse.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\CDecal.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\server\CGlobalState.cpp">
@@ -482,6 +434,54 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp">
       <Filter>Source Files\game\shared\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CCorpse.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CMultiManager.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CMultiSource.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseButton.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseDoor.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CRotButton.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CRotDoor.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CMomentaryDoor.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CMomentaryRotButton.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CWorld.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseAnimating.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseToggle.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseDelay.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseEntity.server.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CDecal.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CPointEntity.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -635,52 +635,7 @@
     <ClInclude Include="..\..\game\server\CMultiDamage.h">
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\game\server\CMultiSource.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CMultiManager.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CBaseDoor.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CRotDoor.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CMomentaryDoor.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CPointEntity.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CBaseDelay.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CBaseAnimating.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CBaseToggle.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CBaseButton.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CRotButton.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CMomentaryRotButton.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CWorld.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\game\server\Decals.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CCorpse.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\server\CDecal.h">
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h">
@@ -712,6 +667,51 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\EHandle.h">
       <Filter>Header Files\game\shared\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CCorpse.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CMultiManager.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CMultiSource.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CBaseButton.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CBaseDoor.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CRotButton.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CRotDoor.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CMomentaryDoor.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CMomentaryRotButton.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CWorld.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CBaseAnimating.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CBaseDelay.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CBaseToggle.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CDecal.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CPointEntity.h">
+      <Filter>Header Files\game\server\entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

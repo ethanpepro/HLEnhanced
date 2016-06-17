@@ -23,7 +23,7 @@
 #include "cbase.h"
 #include "doors.h"
 
-#include "CBaseDoor.h"
+#include "entities/CBaseDoor.h"
 
 //TODO: move this stuff somewhere else - Solokiller
 
