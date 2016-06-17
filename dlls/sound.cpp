@@ -23,6 +23,7 @@
 #include "player.h"
 #include "talkmonster.h"
 #include "gamerules.h"
+#include "com_model.h"
 
 #if !defined ( _WIN32 )
 #include <ctype.h>
@@ -1625,9 +1626,7 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 	float fvol;
 	float fvolbar;
 	char szbuffer[64];
-	const char *pTextureName;
-	float rgfl1[3];
-	float rgfl2[3];
+	const texture_t* pTexture;
 	char *rgsz[4];
 	int cnt;
 	float fattn = ATTN_NORM;
@@ -1648,27 +1647,24 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 
 		// find texture under strike, get material type
 
-		// copy trace vector into array for trace_texture
-
-		vecSrc.CopyToArray(rgfl1);
-		vecEnd.CopyToArray(rgfl2);
-
 		// get texture from entity or world (world is ent(0))
 		if (pEntity)
-			pTextureName = TRACE_TEXTURE( ENT(pEntity->pev), rgfl1, rgfl2 );
+			pTexture = TRACE_TEXTURE( ENT(pEntity->pev), vecSrc, vecEnd );
 		else
-			pTextureName = TRACE_TEXTURE( ENT(0), rgfl1, rgfl2 );
+			pTexture = TRACE_TEXTURE( ENT(0), vecSrc, vecEnd );
 			
-		if ( pTextureName )
+		if ( pTexture )
 		{
-			// strip leading '-0' or '+0~' or '{' or '!'
-			if (*pTextureName == '-' || *pTextureName == '+')
-				pTextureName += 2;
+			const char* pszTextureName = pTexture->name;
 
-			if (*pTextureName == '{' || *pTextureName == '!' || *pTextureName == '~' || *pTextureName == ' ')
-				pTextureName++;
+			// strip leading '-0' or '+0~' or '{' or '!'
+			if (*pszTextureName == '-' || *pszTextureName == '+')
+				pszTextureName += 2;
+
+			if (*pszTextureName == '{' || *pszTextureName == '!' || *pszTextureName == '~' || *pszTextureName == ' ')
+				++pszTextureName;
 			// '}}'
-			strcpy(szbuffer, pTextureName);
+			strcpy( szbuffer, pszTextureName );
 			szbuffer[CBTEXTURENAMEMAX - 1] = 0;
 				
 			// ALERT ( at_console, "texture hit: %s\n", szbuffer);

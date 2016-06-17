@@ -37,6 +37,8 @@
 #include "pm_shared.h"
 #include "hltv.h"
 
+#include "com_model.h"
+
 #include "entities/CCorpse.h"
 #include "entities/weapons/CWeaponBox.h"
 
@@ -3556,9 +3558,9 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			UTIL_TraceLine( start, end, ignore_monsters, edict(), &tr );
 			if ( tr.pHit )
 				pWorld = tr.pHit;
-			const char *pTextureName = TRACE_TEXTURE( pWorld, start, end );
-			if ( pTextureName )
-				ALERT( at_console, "Texture: %s\n", pTextureName );
+			const texture_t* pTexture = TRACE_TEXTURE( pWorld, start, end );
+			if ( pTexture )
+				ALERT( at_console, "Texture: %s\n", pTexture->name );
 		}
 		break;
 	case	195:// show shortest paths for entire level to nearest node

@@ -441,16 +441,19 @@ typedef struct enginefuncs_s
 	void		(*pfnTraceModel)			( const float* v1, const float* v2, int hullNumber, edict_t* pEntity, TraceResult* ptr );
 	
 	/**
-	*	Used to get the name of a texture.
+	*	Used to get texture info.
 	*	The given entity must have a brush model set.
-	*	If the traceline intersects the model, the name of the texture of the surface it intersected is returned.
-	*	Otherwise, returns an empty string.
+	*	If the traceline intersects the model, the texture of the surface it intersected is returned.
+	*	Otherwise, returns null.
+	*
+	*	Was defined to return a const char*. However, the engine actually returns texture_t*, which works because texture_t::name is the first element, so it's identical.
+	*
 	*	@param pTextureEntity Entity whose texture is to be retrieved.
 	*	@param v1 Start position.
 	*	@param v2 End position.
-	*	@return Texture name.
+	*	@return Texture instance, or null if no texture could be found.
 	*/
-	const char* (*pfnTraceTexture)			( edict_t* pTextureEntity, const float* v1, const float* v2 );
+	const struct texture_s*	(*pfnTraceTexture)			( edict_t* pTextureEntity, const float* v1, const float* v2 );
 	
 	/**
 	*	Not implemented. Triggers a sys error.
