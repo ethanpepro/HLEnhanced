@@ -17,6 +17,7 @@
 #include "cbase.h"
 #include "monsters.h"
 #include "weapons.h"
+#include "CTripmine.h"
 #include "nodes.h"
 #include "player.h"
 #include "effects.h"
@@ -41,6 +42,7 @@ enum tripmine_e {
 
 #ifndef CLIENT_DLL
 
+//TODO: move - Solokiller
 class CTripmineGrenade : public CGrenade
 {
 public:

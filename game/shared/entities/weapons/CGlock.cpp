@@ -18,6 +18,7 @@
 #include "cbase.h"
 #include "monsters.h"
 #include "weapons.h"
+#include "CGlock.h"
 #include "nodes.h"
 #include "player.h"
 

@@ -18,6 +18,7 @@
 #include "player.h"
 #include "monsters.h"
 #include "weapons.h"
+#include "CEgon.h"
 #include "nodes.h"
 #include "effects.h"
 #include "customentity.h"

@@ -17,6 +17,7 @@
 #include "cbase.h"
 #include "monsters.h"
 #include "weapons.h"
+#include "CHornetGun.h"
 #include "nodes.h"
 #include "player.h"
 #include "hornet.h"
@@ -39,14 +40,14 @@ enum firemode_e
 };
 
 
-LINK_ENTITY_TO_CLASS( weapon_hornetgun, CHgun );
+LINK_ENTITY_TO_CLASS( weapon_hornetgun, CHornetGun );
 
-bool CHgun::IsUseable()
+bool CHornetGun::IsUseable()
 {
 	return true;
 }
 
-void CHgun::Spawn( )
+void CHornetGun::Spawn( )
 {
 	Precache( );
 	m_iId = WEAPON_HORNETGUN;
@@ -59,7 +60,7 @@ void CHgun::Spawn( )
 }
 
 
-void CHgun::Precache( void )
+void CHornetGun::Precache( void )
 {
 	PRECACHE_MODEL("models/v_hgun.mdl");
 	PRECACHE_MODEL("models/w_hgun.mdl");
@@ -70,7 +71,7 @@ void CHgun::Precache( void )
 	UTIL_PrecacheOther("hornet");
 }
 
-bool CHgun::AddToPlayer( CBasePlayer *pPlayer )
+bool CHornetGun::AddToPlayer( CBasePlayer *pPlayer )
 {
 	if ( CBasePlayerWeapon::AddToPlayer( pPlayer ) )
 	{
@@ -91,7 +92,7 @@ bool CHgun::AddToPlayer( CBasePlayer *pPlayer )
 	return false;
 }
 
-bool CHgun::GetItemInfo( ItemInfo* p )
+bool CHornetGun::GetItemInfo( ItemInfo* p )
 {
 	p->pszName = STRING(pev->classname);
 	p->pszAmmo1 = "Hornets";
@@ -107,12 +108,12 @@ bool CHgun::GetItemInfo( ItemInfo* p )
 }
 
 
-bool CHgun::Deploy()
+bool CHornetGun::Deploy()
 {
 	return DefaultDeploy( "models/v_hgun.mdl", "models/p_hgun.mdl", HGUN_UP, "hive" );
 }
 
-void CHgun::Holster( int skiplocal /* = 0 */ )
+void CHornetGun::Holster( int skiplocal /* = 0 */ )
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	SendWeaponAnim( HGUN_DOWN );
@@ -125,7 +126,7 @@ void CHgun::Holster( int skiplocal /* = 0 */ )
 }
 
 
-void CHgun::PrimaryAttack()
+void CHornetGun::PrimaryAttack()
 {
 	Reload( );
 
@@ -175,7 +176,7 @@ void CHgun::PrimaryAttack()
 
 
 
-void CHgun::SecondaryAttack( void )
+void CHornetGun::SecondaryAttack( void )
 {
 	Reload();
 
@@ -258,7 +259,7 @@ void CHgun::SecondaryAttack( void )
 }
 
 
-void CHgun::Reload( void )
+void CHornetGun::Reload( void )
 {
 	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] >= HORNET_MAX_CARRY)
 		return;
@@ -271,7 +272,7 @@ void CHgun::Reload( void )
 }
 
 
-void CHgun::WeaponIdle( void )
+void CHornetGun::WeaponIdle( void )
 {
 	Reload( );
 

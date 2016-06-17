@@ -17,6 +17,7 @@
 #include "cbase.h"
 #include "monsters.h"
 #include "weapons.h"
+#include "CCrossbow.h"
 #include "nodes.h"
 #include "player.h"
 #include "gamerules/GameRules.h"
@@ -25,6 +26,7 @@
 #define BOLT_AIR_VELOCITY	2000
 #define BOLT_WATER_VELOCITY	1000
 
+//TODO: move - Solokiller
 // UNDONE: Save/restore this?  Don't forget to set classname and LINK_ENTITY_TO_CLASS()
 // 
 // OVERLOADS SOME ENTVARS:

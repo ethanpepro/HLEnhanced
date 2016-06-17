@@ -17,6 +17,7 @@
 #include "cbase.h"
 #include "monsters.h"
 #include "weapons.h"
+#include "CGauss.h"
 #include "nodes.h"
 #include "player.h"
 #include "soundent.h"

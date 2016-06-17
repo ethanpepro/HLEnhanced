@@ -16,6 +16,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "weapons.h"
+#include "CPython.h"
 #include "monsters.h"
 #include "player.h"
 #include "gamerules/GameRules.h"

@@ -35,6 +35,7 @@
 #include "game.h"
 #include "customentity.h"
 #include "weapons.h"
+#include "entities/weapons/CRpg.h"
 #include "weaponinfo.h"
 #include "usercmd.h"
 #include "netadr.h"

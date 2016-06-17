@@ -19,6 +19,20 @@
 #include "weapons.h"
 #include "nodes.h"
 #include "player.h"
+#include "entities/weapons/CGlock.h"
+#include "entities/weapons/CCrowbar.h"
+#include "entities/weapons/CPython.h"
+#include "entities/weapons/CMP5.h"
+#include "entities/weapons/CCrossbow.h"
+#include "entities/weapons/CShotgun.h"
+#include "entities/weapons/CRpg.h"
+#include "entities/weapons/CGauss.h"
+#include "entities/weapons/CEgon.h"
+#include "entities/weapons/CHornetGun.h"
+#include "entities/weapons/CHandGrenade.h"
+#include "entities/weapons/CSatchel.h"
+#include "entities/weapons/CTripmine.h"
+#include "entities/weapons/CSqueak.h"
 #include "entities/weapons/CSniperRifle.h"
 
 #include "usercmd.h"
@@ -63,7 +77,7 @@ CShotgun g_Shotgun;
 CRpg g_Rpg;
 CGauss g_Gauss;
 CEgon g_Egon;
-CHgun g_HGun;
+CHornetGun g_HGun;
 CHandGrenade g_HandGren;
 CSatchel g_Satchel;
 CTripmine g_Tripmine;

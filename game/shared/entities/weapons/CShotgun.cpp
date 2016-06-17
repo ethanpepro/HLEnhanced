@@ -18,6 +18,7 @@
 #include "cbase.h"
 #include "monsters.h"
 #include "weapons.h"
+#include "CShotgun.h"
 #include "nodes.h"
 #include "player.h"
 #include "gamerules/GameRules.h"

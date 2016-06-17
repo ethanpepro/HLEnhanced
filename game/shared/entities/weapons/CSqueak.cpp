@@ -17,6 +17,7 @@
 #include "cbase.h"
 #include "monsters.h"
 #include "weapons.h"
+#include "CSqueak.h"
 #include "nodes.h"
 #include "player.h"
 #include "soundent.h"
@@ -40,6 +41,7 @@ enum squeak_e {
 
 #ifndef CLIENT_DLL
 
+//TODO: move - Solokiller
 class CSqueakGrenade : public CGrenade
 {
 public:
