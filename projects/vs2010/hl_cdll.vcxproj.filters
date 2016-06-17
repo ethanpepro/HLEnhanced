@@ -351,14 +351,8 @@
     <ClCompile Include="..\..\public\math\mathlib.cpp">
       <Filter>Source Files\public\math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp">
-      <Filter>Source Files\game\shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\common\Platform.cpp">
       <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\shared\EHandle.cpp">
-      <Filter>Source Files\game\shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp">
       <Filter>Source Files\_hl\dlls</Filter>
@@ -368,6 +362,12 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp">
       <Filter>Source Files\game\shared\entities\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp">
+      <Filter>Source Files\game\shared\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\EHandle.cpp">
+      <Filter>Source Files\game\shared\entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -503,9 +503,6 @@
     <ClInclude Include="..\..\public\math\vector.h">
       <Filter>Header Files\public\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\game\shared\EHandle.h">
-      <Filter>Header Files\game\shared</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\common\CAutoString.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
@@ -514,6 +511,15 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\weapons\CAmmoTypes.h">
       <Filter>Header Files\game\shared\entities\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h">
+      <Filter>Header Files\game\shared\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\DataMapping.h">
+      <Filter>Header Files\game\shared\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\EHandle.h">
+      <Filter>Header Files\game\shared\entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

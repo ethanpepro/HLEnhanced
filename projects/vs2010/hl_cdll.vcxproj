@@ -175,8 +175,8 @@
     <ClCompile Include="..\..\dlls\squeakgrenade.cpp" />
     <ClCompile Include="..\..\dlls\tripmine.cpp" />
     <ClCompile Include="..\..\dlls\wpn_shared\hl_wpn_glock.cpp" />
-    <ClCompile Include="..\..\game\shared\CBaseEntity.shared.cpp" />
-    <ClCompile Include="..\..\game\shared\EHandle.cpp" />
+    <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
+    <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp" />
     <ClCompile Include="..\..\game_shared\shared_game_utils.cpp" />
@@ -227,7 +227,9 @@
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\engine\IClientVGUI.h" />
     <ClInclude Include="..\..\engine\IGameUIFuncs.h" />
-    <ClInclude Include="..\..\game\shared\EHandle.h" />
+    <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
+    <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />
+    <ClInclude Include="..\..\game\shared\entities\EHandle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CAmmoTypes.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />
     <ClInclude Include="..\..\game_shared\shared_game_utils.h" />

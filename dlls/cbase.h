@@ -54,9 +54,9 @@ enum FCapability
 #include "monsterevent.h"
 #endif
 
-#include "DataMapping.h"
+#include "entities/DataMapping.h"
 
-#include "EHandle.h"
+#include "entities/EHandle.h"
 
 // C functions for external declarations that call the appropriate C++ methods
 
@@ -143,7 +143,7 @@ class CSquadMonster;
 
 #define	SF_NORESPAWN	( 1 << 30 )// !!!set this bit on guns and stuff that should never respawn.
 
-#include "CBaseEntity.shared.h"
+#include "entities/CBaseEntity.shared.h"
 
 #include "CPointEntity.h"
 
