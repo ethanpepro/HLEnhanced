@@ -239,68 +239,7 @@ int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, f
 bool CBaseMonster::Restore( CRestore& ) { return true; }
 
 int TrainSpeed(int iSpeed, int iMax) { 	return 0; }
-void CBasePlayer :: DeathSound( void ) { }
-float CBasePlayer::GiveHealth( float flHealth, int bitsDamageType ) { return 0; }
-void CBasePlayer :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) { }
-int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) { return 0; }
-void CBasePlayer::PackDeadPlayerItems( void ) { }
-void CBasePlayer::RemoveAllItems( const bool removeSuit ) { }
-void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim ) { }
-void CBasePlayer::WaterMove() { }
-bool CBasePlayer::IsOnLadder() const { return false; }
-void CBasePlayer::PlayerDeathThink(void) { }
-void CBasePlayer::StartDeathCam( void ) { }
-void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle ) { }
-void CBasePlayer::PlayerUse ( void ) { }
-void CBasePlayer::Jump() { }
-void CBasePlayer::Duck( ) { }
-int  CBasePlayer::Classify ( void ) { return 0; }
-void CBasePlayer::PreThink(void) { }
-void CBasePlayer::CheckTimeBasedDamage()  { }
-void CBasePlayer :: UpdateGeigerCounter( void ) { }
-void CBasePlayer::CheckSuitUpdate() { }
-void CBasePlayer::SetSuitUpdate(char *name, const SuitUpdateType updateType, int iNoRepeatTime) { }
-void CBasePlayer :: UpdatePlayerSound ( void ) { }
-void CBasePlayer::PostThink() { }
-void CBasePlayer :: Precache( void ) { }
-void CBasePlayer::RenewItems(void) { }
-bool CBasePlayer::Restore( CRestore& restore ) { return false; }
-void CBasePlayer::SelectNextItem( int iItem ) { }
-bool CBasePlayer::HasWeapons() const { return false; }
-void CBasePlayer::SelectPrevItem( int iItem ) { }
 CBaseEntity *FindEntityForward( CBaseEntity *pMe ) { return NULL; }
-bool CBasePlayer::FlashlightIsOn() const { return false; }
-void CBasePlayer :: FlashlightTurnOn( void ) { }
-void CBasePlayer :: FlashlightTurnOff( void ) { }
-void CBasePlayer :: ForceClientDllUpdate( void ) { }
-void CBasePlayer::ImpulseCommands( ) { }
-void CBasePlayer::CheatImpulseCommands( int iImpulse ) { }
-bool CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem ) { return false; }
-bool CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem ) { return false; }
-void CBasePlayer::ItemPreFrame() { }
-void CBasePlayer::ItemPostFrame() { }
-int CBasePlayer::AmmoInventory( int iAmmoIndex ) { return -1; }
-int CBasePlayer::GetAmmoIndex(const char *psz) { return -1; }
-void CBasePlayer::SendAmmoUpdate(void) { }
-void CBasePlayer :: UpdateClientData( void ) { }
-bool CBasePlayer::FBecomeProne() { return true; }
-void CBasePlayer::BarnacleVictimBitten( CBaseEntity* pBarnacle ) {}
-void CBasePlayer :: BarnacleVictimReleased ( void ) { }
-int CBasePlayer::Illumination() const { return 0; }
-void CBasePlayer :: EnableControl(const bool fControl) { }
-Vector CBasePlayer :: GetAutoaimVector( float flDelta ) { return g_vecZero; }
-Vector CBasePlayer :: AutoaimDeflection( Vector &vecSrc, float flDist, float flDelta  ) { return g_vecZero; }
-void CBasePlayer :: ResetAutoaim( ) { }
-void CBasePlayer :: SetCustomDecalFrames( int nFrames ) { }
-int CBasePlayer :: GetCustomDecalFrames( void ) { return -1; }
-void CBasePlayer::DropPlayerItem ( char *pszItemName ) { }
-bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const { return false; }
-bool CBasePlayer::SwitchWeapon( CBasePlayerItem *pWeapon )  { return false; }
-Vector CBasePlayer :: GetGunPosition( void ) { return g_vecZero; }
-const char *CBasePlayer::TeamID() const { return ""; }
-int CBasePlayer :: GiveAmmo( int iCount, const char *szName ) { return 0; }
-void CBasePlayer::AddPoints( int score, const bool bAllowNegativeScore ) { }
-void CBasePlayer::AddPointsToTeam( int score, const bool bAllowNegativeScore ) { }
 
 void CMultiDamage::ApplyMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker ) {}
 void CMultiDamage::AddMultiDamage( entvars_t *pevInflictor, CBaseEntity *pEntity, float flDamage, int bitsDamageType) {}
