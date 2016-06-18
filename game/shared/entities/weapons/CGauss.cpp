@@ -448,7 +448,7 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 				vecDest = vecSrc + vecDir * 8192;
 
 				// explode a bit
-				m_pPlayer->RadiusDamage( tr.vecEndPos, pev, m_pPlayer->pev, flDamage * n, CLASS_NONE, DMG_BLAST );
+				m_pPlayer->RadiusDamage( tr.vecEndPos, this, m_pPlayer, flDamage * n, CLASS_NONE, DMG_BLAST );
 
 				nTotal += 34;
 				
@@ -498,7 +498,7 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 								damage_radius = flDamage * 2.5;
 							}
 
-							::RadiusDamage( beam_tr.vecEndPos + vecDir * 8, pev, m_pPlayer->pev, flDamage, damage_radius, CLASS_NONE, DMG_BLAST );
+							::RadiusDamage( beam_tr.vecEndPos + vecDir * 8, this, m_pPlayer, flDamage, damage_radius, CLASS_NONE, DMG_BLAST );
 
 							CSoundEnt::InsertSound ( bits_SOUND_COMBAT, pev->origin, NORMAL_EXPLOSION_VOLUME, 3.0 );
 

@@ -1226,10 +1226,8 @@ void CBMortar::Touch( CBaseEntity *pOther )
 	// make some flecks
 	MortarSpray( tr.vecEndPos, tr.vecPlaneNormal, gSpitSprite, 24 );
 
-	entvars_t *pevOwner = NULL;
-	if ( pev->owner )
-		pevOwner = VARS(pev->owner);
+	CBaseEntity* pOwner = pev->owner ? Instance( pev->owner ) : nullptr;
 
-	RadiusDamage( pev->origin, pev, pevOwner, gSkillData.bigmommaDmgBlast, gSkillData.bigmommaRadiusBlast, CLASS_NONE, DMG_ACID );
+	RadiusDamage( pev->origin, this, pOwner, gSkillData.bigmommaDmgBlast, gSkillData.bigmommaRadiusBlast, CLASS_NONE, DMG_ACID );
 	UTIL_Remove( this );
 }

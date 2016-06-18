@@ -176,9 +176,9 @@ void CSqueakGrenade :: Killed( entvars_t *pevAttacker, GibAction gibAction )
 	UTIL_BloodDrips( pev->origin, g_vecZero, BloodColor(), 80 );
 
 	if (m_hOwner != NULL)
-		RadiusDamage ( pev, m_hOwner->pev, pev->dmg, CLASS_NONE, DMG_BLAST );
+		RadiusDamage( this, m_hOwner, pev->dmg, CLASS_NONE, DMG_BLAST );
 	else
-		RadiusDamage ( pev, pev, pev->dmg, CLASS_NONE, DMG_BLAST );
+		RadiusDamage( this, this, pev->dmg, CLASS_NONE, DMG_BLAST );
 
 	// reset owner so death message happens
 	if (m_hOwner != NULL)

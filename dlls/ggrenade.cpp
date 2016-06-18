@@ -84,15 +84,12 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 	MESSAGE_END();
 
 	CSoundEnt::InsertSound ( bits_SOUND_COMBAT, pev->origin, NORMAL_EXPLOSION_VOLUME, 3.0 );
-	entvars_t *pevOwner;
-	if ( pev->owner )
-		pevOwner = VARS( pev->owner );
-	else
-		pevOwner = NULL;
 
-	pev->owner = NULL; // can't traceline attack owner if this is set
+	CBaseEntity* pOwner = pev->owner ? Instance( pev->owner ) : nullptr;
 
-	RadiusDamage ( pev, pevOwner, pev->dmg, CLASS_NONE, bitsDamageType );
+	pev->owner = nullptr; // can't traceline attack owner if this is set
+
+	RadiusDamage( this, pOwner, pev->dmg, CLASS_NONE, bitsDamageType );
 
 	if ( RANDOM_FLOAT( 0 , 1 ) < 0.5 )
 	{

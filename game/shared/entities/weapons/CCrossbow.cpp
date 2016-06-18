@@ -209,16 +209,11 @@ void CCrossbowBolt::ExplodeThink( void )
 		WRITE_BYTE( TE_EXPLFLAG_NONE );
 	MESSAGE_END();
 
-	entvars_t *pevOwner;
+	CBaseEntity* pOwner = pev->owner ? Instance( pev->owner ) : nullptr;
 
-	if ( pev->owner )
-		pevOwner = VARS( pev->owner );
-	else
-		pevOwner = NULL;
+	pev->owner = nullptr; // can't traceline attack owner if this is set
 
-	pev->owner = NULL; // can't traceline attack owner if this is set
-
-	::RadiusDamage( pev->origin, pev, pevOwner, pev->dmg, 128, CLASS_NONE, DMG_BLAST | DMG_ALWAYSGIB );
+	::RadiusDamage( pev->origin, this, pOwner, pev->dmg, 128, CLASS_NONE, DMG_BLAST | DMG_ALWAYSGIB );
 
 	UTIL_Remove(this);
 }
