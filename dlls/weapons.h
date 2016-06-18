@@ -19,7 +19,9 @@
 
 #include "effects.h"
 
+#ifdef SERVER_DLL
 #include "CMultiDamage.h"
+#endif
 
 #include "entities/weapons/CAmmoTypes.h"
 
@@ -176,28 +178,6 @@ enum Bullet
 	BULLET_PLAYER_762 = 10,
 };
 
-
-#define ITEM_FLAG_SELECTONEMPTY		1
-#define ITEM_FLAG_NOAUTORELOAD		2
-#define ITEM_FLAG_NOAUTOSWITCHEMPTY	4
-#define ITEM_FLAG_LIMITINWORLD		8
-#define ITEM_FLAG_EXHAUSTIBLE		16 // A player can totally exhaust their ammo supply and lose this weapon
-
-#define WEAPON_IS_ONTARGET 0x40
-
-typedef struct
-{
-	int		iSlot;
-	int		iPosition;
-	const char	*pszAmmo1;	// ammo 1 type
-	const char	*pszAmmo2;	// ammo 2 type
-	const char	*pszName;
-	int		iMaxClip;
-	int		iId;
-	int		iFlags;
-	int		iWeight;// this value used to determine this weapon's importance in autoselection.
-} ItemInfo;
-
 #include "entities/weapons/CBasePlayerItem.h"
 
 #include "entities/weapons/CBasePlayerWeapon.h"
@@ -220,7 +200,9 @@ extern void SpawnBlood(Vector vecSpot, int bloodColor, float flDamage);
 extern int DamageDecal( CBaseEntity *pEntity, int bitsDamageType );
 extern void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, float flRadius, int iClassIgnore, int bitsDamageType );
 
+#ifdef SERVER_DLL
 extern CMultiDamage g_MultiDamage;
+#endif
 
 #define LOUD_GUN_VOLUME			1000
 #define NORMAL_GUN_VOLUME		600

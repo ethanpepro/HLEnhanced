@@ -15,6 +15,96 @@
 #ifndef GAME_SHARED_ENTITIES_WEAPONS_CBASEPLAYERITEM_H
 #define GAME_SHARED_ENTITIES_WEAPONS_CBASEPLAYERITEM_H
 
+/**
+*	Flag values for ItemInfo::iFlags
+*	@see ItemInfo
+*/
+enum ItemInfoFlag
+{
+	/**
+	*	Not used.
+	*/
+	ITEM_FLAG_SELECTONEMPTY = 1,
+
+	/**
+	*	Don't automatically reload this weapon.
+	*/
+	ITEM_FLAG_NOAUTORELOAD = 2,
+
+	/**
+	*	Don't automatically switch to another weapon if this weapon is empty.
+	*/
+	ITEM_FLAG_NOAUTOSWITCHEMPTY = 4,
+
+	/**
+	*	If the entity count is nearing the maximum, this entity's respawn will be delayed.
+	*	Multiplayer only.
+	*/
+	ITEM_FLAG_LIMITINWORLD = 8,
+
+	/**
+	*	A player can totally exhaust their ammo supply and lose this weapon.
+	*/
+	ITEM_FLAG_EXHAUSTIBLE = 16,
+};
+
+#define WEAPON_IS_ONTARGET 0x40
+
+/**
+*	Contains item info that describes its HUD data and ammo types.
+*/
+struct ItemInfo
+{
+	/**
+	*	Bucket to place the weapon in.
+	*	@see MAX_WEAPON_SLOTS
+	*/
+	int iSlot;
+
+	/**
+	*	Position in the bucket to place the weapon in.
+	*	@see MAX_WEAPON_POSITIONS
+	*/
+	int iPosition;
+
+	/**
+	*	Ammo 1 type
+	*/
+	const char* pszAmmo1;
+
+	/**
+	*	Ammo 2 type
+	*/
+	const char* pszAmmo2;
+
+	/**
+	*	Entity class name.
+	*/
+	const char* pszName;
+
+	/**
+	*	Maximum number of bullets in the primary ammo clip.
+	*/
+	int iMaxClip;
+
+	/**
+	*	Weapon ID.
+	*	@see WeaponId
+	*/
+	int iId;
+
+	/**
+	*	Item flags.
+	*	@see ItemInfoFlag
+	*/
+	int iFlags;
+
+	/**
+	*	This value used to determine this weapon's importance in autoselection.
+	*/
+	int iWeight;
+};
+
 // Items that the player has in their inventory that they can use
 class CBasePlayerItem : public CBaseAnimating
 {
