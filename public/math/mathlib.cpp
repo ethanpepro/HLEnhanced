@@ -252,6 +252,23 @@ void NormalizeAngles( float *angles )
 	}
 }
 
+float FixAngle( float angle )
+{
+	while( angle < 0 )
+		angle += 360;
+	while( angle > 360 )
+		angle -= 360;
+
+	return angle;
+}
+
+void FixupAngles( Vector &v )
+{
+	v.x = FixAngle( v.x );
+	v.y = FixAngle( v.y );
+	v.z = FixAngle( v.z );
+}
+
 /*
 ===================
 AngleBetweenVectors

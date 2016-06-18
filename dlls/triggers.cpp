@@ -25,7 +25,7 @@
 #include "cbase.h"
 #include "entities/CBasePlayer.h"
 #include "saverestore.h"
-#include "trains.h"			// trigger_camera has train functionality
+#include "entities/plats/CPathCorner.h"
 #include "gamerules/GameRules.h"
 
 #define	SF_TRIGGER_PUSH_START_OFF	2//spawnflag that makes trigger_push spawn turned OFF

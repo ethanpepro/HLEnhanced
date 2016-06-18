@@ -25,7 +25,7 @@
 
 #include "cbase.h"
 #include "entities/CBasePlayer.h"
-#include "trains.h"
+#include "entities/plats/CFuncTrackTrain.h"
 #include "nodes.h"
 #include "weapons.h"
 #include "entities/CSoundEnt.h"

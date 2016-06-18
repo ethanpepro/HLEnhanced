@@ -84,6 +84,10 @@ void VectorTransform( const Vector& in1, float in2[ 3 ][ 4 ], Vector& out );
 
 void NormalizeAngles( float* angles );
 
+float FixAngle( float angle );
+
+void FixupAngles( Vector& v );
+
 float AngleBetweenVectors( const Vector& v1, const Vector& v2 );
 
 float Distance( const Vector& v1, const Vector& v2 );
