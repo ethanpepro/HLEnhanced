@@ -24,7 +24,7 @@
  
 #include	"skill.h"
 #include	"game.h"
-#include	"items.h"
+#include	"entities/items/CItem.h"
 #include	"voice_gamemgr.h"
 #include	"hltv.h"
 

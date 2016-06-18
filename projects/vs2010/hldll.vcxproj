@@ -136,7 +136,6 @@
     <ClCompile Include="..\..\dlls\h_export.cpp" />
     <ClCompile Include="..\..\dlls\ichthyosaur.cpp" />
     <ClCompile Include="..\..\dlls\islave.cpp" />
-    <ClCompile Include="..\..\dlls\items.cpp" />
     <ClCompile Include="..\..\dlls\leech.cpp" />
     <ClCompile Include="..\..\dlls\lights.cpp" />
     <ClCompile Include="..\..\dlls\maprules.cpp" />
@@ -215,6 +214,14 @@
     <ClCompile Include="..\..\game\server\entities\effects\CMessage.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CShake.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CSprite.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CHealthKit.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CItem.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CItemAntidote.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CItemBattery.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CItemLongJump.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CItemSecurity.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CItemSuit.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CWorldItem.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CFlyingMonster.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CHornet.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CSquadMonster.cpp" />
@@ -269,7 +276,6 @@
     <ClInclude Include="..\..\dlls\enginecallback.h" />
     <ClInclude Include="..\..\dlls\explode.h" />
     <ClInclude Include="..\..\dlls\extdll.h" />
-    <ClInclude Include="..\..\dlls\items.h" />
     <ClInclude Include="..\..\dlls\monsterevent.h" />
     <ClInclude Include="..\..\dlls\monsters.h" />
     <ClInclude Include="..\..\dlls\nodes.h" />
@@ -329,6 +335,14 @@
     <ClInclude Include="..\..\game\server\entities\effects\CMessage.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CShake.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CSprite.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CHealthKit.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CItem.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CItemAntidote.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CItemBattery.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CItemLongJump.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CItemSecurity.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CItemSuit.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CWorldItem.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CBaseMonster.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CFlyingMonster.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CHornet.h" />

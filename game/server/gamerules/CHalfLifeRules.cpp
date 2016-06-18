@@ -22,7 +22,7 @@
 #include	"weapons.h"
 #include	"CHalfLifeRules.h"
 #include	"skill.h"
-#include	"items.h"
+#include	"entities/items/CItem.h"
 
 extern DLL_GLOBAL CGameRules	*g_pGameRules;
 extern DLL_GLOBAL bool	g_fGameOver;
