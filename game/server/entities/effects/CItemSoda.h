@@ -12,16 +12,21 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#include "extdll.h"
-#include "util.h"
-#include "cbase.h"
+#ifndef GAME_SERVER_ENTITIES_EFFECTS_CITEMSODA_H
+#define GAME_SERVER_ENTITIES_EFFECTS_CITEMSODA_H
 
-// Lightning target, just alias landmark
-LINK_ENTITY_TO_CLASS( info_target, CPointEntity );
-
-// Landmark class
-void CPointEntity::Spawn( void )
+//=========================================================
+// Soda can
+//=========================================================
+class CItemSoda : public CBaseEntity
 {
-	pev->solid = SOLID_NOT;
-	//	UTIL_SetSize(pev, g_vecZero, g_vecZero);
-}
+public:
+	DECLARE_CLASS( CItemSoda, CBaseEntity );
+
+	void	Spawn( void ) override;
+	void	Precache( void ) override;
+	void	EXPORT CanThink( void );
+	void	EXPORT CanTouch( CBaseEntity *pOther );
+};
+
+#endif //GAME_SERVER_ENTITIES_EFFECTS_CITEMSODA_H

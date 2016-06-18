@@ -12,16 +12,21 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#include "extdll.h"
-#include "util.h"
-#include "cbase.h"
+#ifndef GAME_SERVER_ENTITIES_EFFECTS_CGLOW_H
+#define GAME_SERVER_ENTITIES_EFFECTS_CGLOW_H
 
-// Lightning target, just alias landmark
-LINK_ENTITY_TO_CLASS( info_target, CPointEntity );
-
-// Landmark class
-void CPointEntity::Spawn( void )
+class CGlow : public CPointEntity
 {
-	pev->solid = SOLID_NOT;
-	//	UTIL_SetSize(pev, g_vecZero, g_vecZero);
-}
+public:
+	DECLARE_CLASS( CGlow, CPointEntity );
+	DECLARE_DATADESC();
+
+	void Spawn( void ) override;
+	void Think( void ) override;
+	void Animate( float frames );
+
+	float		m_lastTime;
+	float		m_maxFrame;
+};
+
+#endif //GAME_SERVER_ENTITIES_EFFECTS_CGLOW_H

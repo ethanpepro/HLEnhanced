@@ -23,8 +23,8 @@ precaches and defs for entities and other data that must always be available.
 #include "util.h"
 #include "cbase.h"
 #include "soundent.h"
-#include "effects.h"
 #include "CCorpse.h"
+#include "effects/CMessage.h"
 
 #include "client.h"
 #include "gamerules/GameRules.h"

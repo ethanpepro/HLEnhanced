@@ -112,6 +112,12 @@
     <Filter Include="Source Files\game\server\entities\ammo">
       <UniqueIdentifier>{64802e7f-74cc-4397-9aba-c513a59c3ff5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\entities\effects">
+      <UniqueIdentifier>{c9a015af-26bc-4b5f-b00d-2afbc5ddd542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\effects">
+      <UniqueIdentifier>{b2aa02bd-15ff-4b6e-a0a7-f2a1901efce3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -169,9 +175,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\doors.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\effects.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\explode.cpp">
@@ -531,6 +534,51 @@
     <ClCompile Include="..\..\game\server\entities\CInfoIntermission.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CSprite.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CGlow.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CBeam.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CLaser.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CLightning.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CBubbling.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CGibShooter.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CEnvShooter.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CBlood.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CShake.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CFade.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CMessage.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CEnvFunnel.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CEnvBeverage.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CItemSoda.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -844,6 +892,51 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\CInfoIntermission.h">
       <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CSprite.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CGlow.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CBeam.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CLaser.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CLightning.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CBubbling.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CGibShooter.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CEnvShooter.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CBlood.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CShake.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CFade.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CMessage.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CEnvFunnel.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CEnvBeverage.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CItemSoda.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

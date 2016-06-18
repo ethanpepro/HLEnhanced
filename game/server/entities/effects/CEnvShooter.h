@@ -12,16 +12,20 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#include "extdll.h"
-#include "util.h"
-#include "cbase.h"
+#ifndef GAME_SERVER_ENTITIES_EFFECTS_CENVSHOOTER_H
+#define GAME_SERVER_ENTITIES_EFFECTS_CENVSHOOTER_H
 
-// Lightning target, just alias landmark
-LINK_ENTITY_TO_CLASS( info_target, CPointEntity );
+#include "CGibShooter.h"
 
-// Landmark class
-void CPointEntity::Spawn( void )
+class CEnvShooter : public CGibShooter
 {
-	pev->solid = SOLID_NOT;
-	//	UTIL_SetSize(pev, g_vecZero, g_vecZero);
-}
+public:
+	DECLARE_CLASS( CEnvShooter, CGibShooter );
+
+	void		Precache( void ) override;
+	void		KeyValue( KeyValueData *pkvd ) override;
+
+	CGib		*CreateGib( void ) override;
+};
+
+#endif //GAME_SERVER_ENTITIES_EFFECTS_CENVSHOOTER_H
