@@ -21,7 +21,7 @@
 #include "cbase.h"
 #include "entities/NPCs/Monsters.h"
 #include "animation.h"
-#include "scripted.h"
+#include "entities/NPCs/scripted/Scripted.h"
 #include "nodes.h"
 #include "entities/NPCs/DefaultAI.h"
 #include "entities/CSoundEnt.h"

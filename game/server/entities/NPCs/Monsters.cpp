@@ -28,7 +28,7 @@
 #include "animation.h"
 #include "saverestore.h"
 #include "weapons.h"
-#include "scripted.h"
+#include "entities/NPCs/scripted/Scripted.h"
 #include "entities/NPCs/CSquadMonster.h"
 #include "Decals.h"
 #include "entities/CSoundEnt.h"

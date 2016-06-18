@@ -23,7 +23,7 @@
 #include	"DefaultAI.h"
 #include	"entities/CSoundEnt.h"
 #include	"nodes.h"
-#include	"scripted.h"
+#include	"entities/NPCs/scripted/Scripted.h"
 
 //=========================================================
 // Fail

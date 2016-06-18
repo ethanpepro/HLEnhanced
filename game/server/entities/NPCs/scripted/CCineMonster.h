@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   This source code contains proprietary and confidential information of
@@ -12,10 +12,8 @@
 *   use or distribution of this code by or to any unlicensed person is illegal.
 *
 ****/
-#ifndef SCRIPTED_H
-#define SCRIPTED_H
-
-#include "entities/ScriptEvent.h"
+#ifndef GAME_SERVER_ENTITIES_NPCS_SCRIPTED_CCINEMONSTER_H
+#define GAME_SERVER_ENTITIES_NPCS_SCRIPTED_CCINEMONSTER_H
 
 #define SF_SCRIPT_WAITTILLSEEN		1
 #define SF_SCRIPT_EXITAGITATED		2
@@ -35,12 +33,17 @@ enum SS_INTERRUPT
 	SS_INTERRUPT_AI,
 };
 
-// when a monster finishes an AI scripted sequence, we can choose
-// a schedule to place them in. These defines are the aliases to
-// resolve worldcraft input to real schedules (sjb)
-#define SCRIPT_FINISHSCHED_DEFAULT	0
-#define SCRIPT_FINISHSCHED_AMBUSH	1
-
+/*
+classname "scripted_sequence"
+targetname "me" - there can be more than one with the same name, and they act in concert
+target "the_entity_I_want_to_start_playing" or "class entity_classname" will pick the closest inactive scientist
+play "name_of_sequence"
+idle "name of idle sequence to play before starting"
+donetrigger "whatever" - can be any other triggerable entity such as another sequence, train, door, or a special case like "die" or "remove"
+moveto - if set the monster first moves to this nodes position
+range # - only search this far to find the target
+spawnflags - (stop if blocked, stop if player seen)
+*/
 class CCineMonster : public CBaseMonster
 {
 public:
@@ -67,7 +70,7 @@ public:
 	void CancelScript( void );
 	virtual bool StartSequence( CBaseMonster *pTarget, int iszSeq, const bool completeOnEmpty );
 	virtual bool FCanOverrideState() const;
-	void SequenceDone ( CBaseMonster *pMonster );
+	void SequenceDone( CBaseMonster *pMonster );
 	virtual void FixScriptMonsterSchedule( CBaseMonster *pMonster );
 	bool	CanInterrupt() const;
 	void	AllowInterrupt( const bool fAllow );
@@ -87,20 +90,8 @@ public:
 	int	m_saved_movetype;
 	int	m_saved_solid;
 	int m_saved_effects;
-//	Vector m_vecOrigOrigin;
+	//	Vector m_vecOrigOrigin;
 	bool m_interruptable;
 };
 
-class CCineAI : public CCineMonster
-{
-public:
-	DECLARE_CLASS( CCineAI, CCineMonster );
-
-	bool StartSequence( CBaseMonster *pTarget, int iszSeq, const bool completeOnEmpty ) override;
-	void PossessEntity() override;
-	bool FCanOverrideState() const override;
-	virtual void FixScriptMonsterSchedule( CBaseMonster *pMonster ) override;
-};
-
-
-#endif		//SCRIPTED_H
+#endif //GAME_SERVER_ENTITIES_NPCS_SCRIPTED_CCINEMONSTER_H

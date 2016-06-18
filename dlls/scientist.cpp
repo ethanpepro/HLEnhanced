@@ -23,7 +23,6 @@
 #include	"entities/NPCs/CTalkMonster.h"
 #include	"entities/NPCs/Schedule.h"
 #include	"entities/NPCs/DefaultAI.h"
-#include	"scripted.h"
 #include	"animation.h"
 #include	"entities/CSoundEnt.h"
 
