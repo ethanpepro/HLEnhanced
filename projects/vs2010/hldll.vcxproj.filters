@@ -513,6 +513,24 @@
     <ClCompile Include="..\..\game\server\entities\CBasePlayer.server.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CSprayCan.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBloodSplat.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CDeadHEV.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CStripWeapons.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CRevertSaved.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CInfoIntermission.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -808,6 +826,24 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h">
       <Filter>Header Files\game\shared\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CSprayCan.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CBloodSplat.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CDeadHEV.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CStripWeapons.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CRevertSaved.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CInfoIntermission.h">
+      <Filter>Header Files\game\server\entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
