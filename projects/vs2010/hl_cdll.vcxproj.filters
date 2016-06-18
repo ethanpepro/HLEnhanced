@@ -381,6 +381,9 @@
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp">
       <Filter>Source Files\game\client\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\CBaseEntity.client.cpp">
+      <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
