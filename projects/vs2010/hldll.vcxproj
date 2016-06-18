@@ -180,6 +180,7 @@
     <ClCompile Include="..\..\game\server\CMap.cpp" />
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp" />
     <ClCompile Include="..\..\game\server\Decals.cpp" />
+    <ClCompile Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseAnimating.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseButton.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseDelay.cpp" />
@@ -271,6 +272,7 @@
     <ClInclude Include="..\..\game\server\CMap.h" />
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />
     <ClInclude Include="..\..\game\server\Decals.h" />
+    <ClInclude Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseAnimating.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseButton.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseDelay.h" />

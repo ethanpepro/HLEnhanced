@@ -1,0 +1,100 @@
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "player.h"
+
+#include "gamerules/GameRules.h"
+
+#include "CBasePlayerAmmo.h"
+
+extern bool gEvilImpulse101;
+
+void CBasePlayerAmmo::Spawn()
+{
+	pev->movetype = MOVETYPE_TOSS;
+	pev->solid = SOLID_TRIGGER;
+	UTIL_SetSize( pev, Vector( -16, -16, 0 ), Vector( 16, 16, 16 ) );
+	UTIL_SetOrigin( pev, pev->origin );
+
+	SetTouch( &CBasePlayerAmmo::DefaultTouch );
+}
+
+void CBasePlayerAmmo::DefaultTouch( CBaseEntity* pOther )
+{
+	if( !pOther->IsPlayer() )
+	{
+		return;
+	}
+
+	if( AddAmmo( pOther ) )
+	{
+		if( g_pGameRules->AmmoShouldRespawn( this ) == GR_AMMO_RESPAWN_YES )
+		{
+			Respawn();
+		}
+		else
+		{
+			SetTouch( NULL );
+			SetThink( &CBasePlayerAmmo::SUB_Remove );
+			pev->nextthink = gpGlobals->time + .1;
+		}
+	}
+	else if( gEvilImpulse101 )
+	{
+		// evil impulse 101 hack, kill always
+		SetTouch( NULL );
+		SetThink( &CBasePlayerAmmo::SUB_Remove );
+		pev->nextthink = gpGlobals->time + .1;
+	}
+}
+
+CBaseEntity* CBasePlayerAmmo::Respawn()
+{
+	pev->effects |= EF_NODRAW;
+	SetTouch( NULL );
+
+	UTIL_SetOrigin( pev, g_pGameRules->VecAmmoRespawnSpot( this ) );// move to wherever I'm supposed to repawn.
+
+	SetThink( &CBasePlayerAmmo::Materialize );
+	pev->nextthink = g_pGameRules->FlAmmoRespawnTime( this );
+
+	return this;
+}
+
+void CBasePlayerAmmo::Materialize()
+{
+	if( pev->effects & EF_NODRAW )
+	{
+		// changing from invisible state to visible.
+		EMIT_SOUND_DYN( ENT( pev ), CHAN_WEAPON, "items/suitchargeok1.wav", 1, ATTN_NORM, 0, 150 );
+		pev->effects &= ~EF_NODRAW;
+		pev->effects |= EF_MUZZLEFLASH;
+	}
+
+	SetTouch( &CBasePlayerAmmo::DefaultTouch );
+}
+
+bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
+							const int iAmount, const char* const pszAmmoName,
+							const char* const pszPickupSound )
+{
+	ASSERT( pGiver );
+	ASSERT( pPlayer );
+
+	if( !pGiver || !pPlayer )
+		return false;
+
+	if( !pPlayer->IsPlayer() )
+		return false;
+
+	CBasePlayer* pPlayerEnt = static_cast<CBasePlayer*>( pPlayer );
+
+	const bool bResult = ( pPlayerEnt->GiveAmmo( iAmount, pszAmmoName ) != -1 );
+
+	if( bResult && pszPickupSound )
+	{
+		EMIT_SOUND( pGiver->edict(), CHAN_ITEM, pszPickupSound, 1, ATTN_NORM );
+	}
+
+	return bResult;
+}

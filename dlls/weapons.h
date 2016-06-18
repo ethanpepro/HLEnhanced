@@ -423,34 +423,7 @@ public:
 	CAmmoType* m_pSecondaryAmmo = nullptr;
 };
 
-#define DEFAULT_AMMO_PICKUP_SOUND "items/9mmclip1.wav"
-
-/**
-*	Gives ammo to the given player.
-*	@param pGiver Entity that is giving the ammo.
-*	@param pPlayer Player to give ammo to. If this is not a player, no ammo is given.
-*	@param iAmount Amount of ammo to give. Amount smaller than or equal to 0 are ignored.
-*	@param pszAmmoName Name of the ammo type to give ammo of.
-*	@param pszPickupSound Sound to play on pickup. Defaults to DEFAULT_AMMO_PICKUP_SOUND. If null, no sound is played.
-*	@return true if ammo was given, false otherwise.
-*/
-bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
-							const int iAmount, const char* const pszAmmoName, 
-							const char* const pszPickupSound = DEFAULT_AMMO_PICKUP_SOUND );
-
-class CBasePlayerAmmo : public CBaseEntity
-{
-public:
-	DECLARE_CLASS( CBasePlayerAmmo, CBaseEntity );
-
-	virtual void Spawn( void ) override;
-	void EXPORT DefaultTouch( CBaseEntity *pOther ); // default weapon touch
-	virtual bool AddAmmo( CBaseEntity *pOther ) { return true; }
-
-	CBaseEntity* Respawn( void ) override;
-	void EXPORT Materialize( void );
-};
-
+#include "entities/ammo/CBasePlayerAmmo.h"
 
 extern DLL_GLOBAL	short	g_sModelIndexLaser;// holds the index for the laser beam
 extern DLL_GLOBAL	const char *g_pModelNameLaser;

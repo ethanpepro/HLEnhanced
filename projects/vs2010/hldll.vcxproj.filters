@@ -106,6 +106,12 @@
     <Filter Include="Source Files\game\server\gamerules">
       <UniqueIdentifier>{23e0cb9d-b8cc-4765-bed3-9920b2634194}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\entities\ammo">
+      <UniqueIdentifier>{7535a757-3fa9-4e30-9680-0197f56a402c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\ammo">
+      <UniqueIdentifier>{64802e7f-74cc-4397-9aba-c513a59c3ff5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -498,6 +504,9 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CGlock.cpp">
       <Filter>Source Files\game\shared\entities\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.cpp">
+      <Filter>Source Files\game\server\entities\ammo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -781,6 +790,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\weapons\CCrowbar.h">
       <Filter>Header Files\game\shared\entities\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.h">
+      <Filter>Header Files\game\server\entities\ammo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
