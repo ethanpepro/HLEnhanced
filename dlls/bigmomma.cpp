@@ -19,7 +19,7 @@
 #include	"util.h"
 #include	"cbase.h"
 #include	"monsters.h"
-#include	"schedule.h"
+#include	"entities/NPCs/Schedule.h"
 #include	"Decals.h"
 #include	"weapons.h"
 #include	"game.h"

@@ -32,19 +32,13 @@ typedef unsigned char byte;
 
 #include "studio.h"
 
-#ifndef ACTIVITY_H
-#include "activity.h"
-#endif
-
-#include "activitymap.h"
+#include "entities/NPCs/Activity.h"
 
 #ifndef ANIMATION_H
 #include "animation.h"
 #endif
 
-#ifndef SCRIPTEVENT_H
-#include "scriptevent.h"
-#endif
+#include "entities/ScriptEvent.h"
 
 #ifndef ENGINECALLBACK_H
 #include "enginecallback.h"

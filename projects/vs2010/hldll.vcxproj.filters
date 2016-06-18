@@ -720,15 +720,12 @@
     <ClCompile Include="..\..\game\server\entities\effects\CGib.cpp">
       <Filter>Source Files\game\server\entities\effects</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\Activity.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\activity.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\activitymap.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\animation.h">
@@ -761,9 +758,6 @@
     <ClInclude Include="..\..\dlls\extdll.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\dlls\monsterevent.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\dlls\monsters.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
@@ -794,13 +788,7 @@
     <ClInclude Include="..\..\dlls\saverestore.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\dlls\schedule.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\dlls\scripted.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\scriptevent.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\skill.h">
@@ -1204,6 +1192,18 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\effects\CGib.h">
       <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\Activity.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\ScriptEvent.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\AnimationEvent.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\Schedule.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

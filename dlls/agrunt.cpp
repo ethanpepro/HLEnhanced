@@ -20,7 +20,7 @@
 #include	"util.h"
 #include	"cbase.h"
 #include	"monsters.h"
-#include	"schedule.h"
+#include	"entities/NPCs/Schedule.h"
 #include	"entities/NPCs/CSquadMonster.h"
 #include	"weapons.h"
 #include	"entities/CSoundEnt.h"

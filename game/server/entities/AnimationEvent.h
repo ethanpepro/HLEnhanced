@@ -12,23 +12,34 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef MONSTEREVENT_H
-#define MONSTEREVENT_H
+#ifndef GAME_SERVER_ENTITIES_NPCS_ANIMATIONEVENT_H
+#define GAME_SERVER_ENTITIES_NPCS_ANIMATIONEVENT_H
 
-typedef struct
+/**
+*	An animation event.
+*	Called a monster event in the SDK, probably because it was originally added for monsters.
+*/
+struct MonsterEvent_t
 {
-	int			event;
-	char		*options;
-} MonsterEvent_t;
+	int				event;
+	const char*		options;
+};
 
-#define EVENT_SPECIFIC			0
-#define EVENT_SCRIPTED			1000
-#define EVENT_SHARED			2000
-#define EVENT_CLIENT			5000
+enum EventType
+{
+	EVENT_SPECIFIC	= 0,
+	EVENT_SCRIPTED	= 1000,
+	EVENT_SHARED	= 2000,
+
+	/**
+	*	All events larger than or equal to this are client side events. Not processed by the server.
+	*/
+	EVENT_CLIENT	= 5000,
+};
 
 #define MONSTER_EVENT_BODYDROP_LIGHT	2001
 #define MONSTER_EVENT_BODYDROP_HEAVY	2002
 
 #define MONSTER_EVENT_SWISHSOUND		2010
 
-#endif		// MONSTEREVENT_H
+#endif //GAME_SERVER_ENTITIES_NPCS_ANIMATIONEVENT_H

@@ -220,6 +220,7 @@
     <ClCompile Include="..\..\game\server\entities\items\CItemSecurity.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CItemSuit.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CWorldItem.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\Activity.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CFlyingMonster.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CHornet.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CSquadMonster.cpp" />
@@ -297,8 +298,6 @@
     <ClInclude Include="..\..\common\CPlane.h" />
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\common\StringUtils.h" />
-    <ClInclude Include="..\..\dlls\activity.h" />
-    <ClInclude Include="..\..\dlls\activitymap.h" />
     <ClInclude Include="..\..\dlls\animation.h" />
     <ClInclude Include="..\..\dlls\cbase.h" />
     <ClInclude Include="..\..\dlls\cdll_dll.h" />
@@ -309,13 +308,10 @@
     <ClInclude Include="..\..\dlls\enginecallback.h" />
     <ClInclude Include="..\..\dlls\explode.h" />
     <ClInclude Include="..\..\dlls\extdll.h" />
-    <ClInclude Include="..\..\dlls\monsterevent.h" />
     <ClInclude Include="..\..\dlls\monsters.h" />
     <ClInclude Include="..\..\dlls\nodes.h" />
     <ClInclude Include="..\..\dlls\saverestore.h" />
-    <ClInclude Include="..\..\dlls\schedule.h" />
     <ClInclude Include="..\..\dlls\scripted.h" />
-    <ClInclude Include="..\..\dlls\scriptevent.h" />
     <ClInclude Include="..\..\dlls\skill.h" />
     <ClInclude Include="..\..\dlls\util.h" />
     <ClInclude Include="..\..\dlls\weapons.h" />
@@ -325,6 +321,7 @@
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />
     <ClInclude Include="..\..\game\server\Decals.h" />
     <ClInclude Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.h" />
+    <ClInclude Include="..\..\game\server\entities\AnimationEvent.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseAnimating.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseButton.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseDelay.h" />
@@ -376,11 +373,13 @@
     <ClInclude Include="..\..\game\server\entities\items\CItemSecurity.h" />
     <ClInclude Include="..\..\game\server\entities\items\CItemSuit.h" />
     <ClInclude Include="..\..\game\server\entities\items\CWorldItem.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\Activity.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CBaseMonster.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CFlyingMonster.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CHornet.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CSquadMonster.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CTalkMonster.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\Schedule.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CBasePlatTrain.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CFuncPlat.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CFuncPlatRot.h" />
@@ -393,6 +392,7 @@
     <ClInclude Include="..\..\game\server\entities\plats\CPathCorner.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CPathTrack.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CPlatTrigger.h" />
+    <ClInclude Include="..\..\game\server\entities\ScriptEvent.h" />
     <ClInclude Include="..\..\game\server\entities\triggers\CAutoTrigger.h" />
     <ClInclude Include="..\..\game\server\entities\triggers\CBaseTrigger.h" />
     <ClInclude Include="..\..\game\server\entities\triggers\CChangeLevel.h" />

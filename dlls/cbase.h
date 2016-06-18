@@ -48,11 +48,9 @@ enum FCapability
 
 #include "archtypes.h"     // DAL
 #include "saverestore.h"
-#include "schedule.h"
+#include "entities/NPCs/Schedule.h"
 
-#ifndef MONSTEREVENT_H
-#include "monsterevent.h"
-#endif
+#include "entities/AnimationEvent.h"
 
 #include "entities/DataMapping.h"
 

@@ -17,9 +17,7 @@
 //
 // Misc utility code
 //
-#ifndef ACTIVITY_H
-#include "activity.h"
-#endif
+#include "entities/NPCs/Activity.h"
 
 #ifndef ENGINECALLBACK_H
 #include "enginecallback.h"

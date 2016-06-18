@@ -17,9 +17,7 @@
 
 #define ACTIVITY_NOT_AVAILABLE		-1
 
-#ifndef MONSTEREVENT_H
-#include "monsterevent.h"
-#endif
+#include "entities/AnimationEvent.h"
 
 extern int IsSoundEvent( int eventNumber );
 

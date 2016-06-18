@@ -20,7 +20,7 @@
 #include	"util.h"
 #include	"cbase.h"
 #include	"monsters.h"
-#include	"schedule.h"
+#include	"entities/NPCs/Schedule.h"
 #include	"entities/CSoundEnt.h"
 #include	"Decals.h"
 

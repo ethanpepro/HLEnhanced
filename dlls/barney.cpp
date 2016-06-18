@@ -22,7 +22,7 @@
 #include	"cbase.h"
 #include	"monsters.h"
 #include	"entities/NPCs/CTalkMonster.h"
-#include	"schedule.h"
+#include	"entities/NPCs/Schedule.h"
 #include	"defaultai.h"
 #include	"scripted.h"
 #include	"weapons.h"

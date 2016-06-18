@@ -21,7 +21,7 @@
 #include	"cbase.h"
 #include	"monsters.h"
 #include	"effects.h"
-#include	"schedule.h"
+#include	"entities/NPCs/Schedule.h"
 #include	"weapons.h"
 #include	"entities/NPCs/CSquadMonster.h"
 

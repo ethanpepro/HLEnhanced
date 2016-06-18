@@ -32,7 +32,7 @@
 #include "saverestore.h"
 #endif
 
-#include "schedule.h"
+#include "entities/NPCs/Schedule.h"
 #include "scripted.h"
 #include "defaultai.h"
 
