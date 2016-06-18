@@ -48,6 +48,19 @@ enum egon_e {
 	EGON_HOLSTER
 };
 
+#ifdef SERVER_DLL
+BEGIN_DATADESC( CEgon )
+	//DEFINE_FIELD( m_pBeam, FIELD_CLASSPTR ),
+	//DEFINE_FIELD( m_pNoise, FIELD_CLASSPTR ),
+	//DEFINE_FIELD( m_pSprite, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_shootTime, FIELD_TIME ),
+	DEFINE_FIELD( m_fireState, FIELD_INTEGER ),
+	DEFINE_FIELD( m_fireMode, FIELD_INTEGER ),
+	DEFINE_FIELD( m_shakeTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flAmmoUseTime, FIELD_TIME ),
+END_DATADESC()
+#endif
+
 LINK_ENTITY_TO_CLASS( weapon_egon, CEgon );
 
 void CEgon::Spawn( )

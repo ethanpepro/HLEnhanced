@@ -40,6 +40,16 @@ enum gauss_e {
 	GAUSS_DRAW
 };
 
+#ifdef SERVER_DLL
+BEGIN_DATADESC( CGauss )
+	DEFINE_FIELD( m_fInAttack, FIELD_INTEGER ),
+	//DEFINE_FIELD( m_flStartCharge, FIELD_TIME ),
+	//DEFINE_FIELD( m_flPlayAftershock, FIELD_TIME ),
+	//DEFINE_FIELD( m_flNextAmmoBurn, FIELD_TIME ),
+	DEFINE_FIELD( m_fPrimaryFire, FIELD_BOOLEAN ),
+END_DATADESC()
+#endif
+
 LINK_ENTITY_TO_CLASS( weapon_gauss, CGauss );
 
 float CGauss::GetFullChargeTime( void )

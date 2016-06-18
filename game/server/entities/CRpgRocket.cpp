@@ -7,6 +7,11 @@
 
 #include "CRpgRocket.h"
 
+BEGIN_DATADESC( CRpgRocket )
+	DEFINE_FIELD( m_flIgniteTime, FIELD_TIME ),
+	DEFINE_FIELD( m_pLauncher, FIELD_CLASSPTR ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( rpg_rocket, CRpgRocket );
 
 //=========================================================

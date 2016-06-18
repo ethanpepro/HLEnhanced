@@ -40,6 +40,15 @@ enum shotgun_e {
 	SHOTGUN_IDLE_DEEP
 };
 
+#ifdef SERVER_DLL
+BEGIN_DATADESC( CShotgun )
+	DEFINE_FIELD( m_flNextReload, FIELD_TIME ),
+	DEFINE_FIELD( m_fInSpecialReload, FIELD_INTEGER ),
+	//DEFINE_FIELD( m_iShell, FIELD_INTEGER ),
+	DEFINE_FIELD( m_flPumpTime, FIELD_TIME ),
+END_DATADESC()
+#endif
+
 LINK_ENTITY_TO_CLASS( weapon_shotgun, CShotgun );
 
 void CShotgun::Spawn( )

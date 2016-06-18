@@ -40,6 +40,13 @@ enum rpg_e {
 	RPG_FIDGET_UL,	// unloaded fidget
 };
 
+#ifdef SERVER_DLL
+BEGIN_DATADESC( CRpg )
+	DEFINE_FIELD( m_fSpotActive, FIELD_INTEGER ),
+	DEFINE_FIELD( m_cActiveRockets, FIELD_INTEGER ),
+END_DATADESC()
+#endif
+
 LINK_ENTITY_TO_CLASS( weapon_rpg, CRpg );
 
 void CRpg::Reload( void )

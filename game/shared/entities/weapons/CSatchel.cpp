@@ -169,9 +169,13 @@ void CSatchelCharge :: BounceSound( void )
 	}
 }
 
+#ifdef SERVER_DLL
+BEGIN_DATADESC( CSatchel )
+	DEFINE_FIELD( m_chargeReady, FIELD_INTEGER ),
+END_DATADESC()
+#endif
 
 LINK_ENTITY_TO_CLASS( weapon_satchel, CSatchel );
-
 
 //=========================================================
 // CALLED THROUGH the newly-touched weapon's instance. The existing player weapon is pOriginal
