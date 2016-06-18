@@ -43,8 +43,7 @@
 #include "entities/CCorpse.h"
 #include "entities/CSprayCan.h"
 #include "entities/weapons/CWeaponBox.h"
-
-//TODO: move classes out of this file - Solokiller
+#include "entities/effects/CGib.h"
 
 // #define DUCKFIX
 

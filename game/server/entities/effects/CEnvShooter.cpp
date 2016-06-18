@@ -2,7 +2,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "entities/CBreakable.h"
-#include "monsters.h"
+#include "CGib.h"
 
 #include "CEnvShooter.h"
 

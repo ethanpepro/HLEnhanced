@@ -717,6 +717,9 @@
     <ClCompile Include="..\..\game\server\entities\triggers\CTriggerCamera.cpp">
       <Filter>Source Files\game\server\entities\triggers</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CGib.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -1198,6 +1201,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\triggers\CTriggerCamera.h">
       <Filter>Header Files\game\server\entities\triggers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CGib.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

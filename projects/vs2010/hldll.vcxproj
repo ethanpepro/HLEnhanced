@@ -203,6 +203,7 @@
     <ClCompile Include="..\..\game\server\entities\effects\CEnvFunnel.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CEnvShooter.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CFade.cpp" />
+    <ClCompile Include="..\..\game\server\entities\effects\CGib.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CGibShooter.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CGlow.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CItemSoda.cpp" />
@@ -358,6 +359,7 @@
     <ClInclude Include="..\..\game\server\entities\effects\CEnvFunnel.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CEnvShooter.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CFade.h" />
+    <ClInclude Include="..\..\game\server\entities\effects\CGib.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CGibShooter.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CGlow.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CItemSoda.h" />

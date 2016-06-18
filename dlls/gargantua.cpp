@@ -28,6 +28,7 @@
 #include	"Decals.h"
 #include	"explode.h"
 #include "entities/CBreakable.h"
+#include "entities/effects/CGib.h"
 
 //=========================================================
 // Gargantua Monster
