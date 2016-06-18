@@ -23,7 +23,7 @@
 #include	"effects.h"
 #include	"schedule.h"
 #include	"weapons.h"
-#include	"squadmonster.h"
+#include	"entities/NPCs/CSquadMonster.h"
 
 //=========================================================
 // Monster's Anim Events Go Here

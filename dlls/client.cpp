@@ -28,7 +28,7 @@
 #include "cbase.h"
 #include "saverestore.h"
 #include "entities/CBasePlayer.h"
-#include "spectator.h"
+#include "entities/CBaseSpectator.h"
 #include "client.h"
 #include "entities/CSoundEnt.h"
 #include "gamerules/GameRules.h"

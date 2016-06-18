@@ -23,7 +23,7 @@
 #include	"schedule.h"
 #include	"animation.h"
 #include	"nodes.h"
-#include	"squadmonster.h"
+#include	"entities/NPCs/CSquadMonster.h"
 #include	"entities/CSoundEnt.h"
 #include	"game.h"
 

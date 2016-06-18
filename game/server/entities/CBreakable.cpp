@@ -23,7 +23,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "saverestore.h"
-#include "func_break.h"
+#include "CBreakable.h"
 #include "Decals.h"
 #include "explode.h"
 

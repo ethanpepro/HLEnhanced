@@ -29,7 +29,7 @@
 #include "saverestore.h"
 #include "weapons.h"
 #include "scripted.h"
-#include "squadmonster.h"
+#include "entities/NPCs/CSquadMonster.h"
 #include "Decals.h"
 #include "entities/CSoundEnt.h"
 #include "gamerules/GameRules.h"

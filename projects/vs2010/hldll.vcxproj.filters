@@ -183,9 +183,6 @@
     <ClCompile Include="..\..\dlls\explode.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\func_break.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\func_tank.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -226,9 +223,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\monstermaker.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\hornet.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\houndeye.cpp">
@@ -300,16 +294,7 @@
     <ClCompile Include="..\..\dlls\sound.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\spectator.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\squadmonster.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\subs.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\talkmonster.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\tempmonster.cpp">
@@ -582,6 +567,21 @@
     <ClCompile Include="..\..\game\server\entities\CSoundEnt.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBreakable.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CHornet.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CSquadMonster.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CTalkMonster.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseSpectator.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -614,9 +614,6 @@
     <ClInclude Include="..\..\engine\eiface.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\dlls\hornet.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\dlls\enginecallback.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
@@ -624,9 +621,6 @@
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\extdll.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\func_break.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\items.h">
@@ -675,15 +669,6 @@
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\skill.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\spectator.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\squadmonster.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\talkmonster.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\trains.h">
@@ -939,6 +924,21 @@
       <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\CSoundEnt.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CBreakable.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CHornet.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CSquadMonster.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CTalkMonster.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CBaseSpectator.h">
       <Filter>Header Files\game\server\entities</Filter>
     </ClInclude>
   </ItemGroup>

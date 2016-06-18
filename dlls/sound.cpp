@@ -21,7 +21,7 @@
 #include "cbase.h"
 #include "weapons.h"
 #include "entities/CBasePlayer.h"
-#include "talkmonster.h"
+#include "entities/NPCs/CTalkMonster.h"
 #include "gamerules/GameRules.h"
 #include "com_model.h"
 

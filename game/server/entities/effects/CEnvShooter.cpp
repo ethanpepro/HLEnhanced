@@ -1,7 +1,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "func_break.h"
+#include "entities/CBreakable.h"
 #include "monsters.h"
 
 #include "CEnvShooter.h"

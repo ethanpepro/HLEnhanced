@@ -27,7 +27,7 @@
 #include	"entities/CSoundEnt.h"
 #include	"Decals.h"
 #include	"explode.h"
-#include	"func_break.h"
+#include "entities/CBreakable.h"
 
 //=========================================================
 // Gargantua Monster

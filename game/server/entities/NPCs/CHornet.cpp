@@ -22,7 +22,7 @@
 #include	"monsters.h"
 #include	"weapons.h"
 #include	"entities/CSoundEnt.h"
-#include	"hornet.h"
+#include	"CHornet.h"
 #include	"gamerules/GameRules.h"
 
 
