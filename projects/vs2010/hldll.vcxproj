@@ -118,7 +118,6 @@
     <ClCompile Include="..\..\dlls\controller.cpp" />
     <ClCompile Include="..\..\dlls\doors.cpp" />
     <ClCompile Include="..\..\dlls\explode.cpp" />
-    <ClCompile Include="..\..\dlls\func_tank.cpp" />
     <ClCompile Include="..\..\dlls\game.cpp" />
     <ClCompile Include="..\..\dlls\gargantua.cpp" />
     <ClCompile Include="..\..\dlls\genericmonster.cpp" />
@@ -241,6 +240,12 @@
     <ClCompile Include="..\..\game\server\entities\plats\CPathCorner.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CPathTrack.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CPlatTrigger.cpp" />
+    <ClCompile Include="..\..\game\server\entities\tanks\CFuncTank.cpp" />
+    <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankControls.cpp" />
+    <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankGun.cpp" />
+    <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankLaser.cpp" />
+    <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankMortar.cpp" />
+    <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankRocket.cpp" />
     <ClCompile Include="..\..\game\server\entities\triggers\CAutoTrigger.cpp" />
     <ClCompile Include="..\..\game\server\entities\triggers\CBaseTrigger.cpp" />
     <ClCompile Include="..\..\game\server\entities\triggers\CChangeLevel.cpp" />
@@ -401,6 +406,12 @@
     <ClInclude Include="..\..\game\server\entities\plats\CPathTrack.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CPlatTrigger.h" />
     <ClInclude Include="..\..\game\server\entities\ScriptEvent.h" />
+    <ClInclude Include="..\..\game\server\entities\tanks\CFuncTank.h" />
+    <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankControls.h" />
+    <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankGun.h" />
+    <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankLaser.h" />
+    <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankMortar.h" />
+    <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankRocket.h" />
     <ClInclude Include="..\..\game\server\entities\triggers\CAutoTrigger.h" />
     <ClInclude Include="..\..\game\server\entities\triggers\CBaseTrigger.h" />
     <ClInclude Include="..\..\game\server\entities\triggers\CChangeLevel.h" />
