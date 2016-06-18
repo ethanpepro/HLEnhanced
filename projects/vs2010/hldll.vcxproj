@@ -199,6 +199,8 @@
     <ClCompile Include="..\..\game\server\entities\CRotDoor.cpp" />
     <ClCompile Include="..\..\game\server\entities\CRpgRocket.cpp" />
     <ClCompile Include="..\..\game\server\entities\CWorld.cpp" />
+    <ClCompile Include="..\..\game\server\entities\weapons\CBasePlayerItem.server.cpp" />
+    <ClCompile Include="..\..\game\server\entities\weapons\CBasePlayerWeapon.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\weapons\CWeaponBox.cpp" />
     <ClCompile Include="..\..\game\server\gamerules\CGameRules.cpp" />
     <ClCompile Include="..\..\game\server\gamerules\CHalfLifeMultiplay.cpp" />
@@ -301,6 +303,8 @@
     <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />
     <ClInclude Include="..\..\game\shared\entities\EHandle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CAmmoTypes.h" />
+    <ClInclude Include="..\..\game\shared\entities\weapons\CBasePlayerItem.h" />
+    <ClInclude Include="..\..\game\shared\entities\weapons\CBasePlayerWeapon.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CCrossbow.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CCrowbar.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CEgon.h" />

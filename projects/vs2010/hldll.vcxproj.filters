@@ -507,6 +507,12 @@
     <ClCompile Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.cpp">
       <Filter>Source Files\game\server\entities\ammo</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\weapons\CBasePlayerWeapon.server.cpp">
+      <Filter>Source Files\game\server\entities\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\weapons\CBasePlayerItem.server.cpp">
+      <Filter>Source Files\game\server\entities\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -793,6 +799,12 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.h">
       <Filter>Header Files\game\server\entities\ammo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\weapons\CBasePlayerWeapon.h">
+      <Filter>Header Files\game\shared\entities\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\weapons\CBasePlayerItem.h">
+      <Filter>Header Files\game\shared\entities\weapons</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
