@@ -18,7 +18,7 @@
 #include "monsters.h"
 #include "weapons.h"
 #include "nodes.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "items.h"
 #include "gamerules/GameRules.h"
 

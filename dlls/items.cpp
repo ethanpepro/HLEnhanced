@@ -24,7 +24,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "weapons.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "skill.h"
 #include "items.h"
 #include "gamerules/GameRules.h"

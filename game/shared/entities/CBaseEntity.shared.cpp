@@ -2,7 +2,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "weapons.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 
 // Global Savedata for Delay
 BEGIN_DATADESC_NOBASE( CBaseEntity )

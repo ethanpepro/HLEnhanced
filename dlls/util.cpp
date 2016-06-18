@@ -27,7 +27,7 @@
 #include <time.h>
 #include "shake.h"
 #include "Decals.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "weapons.h"
 #include "gamerules/GameRules.h"
 

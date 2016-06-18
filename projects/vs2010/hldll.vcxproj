@@ -154,7 +154,6 @@
     <ClCompile Include="..\..\dlls\pathcorner.cpp" />
     <ClCompile Include="..\..\dlls\plane.cpp" />
     <ClCompile Include="..\..\dlls\plats.cpp" />
-    <ClCompile Include="..\..\dlls\player.cpp" />
     <ClCompile Include="..\..\dlls\rat.cpp" />
     <ClCompile Include="..\..\dlls\roach.cpp" />
     <ClCompile Include="..\..\dlls\schedule.cpp" />
@@ -185,6 +184,7 @@
     <ClCompile Include="..\..\game\server\entities\CBaseDelay.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseDoor.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseEntity.server.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CBasePlayer.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseToggle.cpp" />
     <ClCompile Include="..\..\game\server\entities\CCorpse.cpp" />
     <ClCompile Include="..\..\game\server\entities\CDecal.cpp" />
@@ -256,7 +256,6 @@
     <ClInclude Include="..\..\dlls\monsters.h" />
     <ClInclude Include="..\..\dlls\nodes.h" />
     <ClInclude Include="..\..\dlls\plane.h" />
-    <ClInclude Include="..\..\dlls\player.h" />
     <ClInclude Include="..\..\dlls\saverestore.h" />
     <ClInclude Include="..\..\dlls\schedule.h" />
     <ClInclude Include="..\..\dlls\scripted.h" />
@@ -301,6 +300,7 @@
     <ClInclude Include="..\..\game\server\gamerules\CHalfLifeTeamplay.h" />
     <ClInclude Include="..\..\game\server\gamerules\GameRules.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
+    <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />
     <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />
     <ClInclude Include="..\..\game\shared\entities\EHandle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CAmmoTypes.h" />

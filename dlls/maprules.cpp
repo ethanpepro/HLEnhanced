@@ -28,7 +28,7 @@
 #include "gamerules/GameRules.h"
 #include "maprules.h"
 #include "cbase.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 
 class CRuleEntity : public CBaseEntity
 {

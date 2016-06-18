@@ -18,7 +18,7 @@
 #include "weapons.h"
 #include "CPython.h"
 #include "monsters.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
 

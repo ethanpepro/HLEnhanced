@@ -19,7 +19,7 @@
 #include "weapons.h"
 #include "explode.h"
 
-#include "player.h"
+#include "entities/CBasePlayer.h"
 
 
 #define SF_TANK_ACTIVE			0x0001

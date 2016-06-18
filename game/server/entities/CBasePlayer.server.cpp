@@ -24,7 +24,7 @@
 #include "util.h"
 
 #include "cbase.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "trains.h"
 #include "nodes.h"
 #include "weapons.h"

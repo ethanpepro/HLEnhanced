@@ -19,7 +19,7 @@
 #include "weapons.h"
 #include "CSqueak.h"
 #include "nodes.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "soundent.h"
 #include "gamerules/GameRules.h"
 

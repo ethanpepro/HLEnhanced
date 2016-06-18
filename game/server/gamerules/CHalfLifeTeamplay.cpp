@@ -18,7 +18,7 @@
 #include	"extdll.h"
 #include	"util.h"
 #include	"cbase.h"
-#include	"player.h"
+#include	"entities/CBasePlayer.h"
 #include	"weapons.h"
 #include	"CHalfLifeTeamplay.h"
 #include	"game.h"

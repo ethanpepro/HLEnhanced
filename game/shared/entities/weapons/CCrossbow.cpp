@@ -19,7 +19,7 @@
 #include "weapons.h"
 #include "CCrossbow.h"
 #include "nodes.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
 #ifndef CLIENT_DLL

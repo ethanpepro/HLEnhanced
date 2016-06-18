@@ -2,7 +2,7 @@
 #include "util.h"
 #include "gamerules/GameRules.h"
 #include "cbase.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "weapons.h"
 
 #include "entities/weapons/CBasePlayerWeapon.h"

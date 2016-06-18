@@ -249,9 +249,6 @@
     <ClCompile Include="..\..\dlls\maprules.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\player.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\monsters.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -513,6 +510,9 @@
     <ClCompile Include="..\..\game\server\entities\CGrenade.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBasePlayer.server.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -561,9 +561,6 @@
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\func_break.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\player.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\items.h">
@@ -807,6 +804,9 @@
       <Filter>Header Files\game\shared\entities\weapons</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\CGrenade.h">
+      <Filter>Header Files\game\shared\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h">
       <Filter>Header Files\game\shared\entities</Filter>
     </ClInclude>
   </ItemGroup>

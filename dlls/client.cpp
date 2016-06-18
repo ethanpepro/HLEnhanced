@@ -27,7 +27,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "saverestore.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "spectator.h"
 #include "client.h"
 #include "soundent.h"

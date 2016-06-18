@@ -20,7 +20,7 @@
 #include "weapons.h"
 #include "CGlock.h"
 #include "nodes.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 
 enum glock_e {
 	GLOCK_IDLE1 = 0,

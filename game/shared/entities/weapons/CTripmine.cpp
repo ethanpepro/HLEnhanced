@@ -19,7 +19,7 @@
 #include "weapons.h"
 #include "CTripmine.h"
 #include "nodes.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "effects.h"
 #include "gamerules/GameRules.h"
 

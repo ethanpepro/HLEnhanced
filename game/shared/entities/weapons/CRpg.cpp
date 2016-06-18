@@ -19,7 +19,7 @@
 #include "weapons.h"
 #include "CRpg.h"
 #include "nodes.h"
-#include "player.h"
+#include "entities/CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
 #ifdef SERVER_DLL
