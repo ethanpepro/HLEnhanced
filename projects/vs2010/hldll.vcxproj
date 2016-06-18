@@ -125,7 +125,6 @@
     <ClCompile Include="..\..\dlls\game.cpp" />
     <ClCompile Include="..\..\dlls\gargantua.cpp" />
     <ClCompile Include="..\..\dlls\genericmonster.cpp" />
-    <ClCompile Include="..\..\dlls\ggrenade.cpp" />
     <ClCompile Include="..\..\dlls\globals.cpp" />
     <ClCompile Include="..\..\dlls\gman.cpp" />
     <ClCompile Include="..\..\dlls\hassassin.cpp" />
@@ -189,6 +188,7 @@
     <ClCompile Include="..\..\game\server\entities\CBaseToggle.cpp" />
     <ClCompile Include="..\..\game\server\entities\CCorpse.cpp" />
     <ClCompile Include="..\..\game\server\entities\CDecal.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CGrenade.cpp" />
     <ClCompile Include="..\..\game\server\entities\CLaserSpot.cpp" />
     <ClCompile Include="..\..\game\server\entities\CMomentaryDoor.cpp" />
     <ClCompile Include="..\..\game\server\entities\CMomentaryRotButton.cpp" />
@@ -282,6 +282,7 @@
     <ClInclude Include="..\..\game\server\entities\CBaseToggle.h" />
     <ClInclude Include="..\..\game\server\entities\CCorpse.h" />
     <ClInclude Include="..\..\game\server\entities\CDecal.h" />
+    <ClInclude Include="..\..\game\server\entities\CGrenade.h" />
     <ClInclude Include="..\..\game\server\entities\CLaserSpot.h" />
     <ClInclude Include="..\..\game\server\entities\CMomentaryDoor.h" />
     <ClInclude Include="..\..\game\server\entities\CMomentaryRotButton.h" />

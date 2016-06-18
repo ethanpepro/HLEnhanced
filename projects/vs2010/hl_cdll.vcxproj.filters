@@ -91,6 +91,15 @@
     <Filter Include="Source Files\game\shared\entities\weapons">
       <UniqueIdentifier>{614e8fa0-839f-434f-b873-cabdcab32dfc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\client">
+      <UniqueIdentifier>{17de553d-0087-444b-b9d0-3f149a6b87fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\client\entities">
+      <UniqueIdentifier>{f85a7bfa-93d1-4a56-9ce7-229afea4005d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\client\entities\weapons">
+      <UniqueIdentifier>{6260772a-d207-4b83-81dd-87acd260b591}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\cl_dll\ev_hldm.cpp">
@@ -362,6 +371,12 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\entities\weapons\CGlock.cpp">
       <Filter>Source Files\game\shared\entities\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp">
+      <Filter>Source Files\game\client\entities\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp">
+      <Filter>Source Files\game\client\entities\weapons</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -68,6 +68,7 @@ bool   g_brunninggausspred = false;
 Vector previousorigin;
 
 // HLDM Weapon placeholder entities.
+//TODO: find a way to not have these. - Solokiller
 CGlock g_Glock;
 CCrowbar g_Crowbar;
 CPython g_Python;
@@ -159,146 +160,6 @@ void CBaseEntity::Killed( entvars_t *pevAttacker, GibAction gibAction )
 
 /*
 =====================
-CBasePlayerWeapon :: DefaultReload
-=====================
-*/
-bool CBasePlayerWeapon::DefaultReload( int iClipSize, int iAnim, float fDelay, int body )
-{
-
-	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
-		return false;
-
-	int j = min(iClipSize - m_iClip, m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]);	
-
-	if (j == 0)
-		return false;
-
-	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + fDelay;
-
-	//!!UNDONE -- reload sound goes here !!!
-	SendWeaponAnim( iAnim, UseDecrement(), body );
-
-	m_fInReload = true;
-
-	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 3;
-	return true;
-}
-
-/*
-=====================
-CBasePlayerWeapon :: CanDeploy
-=====================
-*/
-bool CBasePlayerWeapon::CanDeploy() const
-{
-	bool bHasAmmo = false;
-
-	if ( !pszAmmo1() )
-	{
-		// this weapon doesn't use ammo, can always deploy.
-		return true;
-	}
-
-	if ( pszAmmo1() )
-	{
-		bHasAmmo |= (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] != 0);
-	}
-	if ( pszAmmo2() )
-	{
-		bHasAmmo |= (m_pPlayer->m_rgAmmo[m_iSecondaryAmmoType] != 0);
-	}
-	if (m_iClip > 0)
-	{
-		bHasAmmo |= 1;
-	}
-	if (!bHasAmmo)
-	{
-		return false;
-	}
-
-	return true;
-}
-
-/*
-=====================
-CBasePlayerWeapon :: DefaultDeploy
-
-=====================
-*/
-bool CBasePlayerWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal, int	body )
-{
-	if ( !CanDeploy() )
-		return false;
-
-	gEngfuncs.CL_LoadModel( szViewModel, &m_pPlayer->pev->viewmodel );
-	
-	SendWeaponAnim( iAnim, skiplocal, body );
-
-	g_brunninggausspred = false;
-	m_pPlayer->m_flNextAttack = 0.5;
-	m_flTimeWeaponIdle = 1.0;
-	return true;
-}
-
-/*
-=====================
-CBasePlayerWeapon :: PlayEmptySound
-
-=====================
-*/
-//TODO: these 2 functions are virtually identical to the server side copy - Solokiller
-bool CBasePlayerWeapon::PlayEmptySound()
-{
-	if ( m_bPlayEmptySound )
-	{
-		HUD_PlaySound( "weapons/357_cock1.wav", 0.8 );
-		m_bPlayEmptySound = false;
-		return false;
-	}
-	return false;
-}
-
-/*
-=====================
-CBasePlayerWeapon :: ResetEmptySound
-
-=====================
-*/
-void CBasePlayerWeapon::ResetEmptySound()
-{
-	m_bPlayEmptySound = true;
-}
-
-/*
-=====================
-CBasePlayerWeapon::Holster
-
-Put away weapon
-=====================
-*/
-void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
-{ 
-	m_fInReload = false; // cancel any reload in progress.
-	g_brunninggausspred = false;
-	m_pPlayer->pev->viewmodel = 0; 
-}
-
-/*
-=====================
-CBasePlayerWeapon::SendWeaponAnim
-
-Animate weapon model
-=====================
-*/
-void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
-{
-	m_pPlayer->pev->weaponanim = iAnim;
-	
-	HUD_SendWeaponAnim( iAnim, body, 0 );
-}
-
-/*
-=====================
 CBaseEntity::FireBulletsPlayer
 
 Only produces random numbers to match the server ones.
@@ -334,78 +195,6 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 	}
 
     return Vector ( x * vecSpread.x, y * vecSpread.y, 0.0 );
-}
-
-/*
-=====================
-CBasePlayerWeapon::ItemPostFrame
-
-Handles weapon firing, reloading, etc.
-=====================
-*/
-void CBasePlayerWeapon::ItemPostFrame( void )
-{
-	if ((m_fInReload) && (m_pPlayer->m_flNextAttack <= 0.0))
-	{
-#if 0 // FIXME, need ammo on client to make this work right
-		// complete the reload. 
-		int j = min( iMaxClip() - m_iClip, m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]);	
-
-		// Add them to the clip
-		m_iClip += j;
-		m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] -= j;
-#else	
-		m_iClip += 10;
-#endif
-		m_fInReload = false;
-	}
-
-	if ((m_pPlayer->pev->button & IN_ATTACK2) && (m_flNextSecondaryAttack <= 0.0))
-	{
-		if ( pszAmmo2() && !m_pPlayer->m_rgAmmo[SecondaryAmmoIndex()] )
-		{
-			m_bFireOnEmpty = true;
-		}
-
-		SecondaryAttack();
-		m_pPlayer->pev->button &= ~IN_ATTACK2;
-	}
-	else if ((m_pPlayer->pev->button & IN_ATTACK) && (m_flNextPrimaryAttack <= 0.0))
-	{
-		if ( (m_iClip == 0 && pszAmmo1()) || (iMaxClip() == -1 && !m_pPlayer->m_rgAmmo[PrimaryAmmoIndex()] ) )
-		{
-			m_bFireOnEmpty = true;
-		}
-
-		PrimaryAttack();
-	}
-	else if ( m_pPlayer->pev->button & IN_RELOAD && iMaxClip() != WEAPON_NOCLIP && !m_fInReload ) 
-	{
-		// reload when reload is pressed, or if no buttons are down and weapon is empty.
-		Reload();
-	}
-	else if ( !(m_pPlayer->pev->button & (IN_ATTACK|IN_ATTACK2) ) )
-	{
-		// no fire buttons down
-
-		m_bFireOnEmpty = false;
-
-		// weapon is useable. Reload if empty and weapon has waited as long as it has to after firing
-		if ( m_iClip == 0 && !(iFlags() & ITEM_FLAG_NOAUTORELOAD) && m_flNextPrimaryAttack < 0.0 )
-		{
-			Reload();
-			return;
-		}
-
-		WeaponIdle( );
-		return;
-	}
-	
-	// catch all
-	if ( ShouldWeaponIdle() )
-	{
-		WeaponIdle();
-	}
 }
 
 /*
@@ -599,6 +388,9 @@ void HUD_InitClientWeapons( void )
 
 	initialized = 1;
 
+	//Zero out the weapons list just in case - Solokiller
+	memset( g_pWpns, 0, sizeof( g_pWpns ) );
+
 	// Set up pointer ( dummy object )
 	gpGlobals = &Globals;
 
@@ -704,68 +496,8 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 
 	// Fill in data based on selected weapon
 	// FIXME, make this a method in each weapon?  where you pass in an entity_state_t *?
-	switch ( from->client.m_iId )
-	{
-		case WEAPON_CROWBAR:
-			pWeapon = &g_Crowbar;
-			break;
-		
-		case WEAPON_GLOCK:
-			pWeapon = &g_Glock;
-			break;
-		
-		case WEAPON_PYTHON:
-			pWeapon = &g_Python;
-			break;
-			
-		case WEAPON_MP5:
-			pWeapon = &g_Mp5;
-			break;
-
-		case WEAPON_CROSSBOW:
-			pWeapon = &g_Crossbow;
-			break;
-
-		case WEAPON_SHOTGUN:
-			pWeapon = &g_Shotgun;
-			break;
-
-		case WEAPON_RPG:
-			pWeapon = &g_Rpg;
-			break;
-
-		case WEAPON_GAUSS:
-			pWeapon = &g_Gauss;
-			break;
-
-		case WEAPON_EGON:
-			pWeapon = &g_Egon;
-			break;
-
-		case WEAPON_HORNETGUN:
-			pWeapon = &g_HGun;
-			break;
-
-		case WEAPON_HANDGRENADE:
-			pWeapon = &g_HandGren;
-			break;
-
-		case WEAPON_SATCHEL:
-			pWeapon = &g_Satchel;
-			break;
-
-		case WEAPON_TRIPMINE:
-			pWeapon = &g_Tripmine;
-			break;
-
-		case WEAPON_SNARK:
-			pWeapon = &g_Snark;
-			break;
-
-		case WEAPON_SNIPERRIFLE:
-			pWeapon = &g_SniperRifle;
-			break;
-	}
+	//Just pull the weapon from the list. Does the same thing as the switch that used to be here, without needing an update every time you add a weapon - Solokiller
+	pWeapon = g_pWpns[ from->client.m_iId ];
 
 	// Store pointer to our destination entity_state_t so we can get our origin, etc. from it
 	//  for setting up events on the client

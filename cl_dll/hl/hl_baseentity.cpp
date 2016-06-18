@@ -308,36 +308,10 @@ void SpawnBlood(Vector vecSpot, int bloodColor, float flDamage) { }
 int DamageDecal( CBaseEntity *pEntity, int bitsDamageType ) { return 0; }
 void DecalGunshot( TraceResult *pTrace, int iBulletType ) { }
 void EjectBrass ( const Vector &vecOrigin, const Vector &vecVelocity, float rotation, int model, int soundtype ) { }
-float CBasePlayerWeapon::GetNextAttackDelay( float flTime ) { return flTime; }
-void CBasePlayerItem :: SetObjectCollisionBox( void ) { }
-void CBasePlayerItem :: FallInit( void ) { }
-void CBasePlayerItem::FallThink ( void ) { }
-void CBasePlayerItem::Materialize( void ) { }
-void CBasePlayerItem::AttemptToMaterialize( void ) { }
-void CBasePlayerItem :: CheckRespawn ( void ) { }
-CBaseEntity* CBasePlayerItem::Respawn( void ) { return NULL; }
-void CBasePlayerItem::DefaultTouch( CBaseEntity *pOther ) { }
-void CBasePlayerItem::DestroyItem( void ) { }
-bool CBasePlayerItem::AddToPlayer( CBasePlayer *pPlayer ) { return true; }
-void CBasePlayerItem::Drop( void ) { }
-void CBasePlayerItem::Kill( void ) { }
-void CBasePlayerItem::Holster( int skiplocal ) { }
-void CBasePlayerItem::AttachToPlayer ( CBasePlayer *pPlayer ) { }
-bool CBasePlayerWeapon::AddDuplicate( CBasePlayerItem *pOriginal ) { return false; }
-bool CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer ) { return false; }
-bool CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer ) { return false; }
-bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, const char *szName, int iMaxClip ) { return true; }
-bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, const char *szName ) { return true; }
-bool CBasePlayerWeapon::IsUseable() { return true; }
-int CBasePlayerWeapon::PrimaryAmmoIndex() const { return -1; }
-int CBasePlayerWeapon::SecondaryAmmoIndex() const {	return -1; }
 void CBasePlayerAmmo::Spawn( void ) { }
 CBaseEntity* CBasePlayerAmmo::Respawn( void ) { return this; }
 void CBasePlayerAmmo::Materialize( void ) { }
 void CBasePlayerAmmo :: DefaultTouch( CBaseEntity *pOther ) { }
-bool CBasePlayerWeapon::ExtractAmmo( CBasePlayerWeapon *pWeapon ) { return false; }
-bool CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon ) { return false; }	
-void CBasePlayerWeapon::RetireWeapon( void ) { }
 void CSoundEnt::InsertSound ( int iType, const Vector &vecOrigin, int iVolume, float flDuration ) {}
 void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, float flRadius, int iClassIgnore, int bitsDamageType ) {}
 

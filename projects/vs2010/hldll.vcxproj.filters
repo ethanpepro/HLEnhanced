@@ -195,9 +195,6 @@
     <ClCompile Include="..\..\dlls\genericmonster.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\ggrenade.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\globals.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -513,6 +510,9 @@
     <ClCompile Include="..\..\game\server\entities\weapons\CBasePlayerItem.server.cpp">
       <Filter>Source Files\game\server\entities\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CGrenade.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -805,6 +805,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\weapons\CBasePlayerItem.h">
       <Filter>Header Files\game\shared\entities\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CGrenade.h">
+      <Filter>Header Files\game\shared\entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

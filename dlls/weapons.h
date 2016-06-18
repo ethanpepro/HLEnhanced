@@ -30,33 +30,44 @@ void DeactivateSatchels( CBasePlayer *pOwner );
 
 #include "entities/CGrenade.h"
 
-// constant items
-#define ITEM_HEALTHKIT		1
-#define ITEM_ANTIDOTE		2
-#define ITEM_SECURITY		3
-#define ITEM_BATTERY		4
+/**
+*	Constant items. These are indices into CBasePlayer::m_rgItems.
+*	@see MAX_ITEMS
+*	@see CBasePlayer::m_rgItems
+*/
+enum ConstantItem
+{
+	ITEM_HEALTHKIT	= 1,
+	ITEM_ANTIDOTE	= 2,
+	ITEM_SECURITY	= 3,
+	ITEM_BATTERY	= 4,
+};
 
-#define WEAPON_NONE				0
-#define WEAPON_CROWBAR			1
-#define	WEAPON_GLOCK			2
-#define WEAPON_PYTHON			3
-#define WEAPON_MP5				4
-#define WEAPON_CHAINGUN			5
-#define WEAPON_CROSSBOW			6
-#define WEAPON_SHOTGUN			7
-#define WEAPON_RPG				8
-#define WEAPON_GAUSS			9
-#define WEAPON_EGON				10
-#define WEAPON_HORNETGUN		11
-#define WEAPON_HANDGRENADE		12
-#define WEAPON_TRIPMINE			13
-#define	WEAPON_SATCHEL			14
-#define	WEAPON_SNARK			15
-#define WEAPON_SNIPERRIFLE		16
+enum WeaponId
+{
+	WEAPON_NONE				= 0,
+	WEAPON_CROWBAR			= 1,
+	WEAPON_GLOCK			= 2,
+	WEAPON_PYTHON			= 3,
+	WEAPON_MP5				= 4,
+	WEAPON_CHAINGUN			= 5,
+	WEAPON_CROSSBOW			= 6,
+	WEAPON_SHOTGUN			= 7,
+	WEAPON_RPG				= 8,
+	WEAPON_GAUSS			= 9,
+	WEAPON_EGON				= 10,
+	WEAPON_HORNETGUN		= 11,
+	WEAPON_HANDGRENADE		= 12,
+	WEAPON_TRIPMINE			= 13,
+	WEAPON_SATCHEL			= 14,
+	WEAPON_SNARK			= 15,
+	WEAPON_SNIPERRIFLE		= 16,
+};
 
-#define WEAPON_ALLWEAPONS		(~(1<<WEAPON_SUIT))
+#define WEAPON_ALLWEAPONS	( ~( 1 << WEAPON_SUIT ) )
 
-#define WEAPON_SUIT				31	// ?????
+//TODO: also defined in cddl_dll.h. Remove that one - Solokiller
+#define WEAPON_SUIT			31	// ?????
 
 #define MAX_NORMAL_BATTERY	100
 
@@ -148,7 +159,7 @@ void DeactivateSatchels( CBasePlayer *pOwner );
 #define AMMO_SNIPERRIFLE_GIVE	5
 
 // bullet types
-typedef	enum
+enum Bullet
 {
 	BULLET_NONE = 0,
 	BULLET_PLAYER_9MM, // glock
@@ -163,7 +174,7 @@ typedef	enum
 
 	//TODO: fill in the rest - Solokiller
 	BULLET_PLAYER_762 = 10,
-} Bullet;
+};
 
 
 #define ITEM_FLAG_SELECTONEMPTY		1
