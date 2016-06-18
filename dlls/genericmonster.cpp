@@ -18,7 +18,7 @@
 #include	"extdll.h"
 #include	"util.h"
 #include	"cbase.h"
-#include	"monsters.h"
+#include	"entities/NPCs/Monsters.h"
 #include	"entities/NPCs/Schedule.h"
 
 // For holograms, make them not solid so the player can walk through them

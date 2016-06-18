@@ -15,7 +15,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "monsters.h"
+#include "entities/NPCs/Monsters.h"
 #include "weapons.h"
 #include "CSatchel.h"
 #include "nodes.h"

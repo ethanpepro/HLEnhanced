@@ -12,8 +12,12 @@
 *   use or distribution of this code by or to any unlicensed person is illegal.
 *
 ****/
-#ifndef DEFAULTAI_H
-#define DEFAULTAI_H
+#ifndef GAME_SERVER_ENTITIES_NPCS_DEFAULTAI_H
+#define GAME_SERVER_ENTITIES_NPCS_DEFAULTAI_H
+
+/**
+*	These schedules are declared as arrays of schedules to make conversion to pointer easier.
+*/
 
 //=========================================================
 // Failed
@@ -95,4 +99,4 @@ extern Schedule_t slWalkToScript[];
 extern Schedule_t slRunToScript[];
 extern Schedule_t slWaitScript[];
 
-#endif		// DEFAULTAI_H
+#endif //GAME_SERVER_ENTITIES_NPCS_DEFAULTAI_H

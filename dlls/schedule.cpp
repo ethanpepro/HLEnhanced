@@ -19,11 +19,11 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "monsters.h"
+#include "entities/NPCs/Monsters.h"
 #include "animation.h"
 #include "scripted.h"
 #include "nodes.h"
-#include "defaultai.h"
+#include "entities/NPCs/DefaultAI.h"
 #include "entities/CSoundEnt.h"
 
 extern CGraph WorldGraph;

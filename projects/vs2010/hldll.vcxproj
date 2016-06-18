@@ -116,7 +116,6 @@
     <ClCompile Include="..\..\dlls\client.cpp" />
     <ClCompile Include="..\..\dlls\combat.cpp" />
     <ClCompile Include="..\..\dlls\controller.cpp" />
-    <ClCompile Include="..\..\dlls\defaultai.cpp" />
     <ClCompile Include="..\..\dlls\doors.cpp" />
     <ClCompile Include="..\..\dlls\explode.cpp" />
     <ClCompile Include="..\..\dlls\func_tank.cpp" />
@@ -140,7 +139,6 @@
     <ClCompile Include="..\..\dlls\lights.cpp" />
     <ClCompile Include="..\..\dlls\maprules.cpp" />
     <ClCompile Include="..\..\dlls\monstermaker.cpp" />
-    <ClCompile Include="..\..\dlls\monsters.cpp" />
     <ClCompile Include="..\..\dlls\monsterstate.cpp" />
     <ClCompile Include="..\..\dlls\mortar.cpp" />
     <ClCompile Include="..\..\dlls\nihilanth.cpp" />
@@ -225,6 +223,8 @@
     <ClCompile Include="..\..\game\server\entities\NPCs\CHornet.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CSquadMonster.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CTalkMonster.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\DefaultAI.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\Monsters.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CBasePlatTrain.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CFuncPlat.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CFuncPlatRot.cpp" />
@@ -302,13 +302,11 @@
     <ClInclude Include="..\..\dlls\cbase.h" />
     <ClInclude Include="..\..\dlls\cdll_dll.h" />
     <ClInclude Include="..\..\dlls\client.h" />
-    <ClInclude Include="..\..\dlls\defaultai.h" />
     <ClInclude Include="..\..\dlls\doors.h" />
     <ClInclude Include="..\..\dlls\effects.h" />
     <ClInclude Include="..\..\dlls\enginecallback.h" />
     <ClInclude Include="..\..\dlls\explode.h" />
     <ClInclude Include="..\..\dlls\extdll.h" />
-    <ClInclude Include="..\..\dlls\monsters.h" />
     <ClInclude Include="..\..\dlls\nodes.h" />
     <ClInclude Include="..\..\dlls\saverestore.h" />
     <ClInclude Include="..\..\dlls\scripted.h" />
@@ -379,6 +377,8 @@
     <ClInclude Include="..\..\game\server\entities\NPCs\CHornet.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CSquadMonster.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CTalkMonster.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\DefaultAI.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\Monsters.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\Schedule.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CBasePlatTrain.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CFuncPlat.h" />

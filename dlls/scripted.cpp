@@ -22,7 +22,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "monsters.h"
+#include "entities/NPCs/Monsters.h"
 
 #ifndef ANIMATION_H
 #include "animation.h"
@@ -34,7 +34,7 @@
 
 #include "entities/NPCs/Schedule.h"
 #include "scripted.h"
-#include "defaultai.h"
+#include "entities/NPCs/DefaultAI.h"
 
 
 

@@ -24,7 +24,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "nodes.h"
-#include "monsters.h"
+#include "Monsters.h"
 #include "animation.h"
 #include "saverestore.h"
 #include "weapons.h"

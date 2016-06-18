@@ -12,9 +12,10 @@
 *   use or distribution of this code by or to any unlicensed person is illegal.
 *
 ****/
-#ifndef MONSTERS_H
+#ifndef GAME_SERVER_ENTITIES_NPCS_MONSTERS_H
+#define GAME_SERVER_ENTITIES_NPCS_MONSTERS_H
+
 #include "skill.h"
-#define MONSTERS_H
 
 /*
 
@@ -166,4 +167,4 @@ enum
 
 
 
-#endif	//MONSTERS_H
+#endif //GAME_SERVER_ENTITIES_NPCS_MONSTERS_H

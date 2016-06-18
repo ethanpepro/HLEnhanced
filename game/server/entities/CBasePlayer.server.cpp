@@ -29,7 +29,7 @@
 #include "nodes.h"
 #include "weapons.h"
 #include "entities/CSoundEnt.h"
-#include "monsters.h"
+#include "entities/NPCs/Monsters.h"
 #include "shake.h"
 #include "Decals.h"
 #include "gamerules/GameRules.h"
