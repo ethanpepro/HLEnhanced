@@ -98,6 +98,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
+    <ClCompile Include="..\..\common\CPlane.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
     <ClCompile Include="..\..\dlls\aflock.cpp" />
     <ClCompile Include="..\..\dlls\agrunt.cpp" />
@@ -118,7 +119,6 @@
     <ClCompile Include="..\..\dlls\defaultai.cpp" />
     <ClCompile Include="..\..\dlls\doors.cpp" />
     <ClCompile Include="..\..\dlls\explode.cpp" />
-    <ClCompile Include="..\..\dlls\flyingmonster.cpp" />
     <ClCompile Include="..\..\dlls\func_break.cpp" />
     <ClCompile Include="..\..\dlls\func_tank.cpp" />
     <ClCompile Include="..\..\dlls\game.cpp" />
@@ -151,7 +151,6 @@
     <ClCompile Include="..\..\dlls\observer.cpp" />
     <ClCompile Include="..\..\dlls\osprey.cpp" />
     <ClCompile Include="..\..\dlls\pathcorner.cpp" />
-    <ClCompile Include="..\..\dlls\plane.cpp" />
     <ClCompile Include="..\..\dlls\plats.cpp" />
     <ClCompile Include="..\..\dlls\rat.cpp" />
     <ClCompile Include="..\..\dlls\roach.cpp" />
@@ -160,7 +159,6 @@
     <ClCompile Include="..\..\dlls\scripted.cpp" />
     <ClCompile Include="..\..\dlls\skill.cpp" />
     <ClCompile Include="..\..\dlls\sound.cpp" />
-    <ClCompile Include="..\..\dlls\soundent.cpp" />
     <ClCompile Include="..\..\dlls\spectator.cpp" />
     <ClCompile Include="..\..\dlls\squadmonster.cpp" />
     <ClCompile Include="..\..\dlls\subs.cpp" />
@@ -201,6 +199,7 @@
     <ClCompile Include="..\..\game\server\entities\CRotButton.cpp" />
     <ClCompile Include="..\..\game\server\entities\CRotDoor.cpp" />
     <ClCompile Include="..\..\game\server\entities\CRpgRocket.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CSoundEnt.cpp" />
     <ClCompile Include="..\..\game\server\entities\CSprayCan.cpp" />
     <ClCompile Include="..\..\game\server\entities\CStripWeapons.cpp" />
     <ClCompile Include="..\..\game\server\entities\CWorld.cpp" />
@@ -219,6 +218,7 @@
     <ClCompile Include="..\..\game\server\entities\effects\CMessage.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CShake.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CSprite.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\CFlyingMonster.cpp" />
     <ClCompile Include="..\..\game\server\entities\weapons\CBasePlayerItem.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\weapons\CBasePlayerWeapon.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\weapons\CWeaponBox.cpp" />
@@ -254,6 +254,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\common\CAutoString.h" />
     <ClInclude Include="..\..\common\CHashStringPool.h" />
+    <ClInclude Include="..\..\common\CPlane.h" />
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\common\StringUtils.h" />
     <ClInclude Include="..\..\dlls\activity.h" />
@@ -268,20 +269,17 @@
     <ClInclude Include="..\..\dlls\enginecallback.h" />
     <ClInclude Include="..\..\dlls\explode.h" />
     <ClInclude Include="..\..\dlls\extdll.h" />
-    <ClInclude Include="..\..\dlls\flyingmonster.h" />
     <ClInclude Include="..\..\dlls\func_break.h" />
     <ClInclude Include="..\..\dlls\hornet.h" />
     <ClInclude Include="..\..\dlls\items.h" />
     <ClInclude Include="..\..\dlls\monsterevent.h" />
     <ClInclude Include="..\..\dlls\monsters.h" />
     <ClInclude Include="..\..\dlls\nodes.h" />
-    <ClInclude Include="..\..\dlls\plane.h" />
     <ClInclude Include="..\..\dlls\saverestore.h" />
     <ClInclude Include="..\..\dlls\schedule.h" />
     <ClInclude Include="..\..\dlls\scripted.h" />
     <ClInclude Include="..\..\dlls\scriptevent.h" />
     <ClInclude Include="..\..\dlls\skill.h" />
-    <ClInclude Include="..\..\dlls\soundent.h" />
     <ClInclude Include="..\..\dlls\spectator.h" />
     <ClInclude Include="..\..\dlls\squadmonster.h" />
     <ClInclude Include="..\..\dlls\talkmonster.h" />
@@ -315,6 +313,7 @@
     <ClInclude Include="..\..\game\server\entities\CRotButton.h" />
     <ClInclude Include="..\..\game\server\entities\CRotDoor.h" />
     <ClInclude Include="..\..\game\server\entities\CRpgRocket.h" />
+    <ClInclude Include="..\..\game\server\entities\CSoundEnt.h" />
     <ClInclude Include="..\..\game\server\entities\CSprayCan.h" />
     <ClInclude Include="..\..\game\server\entities\CStripWeapons.h" />
     <ClInclude Include="..\..\game\server\entities\CWorld.h" />
@@ -334,6 +333,7 @@
     <ClInclude Include="..\..\game\server\entities\effects\CShake.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CSprite.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CBaseMonster.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\CFlyingMonster.h" />
     <ClInclude Include="..\..\game\server\entities\weapons\CWeaponBox.h" />
     <ClInclude Include="..\..\game\server\gamerules\CGameRules.h" />
     <ClInclude Include="..\..\game\server\gamerules\CHalfLifeMultiplay.h" />

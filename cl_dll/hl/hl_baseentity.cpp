@@ -27,7 +27,7 @@ This file contains "stubs" of class member implementations so that we can predic
 #include	"entities/CBasePlayer.h"
 #include	"weapons.h"
 #include	"nodes.h"
-#include	"soundent.h"
+#include	"entities/CSoundEnt.h"
 #include	"skill.h"
 
 // Globals used by game logic

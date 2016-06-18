@@ -20,7 +20,7 @@
 #include "CGauss.h"
 #include "nodes.h"
 #include "entities/CBasePlayer.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 #include "shake.h"
 #include "gamerules/GameRules.h"
 

@@ -21,7 +21,7 @@
 #include "CMP5.h"
 #include "nodes.h"
 #include "entities/CBasePlayer.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 #include "gamerules/GameRules.h"
 
 enum mp5_e

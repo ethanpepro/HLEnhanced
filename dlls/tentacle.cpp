@@ -23,7 +23,7 @@
 #include	"cbase.h"
 #include	"monsters.h"
 #include	"weapons.h"
-#include	"soundent.h"
+#include	"entities/CSoundEnt.h"
 
 
 #define ACT_T_IDLE		1010

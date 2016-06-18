@@ -29,7 +29,7 @@
 
 
 #include	"extdll.h"
-#include	"plane.h"
+#include	"CPlane.h"
 #include	"util.h"
 #include	"cbase.h"
 #include	"monsters.h"
@@ -38,7 +38,7 @@
 #include	"squadmonster.h"
 #include	"weapons.h"
 #include	"talkmonster.h"
-#include	"soundent.h"
+#include	"entities/CSoundEnt.h"
 #include	"effects.h"
 #include	"customentity.h"
 

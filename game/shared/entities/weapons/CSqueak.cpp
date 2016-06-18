@@ -20,7 +20,7 @@
 #include "CSqueak.h"
 #include "nodes.h"
 #include "entities/CBasePlayer.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 #include "gamerules/GameRules.h"
 
 enum w_squeak_e {

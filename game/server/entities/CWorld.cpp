@@ -22,7 +22,7 @@ precaches and defs for entities and other data that must always be available.
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 #include "CCorpse.h"
 #include "effects/CMessage.h"
 

@@ -24,7 +24,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "monsters.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 #include "Decals.h"
 #include "animation.h"
 #include "weapons.h"

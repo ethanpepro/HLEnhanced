@@ -28,7 +28,7 @@
 #include "trains.h"
 #include "nodes.h"
 #include "weapons.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 #include "monsters.h"
 #include "shake.h"
 #include "Decals.h"

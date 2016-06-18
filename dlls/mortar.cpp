@@ -26,7 +26,7 @@
 #include "saverestore.h"
 #include "weapons.h"
 #include "Decals.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 
 class CFuncMortarField : public CBaseToggle
 {

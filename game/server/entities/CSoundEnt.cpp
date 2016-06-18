@@ -16,7 +16,7 @@
 #include	"util.h"
 #include	"cbase.h"
 #include	"monsters.h"
-#include	"soundent.h"
+#include	"CSoundEnt.h"
 
 
 LINK_ENTITY_TO_CLASS( soundent, CSoundEnt );

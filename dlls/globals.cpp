@@ -26,7 +26,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 
 DLL_GLOBAL unsigned int		g_ulFrameCount;
 DLL_GLOBAL unsigned int		g_ulModelIndexEyes;

@@ -24,7 +24,7 @@
 #include "monsters.h"
 #include "weapons.h"
 #include "nodes.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 #include "Decals.h"
 
 

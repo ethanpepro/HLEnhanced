@@ -30,7 +30,7 @@
 #include "entities/CBasePlayer.h"
 #include "spectator.h"
 #include "client.h"
-#include "soundent.h"
+#include "entities/CSoundEnt.h"
 #include "gamerules/GameRules.h"
 #include "game.h"
 #include "customentity.h"

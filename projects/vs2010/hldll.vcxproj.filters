@@ -118,6 +118,9 @@
     <Filter Include="Source Files\game\server\entities\effects">
       <UniqueIdentifier>{b2aa02bd-15ff-4b6e-a0a7-f2a1901efce3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\server\entities\NPCs">
+      <UniqueIdentifier>{6885d0bf-4655-4921-9293-045d1c91f6a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -178,9 +181,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\explode.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\flyingmonster.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\func_break.cpp">
@@ -276,9 +276,6 @@
     <ClCompile Include="..\..\dlls\pathcorner.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\plane.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\plats.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -301,9 +298,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\sound.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\soundent.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\spectator.cpp">
@@ -579,6 +573,15 @@
     <ClCompile Include="..\..\game\server\entities\effects\CItemSoda.cpp">
       <Filter>Source Files\game\server\entities\effects</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\common\CPlane.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CFlyingMonster.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CSoundEnt.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -623,9 +626,6 @@
     <ClInclude Include="..\..\dlls\extdll.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\dlls\flyingmonster.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\dlls\func_break.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
@@ -639,9 +639,6 @@
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\nodes.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\plane.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_shared.h">
@@ -678,9 +675,6 @@
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\skill.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\soundent.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\spectator.h">
@@ -937,6 +931,15 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\effects\CItemSoda.h">
       <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\CPlane.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CFlyingMonster.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CSoundEnt.h">
+      <Filter>Header Files\game\server\entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

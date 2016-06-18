@@ -23,7 +23,7 @@
 #include	"schedule.h"
 #include	"squadmonster.h"
 #include	"weapons.h"
-#include	"soundent.h"
+#include	"entities/CSoundEnt.h"
 #include	"game.h"
 
 extern DLL_GLOBAL int  g_iSkillLevel;
