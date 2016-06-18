@@ -4,6 +4,8 @@
 
 #include "shared_game_utils.h"
 
+DLL_GLOBAL const Vector	g_vecZero = Vector( 0, 0, 0 );
+
 class CBaseEntity;
 
 CBaseEntity* GET_PRIVATE( edict_t* pent )

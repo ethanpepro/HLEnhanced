@@ -56,14 +56,6 @@ inline edict_t *FIND_ENTITY_BY_TARGET(edict_t *entStart, const char *pszName)
 #define ClearBits(flBitVector, bits)	((flBitVector) = (int)(flBitVector) & ~(bits))
 #define FBitSet(flBitVector, bit)		((int)(flBitVector) & (bit))
 
-// Makes these more explicit, and easier to find
-#define FILE_GLOBAL static
-#define DLL_GLOBAL
-
-// Until we figure out why "const" gives the compiler problems, we'll just have to use
-// this bogus "empty" define to mark things as constant.
-#define CONSTANT
-
 // In case this ever changes
 #define M_PI			3.14159265358979323846
 
@@ -350,9 +342,6 @@ void DBG_AssertFunction(const bool fExpr, const char* szExpr, const char* szFile
 #define ASSERT(f)
 #define ASSERTSZ(f, sz)
 #endif	// !DEBUG
-
-
-extern DLL_GLOBAL const Vector g_vecZero;
 
 //
 // Constants that were used only by QC (maybe not used at all now)

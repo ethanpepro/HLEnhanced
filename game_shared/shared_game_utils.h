@@ -7,6 +7,16 @@
 *	dll agnostic game utility functionality - Solokiller
 */
 
+// Makes these more explicit, and easier to find
+#define FILE_GLOBAL static
+#define DLL_GLOBAL
+
+// Until we figure out why "const" gives the compiler problems, we'll just have to use
+// this bogus "empty" define to mark things as constant.
+#define CONSTANT
+
+extern DLL_GLOBAL const Vector g_vecZero;
+
 class CBaseEntity;
 
 /**

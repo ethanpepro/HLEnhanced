@@ -35,5 +35,4 @@ DLL_GLOBAL Vector		g_vecAttackDir;
 DLL_GLOBAL int			g_iSkillLevel;
 DLL_GLOBAL bool			gDisplayTitle;
 DLL_GLOBAL bool			g_fGameOver;
-DLL_GLOBAL const Vector	g_vecZero = Vector(0,0,0);
 DLL_GLOBAL int			g_Language;
