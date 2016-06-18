@@ -51,7 +51,7 @@ LINK_ENTITY_TO_CLASS( func_button, CBaseButton );
 
 void CBaseButton::Spawn()
 {
-	char  *pszSound;
+	const char* pszSound;
 
 	//----------------------------------------------------
 	//determine sounds for buttons
@@ -116,7 +116,7 @@ void CBaseButton::Spawn()
 
 void CBaseButton::Precache( void )
 {
-	char *pszSound;
+	const char* pszSound;
 
 	if( FBitSet( pev->spawnflags, SF_BUTTON_SPARK_IF_OFF ) )// this button should spark in OFF state
 	{

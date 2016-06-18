@@ -111,7 +111,6 @@
     <ClCompile Include="..\..\dlls\bloater.cpp" />
     <ClCompile Include="..\..\dlls\bmodels.cpp" />
     <ClCompile Include="..\..\dlls\bullsquid.cpp" />
-    <ClCompile Include="..\..\dlls\buttons.cpp" />
     <ClCompile Include="..\..\dlls\cbase.cpp" />
     <ClCompile Include="..\..\dlls\client.cpp" />
     <ClCompile Include="..\..\dlls\combat.cpp" />
@@ -158,6 +157,7 @@
     <ClCompile Include="..\..\dlls\weapons.cpp" />
     <ClCompile Include="..\..\dlls\xen.cpp" />
     <ClCompile Include="..\..\dlls\zombie.cpp" />
+    <ClCompile Include="..\..\game\server\ButtonSounds.cpp" />
     <ClCompile Include="..\..\game\server\CGlobalState.cpp" />
     <ClCompile Include="..\..\game\server\CMap.cpp" />
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp" />
@@ -173,9 +173,11 @@
     <ClCompile Include="..\..\game\server\entities\CBaseToggle.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBloodSplat.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBreakable.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CButtonTarget.cpp" />
     <ClCompile Include="..\..\game\server\entities\CCorpse.cpp" />
     <ClCompile Include="..\..\game\server\entities\CDeadHEV.cpp" />
     <ClCompile Include="..\..\game\server\entities\CDecal.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CEnvGlobal.cpp" />
     <ClCompile Include="..\..\game\server\entities\CGrenade.cpp" />
     <ClCompile Include="..\..\game\server\entities\CInfoIntermission.cpp" />
     <ClCompile Include="..\..\game\server\entities\CLaserSpot.cpp" />
@@ -198,6 +200,7 @@
     <ClCompile Include="..\..\game\server\entities\effects\CEnvBeverage.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CEnvFunnel.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CEnvShooter.cpp" />
+    <ClCompile Include="..\..\game\server\entities\effects\CEnvSpark.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CFade.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CGib.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CGibShooter.cpp" />
@@ -323,6 +326,7 @@
     <ClInclude Include="..\..\dlls\weapons.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
+    <ClInclude Include="..\..\game\server\ButtonSounds.h" />
     <ClInclude Include="..\..\game\server\CMap.h" />
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />
     <ClInclude Include="..\..\game\server\Decals.h" />
@@ -336,9 +340,11 @@
     <ClInclude Include="..\..\game\server\entities\CBaseToggle.h" />
     <ClInclude Include="..\..\game\server\entities\CBloodSplat.h" />
     <ClInclude Include="..\..\game\server\entities\CBreakable.h" />
+    <ClInclude Include="..\..\game\server\entities\CButtonTarget.h" />
     <ClInclude Include="..\..\game\server\entities\CCorpse.h" />
     <ClInclude Include="..\..\game\server\entities\CDeadHEV.h" />
     <ClInclude Include="..\..\game\server\entities\CDecal.h" />
+    <ClInclude Include="..\..\game\server\entities\CEnvGlobal.h" />
     <ClInclude Include="..\..\game\server\entities\CGrenade.h" />
     <ClInclude Include="..\..\game\server\entities\CInfoIntermission.h" />
     <ClInclude Include="..\..\game\server\entities\CLaserSpot.h" />
@@ -361,6 +367,7 @@
     <ClInclude Include="..\..\game\server\entities\effects\CEnvBeverage.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CEnvFunnel.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CEnvShooter.h" />
+    <ClInclude Include="..\..\game\server\entities\effects\CEnvSpark.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CFade.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CGib.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CGibShooter.h" />

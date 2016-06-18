@@ -59,7 +59,7 @@ void CMomentaryRotButton::Spawn( void )
 	UTIL_SetOrigin( pev, pev->origin );
 	SET_MODEL( ENT( pev ), STRING( pev->model ) );
 
-	char *pszSound = ButtonSound( m_sounds );
+	const char* pszSound = ButtonSound( m_sounds );
 	PRECACHE_SOUND( pszSound );
 	pev->noise = ALLOC_STRING( pszSound );
 	m_lastUsed = 0;

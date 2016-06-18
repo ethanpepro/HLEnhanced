@@ -186,9 +186,6 @@
     <ClCompile Include="..\..\dlls\bullsquid.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\buttons.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\cbase.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -762,6 +759,18 @@
     <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankControls.cpp">
       <Filter>Source Files\game\server\entities\tanks</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CEnvGlobal.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CEnvSpark.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CButtonTarget.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\ButtonSounds.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -1273,6 +1282,18 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankControls.h">
       <Filter>Header Files\game\server\entities\tanks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CEnvGlobal.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CEnvSpark.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CButtonTarget.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\ButtonSounds.h">
+      <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
