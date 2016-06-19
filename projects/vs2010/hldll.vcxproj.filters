@@ -165,9 +165,6 @@
     <ClCompile Include="..\..\dlls\animation.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\bigmomma.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\bmodels.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -180,9 +177,6 @@
     <ClCompile Include="..\..\dlls\combat.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\controller.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\doors.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -190,9 +184,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\game.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\gargantua.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\globals.cpp">
@@ -210,9 +201,6 @@
     <ClCompile Include="..\..\dlls\h_export.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\headcrab.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\healthkit.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -226,9 +214,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\mortar.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\nihilanth.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\nodes.cpp">
@@ -247,9 +232,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\subs.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\tempmonster.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\turret.cpp">
@@ -799,6 +781,51 @@
       <Filter>Source Files\game\server\entities\NPCs</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\server\entities\NPCs\CBarney.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CSpiral.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\TempEntity.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CSmoker.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CStomp.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CGargantua.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CBigMomma.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CInfoBM.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CBMortar.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CBabyCrab.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CHeadCrab.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CNihilanth.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CNihilanthHVR.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CController.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CControllerHeadBall.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CControllerZapBall.cpp">
       <Filter>Source Files\game\server\entities\NPCs</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1410,6 +1437,51 @@
       <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\NPCs\CBarney.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CSpiral.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\TempEntity.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CSmoker.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CStomp.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CGargantua.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CInfoBM.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CBigMomma.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CBMortar.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CBabyCrab.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CHeadCrab.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CNihilanthHVR.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CNihilanth.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CController.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CControllerHeadBall.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CControllerZapBall.h">
       <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
   </ItemGroup>
