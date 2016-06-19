@@ -159,9 +159,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\dlls\aflock.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\agrunt.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -786,6 +783,12 @@
     <ClCompile Include="..\..\game\server\saverestore\CRestore.cpp">
       <Filter>Source Files\game\server\saverestore</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CFlockingFlyerFlock.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CFlockingFlyer.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\animation.h">
@@ -1321,6 +1324,12 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\CGlobalState.h">
       <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CFlockingFlyerFlock.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CFlockingFlyer.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
