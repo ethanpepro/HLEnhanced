@@ -14,7 +14,7 @@
 ****/
 #include "extdll.h"
 #include "util.h"
-#include "skill.h"
+#include "Skill.h"
 #include "cbase.h"
 #include "Effects.h"
 #include "Weapons.h"

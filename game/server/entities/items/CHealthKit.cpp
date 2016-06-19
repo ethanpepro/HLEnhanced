@@ -1,6 +1,6 @@
 #include "extdll.h"
 #include "util.h"
-#include "skill.h"
+#include "Skill.h"
 #include "gamerules/GameRules.h"
 #include "cbase.h"
 #include "entities/CBasePlayer.h"

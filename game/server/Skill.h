@@ -12,6 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
+#ifndef GAME_SERVER_SKILL_H
+#define GAME_SERVER_SKILL_H
 //=========================================================
 // skill.h - skill level concerns
 //=========================================================
@@ -143,6 +145,11 @@ float GetSkillCvar( char *pName );
 
 extern DLL_GLOBAL int		g_iSkillLevel;
 
-#define SKILL_EASY		1
-#define SKILL_MEDIUM	2
-#define SKILL_HARD		3
+enum SkillLevel
+{
+	SKILL_EASY		= 1,
+	SKILL_MEDIUM	= 2,
+	SKILL_HARD		= 3,
+};
+
+#endif //GAME_SERVER_SKILL_H

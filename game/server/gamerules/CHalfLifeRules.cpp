@@ -21,7 +21,7 @@
 #include	"entities/CBasePlayer.h"
 #include	"Weapons.h"
 #include	"CHalfLifeRules.h"
-#include	"skill.h"
+#include	"Skill.h"
 #include	"entities/items/CItem.h"
 
 extern DLL_GLOBAL CGameRules	*g_pGameRules;

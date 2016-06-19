@@ -17,7 +17,7 @@
 //=========================================================
 #include	"extdll.h"
 #include	"util.h"
-#include	"skill.h"
+#include	"Skill.h"
 
 
 skilldata_t	gSkillData;

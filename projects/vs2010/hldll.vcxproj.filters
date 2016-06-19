@@ -219,9 +219,6 @@
     <ClCompile Include="..\..\dlls\observer.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\skill.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\sound.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -849,6 +846,9 @@
     <ClCompile Include="..\..\game\server\entities\NPCs\CHGruntRepel.cpp">
       <Filter>Source Files\game\server\entities\NPCs</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\Skill.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\animation.h">
@@ -895,9 +895,6 @@
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
       <Filter>Header Files\pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\skill.h">
-      <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\util.h">
       <Filter>Header Files\dlls</Filter>
@@ -1534,6 +1531,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\NPCs\CHGruntRepel.h">
       <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Skill.h">
+      <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

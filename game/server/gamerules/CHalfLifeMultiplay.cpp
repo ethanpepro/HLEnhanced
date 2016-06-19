@@ -22,7 +22,7 @@
 #include	"Weapons.h"
 #include	"CHalfLifeMultiplay.h"
  
-#include	"skill.h"
+#include	"Skill.h"
 #include	"game.h"
 #include	"entities/items/CItem.h"
 #include	"voice_gamemgr.h"

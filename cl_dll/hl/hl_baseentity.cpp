@@ -28,7 +28,7 @@ This file contains "stubs" of class member implementations so that we can predic
 #include	"Weapons.h"
 #include	"nodes.h"
 #include	"entities/CSoundEnt.h"
-#include	"skill.h"
+#include	"Skill.h"
 
 // Globals used by game logic
 int gmsgWeapPickup = 0;

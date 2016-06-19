@@ -120,7 +120,6 @@
     <ClCompile Include="..\..\dlls\mortar.cpp" />
     <ClCompile Include="..\..\dlls\nodes.cpp" />
     <ClCompile Include="..\..\dlls\observer.cpp" />
-    <ClCompile Include="..\..\dlls\skill.cpp" />
     <ClCompile Include="..\..\dlls\sound.cpp" />
     <ClCompile Include="..\..\dlls\subs.cpp" />
     <ClCompile Include="..\..\dlls\util.cpp" />
@@ -303,6 +302,7 @@
     <ClCompile Include="..\..\game\server\saverestore\CRestore.cpp" />
     <ClCompile Include="..\..\game\server\saverestore\CSave.cpp" />
     <ClCompile Include="..\..\game\server\saverestore\CSaveRestoreBuffer.cpp" />
+    <ClCompile Include="..\..\game\server\Skill.cpp" />
     <ClCompile Include="..\..\game\server\TempEntity.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
@@ -342,7 +342,6 @@
     <ClInclude Include="..\..\dlls\explode.h" />
     <ClInclude Include="..\..\dlls\extdll.h" />
     <ClInclude Include="..\..\dlls\nodes.h" />
-    <ClInclude Include="..\..\dlls\skill.h" />
     <ClInclude Include="..\..\dlls\util.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
@@ -524,6 +523,7 @@
     <ClInclude Include="..\..\game\server\saverestore\CRestore.h" />
     <ClInclude Include="..\..\game\server\saverestore\CSave.h" />
     <ClInclude Include="..\..\game\server\saverestore\CSaveRestoreBuffer.h" />
+    <ClInclude Include="..\..\game\server\Skill.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />

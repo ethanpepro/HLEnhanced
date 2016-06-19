@@ -15,7 +15,7 @@
 #ifndef GAME_SERVER_ENTITIES_NPCS_MONSTERS_H
 #define GAME_SERVER_ENTITIES_NPCS_MONSTERS_H
 
-#include "skill.h"
+#include "Skill.h"
 
 /*
 

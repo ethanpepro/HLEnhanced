@@ -22,7 +22,7 @@
 #include	"entities/CBasePlayer.h"
 #include	"Weapons.h"
 #include	"gamerules/GameRules.h"
-#include	"skill.h"
+#include	"Skill.h"
 #include	"game.h"
 
 extern edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer );
