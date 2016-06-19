@@ -204,9 +204,6 @@
     <ClCompile Include="..\..\dlls\healthkit.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\hgrunt.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\lights.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -841,6 +838,15 @@
       <Filter>Source Files\game\server\entities\NPCs</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\server\entities\NPCs\CSentry.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CHGrunt.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CDeadHGrunt.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CHGruntRepel.cpp">
       <Filter>Source Files\game\server\entities\NPCs</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1518,6 +1524,15 @@
       <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\NPCs\CSentry.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CHGrunt.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CDeadHGrunt.h">
+      <Filter>Header Files\game\server\entities\NPCs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\NPCs\CHGruntRepel.h">
       <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
   </ItemGroup>

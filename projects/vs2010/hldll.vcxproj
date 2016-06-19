@@ -111,7 +111,6 @@
     <ClCompile Include="..\..\dlls\game.cpp" />
     <ClCompile Include="..\..\dlls\globals.cpp" />
     <ClCompile Include="..\..\dlls\healthkit.cpp" />
-    <ClCompile Include="..\..\dlls\hgrunt.cpp" />
     <ClCompile Include="..\..\dlls\h_ai.cpp" />
     <ClCompile Include="..\..\dlls\h_battery.cpp" />
     <ClCompile Include="..\..\dlls\h_cycler.cpp" />
@@ -210,6 +209,7 @@
     <ClCompile Include="..\..\game\server\entities\NPCs\CControllerHeadBall.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CControllerZapBall.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CDeadBarney.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\CDeadHGrunt.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CDeadScientist.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CFlockingFlyer.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CFlockingFlyerFlock.cpp" />
@@ -220,6 +220,8 @@
     <ClCompile Include="..\..\game\server\entities\NPCs\CGMan.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CHassassin.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CHeadCrab.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\CHGrunt.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\CHGruntRepel.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CHornet.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CHoundeye.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CIchthyosaur.cpp" />
@@ -426,6 +428,7 @@
     <ClInclude Include="..\..\game\server\entities\NPCs\CControllerHeadBall.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CControllerZapBall.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CDeadBarney.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\CDeadHGrunt.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CDeadScientist.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CFlockingFlyer.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CFlockingFlyerFlock.h" />
@@ -436,6 +439,8 @@
     <ClInclude Include="..\..\game\server\entities\NPCs\CGMan.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CHAssassin.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CHeadCrab.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\CHGrunt.h" />
+    <ClInclude Include="..\..\game\server\entities\NPCs\CHGruntRepel.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CHornet.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CHoundeye.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CIchthyosaur.h" />
