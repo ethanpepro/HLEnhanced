@@ -110,7 +110,6 @@
     <ClCompile Include="..\..\dlls\game.cpp" />
     <ClCompile Include="..\..\dlls\globals.cpp" />
     <ClCompile Include="..\..\dlls\h_ai.cpp" />
-    <ClCompile Include="..\..\dlls\h_cycler.cpp" />
     <ClCompile Include="..\..\dlls\h_export.cpp" />
     <ClCompile Include="..\..\dlls\maprules.cpp" />
     <ClCompile Include="..\..\dlls\nodes.cpp" />
@@ -158,6 +157,10 @@
     <ClCompile Include="..\..\game\server\entities\CSprayCan.cpp" />
     <ClCompile Include="..\..\game\server\entities\CStripWeapons.cpp" />
     <ClCompile Include="..\..\game\server\entities\CWorld.cpp" />
+    <ClCompile Include="..\..\game\server\entities\cycler\CCycler.cpp" />
+    <ClCompile Include="..\..\game\server\entities\cycler\CCyclerSprite.cpp" />
+    <ClCompile Include="..\..\game\server\entities\cycler\CGenericCycler.cpp" />
+    <ClCompile Include="..\..\game\server\entities\cycler\CWeaponCycler.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CBeam.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CBlood.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CBubbling.cpp" />
@@ -177,6 +180,7 @@
     <ClCompile Include="..\..\game\server\entities\effects\CSmoker.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CSpiral.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CSprite.cpp" />
+    <ClCompile Include="..\..\game\server\entities\effects\CWreckage.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CAirtank.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CHealthKit.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CItem.cpp" />
@@ -398,6 +402,10 @@
     <ClInclude Include="..\..\game\server\entities\CSprayCan.h" />
     <ClInclude Include="..\..\game\server\entities\CStripWeapons.h" />
     <ClInclude Include="..\..\game\server\entities\CWorld.h" />
+    <ClInclude Include="..\..\game\server\entities\cycler\CCycler.h" />
+    <ClInclude Include="..\..\game\server\entities\cycler\CCyclerSprite.h" />
+    <ClInclude Include="..\..\game\server\entities\cycler\CGenericCycler.h" />
+    <ClInclude Include="..\..\game\server\entities\cycler\CWeaponCycler.h" />
     <ClInclude Include="..\..\game\server\entities\DoorConstants.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CBeam.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CBlood.h" />
@@ -418,6 +426,7 @@
     <ClInclude Include="..\..\game\server\entities\effects\CSmoker.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CSpiral.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CSprite.h" />
+    <ClInclude Include="..\..\game\server\entities\effects\CWreckage.h" />
     <ClInclude Include="..\..\game\server\entities\items\CAirtank.h" />
     <ClInclude Include="..\..\game\server\entities\items\CHealthKit.h" />
     <ClInclude Include="..\..\game\server\entities\items\CItem.h" />
