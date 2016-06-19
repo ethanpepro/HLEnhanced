@@ -24,29 +24,19 @@
 #include "util.h"
 #include "cbase.h"
 
-
-
-class CLight : public CPointEntity
-{
-public:
-	DECLARE_CLASS( CLight, CPointEntity );
-	DECLARE_DATADESC();
-
-	virtual void	KeyValue( KeyValueData* pkvd ) override;
-	virtual void	Spawn( void ) override;
-	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-
-private:
-	int		m_iStyle;
-	int		m_iszPattern;
-};
-LINK_ENTITY_TO_CLASS( light, CLight );
+#include "CLight.h"
 
 BEGIN_DATADESC( CLight )
 	DEFINE_FIELD( m_iStyle, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iszPattern, FIELD_STRING ),
 END_DATADESC()
 
+LINK_ENTITY_TO_CLASS( light, CLight );
+
+//
+// shut up spawn functions for new spotlights
+//
+LINK_ENTITY_TO_CLASS( light_spot, CLight );
 
 //
 // Cache user-entity-field values until spawn is called.
@@ -73,13 +63,6 @@ void CLight :: KeyValue( KeyValueData* pkvd)
 		CPointEntity::KeyValue( pkvd );
 	}
 }
-
-/*QUAKED light (0 1 0) (-8 -8 -8) (8 8 8) LIGHT_START_OFF
-Non-displayed light.
-Default light value is 300
-Default style is 0
-If targeted, it will toggle between on or off.
-*/
 
 void CLight :: Spawn( void )
 {
@@ -123,74 +106,4 @@ void CLight :: Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 			SetBits(pev->spawnflags, SF_LIGHT_START_OFF);
 		}
 	}
-}
-
-//
-// shut up spawn functions for new spotlights
-//
-LINK_ENTITY_TO_CLASS( light_spot, CLight );
-
-
-class CEnvLight : public CLight
-{
-public:
-	DECLARE_CLASS( CEnvLight, CLight );
-
-	void	KeyValue( KeyValueData* pkvd ) override;
-	void	Spawn( void ) override;
-};
-
-LINK_ENTITY_TO_CLASS( light_environment, CEnvLight );
-
-void CEnvLight::KeyValue( KeyValueData* pkvd )
-{
-	if (FStrEq(pkvd->szKeyName, "_light"))
-	{
-		int r, g, b, v, j;
-		char szColor[64];
-		j = sscanf( pkvd->szValue, "%d %d %d %d\n", &r, &g, &b, &v );
-		if (j == 1)
-		{
-			g = b = r;
-		}
-		else if (j == 4)
-		{
-			r = r * (v / 255.0);
-			g = g * (v / 255.0);
-			b = b * (v / 255.0);
-		}
-
-		// simulate qrad direct, ambient,and gamma adjustments, as well as engine scaling
-		r = pow( r / 114.0, 0.6 ) * 264;
-		g = pow( g / 114.0, 0.6 ) * 264;
-		b = pow( b / 114.0, 0.6 ) * 264;
-
-		pkvd->fHandled = true;
-		sprintf( szColor, "%d", r );
-		CVAR_SET_STRING( "sv_skycolor_r", szColor );
-		sprintf( szColor, "%d", g );
-		CVAR_SET_STRING( "sv_skycolor_g", szColor );
-		sprintf( szColor, "%d", b );
-		CVAR_SET_STRING( "sv_skycolor_b", szColor );
-	}
-	else
-	{
-		CLight::KeyValue( pkvd );
-	}
-}
-
-
-void CEnvLight :: Spawn( void )
-{
-	char szVector[64];
-	UTIL_MakeAimVectors( pev->angles );
-
-	sprintf( szVector, "%f", gpGlobals->v_forward.x );
-	CVAR_SET_STRING( "sv_skyvec_x", szVector );
-	sprintf( szVector, "%f", gpGlobals->v_forward.y );
-	CVAR_SET_STRING( "sv_skyvec_y", szVector );
-	sprintf( szVector, "%f", gpGlobals->v_forward.z );
-	CVAR_SET_STRING( "sv_skyvec_z", szVector );
-
-	CLight::Spawn( );
 }

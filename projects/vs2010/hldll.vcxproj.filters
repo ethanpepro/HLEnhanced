@@ -163,6 +163,18 @@
     <Filter Include="Source Files\game\server\entities\spawnpoints">
       <UniqueIdentifier>{02fc39a8-5313-4fc4-9062-7ea046540b38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\server\entities\lights">
+      <UniqueIdentifier>{024d019b-b0b5-4137-b44f-52fd9c99b449}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\server\entities\lights">
+      <UniqueIdentifier>{cb8b2383-6d7b-4c4e-8a52-75eac7f85087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\server\entities\xen">
+      <UniqueIdentifier>{2fb4702e-e2f6-464b-800e-1a98b0bc6d9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\xen">
+      <UniqueIdentifier>{7619b743-e522-41be-bcd5-a7c47d60a561}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\animation.cpp">
@@ -201,13 +213,7 @@
     <ClCompile Include="..\..\dlls\h_export.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\lights.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\maprules.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\mortar.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\nodes.cpp">
@@ -221,9 +227,6 @@
     </ClCompile>
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp">
       <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\xen.cpp">
-      <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp">
       <Filter>Source Files\pm_shared</Filter>
@@ -860,6 +863,36 @@
     </ClCompile>
     <ClCompile Include="..\..\game\server\Weapons.cpp">
       <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CMortar.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CFuncMortarField.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\lights\CLight.cpp">
+      <Filter>Source Files\game\server\entities\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\lights\CEnvLight.cpp">
+      <Filter>Source Files\game\server\entities\lights</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CActAnimating.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\xen\CXenPLight.cpp">
+      <Filter>Source Files\game\server\entities\xen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\xen\CXenHair.cpp">
+      <Filter>Source Files\game\server\entities\xen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\xen\CXenTreeTrigger.cpp">
+      <Filter>Source Files\game\server\entities\xen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\xen\CXenTree.cpp">
+      <Filter>Source Files\game\server\entities\xen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\xen\CXenSpore.cpp">
+      <Filter>Source Files\game\server\entities\xen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1561,6 +1594,36 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\spawnpoints\CBaseDMStart.h">
       <Filter>Header Files\game\server\entities\spawnpoints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CMortar.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CFuncMortarField.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\lights\CLight.h">
+      <Filter>Header Files\game\server\entities\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\lights\CEnvLight.h">
+      <Filter>Header Files\game\server\entities\lights</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CActAnimating.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\xen\CXenPLight.h">
+      <Filter>Header Files\game\server\entities\xen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\xen\CXenHair.h">
+      <Filter>Header Files\game\server\entities\xen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\xen\CXenTreeTrigger.h">
+      <Filter>Header Files\game\server\entities\xen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\xen\CXenTree.h">
+      <Filter>Header Files\game\server\entities\xen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\xen\CXenSpore.h">
+      <Filter>Header Files\game\server\entities\xen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
