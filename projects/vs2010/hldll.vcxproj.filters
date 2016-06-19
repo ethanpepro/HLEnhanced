@@ -175,6 +175,18 @@
     <Filter Include="Source Files\game\server\entities\xen">
       <UniqueIdentifier>{7619b743-e522-41be-bcd5-a7c47d60a561}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\entities\sound">
+      <UniqueIdentifier>{26d22c53-5413-44ff-954e-e955afd17fdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\sound">
+      <UniqueIdentifier>{6fe8e1d9-b083-41e4-861c-02d5e0a85593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\sound">
+      <UniqueIdentifier>{a187106f-753b-43af-aeef-89c9791613b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\server\sound">
+      <UniqueIdentifier>{07b72592-1718-4463-8aeb-d4c78091d62c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\animation.cpp">
@@ -217,9 +229,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\nodes.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\sound.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\util.cpp">
@@ -893,6 +902,18 @@
     </ClCompile>
     <ClCompile Include="..\..\game\server\entities\xen\CXenSpore.cpp">
       <Filter>Source Files\game\server\entities\xen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\sound\CSpeaker.cpp">
+      <Filter>Source Files\game\server\entities\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\sound\CEnvSound.cpp">
+      <Filter>Source Files\game\server\entities\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\sound\CAmbientGeneric.cpp">
+      <Filter>Source Files\game\server\entities\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\sound\Sound.cpp">
+      <Filter>Source Files\game\server\sound</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1624,6 +1645,18 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\xen\CXenSpore.h">
       <Filter>Header Files\game\server\entities\xen</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\sound\CSpeaker.h">
+      <Filter>Header Files\game\server\entities\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\sound\CEnvSound.h">
+      <Filter>Header Files\game\server\entities\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\sound\CAmbientGeneric.h">
+      <Filter>Header Files\game\server\entities\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\sound\Sound.h">
+      <Filter>Header Files\game\server\sound</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
