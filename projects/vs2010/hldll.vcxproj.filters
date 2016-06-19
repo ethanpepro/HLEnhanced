@@ -193,6 +193,12 @@
     <Filter Include="Header Files\game\server\entities\cycler">
       <UniqueIdentifier>{376bcad2-d071-4f13-9b77-1c315904c00b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\entities\maprules">
+      <UniqueIdentifier>{55db8550-a69b-4c46-99d2-ad89f343d77c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\maprules">
+      <UniqueIdentifier>{12b1fc9c-b241-4ca3-a60c-a2d4f40058c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\animation.cpp">
@@ -226,9 +232,6 @@
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\h_export.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\maprules.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\nodes.cpp">
@@ -932,6 +935,48 @@
     </ClCompile>
     <ClCompile Include="..\..\game\server\entities\effects\CWreckage.cpp">
       <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CRuleEntity.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CRulePointEntity.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CRuleBrushEntity.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGameScore.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGameEnd.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGameText.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGameTeamMaster.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGameTeamSet.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGamePlayerZone.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGamePlayerHurt.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGameCounter.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGameCounterSet.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGamePlayerEquip.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\maprules\CGamePlayerTeam.cpp">
+      <Filter>Source Files\game\server\entities\maprules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1690,6 +1735,48 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\effects\CWreckage.h">
       <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CRuleEntity.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CRulePointEntity.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CRuleBrushEntity.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGameScore.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGameEnd.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGameText.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGameTeamMaster.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGameTeamSet.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGamePlayerZone.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGamePlayerHurt.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGameCounter.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGameCounterSet.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGamePlayerEquip.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\maprules\CGamePlayerTeam.h">
+      <Filter>Header Files\game\server\entities\maprules</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

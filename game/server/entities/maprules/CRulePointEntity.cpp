@@ -1,9 +1,9 @@
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
-*	
-*	This product contains software technology licensed from Id 
-*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc. 
+*
+*	This product contains software technology licensed from Id
+*	Software, Inc. ("Id Technology").  Id Technology (c) 1996 Id Software, Inc.
 *	All Rights Reserved.
 *
 *   Use, distribution, and modification of this source code and/or resulting
@@ -12,11 +12,15 @@
 *   without written permission from Valve LLC.
 *
 ****/
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
 
-#ifndef MAPRULES_H
-#define MAPRULES_H
+#include "CRulePointEntity.h"
 
-
-
-#endif		// MAPRULES_H
-
+void CRulePointEntity::Spawn( void )
+{
+	CRuleEntity::Spawn();
+	pev->frame = 0;
+	pev->model = 0;
+}
