@@ -101,7 +101,6 @@
     <ClCompile Include="..\..\common\CPlane.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
     <ClCompile Include="..\..\dlls\animation.cpp" />
-    <ClCompile Include="..\..\dlls\bmodels.cpp" />
     <ClCompile Include="..\..\dlls\cbase.cpp" />
     <ClCompile Include="..\..\dlls\client.cpp" />
     <ClCompile Include="..\..\dlls\combat.cpp" />
@@ -119,6 +118,13 @@
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp" />
     <ClCompile Include="..\..\game\server\Decals.cpp" />
     <ClCompile Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.cpp" />
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncConveyor.cpp" />
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncIllusionary.cpp" />
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncMonsterClip.cpp" />
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncRotating.cpp" />
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncWall.cpp" />
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncWallToggle.cpp" />
+    <ClCompile Include="..\..\game\server\entities\bmodels\CPendulum.cpp" />
     <ClCompile Include="..\..\game\server\entities\CActAnimating.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseAnimating.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseButton.cpp" />
@@ -381,6 +387,13 @@
     <ClInclude Include="..\..\game\server\Effects.h" />
     <ClInclude Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.h" />
     <ClInclude Include="..\..\game\server\entities\AnimationEvent.h" />
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncConveyor.h" />
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncIllusionary.h" />
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncMonsterClip.h" />
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncRotating.h" />
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncWall.h" />
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncWallToggle.h" />
+    <ClInclude Include="..\..\game\server\entities\bmodels\CPendulum.h" />
     <ClInclude Include="..\..\game\server\entities\CActAnimating.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseAnimating.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseButton.h" />

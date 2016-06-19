@@ -1217,3 +1217,11 @@ CBaseEntity* UTIL_RandomTargetname( const char* const pszName )
 
 	return pEntity;
 }
+
+//
+// BModelOrigin - calculates origin of a bmodel from absmin/size because all bmodel origins are 0 0 0
+//
+Vector VecBModelOrigin( entvars_t* pevBModel )
+{
+	return pevBModel->absmin + ( pevBModel->size * 0.5 );
+}

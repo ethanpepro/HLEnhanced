@@ -199,12 +199,15 @@
     <Filter Include="Source Files\game\server\entities\maprules">
       <UniqueIdentifier>{12b1fc9c-b241-4ca3-a60c-a2d4f40058c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\entities\bmodels">
+      <UniqueIdentifier>{8f3ee7d3-4aa5-4d46-b6bc-15dcf1482d75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\bmodels">
+      <UniqueIdentifier>{4873d09c-bcd6-4e68-a3e2-d85aecc91a19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\animation.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\bmodels.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\cbase.cpp">
@@ -974,6 +977,27 @@
     </ClCompile>
     <ClCompile Include="..\..\game\server\entities\maprules\CGamePlayerTeam.cpp">
       <Filter>Source Files\game\server\entities\maprules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncWall.cpp">
+      <Filter>Source Files\game\server\entities\bmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncWallToggle.cpp">
+      <Filter>Source Files\game\server\entities\bmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncConveyor.cpp">
+      <Filter>Source Files\game\server\entities\bmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncIllusionary.cpp">
+      <Filter>Source Files\game\server\entities\bmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncMonsterClip.cpp">
+      <Filter>Source Files\game\server\entities\bmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\bmodels\CFuncRotating.cpp">
+      <Filter>Source Files\game\server\entities\bmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\bmodels\CPendulum.cpp">
+      <Filter>Source Files\game\server\entities\bmodels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1774,6 +1798,27 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\maprules\CGamePlayerTeam.h">
       <Filter>Header Files\game\server\entities\maprules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncWall.h">
+      <Filter>Header Files\game\server\entities\bmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncWallToggle.h">
+      <Filter>Header Files\game\server\entities\bmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncConveyor.h">
+      <Filter>Header Files\game\server\entities\bmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncIllusionary.h">
+      <Filter>Header Files\game\server\entities\bmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncMonsterClip.h">
+      <Filter>Header Files\game\server\entities\bmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\bmodels\CFuncRotating.h">
+      <Filter>Header Files\game\server\entities\bmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\bmodels\CPendulum.h">
+      <Filter>Header Files\game\server\entities\bmodels</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
