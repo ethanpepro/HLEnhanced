@@ -16,85 +16,44 @@
 // Alien slave monster
 //=========================================================
 
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"entities/NPCs/CSquadMonster.h"
-#include	"entities/NPCs/Schedule.h"
-#include	"Effects.h"
-#include	"Weapons.h"
-#include	"entities/CSoundEnt.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Monsters.h"
+#include "CSquadMonster.h"
+#include "Schedule.h"
+#include "Effects.h"
+#include "Weapons.h"
+#include "entities/CSoundEnt.h"
+
+#include "CISlave.h"
 
 extern DLL_GLOBAL int		g_iSkillLevel;
 
-//=========================================================
-// Monster's Anim Events Go Here
-//=========================================================
-#define		ISLAVE_AE_CLAW		( 1 )
-#define		ISLAVE_AE_CLAWRAKE	( 2 )
-#define		ISLAVE_AE_ZAP_POWERUP	( 3 )
-#define		ISLAVE_AE_ZAP_SHOOT		( 4 )
-#define		ISLAVE_AE_ZAP_DONE		( 5 )
-
-#define		ISLAVE_MAX_BEAMS	8
-
-class CISlave : public CSquadMonster
+const char *CISlave::pAttackHitSounds[] =
 {
-public:
-	DECLARE_CLASS( CISlave, CSquadMonster );
-	DECLARE_DATADESC();
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void SetYawSpeed( void ) override;
-	int	 ISoundMask( void ) override;
-	int  Classify ( void ) override;
-	int  IRelationship( CBaseEntity *pTarget ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	bool CheckRangeAttack1 ( float flDot, float flDist ) override;
-	bool CheckRangeAttack2 ( float flDot, float flDist ) override;
-	void CallForHelp( char *szClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation );
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType) override;
-
-	void DeathSound( void ) override;
-	void PainSound( void ) override;
-	void AlertSound( void ) override;
-	void IdleSound( void ) override;
-
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
-
-    void StartTask ( Task_t *pTask ) override;
-	Schedule_t *GetSchedule( void ) override;
-	Schedule_t *GetScheduleOfType ( int Type ) override;
-	CUSTOM_SCHEDULES;
-
-	void ClearBeams( );
-	void ArmBeam( int side );
-	void WackBeam( int side, CBaseEntity *pEntity );
-	void ZapBeam( int side );
-	void BeamGlow( void );
-
-	int m_iBravery;
-
-	CBeam *m_pBeam[ISLAVE_MAX_BEAMS];
-
-	int m_iBeams;
-	float m_flNextAttack;
-
-	int	m_voicePitch;
-
-	EHANDLE m_hDead;
-
-	static const char *pAttackHitSounds[];
-	static const char *pAttackMissSounds[];
-	static const char *pPainSounds[];
-	static const char *pDeathSounds[];
+	"zombie/claw_strike1.wav",
+	"zombie/claw_strike2.wav",
+	"zombie/claw_strike3.wav",
 };
-LINK_ENTITY_TO_CLASS( monster_alien_slave, CISlave );
-LINK_ENTITY_TO_CLASS( monster_vortigaunt, CISlave );
 
+const char *CISlave::pAttackMissSounds[] =
+{
+	"zombie/claw_miss1.wav",
+	"zombie/claw_miss2.wav",
+};
+
+const char *CISlave::pPainSounds[] =
+{
+	"aslave/slv_pain1.wav",
+	"aslave/slv_pain2.wav",
+};
+
+const char *CISlave::pDeathSounds[] =
+{
+	"aslave/slv_die1.wav",
+	"aslave/slv_die2.wav",
+};
 
 BEGIN_DATADESC(	CISlave )
 	DEFINE_FIELD( m_iBravery, FIELD_INTEGER ),
@@ -108,30 +67,8 @@ BEGIN_DATADESC(	CISlave )
 	DEFINE_FIELD( m_hDead, FIELD_EHANDLE ),
 END_DATADESC()
 
-const char *CISlave::pAttackHitSounds[] = 
-{
-	"zombie/claw_strike1.wav",
-	"zombie/claw_strike2.wav",
-	"zombie/claw_strike3.wav",
-};
-
-const char *CISlave::pAttackMissSounds[] = 
-{
-	"zombie/claw_miss1.wav",
-	"zombie/claw_miss2.wav",
-};
-
-const char *CISlave::pPainSounds[] = 
-{
-	"aslave/slv_pain1.wav",
-	"aslave/slv_pain2.wav",
-};
-
-const char *CISlave::pDeathSounds[] = 
-{
-	"aslave/slv_die1.wav",
-	"aslave/slv_die2.wav",
-};
+LINK_ENTITY_TO_CLASS( monster_alien_slave, CISlave );
+LINK_ENTITY_TO_CLASS( monster_vortigaunt, CISlave );
 
 //=========================================================
 // Classify - indicates this monster's place in the 

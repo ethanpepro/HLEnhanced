@@ -15,49 +15,21 @@
 //=========================================================
 // GMan - misunderstood servant of the people
 //=========================================================
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"entities/NPCs/Schedule.h"
-#include	"Weapons.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Monsters.h"
+#include "Schedule.h"
+#include "Weapons.h"
 
-//=========================================================
-// Monster's Anim Events Go Here
-//=========================================================
-
-class CGMan : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CGMan, CBaseMonster );
-	DECLARE_DATADESC();
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void SetYawSpeed( void ) override;
-	int  Classify ( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	int ISoundMask ( void ) override;
-
-	void StartTask( Task_t *pTask ) override;
-	void RunTask( Task_t *pTask ) override;
-	int  TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
-
-	void PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener ) override;
-
-	EHANDLE m_hPlayer;
-	EHANDLE m_hTalkTarget;
-	float m_flTalkTime;
-};
-LINK_ENTITY_TO_CLASS( monster_gman, CGMan );
-
+#include "CGMan.h"
 
 BEGIN_DATADESC(	CGMan )
 	DEFINE_FIELD( m_hTalkTarget, FIELD_EHANDLE ),
 	DEFINE_FIELD( m_flTalkTime, FIELD_TIME ),
 END_DATADESC()
 
+LINK_ENTITY_TO_CLASS( monster_gman, CGMan );
 
 //=========================================================
 // Classify - indicates this monster's place in the 

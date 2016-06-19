@@ -20,47 +20,10 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "entities/NPCs/Monsters.h"
+#include "Monsters.h"
 #include "SaveRestore.h"
 
-// Monstermaker spawnflags
-#define	SF_MONSTERMAKER_START_ON	1 // start active ( if has targetname )
-#define	SF_MONSTERMAKER_CYCLIC		4 // drop one monster every time fired.
-#define SF_MONSTERMAKER_MONSTERCLIP	8 // Children are blocked by monsterclip
-
-//=========================================================
-// MonsterMaker - this ent creates monsters during the game.
-//=========================================================
-class CMonsterMaker : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CMonsterMaker, CBaseMonster );
-	DECLARE_DATADESC();
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void KeyValue( KeyValueData* pkvd) override;
-	void EXPORT ToggleUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT CyclicUse ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT MakerThink ( void );
-	void DeathNotice ( CBaseEntity* pChild ) override;// monster maker children use this to tell the monster maker that they have died.
-	void MakeMonster( void );
-	
-	string_t m_iszMonsterClassname;// classname of the monster(s) that will be created.
-	
-	int	 m_cNumMonsters;// max number of monsters this ent can create
-
-	
-	int  m_cLiveChildren;// how many monsters made by this monster maker that are currently alive
-	int	 m_iMaxLiveChildren;// max number of monsters that this maker may have out at one time.
-
-	float m_flGround; // z coord of the ground under me, used to make sure no monsters are under the maker when it drops a new child
-
-	bool m_fActive;
-	bool m_fFadeChildren;// should we make the children fadeout?
-};
-
-LINK_ENTITY_TO_CLASS( monstermaker, CMonsterMaker );
+#include "CMonsterMaker.h"
 
 BEGIN_DATADESC(	CMonsterMaker )
 	DEFINE_FIELD( m_iszMonsterClassname, FIELD_STRING ),
@@ -71,6 +34,8 @@ BEGIN_DATADESC(	CMonsterMaker )
 	DEFINE_FIELD( m_fActive, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_fFadeChildren, FIELD_BOOLEAN ),
 END_DATADESC()
+
+LINK_ENTITY_TO_CLASS( monstermaker, CMonsterMaker );
 
 void CMonsterMaker :: KeyValue( KeyValueData *pkvd )
 {

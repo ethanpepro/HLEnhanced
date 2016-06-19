@@ -19,46 +19,13 @@
 #include	"extdll.h"
 #include	"util.h"
 #include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"entities/NPCs/Schedule.h"
+#include	"Monsters.h"
+#include	"Schedule.h"
 #include	"entities/CSoundEnt.h"
 #include	"Decals.h"
 
-#define		ROACH_IDLE				0
-#define		ROACH_BORED				1
-#define		ROACH_SCARED_BY_ENT		2
-#define		ROACH_SCARED_BY_LIGHT	3
-#define		ROACH_SMELL_FOOD		4
-#define		ROACH_EAT				5
+#include "CRoach.h"
 
-//=========================================================
-// Monster's Anim Events Go Here
-//=========================================================
-class CRoach : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CRoach, CBaseMonster );
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void SetYawSpeed( void ) override;
-	void EXPORT MonsterThink ( void );
-	void Move ( float flInterval ) override;
-	void PickNewDest ( int iCondition );
-	void EXPORT Touch ( CBaseEntity *pOther ) override;
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
-
-	float	m_flLastLightLevel;
-	float	m_flNextSmellTime;
-	int		Classify ( void ) override;
-	void	Look ( int iDistance ) override;
-	int		ISoundMask ( void ) override;
-	
-	// UNDONE: These don't necessarily need to be save/restored, but if we add more data, it may
-	bool	m_fLightHacked;
-	int		m_iMode;
-	// -----------------------------
-};
 LINK_ENTITY_TO_CLASS( monster_cockroach, CRoach );
 
 //=========================================================

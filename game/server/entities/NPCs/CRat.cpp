@@ -16,26 +16,14 @@
 // rat - environmental monster
 //=========================================================
 
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"entities/NPCs/Schedule.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Monsters.h"
+#include "Schedule.h"
 
-//=========================================================
-// Monster's Anim Events Go Here
-//=========================================================
+#include "CRat.h"
 
-class CRat : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CRat, CBaseMonster );
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void SetYawSpeed( void ) override;
-	int  Classify ( void ) override;
-};
 LINK_ENTITY_TO_CLASS( monster_rat, CRat );
 
 //=========================================================

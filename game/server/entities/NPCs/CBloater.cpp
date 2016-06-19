@@ -16,40 +16,13 @@
 // Bloater
 //=========================================================
 
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"entities/NPCs/Schedule.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Monsters.h"
+#include "Schedule.h"
 
-
-//=========================================================
-// Monster's Anim Events Go Here
-//=========================================================
-#define	BLOATER_AE_ATTACK_MELEE1		0x01
-
-
-class CBloater : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CBloater, CBaseMonster );
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void SetYawSpeed( void ) override;
-	int  Classify ( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-
-	void PainSound( void ) override;
-	void AlertSound( void ) override;
-	void IdleSound( void ) override;
-	void AttackSnd( void );
-
-	// No range attacks
-	bool CheckRangeAttack1 ( float flDot, float flDist ) override { return false; }
-	bool CheckRangeAttack2 ( float flDot, float flDist ) override { return false; }
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
-};
+#include "CBloater.h"
 
 LINK_ENTITY_TO_CLASS( monster_bloater, CBloater );
 

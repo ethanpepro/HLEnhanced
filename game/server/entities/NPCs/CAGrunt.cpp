@@ -16,130 +16,26 @@
 // Agrunt - Dominant, warlike alien grunt monster
 //=========================================================
 
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"entities/NPCs/Schedule.h"
-#include	"entities/NPCs/CSquadMonster.h"
-#include	"Weapons.h"
-#include	"entities/CSoundEnt.h"
-#include "entities/NPCs/CHornet.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Monsters.h"
+#include "Schedule.h"
+#include "CSquadMonster.h"
+#include "Weapons.h"
+#include "entities/CSoundEnt.h"
+#include "CHornet.h"
 
-//=========================================================
-// monster-specific schedule types
-//=========================================================
-enum
-{
-	SCHED_AGRUNT_SUPPRESS = LAST_COMMON_SCHEDULE + 1,
-	SCHED_AGRUNT_THREAT_DISPLAY,
-};
+#include "CAGrunt.h"
 
-//=========================================================
-// monster-specific tasks
-//=========================================================
-enum 
-{
-	TASK_AGRUNT_SETUP_HIDE_ATTACK = LAST_COMMON_TASK + 1,
-	TASK_AGRUNT_GET_PATH_TO_ENEMY_CORPSE,
-};
-
-int iAgruntMuzzleFlash;
-
-//=========================================================
-// Monster's Anim Events Go Here
-//=========================================================
-#define		AGRUNT_AE_HORNET1	( 1 )
-#define		AGRUNT_AE_HORNET2	( 2 )
-#define		AGRUNT_AE_HORNET3	( 3 )
-#define		AGRUNT_AE_HORNET4	( 4 )
-#define		AGRUNT_AE_HORNET5	( 5 )
-// some events are set up in the QC file that aren't recognized by the code yet.
-#define		AGRUNT_AE_PUNCH		( 6 )
-#define		AGRUNT_AE_BITE		( 7 )
-
-#define		AGRUNT_AE_LEFT_FOOT	 ( 10 )
-#define		AGRUNT_AE_RIGHT_FOOT ( 11 )
-
-#define		AGRUNT_AE_LEFT_PUNCH ( 12 )
-#define		AGRUNT_AE_RIGHT_PUNCH ( 13 )
-
-
-
-#define		AGRUNT_MELEE_DIST	100
-
-class CAGrunt : public CSquadMonster
-{
-public:
-	DECLARE_CLASS( CAGrunt, CSquadMonster );
-	DECLARE_DATADESC();
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void SetYawSpeed ( void ) override;
-	int  Classify ( void ) override;
-	int  ISoundMask ( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	void SetObjectCollisionBox( void ) override
-	{
-		pev->absmin = pev->origin + Vector( -32, -32, 0 );
-		pev->absmax = pev->origin + Vector( 32, 32, 85 );
-	}
-
-	Schedule_t* GetSchedule ( void ) override;
-	Schedule_t* GetScheduleOfType ( int Type ) override;
-	bool FCanCheckAttacks() const override;
-	bool CheckMeleeAttack1 ( float flDot, float flDist ) override;
-	bool CheckRangeAttack1 ( float flDot, float flDist ) override;
-	void StartTask ( Task_t *pTask ) override;
-	void AlertSound( void ) override;
-	void DeathSound ( void ) override;
-	void PainSound ( void ) override;
-	void AttackSound ( void );
-	void PrescheduleThink ( void ) override;
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
-	int IRelationship( CBaseEntity *pTarget ) override;
-	void StopTalking ( void );
-	bool ShouldSpeak();
-	CUSTOM_SCHEDULES;
-
-	static const char *pAttackHitSounds[];
-	static const char *pAttackMissSounds[];
-	static const char *pAttackSounds[];
-	static const char *pDieSounds[];
-	static const char *pPainSounds[];
-	static const char *pIdleSounds[];
-	static const char *pAlertSounds[];
-
-	bool	m_fCanHornetAttack;
-	float	m_flNextHornetAttackCheck;
-
-	float m_flNextPainTime;
-
-	// three hacky fields for speech stuff. These don't really need to be saved.
-	float	m_flNextSpeakTime;
-	float	m_flNextWordTime;
-	int		m_iLastWord;
-};
-LINK_ENTITY_TO_CLASS( monster_alien_grunt, CAGrunt );
-
-BEGIN_DATADESC(	CAGrunt )
-	DEFINE_FIELD( m_fCanHornetAttack, FIELD_BOOLEAN ),
-	DEFINE_FIELD( m_flNextHornetAttackCheck, FIELD_TIME ),
-	DEFINE_FIELD( m_flNextPainTime, FIELD_TIME ),
-	DEFINE_FIELD( m_flNextSpeakTime, FIELD_TIME ),
-	DEFINE_FIELD( m_flNextWordTime, FIELD_TIME ),
-	DEFINE_FIELD( m_iLastWord, FIELD_INTEGER ),
-END_DATADESC()
-
-const char *CAGrunt::pAttackHitSounds[] = 
+const char *CAGrunt::pAttackHitSounds[] =
 {
 	"zombie/claw_strike1.wav",
 	"zombie/claw_strike2.wav",
 	"zombie/claw_strike3.wav",
 };
 
-const char *CAGrunt::pAttackMissSounds[] = 
+const char *CAGrunt::pAttackMissSounds[] =
 {
 	"zombie/claw_miss1.wav",
 	"zombie/claw_miss2.wav",
@@ -183,6 +79,19 @@ const char *CAGrunt::pAlertSounds[] =
 	"agrunt/ag_alert4.wav",
 	"agrunt/ag_alert5.wav",
 };
+
+int iAgruntMuzzleFlash;
+
+BEGIN_DATADESC(	CAGrunt )
+	DEFINE_FIELD( m_fCanHornetAttack, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flNextHornetAttackCheck, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextPainTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextSpeakTime, FIELD_TIME ),
+	DEFINE_FIELD( m_flNextWordTime, FIELD_TIME ),
+	DEFINE_FIELD( m_iLastWord, FIELD_INTEGER ),
+END_DATADESC()
+
+LINK_ENTITY_TO_CLASS( monster_alien_grunt, CAGrunt );
 
 //=========================================================
 // IRelationship - overridden because Human Grunts are 

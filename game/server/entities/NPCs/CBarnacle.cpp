@@ -16,46 +16,14 @@
 // barnacle - stationary ceiling mounted 'fishing' monster
 //=========================================================
 
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"entities/NPCs/Schedule.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Monsters.h"
+#include "Schedule.h"
 #include "entities/effects/CGib.h"
 
-#define	BARNACLE_BODY_HEIGHT	44 // how 'tall' the barnacle's model is.
-#define BARNACLE_PULL_SPEED		8
-#define BARNACLE_KILL_VICTIM_DELAY	5 // how many seconds after pulling prey in to gib them. 
-
-//=========================================================
-// Monster's Anim Events Go Here
-//=========================================================
-#define	BARNACLE_AE_PUKEGIB	2
-
-class CBarnacle : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CBarnacle, CBaseMonster );
-	DECLARE_DATADESC();
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	CBaseEntity *TongueTouchEnt ( float *pflLength );
-	int  Classify ( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	void EXPORT BarnacleThink ( void );
-	void EXPORT WaitTillDead ( void );
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
-
-	float m_flAltitude;
-	float m_flKillVictimTime;
-	int	  m_cGibs;// barnacle loads up on gibs each time it kills something.
-	bool  m_fTongueExtended;
-	bool  m_fLiftingPrey;
-	float m_flTongueAdj;
-};
-LINK_ENTITY_TO_CLASS( monster_barnacle, CBarnacle );
+#include "CBarnacle.h"
 
 BEGIN_DATADESC(	CBarnacle )
 	DEFINE_FIELD( m_flAltitude, FIELD_FLOAT ),
@@ -66,6 +34,7 @@ BEGIN_DATADESC(	CBarnacle )
 	DEFINE_FIELD( m_flTongueAdj, FIELD_FLOAT ),
 END_DATADESC()
 
+LINK_ENTITY_TO_CLASS( monster_barnacle, CBarnacle );
 
 //=========================================================
 // Classify - indicates this monster's place in the 

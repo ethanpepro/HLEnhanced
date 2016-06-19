@@ -35,130 +35,19 @@
 //
 
 
-#include	"float.h"
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
+#include "float.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Monsters.h"
 
-
-
-
-// Animation events
-#define LEECH_AE_ATTACK		1
-#define LEECH_AE_FLOP		2
-
-
-// Movement constants
-
-#define		LEECH_ACCELERATE		10
-#define		LEECH_CHECK_DIST		45
-#define		LEECH_SWIM_SPEED		50
-#define		LEECH_SWIM_ACCEL		80
-#define		LEECH_SWIM_DECEL		10
-#define		LEECH_TURN_RATE			90
-#define		LEECH_SIZEX				10
-#define		LEECH_FRAMETIME			0.1
-
-
+#include "CLeech.h"
 
 #define DEBUG_BEAMS		0
 
 #if DEBUG_BEAMS
 #include "Effects.h"
 #endif
-
-
-class CLeech : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CLeech, CBaseMonster );
-	DECLARE_DATADESC();
-
-	void Spawn( void ) override;
-	void Precache( void ) override;
-
-	void EXPORT SwimThink( void );
-	void EXPORT DeadThink( void );
-	void Touch( CBaseEntity *pOther ) override
-	{
-		if ( pOther->IsPlayer() )
-		{
-			// If the client is pushing me, give me some base velocity
-			if ( gpGlobals->trace_ent && gpGlobals->trace_ent == edict() )
-			{
-				pev->basevelocity = pOther->pev->velocity;
-				pev->flags |= FL_BASEVELOCITY;
-			}
-		}
-	}
-
-	void SetObjectCollisionBox( void ) override
-	{
-		pev->absmin = pev->origin + Vector(-8,-8,0);
-		pev->absmax = pev->origin + Vector(8,8,2);
-	}
-
-	void AttackSound( void );
-	void AlertSound( void ) override;
-	void UpdateMotion( void );
-	float ObstacleDistance( CBaseEntity *pTarget );
-	void MakeVectors( void );
-	void RecalculateWaterlevel( void );
-	void SwitchLeechState( void );
-	
-	// Base entity functions
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	int	BloodColor() const override { return DONT_BLEED; }
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
-	void Activate( void ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
-	int	Classify( void ) override { return CLASS_INSECT; }
-	int IRelationship( CBaseEntity *pTarget ) override;
-
-	static const char *pAttackSounds[];
-	static const char *pAlertSounds[];
-
-private:
-	// UNDONE: Remove unused boid vars, do group behavior
-	float	m_flTurning;// is this boid turning?
-	bool	m_fPathBlocked;// true if there is an obstacle ahead
-	float	m_flAccelerate;
-	float	m_obstacle;
-	float	m_top;
-	float	m_bottom;
-	float	m_height;
-	float	m_waterTime;
-	float	m_sideTime;		// Timer to randomly check clearance on sides
-	float	m_zTime;
-	float	m_stateTime;
-	float	m_attackSoundTime;
-
-#if DEBUG_BEAMS
-	CBeam	*m_pb;
-	CBeam	*m_pt;
-#endif
-};
-
-
-
-LINK_ENTITY_TO_CLASS( monster_leech, CLeech );
-
-BEGIN_DATADESC(	CLeech )
-	DEFINE_FIELD( m_flTurning, FIELD_FLOAT ),
-	DEFINE_FIELD( m_fPathBlocked, FIELD_BOOLEAN ),
-	DEFINE_FIELD( m_flAccelerate, FIELD_FLOAT ),
-	DEFINE_FIELD( m_obstacle, FIELD_FLOAT ),
-	DEFINE_FIELD( m_top, FIELD_FLOAT ),
-	DEFINE_FIELD( m_bottom, FIELD_FLOAT ),
-	DEFINE_FIELD( m_height, FIELD_FLOAT ),
-	DEFINE_FIELD( m_waterTime, FIELD_TIME ),
-	DEFINE_FIELD( m_sideTime, FIELD_TIME ),
-	DEFINE_FIELD( m_zTime, FIELD_TIME ),
-	DEFINE_FIELD( m_stateTime, FIELD_TIME ),
-	DEFINE_FIELD( m_attackSoundTime, FIELD_TIME ),
-END_DATADESC()
-
 
 const char *CLeech::pAttackSounds[] =
 {
@@ -173,6 +62,22 @@ const char *CLeech::pAlertSounds[] =
 	"leech/leech_alert2.wav",
 };
 
+BEGIN_DATADESC( CLeech )
+	DEFINE_FIELD( m_flTurning, FIELD_FLOAT ),
+	DEFINE_FIELD( m_fPathBlocked, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flAccelerate, FIELD_FLOAT ),
+	DEFINE_FIELD( m_obstacle, FIELD_FLOAT ),
+	DEFINE_FIELD( m_top, FIELD_FLOAT ),
+	DEFINE_FIELD( m_bottom, FIELD_FLOAT ),
+	DEFINE_FIELD( m_height, FIELD_FLOAT ),
+	DEFINE_FIELD( m_waterTime, FIELD_TIME ),
+	DEFINE_FIELD( m_sideTime, FIELD_TIME ),
+	DEFINE_FIELD( m_zTime, FIELD_TIME ),
+	DEFINE_FIELD( m_stateTime, FIELD_TIME ),
+	DEFINE_FIELD( m_attackSoundTime, FIELD_TIME ),
+END_DATADESC()
+
+LINK_ENTITY_TO_CLASS( monster_leech, CLeech );
 
 void CLeech::Spawn( void )
 {
@@ -204,13 +109,10 @@ void CLeech::Spawn( void )
 	m_stateTime = gpGlobals->time + RANDOM_FLOAT( 1, 5 );
 }
 
-
 void CLeech::Activate( void )
 {
 	RecalculateWaterlevel();
 }
-
-
 
 void CLeech::RecalculateWaterlevel( void )
 {
@@ -234,7 +136,6 @@ void CLeech::RecalculateWaterlevel( void )
 	m_height = RANDOM_FLOAT( m_bottom, m_top );
 	m_waterTime = gpGlobals->time + RANDOM_FLOAT( 5, 7 );
 }
-
 
 void CLeech::SwitchLeechState( void )
 {
@@ -260,15 +161,12 @@ void CLeech::SwitchLeechState( void )
 	}
 }
 
-
 int CLeech::IRelationship( CBaseEntity *pTarget )
 {
 	if ( pTarget->IsPlayer() )
 		return R_DL;
 	return CBaseMonster::IRelationship( pTarget );
 }
-
-
 
 void CLeech::AttackSound( void )
 {
@@ -279,12 +177,10 @@ void CLeech::AttackSound( void )
 	}
 }
 
-
 void CLeech::AlertSound( void )
 {
 	EMIT_SOUND_DYN ( ENT(pev), CHAN_VOICE, pAlertSounds[ RANDOM_LONG(0,ARRAYSIZE(pAlertSounds)-1) ], 1.0, ATTN_NORM * 0.5, 0, PITCH_NORM );
 }
-
 
 void CLeech::Precache( void )
 {
@@ -299,7 +195,6 @@ void CLeech::Precache( void )
 		PRECACHE_SOUND((char *)pAlertSounds[i]);
 }
 
-
 int CLeech::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	pev->velocity = g_vecZero;
@@ -312,7 +207,6 @@ int CLeech::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float f
 
 	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
 }
-
 
 void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )
 {
@@ -351,14 +245,12 @@ void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )
 	}
 }
 
-
 void CLeech::MakeVectors( void )
 {
 	Vector tmp = pev->angles;
 	tmp.x = -tmp.x;
 	UTIL_MakeVectors ( tmp );
 }
-
 
 //
 // ObstacleDistance - returns normalized distance to obstacle
@@ -415,7 +307,6 @@ float CLeech::ObstacleDistance( CBaseEntity *pTarget )
 	return 1.0;
 }
 
-
 void CLeech::DeadThink( void )
 {
 	if ( m_fSequenceFinished )
@@ -449,8 +340,6 @@ void CLeech::DeadThink( void )
 		}
 	}
 }
-
-
 
 void CLeech::UpdateMotion( void )
 {
@@ -548,7 +437,6 @@ void CLeech::UpdateMotion( void )
 	m_pt->SetColor( 0, 0, 255 );
 #endif
 }
-
 
 void CLeech::SwimThink( void )
 {
@@ -682,7 +570,6 @@ void CLeech::SwimThink( void )
 	UpdateMotion();
 }
 
-
 void CLeech::Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	Vector			vecSplatDir;
@@ -715,5 +602,3 @@ void CLeech::Killed( entvars_t *pevAttacker, GibAction gibAction )
 	pev->takedamage = DAMAGE_NO;
 	SetThink( &CLeech::DeadThink );
 }
-
-

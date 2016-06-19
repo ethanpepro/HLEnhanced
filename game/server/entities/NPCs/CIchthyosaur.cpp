@@ -16,21 +16,21 @@
 // icthyosaur - evin, satan fish monster
 //=========================================================
 
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"entities/NPCs/Schedule.h"
-#include    "entities/NPCs/CFlyingMonster.h"
-#include	"nodes.h"
-#include	"entities/CSoundEnt.h"
-#include	"animation.h"
-#include	"Effects.h"
-#include	"Weapons.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Monsters.h"
+#include "Schedule.h"
+#include "CFlyingMonster.h"
+#include "nodes.h"
+#include "entities/CSoundEnt.h"
+#include "animation.h"
+#include "Effects.h"
+#include "Weapons.h"
+
+#include "CIchthyosaur.h"
 
 #define SEARCH_RETRY	16
-
-#define ICHTHYOSAUR_SPEED 150
 
 extern CGraph WorldGraph;
 
@@ -40,87 +40,44 @@ extern CGraph WorldGraph;
 #define EYE_BACK	3
 #define EYE_LOOK	4
 
-
-
-//=========================================================
-// Monster's Anim Events Go Here
-//=========================================================
-
-// UNDONE: Save/restore here
-class CIchthyosaur : public CFlyingMonster
+const char *CIchthyosaur::pIdleSounds[] =
 {
-public:
-	DECLARE_CLASS( CIchthyosaur, CFlyingMonster );
-	DECLARE_DATADESC();
-
-	void  Spawn( void ) override;
-	void  Precache( void ) override;
-	void  SetYawSpeed( void ) override;
-	int   Classify( void ) override;
-	void  HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	CUSTOM_SCHEDULES;
-
-	Schedule_t *GetSchedule( void ) override;
-	Schedule_t *GetScheduleOfType ( int Type ) override;
-
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
-	void BecomeDead( void ) override;
-
-	void EXPORT CombatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT BiteTouch( CBaseEntity *pOther );
-
-	void  StartTask( Task_t *pTask ) override;
-	void  RunTask( Task_t *pTask ) override;
-
-	bool  CheckMeleeAttack1 ( float flDot, float flDist ) override;
-	bool  CheckRangeAttack1 ( float flDot, float flDist ) override;
-
-	float ChangeYaw( int speed ) override;
-	Activity GetStoppedActivity( void ) override;
-
-	void  Move( float flInterval ) override;
-	void  MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval ) override;
-	void  MonsterThink( void ) override;
-	void  Stop( void ) override;
-	void  Swim( void );
-	Vector DoProbe(const Vector &Probe);
-
-	float VectorToPitch( const Vector &vec);
-	float FlPitchDiff( void );
-	float ChangePitch( int speed );
-
-	Vector m_SaveVelocity;
-	float m_idealDist;
-
-	float m_flBlink;
-
-	float m_flEnemyTouched;
-	bool  m_bOnAttack;
-
-	float m_flMaxSpeed;
-	float m_flMinSpeed;
-	float m_flMaxDist;
-
-	CBeam *m_pBeam;
-
-	float m_flNextAlert;
-
-	static const char *pIdleSounds[];
-	static const char *pAlertSounds[];
-	static const char *pAttackSounds[];
-	static const char *pBiteSounds[];
-	static const char *pDieSounds[];
-	static const char *pPainSounds[];
-
-	void IdleSound( void ) override;
-	void AlertSound( void ) override;
-	void AttackSound( void );
-	void BiteSound( void );
-	void DeathSound( void ) override;
-	void PainSound( void ) override;
+	"ichy/ichy_idle1.wav",
+	"ichy/ichy_idle2.wav",
+	"ichy/ichy_idle3.wav",
+	"ichy/ichy_idle4.wav",
 };
 
-LINK_ENTITY_TO_CLASS( monster_ichthyosaur, CIchthyosaur );
+const char *CIchthyosaur::pAlertSounds[] =
+{
+	"ichy/ichy_alert2.wav",
+	"ichy/ichy_alert3.wav",
+};
+
+const char *CIchthyosaur::pAttackSounds[] =
+{
+	"ichy/ichy_attack1.wav",
+	"ichy/ichy_attack2.wav",
+};
+
+const char *CIchthyosaur::pBiteSounds[] =
+{
+	"ichy/ichy_bite1.wav",
+	"ichy/ichy_bite2.wav",
+};
+
+const char *CIchthyosaur::pPainSounds[] =
+{
+	"ichy/ichy_pain2.wav",
+	"ichy/ichy_pain3.wav",
+	"ichy/ichy_pain5.wav",
+};
+
+const char *CIchthyosaur::pDieSounds[] =
+{
+	"ichy/ichy_die2.wav",
+	"ichy/ichy_die4.wav",
+};
 
 BEGIN_DATADESC(	CIchthyosaur )
 	DEFINE_FIELD( m_SaveVelocity, FIELD_VECTOR ),
@@ -134,45 +91,7 @@ BEGIN_DATADESC(	CIchthyosaur )
 	DEFINE_FIELD( m_flNextAlert, FIELD_TIME ),
 END_DATADESC()
 
-
-const char *CIchthyosaur::pIdleSounds[] = 
-{
-	"ichy/ichy_idle1.wav",
-	"ichy/ichy_idle2.wav",
-	"ichy/ichy_idle3.wav",
-	"ichy/ichy_idle4.wav",
-};
-
-const char *CIchthyosaur::pAlertSounds[] = 
-{
-	"ichy/ichy_alert2.wav",
-	"ichy/ichy_alert3.wav",
-};
-
-const char *CIchthyosaur::pAttackSounds[] = 
-{
-	"ichy/ichy_attack1.wav",
-	"ichy/ichy_attack2.wav",
-};
-
-const char *CIchthyosaur::pBiteSounds[] = 
-{
-	"ichy/ichy_bite1.wav",
-	"ichy/ichy_bite2.wav",
-};
-
-const char *CIchthyosaur::pPainSounds[] = 
-{
-	"ichy/ichy_pain2.wav",
-	"ichy/ichy_pain3.wav",
-	"ichy/ichy_pain5.wav",
-};
-
-const char *CIchthyosaur::pDieSounds[] = 
-{
-	"ichy/ichy_die2.wav",
-	"ichy/ichy_die4.wav",
-};
+LINK_ENTITY_TO_CLASS( monster_ichthyosaur, CIchthyosaur );
 
 #define EMIT_ICKY_SOUND( chan, array ) \
 	EMIT_SOUND_DYN ( ENT(pev), chan , array [ RANDOM_LONG(0,ARRAYSIZE( array )-1) ], 1.0, 0.6, 0, RANDOM_LONG(95,105) ); 

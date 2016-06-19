@@ -18,113 +18,25 @@
 
 */
 
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/NPCs/Monsters.h"
-#include	"Weapons.h"
-#include	"entities/CSoundEnt.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "entities/NPCs/Monsters.h"
+#include "Weapons.h"
+#include "entities/CSoundEnt.h"
 
-
-#define ACT_T_IDLE		1010
-#define ACT_T_TAP			1020
-#define ACT_T_STRIKE		1030
-#define ACT_T_REARIDLE	1040
-
-class CTentacle : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CTentacle, CBaseMonster );
-	DECLARE_DATADESC();
-
-	CTentacle();
-
-	void Spawn() override;
-	void Precache() override;
-	void KeyValue( KeyValueData *pkvd ) override;
-
-	// Don't allow the tentacle to go across transitions!!!
-	virtual int	ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-
-	void SetObjectCollisionBox() override
-	{
-		pev->absmin = pev->origin + Vector(-400, -400, 0);
-		pev->absmax = pev->origin + Vector(400, 400, 850);
-	}
-
-	void EXPORT Cycle();
-	void EXPORT CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT Start();
-	void EXPORT DieThink();
-
-	void EXPORT Test();
-
-	void EXPORT HitTouch( CBaseEntity *pOther );
-
-	float HearingSensitivity() override { return 2.0; };
-
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
-
-	MONSTERSTATE GetIdealState() override { return MONSTERSTATE_IDLE; };
-	bool CanPlaySequence( const bool fDisregardState ) const { return true; }
-
-	int Classify( void ) override;
-
-	int Level( float dz );
-	int MyLevel( void );
-	float MyHeight( void );
-
-	float m_flInitialYaw;
-	int m_iGoalAnim;
-	int m_iLevel;
-	int m_iDir;
-	float m_flFramerateAdj;
-	float m_flSoundYaw;
-	int m_iSoundLevel;
-	float m_flSoundTime;
-	float m_flSoundRadius;
-	int m_iHitDmg;
-	float m_flHitTime;
-
-	float m_flTapRadius;
-
-	float m_flNextSong;
-	static bool g_fFlySound;
-	static bool g_fSquirmSound;
-
-	float m_flMaxYaw;
-	int m_iTapSound;
-
-	Vector m_vecPrevSound;
-	float m_flPrevSoundTime;
-
-	static const char *pHitSilo[];
-	static const char *pHitDirt[];
-	static const char *pHitWater[];
-};
-
-
+#include "CTentacle.h"
 
 bool CTentacle::g_fFlySound;
 bool CTentacle::g_fSquirmSound;
 
-LINK_ENTITY_TO_CLASS( monster_tentacle, CTentacle );
-
-// stike sounds
-#define TE_NONE -1
-#define TE_SILO 0
-#define TE_DIRT 1
-#define TE_WATER 2
-
-const char *CTentacle::pHitSilo[] = 
+const char *CTentacle::pHitSilo[] =
 {
 	"tentacle/te_strike1.wav",
 	"tentacle/te_strike2.wav",
 };
 
-const char *CTentacle::pHitDirt[] = 
+const char *CTentacle::pHitDirt[] =
 {
 	"player/pl_dirt1.wav",
 	"player/pl_dirt2.wav",
@@ -132,7 +44,7 @@ const char *CTentacle::pHitDirt[] =
 	"player/pl_dirt4.wav",
 };
 
-const char *CTentacle::pHitWater[] = 
+const char *CTentacle::pHitWater[] =
 {
 	"player/pl_slosh1.wav",
 	"player/pl_slosh2.wav",
@@ -140,6 +52,11 @@ const char *CTentacle::pHitWater[] =
 	"player/pl_slosh4.wav",
 };
 
+// stike sounds
+#define TE_NONE -1
+#define TE_SILO 0
+#define TE_DIRT 1
+#define TE_WATER 2
 
 BEGIN_DATADESC(	CTentacle )
 	DEFINE_FIELD( m_flInitialYaw, FIELD_FLOAT ),
@@ -161,74 +78,7 @@ BEGIN_DATADESC(	CTentacle )
 	DEFINE_FIELD( m_flPrevSoundTime, FIELD_TIME ),
 END_DATADESC()
 
-
-// animation sequence aliases 
-typedef enum
-{
-	TENTACLE_ANIM_Pit_Idle,
-
-	TENTACLE_ANIM_rise_to_Temp1,
-	TENTACLE_ANIM_Temp1_to_Floor,
-	TENTACLE_ANIM_Floor_Idle,
-	TENTACLE_ANIM_Floor_Fidget_Pissed,
-	TENTACLE_ANIM_Floor_Fidget_SmallRise,
-	TENTACLE_ANIM_Floor_Fidget_Wave,
-	TENTACLE_ANIM_Floor_Strike,
-	TENTACLE_ANIM_Floor_Tap,
-	TENTACLE_ANIM_Floor_Rotate,
-	TENTACLE_ANIM_Floor_Rear,
-	TENTACLE_ANIM_Floor_Rear_Idle,
-	TENTACLE_ANIM_Floor_to_Lev1,
-
-	TENTACLE_ANIM_Lev1_Idle,
-	TENTACLE_ANIM_Lev1_Fidget_Claw,
-	TENTACLE_ANIM_Lev1_Fidget_Shake,
-	TENTACLE_ANIM_Lev1_Fidget_Snap,
-	TENTACLE_ANIM_Lev1_Strike,
-	TENTACLE_ANIM_Lev1_Tap,
-	TENTACLE_ANIM_Lev1_Rotate,
-	TENTACLE_ANIM_Lev1_Rear,
-	TENTACLE_ANIM_Lev1_Rear_Idle,
-	TENTACLE_ANIM_Lev1_to_Lev2,
-
-	TENTACLE_ANIM_Lev2_Idle,
-	TENTACLE_ANIM_Lev2_Fidget_Shake,
-	TENTACLE_ANIM_Lev2_Fidget_Swing,
-	TENTACLE_ANIM_Lev2_Fidget_Tut,
-	TENTACLE_ANIM_Lev2_Strike,
-	TENTACLE_ANIM_Lev2_Tap,
-	TENTACLE_ANIM_Lev2_Rotate,
-	TENTACLE_ANIM_Lev2_Rear,
-	TENTACLE_ANIM_Lev2_Rear_Idle,
-	TENTACLE_ANIM_Lev2_to_Lev3,
-
-	TENTACLE_ANIM_Lev3_Idle,
-	TENTACLE_ANIM_Lev3_Fidget_Shake,
-	TENTACLE_ANIM_Lev3_Fidget_Side,
-	TENTACLE_ANIM_Lev3_Fidget_Swipe,
-	TENTACLE_ANIM_Lev3_Strike,
-	TENTACLE_ANIM_Lev3_Tap,
-	TENTACLE_ANIM_Lev3_Rotate,
-	TENTACLE_ANIM_Lev3_Rear,
-	TENTACLE_ANIM_Lev3_Rear_Idle,
-
-	TENTACLE_ANIM_Lev1_Door_reach,
-
-	TENTACLE_ANIM_Lev3_to_Engine,
-	TENTACLE_ANIM_Engine_Idle,
-	TENTACLE_ANIM_Engine_Sway,
-	TENTACLE_ANIM_Engine_Swat,
-	TENTACLE_ANIM_Engine_Bob,
-	TENTACLE_ANIM_Engine_Death1,
-	TENTACLE_ANIM_Engine_Death2,
-	TENTACLE_ANIM_Engine_Death3,
-
-	TENTACLE_ANIM_none
-} TENTACLE_ANIM;
-
-
-
-
+LINK_ENTITY_TO_CLASS( monster_tentacle, CTentacle );
 
 //=========================================================
 // Classify - indicates this monster's place in the 
@@ -316,7 +166,6 @@ void CTentacle :: Precache( )
 	PRECACHE_SOUND_ARRAY( pHitWater );
 }
 
-
 CTentacle::CTentacle( )
 {
 	m_flMaxYaw = 65;
@@ -340,8 +189,6 @@ void CTentacle::KeyValue( KeyValueData *pkvd )
 		CBaseMonster::KeyValue( pkvd );
 }
 
-
-
 int CTentacle :: Level( float dz )
 {
 	if (dz < 216)
@@ -352,7 +199,6 @@ int CTentacle :: Level( float dz )
 		return 2;
 	return 3;
 }
-
 
 float CTentacle :: MyHeight( )
 {
@@ -367,7 +213,6 @@ float CTentacle :: MyHeight( )
 	}
 	return 0;
 }
-
 
 int CTentacle :: MyLevel( )
 {
@@ -437,7 +282,6 @@ int CTentacle :: MyLevel( )
 	return -1;
 }
 
-
 void CTentacle :: Test( void )
 {
 	pev->sequence = TENTACLE_ANIM_Floor_Strike;
@@ -445,8 +289,6 @@ void CTentacle :: Test( void )
 	StudioFrameAdvance( );
 	pev->nextthink = gpGlobals->time + 0.1;
 }
-
-
 
 //
 // TentacleThink
@@ -700,8 +542,6 @@ void CTentacle :: Cycle( void )
 	}
 }
 
-
-
 void CTentacle::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	// ALERT( at_console, "%s triggered %d\n", STRING( pev->targetname ), useType ); 
@@ -729,8 +569,6 @@ void CTentacle::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	}
 
 }
-
-
 
 void CTentacle :: DieThink( void )
 {
@@ -804,7 +642,6 @@ void CTentacle :: DieThink( void )
 		pev->ideal_yaw = m_flInitialYaw + dy;
 	}
 }
-
 
 void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 {
@@ -914,7 +751,6 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 	}
 }
 
-
 //
 // TentacleStart
 //
@@ -937,9 +773,6 @@ void CTentacle :: Start( void )
 	
 	pev->nextthink = gpGlobals->time + 0.1;
 }
-
-
-
 
 void CTentacle :: HitTouch( CBaseEntity *pOther )
 {
@@ -977,7 +810,6 @@ void CTentacle :: HitTouch( CBaseEntity *pOther )
 	// ALERT( at_console, "%.0f : %s : %d\n", pev->angles.y, STRING( pOther->pev->classname ), tr.iHitgroup );
 }
 
-
 int CTentacle::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	if (flDamage > pev->health)
@@ -991,49 +823,8 @@ int CTentacle::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, floa
 	return 1;
 }
 
-
-
-
 void CTentacle :: Killed( entvars_t *pevAttacker, GibAction gibAction )
 {
 	m_iGoalAnim = TENTACLE_ANIM_Pit_Idle;
 	return;
-}
-
-
-
-class CTentacleMaw : public CBaseMonster
-{
-public:
-	DECLARE_CLASS( CTentacleMaw, CBaseMonster );
-
-	void Spawn( ) override;
-	void Precache( ) override;
-};
-
-LINK_ENTITY_TO_CLASS( monster_tentaclemaw, CTentacleMaw );
-
-//
-// Tentacle Spawn
-//
-void CTentacleMaw :: Spawn( )
-{
-	Precache( );
-	SET_MODEL(ENT(pev), "models/maw.mdl");
-	UTIL_SetSize(pev, Vector(-32, -32, 0), Vector(32, 32, 64));
-
-	pev->solid			= SOLID_NOT;
-	pev->movetype		= MOVETYPE_STEP;
-	pev->effects		= 0;
-	pev->health			= 75;
-	pev->yaw_speed		= 8;
-	pev->sequence		= 0;
-	
-	pev->angles.x		= 90;
-	// ResetSequenceInfo( );
-}
-
-void CTentacleMaw :: Precache( )
-{
-	PRECACHE_MODEL("models/maw.mdl");
 }
