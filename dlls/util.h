@@ -23,9 +23,9 @@
 #include "enginecallback.h"
 #endif
 
-#include "shared_game_utils.h"
+#include "mathlib.h"
 
-inline void MESSAGE_BEGIN( int msg_dest, int msg_type, const float *pOrigin, entvars_t *ent );  // implementation later in this file
+#include "shared_game_utils.h"
 
 extern globalvars_t				*gpGlobals;
 
@@ -57,17 +57,12 @@ inline edict_t *FIND_ENTITY_BY_TARGET(edict_t *entStart, const char *pszName)
 // In case this ever changes
 #define M_PI			3.14159265358979323846
 
-// Keeps clutter down a bit, when declaring external entity/global method prototypes
-#define DECLARE_GLOBAL_METHOD(MethodName)  extern void DLLEXPORT MethodName( void )
-#define GLOBAL_METHOD(funcname)					void DLLEXPORT funcname(void)
-
 // This is the glue that hooks .MAP entity class names to our CPP classes
 // The _declspec forces them to be exported by name so we can do a lookup with GetProcAddress()
 // The function is used to intialize / allocate the object for the entity
 #define LINK_ENTITY_TO_CLASS(mapClassName,DLLClassName) \
 	extern "C" DLLEXPORT void mapClassName( entvars_t *pev ); \
 	void mapClassName( entvars_t *pev ) { GetClassPtr( (DLLClassName *)pev ); }
-
 
 //
 // Conversion among the three types of "entity", including identity-conversions.
@@ -142,9 +137,8 @@ enum BloodColor
 	BLOOD_COLOR_GREEN	 = BLOOD_COLOR_YELLOW,
 };
 
-typedef enum 
+enum MONSTERSTATE
 {
-
 	MONSTERSTATE_NONE = 0,
 	MONSTERSTATE_IDLE,
 	MONSTERSTATE_COMBAT,
@@ -154,19 +148,16 @@ typedef enum
 	MONSTERSTATE_SCRIPT,
 	MONSTERSTATE_PLAYDEAD,
 	MONSTERSTATE_DEAD
-
-} MONSTERSTATE;
-
-
+};
 
 // Things that toggle (buttons/triggers/doors) need this
-typedef enum
-	{
+enum TOGGLE_STATE
+{
 	TS_AT_TOP,
 	TS_AT_BOTTOM,
 	TS_GOING_UP,
 	TS_GOING_DOWN
-	} TOGGLE_STATE;
+};
 
 // Misc useful
 inline bool FStrEq(const char*sz1, const char*sz2)
@@ -184,8 +175,6 @@ class CBasePlayer;
 extern void			UTIL_SetSize			(entvars_t* pev, const Vector &vecMin, const Vector &vecMax);
 extern float		UTIL_VecToYaw			(const Vector &vec);
 extern Vector		UTIL_VecToAngles		(const Vector &vec);
-extern float		UTIL_AngleMod			(float a);
-extern float		UTIL_AngleDiff			( float destAngle, float srcAngle );
 
 extern CBaseEntity	*UTIL_FindEntityInSphere(CBaseEntity *pStartEntity, const Vector &vecCenter, float flRadius);
 extern CBaseEntity	*UTIL_FindEntityByString(CBaseEntity *pStartEntity, const char *szKeyword, const char *szValue );
@@ -215,7 +204,6 @@ extern void			UTIL_MakeAimVectors		( const Vector &vecAngles ); // like MakeVect
 extern void			UTIL_MakeInvVectors		( const Vector &vec, globalvars_t *pgv );
 
 extern void			UTIL_SetOrigin			( entvars_t* pev, const Vector &vecOrigin );
-extern void			UTIL_EmitAmbientSound	( edict_t *entity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch );
 extern void			UTIL_ParticleEffect		( const Vector &vecOrigin, const Vector &vecDirection, const unsigned int ulColor, const unsigned int ulCount );
 extern void			UTIL_ScreenShake		( const Vector &center, float amplitude, float frequency, float duration, float radius );
 extern void			UTIL_ScreenShakeAll		( const Vector &center, float amplitude, float frequency, float duration );
@@ -233,7 +221,7 @@ extern void			UTIL_TraceHull			(const Vector &vecStart, const Vector &vecEnd, IG
 extern TraceResult	UTIL_GetGlobalTrace		(void);
 extern void			UTIL_TraceModel			(const Vector &vecStart, const Vector &vecEnd, int hullNumber, edict_t *pentModel, TraceResult *ptr);
 extern Vector		UTIL_GetAimVector		(edict_t* pent, float flSpeed);
-extern int			UTIL_PointContents		(const Vector &vec);
+extern int			UTIL_PointContents		(const Vector &vec); //TODO: Make a client side version - Solokiller
 
 extern bool			UTIL_IsMasterTriggered( string_t sMaster, const CBaseEntity* const pActivator );
 extern void			UTIL_BloodStream( const Vector &origin, const Vector &direction, int color, int amount );
@@ -252,22 +240,13 @@ extern void			UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int dec
 extern void			UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber );
 extern void			UTIL_Sparks( const Vector &position );
 extern void			UTIL_Ricochet( const Vector &position, float scale );
-extern void			UTIL_StringToVector( float *pVector, const char *pString );
-extern void			UTIL_StringToIntArray( int *pVector, int count, const char *pString );
-extern Vector		UTIL_ClampVectorToBox( const Vector &input, const Vector &clampSize );
-extern float		UTIL_Approach( float target, float value, float speed );
-extern float		UTIL_ApproachAngle( float target, float value, float speed );
-extern float		UTIL_AngleDistance( float next, float cur );
 
-extern char			*UTIL_VarArgs( char *format, ... );
 extern void			UTIL_Remove( CBaseEntity *pEntity );
 extern bool			UTIL_IsValidEntity( edict_t *pent );
 extern bool			UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 );
 
-// Use for ease-in, ease-out style interpolation (accel/decel)
-extern float		UTIL_SplineFraction( float value, float scale );
-
 // Search for water transition along a vertical line
+//TODO: if UTIL_PointContents is implemented on the client, this can be moved over - Solokiller
 extern float		UTIL_WaterLevel( const Vector &position, float minz, float maxz );
 extern void			UTIL_Bubbles( Vector mins, Vector maxs, int count );
 extern void			UTIL_BubbleTrail( Vector from, Vector to, int count );
@@ -291,8 +270,7 @@ extern void ClientPrint( entvars_t *client, int msg_dest, const char *msg_name, 
 extern void			UTIL_SayText( const char *pText, CBaseEntity *pEntity );
 extern void			UTIL_SayTextAll( const char *pText, CBaseEntity *pEntity );
 
-
-typedef struct hudtextparms_s
+struct hudtextparms_t
 {
 	float		x;
 	float		y;
@@ -304,42 +282,19 @@ typedef struct hudtextparms_s
 	float		holdTime;
 	float		fxTime;
 	int			channel;
-} hudtextparms_t;
+};
 
 // prints as transparent 'title' to the HUD
 extern void			UTIL_HudMessageAll( const hudtextparms_t &textparms, const char *pMessage );
 extern void			UTIL_HudMessage( CBaseEntity *pEntity, const hudtextparms_t &textparms, const char *pMessage );
 
-// for handy use with ClientPrint params
-extern char *UTIL_dtos1( int d );
-extern char *UTIL_dtos2( int d );
-extern char *UTIL_dtos3( int d );
-extern char *UTIL_dtos4( int d );
-
 // Writes message to console with timestamp and FragLog header.
 extern void			UTIL_LogPrintf( char *fmt, ... );
-
-// Sorta like FInViewCone, but for nonmonsters. 
-extern float UTIL_DotPoints ( const Vector &vecSrc, const Vector &vecCheck, const Vector &vecDir );
-
-extern void UTIL_StripToken( const char *pKey, char *pDest );// for redundant keynames
 
 // Misc functions
 extern void SetMovedir(entvars_t* pev);
 extern Vector VecBModelOrigin( entvars_t* pevBModel );
 extern int BuildChangeList( LEVELLIST *pLevelList, int maxList );
-
-//
-// How did I ever live without ASSERT?
-//
-#ifdef	DEBUG
-void DBG_AssertFunction(const bool fExpr, const char* szExpr, const char* szFile, int szLine, const char* szMessage);
-#define ASSERT(f)		DBG_AssertFunction( !!( f ), #f, __FILE__, __LINE__, NULL )
-#define ASSERTSZ(f, sz)	DBG_AssertFunction( !!( f ), #f, __FILE__, __LINE__, sz )
-#else	// !DEBUG
-#define ASSERT(f)
-#define ASSERTSZ(f, sz)
-#endif	// !DEBUG
 
 //
 // Constants that were used only by QC (maybe not used at all now)
@@ -353,24 +308,10 @@ void DBG_AssertFunction(const bool fExpr, const char* szExpr, const char* szFile
 
 extern DLL_GLOBAL int			g_Language;
 
-#define AMBIENT_SOUND_STATIC			0	// medium radius attenuation
-#define AMBIENT_SOUND_EVERYWHERE		1
-#define AMBIENT_SOUND_SMALLRADIUS		2
-#define AMBIENT_SOUND_MEDIUMRADIUS		4
-#define AMBIENT_SOUND_LARGERADIUS		8
-#define AMBIENT_SOUND_START_SILENT		16
-#define AMBIENT_SOUND_NOT_LOOPING		32
-
-#define SPEAKER_START_SILENT			1	// wait for trigger 'on' to start announcements
-
 #define SND_SPAWNING		(1<<8)		// duplicated in protocol.h we're spawing, used in some cases for ambients 
 #define SND_STOP			(1<<5)		// duplicated in protocol.h stop sound
 #define SND_CHANGE_VOL		(1<<6)		// duplicated in protocol.h change sound vol
 #define SND_CHANGE_PITCH	(1<<7)		// duplicated in protocol.h change sound pitch
-
-#define	LFO_SQUARE			1
-#define LFO_TRIANGLE		2
-#define LFO_RANDOM			3
 
 // func_rotating
 #define SF_BRUSH_ROTATE_Y_AXIS		0
@@ -408,24 +349,6 @@ extern DLL_GLOBAL int			g_Language;
 #define SVC_ROOMTYPE		37
 #define	SVC_DIRECTOR		51
 
-
-
-// triggers
-#define	SF_TRIGGER_ALLOWMONSTERS	1// monsters allowed to fire this trigger
-#define	SF_TRIGGER_NOCLIENTS		2// players not allowed to fire this trigger
-#define SF_TRIGGER_PUSHABLES		4// only pushables can fire this trigger
-
-// func breakable
-#define SF_BREAK_TRIGGER_ONLY	1// may only be broken by trigger
-#define	SF_BREAK_TOUCH			2// can be 'crashed through' by running player (plate glass)
-#define SF_BREAK_PRESSURE		4// can be broken by a player standing on it
-#define SF_BREAK_CROWBAR		256// instant break if hit with crowbar
-
-// func_pushable (it's also func_breakable, so don't collide with those flags)
-#define SF_PUSH_BREAKABLE		128
-
-#define SF_LIGHT_START_OFF		1
-
 #define SPAWNFLAG_NOMESSAGE	1
 #define SPAWNFLAG_NOTOUCH	1
 #define SPAWNFLAG_DROIDONLY	4
@@ -434,9 +357,6 @@ extern DLL_GLOBAL int			g_Language;
 
 #define TELE_PLAYER_ONLY	1
 #define TELE_SILENT			2
-
-#define SF_TRIG_PUSH_ONCE		1
-
 
 // Sound Utilities
 
@@ -474,9 +394,6 @@ private:
 
 void UTIL_SetGroupTrace( int groupmask, int op );
 void UTIL_UnsetGroupTrace( void );
-
-int UTIL_SharedRandomLong( unsigned int seed, int low, int high );
-float UTIL_SharedRandomFloat( unsigned int seed, float low, float high );
 
 float UTIL_WeaponTimeBase( void );
 

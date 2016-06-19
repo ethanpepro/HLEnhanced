@@ -504,6 +504,18 @@ void EMIT_GROUPNAME_SUIT(edict_t *entity, const char *groupname)
 		SENTENCEG_PlayRndSz(entity, groupname, fvol, ATTN_NORM, 0, pitch);
 }
 
+void UTIL_EmitAmbientSound( edict_t *entity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch )
+{
+	if( samp && *samp == '!' )
+	{
+		char name[ 32 ];
+		if( SENTENCEG_Lookup( samp, name ) >= 0 )
+			EMIT_AMBIENT_SOUND( entity, vecOrigin, name, vol, attenuation, fFlags, pitch );
+	}
+	else
+		EMIT_AMBIENT_SOUND( entity, vecOrigin, samp, vol, attenuation, fFlags, pitch );
+}
+
 // ===================== MATERIAL TYPE DETECTION, MAIN ROUTINES ========================
 // 
 // Used to detect the texture the player is standing on, map the

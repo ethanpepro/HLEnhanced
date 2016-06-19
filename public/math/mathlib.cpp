@@ -347,3 +347,139 @@ float anglemod( float a )
 	a = static_cast<float>( ( 360.0 / 65536 ) * ( ( int ) ( a*( 65536 / 360.0 ) ) & 65535 ) );
 	return a;
 }
+
+// ripped this out of the engine
+float	UTIL_AngleMod( float a )
+{
+	if( a < 0 )
+	{
+		a = a + 360 * ( ( int ) ( a / 360 ) + 1 );
+	}
+	else if( a >= 360 )
+	{
+		a = a - 360 * ( ( int ) ( a / 360 ) );
+	}
+	// a = (360.0/65536) * ((int)(a*(65536/360.0)) & 65535);
+	return a;
+}
+
+float UTIL_AngleDiff( float destAngle, float srcAngle )
+{
+	float delta;
+
+	delta = destAngle - srcAngle;
+	if( destAngle > srcAngle )
+	{
+		if( delta >= 180 )
+			delta -= 360;
+	}
+	else
+	{
+		if( delta <= -180 )
+			delta += 360;
+	}
+	return delta;
+}
+
+Vector UTIL_ClampVectorToBox( const Vector &input, const Vector &clampSize )
+{
+	Vector sourceVector = input;
+
+	if( sourceVector.x > clampSize.x )
+		sourceVector.x -= clampSize.x;
+	else if( sourceVector.x < -clampSize.x )
+		sourceVector.x += clampSize.x;
+	else
+		sourceVector.x = 0;
+
+	if( sourceVector.y > clampSize.y )
+		sourceVector.y -= clampSize.y;
+	else if( sourceVector.y < -clampSize.y )
+		sourceVector.y += clampSize.y;
+	else
+		sourceVector.y = 0;
+
+	if( sourceVector.z > clampSize.z )
+		sourceVector.z -= clampSize.z;
+	else if( sourceVector.z < -clampSize.z )
+		sourceVector.z += clampSize.z;
+	else
+		sourceVector.z = 0;
+
+	return sourceVector.Normalize();
+}
+
+float UTIL_Approach( float target, float value, float speed )
+{
+	float delta = target - value;
+
+	if( delta > speed )
+		value += speed;
+	else if( delta < -speed )
+		value -= speed;
+	else
+		value = target;
+
+	return value;
+}
+
+float UTIL_ApproachAngle( float target, float value, float speed )
+{
+	target = UTIL_AngleMod( target );
+	value = UTIL_AngleMod( target );
+
+	float delta = target - value;
+
+	// Speed is assumed to be positive
+	if( speed < 0 )
+		speed = -speed;
+
+	if( delta < -180 )
+		delta += 360;
+	else if( delta > 180 )
+		delta -= 360;
+
+	if( delta > speed )
+		value += speed;
+	else if( delta < -speed )
+		value -= speed;
+	else
+		value = target;
+
+	return value;
+}
+
+float UTIL_AngleDistance( float next, float cur )
+{
+	float delta = next - cur;
+
+	if( delta < -180 )
+		delta += 360;
+	else if( delta > 180 )
+		delta -= 360;
+
+	return delta;
+}
+
+float UTIL_SplineFraction( float value, float scale )
+{
+	value = scale * value;
+	float valueSquared = value * value;
+
+	// Nice little ease-in, ease-out spline-like curve
+	return 3 * valueSquared - 2 * valueSquared * value;
+}
+
+//=========================================================
+// UTIL_DotPoints - returns the dot product of a line from
+// src to check and vecdir.
+//=========================================================
+float UTIL_DotPoints( const Vector &vecSrc, const Vector &vecCheck, const Vector &vecDir )
+{
+	Vector2D	vec2LOS;
+
+	vec2LOS = ( vecCheck - vecSrc ).Make2D();
+	vec2LOS = vec2LOS.Normalize();
+
+	return DotProduct( vec2LOS, ( vecDir.Make2D() ) );
+}

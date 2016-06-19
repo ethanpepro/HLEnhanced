@@ -771,7 +771,10 @@ int	CBreakable::DamageDecal( int bitsDamageType ) const
 	return CBaseEntity::DamageDecal( bitsDamageType );
 }
 
+// func_pushable (it's also func_breakable, so don't collide with those flags)
+#define SF_PUSH_BREAKABLE		128
 
+//TODO: move to its own header - Solokiller
 class CPushable : public CBreakable
 {
 public:

@@ -71,4 +71,6 @@ void EMIT_SOUND_SUIT( edict_t *entity, const char *sample );
 void EMIT_GROUPID_SUIT( edict_t *entity, int isentenceg );
 void EMIT_GROUPNAME_SUIT( edict_t *entity, const char *groupname );
 
+void UTIL_EmitAmbientSound( edict_t *entity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch );
+
 #endif //GAME_SERVER_SOUND_SOUND_H

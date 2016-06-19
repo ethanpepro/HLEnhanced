@@ -15,6 +15,8 @@
 #ifndef GAME_SERVER_ENTITIES_LIGHTS_CLIGHT_H
 #define GAME_SERVER_ENTITIES_LIGHTS_CLIGHT_H
 
+#define SF_LIGHT_START_OFF		1
+
 /*QUAKED light (0 1 0) (-8 -8 -8) (8 8 8) LIGHT_START_OFF
 Non-displayed light.
 Default light value is 300

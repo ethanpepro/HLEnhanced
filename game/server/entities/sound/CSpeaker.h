@@ -18,6 +18,8 @@
 #define ANNOUNCE_MINUTES_MIN	0.25	 
 #define ANNOUNCE_MINUTES_MAX	2.25
 
+#define SPEAKER_START_SILENT			1	// wait for trigger 'on' to start announcements
+
 // ===================================================================================
 //
 // Speaker class. Used for announcements per level, for door lock/unlock spoken voice. 

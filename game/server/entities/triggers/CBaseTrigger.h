@@ -15,6 +15,10 @@
 #ifndef GAME_SERVER_ENTITIES_TRIGGERS_CBASETRIGGER_H
 #define GAME_SERVER_ENTITIES_TRIGGERS_CBASETRIGGER_H
 
+#define	SF_TRIGGER_ALLOWMONSTERS	1// monsters allowed to fire this trigger
+#define	SF_TRIGGER_NOCLIENTS		2// players not allowed to fire this trigger
+#define SF_TRIGGER_PUSHABLES		4// only pushables can fire this trigger
+
 class CBaseTrigger : public CBaseToggle
 {
 public:

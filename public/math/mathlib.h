@@ -98,6 +98,22 @@ int Q_log2( int val );
 
 float anglemod( float a );
 
+float UTIL_AngleMod( float a );
+
+float UTIL_AngleDiff( float destAngle, float srcAngle );
+
+Vector UTIL_ClampVectorToBox( const Vector &input, const Vector &clampSize );
+
+float UTIL_Approach( float target, float value, float speed );
+float UTIL_ApproachAngle( float target, float value, float speed );
+float UTIL_AngleDistance( float next, float cur );
+
+// Use for ease-in, ease-out style interpolation (accel/decel)
+float UTIL_SplineFraction( float value, float scale );
+
+// Sorta like FInViewCone, but for nonmonsters. 
+extern float UTIL_DotPoints( const Vector &vecSrc, const Vector &vecCheck, const Vector &vecDir );
+
 #define BOX_ON_PLANE_SIDE(emins, emaxs, p)	\
 	(((p)->type < 3)?						\
 	(										\
