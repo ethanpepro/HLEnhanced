@@ -105,7 +105,6 @@
     <ClCompile Include="..\..\dlls\cbase.cpp" />
     <ClCompile Include="..\..\dlls\client.cpp" />
     <ClCompile Include="..\..\dlls\combat.cpp" />
-    <ClCompile Include="..\..\dlls\doors.cpp" />
     <ClCompile Include="..\..\dlls\explode.cpp" />
     <ClCompile Include="..\..\dlls\game.cpp" />
     <ClCompile Include="..\..\dlls\globals.cpp" />

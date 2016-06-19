@@ -15,6 +15,43 @@
 #ifndef GAME_SERVER_ENTITIES_NPCS_BASEMONSTER_H
 #define GAME_SERVER_ENTITIES_NPCS_BASEMONSTER_H
 
+#define	ROUTE_SIZE			8 // how many waypoints a monster can store at one time
+#define MAX_OLD_ENEMIES		4 // how many old enemies to remember
+
+#define	bits_CAP_DUCK			( 1 << 0 )// crouch
+#define	bits_CAP_JUMP			( 1 << 1 )// jump/leap
+#define bits_CAP_STRAFE			( 1 << 2 )// strafe ( walk/run sideways)
+#define bits_CAP_SQUAD			( 1 << 3 )// can form squads
+#define	bits_CAP_SWIM			( 1 << 4 )// proficiently navigate in water
+#define bits_CAP_CLIMB			( 1 << 5 )// climb ladders/ropes
+#define bits_CAP_USE			( 1 << 6 )// open doors/push buttons/pull levers
+#define bits_CAP_HEAR			( 1 << 7 )// can hear forced sounds
+#define bits_CAP_AUTO_DOORS		( 1 << 8 )// can trigger auto doors
+#define bits_CAP_OPEN_DOORS		( 1 << 9 )// can open manual doors
+#define bits_CAP_TURN_HEAD		( 1 << 10)// can turn head, always bone controller 0
+
+#define bits_CAP_RANGE_ATTACK1	( 1 << 11)// can do a range attack 1
+#define bits_CAP_RANGE_ATTACK2	( 1 << 12)// can do a range attack 2
+#define bits_CAP_MELEE_ATTACK1	( 1 << 13)// can do a melee attack 1
+#define bits_CAP_MELEE_ATTACK2	( 1 << 14)// can do a melee attack 2
+
+#define bits_CAP_FLY			( 1 << 15)// can fly, move all around
+
+#define bits_CAP_DOORS_GROUP    (bits_CAP_USE | bits_CAP_AUTO_DOORS | bits_CAP_OPEN_DOORS)
+
+enum TimeBasedDamage
+{
+	itbd_Paralyze		= 0,		
+	itbd_NerveGas		= 1,
+	itbd_Poison			= 2,
+	itbd_Radiation		= 3,
+	itbd_DrownRecover	= 4,
+	itbd_Acid			= 5,
+	itbd_SlowBurn		= 6,
+	itbd_SlowFreeze		= 7,
+	CDMG_TIMEBASED		= 8,
+};
+
 /**
 *	Generic Monster
 */

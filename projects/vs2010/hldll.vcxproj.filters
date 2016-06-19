@@ -216,9 +216,6 @@
     <ClCompile Include="..\..\dlls\combat.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\doors.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\explode.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>

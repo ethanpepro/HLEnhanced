@@ -27,23 +27,70 @@ CBaseEntity
 				CBasePlayer
 */
 
-#define		MAX_PATH_SIZE	10 // max number of nodes available for a path.
+class CBaseEntity;
+class CBaseMonster;
+class CSquadMonster;
+class CCineMonster;
+class CBasePlayerItem;
+class CSound;
 
+/**
+*	Max number of nodes available for a path.
+*/
+#define MAX_PATH_SIZE 10
+
+/**
+*	These are caps bits to indicate what an object's capabilities (currently used for save/restore and level transitions).
+*/
 enum FCapability
 {
-// These are caps bits to indicate what an object's capabilities (currently used for save/restore and level transitions)
 	FCAP_CUSTOMSAVE				= 0x00000001,
-	FCAP_ACROSS_TRANSITION		= 0x00000002,		// should transfer between transitions
-	FCAP_MUST_SPAWN				= 0x00000004,		// Spawn after restore
-	FCAP_DONT_SAVE				= 0x80000000,		// Don't save this
-	FCAP_IMPULSE_USE			= 0x00000008,		// can be used by the player
-	FCAP_CONTINUOUS_USE			= 0x00000010,		// can be used by the player
-	FCAP_ONOFF_USE				= 0x00000020,		// can be used by the player
-	FCAP_DIRECTIONAL_USE		= 0x00000040,		// Player sends +/- 1 when using (currently only tracktrains)
-	FCAP_MASTER					= 0x00000080,		// Can be used to "master" other entities (like multisource)
 
-// UNDONE: This will ignore transition volumes (trigger_transition), but not the PVS!!!
-	FCAP_FORCE_TRANSITION		= 0x00000080,		// ALWAYS goes across transitions
+	/**
+	*	Should transfer between transitions.
+	*/
+	FCAP_ACROSS_TRANSITION		= 0x00000002,
+
+	/**
+	*	Spawn after restore.
+	*/
+	FCAP_MUST_SPAWN				= 0x00000004,
+
+	/**
+	*	Don't save this.
+	*/
+	FCAP_DONT_SAVE				= 0x80000000,
+
+	/**
+	*	Can be used by the player.
+	*/
+	FCAP_IMPULSE_USE			= 0x00000008,
+
+	/**
+	*	Can be used by the player.
+	*/
+	FCAP_CONTINUOUS_USE			= 0x00000010,
+
+	/**
+	*	Can be used by the player.
+	*/
+	FCAP_ONOFF_USE				= 0x00000020,
+
+	/**
+	*	Player sends +/- 1 when using (currently only tracktrains).
+	*/
+	FCAP_DIRECTIONAL_USE		= 0x00000040,
+
+	/**
+	*	Can be used to "master" other entities (like multisource).
+	*/
+	FCAP_MASTER					= 0x00000080,
+
+	/**
+	*	UNDONE: This will ignore transition volumes (trigger_transition), but not the PVS!!!
+	*	ALWAYS goes across transitions.
+	*/
+	FCAP_FORCE_TRANSITION		= 0x00000080,
 };
 
 #include "archtypes.h"     // DAL
@@ -86,11 +133,19 @@ extern void SaveGlobalState( SAVERESTOREDATA *pSaveData );
 extern void RestoreGlobalState( SAVERESTOREDATA *pSaveData );
 extern void ResetGlobalState( void );
 
-typedef enum { USE_OFF = 0, USE_ON = 1, USE_SET = 2, USE_TOGGLE = 3 } USE_TYPE;
+enum USE_TYPE
+{
+	USE_OFF = 0,
+	USE_ON = 1,
+	USE_SET = 2,
+	USE_TOGGLE = 3
+};
 
 extern void FireTargets( const char *targetName, CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
-// For CLASSIFY
+/**
+*	@see CBaseEntity::Classify
+*/
 enum Classification
 {
 	CLASS_NONE				 = 0,
@@ -105,9 +160,22 @@ enum Classification
 	CLASS_ALIEN_PREDATOR	 = 9,
 	CLASS_INSECT			 = 10,
 	CLASS_PLAYER_ALLY		 = 11,
-	CLASS_PLAYER_BIOWEAPON	 = 12, // hornets and snarks.launched by players
-	CLASS_ALIEN_BIOWEAPON	 = 13, // hornets and snarks.launched by the alien menace
-	CLASS_BARNACLE			 = 99, //TODO: entities that want to be ignored use this. Rename. - Solokiller// special because no one pays attention to it, and it eats a wide cross-section of creatures.
+
+	/**
+	*	Hornets and snarks. Launched by players.
+	*/
+	CLASS_PLAYER_BIOWEAPON	 = 12,
+
+	/**
+	*	Hornets and snarks. Launched by the alien menace.
+	*/
+	CLASS_ALIEN_BIOWEAPON	 = 13,
+
+	/**
+	*	TODO: entities that want to be ignored use this. Rename. - Solokiller
+	*	Special because no one pays attention to it, and it eats a wide cross-section of creatures.
+	*/
+	CLASS_BARNACLE			 = 99,
 };
 
 /**
@@ -133,75 +201,27 @@ enum FixAngleMode
 	FIXANGLE_ADD_AVEL	= 2
 };
 
-class CBaseEntity;
-class CBaseMonster;
-class CBasePlayerItem;
-class CSquadMonster;
+/**
+*	Set this bit on guns and stuff that should never respawn.
+*/
+#define	SF_NORESPAWN	( 1 << 30 )
 
-
-#define	SF_NORESPAWN	( 1 << 30 )// !!!set this bit on guns and stuff that should never respawn.
-
-#include "entities/CBaseEntity.shared.h"
-
-#include "entities/CPointEntity.h"
-
-typedef struct locksounds			// sounds that doors and buttons make when locked/unlocked
-{
-	string_t	sLockedSound;		// sound a door makes when it's locked
-	string_t	sLockedSentence;	// sentence group played when door is locked
-	string_t	sUnlockedSound;		// sound a door makes when it's unlocked
-	string_t	sUnlockedSentence;	// sentence group played when door is unlocked
-
-	int		iLockedSentence;		// which sentence in sentence group to play next
-	int		iUnlockedSentence;		// which sentence in sentence group to play next
-
-	float	flwaitSound;			// time delay between playing consecutive 'locked/unlocked' sounds
-	float	flwaitSentence;			// time delay between playing consecutive sentences
-	bool	bEOFLocked;				// true if hit end of list of locked sentences
-	bool	bEOFUnlocked;			// true if hit end of list of unlocked sentences
-} locksound_t;
-
-void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const bool bButton );
-
-#include "entities/CBaseDelay.h"
-
-#include "entities/CBaseAnimating.h"
-
-#include "entities/CBaseToggle.h"
-
-// people gib if their health is <= this at the time of death
+/**
+*	People gib if their health is <= this at the time of death.
+*/
 #define	GIB_HEALTH_VALUE	-30
-
-#define	ROUTE_SIZE			8 // how many waypoints a monster can store at one time
-#define MAX_OLD_ENEMIES		4 // how many old enemies to remember
-
-#define	bits_CAP_DUCK			( 1 << 0 )// crouch
-#define	bits_CAP_JUMP			( 1 << 1 )// jump/leap
-#define bits_CAP_STRAFE			( 1 << 2 )// strafe ( walk/run sideways)
-#define bits_CAP_SQUAD			( 1 << 3 )// can form squads
-#define	bits_CAP_SWIM			( 1 << 4 )// proficiently navigate in water
-#define bits_CAP_CLIMB			( 1 << 5 )// climb ladders/ropes
-#define bits_CAP_USE			( 1 << 6 )// open doors/push buttons/pull levers
-#define bits_CAP_HEAR			( 1 << 7 )// can hear forced sounds
-#define bits_CAP_AUTO_DOORS		( 1 << 8 )// can trigger auto doors
-#define bits_CAP_OPEN_DOORS		( 1 << 9 )// can open manual doors
-#define bits_CAP_TURN_HEAD		( 1 << 10)// can turn head, always bone controller 0
-
-#define bits_CAP_RANGE_ATTACK1	( 1 << 11)// can do a range attack 1
-#define bits_CAP_RANGE_ATTACK2	( 1 << 12)// can do a range attack 2
-#define bits_CAP_MELEE_ATTACK1	( 1 << 13)// can do a melee attack 1
-#define bits_CAP_MELEE_ATTACK2	( 1 << 14)// can do a melee attack 2
-
-#define bits_CAP_FLY			( 1 << 15)// can fly, move all around
-
-#define bits_CAP_DOORS_GROUP    (bits_CAP_USE | bits_CAP_AUTO_DOORS | bits_CAP_OPEN_DOORS)
-
-#include "Damage.h"
 
 // NOTE: tweak these values based on gameplay feedback:
 
-#define PARALYZE_DURATION	2		// number of 2 second intervals to take damage
-#define PARALYZE_DAMAGE		1.0		// damage to take each 2 second interval
+/**
+*	Number of 2 second intervals to take damage.
+*/
+#define PARALYZE_DURATION	2
+
+/**
+*	Damage to take each 2 second interval.
+*/
+#define PARALYZE_DAMAGE		1.0
 
 #define NERVEGAS_DURATION	2
 #define NERVEGAS_DAMAGE		5.0
@@ -221,78 +241,56 @@ void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const
 #define SLOWFREEZE_DURATION	2
 #define SLOWFREEZE_DAMAGE	1.0
 
+/**
+*	Tracers fire every 4 bullets
+*/
+#define TRACER_FREQ 4
 
-#define	itbd_Paralyze		0		
-#define	itbd_NerveGas		1
-#define	itbd_Poison			2
-#define	itbd_Radiation		3
-#define	itbd_DrownRecover	4
-#define	itbd_Acid			5
-#define	itbd_SlowBurn		6
-#define	itbd_SlowFreeze		7
-#define CDMG_TIMEBASED		8
-
-class CBaseMonster;
-class CCineMonster;
-class CSound;
-
-#include "entities/NPCs/CBaseMonster.h"
+#include "Damage.h"
 
 #include "ButtonSounds.h"
 
+#include "entities/CBaseEntity.shared.h"
+
+#include "entities/CPointEntity.h"
+
+#include "entities/CBaseDelay.h"
+
+#include "entities/CBaseAnimating.h"
+
+#include "entities/CBaseToggle.h"
+
+#include "entities/NPCs/CBaseMonster.h"
+
 #include "entities/CBaseButton.h"
 
-//
-// Converts a entvars_t * to a class pointer
-// It will allocate the class and entity if necessary
-//
-template <class T> T * GetClassPtr( T *a )
+/**
+*	Converts a entvars_t * to a class pointer
+*	It will allocate the class and entity if necessary
+*/
+template<typename T>
+T* GetClassPtr( T* a )
 {
-	entvars_t *pev = (entvars_t *)a;
+	entvars_t* pev = reinterpret_cast<entvars_t*>( a );
 
 	// allocate entity if necessary
-	if (pev == NULL)
-		pev = VARS(CREATE_ENTITY());
+	if( pev == nullptr )
+		pev = VARS( CREATE_ENTITY() );
 
 	// get the private data
-	a = (T *)GET_PRIVATE(ENT(pev));
+	a = static_cast<T*>( GET_PRIVATE( ENT( pev ) ) );
 
-	if (a == NULL) 
+	if( a == nullptr ) 
 	{
 		// allocate private data 
-		a = new(pev) T;
+		a = new( pev ) T;
 		a->pev = pev;
 		//Now calls OnCreate - Solokiller
 		a->OnCreate();
 	}
+
 	return a;
 }
-
-
-/*
-bit_PUSHBRUSH_DATA | bit_TOGGLE_DATA
-bit_MONSTER_DATA
-bit_DELAY_DATA
-bit_TOGGLE_DATA | bit_DELAY_DATA | bit_MONSTER_DATA
-bit_PLAYER_DATA | bit_MONSTER_DATA
-bit_MONSTER_DATA | CYCLER_DATA
-bit_LIGHT_DATA
-path_corner_data
-bit_MONSTER_DATA | wildcard_data
-bit_MONSTER_DATA | bit_GROUP_DATA
-boid_flock_data
-boid_data
-CYCLER_DATA
-bit_ITEM_DATA
-bit_ITEM_DATA | func_hud_data
-bit_TOGGLE_DATA | bit_ITEM_DATA
-EOFFSET
-env_sound_data
-env_sound_data
-push_trigger_data
-*/
-
-#define TRACER_FREQ		4			// Tracers fire every 4 bullets
 
 #include "entities/CWorld.h"
 
