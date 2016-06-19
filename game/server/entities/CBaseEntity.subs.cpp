@@ -25,63 +25,13 @@
 #include "cbase.h"
 #include "SaveRestore.h"
 #include "nodes.h"
-#include "entities/DoorConstants.h"
+#include "DoorConstants.h"
 
 extern CGraph WorldGraph;
 
 extern bool FEntIsVisible(entvars_t* pev, entvars_t* pevTarget);
 
 extern DLL_GLOBAL int g_iSkillLevel;
-
-class CNullEntity : public CBaseEntity
-{
-public:
-	DECLARE_CLASS( CNullEntity, CBaseEntity );
-
-	void Spawn( void ) override;
-};
-
-
-// Null Entity, remove on startup
-void CNullEntity :: Spawn( void )
-{
-	REMOVE_ENTITY(ENT(pev));
-}
-LINK_ENTITY_TO_CLASS(info_null,CNullEntity);
-
-class CBaseDMStart : public CPointEntity
-{
-public:
-	DECLARE_CLASS( CBaseDMStart, CPointEntity );
-
-	void		KeyValue( KeyValueData *pkvd ) override;
-	bool		IsTriggered( const CBaseEntity* const pActivator ) const override;
-
-private:
-};
-
-// These are the new entry points to entities. 
-LINK_ENTITY_TO_CLASS(info_player_deathmatch,CBaseDMStart);
-LINK_ENTITY_TO_CLASS(info_player_start,CPointEntity);
-LINK_ENTITY_TO_CLASS(info_landmark,CPointEntity);
-
-void CBaseDMStart::KeyValue( KeyValueData *pkvd )
-{
-	if (FStrEq(pkvd->szKeyName, "master"))
-	{
-		pev->netname = ALLOC_STRING(pkvd->szValue);
-		pkvd->fHandled = true;
-	}
-	else
-		CPointEntity::KeyValue( pkvd );
-}
-
-bool CBaseDMStart::IsTriggered( const CBaseEntity* const pEntity ) const
-{
-	bool master = UTIL_IsMasterTriggered( pev->netname, pEntity );
-
-	return master;
-}
 
 // This updates global tables that need to know about entities being removed
 void CBaseEntity::UpdateOnRemove( void )
@@ -125,21 +75,6 @@ void CBaseEntity :: SUB_DoNothing( void )
 {
 }
 
-/*
-==============================
-SUB_UseTargets
-
-If self.delay is set, a DelayedUse entity will be created that will actually
-do the SUB_UseTargets after that many seconds have passed.
-
-Removes all entities with a targetname that match self.killtarget,
-and removes them, so some events can remove other triggers.
-
-Search for (string)targetname in all entities that
-match (string)self.target and call their .use function (if they have one)
-
-==============================
-*/
 void CBaseEntity :: SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value )
 {
 	//
@@ -174,8 +109,6 @@ void FireTargets( const char *targetName, CBaseEntity *pActivator, CBaseEntity *
 		}
 	}
 }
-
-LINK_ENTITY_TO_CLASS( DelayedUse, CBaseDelay );
 
 /*
 QuakeEd only writes a single float for angles (bad idea), so up and down are

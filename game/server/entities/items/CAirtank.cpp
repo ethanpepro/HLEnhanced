@@ -20,28 +20,13 @@
 #include "nodes.h"
 #include "entities/CBasePlayer.h"
 
-class CAirtank : public CGrenade
-{
-public:
-	DECLARE_CLASS( CAirtank, CGrenade );
-	DECLARE_DATADESC();
+#include "CAirtank.h"
 
-	void Spawn( void ) override;
-	void Precache( void ) override;
-	void EXPORT TankThink( void );
-	void EXPORT TankTouch( CBaseEntity *pOther );
-	int	 BloodColor() const override { return DONT_BLEED; }
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
-
-	int	 m_state;
-};
-
-
-LINK_ENTITY_TO_CLASS( item_airtank, CAirtank );
 BEGIN_DATADESC(	CAirtank )
 	DEFINE_FIELD( m_state, FIELD_INTEGER ),
 END_DATADESC()
 
+LINK_ENTITY_TO_CLASS( item_airtank, CAirtank );
 
 void CAirtank :: Spawn( void )
 {
@@ -101,6 +86,7 @@ void CAirtank::TankTouch( CBaseEntity *pOther )
 		return;
 	}
 		
+	//TODO: make customizable - Solokiller
 	// give player 12 more seconds of air
 	pOther->pev->air_finished = gpGlobals->time + 12;
 

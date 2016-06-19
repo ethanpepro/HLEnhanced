@@ -16,6 +16,9 @@
 #include "util.h"
 #include "cbase.h"
 
+//TODO: overhaul the delayed triggering system to use a dedicated list. Saves edicts for actual entities - Solokiller
+LINK_ENTITY_TO_CLASS( DelayedUse, CBaseDelay );
+
 void CBaseDelay::KeyValue( KeyValueData *pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "delay" ) )
@@ -34,6 +37,21 @@ void CBaseDelay::KeyValue( KeyValueData *pkvd )
 	}
 }
 
+/*
+==============================
+SUB_UseTargets
+
+If self.delay is set, a DelayedUse entity will be created that will actually
+do the SUB_UseTargets after that many seconds have passed.
+
+Removes all entities with a targetname that match self.killtarget,
+and removes them, so some events can remove other triggers.
+
+Search for (string)targetname in all entities that
+match (string)self.target and call their .use function (if they have one)
+
+==============================
+*/
 void CBaseDelay::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value )
 {
 	//

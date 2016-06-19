@@ -100,7 +100,6 @@
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\CPlane.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
-    <ClCompile Include="..\..\dlls\airtank.cpp" />
     <ClCompile Include="..\..\dlls\animation.cpp" />
     <ClCompile Include="..\..\dlls\bmodels.cpp" />
     <ClCompile Include="..\..\dlls\cbase.cpp" />
@@ -110,22 +109,18 @@
     <ClCompile Include="..\..\dlls\explode.cpp" />
     <ClCompile Include="..\..\dlls\game.cpp" />
     <ClCompile Include="..\..\dlls\globals.cpp" />
-    <ClCompile Include="..\..\dlls\healthkit.cpp" />
     <ClCompile Include="..\..\dlls\h_ai.cpp" />
-    <ClCompile Include="..\..\dlls\h_battery.cpp" />
     <ClCompile Include="..\..\dlls\h_cycler.cpp" />
     <ClCompile Include="..\..\dlls\h_export.cpp" />
     <ClCompile Include="..\..\dlls\lights.cpp" />
     <ClCompile Include="..\..\dlls\maprules.cpp" />
     <ClCompile Include="..\..\dlls\mortar.cpp" />
     <ClCompile Include="..\..\dlls\nodes.cpp" />
-    <ClCompile Include="..\..\dlls\observer.cpp" />
     <ClCompile Include="..\..\dlls\sound.cpp" />
-    <ClCompile Include="..\..\dlls\subs.cpp" />
     <ClCompile Include="..\..\dlls\util.cpp" />
-    <ClCompile Include="..\..\dlls\weapons.cpp" />
     <ClCompile Include="..\..\dlls\xen.cpp" />
     <ClCompile Include="..\..\game\server\ButtonSounds.cpp" />
+    <ClCompile Include="..\..\game\server\CBasePlayer.observer.cpp" />
     <ClCompile Include="..\..\game\server\CGlobalState.cpp" />
     <ClCompile Include="..\..\game\server\CMap.cpp" />
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp" />
@@ -136,6 +131,7 @@
     <ClCompile Include="..\..\game\server\entities\CBaseDelay.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseDoor.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseEntity.server.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CBaseEntity.subs.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBasePlayer.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseSpectator.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseToggle.cpp" />
@@ -153,6 +149,7 @@
     <ClCompile Include="..\..\game\server\entities\CMomentaryRotButton.cpp" />
     <ClCompile Include="..\..\game\server\entities\CMultiManager.cpp" />
     <ClCompile Include="..\..\game\server\entities\CMultiSource.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CNullEntity.cpp" />
     <ClCompile Include="..\..\game\server\entities\CPointEntity.cpp" />
     <ClCompile Include="..\..\game\server\entities\CRevertSaved.cpp" />
     <ClCompile Include="..\..\game\server\entities\CRotButton.cpp" />
@@ -181,6 +178,7 @@
     <ClCompile Include="..\..\game\server\entities\effects\CSmoker.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CSpiral.cpp" />
     <ClCompile Include="..\..\game\server\entities\effects\CSprite.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CAirtank.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CHealthKit.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CItem.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CItemAntidote.cpp" />
@@ -188,6 +186,8 @@
     <ClCompile Include="..\..\game\server\entities\items\CItemLongJump.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CItemSecurity.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CItemSuit.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CRecharge.cpp" />
+    <ClCompile Include="..\..\game\server\entities\items\CWallHealth.cpp" />
     <ClCompile Include="..\..\game\server\entities\items\CWorldItem.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\Activity.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CAGrunt.cpp" />
@@ -262,6 +262,7 @@
     <ClCompile Include="..\..\game\server\entities\plats\CPathCorner.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CPathTrack.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CPlatTrigger.cpp" />
+    <ClCompile Include="..\..\game\server\entities\spawnpoints\CBaseDMStart.cpp" />
     <ClCompile Include="..\..\game\server\entities\tanks\CFuncTank.cpp" />
     <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankControls.cpp" />
     <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankGun.cpp" />
@@ -304,6 +305,7 @@
     <ClCompile Include="..\..\game\server\saverestore\CSaveRestoreBuffer.cpp" />
     <ClCompile Include="..\..\game\server\Skill.cpp" />
     <ClCompile Include="..\..\game\server\TempEntity.cpp" />
+    <ClCompile Include="..\..\game\server\Weapons.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp" />
@@ -373,6 +375,7 @@
     <ClInclude Include="..\..\game\server\entities\CMomentaryRotButton.h" />
     <ClInclude Include="..\..\game\server\entities\CMultiManager.h" />
     <ClInclude Include="..\..\game\server\entities\CMultiSource.h" />
+    <ClInclude Include="..\..\game\server\entities\CNullEntity.h" />
     <ClInclude Include="..\..\game\server\entities\CPointEntity.h" />
     <ClInclude Include="..\..\game\server\entities\CRevertSaved.h" />
     <ClInclude Include="..\..\game\server\entities\CRotButton.h" />
@@ -402,6 +405,7 @@
     <ClInclude Include="..\..\game\server\entities\effects\CSmoker.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CSpiral.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CSprite.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CAirtank.h" />
     <ClInclude Include="..\..\game\server\entities\items\CHealthKit.h" />
     <ClInclude Include="..\..\game\server\entities\items\CItem.h" />
     <ClInclude Include="..\..\game\server\entities\items\CItemAntidote.h" />
@@ -409,6 +413,8 @@
     <ClInclude Include="..\..\game\server\entities\items\CItemLongJump.h" />
     <ClInclude Include="..\..\game\server\entities\items\CItemSecurity.h" />
     <ClInclude Include="..\..\game\server\entities\items\CItemSuit.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CRecharge.h" />
+    <ClInclude Include="..\..\game\server\entities\items\CWallHealth.h" />
     <ClInclude Include="..\..\game\server\entities\items\CWorldItem.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\Activity.h" />
     <ClInclude Include="..\..\game\server\entities\NPCs\CAGrunt.h" />
@@ -484,6 +490,7 @@
     <ClInclude Include="..\..\game\server\entities\plats\CPathTrack.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CPlatTrigger.h" />
     <ClInclude Include="..\..\game\server\entities\ScriptEvent.h" />
+    <ClInclude Include="..\..\game\server\entities\spawnpoints\CBaseDMStart.h" />
     <ClInclude Include="..\..\game\server\entities\tanks\CFuncTank.h" />
     <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankControls.h" />
     <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankGun.h" />

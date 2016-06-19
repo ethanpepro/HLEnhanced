@@ -21,29 +21,7 @@
 #include "entities/CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
-//-------------------------------------------------------------
-// Wall mounted health kit
-//-------------------------------------------------------------
-class CWallHealth : public CBaseToggle
-{
-public:
-	DECLARE_CLASS( CWallHealth, CBaseToggle );
-	DECLARE_DATADESC();
-
-	void Spawn() override;
-	void Precache() override;
-	void EXPORT Off();
-	void EXPORT Recharge();
-	void KeyValue( KeyValueData *pkvd ) override;
-	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	virtual int	ObjectCaps() const override { return ( CBaseToggle::ObjectCaps() | FCAP_CONTINUOUS_USE ) & ~FCAP_ACROSS_TRANSITION; }
-
-	float m_flNextCharge; 
-	int		m_iReactivate ; // DeathMatch Delay until reactvated
-	int		m_iJuice;
-	int		m_iOn;			// 0 = off, 1 = startup, 2 = going
-	float   m_flSoundTime;
-};
+#include "CWallHealth.h"
 
 BEGIN_DATADESC( CWallHealth )
 	DEFINE_FIELD( m_flNextCharge, FIELD_TIME),
@@ -54,7 +32,6 @@ BEGIN_DATADESC( CWallHealth )
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS(func_healthcharger, CWallHealth);
-
 
 void CWallHealth::KeyValue( KeyValueData *pkvd )
 {

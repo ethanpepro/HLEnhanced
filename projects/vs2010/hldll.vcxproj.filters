@@ -157,11 +157,14 @@
     <Filter Include="Source Files\game\server\saverestore">
       <UniqueIdentifier>{d0c7557b-e077-4ea0-902b-dd78df65d375}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\entities\spawnpoints">
+      <UniqueIdentifier>{7785f268-a680-4ccc-9c97-d187da75ba79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\spawnpoints">
+      <UniqueIdentifier>{02fc39a8-5313-4fc4-9062-7ea046540b38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\dlls\airtank.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\animation.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -192,16 +195,10 @@
     <ClCompile Include="..\..\dlls\h_ai.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\h_battery.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\h_cycler.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\h_export.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\healthkit.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\lights.cpp">
@@ -216,13 +213,7 @@
     <ClCompile Include="..\..\dlls\nodes.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\observer.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\sound.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\subs.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\util.cpp">
@@ -230,9 +221,6 @@
     </ClCompile>
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp">
       <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\weapons.cpp">
-      <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\dlls\xen.cpp">
       <Filter>Source Files\dlls</Filter>
@@ -847,6 +835,30 @@
       <Filter>Source Files\game\server\entities\NPCs</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\server\Skill.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CBasePlayer.observer.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\items\CAirtank.cpp">
+      <Filter>Source Files\game\server\entities\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\items\CWallHealth.cpp">
+      <Filter>Source Files\game\server\entities\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\items\CRecharge.cpp">
+      <Filter>Source Files\game\server\entities\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CNullEntity.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\spawnpoints\CBaseDMStart.cpp">
+      <Filter>Source Files\game\server\entities\spawnpoints</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseEntity.subs.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\Weapons.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1534,6 +1546,21 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\Skill.h">
       <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\items\CAirtank.h">
+      <Filter>Header Files\game\server\entities\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\items\CWallHealth.h">
+      <Filter>Header Files\game\server\entities\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\items\CRecharge.h">
+      <Filter>Header Files\game\server\entities\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CNullEntity.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\spawnpoints\CBaseDMStart.h">
+      <Filter>Header Files\game\server\entities\spawnpoints</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
