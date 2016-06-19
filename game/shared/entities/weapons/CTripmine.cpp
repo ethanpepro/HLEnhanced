@@ -16,11 +16,11 @@
 #include "util.h"
 #include "cbase.h"
 #include "entities/NPCs/Monsters.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "CTripmine.h"
 #include "nodes.h"
 #include "entities/CBasePlayer.h"
-#include "effects.h"
+#include "Effects.h"
 #include "gamerules/GameRules.h"
 
 #define	TRIPMINE_PRIMARY_VOLUME		450

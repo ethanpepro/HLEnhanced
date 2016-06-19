@@ -19,7 +19,7 @@
 #include	"util.h"
 #include	"cbase.h"
 #include	"entities/CBasePlayer.h"
-#include	"weapons.h"
+#include	"Weapons.h"
 #include	"CHalfLifeRules.h"
 #include	"skill.h"
 #include	"entities/items/CItem.h"

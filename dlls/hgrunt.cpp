@@ -36,10 +36,10 @@
 #include	"entities/NPCs/Schedule.h"
 #include	"animation.h"
 #include	"entities/NPCs/CSquadMonster.h"
-#include	"weapons.h"
+#include	"Weapons.h"
 #include	"entities/NPCs/CTalkMonster.h"
 #include	"entities/CSoundEnt.h"
-#include	"effects.h"
+#include	"Effects.h"
 #include	"customentity.h"
 
 int g_fGruntQuestion;				// true if an idle grunt asked a question. Cleared when someone answers.

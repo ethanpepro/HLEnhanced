@@ -22,8 +22,8 @@
 #include	"entities/NPCs/Monsters.h"
 #include	"entities/NPCs/CSquadMonster.h"
 #include	"entities/NPCs/Schedule.h"
-#include	"effects.h"
-#include	"weapons.h"
+#include	"Effects.h"
+#include	"Weapons.h"
 #include	"entities/CSoundEnt.h"
 
 extern DLL_GLOBAL int		g_iSkillLevel;

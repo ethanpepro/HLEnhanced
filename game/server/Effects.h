@@ -12,8 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef EFFECTS_H
-#define EFFECTS_H
+#ifndef GAME_SERVER_EFFECTS_H
+#define GAME_SERVER_EFFECTS_H
 
 #include "entities/effects/CSprite.h"
 
@@ -21,4 +21,4 @@
 
 #include "entities/effects/CLaser.h"
 
-#endif		//EFFECTS_H
+#endif //GAME_SERVER_EFFECTS_H

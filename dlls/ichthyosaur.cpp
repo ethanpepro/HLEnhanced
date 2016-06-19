@@ -25,8 +25,8 @@
 #include	"nodes.h"
 #include	"entities/CSoundEnt.h"
 #include	"animation.h"
-#include	"effects.h"
-#include	"weapons.h"
+#include	"Effects.h"
+#include	"Weapons.h"
 
 #define SEARCH_RETRY	16
 

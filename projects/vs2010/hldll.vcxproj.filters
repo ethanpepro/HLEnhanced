@@ -773,9 +773,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\dlls\doors.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\dlls\animation.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
@@ -786,9 +783,6 @@
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\client.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\effects.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\engine\eiface.h">
@@ -823,9 +817,6 @@
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
       <Filter>Header Files\pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\weapons.h">
-      <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\saverestore.h">
       <Filter>Header Files\dlls</Filter>
@@ -1294,6 +1285,15 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\ButtonSounds.h">
       <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\DoorConstants.h">
+      <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Effects.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\Weapons.h">
+      <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

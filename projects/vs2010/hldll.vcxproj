@@ -314,8 +314,6 @@
     <ClInclude Include="..\..\dlls\cbase.h" />
     <ClInclude Include="..\..\dlls\cdll_dll.h" />
     <ClInclude Include="..\..\dlls\client.h" />
-    <ClInclude Include="..\..\dlls\doors.h" />
-    <ClInclude Include="..\..\dlls\effects.h" />
     <ClInclude Include="..\..\dlls\enginecallback.h" />
     <ClInclude Include="..\..\dlls\explode.h" />
     <ClInclude Include="..\..\dlls\extdll.h" />
@@ -323,13 +321,13 @@
     <ClInclude Include="..\..\dlls\saverestore.h" />
     <ClInclude Include="..\..\dlls\skill.h" />
     <ClInclude Include="..\..\dlls\util.h" />
-    <ClInclude Include="..\..\dlls\weapons.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
     <ClInclude Include="..\..\game\server\ButtonSounds.h" />
     <ClInclude Include="..\..\game\server\CMap.h" />
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />
     <ClInclude Include="..\..\game\server\Decals.h" />
+    <ClInclude Include="..\..\game\server\Effects.h" />
     <ClInclude Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.h" />
     <ClInclude Include="..\..\game\server\entities\AnimationEvent.h" />
     <ClInclude Include="..\..\game\server\entities\CBaseAnimating.h" />
@@ -361,6 +359,7 @@
     <ClInclude Include="..\..\game\server\entities\CSprayCan.h" />
     <ClInclude Include="..\..\game\server\entities\CStripWeapons.h" />
     <ClInclude Include="..\..\game\server\entities\CWorld.h" />
+    <ClInclude Include="..\..\game\server\entities\DoorConstants.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CBeam.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CBlood.h" />
     <ClInclude Include="..\..\game\server\entities\effects\CBubbling.h" />
@@ -469,6 +468,7 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
+    <ClInclude Include="..\..\game\shared\Weapons.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />
     <ClInclude Include="..\..\game_shared\shared_game_utils.h" />
     <ClInclude Include="..\..\pm_shared\pm_debug.h" />

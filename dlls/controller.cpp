@@ -20,9 +20,9 @@
 #include	"util.h"
 #include	"cbase.h"
 #include	"entities/NPCs/Monsters.h"
-#include	"effects.h"
+#include	"Effects.h"
 #include	"entities/NPCs/Schedule.h"
-#include	"weapons.h"
+#include	"Weapons.h"
 #include	"entities/NPCs/CSquadMonster.h"
 
 //=========================================================

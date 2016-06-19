@@ -15,7 +15,7 @@
 #ifndef GAME_SERVER_GAMERULES_CGAMERULES_H
 #define GAME_SERVER_GAMERULES_CGAMERULES_H
 
-//#include "weapons.h"
+//#include "Weapons.h"
 //#include "items.h"
 class CBaseEntity;
 class CBasePlayerItem;

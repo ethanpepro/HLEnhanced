@@ -20,7 +20,7 @@
 #include	"cbase.h"
 #include	"entities/NPCs/Monsters.h"
 #include	"entities/NPCs/Schedule.h"
-#include	"weapons.h"
+#include	"Weapons.h"
 
 //=========================================================
 // Monster's Anim Events Go Here

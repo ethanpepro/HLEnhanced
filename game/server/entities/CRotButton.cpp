@@ -15,7 +15,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "doors.h"
+#include "entities/DoorConstants.h"
 #include "CBaseButton.h"
 
 #include "CRotButton.h"

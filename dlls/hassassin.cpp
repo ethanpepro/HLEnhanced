@@ -22,7 +22,7 @@
 #include	"entities/NPCs/Monsters.h"
 #include	"entities/NPCs/Schedule.h"
 #include	"entities/NPCs/CSquadMonster.h"
-#include	"weapons.h"
+#include	"Weapons.h"
 #include	"entities/CSoundEnt.h"
 #include	"game.h"
 

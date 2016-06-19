@@ -24,7 +24,7 @@
 #include	"entities/NPCs/CTalkMonster.h"
 #include	"entities/NPCs/Schedule.h"
 #include	"entities/NPCs/DefaultAI.h"
-#include	"weapons.h"
+#include	"Weapons.h"
 #include	"entities/CSoundEnt.h"
 
 //=========================================================

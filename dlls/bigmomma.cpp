@@ -21,7 +21,7 @@
 #include	"entities/NPCs/Monsters.h"
 #include	"entities/NPCs/Schedule.h"
 #include	"Decals.h"
-#include	"weapons.h"
+#include	"Weapons.h"
 #include	"game.h"
 
 #define SF_INFOBM_RUN		0x0001

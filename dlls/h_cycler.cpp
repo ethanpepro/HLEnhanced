@@ -25,7 +25,7 @@
 #include "cbase.h"
 #include "entities/NPCs/Monsters.h"
 #include "animation.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "entities/CBasePlayer.h"
 
 

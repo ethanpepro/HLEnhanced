@@ -17,10 +17,10 @@
 #include "cbase.h"
 #include "entities/CBasePlayer.h"
 #include "entities/NPCs/Monsters.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "CEgon.h"
 #include "nodes.h"
-#include "effects.h"
+#include "Effects.h"
 #include "customentity.h"
 #include "gamerules/GameRules.h"
 

@@ -28,8 +28,8 @@
 #include "util.h"
 #include "cbase.h"
 #include "entities/NPCs/Monsters.h"
-#include "weapons.h"
-#include "effects.h"
+#include "Weapons.h"
+#include "Effects.h"
 
 extern Vector VecBModelOrigin( entvars_t* pevBModel );
 

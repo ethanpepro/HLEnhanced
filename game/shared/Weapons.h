@@ -12,12 +12,12 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef WEAPONS_H
-#define WEAPONS_H
+#ifndef GAME_SHARED_WEAPONS_H
+#define GAME_SHARED_WEAPONS_H
 
 #include "weaponinfo.h"
 
-#include "effects.h"
+#include "Effects.h"
 
 #ifdef SERVER_DLL
 #include "CMultiDamage.h"
@@ -236,4 +236,4 @@ bool bIsMultiplayer ( void );
 void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer );
 #endif
 
-#endif // WEAPONS_H
+#endif //GAME_SHARED_WEAPONS_H

@@ -1,7 +1,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "effects.h"
+#include "Effects.h"
 
 #include "CFuncTankLaser.h"
 

@@ -584,6 +584,9 @@
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h">
       <Filter>Header Files\game\shared\entities</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\Weapons.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\game_controls.lib" />

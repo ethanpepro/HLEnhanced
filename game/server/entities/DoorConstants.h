@@ -12,8 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef DOORS_H
-#define DOORS_H
+#ifndef GAME_SERVER_ENTITIES_DOORCONSTANTS_H
+#define GAME_SERVER_ENTITIES_DOORCONSTANTS_H
 
 // doors
 #define SF_DOOR_ROTATE_Y			0
@@ -28,6 +28,4 @@
 #define SF_DOOR_NOMONSTERS			512	// Monster can't open
 #define SF_DOOR_SILENT				0x80000000
 
-
-
-#endif		//DOORS_H
+#endif //GAME_SERVER_ENTITIES_DOORCONSTANTS_H

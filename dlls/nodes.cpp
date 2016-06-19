@@ -22,7 +22,7 @@
 #include	"entities/NPCs/Monsters.h"
 #include	"nodes.h"
 #include	"animation.h"
-#include	"doors.h"
+#include	"entities/DoorConstants.h"
 
 #if !defined ( _WIN32 )
 #include <sys/stat.h>

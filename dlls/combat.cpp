@@ -27,7 +27,7 @@
 #include "entities/CSoundEnt.h"
 #include "Decals.h"
 #include "animation.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "entities/effects/CGib.h"
 
 extern DLL_GLOBAL int			g_iSkillLevel;

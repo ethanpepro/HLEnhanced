@@ -1,7 +1,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "entities/CBasePlayer.h"
 
 // Global Savedata for Delay

@@ -27,7 +27,7 @@
 #include "entities/CBasePlayer.h"
 #include "entities/plats/CFuncTrackTrain.h"
 #include "nodes.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "entities/CSoundEnt.h"
 #include "entities/NPCs/Monsters.h"
 #include "shake.h"

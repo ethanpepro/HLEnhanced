@@ -34,7 +34,7 @@
 #include "gamerules/GameRules.h"
 #include "game.h"
 #include "customentity.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "entities/weapons/CRpg.h"
 #include "weaponinfo.h"
 #include "usercmd.h"

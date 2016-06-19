@@ -2,7 +2,7 @@
 #include "util.h"
 #include "skill.h"
 #include "cbase.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "entities/weapons/CRpg.h"
 
 #include "CRpgRocket.h"

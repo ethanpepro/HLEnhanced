@@ -24,7 +24,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "saverestore.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "Decals.h"
 #include "entities/CSoundEnt.h"
 

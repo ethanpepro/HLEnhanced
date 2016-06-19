@@ -19,7 +19,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "entities/CBasePlayer.h"
 #include "entities/NPCs/CTalkMonster.h"
 #include "gamerules/GameRules.h"

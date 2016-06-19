@@ -28,7 +28,7 @@
 #include "shake.h"
 #include "Decals.h"
 #include "entities/CBasePlayer.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "gamerules/GameRules.h"
 
 float UTIL_WeaponTimeBase( void )

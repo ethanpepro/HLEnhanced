@@ -16,7 +16,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "entities/NPCs/Monsters.h"
-#include "weapons.h"
+#include "Weapons.h"
 #include "CSqueak.h"
 #include "nodes.h"
 #include "entities/CBasePlayer.h"
