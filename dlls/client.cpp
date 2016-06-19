@@ -26,7 +26,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "saverestore.h"
+#include "SaveRestore.h"
 #include "entities/CBasePlayer.h"
 #include "entities/CBaseSpectator.h"
 #include "client.h"

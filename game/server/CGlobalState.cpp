@@ -16,7 +16,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "entities/CBasePlayer.h"
-#include "saverestore.h"
+#include "CGlobalState.h"
 
 CGlobalState gGlobalState;
 

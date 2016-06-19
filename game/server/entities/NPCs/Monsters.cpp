@@ -26,7 +26,7 @@
 #include "nodes.h"
 #include "Monsters.h"
 #include "animation.h"
-#include "saverestore.h"
+#include "SaveRestore.h"
 #include "Weapons.h"
 #include "entities/NPCs/scripted/Scripted.h"
 #include "entities/NPCs/CSquadMonster.h"

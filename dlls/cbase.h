@@ -47,7 +47,7 @@ enum FCapability
 };
 
 #include "archtypes.h"     // DAL
-#include "saverestore.h"
+#include "SaveRestore.h"
 #include "entities/NPCs/Schedule.h"
 
 #include "entities/AnimationEvent.h"

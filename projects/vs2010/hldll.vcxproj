@@ -280,6 +280,9 @@
     <ClCompile Include="..\..\game\server\gamerules\CHalfLifeRules.cpp" />
     <ClCompile Include="..\..\game\server\gamerules\CHalfLifeTeamplay.cpp" />
     <ClCompile Include="..\..\game\server\gamerules\GameRules.cpp" />
+    <ClCompile Include="..\..\game\server\saverestore\CRestore.cpp" />
+    <ClCompile Include="..\..\game\server\saverestore\CSave.cpp" />
+    <ClCompile Include="..\..\game\server\saverestore\CSaveRestoreBuffer.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp" />
@@ -318,12 +321,12 @@
     <ClInclude Include="..\..\dlls\explode.h" />
     <ClInclude Include="..\..\dlls\extdll.h" />
     <ClInclude Include="..\..\dlls\nodes.h" />
-    <ClInclude Include="..\..\dlls\saverestore.h" />
     <ClInclude Include="..\..\dlls\skill.h" />
     <ClInclude Include="..\..\dlls\util.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
     <ClInclude Include="..\..\game\server\ButtonSounds.h" />
+    <ClInclude Include="..\..\game\server\CGlobalState.h" />
     <ClInclude Include="..\..\game\server\CMap.h" />
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />
     <ClInclude Include="..\..\game\server\Decals.h" />
@@ -447,6 +450,10 @@
     <ClInclude Include="..\..\game\server\gamerules\CHalfLifeRules.h" />
     <ClInclude Include="..\..\game\server\gamerules\CHalfLifeTeamplay.h" />
     <ClInclude Include="..\..\game\server\gamerules\GameRules.h" />
+    <ClInclude Include="..\..\game\server\SaveRestore.h" />
+    <ClInclude Include="..\..\game\server\saverestore\CRestore.h" />
+    <ClInclude Include="..\..\game\server\saverestore\CSave.h" />
+    <ClInclude Include="..\..\game\server\saverestore\CSaveRestoreBuffer.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />
     <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />

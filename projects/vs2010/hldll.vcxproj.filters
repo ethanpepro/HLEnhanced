@@ -151,6 +151,12 @@
     <Filter Include="Source Files\game\server\entities\tanks">
       <UniqueIdentifier>{4dd297cc-5390-4ca7-a6e9-e0ccdde46859}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\saverestore">
+      <UniqueIdentifier>{e1fa2376-2a6f-4d40-8b19-e4e680b432f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\saverestore">
+      <UniqueIdentifier>{d0c7557b-e077-4ea0-902b-dd78df65d375}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -771,6 +777,15 @@
     <ClCompile Include="..\..\game\server\ButtonSounds.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\saverestore\CSaveRestoreBuffer.cpp">
+      <Filter>Source Files\game\server\saverestore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\saverestore\CSave.cpp">
+      <Filter>Source Files\game\server\saverestore</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\saverestore\CRestore.cpp">
+      <Filter>Source Files\game\server\saverestore</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\animation.h">
@@ -817,9 +832,6 @@
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
       <Filter>Header Files\pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\saverestore.h">
-      <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\skill.h">
       <Filter>Header Files\dlls</Filter>
@@ -1294,6 +1306,21 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\Weapons.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\saverestore\CSaveRestoreBuffer.h">
+      <Filter>Header Files\game\server\saverestore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\saverestore\CSave.h">
+      <Filter>Header Files\game\server\saverestore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\saverestore\CRestore.h">
+      <Filter>Header Files\game\server\saverestore</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\SaveRestore.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CGlobalState.h">
+      <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

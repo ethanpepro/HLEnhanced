@@ -23,7 +23,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "saverestore.h"
+#include "SaveRestore.h"
 #include "nodes.h"
 #include "entities/DoorConstants.h"
 
