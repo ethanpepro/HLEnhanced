@@ -23,23 +23,6 @@
 #include "entities/NPCs/CHornet.h"
 #include "gamerules/GameRules.h"
 
-
-enum hgun_e {
-	HGUN_IDLE1 = 0,
-	HGUN_FIDGETSWAY,
-	HGUN_FIDGETSHAKE,
-	HGUN_DOWN,
-	HGUN_UP,
-	HGUN_SHOOT
-};
-
-enum firemode_e
-{
-	FIREMODE_TRACK = 0,
-	FIREMODE_FAST
-};
-
-
 LINK_ENTITY_TO_CLASS( weapon_hornetgun, CHornetGun );
 
 bool CHornetGun::IsUseable()

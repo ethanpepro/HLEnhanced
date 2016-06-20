@@ -15,6 +15,18 @@
 #ifndef GAME_SHARED_ENTITIES_WEAPONS_CMP5_H
 #define GAME_SHARED_ENTITIES_WEAPONS_CMP5_H
 
+enum mp5_e
+{
+	MP5_LONGIDLE = 0,
+	MP5_IDLE1,
+	MP5_LAUNCH,
+	MP5_RELOAD,
+	MP5_DEPLOY,
+	MP5_FIRE1,
+	MP5_FIRE2,
+	MP5_FIRE3,
+};
+
 class CMP5 : public CBasePlayerWeapon
 {
 public:

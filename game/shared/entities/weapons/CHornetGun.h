@@ -15,8 +15,25 @@
 #ifndef GAME_SHARED_ENTITIES_WEAPONS_CHORNETGUN_H
 #define GAME_SHARED_ENTITIES_WEAPONS_CHORNETGUN_H
 
+enum hgun_e
+{
+	HGUN_IDLE1 = 0,
+	HGUN_FIDGETSWAY,
+	HGUN_FIDGETSHAKE,
+	HGUN_DOWN,
+	HGUN_UP,
+	HGUN_SHOOT
+};
+
 class CHornetGun : public CBasePlayerWeapon
 {
+public:
+	enum firemode_e
+	{
+		FIREMODE_TRACK = 0,
+		FIREMODE_FAST
+	};
+
 public:
 	DECLARE_CLASS( CHornetGun, CBasePlayerWeapon );
 

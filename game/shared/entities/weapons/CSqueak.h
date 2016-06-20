@@ -15,6 +15,24 @@
 #ifndef GAME_SHARED_ENTITIES_WEAPONS_CSQUEAK_H
 #define GAME_SHARED_ENTITIES_WEAPONS_CSQUEAK_H
 
+enum w_squeak_e
+{
+	WSQUEAK_IDLE1 = 0,
+	WSQUEAK_FIDGET,
+	WSQUEAK_JUMP,
+	WSQUEAK_RUN,
+};
+
+enum squeak_e
+{
+	SQUEAK_IDLE1 = 0,
+	SQUEAK_FIDGETFIT,
+	SQUEAK_FIDGETNIP,
+	SQUEAK_DOWN,
+	SQUEAK_UP,
+	SQUEAK_THROW
+};
+
 class CSqueak : public CBasePlayerWeapon
 {
 public:
