@@ -213,9 +213,6 @@
     <ClCompile Include="..\..\dlls\client.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\combat.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\explode.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -225,13 +222,7 @@
     <ClCompile Include="..\..\dlls\globals.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\h_ai.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\nodes.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\util.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp">
@@ -996,6 +987,18 @@
     <ClCompile Include="..\..\game\server\ServerInterface.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CBaseMonster.ai.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\util.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\NPCs\CBaseMonster.combat.cpp">
+      <Filter>Source Files\game\server\entities\NPCs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBaseEntity.combat.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\animation.h">
@@ -1039,9 +1042,6 @@
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
       <Filter>Header Files\pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\util.h">
-      <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\common\Platform.h">
       <Filter>Header Files\common</Filter>
@@ -1818,6 +1818,9 @@
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\cbase.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\util.h">
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>

@@ -102,13 +102,10 @@
     <ClCompile Include="..\..\common\Platform.cpp" />
     <ClCompile Include="..\..\dlls\animation.cpp" />
     <ClCompile Include="..\..\dlls\client.cpp" />
-    <ClCompile Include="..\..\dlls\combat.cpp" />
     <ClCompile Include="..\..\dlls\explode.cpp" />
     <ClCompile Include="..\..\dlls\game.cpp" />
     <ClCompile Include="..\..\dlls\globals.cpp" />
-    <ClCompile Include="..\..\dlls\h_ai.cpp" />
     <ClCompile Include="..\..\dlls\nodes.cpp" />
-    <ClCompile Include="..\..\dlls\util.cpp" />
     <ClCompile Include="..\..\game\server\ButtonSounds.cpp" />
     <ClCompile Include="..\..\game\server\CBasePlayer.observer.cpp" />
     <ClCompile Include="..\..\game\server\CGlobalState.cpp" />
@@ -128,6 +125,7 @@
     <ClCompile Include="..\..\game\server\entities\CBaseButton.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseDelay.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseDoor.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CBaseEntity.combat.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseEntity.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseEntity.subs.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBasePlayer.server.cpp" />
@@ -217,6 +215,8 @@
     <ClCompile Include="..\..\game\server\entities\NPCs\CBabyCrab.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CBarnacle.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CBarney.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\CBaseMonster.ai.cpp" />
+    <ClCompile Include="..\..\game\server\entities\NPCs\CBaseMonster.combat.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CBaseMonster.schedule.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CBaseMonster.scripted.cpp" />
     <ClCompile Include="..\..\game\server\entities\NPCs\CBaseMonster.state.cpp" />
@@ -336,6 +336,7 @@
     <ClCompile Include="..\..\game\server\Skill.cpp" />
     <ClCompile Include="..\..\game\server\sound\Sound.cpp" />
     <ClCompile Include="..\..\game\server\TempEntity.cpp" />
+    <ClCompile Include="..\..\game\server\util.cpp" />
     <ClCompile Include="..\..\game\server\Weapons.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
@@ -374,7 +375,6 @@
     <ClInclude Include="..\..\dlls\explode.h" />
     <ClInclude Include="..\..\dlls\extdll.h" />
     <ClInclude Include="..\..\dlls\nodes.h" />
-    <ClInclude Include="..\..\dlls\util.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
     <ClInclude Include="..\..\game\server\ButtonSounds.h" />
@@ -625,6 +625,7 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
+    <ClInclude Include="..\..\game\shared\util.h" />
     <ClInclude Include="..\..\game\shared\Weapons.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />
     <ClInclude Include="..\..\game_shared\shared_game_utils.h" />

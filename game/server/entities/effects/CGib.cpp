@@ -2,6 +2,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "entities/CBreakable.h"
+#include "entities/CSoundEnt.h"
 
 #include "CGib.h"
 
@@ -108,6 +109,39 @@ void CGib::StickyGibTouch( CBaseEntity *pOther )
 	pev->velocity = g_vecZero;
 	pev->avelocity = g_vecZero;
 	pev->movetype = MOVETYPE_NONE;
+}
+
+//=========================================================
+// WaitTillLand - in order to emit their meaty scent from
+// the proper location, gibs should wait until they stop 
+// bouncing to emit their scent. That's what this function
+// does.
+//=========================================================
+void CGib::WaitTillLand( void )
+{
+	if( !IsInWorld() )
+	{
+		UTIL_Remove( this );
+		return;
+	}
+
+	if( pev->velocity == g_vecZero )
+	{
+		SetThink( &CGib::SUB_StartFadeOut );
+		pev->nextthink = gpGlobals->time + m_lifeTime;
+
+		// If you bleed, you stink!
+		if( m_bloodColor != DONT_BLEED )
+		{
+			// ok, start stinkin!
+			CSoundEnt::InsertSound( bits_SOUND_MEAT, pev->origin, 384, 25 );
+		}
+	}
+	else
+	{
+		// wait and check again in another half second.
+		pev->nextthink = gpGlobals->time + 0.5;
+	}
 }
 
 // HACKHACK -- The gib velocity equations don't work
