@@ -15,7 +15,30 @@
 #ifndef GAME_SERVER_BUTTONSOUNDS_H
 #define GAME_SERVER_BUTTONSOUNDS_H
 
-const char* ButtonSound( int sound );				// get string of button sound number
+/**
+*	Get string of button sound number.
+*/
+const char* ButtonSound( int sound );
+
+/**
+*	Get string of door move sound number.
+*/
+const char* DoorMoveSound( const int iSound );
+
+/**
+*	Get string of door stop sound number.
+*/
+const char* DoorStopSound( const int iSound );
+
+/**
+*	Get string of locked sentence sound number.
+*/
+const char* LockedSentence( const int iSound );
+
+/**
+*	Get string of unlocked sentence sound number.
+*/
+const char* UnlockedSentence( const int iSound );
 
 // sounds that doors and buttons make when locked/unlocked
 struct locksound_t

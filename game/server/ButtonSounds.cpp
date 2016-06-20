@@ -43,6 +43,77 @@ const char* ButtonSound( int sound )
 	return pszSound;
 }
 
+const char* DoorMoveSound( const int iSound )
+{
+	switch( iSound )
+	{
+	case 1:		return "doors/doormove1.wav";
+	case 2:		return "doors/doormove2.wav";
+	case 3:		return "doors/doormove3.wav";
+	case 4:		return "doors/doormove4.wav";
+	case 5:		return "doors/doormove5.wav";
+	case 6:		return "doors/doormove6.wav";
+	case 7:		return "doors/doormove7.wav";
+	case 8:		return "doors/doormove8.wav";
+	case 9:		return "doors/doormove9.wav";
+	case 10:	return "doors/doormove10.wav";
+	case 0:
+	default:	return "common/null.wav";
+	}
+}
+
+const char* DoorStopSound( const int iSound )
+{
+	switch( iSound )
+	{
+	case 1:		return "doors/doorstop1.wav";
+	case 2:		return "doors/doorstop2.wav";
+	case 3:		return "doors/doorstop3.wav";
+	case 4:		return "doors/doorstop4.wav";
+	case 5:		return "doors/doorstop5.wav";
+	case 6:		return "doors/doorstop6.wav";
+	case 7:		return "doors/doorstop7.wav";
+	case 8:		return "doors/doorstop8.wav";
+	case 0:
+	default:	return "common/null.wav";
+	}
+}
+
+const char* LockedSentence( const int iSound )
+{
+	switch( iSound )
+	{
+	case 1: return "NA"; // access denied
+	case 2: return "ND"; // security lockout
+	case 3: return "NF"; // blast door
+	case 4: return "NFIRE"; // fire door
+	case 5: return "NCHEM"; // chemical door
+	case 6: return "NRAD"; // radiation door
+	case 7: return "NCON"; // gen containment
+	case 8: return "NH"; // maintenance door
+	case 9: return "NG"; // broken door
+
+	default: return nullptr;
+	}
+}
+
+const char* UnlockedSentence( const int iSound )
+{
+	switch( iSound )
+	{
+	case 1: return "EA"; // access granted
+	case 2: return "ED"; // security door
+	case 3: return "EF"; // blast door
+	case 4: return "EFIRE"; // fire door
+	case 5: return "ECHEM"; // chemical door
+	case 6: return "ERAD"; // radiation door
+	case 7: return "ECON"; // gen containment
+	case 8: return "EH"; // maintenance door
+
+	default: return nullptr;
+	}
+}
+
 #define DOOR_SENTENCEWAIT	6
 #define DOOR_SOUNDWAIT		3
 #define BUTTON_SOUNDWAIT	0.5

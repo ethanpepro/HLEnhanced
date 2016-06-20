@@ -30,23 +30,6 @@ BEGIN_DATADESC( CBaseButton )
 	//DEFINE_FIELD( m_ls, FIELD_??? ),   // This is restored in Precache()
 END_DATADESC()
 
-/*QUAKED func_button (0 .5 .8) ?
-When a button is touched, it moves some distance in the direction of it's angle,
-triggers all of it's targets, waits some time, then returns to it's original position
-where it can be triggered again.
-
-"angle"		determines the opening direction
-"target"	all entities with a matching targetname will be used
-"speed"		override the default 40 speed
-"wait"		override the default 1 second wait (-1 = never return)
-"lip"		override the default 4 pixel lip remaining at end of move
-"health"	if set, the button must be killed instead of touched
-"sounds"
-0) steam metal
-1) wooden clunk
-2) metallic click
-3) in-out
-*/
 LINK_ENTITY_TO_CLASS( func_button, CBaseButton );
 
 void CBaseButton::Spawn()
@@ -145,35 +128,19 @@ void CBaseButton::Precache( void )
 	}
 
 	// get sentence group names, for doors which are directly 'touched' to open
+	pszSound = LockedSentence( m_bLockedSentence );
 
-	switch( m_bLockedSentence )
-	{
-	case 1: m_ls.sLockedSentence = MAKE_STRING( "NA" ); break; // access denied
-	case 2: m_ls.sLockedSentence = MAKE_STRING( "ND" ); break; // security lockout
-	case 3: m_ls.sLockedSentence = MAKE_STRING( "NF" ); break; // blast door
-	case 4: m_ls.sLockedSentence = MAKE_STRING( "NFIRE" ); break; // fire door
-	case 5: m_ls.sLockedSentence = MAKE_STRING( "NCHEM" ); break; // chemical door
-	case 6: m_ls.sLockedSentence = MAKE_STRING( "NRAD" ); break; // radiation door
-	case 7: m_ls.sLockedSentence = MAKE_STRING( "NCON" ); break; // gen containment
-	case 8: m_ls.sLockedSentence = MAKE_STRING( "NH" ); break; // maintenance door
-	case 9: m_ls.sLockedSentence = MAKE_STRING( "NG" ); break; // broken door
+	if( pszSound )
+		m_ls.sLockedSentence = MAKE_STRING( pszSound );
+	else
+		m_ls.sLockedSentence = iStringNull;
 
-	default: m_ls.sLockedSentence = 0; break;
-	}
+	pszSound = UnlockedSentence( m_bUnlockedSentence );
 
-	switch( m_bUnlockedSentence )
-	{
-	case 1: m_ls.sUnlockedSentence = MAKE_STRING( "EA" ); break; // access granted
-	case 2: m_ls.sUnlockedSentence = MAKE_STRING( "ED" ); break; // security door
-	case 3: m_ls.sUnlockedSentence = MAKE_STRING( "EF" ); break; // blast door
-	case 4: m_ls.sUnlockedSentence = MAKE_STRING( "EFIRE" ); break; // fire door
-	case 5: m_ls.sUnlockedSentence = MAKE_STRING( "ECHEM" ); break; // chemical door
-	case 6: m_ls.sUnlockedSentence = MAKE_STRING( "ERAD" ); break; // radiation door
-	case 7: m_ls.sUnlockedSentence = MAKE_STRING( "ECON" ); break; // gen containment
-	case 8: m_ls.sUnlockedSentence = MAKE_STRING( "EH" ); break; // maintenance door
-
-	default: m_ls.sUnlockedSentence = 0; break;
-	}
+	if( pszSound )
+		m_ls.sUnlockedSentence = MAKE_STRING( pszSound );
+	else
+		m_ls.sUnlockedSentence = iStringNull;
 }
 
 //
