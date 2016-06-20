@@ -4,9 +4,6 @@
 
 #include "CEnvSpark.h"
 
-//TODO: move to some other header - Solokiller
-void DoSpark( entvars_t *pev, const Vector &location );
-
 BEGIN_DATADESC( CEnvSpark )
 	DEFINE_FIELD( m_flDelay, FIELD_FLOAT ),
 END_DATADESC()
@@ -19,10 +16,9 @@ void CEnvSpark::Spawn( void )
 	SetThink( NULL );
 	SetUse( NULL );
 
-	//TODO: define spawn flags - Solokliler
-	if( FBitSet( pev->spawnflags, 32 ) ) // Use for on/off
+	if( FBitSet( pev->spawnflags, SF_SPARK_TOGGLE ) ) // Use for on/off
 	{
-		if( FBitSet( pev->spawnflags, 64 ) ) // Start on
+		if( FBitSet( pev->spawnflags, SF_SPARK_START_ON ) ) // Start on
 		{
 			SetThink( &CEnvSpark::SparkThink );	// start sparking
 			SetUse( &CEnvSpark::SparkStop );		// set up +USE to stop sparking

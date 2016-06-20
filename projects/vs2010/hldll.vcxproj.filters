@@ -1017,6 +1017,9 @@
     <ClCompile Include="..\..\game\server\entities\CBasePlayer.observer.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CPushable.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\engine\eiface.h">
@@ -1879,6 +1882,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\Damage.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\CPushable.h">
+      <Filter>Header Files\game\server\entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

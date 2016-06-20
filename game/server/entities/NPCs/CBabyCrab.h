@@ -29,7 +29,7 @@ public:
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	Schedule_t* GetScheduleOfType( int Type ) override;
 	virtual int GetVoicePitch( void ) override { return PITCH_NORM + RANDOM_LONG( 40, 50 ); }
-	virtual float GetSoundVolue( void ) override { return 0.8; }
+	virtual float GetSoundVolume() const override { return 0.8; }
 };
 
 #endif //GAME_SERVER_ENTITIES_NPCS_CBABYCRAB_H

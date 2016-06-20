@@ -324,6 +324,27 @@ CBasePlayer	*UTIL_PlayerByIndex( int playerIndex )
 	return pPlayer;
 }
 
+CBasePlayer* UTIL_FindPlayerByName( const char *pszTestName )
+{
+	for( int i = 1; i <= gpGlobals->maxClients; i++ )
+	{
+		edict_t *pEdict = g_engfuncs.pfnPEntityOfEntIndex( i );
+		if( pEdict )
+		{
+			CBaseEntity *pEnt = CBaseEntity::Instance( pEdict );
+			if( pEnt && pEnt->IsPlayer() )
+			{
+				const char *pNetName = STRING( pEnt->pev->netname );
+				if( stricmp( pNetName, pszTestName ) == 0 )
+				{
+					return ( CBasePlayer* ) pEnt;
+				}
+			}
+		}
+	}
+
+	return nullptr;
+}
 
 void UTIL_MakeVectors( const Vector &vecAngles )
 {
@@ -958,6 +979,25 @@ void UTIL_Sparks( const Vector &position )
 	MESSAGE_END();
 }
 
+//
+// Makes flagged buttons spark when turned off
+//
+void DoSpark( entvars_t *pev, const Vector &location )
+{
+	Vector tmp = location + pev->size * 0.5;
+	UTIL_Sparks( tmp );
+
+	float flVolume = RANDOM_FLOAT( 0.25, 0.75 ) * 0.4;//random volume range
+	switch( ( int ) ( RANDOM_FLOAT( 0, 1 ) * 6 ) )
+	{
+	case 0: EMIT_SOUND( ENT( pev ), CHAN_VOICE, "buttons/spark1.wav", flVolume, ATTN_NORM );	break;
+	case 1: EMIT_SOUND( ENT( pev ), CHAN_VOICE, "buttons/spark2.wav", flVolume, ATTN_NORM );	break;
+	case 2: EMIT_SOUND( ENT( pev ), CHAN_VOICE, "buttons/spark3.wav", flVolume, ATTN_NORM );	break;
+	case 3: EMIT_SOUND( ENT( pev ), CHAN_VOICE, "buttons/spark4.wav", flVolume, ATTN_NORM );	break;
+	case 4: EMIT_SOUND( ENT( pev ), CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM );	break;
+	case 5: EMIT_SOUND( ENT( pev ), CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM );	break;
+	}
+}
 
 void UTIL_Ricochet( const Vector &position, float scale )
 {
@@ -1208,6 +1248,24 @@ CBaseEntity* UTIL_RandomTargetname( const char* const pszName )
 
 	//Enumerate all entities with the given name and assign it to pEntity if a random check succeeds.
 	while( ( pNewEntity = UTIL_FindEntityByTargetname( pNewEntity, pszName ) ) != nullptr )
+	{
+		++total;
+
+		if( RANDOM_LONG( 0, total - 1 ) < 1 )
+			pEntity = pNewEntity;
+	}
+
+	return pEntity;
+}
+
+CBaseEntity* UTIL_RandomClassname( const char* pszName )
+{
+	int total = 0;
+
+	CBaseEntity *pEntity = nullptr;
+	CBaseEntity *pNewEntity = nullptr;
+
+	while( ( pNewEntity = UTIL_FindEntityByClassname( pNewEntity, pszName ) ) != nullptr )
 	{
 		++total;
 

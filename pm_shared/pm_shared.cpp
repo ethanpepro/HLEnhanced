@@ -1491,8 +1491,7 @@ qboolean PM_CheckWater ()
 PM_CatagorizePosition
 =============
 */
-//TODO: fix typo - Solokliler
-void PM_CatagorizePosition (void)
+void PM_CategorizePosition (void)
 {
 	Vector		point;
 	pmtrace_t		tr;
@@ -1906,7 +1905,7 @@ void PM_UnDuck( void )
 		pmove->origin = newOrigin;
 
 		// Recatagorize position since ducking can change origin
-		PM_CatagorizePosition();
+		PM_CategorizePosition();
 	}
 }
 
@@ -1984,7 +1983,7 @@ void PM_Duck( void )
 						PM_FixPlayerCrouchStuck( STUCK_MOVEUP );
 
 						// Recatagorize position since ducking can change origin
-						PM_CatagorizePosition();
+						PM_CategorizePosition();
 					}
 				}
 				else
@@ -2915,7 +2914,7 @@ void PM_PlayerMove ( qboolean server )
 	if ( pmove->spectator || pmove->iuser1 > 0 )
 	{
 		PM_SpectatorMove();
-		PM_CatagorizePosition();
+		PM_CategorizePosition();
 		return;
 	}
 
@@ -2929,7 +2928,7 @@ void PM_PlayerMove ( qboolean server )
 	}
 
 	// Now that we are "unstuck", see where we are ( waterlevel and type, pmove->onground ).
-	PM_CatagorizePosition();
+	PM_CategorizePosition();
 
 	// Store off the starting water level
 	pmove->oldwaterlevel = pmove->waterlevel;
@@ -3071,7 +3070,7 @@ void PM_PlayerMove ( qboolean server )
 			pmove->velocity = pmove->velocity - pmove->basevelocity;
 
 			// Get a final position
-			PM_CatagorizePosition();
+			PM_CategorizePosition();
 		}
 		else
 
@@ -3112,7 +3111,7 @@ void PM_PlayerMove ( qboolean server )
 			}
 
 			// Set final flags.
-			PM_CatagorizePosition();
+			PM_CategorizePosition();
 
 			// Now pull the base velocity back out.
 			// Base velocity is set if you are on a moving object, like

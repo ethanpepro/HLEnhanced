@@ -145,6 +145,7 @@
     <ClCompile Include="..\..\game\server\entities\CMultiSource.cpp" />
     <ClCompile Include="..\..\game\server\entities\CNullEntity.cpp" />
     <ClCompile Include="..\..\game\server\entities\CPointEntity.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CPushable.cpp" />
     <ClCompile Include="..\..\game\server\entities\CRevertSaved.cpp" />
     <ClCompile Include="..\..\game\server\entities\CRotButton.cpp" />
     <ClCompile Include="..\..\game\server\entities\CRotDoor.cpp" />
@@ -420,6 +421,7 @@
     <ClInclude Include="..\..\game\server\entities\CMultiSource.h" />
     <ClInclude Include="..\..\game\server\entities\CNullEntity.h" />
     <ClInclude Include="..\..\game\server\entities\CPointEntity.h" />
+    <ClInclude Include="..\..\game\server\entities\CPushable.h" />
     <ClInclude Include="..\..\game\server\entities\CRevertSaved.h" />
     <ClInclude Include="..\..\game\server\entities\CRotButton.h" />
     <ClInclude Include="..\..\game\server\entities\CRotDoor.h" />

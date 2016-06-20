@@ -25,6 +25,9 @@ typedef enum { matGlass = 0, matWood, matMetal, matFlesh, matCinderBlock, matCei
 
 #define	NUM_SHARDS 6 // this many shards spawned when breakable objects break;
 
+//
+// func_breakable - bmodel that breaks into pieces after taking damage
+//
 class CBreakable : public CBaseDelay
 {
 public:

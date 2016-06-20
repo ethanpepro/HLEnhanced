@@ -31,22 +31,22 @@ void CScriptedSentence::Spawn( void )
 	}
 
 	//TODO: use constants - Solokiller
-	switch( pev->impulse )
+	switch( static_cast<SoundRadius>( pev->impulse ) )
 	{
-	case 1: // Medium radius
+	case SoundRadius::MEDIUM:			// Medium radius
 		m_flAttenuation = ATTN_STATIC;
 		break;
 
-	case 2:	// Large radius
+	case SoundRadius::LARGE:			// Large radius
 		m_flAttenuation = ATTN_NORM;
 		break;
 
-	case 3:	//EVERYWHERE
+	case SoundRadius::PLAY_EVERYWHERE:	//EVERYWHERE
 		m_flAttenuation = ATTN_NONE;
 		break;
 
 	default:
-	case 0: // Small radius
+	case SoundRadius::SMALL:			// Small radius
 		m_flAttenuation = ATTN_IDLE;
 		break;
 	}

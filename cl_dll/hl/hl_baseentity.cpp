@@ -108,8 +108,6 @@ bool CBaseMonster::MoveToEnemy( Activity movementAct, float waitTime ) { return 
 bool CBaseMonster::MoveToLocation( Activity movementAct, float waitTime, const Vector &goal ) { return false; }
 bool CBaseMonster::MoveToTarget( Activity movementAct, float waitTime ) { return false; }
 bool CBaseMonster::MoveToNode( Activity movementAct, float waitTime, const Vector &goal ) { return false; }
-//TODO: why is this even here? - Solokiller
-bool ShouldSimplify( int routeType ) { return true; }
 void CBaseMonster::RouteSimplify( const CBaseEntity* const pTargetEnt ) { }
 bool CBaseMonster :: FBecomeProne() { return true; }
 bool CBaseMonster::CheckRangeAttack1( float flDot, float flDist ) { return false; }
@@ -162,7 +160,6 @@ float CBaseAnimating :: SetBlending ( int iBlender, float flValue ) { return 0; 
 void CBaseAnimating :: GetBonePosition ( int iBone, Vector &origin, Vector &angles ) { }
 void CBaseAnimating :: GetAttachment ( int iAttachment, Vector &origin, Vector &angles ) { }
 int CBaseAnimating :: FindTransition( int iEndingSequence, int iGoalSequence, int *piDir ) { return -1; }
-void CBaseAnimating :: GetAutomovement( Vector &origin, Vector &angles, float flInterval ) { }
 void CBaseAnimating :: SetBodygroup( int iGroup, int iValue ) { }
 int CBaseAnimating :: GetBodygroup( int iGroup ) { return 0; }
 Vector CBaseMonster :: GetGunPosition( void ) { return g_vecZero; }

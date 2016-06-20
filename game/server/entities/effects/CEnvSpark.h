@@ -15,6 +15,12 @@
 #ifndef GAME_SERVER_ENTITIES_EFFECTS_CENVSPARK_H
 #define GAME_SERVER_ENTITIES_EFFECTS_CENVSPARK_H
 
+enum EnvSparkSpawnFlag
+{
+	SF_SPARK_TOGGLE		= 1 << 5,
+	SF_SPARK_START_ON	= 1 << 6
+};
+
 //----------------------------------------------------------------
 // Spark
 //----------------------------------------------------------------

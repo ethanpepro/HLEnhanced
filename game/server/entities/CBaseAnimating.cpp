@@ -182,13 +182,6 @@ void CBaseAnimating::GetBonePosition( int iBone, Vector &origin, Vector &angles 
 
 //=========================================================
 //=========================================================
-void CBaseAnimating::GetAutomovement( Vector &origin, Vector &angles, float flInterval )
-{
-	//TODO: does nothing? - Solokiller
-}
-
-//=========================================================
-//=========================================================
 int CBaseAnimating::FindTransition( int iEndingSequence, int iGoalSequence, int *piDir )
 {
 	void *pmodel = GET_MODEL_PTR( ENT( pev ) );

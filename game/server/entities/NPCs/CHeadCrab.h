@@ -49,8 +49,7 @@ public:
 
 	virtual float GetDamageAmount( void ) { return gSkillData.headcrabDmgBite; }
 	virtual int GetVoicePitch( void ) { return 100; }
-	//TODO: fix typo - Solokiller
-	virtual float GetSoundVolue( void ) { return 1.0; }
+	virtual float GetSoundVolume() const { return 1.0; }
 	Schedule_t* GetScheduleOfType( int Type ) override;
 
 	CUSTOM_SCHEDULES;

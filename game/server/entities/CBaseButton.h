@@ -15,7 +15,6 @@
 #ifndef GAME_SERVER_CBASEBUTTON_H
 #define GAME_SERVER_CBASEBUTTON_H
 
-//TODO: move to header - Solokiller
 #define SF_BUTTON_DONTMOVE		1
 #define SF_ROTBUTTON_NOTSOLID	1
 #define	SF_BUTTON_TOGGLE		32	// button stays pushed until reactivated

@@ -57,4 +57,15 @@ void DBG_AssertFunction( const bool fExpr, const char* szExpr, const char* szFil
 #define ASSERTSZ(f, sz)
 #endif	// !DEBUG
 
+#define MAX_COM_TOKEN 1500
+
+extern char com_token[ MAX_COM_TOKEN ];
+
+//TODO: tidy the parse code, make it use user provided buffers - Solokiller
+char *COM_Parse( char *data );
+
+int COM_TokenWaiting( char *buffer );
+
+char *memfgets( byte *pMemFile, int fileSize, int &filePos, char *pBuffer, int bufferSize );
+
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H

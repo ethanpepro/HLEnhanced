@@ -188,6 +188,13 @@ extern CBaseEntity	*UTIL_FindEntityGeneric(const char *szName, Vector &vecSrc, f
 // Now returns CBasePlayer - Solokiller
 extern CBasePlayer	*UTIL_PlayerByIndex( int playerIndex );
 
+/**
+*	Find a player with a case-insensitive name search.
+*	@param pszTestName Player name.
+*	@return Player instance, or null if no player exists by that name.
+*/
+CBasePlayer* UTIL_FindPlayerByName( const char* pszTestName );
+
 #define UTIL_EntitiesInPVS(pent)			(*g_engfuncs.pfnEntitiesInPVS)(pent)
 extern void			UTIL_MakeVectors		(const Vector &vecAngles);
 
@@ -239,6 +246,7 @@ extern void			UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int dec
 */
 extern void			UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber );
 extern void			UTIL_Sparks( const Vector &position );
+void DoSpark( entvars_t *pev, const Vector &location );
 extern void			UTIL_Ricochet( const Vector &position, float scale );
 
 extern void			UTIL_Remove( CBaseEntity *pEntity );
@@ -403,6 +411,13 @@ float UTIL_WeaponTimeBase( void );
 *	@return Randomly selected entity, or null if no entities by that name exist.
 */
 CBaseEntity* UTIL_RandomTargetname( const char* const pszName );
+
+/**
+*	From the set of entities of class pszName, randomly selects one entity.
+*	@param pszName Entity classname.
+*	@return Randomly selected entity, or null if no entities by that name exist.
+*/
+CBaseEntity* UTIL_RandomClassname( const char* pszName );
 
 /**
 *	Sets an entvars_t keyvalue, if the key can be found in the datamap.

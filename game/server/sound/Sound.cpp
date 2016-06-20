@@ -31,9 +31,6 @@
 #include <ctype.h>
 #endif
 
-
-static char *memfgets( byte *pMemFile, int fileSize, int &filePos, char *pBuffer, int bufferSize );
-
 // ==================== SENTENCE GROUPS, UTILITY FUNCTIONS  ======================================
 
 // group of related sentences
@@ -533,56 +530,6 @@ char grgchTextureType[CTEXTURESMAX];						// parallel array of texture types
 // open materials.txt,  get size, alloc space, 
 // save in array.  Only works first time called, 
 // ignored on subsequent calls.
-
-//TODO: move this to a utility file - Solokiller
-static char *memfgets( byte *pMemFile, int fileSize, int &filePos, char *pBuffer, int bufferSize )
-{
-	// Bullet-proofing
-	if ( !pMemFile || !pBuffer )
-		return NULL;
-
-	if ( filePos >= fileSize )
-		return NULL;
-
-	int i = filePos;
-	int last = fileSize;
-
-	// fgets always NULL terminates, so only read bufferSize-1 characters
-	if ( last - filePos > (bufferSize-1) )
-		last = filePos + (bufferSize-1);
-
-	int stop = 0;
-
-	// Stop at the next newline (inclusive) or end of buffer
-	while ( i < last && !stop )
-	{
-		if ( pMemFile[i] == '\n' )
-			stop = 1;
-		i++;
-	}
-
-
-	// If we actually advanced the pointer, copy it over
-	if ( i != filePos )
-	{
-		// We read in size bytes
-		int size = i - filePos;
-		// copy it out
-		memcpy( pBuffer, pMemFile + filePos, sizeof(byte)*size );
-		
-		// If the buffer isn't full, terminate (this is always true)
-		if ( size < bufferSize )
-			pBuffer[size] = 0;
-
-		// Update file pointer
-		filePos = i;
-		return pBuffer;
-	}
-
-	// No data read, bail
-	return NULL;
-}
-
 
 void TEXTURETYPE_Init()
 {

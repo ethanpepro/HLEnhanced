@@ -623,7 +623,6 @@ typedef struct enginefuncs_s
 	*	Gets the value of a cvar as a string.
 	*	@param pszVarName Name of the cvar whose value is to be retrieved.
 	*	@return Value of the cvar, or an empty string if the cvar doesn't exist.
-	*	TODO: verify return value for non-existent cvars.
 	*/
 	const char*	(*pfnCVarGetString)			( const char* pszVarName );
 

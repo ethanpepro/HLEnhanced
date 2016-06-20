@@ -183,7 +183,7 @@ void CNihilanthHVR::HoverThink( void )
 	if( RANDOM_LONG( 0, 99 ) < 5 )
 	{
 		/*
-		CBaseEntity *pOther = RandomClassname( STRING(pev->classname) );
+		CBaseEntity *pOther = UTIL_RandomClassname( STRING(pev->classname) );
 
 		if (pOther && pOther != this)
 		{
@@ -500,21 +500,6 @@ void CNihilanthHVR::ZapTouch( CBaseEntity *pOther )
 	SetTouch( NULL );
 	UTIL_Remove( this );
 	pev->nextthink = gpGlobals->time + 0.2;
-}
-
-CBaseEntity *CNihilanthHVR::RandomClassname( const char *szName )
-{
-	int total = 0;
-
-	CBaseEntity *pEntity = NULL;
-	CBaseEntity *pNewEntity = NULL;
-	while( ( pNewEntity = UTIL_FindEntityByClassname( pNewEntity, szName ) ) != NULL )
-	{
-		total++;
-		if( RANDOM_LONG( 0, total - 1 ) < 1 )
-			pEntity = pNewEntity;
-	}
-	return pEntity;
 }
 
 void CNihilanthHVR::MovetoTarget( Vector vecTarget )

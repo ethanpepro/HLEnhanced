@@ -252,3 +252,154 @@ DBG_AssertFunction(
 	ALERT( at_console, szOut );
 }
 #endif	// DEBUG
+
+char com_token[ MAX_COM_TOKEN ];
+
+/*
+==============
+COM_Parse
+
+Parse a token out of a string
+==============
+*/
+char *COM_Parse( char *data )
+{
+	int             c;
+	int             len;
+
+	len = 0;
+	com_token[ 0 ] = 0;
+
+	if( !data )
+		return NULL;
+
+	// skip whitespace
+skipwhite:
+	while( ( c = *data ) <= ' ' )
+	{
+		if( c == 0 )
+			return NULL;                    // end of file;
+		data++;
+	}
+
+	// skip // comments
+	if( c == '/' && data[ 1 ] == '/' )
+	{
+		while( *data && *data != '\n' )
+			data++;
+		goto skipwhite;
+	}
+
+
+	// handle quoted strings specially
+	if( c == '\"' )
+	{
+		data++;
+		while( 1 )
+		{
+			c = *data++;
+			if( c == '\"' || !c )
+			{
+				com_token[ len ] = 0;
+				return data;
+			}
+			com_token[ len ] = c;
+			len++;
+		}
+	}
+
+	// parse single characters
+	if( c == '{' || c == '}' || c == ')' || c == '(' || c == '\'' || c == ',' )
+	{
+		com_token[ len ] = c;
+		len++;
+		com_token[ len ] = 0;
+		return data + 1;
+	}
+
+	// parse a regular word
+	do
+	{
+		com_token[ len ] = c;
+		data++;
+		len++;
+		c = *data;
+		if( c == '{' || c == '}' || c == ')' || c == '(' || c == '\'' || c == ',' )
+			break;
+	}
+	while( c>32 );
+
+	com_token[ len ] = 0;
+	return data;
+}
+
+/*
+==============
+COM_TokenWaiting
+
+Returns 1 if additional data is waiting to be processed on this line
+==============
+*/
+int COM_TokenWaiting( char *buffer )
+{
+	char *p;
+
+	p = buffer;
+	while( *p && *p != '\n' )
+	{
+		if( !isspace( *p ) || isalnum( *p ) )
+			return 1;
+
+		p++;
+	}
+
+	return 0;
+}
+
+char *memfgets( byte *pMemFile, int fileSize, int &filePos, char *pBuffer, int bufferSize )
+{
+	// Bullet-proofing
+	if( !pMemFile || !pBuffer )
+		return NULL;
+
+	if( filePos >= fileSize )
+		return NULL;
+
+	int i = filePos;
+	int last = fileSize;
+
+	// fgets always NULL terminates, so only read bufferSize-1 characters
+	if( last - filePos > ( bufferSize - 1 ) )
+		last = filePos + ( bufferSize - 1 );
+
+	int stop = 0;
+
+	// Stop at the next newline (inclusive) or end of buffer
+	while( i < last && !stop )
+	{
+		if( pMemFile[ i ] == '\n' )
+			stop = 1;
+		i++;
+	}
+
+
+	// If we actually advanced the pointer, copy it over
+	if( i != filePos )
+	{
+		// We read in size bytes
+		int size = i - filePos;
+		// copy it out
+		memcpy( pBuffer, pMemFile + filePos, sizeof( byte )*size );
+
+		// If the buffer isn't full, terminate (this is always true)
+		if( size < bufferSize )
+			pBuffer[ size ] = 0;
+
+		// Update file pointer
+		filePos = i;
+		return pBuffer;
+	}
+
+	// No data read, bail
+	return NULL;
+}

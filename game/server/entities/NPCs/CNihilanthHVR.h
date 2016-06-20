@@ -47,9 +47,6 @@ public:
 	void EXPORT BounceTouch( CBaseEntity *pOther );
 	void EXPORT ZapTouch( CBaseEntity *pOther );
 
-	//TODO: refactor out of class - Solokiller
-	CBaseEntity *RandomClassname( const char *szName );
-
 	// void EXPORT SphereUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 	void MovetoTarget( Vector vecTarget );

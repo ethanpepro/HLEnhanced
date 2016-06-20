@@ -23,6 +23,15 @@
 class CScriptedSentence : public CBaseToggle
 {
 public:
+	enum class SoundRadius
+	{
+		SMALL = 0,
+		MEDIUM,
+		LARGE,
+		PLAY_EVERYWHERE
+	};
+
+public:
 	DECLARE_CLASS( CScriptedSentence, CBaseToggle );
 	DECLARE_DATADESC();
 

@@ -3,8 +3,6 @@
 #include "cbase.h"
 #include "CPathCorner.h"
 
-#include "CFuncTrackTrain.h"
-
 #include "CFuncTrain.h"
 
 BEGIN_DATADESC( CFuncTrain )
@@ -29,9 +27,8 @@ void CFuncTrain::Spawn( void )
 
 	pev->movetype = MOVETYPE_PUSH;
 
-	//TODO: this should be SF_TRAIN_PASSABLE - Solokiller
 	//Remove tracktrain include when changed
-	if( FBitSet( pev->spawnflags, SF_TRACKTRAIN_PASSABLE ) )
+	if( FBitSet( pev->spawnflags, SF_TRAIN_PASSABLE ) )
 		pev->solid = SOLID_NOT;
 	else
 		pev->solid = SOLID_BSP;
