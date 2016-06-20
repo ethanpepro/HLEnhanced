@@ -25,7 +25,7 @@
 #include "SaveRestore.h"
 #include "CBreakable.h"
 #include "Decals.h"
-#include "explode.h"
+#include "entities/effects/CEnvExplosion.h"
 
 extern DLL_GLOBAL Vector		g_vecAttackDir;
 

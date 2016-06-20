@@ -41,6 +41,8 @@
 #include "netadr.h"
 #include "pm_shared.h"
 
+//TODO: split this file into pieces - Solokiller
+
 #if !defined ( _WIN32 )
 #include <ctype.h>
 #endif

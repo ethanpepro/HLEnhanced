@@ -1,7 +1,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "explode.h"
+#include "entities/effects/CEnvExplosion.h"
 
 #include "CFuncTankMortar.h"
 

@@ -16,6 +16,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+//TODO: tidy headers and such, make common if possible - Solokiller
+
 #include "../common/nowin.h"
 
 #include "Platform.h"

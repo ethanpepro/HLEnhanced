@@ -26,7 +26,7 @@
 #include "Effects.h"
 #include "entities/CSoundEnt.h"
 #include "Decals.h"
-#include "explode.h"
+#include "entities/effects/CEnvExplosion.h"
 #include "entities/CBreakable.h"
 #include "entities/effects/CGib.h"
 

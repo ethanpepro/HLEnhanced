@@ -207,15 +207,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\dlls\animation.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\client.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\explode.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\game.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -999,24 +990,27 @@
     <ClCompile Include="..\..\game\server\entities\CBaseEntity.combat.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\client.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\animation.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CShower.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\effects\CEnvExplosion.cpp">
+      <Filter>Source Files\game\server\entities\effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\dlls\animation.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\dlls\cdll_dll.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\client.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\engine\eiface.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\enginecallback.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\explode.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\extdll.h">
@@ -1822,6 +1816,18 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\util.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\client.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\animation.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CShower.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\effects\CEnvExplosion.h">
+      <Filter>Header Files\game\server\entities\effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
