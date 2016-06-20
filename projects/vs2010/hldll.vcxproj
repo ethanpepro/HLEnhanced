@@ -68,7 +68,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ModuleDefinitionFile>$(ProjectDir)..\..\dlls\hl.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>$(ProjectDir)hl.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent />
     <PostBuildEvent />
@@ -91,7 +91,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <ModuleDefinitionFile>$(ProjectDir)..\..\dlls\hl.def</ModuleDefinitionFile>
+      <ModuleDefinitionFile>$(ProjectDir)hl.def</ModuleDefinitionFile>
     </Link>
     <PostBuildEvent />
     <PostBuildEvent />
