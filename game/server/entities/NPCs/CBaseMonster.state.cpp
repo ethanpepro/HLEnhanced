@@ -20,7 +20,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "entities/NPCs/Monsters.h"
 #include "animation.h"
 #include "SaveRestore.h"

@@ -19,7 +19,7 @@
 #include "entities/NPCs/Monsters.h"
 #include "Weapons.h"
 #include "CGlock.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "entities/CBasePlayer.h"
 
 enum glock_e {

@@ -21,7 +21,7 @@
 #include "cbase.h"
 #include "entities/NPCs/Monsters.h"
 #include "entities/NPCs/Schedule.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "Effects.h"
 #include "Decals.h"
 #include "entities/CSoundEnt.h"

@@ -22,7 +22,7 @@
 #include	"entities/NPCs/Schedule.h"
 #include	"DefaultAI.h"
 #include	"entities/CSoundEnt.h"
-#include	"nodes.h"
+#include	"nodes/Nodes.h"
 #include	"entities/NPCs/scripted/Scripted.h"
 
 //=========================================================

@@ -23,7 +23,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "Monsters.h"
 #include "animation.h"
 #include "SaveRestore.h"

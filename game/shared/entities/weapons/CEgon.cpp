@@ -19,7 +19,7 @@
 #include "entities/NPCs/Monsters.h"
 #include "Weapons.h"
 #include "CEgon.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "Effects.h"
 #include "customentity.h"
 #include "gamerules/GameRules.h"

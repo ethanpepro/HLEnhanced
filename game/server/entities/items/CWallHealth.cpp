@@ -17,7 +17,7 @@
 #include "cbase.h"
 #include "entities/NPCs/Monsters.h"
 #include "Weapons.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "entities/CBasePlayer.h"
 #include "gamerules/GameRules.h"
 

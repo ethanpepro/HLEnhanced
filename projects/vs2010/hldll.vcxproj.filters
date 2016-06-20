@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\dlls">
-      <UniqueIdentifier>{a59f65b1-455f-459d-bc2a-75775255cd5c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\pm_shared">
       <UniqueIdentifier>{7f184267-1d16-4bbc-9212-a804fcd04e6a}</UniqueIdentifier>
     </Filter>
@@ -205,17 +202,14 @@
     <Filter Include="Source Files\game\server\entities\bmodels">
       <UniqueIdentifier>{4873d09c-bcd6-4e68-a3e2-d85aecc91a19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\server\nodes">
+      <UniqueIdentifier>{4e810e51-c41c-4ba7-a00e-32b586299e48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\server\nodes">
+      <UniqueIdentifier>{46343c94-2c71-4986-980c-ef2cd5d9b47d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\dlls\game.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\globals.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\dlls\nodes.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp">
       <Filter>Source Files\game_shared</Filter>
     </ClCompile>
@@ -1002,6 +996,33 @@
     <ClCompile Include="..\..\game\server\entities\effects\CEnvExplosion.cpp">
       <Filter>Source Files\game\server\entities\effects</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\game.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\globals.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\nodes\CGraph.cpp">
+      <Filter>Source Files\game\server\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\nodes\CNodeEnt.cpp">
+      <Filter>Source Files\game\server\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\nodes\CStack.cpp">
+      <Filter>Source Files\game\server\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\nodes\CQueue.cpp">
+      <Filter>Source Files\game\server\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\nodes\CQueuePriority.cpp">
+      <Filter>Source Files\game\server\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\nodes\CTestHull.cpp">
+      <Filter>Source Files\game\server\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\nodes\CNodeViewer.cpp">
+      <Filter>Source Files\game\server\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\cdll_dll.h">
@@ -1014,9 +1035,6 @@
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\extdll.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\nodes.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_shared.h">
@@ -1828,6 +1846,42 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\effects\CEnvExplosion.h">
       <Filter>Header Files\game\server\entities\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\game.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CGraph.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CNode.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\NodeConstants.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CLink.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CNodeEnt.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CStack.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CQueue.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CQueuePriority.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\Nodes.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CTestHull.h">
+      <Filter>Header Files\game\server\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\nodes\CNodeViewer.h">
+      <Filter>Header Files\game\server\nodes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

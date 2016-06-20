@@ -23,6 +23,8 @@
 
 */
 
+//TODO: figure out which ones can be removed or refactored - Solokiller
+
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"

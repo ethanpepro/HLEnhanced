@@ -15,91 +15,23 @@
 //=========================================================
 // nodes.h
 //=========================================================
+#ifndef GAME_SERVER_NODES_CGRAPH_H
+#define GAME_SERVER_NODES_CGRAPH_H
 
-//=========================================================
-// DEFINE
-//=========================================================
-#define MAX_STACK_NODES	    100
-#define	NO_NODE				-1
-#define MAX_NODE_HULLS		4
+#include "CNode.h"
+#include "CLink.h"
 
-#define bits_NODE_LAND      ( 1 << 0 )  // Land node, so nudge if necessary.
-#define bits_NODE_AIR       ( 1 << 1 )  // Air node, don't nudge.
-#define bits_NODE_WATER     ( 1 << 2 )  // Water node, don't nudge.
-#define bits_NODE_GROUP_REALM (bits_NODE_LAND | bits_NODE_AIR | bits_NODE_WATER)
-
-//=========================================================
-// Instance of a node.
-//=========================================================
-class CNode
-{
-public:
-	Vector	m_vecOrigin;// location of this node in space
-	Vector  m_vecOriginPeek; // location of this node (LAND nodes are NODE_HEIGHT higher).
-	byte    m_Region[3]; // Which of 256 regions do each of the coordinate belong?
-	int		m_afNodeInfo;// bits that tell us more about this location
-	
-	int		m_cNumLinks; // how many links this node has
-	int		m_iFirstLink;// index of this node's first link in the link pool.
-
-	// Where to start looking in the compressed routing table (offset into m_pRouteInfo).
-	// (4 hull sizes -- smallest to largest + fly/swim), and secondly, door capability.
-	//
-	int		m_pNextBestNode[MAX_NODE_HULLS][2];
-
-	// Used in finding the shortest path. m_fClosestSoFar is -1 if not visited.
-	// Then it is the distance to the source. If another path uses this node
-	// and has a closer distance, then m_iPreviousNode is also updated.
-	//
-	float   m_flClosestSoFar; // Used in finding the shortest path.
-	int		m_iPreviousNode;
-
-	short	m_sHintType;// there is something interesting in the world at this node's position
-	short	m_sHintActivity;// there is something interesting in the world at this node's position
-	float	m_flHintYaw;// monster on this node should face this yaw to face the hint.
-};
-
-//=========================================================
-// CLink - A link between 2 nodes
-//=========================================================
-#define		bits_LINK_SMALL_HULL	( 1 << 0 )// headcrab box can fit through this connection
-#define		bits_LINK_HUMAN_HULL	( 1 << 1 )// player box can fit through this connection
-#define		bits_LINK_LARGE_HULL	( 1 << 2 )// big box can fit through this connection
-#define		bits_LINK_FLY_HULL		( 1 << 3 )// a flying big box can fit through this connection
-#define		bits_LINK_DISABLED		( 1 << 4 )// link is not valid when the set
-
-#define		NODE_SMALL_HULL			0
-#define		NODE_HUMAN_HULL			1
-#define		NODE_LARGE_HULL			2
-#define		NODE_FLY_HULL			3
-
-class CLink
-{
-public:
-	int		m_iSrcNode;// the node that 'owns' this link ( keeps us from having to make reverse lookups )
-	int		m_iDestNode;// the node on the other end of the link. 
-	
-	entvars_t	*m_pLinkEnt;// the entity that blocks this connection (doors, etc)
-
-	// m_szLinkEntModelname is not necessarily NULL terminated (so we can store it in a more alignment-friendly 4 bytes)
-	char	m_szLinkEntModelname[ 4 ];// the unique name of the brush model that blocks the connection (this is kept for save/restore)
-
-	int		m_afLinkInfo;// information about this link
-	float	m_flWeight;// length of the link line segment
-};
-
-
-typedef struct
+struct DIST_INFO
 {
 	int m_SortedBy[3];
 	int m_CheckedEvent;
-} DIST_INFO;
+};
 
-typedef struct
+struct CACHE_ENTRY
 {
 	Vector v;
 	short n;		// Nearest node or -1 if no node found.
-} CACHE_ENTRY;
+};
 
 //=========================================================
 // CGraph 
@@ -261,120 +193,6 @@ public:
 #endif
 };
 
-//=========================================================
-// Nodes start out as ents in the level. The node graph 
-// is built, then these ents are discarded. 
-//=========================================================
-class CNodeEnt : public CBaseEntity
-{
-	void Spawn() override;
-	void KeyValue( KeyValueData *pkvd ) override;
-	virtual int	ObjectCaps() const override { return CBaseEntity :: ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-
-	short m_sHintType;
-	short m_sHintActivity;
-};
-
-
-//=========================================================
-// CStack - last in, first out.
-//=========================================================
-class CStack 
-{
-public:
-			CStack( void );
-	void	Push( int value );
-	int		Pop( void );
-	int		Top( void );
-	int		Empty( void ) { return m_level==0; }
-	int		Size( void ) { return m_level; }
-	void    CopyToArray ( int *piArray );
-
-private:
-	int		m_stack[ MAX_STACK_NODES ];
-	int		m_level;
-};
-
-
-//=========================================================
-// CQueue - first in, first out.
-//=========================================================
-class CQueue
-{
-public:
-
-	CQueue( void );// constructor
-	inline int Full ( void ) { return ( m_cSize == MAX_STACK_NODES ); }
-	inline int Empty ( void ) { return ( m_cSize == 0 ); }
-	//inline int Tail ( void ) { return ( m_queue[ m_tail ] ); }
-	inline int Size ( void ) { return ( m_cSize ); }
-	void Insert( int, float );
-	int Remove( float & );
-
-private:
-	int	m_cSize;
-    struct tag_QUEUE_NODE
-    {
-        int   Id;
-        float Priority;
-    } m_queue[ MAX_STACK_NODES ];
-	int m_head;
-	int m_tail;
-};
-
-//=========================================================
-// CQueuePriority - Priority queue (smallest item out first).
-//
-//=========================================================
-class CQueuePriority
-{
-public:
-
-	CQueuePriority( void );// constructor
-	inline int Full ( void ) { return ( m_cSize == MAX_STACK_NODES ); }
-	inline int Empty ( void ) { return ( m_cSize == 0 ); }
-	//inline int Tail ( float & ) { return ( m_queue[ m_tail ].Id ); }
-	inline int Size ( void ) { return ( m_cSize ); }
-	void Insert( int, float );
-	int Remove( float &);
-
-private:
-	int	m_cSize;
-    struct tag_HEAP_NODE
-    {
-        int   Id;
-        float Priority;
-    } m_heap[ MAX_STACK_NODES ];
-	void Heap_SiftDown(int);
-	void Heap_SiftUp(void);
-
-};
-
-//=========================================================
-// hints - these MUST coincide with the HINTS listed under
-// info_node in the FGD file!
-//=========================================================
-enum
-{
-	HINT_NONE = 0,
-	HINT_WORLD_DOOR,
-	HINT_WORLD_WINDOW,
-	HINT_WORLD_BUTTON,
-	HINT_WORLD_MACHINERY,
-	HINT_WORLD_LEDGE,
-	HINT_WORLD_LIGHT_SOURCE,
-	HINT_WORLD_HEAT_SOURCE,
-	HINT_WORLD_BLINKING_LIGHT,
-	HINT_WORLD_BRIGHT_COLORS,
-	HINT_WORLD_HUMAN_BLOOD,
-	HINT_WORLD_ALIEN_BLOOD,
-
-	HINT_TACTICAL_EXIT = 100,
-	HINT_TACTICAL_VANTAGE,
-	HINT_TACTICAL_AMBUSH,
-
-	HINT_STUKA_PERCH = 300,
-	HINT_STUKA_LANDING,
-};
-
 extern CGraph WorldGraph;
+
+#endif //GAME_SERVER_NODES_CGRAPH_H

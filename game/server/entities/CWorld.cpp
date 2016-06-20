@@ -29,7 +29,7 @@ precaches and defs for entities and other data that must always be available.
 #include "client.h"
 #include "gamerules/GameRules.h"
 
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "Decals.h"
 
 #include "CMap.h"

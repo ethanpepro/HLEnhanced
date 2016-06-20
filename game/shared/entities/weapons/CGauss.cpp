@@ -18,7 +18,7 @@
 #include "entities/NPCs/Monsters.h"
 #include "Weapons.h"
 #include "CGauss.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "entities/CBasePlayer.h"
 #include "entities/CSoundEnt.h"
 #include "shake.h"

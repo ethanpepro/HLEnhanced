@@ -18,7 +18,7 @@
 #include "entities/NPCs/Monsters.h"
 #include "Weapons.h"
 #include "CHornetGun.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "entities/CBasePlayer.h"
 #include "entities/NPCs/CHornet.h"
 #include "gamerules/GameRules.h"

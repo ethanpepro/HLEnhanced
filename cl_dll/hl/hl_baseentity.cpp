@@ -26,7 +26,7 @@ This file contains "stubs" of class member implementations so that we can predic
 #include	"cbase.h"
 #include	"entities/CBasePlayer.h"
 #include	"Weapons.h"
-#include	"nodes.h"
+#include	"nodes/Nodes.h"
 #include	"entities/CSoundEnt.h"
 #include	"Skill.h"
 

@@ -17,7 +17,7 @@
 #include "cbase.h"
 #include "Monsters.h"
 #include "Weapons.h"
-#include "nodes.h"
+#include "nodes/Nodes.h"
 #include "Effects.h"
 
 #include "CApache.h"
