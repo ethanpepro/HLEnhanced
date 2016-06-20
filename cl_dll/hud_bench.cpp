@@ -13,6 +13,7 @@
 #include "pm_defs.h"
 #include "event_api.h"
 #include "com_model.h"
+#include "mathlib.h"
 
 #include "bench.h"
 
@@ -1077,7 +1078,7 @@ void Bench_SetViewOrigin( Vector& vieworigin, float frametime )
 	
 	ang = vec3_origin;
 
-	AngleVectors( ang, NULL, right, NULL );
+	AngleVectors( ang, NULL, &right, NULL );
 
 	// offset along right axis
 	move = right * drift;

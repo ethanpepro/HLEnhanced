@@ -12,6 +12,7 @@
 #include "vgui_TeamFortressViewport.h"
 #include "vgui_SpectatorPanel.h"
 #include "hltv.h"
+#include "mathlib.h"
 
 #include "pm_shared.h"
 #include "pm_defs.h"
@@ -100,7 +101,7 @@ void SpectatorSpray(void)
 	if ( !gEngfuncs.IsSpectateOnly() )
 		return;
 
-	AngleVectors(v_angles,forward,NULL,NULL);
+	AngleVectors(v_angles,&forward,NULL,NULL);
 	forward = forward * 128;
 	forward = forward + v_origin;
 	pmtrace_t * trace = gEngfuncs.PM_TraceLine( v_origin, forward, PM_TRACELINE_PHYSENTSONLY, 2, -1 );
@@ -594,7 +595,7 @@ int CHudSpectator::Draw(float flTime)
 	if ( (m_moveDelta != 0.0f) && (g_iUser1 != OBS_ROAMING) )
 	{
 		Vector	right;
-		AngleVectors(v_angles, NULL, right, NULL);
+		AngleVectors(v_angles, NULL, &right, NULL);
 		right = right.Normalize();
 		right = right * m_moveDelta;
 
@@ -1549,7 +1550,7 @@ void CHudSpectator::DrawOverviewEntities()
 		// see R_DrawSpriteModel
 		// draws players sprite
 
-		AngleVectors(ent->angles, right, up, NULL );
+		AngleVectors(ent->angles, &right, &up, NULL );
 
 		origin = ent->origin;
 
@@ -1683,7 +1684,7 @@ void CHudSpectator::DrawOverviewEntities()
 	
 	gEngfuncs.pTriAPI->Color4f( r, g, b, 1.0 );
 
-	AngleVectors(angles, forward, NULL, NULL );
+	AngleVectors(angles, &forward, NULL, NULL );
 	forward = forward * 512.0f;
 	
 	offset[0] =  0.0f; 

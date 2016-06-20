@@ -41,6 +41,16 @@ static int tracerCount[ MAX_CLIENTS ];
 
 #include "pm_shared.h"
 
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Weapons.h"
+#include "entities/weapons/CGlock.h"
+#include "entities/weapons/CShotgun.h"
+#include "entities/weapons/CMP5.h"
+#include "entities/weapons/CPython.h"
+#include "entities/weapons/CGauss.h"
+
 void V_PunchAxis( int axis, float punch );
 void VectorAngles( const float *forward, float *angles );
 
@@ -1482,7 +1492,7 @@ void EV_TripmineFire( event_args_t *args )
 	Vector view_ofs, forward;
 	pmtrace_t tr;
 
-	AngleVectors ( angles, forward, NULL, NULL );
+	AngleVectors ( angles, &forward, NULL, NULL );
 		
 	if ( !EV_IsLocal ( idx ) )
 		return;
@@ -1534,7 +1544,7 @@ void EV_SnarkFire( event_args_t *args )
 	Vector view_ofs, forward;
 	pmtrace_t tr;
 
-	AngleVectors ( angles, forward, NULL, NULL );
+	AngleVectors ( angles, &forward, NULL, NULL );
 		
 	if ( !EV_IsLocal ( idx ) )
 		return;

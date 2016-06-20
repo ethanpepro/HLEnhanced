@@ -14,8 +14,6 @@
 // defaults for clientinfo messages
 //TODO: defined in client.cpp - Solokiller
 #define	DEFAULT_VIEWHEIGHT	28
-//TODO: defined in util.h - Solokiller
-#define VEC_DUCK_VIEW 12
 
 #include "Damage.h"
 

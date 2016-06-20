@@ -20,6 +20,7 @@
 #include "const.h"
 #include "entity_state.h"
 #include "cl_entity.h"
+#include "mathlib.h"
 
 #include "pm_defs.h"
 #include "event_api.h"

@@ -18,6 +18,8 @@
 #include "const.h"
 #include "entity_state.h"
 #include "cl_entity.h"
+#include "extdll.h"
+#include "util.h"
 
 #include "r_efx.h"
 
@@ -121,7 +123,7 @@ void EV_GetGunPosition( event_args_t *args, Vector& pos, const Vector& origin )
 		}
 		else if ( args->ducking == 1 )
 		{
-			view_ofs[2] = VEC_DUCK_VIEW;
+			view_ofs = VEC_DUCK_VIEW;
 		}
 	}
 
@@ -181,7 +183,7 @@ void EV_GetDefaultShellInfo( event_args_t *args,
 		}
 		else if ( args->ducking == 1 )
 		{
-			view_ofs[2] = VEC_DUCK_VIEW;
+			view_ofs = VEC_DUCK_VIEW;
 		}
 	}
 

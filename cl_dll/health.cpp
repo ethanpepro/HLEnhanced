@@ -21,6 +21,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "math.h"
+#include "mathlib.h"
 
 #include "hud.h"
 #include "cl_util.h"

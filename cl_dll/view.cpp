@@ -5,6 +5,7 @@
 #include "cvardef.h"
 #include "usercmd.h"
 #include "const.h"
+#include "mathlib.h"
 
 #include "entity_state.h"
 #include "cl_entity.h"
@@ -889,7 +890,7 @@ void V_GetChaseOrigin( const Vector& angles, const Vector& origin, float distanc
 	cl_entity_t	 *	ent = NULL;
 	
 	// Trace back from the target using the player's view angles
-	AngleVectors(angles, forward, NULL, NULL);
+	AngleVectors(angles, &forward, NULL, NULL);
 
 	forward = forward * -1;
 
@@ -1321,7 +1322,7 @@ void V_GetMapFreePosition( const Vector cl_angles, Vector& origin, Vector& angle
 	zScaledTarget[2] = gHUD.m_Spectator.m_mapOrigin[2] * (( 90.0f - angles[0] ) / 90.0f );
 	
 
-	AngleVectors(angles, forward, NULL, NULL);
+	AngleVectors(angles, &forward, NULL, NULL);
 
 	forward = forward.Normalize();
 
@@ -1364,7 +1365,7 @@ void V_GetMapChasePosition(int target, const Vector& cl_angles, Vector& origin, 
 	origin[2] *= (( 90.0f - angles[0] ) / 90.0f );
 	angles[2] = 0.0f;	// don't roll angle (if chased player is dead)
 
-	AngleVectors(angles, forward, NULL, NULL);
+	AngleVectors(angles, &forward, NULL, NULL);
 
 	forward = forward.Normalize();
 

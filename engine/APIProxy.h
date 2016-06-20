@@ -139,8 +139,8 @@ typedef void						(*pfnEngSrc_pfnFillRGBA_t )			( int x, int y, int width, int h
 typedef int							(*pfnEngSrc_pfnGetScreenInfo_t ) 		( struct SCREENINFO_s *pscrinfo );
 typedef void						(*pfnEngSrc_pfnSetCrosshair_t )		( HSPRITE hspr, wrect_t rc, int r, int g, int b );
 typedef struct cvar_s *				(*pfnEngSrc_pfnRegisterVariable_t )	( char *szName, char *szValue, int flags );
-typedef float						(*pfnEngSrc_pfnGetCvarFloat_t )		( char *szName );
-typedef char*						(*pfnEngSrc_pfnGetCvarString_t )		( char *szName );
+typedef float						(*pfnEngSrc_pfnGetCvarFloat_t )		( const char* pszName );
+typedef const char*					(*pfnEngSrc_pfnGetCvarString_t )		( const char* pszName );
 typedef int							(*pfnEngSrc_pfnAddCommand_t )			( char *cmd_name, void (*pfnEngSrc_function)(void) );
 typedef int							(*pfnEngSrc_pfnHookUserMsg_t )			( char *szMsgName, pfnUserMsgHook pfn );
 typedef int							(*pfnEngSrc_pfnServerCmd_t )			( char *szCmdString );
