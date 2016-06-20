@@ -28,8 +28,6 @@
 
 #include "CISlave.h"
 
-extern DLL_GLOBAL int		g_iSkillLevel;
-
 const char *CISlave::pAttackHitSounds[] =
 {
 	"zombie/claw_strike1.wav",
@@ -285,7 +283,7 @@ void CISlave :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case ISLAVE_AE_ZAP_POWERUP:
 		{
 			// speed up attack when on hard
-			if (g_iSkillLevel == SKILL_HARD)
+			if (gSkillData.GetSkillLevel() == SKILL_HARD)
 				pev->framerate = 1.5;
 
 			UTIL_MakeAimVectors( pev->angles );

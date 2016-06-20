@@ -22,8 +22,6 @@
 
 #include "CApache.h"
 
-extern DLL_GLOBAL int		g_iSkillLevel;
-
 BEGIN_DATADESC(	CApache )
 	DEFINE_FIELD( m_iRockets, FIELD_INTEGER ),
 	DEFINE_FIELD( m_flForce, FIELD_FLOAT ),
@@ -473,7 +471,7 @@ void CApache :: HuntThink( void )
 		}
 
 		// don't fire rockets and gun on easy mode
-		if (g_iSkillLevel == SKILL_EASY)
+		if (gSkillData.GetSkillLevel() == SKILL_EASY)
 			m_flNextRocket = gpGlobals->time + 10.0;
 	}
 

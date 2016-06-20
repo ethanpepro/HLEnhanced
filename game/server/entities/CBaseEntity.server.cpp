@@ -14,6 +14,7 @@
 ****/
 #include "extdll.h"
 #include "util.h"
+#include "ServerInterface.h"
 
 #include "Decals.h"
 

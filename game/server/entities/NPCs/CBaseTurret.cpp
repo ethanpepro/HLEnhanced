@@ -33,8 +33,6 @@
 
 #include "CBaseTurret.h"
 
-extern Vector VecBModelOrigin( entvars_t* pevBModel );
-
 BEGIN_DATADESC(	CBaseTurret )
 	DEFINE_FIELD( m_flMaxSpin, FIELD_FLOAT ),
 	DEFINE_FIELD( m_iSpin, FIELD_INTEGER ),

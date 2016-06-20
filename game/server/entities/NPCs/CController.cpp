@@ -909,7 +909,7 @@ void CController :: Move ( float flInterval )
 			pBlocker = CBaseEntity::Instance( gpGlobals->trace_ent );
 			if (pBlocker)
 			{
-				DispatchBlocked( edict(), pBlocker->edict() );
+				this->Blocked( pBlocker );
 			}
 			if ( pBlocker && m_moveWaitTime > 0 && pBlocker->IsMoving() && !pBlocker->IsPlayer() && (gpGlobals->time-m_flMoveWaitFinished) > 3.0 )
 			{

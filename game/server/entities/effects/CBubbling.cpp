@@ -68,6 +68,7 @@ void CBubbling::KeyValue( KeyValueData *pkvd )
 
 void CBubbling::FizzThink( void )
 {
+	//TODO: This is passing a temporary into the MESSAGE_BEGIN function. Verify that it works properly. - Solokiller
 	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, VecBModelOrigin( pev ) );
 		WRITE_BYTE( TE_FIZZ );
 		WRITE_SHORT( ( short ) ENTINDEX( edict() ) );

@@ -37,6 +37,8 @@
 #include "pm_shared.h"
 #include "hltv.h"
 
+#include "ServerInterface.h"
+
 #include "com_model.h"
 
 #include "entities/CBloodSplat.h"
@@ -52,14 +54,12 @@ extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL	bool		g_fDrawLines;
 //Wasn't initialized - Solokiller
 bool gEvilImpulse101 = false;
-extern DLL_GLOBAL int			g_iSkillLevel;
 extern DLL_GLOBAL bool			gDisplayTitle;
 
 
 bool gInitHUD = true;
 
 extern void respawn(entvars_t *pev, const bool fCopyCorpse);
-extern Vector VecBModelOrigin(entvars_t *pevBModel );
 extern edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer );
 
 // the world node graph
@@ -4081,7 +4081,7 @@ void CBasePlayer::EnableControl(const bool fControl)
 //=========================================================
 Vector CBasePlayer :: GetAutoaimVector( float flDelta )
 {
-	if (g_iSkillLevel == SKILL_HARD)
+	if (gSkillData.GetSkillLevel() == SKILL_HARD)
 	{
 		UTIL_MakeVectors( pev->v_angle + pev->punchangle );
 		return gpGlobals->v_forward;
@@ -4092,7 +4092,7 @@ Vector CBasePlayer :: GetAutoaimVector( float flDelta )
 
 	// always use non-sticky autoaim
 	// UNDONE: use sever variable to chose!
-	if (1 || g_iSkillLevel == SKILL_MEDIUM)
+	if (1 || gSkillData.GetSkillLevel() == SKILL_MEDIUM)
 	{
 		m_vecAutoAim = Vector( 0, 0, 0 );
 		// flDelta *= 0.5;
@@ -4130,7 +4130,7 @@ Vector CBasePlayer :: GetAutoaimVector( float flDelta )
 
 	// always use non-sticky autoaim
 	// UNDONE: use sever variable to chose!
-	if (0 || g_iSkillLevel == SKILL_EASY)
+	if (0 || gSkillData.GetSkillLevel() == SKILL_EASY)
 	{
 		m_vecAutoAim = m_vecAutoAim * 0.67 + angles * 0.33;
 	}

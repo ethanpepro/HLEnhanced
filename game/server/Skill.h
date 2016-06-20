@@ -18,11 +18,49 @@
 // skill.h - skill level concerns
 //=========================================================
 
+enum SkillLevel
+{
+	SKILL_FIRST		= 1,
+
+	SKILL_EASY		= SKILL_FIRST,
+	SKILL_MEDIUM	= 2,
+	SKILL_HARD		= 3,
+
+	SKILL_LAST		= SKILL_HARD
+};
+
+//TODO: refer to the cvars directly when quering for values - Solokiller
 struct skilldata_t
 {
+	/**
+	*	@return The current skill level.
+	*	@see SkillLevel
+	*/
+	SkillLevel GetSkillLevel() const { return m_SkillLevel; }
 
-	int iSkillLevel; // game skill level
+	/**
+	*	Sets the current skill level.
+	*/
+	void SetSkillLevel( const SkillLevel skillLevel )
+	{
+		m_SkillLevel = skillLevel;
+	}
 
+	/**
+	*	Gets the value for the given skill cvar.
+	*	@return Value for the given skill cvar.
+	*/
+	float GetSkillCvar( const char* pszName ) const;
+
+	/**
+	*	Refreshes current skill data.
+	*/
+	void RefreshSkillData();
+
+private:
+	SkillLevel m_SkillLevel; // game skill level
+
+public:
 // Monster Health & Damage
 	float	agruntHealth;
 	float agruntDmgPunch;
@@ -140,16 +178,6 @@ struct skilldata_t
 	float plrArm;
 };
 
-extern	DLL_GLOBAL	skilldata_t	gSkillData;
-float GetSkillCvar( char *pName );
-
-extern DLL_GLOBAL int		g_iSkillLevel;
-
-enum SkillLevel
-{
-	SKILL_EASY		= 1,
-	SKILL_MEDIUM	= 2,
-	SKILL_HARD		= 3,
-};
+extern DLL_GLOBAL skilldata_t gSkillData;
 
 #endif //GAME_SERVER_SKILL_H

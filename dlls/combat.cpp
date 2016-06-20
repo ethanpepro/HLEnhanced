@@ -30,9 +30,6 @@
 #include "Weapons.h"
 #include "entities/effects/CGib.h"
 
-extern DLL_GLOBAL int			g_iSkillLevel;
-
-extern Vector VecBModelOrigin( entvars_t* pevBModel );
 extern entvars_t *g_pevLastInflictor;
 
 bool CBaseMonster::HasHumanGibs()
@@ -518,7 +515,7 @@ When a monster is poisoned via an arrow etc it takes all the poison damage at on
 
 
 
-GLOBALS ASSUMED SET:  g_iSkillLevel
+GLOBALS ASSUMED SET:  gSkillData.GetSkillLevel()
 ============
 */
 int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )

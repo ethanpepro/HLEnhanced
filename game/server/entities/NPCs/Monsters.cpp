@@ -36,9 +36,6 @@
 
 #define MONSTER_CUT_CORNER_DIST		8 // 8 means the monster's bounding box is contained without the box of the node in WC
 
-
-Vector VecBModelOrigin( entvars_t* pevBModel );
-
 extern DLL_GLOBAL	bool	g_fDrawLines;
 extern DLL_GLOBAL	short	g_sModelIndexLaser;// holds the index for the laser beam
 extern DLL_GLOBAL	short	g_sModelIndexLaserDot;// holds the index for the laser beam dot
@@ -1806,7 +1803,7 @@ void CBaseMonster :: Move ( float flInterval )
 		pBlocker = CBaseEntity::Instance( gpGlobals->trace_ent );
 		if (pBlocker)
 		{
-			DispatchBlocked( edict(), pBlocker->edict() );
+			this->Blocked( pBlocker );
 		}
 
 		if ( pBlocker && m_moveWaitTime > 0 && pBlocker->IsMoving() && !pBlocker->IsPlayer() && (gpGlobals->time-m_flMoveWaitFinished) > 3.0 )

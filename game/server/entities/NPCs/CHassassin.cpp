@@ -28,8 +28,6 @@
 
 #include "CHAssassin.h"
 
-extern DLL_GLOBAL int  g_iSkillLevel;
-
 BEGIN_DATADESC(	CHAssassin )
 	DEFINE_FIELD( m_flLastShot, FIELD_TIME ),
 	DEFINE_FIELD( m_flDiviation, FIELD_FLOAT ),
@@ -637,7 +635,7 @@ void CHAssassin :: RunAI( void )
 
 	// always visible if moving
 	// always visible is not on hard
-	if (g_iSkillLevel != SKILL_HARD || m_hEnemy == NULL || pev->deadflag != DEAD_NO || m_Activity == ACT_RUN || m_Activity == ACT_WALK || !(pev->flags & FL_ONGROUND))
+	if (gSkillData.GetSkillLevel() != SKILL_HARD || m_hEnemy == NULL || pev->deadflag != DEAD_NO || m_Activity == ACT_RUN || m_Activity == ACT_WALK || !(pev->flags & FL_ONGROUND))
 		m_iTargetRanderamt = 255;
 	else
 		m_iTargetRanderamt = 20;

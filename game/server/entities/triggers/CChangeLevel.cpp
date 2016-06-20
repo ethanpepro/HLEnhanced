@@ -2,6 +2,7 @@
 #include "util.h"
 #include "gamerules/GameRules.h"
 #include "cbase.h"
+#include "ServerInterface.h"
 
 #include "CFireAndDie.h"
 

@@ -403,3 +403,10 @@ float UTIL_WeaponTimeBase( void );
 *	@return Randomly selected entity, or null if no entities by that name exist.
 */
 CBaseEntity* UTIL_RandomTargetname( const char* const pszName );
+
+/**
+*	Sets an entvars_t keyvalue, if the key can be found in the datamap.
+*/
+void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd );
+
+void SetObjectCollisionBox( entvars_t *pev );

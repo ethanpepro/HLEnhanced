@@ -101,7 +101,6 @@
     <ClCompile Include="..\..\common\CPlane.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
     <ClCompile Include="..\..\dlls\animation.cpp" />
-    <ClCompile Include="..\..\dlls\cbase.cpp" />
     <ClCompile Include="..\..\dlls\client.cpp" />
     <ClCompile Include="..\..\dlls\combat.cpp" />
     <ClCompile Include="..\..\dlls\explode.cpp" />
@@ -334,6 +333,7 @@
     <ClCompile Include="..\..\game\server\saverestore\CRestore.cpp" />
     <ClCompile Include="..\..\game\server\saverestore\CSave.cpp" />
     <ClCompile Include="..\..\game\server\saverestore\CSaveRestoreBuffer.cpp" />
+    <ClCompile Include="..\..\game\server\ServerInterface.cpp" />
     <ClCompile Include="..\..\game\server\Skill.cpp" />
     <ClCompile Include="..\..\game\server\sound\Sound.cpp" />
     <ClCompile Include="..\..\game\server\TempEntity.cpp" />
@@ -601,6 +601,7 @@
     <ClInclude Include="..\..\game\server\saverestore\CRestore.h" />
     <ClInclude Include="..\..\game\server\saverestore\CSave.h" />
     <ClInclude Include="..\..\game\server\saverestore\CSaveRestoreBuffer.h" />
+    <ClInclude Include="..\..\game\server\ServerInterface.h" />
     <ClInclude Include="..\..\game\server\Skill.h" />
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />

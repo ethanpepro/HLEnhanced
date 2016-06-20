@@ -210,9 +210,6 @@
     <ClCompile Include="..\..\dlls\animation.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\cbase.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\client.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -998,6 +995,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\server\entities\bmodels\CPendulum.cpp">
       <Filter>Source Files\game\server\entities\bmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\ServerInterface.cpp">
+      <Filter>Source Files\game\server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1819,6 +1819,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\bmodels\CPendulum.h">
       <Filter>Header Files\game\server\entities\bmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\ServerInterface.h">
+      <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

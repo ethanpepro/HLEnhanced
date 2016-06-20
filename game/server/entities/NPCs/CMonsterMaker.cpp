@@ -22,6 +22,7 @@
 #include "cbase.h"
 #include "Monsters.h"
 #include "SaveRestore.h"
+#include "ServerInterface.h"
 
 #include "CMonsterMaker.h"
 

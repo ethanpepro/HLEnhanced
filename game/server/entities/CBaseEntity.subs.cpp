@@ -31,8 +31,6 @@ extern CGraph WorldGraph;
 
 extern bool FEntIsVisible(entvars_t* pev, entvars_t* pevTarget);
 
-extern DLL_GLOBAL int g_iSkillLevel;
-
 // This updates global tables that need to know about entities being removed
 void CBaseEntity::UpdateOnRemove( void )
 {
