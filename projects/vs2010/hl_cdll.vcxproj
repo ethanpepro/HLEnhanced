@@ -183,7 +183,7 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CSqueak.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CTripmine.cpp" />
-    <ClCompile Include="..\..\game_shared\shared_game_utils.cpp" />
+    <ClCompile Include="..\..\game\shared\shared_game_utils.cpp" />
     <ClCompile Include="..\..\game_shared\vgui_checkbutton2.cpp" />
     <ClCompile Include="..\..\game_shared\vgui_grid.cpp" />
     <ClCompile Include="..\..\game_shared\vgui_helpers.cpp" />
@@ -231,6 +231,7 @@
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\engine\IClientVGUI.h" />
     <ClInclude Include="..\..\engine\IGameUIFuncs.h" />
+    <ClInclude Include="..\..\game\shared\Damage.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />
     <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />
@@ -251,9 +252,8 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
+    <ClInclude Include="..\..\game\shared\shared_game_utils.h" />
     <ClInclude Include="..\..\game\shared\Weapons.h" />
-    <ClInclude Include="..\..\game_shared\Damage.h" />
-    <ClInclude Include="..\..\game_shared\shared_game_utils.h" />
     <ClInclude Include="..\..\game_shared\vgui_scrollbar2.h" />
     <ClInclude Include="..\..\game_shared\vgui_slider2.h" />
     <ClInclude Include="..\..\game_shared\voice_banmgr.h" />

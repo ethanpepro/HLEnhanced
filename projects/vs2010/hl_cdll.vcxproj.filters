@@ -100,6 +100,9 @@
     <Filter Include="Source Files\game\client\entities\weapons">
       <UniqueIdentifier>{6260772a-d207-4b83-81dd-87acd260b591}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\client">
+      <UniqueIdentifier>{041357be-4b6b-4991-af96-272401dca8f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\cl_dll\ev_hldm.cpp">
@@ -306,9 +309,6 @@
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp">
       <Filter>Source Files\pm_shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game_shared\shared_game_utils.cpp">
-      <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\public\math\mathlib.cpp">
       <Filter>Source Files\public\math</Filter>
     </ClCompile>
@@ -383,6 +383,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\client\entities\CBaseEntity.client.cpp">
       <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\shared_game_utils.cpp">
+      <Filter>Source Files\game\shared</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -506,12 +509,6 @@
     <ClInclude Include="..\..\engine\IGameUIFuncs.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\game_shared\Damage.h">
-      <Filter>Header Files\game_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game_shared\shared_game_utils.h">
-      <Filter>Header Files\game_shared</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\public\math\mathlib.h">
       <Filter>Header Files\public\math</Filter>
     </ClInclude>
@@ -585,6 +582,12 @@
       <Filter>Header Files\game\shared\entities</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\Weapons.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\shared_game_utils.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\Damage.h">
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>

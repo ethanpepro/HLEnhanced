@@ -43,6 +43,7 @@ cvar_t sv_alltalk = {"sv_alltalk", "0", FCVAR_SERVER};
 // ------------------------------------------------------------------------ //
 
 // Find a player with a case-insensitive name search.
+//TODO: move to util.h/.cpp - Solokiller
 static CBasePlayer* FindPlayerByName(const char *pTestName)
 {
 	for(int i=1; i <= gpGlobals->maxClients; i++)

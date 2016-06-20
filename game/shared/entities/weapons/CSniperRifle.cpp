@@ -37,6 +37,9 @@ void CSniperRifle::Spawn()
 {
 	Precache();
 
+	//Give it a name so it works on the client side - Solokiller
+	pev->classname = MAKE_STRING( "weapon_sniperrifle" );
+
 	m_iId = WEAPON_SNIPERRIFLE;
 
 	SET_MODEL( edict(), "models/w_m40a1.mdl" );

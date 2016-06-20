@@ -102,7 +102,6 @@
     <ClCompile Include="..\..\common\Platform.cpp" />
     <ClCompile Include="..\..\game\server\animation.cpp" />
     <ClCompile Include="..\..\game\server\ButtonSounds.cpp" />
-    <ClCompile Include="..\..\game\server\CBasePlayer.observer.cpp" />
     <ClCompile Include="..\..\game\server\CGlobalState.cpp" />
     <ClCompile Include="..\..\game\server\client.cpp" />
     <ClCompile Include="..\..\game\server\CMap.cpp" />
@@ -124,6 +123,7 @@
     <ClCompile Include="..\..\game\server\entities\CBaseEntity.combat.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseEntity.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseEntity.subs.cpp" />
+    <ClCompile Include="..\..\game\server\entities\CBasePlayer.observer.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBasePlayer.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseSpectator.cpp" />
     <ClCompile Include="..\..\game\server\entities\CBaseToggle.cpp" />
@@ -363,7 +363,7 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CSqueak.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CTripmine.cpp" />
-    <ClCompile Include="..\..\game_shared\shared_game_utils.cpp" />
+    <ClCompile Include="..\..\game\shared\shared_game_utils.cpp" />
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp" />
@@ -622,6 +622,7 @@
     <ClInclude Include="..\..\game\server\TempEntity.h" />
     <ClInclude Include="..\..\game\shared\cbase.h" />
     <ClInclude Include="..\..\game\shared\cdll_dll.h" />
+    <ClInclude Include="..\..\game\shared\Damage.h" />
     <ClInclude Include="..\..\game\shared\enginecallback.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />
@@ -645,10 +646,9 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
     <ClInclude Include="..\..\game\shared\extdll.h" />
+    <ClInclude Include="..\..\game\shared\shared_game_utils.h" />
     <ClInclude Include="..\..\game\shared\util.h" />
     <ClInclude Include="..\..\game\shared\Weapons.h" />
-    <ClInclude Include="..\..\game_shared\Damage.h" />
-    <ClInclude Include="..\..\game_shared\shared_game_utils.h" />
     <ClInclude Include="..\..\pm_shared\pm_debug.h" />
     <ClInclude Include="..\..\pm_shared\pm_defs.h" />
     <ClInclude Include="..\..\pm_shared\pm_info.h" />

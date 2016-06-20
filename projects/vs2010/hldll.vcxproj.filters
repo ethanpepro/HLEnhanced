@@ -34,9 +34,6 @@
     <Filter Include="Header Files\public\math">
       <UniqueIdentifier>{80d83e4f-3668-42b9-96cf-f8e4f8dd2bd6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\game_shared">
-      <UniqueIdentifier>{7a081d79-9e3c-48a6-8d9e-e66c8fe32950}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\public">
       <UniqueIdentifier>{d6c79d06-c86f-4128-9170-f34745f96920}</UniqueIdentifier>
     </Filter>
@@ -215,9 +212,6 @@
     </ClCompile>
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp">
       <Filter>Source Files\pm_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\shared_game_utils.cpp">
-      <Filter>Source Files\game_shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\public\math\mathlib.cpp">
       <Filter>Source Files\public\math</Filter>
@@ -822,9 +816,6 @@
     <ClCompile Include="..\..\game\server\Skill.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\server\CBasePlayer.observer.cpp">
-      <Filter>Source Files\game\server\entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\server\entities\items\CAirtank.cpp">
       <Filter>Source Files\game\server\entities\items</Filter>
     </ClCompile>
@@ -1020,6 +1011,12 @@
     <ClCompile Include="..\..\game\server\nodes\CNodeViewer.cpp">
       <Filter>Source Files\game\server\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\shared_game_utils.cpp">
+      <Filter>Source Files\game\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\CBasePlayer.observer.cpp">
+      <Filter>Source Files\game\server\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\engine\eiface.h">
@@ -1048,12 +1045,6 @@
     </ClInclude>
     <ClInclude Include="..\..\public\math\vector.h">
       <Filter>Header Files\public\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game_shared\Damage.h">
-      <Filter>Header Files\game_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game_shared\shared_game_utils.h">
-      <Filter>Header Files\game_shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\public\math\mathlib.h">
       <Filter>Header Files\public\math</Filter>
@@ -1881,6 +1872,12 @@
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\cdll_dll.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\shared_game_utils.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\Damage.h">
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>
