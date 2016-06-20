@@ -12,8 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef ENGINECALLBACK_H
-#define ENGINECALLBACK_H
+#ifndef GAME_SHARED_ENGINECALLBACK_H
+#define GAME_SHARED_ENGINECALLBACK_H
 #pragma once
 
 #include "event_flags.h"
@@ -149,4 +149,4 @@ inline void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float *pOrigin = NULL
 
 #define PLAYER_CNX_STATS		( *g_engfuncs.pfnGetPlayerStats )
 
-#endif		//ENGINECALLBACK_H
+#endif //GAME_SHARED_ENGINECALLBACK_H

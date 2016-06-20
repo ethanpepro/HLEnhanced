@@ -17,8 +17,8 @@
 
 // this file is included by both the game-dll and the client-dll,
 
-#ifndef CDLL_DLL_H
-#define CDLL_DLL_H
+#ifndef GAME_SHARED_CDLL_DLL_H
+#define GAME_SHARED_CDLL_DLL_H
 
 /**
 *	The maximum number of weapons that the engine can network. This is defined as 32 in the SDK, but can handle up to 64.
@@ -48,4 +48,4 @@
 
 #define WEAPON_SUIT			31
 
-#endif
+#endif //GAME_SHARED_CDLL_DLL_H

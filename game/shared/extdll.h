@@ -12,13 +12,12 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef EXTDLL_H
-#define EXTDLL_H
+#ifndef GAME_SHARED_EXTDLL_H
+#define GAME_SHARED_EXTDLL_H
 
-
-//
-// Global header file for extension DLLs
-//
+/*
+*	@file Global header file for extension DLLs
+*/
 
 // Allow "DEBUG" in addition to default "_DEBUG"
 #ifdef _DEBUG
@@ -36,6 +35,11 @@
 
 #include "Platform.h"
 
+// Misc C-runtime library headers
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
+
 #ifndef min
 #define min(a,b)  (((a) < (b)) ? (a) : (b))
 #endif
@@ -44,15 +48,7 @@
 #define max(a,b)  (((a) > (b)) ? (a) : (b))
 #endif
 
-// Misc C-runtime library headers
-#include "stdio.h"
-#include "stdlib.h"
-#include "math.h"
-
-// Header file containing definition of globalvars_t and entvars_t
-typedef unsigned int func_t;					//
-typedef unsigned int string_t;				// from engine's pr_comp.h;
-typedef float vec_t;				// needed before including progdefs.h
+#include "SharedConstants.h"
 
 // Vector class
 #include "vector.h"
@@ -68,4 +64,4 @@ typedef float vec_t;				// needed before including progdefs.h
 // Shared header between the client DLL and the game DLLs
 #include "cdll_dll.h"
 
-#endif //EXTDLL_H
+#endif //GAME_SHARED_EXTDLL_H

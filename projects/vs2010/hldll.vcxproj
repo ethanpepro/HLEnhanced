@@ -374,10 +374,8 @@
     <ClInclude Include="..\..\common\CHashStringPool.h" />
     <ClInclude Include="..\..\common\CPlane.h" />
     <ClInclude Include="..\..\common\Platform.h" />
+    <ClInclude Include="..\..\common\SharedConstants.h" />
     <ClInclude Include="..\..\common\StringUtils.h" />
-    <ClInclude Include="..\..\dlls\cdll_dll.h" />
-    <ClInclude Include="..\..\dlls\enginecallback.h" />
-    <ClInclude Include="..\..\dlls\extdll.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
     <ClInclude Include="..\..\game\server\animation.h" />
@@ -623,6 +621,8 @@
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />
     <ClInclude Include="..\..\game\shared\cbase.h" />
+    <ClInclude Include="..\..\game\shared\cdll_dll.h" />
+    <ClInclude Include="..\..\game\shared\enginecallback.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />
     <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />
@@ -644,6 +644,7 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
+    <ClInclude Include="..\..\game\shared\extdll.h" />
     <ClInclude Include="..\..\game\shared\util.h" />
     <ClInclude Include="..\..\game\shared\Weapons.h" />
     <ClInclude Include="..\..\game_shared\Damage.h" />
