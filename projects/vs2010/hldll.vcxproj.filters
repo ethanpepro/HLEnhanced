@@ -228,9 +228,6 @@
     <ClCompile Include="..\..\dlls\h_ai.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\dlls\h_export.cpp">
-      <Filter>Source Files\dlls</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\dlls\nodes.cpp">
       <Filter>Source Files\dlls</Filter>
     </ClCompile>
@@ -1002,9 +999,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\animation.h">
-      <Filter>Header Files\dlls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\dlls\cbase.h">
       <Filter>Header Files\dlls</Filter>
     </ClInclude>
     <ClInclude Include="..\..\dlls\cdll_dll.h">
@@ -1822,6 +1816,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\ServerInterface.h">
       <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\cbase.h">
+      <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

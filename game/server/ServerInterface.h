@@ -21,6 +21,19 @@
 */
 
 /*
+*	Server library initialization.
+*/
+
+#ifdef _WIN32
+//The one function in Half-Life 1 that uses stdcall. Be aware of this. - Solokiller
+#define GIVEFNPTRS_DLLEXPORT __stdcall
+#else
+#define GIVEFNPTRS_DLLEXPORT DLLEXPORT
+#endif
+
+extern "C" void GIVEFNPTRS_DLLEXPORT GiveFnptrsToDll( enginefuncs_t* pengfuncsFromEngine, globalvars_t* pGlobals );
+
+/*
 *	DLL_FUNCTIONS
 */
 

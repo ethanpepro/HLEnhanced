@@ -107,7 +107,6 @@
     <ClCompile Include="..\..\dlls\game.cpp" />
     <ClCompile Include="..\..\dlls\globals.cpp" />
     <ClCompile Include="..\..\dlls\h_ai.cpp" />
-    <ClCompile Include="..\..\dlls\h_export.cpp" />
     <ClCompile Include="..\..\dlls\nodes.cpp" />
     <ClCompile Include="..\..\dlls\util.cpp" />
     <ClCompile Include="..\..\game\server\ButtonSounds.cpp" />
@@ -369,7 +368,6 @@
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\common\StringUtils.h" />
     <ClInclude Include="..\..\dlls\animation.h" />
-    <ClInclude Include="..\..\dlls\cbase.h" />
     <ClInclude Include="..\..\dlls\cdll_dll.h" />
     <ClInclude Include="..\..\dlls\client.h" />
     <ClInclude Include="..\..\dlls\enginecallback.h" />
@@ -605,6 +603,7 @@
     <ClInclude Include="..\..\game\server\Skill.h" />
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />
+    <ClInclude Include="..\..\game\shared\cbase.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />
     <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />

@@ -24,6 +24,10 @@
 
 #include "ServerInterface.h"
 
+// Holds engine functionality callbacks
+enginefuncs_t g_engfuncs;
+globalvars_t* gpGlobals;
+
 static DLL_FUNCTIONS gFunctionTable =
 {
 	GameDLLInit,				//pfnGameInit
@@ -99,6 +103,12 @@ static NEW_DLL_FUNCTIONS gNewDLLFunctions =
 
 extern "C"
 {
+void GIVEFNPTRS_DLLEXPORT GiveFnptrsToDll( enginefuncs_t* pengfuncsFromEngine, globalvars_t* pGlobals )
+{
+	memcpy( &g_engfuncs, pengfuncsFromEngine, sizeof( enginefuncs_t ) );
+	gpGlobals = pGlobals;
+}
+
 int GetEntityAPI( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion )
 {
 	if( !pFunctionTable || interfaceVersion != INTERFACE_VERSION )
