@@ -42,6 +42,8 @@
 #include "vgui_TeamFortressViewport.h"
 #include "../public/interface.h"
 
+#include "CClientGameInterface.h"
+
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
 TeamFortressViewport *gViewPort = NULL;
@@ -134,15 +136,18 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	gEngfuncs = *pEnginefuncs;
 
 	if (iVersion != CLDLL_INTERFACE_VERSION)
-		return 0;
+		return false;
 
 	memcpy(&gEngfuncs, pEnginefuncs, sizeof(cl_enginefunc_t));
 
 	EV_HookEvents();
 	CL_LoadParticleMan();
 
+	if( !g_Client.Initialize() )
+		return false;
+
 	// get tracker interface, if any
-	return 1;
+	return true;
 }
 
 

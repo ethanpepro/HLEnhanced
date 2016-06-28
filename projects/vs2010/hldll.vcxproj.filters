@@ -1020,6 +1020,15 @@
     <ClCompile Include="..\..\game\server\entities\CPushable.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\CBaseGameInterface.cpp">
+      <Filter>Source Files\game\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\public\interface.cpp">
+      <Filter>Source Files\public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\CServerGameInterface.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\engine\eiface.h">
@@ -1885,6 +1894,15 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\CPushable.h">
       <Filter>Header Files\game\server\entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\CBaseGameInterface.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\interface.h">
+      <Filter>Header Files\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\CServerGameInterface.h">
+      <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

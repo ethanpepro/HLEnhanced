@@ -106,6 +106,7 @@
     <ClCompile Include="..\..\game\server\client.cpp" />
     <ClCompile Include="..\..\game\server\CMap.cpp" />
     <ClCompile Include="..\..\game\server\CMultiDamage.cpp" />
+    <ClCompile Include="..\..\game\server\CServerGameInterface.cpp" />
     <ClCompile Include="..\..\game\server\Decals.cpp" />
     <ClCompile Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.cpp" />
     <ClCompile Include="..\..\game\server\entities\bmodels\CFuncConveyor.cpp" />
@@ -346,6 +347,7 @@
     <ClCompile Include="..\..\game\server\TempEntity.cpp" />
     <ClCompile Include="..\..\game\server\util.cpp" />
     <ClCompile Include="..\..\game\server\Weapons.cpp" />
+    <ClCompile Include="..\..\game\shared\CBaseGameInterface.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp" />
@@ -368,6 +370,7 @@
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp" />
+    <ClCompile Include="..\..\public\interface.cpp" />
     <ClCompile Include="..\..\public\math\mathlib.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +388,7 @@
     <ClInclude Include="..\..\game\server\client.h" />
     <ClInclude Include="..\..\game\server\CMap.h" />
     <ClInclude Include="..\..\game\server\CMultiDamage.h" />
+    <ClInclude Include="..\..\game\server\CServerGameInterface.h" />
     <ClInclude Include="..\..\game\server\Decals.h" />
     <ClInclude Include="..\..\game\server\Effects.h" />
     <ClInclude Include="..\..\game\server\entities\ammo\CBasePlayerAmmo.h" />
@@ -623,6 +627,7 @@
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />
     <ClInclude Include="..\..\game\shared\cbase.h" />
+    <ClInclude Include="..\..\game\shared\CBaseGameInterface.h" />
     <ClInclude Include="..\..\game\shared\cdll_dll.h" />
     <ClInclude Include="..\..\game\shared\Damage.h" />
     <ClInclude Include="..\..\game\shared\enginecallback.h" />
@@ -657,6 +662,7 @@
     <ClInclude Include="..\..\pm_shared\pm_materials.h" />
     <ClInclude Include="..\..\pm_shared\pm_movevars.h" />
     <ClInclude Include="..\..\pm_shared\pm_shared.h" />
+    <ClInclude Include="..\..\public\interface.h" />
     <ClInclude Include="..\..\public\math\mathlib.h" />
     <ClInclude Include="..\..\public\math\vector.h" />
   </ItemGroup>

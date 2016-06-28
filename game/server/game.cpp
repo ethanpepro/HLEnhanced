@@ -15,6 +15,9 @@
 #include "extdll.h"
 #include "eiface.h"
 #include "util.h"
+
+#include "CServerGameInterface.h"
+
 #include "game.h"
 
 cvar_t	displaysoundlist = {"displaysoundlist","0"};
@@ -896,8 +899,11 @@ void GameDLLInit( void )
 // END REGISTER CVARS FOR SKILL LEVEL STUFF
 
 	SERVER_COMMAND( "exec skill.cfg\n" );
+
+	g_Server.Initialize();
 }
 
 void GameDLLShutdown()
 {
+	g_Server.Shutdown();
 }

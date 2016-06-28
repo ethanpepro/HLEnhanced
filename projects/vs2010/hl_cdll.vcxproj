@@ -161,10 +161,12 @@
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\parsemsg.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
+    <ClCompile Include="..\..\game\client\CClientGameInterface.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBaseEntity.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
+    <ClCompile Include="..\..\game\shared\CBaseGameInterface.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp" />
@@ -231,6 +233,8 @@
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\engine\IClientVGUI.h" />
     <ClInclude Include="..\..\engine\IGameUIFuncs.h" />
+    <ClInclude Include="..\..\game\client\CClientGameInterface.h" />
+    <ClInclude Include="..\..\game\shared\CBaseGameInterface.h" />
     <ClInclude Include="..\..\game\shared\Damage.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />

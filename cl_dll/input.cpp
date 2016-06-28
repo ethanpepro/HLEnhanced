@@ -1021,6 +1021,8 @@ void CL_UnloadParticleMan( void );
 void ClearEventList( void );
 #endif
 
+#include "CClientGameInterface.h"
+
 void DLLEXPORT HUD_Shutdown( void )
 {
 	ShutdownInput();
@@ -1030,4 +1032,6 @@ void DLLEXPORT HUD_Shutdown( void )
 #endif
 	
 	CL_UnloadParticleMan();
+
+	g_Client.Shutdown();
 }
