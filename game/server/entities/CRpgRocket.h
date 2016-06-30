@@ -32,7 +32,7 @@ public:
 
 	int m_iTrail;
 	float m_flIgniteTime;
-	CRpg *m_pLauncher;// pointer back to the launcher that fired me. 
+	EHANDLE m_hLauncher;// handle back to the launcher that fired me. 
 };
 
 #endif //GAME_SERVER_ENTITIES_CRPGROCKET_H

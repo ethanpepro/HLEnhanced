@@ -33,4 +33,13 @@ public:
 	CBaseEntity* GetEntity() { return *this; }
 };
 
+/**
+*	Helper function to cast from an EHANDLE to an entity class without having to manually cast to CBaseEntity first.
+*/
+template<typename T>
+T EHANDLE_cast( EHANDLE& handle )
+{
+	return static_cast<T>( static_cast<CBaseEntity*>( handle ) );
+}
+
 #endif //GAME_SHARED_EHANDLE_H
