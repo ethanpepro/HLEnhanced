@@ -1932,7 +1932,7 @@ typedef struct
 	*	Called when the engine has received a cvar value from the client in response to a enginefuncs_t::pfnQueryClientCvarValue2 call.
 	*	@param requestID The ID given to the pfnQueryClientCvarValue2 function.
 	*	@param cvarName Name of the cvar that was queried.
-	*	@see CvarValue
+	*	@see pfnCvarValue
 	*/
 	void			(*pfnCvarValue2)( const edict_t* pEnt, int requestID, const char* pszCvarName, const char* pszValue );
 } NEW_DLL_FUNCTIONS;
