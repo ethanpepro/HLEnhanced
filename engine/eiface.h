@@ -331,8 +331,8 @@ typedef struct enginefuncs_s
 	*	Note: maximum drop distance is 256 units. If the floor is further than that away, the entity will not be moved.
 	*	@param pEntity Entity to drop.
 	*	@return	-1 if the entity is stuck inside a solid object. 
-				0 if the floor is further than 256 units away.
-				1 if the entity was dropped to the floor.
+	*			0 if the floor is further than 256 units away.
+	*			1 if the entity was dropped to the floor.
 	*/
 	int			(*pfnDropToFloor)			( edict_t* pEntity );
 
@@ -447,6 +447,7 @@ typedef struct enginefuncs_s
 	*	Otherwise, returns null.
 	*
 	*	Was defined to return a const char*. However, the engine actually returns texture_t*, which works because texture_t::name is the first element, so it's identical.
+	*	texture_t's layout differs between software and hardware mode, so avoid accessing its members.
 	*
 	*	@param pTextureEntity Entity whose texture is to be retrieved.
 	*	@param v1 Start position.
@@ -506,7 +507,7 @@ typedef struct enginefuncs_s
 	/**
 	*	Sets the given light style to the given value.
 	*	@param style Style index.
-	*	@param val Value to set. This string must life for at least as long as the map itself.
+	*	@param val Value to set. This string must live for at least as long as the map itself.
 	*/
 	void		(*pfnLightStyle)			( int style, const char* val );
 
