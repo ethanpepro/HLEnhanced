@@ -1,6 +1,8 @@
 #ifndef GAME_SHARED_SHARED_GAME_UTILS_H
 #define GAME_SHARED_SHARED_GAME_UTILS_H
 
+#include "FileSystem.h"
+
 #include "CHashStringPool.h"
 
 /**
@@ -16,6 +18,11 @@
 #define CONSTANT
 
 extern DLL_GLOBAL const Vector g_vecZero;
+
+/**
+*	Global filesystem instance.
+*/
+extern IFileSystem* g_pFileSystem;
 
 class CBaseEntity;
 
