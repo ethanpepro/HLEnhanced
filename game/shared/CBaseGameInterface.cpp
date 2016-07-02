@@ -33,7 +33,7 @@ bool CBaseGameInterface::InitFileSystem()
 	char szFSDir[ MAX_PATH ];
 	szFSDir[ 0 ] = 0;
 #ifdef CLIENT_DLL
-	if( gEngfuncs.COM_ExpandFilename( szFsModule, szFSDir, sizeof( szFSDir ) ) == FALSE )
+	if( gEngfuncs.COM_ExpandFilename( szFsModule, szFSDir, sizeof( szFSDir ) ) == false )
 	{
 		return false;
 	}
