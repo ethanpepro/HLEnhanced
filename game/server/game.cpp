@@ -900,7 +900,11 @@ void GameDLLInit( void )
 
 	SERVER_COMMAND( "exec skill.cfg\n" );
 
-	g_Server.Initialize();
+	if( !g_Server.Initialize() )
+	{
+		//No other way to signal failure. - Solokiller
+		SERVER_COMMAND( "quit\n" );
+	}
 }
 
 void GameDLLShutdown()
