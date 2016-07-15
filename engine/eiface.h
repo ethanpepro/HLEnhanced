@@ -1435,12 +1435,13 @@ typedef struct enginefuncs_s
 // ONLY ADD NEW FUNCTIONS TO THE END OF THIS STRUCT.  INTERFACE VERSION IS FROZEN AT 138
 
 // Passed to pfnKeyValue
+//Made pointers const. Shouldn't be modifying them. - Solokiller
 typedef struct KeyValueData_s
 {
-	char	*szClassName;	// in: entity classname
-	char	*szKeyName;		// in: name of key
-	char	*szValue;		// in: value of key
-	int32	fHandled;		// out: DLL sets to true if key-value pair was understood
+	const char*		szClassName;	// in: entity classname
+	const char*		szKeyName;		// in: name of key
+	const char*		szValue;		// in: value of key
+	int32			fHandled;		// out: DLL sets to true if key-value pair was understood
 } KeyValueData;
 
 

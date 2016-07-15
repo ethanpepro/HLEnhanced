@@ -123,6 +123,21 @@ public:
 	virtual CBaseEntity* Respawn() { return nullptr; }
 
 	/**
+	*	@return This entity's classname.
+	*/
+	const char* GetClassname() const { return STRING( pev->classname ); }
+
+	/**
+	*	@return This entity's targetname.
+	*/
+	const char* GetTargetname() const { return STRING( pev->targetname ); }
+
+	/**
+	*	@return This entity's target.
+	*/
+	const char* GetTarget() const { return STRING( pev->target ); }
+
+	/**
 	*	@return This entity's edict.
 	*/
 	const edict_t* edict() const { return ENT( pev ); }

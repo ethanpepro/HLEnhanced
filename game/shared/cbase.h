@@ -44,6 +44,9 @@ class CSound;
 */
 enum FCapability
 {
+	/**
+	*	Not used.
+	*/
 	FCAP_CUSTOMSAVE				= 0x00000001,
 
 	/**
