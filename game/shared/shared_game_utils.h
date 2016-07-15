@@ -19,6 +19,8 @@
 
 extern DLL_GLOBAL const Vector g_vecZero;
 
+extern cvar_t* g_pDeveloper;
+
 /**
 *	Global filesystem instance.
 */
@@ -74,5 +76,21 @@ char *COM_Parse( char *data );
 int COM_TokenWaiting( char *buffer );
 
 char *memfgets( byte *pMemFile, int fileSize, int &filePos, char *pBuffer, int bufferSize );
+
+/**
+*	Cross-dll get cvar pointer function.
+*	@param pszName Name of the cvar.
+*	@return CVar, or null if the cvar doesn't exist.
+*/
+cvar_t* CVarGetPointer( const char* const pszName );
+
+/**
+*	Cross-dll alert function.
+*	@param aType Alert type.
+*	@param pszFormat Format string.
+*	@param ... Arguments.
+*	TODO: aType should be ALERT_TYPE.
+*/
+void Alert( int aType, const char* const pszFormat, ... );
 
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H

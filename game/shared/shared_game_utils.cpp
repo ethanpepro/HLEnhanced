@@ -1,12 +1,24 @@
+#include <cassert>
+#include <cstdarg>
+
 #include "extdll.h"
 #include "util.h"
+
+#ifdef CLIENT_DLL
+//TODO: make headers compatible for both dlls - Solokiller
+#undef CVAR_GET_FLOAT
+#undef CVAR_GET_STRING
+#include "hud.h"
+#include "cl_util.h"
+#endif
+
 #include "cbase.h"
 
 #include "shared_game_utils.h"
 
 DLL_GLOBAL const Vector	g_vecZero = Vector( 0, 0, 0 );
 
-class CBaseEntity;
+cvar_t* g_pDeveloper = nullptr;
 
 CBaseEntity* GET_PRIVATE( edict_t* pent )
 {
@@ -402,4 +414,95 @@ char *memfgets( byte *pMemFile, int fileSize, int &filePos, char *pBuffer, int b
 
 	// No data read, bail
 	return NULL;
+}
+
+cvar_t* CVarGetPointer( const char* const pszName )
+{
+	return
+#ifndef CLIENT_DLL
+	CVAR_GET_POINTER( pszName )
+#else
+	gEngfuncs.pfnGetCvarPointer( pszName )
+#endif
+		;
+}
+
+void Alert( int aType, const char* const pszFormat, ... )
+{
+	assert( pszFormat );
+
+	va_list list;
+
+	va_start( list, pszFormat );
+
+	char szBuffer[ 4096 ];
+
+	const int iResult = vsnprintf( szBuffer, sizeof( szBuffer ), pszFormat, list );
+
+	if( iResult >= 0 && static_cast<size_t>( iResult ) < sizeof( szBuffer ) )
+	{
+#ifndef CLIENT_DLL
+		ALERT( static_cast<ALERT_TYPE>( aType ), "%s", szBuffer );
+#else
+		//Mimic the server version.
+		if( g_pDeveloper->value != 0 || gEngfuncs.GetMaxClients() <= 1 )
+		{
+			const char* pszPrefix = nullptr;
+
+			bool bContinue = true;
+
+			switch( aType )
+			{
+			case at_notice:
+				{
+					pszPrefix = "NOTE: ";
+					break;
+				}
+
+			case at_aiconsole:
+				{
+					if( g_pDeveloper->value < 2 )
+						bContinue = false;
+					break;
+				}
+
+			case at_warning:
+				{
+					pszPrefix = "WARNING: ";
+					break;
+				}
+
+			case at_error:
+				{
+					pszPrefix = "ERROR: ";
+					break;
+				}
+
+			case at_logged:
+				{
+					//No actual logging, just tell the client it was a logged value.
+					pszPrefix = "LOGGED: ";
+					break;
+				}
+
+			case at_console:
+			default: break;
+			}
+
+			if( bContinue )
+			{
+				if( pszPrefix )
+				{
+					gEngfuncs.Con_Printf( "%s%s", pszPrefix, szBuffer );
+				}
+				else
+				{
+					gEngfuncs.Con_Printf( "%s", szBuffer );
+				}
+			}
+		}
+#endif
+	}
+
+	va_end( list );
 }

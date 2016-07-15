@@ -4,7 +4,7 @@ CClientGameInterface g_Client;
 
 bool CClientGameInterface::Initialize()
 {
-	if( !InitFileSystem() )
+	if( !InitializeCommon() )
 		return false;
 
 	return true;
@@ -12,5 +12,5 @@ bool CClientGameInterface::Initialize()
 
 void CClientGameInterface::Shutdown()
 {
-	ShutdownFileSystem();
+	ShutdownCommon();
 }

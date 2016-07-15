@@ -4,7 +4,7 @@ CServerGameInterface g_Server;
 
 bool CServerGameInterface::Initialize()
 {
-	if( !InitFileSystem() )
+	if( !InitializeCommon() )
 		return false;
 
 	return true;
@@ -12,5 +12,5 @@ bool CServerGameInterface::Initialize()
 
 void CServerGameInterface::Shutdown()
 {
-	ShutdownFileSystem();
+	ShutdownCommon();
 }

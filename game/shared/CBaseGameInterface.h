@@ -19,6 +19,17 @@ public:
 
 protected:
 	/**
+	*	Initializes common code.
+	*	@return true on success, false on failure.
+	*/
+	bool InitializeCommon();
+
+	/**
+	*	Shuts down common code.
+	*/
+	void ShutdownCommon();
+
+	/**
 	*	Initializes the filesystem pointer.
 	*	@return true on success, false on failure.
 	*/

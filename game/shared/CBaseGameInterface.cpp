@@ -16,6 +16,23 @@
 CSysModule* g_pFileSystemModule = nullptr;
 IFileSystem* g_pFileSystem = nullptr;
 
+bool CBaseGameInterface::InitializeCommon()
+{
+	if( !InitFileSystem() )
+		return false;
+
+	g_pDeveloper = CVarGetPointer( "developer" );
+
+	return g_pDeveloper != nullptr;
+}
+
+void CBaseGameInterface::ShutdownCommon()
+{
+	g_pDeveloper = nullptr;
+
+	ShutdownFileSystem();
+}
+
 bool CBaseGameInterface::InitFileSystem()
 {
 	// Determine which filesystem to use.
