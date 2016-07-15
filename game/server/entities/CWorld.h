@@ -48,6 +48,8 @@ public:
 
 private:
 	static CWorld* m_pInstance;
+
+	char m_szMapScript[ MAX_PATH ] = { '\0' };
 };
 
 #endif //GAME_SERVER_CWORLD_H

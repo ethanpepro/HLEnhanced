@@ -7,6 +7,13 @@
 #include "CHalfLifeMultiplay.h"
 #include "CHalfLifeTeamplay.h"
 
+//TODO: Should move away from platform specific macros altogether
+#undef min
+#undef max
+#undef VOID
+
+#include "Angelscript/CHLASManager.h"
+
 DLL_GLOBAL CGameRules* g_pGameRules = nullptr;
 
 int g_teamplay = 0;
@@ -19,6 +26,12 @@ CGameRules *InstallGameRules()
 {
 	SERVER_COMMAND( "exec game.cfg\n" );
 	SERVER_EXECUTE();
+
+	//Use the one provided by the script if it exists. - Solokiller
+	if( auto pGameRules = g_ASManager.CreateGameRules() )
+	{
+		return pGameRules;
+	}
 
 	if( !gpGlobals->deathmatch )
 	{

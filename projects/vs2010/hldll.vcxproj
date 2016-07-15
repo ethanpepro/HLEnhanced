@@ -21,14 +21,14 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v120_xp</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -62,13 +62,15 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;SERVER_DLL;_DEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <AdditionalIncludeDirectories>..\..\game\server;..\..\game\shared;..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\external\Angelscript\include;..\..\game\server;..\..\game\shared;..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ModuleDefinitionFile>$(ProjectDir)hl.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\external\Angelscript\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Angelscript.lib;AngelscriptUtils.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent />
     <PostBuildEvent />
@@ -82,7 +84,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;SERVER_DLL;NDEBUG;_WINDOWS;QUIVER;VOXEL;QUAKE2;VALVE_DLL;CLIENT_WEAPONS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\game\server;..\..\game\shared;..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\external\Angelscript\include;..\..\game\server;..\..\game\shared;..\..\dlls;..\..\engine;..\..\common;..\..\pm_shared;..\..\game_shared;..\..\public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
@@ -92,6 +94,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <ModuleDefinitionFile>$(ProjectDir)hl.def</ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\external\Angelscript\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Angelscript.lib;AngelscriptUtils.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent />
     <PostBuildEvent />
@@ -100,6 +104,9 @@
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\CPlane.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\ASGameRules.cpp" />
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\CASEngine.cpp" />
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\CASGlobalVars.cpp" />
     <ClCompile Include="..\..\game\server\animation.cpp" />
     <ClCompile Include="..\..\game\server\ButtonSounds.cpp" />
     <ClCompile Include="..\..\game\server\CGlobalState.cpp" />
@@ -347,6 +354,9 @@
     <ClCompile Include="..\..\game\server\TempEntity.cpp" />
     <ClCompile Include="..\..\game\server\util.cpp" />
     <ClCompile Include="..\..\game\server\Weapons.cpp" />
+    <ClCompile Include="..\..\game\shared\Angelscript\CASBaseModuleBuilder.cpp" />
+    <ClCompile Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.cpp" />
+    <ClCompile Include="..\..\game\shared\Angelscript\CHLASManager.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseGameInterface.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
@@ -382,6 +392,10 @@
     <ClInclude Include="..\..\common\StringUtils.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\ASGameRules.h" />
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\CASEngine.h" />
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\CASGlobalVars.h" />
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\Extensions\CASGameRules.h" />
     <ClInclude Include="..\..\game\server\animation.h" />
     <ClInclude Include="..\..\game\server\ButtonSounds.h" />
     <ClInclude Include="..\..\game\server\CGlobalState.h" />
@@ -626,6 +640,10 @@
     <ClInclude Include="..\..\game\server\Skill.h" />
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />
+    <ClInclude Include="..\..\game\shared\Angelscript\CASBaseModuleBuilder.h" />
+    <ClInclude Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.h" />
+    <ClInclude Include="..\..\game\shared\Angelscript\CHLASManager.h" />
+    <ClInclude Include="..\..\game\shared\Angelscript\HLASConstants.h" />
     <ClInclude Include="..\..\game\shared\cbase.h" />
     <ClInclude Include="..\..\game\shared\CBaseGameInterface.h" />
     <ClInclude Include="..\..\game\shared\cdll_dll.h" />

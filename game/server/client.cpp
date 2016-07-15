@@ -41,6 +41,13 @@
 #include "netadr.h"
 #include "pm_shared.h"
 
+//TODO: Should move away from platform specific macros altogether
+#undef min
+#undef max
+#undef VOID
+
+#include "Angelscript/CHLASManager.h"
+
 //TODO: split this file into pieces - Solokiller
 
 #if !defined ( _WIN32 )
@@ -733,6 +740,8 @@ void ServerActivate( edict_t *pEdictList, int edictCount, int clientMax )
 
 	// Link user messages here to make sure first client can get them...
 	LinkUserMessages();
+
+	g_ASManager.WorldActivated();
 }
 
 

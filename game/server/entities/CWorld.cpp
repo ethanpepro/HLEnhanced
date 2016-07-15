@@ -34,6 +34,13 @@ precaches and defs for entities and other data that must always be available.
 
 #include "CMap.h"
 
+//TODO: Should move away from platform specific macros altogether
+#undef min
+#undef max
+#undef VOID
+
+#include "Angelscript/CHLASManager.h"
+
 extern DLL_GLOBAL bool g_fGameOver;
 float g_flWeaponCheat;
 extern CBaseEntity				*g_pLastSpawn;
@@ -65,6 +72,15 @@ void CWorld::OnCreate()
 
 void CWorld::OnDestroy()
 {
+	//Destroy it here so custom gamerules aren't kept too long. - Solokiller
+	if( g_pGameRules )
+	{
+		delete g_pGameRules;
+		g_pGameRules = nullptr;
+	}
+
+	g_ASManager.WorldEnded();
+
 	//Should be the only place where this is called. - Solokiller
 	CMap::DestroyInstance();
 
@@ -83,6 +99,10 @@ void CWorld::Spawn( void )
 	//Due to how save/restore works, we can't just move all of this stuff over to CMap.
 	//Only data that must be available before any entities are created should be moved over to CMap. - Solokiller
 	CMap::CreateIfNeeded();
+
+	//TODO: due to save/restore's wonky restore order, this will be invoked in the wrong order.
+	//Perhaps find a way to save map script names in a block that's loaded before the rest? - Solokiller
+	g_ASManager.WorldCreated( m_szMapScript );
 
 	g_fGameOver = false;
 	Precache();
@@ -103,7 +123,7 @@ void CWorld::Precache( void )
 
 	CVAR_SET_STRING( "room_type", "0" );// clear DSP
 
-										// Set up game rules
+	// Set up game rules
 	if( g_pGameRules )
 	{
 		delete g_pGameRules;
@@ -347,6 +367,21 @@ void CWorld::KeyValue( KeyValueData *pkvd )
 		{
 			pev->spawnflags |= SF_WORLD_FORCETEAM;
 		}
+		pkvd->fHandled = true;
+	}
+	else if( FStrEq( pkvd->szKeyName, "mapscript" ) )
+	{
+		const size_t uiLength = strlen( pkvd->szValue );
+
+		if( uiLength < sizeof( m_szMapScript ) )
+		{
+			strcpy( m_szMapScript, pkvd->szValue );
+		}
+		else
+		{
+			ALERT( at_error, "CWorld::KeyValue: Map script name length exceeds maximum (%u)!\n", sizeof( m_szMapScript ) );
+		}
+
 		pkvd->fHandled = true;
 	}
 	else

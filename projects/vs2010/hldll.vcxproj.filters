@@ -202,6 +202,27 @@
     <Filter Include="Header Files\game\server\nodes">
       <UniqueIdentifier>{46343c94-2c71-4986-980c-ef2cd5d9b47d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\shared\Angelscript">
+      <UniqueIdentifier>{389e862f-c601-489e-b962-dc451662e344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\shared\Angelscript">
+      <UniqueIdentifier>{370fef67-af9e-4b69-a410-99c5dde1fd59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\server\Angelscript">
+      <UniqueIdentifier>{3d36e984-873c-4497-a9e4-aa40dcdf10fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\server\Angelscript\ScriptAPI">
+      <UniqueIdentifier>{818d1af0-b5b2-42eb-8a1a-038fdca51ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\server\Angelscript\ScriptAPI\Extensions">
+      <UniqueIdentifier>{98486ccd-f896-45f5-92eb-4677c29bc4fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\Angelscript">
+      <UniqueIdentifier>{928e0391-5126-4225-84c6-94e2120b7483}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\Angelscript\ScriptAPI">
+      <UniqueIdentifier>{44b204e3-182a-4b84-8464-fdc60cedd255}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp">
@@ -1028,6 +1049,24 @@
     </ClCompile>
     <ClCompile Include="..\..\game\server\CServerGameInterface.cpp">
       <Filter>Source Files\game\server</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\Angelscript\CHLASManager.cpp">
+      <Filter>Source Files\game\shared\Angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\ASGameRules.cpp">
+      <Filter>Source Files\game\server\Angelscript\ScriptAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\CASEngine.cpp">
+      <Filter>Source Files\game\server\Angelscript\ScriptAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\Angelscript\CASBaseModuleBuilder.cpp">
+      <Filter>Source Files\game\shared\Angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.cpp">
+      <Filter>Source Files\game\shared\Angelscript</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\CASGlobalVars.cpp">
+      <Filter>Source Files\game\server\Angelscript\ScriptAPI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1903,6 +1942,30 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\CServerGameInterface.h">
       <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\Angelscript\CHLASManager.h">
+      <Filter>Header Files\game\shared\Angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\Angelscript\HLASConstants.h">
+      <Filter>Header Files\game\shared\Angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\Extensions\CASGameRules.h">
+      <Filter>Header Files\game\server\Angelscript\ScriptAPI\Extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\ASGameRules.h">
+      <Filter>Header Files\game\server\Angelscript\ScriptAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\CASEngine.h">
+      <Filter>Header Files\game\server\Angelscript\ScriptAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\Angelscript\CASBaseModuleBuilder.h">
+      <Filter>Header Files\game\shared\Angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.h">
+      <Filter>Header Files\game\shared\Angelscript</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\CASGlobalVars.h">
+      <Filter>Header Files\game\server\Angelscript\ScriptAPI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

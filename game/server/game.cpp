@@ -18,6 +18,13 @@
 
 #include "CServerGameInterface.h"
 
+//TODO: Should move away from platform specific macros altogether
+#undef min
+#undef max
+#undef VOID
+
+#include "Angelscript/CHLASManager.h"
+
 #include "game.h"
 
 cvar_t	displaysoundlist = {"displaysoundlist","0"};
@@ -457,6 +464,12 @@ cvar_t	sk_player_leg2	= { "sk_player_leg2","1" };
 cvar_t	sk_player_leg3	= { "sk_player_leg3","1" };
 
 // END Cvars for Skill Level settings
+
+void ShutdownGame()
+{
+	//No other way to signal failure. - Solokiller
+	SERVER_COMMAND( "quit\n" );
+}
 
 // Register your console variables here
 // This gets called one time when the game is initialied
@@ -902,12 +915,17 @@ void GameDLLInit( void )
 
 	if( !g_Server.Initialize() )
 	{
-		//No other way to signal failure. - Solokiller
-		SERVER_COMMAND( "quit\n" );
+		ShutdownGame();
+	}
+
+	if( !g_ASManager.Initialize() )
+	{
+		ShutdownGame();
 	}
 }
 
 void GameDLLShutdown()
 {
+	g_ASManager.Shutdown();
 	g_Server.Shutdown();
 }
