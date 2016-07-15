@@ -223,6 +223,12 @@
     <Filter Include="Source Files\game\server\Angelscript\ScriptAPI">
       <UniqueIdentifier>{44b204e3-182a-4b84-8464-fdc60cedd255}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\Angelscript\ScriptAPI\Entities">
+      <UniqueIdentifier>{17f59885-eb81-4bab-a9ed-3721f351fc6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\Angelscript\ScriptAPI\Entities">
+      <UniqueIdentifier>{d7f8ae84-179e-4974-ba13-2ada78382da1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp">
@@ -1065,8 +1071,11 @@
     <ClCompile Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.cpp">
       <Filter>Source Files\game\shared\Angelscript</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\CASGlobalVars.cpp">
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\ASCGlobalVars.cpp">
       <Filter>Source Files\game\server\Angelscript\ScriptAPI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\Entities\ASCBaseEntity.cpp">
+      <Filter>Source Files\game\server\Angelscript\ScriptAPI\Entities</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1964,8 +1973,11 @@
     <ClInclude Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.h">
       <Filter>Header Files\game\shared\Angelscript</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\CASGlobalVars.h">
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\ASCGlobalVars.h">
       <Filter>Header Files\game\server\Angelscript\ScriptAPI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\Entities\ASCBaseEntity.h">
+      <Filter>Header Files\game\server\Angelscript\ScriptAPI\Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

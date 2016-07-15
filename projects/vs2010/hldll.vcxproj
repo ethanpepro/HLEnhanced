@@ -104,9 +104,10 @@
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\CPlane.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\ASCGlobalVars.cpp" />
     <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\ASGameRules.cpp" />
     <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\CASEngine.cpp" />
-    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\CASGlobalVars.cpp" />
+    <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\Entities\ASCBaseEntity.cpp" />
     <ClCompile Include="..\..\game\server\animation.cpp" />
     <ClCompile Include="..\..\game\server\ButtonSounds.cpp" />
     <ClCompile Include="..\..\game\server\CGlobalState.cpp" />
@@ -392,9 +393,10 @@
     <ClInclude Include="..\..\common\StringUtils.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\ASCGlobalVars.h" />
     <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\ASGameRules.h" />
     <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\CASEngine.h" />
-    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\CASGlobalVars.h" />
+    <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\Entities\ASCBaseEntity.h" />
     <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\Extensions\CASGameRules.h" />
     <ClInclude Include="..\..\game\server\animation.h" />
     <ClInclude Include="..\..\game\server\ButtonSounds.h" />

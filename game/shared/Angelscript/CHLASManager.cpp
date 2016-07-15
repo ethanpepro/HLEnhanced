@@ -27,8 +27,9 @@
 
 #include <Angelscript/wrapper/ASCallable.h>
 
+#include "Angelscript/ScriptAPI/Entities/ASCBaseEntity.h"
 #include "Angelscript/ScriptAPI/CASEngine.h"
-#include "Angelscript/ScriptAPI/CASGlobalVars.h"
+#include "Angelscript/ScriptAPI/ASCGlobalVars.h"
 #include "Angelscript/ScriptAPI/ASGameRules.h"
 
 #include "Angelscript/ScriptAPI/Extensions/CASGameRules.h"
@@ -81,6 +82,8 @@ public:
 	{
 		auto& engine = *manager.GetEngine();
 
+		RegisterScriptEntityDependencies( engine );
+		RegisterScriptCBaseEntity( engine );
 		RegisterScriptCEngine( engine );
 		RegisterScriptCGlobalVars( engine );
 
@@ -89,7 +92,10 @@ public:
 		RegisterScriptCGameRules( engine );
 		RegisterScriptGameRules( engine );
 
-		Alert( at_console, "Finished registering API\n" );
+		Alert( at_console, "Finished registering API\n%u Object types\n%u Global functions\n%u Global properties\n%u Enums\n%u Funcdefs\n%u Typedefs\n", 
+			   engine.GetObjectTypeCount(), 
+			   engine.GetGlobalFunctionCount(), engine.GetGlobalPropertyCount(), 
+			   engine.GetEnumCount(), engine.GetFuncdefCount(), engine.GetTypedefCount() );
 
 		return true;
 	}

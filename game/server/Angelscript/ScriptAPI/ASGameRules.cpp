@@ -7,6 +7,11 @@
 
 #include "ASGameRules.h"
 
+static std::string CGameRules_GetGameDescription( const CGameRules* pThis )
+{
+	return pThis->GetGameDescription();
+}
+
 /**
 *	Class name for CGameRules in scripts.
 */
@@ -25,6 +30,36 @@ void RegisterScriptCGameRules( asIScriptEngine& engine )
 	engine.RegisterObjectMethod(
 		pszObjectName, "void Think()",
 		asMETHOD( CGameRules, Think ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsAllowedToSpawn(CBaseEntity@ pEntity)",
+		asMETHOD( CGameRules, IsAllowedToSpawn ), asCALL_THISCALL );
+
+	//TODO: weapon related methods
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool FAllowFlashlight() const",
+		asMETHOD( CGameRules, FAllowFlashlight ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsMultiplayer() const",
+		asMETHOD( CGameRules, IsMultiplayer ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsDeathmatch() const",
+		asMETHOD( CGameRules, IsDeathmatch ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsTeamplay() const",
+		asMETHOD( CGameRules, IsTeamplay ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsCoOp() const",
+		asMETHOD( CGameRules, IsCoOp ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetGameDescription() const",
+		asFUNCTION( CGameRules_GetGameDescription ), asCALL_CDECL_OBJFIRST );
 }
 
 void RegisterScriptGameRules( asIScriptEngine& engine )
