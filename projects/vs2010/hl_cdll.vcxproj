@@ -105,7 +105,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\cl_dll\cdll_int.cpp" />
     <ClCompile Include="..\..\cl_dll\com_weapons.cpp" />
-    <ClCompile Include="..\..\cl_dll\demo.cpp" />
     <ClCompile Include="..\..\cl_dll\entity.cpp" />
     <ClCompile Include="..\..\cl_dll\events.cpp" />
     <ClCompile Include="..\..\cl_dll\ev_common.cpp" />
@@ -115,8 +114,6 @@
     <ClCompile Include="..\..\cl_dll\hl\hl_events.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_weapons.cpp" />
-    <ClCompile Include="..\..\cl_dll\hud_bench.cpp" />
-    <ClCompile Include="..\..\cl_dll\hud_benchtrace.cpp" />
     <ClCompile Include="..\..\cl_dll\input.cpp" />
     <ClCompile Include="..\..\cl_dll\inputw32.cpp" />
     <ClCompile Include="..\..\cl_dll\interpolation.cpp" />
@@ -128,6 +125,7 @@
     <ClCompile Include="..\..\common\Platform.cpp" />
     <ClCompile Include="..\..\game\client\CClientGameInterface.cpp" />
     <ClCompile Include="..\..\game\client\cl_util.cpp" />
+    <ClCompile Include="..\..\game\client\demo.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBaseEntity.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
@@ -145,6 +143,8 @@
     <ClCompile Include="..\..\game\client\ui\hud\geiger.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\health.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\hud.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\hud_bench.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\hud_benchtrace.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\hud_msg.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\hud_redraw.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\hud_spectator.cpp" />
@@ -203,7 +203,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\com_weapons.h" />
-    <ClInclude Include="..\..\cl_dll\demo.h" />
     <ClInclude Include="..\..\cl_dll\eventscripts.h" />
     <ClInclude Include="..\..\cl_dll\ev_hldm.h" />
     <ClInclude Include="..\..\cl_dll\GameStudioModelRenderer.h" />
@@ -222,14 +221,17 @@
     <ClInclude Include="..\..\game\client\CClientGameInterface.h" />
     <ClInclude Include="..\..\game\client\cl_dll.h" />
     <ClInclude Include="..\..\game\client\cl_util.h" />
+    <ClInclude Include="..\..\game\client\demo.h" />
     <ClInclude Include="..\..\game\client\renderer\camera.h" />
     <ClInclude Include="..\..\game\client\renderer\tri.h" />
     <ClInclude Include="..\..\game\client\renderer\view.h" />
     <ClInclude Include="..\..\game\client\ui\CClientVGUI.h" />
     <ClInclude Include="..\..\game\client\ui\hud\ammo.h" />
     <ClInclude Include="..\..\game\client\ui\hud\ammohistory.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\bench.h" />
     <ClInclude Include="..\..\game\client\ui\hud\health.h" />
     <ClInclude Include="..\..\game\client\ui\hud\hud.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\hud_benchtrace.h" />
     <ClInclude Include="..\..\game\client\ui\hud\hud_spectator.h" />
     <ClInclude Include="..\..\game\client\ui\hud\overview.h" />
     <ClInclude Include="..\..\game\client\ui\hud\wrect.h" />

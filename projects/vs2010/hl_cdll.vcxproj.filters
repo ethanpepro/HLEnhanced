@@ -144,9 +144,6 @@
     <ClCompile Include="..\..\cl_dll\com_weapons.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\demo.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\cl_dll\entity.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
@@ -157,12 +154,6 @@
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\GameStudioModelRenderer.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hud_bench.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hud_benchtrace.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\input.cpp">
@@ -414,15 +405,21 @@
     <ClCompile Include="..\..\game\client\renderer\in_camera.cpp">
       <Filter>Source Files\game\client\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\hud_bench.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\hud_benchtrace.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\demo.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\com_weapons.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\demo.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\ev_hldm.h">
@@ -634,6 +631,15 @@
     </ClInclude>
     <ClInclude Include="..\..\game\client\renderer\camera.h">
       <Filter>Header Files\game\client\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\hud_benchtrace.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\bench.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\demo.h">
+      <Filter>Header Files\game\client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
