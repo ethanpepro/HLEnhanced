@@ -105,7 +105,6 @@
   <ItemGroup>
     <ClCompile Include="..\..\cl_dll\cdll_int.cpp" />
     <ClCompile Include="..\..\cl_dll\com_weapons.cpp" />
-    <ClCompile Include="..\..\cl_dll\entity.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_baseentity.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_events.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp" />
@@ -122,6 +121,7 @@
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
+    <ClCompile Include="..\..\game\client\entity.cpp" />
     <ClCompile Include="..\..\game\client\events.cpp" />
     <ClCompile Include="..\..\game\client\ev_common.cpp" />
     <ClCompile Include="..\..\game\client\ev_hldm.cpp" />
