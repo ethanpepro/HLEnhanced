@@ -62,8 +62,11 @@ void __CmdFunc_##commandFuncName()						\
 */
 #define HOOK_COMMAND( szCommandName, commandFuncName ) gEngfuncs.pfnAddCommand( szCommandName, __CmdFunc_##commandFuncName );
 
+//TODO: this fixes compilation issues caused by server and client code being in the same file, but isn't ideal. Clean up. - Solokiller
+#ifndef CVAR_GET_FLOAT
 inline float CVAR_GET_FLOAT( const char *x ) {	return gEngfuncs.pfnGetCvarFloat( (char*)x ); }
 inline const char* CVAR_GET_STRING( const char *x ) {	return gEngfuncs.pfnGetCvarString( (char*)x ); }
+#endif
 inline struct cvar_s *CVAR_CREATE( const char *cv, const char *val, const int flags ) {	return gEngfuncs.pfnRegisterVariable( (char*)cv, (char*)val, flags ); }
 
 #define SPR_Load (*gEngfuncs.pfnSPR_Load)

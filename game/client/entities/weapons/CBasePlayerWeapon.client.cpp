@@ -4,6 +4,9 @@
 #include "entities/CBasePlayer.h"
 #include "Weapons.h"
 
+#include "hud.h"
+#include "cl_util.h"
+
 #include "com_weapons.h"
 
 extern bool g_brunninggausspred;
