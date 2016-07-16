@@ -13,7 +13,7 @@
 *
 ****/
 //
-// util.cpp
+// cl_util.cpp
 //
 // implementation of class-less helper functions
 //

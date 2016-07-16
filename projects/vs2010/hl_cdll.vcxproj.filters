@@ -207,9 +207,6 @@
     <ClCompile Include="..\..\common\parsemsg.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\util.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\cl_dll\saytext.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
@@ -393,6 +390,9 @@
     <ClCompile Include="..\..\game\client\CClientGameInterface.cpp">
       <Filter>Source Files\game\client</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\cl_util.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -405,12 +405,6 @@
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\camera.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\cl_dll.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\cl_util.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\com_weapons.h">
@@ -607,6 +601,12 @@
     </ClInclude>
     <ClInclude Include="..\..\common\Game.h">
       <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\cl_dll.h">
+      <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\cl_util.h">
+      <Filter>Header Files\game\client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

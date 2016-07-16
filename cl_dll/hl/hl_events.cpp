@@ -13,7 +13,7 @@
 *
 ****/
 #include "../hud.h"
-#include "../cl_util.h"
+#include "cl_util.h"
 #include "event_api.h"
 #include "r_efx.h"
 #include "ev_hldm.h"
