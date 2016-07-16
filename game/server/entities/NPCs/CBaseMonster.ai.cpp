@@ -23,7 +23,7 @@
 #include	"util.h"
 #include	"cbase.h"
 #include	"entities/NPCs/Monsters.h"
-#include	"game.h"
+#include	"Server.h"
 	
 #define		NUM_LATERAL_CHECKS		13  // how many checks are made on each side of a monster looking for lateral cover
 #define		NUM_LATERAL_LOS_CHECKS		6  // how many checks are made on each side of a monster looking for lateral cover

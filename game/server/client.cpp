@@ -32,7 +32,7 @@
 #include "client.h"
 #include "entities/CSoundEnt.h"
 #include "gamerules/GameRules.h"
-#include "game.h"
+#include "Server.h"
 #include "customentity.h"
 #include "Weapons.h"
 #include "entities/weapons/CRpg.h"

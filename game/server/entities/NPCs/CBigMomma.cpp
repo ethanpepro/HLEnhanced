@@ -22,7 +22,7 @@
 #include "Schedule.h"
 #include "Decals.h"
 #include "Weapons.h"
-#include "game.h"
+#include "Server.h"
 
 #include "CInfoBM.h"
 #include "CBMortar.h"

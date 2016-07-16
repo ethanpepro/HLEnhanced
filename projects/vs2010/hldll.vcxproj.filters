@@ -1011,9 +1011,6 @@
     <ClCompile Include="..\..\game\server\entities\effects\CEnvExplosion.cpp">
       <Filter>Source Files\game\server\entities\effects</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\server\game.cpp">
-      <Filter>Source Files\game\server</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\server\globals.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
@@ -1076,6 +1073,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\Entities\ASCBaseEntity.cpp">
       <Filter>Source Files\game\server\Angelscript\ScriptAPI\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\Server.cpp">
+      <Filter>Source Files\game\server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1886,9 +1886,6 @@
     <ClInclude Include="..\..\game\server\entities\effects\CEnvExplosion.h">
       <Filter>Header Files\game\server\entities\effects</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\game\server\game.h">
-      <Filter>Header Files\game\server</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\game\server\nodes\CGraph.h">
       <Filter>Header Files\game\server\nodes</Filter>
     </ClInclude>
@@ -1980,6 +1977,12 @@
       <Filter>Header Files\game\server\Angelscript\ScriptAPI\Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\..\common\MinMax.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\Server.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\Game.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>

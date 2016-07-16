@@ -25,7 +25,7 @@
 #include "Effects.h"
 #include "Decals.h"
 #include "entities/CSoundEnt.h"
-#include "game.h"
+#include "Server.h"
 
 #include "CSquidSpit.h"
 

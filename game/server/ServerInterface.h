@@ -38,7 +38,7 @@ extern "C" void GIVEFNPTRS_DLLEXPORT GiveFnptrsToDll( enginefuncs_t* pengfuncsFr
 */
 
 /*
-*	GameDLLInit declared in game.h
+*	GameDLLInit declared in Server.h
 */
 
 int DispatchSpawn( edict_t *pent );
@@ -71,7 +71,7 @@ void ResetGlobalState( void );
 */
 
 /*
-*	GameDLLShutdown declared in game.h
+*	GameDLLShutdown declared in Server.h
 */
 
 void OnFreeEntPrivateData( edict_t* pEdict );

@@ -21,7 +21,7 @@
 #include "cbase.h"
 #include "Monsters.h"
 #include "Schedule.h"
-#include "game.h"
+#include "Server.h"
 
 #include "CHeadCrab.h"
 

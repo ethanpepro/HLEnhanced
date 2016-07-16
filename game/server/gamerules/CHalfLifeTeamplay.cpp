@@ -21,7 +21,7 @@
 #include	"entities/CBasePlayer.h"
 #include	"Weapons.h"
 #include	"CHalfLifeTeamplay.h"
-#include	"game.h"
+#include	"Server.h"
 
 static char team_names[MAX_TEAMS][MAX_TEAMNAME_LENGTH];
 static int team_scores[MAX_TEAMS];

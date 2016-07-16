@@ -5,6 +5,8 @@
 *	Platform specific code compatibility.
 */
 
+// Misc C-runtime library headers
+#include <cctype>
 #include <climits>
 #include <cmath>
 #include <cstdarg>
@@ -54,7 +56,6 @@
 
 //mkdir
 #include <unistd.h>
-#include <ctype.h> // tolower()
 #include <sys/time.h>
 #include <errno.h>
 #include <sys/ioctl.h>

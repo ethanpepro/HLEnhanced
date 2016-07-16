@@ -23,7 +23,7 @@
 #include	"CHalfLifeMultiplay.h"
  
 #include	"Skill.h"
-#include	"game.h"
+#include	"Server.h"
 #include	"entities/items/CItem.h"
 #include	"voice_gamemgr.h"
 #include	"hltv.h"

@@ -20,7 +20,7 @@
 
 #include "Angelscript/CHLASManager.h"
 
-#include "game.h"
+#include "Server.h"
 
 cvar_t	displaysoundlist = {"displaysoundlist","0"};
 

@@ -24,7 +24,7 @@
 #include "CSquadMonster.h"
 #include "Weapons.h"
 #include "entities/CSoundEnt.h"
-#include "game.h"
+#include "Server.h"
 
 #include "CHAssassin.h"
 

@@ -25,7 +25,7 @@
 #include	"nodes/Nodes.h"
 #include	"CSquadMonster.h"
 #include	"entities/CSoundEnt.h"
-#include	"game.h"
+#include	"Server.h"
 
 #include "CHoundeye.h"
 

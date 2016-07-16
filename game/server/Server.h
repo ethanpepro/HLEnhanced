@@ -13,8 +13,8 @@
 *
 ****/
 
-#ifndef GAME_SERVER_GAME_H
-#define GAME_SERVER_GAME_H
+#ifndef GAME_SERVER_SERVER_H
+#define GAME_SERVER_SERVER_H
 
 void GameDLLInit();
 
@@ -43,4 +43,4 @@ extern cvar_t	*g_psv_gravity;
 extern cvar_t	*g_psv_aim;
 extern cvar_t	*g_footsteps;
 
-#endif //GAME_SERVER_GAME_H
+#endif //GAME_SERVER_SERVER_H

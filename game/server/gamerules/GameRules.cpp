@@ -1,6 +1,6 @@
 #include "extdll.h"
 #include "util.h"
-#include "game.h"
+#include "Server.h"
 
 #include "GameRules.h"
 #include "CHalfLifeRules.h"

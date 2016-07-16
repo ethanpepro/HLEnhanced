@@ -33,7 +33,7 @@
 #include "shake.h"
 #include "Decals.h"
 #include "gamerules/GameRules.h"
-#include "game.h"
+#include "Server.h"
 #include "pm_shared.h"
 #include "hltv.h"
 

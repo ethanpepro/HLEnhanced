@@ -332,7 +332,6 @@
     <ClCompile Include="..\..\game\server\entities\xen\CXenSpore.cpp" />
     <ClCompile Include="..\..\game\server\entities\xen\CXenTree.cpp" />
     <ClCompile Include="..\..\game\server\entities\xen\CXenTreeTrigger.cpp" />
-    <ClCompile Include="..\..\game\server\game.cpp" />
     <ClCompile Include="..\..\game\server\gamerules\CGameRules.cpp" />
     <ClCompile Include="..\..\game\server\gamerules\CHalfLifeMultiplay.cpp" />
     <ClCompile Include="..\..\game\server\gamerules\CHalfLifeRules.cpp" />
@@ -349,6 +348,7 @@
     <ClCompile Include="..\..\game\server\saverestore\CRestore.cpp" />
     <ClCompile Include="..\..\game\server\saverestore\CSave.cpp" />
     <ClCompile Include="..\..\game\server\saverestore\CSaveRestoreBuffer.cpp" />
+    <ClCompile Include="..\..\game\server\Server.cpp" />
     <ClCompile Include="..\..\game\server\ServerInterface.cpp" />
     <ClCompile Include="..\..\game\server\Skill.cpp" />
     <ClCompile Include="..\..\game\server\sound\Sound.cpp" />
@@ -388,6 +388,7 @@
     <ClInclude Include="..\..\common\CAutoString.h" />
     <ClInclude Include="..\..\common\CHashStringPool.h" />
     <ClInclude Include="..\..\common\CPlane.h" />
+    <ClInclude Include="..\..\common\Game.h" />
     <ClInclude Include="..\..\common\MinMax.h" />
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\common\SharedConstants.h" />
@@ -618,7 +619,6 @@
     <ClInclude Include="..\..\game\server\entities\xen\CXenSpore.h" />
     <ClInclude Include="..\..\game\server\entities\xen\CXenTree.h" />
     <ClInclude Include="..\..\game\server\entities\xen\CXenTreeTrigger.h" />
-    <ClInclude Include="..\..\game\server\game.h" />
     <ClInclude Include="..\..\game\server\gamerules\CGameRules.h" />
     <ClInclude Include="..\..\game\server\gamerules\CHalfLifeMultiplay.h" />
     <ClInclude Include="..\..\game\server\gamerules\CHalfLifeRules.h" />
@@ -639,6 +639,7 @@
     <ClInclude Include="..\..\game\server\saverestore\CRestore.h" />
     <ClInclude Include="..\..\game\server\saverestore\CSave.h" />
     <ClInclude Include="..\..\game\server\saverestore\CSaveRestoreBuffer.h" />
+    <ClInclude Include="..\..\game\server\Server.h" />
     <ClInclude Include="..\..\game\server\ServerInterface.h" />
     <ClInclude Include="..\..\game\server\Skill.h" />
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
