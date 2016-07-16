@@ -46,6 +46,49 @@ void VectorMA( const Vector& veca, float scale, const Vector& vecb, Vector& vecc
 	vecc[ 2 ] = veca[ 2 ] + scale*vecb[ 2 ];
 }
 
+void VectorScale( const float *in, float scale, float *out )
+{
+	out[ 0 ] = in[ 0 ] * scale;
+	out[ 1 ] = in[ 1 ] * scale;
+	out[ 2 ] = in[ 2 ] * scale;
+}
+
+void VectorInverse( float *v )
+{
+	v[ 0 ] = -v[ 0 ];
+	v[ 1 ] = -v[ 1 ];
+	v[ 2 ] = -v[ 2 ];
+}
+
+void VectorAngles( const float *forward, float *angles )
+{
+	float	tmp, yaw, pitch;
+
+	if( forward[ 1 ] == 0 && forward[ 0 ] == 0 )
+	{
+		yaw = 0;
+		if( forward[ 2 ] > 0 )
+			pitch = 90;
+		else
+			pitch = 270;
+	}
+	else
+	{
+		yaw = static_cast<float>( atan2( forward[ 1 ], forward[ 0 ] ) * 180 / M_PI );
+		if( yaw < 0 )
+			yaw += 360;
+
+		tmp = sqrt( forward[ 0 ] * forward[ 0 ] + forward[ 1 ] * forward[ 1 ] );
+		pitch = static_cast<float>( atan2( forward[ 2 ], tmp ) * 180 / M_PI );
+		if( pitch < 0 )
+			pitch += 360;
+	}
+
+	angles[ 0 ] = pitch;
+	angles[ 1 ] = yaw;
+	angles[ 2 ] = 0;
+}
+
 void AngleVectors( const Vector& angles, Vector* forward, Vector* right, Vector* up )
 {
 	float		angle;

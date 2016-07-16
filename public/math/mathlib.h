@@ -50,6 +50,10 @@ float VectorNormalize( Vector& v );		// returns vector length
 
 void VectorMA( const Vector& veca, float scale, const Vector& vecb, Vector& vecc );
 
+void VectorScale( const float *in, float scale, float *out );
+void VectorInverse( float *v );
+void VectorAngles( const float *forward, float *angles );
+
 void AngleVectors( const Vector& angles, Vector* forward, Vector* right, Vector* up );
 
 /**

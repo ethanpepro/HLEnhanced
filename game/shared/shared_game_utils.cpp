@@ -245,6 +245,39 @@ void UTIL_StripToken( const char *pKey, char *pDest )
 	pDest[ i ] = 0;
 }
 
+char *safe_strcpy( char *dst, const char *src, const size_t len_dst )
+{
+	if( len_dst <= 0 )
+	{
+		return nullptr; // this is bad
+	}
+
+	strncpy( dst, src, len_dst );
+	dst[ len_dst - 1 ] = '\0';
+
+	return dst;
+}
+
+int safe_sprintf( char *dst, const size_t len_dst, const char *format, ... )
+{
+	if( len_dst <= 0 )
+	{
+		return -1; // this is bad
+	}
+
+	va_list v;
+
+	va_start( v, format );
+
+	_vsnprintf( dst, len_dst, format, v );
+
+	va_end( v );
+
+	dst[ len_dst - 1 ] = '\0';
+
+	return 0;
+}
+
 #ifdef	DEBUG
 void
 DBG_AssertFunction(

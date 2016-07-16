@@ -54,6 +54,10 @@ char* UTIL_dtos4( int d );
 
 void UTIL_StripToken( const char *pKey, char *pDest );// for redundant keynames
 
+char *safe_strcpy( char *dst, const char *src, const size_t len_dst );
+
+int safe_sprintf( char *dst, const size_t len_dst, const char *format, ... );
+
 //
 // How did I ever live without ASSERT?
 //

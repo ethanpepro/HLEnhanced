@@ -15,6 +15,8 @@
 //
 // cl_util.h
 //
+#ifndef GAME_CLIENT_CL_UTIL_H
+#define GAME_CLIENT_CL_UTIL_H
 
 #include "cvardef.h"
 
@@ -25,19 +27,40 @@
 #include "shared_game_utils.h"
 
 // Macros to hook function calls into the HUD object
-#define HOOK_MESSAGE(x) gEngfuncs.pfnHookUserMsg(#x, __MsgFunc_##x );
+/**
+*	Declares a function that calls the HUD class method for the given network message.
+*	@param className HUD class name.
+*	@param messageName Name of the message. The HUD class method should be named MsgFunc_<messageName>.
+*/
+#define DECLARE_MESSAGE( className, messageName )							\
+int __MsgFunc_##messageName( const char *pszName, int iSize, void *pbuf )	\
+{																			\
+	return gHUD.className.MsgFunc_##messageName( pszName, iSize, pbuf );	\
+}
 
-#define DECLARE_MESSAGE(y, x) int __MsgFunc_##x(const char *pszName, int iSize, void *pbuf) \
-							{ \
-							return gHUD.y.MsgFunc_##x(pszName, iSize, pbuf ); \
-							}
+/**
+*	Hooks a network message function.
+*	@param messageName Name of the message whose function should be hooked. The function name is __MsgFunc_<messageName>.
+*/
+#define HOOK_MESSAGE( messageName ) gEngfuncs.pfnHookUserMsg( #messageName, __MsgFunc_##messageName );
 
+/**
+*	Declares a function that calls the HUD class method for the given command.
+*	@param className HUD class name.
+*	@param commandFuncName Name of the command. The HUD class method should be named UserCmd_<commandFuncName>.
+*/
+#define DECLARE_COMMAND( className, commandFuncName )	\
+void __CmdFunc_##commandFuncName()						\
+{														\
+	gHUD.className.UserCmd_##commandFuncName();			\
+}
 
-#define HOOK_COMMAND(x, y) gEngfuncs.pfnAddCommand( x, __CmdFunc_##y );
-#define DECLARE_COMMAND(y, x) void __CmdFunc_##x( void ) \
-							{ \
-								gHUD.y.UserCmd_##x( ); \
-							}
+/**
+*	Hooks a command function.
+*	@param szCommandName Name of the command whose function should be hooked.
+*	@param commandFuncName Name of the command function. The function name is __CmdFunc_<commandFuncName>.
+*/
+#define HOOK_COMMAND( szCommandName, commandFuncName ) gEngfuncs.pfnAddCommand( szCommandName, __CmdFunc_##commandFuncName );
 
 inline float CVAR_GET_FLOAT( const char *x ) {	return gEngfuncs.pfnGetCvarFloat( (char*)x ); }
 inline const char* CVAR_GET_STRING( const char *x ) {	return gEngfuncs.pfnGetCvarString( (char*)x ); }
@@ -59,6 +82,9 @@ inline struct cvar_s *CVAR_CREATE( const char *cv, const char *val, const int fl
 #define SPR_EnableScissor (*gEngfuncs.pfnSPR_EnableScissor)
 // SPR_DisableScissor  disables the clipping rect
 #define SPR_DisableScissor (*gEngfuncs.pfnSPR_DisableScissor)
+
+HSPRITE LoadSprite( const char *pszName );
+
 //
 #define FillRGBA (*gEngfuncs.pfnFillRGBA)
 
@@ -67,8 +93,6 @@ inline struct cvar_s *CVAR_CREATE( const char *cv, const char *val, const int fl
 #define ScreenHeight (gHUD.m_scrinfo.iHeight)
 // ScreenWidth returns the width of the screen, in pixels
 #define ScreenWidth (gHUD.m_scrinfo.iWidth)
-
-#define BASE_XRES 640.f
 
 // use this to project world coordinates to screen coordinates
 #define XPROJECT(x)	( (1.0f+(x))*ScreenWidth*0.5f )
@@ -81,8 +105,6 @@ inline struct cvar_s *CVAR_CREATE( const char *cv, const char *val, const int fl
 #define ServerCmd (*gEngfuncs.pfnServerCmd)
 #define EngineClientCmd (*gEngfuncs.pfnClientCmd)
 #define SetCrosshair (*gEngfuncs.pfnSetCrosshair)
-//#define AngleVectors (*gEngfuncs.pfnAngleVectors)
-
 
 // Gets the height & width of a sprite,  at the specified frame
 inline int SPR_Height( HSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Height(x, f); }
@@ -121,40 +143,6 @@ inline void CenterPrint( const char *string )
 	gEngfuncs.pfnCenterPrint( string );
 }
 
-
-inline char *safe_strcpy( char *dst, const char *src, int len_dst)
-{
-	if( len_dst <= 0 )
-	{
-		return NULL; // this is bad
-	}
-
-	strncpy(dst,src,len_dst);
-	dst[ len_dst - 1 ] = '\0';
-
-	return dst;
-}
-
-inline int safe_sprintf( char *dst, int len_dst, const char *format, ...)
-{
-	if( len_dst <= 0 )
-	{
-		return -1; // this is bad
-	}
-
-	va_list v;
-
-    va_start(v, format);
-
-	_vsnprintf(dst,len_dst,format,v);
-
-	va_end(v);
-
-	dst[ len_dst - 1 ] = '\0';
-
-	return 0;
-}
-
 // sound functions
 inline void PlaySound( char *szSound, float vol ) { gEngfuncs.pfnPlaySoundByName( szSound, vol ); }
 inline void PlaySound( int iSound, float vol ) { gEngfuncs.pfnPlaySoundByIndex( iSound, vol ); }
@@ -162,13 +150,6 @@ inline void PlaySound( int iSound, float vol ) { gEngfuncs.pfnPlaySoundByIndex( 
 #include "MinMax.h"
 
 void ScaleColors( int &r, int &g, int &b, int a );
-
-//TODO: defined in mathlib.h - Solokiller
-void VectorMA (const Vector& veca, float scale, const Vector& vecb, Vector& vecc);
-void VectorScale (const float *in, float scale, float *out);
-void VectorInverse ( float *v );
-
-extern const Vector vec3_origin;
 
 // disable 'possible loss of data converting float to int' warning message
 #pragma warning( disable: 4244 )
@@ -182,4 +163,4 @@ inline void UnpackRGB(int &r, int &g, int &b, unsigned long ulRGB)
 	b = ulRGB & 0xFF;
 }
 
-HSPRITE LoadSprite(const char *pszName);
+#endif //GAME_CLIENT_CL_UTIL_H

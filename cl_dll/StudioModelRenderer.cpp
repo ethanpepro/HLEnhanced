@@ -19,6 +19,8 @@
 #include "studio_util.h"
 #include "r_studioint.h"
 
+#include "mathlib.h"
+
 #include "StudioModelRenderer.h"
 #include "GameStudioModelRenderer.h"
 

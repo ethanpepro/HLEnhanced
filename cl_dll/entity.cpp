@@ -15,6 +15,8 @@
 #include "bench.h"
 #include "Exports.h"
 
+#include "mathlib.h"
+
 #include "particleman.h"
 extern IParticleMan *g_pParticleMan;
 
