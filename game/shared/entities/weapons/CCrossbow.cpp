@@ -300,12 +300,7 @@ void CCrossbow::Holster( int skiplocal /* = 0 */ )
 
 void CCrossbow::PrimaryAttack( void )
 {
-
-#ifdef CLIENT_DLL
 	if ( m_fInZoom && bIsMultiplayer() )
-#else
-	if ( m_fInZoom && g_pGameRules->IsMultiplayer() )
-#endif
 	{
 		FireSniperBolt();
 		return;

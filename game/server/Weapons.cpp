@@ -301,3 +301,8 @@ void W_Precache(void)
 	PRECACHE_SOUND ("items/weapondrop1.wav");// weapon falls to the ground
 
 }
+
+bool bIsMultiplayer()
+{
+	return g_pGameRules->IsMultiplayer();
+}

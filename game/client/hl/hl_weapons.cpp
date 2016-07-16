@@ -498,11 +498,9 @@ void DLLEXPORT HUD_PostRunCmd( struct local_state_s *from, struct local_state_s 
 	g_lastFOV = to->client.fov;
 }
 
-//Returns if it's multiplayer.
-//Mostly used by the client side weapons.
-bool bIsMultiplayer( void )
+bool bIsMultiplayer()
 {
-	return gEngfuncs.GetMaxClients() == 1 ? 0 : 1;
+	return gEngfuncs.GetMaxClients() != 1;
 }
 //Just loads a v_ model.
 void LoadVModel( char *szViewModel, CBasePlayer *m_pPlayer )

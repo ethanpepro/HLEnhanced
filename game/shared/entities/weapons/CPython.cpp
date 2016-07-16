@@ -83,11 +83,7 @@ void CPython::Precache( void )
 
 bool CPython::Deploy()
 {
-#ifdef CLIENT_DLL
 	if ( bIsMultiplayer() )
-#else
-	if ( g_pGameRules->IsMultiplayer() )
-#endif
 	{
 		// enable laser sight geometry.
 		pev->body = 1;
@@ -117,11 +113,7 @@ void CPython::Holster( int skiplocal /* = 0 */ )
 
 void CPython::SecondaryAttack( void )
 {
-#ifdef CLIENT_DLL
 	if ( !bIsMultiplayer() )
-#else
-	if ( !g_pGameRules->IsMultiplayer() )
-#endif
 	{
 		return;
 	}
@@ -212,12 +204,7 @@ void CPython::Reload( void )
 	}
 
 	//TODO: same code is below this - Solokiller
-	int iScopeBody = 0;
-#ifdef CLIENT_DLL
-	iScopeBody = bIsMultiplayer() ? 1 : 0;
-#else
-	iScopeBody = g_pGameRules->IsMultiplayer() ? 1 : 0;
-#endif
+	const int iScopeBody = bIsMultiplayer() ? 1 : 0;
 
 	DefaultReload( 6, PYTHON_RELOAD, 2.0, iScopeBody );
 }
@@ -255,12 +242,7 @@ void CPython::WeaponIdle( void )
 		m_flTimeWeaponIdle = (170.0/30.0);
 	}
 	
-	int iScopeBody = 0;
-#ifdef CLIENT_DLL
-	iScopeBody = bIsMultiplayer() ? 1 : 0;
-#else
-	iScopeBody = g_pGameRules->IsMultiplayer() ? 1 : 0;
-#endif
+	const int iScopeBody = bIsMultiplayer() ? 1 : 0;
 	
 	SendWeaponAnim( iAnim, UseDecrement() ? 1 : 0, iScopeBody );
 }

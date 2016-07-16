@@ -231,9 +231,12 @@ extern CMultiDamage g_MultiDamage;
 #define VECTOR_CONE_15DEGREES	Vector( 0.13053, 0.13053, 0.13053 )
 #define VECTOR_CONE_20DEGREES	Vector( 0.17365, 0.17365, 0.17365 )
 
+/**
+*	@return Whether this is a multiplayer game.
+*/
+bool bIsMultiplayer();
+
 #ifdef CLIENT_DLL
-//TODO: make all code use this, implement in the server as gamerules. - Solokiller
-bool bIsMultiplayer ( void );
 void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer );
 #endif
 

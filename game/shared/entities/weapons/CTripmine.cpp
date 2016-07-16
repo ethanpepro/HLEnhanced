@@ -352,11 +352,7 @@ void CTripmine::Spawn( )
 
 	m_iDefaultAmmo = TRIPMINE_DEFAULT_GIVE;
 
-#ifdef CLIENT_DLL
 	if ( !bIsMultiplayer() )
-#else
-	if ( !g_pGameRules->IsDeathmatch() )
-#endif
 	{
 		UTIL_SetSize(pev, Vector(-16, -16, 0), Vector(16, 16, 28) ); 
 	}

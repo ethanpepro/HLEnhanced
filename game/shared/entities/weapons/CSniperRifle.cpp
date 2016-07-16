@@ -148,11 +148,7 @@ void CSniperRifle::PrimaryAttack()
 
 	Vector vecShot;
 
-#ifdef CLIENT_DLL
-	if( bIsMultiplayer() )
-#else
-	if( !g_pGameRules->IsMultiplayer() )
-#endif
+	if( !bIsMultiplayer() )
 	{
 		//TODO: 8192 constant should be defined somewhere - Solokiller
 		vecShot = m_pPlayer->FireBulletsPlayer( 1,
@@ -163,9 +159,9 @@ void CSniperRifle::PrimaryAttack()
 	else
 	{
 		vecShot = m_pPlayer->FireBulletsPlayer( 1,
-												vecSrc, vecAiming, g_vecZero,
-												8192, BULLET_PLAYER_762, 0, 0,
-												m_pPlayer->pev, m_pPlayer->random_seed );
+										vecSrc, vecAiming, g_vecZero,
+										8192, BULLET_PLAYER_762, 0, 0,
+										m_pPlayer->pev, m_pPlayer->random_seed );
 	}
 
 	PLAYBACK_EVENT_FULL( FEV_NOTHOST, 
