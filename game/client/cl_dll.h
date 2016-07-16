@@ -29,7 +29,6 @@
 //
 typedef unsigned char byte;
 typedef float vec_t;
-typedef int (*pfnUserMsgHook)(const char *pszName, int iSize, void *pbuf);
 
 #include "vector.h"
 

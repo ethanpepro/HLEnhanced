@@ -18,6 +18,8 @@ typedef struct cmdalias_s
 	char	*value;
 } cmdalias_t;
 
+//Now defined here. Who ever thought defining this somewhere else was a good idea? - Solokiller
+typedef int( *pfnUserMsgHook )( const char *pszName, int iSize, void *pbuf );
 
 // ********************************************************
 // Functions exported by the client .dll
