@@ -16,7 +16,6 @@
 // $NoKeywords: $
 //=============================================================================
 
-#include "vgui_int.h"
 #include "VGUI_Font.h"
 #include "VGUI_ScrollPanel.h"
 #include "VGUI_TextImage.h"

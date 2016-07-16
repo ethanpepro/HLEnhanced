@@ -28,7 +28,6 @@
 #include "kbutton.h"
 #include "const.h"
 
-#include "vgui_int.h"
 #include "vgui_TeamFortressViewport.h"
 
 #define MOTD_TITLE_X		XRES(16)

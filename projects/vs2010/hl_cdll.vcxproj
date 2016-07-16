@@ -62,7 +62,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;_DEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -86,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;NDEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -145,16 +145,6 @@
     <ClCompile Include="..\..\cl_dll\train.cpp" />
     <ClCompile Include="..\..\cl_dll\tri.cpp" />
     <ClCompile Include="..\..\cl_dll\ui\CClientVGUI.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_ClassMenu.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_ControlConfigPanel.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_CustomObjects.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_int.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_MOTDWindow.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_SchemeManager.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_ScorePanel.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_SpectatorPanel.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_TeamFortressViewport.cpp" />
-    <ClCompile Include="..\..\cl_dll\vgui_teammenu.cpp" />
     <ClCompile Include="..\..\cl_dll\view.cpp" />
     <ClCompile Include="..\..\cl_dll\voice_status.cpp" />
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
@@ -166,6 +156,17 @@
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ClassMenu.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ConsolePanel.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_CustomObjects.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_int.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_MOTDWindow.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_SchemeManager.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ScorePanel.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.cpp" />
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_teammenu.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseGameInterface.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
@@ -218,11 +219,6 @@
     <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h" />
     <ClInclude Include="..\..\cl_dll\tri.h" />
     <ClInclude Include="..\..\cl_dll\ui\CClientVGUI.h" />
-    <ClInclude Include="..\..\cl_dll\vgui_ControlConfigPanel.h" />
-    <ClInclude Include="..\..\cl_dll\vgui_int.h" />
-    <ClInclude Include="..\..\cl_dll\vgui_SchemeManager.h" />
-    <ClInclude Include="..\..\cl_dll\vgui_ScorePanel.h" />
-    <ClInclude Include="..\..\cl_dll\vgui_SpectatorPanel.h" />
     <ClInclude Include="..\..\cl_dll\view.h" />
     <ClInclude Include="..\..\cl_dll\wrect.h" />
     <ClInclude Include="..\..\common\CAutoString.h" />
@@ -236,6 +232,13 @@
     <ClInclude Include="..\..\game\client\CClientGameInterface.h" />
     <ClInclude Include="..\..\game\client\cl_dll.h" />
     <ClInclude Include="..\..\game\client\cl_util.h" />
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_ConsolePanel.h" />
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.h" />
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_int.h" />
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_SchemeManager.h" />
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_ScorePanel.h" />
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.h" />
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.h" />
     <ClInclude Include="..\..\game\shared\CBaseGameInterface.h" />
     <ClInclude Include="..\..\game\shared\Damage.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />

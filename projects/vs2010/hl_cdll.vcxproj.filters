@@ -103,6 +103,24 @@
     <Filter Include="Header Files\game\client">
       <UniqueIdentifier>{041357be-4b6b-4991-af96-272401dca8f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\client\ui">
+      <UniqueIdentifier>{6295fb80-2571-423a-bad1-11e90ce2feec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\client\ui\hud">
+      <UniqueIdentifier>{3dd02989-be35-4427-800f-ee3b1fea2ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\client\ui">
+      <UniqueIdentifier>{7fccbace-5df4-4788-8dc6-f968c2cd699b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\client\ui\hud">
+      <UniqueIdentifier>{985f0360-143e-40d3-a69f-1d5102045379}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\client\ui\vgui">
+      <UniqueIdentifier>{d06b1a0c-48e3-445d-9e01-4b5c69f84ce4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\client\ui\vgui">
+      <UniqueIdentifier>{3bb157a7-a93a-49da-80d8-eb9d04c570fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\cl_dll\ev_hldm.cpp">
@@ -234,38 +252,17 @@
     <ClCompile Include="..\..\game_shared\vgui_checkbutton2.cpp">
       <Filter>Source Files\game_shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_CustomObjects.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_ClassMenu.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_ControlConfigPanel.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game_shared\vgui_grid.cpp">
       <Filter>Source Files\game_shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game_shared\vgui_helpers.cpp">
       <Filter>Source Files\game_shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_int.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game_shared\vgui_loadtga.cpp">
       <Filter>Source Files\game_shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game_shared\vgui_listbox.cpp">
       <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_MOTDWindow.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_SchemeManager.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_ScorePanel.cpp">
-      <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game_shared\voice_banmgr.cpp">
       <Filter>Source Files\game_shared</Filter>
@@ -277,15 +274,6 @@
       <Filter>Source Files\game_shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\view.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_SpectatorPanel.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_TeamFortressViewport.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\vgui_teammenu.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\voice_status.cpp">
@@ -393,6 +381,39 @@
     <ClCompile Include="..\..\game\client\cl_util.cpp">
       <Filter>Source Files\game\client</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_int.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ClassMenu.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_CustomObjects.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_MOTDWindow.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ScorePanel.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ConsolePanel.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_SchemeManager.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_teammenu.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.cpp">
+      <Filter>Source Files\game\client\ui\vgui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
@@ -458,22 +479,10 @@
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
       <Filter>Header Files\pm_shared</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\cl_dll\vgui_ScorePanel.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\tri.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\vgui_ControlConfigPanel.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\vgui_int.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\vgui_SchemeManager.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game_shared\vgui_slider2.h">
@@ -489,9 +498,6 @@
       <Filter>Header Files\game_shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\wrect.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\vgui_SpectatorPanel.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\view.h">
@@ -607,6 +613,27 @@
     </ClInclude>
     <ClInclude Include="..\..\game\client\cl_util.h">
       <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_int.h">
+      <Filter>Header Files\game\client\ui\vgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_ScorePanel.h">
+      <Filter>Header Files\game\client\ui\vgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.h">
+      <Filter>Header Files\game\client\ui\vgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_ConsolePanel.h">
+      <Filter>Header Files\game\client\ui\vgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.h">
+      <Filter>Header Files\game\client\ui\vgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_SchemeManager.h">
+      <Filter>Header Files\game\client\ui\vgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.h">
+      <Filter>Header Files\game\client\ui\vgui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

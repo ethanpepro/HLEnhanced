@@ -30,7 +30,6 @@
 #include "in_defs.h"
 #include "parsemsg.h"
 
-#include "vgui_int.h"
 #include "vgui_TeamFortressViewport.h"
 
 // Class Menu Dimensions
