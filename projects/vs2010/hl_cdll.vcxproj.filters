@@ -19,17 +19,11 @@
     <Filter Include="Source Files\pm_shared">
       <UniqueIdentifier>{7d8ce8c9-fed8-42ee-9ba0-73d0fee6006a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\game_shared">
-      <UniqueIdentifier>{83318ea3-5019-4d8a-a9f9-4922cdb1c9bb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\common">
       <UniqueIdentifier>{54679c20-fece-4cb1-bef2-017d30f31af0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\pm_shared">
       <UniqueIdentifier>{fb64b597-8c31-4391-b259-6121f67bbccb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\game_shared">
-      <UniqueIdentifier>{dfaa6b94-3821-41ff-a9c2-ef94fbb0d7d1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\public">
       <UniqueIdentifier>{c053705f-05f3-4d16-ab13-80bfa84cbe75}</UniqueIdentifier>
@@ -118,34 +112,16 @@
     <Filter Include="Source Files\game\client\hl">
       <UniqueIdentifier>{83669c15-3f27-4829-89cb-fbc3b8eb0f8b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\vgui_utils">
+      <UniqueIdentifier>{c81aa18b-9893-4968-8aab-547ba658878c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\vgui_utils">
+      <UniqueIdentifier>{8c8ba91a-6aa6-4003-9232-7ca15842d4a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\parsemsg.cpp">
       <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\vgui_checkbutton2.cpp">
-      <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\vgui_grid.cpp">
-      <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\vgui_helpers.cpp">
-      <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\vgui_loadtga.cpp">
-      <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\vgui_listbox.cpp">
-      <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\voice_banmgr.cpp">
-      <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\vgui_scrollbar2.cpp">
-      <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game_shared\vgui_slider2.cpp">
-      <Filter>Source Files\game_shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\public\interface.cpp">
       <Filter>Source Files\public</Filter>
@@ -408,6 +384,30 @@
     <ClCompile Include="..\..\game\client\hl\hl_weapons.cpp">
       <Filter>Source Files\game\client\hl</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\voice_banmgr.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vgui_utils\vgui_checkbutton2.cpp">
+      <Filter>Source Files\vgui_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vgui_utils\vgui_grid.cpp">
+      <Filter>Source Files\vgui_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vgui_utils\vgui_helpers.cpp">
+      <Filter>Source Files\vgui_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vgui_utils\vgui_listbox.cpp">
+      <Filter>Source Files\vgui_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vgui_utils\vgui_loadtga.cpp">
+      <Filter>Source Files\vgui_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vgui_utils\vgui_scrollbar2.cpp">
+      <Filter>Source Files\vgui_utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\vgui_utils\vgui_slider2.cpp">
+      <Filter>Source Files\vgui_utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\parsemsg.h">
@@ -430,18 +430,6 @@
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
       <Filter>Header Files\pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game_shared\vgui_slider2.h">
-      <Filter>Header Files\game_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game_shared\voice_status.h">
-      <Filter>Header Files\game_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game_shared\vgui_scrollbar2.h">
-      <Filter>Header Files\game_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game_shared\voice_banmgr.h">
-      <Filter>Header Files\game_shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\common\Platform.h">
       <Filter>Header Files\common</Filter>
@@ -643,6 +631,36 @@
     </ClInclude>
     <ClInclude Include="..\..\game\client\voice_status.h">
       <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\voice_banmgr.h">
+      <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\voice_common.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vgui_utils\vgui_scrollbar2.h">
+      <Filter>Header Files\vgui_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vgui_utils\vgui_slider2.h">
+      <Filter>Header Files\vgui_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vgui_utils\vgui_checkbutton2.h">
+      <Filter>Header Files\vgui_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vgui_utils\vgui_defaultinputsignal.h">
+      <Filter>Header Files\vgui_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vgui_utils\vgui_grid.h">
+      <Filter>Header Files\vgui_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vgui_utils\vgui_helpers.h">
+      <Filter>Header Files\vgui_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vgui_utils\vgui_listbox.h">
+      <Filter>Header Files\vgui_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\vgui_utils\vgui_loadtga.h">
+      <Filter>Header Files\vgui_utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

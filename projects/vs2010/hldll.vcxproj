@@ -354,6 +354,7 @@
     <ClCompile Include="..\..\game\server\sound\Sound.cpp" />
     <ClCompile Include="..\..\game\server\TempEntity.cpp" />
     <ClCompile Include="..\..\game\server\util.cpp" />
+    <ClCompile Include="..\..\game\server\voice_gamemgr.cpp" />
     <ClCompile Include="..\..\game\server\Weapons.cpp" />
     <ClCompile Include="..\..\game\shared\Angelscript\CASBaseModuleBuilder.cpp" />
     <ClCompile Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.cpp" />
@@ -378,7 +379,6 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CSqueak.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CTripmine.cpp" />
     <ClCompile Include="..\..\game\shared\shared_game_utils.cpp" />
-    <ClCompile Include="..\..\game_shared\voice_gamemgr.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp" />
     <ClCompile Include="..\..\public\interface.cpp" />
@@ -644,6 +644,7 @@
     <ClInclude Include="..\..\game\server\Skill.h" />
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />
+    <ClInclude Include="..\..\game\server\voice_gamemgr.h" />
     <ClInclude Include="..\..\game\shared\Angelscript\CASBaseModuleBuilder.h" />
     <ClInclude Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.h" />
     <ClInclude Include="..\..\game\shared\Angelscript\CHLASManager.h" />
@@ -677,6 +678,7 @@
     <ClInclude Include="..\..\game\shared\extdll.h" />
     <ClInclude Include="..\..\game\shared\shared_game_utils.h" />
     <ClInclude Include="..\..\game\shared\util.h" />
+    <ClInclude Include="..\..\game\shared\voice_common.h" />
     <ClInclude Include="..\..\game\shared\Weapons.h" />
     <ClInclude Include="..\..\pm_shared\pm_debug.h" />
     <ClInclude Include="..\..\pm_shared\pm_defs.h" />

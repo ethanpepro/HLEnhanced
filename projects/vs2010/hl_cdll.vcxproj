@@ -62,7 +62,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;_DEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -86,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;NDEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -164,6 +164,7 @@
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_teammenu.cpp" />
+    <ClCompile Include="..\..\game\client\voice_banmgr.cpp" />
     <ClCompile Include="..\..\game\client\voice_status.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseGameInterface.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
@@ -185,20 +186,19 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CSqueak.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CTripmine.cpp" />
     <ClCompile Include="..\..\game\shared\shared_game_utils.cpp" />
-    <ClCompile Include="..\..\game_shared\vgui_checkbutton2.cpp" />
-    <ClCompile Include="..\..\game_shared\vgui_grid.cpp" />
-    <ClCompile Include="..\..\game_shared\vgui_helpers.cpp" />
-    <ClCompile Include="..\..\game_shared\vgui_listbox.cpp" />
-    <ClCompile Include="..\..\game_shared\vgui_loadtga.cpp" />
-    <ClCompile Include="..\..\game_shared\vgui_scrollbar2.cpp" />
-    <ClCompile Include="..\..\game_shared\vgui_slider2.cpp" />
-    <ClCompile Include="..\..\game_shared\voice_banmgr.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp" />
     <ClCompile Include="..\..\public\interface.cpp" />
     <ClCompile Include="..\..\public\math\interpolation.cpp" />
     <ClCompile Include="..\..\public\math\mathlib.cpp" />
     <ClCompile Include="..\..\source_sdk\public\tier0\memoverride.cpp" />
+    <ClCompile Include="..\..\vgui_utils\vgui_checkbutton2.cpp" />
+    <ClCompile Include="..\..\vgui_utils\vgui_grid.cpp" />
+    <ClCompile Include="..\..\vgui_utils\vgui_helpers.cpp" />
+    <ClCompile Include="..\..\vgui_utils\vgui_listbox.cpp" />
+    <ClCompile Include="..\..\vgui_utils\vgui_loadtga.cpp" />
+    <ClCompile Include="..\..\vgui_utils\vgui_scrollbar2.cpp" />
+    <ClCompile Include="..\..\vgui_utils\vgui_slider2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\CAutoString.h" />
@@ -241,6 +241,7 @@
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_ScorePanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.h" />
+    <ClInclude Include="..\..\game\client\voice_banmgr.h" />
     <ClInclude Include="..\..\game\client\voice_status.h" />
     <ClInclude Include="..\..\game\shared\CBaseGameInterface.h" />
     <ClInclude Include="..\..\game\shared\Damage.h" />
@@ -265,11 +266,8 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
     <ClInclude Include="..\..\game\shared\shared_game_utils.h" />
+    <ClInclude Include="..\..\game\shared\voice_common.h" />
     <ClInclude Include="..\..\game\shared\Weapons.h" />
-    <ClInclude Include="..\..\game_shared\vgui_scrollbar2.h" />
-    <ClInclude Include="..\..\game_shared\vgui_slider2.h" />
-    <ClInclude Include="..\..\game_shared\voice_banmgr.h" />
-    <ClInclude Include="..\..\game_shared\voice_status.h" />
     <ClInclude Include="..\..\pm_shared\pm_debug.h" />
     <ClInclude Include="..\..\pm_shared\pm_defs.h" />
     <ClInclude Include="..\..\pm_shared\pm_info.h" />
@@ -279,6 +277,14 @@
     <ClInclude Include="..\..\public\math\interpolation.h" />
     <ClInclude Include="..\..\public\math\mathlib.h" />
     <ClInclude Include="..\..\public\math\vector.h" />
+    <ClInclude Include="..\..\vgui_utils\vgui_checkbutton2.h" />
+    <ClInclude Include="..\..\vgui_utils\vgui_defaultinputsignal.h" />
+    <ClInclude Include="..\..\vgui_utils\vgui_grid.h" />
+    <ClInclude Include="..\..\vgui_utils\vgui_helpers.h" />
+    <ClInclude Include="..\..\vgui_utils\vgui_listbox.h" />
+    <ClInclude Include="..\..\vgui_utils\vgui_loadtga.h" />
+    <ClInclude Include="..\..\vgui_utils\vgui_scrollbar2.h" />
+    <ClInclude Include="..\..\vgui_utils\vgui_slider2.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\game_controls.lib" />
