@@ -103,10 +103,6 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\cl_dll\hl\hl_baseentity.cpp" />
-    <ClCompile Include="..\..\cl_dll\hl\hl_events.cpp" />
-    <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp" />
-    <ClCompile Include="..\..\cl_dll\hl\hl_weapons.cpp" />
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\parsemsg.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
@@ -123,6 +119,10 @@
     <ClCompile Include="..\..\game\client\events.cpp" />
     <ClCompile Include="..\..\game\client\ev_common.cpp" />
     <ClCompile Include="..\..\game\client\ev_hldm.cpp" />
+    <ClCompile Include="..\..\game\client\hl\hl_baseentity.cpp" />
+    <ClCompile Include="..\..\game\client\hl\hl_events.cpp" />
+    <ClCompile Include="..\..\game\client\hl\hl_objects.cpp" />
+    <ClCompile Include="..\..\game\client\hl\hl_weapons.cpp" />
     <ClCompile Include="..\..\game\client\input\input.cpp" />
     <ClCompile Include="..\..\game\client\input\inputw32.cpp" />
     <ClCompile Include="..\..\game\client\renderer\GameStudioModelRenderer.cpp" />

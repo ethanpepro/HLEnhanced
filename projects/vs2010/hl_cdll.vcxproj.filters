@@ -34,15 +34,6 @@
     <Filter Include="Source Files\public">
       <UniqueIdentifier>{c053705f-05f3-4d16-ab13-80bfa84cbe75}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\_hl">
-      <UniqueIdentifier>{f033f23a-ab54-411c-bebf-72d10839418e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\_hl\cl_dll">
-      <UniqueIdentifier>{5bff06ec-c232-4dd2-8642-4e2ce64f31ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\_hl\cl_dll\hl">
-      <UniqueIdentifier>{bd9d5958-4e67-4bff-bbd8-6ba6dfcdb720}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\engine">
       <UniqueIdentifier>{a503e72a-049f-488c-a14e-b69a2f6b9c46}</UniqueIdentifier>
     </Filter>
@@ -124,20 +115,11 @@
     <Filter Include="Header Files\game\client\entities">
       <UniqueIdentifier>{ab919f89-2254-4e52-a58c-9131b31e3a02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\client\hl">
+      <UniqueIdentifier>{83669c15-3f27-4829-89cb-fbc3b8eb0f8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\cl_dll\hl\hl_weapons.cpp">
-      <Filter>Source Files\_hl\cl_dll\hl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hl\hl_baseentity.cpp">
-      <Filter>Source Files\_hl\cl_dll\hl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hl\hl_events.cpp">
-      <Filter>Source Files\_hl\cl_dll\hl</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp">
-      <Filter>Source Files\_hl\cl_dll\hl</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\common\parsemsg.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
@@ -413,6 +395,18 @@
     </ClCompile>
     <ClCompile Include="..\..\game\client\voice_status.cpp">
       <Filter>Source Files\game\client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\hl\hl_baseentity.cpp">
+      <Filter>Source Files\game\client\hl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\hl\hl_events.cpp">
+      <Filter>Source Files\game\client\hl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\hl\hl_objects.cpp">
+      <Filter>Source Files\game\client\hl</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\hl\hl_weapons.cpp">
+      <Filter>Source Files\game\client\hl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
