@@ -29,4 +29,7 @@
 // Vector class
 #include "vector.h"
 
+// Shared engine/DLL constants
+#include "const.h"
+
 #endif //COMMON_GAME_H

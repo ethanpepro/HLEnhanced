@@ -23,7 +23,6 @@
 #include "Game.h"
 
 // Shared engine/DLL constants
-#include "const.h"
 #include "progdefs.h"
 #include "edict.h"
 

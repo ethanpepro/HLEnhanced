@@ -15,6 +15,8 @@
 //
 //  cl_dll.h
 //
+#ifndef GAME_CLIENT_CL_DLL_H
+#define GAME_CLIENT_CL_DLL_H
 
 // 4-23-98  JOHN
 
@@ -26,7 +28,6 @@
 //		- Handling the custum HUD-update packets
 //
 typedef unsigned char byte;
-typedef unsigned short word;
 typedef float vec_t;
 typedef int (*pfnUserMsgHook)(const char *pszName, int iSize, void *pbuf);
 
@@ -38,3 +39,5 @@ typedef int (*pfnUserMsgHook)(const char *pszName, int iSize, void *pbuf);
 #include "cdll_dll.h"
 
 extern cl_enginefunc_t gEngfuncs;
+
+#endif //GAME_CLIENT_CL_DLL_H

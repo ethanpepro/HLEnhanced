@@ -16,21 +16,18 @@
 //  parsemsg.cpp
 //
 //--------------------------------------------------------------------------------------------------------------
-#include <cstring>
+#include "Game.h"
 
 #include "parsemsg.h"
 
 //TODO: this whole file, all of it. Rewrite it as a class. With global stateless and destructors. In fact, forget the destructors. - Solokiller
 
-typedef unsigned char byte;
-#define true 1
-
 static byte *gpBuf;
 static int giSize;
 static int giRead;
-static int giBadRead;
+static bool giBadRead;
 
-int READ_OK( void )
+bool READ_OK( void )
 {
 	return !giBadRead;
 }
@@ -38,7 +35,7 @@ int READ_OK( void )
 void BEGIN_READ( void *buf, int size )
 {
 	giRead = 0;
-	giBadRead = 0;
+	giBadRead = false;
 	giSize = size;
 	gpBuf = (byte*)buf;
 }

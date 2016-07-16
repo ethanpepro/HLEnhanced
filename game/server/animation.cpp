@@ -12,45 +12,15 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-//TODO: tidy headers and such, make common if possible - Solokiller
-
-#include "../common/nowin.h"
-
-#include "Platform.h"
-
-// hack into header files that we can ship
-typedef int qboolean;
-typedef unsigned char byte;
+#include "extdll.h"
+#include "util.h"
 #include "mathlib.h"
-#include "vector.h"
-#include "const.h"
-#include "progdefs.h"
-#include "edict.h"
-#include "eiface.h"
-
 #include "studio.h"
 
 #include "entities/NPCs/Activity.h"
-
-#ifndef ANIMATION_H
-#include "animation.h"
-#endif
-
 #include "entities/ScriptEvent.h"
 
-#ifndef ENGINECALLBACK_H
-#include "enginecallback.h"
-#endif
-
-extern globalvars_t				*gpGlobals;
-
-#pragma warning( disable : 4244 )
-
-
+#include "animation.h"
 
 int ExtractBbox( void *pmodel, int sequence, float *mins, float *maxs )
 {

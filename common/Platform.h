@@ -59,6 +59,7 @@
 #include <sys/time.h>
 #include <errno.h>
 #include <sys/ioctl.h>
+#include <sys/types.h>
 
 #define MAX_PATH PATH_MAX
 
@@ -66,7 +67,6 @@
 #define _vsnprintf(a,b,c,d) vsnprintf(a,b,c,d)
 #endif
 
-//TODO: verify that the mode parameter is correct - Solokiller
 #define MakeDirectory( pszDirectory ) mkdir( pszDirectory, 0777 )
 
 #define DLLEXPORT __attribute__( ( visibility( "default" ) ) )
