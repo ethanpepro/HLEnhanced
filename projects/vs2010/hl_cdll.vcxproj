@@ -157,7 +157,6 @@
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_ClassMenu.cpp" />
-    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ConsolePanel.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_CustomObjects.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_int.cpp" />
@@ -232,7 +231,6 @@
     <ClInclude Include="..\..\game\client\CClientGameInterface.h" />
     <ClInclude Include="..\..\game\client\cl_dll.h" />
     <ClInclude Include="..\..\game\client\cl_util.h" />
-    <ClInclude Include="..\..\game\client\ui\vgui\vgui_ConsolePanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_int.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_SchemeManager.h" />

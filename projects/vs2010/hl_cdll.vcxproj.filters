@@ -399,9 +399,6 @@
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.cpp">
       <Filter>Source Files\game\client\ui\vgui</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\client\ui\vgui\vgui_ConsolePanel.cpp">
-      <Filter>Source Files\game\client\ui\vgui</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.cpp">
       <Filter>Source Files\game\client\ui\vgui</Filter>
     </ClCompile>
@@ -621,9 +618,6 @@
       <Filter>Header Files\game\client\ui\vgui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.h">
-      <Filter>Header Files\game\client\ui\vgui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\client\ui\vgui\vgui_ConsolePanel.h">
       <Filter>Header Files\game\client\ui\vgui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.h">
