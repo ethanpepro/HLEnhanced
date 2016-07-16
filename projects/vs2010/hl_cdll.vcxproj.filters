@@ -121,11 +121,17 @@
     <Filter Include="Source Files\game\client\renderer">
       <UniqueIdentifier>{19416af9-e229-45a9-9762-e3980f2b1283}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\client\input">
+      <UniqueIdentifier>{df7f72d2-6d96-4268-8a71-2e60c6f686c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\client\input">
+      <UniqueIdentifier>{75f9a450-6f44-4feb-8bd1-c767fb6e83dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\client\entities">
+      <UniqueIdentifier>{ab919f89-2254-4e52-a58c-9131b31e3a02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\cl_dll\ev_hldm.cpp">
-      <Filter>Source Files\_hl\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\cl_dll\hl\hl_weapons.cpp">
       <Filter>Source Files\_hl\cl_dll\hl</Filter>
     </ClCompile>
@@ -145,18 +151,6 @@
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\entity.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\ev_common.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\events.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\input.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\inputw32.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\interpolation.cpp">
@@ -411,15 +405,24 @@
     <ClCompile Include="..\..\game\client\renderer\StudioModelRenderer.cpp">
       <Filter>Source Files\game\client\renderer</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\input\input.cpp">
+      <Filter>Source Files\game\client\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\input\inputw32.cpp">
+      <Filter>Source Files\game\client\input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ev_common.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\events.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ev_hldm.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\com_weapons.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\ev_hldm.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\eventscripts.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\interpolation.h">
@@ -634,6 +637,21 @@
     </ClInclude>
     <ClInclude Include="..\..\game\client\renderer\StudioModelRenderer.h">
       <Filter>Header Files\game\client\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\global_consts.h">
+      <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\player_info.h">
+      <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\Exports.h">
+      <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\eventscripts.h">
+      <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ev_hldm.h">
+      <Filter>Header Files\game\client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

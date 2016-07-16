@@ -106,15 +106,10 @@
     <ClCompile Include="..\..\cl_dll\cdll_int.cpp" />
     <ClCompile Include="..\..\cl_dll\com_weapons.cpp" />
     <ClCompile Include="..\..\cl_dll\entity.cpp" />
-    <ClCompile Include="..\..\cl_dll\events.cpp" />
-    <ClCompile Include="..\..\cl_dll\ev_common.cpp" />
-    <ClCompile Include="..\..\cl_dll\ev_hldm.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_baseentity.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_events.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_weapons.cpp" />
-    <ClCompile Include="..\..\cl_dll\input.cpp" />
-    <ClCompile Include="..\..\cl_dll\inputw32.cpp" />
     <ClCompile Include="..\..\cl_dll\interpolation.cpp" />
     <ClCompile Include="..\..\cl_dll\voice_status.cpp" />
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
@@ -127,6 +122,11 @@
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
+    <ClCompile Include="..\..\game\client\events.cpp" />
+    <ClCompile Include="..\..\game\client\ev_common.cpp" />
+    <ClCompile Include="..\..\game\client\ev_hldm.cpp" />
+    <ClCompile Include="..\..\game\client\input\input.cpp" />
+    <ClCompile Include="..\..\game\client\input\inputw32.cpp" />
     <ClCompile Include="..\..\game\client\renderer\GameStudioModelRenderer.cpp" />
     <ClCompile Include="..\..\game\client\renderer\in_camera.cpp" />
     <ClCompile Include="..\..\game\client\renderer\StudioModelRenderer.cpp" />
@@ -202,8 +202,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\com_weapons.h" />
-    <ClInclude Include="..\..\cl_dll\eventscripts.h" />
-    <ClInclude Include="..\..\cl_dll\ev_hldm.h" />
     <ClInclude Include="..\..\cl_dll\interpolation.h" />
     <ClInclude Include="..\..\common\CAutoString.h" />
     <ClInclude Include="..\..\common\CHashStringPool.h" />
@@ -218,6 +216,11 @@
     <ClInclude Include="..\..\game\client\cl_dll.h" />
     <ClInclude Include="..\..\game\client\cl_util.h" />
     <ClInclude Include="..\..\game\client\demo.h" />
+    <ClInclude Include="..\..\game\client\eventscripts.h" />
+    <ClInclude Include="..\..\game\client\ev_hldm.h" />
+    <ClInclude Include="..\..\game\client\Exports.h" />
+    <ClInclude Include="..\..\game\client\global_consts.h" />
+    <ClInclude Include="..\..\game\client\player_info.h" />
     <ClInclude Include="..\..\game\client\renderer\camera.h" />
     <ClInclude Include="..\..\game\client\renderer\GameStudioModelRenderer.h" />
     <ClInclude Include="..\..\game\client\renderer\StudioModelRenderer.h" />
