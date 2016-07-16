@@ -25,7 +25,7 @@
 #include "cvardef.h"
 #include "usercmd.h"
 #include "const.h"
-#include "in_defs.h"
+#include "mathlib.h"
 #include "parsemsg.h"
 
 #include "vgui_TeamFortressViewport.h"

@@ -16,7 +16,7 @@
 #include "cvardef.h"
 #include "usercmd.h"
 #include "const.h"
-#include "in_defs.h"
+#include "mathlib.h"
 #include "../public/keydefs.h"
 #include "renderer/view.h"
 #include "Exports.h"

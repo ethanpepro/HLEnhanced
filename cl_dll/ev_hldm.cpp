@@ -28,7 +28,7 @@
 #include "r_efx.h"
 #include "event_api.h"
 #include "event_args.h"
-#include "in_defs.h"
+#include "mathlib.h"
 
 #include <string.h>
 

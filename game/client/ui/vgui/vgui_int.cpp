@@ -19,7 +19,7 @@
 #include "cvardef.h"
 #include "usercmd.h"
 #include "const.h"
-#include "in_defs.h"
+#include "mathlib.h"
 #include "vgui_TeamFortressViewport.h"
 #include "vgui_ControlConfigPanel.h"
 

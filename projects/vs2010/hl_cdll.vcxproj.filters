@@ -416,9 +416,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\cl_dll\kbutton.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\cl_dll\com_weapons.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
@@ -429,9 +426,6 @@
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\GameStudioModelRenderer.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\in_defs.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\interpolation.h">
@@ -640,6 +634,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\client\demo.h">
       <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\engine\kbutton.h">
+      <Filter>Header Files\engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
