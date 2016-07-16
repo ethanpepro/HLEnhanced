@@ -5,11 +5,6 @@
 #include "cbase.h"
 #include "gamerules/GameRules.h"
 
-//TODO: Should move away from platform specific macros altogether
-#undef min
-#undef max
-#undef VOID
-
 #include <Angelscript/IASInitializer.h>
 #include <Angelscript/IASModuleBuilder.h>
 #include <Angelscript/CASModule.h>

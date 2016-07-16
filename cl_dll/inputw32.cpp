@@ -8,7 +8,7 @@
 // in_win.c -- windows 95 mouse and joystick code
 // 02/21/97 JCB Added extended DirectInput code to support external controllers.
 
-#include "port.h"
+#include <cstdint>
 
 #include "hud.h"
 #include "cl_util.h"
@@ -25,6 +25,8 @@
 
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_gamecontroller.h>
+
+//TODO: is this actually windows specific or just named so due to legacy reasons? - Solokiller
 
 #define MOUSE_BUTTON_COUNT 5
 
@@ -114,13 +116,13 @@ enum _ControlList
 
 
 
-DWORD	dwAxisMap[ JOY_MAX_AXES ];
-DWORD	dwControlMap[ JOY_MAX_AXES ];
-int	pdwRawValue[ JOY_MAX_AXES ];
-DWORD		joy_oldbuttonstate, joy_oldpovstate;
+uint32_t	dwAxisMap[ JOY_MAX_AXES ];
+uint32_t	dwControlMap[ JOY_MAX_AXES ];
+int			pdwRawValue[ JOY_MAX_AXES ];
+uint32_t	joy_oldbuttonstate, joy_oldpovstate;
 
 int			joy_id;
-DWORD		joy_numbuttons;
+uint32_t	joy_numbuttons;
 
 SDL_GameController *s_pJoystick = NULL;
 
@@ -152,6 +154,7 @@ cvar_t	*joy_wwhack2;
 int			joy_avail, joy_advancedinit, joy_haspov;
 
 #ifdef _WIN32
+//TODO: use cross-platform code. - Solokiller
 DWORD	s_hMouseThreadId = 0;
 HANDLE	s_hMouseThread = 0;
 HANDLE	s_hMouseQuitEvent = 0;
@@ -717,7 +720,7 @@ void Joy_AdvancedUpdate_f (void)
 	// called once by IN_ReadJoystick and by user whenever an update is needed
 	// cvars are now available
 	int	i;
-	DWORD dwTemp;
+	uint32_t dwTemp;
 
 	// initialize all the maps
 	for (i = 0; i < JOY_MAX_AXES; i++)
@@ -746,22 +749,22 @@ void Joy_AdvancedUpdate_f (void)
 
 		// advanced initialization here
 		// data supplied by user via joy_axisn cvars
-		dwTemp = (DWORD) joy_advaxisx->value;
+		dwTemp = ( uint32_t ) joy_advaxisx->value;
 		dwAxisMap[JOY_AXIS_X] = dwTemp & 0x0000000f;
 		dwControlMap[JOY_AXIS_X] = dwTemp & JOY_RELATIVE_AXIS;
-		dwTemp = (DWORD) joy_advaxisy->value;
+		dwTemp = ( uint32_t ) joy_advaxisy->value;
 		dwAxisMap[JOY_AXIS_Y] = dwTemp & 0x0000000f;
 		dwControlMap[JOY_AXIS_Y] = dwTemp & JOY_RELATIVE_AXIS;
-		dwTemp = (DWORD) joy_advaxisz->value;
+		dwTemp = ( uint32_t ) joy_advaxisz->value;
 		dwAxisMap[JOY_AXIS_Z] = dwTemp & 0x0000000f;
 		dwControlMap[JOY_AXIS_Z] = dwTemp & JOY_RELATIVE_AXIS;
-		dwTemp = (DWORD) joy_advaxisr->value;
+		dwTemp = ( uint32_t ) joy_advaxisr->value;
 		dwAxisMap[JOY_AXIS_R] = dwTemp & 0x0000000f;
 		dwControlMap[JOY_AXIS_R] = dwTemp & JOY_RELATIVE_AXIS;
-		dwTemp = (DWORD) joy_advaxisu->value;
+		dwTemp = ( uint32_t ) joy_advaxisu->value;
 		dwAxisMap[JOY_AXIS_U] = dwTemp & 0x0000000f;
 		dwControlMap[JOY_AXIS_U] = dwTemp & JOY_RELATIVE_AXIS;
-		dwTemp = (DWORD) joy_advaxisv->value;
+		dwTemp = ( uint32_t ) joy_advaxisv->value;
 		dwAxisMap[JOY_AXIS_V] = dwTemp & 0x0000000f;
 		dwControlMap[JOY_AXIS_V] = dwTemp & JOY_RELATIVE_AXIS;
 	}
@@ -782,7 +785,7 @@ void IN_Commands (void)
 		return;
 	}
 
-	DWORD	buttonstate, povstate;
+	uint32_t	buttonstate, povstate;
 	
 	// loop through the joystick buttons
 	// key a joystick event or auxillary event for higher number buttons for each state change

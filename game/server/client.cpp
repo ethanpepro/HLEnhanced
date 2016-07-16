@@ -41,11 +41,6 @@
 #include "netadr.h"
 #include "pm_shared.h"
 
-//TODO: Should move away from platform specific macros altogether
-#undef min
-#undef max
-#undef VOID
-
 #include "Angelscript/CHLASManager.h"
 
 //TODO: split this file into pieces - Solokiller

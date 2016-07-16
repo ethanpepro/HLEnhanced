@@ -7,9 +7,10 @@
 #include <windows.h>
 #include "winsani_out.h"
 #else
-#include "port.h"
 #include <dlfcn.h>
 #endif
+
+//TODO: this is entirely windows specific. Convert to cross-platform or remove - Solokiller
 
 // For tracking the trace threads
 typedef struct

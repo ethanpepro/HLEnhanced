@@ -114,7 +114,7 @@ static IBaseInterface *CreateInterfaceLocal( const char *pName, int *pReturnCode
 //static hlds_run wants to use this function 
 static void *Sys_GetProcAddress( const char *pModuleName, const char *pName )
 {
-	return GetProcAddress( GetModuleHandle(pModuleName), pName );
+	return Sys_GetProcAddress( GetModuleHandle(pModuleName), pName );
 }
 
 //-----------------------------------------------------------------------------
@@ -126,9 +126,9 @@ static void *Sys_GetProcAddress( const char *pModuleName, const char *pName )
 void *Sys_GetProcAddress( void *pModuleHandle, const char *pName )
 {
 #if defined ( _WIN32 )
-	return GetProcAddress( (HINSTANCE)pModuleHandle, pName );
+	return GetProcAddress( ( HMODULE ) pModuleHandle, pName );
 #else
-	return GetProcAddress( pModuleHandle, pName );
+	return dlsym( pModuleHandle, pName );
 #endif
 }
 
@@ -142,7 +142,7 @@ CSysModule	*Sys_LoadModule( const char *pModuleName )
 #if defined ( _WIN32 )
 	HMODULE hDLL = LoadLibrary( pModuleName );
 #else
-	HMODULE hDLL  = NULL;
+	void* hDLL  = NULL;
 	char szAbsoluteModuleName[1024];
 	szAbsoluteModuleName[0] = 0;
 	if ( pModuleName[0] != '/' )
@@ -195,38 +195,37 @@ void Sys_UnloadModule( CSysModule *pModule )
 	if ( !pModule )
 		return;
 
-	HMODULE	hDLL = reinterpret_cast<HMODULE>(pModule);
 #if defined ( _WIN32 )
-	FreeLibrary( hDLL );
+	FreeLibrary( reinterpret_cast<HMODULE>( pModule ) );
 #else
-	dlclose((void *)hDLL);
+	dlclose( reinterpret_cast<void*>( pModule ) );
 #endif
-
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: returns a pointer to a function, given a module
-// Input  : module - windows HMODULE from Sys_LoadModule() 
+// Input  : module - module handle from Sys_LoadModule() 
 //			*pName - proc name
 // Output : factory for this module
 //-----------------------------------------------------------------------------
 CreateInterfaceFn Sys_GetFactory( CSysModule *pModule )
 {
 	if ( !pModule )
-		return NULL;
+		return nullptr;
 
-	HMODULE	hDLL = reinterpret_cast<HMODULE>(pModule);
-#if defined ( _WIN32 )
-	return reinterpret_cast<CreateInterfaceFn>(GetProcAddress( hDLL, CREATEINTERFACE_PROCNAME ));
+	void* pFunction = Sys_GetProcAddress( pModule, CREATEINTERFACE_PROCNAME );
+
+#ifdef WIN32
+	return reinterpret_cast<CreateInterfaceFn>( pFunction );
 #else
-// Linux gives this error:
-//../public/interface.cpp: In function `IBaseInterface *(*Sys_GetFactory 
-//(CSysModule *)) (const char *, int *)':
-//../public/interface.cpp:154: ISO C++ forbids casting between 
-//pointer-to-function and pointer-to-object
-//
-// so lets get around it :)
-	return (CreateInterfaceFn)(GetProcAddress( hDLL, CREATEINTERFACE_PROCNAME ));
+	// Linux gives this error:
+	//../public/interface.cpp: In function `IBaseInterface *(*Sys_GetFactory 
+	//(CSysModule *)) (const char *, int *)':
+	//../public/interface.cpp:154: ISO C++ forbids casting between 
+	//pointer-to-function and pointer-to-object
+	//
+	// so lets get around it :)
+	return ( CreateInterfaceFn ) pFunction;
 #endif
 }
 

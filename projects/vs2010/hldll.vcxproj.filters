@@ -1979,5 +1979,8 @@
     <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\Entities\ASCBaseEntity.h">
       <Filter>Header Files\game\server\Angelscript\ScriptAPI\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\common\MinMax.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

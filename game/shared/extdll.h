@@ -40,13 +40,7 @@
 #include <cstdlib>
 #include <cmath>
 
-#ifndef min
-#define min(a,b)  (((a) < (b)) ? (a) : (b))
-#endif
-
-#ifndef max
-#define max(a,b)  (((a) > (b)) ? (a) : (b))
-#endif
+#include "MinMax.h"
 
 #include "SharedConstants.h"
 

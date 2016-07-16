@@ -7,11 +7,6 @@
 #include "CHalfLifeMultiplay.h"
 #include "CHalfLifeTeamplay.h"
 
-//TODO: Should move away from platform specific macros altogether
-#undef min
-#undef max
-#undef VOID
-
 #include "Angelscript/CHLASManager.h"
 
 DLL_GLOBAL CGameRules* g_pGameRules = nullptr;

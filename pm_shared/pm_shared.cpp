@@ -2771,7 +2771,7 @@ void PM_DropPunchAngle ( Vector& punchangle )
 	
 	len = VectorNormalize ( punchangle );
 	len -= (10.0 + len * 0.5) * pmove->frametime;
-	len = max( len, 0.0 );
+	len = max( len, 0.0f );
 	punchangle = punchangle * len;
 }
 

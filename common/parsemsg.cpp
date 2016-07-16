@@ -16,8 +16,11 @@
 //  parsemsg.cpp
 //
 //--------------------------------------------------------------------------------------------------------------
+#include <cstring>
+
 #include "parsemsg.h"
-#include <port.h>
+
+//TODO: this whole file, all of it. Rewrite it as a class. With global stateless and destructors. In fact, forget the destructors. - Solokiller
 
 typedef unsigned char byte;
 #define true 1
@@ -176,7 +179,7 @@ float READ_HIRESANGLE( void )
 //--------------------------------------------------------------------------------------------------------------
 BufferWriter::BufferWriter()
 {
-	Init( NULL, 0 );
+	Init( nullptr, 0 );
 }
 
 //--------------------------------------------------------------------------------------------------------------

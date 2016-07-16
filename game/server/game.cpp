@@ -18,11 +18,6 @@
 
 #include "CServerGameInterface.h"
 
-//TODO: Should move away from platform specific macros altogether
-#undef min
-#undef max
-#undef VOID
-
 #include "Angelscript/CHLASManager.h"
 
 #include "game.h"

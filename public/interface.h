@@ -26,9 +26,6 @@
 #include <dlfcn.h> // dlopen,dlclose, et al
 #include <unistd.h>
 
-#define HMODULE void *
-#define GetProcAddress dlsym
-
 #define _snprintf snprintf
 
 #endif

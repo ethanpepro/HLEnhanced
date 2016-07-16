@@ -34,11 +34,6 @@ precaches and defs for entities and other data that must always be available.
 
 #include "CMap.h"
 
-//TODO: Should move away from platform specific macros altogether
-#undef min
-#undef max
-#undef VOID
-
 #include "Angelscript/CHLASManager.h"
 
 extern DLL_GLOBAL bool g_fGameOver;

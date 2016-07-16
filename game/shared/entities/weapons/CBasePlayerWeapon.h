@@ -100,13 +100,13 @@ public:
 		//TODO: move this to a source file once we have a shared weapon file - Solokiller
 		data.m_iClip = m_iClip;
 
-		data.m_flTimeWeaponIdle = max( m_flTimeWeaponIdle, -0.001 );
-		data.m_flNextPrimaryAttack = max( m_flNextPrimaryAttack, -0.001 );
-		data.m_flNextSecondaryAttack = max( m_flNextSecondaryAttack, -0.001 );
+		data.m_flTimeWeaponIdle = max( m_flTimeWeaponIdle, -0.001f );
+		data.m_flNextPrimaryAttack = max( m_flNextPrimaryAttack, -0.001f );
+		data.m_flNextSecondaryAttack = max( m_flNextSecondaryAttack, -0.001f );
 
 		data.m_fInReload = m_fInReload;
 
-		data.fuser1 = max( pev->fuser1, -0.001 );
+		data.fuser1 = max( pev->fuser1, -0.001f );
 	}
 
 	/**
