@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\cl_dll">
-      <UniqueIdentifier>{01b8d565-8fa1-4999-8cb6-01da5dd1e555}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\common">
       <UniqueIdentifier>{6887a889-19a5-42f7-8af9-2af4b64cbf2b}</UniqueIdentifier>
     </Filter>
@@ -24,9 +21,6 @@
     </Filter>
     <Filter Include="Source Files\game_shared">
       <UniqueIdentifier>{83318ea3-5019-4d8a-a9f9-4922cdb1c9bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\cl_dll">
-      <UniqueIdentifier>{95dcdae3-b427-4517-a477-bfa2583b2e1f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\common">
       <UniqueIdentifier>{54679c20-fece-4cb1-bef2-017d30f31af0}</UniqueIdentifier>
@@ -144,15 +138,6 @@
     <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp">
       <Filter>Source Files\_hl\cl_dll\hl</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\cdll_int.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\com_weapons.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\interpolation.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\common\parsemsg.cpp">
       <Filter>Source Files\common</Filter>
     </ClCompile>
@@ -179,9 +164,6 @@
     </ClCompile>
     <ClCompile Include="..\..\game_shared\vgui_slider2.cpp">
       <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\voice_status.cpp">
-      <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\public\interface.cpp">
       <Filter>Source Files\public</Filter>
@@ -420,14 +402,20 @@
     <ClCompile Include="..\..\game\client\entity.cpp">
       <Filter>Source Files\game\client</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\public\math\interpolation.cpp">
+      <Filter>Source Files\public\math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\com_weapons.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\cdll_int.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\voice_status.cpp">
+      <Filter>Source Files\game\client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\cl_dll\com_weapons.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\interpolation.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\common\parsemsg.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
@@ -651,6 +639,15 @@
       <Filter>Header Files\game\client</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\client\ev_hldm.h">
+      <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\public\math\interpolation.h">
+      <Filter>Header Files\public\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\com_weapons.h">
+      <Filter>Header Files\game\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\voice_status.h">
       <Filter>Header Files\game\client</Filter>
     </ClInclude>
   </ItemGroup>

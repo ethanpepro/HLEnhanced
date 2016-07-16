@@ -103,19 +103,17 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\cl_dll\cdll_int.cpp" />
-    <ClCompile Include="..\..\cl_dll\com_weapons.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_baseentity.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_events.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_weapons.cpp" />
-    <ClCompile Include="..\..\cl_dll\interpolation.cpp" />
-    <ClCompile Include="..\..\cl_dll\voice_status.cpp" />
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\parsemsg.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
     <ClCompile Include="..\..\game\client\CClientGameInterface.cpp" />
+    <ClCompile Include="..\..\game\client\cdll_int.cpp" />
     <ClCompile Include="..\..\game\client\cl_util.cpp" />
+    <ClCompile Include="..\..\game\client\com_weapons.cpp" />
     <ClCompile Include="..\..\game\client\demo.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBaseEntity.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
@@ -166,6 +164,7 @@
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_teammenu.cpp" />
+    <ClCompile Include="..\..\game\client\voice_status.cpp" />
     <ClCompile Include="..\..\game\shared\CBaseGameInterface.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
@@ -197,12 +196,11 @@
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp" />
     <ClCompile Include="..\..\public\interface.cpp" />
+    <ClCompile Include="..\..\public\math\interpolation.cpp" />
     <ClCompile Include="..\..\public\math\mathlib.cpp" />
     <ClCompile Include="..\..\source_sdk\public\tier0\memoverride.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\cl_dll\com_weapons.h" />
-    <ClInclude Include="..\..\cl_dll\interpolation.h" />
     <ClInclude Include="..\..\common\CAutoString.h" />
     <ClInclude Include="..\..\common\CHashStringPool.h" />
     <ClInclude Include="..\..\common\Game.h" />
@@ -215,6 +213,7 @@
     <ClInclude Include="..\..\game\client\CClientGameInterface.h" />
     <ClInclude Include="..\..\game\client\cl_dll.h" />
     <ClInclude Include="..\..\game\client\cl_util.h" />
+    <ClInclude Include="..\..\game\client\com_weapons.h" />
     <ClInclude Include="..\..\game\client\demo.h" />
     <ClInclude Include="..\..\game\client\eventscripts.h" />
     <ClInclude Include="..\..\game\client\ev_hldm.h" />
@@ -242,6 +241,7 @@
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_ScorePanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_SpectatorPanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.h" />
+    <ClInclude Include="..\..\game\client\voice_status.h" />
     <ClInclude Include="..\..\game\shared\CBaseGameInterface.h" />
     <ClInclude Include="..\..\game\shared\Damage.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
@@ -276,6 +276,7 @@
     <ClInclude Include="..\..\pm_shared\pm_materials.h" />
     <ClInclude Include="..\..\pm_shared\pm_movevars.h" />
     <ClInclude Include="..\..\pm_shared\pm_shared.h" />
+    <ClInclude Include="..\..\public\math\interpolation.h" />
     <ClInclude Include="..\..\public\math\mathlib.h" />
     <ClInclude Include="..\..\public\math\vector.h" />
   </ItemGroup>

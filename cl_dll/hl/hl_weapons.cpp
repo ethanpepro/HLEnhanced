@@ -45,7 +45,7 @@
 #include "hud.h"
 #include "cl_util.h"
 
-#include "../com_weapons.h"
+#include "com_weapons.h"
 #include "demo.h"
 
 extern globalvars_t *gpGlobals;
