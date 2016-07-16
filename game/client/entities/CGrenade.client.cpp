@@ -1,0 +1,38 @@
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Weapons.h"
+
+void CGrenade::Spawn()
+{
+}
+
+CGrenade* CGrenade::ShootTimed( entvars_t* pevOwner, Vector vecStart, Vector vecVelocity, float time )
+{
+	return 0;
+}
+
+CGrenade* CGrenade::ShootContact( entvars_t* pevOwner, Vector vecStart, Vector vecVelocity )
+{
+	return 0;
+}
+
+void CGrenade::Explode( Vector, Vector )
+{
+}
+
+void CGrenade::Explode( TraceResult*, int )
+{
+}
+
+void CGrenade::DetonateUse( CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float value )
+{
+}
+
+void CGrenade::BounceSound()
+{
+}
+
+void CGrenade::Killed( entvars_t*, GibAction gibAction )
+{
+}

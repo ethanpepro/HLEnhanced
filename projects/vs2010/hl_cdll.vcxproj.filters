@@ -408,6 +408,27 @@
     <ClCompile Include="..\..\vgui_utils\vgui_slider2.cpp">
       <Filter>Source Files\vgui_utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\CBaseToggle.client.cpp">
+      <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\CBaseDelay.client.cpp">
+      <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\CGrenade.client.cpp">
+      <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\CSprite.client.cpp">
+      <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\CBeam.client.cpp">
+      <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\CBaseAnimating.client.cpp">
+      <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\CBaseMonster.client.cpp">
+      <Filter>Source Files\game\client\entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\parsemsg.h">

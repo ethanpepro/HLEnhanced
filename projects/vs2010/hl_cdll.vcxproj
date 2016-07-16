@@ -111,8 +111,15 @@
     <ClCompile Include="..\..\game\client\cl_util.cpp" />
     <ClCompile Include="..\..\game\client\com_weapons.cpp" />
     <ClCompile Include="..\..\game\client\demo.cpp" />
+    <ClCompile Include="..\..\game\client\entities\CBaseAnimating.client.cpp" />
+    <ClCompile Include="..\..\game\client\entities\CBaseDelay.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBaseEntity.client.cpp" />
+    <ClCompile Include="..\..\game\client\entities\CBaseMonster.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
+    <ClCompile Include="..\..\game\client\entities\CBaseToggle.client.cpp" />
+    <ClCompile Include="..\..\game\client\entities\CBeam.client.cpp" />
+    <ClCompile Include="..\..\game\client\entities\CGrenade.client.cpp" />
+    <ClCompile Include="..\..\game\client\entities\CSprite.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
     <ClCompile Include="..\..\game\client\entity.cpp" />
