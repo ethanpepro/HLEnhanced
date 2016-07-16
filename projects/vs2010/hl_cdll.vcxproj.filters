@@ -118,6 +118,9 @@
     <Filter Include="Header Files\vgui_utils">
       <UniqueIdentifier>{8c8ba91a-6aa6-4003-9232-7ca15842d4a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\client\hl">
+      <UniqueIdentifier>{299ed691-2420-4915-9aa4-5ebda5a66f0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\parsemsg.cpp">
@@ -682,6 +685,9 @@
     </ClInclude>
     <ClInclude Include="..\..\vgui_utils\vgui_loadtga.h">
       <Filter>Header Files\vgui_utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\hl\hl_weapons.h">
+      <Filter>Header Files\game\client\hl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

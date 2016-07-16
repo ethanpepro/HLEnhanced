@@ -226,6 +226,7 @@
     <ClInclude Include="..\..\game\client\ev_hldm.h" />
     <ClInclude Include="..\..\game\client\Exports.h" />
     <ClInclude Include="..\..\game\client\global_consts.h" />
+    <ClInclude Include="..\..\game\client\hl\hl_weapons.h" />
     <ClInclude Include="..\..\game\client\player_info.h" />
     <ClInclude Include="..\..\game\client\renderer\camera.h" />
     <ClInclude Include="..\..\game\client\renderer\GameStudioModelRenderer.h" />

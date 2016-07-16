@@ -27,9 +27,10 @@
 #include "entity_types.h"
 #include "r_efx.h"
 
+#include "hl_weapons.h"
+
 extern BEAM *pBeam;
 extern BEAM *pBeam2;
-void HUD_GetLastOrg( float *org );
 
 void UpdateBeams ( void )
 {
@@ -40,10 +41,10 @@ void UpdateBeams ( void )
 	int idx = pthisplayer->index;
 		
 	// Get our exact viewangles from engine
-	gEngfuncs.GetViewAngles( (float *)angles );
+	gEngfuncs.GetViewAngles( angles );
 
 	// Determine our last predicted origin
-	HUD_GetLastOrg( (float *)&origin );
+	HUD_GetLastOrg( origin );
 
 	AngleVectors( angles, forward, right, up );
 

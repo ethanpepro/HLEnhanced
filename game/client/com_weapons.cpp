@@ -24,6 +24,9 @@
 #include "entity_state.h"
 #include "r_efx.h"
 
+#include "extdll.h"
+#include "util.h"
+
 // g_runfuncs is true if this is the first time we've "predicated" a particular movement/firing
 //  command.  If it is 1, then we should play events/sounds etc., otherwise, we just will be
 //  updating state info, but not firing events
@@ -33,6 +36,9 @@ int	g_runfuncs = 0;
 //  the final state passed into the postthink functionality.  We'll set this pointer and then
 //  reset it to NULL as appropriate
 struct local_state_s *g_finalstate = NULL;
+
+// Local version of game .dll global variables ( time, etc. )
+static globalvars_t	Globals;
 
 /*
 ====================
@@ -99,7 +105,7 @@ HUD_GetWeaponAnim
 Retrieve current predicted weapon animation
 =====================
 */
-int HUD_GetWeaponAnim( void )
+int HUD_GetWeaponAnim()
 {
 	return g_currentanim;
 }
@@ -175,3 +181,51 @@ int				stub_PrecacheSound		( const char* s ) { return 0; }
 unsigned short	stub_PrecacheEvent		( int type, const char *s ) { return 0; }
 const char		*stub_NameForFunction	( uint32 function ) { return "func"; }
 void			stub_SetModel			( edict_t *e, const char *m ) {}
+
+/*
+======================
+AlertMessage
+
+Print debug messages to console
+======================
+*/
+void AlertMessage( ALERT_TYPE atype, const char* szFmt, ... )
+{
+	va_list		argptr;
+	static char	string[ 1024 ];
+
+	va_start( argptr, szFmt );
+	vsprintf( string, szFmt, argptr );
+	va_end( argptr );
+
+	gEngfuncs.Con_Printf( "cl:  " );
+	gEngfuncs.Con_Printf( string );
+}
+
+void CL_SetupServerSupport()
+{
+	// Set up pointer ( dummy object )
+	gpGlobals = &Globals;
+
+	// Fill in current time ( probably not needed )
+	gpGlobals->time = gEngfuncs.GetClientTime();
+
+	// Fake functions
+	g_engfuncs.pfnPrecacheModel = stub_PrecacheModel;
+	g_engfuncs.pfnPrecacheSound = stub_PrecacheSound;
+	g_engfuncs.pfnPrecacheEvent = stub_PrecacheEvent;
+	g_engfuncs.pfnNameForFunction = stub_NameForFunction;
+	g_engfuncs.pfnSetModel = stub_SetModel;
+	g_engfuncs.pfnSetClientMaxspeed = HUD_SetMaxSpeed;
+
+	// Handled locally
+	g_engfuncs.pfnPlaybackEvent = HUD_PlaybackEvent;
+	g_engfuncs.pfnAlertMessage = AlertMessage;
+
+	// Pass through to engine
+	g_engfuncs.pfnPrecacheEvent = gEngfuncs.pfnPrecacheEvent;
+	g_engfuncs.pfnRandomFloat = gEngfuncs.pfnRandomFloat;
+	g_engfuncs.pfnRandomLong = gEngfuncs.pfnRandomLong;
+	g_engfuncs.pfnCVarGetFloat = gEngfuncs.pfnGetCvarFloat;
+	g_engfuncs.pfnCVarGetString = gEngfuncs.pfnGetCvarString;
+}

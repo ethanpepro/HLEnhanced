@@ -83,3 +83,16 @@ bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
 {
 	return false;
 }
+
+/*
+=====================
+UTIL_TraceLine
+
+Don't actually trace, but act like the trace didn't hit anything.
+=====================
+*/
+void UTIL_TraceLine( const Vector& vecStart, const Vector& vecEnd, IGNORE_MONSTERS igmon, edict_t* pentIgnore, TraceResult* ptr )
+{
+	memset( ptr, 0, sizeof( *ptr ) );
+	ptr->flFraction = 1.0;
+}

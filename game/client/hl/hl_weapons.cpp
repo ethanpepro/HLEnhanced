@@ -48,7 +48,8 @@
 #include "com_weapons.h"
 #include "demo.h"
 
-extern globalvars_t *gpGlobals;
+#include "hl_weapons.h"
+
 extern int g_iUser1;
 
 // Pool of client side entities/entvars_t
@@ -58,9 +59,6 @@ static int			num_ents = 0;
 
 // The entity we'll use to represent the local client
 static CBasePlayer	player;
-
-// Local version of game .dll global variables ( time, etc. )
-static globalvars_t	Globals; 
 
 static CBasePlayerWeapon *g_pWpns[ MAX_WEAPONS ];
 
@@ -86,39 +84,6 @@ CSatchel g_Satchel;
 CTripmine g_Tripmine;
 CSqueak g_Snark;
 CSniperRifle g_SniperRifle;
-
-
-/*
-======================
-AlertMessage
-
-Print debug messages to console
-======================
-*/
-void AlertMessage( ALERT_TYPE atype, const char* szFmt, ... )
-{
-	va_list		argptr;
-	static char	string[1024];
-	
-	va_start (argptr, szFmt);
-	vsprintf (string, szFmt,argptr);
-	va_end (argptr);
-
-	gEngfuncs.Con_Printf( "cl:  " );
-	gEngfuncs.Con_Printf( string );
-}
-
-//Returns if it's multiplayer.
-//Mostly used by the client side weapons.
-bool bIsMultiplayer ( void )
-{
-	return gEngfuncs.GetMaxClients() == 1 ? 0 : 1;
-}
-//Just loads a v_ model.
-void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer )
-{
-	gEngfuncs.CL_LoadModel( szViewModel, &m_pPlayer->pev->viewmodel );
-}
 
 /*
 =====================
@@ -150,133 +115,23 @@ void HUD_PrepEntity( CBaseEntity *pEntity, CBasePlayer *pWeaponOwner )
 
 /*
 =====================
-UTIL_TraceLine
-
-Don't actually trace, but act like the trace didn't hit anything.
-=====================
-*/
-void UTIL_TraceLine( const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, edict_t *pentIgnore, TraceResult *ptr )
-{
-	memset( ptr, 0, sizeof( *ptr ) );
-	ptr->flFraction = 1.0;
-}
-
-/*
-=====================
-UTIL_ParticleBox
-
-For debugging, draw a box around a player made out of particles
-=====================
-*/
-void UTIL_ParticleBox( CBasePlayer *player, float *mins, float *maxs, float life, unsigned char r, unsigned char g, unsigned char b )
-{
-	int i;
-	Vector mmin, mmax;
-
-	for ( i = 0; i < 3; i++ )
-	{
-		mmin[ i ] = player->pev->origin[ i ] + mins[ i ];
-		mmax[ i ] = player->pev->origin[ i ] + maxs[ i ];
-	}
-
-	gEngfuncs.pEfxAPI->R_ParticleBox( (float *)&mmin, (float *)&mmax, 5.0, 0, 255, 0 );
-}
-
-/*
-=====================
-UTIL_ParticleBoxes
-
-For debugging, draw boxes for other collidable players
-=====================
-*/
-void UTIL_ParticleBoxes( void )
-{
-	int idx;
-	physent_t *pe;
-	cl_entity_t *player;
-	Vector mins, maxs;
-	
-	gEngfuncs.pEventAPI->EV_SetUpPlayerPrediction( false, true );
-
-	// Store off the old count
-	gEngfuncs.pEventAPI->EV_PushPMStates();
-
-	player = gEngfuncs.GetLocalPlayer();
-	// Now add in all of the players.
-	gEngfuncs.pEventAPI->EV_SetSolidPlayers ( player->index - 1 );	
-
-	for ( idx = 1; idx < 100; idx++ )
-	{
-		pe = gEngfuncs.pEventAPI->EV_GetPhysent( idx );
-		if ( !pe )
-			break;
-
-		if ( pe->info >= 1 && pe->info <= gEngfuncs.GetMaxClients() )
-		{
-			mins = pe->origin + pe->mins;
-			maxs = pe->origin + pe->maxs;
-
-			gEngfuncs.pEfxAPI->R_ParticleBox( (float *)&mins, (float *)&maxs, 0, 0, 255, 2.0 );
-		}
-	}
-
-	gEngfuncs.pEventAPI->EV_PopPMStates();
-}
-
-/*
-=====================
-UTIL_ParticleLine
-
-For debugging, draw a line made out of particles
-=====================
-*/
-void UTIL_ParticleLine( CBasePlayer *player, float *start, float *end, float life, unsigned char r, unsigned char g, unsigned char b )
-{
-	gEngfuncs.pEfxAPI->R_ParticleLine( start, end, r, g, b, life );
-}
-
-/*
-=====================
 HUD_InitClientWeapons
 
 Set up weapons, player and functions needed to run weapons code client-side.
 =====================
 */
-void HUD_InitClientWeapons( void )
+void HUD_InitClientWeapons()
 {
-	static int initialized = 0;
+	static bool initialized = false;
 	if ( initialized )
 		return;
 
-	initialized = 1;
+	initialized = true;
 
 	//Zero out the weapons list just in case - Solokiller
 	memset( g_pWpns, 0, sizeof( g_pWpns ) );
 
-	// Set up pointer ( dummy object )
-	gpGlobals = &Globals;
-
-	// Fill in current time ( probably not needed )
-	gpGlobals->time = gEngfuncs.GetClientTime();
-
-	// Fake functions
-	g_engfuncs.pfnPrecacheModel		= stub_PrecacheModel;
-	g_engfuncs.pfnPrecacheSound		= stub_PrecacheSound;
-	g_engfuncs.pfnPrecacheEvent		= stub_PrecacheEvent;
-	g_engfuncs.pfnNameForFunction	= stub_NameForFunction;
-	g_engfuncs.pfnSetModel			= stub_SetModel;
-	g_engfuncs.pfnSetClientMaxspeed = HUD_SetMaxSpeed;
-
-	// Handled locally
-	g_engfuncs.pfnPlaybackEvent		= HUD_PlaybackEvent;
-	g_engfuncs.pfnAlertMessage		= AlertMessage;
-
-	// Pass through to engine
-	g_engfuncs.pfnPrecacheEvent		= gEngfuncs.pfnPrecacheEvent;
-	g_engfuncs.pfnRandomFloat		= gEngfuncs.pfnRandomFloat;
-	g_engfuncs.pfnRandomLong		= gEngfuncs.pfnRandomLong;
-	g_engfuncs.pfnCVarGetFloat		= gEngfuncs.pfnGetCvarFloat;
-	g_engfuncs.pfnCVarGetString		= gEngfuncs.pfnGetCvarString;
+	CL_SetupServerSupport();
 
 	// Allocate a slot for the local player
 	HUD_PrepEntity( &player		, NULL );
@@ -297,42 +152,6 @@ void HUD_InitClientWeapons( void )
 	HUD_PrepEntity( &g_Tripmine	, &player );
 	HUD_PrepEntity( &g_Snark	, &player );
 	HUD_PrepEntity( &g_SniperRifle, &player );
-}
-
-/*
-=====================
-HUD_GetLastOrg
-
-Retruns the last position that we stored for egon beam endpoint.
-=====================
-*/
-void HUD_GetLastOrg( float *org )
-{
-	int i;
-	
-	// Return last origin
-	for ( i = 0; i < 3; i++ )
-	{
-		org[i] = previousorigin[i];
-	}
-}
-
-/*
-=====================
-HUD_SetLastOrg
-
-Remember our exact predicted origin so we can draw the egon to the right position.
-=====================
-*/
-void HUD_SetLastOrg( void )
-{
-	int i;
-	
-	// Offset final origin by view_offset
-	for ( i = 0; i < 3; i++ )
-	{
-		previousorigin[i] = g_finalstate->playerstate.origin[i] + g_finalstate->client.view_ofs[ i ];
-	}
 }
 
 /*
@@ -524,6 +343,7 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 	to->client.vuser2[0]				= player.ammo_hornets;
 	to->client.ammo_rockets				= player.ammo_rockets;
 
+	//TODO: why isn't this in the weapon's user variables? - Solokiller
 	if ( player.m_pActiveItem->m_iId == WEAPON_RPG )
 	{
 		 from->client.vuser2[ 1 ] = ( ( CRpg * )player.m_pActiveItem)->m_fSpotActive;
@@ -532,6 +352,7 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 
 	// Make sure that weapon animation matches what the game .dll is telling us
 	//  over the wire ( fixes some animation glitches )
+	//TODO: weapon specific code. Great. - Solokiller
 	if ( g_runfuncs && ( HUD_GetWeaponAnim() != to->client.weaponanim ) )
 	{
 		int body = 2;
@@ -675,4 +496,71 @@ void DLLEXPORT HUD_PostRunCmd( struct local_state_s *from, struct local_state_s 
 	
 	// All games can use FOV state
 	g_lastFOV = to->client.fov;
+}
+
+//Returns if it's multiplayer.
+//Mostly used by the client side weapons.
+bool bIsMultiplayer( void )
+{
+	return gEngfuncs.GetMaxClients() == 1 ? 0 : 1;
+}
+//Just loads a v_ model.
+void LoadVModel( char *szViewModel, CBasePlayer *m_pPlayer )
+{
+	gEngfuncs.CL_LoadModel( szViewModel, &m_pPlayer->pev->viewmodel );
+}
+
+void HUD_GetLastOrg( Vector& vecOrigin )
+{
+	vecOrigin = previousorigin;
+}
+
+void HUD_SetLastOrg()
+{
+	// Offset final origin by view_offset
+	previousorigin = g_finalstate->playerstate.origin + g_finalstate->client.view_ofs;
+}
+
+void UTIL_ParticleBox( const CBasePlayer* const pPlayer, const Vector& vecMins, const Vector& vecMaxs, float life, unsigned char r, unsigned char g, unsigned char b )
+{
+	gEngfuncs.pEfxAPI->R_ParticleBox( pPlayer->pev->origin + vecMins, pPlayer->pev->origin + vecMaxs, 5.0, 0, 255, 0 );
+}
+
+void UTIL_ParticleBoxes()
+{
+	int idx;
+	physent_t *pe;
+	cl_entity_t *player;
+	Vector mins, maxs;
+
+	gEngfuncs.pEventAPI->EV_SetUpPlayerPrediction( false, true );
+
+	// Store off the old count
+	gEngfuncs.pEventAPI->EV_PushPMStates();
+
+	player = gEngfuncs.GetLocalPlayer();
+	// Now add in all of the players.
+	gEngfuncs.pEventAPI->EV_SetSolidPlayers( player->index - 1 );
+
+	for( idx = 1; idx < 100; idx++ )
+	{
+		pe = gEngfuncs.pEventAPI->EV_GetPhysent( idx );
+		if( !pe )
+			break;
+
+		if( pe->info >= 1 && pe->info <= gEngfuncs.GetMaxClients() )
+		{
+			mins = pe->origin + pe->mins;
+			maxs = pe->origin + pe->maxs;
+
+			gEngfuncs.pEfxAPI->R_ParticleBox( mins, maxs, 0, 0, 255, 2.0 );
+		}
+	}
+
+	gEngfuncs.pEventAPI->EV_PopPMStates();
+}
+
+void UTIL_ParticleLine( const Vector& vecStart, const Vector& vecEnd, float life, unsigned char r, unsigned char g, unsigned char b )
+{
+	gEngfuncs.pEfxAPI->R_ParticleLine( vecStart, vecEnd, r, g, b, life );
 }
