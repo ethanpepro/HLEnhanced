@@ -62,7 +62,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;_DEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -86,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;NDEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -103,48 +103,27 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\cl_dll\ammo.cpp" />
-    <ClCompile Include="..\..\cl_dll\ammohistory.cpp" />
-    <ClCompile Include="..\..\cl_dll\ammo_secondary.cpp" />
-    <ClCompile Include="..\..\cl_dll\battery.cpp" />
     <ClCompile Include="..\..\cl_dll\cdll_int.cpp" />
     <ClCompile Include="..\..\cl_dll\com_weapons.cpp" />
-    <ClCompile Include="..\..\cl_dll\death.cpp" />
     <ClCompile Include="..\..\cl_dll\demo.cpp" />
     <ClCompile Include="..\..\cl_dll\entity.cpp" />
     <ClCompile Include="..\..\cl_dll\events.cpp" />
     <ClCompile Include="..\..\cl_dll\ev_common.cpp" />
     <ClCompile Include="..\..\cl_dll\ev_hldm.cpp" />
-    <ClCompile Include="..\..\cl_dll\flashlight.cpp" />
     <ClCompile Include="..\..\cl_dll\GameStudioModelRenderer.cpp" />
-    <ClCompile Include="..\..\cl_dll\geiger.cpp" />
-    <ClCompile Include="..\..\cl_dll\health.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_baseentity.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_events.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_weapons.cpp" />
-    <ClCompile Include="..\..\cl_dll\hud.cpp" />
     <ClCompile Include="..\..\cl_dll\hud_bench.cpp" />
     <ClCompile Include="..\..\cl_dll\hud_benchtrace.cpp" />
-    <ClCompile Include="..\..\cl_dll\hud_msg.cpp" />
-    <ClCompile Include="..\..\cl_dll\hud_redraw.cpp" />
-    <ClCompile Include="..\..\cl_dll\hud_spectator.cpp" />
-    <ClCompile Include="..\..\cl_dll\hud_update.cpp" />
     <ClCompile Include="..\..\cl_dll\input.cpp" />
     <ClCompile Include="..\..\cl_dll\inputw32.cpp" />
     <ClCompile Include="..\..\cl_dll\interpolation.cpp" />
     <ClCompile Include="..\..\cl_dll\in_camera.cpp" />
-    <ClCompile Include="..\..\cl_dll\menu.cpp" />
-    <ClCompile Include="..\..\cl_dll\message.cpp" />
-    <ClCompile Include="..\..\cl_dll\saytext.cpp" />
-    <ClCompile Include="..\..\cl_dll\statusbar.cpp" />
-    <ClCompile Include="..\..\cl_dll\status_icons.cpp" />
     <ClCompile Include="..\..\cl_dll\StudioModelRenderer.cpp" />
     <ClCompile Include="..\..\cl_dll\studio_util.cpp" />
-    <ClCompile Include="..\..\cl_dll\text_message.cpp" />
-    <ClCompile Include="..\..\cl_dll\train.cpp" />
     <ClCompile Include="..\..\cl_dll\tri.cpp" />
-    <ClCompile Include="..\..\cl_dll\ui\CClientVGUI.cpp" />
     <ClCompile Include="..\..\cl_dll\view.cpp" />
     <ClCompile Include="..\..\cl_dll\voice_status.cpp" />
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
@@ -156,6 +135,28 @@
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
+    <ClCompile Include="..\..\game\client\ui\CClientVGUI.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\ammo.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\ammohistory.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\ammo_secondary.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\battery.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\death.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\flashlight.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\geiger.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\health.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\hud.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\hud_msg.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\hud_redraw.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\hud_spectator.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\hud_update.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\menu.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\message.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\overview.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\saytext.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\statusbar.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\status_icons.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\text_message.cpp" />
+    <ClCompile Include="..\..\game\client\ui\hud\train.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_ClassMenu.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.cpp" />
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_CustomObjects.cpp" />
@@ -201,23 +202,17 @@
     <ClCompile Include="..\..\source_sdk\public\tier0\memoverride.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\cl_dll\ammo.h" />
-    <ClInclude Include="..\..\cl_dll\ammohistory.h" />
     <ClInclude Include="..\..\cl_dll\camera.h" />
     <ClInclude Include="..\..\cl_dll\com_weapons.h" />
     <ClInclude Include="..\..\cl_dll\demo.h" />
     <ClInclude Include="..\..\cl_dll\eventscripts.h" />
     <ClInclude Include="..\..\cl_dll\ev_hldm.h" />
     <ClInclude Include="..\..\cl_dll\GameStudioModelRenderer.h" />
-    <ClInclude Include="..\..\cl_dll\health.h" />
-    <ClInclude Include="..\..\cl_dll\hud.h" />
-    <ClInclude Include="..\..\cl_dll\hud_spectator.h" />
     <ClInclude Include="..\..\cl_dll\interpolation.h" />
     <ClInclude Include="..\..\cl_dll\in_defs.h" />
     <ClInclude Include="..\..\cl_dll\kbutton.h" />
     <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h" />
     <ClInclude Include="..\..\cl_dll\tri.h" />
-    <ClInclude Include="..\..\cl_dll\ui\CClientVGUI.h" />
     <ClInclude Include="..\..\cl_dll\view.h" />
     <ClInclude Include="..\..\cl_dll\wrect.h" />
     <ClInclude Include="..\..\common\CAutoString.h" />
@@ -231,6 +226,13 @@
     <ClInclude Include="..\..\game\client\CClientGameInterface.h" />
     <ClInclude Include="..\..\game\client\cl_dll.h" />
     <ClInclude Include="..\..\game\client\cl_util.h" />
+    <ClInclude Include="..\..\game\client\ui\CClientVGUI.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\ammo.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\ammohistory.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\health.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\hud.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\hud_spectator.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\overview.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_int.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_SchemeManager.h" />

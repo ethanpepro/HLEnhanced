@@ -17,7 +17,7 @@ class CHudOverview : public CHudBase
 {
 public:
 	int Init();
-	int VidInit();
+	bool VidInit();
 
 	int Draw(float flTime);
 	void InitHUDData( void );

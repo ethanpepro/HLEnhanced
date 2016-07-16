@@ -52,12 +52,6 @@
     <Filter Include="Header Files\engine">
       <UniqueIdentifier>{a503e72a-049f-488c-a14e-b69a2f6b9c46}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\cl_dll\ui">
-      <UniqueIdentifier>{2b048104-38be-4ef9-9ef5-033896f57b99}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\cl_dll\ui">
-      <UniqueIdentifier>{66a765e7-aa0e-4e7c-8b2b-4a92ca3704f7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\public\math">
       <UniqueIdentifier>{12640e9b-752f-4329-896a-d88d64ee5314}</UniqueIdentifier>
     </Filter>
@@ -138,28 +132,10 @@
     <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp">
       <Filter>Source Files\_hl\cl_dll\hl</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\death.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\ammo.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\ammo_secondary.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\ammohistory.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\battery.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\cl_dll\cdll_int.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\com_weapons.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\message.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\demo.cpp">
@@ -174,37 +150,13 @@
     <ClCompile Include="..\..\cl_dll\events.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\flashlight.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\cl_dll\GameStudioModelRenderer.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\geiger.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\health.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hud.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\hud_bench.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\hud_benchtrace.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hud_msg.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hud_redraw.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hud_spectator.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\hud_update.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\in_camera.cpp">
@@ -219,31 +171,13 @@
     <ClCompile Include="..\..\cl_dll\interpolation.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\menu.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\common\parsemsg.cpp">
       <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\saytext.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\status_icons.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\statusbar.cpp">
-      <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\studio_util.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\StudioModelRenderer.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\text_message.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\train.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\tri.cpp">
@@ -281,9 +215,6 @@
     </ClCompile>
     <ClCompile Include="..\..\public\interface.cpp">
       <Filter>Source Files\public</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\ui\CClientVGUI.cpp">
-      <Filter>Source Files\cl_dll\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\source_sdk\public\tier0\memoverride.cpp">
       <Filter>Source Files\public</Filter>
@@ -411,15 +342,75 @@
     <ClCompile Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.cpp">
       <Filter>Source Files\game\client\ui\vgui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\CClientVGUI.cpp">
+      <Filter>Source Files\game\client\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\ammo.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\ammo_secondary.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\ammohistory.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\battery.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\death.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\health.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\flashlight.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\hud.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\hud_msg.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\hud_redraw.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\hud_update.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\hud_spectator.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\message.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\overview.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\menu.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\geiger.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\saytext.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\status_icons.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\statusbar.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\text_message.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\ui\hud\train.cpp">
+      <Filter>Source Files\game\client\ui\hud</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\ammo.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\ammohistory.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\camera.h">
@@ -438,15 +429,6 @@
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\GameStudioModelRenderer.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\health.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\hud.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\hud_spectator.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\in_defs.h">
@@ -505,9 +487,6 @@
     </ClInclude>
     <ClInclude Include="..\..\engine\IClientVGUI.h">
       <Filter>Header Files\engine</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\ui\CClientVGUI.h">
-      <Filter>Header Files\cl_dll\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\..\engine\IGameUIFuncs.h">
       <Filter>Header Files\engine</Filter>
@@ -628,6 +607,27 @@
     </ClInclude>
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_TeamFortressViewport.h">
       <Filter>Header Files\game\client\ui\vgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\CClientVGUI.h">
+      <Filter>Header Files\game\client\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\ammo.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\ammohistory.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\health.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\hud.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\hud_spectator.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\overview.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

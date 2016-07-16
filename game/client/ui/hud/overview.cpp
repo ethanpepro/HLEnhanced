@@ -15,7 +15,13 @@
 #include "com_model.h"
 #include "studio_util.h"
 
+#include "overview.h"
+
 #pragma warning(disable: 4244)
+
+//TODO: doesn't work due to missing engine functions. Investigate if they're missing, look at CS's code. - Solokiller
+
+#if 0
 
 //-----------------------------------------------------------------------------
 // Purpose: 
@@ -104,9 +110,9 @@ int CHudOverview::Draw(float flTime)
 			gEngfuncs.pTriAPI->Color4f(r, g, bc, 1.0f);
 
 			// calculate rotational matrix
-			vec3_t a, b, angles;
+			Vector a, b, angles;
 			float rmatrix[3][4];	// transformation matrix
-			VectorCopy(pl->angles, angles);
+			angles = pl->angles;
 			angles[0] = 0.0f;
 			angles[1] += 90.f;
 			angles[1] = -angles[1];
@@ -158,3 +164,4 @@ void CHudOverview::InitHUDData()
 //	gEngfuncs.Overview_SetDrawInset( 0 );
 }
 
+#endif
