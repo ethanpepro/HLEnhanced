@@ -109,7 +109,6 @@
     <ClCompile Include="..\..\cl_dll\events.cpp" />
     <ClCompile Include="..\..\cl_dll\ev_common.cpp" />
     <ClCompile Include="..\..\cl_dll\ev_hldm.cpp" />
-    <ClCompile Include="..\..\cl_dll\GameStudioModelRenderer.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_baseentity.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_events.cpp" />
     <ClCompile Include="..\..\cl_dll\hl\hl_objects.cpp" />
@@ -117,8 +116,6 @@
     <ClCompile Include="..\..\cl_dll\input.cpp" />
     <ClCompile Include="..\..\cl_dll\inputw32.cpp" />
     <ClCompile Include="..\..\cl_dll\interpolation.cpp" />
-    <ClCompile Include="..\..\cl_dll\StudioModelRenderer.cpp" />
-    <ClCompile Include="..\..\cl_dll\studio_util.cpp" />
     <ClCompile Include="..\..\cl_dll\voice_status.cpp" />
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\parsemsg.cpp" />
@@ -130,7 +127,10 @@
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
+    <ClCompile Include="..\..\game\client\renderer\GameStudioModelRenderer.cpp" />
     <ClCompile Include="..\..\game\client\renderer\in_camera.cpp" />
+    <ClCompile Include="..\..\game\client\renderer\StudioModelRenderer.cpp" />
+    <ClCompile Include="..\..\game\client\renderer\studio_util.cpp" />
     <ClCompile Include="..\..\game\client\renderer\tri.cpp" />
     <ClCompile Include="..\..\game\client\renderer\view.cpp" />
     <ClCompile Include="..\..\game\client\ui\CClientVGUI.cpp" />
@@ -151,7 +151,6 @@
     <ClCompile Include="..\..\game\client\ui\hud\hud_update.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\menu.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\message.cpp" />
-    <ClCompile Include="..\..\game\client\ui\hud\overview.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\saytext.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\statusbar.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\status_icons.cpp" />
@@ -205,9 +204,7 @@
     <ClInclude Include="..\..\cl_dll\com_weapons.h" />
     <ClInclude Include="..\..\cl_dll\eventscripts.h" />
     <ClInclude Include="..\..\cl_dll\ev_hldm.h" />
-    <ClInclude Include="..\..\cl_dll\GameStudioModelRenderer.h" />
     <ClInclude Include="..\..\cl_dll\interpolation.h" />
-    <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h" />
     <ClInclude Include="..\..\common\CAutoString.h" />
     <ClInclude Include="..\..\common\CHashStringPool.h" />
     <ClInclude Include="..\..\common\Game.h" />
@@ -222,6 +219,9 @@
     <ClInclude Include="..\..\game\client\cl_util.h" />
     <ClInclude Include="..\..\game\client\demo.h" />
     <ClInclude Include="..\..\game\client\renderer\camera.h" />
+    <ClInclude Include="..\..\game\client\renderer\GameStudioModelRenderer.h" />
+    <ClInclude Include="..\..\game\client\renderer\StudioModelRenderer.h" />
+    <ClInclude Include="..\..\game\client\renderer\studio_util.h" />
     <ClInclude Include="..\..\game\client\renderer\tri.h" />
     <ClInclude Include="..\..\game\client\renderer\view.h" />
     <ClInclude Include="..\..\game\client\ui\CClientVGUI.h" />
@@ -232,7 +232,6 @@
     <ClInclude Include="..\..\game\client\ui\hud\hud.h" />
     <ClInclude Include="..\..\game\client\ui\hud\hud_benchtrace.h" />
     <ClInclude Include="..\..\game\client\ui\hud\hud_spectator.h" />
-    <ClInclude Include="..\..\game\client\ui\hud\overview.h" />
     <ClInclude Include="..\..\game\client\ui\hud\wrect.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_int.h" />

@@ -153,9 +153,6 @@
     <ClCompile Include="..\..\cl_dll\events.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\GameStudioModelRenderer.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\cl_dll\input.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
@@ -167,12 +164,6 @@
     </ClCompile>
     <ClCompile Include="..\..\common\parsemsg.cpp">
       <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\studio_util.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\StudioModelRenderer.cpp">
-      <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game_shared\vgui_checkbutton2.cpp">
       <Filter>Source Files\game_shared</Filter>
@@ -372,9 +363,6 @@
     <ClCompile Include="..\..\game\client\ui\hud\message.cpp">
       <Filter>Source Files\game\client\ui\hud</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\client\ui\hud\overview.cpp">
-      <Filter>Source Files\game\client\ui\hud</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\client\ui\hud\menu.cpp">
       <Filter>Source Files\game\client\ui\hud</Filter>
     </ClCompile>
@@ -414,6 +402,15 @@
     <ClCompile Include="..\..\game\client\demo.cpp">
       <Filter>Source Files\game\client</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\renderer\GameStudioModelRenderer.cpp">
+      <Filter>Source Files\game\client\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\renderer\studio_util.cpp">
+      <Filter>Source Files\game\client\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\renderer\StudioModelRenderer.cpp">
+      <Filter>Source Files\game\client\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\com_weapons.h">
@@ -423,9 +420,6 @@
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\eventscripts.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\GameStudioModelRenderer.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\interpolation.h">
@@ -451,9 +445,6 @@
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
       <Filter>Header Files\pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h">
-      <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game_shared\vgui_slider2.h">
       <Filter>Header Files\game_shared</Filter>
@@ -611,9 +602,6 @@
     <ClInclude Include="..\..\game\client\ui\hud\hud_spectator.h">
       <Filter>Header Files\game\client\ui\hud</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\game\client\ui\hud\overview.h">
-      <Filter>Header Files\game\client\ui\hud</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\game\client\renderer\view.h">
       <Filter>Header Files\game\client\renderer</Filter>
     </ClInclude>
@@ -637,6 +625,15 @@
     </ClInclude>
     <ClInclude Include="..\..\engine\kbutton.h">
       <Filter>Header Files\engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\renderer\GameStudioModelRenderer.h">
+      <Filter>Header Files\game\client\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\renderer\studio_util.h">
+      <Filter>Header Files\game\client\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\renderer\StudioModelRenderer.h">
+      <Filter>Header Files\game\client\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
