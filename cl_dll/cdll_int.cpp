@@ -37,7 +37,7 @@
 #endif
 #include "Exports.h"
 
-#include "tri.h"
+#include "renderer/tri.h"
 #include "vgui_TeamFortressViewport.h"
 #include "../public/interface.h"
 

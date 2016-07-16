@@ -6,7 +6,7 @@
 // rights reserved.
 #include "hud.h"
 #include "cl_util.h"
-#include "camera.h"
+#include "renderer/camera.h"
 extern "C"
 {
 #include "kbutton.h"
@@ -14,9 +14,8 @@ extern "C"
 #include "cvardef.h"
 #include "usercmd.h"
 #include "const.h"
-#include "camera.h"
 #include "in_defs.h"
-#include "view.h"
+#include "renderer/view.h"
 #include "bench.h"
 #include <string.h>
 #include <ctype.h>

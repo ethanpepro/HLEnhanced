@@ -32,6 +32,8 @@ extern "C" {
 #include "r_efx.h"
 #include "studio_event.h"
 
+#include "wrect.h"
+
 // this file is included by both the engine and the client-dll,
 // so make sure engine declarations aren't done twice
 

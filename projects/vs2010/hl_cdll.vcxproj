@@ -120,11 +120,8 @@
     <ClCompile Include="..\..\cl_dll\input.cpp" />
     <ClCompile Include="..\..\cl_dll\inputw32.cpp" />
     <ClCompile Include="..\..\cl_dll\interpolation.cpp" />
-    <ClCompile Include="..\..\cl_dll\in_camera.cpp" />
     <ClCompile Include="..\..\cl_dll\StudioModelRenderer.cpp" />
     <ClCompile Include="..\..\cl_dll\studio_util.cpp" />
-    <ClCompile Include="..\..\cl_dll\tri.cpp" />
-    <ClCompile Include="..\..\cl_dll\view.cpp" />
     <ClCompile Include="..\..\cl_dll\voice_status.cpp" />
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\parsemsg.cpp" />
@@ -135,6 +132,9 @@
     <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
+    <ClCompile Include="..\..\game\client\renderer\in_camera.cpp" />
+    <ClCompile Include="..\..\game\client\renderer\tri.cpp" />
+    <ClCompile Include="..\..\game\client\renderer\view.cpp" />
     <ClCompile Include="..\..\game\client\ui\CClientVGUI.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\ammo.cpp" />
     <ClCompile Include="..\..\game\client\ui\hud\ammohistory.cpp" />
@@ -202,7 +202,6 @@
     <ClCompile Include="..\..\source_sdk\public\tier0\memoverride.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\cl_dll\camera.h" />
     <ClInclude Include="..\..\cl_dll\com_weapons.h" />
     <ClInclude Include="..\..\cl_dll\demo.h" />
     <ClInclude Include="..\..\cl_dll\eventscripts.h" />
@@ -212,9 +211,6 @@
     <ClInclude Include="..\..\cl_dll\in_defs.h" />
     <ClInclude Include="..\..\cl_dll\kbutton.h" />
     <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h" />
-    <ClInclude Include="..\..\cl_dll\tri.h" />
-    <ClInclude Include="..\..\cl_dll\view.h" />
-    <ClInclude Include="..\..\cl_dll\wrect.h" />
     <ClInclude Include="..\..\common\CAutoString.h" />
     <ClInclude Include="..\..\common\CHashStringPool.h" />
     <ClInclude Include="..\..\common\Game.h" />
@@ -226,6 +222,9 @@
     <ClInclude Include="..\..\game\client\CClientGameInterface.h" />
     <ClInclude Include="..\..\game\client\cl_dll.h" />
     <ClInclude Include="..\..\game\client\cl_util.h" />
+    <ClInclude Include="..\..\game\client\renderer\camera.h" />
+    <ClInclude Include="..\..\game\client\renderer\tri.h" />
+    <ClInclude Include="..\..\game\client\renderer\view.h" />
     <ClInclude Include="..\..\game\client\ui\CClientVGUI.h" />
     <ClInclude Include="..\..\game\client\ui\hud\ammo.h" />
     <ClInclude Include="..\..\game\client\ui\hud\ammohistory.h" />
@@ -233,6 +232,7 @@
     <ClInclude Include="..\..\game\client\ui\hud\hud.h" />
     <ClInclude Include="..\..\game\client\ui\hud\hud_spectator.h" />
     <ClInclude Include="..\..\game\client\ui\hud\overview.h" />
+    <ClInclude Include="..\..\game\client\ui\hud\wrect.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_ControlConfigPanel.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_int.h" />
     <ClInclude Include="..\..\game\client\ui\vgui\vgui_SchemeManager.h" />

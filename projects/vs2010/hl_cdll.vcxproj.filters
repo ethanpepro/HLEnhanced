@@ -115,6 +115,12 @@
     <Filter Include="Header Files\game\client\ui\vgui">
       <UniqueIdentifier>{3bb157a7-a93a-49da-80d8-eb9d04c570fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\client\renderer">
+      <UniqueIdentifier>{e9e96add-67d0-468e-a76c-252edce0c510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\client\renderer">
+      <UniqueIdentifier>{19416af9-e229-45a9-9762-e3980f2b1283}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\cl_dll\ev_hldm.cpp">
@@ -159,9 +165,6 @@
     <ClCompile Include="..\..\cl_dll\hud_benchtrace.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\cl_dll\in_camera.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\cl_dll\input.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
@@ -178,9 +181,6 @@
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\StudioModelRenderer.cpp">
-      <Filter>Source Files\cl_dll</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\tri.cpp">
       <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game_shared\vgui_checkbutton2.cpp">
@@ -206,9 +206,6 @@
     </ClCompile>
     <ClCompile Include="..\..\game_shared\vgui_slider2.cpp">
       <Filter>Source Files\game_shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\cl_dll\view.cpp">
-      <Filter>Source Files\cl_dll</Filter>
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\voice_status.cpp">
       <Filter>Source Files\cl_dll</Filter>
@@ -408,12 +405,18 @@
     <ClCompile Include="..\..\game\client\ui\hud\train.cpp">
       <Filter>Source Files\game\client\ui\hud</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\renderer\view.cpp">
+      <Filter>Source Files\game\client\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\renderer\tri.cpp">
+      <Filter>Source Files\game\client\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\client\renderer\in_camera.cpp">
+      <Filter>Source Files\game\client\renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\cl_dll\kbutton.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\camera.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\cl_dll\com_weapons.h">
@@ -461,9 +464,6 @@
     <ClInclude Include="..\..\cl_dll\StudioModelRenderer.h">
       <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\cl_dll\tri.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\game_shared\vgui_slider2.h">
       <Filter>Header Files\game_shared</Filter>
     </ClInclude>
@@ -475,12 +475,6 @@
     </ClInclude>
     <ClInclude Include="..\..\game_shared\voice_banmgr.h">
       <Filter>Header Files\game_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\wrect.h">
-      <Filter>Header Files\cl_dll</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\cl_dll\view.h">
-      <Filter>Header Files\cl_dll</Filter>
     </ClInclude>
     <ClInclude Include="..\..\common\Platform.h">
       <Filter>Header Files\common</Filter>
@@ -628,6 +622,18 @@
     </ClInclude>
     <ClInclude Include="..\..\game\client\ui\hud\overview.h">
       <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\renderer\view.h">
+      <Filter>Header Files\game\client\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\renderer\tri.h">
+      <Filter>Header Files\game\client\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\ui\hud\wrect.h">
+      <Filter>Header Files\game\client\ui\hud</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\client\renderer\camera.h">
+      <Filter>Header Files\game\client\renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
