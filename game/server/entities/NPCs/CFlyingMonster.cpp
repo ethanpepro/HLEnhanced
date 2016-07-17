@@ -23,7 +23,7 @@
 #define FLYING_AE_FLAPSOUND	(9)
 
 
-extern DLL_GLOBAL edict_t		*g_pBodyQueueHead;
+extern DLL_GLOBAL CBaseEntity* g_pBodyQueueHead;
 
 int CFlyingMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, const CBaseEntity* const pTarget, float *pflDist )
 {

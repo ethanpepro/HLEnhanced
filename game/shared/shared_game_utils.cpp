@@ -35,6 +35,11 @@ edict_t* ENT( CBaseEntity* pEntity )
 	return pEntity->edict();
 }
 
+entvars_t* VARS( CBaseEntity* pEntity )
+{
+	return pEntity ? pEntity->pev : nullptr;
+}
+
 bool FNullEnt( const CBaseEntity* pEntity )
 {
 	return pEntity == nullptr || FNullEnt( pEntity->pev );

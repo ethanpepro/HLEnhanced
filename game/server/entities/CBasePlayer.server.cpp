@@ -37,6 +37,8 @@
 #include "pm_shared.h"
 #include "hltv.h"
 
+#include "client.h"
+
 #include "ServerInterface.h"
 
 #include "com_model.h"
@@ -59,7 +61,6 @@ extern DLL_GLOBAL bool			gDisplayTitle;
 
 bool gInitHUD = true;
 
-extern void respawn(entvars_t *pev, const bool fCopyCorpse);
 CBaseEntity* EntSelectSpawnPoint( CBaseEntity* pPlayer );
 
 // the world node graph
@@ -1277,7 +1278,7 @@ void CBasePlayer::PlayerDeathThink(void)
 
 	//ALERT(at_console, "Respawn\n");
 
-	respawn(pev, !(m_afPhysicsFlags & PFLAG_OBSERVER) );// don't copy a corpse if we're in deathcam.
+	respawn( this, !( m_afPhysicsFlags & PFLAG_OBSERVER ) );// don't copy a corpse if we're in deathcam.
 	pev->nextthink = -1;
 }
 
@@ -1315,7 +1316,7 @@ void CBasePlayer::StartDeathCam( void )
 			iRand--;
 		}
 
-		CopyToBodyQue( pev );
+		CopyToBodyQue( this );
 
 		UTIL_SetOrigin( pev, pSpot->v.origin );
 		pev->angles = pev->v_angle = pSpot->v.v_angle;
@@ -1324,7 +1325,7 @@ void CBasePlayer::StartDeathCam( void )
 	{
 		// no intermission spot. Push them up in the air, looking down at their corpse
 		TraceResult tr;
-		CopyToBodyQue( pev );
+		CopyToBodyQue( this );
 		UTIL_TraceLine( pev->origin, pev->origin + Vector( 0, 0, 128 ), ignore_monsters, edict(), &tr );
 
 		UTIL_SetOrigin( pev, tr.vecEndPos );

@@ -29,6 +29,7 @@
 #include "SaveRestore.h"
 #include "entities/CBasePlayer.h"
 #include "entities/CBaseSpectator.h"
+#include "entities/CCorpse.h"
 #include "client.h"
 #include "entities/CSoundEnt.h"
 #include "gamerules/GameRules.h"
@@ -53,7 +54,6 @@ extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL unsigned int	g_ulFrameCount;
 
-extern void CopyToBodyQue(entvars_t* pev);
 extern int giPrecacheGrunt;
 extern int gmsgSayText;
 
@@ -141,22 +141,22 @@ void ClientDisconnect( edict_t *pEntity )
 
 
 // called by ClientKill and DeadThink
-void respawn(entvars_t* pev, const bool fCopyCorpse)
+void respawn( CBaseEntity* pEntity, const bool bCopyCorpse )
 {
-	if (gpGlobals->coop || gpGlobals->deathmatch)
+	if( gpGlobals->coop || gpGlobals->deathmatch )
 	{
-		if ( fCopyCorpse )
+		if( bCopyCorpse )
 		{
 			// make a copy of the dead body for appearances sake
-			CopyToBodyQue(pev);
+			CopyToBodyQue( pEntity );
 		}
 
 		// respawn player
-		GetClassPtr( (CBasePlayer *)pev)->Spawn( );
+		pEntity->Spawn();
 	}
 	else
 	{       // restart the entire server
-		SERVER_COMMAND("reload\n");
+		SERVER_COMMAND( "reload\n" );
 	}
 }
 

@@ -25,6 +25,6 @@ public:
 };
 
 void InitBodyQue();
-void CopyToBodyQue( entvars_t* pev );
+void CopyToBodyQue( CBaseEntity* pEntity );
 
 #endif //GAME_SERVER_CCORPSE_H

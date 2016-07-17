@@ -32,7 +32,7 @@
 #include <unistd.h> // mkdir
 #endif
 
-extern DLL_GLOBAL edict_t		*g_pBodyQueueHead;
+extern DLL_GLOBAL CBaseEntity* g_pBodyQueueHead;
 
 CGraph	WorldGraph;
 
@@ -175,7 +175,7 @@ entvars_t* CGraph :: LinkEntForLink ( CLink *pLink, CNode *pNode )
 
 				// trace from the node to the trigger, make sure it's one we can see from the node.
 				// !!!HACKHACK Use bodyqueue here cause there are no ents we really wish to ignore!
-				UTIL_TraceLine ( pNode->m_vecOrigin, VecBModelOrigin( pevTrigger ), ignore_monsters, g_pBodyQueueHead, &tr );
+				UTIL_TraceLine ( pNode->m_vecOrigin, VecBModelOrigin( pevTrigger ), ignore_monsters, g_pBodyQueueHead->edict(), &tr );
 
 
 				if ( VARS(tr.pHit) == pevTrigger )
@@ -1207,7 +1207,7 @@ int CGraph :: LinkVisibleNodes ( CLink *pLinkPool, FILE *file, int *piBadNode )
 			UTIL_TraceLine ( m_pNodes[ i ].m_vecOrigin,
 							 m_pNodes[ j ].m_vecOrigin,
 							 ignore_monsters,
-							 g_pBodyQueueHead,//!!!HACKHACK no real ent to supply here, using a global we don't care about
+							 g_pBodyQueueHead->edict(),//!!!HACKHACK no real ent to supply here, using a global we don't care about
 							 &tr );
 			
 			
@@ -1222,7 +1222,7 @@ int CGraph :: LinkVisibleNodes ( CLink *pLinkPool, FILE *file, int *piBadNode )
 				UTIL_TraceLine ( m_pNodes[ j ].m_vecOrigin,
 								 m_pNodes[ i ].m_vecOrigin,
 								 ignore_monsters,
-								 g_pBodyQueueHead,//!!!HACKHACK no real ent to supply here, using a global we don't care about
+								 g_pBodyQueueHead->edict(),//!!!HACKHACK no real ent to supply here, using a global we don't care about
 								 &tr );
 
 				

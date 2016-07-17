@@ -21,14 +21,14 @@
 LINK_ENTITY_TO_CLASS( bodyque, CCorpse );
 
 //Now inits to null in case of problems - Solokiller
-DLL_GLOBAL edict_t* g_pBodyQueueHead = nullptr;
+DLL_GLOBAL CBaseEntity* g_pBodyQueueHead = nullptr;
 
 void InitBodyQue()
 {
 	string_t istrClassname = MAKE_STRING( "bodyque" );
 
-	g_pBodyQueueHead = CREATE_NAMED_ENTITY( istrClassname );
-	entvars_t *pev = VARS( g_pBodyQueueHead );
+	g_pBodyQueueHead = CBaseEntity::Instance( CREATE_NAMED_ENTITY( istrClassname ) );
+	entvars_t* pev = VARS( g_pBodyQueueHead );
 
 	// Reserve 3 more slots for dead bodies
 	for( int i = 0; i < 3; i++ )
@@ -37,7 +37,7 @@ void InitBodyQue()
 		pev = VARS( pev->owner );
 	}
 
-	pev->owner = g_pBodyQueueHead;
+	pev->owner = g_pBodyQueueHead->edict();
 }
 
 //
@@ -45,34 +45,34 @@ void InitBodyQue()
 //
 // GLOBALS ASSUMED SET:  g_eoBodyQueueHead
 //
-void CopyToBodyQue( entvars_t* pev )
+void CopyToBodyQue( CBaseEntity* pEntity )
 {
-	if( pev->effects & EF_NODRAW )
+	if( pEntity->pev->effects & EF_NODRAW )
 		return;
 
 	entvars_t *pevHead = VARS( g_pBodyQueueHead );
 
-	pevHead->angles = pev->angles;
-	pevHead->model = pev->model;
-	pevHead->modelindex = pev->modelindex;
-	pevHead->frame = pev->frame;
-	pevHead->colormap = pev->colormap;
+	pevHead->angles = pEntity->pev->angles;
+	pevHead->model = pEntity->pev->model;
+	pevHead->modelindex = pEntity->pev->modelindex;
+	pevHead->frame = pEntity->pev->frame;
+	pevHead->colormap = pEntity->pev->colormap;
 	pevHead->movetype = MOVETYPE_TOSS;
-	pevHead->velocity = pev->velocity;
+	pevHead->velocity = pEntity->pev->velocity;
 	pevHead->flags = 0;
-	pevHead->deadflag = pev->deadflag;
+	pevHead->deadflag = pEntity->pev->deadflag;
 	pevHead->renderfx = kRenderFxDeadPlayer;
-	pevHead->renderamt = ENTINDEX( ENT( pev ) );
+	pevHead->renderamt = pEntity->entindex();
 
-	pevHead->effects = pev->effects | EF_NOINTERP;
-	//pevHead->goalstarttime = pev->goalstarttime;
-	//pevHead->goalframe	= pev->goalframe;
-	//pevHead->goalendtime = pev->goalendtime ;
+	pevHead->effects = pEntity->pev->effects | EF_NOINTERP;
+	//pevHead->goalstarttime = pEntity->pev->goalstarttime;
+	//pevHead->goalframe	= pEntity->pev->goalframe;
+	//pevHead->goalendtime = pEntity->pev->goalendtime ;
 
-	pevHead->sequence = pev->sequence;
-	pevHead->animtime = pev->animtime;
+	pevHead->sequence = pEntity->pev->sequence;
+	pevHead->animtime = pEntity->pev->animtime;
 
-	UTIL_SetOrigin( pevHead, pev->origin );
-	UTIL_SetSize( pevHead, pev->mins, pev->maxs );
-	g_pBodyQueueHead = pevHead->owner;
+	UTIL_SetOrigin( pevHead, pEntity->pev->origin );
+	UTIL_SetSize( pevHead, pEntity->pev->mins, pEntity->pev->maxs );
+	g_pBodyQueueHead = CBaseEntity::Instance( pevHead->owner );
 }

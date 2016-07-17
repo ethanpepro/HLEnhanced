@@ -20,7 +20,7 @@
 
 #include "CTestHull.h"
 
-extern DLL_GLOBAL edict_t* g_pBodyQueueHead;
+extern DLL_GLOBAL CBaseEntity* g_pBodyQueueHead;
 
 LINK_ENTITY_TO_CLASS( testhull, CTestHull );
 
@@ -195,7 +195,7 @@ void CTestHull::BuildNodeGraph( void )
 			UTIL_TraceLine( WorldGraph.m_pNodes[ i ].m_vecOrigin,
 							WorldGraph.m_pNodes[ i ].m_vecOrigin - Vector( 0, 0, 384 ),
 							ignore_monsters,
-							g_pBodyQueueHead,//!!!HACKHACK no real ent to supply here, using a global we don't care about
+							g_pBodyQueueHead->edict(),//!!!HACKHACK no real ent to supply here, using a global we don't care about
 							&tr );
 
 			// This trace is ONLY used if we hit an entity flagged with FL_WORLDBRUSH
@@ -203,7 +203,7 @@ void CTestHull::BuildNodeGraph( void )
 			UTIL_TraceLine( WorldGraph.m_pNodes[ i ].m_vecOrigin,
 							WorldGraph.m_pNodes[ i ].m_vecOrigin - Vector( 0, 0, 384 ),
 							dont_ignore_monsters,
-							g_pBodyQueueHead,//!!!HACKHACK no real ent to supply here, using a global we don't care about
+							g_pBodyQueueHead->edict(),//!!!HACKHACK no real ent to supply here, using a global we don't care about
 							&trEnt );
 
 
