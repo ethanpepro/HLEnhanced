@@ -798,7 +798,7 @@ entvars_t *g_pevLastInflictor;  // Set in combat.cpp.  Used to pass the damage i
 								// Better solution:  Add as parameter to all Killed() functions.
 //TODO: add it - Solokiller
 
-void CBasePlayer::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	CSound *pSound;
 
@@ -806,7 +806,7 @@ void CBasePlayer::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 	if ( m_pActiveItem )
 		m_pActiveItem->Holster( );
 
-	g_pGameRules->PlayerKilled( this, pAttacker->pev, g_pevLastInflictor );
+	g_pGameRules->PlayerKilled( this, info.GetAttacker()->pev, g_pevLastInflictor );
 
 	if ( m_pTank != NULL )
 	{

@@ -625,20 +625,20 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 }
 
 
-void CTalkMonster::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CTalkMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	// If a client killed me (unless I was already Barnacle'd), make everyone else mad/afraid of him
-	if ( pAttacker && (pAttacker->pev->flags & FL_CLIENT) && m_MonsterState != MONSTERSTATE_PRONE )
+	if ( info.GetAttacker() && (info.GetAttacker()->pev->flags & FL_CLIENT) && m_MonsterState != MONSTERSTATE_PRONE )
 	{
 		AlertFriends();
-		LimitFollowers( pAttacker, 0 );
+		LimitFollowers( info.GetAttacker(), 0 );
 	}
 
 	m_hTargetEnt = NULL;
 	// Don't finish that sentence
 	StopTalking();
 	SetUse( NULL );
-	CBaseMonster::Killed( pAttacker, gibAction );
+	CBaseMonster::Killed( info, gibAction );
 }
 
 

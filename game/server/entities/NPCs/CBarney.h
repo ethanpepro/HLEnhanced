@@ -61,7 +61,7 @@ public:
 	void TalkInit( void );
 
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	bool	m_fGunDrawn;
 	float	m_painTime;

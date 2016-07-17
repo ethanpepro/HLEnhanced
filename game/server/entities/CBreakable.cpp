@@ -555,7 +555,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 	pev->health -= newInfo.GetDamage();
 	if (pev->health <= 0)
 	{
-		Killed( newInfo.GetAttacker(), GIB_NORMAL );
+		Killed( newInfo, GIB_NORMAL );
 		Die();
 		return;
 	}

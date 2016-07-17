@@ -118,7 +118,7 @@ public:
 
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	MONSTERSTATE GetIdealState() override { return MONSTERSTATE_IDLE; };
 	bool CanPlaySequence( const bool fDisregardState ) const { return true; }

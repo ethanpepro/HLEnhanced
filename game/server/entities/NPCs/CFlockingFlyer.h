@@ -36,7 +36,7 @@ public:
 	void AlertFlock( void );
 	void SpreadFlock( void );
 	void SpreadFlock2( void );
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void Poop( void );
 	bool FPathBlocked();
 	//void KeyValue( KeyValueData *pkvd );

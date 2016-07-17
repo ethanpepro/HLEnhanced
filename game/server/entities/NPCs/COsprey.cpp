@@ -424,7 +424,7 @@ void COsprey::OnTakeDamage( const CTakeDamageInfo& info )
 
 
 
-void COsprey::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void COsprey::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	pev->movetype = MOVETYPE_TOSS;
 	pev->gravity = 0.3;

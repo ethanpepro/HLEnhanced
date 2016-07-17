@@ -367,7 +367,7 @@ void CBaseMonster::CallGibMonster( void )
 Killed
 ============
 */
-void CBaseMonster::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CBaseMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	unsigned int	cCount = 0;
 	bool			fDone = false;
@@ -458,7 +458,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 
 	if ( !IsAlive() )
 	{
-		DeadTakeDamage( info.GetInflictor(), info.GetAttacker(), info.GetDamage(), info.GetDamageTypes() );
+		DeadTakeDamage( info );
 		return;
 	}
 
@@ -522,15 +522,15 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 
 		if ( info.GetDamageTypes() & DMG_ALWAYSGIB )
 		{
-			Killed( info.GetAttacker(), GIB_ALWAYS );
+			Killed( info, GIB_ALWAYS );
 		}
 		else if ( info.GetDamageTypes() & DMG_NEVERGIB )
 		{
-			Killed( info.GetAttacker(), GIB_NEVER );
+			Killed( info, GIB_NEVER );
 		}
 		else
 		{
-			Killed( info.GetAttacker(), GIB_NORMAL );
+			Killed( info, GIB_NORMAL );
 		}
 
 		g_pevLastInflictor = nullptr;
@@ -579,15 +579,15 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 // DeadTakeDamage - takedamage function called when a monster's
 // corpse is damaged.
 //=========================================================
-int CBaseMonster::DeadTakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBaseMonster::DeadTakeDamage( const CTakeDamageInfo& info )
 {
-	Vector			vecDir;
+	Vector vecDir;
 
 	// grab the vector of the incoming attack. ( pretend that the inflictor is a little lower than it really is, so the body will tend to fly upward a bit).
 	vecDir = Vector( 0, 0, 0 );
-	if( !FNullEnt( pInflictor ) )
+	if( !FNullEnt( info.GetInflictor() ) )
 	{
-		vecDir = ( pInflictor->Center() - Vector ( 0, 0, 10 ) - Center() ).Normalize();
+		vecDir = ( info.GetInflictor()->Center() - Vector ( 0, 0, 10 ) - Center() ).Normalize();
 		vecDir = g_vecAttackDir = vecDir.Normalize();
 	}
 
@@ -605,19 +605,17 @@ int CBaseMonster::DeadTakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacke
 #endif
 
 	// kill the corpse if enough damage was done to destroy the corpse and the damage is of a type that is allowed to destroy the corpse.
-	if ( bitsDamageType & DMG_GIB_CORPSE )
+	if ( info.GetDamageTypes() & DMG_GIB_CORPSE )
 	{
-		if ( pev->health <= flDamage )
+		if ( pev->health <= info.GetDamage() )
 		{
 			pev->health = -50;
-			Killed( pAttacker, GIB_ALWAYS );
-			return 0;
+			Killed( info, GIB_ALWAYS );
+			return;
 		}
 		// Accumulate corpse gibbing damage, so you can gib with multiple hits
-		pev->health -= flDamage * 0.1;
+		pev->health -= info.GetDamage() * 0.1;
 	}
-	
-	return 1;
 }
 
 

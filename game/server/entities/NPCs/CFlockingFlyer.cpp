@@ -491,7 +491,7 @@ void CFlockingFlyer::SpreadFlock2()
 	}
 }
 
-void CFlockingFlyer::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CFlockingFlyer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	CFlockingFlyer *pSquad;
 

@@ -822,8 +822,7 @@ void CTentacle::OnTakeDamage( const CTakeDamageInfo& info )
 	}
 }
 
-void CTentacle::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CTentacle::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	m_iGoalAnim = TENTACLE_ANIM_Pit_Idle;
-	return;
 }

@@ -551,11 +551,11 @@ public:
 
 	/**
 	*	Called when the entity has been killed.
-	*	@param pAttacker The entity that attacked this entity.
+	*	@param info Damage info.
 	*	@param gibAction how to handle the gibbing of this entity.
 	*	@see GibAction
 	*/
-	virtual void Killed( CBaseEntity* pAttacker, GibAction gibAction );
+	virtual void Killed( const CTakeDamageInfo& info, GibAction gibAction );
 
 	/**
 	*	Gives health to this entity. Negative values take health.

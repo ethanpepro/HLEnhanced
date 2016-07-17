@@ -193,7 +193,7 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 	{
 		if ( to->client.health <= 0 && lasthealth > 0 )
 		{
-			player.Killed( NULL, GIB_NORMAL );
+			player.Killed( CTakeDamageInfo(), GIB_NORMAL );
 			
 		}
 		else if ( to->client.health > 0 && lasthealth <= 0 )

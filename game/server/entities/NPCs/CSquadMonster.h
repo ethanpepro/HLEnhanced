@@ -73,7 +73,7 @@ public:
 	void StartMonster ( void ) override;
 	void VacateSlot( void );
 	void ScheduleChange( void ) override;
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	bool OccupySlot( int iDesiredSlot );
 	bool NoFriendlyFire();
 

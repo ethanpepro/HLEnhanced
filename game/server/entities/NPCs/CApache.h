@@ -28,7 +28,7 @@ public:
 	void Precache( void ) override;
 	int  Classify( void ) override { return CLASS_HUMAN_MILITARY; };
 	int  BloodColor() const override { return DONT_BLEED; }
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void GibMonster( void ) override;
 
 	void SetObjectCollisionBox( void ) override

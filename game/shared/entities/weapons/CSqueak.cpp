@@ -38,7 +38,7 @@ public:
 	void EXPORT SuperBounceTouch( CBaseEntity *pOther );
 	void EXPORT HuntThink( void );
 	int  BloodColor() const override { return BLOOD_COLOR_YELLOW; }
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void GibMonster( void ) override;
 
 	static float m_flNextBounceSoundTime;
@@ -140,7 +140,7 @@ void CSqueakGrenade::Precache( void )
 }
 
 
-void CSqueakGrenade::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CSqueakGrenade::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	pev->model = iStringNull;// make invisible
 	SetThink( &CSqueakGrenade::SUB_Remove );
@@ -168,7 +168,7 @@ void CSqueakGrenade::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 	if (m_hOwner != NULL)
 		pev->owner = m_hOwner->edict();
 
-	CBaseMonster::Killed( pAttacker, GIB_ALWAYS );
+	CBaseMonster::Killed( info, GIB_ALWAYS );
 }
 
 void CSqueakGrenade :: GibMonster( void )
@@ -197,7 +197,7 @@ void CSqueakGrenade::HuntThink( void )
 	{
 		g_vecAttackDir = pev->velocity.Normalize( );
 		pev->health = -1;
-		Killed( this, GIB_NORMAL );
+		Killed( CTakeDamageInfo( this, 0, 0 ), GIB_NORMAL );
 		return;
 	}
 

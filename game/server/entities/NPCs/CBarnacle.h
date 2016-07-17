@@ -37,7 +37,7 @@ public:
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void EXPORT BarnacleThink( void );
 	void EXPORT WaitTillDead( void );
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	float m_flAltitude;

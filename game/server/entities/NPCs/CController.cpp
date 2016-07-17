@@ -111,7 +111,7 @@ void CController::OnTakeDamage( const CTakeDamageInfo& info )
 }
 
 
-void CController::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CController::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	// shut off balls
 	/*
@@ -133,7 +133,7 @@ void CController::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 		m_pBall[1] = NULL;
 	}
 
-	CSquadMonster::Killed( pAttacker, gibAction );
+	CSquadMonster::Killed( info, gibAction );
 }
 
 

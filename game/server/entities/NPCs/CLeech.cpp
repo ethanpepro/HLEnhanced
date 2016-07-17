@@ -570,7 +570,7 @@ void CLeech::SwimThink( void )
 	UpdateMotion();
 }
 
-void CLeech::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CLeech::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	Vector			vecSplatDir;
 	TraceResult		tr;

@@ -739,10 +739,10 @@ void CScientist :: DeathSound ( void )
 }
 
 
-void CScientist::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CScientist::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	SetUse( NULL );	
-	CTalkMonster::Killed( pAttacker, gibAction );
+	CTalkMonster::Killed( info, gibAction );
 }
 
 

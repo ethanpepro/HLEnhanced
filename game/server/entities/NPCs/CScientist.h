@@ -67,7 +67,7 @@ public:
 
 	void TalkInit( void );
 
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	CUSTOM_SCHEDULES;
 

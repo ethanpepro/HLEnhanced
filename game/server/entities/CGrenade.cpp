@@ -144,7 +144,7 @@ void CGrenade::Smoke( void )
 	UTIL_Remove( this );
 }
 
-void CGrenade::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CGrenade::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	Detonate( );
 }

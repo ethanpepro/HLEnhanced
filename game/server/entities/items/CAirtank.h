@@ -26,7 +26,7 @@ public:
 	void EXPORT TankThink( void );
 	void EXPORT TankTouch( CBaseEntity *pOther );
 	int	 BloodColor() const override { return DONT_BLEED; }
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	int	 m_state;
 };

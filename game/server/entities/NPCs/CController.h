@@ -74,7 +74,7 @@ public:
 	static const char *pDeathSounds[];
 
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void GibMonster( void ) override;
 
 	CSprite *m_pBall[ 2 ];	// hand balls

@@ -127,7 +127,7 @@ void CRoach :: Precache()
 //=========================================================
 // Killed.
 //=========================================================
-void CRoach :: Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CRoach::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	pev->solid = SOLID_NOT;
 

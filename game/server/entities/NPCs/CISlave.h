@@ -50,7 +50,7 @@ public:
 	void AlertSound( void ) override;
 	void IdleSound( void ) override;
 
-	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	void StartTask( Task_t *pTask ) override;
 	Schedule_t *GetSchedule( void ) override;

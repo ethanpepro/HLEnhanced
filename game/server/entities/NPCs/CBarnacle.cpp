@@ -287,7 +287,7 @@ void CBarnacle :: BarnacleThink ( void )
 //=========================================================
 // Killed.
 //=========================================================
-void CBarnacle::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CBarnacle::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	CBaseMonster *pVictim;
 

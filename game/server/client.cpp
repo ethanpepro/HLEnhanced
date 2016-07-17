@@ -182,7 +182,7 @@ void ClientKill( edict_t *pEntity )
 
 	// have the player kill themself
 	pev->health = 0;
-	pl->Killed( pl, GIB_NEVER );
+	pl->Killed( CTakeDamageInfo( pl, 0, 0 ), GIB_NEVER );
 
 //	pev->modelindex = g_ulModelIndexPlayer;
 //	pev->frags -= 2;		// extra penalty

@@ -116,7 +116,7 @@ void CSquadMonster :: ScheduleChange ( void )
 //=========================================================
 // Killed
 //=========================================================
-void CSquadMonster :: Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CSquadMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	VacateSlot();
 
@@ -125,7 +125,7 @@ void CSquadMonster :: Killed( CBaseEntity* pAttacker, GibAction gibAction )
 		MySquadLeader()->SquadRemove( this );
 	}
 
-	CBaseMonster::Killed( pAttacker, gibAction );
+	CBaseMonster::Killed( info, gibAction );
 }
 
 // These functions are still awaiting conversion to CSquadMonster 

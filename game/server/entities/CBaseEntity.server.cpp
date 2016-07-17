@@ -93,14 +93,14 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 	pev->health -= info.GetDamage();
 	if( pev->health <= 0 )
 	{
-		Killed( info.GetAttacker(), GIB_NORMAL );
+		Killed( info, GIB_NORMAL );
 		return;
 	}
 
 	return;
 }
 
-void CBaseEntity::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CBaseEntity::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	pev->takedamage = DAMAGE_NO;
 	pev->deadflag = DEAD_DEAD;

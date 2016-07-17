@@ -338,7 +338,7 @@ public:
 	float UpdateTarget ( entvars_t *pevTarget );
 	virtual Activity GetDeathActivity ( void );
 	Activity GetSmallFlinchActivity( void );
-	virtual void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
+	virtual void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	virtual void GibMonster( void );
 	bool ShouldGibMonster( GibAction gibAction ) const;
 	void		 CallGibMonster( void );
@@ -353,7 +353,7 @@ public:
 
 	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
 	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	int DeadTakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType );
+	void DeadTakeDamage( const CTakeDamageInfo& info );
 
 	void RadiusDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int iClassIgnore, int bitsDamageType );
 	void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int iClassIgnore, int bitsDamageType );

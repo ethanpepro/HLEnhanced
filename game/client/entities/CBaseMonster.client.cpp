@@ -461,7 +461,7 @@ void CBaseMonster::RunAI()
 {
 }
 
-void CBaseMonster::Killed( CBaseEntity* pAttacker, GibAction gibAction )
+void CBaseMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 }
 
