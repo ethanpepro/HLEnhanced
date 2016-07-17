@@ -67,16 +67,16 @@ void LinkUserMessages( void );
  * used by kill command and disconnect command
  * ROBIN: Moved here from player.cpp, to allow multiple player models
  */
-void set_suicide_frame(entvars_t* pev)
+void set_suicide_frame( CBaseEntity* pPlayer )
 {       
-	if (!FStrEq(STRING(pev->model), "models/player.mdl"))
+	if( !FStrEq( STRING( pPlayer->pev->model ), "models/player.mdl" ) )
 		return; // allready gibbed
 
-//	pev->frame		= $deatha11;
-	pev->solid		= SOLID_NOT;
-	pev->movetype	= MOVETYPE_TOSS;
-	pev->deadflag	= DEAD_DEAD;
-	pev->nextthink	= -1;
+//	pPlayer->pev->frame		= $deatha11;
+	pPlayer->pev->solid		= SOLID_NOT;
+	pPlayer->pev->movetype	= MOVETYPE_TOSS;
+	pPlayer->pev->deadflag	= DEAD_DEAD;
+	pPlayer->pev->nextthink	= -1;
 }
 
 
