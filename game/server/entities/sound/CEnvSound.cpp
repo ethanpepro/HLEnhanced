@@ -107,7 +107,7 @@ void CEnvSound::Think( void )
 	// check to see if this is the sound entity that is 
 	// currently affecting this player
 
-	if( !FNullEnt( pPlayer->m_pentSndLast ) && ( pPlayer->m_pentSndLast == ENT( pev ) ) ) {
+	if( !FNullEnt( pPlayer->m_SndLast ) && ( pPlayer->m_SndLast == this ) ) {
 
 		// this is the entity currently affecting player, check
 		// for validity
@@ -148,7 +148,7 @@ void CEnvSound::Think( void )
 		if( flRange < pPlayer->m_flSndRange || pPlayer->m_flSndRange == 0 )
 		{
 			// new entity is closer to player, so it wins.
-			pPlayer->m_pentSndLast = ENT( pev );
+			pPlayer->m_SndLast = this;
 			pPlayer->m_flSndRoomtype = m_flRoomtype;
 			pPlayer->m_flSndRange = flRange;
 
