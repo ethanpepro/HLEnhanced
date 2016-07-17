@@ -90,7 +90,7 @@ void CHornet :: Spawn( void )
 	}
 
 	SET_MODEL(ENT( pev ), "models/hornet.mdl");
-	UTIL_SetSize( pev, Vector( -4, -4, -4 ), Vector( 4, 4, 4 ) );
+	UTIL_SetSize( this, Vector( -4, -4, -4 ), Vector( 4, 4, 4 ) );
 
 	SetTouch( &CHornet::DieTouch );
 	SetThink( &CHornet::StartTrack );

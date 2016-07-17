@@ -282,6 +282,6 @@ void CBaseAnimating::SetSequenceBox( void )
 		}
 		rmin.z = 0;
 		rmax.z = rmin.z + 1;
-		UTIL_SetSize( pev, rmin, rmax );
+		UTIL_SetSize( this, rmin, rmax );
 	}
 }

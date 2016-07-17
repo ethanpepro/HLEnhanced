@@ -88,21 +88,21 @@ void CXenSporeSmall::Spawn( void )
 {
 	pev->skin = 0;
 	CXenSpore::Spawn();
-	UTIL_SetSize( pev, Vector( -16, -16, 0 ), Vector( 16, 16, 64 ) );
+	UTIL_SetSize( this, Vector( -16, -16, 0 ), Vector( 16, 16, 64 ) );
 }
 
 void CXenSporeMed::Spawn( void )
 {
 	pev->skin = 1;
 	CXenSpore::Spawn();
-	UTIL_SetSize( pev, Vector( -40, -40, 0 ), Vector( 40, 40, 120 ) );
+	UTIL_SetSize( this, Vector( -40, -40, 0 ), Vector( 40, 40, 120 ) );
 }
 
 void CXenSporeLarge::Spawn( void )
 {
 	pev->skin = 2;
 	CXenSpore::Spawn();
-	UTIL_SetSize( pev, Vector( -48, -48, 110 ), Vector( 48, 48, 240 ) );
+	UTIL_SetSize( this, Vector( -48, -48, 110 ), Vector( 48, 48, 240 ) );
 
 	Vector forward, right;
 
@@ -123,7 +123,7 @@ CXenHull *CXenHull::CreateHull( CBaseEntity *source, const Vector &mins, const V
 	pHull->pev->classname = MAKE_STRING( "xen_hull" );
 	pHull->pev->movetype = MOVETYPE_NONE;
 	pHull->pev->owner = source->edict();
-	UTIL_SetSize( pHull->pev, mins, maxs );
+	UTIL_SetSize( pHull, mins, maxs );
 	pHull->pev->renderamt = 0;
 	pHull->pev->rendermode = kRenderTransTexture;
 	//	pHull->pev->effects = EF_NODRAW;

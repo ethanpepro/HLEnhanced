@@ -37,7 +37,7 @@ void CControllerHeadBall::Spawn( void )
 	pev->renderamt = 255;
 	pev->scale = 2.0;
 
-	UTIL_SetSize( pev, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
+	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	UTIL_SetOrigin( pev, pev->origin );
 
 	SetThink( &CControllerHeadBall::HuntThink );

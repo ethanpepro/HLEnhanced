@@ -113,8 +113,8 @@ void CNihilanth :: Spawn( void )
 	pev->solid = SOLID_BBOX;
 
 	SET_MODEL(edict(), "models/nihilanth.mdl");
-	// UTIL_SetSize(pev, Vector( -300, -300, 0), Vector(300, 300, 512));
-	UTIL_SetSize(pev, Vector( -32, -32, 0), Vector(32, 32, 64));
+	// UTIL_SetSize( this, Vector( -300, -300, 0), Vector(300, 300, 512) );
+	UTIL_SetSize( this, Vector( -32, -32, 0), Vector(32, 32, 64) );
 	UTIL_SetOrigin( pev, pev->origin );
 
 	pev->flags			|= FL_MONSTER;

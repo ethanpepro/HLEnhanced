@@ -24,7 +24,7 @@ void CXenHair::Spawn( void )
 {
 	Precache();
 	SET_MODEL( edict(), "models/hair.mdl" );
-	UTIL_SetSize( pev, Vector( -4, -4, 0 ), Vector( 4, 4, 32 ) );
+	UTIL_SetSize( this, Vector( -4, -4, 0 ), Vector( 4, 4, 32 ) );
 	pev->sequence = 0;
 
 	if( !( pev->spawnflags & SF_HAIR_SYNC ) )

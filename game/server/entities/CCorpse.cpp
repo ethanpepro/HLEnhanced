@@ -73,6 +73,6 @@ void CopyToBodyQue( CBaseEntity* pEntity )
 	pevHead->animtime = pEntity->pev->animtime;
 
 	UTIL_SetOrigin( pevHead, pEntity->pev->origin );
-	UTIL_SetSize( pevHead, pEntity->pev->mins, pEntity->pev->maxs );
+	UTIL_SetSize( g_pBodyQueueHead, pEntity->pev->mins, pEntity->pev->maxs );
 	g_pBodyQueueHead = CBaseEntity::Instance( pevHead->owner );
 }

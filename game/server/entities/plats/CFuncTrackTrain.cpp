@@ -49,7 +49,7 @@ void CFuncTrackTrain::Spawn( void )
 
 	SET_MODEL( ENT( pev ), STRING( pev->model ) );
 
-	UTIL_SetSize( pev, pev->mins, pev->maxs );
+	UTIL_SetSize( this, pev->mins, pev->maxs );
 	UTIL_SetOrigin( pev, pev->origin );
 
 	// Cache off placed origin for train controls

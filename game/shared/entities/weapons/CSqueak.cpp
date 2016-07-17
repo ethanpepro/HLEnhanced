@@ -98,7 +98,7 @@ void CSqueakGrenade :: Spawn( void )
 	pev->solid = SOLID_BBOX;
 
 	SET_MODEL(ENT(pev), "models/w_squeak.mdl");
-	UTIL_SetSize(pev, Vector( -4, -4, 0), Vector(4, 4, 8));
+	UTIL_SetSize( this, Vector( -4, -4, 0), Vector(4, 4, 8) );
 	UTIL_SetOrigin( pev, pev->origin );
 
 	SetTouch( &CSqueakGrenade::SuperBounceTouch );

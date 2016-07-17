@@ -3207,7 +3207,7 @@ void CBaseMonster :: MonsterInitDead( void )
 	pev->max_health		= pev->health;
 	pev->deadflag		= DEAD_DEAD;
 	
-	UTIL_SetSize(pev, g_vecZero, g_vecZero );
+	UTIL_SetSize( this, g_vecZero, g_vecZero );
 	UTIL_SetOrigin( pev, pev->origin );
 
 	// Setup health counters, etc.

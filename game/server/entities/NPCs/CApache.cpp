@@ -53,7 +53,7 @@ void CApache :: Spawn( void )
 	pev->solid = SOLID_BBOX;
 
 	SET_MODEL(ENT(pev), "models/apache.mdl");
-	UTIL_SetSize( pev, Vector( -32, -32, -64 ), Vector( 32, 32, 0 ) );
+	UTIL_SetSize( this, Vector( -32, -32, -64 ), Vector( 32, 32, 0 ) );
 	UTIL_SetOrigin( pev, pev->origin );
 
 	pev->flags |= FL_MONSTER;
@@ -130,7 +130,7 @@ void CApache::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 	STOP_SOUND( ENT(pev), CHAN_STATIC, "apache/ap_rotor2.wav" );
 
-	UTIL_SetSize( pev, Vector( -32, -32, -64), Vector( 32, 32, 0) );
+	UTIL_SetSize( this, Vector( -32, -32, -64), Vector( 32, 32, 0) );
 	SetThink( &CApache::DyingThink );
 	SetTouch( &CApache::CrashTouch );
 	pev->nextthink = gpGlobals->time + 0.1;
@@ -289,7 +289,7 @@ void CApache :: DyingThink( void )
 		{
 			CBaseEntity *pWreckage = Create( "cycler_wreckage", pev->origin, pev->angles );
 			// SET_MODEL( ENT(pWreckage->pev), STRING(pev->model) );
-			UTIL_SetSize( pWreckage->pev, Vector( -200, -200, -128 ), Vector( 200, 200, -32 ) );
+			UTIL_SetSize( pWreckage, Vector( -200, -200, -128 ), Vector( 200, 200, -32 ) );
 			pWreckage->pev->frame = pev->frame;
 			pWreckage->pev->sequence = pev->sequence;
 			pWreckage->pev->framerate = 0;

@@ -13,7 +13,7 @@ void CTentacleMaw::Spawn()
 {
 	Precache();
 	SET_MODEL( ENT( pev ), "models/maw.mdl" );
-	UTIL_SetSize( pev, Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
+	UTIL_SetSize( this, Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
 
 	pev->solid = SOLID_NOT;
 	pev->movetype = MOVETYPE_STEP;

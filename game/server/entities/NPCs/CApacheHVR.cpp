@@ -34,7 +34,7 @@ void CApacheHVR::Spawn( void )
 	pev->solid = SOLID_BBOX;
 
 	SET_MODEL( ENT( pev ), "models/HVR.mdl" );
-	UTIL_SetSize( pev, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
+	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	UTIL_SetOrigin( pev, pev->origin );
 
 	SetThink( &CApacheHVR::IgniteThink );

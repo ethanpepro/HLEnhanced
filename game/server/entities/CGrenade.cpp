@@ -345,7 +345,7 @@ void CGrenade:: Spawn( void )
 	pev->solid = SOLID_BBOX;
 
 	SET_MODEL(ENT(pev), "models/grenade.mdl");
-	UTIL_SetSize(pev, Vector( 0, 0, 0), Vector(0, 0, 0));
+	UTIL_SetSize( this, Vector( 0, 0, 0), Vector(0, 0, 0) );
 
 	pev->dmg = 100;
 	m_fRegisteredSound = false;
@@ -429,7 +429,7 @@ CGrenade* CGrenade::ShootSatchelCharge( CBaseEntity* pOwner, Vector vecStart, Ve
 
 	SET_MODEL(ENT(pGrenade->pev), "models/grenade.mdl");	// Change this to satchel charge model
 
-	UTIL_SetSize(pGrenade->pev, Vector( 0, 0, 0), Vector(0, 0, 0));
+	UTIL_SetSize( pGrenade, Vector( 0, 0, 0), Vector(0, 0, 0) );
 
 	pGrenade->pev->dmg = 200;
 	UTIL_SetOrigin( pGrenade->pev, vecStart );

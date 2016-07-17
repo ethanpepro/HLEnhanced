@@ -689,9 +689,9 @@ TraceResult UTIL_GetGlobalTrace( )
 }
 
 	
-void UTIL_SetSize( entvars_t *pev, const Vector &vecMin, const Vector &vecMax )
+void UTIL_SetSize( CBaseEntity* pEntity, const Vector& vecMin, const Vector& vecMax )
 {
-	SET_SIZE( ENT(pev), vecMin, vecMax );
+	SET_SIZE( pEntity->edict(), vecMin, vecMax );
 }
 	
 	

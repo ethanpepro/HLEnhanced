@@ -66,7 +66,7 @@ void COsprey :: Spawn( void )
 	pev->solid = SOLID_BBOX;
 
 	SET_MODEL(ENT(pev), "models/osprey.mdl");
-	UTIL_SetSize(pev, Vector( -400, -400, -100), Vector(400, 400, 32));
+	UTIL_SetSize( this, Vector( -400, -400, -100), Vector(400, 400, 32));
 	UTIL_SetOrigin( pev, pev->origin );
 
 	pev->flags |= FL_MONSTER;
@@ -432,7 +432,7 @@ void COsprey::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	pev->avelocity = Vector( RANDOM_FLOAT( -20, 20 ), 0, RANDOM_FLOAT( -50, 50 ) );
 	STOP_SOUND( ENT(pev), CHAN_STATIC, "apache/ap_rotor4.wav" );
 
-	UTIL_SetSize( pev, Vector( -32, -32, -64), Vector( 32, 32, 0) );
+	UTIL_SetSize( this, Vector( -32, -32, -64), Vector( 32, 32, 0) );
 	SetThink( &COsprey::DyingThink );
 	SetTouch( &COsprey::CrashTouch );
 	pev->nextthink = gpGlobals->time + 0.1;

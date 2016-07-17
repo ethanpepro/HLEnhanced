@@ -484,7 +484,7 @@ void CAGrunt :: Spawn()
 	Precache( );
 
 	SET_MODEL(ENT(pev), "models/agrunt.mdl");
-	UTIL_SetSize(pev, Vector(-32, -32, 0), Vector(32, 32, 64));
+	UTIL_SetSize( this, Vector(-32, -32, 0), Vector(32, 32, 64));
 
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_STEP;

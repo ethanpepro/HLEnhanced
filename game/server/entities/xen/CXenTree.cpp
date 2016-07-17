@@ -50,7 +50,7 @@ void CXenTree::Spawn( void )
 
 	pev->takedamage = DAMAGE_YES;
 
-	UTIL_SetSize( pev, Vector( -30, -30, 0 ), Vector( 30, 30, 188 ) );
+	UTIL_SetSize( this, Vector( -30, -30, 0 ), Vector( 30, 30, 188 ) );
 	SetActivity( ACT_IDLE );
 	pev->nextthink = gpGlobals->time + 0.1;
 	pev->frame = RANDOM_FLOAT( 0, 255 );
@@ -61,7 +61,7 @@ void CXenTree::Spawn( void )
 	triggerPosition = pev->origin + ( triggerPosition * 64 );
 	// Create the trigger
 	m_pTrigger = CXenTreeTrigger::TriggerCreate( edict(), triggerPosition );
-	UTIL_SetSize( m_pTrigger->pev, Vector( -24, -24, 0 ), Vector( 24, 24, 128 ) );
+	UTIL_SetSize( m_pTrigger, Vector( -24, -24, 0 ), Vector( 24, 24, 128 ) );
 }
 
 void CXenTree::Precache( void )

@@ -57,7 +57,7 @@ void ClientPrint( entvars_t *client, int msg_dest, const char *msg_name, const c
 
 void UTIL_Remove( CBaseEntity *pEntity ){ }
 struct skilldata_t  gSkillData;
-void UTIL_SetSize( entvars_t *pev, const Vector &vecMin, const Vector &vecMax ){ }
+void UTIL_SetSize( CBaseEntity* pEntity, const Vector& vecMin, const Vector& vecMax ) {}
 CBaseEntity *UTIL_FindEntityInSphere( CBaseEntity *pStartEntity, const Vector &vecCenter, float flRadius ){ return 0;}
 
 int TrainSpeed(int iSpeed, int iMax) { 	return 0; }
