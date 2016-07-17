@@ -1074,6 +1074,9 @@
     <ClCompile Include="..\..\game\server\voice_gamemgr.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\weapons\CBasePlayerWeapon.shared.cpp">
+      <Filter>Source Files\game\shared\entities\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\engine\eiface.h">

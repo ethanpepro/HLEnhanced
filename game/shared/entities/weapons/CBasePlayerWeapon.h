@@ -95,37 +95,13 @@ public:
 	*	Copies weapon data to the weapon_data_t instance.
 	*	@param data Weapon data.
 	*/
-	virtual void GetWeaponData( weapon_data_t& data )
-	{
-		//TODO: move this to a source file once we have a shared weapon file - Solokiller
-		data.m_iClip = m_iClip;
-
-		data.m_flTimeWeaponIdle = max( m_flTimeWeaponIdle, -0.001f );
-		data.m_flNextPrimaryAttack = max( m_flNextPrimaryAttack, -0.001f );
-		data.m_flNextSecondaryAttack = max( m_flNextSecondaryAttack, -0.001f );
-
-		data.m_fInReload = m_fInReload;
-
-		data.fuser1 = max( pev->fuser1, -0.001f );
-	}
+	virtual void GetWeaponData( weapon_data_t& data );
 
 	/**
 	*	Copies weapon data from the weapon_data_t instance.
 	*	@param data Weapon data.
 	*/
-	virtual void SetWeaponData( const weapon_data_t& data )
-	{
-		//TODO: move this to a source file once we have a shared weapon file - Solokiller
-		m_iClip = data.m_iClip;
-
-		m_flTimeWeaponIdle = data.m_flTimeWeaponIdle;
-		m_flNextPrimaryAttack = data.m_flNextPrimaryAttack;
-		m_flNextSecondaryAttack = data.m_flNextSecondaryAttack;
-
-		m_fInReload = data.m_fInReload != 0;
-
-		pev->fuser1 = data.fuser1;
-	}
+	virtual void SetWeaponData( const weapon_data_t& data );
 
 	float	m_flNextPrimaryAttack;								// soonest time ItemPostFrame will call PrimaryAttack
 	float	m_flNextSecondaryAttack;							// soonest time ItemPostFrame will call SecondaryAttack

@@ -432,6 +432,9 @@
     <ClCompile Include="..\..\game\client\entities\CBaseMonster.client.cpp">
       <Filter>Source Files\game\client\entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\weapons\CBasePlayerWeapon.shared.cpp">
+      <Filter>Source Files\game\shared\entities\weapons</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\parsemsg.h">

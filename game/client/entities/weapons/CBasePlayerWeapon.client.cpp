@@ -43,35 +43,6 @@ bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, const char *szName )
 
 /*
 =====================
-CBasePlayerWeapon :: PlayEmptySound
-
-=====================
-*/
-//TODO: these 2 functions are virtually identical to the server side copy - Solokiller
-bool CBasePlayerWeapon::PlayEmptySound()
-{
-	if( m_bPlayEmptySound )
-	{
-		HUD_PlaySound( "weapons/357_cock1.wav", 0.8 );
-		m_bPlayEmptySound = false;
-		return false;
-	}
-	return false;
-}
-
-/*
-=====================
-CBasePlayerWeapon :: ResetEmptySound
-
-=====================
-*/
-void CBasePlayerWeapon::ResetEmptySound()
-{
-	m_bPlayEmptySound = true;
-}
-
-/*
-=====================
 CBasePlayerWeapon::SendWeaponAnim
 
 Animate weapon model
@@ -82,42 +53,6 @@ void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
 	m_pPlayer->pev->weaponanim = iAnim;
 
 	HUD_SendWeaponAnim( iAnim, body, 0 );
-}
-
-/*
-=====================
-CBasePlayerWeapon :: CanDeploy
-=====================
-*/
-//TODO: identical to the server version - Solokiller
-bool CBasePlayerWeapon::CanDeploy() const
-{
-	bool bHasAmmo = false;
-
-	if( !pszAmmo1() )
-	{
-		// this weapon doesn't use ammo, can always deploy.
-		return true;
-	}
-
-	if( pszAmmo1() )
-	{
-		bHasAmmo |= ( m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] != 0 );
-	}
-	if( pszAmmo2() )
-	{
-		bHasAmmo |= ( m_pPlayer->m_rgAmmo[ m_iSecondaryAmmoType ] != 0 );
-	}
-	if( m_iClip > 0 )
-	{
-		bHasAmmo |= 1;
-	}
-	if( !bHasAmmo )
-	{
-		return false;
-	}
-
-	return true;
 }
 
 bool CBasePlayerWeapon::IsUseable()

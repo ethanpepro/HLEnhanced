@@ -143,22 +143,6 @@ bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, const char *szName )
 	return iIdAmmo > 0;
 }
 
-bool CBasePlayerWeapon::PlayEmptySound()
-{
-	if( m_bPlayEmptySound )
-	{
-		EMIT_SOUND( ENT( m_pPlayer->pev ), CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM );
-		m_bPlayEmptySound = false;
-		return false;
-	}
-	return false;
-}
-
-void CBasePlayerWeapon::ResetEmptySound()
-{
-	m_bPlayEmptySound = true;
-}
-
 void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
 {
 	if( UseDecrement() )
@@ -177,36 +161,6 @@ void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
 	WRITE_BYTE( iAnim );						// sequence number
 	WRITE_BYTE( pev->body );					// weaponmodel bodygroup.
 	MESSAGE_END();
-}
-
-bool CBasePlayerWeapon::CanDeploy() const
-{
-	bool bHasAmmo = false;
-
-	if( !pszAmmo1() )
-	{
-		// this weapon doesn't use ammo, can always deploy.
-		return true;
-	}
-
-	if( pszAmmo1() )
-	{
-		bHasAmmo |= ( m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] != 0 );
-	}
-	if( pszAmmo2() )
-	{
-		bHasAmmo |= ( m_pPlayer->m_rgAmmo[ m_iSecondaryAmmoType ] != 0 );
-	}
-	if( m_iClip > 0 )
-	{
-		bHasAmmo |= 1;
-	}
-	if( !bHasAmmo )
-	{
-		return false;
-	}
-
-	return true;
 }
 
 //=========================================================
