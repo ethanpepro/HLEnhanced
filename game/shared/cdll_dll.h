@@ -49,4 +49,16 @@
 
 #define WEAPON_SUIT			31
 
+/**
+*	Maximum world coordinate for any axis. Negate for the opposite end of the axis.
+*	TODO: If the maximum map size were ever increased, this should be updated as well. Editor and compiler hacks can allow for up to 16384, so account for that.
+*/
+#define WORLD_BOUNDARY 16384
+
+/**
+*	Maximum velocity for any axis. Used for validation only.
+*	TODO: probably not the best way to handle this, seeing as sv_maxvelocity can be higher. - Solokiller
+*/
+#define MAX_VELOCITY 2000
+
 #endif //GAME_SHARED_CDLL_DLL_H

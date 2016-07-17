@@ -215,21 +215,20 @@ bool CBaseEntity::IsDormant() const
 
 bool CBaseEntity::IsInWorld() const
 {
-	//TODO: use constants. - Solokiller
 	// position 
-	if( pev->origin.x >= 4096 ) return false;
-	if( pev->origin.y >= 4096 ) return false;
-	if( pev->origin.z >= 4096 ) return false;
-	if( pev->origin.x <= -4096 ) return false;
-	if( pev->origin.y <= -4096 ) return false;
-	if( pev->origin.z <= -4096 ) return false;
+	if( pev->origin.x >= WORLD_BOUNDARY ) return false;
+	if( pev->origin.y >= WORLD_BOUNDARY ) return false;
+	if( pev->origin.z >= WORLD_BOUNDARY ) return false;
+	if( pev->origin.x <= -WORLD_BOUNDARY ) return false;
+	if( pev->origin.y <= -WORLD_BOUNDARY ) return false;
+	if( pev->origin.z <= -WORLD_BOUNDARY ) return false;
 	// speed
-	if( pev->velocity.x >= 2000 ) return false;
-	if( pev->velocity.y >= 2000 ) return false;
-	if( pev->velocity.z >= 2000 ) return false;
-	if( pev->velocity.x <= -2000 ) return false;
-	if( pev->velocity.y <= -2000 ) return false;
-	if( pev->velocity.z <= -2000 ) return false;
+	if( pev->velocity.x >= MAX_VELOCITY ) return false;
+	if( pev->velocity.y >= MAX_VELOCITY ) return false;
+	if( pev->velocity.z >= MAX_VELOCITY ) return false;
+	if( pev->velocity.x <= -MAX_VELOCITY ) return false;
+	if( pev->velocity.y <= -MAX_VELOCITY ) return false;
+	if( pev->velocity.z <= -MAX_VELOCITY ) return false;
 
 	return true;
 }
