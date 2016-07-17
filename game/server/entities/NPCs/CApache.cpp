@@ -855,7 +855,7 @@ void CApache::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResu
 	if (info.GetDamage() > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2)
 	{
 		// ALERT( at_console, "%.0f\n", flDamage );
-		g_MultiDamage.AddMultiDamage( !FNullEnt( info.GetAttacker() ) ? info.GetAttacker()->pev : nullptr, this, info.GetDamage(), info.GetDamageTypes() );
+		g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, info.GetDamage(), info.GetDamageTypes() );
 		m_iDoSmokePuff = 3 + (info.GetDamage() / 5.0);
 	}
 	else

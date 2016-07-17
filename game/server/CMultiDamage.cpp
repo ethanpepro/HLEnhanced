@@ -18,7 +18,7 @@
 
 #include "CMultiDamage.h"
 
-void CMultiDamage::AddMultiDamage( entvars_t *pevInflictor, CBaseEntity *pEntity, float flDamage, int bitsDamageType )
+void CMultiDamage::AddMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pEntity, float flDamage, int bitsDamageType )
 {
 	if( !pEntity )
 		return;
@@ -28,7 +28,7 @@ void CMultiDamage::AddMultiDamage( entvars_t *pevInflictor, CBaseEntity *pEntity
 	if( pEntity != m_pEntity )
 	{
 		//TODO: replace this - Solokiller
-		ApplyMultiDamage( CBaseEntity::Instance( pevInflictor ), CBaseEntity::Instance( pevInflictor ) ); // UNDONE: wrong attacker!
+		ApplyMultiDamage( pInflictor, pInflictor ); // UNDONE: wrong attacker!
 		m_pEntity = pEntity;
 		m_flAmount = 0;
 	}

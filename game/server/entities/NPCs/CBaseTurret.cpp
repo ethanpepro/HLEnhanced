@@ -709,7 +709,7 @@ void CBaseTurret::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 	if ( !pev->takedamage )
 		return;
 
-	g_MultiDamage.AddMultiDamage( !FNullEnt( newInfo.GetAttacker() ) ? newInfo.GetAttacker()->pev : nullptr, this, newInfo.GetDamage(), newInfo.GetDamageTypes() );
+	g_MultiDamage.AddMultiDamage( newInfo.GetAttacker(), this, newInfo.GetDamage(), newInfo.GetDamageTypes() );
 }
 
 // take damage. bitsDamageType indicates type of damage sustained, ie: DMG_BULLET

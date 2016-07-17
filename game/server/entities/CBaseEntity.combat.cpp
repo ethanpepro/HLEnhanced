@@ -30,7 +30,7 @@ void CBaseEntity::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 
 	if( pev->takedamage )
 	{
-		g_MultiDamage.AddMultiDamage( !FNullEnt( info.GetAttacker() ) ? info.GetAttacker()->pev : nullptr, this, info.GetDamage(), info.GetDamageTypes() );
+		g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, info.GetDamage(), info.GetDamageTypes() );
 
 		int blood = BloodColor();
 

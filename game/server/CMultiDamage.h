@@ -70,17 +70,17 @@ public:
 
 	/**
 	*	Adds multi-damage to deal to the given entity. Damage will be accumulated, but not applied.
-	*	@param pevInflictor Entity that's dealing damage.
+	*	@param pInflictor Entity that's dealing damage.
 	*	@param pEntity Entity that's being attacked.
 	*	@param flDamage Damage amount to add.
 	*	@param bitsDamageType Bit vector of damage types to add.
 	*/
-	void AddMultiDamage( entvars_t *pevInflictor, CBaseEntity *pEntity, float flDamage, int bitsDamageType );
+	void AddMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pEntity, float flDamage, int bitsDamageType );
 
 	/**
 	*	Applies multi-damage to the target.
-	*	@param pevInflictor Inflictor to pass to TakeDamage.
-	*	@param pevAttacker Attacker to pass to TakeDamage.
+	*	@param pInflictor Inflictor to pass to TakeDamage.
+	*	@param pAttacker Attacker to pass to TakeDamage.
 	*/
 	void ApplyMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker );
 

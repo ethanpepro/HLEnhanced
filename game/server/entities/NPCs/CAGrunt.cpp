@@ -166,7 +166,7 @@ void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceRe
 		TraceBleed( newInfo, vecDir, ptr );
 	}
 
-	g_MultiDamage.AddMultiDamage( !FNullEnt( info.GetAttacker() ) ? info.GetAttacker()->pev : nullptr, this, newInfo.GetDamage(), newInfo.GetDamageTypes() );
+	g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, newInfo.GetDamage(), newInfo.GetDamageTypes() );
 }
 
 //=========================================================
