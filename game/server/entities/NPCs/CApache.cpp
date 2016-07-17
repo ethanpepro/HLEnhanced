@@ -817,14 +817,16 @@ void CApache :: ShowDamage( void )
 }
 
 
-int CApache :: TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CApache::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if (pInflictor->pev->owner == edict())
-		return 0;
+	CTakeDamageInfo newInfo = info;
 
-	if (bitsDamageType & DMG_BLAST)
+	if ( newInfo.GetInflictor()->pev->owner == edict())
+		return;
+
+	if ( newInfo.GetDamageTypes() & DMG_BLAST)
 	{
-		flDamage *= 2;
+		newInfo.GetMutableDamage() *= 2;
 	}
 
 	/*
@@ -836,7 +838,7 @@ int CApache :: TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, floa
 	*/
 
 	// ALERT( at_console, "%.0f\n", flDamage );
-	return CBaseEntity::TakeDamage(  pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseEntity::OnTakeDamage( newInfo );
 }
 
 

@@ -454,15 +454,15 @@ void CHGrunt :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecD
 
 
 //=========================================================
-// TakeDamage - overridden for the grunt because the grunt
+// OnTakeDamage - overridden for the grunt because the grunt
 // needs to forget that he is in cover if he's hurt. (Obviously
 // not in a safe place anymore).
 //=========================================================
-int CHGrunt::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CHGrunt::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	Forget( bits_MEMORY_INCOVER );
 
-	return CSquadMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CSquadMonster::OnTakeDamage( info );
 }
 
 //=========================================================

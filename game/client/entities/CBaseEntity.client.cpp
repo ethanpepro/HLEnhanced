@@ -33,9 +33,8 @@ void CBaseEntity::TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, i
 {
 }
 
-int CBaseEntity::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	return 1;
 }
 
 /*

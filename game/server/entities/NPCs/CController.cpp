@@ -102,12 +102,12 @@ void CController :: SetYawSpeed ( void )
 	pev->yaw_speed = ys;
 }
 
-int CController::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CController::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	// HACK HACK -- until we fix this.
 	if ( IsAlive() )
 		PainSound();
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseMonster::OnTakeDamage( info );
 }
 
 

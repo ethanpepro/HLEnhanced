@@ -47,7 +47,7 @@ public:
 	void EXPORT TurretUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 	virtual void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
-	virtual int	 TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	virtual int	 Classify( void ) override;
 
 	int BloodColor() const override { return DONT_BLEED; }

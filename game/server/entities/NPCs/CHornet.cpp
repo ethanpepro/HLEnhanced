@@ -43,13 +43,15 @@ END_DATADESC()
 //=========================================================
 // don't let hornets gib, ever.
 //=========================================================
-int CHornet::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CHornet::OnTakeDamage( const CTakeDamageInfo& info )
 {
+	CTakeDamageInfo newInfo = info;
 	// filter these bits a little.
-	bitsDamageType &= ~ ( DMG_ALWAYSGIB );
-	bitsDamageType |= DMG_NEVERGIB;
 
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	newInfo.GetMutableDamageTypes() &= ~( DMG_ALWAYSGIB );
+	newInfo.GetMutableDamageTypes() |= DMG_NEVERGIB;
+
+	CBaseMonster::OnTakeDamage( newInfo );
 }
 
 //=========================================================

@@ -33,7 +33,7 @@ public:
 	void		Precache( void ) override;
 	void		Touch( CBaseEntity *pOther ) override;
 	void		Think( void ) override;
-	int			TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override { Attack(); return 0; }
+	void		OnTakeDamage( const CTakeDamageInfo& info ) override { Attack(); }
 	//	void		HandleAnimEvent( MonsterEvent_t *pEvent );
 	void		Attack( void ) {}
 

@@ -254,6 +254,7 @@
     <ClInclude Include="..\..\game\client\voice_banmgr.h" />
     <ClInclude Include="..\..\game\client\voice_status.h" />
     <ClInclude Include="..\..\game\shared\CBaseGameInterface.h" />
+    <ClInclude Include="..\..\game\shared\CTakeDamageInfo.h" />
     <ClInclude Include="..\..\game\shared\Damage.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
     <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />

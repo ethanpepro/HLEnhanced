@@ -29,7 +29,7 @@ public:
 	void Precache( void ) override;
 	// other functions
 	void Shoot( Vector &vecSrc, Vector &vecDirToEnemy ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void EXPORT SentryTouch( CBaseEntity *pOther );
 	void EXPORT SentryDeath( void );
 };

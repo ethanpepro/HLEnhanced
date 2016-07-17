@@ -54,10 +54,10 @@ void CBloater :: SetYawSpeed ( void )
 	pev->yaw_speed = ys;
 }
 
-int CBloater::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBloater::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	PainSound();
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseMonster::OnTakeDamage( info );
 }
 
 void CBloater :: PainSound( void )

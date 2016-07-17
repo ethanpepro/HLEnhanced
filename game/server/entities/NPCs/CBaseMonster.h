@@ -352,7 +352,7 @@ public:
 	virtual	Vector  GetGunPosition( void );
 
 	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
-	virtual int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType) override;
+	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	int DeadTakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType );
 
 	void RadiusDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int iClassIgnore, int bitsDamageType );

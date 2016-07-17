@@ -26,7 +26,7 @@ public:
 	void Think() override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() | FCAP_DONT_SAVE | FCAP_IMPULSE_USE ); }
-	virtual int	TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void	Animate( float frames );
 
 	inline bool ShouldAnimate() const { return m_animate && m_maxFrame > 1.0; }

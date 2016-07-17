@@ -54,7 +54,7 @@ void CCycler :: GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax)
 // CyclerPain , changes sequences when shot
 //
 //void CCycler :: Pain( float flDamage )
-int CCycler::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CCycler::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	if( m_animate )
 	{
@@ -76,8 +76,6 @@ int CCycler::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float 
 		pev->framerate = 0;
 		ALERT( at_console, "sequence: %d, frame %.0f\n", pev->sequence, pev->frame );
 	}
-
-	return 0;
 }
 
 void CCycler :: Spawn( )

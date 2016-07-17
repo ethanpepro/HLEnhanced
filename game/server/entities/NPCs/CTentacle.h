@@ -116,7 +116,7 @@ public:
 
 	float HearingSensitivity() override { return 2.0; };
 
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 

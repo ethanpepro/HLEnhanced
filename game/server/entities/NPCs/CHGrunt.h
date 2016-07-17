@@ -146,7 +146,7 @@ public:
 	Schedule_t	*GetSchedule( void ) override;
 	Schedule_t  *GetScheduleOfType( int Type ) override;
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	int IRelationship( CBaseEntity *pTarget ) override;
 

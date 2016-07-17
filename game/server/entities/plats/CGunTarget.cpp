@@ -110,11 +110,11 @@ void CGunTarget::Stop( void )
 	pev->takedamage = DAMAGE_NO;
 }
 
-int	CGunTarget::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CGunTarget::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	if( pev->health > 0 )
 	{
-		pev->health -= flDamage;
+		pev->health -= info.GetDamage();
 		if( pev->health <= 0 )
 		{
 			pev->health = 0;
@@ -123,7 +123,6 @@ int	CGunTarget::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, flo
 				FireTargets( STRING( pev->message ), this, this, USE_TOGGLE, 0 );
 		}
 	}
-	return 0;
 }
 
 void CGunTarget::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

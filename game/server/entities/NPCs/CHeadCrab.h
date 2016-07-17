@@ -45,7 +45,7 @@ public:
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	virtual float GetDamageAmount( void ) { return gSkillData.headcrabDmgBite; }
 	virtual int GetVoicePitch( void ) { return 100; }

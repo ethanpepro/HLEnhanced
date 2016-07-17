@@ -96,22 +96,24 @@ void CZombie :: SetYawSpeed ( void )
 	pev->yaw_speed = ys;
 }
 
-int CZombie::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CZombie::OnTakeDamage( const CTakeDamageInfo& info )
 {
+	CTakeDamageInfo newInfo = info;
+
 	// Take 30% damage from bullets
-	if ( bitsDamageType == DMG_BULLET )
+	if ( newInfo.GetDamageTypes() == DMG_BULLET )
 	{
-		Vector vecDir = pev->origin - (pInflictor->pev->absmin + pInflictor->pev->absmax) * 0.5;
+		Vector vecDir = pev->origin - ( newInfo.GetInflictor()->pev->absmin + newInfo.GetInflictor()->pev->absmax) * 0.5;
 		vecDir = vecDir.Normalize();
-		float flForce = DamageForce( flDamage );
+		float flForce = DamageForce( newInfo.GetDamage() );
 		pev->velocity = pev->velocity + vecDir * flForce;
-		flDamage *= 0.3;
+		newInfo.GetMutableDamage() *= 0.3;
 	}
 
 	// HACK HACK -- until we fix this.
 	if ( IsAlive() )
 		PainSound();
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseMonster::OnTakeDamage( newInfo );
 }
 
 void CZombie :: PainSound( void )

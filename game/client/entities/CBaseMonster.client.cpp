@@ -470,9 +470,8 @@ float CBaseMonster::GiveHealth( float flHealth, int bitsDamageType )
 	return 0;
 }
 
-int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	return 0;
 }
 
 bool CBaseMonster::Restore( CRestore& )

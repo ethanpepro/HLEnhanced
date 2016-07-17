@@ -49,7 +49,7 @@ public:
 	void EXPORT DartTouch( CBaseEntity *pOther );
 	void EXPORT DieTouch ( CBaseEntity *pOther );
 	
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	float			m_flStopAttack;
 	int				m_iHornetType;

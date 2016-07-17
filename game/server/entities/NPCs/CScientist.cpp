@@ -684,17 +684,16 @@ void CScientist :: TalkInit()
 	}
 }
 
-int CScientist :: TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CScientist::OnTakeDamage( const CTakeDamageInfo& info )
 {
-
-	if ( pInflictor && pInflictor->pev->flags & FL_CLIENT )
+	if ( info.GetInflictor() && info.GetInflictor()->pev->flags & FL_CLIENT )
 	{
 		Remember( bits_MEMORY_PROVOKED );
 		StopFollowing( true );
 	}
 
 	// make sure friends talk about it if player hurts scientist...
-	return CTalkMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CTalkMonster::OnTakeDamage( info );
 }
 
 

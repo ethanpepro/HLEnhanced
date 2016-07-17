@@ -38,7 +38,7 @@ public:
 
 	int				BloodColor() const override { return DONT_BLEED; }
 	int				Classify() override { return CLASS_MACHINE; }
-	int				TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void			OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void			Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	Vector			BodyTarget( const Vector &posSrc ) const override { return pev->origin; }
 

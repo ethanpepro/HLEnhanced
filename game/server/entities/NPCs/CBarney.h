@@ -45,7 +45,7 @@ public:
 	void RunTask( Task_t *pTask ) override;
 	void StartTask( Task_t *pTask ) override;
 	virtual int	ObjectCaps() const override { return CTalkMonster::ObjectCaps() | FCAP_IMPULSE_USE; }
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 
 	void DeclineFollowing( void ) override;

@@ -444,23 +444,23 @@ static bool IsFacing( entvars_t *pevTest, const Vector &reference )
 }
 
 
-int CBarney::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType)
+void CBarney::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	// make sure friends talk about it if player hurts talkmonsters...
-	int ret = CTalkMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CTalkMonster::OnTakeDamage( info );
 	if ( !IsAlive() || pev->deadflag == DEAD_DYING )
-		return ret;
+		return;
 
-	if ( m_MonsterState != MONSTERSTATE_PRONE && (pAttacker->pev->flags & FL_CLIENT) )
+	if ( m_MonsterState != MONSTERSTATE_PRONE && (info.GetAttacker()->pev->flags & FL_CLIENT) )
 	{
-		m_flPlayerDamage += flDamage;
+		m_flPlayerDamage += info.GetDamage();
 
 		// This is a heurstic to determine if the player intended to harm me
 		// If I have an enemy, we can't establish intent (may just be crossfire)
 		if ( m_hEnemy == NULL )
 		{
 			// If the player was facing directly at me, or I'm already suspicious, get mad
-			if ( (m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing( pAttacker->pev, pev->origin ) )
+			if ( (m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing( info.GetAttacker()->pev, pev->origin ) )
 			{
 				// Alright, now I'm pissed!
 				PlaySentence( "BA_MAD", 4, VOL_NORM, ATTN_NORM );
@@ -480,8 +480,6 @@ int CBarney::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float 
 			PlaySentence( "BA_SHOT", 4, VOL_NORM, ATTN_NORM );
 		}
 	}
-
-	return ret;
 }
 
 	

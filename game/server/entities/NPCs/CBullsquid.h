@@ -74,7 +74,7 @@ public:
 	bool FValidateHintType( short sHint ) const override;
 	Schedule_t *GetSchedule( void ) override;
 	Schedule_t *GetScheduleOfType( int Type ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	int IRelationship( CBaseEntity *pTarget ) override;
 	int IgnoreConditions( void ) override;
 	MONSTERSTATE GetIdealState( void ) override;

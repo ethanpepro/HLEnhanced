@@ -385,13 +385,15 @@ bool CHeadCrab :: CheckRangeAttack2 ( float flDot, float flDist )
 #endif
 }
 
-int CHeadCrab::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CHeadCrab::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	// Don't take any acid damage -- BigMomma's mortar is acid
-	if ( bitsDamageType & DMG_ACID )
-		flDamage = 0;
+	CTakeDamageInfo newInfo = info;
 
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	// Don't take any acid damage -- BigMomma's mortar is acid
+	if ( newInfo.GetDamageTypes() & DMG_ACID )
+		newInfo.GetMutableDamage() = 0;
+
+	CBaseMonster::OnTakeDamage( newInfo );
 }
 
 //=========================================================

@@ -514,48 +514,50 @@ void CBreakable::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vec
 // exceptions that are breakable-specific
 // bitsDamageType indicates the type of damage sustained ie: DMG_CRUSH
 //=========================================================
-int CBreakable::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	Vector	vecTemp;
 
+	CTakeDamageInfo newInfo = info;
+
 	// if Attacker == Inflictor, the attack was a melee or other instant-hit attack.
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
-	if ( pAttacker == pInflictor )	
+	if ( newInfo.GetAttacker() == newInfo.GetInflictor() )
 	{
-		vecTemp = pInflictor->pev->origin - ( pev->absmin + ( pev->size * 0.5 ) );
+		vecTemp = newInfo.GetInflictor()->pev->origin - ( pev->absmin + ( pev->size * 0.5 ) );
 		
 		// if a client hit the breakable with a crowbar, and breakable is crowbar-sensitive, break it now.
-		if ( FBitSet ( pAttacker->pev->flags, FL_CLIENT ) &&
-				 FBitSet ( pev->spawnflags, SF_BREAK_CROWBAR ) && (bitsDamageType & DMG_CLUB))
-			flDamage = pev->health;
+		if ( FBitSet ( newInfo.GetAttacker()->pev->flags, FL_CLIENT ) &&
+				 FBitSet ( pev->spawnflags, SF_BREAK_CROWBAR ) && ( newInfo.GetDamageTypes() & DMG_CLUB))
+			newInfo.GetMutableDamage() = pev->health;
 	}
 	else
 	// an actual missile was involved.
 	{
-		vecTemp = pInflictor->pev->origin - ( pev->absmin + ( pev->size * 0.5 ) );
+		vecTemp = newInfo.GetInflictor()->pev->origin - ( pev->absmin + ( pev->size * 0.5 ) );
 	}
 	
 	if (!IsBreakable())
-		return 0;
+		return;
 
 	// Breakables take double damage from the crowbar
-	if ( bitsDamageType & DMG_CLUB )
-		flDamage *= 2;
+	if ( newInfo.GetDamageTypes() & DMG_CLUB )
+		newInfo.GetMutableDamage() *= 2;
 
 	// Boxes / glass / etc. don't take much poison damage, just the impact of the dart - consider that 10%
-	if ( bitsDamageType & DMG_POISON )
-		flDamage *= 0.1;
+	if ( newInfo.GetDamageTypes() & DMG_POISON )
+		newInfo.GetMutableDamage() *= 0.1;
 
 // this global is still used for glass and other non-monster killables, along with decals.
 	g_vecAttackDir = vecTemp.Normalize();
 		
 // do the damage
-	pev->health -= flDamage;
+	pev->health -= newInfo.GetDamage();
 	if (pev->health <= 0)
 	{
-		Killed( pAttacker, GIB_NORMAL );
+		Killed( newInfo.GetAttacker(), GIB_NORMAL );
 		Die();
-		return 0;
+		return;
 	}
 
 	// Make a shard noise each time func breakable is hit.
@@ -563,7 +565,7 @@ int CBreakable::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, flo
 
 	DamageSound();
 
-	return 1;
+	return;
 }
 
 void CBreakable::Die( void )

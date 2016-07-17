@@ -384,7 +384,7 @@ void CBaseMonster::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 	// clear the deceased's sound channels.(may have been firing or reloading when killed)
 	EMIT_SOUND(ENT(pev), CHAN_WEAPON, "common/null.wav", 1, ATTN_NORM);
 	m_IdealMonsterState = MONSTERSTATE_DEAD;
-	// Make sure this condition is fired too (TakeDamage breaks out before this happens on death)
+	// Make sure this condition is fired too (OnTakeDamage breaks out before this happens on death)
 	SetConditions( bits_COND_LIGHT_DAMAGE );
 	
 	// tell owner ( if any ) that we're dead.This is mostly for MonsterMaker functionality.
@@ -434,7 +434,7 @@ float CBaseMonster::GiveHealth( float flHealth, int bitsDamageType )
 
 /*
 ============
-TakeDamage
+OnTakeDamage
 
 The damage is coming from inflictor, but get mad at attacker
 This should be the only function that ever reduces health.
@@ -448,17 +448,18 @@ When a monster is poisoned via an arrow etc it takes all the poison damage at on
 GLOBALS ASSUMED SET:  gSkillData.GetSkillLevel()
 ============
 */
-int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	float	flTake;
 	Vector	vecDir;
 
 	if (!pev->takedamage)
-		return 0;
+		return;
 
 	if ( !IsAlive() )
 	{
-		return DeadTakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+		DeadTakeDamage( info.GetInflictor(), info.GetAttacker(), info.GetDamage(), info.GetDamageTypes() );
+		return;
 	}
 
 	if ( pev->deadflag == DEAD_NO )
@@ -468,16 +469,16 @@ int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, f
 	}
 
 	//!!!LATER - make armor consideration here!
-	flTake = flDamage;
+	flTake = info.GetDamage();
 
 	// set damage type sustained
-	m_bitsDamageType |= bitsDamageType;
+	m_bitsDamageType |= info.GetDamageTypes();
 
 	// grab the vector of the incoming attack. ( pretend that the inflictor is a little lower than it really is, so the body will tend to fly upward a bit).
 	vecDir = Vector( 0, 0, 0 );
-	if( !FNullEnt( pInflictor ) )
+	if( !FNullEnt( info.GetInflictor() ) )
 	{
-		vecDir = ( pInflictor->Center() - Vector ( 0, 0, 10 ) - Center() ).Normalize();
+		vecDir = ( info.GetInflictor()->Center() - Vector ( 0, 0, 10 ) - Center() ).Normalize();
 		vecDir = g_vecAttackDir = vecDir.Normalize();
 	}
 
@@ -486,22 +487,22 @@ int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, f
 	// todo: remove after combining shotgun blasts?
 	if ( IsPlayer() )
 	{
-		if ( pInflictor )
-			pev->dmg_inflictor = pInflictor->edict();
+		if ( info.GetInflictor() )
+			pev->dmg_inflictor = info.GetInflictor()->edict();
 
 		pev->dmg_take += flTake;
 
 		// check for godmode or invincibility
 		if ( pev->flags & FL_GODMODE )
 		{
-			return 0;
+			return;
 		}
 	}
 
 	// if this is a player, move him around!
-	if ( ( !FNullEnt( pInflictor ) ) && (pev->movetype == MOVETYPE_WALK) && (!pAttacker || pAttacker->pev->solid != SOLID_TRIGGER) )
+	if ( ( !FNullEnt( info.GetInflictor() ) ) && (pev->movetype == MOVETYPE_WALK) && (!info.GetAttacker() || info.GetAttacker()->pev->solid != SOLID_TRIGGER) )
 	{
-		pev->velocity = pev->velocity + vecDir * -DamageForce( flDamage );
+		pev->velocity = pev->velocity + vecDir * -DamageForce( info.GetDamage() );
 	}
 
 	// do the damage
@@ -512,43 +513,43 @@ int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, f
 	if ( m_MonsterState == MONSTERSTATE_SCRIPT )
 	{
 		SetConditions( bits_COND_LIGHT_DAMAGE );
-		return 0;
+		return;
 	}
 
 	if ( pev->health <= 0 )
 	{
-		g_pevLastInflictor = !FNullEnt( pInflictor ) ? pInflictor->pev : nullptr;
+		g_pevLastInflictor = !FNullEnt( info.GetInflictor() ) ? info.GetInflictor()->pev : nullptr;
 
-		if ( bitsDamageType & DMG_ALWAYSGIB )
+		if ( info.GetDamageTypes() & DMG_ALWAYSGIB )
 		{
-			Killed( pAttacker, GIB_ALWAYS );
+			Killed( info.GetAttacker(), GIB_ALWAYS );
 		}
-		else if ( bitsDamageType & DMG_NEVERGIB )
+		else if ( info.GetDamageTypes() & DMG_NEVERGIB )
 		{
-			Killed( pAttacker, GIB_NEVER );
+			Killed( info.GetAttacker(), GIB_NEVER );
 		}
 		else
 		{
-			Killed( pAttacker, GIB_NORMAL );
+			Killed( info.GetAttacker(), GIB_NORMAL );
 		}
 
 		g_pevLastInflictor = nullptr;
 
-		return 0;
+		return;
 	}
 
 	// react to the damage (get mad)
-	if ( (pev->flags & FL_MONSTER) && !FNullEnt( pAttacker ) )
+	if ( (pev->flags & FL_MONSTER) && !FNullEnt( info.GetAttacker() ) )
 	{
-		if ( pAttacker->pev->flags & (FL_MONSTER | FL_CLIENT) )
+		if ( info.GetAttacker()->pev->flags & (FL_MONSTER | FL_CLIENT) )
 		{// only if the attack was a monster or client!
 			
 			// enemy's last known position is somewhere down the vector that the attack came from.
-			if ( pInflictor )
+			if ( info.GetInflictor() )
 			{
-				if (m_hEnemy == NULL || pInflictor->pev == m_hEnemy->pev || !HasConditions(bits_COND_SEE_ENEMY))
+				if (m_hEnemy == NULL || info.GetInflictor()->pev == m_hEnemy->pev || !HasConditions(bits_COND_SEE_ENEMY))
 				{
-					m_vecEnemyLKP = pInflictor->pev->origin;
+					m_vecEnemyLKP = info.GetInflictor()->pev->origin;
 				}
 			}
 			else
@@ -561,19 +562,17 @@ int CBaseMonster::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, f
 			// add pain to the conditions 
 			// !!!HACKHACK - fudged for now. Do we want to have a virtual function to determine what is light and 
 			// heavy damage per monster class?
-			if ( flDamage > 0 )
+			if ( info.GetDamage() > 0 )
 			{
 				SetConditions(bits_COND_LIGHT_DAMAGE);
 			}
 
-			if ( flDamage >= 20 )
+			if ( info.GetDamage() >= 20 )
 			{
 				SetConditions(bits_COND_HEAVY_DAMAGE);
 			}
 		}
 	}
-
-	return 1;
 }
 
 //=========================================================

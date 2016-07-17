@@ -60,7 +60,7 @@ public:
 	void Precache( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Activate( void ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	void		RunTask( Task_t *pTask ) override;
 	void		StartTask( Task_t *pTask ) override;

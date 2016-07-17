@@ -215,3 +215,14 @@ BEGIN_DATADESC( CBasePlayer )
 	//DEFINE_FIELD( m_fOnTarget, FIELD_BOOLEAN ), // Don't need to restore
 	//DEFINE_FIELD( m_nCustomSprayFrames, FIELD_INTEGER ), // Don't need to restore
 END_DATADESC()
+
+void CBaseEntity::TakeDamage( const CTakeDamageInfo& info )
+{
+	//This method exists so we can intercept damage events in the base class unconditionally.
+	OnTakeDamage( info );
+}
+
+void CBaseEntity::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+{
+	TakeDamage( CTakeDamageInfo( pInflictor, pAttacker, flDamage, bitsDamageType ) );
+}

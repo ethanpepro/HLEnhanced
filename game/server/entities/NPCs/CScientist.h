@@ -43,7 +43,7 @@ public:
 	void RunTask( Task_t *pTask ) override;
 	void StartTask( Task_t *pTask ) override;
 	int	ObjectCaps() const override { return CTalkMonster::ObjectCaps() | FCAP_IMPULSE_USE; }
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	virtual int FriendNumber( int arrayNumber ) const override;
 	void SetActivity( Activity newActivity ) override;
 	Activity GetStoppedActivity() override;

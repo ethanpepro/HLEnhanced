@@ -43,7 +43,7 @@ public:
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
 	void CallForHelp( char *szClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation );
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	void DeathSound( void ) override;
 	void PainSound( void ) override;

@@ -40,7 +40,7 @@ public:
 	inline float MaxSpeed( void ) { return m_maxSpeed; }
 
 	// breakables use an overridden takedamage
-	virtual int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	static char *m_soundNames[ 3 ];
 	int		m_lastSound;	// no need to save/restore, just keeps the same sound from playing twice in a row

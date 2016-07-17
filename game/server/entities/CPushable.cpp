@@ -199,10 +199,8 @@ void CPushable::StopSound( void )
 }
 #endif
 
-int CPushable::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CPushable::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	if( pev->spawnflags & SF_PUSH_BREAKABLE )
-		return CBreakable::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
-
-	return 1;
+		CBreakable::OnTakeDamage( info );
 }

@@ -72,7 +72,7 @@ public:
 	int	BloodColor() const override { return DONT_BLEED; }
 	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 	void Activate( void ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	int	Classify( void ) override { return CLASS_INSECT; }
 	int IRelationship( CBaseEntity *pTarget ) override;
 

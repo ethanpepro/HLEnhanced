@@ -73,7 +73,7 @@ public:
 	static const char *pPainSounds[];
 	static const char *pDeathSounds[];
 
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 	void GibMonster( void ) override;
 

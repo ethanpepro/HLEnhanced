@@ -712,15 +712,17 @@ void CBaseTurret :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector 
 
 // take damage. bitsDamageType indicates type of damage sustained, ie: DMG_BULLET
 
-int CBaseTurret::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBaseTurret::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	if ( !pev->takedamage )
-		return 0;
+		return;
+
+	CTakeDamageInfo newInfo = info;
 
 	if (!m_bOn )
-		flDamage /= 10.0;
+		newInfo.GetMutableDamage() /= 10.0;
 
-	pev->health -= flDamage;
+	pev->health -= newInfo.GetDamage();
 	if (pev->health <= 0)
 	{
 		pev->health = 0;
@@ -734,7 +736,7 @@ int CBaseTurret::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 		SUB_UseTargets( this, USE_ON, 0 ); // wake up others
 		pev->nextthink = gpGlobals->time + 0.1;
 
-		return 0;
+		return;
 	}
 
 	if (pev->health <= 10)
@@ -745,8 +747,6 @@ int CBaseTurret::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 			SetThink(&CBaseTurret::SearchThink);
 		}
 	}
-
-	return 1;
 }
 
 int CBaseTurret::MoveTurret(void)

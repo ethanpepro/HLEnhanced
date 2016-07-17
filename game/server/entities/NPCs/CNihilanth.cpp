@@ -1060,22 +1060,21 @@ void CNihilanth::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 }
 
 
-int CNihilanth::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CNihilanth::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if ( pInflictor->pev->owner == edict() )
-		return 0;
+	if ( info.GetInflictor()->pev->owner == edict() )
+		return;
 
-	if (flDamage >= pev->health)
+	if (info.GetDamage() >= pev->health)
 	{
 		pev->health = 1;
 		if (m_irritation != 3)
-			return 0;
+			return;
 	}
 	
 	PainSound( );
 
-	pev->health -= flDamage;
-	return 0;
+	pev->health -= info.GetDamage();
 }
 
 

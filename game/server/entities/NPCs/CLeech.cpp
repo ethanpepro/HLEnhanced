@@ -195,17 +195,17 @@ void CLeech::Precache( void )
 		PRECACHE_SOUND((char *)pAlertSounds[i]);
 }
 
-int CLeech::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CLeech::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	pev->velocity = g_vecZero;
 
 	// Nudge the leech away from the damage
-	if ( pInflictor )
+	if ( auto pInflictor = info.GetInflictor() )
 	{
 		pev->velocity = (pev->origin - pInflictor->pev->origin).Normalize() * 25;
 	}
 
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseMonster::OnTakeDamage( info );
 }
 
 void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )

@@ -30,6 +30,8 @@ CBaseEntity
 
 #include "ButtonSounds.h"
 
+#include "CTakeDamageInfo.h"
+
 class CBaseMonster;
 class CSquadMonster;
 
@@ -523,14 +525,29 @@ public:
 
 	/**
 	*	Deals damage to this entity.
+	*	@param info Damage info.
+	*/
+	void TakeDamage( const CTakeDamageInfo& info );
+
+	/**
+	*	Deals damage to this entity.
 	*	@param pInflictor The entity that is responsible for dealing the damage.
 	*	@param pAttacker The entity that owns pevInflictor. This may be identical to pInflictor if it directly attacked this entity.
 	*	@param flDamage Amount of damage to deal.
 	*	@param bitsDamageType Bit vector of damage types.
 	*	@return Whether any damage was dealt.
-	*	TODO: return value should be damage dealt.
 	*/
-	virtual int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType );
+	void TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType );
+
+protected:
+	/**
+	*	Called when this entity is damaged.
+	*	Should not be called directly, call TakeDamage.
+	*	@param info Damage info.
+	*/
+	virtual void OnTakeDamage( const CTakeDamageInfo& info );
+
+public:
 
 	/**
 	*	Called when the entity has been killed.

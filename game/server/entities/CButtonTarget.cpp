@@ -28,11 +28,9 @@ void CButtonTarget::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 		SUB_UseTargets( pActivator, USE_OFF, 0 );
 }
 
-int CButtonTarget::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CButtonTarget::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	Use( pAttacker, this, USE_TOGGLE, 0 );
-
-	return 1;
+	Use( info.GetAttacker(), this, USE_TOGGLE, 0 );
 }
 
 int	CButtonTarget::ObjectCaps() const

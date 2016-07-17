@@ -300,23 +300,25 @@ void CBigMomma :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector ve
 }
 
 
-int CBigMomma::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBigMomma::OnTakeDamage( const CTakeDamageInfo& info )
 {
+	CTakeDamageInfo newInfo = info;
+
 	// Don't take any acid damage -- BigMomma's mortar is acid
-	if ( bitsDamageType & DMG_ACID )
-		flDamage = 0;
+	if ( newInfo.GetDamageTypes() & DMG_ACID )
+		newInfo.GetMutableDamage() = 0;
 
 	if ( !HasMemory(bits_MEMORY_PATH_FINISHED) )
 	{
-		if ( pev->health <= flDamage )
+		if ( pev->health <= newInfo.GetDamage() )
 		{
-			pev->health = flDamage + 1;
+			pev->health = newInfo.GetDamage() + 1;
 			Remember( bits_MEMORY_ADVANCE_NODE | bits_MEMORY_COMPLETED_NODE );
 			ALERT( at_aiconsole, "BM: Finished node health!!!\n" );
 		}
 	}
 
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseMonster::OnTakeDamage( newInfo );
 }
 
 void CBigMomma :: LayHeadcrab( void )

@@ -97,14 +97,16 @@ void CBarnacle :: Spawn()
 	UTIL_SetOrigin ( pev, pev->origin );
 }
 
-int CBarnacle::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBarnacle::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if ( bitsDamageType & DMG_CLUB )
+	CTakeDamageInfo newInfo = info;
+
+	if ( newInfo.GetDamageTypes() & DMG_CLUB )
 	{
-		flDamage = pev->health;
+		newInfo.GetMutableDamage() = pev->health;
 	}
 
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseMonster::OnTakeDamage( newInfo );
 }
 
 //=========================================================

@@ -698,6 +698,9 @@
     <ClInclude Include="..\..\game\shared\ScriptEvent.h">
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\CTakeDamageInfo.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\game_controls.lib" />

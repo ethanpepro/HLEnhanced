@@ -498,17 +498,17 @@ void CISlave :: Precache()
 
 
 //=========================================================
-// TakeDamage - get provoked when injured
+// OnTakeDamage - get provoked when injured
 //=========================================================
 
-int CISlave::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CISlave::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	// don't slash one of your own
-	if ((bitsDamageType & DMG_SLASH) && pAttacker && IRelationship( pAttacker ) < R_DL)
-		return 0;
+	if (( info.GetDamageTypes() & DMG_SLASH) && info.GetAttacker() && IRelationship( info.GetAttacker() ) < R_DL)
+		return;
 
 	m_afMemory |= bits_MEMORY_PROVOKED;
-	return CSquadMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CSquadMonster::OnTakeDamage( info );
 }
 
 

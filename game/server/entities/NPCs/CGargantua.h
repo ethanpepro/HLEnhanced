@@ -47,7 +47,7 @@ public:
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
 	int  Classify( void ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 

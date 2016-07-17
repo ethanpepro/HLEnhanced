@@ -51,9 +51,8 @@ void CBasePlayer::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector ve
 {
 }
 
-int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	return 0;
 }
 
 /*

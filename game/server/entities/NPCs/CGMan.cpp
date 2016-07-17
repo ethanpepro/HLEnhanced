@@ -173,20 +173,19 @@ void CGMan :: RunTask( Task_t *pTask )
 //=========================================================
 // Override all damage
 //=========================================================
-int CGMan::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CGMan::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	pev->health = pev->max_health / 2; // always trigger the 50% damage aitrigger
 
-	if ( flDamage > 0 )
+	if ( info.GetDamage() > 0 )
 	{
 		SetConditions(bits_COND_LIGHT_DAMAGE);
 	}
 
-	if ( flDamage >= 20 )
+	if ( info.GetDamage() >= 20 )
 	{
 		SetConditions(bits_COND_HEAVY_DAMAGE);
 	}
-	return 1;
 }
 
 

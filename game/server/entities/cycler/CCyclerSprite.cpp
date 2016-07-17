@@ -59,13 +59,12 @@ void CCyclerSprite::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	ALERT( at_console, "Sprite: %s\n", STRING( pev->model ) );
 }
 
-int	CCyclerSprite::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CCyclerSprite::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	if( m_maxFrame > 1.0 )
 	{
 		Animate( 1.0 );
 	}
-	return 1;
 }
 
 void CCyclerSprite::Animate( float frames )

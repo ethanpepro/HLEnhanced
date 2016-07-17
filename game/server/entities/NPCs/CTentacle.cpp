@@ -810,17 +810,16 @@ void CTentacle :: HitTouch( CBaseEntity *pOther )
 	// ALERT( at_console, "%.0f : %s : %d\n", pev->angles.y, STRING( pOther->pev->classname ), tr.iHitgroup );
 }
 
-int CTentacle::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CTentacle::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if (flDamage > pev->health)
+	if (info.GetDamage() > pev->health)
 	{
 		pev->health = 1;
 	}
 	else
 	{
-		pev->health -= flDamage;
+		pev->health -= info.GetDamage();
 	}
-	return 1;
 }
 
 void CTentacle::Killed( CBaseEntity* pAttacker, GibAction gibAction )

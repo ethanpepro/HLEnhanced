@@ -38,7 +38,7 @@ public:
 	void EXPORT BarnacleThink( void );
 	void EXPORT WaitTillDead( void );
 	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	float m_flAltitude;
 	float m_flKillVictimTime;

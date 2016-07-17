@@ -361,24 +361,25 @@ void CBasePlayer :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector 
 
 /*
 	Take some damage.  
-	NOTE: each call to TakeDamage with bitsDamageType set to a time-based damage
+	NOTE: each call to OnTakeDamage with bitsDamageType set to a time-based damage
 	type will cause the damage time countdown to be reset.  Thus the ongoing effects of poison, radiation
-	etc are implemented with subsequent calls to TakeDamage using DMG_GENERIC.
+	etc are implemented with subsequent calls to OnTakeDamage using DMG_GENERIC.
 */
 
 #define ARMOR_RATIO	 0.2	// Armor Takes 80% of the damage
 #define ARMOR_BONUS  0.5	// Each Point of Armor is work 1/x points of health
 
-int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	//The inflictor must be valid. - Solokiller
-	ASSERT( pInflictor );
+	ASSERT( info.GetInflictor() );
+
+	CTakeDamageInfo newInfo = info;
 
 	// have suit diagnose the problem - ie: report damage type
-	int bitsDamage = bitsDamageType;
+	int bitsDamage = newInfo.GetDamageTypes();
 	int fmajor;
 	int fcritical;
-	int fTookDamage;
 	int ftrivial;
 	float flRatio;
 	float flBonus;
@@ -387,7 +388,7 @@ int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 	flBonus = ARMOR_BONUS;
 	flRatio = ARMOR_RATIO;
 
-	if ( ( bitsDamageType & DMG_BLAST ) && g_pGameRules->IsMultiplayer() )
+	if ( ( newInfo.GetDamageTypes() & DMG_BLAST ) && g_pGameRules->IsMultiplayer() )
 	{
 		// blasts damage armor more.
 		flBonus *= 2;
@@ -395,50 +396,54 @@ int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 
 	// Already dead
 	if ( !IsAlive() )
-		return 0;
+		return;
 	// go take the damage first
 
-	if ( !g_pGameRules->FPlayerCanTakeDamage( this, pAttacker ) )
+	if ( !g_pGameRules->FPlayerCanTakeDamage( this, newInfo.GetAttacker() ) )
 	{
 		// Refuse the damage
-		return 0;
+		return;
 	}
 
 	// keep track of amount of damage last sustained
-	m_lastDamageAmount = flDamage;
+	m_lastDamageAmount = newInfo.GetDamage();
 
 	// Armor. 
-	if (pev->armorvalue && !(bitsDamageType & (DMG_FALL | DMG_DROWN)) )// armor doesn't protect against fall or drown damage!
+	if (pev->armorvalue && !( newInfo.GetDamageTypes() & (DMG_FALL | DMG_DROWN)) )// armor doesn't protect against fall or drown damage!
 	{
-		float flNew = flDamage * flRatio;
+		float flNew = newInfo.GetDamage() * flRatio;
 
 		float flArmor;
 
-		flArmor = (flDamage - flNew) * flBonus;
+		flArmor = ( newInfo.GetDamage() - flNew) * flBonus;
 
 		// Does this use more armor than we have?
 		if (flArmor > pev->armorvalue)
 		{
 			flArmor = pev->armorvalue;
 			flArmor *= (1/flBonus);
-			flNew = flDamage - flArmor;
+			flNew = newInfo.GetDamage() - flArmor;
 			pev->armorvalue = 0;
 		}
 		else
 			pev->armorvalue -= flArmor;
 		
-		flDamage = flNew;
+		newInfo.GetMutableDamage() = flNew;
 	}
 
 	// this cast to INT is critical!!! If a player ends up with 0.5 health, the engine will get that
 	// as an int (zero) and think the player is dead! (this will incite a clientside screentilt, etc)
-	fTookDamage = CBaseMonster::TakeDamage( pInflictor, pAttacker, (int)flDamage, bitsDamageType);
+	newInfo.GetMutableDamage() = int( newInfo.GetDamage() );
+	const float flOldHealth = pev->health;
+	CBaseMonster::OnTakeDamage( newInfo );
+
+	const bool bTookDamage = flOldHealth != pev->health;
 
 	// reset damage time countdown for each type of time based damage player just sustained
 
 	{
 		for (int i = 0; i < CDMG_TIMEBASED; i++)
-			if (bitsDamageType & (DMG_PARALYZE << i))
+			if ( newInfo.GetDamageTypes() & (DMG_PARALYZE << i))
 				m_rgbTimeBasedDamage[i] = 0;
 	}
 
@@ -447,7 +452,7 @@ int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 		WRITE_BYTE ( 9 );	// command length in bytes
 		WRITE_BYTE ( DRC_CMD_EVENT );	// take damage event
 		WRITE_SHORT( ENTINDEX(this->edict()) );	// index number of primary entity
-		WRITE_SHORT( pInflictor->entindex() );	// index number of secondary entity
+		WRITE_SHORT( newInfo.GetInflictor()->entindex() );	// index number of secondary entity
 		WRITE_LONG( 5 );   // eventflags (priority and flags)
 	MESSAGE_END();
 
@@ -475,7 +480,7 @@ int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 
 	bool bFound = true;
 
-	while (fTookDamage && (!ftrivial || (bitsDamage & DMG_TIMEBASED)) && bFound && bitsDamage)
+	while ( bTookDamage && (!ftrivial || (bitsDamage & DMG_TIMEBASED)) && bFound && bitsDamage)
 	{
 		bFound = false;
 
@@ -563,7 +568,7 @@ int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 
 	pev->punchangle.x = -2;
 
-	if (fTookDamage && !ftrivial && fmajor && flHealthPrev >= 75) 
+	if ( bTookDamage && !ftrivial && fmajor && flHealthPrev >= 75)
 	{
 		// first time we take major damage...
 		// turn automedic on if not on
@@ -573,7 +578,7 @@ int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 		SetSuitUpdate("!HEV_HEAL7", SUIT_SENTENCE, SUIT_NEXT_IN_30MIN);	// morphine shot
 	}
 	
-	if (fTookDamage && !ftrivial && fcritical && flHealthPrev < 75)
+	if ( bTookDamage && !ftrivial && fcritical && flHealthPrev < 75)
 	{
 
 		// already took major damage, now it's critical...
@@ -588,18 +593,16 @@ int CBasePlayer::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 	}
 
 	// if we're taking time based damage, warn about its continuing effects
-	if (fTookDamage && (bitsDamageType & DMG_TIMEBASED) && flHealthPrev < 75)
+	if ( bTookDamage && ( newInfo.GetDamageTypes() & DMG_TIMEBASED) && flHealthPrev < 75)
+	{
+		if (flHealthPrev < 50)
 		{
-			if (flHealthPrev < 50)
-			{
-				if (!RANDOM_LONG(0,3))
-					SetSuitUpdate("!HEV_DMG7", SUIT_SENTENCE, SUIT_NEXT_IN_5MIN); //seek medical attention
-			}
-			else
-				SetSuitUpdate("!HEV_HLTH1", SUIT_SENTENCE, SUIT_NEXT_IN_10MIN);	// health dropping
+			if (!RANDOM_LONG(0,3))
+				SetSuitUpdate("!HEV_DMG7", SUIT_SENTENCE, SUIT_NEXT_IN_5MIN); //seek medical attention
 		}
-
-	return fTookDamage;
+		else
+			SetSuitUpdate("!HEV_HLTH1", SUIT_SENTENCE, SUIT_NEXT_IN_10MIN);	// health dropping
+	}
 }
 
 //=========================================================

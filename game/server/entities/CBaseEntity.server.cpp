@@ -48,18 +48,20 @@ float CBaseEntity::GiveHealth( float flHealth, int bitsDamageType )
 
 // inflict damage on this entity.  bitsDamageType indicates type of damage inflicted, ie: DMG_CRUSH
 
-int CBaseEntity::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	Vector			vecTemp;
 
 	if( !pev->takedamage )
-		return 0;
+		return;
+
+	auto pInflictor = info.GetInflictor();
 
 	// UNDONE: some entity types may be immune or resistant to some bitsDamageType
 
 	// if Attacker == Inflictor, the attack was a melee or other instant-hit attack.
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
-	if( pInflictor == pAttacker )
+	if( pInflictor == info.GetAttacker() )
 	{
 		vecTemp = pInflictor->pev->origin - ( VecBModelOrigin( pev ) );
 	}
@@ -75,12 +77,12 @@ int CBaseEntity::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 	// save damage based on the target's armor level
 
 	// figure momentum add (don't let hurt brushes or other triggers move player)
-	if( ( !FNullEnt( pInflictor ) ) && ( pev->movetype == MOVETYPE_WALK || pev->movetype == MOVETYPE_STEP ) && ( pAttacker->pev->solid != SOLID_TRIGGER ) )
+	if( ( !FNullEnt( pInflictor ) ) && ( pev->movetype == MOVETYPE_WALK || pev->movetype == MOVETYPE_STEP ) && ( info.GetAttacker()->pev->solid != SOLID_TRIGGER ) )
 	{
 		Vector vecDir = pev->origin - ( pInflictor->pev->absmin + pInflictor->pev->absmax ) * 0.5;
 		vecDir = vecDir.Normalize();
 
-		float flForce = flDamage * ( ( 32 * 32 * 72.0 ) / ( pev->size.x * pev->size.y * pev->size.z ) ) * 5;
+		float flForce = info.GetDamage() * ( ( 32 * 32 * 72.0 ) / ( pev->size.x * pev->size.y * pev->size.z ) ) * 5;
 
 		if( flForce > 1000.0 )
 			flForce = 1000.0;
@@ -88,14 +90,14 @@ int CBaseEntity::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 	}
 
 	// do the damage
-	pev->health -= flDamage;
+	pev->health -= info.GetDamage();
 	if( pev->health <= 0 )
 	{
-		Killed( pAttacker, GIB_NORMAL );
-		return 0;
+		Killed( info.GetAttacker(), GIB_NORMAL );
+		return;
 	}
 
-	return 1;
+	return;
 }
 
 void CBaseEntity::Killed( CBaseEntity* pAttacker, GibAction gibAction )

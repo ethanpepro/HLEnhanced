@@ -82,17 +82,17 @@ int CBullsquid::IRelationship ( CBaseEntity *pTarget )
 }
 
 //=========================================================
-// TakeDamage - overridden for bullsquid so we can keep track
+// OnTakeDamage - overridden for bullsquid so we can keep track
 // of how much time has passed since it was last injured
 //=========================================================
-int CBullsquid::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CBullsquid::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	float flDist;
 	Vector vecApex;
 
 	// if the squid is running, has an enemy, was hurt by the enemy, hasn't been hurt in the last 3 seconds, and isn't too close to the enemy,
 	// it will swerve. (whew).
-	if ( m_hEnemy != NULL && IsMoving() && pAttacker == m_hEnemy && gpGlobals->time - m_flLastHurtTime > 3 )
+	if ( m_hEnemy != NULL && IsMoving() && info.GetAttacker() == m_hEnemy && gpGlobals->time - m_flLastHurtTime > 3 )
 	{
 		flDist = ( pev->origin - m_hEnemy->pev->origin ).Length2D();
 		
@@ -107,13 +107,13 @@ int CBullsquid::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, flo
 		}
 	}
 
-	if ( !FClassnameIs ( pAttacker->pev, "monster_headcrab" ) )
+	if ( !FClassnameIs ( info.GetAttacker()->pev, "monster_headcrab" ) )
 	{
 		// don't forget about headcrabs if it was a headcrab that hurt the squid.
 		m_flLastHurtTime = gpGlobals->time;
 	}
 
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseMonster::OnTakeDamage( info );
 }
 
 //=========================================================

@@ -62,10 +62,10 @@ void CSentry::Shoot( Vector &vecSrc, Vector &vecDirToEnemy )
 	pev->effects = pev->effects | EF_MUZZLEFLASH;
 }
 
-int CSentry::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CSentry::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	if( !pev->takedamage )
-		return 0;
+		return;
 
 	if( !m_bOn )
 	{
@@ -74,7 +74,7 @@ int CSentry::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float 
 		pev->nextthink = gpGlobals->time + 0.1;
 	}
 
-	pev->health -= flDamage;
+	pev->health -= info.GetDamage();
 	if( pev->health <= 0 )
 	{
 		pev->health = 0;
@@ -87,11 +87,7 @@ int CSentry::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float 
 		SetThink( &CSentry::SentryDeath );
 		SUB_UseTargets( this, USE_ON, 0 ); // wake up others
 		pev->nextthink = gpGlobals->time + 0.1;
-
-		return 0;
 	}
-
-	return 1;
 }
 
 void CSentry::SentryTouch( CBaseEntity *pOther )

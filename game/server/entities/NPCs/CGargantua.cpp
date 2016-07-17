@@ -631,19 +631,21 @@ void CGargantua::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vec
 
 
 
-int CGargantua::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void CGargantua::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	ALERT( at_aiconsole, "CGargantua::TakeDamage\n");
+	ALERT( at_aiconsole, "CGargantua::OnTakeDamage\n");
+
+	CTakeDamageInfo newInfo = info;
 
 	if ( IsAlive() )
 	{
-		if ( !(bitsDamageType & GARG_DAMAGE) )
-			flDamage *= 0.01;
-		if ( bitsDamageType & DMG_BLAST )
+		if ( !( newInfo.GetDamageTypes() & GARG_DAMAGE) )
+			newInfo.GetMutableDamage() *= 0.01;
+		if ( newInfo.GetDamageTypes() & DMG_BLAST )
 			SetConditions( bits_COND_LIGHT_DAMAGE );
 	}
 
-	return CBaseMonster::TakeDamage( pInflictor, pAttacker, flDamage, bitsDamageType );
+	CBaseMonster::OnTakeDamage( newInfo );
 }
 
 

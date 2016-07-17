@@ -408,7 +408,7 @@ void COsprey::HitTouch( CBaseEntity *pOther )
 
 
 /*
-int COsprey::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
+void COsprey::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	if (m_flRotortilt <= -90)
 	{
@@ -419,7 +419,6 @@ int COsprey::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float 
 		m_flRotortilt -= 45;
 	}
 	SetBoneController( 0, m_flRotortilt );
-	return 0;
 }
 */
 

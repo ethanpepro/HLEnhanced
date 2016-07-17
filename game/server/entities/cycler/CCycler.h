@@ -23,7 +23,7 @@ public:
 
 	void GenericCyclerSpawn( char *szModel, Vector vecMin, Vector vecMax );
 	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() | FCAP_IMPULSE_USE ); }
-	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void Spawn() override;
 	void Think() override;
 	//void Pain( float flDamage );
