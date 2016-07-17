@@ -21,6 +21,11 @@ typedef struct cmdalias_s
 //Now defined here. Who ever thought defining this somewhere else was a good idea? - Solokiller
 typedef int( *pfnUserMsgHook )( const char *pszName, int iSize, void *pbuf );
 
+/**
+*	Size of buffers used to store unique player IDs.
+*/
+const size_t PLAYERID_BUFFER_SIZE = 16;
+
 // ********************************************************
 // Functions exported by the client .dll
 // ********************************************************
@@ -223,7 +228,7 @@ typedef void						(*pfnEngSrc_COM_AddAppDirectoryToSearchPath_t ) ( const char *
 typedef int							(*pfnEngSrc_COM_ExpandFilename_t)				 ( const char *fileName, char *nameOutBuffer, int nameOutBufferSize );
 typedef const char *				(*pfnEngSrc_PlayerInfo_ValueForKey_t )( int playerNum, const char *key );
 typedef void						(*pfnEngSrc_PlayerInfo_SetValueForKey_t )( const char *key, const char *value );
-typedef qboolean					(*pfnEngSrc_GetPlayerUniqueID_t)(int iPlayer, char playerID[16]);
+typedef qboolean					(*pfnEngSrc_GetPlayerUniqueID_t)(int iPlayer, char playerID[ PLAYERID_BUFFER_SIZE ]);
 typedef int							(*pfnEngSrc_GetTrackerIDForPlayer_t)(int playerSlot);
 typedef int							(*pfnEngSrc_GetPlayerForTrackerID_t)(int trackerID);
 typedef int							(*pfnEngSrc_pfnServerCmdUnreliable_t )( char *szCmdString );

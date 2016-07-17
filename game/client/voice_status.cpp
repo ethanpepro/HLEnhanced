@@ -77,7 +77,7 @@ int __MsgFunc_ReqState(const char *pszName, int iSize, void *pbuf)
 
 
 int g_BannedPlayerPrintCount;
-void ForEachBannedPlayer(char id[16])
+void ForEachBannedPlayer( const char id[ PLAYERID_BUFFER_SIZE ] )
 {
 	char str[256];
 	sprintf(str, "Ban %d: %2x%2x%2x%2x%2x%2x%2x%2x%2x%2x%2x%2x%2x%2x%2x%2x\n",
@@ -529,7 +529,7 @@ void CVoiceStatus::UpdateServerState(bool bForce)
 		unsigned long banMask = 0;
 		for(unsigned long i=0; i < 32; i++)
 		{
-			char playerID[16];
+			char playerID[ PLAYERID_BUFFER_SIZE ];
 			if(!gEngfuncs.GetPlayerUniqueID(i+1, playerID))
 				continue;
 
@@ -584,8 +584,8 @@ void CVoiceStatus::UpdateBanButton(int iClient)
 	if (!pPanel)
 		return;
 
-	char playerID[16];
-	extern bool HACK_GetPlayerUniqueID( int iPlayer, char playerID[16] );
+	char playerID[ PLAYERID_BUFFER_SIZE ];
+	extern bool HACK_GetPlayerUniqueID( int iPlayer, char playerID[ PLAYERID_BUFFER_SIZE ] );
 	if(!HACK_GetPlayerUniqueID(iClient+1, playerID))
 		return;
 
@@ -825,7 +825,7 @@ void CVoiceStatus::FreeBitmaps()
 //-----------------------------------------------------------------------------
 bool CVoiceStatus::IsPlayerBlocked(int iPlayer)
 {
-	char playerID[16];
+	char playerID[ PLAYERID_BUFFER_SIZE ];
 	if (!gEngfuncs.GetPlayerUniqueID(iPlayer, playerID))
 		return false;
 
@@ -854,7 +854,7 @@ void CVoiceStatus::SetPlayerBlockedState(int iPlayer, bool blocked)
 		gEngfuncs.pfnConsolePrint( "CVoiceStatus::SetPlayerBlockedState part 1\n" );
 	}
 
-	char playerID[16];
+	char playerID[ PLAYERID_BUFFER_SIZE ];
 	if (!gEngfuncs.GetPlayerUniqueID(iPlayer, playerID))
 		return;
 
