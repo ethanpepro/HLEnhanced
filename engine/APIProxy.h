@@ -186,7 +186,7 @@ typedef struct cl_entity_s *		(*pfnEngSrc_GetEntityByIndex_t )		( int idx );
 typedef float						(*pfnEngSrc_GetClientTime_t )			( void );
 typedef void						(*pfnEngSrc_V_CalcShake_t )			( void );
 typedef void						(*pfnEngSrc_V_ApplyShake_t )			( float *origin, float *angles, float factor );
-typedef int							(*pfnEngSrc_PM_PointContents_t )		( float *point, int *truecontents );
+typedef int							(*pfnEngSrc_PM_PointContents_t )		( const float* point, int *truecontents );
 typedef int							(*pfnEngSrc_PM_WaterEntity_t )			( float *p );
 typedef struct pmtrace_s *			(*pfnEngSrc_PM_TraceLine_t )			( float *start, float *end, int flags, int usehull, int ignore_pe );
 typedef struct model_s *			(*pfnEngSrc_CL_LoadModel_t )			( const char *modelname, int *index );
@@ -323,6 +323,12 @@ typedef struct cl_enginefuncs_s
 	pfnEngSrc_V_CalcShake_t					V_CalcShake;
 	pfnEngSrc_V_ApplyShake_t				V_ApplyShake;
 	pfnEngSrc_PM_PointContents_t			PM_PointContents;
+
+	/**
+	*	Gets the index of the water entity at the given position.
+	*	@param vecPosition Position to look for the entity.
+	*	@return Entity index. -1 if no water entity was found.
+	*/
 	pfnEngSrc_PM_WaterEntity_t				PM_WaterEntity;
 	pfnEngSrc_PM_TraceLine_t				PM_TraceLine;
 	pfnEngSrc_CL_LoadModel_t				CL_LoadModel;

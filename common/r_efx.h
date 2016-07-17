@@ -122,8 +122,8 @@ struct efx_api_s
 	void		( *R_BloodSprite )				( float * org, int colorindex, int modelIndex, int modelIndex2, float size );
 	void		( *R_BloodStream )				( float * org, float * dir, int pcolor, int speed );
 	void		( *R_BreakModel )				( float *pos, float *size, float *dir, float random, float life, int count, int modelIndex, char flags );
-	void		( *R_Bubbles )					( float * mins, float * maxs, float height, int modelIndex, int count, float speed );
-	void		( *R_BubbleTrail )				( float * start, float * end, float height, int modelIndex, int count, float speed );
+	void		( *R_Bubbles )					( const float* mins, const float* maxs, float height, int modelIndex, int count, float speed );
+	void		( *R_BubbleTrail )				( const float* start, const float* end, float height, int modelIndex, int count, float speed );
 	void		( *R_BulletImpactParticles )	( float * pos );
 	void		( *R_EntityParticles )			( struct cl_entity_s *ent );
 	void		( *R_Explosion )				( float *pos, int model, float scale, float framerate, int flags );
