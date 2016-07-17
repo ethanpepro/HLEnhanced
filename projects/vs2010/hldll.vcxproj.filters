@@ -1490,9 +1490,6 @@
     <ClInclude Include="..\..\game\server\entities\NPCs\Activity.h">
       <Filter>Header Files\game\server\entities\NPCs</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\game\server\entities\ScriptEvent.h">
-      <Filter>Header Files\game\server\entities</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\game\server\entities\AnimationEvent.h">
       <Filter>Header Files\game\server\entities</Filter>
     </ClInclude>
@@ -1986,6 +1983,9 @@
       <Filter>Header Files\game\server</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\voice_common.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\ScriptEvent.h">
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>
   </ItemGroup>

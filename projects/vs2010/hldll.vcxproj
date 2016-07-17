@@ -579,7 +579,6 @@
     <ClInclude Include="..\..\game\server\entities\plats\CPathCorner.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CPathTrack.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CPlatTrigger.h" />
-    <ClInclude Include="..\..\game\server\entities\ScriptEvent.h" />
     <ClInclude Include="..\..\game\server\entities\sound\CAmbientGeneric.h" />
     <ClInclude Include="..\..\game\server\entities\sound\CEnvSound.h" />
     <ClInclude Include="..\..\game\server\entities\sound\CSpeaker.h" />
@@ -676,6 +675,7 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
     <ClInclude Include="..\..\game\shared\extdll.h" />
+    <ClInclude Include="..\..\game\shared\ScriptEvent.h" />
     <ClInclude Include="..\..\game\shared\shared_game_utils.h" />
     <ClInclude Include="..\..\game\shared\util.h" />
     <ClInclude Include="..\..\game\shared\voice_common.h" />

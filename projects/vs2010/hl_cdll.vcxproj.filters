@@ -692,6 +692,9 @@
     <ClInclude Include="..\..\engine\APIProxy.h">
       <Filter>Header Files\engine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\ScriptEvent.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\game_controls.lib" />

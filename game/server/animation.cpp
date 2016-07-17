@@ -18,7 +18,7 @@
 #include "studio.h"
 
 #include "entities/NPCs/Activity.h"
-#include "entities/ScriptEvent.h"
+#include "ScriptEvent.h"
 
 #include "animation.h"
 

@@ -15,7 +15,7 @@
 #ifndef GAME_SERVER_ENTITIES_NPCS_SCRIPTED_SCRIPTED_H
 #define GAME_SERVER_ENTITIES_NPCS_SCRIPTED_SCRIPTED_H
 
-#include "entities/ScriptEvent.h"
+#include "ScriptEvent.h"
 
 #include "CCineMonster.h"
 #include "CCineAI.h"

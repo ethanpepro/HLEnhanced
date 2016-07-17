@@ -274,6 +274,7 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
+    <ClInclude Include="..\..\game\shared\ScriptEvent.h" />
     <ClInclude Include="..\..\game\shared\shared_game_utils.h" />
     <ClInclude Include="..\..\game\shared\voice_common.h" />
     <ClInclude Include="..\..\game\shared\Weapons.h" />

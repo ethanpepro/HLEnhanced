@@ -15,6 +15,8 @@
 #include "bench.h"
 #include "Exports.h"
 
+#include "ScriptEvent.h"
+
 #include "mathlib.h"
 
 #include "particleman.h"
@@ -335,30 +337,29 @@ void DLLEXPORT HUD_StudioEvent( const struct mstudioevent_s *event, const struct
 
 #endif 
 
-	//TODO: should make these into constants - Solokiller
 	switch( event->event )
 	{
-	case 5001:
+	case SCRIPT_EVENT_MUZZLEFLASH_ATTACH0:
 		if ( iMuzzleFlash )
 			gEngfuncs.pEfxAPI->R_MuzzleFlash( (float *)&entity->attachment[0], atoi( event->options) );
 		break;
-	case 5011:
+	case SCRIPT_EVENT_MUZZLEFLASH_ATTACH1:
 		if ( iMuzzleFlash )
 			gEngfuncs.pEfxAPI->R_MuzzleFlash( (float *)&entity->attachment[1], atoi( event->options) );
 		break;
-	case 5021:
+	case SCRIPT_EVENT_MUZZLEFLASH_ATTACH2:
 		if ( iMuzzleFlash )
 			gEngfuncs.pEfxAPI->R_MuzzleFlash( (float *)&entity->attachment[2], atoi( event->options) );
 		break;
-	case 5031:
+	case SCRIPT_EVENT_MUZZLEFLASH_ATTACH3:
 		if ( iMuzzleFlash )
 			gEngfuncs.pEfxAPI->R_MuzzleFlash( (float *)&entity->attachment[3], atoi( event->options) );
 		break;
-	case 5002:
+	case SCRIPT_EVENT_SPARK:
 		gEngfuncs.pEfxAPI->R_SparkEffect( (float *)&entity->attachment[0], atoi( event->options), -100, 100 );
 		break;
 	// Client side sound
-	case 5004:		
+	case SCRIPT_EVENT_CLIENT_PLAYSOUND:
 		gEngfuncs.pfnPlaySoundByNameAtLocation( (char *)event->options, 1.0, (float *)&entity->attachment[0] );
 		break;
 	default:
