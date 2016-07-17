@@ -534,11 +534,11 @@ public:
 
 	/**
 	*	Called when the entity has been killed.
-	*	@param pevAttacker The entity that attacked this entity.
+	*	@param pAttacker The entity that attacked this entity.
 	*	@param gibAction how to handle the gibbing of this entity.
 	*	@see GibAction
 	*/
-	virtual void Killed( entvars_t* pevAttacker, GibAction gibAction );
+	virtual void Killed( CBaseEntity* pAttacker, GibAction gibAction );
 
 	/**
 	*	Gives health to this entity. Negative values take health.

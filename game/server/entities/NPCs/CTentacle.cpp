@@ -823,7 +823,7 @@ int CTentacle::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, floa
 	return 1;
 }
 
-void CTentacle :: Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CTentacle::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	m_iGoalAnim = TENTACLE_ANIM_Pit_Idle;
 	return;

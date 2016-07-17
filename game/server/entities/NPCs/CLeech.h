@@ -70,7 +70,7 @@ public:
 	// Base entity functions
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	int	BloodColor() const override { return DONT_BLEED; }
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
+	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 	void Activate( void ) override;
 	int TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override;
 	int	Classify( void ) override { return CLASS_INSECT; }

@@ -91,14 +91,14 @@ int CBaseEntity::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 	pev->health -= flDamage;
 	if( pev->health <= 0 )
 	{
-		Killed( pAttacker->pev, GIB_NORMAL );
+		Killed( pAttacker, GIB_NORMAL );
 		return 0;
 	}
 
 	return 1;
 }
 
-void CBaseEntity::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CBaseEntity::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	pev->takedamage = DAMAGE_NO;
 	pev->deadflag = DEAD_DEAD;

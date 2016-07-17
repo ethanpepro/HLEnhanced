@@ -245,9 +245,9 @@ void CNihilanth::StartupThink( void )
 }
 
 
-void CNihilanth::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CNihilanth::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
-	CBaseMonster::Killed( pevAttacker, gibAction );
+	CBaseMonster::Killed( pAttacker, gibAction );
 }
 
 void CNihilanth :: DyingThink( void )

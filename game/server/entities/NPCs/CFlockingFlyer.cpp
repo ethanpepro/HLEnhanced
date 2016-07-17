@@ -491,7 +491,7 @@ void CFlockingFlyer::SpreadFlock2()
 	}
 }
 
-void CFlockingFlyer::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CFlockingFlyer::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	CFlockingFlyer *pSquad;
 

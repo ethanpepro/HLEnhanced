@@ -33,6 +33,6 @@ void CGrenade::BounceSound()
 {
 }
 
-void CGrenade::Killed( entvars_t*, GibAction gibAction )
+void CGrenade::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 }

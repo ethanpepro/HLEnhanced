@@ -29,6 +29,12 @@ CBaseEntity* GET_PRIVATE( edict_t* pent )
 
 CHashStringPool g_StringPool;
 
+edict_t* ENT( CBaseEntity* pEntity )
+{
+	//The other ENT overloads don't check for null, so neither does this one - Solokiller
+	return pEntity->edict();
+}
+
 bool FNullEnt( const CBaseEntity* pEntity )
 {
 	return pEntity == nullptr || FNullEnt( pEntity->pev );

@@ -67,7 +67,7 @@ public:
 
 	void TalkInit( void );
 
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
+	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 
 	CUSTOM_SCHEDULES;
 

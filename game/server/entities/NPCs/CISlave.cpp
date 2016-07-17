@@ -195,10 +195,10 @@ int CISlave :: ISoundMask ( void)
 }
 
 
-void CISlave::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CISlave::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
-	ClearBeams( );
-	CSquadMonster::Killed( pevAttacker, gibAction );
+	ClearBeams();
+	CSquadMonster::Killed( pAttacker, gibAction );
 }
 
 //=========================================================

@@ -62,7 +62,7 @@ CBasePlayer::Killed
 
 =====================
 */
-void CBasePlayer::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CBasePlayer::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	// Holster weapon immediately, to allow it to cleanup
 	if( m_pActiveItem )

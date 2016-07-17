@@ -66,7 +66,7 @@ public:
 
 	void PrescheduleThink( void ) override;
 
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
+	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 	void DeathEffect( void );
 
 	void EyeOff( void );

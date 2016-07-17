@@ -570,7 +570,7 @@ void CLeech::SwimThink( void )
 	UpdateMotion();
 }
 
-void CLeech::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CLeech::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	Vector			vecSplatDir;
 	TraceResult		tr;

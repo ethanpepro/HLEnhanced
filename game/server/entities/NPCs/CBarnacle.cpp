@@ -285,7 +285,7 @@ void CBarnacle :: BarnacleThink ( void )
 //=========================================================
 // Killed.
 //=========================================================
-void CBarnacle::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CBarnacle::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	CBaseMonster *pVictim;
 

@@ -547,7 +547,7 @@ void CBarney::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 }
 
 
-void CBarney::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CBarney::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	if ( pev->body < BARNEY_BODY_GUNGONE )
 	{// drop the gun!
@@ -562,7 +562,7 @@ void CBarney::Killed( entvars_t *pevAttacker, GibAction gibAction )
 	}
 
 	SetUse( NULL );	
-	CTalkMonster::Killed( pevAttacker, gibAction );
+	CTalkMonster::Killed( pAttacker, gibAction );
 }
 
 //=========================================================

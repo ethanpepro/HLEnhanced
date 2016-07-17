@@ -182,7 +182,7 @@ void ClientKill( edict_t *pEntity )
 
 	// have the player kill themself
 	pev->health = 0;
-	pl->Killed( pev, GIB_NEVER );
+	pl->Killed( pl, GIB_NEVER );
 
 //	pev->modelindex = g_ulModelIndexPlayer;
 //	pev->frags -= 2;		// extra penalty
@@ -218,7 +218,7 @@ void ClientPutInServer( edict_t *pEntity )
 #include "voice_gamemgr.h"
 extern CVoiceGameMgr g_VoiceGameMgr;
 
-
+//TODO: move UTF code somewhere else - Solokiller
 
 #if defined( _MSC_VER ) || defined( WIN32 )
 typedef wchar_t	uchar16;

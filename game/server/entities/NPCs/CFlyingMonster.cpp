@@ -107,13 +107,13 @@ float CFlyingMonster :: ChangeYaw( int speed )
 }
 
 
-void CFlyingMonster::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CFlyingMonster::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	pev->movetype = MOVETYPE_STEP;
 	ClearBits( pev->flags, FL_ONGROUND );
 	pev->angles.z = 0;
 	pev->angles.x = 0;
-	CBaseMonster::Killed( pevAttacker, gibAction );
+	CBaseMonster::Killed( pAttacker, gibAction );
 }
 
 

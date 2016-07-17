@@ -56,9 +56,9 @@ void CAirtank::Precache( void )
 }
 
 
-void CAirtank::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CAirtank::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
-	pev->owner = ENT( pevAttacker );
+	pev->owner = ENT( pAttacker );
 
 	// UNDONE: this should make a big bubble cloud, not an explosion
 

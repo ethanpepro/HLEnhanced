@@ -461,7 +461,7 @@ void CBaseMonster::RunAI()
 {
 }
 
-void CBaseMonster::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CBaseMonster::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 }
 

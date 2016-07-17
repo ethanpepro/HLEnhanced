@@ -338,7 +338,7 @@ public:
 	float UpdateTarget ( entvars_t *pevTarget );
 	virtual Activity GetDeathActivity ( void );
 	Activity GetSmallFlinchActivity( void );
-	virtual void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
+	virtual void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 	virtual void GibMonster( void );
 	bool ShouldGibMonster( GibAction gibAction ) const;
 	void		 CallGibMonster( void );

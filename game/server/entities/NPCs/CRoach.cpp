@@ -127,7 +127,7 @@ void CRoach :: Precache()
 //=========================================================
 // Killed.
 //=========================================================
-void CRoach :: Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CRoach :: Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	pev->solid = SOLID_NOT;
 

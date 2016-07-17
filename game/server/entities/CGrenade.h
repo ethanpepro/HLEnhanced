@@ -45,7 +45,7 @@ public:
 
 	virtual void BounceSound( void );
 	virtual int	BloodColor() const override { return DONT_BLEED; }
-	virtual void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
+	virtual void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 
 	bool m_fRegisteredSound;// whether or not this grenade has issued its DANGER sound to the world sound list yet.
 };

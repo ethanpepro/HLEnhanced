@@ -45,7 +45,7 @@ CBaseEntity :: Killed
 If weapons code "kills" an entity, just set its effects to EF_NODRAW
 =====================
 */
-void CBaseEntity::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CBaseEntity::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	pev->effects |= EF_NODRAW;
 }

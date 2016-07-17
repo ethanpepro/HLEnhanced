@@ -308,9 +308,9 @@ void CIchthyosaur :: SetYawSpeed ( void )
 //=========================================================
 // Killed - overrides CFlyingMonster.
 //
-void CIchthyosaur :: Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CIchthyosaur::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
-	CBaseMonster::Killed( pevAttacker, gibAction );
+	CBaseMonster::Killed( pAttacker, gibAction );
 	pev->velocity = Vector( 0, 0, 0 );
 }
 

@@ -37,7 +37,7 @@ public:
 	void Move( float flInterval ) override;
 	void PickNewDest( int iCondition );
 	void EXPORT Touch( CBaseEntity *pOther ) override;
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
+	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 
 	float	m_flLastLightLevel;
 	float	m_flNextSmellTime;

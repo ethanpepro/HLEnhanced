@@ -625,20 +625,20 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 }
 
 
-void CTalkMonster :: Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CTalkMonster::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	// If a client killed me (unless I was already Barnacle'd), make everyone else mad/afraid of him
-	if ( (pevAttacker->flags & FL_CLIENT) && m_MonsterState != MONSTERSTATE_PRONE )
+	if ( pAttacker && (pAttacker->pev->flags & FL_CLIENT) && m_MonsterState != MONSTERSTATE_PRONE )
 	{
 		AlertFriends();
-		LimitFollowers( CBaseEntity::Instance(pevAttacker), 0 );
+		LimitFollowers( pAttacker, 0 );
 	}
 
 	m_hTargetEnt = NULL;
 	// Don't finish that sentence
 	StopTalking();
 	SetUse( NULL );
-	CBaseMonster::Killed( pevAttacker, gibAction );
+	CBaseMonster::Killed( pAttacker, gibAction );
 }
 
 

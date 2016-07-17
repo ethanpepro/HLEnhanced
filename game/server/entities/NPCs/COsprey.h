@@ -40,7 +40,7 @@ public:
 	void Precache() override;
 	int  Classify() override { return CLASS_MACHINE; };
 	int  BloodColor() const override { return DONT_BLEED; }
-	void Killed( entvars_t *pevAttacker, GibAction gibAction ) override;
+	void Killed( CBaseEntity* pAttacker, GibAction gibAction ) override;
 
 	void UpdateGoal();
 	bool HasDead();

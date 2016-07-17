@@ -553,7 +553,7 @@ int CBreakable::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, flo
 	pev->health -= flDamage;
 	if (pev->health <= 0)
 	{
-		Killed( pAttacker->pev, GIB_NORMAL );
+		Killed( pAttacker, GIB_NORMAL );
 		Die();
 		return 0;
 	}

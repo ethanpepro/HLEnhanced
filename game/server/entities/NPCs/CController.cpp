@@ -111,7 +111,7 @@ int CController::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, fl
 }
 
 
-void CController::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CController::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	// shut off balls
 	/*
@@ -133,7 +133,7 @@ void CController::Killed( entvars_t *pevAttacker, GibAction gibAction )
 		m_pBall[1] = NULL;
 	}
 
-	CSquadMonster::Killed( pevAttacker, gibAction );
+	CSquadMonster::Killed( pAttacker, gibAction );
 }
 
 

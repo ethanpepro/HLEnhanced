@@ -144,7 +144,7 @@ void CGrenade::Smoke( void )
 	UTIL_Remove( this );
 }
 
-void CGrenade::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CGrenade::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	Detonate( );
 }

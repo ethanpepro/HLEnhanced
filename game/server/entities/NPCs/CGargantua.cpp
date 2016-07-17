@@ -672,12 +672,12 @@ void CGargantua::DeathEffect( void )
 }
 
 
-void CGargantua::Killed( entvars_t *pevAttacker, GibAction gibAction )
+void CGargantua::Killed( CBaseEntity* pAttacker, GibAction gibAction )
 {
 	EyeOff();
 	UTIL_Remove( m_pEyeGlow );
 	m_pEyeGlow = NULL;
-	CBaseMonster::Killed( pevAttacker, GIB_NEVER );
+	CBaseMonster::Killed( pAttacker, GIB_NEVER );
 }
 
 //=========================================================
