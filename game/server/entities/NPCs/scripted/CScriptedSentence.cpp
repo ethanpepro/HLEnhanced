@@ -30,7 +30,6 @@ void CScriptedSentence::Spawn( void )
 		pev->nextthink = gpGlobals->time + 1.0;
 	}
 
-	//TODO: use constants - Solokiller
 	switch( static_cast<SoundRadius>( pev->impulse ) )
 	{
 	case SoundRadius::MEDIUM:			// Medium radius

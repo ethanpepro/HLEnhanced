@@ -31,7 +31,6 @@
 #include "entities/CSoundEnt.h"
 
 DLL_GLOBAL unsigned int		g_ulFrameCount;
-DLL_GLOBAL unsigned int		g_ulModelIndexEyes;
 DLL_GLOBAL unsigned int		g_ulModelIndexPlayer;
 DLL_GLOBAL Vector		g_vecAttackDir;
 DLL_GLOBAL bool			gDisplayTitle;
