@@ -174,7 +174,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 	return 0;
 }
 
-float CBaseMonster::OpenDoorAndWait( entvars_t *pevDoor )
+float CBaseMonster::OpenDoorAndWait( CBaseEntity* pDoor )
 {
 	return 0.0;
 }

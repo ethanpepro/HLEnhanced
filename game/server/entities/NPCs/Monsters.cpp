@@ -1322,35 +1322,34 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 }
 
 
-float CBaseMonster :: OpenDoorAndWait( entvars_t *pevDoor )
+float CBaseMonster::OpenDoorAndWait( CBaseEntity* pDoor )
 {
 	float flTravelTime = 0;
 
 	//ALERT(at_aiconsole, "A door. ");
-	CBaseEntity *pcbeDoor = CBaseEntity::Instance(pevDoor);
-	if (pcbeDoor && !pcbeDoor->IsLockedByMaster())
+	if ( pDoor && !pDoor->IsLockedByMaster() )
 	{
 		//ALERT(at_aiconsole, "unlocked! ");
-		pcbeDoor->Use(this, this, USE_ON, 0.0);
+		pDoor->Use(this, this, USE_ON, 0.0);
 		//ALERT(at_aiconsole, "pevDoor->nextthink = %d ms\n", (int)(1000*pevDoor->nextthink));
 		//ALERT(at_aiconsole, "pevDoor->ltime = %d ms\n", (int)(1000*pevDoor->ltime));
 		//ALERT(at_aiconsole, "pev-> nextthink = %d ms\n", (int)(1000*pev->nextthink));
 		//ALERT(at_aiconsole, "pev->ltime = %d ms\n", (int)(1000*pev->ltime));
-		flTravelTime = pevDoor->nextthink - pevDoor->ltime;
+		flTravelTime = pDoor->pev->nextthink - pDoor->pev->ltime;
 		//ALERT(at_aiconsole, "Waiting %d ms\n", (int)(1000*flTravelTime));
-		if ( pcbeDoor->pev->targetname )
+		if ( pDoor->pev->targetname )
 		{
 			edict_t *pentTarget = NULL;
 			for (;;)
 			{
-				pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING(pcbeDoor->pev->targetname));
+				pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( pDoor->pev->targetname ) );
 
-				if ( VARS( pentTarget ) != pcbeDoor->pev )
+				if ( VARS( pentTarget ) != pDoor->pev )
 				{
 					if (FNullEnt(pentTarget))
 						break;
 
-					if ( FClassnameIs ( pentTarget, STRING(pcbeDoor->pev->classname) ) )
+					if ( FClassnameIs ( pentTarget, STRING( pDoor->pev->classname ) ) )
 					{
 						CBaseEntity *pDoor = Instance(pentTarget);
 						if ( pDoor )
@@ -1408,11 +1407,13 @@ void CBaseMonster :: AdvanceRoute ( float distance )
 					if ( WorldGraph.HandleLinkEnt ( iSrcNode, WorldGraph.m_pLinkPool[iLink].m_pLinkEnt, m_afCapability, CGraph::NODEGRAPH_DYNAMIC ) )
 					{
 						//ALERT(at_aiconsole, "usable.");
-						entvars_t *pevDoor = WorldGraph.m_pLinkPool[iLink].m_pLinkEnt;
-						if (pevDoor)
+						if( entvars_t *pevDoor = WorldGraph.m_pLinkPool[ iLink ].m_pLinkEnt )
 						{
-							m_flMoveWaitFinished = OpenDoorAndWait( pevDoor );
-//							ALERT( at_aiconsole, "Wating for door %.2f\n", m_flMoveWaitFinished-gpGlobals->time );
+							if( auto pDoor = Instance( pevDoor ) )
+							{
+								m_flMoveWaitFinished = OpenDoorAndWait( pDoor );
+								//ALERT( at_aiconsole, "Wating for door %.2f\n", m_flMoveWaitFinished-gpGlobals->time );
+							}
 						}
 					}
 				}
