@@ -262,7 +262,7 @@ void CBreakable::MaterialSoundPrecache( Materials precacheMaterial )
 	}
 }
 
-void CBreakable::MaterialSoundRandom( edict_t *pEdict, Materials soundMaterial, float volume )
+void CBreakable::MaterialSoundRandom( CBaseEntity* pEntity, Materials soundMaterial, float volume )
 {
 	const char	**pSoundList;
 	int			soundCount = 0;
@@ -270,7 +270,7 @@ void CBreakable::MaterialSoundRandom( edict_t *pEdict, Materials soundMaterial, 
 	pSoundList = MaterialSoundList( soundMaterial, soundCount );
 
 	if ( soundCount )
-		EMIT_SOUND( pEdict, CHAN_BODY, pSoundList[ RANDOM_LONG(0,soundCount-1) ], volume, 1.0 );
+		EMIT_SOUND( pEntity->edict(), CHAN_BODY, pSoundList[ RANDOM_LONG(0,soundCount-1) ], volume, 1.0 );
 }
 
 void CBreakable::Precache( void )
@@ -740,7 +740,7 @@ void CBreakable::Die( void )
 
 	if ( Explodable() )
 	{
-		ExplosionCreate( Center(), pev->angles, edict(), ExplosionMagnitude(), true );
+		ExplosionCreate( Center(), pev->angles, this, ExplosionMagnitude(), true );
 	}
 }
 

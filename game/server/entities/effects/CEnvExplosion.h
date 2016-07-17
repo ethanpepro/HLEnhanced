@@ -40,6 +40,6 @@ public:
 extern DLL_GLOBAL	short	g_sModelIndexFireball;
 extern DLL_GLOBAL	short	g_sModelIndexSmoke;
 
-extern void ExplosionCreate( const Vector &center, const Vector &angles, edict_t *pOwner, int magnitude, const bool doDamage );
+extern void ExplosionCreate( const Vector &center, const Vector &angles, CBaseEntity* pOwner, int magnitude, const bool doDamage );
 
 #endif //GAME_SERVER_ENTITIES_EFFECTS_CENVEXPLOSION_H

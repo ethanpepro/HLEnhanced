@@ -771,7 +771,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	}
 
 	// this client isn't going to be thinking for a while, so reset the sound until they respawn
-	pSound = CSoundEnt::SoundPointerForIndex( CSoundEnt::ClientSoundIndex( edict() ) );
+	pSound = CSoundEnt::SoundPointerForIndex( CSoundEnt::ClientSoundIndex( this ) );
 	{
 		if ( pSound )
 		{
@@ -2338,7 +2338,7 @@ void CBasePlayer :: UpdatePlayerSound ( void )
 	int iVolume;
 	CSound *pSound;
 
-	pSound = CSoundEnt::SoundPointerForIndex( CSoundEnt :: ClientSoundIndex( edict() ) );
+	pSound = CSoundEnt::SoundPointerForIndex( CSoundEnt :: ClientSoundIndex( this ) );
 
 	if ( !pSound )
 	{

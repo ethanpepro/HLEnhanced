@@ -244,7 +244,8 @@ void CFuncTank::TrackTarget( void )
 	edict_t *pPlayer = FIND_CLIENT_IN_PVS( edict() );
 	bool updateTime = false, lineOfSight;
 	Vector angles, direction, targetPosition, barrelEnd;
-	edict_t *pTarget;
+
+	CBaseEntity* pTarget;
 
 	// Get a position to aim for
 	if( m_pController )
@@ -267,13 +268,17 @@ void CFuncTank::TrackTarget( void )
 				pev->nextthink = pev->ltime + 2;	// Wait 2 secs
 			return;
 		}
-		pTarget = FindTarget( pPlayer );
+
+		CBaseEntity* pPlayerEnt = Instance( pPlayer );
+
+		pTarget = FindTarget( pPlayerEnt );
+
 		if( !pTarget )
 			return;
 
 		// Calculate angle needed to aim at target
 		barrelEnd = BarrelPosition();
-		targetPosition = pTarget->v.origin + pTarget->v.view_ofs;
+		targetPosition = pTarget->pev->origin + pTarget->pev->view_ofs;
 		float range = ( targetPosition - barrelEnd ).Length();
 
 		if( !InRange( range ) )
@@ -283,15 +288,14 @@ void CFuncTank::TrackTarget( void )
 
 		lineOfSight = false;
 		// No line of sight, don't track
-		if( tr.flFraction == 1.0 || tr.pHit == pTarget )
+		if( tr.flFraction == 1.0 || tr.pHit == pTarget->edict() )
 		{
 			lineOfSight = true;
 
-			CBaseEntity *pInstance = CBaseEntity::Instance( pTarget );
-			if( InRange( range ) && pInstance && pInstance->IsAlive() )
+			if( InRange( range ) && pTarget && pTarget->IsAlive() )
 			{
 				updateTime = true;
-				m_sightOrigin = UpdateTargetPosition( pInstance );
+				m_sightOrigin = UpdateTargetPosition( pTarget );
 			}
 		}
 
@@ -363,7 +367,7 @@ void CFuncTank::TrackTarget( void )
 		{
 			float length = direction.Length();
 			UTIL_TraceLine( barrelEnd, barrelEnd + forward * length, dont_ignore_monsters, edict(), &tr );
-			if( tr.pHit == pTarget )
+			if( tr.pHit == pTarget->edict() )
 				fire = true;
 		}
 		else
@@ -433,7 +437,7 @@ bool CFuncTank::InRange( float range ) const
 	return true;
 }
 
-edict_t *CFuncTank::FindTarget( edict_t *pPlayer )
+CBaseEntity* CFuncTank::FindTarget( CBaseEntity* pPlayer )
 {
 	return pPlayer;
 }

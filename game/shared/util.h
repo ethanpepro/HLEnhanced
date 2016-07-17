@@ -251,8 +251,15 @@ void DoSpark( CBaseEntity* pEntity, const Vector &location );
 extern void			UTIL_Ricochet( const Vector &position, float scale );
 
 extern void			UTIL_Remove( CBaseEntity *pEntity );
-extern bool			UTIL_IsValidEntity( edict_t *pent );
+bool UTIL_IsValidEntity( const CBaseEntity* const pEntity );
 extern bool			UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 );
+
+/**
+*	Creates an entity by name.
+*	@param pszClassName Name of the class to create. The string must have a lifetime matching or exceeding that of the map's.
+*	@return Entity, or null if it couldn't be created.
+*/
+CBaseEntity* UTIL_CreateNamedEntity( const char* const pszClassName );
 
 // allows precacheing of other entities
 extern void			UTIL_PrecacheOther( const char *szClassname );

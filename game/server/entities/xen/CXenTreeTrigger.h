@@ -21,7 +21,7 @@ public:
 	DECLARE_CLASS( CXenTreeTrigger, CBaseEntity );
 
 	void		Touch( CBaseEntity *pOther ) override;
-	static CXenTreeTrigger *TriggerCreate( edict_t *pOwner, const Vector &position );
+	static CXenTreeTrigger *TriggerCreate( CBaseEntity* pOwner, const Vector &position );
 };
 
 #endif //GAME_SERVER_ENTITIES_XEN_CXENTREETRIGGER_H

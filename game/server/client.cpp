@@ -107,36 +107,35 @@ called when a player disconnects from a server
 GLOBALS ASSUMED SET:  g_fGameOver
 ============
 */
-void ClientDisconnect( edict_t *pEntity )
+void ClientDisconnect( edict_t* pEdict )
 {
 	if (g_fGameOver)
 		return;
 
+	//Will be created if it doesn't exist, but should already exist. - Solokiller
+	auto pPlayer = GetClassPtr( ( CBasePlayer* ) &pEdict->v );
+
 	char text[256] = "" ;
-	if ( pEntity->v.netname )
-		_snprintf( text, sizeof(text), "- %s has left the game\n", STRING(pEntity->v.netname) );
+	if ( pEdict->v.netname )
+		_snprintf( text, sizeof(text), "- %s has left the game\n", STRING( pEdict->v.netname ) );
 	text[ sizeof(text) - 1 ] = 0;
 	MESSAGE_BEGIN( MSG_ALL, gmsgSayText, NULL );
-		WRITE_BYTE( ENTINDEX(pEntity) );
+		WRITE_BYTE( ENTINDEX( pEdict ) );
 		WRITE_STRING( text );
 	MESSAGE_END();
 
-	CSound *pSound;
-	pSound = CSoundEnt::SoundPointerForIndex( CSoundEnt::ClientSoundIndex( pEntity ) );
+	// since this client isn't around to think anymore, reset their sound. 
+	if( auto pSound = CSoundEnt::SoundPointerForIndex( CSoundEnt::ClientSoundIndex( pPlayer ) ) )
 	{
-		// since this client isn't around to think anymore, reset their sound. 
-		if ( pSound )
-		{
-			pSound->Reset();
-		}
+		pSound->Reset();
 	}
 
 // since the edict doesn't get deleted, fix it so it doesn't interfere.
-	pEntity->v.takedamage = DAMAGE_NO;// don't attract autoaim
-	pEntity->v.solid = SOLID_NOT;// nonsolid
-	SET_ORIGIN( pEntity, pEntity->v.origin );
+	pEdict->v.takedamage = DAMAGE_NO;// don't attract autoaim
+	pEdict->v.solid = SOLID_NOT;// nonsolid
+	UTIL_SetOrigin( pPlayer, pEdict->v.origin );
 
-	g_pGameRules->ClientDisconnected( pEntity );
+	g_pGameRules->ClientDisconnected( pEdict );
 }
 
 

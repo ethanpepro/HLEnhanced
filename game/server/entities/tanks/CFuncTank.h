@@ -69,7 +69,7 @@ public:
 	bool		InRange( float range ) const;
 
 	// Acquire a target.  pPlayer is a player in the PVS
-	edict_t		*FindTarget( edict_t *pPlayer );
+	CBaseEntity* FindTarget( CBaseEntity* pPlayer );
 
 	void		TankTrace( const Vector &vecStart, const Vector &vecForward, const Vector &vecSpread, TraceResult &tr );
 

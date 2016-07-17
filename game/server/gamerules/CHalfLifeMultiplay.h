@@ -123,7 +123,7 @@ protected:
 	virtual void GoToIntermission();
 	float m_flIntermissionEndTime;
 	bool m_bEndIntermissionButtonHit;
-	void SendMOTDToClient( edict_t *client );
+	void SendMOTDToClient( CBasePlayer* pPlayer );
 };
 
 #endif //GAME_SERVER_GAMERULES_CHALFLIFEMULTIPLAY_H

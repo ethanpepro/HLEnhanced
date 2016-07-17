@@ -182,12 +182,12 @@ void CEnvExplosion::Smoke( void )
 
 
 // HACKHACK -- create one of these and fake a keyvalue to get the right explosion setup
-void ExplosionCreate( const Vector &center, const Vector &angles, edict_t *pOwner, int magnitude, const bool doDamage )
+void ExplosionCreate( const Vector &center, const Vector &angles, CBaseEntity* pOwner, int magnitude, const bool doDamage )
 {
 	KeyValueData	kvd;
 	char			buf[128];
 
-	CBaseEntity *pExplosion = CBaseEntity::Create( "env_explosion", center, angles, pOwner );
+	CBaseEntity *pExplosion = CBaseEntity::Create( "env_explosion", center, angles, pOwner->edict() );
 	sprintf( buf, "%3d", magnitude );
 	kvd.szKeyName = "iMagnitude";
 	kvd.szValue = buf;

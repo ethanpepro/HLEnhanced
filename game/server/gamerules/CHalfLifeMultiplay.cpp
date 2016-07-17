@@ -441,7 +441,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 		WRITE_SHORT( 0 );
 	MESSAGE_END();
 
-	SendMOTDToClient( pl->edict() );
+	SendMOTDToClient( pl );
 
 	// loop through all active players and send their score info to the new client
 	for ( int i = 1; i <= gpGlobals->maxClients; i++ )
@@ -1547,7 +1547,7 @@ void CHalfLifeMultiplay :: ChangeLevel( void )
 #define MAX_MOTD_CHUNK	  60
 #define MAX_MOTD_LENGTH   1536 // (MAX_MOTD_CHUNK * 4)
 
-void CHalfLifeMultiplay :: SendMOTDToClient( edict_t *client )
+void CHalfLifeMultiplay :: SendMOTDToClient( CBasePlayer* pPlayer )
 {
 	// read from the MOTD.txt file
 	int length, char_count = 0;
@@ -1555,7 +1555,7 @@ void CHalfLifeMultiplay :: SendMOTDToClient( edict_t *client )
 	char *aFileList = pFileList = (char*)LOAD_FILE_FOR_ME( (char *)CVAR_GET_STRING( "motdfile" ), &length );
 
 	// send the server name
-	MESSAGE_BEGIN( MSG_ONE, gmsgServerName, NULL, client );
+	MESSAGE_BEGIN( MSG_ONE, gmsgServerName, NULL, pPlayer->edict() );
 		WRITE_STRING( CVAR_GET_STRING("hostname") );
 	MESSAGE_END();
 
@@ -1582,7 +1582,7 @@ void CHalfLifeMultiplay :: SendMOTDToClient( edict_t *client )
 		else
 			*pFileList = 0;
 
-		MESSAGE_BEGIN( MSG_ONE, gmsgMOTD, NULL, client );
+		MESSAGE_BEGIN( MSG_ONE, gmsgMOTD, NULL, pPlayer->edict() );
 			WRITE_BYTE( *pFileList ? 0 : 1 );	// 0 means there is still more message to come
 			WRITE_STRING( chunk );
 		MESSAGE_END();

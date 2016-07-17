@@ -51,14 +51,14 @@ void CBMortar::Spawn( void )
 	pev->dmgtime = gpGlobals->time + 0.4;
 }
 
-CBMortar *CBMortar::Shoot( edict_t *pOwner, Vector vecStart, Vector vecVelocity )
+CBMortar *CBMortar::Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity )
 {
 	CBMortar *pSpit = GetClassPtr( ( CBMortar * ) NULL );
 	pSpit->Spawn();
 
 	UTIL_SetOrigin( pSpit, vecStart );
 	pSpit->pev->velocity = vecVelocity;
-	pSpit->pev->owner = pOwner;
+	pSpit->pev->owner = pOwner->edict();
 	pSpit->pev->scale = 2.5;
 	pSpit->SetThink( &CBMortar::Animate );
 	pSpit->pev->nextthink = gpGlobals->time + 0.1;

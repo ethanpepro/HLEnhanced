@@ -147,7 +147,7 @@ typedef struct
 	qboolean	monsterclip;
 } moveclip_t;
 
-//This is defined in the engine.
+//TODO: This is defined in the engine. - Solokiller
 extern trace_t SV_ClipMoveToEntity (edict_t *ent, const Vector& start, const Vector& mins, const Vector& maxs, const Vector& end);
 
 void DLLEXPORT CAM_Think( void )

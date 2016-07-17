@@ -82,7 +82,7 @@ void CCrowbar::Holster( int skiplocal /* = 0 */ )
 }
 
 
-void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, float *mins, float *maxs, edict_t *pEntity )
+void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, float *mins, float *maxs, CBaseEntity* pEntity )
 {
 	int			i, j, k;
 	float		distance;
@@ -94,7 +94,7 @@ void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, float *mins, f
 	distance = 1e6f;
 
 	vecHullEnd = vecSrc + ((vecHullEnd - vecSrc)*2);
-	UTIL_TraceLine( vecSrc, vecHullEnd, dont_ignore_monsters, pEntity, &tmpTrace );
+	UTIL_TraceLine( vecSrc, vecHullEnd, dont_ignore_monsters, pEntity->edict(), &tmpTrace );
 	if ( tmpTrace.flFraction < 1.0 )
 	{
 		tr = tmpTrace;
@@ -111,7 +111,7 @@ void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, float *mins, f
 				vecEnd.y = vecHullEnd.y + minmaxs[j][1];
 				vecEnd.z = vecHullEnd.z + minmaxs[k][2];
 
-				UTIL_TraceLine( vecSrc, vecEnd, dont_ignore_monsters, pEntity, &tmpTrace );
+				UTIL_TraceLine( vecSrc, vecEnd, dont_ignore_monsters, pEntity->edict(), &tmpTrace );
 				if ( tmpTrace.flFraction < 1.0 )
 				{
 					float thisDistance = (tmpTrace.vecEndPos - vecSrc).Length();
@@ -171,7 +171,7 @@ bool CCrowbar::Swing( const bool bFirst )
 			// This is and approximation of the "best" intersection
 			CBaseEntity *pHit = CBaseEntity::Instance( tr.pHit );
 			if ( !pHit || pHit->IsBSPModel() )
-				FindHullIntersection( vecSrc, tr, VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX, m_pPlayer->edict() );
+				FindHullIntersection( vecSrc, tr, VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX, m_pPlayer );
 			vecEnd = tr.vecEndPos;	// This is the point on the actual surface (the hull could have hit space)
 		}
 	}

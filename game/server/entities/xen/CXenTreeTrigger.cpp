@@ -29,14 +29,14 @@ void CXenTreeTrigger::Touch( CBaseEntity *pOther )
 	}
 }
 
-CXenTreeTrigger *CXenTreeTrigger::TriggerCreate( edict_t *pOwner, const Vector &position )
+CXenTreeTrigger *CXenTreeTrigger::TriggerCreate( CBaseEntity* pOwner, const Vector &position )
 {
 	CXenTreeTrigger *pTrigger = GetClassPtr( ( CXenTreeTrigger * ) NULL );
 	pTrigger->pev->origin = position;
 	pTrigger->pev->classname = MAKE_STRING( "xen_ttrigger" );
 	pTrigger->pev->solid = SOLID_TRIGGER;
 	pTrigger->pev->movetype = MOVETYPE_NONE;
-	pTrigger->pev->owner = pOwner;
+	pTrigger->pev->owner = pOwner->edict();
 
 	return pTrigger;
 }

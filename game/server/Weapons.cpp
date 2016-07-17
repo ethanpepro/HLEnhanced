@@ -66,16 +66,18 @@ int DamageDecal( CBaseEntity *pEntity, int bitsDamageType )
 
 void DecalGunshot( TraceResult *pTrace, int iBulletType )
 {
-	// Is the entity valid
-	if ( !UTIL_IsValidEntity( pTrace->pHit ) )
+	if( !pTrace->pHit )
 		return;
 
-	if ( VARS(pTrace->pHit)->solid == SOLID_BSP || VARS(pTrace->pHit)->movetype == MOVETYPE_PUSHSTEP )
+	CBaseEntity* pHit = CBaseEntity::Instance( pTrace->pHit );
+
+	// Is the entity valid
+	if ( !UTIL_IsValidEntity( pHit ) )
+		return;
+
+	if ( pHit->pev->solid == SOLID_BSP || pHit->pev->movetype == MOVETYPE_PUSHSTEP )
 	{
-		CBaseEntity *pEntity = NULL;
 		// Decal the wall with a gunshot
-		if ( !FNullEnt(pTrace->pHit) )
-			pEntity = CBaseEntity::Instance(pTrace->pHit);
 
 		switch( iBulletType )
 		{
@@ -88,15 +90,15 @@ void DecalGunshot( TraceResult *pTrace, int iBulletType )
 		case BULLET_PLAYER_762:
 		default:
 			// smoke and decal
-			UTIL_GunshotDecalTrace( pTrace, DamageDecal( pEntity, DMG_BULLET ) );
+			UTIL_GunshotDecalTrace( pTrace, DamageDecal( pHit, DMG_BULLET ) );
 			break;
 		case BULLET_MONSTER_12MM:
 			// smoke and decal
-			UTIL_GunshotDecalTrace( pTrace, DamageDecal( pEntity, DMG_BULLET ) );
+			UTIL_GunshotDecalTrace( pTrace, DamageDecal( pHit, DMG_BULLET ) );
 			break;
 		case BULLET_PLAYER_CROWBAR:
 			// wall decal
-			UTIL_DecalTrace( pTrace, DamageDecal( pEntity, DMG_CLUB ) );
+			UTIL_DecalTrace( pTrace, DamageDecal( pHit, DMG_CLUB ) );
 			break;
 		}
 	}

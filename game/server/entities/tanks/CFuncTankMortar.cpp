@@ -35,7 +35,7 @@ void CFuncTankMortar::Fire( const Vector &barrelEnd, const Vector &forward, CBas
 
 			TankTrace( barrelEnd, forward, gTankSpread[ m_spread ], tr );
 
-			ExplosionCreate( tr.vecEndPos, pev->angles, edict(), pev->impulse, true );
+			ExplosionCreate( tr.vecEndPos, pev->angles, this, pev->impulse, true );
 
 			CFuncTank::Fire( barrelEnd, forward, this );
 		}

@@ -79,7 +79,7 @@ public:
 	static int		ActiveList( void );// return the head of the active list
 	static int		FreeList( void );// return the head of the free list
 	static CSound*	SoundPointerForIndex( int iIndex );// return a pointer for this index in the sound list
-	static int		ClientSoundIndex ( edict_t *pClient );
+	static int		ClientSoundIndex( const CBaseEntity* const pClient );
 
 	bool	IsEmpty() const { return m_iActiveSound == SOUNDLIST_EMPTY; }
 	int		ISoundsInList ( int iListType );

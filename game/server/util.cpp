@@ -1018,13 +1018,34 @@ void UTIL_Remove( CBaseEntity *pEntity )
 }
 
 
-bool UTIL_IsValidEntity( edict_t *pent )
+bool UTIL_IsValidEntity( const CBaseEntity* const pEntity )
 {
-	if ( !pent || pent->free || (pent->v.flags & FL_KILLME) )
+	if ( !pEntity || pEntity->edict()->free || ( pEntity->pev->flags & FL_KILLME) )
 		return false;
 	return true;
 }
 
+CBaseEntity* UTIL_CreateNamedEntity( const char* const pszClassName )
+{
+	ASSERT( pszClassName );
+
+	edict_t* pEdict = CREATE_NAMED_ENTITY( MAKE_STRING( pszClassName ) );
+
+	if( FNullEnt( pEdict ) )
+	{
+		ALERT( at_console, "UTIL_CreateNamedEntity: NULL Ent for \"%s\"\n", pszClassName );
+		return nullptr;
+	}
+
+	if( auto pEntity = CBaseEntity::Instance( VARS( pEdict ) ) )
+		return pEntity;
+
+	ALERT( at_console, "UTIL_CreateNamedEntity: Couldn't get CBaseEntity instance for \"%s\"\n", pszClassName );
+
+	REMOVE_ENTITY( pEdict );
+
+	return nullptr;
+}
 
 void UTIL_PrecacheOther( const char *szClassname )
 {

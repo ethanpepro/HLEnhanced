@@ -806,7 +806,6 @@ void EV_FireGauss( event_args_t *args )
 	int m_iWeaponVolume = GAUSS_PRIMARY_FIRE_VOLUME;
 	Vector vecSrc;
 	Vector vecDest;
-	edict_t		*pentIgnore;
 	pmtrace_t tr, beam_tr;
 	float flMaxFrac = 1.0;
 	int	nTotal = 0;
@@ -915,8 +914,6 @@ void EV_FireGauss( event_args_t *args )
 		if ( pEntity->solid == SOLID_BSP )
 		{
 			float n;
-
-			pentIgnore = NULL;
 
 			n = -DotProduct( tr.plane.normal, forward );
 

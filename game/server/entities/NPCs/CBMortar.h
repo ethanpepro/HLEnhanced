@@ -26,7 +26,7 @@ public:
 
 	void Spawn( void ) override;
 
-	static CBMortar *Shoot( edict_t *pOwner, Vector vecStart, Vector vecVelocity );
+	static CBMortar *Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity );
 	void Touch( CBaseEntity *pOther ) override;
 	void EXPORT Animate( void );
 
