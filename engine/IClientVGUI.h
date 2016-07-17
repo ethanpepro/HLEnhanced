@@ -30,7 +30,7 @@ public:
 
 	/**
 	*	Sets the parent panel. The root client panel should set this as its parent.
-	*	TODO: needs the panel type (vgui2::Panel)
+	*	@param parent Parent panel.
 	*/
 	virtual void SetParent( vgui2::VPANEL parent ) = 0;
 

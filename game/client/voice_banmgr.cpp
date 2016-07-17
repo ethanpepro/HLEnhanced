@@ -145,7 +145,7 @@ void CVoiceBanMgr::SetPlayerBan(char const playerID[16], bool bSquelch)
 		}
 	}
 }
-
+//TODO: use constants for these things - Solokiller
 
 void CVoiceBanMgr::ForEachBannedPlayer(void (*callback)(char id[16]))
 {
