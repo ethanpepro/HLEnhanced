@@ -28,7 +28,7 @@ LINK_ENTITY_TO_CLASS( momentary_door, CMomentaryDoor );
 
 void CMomentaryDoor::Spawn( void )
 {
-	SetMovedir( pev );
+	SetMovedir( this );
 
 	pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;

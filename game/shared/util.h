@@ -292,7 +292,7 @@ extern void			UTIL_HudMessage( CBaseEntity *pEntity, const hudtextparms_t &textp
 extern void			UTIL_LogPrintf( char *fmt, ... );
 
 // Misc functions
-extern void SetMovedir(entvars_t* pev);
+extern void SetMovedir( CBaseEntity* pEntity );
 extern Vector VecBModelOrigin( entvars_t* pevBModel );
 extern int BuildChangeList( LEVELLIST *pLevelList, int maxList );
 

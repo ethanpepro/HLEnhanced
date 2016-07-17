@@ -12,7 +12,7 @@ void CBlood::Spawn( void )
 	pev->movetype = MOVETYPE_NONE;
 	pev->effects = 0;
 	pev->frame = 0;
-	SetMovedir( pev );
+	SetMovedir( this );
 }
 
 void CBlood::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

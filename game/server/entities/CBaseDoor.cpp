@@ -95,7 +95,7 @@ void CBaseDoor::KeyValue( KeyValueData *pkvd )
 void CBaseDoor::Spawn()
 {
 	Precache();
-	SetMovedir( pev );
+	SetMovedir( this );
 
 	if( pev->skin == 0 )
 	{//normal door

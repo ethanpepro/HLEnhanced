@@ -112,23 +112,23 @@ void FireTargets( const char *targetName, CBaseEntity *pActivator, CBaseEntity *
 QuakeEd only writes a single float for angles (bad idea), so up and down are
 just constant angles.
 */
-void SetMovedir( entvars_t *pev )
+void SetMovedir( CBaseEntity* pEntity )
 {
-	if (pev->angles == Vector(0, -1, 0))
+	if ( pEntity->pev->angles == Vector(0, -1, 0))
 	{
-		pev->movedir = Vector(0, 0, 1);
+		pEntity->pev->movedir = Vector(0, 0, 1);
 	}
-	else if (pev->angles == Vector(0, -2, 0))
+	else if ( pEntity->pev->angles == Vector(0, -2, 0))
 	{
-		pev->movedir = Vector(0, 0, -1);
+		pEntity->pev->movedir = Vector(0, 0, -1);
 	}
 	else
 	{
-		UTIL_MakeVectors(pev->angles);
-		pev->movedir = gpGlobals->v_forward;
+		UTIL_MakeVectors( pEntity->pev->angles );
+		pEntity->pev->movedir = gpGlobals->v_forward;
 	}
 	
-	pev->angles = g_vecZero;
+	pEntity->pev->angles = g_vecZero;
 }
 
 /*

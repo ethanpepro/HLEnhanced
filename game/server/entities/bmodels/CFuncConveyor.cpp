@@ -22,7 +22,7 @@ LINK_ENTITY_TO_CLASS( func_conveyor, CFuncConveyor );
 
 void CFuncConveyor::Spawn( void )
 {
-	SetMovedir( pev );
+	SetMovedir( this );
 	CFuncWall::Spawn();
 
 	if( !( pev->spawnflags & SF_CONVEYOR_VISUAL ) )

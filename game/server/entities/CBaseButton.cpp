@@ -52,7 +52,7 @@ void CBaseButton::Spawn()
 		pev->nextthink = gpGlobals->time + 0.5;// no hurry, make sure everything else spawns
 	}
 
-	SetMovedir( pev );
+	SetMovedir( this );
 
 	pev->movetype = MOVETYPE_PUSH;
 	pev->solid = SOLID_BSP;

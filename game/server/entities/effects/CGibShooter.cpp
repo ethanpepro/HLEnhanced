@@ -34,7 +34,7 @@ void CGibShooter::Spawn( void )
 		m_flGibLife = 25;
 	}
 
-	SetMovedir( pev );
+	SetMovedir( this );
 	pev->body = MODEL_FRAMES( m_iGibModelIndex );
 }
 
