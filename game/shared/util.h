@@ -228,7 +228,6 @@ extern void			UTIL_TraceHull			(const Vector &vecStart, const Vector &vecEnd, IG
 extern TraceResult	UTIL_GetGlobalTrace		(void);
 extern void			UTIL_TraceModel			(const Vector &vecStart, const Vector &vecEnd, int hullNumber, edict_t *pentModel, TraceResult *ptr);
 extern Vector		UTIL_GetAimVector		(edict_t* pent, float flSpeed);
-extern int			UTIL_PointContents		(const Vector &vec); //TODO: Make a client side version - Solokiller
 
 extern bool			UTIL_IsMasterTriggered( string_t sMaster, const CBaseEntity* const pActivator );
 extern void			UTIL_BloodStream( const Vector &origin, const Vector &direction, int color, int amount );
@@ -252,12 +251,6 @@ extern void			UTIL_Ricochet( const Vector &position, float scale );
 extern void			UTIL_Remove( CBaseEntity *pEntity );
 extern bool			UTIL_IsValidEntity( edict_t *pent );
 extern bool			UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 );
-
-// Search for water transition along a vertical line
-//TODO: if UTIL_PointContents is implemented on the client, this can be moved over - Solokiller
-extern float		UTIL_WaterLevel( const Vector &position, float minz, float maxz );
-extern void			UTIL_Bubbles( Vector mins, Vector maxs, int count );
-extern void			UTIL_BubbleTrail( Vector from, Vector to, int count );
 
 // allows precacheing of other entities
 extern void			UTIL_PrecacheOther( const char *szClassname );

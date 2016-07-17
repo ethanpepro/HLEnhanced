@@ -8,6 +8,7 @@
 #ifdef CLIENT_DLL
 #include "hud.h"
 #include "cl_util.h"
+#include "event_api.h"
 #endif
 
 #include "cbase.h"
@@ -527,4 +528,114 @@ void Alert( int aType, const char* const pszFormat, ... )
 	}
 
 	va_end( list );
+}
+
+Contents UTIL_PointContents( const Vector &vec )
+{
+	return static_cast<Contents>(
+#ifndef CLIENT_DLL
+	POINT_CONTENTS( vec )
+#else
+	gEngfuncs.PM_PointContents( vec, nullptr )
+#endif
+	);
+}
+
+float UTIL_WaterLevel( const Vector &position, float minz, float maxz )
+{
+	Vector midUp = position;
+	midUp.z = minz;
+
+	if( UTIL_PointContents( midUp ) != CONTENTS_WATER )
+		return minz;
+
+	midUp.z = maxz;
+	if( UTIL_PointContents( midUp ) == CONTENTS_WATER )
+		return maxz;
+
+	float diff = maxz - minz;
+	while( diff > 1.0 )
+	{
+		midUp.z = minz + diff / 2.0;
+		if( UTIL_PointContents( midUp ) == CONTENTS_WATER )
+		{
+			minz = midUp.z;
+		}
+		else
+		{
+			maxz = midUp.z;
+		}
+		diff = maxz - minz;
+	}
+
+	return midUp.z;
+}
+
+#ifndef CLIENT_DLL
+extern DLL_GLOBAL short g_sModelIndexBubbles;// holds the index for the bubbles model
+#endif
+
+void UTIL_Bubbles( const Vector& mins, const Vector& maxs, int count, const float flSpeed )
+{
+	Vector mid = ( mins + maxs ) * 0.5;
+
+	float flHeight = UTIL_WaterLevel( mid, mid.z, mid.z + 1024 );
+	flHeight = flHeight - mins.z;
+
+#ifndef CLIENT_DLL
+	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, mid );
+		WRITE_BYTE( TE_BUBBLES );
+		WRITE_COORD( mins.x );	// mins
+		WRITE_COORD( mins.y );
+		WRITE_COORD( mins.z );
+		WRITE_COORD( maxs.x );	// maxz
+		WRITE_COORD( maxs.y );
+		WRITE_COORD( maxs.z );
+		WRITE_COORD( flHeight );			// height
+		WRITE_SHORT( g_sModelIndexBubbles );
+		WRITE_BYTE( count ); // count
+		WRITE_COORD( flSpeed ); // speed
+	MESSAGE_END();
+#else
+	gEngfuncs.pEfxAPI->R_Bubbles( mins, maxs, flHeight, gEngfuncs.pEventAPI->EV_FindModelIndex( BUBBLES_MODEL ), count, flSpeed );
+#endif
+}
+
+void UTIL_BubbleTrail( const Vector& from, const Vector& to, int count, const float flSpeed )
+{
+	float flHeight = UTIL_WaterLevel( from, from.z, from.z + 256 );
+	flHeight = flHeight - from.z;
+
+	if( flHeight < 8 )
+	{
+		flHeight = UTIL_WaterLevel( to, to.z, to.z + 256 );
+		flHeight = flHeight - to.z;
+		if( flHeight < 8 )
+			return;
+
+		// UNDONE: do a ploink sound
+		flHeight = flHeight + to.z - from.z;
+	}
+
+	if( count > 255 )
+		count = 255;
+
+#ifndef CLIENT_DLL
+	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
+		WRITE_BYTE( TE_BUBBLETRAIL );
+		WRITE_COORD( from.x );	// mins
+		WRITE_COORD( from.y );
+		WRITE_COORD( from.z );
+		WRITE_COORD( to.x );	// maxz
+		WRITE_COORD( to.y );
+		WRITE_COORD( to.z );
+		WRITE_COORD( flHeight );			// height
+		WRITE_SHORT( g_sModelIndexBubbles );
+		WRITE_BYTE( count ); // count
+		WRITE_COORD( flSpeed ); // speed
+	MESSAGE_END();
+#else
+	//TODO: consider caching the model index.
+	gEngfuncs.pEfxAPI->R_BubbleTrail( from, to, flHeight, gEngfuncs.pEventAPI->EV_FindModelIndex( BUBBLES_MODEL ), count, flSpeed );
+#endif
 }

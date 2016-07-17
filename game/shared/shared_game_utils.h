@@ -17,6 +17,8 @@
 // this bogus "empty" define to mark things as constant.
 #define CONSTANT
 
+#define BUBBLES_MODEL "sprites/bubble.spr"
+
 /**
 *	Number of static buffers used by functions that return pointers to static string buffers.
 */
@@ -109,5 +111,40 @@ cvar_t* CVarGetPointer( const char* const pszName );
 *	TODO: aType should be ALERT_TYPE.
 */
 void Alert( int aType, const char* const pszFormat, ... );
+
+/**
+*	Gets the contents for the given position.
+*	@param vec Position.
+*	@return Contents.
+*	@see Contents
+*/
+Contents UTIL_PointContents( const Vector& vec );
+
+/**
+*	Search for water transition along a vertical line.
+*	@param vecPosition Position.
+*	@param minz Minimum height level.
+*	@param maxz Maximum height level.
+*	@return Water level.
+*/
+float UTIL_WaterLevel( const Vector& vecPosition, float minz, float maxz );
+
+/**
+*	Creates bubbles that float upwards inside of a box.
+*	@param mins Box mins.
+*	@param maxs Box maxs.
+*	@param count Number of bubbles to create.
+*	@param flSpeed Speed of the bubbles.
+*/
+void UTIL_Bubbles( const Vector& mins, const Vector& maxs, int count, const float flSpeed = 8 );
+
+/**
+*	Creates a trail of bubbles that float upwards.
+*	@param from Starting position.
+*	@param to End position.
+*	@param count Number of bubbles to create.
+*	@param flSpeed Speed of the bubbles.
+*/
+void UTIL_BubbleTrail( const Vector& from, const Vector& to, int count, const float flSpeed = 8 );
 
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H

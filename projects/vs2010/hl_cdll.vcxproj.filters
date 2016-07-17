@@ -689,6 +689,9 @@
     <ClInclude Include="..\..\game\client\hl\hl_weapons.h">
       <Filter>Header Files\game\client\hl</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\engine\APIProxy.h">
+      <Filter>Header Files\engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\game_controls.lib" />

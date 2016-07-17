@@ -765,11 +765,6 @@ bool UTIL_ShouldShowBlood( int color )
 	return false;
 }
 
-int UTIL_PointContents(	const Vector &vec )
-{
-	return POINT_CONTENTS(vec);
-}
-
 void UTIL_BloodStream( const Vector &origin, const Vector &direction, int color, int amount )
 {
 	if ( !UTIL_ShouldShowBlood( color ) )
@@ -1026,96 +1021,6 @@ bool UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 )
 
 	return false;
 }
-
-float UTIL_WaterLevel( const Vector &position, float minz, float maxz )
-{
-	Vector midUp = position;
-	midUp.z = minz;
-
-	if (UTIL_PointContents(midUp) != CONTENTS_WATER)
-		return minz;
-
-	midUp.z = maxz;
-	if (UTIL_PointContents(midUp) == CONTENTS_WATER)
-		return maxz;
-
-	float diff = maxz - minz;
-	while (diff > 1.0)
-	{
-		midUp.z = minz + diff/2.0;
-		if (UTIL_PointContents(midUp) == CONTENTS_WATER)
-		{
-			minz = midUp.z;
-		}
-		else
-		{
-			maxz = midUp.z;
-		}
-		diff = maxz - minz;
-	}
-
-	return midUp.z;
-}
-
-
-extern DLL_GLOBAL	short	g_sModelIndexBubbles;// holds the index for the bubbles model
-
-void UTIL_Bubbles( Vector mins, Vector maxs, int count )
-{
-	Vector mid =  (mins + maxs) * 0.5;
-
-	float flHeight = UTIL_WaterLevel( mid,  mid.z, mid.z + 1024 );
-	flHeight = flHeight - mins.z;
-
-	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, mid );
-		WRITE_BYTE( TE_BUBBLES );
-		WRITE_COORD( mins.x );	// mins
-		WRITE_COORD( mins.y );
-		WRITE_COORD( mins.z );
-		WRITE_COORD( maxs.x );	// maxz
-		WRITE_COORD( maxs.y );
-		WRITE_COORD( maxs.z );
-		WRITE_COORD( flHeight );			// height
-		WRITE_SHORT( g_sModelIndexBubbles );
-		WRITE_BYTE( count ); // count
-		WRITE_COORD( 8 ); // speed
-	MESSAGE_END();
-}
-
-void UTIL_BubbleTrail( Vector from, Vector to, int count )
-{
-	float flHeight = UTIL_WaterLevel( from,  from.z, from.z + 256 );
-	flHeight = flHeight - from.z;
-
-	if (flHeight < 8)
-	{
-		flHeight = UTIL_WaterLevel( to,  to.z, to.z + 256 );
-		flHeight = flHeight - to.z;
-		if (flHeight < 8)
-			return;
-
-		// UNDONE: do a ploink sound
-		flHeight = flHeight + to.z - from.z;
-	}
-
-	if (count > 255) 
-		count = 255;
-
-	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
-		WRITE_BYTE( TE_BUBBLETRAIL );
-		WRITE_COORD( from.x );	// mins
-		WRITE_COORD( from.y );
-		WRITE_COORD( from.z );
-		WRITE_COORD( to.x );	// maxz
-		WRITE_COORD( to.y );
-		WRITE_COORD( to.z );
-		WRITE_COORD( flHeight );			// height
-		WRITE_SHORT( g_sModelIndexBubbles );
-		WRITE_BYTE( count ); // count
-		WRITE_COORD( 8 ); // speed
-	MESSAGE_END();
-}
-
 
 void UTIL_Remove( CBaseEntity *pEntity )
 {
