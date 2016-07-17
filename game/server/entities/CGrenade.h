@@ -25,9 +25,9 @@ public:
 
 	typedef enum { SATCHEL_DETONATE = 0, SATCHEL_RELEASE } SATCHELCODE;
 
-	static CGrenade *ShootTimed( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, float time );
-	static CGrenade *ShootContact( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity );
-	static CGrenade *ShootSatchelCharge( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity );
+	static CGrenade* ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity, float time );
+	static CGrenade* ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity );
+	static CGrenade* ShootSatchelCharge( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity );
 	static void UseSatchelCharges( entvars_t *pevOwner, SATCHELCODE code );
 
 	void Explode( Vector vecSrc, Vector vecAim );

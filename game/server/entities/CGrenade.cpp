@@ -352,7 +352,7 @@ void CGrenade:: Spawn( void )
 }
 
 
-CGrenade *CGrenade::ShootContact( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity )
+CGrenade* CGrenade::ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity )
 {
 	CGrenade *pGrenade = GetClassPtr( (CGrenade *)NULL );
 	pGrenade->Spawn();
@@ -361,7 +361,7 @@ CGrenade *CGrenade::ShootContact( entvars_t *pevOwner, Vector vecStart, Vector v
 	UTIL_SetOrigin( pGrenade->pev, vecStart );
 	pGrenade->pev->velocity = vecVelocity;
 	pGrenade->pev->angles = UTIL_VecToAngles (pGrenade->pev->velocity);
-	pGrenade->pev->owner = ENT(pevOwner);
+	pGrenade->pev->owner = pOwner->edict();
 	
 	// make monsters afaid of it while in the air
 	pGrenade->SetThink( &CGrenade::DangerSoundThink );
@@ -379,14 +379,14 @@ CGrenade *CGrenade::ShootContact( entvars_t *pevOwner, Vector vecStart, Vector v
 }
 
 
-CGrenade * CGrenade:: ShootTimed( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity, float time )
+CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity, float time )
 {
 	CGrenade *pGrenade = GetClassPtr( (CGrenade *)NULL );
 	pGrenade->Spawn();
 	UTIL_SetOrigin( pGrenade->pev, vecStart );
 	pGrenade->pev->velocity = vecVelocity;
 	pGrenade->pev->angles = UTIL_VecToAngles(pGrenade->pev->velocity);
-	pGrenade->pev->owner = ENT(pevOwner);
+	pGrenade->pev->owner = pOwner->edict();
 	
 	pGrenade->SetTouch( &CGrenade::BounceTouch );	// Bounce if touched
 	
@@ -419,7 +419,7 @@ CGrenade * CGrenade:: ShootTimed( entvars_t *pevOwner, Vector vecStart, Vector v
 }
 
 
-CGrenade * CGrenade :: ShootSatchelCharge( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity )
+CGrenade* CGrenade::ShootSatchelCharge( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity )
 {
 	CGrenade *pGrenade = GetClassPtr( (CGrenade *)NULL );
 	pGrenade->pev->movetype = MOVETYPE_BOUNCE;
@@ -435,7 +435,7 @@ CGrenade * CGrenade :: ShootSatchelCharge( entvars_t *pevOwner, Vector vecStart,
 	UTIL_SetOrigin( pGrenade->pev, vecStart );
 	pGrenade->pev->velocity = vecVelocity;
 	pGrenade->pev->angles = g_vecZero;
-	pGrenade->pev->owner = ENT(pevOwner);
+	pGrenade->pev->owner = pOwner->edict();
 	
 	// Detonate in "time" seconds
 	pGrenade->SetThink( &CGrenade::SUB_DoNothing );

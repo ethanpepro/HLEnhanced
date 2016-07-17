@@ -7,12 +7,12 @@ void CGrenade::Spawn()
 {
 }
 
-CGrenade* CGrenade::ShootTimed( entvars_t* pevOwner, Vector vecStart, Vector vecVelocity, float time )
+CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity, float time )
 {
 	return 0;
 }
 
-CGrenade* CGrenade::ShootContact( entvars_t* pevOwner, Vector vecStart, Vector vecVelocity )
+CGrenade* CGrenade::ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity )
 {
 	return 0;
 }

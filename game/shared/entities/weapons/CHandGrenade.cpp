@@ -142,7 +142,7 @@ void CHandGrenade::WeaponIdle( void )
 		if (time < 0)
 			time = 0;
 
-		CGrenade::ShootTimed( m_pPlayer->pev, vecSrc, vecThrow, time );
+		CGrenade::ShootTimed( m_pPlayer, vecSrc, vecThrow, time );
 
 		if ( flVel < 500 )
 		{
