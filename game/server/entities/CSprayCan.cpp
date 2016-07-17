@@ -7,18 +7,18 @@
 
 #include "CSprayCan.h"
 
-void CSprayCan::Spawn( entvars_t *pevOwner )
+void CSprayCan::Spawn( CBaseEntity* pOwner )
 {
-	pev->origin = pevOwner->origin + Vector( 0, 0, 32 );
-	pev->angles = pevOwner->v_angle;
-	pev->owner = ENT( pevOwner );
+	pev->origin = pOwner->pev->origin + Vector( 0, 0, 32 );
+	pev->angles = pOwner->pev->v_angle;
+	pev->owner = pOwner->edict();
 	pev->frame = 0;
 
 	pev->nextthink = gpGlobals->time + 0.1;
 	EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/sprayer.wav", 1, ATTN_NORM );
 }
 
-void CSprayCan::Think( void )
+void CSprayCan::Think()
 {
 	TraceResult	tr;
 	int playernum;

@@ -24,8 +24,8 @@ class CSprayCan : public CBaseEntity
 public:
 	DECLARE_CLASS( CSprayCan, CBaseEntity );
 
-	void	Spawn( entvars_t *pevOwner );
-	void	Think( void ) override;
+	void	Spawn( CBaseEntity* pOwner );
+	void	Think() override;
 
 	virtual int	ObjectCaps() const override { return FCAP_DONT_SAVE; }
 };

@@ -24,7 +24,7 @@ class CTestHull : public CBaseMonster
 public:
 	DECLARE_CLASS( CTestHull, CBaseMonster );
 
-	void Spawn( entvars_t *pevMasterNode );
+	void Spawn( CBaseEntity* pMasterNode );
 	virtual int	ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void EXPORT CallBuildNodeGraph();
 	void BuildNodeGraph();

@@ -3314,7 +3314,7 @@ void CBasePlayer::ImpulseCommands( )
 		{// line hit something, so paint a decal
 			m_flNextDecalTime = gpGlobals->time + decalfrequency.value;
 			CSprayCan *pCan = GetClassPtr((CSprayCan *)NULL);
-			pCan->Spawn( pev );
+			pCan->Spawn( this );
 		}
 
 		break;
@@ -3494,7 +3494,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		if ( tr.flFraction != 1.0 )
 		{// line hit something, so paint a decal
 			CBloodSplat *pBlood = GetClassPtr((CBloodSplat *)NULL);
-			pBlood->Spawn( pev );
+			pBlood->Spawn( this );
 		}
 		break;
 	case	203:// remove creature.

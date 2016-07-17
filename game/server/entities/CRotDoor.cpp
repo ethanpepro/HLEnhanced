@@ -26,7 +26,7 @@ void CRotDoor::Spawn( void )
 {
 	Precache();
 	// set the axis of rotation
-	CBaseToggle::AxisDir( pev );
+	CBaseToggle::AxisDir( this );
 
 	// check for clockwise rotation
 	if( FBitSet( pev->spawnflags, SF_DOOR_ROTATE_BACKWARDS ) )

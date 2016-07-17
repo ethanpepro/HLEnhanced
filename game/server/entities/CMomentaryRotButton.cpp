@@ -31,7 +31,7 @@ LINK_ENTITY_TO_CLASS( momentary_rot_button, CMomentaryRotButton );
 
 void CMomentaryRotButton::Spawn( void )
 {
-	CBaseToggle::AxisDir( pev );
+	CBaseToggle::AxisDir( this );
 
 	if( pev->speed == 0 )
 		pev->speed = 100;

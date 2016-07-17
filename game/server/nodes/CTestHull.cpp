@@ -27,7 +27,7 @@ LINK_ENTITY_TO_CLASS( testhull, CTestHull );
 //=========================================================
 // CTestHull::Spawn
 //=========================================================
-void CTestHull::Spawn( entvars_t *pevMasterNode )
+void CTestHull::Spawn( CBaseEntity* pMasterNode )
 {
 	SET_MODEL( ENT( pev ), "models/player.mdl" );
 	UTIL_SetSize( pev, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );

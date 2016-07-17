@@ -20,8 +20,8 @@ class CBloodSplat : public CBaseEntity
 public:
 	DECLARE_CLASS( CBloodSplat, CBaseEntity );
 
-	void	Spawn( entvars_t *pevOwner );
-	void	Spray( void );
+	void	Spawn( CBaseEntity* pOwner );
+	void	Spray();
 };
 
 #endif //GAME_SERVER_ENTITIES_CBLOODSPLAT_H

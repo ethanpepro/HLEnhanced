@@ -35,7 +35,7 @@ LINK_ENTITY_TO_CLASS( func_pendulum, CPendulum );
 void CPendulum::Spawn( void )
 {
 	// set the axis of rotation
-	CBaseToggle::AxisDir( pev );
+	CBaseToggle::AxisDir( this );
 
 	if( FBitSet( pev->spawnflags, SF_DOOR_PASSABLE ) )
 		pev->solid = SOLID_NOT;

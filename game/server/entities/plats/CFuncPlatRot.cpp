@@ -21,7 +21,7 @@ void CFuncPlatRot::SetupRotation( void )
 {
 	if( m_vecFinalAngle.x != 0 )		// This plat rotates too!
 	{
-		CBaseToggle::AxisDir( pev );
+		CBaseToggle::AxisDir( this );
 		m_start = pev->angles;
 		m_end = pev->angles + pev->movedir * m_vecFinalAngle.x;
 	}

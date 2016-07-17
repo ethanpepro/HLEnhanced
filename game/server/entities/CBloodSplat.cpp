@@ -4,17 +4,17 @@
 
 #include "CBloodSplat.h"
 
-void CBloodSplat::Spawn( entvars_t *pevOwner )
+void CBloodSplat::Spawn( CBaseEntity* pOwner )
 {
-	pev->origin = pevOwner->origin + Vector( 0, 0, 32 );
-	pev->angles = pevOwner->v_angle;
-	pev->owner = ENT( pevOwner );
+	pev->origin = pOwner->pev->origin + Vector( 0, 0, 32 );
+	pev->angles = pOwner->pev->v_angle;
+	pev->owner = pOwner->edict();
 
 	SetThink( &CBloodSplat::Spray );
 	pev->nextthink = gpGlobals->time + 0.1;
 }
 
-void CBloodSplat::Spray( void )
+void CBloodSplat::Spray()
 {
 	TraceResult	tr;
 

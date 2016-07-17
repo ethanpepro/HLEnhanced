@@ -169,14 +169,14 @@ float CBaseToggle::AxisValue( int flags, const Vector &angles )
 }
 
 
-void CBaseToggle::AxisDir( entvars_t *pev )
+void CBaseToggle::AxisDir( CBaseEntity* pEntity )
 {
-	if( FBitSet( pev->spawnflags, SF_DOOR_ROTATE_Z ) )
-		pev->movedir = Vector( 0, 0, 1 );	// around z-axis
-	else if( FBitSet( pev->spawnflags, SF_DOOR_ROTATE_X ) )
-		pev->movedir = Vector( 1, 0, 0 );	// around x-axis
+	if( FBitSet( pEntity->pev->spawnflags, SF_DOOR_ROTATE_Z ) )
+		pEntity->pev->movedir = Vector( 0, 0, 1 );	// around z-axis
+	else if( FBitSet( pEntity->pev->spawnflags, SF_DOOR_ROTATE_X ) )
+		pEntity->pev->movedir = Vector( 1, 0, 0 );	// around x-axis
 	else
-		pev->movedir = Vector( 0, 1, 0 );		// around y-axis
+		pEntity->pev->movedir = Vector( 0, 1, 0 );	// around y-axis
 }
 
 
