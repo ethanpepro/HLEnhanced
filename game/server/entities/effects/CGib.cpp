@@ -155,7 +155,7 @@ void CGib::LimitVelocity( void )
 		pev->velocity = pev->velocity.Normalize() * 1500;		// This should really be sv_maxvelocity * 0.75 or something
 }
 
-void CGib::SpawnHeadGib( entvars_t *pevVictim )
+void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 {
 	CGib *pGib = GetClassPtr( ( CGib * ) NULL );
 
@@ -170,9 +170,9 @@ void CGib::SpawnHeadGib( entvars_t *pevVictim )
 		pGib->pev->body = 0;
 	}
 
-	if( pevVictim )
+	if( pVictim )
 	{
-		pGib->pev->origin = pevVictim->origin + pevVictim->view_ofs;
+		pGib->pev->origin = pVictim->pev->origin + pVictim->pev->view_ofs;
 
 		edict_t		*pentPlayer = FIND_CLIENT_IN_PVS( pGib->edict() );
 
@@ -195,13 +195,13 @@ void CGib::SpawnHeadGib( entvars_t *pevVictim )
 		pGib->pev->avelocity.y = RANDOM_FLOAT( 100, 300 );
 
 		// copy owner's blood color
-		pGib->m_bloodColor = ( CBaseEntity::Instance( pevVictim ) )->BloodColor();
+		pGib->m_bloodColor = pVictim->BloodColor();
 
-		if( pevVictim->health > -50 )
+		if( pVictim->pev->health > -50 )
 		{
 			pGib->pev->velocity = pGib->pev->velocity * 0.7;
 		}
-		else if( pevVictim->health > -200 )
+		else if( pVictim->pev->health > -200 )
 		{
 			pGib->pev->velocity = pGib->pev->velocity * 2;
 		}
@@ -213,7 +213,7 @@ void CGib::SpawnHeadGib( entvars_t *pevVictim )
 	pGib->LimitVelocity();
 }
 
-void CGib::SpawnRandomGibs( entvars_t *pevVictim, int cGibs, int human )
+void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 {
 	int cSplat;
 
@@ -242,12 +242,12 @@ void CGib::SpawnRandomGibs( entvars_t *pevVictim, int cGibs, int human )
 			}
 		}
 
-		if( pevVictim )
+		if( pVictim )
 		{
 			// spawn the gib somewhere in the monster's bounding volume
-			pGib->pev->origin.x = pevVictim->absmin.x + pevVictim->size.x * ( RANDOM_FLOAT( 0, 1 ) );
-			pGib->pev->origin.y = pevVictim->absmin.y + pevVictim->size.y * ( RANDOM_FLOAT( 0, 1 ) );
-			pGib->pev->origin.z = pevVictim->absmin.z + pevVictim->size.z * ( RANDOM_FLOAT( 0, 1 ) ) + 1;	// absmin.z is in the floor because the engine subtracts 1 to enlarge the box
+			pGib->pev->origin.x = pVictim->pev->absmin.x + pVictim->pev->size.x * ( RANDOM_FLOAT( 0, 1 ) );
+			pGib->pev->origin.y = pVictim->pev->absmin.y + pVictim->pev->size.y * ( RANDOM_FLOAT( 0, 1 ) );
+			pGib->pev->origin.z = pVictim->pev->absmin.z + pVictim->pev->size.z * ( RANDOM_FLOAT( 0, 1 ) ) + 1;	// absmin.z is in the floor because the engine subtracts 1 to enlarge the box
 
 																											// make the gib fly away from the attack vector
 			pGib->pev->velocity = g_vecAttackDir * -1;
@@ -263,13 +263,13 @@ void CGib::SpawnRandomGibs( entvars_t *pevVictim, int cGibs, int human )
 			pGib->pev->avelocity.y = RANDOM_FLOAT( 100, 300 );
 
 			// copy owner's blood color
-			pGib->m_bloodColor = ( CBaseEntity::Instance( pevVictim ) )->BloodColor();
+			pGib->m_bloodColor = pVictim->BloodColor();
 
-			if( pevVictim->health > -50 )
+			if( pVictim->pev->health > -50 )
 			{
 				pGib->pev->velocity = pGib->pev->velocity * 0.7;
 			}
-			else if( pevVictim->health > -200 )
+			else if( pVictim->pev->health > -200 )
 			{
 				pGib->pev->velocity = pGib->pev->velocity * 2;
 			}
@@ -285,7 +285,7 @@ void CGib::SpawnRandomGibs( entvars_t *pevVictim, int cGibs, int human )
 	}
 }
 
-void CGib::SpawnStickyGibs( entvars_t *pevVictim, Vector vecOrigin, int cGibs )
+void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 {
 	int i;
 
@@ -302,7 +302,7 @@ void CGib::SpawnStickyGibs( entvars_t *pevVictim, Vector vecOrigin, int cGibs )
 		pGib->Spawn( "models/stickygib.mdl" );
 		pGib->pev->body = RANDOM_LONG( 0, 2 );
 
-		if( pevVictim )
+		if( pVictim )
 		{
 			pGib->pev->origin.x = vecOrigin.x + RANDOM_FLOAT( -3, 3 );
 			pGib->pev->origin.y = vecOrigin.y + RANDOM_FLOAT( -3, 3 );
@@ -328,13 +328,13 @@ void CGib::SpawnStickyGibs( entvars_t *pevVictim, Vector vecOrigin, int cGibs )
 			pGib->pev->avelocity.y = RANDOM_FLOAT( 250, 400 );
 
 			// copy owner's blood color
-			pGib->m_bloodColor = ( CBaseEntity::Instance( pevVictim ) )->BloodColor();
+			pGib->m_bloodColor = pVictim->BloodColor();
 
-			if( pevVictim->health > -50 )
+			if( pVictim->pev->health > -50 )
 			{
 				pGib->pev->velocity = pGib->pev->velocity * 0.7;
 			}
-			else if( pevVictim->health > -200 )
+			else if( pVictim->pev->health > -200 )
 			{
 				pGib->pev->velocity = pGib->pev->velocity * 2;
 			}

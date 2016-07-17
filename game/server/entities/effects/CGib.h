@@ -30,9 +30,9 @@ public:
 	void		LimitVelocity( void );
 
 	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | FCAP_DONT_SAVE; }
-	static	void SpawnHeadGib( entvars_t *pevVictim );
-	static	void SpawnRandomGibs( entvars_t *pevVictim, int cGibs, int human );
-	static  void SpawnStickyGibs( entvars_t *pevVictim, Vector vecOrigin, int cGibs );
+	static	void SpawnHeadGib( CBaseEntity* pVictim );
+	static	void SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human );
+	static  void SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs );
 
 	int		m_bloodColor;
 	int		m_cBloodDecals;

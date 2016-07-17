@@ -3393,7 +3393,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 
 	case 102:
 		// Gibbage!!!
-		CGib::SpawnRandomGibs( pev, 1, 1 );
+		CGib::SpawnRandomGibs( this, 1, 1 );
 		break;
 
 	case 103:
