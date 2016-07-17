@@ -410,7 +410,7 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 		if (pEntity->pev->takedamage)
 		{
 			g_MultiDamage.Clear();
-			pEntity->TraceAttack( m_pPlayer->pev, flDamage, vecDir, &tr, DMG_BULLET );
+			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, flDamage, DMG_BULLET ), vecDir, &tr );
 			g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 		}
 
@@ -485,7 +485,7 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 								damage_radius = flDamage * 2.5;
 							}
 
-							::RadiusDamage( beam_tr.vecEndPos + vecDir * 8, this, m_pPlayer, flDamage, damage_radius, CLASS_NONE, DMG_BLAST );
+							::RadiusDamage( beam_tr.vecEndPos + vecDir * 8, CTakeDamageInfo( this, m_pPlayer, flDamage, DMG_BLAST ), damage_radius, CLASS_NONE );
 
 							CSoundEnt::InsertSound ( bits_SOUND_COMBAT, pev->origin, NORMAL_EXPLOSION_VOLUME, 3.0 );
 

@@ -430,26 +430,28 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 //=========================================================
 // TraceAttack - make sure we're not taking it in the helmet
 //=========================================================
-void CHGrunt :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CHGrunt::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
+	CTakeDamageInfo newInfo = info;
+
 	// check for helmet shot
 	if (ptr->iHitgroup == 11)
 	{
 		// make sure we're wearing one
-		if (GetBodygroup( 1 ) == HEAD_GRUNT && (bitsDamageType & (DMG_BULLET | DMG_SLASH | DMG_BLAST | DMG_CLUB)))
+		if (GetBodygroup( 1 ) == HEAD_GRUNT && (newInfo.GetDamageTypes() & (DMG_BULLET | DMG_SLASH | DMG_BLAST | DMG_CLUB)))
 		{
 			// absorb damage
-			flDamage -= 20;
-			if (flDamage <= 0)
+			newInfo.GetMutableDamage() -= 20;
+			if (newInfo.GetDamage() <= 0)
 			{
 				UTIL_Ricochet( ptr->vecEndPos, 1.0 );
-				flDamage = 0.01;
+				newInfo.GetMutableDamage() = 0.01;
 			}
 		}
 		// it's head shot anyways
 		ptr->iHitgroup = HITGROUP_HEAD;
 	}
-	CSquadMonster::TraceAttack( pevAttacker, flDamage, vecDir, ptr, bitsDamageType );
+	CSquadMonster::TraceAttack( newInfo, vecDir, ptr );
 }
 
 

@@ -1079,21 +1079,21 @@ void CNihilanth::OnTakeDamage( const CTakeDamageInfo& info )
 
 
 
-void CNihilanth::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CNihilanth::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	if (m_irritation == 3)
 		m_irritation = 2;
 
-	if (m_irritation == 2 && ptr->iHitgroup == 2 && flDamage > 2)
+	if (m_irritation == 2 && ptr->iHitgroup == 2 && info.GetDamage() > 2)
 		m_irritation = 3;
 
 	if (m_irritation != 3)
 	{
 		Vector vecBlood = (ptr->vecEndPos - pev->origin).Normalize( );
 
-		UTIL_BloodStream( ptr->vecEndPos, vecBlood, BloodColor(), flDamage + (100 - 100 * (pev->health / gSkillData.nihilanthHealth)));
+		UTIL_BloodStream( ptr->vecEndPos, vecBlood, BloodColor(), info.GetDamage() + (100 - 100 * (pev->health / gSkillData.nihilanthHealth)));
 	}
 
 	// SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage * 5.0);// a little surface blood.
-	g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+	g_MultiDamage.AddMultiDamage( !FNullEnt( info.GetAttacker() ) ? info.GetAttacker()->pev : nullptr, this, info.GetDamage(), info.GetDamageTypes() );
 }

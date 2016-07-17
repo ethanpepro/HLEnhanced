@@ -515,25 +515,27 @@ void CBarney :: DeathSound ( void )
 }
 
 
-void CBarney::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CBarney::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
+	CTakeDamageInfo newInfo = info;
+
 	switch( ptr->iHitgroup)
 	{
 	case HITGROUP_CHEST:
 	case HITGROUP_STOMACH:
-		if (bitsDamageType & (DMG_BULLET | DMG_SLASH | DMG_BLAST))
+		if (newInfo.GetDamageTypes() & (DMG_BULLET | DMG_SLASH | DMG_BLAST))
 		{
-			flDamage = flDamage / 2;
+			newInfo.GetMutableDamage() = newInfo.GetDamage() / 2;
 		}
 		break;
 	case 10:
-		if (bitsDamageType & (DMG_BULLET | DMG_SLASH | DMG_CLUB))
+		if (newInfo.GetDamageTypes() & (DMG_BULLET | DMG_SLASH | DMG_CLUB))
 		{
-			flDamage -= 20;
-			if (flDamage <= 0)
+			newInfo.GetMutableDamage() -= 20;
+			if (newInfo.GetDamage() <= 0)
 			{
 				UTIL_Ricochet( ptr->vecEndPos, 1.0 );
-				flDamage = 0.01;
+				newInfo.GetMutableDamage() = 0.01;
 			}
 		}
 		// always a head shot
@@ -541,7 +543,7 @@ void CBarney::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 		break;
 	}
 
-	CTalkMonster::TraceAttack( pevAttacker, flDamage, vecDir, ptr, bitsDamageType );
+	CTalkMonster::TraceAttack( newInfo, vecDir, ptr );
 }
 
 

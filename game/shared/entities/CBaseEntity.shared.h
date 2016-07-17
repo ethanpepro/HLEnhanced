@@ -504,14 +504,12 @@ public:
 	*	Used when handling damage.
 	*	This gives the entity a chance to filter damage. This should add the given damage to the global multi-damage instance if damage is not filtered.
 	*	This is where blood, ricochets, and other effects should be handled.
-	*	@param pevAttacker Entity that is responsible for attacking this one. If damage is dealt indirectly, such as through a weapon, this is the weapon's owner.
-	*	@param flDamage Amount of damage being dealt.
+	*	@param info Damage info.
 	*	@param vecDir Direction of the attack.
 	*	@param ptr Traceline that represents the attack.
-	*	@param bitsDamageType Bit vector of damage types.
 	*	@see g_MultiDamage
 	*/
-	virtual void TraceAttack( entvars_t* pevAttacker, float flDamage, Vector vecDir, TraceResult* ptr, int bitsDamageType );
+	virtual void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult* ptr );
 
 	/**
 	*	Projects blood decals based on the given damage and traceline.

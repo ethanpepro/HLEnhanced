@@ -429,12 +429,12 @@ void CGargantua::FlameDamage( Vector vecStart, Vector vecEnd, CBaseEntity* pInfl
 				if (tr.flFraction != 1.0)
 				{
 					g_MultiDamage.Clear( );
-					pEntity->TraceAttack( pInflictor->pev, flAdjustedDamage, (tr.vecEndPos - vecSrc).Normalize( ), &tr, bitsDamageType );
+					pEntity->TraceAttack( CTakeDamageInfo( pInflictor, flAdjustedDamage, bitsDamageType ), (tr.vecEndPos - vecSrc).Normalize( ), &tr );
 					g_MultiDamage.ApplyMultiDamage( pInflictor, pAttacker );
 				}
 				else
 				{
-					pEntity->TakeDamage ( pInflictor, pAttacker, flAdjustedDamage, bitsDamageType );
+					pEntity->TakeDamage( pInflictor, pAttacker, flAdjustedDamage, bitsDamageType );
 				}
 			}
 		}
@@ -591,18 +591,20 @@ void CGargantua :: Precache()
 }	
 
 
-void CGargantua::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType )
+void CGargantua::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	ALERT( at_aiconsole, "CGargantua::TraceAttack\n");
 
 	if ( !IsAlive() )
 	{
-		CBaseMonster::TraceAttack( pevAttacker, flDamage, vecDir, ptr, bitsDamageType );
+		CBaseMonster::TraceAttack( info, vecDir, ptr );
 		return;
 	}
 
+	CTakeDamageInfo newInfo = info;
+
 	// UNDONE: Hit group specific damage?
-	if ( bitsDamageType & (GARG_DAMAGE|DMG_BLAST) )
+	if ( newInfo.GetDamageTypes() & (GARG_DAMAGE|DMG_BLAST) )
 	{
 		if ( m_painSoundTime < gpGlobals->time )
 		{
@@ -611,9 +613,9 @@ void CGargantua::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vec
 		}
 	}
 
-	bitsDamageType &= GARG_DAMAGE;
+	newInfo.GetMutableDamageTypes() &= GARG_DAMAGE;
 
-	if ( bitsDamageType == 0)
+	if ( newInfo.GetDamageTypes() == 0)
 	{
 		if ( pev->dmgtime != gpGlobals->time || (RANDOM_LONG(0,100) < 20) )
 		{
@@ -622,10 +624,10 @@ void CGargantua::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vec
 //			if ( RANDOM_LONG(0,100) < 25 )
 //				EMIT_SOUND_DYN( ENT(pev), CHAN_BODY, pRicSounds[ RANDOM_LONG(0,ARRAYSIZE(pRicSounds)-1) ], 1.0, ATTN_NORM, 0, PITCH_NORM );
 		}
-		flDamage = 0;
+		newInfo.GetMutableDamage() = 0;
 	}
 
-	CBaseMonster::TraceAttack( pevAttacker, flDamage, vecDir, ptr, bitsDamageType );
+	CBaseMonster::TraceAttack( newInfo, vecDir, ptr );
 
 }
 

@@ -25,7 +25,7 @@ CBaseEntity* CBaseEntity::Create( char *szName, const Vector &vecOrigin, const V
 	return NULL;
 }
 
-void CBaseEntity::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType )
+void CBaseEntity::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 }
 

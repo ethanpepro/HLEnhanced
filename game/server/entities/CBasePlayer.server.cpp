@@ -322,8 +322,10 @@ Vector CBasePlayer :: GetGunPosition( )
 //=========================================================
 // TraceAttack
 //=========================================================
-void CBasePlayer :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
+	CTakeDamageInfo newInfo = info;
+
 	if ( pev->takedamage )
 	{
 		m_LastHitGroup = ptr->iHitgroup;
@@ -333,29 +335,29 @@ void CBasePlayer :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector 
 		case HITGROUP_GENERIC:
 			break;
 		case HITGROUP_HEAD:
-			flDamage *= gSkillData.plrHead;
+			newInfo.GetMutableDamage() *= gSkillData.plrHead;
 			break;
 		case HITGROUP_CHEST:
-			flDamage *= gSkillData.plrChest;
+			newInfo.GetMutableDamage() *= gSkillData.plrChest;
 			break;
 		case HITGROUP_STOMACH:
-			flDamage *= gSkillData.plrStomach;
+			newInfo.GetMutableDamage() *= gSkillData.plrStomach;
 			break;
 		case HITGROUP_LEFTARM:
 		case HITGROUP_RIGHTARM:
-			flDamage *= gSkillData.plrArm;
+			newInfo.GetMutableDamage() *= gSkillData.plrArm;
 			break;
 		case HITGROUP_LEFTLEG:
 		case HITGROUP_RIGHTLEG:
-			flDamage *= gSkillData.plrLeg;
+			newInfo.GetMutableDamage() *= gSkillData.plrLeg;
 			break;
 		default:
 			break;
 		}
 
-		SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage);// a little surface blood.
-		TraceBleed( flDamage, vecDir, ptr, bitsDamageType );
-		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		SpawnBlood(ptr->vecEndPos, BloodColor(), newInfo .GetDamage());// a little surface blood.
+		TraceBleed( newInfo.GetDamage(), vecDir, ptr, newInfo.GetDamageTypes() );
+		g_MultiDamage.AddMultiDamage( !FNullEnt( newInfo.GetAttacker() ) ? newInfo.GetAttacker()->pev : nullptr, this, newInfo.GetDamage(), newInfo.GetDamageTypes() );
 	}
 }
 

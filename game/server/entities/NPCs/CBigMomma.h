@@ -66,7 +66,7 @@ public:
 	void		StartTask( Task_t *pTask ) override;
 	Schedule_t	*GetSchedule( void ) override;
 	Schedule_t	*GetScheduleOfType( int Type ) override;
-	void		TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
+	void		TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 
 	void NodeStart( int iszNextNode );
 	void NodeReach( void );

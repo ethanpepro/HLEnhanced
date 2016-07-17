@@ -189,10 +189,10 @@ void CGMan::OnTakeDamage( const CTakeDamageInfo& info )
 }
 
 
-void CGMan::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CGMan::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	UTIL_Ricochet( ptr->vecEndPos, 1.0 );
-	g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+	g_MultiDamage.AddMultiDamage( !FNullEnt( info.GetAttacker() ) ? info.GetAttacker()->pev : nullptr, this, info.GetDamage(), info.GetDamageTypes() );
 }
 
 

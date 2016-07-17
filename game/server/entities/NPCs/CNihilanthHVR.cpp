@@ -346,7 +346,7 @@ void CNihilanthHVR::ZapThink( void )
 		if( pEntity != NULL && pEntity->pev->takedamage )
 		{
 			g_MultiDamage.Clear();
-			pEntity->TraceAttack( pev, gSkillData.nihilanthZap, pev->velocity, &tr, DMG_SHOCK );
+			pEntity->TraceAttack( CTakeDamageInfo( this, gSkillData.nihilanthZap, DMG_SHOCK ), pev->velocity, &tr );
 			g_MultiDamage.ApplyMultiDamage( this, this );
 		}
 

@@ -56,7 +56,7 @@ public:
 	void EXPORT CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 	//void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	void ShowDamage( void );
 
 	CBaseEntity *m_pGoalEnt;

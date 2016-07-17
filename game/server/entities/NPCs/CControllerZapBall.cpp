@@ -85,7 +85,7 @@ void CControllerZapBall::ExplodeTouch( CBaseEntity *pOther )
 		}
 
 		g_MultiDamage.Clear();
-		pOther->TraceAttack( pOwner->pev, gSkillData.controllerDmgBall, pev->velocity.Normalize(), &tr, DMG_ENERGYBEAM );
+		pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.controllerDmgBall, DMG_ENERGYBEAM ), pev->velocity.Normalize(), &tr );
 		g_MultiDamage.ApplyMultiDamage( pOwner, pOwner );
 
 		UTIL_EmitAmbientSound( ENT( pev ), tr.vecEndPos, "weapons/electro4.wav", 0.3, ATTN_NORM, 0, RANDOM_LONG( 90, 99 ) );

@@ -45,7 +45,7 @@ public:
 	// breakables use an overridden takedamage
 	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	// To spark when hit
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 
 	bool IsBreakable() const;
 	bool SparkWhenHit() const;

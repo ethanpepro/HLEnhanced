@@ -275,8 +275,10 @@ void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
 	}
 }
 
-void CBigMomma :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType )
+void CBigMomma::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
+	CTakeDamageInfo newInfo = info;
+
 	if ( ptr->iHitgroup != 1 )
 	{
 		// didn't hit the sack?
@@ -287,7 +289,7 @@ void CBigMomma :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector ve
 			pev->dmgtime = gpGlobals->time;
 		}
 
-		flDamage = 0.1;// don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated
+		newInfo.GetMutableDamage() = 0.1;// don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated
 	}
 	else if ( gpGlobals->time > m_painSoundTime )
 	{
@@ -296,7 +298,7 @@ void CBigMomma :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector ve
 	}
 
 
-	CBaseMonster::TraceAttack( pevAttacker, flDamage, vecDir, ptr, bitsDamageType );
+	CBaseMonster::TraceAttack( newInfo, vecDir, ptr );
 }
 
 

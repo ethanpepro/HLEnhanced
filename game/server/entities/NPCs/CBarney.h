@@ -60,7 +60,7 @@ public:
 
 	void TalkInit( void );
 
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	bool	m_fGunDrawn;

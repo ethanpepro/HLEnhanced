@@ -679,7 +679,7 @@ void COsprey :: ShowDamage( void )
 }
 
 
-void COsprey::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void COsprey::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	// ALERT( at_console, "%d %.0f\n", ptr->iHitgroup, flDamage );
 
@@ -689,8 +689,8 @@ void COsprey::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 		if (m_flRightHealth < 0)
 			return;
 		else
-			m_flRightHealth -= flDamage;
-		m_iDoLeftSmokePuff = 3 + (flDamage / 5.0);
+			m_flRightHealth -= info.GetDamage();
+		m_iDoLeftSmokePuff = 3 + (info.GetDamage()/ 5.0);
 	}
 
 	if (ptr->iHitgroup == 2)
@@ -698,15 +698,15 @@ void COsprey::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir
 		if (m_flLeftHealth < 0)
 			return;
 		else
-			m_flLeftHealth -= flDamage;
-		m_iDoRightSmokePuff = 3 + (flDamage / 5.0);
+			m_flLeftHealth -= info.GetDamage();
+		m_iDoRightSmokePuff = 3 + (info.GetDamage() / 5.0);
 	}
 
 	// hit hard, hits cockpit, hits engines
-	if (flDamage > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2 || ptr->iHitgroup == 3)
+	if (info.GetDamage() > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2 || ptr->iHitgroup == 3)
 	{
 		// ALERT( at_console, "%.0f\n", flDamage );
-		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		g_MultiDamage.AddMultiDamage( !FNullEnt( info.GetAttacker() ) ? info.GetAttacker()->pev : nullptr, this, info.GetDamage(), info.GetDamageTypes() );
 	}
 	else
 	{

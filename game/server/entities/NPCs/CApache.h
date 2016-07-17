@@ -50,7 +50,7 @@ public:
 	bool FireGun();
 
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 
 	int m_iRockets;
 	float m_flForce;

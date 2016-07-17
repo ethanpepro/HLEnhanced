@@ -212,7 +212,7 @@ public:
 	virtual void PostThink( void );
 	virtual Vector GetGunPosition( void ) override;
 	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
-	virtual void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType) override;
+	virtual void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	virtual void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	virtual Vector BodyTarget( const Vector &posSrc ) const override { return Center() + pev->view_ofs * RANDOM_FLOAT( 0.5, 1.1 ); }		// position to shoot at

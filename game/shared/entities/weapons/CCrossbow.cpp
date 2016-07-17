@@ -105,24 +105,22 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 	if (pOther->pev->takedamage)
 	{
 		TraceResult tr = UTIL_GetGlobalTrace( );
-		//TODO: remove pevOwner - Solokiller
-		entvars_t	*pevOwner;
 
-		pevOwner = VARS( pev->owner );
+		auto pOwner = Instance( pev->owner );
 
 		// UNDONE: this needs to call TraceAttack instead
 		g_MultiDamage.Clear( );
 
 		if ( pOther->IsPlayer() )
 		{
-			pOther->TraceAttack(pevOwner, gSkillData.plrDmgCrossbowClient, pev->velocity.Normalize(), &tr, DMG_NEVERGIB ); 
+			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.plrDmgCrossbowClient, DMG_NEVERGIB ), pev->velocity.Normalize(), &tr ); 
 		}
 		else
 		{
-			pOther->TraceAttack(pevOwner, gSkillData.plrDmgCrossbowMonster, pev->velocity.Normalize(), &tr, DMG_BULLET | DMG_NEVERGIB ); 
+			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.plrDmgCrossbowMonster, DMG_BULLET | DMG_NEVERGIB ), pev->velocity.Normalize(), &tr ); 
 		}
 
-		g_MultiDamage.ApplyMultiDamage( this, Instance( pevOwner ) );
+		g_MultiDamage.ApplyMultiDamage( this, pOwner );
 
 		pev->velocity = Vector( 0, 0, 0 );
 		// play body "thwack" sound
@@ -213,7 +211,7 @@ void CCrossbowBolt::ExplodeThink( void )
 
 	pev->owner = nullptr; // can't traceline attack owner if this is set
 
-	::RadiusDamage( pev->origin, this, pOwner, pev->dmg, 128, CLASS_NONE, DMG_BLAST | DMG_ALWAYSGIB );
+	::RadiusDamage( pev->origin, CTakeDamageInfo( this, pOwner, pev->dmg, DMG_BLAST | DMG_ALWAYSGIB ), 128, CLASS_NONE );
 
 	UTIL_Remove(this);
 }
@@ -348,7 +346,7 @@ void CCrossbow::FireSniperBolt()
 	if ( tr.pHit->v.takedamage )
 	{
 		g_MultiDamage.Clear( );
-		CBaseEntity::Instance(tr.pHit)->TraceAttack(m_pPlayer->pev, 120, vecDir, &tr, DMG_BULLET | DMG_NEVERGIB ); 
+		CBaseEntity::Instance(tr.pHit)->TraceAttack( CTakeDamageInfo( m_pPlayer, 120, DMG_BULLET | DMG_NEVERGIB ), vecDir, &tr ); 
 		g_MultiDamage.ApplyMultiDamage( this, m_pPlayer );
 	}
 #endif

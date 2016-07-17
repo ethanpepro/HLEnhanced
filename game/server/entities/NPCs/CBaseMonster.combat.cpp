@@ -631,15 +631,17 @@ float CBaseMonster :: DamageForce( float damage )
 // only damage ents that can clearly be seen by the explosion!
 
 	
-void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, float flRadius, int iClassIgnore, int bitsDamageType )
+void RadiusDamage( Vector vecSrc, const CTakeDamageInfo& info, float flRadius, int iClassIgnore )
 {
 	CBaseEntity *pEntity = NULL;
 	TraceResult	tr;
 	float		flAdjustedDamage, falloff;
 	Vector		vecSpot;
 
+	CTakeDamageInfo newInfo = info;
+
 	if ( flRadius )
-		falloff = flDamage / flRadius;
+		falloff = newInfo.GetDamage() / flRadius;
 	else
 		falloff = 1.0;
 
@@ -647,8 +649,8 @@ void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacke
 
 	vecSrc.z += 1;// in case grenade is lying on the ground
 
-	if ( !pAttacker )
-		pAttacker = pInflictor;
+	if ( !newInfo.GetAttacker() )
+		newInfo.SetAttacker( newInfo.GetInflictor() );
 
 	// iterate on all entities in the vicinity.
 	while ((pEntity = UTIL_FindEntityInSphere( pEntity, vecSrc, flRadius )) != NULL)
@@ -669,7 +671,7 @@ void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacke
 
 			vecSpot = pEntity->BodyTarget( vecSrc );
 			
-			UTIL_TraceLine ( vecSrc, vecSpot, dont_ignore_monsters, pInflictor->edict(), &tr );
+			UTIL_TraceLine ( vecSrc, vecSpot, dont_ignore_monsters, newInfo.GetInflictor()->edict(), &tr );
 
 			if ( tr.flFraction == 1.0 || tr.pHit == pEntity->edict() )
 			{// the explosion can 'see' this entity, so hurt them!
@@ -682,7 +684,7 @@ void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacke
 				
 				// decrease damage for an ent that's farther from the bomb.
 				flAdjustedDamage = ( vecSrc - tr.vecEndPos ).Length() * falloff;
-				flAdjustedDamage = flDamage - flAdjustedDamage;
+				flAdjustedDamage = newInfo.GetDamage() - flAdjustedDamage;
 			
 				if ( flAdjustedDamage < 0 )
 				{
@@ -693,12 +695,13 @@ void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacke
 				if (tr.flFraction != 1.0)
 				{
 					g_MultiDamage.Clear( );
-					pEntity->TraceAttack( pInflictor->pev, flAdjustedDamage, (tr.vecEndPos - vecSrc).Normalize( ), &tr, bitsDamageType );
-					g_MultiDamage.ApplyMultiDamage( pInflictor, pAttacker );
+					newInfo.SetDamage( flAdjustedDamage );
+					pEntity->TraceAttack( newInfo, (tr.vecEndPos - vecSrc).Normalize( ), &tr );
+					g_MultiDamage.ApplyMultiDamage( newInfo.GetInflictor(), newInfo.GetAttacker() );
 				}
 				else
 				{
-					pEntity->TakeDamage ( pInflictor, pAttacker, flAdjustedDamage, bitsDamageType );
+					pEntity->TakeDamage( newInfo );
 				}
 			}
 		}
@@ -708,13 +711,13 @@ void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacke
 
 void CBaseMonster::RadiusDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int iClassIgnore, int bitsDamageType )
 {
-	::RadiusDamage( pev->origin, pInflictor, pAttacker, flDamage, flDamage * 2.5, iClassIgnore, bitsDamageType );
+	::RadiusDamage( pev->origin, CTakeDamageInfo( pInflictor, pAttacker, flDamage, bitsDamageType ), flDamage * 2.5, iClassIgnore );
 }
 
 
 void CBaseMonster :: RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int iClassIgnore, int bitsDamageType )
 {
-	::RadiusDamage( vecSrc, pInflictor, pAttacker, flDamage, flDamage * 2.5, iClassIgnore, bitsDamageType );
+	::RadiusDamage( vecSrc, CTakeDamageInfo( pInflictor, pAttacker, flDamage, bitsDamageType ), flDamage * 2.5, iClassIgnore );
 }
 
 
@@ -839,8 +842,10 @@ void CBaseMonster::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector ve
 //=========================================================
 // TraceAttack
 //=========================================================
-void CBaseMonster :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
+	CTakeDamageInfo newInfo = info;
+
 	if ( pev->takedamage )
 	{
 		m_LastHitGroup = ptr->iHitgroup;
@@ -850,29 +855,29 @@ void CBaseMonster :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector
 		case HITGROUP_GENERIC:
 			break;
 		case HITGROUP_HEAD:
-			flDamage *= gSkillData.monHead;
+			newInfo.GetMutableDamage() *= gSkillData.monHead;
 			break;
 		case HITGROUP_CHEST:
-			flDamage *= gSkillData.monChest;
+			newInfo.GetMutableDamage() *= gSkillData.monChest;
 			break;
 		case HITGROUP_STOMACH:
-			flDamage *= gSkillData.monStomach;
+			newInfo.GetMutableDamage() *= gSkillData.monStomach;
 			break;
 		case HITGROUP_LEFTARM:
 		case HITGROUP_RIGHTARM:
-			flDamage *= gSkillData.monArm;
+			newInfo.GetMutableDamage() *= gSkillData.monArm;
 			break;
 		case HITGROUP_LEFTLEG:
 		case HITGROUP_RIGHTLEG:
-			flDamage *= gSkillData.monLeg;
+			newInfo.GetMutableDamage() *= gSkillData.monLeg;
 			break;
 		default:
 			break;
 		}
 
-		SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage);// a little surface blood.
-		TraceBleed( flDamage, vecDir, ptr, bitsDamageType );
-		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		SpawnBlood(ptr->vecEndPos, BloodColor(), newInfo.GetDamage());// a little surface blood.
+		TraceBleed( newInfo.GetDamage(), vecDir, ptr, newInfo.GetDamageTypes() );
+		g_MultiDamage.AddMultiDamage( !FNullEnt( newInfo.GetAttacker() ) ? newInfo.GetAttacker()->pev : nullptr, this, newInfo.GetDamage(), newInfo.GetDamageTypes() );
 	}
 }
 

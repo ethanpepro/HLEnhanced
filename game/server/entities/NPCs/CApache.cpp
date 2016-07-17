@@ -843,20 +843,20 @@ void CApache::OnTakeDamage( const CTakeDamageInfo& info )
 
 
 
-void CApache::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CApache::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	// ALERT( at_console, "%d %.0f\n", ptr->iHitgroup, flDamage );
 
 	// ignore blades
-	if (ptr->iHitgroup == 6 && (bitsDamageType & (DMG_ENERGYBEAM|DMG_BULLET|DMG_CLUB)))
+	if (ptr->iHitgroup == 6 && (info.GetDamageTypes() & (DMG_ENERGYBEAM|DMG_BULLET|DMG_CLUB)))
 		return;
 
 	// hit hard, hits cockpit, hits engines
-	if (flDamage > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2)
+	if (info.GetDamage() > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2)
 	{
 		// ALERT( at_console, "%.0f\n", flDamage );
-		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
-		m_iDoSmokePuff = 3 + (flDamage / 5.0);
+		g_MultiDamage.AddMultiDamage( !FNullEnt( info.GetAttacker() ) ? info.GetAttacker()->pev : nullptr, this, info.GetDamage(), info.GetDamageTypes() );
+		m_iDoSmokePuff = 3 + (info.GetDamage() / 5.0);
 	}
 	else
 	{

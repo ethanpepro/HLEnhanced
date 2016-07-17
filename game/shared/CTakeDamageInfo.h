@@ -65,7 +65,7 @@ public:
 	*	Sets the attacker.
 	*	@param pAttacker Attacker.
 	*/
-	void SeAttacker( CBaseEntity* pAttacker )
+	void SetAttacker( CBaseEntity* pAttacker )
 	{
 		m_pAttacker = pAttacker;
 	}

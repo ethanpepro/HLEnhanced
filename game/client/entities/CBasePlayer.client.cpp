@@ -47,7 +47,7 @@ float CBasePlayer::GiveHealth( float flHealth, int bitsDamageType )
 	return 0;
 }
 
-void CBasePlayer::TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType )
+void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 }
 

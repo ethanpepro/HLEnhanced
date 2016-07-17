@@ -222,14 +222,12 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 	// only do damage if we're moving fairly fast
 	if (m_flNextAttack < gpGlobals->time && pev->velocity.Length() > 100)
 	{
-		//TODO: remove pevOwner - Solokiller
-		entvars_t *pevOwner = VARS( pev->owner );
-		if (pevOwner)
+		if ( auto pOwner = Instance( pev->owner ) )
 		{
 			TraceResult tr = UTIL_GetGlobalTrace( );
 			g_MultiDamage.Clear( );
-			pOther->TraceAttack(pevOwner, 1, gpGlobals->v_forward, &tr, DMG_CLUB ); 
-			g_MultiDamage.ApplyMultiDamage( this, Instance( pevOwner ) );
+			pOther->TraceAttack( CTakeDamageInfo( pOwner, 1, DMG_CLUB ), gpGlobals->v_forward, &tr );
+			g_MultiDamage.ApplyMultiDamage( this, pOwner );
 		}
 		m_flNextAttack = gpGlobals->time + 1.0; // debounce
 	}

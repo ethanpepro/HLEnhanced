@@ -59,7 +59,7 @@ public:
 	void MakeFriend( Vector vecPos );
 
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	void TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 
 	void PainSound( void ) override;
 	void DeathSound( void ) override;

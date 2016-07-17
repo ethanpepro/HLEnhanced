@@ -121,9 +121,11 @@ int CAGrunt :: ISoundMask ( void )
 //=========================================================
 // TraceAttack
 //=========================================================
-void CAGrunt :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
-	if ( ptr->iHitgroup == 10 && (bitsDamageType & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
+	CTakeDamageInfo newInfo = info;
+
+	if ( ptr->iHitgroup == 10 && (newInfo.GetDamageTypes() & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
 	{
 		// hit armor
 		if ( pev->dmgtime != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
@@ -154,17 +156,17 @@ void CAGrunt :: TraceAttack( entvars_t *pevAttacker, float flDamage, Vector vecD
 			MESSAGE_END();
 		}
 
-		flDamage -= 20;
-		if (flDamage <= 0)
-			flDamage = 0.1;// don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated
+		newInfo.GetMutableDamage() -= 20;
+		if (newInfo.GetDamage() <= 0)
+			newInfo.GetMutableDamage() = 0.1;// don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated
 	}
 	else
 	{
-		SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage);// a little surface blood.
-		TraceBleed( flDamage, vecDir, ptr, bitsDamageType );
+		SpawnBlood(ptr->vecEndPos, BloodColor(), newInfo.GetDamage());// a little surface blood.
+		TraceBleed( newInfo.GetDamage(), vecDir, ptr, newInfo.GetDamageTypes() );
 	}
 
-	g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+	g_MultiDamage.AddMultiDamage( !FNullEnt( info.GetAttacker() ) ? info.GetAttacker()->pev : nullptr, this, newInfo.GetDamage(), newInfo.GetDamageTypes() );
 }
 
 //=========================================================

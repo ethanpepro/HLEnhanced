@@ -333,7 +333,7 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 			{
 				// ALERT( at_console, "hit enemy\n");
 				g_MultiDamage.Clear( );
-				pOther->TraceAttack(pev, gSkillData.snarkDmgBite, gpGlobals->v_forward, &tr, DMG_SLASH ); 
+				pOther->TraceAttack( CTakeDamageInfo( this, gSkillData.snarkDmgBite, DMG_SLASH ), gpGlobals->v_forward, &tr );
 				if (m_hOwner != NULL)
 					g_MultiDamage.ApplyMultiDamage( this, m_hOwner );
 				else
