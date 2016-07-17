@@ -20,6 +20,15 @@
 class CEnvGlobal : public CPointEntity
 {
 public:
+	enum class TriggerMode
+	{
+		OFF		= 0,
+		ON		= 1,
+		DEAD	= 2,
+		TOGGLE	= 3
+	};
+
+public:
 	DECLARE_CLASS( CEnvGlobal, CPointEntity );
 	DECLARE_DATADESC();
 
@@ -28,7 +37,7 @@ public:
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
 	string_t	m_globalstate;
-	int			m_triggermode;
+	TriggerMode m_triggermode;
 	int			m_initialstate;
 };
 

@@ -28,12 +28,13 @@ void CEnvGlobal::Spawn( void )
 
 void CEnvGlobal::KeyValue( KeyValueData *pkvd )
 {
+	//TODO: what if the keyvalue isn't handled? - Solokiller
 	pkvd->fHandled = true;
 
 	if( FStrEq( pkvd->szKeyName, "globalstate" ) )		// State name
 		m_globalstate = ALLOC_STRING( pkvd->szValue );
 	else if( FStrEq( pkvd->szKeyName, "triggermode" ) )
-		m_triggermode = atoi( pkvd->szValue );
+		m_triggermode = static_cast<TriggerMode>( atoi( pkvd->szValue ) );
 	else if( FStrEq( pkvd->szKeyName, "initialstate" ) )
 		m_initialstate = atoi( pkvd->szValue );
 	else
@@ -45,23 +46,22 @@ void CEnvGlobal::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 	GLOBALESTATE oldState = gGlobalState.EntityGetState( m_globalstate );
 	GLOBALESTATE newState;
 
-	//TODO: define constants - Solokiller
 	switch( m_triggermode )
 	{
-	case 0:
+	case TriggerMode::OFF:
 		newState = GLOBAL_OFF;
 		break;
 
-	case 1:
+	case TriggerMode::ON:
 		newState = GLOBAL_ON;
 		break;
 
-	case 2:
+	case TriggerMode::DEAD:
 		newState = GLOBAL_DEAD;
 		break;
 
 	default:
-	case 3:
+	case TriggerMode::TOGGLE:
 		if( oldState == GLOBAL_ON )
 			newState = GLOBAL_OFF;
 		else if( oldState == GLOBAL_OFF )
