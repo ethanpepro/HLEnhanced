@@ -256,6 +256,224 @@ public:
 	CBaseEntity			*m_pGoalEnt;// path corner we are heading towards
 	CBaseEntity			*m_pLink;// used for temporary link-list operations. 
 
+	/*
+	*	Getters and setters for entvars_t.
+	*/
+public:
+	/**
+	*	@return This entity's classname.
+	*/
+	const char* GetClassname() const { return STRING( pev->classname ); }
+
+	/**
+	*	@return Whether this entity's classname matches the given classname.
+	*/
+	bool ClassnameIs( const char* const pszClassName ) const
+	{
+		return FClassnameIs( this, pszClassName );
+	}
+
+	/**
+	*	@copydoc ClassnameIs( const char* const pszClassName ) const
+	*/
+	bool ClassnameIs( const string_t iszClassName ) const
+	{
+		return FClassnameIs( this, STRING( iszClassName ) );
+	}
+
+	/**
+	*	@return Whether this entity has a global name.
+	*/
+	bool HasGlobalName() const
+	{
+		return !!( *STRING( pev->globalname ) );
+	}
+
+	/**
+	*	@return This entity's global name.
+	*/
+	const char* GetGlobalName() const { return STRING( pev->globalname ); }
+
+	/**
+	*	Sets this entity's global name.
+	*	@param iszGlobalName Name to set.
+	*/
+	void SetGlobalName( const string_t iszGlobalName )
+	{
+		pev->globalname = iszGlobalName;
+	}
+
+	/**
+	*	Sets this entity's global name.
+	*	@param pszGlobalName Name to set.
+	*/
+	void SetGlobalName( const char* const pszGlobalName )
+	{
+		SetGlobalName( MAKE_STRING( pszGlobalName ) );
+	}
+
+	/**
+	*	Clears this entity's global name.
+	*/
+	void ClearGlobalName()
+	{
+		pev->globalname = iStringNull;
+	}
+
+	/**
+	*	@return Whether this entity has a targetname.
+	*/
+	bool HasTargetname() const
+	{
+		return !!( *STRING( pev->targetname ) );
+	}
+
+	/**
+	*	@return This entity's targetname.
+	*/
+	const char* GetTargetname() const { return STRING( pev->targetname ); }
+
+	/**
+	*	Sets this entity's targetname.
+	*	@param iszTargetName Name to set.
+	*/
+	void SetTargetname( const string_t iszTargetName )
+	{
+		pev->targetname = iszTargetName;
+	}
+
+	/**
+	*	Sets this entity's targetname.
+	*	@param pszTargetName Name to set.
+	*/
+	void SetTargetname( const char* const pszTargetName )
+	{
+		SetTargetname( MAKE_STRING( pszTargetName ) );
+	}
+
+	/**
+	*	Clears this entity's targetname.
+	*/
+	void ClearTargetname()
+	{
+		pev->targetname = iStringNull;
+	}
+
+	/**
+	*	@return Whether this entity has a target.
+	*/
+	bool HasTarget() const
+	{
+		return !!( *STRING( pev->target ) );
+	}
+
+	/**
+	*	@return This entity's target.
+	*/
+	const char* GetTarget() const { return STRING( pev->target ); }
+
+	/**
+	*	Sets this entity's target.
+	*	@param iszTarget Target to set.
+	*/
+	void SetTarget( const string_t iszTarget )
+	{
+		pev->target = iszTarget;
+	}
+
+	/**
+	*	Sets this entity's target.
+	*	@param pszTarget Name to set.
+	*/
+	void SetTarget( const char* const pszTarget )
+	{
+		SetTarget( MAKE_STRING( pszTarget ) );
+	}
+
+	/**
+	*	Clears this entity's target.
+	*/
+	void ClearTarget()
+	{
+		pev->target = iStringNull;
+	}
+
+	/**
+	*	@return The entity's absolute origin.
+	*/
+	const Vector& GetAbsOrigin() const { return pev->origin; }
+
+	/**
+	*	Sets the entity's absolute origin.
+	*	@param vecOrigin Origin to set.
+	*/
+	void SetAbsOrigin( const Vector& vecOrigin )
+	{
+		UTIL_SetOrigin( this, vecOrigin );
+	}
+
+	/**
+	*	@return The entity's old origin.
+	*/
+	const Vector& GetOldOrigin() const { return pev->oldorigin; }
+
+	/**
+	*	@return The entity's old origin, in mutable form.
+	*/
+	Vector& GetMutableOldOrigin() { return pev->oldorigin; }
+
+	/**
+	*	Sets the entity's old origin.
+	*	@param vecOrigin Origin to set.
+	*/
+	void SetOldOrigin( const Vector& vecOrigin )
+	{
+		pev->oldorigin = vecOrigin;
+	}
+
+	/**
+	*	@return This entity's absolute velocity.
+	*/
+	const Vector& GetAbsVelocity() const { return pev->velocity; }
+
+	/**
+	*	Sets the entity's absolute velocity.
+	*	@param vecVelocity Velocity to set.
+	*/
+	void SetAbsVelocity( const Vector& vecVelocity )
+	{
+		pev->velocity = vecVelocity;
+	}
+
+	/**
+	*	@return This entity's base velocity.
+	*/
+	const Vector& GetBaseVelocity() const { return pev->basevelocity; }
+
+	/**
+	*	Sets the entity's base velocity.
+	*	@param vecVelocity Velocity to set.
+	*/
+	void SetBaseVelocity( const Vector& vecVelocity )
+	{
+		pev->basevelocity = vecVelocity;
+	}
+
+	/**
+	*	@return This entity's move direction.
+	*/
+	const Vector& GetMoveDir() const { return pev->movedir; }
+
+	/**
+	*	Sets the entity's move direction.
+	*	@param vecMoveDir Move direction to set.
+	*/
+	void SetMoveDir( const Vector& vecMoveDir )
+	{
+		pev->movedir = vecMoveDir;
+	}
+
+public:
 	/**
 	*	Called when the entity is first created. - Solokiller
 	*/
@@ -332,21 +550,6 @@ public:
 	*	Respawns the entity. Entities that can be respawned should override this and return a new instance.
 	*/
 	virtual CBaseEntity* Respawn() { return nullptr; }
-
-	/**
-	*	@return This entity's classname.
-	*/
-	const char* GetClassname() const { return STRING( pev->classname ); }
-
-	/**
-	*	@return This entity's targetname.
-	*/
-	const char* GetTargetname() const { return STRING( pev->targetname ); }
-
-	/**
-	*	@return This entity's target.
-	*/
-	const char* GetTarget() const { return STRING( pev->target ); }
 
 	/**
 	*	@return This entity's edict.

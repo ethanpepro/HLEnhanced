@@ -45,7 +45,7 @@ bool FNullEnt( const CBaseEntity* pEntity )
 	return pEntity == nullptr || FNullEnt( pEntity->pev );
 }
 
-bool FClassnameIs( CBaseEntity* pEntity, const char* pszClassname )
+bool FClassnameIs( const CBaseEntity* pEntity, const char* pszClassname )
 {
 	return pEntity ? FClassnameIs( pEntity->pev, pszClassname ) : false;
 }
