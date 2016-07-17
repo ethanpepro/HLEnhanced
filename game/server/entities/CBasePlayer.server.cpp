@@ -60,7 +60,7 @@ extern DLL_GLOBAL bool			gDisplayTitle;
 bool gInitHUD = true;
 
 extern void respawn(entvars_t *pev, const bool fCopyCorpse);
-extern edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer );
+CBaseEntity* EntSelectSpawnPoint( CBaseEntity* pPlayer );
 
 // the world node graph
 extern CGraph	WorldGraph;
@@ -2687,12 +2687,14 @@ Returns the entity to spawn at
 USES AND SETS GLOBAL g_pLastSpawn
 ============
 */
-edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer )
+CBaseEntity* EntSelectSpawnPoint( CBaseEntity *pPlayer )
 {
 	CBaseEntity *pSpot;
 	edict_t		*player;
 
 	player = pPlayer->edict();
+
+	//TODO: rewrite to not use goto - Solokiller
 
 // choose a info_player_deathmatch point
 	if (g_pGameRules->IsCoOp())
@@ -2768,11 +2770,12 @@ ReturnSpot:
 	if ( FNullEnt( pSpot ) )
 	{
 		ALERT(at_error, "PutClientInServer: no info_player_start on level");
-		return INDEXENT(0);
+		//Use the world.
+		return CWorld::GetInstance();
 	}
 
 	g_pLastSpawn = pSpot;
-	return pSpot->edict();
+	return pSpot;
 }
 
 void CBasePlayer::Spawn( void )
@@ -2931,9 +2934,9 @@ bool CBasePlayer::Restore( CRestore &restore )
 		ALERT( at_console, "No Landmark:%s\n", pSaveData->szLandmarkName );
 
 		// default to normal spawn
-		edict_t* pentSpawnSpot = EntSelectSpawnPoint( this );
-		pev->origin = VARS(pentSpawnSpot)->origin + Vector(0,0,1);
-		pev->angles = VARS(pentSpawnSpot)->angles;
+		CBaseEntity* pSpawnSpot = EntSelectSpawnPoint( this );
+		pev->origin = pSpawnSpot->pev->origin + Vector( 0, 0, 1 );
+		pev->angles = pSpawnSpot->pev->angles;
 	}
 	pev->v_angle.z = 0;	// Clear out roll
 	pev->angles = pev->v_angle;

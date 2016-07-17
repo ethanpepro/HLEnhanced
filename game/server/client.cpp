@@ -569,8 +569,8 @@ void ClientCommand( edict_t *pEntity )
 		{
 			CBasePlayer * pPlayer = GetClassPtr((CBasePlayer *)pev);
 
-			edict_t *pentSpawnSpot = g_pGameRules->GetPlayerSpawnSpot( pPlayer );
-			pPlayer->StartObserver( pev->origin, VARS(pentSpawnSpot)->angles);
+			CBaseEntity *pSpawnSpot = g_pGameRules->GetPlayerSpawnSpot( pPlayer );
+			pPlayer->StartObserver( pev->origin, pSpawnSpot->pev->angles);
 
 			// notify other clients of player switching to spectator mode
 			UTIL_ClientPrintAll( HUD_PRINTNOTIFY, UTIL_VarArgs( "%s switched to spectator mode\n", 

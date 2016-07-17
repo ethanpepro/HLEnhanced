@@ -1087,15 +1087,16 @@ int CHalfLifeMultiplay::DeadPlayerAmmo( CBasePlayer *pPlayer )
 	return GR_PLR_DROP_AMMO_ACTIVE;
 }
 
-edict_t *CHalfLifeMultiplay::GetPlayerSpawnSpot( CBasePlayer *pPlayer )
+CBaseEntity* CHalfLifeMultiplay::GetPlayerSpawnSpot( CBasePlayer* pPlayer )
 {
-	edict_t *pentSpawnSpot = CGameRules::GetPlayerSpawnSpot( pPlayer );	
-	if ( IsMultiplayer() && pentSpawnSpot->v.target )
+	CBaseEntity* pSpawnSpot = CGameRules::GetPlayerSpawnSpot( pPlayer );
+	//TODO: this should be handled differently. Use a base class for spawn points that gets told when somebody spawns. - Solokiller
+	if ( IsMultiplayer() && pSpawnSpot->pev->target )
 	{
-		FireTargets( STRING(pentSpawnSpot->v.target), pPlayer, pPlayer, USE_TOGGLE, 0 );
+		FireTargets( STRING( pSpawnSpot->pev->target ), pPlayer, pPlayer, USE_TOGGLE, 0 );
 	}
 
-	return pentSpawnSpot;
+	return pSpawnSpot;
 }
 
 

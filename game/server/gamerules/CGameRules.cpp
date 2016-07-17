@@ -25,7 +25,7 @@
 #include	"Skill.h"
 #include	"Server.h"
 
-extern edict_t *EntSelectSpawnPoint( CBaseEntity *pPlayer );
+CBaseEntity* EntSelectSpawnPoint( CBaseEntity* pPlayer );
 
 extern DLL_GLOBAL bool	g_fGameOver;
 extern int gmsgDeathMsg;	// client dll messages
@@ -54,18 +54,21 @@ bool CGameRules::CanHaveAmmo( CBasePlayer *pPlayer, const char *pszAmmoName )
 
 //=========================================================
 //=========================================================
-edict_t *CGameRules :: GetPlayerSpawnSpot( CBasePlayer *pPlayer )
+CBaseEntity* CGameRules::GetPlayerSpawnSpot( CBasePlayer* pPlayer )
 {
-	edict_t *pentSpawnSpot = EntSelectSpawnPoint( pPlayer );
+	CBaseEntity* pSpawnSpot = EntSelectSpawnPoint( pPlayer );
 
-	pPlayer->pev->origin = VARS(pentSpawnSpot)->origin + Vector(0,0,1);
-	pPlayer->pev->v_angle  = g_vecZero;
-	pPlayer->pev->velocity = g_vecZero;
-	pPlayer->pev->angles = VARS(pentSpawnSpot)->angles;
-	pPlayer->pev->punchangle = g_vecZero;
-	pPlayer->pev->fixangle = FIXANGLE_SET;
+	//This should never be null.
+	ASSERT( pSpawnSpot );
+
+	pPlayer->pev->origin		= pSpawnSpot->pev->origin + Vector( 0, 0, 1 );
+	pPlayer->pev->v_angle		= g_vecZero;
+	pPlayer->pev->velocity		= g_vecZero;
+	pPlayer->pev->angles		= pSpawnSpot->pev->angles;
+	pPlayer->pev->punchangle	= g_vecZero;
+	pPlayer->pev->fixangle		= FIXANGLE_SET;
 	
-	return pentSpawnSpot;
+	return pSpawnSpot;
 }
 
 //=========================================================

@@ -58,7 +58,7 @@ public:
 	virtual void PlayerThink( CBasePlayer *pPlayer ) override;
 	virtual bool FPlayerCanRespawn( CBasePlayer *pPlayer ) override;
 	virtual float FlPlayerSpawnTime( CBasePlayer *pPlayer ) override;
-	virtual edict_t *GetPlayerSpawnSpot( CBasePlayer *pPlayer ) override;
+	virtual CBaseEntity* GetPlayerSpawnSpot( CBasePlayer* pPlayer ) override;
 
 	virtual bool AllowAutoTargetCrosshair() override;
 	virtual bool ClientCommand( CBasePlayer *pPlayer, const char *pcmd ) override;
