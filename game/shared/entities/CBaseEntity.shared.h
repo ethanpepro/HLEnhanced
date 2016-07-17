@@ -529,7 +529,7 @@ public:
 	/**
 	*	Deals damage to this entity.
 	*	@param pInflictor The entity that is responsible for dealing the damage.
-	*	@param pAttacker The entity that owns pevInflictor. This may be identical to pInflictor if it directly attacked this entity.
+	*	@param pAttacker The entity that owns pInflictor. This may be identical to pInflictor if it directly attacked this entity.
 	*	@param flDamage Amount of damage to deal.
 	*	@param bitsDamageType Bit vector of damage types.
 	*	@return Whether any damage was dealt.

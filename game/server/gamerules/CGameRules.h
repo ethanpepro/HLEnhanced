@@ -15,6 +15,8 @@
 #ifndef GAME_SERVER_GAMERULES_CGAMERULES_H
 #define GAME_SERVER_GAMERULES_CGAMERULES_H
 
+#include "CTakeDamageInfo.h"
+
 //#include "Weapons.h"
 //#include "items.h"
 class CBaseEntity;
@@ -104,8 +106,8 @@ public:
 
 // Client kills/scoring
 	virtual int IPointsForKill( CBasePlayer *pAttacker, CBasePlayer *pKilled ) = 0;// how many points do I award whoever kills this player?
-	virtual void PlayerKilled( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pInflictor ) = 0;// Called each time a player dies
-	virtual void DeathNotice( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pInflictor )=  0;// Call this from within a GameRules class to report an obituary.
+	virtual void PlayerKilled( CBasePlayer* pVictim, const CTakeDamageInfo& info ) = 0;// Called each time a player dies
+	virtual void DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info )=  0;// Call this from within a GameRules class to report an obituary.
 // Weapon retrieval
 	virtual bool CanHavePlayerItem( CBasePlayer *pPlayer, CBasePlayerItem *pWeapon );// The player is touching an CBasePlayerItem, do I give it to him?
 	virtual void PlayerGotWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pWeapon ) = 0;// Called each time a player picks up a weapon from the ground

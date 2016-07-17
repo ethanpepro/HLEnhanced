@@ -40,10 +40,10 @@ public:
 	virtual bool ShouldAutoAim( CBasePlayer *pPlayer, edict_t *target ) override;
 	virtual int IPointsForKill( CBasePlayer *pAttacker, CBasePlayer *pKilled ) override;
 	virtual void InitHUD( CBasePlayer *pl ) override;
-	virtual void DeathNotice( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pevInflictor ) override;
+	virtual void DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
 	virtual const char *GetGameDescription() const override { return "HL Teamplay"; }  // this is the game name that gets seen in the server browser
 	virtual void UpdateGameMode( CBasePlayer *pPlayer ) override;  // the client needs to be informed of the current game mode
-	virtual void PlayerKilled( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pInflictor ) override;
+	virtual void PlayerKilled( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
 	virtual void Think() override;
 	virtual int GetTeamIndex( const char *pTeamName ) override;
 	virtual const char *GetIndexedTeamName( int teamIndex ) override;

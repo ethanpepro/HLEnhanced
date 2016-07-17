@@ -16,7 +16,7 @@ public:
 	/**
 	*	Constructor.
 	*	@param pInflictor The entity that is responsible for dealing the damage.
-	*	@param pAttacker The entity that owns pevInflictor. This may be identical to pInflictor if it directly attacked this entity.
+	*	@param pAttacker The entity that owns pInflictor. This may be identical to pInflictor if it directly attacked this entity.
 	*	@param flDamage Amount of damage to deal.
 	*	@param iBitsDamageTypes Bit vector of damage types.
 	*/

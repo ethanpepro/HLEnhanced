@@ -65,8 +65,8 @@ public:
 
 	// Client kills/scoring
 	virtual int IPointsForKill( CBasePlayer *pAttacker, CBasePlayer *pKilled ) override;
-	virtual void PlayerKilled( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pInflictor ) override;
-	virtual void DeathNotice( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pInflictor ) override;
+	virtual void PlayerKilled( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
+	virtual void DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
 
 	// Weapon retrieval
 	virtual void PlayerGotWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pWeapon ) override;

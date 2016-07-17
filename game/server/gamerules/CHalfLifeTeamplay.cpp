@@ -361,14 +361,16 @@ extern int gmsgDeathMsg;
 //=========================================================
 // Deathnotice. 
 //=========================================================
-void CHalfLifeTeamplay::DeathNotice( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pevInflictor )
+void CHalfLifeTeamplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info )
 {
 	if ( m_DisableDeathMessages )
 		return;
+
+	auto pKiller = info.GetAttacker();
 	
-	if ( pVictim && pKiller && pKiller->flags & FL_CLIENT )
+	if ( pVictim && pKiller && pKiller->pev->flags & FL_CLIENT )
 	{
-		CBasePlayer *pk = (CBasePlayer*) CBaseEntity::Instance( pKiller );
+		CBasePlayer *pk = (CBasePlayer*) pKiller;
 
 		if ( pk )
 		{
@@ -384,16 +386,16 @@ void CHalfLifeTeamplay::DeathNotice( CBasePlayer *pVictim, entvars_t *pKiller, e
 		}
 	}
 
-	CHalfLifeMultiplay::DeathNotice( pVictim, pKiller, pevInflictor );
+	CHalfLifeMultiplay::DeathNotice( pVictim, info );
 }
 
 //=========================================================
 //=========================================================
-void CHalfLifeTeamplay :: PlayerKilled( CBasePlayer *pVictim, entvars_t *pKiller, entvars_t *pInflictor )
+void CHalfLifeTeamplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageInfo& info )
 {
 	if ( !m_DisableDeathPenalty )
 	{
-		CHalfLifeMultiplay::PlayerKilled( pVictim, pKiller, pInflictor );
+		CHalfLifeMultiplay::PlayerKilled( pVictim, info );
 		RecountTeams();
 	}
 }

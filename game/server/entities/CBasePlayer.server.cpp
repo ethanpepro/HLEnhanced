@@ -805,7 +805,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	if ( m_pActiveItem )
 		m_pActiveItem->Holster( );
 
-	g_pGameRules->PlayerKilled( this, info.GetAttacker()->pev, !FNullEnt( info.GetInflictor() ) ? info.GetInflictor()->pev : nullptr );
+	g_pGameRules->PlayerKilled( this, info );
 
 	if ( m_pTank != NULL )
 	{
