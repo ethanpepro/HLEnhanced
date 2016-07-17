@@ -473,6 +473,93 @@ public:
 		pev->movedir = vecMoveDir;
 	}
 
+	/**
+	*	@return This entity's absolute angles.
+	*/
+	const Vector& GetAbsAngles() const { return pev->angles; }
+
+	/**
+	*	Sets this entity's absolute angles.
+	*	@param vecAngles Angles to set.
+	*/
+	void SetAbsAngles( const Vector& vecAngles )
+	{
+		pev->angles = vecAngles;
+	}
+
+	/**
+	*	@return This entity's angular velocity.
+	*/
+	const Vector& GetAngularVelocity() const { return pev->avelocity; }
+
+	/**
+	*	@return This entity's angular velocity, in mutable form.
+	*/
+	Vector& GetMutableAVelocity() { return pev->avelocity; }
+
+	/**
+	*	Sets this entity's angular velocity.
+	*	@param vecAVelocity Angular velocity to set.
+	*/
+	void SetAngularVelocity( const Vector& vecAVelocity )
+	{
+		pev->avelocity = vecAVelocity;
+	}
+
+	/**
+	*	@return This entity's punch angle.
+	*/
+	const Vector& GetPunchAngle() const { return pev->punchangle; }
+
+	/**
+	*	@return This entity's punch angle, in mutable form.
+	*/
+	Vector& GetMutablePunchAngle() { return pev->punchangle; }
+
+	/**
+	*	Sets this entity's punch angle.
+	*	@param vecPunchAngle Punch angle to set.
+	*/
+	void SetPunchAngle( const Vector& vecPunchAngle )
+	{
+		pev->punchangle = vecPunchAngle;
+	}
+
+	/**
+	*	@return This entity's view angle.
+	*/
+	const Vector& GetViewAngle() const { return pev->v_angle; }
+
+	/**
+	*	@return This entity's view angle, in mutable form.
+	*/
+	Vector& GetMutableViewAngle() { return pev->v_angle; }
+
+	/**
+	*	Sets this entity's view angle.
+	*	@param vecViewAngle View angle to set.
+	*/
+	void SetViewAngle( const Vector& vecViewAngle )
+	{
+		pev->v_angle = vecViewAngle;
+	}
+
+	/**
+	*	@return This entity's fixangle mode.
+	*	@see FixAngleMode
+	*/
+	FixAngleMode GetFixAngleMode() const { return static_cast<FixAngleMode>( pev->fixangle ); }
+
+	/**
+	*	Sets this entity's fixangle mode.
+	*	@param mode Mode.
+	*	@see FixAngleMode
+	*/
+	void SetFixAngleMode( const FixAngleMode mode )
+	{
+		pev->fixangle = mode;
+	}
+
 public:
 	/**
 	*	Called when the entity is first created. - Solokiller
