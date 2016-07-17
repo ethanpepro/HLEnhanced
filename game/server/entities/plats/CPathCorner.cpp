@@ -33,9 +33,7 @@ void CPathCorner::KeyValue( KeyValueData *pkvd )
 #if 0
 void CPathCorner::Touch( CBaseEntity *pOther )
 {
-	entvars_t*		pevToucher = pOther->pev;
-
-	if( FBitSet( pevToucher->flags, FL_MONSTER ) )
+	if( FBitSet( pOther->pev->flags, FL_MONSTER ) )
 	{// monsters don't navigate path corners based on touch anymore
 		return;
 	}
@@ -47,7 +45,7 @@ void CPathCorner::Touch( CBaseEntity *pOther )
 	}
 
 	// If OTHER has an enemy, this touch is incidental, ignore
-	if( !FNullEnt( pevToucher->enemy ) )
+	if( !FNullEnt( pOther->pev->enemy ) )
 	{
 		return;		// fighting, not following a path
 	}
@@ -74,6 +72,6 @@ void CPathCorner::Touch( CBaseEntity *pOther )
 	}
 
 	// Turn towards the next stop in the path.
-	pevToucher->ideal_yaw = UTIL_VecToYaw( pOther->m_pGoalEnt->pev->origin - pevToucher->origin );
+	pOther->pev->ideal_yaw = UTIL_VecToYaw( pOther->m_pGoalEnt->pev->origin - pOther->pev->origin );
 }
 #endif

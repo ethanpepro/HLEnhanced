@@ -15,8 +15,6 @@
 #ifndef GAME_SERVER_CMULTIDAMAGE_H
 #define GAME_SERVER_CMULTIDAMAGE_H
 
-typedef struct entvars_s entvars_t;
-
 class CBaseEntity;
 
 /**

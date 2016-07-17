@@ -72,15 +72,14 @@ void CPushable::Touch( CBaseEntity *pOther )
 
 void CPushable::Move( CBaseEntity *pOther, int push )
 {
-	entvars_t*	pevToucher = pOther->pev;
 	int playerTouch = 0;
 
 	// Is entity standing on this pushable ?
-	if( FBitSet( pevToucher->flags, FL_ONGROUND ) && pevToucher->groundentity && VARS( pevToucher->groundentity ) == pev )
+	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && pOther->pev->groundentity && VARS( pOther->pev->groundentity ) == pev )
 	{
 		// Only push if floating
 		if( pev->waterlevel > WATERLEVEL_DRY )
-			pev->velocity.z += pevToucher->velocity.z * 0.1;
+			pev->velocity.z += pOther->pev->velocity.z * 0.1;
 
 		return;
 	}
@@ -88,7 +87,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 
 	if( pOther->IsPlayer() )
 	{
-		if( push && !( pevToucher->button & ( IN_FORWARD | IN_USE ) ) )	// Don't push unless the player is pushing forward and NOT use (pull)
+		if( push && !( pOther->pev->button & ( IN_FORWARD | IN_USE ) ) )	// Don't push unless the player is pushing forward and NOT use (pull)
 			return;
 		playerTouch = 1;
 	}
@@ -97,7 +96,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 
 	if( playerTouch )
 	{
-		if( !( pevToucher->flags & FL_ONGROUND ) )	// Don't push away from jumping/falling players unless in water
+		if( !( pOther->pev->flags & FL_ONGROUND ) )	// Don't push away from jumping/falling players unless in water
 		{
 			if( pev->waterlevel < WATERLEVEL_FEET )
 				return;
@@ -110,8 +109,8 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 	else
 		factor = 0.25;
 
-	pev->velocity.x += pevToucher->velocity.x * factor;
-	pev->velocity.y += pevToucher->velocity.y * factor;
+	pev->velocity.x += pOther->pev->velocity.x * factor;
+	pev->velocity.y += pOther->pev->velocity.y * factor;
 
 	float length = sqrt( pev->velocity.x * pev->velocity.x + pev->velocity.y * pev->velocity.y );
 	if( push && ( length > MaxSpeed() ) )
@@ -121,8 +120,8 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 	}
 	if( playerTouch )
 	{
-		pevToucher->velocity.x = pev->velocity.x;
-		pevToucher->velocity.y = pev->velocity.y;
+		pOther->pev->velocity.x = pev->velocity.x;
+		pOther->pev->velocity.y = pev->velocity.y;
 		if( ( gpGlobals->time - m_soundTime ) > 0.7 )
 		{
 			m_soundTime = gpGlobals->time;

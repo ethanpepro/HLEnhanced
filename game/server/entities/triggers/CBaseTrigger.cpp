@@ -8,11 +8,10 @@ LINK_ENTITY_TO_CLASS( trigger, CBaseTrigger );
 
 void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 {
-	entvars_t* pevToucher = pOther->pev;
 	edict_t	*pentTarget = NULL;
 
 	// Only teleport monsters or clients
-	if( !FBitSet( pevToucher->flags, FL_CLIENT | FL_MONSTER ) )
+	if( !FBitSet( pOther->pev->flags, FL_CLIENT | FL_MONSTER ) )
 		return;
 
 	if( !UTIL_IsMasterTriggered( m_sMaster, pOther ) )
@@ -20,7 +19,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 
 	if( !( pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS ) )
 	{// no monsters allowed!
-		if( FBitSet( pevToucher->flags, FL_MONSTER ) )
+		if( FBitSet( pOther->pev->flags, FL_MONSTER ) )
 		{
 			return;
 		}
@@ -47,38 +46,34 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 
 	tmp.z++;
 
-	pevToucher->flags &= ~FL_ONGROUND;
+	pOther->pev->flags &= ~FL_ONGROUND;
 
 	UTIL_SetOrigin( pOther, tmp );
 
-	pevToucher->angles = pentTarget->v.angles;
+	pOther->pev->angles = pentTarget->v.angles;
 
 	if( pOther->IsPlayer() )
 	{
-		pevToucher->v_angle = pentTarget->v.angles;
+		pOther->pev->v_angle = pentTarget->v.angles;
 	}
 
-	pevToucher->fixangle = FIXANGLE_SET;
-	pevToucher->velocity = pevToucher->basevelocity = g_vecZero;
+	pOther->pev->fixangle = FIXANGLE_SET;
+	pOther->pev->velocity = pOther->pev->basevelocity = g_vecZero;
 }
 
 void CBaseTrigger::MultiTouch( CBaseEntity *pOther )
 {
-	entvars_t	*pevToucher;
-
-	pevToucher = pOther->pev;
-
 	// Only touch clients, monsters, or pushables (depending on flags)
-	if( ( ( pevToucher->flags & FL_CLIENT ) && !( pev->spawnflags & SF_TRIGGER_NOCLIENTS ) ) ||
-		( ( pevToucher->flags & FL_MONSTER ) && ( pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS ) ) ||
-		( pev->spawnflags & SF_TRIGGER_PUSHABLES ) && FClassnameIs( pevToucher, "func_pushable" ) )
+	if( ( ( pOther->pev->flags & FL_CLIENT ) && !( pev->spawnflags & SF_TRIGGER_NOCLIENTS ) ) ||
+		( ( pOther->pev->flags & FL_MONSTER ) && ( pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS ) ) ||
+		( pev->spawnflags & SF_TRIGGER_PUSHABLES ) && FClassnameIs( pOther, "func_pushable" ) )
 	{
 
 #if 0
 		// if the trigger has an angles field, check player's facing direction
 		if( pev->movedir != g_vecZero )
 		{
-			UTIL_MakeVectors( pevToucher->angles );
+			UTIL_MakeVectors( pOther->pev->angles );
 			if( DotProduct( gpGlobals->v_forward, pev->movedir ) < 0 )
 				return;         // not facing the right way
 		}

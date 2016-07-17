@@ -45,6 +45,11 @@ bool FNullEnt( const CBaseEntity* pEntity )
 	return pEntity == nullptr || FNullEnt( pEntity->pev );
 }
 
+bool FClassnameIs( CBaseEntity* pEntity, const char* pszClassname )
+{
+	return pEntity ? FClassnameIs( pEntity->pev, pszClassname ) : false;
+}
+
 static unsigned int glSeed = 0;
 
 unsigned int seed_table[ 256 ] =

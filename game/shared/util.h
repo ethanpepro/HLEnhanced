@@ -169,6 +169,8 @@ inline bool FClassnameIs(edict_t* pent, const char* szClassname)
 inline bool FClassnameIs(entvars_t* pev, const char* szClassname)
 	{ return FStrEq(STRING(pev->classname), szClassname); }
 
+bool FClassnameIs( CBaseEntity* pEntity, const char* pszClassname );
+
 class CBaseEntity;
 class CBasePlayerItem;
 class CBasePlayer;

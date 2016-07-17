@@ -288,10 +288,8 @@ void CFuncRotating::KeyValue( KeyValueData* pkvd )
 //
 void CFuncRotating::HurtTouch( CBaseEntity *pOther )
 {
-	entvars_t	*pevOther = pOther->pev;
-
 	// we can't hurt this thing, so we're not concerned with it
-	if( !pevOther->takedamage )
+	if( !pOther->pev->takedamage )
 		return;
 
 	// calculate damage based on rotation speed
@@ -299,7 +297,7 @@ void CFuncRotating::HurtTouch( CBaseEntity *pOther )
 
 	pOther->TakeDamage( this, this, pev->dmg, DMG_CRUSH );
 
-	pevOther->velocity = ( pevOther->origin - VecBModelOrigin( this ) ).Normalize() * pev->dmg;
+	pOther->pev->velocity = ( pOther->pev->origin - VecBModelOrigin( this ) ).Normalize() * pev->dmg;
 }
 
 //=========================================================

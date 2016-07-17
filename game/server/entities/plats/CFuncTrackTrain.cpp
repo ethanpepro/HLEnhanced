@@ -92,20 +92,18 @@ void CFuncTrackTrain::Precache( void )
 
 void CFuncTrackTrain::Blocked( CBaseEntity *pOther )
 {
-	entvars_t	*pevOther = pOther->pev;
-
 	// Blocker is on-ground on the train
-	if( FBitSet( pevOther->flags, FL_ONGROUND ) && VARS( pevOther->groundentity ) == pev )
+	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && VARS( pOther->pev->groundentity ) == pev )
 	{
 		float deltaSpeed = fabs( pev->speed );
 		if( deltaSpeed > 50 )
 			deltaSpeed = 50;
-		if( !pevOther->velocity.z )
-			pevOther->velocity.z += deltaSpeed;
+		if( !pOther->pev->velocity.z )
+			pOther->pev->velocity.z += deltaSpeed;
 		return;
 	}
 	else
-		pevOther->velocity = ( pevOther->origin - pev->origin ).Normalize() * pev->dmg;
+		pOther->pev->velocity = ( pOther->pev->origin - pev->origin ).Normalize() * pev->dmg;
 
 	ALERT( at_aiconsole, "TRAIN(%s): Blocked by %s (dmg:%.2f)\n", STRING( pev->targetname ), STRING( pOther->pev->classname ), pev->dmg );
 	if( pev->dmg <= 0 )

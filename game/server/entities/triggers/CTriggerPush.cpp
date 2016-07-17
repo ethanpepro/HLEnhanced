@@ -30,10 +30,8 @@ void CTriggerPush::KeyValue( KeyValueData *pkvd )
 
 void CTriggerPush::Touch( CBaseEntity *pOther )
 {
-	entvars_t* pevToucher = pOther->pev;
-
 	// UNDONE: Is there a better way than health to detect things that have physics? (clients/monsters)
-	switch( pevToucher->movetype )
+	switch( pOther->pev->movetype )
 	{
 	case MOVETYPE_NONE:
 	case MOVETYPE_PUSH:
@@ -42,25 +40,25 @@ void CTriggerPush::Touch( CBaseEntity *pOther )
 		return;
 	}
 
-	if( pevToucher->solid != SOLID_NOT && pevToucher->solid != SOLID_BSP )
+	if( pOther->pev->solid != SOLID_NOT && pOther->pev->solid != SOLID_BSP )
 	{
 		// Instant trigger, just transfer velocity and remove
 		if( FBitSet( pev->spawnflags, SF_TRIG_PUSH_ONCE ) )
 		{
-			pevToucher->velocity = pevToucher->velocity + ( pev->speed * pev->movedir );
-			if( pevToucher->velocity.z > 0 )
-				pevToucher->flags &= ~FL_ONGROUND;
+			pOther->pev->velocity = pOther->pev->velocity + ( pev->speed * pev->movedir );
+			if( pOther->pev->velocity.z > 0 )
+				pOther->pev->flags &= ~FL_ONGROUND;
 			UTIL_Remove( this );
 		}
 		else
 		{	// Push field, transfer to base velocity
 			Vector vecPush = ( pev->speed * pev->movedir );
-			if( pevToucher->flags & FL_BASEVELOCITY )
-				vecPush = vecPush + pevToucher->basevelocity;
+			if( pOther->pev->flags & FL_BASEVELOCITY )
+				vecPush = vecPush + pOther->pev->basevelocity;
 
-			pevToucher->basevelocity = vecPush;
+			pOther->pev->basevelocity = vecPush;
 
-			pevToucher->flags |= FL_BASEVELOCITY;
+			pOther->pev->flags |= FL_BASEVELOCITY;
 			//			ALERT( at_console, "Vel %f, base %f\n", pevToucher->velocity.z, pevToucher->basevelocity.z );
 		}
 	}
