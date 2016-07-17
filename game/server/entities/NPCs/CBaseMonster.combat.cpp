@@ -671,9 +671,9 @@ void RadiusDamage( Vector vecSrc, CBaseEntity* pInflictor, CBaseEntity* pAttacke
 			}
 
 			// blast's don't tavel into or out of water
-			if (bInWater && pEntity->pev->waterlevel == 0)
+			if( bInWater && pEntity->pev->waterlevel == WATERLEVEL_DRY )
 				continue;
-			if (!bInWater && pEntity->pev->waterlevel == 3)
+			if( !bInWater && pEntity->pev->waterlevel == WATERLEVEL_HEAD )
 				continue;
 
 			vecSpot = pEntity->BodyTarget( vecSrc );

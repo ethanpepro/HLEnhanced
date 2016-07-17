@@ -48,8 +48,8 @@ DLL_GLOBAL	bool	g_fDrawLines = false;
 bool FBoxVisible( entvars_t *pevLooker, entvars_t *pevTarget, Vector &vecTargetOrigin, float flSize )
 {
 	// don't look through water
-	if ((pevLooker->waterlevel != 3 && pevTarget->waterlevel == 3) 
-		|| (pevLooker->waterlevel == 3 && pevTarget->waterlevel == 0))
+	if( ( pevLooker->waterlevel != WATERLEVEL_HEAD && pevTarget->waterlevel == WATERLEVEL_HEAD )
+		|| ( pevLooker->waterlevel == WATERLEVEL_HEAD && pevTarget->waterlevel == WATERLEVEL_DRY ) )
 		return false;
 
 	TraceResult tr;

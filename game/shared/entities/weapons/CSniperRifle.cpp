@@ -120,7 +120,7 @@ void CSniperRifle::WeaponIdle()
 
 void CSniperRifle::PrimaryAttack()
 {
-	if( m_pPlayer->pev->waterlevel == 3 )
+	if( m_pPlayer->pev->waterlevel == WATERLEVEL_HEAD )
 	{
 		PlayEmptySound();
 		m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 1.0f;

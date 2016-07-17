@@ -392,9 +392,8 @@ bool CBaseEntity::FVisible( const CBaseEntity *pEntity ) const
 		return false;
 
 	// don't look through water
-	//TODO: define waterlevel constants - Solokiller
-	if( ( pev->waterlevel != 3 && pEntity->pev->waterlevel == 3 )
-		|| ( pev->waterlevel == 3 && pEntity->pev->waterlevel == 0 ) )
+	if( ( pev->waterlevel != WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_HEAD )
+		|| ( pev->waterlevel == WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_DRY ) )
 		return false;
 
 	vecLookerOrigin = pev->origin + pev->view_ofs;//look through the caller's 'eyes'

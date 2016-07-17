@@ -274,7 +274,7 @@ void CBasePlayer :: DeathSound( void )
 {
 	// water death sounds
 	/*
-	if (pev->waterlevel == 3)
+	if (pev->waterlevel == WATERLEVEL_HEAD)
 	{
 		EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/h2odeath.wav", 1, ATTN_NONE);
 		return;
@@ -928,7 +928,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 		{
 			m_IdealActivity = m_Activity;
 		}
-		else if ( pev->waterlevel > 1 )
+		else if ( pev->waterlevel > WATERLEVEL_FEET )
 		{
 			if ( speed == 0 )
 				m_IdealActivity = ACT_HOVER;
@@ -1085,12 +1085,7 @@ void CBasePlayer::WaterMove()
 	if (pev->health < 0)
 		return;
 
-	// waterlevel 0 - not in water
-	// waterlevel 1 - feet in water
-	// waterlevel 2 - waist in water
-	// waterlevel 3 - head in water
-
-	if (pev->waterlevel != 3) 
+	if (pev->waterlevel != WATERLEVEL_HEAD) 
 	{
 		// not underwater
 		
@@ -1540,7 +1535,7 @@ void CBasePlayer::Jump()
 	if (FBitSet(pev->flags, FL_WATERJUMP))
 		return;
 	
-	if (pev->waterlevel >= 2)
+	if (pev->waterlevel >= WATERLEVEL_WAIST)
 	{
 		return;
 	}
@@ -2578,7 +2573,7 @@ void CBasePlayer::PostThink()
 			SetAnimation( PLAYER_IDLE );
 		else if ((pev->velocity.x || pev->velocity.y) && (FBitSet(pev->flags, FL_ONGROUND)))
 			SetAnimation( PLAYER_WALK );
-		else if (pev->waterlevel > 1)
+		else if (pev->waterlevel > WATERLEVEL_FEET)
 			SetAnimation( PLAYER_WALK );
 	}
 
@@ -4191,8 +4186,8 @@ Vector CBasePlayer :: AutoaimDeflection( Vector &vecSrc, float flDist, float flD
 	if ( tr.pHit && tr.pHit->v.takedamage != DAMAGE_NO)
 	{
 		// don't look through water
-		if (!((pev->waterlevel != 3 && tr.pHit->v.waterlevel == 3) 
-			|| (pev->waterlevel == 3 && tr.pHit->v.waterlevel == 0)))
+		if (!((pev->waterlevel != WATERLEVEL_HEAD && tr.pHit->v.waterlevel == WATERLEVEL_HEAD )
+			|| (pev->waterlevel == WATERLEVEL_HEAD && tr.pHit->v.waterlevel == WATERLEVEL_DRY)))
 		{
 			if (tr.pHit->v.takedamage == DAMAGE_AIM)
 				m_fOnTarget = true;
@@ -4227,8 +4222,8 @@ Vector CBasePlayer :: AutoaimDeflection( Vector &vecSrc, float flDist, float flD
 			continue;
 
 		// don't look through water
-		if ((pev->waterlevel != 3 && pEntity->pev->waterlevel == 3) 
-			|| (pev->waterlevel == 3 && pEntity->pev->waterlevel == 0))
+		if ((pev->waterlevel != WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_HEAD )
+			|| (pev->waterlevel == WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_DRY))
 			continue;
 
 		center = pEntity->BodyTarget( vecSrc );
