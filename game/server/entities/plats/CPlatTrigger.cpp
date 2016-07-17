@@ -45,8 +45,15 @@ void CPlatTrigger::Touch( CBaseEntity *pOther )
 
 	auto pPlatform = EHANDLE_cast<CFuncPlat*>( m_hPlatform );
 
+	if( FNullEnt( pPlatform ) )
+	{
+		//The target platform has been removed, remove myself as well. - Solokiller
+		UTIL_Remove( this );
+		return;
+	}
+
 	// Ignore touches by corpses
-	if( !pOther->IsAlive() || !pPlatform || !pPlatform->pev )
+	if( !pOther->IsAlive() )
 		return;
 
 	// Make linked platform go up/down.
