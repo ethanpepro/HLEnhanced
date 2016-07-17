@@ -1095,5 +1095,5 @@ void CNihilanth::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceR
 	}
 
 	// SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage * 5.0);// a little surface blood.
-	g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, info.GetDamage(), info.GetDamageTypes() );
+	g_MultiDamage.AddMultiDamage( info, this );
 }

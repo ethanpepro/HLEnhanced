@@ -15,6 +15,8 @@
 #ifndef GAME_SERVER_CMULTIDAMAGE_H
 #define GAME_SERVER_CMULTIDAMAGE_H
 
+#include "CTakeDamageInfo.h"
+
 class CBaseEntity;
 
 /**
@@ -68,12 +70,10 @@ public:
 
 	/**
 	*	Adds multi-damage to deal to the given entity. Damage will be accumulated, but not applied.
-	*	@param pInflictor Entity that's dealing damage.
+	*	@param info Damage info.
 	*	@param pEntity Entity that's being attacked.
-	*	@param flDamage Damage amount to add.
-	*	@param bitsDamageType Bit vector of damage types to add.
 	*/
-	void AddMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pEntity, float flDamage, int bitsDamageType );
+	void AddMultiDamage( const CTakeDamageInfo& info, CBaseEntity* pEntity );
 
 	/**
 	*	Applies multi-damage to the target.

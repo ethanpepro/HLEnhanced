@@ -18,22 +18,22 @@
 
 #include "CMultiDamage.h"
 
-void CMultiDamage::AddMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pEntity, float flDamage, int bitsDamageType )
+void CMultiDamage::AddMultiDamage( const CTakeDamageInfo& info, CBaseEntity* pEntity )
 {
 	if( !pEntity )
 		return;
 
-	m_bitsDamageTypes |= bitsDamageType;
+	m_bitsDamageTypes |= info.GetDamageTypes();
 
 	if( pEntity != m_pEntity )
 	{
 		//TODO: replace this - Solokiller
-		ApplyMultiDamage( pInflictor, pInflictor ); // UNDONE: wrong attacker!
+		ApplyMultiDamage( info.GetInflictor(), info.GetInflictor() ); // UNDONE: wrong attacker!
 		m_pEntity = pEntity;
 		m_flAmount = 0;
 	}
 
-	m_flAmount += flDamage;
+	m_flAmount += info.GetDamage();
 }
 
 void CMultiDamage::ApplyMultiDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker )

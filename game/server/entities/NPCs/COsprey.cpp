@@ -706,7 +706,7 @@ void COsprey::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResu
 	if (info.GetDamage() > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2 || ptr->iHitgroup == 3)
 	{
 		// ALERT( at_console, "%.0f\n", flDamage );
-		g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, info.GetDamage(), info.GetDamageTypes() );
+		g_MultiDamage.AddMultiDamage( info, this );
 	}
 	else
 	{
