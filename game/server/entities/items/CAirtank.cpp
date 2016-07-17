@@ -37,7 +37,7 @@ void CAirtank :: Spawn( void )
 
 	SET_MODEL(ENT(pev), "models/w_oxygen.mdl");
 	UTIL_SetSize( this, Vector( -16, -16, 0), Vector(16, 16, 36) );
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 
 	SetTouch( &CAirtank::TankTouch );
 	SetThink( &CAirtank::TankThink );

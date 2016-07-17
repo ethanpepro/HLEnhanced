@@ -15,7 +15,7 @@ void CFuncTrainControls::Spawn( void )
 	SET_MODEL( ENT( pev ), STRING( pev->model ) );
 
 	UTIL_SetSize( this, pev->mins, pev->maxs );
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 
 	SetThink( &CFuncTrainControls::Find );
 	pev->nextthink = gpGlobals->time;

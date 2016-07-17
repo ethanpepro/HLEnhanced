@@ -207,7 +207,7 @@ void CBaseEntity::MakeDormant( void )
 	// Don't think
 	pev->nextthink = 0;
 	// Relink
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 }
 
 bool CBaseEntity::IsDormant() const

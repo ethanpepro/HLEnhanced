@@ -44,14 +44,14 @@ void CFuncWallToggle::TurnOff( void )
 {
 	pev->solid = SOLID_NOT;
 	pev->effects |= EF_NODRAW;
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 }
 
 void CFuncWallToggle::TurnOn( void )
 {
 	pev->solid = SOLID_BSP;
 	pev->effects &= ~EF_NODRAW;
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 }
 
 bool CFuncWallToggle::IsOn() const

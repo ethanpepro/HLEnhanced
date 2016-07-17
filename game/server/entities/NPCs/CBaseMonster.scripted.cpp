@@ -148,7 +148,7 @@ bool CBaseMonster::CineCleanup()
 
 			// pEntity->pev->origin.z = new_origin.z + 5.0; // damn, got to fix this
 
-			UTIL_SetOrigin( pev, pev->origin );
+			UTIL_SetOrigin( this, pev->origin );
 			pev->effects |= EF_NOINTERP;
 		}
 

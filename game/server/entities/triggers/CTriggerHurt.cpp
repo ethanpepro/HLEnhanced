@@ -36,7 +36,7 @@ void CTriggerHurt::Spawn( void )
 	if( FBitSet( pev->spawnflags, SF_TRIGGER_HURT_START_OFF ) )// if flagged to Start Turned Off, make trigger nonsolid.
 		pev->solid = SOLID_NOT;
 
-	UTIL_SetOrigin( pev, pev->origin );		// Link into the list
+	UTIL_SetOrigin( this, pev->origin );		// Link into the list
 }
 
 // trigger hurt that causes radiation will do a radius

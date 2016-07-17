@@ -94,7 +94,7 @@ void CBarnacle :: Spawn()
 	SetThink ( &CBarnacle::BarnacleThink );
 	pev->nextthink = gpGlobals->time + 0.5;
 
-	UTIL_SetOrigin ( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 }
 
 void CBarnacle::OnTakeDamage( const CTakeDamageInfo& info )
@@ -171,7 +171,7 @@ void CBarnacle :: BarnacleThink ( void )
 				}
 			}
 
-			UTIL_SetOrigin ( m_hEnemy->pev, vecNewEnemyOrigin );
+			UTIL_SetOrigin ( m_hEnemy, vecNewEnemyOrigin );
 		}
 		else
 		{

@@ -211,7 +211,7 @@ inline void UTIL_MakeVectorsPrivate( const Vector &vecAngles, float *p_vForward,
 extern void			UTIL_MakeAimVectors		( const Vector &vecAngles ); // like MakeVectors, but assumes pitch isn't inverted
 extern void			UTIL_MakeInvVectors		( const Vector &vec, globalvars_t *pgv );
 
-extern void			UTIL_SetOrigin			( entvars_t* pev, const Vector &vecOrigin );
+void UTIL_SetOrigin( CBaseEntity* pEntity, const Vector& vecOrigin );
 extern void			UTIL_ParticleEffect		( const Vector &vecOrigin, const Vector &vecDirection, const unsigned int ulColor, const unsigned int ulCount );
 extern void			UTIL_ScreenShake		( const Vector &center, float amplitude, float frequency, float duration, float radius );
 extern void			UTIL_ScreenShakeAll		( const Vector &center, float amplitude, float frequency, float duration );

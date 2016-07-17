@@ -701,11 +701,10 @@ float UTIL_VecToYaw( const Vector &vec )
 }
 
 
-void UTIL_SetOrigin( entvars_t *pev, const Vector &vecOrigin )
+void UTIL_SetOrigin( CBaseEntity* pEntity, const Vector& vecOrigin )
 {
-	edict_t *ent = ENT(pev);
-	if ( ent )
-		SET_ORIGIN( ent, vecOrigin );
+	if ( auto pEnt = pEntity->edict() )
+		SET_ORIGIN( pEnt, vecOrigin );
 }
 
 void UTIL_ParticleEffect( const Vector &vecOrigin, const Vector &vecDirection, const unsigned int ulColor, const unsigned int ulCount )

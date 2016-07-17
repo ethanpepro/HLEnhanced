@@ -81,7 +81,7 @@ void CCineAI::PossessEntity( void )
 
 		case 4:
 			// zap the monster instantly to the site of the script entity.
-			UTIL_SetOrigin( pTarget->pev, pev->origin );
+			UTIL_SetOrigin( pTarget, pev->origin );
 			pTarget->pev->ideal_yaw = pev->angles.y;
 			pTarget->pev->avelocity = Vector( 0, 0, 0 );
 			pTarget->pev->velocity = Vector( 0, 0, 0 );

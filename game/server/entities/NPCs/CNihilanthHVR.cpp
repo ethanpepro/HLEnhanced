@@ -73,7 +73,7 @@ void CNihilanthHVR::CircleInit( CBaseEntity *pTarget )
 	pev->renderamt = 255;
 
 	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 
 	SetThink( &CNihilanthHVR::HoverThink );
 	SetTouch( &CNihilanthHVR::BounceTouch );

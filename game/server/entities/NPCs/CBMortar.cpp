@@ -56,7 +56,7 @@ CBMortar *CBMortar::Shoot( edict_t *pOwner, Vector vecStart, Vector vecVelocity 
 	CBMortar *pSpit = GetClassPtr( ( CBMortar * ) NULL );
 	pSpit->Spawn();
 
-	UTIL_SetOrigin( pSpit->pev, vecStart );
+	UTIL_SetOrigin( pSpit, vecStart );
 	pSpit->pev->velocity = vecVelocity;
 	pSpit->pev->owner = pOwner;
 	pSpit->pev->scale = 2.5;

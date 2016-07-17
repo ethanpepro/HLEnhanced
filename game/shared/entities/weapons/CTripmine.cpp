@@ -90,7 +90,7 @@ void CTripmineGrenade :: Spawn( void )
 	pev->framerate = 0;
 	
 	UTIL_SetSize( this, Vector( -8, -8, -8), Vector(8, 8, 8) );
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 
 	if (pev->spawnflags & 1)
 	{
@@ -200,7 +200,7 @@ void CTripmineGrenade :: PowerupThink( void  )
 	{
 		// make solid
 		pev->solid = SOLID_BBOX;
-		UTIL_SetOrigin( pev, pev->origin );
+		UTIL_SetOrigin( this, pev->origin );
 
 		MakeBeam( );
 

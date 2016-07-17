@@ -125,7 +125,7 @@ void CLaser::FireAtPoint( TraceResult &tr )
 {
 	SetEndPos( tr.vecEndPos );
 	if( m_pSprite )
-		UTIL_SetOrigin( m_pSprite->pev, tr.vecEndPos );
+		UTIL_SetOrigin( m_pSprite, tr.vecEndPos );
 
 	BeamDamage( &tr );
 	DoSparks( GetStartPos(), tr.vecEndPos );

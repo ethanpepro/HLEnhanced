@@ -49,7 +49,7 @@ void UTIL_DecalTrace( TraceResult *pTrace, int decalNumber ) { }
 void UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber ) { }
 void UTIL_MakeVectors( const Vector &vecAngles ) { }
 bool UTIL_IsValidEntity( edict_t *pent ) { return true; }
-void UTIL_SetOrigin( entvars_t *, const Vector &org ) { }
+void UTIL_SetOrigin( CBaseEntity* pEntity, const Vector& vecOrigin ) {}
 bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon ) { return true; }
 void UTIL_LogPrintf(char *,...) { }
 void UTIL_ClientPrintAll( int,char const *,char const *,char const *,char const *,char const *) { }

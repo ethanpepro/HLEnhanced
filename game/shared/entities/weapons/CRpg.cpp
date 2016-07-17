@@ -317,7 +317,7 @@ void CRpg::UpdateSpot( void )
 		TraceResult tr;
 		UTIL_TraceLine ( vecSrc, vecSrc + vecAiming * 8192, dont_ignore_monsters, ENT(m_pPlayer->pev), &tr );
 		
-		UTIL_SetOrigin( m_pSpot->pev, tr.vecEndPos );
+		UTIL_SetOrigin( m_pSpot, tr.vecEndPos );
 	}
 #endif
 

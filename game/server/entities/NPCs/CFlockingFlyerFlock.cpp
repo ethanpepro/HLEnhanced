@@ -70,7 +70,7 @@ void CFlockingFlyerFlock::SpawnFlock( void )
 		vecSpot.z = RANDOM_FLOAT( 0, 16 );
 		vecSpot = pev->origin + vecSpot;
 
-		UTIL_SetOrigin( pBoid->pev, vecSpot );
+		UTIL_SetOrigin( pBoid, vecSpot );
 		pBoid->pev->movetype = MOVETYPE_FLY;
 		pBoid->SpawnCommonCode();
 		pBoid->pev->flags &= ~FL_ONGROUND;

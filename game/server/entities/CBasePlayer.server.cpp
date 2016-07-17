@@ -1274,7 +1274,7 @@ void CBasePlayer::StartDeathCam( void )
 
 		CopyToBodyQue( this );
 
-		UTIL_SetOrigin( pev, pSpot->v.origin );
+		UTIL_SetOrigin( this, pSpot->v.origin );
 		pev->angles = pev->v_angle = pSpot->v.v_angle;
 	}
 	else
@@ -1284,7 +1284,7 @@ void CBasePlayer::StartDeathCam( void )
 		CopyToBodyQue( this );
 		UTIL_TraceLine( pev->origin, pev->origin + Vector( 0, 0, 128 ), ignore_monsters, edict(), &tr );
 
-		UTIL_SetOrigin( pev, tr.vecEndPos );
+		UTIL_SetOrigin( this, tr.vecEndPos );
 		pev->angles = pev->v_angle = UTIL_VecToAngles( tr.vecEndPos - pev->origin  );
 	}
 
@@ -1362,7 +1362,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	RemoveAllItems( false );
 
 	// Move them to the new position
-	UTIL_SetOrigin( pev, vecPosition );
+	UTIL_SetOrigin( this, vecPosition );
 
 	// Find a player to watch
 	m_flNextObserverInput = 0;

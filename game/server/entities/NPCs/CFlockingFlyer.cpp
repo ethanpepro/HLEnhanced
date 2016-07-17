@@ -255,7 +255,7 @@ void CFlockingFlyer::FlockLeaderThink( void )
 	// maybe it did, though.
 	if( FBitSet( pev->flags, FL_ONGROUND ) )
 	{
-		UTIL_SetOrigin( pev, pev->origin + Vector( 0, 0, 1 ) );
+		UTIL_SetOrigin( this, pev->origin + Vector( 0, 0, 1 ) );
 		pev->velocity.z = 0;
 	}
 

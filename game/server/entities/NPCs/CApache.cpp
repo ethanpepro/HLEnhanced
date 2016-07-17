@@ -54,7 +54,7 @@ void CApache :: Spawn( void )
 
 	SET_MODEL(ENT(pev), "models/apache.mdl");
 	UTIL_SetSize( this, Vector( -32, -32, -64 ), Vector( 32, 32, 0 ) );
-	UTIL_SetOrigin( pev, pev->origin );
+	UTIL_SetOrigin( this, pev->origin );
 
 	pev->flags |= FL_MONSTER;
 	pev->takedamage		= DAMAGE_AIM;

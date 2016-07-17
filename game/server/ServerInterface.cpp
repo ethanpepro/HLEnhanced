@@ -396,7 +396,7 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 			pSaveData->vecLandmarkOffset = oldOffset;
 			if( pEntity )
 			{
-				UTIL_SetOrigin( pEntity->pev, pEntity->pev->origin );
+				UTIL_SetOrigin( pEntity, pEntity->pev->origin );
 				pEntity->OverrideReset();
 			}
 		}
