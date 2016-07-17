@@ -30,8 +30,6 @@
 #include "Weapons.h"
 #include "entities/effects/CGib.h"
 
-extern entvars_t *g_pevLastInflictor;
-
 bool CBaseMonster::HasHumanGibs()
 {
 	int myClass = Classify();
@@ -518,8 +516,6 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 
 	if ( pev->health <= 0 )
 	{
-		g_pevLastInflictor = !FNullEnt( info.GetInflictor() ) ? info.GetInflictor()->pev : nullptr;
-
 		if ( info.GetDamageTypes() & DMG_ALWAYSGIB )
 		{
 			Killed( info, GIB_ALWAYS );
@@ -532,8 +528,6 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 		{
 			Killed( info, GIB_NORMAL );
 		}
-
-		g_pevLastInflictor = nullptr;
 
 		return;
 	}
