@@ -37,7 +37,7 @@ public:
 	virtual bool FPlayerCanTakeDamage( CBasePlayer *pPlayer, const CTakeDamageInfo& info ) override;
 	virtual int PlayerRelationship( CBaseEntity *pPlayer, CBaseEntity *pTarget ) override;
 	virtual const char *GetTeamID( CBaseEntity *pEntity ) override;
-	virtual bool ShouldAutoAim( CBasePlayer *pPlayer, edict_t *target ) override;
+	virtual bool ShouldAutoAim( CBasePlayer *pPlayer, CBaseEntity* pTarget ) override;
 	virtual int IPointsForKill( CBasePlayer *pAttacker, CBasePlayer *pKilled ) override;
 	virtual void InitHUD( CBasePlayer *pl ) override;
 	virtual void DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;

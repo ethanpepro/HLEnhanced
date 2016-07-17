@@ -4213,12 +4213,14 @@ Vector CBasePlayer :: AutoaimDeflection( Vector &vecSrc, float flDist, float flD
 			continue;
 //		if (pev->team > 0 && pEdict->v.team == pev->team)
 //			continue;	// don't aim at teammate
-		if ( !g_pGameRules->ShouldAutoAim( this, pEdict ) )
-			continue;
 
 		pEntity = Instance( pEdict );
-		if (pEntity == NULL)
+		if( pEntity == NULL )
 			continue;
+
+		if ( !g_pGameRules->ShouldAutoAim( this, pEntity ) )
+			continue;
+
 
 		if (!pEntity->IsAlive())
 			continue;

@@ -26,7 +26,6 @@ class CItem;
 class CBasePlayerAmmo;
 
 typedef struct edict_s edict_t;
-typedef struct entvars_s entvars_t;
 
 // weapon respawning return codes
 enum
@@ -91,7 +90,7 @@ public:
 // Client damage rules
 	virtual float FlPlayerFallDamage( CBasePlayer *pPlayer ) = 0;// this client just hit the ground after a fall. How much damage?
 	virtual bool  FPlayerCanTakeDamage( CBasePlayer *pPlayer, const CTakeDamageInfo& info ) { return true; }// can this player take damage from this attacker?
-	virtual bool ShouldAutoAim( CBasePlayer *pPlayer, edict_t *target ) { return true; }
+	virtual bool ShouldAutoAim( CBasePlayer *pPlayer, CBaseEntity* pTarget ) { return true; }
 
 // Client spawn/respawn control
 	virtual void PlayerSpawn( CBasePlayer *pPlayer ) = 0;// called by CBasePlayer::Spawn just before releasing player into the game

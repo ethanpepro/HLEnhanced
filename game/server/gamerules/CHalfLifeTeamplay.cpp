@@ -443,17 +443,16 @@ int CHalfLifeTeamplay::PlayerRelationship( CBaseEntity *pPlayer, CBaseEntity *pT
 
 //=========================================================
 //=========================================================
-bool CHalfLifeTeamplay::ShouldAutoAim( CBasePlayer *pPlayer, edict_t *target )
+bool CHalfLifeTeamplay::ShouldAutoAim( CBasePlayer *pPlayer, CBaseEntity* pTarget )
 {
 	// always autoaim, unless target is a teammate
-	CBaseEntity *pTgt = CBaseEntity::Instance( target );
-	if ( pTgt && pTgt->IsPlayer() )
+	if ( pTarget && pTarget->IsPlayer() )
 	{
-		if ( PlayerRelationship( pPlayer, pTgt ) == GR_TEAMMATE )
+		if ( PlayerRelationship( pPlayer, pTarget ) == GR_TEAMMATE )
 			return false; // don't autoaim at teammates
 	}
 
-	return CHalfLifeMultiplay::ShouldAutoAim( pPlayer, target );
+	return CHalfLifeMultiplay::ShouldAutoAim( pPlayer, pTarget );
 }
 
 //=========================================================
