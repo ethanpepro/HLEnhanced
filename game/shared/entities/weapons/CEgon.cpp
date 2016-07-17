@@ -533,28 +533,3 @@ void CEgon::EndAttack( void )
 
 	DestroyEffect();
 }
-
-
-//TODO: this doesn't look right. Chain ammo? - Solokiller
-class CEgonAmmo : public CBasePlayerAmmo
-{
-public:
-	DECLARE_CLASS( CEgonAmmo, CBasePlayerAmmo );
-
-	void Spawn( void ) override
-	{ 
-		Precache( );
-		SET_MODEL(ENT(pev), "models/w_chainammo.mdl");
-		CBasePlayerAmmo::Spawn( );
-	}
-	void Precache( void ) override
-	{
-		PRECACHE_MODEL ("models/w_chainammo.mdl");
-		PRECACHE_SOUND("items/9mmclip1.wav");
-	}
-	bool AddAmmo( CBaseEntity *pOther ) override
-	{ 
-		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_URANIUMBOX_GIVE, "uranium" );
-	}
-};
-LINK_ENTITY_TO_CLASS( ammo_egonclip, CEgonAmmo );
