@@ -834,17 +834,17 @@ public:
 
 #ifdef _DEBUG
 
-#define SetThink( a ) ThinkSet( static_cast <void (CBaseEntity::*)(void)> (a), #a )
-#define SetTouch( a ) TouchSet( static_cast <void (CBaseEntity::*)(CBaseEntity *)> (a), #a )
-#define SetUse( a ) UseSet( static_cast <void (CBaseEntity::*)(	CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )> (a), #a )
-#define SetBlocked( a ) BlockedSet( static_cast <void (CBaseEntity::*)(CBaseEntity *)> (a), #a )
+#define SetThink( a ) ThinkSet( static_cast<BASEPTR>( a ), #a )
+#define SetTouch( a ) TouchSet( static_cast<ENTITYFUNCPTR>( a ), #a )
+#define SetUse( a ) UseSet( static_cast<USEPTR>( a ), #a )
+#define SetBlocked( a ) BlockedSet( static_cast<ENTITYFUNCPTR>( a ), #a )
 
 #else
 
-#define SetThink( a ) m_pfnThink = static_cast <void (CBaseEntity::*)(void)> (a)
-#define SetTouch( a ) m_pfnTouch = static_cast <void (CBaseEntity::*)(CBaseEntity *)> (a)
-#define SetUse( a ) m_pfnUse = static_cast <void (CBaseEntity::*)( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )> (a)
-#define SetBlocked( a ) m_pfnBlocked = static_cast <void (CBaseEntity::*)(CBaseEntity *)> (a)
+#define SetThink( a ) m_pfnThink = static_cast<BASEPTR>( a )
+#define SetTouch( a ) m_pfnTouch = static_cast<ENTITYFUNCPTR>( a )
+#define SetUse( a ) m_pfnUse = static_cast<USEPTR>( a )
+#define SetBlocked( a ) m_pfnBlocked = static_cast<ENTITYFUNCPTR>( a )
 
 #endif
 
