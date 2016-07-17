@@ -29,7 +29,7 @@ void CBaseEntity::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 {
 }
 
-void CBaseEntity::TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType )
+void CBaseEntity::TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 }
 

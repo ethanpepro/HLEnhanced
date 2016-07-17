@@ -513,13 +513,12 @@ public:
 
 	/**
 	*	Projects blood decals based on the given damage and traceline.
-	*	@param flDamage Amount of damage being dealt.
+	*	@param info Damage info.
 	*	@param vecDir attack direction.
 	*	@param ptr Attack traceline.
-	*	@param bitsDamageType Bit vector of damage types.
 	*	@see Damage
 	*/
-	virtual void TraceBleed( float flDamage, Vector vecDir, TraceResult* ptr, int bitsDamageType );
+	virtual void TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult* ptr );
 
 	/**
 	*	Deals damage to this entity.

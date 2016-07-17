@@ -37,20 +37,20 @@ void CBaseEntity::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 		if( blood != DONT_BLEED )
 		{
 			SpawnBlood( vecOrigin, blood, info.GetDamage() );// a little surface blood.
-			TraceBleed( info.GetDamage(), vecDir, ptr, info.GetDamageTypes() );
+			TraceBleed( info, vecDir, ptr );
 		}
 	}
 }
 
-void CBaseEntity::TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType )
+void CBaseEntity::TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	if( BloodColor() == DONT_BLEED )
 		return;
 
-	if( flDamage == 0 )
+	if( info.GetDamage() == 0 )
 		return;
 
-	if( !( bitsDamageType & ( DMG_CRUSH | DMG_BULLET | DMG_SLASH | DMG_BLAST | DMG_CLUB | DMG_MORTAR ) ) )
+	if( !( info.GetDamageTypes() & ( DMG_CRUSH | DMG_BULLET | DMG_SLASH | DMG_BLAST | DMG_CLUB | DMG_MORTAR ) ) )
 		return;
 
 	// make blood decal on the wall! 
@@ -76,12 +76,12 @@ void CBaseEntity::TraceBleed( float flDamage, Vector vecDir, TraceResult *ptr, i
 	}
 	*/
 
-	if( flDamage < 10 )
+	if( info.GetDamage() < 10 )
 	{
 		flNoise = 0.1;
 		cCount = 1;
 	}
-	else if( flDamage < 25 )
+	else if( info.GetDamage() < 25 )
 	{
 		flNoise = 0.2;
 		cCount = 2;
