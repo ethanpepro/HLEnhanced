@@ -409,7 +409,7 @@ void CBaseMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 		pev->health = 0;
 	}
 	
-	//pev->enemy = ENT( pevAttacker );//why? (sjb)
+	//pev->enemy = ENT( info.GetAttacker() );//why? (sjb)
 	
 	m_IdealMonsterState = MONSTERSTATE_DEAD;
 }
@@ -818,7 +818,7 @@ bool CBaseMonster::FInViewCone( const Vector& vecOrigin ) const
 //=========================================================
 // TraceAttack
 //=========================================================
-void CBaseMonster::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector vecDir, TraceResult *ptr, int bitsDamageType)
+void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	Vector vecOrigin = ptr->vecEndPos - vecDir * 4;
 
@@ -827,13 +827,13 @@ void CBaseMonster::TraceAttack(entvars_t *pevAttacker, float flDamage, Vector ve
 
 	if ( pev->takedamage )
 	{
-		g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage, bitsDamageType );
+		g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, info.GetDamage(), info.GetDamageTypes() );
 
 		int blood = BloodColor();
 		
 		if ( blood != DONT_BLEED )
 		{
-			SpawnBlood(vecOrigin, blood, flDamage);// a little surface blood.
+			SpawnBlood( info, vecOrigin, blood );// a little surface blood.
 		}
 	}
 }

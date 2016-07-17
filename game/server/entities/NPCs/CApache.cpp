@@ -861,7 +861,7 @@ void CApache::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResu
 	else
 	{
 		// do half damage in the body
-		// g_MultiDamage.AddMultiDamage( pevAttacker, this, flDamage / 2.0, bitsDamageType );
+		// g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, info.GetDamage() / 2.0, info.GetDamageTypes() );
 		UTIL_Ricochet( ptr->vecEndPos, 2.0 );
 	}
 }
