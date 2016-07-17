@@ -475,7 +475,7 @@ void CNihilanth :: MakeFriend( Vector vecStart )
 				{
 					CNode &node = WorldGraph.Node( iNode );
 					TraceResult tr;
-					UTIL_TraceHull( node.m_vecOrigin + Vector( 0, 0, 32 ), node.m_vecOrigin + Vector( 0, 0, 32 ), dont_ignore_monsters, large_hull, NULL, &tr );
+					UTIL_TraceHull( node.m_vecOrigin + Vector( 0, 0, 32 ), node.m_vecOrigin + Vector( 0, 0, 32 ), dont_ignore_monsters, Hull::LARGE, NULL, &tr );
 					if (tr.fStartSolid == 0)
 						m_hFriend[i] = Create("monster_alien_controller", node.m_vecOrigin, pev->angles );
 				}
@@ -487,7 +487,7 @@ void CNihilanth :: MakeFriend( Vector vecStart )
 				{
 					CNode &node = WorldGraph.Node( iNode );
 					TraceResult tr;
-					UTIL_TraceHull( node.m_vecOrigin + Vector( 0, 0, 36 ), node.m_vecOrigin + Vector( 0, 0, 36 ), dont_ignore_monsters, human_hull, NULL, &tr );
+					UTIL_TraceHull( node.m_vecOrigin + Vector( 0, 0, 36 ), node.m_vecOrigin + Vector( 0, 0, 36 ), dont_ignore_monsters, Hull::HUMAN, NULL, &tr );
 					if (tr.fStartSolid == 0)
 						m_hFriend[i] = Create("monster_alien_slave", node.m_vecOrigin, pev->angles );
 				}

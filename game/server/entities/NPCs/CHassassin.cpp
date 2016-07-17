@@ -550,7 +550,7 @@ bool CHAssassin :: CheckMeleeAttack1 ( float flDot, float flDist )
 
 		Vector vecDest = pev->origin + Vector( RANDOM_FLOAT( -64, 64), RANDOM_FLOAT( -64, 64 ), 160 );
 
-		UTIL_TraceHull( pev->origin + Vector( 0, 0, 36 ), vecDest + Vector( 0, 0, 36 ), dont_ignore_monsters, human_hull, ENT(pev), &tr);
+		UTIL_TraceHull( pev->origin + Vector( 0, 0, 36 ), vecDest + Vector( 0, 0, 36 ), dont_ignore_monsters, Hull::HUMAN, ENT(pev), &tr);
 
 		if ( tr.fStartSolid || tr.flFraction < 1.0)
 		{

@@ -387,6 +387,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\common\CAutoString.h" />
     <ClInclude Include="..\..\common\CHashStringPool.h" />
+    <ClInclude Include="..\..\common\const.h" />
     <ClInclude Include="..\..\common\CPlane.h" />
     <ClInclude Include="..\..\common\Game.h" />
     <ClInclude Include="..\..\common\MinMax.h" />

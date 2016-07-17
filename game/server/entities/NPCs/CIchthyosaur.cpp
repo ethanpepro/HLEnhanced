@@ -566,7 +566,7 @@ void CIchthyosaur :: RunTask ( Task_t *pTask )
 
 			TraceResult tr;
 		
-			UTIL_TraceHull( vecFrom, vecPos, ignore_monsters, large_hull, m_hEnemy->edict(), &tr );
+			UTIL_TraceHull( vecFrom, vecPos, ignore_monsters, Hull::LARGE, m_hEnemy->edict(), &tr );
 
 			if (tr.flFraction > 0.5)
 				vecPos = tr.vecEndPos;

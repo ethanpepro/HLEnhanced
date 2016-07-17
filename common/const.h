@@ -873,5 +873,39 @@ typedef struct
 	int		hitgroup;		// 0 == generic, non zero is specific body part
 } trace_t;
 
+namespace Hull
+{
+/**
+*	Hull types.
+*/
+enum Hull
+{
+	/**
+	*	Point hull.
+	*/
+	POINT	= 0,
+
+	/**
+	*	Human hull. Used by players when standing.
+	*/
+	HUMAN	= 1,
+
+	/**
+	*	Large hull.
+	*/
+	LARGE	= 2,
+
+	/**
+	*	Head hull. Used by players when crouching.
+	*/
+	HEAD	= 3,
+
+	/**
+	*	Number of hulls. Not a valid hull number.
+	*/
+	COUNT
+};
+}
+
 #endif
 

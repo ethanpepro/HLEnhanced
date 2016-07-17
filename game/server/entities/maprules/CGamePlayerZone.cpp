@@ -70,12 +70,11 @@ void CGamePlayerZone::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 		if( pPlayer )
 		{
 			TraceResult trace;
-			int			hullNumber;
+			Hull::Hull hullNumber = Hull::HUMAN;
 
-			hullNumber = human_hull;
 			if( pPlayer->pev->flags & FL_DUCKING )
 			{
-				hullNumber = head_hull;
+				hullNumber = Hull::HEAD;
 			}
 
 			UTIL_TraceModel( pPlayer->pev->origin, pPlayer->pev->origin, hullNumber, edict(), &trace );

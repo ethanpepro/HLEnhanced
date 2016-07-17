@@ -1819,9 +1819,9 @@ typedef struct
 	*	@param playermodelindex Index of the model "models/player.mdl".
 	*	@param player_mins Array of the player minimum bounds for each hull.
 	*	@param player_maxs Array of the player maximum bounds for each hull.
-	*	TODO: define hull count as a constant
 	*/
-	void			(*pfnCreateBaseline) ( int player, int eindex, struct entity_state_s* baseline, edict_t* entity, int playermodelindex, const Vector player_mins[ 4 ], const Vector player_maxs[ 4 ] );
+	void			(*pfnCreateBaseline) ( int player, int eindex, struct entity_state_s* baseline, edict_t* entity, int playermodelindex, 
+										   const Vector player_mins[ Hull::COUNT ], const Vector player_maxs[ Hull::COUNT ] );
 
 	/**
 	*	Called by the engine to allow the server to register delta encoders.

@@ -330,7 +330,7 @@ void CISlave :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			{
 				Vector vecDest = m_hDead->pev->origin + Vector( 0, 0, 38 );
 				TraceResult trace;
-				UTIL_TraceHull( vecDest, vecDest, dont_ignore_monsters, human_hull, m_hDead->edict(), &trace );
+				UTIL_TraceHull( vecDest, vecDest, dont_ignore_monsters, Hull::HUMAN, m_hDead->edict(), &trace );
 
 				if ( !trace.fStartSolid )
 				{

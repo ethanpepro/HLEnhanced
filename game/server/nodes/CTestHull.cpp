@@ -386,7 +386,7 @@ void CTestHull::BuildNodeGraph( void )
 				{
 					TraceResult tr;
 
-					UTIL_TraceHull( pSrcNode->m_vecOrigin + Vector( 0, 0, 32 ), pDestNode->m_vecOriginPeek + Vector( 0, 0, 32 ), ignore_monsters, large_hull, ENT( pev ), &tr );
+					UTIL_TraceHull( pSrcNode->m_vecOrigin + Vector( 0, 0, 32 ), pDestNode->m_vecOriginPeek + Vector( 0, 0, 32 ), ignore_monsters, Hull::LARGE, ENT( pev ), &tr );
 					if( tr.fStartSolid || tr.flFraction < 1.0 )
 					{
 						pTempPool[ pSrcNode->m_iFirstLink + j ].m_afLinkInfo &= ~bits_LINK_FLY_HULL;

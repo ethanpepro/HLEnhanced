@@ -1287,7 +1287,8 @@ CreateBaseline
 Creates baselines used for network encoding, especially for player data since players are not spawned until connect time.
 ===================
 */
-void CreateBaseline( int player, int eindex, struct entity_state_s *baseline, edict_t* entity, int playermodelindex, const Vector player_mins[ 4 ], const Vector player_maxs[ 4 ] )
+void CreateBaseline( int player, int eindex, struct entity_state_s *baseline, edict_t* entity, int playermodelindex, 
+					 const Vector player_mins[ Hull::COUNT ], const Vector player_maxs[ Hull::COUNT ] )
 {
 	baseline->origin		= entity->v.origin;
 	baseline->angles		= entity->v.angles;

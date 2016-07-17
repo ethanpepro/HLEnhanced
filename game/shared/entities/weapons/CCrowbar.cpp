@@ -164,7 +164,7 @@ bool CCrowbar::Swing( const bool bFirst )
 #ifndef CLIENT_DLL
 	if ( tr.flFraction >= 1.0 )
 	{
-		UTIL_TraceHull( vecSrc, vecEnd, dont_ignore_monsters, head_hull, ENT( m_pPlayer->pev ), &tr );
+		UTIL_TraceHull( vecSrc, vecEnd, dont_ignore_monsters, Hull::HEAD, ENT( m_pPlayer->pev ), &tr );
 		if ( tr.flFraction < 1.0 )
 		{
 			// Calculate the point of intersection of the line (or hull) and the object we hit

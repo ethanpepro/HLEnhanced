@@ -46,7 +46,7 @@ void CStomp::Think( void )
 	vecStart.z += 30;
 	Vector vecEnd = vecStart + ( pev->movedir * pev->speed * gpGlobals->frametime );
 
-	UTIL_TraceHull( vecStart, vecEnd, dont_ignore_monsters, head_hull, ENT( pev ), &tr );
+	UTIL_TraceHull( vecStart, vecEnd, dont_ignore_monsters, Hull::HEAD, ENT( pev ), &tr );
 
 	if( tr.pHit && tr.pHit != pev->owner )
 	{
