@@ -123,7 +123,7 @@ static void RegisterScriptClassification( asIScriptEngine& engine )
 	engine.RegisterEnumValue( pszObjectName, "CLASS_PLAYER_ALLY", CLASS_PLAYER_ALLY );
 	engine.RegisterEnumValue( pszObjectName, "CLASS_PLAYER_BIOWEAPON", CLASS_PLAYER_BIOWEAPON );
 	engine.RegisterEnumValue( pszObjectName, "CLASS_ALIEN_BIOWEAPON", CLASS_ALIEN_BIOWEAPON );
-	engine.RegisterEnumValue( pszObjectName, "CLASS_BARNACLE", CLASS_BARNACLE );
+	engine.RegisterEnumValue( pszObjectName, "CLASS_IGNORE", CLASS_IGNORE );
 }
 
 /**

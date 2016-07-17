@@ -32,7 +32,7 @@ public:
 	int			TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType ) override { Attack(); return 0; }
 	void		HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void		Attack( void );
-	int			Classify( void ) override { return CLASS_BARNACLE; }
+	int			Classify() override { return CLASS_IGNORE; }
 
 	static const char *pAttackHitSounds[];
 	static const char *pAttackMissSounds[];

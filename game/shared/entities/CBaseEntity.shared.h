@@ -180,10 +180,11 @@ enum Classification
 	CLASS_ALIEN_BIOWEAPON	= 13,
 
 	/**
-	*	TODO: entities that want to be ignored use this. Rename. - Solokiller
+	*	Entities that want to be ignored use this.
+	*	Used to be called CLASS_BARNACLE.
 	*	Special because no one pays attention to it, and it eats a wide cross-section of creatures.
 	*/
-	CLASS_BARNACLE			= 99,
+	CLASS_IGNORE			= 99,
 };
 
 /**
