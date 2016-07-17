@@ -1,11 +1,213 @@
 #ifndef GAME_SHARED_CBASEENTITY_SHARED_H
 #define GAME_SHARED_CBASEENTITY_SHARED_H
 
+/*
+
+Class Hierachy
+
+CBaseEntity
+	CBaseDelay
+		CBaseToggle
+			CBaseItem
+			CBaseMonster
+				CBaseCycler
+				CBasePlayer
+*/
+
 #include <cstddef>
 
-typedef void ( CBaseEntity::*BASEPTR )();
-typedef void ( CBaseEntity::*ENTITYFUNCPTR )( CBaseEntity *pOther );
-typedef void ( CBaseEntity::*USEPTR )( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+#include "archtypes.h"     // DAL
+#include "SaveRestore.h"
+#include "entities/NPCs/Schedule.h"
+
+#include "entities/AnimationEvent.h"
+
+#include "entities/DataMapping.h"
+
+#include "entities/EHandle.h"
+
+#include "Damage.h"
+
+#include "ButtonSounds.h"
+
+class CBaseMonster;
+class CSquadMonster;
+
+/**
+*	Set this bit on guns and stuff that should never respawn.
+*/
+#define	SF_NORESPAWN	( 1 << 30 )
+
+/**
+*	People gib if their health is <= this at the time of death.
+*/
+#define	GIB_HEALTH_VALUE	-30
+
+// NOTE: tweak these values based on gameplay feedback:
+
+/**
+*	Number of 2 second intervals to take damage.
+*/
+#define PARALYZE_DURATION	2
+
+/**
+*	Damage to take each 2 second interval.
+*/
+#define PARALYZE_DAMAGE		1.0
+
+#define NERVEGAS_DURATION	2
+#define NERVEGAS_DAMAGE		5.0
+
+#define POISON_DURATION		5
+#define POISON_DAMAGE		2.0
+
+#define RADIATION_DURATION	2
+#define RADIATION_DAMAGE	1.0
+
+#define ACID_DURATION		2
+#define ACID_DAMAGE			5.0
+
+#define SLOWBURN_DURATION	2
+#define SLOWBURN_DAMAGE		1.0
+
+#define SLOWFREEZE_DURATION	2
+#define SLOWFREEZE_DAMAGE	1.0
+
+/**
+*	Tracers fire every 4 bullets
+*/
+#define TRACER_FREQ 4
+
+/**
+*	Max number of nodes available for a path.
+*/
+#define MAX_PATH_SIZE 10
+
+//TODO: what's with all of the dllexport definitions? - Solokiller
+#define EXPORT DLLEXPORT
+
+/**
+*	These are caps bits to indicate what an object's capabilities (currently used for save/restore and level transitions).
+*/
+enum FCapability
+{
+	/**
+	*	Not used.
+	*/
+	FCAP_CUSTOMSAVE			= 0x00000001,
+
+	/**
+	*	Should transfer between transitions.
+	*/
+	FCAP_ACROSS_TRANSITION	= 0x00000002,
+
+	/**
+	*	Spawn after restore.
+	*/
+	FCAP_MUST_SPAWN			= 0x00000004,
+
+	/**
+	*	Don't save this.
+	*/
+	FCAP_DONT_SAVE			= 0x80000000,
+
+	/**
+	*	Can be used by the player.
+	*/
+	FCAP_IMPULSE_USE		= 0x00000008,
+
+	/**
+	*	Can be used by the player.
+	*/
+	FCAP_CONTINUOUS_USE		= 0x00000010,
+
+	/**
+	*	Can be used by the player.
+	*/
+	FCAP_ONOFF_USE			= 0x00000020,
+
+	/**
+	*	Player sends +/- 1 when using (currently only tracktrains).
+	*/
+	FCAP_DIRECTIONAL_USE	= 0x00000040,
+
+	/**
+	*	Can be used to "master" other entities (like multisource).
+	*/
+	FCAP_MASTER				= 0x00000080,
+
+	/**
+	*	UNDONE: This will ignore transition volumes (trigger_transition), but not the PVS!!!
+	*	ALWAYS goes across transitions.
+	*/
+	FCAP_FORCE_TRANSITION	= 0x00000080,
+};
+
+enum USE_TYPE
+{
+	USE_OFF		= 0,
+	USE_ON		= 1,
+	USE_SET		= 2,
+	USE_TOGGLE	= 3
+};
+
+/**
+*	@see CBaseEntity::Classify
+*/
+enum Classification
+{
+	CLASS_NONE				= 0,
+	CLASS_MACHINE			= 1,
+	CLASS_PLAYER			= 2,
+	CLASS_HUMAN_PASSIVE		= 3,
+	CLASS_HUMAN_MILITARY	= 4,
+	CLASS_ALIEN_MILITARY	= 5,
+	CLASS_ALIEN_PASSIVE		= 6,
+	CLASS_ALIEN_MONSTER		= 7,
+	CLASS_ALIEN_PREY		= 8,
+	CLASS_ALIEN_PREDATOR	= 9,
+	CLASS_INSECT			= 10,
+	CLASS_PLAYER_ALLY		= 11,
+
+	/**
+	*	Hornets and snarks. Launched by players.
+	*/
+	CLASS_PLAYER_BIOWEAPON	= 12,
+
+	/**
+	*	Hornets and snarks. Launched by the alien menace.
+	*/
+	CLASS_ALIEN_BIOWEAPON	= 13,
+
+	/**
+	*	TODO: entities that want to be ignored use this. Rename. - Solokiller
+	*	Special because no one pays attention to it, and it eats a wide cross-section of creatures.
+	*/
+	CLASS_BARNACLE			= 99,
+};
+
+/**
+*	Possible values for entvars_t::fixangle
+*
+*	Solokiller
+*/
+enum FixAngleMode
+{
+	/**
+	*	Do nothing
+	*/
+	FIXANGLE_NO			= 0,
+
+	/**
+	*	Set view angles to pev->angles
+	*/
+	FIXANGLE_SET		= 1,
+
+	/**
+	*	Add avelocity yaw value to view angles
+	*/
+	FIXANGLE_ADD_AVEL	= 2
+};
 
 /**
 *	When calling Killed(), a value that governs gib behavior is expected to be one of these three values.
@@ -15,18 +217,24 @@ enum GibAction
 	/**
 	*	Gib if entity was overkilled
 	*/
-	GIB_NORMAL = 0,
+	GIB_NORMAL	= 0,
 
 	/**
 	*	Never gib, no matter how much death damage is done ( freezing, etc )
 	*/
-	GIB_NEVER = 1,
+	GIB_NEVER	= 1,
 
 	/**
 	*	Always gib ( Houndeye Shock, Barnacle Bite )
 	*/
-	GIB_ALWAYS = 2,
+	GIB_ALWAYS	= 2,
 };
+
+typedef void ( CBaseEntity::*BASEPTR )();
+typedef void ( CBaseEntity::*ENTITYFUNCPTR )( CBaseEntity *pOther );
+typedef void ( CBaseEntity::*USEPTR )( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+
+extern void FireTargets( const char *targetName, CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 //
 // Base Entity.  All entity types derive from this
@@ -638,5 +846,33 @@ public:
 #define SetBlocked( a ) m_pfnBlocked = static_cast <void (CBaseEntity::*)(CBaseEntity *)> (a)
 
 #endif
+
+/**
+*	Converts a entvars_t * to a class pointer
+*	It will allocate the class and entity if necessary
+*/
+template<typename T>
+T* GetClassPtr( T* a )
+{
+	entvars_t* pev = reinterpret_cast<entvars_t*>( a );
+
+	// allocate entity if necessary
+	if( pev == nullptr )
+		pev = VARS( CREATE_ENTITY() );
+
+	// get the private data
+	a = static_cast<T*>( GET_PRIVATE( ENT( pev ) ) );
+
+	if( a == nullptr )
+	{
+		// allocate private data 
+		a = new( pev ) T;
+		a->pev = pev;
+		//Now calls OnCreate - Solokiller
+		a->OnCreate();
+	}
+
+	return a;
+}
 
 #endif //GAME_SHARED_CBASEENTITY_SHARED_H
