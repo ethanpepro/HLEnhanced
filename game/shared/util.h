@@ -229,7 +229,7 @@ extern void			UTIL_TraceLine			(const Vector &vecStart, const Vector &vecEnd, IG
 extern void			UTIL_TraceHull			(const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, const Hull::Hull hullNumber, edict_t *pentIgnore, TraceResult *ptr);
 extern TraceResult	UTIL_GetGlobalTrace		(void);
 extern void			UTIL_TraceModel			(const Vector &vecStart, const Vector &vecEnd, const Hull::Hull hullNumber, edict_t *pentModel, TraceResult *ptr);
-extern Vector		UTIL_GetAimVector		(edict_t* pent, float flSpeed);
+extern Vector UTIL_GetAimVector( const CBaseEntity* const pEntity, const float flSpeed );
 
 extern bool			UTIL_IsMasterTriggered( string_t sMaster, const CBaseEntity* const pActivator );
 extern void			UTIL_BloodStream( const Vector &origin, const Vector &direction, int color, int amount );

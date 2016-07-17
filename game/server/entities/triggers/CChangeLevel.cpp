@@ -113,7 +113,6 @@ void CChangeLevel::TouchChangeLevel( CBaseEntity *pOther )
 
 void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 {
-	edict_t	*pentLandmark;
 	LEVELLIST	levels[ 16 ];
 
 	ASSERT( !FStrEq( m_szMapName, "" ) );
@@ -158,32 +157,29 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 	st_szNextSpot[ 0 ] = 0;	// Init landmark to NULL
 
 							// look for a landmark entity		
-	pentLandmark = FindLandmark( m_szLandmarkName );
-	if( !FNullEnt( pentLandmark ) )
+	CBaseEntity* pLandmark = FindLandmark( m_szLandmarkName );
+	if( !FNullEnt( pLandmark ) )
 	{
 		strcpy( st_szNextSpot, m_szLandmarkName );
-		gpGlobals->vecLandmarkOffset = VARS( pentLandmark )->origin;
+		gpGlobals->vecLandmarkOffset = pLandmark->pev->origin;
 	}
 	//	ALERT( at_console, "Level touches %d levels\n", ChangeList( levels, 16 ) );
 	ALERT( at_console, "CHANGE LEVEL: %s %s\n", st_szNextMap, st_szNextSpot );
 	CHANGE_LEVEL( st_szNextMap, st_szNextSpot );
 }
 
-edict_t *CChangeLevel::FindLandmark( const char *pLandmarkName )
+CBaseEntity* CChangeLevel::FindLandmark( const char* const pszLandmarkName )
 {
-	edict_t	*pentLandmark;
+	CBaseEntity* pLandmark = nullptr;
 
-	pentLandmark = FIND_ENTITY_BY_STRING( NULL, "targetname", pLandmarkName );
-	while( !FNullEnt( pentLandmark ) )
+	while( pLandmark = UTIL_FindEntityByTargetname( pLandmark, pszLandmarkName ) )
 	{
 		// Found the landmark
-		if( FClassnameIs( pentLandmark, "info_landmark" ) )
-			return pentLandmark;
-		else
-			pentLandmark = FIND_ENTITY_BY_STRING( pentLandmark, "targetname", pLandmarkName );
+		if( FClassnameIs( pLandmark, "info_landmark" ) )
+			return pLandmark;
 	}
-	ALERT( at_error, "Can't find landmark %s\n", pLandmarkName );
-	return NULL;
+	ALERT( at_error, "Can't find landmark %s\n", pszLandmarkName );
+	return nullptr;
 }
 
 // We can only ever move 512 entities across a transition
@@ -195,7 +191,7 @@ edict_t *CChangeLevel::FindLandmark( const char *pLandmarkName )
 // be moved across.
 int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 {
-	edict_t	*pentChangelevel, *pentLandmark;
+	edict_t	*pentChangelevel;
 	int			i, count;
 
 	count = 0;
@@ -208,15 +204,17 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 	{
 		CChangeLevel *pTrigger;
 
+		CBaseEntity* pLandmark;
+
 		pTrigger = GetClassPtr( ( CChangeLevel * ) VARS( pentChangelevel ) );
 		if( pTrigger )
 		{
 			// Find the corresponding landmark
-			pentLandmark = FindLandmark( pTrigger->m_szLandmarkName );
-			if( pentLandmark )
+			pLandmark = FindLandmark( pTrigger->m_szLandmarkName );
+			if( pLandmark )
 			{
 				// Build a list of unique transitions
-				if( AddTransitionToList( pLevelList, count, pTrigger->m_szMapName, pTrigger->m_szLandmarkName, pentLandmark ) )
+				if( AddTransitionToList( pLevelList, count, pTrigger->m_szMapName, pTrigger->m_szLandmarkName, pLandmark ) )
 				{
 					count++;
 					if( count >= maxList )		// FULL!!
@@ -296,22 +294,22 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 
 // Add a transition to the list, but ignore duplicates 
 // (a designer may have placed multiple trigger_changelevels with the same landmark)
-int CChangeLevel::AddTransitionToList( LEVELLIST *pLevelList, int listCount, const char *pMapName, const char *pLandmarkName, edict_t *pentLandmark )
+int CChangeLevel::AddTransitionToList( LEVELLIST *pLevelList, int listCount, const char *pMapName, const char *pLandmarkName, CBaseEntity* pLandmark )
 {
 	int i;
 
-	if( !pLevelList || !pMapName || !pLandmarkName || !pentLandmark )
+	if( !pLevelList || !pMapName || !pLandmarkName || !pLandmark )
 		return 0;
 
 	for( i = 0; i < listCount; i++ )
 	{
-		if( pLevelList[ i ].pentLandmark == pentLandmark && strcmp( pLevelList[ i ].mapName, pMapName ) == 0 )
+		if( pLevelList[ i ].pentLandmark == pLandmark->edict() && strcmp( pLevelList[ i ].mapName, pMapName ) == 0 )
 			return 0;
 	}
 	strcpy( pLevelList[ listCount ].mapName, pMapName );
 	strcpy( pLevelList[ listCount ].landmarkName, pLandmarkName );
-	pLevelList[ listCount ].pentLandmark = pentLandmark;
-	pLevelList[ listCount ].vecLandmarkOrigin = VARS( pentLandmark )->origin;
+	pLevelList[ listCount ].pentLandmark = pLandmark->edict();
+	pLevelList[ listCount ].vecLandmarkOrigin = pLandmark->pev->origin;
 
 	return 1;
 }

@@ -118,13 +118,6 @@ bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeap
 {
 	return g_pGameRules->GetNextBestWeapon( pPlayer, pCurrentWeapon );
 }
-	
-//	float UTIL_MoveToOrigin( edict_t *pent, const Vector vecGoal, float flDist, int iMoveType )
-void UTIL_MoveToOrigin( edict_t *pent, const Vector &vecGoal, float flDist, int iMoveType )
-{
-//		return MOVE_TO_ORIGIN ( pent, rgfl, flDist, iMoveType ); 
-	MOVE_TO_ORIGIN ( pent, vecGoal, flDist, iMoveType );
-}
 
 int UTIL_EntitiesInBox( CBaseEntity **pList, int listMax, const Vector &mins, const Vector &maxs, int flagMask )
 {
@@ -712,10 +705,10 @@ void UTIL_ParticleEffect( const Vector &vecOrigin, const Vector &vecDirection, c
 	PARTICLE_EFFECT( vecOrigin, vecDirection, (float)ulColor, (float)ulCount );
 }
 	
-Vector UTIL_GetAimVector( edict_t *pent, float flSpeed )
+Vector UTIL_GetAimVector( const CBaseEntity* const pEntity, const float flSpeed )
 {
 	Vector tmp;
-	GET_AIM_VECTOR(pent, flSpeed, tmp);
+	GET_AIM_VECTOR( const_cast<edict_t*>( pEntity->edict() ), flSpeed, tmp );
 	return tmp;
 }
 

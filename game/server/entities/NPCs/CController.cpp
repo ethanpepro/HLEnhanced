@@ -1047,6 +1047,5 @@ void CController::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, fl
 
 	m_velocity = m_velocity * 0.8 + m_flGroundSpeed * vecDir * 0.2;
 
-	UTIL_MoveToOrigin ( ENT(pev), pev->origin + m_velocity, m_velocity.Length() * flInterval, MOVE_STRAFE );
-	
+	UTIL_MoveToOrigin( this, pev->origin + m_velocity, m_velocity.Length() * flInterval, MOVE_STRAFE );
 }

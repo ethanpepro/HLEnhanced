@@ -185,7 +185,7 @@ void CFlyingMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir,
 		{
 			m_vecTravel = (vecMove - pev->origin);
 			m_vecTravel = m_vecTravel.Normalize();
-			UTIL_MoveToOrigin(ENT(pev), vecMove, (m_flGroundSpeed * flInterval), MOVE_STRAFE);
+			UTIL_MoveToOrigin( this, vecMove, ( m_flGroundSpeed * flInterval ), MOVE_STRAFE );
 		}
 		else
 		{

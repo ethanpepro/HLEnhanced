@@ -72,6 +72,11 @@ bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector &vecTargetO
 	return false;// Line of sight is not established
 }
 
+void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDist, const MoveType moveType )
+{
+	MOVE_TO_ORIGIN( pEntity->edict(), vecGoal, flDist, moveType );
+}
+
 //
 // VecCheckToss - returns the velocity at which an object should be lobbed from vecspot1 to land near vecspot2.
 // returns g_vecZero if toss is not feasible.
