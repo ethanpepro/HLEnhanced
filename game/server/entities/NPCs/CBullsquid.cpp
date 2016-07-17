@@ -367,7 +367,7 @@ void CBullsquid :: HandleAnimEvent( MonsterEvent_t *pEvent )
 				WRITE_BYTE ( 25 );			// noise ( client will divide by 100 )
 			MESSAGE_END();
 
-			CSquidSpit::Shoot( pev, vecSpitOffset, vecSpitDir * 900 );
+			CSquidSpit::Shoot( this, vecSpitOffset, vecSpitDir * 900 );
 		}
 		break;
 

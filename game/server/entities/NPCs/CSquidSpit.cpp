@@ -46,14 +46,14 @@ void CSquidSpit::Spawn( void )
 	m_maxFrame = ( float ) MODEL_FRAMES( pev->modelindex ) - 1;
 }
 
-void CSquidSpit::Shoot( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity )
+void CSquidSpit::Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity )
 {
 	CSquidSpit *pSpit = GetClassPtr( ( CSquidSpit * ) NULL );
 	pSpit->Spawn();
 
 	UTIL_SetOrigin( pSpit->pev, vecStart );
 	pSpit->pev->velocity = vecVelocity;
-	pSpit->pev->owner = ENT( pevOwner );
+	pSpit->pev->owner = ENT( pOwner );
 
 	pSpit->SetThink( &CSquidSpit::Animate );
 	pSpit->pev->nextthink = gpGlobals->time + 0.1;

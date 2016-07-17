@@ -28,7 +28,7 @@ public:
 
 	void Spawn( void ) override;
 
-	static void Shoot( entvars_t *pevOwner, Vector vecStart, Vector vecVelocity );
+	static void Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity );
 	void Touch( CBaseEntity *pOther ) override;
 	void EXPORT Animate( void );
 
