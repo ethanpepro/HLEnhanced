@@ -34,7 +34,7 @@ public:
 	virtual bool ClientCommand( CBasePlayer *pPlayer, const char *pcmd ) override;
 	virtual void ClientUserInfoChanged( CBasePlayer *pPlayer, char *infobuffer ) override;
 	virtual bool IsTeamplay() const override;
-	virtual bool FPlayerCanTakeDamage( CBasePlayer *pPlayer, CBaseEntity *pAttacker ) override;
+	virtual bool FPlayerCanTakeDamage( CBasePlayer *pPlayer, const CTakeDamageInfo& info ) override;
 	virtual int PlayerRelationship( CBaseEntity *pPlayer, CBaseEntity *pTarget ) override;
 	virtual const char *GetTeamID( CBaseEntity *pEntity ) override;
 	virtual bool ShouldAutoAim( CBasePlayer *pPlayer, edict_t *target ) override;

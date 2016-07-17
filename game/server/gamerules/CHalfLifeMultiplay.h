@@ -51,7 +51,7 @@ public:
 
 																   // Client damage rules
 	virtual float FlPlayerFallDamage( CBasePlayer *pPlayer ) override;
-	virtual bool  FPlayerCanTakeDamage( CBasePlayer *pPlayer, CBaseEntity *pAttacker ) override;
+	virtual bool  FPlayerCanTakeDamage( CBasePlayer *pPlayer, const CTakeDamageInfo& info ) override;
 
 	// Client spawn/respawn control
 	virtual void PlayerSpawn( CBasePlayer *pPlayer ) override;

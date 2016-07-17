@@ -90,7 +90,7 @@ public:
 
 // Client damage rules
 	virtual float FlPlayerFallDamage( CBasePlayer *pPlayer ) = 0;// this client just hit the ground after a fall. How much damage?
-	virtual bool  FPlayerCanTakeDamage( CBasePlayer *pPlayer, CBaseEntity *pAttacker ) {return true;}// can this player take damage from this attacker?
+	virtual bool  FPlayerCanTakeDamage( CBasePlayer *pPlayer, const CTakeDamageInfo& info ) { return true; }// can this player take damage from this attacker?
 	virtual bool ShouldAutoAim( CBasePlayer *pPlayer, edict_t *target ) { return true; }
 
 // Client spawn/respawn control

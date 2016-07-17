@@ -524,7 +524,7 @@ float CHalfLifeMultiplay :: FlPlayerFallDamage( CBasePlayer *pPlayer )
 
 //=========================================================
 //=========================================================
-bool CHalfLifeMultiplay::FPlayerCanTakeDamage( CBasePlayer *pPlayer, CBaseEntity *pAttacker )
+bool CHalfLifeMultiplay::FPlayerCanTakeDamage( CBasePlayer *pPlayer, const CTakeDamageInfo& info )
 {
 	return true;
 }

@@ -409,19 +409,19 @@ bool CHalfLifeTeamplay::IsTeamplay() const
 	return true;
 }
 
-bool CHalfLifeTeamplay::FPlayerCanTakeDamage( CBasePlayer *pPlayer, CBaseEntity *pAttacker )
+bool CHalfLifeTeamplay::FPlayerCanTakeDamage( CBasePlayer *pPlayer, const CTakeDamageInfo& info )
 {
-	if ( pAttacker && PlayerRelationship( pPlayer, pAttacker ) == GR_TEAMMATE )
+	if ( info.GetAttacker() && PlayerRelationship( pPlayer, info.GetAttacker() ) == GR_TEAMMATE )
 	{
 		// my teammate hit me.
-		if ( (friendlyfire.value == 0) && (pAttacker != pPlayer) )
+		if ( (friendlyfire.value == 0) && (info.GetAttacker() != pPlayer) )
 		{
 			// friendly fire is off, and this hit came from someone other than myself,  then don't get hurt
 			return false;
 		}
 	}
 
-	return CHalfLifeMultiplay::FPlayerCanTakeDamage( pPlayer, pAttacker );
+	return CHalfLifeMultiplay::FPlayerCanTakeDamage( pPlayer, info );
 }
 
 //=========================================================
