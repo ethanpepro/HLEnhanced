@@ -118,13 +118,6 @@ bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeap
 {
 	return g_pGameRules->GetNextBestWeapon( pPlayer, pCurrentWeapon );
 }
-
-Vector UTIL_VecToAngles( const Vector &vec )
-{
-	Vector rgflVecOut;
-	VEC_TO_ANGLES(vec, rgflVecOut);
-	return rgflVecOut;
-}
 	
 //	float UTIL_MoveToOrigin( edict_t *pent, const Vector vecGoal, float flDist, int iMoveType )
 void UTIL_MoveToOrigin( edict_t *pent, const Vector &vecGoal, float flDist, int iMoveType )

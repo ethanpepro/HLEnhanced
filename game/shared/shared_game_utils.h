@@ -147,4 +147,11 @@ void UTIL_Bubbles( const Vector& mins, const Vector& maxs, int count, const floa
 */
 void UTIL_BubbleTrail( const Vector& from, const Vector& to, int count, const float flSpeed = 8 );
 
+/**
+*	Converts a directional vector to angles.
+*	@param vec Directional vector.
+*	@return Angles.
+*/
+Vector UTIL_VecToAngles( const Vector& vec );
+
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H

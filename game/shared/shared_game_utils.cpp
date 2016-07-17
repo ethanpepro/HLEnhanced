@@ -639,3 +639,14 @@ void UTIL_BubbleTrail( const Vector& from, const Vector& to, int count, const fl
 	gEngfuncs.pEfxAPI->R_BubbleTrail( from, to, flHeight, gEngfuncs.pEventAPI->EV_FindModelIndex( BUBBLES_MODEL ), count, flSpeed );
 #endif
 }
+
+Vector UTIL_VecToAngles( const Vector& vec )
+{
+	Vector vecAngles;
+
+	//Used to call VEC_TO_ANGLES, which is a server engine interface function.
+	//Same code, different source. Dll agnostic. - Solokiller
+	VectorAngles( vec, vecAngles );
+
+	return vecAngles;
+}

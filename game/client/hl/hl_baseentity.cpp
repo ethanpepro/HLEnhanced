@@ -60,9 +60,6 @@ struct skilldata_t  gSkillData;
 void UTIL_SetSize( entvars_t *pev, const Vector &vecMin, const Vector &vecMax ){ }
 CBaseEntity *UTIL_FindEntityInSphere( CBaseEntity *pStartEntity, const Vector &vecCenter, float flRadius ){ return 0;}
 
-//TODO
-Vector UTIL_VecToAngles( const Vector& vec ){ return Vector(); }
-
 int TrainSpeed(int iSpeed, int iMax) { 	return 0; }
 CBaseEntity *FindEntityForward( CBaseEntity *pMe ) { return nullptr; }
 

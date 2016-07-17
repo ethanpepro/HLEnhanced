@@ -174,7 +174,6 @@ class CBasePlayer;
 // Misc. Prototypes
 extern void			UTIL_SetSize			(entvars_t* pev, const Vector &vecMin, const Vector &vecMax);
 extern float		UTIL_VecToYaw			(const Vector &vec);
-extern Vector		UTIL_VecToAngles		(const Vector &vec);
 
 extern CBaseEntity	*UTIL_FindEntityInSphere(CBaseEntity *pStartEntity, const Vector &vecCenter, float flRadius);
 extern CBaseEntity	*UTIL_FindEntityByString(CBaseEntity *pStartEntity, const char *szKeyword, const char *szValue );
