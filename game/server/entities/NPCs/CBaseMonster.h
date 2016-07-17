@@ -335,7 +335,7 @@ public:
 		void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr );
 
 	// combat functions
-	float UpdateTarget ( entvars_t *pevTarget );
+	float UpdateTarget ( CBaseEntity* pTarget );
 	virtual Activity GetDeathActivity ( void );
 	Activity GetSmallFlinchActivity( void );
 	virtual void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;

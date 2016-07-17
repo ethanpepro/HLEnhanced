@@ -609,7 +609,7 @@ bool CHAssassin :: CheckRangeAttack2 ( float flDot, float flDist )
 
 	if ( m_flNextGrenadeCheck < gpGlobals->time && !HasConditions( bits_COND_ENEMY_OCCLUDED ) && flDist <= 512 /* && flDot >= 0.5 */ /* && NoFriendlyFire() */ )
 	{
-		Vector vecToss = VecCheckThrow( pev, GetGunPosition( ), m_hEnemy->Center(), flDist, 0.5 ); // use dist as speed to get there in 1 second
+		Vector vecToss = VecCheckThrow( this, GetGunPosition( ), m_hEnemy->Center(), flDist, 0.5 ); // use dist as speed to get there in 1 second
 
 		if ( vecToss != g_vecZero )
 		{

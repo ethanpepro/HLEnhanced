@@ -380,7 +380,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 		
 	if (FBitSet( pev->weapons, HGRUNT_HANDGRENADE))
 	{
-		Vector vecToss = VecCheckToss( pev, GetGunPosition(), vecTarget, 0.5 );
+		Vector vecToss = VecCheckToss( this, GetGunPosition(), vecTarget, 0.5 );
 
 		if ( vecToss != g_vecZero )
 		{
@@ -401,7 +401,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 	}
 	else
 	{
-		Vector vecToss = VecCheckThrow( pev, GetGunPosition(), vecTarget, gSkillData.hgruntGrenadeSpeed, 0.5 );
+		Vector vecToss = VecCheckThrow( this, GetGunPosition(), vecTarget, gSkillData.hgruntGrenadeSpeed, 0.5 );
 
 		if ( vecToss != g_vecZero )
 		{
