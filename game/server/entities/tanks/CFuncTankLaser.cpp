@@ -36,10 +36,12 @@ void CFuncTankLaser::KeyValue( KeyValueData *pkvd )
 		CFuncTank::KeyValue( pkvd );
 }
 
-void CFuncTankLaser::Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker )
+void CFuncTankLaser::Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker )
 {
 	int i;
 	TraceResult tr;
+
+	//TODO is the attacker being passed in correctly here? - Solokiller
 
 	if( m_fireLast != 0 && GetLaser() )
 	{
@@ -60,12 +62,12 @@ void CFuncTankLaser::Fire( const Vector &barrelEnd, const Vector &forward, entva
 				m_pLaser->FireAtPoint( tr );
 				m_pLaser->pev->nextthink = 0;
 			}
-			CFuncTank::Fire( barrelEnd, forward, pev );
+			CFuncTank::Fire( barrelEnd, forward, this );
 		}
 	}
 	else
 	{
-		CFuncTank::Fire( barrelEnd, forward, pev );
+		CFuncTank::Fire( barrelEnd, forward, this );
 	}
 }
 

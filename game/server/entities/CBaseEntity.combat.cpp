@@ -156,7 +156,7 @@ This version is used by Monsters.
 void CBaseEntity::FireBullets( const unsigned int cShots,
 							   Vector vecSrc, Vector vecDirShooting, Vector vecSpread,
 							   float flDistance, int iBulletType,
-							   int iTracerFreq, int iDamage, entvars_t *pevAttacker )
+							   int iTracerFreq, int iDamage, CBaseEntity* pAttacker )
 {
 	static int tracerCount;
 	int tracer;
@@ -164,10 +164,8 @@ void CBaseEntity::FireBullets( const unsigned int cShots,
 	Vector vecRight = gpGlobals->v_right;
 	Vector vecUp = gpGlobals->v_up;
 
-	if( pevAttacker == NULL )
-		pevAttacker = pev;  // the default attacker is ourselves
-
-	auto pAttacker = Instance( pevAttacker );
+	if( pAttacker == nullptr )
+		pAttacker = this;  // the default attacker is ourselves
 
 	g_MultiDamage.Clear();
 	g_MultiDamage.SetDamageTypes( DMG_BULLET | DMG_NEVERGIB );
@@ -280,7 +278,7 @@ void CBaseEntity::FireBullets( const unsigned int cShots,
 		// make bullet trails
 		UTIL_BubbleTrail( vecSrc, tr.vecEndPos, ( flDistance * tr.flFraction ) / 64.0 );
 	}
-	g_MultiDamage.ApplyMultiDamage( this, Instance( pevAttacker ) );
+	g_MultiDamage.ApplyMultiDamage( this, pAttacker );
 }
 
 /*
@@ -295,7 +293,7 @@ This version is used by Players, uses the random seed generator to sync client a
 Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 									   Vector vecSrc, Vector vecDirShooting, Vector vecSpread,
 									   float flDistance, int iBulletType,
-									   int iTracerFreq, int iDamage, entvars_t *pevAttacker, int shared_rand )
+									   int iTracerFreq, int iDamage, CBaseEntity* pAttacker, int shared_rand )
 {
 	static int tracerCount;
 	TraceResult tr;
@@ -303,10 +301,8 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 	Vector vecUp = gpGlobals->v_up;
 	float x, y, z;
 
-	if( pevAttacker == NULL )
-		pevAttacker = pev;  // the default attacker is ourselves
-
-	auto pAttacker = Instance( pevAttacker );
+	if( pAttacker == nullptr )
+		pAttacker = this;  // the default attacker is ourselves
 
 	g_MultiDamage.Clear();
 	g_MultiDamage.SetDamageTypes( DMG_BULLET | DMG_NEVERGIB );
@@ -377,7 +373,7 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 		// make bullet trails
 		UTIL_BubbleTrail( vecSrc, tr.vecEndPos, ( flDistance * tr.flFraction ) / 64.0 );
 	}
-	g_MultiDamage.ApplyMultiDamage( this, Instance( pevAttacker ) );
+	g_MultiDamage.ApplyMultiDamage( this, pAttacker );
 
 	return Vector( x * vecSpread.x, y * vecSpread.y, 0.0 );
 }

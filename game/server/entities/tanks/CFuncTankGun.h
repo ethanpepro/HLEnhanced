@@ -22,7 +22,7 @@ class CFuncTankGun : public CFuncTank
 public:
 	DECLARE_CLASS( CFuncTankGun, CFuncTank );
 
-	void Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker ) override;
+	void Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker ) override;
 };
 
 #endif //GAME_SERVER_ENTITIES_TANKS_CFUNCTANKGUN_H

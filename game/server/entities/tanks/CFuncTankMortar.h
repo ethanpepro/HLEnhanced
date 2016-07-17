@@ -23,7 +23,7 @@ public:
 	DECLARE_CLASS( CFuncTankMortar, CFuncTank );
 
 	void KeyValue( KeyValueData *pkvd ) override;
-	void Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker ) override;
+	void Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker ) override;
 };
 
 #endif //GAME_SERVER_ENTITIES_TANKS_CFUNCTANKMORTAR_H

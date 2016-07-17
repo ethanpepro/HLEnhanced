@@ -371,7 +371,7 @@ void CFuncTank::TrackTarget( void )
 
 		if( fire )
 		{
-			Fire( BarrelPosition(), forward, pev );
+			Fire( BarrelPosition(), forward, this );
 		}
 		else
 			m_fireLast = 0;
@@ -381,7 +381,7 @@ void CFuncTank::TrackTarget( void )
 }
 
 // Fire targets and spawn sprites
-void CFuncTank::Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker )
+void CFuncTank::Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker )
 {
 	if( m_fireLast != 0 )
 	{
@@ -561,7 +561,7 @@ void CFuncTank::ControllerPostFrame( void )
 
 		m_fireLast = gpGlobals->time - ( 1 / m_fireRate ) - 0.01;  // to make sure the gun doesn't fire too many bullets
 
-		Fire( BarrelPosition(), vecForward, m_pController->pev );
+		Fire( BarrelPosition(), vecForward, m_pController );
 
 		// HACKHACK -- make some noise (that the AI can hear)
 		if( m_pController && m_pController->IsPlayer() )

@@ -12,9 +12,11 @@ void CFuncTankRocket::Precache( void )
 	CFuncTank::Precache();
 }
 
-void CFuncTankRocket::Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker )
+void CFuncTankRocket::Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker )
 {
 	int i;
+
+	//TODO is the attacker being passed in correctly here? - Solokiller
 
 	if( m_fireLast != 0 )
 	{
@@ -25,9 +27,9 @@ void CFuncTankRocket::Fire( const Vector &barrelEnd, const Vector &forward, entv
 			{
 				CBaseEntity *pRocket = CBaseEntity::Create( "rpg_rocket", barrelEnd, pev->angles, edict() );
 			}
-			CFuncTank::Fire( barrelEnd, forward, pev );
+			CFuncTank::Fire( barrelEnd, forward, this );
 		}
 	}
 	else
-		CFuncTank::Fire( barrelEnd, forward, pev );
+		CFuncTank::Fire( barrelEnd, forward, this );
 }

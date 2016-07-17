@@ -27,7 +27,7 @@ public:
 
 	void	Activate( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
-	void	Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker ) override;
+	void	Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker ) override;
 	void	Think( void ) override;
 	CLaser *GetLaser( void );
 

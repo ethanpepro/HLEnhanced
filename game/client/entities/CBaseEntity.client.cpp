@@ -81,7 +81,7 @@ bool CBaseEntity::ShouldToggle( USE_TYPE useType, const bool currentState ) cons
 void CBaseEntity::FireBullets( const unsigned int cShots,
 							   Vector vecSrc, Vector vecDirShooting, Vector vecSpread,
 							   float flDistance, int iBulletType,
-							   int iTracerFreq, int iDamage, entvars_t *pevAttacker )
+							   int iTracerFreq, int iDamage, CBaseEntity* pAttacker )
 {
 }
 
@@ -95,13 +95,13 @@ Only produces random numbers to match the server ones.
 Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 									   Vector vecSrc, Vector vecDirShooting, Vector vecSpread,
 									   float flDistance, int iBulletType,
-									   int iTracerFreq, int iDamage, entvars_t *pevAttacker, int shared_rand )
+									   int iTracerFreq, int iDamage, CBaseEntity* pAttacker, int shared_rand )
 {
 	float x, y, z;
 
 	for( unsigned int iShot = 1; iShot <= cShots; iShot++ )
 	{
-		if( pevAttacker == NULL )
+		if( pAttacker == NULL )
 		{
 			// get circular gaussian spread
 			do {

@@ -700,12 +700,12 @@ public:
 	*	@param iBulletType Bullet type to shoot. @see Bullet.
 	*	@param iTracerFreq Show a tracer every this many bullets.
 	*	@param iDamage Amount of damage to deal. If 0, uses skill cfg settings for the given bullet type.
-	*	@param pevAttacker Entity responsible for firing the bullets.
+	*	@param pAttacker Entity responsible for firing the bullets.
 	*/
 	void FireBullets( const unsigned int cShots,
 					  Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
 					  float flDistance, int iBulletType, 
-					  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = nullptr );
+					  int iTracerFreq = 4, int iDamage = 0, CBaseEntity* pAttacker = nullptr );
 
 	/**
 	*	Fires a number of bullets of a given bullet type.
@@ -717,14 +717,14 @@ public:
 	*	@param iBulletType Bullet type to shoot. @see Bullet.
 	*	@param iTracerFreq Show a tracer every this many bullets.
 	*	@param iDamage Amount of damage to deal. If 0, uses skill cfg settings for the given bullet type.
-	*	@param pevAttacker Entity responsible for firing the bullets.
+	*	@param pAttacker Entity responsible for firing the bullets.
 	*	@param shared_rand Player specific shared random number seed.
 	*	@return Bullet spread angle of the last shot for the X and Y axes.
 	*/
 	Vector FireBulletsPlayer( const unsigned int cShots,
 							  Vector vecSrc, Vector vecDirShooting, Vector vecSpread, 
 							  float flDistance, int iBulletType, 
-							  int iTracerFreq = 4, int iDamage = 0, entvars_t *pevAttacker = nullptr, int shared_rand = 0 );
+							  int iTracerFreq = 4, int iDamage = 0, CBaseEntity* pAttacker = nullptr, int shared_rand = 0 );
 
 	/**
 	*	Triggers all of the entities named this->pev->targetname.

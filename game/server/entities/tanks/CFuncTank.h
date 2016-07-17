@@ -50,7 +50,7 @@ public:
 	void	Think( void ) override;
 	void	TrackTarget( void );
 
-	virtual void Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker );
+	virtual void Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker );
 	virtual Vector UpdateTargetPosition( CBaseEntity *pTarget )
 	{
 		return pTarget->BodyTarget( pev->origin );

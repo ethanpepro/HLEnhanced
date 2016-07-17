@@ -23,7 +23,7 @@ public:
 	DECLARE_CLASS( CFuncTankRocket, CFuncTank );
 
 	void Precache( void ) override;
-	void Fire( const Vector &barrelEnd, const Vector &forward, entvars_t *pevAttacker ) override;
+	void Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker ) override;
 };
 
 #endif //GAME_SERVER_ENTITIES_TANKS_CFUNCTANKROCKET_H
