@@ -29,8 +29,7 @@ public:
 
 	static void PlatSpawnInsideTrigger( CFuncPlat* pPlatform );
 
-	//TODO: should be an EHANDLE in case the plat is killtargeted - Solokiller
-	CFuncPlat *m_pPlatform;
+	EHANDLE m_hPlatform;
 };
 
 #endif //GAME_SERVER_ENTITIES_PLATS_CPLATTRIGGER_H

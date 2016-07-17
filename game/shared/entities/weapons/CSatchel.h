@@ -36,6 +36,25 @@ enum satchel_radio_e
 class CSatchel : public CBasePlayerWeapon
 {
 public:
+	enum class ChargeState
+	{
+		/**
+		*	No satchels deployed.
+		*/
+		NONE = 0,
+
+		/**
+		*	At least one satchel deployed.
+		*/
+		DEPLOYED,
+
+		/**
+		*	Triggered satchels, reloading.
+		*/
+		TRIGGERED
+	};
+
+public:
 	DECLARE_CLASS( CSatchel, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
 	DECLARE_DATADESC();
@@ -70,19 +89,18 @@ public:
 	{
 		BaseClass::GetWeaponData( data );
 
-		data.iuser1 = m_chargeReady;
+		data.iuser1 = static_cast<int>( m_chargeReady );
 	}
 
 	void SetWeaponData( const weapon_data_t& data ) override
 	{
 		BaseClass::SetWeaponData( data );
 
-		m_chargeReady = data.iuser1;
+		m_chargeReady = static_cast<ChargeState>( data.iuser1 );
 	}
 
 private:
-	//TODO: make this an enum - Solokiller
-	int m_chargeReady;
+	ChargeState m_chargeReady;
 };
 
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CSATCHEL_H

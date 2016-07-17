@@ -17,6 +17,11 @@
 // this bogus "empty" define to mark things as constant.
 #define CONSTANT
 
+/**
+*	Number of static buffers used by functions that return pointers to static string buffers.
+*/
+const size_t NUM_STATIC_BUFFERS = 4;
+
 extern DLL_GLOBAL const Vector g_vecZero;
 
 extern cvar_t* g_pDeveloper;
@@ -43,14 +48,22 @@ void UTIL_StringToVector( float *pVector, const char *pString );
 
 void UTIL_StringToIntArray( int *pVector, int count, const char *pString );
 
+/**
+*	Utility function to format strings without creating a buffer to store the result in.
+*	@param pszFormat Format string.
+*	@param ... Arguments.
+*	@return Pointer to the string. Up to NUM_STATIC_BUFFERS strings returned sequentially from this can be valid at the same time.
+*	@see NUM_STATIC_BUFFERS.
+*/
 char* UTIL_VarArgs( const char* pszFormat, ... );
 
-// for handy use with ClientPrint params
-//TODO: replace with multiple buffer implementation - Solokiller
-char* UTIL_dtos1( int d );
-char* UTIL_dtos2( int d );
-char* UTIL_dtos3( int d );
-char* UTIL_dtos4( int d );
+/**
+*	For handy use with ClientPrint params. This returns the string representation of the given integer.
+*	@param iValue Value.
+*	@return Pointer to the string. Up to NUM_STATIC_BUFFERS strings returned sequentially from this can be valid at the same time.
+*	@see NUM_STATIC_BUFFERS.
+*/
+char* UTIL_dtos( const int iValue );
 
 void UTIL_StripToken( const char *pKey, char *pDest );// for redundant keynames
 
