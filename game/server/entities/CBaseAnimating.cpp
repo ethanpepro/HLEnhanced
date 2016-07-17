@@ -68,7 +68,7 @@ int CBaseAnimating::LookupActivity( int activity )
 	ASSERT( activity != 0 );
 	void *pmodel = GET_MODEL_PTR( ENT( pev ) );
 
-	return ::LookupActivity( pmodel, pev, activity );
+	return ::LookupActivity( pmodel, activity );
 }
 
 //=========================================================
@@ -81,7 +81,7 @@ int CBaseAnimating::LookupActivityHeaviest( int activity )
 {
 	void *pmodel = GET_MODEL_PTR( ENT( pev ) );
 
-	return ::LookupActivityHeaviest( pmodel, pev, activity );
+	return ::LookupActivityHeaviest( pmodel, activity );
 }
 
 //=========================================================
