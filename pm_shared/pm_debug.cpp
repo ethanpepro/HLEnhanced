@@ -13,10 +13,7 @@
 *
 ****/
 
-//TODO: remove once conflicts are resolved - Solokiller
-typedef float vec_t;
-
-#include "vector.h"
+#include <cstring>
 
 #include "mathlib.h"
 #include "const.h"
@@ -27,8 +24,6 @@ typedef float vec_t;
 #include "pm_debug.h"
 
 #include "com_model.h"
-
-#include <string.h>
 
 #pragma warning(disable : 4244)
 #pragma warning(disable : 4305)
