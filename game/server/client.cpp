@@ -171,18 +171,16 @@ GLOBALS ASSUMED SET:  g_ulModelIndexPlayer
 */
 void ClientKill( edict_t *pEntity )
 {
-	entvars_t *pev = &pEntity->v;
+	auto Player = ( CBasePlayer* ) CBasePlayer::Instance( &pEntity->v );
 
-	CBasePlayer *pl = (CBasePlayer*) CBasePlayer::Instance( pev );
-
-	if ( pl->m_fNextSuicideTime > gpGlobals->time )
+	if ( Player->m_fNextSuicideTime > gpGlobals->time )
 		return;  // prevent suiciding too ofter
 
-	pl->m_fNextSuicideTime = gpGlobals->time + 1;  // don't let them suicide for 5 seconds after suiciding
+	Player->m_fNextSuicideTime = gpGlobals->time + 1;  // don't let them suicide for 5 seconds after suiciding
 
 	// have the player kill themself
-	pev->health = 0;
-	pl->Killed( CTakeDamageInfo( pl, 0, 0 ), GIB_NEVER );
+	Player->pev->health = 0;
+	Player->Killed( CTakeDamageInfo( Player, 0, 0 ), GIB_NEVER );
 
 //	pev->modelindex = g_ulModelIndexPlayer;
 //	pev->frags -= 2;		// extra penalty
@@ -198,15 +196,12 @@ called each time a player is spawned
 */
 void ClientPutInServer( edict_t *pEntity )
 {
-	CBasePlayer *pPlayer;
+	// Allocate a CBasePlayer for pev, and call spawn
+	auto pPlayer = GetClassPtr( ( CBasePlayer* ) &pEntity->v );
 
-	entvars_t *pev = &pEntity->v;
-
-	pPlayer = GetClassPtr((CBasePlayer *)pev);
 	pPlayer->SetCustomDecalFrames(-1); // Assume none;
 
-	// Allocate a CBasePlayer for pev, and call spawn
-	pPlayer->Spawn() ;
+	pPlayer->Spawn();
 
 	// Reset interpolation during first frame
 	pPlayer->pev->effects |= EF_NOINTERP;
@@ -354,8 +349,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	if ( CMD_ARGC() == 0 )
 		return;
 
-	entvars_t *pev = &pEntity->v;
-	CBasePlayer* player = GetClassPtr((CBasePlayer *)pev);
+	auto player = GetClassPtr( ( CBasePlayer* ) &pEntity->v );
 
 	//Not yet.
 	if ( player->m_flNextChatTime > gpGlobals->time )
@@ -513,6 +507,8 @@ void ClientCommand( edict_t *pEntity )
 
 	entvars_t *pev = &pEntity->v;
 
+	auto* pPlayer = GetClassPtr( ( CBasePlayer* ) pev );
+
 	if ( FStrEq(pcmd, "say" ) )
 	{
 		Host_Say( pEntity, 0 );
@@ -523,52 +519,50 @@ void ClientCommand( edict_t *pEntity )
 	}
 	else if ( FStrEq(pcmd, "fullupdate" ) )
 	{
-		GetClassPtr((CBasePlayer *)pev)->ForceClientDllUpdate(); 
+		pPlayer->ForceClientDllUpdate();
 	}
 	else if ( FStrEq(pcmd, "give" ) )
 	{
 		if ( g_flWeaponCheat != 0.0)
 		{
 			int iszItem = ALLOC_STRING( CMD_ARGV(1) );	// Make a copy of the classname
-			GetClassPtr((CBasePlayer *)pev)->GiveNamedItem( STRING(iszItem) );
+			pPlayer->GiveNamedItem( STRING(iszItem) );
 		}
 	}
 
 	else if ( FStrEq(pcmd, "drop" ) )
 	{
 		// player is dropping an item. 
-		GetClassPtr((CBasePlayer *)pev)->DropPlayerItem((char *)CMD_ARGV(1));
+		pPlayer->DropPlayerItem((char *)CMD_ARGV(1));
 	}
 	else if ( FStrEq(pcmd, "fov" ) )
 	{
 		if ( g_flWeaponCheat && CMD_ARGC() > 1)
 		{
-			GetClassPtr((CBasePlayer *)pev)->m_iFOV = atoi( CMD_ARGV(1) );
+			pPlayer->m_iFOV = atoi( CMD_ARGV(1) );
 		}
 		else
 		{
-			CLIENT_PRINTF( pEntity, print_console, UTIL_VarArgs( "\"fov\" is \"%d\"\n", (int)GetClassPtr((CBasePlayer *)pev)->m_iFOV ) );
+			CLIENT_PRINTF( pEntity, print_console, UTIL_VarArgs( "\"fov\" is \"%d\"\n", (int) pPlayer->m_iFOV ) );
 		}
 	}
 	else if ( FStrEq(pcmd, "use" ) )
 	{
-		GetClassPtr((CBasePlayer *)pev)->SelectItem((char *)CMD_ARGV(1));
+		pPlayer->SelectItem((char *)CMD_ARGV(1));
 	}
 	else if (((pstr = strstr(pcmd, "weapon_")) != NULL)  && (pstr == pcmd))
 	{
-		GetClassPtr((CBasePlayer *)pev)->SelectItem(pcmd);
+		pPlayer->SelectItem(pcmd);
 	}
 	else if (FStrEq(pcmd, "lastinv" ))
 	{
-		GetClassPtr((CBasePlayer *)pev)->SelectLastItem();
+		pPlayer->SelectLastItem();
 	}
 	else if ( FStrEq( pcmd, "spectate" ) )	// clients wants to become a spectator
 	{
 			// always allow proxies to become a spectator
 		if ( (pev->flags & FL_PROXY) || allow_spectators.value  )
 		{
-			CBasePlayer * pPlayer = GetClassPtr((CBasePlayer *)pev);
-
 			CBaseEntity *pSpawnSpot = g_pGameRules->GetPlayerSpawnSpot( pPlayer );
 			pPlayer->StartObserver( pev->origin, pSpawnSpot->pev->angles);
 
@@ -582,8 +576,6 @@ void ClientCommand( edict_t *pEntity )
 	}	
 	else if ( FStrEq( pcmd, "specmode" )  )	// new spectator mode
 	{
-		CBasePlayer * pPlayer = GetClassPtr((CBasePlayer *)pev);
-
 		if ( pPlayer->IsObserver() )
 			pPlayer->Observer_SetMode( atoi( CMD_ARGV(1) ) );
 	}
@@ -593,12 +585,10 @@ void ClientCommand( edict_t *pEntity )
 	}
 	else if ( FStrEq( pcmd, "follownext" )  )	// follow next player
 	{
-		CBasePlayer * pPlayer = GetClassPtr((CBasePlayer *)pev);
-
 		if ( pPlayer->IsObserver() )
 			pPlayer->Observer_FindNextPlayer( atoi( CMD_ARGV(1) )?true:false );
 	}
-	else if ( g_pGameRules->ClientCommand( GetClassPtr((CBasePlayer *)pev), pcmd ) )
+	else if ( g_pGameRules->ClientCommand( pPlayer, pcmd ) )
 	{
 		// MenuSelect returns true only if the command is properly handled,  so don't print a warning
 	}
@@ -749,11 +739,8 @@ Called every frame before physics are run
 */
 void PlayerPreThink( edict_t *pEntity )
 {
-	entvars_t *pev = &pEntity->v;
-	CBasePlayer *pPlayer = (CBasePlayer *)GET_PRIVATE(pEntity);
-
-	if (pPlayer)
-		pPlayer->PreThink( );
+	if( auto pPlayer = ( CBasePlayer* ) GET_PRIVATE( pEntity ) )
+		pPlayer->PreThink();
 }
 
 /*
@@ -765,11 +752,8 @@ Called every frame after physics are run
 */
 void PlayerPostThink( edict_t *pEntity )
 {
-	entvars_t *pev = &pEntity->v;
-	CBasePlayer *pPlayer = (CBasePlayer *)GET_PRIVATE(pEntity);
-
-	if (pPlayer)
-		pPlayer->PostThink( );
+	if( auto pPlayer = ( CBasePlayer* ) GET_PRIVATE( pEntity ) )
+		pPlayer->PostThink();
 }
 
 
@@ -958,8 +942,7 @@ animation right now.
 */
 void PlayerCustomization( edict_t *pEntity, customization_t *pCust )
 {
-	entvars_t *pev = &pEntity->v;
-	CBasePlayer *pPlayer = (CBasePlayer *)GET_PRIVATE(pEntity);
+	auto pPlayer = ( CBasePlayer* ) GET_PRIVATE( pEntity );
 
 	if (!pPlayer)
 	{
@@ -998,10 +981,7 @@ A spectator has joined the game
 */
 void SpectatorConnect( edict_t *pEntity )
 {
-	entvars_t *pev = &pEntity->v;
-	CBaseSpectator *pPlayer = (CBaseSpectator *)GET_PRIVATE(pEntity);
-
-	if (pPlayer)
+	if( auto pPlayer = ( CBaseSpectator* ) GET_PRIVATE( pEntity ) )
 		pPlayer->SpectatorConnect( );
 }
 
@@ -1014,10 +994,7 @@ A spectator has left the game
 */
 void SpectatorDisconnect( edict_t *pEntity )
 {
-	entvars_t *pev = &pEntity->v;
-	CBaseSpectator *pPlayer = (CBaseSpectator *)GET_PRIVATE(pEntity);
-
-	if (pPlayer)
+	if( auto pPlayer = ( CBaseSpectator* ) GET_PRIVATE( pEntity ) )
 		pPlayer->SpectatorDisconnect( );
 }
 
@@ -1030,10 +1007,7 @@ A spectator has sent a usercmd
 */
 void SpectatorThink( edict_t *pEntity )
 {
-	entvars_t *pev = &pEntity->v;
-	CBaseSpectator *pPlayer = (CBaseSpectator *)GET_PRIVATE(pEntity);
-
-	if (pPlayer)
+	if( auto pPlayer = ( CBaseSpectator* ) GET_PRIVATE( pEntity ) )
 		pPlayer->SpectatorThink( );
 }
 
@@ -1589,29 +1563,27 @@ void RegisterEncoders( void )
 	DELTA_ADDENCODER( "Player_Encode", Player_Encode );
 }
 
-int GetWeaponData( edict_t* pPlayer, struct weapon_data_s* pInfo )
+int GetWeaponData( edict_t* pEntity, weapon_data_t* pInfo )
 {
 #if defined( CLIENT_WEAPONS )
-	int i;
 	weapon_data_t *item;
-	entvars_t *pev = &pPlayer->v;
-	CBasePlayer *pl = dynamic_cast< CBasePlayer *>( CBasePlayer::Instance( pev ) );
+	auto pPlayer = static_cast<CBasePlayer*>( CBasePlayer::Instance( pEntity ) );
 	CBasePlayerWeapon *gun;
 	
 	ItemInfo II;
 
 	memset( pInfo, 0, MAX_WEAPONS * sizeof( weapon_data_t ) );
 
-	if ( !pl )
-		return 1;
+	if ( !pPlayer )
+		return true;
 
 	// go through all of the weapons and make a list of the ones to pack
-	for ( i = 0 ; i < MAX_ITEM_TYPES ; i++ )
+	for ( int i = 0 ; i < MAX_ITEM_TYPES ; i++ )
 	{
-		if ( pl->m_rgpPlayerItems[ i ] )
+		if ( pPlayer->m_rgpPlayerItems[ i ] )
 		{
 			// there's a weapon here. Should I pack it?
-			CBasePlayerItem *pPlayerItem = pl->m_rgpPlayerItems[ i ];
+			CBasePlayerItem *pPlayerItem = pPlayer->m_rgpPlayerItems[ i ];
 
 			while ( pPlayerItem )
 			{
@@ -1638,7 +1610,7 @@ int GetWeaponData( edict_t* pPlayer, struct weapon_data_s* pInfo )
 #else
 	memset( info, 0, MAX_WEAPONS * sizeof( weapon_data_t ) );
 #endif
-	return 1;
+	return true;
 }
 
 /*
@@ -1649,13 +1621,13 @@ Data sent to current client only
 engine sets cd to 0 before calling.
 =================
 */
-void UpdateClientData( const edict_t* pClient, int sendweapons, struct clientdata_s* cd )
+void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd )
 {
 	if ( !pClient || !pClient->pvPrivateData )
 		return;
-	entvars_t *		pev	= (entvars_t *)&pClient->v;
-	CBasePlayer *	pl	= dynamic_cast< CBasePlayer *>(CBasePlayer::Instance( pev ));
-	entvars_t *		pevOrg = NULL;
+	entvars_t*		pev	= const_cast<entvars_t*>( &pClient->v );
+	CBasePlayer*	pl	= static_cast<CBasePlayer*>(CBasePlayer::Instance( pev ) );
+	entvars_t*		pevOrg = nullptr;
 
 	// if user is spectating different player in First person, override some vars
 	if ( pl && pl->pev->iuser1 == OBS_IN_EYE )
@@ -1664,7 +1636,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, struct clientdat
 		{
 			pevOrg = pev;
 			pev = pl->m_hObserverTarget->pev;
-			pl = dynamic_cast< CBasePlayer *>(CBasePlayer::Instance( pev ) );
+			pl = static_cast<CBasePlayer*>(CBasePlayer::Instance( pev ) );
 		}
 	}
 
@@ -1767,20 +1739,19 @@ We're about to run this usercmd for the specified player.  We can set up groupin
 This is the time to examine the usercmd for anything extra.  This call happens even if think does not.
 =================
 */
-void CmdStart( const edict_t *player, const struct usercmd_s *cmd, unsigned int random_seed )
+void CmdStart( const edict_t* player, const usercmd_t* cmd, unsigned int random_seed )
 {
-	entvars_t *pev = (entvars_t *)&player->v;
-	CBasePlayer *pl = dynamic_cast< CBasePlayer *>( CBasePlayer::Instance( pev ) );
+	auto pPlayer = static_cast<CBasePlayer*>( CBasePlayer::Instance( const_cast<edict_t*>( player ) ) );
 
-	if( !pl )
+	if( !pPlayer )
 		return;
 
-	if ( pl->pev->groupinfo != 0 )
+	if ( pPlayer->pev->groupinfo != 0 )
 	{
-		UTIL_SetGroupTrace( pl->pev->groupinfo, GROUP_OP_AND );
+		UTIL_SetGroupTrace( pPlayer->pev->groupinfo, GROUP_OP_AND );
 	}
 
-	pl->random_seed = random_seed;
+	pPlayer->random_seed = random_seed;
 }
 
 /*
@@ -1790,14 +1761,14 @@ CmdEnd
 Each cmdstart is exactly matched with a cmd end, clean up any group trace flags, etc. here
 =================
 */
-void CmdEnd ( const edict_t *player )
+void CmdEnd ( const edict_t* player )
 {
-	entvars_t *pev = (entvars_t *)&player->v;
-	CBasePlayer *pl = dynamic_cast< CBasePlayer *>( CBasePlayer::Instance( pev ) );
+	auto pPlayer = static_cast<CBasePlayer*>( CBasePlayer::Instance( const_cast<edict_t*>( player ) ) );
 
-	if( !pl )
+	if( !pPlayer )
 		return;
-	if ( pl->pev->groupinfo != 0 )
+
+	if ( pPlayer->pev->groupinfo != 0 )
 	{
 		UTIL_UnsetGroupTrace();
 	}
