@@ -334,15 +334,14 @@ void CFuncTrackTrain::Find( void )
 	if( !m_ppath )
 		return;
 
-	entvars_t *pevTarget = m_ppath->pev;
-	if( !FClassnameIs( pevTarget, "path_track" ) )
+	if( !FClassnameIs( m_ppath->pev, "path_track" ) )
 	{
 		ALERT( at_error, "func_track_train must be on a path of path_track\n" );
 		m_ppath = NULL;
 		return;
 	}
 
-	Vector nextPos = pevTarget->origin;
+	Vector nextPos = m_ppath->pev->origin;
 	nextPos.z += m_height;
 
 	Vector look = nextPos;
@@ -473,12 +472,12 @@ void CFuncTrackTrain::SetTrack( CPathTrack *track )
 	m_ppath = track->Nearest( pev->origin );
 }
 
-void CFuncTrackTrain::SetControls( entvars_t *pevControls )
+void CFuncTrackTrain::SetControls( CBaseEntity* pControls )
 {
-	Vector offset = pevControls->origin - pev->oldorigin;
+	Vector offset = pControls->pev->origin - pev->oldorigin;
 
-	m_controlMins = pevControls->mins + offset;
-	m_controlMaxs = pevControls->maxs + offset;
+	m_controlMins = pControls->pev->mins + offset;
+	m_controlMaxs = pControls->pev->maxs + offset;
 }
 
 bool CFuncTrackTrain::OnControls( const CBaseEntity* const pTest ) const

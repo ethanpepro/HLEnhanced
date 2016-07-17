@@ -30,7 +30,7 @@
 #include "CBigMomma.h"
 
 int gSpitSprite, gSpitDebrisSprite;
-Vector VecCheckSplatToss( entvars_t *pev, const Vector &vecSpot1, Vector vecSpot2, float maxHeight );
+Vector VecCheckSplatToss( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSpot2, float maxHeight );
 void SpriteSpray( const Vector &position, const Vector &direction, int spriteModel, int count );
 
 // UNDONE:	
@@ -515,7 +515,7 @@ bool CBigMomma::CheckRangeAttack1( float flDot, float flDist )
 		{
 			Vector startPos = pev->origin;
 			startPos.z += 180;
-			pev->movedir = VecCheckSplatToss( pev, startPos, pEnemy->BodyTarget( pev->origin ), RANDOM_FLOAT( 150, 500 ) );
+			pev->movedir = VecCheckSplatToss( this, startPos, pEnemy->BodyTarget( pev->origin ), RANDOM_FLOAT( 150, 500 ) );
 			if ( pev->movedir != g_vecZero )
 				return true;
 		}
@@ -806,7 +806,7 @@ void CBigMomma::RunTask( Task_t *pTask )
 
 
 
-Vector VecCheckSplatToss( entvars_t *pev, const Vector &vecSpot1, Vector vecSpot2, float maxHeight )
+Vector VecCheckSplatToss( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSpot2, float maxHeight )
 {
 	TraceResult		tr;
 	Vector			vecMidPoint;// halfway point between Spot1 and Spot2
@@ -818,10 +818,10 @@ Vector VecCheckSplatToss( entvars_t *pev, const Vector &vecSpot1, Vector vecSpot
 
 	// calculate the midpoint and apex of the 'triangle'
 	vecMidPoint = vecSpot1 + (vecSpot2 - vecSpot1) * 0.5;
-	UTIL_TraceLine(vecMidPoint, vecMidPoint + Vector(0,0,maxHeight), ignore_monsters, ENT(pev), &tr);
+	UTIL_TraceLine(vecMidPoint, vecMidPoint + Vector(0,0,maxHeight), ignore_monsters, pEntity->edict(), &tr);
 	vecApex = tr.vecEndPos;
 
-	UTIL_TraceLine(vecSpot1, vecApex, dont_ignore_monsters, ENT(pev), &tr);
+	UTIL_TraceLine(vecSpot1, vecApex, dont_ignore_monsters, pEntity->edict(), &tr);
 	if (tr.flFraction != 1.0)
 	{
 		// fail!

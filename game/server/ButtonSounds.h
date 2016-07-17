@@ -57,6 +57,6 @@ struct locksound_t
 	bool	bEOFUnlocked;			// true if hit end of list of unlocked sentences
 };
 
-void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const bool bButton );
+void PlayLockSounds( CBaseEntity* pEntity, locksound_t *pls, const bool bLocked, const bool bButton );
 
 #endif //GAME_SERVER_BUTTONSOUNDS_H

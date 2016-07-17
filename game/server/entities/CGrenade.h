@@ -28,7 +28,7 @@ public:
 	static CGrenade* ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity, float time );
 	static CGrenade* ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity );
 	static CGrenade* ShootSatchelCharge( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity );
-	static void UseSatchelCharges( entvars_t *pevOwner, SATCHELCODE code );
+	static void UseSatchelCharges( CBaseEntity* pOwner, SATCHELCODE code );
 
 	void Explode( Vector vecSrc, Vector vecAim );
 	void Explode( TraceResult *pTrace, int bitsDamageType );

@@ -203,50 +203,6 @@ Vector VecVelocityForDamage(float flDamage)
 	return vec;
 }
 
-#if 0 /*
-static void ThrowGib(entvars_t *pev, char *szGibModel, float flDamage)
-{
-	edict_t *pentNew = CREATE_ENTITY();
-	entvars_t *pevNew = VARS(pentNew);
-
-	pevNew->origin = pev->origin;
-	SET_MODEL(ENT(pevNew), szGibModel);
-	UTIL_SetSize(pevNew, g_vecZero, g_vecZero);
-
-	pevNew->velocity		= VecVelocityForDamage(flDamage);
-	pevNew->movetype		= MOVETYPE_BOUNCE;
-	pevNew->solid			= SOLID_NOT;
-	pevNew->avelocity.x		= RANDOM_FLOAT(0,600);
-	pevNew->avelocity.y		= RANDOM_FLOAT(0,600);
-	pevNew->avelocity.z		= RANDOM_FLOAT(0,600);
-	CHANGE_METHOD(ENT(pevNew), em_think, SUB_Remove);
-	pevNew->ltime		= gpGlobals->time;
-	pevNew->nextthink	= gpGlobals->time + RANDOM_FLOAT(10,20);
-	pevNew->frame		= 0;
-	pevNew->flags		= 0;
-}
-	
-	
-static void ThrowHead(entvars_t *pev, char *szGibModel, floatflDamage)
-{
-	SET_MODEL(ENT(pev), szGibModel);
-	pev->frame			= 0;
-	pev->nextthink		= -1;
-	pev->movetype		= MOVETYPE_BOUNCE;
-	pev->takedamage		= DAMAGE_NO;
-	pev->solid			= SOLID_NOT;
-	pev->view_ofs		= Vector(0,0,8);
-	UTIL_SetSize(pev, Vector(-16,-16,0), Vector(16,16,56));
-	pev->velocity		= VecVelocityForDamage(flDamage);
-	pev->avelocity		= RANDOM_FLOAT(-1,1) * Vector(0,600,0);
-	pev->origin.z -= 24;
-	ClearBits(pev->flags, FL_ONGROUND);
-}
-
-
-*/ 
-#endif
-
 int TrainSpeed(int iSpeed, int iMax)
 {
 	float fSpeed, fMax;
@@ -1570,9 +1526,10 @@ void CBasePlayer::Jump()
 	}
 
 	// If you're standing on a conveyor, add it's velocity to yours (for momentum)
-	entvars_t *pevGround = VARS(pev->groundentity);
-	if ( pevGround && (pevGround->flags & FL_CONVEYOR) )
+	CBaseEntity* pGround = Instance( pev->groundentity );
+	if( pGround && ( pGround->pev->flags & FL_CONVEYOR ) )
 	{
+		//Note: basevelocity is set by the physics code. It accounts for conveyors. - Solokiller
 		pev->velocity = pev->velocity + pev->basevelocity;
 	}
 }
@@ -2362,13 +2319,12 @@ Check for turning off powerups
 GLOBALS ASSUMED SET:  g_ulModelIndexPlayer
 ================
 */
-	static void
-CheckPowerups(entvars_t *pev)
+static void CheckPowerups( CBaseEntity* pEntity )
 {
-	if (pev->health <= 0)
+	if( pEntity->pev->health <= 0 )
 		return;
 
-	pev->modelindex = g_ulModelIndexPlayer;    // don't use eyes
+	pEntity->pev->modelindex = g_ulModelIndexPlayer;    // don't use eyes
 }
 
 
@@ -2581,7 +2537,7 @@ void CBasePlayer::PostThink()
 	}
 
 	StudioFrameAdvance( );
-	CheckPowerups(pev);
+	CheckPowerups( this );
 
 	UpdatePlayerSound();
 

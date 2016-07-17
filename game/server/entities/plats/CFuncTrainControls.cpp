@@ -38,6 +38,6 @@ void CFuncTrainControls::Find( void )
 	}
 
 	CFuncTrackTrain *ptrain = CFuncTrackTrain::Instance( pTarget );
-	ptrain->SetControls( pev );
+	ptrain->SetControls( this );
 	UTIL_Remove( this );
 }

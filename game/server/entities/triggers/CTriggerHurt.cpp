@@ -49,7 +49,6 @@ void CTriggerHurt::RadiationThink( void )
 	edict_t *pentPlayer;
 	CBasePlayer *pPlayer = NULL;
 	float flRange;
-	entvars_t *pevTarget;
 	Vector vecSpot1;
 	Vector vecSpot2;
 	Vector vecRange;
@@ -75,15 +74,12 @@ void CTriggerHurt::RadiationThink( void )
 
 	if( !FNullEnt( pentPlayer ) )
 	{
-
 		pPlayer = GetClassPtr( ( CBasePlayer * ) VARS( pentPlayer ) );
-
-		pevTarget = VARS( pentPlayer );
 
 		// get range to player;
 
 		vecSpot1 = ( pev->absmin + pev->absmax ) * 0.5;
-		vecSpot2 = ( pevTarget->absmin + pevTarget->absmax ) * 0.5;
+		vecSpot2 = ( pPlayer->pev->absmin + pPlayer->pev->absmax ) * 0.5;
 
 		vecRange = vecSpot1 - vecSpot2;
 		flRange = vecRange.Length();

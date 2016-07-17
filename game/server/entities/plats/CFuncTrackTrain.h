@@ -58,7 +58,7 @@ public:
 	void		NextThink( float thinkTime, const bool alwaysThink );
 
 	void SetTrack( CPathTrack *track );
-	void SetControls( entvars_t *pevControls );
+	void SetControls( CBaseEntity* pControls );
 	bool OnControls( const CBaseEntity* const pTest ) const override;
 
 	void StopSound( void );

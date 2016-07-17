@@ -450,19 +450,16 @@ CGrenade* CGrenade::ShootSatchelCharge( CBaseEntity* pOwner, Vector vecStart, Ve
 
 
 
-void CGrenade :: UseSatchelCharges( entvars_t *pevOwner, SATCHELCODE code )
+void CGrenade::UseSatchelCharges( CBaseEntity* pOwner, SATCHELCODE code )
 {
-	edict_t *pentFind;
-	edict_t *pentOwner;
-
-	if ( !pevOwner )
+	if ( !pOwner )
 		return;
 
-	CBaseEntity	*pOwner = CBaseEntity::Instance( pevOwner );
+	//TODO: this doesn't appear to actually be used. - Solokiller
 
-	pentOwner = pOwner->edict();
+	edict_t *pentOwner = pOwner->edict();
 
-	pentFind = FIND_ENTITY_BY_CLASSNAME( NULL, "grenade" );
+	edict_t *pentFind = FIND_ENTITY_BY_CLASSNAME( NULL, "grenade" );
 	while ( !FNullEnt( pentFind ) )
 	{
 		CBaseEntity *pEnt = Instance( pentFind );

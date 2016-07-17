@@ -50,16 +50,15 @@ void CEnvSound::Spawn()
 // returns true if the given sound entity (pev) is in range 
 // and can see the given player entity (pevTarget)
 
-bool FEnvSoundInRange( entvars_t *pev, entvars_t *pevTarget, float *pflRange )
+bool FEnvSoundInRange( CEnvSound* pSound, CBaseEntity* pTarget, float *pflRange )
 {
-	CEnvSound *pSound = GetClassPtr( ( CEnvSound * ) pev );
-	Vector vecSpot1 = pev->origin + pev->view_ofs;
-	Vector vecSpot2 = pevTarget->origin + pevTarget->view_ofs;
+	Vector vecSpot1 = pSound->pev->origin + pSound->pev->view_ofs;
+	Vector vecSpot2 = pTarget->pev->origin + pTarget->pev->view_ofs;
 	Vector vecRange;
 	float flRange;
 	TraceResult tr;
 
-	UTIL_TraceLine( vecSpot1, vecSpot2, ignore_monsters, ENT( pev ), &tr );
+	UTIL_TraceLine( vecSpot1, vecSpot2, ignore_monsters, pSound->edict(), &tr );
 
 	// check if line of sight crosses water boundary, or is blocked
 
@@ -118,7 +117,7 @@ void CEnvSound::Think( void )
 			// we're looking at a valid sound entity affecting
 			// player, make sure it's still valid, update range
 
-			if( FEnvSoundInRange( pev, VARS( pentPlayer ), &flRange ) ) {
+			if( FEnvSoundInRange( this, pPlayer, &flRange ) ) {
 				pPlayer->m_flSndRange = flRange;
 				goto env_sound_Think_fast;
 			}
@@ -144,7 +143,7 @@ void CEnvSound::Think( void )
 	// if we got this far, we're looking at an entity that is contending
 	// for current player sound. the closest entity to player wins.
 
-	if( FEnvSoundInRange( pev, VARS( pentPlayer ), &flRange ) )
+	if( FEnvSoundInRange( this, pPlayer, &flRange ) )
 	{
 		if( flRange < pPlayer->m_flSndRange || pPlayer->m_flSndRange == 0 )
 		{

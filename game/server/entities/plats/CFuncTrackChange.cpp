@@ -314,7 +314,6 @@ void CFuncTrackChange::Touch( CBaseEntity *pOther )
 {
 #if 0
 	TRAIN_CODE code;
-	entvars_t *pevToucher = pOther->pev;
 #endif
 }
 

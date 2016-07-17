@@ -426,13 +426,13 @@ void CBarney :: TalkInit()
 }
 
 
-static bool IsFacing( entvars_t *pevTest, const Vector &reference )
+static bool IsFacing( CBaseEntity* pEntity, const Vector &reference )
 {
-	Vector vecDir = (reference - pevTest->origin);
+	Vector vecDir = (reference - pEntity->pev->origin);
 	vecDir.z = 0;
 	vecDir = vecDir.Normalize();
 	Vector forward, angle;
-	angle = pevTest->v_angle;
+	angle = pEntity->pev->v_angle;
 	angle.x = 0;
 	UTIL_MakeVectorsPrivate( angle, forward, NULL, NULL );
 	// He's facing me, he meant it
@@ -460,7 +460,7 @@ void CBarney::OnTakeDamage( const CTakeDamageInfo& info )
 		if ( m_hEnemy == NULL )
 		{
 			// If the player was facing directly at me, or I'm already suspicious, get mad
-			if ( (m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing( info.GetAttacker()->pev, pev->origin ) )
+			if ( (m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing( info.GetAttacker(), pev->origin ) )
 			{
 				// Alright, now I'm pissed!
 				PlaySentence( "BA_MAD", 4, VOL_NORM, ATTN_NORM );

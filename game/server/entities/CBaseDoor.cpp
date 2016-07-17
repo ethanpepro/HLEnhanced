@@ -212,7 +212,7 @@ void CBaseDoor::DoorTouch( CBaseEntity *pOther )
 	// play 'locked' sound
 
 	if( m_sMaster && !UTIL_IsMasterTriggered( m_sMaster, pOther ) )
-		PlayLockSounds( pev, &m_ls, true, false );
+		PlayLockSounds( this, &m_ls, true, false );
 
 	// If door is somebody's target, then touching does nothing.
 	// You have to activate the owner (e.g. button).
@@ -220,7 +220,7 @@ void CBaseDoor::DoorTouch( CBaseEntity *pOther )
 	if( !FStringNull( pev->targetname ) )
 	{
 		// play locked sound
-		PlayLockSounds( pev, &m_ls, true, false );
+		PlayLockSounds( this, &m_ls, true, false );
 		return;
 	}
 
@@ -266,7 +266,7 @@ int CBaseDoor::DoorActivate()
 		}
 
 		// play door unlock sounds
-		PlayLockSounds( pev, &m_ls, false, false );
+		PlayLockSounds( this, &m_ls, false, false );
 
 		DoorGoUp();
 	}

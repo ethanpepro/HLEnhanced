@@ -193,13 +193,13 @@ void CBaseButton::ButtonActivate()
 	if( !UTIL_IsMasterTriggered( m_sMaster, m_hActivator ) )
 	{
 		// button is locked, play locked sound
-		PlayLockSounds( pev, &m_ls, true, true );
+		PlayLockSounds( this, &m_ls, true, true );
 		return;
 	}
 	else
 	{
 		// button is unlocked, play unlocked sound
-		PlayLockSounds( pev, &m_ls, false, true );
+		PlayLockSounds( this, &m_ls, false, true );
 	}
 
 	ASSERT( m_toggle_state == TS_AT_BOTTOM );
@@ -231,7 +231,7 @@ void CBaseButton::ButtonTouch( CBaseEntity *pOther )
 	if( !UTIL_IsMasterTriggered( m_sMaster, pOther ) )
 	{
 		// play button locked sound
-		PlayLockSounds( pev, &m_ls, true, true );
+		PlayLockSounds( this, &m_ls, true, true );
 		return;
 	}
 
@@ -253,7 +253,7 @@ void CBaseButton::ButtonSpark( void )
 	SetThink( &CBaseButton::ButtonSpark );
 	pev->nextthink = gpGlobals->time + ( 0.1 + RANDOM_FLOAT( 0, 1.5 ) );// spark again at random interval
 
-	DoSpark( pev, pev->mins );
+	DoSpark( this, pev->mins );
 }
 
 //

@@ -664,7 +664,7 @@ bool CBaseMonster::MoveToNode( Activity movementAct, float waitTime, const Vecto
 
 
 #ifdef _DEBUG
-void DrawRoute( entvars_t *pev, WayPoint_t *m_Route, int m_iRouteIndex, int r, int g, int b )
+void DrawRoute( CBaseEntity* pEntity, WayPoint_t *m_Route, int m_iRouteIndex, int r, int g, int b )
 {
 	int			i;
 
@@ -678,9 +678,9 @@ void DrawRoute( entvars_t *pev, WayPoint_t *m_Route, int m_iRouteIndex, int r, i
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 		WRITE_BYTE( TE_BEAMPOINTS);
-		WRITE_COORD( pev->origin.x );
-		WRITE_COORD( pev->origin.y );
-		WRITE_COORD( pev->origin.z );
+		WRITE_COORD( pEntity->pev->origin.x );
+		WRITE_COORD( pEntity->pev->origin.y );
+		WRITE_COORD( pEntity->pev->origin.z );
 		WRITE_COORD( m_Route[ m_iRouteIndex ].vecLocation.x );
 		WRITE_COORD( m_Route[ m_iRouteIndex ].vecLocation.y );
 		WRITE_COORD( m_Route[ m_iRouteIndex ].vecLocation.z );

@@ -174,23 +174,23 @@ void CCineMonster::Touch( CBaseEntity *pOther )
 }
 
 /*
-entvars_t *pevOther = VARS( gpGlobals->other );
-
-if ( !FBitSet ( pevOther->flags , FL_MONSTER ) )
-{// touched by a non-monster.
-return;
+if( !FBitSet( pOther->pev->flags, FL_MONSTER ) )
+{
+	// touched by a non-monster.
+	return;
 }
 
-pevOther->origin.z += 1;
+pOther->pev->origin.z += 1;
 
-if ( FBitSet ( pevOther->flags, FL_ONGROUND ) )
-{// clear the onground so physics don't bitch
-pevOther->flags -= FL_ONGROUND;
+if( FBitSet ( pOther->pev->flags, FL_ONGROUND ) )
+{
+	// clear the onground so physics don't bitch
+	pOther->pev->flags -= FL_ONGROUND;
 }
 
 // toss the monster!
-pevOther->velocity = pev->movedir * pev->speed;
-pevOther->velocity.z += m_flHeight;
+pOther->pev->velocity = pev->movedir * pev->speed;
+pOther->pev->velocity.z += m_flHeight;
 
 
 pev->solid = SOLID_NOT;// kill the trigger for now !!!UNDONE

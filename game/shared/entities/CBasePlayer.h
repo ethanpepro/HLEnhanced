@@ -298,7 +298,7 @@ public:
 
 	void ForceClientDllUpdate( void );  // Forces all client .dll specific data to be resent to client.
 
-	void DeathMessage( entvars_t *pevKiller );
+	void DeathMessage( CBaseEntity* pKiller );
 
 	void SetCustomDecalFrames( int nFrames );
 	int GetCustomDecalFrames( void );

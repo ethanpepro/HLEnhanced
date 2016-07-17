@@ -124,7 +124,7 @@ const char* UnlockedSentence( const int iSound )
 // otherwise play 'door is unlocked' sound
 // NOTE: this routine is shared by doors and buttons
 
-void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const bool bButton )
+void PlayLockSounds( CBaseEntity* pEntity, locksound_t *pls, const bool bLocked, const bool bButton )
 {
 	// LOCKED SOUND
 
@@ -152,7 +152,7 @@ void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const
 		if( fplaysound )
 		{
 			// play 'door locked' sound
-			EMIT_SOUND( ENT( pev ), CHAN_ITEM, ( char* ) STRING( pls->sLockedSound ), fvol, ATTN_NORM );
+			EMIT_SOUND( pEntity->edict(), CHAN_ITEM, ( char* ) STRING( pls->sLockedSound ), fvol, ATTN_NORM );
 			pls->flwaitSound = gpGlobals->time + flsoundwait;
 		}
 
@@ -162,7 +162,7 @@ void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const
 			// play next 'door locked' sentence in group
 			int iprev = pls->iLockedSentence;
 
-			pls->iLockedSentence = SENTENCEG_PlaySequentialSz( ENT( pev ), STRING( pls->sLockedSentence ),
+			pls->iLockedSentence = SENTENCEG_PlaySequentialSz( pEntity->edict(), STRING( pls->sLockedSentence ),
 															   0.85, ATTN_NORM, 0, 100, pls->iLockedSentence, false );
 			pls->iUnlockedSentence = 0;
 
@@ -189,7 +189,7 @@ void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const
 		// play 'door unlocked' sound if set
 		if( bPlaysound )
 		{
-			EMIT_SOUND( ENT( pev ), CHAN_ITEM, ( char* ) STRING( pls->sUnlockedSound ), fvol, ATTN_NORM );
+			EMIT_SOUND( pEntity->edict(), CHAN_ITEM, ( char* ) STRING( pls->sUnlockedSound ), fvol, ATTN_NORM );
 			pls->flwaitSound = gpGlobals->time + flsoundwait;
 		}
 
@@ -198,7 +198,7 @@ void PlayLockSounds( entvars_t *pev, locksound_t *pls, const bool bLocked, const
 		{
 			int iprev = pls->iUnlockedSentence;
 
-			pls->iUnlockedSentence = SENTENCEG_PlaySequentialSz( ENT( pev ), STRING( pls->sUnlockedSentence ),
+			pls->iUnlockedSentence = SENTENCEG_PlaySequentialSz( pEntity->edict(), STRING( pls->sUnlockedSentence ),
 																 0.85, ATTN_NORM, 0, 100, pls->iUnlockedSentence, false );
 			pls->iLockedSentence = 0;
 
