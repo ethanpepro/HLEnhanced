@@ -1177,9 +1177,9 @@ CBaseEntity* UTIL_RandomClassname( const char* pszName )
 //
 // BModelOrigin - calculates origin of a bmodel from absmin/size because all bmodel origins are 0 0 0
 //
-Vector VecBModelOrigin( entvars_t* pevBModel )
+Vector VecBModelOrigin( const CBaseEntity* const pBModel )
 {
-	return pevBModel->absmin + ( pevBModel->size * 0.5 );
+	return pBModel->pev->absmin + ( pBModel->pev->size * 0.5 );
 }
 
 // Initialize absmin & absmax to the appropriate box

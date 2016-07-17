@@ -294,7 +294,7 @@ extern void			UTIL_LogPrintf( char *fmt, ... );
 
 // Misc functions
 extern void SetMovedir( CBaseEntity* pEntity );
-extern Vector VecBModelOrigin( entvars_t* pevBModel );
+extern Vector VecBModelOrigin( const CBaseEntity* const pBModel );
 extern int BuildChangeList( LEVELLIST *pLevelList, int maxList );
 
 //

@@ -63,12 +63,12 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
 	if( pInflictor == info.GetAttacker() )
 	{
-		vecTemp = pInflictor->pev->origin - ( VecBModelOrigin( pev ) );
+		vecTemp = pInflictor->pev->origin - ( VecBModelOrigin( this ) );
 	}
 	else
 		// an actual missile was involved.
 	{
-		vecTemp = pInflictor->pev->origin - ( VecBModelOrigin( pev ) );
+		vecTemp = pInflictor->pev->origin - ( VecBModelOrigin( this ) );
 	}
 
 	// this global is still used for glass and other non-monster killables, along with decals.

@@ -175,7 +175,7 @@ entvars_t* CGraph :: LinkEntForLink ( CLink *pLink, CNode *pNode )
 
 				// trace from the node to the trigger, make sure it's one we can see from the node.
 				// !!!HACKHACK Use bodyqueue here cause there are no ents we really wish to ignore!
-				UTIL_TraceLine ( pNode->m_vecOrigin, VecBModelOrigin( pevTrigger ), ignore_monsters, g_pBodyQueueHead->edict(), &tr );
+				UTIL_TraceLine ( pNode->m_vecOrigin, VecBModelOrigin( CBaseEntity::Instance( pevTrigger ) ), ignore_monsters, g_pBodyQueueHead->edict(), &tr );
 
 
 				if ( VARS(tr.pHit) == pevTrigger )
