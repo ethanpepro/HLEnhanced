@@ -34,6 +34,14 @@ enum gauss_e
 class CGauss : public CBasePlayerWeapon
 {
 public:
+	enum class AttackState
+	{
+		NOT_ATTACKING = 0,
+		CHARGING_START = 1,
+		CHARGING = 2,
+	};
+
+public:
 	DECLARE_CLASS( CGauss, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
 	DECLARE_DATADESC();
@@ -60,14 +68,14 @@ public:
 	{
 		BaseClass::GetWeaponData( data );
 
-		data.iuser2 = m_fInAttack;
+		data.iuser2 = static_cast<int>( m_InAttack );
 	}
 
 	void SetWeaponData( const weapon_data_t& data ) override
 	{
 		BaseClass::SetWeaponData( data );
 
-		m_fInAttack = data.iuser2;
+		m_InAttack = static_cast<AttackState>( data.iuser2 );
 	}
 
 	int m_iBalls;
@@ -92,8 +100,7 @@ private:
 	unsigned short m_usGaussFire;
 	unsigned short m_usGaussSpin;
 
-	//TODO: this should be an enum - Solokiller
-	int m_fInAttack;
+	AttackState m_InAttack;
 };
 
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CGAUSS_H
