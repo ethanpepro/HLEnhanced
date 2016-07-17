@@ -30,11 +30,7 @@
 
 #include "entity_types.h"
 
-//TODO: this file should use mathlib.h for maths stuff. It conflicts with the engine functions interface (#define stuff) and potentially other problems. - Solokiller
-
-#ifndef M_PI
-#define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
-#endif
+#include "mathlib.h"
 
 #define NUM_BENCH_OBJ 12
 #define BENCH_CYCLE_TIME 10.0
@@ -89,8 +85,6 @@ static float g_benchSwitchTimes[ LAST_STAGE + 1 ] = { 0.0, 10.0, 12.0, 10.0, 5.0
 #define SCORE_TIME_UP 1.5
 
 DECLARE_MESSAGE(m_Benchmark, Bench);
-
-void VectorAngles( const float *forward, float *angles );
 
 void Bench_SetStage( int stage )
 {

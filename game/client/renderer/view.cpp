@@ -22,11 +22,6 @@
 #include "hltv.h"
 #include "Exports.h"
 
-
-#ifndef M_PI
-#define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
-#endif
-
 	int CL_IsThirdPerson( void );
 extern "C" void CL_CameraOffset( Vector& ofs );
 
@@ -36,8 +31,6 @@ extern "C" void CL_CameraOffset( Vector& ofs );
 	void PM_ParticleLine( float *start, float *end, int pcolor, float life, float vert);
 	int		PM_GetVisEntInfo( int ent );
 	extern int		PM_GetPhysEntInfo( int ent );
-	void	NormalizeAngles( float * angles );
-	extern float	Distance(const Vector& v1, const Vector& v2);
 	float	AngleBetweenVectors(  const float * v1,  const float * v2 );
 
 /*
@@ -50,7 +43,6 @@ extern Vector vJumpAngles;
 
 
 void V_DropPunchAngle ( float frametime, Vector& ev_punchangle );
-void VectorAngles( const float *forward, float *angles );
 
 #include "r_studioint.h"
 #include "com_model.h"
