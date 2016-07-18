@@ -613,19 +613,16 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 
 	pVictim->m_iDeaths += 1;
 
-	//TODO: clean this up - Solokiller
-
 	FireTargets( "game_playerdie", pVictim, pVictim, USE_TOGGLE, 0 );
-	CBasePlayer *peKiller = NULL;
-	//TODO: use IsPlayer() instead. - Solokiller
-	if ( pKiller && ( pKiller->Classify() == CLASS_PLAYER) )
-		peKiller = (CBasePlayer*) pKiller;
 
-	if ( pVictim == pKiller )  
-	{  // killed self
+	CBasePlayer* const peKiller = pKiller && pKiller->IsPlayer() ? ( CBasePlayer* ) pKiller : nullptr;
+
+	if( pVictim == pKiller )  
+	{
+		// killed self
 		pKiller->pev->frags -= 1;
 	}
-	else if ( peKiller )
+	else if( peKiller )
 	{
 		// if a player dies in a deathmatch game and the killer is a client, award the killer some points
 		peKiller->pev->frags += IPointsForKill( peKiller, pVictim );
@@ -633,7 +630,8 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 		FireTargets( "game_playerkill", peKiller, peKiller, USE_TOGGLE, 0 );
 	}
 	else
-	{  // killed by the world
+	{
+		// killed by the world
 		pKiller->pev->frags -= 1;
 	}
 
@@ -648,7 +646,7 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 	MESSAGE_END();
 
 	// killers score, if it's a player
-	if ( peKiller )
+	if( peKiller )
 	{
 		MESSAGE_BEGIN( MSG_ALL, gmsgScoreInfo );
 			WRITE_BYTE( ENTINDEX( peKiller->edict()) );
@@ -661,7 +659,8 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 		// let the killer paint another decal as soon as he'd like.
 		peKiller->m_flNextDecalTime = gpGlobals->time;
 	}
-	if ( pVictim->HasNamedPlayerItem("weapon_satchel") )
+
+	if( pVictim->HasNamedPlayerItem("weapon_satchel") )
 	{
 		DeactivateSatchels( pVictim );
 	}
