@@ -50,6 +50,7 @@ static int tracerCount[ MAX_CLIENTS ];
 #include "entities/weapons/CMP5.h"
 #include "entities/weapons/CPython.h"
 #include "entities/weapons/CGauss.h"
+#include "entities/weapons/CSniperRifle.h"
 
 void V_PunchAxis( int axis, float punch );
 
@@ -497,7 +498,6 @@ void EV_FireGlock2( event_args_t *args )
 	{
 		// Add muzzle flash to current weapon model
 		EV_MuzzleFlash();
-		//TODO: no empty animation here - Solokiller
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( empty ? GLOCK_SHOOT_EMPTY : GLOCK_SHOOT, 2 );
 
 		V_PunchAxis( 0, -2.0 );
@@ -1622,8 +1622,7 @@ void EV_SniperRifle( event_args_t* args )
 	if( EV_IsLocal( idx ) )
 	{
 		EV_MuzzleFlash();
-		//TODO: constant - Solokiller
-		gEngfuncs.pEventAPI->EV_WeaponAnimation( 3 - ( iClip < 1 ), 0 );
+		gEngfuncs.pEventAPI->EV_WeaponAnimation( iClip < 1 ? SNIPERRIFLE_FIRELASTROUND : SNIPERRIFLE_FIRE, 0 );
 		V_PunchAxis( 0, -2.0 );
 	}
 
