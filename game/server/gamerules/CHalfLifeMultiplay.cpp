@@ -15,18 +15,19 @@
 //
 // CHalfLifeMultiplay.cpp
 //
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"entities/CBasePlayer.h"
-#include	"Weapons.h"
-#include	"CHalfLifeMultiplay.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "entities/CBasePlayer.h"
+#include "Weapons.h"
+#include "CHalfLifeMultiplay.h"
  
-#include	"Skill.h"
-#include	"Server.h"
-#include	"entities/items/CItem.h"
-#include	"voice_gamemgr.h"
-#include	"hltv.h"
+#include "Skill.h"
+#include "Server.h"
+#include "entities/items/CItem.h"
+#include "entities/spawnpoints/CBaseSpawnPoint.h"
+#include "voice_gamemgr.h"
+#include "hltv.h"
 
 #if !defined ( _WIN32 )
 #include <ctype.h>
@@ -1074,10 +1075,10 @@ int CHalfLifeMultiplay::DeadPlayerAmmo( CBasePlayer *pPlayer )
 CBaseEntity* CHalfLifeMultiplay::GetPlayerSpawnSpot( CBasePlayer* pPlayer )
 {
 	CBaseEntity* pSpawnSpot = CGameRules::GetPlayerSpawnSpot( pPlayer );
-	//TODO: this should be handled differently. Use a base class for spawn points that gets told when somebody spawns. - Solokiller
-	if ( IsMultiplayer() && pSpawnSpot->pev->target )
+
+	if( auto pSpawnPoint = dynamic_cast<CBaseSpawnPoint*>( pSpawnSpot ) )
 	{
-		FireTargets( STRING( pSpawnSpot->pev->target ), pPlayer, pPlayer, USE_TOGGLE, 0 );
+		pSpawnPoint->PlayerSpawned( pPlayer );
 	}
 
 	return pSpawnSpot;

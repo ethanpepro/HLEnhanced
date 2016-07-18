@@ -25,7 +25,18 @@ public:
 
 	void KeyValue( KeyValueData* pkvd ) override;
 
+	/**
+	*	Checks whether the given player can use this spawn point.
+	*	@param pPlayer Player trying to spawn here.
+	*	@param true if the player is allowed to use this spawn point, false otherwise.
+	*/
 	virtual bool CanUseSpawnPoint( CBasePlayer* const pPlayer ) { return m_bEnabled; }
+
+	/**
+	*	Called whenever a player spawns at this spawn point.
+	*	@param pPlayer Player that spawned here.
+	*/
+	virtual void PlayerSpawned( CBasePlayer* const pPlayer );
 
 private:
 	bool m_bEnabled = true;

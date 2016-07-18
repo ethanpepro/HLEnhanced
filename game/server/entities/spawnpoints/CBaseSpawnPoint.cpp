@@ -37,6 +37,15 @@ void CBaseSpawnPoint::KeyValue( KeyValueData* pkvd )
 		BaseClass::KeyValue( pkvd );
 }
 
+void CBaseSpawnPoint::PlayerSpawned( CBasePlayer* const pPlayer )
+{
+	//In multiplayer, trigger targets on spawn.
+	if( g_pGameRules->IsMultiplayer() && HasTarget() )
+	{
+		FireTargets( GetTarget(), pPlayer, pPlayer, USE_TOGGLE, 0 );
+	}
+}
+
 bool IsSpawnPointValid( CBasePlayer* pPlayer, CBaseSpawnPoint* pSpawnPoint )
 {
 	CBaseEntity *ent = NULL;
