@@ -19,48 +19,141 @@
 // This header file included by engine files and DLL files.
 // Most came from server.h
 
-// edict->flags
-#define	FL_FLY					(1<<0)	// Changes the SV_Movestep() behavior to not need to be on ground
-#define	FL_SWIM					(1<<1)	// Changes the SV_Movestep() behavior to not need to be on ground (but stay in water)
-#define	FL_CONVEYOR				(1<<2)
-#define	FL_CLIENT				(1<<3)
-#define	FL_INWATER				(1<<4)
-#define	FL_MONSTER				(1<<5)
-#define	FL_GODMODE				(1<<6)
-#define	FL_NOTARGET				(1<<7)
-#define	FL_SKIPLOCALHOST		(1<<8)	// Don't send entity to local host, it's predicting this entity itself
-#define	FL_ONGROUND				(1<<9)	// At rest / on the ground
-#define	FL_PARTIALGROUND		(1<<10)	// not all corners are valid
-#define	FL_WATERJUMP			(1<<11)	// player jumping out of water
-#define FL_FROZEN				(1<<12) // Player is frozen for 3rd person camera
-#define FL_FAKECLIENT			(1<<13)	// JAC: fake client, simulated server side; don't send network messages to them
-#define FL_DUCKING				(1<<14)	// Player flag -- Player is fully crouched
-#define FL_FLOAT				(1<<15)	// Apply floating force to this entity when in water
-#define FL_GRAPHED				(1<<16) // worldgraph has this ent listed as something that blocks a connection
+/**
+*	edict->v.flags.
+*/
+enum EntFlag
+{
+	/**
+	*	Changes the SV_Movestep() behavior to not need to be on ground.
+	*/
+	FL_FLY					= 1 << 0,
+
+	/**
+	*	Changes the SV_Movestep() behavior to not need to be on ground (but stay in water).
+	*/
+	FL_SWIM					= 1 << 1,
+	FL_CONVEYOR				= 1 << 2,
+	FL_CLIENT				= 1 << 3,
+	FL_INWATER				= 1 << 4,
+	FL_MONSTER				= 1 << 5,
+	FL_GODMODE				= 1 << 6,
+	FL_NOTARGET				= 1 << 7,
+
+	/**
+	*	Don't send entity to local host, it's predicting this entity itself.
+	*/
+	FL_SKIPLOCALHOST		= 1 << 8,
+
+	/**
+	*	At rest / on the ground
+	*/
+	FL_ONGROUND				= 1 << 9,
+
+	/**
+	*	Not all corners are valid.
+	*/
+	FL_PARTIALGROUND		= 1 << 10,
+
+	/**
+	*	Player jumping out of water.
+	*/
+	FL_WATERJUMP			= 1 << 11,
+
+	/**
+	*	Player is frozen for 3rd person camera.
+	*/
+	FL_FROZEN				= 1 << 12,
+
+	/**
+	*	JAC: fake client, simulated server side; don't send network messages to them.
+	*/
+	FL_FAKECLIENT			= 1 << 13,
+
+	/**
+	*	Player flag -- Player is fully crouched.
+	*/
+	FL_DUCKING				= 1 << 14,
+
+	/**
+	*	Apply floating force to this entity when in water.
+	*/
+	FL_FLOAT				= 1 << 15,
+
+	/**
+	*	Worldgraph has this ent listed as something that blocks a connection.
+	*/
+	FL_GRAPHED				= 1 << 16,
 
 // UNDONE: Do we need these?
-#define FL_IMMUNE_WATER			(1<<17)
-#define	FL_IMMUNE_SLIME			(1<<18)
-#define FL_IMMUNE_LAVA			(1<<19)
+	FL_IMMUNE_WATER			= 1 << 17,
+	FL_IMMUNE_SLIME			= 1 << 18,
+	FL_IMMUNE_LAVA			= 1 << 19,
 
-#define FL_PROXY				(1<<20)	// This is a spectator proxy
-#define FL_ALWAYSTHINK			(1<<21)	// Brush model flag -- call think every frame regardless of nextthink - ltime (for constantly changing velocity/path)
-#define FL_BASEVELOCITY			(1<<22)	// Base velocity has been applied this frame (used to convert base velocity into momentum)
-#define FL_MONSTERCLIP			(1<<23)	// Only collide in with monsters who have FL_MONSTERCLIP set
-#define FL_ONTRAIN				(1<<24) // Player is _controlling_ a train, so movement commands should be ignored on client during prediction.
-#define FL_WORLDBRUSH			(1<<25)	// Not moveable/removeable brush entity (really part of the world, but represented as an entity for transparency or something)
-#define FL_SPECTATOR            (1<<26) // This client is a spectator, don't run touch functions, etc.
-#define FL_CUSTOMENTITY			(1<<29)	// This is a custom entity
-#define FL_KILLME				(1<<30)	// This entity is marked for death -- This allows the engine to kill ents at the appropriate time
-#define FL_DORMANT				(1<<31)	// Entity is dormant, no updates to client
+	/**
+	*	This is a spectator proxy
+	*/
+	FL_PROXY				= 1 << 20,
 
+	/**
+	*	Brush model flag -- call think every frame regardless of nextthink - ltime (for constantly changing velocity/path).
+	*/
+	FL_ALWAYSTHINK			= 1 << 21,
 
-// Goes into globalvars_t.trace_flags
-#define FTRACE_SIMPLEBOX		(1<<0)	// Traceline with a simple box
+	/**
+	*	Base velocity has been applied this frame (used to convert base velocity into momentum).
+	*/
+	FL_BASEVELOCITY			= 1 << 22,
 
+	/**
+	*	Only collide in with monsters who have FL_MONSTERCLIP set.
+	*/
+	FL_MONSTERCLIP			= 1 << 23,
+
+	/**
+	*	Player is _controlling_ a train, so movement commands should be ignored on client during prediction.
+	*/
+	FL_ONTRAIN				= 1 << 24,
+
+	/**
+	*	Not moveable/removeable brush entity (really part of the world, but represented as an entity for transparency or something).
+	*/
+	FL_WORLDBRUSH			= 1 << 25,
+
+	/**
+	*	This client is a spectator, don't run touch functions, etc.
+	*/
+	FL_SPECTATOR            = 1 << 26,
+
+	/**
+	*	This is a custom entity.
+	*/
+	FL_CUSTOMENTITY			= 1 << 29,
+
+	/**
+	*	This entity is marked for death -- This allows the engine to kill ents at the appropriate time
+	*/
+	FL_KILLME				= 1 << 30,
+
+	/**
+	*	Entity is dormant, no updates to client.
+	*/
+	FL_DORMANT				= 1 << 31,
+};
 
 /**
-*	Walkmove modes
+*	Goes into globalvars_t.trace_flags
+*/
+enum TraceFlag
+{
+	/**
+	*	Traceline with a simple box.
+	*/
+	FTRACE_SIMPLEBOX	= 1 << 0
+};
+
+/**
+*	Walkmove modes.
 */
 enum WalkMove
 {
@@ -234,18 +327,67 @@ enum TakeDamageMode
 	DAMAGE_AIM	= 2,
 };
 
-// entity effects
-#define	EF_BRIGHTFIELD			1	// swirling cloud of particles
-#define	EF_MUZZLEFLASH 			2	// single frame ELIGHT on entity attachment 0
-#define	EF_BRIGHTLIGHT 			4	// DLIGHT centered at entity origin
-#define	EF_DIMLIGHT 			8	// player flashlight
-#define EF_INVLIGHT				16	// get lighting from ceiling
-#define EF_NOINTERP				32	// don't interpolate the next frame
-#define EF_LIGHT				64	// rocket flare glow sprite
-#define EF_NODRAW				128	// don't draw entity
-#define EF_NIGHTVISION			256 // player nightvision
-#define EF_SNIPERLASER			512 // sniper laser effect
-#define EF_FIBERCAMERA			1024// fiber camera
+/**
+*	Entity effects.
+*	edict->v.effects.
+*/
+enum Effect
+{
+	/**
+	*	Swirling cloud of particles.
+	*/
+	EF_BRIGHTFIELD		= 1,
+
+	/**
+	*	Single frame ELIGHT on entity attachment 0.
+	*/
+	EF_MUZZLEFLASH 		= 2,
+
+	/**
+	*	DLIGHT centered at entity origin.
+	*/
+	EF_BRIGHTLIGHT 		= 4,
+
+	/**
+	*	Player flashlight.
+	*/
+	EF_DIMLIGHT 		= 8,
+
+	/**
+	*	Get lighting from ceiling.
+	*/
+	EF_INVLIGHT			= 16,
+
+	/**
+	*	Don't interpolate the next frame.
+	*/
+	EF_NOINTERP			= 32,
+
+	/**
+	*	Rocket flare glow sprite.
+	*/
+	EF_LIGHT			= 64,
+
+	/**
+	*	Don't draw entity.
+	*/
+	EF_NODRAW			= 128,
+
+	/**
+	*	Player nightvision.
+	*/
+	EF_NIGHTVISION		= 256,
+
+	/**
+	*	Sniper laser effect.
+	*/
+	EF_SNIPERLASER		= 512,
+
+	/**
+	*	Fiber camera.
+	*/
+	EF_FIBERCAMERA		= 1024,
+};
 
 /**
 *	Constants for entvars_t::waterlevel
@@ -274,8 +416,17 @@ enum WaterLevel
 	WATERLEVEL_HEAD		= 3
 };
 
-// entity flags
-#define EFLAG_SLERP				1	// do studio interpolation of this entity
+/**
+*	Entity flags.
+*	@see entity_state_t::eflags
+*/
+enum EntStateFlag
+{
+	/**
+	*	Do studio interpolation of this entity.
+	*/
+	EFLAG_SLERP			= 1
+};
 		
 //
 // temp entity events
@@ -790,7 +941,8 @@ enum Contents
 	CONTENTS_SLIME				= -4,
 	CONTENTS_LAVA				= -5,
 	CONTENTS_SKY				= -6,
-//These additional contents constants are defined in bspfile.h
+
+	//These additional contents constants are defined in bspfile.h
 	/**
 	*	Removed at CSG time.
 	*/
@@ -815,6 +967,7 @@ enum Contents
 	CONTENT_FOG					= -19,
 };
 
+//TODO: are these ever used? - Solokiller
 #define CONTENT_EMPTY	-1
 #define CONTENT_SOLID	-2
 #define	CONTENT_WATER	-3
@@ -822,17 +975,43 @@ enum Contents
 #define CONTENT_LAVA	-5
 #define CONTENT_SKY		-6
 
-// channels
-#define CHAN_AUTO			0
-#define CHAN_WEAPON			1
-#define	CHAN_VOICE			2
-#define CHAN_ITEM			3
-#define	CHAN_BODY			4
-#define CHAN_STREAM			5			// allocate stream channel from the static or dynamic area
-#define CHAN_STATIC			6			// allocate channel from the static area 
-#define CHAN_NETWORKVOICE_BASE	7		// voice data coming across the network
-#define CHAN_NETWORKVOICE_END	500		// network voice data reserves slots (CHAN_NETWORKVOICE_BASE through CHAN_NETWORKVOICE_END).
-#define CHAN_BOT			501			// channel used for bot chatter.
+/**
+*	Sound channels.
+*/
+enum SoundChannel
+{
+	CHAN_AUTO				= 0,
+	CHAN_WEAPON				= 1,
+	CHAN_VOICE				= 2,
+	CHAN_ITEM				= 3,
+	CHAN_BODY				= 4,
+
+	/**
+	*	Allocate stream channel from the static or dynamic area.
+	*/
+	CHAN_STREAM				= 5,
+
+	/**
+	*	Allocate channel from the static area.
+	*/
+	CHAN_STATIC				= 6,
+
+	/**
+	*	Voice data coming across the network.
+	*	Network voice data reserves slots (CHAN_NETWORKVOICE_BASE through CHAN_NETWORKVOICE_END).
+	*/
+	CHAN_NETWORKVOICE_BASE	= 7,
+
+	/**
+	*	@copydoc CHAN_NETWORKVOICE_BASE
+	*/
+	CHAN_NETWORKVOICE_END	= 500,
+
+	/**
+	*	Channel used for bot chatter.
+	*/
+	CHAN_BOT				= 501,
+};
 
 // attenuation values
 #define ATTN_NONE		0
@@ -840,65 +1019,111 @@ enum Contents
 #define ATTN_IDLE		(float)2
 #define ATTN_STATIC		(float)1.25 
 
-// pitch values
-#define	PITCH_NORM		100			// non-pitch shifted
-#define PITCH_LOW		95			// other values are possible - 0-255, where 255 is very high
-#define PITCH_HIGH		120
+/**
+*	Pitch values.
+*	100 is non-pitch shifted. Other values are possible - 0-255, where 255 is very high.
+*/
+enum Pitch
+{
+	PITCH_NORM		= 100,
+	PITCH_LOW		= 95,
+	PITCH_HIGH		= 120,
+};
 
-// volume values
+/**
+*	Volume values.
+*/
 #define VOL_NORM		1.0
 
 // plats
+//TODO: never used - Solokiller
 #define	PLAT_LOW_TRIGGER	1
 
 // Trains
+//TODO: move - Solokiller
 #define	SF_TRAIN_WAIT_RETRIGGER	1
 #define SF_TRAIN_START_ON		4		// Train is initially moving
 #define SF_TRAIN_PASSABLE		8		// Train is not solid -- used to make water trains
 
 // buttons
-#ifndef IN_BUTTONS_H
 #include "in_buttons.h"
-#endif
 
-// Break Model Defines
+/**
+*	Break Model Defines.
+*/
+enum BreakModel
+{
+	BREAK_TYPEMASK	= 0x4F,
+	BREAK_GLASS		= 0x01,
+	BREAK_METAL		= 0x02,
+	BREAK_FLESH		= 0x04,
+	BREAK_WOOD		= 0x08,
+	
+	BREAK_SMOKE		= 0x10,
+	BREAK_TRANS		= 0x20,
+	BREAK_CONCRETE	= 0x40,
+	BREAK_2			= 0x80,
+};
 
-#define BREAK_TYPEMASK	0x4F
-#define BREAK_GLASS		0x01
-#define BREAK_METAL		0x02
-#define BREAK_FLESH		0x04
-#define BREAK_WOOD		0x08
+/**
+*	Colliding temp entity sounds.
+*/
+enum BounceSound
+{
+	BOUNCE_GLASS		= BREAK_GLASS,
+	BOUNCE_METAL		= BREAK_METAL,
+	BOUNCE_FLESH		= BREAK_FLESH,
+	BOUNCE_WOOD			= BREAK_WOOD,
+	BOUNCE_SHRAP		= 0x10,
+	BOUNCE_SHELL		= 0x20,
+	BOUNCE_CONCRETE		= BREAK_CONCRETE,
+	BOUNCE_SHOTSHELL	= 0x80
+};
 
-#define BREAK_SMOKE		0x10
-#define BREAK_TRANS		0x20
-#define BREAK_CONCRETE	0x40
-#define BREAK_2			0x80
+/**
+*	Temp entity bounce sound types.
+*/
+enum TE_Bounce
+{
+	TE_BOUNCE_NULL		= 0,
+	TE_BOUNCE_SHELL		= 1,
+	TE_BOUNCE_SHOTSHELL	= 2,
+};
 
-// Colliding temp entity sounds
-
-#define BOUNCE_GLASS	BREAK_GLASS
-#define	BOUNCE_METAL	BREAK_METAL
-#define BOUNCE_FLESH	BREAK_FLESH
-#define BOUNCE_WOOD		BREAK_WOOD
-#define BOUNCE_SHRAP	0x10
-#define BOUNCE_SHELL	0x20
-#define	BOUNCE_CONCRETE BREAK_CONCRETE
-#define BOUNCE_SHOTSHELL 0x80
-
-// Temp entity bounce sound types
-#define TE_BOUNCE_NULL		0
-#define TE_BOUNCE_SHELL		1
-#define TE_BOUNCE_SHOTSHELL	2
-
-// Rendering constants
+/**
+*	Rendering constants.
+*/
 enum RenderMode
-{	
-	kRenderNormal,			// src
-	kRenderTransColor,		// c*a+dest*(1-a)
-	kRenderTransTexture,	// src*a+dest*(1-a)
-	kRenderGlow,			// src*a+dest -- No Z buffer checks
-	kRenderTransAlpha,		// src*srca+dest*(1-srca)
-	kRenderTransAdd,		// src*a+dest
+{
+	/**
+	*	src
+	*/
+	kRenderNormal,
+
+	/**
+	*	c*a+dest*(1-a)
+	*/
+	kRenderTransColor,
+
+	/**
+	*	src*a+dest*(1-a)
+	*/
+	kRenderTransTexture,
+
+	/**
+	*	src*a+dest -- No Z buffer checks
+	*/
+	kRenderGlow,
+
+	/**
+	*	src*srca+dest*(1-srca)
+	*/
+	kRenderTransAlpha,
+
+	/**
+	*	src*a+dest
+	*/
+	kRenderTransAdd,
 };
 
 enum RenderFX
@@ -918,13 +1143,41 @@ enum RenderFX
 	kRenderFxFlickerSlow, 
 	kRenderFxFlickerFast,
 	kRenderFxNoDissipation,
-	kRenderFxDistort,			// Distort/scale/translate flicker
-	kRenderFxHologram,			// kRenderFxDistort + distance fade
-	kRenderFxDeadPlayer,		// kRenderAmt is the player index
-	kRenderFxExplode,			// Scale up really big!
-	kRenderFxGlowShell,			// Glowing Shell
-	kRenderFxClampMinScale,		// Keep this sprite from getting very small (SPRITES only!)
-	kRenderFxLightMultiplier,   //CTM !!!CZERO added to tell the studiorender that the value in iuser2 is a lightmultiplier
+
+	/**
+	*	Distort/scale/translate flicker.
+	*/
+	kRenderFxDistort,
+
+	/**
+	*	kRenderFxDistort + distance fade.
+	*/
+	kRenderFxHologram,
+
+	/**
+	*	kRenderAmt is the player index.
+	*/
+	kRenderFxDeadPlayer,
+
+	/**
+	*	Scale up really big!
+	*/
+	kRenderFxExplode,
+
+	/**
+	*	Glowing Shell.
+	*/
+	kRenderFxGlowShell,
+
+	/**
+	*	Keep this sprite from getting very small (SPRITES only!)
+	*/
+	kRenderFxClampMinScale,
+
+	/**
+	*	CTM !!!CZERO added to tell the studiorender that the value in iuser2 is a lightmultiplier.
+	*/
+	kRenderFxLightMultiplier,
 };
 
 
