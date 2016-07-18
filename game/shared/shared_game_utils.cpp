@@ -465,7 +465,7 @@ cvar_t* CVarGetPointer( const char* const pszName )
 		;
 }
 
-void Alert( int aType, const char* const pszFormat, ... )
+void Alert( ALERT_TYPE aType, const char* const pszFormat, ... )
 {
 	assert( pszFormat );
 
@@ -480,7 +480,7 @@ void Alert( int aType, const char* const pszFormat, ... )
 	if( iResult >= 0 && static_cast<size_t>( iResult ) < sizeof( szBuffer ) )
 	{
 #ifndef CLIENT_DLL
-		ALERT( static_cast<ALERT_TYPE>( aType ), "%s", szBuffer );
+		ALERT( aType, "%s", szBuffer );
 #else
 		//Mimic the server version.
 		if( g_pDeveloper->value != 0 || gEngfuncs.GetMaxClients() <= 1 )

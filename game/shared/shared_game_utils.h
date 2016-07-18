@@ -108,9 +108,8 @@ cvar_t* CVarGetPointer( const char* const pszName );
 *	@param aType Alert type.
 *	@param pszFormat Format string.
 *	@param ... Arguments.
-*	TODO: aType should be ALERT_TYPE.
 */
-void Alert( int aType, const char* const pszFormat, ... );
+void Alert( ALERT_TYPE aType, const char* const pszFormat, ... );
 
 /**
 *	Gets the contents for the given position.

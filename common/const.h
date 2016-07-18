@@ -1257,5 +1257,27 @@ enum Hull
 };
 }
 
+enum ALERT_TYPE
+{
+	at_notice,
+
+	/**
+	*	Same as at_notice, but forces a ConPrintf, not a message box.
+	*/
+	at_console,
+
+	/**
+	*	Same as at_console, but only shown if developer level is 2!
+	*/
+	at_aiconsole,
+	at_warning,
+	at_error,
+
+	/**
+	*	Server print to console ( only in multiplayer games ).
+	*/
+	at_logged
+};
+
 #endif
 

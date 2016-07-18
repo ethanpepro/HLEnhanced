@@ -182,26 +182,6 @@ unsigned short	stub_PrecacheEvent		( int type, const char *s ) { return 0; }
 const char		*stub_NameForFunction	( uint32 function ) { return "func"; }
 void			stub_SetModel			( edict_t *e, const char *m ) {}
 
-/*
-======================
-AlertMessage
-
-Print debug messages to console
-======================
-*/
-void AlertMessage( ALERT_TYPE atype, const char* szFmt, ... )
-{
-	va_list		argptr;
-	static char	string[ 1024 ];
-
-	va_start( argptr, szFmt );
-	vsprintf( string, szFmt, argptr );
-	va_end( argptr );
-
-	gEngfuncs.Con_Printf( "cl:  " );
-	gEngfuncs.Con_Printf( string );
-}
-
 void CL_SetupServerSupport()
 {
 	// Set up pointer ( dummy object )
@@ -211,21 +191,22 @@ void CL_SetupServerSupport()
 	gpGlobals->time = gEngfuncs.GetClientTime();
 
 	// Fake functions
-	g_engfuncs.pfnPrecacheModel = stub_PrecacheModel;
-	g_engfuncs.pfnPrecacheSound = stub_PrecacheSound;
-	g_engfuncs.pfnPrecacheEvent = stub_PrecacheEvent;
-	g_engfuncs.pfnNameForFunction = stub_NameForFunction;
-	g_engfuncs.pfnSetModel = stub_SetModel;
-	g_engfuncs.pfnSetClientMaxspeed = HUD_SetMaxSpeed;
+	g_engfuncs.pfnPrecacheModel			= stub_PrecacheModel;
+	g_engfuncs.pfnPrecacheSound			= stub_PrecacheSound;
+	g_engfuncs.pfnPrecacheEvent			= stub_PrecacheEvent;
+	g_engfuncs.pfnNameForFunction		= stub_NameForFunction;
+	g_engfuncs.pfnSetModel				= stub_SetModel;
+	g_engfuncs.pfnSetClientMaxspeed		= HUD_SetMaxSpeed;
 
 	// Handled locally
-	g_engfuncs.pfnPlaybackEvent = HUD_PlaybackEvent;
-	g_engfuncs.pfnAlertMessage = AlertMessage;
+	g_engfuncs.pfnPlaybackEvent			= HUD_PlaybackEvent;
+	//Now uses the cross-dll version. Handles alert types properly.
+	g_engfuncs.pfnAlertMessage			= Alert;
 
 	// Pass through to engine
-	g_engfuncs.pfnPrecacheEvent = gEngfuncs.pfnPrecacheEvent;
-	g_engfuncs.pfnRandomFloat = gEngfuncs.pfnRandomFloat;
-	g_engfuncs.pfnRandomLong = gEngfuncs.pfnRandomLong;
-	g_engfuncs.pfnCVarGetFloat = gEngfuncs.pfnGetCvarFloat;
-	g_engfuncs.pfnCVarGetString = gEngfuncs.pfnGetCvarString;
+	g_engfuncs.pfnPrecacheEvent			= gEngfuncs.pfnPrecacheEvent;
+	g_engfuncs.pfnRandomFloat			= gEngfuncs.pfnRandomFloat;
+	g_engfuncs.pfnRandomLong			= gEngfuncs.pfnRandomLong;
+	g_engfuncs.pfnCVarGetFloat			= gEngfuncs.pfnGetCvarFloat;
+	g_engfuncs.pfnCVarGetString			= gEngfuncs.pfnGetCvarString;
 }
