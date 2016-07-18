@@ -599,7 +599,7 @@ void CBaseMonster::DeadTakeDamage( const CTakeDamageInfo& info )
 #endif
 
 	// kill the corpse if enough damage was done to destroy the corpse and the damage is of a type that is allowed to destroy the corpse.
-	if ( info.GetDamageTypes() & DMG_GIB_CORPSE )
+	if ( info.GetDamageTypes() & DMG_GIB_CORPSE && !( info.GetDamageTypes() & DMG_NEVERGIB ) )
 	{
 		if ( pev->health <= info.GetDamage() )
 		{
