@@ -131,8 +131,8 @@ void CRpgRocket::FollowThink( void )
 	vecTarget = gpGlobals->v_forward;
 	flMax = 4096;
 
-	//TODO: this is shit. You have the launcher entity, so use it to get the right laser. - Solokiller
 	// Examine all entities within a reasonable radius
+	//NOTENOTE: This deliberately searches for all laser spots so other players can throw off the rockets with their own lasers. - Solokiller
 	while( ( pOther = UTIL_FindEntityByClassname( pOther, "laser_spot" ) ) != NULL )
 	{
 		UTIL_TraceLine( pev->origin, pOther->pev->origin, dont_ignore_monsters, ENT( pev ), &tr );
