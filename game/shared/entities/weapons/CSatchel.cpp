@@ -325,22 +325,7 @@ void CSatchel::PrimaryAttack()
 		{
 		SendWeaponAnim( SATCHEL_RADIO_FIRE );
 
-		edict_t *pPlayer = m_pPlayer->edict( );
-
-		//TODO: should be using a list of satchels. This can break if satchels are in the corner of a map and you're at the opposite corner. - Solokiller
-		CBaseEntity *pSatchel = NULL;
-
-		while ((pSatchel = UTIL_FindEntityInSphere( pSatchel, m_pPlayer->pev->origin, 4096 )) != NULL)
-		{
-			if (FClassnameIs( pSatchel->pev, "monster_satchel"))
-			{
-				if (pSatchel->pev->owner == pPlayer)
-				{
-					pSatchel->Use( m_pPlayer, m_pPlayer, USE_ON, 0 );
-					m_chargeReady = ChargeState::TRIGGERED;
-				}
-			}
-		}
+		DeactivateSatchels( m_pPlayer, SatchelAction::DETONATE );
 
 		m_chargeReady = ChargeState::TRIGGERED;
 		m_flNextPrimaryAttack = GetNextAttackDelay(0.5);
@@ -446,31 +431,29 @@ void CSatchel::WeaponIdle( void )
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + UTIL_SharedRandomFloat( m_pPlayer->random_seed, 10, 15 );// how long till we do this again.
 }
 
-//=========================================================
-// DeactivateSatchels - removes all satchels owned by
-// the provided player. Should only be used upon death.
-//
-// Made this global on purpose.
-//=========================================================
-void DeactivateSatchels( CBasePlayer *pOwner )
+size_t DeactivateSatchels( CBasePlayer* const pOwner, const SatchelAction action )
 {
-	edict_t *pFind; 
+	size_t uiCount = 0;
 
-	pFind = FIND_ENTITY_BY_CLASSNAME( NULL, "monster_satchel" );
+	CBaseEntity* pEntity = nullptr;
 
-	while ( !FNullEnt( pFind ) )
+	while( pEntity = UTIL_FindEntityByClassname( pEntity, "monster_satchel" ) )
 	{
-		CBaseEntity *pEnt = CBaseEntity::Instance( pFind );
-		CSatchelCharge *pSatchel = (CSatchelCharge *)pEnt;
+		CSatchelCharge* pSatchel = ( CSatchelCharge* ) pEntity;
 
-		if ( pSatchel )
+		if( pSatchel )
 		{
-			if ( pSatchel->pev->owner == pOwner->edict() )
+			if( pSatchel->pev->owner == pOwner->edict() )
 			{
-				pSatchel->Deactivate();
+				if( action == SatchelAction::DETONATE )
+					pSatchel->Use( pOwner, pOwner, USE_ON, 0 );
+				else
+					pSatchel->Deactivate();
+
+				++uiCount;
 			}
 		}
-
-		pFind = FIND_ENTITY_BY_CLASSNAME( pFind, "monster_satchel" );
 	}
+
+	return uiCount;
 }

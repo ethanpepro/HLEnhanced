@@ -662,7 +662,7 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 
 	if( pVictim->HasNamedPlayerItem("weapon_satchel") )
 	{
-		DeactivateSatchels( pVictim );
+		DeactivateSatchels( pVictim, SatchelAction::RELEASE );
 	}
 }
 

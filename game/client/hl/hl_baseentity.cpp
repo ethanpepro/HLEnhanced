@@ -81,6 +81,11 @@ bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
 	return false;
 }
 
+CBaseEntity *UTIL_FindEntityByClassname( CBaseEntity *pStartEntity, const char *szName )
+{
+	return nullptr;
+}
+
 /*
 =====================
 UTIL_TraceLine

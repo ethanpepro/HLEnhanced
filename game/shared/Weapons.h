@@ -28,7 +28,25 @@
 class CBasePlayer;
 extern int gmsgWeapPickup;
 
-void DeactivateSatchels( CBasePlayer *pOwner );
+/**
+*	Actions that can be taken by calls to DeactivateSatchels.
+*	@see DeactivateSatchels
+*/
+enum class SatchelAction
+{
+	DETONATE = 0,
+	RELEASE
+};
+
+/**
+*	Removes all satchels owned by the provided player.
+*	
+*	Made this global on purpose.
+*	@param pOwner Owner whose satchels will be removed.
+*	@param action Action to take.
+*	@return Number of satchels that were handled.
+*/
+size_t DeactivateSatchels( CBasePlayer* const pOwner, const SatchelAction action );
 
 #include "entities/CGrenade.h"
 
