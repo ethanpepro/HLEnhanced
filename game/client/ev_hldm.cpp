@@ -441,7 +441,7 @@ void EV_FireGlock1( event_args_t *args )
 	Vector origin = args->origin;
 	Vector angles = args->angles;
 	Vector velocity = args->velocity;
-	int empty = args->bparam1;
+	const bool empty = args->bparam1 != 0;
 
 	Vector ShellVelocity;
 	Vector ShellOrigin;
@@ -480,6 +480,7 @@ void EV_FireGlock2( event_args_t *args )
 	Vector origin = args->origin;
 	Vector angles = args->angles;
 	Vector velocity = args->velocity;
+	const bool empty = args->bparam1 != 0;
 	
 	Vector ShellVelocity;
 	Vector ShellOrigin;
@@ -497,7 +498,7 @@ void EV_FireGlock2( event_args_t *args )
 		// Add muzzle flash to current weapon model
 		EV_MuzzleFlash();
 		//TODO: no empty animation here - Solokiller
-		gEngfuncs.pEventAPI->EV_WeaponAnimation( GLOCK_SHOOT, 2 );
+		gEngfuncs.pEventAPI->EV_WeaponAnimation( empty ? GLOCK_SHOOT_EMPTY : GLOCK_SHOOT, 2 );
 
 		V_PunchAxis( 0, -2.0 );
 	}
