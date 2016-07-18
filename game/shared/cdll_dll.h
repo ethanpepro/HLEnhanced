@@ -27,9 +27,13 @@
 */
 #define MAX_WEAPONS		64		// ???
 
-//TODO: HUD sprite doesn't support 6 slots yet - Solokiller
-#define MAX_WEAPON_SLOTS		6	// hud item selection slots
-#define MAX_ITEM_TYPES			6	// hud item selection slots
+/**
+*	Hud item selection slots.
+*	Now up to 10.
+*/
+#define MAX_WEAPON_SLOTS		10
+//TODO: this shouldn't even exist. The server and client indices should be identical. - Solokiller
+#define MAX_ITEM_TYPES			11	// hud item selection slots
 
 #define MAX_ITEMS				5	// hard coded item types
 
