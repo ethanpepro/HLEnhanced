@@ -1916,9 +1916,6 @@
     <ClInclude Include="..\..\game\server\nodes\CNodeViewer.h">
       <Filter>Header Files\game\server\nodes</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\SharedConstants.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\game\shared\extdll.h">
       <Filter>Header Files\game\shared</Filter>
     </ClInclude>

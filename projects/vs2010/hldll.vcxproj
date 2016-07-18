@@ -393,7 +393,6 @@
     <ClInclude Include="..\..\common\Game.h" />
     <ClInclude Include="..\..\common\MinMax.h" />
     <ClInclude Include="..\..\common\Platform.h" />
-    <ClInclude Include="..\..\common\SharedConstants.h" />
     <ClInclude Include="..\..\common\StringUtils.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />

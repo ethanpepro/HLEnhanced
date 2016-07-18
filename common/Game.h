@@ -24,10 +24,8 @@
 
 #include "MinMax.h"
 
-#include "SharedConstants.h"
-
 // Vector class
-#include "vector.h"
+#include "mathlib.h"
 
 // Shared engine/DLL constants
 #include "const.h"
