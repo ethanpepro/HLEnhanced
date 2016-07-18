@@ -40,23 +40,10 @@ void ClearEventList( void );
 
 int CHud :: MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf )
 {
-	ASSERT( iSize == 0 );
+	//This used to be 0, but the server sends a byte over, so it's changed now. - Solokiller
+	ASSERT( iSize == 1 );
 
-	// clear all hud data
-	HUDLIST *pList = m_pHudList;
-
-	while ( pList )
-	{
-		if ( pList->p )
-			pList->p->Reset();
-		pList = pList->pNext;
-	}
-
-	// reset sensitivity
-	m_flMouseSensitivity = 0;
-
-	// reset concussion effect
-	m_iConcussionEffect = 0;
+	ResetHUD();
 
 	return 1;
 }

@@ -623,6 +623,8 @@ public:
 	CHud() : m_iSpriteCount(0), m_pHudList(NULL) {}  
 	~CHud();			// destructor, frees allocated memory
 
+	void ResetHUD();
+
 	// user messages
 	int _cdecl MsgFunc_Damage(const char *pszName, int iSize, void *pbuf );
 	int _cdecl MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf );

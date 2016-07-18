@@ -357,7 +357,7 @@ void CHud :: Init( void )
 
 	m_Menu.Init();
 
-	MsgFunc_ResetHUD(0, 0, NULL );
+	ResetHUD();
 }
 
 // CHud destructor
@@ -379,6 +379,25 @@ CHud :: ~CHud()
 		}
 		m_pHudList = NULL;
 	}
+}
+
+void CHud::ResetHUD()
+{
+	// clear all hud data
+	HUDLIST *pList = m_pHudList;
+
+	while( pList )
+	{
+		if( pList->p )
+			pList->p->Reset();
+		pList = pList->pNext;
+	}
+
+	// reset sensitivity
+	m_flMouseSensitivity = 0;
+
+	// reset concussion effect
+	m_iConcussionEffect = 0;
 }
 
 // GetSpriteIndex()
