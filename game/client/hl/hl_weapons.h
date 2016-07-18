@@ -57,4 +57,9 @@ void UTIL_ParticleBoxes();
 */
 void UTIL_ParticleLine( const Vector& vecStart, const Vector& vecEnd, float life, unsigned char r, unsigned char g, unsigned char b );
 
+/**
+*	Set up weapons, player and functions needed to run weapons code client-side.
+*/
+void HUD_InitClientWeapons();
+
 #endif //GAME_CLIENT_HL_HL_WEAPONS_H
