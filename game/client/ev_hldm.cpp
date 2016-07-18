@@ -1572,12 +1572,11 @@ void EV_TrainPitchAdjust( event_args_t *args )
 	const int idx = args->entindex;
 	Vector origin = args->origin;
 	
-	//TODO: this can be a pointer. - Solokiller
-	//TODO: Though it should probably be customizable on the server side - Solokiller
-	char sz[ 256 ];
+	//TODO: Should probably be customizable on the server side - Solokiller
+	const char* pszSound;
 
 	const unsigned short us_params = (unsigned short)args->iparam1;
-	const int stop	  = args->bparam1;
+	const bool stop = args->bparam1 != 0;
 
 	const float flVolume	= (float)(us_params & 0x003f)/40.0;
 	const int noise			= (int)(((us_params) >> 12 ) & 0x0007);
@@ -1585,25 +1584,24 @@ void EV_TrainPitchAdjust( event_args_t *args )
 
 	switch ( noise )
 	{
-	case 1: strcpy( sz, "plats/ttrain1.wav"); break;
-	case 2: strcpy( sz, "plats/ttrain2.wav"); break;
-	case 3: strcpy( sz, "plats/ttrain3.wav"); break; 
-	case 4: strcpy( sz, "plats/ttrain4.wav"); break;
-	case 5: strcpy( sz, "plats/ttrain6.wav"); break;
-	case 6: strcpy( sz, "plats/ttrain7.wav"); break;
+	case 1: pszSound = "plats/ttrain1.wav"; break;
+	case 2: pszSound = "plats/ttrain2.wav"; break;
+	case 3: pszSound = "plats/ttrain3.wav"; break; 
+	case 4: pszSound = "plats/ttrain4.wav"; break;
+	case 5: pszSound = "plats/ttrain6.wav"; break;
+	case 6: pszSound = "plats/ttrain7.wav"; break;
 	default:
 		// no sound
-		strcpy( sz, "" );
 		return;
 	}
 
 	if ( stop )
 	{
-		gEngfuncs.pEventAPI->EV_StopSound( idx, CHAN_STATIC, sz );
+		gEngfuncs.pEventAPI->EV_StopSound( idx, CHAN_STATIC, pszSound );
 	}
 	else
 	{
-		gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_STATIC, sz, flVolume, ATTN_NORM, SND_CHANGE_PITCH, pitch );
+		gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_STATIC, pszSound, flVolume, ATTN_NORM, SND_CHANGE_PITCH, pitch );
 	}
 }
 
