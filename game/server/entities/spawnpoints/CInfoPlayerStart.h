@@ -12,22 +12,15 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef GAME_SERVER_ENTITIES_SPAWNPOINTS_CBASEDMSTART_H
-#define GAME_SERVER_ENTITIES_SPAWNPOINTS_CBASEDMSTART_H
+#ifndef GAME_SERVER_ENTITIES_SPAWNPOINTS_CINFOPLAYERSTART_H
+#define GAME_SERVER_ENTITIES_SPAWNPOINTS_CINFOPLAYERSTART_H
 
 #include "CBaseSpawnPoint.h"
 
-class CBaseDMStart : public CBaseSpawnPoint
+class CInfoPlayerStart : public CBaseSpawnPoint
 {
 public:
-	DECLARE_CLASS( CBaseDMStart, CBaseSpawnPoint );
-
-	void KeyValue( KeyValueData* pkvd ) override;
-	bool IsTriggered( const CBaseEntity* const pActivator ) const override;
-
-	bool CanUseSpawnPoint( CBasePlayer* const pPlayer ) override;
-
-private:
+	DECLARE_CLASS( CInfoPlayerStart, CBaseSpawnPoint );
 };
 
-#endif //GAME_SERVER_ENTITIES_SPAWNPOINTS_CBASEDMSTART_H
+#endif //GAME_SERVER_ENTITIES_SPAWNPOINTS_CINFOPLAYERSTART_H

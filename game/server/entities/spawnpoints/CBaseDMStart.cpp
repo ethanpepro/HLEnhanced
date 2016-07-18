@@ -15,15 +15,14 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
+#include "entities/CBasePlayer.h"
 
 #include "CBaseDMStart.h"
 
 // These are the new entry points to entities. 
-//TODO: use a common base class for all spawn points for finer control - Solokiller
 LINK_ENTITY_TO_CLASS( info_player_deathmatch, CBaseDMStart );
-LINK_ENTITY_TO_CLASS( info_player_start, CPointEntity );
 
-void CBaseDMStart::KeyValue( KeyValueData *pkvd )
+void CBaseDMStart::KeyValue( KeyValueData* pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "master" ) )
 	{
@@ -31,12 +30,15 @@ void CBaseDMStart::KeyValue( KeyValueData *pkvd )
 		pkvd->fHandled = true;
 	}
 	else
-		CPointEntity::KeyValue( pkvd );
+		BaseClass::KeyValue( pkvd );
 }
 
 bool CBaseDMStart::IsTriggered( const CBaseEntity* const pEntity ) const
 {
-	bool master = UTIL_IsMasterTriggered( pev->netname, pEntity );
+	return UTIL_IsMasterTriggered( pev->netname, pEntity );
+}
 
-	return master;
+bool CBaseDMStart::CanUseSpawnPoint( CBasePlayer* const pPlayer )
+{
+	return BaseClass::CanUseSpawnPoint( pPlayer ) && IsTriggered( pPlayer );
 }

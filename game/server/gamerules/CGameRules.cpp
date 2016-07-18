@@ -25,7 +25,7 @@
 #include	"Skill.h"
 #include	"Server.h"
 
-CBaseEntity* EntSelectSpawnPoint( CBaseEntity* pPlayer );
+#include "entities/spawnpoints/CBaseSpawnPoint.h"
 
 extern DLL_GLOBAL bool	g_fGameOver;
 extern int gmsgDeathMsg;	// client dll messages

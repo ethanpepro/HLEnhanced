@@ -295,6 +295,8 @@
     <ClCompile Include="..\..\game\server\entities\sound\CEnvSound.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CSpeaker.cpp" />
     <ClCompile Include="..\..\game\server\entities\spawnpoints\CBaseDMStart.cpp" />
+    <ClCompile Include="..\..\game\server\entities\spawnpoints\CBaseSpawnPoint.cpp" />
+    <ClCompile Include="..\..\game\server\entities\spawnpoints\CInfoPlayerStart.cpp" />
     <ClCompile Include="..\..\game\server\entities\tanks\CFuncTank.cpp" />
     <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankControls.cpp" />
     <ClCompile Include="..\..\game\server\entities\tanks\CFuncTankGun.cpp" />
@@ -584,6 +586,8 @@
     <ClInclude Include="..\..\game\server\entities\sound\CEnvSound.h" />
     <ClInclude Include="..\..\game\server\entities\sound\CSpeaker.h" />
     <ClInclude Include="..\..\game\server\entities\spawnpoints\CBaseDMStart.h" />
+    <ClInclude Include="..\..\game\server\entities\spawnpoints\CBaseSpawnPoint.h" />
+    <ClInclude Include="..\..\game\server\entities\spawnpoints\CInfoPlayerStart.h" />
     <ClInclude Include="..\..\game\server\entities\tanks\CFuncTank.h" />
     <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankControls.h" />
     <ClInclude Include="..\..\game\server\entities\tanks\CFuncTankGun.h" />
