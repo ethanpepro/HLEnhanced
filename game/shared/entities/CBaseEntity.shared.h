@@ -786,6 +786,110 @@ public:
 	}
 
 	/**
+	*	@return The weapon animation.
+	*/
+	int GetWeaponAnim() const { return pev->weaponanim; }
+
+	/**
+	*	Sets the weapon animation.
+	*	@param iWeaponAnim Weapon animation to set.
+	*/
+	void SetWeaponAnim( const int iWeaponAnim )
+	{
+		pev->weaponanim = iWeaponAnim;
+	}
+
+	/**
+	*	@return Whether the player is ducking.
+	*/
+	bool IsDucking() const
+	{
+		return pev->bInDuck != 0;
+	}
+
+	/**
+	*	Sets whether the player is ducking.
+	*	@param bDucking Duck state to set.
+	*/
+	void SetDucking( const bool bDucking )
+	{
+		pev->bInDuck = bDucking;
+	}
+
+	/**
+	*	@return The time at which a step sound was last played.
+	*/
+	int GetStepSoundTime() const { return pev->flTimeStepSound; }
+
+	/**
+	*	Sets the time at which a step sound was last played.
+	*	@param iTime Time to set.
+	*/
+	void SetStepSoundTime( const int iTime )
+	{
+		pev->flTimeStepSound = iTime;
+	}
+
+	/**
+	*	@return The time at which a swim sound was last played.
+	*/
+	int GetSwimSoundTime() const { return pev->flSwimTime; }
+
+	/**
+	*	Sets the time at which a swim sound was last played.
+	*	@param iTime Time to set.
+	*/
+	void SetSwimSoundTime( const int iTime )
+	{
+		pev->flSwimTime = iTime;
+	}
+
+	/**
+	*	@return The time at which a duck sound was last played.
+	*/
+	int GetDuckSoundTime() const { return pev->flDuckTime; }
+
+	/**
+	*	Sets the time at which a duck sound was last played.
+	*	@param iTime Time to set.
+	*/
+	void SetDuckSoundTime( const int iTime )
+	{
+		pev->flDuckTime = iTime;
+	}
+
+	/**
+	*	@return Whether the last step was a left step sound.
+	*/
+	bool IsStepLeft() const
+	{
+		return pev->iStepLeft != 0;
+	}
+
+	/**
+	*	Steps whether the last step was a left step sound.
+	*	@param bStepLeft State to set.
+	*/
+	void SetStepLeft( const bool bStepLeft )
+	{
+		pev->iStepLeft = bStepLeft;
+	}
+
+	/**
+	*	@return Fall velocity.
+	*/
+	float GetFallVelocity() const { return pev->flFallVelocity; }
+
+	/**
+	*	Sets the fall velocity.
+	*	@param flFallVelocity Fall velocity to set.
+	*/
+	void SetFallVelocity( const float flFallVelocity )
+	{
+		pev->flFallVelocity = flFallVelocity;
+	}
+
+	/**
 	*	@return The absolute minimum bounds.
 	*/
 	const Vector& GetAbsMin() const { return pev->absmin; }
@@ -1453,6 +1557,64 @@ public:
 	}
 
 	/**
+	*	@param iButtons Old button flags to check.
+	*	@return Whether any of the given old button flags are set.
+	*/
+	bool AnyOldButtonsSet( const int iButtons ) const
+	{
+		return ( pev->oldbuttons & iButtons ) != 0;
+	}
+
+	/**
+	*	@param iButtons Old button flags to check.
+	*	@return Whether all of the given old button flags are set.
+	*/
+	bool AllOldButtonsSet( const int iButtons ) const
+	{
+		return ( pev->oldbuttons & iButtons ) == iButtons;
+	}
+
+	/**
+	*	@return The old buttons bit vector.
+	*/
+	int GetOldButtons() const { return pev->oldbuttons; }
+
+	/**
+	*	Sets the old buttons bit vector.
+	*	@param iButtons Old button flags to set.
+	*/
+	void SetOldButtons( const int iButtons )
+	{
+		pev->oldbuttons = iButtons;
+	}
+
+	/**
+	*	Adds the given old button flags.
+	*	@param iButtons Old button flags to set.
+	*/
+	void AddOldButtonFlags( const int iButtons )
+	{
+		pev->oldbuttons |= iButtons;
+	}
+
+	/**
+	*	Clears all old button flags.
+	*/
+	void ClearAllOldButtons()
+	{
+		pev->oldbuttons = 0;
+	}
+
+	/**
+	*	Clears the given old button flags.
+	*	@param iButtons Old button flags to clear.
+	*/
+	void ClearOldButtonFlags( const int iButtons )
+	{
+		pev->oldbuttons &= ~iButtons;
+	}
+
+	/**
 	*	@param iImpulse Impulse flags to check.
 	*	@return Whether any of the given impulse flags are set.
 	*/
@@ -1673,6 +1835,20 @@ public:
 	}
 
 	/**
+	*	@return The player class.
+	*/
+	int GetPlayerClass() const { return pev->playerclass; }
+
+	/**
+	*	Sets the player class.
+	*	@param iPlayerClass Player class to set.
+	*/
+	void SetPlayerClass( const int iPlayerClass )
+	{
+		pev->playerclass = iPlayerClass;
+	}
+
+	/**
 	*	@return The entity's water level.
 	*/
 	WaterLevel GetWaterLevel() const
@@ -1745,7 +1921,81 @@ public:
 		pev->message = iStringNull;
 	}
 
+	/**
+	*	@return Speed.
+	*/
+	float GetSpeed() const { return pev->speed; }
+
+	/**
+	*	Sets the speed.
+	*	@param flSpeed Speed to set.
+	*/
+	void SetSpeed( const float flSpeed )
+	{
+		pev->speed = flSpeed;
+	}
+
+	/**
+	*	@return SMaximum seed.
+	*/
+	float GetMaxSpeed() const { return pev->maxspeed; }
+
+	/**
+	*	Sets the maximum speed.
+	*	@param flSpeed Maximum speed to set.
+	*/
+	void SetMaxSpeed( const float flSpeed )
+	{
+		pev->maxspeed = flSpeed;
+	}
+
+	/**
+	*	Time at which this entity runs out of air. Used while swimming.
+	*	@return The air finished time.
+	*/
+	float GetAirFinishedTime() const { return pev->air_finished; }
+
+	/**
+	*	Sets the air finished time.
+	*	@param flTime Time when this entity runs out of air.
+	*/
+	void SetAirFinishedTime( const float flTime )
+	{
+		pev->air_finished = flTime;
+	}
+
+	/**
+	*	Time at which this entity can be hurt again while drowning.
+	*	@return The pain finished time.
+	*/
+	float GetPainFinishedTime() const { return pev->pain_finished; }
+
+	/**
+	*	Sets the pain finished time.
+	*	@param flTime Time when this entity should get hurt again.
+	*/
+	void SetPainFinishedTime( const float flTime )
+	{
+		pev->pain_finished = flTime;
+	}
+
+	/**
+	*	@return Field of view.
+	*/
+	float GetFOV() const { return pev->fov; }
+	
+	/**
+	*	Sets the field of view.
+	*	@param flFOV Field of view to set.
+	*/
+	void SetFOV( const float flFOV )
+	{
+		pev->fov = flFOV;
+	}
+
 	//TODO: edict_t* pointers - Solokiller
+	//TODO: dmg* vars
+	//TODO: noise* vars
 
 public:
 	/**

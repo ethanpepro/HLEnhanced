@@ -3842,6 +3842,7 @@ void CBasePlayer :: UpdateClientData( void )
 			WRITE_COORD( damageOrigin.z );
 		MESSAGE_END();
 	
+		//TODO: both of these can probably be removed. - Solokiller
 		pev->dmg_take = 0;
 		pev->dmg_save = 0;
 		m_bitsHUDDamage = m_bitsDamageType;

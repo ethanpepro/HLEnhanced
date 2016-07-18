@@ -169,6 +169,9 @@ typedef struct entvars_s
 
 	float		dmg_take;
 	float		dmg_save;
+	/**
+	*	Used by MOVETYPE_PUSHSTEP in specific cases. TODO: is this behavior ever triggered? - Solokiller
+	*/
 	float		dmg;
 	float		dmgtime;
 	
@@ -190,6 +193,9 @@ typedef struct entvars_s
 	float		fov;
 	int			weaponanim;
 
+	/**
+	*	TODO: never used? - Solokiller
+	*/
 	int			pushmsec;
 
 	int			bInDuck;
@@ -199,10 +205,16 @@ typedef struct entvars_s
 	int			iStepLeft;
 	float		flFallVelocity;
 
+	/**
+	*	Special var used to tell the engine to skip the shield hitbox for CS shield weapons.
+	*/
 	int			gamestate;
 
 	int			oldbuttons;
 
+	/**
+	*	Traceline group.
+	*/
 	int			groupinfo;
 
 	// For mods
