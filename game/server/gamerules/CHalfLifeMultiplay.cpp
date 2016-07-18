@@ -821,54 +821,39 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 		WRITE_LONG( 7 | DRC_FLAG_DRAMATIC);   // eventflags (priority and flags)
 	MESSAGE_END();
 
-//  Print a standard message
-	// TODO: make this go direct to console
-	return; // just remove for now
-/*
-	char	szText[ 128 ];
+	// Print a standard message
 
-	if ( pKiller->flags & FL_MONSTER )
+	//TODO: add a cvar to control this? - Solokiller
+
+	char szBuffer[ 512 ];
+
+	if( pKiller->AnyFlagsSet( FL_MONSTER ) )
 	{
 		// killed by a monster
-		strcpy ( szText, STRING( pVictim->pev->netname ) );
-		strcat ( szText, " was killed by a monster.\n" );
-		return;
+		snprintf( szBuffer, sizeof( szBuffer ), "%s was killed by a monster.\n", pVictim->GetNetName() );
 	}
-
-	if ( pKiller == pVictim->pev )
+	else if( pKiller == pVictim )
 	{
-		strcpy ( szText, STRING( pVictim->pev->netname ) );
-		strcat ( szText, " commited suicide.\n" );
+		snprintf( szBuffer, sizeof( szBuffer ), "%s commited suicide.\n", pVictim->GetNetName() );
 	}
-	else if ( pKiller->flags & FL_CLIENT )
+	else if( pKiller->AnyFlagsSet( FL_CLIENT ) )
 	{
-		strcpy ( szText, STRING( pKiller->netname ) );
-
-		strcat( szText, " : " );
-		strcat( szText, killer_weapon_name );
-		strcat( szText, " : " );
-
-		strcat ( szText, STRING( pVictim->pev->netname ) );
-		strcat ( szText, "\n" );
+		snprintf( szBuffer, sizeof( szBuffer ), "%s : %s : %s\n", pKiller->GetNetName(), killer_weapon_name, pVictim->GetNetName() );
 	}
-	else if ( FClassnameIs ( pKiller, "worldspawn" ) )
+	else if( FClassnameIs ( pKiller, "worldspawn" ) )
 	{
-		strcpy ( szText, STRING( pVictim->pev->netname ) );
-		strcat ( szText, " fell or drowned or something.\n" );
+		snprintf( szBuffer, sizeof( szBuffer ), "%s fell or drowned or something.\n", pVictim->GetNetName() );
 	}
-	else if ( pKiller->solid == SOLID_BSP )
+	else if( pKiller->GetSolidType() == SOLID_BSP )
 	{
-		strcpy ( szText, STRING( pVictim->pev->netname ) );
-		strcat ( szText, " was mooshed.\n" );
+		snprintf( szBuffer, sizeof( szBuffer ), "%s was mooshed.\n", pVictim->GetNetName() );
 	}
 	else
 	{
-		strcpy ( szText, STRING( pVictim->pev->netname ) );
-		strcat ( szText, " died mysteriously.\n" );
+		snprintf( szBuffer, sizeof( szBuffer ), "%s died mysteriously.\n", pVictim->GetNetName() );
 	}
 
-	UTIL_ClientPrintAll( szText );
-*/
+	UTIL_ClientPrintAll( HUD_PRINTNOTIFY, szBuffer );
 }
 
 //=========================================================
