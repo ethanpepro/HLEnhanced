@@ -967,14 +967,6 @@ enum Contents
 	CONTENT_FOG					= -19,
 };
 
-//TODO: are these ever used? - Solokiller
-#define CONTENT_EMPTY	-1
-#define CONTENT_SOLID	-2
-#define	CONTENT_WATER	-3
-#define CONTENT_SLIME	-4
-#define CONTENT_LAVA	-5
-#define CONTENT_SKY		-6
-
 /**
 *	Sound channels.
 */
@@ -1034,16 +1026,6 @@ enum Pitch
 *	Volume values.
 */
 #define VOL_NORM		1.0
-
-// plats
-//TODO: never used - Solokiller
-#define	PLAT_LOW_TRIGGER	1
-
-// Trains
-//TODO: move - Solokiller
-#define	SF_TRAIN_WAIT_RETRIGGER	1
-#define SF_TRAIN_START_ON		4		// Train is initially moving
-#define SF_TRAIN_PASSABLE		8		// Train is not solid -- used to make water trains
 
 // buttons
 #include "in_buttons.h"

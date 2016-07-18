@@ -17,6 +17,22 @@
 
 #include "CBasePlatTrain.h"
 
+// Trains
+enum
+{
+	SF_TRAIN_WAIT_RETRIGGER	= 1,
+
+	/**
+	*	Train is initially moving.
+	*/
+	SF_TRAIN_START_ON		= 4,
+
+	/**
+	*	Train is not solid -- used to make water trains.
+	*/
+	SF_TRAIN_PASSABLE		= 8,
+};
+
 /*QUAKED func_train (0 .5 .8) ?
 Trains are moving platforms that players can ride.
 The targets origin specifies the min point of the train at each corner.
