@@ -1168,7 +1168,6 @@ typedef unsigned int	string_t;
 
 typedef unsigned char 		byte;
 typedef unsigned short 		word;
-#define _DEF_BYTE_
 
 //Deal with any legacy code that messes with stuff. - Solokiller
 #if defined( true ) || defined( false )
