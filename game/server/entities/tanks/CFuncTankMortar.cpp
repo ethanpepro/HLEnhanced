@@ -20,8 +20,6 @@ void CFuncTankMortar::KeyValue( KeyValueData *pkvd )
 
 void CFuncTankMortar::Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker )
 {
-	//TODO is the attacker being passed in correctly here? - Solokiller
-
 	if( m_fireLast != 0 )
 	{
 		int bulletCount = ( gpGlobals->time - m_fireLast ) * m_fireRate;
@@ -37,9 +35,9 @@ void CFuncTankMortar::Fire( const Vector &barrelEnd, const Vector &forward, CBas
 
 			ExplosionCreate( tr.vecEndPos, pev->angles, this, pev->impulse, true );
 
-			CFuncTank::Fire( barrelEnd, forward, this );
+			CFuncTank::Fire( barrelEnd, forward, pAttacker );
 		}
 	}
 	else
-		CFuncTank::Fire( barrelEnd, forward, this );
+		CFuncTank::Fire( barrelEnd, forward, pAttacker );
 }

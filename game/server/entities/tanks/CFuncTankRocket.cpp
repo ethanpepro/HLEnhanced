@@ -16,8 +16,6 @@ void CFuncTankRocket::Fire( const Vector &barrelEnd, const Vector &forward, CBas
 {
 	int i;
 
-	//TODO is the attacker being passed in correctly here? - Solokiller
-
 	if( m_fireLast != 0 )
 	{
 		int bulletCount = ( gpGlobals->time - m_fireLast ) * m_fireRate;
@@ -27,9 +25,9 @@ void CFuncTankRocket::Fire( const Vector &barrelEnd, const Vector &forward, CBas
 			{
 				CBaseEntity *pRocket = CBaseEntity::Create( "rpg_rocket", barrelEnd, pev->angles, edict() );
 			}
-			CFuncTank::Fire( barrelEnd, forward, this );
+			CFuncTank::Fire( barrelEnd, forward, pAttacker );
 		}
 	}
 	else
-		CFuncTank::Fire( barrelEnd, forward, this );
+		CFuncTank::Fire( barrelEnd, forward, pAttacker );
 }
