@@ -67,7 +67,7 @@
 
 
 // MoveToOrigin stuff
-enum MoveType
+enum MoveToOrigin
 {
 	/**
 	*	Normal move in the direction monster is facing.
@@ -81,7 +81,7 @@ enum MoveType
 };
 
 // spawn flags 256 and above are already taken by the engine
-extern void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDist, const MoveType moveType );
+extern void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDist, const MoveToOrigin moveType );
 
 Vector VecCheckToss( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSpot2, float flGravityAdj = 1.0 );
 Vector VecCheckThrow( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSpot2, float flSpeed, float flGravityAdj = 1.0 );

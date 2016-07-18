@@ -72,7 +72,7 @@ bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector &vecTargetO
 	return false;// Line of sight is not established
 }
 
-void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDist, const MoveType moveType )
+void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDist, const MoveToOrigin moveType )
 {
 	MOVE_TO_ORIGIN( pEntity->edict(), vecGoal, flDist, moveType );
 }

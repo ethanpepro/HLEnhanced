@@ -88,6 +88,7 @@ typedef struct entvars_s
 	int			modelindex;
 	string_t	model;
 
+	//TODO: these should be string_t. - Solokiller
 	int			viewmodel;		// player's viewmodel
 	int			weaponmodel;	// what other players see
 	
@@ -152,6 +153,9 @@ typedef struct entvars_s
 	int			team;
 
 	float		max_health;
+	/**
+	*	Never used.
+	*/
 	float		teleport_time;
 	float		armortype;
 	float		armorvalue;
