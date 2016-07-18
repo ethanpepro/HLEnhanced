@@ -40,7 +40,6 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	int iItemSlot( void ) override { return 5; }
 	bool GetItemInfo( ItemInfo* p ) override;
 
 	void PrimaryAttack( void ) override;

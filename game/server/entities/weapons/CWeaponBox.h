@@ -28,7 +28,7 @@ public:
 	bool PackWeapon( CBasePlayerItem *pWeapon );
 	bool PackAmmo( int iszName, int iCount );
 
-	CBasePlayerItem	*m_rgpPlayerItems[ MAX_ITEM_TYPES ];// one slot for each 
+	CBasePlayerItem	*m_rgpPlayerItems[ MAX_WEAPON_SLOTS ];// one slot for each 
 
 	int m_rgiszAmmo[ MAX_AMMO_SLOTS ];// ammo names
 	int	m_rgAmmo[ MAX_AMMO_SLOTS ];// ammo quantities

@@ -39,7 +39,6 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	int iItemSlot() override { return 3; }
 	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 

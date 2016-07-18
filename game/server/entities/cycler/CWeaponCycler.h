@@ -15,13 +15,13 @@
 #ifndef GAME_SERVER_ENTITIES_CYCLER_CWEAPONCYCLER_H
 #define GAME_SERVER_ENTITIES_CYCLER_CWEAPONCYCLER_H
 
+//TODO: does this entity even work? - Solokiller
 class CWeaponCycler : public CBasePlayerWeapon
 {
 public:
 	DECLARE_CLASS( CWeaponCycler, CBasePlayerWeapon );
 
 	void Spawn( void ) override;
-	int iItemSlot( void ) override { return 1; }
 	bool GetItemInfo( ItemInfo* p ) override { return false; }
 
 	void PrimaryAttack( void ) override;

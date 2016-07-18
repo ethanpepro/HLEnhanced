@@ -32,8 +32,6 @@
 *	Now up to 10.
 */
 #define MAX_WEAPON_SLOTS		10
-//TODO: this shouldn't even exist. The server and client indices should be identical. - Solokiller
-#define MAX_ITEM_TYPES			11	// hud item selection slots
 
 #define MAX_ITEMS				5	// hard coded item types
 

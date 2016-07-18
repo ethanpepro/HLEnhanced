@@ -596,7 +596,7 @@ void CBasePlayer::PackDeadPlayerItems( void )
 	}
 
 // go through all of the weapons and make a list of the ones to pack
-	for ( i = 0 ; i < MAX_ITEM_TYPES ; i++ )
+	for ( i = 0 ; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		if ( m_rgpPlayerItems[ i ] )
 		{
@@ -715,7 +715,7 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 
 	int i;
 	CBasePlayerItem *pPendingItem;
-	for (i = 0; i < MAX_ITEM_TYPES; i++)
+	for (i = 0; i < MAX_WEAPON_SLOTS; i++)
 	{
 		m_pActiveItem = m_rgpPlayerItems[i];
 		while (m_pActiveItem)
@@ -2545,7 +2545,7 @@ pt_end:
 #if defined( CLIENT_WEAPONS )
 		// Decay timers on weapons
 	// go through all of the weapons and make a list of the ones to pack
-	for ( int i = 0 ; i < MAX_ITEM_TYPES ; i++ )
+	for ( int i = 0 ; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		if ( m_rgpPlayerItems[ i ] )
 		{
@@ -2998,7 +2998,7 @@ void CBasePlayer::SelectItem(const char *pstr)
 
 	CBasePlayerItem *pItem = NULL;
 
-	for (int i = 0; i < MAX_ITEM_TYPES; i++)
+	for (int i = 0; i < MAX_WEAPON_SLOTS; i++)
 	{
 		if (m_rgpPlayerItems[i])
 		{
@@ -3072,7 +3072,7 @@ bool CBasePlayer::HasWeapons() const
 {
 	int i;
 
-	for ( i = 0 ; i < MAX_ITEM_TYPES ; i++ )
+	for ( i = 0 ; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		if ( m_rgpPlayerItems[ i ] )
 		{
@@ -3945,7 +3945,7 @@ void CBasePlayer :: UpdateClientData( void )
 	SendAmmoUpdate();
 
 	// Update all the items
-	for ( int i = 0; i < MAX_ITEM_TYPES; i++ )
+	for ( int i = 0; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		if ( m_rgpPlayerItems[i] )  // each item updates it's successors
 			m_rgpPlayerItems[i]->UpdateClientData( this );
@@ -4308,7 +4308,7 @@ void CBasePlayer::DropPlayerItem ( char *pszItemName )
 	CBasePlayerItem *pWeapon;
 	int i;
 
-	for ( i = 0 ; i < MAX_ITEM_TYPES ; i++ )
+	for ( i = 0 ; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		pWeapon = m_rgpPlayerItems[ i ];
 
@@ -4410,7 +4410,7 @@ bool CBasePlayer::HasNamedPlayerItem( const char *pszItemName ) const
 	CBasePlayerItem *pItem;
 	int i;
  
-	for ( i = 0 ; i < MAX_ITEM_TYPES ; i++ )
+	for ( i = 0 ; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		pItem = m_rgpPlayerItems[ i ];
 		

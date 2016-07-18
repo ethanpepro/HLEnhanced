@@ -153,8 +153,10 @@ public:
 	CBasePlayerItem *m_pNext;
 	int		m_iId;												// WEAPON_???
 
-	virtual int iItemSlot( void ) { return 0; }			// return 0 to MAX_ITEMS_SLOTS, used in hud
-
+	/**
+	*	@eturn 0 to MAX_ITEMS_SLOTS, used in hud.
+	*/
+	int			iItemSlot() const { return ItemInfoArray[ m_iId ].iSlot; }
 	int			iItemPosition() const { return ItemInfoArray[ m_iId ].iPosition; }
 	const char	*pszAmmo1() const { return ItemInfoArray[ m_iId ].pszAmmo1; }
 	const char	*pszAmmo2() const { return ItemInfoArray[ m_iId ].pszAmmo2; }

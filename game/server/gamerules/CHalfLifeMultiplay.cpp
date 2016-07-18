@@ -337,7 +337,7 @@ bool CHalfLifeMultiplay::GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerIte
 		return false;
 	}
 
-	for ( i = 0 ; i < MAX_ITEM_TYPES ; i++ )
+	for ( i = 0 ; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		pCheck = pPlayer->m_rgpPlayerItems[ i ];
 
@@ -955,7 +955,7 @@ bool CHalfLifeMultiplay::CanHavePlayerItem( CBasePlayer *pPlayer, CBasePlayerIte
 			return CGameRules::CanHavePlayerItem( pPlayer, pItem );
 
 		// check if the player already has this weapon
-		for ( int i = 0 ; i < MAX_ITEM_TYPES ; i++ )
+		for ( int i = 0 ; i < MAX_WEAPON_SLOTS; i++ )
 		{
 			CBasePlayerItem *it = pPlayer->m_rgpPlayerItems[i];
 
