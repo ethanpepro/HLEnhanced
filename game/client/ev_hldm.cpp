@@ -288,7 +288,7 @@ int EV_HLDM_CheckTracer( int idx, float *vecSrc, float *end, float *forward, flo
 {
 	int tracer = 0;
 	int i;
-	qboolean player = idx >= 1 && idx <= gEngfuncs.GetMaxClients() ? true : false;
+	const bool player = idx >= 1 && idx <= gEngfuncs.GetMaxClients();
 
 	if ( iTracerFreq != 0 && ( (*tracerCount)++ % iTracerFreq) == 0 )
 	{

@@ -72,7 +72,7 @@ float		v_frametime, v_lastDistance;
 float		v_cameraRelaxAngle	= 5.0f;
 float		v_cameraFocusAngle	= 35.0f;
 int			v_cameraMode = CAM_MODE_FOCUS;
-qboolean	v_resetCamera = 1;
+bool		v_resetCamera = true;
 
 Vector ev_punchangle;
 
@@ -981,7 +981,7 @@ void V_GetSingleTargetCam(cl_entity_t * ent1, Vector& angle, Vector& origin)
 	int flags 	   = gHUD.m_Spectator.m_iObserverFlags;
 
 	// see is target is a dead player
-	qboolean deadPlayer = ent1->player && (ent1->curstate.solid == SOLID_NOT);
+	const bool deadPlayer = ent1->player && (ent1->curstate.solid == SOLID_NOT);
 	
 	float dfactor   = ( flags & DRC_FLAG_DRAMATIC )? -1.0f : 1.0f;
 

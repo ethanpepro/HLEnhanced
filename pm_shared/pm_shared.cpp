@@ -148,7 +148,7 @@ void PM_InitTextureTypes()
 	int i, j;
 	byte *pMemFile;
 	int fileSize, filePos;
-	static qboolean bTextureTypeInit = false;
+	static bool bTextureTypeInit = false;
 
 	if ( bTextureTypeInit )
 		return;
@@ -592,7 +592,7 @@ PM_AddToTouched
 Add's the trace result to touch list, if contact is not already in list.
 ================
 */
-qboolean PM_AddToTouched(pmtrace_t tr, const Vector& impactvelocity)
+bool PM_AddToTouched( pmtrace_t& tr, const Vector& impactvelocity )
 {
 	int i;
 
@@ -1408,9 +1408,9 @@ void PM_AirMove (void)
 	PM_FlyMove ();
 }
 
-qboolean PM_InWater( void )
+bool PM_InWater()
 {
-	return ( pmove->waterlevel > WATERLEVEL_FEET );
+	return pmove->waterlevel > WATERLEVEL_FEET;
 }
 
 /*
@@ -1420,7 +1420,7 @@ PM_CheckWater
 Sets pmove->waterlevel and pmove->watertype values.
 =============
 */
-qboolean PM_CheckWater ()
+bool PM_CheckWater()
 {
 	Vector	point;
 	int		cont;
@@ -2008,7 +2008,6 @@ void PM_LadderMove( physent_t *pLadder )
 {
 	Vector		ladderCenter;
 	trace_t		trace;
-	qboolean	onFloor;
 	Vector		floor;
 	Vector		modelmins, modelmaxs;
 
@@ -2033,10 +2032,7 @@ void PM_LadderMove( physent_t *pLadder )
 	floor = pmove->origin;
 	floor[2] += pmove->player_mins[pmove->usehull][2] - 1;
 
-	if ( pmove->PM_PointContents( floor, NULL ) == CONTENTS_SOLID )
-		onFloor = true;
-	else
-		onFloor = false;
+	const bool onFloor = pmove->PM_PointContents( floor, NULL ) == CONTENTS_SOLID;
 
 	pmove->gravity = 0;
 	pmove->PM_TraceModel( pLadder, pmove->origin, ladderCenter, &trace );
@@ -2418,20 +2414,15 @@ void PM_PreventMegaBunnyJumping( void )
 PM_Jump
 =============
 */
-void PM_Jump (void)
+void PM_Jump()
 {
-	int i;
-	qboolean tfc = false;
-
-	qboolean cansuperjump = false;
-
 	if (pmove->dead)
 	{
 		pmove->oldbuttons |= IN_JUMP ;	// don't jump again until released
 		return;
 	}
 
-	tfc = atoi( pmove->PM_Info_ValueForKey( pmove->physinfo, "tfc" ) ) == 1 ? true : false;
+	const bool tfc = atoi( pmove->PM_Info_ValueForKey( pmove->physinfo, "tfc" ) ) == 1;
 
 	// Spy that's feigning death cannot jump
 	if ( tfc && 
@@ -2516,7 +2507,7 @@ void PM_Jump (void)
 	}
 
 	// See if user can super long jump?
-	cansuperjump = atoi( pmove->PM_Info_ValueForKey( pmove->physinfo, "slj" ) ) == 1 ? true : false;
+	bool cansuperjump = atoi( pmove->PM_Info_ValueForKey( pmove->physinfo, "slj" ) ) == 1;
 
 	// Acclerate upward
 	// If we are ducking...
@@ -2531,7 +2522,7 @@ void PM_Jump (void)
 		{
 			pmove->punchangle[0] = -5;
 
-			for (i =0; i < 2; i++)
+			for (int i = 0; i < 2; i++)
 			{
 				pmove->velocity[i] = pmove->forward[i] * PLAYER_LONGJUMP_SPEED * 1.6;
 			}
@@ -2653,8 +2644,7 @@ void PM_CheckFalling( void )
 		}
 		else if ( pmove->flFallVelocity > PLAYER_MAX_SAFE_FALL_SPEED / 2 )
 		{
-			qboolean tfc = false;
-			tfc = atoi( pmove->PM_Info_ValueForKey( pmove->physinfo, "tfc" ) ) == 1 ? true : false;
+			const bool tfc = atoi( pmove->PM_Info_ValueForKey( pmove->physinfo, "tfc" ) ) == 1;
 
 			if ( tfc )
 			{
@@ -2887,7 +2877,7 @@ Numtouch and touchindex[] will be set if any of the physents
 were contacted during the move.
 =============
 */
-void PM_PlayerMove ( qboolean server )
+void PM_PlayerMove ( const bool server )
 {
 	physent_t *pLadder = NULL;
 
@@ -3255,7 +3245,7 @@ void PM_CreateStuckTable( void )
 
 
 /*
-This modume implements the shared player physics code between any particular game and 
+This module implements the shared player physics code between any particular game and 
 the engine.  The same PM_Move routine is built into the game .dll and the client .dll and is
 invoked by each side as appropriate.  There should be no distinction, internally, between server
 and client.  This will ensure that prediction behaves appropriately.
@@ -3267,7 +3257,7 @@ void PM_Move ( struct playermove_s *ppmove, int server )
 
 	pmove = ppmove;
 	
-	PM_PlayerMove( ( server != 0 ) ? true : false );
+	PM_PlayerMove( server != 0 );
 
 	if ( pmove->onground != -1 )
 	{

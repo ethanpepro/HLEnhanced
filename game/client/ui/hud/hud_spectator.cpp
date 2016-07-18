@@ -1290,7 +1290,7 @@ bool CHudSpectator::ParseOverviewFile( )
 				else if ( !stricmp( token, "rotated" ) )
 				{
 					pfile = gEngfuncs.COM_ParseFile(pfile,token); 
-					m_OverviewData.rotated = atoi( token );
+					m_OverviewData.rotated = atoi( token ) != 0;
 				}
 				else if ( !stricmp( token, "inset" ) )
 				{

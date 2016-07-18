@@ -1170,14 +1170,12 @@ typedef unsigned char 		byte;
 typedef unsigned short 		word;
 #define _DEF_BYTE_
 
-#undef true
-#undef false
-
-#ifndef __cplusplus
-typedef enum {false, true}	qboolean;
-#else 
-typedef int qboolean;
+//Deal with any legacy code that messes with stuff. - Solokiller
+#if defined( true ) || defined( false )
+#error "Don't define true and false!"
 #endif
+
+typedef int qboolean;
 
 typedef struct
 {
