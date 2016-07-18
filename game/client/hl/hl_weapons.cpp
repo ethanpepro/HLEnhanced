@@ -117,8 +117,7 @@ void HUD_InitClientWeapons()
 {
 	static bool initialized = false;
 
-	//This should never be called more than once. It's called on library load now. - Solokiller
-	ASSERTSZ( !initialized, "HUD_InitClientWeapons called multiple times!" );
+	//TODO: for some reason calling this in Initialize causes all event hooks to be ignored. - Solokiller
 
 	if ( initialized )
 		return;
@@ -168,6 +167,8 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 	static int lasthealth;
 
 	memset( &nulldata, 0, sizeof( nulldata ) );
+
+	HUD_InitClientWeapons();
 
 	// Get current clock
 	gpGlobals->time = time;
