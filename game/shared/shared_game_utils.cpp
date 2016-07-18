@@ -285,8 +285,7 @@ int safe_sprintf( char *dst, const size_t len_dst, const char *format, ... )
 }
 
 #ifdef	DEBUG
-void
-DBG_AssertFunction(
+void DBG_AssertFunction(
 	const bool	fExpr,
 	const char*	szExpr,
 	const char*	szFile,
@@ -297,9 +296,9 @@ DBG_AssertFunction(
 		return;
 	char szOut[ 512 ];
 	if( szMessage != NULL )
-		sprintf( szOut, "ASSERT FAILED:\n %s \n(%s@%d)\n%s", szExpr, szFile, szLine, szMessage );
+		sprintf( szOut, "ASSERT FAILED:\n %s \n(%s@%d)\n%s\n", szExpr, szFile, szLine, szMessage );
 	else
-		sprintf( szOut, "ASSERT FAILED:\n %s \n(%s@%d)", szExpr, szFile, szLine );
+		sprintf( szOut, "ASSERT FAILED:\n %s \n(%s@%d)\n", szExpr, szFile, szLine );
 	ALERT( at_console, szOut );
 }
 #endif	// DEBUG

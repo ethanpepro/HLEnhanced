@@ -25,7 +25,7 @@
 *	The weapons bitmask can only handle 32. Either use an iuser or another means of sending the weapon list.
 *	 - Solokiller
 */
-#define MAX_WEAPONS		64		// ???
+#define MAX_WEAPONS				64
 
 /**
 *	Hud item selection slots.
@@ -33,23 +33,69 @@
 */
 #define MAX_WEAPON_SLOTS		10
 
-#define MAX_ITEMS				5	// hard coded item types
+/**
+*	Hard coded item types.
+*/
+#define MAX_ITEMS				5
 
-#define	HIDEHUD_WEAPONS		( 1<<0 )
-#define	HIDEHUD_FLASHLIGHT	( 1<<1 )
-#define	HIDEHUD_ALL			( 1<<2 )
-#define 	HIDEHUD_HEALTH		( 1<<3 )
+/**
+*	Not really slots.
+*/
+#define MAX_AMMO_SLOTS			32
 
-#define	MAX_AMMO_TYPES	32		// ???
-#define MAX_AMMO_SLOTS  32		// not really slots
+#define WEAPON_SUIT				31
 
-#define HUD_PRINTNOTIFY		1
-#define HUD_PRINTCONSOLE	2
-#define HUD_PRINTTALK		3
-#define HUD_PRINTCENTER		4
+/**
+*	Bit flags for hiding parts of the HUD.
+*/
+enum HideHUD
+{
+	/**
+	*	Hide weapons info (ammo).
+	*/
+	HIDEHUD_WEAPONS		= 1 << 0,
 
+	/**
+	*	Hide flashlight icon.
+	*/
+	HIDEHUD_FLASHLIGHT	= 1 << 1,
 
-#define WEAPON_SUIT			31
+	/**
+	*	Hide all HUD elements.
+	*/
+	HIDEHUD_ALL			= 1 << 2,
+
+	/**
+	*	Hide health info.
+	*/
+	HIDEHUD_HEALTH		= 1 << 3,
+};
+
+/**
+*	ClientPrint destinations.
+*/
+enum ClientPrintDest
+{
+	/**
+	*	Print to notify area (top left).
+	*/
+	HUD_PRINTNOTIFY		= 1,
+
+	/**
+	*	Print to console.
+	*/
+	HUD_PRINTCONSOLE	= 2,
+
+	/**
+	*	Print to chat.
+	*/
+	HUD_PRINTTALK		= 3,
+
+	/**
+	*	Print to center of screen.
+	*/
+	HUD_PRINTCENTER		= 4,
+};
 
 /**
 *	Maximum world coordinate for any axis. Negate for the opposite end of the axis.

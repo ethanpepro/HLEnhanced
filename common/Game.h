@@ -30,4 +30,6 @@
 // Shared engine/DLL constants
 #include "const.h"
 
+#include "cdll_dll.h"
+
 #endif //COMMON_GAME_H

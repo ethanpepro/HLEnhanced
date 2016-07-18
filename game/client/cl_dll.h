@@ -28,12 +28,9 @@
 //		- Handling the custum HUD-update packets
 //
 
-#include "mathlib.h"
-
-#include "Platform.h"
+#include "Game.h"
 
 #include "../engine/cdll_int.h"
-#include "cdll_dll.h"
 
 extern cl_enginefunc_t gEngfuncs;
 
