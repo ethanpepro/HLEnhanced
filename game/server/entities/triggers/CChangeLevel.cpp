@@ -8,6 +8,8 @@
 
 #include "CChangeLevel.h"
 
+LINK_ENTITY_TO_CLASS( info_landmark, CPointEntity );
+
 extern DLL_GLOBAL bool		g_fGameOver;
 
 FILE_GLOBAL char st_szNextMap[ cchMapNameMost ];
