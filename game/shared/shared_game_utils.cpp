@@ -735,3 +735,13 @@ void UTIL_Ricochet( const Vector& position, float scale )
 	MESSAGE_END();
 #endif
 }
+
+float UTIL_WeaponTimeBase()
+{
+#if defined( CLIENT_WEAPONS ) || defined( CLIENT_DLL )
+	//Always 0.0 on client, even if not predicting weapons ( won't get called in that case )
+	return 0.0;
+#else
+	return gpGlobals->time;
+#endif
+}

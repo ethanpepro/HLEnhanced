@@ -197,4 +197,6 @@ void UTIL_Sparks( const Vector& position );
 
 void UTIL_Ricochet( const Vector& position, float scale );
 
+float UTIL_WeaponTimeBase();
+
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H

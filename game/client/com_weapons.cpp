@@ -154,20 +154,6 @@ void HUD_SetMaxSpeed( const edict_t *ed, float speed )
 {
 }
 
-
-/*
-=====================
-UTIL_WeaponTimeBase
-
-Always 0.0 on client, even if not predicting weapons ( won't get called
- in that case )
-=====================
-*/
-float UTIL_WeaponTimeBase( void )
-{
-	return 0.0;
-}
-
 /*
 ======================
 stub_*

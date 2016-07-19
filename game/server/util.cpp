@@ -31,15 +31,6 @@
 #include "Weapons.h"
 #include "gamerules/GameRules.h"
 
-float UTIL_WeaponTimeBase( void )
-{
-#if defined( CLIENT_WEAPONS )
-	return 0.0;
-#else
-	return gpGlobals->time;
-#endif
-}
-
 void UTIL_ParametricRocket( entvars_t *pev, Vector vecOrigin, Vector vecAngles, edict_t *owner )
 {	
 	pev->startpos = vecOrigin;
