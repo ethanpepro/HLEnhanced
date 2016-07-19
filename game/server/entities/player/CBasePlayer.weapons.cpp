@@ -34,7 +34,7 @@ bool DLL_GLOBAL gEvilImpulse101 = false;
 //
 // Marks everything as new so the player will resend this to the hud.
 //
-void CBasePlayer::RenewItems( void )
+void CBasePlayer::RenewItems()
 {
 	//TODO: needed? - Solokiller
 }
@@ -46,7 +46,7 @@ void CBasePlayer::RenewItems( void )
 //
 // This is pretty brute force :(
 //=========================================================
-void CBasePlayer::PackDeadPlayerItems( void )
+void CBasePlayer::PackDeadPlayerItems()
 {
 	int iWeaponRules;
 	int iAmmoRules;
@@ -554,7 +554,7 @@ void CBasePlayer::SelectNextItem( int iItem )
 	}
 }
 
-void CBasePlayer::SelectLastItem( void )
+void CBasePlayer::SelectLastItem()
 {
 	if( !m_pLastItem )
 	{
@@ -753,7 +753,7 @@ int CBasePlayer::GiveAmmo( int iCount, const char *szName )
 
 // Called from UpdateClientData
 // makes sure the client has all the necessary ammo info,  if values have changed
-void CBasePlayer::SendAmmoUpdate( void )
+void CBasePlayer::SendAmmoUpdate()
 {
 	for( int i = 0; i < MAX_AMMO_SLOTS; i++ )
 	{

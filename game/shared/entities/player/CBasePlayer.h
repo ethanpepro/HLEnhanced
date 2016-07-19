@@ -224,15 +224,15 @@ public:
 
 	char m_szTeamName[TEAM_NAME_LENGTH];
 
-	virtual void Spawn( void ) override;
-	void Pain( void );
+	virtual void Spawn() override;
+	void Pain();
 
-//	virtual void Think( void );
-	virtual void Jump( void );
-	virtual void Duck( void );
-	virtual void PreThink( void );
-	virtual void PostThink( void );
-	virtual Vector GetGunPosition( void ) override;
+//	virtual void Think();
+	virtual void Jump();
+	virtual void Duck();
+	virtual void PreThink();
+	virtual void PostThink();
+	virtual Vector GetGunPosition() override;
 	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
 	virtual void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
@@ -247,33 +247,33 @@ public:
 	virtual const char *TeamID() const override;
 
 	virtual bool Restore( CRestore &restore ) override;
-	void RenewItems(void);
-	void PackDeadPlayerItems( void );
+	void RenewItems();
+	void PackDeadPlayerItems();
 	void RemoveAllItems( const bool removeSuit );
 	bool SwitchWeapon( CBasePlayerItem *pWeapon );
 
 	// JOHN:  sends custom messages if player HUD data has changed  (eg health, ammo)
-	virtual void UpdateClientData( void );
+	virtual void UpdateClientData();
 
 	// Player is moved across the transition by other means
 	virtual int		ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-	virtual void	Precache( void ) override;
+	virtual void	Precache() override;
 	bool			IsOnLadder() const;
 	bool			FlashlightIsOn() const;
-	void			FlashlightTurnOn( void );
-	void			FlashlightTurnOff( void );
+	void			FlashlightTurnOn();
+	void			FlashlightTurnOff();
 	
-	void UpdatePlayerSound ( void );
-	void DeathSound ( void );
+	void UpdatePlayerSound();
+	void DeathSound();
 
-	int Classify ( void ) override;
+	int Classify() override;
 	void SetAnimation( PLAYER_ANIM playerAnim );
 	//TODO
 	void SetWeaponAnimType( const char *szExtention );
 	char m_szAnimExtention[32];
 
 	// custom player functions
-	virtual void ImpulseCommands( void );
+	virtual void ImpulseCommands();
 	void CheatImpulseCommands( int iImpulse );
 
 	void AddPoints( int score, const bool bAllowNegativeScore );
@@ -286,44 +286,44 @@ public:
 	bool HasWeapons() const;// do I have ANY weapons?
 	void SelectPrevItem( int iItem );
 	void SelectNextItem( int iItem );
-	void SelectLastItem(void);
+	void SelectLastItem();
 	void SelectItem(const char *pstr);
-	void ItemPreFrame( void );
-	void ItemPostFrame( void );
+	void ItemPreFrame();
+	void ItemPostFrame();
 	void GiveNamedItem( const char *szName );
 	void EnableControl(const bool fControl);
 
 	int  GiveAmmo( int iAmount, const char *szName );
-	void SendAmmoUpdate(void);
+	void SendAmmoUpdate();
 
-	void WaterMove( void );
-	void EXPORT PlayerDeathThink( void );
-	void PlayerUse( void );
+	void WaterMove();
+	void EXPORT PlayerDeathThink();
+	void PlayerUse();
 
 	void CheckSuitUpdate();
 	void SetSuitUpdate(char *name, const SuitUpdateType updateType, int iNoRepeat);
-	void UpdateGeigerCounter( void );
-	void CheckTimeBasedDamage( void );
+	void UpdateGeigerCounter();
+	void CheckTimeBasedDamage();
 
 	bool FBecomeProne() override;
 	void BarnacleVictimBitten( CBaseEntity* pBarnacle ) override;
-	void BarnacleVictimReleased ( void ) override;
+	void BarnacleVictimReleased () override;
 	static int GetAmmoIndex(const char *psz);
 	int AmmoInventory( int iAmmoIndex );
 	int Illumination() const override;
 
-	void ResetAutoaim( void );
+	void ResetAutoaim();
 	Vector GetAutoaimVector( float flDelta  );
 	Vector AutoaimDeflection( Vector &vecSrc, float flDist, float flDelta  );
 
-	void ForceClientDllUpdate( void );  // Forces all client .dll specific data to be resent to client.
+	void ForceClientDllUpdate();  // Forces all client .dll specific data to be resent to client.
 
 	void DeathMessage( CBaseEntity* pKiller );
 
 	void SetCustomDecalFrames( int nFrames );
-	int GetCustomDecalFrames( void );
+	int GetCustomDecalFrames();
 
-	void TabulateAmmo( void );
+	void TabulateAmmo();
 
 	float m_flStartCharge;
 	float m_flAmmoStartCharge;
@@ -331,8 +331,8 @@ public:
 	float m_flNextAmmoBurn;// while charging, when to absorb another unit of player's ammo?
 	
 	//Player ID
-	void InitStatusBar( void );
-	void UpdateStatusBar( void );
+	void InitStatusBar();
+	void UpdateStatusBar();
 	int m_izSBarState[ SBAR_END ];
 	float m_flNextSBarUpdateTime;
 	float m_flStatusBarDisappearDelay;
