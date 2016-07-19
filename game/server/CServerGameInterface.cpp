@@ -294,9 +294,6 @@ void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, 
 		}
 	}
 
-	// Link user messages here to make sure first client can get them...
-	LinkUserMessages();
-
 	g_ASManager.WorldActivated();
 }
 

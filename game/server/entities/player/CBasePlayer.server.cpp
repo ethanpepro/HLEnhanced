@@ -125,10 +125,6 @@ void CBasePlayer::Precache()
 
 	m_iTrain = TRAIN_NEW;
 
-	// Make sure any necessary user messages have been registered
-	//TODO: this happens after the client has fully connected, so it would fail. - Solokiller
-	LinkUserMessages();
-
 	m_iUpdateTime = 5;  // won't update for 1/2 a second
 
 	if( gInitHUD )

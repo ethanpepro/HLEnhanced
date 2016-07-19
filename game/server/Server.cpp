@@ -16,6 +16,8 @@
 #include "eiface.h"
 #include "util.h"
 
+#include "UserMessages.h"
+
 #include "CServerGameInterface.h"
 
 #include "Angelscript/CHLASManager.h"
@@ -905,6 +907,9 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_player_leg2 );
 	CVAR_REGISTER ( &sk_player_leg3 );
 // END REGISTER CVARS FOR SKILL LEVEL STUFF
+
+	//Link user messages now.
+	LinkUserMessages();
 
 	SERVER_COMMAND( "exec skill.cfg\n" );
 
