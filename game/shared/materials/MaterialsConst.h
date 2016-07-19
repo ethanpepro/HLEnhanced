@@ -16,8 +16,11 @@
 #define GAME_SHARED_MATERIALS_MATERIALSCONST_H
 
 #define CTEXTURESMAX		512			// max number of textures loaded
-//TODO: increase to max maximum name for wad lumps. - Solokiller
-#define CBTEXTURENAMEMAX	13			// only load first n chars of name
+
+/**
+*	Now matches the maximum name length of a WAD lump. - Solokiller
+*/
+#define CBTEXTURENAMEMAX	16
 
 #define CHAR_TEX_CONCRETE	'C'			// texture types
 #define CHAR_TEX_METAL		'M'
