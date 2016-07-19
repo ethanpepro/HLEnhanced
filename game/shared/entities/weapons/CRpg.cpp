@@ -185,9 +185,8 @@ void CRpg::Holster( int skiplocal /* = 0 */ )
 #ifndef CLIENT_DLL
 	if (m_pSpot)
 	{
-		//TODO: don't use Killed. - Solokiller
-		m_pSpot->Killed( CTakeDamageInfo(), GIB_NEVER );
-		m_pSpot = NULL;
+		UTIL_Remove( m_pSpot );
+		m_pSpot = nullptr;
 	}
 #endif
 
@@ -247,9 +246,8 @@ void CRpg::SecondaryAttack()
 #ifndef CLIENT_DLL
 	if (!m_fSpotActive && m_pSpot)
 	{
-		//TODO: don't use Killed. - Solokiller
-		m_pSpot->Killed( CTakeDamageInfo(), GIB_NORMAL );
-		m_pSpot = NULL;
+		UTIL_Remove( m_pSpot );
+		m_pSpot = nullptr;
 	}
 #endif
 

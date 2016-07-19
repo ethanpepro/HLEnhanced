@@ -26,7 +26,7 @@ struct globalentity_s
 	DECLARE_DATADESC_FINAL();
 
 	char			name[ 64 ];
-	char			levelName[ 32 ];
+	char			levelName[ cchMapNameMost ];
 	GLOBALESTATE	state;
 	globalentity_t	*pNext;
 };
