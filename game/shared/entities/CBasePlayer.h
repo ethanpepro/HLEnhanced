@@ -26,6 +26,10 @@
 #define PLAYER_FALL_PUNCH_THRESHHOLD (float)350 // won't punch player's screen/make scrape noise unless player falling at least this fast.
 #define	MAX_CLIMB_SPEED			200	// fastest vertical climbing speed possible
 #define PLAYER_LONGJUMP_SPEED 350 // how fast we longjump
+/**
+*	Minimum horizontal velocity that a player must be moving at before step sounds are played.
+*/
+#define PLAYER_STEP_SOUND_SPEED 220
 
 //
 // Player PHYSICS FLAGS bits

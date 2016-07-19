@@ -96,7 +96,7 @@ void PM_PlayStepSound( int step, float fvol )
 	hvel = pmove->velocity;
 	hvel[2] = 0.0;
 
-	if ( pmove->multiplayer && ( !g_bOnLadder && hvel.Length() <= 220 ) )
+	if ( pmove->multiplayer && ( !g_bOnLadder && hvel.Length() <= PLAYER_STEP_SOUND_SPEED ) )
 		return;
 
 	// irand - 0,1 for right foot, 2,3 for left foot
@@ -224,12 +224,12 @@ void PM_PlayStepSound( int step, float fvol )
 
 /*
 ====================
-PM_CatagorizeTextureType
+PM_CategorizeTextureType
 
 Determine texture info for the texture we are standing on.
 ====================
 */
-void PM_CatagorizeTextureType( void )
+void PM_CategorizeTextureType()
 {
 	const char *pTextureName;
 
@@ -262,7 +262,7 @@ void PM_CatagorizeTextureType( void )
 	pmove->chtexturetype = g_MaterialsList.FindTextureType( pmove->sztexturename );	
 }
 
-void PM_UpdateStepSound( void )
+void PM_UpdateStepSound()
 {
 	int	fWalking;
 	float fvol;
@@ -283,7 +283,7 @@ void PM_UpdateStepSound( void )
 	if ( pmove->flags & FL_FROZEN )
 		return;
 
-	PM_CatagorizeTextureType();
+	PM_CategorizeTextureType();
 
 	speed = pmove->velocity.Length();
 
@@ -468,6 +468,16 @@ void PM_CheckVelocity()
 	}
 }
 
+namespace BlockedType
+{
+enum BlockedType
+{
+	NONE		= 0,
+	FLOOR		= 1 << 0,
+	WALL_STEP	= 1 << 1
+};
+}
+
 /*
 ==================
 PM_ClipVelocity
@@ -482,12 +492,11 @@ int PM_ClipVelocity (const Vector& in, const Vector& normal, Vector& out, float 
 {
 	const float angle = normal[ 2 ];
 
-	//TODO: define constants - Solokiller
-	int blocked = 0x00;            // Assume unblocked.
+	int blocked = BlockedType::NONE;            // Assume unblocked.
 	if (angle > 0)      // If the plane that is blocking us has a positive z component, then assume it's a floor.
-		blocked |= 0x01;		// 
+		blocked |= BlockedType::FLOOR;
 	if (!angle)         // If the plane has no Z, it is vertical (wall/step)
-		blocked |= 0x02;		// 
+		blocked |= BlockedType::WALL_STEP;
 	
 	// Determine how far along plane to slide based on incoming direction.
 	// Scale by overbounce factor.
@@ -555,7 +564,7 @@ PM_FlyMove
 The basic solid body movement clip that slides along multiple planes
 ============
 */
-int PM_FlyMove (void)
+int PM_FlyMove()
 {
 	int			bumpcount, numbumps;
 	Vector		dir;
@@ -952,7 +961,7 @@ PM_Friction
 Handles both ground friction and water friction
 ==================
 */
-void PM_Friction (void)
+void PM_Friction()
 {
 	// If we are in water jump cycle, don't apply friction
 	if (pmove->waterjumptime)
@@ -1060,7 +1069,7 @@ PM_WaterMove
 
 ===================
 */
-void PM_WaterMove (void)
+void PM_WaterMove()
 {
 //
 // user intentions
@@ -1477,7 +1486,7 @@ bool PM_CheckStuck()
 PM_SpectatorMove
 ===============
 */
-void PM_SpectatorMove (void)
+void PM_SpectatorMove()
 {
 	//float   accel;
 	// this routine keeps track of the spectators psoition
@@ -1586,24 +1595,6 @@ void PM_SpectatorMove (void)
 		// no velocity
 		pmove->velocity = vec3_origin;
 	}
-}
-
-/*
-==================
-PM_SplineFraction
-
-Use for ease-in, ease-out style interpolation (accel/decel)
-Used by ducking code.
-==================
-*/
-//TODO: move to mathlib - Solokiller
-float PM_SplineFraction( float value, float scale )
-{
-	value = scale * value;
-	float valueSquared = value * value;
-
-	// Nice little ease-in, ease-out spline-like curve
-	return 3 * valueSquared - 2 * valueSquared * value;
 }
 
 void PM_FixPlayerCrouchStuck( int direction )
@@ -1736,7 +1727,7 @@ void PM_Duck()
 					const float fMore = ( VEC_DUCK_HULL_MIN[ 2 ] - VEC_HULL_MIN[ 2 ] );
 
 					// Calc parametric time
-					const float duckFraction = PM_SplineFraction( time, (1.0/TIME_TO_DUCK) );
+					const float duckFraction = UTIL_SplineFraction( time, (1.0/TIME_TO_DUCK) );
 					pmove->view_ofs[2] = ( ( VEC_DUCK_VIEW[ 2 ] - fMore ) * duckFraction ) + ( VEC_VIEW[ 2 ] * ( 1 - duckFraction ) );
 				}
 			}

@@ -112,7 +112,13 @@ float UTIL_Approach( float target, float value, float speed );
 float UTIL_ApproachAngle( float target, float value, float speed );
 float UTIL_AngleDistance( float next, float cur );
 
-// Use for ease-in, ease-out style interpolation (accel/decel)
+/**
+*	Use for ease-in, ease-out style interpolation (accel/decel)
+*	Used by ducking code.
+*	@param value Value.
+*	@param scale Acceleration scale.
+*	@return Spline fraction.
+*/
 float UTIL_SplineFraction( float value, float scale );
 
 // Sorta like FInViewCone, but for nonmonsters. 
