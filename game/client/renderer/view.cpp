@@ -22,16 +22,14 @@
 #include "hltv.h"
 #include "Exports.h"
 
-	int CL_IsThirdPerson( void );
+int CL_IsThirdPerson();
 extern "C" void CL_CameraOffset( Vector& ofs );
 
-	void DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams );
+void DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams );
 
-	//TODO: some of these may not exist - Solokiller
-	void PM_ParticleLine( float *start, float *end, int pcolor, float life, float vert);
-	int		PM_GetVisEntInfo( int ent );
-	extern int		PM_GetPhysEntInfo( int ent );
-	float	AngleBetweenVectors(  const float * v1,  const float * v2 );
+void PM_ParticleLine( const Vector& start, const Vector& end, int pcolor, float life, float vert );
+int PM_GetVisEntInfo( int ent );
+int PM_GetPhysEntInfo( int ent );
 
 /*
 *	These used to be unitialized. They're meant to use globals defined in pm_shared, but that was a C file before, so they had different linkage.
@@ -1285,14 +1283,14 @@ void V_GetInEyePos(int target, Vector& origin, Vector& angles )
 
 	angles[PITCH]*=-3.0f;	// see CL_ProcessEntityUpdate()
 
-	//TODO: use the constants here - Solokiller
+	//TODO: same code in hud_spectator.cpp - Solokiller
 	if ( ent->curstate.solid == SOLID_NOT )
 	{
 		angles[ROLL] = 80;	// dead view angle
-		origin[2]+= -8 ; // PM_DEAD_VIEWHEIGHT
+		origin[2]+= PM_DEAD_VIEWHEIGHT;
 	}
-	else if (ent->curstate.usehull == 1 )
-		origin[2]+= 12; // VEC_DUCK_VIEW;
+	else if (ent->curstate.usehull == Hull::HUMAN )
+		origin[2]+= VEC_DUCK_VIEW[ 2 ];
 	else
 		// exacty eye position can't be caluculated since it depends on
 		// client values like cl_bobcycle, this offset matches the default values

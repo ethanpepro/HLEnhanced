@@ -650,7 +650,6 @@ void UTIL_BubbleTrail( const Vector& from, const Vector& to, int count, const fl
 		WRITE_COORD( flSpeed ); // speed
 	MESSAGE_END();
 #else
-	//TODO: consider caching the model index.
 	gEngfuncs.pEfxAPI->R_BubbleTrail( from, to, flHeight, gEngfuncs.pEventAPI->EV_FindModelIndex( BUBBLES_MODEL ), count, flSpeed );
 #endif
 }

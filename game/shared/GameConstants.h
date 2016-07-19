@@ -132,6 +132,8 @@
 #define VEC_DUCK_HULL_MAX	Vector( 16,  16,  18 )
 #define VEC_DUCK_VIEW		Vector( 0, 0, 12 )
 
+#define PM_DEAD_VIEWHEIGHT -8
+
 /**
 *	@defgroup AutoAimDegrees AutoAim Degrees
 *

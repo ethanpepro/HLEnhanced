@@ -551,8 +551,6 @@ float UTIL_DotPoints( const Vector &vecSrc, const Vector &vecCheck, const Vector
 //TODO: this should be replaced with the function variant - Solokiller
 #define MDotProduct(x,y) ((x)[0]*(y)[0]+(x)[1]*(y)[1]+(x)[2]*(y)[2])
 
-//TODO: these should be moved - Solokiller
-
 /*
 ====================
 AngleMatrix

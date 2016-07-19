@@ -1,4 +1,3 @@
-//TODO: clean up headers so they use dll agnostic ones. - Solokiller
 #include "extdll.h"
 #include "util.h"
 #include "sound/Sound.h"

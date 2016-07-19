@@ -50,7 +50,6 @@ playermove_t* pmove = nullptr;
 
 // Ducking time
 #define TIME_TO_DUCK		0.4
-#define PM_DEAD_VIEWHEIGHT	-8
 #define STUCK_MOVEUP		1
 #define STUCK_MOVEDOWN		-1
 #define	STOP_EPSILON		0.1

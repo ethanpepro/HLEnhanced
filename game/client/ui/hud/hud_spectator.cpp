@@ -435,14 +435,13 @@ bool CHudSpectator::GetDirectorCamera( Vector &position, Vector &angle)
 		
 			if ( m_ChaseEntity <= gEngfuncs.GetMaxClients() )
 			{
-				//TODO use constants - Solokiller
 				if ( ent->curstate.solid == SOLID_NOT )
 				{
-					vt[2]+= -8 ; // PM_DEAD_VIEWHEIGHT
+					vt[2]+= PM_DEAD_VIEWHEIGHT;
 				}
-				else if (ent->curstate.usehull == 1 )
+				else if (ent->curstate.usehull == Hull::HUMAN )
 				{
-					vt[2]+= 12; // VEC_DUCK_VIEW;
+					vt[2]+= VEC_DUCK_VIEW[ 2 ];
 				}
 				else
 				{
