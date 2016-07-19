@@ -131,6 +131,15 @@ float UTIL_SplineFraction( float value, float scale );
 // Sorta like FInViewCone, but for nonmonsters. 
 extern float UTIL_DotPoints( const Vector &vecSrc, const Vector &vecCheck, const Vector &vecDir );
 
+void AngleMatrix( const float *angles, float( *matrix )[ 4 ] );
+void CrossProduct( const float *v1, const float *v2, float *cross );
+void VectorTransform( const float *in1, float in2[ 3 ][ 4 ], float *out );
+void ConcatTransforms( float in1[ 3 ][ 4 ], float in2[ 3 ][ 4 ], float out[ 3 ][ 4 ] );
+void MatrixCopy( float in[ 3 ][ 4 ], float out[ 3 ][ 4 ] );
+void QuaternionMatrix( vec4_t quaternion, float( *matrix )[ 4 ] );
+void QuaternionSlerp( vec4_t p, vec4_t q, float t, vec4_t qt );
+void AngleQuaternion( float *angles, vec4_t quaternion );
+
 #define BOX_ON_PLANE_SIDE(emins, emaxs, p)	\
 	(((p)->type < 3)?						\
 	(										\

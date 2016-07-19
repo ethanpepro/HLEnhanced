@@ -348,9 +348,6 @@
     <ClCompile Include="..\..\game\client\renderer\GameStudioModelRenderer.cpp">
       <Filter>Source Files\game\client\renderer</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\client\renderer\studio_util.cpp">
-      <Filter>Source Files\game\client\renderer</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\client\renderer\StudioModelRenderer.cpp">
       <Filter>Source Files\game\client\renderer</Filter>
     </ClCompile>
@@ -639,9 +636,6 @@
       <Filter>Header Files\engine</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\client\renderer\GameStudioModelRenderer.h">
-      <Filter>Header Files\game\client\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\client\renderer\studio_util.h">
       <Filter>Header Files\game\client\renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\client\renderer\StudioModelRenderer.h">

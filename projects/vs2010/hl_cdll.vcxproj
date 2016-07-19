@@ -135,7 +135,6 @@
     <ClCompile Include="..\..\game\client\renderer\GameStudioModelRenderer.cpp" />
     <ClCompile Include="..\..\game\client\renderer\in_camera.cpp" />
     <ClCompile Include="..\..\game\client\renderer\StudioModelRenderer.cpp" />
-    <ClCompile Include="..\..\game\client\renderer\studio_util.cpp" />
     <ClCompile Include="..\..\game\client\renderer\tri.cpp" />
     <ClCompile Include="..\..\game\client\renderer\view.cpp" />
     <ClCompile Include="..\..\game\client\ui\CClientVGUI.cpp" />
@@ -235,7 +234,6 @@
     <ClInclude Include="..\..\game\client\renderer\camera.h" />
     <ClInclude Include="..\..\game\client\renderer\GameStudioModelRenderer.h" />
     <ClInclude Include="..\..\game\client\renderer\StudioModelRenderer.h" />
-    <ClInclude Include="..\..\game\client\renderer\studio_util.h" />
     <ClInclude Include="..\..\game\client\renderer\tri.h" />
     <ClInclude Include="..\..\game\client\renderer\view.h" />
     <ClInclude Include="..\..\game\client\ui\CClientVGUI.h" />
