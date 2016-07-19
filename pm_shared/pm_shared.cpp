@@ -55,16 +55,6 @@ playermove_t *pmove = NULL;
 #define STUCK_MOVEDOWN		-1
 #define	STOP_EPSILON		0.1
 
-#define STEP_CONCRETE	0		// default step sound
-#define STEP_METAL		1		// metal floor
-#define STEP_DIRT		2		// dirt, sand, rock
-#define STEP_VENT		3		// ventillation duct
-#define STEP_GRATE		4		// metal grating
-#define STEP_TILE		5		// floor tiles
-#define STEP_SLOSH		6		// shallow liquid puddle
-#define STEP_WADE		7		// wading in liquid
-#define STEP_LADDER		8		// climbing ladder
-
 #define PLAYER_DUCKING_MULTIPLIER 0.333
 
 // double to float warning
@@ -223,21 +213,6 @@ void PM_PlayStepSound( int step, float fvol )
 		}
 		break;
 	}
-}	
-
-int PM_MapTextureTypeStepType(char chTextureType)
-{
-	switch (chTextureType)
-	{
-		default:
-		case CHAR_TEX_CONCRETE:	return STEP_CONCRETE;	
-		case CHAR_TEX_METAL: return STEP_METAL;	
-		case CHAR_TEX_DIRT: return STEP_DIRT;	
-		case CHAR_TEX_VENT: return STEP_VENT;	
-		case CHAR_TEX_GRATE: return STEP_GRATE;	
-		case CHAR_TEX_TILE: return STEP_TILE;
-		case CHAR_TEX_SLOSH: return STEP_SLOSH;
-	}
 }
 
 /*
@@ -363,7 +338,7 @@ void PM_UpdateStepSound( void )
 		{
 			// find texture under player, if different from current texture, 
 			// get material type
-			step = PM_MapTextureTypeStepType( pmove->chtexturetype );
+			step = mat::MapTextureTypeStepType( pmove->chtexturetype );
 
 			switch ( pmove->chtexturetype )
 			{
@@ -2336,7 +2311,7 @@ void PM_Jump()
 	}
 	else
 	{
-		PM_PlayStepSound( PM_MapTextureTypeStepType( pmove->chtexturetype ), 1.0 );
+		PM_PlayStepSound( mat::MapTextureTypeStepType( pmove->chtexturetype ), 1.0 );
 	}
 
 	// See if user can super long jump?
@@ -2499,7 +2474,7 @@ void PM_CheckFalling( void )
 			PM_UpdateStepSound();
 			
 			// play step sound for current texture
-			PM_PlayStepSound( PM_MapTextureTypeStepType( pmove->chtexturetype ), fvol );
+			PM_PlayStepSound( mat::MapTextureTypeStepType( pmove->chtexturetype ), fvol );
 
 			// Knock the screen around a little bit, temporary effect
 			pmove->punchangle[ 2 ] = pmove->flFallVelocity * 0.013;	// punch z axis

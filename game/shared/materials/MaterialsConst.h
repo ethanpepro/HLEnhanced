@@ -22,17 +22,75 @@
 */
 #define CBTEXTURENAMEMAX	16
 
-#define CHAR_TEX_CONCRETE	'C'			// texture types
-#define CHAR_TEX_METAL		'M'
-#define CHAR_TEX_DIRT		'D'
-#define CHAR_TEX_VENT		'V'
-#define CHAR_TEX_GRATE		'G'
-#define CHAR_TEX_TILE		'T'
-#define CHAR_TEX_SLOSH		'S'
-#define CHAR_TEX_WOOD		'W'
-#define CHAR_TEX_COMPUTER	'P'
-#define CHAR_TEX_GLASS		'Y'
-#define CHAR_TEX_FLESH		'F'
-#define CHAR_TEX_SNOW		'N' //TODO: needs to be handled in sound code - Solokiller
+/**
+*	Texture types.
+*/
+enum CharTexType : char
+{
+	/**
+	*	Texture types.
+	*/
+	CHAR_TEX_CONCRETE	 = 'C',
+	CHAR_TEX_METAL		 = 'M',
+	CHAR_TEX_DIRT		 = 'D',
+	CHAR_TEX_VENT		 = 'V',
+	CHAR_TEX_GRATE		 = 'G',
+	CHAR_TEX_TILE		 = 'T',
+	CHAR_TEX_SLOSH		 = 'S',
+	CHAR_TEX_WOOD		 = 'W',
+	CHAR_TEX_COMPUTER	 = 'P',
+	CHAR_TEX_GLASS		 = 'Y',
+	CHAR_TEX_FLESH		 = 'F',
+	CHAR_TEX_SNOW		 = 'N', //TODO: needs to be handled in sound code - Solokiller
+};
+
+//TODO: is this even needed? Can just use the above enum directly. - Solokiller
+enum StepTexType
+{
+	/**
+	*	Default step sound.
+	*/
+	STEP_CONCRETE	= 0,
+
+	/**
+	*	Metal floor.
+	*/
+	STEP_METAL		= 1,
+
+	/**
+	*	Dirt, sand, rock.
+	*/
+	STEP_DIRT		= 2,
+
+	/**
+	*	Ventillation duct.
+	*/
+	STEP_VENT		= 3,
+
+	/**
+	*	Metal grating.
+	*/
+	STEP_GRATE		= 4,
+
+	/**
+	*	Floor tiles.
+	*/
+	STEP_TILE		= 5,
+
+	/**
+	*	Shallow liquid puddle.
+	*/
+	STEP_SLOSH		= 6,
+
+	/**
+	*	Wading in liquid.
+	*/
+	STEP_WADE		= 7,
+
+	/**
+	*	Climbing ladder.
+	*/
+	STEP_LADDER		= 8,
+};
 
 #endif //GAME_SHARED_MATERIALS_MATERIALSCONST_H

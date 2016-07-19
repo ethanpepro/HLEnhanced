@@ -579,7 +579,7 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 	const char* rgsz[ 4 ];
 	size_t cnt;
 
-	if( !GetMaterialForType( chTextureType, iBulletType, fvol, fvolbar, fattn, rgsz, cnt ) )
+	if( !mat::GetMaterialForType( chTextureType, iBulletType, fvol, fvolbar, fattn, rgsz, cnt ) )
 		return 0.0; // crowbar already makes this sound
 
 	ASSERT( cnt < ARRAYSIZE( rgsz ) );

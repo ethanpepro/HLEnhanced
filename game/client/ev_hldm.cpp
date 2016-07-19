@@ -131,7 +131,7 @@ float EV_HLDM_PlayTextureSound( int idx, pmtrace_t *ptr, float *vecSrc, float *v
 	const char* rgsz[ 4 ];
 	size_t cnt;
 
-	if( !GetMaterialForType( chTextureType, iBulletType, fvol, fvolbar, fattn, rgsz, cnt ) )
+	if( !mat::GetMaterialForType( chTextureType, iBulletType, fvol, fvolbar, fattn, rgsz, cnt ) )
 		return 0.0;
 
 	// play material hit sound
