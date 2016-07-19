@@ -267,21 +267,8 @@ extern DLL_GLOBAL int			g_Language;
 #define SND_CHANGE_PITCH	(1<<7)		// duplicated in protocol.h change sound pitch
 
 // func_rotating
-#define SF_BRUSH_ROTATE_Y_AXIS		0
 #define SF_BRUSH_ROTATE_INSTANT		1
-#define SF_BRUSH_ROTATE_BACKWARDS	2
-#define SF_BRUSH_ROTATE_Z_AXIS		4
-#define SF_BRUSH_ROTATE_X_AXIS		8
 #define SF_PENDULUM_AUTO_RETURN		16
-#define	SF_PENDULUM_PASSABLE		32
-
-
-#define SF_BRUSH_ROTATE_SMALLRADIUS	128
-#define SF_BRUSH_ROTATE_MEDIUMRADIUS 256
-#define SF_BRUSH_ROTATE_LARGERADIUS 512
-
-#define PUSH_BLOCK_ONLY_X	1
-#define PUSH_BLOCK_ONLY_Y	2
 
 #define SVC_TEMPENTITY		23
 #define SVC_INTERMISSION	30
@@ -289,15 +276,6 @@ extern DLL_GLOBAL int			g_Language;
 #define SVC_WEAPONANIM		35
 #define SVC_ROOMTYPE		37
 #define	SVC_DIRECTOR		51
-
-#define SPAWNFLAG_NOMESSAGE	1
-#define SPAWNFLAG_NOTOUCH	1
-#define SPAWNFLAG_DROIDONLY	4
-
-#define SPAWNFLAG_USEONLY	1		// can't be touched, must be used (buttons)
-
-#define TELE_PLAYER_ONLY	1
-#define TELE_SILENT			2
 
 // Sound Utilities
 

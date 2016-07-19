@@ -17,6 +17,11 @@
 
 #include "CBaseTrigger.h"
 
+enum
+{
+	SPAWNFLAG_NOTOUCH	= 1,
+};
+
 /*QUAKED trigger_multiple (.5 .5 .5) ? notouch
 Variable sized repeatable trigger.  Must be targeted at one or more entities.
 If "health" is set, the trigger must be killed to activate each time.

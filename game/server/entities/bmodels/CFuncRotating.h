@@ -15,9 +15,31 @@
 #ifndef GAME_SERVER_ENTITIES_BMODELS_CFUNCROTATING_H
 #define GAME_SERVER_ENTITIES_BMODELS_CFUNCROTATING_H
 
-#define		SF_BRUSH_ACCDCC	16// brush should accelerate and decelerate when toggled
-#define		SF_BRUSH_HURT		32// rotating brush that inflicts pain based on rotation speed
-#define		SF_ROTATING_NOT_SOLID	64	// some special rotating objects are not solid.
+enum
+{
+	SF_BRUSH_ROTATE_Y_AXIS			= 0,
+	SF_BRUSH_ROTATE_BACKWARDS		= 2,
+	SF_BRUSH_ROTATE_Z_AXIS			= 4,
+	SF_BRUSH_ROTATE_X_AXIS			= 8,
+
+	/**
+	*	Brush should accelerate and decelerate when toggled.
+	*/
+	SF_BRUSH_ACCDCC					= 16,
+
+	/**
+	*	Rotating brush that inflicts pain based on rotation speed.
+	*/
+	SF_BRUSH_HURT					= 32,
+
+	/**
+	*	Some special rotating objects are not solid.
+	*/
+	SF_ROTATING_NOT_SOLID			= 64,
+	SF_BRUSH_ROTATE_SMALLRADIUS		= 128,
+	SF_BRUSH_ROTATE_MEDIUMRADIUS	= 256,
+	SF_BRUSH_ROTATE_LARGERADIUS		= 512,
+};
 
 // covering cheesy noise1, noise2, & noise3 fields so they make more sense (for rotating fans)
 #define		noiseStart		noise1
