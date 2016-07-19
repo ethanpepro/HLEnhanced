@@ -25,37 +25,21 @@
 
 #include "cbase.h"
 #include "CBasePlayer.h"
-#include "entities/plats/CFuncTrackTrain.h"
-#include "nodes/Nodes.h"
 #include "Weapons.h"
 #include "entities/CSoundEnt.h"
 #include "entities/NPCs/Monsters.h"
-#include "shake.h"
-#include "Decals.h"
-#include "gamerules/GameRules.h"
-#include "Server.h"
-#include "pm_shared.h"
-#include "hltv.h"
-
-#include "client.h"
-
-#include "com_model.h"
-
-#include "entities/CBloodSplat.h"
-#include "entities/CSprayCan.h"
-#include "entities/effects/CGib.h"
 #include "entities/spawnpoints/CBaseSpawnPoint.h"
+
+#include "gamerules/GameRules.h"
+#include "nodes/Nodes.h"
+#include "hltv.h"
 
 extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			g_fGameOver;
-extern DLL_GLOBAL bool			g_fDrawLines;
 extern DLL_GLOBAL bool			gDisplayTitle;
 
-
+//TODO: does this work properly? - Solokiller
 bool gInitHUD = true;
-
-// the world node graph
-extern CGraph	WorldGraph;
 
 // This is a glorious hack to find free space when you've crouched into some solid space
 // Our crouching collisions do not work correctly for some reason and this is easier
