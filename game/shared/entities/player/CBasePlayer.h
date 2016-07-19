@@ -123,7 +123,10 @@ public:
 	float	m_flNextObserverInput;
 	int		m_iObserverWeapon;	// weapon of current tracked target
 	int		m_iObserverLastMode;// last used observer mode
-	int		IsObserver() { return pev->iuser1; };
+	bool	IsObserver() const { return pev->iuser1 != 0; }
+
+	void StartDeathCam();
+	void StartObserver( Vector vecPosition, Vector vecViewAngle );
 
 	int					random_seed;    // See that is shared between client & server for shared weapons code
 
@@ -272,9 +275,6 @@ public:
 	// custom player functions
 	virtual void ImpulseCommands( void );
 	void CheatImpulseCommands( int iImpulse );
-
-	void StartDeathCam( void );
-	void StartObserver( Vector vecPosition, Vector vecViewAngle );
 
 	void AddPoints( int score, const bool bAllowNegativeScore );
 	void AddPointsToTeam( int score, const bool bAllowNegativeScore );
