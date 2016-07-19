@@ -1104,6 +1104,15 @@
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.weapons.cpp">
       <Filter>Source Files\game\server\entities\player</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.networking.cpp">
+      <Filter>Source Files\game\server\entities\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.frame.cpp">
+      <Filter>Source Files\game\server\entities\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.server.game.cpp">
+      <Filter>Source Files\game\server\entities\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\engine\eiface.h">

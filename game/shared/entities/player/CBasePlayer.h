@@ -107,12 +107,15 @@ enum sbar_data
 
 #define CHAT_INTERVAL 1.0f
 
+int TrainSpeed( int iSpeed, int iMax );
+
 class CBasePlayer : public CBaseMonster
 {
 public:
 	DECLARE_CLASS( CBasePlayer, CBaseMonster );
 	DECLARE_DATADESC();
 	
+public:
 	// Spectator camera
 	void	Observer_FindNextPlayer( bool bReverse );
 	void	Observer_HandleButtons();
@@ -224,107 +227,152 @@ public:
 
 	char m_szTeamName[TEAM_NAME_LENGTH];
 
-	virtual void Spawn() override;
-	void Pain();
+public:
+	//CBaseEntity overrides
 
-//	virtual void Think();
+	// Player is moved across the transition by other means
+	int ObjectCaps() const override { return BaseClass::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
+
+	int Classify() override;
+
+	void Precache() override;
+
+	void Spawn() override;
+	
+	Vector GetGunPosition() override;
+
+	float GiveHealth( float flHealth, int bitsDamageType ) override;
+
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+
+	void OnTakeDamage( const CTakeDamageInfo& info ) override;
+
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
+
+	Vector BodyTarget( const Vector &posSrc ) const override { return Center() + pev->view_ofs * RANDOM_FLOAT( 0.5, 1.1 ); }
+	bool IsAlive() const override { return (pev->deadflag == DEAD_NO) && pev->health > 0; }
+	bool ShouldFadeOnDeath() const override { return false; }
+
+	/**
+	*	Spectators should return false for this, they aren't "players" as far as game logic is concerned.
+	*/
+	bool IsPlayer() const override { return true; }	
+
+	/**
+	*	Bots should return false for this, they can't receive NET messages.
+	*	Spectators should return true for this.
+	*/
+	bool IsNetClient() const override { return true; }
+
+	const char *TeamID() const override;
+
+	bool Restore( CRestore &restore ) override;
+
+	bool FBecomeProne() override;
+	void BarnacleVictimBitten( CBaseEntity* pBarnacle ) override;
+	void BarnacleVictimReleased() override;
+
+	int Illumination() const override;
+
+	//Game logic
+
+	void PlayerUse();
+
 	virtual void Jump();
 	virtual void Duck();
-	virtual void PreThink();
-	virtual void PostThink();
-	virtual Vector GetGunPosition() override;
-	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
-	virtual void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
-	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	virtual void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
-	virtual Vector BodyTarget( const Vector &posSrc ) const override { return Center() + pev->view_ofs * RANDOM_FLOAT( 0.5, 1.1 ); }		// position to shoot at
-	virtual bool IsAlive() const override { return (pev->deadflag == DEAD_NO) && pev->health > 0; }
-	virtual bool ShouldFadeOnDeath() const override { return false; }
-	virtual	bool IsPlayer() const override { return true; }			// Spectators should return false for this, they aren't "players" as far as game logic is concerned
 
-	virtual bool IsNetClient() const override { return true; }		// Bots should return false for this, they can't receive NET messages
-																	// Spectators should return true for this
-	virtual const char *TeamID() const override;
+	void Pain();
 
-	virtual bool Restore( CRestore &restore ) override;
+	void DeathSound();
+
+	void AddPoints( int score, const bool bAllowNegativeScore );
+	void AddPointsToTeam( int score, const bool bAllowNegativeScore );
+	void EnableControl( const bool fControl );
+
+	void SetAnimation( PLAYER_ANIM playerAnim );
+
+	/**
+	*	@return true if the player is attached to a ladder.
+	*/
+	bool IsOnLadder() const;
+	bool FlashlightIsOn() const;
+	void FlashlightTurnOn();
+	void FlashlightTurnOff();
+
+	//Weapons
+
 	void RenewItems();
 	void PackDeadPlayerItems();
 	void RemoveAllItems( const bool removeSuit );
 	bool SwitchWeapon( CBasePlayerItem *pWeapon );
 
-	// JOHN:  sends custom messages if player HUD data has changed  (eg health, ammo)
-	virtual void UpdateClientData();
-
-	// Player is moved across the transition by other means
-	virtual int		ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-	virtual void	Precache() override;
-	bool			IsOnLadder() const;
-	bool			FlashlightIsOn() const;
-	void			FlashlightTurnOn();
-	void			FlashlightTurnOff();
-	
-	void UpdatePlayerSound();
-	void DeathSound();
-
-	int Classify() override;
-	void SetAnimation( PLAYER_ANIM playerAnim );
 	//TODO
 	void SetWeaponAnimType( const char *szExtention );
-	char m_szAnimExtention[32];
+	char m_szAnimExtention[ 32 ];
 
-	// custom player functions
-	virtual void ImpulseCommands();
-	void CheatImpulseCommands( int iImpulse );
-
-	void AddPoints( int score, const bool bAllowNegativeScore );
-	void AddPointsToTeam( int score, const bool bAllowNegativeScore );
 	bool AddPlayerItem( CBasePlayerItem *pItem );
 	bool RemovePlayerItem( CBasePlayerItem *pItem );
-	void DropPlayerItem ( char *pszItemName );
+	void DropPlayerItem( char *pszItemName );
 	bool HasPlayerItem( CBasePlayerItem *pCheckItem ) const;
 	bool HasNamedPlayerItem( const char *pszItemName ) const;
 	bool HasWeapons() const;// do I have ANY weapons?
 	void SelectPrevItem( int iItem );
 	void SelectNextItem( int iItem );
 	void SelectLastItem();
-	void SelectItem(const char *pstr);
+	void SelectItem( const char *pstr );
 	void ItemPreFrame();
 	void ItemPostFrame();
 	void GiveNamedItem( const char *szName );
-	void EnableControl(const bool fControl);
 
-	int  GiveAmmo( int iAmount, const char *szName );
+	int GiveAmmo( int iAmount, const char *szName );
 	void SendAmmoUpdate();
 
-	void WaterMove();
-	void EXPORT PlayerDeathThink();
-	void PlayerUse();
-
-	void CheckSuitUpdate();
-	void SetSuitUpdate(char *name, const SuitUpdateType updateType, int iNoRepeat);
-	void UpdateGeigerCounter();
-	void CheckTimeBasedDamage();
-
-	bool FBecomeProne() override;
-	void BarnacleVictimBitten( CBaseEntity* pBarnacle ) override;
-	void BarnacleVictimReleased () override;
-	static int GetAmmoIndex(const char *psz);
+	static int GetAmmoIndex( const char *psz );
 	int AmmoInventory( int iAmmoIndex );
-	int Illumination() const override;
 
 	void ResetAutoaim();
-	Vector GetAutoaimVector( float flDelta  );
-	Vector AutoaimDeflection( Vector &vecSrc, float flDist, float flDelta  );
+	Vector GetAutoaimVector( float flDelta );
+	Vector AutoaimDeflection( Vector &vecSrc, float flDist, float flDelta );
+
+	void TabulateAmmo();
+
+	//Networking
+
+	// JOHN:  sends custom messages if player HUD data has changed  (eg health, ammo)
+	virtual void UpdateClientData();
 
 	void ForceClientDllUpdate();  // Forces all client .dll specific data to be resent to client.
+
+	//Frame logic
+
+	virtual void PreThink();
+	virtual void PostThink();
+
+	//virtual void Think();
+
+	void EXPORT PlayerDeathThink();
+
+	void UpdatePlayerSound();
+
+	void WaterMove();
+
+	virtual void ImpulseCommands();
+	void CheatImpulseCommands( int iImpulse );
+
+	void CheckSuitUpdate();
+	void SetSuitUpdate( char *name, const SuitUpdateType updateType, int iNoRepeat );
+	void UpdateGeigerCounter();
+
+	void CheckTimeBasedDamage();
+
+	//Misc
 
 	void DeathMessage( CBaseEntity* pKiller );
 
 	void SetCustomDecalFrames( int nFrames );
 	int GetCustomDecalFrames();
 
-	void TabulateAmmo();
-
+	//TODO: still used? - Solokiller
 	float m_flStartCharge;
 	float m_flAmmoStartCharge;
 	float m_flPlayAftershock;
@@ -340,7 +388,6 @@ public:
 	char m_SbarString1[ SBAR_STRING_SIZE ];
 	
 	float m_flNextChatTime;
-	
 };
 
 extern int	gmsgHudText;

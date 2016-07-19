@@ -289,8 +289,11 @@
     <ClCompile Include="..\..\game\server\entities\plats\CPathCorner.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CPathTrack.cpp" />
     <ClCompile Include="..\..\game\server\entities\plats\CPlatTrigger.cpp" />
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.frame.cpp" />
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.networking.cpp" />
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.observer.cpp" />
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.server.cpp" />
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.server.game.cpp" />
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.weapons.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CAmbientGeneric.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CEnvSound.cpp" />
