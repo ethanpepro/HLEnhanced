@@ -340,6 +340,7 @@ extern DLL_GLOBAL int			g_Language;
 #define PUSH_BLOCK_ONLY_X	1
 #define PUSH_BLOCK_ONLY_Y	2
 
+//TODO: change into const Vector - Solokiller
 #define VEC_HULL_MIN		Vector(-16, -16, -36)
 #define VEC_HULL_MAX		Vector( 16,  16,  36)
 #define VEC_HUMAN_HULL_MIN	Vector( -16, -16, 0 )

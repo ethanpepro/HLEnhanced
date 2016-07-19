@@ -521,8 +521,6 @@ void UTIL_EmitAmbientSound( edict_t *entity, const Vector &vecOrigin, const char
 
 bool fTextureTypeInit = false;
 
-#define CTEXTURESMAX		512			// max number of textures loaded
-
 int gcTextures = 0;
 char grgszTextureName[CTEXTURESMAX][CBTEXTURENAMEMAX];	// texture names
 char grgchTextureType[CTEXTURESMAX];						// parallel array of texture types

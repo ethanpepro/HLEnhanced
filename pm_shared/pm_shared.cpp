@@ -13,27 +13,21 @@
 *
 ****/
 
-#include <assert.h>
+#include <cassert>
 
 #include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "entities/CBasePlayer.h"
 
-#include "mathlib.h"
-#include "const.h"
 #include "usercmd.h"
 #include "pm_defs.h"
 #include "pm_shared.h"
 #include "pm_materials.h"
 #include "pm_movevars.h"
 #include "pm_debug.h"
-#include <stdio.h>  // NULL
-#include <math.h>   // sqrt
-#include <string.h> // strcpy
-#include <stdlib.h> // atoi
-#include <ctype.h>  // isspace
 
 #include "com_model.h"
-
-#include "Platform.h"
 
 #ifdef CLIENT_DLL
 	// Spectator Mode
@@ -55,20 +49,10 @@ playermove_t *pmove = NULL;
 
 // Ducking time
 #define TIME_TO_DUCK		0.4
-#define VEC_DUCK_HULL_MIN	-18
-#define VEC_DUCK_HULL_MAX	18
-#define VEC_DUCK_VIEW		12
 #define PM_DEAD_VIEWHEIGHT	-8
-#define MAX_CLIMB_SPEED		200
 #define STUCK_MOVEUP		1
 #define STUCK_MOVEDOWN		-1
-#define VEC_HULL_MIN		-36
-#define VEC_HULL_MAX		36
-#define VEC_VIEW			28
 #define	STOP_EPSILON		0.1
-
-//TODO: also defined in sound.cpp - Solokiller
-#define CTEXTURESMAX		512			// max number of textures loaded
 
 #define STEP_CONCRETE	0		// default step sound
 #define STEP_METAL		1		// metal floor
@@ -79,15 +63,6 @@ playermove_t *pmove = NULL;
 #define STEP_SLOSH		6		// shallow liquid puddle
 #define STEP_WADE		7		// wading in liquid
 #define STEP_LADDER		8		// climbing ladder
-
-//TODO: also defined in player.h - Solokiller
-#define PLAYER_FATAL_FALL_SPEED		1024// approx 60 feet
-#define PLAYER_MAX_SAFE_FALL_SPEED	580// approx 20 feet
-#define DAMAGE_FOR_FALL_SPEED		(float) 100 / ( PLAYER_FATAL_FALL_SPEED - PLAYER_MAX_SAFE_FALL_SPEED )// damage per unit per second.
-#define PLAYER_MIN_BOUNCE_SPEED		200
-#define PLAYER_FALL_PUNCH_THRESHHOLD (float)350 // won't punch player's screen/make scrape noise unless player falling at least this fast.
-
-#define PLAYER_LONGJUMP_SPEED 350 // how fast we longjump
 
 #define PLAYER_DUCKING_MULTIPLIER 0.333
 
@@ -1899,7 +1874,7 @@ void PM_UnDuck( void )
 
 		pmove->flags &= ~FL_DUCKING;
 		pmove->bInDuck  = false;
-		pmove->view_ofs[2] = VEC_VIEW;
+		pmove->view_ofs[2] = VEC_VIEW[ 2 ];
 		pmove->flDuckTime = 0;
 		
 		pmove->origin = newOrigin;
@@ -1968,7 +1943,7 @@ void PM_Duck( void )
 					 ( pmove->onground == -1 ) )
 				{
 					pmove->usehull = 1;
-					pmove->view_ofs[2] = VEC_DUCK_VIEW;
+					pmove->view_ofs[2] = VEC_DUCK_VIEW[ 2 ];
 					pmove->flags |= FL_DUCKING;
 					pmove->bInDuck = false;
 
@@ -1988,11 +1963,11 @@ void PM_Duck( void )
 				}
 				else
 				{
-					float fMore = (VEC_DUCK_HULL_MIN - VEC_HULL_MIN);
+					float fMore = ( VEC_DUCK_HULL_MIN[ 2 ] - VEC_HULL_MIN[ 2 ] );
 
 					// Calc parametric time
 					duckFraction = PM_SplineFraction( time, (1.0/TIME_TO_DUCK) );
-					pmove->view_ofs[2] = ((VEC_DUCK_VIEW - fMore ) * duckFraction) + (VEC_VIEW * (1-duckFraction));
+					pmove->view_ofs[2] = ( ( VEC_DUCK_VIEW[ 2 ] - fMore ) * duckFraction ) + ( VEC_VIEW[ 2 ] * ( 1 - duckFraction ) );
 				}
 			}
 		}
