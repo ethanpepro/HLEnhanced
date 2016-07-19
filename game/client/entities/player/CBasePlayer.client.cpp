@@ -3,7 +3,7 @@
 #include "cbase.h"
 #include "Weapons.h"
 
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 
 extern bool g_brunninggausspred;
 

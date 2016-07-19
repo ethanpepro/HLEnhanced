@@ -3,7 +3,7 @@
 #include "Skill.h"
 #include "gamerules/GameRules.h"
 #include "cbase.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 
 #include "CItem.h"
 

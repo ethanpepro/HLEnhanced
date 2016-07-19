@@ -27,7 +27,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "SaveRestore.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "entities/CBaseSpectator.h"
 #include "entities/CCorpse.h"
 #include "client.h"

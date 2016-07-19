@@ -127,6 +127,12 @@
     <Filter Include="Source Files\game\shared\materials">
       <UniqueIdentifier>{a3a979b3-aee1-4140-ade5-1c8e1518f32d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\client\entities\player">
+      <UniqueIdentifier>{239f5eb2-527d-4d65-bf39-34d3f22b7ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\game\shared\entities\player">
+      <UniqueIdentifier>{0357f201-4718-427b-aa55-4607d5ee1c21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\parsemsg.cpp">
@@ -212,9 +218,6 @@
     </ClCompile>
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp">
       <Filter>Source Files\game\client\entities\weapons</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp">
-      <Filter>Source Files\game\client\entities</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\client\entities\CBaseEntity.client.cpp">
       <Filter>Source Files\game\client\entities</Filter>
@@ -447,6 +450,9 @@
     <ClCompile Include="..\..\game\shared\materials\Materials.cpp">
       <Filter>Source Files\game\shared\materials</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\client\entities\player\CBasePlayer.client.cpp">
+      <Filter>Source Files\game\client\entities\player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\parsemsg.h">
@@ -544,9 +550,6 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\weapons\CGlock.h">
       <Filter>Header Files\game\shared\entities\weapons</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h">
-      <Filter>Header Files\game\shared\entities</Filter>
     </ClInclude>
     <ClInclude Include="..\..\game\shared\Weapons.h">
       <Filter>Header Files\game\shared</Filter>
@@ -721,6 +724,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\GameConstants.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\player\CBasePlayer.h">
+      <Filter>Header Files\game\shared\entities\player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

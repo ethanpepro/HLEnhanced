@@ -20,7 +20,7 @@
 #include "Weapons.h"
 #include "CMP5.h"
 #include "nodes/Nodes.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "entities/CSoundEnt.h"
 #include "gamerules/GameRules.h"
 

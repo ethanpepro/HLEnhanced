@@ -24,7 +24,7 @@ This file contains "stubs" of class member implementations so that we can predic
 #include	"extdll.h"
 #include	"util.h"
 #include	"cbase.h"
-#include	"entities/CBasePlayer.h"
+#include	"CBasePlayer.h"
 #include	"Weapons.h"
 #include	"nodes/Nodes.h"
 #include	"entities/CSoundEnt.h"

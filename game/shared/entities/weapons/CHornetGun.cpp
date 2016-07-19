@@ -19,7 +19,7 @@
 #include "Weapons.h"
 #include "CHornetGun.h"
 #include "nodes/Nodes.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "entities/NPCs/CHornet.h"
 #include "gamerules/GameRules.h"
 

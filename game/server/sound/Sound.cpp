@@ -20,7 +20,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "Weapons.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "entities/NPCs/CTalkMonster.h"
 #include "gamerules/GameRules.h"
 #include "com_model.h"

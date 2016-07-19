@@ -232,6 +232,12 @@
     <Filter Include="Source Files\game\shared\materials">
       <UniqueIdentifier>{9bcdd47a-2431-4e63-959a-3e30437005c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\shared\entities\player">
+      <UniqueIdentifier>{ecfffd0e-ee80-44e1-869d-959c4d3f1095}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\player">
+      <UniqueIdentifier>{d58584d1-aec7-42eb-b918-b36bf452fd25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp">
@@ -397,9 +403,6 @@
       <Filter>Source Files\game\server\entities\weapons</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\server\entities\CGrenade.cpp">
-      <Filter>Source Files\game\server\entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\game\server\entities\CBasePlayer.server.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
     <ClCompile Include="..\..\game\server\entities\CSprayCan.cpp">
@@ -1038,9 +1041,6 @@
     <ClCompile Include="..\..\game\shared\shared_game_utils.cpp">
       <Filter>Source Files\game\shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\game\server\entities\CBasePlayer.observer.cpp">
-      <Filter>Source Files\game\server\entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\game\server\entities\CPushable.cpp">
       <Filter>Source Files\game\server\entities</Filter>
     </ClCompile>
@@ -1094,6 +1094,12 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\materials\Materials.cpp">
       <Filter>Source Files\game\shared\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.observer.cpp">
+      <Filter>Source Files\game\server\entities\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.server.cpp">
+      <Filter>Source Files\game\server\entities\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2023,6 +2029,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\GameConstants.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\entities\player\CBasePlayer.h">
+      <Filter>Header Files\game\shared\entities\player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

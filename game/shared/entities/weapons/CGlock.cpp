@@ -20,7 +20,7 @@
 #include "Weapons.h"
 #include "CGlock.h"
 #include "nodes/Nodes.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 
 LINK_ENTITY_TO_CLASS( weapon_glock, CGlock );
 LINK_ENTITY_TO_CLASS( weapon_9mmhandgun, CGlock );

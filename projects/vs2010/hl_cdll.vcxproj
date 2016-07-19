@@ -62,7 +62,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;_DEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\game\shared\entities\player;..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -86,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;NDEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\game\shared\entities\player;..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -115,11 +115,11 @@
     <ClCompile Include="..\..\game\client\entities\CBaseDelay.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBaseEntity.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBaseMonster.client.cpp" />
-    <ClCompile Include="..\..\game\client\entities\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBaseToggle.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CBeam.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CGrenade.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\CSprite.client.cpp" />
+    <ClCompile Include="..\..\game\client\entities\player\CBasePlayer.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerItem.client.cpp" />
     <ClCompile Include="..\..\game\client\entities\weapons\CBasePlayerWeapon.client.cpp" />
     <ClCompile Include="..\..\game\client\entity.cpp" />
@@ -259,9 +259,9 @@
     <ClInclude Include="..\..\game\shared\CTakeDamageInfo.h" />
     <ClInclude Include="..\..\game\shared\Damage.h" />
     <ClInclude Include="..\..\game\shared\entities\CBaseEntity.shared.h" />
-    <ClInclude Include="..\..\game\shared\entities\CBasePlayer.h" />
     <ClInclude Include="..\..\game\shared\entities\DataMapping.h" />
     <ClInclude Include="..\..\game\shared\entities\EHandle.h" />
+    <ClInclude Include="..\..\game\shared\entities\player\CBasePlayer.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CAmmoTypes.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CCrossbow.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CCrowbar.h" />

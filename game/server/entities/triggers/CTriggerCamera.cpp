@@ -2,7 +2,7 @@
 #include "util.h"
 #include "cbase.h"
 
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "entities/plats/CPathCorner.h"
 
 #include "CTriggerCamera.h"

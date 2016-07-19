@@ -18,7 +18,7 @@
 #include "entities/NPCs/Monsters.h"
 #include "Weapons.h"
 #include "nodes/Nodes.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "entities/weapons/CGlock.h"
 #include "entities/weapons/CCrowbar.h"
 #include "entities/weapons/CPython.h"

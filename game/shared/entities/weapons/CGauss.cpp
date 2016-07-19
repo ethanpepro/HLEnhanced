@@ -19,7 +19,7 @@
 #include "Weapons.h"
 #include "CGauss.h"
 #include "nodes/Nodes.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "entities/CSoundEnt.h"
 #include "shake.h"
 #include "gamerules/GameRules.h"

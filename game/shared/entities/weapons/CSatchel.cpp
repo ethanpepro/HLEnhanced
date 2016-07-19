@@ -19,7 +19,7 @@
 #include "Weapons.h"
 #include "CSatchel.h"
 #include "nodes/Nodes.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
 class CSatchelCharge : public CGrenade

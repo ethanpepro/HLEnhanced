@@ -20,7 +20,7 @@
 #include "Weapons.h"
 #include "CCrowbar.h"
 #include "nodes/Nodes.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
 

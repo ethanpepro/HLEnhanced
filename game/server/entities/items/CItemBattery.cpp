@@ -2,7 +2,7 @@
 #include "util.h"
 #include "Skill.h"
 #include "cbase.h"
-#include "entities/CBasePlayer.h"
+#include "CBasePlayer.h"
 #include "Weapons.h"
 
 #include "CItem.h"
