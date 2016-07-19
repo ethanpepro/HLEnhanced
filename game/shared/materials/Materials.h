@@ -26,4 +26,6 @@ extern CMaterialsList g_MaterialsList;
 */
 char PM_FindTextureType( const char* pszName );
 
+bool GetMaterialForType( const char chTextureType, const int iBulletType, float& flVol, float& flVolBar, float& flAttn, const char** pszSounds, size_t& uiCount );
+
 #endif //GAME_SHARED_MATERIALS_MATERIALS_H

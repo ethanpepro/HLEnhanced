@@ -77,12 +77,6 @@ extern cvar_t *cl_lw;
 float EV_HLDM_PlayTextureSound( int idx, pmtrace_t *ptr, float *vecSrc, float *vecEnd, int iBulletType )
 {
 	// hit the world, try to play sound based on texture material type
-	char chTextureType = CHAR_TEX_CONCRETE;
-	float fvol;
-	float fvolbar;
-	char *rgsz[4];
-	int cnt;
-	float fattn = ATTN_NORM;
 	int entity;
 	char *pTextureName;
 	char texname[ 64 ];
@@ -93,7 +87,7 @@ float EV_HLDM_PlayTextureSound( int idx, pmtrace_t *ptr, float *vecSrc, float *v
 	// FIXME check if playtexture sounds movevar is set
 	//
 
-	chTextureType = 0;
+	char chTextureType = CHAR_TEX_CONCRETE;
 
 	// Player
 	if ( entity >= 1 && entity <= gEngfuncs.GetMaxClients() )
@@ -130,74 +124,15 @@ float EV_HLDM_PlayTextureSound( int idx, pmtrace_t *ptr, float *vecSrc, float *v
 			chTextureType = g_MaterialsList.FindTextureType( szbuffer );	
 		}
 	}
-	
-	switch (chTextureType)
-	{
-	default:
-	case CHAR_TEX_CONCRETE: fvol = 0.9;	fvolbar = 0.6;
-		rgsz[0] = "player/pl_step1.wav";
-		rgsz[1] = "player/pl_step2.wav";
-		cnt = 2;
-		break;
-	case CHAR_TEX_METAL: fvol = 0.9; fvolbar = 0.3;
-		rgsz[0] = "player/pl_metal1.wav";
-		rgsz[1] = "player/pl_metal2.wav";
-		cnt = 2;
-		break;
-	case CHAR_TEX_DIRT:	fvol = 0.9; fvolbar = 0.1;
-		rgsz[0] = "player/pl_dirt1.wav";
-		rgsz[1] = "player/pl_dirt2.wav";
-		rgsz[2] = "player/pl_dirt3.wav";
-		cnt = 3;
-		break;
-	case CHAR_TEX_VENT:	fvol = 0.5; fvolbar = 0.3;
-		rgsz[0] = "player/pl_duct1.wav";
-		rgsz[1] = "player/pl_duct1.wav";
-		cnt = 2;
-		break;
-	case CHAR_TEX_GRATE: fvol = 0.9; fvolbar = 0.5;
-		rgsz[0] = "player/pl_grate1.wav";
-		rgsz[1] = "player/pl_grate4.wav";
-		cnt = 2;
-		break;
-	case CHAR_TEX_TILE:	fvol = 0.8; fvolbar = 0.2;
-		rgsz[0] = "player/pl_tile1.wav";
-		rgsz[1] = "player/pl_tile3.wav";
-		rgsz[2] = "player/pl_tile2.wav";
-		rgsz[3] = "player/pl_tile4.wav";
-		cnt = 4;
-		break;
-	case CHAR_TEX_SLOSH: fvol = 0.9; fvolbar = 0.0;
-		rgsz[0] = "player/pl_slosh1.wav";
-		rgsz[1] = "player/pl_slosh3.wav";
-		rgsz[2] = "player/pl_slosh2.wav";
-		rgsz[3] = "player/pl_slosh4.wav";
-		cnt = 4;
-		break;
-	case CHAR_TEX_WOOD: fvol = 0.9; fvolbar = 0.2;
-		rgsz[0] = "debris/wood1.wav";
-		rgsz[1] = "debris/wood2.wav";
-		rgsz[2] = "debris/wood3.wav";
-		cnt = 3;
-		break;
-	case CHAR_TEX_GLASS:
-	case CHAR_TEX_COMPUTER:
-		fvol = 0.8; fvolbar = 0.2;
-		rgsz[0] = "debris/glass1.wav";
-		rgsz[1] = "debris/glass2.wav";
-		rgsz[2] = "debris/glass3.wav";
-		cnt = 3;
-		break;
-	case CHAR_TEX_FLESH:
-		if (iBulletType == BULLET_PLAYER_CROWBAR)
-			return 0.0; // crowbar already makes this sound
-		fvol = 1.0;	fvolbar = 0.2;
-		rgsz[0] = "weapons/bullet_hit1.wav";
-		rgsz[1] = "weapons/bullet_hit2.wav";
-		fattn = 1.0;
-		cnt = 2;
-		break;
-	}
+
+	float fvol;
+	float fvolbar;
+	float fattn;
+	const char* rgsz[ 4 ];
+	size_t cnt;
+
+	if( !GetMaterialForType( chTextureType, iBulletType, fvol, fvolbar, fattn, rgsz, cnt ) )
+		return 0.0;
 
 	// play material hit sound
 	gEngfuncs.pEventAPI->EV_PlaySound( 0, ptr->endpos, CHAN_STATIC, rgsz[gEngfuncs.pfnRandomLong(0,cnt-1)], fvol, fattn, 0, 96 + gEngfuncs.pfnRandomLong(0,0xf) );

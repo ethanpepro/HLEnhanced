@@ -523,26 +523,19 @@ void UTIL_EmitAmbientSound( edict_t *entity, const Vector &vecOrigin, const char
 // play a strike sound based on the texture that was hit by the attack traceline.  VecSrc/VecEnd are the
 // original traceline endpoints used by the attacker, iBulletType is the type of bullet that hit the texture.
 // returns volume of strike instrument (crowbar) to play
-//TODO: very similar code exists in pm_shared.cpp and ev_hldm.cpp (EV_HLDM_PlayTextureSound). Compare and refactor as needed - Solokiller
 float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int iBulletType)
 {
-// hit the world, try to play sound based on texture material type
+	// hit the world, try to play sound based on texture material type
 	
-	char chTextureType;
-	float fvol;
-	float fvolbar;
 	char szbuffer[64];
 	const texture_t* pTexture;
-	char *rgsz[4];
-	int cnt;
-	float fattn = ATTN_NORM;
 
 	if ( !g_pGameRules->PlayTextureSounds() )
 		return 0.0;
 
 	CBaseEntity *pEntity = CBaseEntity::Instance(ptr->pHit);
 
-	chTextureType = 0;
+	char chTextureType = CHAR_TEX_CONCRETE;
 
 	if (pEntity && pEntity->Classify() != CLASS_NONE && pEntity->Classify() != CLASS_MACHINE)
 		// hit body
@@ -580,73 +573,16 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 		}
 	}
 
-	switch (chTextureType)
-	{
-	default:
-	case CHAR_TEX_CONCRETE: fvol = 0.9;	fvolbar = 0.6;
-		rgsz[0] = "player/pl_step1.wav";
-		rgsz[1] = "player/pl_step2.wav";
-		cnt = 2;
-		break;
-	case CHAR_TEX_METAL: fvol = 0.9; fvolbar = 0.3;
-		rgsz[0] = "player/pl_metal1.wav";
-		rgsz[1] = "player/pl_metal2.wav";
-		cnt = 2;
-		break;
-	case CHAR_TEX_DIRT:	fvol = 0.9; fvolbar = 0.1;
-		rgsz[0] = "player/pl_dirt1.wav";
-		rgsz[1] = "player/pl_dirt2.wav";
-		rgsz[2] = "player/pl_dirt3.wav";
-		cnt = 3;
-		break;
-	case CHAR_TEX_VENT:	fvol = 0.5; fvolbar = 0.3;
-		rgsz[0] = "player/pl_duct1.wav";
-		rgsz[1] = "player/pl_duct1.wav";
-		cnt = 2;
-		break;
-	case CHAR_TEX_GRATE: fvol = 0.9; fvolbar = 0.5;
-		rgsz[0] = "player/pl_grate1.wav";
-		rgsz[1] = "player/pl_grate4.wav";
-		cnt = 2;
-		break;
-	case CHAR_TEX_TILE:	fvol = 0.8; fvolbar = 0.2;
-		rgsz[0] = "player/pl_tile1.wav";
-		rgsz[1] = "player/pl_tile3.wav";
-		rgsz[2] = "player/pl_tile2.wav";
-		rgsz[3] = "player/pl_tile4.wav";
-		cnt = 4;
-		break;
-	case CHAR_TEX_SLOSH: fvol = 0.9; fvolbar = 0.0;
-		rgsz[0] = "player/pl_slosh1.wav";
-		rgsz[1] = "player/pl_slosh3.wav";
-		rgsz[2] = "player/pl_slosh2.wav";
-		rgsz[3] = "player/pl_slosh4.wav";
-		cnt = 4;
-		break;
-	case CHAR_TEX_WOOD: fvol = 0.9; fvolbar = 0.2;
-		rgsz[0] = "debris/wood1.wav";
-		rgsz[1] = "debris/wood2.wav";
-		rgsz[2] = "debris/wood3.wav";
-		cnt = 3;
-		break;
-	case CHAR_TEX_GLASS:
-	case CHAR_TEX_COMPUTER:
-		fvol = 0.8; fvolbar = 0.2;
-		rgsz[0] = "debris/glass1.wav";
-		rgsz[1] = "debris/glass2.wav";
-		rgsz[2] = "debris/glass3.wav";
-		cnt = 3;
-		break;
-	case CHAR_TEX_FLESH:
-		if (iBulletType == BULLET_PLAYER_CROWBAR)
-			return 0.0; // crowbar already makes this sound
-		fvol = 1.0;	fvolbar = 0.2;
-		rgsz[0] = "weapons/bullet_hit1.wav";
-		rgsz[1] = "weapons/bullet_hit2.wav";
-		fattn = 1.0;
-		cnt = 2;
-		break;
-	}
+	float fvol;
+	float fvolbar;
+	float fattn;
+	const char* rgsz[ 4 ];
+	size_t cnt;
+
+	if( !GetMaterialForType( chTextureType, iBulletType, fvol, fvolbar, fattn, rgsz, cnt ) )
+		return 0.0; // crowbar already makes this sound
+
+	ASSERT( cnt < ARRAYSIZE( rgsz ) );
 
 	// did we hit a breakable?
 
