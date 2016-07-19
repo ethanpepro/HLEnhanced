@@ -52,10 +52,6 @@ extern CVoiceGameMgr g_VoiceGameMgr;
 
 //TODO: split this file into pieces - Solokiller
 
-#if !defined ( _WIN32 )
-#include <ctype.h>
-#endif
-
 extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL unsigned int	g_ulFrameCount;

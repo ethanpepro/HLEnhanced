@@ -29,10 +29,6 @@
 #include "voice_gamemgr.h"
 #include "hltv.h"
 
-#if !defined ( _WIN32 )
-#include <ctype.h>
-#endif
-
 extern DLL_GLOBAL CGameRules	*g_pGameRules;
 extern DLL_GLOBAL bool	g_fGameOver;
 

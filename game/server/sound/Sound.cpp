@@ -28,10 +28,6 @@
 
 #include "Sound.h"
 
-#if !defined ( _WIN32 )
-#include <ctype.h>
-#endif
-
 // ==================== SENTENCE GROUPS, UTILITY FUNCTIONS  ======================================
 
 // group of related sentences
