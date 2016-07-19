@@ -24,6 +24,47 @@ public:
 	*/
 	void Shutdown();
 
+	bool IsActive() const { return m_bActive; }
+
+	bool ClientConnect( edict_t* pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] );
+
+	void ClientDisconnect( edict_t* pEdict );
+
+	void ClientKill( edict_t* pEdict );
+
+	void ClientPutInServer( edict_t* pEntity );
+
+	void ClientCommand( edict_t* pEntity );
+
+	void ClientUserInfoChanged( edict_t* pEntity, char* infobuffer );
+
+	void Activate( edict_t* pEdictList, const int edictCount, const int clientMax );
+
+	void Deactivate();
+
+	void StartFrame();
+
+	void ParmsNewLevel();
+
+	void ParmsChangeLevel();
+
+	void ClientPrecache();
+
+	const char* GetGameDescription() const;
+
+	void Sys_Error( const char* error_string );
+
+	void PlayerCustomization( edict_t* pEntity, customization_t* pCust );
+
+	void SpectatorConnect( edict_t* pEntity );
+
+	void SpectatorDisconnect( edict_t* pEntity );
+
+	void SpectatorThink( edict_t* pEntity );
+
+private:
+	bool m_bActive = false;
+
 private:
 	CServerGameInterface( const CServerGameInterface& ) = delete;
 	CServerGameInterface& operator=( const CServerGameInterface& ) = delete;

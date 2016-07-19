@@ -1700,12 +1700,12 @@ typedef struct
 	void			(*pfnServerDeactivate)	( void );
 
 	/**
-	*	Called by the engine before it runs player think.
+	*	Called by the engine before it runs physics.
 	*/
 	void			(*pfnPlayerPreThink)	( edict_t* pEntity );
 
 	/**
-	*	Called by the engine after it runs player think.
+	*	Called by the engine after it runs physics.
 	*/
 	void			(*pfnPlayerPostThink)	( edict_t* pEntity );
 
