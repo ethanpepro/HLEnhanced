@@ -428,3 +428,11 @@ CBaseEntity* UTIL_RandomClassname( const char* pszName );
 void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd );
 
 void SetObjectCollisionBox( entvars_t *pev );
+
+/**
+*	Finds the entity that the given entity is looking at.
+*	Modifies gpGlobals vectors.
+*	@param pMe Entity whose angles to use.
+*	@return Entity being looked at, or null if no entity could be found.
+*/
+CBaseEntity* UTIL_FindEntityForward( CBaseEntity* pMe );

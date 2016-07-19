@@ -61,7 +61,7 @@ void UTIL_SetSize( CBaseEntity* pEntity, const Vector& vecMin, const Vector& vec
 CBaseEntity *UTIL_FindEntityInSphere( CBaseEntity *pStartEntity, const Vector &vecCenter, float flRadius ){ return 0;}
 
 int TrainSpeed(int iSpeed, int iMax) { 	return 0; }
-CBaseEntity *FindEntityForward( CBaseEntity *pMe ) { return nullptr; }
+CBaseEntity* UTIL_FindEntityForward( CBaseEntity* pMe ) { return nullptr; }
 
 void SpawnBlood(Vector vecSpot, int bloodColor, float flDamage) { }
 int DamageDecal( CBaseEntity *pEntity, int bitsDamageType ) { return 0; }

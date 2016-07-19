@@ -153,4 +153,9 @@ void UTIL_BubbleTrail( const Vector& from, const Vector& to, int count, const fl
 */
 Vector UTIL_VecToAngles( const Vector& vec );
 
+/**
+*	Gets a velocity vector for the given amount of damage.
+*/
+Vector VecVelocityForDamage( const float flDamage );
+
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H

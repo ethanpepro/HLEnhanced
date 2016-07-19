@@ -665,3 +665,17 @@ Vector UTIL_VecToAngles( const Vector& vec )
 
 	return vecAngles;
 }
+
+Vector VecVelocityForDamage( const float flDamage )
+{
+	Vector vec( RANDOM_FLOAT( -100, 100 ), RANDOM_FLOAT( -100, 100 ), RANDOM_FLOAT( 200, 300 ) );
+
+	if( flDamage > -50 )
+		vec = vec * 0.7;
+	else if( flDamage > -200 )
+		vec = vec * 2;
+	else
+		vec = vec * 10;
+
+	return vec;
+}
