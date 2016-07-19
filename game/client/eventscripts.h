@@ -11,10 +11,6 @@
 
 #include "event_args.h"
 
-// defaults for clientinfo messages
-//TODO: defined in client.cpp - Solokiller
-#define	DEFAULT_VIEWHEIGHT	28
-
 #include "Damage.h"
 
 // Some of these are HL/TFC specific?

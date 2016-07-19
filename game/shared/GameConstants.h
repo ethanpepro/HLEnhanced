@@ -116,6 +116,9 @@
 #define	FLASH_DRAIN_TIME	 1.2 //100 units/3 minutes
 #define	FLASH_CHARGE_TIME	 0.2 // 100 units/20 seconds  (seconds per unit)
 
+// defaults for clientinfo messages
+#define	DEFAULT_VIEWHEIGHT 28
+
 /**
 *	@defgroup AutoAimDegrees AutoAim Degrees
 *

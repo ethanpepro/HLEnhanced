@@ -44,7 +44,7 @@ public:
 	// If ClientConnected returns false, the connection is rejected and the user is provided the reason specified in
 	//  szRejectReason
 	// Only the client's name and remote address are provided to the dll for verification.
-	virtual bool ClientConnected( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ 128 ] ) override;
+	virtual bool ClientConnected( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] ) override;
 	virtual void InitHUD( CBasePlayer *pl ) override;		// the client dll is ready for updating
 	virtual void ClientDisconnected( edict_t *pClient ) override;
 	virtual void UpdateGameMode( CBasePlayer *pPlayer ) override;  // the client needs to be informed of the current game mode

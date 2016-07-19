@@ -88,7 +88,7 @@ public:
 
 	void PrintState( void );
 
-	virtual CBasePlayerItem *GetWeaponPtr( void ) override { return ( CBasePlayerItem * )this; };
+	CBasePlayerWeapon* GetWeaponPtr() override { return this; }
 	float GetNextAttackDelay( float delay );
 
 	/**

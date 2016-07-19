@@ -15,8 +15,6 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-class CBaseEntity;
-
 enum HostFlag
 {
 	HOSTFL_NONE			= 0,
@@ -27,50 +25,51 @@ enum HostFlag
 	HOSTFL_WEAPONPRED	= 1 << 0
 };
 
-extern qboolean ClientConnect( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ 128 ] );
-extern void ClientDisconnect( edict_t *pEntity );
-extern void ClientKill( edict_t *pEntity );
-extern void ClientPutInServer( edict_t *pEntity );
-extern void ClientCommand( edict_t *pEntity );
-extern void ClientUserInfoChanged( edict_t *pEntity, char *infobuffer );
-extern void ServerActivate( edict_t *pEdictList, int edictCount, int clientMax );
-extern void ServerDeactivate( void );
-extern void StartFrame( void );
-extern void PlayerPostThink( edict_t *pEntity );
-extern void PlayerPreThink( edict_t *pEntity );
-extern void ParmsNewLevel( void );
-extern void ParmsChangeLevel( void );
+qboolean ClientConnect( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] );
+void ClientDisconnect( edict_t *pEntity );
+void ClientKill( edict_t *pEntity );
+void ClientPutInServer( edict_t *pEntity );
+void ClientCommand( edict_t *pEntity );
+void ClientUserInfoChanged( edict_t *pEntity, char *infobuffer );
+void ServerActivate( edict_t *pEdictList, int edictCount, int clientMax );
+void ServerDeactivate( void );
+void StartFrame( void );
+void PlayerPostThink( edict_t *pEntity );
+void PlayerPreThink( edict_t *pEntity );
+void ParmsNewLevel( void );
+void ParmsChangeLevel( void );
 
-extern void ClientPrecache( void );
+void ClientPrecache( void );
 
-extern const char *GetGameDescription( void );
-extern void PlayerCustomization( edict_t *pEntity, customization_t *pCust );
+const char *GetGameDescription();
+void PlayerCustomization( edict_t *pEntity, customization_t *pCust );
 
-extern void SpectatorConnect ( edict_t *pEntity );
-extern void SpectatorDisconnect ( edict_t *pEntity );
-extern void SpectatorThink ( edict_t *pEntity );
+void SpectatorConnect ( edict_t *pEntity );
+void SpectatorDisconnect ( edict_t *pEntity );
+void SpectatorThink ( edict_t *pEntity );
 
-extern void Sys_Error( const char *error_string );
+void Sys_Error( const char *error_string );
 
-extern void SetupVisibility( edict_t *pViewEntity, edict_t *pClient, unsigned char **pvs, unsigned char **pas );
-extern void	UpdateClientData ( const edict_t* pClient, int sendweapons, struct clientdata_s* cd );
-extern int AddToFullPack( struct entity_state_s *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet );
-extern void CreateBaseline( int player, int eindex, struct entity_state_s* baseline, edict_t* entity, int playermodelindex, const Vector player_mins[ 4 ], const Vector player_maxs[ 4 ] );
-extern void RegisterEncoders( void );
+void SetupVisibility( edict_t *pViewEntity, edict_t *pClient, unsigned char **pvs, unsigned char **pas );
+void	UpdateClientData ( const edict_t* pClient, int sendweapons, struct clientdata_s* cd );
+int AddToFullPack( struct entity_state_s *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet );
+void CreateBaseline( int player, int eindex, struct entity_state_s* baseline, edict_t* entity, int playermodelindex, 
+					 const Vector player_mins[ Hull::COUNT ], const Vector player_maxs[ Hull::COUNT ] );
+void RegisterEncoders();
 
-extern int GetWeaponData( edict_t* pPlayer, struct weapon_data_s* pInfo );
+int GetWeaponData( edict_t* pPlayer, struct weapon_data_s* pInfo );
 
-extern void	CmdStart( const edict_t *player, const struct usercmd_s *cmd, unsigned int random_seed );
-extern void	CmdEnd ( const edict_t *player );
+void CmdStart( const edict_t *player, const struct usercmd_s *cmd, unsigned int random_seed );
+void CmdEnd ( const edict_t *player );
 
-extern int	ConnectionlessPacket( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size );
+int	ConnectionlessPacket( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size );
 
-extern int GetHullBounds( int hullnumber, Vector& mins, Vector& maxs );
+int GetHullBounds( int hullnumber, Vector& mins, Vector& maxs );
 
-extern void	CreateInstancedBaselines ( void );
+void CreateInstancedBaselines ();
 
-extern int	InconsistentFile( const edict_t *player, const char *filename, char *disconnect_message );
+int	InconsistentFile( const edict_t *player, const char *filename, char *disconnect_message );
 
-extern int AllowLagCompensation( void );
+int AllowLagCompensation();
 
 #endif		// CLIENT_H

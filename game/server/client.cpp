@@ -26,29 +26,33 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
-#include "SaveRestore.h"
 #include "CBasePlayer.h"
+#include "Weapons.h"
 #include "entities/CBaseSpectator.h"
 #include "entities/CCorpse.h"
-#include "client.h"
 #include "entities/CSoundEnt.h"
-#include "gamerules/GameRules.h"
-#include "Server.h"
-#include "customentity.h"
-#include "Weapons.h"
 #include "entities/weapons/CRpg.h"
+
+#include "gamerules/GameRules.h"
+#include "customentity.h"
 #include "weaponinfo.h"
 #include "usercmd.h"
 #include "netadr.h"
 #include "pm_shared.h"
+#include "entity_state.h"
 
+#include "Server.h"
 #include "UTFUtils.h"
 
 #include "Angelscript/CHLASManager.h"
 
 #include "voice_gamemgr.h"
 
+#include "client.h"
+
 extern CVoiceGameMgr g_VoiceGameMgr;
+
+extern float g_flWeaponCheat;
 
 //TODO: split this file into pieces - Solokiller
 
@@ -56,11 +60,13 @@ extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL unsigned int	g_ulFrameCount;
 
-extern int giPrecacheGrunt;
+extern bool g_bPrecacheGrunt;
 
 extern cvar_t allow_spectators;
 
 extern int g_teamplay;
+
+static bool g_bServerActive = false;
 
 /*
 ===========
@@ -69,16 +75,10 @@ ClientConnect
 called when a player connects to a server
 ============
 */
-qboolean ClientConnect( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ 128 ]  )
+qboolean ClientConnect( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ]  )
 {	
 	return g_pGameRules->ClientConnected( pEntity, pszName, pszAddress, szRejectReason );
-
-// a client connecting during an intermission can cause problems
-//	if (intermission_running)
-//		ExitIntermission ();
-
 }
-
 
 /*
 ===========
@@ -316,15 +316,12 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	}
 }
 
-
 /*
 ===========
 ClientCommand
 called each time a player uses a "cmd" command
 ============
 */
-extern float g_flWeaponCheat;
-
 // Use CMD_ARGV,  CMD_ARGV, and CMD_ARGC to get pointers the character string command.
 void ClientCommand( edict_t *pEntity )
 {
@@ -414,7 +411,7 @@ void ClientCommand( edict_t *pEntity )
 	else if ( FStrEq( pcmd, "follownext" )  )	// follow next player
 	{
 		if ( pPlayer->IsObserver() )
-			pPlayer->Observer_FindNextPlayer( atoi( CMD_ARGV(1) )?true:false );
+			pPlayer->Observer_FindNextPlayer( atoi( CMD_ARGV( 1 ) ) != 0 );
 	}
 	else if ( g_pGameRules->ClientCommand( pPlayer, pcmd ) )
 	{
@@ -427,14 +424,13 @@ void ClientCommand( edict_t *pEntity )
 
 		// check the length of the command (prevents crash)
 		// max total length is 192 ...and we're adding a string below ("Unknown command: %s\n")
-		strncpy( command, pcmd, 127 );
-		command[127] = '\0';
+		strncpy( command, pcmd, sizeof( command ) - 1 );
+		command[ sizeof( command  ) - 1 ] = '\0';
 
 		// tell the user they entered an unknown command
 		ClientPrint( &pEntity->v, HUD_PRINTCONSOLE, UTIL_VarArgs( "Unknown command: %s\n", command ) );
 	}
 }
-
 
 /*
 ========================
@@ -504,18 +500,16 @@ void ClientUserInfoChanged( edict_t *pEntity, char *infobuffer )
 	g_pGameRules->ClientUserInfoChanged( GetClassPtr((CBasePlayer *)&pEntity->v), infobuffer );
 }
 
-static int g_serveractive = 0;
-
-void ServerDeactivate( void )
+void ServerDeactivate()
 {
 	// It's possible that the engine will call this function more times than is necessary
 	//  Therefore, only run it one time for each call to ServerActivate 
-	if ( g_serveractive != 1 )
+	if( !g_bServerActive )
 	{
 		return;
 	}
 
-	g_serveractive = 0;
+	g_bServerActive = false;
 
 	// Peform any shutdown operations here...
 	//
@@ -523,16 +517,15 @@ void ServerDeactivate( void )
 
 void ServerActivate( edict_t *pEdictList, int edictCount, int clientMax )
 {
-	int				i;
 	CBaseEntity		*pClass;
 
 	// Every call to ServerActivate should be matched by a call to ServerDeactivate
-	g_serveractive = 1;
+	g_bServerActive = true;
 
 	// Clients have not been initialized yet
-	for ( i = 0; i < edictCount; i++ )
+	for( int i = 0; i < edictCount; ++i )
 	{
-		if ( pEdictList[i].free )
+		if( pEdictList[i].free )
 			continue;
 		
 		// Clients aren't necessarily initialized until ClientPutInServer()
@@ -556,7 +549,6 @@ void ServerActivate( edict_t *pEdictList, int edictCount, int clientMax )
 
 	g_ASManager.WorldActivated();
 }
-
 
 /*
 ================
@@ -584,14 +576,11 @@ void PlayerPostThink( edict_t *pEntity )
 		pPlayer->PostThink();
 }
 
-
-
-void ParmsNewLevel( void )
+void ParmsNewLevel()
 {
 }
 
-
-void ParmsChangeLevel( void )
+void ParmsChangeLevel()
 {
 	// retrieve the pointer to the save data
 	SAVERESTOREDATA *pSaveData = (SAVERESTOREDATA *)gpGlobals->pSaveData;
@@ -600,11 +589,10 @@ void ParmsChangeLevel( void )
 		pSaveData->connectionCount = BuildChangeList( pSaveData->levelList, MAX_LEVEL_CONNECTIONS );
 }
 
-
 //
 // GLOBALS ASSUMED SET:  g_ulFrameCount
 //
-void StartFrame( void )
+void StartFrame()
 {
 	if ( g_pGameRules )
 		g_pGameRules->Think();
@@ -616,8 +604,7 @@ void StartFrame( void )
 	g_ulFrameCount++;
 }
 
-
-void ClientPrecache( void )
+void ClientPrecache()
 {
 	// setup precaches always needed
 	PRECACHE_SOUND("player/sprayer.wav");			// spray paint sound for PreAlpha
@@ -728,7 +715,7 @@ void ClientPrecache( void )
 	PRECACHE_SOUND("player/geiger2.wav");
 	PRECACHE_SOUND("player/geiger1.wav");
 
-	if (giPrecacheGrunt)
+	if ( g_bPrecacheGrunt )
 		UTIL_PrecacheOther("monster_human_grunt");
 }
 
@@ -884,8 +871,6 @@ void SetupVisibility( edict_t *pViewEntity, edict_t *pClient, unsigned char **pv
 	*pvs = ENGINE_SET_PVS ( (float *)&org );
 	*pas = ENGINE_SET_PAS ( (float *)&org );
 }
-
-#include "entity_state.h"
 
 /*
 AddToFullPack
@@ -1079,9 +1064,6 @@ int AddToFullPack( struct entity_state_s *state, int e, edict_t *ent, edict_t *h
 	return 1;
 }
 
-// defaults for clientinfo messages
-#define	DEFAULT_VIEWHEIGHT	28
-
 /*
 ===================
 CreateBaseline
@@ -1180,21 +1162,19 @@ FIXME:  Move to script
 */
 void Entity_Encode( struct delta_s *pFields, const unsigned char *from, const unsigned char *to )
 {
-	entity_state_t *f, *t;
-	int localplayer = 0;
-	static int initialized = 0;
+	static bool initialized = false;
 
 	if ( !initialized )
 	{
 		Entity_FieldInit( pFields );
-		initialized = 1;
+		initialized = true;
 	}
 
-	f = (entity_state_t *)from;
-	t = (entity_state_t *)to;
+	entity_state_t* f = (entity_state_t *)from;
+	entity_state_t* t = (entity_state_t *)to;
 
 	// Never send origin to local player, it's sent with more resolution in clientdata_t structure
-	localplayer =  ( t->number - 1 ) == ENGINE_CURRENT_PLAYER();
+	const int localplayer =  ( t->number - 1 ) == ENGINE_CURRENT_PLAYER();
 	if ( localplayer )
 	{
 		DELTA_UNSETBYINDEX( pFields, entity_field_alias[ FIELD_ORIGIN0 ].field );
@@ -1251,21 +1231,19 @@ Callback for sending entity_state_t for players info over network.
 */
 void Player_Encode( struct delta_s *pFields, const unsigned char *from, const unsigned char *to )
 {
-	entity_state_t *f, *t;
-	int localplayer = 0;
-	static int initialized = 0;
+	static bool initialized = false;
 
 	if ( !initialized )
 	{
 		Player_FieldInit( pFields );
-		initialized = 1;
+		initialized = true;
 	}
 
-	f = (entity_state_t *)from;
-	t = (entity_state_t *)to;
+	entity_state_t* f = (entity_state_t *)from;
+	entity_state_t* t = (entity_state_t *)to;
 
 	// Never send origin to local player, it's sent with more resolution in clientdata_t structure
-	localplayer =  ( t->number - 1 ) == ENGINE_CURRENT_PLAYER();
+	const int localplayer =  ( t->number - 1 ) == ENGINE_CURRENT_PLAYER();
 	if ( localplayer )
 	{
 		DELTA_UNSETBYINDEX( pFields, entity_field_alias[ FIELD_ORIGIN0 ].field );
@@ -1334,20 +1312,18 @@ FIXME:  Move to script
 */
 void Custom_Encode( struct delta_s *pFields, const unsigned char *from, const unsigned char *to )
 {
-	entity_state_t *f, *t;
-	int beamType;
-	static int initialized = 0;
+	static bool initialized = false;
 
 	if ( !initialized )
 	{
 		Custom_Entity_FieldInit( pFields );
-		initialized = 1;
+		initialized = true;
 	}
 
-	f = (entity_state_t *)from;
-	t = (entity_state_t *)to;
+	entity_state_t* f = (entity_state_t *)from;
+	entity_state_t* t = (entity_state_t *)to;
 
-	beamType = t->rendermode & 0x0f;
+	const int beamType = t->rendermode & 0x0f;
 		
 	if ( beamType != BEAM_POINTS && beamType != BEAM_ENTPOINT )
 	{
@@ -1384,7 +1360,7 @@ RegisterEncoders
 Allows game .dll to override network encoding of certain types of entities and tweak values, etc.
 =================
 */
-void RegisterEncoders( void )
+void RegisterEncoders()
 {
 	DELTA_ADDENCODER( "Entity_Encode", Entity_Encode );
 	DELTA_ADDENCODER( "Custom_Encode", Custom_Encode );
@@ -1415,7 +1391,7 @@ int GetWeaponData( edict_t* pEntity, weapon_data_t* pInfo )
 
 			while ( pPlayerItem )
 			{
-				gun = dynamic_cast<CBasePlayerWeapon *>( pPlayerItem->GetWeaponPtr() );
+				gun = pPlayerItem->GetWeaponPtr();
 				if ( gun && gun->UseDecrement() )
 				{
 					// Get The ID.
@@ -1633,28 +1609,29 @@ GetHullBounds
 */
 int GetHullBounds( int hullnumber, Vector& mins, Vector& maxs )
 {
-	int iret = 0;
+	bool bResult = false;
 
+	//TODO: these hull sizes don't match the names for the hulls. Why? - Solokiller
 	switch ( hullnumber )
 	{
-	case 0:				// Normal player
+	case Hull::POINT:				// Normal player
 		mins = VEC_HULL_MIN;
 		maxs = VEC_HULL_MAX;
-		iret = 1;
+		bResult = true;
 		break;
-	case 1:				// Crouched player
+	case Hull::HUMAN:				// Crouched player
 		mins = VEC_DUCK_HULL_MIN;
 		maxs = VEC_DUCK_HULL_MAX;
-		iret = 1;
+		bResult = true;
 		break;
-	case 2:				// Point based hull
+	case Hull::LARGE:				// Point based hull
 		mins = Vector( 0, 0, 0 );
 		maxs = Vector( 0, 0, 0 );
-		iret = 1;
+		bResult = true;
 		break;
 	}
 
-	return iret;
+	return bResult;
 }
 
 /*
@@ -1665,14 +1642,14 @@ Create pseudo-baselines for items that aren't placed in the map at spawn time, b
 to be created during play ( e.g., grenades, ammo packs, projectiles, corpses, etc. )
 ================================
 */
-void CreateInstancedBaselines ( void )
+void CreateInstancedBaselines()
 {
 	int iret = 0;
 	entity_state_t state;
 
 	memset( &state, 0, sizeof( state ) );
 
-	// Create any additional baselines here for things like grendates, etc.
+	// Create any additional baselines here for things like grenades, etc.
 	// iret = ENGINE_INSTANCE_BASELINE( pc->pev->classname, &state );
 
 	// Destroy objects.
@@ -1691,13 +1668,13 @@ int	InconsistentFile( const edict_t *player, const char *filename, char *disconn
 {
 	// Server doesn't care?
 	if ( CVAR_GET_FLOAT( "mp_consistency" ) != 1 )
-		return 0;
+		return false;
 
 	// Default behavior is to kick the player
 	sprintf( disconnect_message, "Server is enforcing file consistency for %s\n", filename );
 
 	// Kick now with specified disconnect message.
-	return 1;
+	return true;
 }
 
 /*
@@ -1711,7 +1688,7 @@ AllowLagCompensation
   if you want.
 ================================
 */
-int AllowLagCompensation( void )
+int AllowLagCompensation()
 {
 	return 1;
 }

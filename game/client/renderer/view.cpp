@@ -1250,7 +1250,7 @@ void V_GetChasePos(int target, const Vector* cl_angles, Vector& origin, Vector& 
 
 		origin = ent->origin;
 		
-		origin[2]+= 28; // DEFAULT_VIEWHEIGHT - some offset
+		origin[2]+= DEFAULT_VIEWHEIGHT; // - some offset
 
 		V_GetChaseOrigin( angles, origin, cl_chasedist->value, origin );
 	}
@@ -1296,7 +1296,7 @@ void V_GetInEyePos(int target, Vector& origin, Vector& angles )
 	else
 		// exacty eye position can't be caluculated since it depends on
 		// client values like cl_bobcycle, this offset matches the default values
-		origin[2]+= 28; // DEFAULT_VIEWHEIGHT
+		origin[2]+= DEFAULT_VIEWHEIGHT;
 }
 
 void V_GetMapFreePosition( const Vector cl_angles, Vector& origin, Vector& angles )

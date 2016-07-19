@@ -36,7 +36,7 @@ extern DLL_GLOBAL bool			gEvilImpulse101;
 
 extern float g_flWeaponCheat;
 
-int giPrecacheGrunt = 0;
+bool g_bPrecacheGrunt = false;
 
 /*
 ================
@@ -301,9 +301,7 @@ pt_end:
 
 			while( pPlayerItem )
 			{
-				CBasePlayerWeapon *gun;
-
-				gun = ( CBasePlayerWeapon * ) pPlayerItem->GetWeaponPtr();
+				CBasePlayerWeapon *gun = pPlayerItem->GetWeaponPtr();
 
 				if( gun && gun->UseDecrement() )
 				{
@@ -770,9 +768,9 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 	{
 	case 76:
 		{
-			if( !giPrecacheGrunt )
+			if( !g_bPrecacheGrunt )
 			{
-				giPrecacheGrunt = 1;
+				g_bPrecacheGrunt = true;
 				ALERT( at_console, "You must now restart to use Grunt-o-matic.\n" );
 			}
 			else

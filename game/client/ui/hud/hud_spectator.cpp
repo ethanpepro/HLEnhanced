@@ -434,7 +434,8 @@ bool CHudSpectator::GetDirectorCamera( Vector &position, Vector &angle)
 			Vector vt = ent->curstate.origin;
 		
 			if ( m_ChaseEntity <= gEngfuncs.GetMaxClients() )
-			{			
+			{
+				//TODO use constants - Solokiller
 				if ( ent->curstate.solid == SOLID_NOT )
 				{
 					vt[2]+= -8 ; // PM_DEAD_VIEWHEIGHT
@@ -445,7 +446,7 @@ bool CHudSpectator::GetDirectorCamera( Vector &position, Vector &angle)
 				}
 				else
 				{
-					vt[2]+= 28; // DEFAULT_VIEWHEIGHT
+					vt[2]+= DEFAULT_VIEWHEIGHT;
 				}
 			}
 			

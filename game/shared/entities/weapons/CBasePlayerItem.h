@@ -105,6 +105,8 @@ struct ItemInfo
 	int iWeight;
 };
 
+class CBasePlayerWeapon;
+
 // Items that the player has in their inventory that they can use
 class CBasePlayerItem : public CBaseAnimating
 {
@@ -145,7 +147,7 @@ public:
 
 	virtual bool UpdateClientData( CBasePlayer *pPlayer ) { return false; }
 
-	virtual CBasePlayerItem *GetWeaponPtr( void ) { return NULL; };
+	virtual CBasePlayerWeapon* GetWeaponPtr() { return nullptr; }
 
 	static ItemInfo ItemInfoArray[ MAX_WEAPONS ];
 

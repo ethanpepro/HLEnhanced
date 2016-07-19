@@ -1543,6 +1543,12 @@ typedef struct
 //TODO: define elsewhere - Solokiller
 #define ARRAYSIZE(p)		(sizeof(p)/sizeof(p[0]))
 
+/**
+*	Maximum size for ClientConnect reject reasons.
+*	@see DLL_FUNCTIONS::pfnClientConnect
+*/
+#define CCONNECT_REJECT_REASON_SIZE 128
+
 typedef struct 
 {
 	/**
@@ -1645,7 +1651,7 @@ typedef struct
 	*	@param szRejectReason Reason why the client was rejected.
 	*	@return true if the client should be allowed to connect, false otherwise.
 	*/
-	qboolean		(*pfnClientConnect)		( edict_t* pEntity, const char* pszName, const char* pszAddress, char szRejectReason[ 128 ] );
+	qboolean		(*pfnClientConnect)		( edict_t* pEntity, const char* pszName, const char* pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] );
 	
 	/**
 	*	Called when a client disconnects. This will not be called if the client connection was rejected in pfnClientConnect.
