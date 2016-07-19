@@ -265,6 +265,7 @@ public:
 
 	int Classify ( void ) override;
 	void SetAnimation( PLAYER_ANIM playerAnim );
+	//TODO
 	void SetWeaponAnimType( const char *szExtention );
 	char m_szAnimExtention[32];
 

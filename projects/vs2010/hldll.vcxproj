@@ -291,6 +291,7 @@
     <ClCompile Include="..\..\game\server\entities\plats\CPlatTrigger.cpp" />
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.observer.cpp" />
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.server.cpp" />
+    <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.weapons.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CAmbientGeneric.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CEnvSound.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CSpeaker.cpp" />
