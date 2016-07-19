@@ -15,8 +15,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-
-#include "pm_materials.h"
+#include "materials/MaterialsConst.h"
 
 //TODO: move to separate header for game constants - Solokiller
 

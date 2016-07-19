@@ -40,6 +40,7 @@
 #include "renderer/tri.h"
 #include "vgui_TeamFortressViewport.h"
 #include "../public/interface.h"
+#include "materials/Materials.h"
 
 #include "CClientGameInterface.h"
 
@@ -122,7 +123,7 @@ void DLLEXPORT HUD_PlayerMoveInit( struct playermove_s *ppmove )
 
 char DLLEXPORT HUD_PlayerMoveTexture( char *name )
 {
-	return PM_FindTextureType( name );
+	return g_MaterialsList.FindTextureType( name );
 }
 
 void DLLEXPORT HUD_PlayerMove( struct playermove_s *ppmove, int server )

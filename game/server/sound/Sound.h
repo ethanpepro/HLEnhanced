@@ -19,7 +19,6 @@
 #define CBSENTENCENAME_MAX 16
 #define CSENTENCE_LRU_MAX	32		// max number of elements per sentence group
 #define CVOXFILESENTENCEMAX		1536		// max number of sentences in game. NOTE: this must match
-#define CTEXTURESMAX		512			// max number of textures loaded
 // CVOXFILESENTENCEMAX in engine\sound.h!!!
 
 struct SENTENCEG

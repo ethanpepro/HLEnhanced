@@ -193,6 +193,8 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CSniperRifle.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CSqueak.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CTripmine.cpp" />
+    <ClCompile Include="..\..\game\shared\materials\CMaterialsList.cpp" />
+    <ClCompile Include="..\..\game\shared\materials\Materials.cpp" />
     <ClCompile Include="..\..\game\shared\shared_game_utils.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp" />
     <ClCompile Include="..\..\pm_shared\pm_shared.cpp" />
@@ -276,6 +278,9 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
+    <ClInclude Include="..\..\game\shared\materials\CMaterialsList.h" />
+    <ClInclude Include="..\..\game\shared\materials\Materials.h" />
+    <ClInclude Include="..\..\game\shared\materials\MaterialsConst.h" />
     <ClInclude Include="..\..\game\shared\ScriptEvent.h" />
     <ClInclude Include="..\..\game\shared\shared_game_utils.h" />
     <ClInclude Include="..\..\game\shared\voice_common.h" />
@@ -283,7 +288,6 @@
     <ClInclude Include="..\..\pm_shared\pm_debug.h" />
     <ClInclude Include="..\..\pm_shared\pm_defs.h" />
     <ClInclude Include="..\..\pm_shared\pm_info.h" />
-    <ClInclude Include="..\..\pm_shared\pm_materials.h" />
     <ClInclude Include="..\..\pm_shared\pm_movevars.h" />
     <ClInclude Include="..\..\pm_shared\pm_shared.h" />
     <ClInclude Include="..\..\public\math\interpolation.h" />

@@ -12,10 +12,11 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#if !defined( PM_MATERIALSH )
-#define PM_MATERIALSH
-#pragma once
+#ifndef GAME_SHARED_MATERIALS_MATERIALSCONST_H
+#define GAME_SHARED_MATERIALS_MATERIALSCONST_H
 
+#define CTEXTURESMAX		512			// max number of textures loaded
+//TODO: increase to max maximum name for wad lumps. - Solokiller
 #define CBTEXTURENAMEMAX	13			// only load first n chars of name
 
 #define CHAR_TEX_CONCRETE	'C'			// texture types
@@ -31,4 +32,4 @@
 #define CHAR_TEX_FLESH		'F'
 #define CHAR_TEX_SNOW		'N' //TODO: needs to be handled in sound code - Solokiller
 
-#endif // !PM_MATERIALSH
+#endif //GAME_SHARED_MATERIALS_MATERIALSCONST_H

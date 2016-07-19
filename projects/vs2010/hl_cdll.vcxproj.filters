@@ -121,6 +121,12 @@
     <Filter Include="Header Files\game\client\hl">
       <UniqueIdentifier>{299ed691-2420-4915-9aa4-5ebda5a66f0e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\shared\materials">
+      <UniqueIdentifier>{8edb8303-15f9-403f-add2-1fc2f69f7f22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\shared\materials">
+      <UniqueIdentifier>{a3a979b3-aee1-4140-ade5-1c8e1518f32d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\parsemsg.cpp">
@@ -435,6 +441,12 @@
     <ClCompile Include="..\..\game\shared\entities\weapons\CBasePlayerWeapon.shared.cpp">
       <Filter>Source Files\game\shared\entities\weapons</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\materials\CMaterialsList.cpp">
+      <Filter>Source Files\game\shared\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\materials\Materials.cpp">
+      <Filter>Source Files\game\shared\materials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\common\parsemsg.h">
@@ -450,9 +462,6 @@
       <Filter>Header Files\pm_shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_info.h">
-      <Filter>Header Files\pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pm_shared\pm_materials.h">
       <Filter>Header Files\pm_shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
@@ -700,6 +709,15 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\CTakeDamageInfo.h">
       <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\materials\CMaterialsList.h">
+      <Filter>Header Files\game\shared\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\materials\MaterialsConst.h">
+      <Filter>Header Files\game\shared\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\materials\Materials.h">
+      <Filter>Header Files\game\shared\materials</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

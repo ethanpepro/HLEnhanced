@@ -19,6 +19,7 @@
 #include "Server.h"
 #include "client.h"
 #include "pm_shared.h"
+#include "materials/Materials.h"
 
 #include "CMap.h"
 

@@ -226,6 +226,12 @@
     <Filter Include="Source Files\game\server\Angelscript\ScriptAPI\Entities">
       <UniqueIdentifier>{d7f8ae84-179e-4974-ba13-2ada78382da1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\shared\materials">
+      <UniqueIdentifier>{7bd9653a-94ba-4353-846f-cf0c46b9ec34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\shared\materials">
+      <UniqueIdentifier>{9bcdd47a-2431-4e63-959a-3e30437005c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp">
@@ -1083,6 +1089,12 @@
     <ClCompile Include="..\..\game\server\entities\spawnpoints\CInfoPlayerStart.cpp">
       <Filter>Source Files\game\server\entities\spawnpoints</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\shared\materials\CMaterialsList.cpp">
+      <Filter>Source Files\game\shared\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\materials\Materials.cpp">
+      <Filter>Source Files\game\shared\materials</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\engine\eiface.h">
@@ -1098,9 +1110,6 @@
       <Filter>Header Files\pm_shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_info.h">
-      <Filter>Header Files\pm_shared</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\pm_shared\pm_materials.h">
       <Filter>Header Files\pm_shared</Filter>
     </ClInclude>
     <ClInclude Include="..\..\pm_shared\pm_movevars.h">
@@ -2002,6 +2011,15 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\entities\spawnpoints\CInfoPlayerStart.h">
       <Filter>Header Files\game\server\entities\spawnpoints</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\materials\CMaterialsList.h">
+      <Filter>Header Files\game\shared\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\materials\MaterialsConst.h">
+      <Filter>Header Files\game\shared\materials</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\shared\materials\Materials.h">
+      <Filter>Header Files\game\shared\materials</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

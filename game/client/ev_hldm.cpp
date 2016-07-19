@@ -20,7 +20,7 @@
 #include "entity_types.h"
 #include "usercmd.h"
 #include "pm_defs.h"
-#include "pm_materials.h"
+#include "materials/Materials.h"
 
 #include "eventscripts.h"
 #include "ev_hldm.h"
@@ -127,7 +127,7 @@ float EV_HLDM_PlayTextureSound( int idx, pmtrace_t *ptr, float *vecSrc, float *v
 			szbuffer[ CBTEXTURENAMEMAX - 1 ] = 0;
 				
 			// get texture type
-			chTextureType = PM_FindTextureType( szbuffer );	
+			chTextureType = g_MaterialsList.FindTextureType( szbuffer );	
 		}
 	}
 	

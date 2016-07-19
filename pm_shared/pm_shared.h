@@ -22,7 +22,6 @@
 
 void PM_Init( struct playermove_s *ppmove );
 void PM_Move ( struct playermove_s *ppmove, int server );
-char PM_FindTextureType( const char* pszName );
 
 // Spectator Movement modes (stored in pev->iuser1, so the physics code can get at them)
 #define OBS_NONE				0
