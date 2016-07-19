@@ -47,7 +47,6 @@ void UTIL_PrecacheOther( const char *szClassname ) { }
 void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, int amount ) { }
 void UTIL_DecalTrace( TraceResult *pTrace, int decalNumber ) { }
 void UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber ) { }
-void UTIL_MakeVectors( const Vector &vecAngles ) { }
 bool UTIL_IsValidEntity( edict_t *pent ) { return true; }
 void UTIL_SetOrigin( CBaseEntity* pEntity, const Vector& vecOrigin ) {}
 bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon ) { return true; }

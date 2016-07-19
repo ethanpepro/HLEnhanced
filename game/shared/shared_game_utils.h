@@ -158,4 +158,43 @@ Vector UTIL_VecToAngles( const Vector& vec );
 */
 Vector VecVelocityForDamage( const float flDamage );
 
+// Testing strings for nullity
+#define iStringNull 0
+inline bool FStringNull( string_t iString ) { return iString == iStringNull; }
+
+inline bool FStrEq( const char* sz1, const char* sz2 )
+{
+	return ( strcmp( sz1, sz2 ) == 0 );
+}
+
+void UTIL_MakeVectors( const Vector& vecAngles );
+
+inline void UTIL_MakeVectorsPrivate( const Vector& vecAngles, Vector* p_vForward, Vector* p_vRight, Vector* p_vUp )
+{
+#ifdef CLIENT_DLL
+	AngleVectors( vecAngles, p_vForward, p_vRight, p_vUp );
+#else
+	g_engfuncs.pfnAngleVectors( vecAngles, 
+								reinterpret_cast<float*>( p_vForward ), 
+								reinterpret_cast<float*>( p_vRight ), 
+								reinterpret_cast<float*>( p_vUp ) );
+#endif
+}
+
+/**
+*	Like MakeVectors, but assumes pitch isn't inverted.
+*/
+inline void UTIL_MakeAimVectors( const Vector& vecAngles )
+{
+	Vector rgflVec = vecAngles;
+	rgflVec[ 0 ] = -rgflVec[ 0 ];
+	UTIL_MakeVectors( rgflVec );
+}
+
+void UTIL_MakeInvVectors( const Vector& vec, globalvars_t* pgv );
+
+void UTIL_Sparks( const Vector& position );
+
+void UTIL_Ricochet( const Vector& position, float scale );
+
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H

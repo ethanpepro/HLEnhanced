@@ -332,34 +332,6 @@ CBasePlayer* UTIL_FindPlayerByName( const char *pszTestName )
 	return nullptr;
 }
 
-void UTIL_MakeVectors( const Vector &vecAngles )
-{
-	MAKE_VECTORS( vecAngles );
-}
-
-
-void UTIL_MakeAimVectors( const Vector &vecAngles )
-{
-	Vector rgflVec = vecAngles;
-	rgflVec[0] = -rgflVec[0];
-	MAKE_VECTORS(rgflVec);
-}
-
-
-#define SWAP(a,b,temp)	((temp)=(a),(a)=(b),(b)=(temp))
-
-void UTIL_MakeInvVectors( const Vector &vec, globalvars_t *pgv )
-{
-	MAKE_VECTORS(vec);
-
-	float tmp;
-	pgv->v_right = pgv->v_right * -1;
-
-	SWAP(pgv->v_forward.y, pgv->v_right.x, tmp);
-	SWAP(pgv->v_forward.z, pgv->v_up.x, tmp);
-	SWAP(pgv->v_right.z, pgv->v_up.y, tmp);
-}
-
 static unsigned short FixedUnsigned16( float value, float scale )
 {
 	int output;
@@ -661,24 +633,22 @@ void UTIL_TraceModel( const Vector &vecStart, const Vector &vecEnd, const Hull::
 	g_engfuncs.pfnTraceModel( vecStart, vecEnd, static_cast<int>( hullNumber ), pentModel, ptr );
 }
 
-
-TraceResult UTIL_GetGlobalTrace( )
+TraceResult UTIL_GetGlobalTrace()
 {
 	TraceResult tr;
 
-	tr.fAllSolid		= gpGlobals->trace_allsolid;
-	tr.fStartSolid		= gpGlobals->trace_startsolid;
-	tr.fInOpen			= gpGlobals->trace_inopen;
-	tr.fInWater			= gpGlobals->trace_inwater;
-	tr.flFraction		= gpGlobals->trace_fraction;
-	tr.flPlaneDist		= gpGlobals->trace_plane_dist;
-	tr.pHit			= gpGlobals->trace_ent;
-	tr.vecEndPos		= gpGlobals->trace_endpos;
-	tr.vecPlaneNormal	= gpGlobals->trace_plane_normal;
-	tr.iHitgroup		= gpGlobals->trace_hitgroup;
+	tr.fAllSolid = gpGlobals->trace_allsolid;
+	tr.fStartSolid = gpGlobals->trace_startsolid;
+	tr.fInOpen = gpGlobals->trace_inopen;
+	tr.fInWater = gpGlobals->trace_inwater;
+	tr.flFraction = gpGlobals->trace_fraction;
+	tr.flPlaneDist = gpGlobals->trace_plane_dist;
+	tr.pHit = gpGlobals->trace_ent;
+	tr.vecEndPos = gpGlobals->trace_endpos;
+	tr.vecPlaneNormal = gpGlobals->trace_plane_normal;
+	tr.iHitgroup = gpGlobals->trace_hitgroup;
 	return tr;
 }
-
 	
 void UTIL_SetSize( CBaseEntity* pEntity, const Vector& vecMin, const Vector& vecMax )
 {
@@ -939,17 +909,6 @@ void UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber )
 	MESSAGE_END();
 }
 
-
-void UTIL_Sparks( const Vector &position )
-{
-	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, position );
-		WRITE_BYTE( TE_SPARKS );
-		WRITE_COORD( position.x );
-		WRITE_COORD( position.y );
-		WRITE_COORD( position.z );
-	MESSAGE_END();
-}
-
 //
 // Makes flagged buttons spark when turned off
 //
@@ -969,18 +928,6 @@ void DoSpark( CBaseEntity* pEntity, const Vector &location )
 	case 5: EMIT_SOUND( pEntity->edict(), CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM ); break;
 	}
 }
-
-void UTIL_Ricochet( const Vector &position, float scale )
-{
-	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, position );
-		WRITE_BYTE( TE_ARMOR_RICOCHET );
-		WRITE_COORD( position.x );
-		WRITE_COORD( position.y );
-		WRITE_COORD( position.z );
-		WRITE_BYTE( (int)(scale*10) );
-	MESSAGE_END();
-}
-
 
 bool UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 )
 {
@@ -1007,7 +954,6 @@ void UTIL_Remove( CBaseEntity *pEntity )
 	pEntity->pev->flags |= FL_KILLME;
 	pEntity->pev->targetname = 0;
 }
-
 
 bool UTIL_IsValidEntity( const CBaseEntity* const pEntity )
 {

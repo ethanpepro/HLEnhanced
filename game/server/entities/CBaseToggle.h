@@ -15,6 +15,15 @@
 #ifndef GAME_SERVER_CBASETOGGLE_H
 #define GAME_SERVER_CBASETOGGLE_H
 
+// Things that toggle (buttons/triggers/doors) need this
+enum TOGGLE_STATE
+{
+	TS_AT_TOP,
+	TS_AT_BOTTOM,
+	TS_GOING_UP,
+	TS_GOING_DOWN
+};
+
 //
 // generic Toggle entity.
 //

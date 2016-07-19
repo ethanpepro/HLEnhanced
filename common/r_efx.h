@@ -143,13 +143,13 @@ struct efx_api_s
 	void		( *R_ParticleLine )				( const float* start, const float* end, unsigned char r, unsigned char g, unsigned char b, float life );
 	void		( *R_PlayerSprites )			( int client, int modelIndex, int count, int size );
 	void		( *R_Projectile )				( float * origin, float * velocity, int modelIndex, int life, int owner, void (*hitcallback)( struct tempent_s *ent, struct pmtrace_s *ptr ) );
-	void		( *R_RicochetSound )			( float * pos );
-	void		( *R_RicochetSprite )			( float *pos, struct model_s *pmodel, float duration, float scale );
+	void		( *R_RicochetSound )			( const float* pos );
+	void		( *R_RicochetSprite )			( const float* pos, struct model_s* pmodel, float duration, float scale );
 	void		( *R_RocketFlare )				( float *pos );
 	void		( *R_RocketTrail )				( float * start, float * end, int type );
 	void		( *R_RunParticleEffect )		( float * org, float * dir, int color, int count );
 	void		( *R_ShowLine )					( float * start, float * end );
-	void		( *R_SparkEffect )				( float *pos, int count, int velocityMin, int velocityMax );
+	void		( *R_SparkEffect )				( const float* pos, int count, int velocityMin, int velocityMax );
 	void		( *R_SparkShower )				( float *pos );
 	void		( *R_SparkStreaks )				( float * pos, int count, int velocityMin, int velocityMax );
 	void		( *R_Spray )					( float * pos, float * dir, int modelIndex, int count, int speed, int spread, int rendermode );

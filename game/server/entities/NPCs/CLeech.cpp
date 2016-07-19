@@ -221,7 +221,7 @@ void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )
 		{
 			Vector dir, face;
 
-			UTIL_MakeVectorsPrivate( pev->angles, face, NULL, NULL );
+			UTIL_MakeVectorsPrivate( pev->angles, &face, nullptr, nullptr );
 			face.z = 0;
 			dir = (pEnemy->pev->origin - pev->origin);
 			dir.z = 0;

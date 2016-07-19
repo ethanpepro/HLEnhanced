@@ -57,7 +57,7 @@ void CXenTree::Spawn( void )
 	pev->framerate = RANDOM_FLOAT( 0.7, 1.4 );
 
 	Vector triggerPosition;
-	UTIL_MakeVectorsPrivate( pev->angles, triggerPosition, NULL, NULL );
+	UTIL_MakeVectorsPrivate( pev->angles, &triggerPosition, nullptr, nullptr );
 	triggerPosition = pev->origin + ( triggerPosition * 64 );
 	// Create the trigger
 	m_pTrigger = CXenTreeTrigger::TriggerCreate( this, triggerPosition );
@@ -114,7 +114,7 @@ void CXenTree::HandleAnimEvent( MonsterEvent_t *pEvent )
 			int count = UTIL_EntitiesInBox( pList, 8, m_pTrigger->pev->absmin, m_pTrigger->pev->absmax, FL_MONSTER | FL_CLIENT );
 			Vector forward;
 
-			UTIL_MakeVectorsPrivate( pev->angles, forward, NULL, NULL );
+			UTIL_MakeVectorsPrivate( pev->angles, &forward, nullptr, nullptr );
 
 			for( int i = 0; i < count; i++ )
 			{

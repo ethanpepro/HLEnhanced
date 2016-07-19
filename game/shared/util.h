@@ -115,46 +115,7 @@ inline bool FNullEnt(const edict_t* pent)	{ return pent == NULL || FNullEnt(OFFS
 inline bool FNullEnt(entvars_t* pev)		{ return pev == NULL || FNullEnt(OFFSET(pev)); }
 bool FNullEnt( const CBaseEntity* pEntity );
 
-// Testing strings for nullity
-#define iStringNull 0
-inline bool FStringNull(string_t iString)			{ return iString == iStringNull; }
-
-#define cchMapNameMost 32
-
-// All monsters need this data
-enum BloodColor
-{
-	DONT_BLEED			 = -1,
-	BLOOD_COLOR_RED		 = 247,
-	BLOOD_COLOR_YELLOW	 = 195,
-	BLOOD_COLOR_GREEN	 = BLOOD_COLOR_YELLOW,
-};
-
-enum MONSTERSTATE
-{
-	MONSTERSTATE_NONE = 0,
-	MONSTERSTATE_IDLE,
-	MONSTERSTATE_COMBAT,
-	MONSTERSTATE_ALERT,
-	MONSTERSTATE_HUNT,
-	MONSTERSTATE_PRONE,
-	MONSTERSTATE_SCRIPT,
-	MONSTERSTATE_PLAYDEAD,
-	MONSTERSTATE_DEAD
-};
-
-// Things that toggle (buttons/triggers/doors) need this
-enum TOGGLE_STATE
-{
-	TS_AT_TOP,
-	TS_AT_BOTTOM,
-	TS_GOING_UP,
-	TS_GOING_DOWN
-};
-
 // Misc useful
-inline bool FStrEq(const char*sz1, const char*sz2)
-	{ return (strcmp(sz1, sz2) == 0); }
 inline bool FClassnameIs(edict_t* pent, const char* szClassname)
 	{ return FStrEq(STRING(VARS(pent)->classname), szClassname); }
 inline bool FClassnameIs(const entvars_t* pev, const char* szClassname)
@@ -175,11 +136,13 @@ extern CBaseEntity	*UTIL_FindEntityByClassname(CBaseEntity *pStartEntity, const 
 extern CBaseEntity	*UTIL_FindEntityByTargetname(CBaseEntity *pStartEntity, const char *szName );
 extern CBaseEntity	*UTIL_FindEntityGeneric(const char *szName, Vector &vecSrc, float flRadius );
 
-// returns a CBasePlayer pointer to a player by index.  Only returns if the player is spawned and connected
-// otherwise returns nullptr
-// Index is 1 based
-// Now returns CBasePlayer - Solokiller
-extern CBasePlayer	*UTIL_PlayerByIndex( int playerIndex );
+/**
+*	Gets a CBasePlayer pointer to a player by index.
+*	Now returns CBasePlayer - Solokiller
+*	@param playerIndex Player's entity index.
+*	@return Player if the player is spawned and connected, otherwise returns nullptr.
+*/
+CBasePlayer* UTIL_PlayerByIndex( int playerIndex );
 
 /**
 *	Find a player with a case-insensitive name search.
@@ -188,20 +151,9 @@ extern CBasePlayer	*UTIL_PlayerByIndex( int playerIndex );
 */
 CBasePlayer* UTIL_FindPlayerByName( const char* pszTestName );
 
-#define UTIL_EntitiesInPVS(pent)			(*g_engfuncs.pfnEntitiesInPVS)(pent)
-extern void			UTIL_MakeVectors		(const Vector &vecAngles);
-
 // Pass in an array of pointers and an array size, it fills the array and returns the number inserted
 extern int			UTIL_MonstersInSphere( CBaseEntity **pList, int listMax, const Vector &center, float radius );
 extern int			UTIL_EntitiesInBox( CBaseEntity **pList, int listMax, const Vector &mins, const Vector &maxs, int flagMask );
-
-inline void UTIL_MakeVectorsPrivate( const Vector &vecAngles, float *p_vForward, float *p_vRight, float *p_vUp )
-{
-	g_engfuncs.pfnAngleVectors( vecAngles, p_vForward, p_vRight, p_vUp );
-}
-
-extern void			UTIL_MakeAimVectors		( const Vector &vecAngles ); // like MakeVectors, but assumes pitch isn't inverted
-extern void			UTIL_MakeInvVectors		( const Vector &vec, globalvars_t *pgv );
 
 void UTIL_SetOrigin( CBaseEntity* pEntity, const Vector& vecOrigin );
 extern void			UTIL_ParticleEffect		( const Vector &vecOrigin, const Vector &vecDirection, const unsigned int ulColor, const unsigned int ulCount );
@@ -217,7 +169,7 @@ typedef enum { ignore_glass=1, dont_ignore_glass=0 } IGNORE_GLASS;
 extern void			UTIL_TraceLine			(const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, edict_t *pentIgnore, TraceResult *ptr);
 extern void			UTIL_TraceLine			(const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, IGNORE_GLASS ignoreGlass, edict_t *pentIgnore, TraceResult *ptr);
 extern void			UTIL_TraceHull			(const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, const Hull::Hull hullNumber, edict_t *pentIgnore, TraceResult *ptr);
-extern TraceResult	UTIL_GetGlobalTrace		(void);
+TraceResult UTIL_GetGlobalTrace();
 extern void			UTIL_TraceModel			(const Vector &vecStart, const Vector &vecEnd, const Hull::Hull hullNumber, edict_t *pentModel, TraceResult *ptr);
 extern Vector UTIL_GetAimVector( const CBaseEntity* const pEntity, const float flSpeed );
 
@@ -236,9 +188,7 @@ extern void			UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int dec
 *	@param decalNumber Decal index to use.
 */
 extern void			UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber );
-extern void			UTIL_Sparks( const Vector &position );
 void DoSpark( CBaseEntity* pEntity, const Vector &location );
-extern void			UTIL_Ricochet( const Vector &position, float scale );
 
 extern void			UTIL_Remove( CBaseEntity *pEntity );
 bool UTIL_IsValidEntity( const CBaseEntity* const pEntity );
@@ -301,10 +251,13 @@ extern int BuildChangeList( LEVELLIST *pLevelList, int maxList );
 //
 // Un-comment only as needed
 //
-#define LANGUAGE_ENGLISH				0
-#define LANGUAGE_GERMAN					1
-#define LANGUAGE_FRENCH					2
-#define LANGUAGE_BRITISH				3
+enum Language
+{
+	LANGUAGE_ENGLISH	= 0,
+	LANGUAGE_GERMAN		= 1,
+	LANGUAGE_FRENCH		= 2,
+	LANGUAGE_BRITISH	= 3,
+};
 
 extern DLL_GLOBAL int			g_Language;
 

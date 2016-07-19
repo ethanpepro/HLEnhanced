@@ -361,7 +361,7 @@ void CFuncTank::TrackTarget( void )
 	{
 		bool fire = false;
 		Vector forward;
-		UTIL_MakeVectorsPrivate( pev->angles, forward, NULL, NULL );
+		UTIL_MakeVectorsPrivate( pev->angles, &forward, nullptr, nullptr );
 
 		if( pev->spawnflags & SF_TANK_LINEOFSIGHT )
 		{
@@ -561,7 +561,7 @@ void CFuncTank::ControllerPostFrame( void )
 	if( m_pController->pev->button & IN_ATTACK )
 	{
 		Vector vecForward;
-		UTIL_MakeVectorsPrivate( pev->angles, vecForward, NULL, NULL );
+		UTIL_MakeVectorsPrivate( pev->angles, &vecForward, nullptr, nullptr );
 
 		m_fireLast = gpGlobals->time - ( 1 / m_fireRate ) - 0.01;  // to make sure the gun doesn't fire too many bullets
 

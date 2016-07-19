@@ -98,6 +98,7 @@ inline void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float *pOrigin = NULL
 #define GETENTITYILLUM	(*g_engfuncs.pfnGetEntityIllum)
 #define FIND_ENTITY_IN_SPHERE		(*g_engfuncs.pfnFindEntityInSphere)
 #define FIND_CLIENT_IN_PVS			(*g_engfuncs.pfnFindClientInPVS)
+#define UTIL_EntitiesInPVS			(*g_engfuncs.pfnEntitiesInPVS)
 #define EMIT_AMBIENT_SOUND			(*g_engfuncs.pfnEmitAmbientSound)
 #define GET_MODEL_PTR				(*g_engfuncs.pfnGetModelPtr)
 #define REG_USER_MSG				(*g_engfuncs.pfnRegUserMsg)

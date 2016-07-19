@@ -679,3 +679,59 @@ Vector VecVelocityForDamage( const float flDamage )
 
 	return vec;
 }
+
+void UTIL_MakeVectors( const Vector& vecAngles )
+{
+#ifdef CLIENT_DLL
+	//This is what the engine does. - Solokiller
+	AngleVectors( vecAngles, gpGlobals->v_forward, gpGlobals->v_right, gpGlobals->v_up );
+#else
+	MAKE_VECTORS( vecAngles );
+#endif
+}
+
+#define SWAP(a,b,temp)	((temp)=(a),(a)=(b),(b)=(temp))
+
+void UTIL_MakeInvVectors( const Vector& vec, globalvars_t* pgv )
+{
+	UTIL_MakeVectors( vec );
+
+	float tmp;
+	pgv->v_right = pgv->v_right * -1;
+
+	SWAP( pgv->v_forward.y, pgv->v_right.x, tmp );
+	SWAP( pgv->v_forward.z, pgv->v_up.x, tmp );
+	SWAP( pgv->v_right.z, pgv->v_up.y, tmp );
+}
+
+void UTIL_Sparks( const Vector& position )
+{
+#ifdef CLIENT_DLL
+	//The engine uses these constants - Solokiller
+	gEngfuncs.pEfxAPI->R_SparkEffect( position, 8, -200, 200 );
+#else
+	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, position );
+		WRITE_BYTE( TE_SPARKS );
+		WRITE_COORD( position.x );
+		WRITE_COORD( position.y );
+		WRITE_COORD( position.z );
+	MESSAGE_END();
+#endif
+}
+
+void UTIL_Ricochet( const Vector& position, float scale )
+{
+#ifdef CLIENT_DLL
+	//The engine uses this sprite. - Solokiller
+	gEngfuncs.pEfxAPI->R_RicochetSprite( position, gEngfuncs.hudGetModelByIndex( gEngfuncs.pEventAPI->EV_FindModelIndex( "sprites/richo1.spr" ) ), 0.1f, scale );
+	gEngfuncs.pEfxAPI->R_RicochetSound( position );
+#else
+	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, position );
+		WRITE_BYTE( TE_ARMOR_RICOCHET );
+		WRITE_COORD( position.x );
+		WRITE_COORD( position.y );
+		WRITE_COORD( position.z );
+		WRITE_BYTE( ( int ) ( scale * 10 ) );
+	MESSAGE_END();
+#endif
+}

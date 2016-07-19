@@ -164,7 +164,7 @@ void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		{
 			Vector forward, right;
 
-			UTIL_MakeVectorsPrivate( pev->angles, forward, right, NULL );
+			UTIL_MakeVectorsPrivate( pev->angles, &forward, &right, nullptr );
 
 			Vector center = pev->origin + forward * 128;
 			Vector mins = center - Vector( 64, 64, 0 );

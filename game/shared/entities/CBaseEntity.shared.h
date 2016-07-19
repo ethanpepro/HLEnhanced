@@ -203,6 +203,15 @@ enum GibAction
 	GIB_ALWAYS	= 2,
 };
 
+// All monsters need this data
+enum BloodColor
+{
+	DONT_BLEED			= -1,
+	BLOOD_COLOR_RED		= 247,
+	BLOOD_COLOR_YELLOW	= 195,
+	BLOOD_COLOR_GREEN	= BLOOD_COLOR_YELLOW,
+};
+
 typedef void ( CBaseEntity::*BASEPTR )();
 typedef void ( CBaseEntity::*ENTITYFUNCPTR )( CBaseEntity *pOther );
 typedef void ( CBaseEntity::*USEPTR )( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );

@@ -17,13 +17,16 @@
 
 #include "archtypes.h"     // DAL
 
-// Regular version of HL
-#define INTERFACE_VERSION		140
-
 #include <stdio.h>
 #include "custom.h"
 #include "cvardef.h"
 #include "Sequence.h"
+
+// Regular version of HL
+#define INTERFACE_VERSION 140
+
+#define cchMapNameMost 32
+
 //
 // Defines entity interface between engine and DLLs.
 // This header file included by engine files and DLL files.
@@ -1438,7 +1441,7 @@ typedef struct KeyValueData_s
 typedef struct
 {
 	//TODO: use constants - Solokiller
-	char		mapName[ 32 ];
+	char		mapName[ cchMapNameMost ];
 	char		landmarkName[ 32 ];
 	edict_t	*pentLandmark;
 	Vector		vecLandmarkOrigin;
@@ -1488,7 +1491,7 @@ struct saverestore_s
 	char		szLandmarkName[20];// landmark we'll spawn near in next level
 	Vector		vecLandmarkOffset;// for landmark transitions
 	float		time;
-	char		szCurrentMapName[32];	// To check global entities
+	char		szCurrentMapName[ cchMapNameMost ];	// To check global entities
 
 } 
 #ifdef _WIN32
