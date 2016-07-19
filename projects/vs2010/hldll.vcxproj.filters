@@ -2021,5 +2021,8 @@
     <ClInclude Include="..\..\game\shared\materials\Materials.h">
       <Filter>Header Files\game\shared\materials</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\shared\GameConstants.h">
+      <Filter>Header Files\game\shared</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

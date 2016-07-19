@@ -278,6 +278,7 @@
     <ClInclude Include="..\..\game\shared\entities\weapons\CSniperRifle.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CSqueak.h" />
     <ClInclude Include="..\..\game\shared\entities\weapons\CTripmine.h" />
+    <ClInclude Include="..\..\game\shared\GameConstants.h" />
     <ClInclude Include="..\..\game\shared\materials\CMaterialsList.h" />
     <ClInclude Include="..\..\game\shared\materials\Materials.h" />
     <ClInclude Include="..\..\game\shared\materials\MaterialsConst.h" />

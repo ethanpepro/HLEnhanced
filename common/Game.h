@@ -32,4 +32,6 @@
 
 #include "cdll_dll.h"
 
+#include "GameConstants.h"
+
 #endif //COMMON_GAME_H
