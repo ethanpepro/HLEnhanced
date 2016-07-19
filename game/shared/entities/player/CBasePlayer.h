@@ -237,6 +237,8 @@ public:
 
 	void Precache() override;
 
+	void InitialSpawn();
+
 	void Spawn() override;
 	
 	Vector GetGunPosition() override;

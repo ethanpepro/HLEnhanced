@@ -195,15 +195,7 @@ void ClientPutInServer( edict_t *pEntity )
 	// Allocate a CBasePlayer for pev, and call spawn
 	auto pPlayer = GetClassPtr( ( CBasePlayer* ) &pEntity->v );
 
-	pPlayer->SetCustomDecalFrames(-1); // Assume none;
-
-	pPlayer->Spawn();
-
-	// Reset interpolation during first frame
-	pPlayer->pev->effects |= EF_NOINTERP;
-
-	pPlayer->pev->iuser1 = 0;	// disable any spec modes
-	pPlayer->pev->iuser2 = 0; 
+	pPlayer->InitialSpawn();
 }
 
 #include "voice_gamemgr.h"

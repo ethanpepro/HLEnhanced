@@ -38,7 +38,6 @@ extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL bool			gDisplayTitle;
 
-//TODO: does this work properly? - Solokiller
 bool gInitHUD = true;
 
 // This is a glorious hack to find free space when you've crouched into some solid space
@@ -133,6 +132,19 @@ void CBasePlayer::Precache()
 
 	if( gInitHUD )
 		m_fInitHUD = true;
+}
+
+void CBasePlayer::InitialSpawn()
+{
+	SetCustomDecalFrames( -1 ); // Assume none;
+
+	// Reset interpolation during first frame
+	pev->effects |= EF_NOINTERP;
+
+	pev->iuser1 = 0;	// disable any spec modes
+	pev->iuser2 = 0;
+
+	Spawn();
 }
 
 void CBasePlayer::Spawn()
