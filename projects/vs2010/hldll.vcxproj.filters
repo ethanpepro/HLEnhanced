@@ -2057,5 +2057,8 @@
     <ClInclude Include="..\..\common\UTFUtils.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\game\server\SVC.h">
+      <Filter>Header Files\game\server</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

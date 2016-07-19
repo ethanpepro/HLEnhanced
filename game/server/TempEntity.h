@@ -21,6 +21,14 @@
 */
 
 /**
+*	@see TE_BEAMPOINTS
+*/
+void BeamPoints(
+	const Vector& origin, const Vector& vecStartPos, const Vector& vecEndPos,
+	const int iSpriteModel, const int iFrame, const float flFrameRate, const float flLife, const int iWidth, const int iNoise,
+	const Vector& vecColor, const float flBrightness, const int iSpeed );
+
+/**
 *	@see TE_STREAK_SPLASH
 */
 void StreakSplash( const Vector &origin, const Vector &direction, int color, int count, int speed, int velocityRange );

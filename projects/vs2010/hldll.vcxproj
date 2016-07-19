@@ -656,6 +656,7 @@
     <ClInclude Include="..\..\game\server\ServerInterface.h" />
     <ClInclude Include="..\..\game\server\Skill.h" />
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
+    <ClInclude Include="..\..\game\server\SVC.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />
     <ClInclude Include="..\..\game\server\UserMessages.h" />
     <ClInclude Include="..\..\game\server\voice_gamemgr.h" />

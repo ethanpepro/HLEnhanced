@@ -27,6 +27,8 @@
 
 #include "shared_game_utils.h"
 
+#include "SVC.h"
+
 extern globalvars_t				*gpGlobals;
 
 // Use this instead of ALLOC_STRING on constant strings
@@ -269,13 +271,6 @@ extern DLL_GLOBAL int			g_Language;
 // func_rotating
 #define SF_BRUSH_ROTATE_INSTANT		1
 #define SF_PENDULUM_AUTO_RETURN		16
-
-#define SVC_TEMPENTITY		23
-#define SVC_INTERMISSION	30
-#define SVC_CDTRACK			32
-#define SVC_WEAPONANIM		35
-#define SVC_ROOMTYPE		37
-#define	SVC_DIRECTOR		51
 
 // Sound Utilities
 

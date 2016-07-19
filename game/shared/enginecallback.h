@@ -81,6 +81,18 @@ inline void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float *pOrigin = NULL
 #define WRITE_COORD		(*g_engfuncs.pfnWriteCoord)
 #define WRITE_STRING	(*g_engfuncs.pfnWriteString)
 #define WRITE_ENTITY	(*g_engfuncs.pfnWriteEntity)
+
+/**
+*	Writes a position vector.
+*	@param vec Position vector.
+*/
+inline void WRITE_VECTOR( const Vector& vec )
+{
+	WRITE_COORD( vec.x );
+	WRITE_COORD( vec.y );
+	WRITE_COORD( vec.z );
+}
+
 #define CVAR_REGISTER	(*g_engfuncs.pfnCVarRegister)
 #define CVAR_GET_FLOAT	(*g_engfuncs.pfnCVarGetFloat)
 #define CVAR_GET_STRING	(*g_engfuncs.pfnCVarGetString)

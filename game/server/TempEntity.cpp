@@ -17,6 +17,29 @@
 
 #include "TempEntity.h"
 
+void BeamPoints( 
+	const Vector& origin, const Vector& vecStartPos, const Vector& vecEndPos, 
+	const int iSpriteModel, const int iFrame, const float flFrameRate, const float flLife, const int iWidth, const int iNoise,
+	const Vector& vecColor, const float flBrightness, const int iSpeed )
+{
+	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, origin );
+		WRITE_BYTE( TE_BEAMPOINTS );
+		WRITE_VECTOR( vecStartPos );
+		WRITE_VECTOR( vecEndPos );
+		WRITE_SHORT( iSpriteModel );
+		WRITE_BYTE( iFrame );
+		WRITE_BYTE( ( int ) flFrameRate );
+		WRITE_BYTE( ( int ) ( flLife * 10.0 ) );
+		WRITE_BYTE( iWidth );
+		WRITE_BYTE( iNoise ); 
+		WRITE_BYTE( ( int ) vecColor.x );
+		WRITE_BYTE( ( int ) vecColor.y );
+		WRITE_BYTE( ( int ) vecColor.z );
+		WRITE_BYTE( flBrightness );
+		WRITE_BYTE( iSpeed );
+	MESSAGE_END();
+}
+
 void StreakSplash( const Vector &origin, const Vector &direction, int color, int count, int speed, int velocityRange )
 {
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, origin );
