@@ -30,6 +30,9 @@
 */
 #define DAMAGE_FOR_FALL_SPEED ( ( float ) 100 / ( PLAYER_FATAL_FALL_SPEED - PLAYER_MAX_SAFE_FALL_SPEED ) )
 
+/**
+*	Minimum impact velocity at which step sounds are played.
+*/
 #define PLAYER_MIN_BOUNCE_SPEED 200
 
 /**
@@ -40,7 +43,27 @@
 /**
 *	Fastest vertical climbing speed possible.
 */
-#define	MAX_CLIMB_SPEED 200
+#define	CLIMB_MAX_SPEED 200
+
+/**
+*	How many frames in between screen shakes when climbing.
+*/
+#define CLIMB_SHAKE_FREQUENCY 22
+
+/**
+*	Climbing deceleration rate.
+*/
+#define	CLIMB_SPEED_DEC 15
+
+/**
+*	How far to 'punch' client X axis when climbing.
+*/
+#define	CLIMB_PUNCH_X -7
+
+/**
+*	How far to 'punch' client Z axis when climbing.
+*/
+#define CLIMB_PUNCH_Z 7
 
 /**
 *	How fast we longjump.
@@ -51,6 +74,47 @@
 *	Minimum horizontal velocity that a player must be moving at before step sounds are played.
 */
 #define PLAYER_STEP_SOUND_SPEED 220
+
+/**
+*	Delay between geiger updates.
+*/
+#define PLAYER_GEIGERDELAY 0.25
+
+/**
+*	Armor Takes 80% of the damage.
+*/
+#define PLAYER_ARMOR_RATIO 0.2
+
+/**
+*	Each Point of Armor is work 1/x points of health.
+*/
+#define PLAYER_ARMOR_BONUS 0.5
+
+/**
+*	Lung full of air lasts this many seconds.
+*/
+#define PLAYER_SWIM_AIRTIME 12
+
+/**
+*	The radius around the player to search for entities to use.
+*/
+#define	PLAYER_USE_SEARCH_RADIUS ( ( float ) 64 )
+
+/**
+*	Time between suit playback events.
+*/
+#define PLAYER_SUITUPDATETIME 3.5
+
+/**
+*	Suit play queue is empty, don't delay too long before playback.
+*/
+#define PLAYER_SUITFIRSTUPDATETIME 0.1
+
+#define	SOUND_FLASHLIGHT_ON		"items/flashlight1.wav"
+#define	SOUND_FLASHLIGHT_OFF	"items/flashlight1.wav"
+
+#define	FLASH_DRAIN_TIME	 1.2 //100 units/3 minutes
+#define	FLASH_CHARGE_TIME	 0.2 // 100 units/20 seconds  (seconds per unit)
 
 /**
 *	@defgroup AutoAimDegrees AutoAim Degrees
@@ -81,6 +145,29 @@
 #define AUTOAIM_8DEGREES	0.13917310096007
 #define AUTOAIM_9DEGREES	0.15643446504023
 #define AUTOAIM_10DEGREES	0.17364817766690
+
+/** @} */
+
+/**
+*	@defgroup DotDegrees Dot Product Degrees
+*
+*	Dot product results for vectors that have the given amount of degrees between them.
+*
+*	@{
+*/
+#define DOT_1DEGREE   0.9998476951564
+#define DOT_2DEGREE   0.9993908270191
+#define DOT_3DEGREE   0.9986295347546
+#define DOT_4DEGREE   0.9975640502598
+#define DOT_5DEGREE   0.9961946980917
+#define DOT_6DEGREE   0.9945218953683
+#define DOT_7DEGREE   0.9925461516413
+#define DOT_8DEGREE   0.9902680687416
+#define DOT_9DEGREE   0.9876883405951
+#define DOT_10DEGREE  0.9848077530122
+#define DOT_15DEGREE  0.9659258262891
+#define DOT_20DEGREE  0.9396926207859
+#define DOT_25DEGREE  0.9063077870367
 
 /** @} */
 

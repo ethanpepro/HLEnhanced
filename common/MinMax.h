@@ -10,4 +10,12 @@
 using std::min;
 using std::max;
 
+//C++17 will have std::clamp, so make sure it matches the function declaration. - Solokiller
+//Note: std::clamp will return const ref, which can produce dangling references. This version returns a copy.
+template<typename T>
+T clamp( const T& val, const T& min, const T& max )
+{
+	return ( ( val > max ) ? max : ( ( val < min ) ? min : val ) );
+}
+
 #endif //COMMON_MINMAX_H

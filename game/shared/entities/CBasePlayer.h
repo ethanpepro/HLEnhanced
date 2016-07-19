@@ -17,16 +17,43 @@
 
 #include "materials/MaterialsConst.h"
 
-//
-// Player PHYSICS FLAGS bits
-//
-#define		PFLAG_ONLADDER		( 1<<0 )
-#define		PFLAG_ONSWING		( 1<<0 )
-#define		PFLAG_ONTRAIN		( 1<<1 )
-#define		PFLAG_ONBARNACLE	( 1<<2 )
-#define		PFLAG_DUCKING		( 1<<3 )		// In the process of ducking, but totally squatted yet
-#define		PFLAG_USING			( 1<<4 )		// Using a continuous entity
-#define		PFLAG_OBSERVER		( 1<<5 )		// player is locked in stationary cam mode. Spectators can move, observers can't.
+/**
+*	Player PHYSICS FLAGS bits
+*/
+enum PhysicsFlag
+{
+	PFLAG_ONLADDER		= 1 << 0,
+	PFLAG_ONSWING		= 1 << 0,
+	PFLAG_ONTRAIN		= 1 << 1,
+	PFLAG_ONBARNACLE	= 1 << 2,
+
+	/**
+	*	In the process of ducking, but totally squatted yet.
+	*/
+	PFLAG_DUCKING		= 1 << 3,
+
+	/**
+	*	Using a continuous entity.
+	*/
+	PFLAG_USING			= 1 << 4,
+
+	/**
+	*	Player is locked in stationary cam mode. Spectators can move, observers can't.
+	*/
+	PFLAG_OBSERVER		= 1 << 5,
+};
+
+enum TrainFlag
+{
+	TRAIN_ACTIVE	= 0x80,
+	TRAIN_NEW		= 0xc0,
+	TRAIN_OFF		= 0x00,
+	TRAIN_NEUTRAL	= 0x01,
+	TRAIN_SLOW		= 0x02,
+	TRAIN_MEDIUM	= 0x03,
+	TRAIN_FAST		= 0x04,
+	TRAIN_BACK		= 0x05,
+};
 
 //
 // generic player
@@ -42,22 +69,22 @@ enum SuitUpdateType
 	SUIT_SENTENCE	= 0
 };
 
-#define	SUIT_REPEAT_OK		0
-#define SUIT_NEXT_IN_30SEC	30
-#define SUIT_NEXT_IN_1MIN	60
-#define SUIT_NEXT_IN_5MIN	300
-#define SUIT_NEXT_IN_10MIN	600
-#define SUIT_NEXT_IN_30MIN	1800
-#define SUIT_NEXT_IN_1HOUR	3600
+enum
+{
+	SUIT_REPEAT_OK		= 0,
+	SUIT_NEXT_IN_30SEC	= 30,
+	SUIT_NEXT_IN_1MIN	= 60,
+	SUIT_NEXT_IN_5MIN	= 300,
+	SUIT_NEXT_IN_10MIN	= 600,
+	SUIT_NEXT_IN_30MIN	= 1800,
+	SUIT_NEXT_IN_1HOUR	= 3600,
+};
 
 #define CSUITNOREPEAT		32
 
-#define	SOUND_FLASHLIGHT_ON		"items/flashlight1.wav"
-#define	SOUND_FLASHLIGHT_OFF	"items/flashlight1.wav"
-
 #define TEAM_NAME_LENGTH	16
 
-typedef enum
+enum PLAYER_ANIM
 {
 	PLAYER_IDLE,
 	PLAYER_WALK,
@@ -65,7 +92,7 @@ typedef enum
 	PLAYER_SUPERJUMP,
 	PLAYER_DIE,
 	PLAYER_ATTACK1,
-} PLAYER_ANIM;
+};
 
 #define MAX_ID_RANGE 2048
 #define SBAR_STRING_SIZE 128

@@ -50,8 +50,6 @@
 #include "entities/effects/CGib.h"
 #include "entities/spawnpoints/CBaseSpawnPoint.h"
 
-// #define DUCKFIX
-
 extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL	bool		g_fDrawLines;
@@ -64,18 +62,6 @@ bool gInitHUD = true;
 
 // the world node graph
 extern CGraph	WorldGraph;
-
-#define TRAIN_ACTIVE	0x80 
-#define TRAIN_NEW		0xc0
-#define TRAIN_OFF		0x00
-#define TRAIN_NEUTRAL	0x01
-#define TRAIN_SLOW		0x02
-#define TRAIN_MEDIUM	0x03
-#define TRAIN_FAST		0x04 
-#define TRAIN_BACK		0x05
-
-#define	FLASH_DRAIN_TIME	 1.2 //100 units/3 minutes
-#define	FLASH_CHARGE_TIME	 0.2 // 100 units/20 seconds  (seconds per unit)
 
 int giPrecacheGrunt = 0;
 int gmsgShake = 0;
@@ -324,9 +310,6 @@ void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 	etc are implemented with subsequent calls to OnTakeDamage using DMG_GENERIC.
 */
 
-#define ARMOR_RATIO	 0.2	// Armor Takes 80% of the damage
-#define ARMOR_BONUS  0.5	// Each Point of Armor is work 1/x points of health
-
 void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	//The inflictor must be valid. - Solokiller
@@ -343,8 +326,8 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 	float flBonus;
 	float flHealthPrev = pev->health;
 
-	flBonus = ARMOR_BONUS;
-	flRatio = ARMOR_RATIO;
+	flBonus = PLAYER_ARMOR_BONUS;
+	flRatio = PLAYER_ARMOR_RATIO;
 
 	if ( ( newInfo.GetDamageTypes() & DMG_BLAST ) && g_pGameRules->IsMultiplayer() )
 	{
@@ -1031,8 +1014,6 @@ void CBasePlayer::TabulateAmmo()
 WaterMove
 ============
 */
-#define AIRTIME	12		// lung full of air lasts this many seconds
-
 void CBasePlayer::WaterMove()
 {
 	int air;
@@ -1053,7 +1034,7 @@ void CBasePlayer::WaterMove()
 		else if (pev->air_finished < gpGlobals->time + 9)
 			EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/pl_wade2.wav", 1, ATTN_NORM);
 
-		pev->air_finished = gpGlobals->time + AIRTIME;
+		pev->air_finished = gpGlobals->time + PLAYER_SWIM_AIRTIME;
 		pev->dmg = 2;
 
 		// if we took drowning damage, give it back slowly
@@ -1113,7 +1094,7 @@ void CBasePlayer::WaterMove()
 	// make bubbles
 
 	air = (int)(pev->air_finished - gpGlobals->time);
-	if (!RANDOM_LONG(0,0x1f) && RANDOM_LONG(0,AIRTIME-1) >= air)
+	if (!RANDOM_LONG(0,0x1f) && RANDOM_LONG(0, PLAYER_SWIM_AIRTIME -1) >= air)
 	{
 		switch (RANDOM_LONG(0,3))
 			{
@@ -1371,7 +1352,6 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 // 
 // PlayerUse - handles USE keypress
 //
-#define	PLAYER_SEARCH_RADIUS	(float)64
 
 void CBasePlayer::PlayerUse ( void )
 {
@@ -1425,7 +1405,7 @@ void CBasePlayer::PlayerUse ( void )
 
 	UTIL_MakeVectors ( pev->v_angle );// so we know which way we are facing
 	
-	while ((pObject = UTIL_FindEntityInSphere( pObject, pev->origin, PLAYER_SEARCH_RADIUS )) != NULL)
+	while ((pObject = UTIL_FindEntityInSphere( pObject, pev->origin, PLAYER_USE_SEARCH_RADIUS )) != NULL)
 	{
 
 		if (pObject->ObjectCaps() & (FCAP_IMPULSE_USE | FCAP_CONTINUOUS_USE | FCAP_ONOFF_USE))
@@ -1717,19 +1697,6 @@ void CBasePlayer::UpdateStatusBar()
 	}
 }
 
-
-
-
-
-
-
-
-
-#define CLIMB_SHAKE_FREQUENCY	22	// how many frames in between screen shakes when climbing
-#define	CLIMB_SPEED_DEC			15	// climbing deceleration rate
-#define	CLIMB_PUNCH_X			-7  // how far to 'punch' client X axis when climbing
-#define CLIMB_PUNCH_Z			7	// how far to 'punch' client Z axis when climbing
-
 void CBasePlayer::PreThink(void)
 {
 	int buttonsChanged = (m_afButtonLast ^ pev->button);	// These buttons have changed this frame
@@ -1867,6 +1834,7 @@ void CBasePlayer::PreThink(void)
 		pev->velocity = g_vecZero;
 	}
 }
+//TODO: move timebased damage doc elsewhere - Solokiller
 /* Time based Damage works as follows: 
 	1) There are several types of timebased damage:
 
@@ -2111,8 +2079,6 @@ Things powered by the battery
 
 // if in range of radiation source, ping geiger counter
 
-#define GEIGERDELAY 0.25
-
 void CBasePlayer :: UpdateGeigerCounter( void )
 {
 	byte range;
@@ -2121,7 +2087,7 @@ void CBasePlayer :: UpdateGeigerCounter( void )
 	if (gpGlobals->time < m_flgeigerDelay)
 		return;
 
-	m_flgeigerDelay = gpGlobals->time + GEIGERDELAY;
+	m_flgeigerDelay = gpGlobals->time + PLAYER_GEIGERDELAY;
 		
 	// send range to radition source to client
 
@@ -2149,9 +2115,6 @@ CheckSuitUpdate
 Play suit update if it's time
 ================
 */
-
-#define SUITUPDATETIME	3.5
-#define SUITFIRSTUPDATETIME 0.1
 
 void CBasePlayer::CheckSuitUpdate()
 {
@@ -2201,7 +2164,7 @@ void CBasePlayer::CheckSuitUpdate()
 				// play sentence group
 				EMIT_GROUPID_SUIT(ENT(pev), -isentence);
 			}
-		m_flSuitUpdate = gpGlobals->time + SUITUPDATETIME;
+		m_flSuitUpdate = gpGlobals->time + PLAYER_SUITUPDATETIME;
 		}
 		else
 			// queue is empty, don't check 
@@ -2301,9 +2264,9 @@ void CBasePlayer::SetSuitUpdate(char *name, const SuitUpdateType updateType, int
 	{
 		if (m_flSuitUpdate == 0)
 			// play queue is empty, don't delay too long before playback
-			m_flSuitUpdate = gpGlobals->time + SUITFIRSTUPDATETIME;
+			m_flSuitUpdate = gpGlobals->time + PLAYER_SUITFIRSTUPDATETIME;
 		else 
-			m_flSuitUpdate = gpGlobals->time + SUITUPDATETIME; 
+			m_flSuitUpdate = gpGlobals->time + PLAYER_SUITUPDATETIME;
 	}
 
 }
@@ -3664,8 +3627,7 @@ void CBasePlayer :: UpdateClientData( void )
 
 	if (pev->health != m_iClientHealth)
 	{
-#define clamp( val, min, max ) ( ((val) > (max)) ? (max) : ( ((val) < (min)) ? (min) : (val) ) )
-		int iHealth = clamp( pev->health, 0, 255 );  // make sure that no negative health values are sent
+		int iHealth = clamp( static_cast<int>( pev->health ), 0, 255 );  // make sure that no negative health values are sent
 		if ( pev->health > 0.0f && pev->health <= 1.0f )
 			iHealth = 1;
 
@@ -3890,21 +3852,6 @@ void CBasePlayer::EnableControl(const bool fControl)
 		pev->flags &= ~FL_FROZEN;
 
 }
-
-
-#define DOT_1DEGREE   0.9998476951564
-#define DOT_2DEGREE   0.9993908270191
-#define DOT_3DEGREE   0.9986295347546
-#define DOT_4DEGREE   0.9975640502598
-#define DOT_5DEGREE   0.9961946980917
-#define DOT_6DEGREE   0.9945218953683
-#define DOT_7DEGREE   0.9925461516413
-#define DOT_8DEGREE   0.9902680687416
-#define DOT_9DEGREE   0.9876883405951
-#define DOT_10DEGREE  0.9848077530122
-#define DOT_15DEGREE  0.9659258262891
-#define DOT_20DEGREE  0.9396926207859
-#define DOT_25DEGREE  0.9063077870367
 
 //=========================================================
 // Autoaim

@@ -1774,7 +1774,7 @@ void PM_LadderMove( physent_t *pLadder )
 	{
 		float forward = 0, right = 0;
 		Vector vpn, v_right;
-		float flSpeed = MAX_CLIMB_SPEED;
+		float flSpeed = CLIMB_MAX_SPEED;
 
 		// they shouldn't be able to move faster than their maxspeed
 		if ( flSpeed > pmove->maxspeed )
@@ -1853,7 +1853,7 @@ void PM_LadderMove( physent_t *pLadder )
 				VectorMA( lateral, -normal, tmp, pmove->velocity );
 				if ( onFloor && normal > 0 )	// On ground moving away from the ladder
 				{
-					VectorMA( pmove->velocity, MAX_CLIMB_SPEED, trace.plane.normal, pmove->velocity );
+					VectorMA( pmove->velocity, CLIMB_MAX_SPEED, trace.plane.normal, pmove->velocity );
 				}
 				//pev->velocity = lateral - (CrossProduct( trace.vecPlaneNormal, perp ) * normal);
 			}
