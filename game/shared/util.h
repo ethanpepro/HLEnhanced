@@ -29,6 +29,8 @@
 
 #include "SVC.h"
 
+#include "sound/Sound.h"
+
 extern globalvars_t				*gpGlobals;
 
 // Use this instead of ALLOC_STRING on constant strings
@@ -263,26 +265,11 @@ enum Language
 
 extern DLL_GLOBAL int			g_Language;
 
-#define SND_SPAWNING		(1<<8)		// duplicated in protocol.h we're spawing, used in some cases for ambients 
-#define SND_STOP			(1<<5)		// duplicated in protocol.h stop sound
-#define SND_CHANGE_VOL		(1<<6)		// duplicated in protocol.h change sound vol
-#define SND_CHANGE_PITCH	(1<<7)		// duplicated in protocol.h change sound pitch
-
 // func_rotating
 #define SF_BRUSH_ROTATE_INSTANT		1
 #define SF_PENDULUM_AUTO_RETURN		16
 
 // Sound Utilities
-
-#include "sound/Sound.h"
-
-#define PRECACHE_SOUND_ARRAY( a ) \
-	{ for (int i = 0; i < ARRAYSIZE( a ); i++ ) PRECACHE_SOUND((char *) a [i]); }
-
-#define EMIT_SOUND_ARRAY_DYN( chan, array ) \
-	EMIT_SOUND_DYN ( ENT(pev), chan , array [ RANDOM_LONG(0,ARRAYSIZE( array )-1) ], 1.0, ATTN_NORM, 0, RANDOM_LONG(95,105) ); 
-
-#define RANDOM_SOUND_ARRAY( array ) (array) [ RANDOM_LONG(0,ARRAYSIZE( (array) )-1) ]
 
 #define PLAYBACK_EVENT( flags, who, index ) PLAYBACK_EVENT_FULL( flags, who, index, 0, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, 0, 0, 0, 0 );
 #define PLAYBACK_EVENT_DELAY( flags, who, index, delay ) PLAYBACK_EVENT_FULL( flags, who, index, delay, (float *)&g_vecZero, (float *)&g_vecZero, 0.0, 0.0, 0, 0, 0, 0 );
