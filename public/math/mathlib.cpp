@@ -89,6 +89,26 @@ void VectorAngles( const float *forward, float *angles )
 	angles[ 2 ] = 0;
 }
 
+float UTIL_VecToYaw( const Vector& vec )
+{
+	//Extracted from VectorAngles. - Solokiller
+	float yaw;
+
+	if( vec[ 1 ] == 0 && vec[ 0 ] == 0 )
+	{
+		yaw = 0;
+	}
+	else
+	{
+		//Needs to floor the result to match the engine.
+		yaw = static_cast<float>( floor( atan2( vec[ 1 ], vec[ 0 ] ) * 180 / M_PI ) );
+		if( yaw < 0 )
+			yaw += 360;
+	}
+
+	return yaw;
+}
+
 void AngleVectors( const Vector& angles, Vector* forward, Vector* right, Vector* up )
 {
 	float		angle;

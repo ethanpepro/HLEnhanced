@@ -685,13 +685,6 @@ void UTIL_SetSize( CBaseEntity* pEntity, const Vector& vecMin, const Vector& vec
 	SET_SIZE( pEntity->edict(), vecMin, vecMax );
 }
 	
-	
-float UTIL_VecToYaw( const Vector &vec )
-{
-	return VEC_TO_YAW(vec);
-}
-
-
 void UTIL_SetOrigin( CBaseEntity* pEntity, const Vector& vecOrigin )
 {
 	if ( auto pEnt = pEntity->edict() )

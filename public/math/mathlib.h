@@ -54,6 +54,13 @@ void VectorScale( const float *in, float scale, float *out );
 void VectorInverse( float *v );
 void VectorAngles( const float *forward, float *angles );
 
+/**
+*	Converts a directional vector to a yaw value.
+*	@param vec Directional vector.
+*	@return Yaw.
+*/
+float UTIL_VecToYaw( const Vector& vec );
+
 void AngleVectors( const Vector& angles, Vector* forward, Vector* right, Vector* up );
 
 /**

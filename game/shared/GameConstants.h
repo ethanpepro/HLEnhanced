@@ -174,4 +174,34 @@
 
 /** @} */
 
+/**
+*	@defgroup ViewFields View Fields
+*
+*	Dot products for view cone checking
+*
+*	@{
+*/
+
+/**
+*	+-180 degrees
+*/
+#define VIEW_FIELD_FULL ( ( float ) -1.0 )
+
+/**
+*	+-135 degrees 0.1 // +-85 degrees, used for full FOV checks
+*/
+#define	VIEW_FIELD_WIDE ( ( float ) -0.7 )
+
+/**
+*	+-45 degrees, more narrow check used to set up ranged attacks
+*/
+#define	VIEW_FIELD_NARROW ( ( float ) 0.7 )
+
+/**
+*	+-25 degrees, more narrow check used to set up ranged attacks
+*/
+#define	VIEW_FIELD_ULTRA_NARROW	( ( float ) 0.9 )
+
+/** @} */
+
 #endif //GAME_SHARED_GAMECONSTANTS_H
