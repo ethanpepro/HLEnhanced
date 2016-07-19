@@ -26,6 +26,7 @@
 #include "cbase.h"
 #include "CBasePlayer.h"
 #include "Weapons.h"
+#include "entities/CCorpse.h"
 #include "entities/CSoundEnt.h"
 #include "entities/NPCs/Monsters.h"
 #include "entities/spawnpoints/CBaseSpawnPoint.h"
@@ -237,6 +238,26 @@ void CBasePlayer::Spawn()
 	m_flNextChatTime = gpGlobals->time;
 
 	g_pGameRules->PlayerSpawn( this );
+}
+
+//Called by PlayerDeadThink
+void CBasePlayer::PlayerRespawn( const bool bCopyCorpse )
+{
+	if( gpGlobals->coop || gpGlobals->deathmatch )
+	{
+		if( bCopyCorpse )
+		{
+			// make a copy of the dead body for appearances sake
+			CopyToBodyQue( this );
+		}
+
+		// respawn player
+		Spawn();
+	}
+	else
+	{       // restart the entire server
+		SERVER_COMMAND( "reload\n" );
+	}
 }
 
 Vector CBasePlayer::GetGunPosition()

@@ -67,23 +67,6 @@ extern cvar_t allow_spectators;
 extern int g_teamplay;
 
 /*
- * used by kill command and disconnect command
- * ROBIN: Moved here from player.cpp, to allow multiple player models
- */
-void set_suicide_frame( CBaseEntity* pPlayer )
-{       
-	if( !FStrEq( STRING( pPlayer->pev->model ), "models/player.mdl" ) )
-		return; // allready gibbed
-
-//	pPlayer->pev->frame		= $deatha11;
-	pPlayer->pev->solid		= SOLID_NOT;
-	pPlayer->pev->movetype	= MOVETYPE_TOSS;
-	pPlayer->pev->deadflag	= DEAD_DEAD;
-	pPlayer->pev->nextthink	= -1;
-}
-
-
-/*
 ===========
 ClientConnect
 
@@ -141,27 +124,6 @@ void ClientDisconnect( edict_t* pEdict )
 	g_pGameRules->ClientDisconnected( pEdict );
 }
 
-
-// called by ClientKill and DeadThink
-void respawn( CBaseEntity* pEntity, const bool bCopyCorpse )
-{
-	if( gpGlobals->coop || gpGlobals->deathmatch )
-	{
-		if( bCopyCorpse )
-		{
-			// make a copy of the dead body for appearances sake
-			CopyToBodyQue( pEntity );
-		}
-
-		// respawn player
-		pEntity->Spawn();
-	}
-	else
-	{       // restart the entire server
-		SERVER_COMMAND( "reload\n" );
-	}
-}
-
 /*
 ============
 ClientKill
@@ -173,20 +135,16 @@ GLOBALS ASSUMED SET:  g_ulModelIndexPlayer
 */
 void ClientKill( edict_t *pEntity )
 {
-	auto Player = ( CBasePlayer* ) CBasePlayer::Instance( &pEntity->v );
+	auto pPlayer = ( CBasePlayer* ) CBasePlayer::Instance( &pEntity->v );
 
-	if ( Player->m_fNextSuicideTime > gpGlobals->time )
-		return;  // prevent suiciding too ofter
+	if ( pPlayer->m_fNextSuicideTime > gpGlobals->time )
+		return;  // prevent suiciding too often
 
-	Player->m_fNextSuicideTime = gpGlobals->time + 1;  // don't let them suicide for 5 seconds after suiciding
+	pPlayer->m_fNextSuicideTime = gpGlobals->time + 1;  // don't let them suicide for 5 seconds after suiciding
 
 	// have the player kill themself
-	Player->pev->health = 0;
-	Player->Killed( CTakeDamageInfo( Player, 0, 0 ), GIB_NEVER );
-
-//	pev->modelindex = g_ulModelIndexPlayer;
-//	pev->frags -= 2;		// extra penalty
-//	respawn( pev );
+	pPlayer->pev->health = 0;
+	pPlayer->Killed( CTakeDamageInfo( pPlayer, 0, 0 ), GIB_NEVER );
 }
 
 /*

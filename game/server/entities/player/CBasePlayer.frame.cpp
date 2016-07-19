@@ -27,7 +27,6 @@
 
 #include "gamerules/GameRules.h"
 #include "Server.h"
-#include "client.h"
 
 #include "com_model.h"
 
@@ -60,8 +59,8 @@ void CBasePlayer::PreThink()
 {
 	const int buttonsChanged = ( m_afButtonLast ^ pev->button );	// These buttons have changed this frame
 
-																	// Debounced button codes for pressed/released
-																	// UNDONE: Do we need auto-repeat?
+	// Debounced button codes for pressed/released
+	// UNDONE: Do we need auto-repeat?
 	m_afButtonPressed = buttonsChanged & pev->button;		// The changed ones still down are "pressed"
 	m_afButtonReleased = buttonsChanged & ( ~pev->button );	// The ones not down are "released"
 
@@ -441,7 +440,7 @@ void CBasePlayer::PlayerDeathThink()
 
 	//ALERT(at_console, "Respawn\n");
 
-	respawn( this, !( m_afPhysicsFlags & PFLAG_OBSERVER ) );// don't copy a corpse if we're in deathcam.
+	PlayerRespawn( !( m_afPhysicsFlags & PFLAG_OBSERVER ) );// don't copy a corpse if we're in deathcam.
 	pev->nextthink = -1;
 }
 
