@@ -147,7 +147,8 @@ void CWorld::Precache( void )
 
 	// init texture type array from materials.txt
 
-	TEXTURETYPE_Init();
+	//TODO: if custom materials were to be added, init them here. - Solokiller
+	//TEXTURETYPE_Init();
 
 
 	// the area based ambient sounds MUST be the first precache_sounds

@@ -11,8 +11,21 @@ class CMaterialsList final
 public:
 	CMaterialsList() = default;
 
+	/**
+	*	Loads materials data from a file.
+	*	@param pszFileName Name of the file to load.
+	*	@return true on success, false otherwise.
+	*/
 	bool LoadFromFile( const char* const pszFileName );
 
+	/**
+	*	Given texture name, find texture type.
+	*	If not found, return type 'concrete'.
+	*
+	*	NOTE: this routine should ONLY be called if the current texture under the player changes!
+	*	@param pszName Texture name.
+	*	@param Texture type.
+	*/
 	char FindTextureType( const char* const pszName ) const;
 
 private:
