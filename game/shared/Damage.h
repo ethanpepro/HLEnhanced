@@ -63,4 +63,110 @@ enum Damage
 	DMG_CONCUSS				= DMG_SONIC,
 };
 
+// NOTE: tweak these values based on gameplay feedback:
+
+/**
+*	Number of 2 second intervals to take damage.
+*/
+#define PARALYZE_DURATION	2
+
+/**
+*	Damage to take each 2 second interval.
+*/
+#define PARALYZE_DAMAGE		1.0
+
+#define NERVEGAS_DURATION	2
+#define NERVEGAS_DAMAGE		5.0
+
+#define POISON_DURATION		5
+#define POISON_DAMAGE		2.0
+
+#define RADIATION_DURATION	2
+#define RADIATION_DAMAGE	1.0
+
+#define ACID_DURATION		2
+#define ACID_DAMAGE			5.0
+
+#define SLOWBURN_DURATION	2
+#define SLOWBURN_DAMAGE		1.0
+
+#define SLOWFREEZE_DURATION	2
+#define SLOWFREEZE_DAMAGE	1.0
+
+/**
+*	Time based Damage works as follows:
+*	1) There are several types of timebased damage:
+*	
+*	DMG_PARALYZE
+*	DMG_NERVEGAS
+*	DMG_POISON
+*	DMG_RADIATION
+*	DMG_DROWNRECOVER
+*	DMG_ACID
+*	DMG_SLOWBURN
+*	DMG_SLOWFREEZE
+*	
+*	2) A new hit inflicting tbd restarts the tbd counter - each monster has an 8bit counter,
+*	per damage type. The counter is decremented every second, so the maximum time
+*	an effect will last is 255/60 = 4.25 minutes.  Of course, staying within the radius
+*	of a damaging effect like fire, nervegas, radiation will continually reset the counter to max.
+*	
+*	3) Every second that a tbd counter is running, the player takes damage.  The damage
+*	is determined by the type of tdb.
+*	Paralyze		- 1/2 movement rate, 30 second duration.
+*	Nervegas		- 5 points per second, 16 second duration = 80 points max dose.
+*	Poison			- 2 points per second, 25 second duration = 50 points max dose.
+*	Radiation		- 1 point per second, 50 second duration = 50 points max dose.
+*	Drown			- 5 points per second, 2 second duration.
+*	Acid/Chemical	- 5 points per second, 10 second duration = 50 points max.
+*	Burn			- 10 points per second, 2 second duration.
+*	Freeze			- 3 points per second, 10 second duration = 30 points max.
+*	
+*	4) Certain actions or countermeasures counteract the damaging effects of tbds:
+*	
+*	Armor/Heater/Cooler - Chemical(acid),burn, freeze all do damage to armor power, then to body
+*	- recharged by suit recharger
+*	Air In Lungs		- drowning damage is done to air in lungs first, then to body
+*						- recharged by poking head out of water
+*						- 10 seconds if swiming fast
+*	Air In SCUBA		- drowning damage is done to air in tanks first, then to body
+*						- 2 minutes in tanks. Need new tank once empty.
+*	Radiation Syringe	- Each syringe full provides protection vs one radiation dosage
+*	Antitoxin Syringe	- Each syringe full provides protection vs one poisoning (nervegas or poison).
+*	Health kit			- Immediate stop to acid/chemical, fire or freeze damage.
+*	Radiation Shower	- Immediate stop to radiation damage, acid/chemical or fire damage.
+*
+*	If player is taking time based damage, continue doing damage to player -
+*	this simulates the effect of being poisoned, gassed, dosed with radiation etc -
+*	anything that continues to do damage even after the initial contact stops.
+*	Update all time based damage counters, and shut off any that are done.
+*	
+*	The m_bitsDamageType bit MUST be set if any damage is to be taken.
+*	This routine will detect the initial on value of the m_bitsDamageType
+*	and init the appropriate counter.  Only processes damage every second.
+*
+*	PARALYZE_DURATION
+*	PARALYZE_DAMAGE
+*	
+*	NERVEGAS_DURATION
+*	NERVEGAS_DAMAGE
+*	
+*	POISON_DURATION
+*	POISON_DAMAGE
+*	
+*	RADIATION_DURATION
+*	RADIATION_DAMAGE
+*	
+*	ACID_DURATION
+*	ACID_DAMAGE
+*	
+*	SLOWBURN_DURATION
+*	SLOWBURN_DAMAGE
+*	
+*	SLOWFREEZE_DURATION
+*	SLOWFREEZE_DAMAGE
+*
+*	@see CBasePlayer::CheckTimeBasedDamage()
+*/
+
 #endif //GAME_SHARED_DAMAGE_H

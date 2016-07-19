@@ -45,36 +45,6 @@ class CSquadMonster;
 */
 #define	GIB_HEALTH_VALUE	-30
 
-// NOTE: tweak these values based on gameplay feedback:
-
-/**
-*	Number of 2 second intervals to take damage.
-*/
-#define PARALYZE_DURATION	2
-
-/**
-*	Damage to take each 2 second interval.
-*/
-#define PARALYZE_DAMAGE		1.0
-
-#define NERVEGAS_DURATION	2
-#define NERVEGAS_DAMAGE		5.0
-
-#define POISON_DURATION		5
-#define POISON_DAMAGE		2.0
-
-#define RADIATION_DURATION	2
-#define RADIATION_DAMAGE	1.0
-
-#define ACID_DURATION		2
-#define ACID_DAMAGE			5.0
-
-#define SLOWBURN_DURATION	2
-#define SLOWBURN_DAMAGE		1.0
-
-#define SLOWFREEZE_DURATION	2
-#define SLOWFREEZE_DAMAGE	1.0
-
 /**
 *	Tracers fire every 4 bullets
 */
