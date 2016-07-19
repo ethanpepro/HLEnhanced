@@ -1116,6 +1116,9 @@
     <ClCompile Include="..\..\game\server\UserMessages.cpp">
       <Filter>Source Files\game\server</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\common\UTFUtils.cpp">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\engine\eiface.h">
@@ -2050,6 +2053,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\UserMessages.h">
       <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\UTFUtils.h">
+      <Filter>Header Files\common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

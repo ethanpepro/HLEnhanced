@@ -104,6 +104,7 @@
     <ClCompile Include="..\..\common\CHashStringPool.cpp" />
     <ClCompile Include="..\..\common\CPlane.cpp" />
     <ClCompile Include="..\..\common\Platform.cpp" />
+    <ClCompile Include="..\..\common\UTFUtils.cpp" />
     <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\ASCGlobalVars.cpp" />
     <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\ASGameRules.cpp" />
     <ClCompile Include="..\..\game\server\Angelscript\ScriptAPI\CASEngine.cpp" />
@@ -403,6 +404,7 @@
     <ClInclude Include="..\..\common\MinMax.h" />
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\common\StringUtils.h" />
+    <ClInclude Include="..\..\common\UTFUtils.h" />
     <ClInclude Include="..\..\engine\eiface.h" />
     <ClInclude Include="..\..\engine\server\Server.h" />
     <ClInclude Include="..\..\game\server\Angelscript\ScriptAPI\ASCGlobalVars.h" />
