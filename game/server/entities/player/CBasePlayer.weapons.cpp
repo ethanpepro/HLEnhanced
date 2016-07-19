@@ -24,10 +24,6 @@
 #include "Server.h"
 #include "ServerInterface.h"
 
-extern int gmsgCurWeapon;
-extern int gmsgAmmoPickup;
-extern int gmsgAmmoX;
-
 //Wasn't initialized - Solokiller
 bool DLL_GLOBAL gEvilImpulse101 = false;
 

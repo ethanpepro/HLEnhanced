@@ -38,4 +38,6 @@ class CSound;
 
 #include "entities/CWorld.h"
 
+#include "UserMessages.h"
+
 #endif //CBASE_H

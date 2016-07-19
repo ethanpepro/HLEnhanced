@@ -7,8 +7,6 @@
 
 #include "CItemLongJump.h"
 
-extern int gmsgItemPickup;
-
 LINK_ENTITY_TO_CLASS( item_longjump, CItemLongJump );
 
 void CItemLongJump::Spawn( void )

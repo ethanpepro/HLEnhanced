@@ -359,6 +359,7 @@
     <ClCompile Include="..\..\game\server\Skill.cpp" />
     <ClCompile Include="..\..\game\server\sound\Sound.cpp" />
     <ClCompile Include="..\..\game\server\TempEntity.cpp" />
+    <ClCompile Include="..\..\game\server\UserMessages.cpp" />
     <ClCompile Include="..\..\game\server\util.cpp" />
     <ClCompile Include="..\..\game\server\voice_gamemgr.cpp" />
     <ClCompile Include="..\..\game\server\Weapons.cpp" />
@@ -654,6 +655,7 @@
     <ClInclude Include="..\..\game\server\Skill.h" />
     <ClInclude Include="..\..\game\server\sound\Sound.h" />
     <ClInclude Include="..\..\game\server\TempEntity.h" />
+    <ClInclude Include="..\..\game\server\UserMessages.h" />
     <ClInclude Include="..\..\game\server\voice_gamemgr.h" />
     <ClInclude Include="..\..\game\shared\Angelscript\CASBaseModuleBuilder.h" />
     <ClInclude Include="..\..\game\shared\Angelscript\CASMapModuleBuilder.h" />

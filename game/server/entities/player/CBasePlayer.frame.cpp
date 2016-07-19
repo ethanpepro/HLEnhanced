@@ -31,9 +31,6 @@
 
 #include "com_model.h"
 
-extern int gmsgLogo;
-extern int gmsgGeigerRange;
-
 extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			gEvilImpulse101;

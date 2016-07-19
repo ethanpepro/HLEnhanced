@@ -1113,6 +1113,9 @@
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.server.game.cpp">
       <Filter>Source Files\game\server\entities\player</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\game\server\UserMessages.cpp">
+      <Filter>Source Files\game\server</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\engine\eiface.h">
@@ -2044,6 +2047,9 @@
     </ClInclude>
     <ClInclude Include="..\..\game\shared\entities\player\CBasePlayer.h">
       <Filter>Header Files\game\shared\entities\player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\UserMessages.h">
+      <Filter>Header Files\game\server</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

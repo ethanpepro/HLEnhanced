@@ -22,18 +22,6 @@
 
 #include "gamerules/GameRules.h"
 
-extern int gmsgResetHUD;
-extern int gmsgInitHUD;
-extern int gmsgHideWeapon;
-extern int gmsgSetFOV;
-extern int gmsgShowGameTitle;
-extern int gmsgHealth;
-extern int gmsgBattery;
-extern int gmsgDamage;
-extern int gmsgFlashBattery;
-extern int gmsgTrain;
-extern int gmsgWeaponList;
-
 extern DLL_GLOBAL bool gDisplayTitle;
 
 /*

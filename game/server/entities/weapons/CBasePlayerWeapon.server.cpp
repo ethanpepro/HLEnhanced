@@ -7,8 +7,6 @@
 
 #include "entities/weapons/CBasePlayerWeapon.h"
 
-extern int gmsgCurWeapon;
-
 bool CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer )
 {
 	const bool bResult = CBasePlayerItem::AddToPlayer( pPlayer );

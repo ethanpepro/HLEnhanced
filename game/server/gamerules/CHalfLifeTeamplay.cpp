@@ -162,12 +162,6 @@ bool CHalfLifeTeamplay::ClientCommand( CBasePlayer *pPlayer, const char *pcmd )
 	return false;
 }
 
-extern int gmsgGameMode;
-extern int gmsgSayText;
-extern int gmsgTeamInfo;
-extern int gmsgTeamNames;
-extern int gmsgScoreInfo;
-
 void CHalfLifeTeamplay :: UpdateGameMode( CBasePlayer *pPlayer )
 {
 	MESSAGE_BEGIN( MSG_ONE, gmsgGameMode, NULL, pPlayer->edict() );
@@ -355,8 +349,6 @@ void CHalfLifeTeamplay::ClientUserInfoChanged( CBasePlayer *pPlayer, char *infob
 	// recound stuff
 	RecountTeams( true );
 }
-
-extern int gmsgDeathMsg;
 
 //=========================================================
 // Deathnotice. 

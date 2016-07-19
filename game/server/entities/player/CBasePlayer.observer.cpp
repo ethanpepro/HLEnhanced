@@ -23,10 +23,6 @@
 #include "pm_shared.h"
 #include "entities/CCorpse.h"
 
-extern int gmsgCurWeapon;
-extern int gmsgSetFOV;
-extern int gmsgTeamInfo;
-
 // Find the next client in the game for this player to spectate
 void CBasePlayer::Observer_FindNextPlayer( bool bReverse )
 {

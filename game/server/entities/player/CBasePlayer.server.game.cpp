@@ -19,9 +19,6 @@
 
 #include "gamerules/GameRules.h"
 
-extern int gmsgFlashlight;
-extern int gmsgScoreInfo;
-
 // 
 // PlayerUse - handles USE keypress
 //

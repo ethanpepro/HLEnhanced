@@ -55,13 +55,10 @@ extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL unsigned int	g_ulFrameCount;
 
 extern int giPrecacheGrunt;
-extern int gmsgSayText;
 
 extern cvar_t allow_spectators;
 
 extern int g_teamplay;
-
-void LinkUserMessages( void );
 
 /*
  * used by kill command and disconnect command

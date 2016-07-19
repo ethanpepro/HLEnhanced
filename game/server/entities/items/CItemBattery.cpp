@@ -9,8 +9,6 @@
 
 #include "CItemBattery.h"
 
-extern int gmsgItemPickup;
-
 LINK_ENTITY_TO_CLASS( item_battery, CItemBattery );
 
 void CItemBattery::Spawn( void )

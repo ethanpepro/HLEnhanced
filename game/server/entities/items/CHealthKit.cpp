@@ -9,8 +9,6 @@
 
 #include "CHealthKit.h"
 
-extern int gmsgItemPickup;
-
 LINK_ENTITY_TO_CLASS( item_healthkit, CHealthKit );
 
 void CHealthKit::Spawn( void )

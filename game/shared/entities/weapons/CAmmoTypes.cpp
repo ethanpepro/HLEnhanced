@@ -7,10 +7,6 @@
 
 CAmmoTypes g_AmmoTypes;
 
-#ifdef SERVER_DLL
-extern int gmsgAmmoType;
-#endif
-
 CAmmoType::CAmmoType( const char* const pszName, const AmmoID_t ID, const int iMaxCarry )
 	: m_pszName( pszName )
 	, m_ID( ID )

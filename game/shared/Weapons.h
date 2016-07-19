@@ -26,7 +26,6 @@
 #include "entities/weapons/CAmmoTypes.h"
 
 class CBasePlayer;
-extern int gmsgWeapPickup;
 
 /**
 *	Actions that can be taken by calls to DeactivateSatchels.
