@@ -722,6 +722,21 @@
     <ClInclude Include="..\..\game\shared\entities\player\CBasePlayer.h">
       <Filter>Header Files\game\shared\entities\player</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\common\event_api.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\triangleapi.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\r_efx.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\demo_api.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\common\net_api.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\game_controls.lib" />
