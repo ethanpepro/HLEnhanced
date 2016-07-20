@@ -20,10 +20,25 @@
 
 typedef struct demo_api_s
 {
+	/**
+	*	@return Whether a demo is currently being recorded.
+	*/
 	int		( *IsRecording )	( void );
+
+	/**
+	*	@return Whether a demo is currently being played back.
+	*/
 	int		( *IsPlayingback )	( void );
+
+	/**
+	*	@return Whether this is a time demo.
+	*/
 	int		( *IsTimeDemo )		( void );
-	void	( *WriteBuffer )	( int size, unsigned char *buffer );
+
+	/**
+	*	Writes data to the demo buffer for this frame.
+	*/
+	void	( *WriteBuffer )	( int size, unsigned char* pBuffer );
 } demo_api_t;
 
 extern demo_api_t demoapi;

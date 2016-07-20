@@ -15,22 +15,36 @@
 #include "netadr.h"
 #endif
 
-#define NETAPI_REQUEST_SERVERLIST	( 0 )  // Doesn't need a remote address
-#define NETAPI_REQUEST_PING			( 1 )
-#define NETAPI_REQUEST_RULES		( 2 )
-#define NETAPI_REQUEST_PLAYERS		( 3 )
-#define NETAPI_REQUEST_DETAILS		( 4 )
+enum NetRequest
+{
+	/**
+	*	Doesn't need a remote address.
+	*/
+	NETAPI_REQUEST_SERVERLIST	= 0,
+	NETAPI_REQUEST_PING			= 1,
+	NETAPI_REQUEST_RULES		= 2,
+	NETAPI_REQUEST_PLAYERS		= 3,
+	NETAPI_REQUEST_DETAILS		= 4,
+};
 
-// Set this flag for things like broadcast requests, etc. where the engine should not
-//  kill the request hook after receiving the first response
-#define FNETAPI_MULTIPLE_RESPONSE ( 1<<0 )
+enum NetApiFlag
+{
+	/*
+	*	Set this flag for things like broadcast requests, etc. where the engine should not
+	*	kill the request hook after receiving the first response
+	*/
+	FNETAPI_MULTIPLE_RESPONSE	= 1 << 0,
+};
 
 typedef void ( *net_api_response_func_t ) ( struct net_response_s *response );
 
-#define NET_SUCCESS						( 0 )
-#define NET_ERROR_TIMEOUT				( 1<<0 )
-#define NET_ERROR_PROTO_UNSUPPORTED		( 1<<1 )
-#define NET_ERROR_UNDEFINED				( 1<<2 )
+enum NetResult
+{
+	NET_SUCCESS						= 0,
+	NET_ERROR_TIMEOUT				= 1 << 0,
+	NET_ERROR_PROTO_UNSUPPORTED		= 1 << 1,
+	NET_ERROR_UNDEFINED				= 1 << 2,
+};
 
 typedef struct net_adrlist_s
 {
@@ -81,17 +95,85 @@ typedef struct net_status_s
 typedef struct net_api_s
 {
 	// APIs
+	/**
+	*	Initialize networking.
+	*/
 	void		( *InitNetworking )( void );
+
+	/**
+	*	Query the network's status.
+	*	@param[ out ] status Status.
+	*/
 	void		( *Status ) ( struct net_status_s *status );
-	void		( *SendRequest) ( int context, int request, int flags, double timeout, struct netadr_s *remote_address, net_api_response_func_t response );
+
+	/**
+	*	Sends a request.
+	*	@param context User defined context ID.
+	*	@param request Request type. @see NetRequest
+	*	@param flags Flags. @see NetApiFlag
+	*	@param timeout When to time out the request.
+	*	@param remote_address Address to send the request to.
+	*	@param response Callback to invoke when the response has been received.
+	*/
+	void		( *SendRequest ) ( int context, int request, int flags, double timeout, struct netadr_s *remote_address, net_api_response_func_t response );
+
+	/**
+	*	Cancels the request with the given context ID.
+	*	@param context Context ID.
+	*/
 	void		( *CancelRequest ) ( int context );
+
+	/**
+	*	Cancels all requests.
+	*/
 	void		( *CancelAllRequests ) ( void );
-	char		*( *AdrToString ) ( struct netadr_s *a );
+
+	/**
+	*	Converts an address to a string.
+	*	@param a Address.
+	*	@return Pointer to a static buffer containing the string representation of the address. Can be an empty string if the address is invalid.
+	*/
+	char*		( *AdrToString ) ( struct netadr_s* a );
+
+	/**
+	*	Compares 2 addresses.
+	*	@param a First address.
+	*	@param b Second address.
+	*	@return true if the addresses match, false otherwise.
+	*/
 	int			( *CompareAdr ) ( struct netadr_s *a, struct netadr_s *b );
-	int			( *StringToAdr ) ( char *s, struct netadr_s *a );
-	const char *( *ValueForKey ) ( const char *s, const char *key );
-	void		( *RemoveKey ) ( char *s, const char *key );
-	void		( *SetValueForKey ) (char *s, const char *key, const char *value, int maxsize );
+
+	/**
+	*	Converts a string to an address.
+	*	@param pszString String to convert.
+	*	@param[ out ] a Address.
+	*	@return true on success, false otherwise.
+	*/
+	int			( *StringToAdr ) ( const char* const pszString, struct netadr_s *a );
+
+	/**
+	*	Finds the value associated with the given key in the given info key buffer.
+	*	@param pszBuffer Info key buffer.
+	*	@param pszKey Key to search for.
+	*	@return Pointer to a static buffer containing the value, or an empty string if it hasn't been found.
+	*/
+	const char*	( *ValueForKey ) ( const char* const pszBuffer, const char* const pszKey );
+
+	/**
+	*	Removes the given key from the given buffer.
+	*	@param pszBuffer Info key buffer.
+	*	@param pszKey Key to remove.
+	*/
+	void		( *RemoveKey ) ( const char* const pszBuffer, const char* const pszKey );
+
+	/**
+	*	Sets the value for the given key in the given buffer.
+	*	@param pszBuffer Info key buffer.
+	*	@param pszKey Key whose value to set.
+	*	@param pszValue Value to set.
+	*	@param iMaxSize Maximum size for the info key buffer.
+	*/
+	void		( *SetValueForKey ) ( const char* const pszBuffer, const char* const pszKey, const char* const pszValue, const int iMaxSize );
 } net_api_t;
 
 extern net_api_t netapi;
