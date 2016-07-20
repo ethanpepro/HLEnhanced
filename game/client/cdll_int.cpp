@@ -202,6 +202,17 @@ void HUD_CheckNewMapStarted()
 
 		if( iResult == 1 )
 		{
+			const size_t uiLength = strlen( szMapName );
+
+			//These checks are mostly to prevent crashes if the engine screws up. Better safe than sorry, it's only done once a map load.
+			const size_t uiExtLength = strlen( BSP_FILE_EXT );
+
+			//Trim the .bsp part.
+			if( uiLength > uiExtLength )
+			{
+				szMapName[ uiLength - uiExtLength ] = '\0';
+			}
+
 			HUD_NewMapStarted( szMapName );
 		}
 		else

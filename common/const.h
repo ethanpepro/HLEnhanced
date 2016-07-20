@@ -1279,5 +1279,7 @@ enum ALERT_TYPE
 	at_logged
 };
 
+#define BSP_FILE_EXT ".bsp"
+
 #endif
 
