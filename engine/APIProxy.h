@@ -9,6 +9,24 @@
 #include "enums.h"
 #endif
 
+typedef struct cl_enginefuncs_s cl_enginefuncs_t;
+typedef struct kbutton_s kbutton_t;
+typedef struct cl_entity_s cl_entity_t;
+typedef struct client_data_s client_data_t;
+//Not a typo, both of these exist. - Solokiller
+typedef struct clientdata_s clientdata_t;
+typedef struct playermove_s playermove_t;
+typedef struct usercmd_s usercmd_t;
+typedef struct ref_params_s ref_params_t;
+typedef struct mstudioevent_s mstudioevent_t;
+typedef struct local_state_s local_state_t;
+typedef struct entity_state_s entity_state_t;
+typedef struct weapon_data_s weapon_data_t;
+typedef struct netadr_s netadr_t;
+typedef struct tempent_s tempent_t;
+typedef struct r_studio_interface_s r_studio_interface_t;
+typedef struct engine_studio_api_s engine_studio_api_t;
+
 #define	MAX_ALIAS_NAME	32
 
 typedef struct cmdalias_s
@@ -19,7 +37,10 @@ typedef struct cmdalias_s
 } cmdalias_t;
 
 //Now defined here. Who ever thought defining this somewhere else was a good idea? - Solokiller
-typedef int( *pfnUserMsgHook )( const char *pszName, int iSize, void *pbuf );
+using pfnUserMsgHook = int ( * )( const char *pszName, int iSize, void *pbuf );
+
+using Callback_AddVisibleEntity = int ( * )( cl_entity_t* pEntity );
+using Callback_TempEntPlaySound = void ( * )( tempent_t* pTemp, float damp );
 
 /**
 *	Size of buffers used to store unique player IDs.
@@ -30,101 +51,134 @@ const size_t PLAYERID_BUFFER_SIZE = 16;
 // Functions exported by the client .dll
 // ********************************************************
 
-// Function type declarations for client exports
-typedef int (*INITIALIZE_FUNC)	( struct cl_enginefuncs_s*, int );
-typedef void (*HUD_INIT_FUNC)		( void );
-typedef int (*HUD_VIDINIT_FUNC)	( void );
-typedef int (*HUD_REDRAW_FUNC)	( float, int );
-typedef int (*HUD_UPDATECLIENTDATA_FUNC) ( struct client_data_s*, float );
-typedef void (*HUD_RESET_FUNC)    ( void );
-typedef void (*HUD_CLIENTMOVE_FUNC)( struct playermove_s *ppmove, qboolean server );
-typedef void (*HUD_CLIENTMOVEINIT_FUNC)( struct playermove_s *ppmove );
-typedef char (*HUD_TEXTURETYPE_FUNC)( char *name );
-typedef void (*HUD_IN_ACTIVATEMOUSE_FUNC) ( void );
-typedef void (*HUD_IN_DEACTIVATEMOUSE_FUNC)		( void );
-typedef void (*HUD_IN_MOUSEEVENT_FUNC)		( int mstate );
-typedef void (*HUD_IN_CLEARSTATES_FUNC)		( void );
-typedef void (*HUD_IN_ACCUMULATE_FUNC ) ( void );
-typedef void (*HUD_CL_CREATEMOVE_FUNC)		( float frametime, struct usercmd_s *cmd, int active );
-typedef int (*HUD_CL_ISTHIRDPERSON_FUNC) ( void );
-typedef void (*HUD_CL_GETCAMERAOFFSETS_FUNC )( Vector& ofs );
-typedef struct kbutton_s * (*HUD_KB_FIND_FUNC) ( const char *name );
-typedef void ( *HUD_CAMTHINK_FUNC )( void );
-typedef void ( *HUD_CALCREF_FUNC ) ( struct ref_params_s *pparams );
-typedef int	 ( *HUD_ADDENTITY_FUNC ) ( int type, struct cl_entity_s *ent, const char *modelname );
-typedef void ( *HUD_CREATEENTITIES_FUNC ) ( void );
-typedef void ( *HUD_DRAWNORMALTRIS_FUNC ) ( void );
-typedef void ( *HUD_DRAWTRANSTRIS_FUNC ) ( void );
-typedef void ( *HUD_STUDIOEVENT_FUNC ) ( const struct mstudioevent_s *event, const struct cl_entity_s *entity );
-typedef void ( *HUD_POSTRUNCMD_FUNC ) ( struct local_state_s *from, struct local_state_s *to, struct usercmd_s *cmd, int runfuncs, double time, unsigned int random_seed );
-typedef void ( *HUD_SHUTDOWN_FUNC ) ( void );
-typedef void ( *HUD_TXFERLOCALOVERRIDES_FUNC )( struct entity_state_s *state, const struct clientdata_s *client );
-typedef void ( *HUD_PROCESSPLAYERSTATE_FUNC )( struct entity_state_s *dst, const struct entity_state_s *src );
-typedef void ( *HUD_TXFERPREDICTIONDATA_FUNC ) ( struct entity_state_s *ps, const struct entity_state_s *pps, struct clientdata_s *pcd, const struct clientdata_s *ppcd, struct weapon_data_s *wd, const struct weapon_data_s *pwd );
-typedef void ( *HUD_DEMOREAD_FUNC ) ( int size, unsigned char *buffer );
-typedef int ( *HUD_CONNECTIONLESS_FUNC )( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size );
-typedef	int	( *HUD_GETHULLBOUNDS_FUNC ) ( int hullnumber, Vector& mins, Vector& maxs );
-typedef void (*HUD_FRAME_FUNC)		( double );
-typedef int (*HUD_KEY_EVENT_FUNC ) ( int eventcode, int keynum, const char *pszCurrentBinding );
-typedef void (*HUD_TEMPENTUPDATE_FUNC) ( double frametime, double client_time, double cl_gravity, struct tempent_s **ppTempEntFree, struct tempent_s **ppTempEntActive, 	int ( *Callback_AddVisibleEntity )( struct cl_entity_s *pEntity ),	void ( *Callback_TempEntPlaySound )( struct tempent_s *pTemp, float damp ) );
-typedef struct cl_entity_s *(*HUD_GETUSERENTITY_FUNC ) ( int index );
-typedef void (*HUD_VOICESTATUS_FUNC)(int entindex, qboolean bTalking);
-typedef void (*HUD_DIRECTORMESSAGE_FUNC)( int iSize, void *pbuf );
-typedef int ( *HUD_STUDIO_INTERFACE_FUNC )( int version, struct r_studio_interface_s **ppinterface, struct engine_studio_api_s *pstudio );
-typedef void (*HUD_CHATINPUTPOSITION_FUNC)( int *x, int *y );
-typedef int (*HUD_GETPLAYERTEAM)(int iplayer);
-typedef void *(*CLIENTFACTORY)(); // this should be CreateInterfaceFn but that means including interface.h
-									// which is a C++ file and some of the client files a C only... 
-									// so we return a void * which we then do a typecast on later.
-
-
 // Pointers to the exported client functions themselves
 typedef struct
 {
-	INITIALIZE_FUNC						pInitFunc;
-	HUD_INIT_FUNC						pHudInitFunc;
-	HUD_VIDINIT_FUNC					pHudVidInitFunc;
-	HUD_REDRAW_FUNC						pHudRedrawFunc;
-	HUD_UPDATECLIENTDATA_FUNC			pHudUpdateClientDataFunc;
-	HUD_RESET_FUNC						pHudResetFunc;
-	HUD_CLIENTMOVE_FUNC					pClientMove;
-	HUD_CLIENTMOVEINIT_FUNC				pClientMoveInit;
-	HUD_TEXTURETYPE_FUNC				pClientTextureType;
-	HUD_IN_ACTIVATEMOUSE_FUNC			pIN_ActivateMouse;
-	HUD_IN_DEACTIVATEMOUSE_FUNC			pIN_DeactivateMouse;
-	HUD_IN_MOUSEEVENT_FUNC				pIN_MouseEvent;
-	HUD_IN_CLEARSTATES_FUNC				pIN_ClearStates;
-	HUD_IN_ACCUMULATE_FUNC				pIN_Accumulate;
-	HUD_CL_CREATEMOVE_FUNC				pCL_CreateMove;
-	HUD_CL_ISTHIRDPERSON_FUNC			pCL_IsThirdPerson;
-	HUD_CL_GETCAMERAOFFSETS_FUNC		pCL_GetCameraOffsets;
-	HUD_KB_FIND_FUNC					pFindKey;
-	HUD_CAMTHINK_FUNC					pCamThink;
-	HUD_CALCREF_FUNC					pCalcRefdef;
-	HUD_ADDENTITY_FUNC					pAddEntity;
-	HUD_CREATEENTITIES_FUNC				pCreateEntities;
-	HUD_DRAWNORMALTRIS_FUNC				pDrawNormalTriangles;
-	HUD_DRAWTRANSTRIS_FUNC				pDrawTransparentTriangles;
-	HUD_STUDIOEVENT_FUNC				pStudioEvent;
-	HUD_POSTRUNCMD_FUNC					pPostRunCmd;
-	HUD_SHUTDOWN_FUNC					pShutdown;
-	HUD_TXFERLOCALOVERRIDES_FUNC		pTxferLocalOverrides;
-	HUD_PROCESSPLAYERSTATE_FUNC			pProcessPlayerState;
-	HUD_TXFERPREDICTIONDATA_FUNC		pTxferPredictionData;
-	HUD_DEMOREAD_FUNC					pReadDemoBuffer;
-	HUD_CONNECTIONLESS_FUNC				pConnectionlessPacket;
-	HUD_GETHULLBOUNDS_FUNC				pGetHullBounds;
-	HUD_FRAME_FUNC						pHudFrame;
-	HUD_KEY_EVENT_FUNC					pKeyEvent;
-	HUD_TEMPENTUPDATE_FUNC				pTempEntUpdate;
-	HUD_GETUSERENTITY_FUNC				pGetUserEntity;
-	HUD_VOICESTATUS_FUNC				pVoiceStatus;		// Possibly null on old client dlls.
-	HUD_DIRECTORMESSAGE_FUNC			pDirectorMessage;	// Possibly null on old client dlls.
-	HUD_STUDIO_INTERFACE_FUNC			pStudioInterface;	// Not used by all clients
-	HUD_CHATINPUTPOSITION_FUNC			pChatInputPosition;	// Not used by all clients
-	HUD_GETPLAYERTEAM					pGetPlayerTeam; // Not used by all clients
-	CLIENTFACTORY						pClientFactory;
+	int				( *pInitFunc )					( cl_enginefuncs_t*, int );
+	void			( *pHudInitFunc )				( void );
+	int				( *pHudVidInitFunc )			( void );
+	int				( *pHudRedrawFunc )				( float, int );
+	int				( *pHudUpdateClientDataFunc )	( client_data_t*, float );
+	void			( *pHudResetFunc )				( void );
+	void			( *pClientMove )				( playermove_t* ppmove, qboolean server );
+	void			( *pClientMoveInit )			( playermove_t* ppmove );
+	char			( *pClientTextureType )			( char *name );
+	void			( *pIN_ActivateMouse )			( void );
+	void			( *pIN_DeactivateMouse )		( void );
+	void			( *pIN_MouseEvent )				( int mstate );
+	void			( *pIN_ClearStates )			( void );
+	void			( *pIN_Accumulate )				( void );
+	void			( *pCL_CreateMove )				( float frametime, usercmd_t* cmd, int active );
+	int				( *pCL_IsThirdPerson )			( void );
+	void			( *pCL_GetCameraOffsets )		( Vector& ofs );
+	kbutton_t*		( *pFindKey )					( const char *name );
+	void			( *pCamThink )					( void );
+	void			( *pCalcRefdef )				( ref_params_t* pparams );
+	int				( *pAddEntity )					( int type, cl_entity_t* ent, const char *modelname );
+	void			( *pCreateEntities )			( void );
+	void			( *pDrawNormalTriangles )		( void );
+	void			( *pDrawTransparentTriangles )	( void );
+	void			( *pStudioEvent )				( const mstudioevent_t* event, const cl_entity_t* entity );
+	void			( *pPostRunCmd )				( local_state_t* from, local_state_t* to, usercmd_t* cmd, int runfuncs, double time, unsigned int random_seed );
+	void			( *pShutdown )					( void );
+	void			( *pTxferLocalOverrides )		( entity_state_t* state, const clientdata_t* client );
+	void			( *pProcessPlayerState )		( entity_state_t* dst, const entity_state_t* src );
+	void			( *pTxferPredictionData )		( entity_state_t* ps, const entity_state_t* pps, clientdata_t* pcd, const clientdata_t* ppcd, weapon_data_t* wd, const weapon_data_t* pwd );
+	void			( *pReadDemoBuffer )			( int size, unsigned char *buffer );
+	int				( *pConnectionlessPacket )		( const netadr_t* net_from, const char *args, char *response_buffer, int *response_buffer_size );
+	int				( *pGetHullBounds )				( int hullnumber, Vector& mins, Vector& maxs );
+	void			( *pHudFrame )					( double );
+	int				( *pKeyEvent )					( int eventcode, int keynum, const char *pszCurrentBinding );
+	void			( *pTempEntUpdate )				( double frametime, double client_time, double cl_gravity, tempent_t** ppTempEntFree, tempent_t** ppTempEntActive, Callback_AddVisibleEntity pAddVisibleEnt, Callback_TempEntPlaySound pTempPlaySound );
+	cl_entity_t*	( *pGetUserEntity )				( int index );
+
+	/**
+	*	Possibly null on old client dlls.
+	*/
+	void			( *pVoiceStatus )				( int entindex, qboolean bTalking );
+
+	/**
+	*	Possibly null on old client dlls.
+	*/
+	void			( *pDirectorMessage )			( int iSize, void *pbuf );
+
+	/**
+	*	Not used by all clients.
+	*/
+	int				( *pStudioInterface )			( int version, r_studio_interface_t** ppinterface, engine_studio_api_t* pstudio );
+
+	/**
+	*	Not used by all clients.
+	*/
+	void			( *pChatInputPosition )			( int *x, int *y );
+
+	/**
+	*	Not used by all clients.
+	*/
+	int				( *pGetPlayerTeam )				( int iplayer );
+
+	/**
+	*	This should be CreateInterfaceFn but that means including interface.h
+	*	which is a C++ file and some of the client files a C only... 
+	*	so we return a void * which we then do a typecast on later.
+	*/
+	void*			( *pClientFactory )				( void );
 } cldll_func_t;
+
+/**
+*	@defgroup ClientExports Client Exports
+*
+*	Function type declarations for client exports
+*	Now declares pointers in the interface and decltypes it into the pointer type, making it easier to see parameters in IntelliSense.
+*
+*	@{
+*/
+
+using INITIALIZE_FUNC					= decltype( cldll_func_t::pInitFunc );
+using HUD_INIT_FUNC						= decltype( cldll_func_t::pHudInitFunc );
+using HUD_VIDINIT_FUNC					= decltype( cldll_func_t::pHudVidInitFunc );
+using HUD_REDRAW_FUNC					= decltype( cldll_func_t::pHudRedrawFunc );
+using HUD_UPDATECLIENTDATA_FUNC			= decltype( cldll_func_t::pHudUpdateClientDataFunc );
+using HUD_RESET_FUNC					= decltype( cldll_func_t::pHudResetFunc );
+using HUD_CLIENTMOVE_FUNC				= decltype( cldll_func_t::pClientMove );
+using HUD_CLIENTMOVEINIT_FUNC			= decltype( cldll_func_t::pClientMoveInit );
+using HUD_TEXTURETYPE_FUNC				= decltype( cldll_func_t::pClientTextureType );
+using HUD_IN_ACTIVATEMOUSE_FUNC			= decltype( cldll_func_t::pIN_ActivateMouse );
+using HUD_IN_DEACTIVATEMOUSE_FUNC		= decltype( cldll_func_t::pIN_DeactivateMouse );
+using HUD_IN_MOUSEEVENT_FUNC			= decltype( cldll_func_t::pIN_MouseEvent );
+using HUD_IN_CLEARSTATES_FUNC			= decltype( cldll_func_t::pIN_ClearStates );
+using HUD_IN_ACCUMULATE_FUNC			= decltype( cldll_func_t::pIN_Accumulate );
+using HUD_CL_CREATEMOVE_FUNC			= decltype( cldll_func_t::pCL_CreateMove );
+using HUD_CL_ISTHIRDPERSON_FUNC			= decltype( cldll_func_t::pCL_IsThirdPerson );
+using HUD_CL_GETCAMERAOFFSETS_FUNC		= decltype( cldll_func_t::pCL_GetCameraOffsets );
+using HUD_KB_FIND_FUNC					= decltype( cldll_func_t::pFindKey );
+using HUD_CAMTHINK_FUNC					= decltype( cldll_func_t::pCamThink );
+using HUD_CALCREF_FUNC					= decltype( cldll_func_t::pCalcRefdef );
+using HUD_ADDENTITY_FUNC				= decltype( cldll_func_t::pAddEntity );
+using HUD_CREATEENTITIES_FUNC			= decltype( cldll_func_t::pCreateEntities );
+using HUD_DRAWNORMALTRIS_FUNC			= decltype( cldll_func_t::pDrawNormalTriangles );
+using HUD_DRAWTRANSTRIS_FUNC			= decltype( cldll_func_t::pDrawTransparentTriangles );
+using HUD_STUDIOEVENT_FUNC				= decltype( cldll_func_t::pStudioEvent );
+using HUD_POSTRUNCMD_FUNC				= decltype( cldll_func_t::pPostRunCmd );
+using HUD_SHUTDOWN_FUNC					= decltype( cldll_func_t::pShutdown );
+using HUD_TXFERLOCALOVERRIDES_FUNC		= decltype( cldll_func_t::pTxferLocalOverrides );
+using HUD_PROCESSPLAYERSTATE_FUNC		= decltype( cldll_func_t::pProcessPlayerState );
+using HUD_TXFERPREDICTIONDATA_FUNC		= decltype( cldll_func_t::pTxferPredictionData );
+using HUD_DEMOREAD_FUNC					= decltype( cldll_func_t::pReadDemoBuffer );
+using HUD_CONNECTIONLESS_FUNC			= decltype( cldll_func_t::pConnectionlessPacket );
+using HUD_GETHULLBOUNDS_FUNC			= decltype( cldll_func_t::pGetHullBounds );
+using HUD_FRAME_FUNC					= decltype( cldll_func_t::pHudFrame );
+using HUD_KEY_EVENT_FUNC				= decltype( cldll_func_t::pKeyEvent );
+using HUD_TEMPENTUPDATE_FUNC			= decltype( cldll_func_t::pTempEntUpdate );
+using HUD_GETUSERENTITY_FUNC			= decltype( cldll_func_t::pGetUserEntity );
+using HUD_VOICESTATUS_FUNC				= decltype( cldll_func_t::pVoiceStatus );
+using HUD_DIRECTORMESSAGE_FUNC			= decltype( cldll_func_t::pDirectorMessage );
+using HUD_STUDIO_INTERFACE_FUNC			= decltype( cldll_func_t::pStudioInterface );
+using HUD_CHATINPUTPOSITION_FUNC		= decltype( cldll_func_t::pChatInputPosition );
+using HUD_GETPLAYERTEAM					= decltype( cldll_func_t::pGetPlayerTeam );
+using CLIENTFACTORY						= decltype( cldll_func_t::pClientFactory );
+
+/** @} */
 
 // ********************************************************
 // Functions exported by the engine

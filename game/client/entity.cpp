@@ -380,8 +380,8 @@ void DLLEXPORT HUD_TempEntUpdate (
 	double cl_gravity,  // True gravity on client
 	TEMPENTITY **ppTempEntFree,   // List of freed temporary ents
 	TEMPENTITY **ppTempEntActive, // List 
-	int		( *Callback_AddVisibleEntity )( cl_entity_t *pEntity ),
-	void	( *Callback_TempEntPlaySound )( TEMPENTITY *pTemp, float damp ) )
+	Callback_AddVisibleEntity pAddVisibleEnt, 
+	Callback_TempEntPlaySound pTempPlaySound )
 {
 	static int gTempEntFrame = 0;
 	int			i;
@@ -423,7 +423,7 @@ void DLLEXPORT HUD_TempEntUpdate (
 		{
 			if ( !(pTemp->flags & FTENT_NOMODEL ) )
 			{
-				Callback_AddVisibleEntity( &pTemp->entity );
+				pAddVisibleEnt( &pTemp->entity );
 			}
 			pTemp = pTemp->next;
 		}
@@ -660,7 +660,7 @@ void DLLEXPORT HUD_TempEntUpdate (
 
 					if (pTemp->hitSound)
 					{
-						Callback_TempEntPlaySound(pTemp, damp);
+						pTempPlaySound(pTemp, damp);
 					}
 
 					if (pTemp->flags & FTENT_COLLIDEKILL)
@@ -723,7 +723,7 @@ void DLLEXPORT HUD_TempEntUpdate (
 			// Cull to PVS (not frustum cull, just PVS)
 			if ( !(pTemp->flags & FTENT_NOMODEL ) )
 			{
-				if ( !Callback_AddVisibleEntity( &pTemp->entity ) )
+				if ( !pAddVisibleEnt( &pTemp->entity ) )
 				{
 					if ( !(pTemp->flags & FTENT_PERSIST) ) 
 					{
