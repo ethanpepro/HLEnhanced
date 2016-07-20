@@ -1097,61 +1097,370 @@ typedef struct cl_enginefuncs_s
 	*	Triangle API. Used to draw 3D geometry.
 	*/
 	triangleapi_t*		pTriAPI;
+
+	/**
+	*	Effects API.
+	*/
 	efx_api_t*			pEfxAPI;
+
+	/**
+	*	Event API.
+	*/
 	event_api_t*		pEventAPI;
+
+	/**
+	*	Demo API.
+	*/
 	demo_api_t*			pDemoAPI;
+
+	/**
+	*	Networking API.
+	*/
 	net_api_t*			pNetAPI;
+
+	/**
+	*	Voice Tweak API.
+	*	TODO: figure out what the interface contains. - Solokiller
+	*/
 	IVoiceTweak_t*		pVoiceTweak;
 
+	/**
+	*	@return Whether this client is in spectator only mode (HLTV).
+	*/
 	int						 ( *IsSpectateOnly )						( void );
-	model_t*				 ( *LoadMapSprite )							( const char *filename );
-	void					 ( *COM_AddAppDirectoryToSearchPath )		( const char *pszBaseDir, const char *appName );
-	int						 ( *COM_ExpandFilename )					( const char *fileName, char *nameOutBuffer, int nameOutBufferSize );
+
+	/**
+	*	Loads a map sprite. Either a TGA or BMP file is required.
+	*	@param pszFileName Name of the file.
+	*	@return Pointer to the model, or null if the model could not be loaded.
+	*/
+	model_t*				 ( *LoadMapSprite )							( const char* pszFileName );
+
+	/**
+	*	Adds a directory to the PLATFORM search path.
+	*	@param pszBaseDir Directory to add.
+	*	@param pszAppName Ignored.
+	*/
+	void					 ( *COM_AddAppDirectoryToSearchPath )		( const char* const pszBaseDir, const char* const pszAppName );
+
+	/**
+	*	Converts a relative path to an absolute path.
+	*	@param pszFileName Name of the file whose path to make absolute.
+	*	@param[ out ] pszNameOutBuffer Destination buffer.
+	*	@param nameOutBufferSize Size of the destination buffer, in bytes.
+	*/
+	int						 ( *COM_ExpandFilename )					( const char* const pszFileName, char* pszNameOutBuffer, int nameOutBufferSize );
+
+	/**
+	*	Given a key, gets the info value.
+	*	@param playerNum Player number. 1 based.
+	*	@param pszKey Key.
+	*	@return Pointer to the value, or an empty string if the key couldn't be found.
+	*/
 	const char*				 ( *PlayerInfo_ValueForKey )				( int playerNum, const char *key );
-	void					 ( *PlayerInfo_SetValueForKey )				( const char *key, const char *value );
+
+	/**
+	*	Sets the value for a key in the local player's info key buffer.
+	*	@param pszKey Key whose value to set.
+	*	@param pszValue Value to set.
+	*/
+	void					 ( *PlayerInfo_SetValueForKey )				( const char* const pszKey, const char* const pszValue );
+
+	/**
+	*	Gets the given player's unique ID.
+	*	@param iPlayer 1 based player index.
+	*	@param[ out ] playerID Will contain the player's unique ID.
+	*	@return true on success, false otherwise.
+	*/
 	qboolean				 ( *GetPlayerUniqueID )						( int iPlayer, char playerID[ PLAYERID_BUFFER_SIZE ] );
+
+	/**
+	*	Obsolete.
+	*	@return 0 in all cases.
+	*/
 	int						 ( *GetTrackerIDForPlayer )					( int playerSlot );
+
+	/**
+	*	Obsolete.
+	*	@return 0 in all cases.
+	*/
 	int						 ( *GetPlayerForTrackerID )					( int trackerID );
-	int						 ( *pfnServerCmdUnreliable )				( char *szCmdString );
+
+	/**
+	*	Sends a command to the server unreliably.
+	*	@param pszCmdString Command string.
+	*	@return true if the message was written, false otherwise.
+	*/
+	int						 ( *pfnServerCmdUnreliable )				( const char* const pszCmdString );
+
+	/**
+	*	Gets the mouse position.
+	*	@param ppt Structure that will contain the mouse position.
+	*/
 	void					 ( *pfnGetMousePos )						( POINT* ppt );
+
+	/**
+	*	Sets the mouse position.
+	*	@param x X position.
+	*	@param y Y position.
+	*/
 	void					 ( *pfnSetMousePos )						( int x, int y );
+
+	/**
+	*	Obsolete.
+	*/
 	void					 ( *pfnSetMouseEnable )						( qboolean fEnable );
+
+	/**
+	*	@return The first cvar in the list.
+	*/
 	cvar_t*					 ( *GetFirstCvarPtr )						( void );
+
+	/**
+	*	@return The first command function handle.
+	*	TODO: actually returns a pointer to the command. - Solokiller
+	*/
 	unsigned int			 ( *GetFirstCmdFunctionHandle )				( void );
+
+	/**
+	*	Gets the next command function handle.
+	*	@param cmdhandle Handle to the command function just before the handle to get.
+	*	@return Next handle, or 0 if it was the last handle.
+	*/
 	unsigned int			 ( *GetNextCmdFunctionHandle )				( unsigned int cmdhandle );
+
+	/**
+	*	Gets the command function name.
+	*	@param cmdhandle Handle to the command.
+	*	@return Command name.
+	*/
 	const char *			 ( *GetCmdFunctionName )					( unsigned int cmdhandle );
+
+	/**
+	*	@return The old client time.
+	*/
 	float					 ( *hudGetClientOldTime )					( void );
+
+	/**
+	*	@return Server gravity value. Only valid if this is a listen server.
+	*/
 	float					 ( *hudGetServerGravityValue )				( void );
 
+	/**
+	*	Gets a model by index.
+	*	@param index Model index. Must be valid.
+	*	@return Model pointer.
+	*/
 	model_t*				 ( *hudGetModelByIndex )					( int index );
-	void					 ( *pfnSetFilterMode )						( int mode );
-	void					 ( *pfnSetFilterColor )						( float r, float g, float b );
-	void					 ( *pfnSetFilterBrightness )				( float brightness );
-	sequenceEntry_s*		 ( *pfnSequenceGet )						( const char *fileName, const char* entryName );
-	void					 ( *pfnSPR_DrawGeneric )					( int frame, int x, int y, const wrect_t* prc, int src, int dest, int w, int h );
-	sentenceEntry_s*		 ( *pfnSequencePickSentence )				( const char *sentenceName, int pickMethod, int* entryPicked );
-	// draw a complete string
-	int						 ( *pfnDrawString )							( int x, int y, const char *str, int r, int g, int b );
-	int						 ( *pfnDrawStringReverse )					( int x, int y, const char *str, int r, int g, int b );
-	const char*				 ( *LocalPlayerInfo_ValueForKey )			( const char *key );
-	int						 ( *pfnVGUI2DrawCharacter )					( int x, int y, int ch, unsigned int font );
-	int						 ( *pfnVGUI2DrawCharacterAdd )				( int x, int y, int ch, int r, int g, int b, unsigned int font );
-	unsigned int			 ( *COM_GetApproxWavePlayLength )			( const char * filename );
-	void*					 ( *pfnGetCareerUI )						( void );
-	void					 ( *Cvar_Set )								( char *cvar, char *value );
 
+	/**
+	*	Sets the filter mode.
+	*	TODO: what is filtering? - Solokiller
+	*	@param bMode Whether to filter or not.
+	*/
+	void					 ( *pfnSetFilterMode )						( int bMode );
+
+	/**
+	*	Sets the filter color.
+	*	@param r Red color. [ 0, 1 ].
+	*	@param g Green color. [ 0, 1 ].
+	*	@param b Blue color. [ 0, 1 ].
+	*/
+	void					 ( *pfnSetFilterColor )						( float r, float g, float b );
+
+	/**
+	*	Sets the filter brightness.
+	*	@param brightness Brightness.
+	*/
+	void					 ( *pfnSetFilterBrightness )				( float brightness );
+
+	/**
+	*	Gets the sequence that has the given entry name.
+	*	@param pszFileName Ignored.
+	*	@param pszEntryName Entry name.
+	*	@return Sequence, or null if no such sequence exists.
+	*/
+	sequenceEntry_s*		 ( *pfnSequenceGet )						( const char* const pszFileName, const char* const pszEntryName );
+
+	/**
+	*	Draws the current sprite as solid.
+	*	@param frame Frame to draw.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param prc Optional. Defines the rectangle of the sprite frame to draw.
+	*	@param src glBlendFunc source value.
+	*	@param dest glBlendFunc destination value.
+	*	@param w Overrides the sprite frame's width.
+	*	@param h Overrides the sprite frame's height.
+	*	@see pfnSPR_Set
+	*/
+	void					 ( *pfnSPR_DrawGeneric )					( int frame, int x, int y, const wrect_t* prc, int src, int dest, int w, int h );
+
+	/**
+	*	Picks a sentence from the given group.
+	*	@param pszGroupName Group from which to select a sentence.
+	*	@param pickMethod Ignored.
+	*	@param piPicked If not null, this is set to the index of the sentence that was picked.
+	*	@return Sentence that was picked, or null if there is no group by that name, or no sentences in the group.
+	*/
+	sentenceEntry_s*		 ( *pfnSequencePickSentence )				( const char* const pszGroupName, int pickMethod, int* piPicked );
+	
+	/**
+	*	Draws a complete string.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param pszString String to draw.
+	*	@param r Red color. [ 0, 255 ].
+	*	@param g Green color. [ 0, 255 ].
+	*	@param b Blue color. [ 0, 255 ].
+	*	@return Total width of the string.
+	*/
+	int						 ( *pfnDrawString )							( int x, int y, const char* const pszString, int r, int g, int b );
+
+	/**
+	*	Draws a complete string in reverse.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param pszString String to draw.
+	*	@param r Red color. [ 0, 255 ].
+	*	@param g Green color. [ 0, 255 ].
+	*	@param b Blue color. [ 0, 255 ].
+	*	@return Total width of the string.
+	*/
+	int						 ( *pfnDrawStringReverse )					( int x, int y, const char* const pszString, int r, int g, int b );
+
+	/**
+	*	Given a key, gets the info value for the local player.
+	*	@param pszKey Key.
+	*	@return Pointer to the value, or an empty string if the key couldn't be found.
+	*/
+	const char*				 ( *LocalPlayerInfo_ValueForKey )			( const char* const pszKey );
+
+	/**
+	*	Draws a single character using the specified font.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param ch Character to draw.
+	*	@param font Font to use.
+	*	@return Total width of the character.
+	*/
+	int						 ( *pfnVGUI2DrawCharacter )					( int x, int y, int ch, unsigned int font );
+
+	/**
+	*	Draws a single character using the specified font, using additive rendering.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param ch Character to draw.
+	*	@param r Red color. [ 0, 255 ].
+	*	@param g Green color. [ 0, 255 ].
+	*	@param b Blue color. [ 0, 255 ].
+	*	@param font Font to use.
+	*	@return Total width of the character.
+	*/
+	int						 ( *pfnVGUI2DrawCharacterAdd )				( int x, int y, int ch, int r, int g, int b, unsigned int font );
+
+	/**
+	*	Gets the approximate wave play length of the given file.
+	*	@param pszFileName Name of the file to query.
+	*	@return Approximate wave play length.
+	*/
+	unsigned int			 ( *COM_GetApproxWavePlayLength )			( const char* const pszFileName );
+
+	/**
+	*	Gets the career UI, if it exists.
+	*	@return Career UI. Cast to ICareerUI*. Can be null.
+	*/
+	void*					 ( *pfnGetCareerUI )						( void );
+
+	/**
+	*	Sets a cvar's string value.
+	*	@param pszCVarName CVar name.
+	*	@param pszValue Value to set.
+	*/
+	void					 ( *Cvar_Set )								( const char* const pszCVarName, const char* const pszValue );
+
+	/**
+	*	@return Whether this is a Condition Zero career match.
+	*/
 	int						 ( *pfnIsCareerMatch )						( void );
-	void					 ( *pfnPlaySoundVoiceByName )				( char *szSound, float volume, int pitch );
-	void					 ( *pfnPrimeMusicStream )					( char *szFilename, int looping );
+
+	/**
+	*	Plays a sound by name, with pitch. Uses the bot channel CHAN_BOT.
+	*	@param pszSoundName Name of the sound to play.
+	*	@param volume Volume. [ 0, 1 ].
+	*	@param pitch Pitch. [ 0, 255 ].
+	*/
+	void					 ( *pfnPlaySoundVoiceByName )				( const char* const pszSoundName, float volume, int pitch );
+
+	/**
+	*	Sets a music track to play.
+	*	@param pszFileName Name of the file to play.
+	*	@param bLooping Whether the track should look or not.
+	*/
+	void					 ( *pfnPrimeMusicStream )					( const char* const pszFileName, const int bLooping );
+
+	/**
+	*	@return The absolute time since the last call to GetAbsoluteTime.
+	*/
 	double					 ( *GetAbsoluteTime )						( void );
-	void					 ( *pfnProcessTutorMessageDecayBuffer )		( int *buffer, int bufferLength );
-	void					 ( *pfnConstructTutorMessageDecayBuffer )	( int *buffer, int bufferLength );
+
+	/**
+	*	Processes the tutor message decay buffer.
+	*	@param pBuffer Buffer.
+	*	@param bufferLength Size of the buffer, in bytes.
+	*/
+	void					 ( *pfnProcessTutorMessageDecayBuffer )		( int* pBuffer, int bufferLength );
+
+	/**
+	*	Constructs the tutor message decay buffer.
+	*	@param pBuffer Buffer.
+	*	@param bufferLength Size of the buffer, in bytes.
+	*/
+	void					 ( *pfnConstructTutorMessageDecayBuffer )	( int* pBuffer, int bufferLength );
+
+	/**
+	*	Resets tutor message decay data.
+	*/
 	void					 ( *pfnResetTutorMessageDecayData )			( void );
-	void					 ( *pfnPlaySoundByNameAtPitch )				( char *szSound, float volume, int pitch );
+
+	/**
+	*	Plays a sound by name, with pitch.
+	*	@param pszSoundName Name of the sound to play.
+	*	@param volume Volume. [ 0, 1 ].
+	*	@param pitch Pitch. [ 0, 255 ].
+	*/
+	void					 ( *pfnPlaySoundByNameAtPitch )				( const char* const pszSoundName, float volume, int pitch );
+
+	/**
+	*	Fills the given rectangle with a given color.
+	*	Blends with existing pixel data.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param width Width of the rectangle.
+	*	@param height Height of the rectangle.
+	*	@param r Red color. [ 0, 255 ].
+	*	@param g Green color. [ 0, 255 ].
+	*	@param b Blue color. [ 0, 255 ].
+	*	@param a Alpha value. [ 0, 255 ].
+	*/
 	void					 ( *pfnFillRGBABlend )						( int x, int y, int width, int height, int r, int g, int b, int a );
+
+	/**
+	*	@return The app ID.
+	*/
 	int						 ( *pfnGetAppID )							( void );
+
+	/**
+	*	@return The list of command aliases.
+	*/
 	cmdalias_t*				 ( *pfnGetAliasList )						( void );
-	void					 ( *pfnVguiWrap2_GetMouseDelta )			( int *x, int *y );
+
+	/**
+	*	Gets the accumulated mouse delta. The delta is reset in this call only.
+	*	@param x X offset.
+	*	@param y Y offset.
+	*/
+	void					 ( *pfnVguiWrap2_GetMouseDelta )			( int* x, int* y );
 } cl_enginefunc_t;
 
 /**
