@@ -23,7 +23,7 @@ typedef struct local_state_s local_state_t;
 typedef struct entity_state_s entity_state_t;
 typedef struct weapon_data_s weapon_data_t;
 typedef struct netadr_s netadr_t;
-typedef struct tempent_s tempent_t;
+typedef struct tempent_s TEMPENTITY;
 typedef struct r_studio_interface_s r_studio_interface_t;
 typedef struct engine_studio_api_s engine_studio_api_t;
 typedef struct client_sprite_s client_sprite_t;
@@ -67,7 +67,7 @@ typedef struct cmdalias_s
 using pfnUserMsgHook = int ( * )( const char *pszName, int iSize, void *pbuf );
 
 using Callback_AddVisibleEntity = int ( * )( cl_entity_t* pEntity );
-using Callback_TempEntPlaySound = void ( * )( tempent_t* pTemp, float damp );
+using Callback_TempEntPlaySound = void ( * )( TEMPENTITY* pTemp, float damp );
 using pfnEventHook = void ( * )( event_args_t* args );
 
 /**
@@ -83,7 +83,7 @@ const size_t PLAYERID_BUFFER_SIZE = 16;
 typedef struct
 {
 	/**
-	*	Called by the engine to initialize the client library.
+	*	Called to initialize the client library.
 	*	@param pEngineFuncs Pointer to the engine functions interface;
 	*	@param iVersion Interface version. Must match CLDLL_INTERFACE_VERSION.
 	*	@return true on success, false otherwise. If iVersion does not match CLDLL_INTERFACE_VERSION, return false.
@@ -92,70 +92,307 @@ typedef struct
 	int				( *pInitFunc )					( cl_enginefuncs_t* pEngineFuncs, int iVersion );
 
 	/**
-	*	Called by the engine to initialize the client library. This occurs after the engine has loaded the client and has initialized all other systems.
+	*	Called to initialize the client library. This occurs after the engine has loaded the client and has initialized all other systems.
 	*/
 	void			( *pHudInitFunc )				( void );
 
 	/**
-	*	Called by the engine after a connection to a server has been established.
+	*	Called after a connection to a server has been established.
 	*/
 	int				( *pHudVidInitFunc )			( void );
-	int				( *pHudRedrawFunc )				( float, int );
-	int				( *pHudUpdateClientDataFunc )	( client_data_t*, float );
+
+	/**
+	*	Called to redraw the HUD.
+	*	@param flCurrentTime Current game time.
+	*	@param bIsIntermission Whether we're currently in intermission or not.
+	*	@return Ignored. true on success, false otherwise.
+	*/
+	int				( *pHudRedrawFunc )				( const float flCurrentTime, const int bIsIntermission );
+
+	/**
+	*	Called every frame while running a map.
+	*	@param pCLData Client data.
+	*	@param flCurrentTime Current game time.
+	*	@return true if client data was updated, false otherwise.
+	*/
+	int				( *pHudUpdateClientDataFunc )	( client_data_t* pCLData, const float flCurrentTime );
+
+	/**
+	*	Obsolete. Is never called.
+	*/
 	void			( *pHudResetFunc )				( void );
-	void			( *pClientMove )				( playermove_t* ppmove, qboolean server );
+
+	/**
+	*	Run client side player movement and physics code.
+	*	@param ppmove Player movement data.
+	*	@param server Whether this is the server or client running movement.
+	*/
+	void			( *pClientMove )				( playermove_t* ppmove, const qboolean server );
+
+	/**
+	*	Initializes the client side player movement code.
+	*	@param ppmove Player movement data.
+	*/
 	void			( *pClientMoveInit )			( playermove_t* ppmove );
-	char			( *pClientTextureType )			( char *name );
+
+	/**
+	*	Gets the texture type for a given texture name.
+	*	Never called by the engine itself.
+	*	@param pszName Texture name.
+	*	@return Texture type.
+	*/
+	char			( *pClientTextureType )			( const char*const pszName );
+
+	/**
+	*	Called when mouse input is activated.
+	*/
 	void			( *pIN_ActivateMouse )			( void );
+
+	/**
+	*	Called when mouse input is deactivated.
+	*/
 	void			( *pIN_DeactivateMouse )		( void );
-	void			( *pIN_MouseEvent )				( int mstate );
+
+	/**
+	*	Called when a mouse event has occurred.
+	*	@param mstate Bit vector containing new mouse button states.
+	*/
+	void			( *pIN_MouseEvent )				( const int mstate );
+
+	/**
+	*	Clears all mouse button states.
+	*/
 	void			( *pIN_ClearStates )			( void );
+
+	/**
+	*	Called to accumulate relative mouse movement.
+	*/
 	void			( *pIN_Accumulate )				( void );
-	void			( *pCL_CreateMove )				( float frametime, usercmd_t* cmd, int active );
+
+	/**
+	*	Creates a movement command to send to the server.
+	*	@param frametime Delta time between the last and current frame.
+	*	@param cmd Command to fill in.
+	*	@param bActive if bActive == 1 then we are 1) not playing back demos ( where our commands are ignored ) and
+	*					2 ) we have finished signing on to server
+	*/
+	void			( *pCL_CreateMove )				( float frametime, usercmd_t* cmd, const int bActive );
+
+	/**
+	*	@return Whether the client is currently in third person mode.
+	*/
 	int				( *pCL_IsThirdPerson )			( void );
+
+	/**
+	*	Gets the camera offset.
+	*	@param[ out ] ofs Offset.
+	*/
 	void			( *pCL_GetCameraOffsets )		( Vector& ofs );
-	kbutton_t*		( *pFindKey )					( const char *name );
+
+	/**
+	*	Finds a key by name.
+	*	@param pszName Key name.
+	*	@return Key, or null if it couldn't be found.
+	*/
+	kbutton_t*		( *pFindKey )					( const char* const pszName );
+
+	/**
+	*	Runs camera think.
+	*/
 	void			( *pCamThink )					( void );
+
+	/**
+	*	Calculates view data.
+	*/
 	void			( *pCalcRefdef )				( ref_params_t* pparams );
-	int				( *pAddEntity )					( int type, cl_entity_t* ent, const char *modelname );
+
+	/**
+	*	Called when the engine has created a client side copy of an entity.
+	*	@param type Entity type. @see EntityType
+	*	@param ent Entity.
+	*	@param pszModelName Name of the model that the entity is using. Same as ent->model->name. Is an empty string if it has no model.
+	*	@return true to add it to the list of visible entities, false to filter it out.
+	*/
+	int				( *pAddEntity )					( int type, cl_entity_t* ent, const char* const pszModelName );
+
+	/**
+	*	Gives us a chance to add additional entities to the render this frame.
+	*/
 	void			( *pCreateEntities )			( void );
+
+	/**
+	*	Lets the client draw non-transparent geometry.
+	*/
 	void			( *pDrawNormalTriangles )		( void );
+
+	/**
+	*	Lets the client draw transparent geometry.
+	*/
 	void			( *pDrawTransparentTriangles )	( void );
+
+	/**
+	*	A studiomodel event has occured while advancing an entity's frame.
+	*	@param event Event.
+	*	@param entity Entity whose frame is being advanced.
+	*/
 	void			( *pStudioEvent )				( const mstudioevent_t* event, const cl_entity_t* entity );
-	void			( *pPostRunCmd )				( local_state_t* from, local_state_t* to, usercmd_t* cmd, int runfuncs, double time, unsigned int random_seed );
+
+	/**
+	*	Client calls this during prediction, after it has moved the player and updated any info changed into to->
+	*	time is the current client clock based on prediction
+	*	cmd is the command that caused the movement, etc
+	*	bRunFuncs is true if this is the first time we've predicted this command.  If so, sounds and effects should play, otherwise, they should
+	*	be ignored
+	*	@param from Old state.
+	*	@param to New state.
+	*	@param cmd Command that was ran.
+	*	@param bRunFuncs Whether to play sounds and effects.
+	*	@param time Current time.
+	*	@param random_seed Shared random seed.
+	*/
+	void			( *pPostRunCmd )				( local_state_t* from, local_state_t* to, usercmd_t* cmd, const int bRunFuncs, double time, unsigned int random_seed );
+
+	/**
+	*	Called when the client shuts down. The library is freed after this call.
+	*/
 	void			( *pShutdown )					( void );
+
+	/**
+	*	The server sends us our origin with extra precision as part of the clientdata structure, not during the normal
+	*	playerstate update in entity_state_t.  In order for these overrides to eventually get to the appropriate playerstate
+	*	structure, we need to copy them into the state structure at this point.
+	*	@param state Player entity state.
+	*	@param client Player client state.
+	*/
 	void			( *pTxferLocalOverrides )		( entity_state_t* state, const clientdata_t* client );
+
+	/**
+	*	We have received entity_state_t for this player over the network.  We need to copy appropriate fields to the
+	*	playerstate structure.
+	*	@param dst Destination state.
+	*	@param src Source state.
+	*/
 	void			( *pProcessPlayerState )		( entity_state_t* dst, const entity_state_t* src );
+
+	/**
+	*	Because we can predict an arbitrary number of frames before the server responds with an update, we need to be able to copy client side prediction data in
+	*	from the state that the server ack'd receiving, which can be anywhere along the predicted frame path ( i.e., we could predict 20 frames into the future and the server ack's
+	*	up through 10 of those frames, so we need to copy persistent client-side only state from the 10th predicted frame to the slot the server
+	*	update is occupying. )
+	*	@param ps Current player entity state.
+	*	@param pps Current predicted player entity state.
+	*	@param pcd Current client state.
+	*	@param ppcd Current predicted player entity state.
+	*	@param wd Current weapon data list.
+	*	@param pwd Current predicted weapon data list.
+	*/
 	void			( *pTxferPredictionData )		( entity_state_t* ps, const entity_state_t* pps, clientdata_t* pcd, const clientdata_t* ppcd, weapon_data_t* wd, const weapon_data_t* pwd );
+
+	/**
+	*	Called by the engine while playing back a demo. The engine wants us to parse some data from the demo stream.
+	*	@param size Buffer size, in bytes.
+	*	@param buffer Buffer.
+	*/
 	void			( *pReadDemoBuffer )			( int size, unsigned char *buffer );
+
+	/**
+	*	Return 1 if the packet is valid.  Set response_buffer_size if you want to send a response packet.  Incoming, it holds the max
+	*	size of the response_buffer, so you must zero it out if you choose not to respond.
+	*	@param net_from Address of the sender.
+	*	@param args Command arguments.
+	*	@param response_buffer Buffer to write responses to.
+	*	@param response_buffer_size Buffer size.
+	*	@return true if the packet is valid, false otherwise.
+	*/
 	int				( *pConnectionlessPacket )		( const netadr_t* net_from, const char *args, char *response_buffer, int *response_buffer_size );
+
+	/**
+	*	Gets hull bounds for physics.
+	*	@param hullnumber Hull number. @see Hull::Hull
+	*	@param[ out ] mins Minimum bounds.
+	*	@param[ out ] maxs Maximum bounds.
+	*	@return true if the bounds were set, false otherwise.
+	*/
 	int				( *pGetHullBounds )				( int hullnumber, Vector& mins, Vector& maxs );
-	void			( *pHudFrame )					( double );
-	int				( *pKeyEvent )					( int eventcode, int keynum, const char *pszCurrentBinding );
-	void			( *pTempEntUpdate )				( double frametime, double client_time, double cl_gravity, tempent_t** ppTempEntFree, tempent_t** ppTempEntActive, Callback_AddVisibleEntity pAddVisibleEnt, Callback_TempEntPlaySound pTempPlaySound );
+
+	/**
+	*	Called every frame that the client library is loaded.
+	*	@param flFrameTime Time between the last and current frame.
+	*/
+	void			( *pHudFrame )					( const double flFrameTime );
+
+	/**
+	*	Called when a key has changed state.
+	*	@param bDown Whether they key is down or not.
+	*	@param keynum Key number. @see KeyNum
+	*	@param pszCurrentBinding Command bound to this key.
+	*	@return true to allow engine to process the key, otherwise, act on it as needed.
+	*/
+	int				( *pKeyEvent )					( const int bDown, int keynum, const char* pszCurrentBinding );
+
+	/**
+	*	Simulation and cleanup of temporary entities.
+	*	@param flFrameTime Time between the last and current frame.
+	*	@param flClientTime Current client time.
+	*	@param flCLGravity Client side gravity.
+	*	@param ppTempEntFree List of free temporary entities.
+	*	@param ppTempEntActive List of active temporary entities.
+	*	@param pAddVisibleEnt Callback to add visible entities.
+	*	@param pTmpPlaySound Callback to play sounds for temporary entities.
+	*/
+	void			( *pTempEntUpdate )				( const double flFrameTime, const double flClientTime, const double flCLGravity, 
+													  TEMPENTITY** ppTempEntFree, TEMPENTITY** ppTempEntActive,
+													  Callback_AddVisibleEntity pAddVisibleEnt, Callback_TempEntPlaySound pTempPlaySound );
+
+	/**
+	*	If you specify negative numbers for beam start and end point entities, then
+	*	the engine will call back into this function requesting a pointer to a cl_entity_t 
+	*	object that describes the entity to attach the beam onto.
+	*	
+	*	Indices must start at 1, not zero.
+	*	@param index Entity index.
+	*	@return Entity.
+	*/
 	cl_entity_t*	( *pGetUserEntity )				( int index );
 
 	/**
+	*	Called when a player starts or stops talking.
 	*	Possibly null on old client dlls.
+	*	@param entindex Player index. 1 based. Is -1 when it's the local player, -2 if the server has acknowledged the local player is talking.
+	*	@param bTalking Whether the player is currently talking or not.
 	*/
 	void			( *pVoiceStatus )				( int entindex, qboolean bTalking );
 
 	/**
+	*	Called when a director event message was received.
+	*	Should be parsed like a user message.
 	*	Possibly null on old client dlls.
+	*	@param iSize Size of the buffer.
+	*	@param pbuf Buffer.
 	*/
 	void			( *pDirectorMessage )			( int iSize, void *pbuf );
 
 	/**
+	*	Export this function for the engine to use the studio renderer class to render objects.
 	*	Not used by all clients.
+	*	@param version Interface version. Must be STUDIO_INTERFACE_VERSION. Return false if it doesn't match.
+	*	@param[ out ] ppinterface Pointer to a pointer that should contain the studio interface.
+	*	@param pstudio Engine studio interface.
+	*	@return true if the requested interface was available, false otherwise.
+	*	@see STUDIO_INTERFACE_VERSION
 	*/
 	int				( *pStudioInterface )			( int version, r_studio_interface_t** ppinterface, engine_studio_api_t* pstudio );
 
 	/**
+	*	Gets the chat input position.
 	*	Not used by all clients.
+	*	@param x X position.
+	*	@param y Y position.
 	*/
 	void			( *pChatInputPosition )			( int *x, int *y );
 
 	/**
+	*	Doesn't appear to be called.
 	*	Not used by all clients.
 	*/
 	int				( *pGetPlayerTeam )				( int iplayer );
@@ -164,6 +401,8 @@ typedef struct
 	*	This should be CreateInterfaceFn but that means including interface.h
 	*	which is a C++ file and some of the client files a C only... 
 	*	so we return a void * which we then do a typecast on later.
+	*
+	*	Never actually called, but must be provided in order for CreateInterface to be called.
 	*/
 	void*			( *pClientFactory )				( void );
 } cldll_func_t;

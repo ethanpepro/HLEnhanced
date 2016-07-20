@@ -121,9 +121,9 @@ void DLLEXPORT HUD_PlayerMoveInit( struct playermove_s *ppmove )
 	PM_Init( ppmove );
 }
 
-char DLLEXPORT HUD_PlayerMoveTexture( char *name )
+char DLLEXPORT HUD_PlayerMoveTexture( const char* const pszName )
 {
-	return g_MaterialsList.FindTextureType( name );
+	return g_MaterialsList.FindTextureType( pszName );
 }
 
 void DLLEXPORT HUD_PlayerMove( struct playermove_s *ppmove, int server )
@@ -168,8 +168,6 @@ int DLLEXPORT HUD_VidInit( void )
 
 	VGui_Startup();
 
-	const char* pszMapName = gEngfuncs.pfnGetLevelName();
-
 	g_bNewMapStarted = true;
 
 	return 1;
@@ -181,7 +179,6 @@ int DLLEXPORT HUD_VidInit( void )
 */
 void HUD_NewMapStarted( const char* const pszMapName )
 {
-	gEngfuncs.Con_Printf( "New map started: %s\n", pszMapName );
 }
 
 /**
