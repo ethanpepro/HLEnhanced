@@ -22,11 +22,30 @@
 #define MAX_MOVEENTS 64
 #define	MAX_CLIP_PLANES	5
 
-#define PM_NORMAL			0x00000000
-#define PM_STUDIO_IGNORE	0x00000001		// Skip studio models
-#define PM_STUDIO_BOX		0x00000002		// Use boxes for non-complex studio models (even in traceline)
-#define PM_GLASS_IGNORE		0x00000004		// Ignore entities with non-normal rendermode
-#define PM_WORLD_ONLY		0x00000008		// Only trace against the world
+enum PMTraceFlag
+{
+	PM_NORMAL			= 0x00000000,
+
+	/**
+	*	Skip studio models.
+	*/
+	PM_STUDIO_IGNORE	= 0x00000001,
+
+	/**
+	*	Use boxes for non-complex studio models (even in traceline).
+	*/
+	PM_STUDIO_BOX		= 0x00000002,
+
+	/**
+	*	Ignore entities with non-normal rendermode.
+	*/
+	PM_GLASS_IGNORE		= 0x00000004,
+
+	/**
+	*	Only trace against the world.
+	*/
+	PM_WORLD_ONLY		= 0x00000008,
+};
 
 // Values for flags parameter of PM_TraceLine
 #define PM_TRACELINE_PHYSENTSONLY	0
