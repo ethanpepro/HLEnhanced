@@ -82,8 +82,23 @@ const size_t PLAYERID_BUFFER_SIZE = 16;
 // Pointers to the exported client functions themselves
 typedef struct
 {
-	int				( *pInitFunc )					( cl_enginefuncs_t*, int );
+	/**
+	*	Called by the engine to initialize the client library.
+	*	@param pEngineFuncs Pointer to the engine functions interface;
+	*	@param iVersion Interface version. Must match CLDLL_INTERFACE_VERSION.
+	*	@return true on success, false otherwise. If iVersion does not match CLDLL_INTERFACE_VERSION, return false.
+	*	@see CLDLL_INTERFACE_VERSION
+	*/
+	int				( *pInitFunc )					( cl_enginefuncs_t* pEngineFuncs, int iVersion );
+
+	/**
+	*	Called by the engine to initialize the client library. This occurs after the engine has loaded the client and has initialized all other systems.
+	*/
 	void			( *pHudInitFunc )				( void );
+
+	/**
+	*	Called by the engine after a connection to a server has been established.
+	*/
 	int				( *pHudVidInitFunc )			( void );
 	int				( *pHudRedrawFunc )				( float, int );
 	int				( *pHudUpdateClientDataFunc )	( client_data_t*, float );
