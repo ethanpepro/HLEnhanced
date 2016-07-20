@@ -1093,6 +1093,9 @@ typedef struct cl_enginefuncs_s
 	*/
 	void					( *COM_FreeFile )							( void* pBuffer );
 
+	/**
+	*	Triangle API. Used to draw 3D geometry.
+	*/
 	triangleapi_t*		pTriAPI;
 	efx_api_t*			pEfxAPI;
 	event_api_t*		pEventAPI;
