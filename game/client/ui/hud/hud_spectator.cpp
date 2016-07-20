@@ -212,7 +212,7 @@ int UTIL_FindEntityInMap(char * name, float * origin, float * angle)
 
 	if ( !pEnt->model )	return 0;
 
-	char * data = pEnt->model->entities;
+	const char* data = pEnt->model->entities;
 
 	while (data)
 	{
@@ -1217,8 +1217,6 @@ bool CHudSpectator::ParseOverviewFile( )
 	char levelname[255];
 	char token[1024];
 	float height;
-	
-	char *pfile  = NULL;
 
 	memset( &m_OverviewData, 0, sizeof(m_OverviewData));
 
@@ -1243,7 +1241,9 @@ bool CHudSpectator::ParseOverviewFile( )
 	
 	sprintf(filename, "overviews/%s.txt", levelname );
 
-	pfile = (char *)gEngfuncs.COM_LoadFile( filename, 5, NULL);
+	byte* pBuffer = gEngfuncs.COM_LoadFile( filename, 5, NULL);
+
+	const char* pfile = ( char* ) pBuffer;
 
 	if (!pfile)
 	{
@@ -1364,7 +1364,7 @@ bool CHudSpectator::ParseOverviewFile( )
 		}
 	}
 
-	gEngfuncs.COM_FreeFile( pfile );
+	gEngfuncs.COM_FreeFile( pBuffer );
 
 	m_mapZoom = m_OverviewData.zoom;
 	m_mapOrigin = m_OverviewData.origin;

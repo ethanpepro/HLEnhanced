@@ -698,7 +698,10 @@ int TeamFortressViewport::CreateCommandMenu( char * menuFile, int direction, int
 
 	// Read Command Menu from the txt file
 	char token[1024];
-	char *pfile = (char*)gEngfuncs.COM_LoadFile( menuFile, 5, NULL);
+	byte* pBuffer = gEngfuncs.COM_LoadFile( menuFile, 5, NULL);
+
+	const char* pfile = ( char* ) pBuffer;
+
 	if (!pfile)
 	{
 		gEngfuncs.Con_DPrintf( "Unable to open %s\n", menuFile);
@@ -887,10 +890,17 @@ try
 				}
 				else
 				{
-					// Create the menu
-					m_pCommandMenus[m_iNumMenus] = CreateSubMenu(pButton, m_pCurrentCommandMenu, iButtonY );
-					m_pCurrentCommandMenu = m_pCommandMenus[m_iNumMenus];
-					m_iNumMenus++;
+					if( pButton )
+					{
+						// Create the menu
+						m_pCommandMenus[m_iNumMenus] = CreateSubMenu(pButton, m_pCurrentCommandMenu, iButtonY );
+						m_pCurrentCommandMenu = m_pCommandMenus[m_iNumMenus];
+						m_iNumMenus++;
+					}
+					else
+					{
+						gEngfuncs.Con_Printf( "Unknown command menu %s\n", szLastButtonText );
+					}
 				}
 			}
 			else if ( !iCustom )
@@ -930,7 +940,7 @@ catch( CException *e )
 
 	SetCurrentMenu( NULL );
 	SetCurrentCommandMenu( NULL );
-	gEngfuncs.COM_FreeFile( pfile );
+	gEngfuncs.COM_FreeFile( pBuffer );
 
 	m_iInitialized = true;
 	return newIndex;
@@ -1787,7 +1797,7 @@ CMenuPanel* TeamFortressViewport::CreateTextWindow( int iTextToShow )
 		{
 			sprintf(sz, "classes/long_%s.txt", sTFClassSelection[ g_iPlayerClass ]);
 		}
-		char *pfile = (char*)gEngfuncs.COM_LoadFile( sz, 5, NULL );
+		pfile = (char*)gEngfuncs.COM_LoadFile( sz, 5, NULL );
 		if (pfile)
 		{
 			cText = pfile;
@@ -1799,7 +1809,7 @@ CMenuPanel* TeamFortressViewport::CreateTextWindow( int iTextToShow )
 		CHudTextMessage::LocaliseTextString( "#Spec_Help_Title", cTitle, MAX_TITLE_LENGTH );
 		cTitle[MAX_TITLE_LENGTH-1] = 0;
 		
-		char *pfile = CHudTextMessage::BufferedLocaliseTextString( "#Spec_Help_Text" );
+		char* pfile = CHudTextMessage::BufferedLocaliseTextString( "#Spec_Help_Text" );
 		if ( pfile )
 		{
 			cText = pfile;

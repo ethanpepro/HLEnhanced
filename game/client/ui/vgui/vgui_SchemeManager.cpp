@@ -167,10 +167,10 @@ CSchemeManager::CSchemeManager( int xRes, int yRes )
 
 	// find the closest matching scheme file to our resolution
 	char token[1024];
-	char *pFile = (char*)LoadFileByResolution( "", xRes, "_textscheme.txt" );
+	byte* pFileStart = LoadFileByResolution( "", xRes, "_textscheme.txt" );
 	m_xRes = xRes;
 
-	char *pFileStart = pFile;
+	const char* pFile = ( char* ) pFileStart;
 	
 	byte *pFontData;
 	int fontFileLength;
@@ -426,6 +426,9 @@ buildDefaultFont:
 				false, 
 				false, 
 				false);
+
+			//Don't leak memory. - Solokiller
+			gEngfuncs.COM_FreeFile( pFontData );
 			
 			m_pSchemeList[i].ownFontPointer = true;
 		}

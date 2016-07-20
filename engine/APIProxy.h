@@ -557,8 +557,7 @@ typedef struct cl_enginefuncs_s
 
 	/**
 	*	Loads a sprite list. This is a text file defining a list of HUD elements.
-	*	The returned list is dynamically allocated and cannot be freed. Avoid calling more than once for any list.
-	*	TODO: extract code and implement locally, provide way to free memory.
+	*	Free the returned list with COM_FreeFile.
 	*	@param pszName Name of the file to load. Should include the sprites directory and the extension.
 	*	@param[ out ] piCount Optional. Pointer to a variable that will contain the number of entries in the list.
 	*	@return List of sprites.
@@ -917,29 +916,182 @@ typedef struct cl_enginefuncs_s
 	*	@return Entity index. -1 if no water entity was found.
 	*/
 	int						( *PM_WaterEntity )							( const float* vecPosition );
-	pmtrace_t*				( *PM_TraceLine )							( float *start, float *end, int flags, int usehull, int ignore_pe );
-	model_t*				( *CL_LoadModel )							( const char *modelname, int *index );
+
+	/**
+	*	Performs a traceline.
+	*	@param vecStart Starting point.
+	*	@param vecEnd End point.
+	*	@param flags Flags.
+	*	@param usehull Hull to use. @see Hull::Hull
+	*	@param ignore_pe Index of the entity to ignore. -1 if none should be ignored.
+	*	@return Pointer to a statically allocated trace result instance.
+	*/
+	pmtrace_t*				( *PM_TraceLine )							( const float* vecStart, const float* vecEnd, int flags, int usehull, int ignore_pe );
+
+	/**
+	*	Loads a model.
+	*	@param pszModelName Name of the model to load. Starts in the game directory, must include the extension.
+	*	@param[ out ] piIndex Optional. Will contain the index of the model. -1 if loading failed.
+	*	@return Pointer to the model.
+	*/
+	model_t*				( *CL_LoadModel )							( const char* const pszModelName, int* piIndex );
+
+	/**
+	*	Creates a new visible entity.
+	*	@param type Entity type. @see EntityType
+	*	@param ent Entity.
+	*	@return true if the entity was successfully added, false otherwise.
+	*/
 	int						( *CL_CreateVisibleEntity )					( int type, cl_entity_t* ent );
+
+	/**
+	*	Gets the model that is represented by the given sprite handle.
+	*	@param hSprite Handle to the sprite.
+	*	@return Pointer to the model, or null if the handle is invalid.
+	*/
 	const model_t*			( *GetSpritePointer )						( HSPRITE hSprite );
-	void					( *pfnPlaySoundByNameAtLocation )			( char *szSound, float volume, float *origin );
-	unsigned short			( *pfnPrecacheEvent )						( int type, const char* psz );
-	void					( *pfnPlaybackEvent )						( int flags, const edict_t* pInvoker, unsigned short eventindex, float delay, float *origin, float *angles, float fparam1, float fparam2, int iparam1, int iparam2, int bparam1, int bparam2 );
+
+	/**
+	*	Plays a sound by name at a given location.
+	*	@param pszSoundName Name of the sound.
+	*	@param volume Sound volume. [ 0, 1 ].
+	*	@param vecOrigin Location where the sound should be played.
+	*/
+	void					( *pfnPlaySoundByNameAtLocation )			( const char* const pszSoundName, float volume, const float* vecOrigin );
+
+	/**
+	*	Precaches an event.
+	*	@param type Type. Must be 1.
+	*	@param pszName Name of the event.
+	*	@return Event index, or 0 if the event couldn't be found.
+	*/
+	unsigned short			( *pfnPrecacheEvent )						( int type, const char* const pszName );
+
+	/**
+	*	@param flags Event flags.
+	*	@param pInvoker Client that triggered the event.
+	*	@param eventindex Event index. @see pfnPrecacheEvent
+	*	@param delay Delay before the event should be run.
+	*	@param origin If not g_vecZero, this is the origin parameter sent to the clients.
+	*	@param angles If not g_vecZero, this is the angles parameter sent to the clients.
+	*	@param fparam1 Float parameter 1.
+	*	@param fparam2 Float parameter 2.
+	*	@param iparam1 Integer parameter 1.
+	*	@param iparam2 Integer parameter 2.
+	*	@param bparam1 Boolean parameter 1.
+	*	@param bparam2 Boolean parameter 2.
+	*/
+	void					( *pfnPlaybackEvent )						( int flags, const edict_t* pInvoker, unsigned short eventindex, float delay, 
+																		  const float* origin, const float* angles, 
+																		  float fparam1, float fparam2, 
+																		  int iparam1, int iparam2, 
+																		  int bparam1, int bparam2 );
+
+	/**
+	*	Sets the weapon animation and body.
+	*	@param iAnim Animation index.
+	*	@param body Body to set.
+	*/
 	void					( *pfnWeaponAnim )							( int iAnim, int body );
+
+	/**
+	*	Generates a random float number in the range [ flLow, flLow ].
+	*	@param flLow Lower bound.
+	*	@param flHigh Higher bound.
+	*	@return Random number.
+	*/
 	float					( *pfnRandomFloat )							( float flLow, float flHigh );
+
+	/**
+	*	Generates a random long number in the range [ lLow, lHigh ].
+	*	@param lLow Lower bound.
+	*	@param lHigh Higher bound.
+	*	@return Random number, or lLow if lHigh is smaller than or equal to lLow.
+	*/
 	int32					( *pfnRandomLong )							( int32 lLow, int32 lHigh );
-	void					( *pfnHookEvent )							( char *name, pfnEventHook pEventHook );
+
+	/**
+	*	Adds a hook for an event.
+	*	@param pszName Name of the event.
+	*	@param pEventHook Hook to invoke when the event is triggered.
+	*/
+	void					( *pfnHookEvent )							( const char* const pszName, pfnEventHook pEventHook );
+
+	/**
+	*	@return Whether the console is currently visible.
+	*/
 	int						( *Con_IsVisible )							( void );
+
+	/**
+	*	@return Name of the game/mod directory.
+	*/
 	const char*				( *pfnGetGameDirectory )					( void );
-	cvar_t*					( *pfnGetCvarPointer )						( const char *szName );
-	const char*				( *Key_LookupBinding )						( const char *pBinding );
+
+	/**
+	*	Gets a cvar by name.
+	*	@param pszName Name of the cvar.
+	*	@return Pointer to the cvar, or null if it couldn't be found.
+	*/
+	cvar_t*					( *pfnGetCvarPointer )						( const char* const pszName );
+
+	/**
+	*	Gets the name of the key that is bound to the given command.
+	*	@param pszBinding Command.
+	*	@return Key name, or "<UNKNOWN KEYNUM>" if it couldn't be found.
+	*/
+	const char*				( *Key_LookupBinding )						( const char* const pszBinding );
+
+	/**
+	*	@return The name of the level that is currently loaded. Has the format "maps/%s.bsp", where %s is the level name.
+	*/
 	const char*				( *pfnGetLevelName )						( void );
+
+	/**
+	*	Gets the current screen fade settings.
+	*	@param fade Structure that will contain the result.
+	*/
 	void					( *pfnGetScreenFade )						( screenfade_t* fade );
-	void					( *pfnSetScreenFade )						( screenfade_t* fade );
+
+	/**
+	*	Sets the current screen fade settings.
+	*	@param fade Structure that contains the new settings.
+	*/
+	void					( *pfnSetScreenFade )						( const screenfade_t* fade );
+
+	/**
+	*	@return The root VGUI1 panel to use for the viewport.
+	*/
 	void*					( *VGui_GetPanel )							( void );
+
+	/**
+	*	Paints the VGUI1 viewport background.
+	*	Only safe to call from inside subclass of Panel::paintBackground.
+	*	@param extents Viewport extents. Contains x1 y1 x2 y2 coordinates.
+	*/
 	void					( *VGui_ViewportPaintBackground )			( int extents[ 4 ] );
-	byte*					( *COM_LoadFile )							( char *path, int usehunk, int *pLength );
-	char*					( *COM_ParseFile )							( char *data, char *token );
-	void					( *COM_FreeFile )							( void *buffer );
+
+	/**
+	*	Loads a file.
+	*	@param pszPath Path to the file.
+	*	@param usehunk Hunk to use. Must always be 5.
+	*	@param[ out ] piLength Optional. Length of the file, in bytes. 0 if the file couldn't be loaded.
+	*	@return Pointer to buffer, or null if the file couldn't be loaded.
+	*/
+	byte*					( *COM_LoadFile )							( const char* const pszPath, int usehunk, int* piLength );
+
+	/**
+	*	Parses the given data.
+	*	@param pszData Data to parse.
+	*	@param[ out ] pszToken Destination buffer for the token. Should be at least 1024 characters large.
+	*	@return Pointer to the next character to parse.
+	*/
+	const char*				( *COM_ParseFile )							( const char* pszData, char* pszToken );
+
+	/**
+	*	Frees the given buffer. Calls free() on it.
+	*	@param pBuffer Buffer to free. Can be null, in which case nothing is done.
+	*/
+	void					( *COM_FreeFile )							( void* pBuffer );
 
 	triangleapi_t*		pTriAPI;
 	efx_api_t*			pEfxAPI;
