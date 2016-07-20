@@ -70,6 +70,8 @@ using Callback_AddVisibleEntity = int ( * )( cl_entity_t* pEntity );
 using Callback_TempEntPlaySound = void ( * )( TEMPENTITY* pTemp, float damp );
 using pfnEventHook = void ( * )( event_args_t* args );
 
+using pfnEngSrc_function = void ( * )( void );
+
 /**
 *	Size of buffers used to store unique player IDs.
 */
@@ -469,71 +471,452 @@ using CLIENTFACTORY						= decltype( cldll_func_t::pClientFactory );
 // Pointers to the exported engine functions themselves
 typedef struct cl_enginefuncs_s
 {
-	HSPRITE					( *pfnSPR_Load )							( const char *szPicName );
+	/**
+	*	Loads a sprite by name.
+	*	A maximum of 256 HUD sprites can be loaded at the same time.
+	*	@param pszPicName Name of the sprite to load. Must include the sprites directory name and the extension.
+	*	@return Handle to the sprite.
+	*/
+	HSPRITE					( *pfnSPR_Load )							( const char* const pszPicName );
+
+	/**
+	*	Gets the number of frames in the sprite.
+	*	@param hPic Handle to the sprite.
+	*	@return Frame count.
+	*/
 	int						( *pfnSPR_Frames )							( HSPRITE hPic );
+
+	/**
+	*	Gets the height of a given sprite frame.
+	*	@param hPic Handle to the sprite.
+	*	@param frame Frame number.
+	*	@return Height in pixels.
+	*/
 	int						( *pfnSPR_Height )							( HSPRITE hPic, int frame );
+
+	/**
+	*	Gets the width of a given sprite frame.
+	*	@param hPic Handle to the sprite.
+	*	@param frame Frame number.
+	*	@return Width in pixels.
+	*/
 	int						( *pfnSPR_Width )							( HSPRITE hPic, int frame );
+
+	/**
+	*	Sets the sprite to draw, and its color.
+	*	@param hPic Handle to the sprite.
+	*	@param r Red color. [ 0, 255 ].
+	*	@param g Green color. [ 0, 255 ].
+	*	@param b Blue color. [ 0, 255 ].
+	*/
 	void					( *pfnSPR_Set )								( HSPRITE hPic, int r, int g, int b );
+
+	/**
+	*	Draws the current sprite as solid.
+	*	@param frame Frame to draw.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param prc Optional. Defines the rectangle of the sprite frame to draw.
+	*	@see pfnSPR_Set
+	*/
 	void					( *pfnSPR_Draw )							( int frame, int x, int y, const wrect_t* prc );
+
+	/**
+	*	Draws the current sprite with color index255 not drawn (transparent).
+	*	@param frame Frame to draw.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param prc Optional. Defines the rectangle of the sprite frame to draw.
+	*	@see pfnSPR_Set
+	*/
 	void					( *pfnSPR_DrawHoles )						( int frame, int x, int y, const wrect_t* prc );
+
+	/**
+	*	Draws the current sprite, adds the sprites RGB values to the background (additive translucency).
+	*	@param frame Frame to draw.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param prc Optional. Defines the rectangle of the sprite frame to draw.
+	*	@see pfnSPR_Set
+	*/
 	void					( *pfnSPR_DrawAdditive )					( int frame, int x, int y, const wrect_t* prc );
+
+	/**
+	*	Dets a clipping rect for HUD sprites. (0,0) is the top-left hand corner of the screen.
+	*	@param x Left coordinate of the box.
+	*	@param y Top coordinate of the box.
+	*	@param width Width of the box.
+	*	@param height Height of the box.
+	*/
 	void					( *pfnSPR_EnableScissor )					( int x, int y, int width, int height );
+
+	/**
+	*	Disables the scissor box.
+	*/
 	void					( *pfnSPR_DisableScissor )					( void );
-	client_sprite_t*		( *pfnSPR_GetList )							( char *psz, int *piCount );
+
+	/**
+	*	Loads a sprite list. This is a text file defining a list of HUD elements.
+	*	The returned list is dynamically allocated and cannot be freed. Avoid calling more than once for any list.
+	*	TODO: extract code and implement locally, provide way to free memory.
+	*	@param pszName Name of the file to load. Should include the sprites directory and the extension.
+	*	@param[ out ] piCount Optional. Pointer to a variable that will contain the number of entries in the list.
+	*	@return List of sprites.
+	*/
+	client_sprite_t*		( *pfnSPR_GetList )							( const char* const pszName, int* piCount );
+
+	/**
+	*	Fills the given rectangle with a given color.
+	*	@param x Left coordinate.
+	*	@param y Top coordinate.
+	*	@param width Width of the rectangle.
+	*	@param height Height of the rectangle.
+	*	@param r Red color. [ 0, 255 ].
+	*	@param g Green color. [ 0, 255 ].
+	*	@param b Blue color. [ 0, 255 ].
+	*	@param a Alpha value. [ 0, 255 ].
+	*/
 	void					( *pfnFillRGBA )							( int x, int y, int width, int height, int r, int g, int b, int a );
+
+	/**
+	*	Gets screen info.
+	*	The SCREENINFO::iSize member must be set to sizeof( SCREENINFO ).
+	*	@param psrcinfo Pointer to a SCREENINFO instance that will receive the information.
+	*	@return Number of bytes that have been written. 0 if nothing was written.
+	*/
 	int						( *pfnGetScreenInfo ) 						( SCREENINFO* pscrinfo );
+
+	/**
+	*	Sets the crosshair sprite.
+	*	@param hPic Handle to the sprite.
+	*	@param rc Rectangle that defines the crosshair box to draw.
+	*	@param r Red color. [ 0, 255 ].
+	*	@param g Green color. [ 0, 255 ].
+	*	@param b Blue color. [ 0, 255 ].
+	*/
 	void					( *pfnSetCrosshair )						( HSPRITE hspr, wrect_t rc, int r, int g, int b );
-	cvar_t*					( *pfnRegisterVariable )					( char *szName, char *szValue, int flags );
-	float					( *pfnGetCvarFloat )						( const char* pszName );
-	const char*				( *pfnGetCvarString )						( const char* pszName );
-	int						( *pfnAddCommand )							( char *cmd_name, void( *pfnEngSrc_function )( void ) );
-	int						( *pfnHookUserMsg )							( char *szMsgName, pfnUserMsgHook pfn );
-	int						( *pfnServerCmd )							( char *szCmdString );
-	int						( *pfnClientCmd )							( char *szCmdString );
+
+	/**
+	*	Registers a new cvar. Avoid calling with the same name more than once.
+	*	@param pszName Name of the cvar. Must point to a string that will exist for the rest of the program's lifetime.
+	*	@param pszValue Value to set. Can be a temporary string.
+	*	@param flags CVar flags.
+	*	@return Pointer to the cvar.
+	*/
+	cvar_t*					( *pfnRegisterVariable )					( const char* const pszName, const char* const pszValue, int flags );
+
+	/**
+	*	Gets the float value of a cvar.
+	*	@param pszName CVar name.
+	*	@return Value, or 0 if the cvar doesn't exist.
+	*/
+	float					( *pfnGetCvarFloat )						( const char* const pszName );
+
+	/**
+	*	Gets the string value of a cvar.
+	*	@param pszName CVar name.
+	*	@return Value, or nullptr if the cvar doesn't exist.
+	*/
+	const char*				( *pfnGetCvarString )						( const char* const pszName );
+
+	/**
+	*	Adds a new command.
+	*	@param pszCmdName Command name. Must point to a string that will exist for the rest of the program's lifetime.
+	*	@param pCallback Callback to invoke when the command is executed.
+	*	@return true in all cases.
+	*/
+	int						( *pfnAddCommand )							( const char* const pszCmdName, pfnEngSrc_function pCallback );
+
+	/**
+	*	Hooks a user message.
+	*	@param pszMsgName Name of the message. Can be a temporary string.
+	*	@param pfn Callback to invoke when the message is received.
+	*	@return true if the command was already registered with the same callback, false otherwise.
+	*/
+	int						( *pfnHookUserMsg )							( const char* const pszMsgName, pfnUserMsgHook pfn );
+
+	/**
+	*	Sends a command to the server.
+	*	@param pszCmdString Command string.
+	*	@return false in all cases.
+	*/
+	int						( *pfnServerCmd )							( const char* const pszCmdString );
+
+	/**
+	*	Enqueues a command for execution for the local client.
+	*	@param pszCmdString Command string.
+	*	@return true if the command was enqueued, false otherwise.
+	*/
+	int						( *pfnClientCmd )							( const char* const pszCmdString );
+
+	/**
+	*	Gets player info.
+	*	@param ent_num 1 based player entity index.
+	*	@param pinfo Structure that will contain the player's information.
+	*/
 	void					( *pfnGetPlayerInfo )						( int ent_num, hud_player_info_t* pinfo );
-	void					( *pfnPlaySoundByName )						( char *szSound, float volume );
+
+	/**
+	*	Plays a sound by name.
+	*	@param pszSound Name of the sound.
+	*	@param volume Volume to play at. [ 0, 1 ].
+	*/
+	void					( *pfnPlaySoundByName )						( const char* const pszSound, float volume );
+
+	/**
+	*	Plays a sound by index.
+	*	@param iSound Index of the sound.
+	*	@param volume Volume to play at. [ 0, 1 ].
+	*/
 	void					( *pfnPlaySoundByIndex )					( int iSound, float volume );
-	void					( *pfnAngleVectors )						( const float * vecAngles, float * forward, float * right, float * up );
-	client_textmessage_t*	( *pfnTextMessageGet )						( const char *pName );
+
+	/**
+	*	Converts angles to directional vectors.
+	*	Superseded by AngleVectors.
+	*	@param vecAngles Angles.
+	*	@param[ out ] forward Forward vector.
+	*	@param[ out ] right Right vector.
+	*	@param[ out ] up Up vector.
+	*	@see AngleVectors
+	*/
+	void					( *pfnAngleVectors )						( const float* vecAngles, float* forward, float* right, float* up );
+
+	/**
+	*	Gets a text message, defined in titles.txt.
+	*	@param pszName Text message name.
+	*					Must be either a message defined in titles.txt, or one of the following:
+	*					__DEMOMESSAGE__
+	*					__NETMESSAGE__1
+	*					__NETMESSAGE__2
+	*					__NETMESSAGE__3
+	*					__NETMESSAGE__4
+	*	@return Text message, or null if no text message could be retrieved.
+	*/
+	client_textmessage_t*	( *pfnTextMessageGet )						( const char* const pszName );
+
+	/**
+	*	Draws a single character.
+	*	@param x Left position.
+	*	@param y Top position.
+	*	@param number Character to draw.
+	*	@param r Red color. [ 0, 255 ].
+	*	@param g Green color. [ 0, 255 ].
+	*	@param b Blue color. [ 0, 255 ].
+	*	@return Total width of the drawn character.
+	*/
 	int						( *pfnDrawCharacter )						( int x, int y, int number, int r, int g, int b );
-	int						( *pfnDrawConsoleString )					( int x, int y, char *string );
+
+	/**
+	*	Draws a string.
+	*	@param x Left position.
+	*	@param y Top position.
+	*	@param pszString String to draw.
+	*	@return Total width of the drawn string.
+	*/
+	int						( *pfnDrawConsoleString )					( int x, int y, const char* const pszString );
+
+	/**
+	*	Sets the text color.
+	*	@param r Red color. [ 0, 1 ].
+	*	@param g Green color. [ 0, 1 ].
+	*	@param b Blue color. [ 0, 1 ].
+	*/
 	void					( *pfnDrawSetTextColor )					( float r, float g, float b );
-	void					( *pfnDrawConsoleStringLen )				( const char *string, int *length, int *height );
-	void					( *pfnConsolePrint )						( const char *string );
-	void					( *pfnCenterPrint )							( const char *string );
+
+	/**
+	*	Draws a string.
+	*	@param pszString String to draw.
+	*	@param piLength Pointer to a variable that will contain the total width of the drawn string.
+	*	@param piHeight Pointer to a variable that will contain the height of the string.
+	*/
+	void					( *pfnDrawConsoleStringLen )				( const char* const pszString, int* piLength, int* piHeight );
+
+	/**
+	*	Prints a string to the console.
+	*	@param pszString String to print.
+	*/
+	void					( *pfnConsolePrint )						( const char* const pszString );
+
+	/**
+	*	Prints a string to the center of the screen.
+	*	@param pszString String to print.
+	*/
+	void					( *pfnCenterPrint )							( const char* const pszString );
+
+	/**
+	*	@return The center of the screen's X axis.
+	*/
 	int						( *GetWindowCenterX )						( void );
+
+	/**
+	*	@return The center of the screen's Y axis.
+	*/
 	int						( *GetWindowCenterY )						( void );
-	void					( *GetViewAngles )							( float * );
-	void					( *SetViewAngles )							( float * );
+
+	/**
+	*	Gets the view angles.
+	*	@param[ out ] vecAngles Will contain the view angles.
+	*/
+	void					( *GetViewAngles )							( float* vecAngles );
+
+	/**
+	*	Sets the view angles.
+	*	@param vecAngles Angles to set.
+	*/
+	void					( *SetViewAngles )							( const float* vecAngles );
+
+	/**
+	*	@return The maximum number of clients that can be connected to the current server.
+	*/
 	int						( *GetMaxClients )							( void );
-	void					( *Cvar_SetValue )							( char *cvar, float value );
+
+	/**
+	*	Sets the value of a cvar.
+	*	@param pszCVarName Name of the cvar.
+	*	@param value Value to set.
+	*/
+	void					( *Cvar_SetValue )							( const char* const pszCVarName, float value );
+
+	/**
+	*	@return the number of arguments in the command that is currently being executed.
+	*/
 	int						( *Cmd_Argc )								( void );
+
+	/**
+	*	@param arg Argument index.
+	*	@return Argument at the given index.
+	*/
 	char*					( *Cmd_Argv )								( int arg );
-	void					( *Con_Printf )								( char *fmt, ... );
-	void					( *Con_DPrintf )							( char *fmt, ... );
-	void					( *Con_NPrintf )							( int pos, char *fmt, ... );
+
+	/**
+	*	Prints to the console.
+	*	@param pszFormat Format string.
+	*	@param ... Arguments.
+	*/
+	void					( *Con_Printf )								( const char* const pszFormat, ... );
+
+	/**
+	*	Prints to the console if developer mode is enabled.
+	*	@param pszFormat Format string.
+	*	@param ... Arguments.
+	*/
+	void					( *Con_DPrintf )							( const char* const pszFormat, ... );
+
+	/**
+	*	Prints to the notify area.
+	*	@param pos Position in the notify list to set this message to. [ 0, 32 [.
+	*	@param pszFormat Format string.
+	*	@param ... Arguments.
+	*/
+	void					( *Con_NPrintf )							( const int pos, const char* const pszFormat, ... );
+
+	/**
+	*	Prints to the notify area.
+	*	@param info Notify print info.
+	*	@param pszFormat Format string.
+	*	@param ... Arguments.
+	*/
 	void					( *Con_NXPrintf )							( con_nprint_t* info, char *fmt, ... );
-	const char*				( *PhysInfo_ValueForKey )					( const char *key );
-	const char*				( *ServerInfo_ValueForKey )					( const char *key );
+
+	/**
+	*	Given a key, gets the physics value.
+	*	@param pszKey Key.
+	*	@return Pointer to the value, or an empty string if the key couldn't be found.
+	*/
+	const char*				( *PhysInfo_ValueForKey )					( const char* const pszKey );
+
+	/**
+	*	Given a key, gets the server info value.
+	*	@param pszKey Key.
+	*	@return Pointer to the value, or an empty string if the key couldn't be found.
+	*/
+	const char*				( *ServerInfo_ValueForKey )					( const char* const pszKey );
+
+	/**
+	*	@return The client's maximum speed.
+	*/
 	float					( *GetClientMaxspeed )						( void );
-	int						( *CheckParm )								( char *parm, char **ppnext );
-	void					( *Key_Event )								( int key, int down );
-	void					( *GetMousePosition )						( int *mx, int *my );
+
+	/**
+	*	Checks if the given parameter was provided on the command line.
+	*	@param pszParm Parameter to check.
+	*	@param[ out ] ppszNext Optional. If the parameter was provided, points to the value for the given parameter.
+	*	@return Parameter index in the argument vector. 0 if it wasn't found.
+	*/
+	int						( *CheckParm )								( const char* const pszParm, char** ppszNext );
+
+	/**
+	*	Triggers a key event.
+	*	@param key Key number. @see KeyNum.
+	*	@param bDown Whether the key is down or up.
+	*/
+	void					( *Key_Event )								( int key, const int bDown );
+
+	/**
+	*	Gets the mouse position on-screen.
+	*	@param mx X position.
+	*	@param my Y position.
+	*/
+	void					( *GetMousePosition )						( int* mx, int *my );
+
+	/**
+	*	@return Whether the player is currently noclipping.
+	*/
 	int						( *IsNoClipping )							( void );
+
+	/**
+	*	Note: do not call until a map has been loaded. Will access invalid memory otherwise, and return a garbage pointer.
+	*	Will be valid if called after HUD_VidInit has returned.
+	*	@return The entity that represents the local player.
+	*/
 	cl_entity_t*			( *GetLocalPlayer )							( void );
+
+	/**
+	*	@return The entity that represents the player's viewmodel.
+	*/
 	cl_entity_t*			( *GetViewModel )							( void );
+
+	/**
+	*	Gets an entity by index. Note: do not call until a map has been loaded. Will return a null pointer otherwise.
+	*	Will be valid if called after HUD_VidInit has returned.
+	*	@param idx Index. 0 based.
+	*	@return The entity, or null if the index is invalid.
+	*/
 	cl_entity_t*			( *GetEntityByIndex )						( int idx );
+
+	/**
+	*	@return Current client time.
+	*/
 	float					( *GetClientTime )							( void );
+
+	/**
+	*	Calculates the current shake settings.
+	*/
 	void					( *V_CalcShake )							( void );
-	void					( *V_ApplyShake )							( float *origin, float *angles, float factor );
-	int						( *PM_PointContents )						( const float* point, int *truecontents );
+
+	/**
+	*	Applies the shake settings.
+	*	@param[ in, out ] vecOrigin Original origin. Will contain the new origin.
+	*	@param[ in, out ] vecAngles Original angles. Will contain the new angles.
+	*	@param flFactor Factor by which to multiply the shake.
+	*/
+	void					( *V_ApplyShake )							( float* vecOrigin, float* vecAngles, const float flFactor );
+
+	/**
+	*	Gets the contents of the given point.
+	*	The real contents can contain water current data.
+	*	@param vecPoint Point to check.
+	*	@param piTruecontents The real contents.
+	*	@return Contents.
+	*/
+	int						( *PM_PointContents )						( const float* vecPoint, int* piTruecontents );
 
 	/**
 	*	Gets the index of the water entity at the given position.
 	*	@param vecPosition Position to look for the entity.
 	*	@return Entity index. -1 if no water entity was found.
 	*/
-	int						( *PM_WaterEntity )							( float *p );
+	int						( *PM_WaterEntity )							( const float* vecPosition );
 	pmtrace_t*				( *PM_TraceLine )							( float *start, float *end, int flags, int usehull, int ignore_pe );
 	model_t*				( *CL_LoadModel )							( const char *modelname, int *index );
 	int						( *CL_CreateVisibleEntity )					( int type, cl_entity_t* ent );
