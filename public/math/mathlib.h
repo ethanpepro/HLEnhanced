@@ -16,6 +16,8 @@
 #ifndef PUBLIC_MATH_MATHLIB_H
 #define PUBLIC_MATH_MATHLIB_H
 
+//TODO: tidy this header up - Solokiller
+
 typedef float vec_t;
 
 //TODO: replace with Vector4D - Solokiller
@@ -51,10 +53,6 @@ float VectorNormalize( Vector& v );		// returns vector length
 
 void VectorMA( const Vector& veca, float scale, const Vector& vecb, Vector& vecc );
 
-void VectorScale( const float *in, float scale, float *out );
-void VectorInverse( float *v );
-void VectorAngles( const float *forward, float *angles );
-
 /**
 *	Converts a directional vector to a yaw value.
 *	@param vec Directional vector.
@@ -82,19 +80,15 @@ inline void AngleVectorsTranspose( const Vector& angles, Vector& forward, Vector
 	AngleVectorsTranspose( angles, &forward, &right, &up );
 }
 
-#define AngleIVectors	AngleVectorsTranspose
-
 void VectorMatrix( Vector& forward, Vector& right, Vector& up );
 
 void VectorAngles( const Vector& forward, Vector& angles );
 
-void AngleMatrix( const Vector& angles, float( *matrix )[ 4 ] );
-
-void AngleIMatrix( const Vector& angles, float matrix[ 3 ][ 4 ] );
+void AngleIMatrix( const Vector& angles, Matrix3x4& matrix );
 
 void VectorTransform( const Vector& in1, const Matrix3x4& in2, Vector& out );
 
-void NormalizeAngles( float* angles );
+void NormalizeAngles( Vector& vecAngles );
 
 float FixAngle( float angle );
 
@@ -132,12 +126,11 @@ float UTIL_SplineFraction( float value, float scale );
 // Sorta like FInViewCone, but for nonmonsters. 
 extern float UTIL_DotPoints( const Vector &vecSrc, const Vector &vecCheck, const Vector &vecDir );
 
-void AngleMatrix( const float *angles, Matrix3x4& matrix );
-void CrossProduct( const float *v1, const float *v2, float *cross );
+void AngleMatrix( const Vector& angles, Matrix3x4& matrix );
 void ConcatTransforms( const Matrix3x4& in1, const Matrix3x4& in2, Matrix3x4& out );
 void QuaternionMatrix( vec4_t quaternion, Matrix3x4& matrix );
 void QuaternionSlerp( vec4_t p, vec4_t q, float t, vec4_t qt );
-void AngleQuaternion( float *angles, vec4_t quaternion );
+void AngleQuaternion( const Vector& vecAngles, vec4_t quaternion );
 
 #define BOX_ON_PLANE_SIDE(emins, emaxs, p)	\
 	(((p)->type < 3)?						\

@@ -47,49 +47,6 @@ void VectorMA( const Vector& veca, float scale, const Vector& vecb, Vector& vecc
 	vecc[ 2 ] = veca[ 2 ] + scale*vecb[ 2 ];
 }
 
-void VectorScale( const float *in, float scale, float *out )
-{
-	out[ 0 ] = in[ 0 ] * scale;
-	out[ 1 ] = in[ 1 ] * scale;
-	out[ 2 ] = in[ 2 ] * scale;
-}
-
-void VectorInverse( float *v )
-{
-	v[ 0 ] = -v[ 0 ];
-	v[ 1 ] = -v[ 1 ];
-	v[ 2 ] = -v[ 2 ];
-}
-
-void VectorAngles( const float *forward, float *angles )
-{
-	float	tmp, yaw, pitch;
-
-	if( forward[ 1 ] == 0 && forward[ 0 ] == 0 )
-	{
-		yaw = 0;
-		if( forward[ 2 ] > 0 )
-			pitch = 90;
-		else
-			pitch = 270;
-	}
-	else
-	{
-		yaw = static_cast<float>( atan2( forward[ 1 ], forward[ 0 ] ) * 180 / M_PI );
-		if( yaw < 0 )
-			yaw += 360;
-
-		tmp = sqrt( forward[ 0 ] * forward[ 0 ] + forward[ 1 ] * forward[ 1 ] );
-		pitch = static_cast<float>( atan2( forward[ 2 ], tmp ) * 180 / M_PI );
-		if( pitch < 0 )
-			pitch += 360;
-	}
-
-	angles[ 0 ] = pitch;
-	angles[ 1 ] = yaw;
-	angles[ 2 ] = 0;
-}
-
 float UTIL_VecToYaw( const Vector& vec )
 {
 	//Extracted from VectorAngles. - Solokiller
@@ -261,7 +218,7 @@ void AngleMatrix( const Vector& angles, float( *matrix )[ 4 ] )
 	matrix[ 2 ][ 3 ] = 0.0;
 }
 
-void AngleIMatrix( const Vector& angles, float matrix[ 3 ][ 4 ] )
+void AngleIMatrix( const Vector& angles, Matrix3x4& matrix )
 {
 	float		angle;
 	float		sr, sp, sy, cr, cp, cy;
@@ -298,19 +255,18 @@ void VectorTransform( const Vector& in1, const Matrix3x4& in2, Vector& out )
 	out[ 2 ] = DotProduct( in1, in2[ 2 ] ) + in2[ 2 ][ 3 ];
 }
 
-void NormalizeAngles( float *angles )
+void NormalizeAngles( Vector& vecAngles )
 {
-	int i;
 	// Normalize angles
-	for( i = 0; i < 3; i++ )
+	for( int i = 0; i < 3; ++i )
 	{
-		if( angles[ i ] > 180.0 )
+		if( vecAngles[ i ] > 180.0 )
 		{
-			angles[ i ] -= 360.0;
+			vecAngles[ i ] -= 360.0;
 		}
-		else if( angles[ i ] < -180.0 )
+		else if( vecAngles[ i ] < -180.0 )
 		{
-			angles[ i ] += 360.0;
+			vecAngles[ i ] += 360.0;
 		}
 	}
 }
@@ -556,7 +512,7 @@ AngleMatrix
 
 ====================
 */
-void AngleMatrix( const float *angles, Matrix3x4& matrix )
+void AngleMatrix( const Vector& angles, Matrix3x4& matrix )
 {
 	float		angle;
 	float		sr, sp, sy, cr, cp, cy;
@@ -584,19 +540,6 @@ void AngleMatrix( const float *angles, Matrix3x4& matrix )
 	matrix[ 0 ][ 3 ] = 0.0;
 	matrix[ 1 ][ 3 ] = 0.0;
 	matrix[ 2 ][ 3 ] = 0.0;
-}
-
-/*
-====================
-CrossProduct
-
-====================
-*/
-void CrossProduct( const float *v1, const float *v2, float *cross )
-{
-	cross[ 0 ] = v1[ 1 ] * v2[ 2 ] - v1[ 2 ] * v2[ 1 ];
-	cross[ 1 ] = v1[ 2 ] * v2[ 0 ] - v1[ 0 ] * v2[ 2 ];
-	cross[ 2 ] = v1[ 0 ] * v2[ 1 ] - v1[ 1 ] * v2[ 0 ];
 }
 
 /*
@@ -641,19 +584,19 @@ AngleQuaternion
 
 ====================
 */
-void AngleQuaternion( float *angles, vec4_t quaternion )
+void AngleQuaternion( const Vector& vecAngles, vec4_t quaternion )
 {
 	float		angle;
 	float		sr, sp, sy, cr, cp, cy;
 
 	// FIXME: rescale the inputs to 1/2 angle
-	angle = static_cast<float>( angles[ 2 ] * 0.5 );
+	angle = static_cast<float>( vecAngles[ 2 ] * 0.5 );
 	sy = sin( angle );
 	cy = cos( angle );
-	angle = static_cast<float>( angles[ 1 ] * 0.5 );
+	angle = static_cast<float>( vecAngles[ 1 ] * 0.5 );
 	sp = sin( angle );
 	cp = cos( angle );
-	angle = static_cast<float>( angles[ 0 ] * 0.5 );
+	angle = static_cast<float>( vecAngles[ 0 ] * 0.5 );
 	sr = sin( angle );
 	cr = cos( angle );
 

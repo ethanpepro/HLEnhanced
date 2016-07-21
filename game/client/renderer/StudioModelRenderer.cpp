@@ -522,7 +522,7 @@ void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 
 		VectorCopy (m_vRight, viewmatrix[0]);
 		VectorCopy (m_vUp, viewmatrix[1]);
-		VectorInverse (viewmatrix[1]);
+		viewmatrix[ 1 ] = -viewmatrix[ 1 ];
 		VectorCopy (m_vNormal, viewmatrix[2]);
 
 		(*m_protationmatrix)[0][3] = modelpos[0] - m_vRenderOrigin[0];
@@ -677,7 +677,8 @@ void CStudioModelRenderer::StudioFxTransform( cl_entity_t *ent, Matrix3x4& trans
 			int axis = gEngfuncs.pfnRandomLong(0,1);
 			if ( axis == 1 ) // Choose between x & z
 				axis = 2;
-			VectorScale( transform[axis], gEngfuncs.pfnRandomFloat(1,1.484), transform[axis] );
+
+			transform[ axis ] = transform[ axis ] * gEngfuncs.pfnRandomFloat( 1, 1.484 );
 		}
 		else if ( gEngfuncs.pfnRandomLong(0,49) == 0 )
 		{
