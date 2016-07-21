@@ -54,9 +54,6 @@ void CHud :: MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf )
 
 void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 {
-	//Clear the string pool now. TODO: figure out if there's a better place to put this. An engine call maybe? - Solokiller
-	g_StringPool.Clear();
-
 	// prepare all hud data
 	HUDLIST *pList = m_pHudList;
 

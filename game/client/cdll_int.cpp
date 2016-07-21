@@ -164,6 +164,9 @@ so the HUD can reinitialize itself.
 
 int DLLEXPORT HUD_VidInit( void )
 {
+	//Clear the string pool now.
+	g_StringPool.Clear();
+
 	gHUD.VidInit();
 
 	VGui_Startup();
