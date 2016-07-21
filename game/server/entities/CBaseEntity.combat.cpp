@@ -173,13 +173,9 @@ void CBaseEntity::FireBullets( const unsigned int cShots,
 	for( unsigned int iShot = 1; iShot <= cShots; iShot++ )
 	{
 		// get circular gaussian spread
-		float x, y, z;
-		do {
-			x = RANDOM_FLOAT( -0.5, 0.5 ) + RANDOM_FLOAT( -0.5, 0.5 );
-			y = RANDOM_FLOAT( -0.5, 0.5 ) + RANDOM_FLOAT( -0.5, 0.5 );
-			z = x*x + y*y;
-		}
-		while( z > 1 );
+		float x, y;
+
+		UTIL_GetCircularGaussianSpread( x, y );
 
 		Vector vecDir = vecDirShooting +
 			x * vecSpread.x * vecRight +
@@ -299,7 +295,7 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 	TraceResult tr;
 	Vector vecRight = gpGlobals->v_right;
 	Vector vecUp = gpGlobals->v_up;
-	float x, y, z;
+	float x, y;
 
 	if( pAttacker == nullptr )
 		pAttacker = this;  // the default attacker is ourselves
@@ -311,9 +307,7 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 	{
 		//Use player's random seed.
 		// get circular gaussian spread
-		x = UTIL_SharedRandomFloat( shared_rand + iShot, -0.5, 0.5 ) + UTIL_SharedRandomFloat( shared_rand + ( 1 + iShot ), -0.5, 0.5 );
-		y = UTIL_SharedRandomFloat( shared_rand + ( 2 + iShot ), -0.5, 0.5 ) + UTIL_SharedRandomFloat( shared_rand + ( 3 + iShot ), -0.5, 0.5 );
-		z = x * x + y * y;
+		UTIL_GetSharedCircularGaussianSpread( shared_rand, iShot, x, y );
 
 		Vector vecDir = vecDirShooting +
 			x * vecSpread.x * vecRight +

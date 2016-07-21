@@ -445,13 +445,9 @@ CBaseEntity* CFuncTank::FindTarget( CBaseEntity* pPlayer )
 void CFuncTank::TankTrace( const Vector &vecStart, const Vector &vecForward, const Vector &vecSpread, TraceResult &tr )
 {
 	// get circular gaussian spread
-	float x, y, z;
-	do {
-		x = RANDOM_FLOAT( -0.5, 0.5 ) + RANDOM_FLOAT( -0.5, 0.5 );
-		y = RANDOM_FLOAT( -0.5, 0.5 ) + RANDOM_FLOAT( -0.5, 0.5 );
-		z = x*x + y*y;
-	}
-	while( z > 1 );
+	float x, y;
+	UTIL_GetCircularGaussianSpread( x, y );
+
 	Vector vecDir = vecForward +
 		x * vecSpread.x * gpGlobals->v_right +
 		y * vecSpread.y * gpGlobals->v_up;

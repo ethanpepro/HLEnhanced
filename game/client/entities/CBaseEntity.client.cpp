@@ -97,27 +97,20 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 									   float flDistance, int iBulletType,
 									   int iTracerFreq, int iDamage, CBaseEntity* pAttacker, int shared_rand )
 {
-	float x, y, z;
+	float x, y;
 
 	for( unsigned int iShot = 1; iShot <= cShots; iShot++ )
 	{
 		if( pAttacker == NULL )
 		{
 			// get circular gaussian spread
-			do {
-				x = RANDOM_FLOAT( -0.5, 0.5 ) + RANDOM_FLOAT( -0.5, 0.5 );
-				y = RANDOM_FLOAT( -0.5, 0.5 ) + RANDOM_FLOAT( -0.5, 0.5 );
-				z = x*x + y*y;
-			}
-			while( z > 1 );
+			UTIL_GetCircularGaussianSpread( x, y );
 		}
 		else
 		{
 			//Use player's random seed.
 			// get circular gaussian spread
-			x = UTIL_SharedRandomFloat( shared_rand + iShot, -0.5, 0.5 ) + UTIL_SharedRandomFloat( shared_rand + ( 1 + iShot ), -0.5, 0.5 );
-			y = UTIL_SharedRandomFloat( shared_rand + ( 2 + iShot ), -0.5, 0.5 ) + UTIL_SharedRandomFloat( shared_rand + ( 3 + iShot ), -0.5, 0.5 );
-			z = x * x + y * y;
+			UTIL_GetSharedCircularGaussianSpread( shared_rand, iShot, x, y );
 		}
 
 	}

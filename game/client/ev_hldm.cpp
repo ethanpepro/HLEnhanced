@@ -270,16 +270,11 @@ void EV_HLDM_FireBullets( int idx,
 	{
 		Vector vecDir, vecEnd;
 			
-		float x, y, z;
 		//We randomize for the Shotgun.
 		if ( iBulletType == BULLET_PLAYER_BUCKSHOT )
 		{
-			//TODO: This is circular gaussian spread. It's defined multiple times. Refactor - Solokiller
-			do {
-				x = gEngfuncs.pfnRandomFloat(-0.5,0.5) + gEngfuncs.pfnRandomFloat(-0.5,0.5);
-				y = gEngfuncs.pfnRandomFloat(-0.5,0.5) + gEngfuncs.pfnRandomFloat(-0.5,0.5);
-				z = x*x+y*y;
-			} while (z > 1);
+			float x, y;
+			UTIL_GetCircularGaussianSpread( x, y );
 
 			for ( i = 0 ; i < 3; i++ )
 			{

@@ -5,6 +5,11 @@
 
 #include "CHashStringPool.h"
 
+//This really needs to be done better. - Solokiller
+#ifdef CLIENT_DLL
+#include "cl_dll.h"
+#endif
+
 /**
 *	dll agnostic game utility functionality - Solokiller
 */
@@ -45,6 +50,70 @@ extern CHashStringPool g_StringPool;
 
 int UTIL_SharedRandomLong( unsigned int seed, int low, int high );
 float UTIL_SharedRandomFloat( unsigned int seed, float low, float high );
+
+/**
+*	Generates a random long number in the range [ lLow, lHigh ].
+*	@param lLow Lower bound.
+*	@param lHigh Higher bound.
+*	@return Random number, or lLow if lHigh is smaller than or equal to lLow.
+*/
+inline int32 UTIL_RandomLong( int32 lLow, int32 lHigh )
+{
+	return
+#ifdef CLIENT_DLL
+		gEngfuncs.pfnRandomLong
+#else
+		g_engfuncs.pfnRandomLong
+#endif
+		( lLow, lHigh );
+}
+
+/**
+*	Generates a random float number in the range [ flLow, flLow ].
+*	@param flLow Lower bound.
+*	@param flHigh Higher bound.
+*	@return Random number.
+*/
+inline float UTIL_RandomFloat( float flLow, float flHigh )
+{
+	return
+#ifdef CLIENT_DLL
+		gEngfuncs.pfnRandomFloat
+#else
+		g_engfuncs.pfnRandomFloat
+#endif
+		( flLow, flHigh );
+}
+
+/**
+*	Gets circular gaussian spread.
+*	@param[ out ] x X value.
+*	@param[ out ] y Y value.
+*/
+inline void UTIL_GetCircularGaussianSpread( float& x, float& y )
+{
+	float z;
+	do {
+		x = UTIL_RandomFloat( -0.5, 0.5 ) + UTIL_RandomFloat( -0.5, 0.5 );
+		y = UTIL_RandomFloat( -0.5, 0.5 ) + UTIL_RandomFloat( -0.5, 0.5 );
+		z = x*x + y*y;
+	}
+	while( z > 1 );
+}
+
+/**
+*	Gets shared circular gaussian spread.
+*	Very specific to weapons code.
+*	@param shared_rand Shared random seed.
+*	@param iShot Shot.
+*	@param[ out ] x X value.
+*	@param[ out ] y Y value.
+*/
+inline void UTIL_GetSharedCircularGaussianSpread( const int shared_rand, const unsigned int iShot, float& x, float& y )
+{
+	x = UTIL_SharedRandomFloat( shared_rand + iShot, -0.5, 0.5 ) + UTIL_SharedRandomFloat( shared_rand + ( 1 + iShot ), -0.5, 0.5 );
+	y = UTIL_SharedRandomFloat( shared_rand + ( 2 + iShot ), -0.5, 0.5 ) + UTIL_SharedRandomFloat( shared_rand + ( 3 + iShot ), -0.5, 0.5 );
+}
 
 void UTIL_StringToVector( float *pVector, const char *pString );
 
