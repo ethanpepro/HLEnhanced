@@ -46,7 +46,7 @@ AmmoID_t CAmmoTypes::GetLastAmmoID() const
 
 const CAmmoType* CAmmoTypes::GetAmmoTypeByIndex( const size_t uiIndex ) const
 {
-	if( uiIndex > m_AmmoList.size() )
+	if( uiIndex >= m_AmmoList.size() )
 		return nullptr;
 
 	auto pType = m_AmmoList[ uiIndex ];
