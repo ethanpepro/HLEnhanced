@@ -20,9 +20,6 @@
 
 typedef float vec_t;
 
-//TODO: replace with Vector4D - Solokiller
-typedef vec_t vec4_t[ 4 ];	// x,y,z,w
-
 #include "vector.h"
 #include "Matrix3x4.h"
 
@@ -128,9 +125,9 @@ extern float UTIL_DotPoints( const Vector &vecSrc, const Vector &vecCheck, const
 
 void AngleMatrix( const Vector& angles, Matrix3x4& matrix );
 void ConcatTransforms( const Matrix3x4& in1, const Matrix3x4& in2, Matrix3x4& out );
-void QuaternionMatrix( vec4_t quaternion, Matrix3x4& matrix );
-void QuaternionSlerp( vec4_t p, vec4_t q, float t, vec4_t qt );
-void AngleQuaternion( const Vector& vecAngles, vec4_t quaternion );
+void QuaternionMatrix( const Vector4D& quaternion, Matrix3x4& matrix );
+void QuaternionSlerp( const Vector4D& p, Vector4D& q, float t, Vector4D& qt );
+void AngleQuaternion( const Vector& vecAngles, Vector4D& quaternion );
 
 #define BOX_ON_PLANE_SIDE(emins, emaxs, p)	\
 	(((p)->type < 3)?						\

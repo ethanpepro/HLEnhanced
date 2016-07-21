@@ -295,8 +295,6 @@ typedef struct model_s
 
 } model_t;
 
-typedef vec_t vec4_t[4];
-
 typedef struct alight_s
 {
 	int			ambientlight;	// clip at 128

@@ -179,10 +179,10 @@ StudioCalcBoneQuaterion
 
 ====================
 */
-void CStudioModelRenderer::StudioCalcBoneQuaterion( int frame, float s, mstudiobone_t *pbone, mstudioanim_t *panim, float *adj, float *q )
+void CStudioModelRenderer::StudioCalcBoneQuaterion( int frame, float s, mstudiobone_t *pbone, mstudioanim_t *panim, float *adj, Vector4D& q )
 {
 	int					j, k;
-	vec4_t				q1, q2;
+	Vector4D			q1, q2;
 	Vector				angle1, angle2;
 	mstudioanimvalue_t	*panimvalue;
 
@@ -333,10 +333,10 @@ StudioSlerpBones
 
 ====================
 */
-void CStudioModelRenderer::StudioSlerpBones( vec4_t q1[], float pos1[][3], vec4_t q2[], float pos2[][3], float s )
+void CStudioModelRenderer::StudioSlerpBones( Vector4D* q1, float pos1[][3], Vector4D* q2, float pos2[][3], float s )
 {
 	int			i;
-	vec4_t		q3;
+	Vector4D	q3;
 	float		s1;
 
 	if (s < 0) s = 0;
@@ -583,7 +583,7 @@ StudioCalcRotations
 
 ====================
 */
-void CStudioModelRenderer::StudioCalcRotations ( float pos[][3], vec4_t *q, mstudioseqdesc_t *pseqdesc, mstudioanim_t *panim, float f )
+void CStudioModelRenderer::StudioCalcRotations ( float pos[][3], Vector4D *q, mstudioseqdesc_t *pseqdesc, mstudioanim_t *panim, float f )
 {
 	int					i;
 	int					frame;
@@ -785,15 +785,15 @@ void CStudioModelRenderer::StudioSetupBones ( void )
 	mstudioanim_t		*panim;
 
 	static float		pos[MAXSTUDIOBONES][3];
-	static vec4_t		q[MAXSTUDIOBONES];
+	static Vector4D		q[MAXSTUDIOBONES];
 	Matrix3x4			bonematrix;
 
 	static float		pos2[MAXSTUDIOBONES][3];
-	static vec4_t		q2[MAXSTUDIOBONES];
+	static Vector4D		q2[MAXSTUDIOBONES];
 	static float		pos3[MAXSTUDIOBONES][3];
-	static vec4_t		q3[MAXSTUDIOBONES];
+	static Vector4D		q3[MAXSTUDIOBONES];
 	static float		pos4[MAXSTUDIOBONES][3];
-	static vec4_t		q4[MAXSTUDIOBONES];
+	static Vector4D		q4[MAXSTUDIOBONES];
 
 	if (m_pCurrentEntity->curstate.sequence >=  m_pStudioHeader->numseq) 
 	{
@@ -864,7 +864,7 @@ void CStudioModelRenderer::StudioSetupBones ( void )
 	{
 		// blend from last sequence
 		static float		pos1b[MAXSTUDIOBONES][3];
-		static vec4_t		q1b[MAXSTUDIOBONES];
+		static Vector4D		q1b[MAXSTUDIOBONES];
 		float				s;
 
 		if (m_pCurrentEntity->latched.prevsequence >=  m_pStudioHeader->numseq) 
@@ -950,7 +950,7 @@ void CStudioModelRenderer::StudioSetupBones ( void )
 			if ( copy )
 			{
 				memcpy( pos[i], pos2[i], sizeof( pos[i] ) );
-				memcpy( q[i], q2[i], sizeof( q[i] ) );
+				memcpy( &( q[i] ), &( q2[i] ), sizeof( q[i] ) );
 			}
 		}
 	}
@@ -1033,7 +1033,7 @@ void CStudioModelRenderer::StudioMergeBones ( model_t *m_pSubModel )
 
 	static float		pos[MAXSTUDIOBONES][3];
 	Matrix3x4			bonematrix;
-	static vec4_t		q[MAXSTUDIOBONES];
+	static Vector4D		q[MAXSTUDIOBONES];
 
 	if (m_pCurrentEntity->curstate.sequence >=  m_pStudioHeader->numseq) 
 	{

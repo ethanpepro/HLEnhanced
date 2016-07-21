@@ -144,6 +144,95 @@ inline Vector operator*(float fl, const Vector& v)	{ return v * fl; }
 inline float DotProduct(const Vector& a, const Vector& b) { return(a.x*b.x+a.y*b.y+a.z*b.z); }
 inline Vector CrossProduct(const Vector& a, const Vector& b) { return Vector( a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x ); }
 
+/**
+*	Same data-layout as engine's vec4_t, which is a vec_t[4].
+*/
+class Vector4D final
+{
+public:
+	/**
+	*	Default constructor.
+	*/
+	Vector4D() {}
 
+	/**
+	*	Constructor. Initializes the vector to the given values.
+	*/
+	Vector4D( vec_t flScalar )
+		: x( flScalar )
+		, y( flScalar )
+		, z( flScalar )
+		, w( flScalar )
+	{
+	}
+
+	/**
+	*	Constructor. Initializes the vector to the given values.
+	*/
+	Vector4D( vec_t x, vec_t y, vec_t z, vec_t w )
+		: x( x )
+		, y( y )
+		, z( z )
+		, w( w )
+	{
+	}
+
+	/**
+	*	Copy constructor.
+	*/
+	Vector4D( const Vector4D& other ) = default;
+
+	/**
+	*	Assignment operator.
+	*/
+	Vector4D& operator=( const Vector4D& other )
+	{
+		x = other.x;
+		y = other.y;
+		z = other.z;
+		w = other.w;
+
+		return *this;
+	}
+
+	/**
+	*	Scalar assignment operator.
+	*/
+	Vector4D& operator=( const vec_t flScalar )
+	{
+		x = y = z = w = flScalar;
+
+		return *this;
+	}
+
+	bool operator==( const Vector4D& other ) const;
+
+	bool operator!=( const Vector4D& other ) const;
+
+	vec_t operator[]( const size_t uiIndex ) const;
+	vec_t& operator[]( const size_t uiIndex );
+
+	vec_t x, y, z, w;
+};
+
+inline bool Vector4D::operator==( const Vector4D& other ) const
+{
+	return x == other.x && y == other.y && z == other.z && w == other.w;
+}
+
+inline bool Vector4D::operator!=( const Vector4D& other ) const
+{
+	return !( *this == other );
+}
+
+inline vec_t Vector4D::operator[]( const size_t uiIndex ) const
+{
+	return reinterpret_cast<const vec_t*>( this )[ uiIndex ];
+}
+
+inline vec_t& Vector4D::operator[]( const size_t uiIndex )
+{
+	return reinterpret_cast<vec_t*>( this )[ uiIndex ];
+}
 
 #endif

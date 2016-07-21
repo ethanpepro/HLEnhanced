@@ -584,7 +584,7 @@ AngleQuaternion
 
 ====================
 */
-void AngleQuaternion( const Vector& vecAngles, vec4_t quaternion )
+void AngleQuaternion( const Vector& vecAngles, Vector4D& quaternion )
 {
 	float		angle;
 	float		sr, sp, sy, cr, cp, cy;
@@ -612,7 +612,7 @@ QuaternionSlerp
 
 ====================
 */
-void QuaternionSlerp( vec4_t p, vec4_t q, float t, vec4_t qt )
+void QuaternionSlerp( const Vector4D& p, Vector4D& q, float t, Vector4D& qt )
 {
 	int i;
 	float	omega, cosom, sinom, sclp, sclq;
@@ -675,7 +675,7 @@ QuaternionMatrix
 
 ====================
 */
-void QuaternionMatrix( vec4_t quaternion, Matrix3x4& matrix )
+void QuaternionMatrix( const Vector4D& quaternion, Matrix3x4& matrix )
 {
 	matrix[ 0 ][ 0 ] = static_cast<float>( 1.0 - 2.0 * quaternion[ 1 ] * quaternion[ 1 ] - 2.0 * quaternion[ 2 ] * quaternion[ 2 ] );
 	matrix[ 1 ][ 0 ] = static_cast<float>( 2.0 * quaternion[ 0 ] * quaternion[ 1 ] + 2.0 * quaternion[ 3 ] * quaternion[ 2 ] );
