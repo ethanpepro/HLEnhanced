@@ -144,36 +144,7 @@ inline void CAutoString::Set( const char* pszString )
 			const size_t uiLength = strlen( pszString );
 			m_pszString = new char[ uiLength + 1 ];
 
-			char* pszDest = m_pszString;
-
-			for( size_t uiIndex = 0; uiIndex <= uiLength; ++uiIndex )
-			{
-				if( pszString[ uiIndex ] == '\\' && uiIndex < uiLength - 1 )
-				{
-					//Using the original string copying code here to avoid breaking old maps
-					//Any character aside from 'n' is skipped if a backslash '\\' precedes it
-					//Issue #2663
-					uiIndex++;
-
-					if ( pszString[ uiIndex ] == 'n' )
-						*pszDest++ = '\n';
-					else
-						*pszDest++ = '\\';
-
-					//Fixed code, do not use
-					/*
-					if ( pszString[ uiIndex + 1 ] == 'n' || pszString[ uiIndex + 1] == 'N' )
-					{
-						*pszDest++ = '\n';
-						++uiIndex;
-					}
-					else
-						*pszDest++ = '\\';
-						*/
-				}
-				else
-					*pszDest++ = pszString[ uiIndex ];
-			}
+			strcpy( m_pszString, pszString );
 		}
 		else
 			m_pszString = nullptr;
