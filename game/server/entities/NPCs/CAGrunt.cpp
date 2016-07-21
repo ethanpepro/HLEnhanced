@@ -509,7 +509,7 @@ void CAGrunt :: Spawn()
 //=========================================================
 void CAGrunt :: Precache()
 {
-	int i;
+	size_t i;
 
 	PRECACHE_MODEL("models/agrunt.mdl");
 

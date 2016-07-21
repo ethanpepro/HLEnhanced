@@ -104,7 +104,7 @@ void CBreakable::KeyValue( KeyValueData* pkvd )
 	else if (FStrEq(pkvd->szKeyName, "spawnobject") )
 	{
 		int object = atoi( pkvd->szValue );
-		if ( object > 0 && object < ARRAYSIZE(pSpawnObjects) )
+		if ( object > 0 && static_cast<size_t>( object ) < ARRAYSIZE(pSpawnObjects) )
 			m_iszSpawnObject = MAKE_STRING( pSpawnObjects[object] );
 		pkvd->fHandled = true;
 	}

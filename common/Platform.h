@@ -96,4 +96,17 @@ typedef struct POINT_s
 
 #endif
 
+#undef ARRAYSIZE
+
+/*
+*	C++14 array sizeof. Detects pointers, works in static_assert. - Solokiller
+*/
+template<typename T, size_t SIZE>
+inline constexpr size_t _ArraySizeof( const T ( & )[ SIZE ] )
+{
+	return SIZE;
+}
+
+#define ARRAYSIZE( p )	_ArraySizeof( p )
+
 #endif //COMMON_PLATFORM_H

@@ -71,7 +71,7 @@ bool CBasePlayerWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, i
 	if( !CanDeploy() )
 		return false;
 
-	gEngfuncs.CL_LoadModel( szViewModel, &m_pPlayer->pev->viewmodel );
+	LoadVModel( szViewModel, m_pPlayer );
 
 	SendWeaponAnim( iAnim, skiplocal, body );
 

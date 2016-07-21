@@ -188,14 +188,12 @@ bool CBullsquid :: CheckMeleeAttack2 ( float flDot, float flDist )
 //=========================================================
 bool CBullsquid::FValidateHintType( short sHint ) const
 {
-	int i;
-
 	static short sSquidHints[] =
 	{
 		HINT_WORLD_HUMAN_BLOOD,
 	};
 
-	for ( i = 0 ; i < ARRAYSIZE ( sSquidHints ) ; i++ )
+	for ( size_t i = 0 ; i < ARRAYSIZE ( sSquidHints ) ; i++ )
 	{
 		if ( sSquidHints[ i ] == sHint )
 		{

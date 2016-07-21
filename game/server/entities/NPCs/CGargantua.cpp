@@ -546,7 +546,7 @@ void CGargantua :: Spawn()
 //=========================================================
 void CGargantua :: Precache()
 {
-	int i;
+	size_t i;
 
 	PRECACHE_MODEL("models/garg.mdl");
 	PRECACHE_MODEL( GARG_EYE_SPRITE_NAME );

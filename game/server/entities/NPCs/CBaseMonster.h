@@ -116,7 +116,7 @@ public:
 	
 		int					m_iTaskStatus;
 		Schedule_t			*m_pSchedule;
-		int					m_iScheduleIndex;
+		size_t				m_iScheduleIndex;
 
 		WayPoint_t			m_Route[ ROUTE_SIZE ];	// Positions of movement
 		int					m_movementGoal;			// Goal that defines route

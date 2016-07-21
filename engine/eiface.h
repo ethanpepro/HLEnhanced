@@ -770,8 +770,7 @@ typedef struct enginefuncs_s
 	*	@param pEdict Entity whose model should be queried.
 	*	@param iBone Bone index.
 	*	@param rgflOrigin Origin of the bone.
-	*	@param rgflAngles Angles of the bone.
-	*	TODO: rgflAngles does not appear to be set. Verify results.
+	*	@param rgflAngles Angles of the bone. Is not set by the engine.
 	*/
 	void		(*pfnGetBonePosition)		( const edict_t* pEdict, int iBone, float* rgflOrigin, float* rgflAngles );
 	
@@ -1542,9 +1541,6 @@ typedef struct
 	short			fieldSize;
 	short			flags;
 } TYPEDESCRIPTION;
-
-//TODO: define elsewhere - Solokiller
-#define ARRAYSIZE(p)		(sizeof(p)/sizeof(p[0]))
 
 /**
 *	Maximum size for ClientConnect reject reasons.

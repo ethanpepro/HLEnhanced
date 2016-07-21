@@ -471,7 +471,7 @@ void CISlave :: Spawn()
 //=========================================================
 void CISlave :: Precache()
 {
-	int i;
+	size_t i;
 
 	PRECACHE_MODEL("models/islave.mdl");
 	PRECACHE_MODEL("sprites/lgtning.spr");

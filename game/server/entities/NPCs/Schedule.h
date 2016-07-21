@@ -236,7 +236,7 @@ struct Task_t
 struct Schedule_t
 {
 	Task_t	*pTasklist;
-	int		cTasks;	 
+	size_t	cTasks;
 
 	/**
 	*	A bit mask of conditions that can interrupt this schedule 

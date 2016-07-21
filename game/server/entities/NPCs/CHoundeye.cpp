@@ -54,7 +54,7 @@ int	CHoundeye :: Classify ( void )
 //=========================================================
 bool CHoundeye::FValidateHintType( short sHint ) const
 {
-	int i;
+	size_t i;
 
 	static short sHoundHints[] =
 	{

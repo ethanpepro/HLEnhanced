@@ -88,7 +88,7 @@ typedef struct entvars_s
 	int			modelindex;
 	string_t	model;
 
-	//TODO: these should be string_t. - Solokiller
+	//These are treated as string_t on the server side, model indices on the client. - Solokiller
 	int			viewmodel;		// player's viewmodel
 	int			weaponmodel;	// what other players see
 	
