@@ -40,7 +40,7 @@ extern Vector vJumpOrigin;
 extern Vector vJumpAngles;
 
 
-void V_DropPunchAngle ( float frametime, Vector& ev_punchangle );
+void V_DropPunchAngle( float frametime, Vector& ev_punchangle );
 
 #include "r_studioint.h"
 #include "com_model.h"
@@ -1640,22 +1640,6 @@ void DLLEXPORT V_CalcRefdef( struct ref_params_s *pparams )
 	}
 #endif
 */
-}
-
-/*
-=============
-V_DropPunchAngle
-
-=============
-*/
-//TODO: defined as PM_DropPunchAngle as well. Refactor. - Solokiller
-void V_DropPunchAngle ( float frametime, Vector& ev_punchangle )
-{
-	float len = ev_punchangle.NormalizeInPlace();
-	
-	len -= (10.0 + len * 0.5) * frametime;
-	len = max( len, 0.0f );
-	ev_punchangle = ev_punchangle * len;
 }
 
 /*

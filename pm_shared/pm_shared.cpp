@@ -30,6 +30,8 @@
 
 #include "com_model.h"
 
+void V_DropPunchAngle( float frametime, Vector& ev_punchangle );
+
 #ifdef CLIENT_DLL
 	// Spectator Mode
 	int		iJumpSpectator;
@@ -2454,16 +2456,17 @@ float PM_CalcRoll (const Vector& angles, const Vector& velocity, float rollangle
 
 /*
 =============
-PM_DropPunchAngle
+V_DropPunchAngle
 
 =============
 */
-void PM_DropPunchAngle ( Vector& punchangle )
+void V_DropPunchAngle( float frametime, Vector& ev_punchangle )
 {
-	float len = VectorNormalize( punchangle );
-	len -= (10.0 + len * 0.5) * pmove->frametime;
+	float len = ev_punchangle.NormalizeInPlace();
+
+	len -= ( 10.0 + len * 0.5 ) * frametime;
 	len = max( len, 0.0f );
-	punchangle = punchangle * len;
+	ev_punchangle = ev_punchangle * len;
 }
 
 /*
@@ -2503,8 +2506,7 @@ void PM_CheckParamters()
 		pmove->cmd.upmove      = 0;
 	}
 
-
-	PM_DropPunchAngle( pmove->punchangle );
+	V_DropPunchAngle( pmove->frametime, pmove->punchangle );
 
 	// Take angles from command.
 	if ( !pmove->dead )
