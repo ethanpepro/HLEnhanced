@@ -222,14 +222,6 @@ int CHud :: Redraw( float flTime, int intermission )
 	return 1;
 }
 
-void ScaleColors( int &r, int &g, int &b, int a )
-{
-	float x = (float)a / 255;
-	r = (int)(r * x);
-	g = (int)(g * x);
-	b = (int)(b * x);
-}
-
 int CHud :: DrawHudString(int xpos, int ypos, int iMaxX, char *szIt, int r, int g, int b )
 {
 	return xpos + gEngfuncs.pfnDrawString( xpos, ypos, szIt, r, g, b);

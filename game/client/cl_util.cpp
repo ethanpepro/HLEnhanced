@@ -22,18 +22,28 @@
 #include "cl_util.h"
 #include <string.h>
 
-HSPRITE LoadSprite(const char *pszName)
+HSPRITE LoadSprite( const char* const pszName )
 {
-	int i;
-	char sz[256]; 
+	char sz[ MAX_PATH ];
 
-	if (ScreenWidth < 640)
-		i = 320;
-	else
-		i = 640;
+	const int iResolution = ScreenWidth < 640 ? 320 : 640;
 
-	sprintf(sz, pszName, i);
+	const int iResult = snprintf( sz, sizeof( sz ), pszName, iResolution );
 
-	return SPR_Load(sz);
+	//Handle formatting failure. - Solokiller
+	if( iResult < 0 || static_cast<size_t>( iResult ) >= sizeof( sz ) )
+	{
+		gEngfuncs.Con_Printf( "LoadSprite: Failed to load HUD sprite \"%s\" for resolution %d\n", pszName, iResolution );
+		return INVALID_HSPRITE;
+	}
+
+	return SPR_Load( sz );
 }
 
+void ScaleColors( int& r, int& g, int& b, const int a )
+{
+	const float x = ( float ) a / 255;
+	r = ( int ) ( r * x );
+	g = ( int ) ( g * x );
+	b = ( int ) ( b * x );
+}

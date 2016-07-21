@@ -723,9 +723,9 @@ typedef struct cl_enginefuncs_s
 	void					( *pfnDrawSetTextColor )					( float r, float g, float b );
 
 	/**
-	*	Draws a string.
-	*	@param pszString String to draw.
-	*	@param piLength Pointer to a variable that will contain the total width of the drawn string.
+	*	Gets the length in pixels of a string if it were drawn onscreen.
+	*	@param pszString String to check.
+	*	@param piLength Pointer to a variable that will contain the total width of the string.
 	*	@param piHeight Pointer to a variable that will contain the height of the string.
 	*/
 	void					( *pfnDrawConsoleStringLen )				( const char* const pszString, int* piLength, int* piHeight );

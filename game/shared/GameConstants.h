@@ -96,6 +96,11 @@
 #define PLAYER_SWIM_AIRTIME 12
 
 /**
+*	How high the player jumps when jumping out of water.
+*/
+#define PLAYER_WATERJUMP_HEIGHT 8
+
+/**
 *	The radius around the player to search for entities to use.
 */
 #define	PLAYER_USE_SEARCH_RADIUS ( ( float ) 64 )
@@ -126,7 +131,7 @@
 #define VEC_HUMAN_HULL_MAX	Vector( 16, 16, 72 )
 #define VEC_HUMAN_HULL_DUCK	Vector( 16, 16, 36 )
 
-#define VEC_VIEW			Vector( 0, 0, 28 )
+#define VEC_VIEW			Vector( 0, 0, DEFAULT_VIEWHEIGHT )
 
 #define VEC_DUCK_HULL_MIN	Vector( -16, -16, -18 )
 #define VEC_DUCK_HULL_MAX	Vector( 16,  16,  18 )

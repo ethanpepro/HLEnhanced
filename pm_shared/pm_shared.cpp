@@ -61,8 +61,6 @@ playermove_t* pmove = nullptr;
 // Only allow bunny jumping up to 1.7x server / player maxspeed setting
 #define BUNNYJUMP_MAX_SPEED_FACTOR 1.7f
 
-#define WJ_HEIGHT 8
-
 // double to float warning
 #pragma warning(disable : 4244)
 
@@ -2299,7 +2297,7 @@ void PM_CheckWaterJump()
 		return;
 
 	Vector vecStart = pmove->origin;
-	vecStart[2] += WJ_HEIGHT;
+	vecStart[2] += PLAYER_WATERJUMP_HEIGHT;
 
 	VectorMA ( vecStart, 24, flatforward, vecEnd );
 	
@@ -2309,7 +2307,7 @@ void PM_CheckWaterJump()
 	pmtrace_t tr = pmove->PM_PlayerTrace( vecStart, vecEnd, PM_NORMAL, -1 );
 	if ( tr.fraction < 1.0 && fabs( tr.plane.normal[2] ) < 0.1f )  // Facing a near vertical wall?
 	{
-		vecStart[2] += pmove->player_maxs[ savehull ][2] - WJ_HEIGHT;
+		vecStart[2] += pmove->player_maxs[ savehull ][2] - PLAYER_WATERJUMP_HEIGHT;
 		VectorMA( vecStart, 24, flatforward, vecEnd );
 		VectorMA( vec3_origin, -50, tr.plane.normal, pmove->movedir );
 

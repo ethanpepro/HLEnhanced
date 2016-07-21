@@ -33,7 +33,7 @@ extern playermove_t *pmove;
 // Expand debugging BBOX particle hulls by this many units.
 #define BOX_GAP 0.0f               
 
-static int PM_boxpnt[6][4] =
+static const int PM_boxpnt[6][4] =
 {
 	{ 0, 4, 6, 2 }, // +X
 	{ 0, 1, 5, 4 }, // +Y
@@ -43,10 +43,9 @@ static int PM_boxpnt[6][4] =
 	{ 7, 6, 4, 5 }, // -Z
 };	
 
-void PM_ShowClipBox( void )
+void PM_ShowClipBox()
 {
 #if defined( _DEBUG )
-	Vector org;
 	Vector offset( 0, 0, 0 );
 
 	if ( !pmove->runfuncs )
@@ -62,7 +61,7 @@ void PM_ShowClipBox( void )
 	//  trail at the intersection point.
 	PM_ViewEntity();
 
-	org = pmove->origin;
+	Vector org = pmove->origin;
 
 	if ( pmove->server )
 	{
@@ -98,7 +97,7 @@ PM_ParticleLine(const Vector& start, const Vector& end, int color, float life)
 
 ================
 */
-void PM_ParticleLine(const Vector& start, const Vector& end, int pcolor, float life, float vert)
+void PM_ParticleLine( const Vector& start, const Vector& end, int pcolor, float life, float vert )
 {
 	float linestep = 2.0f;
 	float curdist;
@@ -128,7 +127,7 @@ PM_DrawRectangle(const Vector& tl, const Vector& br)
 
 ================
 */
-void PM_DrawRectangle(const Vector& tl, const Vector& bl, const Vector& tr, const Vector& br, int pcolor, float life)
+void PM_DrawRectangle( const Vector& tl, const Vector& bl, const Vector& tr, const Vector& br, int pcolor, float life )
 {
 	PM_ParticleLine(tl, bl, pcolor, life, 0);
 	PM_ParticleLine(bl, br, pcolor, life, 0);
@@ -142,7 +141,7 @@ PM_DrawPhysEntBBox(int num)
 
 ================
 */
-void PM_DrawPhysEntBBox(int num, int pcolor, float life)
+void PM_DrawPhysEntBBox( int num, int pcolor, float life )
 {
 	physent_t *pe;
 	int j;
@@ -233,7 +232,7 @@ PM_DrawBBox(const Vector& mins, const Vector& maxs, const Vector& origin, int pc
 
 ================
 */
-void PM_DrawBBox(const Vector& mins, const Vector& maxs, const Vector& origin, int pcolor, float life)
+void PM_DrawBBox( const Vector& mins, const Vector& maxs, const Vector& origin, int pcolor, float life )
 {
 	int j;
 	
@@ -275,15 +274,11 @@ Shows particles at that entities bbox
 Tries to shoot a ray out by about 128 units.
 ================
 */
-void PM_ViewEntity( void )
+void PM_ViewEntity()
 {
 	Vector forward, right, up;
-	float raydist = 256.0f;
-	Vector end;
-	int i;
-	pmtrace_t trace;
+	const float raydist = 256.0f;
 	int pcolor = 77;
-	float fup;
 
 #if 0
 	if ( !pm_showclip.value )
@@ -294,16 +289,13 @@ void PM_ViewEntity( void )
 
 	const Vector origin = pmove->origin;
 
-	fup = 0.5*( pmove->player_mins[pmove->usehull][2] + pmove->player_maxs[pmove->usehull][2] );
+	float fup = 0.5*( pmove->player_mins[pmove->usehull][2] + pmove->player_maxs[pmove->usehull][2] );
 	fup += pmove->view_ofs[2];
 	fup -= 4;
 
-	for (i = 0; i < 3; i++)
-	{
-		end[i] = origin[i] + raydist * forward[i];
-	}
+	const Vector end = origin + raydist * forward;
 
-	trace = pmove->PM_PlayerTrace( origin, end, PM_STUDIO_BOX, -1 );
+	pmtrace_t trace = pmove->PM_PlayerTrace( origin, end, PM_STUDIO_BOX, -1 );
 
 	if (trace.ent > 0)  // Not the world
 	{

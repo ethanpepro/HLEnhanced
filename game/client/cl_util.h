@@ -69,6 +69,11 @@ inline const char* CVAR_GET_STRING( const char *x ) {	return gEngfuncs.pfnGetCva
 #endif
 inline struct cvar_s *CVAR_CREATE( const char *cv, const char *val, const int flags ) {	return gEngfuncs.pfnRegisterVariable( (char*)cv, (char*)val, flags ); }
 
+/**
+*	Represents the invalid HSPRITE handle.
+*/
+const HSPRITE INVALID_HSPRITE = 0;
+
 #define SPR_Load (*gEngfuncs.pfnSPR_Load)
 #define SPR_Set (*gEngfuncs.pfnSPR_Set)
 #define SPR_Frames (*gEngfuncs.pfnSPR_Frames)
@@ -86,7 +91,13 @@ inline struct cvar_s *CVAR_CREATE( const char *cv, const char *val, const int fl
 // SPR_DisableScissor  disables the clipping rect
 #define SPR_DisableScissor (*gEngfuncs.pfnSPR_DisableScissor)
 
-HSPRITE LoadSprite( const char *pszName );
+/**
+*	Loads a resolution dependent HUD sprite.
+*	@param pszName Sprite name. Must contain a %d to add the resolution specifier.
+*								E.g. "sprites/%d_train.spr"
+*	@return Handle to the sprite, or 0 if it couldn't be loaded.
+*/
+HSPRITE LoadSprite( const char* const pszName );
 
 //
 #define FillRGBA (*gEngfuncs.pfnFillRGBA)
@@ -101,68 +112,146 @@ HSPRITE LoadSprite( const char *pszName );
 #define XPROJECT(x)	( (1.0f+(x))*ScreenWidth*0.5f )
 #define YPROJECT(y) ( (1.0f-(y))*ScreenHeight*0.5f )
 
+/**
+*	Converts a resolution independent X value to a resolution dependent one.
+*/
 #define XRES(x)					(x  * ((float)ScreenWidth / 640))
+
+/**
+*	Converts a resolution independent Y value to a resolution dependent one.
+*/
 #define YRES(y)					(y  * ((float)ScreenHeight / 480))
 
+/**
+*	@see cl_enginefunc_t::pfnGetScreenInfo
+*/
 #define GetScreenInfo (*gEngfuncs.pfnGetScreenInfo)
+
+/**
+*	@see cl_enginefunc_t::pfnServerCmd
+*/
 #define ServerCmd (*gEngfuncs.pfnServerCmd)
+
+/**
+*	@see cl_enginefunc_t::pfnClientCmd
+*/
 #define EngineClientCmd (*gEngfuncs.pfnClientCmd)
+
+/**
+*	@see cl_enginefunc_t::pfnSetCrosshair
+*/
 #define SetCrosshair (*gEngfuncs.pfnSetCrosshair)
 
 // Gets the height & width of a sprite,  at the specified frame
-inline int SPR_Height( HSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Height(x, f); }
-inline int SPR_Width( HSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Width(x, f); }
+/**
+*	@see cl_enginefunc_t::pfnSPR_Height
+*/
+inline int SPR_Height( HSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Height( x, f ); }
 
-inline 	client_textmessage_t	*TextMessageGet( const char *pName ) { return gEngfuncs.pfnTextMessageGet( pName ); }
-inline 	int						TextMessageDrawChar( int x, int y, int number, int r, int g, int b ) 
+/**
+*	@see cl_enginefunc_t::pfnSPR_Width
+*/
+inline int SPR_Width( HSPRITE x, int f )	{ return gEngfuncs.pfnSPR_Width( x, f ); }
+
+/**
+*	@see cl_enginefunc_t::pfnTextMessageGet
+*/
+inline client_textmessage_t* TextMessageGet( const char* const pszName ) { return gEngfuncs.pfnTextMessageGet( pszName ); }
+
+/**
+*	@see cl_enginefunc_t::pfnDrawCharacter
+*/
+inline int TextMessageDrawChar( int x, int y, int number, int r, int g, int b ) 
 { 
 	return gEngfuncs.pfnDrawCharacter( x, y, number, r, g, b ); 
 }
 
-inline int DrawConsoleString( int x, int y, const char *string )
+/**
+*	@see cl_enginefunc_t::pfnDrawConsoleString
+*/
+inline int DrawConsoleString( int x, int y, const char* const pszString )
 {
-	return gEngfuncs.pfnDrawConsoleString( x, y, (char*) string );
+	return gEngfuncs.pfnDrawConsoleString( x, y, pszString );
 }
 
-inline void GetConsoleStringSize( const char *string, int *width, int *height )
+/**
+*	@see cl_enginefunc_t::pfnDrawConsoleStringLen
+*/
+inline void GetConsoleStringSize( const char* const pszString, int* piWidth, int* piHeight )
 {
-	gEngfuncs.pfnDrawConsoleStringLen( string, width, height );
+	gEngfuncs.pfnDrawConsoleStringLen( pszString, piWidth, piHeight );
 }
 
-inline int ConsoleStringLen( const char *string )
+/**
+*	Gets the width in pixels of a string if it were drawn onscreen.
+*	@param pszString String to check.
+*	@return Width in pixels.
+*/
+inline int ConsoleStringLen( const char* const pszString )
 {
 	int _width, _height;
-	GetConsoleStringSize( string, &_width, &_height );
+	GetConsoleStringSize( pszString, &_width, &_height );
 	return _width;
 }
 
-inline void ConsolePrint( const char *string )
+/**
+*	@see cl_enginefunc_t::pfnConsolePrint
+*/
+inline void ConsolePrint( const char* const pszString )
 {
-	gEngfuncs.pfnConsolePrint( string );
+	gEngfuncs.pfnConsolePrint( pszString );
 }
 
-inline void CenterPrint( const char *string )
+/**
+*	@see cl_enginefunc_t::pfnCenterPrint
+*/
+inline void CenterPrint( const char* const pszString )
 {
-	gEngfuncs.pfnCenterPrint( string );
+	gEngfuncs.pfnCenterPrint( pszString );
 }
 
 // sound functions
-inline void PlaySound( char *szSound, float vol ) { gEngfuncs.pfnPlaySoundByName( szSound, vol ); }
+/**
+*	@see cl_enginefunc_t::pfnPlaySoundByName
+*/
+inline void PlaySound( const char* const pszSound, float vol ) { gEngfuncs.pfnPlaySoundByName( pszSound, vol ); }
+
+/**
+*	@see cl_enginefunc_t::pfnPlaySoundByIndex
+*/
 inline void PlaySound( int iSound, float vol ) { gEngfuncs.pfnPlaySoundByIndex( iSound, vol ); }
 
 #include "MinMax.h"
 
-void ScaleColors( int &r, int &g, int &b, int a );
+/**
+*	Scales RGB colors by the alpha value.
+*	@param[ in, out ] r Red color. [ 0, 255 ].
+*	@param[ in, out ] g Green color. [ 0, 255 ].
+*	@param[ in, out ] b Blue color. [ 0, 255 ].
+*	@param a Alpha value. [ 0, 255 ].
+*/
+void ScaleColors( int& r, int& g, int& b, const int a );
 
 // disable 'possible loss of data converting float to int' warning message
 #pragma warning( disable: 4244 )
 // disable 'truncation from 'const double' to 'float' warning message
 #pragma warning( disable: 4305 )
 
-inline void UnpackRGB(int &r, int &g, int &b, unsigned long ulRGB)
+/**
+*	Unpacks an RGB color into individual components.
+*	@param[ out ] r Red color. [ 0, 255 ].
+*	@param[ out ] g Green color. [ 0, 255 ].
+*	@param[ out ] b Blue color. [ 0, 255 ].
+*	@param ulRGB Packed RGB color.
+*	<pre>
+*	Layout:
+*	| unused | R | G | B |
+*	</pre>
+*/
+inline void UnpackRGB( int& r, int& g, int& b, unsigned long ulRGB )
 {
-	r = (ulRGB & 0xFF0000) >>16;
-	g = (ulRGB & 0xFF00) >> 8;
+	r = ( ulRGB & 0xFF0000 ) >> 16;
+	g = ( ulRGB & 0xFF00 ) >> 8;
 	b = ulRGB & 0xFF;
 }
 
