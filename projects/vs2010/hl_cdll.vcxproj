@@ -297,6 +297,7 @@
     <ClInclude Include="..\..\pm_shared\pm_shared.h" />
     <ClInclude Include="..\..\public\math\interpolation.h" />
     <ClInclude Include="..\..\public\math\mathlib.h" />
+    <ClInclude Include="..\..\public\math\Matrix3x4.h" />
     <ClInclude Include="..\..\public\math\vector.h" />
     <ClInclude Include="..\..\vgui_utils\vgui_checkbutton2.h" />
     <ClInclude Include="..\..\vgui_utils\vgui_defaultinputsignal.h" />

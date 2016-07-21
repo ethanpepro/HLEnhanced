@@ -291,9 +291,8 @@ void AngleIMatrix( const Vector& angles, float matrix[ 3 ][ 4 ] )
 	matrix[ 2 ][ 3 ] = 0.0;
 }
 
-void VectorTransform( const Vector& in1, float in2[ 3 ][ 4 ], Vector& out )
+void VectorTransform( const Vector& in1, const Matrix3x4& in2, Vector& out )
 {
-	//TODO: avoid copy constructing here. - Solokiller
 	out[ 0 ] = DotProduct( in1, in2[ 0 ] ) + in2[ 0 ][ 3 ];
 	out[ 1 ] = DotProduct( in1, in2[ 1 ] ) + in2[ 1 ][ 3 ];
 	out[ 2 ] = DotProduct( in1, in2[ 2 ] ) + in2[ 2 ][ 3 ];
@@ -557,7 +556,7 @@ AngleMatrix
 
 ====================
 */
-void AngleMatrix( const float *angles, float( *matrix )[ 4 ] )
+void AngleMatrix( const float *angles, Matrix3x4& matrix )
 {
 	float		angle;
 	float		sr, sp, sy, cr, cp, cy;
@@ -601,25 +600,12 @@ void CrossProduct( const float *v1, const float *v2, float *cross )
 }
 
 /*
-====================
-VectorTransform
-
-====================
-*/
-void VectorTransform( const float *in1, float in2[ 3 ][ 4 ], float *out )
-{
-	out[ 0 ] = MDotProduct( in1, in2[ 0 ] ) + in2[ 0 ][ 3 ];
-	out[ 1 ] = MDotProduct( in1, in2[ 1 ] ) + in2[ 1 ][ 3 ];
-	out[ 2 ] = MDotProduct( in1, in2[ 2 ] ) + in2[ 2 ][ 3 ];
-}
-
-/*
 ================
 ConcatTransforms
 
 ================
 */
-void ConcatTransforms( float in1[ 3 ][ 4 ], float in2[ 3 ][ 4 ], float out[ 3 ][ 4 ] )
+void ConcatTransforms( const Matrix3x4& in1, const Matrix3x4& in2, Matrix3x4& out )
 {
 	out[ 0 ][ 0 ] = in1[ 0 ][ 0 ] * in2[ 0 ][ 0 ] + in1[ 0 ][ 1 ] * in2[ 1 ][ 0 ] +
 		in1[ 0 ][ 2 ] * in2[ 2 ][ 0 ];
@@ -746,7 +732,7 @@ QuaternionMatrix
 
 ====================
 */
-void QuaternionMatrix( vec4_t quaternion, float( *matrix )[ 4 ] )
+void QuaternionMatrix( vec4_t quaternion, Matrix3x4& matrix )
 {
 	matrix[ 0 ][ 0 ] = static_cast<float>( 1.0 - 2.0 * quaternion[ 1 ] * quaternion[ 1 ] - 2.0 * quaternion[ 2 ] * quaternion[ 2 ] );
 	matrix[ 1 ][ 0 ] = static_cast<float>( 2.0 * quaternion[ 0 ] * quaternion[ 1 ] + 2.0 * quaternion[ 3 ] * quaternion[ 2 ] );
@@ -759,15 +745,4 @@ void QuaternionMatrix( vec4_t quaternion, float( *matrix )[ 4 ] )
 	matrix[ 0 ][ 2 ] = static_cast<float>( 2.0 * quaternion[ 0 ] * quaternion[ 2 ] + 2.0 * quaternion[ 3 ] * quaternion[ 1 ] );
 	matrix[ 1 ][ 2 ] = static_cast<float>( 2.0 * quaternion[ 1 ] * quaternion[ 2 ] - 2.0 * quaternion[ 3 ] * quaternion[ 0 ] );
 	matrix[ 2 ][ 2 ] = static_cast<float>( 1.0 - 2.0 * quaternion[ 0 ] * quaternion[ 0 ] - 2.0 * quaternion[ 1 ] * quaternion[ 1 ] );
-}
-
-/*
-====================
-MatrixCopy
-
-====================
-*/
-void MatrixCopy( float in[ 3 ][ 4 ], float out[ 3 ][ 4 ] )
-{
-	memcpy( out, in, sizeof( float ) * 3 * 4 );
 }

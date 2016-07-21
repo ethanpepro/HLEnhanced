@@ -61,7 +61,7 @@ public:
 	virtual float StudioEstimateFrame ( mstudioseqdesc_t *pseqdesc );
 
 	// Apply special effects to transform matrix
-	virtual void StudioFxTransform( cl_entity_t *ent, float transform[3][4] );
+	virtual void StudioFxTransform( cl_entity_t *ent, Matrix3x4& transform );
 
 	// Spherical interpolation of bones
 	virtual void StudioSlerpBones ( vec4_t q1[], float pos1[][3], vec4_t q2[], float pos2[][3], float s );
@@ -158,8 +158,8 @@ public:
 	// Names of cached bones
 	char			m_nCachedBoneNames[ MAXSTUDIOBONES ][ 32 ];
 	// Cached bone & light transformation matrices
-	float			m_rgCachedBoneTransform [ MAXSTUDIOBONES ][ 3 ][ 4 ];
-	float			m_rgCachedLightTransform[ MAXSTUDIOBONES ][ 3 ][ 4 ];
+	Matrix3x4		m_rgCachedBoneTransform [ MAXSTUDIOBONES ];
+	Matrix3x4		m_rgCachedLightTransform[ MAXSTUDIOBONES ];
 
 	// Software renderer scale factors
 	float			m_fSoftwareXScale, m_fSoftwareYScale;
@@ -177,13 +177,14 @@ public:
 
 	// Matrices
 	// Model to world transformation
-	float			(*m_protationmatrix)[ 3 ][ 4 ];	
+	Matrix3x4*		m_protationmatrix;
 	// Model to view transformation
-	float			(*m_paliastransform)[ 3 ][ 4 ];	
+	Matrix3x4*		m_paliastransform;
 
 	// Concatenated bone and light transforms
-	float			(*m_pbonetransform) [ MAXSTUDIOBONES ][ 3 ][ 4 ];
-	float			(*m_plighttransform)[ MAXSTUDIOBONES ][ 3 ][ 4 ];
+	//Arrays of MAXSTUDIOBONES elements.
+	Matrix3x4*		m_pbonetransform;
+	Matrix3x4*		m_plighttransform;
 };
 
 #endif // STUDIOMODELRENDERER_H

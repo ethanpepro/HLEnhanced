@@ -22,6 +22,7 @@ typedef float vec_t;
 typedef vec_t vec4_t[ 4 ];	// x,y,z,w
 
 #include "vector.h"
+#include "Matrix3x4.h"
 
 extern const Vector vec3_origin;
 
@@ -91,7 +92,7 @@ void AngleMatrix( const Vector& angles, float( *matrix )[ 4 ] );
 
 void AngleIMatrix( const Vector& angles, float matrix[ 3 ][ 4 ] );
 
-void VectorTransform( const Vector& in1, float in2[ 3 ][ 4 ], Vector& out );
+void VectorTransform( const Vector& in1, const Matrix3x4& in2, Vector& out );
 
 void NormalizeAngles( float* angles );
 
@@ -131,12 +132,10 @@ float UTIL_SplineFraction( float value, float scale );
 // Sorta like FInViewCone, but for nonmonsters. 
 extern float UTIL_DotPoints( const Vector &vecSrc, const Vector &vecCheck, const Vector &vecDir );
 
-void AngleMatrix( const float *angles, float( *matrix )[ 4 ] );
+void AngleMatrix( const float *angles, Matrix3x4& matrix );
 void CrossProduct( const float *v1, const float *v2, float *cross );
-void VectorTransform( const float *in1, float in2[ 3 ][ 4 ], float *out );
-void ConcatTransforms( float in1[ 3 ][ 4 ], float in2[ 3 ][ 4 ], float out[ 3 ][ 4 ] );
-void MatrixCopy( float in[ 3 ][ 4 ], float out[ 3 ][ 4 ] );
-void QuaternionMatrix( vec4_t quaternion, float( *matrix )[ 4 ] );
+void ConcatTransforms( const Matrix3x4& in1, const Matrix3x4& in2, Matrix3x4& out );
+void QuaternionMatrix( vec4_t quaternion, Matrix3x4& matrix );
 void QuaternionSlerp( vec4_t p, vec4_t q, float t, vec4_t qt );
 void AngleQuaternion( float *angles, vec4_t quaternion );
 
