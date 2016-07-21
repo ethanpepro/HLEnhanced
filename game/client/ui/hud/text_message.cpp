@@ -159,26 +159,26 @@ char* ConvertCRtoNL( char *str )
 // the next (optional) one to four strings are parameters for that string (which can also be message names if they begin with '#')
 int CHudTextMessage::MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	int msg_dest = READ_BYTE();
+	int msg_dest = reader.ReadByte();
 
 #define MSG_BUF_SIZE 128
 	static char szBuf[6][MSG_BUF_SIZE];
-	char *msg_text = LookupString( READ_STRING(), &msg_dest );
+	char *msg_text = LookupString( reader.ReadString(), &msg_dest );
 	msg_text = safe_strcpy( szBuf[0], msg_text , MSG_BUF_SIZE);
 
 	// keep reading strings and using C format strings for subsituting the strings into the localised text string
-	char *sstr1 = LookupString( READ_STRING() );
+	char *sstr1 = LookupString( reader.ReadString() );
 	sstr1 = safe_strcpy( szBuf[1], sstr1 , MSG_BUF_SIZE);
 	StripEndNewlineFromString( sstr1 );  // these strings are meant for subsitution into the main strings, so cull the automatic end newlines
-	char *sstr2 = LookupString( READ_STRING() );
+	char *sstr2 = LookupString( reader.ReadString() );
 	sstr2 = safe_strcpy( szBuf[2], sstr2 , MSG_BUF_SIZE);
 	StripEndNewlineFromString( sstr2 );
-	char *sstr3 = LookupString( READ_STRING() );
+	char *sstr3 = LookupString( reader.ReadString() );
 	sstr3 = safe_strcpy( szBuf[3], sstr3 , MSG_BUF_SIZE);
 	StripEndNewlineFromString( sstr3 );
-	char *sstr4 = LookupString( READ_STRING() );
+	char *sstr4 = LookupString( reader.ReadString() );
 	sstr4 = safe_strcpy( szBuf[4], sstr4 , MSG_BUF_SIZE);
 	StripEndNewlineFromString( sstr4 );
 	char *psz = szBuf[5];

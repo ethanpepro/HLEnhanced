@@ -115,8 +115,8 @@ int CHudAmmoSecondary :: Draw(float flTime)
 //		string:  sprite name
 int CHudAmmoSecondary :: MsgFunc_SecAmmoIcon( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
-	m_HUD_ammoicon = gHUD.GetSpriteIndex( READ_STRING() );
+	CBufferReader reader( pbuf, iSize );
+	m_HUD_ammoicon = gHUD.GetSpriteIndex( reader.ReadString() );
 
 	return 1;
 }
@@ -128,13 +128,13 @@ int CHudAmmoSecondary :: MsgFunc_SecAmmoIcon( const char *pszName, int iSize, vo
 //		byte:  ammo value
 int CHudAmmoSecondary :: MsgFunc_SecAmmoVal( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	int index = READ_BYTE();
+	int index = reader.ReadByte();
 	if ( index < 0 || index >= MAX_SEC_AMMO_VALUES )
 		return 1;
 
-	m_iAmmoAmounts[index] = READ_BYTE();
+	m_iAmmoAmounts[index] = reader.ReadByte();
 	m_iFlags |= HUD_ACTIVE;
 
 	// check to see if there is anything left to draw

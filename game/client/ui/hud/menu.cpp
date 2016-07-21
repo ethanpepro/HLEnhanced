@@ -235,11 +235,11 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 {
 	char *temp = NULL;
 
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	m_bitsValidSlots = READ_SHORT();
-	int DisplayTime = READ_CHAR();
-	const bool NeedMore = READ_BYTE() != 0;
+	m_bitsValidSlots = reader.ReadShort();
+	int DisplayTime = reader.ReadChar();
+	const bool NeedMore = reader.ReadByte() != 0;
 
 	if ( DisplayTime > 0 )
 		m_flShutoffTime = DisplayTime + gHUD.m_flTime;
@@ -250,11 +250,11 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 	{
 		if ( !m_fWaitingForMore ) // this is the start of a new menu
 		{
-			strncpy( g_szPrelocalisedMenuString, READ_STRING(), MAX_MENU_STRING );
+			strncpy( g_szPrelocalisedMenuString, reader.ReadString(), MAX_MENU_STRING );
 		}
 		else
 		{  // append to the current menu string
-			strncat( g_szPrelocalisedMenuString, READ_STRING(), MAX_MENU_STRING - strlen(g_szPrelocalisedMenuString) );
+			strncat( g_szPrelocalisedMenuString, reader.ReadString(), MAX_MENU_STRING - strlen(g_szPrelocalisedMenuString) );
 		}
 		g_szPrelocalisedMenuString[MAX_MENU_STRING-1] = 0;  // ensure null termination (strncat/strncpy does not)
 

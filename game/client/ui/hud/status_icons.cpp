@@ -82,15 +82,15 @@ int CHudStatusIcons::Draw( float flTime )
 //		byte   : blue
 int CHudStatusIcons::MsgFunc_StatusIcon( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	const bool ShouldEnable = READ_BYTE() != 0;
-	char *pszIconName = READ_STRING();
+	const bool ShouldEnable = reader.ReadByte() != 0;
+	char *pszIconName = reader.ReadString();
 	if ( ShouldEnable )
 	{
-		int r = READ_BYTE();
-		int g = READ_BYTE();
-		int b = READ_BYTE();
+		int r = reader.ReadByte();
+		int g = reader.ReadByte();
+		int b = reader.ReadByte();
 		EnableIcon( pszIconName, r, g, b );
 		m_iFlags |= HUD_ACTIVE;
 	}

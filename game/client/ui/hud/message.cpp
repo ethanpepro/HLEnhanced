@@ -483,9 +483,9 @@ void CHudMessage::MessageAdd( const char *pName, float time )
 
 int CHudMessage::MsgFunc_HudText( const char *pszName,  int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	char *pString = READ_STRING();
+	char *pString = reader.ReadString();
 
 	MessageAdd( pString, gHUD.m_flTime );
 	// Remember the time -- to fix up level transitions

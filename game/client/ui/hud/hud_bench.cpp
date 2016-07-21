@@ -139,7 +139,8 @@ void CHudBenchmark::Restart( void )
 
 int CHudBenchmark::MsgFunc_Bench(const char *pszName, int iSize, void *pbuf)
 {
-	int section = READ_BYTE();
+	CBufferReader reader;
+	int section = reader.ReadByte();
 
 	m_fReceiveTime = gHUD.m_flTime;
 	m_StoredLatency = ( m_fReceiveTime - m_fSendTime );

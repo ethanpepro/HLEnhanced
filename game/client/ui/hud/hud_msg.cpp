@@ -83,8 +83,8 @@ void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 
 int CHud :: MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
-	m_Teamplay = READ_BYTE();
+	CBufferReader reader( pbuf, iSize );
+	m_Teamplay = reader.ReadByte();
 
 	return 1;
 }
@@ -97,12 +97,12 @@ int CHud :: MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
 	int		i;
 	float	count;
 	
-	BEGIN_READ( pbuf, iSize );
-	armor = READ_BYTE();
-	blood = READ_BYTE();
+	CBufferReader reader( pbuf, iSize );
+	armor = reader.ReadByte();
+	blood = reader.ReadByte();
 
 	for (i=0 ; i<3 ; i++)
-		from[i] = READ_COORD();
+		from[i] = reader.ReadCoord();
 
 	count = (blood * 0.5) + (armor * 0.5);
 
@@ -116,8 +116,8 @@ int CHud :: MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
 
 int CHud :: MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
-	m_iConcussionEffect = READ_BYTE();
+	CBufferReader reader( pbuf, iSize );
+	m_iConcussionEffect = reader.ReadByte();
 	if (m_iConcussionEffect)
 		this->m_StatusIcons.EnableIcon("dmg_concuss",255,160,0);
 	else

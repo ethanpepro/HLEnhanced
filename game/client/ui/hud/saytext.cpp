@@ -165,10 +165,10 @@ int CHudSayText :: Draw( float flTime )
 
 int CHudSayText :: MsgFunc_SayText( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	int client_index = READ_BYTE();		// the client who spoke the message
-	SayTextPrint( READ_STRING(), iSize - 1,  client_index );
+	int client_index = reader.ReadByte();		// the client who spoke the message
+	SayTextPrint( reader.ReadString(), iSize - 1,  client_index );
 	
 	return 1;
 }

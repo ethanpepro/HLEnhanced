@@ -58,11 +58,11 @@ int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 {
 	m_iFlags |= HUD_ACTIVE;
 	
-	BEGIN_READ( pbuf, iSize );
-	int x = READ_SHORT();
+	CBufferReader reader( pbuf, iSize );
+	int x = reader.ReadShort();
 
 #if defined( _TFC )
-	int y = READ_SHORT();
+	int y = reader.ReadShort();
 
 	if ( x != m_iBat || y != m_iBatMax )
 	{

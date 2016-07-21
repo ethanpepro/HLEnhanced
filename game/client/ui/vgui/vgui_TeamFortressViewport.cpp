@@ -2266,10 +2266,10 @@ int	TeamFortressViewport::KeyInput( int down, int keynum, const char *pszCurrent
 // Message Handlers
 int TeamFortressViewport::MsgFunc_ValClass(const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 	
 	for (int i = 0; i < 5; i++)
-		m_iValidClasses[i] = READ_SHORT();
+		m_iValidClasses[i] = reader.ReadShort();
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
@@ -2279,15 +2279,15 @@ int TeamFortressViewport::MsgFunc_ValClass(const char *pszName, int iSize, void 
 
 int TeamFortressViewport::MsgFunc_TeamNames(const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 	
-	m_iNumberOfTeams = READ_BYTE();
+	m_iNumberOfTeams = reader.ReadByte();
 
 	for (int i = 0; i < m_iNumberOfTeams; i++)
 	{
 		int teamNum = i + 1;
 
-		gHUD.m_TextMessage.LocaliseTextString( READ_STRING(), m_sTeamNames[teamNum], MAX_TEAMNAME_SIZE );
+		gHUD.m_TextMessage.LocaliseTextString( reader.ReadString(), m_sTeamNames[teamNum], MAX_TEAMNAME_SIZE );
 
 		// Set the team name buttons
 		if (m_pTeamButtons[i])
@@ -2311,9 +2311,9 @@ int TeamFortressViewport::MsgFunc_TeamNames(const char *pszName, int iSize, void
 
 int TeamFortressViewport::MsgFunc_Feign(const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 	
-	m_bIsFeigning = READ_BYTE() != 0;
+	m_bIsFeigning = reader.ReadByte() != 0;
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
@@ -2323,9 +2323,9 @@ int TeamFortressViewport::MsgFunc_Feign(const char *pszName, int iSize, void *pb
 
 int TeamFortressViewport::MsgFunc_Detpack(const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	m_iIsSettingDetpack = READ_BYTE();
+	m_iIsSettingDetpack = reader.ReadByte();
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
@@ -2335,14 +2335,14 @@ int TeamFortressViewport::MsgFunc_Detpack(const char *pszName, int iSize, void *
 
 int TeamFortressViewport::MsgFunc_VGUIMenu(const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	int iMenu = READ_BYTE();
+	int iMenu = reader.ReadByte();
 
 	// Map briefing includes the name of the map (because it's sent down before the client knows what map it is)
 	if (iMenu == MENU_MAPBRIEFING)
 	{
-		strncpy( m_sMapName, READ_STRING(), sizeof(m_sMapName) );
+		strncpy( m_sMapName, reader.ReadString(), sizeof(m_sMapName) );
 		m_sMapName[ sizeof(m_sMapName) - 1 ] = '\0';
 	}
 
@@ -2357,13 +2357,13 @@ int TeamFortressViewport::MsgFunc_MOTD( const char *pszName, int iSize, void *pb
 	if (m_iGotAllMOTD)
 		m_szMOTD[0] = 0;
 
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	m_iGotAllMOTD = READ_BYTE();
+	m_iGotAllMOTD = reader.ReadByte();
 
 	int roomInArray = sizeof(m_szMOTD) - strlen(m_szMOTD) - 1;
 
-	strncat( m_szMOTD, READ_STRING(), roomInArray >= 0 ? roomInArray : 0 );
+	strncat( m_szMOTD, reader.ReadString(), roomInArray >= 0 ? roomInArray : 0 );
 	m_szMOTD[ sizeof(m_szMOTD)-1 ] = '\0';
 
 	// don't show MOTD for HLTV spectators
@@ -2377,9 +2377,9 @@ int TeamFortressViewport::MsgFunc_MOTD( const char *pszName, int iSize, void *pb
 
 int TeamFortressViewport::MsgFunc_BuildSt( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	m_iBuildState = READ_SHORT();
+	m_iBuildState = reader.ReadShort();
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
@@ -2389,18 +2389,18 @@ int TeamFortressViewport::MsgFunc_BuildSt( const char *pszName, int iSize, void 
 
 int TeamFortressViewport::MsgFunc_RandomPC( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	m_iRandomPC = READ_BYTE();
+	m_iRandomPC = reader.ReadByte();
 
 	return 1;
 }
 
 int TeamFortressViewport::MsgFunc_ServerName( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	strncpy( m_szServerName, READ_STRING(), sizeof(m_szServerName) );
+	strncpy( m_szServerName, reader.ReadString(), sizeof(m_szServerName) );
 	m_szServerName[sizeof(m_szServerName) - 1] = 0;
 
 	return 1;
@@ -2408,12 +2408,12 @@ int TeamFortressViewport::MsgFunc_ServerName( const char *pszName, int iSize, vo
 
 int TeamFortressViewport::MsgFunc_ScoreInfo( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
-	short cl = READ_BYTE();
-	short frags = READ_SHORT();
-	short deaths = READ_SHORT();
-	short playerclass = READ_SHORT();
-	short teamnumber = READ_SHORT();
+	CBufferReader reader( pbuf, iSize );
+	short cl = reader.ReadByte();
+	short frags = reader.ReadShort();
+	short deaths = reader.ReadShort();
+	short playerclass = reader.ReadShort();
+	short teamnumber = reader.ReadShort();
 
 	if ( cl > 0 && cl <= MAX_PLAYERS )
 	{
@@ -2440,8 +2440,8 @@ int TeamFortressViewport::MsgFunc_ScoreInfo( const char *pszName, int iSize, voi
 // if this message is never received, then scores will simply be the combined totals of the players.
 int TeamFortressViewport::MsgFunc_TeamScore( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
-	char *TeamName = READ_STRING();
+	CBufferReader reader( pbuf, iSize );
+	char *TeamName = reader.ReadString();
 
 	// find the team matching the name
 	int i;
@@ -2456,8 +2456,8 @@ int TeamFortressViewport::MsgFunc_TeamScore( const char *pszName, int iSize, voi
 
 	// use this new score data instead of combined player scoresw
 	g_TeamInfo[i].scores_overriden = true;
-	g_TeamInfo[i].frags = READ_SHORT();
-	g_TeamInfo[i].deaths = READ_SHORT();
+	g_TeamInfo[i].frags = reader.ReadShort();
+	g_TeamInfo[i].deaths = reader.ReadShort();
 
 	return 1;
 }
@@ -2471,13 +2471,13 @@ int TeamFortressViewport::MsgFunc_TeamInfo( const char *pszName, int iSize, void
 	if (!m_pScoreBoard)
 		return 1;
 
-	BEGIN_READ( pbuf, iSize );
-	short cl = READ_BYTE();
+	CBufferReader reader( pbuf, iSize );
+	short cl = reader.ReadByte();
 	
 	if ( cl > 0 && cl <= MAX_PLAYERS )
 	{  
 		// set the players team
-		strncpy( g_PlayerExtraInfo[cl].teamname, READ_STRING(), MAX_TEAM_NAME );
+		strncpy( g_PlayerExtraInfo[cl].teamname, reader.ReadString(), MAX_TEAM_NAME );
 	}
 
 	// rebuild the list of teams
@@ -2493,12 +2493,12 @@ void TeamFortressViewport::DeathMsg( int killer, int victim )
 
 int TeamFortressViewport::MsgFunc_Spectator( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	short cl = READ_BYTE();
+	short cl = reader.ReadByte();
 	if ( cl > 0 && cl <= MAX_PLAYERS )
 	{
-		g_IsSpectator[cl] = READ_BYTE();
+		g_IsSpectator[cl] = reader.ReadByte();
 	}
 
 	return 1;
@@ -2506,9 +2506,9 @@ int TeamFortressViewport::MsgFunc_Spectator( const char *pszName, int iSize, voi
 
 int TeamFortressViewport::MsgFunc_AllowSpec( const char *pszName, int iSize, void *pbuf )
 {
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	m_iAllowSpectators = READ_BYTE();
+	m_iAllowSpectators = reader.ReadByte();
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
@@ -2559,9 +2559,9 @@ int TeamFortressViewport::MsgFunc_ResetFade( const char *pszName, int iSize, voi
 int TeamFortressViewport::MsgFunc_SpecFade( const char *pszName, int iSize, void *pbuf )
 {
 #if defined( _TFC )
-	BEGIN_READ( pbuf, iSize );
+	CBufferReader reader( pbuf, iSize );
 
-	int iIndex = READ_BYTE();
+	int iIndex = reader.ReadByte();
 
 	// we're in first-person spectator mode (...not first-person in the PIP)
 	if ( g_iUser1 == OBS_IN_EYE )
@@ -2569,10 +2569,10 @@ int TeamFortressViewport::MsgFunc_SpecFade( const char *pszName, int iSize, void
 		// this is the person we're watching
 		if ( g_iUser2 == iIndex )
 		{
-			int iFade = READ_BYTE();
-			int iTeam = READ_BYTE();
-			float flTime = ( (float)READ_SHORT() / 100.0 );
-			int iAlpha = READ_BYTE();
+			int iFade = reader.ReadByte();
+			int iTeam = reader.ReadByte();
+			float flTime = ( (float)reader.ReadShort() / 100.0 );
+			int iAlpha = reader.ReadByte();
 
 			Vector team = GetTeamColor( iTeam );
 
