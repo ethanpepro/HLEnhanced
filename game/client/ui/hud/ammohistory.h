@@ -44,7 +44,7 @@ public:
 		memset( riAmmo, 0, sizeof riAmmo );
 	}
 
-	void InitHUDData();
+	void VidInit();
 
 ///// WEAPON /////
 	int			iOldWeaponBits;

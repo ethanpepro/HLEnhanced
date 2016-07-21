@@ -104,7 +104,6 @@ public:
 	int Draw( float flTime ) override;
 	void Think() override;
 	void Reset() override;
-	void InitHUDData() override;
 
 	int DrawWList(float flTime);
 	int MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf);

@@ -52,10 +52,9 @@ void WeaponsResource::Init()
 	HOOK_MESSAGE( AmmoType );
 }
 
-void WeaponsResource::InitHUDData()
+void WeaponsResource::VidInit()
 {
 	//We've connected to a server, so clear our ammo data - Solokiller
-	//TODO: can this be called after getting ammo/weapons?
 	g_AmmoTypes.Clear();
 }
 
@@ -358,13 +357,10 @@ void CHudAmmo::Reset(void)
 	gHR.Reset();
 }
 
-void CHudAmmo::InitHUDData()
-{
-	gWR.InitHUDData();
-}
-
 bool CHudAmmo::VidInit()
 {
+	gWR.VidInit();
+
 	// Load sprites for buckets (top row of weapon menu)
 	m_HUD_bucket0 = gHUD.GetSpriteIndex( "bucket1" );
 	m_HUD_selection = gHUD.GetSpriteIndex( "selection" );
