@@ -21,9 +21,11 @@ bool CMaterialsList::LoadFromFile( const char* const pszFileName )
 	char buffer[ 512 ];
 	int i, j;
 
-	memset( buffer, 0, sizeof( buffer ) );
+	char texType;
 
-	//TODO: doesn't check for duplicates. - Solokiller
+	int iFound;
+
+	memset( buffer, 0, sizeof( buffer ) );
 
 	// for each line in the file...
 	while( g_pFileSystem->ReadLine( buffer, sizeof( buffer ), hFile ) && ( m_iTextures < CTEXTURESMAX ) )
@@ -42,7 +44,7 @@ bool CMaterialsList::LoadFromFile( const char* const pszFileName )
 			continue;
 
 		// get texture type
-		m_chTextureType[ m_iTextures ] = toupper( buffer[ i++ ] );
+		texType = toupper( buffer[ i++ ] );
 
 		// skip whitespace
 		while( buffer[ i ] && isspace( buffer[ i ] ) )
@@ -61,8 +63,24 @@ bool CMaterialsList::LoadFromFile( const char* const pszFileName )
 
 		// null-terminate name and save in sentences array
 		j = min( j, CBTEXTURENAMEMAX - 1 + i );
-		buffer[ j ] = 0;
-		strcpy( &( m_szTextureName[ m_iTextures++ ][ 0 ] ), &( buffer[ i ] ) );
+		buffer[ j ] = '\0';
+
+		iFound = FindTextureLinear( &( buffer[ i ] ) );
+
+		//Duplicate entry, just update the type. - Solokiller
+		if( iFound != -1 )
+		{
+			//Notify the developer.
+			ALERT( at_console, "CMaterialsList::LoadFromFile: Duplicate material entry for texture \"%s\": old type: \'%c\', new type: \'%c\'\n", 
+				   &( buffer[ i ] ), m_chTextureType[ iFound ], texType );
+
+			m_chTextureType[ iFound ] = texType;
+		}
+		else
+		{
+			m_chTextureType[ m_iTextures ] = texType;
+			strcpy( &( m_szTextureName[ m_iTextures++ ][ 0 ] ), &( buffer[ i ] ) );
+		}
 	}
 
 	g_pFileSystem->Close( hFile );
@@ -137,4 +155,19 @@ void CMaterialsList::SortTextures()
 			}
 		}
 	}
+}
+
+int CMaterialsList::FindTextureLinear( const char* const pszName ) const
+{
+	ASSERT( pszName );
+
+	for( int i = 0; i < m_iTextures; i++ )
+	{
+		if( stricmp( m_szTextureName[ i ], pszName ) == 0 )
+		{
+			return i;
+		}
+	}
+
+	return -1;
 }

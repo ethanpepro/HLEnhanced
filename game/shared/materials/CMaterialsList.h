@@ -33,6 +33,14 @@ private:
 
 	void SortTextures();
 
+	/**
+	*	Finds a texture. Searches linearly.
+	*	Should only be used during load time.
+	*	@param pszName Texture name.
+	*	@return Index, or -1 if it wasn't found.
+	*/
+	int FindTextureLinear( const char* const pszName ) const;
+
 private:
 	int m_iTextures = 0;
 	char m_szTextureName[ CTEXTURESMAX ][ CBTEXTURENAMEMAX ];
