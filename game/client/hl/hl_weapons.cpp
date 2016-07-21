@@ -127,8 +127,6 @@ void HUD_InitClientWeapons()
 	//Zero out the weapons list just in case - Solokiller
 	memset( g_pWpns, 0, sizeof( g_pWpns ) );
 
-	CL_SetupServerSupport();
-
 	// Allocate a slot for the local player
 	HUD_PrepEntity( &player		, NULL );
 
