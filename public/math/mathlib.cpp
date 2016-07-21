@@ -67,38 +67,40 @@ float UTIL_VecToYaw( const Vector& vec )
 	return yaw;
 }
 
-void AngleVectors( const Vector& angles, Vector* forward, Vector* right, Vector* up )
+void AngleVectors( const Vector& vecAngles, Vector* vecForward, Vector* vecRight, Vector* vecUp )
 {
 	float		angle;
 	float		sr, sp, sy, cr, cp, cy;
 
-	angle = static_cast<float>( angles[ YAW ] * ( M_PI * 2 / 360 ) );
+	angle = static_cast<float>( vecAngles[ YAW ] * ( M_PI * 2 / 360 ) );
 	sy = sin( angle );
 	cy = cos( angle );
-	angle = static_cast<float>( angles[ PITCH ] * ( M_PI * 2 / 360 ) );
+	angle = static_cast<float>( vecAngles[ PITCH ] * ( M_PI * 2 / 360 ) );
 	sp = sin( angle );
 	cp = cos( angle );
-	angle = static_cast<float>( angles[ ROLL ] * ( M_PI * 2 / 360 ) );
+	angle = static_cast<float>( vecAngles[ ROLL ] * ( M_PI * 2 / 360 ) );
 	sr = sin( angle );
 	cr = cos( angle );
 
-	if( forward )
+	if( vecForward )
 	{
-		( *forward )[ 0 ] = cp*cy;
-		( *forward )[ 1 ] = cp*sy;
-		( *forward )[ 2 ] = -sp;
+		( *vecForward )[ 0 ] = cp*cy;
+		( *vecForward )[ 1 ] = cp*sy;
+		( *vecForward )[ 2 ] = -sp;
 	}
-	if( right )
+
+	if( vecRight )
 	{
-		( *right )[ 0 ] = ( -1 * sr*sp*cy + -1 * cr*-sy );
-		( *right )[ 1 ] = ( -1 * sr*sp*sy + -1 * cr*cy );
-		( *right )[ 2 ] = -1 * sr*cp;
+		( *vecRight )[ 0 ] = ( -1 * sr*sp*cy + -1 * cr*-sy );
+		( *vecRight )[ 1 ] = ( -1 * sr*sp*sy + -1 * cr*cy );
+		( *vecRight )[ 2 ] = -1 * sr*cp;
 	}
-	if( up )
+
+	if( vecUp )
 	{
-		( *up )[ 0 ] = ( cr*sp*cy + -sr*-sy );
-		( *up )[ 1 ] = ( cr*sp*sy + -sr*cy );
-		( *up )[ 2 ] = cr*cp;
+		( *vecUp )[ 0 ] = ( cr*sp*cy + -sr*-sy );
+		( *vecUp )[ 1 ] = ( cr*sp*sy + -sr*cy );
+		( *vecUp )[ 2 ] = cr*cp;
 	}
 }
 
@@ -159,33 +161,33 @@ void VectorMatrix( Vector& forward, Vector& right, Vector& up )
 	up = up.Normalize();
 }
 
-void VectorAngles( const Vector& forward, Vector& angles )
+void VectorAngles( const Vector& vecForward, Vector& vecAngles )
 {
 	float	tmp, yaw, pitch;
 
-	if( forward[ 1 ] == 0 && forward[ 0 ] == 0 )
+	if( vecForward[ 1 ] == 0 && vecForward[ 0 ] == 0 )
 	{
 		yaw = 0;
-		if( forward[ 2 ] > 0 )
+		if( vecForward[ 2 ] > 0 )
 			pitch = 90;
 		else
 			pitch = 270;
 	}
 	else
 	{
-		yaw = static_cast<float>( atan2( forward[ 1 ], forward[ 0 ] ) * 180 / M_PI );
+		yaw = static_cast<float>( atan2( vecForward[ 1 ], vecForward[ 0 ] ) * 180 / M_PI );
 		if( yaw < 0 )
 			yaw += 360;
 
-		tmp = sqrt( forward[ 0 ] * forward[ 0 ] + forward[ 1 ] * forward[ 1 ] );
-		pitch = static_cast<float>( atan2( forward[ 2 ], tmp ) * 180 / M_PI );
+		tmp = sqrt( vecForward[ 0 ] * vecForward[ 0 ] + vecForward[ 1 ] * vecForward[ 1 ] );
+		pitch = static_cast<float>( atan2( vecForward[ 2 ], tmp ) * 180 / M_PI );
 		if( pitch < 0 )
 			pitch += 360;
 	}
 
-	angles[ 0 ] = pitch;
-	angles[ 1 ] = yaw;
-	angles[ 2 ] = 0;
+	vecAngles[ 0 ] = pitch;
+	vecAngles[ 1 ] = yaw;
+	vecAngles[ 2 ] = 0;
 }
 
 void AngleMatrix( const Vector& angles, float( *matrix )[ 4 ] )

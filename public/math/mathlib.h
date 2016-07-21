@@ -29,12 +29,23 @@ extern const Vector vec3_origin;
 #define M_PI		3.14159265358979323846	// matches value in gcc v2 math.h
 #endif
 
-// up / down
-#define	PITCH	0
-// left / right
-#define	YAW		1
-// fall over
-#define	ROLL	2 
+enum : size_t
+{
+	/**
+	*	up / down
+	*/
+	PITCH	= 0,
+
+	/**
+	*	left / right
+	*/
+	YAW		= 1,
+
+	/**
+	*	fall over
+	*/
+	ROLL	= 2
+};
 
 extern const int nanmask;
 
@@ -46,7 +57,11 @@ inline bool IS_NAN( const float flValue )
 	return ( ( ( *( int* ) &flValue ) & nanmask ) == nanmask );
 }
 
-float VectorNormalize( Vector& v );		// returns vector length
+/**
+*	Normalizes the vector in place.
+*	@return Vector length.
+*/
+float VectorNormalize( Vector& v );
 
 void VectorMA( const Vector& veca, float scale, const Vector& vecb, Vector& vecc );
 
@@ -57,7 +72,14 @@ void VectorMA( const Vector& veca, float scale, const Vector& vecb, Vector& vecc
 */
 float UTIL_VecToYaw( const Vector& vec );
 
-void AngleVectors( const Vector& angles, Vector* forward, Vector* right, Vector* up );
+/**
+*	Converts an angle vector to directional vectors.
+*	@param vecAngles Angles.
+*	@param[ out ] vecForward Optional. Forward vector.
+*	@param[ out ] vecRight Optional. Right vector.
+*	@param[ out ] vecUp Optional. Up vector.
+*/
+void AngleVectors( const Vector& vecAngles, Vector* vecForward, Vector* vecRight, Vector* vecUp );
 
 /**
 *	Convenience function for cases where all 3 vectors are used. No need to pass pointers.
@@ -79,7 +101,12 @@ inline void AngleVectorsTranspose( const Vector& angles, Vector& forward, Vector
 
 void VectorMatrix( Vector& forward, Vector& right, Vector& up );
 
-void VectorAngles( const Vector& forward, Vector& angles );
+/**
+*	Converts a directional vector to angles.
+*	@param vecForward Directional vector.
+*	@param[ out ] vecAngles Angles.
+*/
+void VectorAngles( const Vector& vecForward, Vector& vecAngles );
 
 void AngleIMatrix( const Vector& angles, Matrix3x4& matrix );
 
