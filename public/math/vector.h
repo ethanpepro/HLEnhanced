@@ -62,13 +62,16 @@ class Vector						// same data-layout as engine's vec3_t,
 {								//		which is a vec_t[3]
 public:
 	// Construction/destruction
-	inline Vector(void)								{ }
+	inline Vector()									{}
 	inline Vector(float X, float Y, float Z)		{ x = X; y = Y; z = Z;						}
-	//inline Vector(double X, double Y, double Z)		{ x = (float)X; y = (float)Y; z = (float)Z;	}
-	//inline Vector(int X, int Y, int Z)				{ x = (float)X; y = (float)Y; z = (float)Z;	}
+
+	inline Vector( vec_t flScalar )
+		: x( flScalar )
+		, y( flScalar )
+		, z( flScalar )
+	{
+	}
 	inline Vector(const Vector& v)					{ x = v.x; y = v.y; z = v.z;				} 
-	//TODO: shouldn't support this. Decays into a pointer, collides with numbers - Solokiller
-	inline Vector(float rgfl[3])					{ x = rgfl[0]; y = rgfl[1]; z = rgfl[2];	}
 
 	// Operators
 	inline Vector operator-(void) const				{ return Vector(-x,-y,-z);				}

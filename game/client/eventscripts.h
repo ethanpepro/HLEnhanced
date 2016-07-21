@@ -23,7 +23,7 @@ void EV_GetDefaultShellInfo( event_args_t *args,
 							 float forwardScale, float upScale, float rightScale );
 bool EV_IsLocal( int idx );
 bool EV_IsPlayer( int idx );
-void EV_CreateTracer( float *start, float *end );
+void EV_CreateTracer( Vector& start, const Vector& end );
 
 struct cl_entity_s *GetEntity( int idx );
 struct cl_entity_s *GetViewEntity( void );

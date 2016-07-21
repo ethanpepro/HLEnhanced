@@ -2035,10 +2035,7 @@ void PM_Physics_Toss()
 	// stop if on ground
 	if (trace.plane.normal[2] > 0.7)
 	{
-		//TODO: fix constructor taking integer as float*. - Solokiller
-		Vector base;
-
-		base = 0;
+		Vector base = 0;
 
 		if (pmove->velocity[2] < pmove->movevars->gravity * pmove->frametime)
 		{
