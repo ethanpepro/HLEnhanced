@@ -370,6 +370,7 @@
     <ClCompile Include="..\..\game\shared\CBaseGameInterface.cpp" />
     <ClCompile Include="..\..\game\shared\entities\CBaseEntity.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\EHandle.cpp" />
+    <ClCompile Include="..\..\game\shared\entities\player\CBasePlayer.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CAmmoTypes.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CBasePlayerWeapon.shared.cpp" />
     <ClCompile Include="..\..\game\shared\entities\weapons\CCrossbow.cpp" />

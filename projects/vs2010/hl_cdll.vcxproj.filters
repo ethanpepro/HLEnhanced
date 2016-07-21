@@ -133,6 +133,9 @@
     <Filter Include="Header Files\game\shared\entities\player">
       <UniqueIdentifier>{0357f201-4718-427b-aa55-4607d5ee1c21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\shared\entities\player">
+      <UniqueIdentifier>{e9813561-188a-4435-abb8-bfced1d6010a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\parsemsg.cpp">
@@ -449,6 +452,9 @@
     </ClCompile>
     <ClCompile Include="..\..\game\client\entities\player\CBasePlayer.client.cpp">
       <Filter>Source Files\game\client\entities\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\player\CBasePlayer.shared.cpp">
+      <Filter>Source Files\game\shared\entities\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

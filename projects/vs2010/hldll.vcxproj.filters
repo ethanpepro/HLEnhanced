@@ -238,6 +238,9 @@
     <Filter Include="Source Files\game\server\entities\player">
       <UniqueIdentifier>{d58584d1-aec7-42eb-b918-b36bf452fd25}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\game\shared\entities\player">
+      <UniqueIdentifier>{2d8765ee-cd14-4ebe-becb-546d907a8f63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp">
@@ -1118,6 +1121,9 @@
     </ClCompile>
     <ClCompile Include="..\..\common\UTFUtils.cpp">
       <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\shared\entities\player\CBasePlayer.shared.cpp">
+      <Filter>Source Files\game\shared\entities\player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

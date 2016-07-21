@@ -396,12 +396,12 @@ void CSatchel::WeaponIdle( void )
 	case ChargeState::NONE:
 		SendWeaponAnim( SATCHEL_FIDGET1 );
 		// use tripmine animations
-		strcpy( m_pPlayer->m_szAnimExtention, "trip" );
+		m_pPlayer->SetWeaponAnimType( "trip" );
 		break;
 	case ChargeState::DEPLOYED:
 		SendWeaponAnim( SATCHEL_RADIO_FIDGET1 );
 		// use hivehand animations
-		strcpy( m_pPlayer->m_szAnimExtention, "hive" );
+		m_pPlayer->SetWeaponAnimType( "hive" );
 		break;
 	case ChargeState::TRIGGERED:
 		if ( !m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] )
@@ -421,7 +421,7 @@ void CSatchel::WeaponIdle( void )
 		SendWeaponAnim( SATCHEL_DRAW );
 
 		// use tripmine animations
-		strcpy( m_pPlayer->m_szAnimExtention, "trip" );
+		m_pPlayer->SetWeaponAnimType( "trip" );
 
 		m_flNextPrimaryAttack = GetNextAttackDelay(0.5);
 		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.5;

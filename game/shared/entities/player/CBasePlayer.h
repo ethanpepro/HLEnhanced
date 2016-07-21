@@ -315,9 +315,22 @@ public:
 	void RemoveAllItems( const bool removeSuit );
 	bool SwitchWeapon( CBasePlayerItem *pWeapon );
 
-	//TODO
-	void SetWeaponAnimType( const char *szExtention );
-	char m_szAnimExtention[ 32 ];
+	/**
+	*	@return The weapon animation type.
+	*/
+	const char* GetWeaponAnimType() const { return m_szAnimExtension; }
+
+	/**
+	*	Sets the weapon animation type.
+	*	This sets the extension to use when looking up player animations.
+	*	@param pszExtension Extension to use.
+	*/
+	void SetWeaponAnimType( const char* const pszExtension );
+
+private:
+	char m_szAnimExtension[ 32 ];
+
+public:
 
 	bool AddPlayerItem( CBasePlayerItem *pItem );
 	bool RemovePlayerItem( CBasePlayerItem *pItem );

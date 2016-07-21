@@ -189,7 +189,7 @@ bool CBasePlayerWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, i
 	m_pPlayer->TabulateAmmo();
 	m_pPlayer->pev->viewmodel = MAKE_STRING( szViewModel );
 	m_pPlayer->pev->weaponmodel = MAKE_STRING( szWeaponModel );
-	strcpy( m_pPlayer->m_szAnimExtention, szAnimExt );
+	m_pPlayer->SetWeaponAnimType( szAnimExt );
 	SendWeaponAnim( iAnim, skiplocal, body );
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
