@@ -32,6 +32,9 @@ typedef enum {
 	pt_clientcustom   // Must have callback function specified
 } ptype_t;
 
+using ParticleCallback = void ( * ) ( struct particle_s* particle, float frametime );
+using ParticleDeathCallback = void( * )( struct particle_s* particle );
+
 // !!! if this is changed, it must be changed in d_ifacea.h too !!!
 typedef struct particle_s
 {
@@ -45,10 +48,10 @@ typedef struct particle_s
 	float		ramp;
 	float		die;
 	ptype_t		type;
-	void		(*deathfunc)( struct particle_s *particle );
+	ParticleDeathCallback deathfunc;
 
 	// for pt_clientcusttom, we'll call this function each frame
-	void		(*callback)( struct particle_s *particle, float frametime );
+	ParticleCallback callback;
 	
 	// For deathfunc, etc.
 	unsigned char context;

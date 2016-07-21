@@ -830,12 +830,38 @@ enum EntStateFlag
 // byte (duration (in seconds) * 10) (will be randomized a bit)
 //
 // to keep network traffic low, this message has associated flags that fit into a byte:
-#define TEFIRE_FLAG_ALLFLOAT	1 // all sprites will drift upwards as they animate
-#define TEFIRE_FLAG_SOMEFLOAT	2 // some of the sprites will drift upwards. (50% chance)
-#define TEFIRE_FLAG_LOOP		4 // if set, sprite plays at 15 fps, otherwise plays at whatever rate stretches the animation over the sprite's duration.
-#define TEFIRE_FLAG_ALPHA		8 // if set, sprite is rendered alpha blended at 50% else, opaque
-#define TEFIRE_FLAG_PLANAR		16 // if set, all fire sprites have same initial Z instead of randomly filling a cube. 
-#define TEFIRE_FLAG_ADDITIVE	32 // if set, sprite is rendered non-opaque with additive
+enum TEFireFlag
+{
+	/**
+	*	All sprites will drift upwards as they animate.
+	*/
+	TEFIRE_FLAG_ALLFLOAT	= 1,
+
+	/**
+	*	Some of the sprites will drift upwards. (50% chance).
+	*/
+	TEFIRE_FLAG_SOMEFLOAT	= 2,
+
+	/**
+	*	If set, sprite plays at 15 fps, otherwise plays at whatever rate stretches the animation over the sprite's duration.
+	*/
+	TEFIRE_FLAG_LOOP		= 4,
+
+	/**
+	*	If set, sprite is rendered alpha blended at 50% else, opaque.
+	*/
+	TEFIRE_FLAG_ALPHA		= 8,
+
+	/**
+	*	If set, all fire sprites have same initial Z instead of randomly filling a cube. 
+	*/
+	TEFIRE_FLAG_PLANAR		= 16,
+
+	/**
+	*	If set, sprite is rendered non-opaque with additive.
+	*/
+	TEFIRE_FLAG_ADDITIVE	= 32,
+};
 
 #define TE_PLAYERATTACHMENT			124 // attaches a TENT to a player (this is a high-priority tent)
 // byte (entity index of player)

@@ -704,7 +704,7 @@ void DLLEXPORT HUD_TempEntUpdate (
 
 			if ( pTemp->flags & FTENT_SMOKETRAIL )
 			{
-				gEngfuncs.pEfxAPI->R_RocketTrail (pTemp->entity.prevstate.origin, pTemp->entity.origin, 1);
+				gEngfuncs.pEfxAPI->R_RocketTrail (pTemp->entity.prevstate.origin, pTemp->entity.origin, RocketTrailType::SMOKE );
 			}
 
 			if ( pTemp->flags & FTENT_GRAVITY )
