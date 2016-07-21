@@ -187,6 +187,9 @@ void skilldata_t::RefreshSkillData()
 	// Hand Grendade
 	plrDmgHandGrenade = GetSkillCvar( "sk_plr_hand_grenade" );
 
+	// PLAYER HORNET
+	plrDmgHornet = GetSkillCvar( "sk_plr_hornet_dmg" );
+
 	// Satchel Charge
 	plrDmgSatchel = GetSkillCvar( "sk_plr_satchel" );
 
@@ -202,16 +205,6 @@ void skilldata_t::RefreshSkillData()
 
 	// MONSTER HORNET
 	monDmgHornet = GetSkillCvar( "sk_hornet_dmg" );
-
-	// PLAYER HORNET
-	// Up to this point, player hornet damage and monster hornet damage were both using
-	// monDmgHornet to determine how much damage to do. In tuning the hivehand, we now need
-	// to separate player damage and monster hivehand damage. Since it's so late in the project, we've
-	// added plrDmgHornet to the SKILLDATA struct, but not to the engine CVar list, so it's inaccesible
-	// via SKILLS.CFG. Any player hivehand tuning must take place in the code. (sjb)
-	//TODO: add cvar for this - Solokiller
-	plrDmgHornet = 7;
-
 
 	// HEALTH/CHARGE
 	suitchargerCapacity = GetSkillCvar( "sk_suitcharger" );

@@ -161,6 +161,11 @@ cvar_t	sk_hgrunt_gspeed1 = {"sk_hgrunt_gspeed1","0"};
 cvar_t	sk_hgrunt_gspeed2 = {"sk_hgrunt_gspeed2","0"};
 cvar_t	sk_hgrunt_gspeed3 = {"sk_hgrunt_gspeed3","0"};
 
+// HORNET
+cvar_t	sk_hornet_dmg1 = { "sk_hornet_dmg1","0" };
+cvar_t	sk_hornet_dmg2 = { "sk_hornet_dmg2","0" };
+cvar_t	sk_hornet_dmg3 = { "sk_hornet_dmg3","0" };
+
 // Houndeye
 cvar_t	sk_houndeye_health1 = {"sk_houndeye_health1","0"};
 cvar_t	sk_houndeye_health2 = {"sk_houndeye_health2","0"};
@@ -392,9 +397,9 @@ cvar_t	sk_9mm_bullet3 = {"sk_9mm_bullet3","0"};
 
 
 // HORNET
-cvar_t	sk_hornet_dmg1 = {"sk_hornet_dmg1","0"};
-cvar_t	sk_hornet_dmg2 = {"sk_hornet_dmg2","0"};
-cvar_t	sk_hornet_dmg3 = {"sk_hornet_dmg3","0"};
+cvar_t	sk_plr_hornet_dmg1 = { "sk_plr_hornet_dmg1","0" };
+cvar_t	sk_plr_hornet_dmg2 = { "sk_plr_hornet_dmg2","0" };
+cvar_t	sk_plr_hornet_dmg3 = { "sk_plr_hornet_dmg3","0" };
 
 // HEALTH/CHARGE
 cvar_t	sk_suitcharger1	= { "sk_suitcharger1","0" };
@@ -606,6 +611,11 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_hgrunt_gspeed1 );
 	CVAR_REGISTER ( &sk_hgrunt_gspeed2 );
 	CVAR_REGISTER ( &sk_hgrunt_gspeed3 );
+
+	// HORNET
+	CVAR_REGISTER( &sk_hornet_dmg1 );// {"sk_hornet_dmg1","0"};
+	CVAR_REGISTER( &sk_hornet_dmg2 );// {"sk_hornet_dmg2","0"};
+	CVAR_REGISTER( &sk_hornet_dmg3 );// {"sk_hornet_dmg3","0"};
 
 	// Houndeye
 	CVAR_REGISTER ( &sk_houndeye_health1 );// {"sk_houndeye_health1","0"};
@@ -840,9 +850,9 @@ void GameDLLInit( void )
 
 
 	// HORNET
-	CVAR_REGISTER ( &sk_hornet_dmg1 );// {"sk_hornet_dmg1","0"};
-	CVAR_REGISTER ( &sk_hornet_dmg2 );// {"sk_hornet_dmg2","0"};
-	CVAR_REGISTER ( &sk_hornet_dmg3 );// {"sk_hornet_dmg3","0"};
+	CVAR_REGISTER( &sk_plr_hornet_dmg1 );// {"sk_plr_hornet_dmg1","0"};
+	CVAR_REGISTER( &sk_plr_hornet_dmg2 );// {"sk_plr_hornet_dmg2","0"};
+	CVAR_REGISTER( &sk_plr_hornet_dmg3 );// {"sk_plr_hornet_dmg3","0"};
 
 	// HEALTH/SUIT CHARGE DISTRIBUTION
 	CVAR_REGISTER ( &sk_suitcharger1 );
