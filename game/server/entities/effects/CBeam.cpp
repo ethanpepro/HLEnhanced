@@ -8,6 +8,9 @@
 
 #include "CBeam.h"
 
+BEGIN_DATADESC( CBeam )
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( beam, CBeam );
 
 void CBeam::Spawn( void )

@@ -30,7 +30,7 @@ class CBeam : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CBeam, CBaseEntity );
-	//TODO: empty datadesc so friend is in effect - Solokiller
+	DECLARE_DATADESC();
 
 	void	Spawn( void ) override;
 	void	Precache( void ) override;

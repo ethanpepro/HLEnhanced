@@ -65,7 +65,8 @@ void CFuncTank::Spawn( void )
 
 	if( m_fireRate <= 0 )
 		m_fireRate = 1;
-	if( m_spread > MAX_FIRING_SPREADS )
+	//The old version used signed ints. This allowed negative indices. Negative values become larger values, so the problem fixes itself. - Solokiller
+	if( static_cast<size_t>( m_spread ) > MAX_FIRING_SPREADS )
 		m_spread = 0;
 
 	pev->oldorigin = pev->origin;
