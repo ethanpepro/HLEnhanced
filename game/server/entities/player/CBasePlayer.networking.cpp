@@ -37,6 +37,15 @@ reflecting all of the HUD state info.
 */
 void CBasePlayer::UpdateClientData()
 {
+	//The engine will not call ClientPutInServer after transitions, so we'll have to catch this event every map change. - Solokiller
+	if( !m_bSentInitData )
+	{
+		m_bSentInitData = true;
+
+		//Send ammo types now. - Solokiller
+		g_AmmoTypes.SendAmmoTypes( this );
+	}
+
 	if( m_fInitHUD )
 	{
 		m_fInitHUD = false;
@@ -60,9 +69,6 @@ void CBasePlayer::UpdateClientData()
 			{
 				FireTargets( "game_playerjoin", this, this, USE_TOGGLE, 0 );
 			}
-
-			//Send ammo types now. - Solokiller
-			g_AmmoTypes.SendAmmoTypes( this );
 		}
 
 		FireTargets( "game_playerspawn", this, this, USE_TOGGLE, 0 );

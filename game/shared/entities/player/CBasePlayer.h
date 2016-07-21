@@ -114,6 +114,14 @@ class CBasePlayer : public CBaseMonster
 public:
 	DECLARE_CLASS( CBasePlayer, CBaseMonster );
 	DECLARE_DATADESC();
+
+	CBasePlayer()
+	{
+	}
+
+private:
+	//Have we sent init data to the client? - Solokiller
+	bool m_bSentInitData = false;
 	
 public:
 	// Spectator camera
