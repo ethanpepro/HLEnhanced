@@ -37,7 +37,6 @@ extern Vector	vJumpAngles;
 extern void V_GetInEyePos(int entity, Vector& origin, Vector& angles );
 extern void V_ResetChaseCam();
 extern void V_GetChasePos(int target, const Vector* cl_angles, Vector& origin, Vector& angles);
-extern float * GetClientColor( int clientIndex );
 
 extern Vector v_origin;		// last view origin
 extern Vector v_angles;		// last view angle
@@ -572,7 +571,6 @@ int CHudSpectator::Draw(float flTime)
 	int lx;
 
 	char string[256];
-	float * color;
 
 	// draw only in spectator mode
 	if ( !g_iUser1  )
@@ -629,14 +627,14 @@ int CHudSpectator::Draw(float flTime)
 				) continue;
 		}
 
-		color = GetClientColor( i+1 );
+		const Vector& vecColor = GetClientColor( i+1 );
 
 		// draw the players name and health underneath
 		sprintf(string, "%s", g_PlayerInfoList[i+1].name );
 		
 		lx = strlen(string)*3; // 3 is avg. character length :)
 
-		gEngfuncs.pfnDrawSetTextColor( color[0], color[1], color[2] );
+		gEngfuncs.pfnDrawSetTextColor( vecColor[0], vecColor[1], vecColor[2] );
 		DrawConsoleString( m_vPlayerPos[i][0]-lx,m_vPlayerPos[i][1], string);
 		
 	}

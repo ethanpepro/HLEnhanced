@@ -35,9 +35,6 @@ DECLARE_MESSAGE( m_StatusBar, StatusValue );
 #define STATUSBAR_ID_LINE		1
 #endif
 
-float *GetClientColor( int clientIndex );
-extern float g_ColorYellow[3];
-
 int CHudStatusBar :: Init( void )
 {
 	gHUD.AddHudElem( this );
@@ -72,7 +69,7 @@ void CHudStatusBar :: Reset( void )
 
 	// reset our colors for the status bar lines (yellow is default)
 	for ( i = 0; i < MAX_STATUSBAR_LINES; i++ )
-		m_pflNameColors[i] = g_ColorYellow;
+		m_pvecNameColors[i] = &g_ColorYellow;
 }
 
 void CHudStatusBar :: ParseStatusString( int line_num )
@@ -146,7 +143,7 @@ void CHudStatusBar :: ParseStatusString( int line_num )
 							if ( g_PlayerInfoList[indexval].name != NULL )
 							{
 								strncpy( szRepString, g_PlayerInfoList[indexval].name, MAX_PLAYER_NAME_LENGTH );
-								m_pflNameColors[line_num] = GetClientColor( indexval );
+								m_pvecNameColors[line_num] = &GetClientColor( indexval );
 							}
 							else
 							{
@@ -182,7 +179,7 @@ int CHudStatusBar :: Draw( float fTime )
 	{
 		for ( int i = 0; i < MAX_STATUSBAR_LINES; i++ )
 		{
-			m_pflNameColors[i] = g_ColorYellow;
+			m_pvecNameColors[i] = &g_ColorYellow;
 			ParseStatusString( i );
 		}
 		m_bReparseString = false;
@@ -206,8 +203,8 @@ int CHudStatusBar :: Draw( float fTime )
 			y = (ScreenHeight / 2) + (TextHeight*CVAR_GET_FLOAT("hud_centerid"));
 		}
 
-		if ( m_pflNameColors[i] )
-			gEngfuncs.pfnDrawSetTextColor( m_pflNameColors[i][0], m_pflNameColors[i][1], m_pflNameColors[i][2] );
+		if ( m_pvecNameColors[i] )
+			gEngfuncs.pfnDrawSetTextColor( ( *m_pvecNameColors )[i][0], ( *m_pvecNameColors )[i][1], ( *m_pvecNameColors )[i][2] );
 
 		DrawConsoleString( x, y, m_szStatusBar[i] );
 	}

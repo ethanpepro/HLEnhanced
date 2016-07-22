@@ -34,8 +34,8 @@ struct DeathNoticeItem {
 	bool bTeamKill;
 	bool bNonPlayerKill;
 	float flDisplayTime;
-	float *KillerColor;
-	float *VictimColor;
+	const Vector* KillerColor;
+	const Vector* VictimColor;
 };
 
 #define MAX_DEATHNOTICES	4
@@ -45,13 +45,15 @@ static int DEATHNOTICE_DISPLAY_TIME = 6;
 
 DeathNoticeItem rgDeathNoticeList[ MAX_DEATHNOTICES + 1 ];
 
-float g_ColorBlue[3]	= { 0.6f, 0.8f, 1.0f };
-float g_ColorRed[3]		= { 1.0f, 0.25f, 0.25f };
-float g_ColorGreen[3]	= { 0.6f, 1.0f, 0.6f };
-float g_ColorYellow[3]	= { 1.0f, 0.7f, 0.0f };
-float g_ColorGrey[3]	= { 0.8f, 0.8f, 0.8f };
+//TODO: this should be moved - Solokiller
 
-float *GetClientColor( int clientIndex )
+const Vector g_ColorBlue	= { 0.6f, 0.8f, 1.0f };
+const Vector g_ColorRed		= { 1.0f, 0.25f, 0.25f };
+const Vector g_ColorGreen	= { 0.6f, 1.0f, 0.6f };
+const Vector g_ColorYellow	= { 1.0f, 0.7f, 0.0f };
+const Vector g_ColorGrey	= { 0.8f, 0.8f, 0.8f };
+
+const Vector& GetClientColor( int clientIndex )
 {
 	switch ( g_PlayerExtraInfo[clientIndex].teamnumber )
 	{
@@ -61,10 +63,8 @@ float *GetClientColor( int clientIndex )
 	case 4: return g_ColorGreen;
 	case 0: return g_ColorYellow;
 
-		default	: return g_ColorGrey;
+	default	: return g_ColorGrey;
 	}
-
-	return NULL;
 }
 
 int CHudDeathNotice :: Init( void )
@@ -126,7 +126,7 @@ int CHudDeathNotice :: Draw( float flTime )
 
 				// Draw killers name
 				if ( rgDeathNoticeList[i].KillerColor )
-					gEngfuncs.pfnDrawSetTextColor( rgDeathNoticeList[i].KillerColor[0], rgDeathNoticeList[i].KillerColor[1], rgDeathNoticeList[i].KillerColor[2] );
+					gEngfuncs.pfnDrawSetTextColor( ( *rgDeathNoticeList[i].KillerColor )[0], ( *rgDeathNoticeList[ i ].KillerColor )[1], ( *rgDeathNoticeList[ i ].KillerColor )[2] );
 				x = 5 + DrawConsoleString( x, y, rgDeathNoticeList[i].szKiller );
 			}
 
@@ -146,7 +146,7 @@ int CHudDeathNotice :: Draw( float flTime )
 			if ( !rgDeathNoticeList[i].bNonPlayerKill )
 			{
 				if ( rgDeathNoticeList[i].VictimColor )
-					gEngfuncs.pfnDrawSetTextColor( rgDeathNoticeList[i].VictimColor[0], rgDeathNoticeList[i].VictimColor[1], rgDeathNoticeList[i].VictimColor[2] );
+					gEngfuncs.pfnDrawSetTextColor( ( *rgDeathNoticeList[i].VictimColor )[0], ( *rgDeathNoticeList[ i ].VictimColor )[1], ( *rgDeathNoticeList[ i ].VictimColor )[2] );
 				x = DrawConsoleString( x, y, rgDeathNoticeList[i].szVictim );
 			}
 		}
@@ -197,7 +197,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 	}
 	else
 	{
-		rgDeathNoticeList[i].KillerColor = GetClientColor( killer );
+		rgDeathNoticeList[i].KillerColor = &GetClientColor( killer );
 		strncpy( rgDeathNoticeList[i].szKiller, killer_name, MAX_PLAYER_NAME_LENGTH );
 		rgDeathNoticeList[i].szKiller[MAX_PLAYER_NAME_LENGTH-1] = 0;
 	}
@@ -214,7 +214,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 	}
 	else
 	{
-		rgDeathNoticeList[i].VictimColor = GetClientColor( victim );
+		rgDeathNoticeList[i].VictimColor = &GetClientColor( victim );
 		strncpy( rgDeathNoticeList[i].szVictim, victim_name, MAX_PLAYER_NAME_LENGTH );
 		rgDeathNoticeList[i].szVictim[MAX_PLAYER_NAME_LENGTH-1] = 0;
 	}

@@ -28,8 +28,6 @@
 
 #include "vgui_TeamFortressViewport.h"
 
-extern float *GetClientColor( int clientIndex );
-
 #define MAX_LINES	5
 #define MAX_CHARS_PER_LINE	256  /* it can be less than this, depending on char size */
 
@@ -39,7 +37,7 @@ extern float *GetClientColor( int clientIndex );
 static float SCROLL_SPEED = 5;
 
 static char g_szLineBuffer[ MAX_LINES + 1 ][ MAX_CHARS_PER_LINE ];
-static float *g_pflNameColors[ MAX_LINES + 1 ];
+static const Vector* g_pvecNameColors[ MAX_LINES + 1 ];
 static int g_iNameLengths[ MAX_LINES + 1 ];
 static float flScrollTime = 0;  // the time at which the lines next scroll up
 
@@ -67,9 +65,9 @@ int CHudSayText :: Init( void )
 
 void CHudSayText :: InitHUDData( void )
 {
-	memset( g_szLineBuffer, 0, sizeof g_szLineBuffer );
-	memset( g_pflNameColors, 0, sizeof g_pflNameColors );
-	memset( g_iNameLengths, 0, sizeof g_iNameLengths );
+	memset( g_szLineBuffer, 0, sizeof( g_szLineBuffer ) );
+	memset( g_pvecNameColors, 0, sizeof( g_pvecNameColors ) );
+	memset( g_iNameLengths, 0, sizeof( g_iNameLengths ) );
 }
 
 bool CHudSayText::VidInit()
@@ -83,7 +81,7 @@ int ScrollTextUp( void )
 	ConsolePrint( g_szLineBuffer[0] ); // move the first line into the console buffer
 	g_szLineBuffer[MAX_LINES][0] = 0;
 	memmove( g_szLineBuffer[0], g_szLineBuffer[1], sizeof(g_szLineBuffer) - sizeof(g_szLineBuffer[0]) ); // overwrite the first line
-	memmove( &g_pflNameColors[0], &g_pflNameColors[1], sizeof(g_pflNameColors) - sizeof(g_pflNameColors[0]) );
+	memmove( &g_pvecNameColors[0], &g_pvecNameColors[1], sizeof( g_pvecNameColors ) - sizeof( g_pvecNameColors[0]) );
 	memmove( &g_iNameLengths[0], &g_iNameLengths[1], sizeof(g_iNameLengths) - sizeof(g_iNameLengths[0]) );
 	g_szLineBuffer[MAX_LINES-1][0] = 0;
 
@@ -127,7 +125,7 @@ int CHudSayText :: Draw( float flTime )
 	{
 		if ( *g_szLineBuffer[i] )
 		{
-			if ( *g_szLineBuffer[i] == 2 && g_pflNameColors[i] )
+			if ( *g_szLineBuffer[i] == 2 && g_pvecNameColors[i] )
 			{
 				// it's a saytext string
 				char *buf = static_cast<char *>( _alloca( strlen( g_szLineBuffer[i] ) ) );
@@ -138,7 +136,7 @@ int CHudSayText :: Draw( float flTime )
 					// draw the first x characters in the player color
 					strncpy( buf, g_szLineBuffer[i], min(g_iNameLengths[i], MAX_PLAYER_NAME_LENGTH+32) );
 					buf[ min(g_iNameLengths[i], MAX_PLAYER_NAME_LENGTH+31) ] = 0;
-					gEngfuncs.pfnDrawSetTextColor( g_pflNameColors[i][0], g_pflNameColors[i][1], g_pflNameColors[i][2] );
+					gEngfuncs.pfnDrawSetTextColor( ( *g_pvecNameColors )[i][0], ( *g_pvecNameColors )[i][1], ( *g_pvecNameColors )[i][2] );
 					int x = DrawConsoleString( LINE_START, y, buf + 1 ); // don't draw the control code at the start
 					strncpy( buf, g_szLineBuffer[i] + g_iNameLengths[i], strlen( g_szLineBuffer[i] ));
 					buf[ strlen( g_szLineBuffer[i] + g_iNameLengths[i] ) - 1 ] = '\0';
@@ -197,7 +195,7 @@ void CHudSayText :: SayTextPrint( const char *pszBuf, int iBufSize, int clientIn
 	}
 
 	g_iNameLengths[i] = 0;
-	g_pflNameColors[i] = NULL;
+	g_pvecNameColors[i] = nullptr;
 
 	// if it's a say message, search for the players name in the string
 	if ( *pszBuf == 2 && clientIndex > 0 )
@@ -212,7 +210,7 @@ void CHudSayText :: SayTextPrint( const char *pszBuf, int iBufSize, int clientIn
 			if ( nameInString )
 			{
 				g_iNameLengths[i] = strlen( pName ) + (nameInString - pszBuf);
-				g_pflNameColors[i] = GetClientColor( clientIndex );
+				g_pvecNameColors[i] = &GetClientColor( clientIndex );
 			}
 		}
 	}

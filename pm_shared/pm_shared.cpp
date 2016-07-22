@@ -2837,7 +2837,7 @@ void PM_CreateStuckTable()
 	float x, y, z;
 	int idx;
 	int i;
-	float zi[3];
+	Vector zi;
 
 	memset( rgv3tStuckTable, 0, sizeof( rgv3tStuckTable ) );
 

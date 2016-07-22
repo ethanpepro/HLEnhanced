@@ -190,36 +190,6 @@ void VectorAngles( const Vector& vecForward, Vector& vecAngles )
 	vecAngles[ 2 ] = 0;
 }
 
-void AngleMatrix( const Vector& angles, float( *matrix )[ 4 ] )
-{
-	float		angle;
-	float		sr, sp, sy, cr, cp, cy;
-
-	angle = static_cast<float>( angles[ YAW ] * ( M_PI * 2 / 360 ) );
-	sy = sin( angle );
-	cy = cos( angle );
-	angle = static_cast<float>( angles[ PITCH ] * ( M_PI * 2 / 360 ) );
-	sp = sin( angle );
-	cp = cos( angle );
-	angle = static_cast<float>( angles[ ROLL ] * ( M_PI * 2 / 360 ) );
-	sr = sin( angle );
-	cr = cos( angle );
-
-	// matrix = (YAW * PITCH) * ROLL
-	matrix[ 0 ][ 0 ] = cp*cy;
-	matrix[ 1 ][ 0 ] = cp*sy;
-	matrix[ 2 ][ 0 ] = -sp;
-	matrix[ 0 ][ 1 ] = sr*sp*cy + cr*-sy;
-	matrix[ 1 ][ 1 ] = sr*sp*sy + cr*cy;
-	matrix[ 2 ][ 1 ] = sr*cp;
-	matrix[ 0 ][ 2 ] = ( cr*sp*cy + -sr*-sy );
-	matrix[ 1 ][ 2 ] = ( cr*sp*sy + -sr*cy );
-	matrix[ 2 ][ 2 ] = cr*cp;
-	matrix[ 0 ][ 3 ] = 0.0;
-	matrix[ 1 ][ 3 ] = 0.0;
-	matrix[ 2 ][ 3 ] = 0.0;
-}
-
 void AngleIMatrix( const Vector& angles, Matrix3x4& matrix )
 {
 	float		angle;
