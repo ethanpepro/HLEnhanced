@@ -265,14 +265,14 @@ StudioCalcBonePosition
 
 ====================
 */
-void CStudioModelRenderer::StudioCalcBonePosition( int frame, float s, mstudiobone_t *pbone, mstudioanim_t *panim, float *adj, float *pos )
+void CStudioModelRenderer::StudioCalcBonePosition( int frame, float s, mstudiobone_t *pbone, mstudioanim_t *panim, float *adj, Vector& vecPos )
 {
 	int					j, k;
 	mstudioanimvalue_t	*panimvalue;
 
 	for (j = 0; j < 3; j++)
 	{
-		pos[j] = pbone->value[j]; // default;
+		vecPos[j] = pbone->value[j]; // default;
 		if (panim->offset[j] != 0)
 		{
 			panimvalue = (mstudioanimvalue_t *)((byte *)panim + panim->offset[j]);
@@ -300,11 +300,11 @@ void CStudioModelRenderer::StudioCalcBonePosition( int frame, float s, mstudiobo
 				// and there's more data in the span
 				if (panimvalue->num.valid > k + 1)
 				{
-					pos[j] += (panimvalue[k+1].value * (1.0 - s) + s * panimvalue[k+2].value) * pbone->scale[j];
+					vecPos[j] += (panimvalue[k+1].value * (1.0 - s) + s * panimvalue[k+2].value) * pbone->scale[j];
 				}
 				else
 				{
-					pos[j] += panimvalue[k+1].value * pbone->scale[j];
+					vecPos[j] += panimvalue[k+1].value * pbone->scale[j];
 				}
 			}
 			else
@@ -312,17 +312,17 @@ void CStudioModelRenderer::StudioCalcBonePosition( int frame, float s, mstudiobo
 				// are we at the end of the repeating values section and there's another section with data?
 				if (panimvalue->num.total <= k + 1)
 				{
-					pos[j] += (panimvalue[panimvalue->num.valid].value * (1.0 - s) + s * panimvalue[panimvalue->num.valid + 2].value) * pbone->scale[j];
+					vecPos[j] += (panimvalue[panimvalue->num.valid].value * (1.0 - s) + s * panimvalue[panimvalue->num.valid + 2].value) * pbone->scale[j];
 				}
 				else
 				{
-					pos[j] += panimvalue[panimvalue->num.valid].value * pbone->scale[j];
+					vecPos[j] += panimvalue[panimvalue->num.valid].value * pbone->scale[j];
 				}
 			}
 		}
 		if ( pbone->bonecontroller[j] != -1 && adj )
 		{
-			pos[j] += adj[pbone->bonecontroller[j]];
+			vecPos[j] += adj[pbone->bonecontroller[j]];
 		}
 	}
 }
@@ -333,7 +333,7 @@ StudioSlerpBones
 
 ====================
 */
-void CStudioModelRenderer::StudioSlerpBones( Vector4D* q1, float pos1[][3], Vector4D* q2, float pos2[][3], float s )
+void CStudioModelRenderer::StudioSlerpBones( Vector4D* q1, Vector* vecPos1, Vector4D* q2, const Vector* vecPos2, float s )
 {
 	int			i;
 	Vector4D	q3;
@@ -351,9 +351,9 @@ void CStudioModelRenderer::StudioSlerpBones( Vector4D* q1, float pos1[][3], Vect
 		q1[i][1] = q3[1];
 		q1[i][2] = q3[2];
 		q1[i][3] = q3[3];
-		pos1[i][0] = pos1[i][0] * s1 + pos2[i][0] * s;
-		pos1[i][1] = pos1[i][1] * s1 + pos2[i][1] * s;
-		pos1[i][2] = pos1[i][2] * s1 + pos2[i][2] * s;
+		vecPos1[i][0] = vecPos1[i][0] * s1 + vecPos2[i][0] * s;
+		vecPos1[i][1] = vecPos1[i][1] * s1 + vecPos2[i][1] * s;
+		vecPos1[i][2] = vecPos1[i][2] * s1 + vecPos2[i][2] * s;
 	}
 }
 
@@ -583,7 +583,7 @@ StudioCalcRotations
 
 ====================
 */
-void CStudioModelRenderer::StudioCalcRotations ( float pos[][3], Vector4D *q, mstudioseqdesc_t *pseqdesc, mstudioanim_t *panim, float f )
+void CStudioModelRenderer::StudioCalcRotations ( Vector* vecPos, Vector4D *q, mstudioseqdesc_t *pseqdesc, mstudioanim_t *panim, float f )
 {
 	int					i;
 	int					frame;
@@ -626,37 +626,37 @@ void CStudioModelRenderer::StudioCalcRotations ( float pos[][3], Vector4D *q, ms
 	{
 		StudioCalcBoneQuaterion( frame, s, pbone, panim, adj, q[i] );
 
-		StudioCalcBonePosition( frame, s, pbone, panim, adj, pos[i] );
+		StudioCalcBonePosition( frame, s, pbone, panim, adj, vecPos[i] );
 		// if (0 && i == 0)
 		//	Con_DPrintf("%d %d %d %d\n", m_pCurrentEntity->curstate.sequence, frame, j, k );
 	}
 
 	if (pseqdesc->motiontype & STUDIO_X)
 	{
-		pos[pseqdesc->motionbone][0] = 0.0;
+		vecPos[pseqdesc->motionbone][0] = 0.0;
 	}
 	if (pseqdesc->motiontype & STUDIO_Y)
 	{
-		pos[pseqdesc->motionbone][1] = 0.0;
+		vecPos[pseqdesc->motionbone][1] = 0.0;
 	}
 	if (pseqdesc->motiontype & STUDIO_Z)
 	{
-		pos[pseqdesc->motionbone][2] = 0.0;
+		vecPos[pseqdesc->motionbone][2] = 0.0;
 	}
 
 	s = 0 * ((1.0 - (f - (int)(f))) / (pseqdesc->numframes)) * m_pCurrentEntity->curstate.framerate;
 
 	if (pseqdesc->motiontype & STUDIO_LX)
 	{
-		pos[pseqdesc->motionbone][0] += s * pseqdesc->linearmovement[0];
+		vecPos[pseqdesc->motionbone][0] += s * pseqdesc->linearmovement[0];
 	}
 	if (pseqdesc->motiontype & STUDIO_LY)
 	{
-		pos[pseqdesc->motionbone][1] += s * pseqdesc->linearmovement[1];
+		vecPos[pseqdesc->motionbone][1] += s * pseqdesc->linearmovement[1];
 	}
 	if (pseqdesc->motiontype & STUDIO_LZ)
 	{
-		pos[pseqdesc->motionbone][2] += s * pseqdesc->linearmovement[2];
+		vecPos[pseqdesc->motionbone][2] += s * pseqdesc->linearmovement[2];
 	}
 }
 
@@ -784,15 +784,15 @@ void CStudioModelRenderer::StudioSetupBones ( void )
 	mstudioseqdesc_t	*pseqdesc;
 	mstudioanim_t		*panim;
 
-	static float		pos[MAXSTUDIOBONES][3];
+	static Vector		pos[MAXSTUDIOBONES];
 	static Vector4D		q[MAXSTUDIOBONES];
 	Matrix3x4			bonematrix;
 
-	static float		pos2[MAXSTUDIOBONES][3];
+	static Vector		pos2[MAXSTUDIOBONES];
 	static Vector4D		q2[MAXSTUDIOBONES];
-	static float		pos3[MAXSTUDIOBONES][3];
+	static Vector		pos3[MAXSTUDIOBONES];
 	static Vector4D		q3[MAXSTUDIOBONES];
-	static float		pos4[MAXSTUDIOBONES][3];
+	static Vector		pos4[MAXSTUDIOBONES];
 	static Vector4D		q4[MAXSTUDIOBONES];
 
 	if (m_pCurrentEntity->curstate.sequence >=  m_pStudioHeader->numseq) 
@@ -863,7 +863,7 @@ void CStudioModelRenderer::StudioSetupBones ( void )
 		( m_pCurrentEntity->latched.prevsequence < m_pStudioHeader->numseq ))
 	{
 		// blend from last sequence
-		static float		pos1b[MAXSTUDIOBONES][3];
+		static Vector		pos1b[MAXSTUDIOBONES];
 		static Vector4D		q1b[MAXSTUDIOBONES];
 		float				s;
 
@@ -1031,7 +1031,7 @@ void CStudioModelRenderer::StudioMergeBones ( model_t *m_pSubModel )
 	mstudioseqdesc_t	*pseqdesc;
 	mstudioanim_t		*panim;
 
-	static float		pos[MAXSTUDIOBONES][3];
+	static Vector		pos[MAXSTUDIOBONES];
 	Matrix3x4			bonematrix;
 	static Vector4D		q[MAXSTUDIOBONES];
 

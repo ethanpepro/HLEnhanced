@@ -64,7 +64,7 @@ public:
 	virtual void StudioFxTransform( cl_entity_t *ent, Matrix3x4& transform );
 
 	// Spherical interpolation of bones
-	virtual void StudioSlerpBones ( Vector4D* q1, float pos1[][3], Vector4D* q2, float pos2[][3], float s );
+	virtual void StudioSlerpBones ( Vector4D* q1, Vector* vecPos1, Vector4D* q2, const Vector* vecPos2, float s );
 
 	// Compute bone adjustments ( bone controllers )
 	virtual void StudioCalcBoneAdj ( float dadt, float *adj, const byte *pcontroller1, const byte *pcontroller2, byte mouthopen );
@@ -73,10 +73,10 @@ public:
 	virtual void StudioCalcBoneQuaterion ( int frame, float s, mstudiobone_t *pbone, mstudioanim_t *panim, float *adj, Vector4D& q );
 
 	// Get bone positions
-	virtual void StudioCalcBonePosition ( int frame, float s, mstudiobone_t *pbone, mstudioanim_t *panim, float *adj, float *pos );
+	virtual void StudioCalcBonePosition ( int frame, float s, mstudiobone_t *pbone, mstudioanim_t *panim, float *adj, Vector& vecPos );
 
 	// Compute rotations
-	virtual void StudioCalcRotations ( float pos[][3], Vector4D *q, mstudioseqdesc_t *pseqdesc, mstudioanim_t *panim, float f );
+	virtual void StudioCalcRotations ( Vector* vecPos, Vector4D *q, mstudioseqdesc_t *pseqdesc, mstudioanim_t *panim, float f );
 
 	// Send bones and verts to renderer
 	virtual void StudioRenderModel ( void );
@@ -165,11 +165,11 @@ public:
 	float			m_fSoftwareXScale, m_fSoftwareYScale;
 
 	// Current view vectors and render origin
-	float			m_vUp[ 3 ];
-	float			m_vRight[ 3 ];
-	float			m_vNormal[ 3 ];
+	Vector			m_vUp;
+	Vector			m_vRight;
+	Vector			m_vNormal;
 
-	float			m_vRenderOrigin[ 3 ];
+	Vector			m_vRenderOrigin;
 	
 	// Model render counters ( from engine )
 	int				*m_pStudioModelCount;
