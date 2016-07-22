@@ -21,8 +21,6 @@
 #include "CNode.h"
 #include "CLink.h"
 
-//TODO: update to use const char* - Solokiller
-
 struct DIST_INFO
 {
 	int m_SortedBy[3];
@@ -117,9 +115,9 @@ public:
 	void	InitGraph( void );
 	bool	AllocNodes();
 	
-	bool	CheckNODFile(char *szMapName);
-	bool	FLoadGraph(char *szMapName);
-	bool	FSaveGraph(char *szMapName);
+	bool	CheckNODFile( const char* const pszMapName ) const;
+	bool	FLoadGraph( const char* pszMapName );
+	bool	FSaveGraph( const char* pszMapName ) const;
 	bool	FSetGraphPointers();
 	void	CheckNode(Vector vecOrigin, int iNode);
 

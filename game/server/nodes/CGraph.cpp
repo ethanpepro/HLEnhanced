@@ -1415,7 +1415,7 @@ int	CGraph :: RejectInlineLinks ( CLink *pLinkPool, FILE *file )
 // will be loaded. If file cannot be loaded, the node tree
 // will be created and saved to disk.
 //=========================================================
-bool CGraph::FLoadGraph( char *szMapName )
+bool CGraph::FLoadGraph( const char* const pszMapName )
 {
 	char	szFilename[MAX_PATH];
 	int		iVersion;
@@ -1432,7 +1432,7 @@ bool CGraph::FLoadGraph( char *szMapName )
 	MakeDirectory( szDirName );
 
 	strcpy ( szFilename, "maps/graphs/" );
-	strcat ( szFilename, szMapName );
+	strcat ( szFilename, pszMapName );
 	strcat( szFilename, ".nod" );
 
 	pMemFile = aMemFile = LOAD_FILE_FOR_ME(szFilename, &length);
@@ -1589,7 +1589,7 @@ NoMemory:
 // CGraph - FSaveGraph - It's not rocket science.
 // this WILL overwrite existing files.
 //=========================================================
-bool CGraph::FSaveGraph( char *szMapName )
+bool CGraph::FSaveGraph( const char* const pszMapName ) const
 {
 	
 	int		iVersion = GRAPH_VERSION;
@@ -1610,7 +1610,7 @@ bool CGraph::FSaveGraph( char *szMapName )
 	MakeDirectory( szFilename );
 
 	strcat( szFilename, "/" );
-	strcat( szFilename, szMapName );
+	strcat( szFilename, pszMapName );
 	strcat( szFilename, ".nod" );
 
 	file = fopen ( szFilename, "wb" );
@@ -1720,7 +1720,7 @@ bool CGraph::FSetGraphPointers()
 // though. ( I now suspect that we are getting GMT back from
 // these functions and must compensate for local time ) (sjb)
 //=========================================================
-bool CGraph :: CheckNODFile ( char *szMapName )
+bool CGraph::CheckNODFile( const char* const pszMapName ) const
 {
 	bool 		retValue;
 
@@ -1729,11 +1729,11 @@ bool CGraph :: CheckNODFile ( char *szMapName )
 	
 
 	strcpy ( szBspFilename, "maps/" );
-	strcat ( szBspFilename, szMapName );
+	strcat ( szBspFilename, pszMapName );
 	strcat ( szBspFilename, ".bsp" );
 
 	strcpy ( szGraphFilename, "maps/graphs/" );
-	strcat ( szGraphFilename, szMapName );
+	strcat ( szGraphFilename, pszMapName );
 	strcat ( szGraphFilename, ".nod" );
 	
 	retValue = true;
