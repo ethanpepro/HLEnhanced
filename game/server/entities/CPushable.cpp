@@ -192,7 +192,7 @@ void CPushable::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 #if 0
 void CPushable::StopSound( void )
 {
-	Vector dist = pev->oldorigin - pev->origin;
+	Vector dist = GetOldOrigin() - pev->origin;
 	if( dist.Length() <= 0 )
 		STOP_SOUND( ENT( pev ), CHAN_WEAPON, m_soundNames[ m_lastSound ] );
 }

@@ -1036,7 +1036,7 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 		}
 		else
 		{
-			// UNDONE: use pev->oldorigin?
+			// UNDONE: use GetOldOrigin()?
 		}
 	}
 	else if ( !HasConditions(bits_COND_ENEMY_OCCLUDED|bits_COND_SEE_ENEMY) && ( flDistToEnemy <= 256 ) )

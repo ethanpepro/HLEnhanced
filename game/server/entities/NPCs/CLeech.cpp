@@ -271,8 +271,8 @@ float CLeech::ObstacleDistance( CBaseEntity *pTarget )
 	if ( tr.fStartSolid )
 	{
 		pev->speed = -LEECH_SWIM_SPEED * 0.5;
-//		ALERT( at_console, "Stuck from (%f %f %f) to (%f %f %f)\n", pev->oldorigin.x, pev->oldorigin.y, pev->oldorigin.z, pev->origin.x, pev->origin.y, pev->origin.z );
-//		SetAbsOrigin( pev->oldorigin );
+//		ALERT( at_console, "Stuck from (%f %f %f) to (%f %f %f)\n", GetOldOrigin().x, GetOldOrigin().y, GetOldOrigin().z, pev->origin.x, pev->origin.y, pev->origin.z );
+//		SetAbsOrigin( GetOldOrigin() );
 	}
 
 	if ( tr.flFraction != 1.0 )
@@ -510,7 +510,7 @@ void CLeech::SwimThink( void )
 			targetYaw = RANDOM_LONG( -30, 30 );
 		pTarget = NULL;
 		// oldorigin test
-		if ( (pev->origin - pev->oldorigin).Length() < 1 )
+		if ( (pev->origin - GetOldOrigin() ).Length() < 1 )
 		{
 			// If leech didn't move, there must be something blocking it, so try to turn
 			m_sideTime = 0;
@@ -520,7 +520,7 @@ void CLeech::SwimThink( void )
 	}
 
 	m_obstacle = ObstacleDistance( pTarget );
-	pev->oldorigin = pev->origin;
+	SetOldOrigin( pev->origin );
 	if ( m_obstacle < 0.1 )
 		m_obstacle = 0.1;
 

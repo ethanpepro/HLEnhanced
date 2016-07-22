@@ -53,7 +53,7 @@ void CFuncTrackTrain::Spawn( void )
 	SetAbsOrigin( pev->origin );
 
 	// Cache off placed origin for train controls
-	pev->oldorigin = pev->origin;
+	SetOldOrigin( pev->origin );
 
 	m_controlMins = pev->mins;
 	m_controlMaxs = pev->maxs;
@@ -472,7 +472,7 @@ void CFuncTrackTrain::SetTrack( CPathTrack *track )
 
 void CFuncTrackTrain::SetControls( CBaseEntity* pControls )
 {
-	Vector offset = pControls->pev->origin - pev->oldorigin;
+	Vector offset = pControls->pev->origin - GetOldOrigin();
 
 	m_controlMins = pControls->pev->mins + offset;
 	m_controlMaxs = pControls->pev->maxs + offset;

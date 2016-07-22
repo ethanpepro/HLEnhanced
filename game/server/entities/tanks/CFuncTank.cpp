@@ -69,7 +69,7 @@ void CFuncTank::Spawn( void )
 	if( static_cast<size_t>( m_spread ) > MAX_FIRING_SPREADS )
 		m_spread = 0;
 
-	pev->oldorigin = pev->origin;
+	SetOldOrigin( pev->origin );
 }
 
 void CFuncTank::Precache( void )
