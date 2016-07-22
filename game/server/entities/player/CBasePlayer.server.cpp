@@ -644,7 +644,7 @@ bool CBasePlayer::Restore( CRestore &restore )
 	pev->v_angle.z = 0;	// Clear out roll
 	pev->angles = pev->v_angle;
 
-	pev->fixangle = FIXANGLE_SET;           // turn this way immediately
+	SetFixAngleMode( FIXANGLE_SET );		// turn this way immediately
 
 											// Copied from spawn() for now
 	m_bloodColor = BLOOD_COLOR_RED;

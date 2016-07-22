@@ -57,7 +57,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 		pOther->pev->v_angle = pentTarget->v.angles;
 	}
 
-	pOther->pev->fixangle = FIXANGLE_SET;
+	pOther->SetFixAngleMode( FIXANGLE_SET );
 	pOther->pev->velocity = pOther->pev->basevelocity = g_vecZero;
 }
 
