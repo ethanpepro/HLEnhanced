@@ -217,7 +217,7 @@ void CBaseDoor::DoorTouch( CBaseEntity *pOther )
 	// If door is somebody's target, then touching does nothing.
 	// You have to activate the owner (e.g. button).
 
-	if( !FStringNull( pev->targetname ) )
+	if( HasTargetname() )
 	{
 		// play locked sound
 		PlayLockSounds( this, &m_ls, true, false );
@@ -443,11 +443,11 @@ void CBaseDoor::Blocked( CBaseEntity *pOther )
 	}
 
 	// Block all door pieces with the same targetname here.
-	if( !FStringNull( pev->targetname ) )
+	if( HasTargetname() )
 	{
 		for( ;;)
 		{
-			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( pev->targetname ) );
+			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, GetTargetname() );
 
 			if( VARS( pentTarget ) != pev )
 			{

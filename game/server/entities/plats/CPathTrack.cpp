@@ -30,7 +30,7 @@ void CPathTrack::Spawn( void )
 
 void CPathTrack::Activate( void )
 {
-	if( !FStringNull( pev->targetname ) )		// Link to next, and back-link
+	if( HasTargetname() )		// Link to next, and back-link
 		Link();
 }
 
@@ -51,7 +51,7 @@ void CPathTrack::KeyValue( KeyValueData *pkvd )
 void CPathTrack::SetPrevious( CPathTrack *pprev )
 {
 	// Only set previous if this isn't my alternate path
-	if( pprev && !FStrEq( STRING( pprev->pev->targetname ), STRING( m_altName ) ) )
+	if( pprev && !FStrEq( pprev->GetTargetname(), STRING( m_altName ) ) )
 		m_pprevious = pprev;
 }
 
@@ -253,7 +253,7 @@ CPathTrack *CPathTrack::Nearest( Vector origin )
 		deadCount++;
 		if( deadCount > 9999 )
 		{
-			ALERT( at_error, "Bad sequence of path_tracks from %s", STRING( pev->targetname ) );
+			ALERT( at_error, "Bad sequence of path_tracks from %s", GetTargetname() );
 			return NULL;
 		}
 		delta = origin - ppath->pev->origin;

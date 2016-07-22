@@ -13,7 +13,7 @@ LINK_ENTITY_TO_CLASS( path_corner, CPathCorner );
 
 void CPathCorner::Spawn()
 {
-	ASSERTSZ( !FStringNull( pev->targetname ), "path_corner without a targetname" );
+	ASSERTSZ( HasTargetname(), "path_corner without a targetname" );
 }
 
 //

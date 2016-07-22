@@ -66,7 +66,7 @@ void CLight :: KeyValue( KeyValueData* pkvd)
 
 void CLight :: Spawn( void )
 {
-	if (FStringNull(pev->targetname))
+	if ( !HasTargetname() )
 	{       // inert light
 		REMOVE_ENTITY(ENT(pev));
 		return;

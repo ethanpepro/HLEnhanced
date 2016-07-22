@@ -295,10 +295,10 @@ void CTentacle :: Test( void )
 //
 void CTentacle :: Cycle( void )
 {
-	// ALERT( at_console, "%s %.2f %d %d\n", STRING( pev->targetname ), pev->origin.z, m_MonsterState, m_IdealMonsterState );
+	// ALERT( at_console, "%s %.2f %d %d\n", GetTargetname(), pev->origin.z, m_MonsterState, m_IdealMonsterState );
 	pev->nextthink = gpGlobals-> time + 0.1;
 
-	// ALERT( at_console, "%s %d %d %d %f %f\n", STRING( pev->targetname ), pev->sequence, m_iGoalAnim, m_iDir, pev->framerate, pev->health );
+	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), pev->sequence, m_iGoalAnim, m_iDir, pev->framerate, pev->health );
 
 	if (m_MonsterState == MONSTERSTATE_SCRIPT || m_IdealMonsterState == MONSTERSTATE_SCRIPT)
 	{
@@ -392,7 +392,7 @@ void CTentacle :: Cycle( void )
 
 	if (m_fSequenceFinished)
 	{
-		// ALERT( at_console, "%s done %d %d\n", STRING( pev->targetname ), pev->sequence, m_iGoalAnim );
+		// ALERT( at_console, "%s done %d %d\n", GetTargetname(), pev->sequence, m_iGoalAnim );
 		if (pev->health <= 1)
 		{
 			m_iGoalAnim = TENTACLE_ANIM_Pit_Idle;
@@ -544,7 +544,7 @@ void CTentacle :: Cycle( void )
 
 void CTentacle::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	// ALERT( at_console, "%s triggered %d\n", STRING( pev->targetname ), useType ); 
+	// ALERT( at_console, "%s triggered %d\n", GetTargetname(), useType ); 
 	switch( useType )
 	{
 	case USE_OFF:

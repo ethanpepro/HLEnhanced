@@ -1331,12 +1331,12 @@ float CBaseMonster::OpenDoorAndWait( CBaseEntity* pDoor )
 		//ALERT(at_aiconsole, "pev->ltime = %d ms\n", (int)(1000*pev->ltime));
 		flTravelTime = pDoor->pev->nextthink - pDoor->pev->ltime;
 		//ALERT(at_aiconsole, "Waiting %d ms\n", (int)(1000*flTravelTime));
-		if ( pDoor->pev->targetname )
+		if ( pDoor->HasTargetname() )
 		{
 			edict_t *pentTarget = NULL;
 			for (;;)
 			{
-				pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( pDoor->pev->targetname ) );
+				pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, pDoor->GetTargetname() );
 
 				if ( VARS( pentTarget ) != pDoor->pev )
 				{
@@ -2066,7 +2066,7 @@ void CBaseMonster :: StartMonster ( void )
 	SetThink ( &CBaseMonster::CallMonsterThink );
 	pev->nextthink += RANDOM_FLOAT(0.1, 0.4); // spread think times.
 	
-	if ( !FStringNull(pev->targetname) )// wait until triggered
+	if ( HasTargetname() )// wait until triggered
 	{
 		SetState( MONSTERSTATE_IDLE );
 		// UNDONE: Some scripted sequence monsters don't have an idle?

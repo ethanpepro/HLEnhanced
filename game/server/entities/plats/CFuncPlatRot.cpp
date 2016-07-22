@@ -30,7 +30,7 @@ void CFuncPlatRot::SetupRotation( void )
 		m_start = g_vecZero;
 		m_end = g_vecZero;
 	}
-	if( !FStringNull( pev->targetname ) )	// Start at top
+	if( HasTargetname() )	// Start at top
 	{
 		pev->angles = m_end;
 	}

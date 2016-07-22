@@ -85,7 +85,7 @@ void CMultiSource::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 	// 
 	if( IsTriggered( pActivator ) )
 	{
-		ALERT( at_aiconsole, "Multisource %s enabled (%d inputs)\n", STRING( pev->targetname ), m_iTotal );
+		ALERT( at_aiconsole, "Multisource %s enabled (%d inputs)\n", GetTargetname(), m_iTotal );
 		USE_TYPE useType = USE_TOGGLE;
 		if( m_globalstate )
 			useType = USE_ON;
@@ -128,9 +128,9 @@ void CMultiSource::Register( void )
 
 	SetThink( &CMultiSource::SUB_DoNothing );
 
-	// search for all entities which target this multisource (pev->targetname)
+	// search for all entities which target this multisource (GetTargetname())
 
-	pentTarget = FIND_ENTITY_BY_STRING( NULL, "target", STRING( pev->targetname ) );
+	pentTarget = FIND_ENTITY_BY_STRING( NULL, "target", GetTargetname() );
 
 	while( !FNullEnt( pentTarget ) && ( m_iTotal < MS_MAX_TARGETS ) )
 	{
@@ -138,7 +138,7 @@ void CMultiSource::Register( void )
 		if( pTarget )
 			m_rgEntities[ m_iTotal++ ] = pTarget;
 
-		pentTarget = FIND_ENTITY_BY_STRING( pentTarget, "target", STRING( pev->targetname ) );
+		pentTarget = FIND_ENTITY_BY_STRING( pentTarget, "target", GetTargetname() );
 	}
 
 	pentTarget = FIND_ENTITY_BY_STRING( NULL, "classname", "multi_manager" );

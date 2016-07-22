@@ -18,7 +18,7 @@ void CTriggerHurt::Spawn( void )
 	InitTrigger();
 	SetTouch( &CTriggerHurt::HurtTouch );
 
-	if( !FStringNull( pev->targetname ) )
+	if( HasTargetname() )
 	{
 		SetUse( &CTriggerHurt::ToggleUse );
 	}

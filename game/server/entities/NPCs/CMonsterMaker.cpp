@@ -67,7 +67,7 @@ void CMonsterMaker :: Spawn( )
 
 	m_cLiveChildren = 0;
 	Precache();
-	if ( !FStringNull ( pev->targetname ) )
+	if ( HasTargetname() )
 	{
 		if ( pev->spawnflags & SF_MONSTERMAKER_CYCLIC )
 		{

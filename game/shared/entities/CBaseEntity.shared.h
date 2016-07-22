@@ -2334,7 +2334,7 @@ public:
 	/**
 	*	@return Whether this entity has the given target.
 	*/
-	virtual bool HasTarget( string_t targetname ) const { return FStrEq( STRING( targetname ), STRING( pev->targetname ) ); }
+	virtual bool HasTarget( string_t targetname ) const { return FStrEq( STRING( targetname ), GetTargetname() ); }
 
 	/**
 	*	@return Whether this entity is positioned in the world.

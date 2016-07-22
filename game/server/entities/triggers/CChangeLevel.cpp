@@ -38,7 +38,7 @@ void CChangeLevel::Spawn( void )
 	if( FStrEq( m_szLandmarkName, "" ) )
 		ALERT( at_console, "trigger_changelevel to %s doesn't have a landmark", m_szMapName );
 
-	if( !FStringNull( pev->targetname ) )
+	if( HasTargetname() )
 	{
 		SetUse( &CChangeLevel::UseChangeLevel );
 	}

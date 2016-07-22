@@ -57,7 +57,7 @@ void CLightning::Spawn( void )
 			SetThink( &CLightning::DamageThink );
 			pev->nextthink = gpGlobals->time + 0.1;
 		}
-		if( pev->targetname )
+		if( HasTargetname() )
 		{
 			if( !( pev->spawnflags & SF_BEAM_STARTON ) )
 			{
@@ -74,11 +74,11 @@ void CLightning::Spawn( void )
 	else
 	{
 		m_active = false;
-		if( !FStringNull( pev->targetname ) )
+		if( HasTargetname() )
 		{
 			SetUse( &CLightning::StrikeUse );
 		}
-		if( FStringNull( pev->targetname ) || FBitSet( pev->spawnflags, SF_BEAM_STARTON ) )
+		if( !HasTargetname() || FBitSet( pev->spawnflags, SF_BEAM_STARTON ) )
 		{
 			SetThink( &CLightning::StrikeThink );
 			pev->nextthink = gpGlobals->time + 1.0;

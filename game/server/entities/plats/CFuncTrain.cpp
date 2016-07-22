@@ -86,7 +86,7 @@ void CFuncTrain::Activate( void )
 
 		SetAbsOrigin( pevTarg->origin - ( pev->mins + pev->maxs ) * 0.5 );
 
-		if( FStringNull( pev->targetname ) )
+		if( !HasTargetname() )
 		{	// not triggered, so start immediately
 			pev->nextthink = pev->ltime + 0.1;
 			SetThink( &CFuncTrain::Next );
@@ -233,7 +233,7 @@ void CFuncTrain::Next( void )
 	if( m_pevCurrentTarget && m_pevCurrentTarget->speed != 0 )
 	{// don't copy speed from target if it is 0 (uninitialized)
 		pev->speed = m_pevCurrentTarget->speed;
-		ALERT( at_aiconsole, "Train %s speed to %4.2f\n", STRING( pev->targetname ), pev->speed );
+		ALERT( at_aiconsole, "Train %s speed to %4.2f\n", GetTargetname(), pev->speed );
 	}
 	m_pevCurrentTarget = pTarg->pev;// keep track of this since path corners change our target for us.
 

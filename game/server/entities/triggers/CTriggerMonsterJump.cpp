@@ -16,7 +16,7 @@ void CTriggerMonsterJump::Spawn( void )
 	pev->speed = 200;
 	m_flHeight = 150;
 
-	if( !FStringNull( pev->targetname ) )
+	if( HasTargetname() )
 	{// if targetted, spawn turned off
 		pev->solid = SOLID_NOT;
 		SetAbsOrigin( pev->origin ); // Unlink from trigger list

@@ -26,7 +26,7 @@ bool CCineAI::StartSequence( CBaseMonster *pTarget, int iszSeq, const bool compl
 
 	if( pTarget->pev->sequence == -1 )
 	{
-		ALERT( at_error, "%s: unknown aiscripted sequence \"%s\"\n", STRING( pTarget->pev->targetname ), STRING( iszSeq ) );
+		ALERT( at_error, "%s: unknown aiscripted sequence \"%s\"\n", pTarget->GetTargetname(), STRING( iszSeq ) );
 		pTarget->pev->sequence = 0;
 		// return false;
 	}
@@ -97,7 +97,7 @@ void CCineAI::PossessEntity( void )
 			break;
 		}
 
-		ALERT( at_aiconsole, "\"%s\" found and used\n", STRING( pTarget->pev->targetname ) );
+		ALERT( at_aiconsole, "\"%s\" found and used\n", pTarget->GetTargetname() );
 
 		pTarget->m_IdealMonsterState = MONSTERSTATE_SCRIPT;
 
