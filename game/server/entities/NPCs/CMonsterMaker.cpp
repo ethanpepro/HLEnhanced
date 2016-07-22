@@ -177,7 +177,7 @@ void CMonsterMaker::MakeMonster( void )
 	DispatchSpawn( ENT( pevCreate ) );
 	pevCreate->owner = edict();
 
-	if ( !FStringNull( pev->netname ) )
+	if ( HasNetName() )
 	{
 		// if I have a netname (overloaded), give the child monster that name as a targetname
 		pevCreate->targetname = pev->netname;

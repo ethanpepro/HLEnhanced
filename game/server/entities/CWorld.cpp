@@ -265,9 +265,9 @@ void CWorld::Precache( void )
 	else
 		CVAR_SET_FLOAT( "sv_zmax", 4096 );
 
-	if( pev->netname )
+	if( HasNetName() )
 	{
-		ALERT( at_aiconsole, "Chapter title: %s\n", STRING( pev->netname ) );
+		ALERT( at_aiconsole, "Chapter title: %s\n", GetNetName() );
 		CBaseEntity *pEntity = CBaseEntity::Create( "env_message", g_vecZero, g_vecZero, NULL );
 		if( pEntity )
 		{

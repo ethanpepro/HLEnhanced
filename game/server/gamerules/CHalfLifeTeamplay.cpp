@@ -335,11 +335,11 @@ void CHalfLifeTeamplay::ClientUserInfoChanged( CBasePlayer *pPlayer, char *infob
 		return;
 	}
 	// notify everyone of the team change
-	sprintf( text, "* %s has changed to team \'%s\'\n", STRING(pPlayer->pev->netname), mdls );
+	sprintf( text, "* %s has changed to team \'%s\'\n", pPlayer->GetNetName(), mdls );
 	UTIL_SayTextAll( text, pPlayer );
 
 	UTIL_LogPrintf( "\"%s<%i><%s><%s>\" joined team \"%s\"\n", 
-		STRING(pPlayer->pev->netname),
+		pPlayer->GetNetName(),
 		GETPLAYERUSERID( pPlayer->edict() ),
 		GETPLAYERAUTHID( pPlayer->edict() ),
 		pPlayer->m_szTeamName,

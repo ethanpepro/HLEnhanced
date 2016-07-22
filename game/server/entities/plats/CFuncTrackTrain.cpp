@@ -448,8 +448,8 @@ void CFuncTrackTrain::DeadEnd( void )
 	if( pTrack )
 	{
 		ALERT( at_aiconsole, "at %s\n", pTrack->GetTargetname() );
-		if( pTrack->pev->netname )
-			FireTargets( STRING( pTrack->pev->netname ), this, this, USE_TOGGLE, 0 );
+		if( pTrack->HasNetName() )
+			FireTargets( pTrack->GetNetName(), this, this, USE_TOGGLE, 0 );
 	}
 	else
 		ALERT( at_aiconsole, "\n" );

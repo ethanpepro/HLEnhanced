@@ -358,8 +358,8 @@ void CBaseDoor::DoorHitTop( void )
 	}
 
 	// Fire the close target (if startopen is set, then "top" is closed) - netname is the close target
-	if( pev->netname && ( pev->spawnflags & SF_DOOR_START_OPEN ) )
-		FireTargets( STRING( pev->netname ), m_hActivator, this, USE_TOGGLE, 0 );
+	if( HasNetName() && ( pev->spawnflags & SF_DOOR_START_OPEN ) )
+		FireTargets( GetNetName(), m_hActivator, this, USE_TOGGLE, 0 );
 
 	SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 ); // this isn't finished
 }
@@ -413,8 +413,8 @@ void CBaseDoor::DoorHitBottom( void )
 	SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 ); // this isn't finished
 
 												   // Fire the close target (if startopen is set, then "top" is closed) - netname is the close target
-	if( pev->netname && !( pev->spawnflags & SF_DOOR_START_OPEN ) )
-		FireTargets( STRING( pev->netname ), m_hActivator, this, USE_TOGGLE, 0 );
+	if( HasNetName() && !( pev->spawnflags & SF_DOOR_START_OPEN ) )
+		FireTargets( GetNetName(), m_hActivator, this, USE_TOGGLE, 0 );
 }
 
 void CBaseDoor::Blocked( CBaseEntity *pOther )

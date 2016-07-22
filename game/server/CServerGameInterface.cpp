@@ -170,7 +170,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 
 			// notify other clients of player switching to spectator mode
 			UTIL_ClientPrintAll( HUD_PRINTNOTIFY, UTIL_VarArgs( "%s switched to spectator mode\n",
-				( pPlayer->pev->netname && STRING( pPlayer->pev->netname )[ 0 ] != 0 ) ? STRING( pPlayer->pev->netname ) : "unconnected" ) );
+				pPlayer->HasNetName() ? pPlayer->GetNetName() : "unconnected" ) );
 		}
 		else
 			ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, "Spectator mode is disabled.\n" );

@@ -311,8 +311,7 @@ CBasePlayer* UTIL_FindPlayerByName( const char *pszTestName )
 			CBaseEntity *pEnt = CBaseEntity::Instance( pEdict );
 			if( pEnt && pEnt->IsPlayer() )
 			{
-				const char *pNetName = STRING( pEnt->pev->netname );
-				if( stricmp( pNetName, pszTestName ) == 0 )
+				if( stricmp( pEnt->GetNetName(), pszTestName ) == 0 )
 				{
 					return ( CBasePlayer* ) pEnt;
 				}

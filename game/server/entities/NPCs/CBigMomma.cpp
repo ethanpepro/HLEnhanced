@@ -440,9 +440,9 @@ void CBigMomma::NodeStart( int iszNextNode )
 
 	CBaseEntity *pTarget = NULL;
 
-	if ( pev->netname )
+	if ( HasNetName() )
 	{
-		edict_t *pentTarget = FIND_ENTITY_BY_TARGETNAME ( NULL, STRING(pev->netname) );
+		edict_t *pentTarget = FIND_ENTITY_BY_TARGETNAME ( NULL, GetNetName() );
 
 		if ( !FNullEnt(pentTarget) )
 			pTarget = Instance( pentTarget );
@@ -656,7 +656,7 @@ void CBigMomma::StartTask( Task_t *pTask )
 			}
 			NodeStart( pev->netname );
 			TaskComplete();
-			ALERT( at_aiconsole, "BM: Found node %s\n", STRING(pev->netname) );
+			ALERT( at_aiconsole, "BM: Found node %s\n", GetNetName() );
 		}
 		break;
 
@@ -667,7 +667,7 @@ void CBigMomma::StartTask( Task_t *pTask )
 		break;
 
 	case TASK_PROCESS_NODE:
-		ALERT( at_aiconsole, "BM: Reached node %s\n", STRING(pev->netname) );
+		ALERT( at_aiconsole, "BM: Reached node %s\n", GetNetName() );
 		NodeReach();
 		TaskComplete();
 		break;
@@ -706,9 +706,9 @@ void CBigMomma::StartTask( Task_t *pTask )
 	case TASK_WAIT_NODE:
 		m_flWait = gpGlobals->time + GetNodeDelay();
 		if ( m_hTargetEnt->pev->spawnflags & SF_INFOBM_WAIT )
-			ALERT( at_aiconsole, "BM: Wait at node %s forever\n", STRING(pev->netname) );
+			ALERT( at_aiconsole, "BM: Wait at node %s forever\n", GetNetName() );
 		else
-			ALERT( at_aiconsole, "BM: Wait at node %s for %.2f\n", STRING(pev->netname), GetNodeDelay() );
+			ALERT( at_aiconsole, "BM: Wait at node %s for %.2f\n", GetNetName(), GetNodeDelay() );
 		break;
 
 
@@ -735,7 +735,7 @@ void CBigMomma::StartTask( Task_t *pTask )
 				}
 			}
 		}
-		ALERT( at_aiconsole, "BM: Moving to node %s\n", STRING(pev->netname) );
+		ALERT( at_aiconsole, "BM: Moving to node %s\n", GetNetName() );
 
 		break;
 

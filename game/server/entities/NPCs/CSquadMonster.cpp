@@ -318,10 +318,10 @@ int CSquadMonster :: SquadRecruit( int searchRadius, int maxMembers )
 
 	CBaseEntity *pEntity = NULL;
 
-	if ( !FStringNull( pev->netname ) )
+	if ( HasNetName() )
 	{
 		// I have a netname, so unconditionally recruit everyone else with that name.
-		pEntity = UTIL_FindEntityByString( pEntity, "netname", STRING( pev->netname ) );
+		pEntity = UTIL_FindEntityByString( pEntity, "netname", GetNetName() );
 		while ( pEntity )
 		{
 			CSquadMonster *pRecruit = pEntity->MySquadMonsterPointer();
@@ -337,7 +337,7 @@ int CSquadMonster :: SquadRecruit( int searchRadius, int maxMembers )
 				}
 			}
 	
-			pEntity = UTIL_FindEntityByString( pEntity, "netname", STRING( pev->netname ) );
+			pEntity = UTIL_FindEntityByString( pEntity, "netname", GetNetName() );
 		}
 	}
 	else 
@@ -351,7 +351,7 @@ int CSquadMonster :: SquadRecruit( int searchRadius, int maxMembers )
 				// Can we recruit this guy?
 				if ( !pRecruit->InSquad() && pRecruit->Classify() == iMyClass &&
 				   ( (iMyClass != CLASS_ALIEN_MONSTER) || FStrEq( GetClassname(), pRecruit->GetClassname() )) &&
-				    FStringNull( pRecruit->pev->netname ) )
+				    !pRecruit->HasNetName() )
 				{
 					TraceResult tr;
 					UTIL_TraceLine( pev->origin + pev->view_ofs, pRecruit->pev->origin + pev->view_ofs, ignore_monsters, pRecruit->edict(), &tr );// try to hit recruit with a traceline.
@@ -410,7 +410,7 @@ void CSquadMonster :: StartMonster( void )
 
 	if ( ( m_afCapability & bits_CAP_SQUAD ) && !InSquad() )
 	{
-		if ( !FStringNull( pev->netname ) )
+		if ( HasNetName() )
 		{
 			// if I have a groupname, I can only recruit if I'm flagged as leader
 			if ( !( pev->spawnflags & SF_SQUADMONSTER_LEADER ) )

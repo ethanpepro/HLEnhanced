@@ -399,13 +399,13 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 {
 	// notify other clients of player joining the game
 	UTIL_ClientPrintAll( HUD_PRINTNOTIFY, UTIL_VarArgs( "%s has joined the game\n", 
-		( pl->pev->netname && STRING(pl->pev->netname)[0] != 0 ) ? STRING(pl->pev->netname) : "unconnected" ) );
+		pl->HasNetName() ? pl->GetNetName() : "unconnected" ) );
 
 	// team match?
 	if ( g_teamplay )
 	{
 		UTIL_LogPrintf( "\"%s<%i><%s><%s>\" entered the game\n",  
-			STRING( pl->pev->netname ), 
+			pl->GetNetName(),
 			GETPLAYERUSERID( pl->edict() ),
 			GETPLAYERAUTHID( pl->edict() ),
 			g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pl->edict() ), "model" ) );
@@ -413,7 +413,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 	else
 	{
 		UTIL_LogPrintf( "\"%s<%i><%s><%i>\" entered the game\n",  
-			STRING( pl->pev->netname ), 
+			pl->GetNetName(),
 			GETPLAYERUSERID( pl->edict() ),
 			GETPLAYERAUTHID( pl->edict() ),
 			GETPLAYERUSERID( pl->edict() ) );
@@ -474,7 +474,7 @@ void CHalfLifeMultiplay :: ClientDisconnected( edict_t *pClient )
 			if ( g_teamplay )
 			{
 				UTIL_LogPrintf( "\"%s<%i><%s><%s>\" disconnected\n",  
-					STRING( pPlayer->pev->netname ), 
+					pPlayer->GetNetName(),
 					GETPLAYERUSERID( pPlayer->edict() ),
 					GETPLAYERAUTHID( pPlayer->edict() ),
 					g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pPlayer->edict() ), "model" ) );
@@ -482,7 +482,7 @@ void CHalfLifeMultiplay :: ClientDisconnected( edict_t *pClient )
 			else
 			{
 				UTIL_LogPrintf( "\"%s<%i><%s><%i>\" disconnected\n",  
-					STRING( pPlayer->pev->netname ), 
+					pPlayer->GetNetName(),
 					GETPLAYERUSERID( pPlayer->edict() ),
 					GETPLAYERAUTHID( pPlayer->edict() ),
 					GETPLAYERUSERID( pPlayer->edict() ) );
@@ -729,7 +729,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 		if ( g_teamplay )
 		{
 			UTIL_LogPrintf( "\"%s<%i><%s><%s>\" committed suicide with \"%s\"\n",  
-				STRING( pVictim->pev->netname ), 
+				pVictim->GetNetName(),
 				GETPLAYERUSERID( pVictim->edict() ),
 				GETPLAYERAUTHID( pVictim->edict() ),
 				g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pVictim->edict() ), "model" ),
@@ -738,7 +738,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 		else
 		{
 			UTIL_LogPrintf( "\"%s<%i><%s><%i>\" committed suicide with \"%s\"\n",  
-				STRING( pVictim->pev->netname ), 
+				pVictim->GetNetName(),
 				GETPLAYERUSERID( pVictim->edict() ),
 				GETPLAYERAUTHID( pVictim->edict() ),
 				GETPLAYERUSERID( pVictim->edict() ),
@@ -751,11 +751,11 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 		if ( g_teamplay )
 		{
 			UTIL_LogPrintf( "\"%s<%i><%s><%s>\" killed \"%s<%i><%s><%s>\" with \"%s\"\n",  
-				STRING( pKiller->pev->netname ),
+				pKiller->GetNetName(),
 				GETPLAYERUSERID( ENT(pKiller) ),
 				GETPLAYERAUTHID( ENT(pKiller) ),
 				g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( ENT(pKiller) ), "model" ),
-				STRING( pVictim->pev->netname ),
+				pVictim->GetNetName(),
 				GETPLAYERUSERID( pVictim->edict() ),
 				GETPLAYERAUTHID( pVictim->edict() ),
 				g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pVictim->edict() ), "model" ),
@@ -764,11 +764,11 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 		else
 		{
 			UTIL_LogPrintf( "\"%s<%i><%s><%i>\" killed \"%s<%i><%s><%i>\" with \"%s\"\n",  
-				STRING( pKiller->pev->netname ),
+				pKiller->GetNetName(),
 				GETPLAYERUSERID( ENT(pKiller) ),
 				GETPLAYERAUTHID( ENT(pKiller) ),
 				GETPLAYERUSERID( ENT(pKiller) ),
-				STRING( pVictim->pev->netname ),
+				pVictim->GetNetName(),
 				GETPLAYERUSERID( pVictim->edict() ),
 				GETPLAYERAUTHID( pVictim->edict() ),
 				GETPLAYERUSERID( pVictim->edict() ),
@@ -783,7 +783,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 		if ( g_teamplay )
 		{
 			UTIL_LogPrintf( "\"%s<%i><%s><%s>\" committed suicide with \"%s\" (world)\n",
-				STRING( pVictim->pev->netname ), 
+				pVictim->GetNetName(),
 				GETPLAYERUSERID( pVictim->edict() ), 
 				GETPLAYERAUTHID( pVictim->edict() ),
 				g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pVictim->edict() ), "model" ),
@@ -792,7 +792,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 		else
 		{
 			UTIL_LogPrintf( "\"%s<%i><%s><%i>\" committed suicide with \"%s\" (world)\n",
-				STRING( pVictim->pev->netname ), 
+				pVictim->GetNetName(),
 				GETPLAYERUSERID( pVictim->edict() ), 
 				GETPLAYERAUTHID( pVictim->edict() ),
 				GETPLAYERUSERID( pVictim->edict() ),

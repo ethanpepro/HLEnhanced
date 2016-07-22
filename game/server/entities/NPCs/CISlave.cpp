@@ -92,12 +92,12 @@ void CISlave :: CallForHelp( char *szClassname, float flDist, EHANDLE hEnemy, Ve
 	// ALERT( at_aiconsole, "help " );
 
 	// skip ones not on my netname
-	if ( FStringNull( pev->netname ))
+	if ( !HasNetName() )
 		return;
 
 	CBaseEntity *pEntity = NULL;
 
-	while ((pEntity = UTIL_FindEntityByString( pEntity, "netname", STRING( pev->netname ))) != NULL)
+	while ((pEntity = UTIL_FindEntityByString( pEntity, "netname", GetNetName() )) != NULL)
 	{
 		float d = (pev->origin - pEntity->pev->origin).Length();
 		if (d < flDist)

@@ -70,7 +70,7 @@ void CBasePlayer::Observer_FindNextPlayer( bool bReverse )
 		// Move to the target
 		SetAbsOrigin( m_hObserverTarget->pev->origin );
 
-		// ALERT( at_console, "Now Tracking %s\n", STRING( m_hObserverTarget->pev->netname ) );
+		// ALERT( at_console, "Now Tracking %s\n", m_hObserverTarget->GetNetName() );
 
 		// Store the target in pev so the physics DLL can get to it
 		if (pev->iuser1 != OBS_ROAMING)
