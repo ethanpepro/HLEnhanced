@@ -223,6 +223,7 @@
     <ClInclude Include="..\..\common\Platform.h" />
     <ClInclude Include="..\..\common\r_efx.h" />
     <ClInclude Include="..\..\common\triangleapi.h" />
+    <ClInclude Include="..\..\common\voice_api.h" />
     <ClInclude Include="..\..\engine\APIProxy.h" />
     <ClInclude Include="..\..\engine\IClientVGUI.h" />
     <ClInclude Include="..\..\engine\IGameUIFuncs.h" />

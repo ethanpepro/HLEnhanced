@@ -45,14 +45,14 @@ typedef struct efx_api_s efx_api_t;
 typedef struct event_api_s event_api_t;
 typedef struct demo_api_s demo_api_t;
 typedef struct net_api_s net_api_t;
-typedef struct IVoiceTweak_s IVoiceTweak_t;
+struct IVoiceTweak;
 
 typedef triangleapi_t*		pTriAPI;
 typedef efx_api_t*			pEfxAPI;
 typedef event_api_t*		pEventAPI;
 typedef demo_api_t*			pDemoAPI;
 typedef net_api_t*			pNetAPI;
-typedef IVoiceTweak_t*		pVoiceTweak;
+typedef IVoiceTweak*		pVoiceTweak;
 
 #define	MAX_ALIAS_NAME	32
 
@@ -1122,7 +1122,7 @@ typedef struct cl_enginefuncs_s
 	*	Voice Tweak API.
 	*	TODO: figure out what the interface contains. - Solokiller
 	*/
-	IVoiceTweak_t*		pVoiceTweak;
+	IVoiceTweak*		pVoiceTweak;
 
 	/**
 	*	@return Whether this client is in spectator only mode (HLTV).

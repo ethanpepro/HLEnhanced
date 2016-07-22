@@ -749,6 +749,9 @@
     <ClInclude Include="..\..\public\math\Matrix3x4.h">
       <Filter>Header Files\public\math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\common\voice_api.h">
+      <Filter>Header Files\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\lib\public\game_controls.lib" />
