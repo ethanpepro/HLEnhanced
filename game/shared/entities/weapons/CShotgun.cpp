@@ -23,11 +23,6 @@
 #include "CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
-// special deathmatch shotgun spreads
-//TODO: also used in ev_hldm.cpp - Solokiller
-#define VECTOR_CONE_DM_SHOTGUN	Vector( 0.08716, 0.04362, 0.00  )// 10 degrees by 5 degrees
-#define VECTOR_CONE_DM_DOUBLESHOTGUN Vector( 0.17365, 0.04362, 0.00 ) // 20 degrees by 5 degrees
-
 #ifdef SERVER_DLL
 BEGIN_DATADESC( CShotgun )
 	DEFINE_FIELD( m_flNextReload, FIELD_TIME ),
