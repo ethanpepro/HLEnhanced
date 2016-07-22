@@ -35,4 +35,6 @@ enum ModuleAccessMask
 };
 }
 
+const size_t AS_MAX_VARARGS = 16;
+
 #endif //GAME_SHARED_ANGELSCRIPT_HLASCONSTANTS_H

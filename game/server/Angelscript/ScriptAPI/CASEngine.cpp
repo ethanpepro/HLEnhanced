@@ -7,6 +7,8 @@
 #include "extdll.h"
 #include "util.h"
 
+#include "Angelscript/HLASConstants.h"
+
 #include "CASEngine.h"
 
 void CASEngine::Alert( ALERT_TYPE aType, const std::string& szString )
@@ -97,23 +99,20 @@ void RegisterScriptCEngine( asIScriptEngine& engine )
 	engine.RegisterObjectType( pszObjectName, 0, asOBJ_REF | asOBJ_NOCOUNT );
 
 	//0 vararg variants are much easier to use, so define those separately.
-	//TODO: determine a good maximum for varargs functions.
-
-	const size_t uiMaxVarArgs = 8;
 
 	engine.RegisterObjectMethod( 
 		pszObjectName, "void Alert(ALERT_TYPE aType, const string& in szString)", 
 		asMETHOD( CASEngine, Alert ), asCALL_THISCALL );
 
 	as::RegisterVarArgsMethod( 
-		engine, pszObjectName, "void", "Alert", "ALERT_TYPE aType, const string& in szFormat", 1, uiMaxVarArgs, asFUNCTION( CASEngine_Alert ) );
+		engine, pszObjectName, "void", "Alert", "ALERT_TYPE aType, const string& in szFormat", 1, AS_MAX_VARARGS, asFUNCTION( CASEngine_Alert ) );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void Print(const string& in szString)",
 		asMETHOD( CASEngine, Print ), asCALL_THISCALL );
 
 	as::RegisterVarArgsMethod(
-		engine, pszObjectName, "void", "Print", "const string& in szFormat", 1, uiMaxVarArgs, asFUNCTION( CASEngine_Print ) );
+		engine, pszObjectName, "void", "Print", "const string& in szFormat", 1, AS_MAX_VARARGS, asFUNCTION( CASEngine_Print ) );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "int PrecacheModel(const string& in szFileName)",
