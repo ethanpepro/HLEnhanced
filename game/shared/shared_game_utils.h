@@ -115,7 +115,7 @@ inline void UTIL_GetSharedCircularGaussianSpread( const int shared_rand, const u
 	y = UTIL_SharedRandomFloat( shared_rand + ( 2 + iShot ), -0.5, 0.5 ) + UTIL_SharedRandomFloat( shared_rand + ( 3 + iShot ), -0.5, 0.5 );
 }
 
-void UTIL_StringToVector( float *pVector, const char *pString );
+void UTIL_StringToVector( Vector& vecOut, const char *pString );
 
 void UTIL_StringToIntArray( int *pVector, int count, const char *pString );
 

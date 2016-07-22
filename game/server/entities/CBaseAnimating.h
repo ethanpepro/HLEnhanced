@@ -38,7 +38,7 @@ public:
 	void GetAttachment( int iAttachment, Vector &origin, Vector &angles );
 	void SetBodygroup( int iGroup, int iValue );
 	int GetBodygroup( int iGroup );
-	int ExtractBbox( int sequence, float *mins, float *maxs );
+	int ExtractBbox( int sequence, Vector& vecMins, Vector& vecMaxs );
 	void SetSequenceBox( void );
 
 	// animation needs

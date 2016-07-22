@@ -24,7 +24,7 @@ bool IsSoundEvent( int eventNumber );
 int LookupActivity( void *pmodel, int activity );
 int LookupActivityHeaviest( void *pmodel, int activity );
 int LookupSequence( void *pmodel, const char *label );
-void GetSequenceInfo( void *pmodel, entvars_t *pev, float *pflFrameRate, float *pflGroundSpeed );
+void GetSequenceInfo( void *pmodel, entvars_t *pev, float& flFrameRate, float& flGroundSpeed );
 int GetSequenceFlags( void *pmodel, entvars_t *pev );
 int LookupAnimationEvents( void *pmodel, entvars_t *pev, float flStart, float flEnd );
 float SetController( void *pmodel, entvars_t *pev, int iController, float flValue );
@@ -36,7 +36,7 @@ void SetBodygroup( void *pmodel, entvars_t *pev, int iGroup, int iValue );
 int GetBodygroup( void *pmodel, entvars_t *pev, int iGroup );
 
 int GetAnimationEvent( void *pmodel, entvars_t *pev, MonsterEvent_t *pMonsterEvent, float flStart, float flEnd, int index );
-int ExtractBbox( void *pmodel, int sequence, float *mins, float *maxs );
+int ExtractBbox( void *pmodel, int sequence, Vector& vecMins, Vector& vecMaxs );
 
 // From /engine/studio.h
 #define STUDIO_LOOPING		0x0001

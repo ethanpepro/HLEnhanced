@@ -22,7 +22,7 @@
 
 #include "animation.h"
 
-int ExtractBbox( void *pmodel, int sequence, float *mins, float *maxs )
+int ExtractBbox( void *pmodel, int sequence, Vector& vecMins, Vector& vecMaxs )
 {
 	studiohdr_t* pstudiohdr = ( studiohdr_t* ) pmodel;
 
@@ -31,13 +31,13 @@ int ExtractBbox( void *pmodel, int sequence, float *mins, float *maxs )
 
 	mstudioseqdesc_t* pseqdesc = ( mstudioseqdesc_t* ) ( ( byte* ) pstudiohdr + pstudiohdr->seqindex );
 	
-	mins[0] = pseqdesc[ sequence ].bbmin[0];
-	mins[1] = pseqdesc[ sequence ].bbmin[1];
-	mins[2] = pseqdesc[ sequence ].bbmin[2];
+	vecMins[0] = pseqdesc[ sequence ].bbmin[0];
+	vecMins[1] = pseqdesc[ sequence ].bbmin[1];
+	vecMins[2] = pseqdesc[ sequence ].bbmin[2];
 
-	maxs[0] = pseqdesc[ sequence ].bbmax[0];
-	maxs[1] = pseqdesc[ sequence ].bbmax[1];
-	maxs[2] = pseqdesc[ sequence ].bbmax[2];
+	vecMaxs[0] = pseqdesc[ sequence ].bbmax[0];
+	vecMaxs[1] = pseqdesc[ sequence ].bbmax[1];
+	vecMaxs[2] = pseqdesc[ sequence ].bbmax[2];
 
 	return 1;
 }
@@ -170,7 +170,7 @@ void SequencePrecache( void *pmodel, const char *pSequenceName )
 
 
 
-void GetSequenceInfo( void *pmodel, entvars_t *pev, float *pflFrameRate, float *pflGroundSpeed )
+void GetSequenceInfo( void *pmodel, entvars_t *pev, float& flFrameRate, float& flGroundSpeed )
 {
 	studiohdr_t* pstudiohdr = ( studiohdr_t* ) pmodel;
 
@@ -179,8 +179,8 @@ void GetSequenceInfo( void *pmodel, entvars_t *pev, float *pflFrameRate, float *
 
 	if (pev->sequence >= pstudiohdr->numseq)
 	{
-		*pflFrameRate = 0.0;
-		*pflGroundSpeed = 0.0;
+		flFrameRate = 0.0;
+		flGroundSpeed = 0.0;
 		return;
 	}
 
@@ -188,14 +188,14 @@ void GetSequenceInfo( void *pmodel, entvars_t *pev, float *pflFrameRate, float *
 
 	if (pseqdesc->numframes > 1)
 	{
-		*pflFrameRate = 256 * pseqdesc->fps / (pseqdesc->numframes - 1);
-		*pflGroundSpeed = sqrt( DotProduct( pseqdesc->linearmovement, pseqdesc->linearmovement ) );
-		*pflGroundSpeed = *pflGroundSpeed * pseqdesc->fps / (pseqdesc->numframes - 1);
+		flFrameRate = 256 * pseqdesc->fps / (pseqdesc->numframes - 1);
+		flGroundSpeed = sqrt( DotProduct( pseqdesc->linearmovement, pseqdesc->linearmovement ) );
+		flGroundSpeed = flGroundSpeed * pseqdesc->fps / (pseqdesc->numframes - 1);
 	}
 	else
 	{
-		*pflFrameRate = 256.0;
-		*pflGroundSpeed = 0.0;
+		flFrameRate = 256.0;
+		flGroundSpeed = 0.0;
 	}
 }
 

@@ -147,7 +147,7 @@ float UTIL_SharedRandomFloat( unsigned int seed, float low, float high )
 	}
 }
 
-void UTIL_StringToVector( float *pVector, const char *pString )
+void UTIL_StringToVector( Vector& vecOut, const char *pString )
 {
 	char *pstr, *pfront, tempString[ 128 ];
 	int	j;
@@ -157,7 +157,7 @@ void UTIL_StringToVector( float *pVector, const char *pString )
 
 	for( j = 0; j < 3; j++ )			// lifted from pr_edict.c
 	{
-		pVector[ j ] = atof( pfront );
+		vecOut[ j ] = atof( pfront );
 
 		while( *pstr && *pstr != ' ' )
 			pstr++;
@@ -173,7 +173,7 @@ void UTIL_StringToVector( float *pVector, const char *pString )
 		pkvd->szClassName, pkvd->szKeyName, pkvd->szValue );
 		*/
 		for( j = j + 1; j < 3; j++ )
-			pVector[ j ] = 0;
+			vecOut[ j ] = 0;
 	}
 }
 

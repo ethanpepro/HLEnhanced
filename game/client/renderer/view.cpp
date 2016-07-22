@@ -108,7 +108,7 @@ FIXME:  Use Quaternions to avoid discontinuities
 Frac is 0.0 to 1.0 ( i.e., should probably be clamped, but doesn't have to be )
 ===================
 
-void V_InterpolateAngles( float *start, float *end, float *output, float frac )
+void V_InterpolateAngles( Vector& start, Vector& end, Vector& output, float frac )
 {
 	int i;
 	float ang1, ang2;

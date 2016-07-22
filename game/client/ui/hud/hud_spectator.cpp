@@ -199,7 +199,7 @@ int CHudSpectator::Init()
 	return 1;
 }
 
-int UTIL_FindEntityInMap(char * name, float * origin, float * angle)
+int UTIL_FindEntityInMap( const char* const pszName, Vector& vecOrigin, Vector& vecAngle )
 {
 	int				n,found = 0;
 	char			keyname[256];
@@ -273,7 +273,7 @@ int UTIL_FindEntityInMap(char * name, float * origin, float * angle)
 
 			if (!strcmp(keyname,"classname"))
 			{
-				if (!strcmp(token, name ))
+				if (!strcmp(token, pszName ))
 				{
 					found = 1;	// thats our entity
 				}
@@ -285,31 +285,31 @@ int UTIL_FindEntityInMap(char * name, float * origin, float * angle)
 				
 				if (y >= 0)
 				{
-					angle[0] = 0.0f;
-					angle[1] = y;
+					vecAngle[0] = 0.0f;
+					vecAngle[1] = y;
 				}
 				else if ((int)y == -1)
 				{
-					angle[0] = -90.0f;
-					angle[1] =   0.0f;;
+					vecAngle[0] = -90.0f;
+					vecAngle[1] =   0.0f;;
 				}
 				else
 				{
-					angle[0] = 90.0f;
-					angle[1] =  0.0f;
+					vecAngle[0] = 90.0f;
+					vecAngle[1] =  0.0f;
 				}
 
-				angle[2] =  0.0f;
+				vecAngle[2] =  0.0f;
 			}
 
 			if( !strcmp( keyname, "angles" ) )
 			{
-				UTIL_StringToVector(angle, token);
+				UTIL_StringToVector( vecAngle, token);
 			}
 			
 			if (!strcmp(keyname,"origin"))
 			{
-				UTIL_StringToVector(origin, token);
+				UTIL_StringToVector( vecOrigin, token);
 
 			};
 				
