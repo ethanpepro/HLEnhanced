@@ -424,7 +424,7 @@ void CSqueak::Precache( void )
 
 bool CSqueak::GetItemInfo( ItemInfo* p )
 {
-	p->pszName = STRING(pev->classname);
+	p->pszName = GetClassname();
 	p->pszAmmo1 = "Snarks";
 	p->pszAmmo2 = NULL;
 	p->iMaxClip = WEAPON_NOCLIP;

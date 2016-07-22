@@ -246,7 +246,7 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 				CBaseEntity *pEntity = CBaseEntity::Instance( pent );
 				if( pEntity )
 				{
-					//					ALERT( at_console, "Trying %s\n", STRING(pEntity->pev->classname) );
+					//					ALERT( at_console, "Trying %s\n", pEntity->GetClassname() );
 					int caps = pEntity->ObjectCaps();
 					if( !( caps & FCAP_DONT_SAVE ) )
 					{
@@ -266,10 +266,10 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 								ALERT( at_error, "Too many entities across a transition!" );
 						}
 						//						else
-						//							ALERT( at_console, "Failed %s\n", STRING(pEntity->pev->classname) );
+						//							ALERT( at_console, "Failed %s\n", pEntity->GetClassname() );
 					}
 					//					else
-					//						ALERT( at_console, "DON'T SAVE %s\n", STRING(pEntity->pev->classname) );
+					//						ALERT( at_console, "DON'T SAVE %s\n", pEntity->GetClassname() );
 				}
 				pent = pent->v.chain;
 			}
@@ -285,7 +285,7 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 					saveHelper.EntityFlagsSet( index, entityFlags[ j ] | ( 1 << i ) );
 				}
 				//				else
-				//					ALERT( at_console, "Screened out %s\n", STRING(pEntList[j]->pev->classname) );
+				//					ALERT( at_console, "Screened out %s\n", pEntList[j]->GetClassname() );
 
 			}
 		}

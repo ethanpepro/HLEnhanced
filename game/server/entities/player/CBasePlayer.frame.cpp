@@ -857,7 +857,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		pEntity = UTIL_FindEntityForward( this );
 		if( pEntity )
 		{
-			ALERT( at_console, "Classname: %s", STRING( pEntity->pev->classname ) );
+			ALERT( at_console, "Classname: %s", pEntity->GetClassname() );
 
 			if( !FStringNull( pEntity->pev->targetname ) )
 			{

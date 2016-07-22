@@ -155,7 +155,7 @@ CBaseMonster *CScriptedSentence::FindEntity( void )
 		{
 			if( AcceptableSpeaker( pMonster ) )
 				return pMonster;
-			//			ALERT( at_console, "%s (%s), not acceptable\n", STRING(pMonster->pev->classname), STRING(pMonster->pev->targetname) );
+			//			ALERT( at_console, "%s (%s), not acceptable\n", pMonster->GetClassname(), STRING(pMonster->pev->targetname) );
 		}
 		pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( m_iszEntity ) );
 	}

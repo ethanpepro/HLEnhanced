@@ -87,7 +87,7 @@ bool CShotgun::AddToPlayer( CBasePlayer *pPlayer )
 
 bool CShotgun::GetItemInfo( ItemInfo* p )
 {
-	p->pszName = STRING(pev->classname);
+	p->pszName = GetClassname();
 	p->pszAmmo1 = "buckshot";
 	p->pszAmmo2 = NULL;
 	p->iMaxClip = SHOTGUN_MAX_CLIP;

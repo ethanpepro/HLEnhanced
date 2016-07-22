@@ -17,7 +17,7 @@ void CItem::Spawn( void )
 
 	if( DROP_TO_FLOOR( ENT( pev ) ) == 0 )
 	{
-		ALERT( at_error, "Item %s fell out of level at %f,%f,%f", STRING( pev->classname ), pev->origin.x, pev->origin.y, pev->origin.z );
+		ALERT( at_error, "Item %s fell out of level at %f,%f,%f", GetClassname(), pev->origin.x, pev->origin.y, pev->origin.z );
 		UTIL_Remove( this );
 		return;
 	}

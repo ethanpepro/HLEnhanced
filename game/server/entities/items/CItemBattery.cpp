@@ -43,7 +43,7 @@ bool CItemBattery::MyTouch( CBasePlayer *pPlayer )
 		EMIT_SOUND( pPlayer->edict(), CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM );
 
 		MESSAGE_BEGIN( MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev );
-		WRITE_STRING( STRING( pev->classname ) );
+		WRITE_STRING( GetClassname() );
 		MESSAGE_END();
 
 

@@ -35,7 +35,7 @@ bool CItemLongJump::MyTouch( CBasePlayer *pPlayer )
 		g_engfuncs.pfnSetPhysicsKeyValue( pPlayer->edict(), "slj", "1" );
 
 		MESSAGE_BEGIN( MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev );
-		WRITE_STRING( STRING( pev->classname ) );
+		WRITE_STRING( GetClassname() );
 		MESSAGE_END();
 
 		EMIT_SOUND_SUIT( pPlayer->edict(), "!HEV_A1" );	// Play the longjump sound UNDONE: Kelly? correct sound?

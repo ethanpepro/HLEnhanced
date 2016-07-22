@@ -183,7 +183,7 @@ void CNihilanthHVR::HoverThink( void )
 	if( RANDOM_LONG( 0, 99 ) < 5 )
 	{
 		/*
-		CBaseEntity *pOther = UTIL_RandomClassname( STRING(pev->classname) );
+		CBaseEntity *pOther = UTIL_RandomClassname( GetClassname() );
 
 		if (pOther && pOther != this)
 		{

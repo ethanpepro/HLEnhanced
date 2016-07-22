@@ -51,7 +51,7 @@ void CCineAI::PossessEntity( void )
 	{
 		if( !pTarget->CanPlaySequence( FCanOverrideState(), SS_INTERRUPT_AI ) )
 		{
-			ALERT( at_aiconsole, "(AI)Can't possess entity %s\n", STRING( pTarget->pev->classname ) );
+			ALERT( at_aiconsole, "(AI)Can't possess entity %s\n", pTarget->GetClassname() );
 			return;
 		}
 

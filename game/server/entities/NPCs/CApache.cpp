@@ -401,7 +401,7 @@ void CApache :: HuntThink( void )
 
 	if (m_hEnemy != NULL)
 	{
-		// ALERT( at_console, "%s\n", STRING( m_hEnemy->pev->classname ) );
+		// ALERT( at_console, "%s\n", m_hEnemy->GetClassname() );
 		if (FVisible( m_hEnemy ))
 		{
 			if (m_flLastSeen < gpGlobals->time - 5)

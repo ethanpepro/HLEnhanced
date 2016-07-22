@@ -57,7 +57,7 @@ void CCrowbar::Precache( void )
 
 bool CCrowbar::GetItemInfo( ItemInfo* p )
 {
-	p->pszName = STRING(pev->classname);
+	p->pszName = GetClassname();
 	p->pszAmmo1 = NULL;
 	p->pszAmmo2 = NULL;
 	p->iMaxClip = WEAPON_NOCLIP;

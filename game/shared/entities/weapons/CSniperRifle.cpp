@@ -51,7 +51,7 @@ void CSniperRifle::Spawn()
 
 bool CSniperRifle::GetItemInfo( ItemInfo* pInfo )
 {
-	pInfo->pszName = STRING( pev->classname );
+	pInfo->pszName = GetClassname();
 	pInfo->pszAmmo1 = "762";
 	pInfo->pszAmmo2 = nullptr;
 	pInfo->iMaxClip = SNIPERRIFLE_MAX_CLIP;

@@ -96,7 +96,7 @@ void CWeaponBox::Touch( CBaseEntity *pOther )
 			// have at least one weapon in this slot
 			while( m_rgpPlayerItems[ i ] )
 			{
-				//ALERT ( at_console, "trying to give %s\n", STRING( m_rgpPlayerItems[ i ]->pev->classname ) );
+				//ALERT ( at_console, "trying to give %s\n", m_rgpPlayerItems[ i ]->GetClassname() );
 
 				pItem = m_rgpPlayerItems[ i ];
 				m_rgpPlayerItems[ i ] = m_rgpPlayerItems[ i ]->m_pNext;// unlink this weapon from the box
@@ -240,7 +240,7 @@ bool CWeaponBox::HasWeapon( CBasePlayerItem *pCheckItem ) const
 
 	while( pItem )
 	{
-		if( FClassnameIs( pItem->pev, STRING( pCheckItem->pev->classname ) ) )
+		if( FClassnameIs( pItem->pev, pCheckItem->GetClassname() ) )
 		{
 			return true;
 		}
@@ -296,7 +296,7 @@ bool CWeaponBox::PackWeapon( CBasePlayerItem *pWeapon )
 	pWeapon->SetTouch( NULL );
 	pWeapon->m_pPlayer = NULL;
 
-	//ALERT ( at_console, "packed %s\n", STRING(pWeapon->pev->classname) );
+	//ALERT ( at_console, "packed %s\n", pWeapon->GetClassname() );
 
 	return true;
 }

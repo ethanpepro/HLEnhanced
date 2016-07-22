@@ -363,7 +363,7 @@ void CCineMonster::PossessEntity( void )
 #if 0
 		if( !pTarget->CanPlaySequence( FCanOverrideState() ) )
 		{
-			ALERT( at_aiconsole, "Can't possess entity %s\n", STRING( pTarget->pev->classname ) );
+			ALERT( at_aiconsole, "Can't possess entity %s\n", pTarget->GetClassname() );
 			return;
 		}
 #endif
@@ -464,7 +464,7 @@ bool CCineMonster::StartSequence( CBaseMonster *pTarget, int iszSeq, const bool 
 	else
 		s = "Yes";
 
-	ALERT( at_console, "%s (%s): started \"%s\":INT:%s\n", STRING( pTarget->pev->targetname ), STRING( pTarget->pev->classname ), STRING( iszSeq ), s );
+	ALERT( at_console, "%s (%s): started \"%s\":INT:%s\n", STRING( pTarget->pev->targetname ), pTarget->GetClassname(), STRING( iszSeq ), s );
 #endif
 
 	pTarget->pev->frame = 0;

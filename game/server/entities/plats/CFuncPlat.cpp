@@ -73,7 +73,7 @@ void CFuncPlat::Setup( void )
 
 void CFuncPlat::Blocked( CBaseEntity *pOther )
 {
-	ALERT( at_aiconsole, "%s Blocked by %s\n", STRING( pev->classname ), STRING( pOther->pev->classname ) );
+	ALERT( at_aiconsole, "%s Blocked by %s\n", GetClassname(), pOther->GetClassname() );
 	// Hurt the blocker a little
 	pOther->TakeDamage( this, this, 1, DMG_CRUSH );
 

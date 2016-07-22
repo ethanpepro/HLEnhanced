@@ -74,7 +74,7 @@ void CMP5::Precache( void )
 
 bool CMP5::GetItemInfo( ItemInfo* p )
 {
-	p->pszName = STRING(pev->classname);
+	p->pszName = GetClassname();
 	p->pszAmmo1 = "9mm";
 	p->pszAmmo2 = "ARgrenades";
 	p->iMaxClip = MP5_MAX_CLIP;

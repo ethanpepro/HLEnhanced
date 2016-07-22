@@ -59,7 +59,7 @@ void CGlock::Precache( void )
 
 bool CGlock::GetItemInfo( ItemInfo* p )
 {
-	p->pszName = STRING(pev->classname);
+	p->pszName = GetClassname();
 	p->pszAmmo1 = "9mm";
 	p->pszAmmo2 = NULL;
 	p->iMaxClip = GLOCK_MAX_CLIP;

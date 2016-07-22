@@ -260,7 +260,7 @@ void CCrossbow::Precache( void )
 
 bool CCrossbow::GetItemInfo( ItemInfo* p )
 {
-	p->pszName = STRING(pev->classname);
+	p->pszName = GetClassname();
 	p->pszAmmo1 = "bolts";
 	p->pszAmmo2 = NULL;
 	p->iMaxClip = CROSSBOW_MAX_CLIP;

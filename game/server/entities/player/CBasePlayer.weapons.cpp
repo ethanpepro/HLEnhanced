@@ -253,7 +253,7 @@ bool CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
 
 	while( pInsert )
 	{
-		if( FClassnameIs( pInsert->pev, STRING( pItem->pev->classname ) ) )
+		if( FClassnameIs( pInsert->pev, pItem->GetClassname() ) )
 		{
 			if( pItem->AddDuplicate( pInsert ) )
 			{
@@ -371,7 +371,7 @@ void CBasePlayer::DropPlayerItem( char *pszItemName )
 			if( pszItemName )
 			{
 				// try to match by name. 
-				if( !strcmp( pszItemName, STRING( pWeapon->pev->classname ) ) )
+				if( !strcmp( pszItemName, pWeapon->GetClassname() ) )
 				{
 					// match! 
 					break;
@@ -446,7 +446,7 @@ bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const
 
 	while( pItem )
 	{
-		if( FClassnameIs( pItem->pev, STRING( pCheckItem->pev->classname ) ) )
+		if( FClassnameIs( pItem->pev, pCheckItem->GetClassname() ) )
 		{
 			return true;
 		}
@@ -470,7 +470,7 @@ bool CBasePlayer::HasNamedPlayerItem( const char *pszItemName ) const
 
 		while( pItem )
 		{
-			if( !strcmp( pszItemName, STRING( pItem->pev->classname ) ) )
+			if( !strcmp( pszItemName, pItem->GetClassname() ) )
 			{
 				return true;
 			}

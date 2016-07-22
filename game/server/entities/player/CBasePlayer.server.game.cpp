@@ -93,9 +93,9 @@ void CBasePlayer::PlayerUse()
 			{// only if the item is in front of the user
 				pClosest = pObject;
 				flMaxDot = flDot;
-				//				ALERT( at_console, "%s : %f\n", STRING( pObject->pev->classname ), flDot );
+				//				ALERT( at_console, "%s : %f\n", pObject->GetClassname(), flDot );
 			}
-			//			ALERT( at_console, "%s : %f\n", STRING( pObject->pev->classname ), flDot );
+			//			ALERT( at_console, "%s : %f\n", pObject->GetClassname(), flDot );
 		}
 	}
 	pObject = pClosest;

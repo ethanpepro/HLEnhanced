@@ -691,7 +691,7 @@ void RadiusDamage( Vector vecSrc, const CTakeDamageInfo& info, float flRadius, i
 					flAdjustedDamage = 0;
 				}
 			
-				// ALERT( at_console, "hit %s\n", STRING( pEntity->pev->classname ) );
+				// ALERT( at_console, "hit %s\n", pEntity->GetClassname() );
 				if (tr.flFraction != 1.0)
 				{
 					g_MultiDamage.Clear( );

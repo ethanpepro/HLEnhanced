@@ -425,7 +425,7 @@ void CGargantua::FlameDamage( Vector vecStart, Vector vecEnd, CBaseEntity* pInfl
 					flAdjustedDamage = flDamage;
 				}
 
-				// ALERT( at_console, "hit %s\n", STRING( pEntity->pev->classname ) );
+				// ALERT( at_console, "hit %s\n", pEntity->GetClassname() );
 				if (tr.flFraction != 1.0)
 				{
 					g_MultiDamage.Clear( );

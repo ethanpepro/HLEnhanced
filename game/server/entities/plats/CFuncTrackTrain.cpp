@@ -105,7 +105,7 @@ void CFuncTrackTrain::Blocked( CBaseEntity *pOther )
 	else
 		pOther->pev->velocity = ( pOther->pev->origin - pev->origin ).Normalize() * pev->dmg;
 
-	ALERT( at_aiconsole, "TRAIN(%s): Blocked by %s (dmg:%.2f)\n", STRING( pev->targetname ), STRING( pOther->pev->classname ), pev->dmg );
+	ALERT( at_aiconsole, "TRAIN(%s): Blocked by %s (dmg:%.2f)\n", STRING( pev->targetname ), pOther->GetClassname(), pev->dmg );
 	if( pev->dmg <= 0 )
 		return;
 	// we can't hurt this thing, so we're not concerned with it
