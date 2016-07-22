@@ -38,7 +38,7 @@ void CControllerZapBall::Spawn( void )
 	pev->scale = 0.5;
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	SetThink( &CControllerZapBall::AnimateThink );
 	SetTouch( &CControllerZapBall::ExplodeTouch );

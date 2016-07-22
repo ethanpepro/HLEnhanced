@@ -68,7 +68,7 @@ void CFlockingFlyerFlock::SpawnFlock( void )
 		vecSpot.x = RANDOM_FLOAT( -R, R );
 		vecSpot.y = RANDOM_FLOAT( -R, R );
 		vecSpot.z = RANDOM_FLOAT( 0, 16 );
-		vecSpot = pev->origin + vecSpot;
+		vecSpot = GetAbsOrigin() + vecSpot;
 
 		pBoid->SetAbsOrigin( vecSpot );
 		pBoid->pev->movetype = MOVETYPE_FLY;

@@ -68,7 +68,7 @@ void CBasePlayer::Observer_FindNextPlayer( bool bReverse )
 	if ( m_hObserverTarget )
 	{
 		// Move to the target
-		SetAbsOrigin( m_hObserverTarget->pev->origin );
+		SetAbsOrigin( m_hObserverTarget->GetAbsOrigin() );
 
 		// ALERT( at_console, "Now Tracking %s\n", m_hObserverTarget->GetNetName() );
 
@@ -322,10 +322,10 @@ void CBasePlayer::StartDeathCam()
 		// no intermission spot. Push them up in the air, looking down at their corpse
 		TraceResult tr;
 		CopyToBodyQue( this );
-		UTIL_TraceLine( pev->origin, pev->origin + Vector( 0, 0, 128 ), ignore_monsters, edict(), &tr );
+		UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, 128 ), ignore_monsters, edict(), &tr );
 
 		SetAbsOrigin( tr.vecEndPos );
-		pev->angles = pev->v_angle = UTIL_VecToAngles( tr.vecEndPos - pev->origin );
+		pev->angles = pev->v_angle = UTIL_VecToAngles( tr.vecEndPos - GetAbsOrigin() );
 	}
 
 	// start death cam
@@ -342,7 +342,7 @@ void CBasePlayer::StartDeathCam()
 void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 {
 	// clear any clientside entities attached to this player
-	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, pev->origin );
+	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 		WRITE_BYTE( TE_KILLPLAYERATTACHMENTS );
 		WRITE_BYTE( ( byte ) entindex() );
 	MESSAGE_END();

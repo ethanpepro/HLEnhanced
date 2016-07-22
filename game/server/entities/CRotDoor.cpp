@@ -44,7 +44,7 @@ void CRotDoor::Spawn( void )
 		pev->solid = SOLID_BSP;
 
 	pev->movetype = MOVETYPE_PUSH;
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( STRING( pev->model ) );
 
 	if( pev->speed == 0 )
@@ -79,5 +79,5 @@ void CRotDoor::SetToggleState( int state )
 	else
 		pev->angles = m_vecAngle1;
 
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 }

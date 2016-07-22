@@ -146,7 +146,7 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 			// Set target and delay
 			pFireAndDie->pev->target = m_changeTarget;
 			pFireAndDie->m_flDelay = m_changeTargetDelay;
-			pFireAndDie->pev->origin = pPlayer->pev->origin;
+			pFireAndDie->pev->origin = pPlayer->GetAbsOrigin();
 			// Call spawn
 			DispatchSpawn( pFireAndDie->edict() );
 		}
@@ -163,7 +163,7 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 	if( !FNullEnt( pLandmark ) )
 	{
 		strcpy( st_szNextSpot, m_szLandmarkName );
-		gpGlobals->vecLandmarkOffset = pLandmark->pev->origin;
+		gpGlobals->vecLandmarkOffset = pLandmark->GetAbsOrigin();
 	}
 	//	ALERT( at_console, "Level touches %d levels\n", ChangeList( levels, 16 ) );
 	ALERT( at_console, "CHANGE LEVEL: %s %s\n", st_szNextMap, st_szNextSpot );
@@ -311,7 +311,7 @@ int CChangeLevel::AddTransitionToList( LEVELLIST *pLevelList, int listCount, con
 	strcpy( pLevelList[ listCount ].mapName, pMapName );
 	strcpy( pLevelList[ listCount ].landmarkName, pLandmarkName );
 	pLevelList[ listCount ].pentLandmark = pLandmark->edict();
-	pLevelList[ listCount ].vecLandmarkOrigin = pLandmark->pev->origin;
+	pLevelList[ listCount ].vecLandmarkOrigin = pLandmark->GetAbsOrigin();
 
 	return 1;
 }

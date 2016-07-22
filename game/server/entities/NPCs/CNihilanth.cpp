@@ -115,7 +115,7 @@ void CNihilanth :: Spawn( void )
 	SetModel( "models/nihilanth.mdl");
 	// SetSize( Vector( -300, -300, 0), Vector(300, 300, 512) );
 	SetSize( Vector( -32, -32, 0), Vector(32, 32, 64) );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	pev->flags			|= FL_MONSTER;
 	pev->takedamage		= DAMAGE_AIM;
@@ -133,7 +133,7 @@ void CNihilanth :: Spawn( void )
 	pev->nextthink = gpGlobals->time + 0.1;
 
 	m_vecDesired = Vector( 1, 0, 0 );
-	m_posDesired = Vector( pev->origin.x, pev->origin.y, 512 );
+	m_posDesired = Vector( GetAbsOrigin().x, GetAbsOrigin().y, 512 );
 
 	m_iLevel = 1; 
 	m_iTeleport = 1;
@@ -222,13 +222,13 @@ void CNihilanth::StartupThink( void )
 
 	pEntity = UTIL_FindEntityByTargetname( NULL, "n_min");
 	if (pEntity)
-		m_flMinZ = pEntity->pev->origin.z;
+		m_flMinZ = pEntity->GetAbsOrigin().z;
 	else
 		m_flMinZ = -4096;
 
 	pEntity = UTIL_FindEntityByTargetname( NULL, "n_max");
 	if (pEntity)
-		m_flMaxZ = pEntity->pev->origin.z;
+		m_flMaxZ = pEntity->GetAbsOrigin().z;
 	else
 		m_flMaxZ = 4096;
 
@@ -268,7 +268,7 @@ void CNihilanth :: DyingThink( void )
 	{
 		Flight( );
 
-		if (fabs( pev->origin.z - m_flMaxZ ) < 16)
+		if (fabs( GetAbsOrigin().z - m_flMaxZ ) < 16)
 		{
 			pev->velocity = Vector( 0, 0, 0 );
 			FireTargets( m_szDeadUse, this, this, USE_ON, 1.0 );
@@ -432,7 +432,7 @@ void CNihilanth :: ShootBalls( void )
 				GetAttachment( 2, vecHand, vecAngle );
 				vecSrc = vecHand + pev->velocity * (m_flShootTime - gpGlobals->time);
 				// vecDir = (m_posTarget - vecSrc).Normalize( );
-				vecDir = (m_posTarget - pev->origin).Normalize( );
+				vecDir = (m_posTarget - GetAbsOrigin()).Normalize( );
 				vecSrc = vecSrc + vecDir * (gpGlobals->time - m_flShootTime);
 				pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
 				pEntity->pev->velocity = vecDir * 200.0; 
@@ -441,7 +441,7 @@ void CNihilanth :: ShootBalls( void )
 				GetAttachment( 3, vecHand, vecAngle );
 				vecSrc = vecHand + pev->velocity * (m_flShootTime - gpGlobals->time);
 				// vecDir = (m_posTarget - vecSrc).Normalize( );
-				vecDir = (m_posTarget - pev->origin).Normalize( );
+				vecDir = (m_posTarget - GetAbsOrigin()).Normalize( );
 				vecSrc = vecSrc + vecDir * (gpGlobals->time - m_flShootTime);
 				pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
 				pEntity->pev->velocity = vecDir * 200.0; 
@@ -511,7 +511,7 @@ void CNihilanth :: NextActivity( )
 	{
 		if (m_pBall == NULL)
 		{
-			m_pBall = CSprite::SpriteCreate( "sprites/tele1.spr", pev->origin, true );
+			m_pBall = CSprite::SpriteCreate( "sprites/tele1.spr", GetAbsOrigin(), true );
 			if (m_pBall)
 			{
 				m_pBall->SetTransparency( kRenderTransAdd, 255, 255, 255, 255, kRenderFxNoDissipation );
@@ -527,9 +527,9 @@ void CNihilanth :: NextActivity( )
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 				WRITE_BYTE( TE_ELIGHT );
 				WRITE_SHORT( entindex( ) + 0x1000 );		// entity, attachment
-				WRITE_COORD( pev->origin.x );		// origin
-				WRITE_COORD( pev->origin.y );
-				WRITE_COORD( pev->origin.z );
+				WRITE_COORD( GetAbsOrigin().x );		// origin
+				WRITE_COORD( GetAbsOrigin().y );
+				WRITE_COORD( GetAbsOrigin().z );
 				WRITE_COORD( 256 );	// radius
 				WRITE_BYTE( 255 );	// R
 				WRITE_BYTE( 192 );	// G
@@ -552,7 +552,7 @@ void CNihilanth :: NextActivity( )
 
 		while ((pEnt = UTIL_FindEntityByTargetname( pEnt, szName )) != NULL)
 		{
-			float flLocal = (pEnt->pev->origin - pev->origin).Length();
+			float flLocal = (pEnt->GetAbsOrigin() - GetAbsOrigin()).Length();
 			if (flLocal < flDist)
 			{
 				flDist = flLocal;
@@ -563,8 +563,8 @@ void CNihilanth :: NextActivity( )
 		if (pRecharger)
 		{
 			m_hRecharger = pRecharger;
-			m_posDesired = Vector( pev->origin.x, pev->origin.y, pRecharger->pev->origin.z );
-			m_vecDesired = (pRecharger->pev->origin - m_posDesired).Normalize( );
+			m_posDesired = Vector( GetAbsOrigin().x, GetAbsOrigin().y, pRecharger->GetAbsOrigin().z );
+			m_vecDesired = (pRecharger->GetAbsOrigin() - m_posDesired).Normalize( );
 			m_vecDesired.z = 0;
 			m_vecDesired = m_vecDesired.Normalize();
 		}
@@ -578,7 +578,7 @@ void CNihilanth :: NextActivity( )
 		}
 	}
 
-	float flDist = (m_posDesired - pev->origin).Length();
+	float flDist = (m_posDesired - GetAbsOrigin()).Length();
 	float flDot = DotProduct( m_vecDesired, gpGlobals->v_forward );
 
 	if (m_hRecharger != NULL)
@@ -706,10 +706,10 @@ void CNihilanth :: HuntThink( void )
 			if (m_flLastSeen < gpGlobals->time - 5)
 				m_flPrevSeen = gpGlobals->time;
 			m_flLastSeen = gpGlobals->time;
-			m_posTarget = m_hEnemy->pev->origin;
-			m_vecTarget = (m_posTarget - pev->origin).Normalize();
+			m_posTarget = m_hEnemy->GetAbsOrigin();
+			m_vecTarget = (m_posTarget - GetAbsOrigin()).Normalize();
 			m_vecDesired = m_vecTarget;
-			m_posDesired = Vector( pev->origin.x, pev->origin.y, m_posTarget.z + m_flAdj );
+			m_posDesired = Vector( GetAbsOrigin().x, GetAbsOrigin().y, m_posTarget.z + m_flAdj );
 		}
 		else
 		{
@@ -734,7 +734,7 @@ void CNihilanth :: Flight( void )
 {
 	// estimate where I'll be facing in one seconds
 	UTIL_MakeAimVectors( pev->angles + m_avelocity );
-	// Vector vecEst1 = pev->origin + m_velocity + gpGlobals->v_up * m_flForce - Vector( 0, 0, 384 );
+	// Vector vecEst1 = GetAbsOrigin() + m_velocity + gpGlobals->v_up * m_flForce - Vector( 0, 0, 384 );
 	// float flSide = DotProduct( m_posDesired - vecEst1, gpGlobals->v_right );
 	
 	float flSide = DotProduct( m_vecDesired, gpGlobals->v_right );
@@ -756,7 +756,7 @@ void CNihilanth :: Flight( void )
 	m_avelocity.y *= 0.98;
 
 	// estimate where I'll be in two seconds
-	Vector vecEst = pev->origin + m_velocity * 2.0 + gpGlobals->v_up * m_flForce * 20;
+	Vector vecEst = GetAbsOrigin() + m_velocity * 2.0 + gpGlobals->v_up * m_flForce * 20;
 
 	// add immediate force
 	UTIL_MakeAimVectors( pev->angles );
@@ -791,10 +791,10 @@ void CNihilanth :: Flight( void )
 			m_flForce -= 10;
 	}
 
-	SetAbsOrigin( pev->origin + m_velocity * 0.1 );
+	SetAbsOrigin( GetAbsOrigin() + m_velocity * 0.1 );
 	pev->angles = pev->angles + m_avelocity * 0.1;
 
-	// ALERT( at_console, "%5.0f %5.0f : %4.0f : %3.0f : %2.0f\n", m_posDesired.z, pev->origin.z, m_velocity.z, m_avelocity.y, m_flForce ); 
+	// ALERT( at_console, "%5.0f %5.0f : %4.0f : %3.0f : %2.0f\n", m_posDesired.z, GetAbsOrigin().z, m_velocity.z, m_avelocity.y, m_flForce ); 
 }
 
 
@@ -835,9 +835,9 @@ bool CNihilanth::EmitSphere()
 	if (m_iActiveSpheres >= N_SPHERES)
 		return false;
 
-	Vector vecSrc = m_hRecharger->pev->origin;
+	Vector vecSrc = m_hRecharger->GetAbsOrigin();
 	CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-	pEntity->pev->velocity = pev->origin - vecSrc;
+	pEntity->pev->velocity = GetAbsOrigin() - vecSrc;
 	pEntity->CircleInit( this );
 
 	m_hSphere[empty] = pEntity;
@@ -889,9 +889,9 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 				WRITE_BYTE( TE_ELIGHT );
 				WRITE_SHORT( entindex( ) + 0x3000 );		// entity, attachment
-				WRITE_COORD( pev->origin.x );		// origin
-				WRITE_COORD( pev->origin.y );
-				WRITE_COORD( pev->origin.z );
+				WRITE_COORD( GetAbsOrigin().x );		// origin
+				WRITE_COORD( GetAbsOrigin().y );
+				WRITE_COORD( GetAbsOrigin().z );
 				WRITE_COORD( 256 );	// radius
 				WRITE_BYTE( 128 );	// R
 				WRITE_BYTE( 128 );	// G
@@ -903,9 +903,9 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 				WRITE_BYTE( TE_ELIGHT );
 				WRITE_SHORT( entindex( ) + 0x4000 );		// entity, attachment
-				WRITE_COORD( pev->origin.x );		// origin
-				WRITE_COORD( pev->origin.y );
-				WRITE_COORD( pev->origin.z );
+				WRITE_COORD( GetAbsOrigin().x );		// origin
+				WRITE_COORD( GetAbsOrigin().y );
+				WRITE_COORD( GetAbsOrigin().z );
 				WRITE_COORD( 256 );	// radius
 				WRITE_BYTE( 128 );	// R
 				WRITE_BYTE( 128 );	// G
@@ -936,7 +936,7 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 				Vector vecSrc, vecAngles;
 				GetAttachment( 2, vecSrc, vecAngles ); 
 				CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-				pEntity->pev->velocity = pev->origin - vecSrc;
+				pEntity->pev->velocity = GetAbsOrigin() - vecSrc;
 				pEntity->TeleportInit( this, m_hEnemy, pTrigger, pTouch );
 			}
 			else
@@ -950,9 +950,9 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 				MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 					WRITE_BYTE( TE_ELIGHT );
 					WRITE_SHORT( entindex( ) + 0x3000 );		// entity, attachment
-					WRITE_COORD( pev->origin.x );		// origin
-					WRITE_COORD( pev->origin.y );
-					WRITE_COORD( pev->origin.z );
+					WRITE_COORD( GetAbsOrigin().x );		// origin
+					WRITE_COORD( GetAbsOrigin().y );
+					WRITE_COORD( GetAbsOrigin().z );
 					WRITE_COORD( 256 );	// radius
 					WRITE_BYTE( 128 );	// R
 					WRITE_BYTE( 128 );	// G
@@ -964,9 +964,9 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 				MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 					WRITE_BYTE( TE_ELIGHT );
 					WRITE_SHORT( entindex( ) + 0x4000 );		// entity, attachment
-					WRITE_COORD( pev->origin.x );		// origin
-					WRITE_COORD( pev->origin.y );
-					WRITE_COORD( pev->origin.z );
+					WRITE_COORD( GetAbsOrigin().x );		// origin
+					WRITE_COORD( GetAbsOrigin().y );
+					WRITE_COORD( GetAbsOrigin().z );
 					WRITE_COORD( 256 );	// radius
 					WRITE_BYTE( 128 );	// R
 					WRITE_BYTE( 128 );	// G
@@ -1002,7 +1002,7 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			Vector vecSrc, vecAngles;
 			GetAttachment( 2, vecSrc, vecAngles ); 
 			CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-			pEntity->pev->velocity = pev->origin - vecSrc;
+			pEntity->pev->velocity = GetAbsOrigin() - vecSrc;
 			pEntity->ZapInit( m_hEnemy );
 		}
 		break;
@@ -1089,7 +1089,7 @@ void CNihilanth::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceR
 
 	if (m_irritation != 3)
 	{
-		Vector vecBlood = (ptr->vecEndPos - pev->origin).Normalize( );
+		Vector vecBlood = (ptr->vecEndPos - GetAbsOrigin()).Normalize( );
 
 		UTIL_BloodStream( ptr->vecEndPos, vecBlood, BloodColor(), info.GetDamage() + (100 - 100 * (pev->health / gSkillData.nihilanthHealth)));
 	}

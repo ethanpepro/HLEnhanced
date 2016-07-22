@@ -83,7 +83,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 
 	Vector		vecSpot;// trace starts here!
 
-	vecSpot = pev->origin + Vector ( 0 , 0 , 8 );
+	vecSpot = GetAbsOrigin() + Vector ( 0 , 0 , 8 );
 	
 	UTIL_TraceLine ( vecSpot, vecSpot + Vector ( 0, 0, -40 ),  ignore_monsters, ENT(pev), & tr);
 	
@@ -94,7 +94,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	}
 	else
 	{
-		pev->origin = pev->origin;
+		pev->origin = GetAbsOrigin();
 	}
 
 	// draw decal
@@ -113,11 +113,11 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	// draw fireball
 	if ( !( pev->spawnflags & SF_ENVEXPLOSION_NOFIREBALL ) )
 	{
-		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, pev->origin );
+		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 			WRITE_BYTE( TE_EXPLOSION);
-			WRITE_COORD( pev->origin.x );
-			WRITE_COORD( pev->origin.y );
-			WRITE_COORD( pev->origin.z );
+			WRITE_COORD( GetAbsOrigin().x );
+			WRITE_COORD( GetAbsOrigin().y );
+			WRITE_COORD( GetAbsOrigin().z );
 			WRITE_SHORT( g_sModelIndexFireball );
 			WRITE_BYTE( ( byte )m_spriteScale ); // scale * 10
 			WRITE_BYTE( 15  ); // framerate
@@ -126,11 +126,11 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	}
 	else
 	{
-		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, pev->origin );
+		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 			WRITE_BYTE( TE_EXPLOSION);
-			WRITE_COORD( pev->origin.x );
-			WRITE_COORD( pev->origin.y );
-			WRITE_COORD( pev->origin.z );
+			WRITE_COORD( GetAbsOrigin().x );
+			WRITE_COORD( GetAbsOrigin().y );
+			WRITE_COORD( GetAbsOrigin().z );
 			WRITE_SHORT( g_sModelIndexFireball );
 			WRITE_BYTE( 0 ); // no sprite
 			WRITE_BYTE( 15  ); // framerate
@@ -154,7 +154,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 
 		for ( int i = 0; i < sparkCount; i++ )
 		{
-			Create( "spark_shower", pev->origin, tr.vecPlaneNormal, NULL );
+			Create( "spark_shower", GetAbsOrigin(), tr.vecPlaneNormal, NULL );
 		}
 	}
 }
@@ -163,11 +163,11 @@ void CEnvExplosion::Smoke( void )
 {
 	if ( !( pev->spawnflags & SF_ENVEXPLOSION_NOSMOKE ) )
 	{
-		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, pev->origin );
+		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 			WRITE_BYTE( TE_SMOKE );
-			WRITE_COORD( pev->origin.x );
-			WRITE_COORD( pev->origin.y );
-			WRITE_COORD( pev->origin.z );
+			WRITE_COORD( GetAbsOrigin().x );
+			WRITE_COORD( GetAbsOrigin().y );
+			WRITE_COORD( GetAbsOrigin().z );
 			WRITE_SHORT( g_sModelIndexSmoke );
 			WRITE_BYTE( ( byte )m_spriteScale ); // scale * 10
 			WRITE_BYTE( 12  ); // framerate

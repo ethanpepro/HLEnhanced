@@ -85,7 +85,7 @@ void CFuncRotating::Spawn()
 		pev->movetype = MOVETYPE_PUSH;
 	}
 
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( STRING( pev->model ) );
 
 	SetUse( &CFuncRotating::RotatingUse );
@@ -297,7 +297,7 @@ void CFuncRotating::HurtTouch( CBaseEntity *pOther )
 
 	pOther->TakeDamage( this, this, pev->dmg, DMG_CRUSH );
 
-	pOther->pev->velocity = ( pOther->pev->origin - VecBModelOrigin( this ) ).Normalize() * pev->dmg;
+	pOther->pev->velocity = ( pOther->GetAbsOrigin() - VecBModelOrigin( this ) ).Normalize() * pev->dmg;
 }
 
 //=========================================================

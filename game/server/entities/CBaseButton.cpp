@@ -72,7 +72,7 @@ void CBaseButton::Spawn()
 		m_flLip = 4;
 
 	m_toggle_state = TS_AT_BOTTOM;
-	m_vecPosition1 = pev->origin;
+	m_vecPosition1 = GetAbsOrigin();
 	// Subtract 2 from size because the engine expands bboxes by 1 in all directions making the size too big
 	m_vecPosition2 = m_vecPosition1 + ( pev->movedir * ( fabs( pev->movedir.x * ( pev->size.x - 2 ) ) + fabs( pev->movedir.y * ( pev->size.y - 2 ) ) + fabs( pev->movedir.z * ( pev->size.z - 2 ) ) - m_flLip ) );
 

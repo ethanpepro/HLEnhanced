@@ -303,7 +303,7 @@ void CBaseMonster::BecomeDead( void )
 	// make the corpse fly away from the attack vector
 	pev->movetype = MOVETYPE_TOSS;
 	//pev->flags &= ~FL_ONGROUND;
-	//pev->origin.z += 2;
+	//GetAbsOrigin().z += 2;
 	//pev->velocity = g_vecAttackDir * -1;
 	//pev->velocity = pev->velocity * RANDOM_FLOAT( 300, 400 );
 }
@@ -543,12 +543,12 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 			{
 				if (m_hEnemy == NULL || info.GetInflictor()->pev == m_hEnemy->pev || !HasConditions(bits_COND_SEE_ENEMY))
 				{
-					m_vecEnemyLKP = info.GetInflictor()->pev->origin;
+					m_vecEnemyLKP = info.GetInflictor()->GetAbsOrigin();
 				}
 			}
 			else
 			{
-				m_vecEnemyLKP = pev->origin + ( g_vecAttackDir * 64 ); 
+				m_vecEnemyLKP = GetAbsOrigin() + ( g_vecAttackDir * 64 ); 
 			}
 
 			MakeIdealYaw( m_vecEnemyLKP );
@@ -588,7 +588,7 @@ void CBaseMonster::DeadTakeDamage( const CTakeDamageInfo& info )
 #if 0// turn this back on when the bounding box issues are resolved.
 
 	pev->flags &= ~FL_ONGROUND;
-	pev->origin.z += 1;
+	GetAbsOrigin().z += 1;
 	
 	// let the damage scoot the corpse around a bit.
 	if ( !FNullEnt( pAttacker ) && ( pAttacker->pev->solid != SOLID_TRIGGER) )
@@ -711,7 +711,7 @@ void RadiusDamage( Vector vecSrc, const CTakeDamageInfo& info, float flRadius, i
 
 void CBaseMonster::RadiusDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int iClassIgnore, int bitsDamageType )
 {
-	::RadiusDamage( pev->origin, CTakeDamageInfo( pInflictor, pAttacker, flDamage, bitsDamageType ), flDamage * 2.5, iClassIgnore );
+	::RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( pInflictor, pAttacker, flDamage, bitsDamageType ), flDamage * 2.5, iClassIgnore );
 }
 
 
@@ -738,7 +738,7 @@ CBaseEntity* CBaseMonster :: CheckTraceHullAttack( float flDist, int iDamage, in
 	else
 		UTIL_MakeAimVectors( pev->angles );
 
-	Vector vecStart = pev->origin;
+	Vector vecStart = GetAbsOrigin();
 	vecStart.z += pev->size.z * 0.5;
 	Vector vecEnd = vecStart + (gpGlobals->v_forward * flDist );
 
@@ -772,7 +772,7 @@ bool CBaseMonster::FInViewCone( const CBaseEntity *pEntity ) const
 
 	UTIL_MakeVectors ( pev->angles );
 	
-	vec2LOS = ( pEntity->pev->origin - pev->origin ).Make2D();
+	vec2LOS = ( pEntity->GetAbsOrigin() - GetAbsOrigin() ).Make2D();
 	vec2LOS = vec2LOS.Normalize();
 
 	flDot = DotProduct (vec2LOS , gpGlobals->v_forward.Make2D() );
@@ -799,7 +799,7 @@ bool CBaseMonster::FInViewCone( const Vector& vecOrigin ) const
 
 	UTIL_MakeVectors ( pev->angles );
 	
-	vec2LOS = ( vecOrigin - pev->origin ).Make2D();
+	vec2LOS = ( vecOrigin - GetAbsOrigin() ).Make2D();
 	vec2LOS = vec2LOS.Normalize();
 
 	flDot = DotProduct (vec2LOS , gpGlobals->v_forward.Make2D() );

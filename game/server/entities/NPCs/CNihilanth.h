@@ -33,8 +33,8 @@ public:
 
 	void SetObjectCollisionBox( void ) override
 	{
-		pev->absmin = pev->origin + Vector( -16 * N_SCALE, -16 * N_SCALE, -48 * N_SCALE );
-		pev->absmax = pev->origin + Vector( 16 * N_SCALE, 16 * N_SCALE, 28 * N_SCALE );
+		pev->absmin = GetAbsOrigin() + Vector( -16 * N_SCALE, -16 * N_SCALE, -48 * N_SCALE );
+		pev->absmax = GetAbsOrigin() + Vector( 16 * N_SCALE, 16 * N_SCALE, 28 * N_SCALE );
 	}
 
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;

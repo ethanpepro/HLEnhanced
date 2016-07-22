@@ -50,13 +50,13 @@ void CDecal::TriggerDecal( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	TraceResult trace;
 	int			entityIndex;
 
-	UTIL_TraceLine( pev->origin - Vector( 5, 5, 5 ), pev->origin + Vector( 5, 5, 5 ), ignore_monsters, ENT( pev ), &trace );
+	UTIL_TraceLine( GetAbsOrigin() - Vector( 5, 5, 5 ), GetAbsOrigin() + Vector( 5, 5, 5 ), ignore_monsters, ENT( pev ), &trace );
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_BSPDECAL );
-	WRITE_COORD( pev->origin.x );
-	WRITE_COORD( pev->origin.y );
-	WRITE_COORD( pev->origin.z );
+	WRITE_COORD( GetAbsOrigin().x );
+	WRITE_COORD( GetAbsOrigin().y );
+	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_SHORT( ( int ) pev->skin );
 	entityIndex = ( short ) ENTINDEX( trace.pHit );
 	WRITE_SHORT( entityIndex );
@@ -74,7 +74,7 @@ void CDecal::StaticDecal( void )
 	TraceResult trace;
 	int			entityIndex, modelIndex;
 
-	UTIL_TraceLine( pev->origin - Vector( 5, 5, 5 ), pev->origin + Vector( 5, 5, 5 ), ignore_monsters, ENT( pev ), &trace );
+	UTIL_TraceLine( GetAbsOrigin() - Vector( 5, 5, 5 ), GetAbsOrigin() + Vector( 5, 5, 5 ), ignore_monsters, ENT( pev ), &trace );
 
 	entityIndex = ( short ) ENTINDEX( trace.pHit );
 	if( entityIndex )
@@ -82,7 +82,7 @@ void CDecal::StaticDecal( void )
 	else
 		modelIndex = 0;
 
-	g_engfuncs.pfnStaticDecal( pev->origin, ( int ) pev->skin, entityIndex, modelIndex );
+	g_engfuncs.pfnStaticDecal( GetAbsOrigin(), ( int ) pev->skin, entityIndex, modelIndex );
 
 	SUB_Remove();
 }

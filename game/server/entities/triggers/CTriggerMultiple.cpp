@@ -14,7 +14,7 @@ void CTriggerMultiple::Spawn( void )
 	InitTrigger();
 
 	ASSERTSZ( pev->health == 0, "trigger_multiple with health" );
-	//	SetAbsOrigin( pev->origin);
+	//	SetAbsOrigin( GetAbsOrigin());
 	//	SetModel( STRING(pev->model) );
 	//	if (pev->health > 0)
 	//		{
@@ -25,7 +25,7 @@ void CTriggerMultiple::Spawn( void )
 	//		pev->pfnDie = multi_killed;
 	//		pev->takedamage = DAMAGE_YES;
 	//		pev->solid = SOLID_BBOX;
-	//		SetAbsOrigin( pev->origin);  // make sure it links into the world
+	//		SetAbsOrigin( GetAbsOrigin());  // make sure it links into the world
 	//		}
 	//	else
 	{

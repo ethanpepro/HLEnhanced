@@ -42,7 +42,7 @@ void CPendulum::Spawn( void )
 	else
 		pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( STRING( pev->model ) );
 
 	if( m_distance == 0 )
@@ -182,7 +182,7 @@ void CPendulum::Touch( CBaseEntity *pOther )
 
 	pOther->TakeDamage( this, this, damage, DMG_CRUSH );
 
-	pOther->pev->velocity = ( pOther->pev->origin - VecBModelOrigin( this ) ).Normalize() * damage;
+	pOther->pev->velocity = ( pOther->GetAbsOrigin() - VecBModelOrigin( this ) ).Normalize() * damage;
 }
 
 void CPendulum::RopeTouch( CBaseEntity *pOther )

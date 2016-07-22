@@ -134,7 +134,7 @@ void CBasePlayer::PackDeadPlayerItems()
 	}
 
 	// create a box to pack the stuff into.
-	CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", pev->origin, pev->angles, edict() );
+	CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", GetAbsOrigin(), pev->angles, edict() );
 
 	pWeaponBox->pev->angles.x = 0;// don't let weaponbox tilt.
 	pWeaponBox->pev->angles.z = 0;
@@ -402,7 +402,7 @@ void CBasePlayer::DropPlayerItem( char *pszItemName )
 
 			pev->weapons &= ~( 1 << pWeapon->m_iId );// take item off hud
 
-			CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", pev->origin + gpGlobals->v_forward * 10, pev->angles, edict() );
+			CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", GetAbsOrigin() + gpGlobals->v_forward * 10, pev->angles, edict() );
 			pWeaponBox->pev->angles.x = 0;
 			pWeaponBox->pev->angles.z = 0;
 			pWeaponBox->PackWeapon( pWeapon );
@@ -689,7 +689,7 @@ void CBasePlayer::GiveNamedItem( const char *pszName )
 		ALERT( at_console, "NULL Ent in GiveNamedItem!\n" );
 		return;
 	}
-	VARS( pent )->origin = pev->origin;
+	VARS( pent )->origin = GetAbsOrigin();
 	pent->v.spawnflags |= SF_NORESPAWN;
 
 	DispatchSpawn( pent );

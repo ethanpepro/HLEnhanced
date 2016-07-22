@@ -525,7 +525,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
 	if ( newInfo.GetAttacker() == newInfo.GetInflictor() )
 	{
-		vecTemp = newInfo.GetInflictor()->pev->origin - ( pev->absmin + ( pev->size * 0.5 ) );
+		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( pev->absmin + ( pev->size * 0.5 ) );
 		
 		// if a client hit the breakable with a crowbar, and breakable is crowbar-sensitive, break it now.
 		if ( FBitSet ( newInfo.GetAttacker()->pev->flags, FL_CLIENT ) &&
@@ -535,7 +535,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 	else
 	// an actual missile was involved.
 	{
-		vecTemp = newInfo.GetInflictor()->pev->origin - ( pev->absmin + ( pev->size * 0.5 ) );
+		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( pev->absmin + ( pev->size * 0.5 ) );
 	}
 	
 	if (!IsBreakable())
@@ -666,7 +666,7 @@ void CBreakable::Die( void )
 		vecVelocity.z = 0;
 	}
 
-	vecSpot = pev->origin + (pev->mins + pev->maxs) * 0.5;
+	vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSpot );
 		WRITE_BYTE( TE_BREAKMODEL);
 

@@ -47,7 +47,7 @@ void CTargetCDAudio::Think( void )
 
 	pev->nextthink = gpGlobals->time + 0.5;
 
-	if( ( pClient->v.origin - pev->origin ).Length() <= pev->scale )
+	if( ( pClient->v.origin - GetAbsOrigin() ).Length() <= pev->scale )
 		Play();
 
 }

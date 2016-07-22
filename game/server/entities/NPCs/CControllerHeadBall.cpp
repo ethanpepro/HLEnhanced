@@ -38,7 +38,7 @@ void CControllerHeadBall::Spawn( void )
 	pev->scale = 2.0;
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	SetThink( &CControllerHeadBall::HuntThink );
 	SetTouch( &CControllerHeadBall::BounceTouch );
@@ -67,9 +67,9 @@ void CControllerHeadBall::HuntThink( void )
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_ELIGHT );
 	WRITE_SHORT( entindex() );		// entity, attachment
-	WRITE_COORD( pev->origin.x );		// origin
-	WRITE_COORD( pev->origin.y );
-	WRITE_COORD( pev->origin.z );
+	WRITE_COORD( GetAbsOrigin().x );		// origin
+	WRITE_COORD( GetAbsOrigin().y );
+	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_COORD( pev->renderamt / 16 );	// radius
 	WRITE_BYTE( 255 );	// R
 	WRITE_BYTE( 255 );	// G
@@ -79,7 +79,7 @@ void CControllerHeadBall::HuntThink( void )
 	MESSAGE_END();
 
 	// check world boundaries
-	if( gpGlobals->time - pev->dmgtime > 5 || pev->renderamt < 64 || m_hEnemy == NULL || m_hOwner == NULL || pev->origin.x < -4096 || pev->origin.x > 4096 || pev->origin.y < -4096 || pev->origin.y > 4096 || pev->origin.z < -4096 || pev->origin.z > 4096 )
+	if( gpGlobals->time - pev->dmgtime > 5 || pev->renderamt < 64 || m_hEnemy == NULL || m_hOwner == NULL || GetAbsOrigin().x < -4096 || GetAbsOrigin().x > 4096 || GetAbsOrigin().y < -4096 || GetAbsOrigin().y > 4096 || GetAbsOrigin().z < -4096 || GetAbsOrigin().z > 4096 )
 	{
 		SetTouch( NULL );
 		UTIL_Remove( this );
@@ -88,11 +88,11 @@ void CControllerHeadBall::HuntThink( void )
 
 	MovetoTarget( m_hEnemy->Center() );
 
-	if( ( m_hEnemy->Center() - pev->origin ).Length() < 64 )
+	if( ( m_hEnemy->Center() - GetAbsOrigin() ).Length() < 64 )
 	{
 		TraceResult tr;
 
-		UTIL_TraceLine( pev->origin, m_hEnemy->Center(), dont_ignore_monsters, ENT( pev ), &tr );
+		UTIL_TraceLine( GetAbsOrigin(), m_hEnemy->Center(), dont_ignore_monsters, ENT( pev ), &tr );
 
 		CBaseEntity *pEntity = CBaseEntity::Instance( tr.pHit );
 		if( pEntity != NULL && pEntity->pev->takedamage )
@@ -164,7 +164,7 @@ void CControllerHeadBall::MovetoTarget( Vector vecTarget )
 	{
 		m_vecIdeal = m_vecIdeal.Normalize() * 400;
 	}
-	m_vecIdeal = m_vecIdeal + ( vecTarget - pev->origin ).Normalize() * 100;
+	m_vecIdeal = m_vecIdeal + ( vecTarget - GetAbsOrigin() ).Normalize() * 100;
 	pev->velocity = m_vecIdeal;
 }
 
@@ -172,7 +172,7 @@ void CControllerHeadBall::Crawl( void )
 {
 
 	Vector vecAim = Vector( RANDOM_FLOAT( -1, 1 ), RANDOM_FLOAT( -1, 1 ), RANDOM_FLOAT( -1, 1 ) ).Normalize();
-	Vector vecPnt = pev->origin + pev->velocity * 0.3 + vecAim * 64;
+	Vector vecPnt = GetAbsOrigin() + pev->velocity * 0.3 + vecAim * 64;
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_BEAMENTPOINT );

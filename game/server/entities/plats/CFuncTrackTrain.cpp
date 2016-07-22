@@ -50,10 +50,10 @@ void CFuncTrackTrain::Spawn( void )
 	SetModel( STRING( pev->model ) );
 
 	SetSize( pev->mins, pev->maxs );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	// Cache off placed origin for train controls
-	SetOldOrigin( pev->origin );
+	SetOldOrigin( GetAbsOrigin() );
 
 	m_controlMins = pev->mins;
 	m_controlMaxs = pev->maxs;
@@ -103,7 +103,7 @@ void CFuncTrackTrain::Blocked( CBaseEntity *pOther )
 		return;
 	}
 	else
-		pOther->pev->velocity = ( pOther->pev->origin - pev->origin ).Normalize() * pev->dmg;
+		pOther->pev->velocity = ( pOther->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * pev->dmg;
 
 	ALERT( at_aiconsole, "TRAIN(%s): Blocked by %s (dmg:%.2f)\n", GetTargetname(), pOther->GetClassname(), pev->dmg );
 	if( pev->dmg <= 0 )
@@ -213,14 +213,14 @@ void CFuncTrackTrain::Next( void )
 
 	UpdateSound();
 
-	Vector nextPos = pev->origin;
+	Vector nextPos = GetAbsOrigin();
 
 	nextPos.z -= m_height;
 	CPathTrack *pnext = m_ppath->LookAhead( &nextPos, pev->speed * 0.1, true );
 	nextPos.z += m_height;
 
-	pev->velocity = ( nextPos - pev->origin ) * 10;
-	Vector nextFront = pev->origin;
+	pev->velocity = ( nextPos - GetAbsOrigin() ) * 10;
+	Vector nextFront = GetAbsOrigin();
 
 	nextFront.z -= m_height;
 	if( m_length > 0 )
@@ -229,7 +229,7 @@ void CFuncTrackTrain::Next( void )
 		m_ppath->LookAhead( &nextFront, 100, false );
 	nextFront.z += m_height;
 
-	Vector delta = nextFront - pev->origin;
+	Vector delta = nextFront - GetAbsOrigin();
 	Vector angles = UTIL_VecToAngles( delta );
 	// The train actually points west
 	angles.y += 180;
@@ -300,7 +300,7 @@ void CFuncTrackTrain::Next( void )
 	else	// end of path, stop
 	{
 		StopSound();
-		pev->velocity = ( nextPos - pev->origin );
+		pev->velocity = ( nextPos - GetAbsOrigin() );
 		pev->avelocity = g_vecZero;
 		float distance = pev->velocity.Length();
 		m_oldSpeed = pev->speed;
@@ -339,7 +339,7 @@ void CFuncTrackTrain::Find( void )
 		return;
 	}
 
-	Vector nextPos = m_ppath->pev->origin;
+	Vector nextPos = m_ppath->GetAbsOrigin();
 	nextPos.z += m_height;
 
 	Vector look = nextPos;
@@ -369,12 +369,12 @@ void CFuncTrackTrain::NearestPath( void )
 
 	closest = 1024;
 
-	while( ( pTrack = UTIL_FindEntityInSphere( pTrack, pev->origin, 1024 ) ) != NULL )
+	while( ( pTrack = UTIL_FindEntityInSphere( pTrack, GetAbsOrigin(), 1024 ) ) != NULL )
 	{
 		// filter out non-tracks
 		if( !( pTrack->pev->flags & ( FL_CLIENT | FL_MONSTER ) ) && FClassnameIs( pTrack->pev, "path_track" ) )
 		{
-			dist = ( pev->origin - pTrack->pev->origin ).Length();
+			dist = ( GetAbsOrigin() - pTrack->GetAbsOrigin() ).Length();
 			if( dist < closest )
 			{
 				closest = dist;
@@ -395,7 +395,7 @@ void CFuncTrackTrain::NearestPath( void )
 	pTrack = ( ( CPathTrack * ) pNearest )->GetNext();
 	if( pTrack )
 	{
-		if( ( pev->origin - pTrack->pev->origin ).Length() < ( pev->origin - pNearest->pev->origin ).Length() )
+		if( ( GetAbsOrigin() - pTrack->GetAbsOrigin() ).Length() < ( GetAbsOrigin() - pNearest->GetAbsOrigin() ).Length() )
 			pNearest = pTrack;
 	}
 
@@ -467,12 +467,12 @@ void CFuncTrackTrain::NextThink( float thinkTime, const bool alwaysThink )
 
 void CFuncTrackTrain::SetTrack( CPathTrack *track )
 {
-	m_ppath = track->Nearest( pev->origin );
+	m_ppath = track->Nearest( GetAbsOrigin() );
 }
 
 void CFuncTrackTrain::SetControls( CBaseEntity* pControls )
 {
-	Vector offset = pControls->pev->origin - GetOldOrigin();
+	Vector offset = pControls->GetAbsOrigin() - GetOldOrigin();
 
 	m_controlMins = pControls->pev->mins + offset;
 	m_controlMaxs = pControls->pev->maxs + offset;
@@ -480,7 +480,7 @@ void CFuncTrackTrain::SetControls( CBaseEntity* pControls )
 
 bool CFuncTrackTrain::OnControls( const CBaseEntity* const pTest ) const
 {
-	const Vector offset = pTest->pev->origin - pev->origin;
+	const Vector offset = pTest->GetAbsOrigin() - GetAbsOrigin();
 
 	if( pev->spawnflags & SF_TRACKTRAIN_NOCONTROL )
 		return false;

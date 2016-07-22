@@ -60,7 +60,7 @@ const Vector& CBeam::GetStartPos() const
 		edict_t *pent = g_engfuncs.pfnPEntityOfEntIndex( GetStartEntity() );
 		return pent->v.origin;
 	}
-	return pev->origin;
+	return GetAbsOrigin();
 }
 
 const Vector& CBeam::GetEndPos() const
@@ -87,11 +87,11 @@ void CBeam::RelinkBeam( void )
 	pev->maxs.x = max( startPos.x, endPos.x );
 	pev->maxs.y = max( startPos.y, endPos.y );
 	pev->maxs.z = max( startPos.z, endPos.z );
-	pev->mins = pev->mins - pev->origin;
-	pev->maxs = pev->maxs - pev->origin;
+	pev->mins = pev->mins - GetAbsOrigin();
+	pev->maxs = pev->maxs - GetAbsOrigin();
 
 	SetSize( pev->mins, pev->maxs );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 }
 
 #if 0
@@ -132,7 +132,7 @@ void CBeam::BeamDamage( TraceResult *ptr )
 		if( pHit )
 		{
 			g_MultiDamage.Clear();
-			pHit->TraceAttack( CTakeDamageInfo( this, pev->dmg * ( gpGlobals->time - pev->dmgtime ), DMG_ENERGYBEAM ), ( ptr->vecEndPos - pev->origin ).Normalize(), ptr );
+			pHit->TraceAttack( CTakeDamageInfo( this, pev->dmg * ( gpGlobals->time - pev->dmgtime ), DMG_ENERGYBEAM ), ( ptr->vecEndPos - GetAbsOrigin() ).Normalize(), ptr );
 			g_MultiDamage.ApplyMultiDamage( this, this );
 			if( pev->spawnflags & SF_BEAM_DECALS )
 			{

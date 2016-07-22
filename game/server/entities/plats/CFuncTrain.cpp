@@ -35,7 +35,7 @@ void CFuncTrain::Spawn( void )
 
 	SetModel( STRING( pev->model ) );
 	SetSize( pev->mins, pev->maxs );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	m_activated = false;
 
@@ -243,7 +243,7 @@ void CFuncTrain::Next( void )
 	{
 		// Path corner has indicated a teleport to the next corner.
 		SetBits( pev->effects, EF_NOINTERP );
-		SetAbsOrigin( pTarg->pev->origin - ( pev->mins + pev->maxs )* 0.5 );
+		SetAbsOrigin( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs )* 0.5 );
 		Wait(); // Get on with doing the next path corner.
 	}
 	else
@@ -259,6 +259,6 @@ void CFuncTrain::Next( void )
 			EMIT_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
 		ClearBits( pev->effects, EF_NOINTERP );
 		SetMoveDone( &CFuncTrain::Wait );
-		LinearMove( pTarg->pev->origin - ( pev->mins + pev->maxs )* 0.5, pev->speed );
+		LinearMove( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs )* 0.5, pev->speed );
 	}
 }

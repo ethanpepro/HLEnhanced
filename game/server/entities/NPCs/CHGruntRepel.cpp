@@ -39,13 +39,13 @@ void CHGruntRepel::Precache( void )
 void CHGruntRepel::RepelUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	TraceResult tr;
-	UTIL_TraceLine( pev->origin, pev->origin + Vector( 0, 0, -4096.0 ), dont_ignore_monsters, ENT( pev ), &tr );
+	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, -4096.0 ), dont_ignore_monsters, ENT( pev ), &tr );
 	/*
 	if ( tr.pHit && Instance( tr.pHit )->pev->solid != SOLID_BSP)
 	return NULL;
 	*/
 
-	CBaseEntity *pEntity = Create( "monster_human_grunt", pev->origin, pev->angles );
+	CBaseEntity *pEntity = Create( "monster_human_grunt", GetAbsOrigin(), pev->angles );
 	CBaseMonster *pGrunt = pEntity->MyMonsterPointer();
 	pGrunt->pev->movetype = MOVETYPE_FLY;
 	pGrunt->pev->velocity = Vector( 0, 0, RANDOM_FLOAT( -196, -128 ) );
@@ -54,7 +54,7 @@ void CHGruntRepel::RepelUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 	pGrunt->m_vecLastPosition = tr.vecEndPos;
 
 	CBeam *pBeam = CBeam::BeamCreate( "sprites/rope.spr", 10 );
-	pBeam->PointEntInit( pev->origin + Vector( 0, 0, 112 ), pGrunt->entindex() );
+	pBeam->PointEntInit( GetAbsOrigin() + Vector( 0, 0, 112 ), pGrunt->entindex() );
 	pBeam->SetFlags( BEAM_FSOLID );
 	pBeam->SetColor( 255, 255, 255 );
 	pBeam->SetThink( &CBeam::SUB_Remove );

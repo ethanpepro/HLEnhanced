@@ -121,7 +121,7 @@ bool CBaseMonster::CineCleanup()
 			// irregular motion that can't be properly accounted for.
 
 			// UNDONE: THIS SHOULD ONLY HAPPEN IF WE ACTUALLY PLAYED THE SEQUENCE.
-			Vector oldOrigin = pev->origin;
+			Vector oldOrigin = GetAbsOrigin();
 
 			// UNDONE: ugly hack.  Don't move monster if they don't "seem" to move
 			// this really needs to be done with the AX,AY,etc. flags, but that aren't consistantly
@@ -146,9 +146,9 @@ bool CBaseMonster::CineCleanup()
 			}
 			// else entity hit floor, leave there
 
-			// pEntity->pev->origin.z = new_origin.z + 5.0; // damn, got to fix this
+			// pEntity->GetAbsOrigin().z = new_origin.z + 5.0; // damn, got to fix this
 
-			SetAbsOrigin( pev->origin );
+			SetAbsOrigin( GetAbsOrigin() );
 			pev->effects |= EF_NOINTERP;
 		}
 

@@ -22,9 +22,9 @@ void CEnvFunnel::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 {
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_LARGEFUNNEL );
-	WRITE_COORD( pev->origin.x );
-	WRITE_COORD( pev->origin.y );
-	WRITE_COORD( pev->origin.z );
+	WRITE_COORD( GetAbsOrigin().x );
+	WRITE_COORD( GetAbsOrigin().y );
+	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_SHORT( m_iSprite );
 
 	if( pev->spawnflags & SF_FUNNEL_REVERSE )// funnel flows in reverse?

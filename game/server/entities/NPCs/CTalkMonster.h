@@ -132,7 +132,7 @@ public:
 	bool			FIdleSpeak();
 	bool			FIdleStare();
 	bool			FIdleHello();
-	void			IdleHeadTurn( Vector &vecFriend );
+	void			IdleHeadTurn( const Vector &vecFriend );
 	bool			FOkToSpeak() const;
 	void			TrySmellTalk( void );
 	CBaseEntity		*EnumFriends( CBaseEntity *pentPrevious, int listNumber, const bool bTrace );

@@ -17,7 +17,7 @@ void CGunTarget::Spawn( void )
 	pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
 
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( STRING( pev->model ) );
 
 	if( pev->speed == 0 )
@@ -46,7 +46,7 @@ void CGunTarget::Activate( void )
 	if( pTarg )
 	{
 		m_hTargetEnt = pTarg;
-		SetAbsOrigin( pTarg->pev->origin - ( pev->mins + pev->maxs ) * 0.5 );
+		SetAbsOrigin( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs ) * 0.5 );
 	}
 }
 
@@ -63,7 +63,7 @@ void CGunTarget::Next( void )
 		return;
 	}
 	SetMoveDone( &CGunTarget::Wait );
-	LinearMove( pTarget->pev->origin - ( pev->mins + pev->maxs ) * 0.5, pev->speed );
+	LinearMove( pTarget->GetAbsOrigin() - ( pev->mins + pev->maxs ) * 0.5, pev->speed );
 }
 
 void CGunTarget::Start( void )

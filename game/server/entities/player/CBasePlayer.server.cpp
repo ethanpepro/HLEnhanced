@@ -242,7 +242,7 @@ void CBasePlayer::PlayerRespawn( const bool bCopyCorpse )
 Vector CBasePlayer::GetGunPosition()
 {
 	//m_HackedGunPos = pev->view_ofs;
-	return pev->origin + pev->view_ofs;
+	return GetAbsOrigin() + pev->view_ofs;
 }
 
 // override GiveHealth
@@ -638,7 +638,7 @@ bool CBasePlayer::Restore( CRestore &restore )
 
 		// default to normal spawn
 		CBaseEntity* pSpawnSpot = EntSelectSpawnPoint( this );
-		pev->origin = pSpawnSpot->pev->origin + Vector( 0, 0, 1 );
+		pev->origin = pSpawnSpot->GetAbsOrigin() + Vector( 0, 0, 1 );
 		pev->angles = pSpawnSpot->pev->angles;
 	}
 	pev->v_angle.z = 0;	// Clear out roll

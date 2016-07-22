@@ -232,7 +232,7 @@ void CGargantua::EyeUpdate( void )
 			m_pEyeGlow->pev->effects |= EF_NODRAW;
 		else
 			m_pEyeGlow->pev->effects &= ~EF_NODRAW;
-		m_pEyeGlow->SetAbsOrigin( pev->origin );
+		m_pEyeGlow->SetAbsOrigin( GetAbsOrigin() );
 	}
 }
 
@@ -242,16 +242,16 @@ void CGargantua::StompAttack( void )
 	TraceResult trace;
 
 	UTIL_MakeVectors( pev->angles );
-	Vector vecStart = pev->origin + Vector(0,0,60) + 35 * gpGlobals->v_forward;
+	Vector vecStart = GetAbsOrigin() + Vector(0,0,60) + 35 * gpGlobals->v_forward;
 	Vector vecAim = ShootAtEnemy( vecStart );
 	Vector vecEnd = (vecAim * 1024) + vecStart;
 
 	UTIL_TraceLine( vecStart, vecEnd, ignore_monsters, edict(), &trace );
 	CStomp::StompCreate( vecStart, trace.vecEndPos, 0 );
-	UTIL_ScreenShake( pev->origin, 12.0, 100.0, 2.0, 1000 );
+	UTIL_ScreenShake( GetAbsOrigin(), 12.0, 100.0, 2.0, 1000 );
 	EMIT_SOUND_DYN ( edict(), CHAN_WEAPON, pStompSounds[ RANDOM_LONG(0,ARRAYSIZE(pStompSounds)-1) ], 1.0, ATTN_GARG, 0, PITCH_NORM + RANDOM_LONG(-10,10) );
 
-	UTIL_TraceLine( pev->origin, pev->origin - Vector(0,0,20), ignore_monsters, edict(), &trace );
+	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() - Vector(0,0,20), ignore_monsters, edict(), &trace );
 	if ( trace.flFraction < 1.0 )
 		UTIL_DecalTrace( &trace, DECAL_GARGSTOMP1 );
 }
@@ -532,7 +532,7 @@ void CGargantua :: Spawn()
 
 	MonsterInit();
 
-	m_pEyeGlow = CSprite::SpriteCreate( GARG_EYE_SPRITE_NAME, pev->origin, false );
+	m_pEyeGlow = CSprite::SpriteCreate( GARG_EYE_SPRITE_NAME, GetAbsOrigin(), false );
 	m_pEyeGlow->SetTransparency( kRenderGlow, 255, 255, 255, 0, kRenderFxNoDissipation );
 	m_pEyeGlow->SetAttachment( edict(), 1 );
 	EyeOff();
@@ -655,12 +655,12 @@ void CGargantua::DeathEffect( void )
 {
 	int i;
 	UTIL_MakeVectors(pev->angles);
-	Vector deathPos = pev->origin + gpGlobals->v_forward * 100;
+	Vector deathPos = GetAbsOrigin() + gpGlobals->v_forward * 100;
 
 	// Create a spiral of streaks
 	CSpiral::Create( deathPos, (pev->absmax.z - pev->absmin.z) * 0.6, 125, 1.5 );
 
-	Vector position = pev->origin;
+	Vector position = GetAbsOrigin();
 	position.z += 32;
 	for ( i = 0; i < 7; i+=2 )
 	{
@@ -668,7 +668,7 @@ void CGargantua::DeathEffect( void )
 		position.z += 15;
 	}
 
-	CBaseEntity *pSmoker = CBaseEntity::Create( "env_smoker", pev->origin, g_vecZero, NULL );
+	CBaseEntity *pSmoker = CBaseEntity::Create( "env_smoker", GetAbsOrigin(), g_vecZero, NULL );
 	pSmoker->pev->health = 1;	// 1 smoke balls
 	pSmoker->pev->scale = 46;	// 4.6X normal size
 	pSmoker->pev->dmg = 0;		// 0 radial distribution
@@ -777,7 +777,7 @@ void CGargantua::HandleAnimEvent(MonsterEvent_t *pEvent)
 
 	case GARG_AE_RIGHT_FOOT:
 	case GARG_AE_LEFT_FOOT:
-		UTIL_ScreenShake( pev->origin, 4.0, 3.0, 1.0, 750 );
+		UTIL_ScreenShake( GetAbsOrigin(), 4.0, 3.0, 1.0, 750 );
 		EMIT_SOUND_DYN ( edict(), CHAN_BODY, pFootSounds[ RANDOM_LONG(0,ARRAYSIZE(pFootSounds)-1) ], 1.0, ATTN_GARG, 0, PITCH_NORM + RANDOM_LONG(-10,10) );
 		break;
 
@@ -813,7 +813,7 @@ CBaseEntity* CGargantua::GargantuaCheckTraceHullAttack(float flDist, int iDamage
 	TraceResult tr;
 
 	UTIL_MakeVectors( pev->angles );
-	Vector vecStart = pev->origin;
+	Vector vecStart = GetAbsOrigin();
 	vecStart.z += 64;
 	Vector vecEnd = vecStart + (gpGlobals->v_forward * flDist) - (gpGlobals->v_up * flDist * 0.3);
 
@@ -914,18 +914,18 @@ void CGargantua::RunTask( Task_t *pTask )
 				pGib->pev->body = bodyPart;
 				pGib->m_bloodColor = BLOOD_COLOR_YELLOW;
 				pGib->m_material = matNone;
-				pGib->pev->origin = pev->origin;
+				pGib->pev->origin = GetAbsOrigin();
 				pGib->pev->velocity = UTIL_RandomBloodVector() * RANDOM_FLOAT( 300, 500 );
 				pGib->pev->nextthink = gpGlobals->time + 1.25;
 				pGib->SetThink( &CGib::SUB_FadeOut );
 			}
-			MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, pev->origin );
+			MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );
 				WRITE_BYTE( TE_BREAKMODEL);
 
 				// position
-				WRITE_COORD( pev->origin.x );
-				WRITE_COORD( pev->origin.y );
-				WRITE_COORD( pev->origin.z );
+				WRITE_COORD( GetAbsOrigin().x );
+				WRITE_COORD( GetAbsOrigin().y );
+				WRITE_COORD( GetAbsOrigin().z );
 
 				// size
 				WRITE_COORD( 200 );
@@ -979,7 +979,7 @@ void CGargantua::RunTask( Task_t *pTask )
 			CBaseEntity *pEnemy = m_hEnemy;
 			if ( pEnemy )
 			{
-				Vector org = pev->origin;
+				Vector org = GetAbsOrigin();
 				org.z += 64;
 				Vector dir = pEnemy->BodyTarget(org) - org;
 				angles = UTIL_VecToAngles( dir );

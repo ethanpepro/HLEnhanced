@@ -73,7 +73,7 @@ void CNihilanthHVR::CircleInit( CBaseEntity *pTarget )
 	pev->renderamt = 255;
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	SetThink( &CNihilanthHVR::HoverThink );
 	SetTouch( &CNihilanthHVR::BounceTouch );
@@ -156,7 +156,7 @@ void CNihilanthHVR::ZapInit( CBaseEntity *pEnemy )
 	pev->rendercolor.z = 255;
 	pev->scale = 2.0;
 
-	pev->velocity = ( pEnemy->pev->origin - pev->origin ).Normalize() * 200;
+	pev->velocity = ( pEnemy->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * 200;
 
 	m_hEnemy = pEnemy;
 	SetThink( &CNihilanthHVR::ZapThink );
@@ -172,7 +172,7 @@ void CNihilanthHVR::HoverThink( void )
 
 	if( m_hTargetEnt != NULL )
 	{
-		CircleTarget( m_hTargetEnt->pev->origin + Vector( 0, 0, 16 * N_SCALE ) );
+		CircleTarget( m_hTargetEnt->GetAbsOrigin() + Vector( 0, 0, 16 * N_SCALE ) );
 	}
 	else
 	{
@@ -233,8 +233,8 @@ bool CNihilanthHVR::CircleTarget( Vector vecTarget )
 	bool fClose = false;
 
 	Vector vecDest = vecTarget;
-	Vector vecEst = pev->origin + pev->velocity * 0.5;
-	Vector vecSrc = pev->origin;
+	Vector vecEst = GetAbsOrigin() + pev->velocity * 0.5;
+	Vector vecSrc = GetAbsOrigin();
 	vecDest.z = 0;
 	vecEst.z = 0;
 	vecSrc.z = 0;
@@ -270,7 +270,7 @@ bool CNihilanthHVR::CircleTarget( Vector vecTarget )
 	// m_vecIdeal = m_vecIdeal + Vector( -m_vecIdeal.y, m_vecIdeal.x, 0 ).Normalize( ) * 2;
 
 	// move up/down
-	d1 = vecTarget.z - pev->origin.z;
+	d1 = vecTarget.z - GetAbsOrigin().z;
 	if( d1 > 0 && m_vecIdeal.z < 200 )
 		m_vecIdeal.z += 20;
 	else if( d1 < 0 && m_vecIdeal.z > -200 )
@@ -294,7 +294,7 @@ void CNihilanthHVR::DissipateThink( void )
 
 	if( m_hTargetEnt != NULL )
 	{
-		CircleTarget( m_hTargetEnt->pev->origin + Vector( 0, 0, 4096 ) );
+		CircleTarget( m_hTargetEnt->GetAbsOrigin() + Vector( 0, 0, 4096 ) );
 	}
 	else
 	{
@@ -304,9 +304,9 @@ void CNihilanthHVR::DissipateThink( void )
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_ELIGHT );
 	WRITE_SHORT( entindex() );		// entity, attachment
-	WRITE_COORD( pev->origin.x );		// origin
-	WRITE_COORD( pev->origin.y );
-	WRITE_COORD( pev->origin.z );
+	WRITE_COORD( GetAbsOrigin().x );		// origin
+	WRITE_COORD( GetAbsOrigin().y );
+	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_COORD( pev->renderamt );	// radius
 	WRITE_BYTE( 255 );	// R
 	WRITE_BYTE( 192 );	// G
@@ -321,7 +321,7 @@ void CNihilanthHVR::ZapThink( void )
 	pev->nextthink = gpGlobals->time + 0.05;
 
 	// check world boundaries
-	if( m_hEnemy == NULL || pev->origin.x < -4096 || pev->origin.x > 4096 || pev->origin.y < -4096 || pev->origin.y > 4096 || pev->origin.z < -4096 || pev->origin.z > 4096 )
+	if( m_hEnemy == NULL || GetAbsOrigin().x < -4096 || GetAbsOrigin().x > 4096 || GetAbsOrigin().y < -4096 || GetAbsOrigin().y > 4096 || GetAbsOrigin().z < -4096 || GetAbsOrigin().z > 4096 )
 	{
 		SetTouch( NULL );
 		UTIL_Remove( this );
@@ -336,11 +336,11 @@ void CNihilanthHVR::ZapThink( void )
 
 	// MovetoTarget( m_hEnemy->Center( ) );
 
-	if( ( m_hEnemy->Center() - pev->origin ).Length() < 256 )
+	if( ( m_hEnemy->Center() - GetAbsOrigin() ).Length() < 256 )
 	{
 		TraceResult tr;
 
-		UTIL_TraceLine( pev->origin, m_hEnemy->Center(), dont_ignore_monsters, edict(), &tr );
+		UTIL_TraceLine( GetAbsOrigin(), m_hEnemy->Center(), dont_ignore_monsters, edict(), &tr );
 
 		CBaseEntity *pEntity = CBaseEntity::Instance( tr.pHit );
 		if( pEntity != NULL && pEntity->pev->takedamage )
@@ -382,9 +382,9 @@ void CNihilanthHVR::ZapThink( void )
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_ELIGHT );
 	WRITE_SHORT( entindex() );		// entity, attachment
-	WRITE_COORD( pev->origin.x );		// origin
-	WRITE_COORD( pev->origin.y );
-	WRITE_COORD( pev->origin.z );
+	WRITE_COORD( GetAbsOrigin().x );		// origin
+	WRITE_COORD( GetAbsOrigin().y );
+	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_COORD( 128 );	// radius
 	WRITE_BYTE( 128 );	// R
 	WRITE_BYTE( 128 );	// G
@@ -408,7 +408,7 @@ void CNihilanthHVR::TeleportThink( void )
 		return;
 	}
 
-	if( ( m_hEnemy->Center() - pev->origin ).Length() < 128 )
+	if( ( m_hEnemy->Center() - GetAbsOrigin() ).Length() < 128 )
 	{
 		STOP_SOUND( edict(), CHAN_WEAPON, "x/x_teleattack1.wav" );
 		UTIL_Remove( this );
@@ -427,9 +427,9 @@ void CNihilanthHVR::TeleportThink( void )
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_ELIGHT );
 	WRITE_SHORT( entindex() );		// entity, attachment
-	WRITE_COORD( pev->origin.x );		// origin
-	WRITE_COORD( pev->origin.y );
-	WRITE_COORD( pev->origin.z );
+	WRITE_COORD( GetAbsOrigin().x );		// origin
+	WRITE_COORD( GetAbsOrigin().y );
+	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_COORD( 256 );	// radius
 	WRITE_BYTE( 0 );	// R
 	WRITE_BYTE( 255 );	// G
@@ -455,7 +455,7 @@ void CNihilanthHVR::TeleportTouch( CBaseEntity *pOther )
 	}
 	else
 	{
-		m_pNihilanth->MakeFriend( pev->origin );
+		m_pNihilanth->MakeFriend( GetAbsOrigin() );
 	}
 
 	SetTouch( NULL );
@@ -484,7 +484,7 @@ void CNihilanthHVR::BounceTouch( CBaseEntity *pOther )
 
 void CNihilanthHVR::ZapTouch( CBaseEntity *pOther )
 {
-	UTIL_EmitAmbientSound( edict(), pev->origin, "weapons/electro4.wav", 1.0, ATTN_NORM, 0, RANDOM_LONG( 90, 95 ) );
+	UTIL_EmitAmbientSound( edict(), GetAbsOrigin(), "weapons/electro4.wav", 1.0, ATTN_NORM, 0, RANDOM_LONG( 90, 95 ) );
 
 	RadiusDamage( this, this, 50, CLASS_NONE, DMG_SHOCK );
 	pev->velocity = pev->velocity * 0;
@@ -514,7 +514,7 @@ void CNihilanthHVR::MovetoTarget( Vector vecTarget )
 	{
 		m_vecIdeal = m_vecIdeal.Normalize() * 300;
 	}
-	m_vecIdeal = m_vecIdeal + ( vecTarget - pev->origin ).Normalize() * 300;
+	m_vecIdeal = m_vecIdeal + ( vecTarget - GetAbsOrigin() ).Normalize() * 300;
 	pev->velocity = m_vecIdeal;
 }
 
@@ -522,7 +522,7 @@ void CNihilanthHVR::Crawl( void )
 {
 
 	Vector vecAim = Vector( RANDOM_FLOAT( -1, 1 ), RANDOM_FLOAT( -1, 1 ), RANDOM_FLOAT( -1, 1 ) ).Normalize();
-	Vector vecPnt = pev->origin + pev->velocity * 0.2 + vecAim * 128;
+	Vector vecPnt = GetAbsOrigin() + pev->velocity * 0.2 + vecAim * 128;
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_BEAMENTPOINT );

@@ -56,7 +56,7 @@ void CNodeViewer::Spawn()
 	}
 
 
-	m_iBaseNode = WorldGraph.FindNearestNode( pev->origin, m_afNodeType );
+	m_iBaseNode = WorldGraph.FindNearestNode( GetAbsOrigin(), m_afNodeType );
 
 	if( m_iBaseNode < 0 )
 	{

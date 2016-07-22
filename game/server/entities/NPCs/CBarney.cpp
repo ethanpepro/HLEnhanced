@@ -257,9 +257,9 @@ bool CBarney::CheckRangeAttack1( float flDot, float flDist )
 		{
 			TraceResult tr;
 			
-			Vector shootOrigin = pev->origin + Vector( 0, 0, 55 );
+			Vector shootOrigin = GetAbsOrigin() + Vector( 0, 0, 55 );
 			CBaseEntity *pEnemy = m_hEnemy;
-			Vector shootTarget = ( (pEnemy->BodyTarget( shootOrigin ) - pEnemy->pev->origin) + m_vecEnemyLKP );
+			Vector shootTarget = ( (pEnemy->BodyTarget( shootOrigin ) - pEnemy->GetAbsOrigin()) + m_vecEnemyLKP );
 			UTIL_TraceLine( shootOrigin, shootTarget, dont_ignore_monsters, ENT(pev), &tr );
 			m_checkAttackTime = gpGlobals->time + 1;
 			if ( tr.flFraction == 1.0 || (tr.pHit != NULL && CBaseEntity::Instance(tr.pHit) == pEnemy) )
@@ -283,7 +283,7 @@ void CBarney :: BarneyFirePistol ( void )
 	Vector vecShootOrigin;
 
 	UTIL_MakeVectors(pev->angles);
-	vecShootOrigin = pev->origin + Vector( 0, 0, 55 );
+	vecShootOrigin = GetAbsOrigin() + Vector( 0, 0, 55 );
 	Vector vecShootDir = ShootAtEnemy( vecShootOrigin );
 
 	Vector angDir = UTIL_VecToAngles( vecShootDir );
@@ -301,7 +301,7 @@ void CBarney :: BarneyFirePistol ( void )
 		pitchShift -= 5;
 	EMIT_SOUND_DYN( ENT(pev), CHAN_WEAPON, "barney/ba_attack2.wav", 1, ATTN_NORM, 0, 100 + pitchShift );
 
-	CSoundEnt::InsertSound ( bits_SOUND_COMBAT, pev->origin, 384, 0.3 );
+	CSoundEnt::InsertSound ( bits_SOUND_COMBAT, GetAbsOrigin(), 384, 0.3 );
 
 	// UNDONE: Reload?
 	m_cAmmoLoaded--;// take away a bullet!
@@ -428,7 +428,7 @@ void CBarney :: TalkInit()
 
 static bool IsFacing( CBaseEntity* pEntity, const Vector &reference )
 {
-	Vector vecDir = (reference - pEntity->pev->origin);
+	Vector vecDir = (reference - pEntity->GetAbsOrigin());
 	vecDir.z = 0;
 	vecDir = vecDir.Normalize();
 	Vector forward, angle;
@@ -460,7 +460,7 @@ void CBarney::OnTakeDamage( const CTakeDamageInfo& info )
 		if ( m_hEnemy == NULL )
 		{
 			// If the player was facing directly at me, or I'm already suspicious, get mad
-			if ( (m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing( info.GetAttacker(), pev->origin ) )
+			if ( (m_afMemory & bits_MEMORY_SUSPICIOUS) || IsFacing( info.GetAttacker(), GetAbsOrigin() ) )
 			{
 				// Alright, now I'm pissed!
 				PlaySentence( "BA_MAD", 4, VOL_NORM, ATTN_NORM );

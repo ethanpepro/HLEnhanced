@@ -67,7 +67,7 @@ void COsprey :: Spawn( void )
 
 	SetModel( "models/osprey.mdl");
 	SetSize( Vector( -400, -400, -100), Vector(400, 400, 32));
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	pev->flags |= FL_MONSTER;
 	pev->takedamage		= DAMAGE_YES;
@@ -91,7 +91,7 @@ void COsprey :: Spawn( void )
 		pev->nextthink = gpGlobals->time + 1.0;
 	}
 
-	m_pos2 = pev->origin;
+	m_pos2 = GetAbsOrigin();
 	m_ang2 = pev->angles;
 	m_vel2 = pev->velocity;
 }
@@ -130,7 +130,7 @@ void COsprey :: FindAllThink( void )
 		if (pEntity->IsAlive())
 		{
 			m_hGrunt[m_iUnits]		= pEntity;
-			m_vecOrigin[m_iUnits]	= pEntity->pev->origin;
+			m_vecOrigin[m_iUnits]	= pEntity->GetAbsOrigin();
 			m_iUnits++;
 		}
 	}
@@ -158,19 +158,19 @@ void COsprey :: DeployThink( void )
 	Vector vecSrc;
 
 	TraceResult tr;
-	UTIL_TraceLine( pev->origin, pev->origin + Vector( 0, 0, -4096.0), ignore_monsters, ENT(pev), &tr);
+	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, -4096.0), ignore_monsters, ENT(pev), &tr);
 	CSoundEnt::InsertSound ( bits_SOUND_DANGER, tr.vecEndPos, 400, 0.3 );
 
-	vecSrc = pev->origin + vecForward *  32 + vecRight *  100 + vecUp * -96;
+	vecSrc = GetAbsOrigin() + vecForward *  32 + vecRight *  100 + vecUp * -96;
 	m_hRepel[0] = MakeGrunt( vecSrc );
 
-	vecSrc = pev->origin + vecForward * -64 + vecRight *  100 + vecUp * -96;
+	vecSrc = GetAbsOrigin() + vecForward * -64 + vecRight *  100 + vecUp * -96;
 	m_hRepel[1] = MakeGrunt( vecSrc );
 
-	vecSrc = pev->origin + vecForward *  32 + vecRight * -100 + vecUp * -96;
+	vecSrc = GetAbsOrigin() + vecForward *  32 + vecRight * -100 + vecUp * -96;
 	m_hRepel[2] = MakeGrunt( vecSrc );
 
-	vecSrc = pev->origin + vecForward * -64 + vecRight * -100 + vecUp * -96;
+	vecSrc = GetAbsOrigin() + vecForward * -64 + vecRight * -100 + vecUp * -96;
 	m_hRepel[3] = MakeGrunt( vecSrc );
 
 	SetThink( &COsprey::HoverThink );
@@ -189,7 +189,7 @@ bool COsprey::HasDead()
 		}
 		else
 		{
-			m_vecOrigin[i] = m_hGrunt[i]->pev->origin;  // send them to where they died
+			m_vecOrigin[i] = m_hGrunt[i]->GetAbsOrigin();  // send them to where they died
 		}
 	}
 	return false;
@@ -268,7 +268,7 @@ void COsprey::UpdateGoal( )
 		m_pos1 = m_pos2;
 		m_ang1 = m_ang2;
 		m_vel1 = m_vel2;
-		m_pos2 = m_pGoalEnt->pev->origin;
+		m_pos2 = m_pGoalEnt->GetAbsOrigin();
 		m_ang2 = m_pGoalEnt->pev->angles;
 		UTIL_MakeAimVectors( Vector( 0, m_ang2.y, 0 ) );
 		m_vel2 = gpGlobals->v_forward * m_pGoalEnt->pev->speed;
@@ -376,7 +376,7 @@ void COsprey::Flight( )
 		// UNDONE: this needs to send different sounds to every player for multiplayer.	
 		if (pPlayer)
 		{
-			float pitch = DotProduct( m_velocity - pPlayer->pev->velocity, (pPlayer->pev->origin - pev->origin).Normalize() );
+			float pitch = DotProduct( m_velocity - pPlayer->pev->velocity, (pPlayer->GetAbsOrigin() - GetAbsOrigin()).Normalize() );
 
 			pitch = (int)(100 + pitch / 75.0);
 
@@ -468,7 +468,7 @@ void COsprey :: DyingThink( void )
 		UTIL_MakeAimVectors( pev->angles );
 		ShowDamage( );
 
-		Vector vecSpot = pev->origin + pev->velocity * 0.2;
+		Vector vecSpot = GetAbsOrigin() + pev->velocity * 0.2;
 
 		// random explosions
 		MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSpot );
@@ -494,7 +494,7 @@ void COsprey :: DyingThink( void )
 		MESSAGE_END();
 
 
-		vecSpot = pev->origin + (pev->mins + pev->maxs) * 0.5;
+		vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
 		MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSpot );
 			WRITE_BYTE( TE_BREAKMODEL);
 
@@ -539,7 +539,7 @@ void COsprey :: DyingThink( void )
 	}
 	else
 	{
-		Vector vecSpot = pev->origin + (pev->mins + pev->maxs) * 0.5;
+		Vector vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
 
 		/*
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
@@ -577,14 +577,14 @@ void COsprey :: DyingThink( void )
 		*/
 
 		// blast circle
-		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, pev->origin );
+		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 			WRITE_BYTE( TE_BEAMCYLINDER );
-			WRITE_COORD( pev->origin.x);
-			WRITE_COORD( pev->origin.y);
-			WRITE_COORD( pev->origin.z);
-			WRITE_COORD( pev->origin.x);
-			WRITE_COORD( pev->origin.y);
-			WRITE_COORD( pev->origin.z + 2000 ); // reach damage radius over .2 seconds
+			WRITE_COORD( GetAbsOrigin().x);
+			WRITE_COORD( GetAbsOrigin().y);
+			WRITE_COORD( GetAbsOrigin().z);
+			WRITE_COORD( GetAbsOrigin().x);
+			WRITE_COORD( GetAbsOrigin().y);
+			WRITE_COORD( GetAbsOrigin().z + 2000 ); // reach damage radius over .2 seconds
 			WRITE_SHORT( m_iSpriteTexture );
 			WRITE_BYTE( 0 ); // startframe
 			WRITE_BYTE( 0 ); // framerate
@@ -600,10 +600,10 @@ void COsprey :: DyingThink( void )
 
 		EMIT_SOUND(ENT(pev), CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
 
-		RadiusDamage( pev->origin, this, this, 300, CLASS_NONE, DMG_BLAST );
+		RadiusDamage( GetAbsOrigin(), this, this, 300, CLASS_NONE, DMG_BLAST );
 
 		// gibs
-		vecSpot = pev->origin + (pev->mins + pev->maxs) * 0.5;
+		vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
 		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, vecSpot );
 			WRITE_BYTE( TE_BREAKMODEL);
 
@@ -648,7 +648,7 @@ void COsprey :: ShowDamage( void )
 {
 	if (m_iDoLeftSmokePuff > 0 || RANDOM_LONG(0,99) > m_flLeftHealth)
 	{
-		Vector vecSrc = pev->origin + gpGlobals->v_right * -340;
+		Vector vecSrc = GetAbsOrigin() + gpGlobals->v_right * -340;
 		MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSrc );
 			WRITE_BYTE( TE_SMOKE );
 			WRITE_COORD( vecSrc.x );
@@ -663,7 +663,7 @@ void COsprey :: ShowDamage( void )
 	}
 	if (m_iDoRightSmokePuff > 0 || RANDOM_LONG(0,99) > m_flRightHealth)
 	{
-		Vector vecSrc = pev->origin + gpGlobals->v_right * 340;
+		Vector vecSrc = GetAbsOrigin() + gpGlobals->v_right * 340;
 		MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSrc );
 			WRITE_BYTE( TE_SMOKE );
 			WRITE_COORD( vecSrc.x );

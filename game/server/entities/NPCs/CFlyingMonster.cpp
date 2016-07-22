@@ -149,7 +149,7 @@ bool CFlyingMonster::ShouldAdvanceRoute( float flWaypointDist )
 {
 	// Get true 3D distance to the goal so we actually reach the correct height
 	if ( m_Route[ m_iRouteIndex ].iType & bits_MF_IS_GOAL )
-		flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - pev->origin ).Length();
+		flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() ).Length();
 
 	if ( flWaypointDist <= 64 + (m_flGroundSpeed * gpGlobals->frametime) )
 		return true;
@@ -170,7 +170,7 @@ void CFlyingMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir,
 				m_flGroundSpeed = m_flightSpeed = 200;
 			}
 		}
-		Vector vecMove = pev->origin + (( vecDir + (m_vecTravel * m_momentum) ).Normalize() * (m_flGroundSpeed * flInterval));
+		Vector vecMove = GetAbsOrigin() + (( vecDir + (m_vecTravel * m_momentum) ).Normalize() * (m_flGroundSpeed * flInterval));
 
 		if ( m_IdealActivity != m_movementActivity )
 		{
@@ -181,9 +181,9 @@ void CFlyingMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir,
 		else
 			m_flightSpeed = UTIL_Approach( 20, m_flightSpeed, 300 * gpGlobals->frametime );
 		
-		if ( CheckLocalMove ( pev->origin, vecMove, pTargetEnt, NULL ) )
+		if ( CheckLocalMove ( GetAbsOrigin(), vecMove, pTargetEnt, NULL ) )
 		{
-			m_vecTravel = (vecMove - pev->origin);
+			m_vecTravel = (vecMove - GetAbsOrigin());
 			m_vecTravel = m_vecTravel.Normalize();
 			UTIL_MoveToOrigin( this, vecMove, ( m_flGroundSpeed * flInterval ), MOVE_STRAFE );
 		}

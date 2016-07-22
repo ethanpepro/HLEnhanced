@@ -69,7 +69,7 @@ void CFuncTank::Spawn( void )
 	if( static_cast<size_t>( m_spread ) > MAX_FIRING_SPREADS )
 		m_spread = 0;
 
-	SetOldOrigin( pev->origin );
+	SetOldOrigin( GetAbsOrigin() );
 }
 
 void CFuncTank::Precache( void )
@@ -279,7 +279,7 @@ void CFuncTank::TrackTarget( void )
 
 		// Calculate angle needed to aim at target
 		barrelEnd = BarrelPosition();
-		targetPosition = pTarget->pev->origin + pTarget->pev->view_ofs;
+		targetPosition = pTarget->GetAbsOrigin() + pTarget->pev->view_ofs;
 		float range = ( targetPosition - barrelEnd ).Length();
 
 		if( !InRange( range ) )
@@ -303,7 +303,7 @@ void CFuncTank::TrackTarget( void )
 		// Track sight origin
 
 		// !!! I'm not sure what i changed
-		direction = m_sightOrigin - pev->origin;
+		direction = m_sightOrigin - GetAbsOrigin();
 		//		direction = m_sightOrigin - barrelEnd;
 		angles = UTIL_VecToAngles( direction );
 
@@ -490,7 +490,7 @@ bool CFuncTank::OnControls( const CBaseEntity* const pTest ) const
 	if( !( pev->spawnflags & SF_TANK_CANCONTROL ) )
 		return false;
 
-	if( ( m_vecControllerUsePos - pTest->pev->origin ).Length() < 30 )
+	if( ( m_vecControllerUsePos - pTest->GetAbsOrigin() ).Length() < 30 )
 		return true;
 
 	return false;
@@ -520,7 +520,7 @@ bool CFuncTank::StartControl( CBasePlayer *pController )
 	}
 
 	m_pController->m_iHideHUD |= HIDEHUD_WEAPONS;
-	m_vecControllerUsePos = m_pController->pev->origin;
+	m_vecControllerUsePos = m_pController->GetAbsOrigin();
 
 	pev->nextthink = pev->ltime + 0.1;
 

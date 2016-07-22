@@ -487,14 +487,14 @@ void CHoundeye :: SonicAttack ( void )
 	}
 
 	// blast circles
-	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, pev->origin );
+	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 		WRITE_BYTE( TE_BEAMCYLINDER );
-		WRITE_COORD( pev->origin.x);
-		WRITE_COORD( pev->origin.y);
-		WRITE_COORD( pev->origin.z + 16);
-		WRITE_COORD( pev->origin.x);
-		WRITE_COORD( pev->origin.y);
-		WRITE_COORD( pev->origin.z + 16 + HOUNDEYE_MAX_ATTACK_RADIUS / .2); // reach damage radius over .3 seconds
+		WRITE_COORD( GetAbsOrigin().x);
+		WRITE_COORD( GetAbsOrigin().y);
+		WRITE_COORD( GetAbsOrigin().z + 16);
+		WRITE_COORD( GetAbsOrigin().x);
+		WRITE_COORD( GetAbsOrigin().y);
+		WRITE_COORD( GetAbsOrigin().z + 16 + HOUNDEYE_MAX_ATTACK_RADIUS / .2); // reach damage radius over .3 seconds
 		WRITE_SHORT( m_iSpriteTexture );
 		WRITE_BYTE( 0 ); // startframe
 		WRITE_BYTE( 0 ); // framerate
@@ -508,14 +508,14 @@ void CHoundeye :: SonicAttack ( void )
 		WRITE_BYTE( 0 );		// speed
 	MESSAGE_END();
 
-	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, pev->origin );
+	MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 		WRITE_BYTE( TE_BEAMCYLINDER );
-		WRITE_COORD( pev->origin.x);
-		WRITE_COORD( pev->origin.y);
-		WRITE_COORD( pev->origin.z + 16);
-		WRITE_COORD( pev->origin.x);
-		WRITE_COORD( pev->origin.y);
-		WRITE_COORD( pev->origin.z + 16 + ( HOUNDEYE_MAX_ATTACK_RADIUS / 2 ) / .2); // reach damage radius over .3 seconds
+		WRITE_COORD( GetAbsOrigin().x);
+		WRITE_COORD( GetAbsOrigin().y);
+		WRITE_COORD( GetAbsOrigin().z + 16);
+		WRITE_COORD( GetAbsOrigin().x);
+		WRITE_COORD( GetAbsOrigin().y);
+		WRITE_COORD( GetAbsOrigin().z + 16 + ( HOUNDEYE_MAX_ATTACK_RADIUS / 2 ) / .2); // reach damage radius over .3 seconds
 		WRITE_SHORT( m_iSpriteTexture );
 		WRITE_BYTE( 0 ); // startframe
 		WRITE_BYTE( 0 ); // framerate
@@ -532,7 +532,7 @@ void CHoundeye :: SonicAttack ( void )
 
 	CBaseEntity *pEntity = NULL;
 	// iterate on all entities in the vicinity.
-	while ((pEntity = UTIL_FindEntityInSphere( pEntity, pev->origin, HOUNDEYE_MAX_ATTACK_RADIUS )) != NULL)
+	while ((pEntity = UTIL_FindEntityInSphere( pEntity, GetAbsOrigin(), HOUNDEYE_MAX_ATTACK_RADIUS )) != NULL)
 	{
 		if ( pEntity->pev->takedamage != DAMAGE_NO )
 		{
@@ -554,7 +554,7 @@ void CHoundeye :: SonicAttack ( void )
 					flAdjustedDamage = gSkillData.houndeyeDmgBlast;
 				}
 
-				flDist = (pEntity->Center() - pev->origin).Length();
+				flDist = (pEntity->Center() - GetAbsOrigin()).Length();
 
 				flAdjustedDamage -= ( flDist / HOUNDEYE_MAX_ATTACK_RADIUS ) * flAdjustedDamage;
 
@@ -733,11 +733,11 @@ void CHoundeye :: RunTask ( Task_t *pTask )
 			life = ((255 - pev->frame) / (pev->framerate * m_flFrameRate));
 			if (life < 0.1) life = 0.1;
 
-			MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, pev->origin );
+			MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 				WRITE_BYTE(  TE_IMPLOSION);
-				WRITE_COORD( pev->origin.x);
-				WRITE_COORD( pev->origin.y);
-				WRITE_COORD( pev->origin.z + 16);
+				WRITE_COORD( GetAbsOrigin().x);
+				WRITE_COORD( GetAbsOrigin().y);
+				WRITE_COORD( GetAbsOrigin().z + 16);
 				WRITE_BYTE( 50 * life + 100);  // radius
 				WRITE_BYTE( pev->frame / 25.0 ); // count
 				WRITE_BYTE( life * 10 ); // life
@@ -796,7 +796,7 @@ void CHoundeye::PrescheduleThink ( void )
 			if (pSquadMember)
 			{
 				iSquadCount++;
-				m_vecPackCenter = m_vecPackCenter + pSquadMember->pev->origin;
+				m_vecPackCenter = m_vecPackCenter + pSquadMember->GetAbsOrigin();
 			}
 		}
 
@@ -1193,7 +1193,7 @@ Schedule_t *CHoundeye :: GetSchedule( void )
 				{
 					TraceResult tr;
 					UTIL_MakeVectors( pev->angles );
-					UTIL_TraceHull( pev->origin, pev->origin + gpGlobals->v_forward * -128, dont_ignore_monsters, Hull::HEAD, ENT( pev ), &tr );
+					UTIL_TraceHull( GetAbsOrigin(), GetAbsOrigin() + gpGlobals->v_forward * -128, dont_ignore_monsters, Hull::HEAD, ENT( pev ), &tr );
 
 					if ( tr.flFraction == 1.0 )
 					{

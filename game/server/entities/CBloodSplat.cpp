@@ -6,7 +6,7 @@
 
 void CBloodSplat::Spawn( CBaseEntity* pOwner )
 {
-	pev->origin = pOwner->pev->origin + Vector( 0, 0, 32 );
+	pev->origin = pOwner->GetAbsOrigin() + Vector( 0, 0, 32 );
 	pev->angles = pOwner->pev->v_angle;
 	pev->owner = pOwner->edict();
 
@@ -21,7 +21,7 @@ void CBloodSplat::Spray()
 	if( g_Language != LANGUAGE_GERMAN )
 	{
 		UTIL_MakeVectors( pev->angles );
-		UTIL_TraceLine( pev->origin, pev->origin + gpGlobals->v_forward * 128, ignore_monsters, pev->owner, &tr );
+		UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + gpGlobals->v_forward * 128, ignore_monsters, pev->owner, &tr );
 
 		UTIL_BloodDecalTrace( &tr, BLOOD_COLOR_RED );
 	}

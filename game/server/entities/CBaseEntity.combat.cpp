@@ -390,7 +390,7 @@ bool CBaseEntity::FVisible( const CBaseEntity *pEntity ) const
 		|| ( pev->waterlevel == WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_DRY ) )
 		return false;
 
-	vecLookerOrigin = pev->origin + pev->view_ofs;//look through the caller's 'eyes'
+	vecLookerOrigin = GetAbsOrigin() + pev->view_ofs;//look through the caller's 'eyes'
 	vecTargetOrigin = pEntity->EyePosition();
 
 	UTIL_TraceLine( vecLookerOrigin, vecTargetOrigin, ignore_monsters, ignore_glass, ENT( pev )/*pentIgnore*/, &tr );

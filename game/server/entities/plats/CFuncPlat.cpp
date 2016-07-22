@@ -53,17 +53,17 @@ void CFuncPlat::Setup( void )
 	pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
 
-	SetAbsOrigin( pev->origin );		// set size and link into world
+	SetAbsOrigin( GetAbsOrigin() );		// set size and link into world
 	SetSize( pev->mins, pev->maxs );
 	SetModel( STRING( pev->model ) );
 
 	// vecPosition1 is the top position, vecPosition2 is the bottom
-	m_vecPosition1 = pev->origin;
-	m_vecPosition2 = pev->origin;
+	m_vecPosition1 = GetAbsOrigin();
+	m_vecPosition2 = GetAbsOrigin();
 	if( m_flHeight != 0 )
-		m_vecPosition2.z = pev->origin.z - m_flHeight;
+		m_vecPosition2.z = GetAbsOrigin().z - m_flHeight;
 	else
-		m_vecPosition2.z = pev->origin.z - pev->size.z + 8;
+		m_vecPosition2.z = GetAbsOrigin().z - pev->size.z + 8;
 	if( pev->speed == 0 )
 		pev->speed = 150;
 

@@ -430,7 +430,7 @@ void CController :: StartTask ( Task_t *pTask )
 		break;
 	case TASK_GET_PATH_TO_ENEMY_LKP:
 		{
-			if (BuildNearestRoute( m_vecEnemyLKP, pev->view_ofs, pTask->flData, (m_vecEnemyLKP - pev->origin).Length() + 1024 ))
+			if (BuildNearestRoute( m_vecEnemyLKP, pev->view_ofs, pTask->flData, (m_vecEnemyLKP - GetAbsOrigin()).Length() + 1024 ))
 			{
 				TaskComplete();
 			}
@@ -452,7 +452,7 @@ void CController :: StartTask ( Task_t *pTask )
 				return;
 			}
 
-			if (BuildNearestRoute( pEnemy->pev->origin, pEnemy->pev->view_ofs, pTask->flData, (pEnemy->pev->origin - pev->origin).Length() + 1024 ))
+			if (BuildNearestRoute( pEnemy->GetAbsOrigin(), pEnemy->pev->view_ofs, pTask->flData, (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() + 1024 ))
 			{
 				TaskComplete();
 			}
@@ -572,7 +572,7 @@ void CController :: RunTask ( Task_t *pTask )
 				{
 					m_vecEstVelocity = m_vecEstVelocity * 0.8;
 				}
-				vecDir = Intersect( vecSrc, m_hEnemy->BodyTarget( pev->origin ), m_vecEstVelocity, gSkillData.controllerSpeedBall );
+				vecDir = Intersect( vecSrc, m_hEnemy->BodyTarget( GetAbsOrigin() ), m_vecEstVelocity, gSkillData.controllerSpeedBall );
 				float delta = 0.03490; // +-2 degree
 				vecDir = vecDir + Vector( RANDOM_FLOAT( -delta, delta ), RANDOM_FLOAT( -delta, delta ), RANDOM_FLOAT( -delta, delta ) ) * gSkillData.controllerSpeedBall;
 
@@ -771,7 +771,7 @@ void CController :: RunAI( void )
 	{
 		if (m_pBall[i] == NULL)
 		{
-			m_pBall[i] = CSprite::SpriteCreate( "sprites/xspark4.spr", pev->origin, true );
+			m_pBall[i] = CSprite::SpriteCreate( "sprites/xspark4.spr", GetAbsOrigin(), true );
 			m_pBall[i]->SetTransparency( kRenderGlow, 255, 255, 255, 255, kRenderFxNoDissipation );
 			m_pBall[i]->SetAttachment( edict(), (i + 3) );
 			m_pBall[i]->SetScale( 1.0 );
@@ -869,8 +869,8 @@ void CController :: Move ( float flInterval )
 	do 
 	{
 		// local move to waypoint.
-		vecDir = ( m_Route[ m_iRouteIndex ].vecLocation - pev->origin ).Normalize();
-		flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - pev->origin ).Length();
+		vecDir = ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() ).Normalize();
+		flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() ).Length();
 		
 		// MakeIdealYaw ( m_Route[ m_iRouteIndex ].vecLocation );
 		// ChangeYaw ( pev->yaw_speed );
@@ -899,7 +899,7 @@ void CController :: Move ( float flInterval )
 		// If this fails, it should be because of some dynamic entity blocking this guy.
 		// We've already checked this path, so we should wait and time out if the entity doesn't move
 		flDist = 0;
-		if ( CheckLocalMove ( pev->origin, pev->origin + vecDir * flCheckDist, pTargetEnt, &flDist ) != LOCALMOVE_VALID )
+		if ( CheckLocalMove ( GetAbsOrigin(), GetAbsOrigin() + vecDir * flCheckDist, pTargetEnt, &flDist ) != LOCALMOVE_VALID )
 		{
 			CBaseEntity *pBlocker;
 
@@ -925,7 +925,7 @@ void CController :: Move ( float flInterval )
 			else 
 			{
 				// try to triangulate around whatever is in the way.
-				if ( FTriangulate( pev->origin, m_Route[ m_iRouteIndex ].vecLocation, flDist, pTargetEnt, &vecApex ) )
+				if ( FTriangulate( GetAbsOrigin(), m_Route[ m_iRouteIndex ].vecLocation, flDist, pTargetEnt, &vecApex ) )
 				{
 					InsertWaypoint( vecApex, bits_MF_TO_DETOUR );
 					RouteSimplify( pTargetEnt );
@@ -943,7 +943,7 @@ void CController :: Move ( float flInterval )
 					{
 						TaskFail();
 						ALERT( at_aiconsole, "Failed to move!\n" );
-						//ALERT( at_aiconsole, "%f, %f, %f\n", pev->origin.z, (pev->origin + (vecDir * flCheckDist)).z, m_Route[m_iRouteIndex].vecLocation.z );
+						//ALERT( at_aiconsole, "%f, %f, %f\n", GetAbsOrigin().z, (GetAbsOrigin() + (vecDir * flCheckDist)).z, m_Route[m_iRouteIndex].vecLocation.z );
 					}
 					return;
 				}
@@ -1047,5 +1047,5 @@ void CController::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, fl
 
 	m_velocity = m_velocity * 0.8 + m_flGroundSpeed * vecDir * 0.2;
 
-	UTIL_MoveToOrigin( this, pev->origin + m_velocity, m_velocity.Length() * flInterval, MOVE_STRAFE );
+	UTIL_MoveToOrigin( this, GetAbsOrigin() + m_velocity, m_velocity.Length() * flInterval, MOVE_STRAFE );
 }

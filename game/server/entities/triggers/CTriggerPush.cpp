@@ -20,7 +20,7 @@ void CTriggerPush::Spawn()
 
 	SetUse( &CTriggerPush::ToggleUse );
 
-	SetAbsOrigin( pev->origin );		// Link into the list
+	SetAbsOrigin( GetAbsOrigin() );		// Link into the list
 }
 
 void CTriggerPush::KeyValue( KeyValueData *pkvd )

@@ -180,7 +180,7 @@ if( !FBitSet( pOther->pev->flags, FL_MONSTER ) )
 	return;
 }
 
-pOther->pev->origin.z += 1;
+pOther->GetAbsOrigin().z += 1;
 
 if( FBitSet ( pOther->pev->flags, FL_ONGROUND ) )
 {
@@ -327,7 +327,7 @@ bool CCineMonster::FindEntity()
 	if( !pTarget )
 	{
 		CBaseEntity *pEntity = NULL;
-		while( ( pEntity = UTIL_FindEntityInSphere( pEntity, pev->origin, m_flRadius ) ) != NULL )
+		while( ( pEntity = UTIL_FindEntityInSphere( pEntity, GetAbsOrigin(), m_flRadius ) ) != NULL )
 		{
 			if( FClassnameIs( pEntity->pev, STRING( m_iszEntity ) ) )
 			{
@@ -394,7 +394,7 @@ void CCineMonster::PossessEntity( void )
 			break;
 
 		case 4:
-			pTarget->SetAbsOrigin( pev->origin );
+			pTarget->SetAbsOrigin( GetAbsOrigin() );
 			pTarget->pev->ideal_yaw = pev->angles.y;
 			pTarget->pev->avelocity = Vector( 0, 0, 0 );
 			pTarget->pev->velocity = Vector( 0, 0, 0 );

@@ -42,7 +42,7 @@ void CRpgRocket::Spawn( void )
 
 	SetModel( "models/rpgrocket.mdl" );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	pev->classname = MAKE_STRING( "rpg_rocket" );
 
@@ -135,11 +135,11 @@ void CRpgRocket::FollowThink( void )
 	//NOTENOTE: This deliberately searches for all laser spots so other players can throw off the rockets with their own lasers. - Solokiller
 	while( ( pOther = UTIL_FindEntityByClassname( pOther, "laser_spot" ) ) != NULL )
 	{
-		UTIL_TraceLine( pev->origin, pOther->pev->origin, dont_ignore_monsters, ENT( pev ), &tr );
+		UTIL_TraceLine( GetAbsOrigin(), pOther->GetAbsOrigin(), dont_ignore_monsters, ENT( pev ), &tr );
 		// ALERT( at_console, "%f\n", tr.flFraction );
 		if( tr.flFraction >= 0.90 )
 		{
-			vecDir = pOther->pev->origin - pev->origin;
+			vecDir = pOther->GetAbsOrigin() - GetAbsOrigin();
 			flDist = vecDir.Length();
 			vecDir = vecDir.Normalize();
 			flDot = DotProduct( gpGlobals->v_forward, vecDir );
@@ -165,7 +165,7 @@ void CRpgRocket::FollowThink( void )
 			{
 				pev->velocity = pev->velocity.Normalize() * 300;
 			}
-			UTIL_BubbleTrail( pev->origin - pev->velocity * 0.1, pev->origin, 4 );
+			UTIL_BubbleTrail( GetAbsOrigin() - pev->velocity * 0.1, GetAbsOrigin(), 4 );
 		}
 		else
 		{

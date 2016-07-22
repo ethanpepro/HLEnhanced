@@ -270,14 +270,14 @@ void CHornet :: TrackTarget ( void )
 	
 	if ( m_hEnemy != NULL && FVisible( m_hEnemy ))
 	{
-		m_vecEnemyLKP = m_hEnemy->BodyTarget( pev->origin );
+		m_vecEnemyLKP = m_hEnemy->BodyTarget( GetAbsOrigin() );
 	}
 	else
 	{
 		m_vecEnemyLKP = m_vecEnemyLKP + pev->velocity * m_flFlySpeed * 0.1;
 	}
 
-	vecDirToEnemy = ( m_vecEnemyLKP - pev->origin ).Normalize();
+	vecDirToEnemy = ( m_vecEnemyLKP - GetAbsOrigin() ).Normalize();
 
 	if (pev->velocity.Length() < 0.1)
 		vecFlightDir = vecDirToEnemy;
@@ -333,13 +333,13 @@ void CHornet :: TrackTarget ( void )
 	// (only in the single player game)
 	if ( m_hEnemy != NULL && !g_pGameRules->IsMultiplayer() )
 	{
-		if ( flDelta >= 0.4 && ( pev->origin - m_vecEnemyLKP ).Length() <= 300 )
+		if ( flDelta >= 0.4 && ( GetAbsOrigin() - m_vecEnemyLKP ).Length() <= 300 )
 		{
-			MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, pev->origin );
+			MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );
 				WRITE_BYTE( TE_SPRITE );
-				WRITE_COORD( pev->origin.x);	// pos
-				WRITE_COORD( pev->origin.y);
-				WRITE_COORD( pev->origin.z);
+				WRITE_COORD( GetAbsOrigin().x);	// pos
+				WRITE_COORD( GetAbsOrigin().y);
+				WRITE_COORD( GetAbsOrigin().z);
 				WRITE_SHORT( iHornetPuff );		// model
 				// WRITE_BYTE( 0 );				// life * 10
 				WRITE_BYTE( 2 );				// size * 10
@@ -380,7 +380,7 @@ void CHornet :: TrackTouch ( CBaseEntity *pOther )
 		pev->velocity.x *= -1;
 		pev->velocity.y *= -1;
 
-		pev->origin = pev->origin + pev->velocity * 4; // bounce the hornet off a bit.
+		pev->origin = GetAbsOrigin() + pev->velocity * 4; // bounce the hornet off a bit.
 		pev->velocity = pev->velocity * m_flFlySpeed;
 
 		return;

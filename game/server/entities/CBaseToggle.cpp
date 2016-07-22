@@ -48,7 +48,7 @@ void CBaseToggle::KeyValue( KeyValueData *pkvd )
 LinearMove
 
 calculate pev->velocity and pev->nextthink to reach vecDest from
-pev->origin traveling at flSpeed
+GetAbsOrigin() traveling at flSpeed
 ===============
 */
 void CBaseToggle::LinearMove( Vector	vecDest, float flSpeed )
@@ -59,14 +59,14 @@ void CBaseToggle::LinearMove( Vector	vecDest, float flSpeed )
 	m_vecFinalDest = vecDest;
 
 	// Already there?
-	if( vecDest == pev->origin )
+	if( vecDest == GetAbsOrigin() )
 	{
 		LinearMoveDone();
 		return;
 	}
 
 	// set destdelta to the vector needed to move
-	Vector vecDestDelta = vecDest - pev->origin;
+	Vector vecDestDelta = vecDest - GetAbsOrigin();
 
 	// divide vector length by speed to get time to reach dest
 	float flTravelTime = vecDestDelta.Length() / flSpeed;
@@ -86,7 +86,7 @@ After moving, set origin to exact final destination, call "move done" function
 */
 void CBaseToggle::LinearMoveDone( void )
 {
-	Vector delta = m_vecFinalDest - pev->origin;
+	Vector delta = m_vecFinalDest - GetAbsOrigin();
 	float error = delta.Length();
 	if( error > 0.03125 )
 	{
@@ -106,7 +106,7 @@ void CBaseToggle::LinearMoveDone( void )
 AngularMove
 
 calculate pev->velocity and pev->nextthink to reach vecDest from
-pev->origin traveling at flSpeed
+GetAbsOrigin() traveling at flSpeed
 Just like LinearMove, but rotational.
 ===============
 */

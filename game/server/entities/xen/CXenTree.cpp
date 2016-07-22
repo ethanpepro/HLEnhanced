@@ -58,7 +58,7 @@ void CXenTree::Spawn( void )
 
 	Vector triggerPosition;
 	UTIL_MakeVectorsPrivate( pev->angles, &triggerPosition, nullptr, nullptr );
-	triggerPosition = pev->origin + ( triggerPosition * 64 );
+	triggerPosition = GetAbsOrigin() + ( triggerPosition * 64 );
 	// Create the trigger
 	m_pTrigger = CXenTreeTrigger::TriggerCreate( this, triggerPosition );
 	m_pTrigger->SetSize( Vector( -24, -24, 0 ), Vector( 24, 24, 128 ) );

@@ -111,13 +111,13 @@ void CBaseDoor::Spawn()
 	}
 
 	pev->movetype = MOVETYPE_PUSH;
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( STRING( pev->model ) );
 
 	if( pev->speed == 0 )
 		pev->speed = 100;
 
-	m_vecPosition1 = pev->origin;
+	m_vecPosition1 = GetAbsOrigin();
 	// Subtract 2 from size because the engine expands bboxes by 1 in all directions making the size too big
 	m_vecPosition2 = m_vecPosition1 + ( pev->movedir * ( fabs( pev->movedir.x * ( pev->size.x - 2 ) ) + fabs( pev->movedir.y * ( pev->size.y - 2 ) ) + fabs( pev->movedir.z * ( pev->size.z - 2 ) ) - m_flLip ) );
 	ASSERTSZ( m_vecPosition1 != m_vecPosition2, "door start/end positions are equal" );
@@ -125,7 +125,7 @@ void CBaseDoor::Spawn()
 	{	// swap pos1 and pos2, put door at pos2
 		SetAbsOrigin( m_vecPosition2 );
 		m_vecPosition2 = m_vecPosition1;
-		m_vecPosition1 = pev->origin;
+		m_vecPosition1 = GetAbsOrigin();
 	}
 
 	m_toggle_state = TS_AT_BOTTOM;
@@ -305,14 +305,14 @@ void CBaseDoor::DoorGoUp( void )
 
 			if( !FBitSet( pev->spawnflags, SF_DOOR_ONEWAY ) && pev->movedir.y ) 		// Y axis rotation, move away from the player
 			{
-				Vector vec = pevActivator->origin - pev->origin;
+				Vector vec = pevActivator->origin - GetAbsOrigin();
 				Vector angles = pevActivator->angles;
 				angles.x = 0;
 				angles.z = 0;
 				UTIL_MakeVectors( angles );
-				//			Vector vnext = (pevToucher->origin + (pevToucher->velocity * 10)) - pev->origin;
+				//			Vector vnext = (pevToucher->origin + (pevToucher->velocity * 10)) - GetAbsOrigin();
 				UTIL_MakeVectors( pevActivator->angles );
-				Vector vnext = ( pevActivator->origin + ( gpGlobals->v_forward * 10 ) ) - pev->origin;
+				Vector vnext = ( pevActivator->origin + ( gpGlobals->v_forward * 10 ) ) - GetAbsOrigin();
 				if( ( vec.x*vnext.y - vec.y*vnext.x ) < 0 )
 					sign = -1.0;
 			}
@@ -466,7 +466,7 @@ void CBaseDoor::Blocked( CBaseEntity *pOther )
 							// this is the most hacked, evil, bastardized thing I've ever seen. kjb
 							if( FClassnameIs( pentTarget, "func_door" ) )
 							{// set origin to realign normal doors
-								pDoor->pev->origin = pev->origin;
+								pDoor->pev->origin = GetAbsOrigin();
 								pDoor->pev->velocity = g_vecZero;// stop!
 							}
 							else

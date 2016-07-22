@@ -11,8 +11,8 @@ extern bool gEvilImpulse101;
 
 void CBasePlayerItem::SetObjectCollisionBox( void )
 {
-	pev->absmin = pev->origin + Vector( -24, -24, 0 );
-	pev->absmax = pev->origin + Vector( 24, 24, 16 );
+	pev->absmin = GetAbsOrigin() + Vector( -24, -24, 0 );
+	pev->absmax = GetAbsOrigin() + Vector( 24, 24, 16 );
 }
 
 bool CBasePlayerItem::AddToPlayer( CBasePlayer *pPlayer )
@@ -104,7 +104,7 @@ void CBasePlayerItem::Materialize( void )
 
 	pev->solid = SOLID_TRIGGER;
 
-	SetAbsOrigin( pev->origin );// link into world.
+	SetAbsOrigin( GetAbsOrigin() );// link into world.
 	SetTouch( &CBasePlayerItem::DefaultTouch );
 	SetThink( NULL );
 
@@ -165,7 +165,7 @@ void CBasePlayerItem::FallInit( void )
 	pev->movetype = MOVETYPE_TOSS;
 	pev->solid = SOLID_BBOX;
 
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );//pointsize until it lands on the ground.
 
 	SetTouch( &CBasePlayerItem::DefaultTouch );

@@ -43,7 +43,7 @@ void CShower::Spawn( void )
 
 void CShower::Think( void )
 {
-	UTIL_Sparks( pev->origin );
+	UTIL_Sparks( GetAbsOrigin() );
 
 	pev->speed -= 0.1;
 	if( pev->speed > 0 )

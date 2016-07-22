@@ -38,7 +38,7 @@ void CSpiral::Think( void )
 
 	while( time > SPIRAL_INTERVAL )
 	{
-		Vector position = pev->origin;
+		Vector position = GetAbsOrigin();
 		Vector direction = Vector( 0, 0, 1 );
 
 		float fraction = 1.0 / pev->speed;

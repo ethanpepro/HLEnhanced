@@ -134,7 +134,7 @@ void CTentacle :: Spawn( )
 	m_MonsterState = MONSTERSTATE_IDLE;
 
 	// SetThink( Test );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 }
 
 void CTentacle :: Precache( )
@@ -295,7 +295,7 @@ void CTentacle :: Test( void )
 //
 void CTentacle :: Cycle( void )
 {
-	// ALERT( at_console, "%s %.2f %d %d\n", GetTargetname(), pev->origin.z, m_MonsterState, m_IdealMonsterState );
+	// ALERT( at_console, "%s %.2f %d %d\n", GetTargetname(), GetAbsOrigin().z, m_MonsterState, m_IdealMonsterState );
 	pev->nextthink = gpGlobals-> time + 0.1;
 
 	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), pev->sequence, m_iGoalAnim, m_iDir, pev->framerate, pev->health );
@@ -331,11 +331,11 @@ void CTentacle :: Cycle( void )
 		if (gpGlobals->time - m_flPrevSoundTime < 0.5)
 		{
 			float dt = gpGlobals->time - m_flPrevSoundTime;
-			vecDir = pSound->m_vecOrigin + (pSound->m_vecOrigin - m_vecPrevSound) / dt - pev->origin;
+			vecDir = pSound->m_vecOrigin + (pSound->m_vecOrigin - m_vecPrevSound) / dt - GetAbsOrigin();
 		}
 		else
 		{
-			vecDir = pSound->m_vecOrigin - pev->origin;
+			vecDir = pSound->m_vecOrigin - GetAbsOrigin();
 		}
 		m_flPrevSoundTime = gpGlobals->time;
 		m_vecPrevSound = pSound->m_vecOrigin;
@@ -360,7 +360,7 @@ void CTentacle :: Cycle( void )
 			case 1: sound = "tentacle/te_alert2.wav"; break;
 			}
 
-			// UTIL_EmitAmbientSound(ENT(pev), pev->origin + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
+			// UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		}
 		m_flSoundTime = gpGlobals->time + RANDOM_FLOAT( 5.0, 10.0 );
 	}
@@ -511,10 +511,10 @@ void CTentacle :: Cycle( void )
 
 				TraceResult tr1, tr2;
 
-				vecSrc = pev->origin + Vector( 0, 0, MyHeight() - 4);
+				vecSrc = GetAbsOrigin() + Vector( 0, 0, MyHeight() - 4);
 				UTIL_TraceLine( vecSrc, vecSrc + gpGlobals->v_forward * 512, ignore_monsters, ENT( pev ), &tr1 );
 
-				vecSrc = pev->origin + Vector( 0, 0, MyHeight() + 8);
+				vecSrc = GetAbsOrigin() + Vector( 0, 0, MyHeight() + 8);
 				UTIL_TraceLine( vecSrc, vecSrc + gpGlobals->v_forward * 512, ignore_monsters, ENT( pev ), &tr2 );
 
 				// ALERT( at_console, "%f %f\n", tr1.flFraction * 512, tr2.flFraction * 512 );
@@ -556,7 +556,7 @@ void CTentacle::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 		if (pActivator)
 		{
 			// ALERT( at_console, "insert sound\n");
-			CSoundEnt::InsertSound ( bits_SOUND_WORLD, pActivator->pev->origin, 1024, 1.0 );
+			CSoundEnt::InsertSound ( bits_SOUND_WORLD, pActivator->GetAbsOrigin(), 1024, 1.0 );
 		}
 		break;
 	case USE_SET:
@@ -654,7 +654,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			Vector vecSrc, vecAngles;
 			GetAttachment( 0, vecSrc, vecAngles );
 
-			// Vector vecSrc = pev->origin + m_flTapRadius * Vector( cos( pev->angles.y * (3.14192653 / 180.0) ), sin( pev->angles.y * (M_PI / 180.0) ), 0.0 );
+			// Vector vecSrc = GetAbsOrigin() + m_flTapRadius * Vector( cos( pev->angles.y * (3.14192653 / 180.0) ), sin( pev->angles.y * (M_PI / 180.0) ), 0.0 );
 
 			// vecSrc.z += MyHeight( );
 
@@ -678,7 +678,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 	case 3: // start killing swing
 		m_iHitDmg = 200;
-		// UTIL_EmitAmbientSound(ENT(pev), pev->origin + Vector( 0, 0, MyHeight()), "tentacle/te_swing1.wav", 1.0, ATTN_NORM, 0, 100);
+		// UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), "tentacle/te_swing1.wav", 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	case 4: // end killing swing
@@ -686,13 +686,13 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	case 5: // just "whoosh" sound
-		// UTIL_EmitAmbientSound(ENT(pev), pev->origin + Vector( 0, 0, MyHeight()), "tentacle/te_swing2.wav", 1.0, ATTN_NORM, 0, 100);
+		// UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), "tentacle/te_swing2.wav", 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	case 2:	// tap scrape
 	case 6: // light tap
 		{
-			Vector vecSrc = pev->origin + m_flTapRadius * Vector( cos( pev->angles.y * (M_PI / 180.0) ), sin( pev->angles.y * (M_PI / 180.0) ), 0.0 );
+			Vector vecSrc = GetAbsOrigin() + m_flTapRadius * Vector( cos( pev->angles.y * (M_PI / 180.0) ), sin( pev->angles.y * (M_PI / 180.0) ), 0.0 );
 
 			vecSrc.z += MyHeight( );
 
@@ -723,7 +723,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case 1: sound = "tentacle/te_roar2.wav"; break;
 		}
 
-		UTIL_EmitAmbientSound(ENT(pev), pev->origin + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
+		UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	case 8: // search
@@ -733,7 +733,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case 1: sound = "tentacle/te_search2.wav"; break;
 		}
 
-		UTIL_EmitAmbientSound(ENT(pev), pev->origin + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
+		UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	case 9: // swing
@@ -743,7 +743,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case 1: sound = "tentacle/te_move2.wav"; break;
 		}
 
-		UTIL_EmitAmbientSound(ENT(pev), pev->origin + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
+		UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	default:

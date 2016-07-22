@@ -9,7 +9,7 @@
 
 void CSprayCan::Spawn( CBaseEntity* pOwner )
 {
-	pev->origin = pOwner->pev->origin + Vector( 0, 0, 32 );
+	pev->origin = pOwner->GetAbsOrigin() + Vector( 0, 0, 32 );
 	pev->angles = pOwner->pev->v_angle;
 	pev->owner = pOwner->edict();
 	pev->frame = 0;
@@ -37,7 +37,7 @@ void CSprayCan::Think()
 	// ALERT(at_console, "Spray by player %i, %i of %i\n", playernum, (int)(pev->frame + 1), nFrames);
 
 	UTIL_MakeVectors( pev->angles );
-	UTIL_TraceLine( pev->origin, pev->origin + gpGlobals->v_forward * 128, ignore_monsters, pev->owner, &tr );
+	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + gpGlobals->v_forward * 128, ignore_monsters, pev->owner, &tr );
 
 	// No customization present.
 	if( nFrames == -1 )

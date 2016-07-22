@@ -14,7 +14,7 @@ void CBasePlayerAmmo::Spawn()
 	pev->movetype = MOVETYPE_TOSS;
 	pev->solid = SOLID_TRIGGER;
 	SetSize( Vector( -16, -16, 0 ), Vector( 16, 16, 16 ) );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	SetTouch( &CBasePlayerAmmo::DefaultTouch );
 }

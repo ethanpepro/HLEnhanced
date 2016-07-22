@@ -132,7 +132,7 @@ void CBasePlayer::UpdateClientData()
 	if( pev->dmg_take || pev->dmg_save || m_bitsHUDDamage != m_bitsDamageType )
 	{
 		// Comes from inside me if not set
-		Vector damageOrigin = pev->origin;
+		Vector damageOrigin = GetAbsOrigin();
 		// send "damage" message
 		// causes screen to flash, and pain compass to show direction of damage
 		edict_t *other = pev->dmg_inflictor;

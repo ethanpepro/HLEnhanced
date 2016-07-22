@@ -180,7 +180,7 @@ void CLightning::StrikeThink( void )
 		{
 			CBaseEntity *pStart = UTIL_RandomTargetname( STRING( m_iszStartEntity ) );
 			if( pStart != NULL )
-				RandomPoint( pStart->pev->origin );
+				RandomPoint( pStart->GetAbsOrigin() );
 			else
 				ALERT( at_console, "env_beam: unknown entity \"%s\"\n", STRING( m_iszStartEntity ) );
 		}
@@ -215,19 +215,19 @@ void CLightning::StrikeThink( void )
 			{
 				WRITE_BYTE( TE_BEAMENTPOINT );
 				WRITE_SHORT( pStart->entindex() );
-				WRITE_COORD( pEnd->pev->origin.x );
-				WRITE_COORD( pEnd->pev->origin.y );
-				WRITE_COORD( pEnd->pev->origin.z );
+				WRITE_COORD( pEnd->GetAbsOrigin().x );
+				WRITE_COORD( pEnd->GetAbsOrigin().y );
+				WRITE_COORD( pEnd->GetAbsOrigin().z );
 			}
 			else
 			{
 				WRITE_BYTE( TE_BEAMPOINTS );
-				WRITE_COORD( pStart->pev->origin.x );
-				WRITE_COORD( pStart->pev->origin.y );
-				WRITE_COORD( pStart->pev->origin.z );
-				WRITE_COORD( pEnd->pev->origin.x );
-				WRITE_COORD( pEnd->pev->origin.y );
-				WRITE_COORD( pEnd->pev->origin.z );
+				WRITE_COORD( pStart->GetAbsOrigin().x );
+				WRITE_COORD( pStart->GetAbsOrigin().y );
+				WRITE_COORD( pStart->GetAbsOrigin().z );
+				WRITE_COORD( pEnd->GetAbsOrigin().x );
+				WRITE_COORD( pEnd->GetAbsOrigin().y );
+				WRITE_COORD( pEnd->GetAbsOrigin().z );
 			}
 
 
@@ -254,11 +254,11 @@ void CLightning::StrikeThink( void )
 			WRITE_BYTE( pev->renderamt );	// brightness
 			WRITE_BYTE( m_speed );		// speed
 		MESSAGE_END();
-		DoSparks( pStart->pev->origin, pEnd->pev->origin );
+		DoSparks( pStart->GetAbsOrigin(), pEnd->GetAbsOrigin() );
 		if( pev->dmg > 0 )
 		{
 			TraceResult tr;
-			UTIL_TraceLine( pStart->pev->origin, pEnd->pev->origin, dont_ignore_monsters, NULL, &tr );
+			UTIL_TraceLine( pStart->GetAbsOrigin(), pEnd->GetAbsOrigin(), dont_ignore_monsters, NULL, &tr );
 			BeamDamageInstant( &tr, pev->dmg );
 		}
 	}
@@ -278,7 +278,7 @@ void CLightning::RandomArea( void )
 
 	for( iLoops = 0; iLoops < 10; iLoops++ )
 	{
-		Vector vecSrc = pev->origin;
+		Vector vecSrc = GetAbsOrigin();
 
 		Vector vecDir1 = Vector( RANDOM_FLOAT( -1.0, 1.0 ), RANDOM_FLOAT( -1.0, 1.0 ), RANDOM_FLOAT( -1.0, 1.0 ) );
 		vecDir1 = vecDir1.Normalize();
@@ -314,7 +314,7 @@ void CLightning::RandomArea( void )
 	}
 }
 
-void CLightning::RandomPoint( Vector &vecSrc )
+void CLightning::RandomPoint( const Vector &vecSrc )
 {
 	int iLoops = 0;
 

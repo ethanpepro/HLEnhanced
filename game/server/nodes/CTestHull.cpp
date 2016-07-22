@@ -320,7 +320,7 @@ void CTestHull::BuildNodeGraph()
 				pDestNode = &WorldGraph.m_pNodes[ pTempPool[ pSrcNode->m_iFirstLink + j ].m_iDestNode ];
 
 				vecSpot = pDestNode->m_vecOrigin;
-				//vecSpot.z = pev->origin.z;
+				//vecSpot.z = GetAbsOrigin().z;
 
 				if( hull < NODE_FLY_HULL )
 				{
@@ -332,9 +332,9 @@ void CTestHull::BuildNodeGraph()
 						MoveMode = WALKMOVE_NORMAL;
 					}
 
-					flYaw = UTIL_VecToYaw( pDestNode->m_vecOrigin - pev->origin );
+					flYaw = UTIL_VecToYaw( pDestNode->m_vecOrigin - GetAbsOrigin() );
 
-					flDist = ( vecSpot - pev->origin ).Length2D();
+					flDist = ( vecSpot - GetAbsOrigin() ).Length2D();
 
 					bool bWalkFailed = false;
 
@@ -355,7 +355,7 @@ void CTestHull::BuildNodeGraph()
 						}
 					}
 
-					if( !bWalkFailed && ( pev->origin - vecSpot ).Length() > 64 )
+					if( !bWalkFailed && ( GetAbsOrigin() - vecSpot ).Length() > 64 )
 					{
 						// ALERT( at_console, "bogus walk\n");
 						// we thought we 
@@ -554,11 +554,11 @@ void CTestHull::ShowBadNode()
 
 	UTIL_MakeVectors( pev->angles );
 
-	UTIL_ParticleEffect( pev->origin, g_vecZero, 255, 25 );
-	UTIL_ParticleEffect( pev->origin + gpGlobals->v_forward * 64, g_vecZero, 255, 25 );
-	UTIL_ParticleEffect( pev->origin - gpGlobals->v_forward * 64, g_vecZero, 255, 25 );
-	UTIL_ParticleEffect( pev->origin + gpGlobals->v_right * 64, g_vecZero, 255, 25 );
-	UTIL_ParticleEffect( pev->origin - gpGlobals->v_right * 64, g_vecZero, 255, 25 );
+	UTIL_ParticleEffect( GetAbsOrigin(), g_vecZero, 255, 25 );
+	UTIL_ParticleEffect( GetAbsOrigin() + gpGlobals->v_forward * 64, g_vecZero, 255, 25 );
+	UTIL_ParticleEffect( GetAbsOrigin() - gpGlobals->v_forward * 64, g_vecZero, 255, 25 );
+	UTIL_ParticleEffect( GetAbsOrigin() + gpGlobals->v_right * 64, g_vecZero, 255, 25 );
+	UTIL_ParticleEffect( GetAbsOrigin() - gpGlobals->v_right * 64, g_vecZero, 255, 25 );
 
 	pev->nextthink = gpGlobals->time + 0.1;
 }

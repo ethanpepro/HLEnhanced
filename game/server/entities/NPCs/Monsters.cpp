@@ -200,7 +200,7 @@ void CBaseMonster :: Listen ( void )
 //=========================================================
 float CBaseMonster :: FLSoundVolume ( CSound *pSound )
 {
-	return ( pSound->m_iVolume - ( ( pSound->m_vecOrigin - pev->origin ).Length() ) );
+	return ( pSound->m_iVolume - ( ( pSound->m_vecOrigin - GetAbsOrigin() ).Length() ) );
 }
 
 //=========================================================
@@ -243,7 +243,7 @@ void CBaseMonster :: Look ( int iDistance )
 		Vector delta = Vector( iDistance, iDistance, iDistance );
 
 		// Find only monsters/clients in box, NOT limited to PVS
-		int count = UTIL_EntitiesInBox( pList, 100, pev->origin - delta, pev->origin + delta, FL_CLIENT|FL_MONSTER );
+		int count = UTIL_EntitiesInBox( pList, 100, GetAbsOrigin() - delta, GetAbsOrigin() + delta, FL_CLIENT|FL_MONSTER );
 		for ( int i = 0; i < count; i++ )
 		{
 			pSightEnt = pList[i];
@@ -411,7 +411,7 @@ CSound* CBaseMonster :: PBestScent ( void )
 
 		if ( pSound->FIsScent() )
 		{
-			flDist = ( pSound->m_vecOrigin - pev->origin ).Length();
+			flDist = ( pSound->m_vecOrigin - GetAbsOrigin() ).Length();
 
 			if ( flDist < flBestDist )
 			{
@@ -580,7 +580,7 @@ bool CBaseMonster::FRefreshRoute()
 				while ( pPathCorner && i < ROUTE_SIZE )
 				{
 					m_Route[ i ].iType = bits_MF_TO_PATHCORNER;
-					m_Route[ i ].vecLocation = pPathCorner->pev->origin;
+					m_Route[ i ].vecLocation = pPathCorner->GetAbsOrigin();
 
 					pPathCorner = pPathCorner->GetNextTarget();
 
@@ -605,7 +605,7 @@ bool CBaseMonster::FRefreshRoute()
 		case MOVEGOAL_TARGETENT:
 			if (m_hTargetEnt != NULL)
 			{
-				returnCode = BuildRoute( m_hTargetEnt->pev->origin, bits_MF_TO_TARGETENT, m_hTargetEnt );
+				returnCode = BuildRoute( m_hTargetEnt->GetAbsOrigin(), bits_MF_TO_TARGETENT, m_hTargetEnt );
 			}
 			break;
 
@@ -677,9 +677,9 @@ void DrawRoute( CBaseEntity* pEntity, WayPoint_t *m_Route, int m_iRouteIndex, in
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 		WRITE_BYTE( TE_BEAMPOINTS);
-		WRITE_COORD( pEntity->pev->origin.x );
-		WRITE_COORD( pEntity->pev->origin.y );
-		WRITE_COORD( pEntity->pev->origin.z );
+		WRITE_COORD( pEntity->GetAbsOrigin().x );
+		WRITE_COORD( pEntity->GetAbsOrigin().y );
+		WRITE_COORD( pEntity->GetAbsOrigin().z );
 		WRITE_COORD( m_Route[ m_iRouteIndex ].vecLocation.x );
 		WRITE_COORD( m_Route[ m_iRouteIndex ].vecLocation.y );
 		WRITE_COORD( m_Route[ m_iRouteIndex ].vecLocation.z );
@@ -772,7 +772,7 @@ void CBaseMonster::RouteSimplify( const CBaseEntity* const pTargetEnt )
 	}
 
 	outCount = 0;
-	vecStart = pev->origin;
+	vecStart = GetAbsOrigin();
 	for ( i = 0; i < count-1; i++ )
 	{
 		// Don't eliminate path_corners
@@ -918,7 +918,7 @@ void CBaseMonster :: CheckAttacks ( CBaseEntity *pTarget, float flDist )
 
 	UTIL_MakeVectors ( pev->angles );
 
-	vec2LOS = ( pTarget->pev->origin - pev->origin ).Make2D();
+	vec2LOS = ( pTarget->GetAbsOrigin() - GetAbsOrigin() ).Make2D();
 	vec2LOS = vec2LOS.Normalize();
 
 	flDot = DotProduct (vec2LOS , gpGlobals->v_forward.Make2D() );
@@ -993,19 +993,19 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 		return false;
 	}
 
-	Vector vecEnemyPos = pEnemy->pev->origin;
+	Vector vecEnemyPos = pEnemy->GetAbsOrigin();
 	// distance to enemy's origin
-	flDistToEnemy = ( vecEnemyPos - pev->origin ).Length();
+	flDistToEnemy = ( vecEnemyPos - GetAbsOrigin() ).Length();
 	vecEnemyPos.z += pEnemy->pev->size.z * 0.5;
 	// distance to enemy's head
-	float flDistToEnemy2 = (vecEnemyPos - pev->origin).Length();
+	float flDistToEnemy2 = (vecEnemyPos - GetAbsOrigin()).Length();
 	if (flDistToEnemy2 < flDistToEnemy)
 		flDistToEnemy = flDistToEnemy2;
 	else
 	{
 		// distance to enemy's feet
 		vecEnemyPos.z -= pEnemy->pev->size.z;
-		float flDistToEnemy2 = (vecEnemyPos - pev->origin).Length();
+		float flDistToEnemy2 = (vecEnemyPos - GetAbsOrigin()).Length();
 		if (flDistToEnemy2 < flDistToEnemy)
 			flDistToEnemy = flDistToEnemy2;
 	}
@@ -1015,7 +1015,7 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 		CBaseMonster *pEnemyMonster;
 
 		bUpdatedLKP = true;
-		m_vecEnemyLKP = pEnemy->pev->origin;
+		m_vecEnemyLKP = pEnemy->GetAbsOrigin();
 
 		pEnemyMonster = pEnemy->MyMonsterPointer();
 
@@ -1045,7 +1045,7 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 		// if the enemy is near enough the monster, we go ahead and let the monster know where the
 		// enemy is. 
 		bUpdatedLKP = true;
-		m_vecEnemyLKP = pEnemy->pev->origin;
+		m_vecEnemyLKP = pEnemy->GetAbsOrigin();
 	}
 
 	if ( flDistToEnemy >= m_flDistTooFar )
@@ -1221,7 +1221,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 	float	flStep, stepSize;
 	int		iReturn;
 
-	vecStartPos = pev->origin;
+	vecStartPos = GetAbsOrigin();
 	
 	
 	flYaw = UTIL_VecToYaw ( vecEnd - vecStart );// build a yaw that points to the goal.
@@ -1236,9 +1236,9 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 		DROP_TO_FLOOR( ENT( pev ) );//make sure monster is on the floor!
 	}
 
-	//pev->origin.z = vecStartPos.z;//!!!HACKHACK
+	//GetAbsOrigin().z = vecStartPos.z;//!!!HACKHACK
 
-//	pev->origin = vecStart;
+//	GetAbsOrigin() = vecStart;
 
 /*
 	if ( flDist > 1024 )
@@ -1248,7 +1248,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 		// to have something in the way.
 
 		// since we've actually moved the monster during the check, undo the move.
-		pev->origin = vecStartPos;
+		GetAbsOrigin() = vecStartPos;
 		return false;
 	}
 */
@@ -1260,7 +1260,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 		if ( (flStep + LOCAL_STEP_SIZE) >= (flDist-1) )
 			stepSize = (flDist - flStep) - 1;
 		
-//		UTIL_ParticleEffect ( pev->origin, g_vecZero, 255, 25 );
+//		UTIL_ParticleEffect ( GetAbsOrigin(), g_vecZero, 255, 25 );
 
 		if ( !WALK_MOVE( ENT(pev), flYaw, stepSize, WALKMOVE_CHECKONLY ) )
 		{// can't take the next step, fail!
@@ -1292,7 +1292,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 	{
 		// The monster can move to a spot UNDER the target, but not to it. Don't try to triangulate, go directly to the node graph.
 		// UNDONE: Magic # 64 -- this used to be pev->size.z but that won't work for small creatures like the headcrab
-		if ( fabs(vecEnd.z - pev->origin.z) > 64 )
+		if ( fabs(vecEnd.z - GetAbsOrigin().z) > 64 )
 		{
 			iReturn = LOCALMOVE_INVALID_DONT_TRIANGULATE;
 		}
@@ -1301,9 +1301,9 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 	// uncommenting this block will draw a line representing the nearest legal move.
 	WRITE_BYTE(MSG_BROADCAST, SVC_TEMPENTITY);
 	WRITE_BYTE(MSG_BROADCAST, TE_SHOWLINE);
-	WRITE_COORD(MSG_BROADCAST, pev->origin.x);
-	WRITE_COORD(MSG_BROADCAST, pev->origin.y);
-	WRITE_COORD(MSG_BROADCAST, pev->origin.z);
+	WRITE_COORD(MSG_BROADCAST, GetAbsOrigin().x);
+	WRITE_COORD(MSG_BROADCAST, GetAbsOrigin().y);
+	WRITE_COORD(MSG_BROADCAST, GetAbsOrigin().z);
 	WRITE_COORD(MSG_BROADCAST, vecStart.x);
 	WRITE_COORD(MSG_BROADCAST, vecStart.y);
 	WRITE_COORD(MSG_BROADCAST, vecStart.z);
@@ -1463,7 +1463,7 @@ bool CBaseMonster::BuildRoute( const Vector &vecGoal, int iMoveFlag, const CBase
 	m_Route[ 0 ].iType = iMoveFlag | bits_MF_IS_GOAL;
 
 // check simple local move
-	iLocalMove = CheckLocalMove( pev->origin, vecGoal, pTarget, &flDist );
+	iLocalMove = CheckLocalMove( GetAbsOrigin(), vecGoal, pTarget, &flDist );
 
 	if ( iLocalMove == LOCALMOVE_VALID )
 	{
@@ -1471,7 +1471,7 @@ bool CBaseMonster::BuildRoute( const Vector &vecGoal, int iMoveFlag, const CBase
 		return true;
 	}
 // try to triangulate around any obstacles.
-	else if ( iLocalMove != LOCALMOVE_INVALID_DONT_TRIANGULATE && FTriangulate( pev->origin, vecGoal, flDist, pTarget, &vecApex ) )
+	else if ( iLocalMove != LOCALMOVE_INVALID_DONT_TRIANGULATE && FTriangulate( GetAbsOrigin(), vecGoal, flDist, pTarget, &vecApex ) )
 	{
 		// there is a slightly more complicated path that allows the monster to reach vecGoal
 		m_Route[ 0 ].vecLocation = vecApex;
@@ -1574,12 +1574,12 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 	// an apex point that insures that the monster is sufficiently past the obstacle before trying to turn back
 	// onto its original course.
 
-	vecLeft = pev->origin + ( vecForward * ( flDist + sizeX ) ) - vecDir * ( sizeX * 3 );
-	vecRight = pev->origin + ( vecForward * ( flDist + sizeX ) ) + vecDir * ( sizeX * 3 );
+	vecLeft = GetAbsOrigin() + ( vecForward * ( flDist + sizeX ) ) - vecDir * ( sizeX * 3 );
+	vecRight = GetAbsOrigin() + ( vecForward * ( flDist + sizeX ) ) + vecDir * ( sizeX * 3 );
 	if (pev->movetype == MOVETYPE_FLY)
 	{
-		vecTop = pev->origin + (vecForward * flDist) + (vecDirUp * sizeZ * 3);
-		vecBottom = pev->origin + (vecForward * flDist) - (vecDirUp *  sizeZ * 3);
+		vecTop = GetAbsOrigin() + (vecForward * flDist) + (vecDirUp * sizeZ * 3);
+		vecBottom = GetAbsOrigin() + (vecForward * flDist) - (vecDirUp *  sizeZ * 3);
 	}
 
 	vecFarSide = m_Route[ m_iRouteIndex ].vecLocation;
@@ -1594,9 +1594,9 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 #if 0
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 			WRITE_BYTE( TE_SHOWLINE);
-			WRITE_COORD( pev->origin.x );
-			WRITE_COORD( pev->origin.y );
-			WRITE_COORD( pev->origin.z );
+			WRITE_COORD( GetAbsOrigin().x );
+			WRITE_COORD( GetAbsOrigin().y );
+			WRITE_COORD( GetAbsOrigin().z );
 			WRITE_COORD( vecRight.x );
 			WRITE_COORD( vecRight.y );
 			WRITE_COORD( vecRight.z );
@@ -1604,9 +1604,9 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 			WRITE_BYTE( TE_SHOWLINE );
-			WRITE_COORD( pev->origin.x );
-			WRITE_COORD( pev->origin.y );
-			WRITE_COORD( pev->origin.z );
+			WRITE_COORD( GetAbsOrigin().x );
+			WRITE_COORD( GetAbsOrigin().y );
+			WRITE_COORD( GetAbsOrigin().z );
 			WRITE_COORD( vecLeft.x );
 			WRITE_COORD( vecLeft.y );
 			WRITE_COORD( vecLeft.z );
@@ -1618,9 +1618,9 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 		{
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 				WRITE_BYTE( TE_SHOWLINE );
-				WRITE_COORD( pev->origin.x );
-				WRITE_COORD( pev->origin.y );
-				WRITE_COORD( pev->origin.z );
+				WRITE_COORD( GetAbsOrigin().x );
+				WRITE_COORD( GetAbsOrigin().y );
+				WRITE_COORD( GetAbsOrigin().z );
 				WRITE_COORD( vecTop.x );
 				WRITE_COORD( vecTop.y );
 				WRITE_COORD( vecTop.z );
@@ -1628,9 +1628,9 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 				WRITE_BYTE( TE_SHOWLINE );
-				WRITE_COORD( pev->origin.x );
-				WRITE_COORD( pev->origin.y );
-				WRITE_COORD( pev->origin.z );
+				WRITE_COORD( GetAbsOrigin().x );
+				WRITE_COORD( GetAbsOrigin().y );
+				WRITE_COORD( GetAbsOrigin().z );
 				WRITE_COORD( vecBottom.x );
 				WRITE_COORD( vecBottom.y );
 				WRITE_COORD( vecBottom.z );
@@ -1638,7 +1638,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 		}
 #endif
 
-		if ( CheckLocalMove( pev->origin, vecRight, pTargetEnt, NULL ) == LOCALMOVE_VALID )
+		if ( CheckLocalMove( GetAbsOrigin(), vecRight, pTargetEnt, NULL ) == LOCALMOVE_VALID )
 		{
 			if ( CheckLocalMove ( vecRight, vecFarSide, pTargetEnt, NULL ) == LOCALMOVE_VALID )
 			{
@@ -1650,7 +1650,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 				return true;
 			}
 		}
-		if ( CheckLocalMove( pev->origin, vecLeft, pTargetEnt, NULL ) == LOCALMOVE_VALID )
+		if ( CheckLocalMove( GetAbsOrigin(), vecLeft, pTargetEnt, NULL ) == LOCALMOVE_VALID )
 		{
 			if ( CheckLocalMove ( vecLeft, vecFarSide, pTargetEnt, NULL ) == LOCALMOVE_VALID )
 			{
@@ -1665,7 +1665,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 
 		if (pev->movetype == MOVETYPE_FLY)
 		{
-			if ( CheckLocalMove( pev->origin, vecTop, pTargetEnt, NULL ) == LOCALMOVE_VALID)
+			if ( CheckLocalMove( GetAbsOrigin(), vecTop, pTargetEnt, NULL ) == LOCALMOVE_VALID)
 			{
 				if ( CheckLocalMove ( vecTop, vecFarSide, pTargetEnt, NULL ) == LOCALMOVE_VALID )
 				{
@@ -1679,7 +1679,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 				}
 			}
 #if 1
-			if ( CheckLocalMove( pev->origin, vecBottom, pTargetEnt, NULL ) == LOCALMOVE_VALID )
+			if ( CheckLocalMove( GetAbsOrigin(), vecBottom, pTargetEnt, NULL ) == LOCALMOVE_VALID )
 			{
 				if ( CheckLocalMove ( vecBottom, vecFarSide, pTargetEnt, NULL ) == LOCALMOVE_VALID )
 				{
@@ -1758,8 +1758,8 @@ void CBaseMonster :: Move ( float flInterval )
 	pTargetEnt = NULL;
 
 	// local move to waypoint.
-	vecDir = ( m_Route[ m_iRouteIndex ].vecLocation - pev->origin ).Normalize();
-	flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - pev->origin ).Length2D();
+	vecDir = ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() ).Normalize();
+	flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() ).Length2D();
 	
 	MakeIdealYaw ( m_Route[ m_iRouteIndex ].vecLocation );
 	ChangeYaw ( pev->yaw_speed );
@@ -1788,7 +1788,7 @@ void CBaseMonster :: Move ( float flInterval )
 	// If this fails, it should be because of some dynamic entity blocking this guy.
 	// We've already checked this path, so we should wait and time out if the entity doesn't move
 	flDist = 0;
-	if ( CheckLocalMove ( pev->origin, pev->origin + vecDir * flCheckDist, pTargetEnt, &flDist ) != LOCALMOVE_VALID )
+	if ( CheckLocalMove ( GetAbsOrigin(), GetAbsOrigin() + vecDir * flCheckDist, pTargetEnt, &flDist ) != LOCALMOVE_VALID )
 	{
 		CBaseEntity *pBlocker;
 
@@ -1815,7 +1815,7 @@ void CBaseMonster :: Move ( float flInterval )
 		else 
 		{
 			// try to triangulate around whatever is in the way.
-			if ( FTriangulate( pev->origin, m_Route[ m_iRouteIndex ].vecLocation, flDist, pTargetEnt, &vecApex ) )
+			if ( FTriangulate( GetAbsOrigin(), m_Route[ m_iRouteIndex ].vecLocation, flDist, pTargetEnt, &vecApex ) )
 			{
 				InsertWaypoint( vecApex, bits_MF_TO_DETOUR );
 				RouteSimplify( pTargetEnt );
@@ -1845,7 +1845,7 @@ void CBaseMonster :: Move ( float flInterval )
 				{
 					TaskFail();
 					ALERT( at_aiconsole, "%s Failed to move (%d)!\n", GetClassname(), HasMemory( bits_MEMORY_MOVE_FAILED ) );
-					//ALERT( at_aiconsole, "%f, %f, %f\n", pev->origin.z, (pev->origin + (vecDir * flCheckDist)).z, m_Route[m_iRouteIndex].vecLocation.z );
+					//ALERT( at_aiconsole, "%f, %f, %f\n", GetAbsOrigin().z, (GetAbsOrigin() + (vecDir * flCheckDist)).z, m_Route[m_iRouteIndex].vecLocation.z );
 				}
 				return;
 			}
@@ -1896,7 +1896,7 @@ bool CBaseMonster::ShouldAdvanceRoute( float flWaypointDist )
 
 void CBaseMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval )
 {
-//	float flYaw = UTIL_VecToYaw ( m_Route[ m_iRouteIndex ].vecLocation - pev->origin );// build a yaw that points to the goal.
+//	float flYaw = UTIL_VecToYaw ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() );// build a yaw that points to the goal.
 //	WALK_MOVE( ENT(pev), flYaw, m_flGroundSpeed * flInterval, WALKMOVE_NORMAL );
 	if ( m_IdealActivity != m_movementActivity )
 		m_IdealActivity = m_movementActivity;
@@ -2028,7 +2028,7 @@ void CBaseMonster :: StartMonster ( void )
 		else
 		{
 			// Monster will start turning towards his destination
-			MakeIdealYaw ( m_pGoalEnt->pev->origin );
+			MakeIdealYaw ( m_pGoalEnt->GetAbsOrigin() );
 
 			// JAY: How important is this error message?  Big Momma doesn't obey this rule, so I took it out.
 #if 0
@@ -2179,7 +2179,7 @@ bool CBaseMonster::FindCover( Vector vecThreat, Vector vecViewOffset, float flMi
 		return false;
 	}
 
-	iMyNode = WorldGraph.FindNearestNode( pev->origin, this );
+	iMyNode = WorldGraph.FindNearestNode( GetAbsOrigin(), this );
 	iThreatNode = WorldGraph.FindNearestNode ( vecThreat, this );
 	iMyHullIndex = WorldGraph.HullIndex( this );
 
@@ -2206,7 +2206,7 @@ bool CBaseMonster::FindCover( Vector vecThreat, Vector vecViewOffset, float flMi
 		WorldGraph.m_iLastCoverSearch = nodeNumber + 1; // next monster that searches for cover node will start where we left off here.
 
 		// could use an optimization here!!
-		flDist = ( pev->origin - node.m_vecOrigin ).Length();
+		flDist = ( GetAbsOrigin() - node.m_vecOrigin ).Length();
 
 		// DON'T do the trace check on a node that is farther away than a node that we've already found to 
 		// provide cover! Also make sure the node is within the mins/maxs of the search.
@@ -2284,7 +2284,7 @@ bool CBaseMonster::BuildNearestRoute( Vector vecThreat, Vector vecViewOffset, fl
 		return false;
 	}
 
-	iMyNode = WorldGraph.FindNearestNode( pev->origin, this );
+	iMyNode = WorldGraph.FindNearestNode( GetAbsOrigin(), this );
 	iMyHullIndex = WorldGraph.HullIndex( this );
 
 	if ( iMyNode == NO_NODE )
@@ -2365,7 +2365,7 @@ CBaseEntity *CBaseMonster :: BestVisibleEnemy ( void )
 				// currently think is the best visible enemy. No need to do 
 				// a distance check, just get mad at this one for now.
 				iBestRelationship = IRelationship ( pNextEnt );
-				iNearest = ( pNextEnt->pev->origin - pev->origin ).Length();
+				iNearest = ( pNextEnt->GetAbsOrigin() - GetAbsOrigin() ).Length();
 				pReturn = pNextEnt;
 			}
 			else if ( IRelationship( pNextEnt) == iBestRelationship )
@@ -2373,7 +2373,7 @@ CBaseEntity *CBaseMonster :: BestVisibleEnemy ( void )
 				// this entity is disliked just as much as the entity that
 				// we currently think is the best visible enemy, so we only
 				// get mad at it if it is closer.
-				iDist = ( pNextEnt->pev->origin - pev->origin ).Length();
+				iDist = ( pNextEnt->GetAbsOrigin() - GetAbsOrigin() ).Length();
 				
 				if ( iDist <= iNearest )
 				{
@@ -2406,18 +2406,18 @@ void CBaseMonster :: MakeIdealYaw( Vector vecTarget )
 		vecProjection.x = -vecTarget.y;
 		vecProjection.y = vecTarget.x;
 
-		pev->ideal_yaw = UTIL_VecToYaw( vecProjection - pev->origin );
+		pev->ideal_yaw = UTIL_VecToYaw( vecProjection - GetAbsOrigin() );
 	}
 	else if ( m_movementActivity == ACT_STRAFE_RIGHT )
 	{
 		vecProjection.x = vecTarget.y;
 		vecProjection.y = vecTarget.x;
 
-		pev->ideal_yaw = UTIL_VecToYaw( vecProjection - pev->origin );
+		pev->ideal_yaw = UTIL_VecToYaw( vecProjection - GetAbsOrigin() );
 	}
 	else
 	{
-		pev->ideal_yaw = UTIL_VecToYaw ( vecTarget - pev->origin );
+		pev->ideal_yaw = UTIL_VecToYaw ( vecTarget - GetAbsOrigin() );
 	}
 }
 
@@ -2645,10 +2645,10 @@ Vector CBaseMonster :: GetGunPosition( )
 {
 	UTIL_MakeVectors(pev->angles);
 
-	// Vector vecSrc = pev->origin + gpGlobals->v_forward * 10;
+	// Vector vecSrc = GetAbsOrigin() + gpGlobals->v_forward * 10;
 	//vecSrc.z = pevShooter->absmin.z + pevShooter->size.z * 0.7;
-	//vecSrc.z = pev->origin.z + (pev->view_ofs.z - 4);
-	Vector vecSrc = pev->origin 
+	//vecSrc.z = GetAbsOrigin().z + (pev->view_ofs.z - 4);
+	Vector vecSrc = GetAbsOrigin() 
 					+ gpGlobals->v_forward * m_HackedGunPos.y 
 					+ gpGlobals->v_right * m_HackedGunPos.x 
 					+ gpGlobals->v_up * m_HackedGunPos.z;
@@ -2684,7 +2684,7 @@ bool CBaseMonster::FGetNodeRoute( const Vector& vecDest )
 	int i;
 	int iNumToCopy;
 
-	iSrcNode = WorldGraph.FindNearestNode ( pev->origin, this );
+	iSrcNode = WorldGraph.FindNearestNode ( GetAbsOrigin(), this );
 	iDestNode = WorldGraph.FindNearestNode ( vecDest, this );
 
 	if ( iSrcNode == -1 )
@@ -2787,7 +2787,7 @@ int CBaseMonster :: FindHintNode ( void )
 			{
 				if ( !node.m_sHintActivity || LookupActivity ( node.m_sHintActivity ) != ACTIVITY_NOT_AVAILABLE )
 				{
-					UTIL_TraceLine ( pev->origin + pev->view_ofs, node.m_vecOrigin + pev->view_ofs, ignore_monsters, ENT(pev), &tr );
+					UTIL_TraceLine ( GetAbsOrigin() + pev->view_ofs, node.m_vecOrigin + pev->view_ofs, ignore_monsters, ENT(pev), &tr );
 
 					if ( tr.flFraction == 1.0 )
 					{
@@ -3062,7 +3062,7 @@ bool CBaseMonster::FindLateralCover( const Vector &vecThreat, const Vector &vecV
 	vecStepRight = gpGlobals->v_right * COVER_DELTA;
 	vecStepRight.z = 0; 
 	
-	vecLeftTest = vecRightTest = pev->origin;
+	vecLeftTest = vecRightTest = GetAbsOrigin();
 
 	for ( i = 0 ; i < COVER_CHECKS ; i++ )
 	{
@@ -3074,7 +3074,7 @@ bool CBaseMonster::FindLateralCover( const Vector &vecThreat, const Vector &vecV
 		
 		if (tr.flFraction != 1.0)
 		{
-			if ( FValidateCover ( vecLeftTest ) && CheckLocalMove( pev->origin, vecLeftTest, NULL, NULL ) == LOCALMOVE_VALID )
+			if ( FValidateCover ( vecLeftTest ) && CheckLocalMove( GetAbsOrigin(), vecLeftTest, NULL, NULL ) == LOCALMOVE_VALID )
 			{
 				if ( MoveToLocation( ACT_RUN, 0, vecLeftTest ) )
 				{
@@ -3088,7 +3088,7 @@ bool CBaseMonster::FindLateralCover( const Vector &vecThreat, const Vector &vecV
 		
 		if ( tr.flFraction != 1.0 )
 		{
-			if (  FValidateCover ( vecRightTest ) && CheckLocalMove( pev->origin, vecRightTest, NULL, NULL ) == LOCALMOVE_VALID )
+			if (  FValidateCover ( vecRightTest ) && CheckLocalMove( GetAbsOrigin(), vecRightTest, NULL, NULL ) == LOCALMOVE_VALID )
 			{
 				if ( MoveToLocation( ACT_RUN, 0, vecRightTest ) )
 				{
@@ -3108,7 +3108,7 @@ Vector CBaseMonster :: ShootAtEnemy( const Vector &shootOrigin )
 
 	if ( pEnemy )
 	{
-		return ( (pEnemy->BodyTarget( shootOrigin ) - pEnemy->pev->origin) + m_vecEnemyLKP - shootOrigin ).Normalize();
+		return ( (pEnemy->BodyTarget( shootOrigin ) - pEnemy->GetAbsOrigin()) + m_vecEnemyLKP - shootOrigin ).Normalize();
 	}
 	else
 		return gpGlobals->v_forward;
@@ -3179,7 +3179,7 @@ void CBaseMonster::CorpseFallThink( void )
 		SetThink ( NULL );
 
 		SetSequenceBox( );
-		SetAbsOrigin( pev->origin );// link into world.
+		SetAbsOrigin( GetAbsOrigin() );// link into world.
 	}
 	else
 		pev->nextthink = gpGlobals->time + 0.1;
@@ -3202,7 +3202,7 @@ void CBaseMonster :: MonsterInitDead( void )
 	pev->deadflag		= DEAD_DEAD;
 	
 	SetSize( g_vecZero, g_vecZero );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	// Setup health counters, etc.
 	BecomeDead();
@@ -3226,15 +3226,15 @@ bool CBaseMonster::BBoxFlat() const
 	flXSize = pev->size.x / 2;
 	flYSize = pev->size.y / 2;
 
-	vecPoint.x = pev->origin.x + flXSize;
-	vecPoint.y = pev->origin.y + flYSize;
-	vecPoint.z = pev->origin.z;
+	vecPoint.x = GetAbsOrigin().x + flXSize;
+	vecPoint.y = GetAbsOrigin().y + flYSize;
+	vecPoint.z = GetAbsOrigin().z;
 
 	UTIL_TraceLine ( vecPoint, vecPoint - Vector ( 0, 0, 100 ), ignore_monsters, ENT(pev), &tr );
 	flLength = (vecPoint - tr.vecEndPos).Length();
 
-	vecPoint.x = pev->origin.x - flXSize;
-	vecPoint.y = pev->origin.y - flYSize;
+	vecPoint.x = GetAbsOrigin().x - flXSize;
+	vecPoint.y = GetAbsOrigin().y - flYSize;
 
 	UTIL_TraceLine ( vecPoint, vecPoint - Vector ( 0, 0, 100 ), ignore_monsters, ENT(pev), &tr );
 	flLength2 = (vecPoint - tr.vecEndPos).Length();
@@ -3244,8 +3244,8 @@ bool CBaseMonster::BBoxFlat() const
 	}
 	flLength = flLength2;
 
-	vecPoint.x = pev->origin.x - flXSize;
-	vecPoint.y = pev->origin.y + flYSize;
+	vecPoint.x = GetAbsOrigin().x - flXSize;
+	vecPoint.y = GetAbsOrigin().y + flYSize;
 	UTIL_TraceLine ( vecPoint, vecPoint - Vector ( 0, 0, 100 ), ignore_monsters, ENT(pev), &tr );
 	flLength2 = (vecPoint - tr.vecEndPos).Length();
 	if ( flLength2 > flLength )
@@ -3254,8 +3254,8 @@ bool CBaseMonster::BBoxFlat() const
 	}
 	flLength = flLength2;
 
-	vecPoint.x = pev->origin.x + flXSize;
-	vecPoint.y = pev->origin.y - flYSize;
+	vecPoint.x = GetAbsOrigin().x + flXSize;
+	vecPoint.y = GetAbsOrigin().y - flYSize;
 	UTIL_TraceLine ( vecPoint, vecPoint - Vector ( 0, 0, 100 ), ignore_monsters, ENT(pev), &tr );
 	flLength2 = (vecPoint - tr.vecEndPos).Length();
 	if ( flLength2 > flLength )
@@ -3291,7 +3291,7 @@ bool CBaseMonster::GetEnemy()
 					PushEnemy( m_hEnemy, m_vecEnemyLKP );
 					SetConditions(bits_COND_NEW_ENEMY);
 					m_hEnemy = pNewEnemy;
-					m_vecEnemyLKP = m_hEnemy->pev->origin;
+					m_vecEnemyLKP = m_hEnemy->GetAbsOrigin();
 				}
 				// if the new enemy has an owner, take that one as well
 				if (pNewEnemy->pev->owner != NULL)

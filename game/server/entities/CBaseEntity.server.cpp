@@ -63,12 +63,12 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
 	if( pInflictor == info.GetAttacker() )
 	{
-		vecTemp = pInflictor->pev->origin - ( VecBModelOrigin( this ) );
+		vecTemp = pInflictor->GetAbsOrigin() - ( VecBModelOrigin( this ) );
 	}
 	else
 		// an actual missile was involved.
 	{
-		vecTemp = pInflictor->pev->origin - ( VecBModelOrigin( this ) );
+		vecTemp = pInflictor->GetAbsOrigin() - ( VecBModelOrigin( this ) );
 	}
 
 	// this global is still used for glass and other non-monster killables, along with decals.
@@ -79,7 +79,7 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 	// figure momentum add (don't let hurt brushes or other triggers move player)
 	if( ( !FNullEnt( pInflictor ) ) && ( pev->movetype == MOVETYPE_WALK || pev->movetype == MOVETYPE_STEP ) && ( info.GetAttacker()->pev->solid != SOLID_TRIGGER ) )
 	{
-		Vector vecDir = pev->origin - ( pInflictor->pev->absmin + pInflictor->pev->absmax ) * 0.5;
+		Vector vecDir = GetAbsOrigin() - ( pInflictor->pev->absmin + pInflictor->pev->absmax ) * 0.5;
 		vecDir = vecDir.Normalize();
 
 		float flForce = info.GetDamage() * ( ( 32 * 32 * 72.0 ) / ( pev->size.x * pev->size.y * pev->size.z ) ) * 5;
@@ -207,7 +207,7 @@ void CBaseEntity::MakeDormant( void )
 	// Don't think
 	pev->nextthink = 0;
 	// Relink
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 }
 
 bool CBaseEntity::IsDormant() const
@@ -218,12 +218,12 @@ bool CBaseEntity::IsDormant() const
 bool CBaseEntity::IsInWorld() const
 {
 	// position 
-	if( pev->origin.x >= WORLD_BOUNDARY ) return false;
-	if( pev->origin.y >= WORLD_BOUNDARY ) return false;
-	if( pev->origin.z >= WORLD_BOUNDARY ) return false;
-	if( pev->origin.x <= -WORLD_BOUNDARY ) return false;
-	if( pev->origin.y <= -WORLD_BOUNDARY ) return false;
-	if( pev->origin.z <= -WORLD_BOUNDARY ) return false;
+	if( GetAbsOrigin().x >= WORLD_BOUNDARY ) return false;
+	if( GetAbsOrigin().y >= WORLD_BOUNDARY ) return false;
+	if( GetAbsOrigin().z >= WORLD_BOUNDARY ) return false;
+	if( GetAbsOrigin().x <= -WORLD_BOUNDARY ) return false;
+	if( GetAbsOrigin().y <= -WORLD_BOUNDARY ) return false;
+	if( GetAbsOrigin().z <= -WORLD_BOUNDARY ) return false;
 	// speed
 	if( pev->velocity.x >= MAX_VELOCITY ) return false;
 	if( pev->velocity.y >= MAX_VELOCITY ) return false;

@@ -133,13 +133,13 @@ void CMonsterMaker::MakeMonster( void )
 		// set altitude. Now that I'm activated, any breakables, etc should be out from under me. 
 		TraceResult tr;
 
-		UTIL_TraceLine ( pev->origin, pev->origin - Vector ( 0, 0, 2048 ), ignore_monsters, ENT(pev), &tr );
+		UTIL_TraceLine ( GetAbsOrigin(), GetAbsOrigin() - Vector ( 0, 0, 2048 ), ignore_monsters, ENT(pev), &tr );
 		m_flGround = tr.vecEndPos.z;
 	}
 
-	Vector mins = pev->origin - Vector( 34, 34, 0 );
-	Vector maxs = pev->origin + Vector( 34, 34, 0 );
-	maxs.z = pev->origin.z;
+	Vector mins = GetAbsOrigin() - Vector( 34, 34, 0 );
+	Vector maxs = GetAbsOrigin() + Vector( 34, 34, 0 );
+	maxs.z = GetAbsOrigin().z;
 	mins.z = m_flGround;
 
 	CBaseEntity *pList[2];
@@ -166,7 +166,7 @@ void CMonsterMaker::MakeMonster( void )
 	}
 
 	pevCreate = VARS( pent );
-	pevCreate->origin = pev->origin;
+	pevCreate->origin = GetAbsOrigin();
 	pevCreate->angles = pev->angles;
 	SetBits( pevCreate->spawnflags, SF_MONSTER_FALL_TO_GROUND );
 

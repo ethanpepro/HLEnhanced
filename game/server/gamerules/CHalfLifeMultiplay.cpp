@@ -901,7 +901,7 @@ float CHalfLifeMultiplay :: FlWeaponTryRespawn( CBasePlayerItem *pWeapon )
 //=========================================================
 Vector CHalfLifeMultiplay :: VecWeaponRespawnSpot( CBasePlayerItem *pWeapon )
 {
-	return pWeapon->pev->origin;
+	return pWeapon->GetAbsOrigin();
 }
 
 //=========================================================
@@ -989,7 +989,7 @@ float CHalfLifeMultiplay::FlItemRespawnTime( CItem *pItem )
 //=========================================================
 Vector CHalfLifeMultiplay::VecItemRespawnSpot( CItem *pItem )
 {
-	return pItem->pev->origin;
+	return pItem->GetAbsOrigin();
 }
 
 //=========================================================
@@ -1031,7 +1031,7 @@ float CHalfLifeMultiplay::FlAmmoRespawnTime( CBasePlayerAmmo *pAmmo )
 //=========================================================
 Vector CHalfLifeMultiplay::VecAmmoRespawnSpot( CBasePlayerAmmo *pAmmo )
 {
-	return pAmmo->pev->origin;
+	return pAmmo->GetAbsOrigin();
 }
 
 //=========================================================

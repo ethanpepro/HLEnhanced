@@ -142,8 +142,8 @@ public:
 		if( m_crabTime < gpGlobals->time && m_crabCount < BIG_MAXCHILDREN )
 		{
 			// Don't spawn crabs inside each other
-			Vector mins = pev->origin - Vector( 32, 32, 0 );
-			Vector maxs = pev->origin + Vector( 32, 32, 0 );
+			Vector mins = GetAbsOrigin() - Vector( 32, 32, 0 );
+			Vector maxs = GetAbsOrigin() + Vector( 32, 32, 0 );
 
 			CBaseEntity *pList[ 2 ];
 			int count = UTIL_EntitiesInBox( pList, 2, mins, maxs, FL_MONSTER );
@@ -162,8 +162,8 @@ public:
 
 	void SetObjectCollisionBox( void ) override
 	{
-		pev->absmin = pev->origin + Vector( -95, -95, 0 );
-		pev->absmax = pev->origin + Vector( 95, 95, 190 );
+		pev->absmin = GetAbsOrigin() + Vector( -95, -95, 0 );
+		pev->absmax = GetAbsOrigin() + Vector( 95, 95, 190 );
 	}
 
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;	// Slash

@@ -136,9 +136,9 @@ void CPathTrack::Project( CPathTrack *pstart, CPathTrack *pend, Vector *origin, 
 {
 	if( pstart && pend )
 	{
-		Vector dir = ( pend->pev->origin - pstart->pev->origin );
+		Vector dir = ( pend->GetAbsOrigin() - pstart->GetAbsOrigin() );
 		dir = dir.Normalize();
-		*origin = pend->pev->origin + dir * dist;
+		*origin = pend->GetAbsOrigin() + dir * dist;
 	}
 }
 
@@ -163,7 +163,7 @@ CPathTrack *CPathTrack::LookAhead( Vector *origin, float dist, const bool bMove 
 		dist = -dist;
 		while( dist > 0 )
 		{
-			Vector dir = pcurrent->pev->origin - currentPos;
+			Vector dir = pcurrent->GetAbsOrigin() - currentPos;
 			float length = dir.Length();
 			if( !length )
 			{
@@ -183,7 +183,7 @@ CPathTrack *CPathTrack::LookAhead( Vector *origin, float dist, const bool bMove 
 			else
 			{
 				dist -= length;
-				currentPos = pcurrent->pev->origin;
+				currentPos = pcurrent->GetAbsOrigin();
 				*origin = currentPos;
 				if( !ValidPath( pcurrent->GetPrevious(), bMove ) )	// If there is no previous node, or it's disabled, return now.
 					return NULL;
@@ -204,7 +204,7 @@ CPathTrack *CPathTrack::LookAhead( Vector *origin, float dist, const bool bMove 
 					Project( pcurrent->GetPrevious(), pcurrent, origin, dist );
 				return NULL;
 			}
-			Vector dir = pcurrent->GetNext()->pev->origin - currentPos;
+			Vector dir = pcurrent->GetNext()->GetAbsOrigin() - currentPos;
 			float length = dir.Length();
 			if( !length && !ValidPath( pcurrent->GetNext()->GetNext(), bMove ) )
 			{
@@ -220,7 +220,7 @@ CPathTrack *CPathTrack::LookAhead( Vector *origin, float dist, const bool bMove 
 			else
 			{
 				dist -= length;
-				currentPos = pcurrent->GetNext()->pev->origin;
+				currentPos = pcurrent->GetNext()->GetAbsOrigin();
 				pcurrent = pcurrent->GetNext();
 				*origin = currentPos;
 			}
@@ -240,7 +240,7 @@ CPathTrack *CPathTrack::Nearest( Vector origin )
 	CPathTrack	*ppath, *pnearest;
 
 
-	delta = origin - pev->origin;
+	delta = origin - GetAbsOrigin();
 	delta.z = 0;
 	minDist = delta.Length();
 	pnearest = this;
@@ -256,7 +256,7 @@ CPathTrack *CPathTrack::Nearest( Vector origin )
 			ALERT( at_error, "Bad sequence of path_tracks from %s", GetTargetname() );
 			return NULL;
 		}
-		delta = origin - ppath->pev->origin;
+		delta = origin - ppath->GetAbsOrigin();
 		delta.z = 0;
 		dist = delta.Length();
 		if( dist < minDist )
@@ -292,9 +292,9 @@ void CPathTrack::Sparkle( void )
 
 	pev->nextthink = gpGlobals->time + 0.2;
 	if( FBitSet( pev->spawnflags, SF_PATH_DISABLED ) )
-		UTIL_ParticleEffect( pev->origin, Vector( 0, 0, 100 ), 210, 10 );
+		UTIL_ParticleEffect( GetAbsOrigin(), Vector( 0, 0, 100 ), 210, 10 );
 	else
-		UTIL_ParticleEffect( pev->origin, Vector( 0, 0, 100 ), 84, 10 );
+		UTIL_ParticleEffect( GetAbsOrigin(), Vector( 0, 0, 100 ), 84, 10 );
 }
 #endif
 

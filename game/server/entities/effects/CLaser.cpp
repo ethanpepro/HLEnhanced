@@ -28,10 +28,10 @@ void CLaser::Spawn( void )
 	SetThink( &CLaser::StrikeThink );
 	pev->flags |= FL_CUSTOMENTITY;
 
-	PointsInit( pev->origin, pev->origin );
+	PointsInit( GetAbsOrigin(), GetAbsOrigin() );
 
 	if( !m_pSprite && m_iszSpriteName )
-		m_pSprite = CSprite::SpriteCreate( STRING( m_iszSpriteName ), pev->origin, true );
+		m_pSprite = CSprite::SpriteCreate( STRING( m_iszSpriteName ), GetAbsOrigin(), true );
 	else
 		m_pSprite = NULL;
 
@@ -136,11 +136,11 @@ void CLaser::StrikeThink( void )
 	CBaseEntity *pEnd = UTIL_RandomTargetname( STRING( pev->message ) );
 
 	if( pEnd )
-		m_firePosition = pEnd->pev->origin;
+		m_firePosition = pEnd->GetAbsOrigin();
 
 	TraceResult tr;
 
-	UTIL_TraceLine( pev->origin, m_firePosition, dont_ignore_monsters, NULL, &tr );
+	UTIL_TraceLine( GetAbsOrigin(), m_firePosition, dont_ignore_monsters, NULL, &tr );
 	FireAtPoint( tr );
 	pev->nextthink = gpGlobals->time + 0.1;
 }

@@ -90,7 +90,7 @@ void CSittingScientist::SittingThink( void )
 		pent = FindNearestFriend( true );
 		if( pent )
 		{
-			float yaw = VecToYaw( pent->pev->origin - pev->origin ) - pev->angles.y;
+			float yaw = VecToYaw( pent->GetAbsOrigin() - GetAbsOrigin() ) - pev->angles.y;
 
 			if( yaw > 180 ) yaw -= 360;
 			if( yaw < -180 ) yaw += 360;
@@ -136,7 +136,7 @@ void CSittingScientist::SittingThink( void )
 			else
 			{
 				// only turn head if we spoke
-				float yaw = VecToYaw( pent->pev->origin - pev->origin ) - pev->angles.y;
+				float yaw = VecToYaw( pent->GetAbsOrigin() - GetAbsOrigin() ) - pev->angles.y;
 
 				if( yaw > 180 ) yaw -= 360;
 				if( yaw < -180 ) yaw += 360;
@@ -225,7 +225,7 @@ bool CSittingScientist::FIdleSpeak()
 		CTalkMonster *pTalkMonster = GetClassPtr( ( CTalkMonster * ) pentFriend->pev );
 		pTalkMonster->SetAnswerQuestion( this );
 
-		IdleHeadTurn( pentFriend->pev->origin );
+		IdleHeadTurn( pentFriend->GetAbsOrigin() );
 		SENTENCEG_PlayRndSz( ENT( pev ), m_szGrp[ TLK_PQUESTION ], 1.0, ATTN_IDLE, 0, pitch );
 		// set global min delay for next conversation
 		CTalkMonster::g_talkWaitTime = gpGlobals->time + RANDOM_FLOAT( 4.8, 5.2 );

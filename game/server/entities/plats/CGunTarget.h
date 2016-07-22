@@ -40,7 +40,7 @@ public:
 	int				Classify() override { return CLASS_MACHINE; }
 	void			OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void			Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	Vector			BodyTarget( const Vector &posSrc ) const override { return pev->origin; }
+	Vector			BodyTarget( const Vector &posSrc ) const override { return GetAbsOrigin(); }
 
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 

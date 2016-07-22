@@ -33,7 +33,7 @@ void CMomentaryDoor::Spawn( void )
 	pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
 
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( STRING( pev->model ) );
 
 	if( pev->speed == 0 )
@@ -41,7 +41,7 @@ void CMomentaryDoor::Spawn( void )
 	if( pev->dmg == 0 )
 		pev->dmg = 2;
 
-	m_vecPosition1 = pev->origin;
+	m_vecPosition1 = GetAbsOrigin();
 	// Subtract 2 from size because the engine expands bboxes by 1 in all directions making the size too big
 	m_vecPosition2 = m_vecPosition1 + ( pev->movedir * ( fabs( pev->movedir.x * ( pev->size.x - 2 ) ) + fabs( pev->movedir.y * ( pev->size.y - 2 ) ) + fabs( pev->movedir.z * ( pev->size.z - 2 ) ) - m_flLip ) );
 	ASSERTSZ( m_vecPosition1 != m_vecPosition2, "door start/end positions are equal" );
@@ -50,7 +50,7 @@ void CMomentaryDoor::Spawn( void )
 	{	// swap pos1 and pos2, put door at pos2
 		SetAbsOrigin( m_vecPosition2 );
 		m_vecPosition2 = m_vecPosition1;
-		m_vecPosition1 = pev->origin;
+		m_vecPosition1 = GetAbsOrigin();
 	}
 	SetTouch( NULL );
 
@@ -103,7 +103,7 @@ void CMomentaryDoor::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 
 	Vector move = m_vecPosition1 + ( value * ( m_vecPosition2 - m_vecPosition1 ) );
 
-	Vector delta = move - pev->origin;
+	Vector delta = move - GetAbsOrigin();
 	//float speed = delta.Length() * 10;
 	float speed = delta.Length() / 0.1; // move there in 0.1 sec
 	if( speed == 0 )

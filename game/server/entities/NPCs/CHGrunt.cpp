@@ -337,25 +337,25 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 		if (RANDOM_LONG(0,1))
 		{
 			// magically know where they are
-			vecTarget = Vector( m_hEnemy->pev->origin.x, m_hEnemy->pev->origin.y, m_hEnemy->pev->absmin.z );
+			vecTarget = Vector( m_hEnemy->GetAbsOrigin().x, m_hEnemy->GetAbsOrigin().y, m_hEnemy->pev->absmin.z );
 		}
 		else
 		{
 			// toss it to where you last saw them
 			vecTarget = m_vecEnemyLKP;
 		}
-		// vecTarget = m_vecEnemyLKP + (m_hEnemy->BodyTarget( pev->origin ) - m_hEnemy->pev->origin);
+		// vecTarget = m_vecEnemyLKP + (m_hEnemy->BodyTarget( GetAbsOrigin() ) - m_hEnemy->GetAbsOrigin());
 		// estimate position
 		// vecTarget = vecTarget + m_hEnemy->pev->velocity * 2;
 	}
 	else
 	{
 		// find target
-		// vecTarget = m_hEnemy->BodyTarget( pev->origin );
-		vecTarget = m_vecEnemyLKP + (m_hEnemy->BodyTarget( pev->origin ) - m_hEnemy->pev->origin);
+		// vecTarget = m_hEnemy->BodyTarget( GetAbsOrigin() );
+		vecTarget = m_vecEnemyLKP + (m_hEnemy->BodyTarget( GetAbsOrigin() ) - m_hEnemy->GetAbsOrigin());
 		// estimate position
 		if (HasConditions( bits_COND_SEE_ENEMY))
-			vecTarget = vecTarget + ((vecTarget - pev->origin).Length() / gSkillData.hgruntGrenadeSpeed) * m_hEnemy->pev->velocity;
+			vecTarget = vecTarget + ((vecTarget - GetAbsOrigin()).Length() / gSkillData.hgruntGrenadeSpeed) * m_hEnemy->pev->velocity;
 	}
 
 	// are any of my squad members near the intended grenade impact area?
@@ -369,7 +369,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 		}
 	}
 	
-	if ( ( vecTarget - pev->origin ).Length2D() <= 256 )
+	if ( ( vecTarget - GetAbsOrigin() ).Length2D() <= 256 )
 	{
 		// crap, I don't want to blow myself up
 		m_flNextGrenadeCheck = gpGlobals->time + 1; // one full second.
@@ -581,7 +581,7 @@ CBaseEntity *CHGrunt :: Kick( void )
 	TraceResult tr;
 
 	UTIL_MakeVectors( pev->angles );
-	Vector vecStart = pev->origin;
+	Vector vecStart = GetAbsOrigin();
 	vecStart.z += pev->size.z * 0.5;
 	Vector vecEnd = vecStart + (gpGlobals->v_forward * 70);
 
@@ -604,11 +604,11 @@ Vector CHGrunt :: GetGunPosition( )
 {
 	if (m_fStanding )
 	{
-		return pev->origin + Vector( 0, 0, 60 );
+		return GetAbsOrigin() + Vector( 0, 0, 60 );
 	}
 	else
 	{
-		return pev->origin + Vector( 0, 0, 48 );
+		return GetAbsOrigin() + Vector( 0, 0, 48 );
 	}
 }
 
@@ -698,7 +698,7 @@ void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			}
 			if (FBitSet( pev->weapons, HGRUNT_GRENADELAUNCHER ))
 			{
-				DropItem( "ammo_ARgrenades", BodyTarget( pev->origin ), vecGunAngles );
+				DropItem( "ammo_ARgrenades", BodyTarget( GetAbsOrigin() ), vecGunAngles );
 			}
 
 			}
@@ -713,7 +713,7 @@ void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case HGRUNT_AE_GREN_TOSS:
 		{
 			UTIL_MakeVectors( pev->angles );
-			// CGrenade::ShootTimed( this, pev->origin + gpGlobals->v_forward * 34 + Vector (0, 0, 32), m_vecTossVelocity, 3.5 );
+			// CGrenade::ShootTimed( this, GetAbsOrigin() + gpGlobals->v_forward * 34 + Vector (0, 0, 32), m_vecTossVelocity, 3.5 );
 			CGrenade::ShootTimed( this, GetGunPosition(), m_vecTossVelocity, 3.5 );
 
 			m_fThrowGrenade = false;
@@ -737,7 +737,7 @@ void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case HGRUNT_AE_GREN_DROP:
 		{
 			UTIL_MakeVectors( pev->angles );
-			CGrenade::ShootTimed( this, pev->origin + gpGlobals->v_forward * 17 - gpGlobals->v_right * 27 + gpGlobals->v_up * 6, g_vecZero, 3 );
+			CGrenade::ShootTimed( this, GetAbsOrigin() + gpGlobals->v_forward * 17 - gpGlobals->v_right * 27 + gpGlobals->v_up * 6, g_vecZero, 3 );
 		}
 		break;
 
@@ -764,7 +764,7 @@ void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 				EMIT_SOUND(ENT(pev), CHAN_WEAPON, "weapons/sbarrel1.wav", 1, ATTN_NORM );
 			}
 		
-			CSoundEnt::InsertSound ( bits_SOUND_COMBAT, pev->origin, 384, 0.3 );
+			CSoundEnt::InsertSound ( bits_SOUND_COMBAT, GetAbsOrigin(), 384, 0.3 );
 		}
 		break;
 
@@ -970,7 +970,7 @@ void CHGrunt :: RunTask ( Task_t *pTask )
 	case TASK_GRUNT_FACE_TOSS_DIR:
 		{
 			// project a point along the toss vector and turn to face that point.
-			MakeIdealYaw( pev->origin + m_vecTossVelocity * 64 );
+			MakeIdealYaw( GetAbsOrigin() + m_vecTossVelocity * 64 );
 			ChangeYaw( pev->yaw_speed );
 
 			if ( FacingIdeal() )

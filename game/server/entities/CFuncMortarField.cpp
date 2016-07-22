@@ -99,8 +99,8 @@ void CFuncMortarField :: FieldUse( CBaseEntity *pActivator, CBaseEntity *pCaller
 	case 1: // Trigger Activator
 		if (pActivator != NULL)
 		{
-			vecStart.x = pActivator->pev->origin.x;
-			vecStart.y = pActivator->pev->origin.y;
+			vecStart.x = pActivator->GetAbsOrigin().x;
+			vecStart.y = pActivator->GetAbsOrigin().y;
 		}
 		break;
 	case 2: // table

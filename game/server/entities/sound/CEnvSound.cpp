@@ -52,8 +52,8 @@ void CEnvSound::Spawn()
 
 bool FEnvSoundInRange( CEnvSound* pSound, CBaseEntity* pTarget, float *pflRange )
 {
-	Vector vecSpot1 = pSound->pev->origin + pSound->pev->view_ofs;
-	Vector vecSpot2 = pTarget->pev->origin + pTarget->pev->view_ofs;
+	Vector vecSpot1 = pSound->GetAbsOrigin() + pSound->pev->view_ofs;
+	Vector vecSpot2 = pTarget->GetAbsOrigin() + pTarget->pev->view_ofs;
 	Vector vecRange;
 	float flRange;
 	TraceResult tr;

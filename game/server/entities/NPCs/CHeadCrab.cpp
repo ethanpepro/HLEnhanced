@@ -127,7 +127,7 @@ int	CHeadCrab :: Classify ( void )
 //=========================================================
 Vector CHeadCrab::Center() const
 {
-	return Vector( pev->origin.x, pev->origin.y, pev->origin.z + 6 );
+	return Vector( GetAbsOrigin().x, GetAbsOrigin().y, GetAbsOrigin().z + 6 );
 }
 
 
@@ -180,7 +180,7 @@ void CHeadCrab :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		{
 			ClearBits( pev->flags, FL_ONGROUND );
 
-			SetAbsOrigin( pev->origin + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
+			SetAbsOrigin( GetAbsOrigin() + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
 			UTIL_MakeVectors ( pev->angles );
 
 			Vector vecJumpDir;
@@ -191,14 +191,14 @@ void CHeadCrab :: HandleAnimEvent( MonsterEvent_t *pEvent )
 					gravity = 1;
 
 				// How fast does the headcrab need to travel to reach that height given gravity?
-				float height = (m_hEnemy->pev->origin.z + m_hEnemy->pev->view_ofs.z - pev->origin.z);
+				float height = (m_hEnemy->GetAbsOrigin().z + m_hEnemy->pev->view_ofs.z - GetAbsOrigin().z);
 				if (height < 16)
 					height = 16;
 				float speed = sqrt( 2 * gravity * height );
 				float time = speed / gravity;
 
 				// Scale the sideways velocity to get there at the right time
-				vecJumpDir = (m_hEnemy->pev->origin + m_hEnemy->pev->view_ofs - pev->origin);
+				vecJumpDir = (m_hEnemy->GetAbsOrigin() + m_hEnemy->pev->view_ofs - GetAbsOrigin());
 				vecJumpDir = vecJumpDir * ( 1.0 / time );
 
 				// Speed to offset gravity at the desired height

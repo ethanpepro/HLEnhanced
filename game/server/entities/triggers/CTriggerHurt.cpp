@@ -36,7 +36,7 @@ void CTriggerHurt::Spawn( void )
 	if( FBitSet( pev->spawnflags, SF_TRIGGER_HURT_START_OFF ) )// if flagged to Start Turned Off, make trigger nonsolid.
 		pev->solid = SOLID_NOT;
 
-	SetAbsOrigin( pev->origin );		// Link into the list
+	SetAbsOrigin( GetAbsOrigin() );		// Link into the list
 }
 
 // trigger hurt that causes radiation will do a radius
@@ -59,7 +59,7 @@ void CTriggerHurt::RadiationThink( void )
 	// if not, continue	
 
 	// set origin to center of trigger so that this check works
-	origin = pev->origin;
+	origin = GetAbsOrigin();
 	view_ofs = pev->view_ofs;
 
 	pev->origin = ( pev->absmin + pev->absmax ) * 0.5;

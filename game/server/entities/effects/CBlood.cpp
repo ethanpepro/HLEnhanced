@@ -85,5 +85,5 @@ Vector CBlood::BloodPosition( CBaseEntity *pActivator )
 			return ( pPlayer->v.origin + pPlayer->v.view_ofs ) + Vector( RANDOM_FLOAT( -10, 10 ), RANDOM_FLOAT( -10, 10 ), RANDOM_FLOAT( -10, 10 ) );
 	}
 
-	return pev->origin;
+	return GetAbsOrigin();
 }

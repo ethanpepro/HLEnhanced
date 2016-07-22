@@ -14,7 +14,7 @@ void CPlatTrigger::SpawnInsideTrigger( CFuncPlat *pPlatform )
 	// Create trigger entity, "point" it at the owning platform, give it a touch method
 	pev->solid = SOLID_TRIGGER;
 	pev->movetype = MOVETYPE_NONE;
-	pev->origin = pPlatform->pev->origin;
+	pev->origin = pPlatform->GetAbsOrigin();
 
 	// Establish the trigger field's size
 	Vector vecTMin = pPlatform->pev->mins + Vector( 25, 25, 0 );

@@ -74,7 +74,7 @@ void CBasePlayer::PlayerUse()
 
 	UTIL_MakeVectors( pev->v_angle );// so we know which way we are facing
 
-	while( ( pObject = UTIL_FindEntityInSphere( pObject, pev->origin, PLAYER_USE_SEARCH_RADIUS ) ) != NULL )
+	while( ( pObject = UTIL_FindEntityInSphere( pObject, GetAbsOrigin(), PLAYER_USE_SEARCH_RADIUS ) ) != NULL )
 	{
 
 		if( pObject->ObjectCaps() & ( FCAP_IMPULSE_USE | FCAP_CONTINUOUS_USE | FCAP_ONOFF_USE ) )
@@ -82,7 +82,7 @@ void CBasePlayer::PlayerUse()
 			// !!!PERFORMANCE- should this check be done on a per case basis AFTER we've determined that
 			// this object is actually usable? This dot is being done for every object within PLAYER_SEARCH_RADIUS
 			// when player hits the use key. How many objects can be in that area, anyway? (sjb)
-			vecLOS = ( VecBModelOrigin( pObject ) - ( pev->origin + pev->view_ofs ) );
+			vecLOS = ( VecBModelOrigin( pObject ) - ( GetAbsOrigin() + pev->view_ofs ) );
 
 			// This essentially moves the origin of the target to the corner nearest the player to test to see 
 			// if it's "hull" is in the view cone

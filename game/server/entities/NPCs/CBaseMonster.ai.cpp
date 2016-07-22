@@ -51,10 +51,10 @@ bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector &vecTargetO
 		return false;
 
 	TraceResult tr;
-	Vector	vecLookerOrigin = pLooker->pev->origin + pLooker->pev->view_ofs;//look through the monster's 'eyes'
+	Vector	vecLookerOrigin = pLooker->GetAbsOrigin() + pLooker->pev->view_ofs;//look through the monster's 'eyes'
 	for (int i = 0; i < 5; i++)
 	{
-		Vector vecTarget = pTarget->pev->origin;
+		Vector vecTarget = pTarget->GetAbsOrigin();
 		vecTarget.x += RANDOM_FLOAT( pTarget->pev->mins.x + flSize, pTarget->pev->maxs.x - flSize);
 		vecTarget.y += RANDOM_FLOAT( pTarget->pev->mins.y + flSize, pTarget->pev->maxs.y - flSize);
 		vecTarget.z += RANDOM_FLOAT( pTarget->pev->mins.z + flSize, pTarget->pev->maxs.z - flSize);

@@ -120,7 +120,7 @@ void CBasePlayer::PreThink()
 		{
 			TraceResult trainTrace;
 			// Maybe this is on the other side of a level transition
-			UTIL_TraceLine( pev->origin, pev->origin + Vector( 0, 0, -38 ), ignore_monsters, ENT( pev ), &trainTrace );
+			UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, -38 ), ignore_monsters, ENT( pev ), &trainTrace );
 
 			// HACKHACK - Just look for the func_tracktrain classname
 			if( trainTrace.flFraction != 1.0 && trainTrace.pHit )
@@ -267,7 +267,7 @@ void CBasePlayer::PostThink()
 	{
 		if( m_flFallVelocity > 64 && !g_pGameRules->IsMultiplayer() )
 		{
-			CSoundEnt::InsertSound( bits_SOUND_PLAYER, pev->origin, m_flFallVelocity, 0.2 );
+			CSoundEnt::InsertSound( bits_SOUND_PLAYER, GetAbsOrigin(), m_flFallVelocity, 0.2 );
 			// ALERT( at_console, "fall %f\n", m_flFallVelocity );
 		}
 		m_flFallVelocity = 0;
@@ -540,7 +540,7 @@ void CBasePlayer::UpdatePlayerSound()
 
 	if( pSound )
 	{
-		pSound->m_vecOrigin = pev->origin;
+		pSound->m_vecOrigin = GetAbsOrigin();
 		pSound->m_iType |= ( bits_SOUND_PLAYER | m_iExtraSoundTypes );
 		pSound->m_iVolume = iVolume;
 	}
@@ -555,7 +555,7 @@ void CBasePlayer::UpdatePlayerSound()
 
 	// Below are a couple of useful little bits that make it easier to determine just how much noise the 
 	// player is making. 
-	// UTIL_ParticleEffect ( pev->origin + gpGlobals->v_forward * iVolume, g_vecZero, 255, 25 );
+	// UTIL_ParticleEffect ( GetAbsOrigin() + gpGlobals->v_forward * iVolume, g_vecZero, 255, 25 );
 	//ALERT ( at_console, "%d/%d\n", iVolume, m_iTargetVolume );
 }
 
@@ -732,7 +732,7 @@ void CBasePlayer::ImpulseCommands()
 		}
 
 		UTIL_MakeVectors( pev->v_angle );
-		UTIL_TraceLine( pev->origin + pev->view_ofs, pev->origin + pev->view_ofs + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
+		UTIL_TraceLine( GetAbsOrigin() + pev->view_ofs, GetAbsOrigin() + pev->view_ofs + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
 
 		if( tr.flFraction != 1.0 )
 		{// line hit something, so paint a decal
@@ -776,7 +776,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			else
 			{
 				UTIL_MakeVectors( Vector( 0, pev->v_angle.y, 0 ) );
-				Create( "monster_human_grunt", pev->origin + gpGlobals->v_forward * 128, pev->angles );
+				Create( "monster_human_grunt", GetAbsOrigin() + gpGlobals->v_forward * 128, pev->angles );
 			}
 			break;
 		}
@@ -880,7 +880,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 
 			edict_t		*pWorld = g_engfuncs.pfnPEntityOfEntIndex( 0 );
 
-			Vector start = pev->origin + pev->view_ofs;
+			Vector start = GetAbsOrigin() + pev->view_ofs;
 			Vector end = start + gpGlobals->v_forward * 1024;
 			UTIL_TraceLine( start, end, ignore_monsters, edict(), &tr );
 			if( tr.pHit )
@@ -892,28 +892,28 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		break;
 	case	195:// show shortest paths for entire level to nearest node
 		{
-			Create( "node_viewer_fly", pev->origin, pev->angles );
+			Create( "node_viewer_fly", GetAbsOrigin(), pev->angles );
 		}
 		break;
 	case	196:// show shortest paths for entire level to nearest node
 		{
-			Create( "node_viewer_large", pev->origin, pev->angles );
+			Create( "node_viewer_large", GetAbsOrigin(), pev->angles );
 		}
 		break;
 	case	197:// show shortest paths for entire level to nearest node
 		{
-			Create( "node_viewer_human", pev->origin, pev->angles );
+			Create( "node_viewer_human", GetAbsOrigin(), pev->angles );
 		}
 		break;
 	case	199:// show nearest node and all connections
 		{
-			ALERT( at_console, "%d\n", WorldGraph.FindNearestNode( pev->origin, bits_NODE_GROUP_REALM ) );
-			WorldGraph.ShowNodeConnections( WorldGraph.FindNearestNode( pev->origin, bits_NODE_GROUP_REALM ) );
+			ALERT( at_console, "%d\n", WorldGraph.FindNearestNode( GetAbsOrigin(), bits_NODE_GROUP_REALM ) );
+			WorldGraph.ShowNodeConnections( WorldGraph.FindNearestNode( GetAbsOrigin(), bits_NODE_GROUP_REALM ) );
 		}
 		break;
 	case	202:// Random blood splatter
 		UTIL_MakeVectors( pev->v_angle );
-		UTIL_TraceLine( pev->origin + pev->view_ofs, pev->origin + pev->view_ofs + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
+		UTIL_TraceLine( GetAbsOrigin() + pev->view_ofs, GetAbsOrigin() + pev->view_ofs + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
 
 		if( tr.flFraction != 1.0 )
 		{// line hit something, so paint a decal

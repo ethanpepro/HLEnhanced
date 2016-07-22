@@ -53,7 +53,7 @@ public:
 	virtual void Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntity* pAttacker );
 	virtual Vector UpdateTargetPosition( CBaseEntity *pTarget )
 	{
-		return pTarget->BodyTarget( pev->origin );
+		return pTarget->BodyTarget( GetAbsOrigin() );
 	}
 
 	void	StartRotSound( void );
@@ -77,7 +77,7 @@ public:
 	{
 		Vector forward, right, up;
 		UTIL_MakeVectorsPrivate( pev->angles, &forward, &right, &up );
-		return pev->origin + ( forward * m_barrelPos.x ) + ( right * m_barrelPos.y ) + ( up * m_barrelPos.z );
+		return GetAbsOrigin() + ( forward * m_barrelPos.x ) + ( right * m_barrelPos.y ) + ( up * m_barrelPos.z );
 	}
 
 	void		AdjustAnglesForBarrel( Vector &angles, float distance );

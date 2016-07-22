@@ -35,7 +35,7 @@ void CApacheHVR::Spawn( void )
 
 	SetModel( "models/HVR.mdl" );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	SetThink( &CApacheHVR::IgniteThink );
 	SetTouch( &CApacheHVR::ExplodeTouch );
@@ -89,7 +89,7 @@ void CApacheHVR::IgniteThink( void )
 void CApacheHVR::AccelerateThink( void )
 {
 	// check world boundaries
-	if( pev->origin.x < -4096 || pev->origin.x > 4096 || pev->origin.y < -4096 || pev->origin.y > 4096 || pev->origin.z < -4096 || pev->origin.z > 4096 )
+	if( GetAbsOrigin().x < -4096 || GetAbsOrigin().x > 4096 || GetAbsOrigin().y < -4096 || GetAbsOrigin().y > 4096 || GetAbsOrigin().z < -4096 || GetAbsOrigin().z > 4096 )
 	{
 		UTIL_Remove( this );
 		return;

@@ -200,8 +200,8 @@ int CWeaponBox::GiveAmmo( int iCount, char *szName, int iMax, int *pIndex/* = NU
 //=========================================================
 void CWeaponBox::SetObjectCollisionBox()
 {
-	pev->absmin = pev->origin + Vector( -16, -16, 0 );
-	pev->absmax = pev->origin + Vector( 16, 16, 16 );
+	pev->absmin = GetAbsOrigin() + Vector( -16, -16, 0 );
+	pev->absmax = GetAbsOrigin() + Vector( 16, 16, 16 );
 }
 
 //=========================================================

@@ -34,11 +34,11 @@ void CSmoker::Spawn( void )
 void CSmoker::Think( void )
 {
 	// lots of smoke
-	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, pev->origin );
+	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );
 	WRITE_BYTE( TE_SMOKE );
-	WRITE_COORD( pev->origin.x + RANDOM_FLOAT( -pev->dmg, pev->dmg ) );
-	WRITE_COORD( pev->origin.y + RANDOM_FLOAT( -pev->dmg, pev->dmg ) );
-	WRITE_COORD( pev->origin.z );
+	WRITE_COORD( GetAbsOrigin().x + RANDOM_FLOAT( -pev->dmg, pev->dmg ) );
+	WRITE_COORD( GetAbsOrigin().y + RANDOM_FLOAT( -pev->dmg, pev->dmg ) );
+	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_SHORT( g_sModelIndexSmoke );
 	WRITE_BYTE( RANDOM_LONG( pev->scale, pev->scale * 1.1 ) );
 	WRITE_BYTE( RANDOM_LONG( 8, 14 ) ); // framerate

@@ -117,17 +117,17 @@ void CLeech::Activate( void )
 void CLeech::RecalculateWaterlevel( void )
 {
 	// Calculate boundaries
-	Vector vecTest = pev->origin - Vector(0,0,400);
+	Vector vecTest = GetAbsOrigin() - Vector(0,0,400);
 
 	TraceResult tr;
 
-	UTIL_TraceLine(pev->origin, vecTest, missile, edict(), &tr);
+	UTIL_TraceLine(GetAbsOrigin(), vecTest, missile, edict(), &tr);
 	if ( tr.flFraction != 1.0 )
 		m_bottom = tr.vecEndPos.z + 1;
 	else
 		m_bottom = vecTest.z;
 
-	m_top = UTIL_WaterLevel( pev->origin, pev->origin.z, pev->origin.z + 400 ) - 1;
+	m_top = UTIL_WaterLevel( GetAbsOrigin(), GetAbsOrigin().z, GetAbsOrigin().z + 400 ) - 1;
 
 	// Chop off 20% of the outside range
 	float newBottom = m_bottom * 0.8 + m_top * 0.2;
@@ -202,7 +202,7 @@ void CLeech::OnTakeDamage( const CTakeDamageInfo& info )
 	// Nudge the leech away from the damage
 	if ( auto pInflictor = info.GetInflictor() )
 	{
-		pev->velocity = (pev->origin - pInflictor->pev->origin).Normalize() * 25;
+		pev->velocity = (GetAbsOrigin() - pInflictor->GetAbsOrigin()).Normalize() * 25;
 	}
 
 	CBaseMonster::OnTakeDamage( info );
@@ -223,7 +223,7 @@ void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			UTIL_MakeVectorsPrivate( pev->angles, &face, nullptr, nullptr );
 			face.z = 0;
-			dir = (pEnemy->pev->origin - pev->origin);
+			dir = (pEnemy->GetAbsOrigin() - GetAbsOrigin());
 			dir.z = 0;
 			dir = dir.Normalize();
 			face = face.Normalize();
@@ -265,13 +265,13 @@ float CLeech::ObstacleDistance( CBaseEntity *pTarget )
 	MakeVectors();
 
 	// check for obstacle ahead
-	vecTest = pev->origin + gpGlobals->v_forward * LEECH_CHECK_DIST;
-	UTIL_TraceLine(pev->origin, vecTest, missile, edict(), &tr);
+	vecTest = GetAbsOrigin() + gpGlobals->v_forward * LEECH_CHECK_DIST;
+	UTIL_TraceLine(GetAbsOrigin(), vecTest, missile, edict(), &tr);
 
 	if ( tr.fStartSolid )
 	{
 		pev->speed = -LEECH_SWIM_SPEED * 0.5;
-//		ALERT( at_console, "Stuck from (%f %f %f) to (%f %f %f)\n", GetOldOrigin().x, GetOldOrigin().y, GetOldOrigin().z, pev->origin.x, pev->origin.y, pev->origin.z );
+//		ALERT( at_console, "Stuck from (%f %f %f) to (%f %f %f)\n", GetOldOrigin().x, GetOldOrigin().y, GetOldOrigin().z, GetAbsOrigin().x, GetAbsOrigin().y, GetAbsOrigin().z );
 //		SetAbsOrigin( GetOldOrigin() );
 	}
 
@@ -283,7 +283,7 @@ float CLeech::ObstacleDistance( CBaseEntity *pTarget )
 		}
 		else
 		{
-			if ( fabs(m_height - pev->origin.z) > 10 )
+			if ( fabs(m_height - GetAbsOrigin().z) > 10 )
 				return tr.flFraction;
 		}
 	}
@@ -291,13 +291,13 @@ float CLeech::ObstacleDistance( CBaseEntity *pTarget )
 	if ( m_sideTime < gpGlobals->time )
 	{
 		// extra wide checks
-		vecTest = pev->origin + gpGlobals->v_right * LEECH_SIZEX * 2 + gpGlobals->v_forward * LEECH_CHECK_DIST;
-		UTIL_TraceLine(pev->origin, vecTest, missile, edict(), &tr);
+		vecTest = GetAbsOrigin() + gpGlobals->v_right * LEECH_SIZEX * 2 + gpGlobals->v_forward * LEECH_CHECK_DIST;
+		UTIL_TraceLine(GetAbsOrigin(), vecTest, missile, edict(), &tr);
 		if (tr.flFraction != 1.0)
 			return tr.flFraction;
 
-		vecTest = pev->origin - gpGlobals->v_right * LEECH_SIZEX * 2 + gpGlobals->v_forward * LEECH_CHECK_DIST;
-		UTIL_TraceLine(pev->origin, vecTest, missile, edict(), &tr);
+		vecTest = GetAbsOrigin() - gpGlobals->v_right * LEECH_SIZEX * 2 + gpGlobals->v_forward * LEECH_CHECK_DIST;
+		UTIL_TraceLine(GetAbsOrigin(), vecTest, missile, edict(), &tr);
 		if (tr.flFraction != 1.0)
 			return tr.flFraction;
 
@@ -332,7 +332,7 @@ void CLeech::DeadThink( void )
 		TraceResult tr;
 
 		// Look 0.5 seconds ahead
-		UTIL_TraceLine(pev->origin, pev->origin + pev->velocity * 0.5, missile, edict(), &tr);
+		UTIL_TraceLine(GetAbsOrigin(), GetAbsOrigin() + pev->velocity * 0.5, missile, edict(), &tr);
 		if (tr.flFraction != 1.0)
 		{
 			pev->velocity.x = 0;
@@ -370,7 +370,7 @@ void CLeech::UpdateMotion( void )
 
 	// lean
 	float targetPitch, delta;
-	delta = m_height - pev->origin.z;
+	delta = m_height - GetAbsOrigin().z;
 
 	if ( delta < -10 )
 		targetPitch = -30;
@@ -421,8 +421,8 @@ void CLeech::UpdateMotion( void )
 		m_pb = CBeam::BeamCreate( "sprites/laserbeam.spr", 5 );
 	if ( !m_pt )
 		m_pt = CBeam::BeamCreate( "sprites/laserbeam.spr", 5 );
-	m_pb->PointsInit( pev->origin, pev->origin + gpGlobals->v_forward * LEECH_CHECK_DIST );
-	m_pt->PointsInit( pev->origin, pev->origin - gpGlobals->v_right * (pev->avelocity.y*0.25) );
+	m_pb->PointsInit( GetAbsOrigin(), GetAbsOrigin() + gpGlobals->v_forward * LEECH_CHECK_DIST );
+	m_pt->PointsInit( GetAbsOrigin(), GetAbsOrigin() - gpGlobals->v_right * (pev->avelocity.y*0.25) );
 	if ( m_fPathBlocked )
 	{
 		float color = m_obstacle * 30;
@@ -474,13 +474,13 @@ void CLeech::SwimThink( void )
 		else
 		{
 			// Chase the enemy's eyes
-			m_height = pTarget->pev->origin.z + pTarget->pev->view_ofs.z - 5;
+			m_height = pTarget->GetAbsOrigin().z + pTarget->pev->view_ofs.z - 5;
 			// Clip to viable water area
 			if ( m_height < m_bottom )
 				m_height = m_bottom;
 			else if ( m_height > m_top )
 				m_height = m_top;
-			Vector location = pTarget->pev->origin - pev->origin;
+			Vector location = pTarget->GetAbsOrigin() - GetAbsOrigin();
 			location.z += (pTarget->pev->view_ofs.z);
 			if ( location.Length() < 40 )
 				SetConditions( bits_COND_CAN_MELEE_ATTACK1 );
@@ -510,7 +510,7 @@ void CLeech::SwimThink( void )
 			targetYaw = RANDOM_LONG( -30, 30 );
 		pTarget = NULL;
 		// oldorigin test
-		if ( (pev->origin - GetOldOrigin() ).Length() < 1 )
+		if ( (GetAbsOrigin() - GetOldOrigin() ).Length() < 1 )
 		{
 			// If leech didn't move, there must be something blocking it, so try to turn
 			m_sideTime = 0;
@@ -520,7 +520,7 @@ void CLeech::SwimThink( void )
 	}
 
 	m_obstacle = ObstacleDistance( pTarget );
-	SetOldOrigin( pev->origin );
+	SetOldOrigin( GetAbsOrigin() );
 	if ( m_obstacle < 0.1 )
 		m_obstacle = 0.1;
 
@@ -548,12 +548,12 @@ void CLeech::SwimThink( void )
 		{
 			Vector vecTest;
 			// measure clearance on left and right to pick the best dir to turn
-			vecTest = pev->origin + (gpGlobals->v_right * LEECH_SIZEX) + (gpGlobals->v_forward * LEECH_CHECK_DIST);
-			UTIL_TraceLine(pev->origin, vecTest, missile, edict(), &tr);
+			vecTest = GetAbsOrigin() + (gpGlobals->v_right * LEECH_SIZEX) + (gpGlobals->v_forward * LEECH_CHECK_DIST);
+			UTIL_TraceLine(GetAbsOrigin(), vecTest, missile, edict(), &tr);
 			flRightSide = tr.flFraction;
 
-			vecTest = pev->origin + (gpGlobals->v_right * -LEECH_SIZEX) + (gpGlobals->v_forward * LEECH_CHECK_DIST);
-			UTIL_TraceLine(pev->origin, vecTest, missile, edict(), &tr);
+			vecTest = GetAbsOrigin() + (gpGlobals->v_right * -LEECH_SIZEX) + (gpGlobals->v_forward * LEECH_CHECK_DIST);
+			UTIL_TraceLine(GetAbsOrigin(), vecTest, missile, edict(), &tr);
 			flLeftSide = tr.flFraction;
 
 			// turn left, right or random depending on clearance ratio

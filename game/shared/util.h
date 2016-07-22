@@ -138,7 +138,7 @@ extern CBaseEntity	*UTIL_FindEntityInSphere(CBaseEntity *pStartEntity, const Vec
 extern CBaseEntity	*UTIL_FindEntityByString(CBaseEntity *pStartEntity, const char *szKeyword, const char *szValue );
 extern CBaseEntity	*UTIL_FindEntityByClassname(CBaseEntity *pStartEntity, const char *szName );
 extern CBaseEntity	*UTIL_FindEntityByTargetname(CBaseEntity *pStartEntity, const char *szName );
-extern CBaseEntity	*UTIL_FindEntityGeneric(const char *szName, Vector &vecSrc, float flRadius );
+extern CBaseEntity	*UTIL_FindEntityGeneric(const char *szName, const Vector &vecSrc, float flRadius );
 
 /**
 *	Gets a CBasePlayer pointer to a player by index.

@@ -63,7 +63,7 @@ void CGib::BounceGibTouch( CBaseEntity *pOther )
 	{
 		if( g_Language != LANGUAGE_GERMAN && m_cBloodDecals > 0 && m_bloodColor != DONT_BLEED )
 		{
-			vecSpot = pev->origin + Vector( 0, 0, 8 );//move up a bit, and trace down.
+			vecSpot = GetAbsOrigin() + Vector( 0, 0, 8 );//move up a bit, and trace down.
 			UTIL_TraceLine( vecSpot, vecSpot + Vector( 0, 0, -24 ), ignore_monsters, ENT( pev ), &tr );
 
 			UTIL_BloodDecalTrace( &tr, m_bloodColor );
@@ -100,7 +100,7 @@ void CGib::StickyGibTouch( CBaseEntity *pOther )
 		return;
 	}
 
-	UTIL_TraceLine( pev->origin, pev->origin + pev->velocity * 32, ignore_monsters, ENT( pev ), &tr );
+	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + pev->velocity * 32, ignore_monsters, ENT( pev ), &tr );
 
 	UTIL_BloodDecalTrace( &tr, m_bloodColor );
 
@@ -134,7 +134,7 @@ void CGib::WaitTillLand( void )
 		if( m_bloodColor != DONT_BLEED )
 		{
 			// ok, start stinkin!
-			CSoundEnt::InsertSound( bits_SOUND_MEAT, pev->origin, 384, 25 );
+			CSoundEnt::InsertSound( bits_SOUND_MEAT, GetAbsOrigin(), 384, 25 );
 		}
 	}
 	else
@@ -172,7 +172,7 @@ void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 
 	if( pVictim )
 	{
-		pGib->pev->origin = pVictim->pev->origin + pVictim->pev->view_ofs;
+		pGib->pev->origin = pVictim->GetAbsOrigin() + pVictim->pev->view_ofs;
 
 		edict_t		*pentPlayer = FIND_CLIENT_IN_PVS( pGib->edict() );
 
@@ -180,7 +180,7 @@ void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 		{
 			// 5% chance head will be thrown at player's face.
 			entvars_t* pevPlayer = VARS( pentPlayer );
-			pGib->pev->velocity = ( ( pevPlayer->origin + pevPlayer->view_ofs ) - pGib->pev->origin ).Normalize() * 300;
+			pGib->pev->velocity = ( ( pevPlayer->origin + pevPlayer->view_ofs ) - pGib->GetAbsOrigin() ).Normalize() * 300;
 			pGib->pev->velocity.z += 100;
 		}
 		else

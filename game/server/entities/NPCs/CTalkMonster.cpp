@@ -413,7 +413,7 @@ void CTalkMonster :: StartTask( Task_t *pTask )
 		if (m_hTalkTarget != NULL)
 		{
 			pev->yaw_speed = 60;
-			float yaw = VecToYaw(m_hTalkTarget->pev->origin - pev->origin) - pev->angles.y;
+			float yaw = VecToYaw(m_hTalkTarget->GetAbsOrigin() - GetAbsOrigin()) - pev->angles.y;
 
 			if (yaw > 180) yaw -= 360;
 			if (yaw < -180) yaw += 360;
@@ -459,12 +459,12 @@ void CTalkMonster :: StartTask( Task_t *pTask )
 			Vector move;
 
 			UTIL_MakeVectorsPrivate( dir, &move, nullptr, nullptr );
-			dir = pev->origin + move * pTask->flData;
+			dir = GetAbsOrigin() + move * pTask->flData;
 			if ( MoveToLocation( ACT_WALK, 2, dir ) )
 			{
 				TaskComplete();
 			}
-			else if ( FindCover( pev->origin, pev->view_ofs, 0, CoverRadius() ) )
+			else if ( FindCover( GetAbsOrigin(), pev->view_ofs, 0, CoverRadius() ) )
 			{
 				// then try for plain ole cover
 				m_flMoveWaitFinished = gpGlobals->time + 2;
@@ -521,14 +521,14 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 		if ( pTask->iTask == TASK_TLK_CLIENT_STARE )
 		{
 			// fail out if the player looks away or moves away.
-			if ( ( pPlayer->v.origin - pev->origin ).Length2D() > TLK_STARE_DIST )
+			if ( ( pPlayer->v.origin - GetAbsOrigin() ).Length2D() > TLK_STARE_DIST )
 			{
 				// player moved away.
 				TaskFail();
 			}
 
 			UTIL_MakeVectors( pPlayer->v.angles );
-			if ( UTIL_DotPoints( pPlayer->v.origin, pev->origin, gpGlobals->v_forward ) < m_flFieldOfView )
+			if ( UTIL_DotPoints( pPlayer->v.origin, GetAbsOrigin(), gpGlobals->v_forward ) < m_flFieldOfView )
 			{
 				// player looked away
 				TaskFail();
@@ -567,7 +567,7 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 		if (!IsMoving() && IsTalking() && m_hTalkTarget != NULL)
 		{
 			// ALERT( at_console, "waiting %f\n", m_flStopTalkTime - gpGlobals->time );
-			IdleHeadTurn( m_hTalkTarget->pev->origin );
+			IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
 		}
 		else
 		{
@@ -579,7 +579,7 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 		{
 			float distance;
 
-			distance = (m_vecLastPosition - pev->origin).Length2D();
+			distance = (m_vecLastPosition - GetAbsOrigin()).Length2D();
 
 			// Walk path until far enough away
 			if ( distance > pTask->flData || MovementIsComplete() )
@@ -593,11 +593,11 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 		if (IsTalking() && m_hTalkTarget != NULL)
 		{
 			// ALERT(at_console, "walking, talking\n");
-			IdleHeadTurn( m_hTalkTarget->pev->origin );
+			IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
 		}
 		else
 		{
-			IdleHeadTurn( pev->origin );
+			IdleHeadTurn( GetAbsOrigin() );
 			// override so that during walk, a scientist may talk and greet player
 			FIdleHello();
 			if (RANDOM_LONG(0,m_nSpeak * 20) == 0)
@@ -608,13 +608,13 @@ void CTalkMonster :: RunTask( Task_t *pTask )
 
 		CBaseMonster::RunTask( pTask );
 		if (TaskIsComplete())
-			IdleHeadTurn( pev->origin );
+			IdleHeadTurn( GetAbsOrigin() );
 		break;
 
 	default:
 		if (IsTalking() && m_hTalkTarget != NULL)
 		{
-			IdleHeadTurn( m_hTalkTarget->pev->origin );
+			IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
 		}
 		else
 		{
@@ -658,10 +658,10 @@ CBaseEntity	*CTalkMonster::EnumFriends( CBaseEntity *pPrevious, int listNumber, 
 			continue;
 		if ( bTrace )
 		{
-			vecCheck = pFriend->pev->origin;
+			vecCheck = pFriend->GetAbsOrigin();
 			vecCheck.z = pFriend->pev->absmax.z;
 
-			UTIL_TraceLine( pev->origin, vecCheck, ignore_monsters, ENT(pev), &tr);
+			UTIL_TraceLine( GetAbsOrigin(), vecCheck, ignore_monsters, ENT(pev), &tr);
 		}
 		else
 			tr.flFraction = 1.0;
@@ -752,7 +752,7 @@ float CTalkMonster::TargetDistance( void )
 	if ( m_hTargetEnt == NULL || !m_hTargetEnt->IsAlive() )
 		return 1e6;
 
-	return (m_hTargetEnt->pev->origin - pev->origin).Length();
+	return (m_hTargetEnt->GetAbsOrigin() - GetAbsOrigin()).Length();
 }
 
 
@@ -802,7 +802,7 @@ CBaseEntity* CTalkMonster::FindNearestFriend( const bool fPlayer ) const
 	CBaseEntity *pNearest = NULL;
 	float range = 10000000.0;
 	TraceResult tr;
-	Vector vecStart = pev->origin;
+	Vector vecStart = GetAbsOrigin();
 	Vector vecCheck;
 	int i;
 	char *pszFriend;
@@ -840,7 +840,7 @@ CBaseEntity* CTalkMonster::FindNearestFriend( const bool fPlayer ) const
 			if ( !pMonster || pMonster->m_MonsterState == MONSTERSTATE_SCRIPT || pMonster->m_MonsterState == MONSTERSTATE_PRONE )
 				continue;
 
-			vecCheck = pFriend->pev->origin;
+			vecCheck = pFriend->GetAbsOrigin();
 			vecCheck.z = pFriend->pev->absmax.z;
 
 			// if closer than previous friend, and in range, see if he's visible
@@ -888,7 +888,7 @@ void CTalkMonster :: Touch( CBaseEntity *pOther )
 		if ( speed > 50 )
 		{
 			SetConditions( bits_COND_CLIENT_PUSH );
-			MakeIdealYaw( pOther->pev->origin );
+			MakeIdealYaw( pOther->GetAbsOrigin() );
 		}
 	}
 }
@@ -1001,12 +1001,12 @@ bool CTalkMonster::FIdleHello()
 
 
 // turn head towards supplied origin
-void CTalkMonster :: IdleHeadTurn( Vector &vecFriend )
+void CTalkMonster :: IdleHeadTurn( const Vector &vecFriend )
 {
 	 // turn head in desired direction only if ent has a turnable head
 	if (m_afCapability & bits_CAP_TURN_HEAD)
 	{
-		float yaw = VecToYaw(vecFriend - pev->origin) - pev->angles.y;
+		float yaw = VecToYaw(vecFriend - GetAbsOrigin()) - pev->angles.y;
 
 		if (yaw > 180) yaw -= 360;
 		if (yaw < -180) yaw += 360;
@@ -1271,8 +1271,8 @@ Schedule_t* CTalkMonster :: GetScheduleOfType ( int Type )
 				{
 					// watch the client.
 					UTIL_MakeVectors ( pPlayer->v.angles );
-					if ( ( pPlayer->v.origin - pev->origin ).Length2D() < TLK_STARE_DIST	&& 
-						 UTIL_DotPoints( pPlayer->v.origin, pev->origin, gpGlobals->v_forward ) >= m_flFieldOfView )
+					if ( ( pPlayer->v.origin - GetAbsOrigin() ).Length2D() < TLK_STARE_DIST	&& 
+						 UTIL_DotPoints( pPlayer->v.origin, GetAbsOrigin(), gpGlobals->v_forward ) >= m_flFieldOfView )
 					{
 						// go into the special STARE schedule if the player is close, and looking at me too.
 						return &slTlkIdleWatchClient[ 1 ];

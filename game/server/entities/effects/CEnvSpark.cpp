@@ -50,7 +50,7 @@ void CEnvSpark::Precache( void )
 void EXPORT CEnvSpark::SparkThink( void )
 {
 	pev->nextthink = gpGlobals->time + 0.1 + RANDOM_FLOAT( 0, m_flDelay );
-	DoSpark( this, pev->origin );
+	DoSpark( this, GetAbsOrigin() );
 }
 
 void EXPORT CEnvSpark::SparkStart( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

@@ -187,7 +187,7 @@ bool CBaseMonster::FScheduleValid() const
 			// fail! Send a visual indicator.
 			ALERT ( at_aiconsole, "Schedule: %s Failed\n", m_pSchedule->pName );
 
-			Vector tmp = pev->origin;
+			Vector tmp = GetAbsOrigin();
 			tmp.z = pev->absmax.z + 16;
 			UTIL_Sparks( tmp );
 		}
@@ -329,7 +329,7 @@ void CBaseMonster :: RunTask ( Task_t *pTask )
 				pTarget = m_hEnemy;
 			if ( pTarget )
 			{
-				pev->ideal_yaw = UTIL_VecToYaw( pTarget->pev->origin - pev->origin );
+				pev->ideal_yaw = UTIL_VecToYaw( pTarget->GetAbsOrigin() - GetAbsOrigin() );
 				ChangeYaw( pev->yaw_speed );
 			}
 			if ( m_fSequenceFinished )
@@ -415,12 +415,12 @@ void CBaseMonster :: RunTask ( Task_t *pTask )
 				TaskFail();
 			else
 			{
-				distance = ( m_vecMoveGoal - pev->origin ).Length2D();
+				distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
 				// Re-evaluate when you think your finished, or the target has moved too far
-				if ( (distance < pTask->flData) || (m_vecMoveGoal - m_hTargetEnt->pev->origin).Length() > pTask->flData * 0.5 )
+				if ( (distance < pTask->flData) || (m_vecMoveGoal - m_hTargetEnt->GetAbsOrigin()).Length() > pTask->flData * 0.5 )
 				{
-					m_vecMoveGoal = m_hTargetEnt->pev->origin;
-					distance = ( m_vecMoveGoal - pev->origin ).Length2D();
+					m_vecMoveGoal = m_hTargetEnt->GetAbsOrigin();
+					distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
 					FRefreshRoute();
 				}
 
@@ -475,7 +475,7 @@ void CBaseMonster :: RunTask ( Task_t *pTask )
 				else
 				{
 					// body is gonna be around for a while, so have it stink for a bit.
-					CSoundEnt::InsertSound ( bits_SOUND_CARCASS, pev->origin, 384, 30 );
+					CSoundEnt::InsertSound ( bits_SOUND_CARCASS, GetAbsOrigin(), 384, 30 );
 				}
 			}
 			break;
@@ -618,7 +618,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 		}
 	case TASK_STORE_LASTPOSITION:
 		{
-			m_vecLastPosition = pev->origin;
+			m_vecLastPosition = GetAbsOrigin();
 			TaskComplete();
 			break;
 		}
@@ -684,7 +684,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 				return;
 			}
 
-			if ( FindCover( m_hEnemy->pev->origin, m_hEnemy->pev->view_ofs, 0, pTask->flData ) )
+			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->pev->view_ofs, 0, pTask->flData ) )
 			{
 				// try for cover farther than the FLData from the schedule.
 				TaskComplete();
@@ -704,7 +704,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 				return;
 			}
 
-			if ( FindCover( m_hEnemy->pev->origin, m_hEnemy->pev->view_ofs, pTask->flData, CoverRadius() ) )
+			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->pev->view_ofs, pTask->flData, CoverRadius() ) )
 			{
 				// try for cover farther than the FLData from the schedule.
 				TaskComplete();
@@ -724,7 +724,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 				return;
 			}
 
-			if ( FindCover( m_hEnemy->pev->origin, m_hEnemy->pev->view_ofs, 0, CoverRadius() ) )
+			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->pev->view_ofs, 0, CoverRadius() ) )
 			{
 				// try for cover farther than the FLData from the schedule.
 				TaskComplete();
@@ -750,13 +750,13 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 			else
 				pCover = m_hEnemy;
 
-			if ( FindLateralCover( pCover->pev->origin, pCover->pev->view_ofs ) )
+			if ( FindLateralCover( pCover->GetAbsOrigin(), pCover->pev->view_ofs ) )
 			{
 				// try lateral first
 				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
 				TaskComplete();
 			}
-			else if ( FindCover( pCover->pev->origin, pCover->pev->view_ofs, 0, CoverRadius() ) )
+			else if ( FindCover( pCover->GetAbsOrigin(), pCover->pev->view_ofs, 0, CoverRadius() ) )
 			{
 				// then try for plain ole cover
 				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
@@ -771,7 +771,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 		}
 	case TASK_FIND_COVER_FROM_ORIGIN:
 		{
-			if ( FindCover( pev->origin, pev->view_ofs, 0, CoverRadius() ) )
+			if ( FindCover( GetAbsOrigin(), pev->view_ofs, 0, CoverRadius() ) )
 			{
 				// then try for plain ole cover
 				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
@@ -828,7 +828,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 	case TASK_FACE_TARGET:
 		if ( m_hTargetEnt != NULL )
 		{
-			MakeIdealYaw ( m_hTargetEnt->pev->origin );
+			MakeIdealYaw ( m_hTargetEnt->GetAbsOrigin() );
 			SetTurnActivity(); 
 		}
 		else
@@ -878,11 +878,11 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 		}
 	case TASK_MOVE_TO_TARGET_RANGE:
 		{
-			if ( (m_hTargetEnt->pev->origin - pev->origin).Length() < 1 )
+			if ( (m_hTargetEnt->GetAbsOrigin() - GetAbsOrigin()).Length() < 1 )
 				TaskComplete();
 			else
 			{
-				m_vecMoveGoal = m_hTargetEnt->pev->origin;
+				m_vecMoveGoal = m_hTargetEnt->GetAbsOrigin();
 				if ( !MoveToTarget( ACT_WALK, 2 ) )
 					TaskFail();
 			}
@@ -893,7 +893,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 		{
 			Activity newActivity;
 
-			if ( (m_hTargetEnt->pev->origin - pev->origin).Length() < 1 )
+			if ( (m_hTargetEnt->GetAbsOrigin() - GetAbsOrigin()).Length() < 1 )
 				TaskComplete();
 			else
 			{
@@ -975,7 +975,7 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 			{
 				TaskComplete();
 			}
-			else if (BuildNearestRoute( m_vecEnemyLKP, pev->view_ofs, 0, (m_vecEnemyLKP - pev->origin).Length() ))
+			else if (BuildNearestRoute( m_vecEnemyLKP, pev->view_ofs, 0, (m_vecEnemyLKP - GetAbsOrigin()).Length() ))
 			{
 				TaskComplete();
 			}
@@ -997,11 +997,11 @@ void CBaseMonster :: StartTask ( Task_t *pTask )
 				return;
 			}
 
-			if ( BuildRoute ( pEnemy->pev->origin, bits_MF_TO_ENEMY, pEnemy ) )
+			if ( BuildRoute ( pEnemy->GetAbsOrigin(), bits_MF_TO_ENEMY, pEnemy ) )
 			{
 				TaskComplete();
 			}
-			else if (BuildNearestRoute( pEnemy->pev->origin, pEnemy->pev->view_ofs, 0, (pEnemy->pev->origin - pev->origin).Length() ))
+			else if (BuildNearestRoute( pEnemy->GetAbsOrigin(), pEnemy->pev->view_ofs, 0, (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() ))
 			{
 				TaskComplete();
 			}
@@ -1164,7 +1164,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 			// to start strafing, we have to first figure out if the target is on the left side or right side
 			UTIL_MakeVectors ( pev->angles );
 
-			vec2DirToPoint = ( m_Route[ 0 ].vecLocation - pev->origin ).Make2D().Normalize();
+			vec2DirToPoint = ( m_Route[ 0 ].vecLocation - GetAbsOrigin() ).Make2D().Normalize();
 			vec2RightSide = gpGlobals->v_right.Make2D().Normalize();
 
 			if ( DotProduct ( vec2DirToPoint, vec2RightSide ) > 0 )
@@ -1280,7 +1280,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 		{
 			if ( m_hTargetEnt != NULL )
 			{
-				pev->origin = m_hTargetEnt->pev->origin;	// Plant on target
+				pev->origin = m_hTargetEnt->GetAbsOrigin();	// Plant on target
 			}
 
 			TaskComplete();

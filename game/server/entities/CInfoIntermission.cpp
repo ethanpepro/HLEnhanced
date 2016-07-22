@@ -8,7 +8,7 @@ LINK_ENTITY_TO_CLASS( info_intermission, CInfoIntermission );
 
 void CInfoIntermission::Spawn( void )
 {
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	pev->solid = SOLID_NOT;
 	pev->effects = EF_NODRAW;
 	pev->v_angle = g_vecZero;
@@ -26,7 +26,7 @@ void CInfoIntermission::Think( void )
 
 	if( !FNullEnt( pTarget ) )
 	{
-		pev->v_angle = UTIL_VecToAngles( ( pTarget->v.origin - pev->origin ).Normalize() );
+		pev->v_angle = UTIL_VecToAngles( ( pTarget->v.origin - GetAbsOrigin() ).Normalize() );
 		pev->v_angle.x = -pev->v_angle.x;
 	}
 }

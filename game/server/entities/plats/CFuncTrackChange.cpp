@@ -25,7 +25,7 @@ void CFuncTrackChange::Spawn( void )
 {
 	Setup();
 	if( FBitSet( pev->spawnflags, SF_TRACK_DONT_MOVE ) )
-		m_vecPosition2.z = pev->origin.z;
+		m_vecPosition2.z = GetAbsOrigin().z;
 
 	SetupRotation();
 
@@ -233,7 +233,7 @@ TRAIN_CODE CFuncTrackChange::EvaluateTrain( CPathTrack *pcurrent )
 		if( m_train->pev->speed != 0 )
 			return TRAIN_BLOCKING;
 
-		Vector dist = pev->origin - m_train->pev->origin;
+		Vector dist = GetAbsOrigin() - m_train->GetAbsOrigin();
 		float length = dist.Length2D();
 		if( length < m_train->m_length )		// Empirically determined close distance
 			return TRAIN_FOLLOWING;
@@ -258,7 +258,7 @@ void CFuncTrackChange::UpdateTrain( Vector &dest )
 	if( time <= 0 )
 		return;
 
-	Vector offset = m_train->pev->origin - pev->origin;
+	Vector offset = m_train->GetAbsOrigin() - GetAbsOrigin();
 	Vector delta = dest - pev->angles;
 	// Transform offset into local coordinates
 	UTIL_MakeInvVectors( delta, gpGlobals );

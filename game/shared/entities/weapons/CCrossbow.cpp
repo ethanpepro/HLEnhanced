@@ -71,7 +71,7 @@ void CCrossbowBolt::Spawn( )
 
 	SetModel( "models/crossbow_bolt.mdl");
 
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 	SetSize( Vector(0, 0, 0), Vector(0, 0, 0) );
 
 	SetTouch( &CCrossbowBolt::BoltTouch );
@@ -148,7 +148,7 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		{
 			// if what we hit is static architecture, can stay around for a while.
 			Vector vecDir = pev->velocity.Normalize( );
-			SetAbsOrigin( pev->origin - vecDir * 12 );
+			SetAbsOrigin( GetAbsOrigin() - vecDir * 12 );
 			pev->angles = UTIL_VecToAngles( vecDir );
 			pev->solid = SOLID_NOT;
 			pev->movetype = MOVETYPE_FLY;
@@ -158,9 +158,9 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			pev->nextthink = gpGlobals->time + 10.0;
 		}
 
-		if (UTIL_PointContents(pev->origin) != CONTENTS_WATER)
+		if (UTIL_PointContents(GetAbsOrigin()) != CONTENTS_WATER)
 		{
-			UTIL_Sparks( pev->origin );
+			UTIL_Sparks( GetAbsOrigin() );
 		}
 	}
 
@@ -178,22 +178,22 @@ void CCrossbowBolt::BubbleThink( void )
 	if (pev->waterlevel == WATERLEVEL_DRY )
 		return;
 
-	UTIL_BubbleTrail( pev->origin - pev->velocity * 0.1, pev->origin, 1 );
+	UTIL_BubbleTrail( GetAbsOrigin() - pev->velocity * 0.1, GetAbsOrigin(), 1 );
 }
 
 void CCrossbowBolt::ExplodeThink( void )
 {
-	int iContents = UTIL_PointContents ( pev->origin );
+	int iContents = UTIL_PointContents ( GetAbsOrigin() );
 	int iScale;
 	
 	pev->dmg = 40;
 	iScale = 10;
 
-	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, pev->origin );
+	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );
 		WRITE_BYTE( TE_EXPLOSION);		
-		WRITE_COORD( pev->origin.x );
-		WRITE_COORD( pev->origin.y );
-		WRITE_COORD( pev->origin.z );
+		WRITE_COORD( GetAbsOrigin().x );
+		WRITE_COORD( GetAbsOrigin().y );
+		WRITE_COORD( GetAbsOrigin().z );
 		if (iContents != CONTENTS_WATER)
 		{
 			WRITE_SHORT( g_sModelIndexFireball );
@@ -211,7 +211,7 @@ void CCrossbowBolt::ExplodeThink( void )
 
 	pev->owner = nullptr; // can't traceline attack owner if this is set
 
-	::RadiusDamage( pev->origin, CTakeDamageInfo( this, pOwner, pev->dmg, DMG_BLAST | DMG_ALWAYSGIB ), 128, CLASS_NONE );
+	::RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, pev->dmg, DMG_BLAST | DMG_ALWAYSGIB ), 128, CLASS_NONE );
 
 	UTIL_Remove(this);
 }

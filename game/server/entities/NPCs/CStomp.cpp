@@ -42,7 +42,7 @@ void CStomp::Think( void )
 	pev->nextthink = gpGlobals->time + 0.1;
 
 	// Do damage for this frame
-	Vector vecStart = pev->origin;
+	Vector vecStart = GetAbsOrigin();
 	vecStart.z += 30;
 	Vector vecEnd = vecStart + ( pev->movedir * pev->speed * gpGlobals->frametime );
 
@@ -65,13 +65,13 @@ void CStomp::Think( void )
 	// Move and spawn trails
 	while( gpGlobals->time - pev->dmgtime > STOMP_INTERVAL )
 	{
-		pev->origin = pev->origin + pev->movedir * pev->speed * STOMP_INTERVAL;
+		pev->origin = GetAbsOrigin() + pev->movedir * pev->speed * STOMP_INTERVAL;
 		for( int i = 0; i < 2; i++ )
 		{
-			CSprite *pSprite = CSprite::SpriteCreate( GARG_STOMP_SPRITE_NAME, pev->origin, true );
+			CSprite *pSprite = CSprite::SpriteCreate( GARG_STOMP_SPRITE_NAME, GetAbsOrigin(), true );
 			if( pSprite )
 			{
-				UTIL_TraceLine( pev->origin, pev->origin - Vector( 0, 0, 500 ), ignore_monsters, edict(), &tr );
+				UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() - Vector( 0, 0, 500 ), ignore_monsters, edict(), &tr );
 				pSprite->pev->origin = tr.vecEndPos;
 				pSprite->pev->velocity = Vector( RANDOM_FLOAT( -200, 200 ), RANDOM_FLOAT( -200, 200 ), 175 );
 				// pSprite->AnimateAndDie( RANDOM_FLOAT( 8.0, 12.0 ) );

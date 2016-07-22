@@ -515,7 +515,7 @@ void HUD_SetLastOrg()
 
 void UTIL_ParticleBox( const CBasePlayer* const pPlayer, const Vector& vecMins, const Vector& vecMaxs, float life, unsigned char r, unsigned char g, unsigned char b )
 {
-	gEngfuncs.pEfxAPI->R_ParticleBox( pPlayer->pev->origin + vecMins, pPlayer->pev->origin + vecMaxs, 5.0, 0, 255, 0 );
+	gEngfuncs.pEfxAPI->R_ParticleBox( pPlayer->GetAbsOrigin() + vecMins, pPlayer->GetAbsOrigin() + vecMaxs, 5.0, 0, 255, 0 );
 }
 
 void UTIL_ParticleBoxes()

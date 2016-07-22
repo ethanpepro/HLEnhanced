@@ -132,7 +132,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	// copy over player information
 	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_POSITION ) )
 	{
-		SetAbsOrigin( pActivator->pev->origin + pActivator->pev->view_ofs );
+		SetAbsOrigin( pActivator->GetAbsOrigin() + pActivator->pev->view_ofs );
 		pev->angles.x = -pActivator->pev->angles.x;
 		pev->angles.y = pActivator->pev->angles.y;
 		pev->angles.z = 0;
@@ -173,7 +173,7 @@ void CTriggerCamera::FollowTarget()
 		return;
 	}
 
-	Vector vecGoal = UTIL_VecToAngles( m_hTarget->pev->origin - pev->origin );
+	Vector vecGoal = UTIL_VecToAngles( m_hTarget->GetAbsOrigin() - GetAbsOrigin() );
 	vecGoal.x = -vecGoal.x;
 
 	if( pev->angles.y > 360 )
@@ -243,7 +243,7 @@ void CTriggerCamera::Move()
 			if( m_pentPath->pev->speed != 0 )
 				m_targetSpeed = m_pentPath->pev->speed;
 
-			Vector delta = m_pentPath->pev->origin - pev->origin;
+			Vector delta = m_pentPath->GetAbsOrigin() - GetAbsOrigin();
 			m_moveDistance = delta.Length();
 			pev->movedir = delta.Normalize();
 			m_flStopTime = gpGlobals->time + m_pentPath->GetDelay();

@@ -166,7 +166,7 @@ void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			UTIL_MakeVectorsPrivate( pev->angles, &forward, &right, nullptr );
 
-			Vector center = pev->origin + forward * 128;
+			Vector center = GetAbsOrigin() + forward * 128;
 			Vector mins = center - Vector( 64, 64, 0 );
 			Vector maxs = center + Vector( 64, 64, 64 );
 
@@ -254,7 +254,7 @@ void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case BIG_AE_JUMP_FORWARD:
 			ClearBits( pev->flags, FL_ONGROUND );
 
-			SetAbsOrigin( pev->origin + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
+			SetAbsOrigin( GetAbsOrigin() + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
 			UTIL_MakeVectors( pev->angles );
 
 			pev->velocity = (gpGlobals->v_forward * 200) + gpGlobals->v_up * 500;
@@ -325,7 +325,7 @@ void CBigMomma::OnTakeDamage( const CTakeDamageInfo& info )
 
 void CBigMomma :: LayHeadcrab( void )
 {
-	CBaseEntity *pChild = CBaseEntity::Create( BIG_CHILDCLASS, pev->origin, pev->angles, edict() );
+	CBaseEntity *pChild = CBaseEntity::Create( BIG_CHILDCLASS, GetAbsOrigin(), pev->angles, edict() );
 
 	pChild->pev->spawnflags |= SF_MONSTER_FALL_TO_GROUND;
 
@@ -342,7 +342,7 @@ void CBigMomma :: LayHeadcrab( void )
 	}
 
 	TraceResult tr;
-	UTIL_TraceLine( pev->origin, pev->origin - Vector(0,0,100), ignore_monsters, edict(), &tr);
+	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() - Vector(0,0,100), ignore_monsters, edict(), &tr);
 	UTIL_DecalTrace( &tr, DECAL_MOMMABIRTH );
 
 	EMIT_SOUND_DYN( edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY(pBirthSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
@@ -367,7 +367,7 @@ void CBigMomma::LaunchMortar( void )
 {
 	m_mortarTime = gpGlobals->time + RANDOM_FLOAT( 2, 15 );
 	
-	Vector startPos = pev->origin;
+	Vector startPos = GetAbsOrigin();
 	startPos.z += 180;
 
 	EMIT_SOUND_DYN( edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY(pSackSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
@@ -513,9 +513,9 @@ bool CBigMomma::CheckRangeAttack1( float flDot, float flDist )
 
 		if ( pEnemy )
 		{
-			Vector startPos = pev->origin;
+			Vector startPos = GetAbsOrigin();
 			startPos.z += 180;
-			pev->movedir = VecCheckSplatToss( this, startPos, pEnemy->BodyTarget( pev->origin ), RANDOM_FLOAT( 150, 500 ) );
+			pev->movedir = VecCheckSplatToss( this, startPos, pEnemy->BodyTarget( GetAbsOrigin() ), RANDOM_FLOAT( 150, 500 ) );
 			if ( pev->movedir != g_vecZero )
 				return true;
 		}
@@ -719,7 +719,7 @@ void CBigMomma::StartTask( Task_t *pTask )
 				TaskFail();
 			else
 			{
-				if ( (pTarget->pev->origin - pev->origin).Length() < GetNodeRange() )
+				if ( (pTarget->GetAbsOrigin() - GetAbsOrigin()).Length() < GetNodeRange() )
 					TaskComplete();
 				else
 				{
@@ -727,7 +727,7 @@ void CBigMomma::StartTask( Task_t *pTask )
 					if ( pTarget->pev->spawnflags & SF_INFOBM_RUN )
 						act = ACT_RUN;
 
-					m_vecMoveGoal = pTarget->pev->origin;
+					m_vecMoveGoal = pTarget->GetAbsOrigin();
 					if ( !MoveToTarget( act, 2 ) )
 					{
 						TaskFail();
@@ -766,7 +766,7 @@ void CBigMomma::RunTask( Task_t *pTask )
 				TaskFail();
 			else
 			{
-				distance = ( m_vecMoveGoal - pev->origin ).Length2D();
+				distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
 				// Set the appropriate activity based on an overlapping range
 				// overlap the range to prevent oscillation
 				if ( (distance < GetNodeRange()) || MovementIsComplete() )

@@ -221,7 +221,7 @@ void CBaseTrigger::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 	{// turn the trigger off
 		pev->solid = SOLID_NOT;
 	}
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 }
 
 /*

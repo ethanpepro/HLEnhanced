@@ -338,7 +338,7 @@ void CAGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			if (HasConditions( bits_COND_SEE_ENEMY))
 			{
-				vecDirToEnemy = ( ( m_vecEnemyLKP ) - pev->origin );
+				vecDirToEnemy = ( ( m_vecEnemyLKP ) - GetAbsOrigin() );
 				angDir = UTIL_VecToAngles( vecDirToEnemy );
 				vecDirToEnemy = vecDirToEnemy.Normalize();
 			}
@@ -901,12 +901,12 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 
 			vecCenter = Center();
 
-			UTIL_VecToAngles( m_vecEnemyLKP - pev->origin );
+			UTIL_VecToAngles( m_vecEnemyLKP - GetAbsOrigin() );
 
 			UTIL_TraceLine( Center() + gpGlobals->v_forward * 128, m_vecEnemyLKP, ignore_monsters, ENT(pev), &tr);
 			if ( tr.flFraction == 1.0 )
 			{
-				MakeIdealYaw ( pev->origin + gpGlobals->v_right * 128 );
+				MakeIdealYaw ( GetAbsOrigin() + gpGlobals->v_right * 128 );
 				fSkip = true;
 				TaskComplete();
 			}
@@ -916,7 +916,7 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 				UTIL_TraceLine( Center() - gpGlobals->v_forward * 128, m_vecEnemyLKP, ignore_monsters, ENT(pev), &tr);
 				if ( tr.flFraction == 1.0 )
 				{
-					MakeIdealYaw ( pev->origin - gpGlobals->v_right * 128 );
+					MakeIdealYaw ( GetAbsOrigin() - gpGlobals->v_right * 128 );
 					fSkip = true;
 					TaskComplete();
 				}
@@ -927,7 +927,7 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 				UTIL_TraceLine( Center() + gpGlobals->v_forward * 256, m_vecEnemyLKP, ignore_monsters, ENT(pev), &tr);
 				if ( tr.flFraction == 1.0 )
 				{
-					MakeIdealYaw ( pev->origin + gpGlobals->v_right * 256 );
+					MakeIdealYaw ( GetAbsOrigin() + gpGlobals->v_right * 256 );
 					fSkip = true;
 					TaskComplete();
 				}
@@ -938,7 +938,7 @@ void CAGrunt :: StartTask ( Task_t *pTask )
 				UTIL_TraceLine( Center() - gpGlobals->v_forward * 256, m_vecEnemyLKP, ignore_monsters, ENT(pev), &tr);
 				if ( tr.flFraction == 1.0 )
 				{
-					MakeIdealYaw ( pev->origin - gpGlobals->v_right * 256 );
+					MakeIdealYaw ( GetAbsOrigin() - gpGlobals->v_right * 256 );
 					fSkip = true;
 					TaskComplete();
 				}

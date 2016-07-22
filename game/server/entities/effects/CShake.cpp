@@ -19,7 +19,7 @@ void CShake::Spawn( void )
 
 void CShake::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	UTIL_ScreenShake( pev->origin, Amplitude(), Frequency(), Duration(), Radius() );
+	UTIL_ScreenShake( GetAbsOrigin(), Amplitude(), Frequency(), Duration(), Radius() );
 }
 
 void CShake::KeyValue( KeyValueData *pkvd )

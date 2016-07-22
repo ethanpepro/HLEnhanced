@@ -67,8 +67,8 @@ public:
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void SetObjectCollisionBox( void ) override
 	{
-		pev->absmin = pev->origin + Vector( -32, -32, 0 );
-		pev->absmax = pev->origin + Vector( 32, 32, 85 );
+		pev->absmin = GetAbsOrigin() + Vector( -32, -32, 0 );
+		pev->absmax = GetAbsOrigin() + Vector( 32, 32, 85 );
 	}
 
 	Schedule_t* GetSchedule( void ) override;

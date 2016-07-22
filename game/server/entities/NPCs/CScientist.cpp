@@ -427,11 +427,11 @@ void CScientist :: StartTask( Task_t *pTask )
 
 	case TASK_MOVE_TO_TARGET_RANGE_SCARED:
 		{
-			if ( (m_hTargetEnt->pev->origin - pev->origin).Length() < 1 )
+			if ( (m_hTargetEnt->GetAbsOrigin() - GetAbsOrigin()).Length() < 1 )
 				TaskComplete();
 			else
 			{
-				m_vecMoveGoal = m_hTargetEnt->pev->origin;
+				m_vecMoveGoal = m_hTargetEnt->GetAbsOrigin();
 				if ( !MoveToTarget( ACT_WALK_SCARED, 0.5 ) )
 					TaskFail();
 			}
@@ -468,12 +468,12 @@ void CScientist :: RunTask( Task_t *pTask )
 			{
 				float distance;
 
-				distance = ( m_vecMoveGoal - pev->origin ).Length2D();
+				distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
 				// Re-evaluate when you think your finished, or the target has moved too far
-				if ( (distance < pTask->flData) || (m_vecMoveGoal - m_hTargetEnt->pev->origin).Length() > pTask->flData * 0.5 )
+				if ( (distance < pTask->flData) || (m_vecMoveGoal - m_hTargetEnt->GetAbsOrigin()).Length() > pTask->flData * 0.5 )
 				{
-					m_vecMoveGoal = m_hTargetEnt->pev->origin;
-					distance = ( m_vecMoveGoal - pev->origin ).Length2D();
+					m_vecMoveGoal = m_hTargetEnt->GetAbsOrigin();
+					distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
 					FRefreshRoute();
 				}
 
@@ -501,7 +501,7 @@ void CScientist :: RunTask( Task_t *pTask )
 		{
 			if ( TargetDistance() > 90 )
 				TaskComplete();
-			pev->ideal_yaw = UTIL_VecToYaw( m_hTargetEnt->pev->origin - pev->origin );
+			pev->ideal_yaw = UTIL_VecToYaw( m_hTargetEnt->GetAbsOrigin() - GetAbsOrigin() );
 			ChangeYaw( pev->yaw_speed );
 		}
 		break;
@@ -1005,7 +1005,7 @@ void CScientist::Heal( void )
 	if ( !CanHeal() )
 		return;
 
-	Vector target = m_hTargetEnt->pev->origin - pev->origin;
+	Vector target = m_hTargetEnt->GetAbsOrigin() - GetAbsOrigin();
 	if ( target.Length() > 100 )
 		return;
 

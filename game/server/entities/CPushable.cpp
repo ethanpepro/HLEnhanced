@@ -46,7 +46,7 @@ void CPushable::Spawn( void )
 	pev->friction = 0;
 
 	pev->origin.z += 1;	// Pick up off of the floor
-	SetAbsOrigin( pev->origin );
+	SetAbsOrigin( GetAbsOrigin() );
 
 	// Multiply by area of the box's cross-section (assume 1000 units^3 standard volume)
 	pev->skin = ( pev->skin * ( pev->maxs.x - pev->mins.x ) * ( pev->maxs.y - pev->mins.y ) ) * 0.0005;
@@ -192,7 +192,7 @@ void CPushable::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 #if 0
 void CPushable::StopSound( void )
 {
-	Vector dist = GetOldOrigin() - pev->origin;
+	Vector dist = GetOldOrigin() - GetAbsOrigin();
 	if( dist.Length() <= 0 )
 		STOP_SOUND( ENT( pev ), CHAN_WEAPON, m_soundNames[ m_lastSound ] );
 }

@@ -161,7 +161,7 @@ CBaseMonster *CScriptedSentence::FindEntity( void )
 	}
 
 	CBaseEntity *pEntity = NULL;
-	while( ( pEntity = UTIL_FindEntityInSphere( pEntity, pev->origin, m_flRadius ) ) != NULL )
+	while( ( pEntity = UTIL_FindEntityInSphere( pEntity, GetAbsOrigin(), m_flRadius ) ) != NULL )
 	{
 		if( FClassnameIs( pEntity->pev, STRING( m_iszEntity ) ) )
 		{
@@ -217,7 +217,7 @@ bool CScriptedSentence::StartSentence( CBaseMonster *pTarget )
 		if( FStrEq( STRING( m_iszListener ), "player" ) )
 			radius = 4096;	// Always find the player
 
-		pListener = UTIL_FindEntityGeneric( STRING( m_iszListener ), pTarget->pev->origin, radius );
+		pListener = UTIL_FindEntityGeneric( STRING( m_iszListener ), pTarget->GetAbsOrigin(), radius );
 	}
 
 	pTarget->PlayScriptedSentence( STRING( m_iszSentence ), m_flDuration, m_flVolume, m_flAttenuation, bConcurrent, pListener );
