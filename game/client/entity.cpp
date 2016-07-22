@@ -341,26 +341,26 @@ void DLLEXPORT HUD_StudioEvent( const struct mstudioevent_s *event, const struct
 	{
 	case SCRIPT_EVENT_MUZZLEFLASH_ATTACH0:
 		if ( iMuzzleFlash )
-			gEngfuncs.pEfxAPI->R_MuzzleFlash( (float *)&entity->attachment[0], atoi( event->options) );
+			gEngfuncs.pEfxAPI->R_MuzzleFlash( entity->attachment[0], atoi( event->options) );
 		break;
 	case SCRIPT_EVENT_MUZZLEFLASH_ATTACH1:
 		if ( iMuzzleFlash )
-			gEngfuncs.pEfxAPI->R_MuzzleFlash( (float *)&entity->attachment[1], atoi( event->options) );
+			gEngfuncs.pEfxAPI->R_MuzzleFlash( entity->attachment[1], atoi( event->options) );
 		break;
 	case SCRIPT_EVENT_MUZZLEFLASH_ATTACH2:
 		if ( iMuzzleFlash )
-			gEngfuncs.pEfxAPI->R_MuzzleFlash( (float *)&entity->attachment[2], atoi( event->options) );
+			gEngfuncs.pEfxAPI->R_MuzzleFlash( entity->attachment[2], atoi( event->options) );
 		break;
 	case SCRIPT_EVENT_MUZZLEFLASH_ATTACH3:
 		if ( iMuzzleFlash )
-			gEngfuncs.pEfxAPI->R_MuzzleFlash( (float *)&entity->attachment[3], atoi( event->options) );
+			gEngfuncs.pEfxAPI->R_MuzzleFlash( entity->attachment[3], atoi( event->options) );
 		break;
 	case SCRIPT_EVENT_SPARK:
-		gEngfuncs.pEfxAPI->R_SparkEffect( (float *)&entity->attachment[0], atoi( event->options), -100, 100 );
+		gEngfuncs.pEfxAPI->R_SparkEffect( entity->attachment[0], atoi( event->options), -100, 100 );
 		break;
 	// Client side sound
 	case SCRIPT_EVENT_CLIENT_PLAYSOUND:
-		gEngfuncs.pfnPlaySoundByNameAtLocation( (char *)event->options, 1.0, (float *)&entity->attachment[0] );
+		gEngfuncs.pfnPlaySoundByNameAtLocation( event->options, 1.0, entity->attachment[0] );
 		break;
 	default:
 		break;
@@ -390,7 +390,7 @@ void DLLEXPORT HUD_TempEntUpdate (
 
 	Vector		vAngles;
 
-	gEngfuncs.GetViewAngles( (float*)vAngles );
+	gEngfuncs.GetViewAngles( vAngles );
 
 	if ( g_pParticleMan )
 		 g_pParticleMan->SetVariables( cl_gravity, vAngles );

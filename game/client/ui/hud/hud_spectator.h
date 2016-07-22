@@ -75,7 +75,7 @@ public:
 	void CheckOverviewEntities();
 	void DrawOverview();
 	void DrawOverviewEntities();
-	void GetMapPosition( float * returnvec );
+	void GetMapPosition( Vector& vecReturn );
 	void DrawOverviewLayer();
 	void LoadMapSprites();
 	bool ParseOverviewFile();

@@ -14,7 +14,7 @@
 #include "Damage.h"
 
 // Some of these are HL/TFC specific?
-void EV_EjectBrass( float *origin, float *velocity, float rotation, int model, int soundtype );
+void EV_EjectBrass( const Vector& vecOrigin, const Vector& vecVelocity, float rotation, int model, int soundtype );
 void EV_GetGunPosition( event_args_t *args, Vector& pos, const Vector& origin );
 void EV_GetDefaultShellInfo( event_args_t *args, 
 							 const Vector& origin, const Vector& velocity,

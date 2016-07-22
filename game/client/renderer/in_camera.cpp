@@ -371,7 +371,7 @@ void DLLEXPORT CAM_Think( void )
 	// Move towards ideal
 	camAngles = cam_ofs;
 
-	gEngfuncs.GetViewAngles( (float *)viewangles );
+	gEngfuncs.GetViewAngles( viewangles );
 
 	if( cam_snapto->value )
 	{
@@ -512,7 +512,7 @@ void CAM_ClearStates( void )
 {
 	Vector viewangles;
 
-	gEngfuncs.GetViewAngles( (float *)viewangles );
+	gEngfuncs.GetViewAngles( viewangles );
 
 	cam_pitchup.state = 0;
 	cam_pitchdown.state = 0;
