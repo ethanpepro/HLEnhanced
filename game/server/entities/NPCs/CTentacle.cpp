@@ -103,7 +103,7 @@ void CTentacle :: Spawn( )
 	pev->sequence		= 0;
 
 	SetModel( "models/tentacle2.mdl");
-	UTIL_SetSize( this, Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
+	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
 
 	pev->takedamage		= DAMAGE_AIM;
 	pev->flags			|= FL_MONSTER;

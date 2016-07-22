@@ -285,7 +285,7 @@ void CController :: Spawn()
 	Precache( );
 
 	SetModel( "models/controller.mdl");
-	UTIL_SetSize( this, Vector( -32, -32, 0 ), Vector( 32, 32, 64 ));
+	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ));
 
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_FLY;

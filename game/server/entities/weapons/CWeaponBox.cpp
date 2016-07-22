@@ -37,7 +37,7 @@ void CWeaponBox::Spawn()
 	pev->movetype = MOVETYPE_TOSS;
 	pev->solid = SOLID_TRIGGER;
 
-	UTIL_SetSize( this, g_vecZero, g_vecZero );
+	SetSize( g_vecZero, g_vecZero );
 
 	SetModel( "models/w_weaponbox.mdl" );
 }

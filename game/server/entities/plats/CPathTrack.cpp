@@ -17,7 +17,7 @@ LINK_ENTITY_TO_CLASS( path_track, CPathTrack );
 void CPathTrack::Spawn( void )
 {
 	pev->solid = SOLID_TRIGGER;
-	UTIL_SetSize( this, Vector( -8, -8, -8 ), Vector( 8, 8, 8 ) );
+	SetSize( Vector( -8, -8, -8 ), Vector( 8, 8, 8 ) );
 
 	m_pnext = NULL;
 	m_pprevious = NULL;

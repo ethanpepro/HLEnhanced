@@ -55,8 +55,8 @@ void CFlockingFlyer::SpawnCommonCode()
 	//SetModel( "models/aflock.mdl");
 	SetModel( "models/boid.mdl" );
 
-	//	UTIL_SetSize(pev, Vector(0,0,0), Vector(0,0,0));
-	UTIL_SetSize( this, Vector( -5, -5, 0 ), Vector( 5, 5, 2 ) );
+	//	SetSize( Vector(0,0,0), Vector(0,0,0));
+	SetSize( Vector( -5, -5, 0 ), Vector( 5, 5, 2 ) );
 }
 
 void CFlockingFlyer::IdleThink( void )
@@ -513,7 +513,7 @@ void CFlockingFlyer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	pev->framerate = 0;
 	pev->effects = EF_NOINTERP;
 
-	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
+	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	pev->movetype = MOVETYPE_TOSS;
 
 	SetThink( &CFlockingFlyer::FallHack );

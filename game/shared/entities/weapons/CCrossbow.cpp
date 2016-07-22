@@ -72,7 +72,7 @@ void CCrossbowBolt::Spawn( )
 	SetModel( "models/crossbow_bolt.mdl");
 
 	UTIL_SetOrigin( this, pev->origin );
-	UTIL_SetSize( this, Vector(0, 0, 0), Vector(0, 0, 0) );
+	SetSize( Vector(0, 0, 0), Vector(0, 0, 0) );
 
 	SetTouch( &CCrossbowBolt::BoltTouch );
 	SetThink( &CCrossbowBolt::BubbleThink );

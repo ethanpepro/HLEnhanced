@@ -34,7 +34,7 @@ void CFuncTrain::Spawn( void )
 		pev->solid = SOLID_BSP;
 
 	SetModel( STRING( pev->model ) );
-	UTIL_SetSize( this, pev->mins, pev->maxs );
+	SetSize( pev->mins, pev->maxs );
 	UTIL_SetOrigin( this, pev->origin );
 
 	m_activated = false;

@@ -23,5 +23,5 @@ LINK_ENTITY_TO_CLASS( info_target, CPointEntity );
 void CPointEntity::Spawn( void )
 {
 	pev->solid = SOLID_NOT;
-	//	UTIL_SetSize(pev, g_vecZero, g_vecZero);
+	//	SetSize( g_vecZero, g_vecZero);
 }

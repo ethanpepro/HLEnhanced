@@ -33,7 +33,7 @@ void CXenPLight::Spawn( void )
 	pev->movetype = MOVETYPE_NONE;
 	pev->solid = SOLID_TRIGGER;
 
-	UTIL_SetSize( this, Vector( -80, -80, 0 ), Vector( 80, 80, 32 ) );
+	SetSize( Vector( -80, -80, 0 ), Vector( 80, 80, 32 ) );
 	SetActivity( ACT_IDLE );
 	pev->nextthink = gpGlobals->time + 0.1;
 	pev->frame = RANDOM_FLOAT( 0, 255 );

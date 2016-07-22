@@ -238,7 +238,7 @@ void CZombie :: Spawn()
 	Precache( );
 
 	SetModel( "models/zombie.mdl");
-	UTIL_SetSize( this, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
+	SetSize( VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_STEP;

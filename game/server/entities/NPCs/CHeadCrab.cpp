@@ -241,7 +241,7 @@ void CHeadCrab :: Spawn()
 	Precache( );
 
 	SetModel( "models/headcrab.mdl");
-	UTIL_SetSize( this, Vector(-12, -12, 0), Vector(12, 12, 24) );
+	SetSize( Vector(-12, -12, 0), Vector(12, 12, 24) );
 
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_STEP;

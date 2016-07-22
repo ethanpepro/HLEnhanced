@@ -41,7 +41,7 @@ void CSquidSpit::Spawn( void )
 	pev->frame = 0;
 	pev->scale = 0.5;
 
-	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
+	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( pev->modelindex ) - 1;
 }

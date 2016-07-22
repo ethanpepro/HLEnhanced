@@ -86,8 +86,8 @@ void CLeech::Spawn( void )
 	// Just for fun
 	//	SetModel( "models/icky.mdl");
 	
-//	UTIL_SetSize( this, g_vecZero, g_vecZero );
-	UTIL_SetSize( this, Vector(-1,-1,0), Vector(1,1,2));
+//	SetSize( g_vecZero, g_vecZero );
+	SetSize( Vector(-1,-1,0), Vector(1,1,2));
 	// Don't push the minz down too much or the water check will fail because this entity is really point-sized
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_FLY;

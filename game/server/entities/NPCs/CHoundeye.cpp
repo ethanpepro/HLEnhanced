@@ -249,7 +249,7 @@ void CHoundeye :: Spawn()
 	Precache( );
 
 	SetModel( "models/houndeye.mdl");
-	UTIL_SetSize( this, Vector ( -16, -16, 0 ), Vector ( 16, 16, 36 ) );
+	SetSize( Vector ( -16, -16, 0 ), Vector ( 16, 16, 36 ) );
 
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_STEP;

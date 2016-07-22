@@ -13,7 +13,7 @@ void CItemSoda::Spawn( void )
 	pev->movetype = MOVETYPE_TOSS;
 
 	SetModel( "models/can.mdl" );
-	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
+	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 
 	SetThink( &CItemSoda::CanThink );
 	pev->nextthink = gpGlobals->time + 0.5;
@@ -28,7 +28,7 @@ void CItemSoda::CanThink( void )
 	EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/g_bounce3.wav", 1, ATTN_NORM );
 
 	pev->solid = SOLID_TRIGGER;
-	UTIL_SetSize( this, Vector( -8, -8, 0 ), Vector( 8, 8, 8 ) );
+	SetSize( Vector( -8, -8, 0 ), Vector( 8, 8, 8 ) );
 	SetThink( NULL );
 	SetTouch( &CItemSoda::CanTouch );
 }

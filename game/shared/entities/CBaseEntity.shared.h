@@ -930,7 +930,7 @@ public:
 	*/
 	void SetSize( const Vector& vecSize )
 	{
-		UTIL_SetSize( this, -( vecSize / 2 ), vecSize / 2 );
+		SetSize( -( vecSize / 2 ), vecSize / 2 );
 	}
 
 	/**

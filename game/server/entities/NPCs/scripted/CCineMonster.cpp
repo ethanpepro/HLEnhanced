@@ -57,7 +57,7 @@ LINK_ENTITY_TO_CLASS( scripted_sequence, CCineMonster );
 void CCineMonster::Spawn( void )
 {
 	// pev->solid = SOLID_TRIGGER;
-	// UTIL_SetSize(pev, Vector(-8, -8, -8), Vector(8, 8, 8));
+	// SetSize( Vector(-8, -8, -8), Vector(8, 8, 8));
 	pev->solid = SOLID_NOT;
 
 

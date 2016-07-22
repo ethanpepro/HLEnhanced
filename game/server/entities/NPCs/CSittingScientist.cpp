@@ -37,7 +37,7 @@ void CSittingScientist::Spawn()
 	Precache();
 	InitBoneControllers();
 
-	UTIL_SetSize( this, Vector( -14, -14, 0 ), Vector( 14, 14, 36 ) );
+	SetSize( Vector( -14, -14, 0 ), Vector( 14, 14, 36 ) );
 
 	pev->solid = SOLID_SLIDEBOX;
 	pev->movetype = MOVETYPE_STEP;

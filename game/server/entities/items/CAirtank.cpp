@@ -36,7 +36,7 @@ void CAirtank :: Spawn( void )
 	pev->solid = SOLID_BBOX;
 
 	SetModel( "models/w_oxygen.mdl");
-	UTIL_SetSize( this, Vector( -16, -16, 0), Vector(16, 16, 36) );
+	SetSize( Vector( -16, -16, 0), Vector(16, 16, 36) );
 	UTIL_SetOrigin( this, pev->origin );
 
 	SetTouch( &CAirtank::TankTouch );

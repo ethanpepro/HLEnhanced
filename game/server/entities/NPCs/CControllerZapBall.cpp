@@ -37,7 +37,7 @@ void CControllerZapBall::Spawn( void )
 	pev->renderamt = 255;
 	pev->scale = 0.5;
 
-	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
+	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	UTIL_SetOrigin( this, pev->origin );
 
 	SetThink( &CControllerZapBall::AnimateThink );

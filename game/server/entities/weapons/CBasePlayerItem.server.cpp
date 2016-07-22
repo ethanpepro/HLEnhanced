@@ -166,7 +166,7 @@ void CBasePlayerItem::FallInit( void )
 	pev->solid = SOLID_BBOX;
 
 	UTIL_SetOrigin( this, pev->origin );
-	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );//pointsize until it lands on the ground.
+	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );//pointsize until it lands on the ground.
 
 	SetTouch( &CBasePlayerItem::DefaultTouch );
 	SetThink( &CBasePlayerItem::FallThink );
