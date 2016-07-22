@@ -54,7 +54,7 @@ void CGauss::Spawn( )
 {
 	Precache( );
 	m_iId = WEAPON_GAUSS;
-	SET_MODEL(ENT(pev), "models/w_gauss.mdl");
+	SetModel( "models/w_gauss.mdl");
 
 	m_iDefaultAmmo = GAUSS_DEFAULT_GIVE;
 
@@ -587,7 +587,7 @@ public:
 	void Spawn( void ) override
 	{ 
 		Precache( );
-		SET_MODEL(ENT(pev), "models/w_gaussammo.mdl");
+		SetModel( "models/w_gaussammo.mdl");
 		CBasePlayerAmmo::Spawn( );
 	}
 	void Precache( void ) override

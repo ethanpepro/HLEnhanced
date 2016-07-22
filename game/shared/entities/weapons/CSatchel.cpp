@@ -57,7 +57,7 @@ void CSatchelCharge :: Spawn( void )
 	pev->movetype = MOVETYPE_BOUNCE;
 	pev->solid = SOLID_BBOX;
 
-	SET_MODEL(ENT(pev), "models/w_satchel.mdl");
+	SetModel( "models/w_satchel.mdl");
 	//UTIL_SetSize( this, Vector( -16, -16, -4), Vector(16, 16, 32) );	// Old box -- size of headcrab monsters/players get blocked by this
 	UTIL_SetSize( this, Vector( -4, -4, -4), Vector(4, 4, 4) );	// Uses point-sized, and can be stepped over
 	UTIL_SetOrigin( this, pev->origin );
@@ -201,7 +201,7 @@ void CSatchel::Spawn( )
 {
 	Precache( );
 	m_iId = WEAPON_SATCHEL;
-	SET_MODEL(ENT(pev), "models/w_satchel.mdl");
+	SetModel( "models/w_satchel.mdl");
 
 	m_iDefaultAmmo = SATCHEL_DEFAULT_GIVE;
 		

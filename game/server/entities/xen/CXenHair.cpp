@@ -23,7 +23,7 @@ LINK_ENTITY_TO_CLASS( xen_hair, CXenHair );
 void CXenHair::Spawn( void )
 {
 	Precache();
-	SET_MODEL( edict(), "models/hair.mdl" );
+	SetModel( "models/hair.mdl" );
 	UTIL_SetSize( this, Vector( -4, -4, 0 ), Vector( 4, 4, 32 ) );
 	pev->sequence = 0;
 

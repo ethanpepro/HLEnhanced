@@ -200,7 +200,7 @@ void CHAssassin :: Spawn()
 {
 	Precache( );
 
-	SET_MODEL(ENT(pev), "models/hassassin.mdl");
+	SetModel( "models/hassassin.mdl");
 	UTIL_SetSize( this, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
 	pev->solid			= SOLID_SLIDEBOX;

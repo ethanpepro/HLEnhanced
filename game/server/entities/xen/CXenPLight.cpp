@@ -29,7 +29,7 @@ void CXenPLight::Spawn( void )
 {
 	Precache();
 
-	SET_MODEL( ENT( pev ), "models/light.mdl" );
+	SetModel( "models/light.mdl" );
 	pev->movetype = MOVETYPE_NONE;
 	pev->solid = SOLID_TRIGGER;
 

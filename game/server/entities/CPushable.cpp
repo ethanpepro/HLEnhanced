@@ -36,7 +36,7 @@ void CPushable::Spawn( void )
 
 	pev->movetype = MOVETYPE_PUSHSTEP;
 	pev->solid = SOLID_BBOX;
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	if( pev->friction > 399 )
 		pev->friction = 399;

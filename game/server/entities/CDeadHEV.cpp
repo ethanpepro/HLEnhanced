@@ -14,7 +14,7 @@ LINK_ENTITY_TO_CLASS( monster_hevsuit_dead, CDeadHEV );
 void CDeadHEV::Spawn( void )
 {
 	PRECACHE_MODEL( "models/player.mdl" );
-	SET_MODEL( ENT( pev ), "models/player.mdl" );
+	SetModel( "models/player.mdl" );
 
 	pev->effects = 0;
 	pev->yaw_speed = 8;

@@ -82,9 +82,9 @@ LINK_ENTITY_TO_CLASS( monster_leech, CLeech );
 void CLeech::Spawn( void )
 {
 	Precache();
-	SET_MODEL(ENT(pev), "models/leech.mdl");
+	SetModel( "models/leech.mdl");
 	// Just for fun
-	//	SET_MODEL(ENT(pev), "models/icky.mdl");
+	//	SetModel( "models/icky.mdl");
 	
 //	UTIL_SetSize( this, g_vecZero, g_vecZero );
 	UTIL_SetSize( this, Vector(-1,-1,0), Vector(1,1,2));

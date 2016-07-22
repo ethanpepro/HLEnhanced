@@ -90,7 +90,7 @@ void CRpg::Spawn( )
 	Precache( );
 	m_iId = WEAPON_RPG;
 
-	SET_MODEL(ENT(pev), "models/w_rpg.mdl");
+	SetModel( "models/w_rpg.mdl");
 	m_fSpotActive = 1;
 
 	if ( bIsMultiplayer() )
@@ -330,7 +330,7 @@ public:
 	void Spawn( void ) override
 	{ 
 		Precache( );
-		SET_MODEL(ENT(pev), "models/w_rpgammo.mdl");
+		SetModel( "models/w_rpgammo.mdl");
 		CBasePlayerAmmo::Spawn( );
 	}
 	void Precache( void ) override

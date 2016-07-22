@@ -19,7 +19,7 @@ void CGlow::Spawn( void )
 	pev->frame = 0;
 
 	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( pev->modelindex ) - 1;
 	if( m_maxFrame > 1.0 && pev->framerate != 0 )

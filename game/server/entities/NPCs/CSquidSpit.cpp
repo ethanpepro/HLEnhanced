@@ -37,7 +37,7 @@ void CSquidSpit::Spawn( void )
 	pev->rendermode = kRenderTransAlpha;
 	pev->renderamt = 255;
 
-	SET_MODEL( ENT( pev ), "sprites/bigspit.spr" );
+	SetModel( "sprites/bigspit.spr" );
 	pev->frame = 0;
 	pev->scale = 0.5;
 

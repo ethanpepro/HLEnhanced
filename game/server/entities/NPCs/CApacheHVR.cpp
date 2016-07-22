@@ -33,7 +33,7 @@ void CApacheHVR::Spawn( void )
 	pev->movetype = MOVETYPE_FLY;
 	pev->solid = SOLID_BBOX;
 
-	SET_MODEL( ENT( pev ), "models/HVR.mdl" );
+	SetModel( "models/HVR.mdl" );
 	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	UTIL_SetOrigin( this, pev->origin );
 

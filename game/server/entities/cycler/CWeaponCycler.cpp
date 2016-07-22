@@ -29,7 +29,7 @@ void CWeaponCycler::Spawn()
 	pev->movetype = MOVETYPE_NONE;
 
 	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 	m_iszModel = pev->model;
 	m_iModel = pev->modelindex;
 

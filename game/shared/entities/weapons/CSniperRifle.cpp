@@ -42,7 +42,7 @@ void CSniperRifle::Spawn()
 
 	m_iId = WEAPON_SNIPERRIFLE;
 
-	SET_MODEL( edict(), "models/w_m40a1.mdl" );
+	SetModel( "models/w_m40a1.mdl" );
 
 	m_iDefaultAmmo = SNIPERRIFLE_DEFAULT_GIVE;
 
@@ -249,7 +249,7 @@ public:
 	void Spawn( void ) override
 	{
 		Precache();
-		SET_MODEL( ENT( pev ), "models/w_m40a1clip.mdl" );
+		SetModel( "models/w_m40a1clip.mdl" );
 		CBasePlayerAmmo::Spawn();
 	}
 

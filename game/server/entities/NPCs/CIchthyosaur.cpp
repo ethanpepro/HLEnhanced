@@ -389,7 +389,7 @@ void CIchthyosaur :: Spawn()
 {
 	Precache( );
 
-	SET_MODEL(ENT(pev), "models/icky.mdl");
+	SetModel( "models/icky.mdl");
 	UTIL_SetSize( this, Vector( -32, -32, -32 ), Vector( 32, 32, 32 ) );
 
 	pev->solid			= SOLID_BBOX;

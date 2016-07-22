@@ -13,7 +13,7 @@ LINK_ENTITY_TO_CLASS( monster_furniture, CFurniture );
 void CFurniture::Spawn()
 {
 	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	pev->movetype = MOVETYPE_NONE;
 	pev->solid = SOLID_BBOX;

@@ -40,7 +40,7 @@ void CRpgRocket::Spawn( void )
 	pev->movetype = MOVETYPE_BOUNCE;
 	pev->solid = SOLID_BBOX;
 
-	SET_MODEL( ENT( pev ), "models/rpgrocket.mdl" );
+	SetModel( "models/rpgrocket.mdl" );
 	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	UTIL_SetOrigin( this, pev->origin );
 

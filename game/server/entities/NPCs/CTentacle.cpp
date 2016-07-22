@@ -102,7 +102,7 @@ void CTentacle :: Spawn( )
 	pev->health			= 75;
 	pev->sequence		= 0;
 
-	SET_MODEL(ENT(pev), "models/tentacle2.mdl");
+	SetModel( "models/tentacle2.mdl");
 	UTIL_SetSize( this, Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
 
 	pev->takedamage		= DAMAGE_AIM;

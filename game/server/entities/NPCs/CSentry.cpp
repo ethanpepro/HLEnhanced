@@ -25,7 +25,7 @@ LINK_ENTITY_TO_CLASS( monster_sentry, CSentry );
 void CSentry::Spawn()
 {
 	Precache();
-	SET_MODEL( ENT( pev ), "models/sentry.mdl" );
+	SetModel( "models/sentry.mdl" );
 	pev->health = gSkillData.sentryHealth;
 	m_HackedGunPos = Vector( 0, 0, 48 );
 	pev->view_ofs.z = 48;

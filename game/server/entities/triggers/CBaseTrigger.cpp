@@ -237,7 +237,7 @@ void CBaseTrigger::InitTrigger()
 		SetMovedir( this );
 	pev->solid = SOLID_TRIGGER;
 	pev->movetype = MOVETYPE_NONE;
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );    // set size and link into world
+	SetModel( STRING( pev->model ) );    // set size and link into world
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )
 		SetBits( pev->effects, EF_NODRAW );
 }

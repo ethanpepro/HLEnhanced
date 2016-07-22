@@ -145,7 +145,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 
 	SET_VIEW( pActivator->edict(), edict() );
 
-	SET_MODEL( ENT( pev ), STRING( pActivator->pev->model ) );
+	SetModel( STRING( pActivator->pev->model ) );
 
 	// follow the player down
 	SetThink( &CTriggerCamera::FollowTarget );

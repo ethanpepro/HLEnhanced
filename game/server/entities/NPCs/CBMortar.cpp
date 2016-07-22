@@ -41,7 +41,7 @@ void CBMortar::Spawn( void )
 	pev->rendermode = kRenderTransAlpha;
 	pev->renderamt = 255;
 
-	SET_MODEL( ENT( pev ), "sprites/mommaspit.spr" );
+	SetModel( "sprites/mommaspit.spr" );
 	pev->frame = 0;
 	pev->scale = 0.5;
 

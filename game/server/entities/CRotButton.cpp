@@ -47,7 +47,7 @@ void CRotButton::Spawn( void )
 	else
 		pev->solid = SOLID_BSP;
 
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	if( pev->speed == 0 )
 		pev->speed = 40;

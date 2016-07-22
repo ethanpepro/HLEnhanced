@@ -14,7 +14,7 @@ LINK_ENTITY_TO_CLASS( item_battery, CItemBattery );
 void CItemBattery::Spawn( void )
 {
 	Precache();
-	SET_MODEL( ENT( pev ), "models/w_battery.mdl" );
+	SetModel( "models/w_battery.mdl" );
 	CItem::Spawn();
 }
 

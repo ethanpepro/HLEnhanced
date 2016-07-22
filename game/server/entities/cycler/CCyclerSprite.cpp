@@ -39,7 +39,7 @@ void CCyclerSprite::Spawn( void )
 	m_lastTime = gpGlobals->time;
 
 	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( pev->modelindex ) - 1;
 }

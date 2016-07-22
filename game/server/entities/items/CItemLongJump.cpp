@@ -12,7 +12,7 @@ LINK_ENTITY_TO_CLASS( item_longjump, CItemLongJump );
 void CItemLongJump::Spawn( void )
 {
 	Precache();
-	SET_MODEL( ENT( pev ), "models/w_longjump.mdl" );
+	SetModel( "models/w_longjump.mdl" );
 	CItem::Spawn();
 }
 

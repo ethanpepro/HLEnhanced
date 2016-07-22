@@ -19,7 +19,7 @@ void CSprite::Spawn( void )
 	pev->frame = 0;
 
 	Precache();
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( pev->modelindex ) - 1;
 	if( pev->targetname && !( pev->spawnflags & SF_SPRITE_STARTON ) )

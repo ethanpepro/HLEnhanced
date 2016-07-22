@@ -20,6 +20,6 @@
 
 void CRuleBrushEntity::Spawn( void )
 {
-	SET_MODEL( edict(), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 	CRuleEntity::Spawn();
 }

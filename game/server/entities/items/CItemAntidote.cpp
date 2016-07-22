@@ -13,7 +13,7 @@ LINK_ENTITY_TO_CLASS( item_antidote, CItemAntidote );
 void CItemAntidote::Spawn( void )
 {
 	Precache();
-	SET_MODEL( ENT( pev ), "models/w_antidote.mdl" );
+	SetModel( "models/w_antidote.mdl" );
 	CItem::Spawn();
 }
 

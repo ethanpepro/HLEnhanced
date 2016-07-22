@@ -32,7 +32,7 @@ LINK_ENTITY_TO_CLASS( monster_hgrunt_dead, CDeadHGrunt );
 void CDeadHGrunt::Spawn( void )
 {
 	PRECACHE_MODEL( "models/hgrunt.mdl" );
-	SET_MODEL( ENT( pev ), "models/hgrunt.mdl" );
+	SetModel( "models/hgrunt.mdl" );
 
 	pev->effects = 0;
 	pev->yaw_speed = 8;

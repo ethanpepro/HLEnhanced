@@ -34,7 +34,7 @@ void CMomentaryDoor::Spawn( void )
 	pev->movetype = MOVETYPE_PUSH;
 
 	UTIL_SetOrigin( this, pev->origin );
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	if( pev->speed == 0 )
 		pev->speed = 100;

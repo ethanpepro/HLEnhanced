@@ -33,7 +33,7 @@ LINK_ENTITY_TO_CLASS( monster_sitting_scientist, CSittingScientist );
 void CSittingScientist::Spawn()
 {
 	PRECACHE_MODEL( "models/scientist.mdl" );
-	SET_MODEL( ENT( pev ), "models/scientist.mdl" );
+	SetModel( "models/scientist.mdl" );
 	Precache();
 	InitBoneControllers();
 

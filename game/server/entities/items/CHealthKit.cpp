@@ -14,7 +14,7 @@ LINK_ENTITY_TO_CLASS( item_healthkit, CHealthKit );
 void CHealthKit::Spawn( void )
 {
 	Precache();
-	SET_MODEL( ENT( pev ), "models/w_medkit.mdl" );
+	SetModel( "models/w_medkit.mdl" );
 
 	CItem::Spawn();
 }

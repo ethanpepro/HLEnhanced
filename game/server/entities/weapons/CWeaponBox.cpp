@@ -39,7 +39,7 @@ void CWeaponBox::Spawn()
 
 	UTIL_SetSize( this, g_vecZero, g_vecZero );
 
-	SET_MODEL( ENT( pev ), "models/w_weaponbox.mdl" );
+	SetModel( "models/w_weaponbox.mdl" );
 }
 
 //=========================================================

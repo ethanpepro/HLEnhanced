@@ -24,7 +24,7 @@ LINK_ENTITY_TO_CLASS( monster_babycrab, CBabyCrab );
 void CBabyCrab::Spawn( void )
 {
 	CHeadCrab::Spawn();
-	SET_MODEL( ENT( pev ), "models/baby_headcrab.mdl" );
+	SetModel( "models/baby_headcrab.mdl" );
 	pev->rendermode = kRenderTransTexture;
 	pev->renderamt = 192;
 	UTIL_SetSize( this, Vector( -12, -12, 0 ), Vector( 12, 12, 24 ) );

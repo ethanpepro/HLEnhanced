@@ -44,7 +44,7 @@ void CXenTree::Spawn( void )
 {
 	Precache();
 
-	SET_MODEL( ENT( pev ), "models/tree.mdl" );
+	SetModel( "models/tree.mdl" );
 	pev->movetype = MOVETYPE_NONE;
 	pev->solid = SOLID_BBOX;
 

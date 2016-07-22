@@ -29,7 +29,7 @@ void CControllerHeadBall::Spawn( void )
 	pev->movetype = MOVETYPE_FLY;
 	pev->solid = SOLID_BBOX;
 
-	SET_MODEL( ENT( pev ), "sprites/xspark4.spr" );
+	SetModel( "sprites/xspark4.spr" );
 	pev->rendermode = kRenderTransAdd;
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;

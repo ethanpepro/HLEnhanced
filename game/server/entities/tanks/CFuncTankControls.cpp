@@ -22,7 +22,7 @@ void CFuncTankControls::Spawn( void )
 	pev->solid = SOLID_TRIGGER;
 	pev->movetype = MOVETYPE_NONE;
 	pev->effects |= EF_NODRAW;
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	UTIL_SetSize( this, pev->mins, pev->maxs );
 	UTIL_SetOrigin( this, pev->origin );

@@ -26,7 +26,7 @@ LINK_ENTITY_TO_CLASS( testhull, CTestHull );
 
 void CTestHull::Spawn()
 {
-	SET_MODEL( ENT( pev ), "models/player.mdl" );
+	SetModel( "models/player.mdl" );
 	UTIL_SetSize( this, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
 	pev->solid = SOLID_SLIDEBOX;

@@ -12,7 +12,7 @@ void CFuncTrainControls::Spawn( void )
 {
 	pev->solid = SOLID_NOT;
 	pev->movetype = MOVETYPE_NONE;
-	SET_MODEL( ENT( pev ), STRING( pev->model ) );
+	SetModel( STRING( pev->model ) );
 
 	UTIL_SetSize( this, pev->mins, pev->maxs );
 	UTIL_SetOrigin( this, pev->origin );

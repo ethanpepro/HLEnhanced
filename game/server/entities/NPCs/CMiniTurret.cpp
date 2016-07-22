@@ -25,7 +25,7 @@ LINK_ENTITY_TO_CLASS( monster_miniturret, CMiniTurret );
 void CMiniTurret::Spawn()
 {
 	Precache();
-	SET_MODEL( ENT( pev ), "models/miniturret.mdl" );
+	SetModel( "models/miniturret.mdl" );
 	pev->health = gSkillData.miniturretHealth;
 	m_HackedGunPos = Vector( 0, 0, 12.75 );
 	m_flMaxSpin = 0;

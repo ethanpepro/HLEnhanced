@@ -178,7 +178,7 @@ void CBasePlayer::Spawn()
 	g_pGameRules->SetDefaultPlayerTeam( this );
 	g_pGameRules->GetPlayerSpawnSpot( this );
 
-	SET_MODEL( ENT( pev ), "models/player.mdl" );
+	SetModel( "models/player.mdl" );
 	g_ulModelIndexPlayer = pev->modelindex;
 	pev->sequence = LookupActivity( ACT_IDLE );
 

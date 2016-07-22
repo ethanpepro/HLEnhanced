@@ -43,7 +43,7 @@ void CCycler :: GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax)
 
 	pev->classname		= MAKE_STRING("cycler");
 	PRECACHE_MODEL( szModel );
-	SET_MODEL(ENT(pev),	szModel);
+	SetModel(	szModel);
 
 	CCycler::Spawn( );
 

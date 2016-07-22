@@ -13,7 +13,7 @@ LINK_ENTITY_TO_CLASS( item_security, CItemSecurity );
 void CItemSecurity::Spawn( void )
 {
 	Precache();
-	SET_MODEL( ENT( pev ), "models/w_security.mdl" );
+	SetModel( "models/w_security.mdl" );
 	CItem::Spawn();
 }
 

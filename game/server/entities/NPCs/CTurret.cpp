@@ -30,7 +30,7 @@ LINK_ENTITY_TO_CLASS( monster_turret, CTurret );
 void CTurret::Spawn()
 {
 	Precache();
-	SET_MODEL( ENT( pev ), "models/turret.mdl" );
+	SetModel( "models/turret.mdl" );
 	pev->health = gSkillData.turretHealth;
 	m_HackedGunPos = Vector( 0, 0, 12.75 );
 	m_flMaxSpin = TURRET_MAXSPIN;

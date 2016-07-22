@@ -38,7 +38,7 @@ void CWreckage::Spawn( void )
 	if( pev->model )
 	{
 		PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-		SET_MODEL( ENT( pev ), STRING( pev->model ) );
+		SetModel( STRING( pev->model ) );
 	}
 	// pev->scale = 5.0;
 

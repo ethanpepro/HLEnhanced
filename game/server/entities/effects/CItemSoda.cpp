@@ -12,7 +12,7 @@ void CItemSoda::Spawn( void )
 	pev->solid = SOLID_NOT;
 	pev->movetype = MOVETYPE_TOSS;
 
-	SET_MODEL( ENT( pev ), "models/can.mdl" );
+	SetModel( "models/can.mdl" );
 	UTIL_SetSize( this, Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 
 	SetThink( &CItemSoda::CanThink );

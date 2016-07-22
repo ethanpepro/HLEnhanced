@@ -34,7 +34,7 @@ void CMP5::Spawn( )
 {
 	pev->classname = MAKE_STRING("weapon_9mmAR"); // hack to allow for old names
 	Precache( );
-	SET_MODEL(ENT(pev), "models/w_9mmAR.mdl");
+	SetModel( "models/w_9mmAR.mdl");
 	m_iId = WEAPON_MP5;
 
 	m_iDefaultAmmo = MP5_DEFAULT_GIVE;
@@ -269,7 +269,7 @@ public:
 	void Spawn( void ) override
 	{ 
 		Precache( );
-		SET_MODEL(ENT(pev), "models/w_9mmARclip.mdl");
+		SetModel( "models/w_9mmARclip.mdl");
 		CBasePlayerAmmo::Spawn( );
 	}
 	void Precache( void ) override
@@ -295,7 +295,7 @@ public:
 	void Spawn( void ) override
 	{ 
 		Precache( );
-		SET_MODEL(ENT(pev), "models/w_chainammo.mdl");
+		SetModel( "models/w_chainammo.mdl");
 		CBasePlayerAmmo::Spawn( );
 	}
 	void Precache( void ) override
@@ -319,7 +319,7 @@ public:
 	void Spawn( void ) override
 	{ 
 		Precache( );
-		SET_MODEL(ENT(pev), "models/w_ARgrenade.mdl");
+		SetModel( "models/w_ARgrenade.mdl");
 		CBasePlayerAmmo::Spawn( );
 	}
 	void Precache( void ) override
