@@ -65,7 +65,7 @@ void CRecharge::Spawn()
 	pev->solid		= SOLID_BSP;
 	pev->movetype	= MOVETYPE_PUSH;
 
-	UTIL_SetOrigin( this, pev->origin);		// set size and link into world
+	SetAbsOrigin( pev->origin);		// set size and link into world
 	SetSize( pev->mins, pev->maxs );
 	SetModel( STRING(pev->model) );
 	m_iJuice = gSkillData.suitchargerCapacity;

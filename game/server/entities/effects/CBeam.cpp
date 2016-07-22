@@ -91,7 +91,7 @@ void CBeam::RelinkBeam( void )
 	pev->maxs = pev->maxs - pev->origin;
 
 	SetSize( pev->mins, pev->maxs );
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 }
 
 #if 0

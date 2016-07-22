@@ -17,7 +17,7 @@ void CGunTarget::Spawn( void )
 	pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
 
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 	SetModel( STRING( pev->model ) );
 
 	if( pev->speed == 0 )
@@ -46,7 +46,7 @@ void CGunTarget::Activate( void )
 	if( pTarg )
 	{
 		m_hTargetEnt = pTarg;
-		UTIL_SetOrigin( this, pTarg->pev->origin - ( pev->mins + pev->maxs ) * 0.5 );
+		SetAbsOrigin( pTarg->pev->origin - ( pev->mins + pev->maxs ) * 0.5 );
 	}
 }
 

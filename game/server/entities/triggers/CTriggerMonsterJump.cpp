@@ -19,7 +19,7 @@ void CTriggerMonsterJump::Spawn( void )
 	if( !FStringNull( pev->targetname ) )
 	{// if targetted, spawn turned off
 		pev->solid = SOLID_NOT;
-		UTIL_SetOrigin( this, pev->origin ); // Unlink from trigger list
+		SetAbsOrigin( pev->origin ); // Unlink from trigger list
 		SetUse( &CTriggerMonsterJump::ToggleUse );
 	}
 }
@@ -27,7 +27,7 @@ void CTriggerMonsterJump::Spawn( void )
 void CTriggerMonsterJump::Think( void )
 {
 	pev->solid = SOLID_NOT;// kill the trigger for now !!!UNDONE
-	UTIL_SetOrigin( this, pev->origin ); // Unlink from trigger list
+	SetAbsOrigin( pev->origin ); // Unlink from trigger list
 	SetThink( NULL );
 }
 

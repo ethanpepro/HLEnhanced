@@ -99,7 +99,7 @@ void CSqueakGrenade :: Spawn( void )
 
 	SetModel( "models/w_squeak.mdl");
 	SetSize( Vector( -4, -4, 0), Vector(4, 4, 8) );
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 
 	SetTouch( &CSqueakGrenade::SuperBounceTouch );
 	SetThink( &CSqueakGrenade::HuntThink );

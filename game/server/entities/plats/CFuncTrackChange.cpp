@@ -31,14 +31,14 @@ void CFuncTrackChange::Spawn( void )
 
 	if( FBitSet( pev->spawnflags, SF_TRACK_STARTBOTTOM ) )
 	{
-		UTIL_SetOrigin( this, m_vecPosition2 );
+		SetAbsOrigin( m_vecPosition2 );
 		m_toggle_state = TS_AT_BOTTOM;
 		pev->angles = m_start;
 		m_targetState = TS_AT_TOP;
 	}
 	else
 	{
-		UTIL_SetOrigin( this, m_vecPosition1 );
+		SetAbsOrigin( m_vecPosition1 );
 		m_toggle_state = TS_AT_TOP;
 		pev->angles = m_end;
 		m_targetState = TS_AT_BOTTOM;

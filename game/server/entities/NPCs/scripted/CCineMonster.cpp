@@ -394,7 +394,7 @@ void CCineMonster::PossessEntity( void )
 			break;
 
 		case 4:
-			UTIL_SetOrigin( pTarget, pev->origin );
+			pTarget->SetAbsOrigin( pev->origin );
 			pTarget->pev->ideal_yaw = pev->angles.y;
 			pTarget->pev->avelocity = Vector( 0, 0, 0 );
 			pTarget->pev->velocity = Vector( 0, 0, 0 );

@@ -48,7 +48,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 
 	pOther->pev->flags &= ~FL_ONGROUND;
 
-	UTIL_SetOrigin( pOther, tmp );
+	pOther->SetAbsOrigin( tmp );
 
 	pOther->pev->angles = pentTarget->v.angles;
 
@@ -221,7 +221,7 @@ void CBaseTrigger::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 	{// turn the trigger off
 		pev->solid = SOLID_NOT;
 	}
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 }
 
 /*

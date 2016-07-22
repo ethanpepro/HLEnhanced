@@ -33,7 +33,7 @@ void CMomentaryDoor::Spawn( void )
 	pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
 
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 	SetModel( STRING( pev->model ) );
 
 	if( pev->speed == 0 )
@@ -48,7 +48,7 @@ void CMomentaryDoor::Spawn( void )
 
 	if( FBitSet( pev->spawnflags, SF_DOOR_START_OPEN ) )
 	{	// swap pos1 and pos2, put door at pos2
-		UTIL_SetOrigin( this, m_vecPosition2 );
+		SetAbsOrigin( m_vecPosition2 );
 		m_vecPosition2 = m_vecPosition1;
 		m_vecPosition1 = pev->origin;
 	}

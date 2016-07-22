@@ -35,7 +35,7 @@ void CFuncTrain::Spawn( void )
 
 	SetModel( STRING( pev->model ) );
 	SetSize( pev->mins, pev->maxs );
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 
 	m_activated = false;
 
@@ -84,7 +84,7 @@ void CFuncTrain::Activate( void )
 		pev->target = pevTarg->target;
 		m_pevCurrentTarget = pevTarg;// keep track of this since path corners change our target for us.
 
-		UTIL_SetOrigin( this, pevTarg->origin - ( pev->mins + pev->maxs ) * 0.5 );
+		SetAbsOrigin( pevTarg->origin - ( pev->mins + pev->maxs ) * 0.5 );
 
 		if( FStringNull( pev->targetname ) )
 		{	// not triggered, so start immediately
@@ -243,7 +243,7 @@ void CFuncTrain::Next( void )
 	{
 		// Path corner has indicated a teleport to the next corner.
 		SetBits( pev->effects, EF_NOINTERP );
-		UTIL_SetOrigin( this, pTarg->pev->origin - ( pev->mins + pev->maxs )* 0.5 );
+		SetAbsOrigin( pTarg->pev->origin - ( pev->mins + pev->maxs )* 0.5 );
 		Wait(); // Get on with doing the next path corner.
 	}
 	else

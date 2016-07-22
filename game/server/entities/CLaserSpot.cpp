@@ -31,7 +31,7 @@ void CLaserSpot::Spawn( void )
 	pev->renderamt = 255;
 
 	SetModel( "sprites/laserdot.spr" );
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 };
 
 //=========================================================

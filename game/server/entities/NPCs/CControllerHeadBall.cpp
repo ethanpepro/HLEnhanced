@@ -38,7 +38,7 @@ void CControllerHeadBall::Spawn( void )
 	pev->scale = 2.0;
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 
 	SetThink( &CControllerHeadBall::HuntThink );
 	SetTouch( &CControllerHeadBall::BounceTouch );

@@ -8,7 +8,7 @@ LINK_ENTITY_TO_CLASS( info_intermission, CInfoIntermission );
 
 void CInfoIntermission::Spawn( void )
 {
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 	pev->solid = SOLID_NOT;
 	pev->effects = EF_NODRAW;
 	pev->v_angle = g_vecZero;

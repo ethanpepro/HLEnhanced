@@ -71,7 +71,7 @@ void CServerGameInterface::ClientDisconnect( edict_t* pEdict )
 	// since the edict doesn't get deleted, fix it so it doesn't interfere.
 	pEdict->v.takedamage = DAMAGE_NO;// don't attract autoaim
 	pEdict->v.solid = SOLID_NOT;// nonsolid
-	UTIL_SetOrigin( pPlayer, pEdict->v.origin );
+	pPlayer->SetAbsOrigin( pEdict->v.origin );
 
 	g_pGameRules->ClientDisconnected( pEdict );
 }

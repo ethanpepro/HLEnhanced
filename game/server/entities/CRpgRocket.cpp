@@ -20,7 +20,7 @@ CRpgRocket *CRpgRocket::CreateRpgRocket( Vector vecOrigin, Vector vecAngles, CBa
 {
 	CRpgRocket *pRocket = GetClassPtr( ( CRpgRocket * ) NULL );
 
-	UTIL_SetOrigin( pRocket, vecOrigin );
+	pRocket->SetAbsOrigin( vecOrigin );
 	pRocket->pev->angles = vecAngles;
 	pRocket->Spawn();
 	pRocket->SetTouch( &CRpgRocket::RocketTouch );
@@ -42,7 +42,7 @@ void CRpgRocket::Spawn( void )
 
 	SetModel( "models/rpgrocket.mdl" );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 
 	pev->classname = MAKE_STRING( "rpg_rocket" );
 

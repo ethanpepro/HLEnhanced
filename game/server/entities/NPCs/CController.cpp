@@ -788,7 +788,7 @@ void CController :: RunAI( void )
 		m_pBall[i]->SetBrightness( m_iBallCurrent[i] );
 
 		GetAttachment( i + 2, vecStart, angleGun );
-		UTIL_SetOrigin( m_pBall[i], vecStart );
+		m_pBall[i]->SetAbsOrigin( vecStart );
 		
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 			WRITE_BYTE( TE_ELIGHT );

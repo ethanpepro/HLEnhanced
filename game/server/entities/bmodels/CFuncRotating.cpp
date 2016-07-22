@@ -85,7 +85,7 @@ void CFuncRotating::Spawn()
 		pev->movetype = MOVETYPE_PUSH;
 	}
 
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 	SetModel( STRING( pev->model ) );
 
 	SetUse( &CFuncRotating::RotatingUse );

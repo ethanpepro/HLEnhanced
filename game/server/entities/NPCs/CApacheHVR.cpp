@@ -35,7 +35,7 @@ void CApacheHVR::Spawn( void )
 
 	SetModel( "models/HVR.mdl" );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 
 	SetThink( &CApacheHVR::IgniteThink );
 	SetTouch( &CApacheHVR::ExplodeTouch );

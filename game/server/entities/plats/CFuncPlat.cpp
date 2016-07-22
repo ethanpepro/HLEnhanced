@@ -17,13 +17,13 @@ void CFuncPlat::Spawn()
 	// and is brought down by that button.  Otherwise, it starts at BOTTOM.
 	if( !FStringNull( pev->targetname ) )
 	{
-		UTIL_SetOrigin( this, m_vecPosition1 );
+		SetAbsOrigin( m_vecPosition1 );
 		m_toggle_state = TS_AT_TOP;
 		SetUse( &CFuncPlat::PlatUse );
 	}
 	else
 	{
-		UTIL_SetOrigin( this, m_vecPosition2 );
+		SetAbsOrigin( m_vecPosition2 );
 		m_toggle_state = TS_AT_BOTTOM;
 	}
 }
@@ -53,7 +53,7 @@ void CFuncPlat::Setup( void )
 	pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
 
-	UTIL_SetOrigin( this, pev->origin );		// set size and link into world
+	SetAbsOrigin( pev->origin );		// set size and link into world
 	SetSize( pev->mins, pev->maxs );
 	SetModel( STRING( pev->model ) );
 

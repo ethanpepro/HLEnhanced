@@ -110,12 +110,12 @@ void CTestHull::BuildNodeGraph()
 	//	UTIL_CenterPrintAll( "Node Graph out of Date. Rebuilding..." );
 
 	//Spawns TestHull on top of the 0th node and drops it to the ground.
-	UTIL_SetOrigin( this, WorldGraph.m_pNodes[ 0 ].m_vecOrigin );
+	SetAbsOrigin( WorldGraph.m_pNodes[ 0 ].m_vecOrigin );
 
 	//Keep moving it down until it hits the floor. - Solokiller
 	while( DROP_TO_FLOOR( edict() ) == 0 )
 	{
-		UTIL_SetOrigin( this, GetAbsOrigin() - Vector( 0, 0, 256 ) );
+		SetAbsOrigin( GetAbsOrigin() - Vector( 0, 0, 256 ) );
 	}
 
 	SetThink( &CTestHull::SUB_Remove );// no matter what happens, the hull gets rid of itself.
@@ -294,7 +294,7 @@ void CTestHull::BuildNodeGraph()
 					break;
 				}
 
-				UTIL_SetOrigin( this, pSrcNode->m_vecOrigin );// place the hull on the node
+				SetAbsOrigin( pSrcNode->m_vecOrigin );// place the hull on the node
 
 				if( !FBitSet( pev->flags, FL_ONGROUND ) )
 				{

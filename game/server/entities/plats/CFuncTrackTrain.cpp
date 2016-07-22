@@ -50,7 +50,7 @@ void CFuncTrackTrain::Spawn( void )
 	SetModel( STRING( pev->model ) );
 
 	SetSize( pev->mins, pev->maxs );
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 
 	// Cache off placed origin for train controls
 	pev->oldorigin = pev->origin;
@@ -353,7 +353,7 @@ void CFuncTrackTrain::Find( void )
 
 	if( pev->spawnflags & SF_TRACKTRAIN_NOPITCH )
 		pev->angles.x = 0;
-	UTIL_SetOrigin( this, nextPos );
+	SetAbsOrigin( nextPos );
 	NextThink( pev->ltime + 0.1, false );
 	SetThink( &CFuncTrackTrain::Next );
 	pev->speed = m_startSpeed;

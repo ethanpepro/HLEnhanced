@@ -104,7 +104,7 @@ void CBasePlayerItem::Materialize( void )
 
 	pev->solid = SOLID_TRIGGER;
 
-	UTIL_SetOrigin( this, pev->origin );// link into world.
+	SetAbsOrigin( pev->origin );// link into world.
 	SetTouch( &CBasePlayerItem::DefaultTouch );
 	SetThink( NULL );
 
@@ -165,7 +165,7 @@ void CBasePlayerItem::FallInit( void )
 	pev->movetype = MOVETYPE_TOSS;
 	pev->solid = SOLID_BBOX;
 
-	UTIL_SetOrigin( this, pev->origin );
+	SetAbsOrigin( pev->origin );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );//pointsize until it lands on the ground.
 
 	SetTouch( &CBasePlayerItem::DefaultTouch );
