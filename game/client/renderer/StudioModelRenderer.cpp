@@ -33,9 +33,6 @@ extern extra_player_info_t  g_PlayerExtraInfo[MAX_PLAYERS+1];
 #define TEAM3_COLOR		45
 #define TEAM4_COLOR		100
 
-//TODO: remove this once matrices work without it - Solokiller
-#define VectorCopy(a,b) {(b)[0]=(a)[0];(b)[1]=(a)[1];(b)[2]=(a)[2];}
-
 int m_nPlayerGaitSequences[MAX_CLIENTS];
 
 // Global engine <-> studio model rendering code interface
@@ -520,10 +517,9 @@ void CStudioModelRenderer::StudioSetUpTransform (int trivial_accept)
 	{
 		static Matrix3x4 viewmatrix;
 
-		VectorCopy (m_vRight, viewmatrix[0]);
-		VectorCopy (m_vUp, viewmatrix[1]);
-		viewmatrix[ 1 ] = -viewmatrix[ 1 ];
-		VectorCopy (m_vNormal, viewmatrix[2]);
+		viewmatrix[ 0 ] = m_vRight;
+		viewmatrix[ 1 ] = -m_vUp;
+		viewmatrix[ 2 ] = m_vNormal;
 
 		(*m_protationmatrix)[0][3] = modelpos[0] - m_vRenderOrigin[0];
 		(*m_protationmatrix)[1][3] = modelpos[1] - m_vRenderOrigin[1];
