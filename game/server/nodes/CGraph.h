@@ -21,6 +21,8 @@
 #include "CNode.h"
 #include "CLink.h"
 
+//TODO: update to use const char* - Solokiller
+
 struct DIST_INFO
 {
 	int m_SortedBy[3];

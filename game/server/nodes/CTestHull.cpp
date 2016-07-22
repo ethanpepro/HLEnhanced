@@ -24,10 +24,7 @@ extern DLL_GLOBAL CBaseEntity* g_pBodyQueueHead;
 
 LINK_ENTITY_TO_CLASS( testhull, CTestHull );
 
-//=========================================================
-// CTestHull::Spawn
-//=========================================================
-void CTestHull::Spawn( CBaseEntity* pMasterNode )
+void CTestHull::Spawn()
 {
 	SET_MODEL( ENT( pev ), "models/player.mdl" );
 	UTIL_SetSize( this, VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
@@ -39,14 +36,10 @@ void CTestHull::Spawn( CBaseEntity* pMasterNode )
 	pev->yaw_speed = 8;
 
 	if( WorldGraph.m_fGraphPresent )
-	{// graph loaded from disk, so we don't need the test hull
+	{
+		// graph loaded from disk, so we don't need the test hull
 		SetThink( &CTestHull::SUB_Remove );
 		pev->nextthink = gpGlobals->time;
-	}
-	else
-	{
-		SetThink( &CTestHull::DropDelay );
-		pev->nextthink = gpGlobals->time + 1;
 	}
 
 	// Make this invisible
@@ -56,7 +49,7 @@ void CTestHull::Spawn( CBaseEntity* pMasterNode )
 }
 
 extern bool gTouchDisabled;
-void CTestHull::CallBuildNodeGraph( void )
+void CTestHull::CallBuildNodeGraph()
 {
 	// TOUCH HACK -- Don't allow this entity to call anyone's "touch" function
 	gTouchDisabled = true;
@@ -73,7 +66,7 @@ void CTestHull::CallBuildNodeGraph( void )
 // hull that walks between each node and each of its links
 // to ensure that a monster can actually fit through the space
 //=========================================================
-void CTestHull::BuildNodeGraph( void )
+void CTestHull::BuildNodeGraph()
 {
 	TraceResult	tr;
 	FILE	*file;
@@ -114,8 +107,21 @@ void CTestHull::BuildNodeGraph( void )
 	float	flDist;
 	int		step;
 
+	//	UTIL_CenterPrintAll( "Node Graph out of Date. Rebuilding..." );
+
+	//Spawns TestHull on top of the 0th node and drops it to the ground.
+	UTIL_SetOrigin( this, WorldGraph.m_pNodes[ 0 ].m_vecOrigin );
+
+	//Keep moving it down until it hits the floor. - Solokiller
+	while( DROP_TO_FLOOR( edict() ) == 0 )
+	{
+		UTIL_SetOrigin( this, GetAbsOrigin() - Vector( 0, 0, 256 ) );
+	}
+
 	SetThink( &CTestHull::SUB_Remove );// no matter what happens, the hull gets rid of itself.
 	pev->nextthink = gpGlobals->time;
+
+	ALERT( at_console, "**Building node graph...\n" );
 
 	// 	malloc a swollen temporary connection pool that we trim down after we know exactly how many connections there are.
 	pTempPool = ( CLink * ) calloc( sizeof( CLink ), ( WorldGraph.m_cNodes * MAX_NODE_INITIAL_LINKS ) );
@@ -541,7 +547,7 @@ void CTestHull::BuildNodeGraph( void )
 // hull will be placed up the bad node's location and will generate
 // particles
 //=========================================================
-void CTestHull::ShowBadNode( void )
+void CTestHull::ShowBadNode()
 {
 	pev->movetype = MOVETYPE_FLY;
 	pev->angles.y = pev->angles.y + 4;
@@ -558,24 +564,9 @@ void CTestHull::ShowBadNode( void )
 }
 
 //=========================================================
-// TestHull::DropDelay - spawns TestHull on top of 
-// the 0th node and drops it to the ground.
-//=========================================================
-void CTestHull::DropDelay( void )
-{
-	//	UTIL_CenterPrintAll( "Node Graph out of Date. Rebuilding..." );
-
-	UTIL_SetOrigin( this, WorldGraph.m_pNodes[ 0 ].m_vecOrigin );
-
-	SetThink( &CTestHull::CallBuildNodeGraph );
-
-	pev->nextthink = gpGlobals->time + 1;
-}
-
-//=========================================================
 // returns a hardcoded path.
 //=========================================================
-void CTestHull::PathFind( void )
+void CTestHull::PathFind()
 {
 	int	iPath[ 50 ];
 	int	iPathSize;

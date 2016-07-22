@@ -15,24 +15,28 @@
 #ifndef GAME_SERVER_NODES_CTESTHULL_H
 #define GAME_SERVER_NODES_CTESTHULL_H
 
-//=========================================================
-// TestHull is a modelless clip hull that verifies reachable
-// nodes by walking from every node to each of it's connections
-//=========================================================
+/**
+*	TestHull is a modelless clip hull that verifies reachable
+*	nodes by walking from every node to each of it's connections
+*/
 class CTestHull : public CBaseMonster
 {
 public:
 	DECLARE_CLASS( CTestHull, CBaseMonster );
 
-	void Spawn( CBaseEntity* pMasterNode );
+	void Spawn();
 	virtual int	ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
-	void EXPORT CallBuildNodeGraph();
+	void CallBuildNodeGraph();
+
+private:
 	void BuildNodeGraph();
+
+public:
 	void EXPORT ShowBadNode();
-	void EXPORT DropDelay();
 	void EXPORT PathFind();
 
-	Vector	vecBadNodeOrigin;
+private:
+	Vector vecBadNodeOrigin;
 };
 
 #endif //GAME_SERVER_NODES_CTESTHULL_H

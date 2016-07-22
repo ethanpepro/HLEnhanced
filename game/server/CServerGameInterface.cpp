@@ -8,6 +8,9 @@
 #include "gamerules/GameRules.h"
 #include "Server.h"
 
+#include "nodes/Nodes.h"
+#include "nodes/CTestHull.h"
+
 #include "Angelscript/CHLASManager.h"
 
 #include "CServerGameInterface.h"
@@ -295,6 +298,32 @@ void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, 
 	}
 
 	g_ASManager.WorldActivated();
+
+	//If no graph is present, build it.
+	if( !WorldGraph.m_fGraphPresent )
+	{
+		//spawn the test hull entity that builds and walks the node tree
+		CTestHull* pTestHull = GetClassPtr<CTestHull>( nullptr );
+
+		pTestHull->Spawn();
+
+		pTestHull->CallBuildNodeGraph();
+	}
+
+	// Fix all of the node graph pointers before the game starts.
+	//Used to be done in CBasePlayer::Precache
+
+	if( WorldGraph.m_fGraphPresent && !WorldGraph.m_fGraphPointersSet )
+	{
+		if( !WorldGraph.FSetGraphPointers() )
+		{
+			ALERT( at_console, "**Graph pointers were not set!\n" );
+		}
+		else
+		{
+			ALERT( at_console, "**Graph Pointers Set!\n" );
+		}
+	}
 }
 
 void CServerGameInterface::Deactivate()

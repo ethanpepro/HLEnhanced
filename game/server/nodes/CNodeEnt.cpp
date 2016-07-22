@@ -30,15 +30,10 @@ void CNodeEnt::Spawn( void )
 	pev->solid = SOLID_NOT;// always solid_not 
 
 	if( WorldGraph.m_fGraphPresent )
-	{// graph loaded from disk, so discard all these node ents as soon as they spawn
+	{
+		// graph loaded from disk, so discard all these node ents as soon as they spawn
 		REMOVE_ENTITY( edict() );
 		return;
-	}
-
-	if( WorldGraph.m_cNodes == 0 )
-	{// this is the first node to spawn, spawn the test hull entity that builds and walks the node tree
-		CTestHull *pHull = GetClassPtr( ( CTestHull * ) NULL );
-		pHull->Spawn( this );
 	}
 
 	if( WorldGraph.m_cNodes >= MAX_NODES )
