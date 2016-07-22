@@ -127,7 +127,6 @@ int CHudHealth:: MsgFunc_Damage(const char *pszName,  int iSize, void *pbuf )
 
 	Vector vecFrom;
 
-	//TODO: ReadVector - Solokiller
 	for ( int i = 0 ; i < 3 ; i++)
 		vecFrom[i] = reader.ReadCoord();
 

@@ -141,6 +141,11 @@ public:
 	float ReadCoord();
 
 	/**
+	*	Reads 3 coordinates.
+	*/
+	Vector ReadCoordVector();
+
+	/**
 	*	Reads an angle.
 	*/
 	float ReadAngle();

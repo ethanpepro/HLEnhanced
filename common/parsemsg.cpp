@@ -179,6 +179,17 @@ float CBufferReader::ReadCoord()
 	return ( float ) ( ReadShort() * ( 1.0 / 8 ) );
 }
 
+Vector CBufferReader::ReadCoordVector()
+{
+	Vector vec;
+
+	vec.x = ReadCoord();
+	vec.y = ReadCoord();
+	vec.z = ReadCoord();
+
+	return vec;
+}
+
 float CBufferReader::ReadAngle()
 {
 	return ( float ) ( ReadChar() * ( 360.0 / 256 ) );

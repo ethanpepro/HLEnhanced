@@ -24,8 +24,8 @@ void BeamPoints(
 {
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, origin );
 		WRITE_BYTE( TE_BEAMPOINTS );
-		WRITE_VECTOR( vecStartPos );
-		WRITE_VECTOR( vecEndPos );
+		WRITE_COORD_VECTOR( vecStartPos );
+		WRITE_COORD_VECTOR( vecEndPos );
 		WRITE_SHORT( iSpriteModel );
 		WRITE_BYTE( iFrame );
 		WRITE_BYTE( ( int ) flFrameRate );

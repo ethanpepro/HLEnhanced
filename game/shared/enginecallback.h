@@ -86,7 +86,7 @@ inline void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float *pOrigin = NULL
 *	Writes a position vector.
 *	@param vec Position vector.
 */
-inline void WRITE_VECTOR( const Vector& vec )
+inline void WRITE_COORD_VECTOR( const Vector& vec )
 {
 	WRITE_COORD( vec.x );
 	WRITE_COORD( vec.y );
