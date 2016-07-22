@@ -2494,12 +2494,10 @@ public:
 	virtual void DeathNotice( CBaseEntity* pChild ) {}
 
 	/**
-	*	Tries to send a monster into PRONE state.
-	*	Right now only used when a barnacle snatches someone, so may have some special case stuff for that.
-	*	@return Whether the entity has become prone.
-	*	TODO: only used by barnacles so rename it.
+	*	A barnacle is trying to grab this entity.
+	*	@return Whether the entity can be grabbed by the barnacle.
 	*/
-	virtual bool FBecomeProne() { return false; }
+	virtual bool BarnacleVictimGrabbed( CBaseMonster* pBarnacle ) { return false; }
 
 	/**
 	*	@return Center point of entity.

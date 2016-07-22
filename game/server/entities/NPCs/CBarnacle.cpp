@@ -239,7 +239,7 @@ void CBarnacle :: BarnacleThink ( void )
 		if ( pTouchEnt != NULL && m_fTongueExtended )
 		{
 			// tongue is fully extended, and is touching someone.
-			if ( pTouchEnt->FBecomeProne() )
+			if ( pTouchEnt->BarnacleVictimGrabbed( this ) )
 			{
 				EMIT_SOUND( ENT(pev), CHAN_WEAPON, "barnacle/bcl_alert2.wav", 1, ATTN_NORM );	
 

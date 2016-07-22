@@ -305,7 +305,7 @@ void CBasePlayer::CheckTimeBasedDamage()
 {
 }
 
-bool CBasePlayer::FBecomeProne()
+bool CBasePlayer::BarnacleVictimGrabbed( CBaseMonster* pBarnacle )
 {
 	return true;
 }

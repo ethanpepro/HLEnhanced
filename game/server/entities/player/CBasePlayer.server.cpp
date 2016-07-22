@@ -690,10 +690,10 @@ bool CBasePlayer::Restore( CRestore &restore )
 }
 
 //=========================================================
-// FBecomeProne - Overridden for the player to set the proper
+// BarnacleVictimGrabbed - Overridden for the player to set the proper
 // physics flags when a barnacle grabs player.
 //=========================================================
-bool CBasePlayer::FBecomeProne()
+bool CBasePlayer::BarnacleVictimGrabbed( CBaseMonster* pBarnacle )
 {
 	m_afPhysicsFlags |= PFLAG_ONBARNACLE;
 	return true;
