@@ -174,7 +174,7 @@ int DispatchSpawn( edict_t *pent )
 
 
 		// Handle global stuff here
-		if( pEntity && pEntity->pev->globalname )
+		if( pEntity && pEntity->HasGlobalName() )
 		{
 			const globalentity_t *pGlobal = gGlobalState.EntityFromTable( pEntity->pev->globalname );
 			if( pGlobal )
@@ -190,7 +190,7 @@ int DispatchSpawn( edict_t *pent )
 			{
 				// Spawned entities default to 'On'
 				gGlobalState.EntityAdd( pEntity->pev->globalname, gpGlobals->mapname, GLOBAL_ON );
-				//				ALERT( at_console, "Added global entity %s (%s)\n", pEntity->GetClassname(), STRING(pEntity->pev->globalname) );
+				//				ALERT( at_console, "Added global entity %s (%s)\n", pEntity->GetClassname(), pEntity->GetGlobalName() );
 			}
 		}
 
@@ -384,9 +384,9 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 		pEntity = ( CBaseEntity * ) GET_PRIVATE( pent );
 
 #if 0
-		if( pEntity && pEntity->pev->globalname && globalEntity )
+		if( pEntity && pEntity->HasGlobalName() && globalEntity )
 		{
-			ALERT( at_console, "Global %s is %s\n", STRING( pEntity->pev->globalname ), STRING( pEntity->pev->model ) );
+			ALERT( at_console, "Global %s is %s\n", pEntity->GetGlobalName(), STRING( pEntity->pev->model ) );
 		}
 #endif
 
@@ -401,7 +401,7 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 				pEntity->OverrideReset();
 			}
 		}
-		else if( pEntity && pEntity->pev->globalname )
+		else if( pEntity && pEntity->HasGlobalName() )
 		{
 			const globalentity_t *pGlobal = gGlobalState.EntityFromTable( pEntity->pev->globalname );
 			if( pGlobal )
@@ -417,7 +417,7 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 			}
 			else
 			{
-				ALERT( at_error, "Global Entity %s (%s) not in table!!!\n", STRING( pEntity->pev->globalname ), pEntity->GetClassname() );
+				ALERT( at_error, "Global Entity %s (%s) not in table!!!\n", pEntity->GetGlobalName(), pEntity->GetClassname() );
 				// Spawned entities default to 'On'
 				gGlobalState.EntityAdd( pEntity->pev->globalname, gpGlobals->mapname, GLOBAL_ON );
 			}

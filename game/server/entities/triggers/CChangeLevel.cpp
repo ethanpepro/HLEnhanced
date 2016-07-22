@@ -255,7 +255,7 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 						// If this entity can be moved or is global, mark it
 						if( caps & FCAP_ACROSS_TRANSITION )
 							flags |= FENTTABLE_MOVEABLE;
-						if( pEntity->pev->globalname && !pEntity->IsDormant() )
+						if( pEntity->HasGlobalName() && !pEntity->IsDormant() )
 							flags |= FENTTABLE_GLOBAL;
 						if( flags )
 						{

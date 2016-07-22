@@ -869,8 +869,8 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			}
 
 			ALERT( at_console, "Model: %s\n", STRING( pEntity->pev->model ) );
-			if( pEntity->pev->globalname )
-				ALERT( at_console, "Globalname: %s\n", STRING( pEntity->pev->globalname ) );
+			if( HasGlobalName() )
+				ALERT( at_console, "Globalname: %s\n", pEntity->GetGlobalName() );
 		}
 		break;
 

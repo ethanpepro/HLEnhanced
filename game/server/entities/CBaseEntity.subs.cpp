@@ -49,7 +49,7 @@ void CBaseEntity::UpdateOnRemove( void )
 			}
 		}
 	}
-	if ( pev->globalname )
+	if ( HasGlobalName() )
 		gGlobalState.EntitySetState( pev->globalname, GLOBAL_DEAD );
 }
 
