@@ -2016,14 +2016,14 @@ void CBaseMonster :: StartMonster ( void )
 		pev->flags &= ~FL_ONGROUND;
 	}
 	
-	if ( !FStringNull(pev->target) )// this monster has a target
+	if ( HasTarget() )// this monster has a target
 	{
 		// Find the monster's initial target entity, stash it
-		m_pGoalEnt = CBaseEntity::Instance( FIND_ENTITY_BY_TARGETNAME ( NULL, STRING( pev->target ) ) );
+		m_pGoalEnt = CBaseEntity::Instance( FIND_ENTITY_BY_TARGETNAME ( NULL, GetTarget() ) );
 
 		if ( !m_pGoalEnt )
 		{
-			ALERT(at_error, "ReadyMonster()--%s couldn't find target %s", GetClassname(), STRING(pev->target));
+			ALERT(at_error, "ReadyMonster()--%s couldn't find target %s", GetClassname(), GetTarget() );
 		}
 		else
 		{
@@ -2035,7 +2035,7 @@ void CBaseMonster :: StartMonster ( void )
 			// At this point, we expect only a path_corner as initial goal
 			if (!FClassnameIs( m_pGoalEnt->pev, "path_corner"))
 			{
-				ALERT(at_warning, "ReadyMonster--monster's initial goal '%s' is not a path_corner", STRING(pev->target));
+				ALERT(at_warning, "ReadyMonster--monster's initial goal '%s' is not a path_corner", GetTarget() );
 			}
 #endif
 

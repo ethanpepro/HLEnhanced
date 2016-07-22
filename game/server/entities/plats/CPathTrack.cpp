@@ -59,9 +59,9 @@ void CPathTrack::Link( void )
 {
 	edict_t *pentTarget;
 
-	if( !FStringNull( pev->target ) )
+	if( HasTarget() )
 	{
-		pentTarget = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( pev->target ) );
+		pentTarget = FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() );
 		if( !FNullEnt( pentTarget ) )
 		{
 			m_pnext = CPathTrack::Instance( pentTarget );
@@ -72,7 +72,7 @@ void CPathTrack::Link( void )
 			}
 		}
 		else
-			ALERT( at_console, "Dead end link %s\n", STRING( pev->target ) );
+			ALERT( at_console, "Dead end link %s\n", GetTarget() );
 	}
 
 	// Find "alternate" path

@@ -57,7 +57,7 @@ void CBaseDelay::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, floa
 	//
 	// exit immediatly if we don't have a target or kill target
 	//
-	if( FStringNull( pev->target ) && !m_iszKillTarget )
+	if( !HasTarget() && !m_iszKillTarget )
 		return;
 
 	//
@@ -117,9 +117,9 @@ void CBaseDelay::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, floa
 	//
 	// fire targets
 	//
-	if( !FStringNull( pev->target ) )
+	if( HasTarget() )
 	{
-		FireTargets( STRING( pev->target ), pActivator, this, useType, value );
+		FireTargets( GetTarget(), pActivator, this, useType, value );
 	}
 }
 

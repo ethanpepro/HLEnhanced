@@ -38,7 +38,7 @@ void CFuncTrackTrain::Spawn( void )
 
 	m_dir = 1;
 
-	if( FStringNull( pev->target ) )
+	if( !HasTarget() )
 		ALERT( at_console, "FuncTrain with no target" );
 
 	if( pev->spawnflags & SF_TRACKTRAIN_PASSABLE )
@@ -203,7 +203,7 @@ void CFuncTrackTrain::Next( void )
 	}
 
 	//	if ( !m_ppath )
-	//		m_ppath = CPathTrack::Instance(FIND_ENTITY_BY_TARGETNAME( NULL, STRING(pev->target) ));
+	//		m_ppath = CPathTrack::Instance(FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() ));
 	if( !m_ppath )
 	{
 		ALERT( at_aiconsole, "TRAIN(%s): Lost path\n", GetTargetname() );
@@ -328,7 +328,7 @@ void CFuncTrackTrain::Next( void )
 
 void CFuncTrackTrain::Find( void )
 {
-	m_ppath = CPathTrack::Instance( FIND_ENTITY_BY_TARGETNAME( NULL, STRING( pev->target ) ) );
+	m_ppath = CPathTrack::Instance( FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() ) );
 	if( !m_ppath )
 		return;
 

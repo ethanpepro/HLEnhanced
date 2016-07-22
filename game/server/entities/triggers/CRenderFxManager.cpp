@@ -13,12 +13,12 @@ void CRenderFxManager::Spawn( void )
 
 void CRenderFxManager::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( !FStringNull( pev->target ) )
+	if( HasTarget() )
 	{
 		edict_t* pentTarget = NULL;
 		while( 1 )
 		{
-			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( pev->target ) );
+			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, GetTarget() );
 			if( FNullEnt( pentTarget ) )
 				break;
 

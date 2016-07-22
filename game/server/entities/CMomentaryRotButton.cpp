@@ -181,7 +181,7 @@ void CMomentaryRotButton::UpdateAllButtons( float value, int start )
 	for( ;;)
 	{
 
-		pentTarget = FIND_ENTITY_BY_STRING( pentTarget, "target", STRING( pev->target ) );
+		pentTarget = FIND_ENTITY_BY_STRING( pentTarget, "target", GetTarget() );
 		if( FNullEnt( pentTarget ) )
 			break;
 
@@ -206,12 +206,12 @@ void CMomentaryRotButton::PlaySound( void )
 
 void CMomentaryRotButton::UpdateTarget( float value )
 {
-	if( !FStringNull( pev->target ) )
+	if( HasTarget() )
 	{
 		edict_t* pentTarget = NULL;
 		for( ;;)
 		{
-			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( pev->target ) );
+			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, GetTarget() );
 			if( FNullEnt( pentTarget ) )
 				break;
 			CBaseEntity *pEntity = CBaseEntity::Instance( pentTarget );

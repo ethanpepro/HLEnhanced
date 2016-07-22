@@ -78,9 +78,9 @@ void CBaseEntity :: SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, f
 	//
 	// fire targets
 	//
-	if (!FStringNull(pev->target))
+	if ( HasTarget() )
 	{
-		FireTargets( STRING(pev->target), pActivator, this, useType, value );
+		FireTargets( GetTarget(), pActivator, this, useType, value );
 	}
 }
 

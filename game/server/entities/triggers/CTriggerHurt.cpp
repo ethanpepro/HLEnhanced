@@ -199,7 +199,7 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 
 
 
-	if( pev->target )
+	if( HasTarget() )
 	{
 		// trigger has a target it wants to fire. 
 		if( pev->spawnflags & SF_TRIGGER_HURT_CLIENTONLYFIRE )

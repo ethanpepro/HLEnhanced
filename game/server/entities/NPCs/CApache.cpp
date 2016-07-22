@@ -378,9 +378,9 @@ void CApache :: HuntThink( void )
 
 	ShowDamage( );
 
-	if ( m_pGoalEnt == NULL && !FStringNull(pev->target) )// this monster has a target
+	if ( m_pGoalEnt == NULL && HasTarget() )// this monster has a target
 	{
-		m_pGoalEnt = UTIL_FindEntityByTargetname( NULL, STRING( pev->target ) );
+		m_pGoalEnt = UTIL_FindEntityByTargetname( NULL, GetTarget() );
 		if (m_pGoalEnt)
 		{
 			m_posDesired = m_pGoalEnt->pev->origin;
@@ -425,7 +425,7 @@ void CApache :: HuntThink( void )
 
 		if (flLength < 128)
 		{
-			m_pGoalEnt = UTIL_FindEntityByTargetname( NULL, STRING( m_pGoalEnt->pev->target ) );
+			m_pGoalEnt = UTIL_FindEntityByTargetname( NULL, m_pGoalEnt->GetTarget() );
 			if (m_pGoalEnt)
 			{
 				m_posDesired = m_pGoalEnt->pev->origin;

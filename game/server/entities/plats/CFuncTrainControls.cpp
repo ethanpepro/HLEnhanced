@@ -27,13 +27,13 @@ void CFuncTrainControls::Find( void )
 
 	do
 	{
-		pTarget = FIND_ENTITY_BY_TARGETNAME( pTarget, STRING( pev->target ) );
+		pTarget = FIND_ENTITY_BY_TARGETNAME( pTarget, GetTarget() );
 	}
 	while( !FNullEnt( pTarget ) && !FClassnameIs( pTarget, "func_tracktrain" ) );
 
 	if( FNullEnt( pTarget ) )
 	{
-		ALERT( at_console, "No train %s\n", STRING( pev->target ) );
+		ALERT( at_console, "No train %s\n", GetTarget() );
 		return;
 	}
 

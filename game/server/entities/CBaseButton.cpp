@@ -325,12 +325,12 @@ void CBaseButton::ButtonBackHome( void )
 	}
 
 
-	if( !FStringNull( pev->target ) )
+	if( HasTarget() )
 	{
 		edict_t* pentTarget = NULL;
 		for( ;;)
 		{
-			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( pev->target ) );
+			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, GetTarget() );
 
 			if( FNullEnt( pentTarget ) )
 				break;

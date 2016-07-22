@@ -22,7 +22,7 @@ void CInfoIntermission::Think( void )
 	edict_t *pTarget;
 
 	// find my target
-	pTarget = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( pev->target ) );
+	pTarget = FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() );
 
 	if( !FNullEnt( pTarget ) )
 	{

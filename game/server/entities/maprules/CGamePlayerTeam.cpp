@@ -28,7 +28,7 @@ void CGamePlayerTeam::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 
 	if( pActivator->IsPlayer() )
 	{
-		const char *pszTargetTeam = TargetTeamName( STRING( pev->target ) );
+		const char *pszTargetTeam = TargetTeamName( GetTarget() );
 		if( pszTargetTeam )
 		{
 			CBasePlayer *pPlayer = ( CBasePlayer * ) pActivator;

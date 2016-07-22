@@ -46,13 +46,13 @@ void CFuncTankControls::Think( void )
 
 	do
 	{
-		pTarget = FIND_ENTITY_BY_TARGETNAME( pTarget, STRING( pev->target ) );
+		pTarget = FIND_ENTITY_BY_TARGETNAME( pTarget, GetTarget() );
 	}
 	while( !FNullEnt( pTarget ) && strncmp( STRING( pTarget->v.classname ), "func_tank", 9 ) );
 
 	if( FNullEnt( pTarget ) )
 	{
-		ALERT( at_console, "No tank %s\n", STRING( pev->target ) );
+		ALERT( at_console, "No tank %s\n", GetTarget() );
 		return;
 	}
 

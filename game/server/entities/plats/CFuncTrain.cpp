@@ -19,7 +19,7 @@ void CFuncTrain::Spawn( void )
 	if( pev->speed == 0 )
 		pev->speed = 100;
 
-	if( FStringNull( pev->target ) )
+	if( !HasTarget() )
 		ALERT( at_console, "FuncTrain with no target" );
 
 	if( pev->dmg == 0 )
@@ -79,7 +79,7 @@ void CFuncTrain::Activate( void )
 	if( !m_activated )
 	{
 		m_activated = true;
-		entvars_t	*pevTarg = VARS( FIND_ENTITY_BY_TARGETNAME( NULL, STRING( pev->target ) ) );
+		entvars_t	*pevTarg = VARS( FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() ) );
 
 		pev->target = pevTarg->target;
 		m_pevCurrentTarget = pevTarg;// keep track of this since path corners change our target for us.

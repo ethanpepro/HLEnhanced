@@ -33,7 +33,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 		}
 	}
 
-	pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( pev->target ) );
+	pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, GetTarget() );
 	if( FNullEnt( pentTarget ) )
 		return;
 
