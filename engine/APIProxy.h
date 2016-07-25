@@ -1120,7 +1120,6 @@ typedef struct cl_enginefuncs_s
 
 	/**
 	*	Voice Tweak API.
-	*	TODO: figure out what the interface contains. - Solokiller
 	*/
 	IVoiceTweak*		pVoiceTweak;
 
