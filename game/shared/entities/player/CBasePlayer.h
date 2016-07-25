@@ -17,6 +17,8 @@
 
 #include "materials/MaterialsConst.h"
 
+class CRope;
+
 /**
 *	Player PHYSICS FLAGS bits
 */
@@ -41,6 +43,11 @@ enum PhysicsFlag
 	*	Player is locked in stationary cam mode. Spectators can move, observers can't.
 	*/
 	PFLAG_OBSERVER		= 1 << 5,
+
+	/**
+	*	On a rope.
+	*/
+	PFLAG_ONROPE		= 1 << 6,
 };
 
 enum TrainFlag
@@ -401,6 +408,31 @@ public:
 
 	void SetCustomDecalFrames( int nFrames );
 	int GetCustomDecalFrames();
+
+	bool IsOnRope() const { return ( m_afPhysicsFlags & PFLAG_ONROPE ) != 0; }
+
+	void SetOnRopeState( bool bOnRope )
+	{
+		if( bOnRope )
+			m_afPhysicsFlags |= PFLAG_ONROPE;
+		else
+			m_afPhysicsFlags &= ~PFLAG_ONROPE;
+	}
+
+	CRope* GetRope() { return m_pRope; }
+
+	void SetRope( CRope* pRope )
+	{
+		m_pRope = pRope;
+	}
+
+private:
+	CRope* m_pRope;
+	
+	float m_flLastClimbTime = 0;
+	bool m_bIsClimbing = false;
+
+public:
 
 	//TODO: still used? - Solokiller
 	float m_flStartCharge;

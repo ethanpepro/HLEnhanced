@@ -296,6 +296,10 @@
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.server.cpp" />
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.server.game.cpp" />
     <ClCompile Include="..\..\game\server\entities\player\CBasePlayer.weapons.cpp" />
+    <ClCompile Include="..\..\game\server\entities\rope\CElectrifiedWire.cpp" />
+    <ClCompile Include="..\..\game\server\entities\rope\CRope.cpp" />
+    <ClCompile Include="..\..\game\server\entities\rope\CRopeSample.cpp" />
+    <ClCompile Include="..\..\game\server\entities\rope\CRopeSegment.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CAmbientGeneric.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CEnvSound.cpp" />
     <ClCompile Include="..\..\game\server\entities\sound\CSpeaker.cpp" />
@@ -592,6 +596,10 @@
     <ClInclude Include="..\..\game\server\entities\plats\CPathCorner.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CPathTrack.h" />
     <ClInclude Include="..\..\game\server\entities\plats\CPlatTrigger.h" />
+    <ClInclude Include="..\..\game\server\entities\rope\CElectrifiedWire.h" />
+    <ClInclude Include="..\..\game\server\entities\rope\CRope.h" />
+    <ClInclude Include="..\..\game\server\entities\rope\CRopeSample.h" />
+    <ClInclude Include="..\..\game\server\entities\rope\CRopeSegment.h" />
     <ClInclude Include="..\..\game\server\entities\sound\CAmbientGeneric.h" />
     <ClInclude Include="..\..\game\server\entities\sound\CEnvSound.h" />
     <ClInclude Include="..\..\game\server\entities\sound\CSpeaker.h" />

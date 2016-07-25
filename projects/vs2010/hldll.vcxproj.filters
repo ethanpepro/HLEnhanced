@@ -241,6 +241,12 @@
     <Filter Include="Source Files\game\shared\entities\player">
       <UniqueIdentifier>{2d8765ee-cd14-4ebe-becb-546d907a8f63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\game\server\entities\rope">
+      <UniqueIdentifier>{76298ac3-b425-4cb1-8a59-73c5dbd0a909}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game\server\entities\rope">
+      <UniqueIdentifier>{8dcb0f8b-c8e8-455e-a980-014470f115e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\pm_shared\pm_debug.cpp">
@@ -1124,6 +1130,18 @@
     </ClCompile>
     <ClCompile Include="..\..\game\shared\entities\player\CBasePlayer.shared.cpp">
       <Filter>Source Files\game\shared\entities\player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\rope\CRope.cpp">
+      <Filter>Source Files\game\server\entities\rope</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\rope\CRopeSample.cpp">
+      <Filter>Source Files\game\server\entities\rope</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\rope\CRopeSegment.cpp">
+      <Filter>Source Files\game\server\entities\rope</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\game\server\entities\rope\CElectrifiedWire.cpp">
+      <Filter>Source Files\game\server\entities\rope</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2065,6 +2083,18 @@
     </ClInclude>
     <ClInclude Include="..\..\game\server\SVC.h">
       <Filter>Header Files\game\server</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\rope\CRope.h">
+      <Filter>Header Files\game\server\entities\rope</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\rope\CRopeSample.h">
+      <Filter>Header Files\game\server\entities\rope</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\rope\CRopeSegment.h">
+      <Filter>Header Files\game\server\entities\rope</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\game\server\entities\rope\CElectrifiedWire.h">
+      <Filter>Header Files\game\server\entities\rope</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

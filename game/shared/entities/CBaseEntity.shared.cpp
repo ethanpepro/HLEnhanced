@@ -187,6 +187,9 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD( m_pTank, FIELD_EHANDLE ),
 	DEFINE_FIELD( m_iHideHUD, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iFOV, FIELD_INTEGER ),
+	DEFINE_FIELD( m_pRope, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_flLastClimbTime, FIELD_TIME ),
+	DEFINE_FIELD( m_bIsClimbing, FIELD_BOOLEAN ),
 	
 	//DEFINE_FIELD( m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 	//DEFINE_FIELD( m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
