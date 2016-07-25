@@ -204,6 +204,29 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 
 		ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, UTIL_VarArgs( "Number of entities: %u (max: %d)\n", uiCount, gpGlobals->maxEntities ) );
 	}
+	else if( FStrEq( pcmd, "ent_setname" ) )
+	{
+		if( g_flWeaponCheat != 0 )
+		{
+			if( CMD_ARGC() >= 1 )
+			{
+				if( CBaseEntity* pEnt = UTIL_FindEntityForward( pPlayer ) )
+				{
+					pEnt->SetTargetname( ALLOC_STRING( CMD_ARGV( 1 ) ) );
+
+					ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, "Set name on entity\n" );
+				}
+				else
+				{
+					ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, "No entity in front of you\n" );
+				}
+			}
+			else
+			{
+				ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, "Usage: ent_setname <name>\n" );
+			}
+		}
+	}
 	else if( g_pGameRules->ClientCommand( pPlayer, pcmd ) )
 	{
 		// MenuSelect returns true only if the command is properly handled,  so don't print a warning

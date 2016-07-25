@@ -695,13 +695,13 @@ void RadiusDamage( Vector vecSrc, const CTakeDamageInfo& info, float flRadius, i
 				if (tr.flFraction != 1.0)
 				{
 					g_MultiDamage.Clear( );
-					newInfo.SetDamage( flAdjustedDamage );
-					pEntity->TraceAttack( newInfo, (tr.vecEndPos - vecSrc).Normalize( ), &tr );
+					pEntity->TraceAttack( CTakeDamageInfo( newInfo.GetInflictor(), newInfo.GetAttacker(), flAdjustedDamage, newInfo.GetDamageTypes() ), 
+						(tr.vecEndPos - vecSrc).Normalize( ), &tr );
 					g_MultiDamage.ApplyMultiDamage( newInfo.GetInflictor(), newInfo.GetAttacker() );
 				}
 				else
 				{
-					pEntity->TakeDamage( newInfo );
+					pEntity->TakeDamage( CTakeDamageInfo( newInfo.GetInflictor(), newInfo.GetAttacker(), flAdjustedDamage, newInfo.GetDamageTypes() ) );
 				}
 			}
 		}

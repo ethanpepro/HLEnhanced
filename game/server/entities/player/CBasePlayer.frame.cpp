@@ -991,7 +991,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		{
 			ALERT( at_console, "Classname: %s", pEntity->GetClassname() );
 
-			if( HasTargetname() )
+			if( pEntity->HasTargetname() )
 			{
 				ALERT( at_console, " - Targetname: %s\n", pEntity->GetTargetname() );
 			}
