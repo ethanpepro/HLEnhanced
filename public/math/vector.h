@@ -96,8 +96,12 @@ public:
 	{
 		float flLen = Length();
 
-		//This used to cause it to return a vector that was 0, 0, 1 if Normalize was called. A 0 length vector is 0, 0, 0. - Solokiller
-		if( flLen == 0 ) return flLen;
+		if( flLen == 0 )
+		{
+			x = y = 0;
+			z = 1;
+			return flLen;
+		}
 
 		const float flInvertedLen = 1 / flLen;
 
