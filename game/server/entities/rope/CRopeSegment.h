@@ -39,7 +39,7 @@ public:
 
 	static CRopeSegment* CreateSegment( CRopeSample* pSample, string_t iszModelName );
 	
-	CRopeSample* GetSample() { return m_Sample; }
+	CRopeSample* GetSample() { return m_pSample; }
 
 	/**
 	*	Applies external force to the segment.
@@ -77,11 +77,11 @@ public:
 	void SetCanBeGrabbed( const bool bCanBeGrabbed );
 
 private:
-	CRopeSample* m_Sample;
-	string_t mModelName;
-	float mDefaultMass;
-	bool mCauseDamage;
-	bool mCanBeGrabbed;
+	CRopeSample* m_pSample;
+	string_t m_iszModelName;
+	float m_flDefaultMass;
+	bool m_bCauseDamage;
+	bool m_bCanBeGrabbed;
 };
 
 #endif //GAME_SERVER_ENTITIES_ROPE_CROPESEGMENT_H

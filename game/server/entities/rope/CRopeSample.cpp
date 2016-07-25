@@ -19,13 +19,13 @@
 #include "CRopeSample.h"
 
 BEGIN_DATADESC( CRopeSample )
-	DEFINE_FIELD( data.mPosition, FIELD_VECTOR ),
-	DEFINE_FIELD( data.mVelocity, FIELD_VECTOR ),
-	DEFINE_FIELD( data.mForce, FIELD_VECTOR ),
-	DEFINE_FIELD( data.mExternalForce, FIELD_VECTOR ),
-	DEFINE_FIELD( data.mApplyExternalForce, FIELD_BOOLEAN ),
-	DEFINE_FIELD( data.mMassReciprocal, FIELD_FLOAT ),
-	DEFINE_FIELD( mMasterRope, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_Data.mPosition, FIELD_VECTOR ),
+	DEFINE_FIELD( m_Data.mVelocity, FIELD_VECTOR ),
+	DEFINE_FIELD( m_Data.mForce, FIELD_VECTOR ),
+	DEFINE_FIELD( m_Data.mExternalForce, FIELD_VECTOR ),
+	DEFINE_FIELD( m_Data.mApplyExternalForce, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_Data.mMassReciprocal, FIELD_FLOAT ),
+	DEFINE_FIELD( m_pMasterRope, FIELD_CLASSPTR ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( rope_sample, CRopeSample );

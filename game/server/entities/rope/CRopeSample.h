@@ -45,20 +45,20 @@ public:
 
 	static CRopeSample* CreateSample();
 
-	const RopeSampleData& GetData() const { return data; }
+	const RopeSampleData& GetData() const { return m_Data; }
 
-	RopeSampleData& GetData() { return data; }
+	RopeSampleData& GetData() { return m_Data; }
 
-	CRope* GetMasterRope() { return mMasterRope; }
+	CRope* GetMasterRope() { return m_pMasterRope; }
 
 	void SetMasterRope( CRope* pRope )
 	{
-		mMasterRope = pRope;
+		m_pMasterRope = pRope;
 	}
 
 private:
-	RopeSampleData data;
-	CRope* mMasterRope;
+	RopeSampleData m_Data;
+	CRope* m_pMasterRope;
 };
 
 #endif //GAME_SERVER_ENTITIES_ROPE_CROPESAMPLE_H

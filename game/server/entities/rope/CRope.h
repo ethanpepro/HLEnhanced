@@ -172,7 +172,7 @@ public:
 	/**
 	*	@return Whether an object is attached.
 	*/
-	bool IsObjectAttached() const { return mObjectAttached; }
+	bool IsObjectAttached() const { return m_bObjectAttached; }
 
 	/**
 	*	@return Whether this rope allows attachments.
@@ -182,7 +182,7 @@ public:
 	/**
 	*	@return The number of segments.
 	*/
-	size_t GetNumSegments() const { return m_iSegments; }
+	size_t GetNumSegments() const { return m_uiSegments; }
 
 	/**
 	*	@return The segments.
@@ -225,12 +225,12 @@ public:
 	/**
 	*	@return The body model name.
 	*/
-	string_t GetBodyModel() const { return mBodyModel; }
+	string_t GetBodyModel() const { return m_iszBodyModel; }
 
 	/**
 	*	@return The ending model name.
 	*/
-	string_t GetEndingModel() const { return mEndingModel; }
+	string_t GetEndingModel() const { return m_iszEndingModel; }
 
 	/**
 	*	@return Segment length for the given segment.
@@ -280,46 +280,44 @@ public:
 	Vector GetAttachedObjectsPosition() const;
 
 private:
-	size_t m_iSegments;
+	size_t m_uiSegments;
 
 	CRopeSegment* seg[ MAX_SEGMENTS ];
 	CRopeSegment* altseg[ MAX_SEGMENTS ];
 
 	bool m_bToggle;
 
-	bool m_InitialDeltaTime;
+	bool m_bInitialDeltaTime;
 
-	float mLastTime;
+	float m_flLastTime;
 
-	Vector m_LastEndPos;
-	Vector m_Gravity;
-	float m_HookConstant;
-	float m_SpringDampning;
+	Vector m_vecLastEndPos;
+	Vector m_vecGravity;
+	float m_flHookConstant;
+	float m_flSpringDampning;
 
 	CRopeSample* m_CurrentSys[ MAX_SAMPLES ];
 	CRopeSample* m_TargetSys[ MAX_SAMPLES ];
 	RopeSampleData* m_TempSys[ MAX_TEMP_SAMPLES ];
 
-	size_t m_NumSamples;
+	size_t m_uiNumSamples;
 
-	Spring* m_Spring;
+	Spring* m_pSprings;
 
 	size_t m_SpringCnt;
 
-	bool mSpringsInitialized;
+	bool m_bSpringsInitialized;
 
-	int m_BeamOffset;
+	bool m_bObjectAttached;
 
-	bool mObjectAttached;
+	size_t m_uiAttachedObjectsSegment;
+	float m_flAttachedObjectsOffset;
+	float m_flDetachTime;
 
-	size_t mAttachedObjectsSegment;
-	float mAttachedObjectsOffset;
-	float detachTime;
+	string_t m_iszBodyModel;
+	string_t m_iszEndingModel;
 
-	string_t mBodyModel;
-	string_t mEndingModel;
-
-	int mDisallowPlayerAttachment;
+	bool m_bDisallowPlayerAttachment;
 
 	bool m_bMakeSound;
 };
