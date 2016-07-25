@@ -190,6 +190,20 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 		if( pPlayer->IsObserver() )
 			pPlayer->Observer_FindNextPlayer( atoi( CMD_ARGV( 1 ) ) != 0 );
 	}
+	else if( FStrEq( pcmd, "numentities" ) )
+	{
+		edict_t* pEdict = ENT( 0 );
+
+		size_t uiCount = 0;
+
+		for( int i = 0; i < gpGlobals->maxEntities; ++i, ++pEdict )
+		{
+			if( !pEdict->free && pEdict->pvPrivateData )
+				++uiCount;
+		}
+
+		ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, UTIL_VarArgs( "Number of entities: %u (max: %d)\n", uiCount, gpGlobals->maxEntities ) );
+	}
 	else if( g_pGameRules->ClientCommand( pPlayer, pcmd ) )
 	{
 		// MenuSelect returns true only if the command is properly handled,  so don't print a warning
