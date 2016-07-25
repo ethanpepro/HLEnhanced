@@ -232,9 +232,13 @@ void CTestHull::BuildNodeGraph()
 	{
 		ALERT( at_aiconsole, "**ConnectVisibleNodes FAILED!\n" );
 
-		SetThink( &CTestHull::ShowBadNode );// send the hull off to show the offending node.
-											//pev->solid = SOLID_NOT;
-		pev->origin = WorldGraph.m_pNodes[ iBadNode ].m_vecOrigin;
+		//Only in dev mode - Solokiller
+		if( g_pDeveloper->value != 0 )
+		{
+			SetThink( &CTestHull::ShowBadNode );// send the hull off to show the offending node.
+												//pev->solid = SOLID_NOT;
+			pev->origin = WorldGraph.m_pNodes[ iBadNode ].m_vecOrigin;
+		}
 
 		if( pTempPool )
 		{
