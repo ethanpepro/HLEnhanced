@@ -1,0 +1,9 @@
+add_sources(
+	CASBaseModuleBuilder.h
+	CASBaseModuleBuilder.cpp
+	CASMapModuleBuilder.h
+	CASMapModuleBuilder.cpp
+	CHLASManager.h
+	CHLASManager.cpp
+	HLASConstants.h
+)

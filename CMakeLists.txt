@@ -164,11 +164,6 @@ clear_sources()
 
 #Client library
 
-add_definitions( -D_CRT_SECURE_NO_WARNINGS )
-add_definitions( -DCLIENT_DLL )
-add_definitions( -DCLIENT_WEAPONS )
-add_definitions( -DHL_DLL )
-
 #Add in the shared sources
 add_sources( "${SHARED_SRCS}" )
 
@@ -176,6 +171,8 @@ add_subdirectory( game/client )
 add_subdirectory( vgui_utils )
 
 preprocess_sources()
+
+get_property( INCLUDE_DIRS DIRECTORY PROPERTY INCLUDE_DIRECTORIES )
 
 include_directories(
 	common
@@ -199,6 +196,13 @@ include_directories(
 )
 
 add_library( client SHARED ${PREP_SRCS} )
+
+target_compile_definitions( client PRIVATE
+	_CRT_SECURE_NO_WARNINGS=1
+	CLIENT_DLL=1
+	CLIENT_WEAPONS=1
+	HL_DLL=1
+)
 
 find_library( VGUI1 vgui PATHS utils/vgui/lib/win32_vc6/ )
 find_library( SDL2 sdl2 PATHS lib/public/ )
@@ -224,14 +228,52 @@ set_property( GLOBAL PROPERTY VS_STARTUP_PROJECT client )
 
 clear_sources()
 
+#Reset include dirs
+set_property( DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${INCLUDE_DIRS}" )
+
 #Server library
 
 #Add in the shared sources
 add_sources( "${SHARED_SRCS}" )
 
+add_subdirectory( game/server )
+add_subdirectory( game/shared/Angelscript )
+
 preprocess_sources()
 
+include_directories(
+	common
+	public
+	public/math
+	engine
+	game_shared
+	game/shared
+	game/shared/entities/player
+	pm_shared
+	game/server
+	external/Angelscript/include
+	external
+)
+
 add_library( hl SHARED ${PREP_SRCS} )
+
+target_compile_definitions( hl PRIVATE
+	_CRT_SECURE_NO_WARNINGS
+	SERVER_DLL
+	QUIVER
+	VOXEL
+	QUAKE2
+	VALVE_DLL
+	CLIENT_WEAPONS
+)
+
+find_library( ANGELSCRIPTLIB Angelscript PATHS external/Angelscript/lib/ )
+find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
+
+target_link_libraries( hl 
+	"${ANGELSCRIPTLIB}"
+	"${ANGELSCRIPTUTILS}"
+)
 
 #Create filters
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
