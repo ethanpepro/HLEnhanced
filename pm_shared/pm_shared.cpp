@@ -30,6 +30,11 @@
 
 #include "com_model.h"
 
+#ifdef CLIENT_DLL
+#include "hud.h"
+#include "cl_util.h"
+#endif
+
 void V_DropPunchAngle( float frametime, Vector& ev_punchangle );
 
 #ifdef CLIENT_DLL
@@ -1302,6 +1307,8 @@ void PM_CategorizePosition()
 	}
 	else
 	{
+		const int iOldOnGround = pmove->onground;
+
 		// Try and move down.
 		pmtrace_t tr = pmove->PM_PlayerTrace (pmove->origin, point, PM_NORMAL, -1 );
 		// If we hit a steep plane, we are not on ground
@@ -1318,6 +1325,21 @@ void PM_CategorizePosition()
 			// If we could make the move, drop us down that 1 pixel
 			if (pmove->waterlevel < WATERLEVEL_WAIST && !tr.startsolid && !tr.allsolid)
 				pmove->origin = tr.endpos;
+
+			//We were in the air and landed, so slow our velocity. - Solokiller
+			if( iOldOnGround == -1 )
+			{
+				Vector vecGround;
+
+				//TODO: make a wrapper function for this - Solokiller
+#ifdef CLIENT_DLL
+				vecGround = gEngfuncs.GetEntityByIndex( pmove->physents[ pmove->onground ].info )->curstate.velocity;
+#else
+				vecGround = INDEXENT( pmove->physents[ pmove->onground ].info )->v.velocity;
+#endif
+
+				pmove->velocity = pmove->velocity - vecGround;
+			}
 		}
 
 		// Standing on an entity other than the world
@@ -2215,7 +2237,7 @@ void PM_Jump()
 	}
 	else
 	{
-		PM_PlayStepSound( mat::MapTextureTypeStepType( pmove->chtexturetype ), 1.0 );
+		//PM_PlayStepSound( mat::MapTextureTypeStepType( pmove->chtexturetype ), 1.0 );
 	}
 
 	// See if user can super long jump?

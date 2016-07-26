@@ -166,12 +166,17 @@ void CBasePlayer::Jump()
 		SetAnimation( PLAYER_SUPERJUMP );
 	}
 
-	// If you're standing on a conveyor, add it's velocity to yours (for momentum)
-	CBaseEntity* pGround = Instance( pev->groundentity );
-	if( pGround && ( pGround->pev->flags & FL_CONVEYOR ) )
+	if( CBaseEntity* pGround = Instance( pev->groundentity ) )
 	{
-		//Note: basevelocity is set by the physics code. It accounts for conveyors. - Solokiller
-		pev->velocity = pev->velocity + pev->basevelocity;
+		//Add ground entity velocity to yourself. Maintains intertia. - Solokiller
+		pev->velocity = pev->velocity + pGround->GetAbsVelocity();
+
+		// If you're standing on a conveyor, add it's velocity to yours (for momentum)
+		if( ( pGround->pev->flags & FL_CONVEYOR ) )
+		{
+			//Note: basevelocity is set by the physics code. It accounts for conveyors. - Solokiller
+			pev->velocity = pev->velocity + pev->basevelocity;
+		}
 	}
 }
 
