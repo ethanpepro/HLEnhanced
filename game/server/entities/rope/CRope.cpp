@@ -18,6 +18,8 @@
 #include "util.h"
 #include "cbase.h"
 
+#include "gamerules/GameRules.h"
+
 #include "CRopeSample.h"
 #include "CRopeSegment.h"
 
@@ -784,20 +786,30 @@ void CRope::SetRopeSegments( const size_t uiNumSegments,
 	{
 		TraceModels( ppPrimarySegs, ppHiddenSegs );
 
-		ppPrimarySegs[ 0 ]->SetSolidType( SOLID_TRIGGER );
-		ppPrimarySegs[ 0 ]->SetEffects( 0 );
+		CRopeSegment** ppVisible = ppPrimarySegs;
+		CRopeSegment** ppActualHidden = ppHiddenSegs;
 
-		ppHiddenSegs[ 0 ]->SetSolidType( SOLID_NOT );
-		ppHiddenSegs[ 0 ]->SetEffects( EF_NODRAW );
+		//In multiplayer, the constant toggling of visible segments makes them completely invisible.
+		//So always make the seg segments visible. - Solokiller
+		if( m_bToggle && g_pGameRules->IsMultiplayer() )
+		{
+			std::swap( ppVisible, ppActualHidden );
+		}
+
+		ppVisible[ 0 ]->SetSolidType( SOLID_TRIGGER );
+		ppVisible[ 0 ]->SetEffects( 0 );
+
+		ppActualHidden[ 0 ]->SetSolidType( SOLID_NOT );
+		ppActualHidden[ 0 ]->SetEffects( EF_NODRAW );
 
 		for( size_t uiIndex = 1; uiIndex < uiNumSegments; ++uiIndex )
 		{
-			CRopeSegment* pPrim = ppPrimarySegs[ uiIndex ];
-			CRopeSegment* pHidden = ppHiddenSegs[ uiIndex ];
+			CRopeSegment* pPrim = ppVisible[ uiIndex ];
+			CRopeSegment* pHidden = ppActualHidden[ uiIndex ];
 
 			pPrim->SetSolidType( SOLID_TRIGGER );
 			pPrim->SetEffects( 0 );
-
+			
 			pHidden->SetSolidType( SOLID_NOT );
 			pHidden->SetEffects( EF_NODRAW );
 
