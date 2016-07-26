@@ -1,0 +1,32 @@
+add_sources(
+	ammo.h
+	ammo.cpp
+	ammo_secondary.cpp
+	ammohistory.h
+	ammohistory.cpp
+	battery.cpp
+	bench.h
+	death.cpp
+	flashlight.cpp
+	geiger.cpp
+	health.h
+	health.cpp
+	hud.h
+	hud.cpp
+	hud_bench.cpp
+	hud_benchtrace.h
+	hud_benchtrace.cpp
+	hud_msg.cpp
+	hud_redraw.cpp
+	hud_spectator.h
+	hud_spectator.cpp
+	hud_update.cpp
+	menu.cpp
+	message.cpp
+	saytext.cpp
+	status_icons.cpp
+	statusbar.cpp
+	text_message.cpp
+	train.cpp
+	wrect.h
+)

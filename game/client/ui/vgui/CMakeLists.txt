@@ -1,0 +1,18 @@
+add_sources(
+	vgui_ClassMenu.cpp
+	vgui_ControlConfigPanel.h
+	vgui_ControlConfigPanel.cpp
+	vgui_CustomObjects.cpp
+	vgui_int.h
+	vgui_int.cpp
+	vgui_MOTDWindow.cpp
+	vgui_SchemeManager.h
+	vgui_SchemeManager.cpp
+	vgui_ScorePanel.h
+	vgui_ScorePanel.cpp
+	vgui_SpectatorPanel.h
+	vgui_SpectatorPanel.cpp
+	vgui_TeamFortressViewport.h
+	vgui_TeamFortressViewport.cpp
+	vgui_teammenu.cpp
+)
