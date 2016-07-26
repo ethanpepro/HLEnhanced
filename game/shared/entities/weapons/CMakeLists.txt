@@ -1,0 +1,37 @@
+add_sources(
+	CAmmoTypes.h
+	CAmmoTypes.cpp
+	CBasePlayerItem.h
+	CBasePlayerWeapon.h
+	CBasePlayerWeapon.shared.cpp
+	CCrossbow.h
+	CCrossbow.cpp
+	CCrowbar.h
+	CCrowbar.cpp
+	CEgon.h
+	CEgon.cpp
+	CGauss.h
+	CGauss.cpp
+	CGlock.h
+	CGlock.cpp
+	CHandGrenade.h
+	CHandGrenade.cpp
+	CHornetGun.h
+	CHornetGun.cpp
+	CMP5.h
+	CMP5.cpp
+	CPython.h
+	CPython.cpp
+	CRpg.h
+	CRpg.cpp
+	CSatchel.h
+	CSatchel.cpp
+	CShotgun.h
+	CShotgun.cpp
+	CSniperRifle.h
+	CSniperRifle.cpp
+	CSqueak.h
+	CSqueak.cpp
+	CTripmine.h
+	CTripmine.cpp
+)
