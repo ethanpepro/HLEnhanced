@@ -1,6 +1,7 @@
 #include <clocale>
 
 //TODO: remove once VGUI1 is removed.
+#ifdef USE_VGUI2
 #undef VGUI_H
 
 #include "../../source_sdk/public/vgui/VGUI.h"
@@ -11,6 +12,7 @@
 #include "../../source_sdk/public/vgui_controls/Frame.h"
 
 #include <vgui/isurface.h>
+#endif
 
 #include "IGameUIFuncs.h"
 
@@ -61,10 +63,10 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 		m_FactoryList[ uiIndex + 1 ] = pFactories[ uiIndex ];
 	}
 
-	vgui2::VGui_InitInterfacesList( "CLIENT", pFactories, NUM_FACTORIES );
-
-	vgui2::scheme()->LoadSchemeFromFile( "Resource/ClientScheme.res", "ClientScheme" );
-	vgui2::scheme()->LoadSchemeFromFile( "Resource/TutorScheme.res", "TutorScheme" );
+	//vgui2::VGui_InitInterfacesList( "CLIENT", pFactories, NUM_FACTORIES );
+	//
+	//vgui2::scheme()->LoadSchemeFromFile( "Resource/ClientScheme.res", "ClientScheme" );
+	//vgui2::scheme()->LoadSchemeFromFile( "Resource/TutorScheme.res", "TutorScheme" );
 	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
 }
 
@@ -77,23 +79,23 @@ vgui2::Panel* g_pPanel2 = nullptr;
 
 void CClientVGUI::SetParent( vgui2::VPANEL parent )
 {
-	g_pPanel = new vgui2::Panel();
-
-	g_pPanel->SetParent( parent );
-
-	g_pPanel->SetSize( 200, 200 );
-	g_pPanel->SetPos( 10, 10 );
-
-	g_pPanel->SetVisible( true );
-
-	g_pPanel2 = new vgui2::Panel();
-
-	g_pPanel2->SetParent( parent );
-
-	g_pPanel2->SetSize( 100, 100 );
-	g_pPanel2->SetPos( 10, 150 );
-
-	g_pPanel2->SetVisible( true );
+	//g_pPanel = new vgui2::Panel();
+	//
+	//g_pPanel->SetParent( parent );
+	//
+	//g_pPanel->SetSize( 200, 200 );
+	//g_pPanel->SetPos( 10, 10 );
+	//
+	//g_pPanel->SetVisible( true );
+	//
+	//g_pPanel2 = new vgui2::Panel();
+	//
+	//g_pPanel2->SetParent( parent );
+	//
+	//g_pPanel2->SetSize( 100, 100 );
+	//g_pPanel2->SetPos( 10, 150 );
+	//
+	//g_pPanel2->SetVisible( true );
 }
 
 int CClientVGUI::UseVGUI1()
@@ -107,17 +109,15 @@ void CClientVGUI::HideScoreBoard()
 
 void CClientVGUI::HideAllVGUIMenu()
 {
-	vgui2::surface()->UnlockCursor();
+	//vgui2::surface()->UnlockCursor();
 }
 
 void CClientVGUI::ActivateClientUI()
 {
-	//g_pPanel->SetVisible( true );
 }
 
 void CClientVGUI::HideClientUI()
 {
-	//g_pPanel->SetVisible( false );
 }
 
 void CClientVGUI::Shutdown()
