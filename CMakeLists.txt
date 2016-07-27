@@ -159,6 +159,22 @@ foreach(variable ${variables})
 endforeach()
 message(STATUS "")
 
+#Get the steam/steamapps/common directory
+if( WIN32 )
+	set( STEAMCOMMON "$ENV{SteamCommon}" )
+else()
+	set( STEAMCOMMON "" )
+	#TODO
+endif()
+
+#Base dir for game outputs
+set( GAME_BASE_PATH "${STEAMCOMMON}/Half-Life/hlenhanced" )
+
+#Shared preprocessor definitions
+set( SHARED_DEFS 
+	_CRT_SECURE_NO_WARNINGS
+)
+
 #Shared directories
 
 add_subdirectory( common )
@@ -213,10 +229,10 @@ include_directories(
 add_library( client SHARED ${PREP_SRCS} )
 
 target_compile_definitions( client PRIVATE
-	_CRT_SECURE_NO_WARNINGS=1
-	CLIENT_DLL=1
-	CLIENT_WEAPONS=1
-	HL_DLL=1
+	"${SHARED_DEFS}"
+	CLIENT_DLL
+	CLIENT_WEAPONS
+	HL_DLL
 )
 
 #Find client dependencies
@@ -244,6 +260,19 @@ target_link_libraries( client
 	"${TIER1}"
 	"${VSTDLIB}"
 )
+
+#CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
+set_target_properties( client PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/cl_dlls"
+	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/cl_dlls"
+)
+
+#Set Windows subsystem
+if( WIN32 )
+	if( MSVC )
+		set_target_properties( client PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS" )
+	endif()
+endif()
 
 #Create filters
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
@@ -292,7 +321,7 @@ add_library( hl SHARED ${PREP_SRCS} )
 
 #So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
-	_CRT_SECURE_NO_WARNINGS
+	"${SHARED_DEFS}"
 	SERVER_DLL
 	QUIVER
 	VOXEL
@@ -310,6 +339,19 @@ target_link_libraries( hl
 	"${ANGELSCRIPTLIB}"
 	"${ANGELSCRIPTUTILS}"
 )
+
+#CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
+set_target_properties( hl PROPERTIES
+	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/dlls"
+	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/dlls"
+)
+
+#Set Windows subsystem
+if( WIN32 )
+	if( MSVC )
+		set_target_properties( hl PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS" )
+	endif()
+endif()
 
 #Create filters
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
