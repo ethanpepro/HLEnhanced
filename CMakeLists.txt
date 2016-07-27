@@ -346,10 +346,11 @@ set_target_properties( hl PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/dlls"
 )
 
-#Set Windows subsystem
 if( WIN32 )
 	if( MSVC )
-		set_target_properties( hl PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS" )
+		#Set Windows subsystem
+		#Add the module definition file. Needed for GiveFnptrsToDll function export. Requires the project dir to be near the file.
+		set_target_properties( hl PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS /DEF:../hl.def" )
 	endif()
 endif()
 
