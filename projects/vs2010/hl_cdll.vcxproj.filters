@@ -136,6 +136,15 @@
     <Filter Include="Source Files\game\shared\entities\player">
       <UniqueIdentifier>{e9813561-188a-4435-abb8-bfced1d6010a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\shared">
+      <UniqueIdentifier>{463947d0-1566-4030-9850-79d2f2306812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shared\engine">
+      <UniqueIdentifier>{81fce52f-a38b-42a6-9d76-f4aa8a5155b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\shared\engine\client">
+      <UniqueIdentifier>{7389b461-5622-4e81-a5a4-c1f0d3a9ef89}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\common\parsemsg.cpp">
@@ -728,29 +737,41 @@
     <ClInclude Include="..\..\game\shared\entities\player\CBasePlayer.h">
       <Filter>Header Files\game\shared\entities\player</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\event_api.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\common\triangleapi.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\common\r_efx.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\common\demo_api.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\common\net_api.h">
-      <Filter>Header Files\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\common\const.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
     <ClInclude Include="..\..\public\math\Matrix3x4.h">
       <Filter>Header Files\public\math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\common\voice_api.h">
-      <Filter>Header Files\common</Filter>
+    <ClInclude Include="..\..\shared\engine\client\cl_entity.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\demo_api.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\event_api.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\ivoicetweak.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\net_api.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\r_efx.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\r_studioint.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\ref_params.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\triangleapi.h">
+      <Filter>Header Files\shared\engine\client</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\shared\engine\client\voice_api.h">
+      <Filter>Header Files\shared\engine\client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

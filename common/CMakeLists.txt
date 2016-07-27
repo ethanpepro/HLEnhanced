@@ -3,7 +3,6 @@ add_sources(
 	CAutoString.h
 	CHashStringPool.h
 	CHashStringPool.cpp
-	cl_entity.h
 	com_model.h
 	con_nprint.h
 	const.h
@@ -11,22 +10,18 @@ add_sources(
 	CPlane.cpp
 	crc.h
 	cvardef.h
-	demo_api.h
 	director_cmds.h
 	dlight.h
 	dll_state.h
 	entity_state.h
 	entity_types.h
 	enums.h
-	event_api.h
 	event_args.h
 	event_flags.h
 	Game.h
 	hltv.h
 	in_buttons.h
-	ivoicetweak.h
 	Minmax.h
-	net_api.h
 	netadr.h
 	parsemsg.h
 	parsemsg.cpp
@@ -35,20 +30,15 @@ add_sources(
 	Platform.cpp
 	pmtrace.h
 	qfont.h
-	r_efx.h
-	r_studioint.h
-	ref_params.h
 	screenfade.h
 	Sequence.h
 	simple_checksum.h
 	steam_util.h
 	StringUtils.h
 	studio_event.h
-	triangleapi.h
 	usercmd.h
 	UTFUtils.h
 	UTFUtils.cpp
-	voice_api.h
 	weaponinfo.h
 	winsani_in.h
 	winsani_out.h

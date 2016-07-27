@@ -62,7 +62,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;_DEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\game\shared\entities\player;..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\shared\engine\client;..\..\game\shared\entities\player;..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -86,7 +86,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;_CRT_SECURE_NO_WARNINGS;NO_MALLOC_OVERRIDE;NDEBUG;_WINDOWS;CLIENT_DLL;CLIENT_WEAPONS;HL_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <AdditionalIncludeDirectories>..\..\game\shared\entities\player;..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\shared\engine\client;..\..\game\shared\entities\player;..\..\vgui_utils;..\..\game\client\ui\hud;..\..\game\client\ui\vgui;..\..\game\client;..\..\game\server;..\..\game\shared;$(SolutionDir)../../public/math;..\..\dlls;..\..\cl_dll;..\..\public;..\..\common;..\..\pm_shared;..\..\engine;..\..\utils\vgui\include;..\..\game_shared;..\..\external;$(SolutionDir)/../../source_sdk/public/tier1;$(SolutionDir)/../../source_sdk/public;$(SolutionDir)/../../source_sdk/common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
     </ClCompile>
     <Link>
@@ -214,16 +214,10 @@
     <ClInclude Include="..\..\common\CAutoString.h" />
     <ClInclude Include="..\..\common\CHashStringPool.h" />
     <ClInclude Include="..\..\common\const.h" />
-    <ClInclude Include="..\..\common\demo_api.h" />
-    <ClInclude Include="..\..\common\event_api.h" />
     <ClInclude Include="..\..\common\Game.h" />
     <ClInclude Include="..\..\common\MinMax.h" />
-    <ClInclude Include="..\..\common\net_api.h" />
     <ClInclude Include="..\..\common\parsemsg.h" />
     <ClInclude Include="..\..\common\Platform.h" />
-    <ClInclude Include="..\..\common\r_efx.h" />
-    <ClInclude Include="..\..\common\triangleapi.h" />
-    <ClInclude Include="..\..\common\voice_api.h" />
     <ClInclude Include="..\..\engine\APIProxy.h" />
     <ClInclude Include="..\..\engine\IClientVGUI.h" />
     <ClInclude Include="..\..\engine\IGameUIFuncs.h" />
@@ -301,6 +295,16 @@
     <ClInclude Include="..\..\public\math\mathlib.h" />
     <ClInclude Include="..\..\public\math\Matrix3x4.h" />
     <ClInclude Include="..\..\public\math\vector.h" />
+    <ClInclude Include="..\..\shared\engine\client\cl_entity.h" />
+    <ClInclude Include="..\..\shared\engine\client\demo_api.h" />
+    <ClInclude Include="..\..\shared\engine\client\event_api.h" />
+    <ClInclude Include="..\..\shared\engine\client\ivoicetweak.h" />
+    <ClInclude Include="..\..\shared\engine\client\net_api.h" />
+    <ClInclude Include="..\..\shared\engine\client\ref_params.h" />
+    <ClInclude Include="..\..\shared\engine\client\r_efx.h" />
+    <ClInclude Include="..\..\shared\engine\client\r_studioint.h" />
+    <ClInclude Include="..\..\shared\engine\client\triangleapi.h" />
+    <ClInclude Include="..\..\shared\engine\client\voice_api.h" />
     <ClInclude Include="..\..\vgui_utils\vgui_checkbutton2.h" />
     <ClInclude Include="..\..\vgui_utils\vgui_defaultinputsignal.h" />
     <ClInclude Include="..\..\vgui_utils\vgui_grid.h" />

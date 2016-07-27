@@ -169,6 +169,7 @@ add_sources( "${SHARED_SRCS}" )
 
 add_subdirectory( game/client )
 add_subdirectory( vgui_utils )
+add_subdirectory( shared/engine/client )
 
 preprocess_sources()
 
@@ -179,6 +180,7 @@ include_directories(
 	public
 	public/math
 	engine
+	shared/engine/client
 	game_shared
 	game/shared
 	game/shared/entities/player

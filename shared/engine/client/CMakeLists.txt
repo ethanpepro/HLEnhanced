@@ -1,0 +1,12 @@
+add_sources(
+	cl_entity.h
+	demo_api.h
+	event_api.h
+	ivoicetweak.h
+	net_api.h
+	r_efx.h
+	r_studioint.h
+	ref_params.h
+	triangleapi.h
+	voice_api.h
+)
