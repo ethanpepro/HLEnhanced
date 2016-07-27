@@ -1,3 +1,10 @@
+###################################################
+#                                                 #
+#                                                 #
+#	Half-Life Enhanced CMake build file           #
+#                                                 #
+#                                                 #
+###################################################
 cmake_minimum_required( VERSION 3.6 )
 
 # function to collect all the sources from sub-directories
@@ -132,6 +139,8 @@ endmacro()
 project( HLEnhanced )
 
 #Needs static CRT to avoid alloc issues.
+set( MSVC_RUNTIME "static" )
+
 configure_msvc_runtime()
 
 set(variables
@@ -162,17 +171,21 @@ get_property(SHARED_SRCS GLOBAL PROPERTY SRCS_LIST)
 
 clear_sources()
 
+#
 #Client library
+#
 
 #Add in the shared sources
 add_sources( "${SHARED_SRCS}" )
 
+#Add in the client directories
 add_subdirectory( game/client )
 add_subdirectory( vgui_utils )
 add_subdirectory( shared/engine/client )
 
 preprocess_sources()
 
+#Cache the old include directories list
 get_property( INCLUDE_DIRS DIRECTORY PROPERTY INCLUDE_DIRECTORIES )
 
 include_directories(
@@ -206,6 +219,7 @@ target_compile_definitions( client PRIVATE
 	HL_DLL=1
 )
 
+#Find client dependencies
 find_library( VGUI1 vgui PATHS utils/vgui/lib/win32_vc6/ )
 find_library( SDL2 sdl2 PATHS lib/public/ )
 find_library( VGUI2 vgui_controls PATHS source_sdk/lib/public/ )
@@ -213,9 +227,17 @@ find_library( TIER0 tier0 PATHS lib/public/ )
 find_library( TIER1 tier1 PATHS source_sdk/lib/public/ )
 find_library( VSTDLIB vstdlib PATHS lib/public/ )
 
+#Set the list of platform specific libraries
+if( WIN32 )
+	set( CLIENT_PLAT_LIBS "wsock32" )
+else()
+	set( CLIENT_PLAT_LIBS "" )
+endif()
+
+#Link with client dependencies
 target_link_libraries( client 
 	"${VGUI1}"
-	wsock32
+	"${CLIENT_PLAT_LIBS}"
 	"${SDL2}"
 	"${VGUI2}"
 	"${TIER0}"
@@ -226,18 +248,27 @@ target_link_libraries( client
 #Create filters
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
 
-set_property( GLOBAL PROPERTY VS_STARTUP_PROJECT client )
+#Set the startup project to the client
+#TODO: does this even work?
+set_property( DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT client )
 
 clear_sources()
+
+#
+#End client library
+#
 
 #Reset include dirs
 set_property( DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${INCLUDE_DIRS}" )
 
+#
 #Server library
+#
 
 #Add in the shared sources
 add_sources( "${SHARED_SRCS}" )
 
+#Add in the server directories
 add_subdirectory( game/server )
 add_subdirectory( game/shared/Angelscript )
 
@@ -259,6 +290,7 @@ include_directories(
 
 add_library( hl SHARED ${PREP_SRCS} )
 
+#So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
 	_CRT_SECURE_NO_WARNINGS
 	SERVER_DLL
@@ -269,9 +301,11 @@ target_compile_definitions( hl PRIVATE
 	CLIENT_WEAPONS
 )
 
+#Find server dependencies
 find_library( ANGELSCRIPTLIB Angelscript PATHS external/Angelscript/lib/ )
 find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
 
+#Link with server dependencies
 target_link_libraries( hl 
 	"${ANGELSCRIPTLIB}"
 	"${ANGELSCRIPTUTILS}"
@@ -281,6 +315,10 @@ target_link_libraries( hl
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
 
 clear_sources()
+
+#
+#End server library
+#
 
 #TODO: add utility exes here
 
