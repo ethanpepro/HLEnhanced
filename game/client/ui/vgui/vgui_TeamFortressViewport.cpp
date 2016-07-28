@@ -675,7 +675,6 @@ void TeamFortressViewport::Initialize( void )
 	App::getInstance()->setCursorOveride( App::getInstance()->getScheme()->getCursor(Scheme::scu_none) );
 }
 
-class CException;
 //-----------------------------------------------------------------------------
 // Purpose: Read the Command Menu structure from the txt file and create the menu.
 //			Returns Index of menu in m_pCommandMenus
@@ -708,10 +707,6 @@ int TeamFortressViewport::CreateCommandMenu( const char* const pszMenuFile, int 
 		return newIndex;
 	}
 
-#ifdef _WIN32
-try
-{
-#endif
 	// First, read in the localisation strings
 
 	// Detpack strings
@@ -925,17 +920,6 @@ try
 
 		pfile = gEngfuncs.COM_ParseFile(pfile, token);
 	}
-#ifdef _WIN32
-}
-catch( CException *e )
-{
-	e;
-	//e->Delete();
-	e = NULL;
-	m_iInitialized = false;
-	return newIndex;
-}
-#endif
 
 	SetCurrentMenu( NULL );
 	SetCurrentCommandMenu( NULL );
