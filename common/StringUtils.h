@@ -5,6 +5,8 @@
 #include <cstring>
 #include <functional>
 
+#include "Platform.h"
+
 /**
 *	String hashing function
 *	Ripped from the MSVC std::hash<std::string> implementation

@@ -16,6 +16,7 @@
 #define VECTOR_H
 
 #include <cmath>
+#include <cstring>
 
 //=========================================================
 // 2DVector - used for many pathfinding and many other 
