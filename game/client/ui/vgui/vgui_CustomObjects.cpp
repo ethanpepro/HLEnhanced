@@ -31,7 +31,7 @@
 #include "vgui_loadtga.h"
 
 // Arrow filenames
-char *sArrowFilenames[] =
+const char* const sArrowFilenames[] =
 {
 	"arrowup",
 	"arrowdn", 

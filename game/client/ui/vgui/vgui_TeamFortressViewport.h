@@ -61,9 +61,9 @@ class TeamFortressViewport;
 char* GetVGUITGAName(const char *pszName);
 BitmapTGA *LoadTGAForRes(const char* pImageName);
 void ScaleColors( int &r, int &g, int &b, int a );
-extern char *sTFClassSelection[];
+extern const char* const sTFClassSelection[];
 extern int sTFValidClassInts[];
-extern char *sLocalisedClasses[];
+extern const char* const sLocalisedClasses[];
 extern int iTeamColors[5][3];
 extern int iNumberOfTeamColors;
 extern TeamFortressViewport *gViewPort;
@@ -549,7 +549,7 @@ public:
 	TeamFortressViewport(int x,int y,int wide,int tall);
 	void Initialize( void );
 
-	int		CreateCommandMenu( char * menuFile, int direction, int yOffset, bool flatDesign, float flButtonSizeX, float flButtonSizeY, int xOffset );
+	int		CreateCommandMenu( const char* const pszMenuFile, int direction, int yOffset, bool flatDesign, float flButtonSizeX, float flButtonSizeY, int xOffset );
 	void	CreateScoreBoard( void );
 	CommandButton * CreateCustomButton( char *pButtonText, char * pButtonName, int  iYOffset );
 	CCommandMenu *	CreateDisguiseSubmenu( CommandButton *pButton, CCommandMenu *pParentMenu, const char *commandText, int iYOffset, int iXOffset = 0 );
@@ -647,14 +647,14 @@ protected:
 	char	m_pszCommand[MAX_COMMAND_SIZE];
 	int		m_iCloseVGUIMenu;
 public:
-	CMenuHandler_StringCommand( char *pszCommand )
+	CMenuHandler_StringCommand( const char* const pszCommand )
 	{
 		strncpy( m_pszCommand, pszCommand, MAX_COMMAND_SIZE);
 		m_pszCommand[MAX_COMMAND_SIZE-1] = '\0';
 		m_iCloseVGUIMenu = false;
 	}
 
-	CMenuHandler_StringCommand( char *pszCommand, int iClose )
+	CMenuHandler_StringCommand( const char* const pszCommand, int iClose )
 	{
 		strncpy( m_pszCommand, pszCommand, MAX_COMMAND_SIZE);
 		m_pszCommand[MAX_COMMAND_SIZE-1] = '\0';
@@ -678,11 +678,11 @@ class CMenuHandler_StringCommandWatch : public CMenuHandler_StringCommand
 {
 private:
 public:
-	CMenuHandler_StringCommandWatch( char *pszCommand ) : CMenuHandler_StringCommand( pszCommand )
+	CMenuHandler_StringCommandWatch( const char* const pszCommand ) : CMenuHandler_StringCommand( pszCommand )
 	{
 	}
 
-	CMenuHandler_StringCommandWatch( char *pszCommand, int iClose ) : CMenuHandler_StringCommand( pszCommand, iClose )
+	CMenuHandler_StringCommandWatch( const char* const pszCommand, int iClose ) : CMenuHandler_StringCommand( pszCommand, iClose )
 	{
 	}
 

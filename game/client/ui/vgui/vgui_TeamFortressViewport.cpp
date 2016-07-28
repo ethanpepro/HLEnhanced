@@ -92,7 +92,7 @@ int iTeamColors[5][3] =
 
 
 // Used for Class specific buttons
-char *sTFClasses[] =
+const char* const sTFClasses[] =
 {
 	"",
 	"SCOUT",
@@ -107,7 +107,7 @@ char *sTFClasses[] =
 	"CIVILIAN",
 };
 
-char *sLocalisedClasses[] = 
+const char* const sLocalisedClasses[] = 
 {
 	"#Civilian",
 	"#Scout",
@@ -123,7 +123,7 @@ char *sLocalisedClasses[] =
 	"#Civilian",
 };
 
-char *sTFClassSelection[] = 
+const char* const sTFClassSelection[] = 
 {
 	"civilian",
 	"scout",
@@ -680,7 +680,7 @@ class CException;
 // Purpose: Read the Command Menu structure from the txt file and create the menu.
 //			Returns Index of menu in m_pCommandMenus
 //-----------------------------------------------------------------------------
-int TeamFortressViewport::CreateCommandMenu( char * menuFile, int direction, int yOffset, bool flatDesign, float flButtonSizeX, float flButtonSizeY, int xOffset )
+int TeamFortressViewport::CreateCommandMenu( const char* const pszMenuFile, int direction, int yOffset, bool flatDesign, float flButtonSizeX, float flButtonSizeY, int xOffset )
 {
 	// COMMAND MENU
 	// Create the root of this new Command Menu
@@ -697,13 +697,13 @@ int TeamFortressViewport::CreateCommandMenu( char * menuFile, int direction, int
 
 	// Read Command Menu from the txt file
 	char token[1024];
-	byte* pBuffer = gEngfuncs.COM_LoadFile( menuFile, 5, NULL);
+	byte* pBuffer = gEngfuncs.COM_LoadFile( pszMenuFile, 5, NULL);
 
 	const char* pfile = ( char* ) pBuffer;
 
 	if (!pfile)
 	{
-		gEngfuncs.Con_DPrintf( "Unable to open %s\n", menuFile);
+		gEngfuncs.Con_DPrintf( "Unable to open %s\n", pszMenuFile );
 		SetCurrentCommandMenu( NULL );
 		return newIndex;
 	}
@@ -745,7 +745,7 @@ try
 			// We should never be here without a Command Menu
 			if (!m_pCurrentCommandMenu)
 			{
-				gEngfuncs.Con_Printf("Error in %s file after '%s'.\n",menuFile, szLastButtonText );
+				gEngfuncs.Con_Printf("Error in %s file after '%s'.\n", pszMenuFile, szLastButtonText );
 				m_iInitialized = false;
 				return newIndex;
 			}
@@ -885,7 +885,7 @@ try
 			{
 				if ( m_iNumMenus >= MAX_MENUS )
 				{
-					gEngfuncs.Con_Printf( "Too many menus in %s past '%s'\n",menuFile, szLastButtonText );
+					gEngfuncs.Con_Printf( "Too many menus in %s past '%s'\n", pszMenuFile, szLastButtonText );
 				}
 				else
 				{
