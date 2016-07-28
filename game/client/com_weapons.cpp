@@ -47,31 +47,29 @@ COM_Log
 Log debug messages to file ( appends )
 ====================
 */
-void COM_Log( char *pszFile, char *fmt, ...)
+void COM_Log( const char* const pszFile, const char* const pszFormat, ...)
 {
 	va_list		argptr;
 	char		string[1024];
-	FILE *fp;
-	char *pfilename;
+	const char* pszFileName;
 	
 	if ( !pszFile )
 	{
-		pfilename = "c:\\hllog.txt";
+		pszFileName = "c:\\hllog.txt";
 	}
 	else
 	{
-		pfilename = pszFile;
+		pszFileName = pszFile;
 	}
 
-	va_start (argptr,fmt);
-	vsprintf (string, fmt,argptr);
-	va_end (argptr);
+	va_start( argptr, pszFormat );
+	vsprintf( string, pszFormat, argptr );
+	va_end( argptr );
 
-	fp = fopen( pfilename, "a+t");
-	if (fp)
+	if( FILE* fp = fopen( pszFileName, "a+t" ) )
 	{
-		fprintf(fp, "%s", string);
-		fclose(fp);
+		fprintf( fp, "%s", string );
+		fclose( fp );
 	}
 }
 
@@ -117,12 +115,12 @@ HUD_PlaySound
 Play a sound, if we are seeing this command for the first time
 =====================
 */
-void HUD_PlaySound( char *sound, float volume )
+void HUD_PlaySound( const char* const pszSound, float volume )
 {
 	if ( !g_runfuncs || !g_finalstate )
 		return;
 
-	gEngfuncs.pfnPlaySoundByNameAtLocation( sound, volume, g_finalstate->playerstate.origin );
+	gEngfuncs.pfnPlaySoundByNameAtLocation( pszSound, volume, g_finalstate->playerstate.origin );
 }
 
 /*

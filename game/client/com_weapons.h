@@ -15,12 +15,12 @@
 
 #include "Exports.h"
 
-void			COM_Log( char *pszFile, char *fmt, ...);
+void			COM_Log( const char* const pszFile, const char* const pszFormat, ... );
 int				CL_IsDead();
 
 int				HUD_GetWeaponAnim();
 void			HUD_SendWeaponAnim( int iAnim, int body, int force );
-void			HUD_PlaySound( char *sound, float volume );
+void			HUD_PlaySound( const char* const pszSound, float volume );
 
 extern cvar_t *cl_lw;
 
