@@ -93,7 +93,7 @@ static DLL_FUNCTIONS gFunctionTable =
 	AllowLagCompensation,		//pfnAllowLagCompensation
 };
 
-static NEW_DLL_FUNCTIONS gNewDLLFunctions =
+NEW_DLL_FUNCTIONS gNewDLLFunctions =
 {
 	OnFreeEntPrivateData,
 	GameDLLShutdown,
