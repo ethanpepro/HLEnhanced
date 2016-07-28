@@ -243,7 +243,7 @@ extern void			UTIL_HudMessageAll( const hudtextparms_t &textparms, const char *p
 extern void			UTIL_HudMessage( CBaseEntity *pEntity, const hudtextparms_t &textparms, const char *pMessage );
 
 // Writes message to console with timestamp and FragLog header.
-extern void			UTIL_LogPrintf( char *fmt, ... );
+extern void			UTIL_LogPrintf( const char* const pszFormat, ... );
 
 // Misc functions
 extern void SetMovedir( CBaseEntity* pEntity );
