@@ -1133,7 +1133,7 @@ void CBasePlayer::CheckSuitUpdate()
 // sentence name ie: !HEV_AA0.  If iNoRepeat is specified in
 // seconds, then we won't repeat playback of this word or sentence
 // for at least that number of seconds.
-void CBasePlayer::SetSuitUpdate( char *name, const SuitUpdateType updateType, int iNoRepeatTime )
+void CBasePlayer::SetSuitUpdate( const char* const pszName, const SuitUpdateType updateType, int iNoRepeatTime )
 {
 	int isentence;
 	int iempty = -1;
@@ -1151,7 +1151,7 @@ void CBasePlayer::SetSuitUpdate( char *name, const SuitUpdateType updateType, in
 
 	// if name == NULL, then clear out the queue
 
-	if( !name )
+	if( !pszName )
 	{
 		for( int i = 0; i < CSUITPLAYLIST; ++i )
 			m_rgSuitPlayList[ i ] = 0;
@@ -1160,13 +1160,13 @@ void CBasePlayer::SetSuitUpdate( char *name, const SuitUpdateType updateType, in
 	// get sentence or group number
 	if( updateType == SUIT_SENTENCE )
 	{
-		isentence = SENTENCEG_Lookup( name, NULL );
+		isentence = SENTENCEG_Lookup( pszName, NULL );
 		if( isentence < 0 )
 			return;
 	}
 	else
 		// mark group number as negative
-		isentence = -SENTENCEG_GetIndex( name );
+		isentence = -SENTENCEG_GetIndex( pszName );
 
 	// check norepeat list - this list lets us cancel
 	// the playback of words or sentences that have already

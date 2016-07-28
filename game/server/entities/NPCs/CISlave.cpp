@@ -87,9 +87,11 @@ int CISlave::IRelationship( CBaseEntity *pTarget )
 }
 
 
-void CISlave :: CallForHelp( char *szClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation )
+void CISlave::CallForHelp( const char* const pszClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation )
 {
 	// ALERT( at_aiconsole, "help " );
+
+	//TODO: why does this take a classname? Shouldn't this be in CBaseMonster? - Solokiller
 
 	// skip ones not on my netname
 	if ( !HasNetName() )

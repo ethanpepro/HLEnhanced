@@ -78,7 +78,7 @@ void CGMan :: HandleAnimEvent( MonsterEvent_t *pEvent )
 //=========================================================
 int CGMan :: ISoundMask ( void )
 {
-	return	NULL;
+	return 0;
 }
 
 //=========================================================

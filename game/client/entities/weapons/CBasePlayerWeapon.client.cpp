@@ -66,12 +66,12 @@ CBasePlayerWeapon :: DefaultDeploy
 
 =====================
 */
-bool CBasePlayerWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal, int	body )
+bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int skiplocal, int body )
 {
 	if( !CanDeploy() )
 		return false;
 
-	LoadVModel( szViewModel, m_pPlayer );
+	LoadVModel( pszViewModel, m_pPlayer );
 
 	SendWeaponAnim( iAnim, skiplocal, body );
 

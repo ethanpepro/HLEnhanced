@@ -671,8 +671,8 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 	//TODO clean this up - Solokiller
 	
 	// Hack to fix name change
-	char *tau = "tau_cannon";
-	char *gluon = "gluon gun";
+	const char* const tau = "tau_cannon";
+	const char* const gluon = "gluon gun";
 
 	if ( pKiller->pev->flags & FL_CLIENT )
 	{

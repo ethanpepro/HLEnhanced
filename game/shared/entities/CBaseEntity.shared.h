@@ -2119,25 +2119,25 @@ public:
 	BASEPTR	ThinkSet( BASEPTR func, char *name )
 	{
 		m_pfnThink = func;
-		FunctionCheck( ( void * )*( ( int * ) ( ( char * )this + ( offsetof( CBaseEntity, m_pfnThink ) ) ) ), name );
+		FunctionCheck( ( void * )*( ( int * ) ( ( char * )this + ( OFFSETOF( CBaseEntity, m_pfnThink ) ) ) ), name );
 		return func;
 	}
 	ENTITYFUNCPTR TouchSet( ENTITYFUNCPTR func, char *name )
 	{
 		m_pfnTouch = func;
-		FunctionCheck( ( void * )*( ( int * ) ( ( char * )this + ( offsetof( CBaseEntity, m_pfnTouch ) ) ) ), name );
+		FunctionCheck( ( void * )*( ( int * ) ( ( char * )this + ( OFFSETOF( CBaseEntity, m_pfnTouch ) ) ) ), name );
 		return func;
 	}
 	USEPTR	UseSet( USEPTR func, char *name )
 	{
 		m_pfnUse = func;
-		FunctionCheck( ( void * )*( ( int * ) ( ( char * )this + ( offsetof( CBaseEntity, m_pfnUse ) ) ) ), name );
+		FunctionCheck( ( void * )*( ( int * ) ( ( char * )this + ( OFFSETOF( CBaseEntity, m_pfnUse ) ) ) ), name );
 		return func;
 	}
 	ENTITYFUNCPTR	BlockedSet( ENTITYFUNCPTR func, char *name )
 	{
 		m_pfnBlocked = func;
-		FunctionCheck( ( void * )*( ( int * ) ( ( char * )this + ( offsetof( CBaseEntity, m_pfnBlocked ) ) ) ), name );
+		FunctionCheck( ( void * )*( ( int * ) ( ( char * )this + ( OFFSETOF( CBaseEntity, m_pfnBlocked ) ) ) ), name );
 		return func;
 	}
 
@@ -2186,13 +2186,13 @@ public:
 
 	/**
 	*	Creates an entity by class name.
-	*	@param szName Class name of the entity. This string must continue to exist for at least as long as the map itself.
+	*	@param pszName Class name of the entity. This string must continue to exist for at least as long as the map itself.
 	*	@param vecOrigin Intended entity origin.
 	*	@param vecAngles Intended entity angles.
 	*	@param pentOwner Optional. The owner of the newly created entity.
 	*	@return Newly created entity, or null if the entity could not be created.
 	*/
-	static CBaseEntity *Create( char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner = nullptr );
+	static CBaseEntity* Create( const char* const pszName, const Vector& vecOrigin, const Vector& vecAngles, edict_t* pentOwner = nullptr );
 
 	/*
 	*	Returns the type of group (i.e, "houndeye", or "human military" so that monsters with different classnames

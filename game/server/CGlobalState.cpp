@@ -57,7 +57,8 @@ globalentity_t *CGlobalState::Find( string_t globalname )
 //#ifdef _DEBUG
 void CGlobalState::DumpGlobals( void )
 {
-	static char *estates[] = { "Off", "On", "Dead" };
+	//TODO: move out of function - Solokiller
+	static const char* const estates[] = { "Off", "On", "Dead" };
 	globalentity_t *pTest;
 
 	ALERT( at_console, "-- Globals --\n" );

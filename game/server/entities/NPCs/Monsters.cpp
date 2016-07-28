@@ -1173,11 +1173,11 @@ void CBaseMonster :: SetActivity ( Activity NewActivity )
 //=========================================================
 // SetSequenceByName
 //=========================================================
-void CBaseMonster :: SetSequenceByName ( char *szSequence )
+void CBaseMonster::SetSequenceByName( const char* const pszSequence )
 {
 	int	iSequence;
 
-	iSequence = LookupSequence ( szSequence );
+	iSequence = LookupSequence ( pszSequence );
 
 	// Set to the desired anim, or default anim if the desired is not present
 	if ( iSequence > ACTIVITY_NOT_AVAILABLE )
@@ -1194,7 +1194,7 @@ void CBaseMonster :: SetSequenceByName ( char *szSequence )
 	else
 	{
 		// Not available try to get default anim
-		ALERT ( at_aiconsole, "%s has no sequence named:%f\n", GetClassname(), szSequence );
+		ALERT ( at_aiconsole, "%s has no sequence named:%f\n", GetClassname(), pszSequence );
 		pev->sequence		= 0;	// Set to the reset anim (if it's there)
 	}
 }
@@ -3329,7 +3329,7 @@ bool CBaseMonster::GetEnemy()
 //=========================================================
 // DropItem - dead monster drops named item 
 //=========================================================
-CBaseEntity* CBaseMonster :: DropItem ( char *pszItemName, const Vector &vecPos, const Vector &vecAng )
+CBaseEntity* CBaseMonster::DropItem( const char* const pszItemName, const Vector &vecPos, const Vector &vecAng )
 {
 	if ( !pszItemName )
 	{
@@ -3349,7 +3349,7 @@ CBaseEntity* CBaseMonster :: DropItem ( char *pszItemName, const Vector &vecPos,
 	else
 	{
 		ALERT ( at_console, "DropItem() - Didn't create!\n" );
-		return false;
+		return nullptr;
 	}
 
 }

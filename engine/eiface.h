@@ -1203,7 +1203,7 @@ typedef struct enginefuncs_s
 	*	@param pszName Name of the delta.lst entry to add the encoder for.
 	*	@param conditionalencode Encoder function.
 	*/
-	void		(*pfnDeltaAddEncoder)		( char* pszName, void ( *conditionalencode )( delta_t* pFields, const unsigned char* from, const unsigned char* to ) );
+	void		(*pfnDeltaAddEncoder)		( const char* const pszName, void ( *conditionalencode )( delta_t* pFields, const unsigned char* from, const unsigned char* to ) );
 	
 	/**
 	*	@return	The client index of the client that is currently being handled by an engine callback.
@@ -1522,7 +1522,7 @@ typedef enum _fieldtypes
 	FIELD_TYPECOUNT,		// MUST BE LAST
 } FIELDTYPE;
 
-#define _FIELD(type,name,fieldtype,count,flags)				{ fieldtype, #name, static_cast<int>( offsetof(type, name) ), count, flags }
+#define _FIELD(type,name,fieldtype,count,flags)				{ fieldtype, #name, static_cast<int>( OFFSETOF(type, name) ), count, flags }
 #define _BASEENT_FIELD( name, fieldtype, count, flags )		_FIELD( ThisClass, name, fieldtype, count, flags )
 #define DEFINE_FIELD( name,fieldtype)						_BASEENT_FIELD( name, fieldtype, 1, 0)
 #define DEFINE_ARRAY( name,fieldtype,count)					_BASEENT_FIELD( name, fieldtype, count, 0)
@@ -1536,7 +1536,7 @@ typedef enum _fieldtypes
 typedef struct 
 {
 	FIELDTYPE		fieldType;
-	char			*fieldName;
+	const char*		fieldName;
 	int				fieldOffset;
 	short			fieldSize;
 	short			flags;
@@ -1940,4 +1940,4 @@ extern NEW_DLL_FUNCTIONS	gNewDLLFunctions;
 typedef int	(*APIFUNCTION)( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion );
 typedef int	(*APIFUNCTION2)( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
 
-#endif EIFACE_H
+#endif //EIFACE_H

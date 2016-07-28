@@ -207,11 +207,11 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	// echo to server console
 	g_engfuncs.pfnServerPrint( text );
 
-	char * temp;
+	const char* pszTemp;
 	if ( teamonly )
-		temp = "say_team";
+		pszTemp = "say_team";
 	else
-		temp = "say";
+		pszTemp = "say";
 	
 	// team match?
 	if ( g_teamplay )
@@ -221,7 +221,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 			GETPLAYERUSERID( pEntity ),
 			GETPLAYERAUTHID( pEntity ),
 			g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pEntity ), "model" ),
-			temp,
+			pszTemp,
 			p );
 	}
 	else
@@ -231,7 +231,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 			GETPLAYERUSERID( pEntity ),
 			GETPLAYERAUTHID( pEntity ),
 			GETPLAYERUSERID( pEntity ),
-			temp,
+			pszTemp,
 			p );
 	}
 }

@@ -181,15 +181,16 @@ bool CBasePlayerWeapon::IsUseable()
 	return true;
 }
 
-bool CBasePlayerWeapon::DefaultDeploy( char *szViewModel, char *szWeaponModel, int iAnim, char *szAnimExt, int skiplocal /* = 0 */, int body )
+bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int skiplocal /* = 0 */, int body )
 {
 	if( !CanDeploy() )
 		return false;
 
 	m_pPlayer->TabulateAmmo();
-	m_pPlayer->pev->viewmodel = MAKE_STRING( szViewModel );
-	m_pPlayer->pev->weaponmodel = MAKE_STRING( szWeaponModel );
-	m_pPlayer->SetWeaponAnimType( szAnimExt );
+	//TODO: need to alloc these for custom ents - Solokiller
+	m_pPlayer->pev->viewmodel = MAKE_STRING( pszViewModel );
+	m_pPlayer->pev->weaponmodel = MAKE_STRING( pszWeaponModel );
+	m_pPlayer->SetWeaponAnimType( pszAnimExt );
 	SendWeaponAnim( iAnim, skiplocal, body );
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;

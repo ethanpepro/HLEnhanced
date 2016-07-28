@@ -397,7 +397,7 @@ public:
 	void CheatImpulseCommands( int iImpulse );
 
 	void CheckSuitUpdate();
-	void SetSuitUpdate( char *name, const SuitUpdateType updateType, int iNoRepeat );
+	void SetSuitUpdate( const char* const pszName, const SuitUpdateType updateType, int iNoRepeat );
 	void UpdateGeigerCounter();
 
 	void CheckTimeBasedDamage();

@@ -18,7 +18,7 @@
 
 #include "CPushable.h"
 
-char *CPushable::m_soundNames[ 3 ] = { "debris/pushbox1.wav", "debris/pushbox2.wav", "debris/pushbox3.wav" };
+const char* const CPushable::m_soundNames[ 3 ] = { "debris/pushbox1.wav", "debris/pushbox2.wav", "debris/pushbox3.wav" };
 
 BEGIN_DATADESC( CPushable )
 	DEFINE_FIELD( m_maxSpeed, FIELD_FLOAT ),

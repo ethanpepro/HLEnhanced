@@ -153,7 +153,7 @@ public:
 	virtual void	SetAnswerQuestion( CTalkMonster *pSpeaker );
 	virtual int		FriendNumber( int arrayNumber ) const { return arrayNumber; }
 	
-	static char *m_szFriends[TLK_CFRIENDS];		// array of friend names
+	static const char* m_szFriends[TLK_CFRIENDS];		// array of friend names
 	static float g_talkWaitTime;
 	
 	int			m_bitsSaid;						// set bits for sentences we don't want repeated

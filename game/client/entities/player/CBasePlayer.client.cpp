@@ -293,7 +293,7 @@ void CBasePlayer::CheckSuitUpdate()
 {
 }
 
-void CBasePlayer::SetSuitUpdate( char *name, const SuitUpdateType updateType, int iNoRepeatTime )
+void CBasePlayer::SetSuitUpdate( const char* const pszName, const SuitUpdateType updateType, int iNoRepeatTime )
 {
 }
 

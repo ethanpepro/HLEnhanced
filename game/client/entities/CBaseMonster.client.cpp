@@ -165,7 +165,7 @@ void CBaseMonster::SetActivity( Activity NewActivity )
 {
 }
 
-void CBaseMonster::SetSequenceByName( char* szSequence )
+void CBaseMonster::SetSequenceByName( const char* const pszSequence )
 {
 }
 
@@ -384,7 +384,7 @@ void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trac
 {
 }
 
-CBaseEntity* CBaseMonster::DropItem( char *pszItemName, const Vector &vecPos, const Vector &vecAng )
+CBaseEntity* CBaseMonster::DropItem( const char* const pszItemName, const Vector &vecPos, const Vector &vecAng )
 {
 	return nullptr;
 }

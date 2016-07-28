@@ -20,9 +20,9 @@ void CBaseEntity::SetObjectCollisionBox( void )
 {
 }
 
-CBaseEntity* CBaseEntity::Create( char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner )
+CBaseEntity* CBaseEntity::Create( const char* const pszName, const Vector& vecOrigin, const Vector& vecAngles, edict_t* pentOwner )
 {
-	return NULL;
+	return nullptr;
 }
 
 void CBaseEntity::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )

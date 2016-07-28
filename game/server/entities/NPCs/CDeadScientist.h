@@ -28,7 +28,7 @@ public:
 
 	void KeyValue( KeyValueData *pkvd ) override;
 	int	m_iPose;// which sequence to display
-	static char *m_szPoses[ 7 ];
+	static const char* const m_szPoses[ 7 ];
 };
 
 #endif //GAME_SERVER_ENTITIES_NPCS_CDEADSCIENTIST_H

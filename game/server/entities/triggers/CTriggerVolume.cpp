@@ -11,6 +11,6 @@ void CTriggerVolume::Spawn( void )
 	pev->solid = SOLID_NOT;
 	pev->movetype = MOVETYPE_NONE;
 	SetModel( STRING( pev->model ) );    // set size and link into world
-	pev->model = NULL;
+	pev->model = iStringNull;
 	pev->modelindex = 0;
 }

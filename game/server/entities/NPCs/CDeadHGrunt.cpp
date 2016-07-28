@@ -22,7 +22,7 @@
 
 #include "CDeadHGrunt.h"
 
-char *CDeadHGrunt::m_szPoses[] = { "deadstomach", "deadside", "deadsitting" };
+const char* const CDeadHGrunt::m_szPoses[] = { "deadstomach", "deadside", "deadsitting" };
 
 LINK_ENTITY_TO_CLASS( monster_hgrunt_dead, CDeadHGrunt );
 

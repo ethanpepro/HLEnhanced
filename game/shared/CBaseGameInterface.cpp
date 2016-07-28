@@ -37,11 +37,11 @@ bool CBaseGameInterface::InitFileSystem()
 {
 	// Determine which filesystem to use.
 #if defined ( _WIN32 )
-	char *szFsModule = "filesystem_stdio.dll";
+	const char* szFsModule = "filesystem_stdio.dll";
 #elif defined(OSX)
-	char *szFsModule = "filesystem_stdio.dylib";
+	const char* szFsModule = "filesystem_stdio.dylib";
 #elif defined(LINUX)
-	char *szFsModule = "filesystem_stdio.so";
+	const char* szFsModule = "filesystem_stdio.so";
 #else
 #error
 #endif

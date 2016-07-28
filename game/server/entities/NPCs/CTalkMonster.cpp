@@ -47,7 +47,8 @@ BEGIN_DATADESC(	CTalkMonster )
 END_DATADESC()
 
 // array of friend names
-char *CTalkMonster::m_szFriends[TLK_CFRIENDS] = 
+//TODO: not very flexible - Solokiller
+const char* CTalkMonster::m_szFriends[TLK_CFRIENDS] = 
 {
 	"monster_barney",
 	"monster_scientist",
@@ -646,7 +647,7 @@ void CTalkMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 CBaseEntity	*CTalkMonster::EnumFriends( CBaseEntity *pPrevious, int listNumber, const bool bTrace )
 {
 	CBaseEntity *pFriend = pPrevious;
-	char *pszFriend;
+	const char* pszFriend;
 	TraceResult tr;
 	Vector vecCheck;
 
@@ -805,7 +806,7 @@ CBaseEntity* CTalkMonster::FindNearestFriend( const bool fPlayer ) const
 	Vector vecStart = GetAbsOrigin();
 	Vector vecCheck;
 	int i;
-	char *pszFriend;
+	const char* pszFriend;
 	int cfriends;
 
 	vecStart.z = pev->absmax.z;

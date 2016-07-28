@@ -18,7 +18,7 @@
 
 #include "CDeadBarney.h"
 
-char *CDeadBarney::m_szPoses[] = { "lying_on_back", "lying_on_side", "lying_on_stomach" };
+const char* const CDeadBarney::m_szPoses[] = { "lying_on_back", "lying_on_side", "lying_on_stomach" };
 
 LINK_ENTITY_TO_CLASS( monster_barney_dead, CDeadBarney );
 

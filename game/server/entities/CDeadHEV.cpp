@@ -4,7 +4,7 @@
 
 #include "CDeadHEV.h"
 
-char *CDeadHEV::m_szPoses[] = { "deadback", "deadsitting", "deadstomach", "deadtable" };
+const char* const CDeadHEV::m_szPoses[] = { "deadback", "deadsitting", "deadstomach", "deadtable" };
 
 LINK_ENTITY_TO_CLASS( monster_hevsuit_dead, CDeadHEV );
 

@@ -261,16 +261,17 @@ int	CBaseEntity::DamageDecal( int bitsDamageType ) const
 
 // NOTE: szName must be a pointer to constant memory, e.g. "monster_class" because the entity
 // will keep a pointer to it after this call.
-CBaseEntity * CBaseEntity::Create( char *szName, const Vector &vecOrigin, const Vector &vecAngles, edict_t *pentOwner )
+CBaseEntity* CBaseEntity::Create( const char* const pszName, const Vector& vecOrigin, const Vector& vecAngles, edict_t* pentOwner )
 {
-	edict_t	*pent;
-	CBaseEntity *pEntity;
+	edict_t* pent;
+	CBaseEntity* pEntity;
 
-	pent = CREATE_NAMED_ENTITY( MAKE_STRING( szName ) );
+	//TODO: alloc for custom ents - Solokiller
+	pent = CREATE_NAMED_ENTITY( MAKE_STRING( pszName ) );
 	if( FNullEnt( pent ) )
 	{
 		ALERT( at_console, "NULL Ent in Create!\n" );
-		return NULL;
+		return nullptr;
 	}
 	pEntity = Instance( pent );
 	pEntity->pev->owner = pentOwner;

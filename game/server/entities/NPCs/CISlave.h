@@ -41,7 +41,7 @@ public:
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
-	void CallForHelp( char *szClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation );
+	void CallForHelp( const char* const pszClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation );
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
