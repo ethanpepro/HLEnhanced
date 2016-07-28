@@ -206,9 +206,9 @@ typedef struct playermove_s
 	const char		*(*PM_Info_ValueForKey) ( const char *s, const char *key );
 	void			(*PM_Particle)( float *origin, int color, float life, int zpos, int zvel);
 	int				(*PM_TestPlayerPosition) (float *pos, pmtrace_t *ptrace );
-	void			(*Con_NPrintf)( int idx, char *fmt, ... );
-	void			(*Con_DPrintf)( char *fmt, ... );
-	void			(*Con_Printf)( char *fmt, ... );
+	void			(*Con_NPrintf)( int idx, const char* const pszFormat, ... );
+	void			(*Con_DPrintf)( const char* const pszFormat, ... );
+	void			(*Con_Printf)( const char* const pszFormat, ... );
 	double			(*Sys_FloatTime)( void );
 	void			(*PM_StuckTouch)( int hitent, pmtrace_t *ptraceresult );
 	int				(*PM_PointContents) (float *p, int *truecontents /*filled in if this is non-null*/ );
