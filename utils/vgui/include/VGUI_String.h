@@ -16,9 +16,6 @@ namespace vgui
 
 class VGUIAPI String
 {
-
-friend class String;
-
 private:
 
 	char* _text;
