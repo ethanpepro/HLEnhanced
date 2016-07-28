@@ -1366,7 +1366,7 @@ int V_FindViewModelByWeaponModel(int weaponindex)
 {
 
 	//TODO: this shouldn't be hardcoded. - Solokiller
-	static char * modelmap[][2] =	{
+	static const char* const modelmap[][2] = {
 
 # ifdef _TFC	// TFC models override HL models
 		{ "models/p_mini.mdl",			"models/v_tfac.mdl"			},
@@ -1402,7 +1402,7 @@ int V_FindViewModelByWeaponModel(int weaponindex)
 		{ "models/p_tripmine.mdl",		"models/v_tripmine.mdl"		},
 		{ "models/p_satchel_radio.mdl",	"models/v_satchel_radio.mdl"},
 		{ "models/p_satchel.mdl",		"models/v_satchel.mdl"		},
-		{ NULL, NULL } };
+		{ nullptr, nullptr } };
 
 	struct model_s * weaponModel = IEngineStudio.GetModelByIndex( weaponindex );
 
