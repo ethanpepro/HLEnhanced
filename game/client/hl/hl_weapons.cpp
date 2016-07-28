@@ -497,9 +497,9 @@ bool bIsMultiplayer()
 	return gEngfuncs.GetMaxClients() != 1;
 }
 //Just loads a v_ model.
-void LoadVModel( char *szViewModel, CBasePlayer *m_pPlayer )
+void LoadVModel( const char* const pszViewModel, CBasePlayer* m_pPlayer )
 {
-	gEngfuncs.CL_LoadModel( szViewModel, &m_pPlayer->pev->viewmodel );
+	gEngfuncs.CL_LoadModel( pszViewModel, &m_pPlayer->pev->viewmodel );
 }
 
 void HUD_GetLastOrg( Vector& vecOrigin )

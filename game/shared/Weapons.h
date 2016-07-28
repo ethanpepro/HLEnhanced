@@ -258,7 +258,7 @@ extern CMultiDamage g_MultiDamage;
 bool bIsMultiplayer();
 
 #ifdef CLIENT_DLL
-void LoadVModel ( char *szViewModel, CBasePlayer *m_pPlayer );
+void LoadVModel( const char* const pszViewModel, CBasePlayer* m_pPlayer );
 #endif
 
 #endif //GAME_SHARED_WEAPONS_H
