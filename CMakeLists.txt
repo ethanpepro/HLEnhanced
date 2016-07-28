@@ -160,20 +160,38 @@ endforeach()
 message(STATUS "")
 
 #Get the steam/steamapps/common directory
-if( WIN32 )
-	set( STEAMCOMMON "$ENV{SteamCommon}" )
-else()
-	set( STEAMCOMMON "" )
-	#TODO
+set( STEAMCOMMON "$ENV{SteamCommon}" CACHE PATH "Steam common directory path" )
+
+if( "${STEAMCOMMON}" STREQUAL "" )
+
+	MESSAGE( FATAL_ERROR "Unable to get Steam common directory path" )
+
 endif()
 
 #Base dir for game outputs
 set( GAME_BASE_PATH "${STEAMCOMMON}/Half-Life/hlenhanced" )
 
+MESSAGE( STATUS "Base Game Path: ${GAME_BASE_PATH}" )
+
 #Shared preprocessor definitions
 set( SHARED_DEFS 
 	_CRT_SECURE_NO_WARNINGS
 )
+
+#Define LINUX so code can check for it
+if( UNIX )
+	set( SHARED_DEFS
+		"${SHARED_DEFS}"
+		LINUX
+	)
+	
+	set( LINUX_32BIT_FLAG "-m32" )
+else()
+	set( LINUX_32BIT_FLAG "" )
+endif()
+
+#C++14 support
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
 
 #Shared directories
 
@@ -228,20 +246,56 @@ include_directories(
 
 add_library( client SHARED ${PREP_SRCS} )
 
+#Default to false
+if( NOT DEFINED USE_VGUI2 )
+	set( USE_VGUI2 0 )
+endif()
+
 target_compile_definitions( client PRIVATE
 	"${SHARED_DEFS}"
 	CLIENT_DLL
 	CLIENT_WEAPONS
 	HL_DLL
+	"USE_VGUI2=${USE_VGUI2}"
 )
 
 #Find client dependencies
-find_library( VGUI1 vgui PATHS utils/vgui/lib/win32_vc6/ )
-find_library( SDL2 sdl2 PATHS lib/public/ )
-find_library( VGUI2 vgui_controls PATHS source_sdk/lib/public/ )
-find_library( TIER0 tier0 PATHS lib/public/ )
-find_library( TIER1 tier1 PATHS source_sdk/lib/public/ )
-find_library( VSTDLIB vstdlib PATHS lib/public/ )
+find_library( VGUI1 vgui PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Life/" )
+
+if( UNIX )
+	set( SDL2_NAME "libSDL2-2.0.so.0" )
+else()
+	set( SDL2_NAME "${CMAKE_SHARED_LIBRARY_PREFIX}SDL2${CMAKE_SHARED_LIBRARY_SUFFIX}" )
+endif()
+
+find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ "${STEAMCOMMON}/Half-Life/" )
+
+if( NOT WIN32 )
+	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.so
+	set( VGUI1 "-l:\"${VGUI1}\"" )
+
+endif()
+
+if( "${USE_VGUI2}" STREQUAL "1" )
+	find_library( VGUI2 vgui_controls PATHS source_sdk/lib/public/ )
+	find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS lib/public/ )
+	find_library( TIER1 tier1 PATHS source_sdk/lib/public/ )
+
+	if( WIN32 )
+		find_library( VSTDLIB vstdlib PATHS lib/public/ )
+	else()
+		set( VSTDLIB "" )
+	endif()
+	
+	set( VGUI2_LIBS
+		VGUI2
+		TIER0
+		TIER1
+		VSTDLIB
+	)
+else()
+	set( VGUI2_LIBS "" )
+endif()
 
 #Set the list of platform specific libraries
 if( WIN32 )
@@ -255,24 +309,28 @@ target_link_libraries( client
 	"${VGUI1}"
 	"${CLIENT_PLAT_LIBS}"
 	"${SDL2}"
-	"${VGUI2}"
-	"${TIER0}"
-	"${TIER1}"
-	"${VSTDLIB}"
+	"${VGUI2_LIBS}"
 )
 
 #CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
+#On Linux, it uses LIBRARY_OUTPUT_DIRECTORY
 set_target_properties( client PROPERTIES
+	LIBRARY_OUTPUT_DIRECTORY "${GAME_BASE_PATH}/cl_dlls"
 	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/cl_dlls"
-	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/cl_dlls"
+	RUNTIME_OUTPUT_DIRECTORY_RELEASE "${GAME_BASE_PATH}/cl_dlls"
 )
 
-#Set Windows subsystem
-if( WIN32 )
-	if( MSVC )
-		set_target_properties( client PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS" )
-	endif()
+if( WIN32 AND MSVC )
+	#Set Windows subsystem
+	set( CLIENT_LINK_FLAGS "/SUBSYSTEM:WINDOWS" )
+else()
+	set( CLIENT_LINK_FLAGS "" )
 endif()
+
+set_target_properties( client PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG}" LINK_FLAGS "${CLIENT_LINK_FLAGS} ${LINUX_32BIT_FLAG}" )
+
+#No lib prefix
+SET_TARGET_PROPERTIES( client PROPERTIES PREFIX "" )
 
 #Create filters
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
@@ -334,25 +392,40 @@ target_compile_definitions( hl PRIVATE
 find_library( ANGELSCRIPTLIB Angelscript PATHS external/Angelscript/lib/ )
 find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
 
+if( NOT WIN32 )
+
+	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
+	set( ANGELSCRIPTLIB "-l:\"${ANGELSCRIPTLIB}\"" )
+	set( ANGELSCRIPTUTILS "-l:\"${ANGELSCRIPTUTILS}\"" )
+
+endif()
+
 #Link with server dependencies
 target_link_libraries( hl 
-	"${ANGELSCRIPTLIB}"
 	"${ANGELSCRIPTUTILS}"
+	"${ANGELSCRIPTLIB}"
 )
 
 #CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
+#On Linux, it uses LIBRARY_OUTPUT_DIRECTORY
 set_target_properties( hl PROPERTIES
+	LIBRARY_OUTPUT_DIRECTORY "${GAME_BASE_PATH}/dlls"
 	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/dlls"
-	RUNTIME_OUTPUT_DIRECTORY_DEBUG "${GAME_BASE_PATH}/dlls"
+	RUNTIME_OUTPUT_DIRECTORY_RELEASE "${GAME_BASE_PATH}/dlls"
 )
 
-if( WIN32 )
-	if( MSVC )
-		#Set Windows subsystem
-		#Add the module definition file. Needed for GiveFnptrsToDll function export. Requires the project dir to be near the file.
-		set_target_properties( hl PROPERTIES LINK_FLAGS "/SUBSYSTEM:WINDOWS /DEF:../hl.def" )
-	endif()
+if( WIN32 AND MSVC )
+	#Set Windows subsystem
+	#Add the module definition file. Needed for GiveFnptrsToDll function export. Requires the project dir to be near the file.
+	set( SERVER_LINK_FLAGS "/SUBSYSTEM:WINDOWS /DEF:../hl.def" )
+else()
+	set( SERVER_LINK_FLAGS "" )
 endif()
+
+set_target_properties( hl PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG}" LINK_FLAGS "${SERVER_LINK_FLAGS} ${LINUX_32BIT_FLAG}" )
+
+#No lib prefix
+SET_TARGET_PROPERTIES( hl PROPERTIES PREFIX "" )
 
 #Create filters
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
