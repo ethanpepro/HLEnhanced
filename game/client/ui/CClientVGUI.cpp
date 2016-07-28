@@ -1,7 +1,8 @@
+#include <cassert>
 #include <clocale>
 
 //TODO: remove once VGUI1 is removed.
-#ifdef USE_VGUI2
+#if USE_VGUI2
 #undef VGUI_H
 
 #include "../../source_sdk/public/vgui/VGUI.h"
@@ -12,9 +13,9 @@
 #include "../../source_sdk/public/vgui_controls/Frame.h"
 
 #include <vgui/isurface.h>
-#endif
 
 #include "IGameUIFuncs.h"
+#endif
 
 #include "CClientVGUI.h"
 
@@ -67,15 +68,15 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 	//
 	//vgui2::scheme()->LoadSchemeFromFile( "Resource/ClientScheme.res", "ClientScheme" );
 	//vgui2::scheme()->LoadSchemeFromFile( "Resource/TutorScheme.res", "TutorScheme" );
-	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
+	//g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
 }
 
 void CClientVGUI::Start()
 {
 }
 
-vgui2::Panel* g_pPanel = nullptr;
-vgui2::Panel* g_pPanel2 = nullptr;
+//vgui2::Panel* g_pPanel = nullptr;
+//vgui2::Panel* g_pPanel2 = nullptr;
 
 void CClientVGUI::SetParent( vgui2::VPANEL parent )
 {
