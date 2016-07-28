@@ -31,6 +31,7 @@
 #define strupr _strupr
 #define stricmp _stricmp
 #define strnicmp _strnicmp
+#define alloca _alloca
 
 //Older versions of Visual Studio (< VS2015) didn't define these. - Solokiller
 #if _MSC_VER < 1900
@@ -60,12 +61,12 @@
 #include <errno.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
+#include <alloca.h>
 
 #define MAX_PATH PATH_MAX
 
-#ifndef _vsnprintf
-#define _vsnprintf(a,b,c,d) vsnprintf(a,b,c,d)
-#endif
+#define stricmp strcasecmp
+#define strnicmp strncasecmp
 
 #define MakeDirectory( pszDirectory ) mkdir( pszDirectory, 0777 )
 
@@ -76,7 +77,7 @@
 
 //TODO: GLM has ivec2, use that. - Solokiller
 #ifdef LINUX
-typedef struct POINT_s
+typedef struct tagPOINT
 {
 	int x;
 	int y;
@@ -108,5 +109,11 @@ inline constexpr size_t _ArraySizeof( const T ( & )[ SIZE ] )
 }
 
 #define ARRAYSIZE( p )	_ArraySizeof( p )
+
+/**
+*	offsetof that doesn't trigger compiler warnings in GCC. - Solokiller
+*	Based on Angelscript's asOFFSET.
+*/
+#define OFFSETOF( type, member ) ( ( size_t ) ( &reinterpret_cast<type*>( 100000 )->member ) - 100000 )
 
 #endif //COMMON_PLATFORM_H
