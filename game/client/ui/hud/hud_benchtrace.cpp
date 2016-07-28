@@ -12,6 +12,12 @@
 
 //TODO: this is entirely windows specific. Convert to cross-platform or remove - Solokiller
 
+//TODO: remove - Solokiller
+#ifndef WIN32
+typedef unsigned long DWORD;
+typedef void* HANDLE;
+#endif
+
 // For tracking the trace threads
 typedef struct
 {

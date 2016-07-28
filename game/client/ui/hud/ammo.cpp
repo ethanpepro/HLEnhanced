@@ -130,7 +130,7 @@ void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
 		pWeapon->rcCrosshair = p->rc;
 	}
 	else
-		pWeapon->hCrosshair = NULL;
+		pWeapon->hCrosshair = INVALID_HSPRITE;
 
 	p = GetSpriteList(pList, "autoaim", iRes, i);
 	if (p)
@@ -140,7 +140,7 @@ void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
 		pWeapon->rcAutoaim = p->rc;
 	}
 	else
-		pWeapon->hAutoaim = 0;
+		pWeapon->hAutoaim = INVALID_HSPRITE;
 
 	p = GetSpriteList( pList, "zoom", iRes, i );
 	if (p)
@@ -178,7 +178,7 @@ void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
 		gHR.iHistoryGap = max( gHR.iHistoryGap, pWeapon->rcActive.bottom - pWeapon->rcActive.top );
 	}
 	else
-		pWeapon->hInactive = 0;
+		pWeapon->hInactive = INVALID_HSPRITE;
 
 	p = GetSpriteList(pList, "weapon_s", iRes, i);
 	if (p)
@@ -188,7 +188,7 @@ void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
 		pWeapon->rcActive = p->rc;
 	}
 	else
-		pWeapon->hActive = 0;
+		pWeapon->hActive = INVALID_HSPRITE;
 
 	p = GetSpriteList(pList, "ammo", iRes, i);
 	if (p)
@@ -200,7 +200,7 @@ void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
 		gHR.iHistoryGap = max( gHR.iHistoryGap, pWeapon->rcActive.bottom - pWeapon->rcActive.top );
 	}
 	else
-		pWeapon->hAmmo = 0;
+		pWeapon->hAmmo = INVALID_HSPRITE;
 
 	p = GetSpriteList(pList, "ammo2", iRes, i);
 	if (p)
@@ -212,7 +212,7 @@ void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
 		gHR.iHistoryGap = max( gHR.iHistoryGap, pWeapon->rcActive.bottom - pWeapon->rcActive.top );
 	}
 	else
-		pWeapon->hAmmo2 = 0;
+		pWeapon->hAmmo2 = INVALID_HSPRITE;
 
 }
 

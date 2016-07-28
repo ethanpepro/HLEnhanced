@@ -51,28 +51,28 @@
 //  Non-pp has 0 - 60 range
 const float weights[3] = { 0.2f, 0.3f, 0.5f };
 
-const char *g_title = "PowerPlay QoS Test"; //Quality of Service Test";
-const char *pp_strings[2] =
+const char* const g_title = "PowerPlay QoS Test"; //Quality of Service Test";
+const char* const pp_strings[2] =
 {
 	"  PowerPlay Detected",
 	"  PowerPlay Not Detected" ,
 };
-const char *g_stage1[2] =
+const char* const g_stage1[2] =
 {
 	"  Stage 1:  Testing System Connectivity...",
 	"  Stage 1:  %i",
 };
-const char *g_stage2[2] =
+const char* const g_stage2[2] =
 {
 	"  Stage 2:  Testing System Performance...",
 	"  Stage 2:  %i",
 };
-const char *g_stage3[2] =
+const char* const g_stage3[2] =
 {
 	"  Stage 3:  Testing Tracking Accuracy...",
 	"  Stage 3:  %i",
 };
-const char *g_stage4 = "  Composite Score:  %i";
+const char* const g_stage4 = "  Composite Score:  %i";
 
 extern Vector v_origin;
 
@@ -509,7 +509,7 @@ int CHudBenchmark::Draw( float flTime )
 		}
 		else
 		{
-			sprintf( sz, g_stage1[0] );
+			strcpy( sz, g_stage1[0] );
 		}
 		gHUD.DrawHudString( x, y, 320, sz, 255, 255, 255 );
 
@@ -534,7 +534,7 @@ int CHudBenchmark::Draw( float flTime )
 		}
 		else
 		{
-			sprintf( sz, g_stage2[0] );
+			strcpy( sz, g_stage2[0] );
 		}
 		gHUD.DrawHudString( x, y, 320, sz, 255, 255, 255 );
 		y += 20;
@@ -549,7 +549,7 @@ int CHudBenchmark::Draw( float flTime )
 		}
 		else
 		{
-			sprintf( sz, g_stage3[0] );
+			strcpy( sz, g_stage3[0] );
 		}
 
 		gHUD.DrawHudString( x, y, 320, sz, 255, 255, 255 );
