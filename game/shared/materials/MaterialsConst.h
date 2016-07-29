@@ -30,18 +30,19 @@ enum CharTexType : char
 	/**
 	*	Texture types.
 	*/
-	CHAR_TEX_CONCRETE	 = 'C',
-	CHAR_TEX_METAL		 = 'M',
-	CHAR_TEX_DIRT		 = 'D',
-	CHAR_TEX_VENT		 = 'V',
-	CHAR_TEX_GRATE		 = 'G',
-	CHAR_TEX_TILE		 = 'T',
-	CHAR_TEX_SLOSH		 = 'S',
-	CHAR_TEX_WOOD		 = 'W',
-	CHAR_TEX_COMPUTER	 = 'P',
-	CHAR_TEX_GLASS		 = 'Y',
-	CHAR_TEX_FLESH		 = 'F',
-	CHAR_TEX_SNOW		 = 'N', //TODO: needs to be handled in sound code - Solokiller
+	CHAR_TEX_CONCRETE	= 'C',
+	CHAR_TEX_METAL		= 'M',
+	CHAR_TEX_DIRT		= 'D',
+	CHAR_TEX_VENT		= 'V',
+	CHAR_TEX_GRATE		= 'G',
+	CHAR_TEX_TILE		= 'T',
+	CHAR_TEX_SLOSH		= 'S',
+	CHAR_TEX_WOOD		= 'W',
+	CHAR_TEX_COMPUTER	= 'P',
+	CHAR_TEX_GLASS		= 'Y',
+	CHAR_TEX_FLESH		= 'F',
+	CHAR_TEX_SNOW		= 'N', //TODO: needs to be handled in sound code - Solokiller
+	CHAR_TEX_GRASS		= 'X', //TODO: needs to be handled in sound code - Solokiller
 };
 
 //TODO: is this even needed? Can just use the above enum directly. - Solokiller

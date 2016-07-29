@@ -52,6 +52,11 @@ inline StepTexType MapTextureTypeStepType( const char chTextureType )
 {
 	return MapTextureTypeStepType( static_cast<CharTexType>( chTextureType ) );
 }
+
+/**
+*	@return Whether there's a grass texture.
+*/
+bool IsThereGrassTexture();
 }
 
 #endif //GAME_SHARED_MATERIALS_MATERIALS_H

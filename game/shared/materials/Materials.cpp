@@ -118,4 +118,9 @@ StepTexType MapTextureTypeStepType( const CharTexType chTextureType )
 	case CHAR_TEX_SLOSH:		return STEP_SLOSH;
 	}
 }
+
+bool IsThereGrassTexture()
+{
+	return g_MaterialsList.FindTextureByType( CMaterialsList::INVALID_TEX_INDEX, CHAR_TEX_GRASS ) != CMaterialsList::INVALID_TEX_INDEX;
+}
 }
