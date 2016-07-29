@@ -5,26 +5,49 @@
 #pragma once
 #endif
 
-#define TRI_COLLIDEWORLD	0x00000020
-#define TRI_COLLIDEALL		0x00001000 // will collide with world and slideboxes
-#define TRI_COLLIDEKILL		0x00004000 // tent is removed upon collision with anything
-#define TRI_SPIRAL			0x00008000
-#define TRI_ANIMATEDIE		0x00016000 //animate once and then die
-#define TRI_WATERTRACE		0x00032000
+enum PartCollideFlag
+{
+	TRI_COLLIDEWORLD	= 0x00000020,
 
+	/**
+	*	will collide with world and slideboxes
+	*/
+	TRI_COLLIDEALL		= 0x00001000,
 
-#define CULL_FRUSTUM_POINT ( 1 << 0 )
-#define CULL_FRUSTUM_SPHERE ( 1 << 1 )
-#define CULL_FRUSTUM_PLANE ( 1 << 2 )
-#define CULL_PVS ( 1 << 3 )
+	/**
+	*	tent is removed upon collision with anything
+	*/
+	TRI_COLLIDEKILL		= 0x00004000,
+	TRI_SPIRAL			= 0x00008000,
 
-#define LIGHT_NONE ( 1 << 4 )
-#define LIGHT_COLOR ( 1 << 5 )
-#define LIGHT_INTENSITY ( 1 << 6 )
+	/**
+	*	animate once and then die
+	*/
+	TRI_ANIMATEDIE		= 0x00016000,
+	TRI_WATERTRACE		= 0x00032000,
+};
 
-#define RENDER_FACEPLAYER ( 1 << 7 ) // m_vAngles == Player view angles
-#define RENDER_FACEPLAYER_ROTATEZ ( 1 << 8 ) //Just like above but m_vAngles.z is untouched so the sprite can rotate.
+enum PartCullFlag
+{
+	CULL_FRUSTUM_POINT			= 1 << 0,
+	CULL_FRUSTUM_SPHERE			= 1 << 1,
+	CULL_FRUSTUM_PLANE			= 1 << 2,
+	CULL_PVS					= 1 << 3,
 
+	LIGHT_NONE					= 1 << 4,
+	LIGHT_COLOR					= 1 << 5,
+	LIGHT_INTENSITY				= 1 << 6,
+
+	/**
+	*	m_vAngles == Player view angles
+	*/
+	RENDER_FACEPLAYER			= 1 << 7,
+
+	/**
+	*	Just like above but m_vAngles.z is untouched so the sprite can rotate.
+	*/
+	RENDER_FACEPLAYER_ROTATEZ	= 1 << 8,
+};
 
 #include "pman_particlemem.h" 
 
