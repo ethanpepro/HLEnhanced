@@ -223,6 +223,26 @@ void PM_PlayStepSound( int step, float fvol )
 		case 3:	pmove->PM_PlaySound( CHAN_BODY, "player/pl_ladder4.wav", fvol, ATTN_NORM, 0, PITCH_NORM );	break;
 		}
 		break;
+
+	case STEP_SNOW:
+		{
+			const char* pszSound;
+
+			switch( irand )
+			{
+				//Right foot
+			case 0: pszSound = "player/pl_snow1.wav"; break;
+			case 1: pszSound = "player/pl_snow3.wav"; break;
+
+				//Left foot
+			case 2: pszSound = "player/pl_snow2.wav"; break;
+			case 3: pszSound = "player/pl_snow4.wav"; break;
+			}
+
+			pmove->PM_PlaySound( CHAN_BODY, pszSound, fvol, ATTN_NORM, 0, PITCH_NORM );
+
+			break;
+		}
 	}
 }
 

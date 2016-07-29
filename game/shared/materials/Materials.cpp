@@ -99,6 +99,17 @@ bool GetMaterialForType( const char chTextureType, const int iBulletType, float&
 		flAttn = 1.0;
 		uiCount = 2;
 		break;
+
+	case CHAR_TEX_SNOW:
+		flVol = 0.8;
+		flVolBar = 0.7;
+		ppszSounds[ 0 ] = "player/pl_snow1.wav";
+		ppszSounds[ 1 ] = "player/pl_snow2.wav";
+		ppszSounds[ 2 ] = "player/pl_snow3.wav";
+		ppszSounds[ 3 ] = "player/pl_snow4.wav";
+
+		uiCount = 4;
+		break;
 	}
 
 	return true;
@@ -116,6 +127,7 @@ StepTexType MapTextureTypeStepType( const CharTexType chTextureType )
 	case CHAR_TEX_GRATE:		return STEP_GRATE;
 	case CHAR_TEX_TILE:			return STEP_TILE;
 	case CHAR_TEX_SLOSH:		return STEP_SLOSH;
+	case CHAR_TEX_SNOW:			return STEP_SNOW;
 	}
 }
 

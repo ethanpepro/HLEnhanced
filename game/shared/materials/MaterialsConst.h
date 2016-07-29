@@ -41,7 +41,7 @@ enum CharTexType : char
 	CHAR_TEX_COMPUTER	= 'P',
 	CHAR_TEX_GLASS		= 'Y',
 	CHAR_TEX_FLESH		= 'F',
-	CHAR_TEX_SNOW		= 'N', //TODO: needs to be handled in sound code - Solokiller
+	CHAR_TEX_SNOW		= 'N',
 	CHAR_TEX_GRASS		= 'X', //TODO: needs to be handled in sound code - Solokiller
 };
 
@@ -92,6 +92,11 @@ enum StepTexType
 	*	Climbing ladder.
 	*/
 	STEP_LADDER		= 8,
+
+	/**
+	*	Walking on snow.
+	*/
+	STEP_SNOW		= 9,
 };
 
 #endif //GAME_SHARED_MATERIALS_MATERIALSCONST_H

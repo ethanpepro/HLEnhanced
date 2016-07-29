@@ -481,6 +481,11 @@ void CServerGameInterface::ClientPrecache()
 	PRECACHE_SOUND( "debris/glass2.wav" );
 	PRECACHE_SOUND( "debris/glass3.wav" );
 
+	PRECACHE_SOUND( "player/pl_snow1.wav" );
+	PRECACHE_SOUND( "player/pl_snow2.wav" );
+	PRECACHE_SOUND( "player/pl_snow3.wav" );
+	PRECACHE_SOUND( "player/pl_snow4.wav" );
+
 	PRECACHE_SOUND( SOUND_FLASHLIGHT_ON );
 	PRECACHE_SOUND( SOUND_FLASHLIGHT_OFF );
 
