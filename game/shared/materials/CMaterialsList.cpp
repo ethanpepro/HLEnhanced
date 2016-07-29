@@ -18,6 +18,15 @@ bool CMaterialsList::LoadFromFile( const char* const pszFileName )
 	if( hFile == FILESYSTEM_INVALID_HANDLE )
 		return false;
 
+	{
+		char szPath[ MAX_PATH ];
+
+		g_pFileSystem->GetLocalPath( pszFileName, szPath, sizeof( szPath ) );
+
+		//Provide the full path just in case the developer needs the information. - Solokiller
+		ALERT( at_aiconsole, "CMaterialsList::LoadFromFile: Loading materials file \"%s\"\n", szPath );
+	}
+
 	char buffer[ 512 ];
 	int i, j;
 
@@ -118,6 +127,18 @@ char CMaterialsList::FindTextureType( const char* const pszName ) const
 	}
 
 	return CHAR_TEX_CONCRETE;
+}
+
+int CMaterialsList::FindTextureByType( int iPrevious, const char chType ) const
+{
+	for( int iIndex = iPrevious == INVALID_TEX_INDEX ? 0 : iPrevious + 1;
+		 iIndex < m_iTextures; ++iIndex )
+	{
+		if( m_chTextureType[ iIndex ] == chType )
+			return iIndex;
+	}
+
+	return INVALID_TEX_INDEX;
 }
 
 void CMaterialsList::SwapTextures( int i, int j )
