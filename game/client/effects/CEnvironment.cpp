@@ -43,6 +43,7 @@ void CEnvironment::Initialize()
 {
 	m_vecWeatherOrigin = g_vecZero;
 	m_flWeatherTime = 0;
+	m_flGrassTime = 0;
 	m_vecGrassOrigin = g_vecZero;
 
 	m_WeatherType = WeatherType::NONE;
@@ -231,7 +232,7 @@ void CEnvironment::UpdateGrass()
 	{
 		vecOrigin = m_vecGrassOrigin;
 
-		const float flXOffset = UTIL_RandomFloat( 800.0f, 850.0f );
+		const float flXOffset = UTIL_RandomFloat( -800.0f, 850.0f );
 
 		vecOrigin.x += ( UTIL_RandomLong( 0, 5 ) > 2 ) ? flXOffset : -flXOffset;
 		vecOrigin.y += UTIL_RandomFloat( -800.0f, 800.0f );
