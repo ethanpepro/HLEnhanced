@@ -14,6 +14,7 @@ add_sources(
 	util.h
 	voice_common.h
 	Weapons.h
+	Weather.h
 )
 
 add_subdirectory( entities )

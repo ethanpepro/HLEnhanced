@@ -55,6 +55,8 @@ int gmsgStatusText = 0;
 int gmsgStatusValue = 0;
 int gmsgAmmoType = 0;
 
+int gmsgReceiveW = 0;
+
 void LinkUserMessages()
 {
 	// Already taken care of?
@@ -102,4 +104,6 @@ void LinkUserMessages()
 
 	//Send ammo type data.
 	gmsgAmmoType = REG_USER_MSG( "AmmoType", -1 );
+
+	gmsgReceiveW = REG_USER_MSG( "ReceiveW", 1 );
 }

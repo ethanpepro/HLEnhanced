@@ -24,6 +24,8 @@
 #include "particleman.h"
 extern IParticleMan *g_pParticleMan;
 
+#include "effects/CEnvironment.h"
+
 #if !defined( _TFC )
 extern BEAM *pBeam;
 extern BEAM *pBeam2;
@@ -63,6 +65,8 @@ void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 			pList->p->InitHUDData();
 		pList = pList->pNext;
 	}
+
+	g_Environment.Initialize();
 
 #if defined( _TFC )
 	ClearEventList();
@@ -123,4 +127,13 @@ int CHud :: MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 	else
 		this->m_StatusIcons.DisableIcon("dmg_concuss");
 	return 1;
+}
+
+int CHud::MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf )
+{
+	CBufferReader reader( pBuf, iSize );
+
+	g_Environment.SetWeatherType( static_cast<WeatherType::WeatherType>( reader.ReadByte() ) );
+
+	return true;
 }

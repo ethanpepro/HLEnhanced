@@ -22,6 +22,8 @@
 #include "tri.h"
 extern IParticleMan *g_pParticleMan;
 
+#include "effects/CEnvironment.h"
+
 /*
 =================
 HUD_DrawNormalTriangles
@@ -52,5 +54,9 @@ void DLLEXPORT HUD_DrawTransparentTriangles( void )
 #endif
 
 	if ( g_pParticleMan )
-		 g_pParticleMan->Update();
+	{
+		g_pParticleMan->Update();
+
+		g_Environment.Update();
+	}
 }

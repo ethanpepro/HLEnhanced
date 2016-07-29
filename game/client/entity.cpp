@@ -14,6 +14,7 @@
 #include "pm_shared.h"
 #include "bench.h"
 #include "Exports.h"
+#include "com_weapons.h"
 
 #include "ScriptEvent.h"
 
@@ -390,8 +391,16 @@ void DLLEXPORT HUD_TempEntUpdate (
 
 	Vector		vAngles;
 
-	gEngfuncs.GetViewAngles( vAngles );
+	if( g_iUser1 != 0 && g_iUser1 != OBS_ROAMING )
+	{
+		vAngles = v_angles;
+	}
+	else
+	{
+		gEngfuncs.GetViewAngles( vAngles );
+	}
 
+	//TODO: is this supposed to happen here or in HUD_DrawTransparentTriangles? - Solokiller
 	if ( g_pParticleMan )
 		 g_pParticleMan->SetVariables( cl_gravity, vAngles );
 

@@ -380,6 +380,11 @@ public:
 
 	void ForceClientDllUpdate();  // Forces all client .dll specific data to be resent to client.
 
+	/**
+	*	Sends weather data to the client.
+	*/
+	void SendWeatherUpdate();
+
 	//Frame logic
 
 	virtual void PreThink();

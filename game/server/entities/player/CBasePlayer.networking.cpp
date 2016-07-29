@@ -20,6 +20,8 @@
 
 #include "pm_shared.h"
 
+#include "Weather.h"
+
 #include "gamerules/GameRules.h"
 
 extern DLL_GLOBAL bool gDisplayTitle;
@@ -74,6 +76,8 @@ void CBasePlayer::UpdateClientData()
 		FireTargets( "game_playerspawn", this, this, USE_TOGGLE, 0 );
 
 		InitStatusBar();
+
+		SendWeatherUpdate();
 	}
 
 	if( m_iHideHUD != m_iClientHideHUD )
@@ -292,4 +296,25 @@ void CBasePlayer::ForceClientDllUpdate()
 
 	// Now force all the necessary messages to be sent.
 	UpdateClientData();
+}
+
+void CBasePlayer::SendWeatherUpdate()
+{
+	WeatherType::WeatherType type = WeatherType::NONE;
+
+	if( UTIL_FindEntityByClassname( nullptr, "env_rain" ) )
+	{
+		type = WeatherType::RAIN;
+	}
+	else if( UTIL_FindEntityByClassname( nullptr, "env_snow" ) )
+	{
+		type = WeatherType::SNOW;
+	}
+
+	if( type != WeatherType::NONE )
+	{
+		MESSAGE_BEGIN( MSG_ONE, gmsgReceiveW, nullptr, edict() );
+			WRITE_BYTE( type );
+		MESSAGE_END();
+	}
 }

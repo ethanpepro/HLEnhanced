@@ -39,6 +39,8 @@
 
 #include "CClientGameInterface.h"
 
+#include "effects/CEnvironment.h"
+
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
 TeamFortressViewport *gViewPort = NULL;
@@ -365,6 +367,8 @@ void CL_LoadParticleMan( void )
 
 		 // Add custom particle classes here BEFORE calling anything else or you will die.
 		 g_pParticleMan->AddCustomParticleClassSize ( sizeof ( CBaseParticle ) );
+
+		 g_Environment.RegisterParticleClasses();
 	}
 }
 

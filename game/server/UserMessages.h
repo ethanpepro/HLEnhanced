@@ -54,6 +54,8 @@ extern int gmsgStatusText;
 extern int gmsgStatusValue;
 extern int gmsgAmmoType;
 
+extern int gmsgReceiveW;
+
 void LinkUserMessages();
 
 #endif //GAME_SERVER_USERMESSAGES_H
