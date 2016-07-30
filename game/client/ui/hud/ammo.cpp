@@ -337,6 +337,10 @@ int CHudAmmo::Init(void)
 	CVAR_CREATE( "hud_drawhistory_time", HISTORY_DRAW_TIME, 0 );
 	CVAR_CREATE( "hud_fastswitch", "0", FCVAR_ARCHIVE );		// controls whether or not weapons can be selected in one keypress
 
+	m_pCrosshair = gEngfuncs.pfnGetCvarPointer( "crosshair" );
+	m_pCrosshairMode = CVAR_CREATE( "crosshair_mode", "0", FCVAR_ARCHIVE );
+	m_pCrosshairScale = CVAR_CREATE( "crosshair_scale", "1", FCVAR_ARCHIVE );
+
 	m_iFlags |= HUD_ACTIVE; //!!!
 
 	gWR.Init();
@@ -873,7 +877,7 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 	gpActiveSel = NULL;
 }
 
-
+#include "renderer/SpriteRenderUtils.h"
 
 //-------------------------------------------------------------------------
 // Drawing code
@@ -924,6 +928,41 @@ int CHudAmmo::Draw(float flTime)
 
 	// Does this weapon have a clip?
 	y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight/2;
+
+	if(  m_pCrosshair->value != 0 && m_hCrosshair != INVALID_HSPRITE )
+	{
+		float flScale;
+
+		switch( static_cast<int>( m_pCrosshairMode->value ) )
+		{
+		default:
+		case CROSS_NATIVESCALE:
+			flScale = 1;
+			break;
+
+		case CROSS_RESSCALE:
+			flScale = max( ( ScreenWidth / 640.0 ) * 0.75, 1.0 );
+			break;
+
+		case CROSS_USERSCALE:
+			flScale = abs( m_pCrosshairScale->value );
+			break;
+		}
+
+		class CCrosshairTriCallback : public ITriCoordFallback
+		{
+		public:
+			void Calculate( HSPRITE hSprite, const int frame, const wrect_t& rect, const float flScale, int& x, int& y ) override
+			{
+				x = ( ScreenWidth - ( ( rect.right - rect.left ) ) ) / 2;
+				y = ( ScreenHeight - ( ( rect.bottom - rect.top ) ) ) / 2;
+			}
+		};
+
+		CCrosshairTriCallback callback;
+
+		Tri_DrawScaledSprite( m_hCrosshair, 0, m_iR, m_iG, m_iB, 255, kRenderTransTexture, flScale, callback, &m_CrosshairRC );
+	}
 
 	// Does weapon have any ammo at all?
 	if ( pw->pAmmo )
@@ -1248,4 +1287,19 @@ client_sprite_t *GetSpriteList(client_sprite_t *pList, const char *psz, int iRes
 	}
 
 	return NULL;
+}
+
+void CHudAmmo::SetCrosshair( HSPRITE hCrosshair, const wrect_t& rect, int r, int g, int b )
+{
+	m_hCrosshair = hCrosshair;
+	m_CrosshairRC = rect;
+	m_iR = r;
+	m_iG = g;
+	m_iB = b;
+}
+
+void SetCrosshair( HSPRITE hCrosshair, const wrect_t& crosshairRC, int r, int g, int b )
+{
+	//gEngfuncs.pfnSetCrosshair( hCrosshair, crosshairRC, r, g, b );
+	gHUD.m_Ammo.SetCrosshair( hCrosshair, crosshairRC, r, g, b );
 }

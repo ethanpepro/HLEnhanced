@@ -140,7 +140,7 @@ HSPRITE LoadSprite( const char* const pszName );
 /**
 *	@see cl_enginefunc_t::pfnSetCrosshair
 */
-#define SetCrosshair (*gEngfuncs.pfnSetCrosshair)
+void SetCrosshair( HSPRITE hCrosshair, const wrect_t& crosshairRC, int r, int g, int b );
 
 // Gets the height & width of a sprite,  at the specified frame
 /**

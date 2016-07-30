@@ -98,6 +98,28 @@ struct HUDLIST {
 //
 class CHudAmmo: public CHudBase
 {
+private:
+	/**
+	*	Crosshair render modes.
+	*/
+	enum CrosshairMode
+	{
+		/**
+		*	Always render at native image scale.
+		*/
+		CROSS_NATIVESCALE = 0,
+
+		/**
+		*	Scale with resolution.
+		*/
+		CROSS_RESSCALE = 1,
+
+		/**
+		*	Use user defined scale.
+		*/
+		CROSS_USERSCALE = 2,
+	};
+
 public:
 	int Init() override;
 	bool VidInit() override;
@@ -129,6 +151,8 @@ public:
 	void _cdecl UserCmd_NextWeapon( void );
 	void _cdecl UserCmd_PrevWeapon( void );
 
+	void SetCrosshair( HSPRITE hCrosshair, const wrect_t& rect, int r, int g, int b );
+
 private:
 	float m_fFade;
 	RGBA  m_rgba;
@@ -136,6 +160,13 @@ private:
 	int	m_HUD_bucket0;
 	int m_HUD_selection;
 
+	HSPRITE m_hCrosshair;
+	wrect_t m_CrosshairRC;
+	int m_iR, m_iG, m_iB;
+
+	cvar_t* m_pCrosshair;
+	cvar_t* m_pCrosshairMode;
+	cvar_t* m_pCrosshairScale;
 };
 
 //
