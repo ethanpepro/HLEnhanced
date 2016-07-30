@@ -172,12 +172,12 @@ typedef struct triangleapi_s
 	void		( *LightAtPoint ) ( const float* vecPos, float* vecValue );
 
 	/**
-	*	Sets the RGBA color and the render mode.
+	*	Sets the RGBA color, taking the render mode as a hint for the interpretation of the values.
 	*	@param r Red color. [ 0, 1 ].
 	*	@param g Green color. [ 0, 1 ].
 	*	@param b Blue color. [ 0, 1 ].
 	*	@param a Alpha color. [ 0, 1 ].
-	*	@param mode Render mode to set.
+	*	@param mode Render mode to use as a hint.
 	*	@see RenderMode
 	*/
 	void		( *Color4fRendermode ) ( float r, float g, float b, float a, int rendermode );
