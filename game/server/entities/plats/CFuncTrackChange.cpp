@@ -164,7 +164,7 @@ void CFuncTrackChange::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	if( m_code == TRAIN_BLOCKING )
 	{
 		// Play alarm and return
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, "buttons/button11.wav", 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, "buttons/button11.wav", 1, ATTN_NORM );
 		return;
 	}
 

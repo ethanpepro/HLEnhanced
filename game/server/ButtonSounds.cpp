@@ -152,7 +152,7 @@ void PlayLockSounds( CBaseEntity* pEntity, locksound_t *pls, const bool bLocked,
 		if( fplaysound )
 		{
 			// play 'door locked' sound
-			EMIT_SOUND( pEntity->edict(), CHAN_ITEM, ( char* ) STRING( pls->sLockedSound ), fvol, ATTN_NORM );
+			EMIT_SOUND( pEntity, CHAN_ITEM, ( char* ) STRING( pls->sLockedSound ), fvol, ATTN_NORM );
 			pls->flwaitSound = gpGlobals->time + flsoundwait;
 		}
 
@@ -189,7 +189,7 @@ void PlayLockSounds( CBaseEntity* pEntity, locksound_t *pls, const bool bLocked,
 		// play 'door unlocked' sound if set
 		if( bPlaysound )
 		{
-			EMIT_SOUND( pEntity->edict(), CHAN_ITEM, ( char* ) STRING( pls->sUnlockedSound ), fvol, ATTN_NORM );
+			EMIT_SOUND( pEntity, CHAN_ITEM, ( char* ) STRING( pls->sUnlockedSound ), fvol, ATTN_NORM );
 			pls->flwaitSound = gpGlobals->time + flsoundwait;
 		}
 

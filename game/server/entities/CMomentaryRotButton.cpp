@@ -201,7 +201,7 @@ void CMomentaryRotButton::UpdateAllButtons( float value, int start )
 
 void CMomentaryRotButton::PlaySound( void )
 {
-	EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
+	EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
 }
 
 void CMomentaryRotButton::UpdateTarget( float value )

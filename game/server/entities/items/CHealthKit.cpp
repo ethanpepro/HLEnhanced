@@ -38,7 +38,7 @@ bool CHealthKit::MyTouch( CBasePlayer *pPlayer )
 		WRITE_STRING( GetClassname() );
 		MESSAGE_END();
 
-		EMIT_SOUND( ENT( pPlayer->pev ), CHAN_ITEM, "items/smallmedkit1.wav", 1, ATTN_NORM );
+		EMIT_SOUND( pPlayer, CHAN_ITEM, "items/smallmedkit1.wav", 1, ATTN_NORM );
 
 		if( g_pGameRules->ItemShouldRespawn( this ) )
 		{

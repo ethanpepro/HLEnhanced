@@ -25,7 +25,7 @@ void CItemSoda::Precache( void )
 
 void CItemSoda::CanThink( void )
 {
-	EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/g_bounce3.wav", 1, ATTN_NORM );
+	EMIT_SOUND( this, CHAN_WEAPON, "weapons/g_bounce3.wav", 1, ATTN_NORM );
 
 	pev->solid = SOLID_TRIGGER;
 	SetSize( Vector( -8, -8, 0 ), Vector( 8, 8, 8 ) );

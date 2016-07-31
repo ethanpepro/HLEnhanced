@@ -289,7 +289,7 @@ void CBaseDoor::DoorGoUp( void )
 	if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
 	{
 		if( m_toggle_state != TS_GOING_UP && m_toggle_state != TS_GOING_DOWN )
-			EMIT_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ), 1, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ), 1, ATTN_NORM );
 	}
 
 	m_toggle_state = TS_GOING_UP;
@@ -332,7 +332,7 @@ void CBaseDoor::DoorHitTop( void )
 	if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
 	{
 		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ) );
-		EMIT_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseArrived ), 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseArrived ), 1, ATTN_NORM );
 	}
 
 	ASSERT( m_toggle_state == TS_GOING_UP );
@@ -373,7 +373,7 @@ void CBaseDoor::DoorGoDown( void )
 	if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
 	{
 		if( m_toggle_state != TS_GOING_UP && m_toggle_state != TS_GOING_DOWN )
-			EMIT_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ), 1, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ), 1, ATTN_NORM );
 	}
 
 #ifdef DOOR_ASSERT
@@ -396,7 +396,7 @@ void CBaseDoor::DoorHitBottom( void )
 	if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
 	{
 		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ) );
-		EMIT_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseArrived ), 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseArrived ), 1, ATTN_NORM );
 	}
 
 	ASSERT( m_toggle_state == TS_GOING_DOWN );

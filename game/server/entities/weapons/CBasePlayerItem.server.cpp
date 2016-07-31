@@ -54,7 +54,7 @@ void CBasePlayerItem::DefaultTouch( CBaseEntity *pOther )
 	if( pPlayer->AddPlayerItem( this ) )
 	{
 		AttachToPlayer( pPlayer );
-		EMIT_SOUND( ENT( pPlayer->pev ), CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM );
+		EMIT_SOUND( pPlayer, CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM );
 	}
 
 	SUB_UseTargets( pOther, USE_TOGGLE, 0 ); // UNDONE: when should this happen?

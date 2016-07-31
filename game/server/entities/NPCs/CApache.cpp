@@ -281,7 +281,7 @@ void CApache :: DyingThink( void )
 			WRITE_BYTE( 0 );		// speed
 		MESSAGE_END();
 
-		EMIT_SOUND(ENT(pev), CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
+		EMIT_SOUND( this, CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
 
 		RadiusDamage( GetAbsOrigin(), this, this, 300, CLASS_NONE, DMG_BLAST );
 
@@ -762,7 +762,7 @@ bool CApache::FireGun()
 	{
 #if 1
 		FireBullets( 1, posGun, vecGun, VECTOR_CONE_4DEGREES, 8192, BULLET_MONSTER_12MM, 1 );
-		EMIT_SOUND(ENT(pev), CHAN_WEAPON, "turret/tu_fire1.wav", 1, 0.3);
+		EMIT_SOUND( this, CHAN_WEAPON, "turret/tu_fire1.wav", 1, 0.3);
 #else
 		static float flNext;
 		TraceResult tr;

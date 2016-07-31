@@ -223,7 +223,7 @@ void CAGrunt :: PrescheduleThink ( void )
 			m_iLastWord = num;
 
 			// play a new sound
-			EMIT_SOUND ( ENT(pev), CHAN_VOICE, pIdleSounds[ num ], 1.0, ATTN_NORM );
+			EMIT_SOUND ( this, CHAN_VOICE, pIdleSounds[ num ], 1.0, ATTN_NORM );
 
 			// is this word our last?
 			if ( RANDOM_LONG( 1, 10 ) <= 1 )
@@ -246,7 +246,7 @@ void CAGrunt :: DeathSound ( void )
 {
 	StopTalking();
 
-	EMIT_SOUND ( ENT(pev), CHAN_VOICE, pDieSounds[RANDOM_LONG(0,ARRAYSIZE(pDieSounds)-1)], 1.0, ATTN_NORM );
+	EMIT_SOUND ( this, CHAN_VOICE, pDieSounds[RANDOM_LONG(0,ARRAYSIZE(pDieSounds)-1)], 1.0, ATTN_NORM );
 }
 
 //=========================================================
@@ -256,7 +256,7 @@ void CAGrunt :: AlertSound ( void )
 {
 	StopTalking();
 
-	EMIT_SOUND ( ENT(pev), CHAN_VOICE, pAlertSounds[RANDOM_LONG(0,ARRAYSIZE(pAlertSounds)-1)], 1.0, ATTN_NORM );
+	EMIT_SOUND ( this, CHAN_VOICE, pAlertSounds[RANDOM_LONG(0,ARRAYSIZE(pAlertSounds)-1)], 1.0, ATTN_NORM );
 }
 
 //=========================================================
@@ -266,7 +266,7 @@ void CAGrunt :: AttackSound ( void )
 {
 	StopTalking();
 
-	EMIT_SOUND ( ENT(pev), CHAN_VOICE, pAttackSounds[RANDOM_LONG(0,ARRAYSIZE(pAttackSounds)-1)], 1.0, ATTN_NORM );
+	EMIT_SOUND ( this, CHAN_VOICE, pAttackSounds[RANDOM_LONG(0,ARRAYSIZE(pAttackSounds)-1)], 1.0, ATTN_NORM );
 }
 
 //=========================================================
@@ -283,7 +283,7 @@ void CAGrunt :: PainSound ( void )
 
 	StopTalking();
 
-	EMIT_SOUND ( ENT(pev), CHAN_VOICE, pPainSounds[RANDOM_LONG(0,ARRAYSIZE(pPainSounds)-1)], 1.0, ATTN_NORM );
+	EMIT_SOUND ( this, CHAN_VOICE, pPainSounds[RANDOM_LONG(0,ARRAYSIZE(pPainSounds)-1)], 1.0, ATTN_NORM );
 }
 
 //=========================================================

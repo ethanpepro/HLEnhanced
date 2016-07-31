@@ -910,12 +910,12 @@ void DoSpark( CBaseEntity* pEntity, const Vector &location )
 	float flVolume = RANDOM_FLOAT( 0.25, 0.75 ) * 0.4;//random volume range
 	switch( ( int ) ( RANDOM_FLOAT( 0, 1 ) * 6 ) )
 	{
-	case 0: EMIT_SOUND( pEntity->edict(), CHAN_VOICE, "buttons/spark1.wav", flVolume, ATTN_NORM ); break;
-	case 1: EMIT_SOUND( pEntity->edict(), CHAN_VOICE, "buttons/spark2.wav", flVolume, ATTN_NORM ); break;
-	case 2: EMIT_SOUND( pEntity->edict(), CHAN_VOICE, "buttons/spark3.wav", flVolume, ATTN_NORM ); break;
-	case 3: EMIT_SOUND( pEntity->edict(), CHAN_VOICE, "buttons/spark4.wav", flVolume, ATTN_NORM ); break;
-	case 4: EMIT_SOUND( pEntity->edict(), CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM ); break;
-	case 5: EMIT_SOUND( pEntity->edict(), CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM ); break;
+	case 0: EMIT_SOUND( pEntity, CHAN_VOICE, "buttons/spark1.wav", flVolume, ATTN_NORM ); break;
+	case 1: EMIT_SOUND( pEntity, CHAN_VOICE, "buttons/spark2.wav", flVolume, ATTN_NORM ); break;
+	case 2: EMIT_SOUND( pEntity, CHAN_VOICE, "buttons/spark3.wav", flVolume, ATTN_NORM ); break;
+	case 3: EMIT_SOUND( pEntity, CHAN_VOICE, "buttons/spark4.wav", flVolume, ATTN_NORM ); break;
+	case 4: EMIT_SOUND( pEntity, CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM ); break;
+	case 5: EMIT_SOUND( pEntity, CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM ); break;
 	}
 }
 

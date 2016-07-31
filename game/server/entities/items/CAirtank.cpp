@@ -82,7 +82,7 @@ void CAirtank::TankTouch( CBaseEntity *pOther )
 	if (!m_state)
 	{
 		// "no oxygen" sound
-		EMIT_SOUND( ENT(pev), CHAN_BODY, "player/pl_swim2.wav", 1.0, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_BODY, "player/pl_swim2.wav", 1.0, ATTN_NORM );
 		return;
 	}
 		
@@ -91,7 +91,7 @@ void CAirtank::TankTouch( CBaseEntity *pOther )
 	pOther->pev->air_finished = gpGlobals->time + 12;
 
 	// suit recharge sound
-	EMIT_SOUND( ENT(pev), CHAN_VOICE, "doors/aliendoor3.wav", 1.0, ATTN_NORM );
+	EMIT_SOUND( this, CHAN_VOICE, "doors/aliendoor3.wav", 1.0, ATTN_NORM );
 
 	// recharge airtank in 30 seconds
 	pev->nextthink = gpGlobals->time + 30;

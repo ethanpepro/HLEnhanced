@@ -2561,11 +2561,11 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	case SCRIPT_EVENT_SOUND:			// Play a named wave file
-		EMIT_SOUND( edict(), CHAN_BODY, pEvent->options, 1.0, ATTN_IDLE );
+		EMIT_SOUND( this, CHAN_BODY, pEvent->options, 1.0, ATTN_IDLE );
 		break;
 
 	case SCRIPT_EVENT_SOUND_VOICE:
-		EMIT_SOUND( edict(), CHAN_VOICE, pEvent->options, 1.0, ATTN_IDLE );
+		EMIT_SOUND( this, CHAN_VOICE, pEvent->options, 1.0, ATTN_IDLE );
 		break;
 
 	case SCRIPT_EVENT_SENTENCE_RND1:		// Play a named sentence group 33% of the time
@@ -2615,11 +2615,11 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		{
 			if ( RANDOM_LONG( 0, 1 ) == 0 )
 			{
-				EMIT_SOUND( ENT(pev), CHAN_BODY, "common/bodydrop3.wav", 1, ATTN_NORM );
+				EMIT_SOUND( this, CHAN_BODY, "common/bodydrop3.wav", 1, ATTN_NORM );
 			}
 			else
 			{
-				EMIT_SOUND( ENT(pev), CHAN_BODY, "common/bodydrop4.wav", 1, ATTN_NORM );
+				EMIT_SOUND( this, CHAN_BODY, "common/bodydrop4.wav", 1, ATTN_NORM );
 			}
 		}
 		break;
@@ -2627,7 +2627,7 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 	case MONSTER_EVENT_SWISHSOUND:
 		{
 			// NO MONSTER may use this anim event unless that monster's precache precaches this sound!!!
-			EMIT_SOUND( ENT(pev), CHAN_BODY, "zombie/claw_miss2.wav", 1, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_BODY, "zombie/claw_miss2.wav", 1, ATTN_NORM );
 			break;
 		}
 
@@ -3168,7 +3168,7 @@ void CBaseMonster::PlayScriptedSentence( const char *pszSentence, float duration
 
 void CBaseMonster::SentenceStop( void )
 {
-	EMIT_SOUND( edict(), CHAN_VOICE, "common/null.wav", 1.0, ATTN_IDLE );
+	EMIT_SOUND( this, CHAN_VOICE, "common/null.wav", 1.0, ATTN_IDLE );
 }
 
 

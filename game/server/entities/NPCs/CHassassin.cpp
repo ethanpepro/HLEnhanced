@@ -138,10 +138,10 @@ void CHAssassin :: Shoot ( void )
 	switch(RANDOM_LONG(0,1))
 	{
 	case 0:
-		EMIT_SOUND(ENT(pev), CHAN_WEAPON, "weapons/pl_gun1.wav", RANDOM_FLOAT(0.6, 0.8), ATTN_NORM);
+		EMIT_SOUND( this, CHAN_WEAPON, "weapons/pl_gun1.wav", RANDOM_FLOAT(0.6, 0.8), ATTN_NORM);
 		break;
 	case 1:
-		EMIT_SOUND(ENT(pev), CHAN_WEAPON, "weapons/pl_gun2.wav", RANDOM_FLOAT(0.6, 0.8), ATTN_NORM);
+		EMIT_SOUND( this, CHAN_WEAPON, "weapons/pl_gun2.wav", RANDOM_FLOAT(0.6, 0.8), ATTN_NORM);
 		break;
 	}
 
@@ -644,7 +644,7 @@ void CHAssassin :: RunAI( void )
 	{
 		if (pev->renderamt == 255)
 		{
-			EMIT_SOUND (ENT(pev), CHAN_BODY, "debris/beamstart1.wav", 0.2, ATTN_NORM );
+			EMIT_SOUND ( this, CHAN_BODY, "debris/beamstart1.wav", 0.2, ATTN_NORM );
 		}
 
 		pev->renderamt = max( pev->renderamt - 50, static_cast<float>( m_iTargetRanderamt ) );
@@ -665,10 +665,10 @@ void CHAssassin :: RunAI( void )
 		{
 			switch( RANDOM_LONG( 0, 3 ) )
 			{
-			case 0:	EMIT_SOUND( ENT(pev), CHAN_BODY, "player/pl_step1.wav", 0.5, ATTN_NORM);	break;
-			case 1:	EMIT_SOUND( ENT(pev), CHAN_BODY, "player/pl_step3.wav", 0.5, ATTN_NORM);	break;
-			case 2:	EMIT_SOUND( ENT(pev), CHAN_BODY, "player/pl_step2.wav", 0.5, ATTN_NORM);	break;
-			case 3:	EMIT_SOUND( ENT(pev), CHAN_BODY, "player/pl_step4.wav", 0.5, ATTN_NORM);	break;
+			case 0:	EMIT_SOUND( this, CHAN_BODY, "player/pl_step1.wav", 0.5, ATTN_NORM);	break;
+			case 1:	EMIT_SOUND( this, CHAN_BODY, "player/pl_step3.wav", 0.5, ATTN_NORM);	break;
+			case 2:	EMIT_SOUND( this, CHAN_BODY, "player/pl_step2.wav", 0.5, ATTN_NORM);	break;
+			case 3:	EMIT_SOUND( this, CHAN_BODY, "player/pl_step4.wav", 0.5, ATTN_NORM);	break;
 			}
 		}
 	}

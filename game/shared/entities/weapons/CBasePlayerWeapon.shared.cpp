@@ -32,7 +32,7 @@ bool CBasePlayerWeapon::PlayEmptySound()
 #ifdef CLIENT_DLL
 		HUD_PlaySound( "weapons/357_cock1.wav", 0.8 );
 #else
-		EMIT_SOUND( ENT( m_pPlayer->pev ), CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM );
+		EMIT_SOUND( m_pPlayer, CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM );
 #endif
 		m_bPlayEmptySound = false;
 		return false;

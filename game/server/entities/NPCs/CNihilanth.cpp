@@ -184,17 +184,17 @@ void CNihilanth :: PainSound( void )
 
 	if (pev->health > gSkillData.nihilanthHealth / 2)
 	{
-		EMIT_SOUND( edict(), CHAN_VOICE, RANDOM_SOUND_ARRAY( pLaughSounds ), 1.0, 0.2 ); 
+		EMIT_SOUND( this, CHAN_VOICE, RANDOM_SOUND_ARRAY( pLaughSounds ), 1.0, 0.2 );
 	}
 	else if (m_irritation >= 2)
 	{
-		EMIT_SOUND( edict(), CHAN_VOICE, RANDOM_SOUND_ARRAY( pPainSounds ), 1.0, 0.2 ); 
+		EMIT_SOUND( this, CHAN_VOICE, RANDOM_SOUND_ARRAY( pPainSounds ), 1.0, 0.2 );
 	}
 }	
 
 void CNihilanth :: DeathSound( void )
 {
-	EMIT_SOUND( edict(), CHAN_VOICE, RANDOM_SOUND_ARRAY( pDeathSounds ), 1.0, 0.1 ); 
+	EMIT_SOUND( this, CHAN_VOICE, RANDOM_SOUND_ARRAY( pDeathSounds ), 1.0, 0.1 );
 }
 
 
@@ -494,7 +494,7 @@ void CNihilanth :: MakeFriend( Vector vecStart )
 			}
 			if (m_hFriend[i] != NULL)
 			{
-				EMIT_SOUND( m_hFriend[i]->edict(), CHAN_WEAPON, "debris/beamstart7.wav", 1.0, ATTN_NORM );
+				EMIT_SOUND( m_hFriend[i], CHAN_WEAPON, "debris/beamstart7.wav", 1.0, ATTN_NORM );
 			}
 
 			return;
@@ -882,9 +882,9 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		if (m_hEnemy != NULL)
 		{
 			if (RANDOM_LONG(0,4) == 0)
-				EMIT_SOUND( edict(), CHAN_VOICE, RANDOM_SOUND_ARRAY( pAttackSounds ), 1.0, 0.2 ); 
+				EMIT_SOUND( this, CHAN_VOICE, RANDOM_SOUND_ARRAY( pAttackSounds ), 1.0, 0.2 );
 
-			EMIT_SOUND( edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY( pBallSounds ), 1.0, 0.2 ); 
+			EMIT_SOUND( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY( pBallSounds ), 1.0, 0.2 );
 
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 				WRITE_BYTE( TE_ELIGHT );
@@ -931,7 +931,7 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			if (pTrigger != NULL || pTouch != NULL)
 			{
-				EMIT_SOUND( edict(), CHAN_VOICE, RANDOM_SOUND_ARRAY( pAttackSounds ), 1.0, 0.2 ); 
+				EMIT_SOUND( this, CHAN_VOICE, RANDOM_SOUND_ARRAY( pAttackSounds ), 1.0, 0.2 );
 
 				Vector vecSrc, vecAngles;
 				GetAttachment( 2, vecSrc, vecAngles ); 
@@ -943,7 +943,7 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			{
 				m_iTeleport++; // unexpected failure
 
-				EMIT_SOUND( edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY( pBallSounds ), 1.0, 0.2 ); 
+				EMIT_SOUND( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY( pBallSounds ), 1.0, 0.2 );
 
 				ALERT( at_aiconsole, "nihilanth can't target %s\n", szText );
 
@@ -993,7 +993,7 @@ void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 	case 5:	// start up sphere machine
 		{
-			EMIT_SOUND( edict(), CHAN_VOICE , RANDOM_SOUND_ARRAY( pRechargeSounds ), 1.0, 0.2 ); 
+			EMIT_SOUND( this, CHAN_VOICE , RANDOM_SOUND_ARRAY( pRechargeSounds ), 1.0, 0.2 );
 		}
 		break;
 	case 6:

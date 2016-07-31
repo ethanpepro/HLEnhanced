@@ -73,7 +73,7 @@ void CTurret::SpinUpCall( void )
 		if( !m_iStartSpin )
 		{
 			pev->nextthink = gpGlobals->time + 1.0; // spinup delay
-			EMIT_SOUND( ENT( pev ), CHAN_BODY, "turret/tu_spinup.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_BODY, "turret/tu_spinup.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
 			m_iStartSpin = 1;
 			pev->framerate = 0.1;
 		}
@@ -81,7 +81,7 @@ void CTurret::SpinUpCall( void )
 		else if( pev->framerate >= 1.0 )
 		{
 			pev->nextthink = gpGlobals->time + 0.1; // retarget delay
-			EMIT_SOUND( ENT( pev ), CHAN_STATIC, "turret/tu_active2.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_STATIC, "turret/tu_active2.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
 			SetThink( &CTurret::ActiveThink );
 			m_iStartSpin = 0;
 			m_iSpin = 1;
@@ -106,7 +106,7 @@ void CTurret::SpinDownCall( void )
 		if( pev->framerate == 1.0 )
 		{
 			EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100 );
-			EMIT_SOUND( ENT( pev ), CHAN_ITEM, "turret/tu_spindown.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_ITEM, "turret/tu_spindown.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
 		}
 		pev->framerate -= 0.02;
 		if( pev->framerate <= 0 )
@@ -120,6 +120,6 @@ void CTurret::SpinDownCall( void )
 void CTurret::Shoot( Vector &vecSrc, Vector &vecDirToEnemy )
 {
 	FireBullets( 1, vecSrc, vecDirToEnemy, TURRET_SPREAD, TURRET_RANGE, BULLET_MONSTER_12MM, 1 );
-	EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "turret/tu_fire1.wav", 1, 0.6 );
+	EMIT_SOUND( this, CHAN_WEAPON, "turret/tu_fire1.wav", 1, 0.6 );
 	pev->effects = pev->effects | EF_MUZZLEFLASH;
 }

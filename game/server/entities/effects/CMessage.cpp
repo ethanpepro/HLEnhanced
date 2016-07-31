@@ -64,7 +64,7 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 	}
 	if( pev->noise )
 	{
-		EMIT_SOUND( edict(), CHAN_BODY, STRING( pev->noise ), pev->scale, pev->speed );
+		EMIT_SOUND( this, CHAN_BODY, STRING( pev->noise ), pev->scale, pev->speed );
 	}
 	if( pev->spawnflags & SF_MESSAGE_ONCE )
 		UTIL_Remove( this );

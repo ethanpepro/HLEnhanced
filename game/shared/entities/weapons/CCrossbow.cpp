@@ -127,9 +127,9 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		switch( RANDOM_LONG(0,1) )
 		{
 		case 0:
-			EMIT_SOUND(ENT(pev), CHAN_BODY, "weapons/xbow_hitbod1.wav", 1, ATTN_NORM); break;
+			EMIT_SOUND( this, CHAN_BODY, "weapons/xbow_hitbod1.wav", 1, ATTN_NORM); break;
 		case 1:
-			EMIT_SOUND(ENT(pev), CHAN_BODY, "weapons/xbow_hitbod2.wav", 1, ATTN_NORM); break;
+			EMIT_SOUND( this, CHAN_BODY, "weapons/xbow_hitbod2.wav", 1, ATTN_NORM); break;
 		}
 
 		if ( !g_pGameRules->IsMultiplayer() )

@@ -122,7 +122,7 @@ void CFuncPlat::PlatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 void CFuncPlat::GoUp( void )
 {
 	if( pev->noiseMovement )
-		EMIT_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
 
 	ASSERT( m_toggle_state == TS_AT_BOTTOM || m_toggle_state == TS_GOING_DOWN );
 	m_toggle_state = TS_GOING_UP;
@@ -136,7 +136,7 @@ void CFuncPlat::GoUp( void )
 void CFuncPlat::GoDown( void )
 {
 	if( pev->noiseMovement )
-		EMIT_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
 
 	ASSERT( m_toggle_state == TS_AT_TOP || m_toggle_state == TS_GOING_UP );
 	m_toggle_state = TS_GOING_DOWN;
@@ -153,7 +153,7 @@ void CFuncPlat::HitTop( void )
 		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 
 	if( pev->noiseStopMoving )
-		EMIT_SOUND( ENT( pev ), CHAN_WEAPON, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_WEAPON, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
 
 	ASSERT( m_toggle_state == TS_GOING_UP );
 	m_toggle_state = TS_AT_TOP;
@@ -175,7 +175,7 @@ void CFuncPlat::HitBottom( void )
 		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 
 	if( pev->noiseStopMoving )
-		EMIT_SOUND( ENT( pev ), CHAN_WEAPON, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_WEAPON, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
 
 	ASSERT( m_toggle_state == TS_GOING_DOWN );
 	m_toggle_state = TS_AT_BOTTOM;

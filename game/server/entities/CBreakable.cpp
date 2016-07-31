@@ -271,7 +271,7 @@ void CBreakable::MaterialSoundRandom( CBaseEntity* pEntity, Materials soundMater
 	pSoundList = MaterialSoundList( soundMaterial, soundCount );
 
 	if ( soundCount )
-		EMIT_SOUND( pEntity->edict(), CHAN_BODY, pSoundList[ RANDOM_LONG(0,soundCount-1) ], volume, 1.0 );
+		EMIT_SOUND( pEntity, CHAN_BODY, pSoundList[ RANDOM_LONG(0,soundCount-1) ], volume, 1.0 );
 }
 
 void CBreakable::Precache( void )
@@ -495,8 +495,8 @@ void CBreakable::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceR
 				float flVolume = RANDOM_FLOAT ( 0.7 , 1.0 );//random volume range
 				switch ( RANDOM_LONG(0,1) )
 				{
-					case 0: EMIT_SOUND(ENT(pev), CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM);	break;
-					case 1: EMIT_SOUND(ENT(pev), CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM);	break;
+					case 0: EMIT_SOUND( this, CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM);	break;
+					case 1: EMIT_SOUND( this, CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM);	break;
 				}
 			}
 			break;

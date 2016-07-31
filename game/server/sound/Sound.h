@@ -79,10 +79,7 @@ void EMIT_SOUND_DYN( edict_t *entity, int channel, const char *sample, float vol
 					 int flags, int pitch );
 
 
-inline void EMIT_SOUND( edict_t *entity, int channel, const char *sample, float volume, float attenuation )
-{
-	EMIT_SOUND_DYN( entity, channel, sample, volume, attenuation, 0, PITCH_NORM );
-}
+void EMIT_SOUND( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation );
 
 void STOP_SOUND( CBaseEntity* pEntity, int channel, const char* const pszSample );
 

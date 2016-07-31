@@ -212,7 +212,7 @@ void CBaseTurret::Ping( void )
 	else if (m_flPingTime <= gpGlobals->time)
 	{
 		m_flPingTime = gpGlobals->time + 1;
-		EMIT_SOUND(ENT(pev), CHAN_ITEM, "turret/tu_ping.wav", 1, ATTN_NORM);
+		EMIT_SOUND( this, CHAN_ITEM, "turret/tu_ping.wav", 1, ATTN_NORM);
 		EyeOn( );
 	}
 	else if (m_eyeBrightness > 0)
@@ -412,7 +412,7 @@ void CBaseTurret::Deploy(void)
 	{
 		m_bOn = true;
 		SetTurretAnim(TURRET_ANIM_DEPLOY);
-		EMIT_SOUND(ENT(pev), CHAN_BODY, "turret/tu_deploy.wav", TURRET_MACHINE_VOLUME, ATTN_NORM);
+		EMIT_SOUND( this, CHAN_BODY, "turret/tu_deploy.wav", TURRET_MACHINE_VOLUME, ATTN_NORM);
 		SUB_UseTargets( this, USE_ON, 0 );
 	}
 
@@ -617,7 +617,7 @@ void CBaseTurret::AutoSearchThink(void)
 	if (m_hEnemy != NULL)
 	{
 		SetThink(&CBaseTurret::Deploy);
-		EMIT_SOUND(ENT(pev), CHAN_BODY, "turret/tu_alert.wav", TURRET_MACHINE_VOLUME, ATTN_NORM);
+		EMIT_SOUND( this, CHAN_BODY, "turret/tu_alert.wav", TURRET_MACHINE_VOLUME, ATTN_NORM);
 	}
 }
 
@@ -636,11 +636,11 @@ void CBaseTurret ::	TurretDeath( void )
 		float flRndSound = RANDOM_FLOAT ( 0 , 1 );
 
 		if ( flRndSound <= 0.33 )
-			EMIT_SOUND(ENT(pev), CHAN_BODY, "turret/tu_die.wav", 1.0, ATTN_NORM);
+			EMIT_SOUND( this, CHAN_BODY, "turret/tu_die.wav", 1.0, ATTN_NORM);
 		else if ( flRndSound <= 0.66 )
-			EMIT_SOUND(ENT(pev), CHAN_BODY, "turret/tu_die2.wav", 1.0, ATTN_NORM);
+			EMIT_SOUND( this, CHAN_BODY, "turret/tu_die2.wav", 1.0, ATTN_NORM);
 		else 
-			EMIT_SOUND(ENT(pev), CHAN_BODY, "turret/tu_die3.wav", 1.0, ATTN_NORM);
+			EMIT_SOUND( this, CHAN_BODY, "turret/tu_die3.wav", 1.0, ATTN_NORM);
 
 		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100);
 

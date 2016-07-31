@@ -55,9 +55,9 @@ void CSentry::Shoot( Vector &vecSrc, Vector &vecDirToEnemy )
 
 	switch( RANDOM_LONG( 0, 2 ) )
 	{
-	case 0: EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/hks1.wav", 1, ATTN_NORM ); break;
-	case 1: EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/hks2.wav", 1, ATTN_NORM ); break;
-	case 2: EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/hks3.wav", 1, ATTN_NORM ); break;
+	case 0: EMIT_SOUND( this, CHAN_WEAPON, "weapons/hks1.wav", 1, ATTN_NORM ); break;
+	case 1: EMIT_SOUND( this, CHAN_WEAPON, "weapons/hks2.wav", 1, ATTN_NORM ); break;
+	case 2: EMIT_SOUND( this, CHAN_WEAPON, "weapons/hks3.wav", 1, ATTN_NORM ); break;
 	}
 	pev->effects = pev->effects | EF_MUZZLEFLASH;
 }
@@ -112,11 +112,11 @@ void CSentry::SentryDeath( void )
 		float flRndSound = RANDOM_FLOAT( 0, 1 );
 
 		if( flRndSound <= 0.33 )
-			EMIT_SOUND( ENT( pev ), CHAN_BODY, "turret/tu_die.wav", 1.0, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_BODY, "turret/tu_die.wav", 1.0, ATTN_NORM );
 		else if( flRndSound <= 0.66 )
-			EMIT_SOUND( ENT( pev ), CHAN_BODY, "turret/tu_die2.wav", 1.0, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_BODY, "turret/tu_die2.wav", 1.0, ATTN_NORM );
 		else
-			EMIT_SOUND( ENT( pev ), CHAN_BODY, "turret/tu_die3.wav", 1.0, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_BODY, "turret/tu_die3.wav", 1.0, ATTN_NORM );
 
 		EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100 );
 

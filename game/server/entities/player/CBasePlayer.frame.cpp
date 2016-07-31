@@ -368,7 +368,7 @@ void CBasePlayer::PostThink()
 			// BUG - this happens all the time in water, especially when 
 			// BUG - water has current force
 			// if ( !pev->groundentity || VARS(pev->groundentity)->velocity.z == 0 )
-			// EMIT_SOUND(ENT(pev), CHAN_BODY, "player/pl_wade1.wav", 1, ATTN_NORM);
+			// EMIT_SOUND( this, CHAN_BODY, "player/pl_wade1.wav", 1, ATTN_NORM);
 		}
 		else if( m_flFallVelocity > PLAYER_MAX_SAFE_FALL_SPEED )
 		{
@@ -379,7 +379,7 @@ void CBasePlayer::PostThink()
 			if( flFallDamage > pev->health )
 			{//splat
 			 // note: play on item channel because we play footstep landing on body channel
-				EMIT_SOUND( ENT( pev ), CHAN_ITEM, "common/bodysplat.wav", 1, ATTN_NORM );
+				EMIT_SOUND( this, CHAN_ITEM, "common/bodysplat.wav", 1, ATTN_NORM );
 			}
 
 			if( flFallDamage > 0 )
@@ -710,9 +710,9 @@ void CBasePlayer::WaterMove()
 
 		// play 'up for air' sound
 		if( pev->air_finished < gpGlobals->time )
-			EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/pl_wade1.wav", 1, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_VOICE, "player/pl_wade1.wav", 1, ATTN_NORM );
 		else if( pev->air_finished < gpGlobals->time + 9 )
-			EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/pl_wade2.wav", 1, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_VOICE, "player/pl_wade2.wav", 1, ATTN_NORM );
 
 		pev->air_finished = gpGlobals->time + PLAYER_SWIM_AIRTIME;
 		pev->dmg = 2;
@@ -778,10 +778,10 @@ void CBasePlayer::WaterMove()
 	{
 		switch( RANDOM_LONG( 0, 3 ) )
 		{
-		case 0:	EMIT_SOUND( ENT( pev ), CHAN_BODY, "player/pl_swim1.wav", 0.8, ATTN_NORM ); break;
-		case 1:	EMIT_SOUND( ENT( pev ), CHAN_BODY, "player/pl_swim2.wav", 0.8, ATTN_NORM ); break;
-		case 2:	EMIT_SOUND( ENT( pev ), CHAN_BODY, "player/pl_swim3.wav", 0.8, ATTN_NORM ); break;
-		case 3:	EMIT_SOUND( ENT( pev ), CHAN_BODY, "player/pl_swim4.wav", 0.8, ATTN_NORM ); break;
+		case 0:	EMIT_SOUND( this, CHAN_BODY, "player/pl_swim1.wav", 0.8, ATTN_NORM ); break;
+		case 1:	EMIT_SOUND( this, CHAN_BODY, "player/pl_swim2.wav", 0.8, ATTN_NORM ); break;
+		case 2:	EMIT_SOUND( this, CHAN_BODY, "player/pl_swim3.wav", 0.8, ATTN_NORM ); break;
+		case 3:	EMIT_SOUND( this, CHAN_BODY, "player/pl_swim4.wav", 0.8, ATTN_NORM ); break;
 		}
 	}
 

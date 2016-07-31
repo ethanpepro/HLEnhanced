@@ -127,7 +127,7 @@ void CFlyingMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 	case FLYING_AE_FLAPSOUND:
 		if ( m_pFlapSound )
-			EMIT_SOUND( edict(), CHAN_BODY, m_pFlapSound, 1, ATTN_NORM );	
+			EMIT_SOUND( this, CHAN_BODY, m_pFlapSound, 1, ATTN_NORM );
 		break;
 
 	default:

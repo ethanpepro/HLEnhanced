@@ -128,7 +128,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 			if( length > 0 && FBitSet( pev->flags, FL_ONGROUND ) )
 			{
 				m_lastSound = RANDOM_LONG( 0, 2 );
-				EMIT_SOUND( ENT( pev ), CHAN_WEAPON, m_soundNames[ m_lastSound ], 0.5, ATTN_NORM );
+				EMIT_SOUND( this, CHAN_WEAPON, m_soundNames[ m_lastSound ], 0.5, ATTN_NORM );
 				//			SetThink( StopSound );
 				//			pev->nextthink = pev->ltime + 0.1;
 			}

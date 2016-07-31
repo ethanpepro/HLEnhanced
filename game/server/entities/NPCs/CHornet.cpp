@@ -291,9 +291,9 @@ void CHornet :: TrackTarget ( void )
 	{// hafta turn wide again. play sound
 		switch (RANDOM_LONG(0,2))
 		{
-		case 0:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_buzz1.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
-		case 1:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_buzz2.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
-		case 2:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_buzz3.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
+		case 0:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz1.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
+		case 1:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz2.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
+		case 2:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz3.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
 		}
 	}
 
@@ -348,9 +348,9 @@ void CHornet :: TrackTarget ( void )
 
 			switch (RANDOM_LONG(0,2))
 			{
-			case 0:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_buzz1.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
-			case 1:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_buzz2.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
-			case 2:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_buzz3.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
+			case 0:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz1.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
+			case 1:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz2.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
+			case 2:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz3.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
 			}
 			pev->velocity = pev->velocity * 2;
 			pev->nextthink = gpGlobals->time + 1.0;
@@ -401,9 +401,9 @@ void CHornet::DieTouch ( CBaseEntity *pOther )
 
 		switch (RANDOM_LONG(0,2))
 		{// buzz when you plug someone
-			case 0:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_hornethit1.wav", 1, ATTN_NORM);	break;
-			case 1:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_hornethit2.wav", 1, ATTN_NORM);	break;
-			case 2:	EMIT_SOUND( ENT(pev), CHAN_VOICE, "hornet/ag_hornethit3.wav", 1, ATTN_NORM);	break;
+			case 0:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_hornethit1.wav", 1, ATTN_NORM);	break;
+			case 1:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_hornethit2.wav", 1, ATTN_NORM);	break;
+			case 2:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_hornethit3.wav", 1, ATTN_NORM);	break;
 		}
 
 		CBaseEntity* pOwner = Instance( pev->owner );

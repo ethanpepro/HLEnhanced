@@ -56,9 +56,9 @@ void CMiniTurret::Shoot( Vector &vecSrc, Vector &vecDirToEnemy )
 
 	switch( RANDOM_LONG( 0, 2 ) )
 	{
-	case 0: EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/hks1.wav", 1, ATTN_NORM ); break;
-	case 1: EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/hks2.wav", 1, ATTN_NORM ); break;
-	case 2: EMIT_SOUND( ENT( pev ), CHAN_WEAPON, "weapons/hks3.wav", 1, ATTN_NORM ); break;
+	case 0: EMIT_SOUND( this, CHAN_WEAPON, "weapons/hks1.wav", 1, ATTN_NORM ); break;
+	case 1: EMIT_SOUND( this, CHAN_WEAPON, "weapons/hks2.wav", 1, ATTN_NORM ); break;
+	case 2: EMIT_SOUND( this, CHAN_WEAPON, "weapons/hks3.wav", 1, ATTN_NORM ); break;
 	}
 	pev->effects = pev->effects | EF_MUZZLEFLASH;
 }

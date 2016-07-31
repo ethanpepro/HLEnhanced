@@ -97,7 +97,7 @@ void CWallHealth::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 		if (m_flSoundTime <= gpGlobals->time)
 		{
 			m_flSoundTime = gpGlobals->time + 0.62;
-			EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/medshotno1.wav", 1.0, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_ITEM, "items/medshotno1.wav", 1.0, ATTN_NORM );
 		}
 		return;
 	}
@@ -114,13 +114,13 @@ void CWallHealth::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 	if (!m_iOn)
 	{
 		m_iOn++;
-		EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/medshot4.wav", 1.0, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_ITEM, "items/medshot4.wav", 1.0, ATTN_NORM );
 		m_flSoundTime = 0.56 + gpGlobals->time;
 	}
 	if ((m_iOn == 1) && (m_flSoundTime <= gpGlobals->time))
 	{
 		m_iOn++;
-		EMIT_SOUND(ENT(pev), CHAN_STATIC, "items/medcharge4.wav", 1.0, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_STATIC, "items/medcharge4.wav", 1.0, ATTN_NORM );
 	}
 
 
@@ -136,7 +136,7 @@ void CWallHealth::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 
 void CWallHealth::Recharge(void)
 {
-		EMIT_SOUND(ENT(pev), CHAN_ITEM, "items/medshot4.wav", 1.0, ATTN_NORM );
+	EMIT_SOUND( this, CHAN_ITEM, "items/medshot4.wav", 1.0, ATTN_NORM );
 	m_iJuice = gSkillData.healthchargerCapacity;
 	pev->frame = 0;			
 	SetThink( &CWallHealth::SUB_DoNothing );

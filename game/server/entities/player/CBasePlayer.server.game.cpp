@@ -59,7 +59,7 @@ void CBasePlayer::PlayerUse()
 					m_afPhysicsFlags |= PFLAG_ONTRAIN;
 					m_iTrain = TrainSpeed( pTrain->pev->speed, pTrain->pev->impulse );
 					m_iTrain |= TRAIN_NEW;
-					EMIT_SOUND( ENT( pev ), CHAN_ITEM, "plats/train_use1.wav", 0.8, ATTN_NORM );
+					EMIT_SOUND( this, CHAN_ITEM, "plats/train_use1.wav", 0.8, ATTN_NORM );
 					return;
 				}
 			}
@@ -107,7 +107,7 @@ void CBasePlayer::PlayerUse()
 		int caps = pObject->ObjectCaps();
 
 		if( m_afButtonPressed & IN_USE )
-			EMIT_SOUND( ENT( pev ), CHAN_ITEM, "common/wpn_select.wav", 0.4, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_ITEM, "common/wpn_select.wav", 0.4, ATTN_NORM );
 
 		if( ( ( pev->button & IN_USE ) && ( caps & FCAP_CONTINUOUS_USE ) ) ||
 			( ( m_afButtonPressed & IN_USE ) && ( caps & ( FCAP_IMPULSE_USE | FCAP_ONOFF_USE ) ) ) )
@@ -126,7 +126,7 @@ void CBasePlayer::PlayerUse()
 	else
 	{
 		if( m_afButtonPressed & IN_USE )
-			EMIT_SOUND( ENT( pev ), CHAN_ITEM, "common/wpn_denyselect.wav", 0.4, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_ITEM, "common/wpn_denyselect.wav", 0.4, ATTN_NORM );
 	}
 }
 
@@ -197,11 +197,11 @@ void CBasePlayer::Pain()
 	const float flRndSound = RANDOM_FLOAT( 0, 1 );
 
 	if( flRndSound <= 0.33 )
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/pl_pain5.wav", 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, "player/pl_pain5.wav", 1, ATTN_NORM );
 	else if( flRndSound <= 0.66 )
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/pl_pain6.wav", 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, "player/pl_pain6.wav", 1, ATTN_NORM );
 	else
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/pl_pain7.wav", 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, "player/pl_pain7.wav", 1, ATTN_NORM );
 }
 
 void CBasePlayer::DeathSound()
@@ -219,13 +219,13 @@ void CBasePlayer::DeathSound()
 	switch( RANDOM_LONG( 1, 5 ) )
 	{
 	case 1:
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/pl_pain5.wav", 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, "player/pl_pain5.wav", 1, ATTN_NORM );
 		break;
 	case 2:
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/pl_pain6.wav", 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, "player/pl_pain6.wav", 1, ATTN_NORM );
 		break;
 	case 3:
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, "player/pl_pain7.wav", 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, "player/pl_pain7.wav", 1, ATTN_NORM );
 		break;
 	}
 

@@ -188,7 +188,7 @@ void CBaseButton::KeyValue( KeyValueData *pkvd )
 //
 void CBaseButton::ButtonActivate()
 {
-	EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
+	EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
 
 	if( !UTIL_IsMasterTriggered( m_sMaster, m_hActivator ) )
 	{
@@ -240,7 +240,7 @@ void CBaseButton::ButtonTouch( CBaseEntity *pOther )
 
 	if( code == BUTTON_RETURN )
 	{
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
 		SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 );
 		ButtonReturn();
 	}
@@ -376,7 +376,7 @@ void CBaseButton::ButtonUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 	{
 		if( !m_fStayPushed && FBitSet( pev->spawnflags, SF_BUTTON_TOGGLE ) )
 		{
-			EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
 
 			//SUB_UseTargets( m_eoActivator );
 			ButtonReturn();
@@ -404,7 +404,7 @@ void CBaseButton::OnTakeDamage( const CTakeDamageInfo& info )
 
 	if( code == BUTTON_RETURN )
 	{
-		EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
+		EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
 
 		// Toggle buttons fire when they get back to their "home" position
 		if( !( pev->spawnflags & SF_BUTTON_TOGGLE ) )

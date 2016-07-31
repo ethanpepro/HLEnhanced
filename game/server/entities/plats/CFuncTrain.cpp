@@ -146,7 +146,7 @@ void CFuncTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 		pev->nextthink = 0;
 		pev->velocity = g_vecZero;
 		if( pev->noiseStopMoving )
-			EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
 	}
 }
 
@@ -179,7 +179,7 @@ void CFuncTrain::Wait( void )
 		if( pev->noiseMovement )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 		if( pev->noiseStopMoving )
-			EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
 		pev->nextthink = 0;
 		return;
 	}
@@ -192,7 +192,7 @@ void CFuncTrain::Wait( void )
 		if( pev->noiseMovement )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 		if( pev->noiseStopMoving )
-			EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
 		SetThink( &CFuncTrain::Next );
 	}
 	else
@@ -220,7 +220,7 @@ void CFuncTrain::Next( void )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 		// Play stop sound
 		if( pev->noiseStopMoving )
-			EMIT_SOUND( ENT( pev ), CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
 		return;
 	}
 
@@ -256,7 +256,7 @@ void CFuncTrain::Next( void )
 		if( pev->noiseMovement )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 		if( pev->noiseMovement )
-			EMIT_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
+			EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
 		ClearBits( pev->effects, EF_NOINTERP );
 		SetMoveDone( &CFuncTrain::Wait );
 		LinearMove( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs )* 0.5, pev->speed );

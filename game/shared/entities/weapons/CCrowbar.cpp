@@ -240,11 +240,11 @@ bool CCrowbar::Swing( const bool bFirst )
 				switch( RANDOM_LONG(0,2) )
 				{
 				case 0:
-					EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_ITEM, "weapons/cbar_hitbod1.wav", 1, ATTN_NORM); break;
+					EMIT_SOUND( m_pPlayer, CHAN_ITEM, "weapons/cbar_hitbod1.wav", 1, ATTN_NORM); break;
 				case 1:
-					EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_ITEM, "weapons/cbar_hitbod2.wav", 1, ATTN_NORM); break;
+					EMIT_SOUND( m_pPlayer, CHAN_ITEM, "weapons/cbar_hitbod2.wav", 1, ATTN_NORM); break;
 				case 2:
-					EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_ITEM, "weapons/cbar_hitbod3.wav", 1, ATTN_NORM); break;
+					EMIT_SOUND( m_pPlayer, CHAN_ITEM, "weapons/cbar_hitbod3.wav", 1, ATTN_NORM); break;
 				}
 				m_pPlayer->m_iWeaponVolume = CROWBAR_BODYHIT_VOLUME;
 				if ( !pEntity->IsAlive() )

@@ -109,7 +109,7 @@ void CWeaponBox::Touch( CBaseEntity *pOther )
 		}
 	}
 
-	EMIT_SOUND( pOther->edict(), CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM );
+	EMIT_SOUND( pOther, CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM );
 	SetTouch( NULL );
 	UTIL_Remove( this );
 }

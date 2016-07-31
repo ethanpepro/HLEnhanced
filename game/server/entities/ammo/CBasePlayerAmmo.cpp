@@ -93,7 +93,7 @@ bool UTIL_GiveAmmoToPlayer( CBaseEntity* pGiver, CBaseEntity* pPlayer,
 
 	if( bResult && pszPickupSound )
 	{
-		EMIT_SOUND( pGiver->edict(), CHAN_ITEM, pszPickupSound, 1, ATTN_NORM );
+		EMIT_SOUND( pGiver, CHAN_ITEM, pszPickupSound, 1, ATTN_NORM );
 	}
 
 	return bResult;

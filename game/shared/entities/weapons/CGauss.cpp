@@ -180,7 +180,7 @@ void CGauss::SecondaryAttack()
 	{
 		if ( m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0 )
 		{
-			EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM);
+			EMIT_SOUND( m_pPlayer, CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM);
 			m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 			return;
 		}
@@ -531,9 +531,9 @@ void CGauss::WeaponIdle( void )
 	{
 		switch (RANDOM_LONG(0,3))
 		{
-		case 0:	EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/electro4.wav", RANDOM_FLOAT(0.7, 0.8), ATTN_NORM); break;
-		case 1:	EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/electro5.wav", RANDOM_FLOAT(0.7, 0.8), ATTN_NORM); break;
-		case 2:	EMIT_SOUND(ENT(m_pPlayer->pev), CHAN_WEAPON, "weapons/electro6.wav", RANDOM_FLOAT(0.7, 0.8), ATTN_NORM); break;
+		case 0:	EMIT_SOUND( m_pPlayer, CHAN_WEAPON, "weapons/electro4.wav", RANDOM_FLOAT(0.7, 0.8), ATTN_NORM); break;
+		case 1:	EMIT_SOUND( m_pPlayer, CHAN_WEAPON, "weapons/electro5.wav", RANDOM_FLOAT(0.7, 0.8), ATTN_NORM); break;
+		case 2:	EMIT_SOUND( m_pPlayer, CHAN_WEAPON, "weapons/electro6.wav", RANDOM_FLOAT(0.7, 0.8), ATTN_NORM); break;
 		case 3:	break; // no sound
 		}
 		m_pPlayer->m_flPlayAftershock = 0.0;
