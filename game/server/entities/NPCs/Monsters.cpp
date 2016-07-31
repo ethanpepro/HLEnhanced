@@ -2601,11 +2601,11 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		{
 			if ( RANDOM_LONG( 0, 1 ) == 0 )
 			{
-				EMIT_SOUND_DYN( ENT(pev), CHAN_BODY, "common/bodydrop3.wav", 1, ATTN_NORM, 0, 90 );
+				EMIT_SOUND_DYN( this, CHAN_BODY, "common/bodydrop3.wav", 1, ATTN_NORM, 0, 90 );
 			}
 			else
 			{
-				EMIT_SOUND_DYN( ENT(pev), CHAN_BODY, "common/bodydrop4.wav", 1, ATTN_NORM, 0, 90 );
+				EMIT_SOUND_DYN( this, CHAN_BODY, "common/bodydrop4.wav", 1, ATTN_NORM, 0, 90 );
 			}
 		}
 		break;
@@ -3153,7 +3153,7 @@ void CBaseMonster::PlaySentence( const char *pszSentence, float duration, float 
 	if ( pszSentence && IsAlive() )
 	{
 		if ( pszSentence[0] == '!' )
-			EMIT_SOUND_DYN( edict(), CHAN_VOICE, pszSentence, volume, attenuation, 0, PITCH_NORM );
+			EMIT_SOUND_DYN( this, CHAN_VOICE, pszSentence, volume, attenuation, 0, PITCH_NORM );
 		else
 			SENTENCEG_PlayRndSz( this, pszSentence, volume, attenuation, 0, PITCH_NORM );
 	}

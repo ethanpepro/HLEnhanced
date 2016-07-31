@@ -205,7 +205,7 @@ void CTripmineGrenade :: PowerupThink( void  )
 		MakeBeam( );
 
 		// play enabled sound
-        EMIT_SOUND_DYN( ENT(pev), CHAN_VOICE, "weapons/mine_activate.wav", 0.5, ATTN_NORM, 1.0, 75 );
+        EMIT_SOUND_DYN( this, CHAN_VOICE, "weapons/mine_activate.wav", 0.5, ATTN_NORM, 1.0, 75 );
 	}
 	pev->nextthink = gpGlobals->time + 0.1;
 }

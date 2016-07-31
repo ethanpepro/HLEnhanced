@@ -197,7 +197,7 @@ void CFuncRotating::SpinUp( void )
 		fabs( vecAVel.z ) >= fabs( pev->movedir.z * pev->speed ) )
 	{
 		pev->avelocity = pev->movedir * pev->speed;// set speed in case we overshot
-		EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
+		EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 						m_flVolume, m_flAttenuation, SND_CHANGE_PITCH | SND_CHANGE_VOL, FANPITCHMAX );
 
 		SetThink( &CFuncRotating::Rotate );
@@ -238,7 +238,7 @@ void CFuncRotating::SpinDown( void )
 		pev->avelocity = g_vecZero;// set speed in case we overshot
 
 								   // stop sound, we're done
-		EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, ( char * ) STRING( pev->noiseRunning /* Stop */ ),
+		EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning /* Stop */ ),
 						0, 0, SND_STOP, m_pitch );
 
 		SetThink( &CFuncRotating::Rotate );
@@ -320,7 +320,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 		else// fan is not moving, so start it
 		{
 			SetThink( &CFuncRotating::SpinUp );
-			EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
+			EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 							0.01, m_flAttenuation, 0, FANPITCHMIN );
 
 			pev->nextthink = pev->ltime + 0.1;
@@ -341,7 +341,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 		}
 		else
 		{
-			EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
+			EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 							m_flVolume, m_flAttenuation, 0, FANPITCHMAX );
 			pev->avelocity = pev->movedir * pev->speed;
 
@@ -396,7 +396,7 @@ void CFuncRotating::RampPitchVol( const bool bUp )
 
 	// change the fan's vol and pitch
 
-	EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
+	EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 					fvol, m_flAttenuation, SND_CHANGE_PITCH | SND_CHANGE_VOL, pitch );
 
 }

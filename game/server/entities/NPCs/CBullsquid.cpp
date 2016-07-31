@@ -265,16 +265,16 @@ void CBullsquid :: PainSound ( void )
 	switch ( RANDOM_LONG(0,3) )
 	{
 	case 0:	
-		EMIT_SOUND_DYN( ENT(pev), CHAN_VOICE, "bullchicken/bc_pain1.wav", 1, ATTN_NORM, 0, iPitch );	
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "bullchicken/bc_pain1.wav", 1, ATTN_NORM, 0, iPitch );
 		break;
 	case 1:	
-		EMIT_SOUND_DYN( ENT(pev), CHAN_VOICE, "bullchicken/bc_pain2.wav", 1, ATTN_NORM, 0, iPitch );	
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "bullchicken/bc_pain2.wav", 1, ATTN_NORM, 0, iPitch );
 		break;
 	case 2:	
-		EMIT_SOUND_DYN( ENT(pev), CHAN_VOICE, "bullchicken/bc_pain3.wav", 1, ATTN_NORM, 0, iPitch );	
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "bullchicken/bc_pain3.wav", 1, ATTN_NORM, 0, iPitch );
 		break;
 	case 3:	
-		EMIT_SOUND_DYN( ENT(pev), CHAN_VOICE, "bullchicken/bc_pain4.wav", 1, ATTN_NORM, 0, iPitch );	
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "bullchicken/bc_pain4.wav", 1, ATTN_NORM, 0, iPitch );
 		break;
 	}
 }
@@ -289,10 +289,10 @@ void CBullsquid :: AlertSound ( void )
 	switch ( RANDOM_LONG ( 0, 1  ) )
 	{
 	case 0:
-		EMIT_SOUND_DYN( ENT(pev), CHAN_VOICE, "bullchicken/bc_idle1.wav", 1, ATTN_NORM, 0, iPitch );	
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "bullchicken/bc_idle1.wav", 1, ATTN_NORM, 0, iPitch );
 		break;
 	case 1:
-		EMIT_SOUND_DYN( ENT(pev), CHAN_VOICE, "bullchicken/bc_idle2.wav", 1, ATTN_NORM, 0, iPitch );	
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "bullchicken/bc_idle2.wav", 1, ATTN_NORM, 0, iPitch );
 		break;
 	}
 }
@@ -435,10 +435,10 @@ void CBullsquid :: HandleAnimEvent( MonsterEvent_t *pEvent )
 					switch ( RANDOM_LONG( 0, 1 ) )
 					{
 					case 0:
-						EMIT_SOUND_DYN( ENT(pev), CHAN_WEAPON, "bullchicken/bc_bite2.wav", 1, ATTN_NORM, 0, iPitch );	
+						EMIT_SOUND_DYN( this, CHAN_WEAPON, "bullchicken/bc_bite2.wav", 1, ATTN_NORM, 0, iPitch );
 						break;
 					case 1:
-						EMIT_SOUND_DYN( ENT(pev), CHAN_WEAPON, "bullchicken/bc_bite3.wav", 1, ATTN_NORM, 0, iPitch );	
+						EMIT_SOUND_DYN( this, CHAN_WEAPON, "bullchicken/bc_bite3.wav", 1, ATTN_NORM, 0, iPitch );
 						break;
 					}
 

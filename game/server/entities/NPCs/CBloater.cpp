@@ -68,10 +68,10 @@ void CBloater :: PainSound( void )
 	switch (RANDOM_LONG(0,5))
 	{
 	case 0: 
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_pain1.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_pain1.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	case 1:
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_pain2.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_pain2.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	default:
 		break;
@@ -87,13 +87,13 @@ void CBloater :: AlertSound( void )
 	switch (RANDOM_LONG(0,2))
 	{
 	case 0: 
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_alert10.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_alert10.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	case 1:
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_alert20.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_alert20.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	case 2:
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_alert30.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_alert30.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	}
 #endif
@@ -107,13 +107,13 @@ void CBloater :: IdleSound( void )
 	switch (RANDOM_LONG(0,2))
 	{
 	case 0: 
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_idle1.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_idle1.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	case 1:
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_idle2.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_idle2.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	case 2:
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_idle3.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_idle3.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	}
 #endif
@@ -127,10 +127,10 @@ void CBloater :: AttackSnd( void )
 	switch (RANDOM_LONG(0,1))
 	{
 	case 0: 
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_attack1.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_attack1.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	case 1:
-		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, "zombie/zo_attack2.wav", 1.0, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( this, CHAN_VOICE, "zombie/zo_attack2.wav", 1.0, ATTN_NORM, 0, pitch);
 		break;
 	}
 #endif

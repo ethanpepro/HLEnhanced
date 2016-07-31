@@ -78,7 +78,7 @@ void CBasePlayerItem::FallThink( void )
 		if( !FNullEnt( pev->owner ) )
 		{
 			int pitch = 95 + RANDOM_LONG( 0, 29 );
-			EMIT_SOUND_DYN( ENT( pev ), CHAN_VOICE, "items/weapondrop1.wav", 1, ATTN_NORM, 0, pitch );
+			EMIT_SOUND_DYN( this, CHAN_VOICE, "items/weapondrop1.wav", 1, ATTN_NORM, 0, pitch );
 		}
 
 		// lie flat
@@ -97,7 +97,7 @@ void CBasePlayerItem::Materialize( void )
 	if( pev->effects & EF_NODRAW )
 	{
 		// changing from invisible state to visible.
-		EMIT_SOUND_DYN( ENT( pev ), CHAN_WEAPON, "items/suitchargeok1.wav", 1, ATTN_NORM, 0, 150 );
+		EMIT_SOUND_DYN( this, CHAN_WEAPON, "items/suitchargeok1.wav", 1, ATTN_NORM, 0, 150 );
 		pev->effects &= ~EF_NODRAW;
 		pev->effects |= EF_MUZZLEFLASH;
 	}

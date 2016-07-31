@@ -210,7 +210,7 @@ int SENTENCEG_PlayRndI( CBaseEntity* pEntity, int isentenceg,
 
 	ipick = USENTENCEG_Pick(isentenceg, name);
 	if (ipick > 0 && name)
-		EMIT_SOUND_DYN( pEntity->edict(), CHAN_VOICE, name, volume, attenuation, flags, pitch);
+		EMIT_SOUND_DYN( pEntity, CHAN_VOICE, name, volume, attenuation, flags, pitch);
 	return ipick;
 }
 
@@ -237,7 +237,7 @@ int SENTENCEG_PlayRndSz( CBaseEntity* pEntity, const char *szgroupname,
 
 	ipick = USENTENCEG_Pick(isentenceg, name);
 	if (ipick >= 0 && name[0])
-		EMIT_SOUND_DYN( pEntity->edict(), CHAN_VOICE, name, volume, attenuation, flags, pitch);
+		EMIT_SOUND_DYN( pEntity, CHAN_VOICE, name, volume, attenuation, flags, pitch);
 
 	return ipick;
 }
@@ -262,7 +262,7 @@ int SENTENCEG_PlaySequentialSz( CBaseEntity* pEntity, const char *szgroupname,
 
 	ipicknext = USENTENCEG_PickSequential(isentenceg, name, ipick, bReset );
 	if (ipicknext >= 0 && name[0])
-		EMIT_SOUND_DYN( pEntity->edict(), CHAN_VOICE, name, volume, attenuation, flags, pitch);
+		EMIT_SOUND_DYN( pEntity, CHAN_VOICE, name, volume, attenuation, flags, pitch);
 	return ipicknext;
 }
 
@@ -438,29 +438,29 @@ int SENTENCEG_Lookup(const char *sample, char *sentencenum)
 	return -1;
 }
 
-void EMIT_SOUND_DYN(edict_t *entity, int channel, const char *sample, float volume, float attenuation,
+void EMIT_SOUND_DYN( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation,
 						   int flags, int pitch)
 {
 	if (sample && *sample == '!')
 	{
 		char name[32];
 		if (SENTENCEG_Lookup(sample, name) >= 0)
-				EMIT_SOUND_DYN2(entity, channel, name, volume, attenuation, flags, pitch);
+				EMIT_SOUND_DYN2( pEntity->edict(), channel, name, volume, attenuation, flags, pitch);
 		else
 			ALERT( at_aiconsole, "Unable to find %s in sentences.txt\n", sample );
 	}
 	else
-		EMIT_SOUND_DYN2(entity, channel, sample, volume, attenuation, flags, pitch);
+		EMIT_SOUND_DYN2( pEntity->edict(), channel, sample, volume, attenuation, flags, pitch);
 }
 
 void EMIT_SOUND( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation )
 {
-	EMIT_SOUND_DYN( pEntity->edict(), channel, sample, volume, attenuation, 0, PITCH_NORM );
+	EMIT_SOUND_DYN( pEntity, channel, sample, volume, attenuation, 0, PITCH_NORM );
 }
 
 void STOP_SOUND( CBaseEntity* pEntity, int channel, const char* const pszSample )
 {
-	EMIT_SOUND_DYN( pEntity->edict(), channel, pszSample, 0, 0, SND_STOP, PITCH_NORM );
+	EMIT_SOUND_DYN( pEntity, channel, pszSample, 0, 0, SND_STOP, PITCH_NORM );
 }
 
 // play a specific sentence over the HEV suit speaker - just pass player entity, and !sentencename
@@ -475,7 +475,7 @@ void EMIT_SOUND_SUIT( CBaseEntity* pEntity, const char *sample )
 		pitch = RANDOM_LONG(0,6) + 98;
 
 	if (fvol > 0.05)
-		EMIT_SOUND_DYN( pEntity->edict(), CHAN_STATIC, sample, fvol, ATTN_NORM, 0, pitch );
+		EMIT_SOUND_DYN( pEntity, CHAN_STATIC, sample, fvol, ATTN_NORM, 0, pitch );
 }
 
 // play a sentence, randomly selected from the passed in group id, over the HEV suit speaker
@@ -619,7 +619,7 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 
 	// play material hit sound
 	UTIL_EmitAmbientSound( CWorld::GetInstance(), ptr->vecEndPos, rgsz[RANDOM_LONG(0,cnt-1)], fvol, fattn, 0, 96 + RANDOM_LONG(0,0xf));
-	//EMIT_SOUND_DYN( ENT(m_pPlayer->pev), CHAN_WEAPON, rgsz[RANDOM_LONG(0,cnt-1)], fvol, ATTN_NORM, 0, 96 + RANDOM_LONG(0,0xf));
+	//EMIT_SOUND_DYN( m_pPlayer, CHAN_WEAPON, rgsz[RANDOM_LONG(0,cnt-1)], fvol, ATTN_NORM, 0, 96 + RANDOM_LONG(0,0xf));
 			
 	return fvolbar;
 }

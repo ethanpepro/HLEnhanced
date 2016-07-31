@@ -382,7 +382,7 @@ void CNihilanth::CrashTouch( CBaseEntity *pOther )
 
 void CNihilanth :: GibMonster( void )
 {
-	// EMIT_SOUND_DYN(edict(), CHAN_VOICE, "common/bodysplat.wav", 0.75, ATTN_NORM, 0, 200);		
+	// EMIT_SOUND_DYN( this, CHAN_VOICE, "common/bodysplat.wav", 0.75, ATTN_NORM, 0, 200);		
 }
 
 

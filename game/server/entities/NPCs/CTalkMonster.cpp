@@ -1064,7 +1064,7 @@ bool CTalkMonster::FIdleSpeak()
 				if (!FBitSet(m_bitsSaid, bit_saidDamageHeavy) && 
 					(m_hTargetEnt->pev->health <= m_hTargetEnt->pev->max_health / 8))
 				{
-					//EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, m_szGrp[TLK_PLHURT3], 1.0, ATTN_IDLE, 0, pitch);
+					//EMIT_SOUND_DYN( this, CHAN_VOICE, m_szGrp[TLK_PLHURT3], 1.0, ATTN_IDLE, 0, pitch);
 					PlaySentence( m_szGrp[TLK_PLHURT3], duration, VOL_NORM, ATTN_IDLE );
 					SetBits(m_bitsSaid, bit_saidDamageHeavy);
 					return true;
@@ -1072,7 +1072,7 @@ bool CTalkMonster::FIdleSpeak()
 				else if (!FBitSet(m_bitsSaid, bit_saidDamageMedium) && 
 					(m_hTargetEnt->pev->health <= m_hTargetEnt->pev->max_health / 4))
 				{
-					//EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, m_szGrp[TLK_PLHURT2], 1.0, ATTN_IDLE, 0, pitch);
+					//EMIT_SOUND_DYN( this, CHAN_VOICE, m_szGrp[TLK_PLHURT2], 1.0, ATTN_IDLE, 0, pitch);
 					PlaySentence( m_szGrp[TLK_PLHURT2], duration, VOL_NORM, ATTN_IDLE );
 					SetBits(m_bitsSaid, bit_saidDamageMedium);
 					return true;
@@ -1080,7 +1080,7 @@ bool CTalkMonster::FIdleSpeak()
 				else if (!FBitSet(m_bitsSaid, bit_saidDamageLight) &&
 					(m_hTargetEnt->pev->health <= m_hTargetEnt->pev->max_health / 2))
 				{
-					//EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, m_szGrp[TLK_PLHURT1], 1.0, ATTN_IDLE, 0, pitch);
+					//EMIT_SOUND_DYN( this, CHAN_VOICE, m_szGrp[TLK_PLHURT1], 1.0, ATTN_IDLE, 0, pitch);
 					PlaySentence( m_szGrp[TLK_PLHURT1], duration, VOL_NORM, ATTN_IDLE );
 					SetBits(m_bitsSaid, bit_saidDamageLight);
 					return true;
@@ -1155,7 +1155,7 @@ void CTalkMonster::PlaySentence( const char *pszSentence, float duration, float 
 
 	CTalkMonster::g_talkWaitTime = gpGlobals->time + duration + 2.0;
 	if ( pszSentence[0] == '!' )
-		EMIT_SOUND_DYN( edict(), CHAN_VOICE, pszSentence, volume, attenuation, 0, GetVoicePitch());
+		EMIT_SOUND_DYN( this, CHAN_VOICE, pszSentence, volume, attenuation, 0, GetVoicePitch());
 	else
 		SENTENCEG_PlayRndSz( this, pszSentence, volume, attenuation, 0, GetVoicePitch() );
 

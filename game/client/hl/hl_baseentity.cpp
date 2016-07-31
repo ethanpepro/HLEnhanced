@@ -37,11 +37,11 @@ globalvars_t  *gpGlobals;
 
 ItemInfo CBasePlayerItem::ItemInfoArray[MAX_WEAPONS];
 
-void EMIT_SOUND_DYN(edict_t *entity, int channel, const char *sample, float volume, float attenuation, int flags, int pitch) { }
+void EMIT_SOUND_DYN( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation, int flags, int pitch) { }
 
 void EMIT_SOUND( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation )
 {
-	EMIT_SOUND_DYN( pEntity->edict(), channel, sample, volume, attenuation, 0, PITCH_NORM );
+	EMIT_SOUND_DYN( pEntity, channel, sample, volume, attenuation, 0, PITCH_NORM );
 }
 
 // DEBUG Stubs

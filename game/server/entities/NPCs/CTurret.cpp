@@ -105,7 +105,7 @@ void CTurret::SpinDownCall( void )
 		SetTurretAnim( TURRET_ANIM_SPIN );
 		if( pev->framerate == 1.0 )
 		{
-			EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100 );
+			EMIT_SOUND_DYN( this, CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100 );
 			EMIT_SOUND( this, CHAN_ITEM, "turret/tu_spindown.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
 		}
 		pev->framerate -= 0.02;

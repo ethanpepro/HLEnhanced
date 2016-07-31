@@ -462,7 +462,7 @@ void CBaseTurret::Retire(void)
 		else if (pev->sequence != TURRET_ANIM_RETIRE)
 		{
 			SetTurretAnim(TURRET_ANIM_RETIRE);
-			EMIT_SOUND_DYN(ENT(pev), CHAN_BODY, "turret/tu_deploy.wav", TURRET_MACHINE_VOLUME, ATTN_NORM, 0, 120);
+			EMIT_SOUND_DYN( this, CHAN_BODY, "turret/tu_deploy.wav", TURRET_MACHINE_VOLUME, ATTN_NORM, 0, 120);
 			SUB_UseTargets( this, USE_OFF, 0 );
 		}
 		else if (m_fSequenceFinished) 
@@ -642,7 +642,7 @@ void CBaseTurret ::	TurretDeath( void )
 		else 
 			EMIT_SOUND( this, CHAN_BODY, "turret/tu_die3.wav", 1.0, ATTN_NORM);
 
-		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100);
+		EMIT_SOUND_DYN( this, CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100);
 
 		if (m_iOrientation == 0)
 			m_vecGoalAngles.x = -15;

@@ -177,7 +177,7 @@ void CSniperRifle::PrimaryAttack()
 
 void CSniperRifle::SecondaryAttack()
 {
-	EMIT_SOUND_DYN( m_pPlayer->edict(), CHAN_ITEM, "weapons/sniper_zoom.wav", 
+	EMIT_SOUND_DYN( m_pPlayer, CHAN_ITEM, "weapons/sniper_zoom.wav", 
 					VOL_NORM, ATTN_NORM, 0, PITCH_NORM );
 
 	m_bInZoom = !m_bInZoom;

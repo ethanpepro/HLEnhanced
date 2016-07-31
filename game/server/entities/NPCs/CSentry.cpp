@@ -118,7 +118,7 @@ void CSentry::SentryDeath( void )
 		else
 			EMIT_SOUND( this, CHAN_BODY, "turret/tu_die3.wav", 1.0, ATTN_NORM );
 
-		EMIT_SOUND_DYN( ENT( pev ), CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100 );
+		EMIT_SOUND_DYN( this, CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100 );
 
 		SetBoneController( 0, 0 );
 		SetBoneController( 1, 0 );

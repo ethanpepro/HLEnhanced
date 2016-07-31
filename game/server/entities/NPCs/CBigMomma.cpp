@@ -203,7 +203,7 @@ void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
 				}
 
 				pHurt->pev->flags &= ~FL_ONGROUND;
-				EMIT_SOUND_DYN( edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY(pAttackHitSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
+				EMIT_SOUND_DYN( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY(pAttackHitSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
 			}
 		}
 		break;
@@ -345,7 +345,7 @@ void CBigMomma :: LayHeadcrab( void )
 	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() - Vector(0,0,100), ignore_monsters, edict(), &tr);
 	UTIL_DecalTrace( &tr, DECAL_MOMMABIRTH );
 
-	EMIT_SOUND_DYN( edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY(pBirthSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
+	EMIT_SOUND_DYN( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY(pBirthSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
 	m_crabCount++;
 }
 
@@ -370,7 +370,7 @@ void CBigMomma::LaunchMortar( void )
 	Vector startPos = GetAbsOrigin();
 	startPos.z += 180;
 
-	EMIT_SOUND_DYN( edict(), CHAN_WEAPON, RANDOM_SOUND_ARRAY(pSackSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
+	EMIT_SOUND_DYN( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY(pSackSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
 	CBMortar *pBomb = CBMortar::Shoot( this, startPos, pev->movedir );
 	pBomb->pev->gravity = 1.0;
 	SpriteSpray( startPos, Vector(0,0,1), gSpitSprite, 24 );
@@ -741,7 +741,7 @@ void CBigMomma::StartTask( Task_t *pTask )
 
 	case TASK_MELEE_ATTACK1:
 		// Play an attack sound here
-		EMIT_SOUND_DYN( ENT(pev), CHAN_VOICE, RANDOM_SOUND_ARRAY(pAttackSounds), 1.0, ATTN_NORM, 0, PITCH_NORM );
+		EMIT_SOUND_DYN( this, CHAN_VOICE, RANDOM_SOUND_ARRAY(pAttackSounds), 1.0, ATTN_NORM, 0, PITCH_NORM );
 		CBaseMonster::StartTask( pTask );
 		break;
 
