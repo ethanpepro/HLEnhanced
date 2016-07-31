@@ -348,23 +348,33 @@ void CHud :: Init( void )
 	// In case we get messages before the first update -- time will be valid
 	m_flTime = 1.0;
 
-	m_Ammo.Init();
-	m_Health.Init();
-	m_SayText.Init();
-	m_Spectator.Init();
-	m_Geiger.Init();
-	m_Train.Init();
-	m_Battery.Init();
-	m_Flash.Init();
-	m_Message.Init();
-	m_StatusBar.Init();
-	m_DeathNotice.Init();
-	m_AmmoSecondary.Init();
-	m_TextMessage.Init();
-	m_StatusIcons.Init();
-	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
+	CHudBase* const pElements[] = 
+	{
+		&m_Ammo,
+		&m_Health,
+		&m_SayText,
+		&m_Spectator,
+		&m_Geiger,
+		&m_Train,
+		&m_Battery,
+		&m_Flash,
+		&m_Message,
+		&m_StatusBar,
+		&m_DeathNotice,
+		&m_AmmoSecondary,
+		&m_TextMessage,
+		&m_StatusIcons,
+		&m_Menu,
+		//&m_Benchmark
+	};
 
-	m_Menu.Init();
+	for( auto pElem : pElements )
+	{
+		//Return value is ignored in the SDK. - Solokiller
+		pElem->Init();
+	}
+
+	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 
 	ResetHUD();
 }
@@ -511,21 +521,31 @@ void CHud :: VidInit( void )
 
 	m_iFontHeight = m_rgrcRects[m_HUD_number_0].bottom - m_rgrcRects[m_HUD_number_0].top;
 
-	m_Ammo.VidInit();
-	m_Health.VidInit();
-	m_Spectator.VidInit();
-	m_Geiger.VidInit();
-	m_Train.VidInit();
-	m_Battery.VidInit();
-	m_Flash.VidInit();
-	m_Message.VidInit();
-	m_StatusBar.VidInit();
-	m_DeathNotice.VidInit();
-	m_SayText.VidInit();
-	m_Menu.VidInit();
-	m_AmmoSecondary.VidInit();
-	m_TextMessage.VidInit();
-	m_StatusIcons.VidInit();
+	CHudBase* const pElements[] = 
+	{
+		&m_Ammo,
+		&m_Health,
+		&m_Spectator,
+		&m_Geiger,
+		&m_Train,
+		&m_Battery,
+		&m_Flash,
+		&m_Message,
+		&m_StatusBar,
+		&m_DeathNotice,
+		&m_SayText,
+		&m_Menu,
+		&m_AmmoSecondary,
+		&m_TextMessage,
+		&m_StatusIcons
+	};
+
+	for( auto pElem : pElements )
+	{
+		//Return value is ignored in the SDK - Solokiller
+		pElem->VidInit();
+	}
+
 	GetClientVoiceMgr()->VidInit();
 }
 

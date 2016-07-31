@@ -21,6 +21,9 @@ struct POSITION
 	int x, y;
 };
 
+/**
+*	Base class for all HUD classes.
+*/
 class CHudBase
 {
 public:
@@ -28,12 +31,40 @@ public:
 	int   m_type;
 	int	  m_iFlags; // active, moving, 
 	virtual	~CHudBase() {}
+
+	/**
+	*	Called when the client is initializing.
+	*	@return true on success, false otherwise. Ignored.
+	*/
 	virtual bool Init() { return false; }
+
+	/**
+	*	Called after a connection to a server has been established.
+	*	@return true on success, false otherwise. Ignored.
+	*/
 	virtual bool VidInit() { return false; }
+
+	/**
+	*	Step through the local data,  placing the appropriate graphics & text as appropriate
+	*	@param flTime Current time.
+	*	@return true if they've changed, false otherwise
+	*/
 	virtual bool Draw( float flTime ) { return false; }
+
+	/**
+	*	Called every time shared client dll/engine data gets changed.
+	*/
 	virtual void Think() {}
+
+	/**
+	*	Called when the HUD needs to be reset.
+	*/
 	virtual void Reset() {}
-	virtual void InitHUDData() {}		// called every time a server is connected to
+
+	/**
+	*	Called every time a server is connected to.
+	*/
+	virtual void InitHUDData() {}
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDBASE_H

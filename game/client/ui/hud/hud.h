@@ -194,27 +194,27 @@ public:
 	
 	int GetSpriteIndex( const char *SpriteName );	// gets a sprite index, for use in the m_rghSprites[] array
 
-	CHudAmmo		m_Ammo;
-	CHudHealth		m_Health;
+	CHudAmmo			m_Ammo;
+	CHudHealth			m_Health;
 	CHudSpectator		m_Spectator;
-	CHudGeiger		m_Geiger;
-	CHudBattery		m_Battery;
-	CHudTrain		m_Train;
-	CHudFlashlight	m_Flash;
-	CHudMessage		m_Message;
-	CHudStatusBar   m_StatusBar;
-	CHudDeathNotice m_DeathNotice;
-	CHudSayText		m_SayText;
-	CHudMenu		m_Menu;
+	CHudGeiger			m_Geiger;
+	CHudBattery			m_Battery;
+	CHudTrain			m_Train;
+	CHudFlashlight		m_Flash;
+	CHudMessage			m_Message;
+	CHudStatusBar		m_StatusBar;
+	CHudDeathNotice		m_DeathNotice;
+	CHudSayText			m_SayText;
+	CHudMenu			m_Menu;
 	CHudAmmoSecondary	m_AmmoSecondary;
-	CHudTextMessage m_TextMessage;
-	CHudStatusIcons m_StatusIcons;
-	CHudBenchmark	m_Benchmark;
+	CHudTextMessage		m_TextMessage;
+	CHudStatusIcons		m_StatusIcons;
+	CHudBenchmark		m_Benchmark;
 
-	void Init( void );
-	void VidInit( void );
-	void Think(void);
-	int Redraw( float flTime, int intermission );
+	void Init();
+	void VidInit();
+	void Think();
+	bool Redraw( float flTime, int intermission );
 	int UpdateClientData( client_data_t *cdata, float time );
 
 	CHud() : m_iSpriteCount(0), m_pHudList(NULL) {}  

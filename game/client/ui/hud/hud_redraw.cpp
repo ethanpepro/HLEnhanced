@@ -34,12 +34,12 @@ int grgLogoFrame[MAX_LOGO_FRAMES] =
 
 extern int g_iVisibleMouse;
 
-float HUD_GetFOV( void );
+float HUD_GetFOV();
 
 extern cvar_t *sensitivity;
 
 // Think
-void CHud::Think(void)
+void CHud::Think()
 {
 	m_scrinfo.iSize = sizeof(m_scrinfo);
 	GetScreenInfo(&m_scrinfo);
@@ -94,8 +94,8 @@ void CHud::Think(void)
 
 // Redraw
 // step through the local data,  placing the appropriate graphics & text as appropriate
-// returns 1 if they've changed, 0 otherwise
-int CHud :: Redraw( float flTime, int intermission )
+// returns true if they've changed, false otherwise
+bool CHud::Redraw( float flTime, int intermission )
 {
 	m_fOldTime = m_flTime;	// save time of previous redraw
 	m_flTime = flTime;
@@ -140,7 +140,7 @@ int CHud :: Redraw( float flTime, int intermission )
 	m_iIntermission = intermission;
 
 	// if no redrawing is necessary
-	// return 0;
+	// return false;
 	
 	// draw all registered HUD elements
 	if ( m_pCvarDraw->value )
@@ -219,7 +219,7 @@ int CHud :: Redraw( float flTime, int intermission )
 	}
 	*/
 
-	return 1;
+	return true;
 }
 
 int CHud :: DrawHudString(int xpos, int ypos, int iMaxX, char *szIt, int r, int g, int b )
