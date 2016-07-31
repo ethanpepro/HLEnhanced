@@ -161,10 +161,11 @@ entvars_t* CGraph :: LinkEntForLink ( CLink *pLink, CNode *pNode )
 				// !!!HACKHACK Use bodyqueue here cause there are no ents we really wish to ignore!
 				UTIL_TraceLine ( pNode->m_vecOrigin, VecBModelOrigin( pSearch ), ignore_monsters, g_pBodyQueueHead->edict(), &tr );
 
+				CBaseEntity* pHit = GET_PRIVATE( tr.pHit );
 
-				if ( VARS(tr.pHit) == pSearch->pev )
+				if ( pHit == pSearch )
 				{// good to go!
-					return VARS( tr.pHit );
+					return pHit->pev;
 				}
 			}
 		}

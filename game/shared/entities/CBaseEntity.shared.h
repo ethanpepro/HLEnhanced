@@ -1989,6 +1989,25 @@ public:
 		pev->owner = pOwner ? pOwner->edict() : nullptr;
 	}
 
+	/**
+	*	@return The entity that this entity is standing on, if any.
+	*/
+	CBaseEntity* GetGroundEntity()
+	{
+		return pev->groundentity ? Instance( pev->groundentity ) : nullptr;
+	}
+
+	/**
+	*	Sets this entity's ground entity.
+	*	Don't forget to set or clear FL_ONGROUND.
+	*	@see FL_ONGROUND
+	*	@param pEntity Entity to set. Can be null.
+	*/
+	void SetGroundEntity( CBaseEntity* pEntity )
+	{
+		pev->groundentity = pEntity ? pEntity->edict() : nullptr;
+	}
+
 	//TODO: edict_t* pointers - Solokiller
 	//TODO: dmg* vars
 	//TODO: noise* vars

@@ -367,8 +367,9 @@ void CBasePlayer::PostThink()
 			// Did he hit the world or a non-moving entity?
 			// BUG - this happens all the time in water, especially when 
 			// BUG - water has current force
-			// if ( !pev->groundentity || VARS(pev->groundentity)->velocity.z == 0 )
-			// EMIT_SOUND( this, CHAN_BODY, "player/pl_wade1.wav", 1, ATTN_NORM);
+			//CBaseEntity* pEntity = GetGroundEntity();
+			//if ( !pEntity || pEntity->GetAbsVelocity().z == 0 )
+			//	EMIT_SOUND( this, CHAN_BODY, "player/pl_wade1.wav", 1, ATTN_NORM);
 		}
 		else if( m_flFallVelocity > PLAYER_MAX_SAFE_FALL_SPEED )
 		{

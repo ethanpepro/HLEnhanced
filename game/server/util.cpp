@@ -979,7 +979,7 @@ CBaseEntity* UTIL_CreateNamedEntity( const char* const pszClassName )
 		return nullptr;
 	}
 
-	if( auto pEntity = CBaseEntity::Instance( VARS( pEdict ) ) )
+	if( auto pEntity = CBaseEntity::Instance( &pEdict->v ) )
 		return pEntity;
 
 	ALERT( at_console, "UTIL_CreateNamedEntity: Couldn't get CBaseEntity instance for \"%s\"\n", pszClassName );
