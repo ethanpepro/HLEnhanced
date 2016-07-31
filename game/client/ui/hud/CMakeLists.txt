@@ -6,6 +6,21 @@ add_sources(
 	ammohistory.cpp
 	battery.cpp
 	bench.h
+	CHudAmmo.h
+	CHudAmmoSecondary.h
+	CHudBase.h
+	CHudBattery.h
+	CHudBenchmark.h
+	CHudDeathNotice.h
+	CHudFlashlight.h
+	CHudGeiger.h
+	CHudMenu.h
+	CHudMessage.h
+	CHudSayText.h
+	CHudStatusBar.h
+	CHudStatusIcons.h
+	CHudTextMessage.h
+	CHudTrain.h
 	death.cpp
 	flashlight.cpp
 	geiger.cpp
