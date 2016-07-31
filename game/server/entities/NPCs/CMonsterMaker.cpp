@@ -120,9 +120,6 @@ void CMonsterMaker :: Precache( void )
 //=========================================================
 void CMonsterMaker::MakeMonster( void )
 {
-	edict_t	*pent;
-	entvars_t		*pevCreate;
-
 	if ( m_iMaxLiveChildren > 0 && m_cLiveChildren >= m_iMaxLiveChildren )
 	{// not allowed to make a new one yet. Too many live ones out right now.
 		return;
@@ -150,11 +147,11 @@ void CMonsterMaker::MakeMonster( void )
 		return;
 	}
 
-	pent = CREATE_NAMED_ENTITY( m_iszMonsterClassname );
+	CBaseEntity* pEntity = CBaseEntity::Create( STRING( m_iszMonsterClassname ), GetAbsOrigin(), GetAbsAngles(), nullptr, false );
 
-	if ( FNullEnt( pent ) )
+	if( !pEntity )
 	{
-		ALERT ( at_console, "NULL Ent in MonsterMaker!\n" );
+		ALERT( at_console, "NULL Ent in MonsterMaker!\n" );
 		return;
 	}
 	
@@ -165,22 +162,22 @@ void CMonsterMaker::MakeMonster( void )
 		FireTargets( GetTarget(), this, this, USE_TOGGLE, 0 );
 	}
 
-	pevCreate = VARS( pent );
-	pevCreate->origin = GetAbsOrigin();
-	pevCreate->angles = pev->angles;
-	SetBits( pevCreate->spawnflags, SF_MONSTER_FALL_TO_GROUND );
+	pEntity->SetAbsOrigin( GetAbsOrigin() );
+	pEntity->SetAbsAngles( GetAbsAngles() );
+	pEntity->AddSpawnFlags( SF_MONSTER_FALL_TO_GROUND );
 
 	// Children hit monsterclip brushes
-	if ( pev->spawnflags & SF_MONSTERMAKER_MONSTERCLIP )
-		SetBits( pevCreate->spawnflags, SF_MONSTER_HITMONSTERCLIP );
+	if ( AnySpawnFlagsSet(SF_MONSTERMAKER_MONSTERCLIP ) )
+		pEntity->AddSpawnFlags( SF_MONSTER_HITMONSTERCLIP );
 
-	DispatchSpawn( ENT( pevCreate ) );
-	pevCreate->owner = edict();
+	DispatchSpawn( pEntity->edict() );
+
+	pEntity->SetOwner( this );
 
 	if ( HasNetName() )
 	{
 		// if I have a netname (overloaded), give the child monster that name as a targetname
-		pevCreate->targetname = pev->netname;
+		pEntity->SetTargetname( GetNetName() );
 	}
 
 	m_cLiveChildren++;// count this monster
