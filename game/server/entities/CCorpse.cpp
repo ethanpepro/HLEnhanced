@@ -50,29 +50,23 @@ void CopyToBodyQue( CBaseEntity* pEntity )
 	if( pEntity->pev->effects & EF_NODRAW )
 		return;
 
-	entvars_t *pevHead = VARS( g_pBodyQueueHead );
+	g_pBodyQueueHead->SetAbsAngles( pEntity->GetAbsAngles() );
+	g_pBodyQueueHead->SetModelName( pEntity->pev->model );
+	g_pBodyQueueHead->SetModelIndex( pEntity->GetModelIndex() );
+	g_pBodyQueueHead->SetFrame( pEntity->GetFrame() );
+	g_pBodyQueueHead->SetColorMap( pEntity->GetColorMap() );
+	g_pBodyQueueHead->SetMoveType( MOVETYPE_TOSS );
+	g_pBodyQueueHead->SetAbsVelocity( pEntity->GetAbsVelocity() );
+	g_pBodyQueueHead->ClearAllFlags();
+	g_pBodyQueueHead->SetDeadFlag( pEntity->GetDeadFlag() );
+	g_pBodyQueueHead->SetRenderFX( kRenderFxDeadPlayer );
+	g_pBodyQueueHead->SetRenderAmount( pEntity->entindex() );
+	g_pBodyQueueHead->SetEffects( pEntity->GetEffects() | EF_NOINTERP );
 
-	pevHead->angles = pEntity->pev->angles;
-	pevHead->model = pEntity->pev->model;
-	pevHead->modelindex = pEntity->pev->modelindex;
-	pevHead->frame = pEntity->pev->frame;
-	pevHead->colormap = pEntity->pev->colormap;
-	pevHead->movetype = MOVETYPE_TOSS;
-	pevHead->velocity = pEntity->pev->velocity;
-	pevHead->flags = 0;
-	pevHead->deadflag = pEntity->pev->deadflag;
-	pevHead->renderfx = kRenderFxDeadPlayer;
-	pevHead->renderamt = pEntity->entindex();
-
-	pevHead->effects = pEntity->pev->effects | EF_NOINTERP;
-	//pevHead->goalstarttime = pEntity->pev->goalstarttime;
-	//pevHead->goalframe	= pEntity->pev->goalframe;
-	//pevHead->goalendtime = pEntity->pev->goalendtime ;
-
-	pevHead->sequence = pEntity->pev->sequence;
-	pevHead->animtime = pEntity->pev->animtime;
+	g_pBodyQueueHead->SetSequence( pEntity->GetSequence() );
+	g_pBodyQueueHead->SetAnimTime( pEntity->GetAnimTime() );
 
 	g_pBodyQueueHead->SetAbsOrigin( pEntity->GetAbsOrigin() );
-	g_pBodyQueueHead->SetSize( pEntity->pev->mins, pEntity->pev->maxs );
-	g_pBodyQueueHead = CBaseEntity::Instance( pevHead->owner );
+	g_pBodyQueueHead->SetSize( pEntity->GetRelMin(), pEntity->GetRelMax() );
+	g_pBodyQueueHead = g_pBodyQueueHead->GetOwner();
 }
