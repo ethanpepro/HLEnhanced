@@ -383,7 +383,7 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 	MESSAGE_BEGIN( MSG_SPEC, SVC_DIRECTOR );
 		WRITE_BYTE ( 9 );	// command length in bytes
 		WRITE_BYTE ( DRC_CMD_EVENT );	// take damage event
-		WRITE_SHORT( ENTINDEX(this->edict()) );	// index number of primary entity
+		WRITE_SHORT( entindex() );	// index number of primary entity
 		WRITE_SHORT( newInfo.GetInflictor()->entindex() );	// index number of secondary entity
 		WRITE_LONG( 5 );   // eventflags (priority and flags)
 	MESSAGE_END();
@@ -793,7 +793,7 @@ void CBasePlayer::UpdateStatusBar()
 
 			if (pEntity->Classify() == CLASS_PLAYER )
 			{
-				newSBarState[ SBAR_ID_TARGETNAME ] = ENTINDEX( pEntity->edict() );
+				newSBarState[ SBAR_ID_TARGETNAME ] = pEntity->entindex();
 				strcpy( sbuf1, "1 %p1\n2 Health: %i2%%\n3 Armor: %i3%%" );
 
 				// allies and medics get to see the targets health

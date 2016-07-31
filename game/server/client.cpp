@@ -86,6 +86,7 @@ void ClientPutInServer( edict_t* pEntity )
 //
 void Host_Say( edict_t *pEntity, int teamonly )
 {
+	//TODO: change param to CBasePlayer - Solokiller
 	CBasePlayer *client;
 	int		j;
 	char	*p;

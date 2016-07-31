@@ -424,7 +424,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 	// sending just one score makes the hud scoreboard active;  otherwise
 	// it is just disabled for single play
 	MESSAGE_BEGIN( MSG_ONE, gmsgScoreInfo, NULL, pl->edict() );
-		WRITE_BYTE( ENTINDEX(pl->edict()) );
+		WRITE_BYTE( pl->entindex() );
 		WRITE_SHORT( 0 );
 		WRITE_SHORT( 0 );
 		WRITE_SHORT( 0 );
@@ -437,7 +437,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 	for ( int i = 1; i <= gpGlobals->maxClients; i++ )
 	{
 		// FIXME:  Probably don't need to cast this just to read m_iDeaths
-		CBasePlayer *plr = (CBasePlayer *)UTIL_PlayerByIndex( i );
+		CBasePlayer *plr = UTIL_PlayerByIndex( i );
 
 		if ( plr )
 		{
@@ -628,7 +628,7 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 	// update the scores
 	// killed scores
 	MESSAGE_BEGIN( MSG_ALL, gmsgScoreInfo );
-		WRITE_BYTE( ENTINDEX(pVictim->edict()) );
+		WRITE_BYTE( pVictim->entindex() );
 		WRITE_SHORT( pVictim->pev->frags );
 		WRITE_SHORT( pVictim->m_iDeaths );
 		WRITE_SHORT( 0 );
@@ -639,7 +639,7 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 	if( peKiller )
 	{
 		MESSAGE_BEGIN( MSG_ALL, gmsgScoreInfo );
-			WRITE_BYTE( ENTINDEX( peKiller->edict()) );
+			WRITE_BYTE( peKiller->entindex() );
 			WRITE_SHORT( peKiller->pev->frags );
 			WRITE_SHORT( peKiller->m_iDeaths );
 			WRITE_SHORT( 0 );
@@ -676,7 +676,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 
 	if ( pKiller->pev->flags & FL_CLIENT )
 	{
-		killer_index = ENTINDEX(ENT(pKiller));
+		killer_index = pKiller->entindex();
 		
 		if ( pInflictor )
 		{
@@ -711,7 +711,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 
 	MESSAGE_BEGIN( MSG_ALL, gmsgDeathMsg );
 		WRITE_BYTE( killer_index );						// the killer
-		WRITE_BYTE( ENTINDEX(pVictim->edict()) );		// the victim
+		WRITE_BYTE( pVictim->entindex() );		// the victim
 		WRITE_STRING( killer_weapon_name );		// what they were killed by (should this be a string?)
 	MESSAGE_END();
 
@@ -803,11 +803,11 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 	MESSAGE_BEGIN( MSG_SPEC, SVC_DIRECTOR );
 		WRITE_BYTE ( 9 );	// command length in bytes
 		WRITE_BYTE ( DRC_CMD_EVENT );	// player killed
-		WRITE_SHORT( ENTINDEX(pVictim->edict()) );	// index number of primary entity
+		WRITE_SHORT( pVictim->entindex() );	// index number of primary entity
 		if ( pInflictor )
-			WRITE_SHORT( ENTINDEX(ENT(pInflictor)) );	// index number of secondary entity
+			WRITE_SHORT( pInflictor->entindex() );	// index number of secondary entity
 		else
-			WRITE_SHORT( ENTINDEX(ENT(pKiller)) );	// index number of secondary entity
+			WRITE_SHORT( pKiller->entindex() );	// index number of secondary entity
 		WRITE_LONG( 7 | DRC_FLAG_DRAMATIC);   // eventflags (priority and flags)
 	MESSAGE_END();
 

@@ -295,7 +295,7 @@ void CBasePlayer::AddPoints( int score, const bool bAllowNegativeScore )
 	pev->frags += score;
 
 	MESSAGE_BEGIN( MSG_ALL, gmsgScoreInfo );
-	WRITE_BYTE( ENTINDEX( edict() ) );
+	WRITE_BYTE( entindex() );
 		WRITE_SHORT( pev->frags );
 		WRITE_SHORT( m_iDeaths );
 		WRITE_SHORT( 0 );
