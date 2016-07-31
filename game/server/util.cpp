@@ -1233,3 +1233,10 @@ int UTIL_GetPlayerUserId( CBaseEntity* pEntity )
 
 	return GETPLAYERUSERID( pEntity->edict() );
 }
+
+const char* UTIL_GetPlayerAuthId( const CBaseEntity* pEntity )
+{
+	ASSERT( pEntity );
+
+	return GETPLAYERAUTHID( pEntity->edict() );
+}

@@ -407,7 +407,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 		UTIL_LogPrintf( "\"%s<%i><%s><%s>\" entered the game\n",  
 			pl->GetNetName(),
 			UTIL_GetPlayerUserId( pl ),
-			GETPLAYERAUTHID( pl->edict() ),
+			UTIL_GetPlayerAuthId( pl ),
 			g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pl->edict() ), "model" ) );
 	}
 	else
@@ -415,7 +415,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 		UTIL_LogPrintf( "\"%s<%i><%s><%i>\" entered the game\n",  
 			pl->GetNetName(),
 			UTIL_GetPlayerUserId( pl ),
-			GETPLAYERAUTHID( pl->edict() ),
+			UTIL_GetPlayerAuthId( pl ),
 			UTIL_GetPlayerUserId( pl ) );
 	}
 
@@ -476,7 +476,7 @@ void CHalfLifeMultiplay :: ClientDisconnected( edict_t *pClient )
 				UTIL_LogPrintf( "\"%s<%i><%s><%s>\" disconnected\n",  
 					pPlayer->GetNetName(),
 					UTIL_GetPlayerUserId( pPlayer ),
-					GETPLAYERAUTHID( pPlayer->edict() ),
+					UTIL_GetPlayerAuthId( pPlayer ),
 					g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pPlayer->edict() ), "model" ) );
 			}
 			else
@@ -484,7 +484,7 @@ void CHalfLifeMultiplay :: ClientDisconnected( edict_t *pClient )
 				UTIL_LogPrintf( "\"%s<%i><%s><%i>\" disconnected\n",  
 					pPlayer->GetNetName(),
 					UTIL_GetPlayerUserId( pPlayer ),
-					GETPLAYERAUTHID( pPlayer->edict() ),
+					UTIL_GetPlayerAuthId( pPlayer ),
 					UTIL_GetPlayerUserId( pPlayer ) );
 			}
 
@@ -731,7 +731,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 			UTIL_LogPrintf( "\"%s<%i><%s><%s>\" committed suicide with \"%s\"\n",  
 				pVictim->GetNetName(),
 				UTIL_GetPlayerUserId( pVictim ),
-				GETPLAYERAUTHID( pVictim->edict() ),
+				UTIL_GetPlayerAuthId( pVictim ),
 				g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pVictim->edict() ), "model" ),
 				killer_weapon_name );		
 		}
@@ -740,7 +740,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 			UTIL_LogPrintf( "\"%s<%i><%s><%i>\" committed suicide with \"%s\"\n",  
 				pVictim->GetNetName(),
 				UTIL_GetPlayerUserId( pVictim ),
-				GETPLAYERAUTHID( pVictim->edict() ),
+				UTIL_GetPlayerAuthId( pVictim ),
 				UTIL_GetPlayerUserId( pVictim ),
 				killer_weapon_name );		
 		}
@@ -753,11 +753,11 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 			UTIL_LogPrintf( "\"%s<%i><%s><%s>\" killed \"%s<%i><%s><%s>\" with \"%s\"\n",  
 				pKiller->GetNetName(),
 				UTIL_GetPlayerUserId( pKiller ),
-				GETPLAYERAUTHID( ENT(pKiller) ),
+				UTIL_GetPlayerAuthId( pKiller ),
 				g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( ENT(pKiller) ), "model" ),
 				pVictim->GetNetName(),
 				UTIL_GetPlayerUserId( pVictim ),
-				GETPLAYERAUTHID( pVictim->edict() ),
+				UTIL_GetPlayerAuthId( pVictim ),
 				g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pVictim->edict() ), "model" ),
 				killer_weapon_name );
 		}
@@ -766,11 +766,11 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 			UTIL_LogPrintf( "\"%s<%i><%s><%i>\" killed \"%s<%i><%s><%i>\" with \"%s\"\n",  
 				pKiller->GetNetName(),
 				UTIL_GetPlayerUserId( pKiller ),
-				GETPLAYERAUTHID( ENT(pKiller) ),
+				UTIL_GetPlayerAuthId( pKiller ),
 				UTIL_GetPlayerUserId( pKiller ),
 				pVictim->GetNetName(),
 				UTIL_GetPlayerUserId( pVictim ),
-				GETPLAYERAUTHID( pVictim->edict() ),
+				UTIL_GetPlayerAuthId( pVictim ),
 				UTIL_GetPlayerUserId( pVictim ),
 				killer_weapon_name );
 		}
@@ -785,7 +785,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 			UTIL_LogPrintf( "\"%s<%i><%s><%s>\" committed suicide with \"%s\" (world)\n",
 				pVictim->GetNetName(),
 				UTIL_GetPlayerUserId( pVictim ),
-				GETPLAYERAUTHID( pVictim->edict() ),
+				UTIL_GetPlayerAuthId( pVictim ),
 				g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pVictim->edict() ), "model" ),
 				killer_weapon_name );		
 		}
@@ -794,7 +794,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 			UTIL_LogPrintf( "\"%s<%i><%s><%i>\" committed suicide with \"%s\" (world)\n",
 				pVictim->GetNetName(),
 				UTIL_GetPlayerUserId( pVictim ),
-				GETPLAYERAUTHID( pVictim->edict() ),
+				UTIL_GetPlayerAuthId( pVictim ),
 				UTIL_GetPlayerUserId( pVictim ),
 				killer_weapon_name );		
 		}

@@ -341,7 +341,7 @@ void CHalfLifeTeamplay::ClientUserInfoChanged( CBasePlayer *pPlayer, char *infob
 	UTIL_LogPrintf( "\"%s<%i><%s><%s>\" joined team \"%s\"\n", 
 		pPlayer->GetNetName(),
 		UTIL_GetPlayerUserId( pPlayer ),
-		GETPLAYERAUTHID( pPlayer->edict() ),
+		UTIL_GetPlayerAuthId( pPlayer ),
 		pPlayer->m_szTeamName,
 		mdls );
 

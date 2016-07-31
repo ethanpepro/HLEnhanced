@@ -330,3 +330,5 @@ DropToFloor UTIL_DropToFloor( CBaseEntity* pEntity );
 bool UTIL_WalkMove( CBaseEntity* pEntity, float yaw, float dist, WalkMove mode );
 
 int UTIL_GetPlayerUserId( CBaseEntity* pEntity );
+
+const char* UTIL_GetPlayerAuthId( const CBaseEntity* pEntity );
