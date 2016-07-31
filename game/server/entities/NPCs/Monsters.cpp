@@ -1233,7 +1233,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 
 	if ( !(pev->flags & (FL_FLY|FL_SWIM)) )
 	{
-		DROP_TO_FLOOR( ENT( pev ) );//make sure monster is on the floor!
+		UTIL_DropToFloor( this );//make sure monster is on the floor!
 	}
 
 	//GetAbsOrigin().z = vecStartPos.z;//!!!HACKHACK
@@ -1996,7 +1996,7 @@ void CBaseMonster :: StartMonster ( void )
 	if ( pev->movetype != MOVETYPE_FLY && !FBitSet( pev->spawnflags, SF_MONSTER_FALL_TO_GROUND ) )
 	{
 		pev->origin.z += 1;
-		DROP_TO_FLOOR ( ENT(pev) );
+		UTIL_DropToFloor( this );
 		// Try to move the monster to make sure it's not stuck in a brush.
 		if (!WALK_MOVE ( ENT(pev), 0, 0, WALKMOVE_NORMAL ) )
 		{
@@ -2584,7 +2584,7 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 #if 0
-	case SCRIPT_EVENT_INAIR:			// Don't DROP_TO_FLOOR()
+	case SCRIPT_EVENT_INAIR:			// Don't UTIL_DropToFloor()
 	case SCRIPT_EVENT_ENDANIMATION:		// Set ending animation sequence to
 		break;
 #endif

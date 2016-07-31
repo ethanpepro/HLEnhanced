@@ -134,12 +134,12 @@ bool CBaseMonster::CineCleanup()
 			pev->origin.z += 1;
 
 			pev->flags |= FL_ONGROUND;
-			int drop = DROP_TO_FLOOR( ENT(pev) );
+			const DropToFloor drop = UTIL_DropToFloor( this );
 			
 			// Origin in solid?  Set to org at the end of the sequence
-			if ( drop < 0 )
+			if ( drop == DropToFloor::STUCK )
 				pev->origin = oldOrigin;
-			else if ( drop == 0 ) // Hanging in air?
+			else if ( drop == DropToFloor::TOOFAR ) // Hanging in air?
 			{
 				pev->origin.z = new_origin.z;
 				pev->flags &= ~FL_ONGROUND;

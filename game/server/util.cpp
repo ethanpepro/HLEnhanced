@@ -1193,3 +1193,10 @@ const struct texture_s* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& v
 {
 	return TRACE_TEXTURE( pEntity ? pEntity->edict() : nullptr, vecStart, vecEnd );
 }
+
+DropToFloor UTIL_DropToFloor( CBaseEntity* pEntity )
+{
+	ASSERT( pEntity );
+
+	return static_cast<DropToFloor>( DROP_TO_FLOOR( pEntity->edict() ) );
+}

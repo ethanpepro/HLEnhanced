@@ -143,7 +143,7 @@ CBaseEntity* CBasePlayerItem::Respawn( void )
 		pNewWeapon->SetTouch( NULL );// no touch
 		pNewWeapon->SetThink( &CBasePlayerItem::AttemptToMaterialize );
 
-		DROP_TO_FLOOR( ENT( pev ) );
+		UTIL_DropToFloor( this );
 
 		// not a typo! We want to know when the weapon the player just picked up should respawn! This new entity we created is the replacement,
 		// but when it should respawn is based on conditions belonging to the weapon that was taken.

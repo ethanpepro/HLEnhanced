@@ -315,3 +315,12 @@ void SetObjectCollisionBox( entvars_t *pev );
 CBaseEntity* UTIL_FindEntityForward( CBaseEntity* pMe );
 
 const struct texture_s* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd );
+
+enum class DropToFloor
+{
+	STUCK		= -1,
+	TOOFAR		= 0,
+	DROPPED		= 1
+};
+
+DropToFloor UTIL_DropToFloor( CBaseEntity* pEntity );

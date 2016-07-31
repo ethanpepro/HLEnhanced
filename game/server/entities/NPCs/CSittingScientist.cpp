@@ -66,7 +66,7 @@ void CSittingScientist::Spawn()
 	SetThink( &CSittingScientist::SittingThink );
 	pev->nextthink = gpGlobals->time + 0.1;
 
-	DROP_TO_FLOOR( ENT( pev ) );
+	UTIL_DropToFloor( this );
 }
 
 void CSittingScientist::Precache( void )
