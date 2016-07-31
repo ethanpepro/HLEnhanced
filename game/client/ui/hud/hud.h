@@ -19,7 +19,8 @@
 //
 // CHud handles the message, calculation, and drawing the HUD
 //
-
+#ifndef GAME_CLIENT_UI_HUD_HUD_H
+#define GAME_CLIENT_UI_HUD_HUD_H
 
 #define RGB_YELLOWISH 0x00FFA000 //255,160,0
 #define RGB_REDISH 0x00FF1010 //255,160,0
@@ -33,32 +34,74 @@
 #include "cl_dll.h"
 #include "ammo.h"
 
+#include "global_consts.h"
+
 #define DHN_DRAWZERO 1
 #define DHN_2DIGITS  2
 #define DHN_3DIGITS  4
 #define MIN_ALPHA	 100	
 
-#define		HUDELEM_ACTIVE	1
-
-typedef struct {
+//Probably duplicate somewhere. TODO - Solokiller
+struct POSITION
+{
 	int x, y;
-} POSITION;
+};
 
-#include "global_consts.h"
-
-typedef struct {
+//TODO: identical to PackedColorVec - Solokiller
+struct RGBA
+{
 	unsigned char r,g,b,a;
-} RGBA;
+};
 
 typedef struct cvar_s cvar_t;
 
+enum HudFlag
+{
+	HUD_ACTIVE			= 1,
+	HUD_INTERMISSION	= 2,
+};
 
-#define HUD_ACTIVE	1
-#define HUD_INTERMISSION 2
+class CHudBase;
 
-#define MAX_PLAYER_NAME_LENGTH		32
+struct HUDLIST
+{
+	CHudBase	*p;
+	HUDLIST		*pNext;
+};
 
+struct extra_player_info_t
+{
+	short frags;
+	short deaths;
+	short playerclass;
+	short health; // UNUSED currently, spectator UI would like this
+	bool dead; // UNUSED currently, spectator UI would like this
+	short teamnumber;
+	char teamname[ MAX_TEAM_NAME ];
+};
+
+struct team_info_t
+{
+	char name[ MAX_TEAM_NAME ];
+	short frags;
+	short deaths;
+	short ping;
+	short packetloss;
+	short ownteam;
+	short players;
+	bool already_drawn;
+	bool scores_overriden;
+	int teamnumber;
+};
+
+#include "player_info.h"
+
+//TODO: move - Solokiller
 #define	MAX_MOTD_LENGTH				1536
+
+#define FADE_TIME 100
+
+#define MAX_SPRITE_NAME_LENGTH	24
 
 //
 //-----------------------------------------------------
@@ -79,19 +122,9 @@ public:
 
 };
 
-struct HUDLIST {
-	CHudBase	*p;
-	HUDLIST		*pNext;
-};
-
-
-
-//
-//-----------------------------------------------------
-//
 #include "voice_status.h" // base voice handling class
 #include "hud_spectator.h"
-
+#include "health.h"
 
 //
 //-----------------------------------------------------
@@ -194,13 +227,6 @@ private:
 	float m_fFade;
 };
 
-
-#include "health.h"
-
-
-#define FADE_TIME 100
-
-
 //
 //-----------------------------------------------------
 //
@@ -265,33 +291,6 @@ protected:
 	// an array of colors...one color for each line
 	const Vector* m_pvecNameColors[MAX_STATUSBAR_LINES];
 };
-
-struct extra_player_info_t 
-{
-	short frags;
-	short deaths;
-	short playerclass;
-	short health; // UNUSED currently, spectator UI would like this
-	bool dead; // UNUSED currently, spectator UI would like this
-	short teamnumber;
-	char teamname[MAX_TEAM_NAME];
-};
-
-struct team_info_t 
-{
-	char name[MAX_TEAM_NAME];
-	short frags;
-	short deaths;
-	short ping;
-	short packetloss;
-	short ownteam;
-	short players;
-	bool already_drawn;
-	bool scores_overriden;
-	int teamnumber;
-};
-
-#include "player_info.h"
 
 //
 //-----------------------------------------------------
@@ -475,7 +474,6 @@ private:
 //
 //-----------------------------------------------------
 //
-#define MAX_SPRITE_NAME_LENGTH	24
 
 class CHudStatusIcons: public CHudBase
 {
@@ -693,3 +691,5 @@ extern int g_iUser3;
 
 const Vector& GetClientColor( int clientIndex );
 extern const Vector g_ColorYellow;
+
+#endif //GAME_CLIENT_UI_HUD_HUD_H

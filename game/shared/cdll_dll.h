@@ -45,6 +45,8 @@
 
 #define WEAPON_SUIT				31
 
+#define MAX_PLAYER_NAME_LENGTH	32
+
 /**
 *	Bit flags for hiding parts of the HUD.
 */
