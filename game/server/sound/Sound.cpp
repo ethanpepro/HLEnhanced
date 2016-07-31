@@ -552,11 +552,8 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 
 		// find texture under strike, get material type
 
-		// get texture from entity or world (world is ent(0))
-		if (pEntity)
-			pTexture = TRACE_TEXTURE( ENT(pEntity->pev), vecSrc, vecEnd );
-		else
-			pTexture = TRACE_TEXTURE( ENT(0), vecSrc, vecEnd );
+		// get texture from entity or world
+		pTexture = UTIL_TraceTexture( pEntity ? pEntity : CWorld::GetInstance(), vecSrc, vecEnd );
 			
 		if ( pTexture )
 		{

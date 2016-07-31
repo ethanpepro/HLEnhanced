@@ -313,3 +313,5 @@ void SetObjectCollisionBox( entvars_t *pev );
 *	@return Entity being looked at, or null if no entity could be found.
 */
 CBaseEntity* UTIL_FindEntityForward( CBaseEntity* pMe );
+
+const struct texture_s* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd );

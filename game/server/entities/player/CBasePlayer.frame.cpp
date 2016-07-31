@@ -1011,14 +1011,14 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		{
 			TraceResult tr;
 
-			edict_t		*pWorld = g_engfuncs.pfnPEntityOfEntIndex( 0 );
+			CBaseEntity* pWorld = CWorld::GetInstance();
 
 			Vector start = GetAbsOrigin() + pev->view_ofs;
 			Vector end = start + gpGlobals->v_forward * 1024;
 			UTIL_TraceLine( start, end, ignore_monsters, edict(), &tr );
 			if( tr.pHit )
-				pWorld = tr.pHit;
-			const texture_t* pTexture = TRACE_TEXTURE( pWorld, start, end );
+				pWorld = CBaseEntity::Instance( tr.pHit );
+			const texture_t* pTexture = UTIL_TraceTexture( pWorld, start, end );
 			if( pTexture )
 				ALERT( at_console, "Texture: %s\n", pTexture->name );
 		}

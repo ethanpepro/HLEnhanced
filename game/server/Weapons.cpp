@@ -75,7 +75,7 @@ void DecalGunshot( TraceResult *pTrace, int iBulletType )
 	if ( !UTIL_IsValidEntity( pHit ) )
 		return;
 
-	if ( pHit->pev->solid == SOLID_BSP || pHit->pev->movetype == MOVETYPE_PUSHSTEP )
+	if ( pHit->GetSolidType() == SOLID_BSP || pHit->GetMoveType() == MOVETYPE_PUSHSTEP )
 	{
 		// Decal the wall with a gunshot
 
