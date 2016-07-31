@@ -165,10 +165,10 @@ void CCineMonster::Touch( CBaseEntity *pOther )
 {
 	/*
 	ALERT( at_aiconsole, "Cine Touch\n" );
-	if (m_pentTarget && OFFSET(pOther->pev) == OFFSET(m_pentTarget))
+	if( m_hTargetEnt && pOther == m_hTargetEnt )
 	{
-	CBaseMonster *pTarget = GetClassPtr((CBaseMonster *)VARS(m_pentTarget));
-	pTarget->m_monsterState == MONSTERSTATE_SCRIPT;
+		CBaseMonster *pTarget = EHANDLE_cast<CBaseMonster*>( m_hTargetEnt );
+		pTarget->m_monsterState == MONSTERSTATE_SCRIPT;
 	}
 	*/
 }
@@ -200,33 +200,29 @@ pev->solid = SOLID_NOT;// kill the trigger for now !!!UNDONE
 // Find an entity that I'm interested in and precache the sounds he'll need in the sequence.
 void CCineMonster::Activate( void )
 {
-	edict_t			*pentTarget;
-	CBaseMonster	*pTarget;
+	CBaseMonster* pTarget = nullptr;
+
+	CBaseEntity* pNextTarget = nullptr;
 
 	// The entity name could be a target name or a classname
 	// Check the targetname
-	pentTarget = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_iszEntity ) );
-	pTarget = NULL;
-
-	while( !pTarget && !FNullEnt( pentTarget ) )
+	while( !pTarget && ( pNextTarget = UTIL_FindEntityByTargetname( pNextTarget, STRING( m_iszEntity ) ) ) )
 	{
-		if( FBitSet( VARS( pentTarget )->flags, FL_MONSTER ) )
+		if( pNextTarget->AnyFlagsSet( FL_MONSTER ) )
 		{
-			pTarget = GetMonsterPointer( pentTarget );
+			pTarget = pNextTarget->MyMonsterPointer();
 		}
-		pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( m_iszEntity ) );
 	}
 
 	// If no entity with that targetname, check the classname
 	if( !pTarget )
 	{
-		pentTarget = FIND_ENTITY_BY_CLASSNAME( NULL, STRING( m_iszEntity ) );
-		while( !pTarget && !FNullEnt( pentTarget ) )
+		while( !pTarget && ( pNextTarget = UTIL_FindEntityByClassname( pNextTarget, STRING( m_iszEntity ) ) ) )
 		{
-			pTarget = GetMonsterPointer( pentTarget );
-			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( m_iszEntity ) );
+			pTarget = pNextTarget->MyMonsterPointer();
 		}
 	}
+
 	// Found a compatible entity
 	if( pTarget )
 	{
@@ -302,38 +298,39 @@ void CCineMonster::DelayStart( int state )
 // find a viable entity
 bool CCineMonster::FindEntity()
 {
-	edict_t *pentTarget;
+	m_hTargetEnt = nullptr;
 
-	pentTarget = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_iszEntity ) );
-	m_hTargetEnt = NULL;
-	CBaseMonster	*pTarget = NULL;
+	CBaseEntity* pTargetEnt = nullptr;
+	CBaseMonster* pTarget = nullptr;
 
-	while( !FNullEnt( pentTarget ) )
+	while( pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) ) )
 	{
-		if( FBitSet( VARS( pentTarget )->flags, FL_MONSTER ) )
+		if( pTargetEnt->AnyFlagsSet( FL_MONSTER ) )
 		{
-			pTarget = GetMonsterPointer( pentTarget );
+			pTarget = pTargetEnt->MyMonsterPointer();
+
 			if( pTarget && pTarget->CanPlaySequence( FCanOverrideState(), SS_INTERRUPT_BY_NAME ) )
 			{
 				m_hTargetEnt = pTarget;
 				return true;
 			}
+
 			ALERT( at_console, "Found %s, but can't play!\n", STRING( m_iszEntity ) );
 		}
-		pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( m_iszEntity ) );
-		pTarget = NULL;
+
+		pTarget = nullptr;
 	}
 
 	if( !pTarget )
 	{
-		CBaseEntity *pEntity = NULL;
-		while( ( pEntity = UTIL_FindEntityInSphere( pEntity, GetAbsOrigin(), m_flRadius ) ) != NULL )
+		pTargetEnt = nullptr;
+		while( pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius ) )
 		{
-			if( FClassnameIs( pEntity->pev, STRING( m_iszEntity ) ) )
+			if( FClassnameIs( pTargetEnt, STRING( m_iszEntity ) ) )
 			{
-				if( FBitSet( pEntity->pev->flags, FL_MONSTER ) )
+				if( pTargetEnt->AnyFlagsSet( FL_MONSTER ) )
 				{
-					pTarget = pEntity->MyMonsterPointer();
+					pTarget = pTargetEnt->MyMonsterPointer();
 					if( pTarget && pTarget->CanPlaySequence( FCanOverrideState(), SS_INTERRUPT_IDLE ) )
 					{
 						m_hTargetEnt = pTarget;
@@ -343,8 +340,7 @@ bool CCineMonster::FindEntity()
 			}
 		}
 	}
-	pTarget = NULL;
-	m_hTargetEnt = NULL;
+	m_hTargetEnt = nullptr;
 	return false;
 }
 
