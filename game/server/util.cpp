@@ -976,7 +976,6 @@ CBaseEntity* UTIL_CreateNamedEntity( const char* const pszClassName )
 
 	if( FNullEnt( pEdict ) )
 	{
-		ALERT( at_console, "UTIL_CreateNamedEntity: NULL Ent for \"%s\"\n", pszClassName );
 		return nullptr;
 	}
 
@@ -992,19 +991,17 @@ CBaseEntity* UTIL_CreateNamedEntity( const char* const pszClassName )
 
 void UTIL_PrecacheOther( const char *szClassname )
 {
-	edict_t	*pent;
+	CBaseEntity* pEntity = UTIL_CreateNamedEntity( szClassname );
 
-	pent = CREATE_NAMED_ENTITY( MAKE_STRING( szClassname ) );
-	if ( FNullEnt( pent ) )
+	if( !pEntity )
 	{
-		ALERT ( at_console, "NULL Ent in UTIL_PrecacheOther\n" );
+		ALERT( at_console, "NULL Ent in UTIL_PrecacheOther\n" );
 		return;
 	}
-	
-	CBaseEntity *pEntity = CBaseEntity::Instance (VARS( pent ));
-	if (pEntity)
-		pEntity->Precache( );
-	REMOVE_ENTITY(pent);
+
+	pEntity->Precache();
+
+	REMOVE_ENTITY( pEntity->edict() );
 }
 
 //=========================================================

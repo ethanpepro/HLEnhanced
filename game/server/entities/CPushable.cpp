@@ -75,7 +75,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 	int playerTouch = 0;
 
 	// Is entity standing on this pushable ?
-	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && pOther->pev->groundentity && VARS( pOther->pev->groundentity ) == pev )
+	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && pOther->pev->groundentity && GET_PRIVATE( pOther->pev->groundentity ) == this )
 	{
 		// Only push if floating
 		if( pev->waterlevel > WATERLEVEL_DRY )

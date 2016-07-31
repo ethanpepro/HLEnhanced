@@ -679,21 +679,19 @@ void CBasePlayer::ItemPostFrame()
 
 void CBasePlayer::GiveNamedItem( const char *pszName )
 {
-	edict_t	*pent;
+	CBaseEntity* pEntity = UTIL_CreateNamedEntity( pszName );
 
-	int istr = MAKE_STRING( pszName );
-
-	pent = CREATE_NAMED_ENTITY( istr );
-	if( FNullEnt( pent ) )
+	if( !pEntity )
 	{
+		//TODO: output name - Solokiller
 		ALERT( at_console, "NULL Ent in GiveNamedItem!\n" );
 		return;
 	}
-	VARS( pent )->origin = GetAbsOrigin();
-	pent->v.spawnflags |= SF_NORESPAWN;
+	pEntity->SetAbsOrigin( GetAbsOrigin() );
+	pEntity->AddSpawnFlags( SF_NORESPAWN );
 
-	DispatchSpawn( pent );
-	DispatchTouch( pent, ENT( pev ) );
+	DispatchSpawn( pEntity->edict() );
+	pEntity->Touch( this );
 }
 
 //

@@ -93,7 +93,7 @@ void CFuncTrackTrain::Precache( void )
 void CFuncTrackTrain::Blocked( CBaseEntity *pOther )
 {
 	// Blocker is on-ground on the train
-	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && VARS( pOther->pev->groundentity ) == pev )
+	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && GET_PRIVATE( pOther->pev->groundentity ) == this )
 	{
 		float deltaSpeed = fabs( pev->speed );
 		if( deltaSpeed > 50 )

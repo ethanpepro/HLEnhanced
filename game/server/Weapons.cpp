@@ -149,29 +149,23 @@ void ExplodeModel( const Vector &vecOrigin, float speed, int model, int count )
 // Precaches the weapon and queues the weapon info for sending to clients
 void UTIL_PrecacheOtherWeapon( const char *szClassname )
 {
-	edict_t	*pent;
+	CBaseEntity* pEntity = UTIL_CreateNamedEntity( szClassname );
 
-	pent = CREATE_NAMED_ENTITY( MAKE_STRING( szClassname ) );
-	if ( FNullEnt( pent ) )
+	if( !pEntity )
 	{
 		ALERT ( at_console, "NULL Ent in UTIL_PrecacheOtherWeapon\n" );
 		return;
 	}
-	
-	CBaseEntity *pEntity = CBaseEntity::Instance (VARS( pent ));
 
-	if (pEntity)
+	ItemInfo II;
+	pEntity->Precache( );
+	memset( &II, 0, sizeof II );
+	if ( ((CBasePlayerItem*)pEntity)->GetItemInfo( &II ) )
 	{
-		ItemInfo II;
-		pEntity->Precache( );
-		memset( &II, 0, sizeof II );
-		if ( ((CBasePlayerItem*)pEntity)->GetItemInfo( &II ) )
-		{
-			CBasePlayerItem::ItemInfoArray[II.iId] = II;
-		}
+		CBasePlayerItem::ItemInfoArray[II.iId] = II;
 	}
 
-	REMOVE_ENTITY(pent);
+	REMOVE_ENTITY( pEntity->edict() );
 }
 
 void RegisterAmmoTypes()
