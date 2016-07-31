@@ -131,17 +131,10 @@ bool CGraph::AllocNodes()
 //=========================================================
 entvars_t* CGraph :: LinkEntForLink ( CLink *pLink, CNode *pNode )
 {
-	edict_t	*pentSearch;
-	edict_t	*pentTrigger;
-	entvars_t		*pevTrigger;
-	entvars_t		*pevLinkEnt;
-	TraceResult	tr;
-	
-	pevLinkEnt = pLink->m_pLinkEnt;
-	if ( !pevLinkEnt )
-		return NULL;
+	entvars_t* const pevLinkEnt = pLink->m_pLinkEnt;
 
-	pentSearch = NULL;// start search at the top of the ent list.
+	if ( !pevLinkEnt )
+		return nullptr;
 			
 	if ( FClassnameIs ( pevLinkEnt, "func_door" ) || FClassnameIs ( pevLinkEnt, "func_door_rotating" ) )
 	{
@@ -154,36 +147,34 @@ entvars_t* CGraph :: LinkEntForLink ( CLink *pLink, CNode *pNode )
 			return pevLinkEnt;
 		}
 
-		while ( 1 )
-		{
-			pentTrigger = FIND_ENTITY_BY_TARGET ( pentSearch, STRING( pevLinkEnt->targetname ) );// find the button or trigger
+		CBaseEntity* pSearch = nullptr;// start search at the top of the ent list.
 
-			if ( FNullEnt( pentTrigger ) )
-			{// no trigger found
+		TraceResult	tr;
 
-				// right now this is a problem among auto-open doors, or any door that opens through the use 
-				// of a trigger brush. Trigger brushes have no models, and don't show up in searches. Just allow
-				// monsters to open these sorts of doors for now. 
-				return pevLinkEnt;
-			}
-			
-			pentSearch = pentTrigger;
-			pevTrigger = VARS( pentTrigger );
-			
-			if ( FClassnameIs(pevTrigger, "func_button") || FClassnameIs(pevTrigger, "func_rot_button" ) )
+		// find the button or trigger
+		while( pSearch = UTIL_FindEntityByTarget( pSearch, STRING( pevLinkEnt->targetname ) ) )
+		{		
+			if ( pSearch->ClassnameIs( "func_button" ) || pSearch->ClassnameIs( "func_rot_button" ) )
 			{// only buttons are handled right now. 
 
 				// trace from the node to the trigger, make sure it's one we can see from the node.
 				// !!!HACKHACK Use bodyqueue here cause there are no ents we really wish to ignore!
-				UTIL_TraceLine ( pNode->m_vecOrigin, VecBModelOrigin( CBaseEntity::Instance( pevTrigger ) ), ignore_monsters, g_pBodyQueueHead->edict(), &tr );
+				UTIL_TraceLine ( pNode->m_vecOrigin, VecBModelOrigin( pSearch ), ignore_monsters, g_pBodyQueueHead->edict(), &tr );
 
 
-				if ( VARS(tr.pHit) == pevTrigger )
+				if ( VARS(tr.pHit) == pSearch->pev )
 				{// good to go!
 					return VARS( tr.pHit );
 				}
 			}
 		}
+
+		// no trigger found
+
+		// right now this is a problem among auto-open doors, or any door that opens through the use 
+		// of a trigger brush. Trigger brushes have no models, and don't show up in searches. Just allow
+		// monsters to open these sorts of doors for now. 
+		return pevLinkEnt;
 	}
 	else
 	{
