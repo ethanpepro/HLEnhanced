@@ -281,6 +281,11 @@ CBaseEntity *UTIL_FindEntityGeneric( const char *szWhatever, const Vector &vecSr
 	return pEntity;
 }
 
+CBaseEntity* UTIL_FindEntityByTarget( CBaseEntity* pStartEntity, const char* const pszTarget )
+{
+	return UTIL_FindEntityByString( pStartEntity, "target", pszTarget );
+}
+
 
 // returns a CBasePlayer pointer to a player by index.  Only returns if the player is spawned and connected
 // otherwise returns nullptr
@@ -665,18 +670,17 @@ Vector UTIL_GetAimVector( const CBaseEntity* const pEntity, const float flSpeed 
 
 bool UTIL_IsMasterTriggered( string_t sMaster, const CBaseEntity* const pActivator )
 {
-	if (sMaster)
+	if( sMaster )
 	{
-		edict_t *pentTarget = FIND_ENTITY_BY_TARGETNAME(NULL, STRING(sMaster));
+		CBaseEntity* pTarget = UTIL_FindEntityByTargetname( nullptr, STRING( sMaster ) );
 	
-		if ( !FNullEnt(pentTarget) )
+		if( !FNullEnt( pTarget ) )
 		{
-			CBaseEntity *pMaster = CBaseEntity::Instance(pentTarget);
-			if ( pMaster && (pMaster->ObjectCaps() & FCAP_MASTER) )
-				return pMaster->IsTriggered( pActivator );
+			if( pTarget->ObjectCaps() & FCAP_MASTER )
+				return pTarget->IsTriggered( pActivator );
 		}
 
-		ALERT(at_console, "Master was null or not a master!\n");
+		ALERT( at_console, "Master was null or not a master!\n" );
 	}
 
 	// if this isn't a master entity, just say yes.

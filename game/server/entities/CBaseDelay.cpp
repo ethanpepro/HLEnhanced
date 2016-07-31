@@ -101,16 +101,14 @@ void CBaseDelay::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, floa
 
 	if( m_iszKillTarget )
 	{
-		edict_t *pentKillTarget = NULL;
+		CBaseEntity* pKillTarget = nullptr;
 
 		ALERT( at_aiconsole, "KillTarget: %s\n", STRING( m_iszKillTarget ) );
-		pentKillTarget = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_iszKillTarget ) );
-		while( !FNullEnt( pentKillTarget ) )
+		while( pKillTarget = UTIL_FindEntityByTargetname( pKillTarget, STRING( m_iszKillTarget ) ) )
 		{
-			UTIL_Remove( CBaseEntity::Instance( pentKillTarget ) );
+			UTIL_Remove( pKillTarget );
 
-			ALERT( at_aiconsole, "killing %s\n", STRING( pentKillTarget->v.classname ) );
-			pentKillTarget = FIND_ENTITY_BY_TARGETNAME( pentKillTarget, STRING( m_iszKillTarget ) );
+			ALERT( at_aiconsole, "killing %s\n", pKillTarget->GetClassname() );
 		}
 	}
 

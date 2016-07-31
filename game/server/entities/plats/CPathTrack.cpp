@@ -57,14 +57,14 @@ void CPathTrack::SetPrevious( CPathTrack *pprev )
 
 void CPathTrack::Link( void )
 {
-	edict_t *pentTarget;
+	CBaseEntity* pTarget = nullptr;
 
 	if( HasTarget() )
 	{
-		pentTarget = FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() );
-		if( !FNullEnt( pentTarget ) )
+		pTarget = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
+		if( pTarget )
 		{
-			m_pnext = CPathTrack::Instance( pentTarget );
+			m_pnext = CPathTrack::Instance( pTarget );
 
 			if( m_pnext )		// If no next pointer, this is the end of a path
 			{
@@ -78,10 +78,10 @@ void CPathTrack::Link( void )
 	// Find "alternate" path
 	if( m_altName )
 	{
-		pentTarget = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_altName ) );
-		if( !FNullEnt( pentTarget ) )
+		pTarget = UTIL_FindEntityByTargetname( nullptr, STRING( m_altName ) );
+		if( pTarget )
 		{
-			m_paltpath = CPathTrack::Instance( pentTarget );
+			m_paltpath = CPathTrack::Instance( pTarget );
 
 			if( m_paltpath )		// If no next pointer, this is the end of a path
 			{
@@ -147,6 +147,14 @@ CPathTrack *CPathTrack::Instance( edict_t *pent )
 	if( FClassnameIs( pent, "path_track" ) )
 		return ( CPathTrack * ) GET_PRIVATE( pent );
 	return NULL;
+}
+
+CPathTrack* CPathTrack::Instance( CBaseEntity* pEntity )
+{
+	if( pEntity && pEntity->ClassnameIs( "path_track" ) )
+		return static_cast<CPathTrack*>( pEntity );
+
+	return nullptr;
 }
 
 // Assumes this is ALWAYS enabled

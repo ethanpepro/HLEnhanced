@@ -41,6 +41,7 @@ public:
 	void		Project( CPathTrack *pstart, CPathTrack *pend, Vector *origin, float dist );
 
 	static CPathTrack *Instance( edict_t *pent );
+	static CPathTrack* Instance( CBaseEntity* pEntity );
 
 	CPathTrack	*LookAhead( Vector *origin, float dist, const bool bMove );
 	CPathTrack	*Nearest( Vector origin );

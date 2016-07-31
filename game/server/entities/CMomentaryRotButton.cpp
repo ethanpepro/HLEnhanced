@@ -208,17 +208,11 @@ void CMomentaryRotButton::UpdateTarget( float value )
 {
 	if( HasTarget() )
 	{
-		edict_t* pentTarget = NULL;
-		for( ;;)
+		CBaseEntity* pTarget = nullptr;
+
+		while( pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() ) )
 		{
-			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, GetTarget() );
-			if( FNullEnt( pentTarget ) )
-				break;
-			CBaseEntity *pEntity = CBaseEntity::Instance( pentTarget );
-			if( pEntity )
-			{
-				pEntity->Use( this, this, USE_SET, value );
-			}
+			pTarget->Use( this, this, USE_SET, value );
 		}
 	}
 }

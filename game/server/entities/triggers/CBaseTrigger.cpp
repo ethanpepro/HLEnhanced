@@ -8,8 +8,6 @@ LINK_ENTITY_TO_CLASS( trigger, CBaseTrigger );
 
 void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 {
-	edict_t	*pentTarget = NULL;
-
 	// Only teleport monsters or clients
 	if( !FBitSet( pOther->pev->flags, FL_CLIENT | FL_MONSTER ) )
 		return;
@@ -33,11 +31,11 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 		}
 	}
 
-	pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, GetTarget() );
-	if( FNullEnt( pentTarget ) )
+	CBaseEntity* pTarget = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
+	if( !pTarget )
 		return;
 
-	Vector tmp = VARS( pentTarget )->origin;
+	Vector tmp = pTarget->GetAbsOrigin();
 
 	if( pOther->IsPlayer() )
 	{
@@ -50,11 +48,11 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 
 	pOther->SetAbsOrigin( tmp );
 
-	pOther->pev->angles = pentTarget->v.angles;
+	pOther->pev->angles = pTarget->GetAbsAngles();
 
 	if( pOther->IsPlayer() )
 	{
-		pOther->pev->v_angle = pentTarget->v.angles;
+		pOther->pev->v_angle = pTarget->GetAbsAngles();
 	}
 
 	pOther->SetFixAngleMode( FIXANGLE_SET );

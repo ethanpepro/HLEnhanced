@@ -108,15 +108,12 @@ void CBaseEntity::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 }
 
 
-CBaseEntity *CBaseEntity::GetNextTarget( void )
+CBaseEntity *CBaseEntity::GetNextTarget()
 {
 	if( !HasTarget() )
-		return NULL;
-	edict_t *pTarget = FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() );
-	if( FNullEnt( pTarget ) )
-		return NULL;
+		return nullptr;
 
-	return Instance( pTarget );
+	return UTIL_FindEntityByTargetname( nullptr, GetTarget() );
 }
 
 bool CBaseEntity::Save( CSave& save )

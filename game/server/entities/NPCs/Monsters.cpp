@@ -1331,23 +1331,16 @@ float CBaseMonster::OpenDoorAndWait( CBaseEntity* pDoor )
 		//ALERT(at_aiconsole, "pev->ltime = %d ms\n", (int)(1000*pev->ltime));
 		flTravelTime = pDoor->pev->nextthink - pDoor->pev->ltime;
 		//ALERT(at_aiconsole, "Waiting %d ms\n", (int)(1000*flTravelTime));
-		if ( pDoor->HasTargetname() )
+		if( pDoor->HasTargetname() )
 		{
-			edict_t *pentTarget = NULL;
-			for (;;)
+			CBaseEntity* pTarget = nullptr;
+			while( pTarget = UTIL_FindEntityByTargetname( pTarget, pDoor->GetTargetname() ) )
 			{
-				pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, pDoor->GetTargetname() );
-
-				if ( VARS( pentTarget ) != pDoor->pev )
+				if( pTarget != pDoor )
 				{
-					if (FNullEnt(pentTarget))
-						break;
-
-					if ( FClassnameIs ( pentTarget, pDoor->GetClassname() ) )
+					if( pTarget->ClassnameIs( pDoor->GetClassname() ) )
 					{
-						CBaseEntity *pDoor = Instance(pentTarget);
-						if ( pDoor )
-							pDoor->Use(this, this, USE_ON, 0.0);
+						pDoor->Use(this, this, USE_ON, 0.0);
 					}
 				}
 			}
@@ -2019,7 +2012,7 @@ void CBaseMonster :: StartMonster ( void )
 	if ( HasTarget() )// this monster has a target
 	{
 		// Find the monster's initial target entity, stash it
-		m_pGoalEnt = CBaseEntity::Instance( FIND_ENTITY_BY_TARGETNAME ( NULL, GetTarget() ) );
+		m_pGoalEnt = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
 
 		if ( !m_pGoalEnt )
 		{

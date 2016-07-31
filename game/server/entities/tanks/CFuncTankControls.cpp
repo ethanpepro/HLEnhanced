@@ -40,15 +40,15 @@ void CFuncTankControls::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 	ASSERT( m_pTank != NULL );	// if this fails,  most likely means save/restore hasn't worked properly
 }
 
-void CFuncTankControls::Think( void )
+void CFuncTankControls::Think()
 {
-	edict_t *pTarget = NULL;
+	CBaseEntity* pTarget = nullptr;
 
 	do
 	{
-		pTarget = FIND_ENTITY_BY_TARGETNAME( pTarget, GetTarget() );
+		pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() );
 	}
-	while( !FNullEnt( pTarget ) && strncmp( STRING( pTarget->v.classname ), "func_tank", 9 ) );
+	while( !FNullEnt( pTarget ) && strncmp( pTarget->GetClassname(), "func_tank", 9 ) );
 
 	if( FNullEnt( pTarget ) )
 	{
@@ -56,5 +56,5 @@ void CFuncTankControls::Think( void )
 		return;
 	}
 
-	m_pTank = ( CFuncTank* ) Instance( pTarget );
+	m_pTank = static_cast<CFuncTank*>( pTarget );
 }

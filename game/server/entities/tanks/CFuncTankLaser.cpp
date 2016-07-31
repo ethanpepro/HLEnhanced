@@ -82,19 +82,16 @@ CLaser *CFuncTankLaser::GetLaser( void )
 	if( m_pLaser )
 		return m_pLaser;
 
-	edict_t	*pentLaser;
+	CBaseEntity* pLaser = nullptr;
 
-	pentLaser = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( pev->message ) );
-	while( !FNullEnt( pentLaser ) )
+	while( pLaser = UTIL_FindEntityByTargetname( pLaser, STRING( pev->message ) ) )
 	{
 		// Found the landmark
-		if( FClassnameIs( pentLaser, "env_laser" ) )
+		if( pLaser->ClassnameIs( "env_laser" ) )
 		{
-			m_pLaser = ( CLaser * ) CBaseEntity::Instance( pentLaser );
+			m_pLaser = static_cast<CLaser*>( pLaser );
 			break;
 		}
-		else
-			pentLaser = FIND_ENTITY_BY_TARGETNAME( pentLaser, STRING( pev->message ) );
 	}
 
 	return m_pLaser;

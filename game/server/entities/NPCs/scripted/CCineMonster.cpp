@@ -274,13 +274,15 @@ void CCineMonster::Die( void )
 // find all the cinematic entities with my targetname and tell them to wait before starting
 void CCineMonster::DelayStart( int state )
 {
-	edict_t *pentCine = FIND_ENTITY_BY_TARGETNAME( NULL, GetTargetname() );
+	//TODO: change state param to bool if needed - Solokiller
+	CBaseEntity* pCine = nullptr;
 
-	while( !FNullEnt( pentCine ) )
+	while( pCine = UTIL_FindEntityByTargetname( pCine, GetTargetname() ) )
 	{
-		if( FClassnameIs( pentCine, "scripted_sequence" ) )
+		if( pCine->ClassnameIs( "scripted_sequence" ) )
 		{
-			CCineMonster *pTarget = GetClassPtr( ( CCineMonster * ) VARS( pentCine ) );
+			//TODO: does this need GetClassPtr? - Solokiller
+			CCineMonster *pTarget = GetClassPtr( ( CCineMonster * ) VARS( pCine ) );
 			if( state )
 			{
 				pTarget->m_iDelay++;
@@ -292,7 +294,6 @@ void CCineMonster::DelayStart( int state )
 					pTarget->m_startTime = gpGlobals->time + 0.05;
 			}
 		}
-		pentCine = FIND_ENTITY_BY_TARGETNAME( pentCine, GetTargetname() );
 	}
 }
 

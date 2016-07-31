@@ -19,14 +19,12 @@ void CInfoIntermission::Spawn( void )
 
 void CInfoIntermission::Think( void )
 {
-	edict_t *pTarget;
-
 	// find my target
-	pTarget = FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() );
+	CBaseEntity* pTarget = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
 
-	if( !FNullEnt( pTarget ) )
+	if( pTarget )
 	{
-		pev->v_angle = UTIL_VecToAngles( ( pTarget->v.origin - GetAbsOrigin() ).Normalize() );
+		pev->v_angle = UTIL_VecToAngles( ( pTarget->GetAbsOrigin() - GetAbsOrigin() ).Normalize() );
 		pev->v_angle.x = -pev->v_angle.x;
 	}
 }

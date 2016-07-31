@@ -182,20 +182,20 @@ void CFuncTrackChange::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 void CFuncTrackChange::Find( void )
 {
 	// Find track entities
-	edict_t *target;
+	CBaseEntity* pTarget = nullptr;
 
-	target = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_trackTopName ) );
-	if( !FNullEnt( target ) )
+	pTarget = UTIL_FindEntityByTargetname( nullptr, STRING( m_trackTopName ) );
+	if( pTarget )
 	{
-		m_trackTop = CPathTrack::Instance( target );
-		target = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_trackBottomName ) );
-		if( !FNullEnt( target ) )
+		m_trackTop = CPathTrack::Instance( pTarget );
+		pTarget = UTIL_FindEntityByTargetname( nullptr, STRING( m_trackBottomName ) );
+		if( pTarget )
 		{
-			m_trackBottom = CPathTrack::Instance( target );
-			target = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_trainName ) );
-			if( !FNullEnt( target ) )
+			m_trackBottom = CPathTrack::Instance( pTarget );
+			pTarget = UTIL_FindEntityByTargetname( nullptr, STRING( m_trainName ) );
+			if( pTarget )
 			{
-				m_train = CFuncTrackTrain::Instance( FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_trainName ) ) );
+				m_train = CFuncTrackTrain::Instance( UTIL_FindEntityByTargetname( nullptr, STRING( m_trainName ) ) );
 				if( !m_train )
 				{
 					ALERT( at_error, "Can't find train for track change! %s\n", STRING( m_trainName ) );
@@ -211,7 +211,6 @@ void CFuncTrackChange::Find( void )
 			else
 			{
 				ALERT( at_error, "Can't find train for track change! %s\n", STRING( m_trainName ) );
-				target = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_trainName ) );
 			}
 		}
 		else

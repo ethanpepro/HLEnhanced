@@ -318,9 +318,6 @@ int CChangeLevel::AddTransitionToList( LEVELLIST *pLevelList, int listCount, con
 
 int CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
 {
-	edict_t	*pentVolume;
-
-
 	if( pEntity->ObjectCaps() & FCAP_FORCE_TRANSITION )
 		return 1;
 
@@ -331,21 +328,20 @@ int CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
 			pEntity = CBaseEntity::Instance( pEntity->pev->aiment );
 	}
 
+	//TODO: change to bool - Solokiller
+
 	int inVolume = 1;	// Unless we find a trigger_transition, everything is in the volume
 
-	pentVolume = FIND_ENTITY_BY_TARGETNAME( NULL, pVolumeName );
-	while( !FNullEnt( pentVolume ) )
+	CBaseEntity* pVolume = nullptr;
+	while( pVolume = UTIL_FindEntityByTargetname( nullptr, pVolumeName ) )
 	{
-		CBaseEntity *pVolume = CBaseEntity::Instance( pentVolume );
-
-		if( pVolume && FClassnameIs( pVolume->pev, "trigger_transition" ) )
+		if( pVolume->ClassnameIs( "trigger_transition" ) )
 		{
 			if( pVolume->Intersects( pEntity ) )	// It touches one, it's in the volume
 				return 1;
 			else
 				inVolume = 0;	// Found a trigger_transition, but I don't intersect it -- if I don't find another, don't go!
 		}
-		pentVolume = FIND_ENTITY_BY_TARGETNAME( pentVolume, pVolumeName );
 	}
 
 	return inVolume;

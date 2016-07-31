@@ -62,7 +62,7 @@ void CPathCorner::Touch( CBaseEntity *pOther )
 		ALERT( at_warning, "PathCornerTouch: no next stop specified" );
 	}
 
-	pOther->m_pGoalEnt = CBaseEntity::Instance( FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() ) );
+	pOther->m_pGoalEnt = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
 
 	// If "next spot" was not found (does not exist - level design error)
 	if( !pOther->m_pGoalEnt )

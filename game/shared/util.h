@@ -37,11 +37,6 @@ extern globalvars_t				*gpGlobals;
 #define STRING(offset)		((const char *)(gpGlobals->pStringBase + (unsigned int)(offset)))
 #define MAKE_STRING(str)	((uint64)(str) - (uint64)(STRING(0)))
 
-inline edict_t *FIND_ENTITY_BY_TARGETNAME(edict_t *entStart, const char *pszName) 
-{
-	return FIND_ENTITY_BY_STRING(entStart, "targetname", pszName);
-}	
-
 // for doing a reverse lookup. Say you have a door, and want to find its button.
 inline edict_t *FIND_ENTITY_BY_TARGET(edict_t *entStart, const char *pszName) 
 {
@@ -134,6 +129,7 @@ extern CBaseEntity	*UTIL_FindEntityByString(CBaseEntity *pStartEntity, const cha
 extern CBaseEntity	*UTIL_FindEntityByClassname(CBaseEntity *pStartEntity, const char *szName );
 extern CBaseEntity	*UTIL_FindEntityByTargetname(CBaseEntity *pStartEntity, const char *szName );
 extern CBaseEntity	*UTIL_FindEntityGeneric(const char *szName, const Vector &vecSrc, float flRadius );
+CBaseEntity* UTIL_FindEntityByTarget( CBaseEntity* pStartEntity, const char* const pszTarget );
 
 /**
 *	Gets a CBasePlayer pointer to a player by index.

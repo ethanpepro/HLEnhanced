@@ -23,13 +23,13 @@ void CFuncTrainControls::Spawn( void )
 
 void CFuncTrainControls::Find( void )
 {
-	edict_t *pTarget = NULL;
+	CBaseEntity* pTarget = nullptr;
 
 	do
 	{
-		pTarget = FIND_ENTITY_BY_TARGETNAME( pTarget, GetTarget() );
+		pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() );
 	}
-	while( !FNullEnt( pTarget ) && !FClassnameIs( pTarget, "func_tracktrain" ) );
+	while( !FNullEnt( pTarget ) && !pTarget->ClassnameIs( "func_tracktrain" ) );
 
 	if( FNullEnt( pTarget ) )
 	{

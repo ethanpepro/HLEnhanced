@@ -113,7 +113,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	if( m_sPath )
 	{
 		//TODO: trigger_camera uses path_corner, so check the classname? - Solokiller
-		m_pentPath = Instance( FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_sPath ) ) );
+		m_pentPath = UTIL_FindEntityByTargetname( nullptr, STRING( m_sPath ) );
 	}
 	else
 	{

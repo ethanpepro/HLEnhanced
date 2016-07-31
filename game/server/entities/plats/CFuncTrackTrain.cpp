@@ -203,7 +203,7 @@ void CFuncTrackTrain::Next( void )
 	}
 
 	//	if ( !m_ppath )
-	//		m_ppath = CPathTrack::Instance(FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() ));
+	//		m_ppath = CPathTrack::Instance(UTIL_FindEntityByTargetname( nullptr, GetTarget() ));
 	if( !m_ppath )
 	{
 		ALERT( at_aiconsole, "TRAIN(%s): Lost path\n", GetTargetname() );
@@ -328,14 +328,14 @@ void CFuncTrackTrain::Next( void )
 
 void CFuncTrackTrain::Find( void )
 {
-	m_ppath = CPathTrack::Instance( FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() ) );
+	m_ppath = CPathTrack::Instance( UTIL_FindEntityByTargetname( nullptr, GetTarget() ) );
 	if( !m_ppath )
 		return;
 
-	if( !FClassnameIs( m_ppath->pev, "path_track" ) )
+	if( !m_ppath->ClassnameIs( "path_track" ) )
 	{
 		ALERT( at_error, "func_track_train must be on a path of path_track\n" );
-		m_ppath = NULL;
+		m_ppath = nullptr;
 		return;
 	}
 
@@ -569,6 +569,13 @@ CFuncTrackTrain *CFuncTrackTrain::Instance( edict_t *pent )
 	if( FClassnameIs( pent, "func_tracktrain" ) )
 		return ( CFuncTrackTrain * ) GET_PRIVATE( pent );
 	return NULL;
+}
+
+CFuncTrackTrain* CFuncTrackTrain::Instance( CBaseEntity* pEntity )
+{
+	if( pEntity && pEntity->ClassnameIs( "func_tracktrain" ) )
+		return static_cast<CFuncTrackTrain*>( pEntity );
+	return nullptr;
 }
 
 void CFuncTrackTrain::OverrideReset( void )

@@ -79,12 +79,13 @@ void CFuncTrain::Activate( void )
 	if( !m_activated )
 	{
 		m_activated = true;
-		entvars_t	*pevTarg = VARS( FIND_ENTITY_BY_TARGETNAME( NULL, GetTarget() ) );
+		CBaseEntity* pTarg = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
 
-		pev->target = pevTarg->target;
-		m_pevCurrentTarget = pevTarg;// keep track of this since path corners change our target for us.
+		pev->target = MAKE_STRING( pTarg->GetTarget() );
+		//TODO change to EHANDLE - Solokiller
+		m_pevCurrentTarget = pTarg->pev;// keep track of this since path corners change our target for us.
 
-		SetAbsOrigin( pevTarg->origin - ( pev->mins + pev->maxs ) * 0.5 );
+		SetAbsOrigin( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs ) * 0.5 );
 
 		if( !HasTargetname() )
 		{	// not triggered, so start immediately

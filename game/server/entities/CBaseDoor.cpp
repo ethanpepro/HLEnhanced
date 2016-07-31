@@ -417,7 +417,6 @@ void CBaseDoor::DoorHitBottom( void )
 
 void CBaseDoor::Blocked( CBaseEntity *pOther )
 {
-	edict_t	*pentTarget = NULL;
 	CBaseDoor	*pDoor = NULL;
 
 
@@ -443,26 +442,21 @@ void CBaseDoor::Blocked( CBaseEntity *pOther )
 	// Block all door pieces with the same targetname here.
 	if( HasTargetname() )
 	{
-		for( ;;)
+		CBaseEntity* pTarget = nullptr;
+		while( pTarget = UTIL_FindEntityByTargetname( pTarget, GetTargetname() ) )
 		{
-			pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, GetTargetname() );
-
-			if( VARS( pentTarget ) != pev )
+			if( pTarget != this )
 			{
-				if( FNullEnt( pentTarget ) )
-					break;
-
-				if( FClassnameIs( pentTarget, "func_door" ) || FClassnameIs( pentTarget, "func_door_rotating" ) )
+				if( pTarget->ClassnameIs( "func_door" ) || pTarget->ClassnameIs( "func_door_rotating" ) )
 				{
-
-					pDoor = GetClassPtr( ( CBaseDoor * ) VARS( pentTarget ) );
+					pDoor = static_cast<CBaseDoor*>( pTarget );
 
 					if( pDoor->m_flWait >= 0 )
 					{
 						if( pDoor->pev->velocity == pev->velocity && pDoor->pev->avelocity == pev->velocity )
 						{
 							// this is the most hacked, evil, bastardized thing I've ever seen. kjb
-							if( FClassnameIs( pentTarget, "func_door" ) )
+							if( pTarget->ClassnameIs( "func_door" ) )
 							{// set origin to realign normal doors
 								pDoor->pev->origin = GetAbsOrigin();
 								pDoor->pev->velocity = g_vecZero;// stop!

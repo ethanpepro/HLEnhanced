@@ -87,20 +87,16 @@ void CBaseEntity :: SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, f
 
 void FireTargets( const char *targetName, CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	edict_t *pentTarget = NULL;
 	if ( !targetName )
 		return;
 
 	ALERT( at_aiconsole, "Firing: (%s)\n", targetName );
 
-	for (;;)
-	{
-		pentTarget = FIND_ENTITY_BY_TARGETNAME(pentTarget, targetName);
-		if (FNullEnt(pentTarget))
-			break;
+	CBaseEntity* pTarget = nullptr;
 
-		CBaseEntity *pTarget = CBaseEntity::Instance( pentTarget );
-		if ( pTarget && !(pTarget->pev->flags & FL_KILLME) )	// Don't use dying ents
+	while( pTarget = UTIL_FindEntityByTargetname( pTarget, targetName ) )
+	{
+		if( !(pTarget->pev->flags & FL_KILLME) ) // Don't use dying ents
 		{
 			ALERT( at_aiconsole, "Found: %s, firing (%s)\n", pTarget->GetClassname(), targetName );
 			pTarget->Use( pActivator, pCaller, useType, value );

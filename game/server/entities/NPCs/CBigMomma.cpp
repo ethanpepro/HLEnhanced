@@ -442,10 +442,8 @@ void CBigMomma::NodeStart( int iszNextNode )
 
 	if ( HasNetName() )
 	{
-		edict_t *pentTarget = FIND_ENTITY_BY_TARGETNAME ( NULL, GetNetName() );
-
-		if ( !FNullEnt(pentTarget) )
-			pTarget = Instance( pentTarget );
+		if( CBaseEntity* pTarget = UTIL_FindEntityByTargetname( nullptr, GetNetName() ) )
+			pTarget = pTarget;
 	}
 
 
