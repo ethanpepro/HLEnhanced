@@ -61,9 +61,9 @@ void USENTENCEG_InitLRU( unsigned char *plru, int count );
 
 void SENTENCEG_Init();
 void SENTENCEG_Stop( CBaseEntity* pEntity, int isentenceg, int ipick );
-int SENTENCEG_PlayRndI( edict_t *entity, int isentenceg, float volume, float attenuation, int flags, int pitch );
-int SENTENCEG_PlayRndSz( edict_t *entity, const char *szrootname, float volume, float attenuation, int flags, int pitch );
-int SENTENCEG_PlaySequentialSz( edict_t *entity, const char *szrootname, float volume, float attenuation, int flags, int pitch, int ipick, const bool bReset );
+int SENTENCEG_PlayRndI( CBaseEntity* pEntity, int isentenceg, float volume, float attenuation, int flags, int pitch );
+int SENTENCEG_PlayRndSz( CBaseEntity* pEntity, const char *szrootname, float volume, float attenuation, int flags, int pitch );
+int SENTENCEG_PlaySequentialSz( CBaseEntity* pEntity, const char *szrootname, float volume, float attenuation, int flags, int pitch, int ipick, const bool bReset );
 int SENTENCEG_GetIndex( const char *szrootname );
 int SENTENCEG_Lookup( const char *sample, char *sentencenum );
 

@@ -1101,7 +1101,7 @@ bool CTalkMonster::FIdleSpeak()
 	if (pFriend && !(pFriend->IsMoving()) && (RANDOM_LONG(0,99) < 75))
 	{
 		PlaySentence( szQuestionGroup, duration, VOL_NORM, ATTN_IDLE );
-		//SENTENCEG_PlayRndSz( ENT(pev), szQuestionGroup, 1.0, ATTN_IDLE, 0, pitch );
+		//SENTENCEG_PlayRndSz( this, szQuestionGroup, 1.0, ATTN_IDLE, 0, pitch );
 
 		// force friend to answer
 		CTalkMonster *pTalkMonster = (CTalkMonster *)pFriend;
@@ -1116,7 +1116,7 @@ bool CTalkMonster::FIdleSpeak()
 	// otherwise, play an idle statement, try to face client when making a statement.
 	if ( RANDOM_LONG(0,1) )
 	{
-		//SENTENCEG_PlayRndSz( ENT(pev), szIdleGroup, 1.0, ATTN_IDLE, 0, pitch );
+		//SENTENCEG_PlayRndSz( this, szIdleGroup, 1.0, ATTN_IDLE, 0, pitch );
 		CBaseEntity *pFriend = FindNearestFriend(true);
 
 		if ( pFriend )
@@ -1157,7 +1157,7 @@ void CTalkMonster::PlaySentence( const char *pszSentence, float duration, float 
 	if ( pszSentence[0] == '!' )
 		EMIT_SOUND_DYN( edict(), CHAN_VOICE, pszSentence, volume, attenuation, 0, GetVoicePitch());
 	else
-		SENTENCEG_PlayRndSz( edict(), pszSentence, volume, attenuation, 0, GetVoicePitch() );
+		SENTENCEG_PlayRndSz( this, pszSentence, volume, attenuation, 0, GetVoicePitch() );
 
 	// If you say anything, don't greet the player - you may have already spoken to them
 	SetBits(m_bitsSaid, bit_saidHelloPlayer);
@@ -1241,7 +1241,7 @@ Schedule_t* CTalkMonster :: GetScheduleOfType ( int Type )
 			// sustained light wounds?
 			if (!FBitSet(m_bitsSaid, bit_saidWoundLight) && (pev->health <= (pev->max_health * 0.75)))
 			{
-				//SENTENCEG_PlayRndSz( ENT(pev), m_szGrp[TLK_WOUND], 1.0, ATTN_IDLE, 0, GetVoicePitch() );
+				//SENTENCEG_PlayRndSz( this, m_szGrp[TLK_WOUND], 1.0, ATTN_IDLE, 0, GetVoicePitch() );
 				//CTalkMonster::g_talkWaitTime = gpGlobals->time + RANDOM_FLOAT(2.8, 3.2);
 				PlaySentence( m_szGrp[TLK_WOUND], RANDOM_FLOAT(2.8, 3.2), VOL_NORM, ATTN_IDLE );
 				SetBits(m_bitsSaid, bit_saidWoundLight);
@@ -1250,7 +1250,7 @@ Schedule_t* CTalkMonster :: GetScheduleOfType ( int Type )
 			// sustained heavy wounds?
 			else if (!FBitSet(m_bitsSaid, bit_saidWoundHeavy) && (pev->health <= (pev->max_health * 0.5)))
 			{
-				//SENTENCEG_PlayRndSz( ENT(pev), m_szGrp[TLK_MORTAL], 1.0, ATTN_IDLE, 0, GetVoicePitch() );
+				//SENTENCEG_PlayRndSz( this, m_szGrp[TLK_MORTAL], 1.0, ATTN_IDLE, 0, GetVoicePitch() );
 				//CTalkMonster::g_talkWaitTime = gpGlobals->time + RANDOM_FLOAT(2.8, 3.2);
 				PlaySentence( m_szGrp[TLK_MORTAL], RANDOM_FLOAT(2.8, 3.2), VOL_NORM, ATTN_IDLE );
 				SetBits(m_bitsSaid, bit_saidWoundHeavy);

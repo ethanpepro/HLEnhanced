@@ -197,7 +197,7 @@ int SENTENCEG_GetIndex(const char *szgroupname)
 // play from the group. Ipick is only needed if you plan on stopping
 // the sound before playback is done (see SENTENCEG_Stop).
 
-int SENTENCEG_PlayRndI(edict_t *entity, int isentenceg, 
+int SENTENCEG_PlayRndI( CBaseEntity* pEntity, int isentenceg,
 					  float volume, float attenuation, int flags, int pitch)
 {
 	char name[64];
@@ -210,13 +210,13 @@ int SENTENCEG_PlayRndI(edict_t *entity, int isentenceg,
 
 	ipick = USENTENCEG_Pick(isentenceg, name);
 	if (ipick > 0 && name)
-		EMIT_SOUND_DYN(entity, CHAN_VOICE, name, volume, attenuation, flags, pitch);
+		EMIT_SOUND_DYN( pEntity->edict(), CHAN_VOICE, name, volume, attenuation, flags, pitch);
 	return ipick;
 }
 
 // same as above, but takes sentence group name instead of index
 
-int SENTENCEG_PlayRndSz(edict_t *entity, const char *szgroupname, 
+int SENTENCEG_PlayRndSz( CBaseEntity* pEntity, const char *szgroupname,
 					  float volume, float attenuation, int flags, int pitch)
 {
 	char name[64];
@@ -237,14 +237,14 @@ int SENTENCEG_PlayRndSz(edict_t *entity, const char *szgroupname,
 
 	ipick = USENTENCEG_Pick(isentenceg, name);
 	if (ipick >= 0 && name[0])
-		EMIT_SOUND_DYN(entity, CHAN_VOICE, name, volume, attenuation, flags, pitch);
+		EMIT_SOUND_DYN( pEntity->edict(), CHAN_VOICE, name, volume, attenuation, flags, pitch);
 
 	return ipick;
 }
 
 // play sentences in sequential order from sentence group.  Reset after last sentence.
 
-int SENTENCEG_PlaySequentialSz(edict_t *entity, const char *szgroupname, 
+int SENTENCEG_PlaySequentialSz( CBaseEntity* pEntity, const char *szgroupname,
 					  float volume, float attenuation, int flags, int pitch, int ipick, const bool bReset )
 {
 	char name[64];
@@ -262,7 +262,7 @@ int SENTENCEG_PlaySequentialSz(edict_t *entity, const char *szgroupname,
 
 	ipicknext = USENTENCEG_PickSequential(isentenceg, name, ipick, bReset );
 	if (ipicknext >= 0 && name[0])
-		EMIT_SOUND_DYN(entity, CHAN_VOICE, name, volume, attenuation, flags, pitch);
+		EMIT_SOUND_DYN( pEntity->edict(), CHAN_VOICE, name, volume, attenuation, flags, pitch);
 	return ipicknext;
 }
 
@@ -485,7 +485,7 @@ void EMIT_GROUPID_SUIT( CBaseEntity* pEntity, int isentenceg )
 		pitch = RANDOM_LONG(0,6) + 98;
 
 	if (fvol > 0.05)
-		SENTENCEG_PlayRndI( pEntity->edict(), isentenceg, fvol, ATTN_NORM, 0, pitch );
+		SENTENCEG_PlayRndI( pEntity, isentenceg, fvol, ATTN_NORM, 0, pitch );
 }
 
 // play a sentence, randomly selected from the passed in groupname
@@ -500,7 +500,7 @@ void EMIT_GROUPNAME_SUIT( CBaseEntity* pEntity, const char *groupname )
 		pitch = RANDOM_LONG(0,6) + 98;
 
 	if (fvol > 0.05)
-		SENTENCEG_PlayRndSz( pEntity->edict(), groupname, fvol, ATTN_NORM, 0, pitch);
+		SENTENCEG_PlayRndSz( pEntity, groupname, fvol, ATTN_NORM, 0, pitch);
 }
 
 void UTIL_EmitAmbientSound( CBaseEntity* pEntity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch )

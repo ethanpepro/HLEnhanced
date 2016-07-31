@@ -122,7 +122,7 @@ void CISlave :: AlertSound( void )
 {
 	if ( m_hEnemy != NULL )
 	{
-		SENTENCEG_PlayRndSz(ENT(pev), "SLV_ALERT", 0.85, ATTN_NORM, 0, m_voicePitch);
+		SENTENCEG_PlayRndSz( this, "SLV_ALERT", 0.85, ATTN_NORM, 0, m_voicePitch);
 
 		CallForHelp( "monster_alien_slave", 512, m_hEnemy, m_vecEnemyLKP );
 	}
@@ -135,7 +135,7 @@ void CISlave :: IdleSound( void )
 {
 	if (RANDOM_LONG( 0, 2 ) == 0)
 	{
-		SENTENCEG_PlayRndSz(ENT(pev), "SLV_IDLE", 0.85, ATTN_NORM, 0, m_voicePitch);
+		SENTENCEG_PlayRndSz( this, "SLV_IDLE", 0.85, ATTN_NORM, 0, m_voicePitch);
 	}
 
 #if 0
