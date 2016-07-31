@@ -14,9 +14,13 @@ add_sources(
 	CHudDeathNotice.h
 	CHudFlashlight.h
 	CHudGeiger.h
+	CHudHealth.h
+	CHudHealth.cpp
 	CHudMenu.h
 	CHudMessage.h
 	CHudSayText.h
+	CHudSpectator.h
+	CHudSpectator.cpp
 	CHudStatusBar.h
 	CHudStatusIcons.h
 	CHudTextMessage.h
@@ -24,8 +28,6 @@ add_sources(
 	death.cpp
 	flashlight.cpp
 	geiger.cpp
-	health.h
-	health.cpp
 	hud.h
 	hud.cpp
 	hud_bench.cpp
@@ -33,8 +35,6 @@ add_sources(
 	hud_benchtrace.cpp
 	hud_msg.cpp
 	hud_redraw.cpp
-	hud_spectator.h
-	hud_spectator.cpp
 	hud_update.cpp
 	menu.cpp
 	message.cpp

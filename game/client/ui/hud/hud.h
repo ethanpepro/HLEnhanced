@@ -119,8 +119,6 @@ const int maxHUDMessages = 16;
 #include "CHudBase.h"
 
 #include "voice_status.h" // base voice handling class
-#include "hud_spectator.h"
-#include "health.h"
 
 #include "CHudAmmo.h"
 #include "CHudAmmoSecondary.h"
@@ -129,9 +127,11 @@ const int maxHUDMessages = 16;
 #include "CHudDeathNotice.h"
 #include "CHudFlashlight.h"
 #include "CHudGeiger.h"
+#include "CHudHealth.h"
 #include "CHudMenu.h"
 #include "CHudMessage.h"
 #include "CHudSayText.h"
+#include "CHudSpectator.h"
 #include "CHudStatusBar.h"
 #include "CHudStatusIcons.h"
 #include "CHudTextMessage.h"
