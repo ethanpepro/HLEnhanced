@@ -36,13 +36,13 @@ void CNodeViewer::Spawn()
 	}
 
 
-	if( FClassnameIs( pev, "node_viewer_fly" ) )
+	if( ClassnameIs( "node_viewer_fly" ) )
 	{
 		m_iHull = NODE_FLY_HULL;
 		m_afNodeType = bits_NODE_AIR;
 		m_vecColor = Vector( 160, 100, 255 );
 	}
-	else if( FClassnameIs( pev, "node_viewer_large" ) )
+	else if( ClassnameIs( "node_viewer_large" ) )
 	{
 		m_iHull = NODE_LARGE_HULL;
 		m_afNodeType = bits_NODE_LAND | bits_NODE_WATER;

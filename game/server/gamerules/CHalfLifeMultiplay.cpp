@@ -830,7 +830,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 	{
 		snprintf( szBuffer, sizeof( szBuffer ), "%s : %s : %s\n", pKiller->GetNetName(), killer_weapon_name, pVictim->GetNetName() );
 	}
-	else if( FClassnameIs ( pKiller, "worldspawn" ) )
+	else if( pKiller->ClassnameIs( "worldspawn" ) )
 	{
 		snprintf( szBuffer, sizeof( szBuffer ), "%s fell or drowned or something.\n", pVictim->GetNetName() );
 	}

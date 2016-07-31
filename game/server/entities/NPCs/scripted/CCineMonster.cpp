@@ -11,7 +11,7 @@
 void ScriptEntityCancel( CBaseEntity* pCine )
 {
 	// make sure they are a scripted_sequence
-	if( FClassnameIs( pCine, CLASSNAME ) )
+	if( pCine->ClassnameIs( CLASSNAME ) )
 	{
 		CCineMonster *pCineTarget = static_cast<CCineMonster*>( pCine );
 		// make sure they have a monster in mind for the script
@@ -326,7 +326,7 @@ bool CCineMonster::FindEntity()
 		pTargetEnt = nullptr;
 		while( pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius ) )
 		{
-			if( FClassnameIs( pTargetEnt, STRING( m_iszEntity ) ) )
+			if( pTargetEnt->ClassnameIs( STRING( m_iszEntity ) ) )
 			{
 				if( pTargetEnt->AnyFlagsSet( FL_MONSTER ) )
 				{

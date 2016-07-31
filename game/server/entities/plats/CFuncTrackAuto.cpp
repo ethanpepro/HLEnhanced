@@ -23,7 +23,7 @@ void CFuncTrackAuto::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	else
 		pTarget = NULL;
 
-	if( FClassnameIs( pActivator->pev, "func_tracktrain" ) )
+	if( pActivator->ClassnameIs( "func_tracktrain" ) )
 	{
 		m_code = EvaluateTrain( pTarget );
 		// Safe to fire?

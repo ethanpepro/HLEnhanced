@@ -48,7 +48,7 @@ const char *CGamePlayerTeam::TargetTeamName( const char *pszTargetName )
 
 	while( ( pTeamEntity = UTIL_FindEntityByTargetname( pTeamEntity, pszTargetName ) ) != NULL )
 	{
-		if( FClassnameIs( pTeamEntity->pev, "game_team_master" ) )
+		if( pTeamEntity->ClassnameIs( "game_team_master" ) )
 			return pTeamEntity->TeamID();
 	}
 

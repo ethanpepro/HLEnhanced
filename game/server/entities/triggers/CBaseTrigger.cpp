@@ -64,7 +64,7 @@ void CBaseTrigger::MultiTouch( CBaseEntity *pOther )
 	// Only touch clients, monsters, or pushables (depending on flags)
 	if( ( ( pOther->pev->flags & FL_CLIENT ) && !( pev->spawnflags & SF_TRIGGER_NOCLIENTS ) ) ||
 		( ( pOther->pev->flags & FL_MONSTER ) && ( pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS ) ) ||
-		( pev->spawnflags & SF_TRIGGER_PUSHABLES ) && FClassnameIs( pOther, "func_pushable" ) )
+		( pev->spawnflags & SF_TRIGGER_PUSHABLES ) && pOther->ClassnameIs( "func_pushable" ) )
 	{
 
 #if 0
@@ -94,9 +94,11 @@ void CBaseTrigger::ActivateMultiTrigger( CBaseEntity *pActivator )
 	if( !UTIL_IsMasterTriggered( m_sMaster, pActivator ) )
 		return;
 
-	if( FClassnameIs( pev, "trigger_secret" ) )
+	if( ClassnameIs( "trigger_secret" ) )
 	{
-		if( pev->enemy == NULL || !FClassnameIs( pev->enemy, "player" ) )
+		//TODO: replace with IsPlayer - Solokiller
+		CBaseEntity* pEnemy = GetPEVEnemy();
+		if( !pEnemy || !pEnemy->ClassnameIs( "player" ) )
 			return;
 		gpGlobals->found_secrets++;
 	}
@@ -151,9 +153,10 @@ void CBaseTrigger::CounterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, US
 	if( m_cTriggersLeft < 0 )
 		return;
 
+	//TODO: replace with IsPlayer - Solokiller
 	const bool fTellActivator =
 		( m_hActivator != nullptr ) &&
-		FClassnameIs( m_hActivator->pev, "player" ) &&
+		m_hActivator->ClassnameIs( "player" ) &&
 		!FBitSet( pev->spawnflags, SPAWNFLAG_NOMESSAGE );
 
 	if( m_cTriggersLeft != 0 )

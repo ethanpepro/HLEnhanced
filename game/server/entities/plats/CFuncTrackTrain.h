@@ -64,7 +64,6 @@ public:
 	void StopSound( void );
 	void UpdateSound( void );
 
-	static CFuncTrackTrain *Instance( edict_t *pent );
 	static CFuncTrackTrain* Instance( CBaseEntity* pEntity );
 
 	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | FCAP_DIRECTIONAL_USE; }

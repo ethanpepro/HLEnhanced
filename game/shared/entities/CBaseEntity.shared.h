@@ -2008,6 +2008,15 @@ public:
 		pev->groundentity = pEntity ? pEntity->edict() : nullptr;
 	}
 
+	/**
+	*	TODO: hardly ever used, remove all uses. - Solokiller
+	*	@return The PEV enemy.
+	*/
+	CBaseEntity* GetPEVEnemy()
+	{
+		return pev->enemy ? Instance( pev->enemy ) : nullptr;
+	}
+
 	//TODO: edict_t* pointers - Solokiller
 	//TODO: dmg* vars
 	//TODO: noise* vars

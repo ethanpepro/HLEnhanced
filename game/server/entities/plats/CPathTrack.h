@@ -40,7 +40,6 @@ public:
 	CPathTrack	*ValidPath( CPathTrack *ppath, const bool bTestFlag );		// Returns ppath if enabled, NULL otherwise
 	void		Project( CPathTrack *pstart, CPathTrack *pend, Vector *origin, float dist );
 
-	static CPathTrack *Instance( edict_t *pent );
 	static CPathTrack* Instance( CBaseEntity* pEntity );
 
 	CPathTrack	*LookAhead( Vector *origin, float dist, const bool bMove );

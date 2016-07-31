@@ -74,7 +74,7 @@ void CXenTree::Precache( void )
 
 void CXenTree::Touch( CBaseEntity *pOther )
 {
-	if( !pOther->IsPlayer() && FClassnameIs( pOther->pev, "monster_bigmomma" ) )
+	if( !pOther->IsPlayer() && pOther->ClassnameIs( "monster_bigmomma" ) )
 		return;
 
 	Attack();

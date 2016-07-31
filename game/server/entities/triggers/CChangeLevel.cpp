@@ -107,7 +107,7 @@ void CChangeLevel::ExecuteChangeLevel( void )
 //
 void CChangeLevel::TouchChangeLevel( CBaseEntity *pOther )
 {
-	if( !FClassnameIs( pOther->pev, "player" ) )
+	if( !pOther->ClassnameIs( "player" ) )
 		return;
 
 	ChangeLevelNow( pOther );
@@ -177,7 +177,7 @@ CBaseEntity* CChangeLevel::FindLandmark( const char* const pszLandmarkName )
 	while( pLandmark = UTIL_FindEntityByTargetname( pLandmark, pszLandmarkName ) )
 	{
 		// Found the landmark
-		if( FClassnameIs( pLandmark, "info_landmark" ) )
+		if( pLandmark->ClassnameIs( "info_landmark" ) )
 			return pLandmark;
 	}
 	ALERT( at_error, "Can't find landmark %s\n", pszLandmarkName );

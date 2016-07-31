@@ -205,7 +205,8 @@ void CBaseDoor::Precache( void )
 void CBaseDoor::DoorTouch( CBaseEntity *pOther )
 {
 	// Ignore touches by anything but players
-	if( !FClassnameIs( pOther->pev, "player" ) )
+	//TODO: change to IsPlayer - Solokiller
+	if( !pOther->ClassnameIs( "player" ) )
 		return;
 
 	// If door has master, and it's not ready to trigger, 
@@ -293,7 +294,7 @@ void CBaseDoor::DoorGoUp( void )
 	m_toggle_state = TS_GOING_UP;
 
 	SetMoveDone( &CBaseDoor::DoorHitTop );
-	if( FClassnameIs( pev, "func_door_rotating" ) )		// !!! BUGBUG Triggered doors don't work with this yet
+	if( ClassnameIs( "func_door_rotating" ) )		// !!! BUGBUG Triggered doors don't work with this yet
 	{
 		float	sign = 1.0;
 
@@ -380,7 +381,7 @@ void CBaseDoor::DoorGoDown( void )
 	m_toggle_state = TS_GOING_DOWN;
 
 	SetMoveDone( &CBaseDoor::DoorHitBottom );
-	if( FClassnameIs( pev, "func_door_rotating" ) )//rotating door
+	if( ClassnameIs( "func_door_rotating" ) )//rotating door
 		AngularMove( m_vecAngle1, pev->speed );
 	else
 		LinearMove( m_vecPosition1, pev->speed );

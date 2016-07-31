@@ -64,7 +64,7 @@ void CPushable::Precache( void )
 
 void CPushable::Touch( CBaseEntity *pOther )
 {
-	if( FClassnameIs( pOther->pev, "worldspawn" ) )
+	if( pOther->ClassnameIs( "worldspawn" ) )
 		return;
 
 	Move( pOther, 1 );

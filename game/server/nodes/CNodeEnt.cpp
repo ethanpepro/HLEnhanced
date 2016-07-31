@@ -48,7 +48,7 @@ void CNodeEnt::Spawn( void )
 	WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_sHintType = m_sHintType;
 	WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_sHintActivity = m_sHintActivity;
 
-	if( FClassnameIs( pev, "info_node_air" ) )
+	if( ClassnameIs( "info_node_air" ) )
 		WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_afNodeInfo = bits_NODE_AIR;
 	else
 		WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_afNodeInfo = 0;

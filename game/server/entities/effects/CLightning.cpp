@@ -8,11 +8,12 @@
 
 #include "CLightning.h"
 
+//TODO: change to return bool - Solokiller
 int IsPointEntity( CBaseEntity *pEnt )
 {
 	if( !pEnt->pev->modelindex )
 		return 1;
-	if( FClassnameIs( pEnt->pev, "info_target" ) || FClassnameIs( pEnt->pev, "info_landmark" ) || FClassnameIs( pEnt->pev, "path_corner" ) )
+	if( pEnt->ClassnameIs( "info_target" ) || pEnt->ClassnameIs( "info_landmark" ) || pEnt->ClassnameIs( "path_corner" ) )
 		return 1;
 
 	return 0;

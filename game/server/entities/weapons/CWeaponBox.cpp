@@ -240,7 +240,7 @@ bool CWeaponBox::HasWeapon( CBasePlayerItem *pCheckItem ) const
 
 	while( pItem )
 	{
-		if( FClassnameIs( pItem->pev, pCheckItem->GetClassname() ) )
+		if( pItem->ClassnameIs( pCheckItem->GetClassname() ) )
 		{
 			return true;
 		}

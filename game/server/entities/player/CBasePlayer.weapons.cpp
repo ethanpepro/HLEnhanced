@@ -253,7 +253,7 @@ bool CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
 
 	while( pInsert )
 	{
-		if( FClassnameIs( pInsert->pev, pItem->GetClassname() ) )
+		if( pInsert->ClassnameIs( pItem->GetClassname() ) )
 		{
 			if( pItem->AddDuplicate( pInsert ) )
 			{
@@ -446,7 +446,7 @@ bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const
 
 	while( pItem )
 	{
-		if( FClassnameIs( pItem->pev, pCheckItem->GetClassname() ) )
+		if( pItem->ClassnameIs( pCheckItem->GetClassname() ) )
 		{
 			return true;
 		}
@@ -590,7 +590,7 @@ void CBasePlayer::SelectItem( const char *pstr )
 
 			while( pItem )
 			{
-				if( FClassnameIs( pItem->pev, pstr ) )
+				if( pItem->ClassnameIs( pstr ) )
 					break;
 				pItem = pItem->m_pNext;
 			}

@@ -372,7 +372,7 @@ void CFuncTrackTrain::NearestPath( void )
 	while( ( pTrack = UTIL_FindEntityInSphere( pTrack, GetAbsOrigin(), 1024 ) ) != NULL )
 	{
 		// filter out non-tracks
-		if( !( pTrack->pev->flags & ( FL_CLIENT | FL_MONSTER ) ) && FClassnameIs( pTrack->pev, "path_track" ) )
+		if( !( pTrack->pev->flags & ( FL_CLIENT | FL_MONSTER ) ) && pTrack->ClassnameIs( "path_track" ) )
 		{
 			dist = ( GetAbsOrigin() - pTrack->GetAbsOrigin() ).Length();
 			if( dist < closest )
@@ -562,13 +562,6 @@ void CFuncTrackTrain::UpdateSound( void )
 		PLAYBACK_EVENT_FULL( FEV_RELIABLE | FEV_UPDATE, edict(), m_usAdjustPitch, 0.0,
 			g_vecZero, g_vecZero, 0.0, 0.0, us_encode, 0, 0, 0 );
 	}
-}
-
-CFuncTrackTrain *CFuncTrackTrain::Instance( edict_t *pent )
-{
-	if( FClassnameIs( pent, "func_tracktrain" ) )
-		return ( CFuncTrackTrain * ) GET_PRIVATE( pent );
-	return NULL;
 }
 
 CFuncTrackTrain* CFuncTrackTrain::Instance( CBaseEntity* pEntity )

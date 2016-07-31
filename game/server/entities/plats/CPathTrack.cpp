@@ -142,13 +142,6 @@ void CPathTrack::Project( CPathTrack *pstart, CPathTrack *pend, Vector *origin, 
 	}
 }
 
-CPathTrack *CPathTrack::Instance( edict_t *pent )
-{
-	if( FClassnameIs( pent, "path_track" ) )
-		return ( CPathTrack * ) GET_PRIVATE( pent );
-	return NULL;
-}
-
 CPathTrack* CPathTrack::Instance( CBaseEntity* pEntity )
 {
 	if( pEntity && pEntity->ClassnameIs( "path_track" ) )
