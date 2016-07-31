@@ -39,6 +39,11 @@ ItemInfo CBasePlayerItem::ItemInfoArray[MAX_WEAPONS];
 
 void EMIT_SOUND_DYN(edict_t *entity, int channel, const char *sample, float volume, float attenuation, int flags, int pitch) { }
 
+void EMIT_SOUND( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation )
+{
+	EMIT_SOUND_DYN( pEntity->edict(), channel, sample, volume, attenuation, 0, PITCH_NORM );
+}
+
 // DEBUG Stubs
 edict_t *DBG_EntOfVars( const entvars_t *pev ) { return nullptr; }
 
