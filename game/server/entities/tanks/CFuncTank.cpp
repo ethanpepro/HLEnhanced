@@ -242,7 +242,7 @@ void CFuncTank::Think( void )
 void CFuncTank::TrackTarget( void )
 {
 	TraceResult tr;
-	edict_t *pPlayer = FIND_CLIENT_IN_PVS( edict() );
+	CBaseEntity* pPlayer = UTIL_FindClientInPVS( this );
 	bool updateTime = false, lineOfSight;
 	Vector angles, direction, targetPosition, barrelEnd;
 
@@ -270,9 +270,7 @@ void CFuncTank::TrackTarget( void )
 			return;
 		}
 
-		CBaseEntity* pPlayerEnt = Instance( pPlayer );
-
-		pTarget = FindTarget( pPlayerEnt );
+		pTarget = FindTarget( pPlayer );
 
 		if( !pTarget )
 			return;

@@ -111,6 +111,8 @@ inline bool FClassnameIs(const entvars_t* pev, const char* szClassname)
 
 bool FClassnameIs( const CBaseEntity* pEntity, const char* pszClassname );
 
+CBaseEntity* UTIL_FindClientInPVS( const CBaseEntity* const pPVSEntity );
+
 class CBaseEntity;
 class CBasePlayerItem;
 class CBasePlayer;

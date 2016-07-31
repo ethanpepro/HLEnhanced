@@ -45,8 +45,6 @@ void CTriggerHurt::Spawn( void )
 
 void CTriggerHurt::RadiationThink( void )
 {
-
-	edict_t *pentPlayer;
 	CBasePlayer *pPlayer = NULL;
 	float flRange;
 	Vector vecSpot1;
@@ -65,7 +63,7 @@ void CTriggerHurt::RadiationThink( void )
 	pev->origin = ( pev->absmin + pev->absmax ) * 0.5;
 	pev->view_ofs = pev->view_ofs * 0.0;
 
-	pentPlayer = FIND_CLIENT_IN_PVS( edict() );
+	CBaseEntity* pentPlayer = UTIL_FindClientInPVS( this );
 
 	pev->origin = origin;
 	pev->view_ofs = view_ofs;
@@ -74,7 +72,7 @@ void CTriggerHurt::RadiationThink( void )
 
 	if( !FNullEnt( pentPlayer ) )
 	{
-		pPlayer = GetClassPtr( ( CBasePlayer * ) VARS( pentPlayer ) );
+		pPlayer = static_cast<CBasePlayer*>( pentPlayer );
 
 		// get range to player;
 

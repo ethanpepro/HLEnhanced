@@ -105,6 +105,18 @@ edict_t *DBG_EntOfVars( const entvars_t *pev )
 }
 #endif //DEBUG
 
+CBaseEntity* UTIL_FindClientInPVS( const CBaseEntity* const pPVSEntity )
+{
+	ASSERT( pPVSEntity );
+
+	if( !pPVSEntity )
+		return nullptr;
+
+	edict_t* pEnt = FIND_CLIENT_IN_PVS( pPVSEntity->edict() );
+
+	return pEnt ? CBaseEntity::Instance( pEnt ) : nullptr;
+}
+
 bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon )
 {
 	return g_pGameRules->GetNextBestWeapon( pPlayer, pCurrentWeapon );

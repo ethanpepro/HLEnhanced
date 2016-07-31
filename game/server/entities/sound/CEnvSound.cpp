@@ -92,16 +92,16 @@ bool FEnvSoundInRange( CEnvSound* pSound, CBaseEntity* pTarget, float *pflRange 
 
 void CEnvSound::Think( void )
 {
-	// get pointer to client if visible; FIND_CLIENT_IN_PVS will
+	// get pointer to client if visible; UTIL_FindClientInPVS will
 	// cycle through visible clients on consecutive calls.
 
-	edict_t *pentPlayer = FIND_CLIENT_IN_PVS( edict() );
+	CBaseEntity* pentPlayer = UTIL_FindClientInPVS( this );
 	CBasePlayer *pPlayer = NULL;
 
 	if( FNullEnt( pentPlayer ) )
 		goto env_sound_Think_slow; // no player in pvs of sound entity, slow it down
 
-	pPlayer = GetClassPtr( ( CBasePlayer * ) VARS( pentPlayer ) );
+	pPlayer = static_cast<CBasePlayer*>( pentPlayer );
 	float flRange;
 
 	// check to see if this is the sound entity that is 
@@ -158,7 +158,7 @@ void CEnvSound::Think( void )
 
 			//CLIENT_COMMAND(pentPlayer, "room_type %f", m_flRoomtype);
 
-			MESSAGE_BEGIN( MSG_ONE, SVC_ROOMTYPE, NULL, pentPlayer );		// use the magic #1 for "one client"
+			MESSAGE_BEGIN( MSG_ONE, SVC_ROOMTYPE, NULL, pentPlayer->edict() );		// use the magic #1 for "one client"
 			WRITE_SHORT( ( short ) m_flRoomtype );					// sequence number
 			MESSAGE_END();
 

@@ -64,7 +64,7 @@ void CFlockingFlyer::IdleThink( void )
 	pev->nextthink = gpGlobals->time + 0.2;
 
 	// see if there's a client in the same pvs as the monster
-	if( !FNullEnt( FIND_CLIENT_IN_PVS( edict() ) ) )
+	if( UTIL_FindClientInPVS( this ) )
 	{
 		SetThink( &CFlockingFlyer::Start );
 		pev->nextthink = gpGlobals->time + 0.1;
