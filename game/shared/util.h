@@ -324,3 +324,5 @@ enum class DropToFloor
 };
 
 DropToFloor UTIL_DropToFloor( CBaseEntity* pEntity );
+
+bool UTIL_WalkMove( CBaseEntity* pEntity, float yaw, float dist, WalkMove mode );

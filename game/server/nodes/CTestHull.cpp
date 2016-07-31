@@ -329,7 +329,7 @@ void CTestHull::BuildNodeGraph()
 				if( hull < NODE_FLY_HULL )
 				{
 					int SaveFlags = pev->flags;
-					int MoveMode = WALKMOVE_WORLDONLY;
+					WalkMove MoveMode = WALKMOVE_WORLDONLY;
 					if( pSrcNode->m_afNodeInfo & bits_NODE_WATER )
 					{
 						pev->flags |= FL_SWIM;
@@ -351,7 +351,7 @@ void CTestHull::BuildNodeGraph()
 						if( ( step + stepSize ) >= ( flDist - 1 ) )
 							stepSize = ( flDist - step ) - 1;
 
-						if( !WALK_MOVE( ENT( pev ), flYaw, stepSize, MoveMode ) )
+						if( !UTIL_WalkMove( this, flYaw, stepSize, MoveMode ) )
 						{// can't take the next step
 
 							bWalkFailed = true;

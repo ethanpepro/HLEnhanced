@@ -1262,7 +1262,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 		
 //		UTIL_ParticleEffect ( GetAbsOrigin(), g_vecZero, 255, 25 );
 
-		if ( !WALK_MOVE( ENT(pev), flYaw, stepSize, WALKMOVE_CHECKONLY ) )
+		if ( !UTIL_WalkMove( this, flYaw, stepSize, WALKMOVE_CHECKONLY ) )
 		{// can't take the next step, fail!
 
 			if ( pflDist != NULL )
@@ -1890,7 +1890,7 @@ bool CBaseMonster::ShouldAdvanceRoute( float flWaypointDist )
 void CBaseMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval )
 {
 //	float flYaw = UTIL_VecToYaw ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() );// build a yaw that points to the goal.
-//	WALK_MOVE( ENT(pev), flYaw, m_flGroundSpeed * flInterval, WALKMOVE_NORMAL );
+//	UTIL_WalkMove( this, flYaw, m_flGroundSpeed * flInterval, WALKMOVE_NORMAL );
 	if ( m_IdealActivity != m_movementActivity )
 		m_IdealActivity = m_movementActivity;
 
@@ -1998,7 +1998,7 @@ void CBaseMonster :: StartMonster ( void )
 		pev->origin.z += 1;
 		UTIL_DropToFloor( this );
 		// Try to move the monster to make sure it's not stuck in a brush.
-		if (!WALK_MOVE ( ENT(pev), 0, 0, WALKMOVE_NORMAL ) )
+		if (!UTIL_WalkMove( this, 0, 0, WALKMOVE_NORMAL ) )
 		{
 			ALERT(at_error, "Monster %s stuck in wall--level design error", GetClassname() );
 			pev->effects = EF_BRIGHTFIELD;

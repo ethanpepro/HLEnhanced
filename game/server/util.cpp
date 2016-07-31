@@ -1200,3 +1200,8 @@ DropToFloor UTIL_DropToFloor( CBaseEntity* pEntity )
 
 	return static_cast<DropToFloor>( DROP_TO_FLOOR( pEntity->edict() ) );
 }
+
+bool UTIL_WalkMove( CBaseEntity* pEntity, float yaw, float dist, WalkMove mode )
+{
+	return WALK_MOVE( pEntity->edict(), yaw, dist, mode ) != 0;
+}
