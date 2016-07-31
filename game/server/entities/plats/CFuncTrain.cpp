@@ -79,7 +79,14 @@ void CFuncTrain::Activate( void )
 	if( !m_activated )
 	{
 		m_activated = true;
+
 		CBaseEntity* pTarg = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
+
+		//Use the world if no target was found. Replicates SDK behavior. - Solokiller
+		if( !pTarg )
+		{
+			pTarg = CWorld::GetInstance();
+		}
 
 		pev->target = MAKE_STRING( pTarg->GetTarget() );
 		//TODO change to EHANDLE - Solokiller
