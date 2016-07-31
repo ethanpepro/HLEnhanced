@@ -38,7 +38,7 @@ bool CItemLongJump::MyTouch( CBasePlayer *pPlayer )
 		WRITE_STRING( GetClassname() );
 		MESSAGE_END();
 
-		EMIT_SOUND_SUIT( pPlayer->edict(), "!HEV_A1" );	// Play the longjump sound UNDONE: Kelly? correct sound?
+		EMIT_SOUND_SUIT( pPlayer, "!HEV_A1" );	// Play the longjump sound UNDONE: Kelly? correct sound?
 		return true;
 	}
 	return false;

@@ -764,7 +764,7 @@ void CISlave :: ZapBeam( int side )
 	{
 		pEntity->TraceAttack( CTakeDamageInfo( this, gSkillData.slaveDmgZap, DMG_SHOCK ), vecAim, &tr );
 	}
-	UTIL_EmitAmbientSound( ENT(pev), tr.vecEndPos, "weapons/electro4.wav", 0.5, ATTN_NORM, 0, RANDOM_LONG( 140, 160 ) );
+	UTIL_EmitAmbientSound( this, tr.vecEndPos, "weapons/electro4.wav", 0.5, ATTN_NORM, 0, RANDOM_LONG( 140, 160 ) );
 }
 
 

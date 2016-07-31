@@ -56,7 +56,7 @@ bool CItemBattery::MyTouch( CBasePlayer *pPlayer )
 
 		sprintf( szcharge, "!HEV_%1dP", pct );
 
-		//EMIT_SOUND_SUIT(ENT(pev), szcharge);
+		//EMIT_SOUND_SUIT( this, szcharge );
 		pPlayer->SetSuitUpdate( szcharge, SUIT_SENTENCE, SUIT_NEXT_IN_30SEC );
 		return true;
 	}

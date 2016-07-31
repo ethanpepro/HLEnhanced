@@ -1111,12 +1111,12 @@ void CBasePlayer::CheckSuitUpdate()
 				char sentence[ CBSENTENCENAME_MAX + 1 ];
 				strcpy( sentence, "!" );
 				strcat( sentence, gszallsentencenames[ isentence ] );
-				EMIT_SOUND_SUIT( ENT( pev ), sentence );
+				EMIT_SOUND_SUIT( this, sentence );
 			}
 			else
 			{
 				// play sentence group
-				EMIT_GROUPID_SUIT( ENT( pev ), -isentence );
+				EMIT_GROUPID_SUIT( this, -isentence );
 			}
 			m_flSuitUpdate = gpGlobals->time + PLAYER_SUITUPDATETIME;
 		}

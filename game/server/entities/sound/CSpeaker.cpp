@@ -161,7 +161,7 @@ void CSpeaker::SpeakerThink( void )
 	if( szSoundFile[ 0 ] == '!' )
 	{
 		// play single sentence, one shot
-		UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+		UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 							   flvolume, flattenuation, flags, pitch );
 
 		// shut off and reset

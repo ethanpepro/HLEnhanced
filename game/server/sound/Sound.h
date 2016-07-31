@@ -86,11 +86,11 @@ inline void EMIT_SOUND( edict_t *entity, int channel, const char *sample, float 
 
 void STOP_SOUND( CBaseEntity* pEntity, int channel, const char* const pszSample );
 
-void EMIT_SOUND_SUIT( edict_t *entity, const char *sample );
-void EMIT_GROUPID_SUIT( edict_t *entity, int isentenceg );
-void EMIT_GROUPNAME_SUIT( edict_t *entity, const char *groupname );
+void EMIT_SOUND_SUIT( CBaseEntity* pEntity, const char *sample );
+void EMIT_GROUPID_SUIT( CBaseEntity* pEntity, int isentenceg );
+void EMIT_GROUPNAME_SUIT( CBaseEntity* pEntity, const char *groupname );
 
-void UTIL_EmitAmbientSound( edict_t *entity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch );
+void UTIL_EmitAmbientSound( CBaseEntity* pEntity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch );
 
 #define PRECACHE_SOUND_ARRAY( a ) \
 	{ for( size_t i = 0; i < ARRAYSIZE( a ); ++i ) PRECACHE_SOUND((char *) a [i]); }

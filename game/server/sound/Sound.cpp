@@ -460,7 +460,7 @@ void STOP_SOUND( CBaseEntity* pEntity, int channel, const char* const pszSample 
 
 // play a specific sentence over the HEV suit speaker - just pass player entity, and !sentencename
 
-void EMIT_SOUND_SUIT(edict_t *entity, const char *sample)
+void EMIT_SOUND_SUIT( CBaseEntity* pEntity, const char *sample )
 {
 	float fvol;
 	int pitch = PITCH_NORM;
@@ -470,12 +470,12 @@ void EMIT_SOUND_SUIT(edict_t *entity, const char *sample)
 		pitch = RANDOM_LONG(0,6) + 98;
 
 	if (fvol > 0.05)
-		EMIT_SOUND_DYN(entity, CHAN_STATIC, sample, fvol, ATTN_NORM, 0, pitch);
+		EMIT_SOUND_DYN( pEntity->edict(), CHAN_STATIC, sample, fvol, ATTN_NORM, 0, pitch );
 }
 
 // play a sentence, randomly selected from the passed in group id, over the HEV suit speaker
 
-void EMIT_GROUPID_SUIT(edict_t *entity, int isentenceg)
+void EMIT_GROUPID_SUIT( CBaseEntity* pEntity, int isentenceg )
 {
 	float fvol;
 	int pitch = PITCH_NORM;
@@ -485,12 +485,12 @@ void EMIT_GROUPID_SUIT(edict_t *entity, int isentenceg)
 		pitch = RANDOM_LONG(0,6) + 98;
 
 	if (fvol > 0.05)
-		SENTENCEG_PlayRndI(entity, isentenceg, fvol, ATTN_NORM, 0, pitch);
+		SENTENCEG_PlayRndI( pEntity->edict(), isentenceg, fvol, ATTN_NORM, 0, pitch );
 }
 
 // play a sentence, randomly selected from the passed in groupname
 
-void EMIT_GROUPNAME_SUIT(edict_t *entity, const char *groupname)
+void EMIT_GROUPNAME_SUIT( CBaseEntity* pEntity, const char *groupname )
 {
 	float fvol;
 	int pitch = PITCH_NORM;
@@ -500,19 +500,19 @@ void EMIT_GROUPNAME_SUIT(edict_t *entity, const char *groupname)
 		pitch = RANDOM_LONG(0,6) + 98;
 
 	if (fvol > 0.05)
-		SENTENCEG_PlayRndSz(entity, groupname, fvol, ATTN_NORM, 0, pitch);
+		SENTENCEG_PlayRndSz( pEntity->edict(), groupname, fvol, ATTN_NORM, 0, pitch);
 }
 
-void UTIL_EmitAmbientSound( edict_t *entity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch )
+void UTIL_EmitAmbientSound( CBaseEntity* pEntity, const Vector &vecOrigin, const char *samp, float vol, float attenuation, int fFlags, int pitch )
 {
 	if( samp && *samp == '!' )
 	{
 		char name[ 32 ];
 		if( SENTENCEG_Lookup( samp, name ) >= 0 )
-			EMIT_AMBIENT_SOUND( entity, vecOrigin, name, vol, attenuation, fFlags, pitch );
+			EMIT_AMBIENT_SOUND( pEntity->edict(), vecOrigin, name, vol, attenuation, fFlags, pitch );
 	}
 	else
-		EMIT_AMBIENT_SOUND( entity, vecOrigin, samp, vol, attenuation, fFlags, pitch );
+		EMIT_AMBIENT_SOUND( pEntity->edict(), vecOrigin, samp, vol, attenuation, fFlags, pitch );
 }
 
 // ===================== MATERIAL TYPE DETECTION, MAIN ROUTINES ========================
@@ -604,16 +604,16 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 			float flVolume = RANDOM_FLOAT ( 0.7 , 1.0 );//random volume range
 			switch ( RANDOM_LONG(0,1) )
 			{
-				case 0: UTIL_EmitAmbientSound(ENT(0), ptr->vecEndPos, "buttons/spark5.wav", flVolume, ATTN_NORM, 0, 100); break;
-				case 1: UTIL_EmitAmbientSound(ENT(0), ptr->vecEndPos, "buttons/spark6.wav", flVolume, ATTN_NORM, 0, 100); break;
-				// case 0: EMIT_SOUND(ENT(pev), CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM);	break;
-				// case 1: EMIT_SOUND(ENT(pev), CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM);	break;
+				case 0: UTIL_EmitAmbientSound( CWorld::GetInstance(), ptr->vecEndPos, "buttons/spark5.wav", flVolume, ATTN_NORM, 0, 100 ); break;
+				case 1: UTIL_EmitAmbientSound( CWorld::GetInstance(), ptr->vecEndPos, "buttons/spark6.wav", flVolume, ATTN_NORM, 0, 100 ); break;
+				// case 0: EMIT_SOUND( this, CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM );	break;
+				// case 1: EMIT_SOUND( this, CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM );	break;
 			}
 		}
 	}
 
 	// play material hit sound
-	UTIL_EmitAmbientSound(ENT(0), ptr->vecEndPos, rgsz[RANDOM_LONG(0,cnt-1)], fvol, fattn, 0, 96 + RANDOM_LONG(0,0xf));
+	UTIL_EmitAmbientSound( CWorld::GetInstance(), ptr->vecEndPos, rgsz[RANDOM_LONG(0,cnt-1)], fvol, fattn, 0, 96 + RANDOM_LONG(0,0xf));
 	//EMIT_SOUND_DYN( ENT(m_pPlayer->pev), CHAN_WEAPON, rgsz[RANDOM_LONG(0,cnt-1)], fvol, ATTN_NORM, 0, 96 + RANDOM_LONG(0,0xf));
 			
 	return fvolbar;

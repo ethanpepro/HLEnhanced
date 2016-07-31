@@ -230,7 +230,7 @@ void CBasePlayer::DeathSound()
 	}
 
 	// play one of the suit death alarms
-	EMIT_GROUPNAME_SUIT( ENT( pev ), "HEV_DEAD" );
+	EMIT_GROUPNAME_SUIT( this, "HEV_DEAD" );
 }
 
 bool CBasePlayer::IsOnLadder() const

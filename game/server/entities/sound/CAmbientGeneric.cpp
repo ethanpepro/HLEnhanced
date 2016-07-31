@@ -310,7 +310,7 @@ void CAmbientGeneric::Precache( void )
 	}
 	if( m_fActive )
 	{
-		UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+		UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 			( m_dpv.vol * 0.01 ), m_flAttenuation, SND_SPAWNING, m_dpv.pitch );
 
 		pev->nextthink = gpGlobals->time + 0.1;
@@ -347,7 +347,7 @@ void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 
 		m_dpv.pitch = fraction * 255;
 
-		UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+		UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 							   0, 0, SND_CHANGE_PITCH, m_dpv.pitch );
 
 		return;
@@ -402,7 +402,7 @@ void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 				pev->nextthink = gpGlobals->time + 0.1;
 			}
 			else
-				UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+				UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 									   0, 0, SND_STOP, 0 );
 		}
 	}
@@ -418,14 +418,14 @@ void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 			m_fActive = true;
 		else
 			// shut sound off now - may be interrupting a long non-looping sound
-			UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+			UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 								   0, 0, SND_STOP, 0 );
 
 		// init all ramp params for startup
 
 		InitModulationParms();
 
-		UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+		UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 			( m_dpv.vol * 0.01 ), m_flAttenuation, 0, m_dpv.pitch );
 
 		pev->nextthink = gpGlobals->time + 0.1;
@@ -476,7 +476,7 @@ void CAmbientGeneric::RampThink( void )
 			m_dpv.spindown = 0;				// done with ramp down
 
 											// shut sound off
-			UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+			UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 								   0, 0, SND_STOP, 0 );
 
 			// return without setting nextthink
@@ -518,7 +518,7 @@ void CAmbientGeneric::RampThink( void )
 			m_dpv.fadeout = 0;				// done with ramp down
 
 											// shut sound off
-			UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+			UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 								   0, 0, SND_STOP, 0 );
 
 			// return without setting nextthink
@@ -619,7 +619,7 @@ void CAmbientGeneric::RampThink( void )
 		if( pitch == PITCH_NORM )
 			pitch = PITCH_NORM + 1; // don't send 'no pitch' !
 
-		UTIL_EmitAmbientSound( ENT( pev ), GetAbsOrigin(), szSoundFile,
+		UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 			( vol * 0.01 ), m_flAttenuation, flags, pitch );
 	}
 

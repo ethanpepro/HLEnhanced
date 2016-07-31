@@ -661,15 +661,15 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			switch( m_iTapSound )
 			{
 			case TE_SILO:
-				UTIL_EmitAmbientSound(ENT(pev), vecSrc, RANDOM_SOUND_ARRAY( pHitSilo ), 1.0, ATTN_NORM, 0, 100);
+				UTIL_EmitAmbientSound( this, vecSrc, RANDOM_SOUND_ARRAY( pHitSilo ), 1.0, ATTN_NORM, 0, 100);
 				break;
 			case TE_NONE:
 				break;
 			case TE_DIRT:
-				UTIL_EmitAmbientSound(ENT(pev), vecSrc, RANDOM_SOUND_ARRAY( pHitDirt ), 1.0, ATTN_NORM, 0, 100);
+				UTIL_EmitAmbientSound( this, vecSrc, RANDOM_SOUND_ARRAY( pHitDirt ), 1.0, ATTN_NORM, 0, 100);
 				break;
 			case TE_WATER:
-				UTIL_EmitAmbientSound(ENT(pev), vecSrc, RANDOM_SOUND_ARRAY( pHitWater ), 1.0, ATTN_NORM, 0, 100);
+				UTIL_EmitAmbientSound( this, vecSrc, RANDOM_SOUND_ARRAY( pHitWater ), 1.0, ATTN_NORM, 0, 100);
 				break;
 			}
           gpGlobals->force_retouch++;
@@ -701,15 +701,15 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			switch( m_iTapSound )
 			{
 			case TE_SILO:
-				UTIL_EmitAmbientSound(ENT(pev), vecSrc, RANDOM_SOUND_ARRAY( pHitSilo ), flVol, ATTN_NORM, 0, 100);
+				UTIL_EmitAmbientSound( this, vecSrc, RANDOM_SOUND_ARRAY( pHitSilo ), flVol, ATTN_NORM, 0, 100);
 				break;
 			case TE_NONE:
 				break;
 			case TE_DIRT:
-				UTIL_EmitAmbientSound(ENT(pev), vecSrc, RANDOM_SOUND_ARRAY( pHitDirt ), flVol, ATTN_NORM, 0, 100);
+				UTIL_EmitAmbientSound( this, vecSrc, RANDOM_SOUND_ARRAY( pHitDirt ), flVol, ATTN_NORM, 0, 100);
 				break;
 			case TE_WATER:
-				UTIL_EmitAmbientSound(ENT(pev), vecSrc, RANDOM_SOUND_ARRAY( pHitWater ), flVol, ATTN_NORM, 0, 100);
+				UTIL_EmitAmbientSound( this, vecSrc, RANDOM_SOUND_ARRAY( pHitWater ), flVol, ATTN_NORM, 0, 100);
 				break;
 			}
 		}
@@ -723,7 +723,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case 1: sound = "tentacle/te_roar2.wav"; break;
 		}
 
-		UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
+		UTIL_EmitAmbientSound( this, GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	case 8: // search
@@ -733,7 +733,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case 1: sound = "tentacle/te_search2.wav"; break;
 		}
 
-		UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
+		UTIL_EmitAmbientSound( this, GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	case 9: // swing
@@ -743,7 +743,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		case 1: sound = "tentacle/te_move2.wav"; break;
 		}
 
-		UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
+		UTIL_EmitAmbientSound( this, GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	default:
