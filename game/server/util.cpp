@@ -1226,3 +1226,10 @@ bool UTIL_WalkMove( CBaseEntity* pEntity, float yaw, float dist, WalkMove mode )
 {
 	return WALK_MOVE( pEntity->edict(), yaw, dist, mode ) != 0;
 }
+
+int UTIL_GetPlayerUserId( CBaseEntity* pEntity )
+{
+	ASSERT( pEntity );
+
+	return GETPLAYERUSERID( pEntity->edict() );
+}

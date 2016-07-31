@@ -213,6 +213,8 @@ void Host_Say( edict_t *pEntity, int teamonly )
 		pszTemp = "say_team";
 	else
 		pszTemp = "say";
+
+	//TODO: change the player stuff to UTIL_ variants when possible - Solokiller
 	
 	// team match?
 	if ( g_teamplay )
