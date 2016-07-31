@@ -545,7 +545,7 @@ void CFuncTrackTrain::UpdateSound( void )
 	{
 		/*
 		// update pitch
-		EMIT_SOUND_DYN(ENT(pev), CHAN_STATIC, (char*)STRING(pev->noise), m_flVolume, ATTN_NORM, SND_CHANGE_PITCH, (int) flpitch);
+		EMIT_SOUND_DYN( this, CHAN_STATIC, (char*)STRING(pev->noise), m_flVolume, ATTN_NORM, SND_CHANGE_PITCH, (int) flpitch);
 		*/
 		// volume 0.0 - 1.0 - 6 bits
 		// m_sounds 3 bits

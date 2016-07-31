@@ -74,7 +74,6 @@ void CLight :: Spawn( void )
 	
 	if (m_iStyle >= 32)
 	{
-//		CHANGE_METHOD(ENT(pev), em_use, light_use);
 		if (FBitSet(pev->spawnflags, SF_LIGHT_START_OFF))
 			LIGHT_STYLE(m_iStyle, "a");
 		else if (m_iszPattern)

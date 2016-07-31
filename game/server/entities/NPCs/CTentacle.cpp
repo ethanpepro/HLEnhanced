@@ -360,7 +360,7 @@ void CTentacle :: Cycle( void )
 			case 1: sound = "tentacle/te_alert2.wav"; break;
 			}
 
-			// UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
+			// UTIL_EmitAmbientSound( this, GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		}
 		m_flSoundTime = gpGlobals->time + RANDOM_FLOAT( 5.0, 10.0 );
 	}
@@ -678,7 +678,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 	case 3: // start killing swing
 		m_iHitDmg = 200;
-		// UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), "tentacle/te_swing1.wav", 1.0, ATTN_NORM, 0, 100);
+		// UTIL_EmitAmbientSound( this, GetAbsOrigin() + Vector( 0, 0, MyHeight()), "tentacle/te_swing1.wav", 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	case 4: // end killing swing
@@ -686,7 +686,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	case 5: // just "whoosh" sound
-		// UTIL_EmitAmbientSound(ENT(pev), GetAbsOrigin() + Vector( 0, 0, MyHeight()), "tentacle/te_swing2.wav", 1.0, ATTN_NORM, 0, 100);
+		// UTIL_EmitAmbientSound( this, GetAbsOrigin() + Vector( 0, 0, MyHeight()), "tentacle/te_swing2.wav", 1.0, ATTN_NORM, 0, 100);
 		break;
 
 	case 2:	// tap scrape

@@ -319,7 +319,7 @@ void CBaseButton::ButtonBackHome( void )
 
 	if( FBitSet( pev->spawnflags, SF_BUTTON_TOGGLE ) )
 	{
-		//EMIT_SOUND(ENT(pev), CHAN_VOICE, (char*)STRING(pev->noise), 1, ATTN_NORM);
+		//EMIT_SOUND( this, CHAN_VOICE, (char*)STRING(pev->noise), 1, ATTN_NORM);
 
 		SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 );
 	}

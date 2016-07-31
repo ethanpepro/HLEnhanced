@@ -210,7 +210,7 @@ void CBasePlayer::DeathSound()
 	/*
 	if (pev->waterlevel == WATERLEVEL_HEAD)
 	{
-	EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/h2odeath.wav", 1, ATTN_NONE);
+	EMIT_SOUND( this, CHAN_VOICE, "player/h2odeath.wav", 1, ATTN_NONE);
 	return;
 	}
 	*/

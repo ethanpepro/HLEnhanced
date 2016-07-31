@@ -975,7 +975,7 @@ void CIchthyosaur::Swim( )
 
 	UTIL_MakeVectorsPrivate( Vector( -Angles.x, Angles.y, Angles.z ), &Forward, &Right, &Up);
 
-	// UTIL_MoveToOrigin ( ENT(pev), GetAbsOrigin() + Forward * speed, speed, MOVE_STRAFE );
+	// UTIL_MoveToOrigin ( this, GetAbsOrigin() + Forward * speed, speed, MOVE_STRAFE );
 }
 
 

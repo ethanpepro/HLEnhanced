@@ -312,7 +312,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 		if( pev->avelocity != g_vecZero )
 		{
 			SetThink( &CFuncRotating::SpinDown );
-			//EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, (char *)STRING(pev->noiseStop), 
+			//EMIT_SOUND_DYN( this, CHAN_WEAPON, (char *)STRING(pev->noiseStop), 
 			//	m_flVolume, m_flAttenuation, 0, m_pitch);
 
 			pev->nextthink = pev->ltime + 0.1;
@@ -333,7 +333,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 			// play stopping sound here
 			SetThink( &CFuncRotating::SpinDown );
 
-			// EMIT_SOUND_DYN(ENT(pev), CHAN_WEAPON, (char *)STRING(pev->noiseStop), 
+			// EMIT_SOUND_DYN( this, CHAN_WEAPON, (char *)STRING(pev->noiseStop), 
 			//	m_flVolume, m_flAttenuation, 0, m_pitch);
 
 			pev->nextthink = pev->ltime + 0.1;

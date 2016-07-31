@@ -1000,7 +1000,7 @@ void CHGrunt :: PainSound ( void )
 			// pain sentences are rare
 			if (FOkToSpeak())
 			{
-				SENTENCEG_PlayRndSz(ENT(pev), "HG_PAIN", HGRUNT_SENTENCE_VOLUME, ATTN_NORM, 0, PITCH_NORM);
+				SENTENCEG_PlayRndSz( this, "HG_PAIN", HGRUNT_SENTENCE_VOLUME, ATTN_NORM, 0, PITCH_NORM);
 				JustSpoke();
 				return;
 			}
@@ -1944,7 +1944,7 @@ Schedule_t *CHGrunt :: GetSchedule( void )
 					//!!!KELLY - this grunt was hit and is going to run to cover.
 					if (FOkToSpeak()) // && RANDOM_LONG(0,1))
 					{
-						//SENTENCEG_PlayRndSz( ENT(pev), "HG_COVER", HGRUNT_SENTENCE_VOLUME, GRUNT_ATTN, 0, m_voicePitch);
+						//SENTENCEG_PlayRndSz( this, "HG_COVER", HGRUNT_SENTENCE_VOLUME, GRUNT_ATTN, 0, m_voicePitch);
 						m_iSentence = HGRUNT_SENT_COVER;
 						//JustSpoke();
 					}
@@ -2017,7 +2017,7 @@ Schedule_t *CHGrunt :: GetSchedule( void )
 					// charge the enemy's position. 
 					if (FOkToSpeak())// && RANDOM_LONG(0,1))
 					{
-						//SENTENCEG_PlayRndSz( ENT(pev), "HG_CHARGE", HGRUNT_SENTENCE_VOLUME, GRUNT_ATTN, 0, m_voicePitch);
+						//SENTENCEG_PlayRndSz( this, "HG_CHARGE", HGRUNT_SENTENCE_VOLUME, GRUNT_ATTN, 0, m_voicePitch);
 						m_iSentence = HGRUNT_SENT_CHARGE;
 						//JustSpoke();
 					}
