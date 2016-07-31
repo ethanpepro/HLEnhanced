@@ -25,19 +25,24 @@ DLL_GLOBAL CBaseEntity* g_pBodyQueueHead = nullptr;
 
 void InitBodyQue()
 {
-	string_t istrClassname = MAKE_STRING( "bodyque" );
+	const char* const pszClassname = "bodyque";
 
-	g_pBodyQueueHead = CBaseEntity::Instance( CREATE_NAMED_ENTITY( istrClassname ) );
-	entvars_t* pev = VARS( g_pBodyQueueHead );
+	g_pBodyQueueHead = UTIL_CreateNamedEntity( pszClassname );
+
+	ASSERT( g_pBodyQueueHead );
+
+	CBaseEntity* pEnt = g_pBodyQueueHead;
 
 	// Reserve 3 more slots for dead bodies
 	for( int i = 0; i < 3; i++ )
 	{
-		pev->owner = CREATE_NAMED_ENTITY( istrClassname );
-		pev = VARS( pev->owner );
+		pEnt->SetOwner( UTIL_CreateNamedEntity( pszClassname ) );
+		pEnt = pEnt->GetOwner();
+
+		ASSERT( pEnt );
 	}
 
-	pev->owner = g_pBodyQueueHead->edict();
+	pEnt->SetOwner( g_pBodyQueueHead );
 }
 
 //
