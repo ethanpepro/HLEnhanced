@@ -333,17 +333,7 @@ void CHud :: Init( void )
 	m_pSpriteList = NULL;
 
 	// Clear any old HUD list
-	if ( m_pHudList )
-	{
-		HUDLIST *pList;
-		while ( m_pHudList )
-		{
-			pList = m_pHudList;
-			m_pHudList = m_pHudList->pNext;
-			free( pList );
-		}
-		m_pHudList = NULL;
-	}
+	FreeHudList();
 
 	// In case we get messages before the first update -- time will be valid
 	m_flTime = 1.0;
@@ -387,17 +377,7 @@ CHud :: ~CHud()
 	delete [] m_rgrcRects;
 	delete [] m_rgszSpriteNames;
 
-	if ( m_pHudList )
-	{
-		HUDLIST *pList;
-		while ( m_pHudList )
-		{
-			pList = m_pHudList;
-			m_pHudList = m_pHudList->pNext;
-			free( pList );
-		}
-		m_pHudList = NULL;
-	}
+	FreeHudList();
 }
 
 void CHud::ResetHUD()
@@ -692,40 +672,50 @@ int CHud::MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf)
 	return 1;
 }
 
-
-void CHud::AddHudElem(CHudBase *phudelem)
+float CHud::GetSensitivity()
 {
-	HUDLIST *pdl, *ptemp;
+	return m_flMouseSensitivity;
+}
 
-//phudelem->Think();
-
-	if (!phudelem)
+void CHud::AddHudElem( CHudBase* pHudElem )
+{
+	if( !pHudElem )
 		return;
 
-	pdl = (HUDLIST *)malloc(sizeof(HUDLIST));
-	if (!pdl)
+	HUDLIST* pdl = new HUDLIST;
+
+	if( !pdl )
 		return;
 
-	memset(pdl, 0, sizeof(HUDLIST));
-	pdl->p = phudelem;
+	memset( pdl, 0, sizeof( HUDLIST ) );
 
-	if (!m_pHudList)
+	pdl->p = pHudElem;
+
+	if( !m_pHudList )
 	{
 		m_pHudList = pdl;
 		return;
 	}
 
-	ptemp = m_pHudList;
+	HUDLIST* ptemp = m_pHudList;
 
-	while (ptemp->pNext)
+	while( ptemp->pNext )
 		ptemp = ptemp->pNext;
 
 	ptemp->pNext = pdl;
 }
 
-float CHud::GetSensitivity( void )
+void CHud::FreeHudList()
 {
-	return m_flMouseSensitivity;
+	if( m_pHudList )
+	{
+		HUDLIST* pList;
+		while( m_pHudList )
+		{
+			pList = m_pHudList;
+			m_pHudList = m_pHudList->pNext;
+			delete pList;
+		}
+		m_pHudList = nullptr;
+	}
 }
-
-

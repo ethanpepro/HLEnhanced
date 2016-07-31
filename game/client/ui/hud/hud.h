@@ -244,10 +244,12 @@ public:
 	int m_HUD_number_0;
 
 
-	void AddHudElem(CHudBase *p);
+	void AddHudElem( CHudBase* pHudElem );
 
 	float GetSensitivity();
 
+private:
+	void FreeHudList();
 };
 
 extern CHud gHUD;
