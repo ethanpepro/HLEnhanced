@@ -165,7 +165,7 @@ void UTIL_PrecacheOtherWeapon( const char *szClassname )
 		CBasePlayerItem::ItemInfoArray[II.iId] = II;
 	}
 
-	REMOVE_ENTITY( pEntity->edict() );
+	UTIL_RemoveNow( pEntity );
 }
 
 void RegisterAmmoTypes()

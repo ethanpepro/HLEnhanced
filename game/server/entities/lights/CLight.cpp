@@ -68,7 +68,7 @@ void CLight :: Spawn( void )
 {
 	if ( !HasTargetname() )
 	{       // inert light
-		REMOVE_ENTITY(ENT(pev));
+		UTIL_RemoveNow( this );
 		return;
 	}
 	

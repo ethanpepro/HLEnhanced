@@ -185,7 +185,9 @@ extern void			UTIL_PlayerDecalTrace( TraceResult *pTrace, int playernum, int dec
 extern void			UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber );
 void DoSpark( CBaseEntity* pEntity, const Vector &location );
 
-extern void			UTIL_Remove( CBaseEntity *pEntity );
+void UTIL_Remove( CBaseEntity* pEntity );
+void UTIL_RemoveNow( CBaseEntity* pEntity );
+
 bool UTIL_IsValidEntity( const CBaseEntity* const pEntity );
 extern bool			UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 );
 

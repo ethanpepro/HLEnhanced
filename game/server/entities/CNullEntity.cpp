@@ -21,7 +21,7 @@
 LINK_ENTITY_TO_CLASS( info_null, CNullEntity );
 
 // Null Entity, remove on startup
-void CNullEntity::Spawn( void )
+void CNullEntity::Spawn()
 {
-	REMOVE_ENTITY( ENT( pev ) );
+	UTIL_RemoveNow( this );
 }

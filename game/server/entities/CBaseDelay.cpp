@@ -131,5 +131,5 @@ void CBaseDelay::DelayThink( void )
 	}
 	// The use type is cached (and stashed) in pev->button
 	SUB_UseTargets( pActivator, ( USE_TYPE ) pev->button, 0 );
-	REMOVE_ENTITY( ENT( pev ) );
+	UTIL_RemoveNow( this );
 }
