@@ -18,9 +18,9 @@
 class CHudGeiger : public CHudBase
 {
 public:
-	int Init( void );
+	bool Init() override;
 	bool VidInit() override;
-	int Draw( float flTime );
+	bool Draw( float flTime );
 	int MsgFunc_Geiger( const char *pszName, int iSize, void *pbuf );
 
 private:

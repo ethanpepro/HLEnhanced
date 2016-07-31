@@ -18,10 +18,10 @@
 class CHudStatusBar : public CHudBase
 {
 public:
-	int Init( void );
+	bool Init() override;
 	bool VidInit() override;
-	int Draw( float flTime );
-	void Reset( void );
+	bool Draw( float flTime );
+	void Reset();
 	void ParseStatusString( int line_num );
 
 	int MsgFunc_StatusText( const char *pszName, int iSize, void *pbuf );

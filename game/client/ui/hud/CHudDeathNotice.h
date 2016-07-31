@@ -18,10 +18,10 @@
 class CHudDeathNotice : public CHudBase
 {
 public:
-	int Init( void );
-	void InitHUDData( void );
+	bool Init() override;
+	void InitHUDData() override;
 	bool VidInit() override;
-	int Draw( float flTime );
+	bool Draw( float flTime ) override;
 	int MsgFunc_DeathMsg( const char *pszName, int iSize, void *pbuf );
 
 private:

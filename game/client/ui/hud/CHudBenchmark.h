@@ -18,13 +18,13 @@
 class CHudBenchmark : public CHudBase
 {
 public:
-	int Init( void );
+	bool Init() override;
 	bool VidInit() override;
-	int Draw( float flTime );
+	bool Draw( float flTime ) override;
 
 	void SetScore( float score );
 
-	void Think( void );
+	void Think() override;
 
 	void StartNextSection( int section );
 
@@ -32,11 +32,11 @@ public:
 
 	void CountFrame( float dt );
 
-	int GetObjects( void ) { return m_nObjects; };
+	int GetObjects() { return m_nObjects; };
 
-	void SetCompositeScore( void );
+	void SetCompositeScore();
 
-	void Restart( void );
+	void Restart();
 
 	int Bench_ScoreForValue( int stage, float raw );
 

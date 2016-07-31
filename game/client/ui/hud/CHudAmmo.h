@@ -40,9 +40,9 @@ private:
 	};
 
 public:
-	int Init() override;
+	bool Init() override;
 	bool VidInit() override;
-	int Draw( float flTime ) override;
+	bool Draw( float flTime ) override;
 	void Think() override;
 	void Reset() override;
 

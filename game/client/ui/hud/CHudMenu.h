@@ -18,11 +18,11 @@
 class CHudMenu : public CHudBase
 {
 public:
-	int Init( void );
-	void InitHUDData( void );
+	bool Init() override;
+	void InitHUDData() override;
 	bool VidInit() override;
-	void Reset( void );
-	int Draw( float flTime );
+	void Reset()  override;
+	bool Draw( float flTime );
 	int MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf );
 
 	void SelectMenuItem( int menu_item );

@@ -306,7 +306,7 @@ DECLARE_COMMAND(m_Ammo, PrevWeapon);
 
 #define HISTORY_DRAW_TIME	"5"
 
-int CHudAmmo::Init(void)
+bool CHudAmmo::Init()
 {
 	gHUD.AddHudElem(this);
 
@@ -346,10 +346,10 @@ int CHudAmmo::Init(void)
 	gWR.Init();
 	gHR.Init();
 
-	return 1;
+	return true;
 };
 
-void CHudAmmo::Reset(void)
+void CHudAmmo::Reset()
 {
 	m_fFade = 0;
 	m_iFlags |= HUD_ACTIVE; //!!!
@@ -396,7 +396,7 @@ bool CHudAmmo::VidInit()
 // Think:
 //  Used for selection of weapon menu item.
 //
-void CHudAmmo::Think(void)
+void CHudAmmo::Think()
 {
 	if ( gHUD.m_bPlayerDead )
 		return;
@@ -883,16 +883,16 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 // Drawing code
 //-------------------------------------------------------------------------
 
-int CHudAmmo::Draw(float flTime)
+bool CHudAmmo::Draw(float flTime)
 {
 	int a, x, y, r, g, b;
 	int AmmoWidth;
 
 	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
-		return 1;
+		return true;
 
 	if ( (gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL )) )
-		return 1;
+		return true;
 
 	// Draw Weapon Menu
 	DrawWList(flTime);
@@ -901,16 +901,16 @@ int CHudAmmo::Draw(float flTime)
 	gHR.DrawAmmoHistory( flTime );
 
 	if (!(m_iFlags & HUD_ACTIVE))
-		return 0;
+		return false;
 
 	if (!m_pWeapon)
-		return 0;
+		return false;
 
 	WEAPON *pw = m_pWeapon; // shorthand
 
 	// SPR_Draw Ammo
 	if( !pw->pAmmo && !pw->pAmmo2 )
-		return 0;
+		return false;
 
 
 	int iFlags = DHN_DRAWZERO; // draw 0 values
@@ -1030,7 +1030,7 @@ int CHudAmmo::Draw(float flTime)
 			SPR_DrawAdditive(0, x, y - iOffset, &m_pWeapon->rcAmmo2);
 		}
 	}
-	return 1;
+	return true;
 }
 
 

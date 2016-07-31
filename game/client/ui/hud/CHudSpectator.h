@@ -65,10 +65,10 @@ typedef struct cameraWayPoint_s
 class CHudSpectator : public CHudBase
 {
 public:
-	void Reset();
+	void Reset() override;
 	int  ToggleInset(bool allowOff);
 	void CheckSettings();
-	void InitHUDData( void );
+	void InitHUDData() override;
 	bool AddOverviewEntityToList( HSPRITE sprite, cl_entity_t * ent, double killTime);
 	void DeathMessage(int victim);
 	bool AddOverviewEntity( int type, struct cl_entity_s *ent, const char *modelname );
@@ -87,10 +87,10 @@ public:
 	void FindPlayer(const char *name);
 	void DirectorMessage( int iSize, void *pbuf );
 	void SetSpectatorStartPosition();
-	int Init();
+	bool Init() override;
 	bool VidInit() override;
 
-	int Draw(float flTime);
+	bool Draw(float flTime) override;
 
 	void	AddWaypoint( float time, const Vector& pos, const Vector& angle, float fov, int flags );
 	void	SetCameraView( const Vector& pos, const Vector& angle, float fov);

@@ -27,7 +27,7 @@
 
 DECLARE_MESSAGE( m_StatusIcons, StatusIcon );
 
-int CHudStatusIcons::Init( void )
+bool CHudStatusIcons::Init()
 {
 	HOOK_MESSAGE( StatusIcon );
 
@@ -35,7 +35,7 @@ int CHudStatusIcons::Init( void )
 
 	Reset();
 
-	return 1;
+	return true;
 }
 
 bool CHudStatusIcons::VidInit()
@@ -43,17 +43,17 @@ bool CHudStatusIcons::VidInit()
 	return true;
 }
 
-void CHudStatusIcons::Reset( void )
+void CHudStatusIcons::Reset()
 {
 	memset( m_IconList, 0, sizeof m_IconList );
 	m_iFlags &= ~HUD_ACTIVE;
 }
 
 // Draw status icons along the left-hand side of the screen
-int CHudStatusIcons::Draw( float flTime )
+bool CHudStatusIcons::Draw( float flTime )
 {
 	if (gEngfuncs.IsSpectateOnly())
-		return 1;
+		return true;
 	// find starting position to draw from, along right-hand side of screen
 	int x = 5;
 	int y = ScreenHeight / 2;
@@ -70,7 +70,7 @@ int CHudStatusIcons::Draw( float flTime )
 		}
 	}
 	
-	return 1;
+	return true;
 }
 
 // Message handler for StatusIcon message

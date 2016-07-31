@@ -27,7 +27,7 @@
 DECLARE_MESSAGE( m_AmmoSecondary, SecAmmoVal );
 DECLARE_MESSAGE( m_AmmoSecondary, SecAmmoIcon );
 
-int CHudAmmoSecondary :: Init( void )
+bool CHudAmmoSecondary::Init()
 {
 	HOOK_MESSAGE( SecAmmoVal );
 	HOOK_MESSAGE( SecAmmoIcon );
@@ -40,10 +40,10 @@ int CHudAmmoSecondary :: Init( void )
 
 	Reset();
 
-	return 1;
+	return true;
 }
 
-void CHudAmmoSecondary :: Reset( void )
+void CHudAmmoSecondary::Reset()
 {
 	m_fFade = 0;
 }
@@ -53,10 +53,10 @@ bool CHudAmmoSecondary::VidInit()
 	return true;
 }
 
-int CHudAmmoSecondary :: Draw(float flTime)
+bool CHudAmmoSecondary::Draw(float flTime)
 {
 	if ( (gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL )) )
-		return 1;
+		return true;
 
 	// draw secondary ammo icons above normal ammo readout
 	int a, x, y, r, g, b, AmmoWidth;
@@ -107,7 +107,7 @@ int CHudAmmoSecondary :: Draw(float flTime)
 		}
 	}
 
-	return 1;
+	return true;
 }
 
 // Message handler for Secondary Ammo Value

@@ -162,7 +162,7 @@ void ToggleScores( void )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-int CHudSpectator::Init()
+bool CHudSpectator::Init()
 {
 	gHUD.AddHudElem(this);
 
@@ -196,7 +196,7 @@ int CHudSpectator::Init()
 		return 0;
 	}
 
-	return 1;
+	return true;
 }
 
 int UTIL_FindEntityInMap( const char* const pszName, Vector& vecOrigin, Vector& vecAngle )
@@ -566,7 +566,7 @@ float CHudSpectator::GetFOV()
 // Input  : flTime - 
 //			intermission - 
 //-----------------------------------------------------------------------------
-int CHudSpectator::Draw(float flTime)
+bool CHudSpectator::Draw(float flTime)
 {
 	int lx;
 
@@ -574,7 +574,7 @@ int CHudSpectator::Draw(float flTime)
 
 	// draw only in spectator mode
 	if ( !g_iUser1  )
-		return 0;
+		return false;
 
 	// if user pressed zoom, aplly changes
 	if ( (m_zoomDelta != 0.0f) && (	g_iUser1 == OBS_MAP_FREE ) )
@@ -601,10 +601,10 @@ int CHudSpectator::Draw(float flTime)
 	
 	// Only draw the icon names only if map mode is in Main Mode
 	if ( g_iUser1 < OBS_MAP_FREE  ) 
-		return 1;
+		return true;
 	
 	if ( !m_drawnames->value )
-		return 1;
+		return true;
 	
 	// make sure we have player info
 	gViewPort->GetAllPlayersInfo();
@@ -639,7 +639,7 @@ int CHudSpectator::Draw(float flTime)
 		
 	}
 
-	return 1;
+	return true;
 }
 
 

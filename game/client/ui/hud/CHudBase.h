@@ -27,13 +27,13 @@ public:
 	POSITION  m_pos;
 	int   m_type;
 	int	  m_iFlags; // active, moving, 
-	virtual		~CHudBase() {}
-	virtual int Init( void ) { return 0; }
+	virtual	~CHudBase() {}
+	virtual bool Init() { return false; }
 	virtual bool VidInit() { return false; }
-	virtual int Draw( float flTime ) { return 0; }
-	virtual void Think( void ) { return; }
-	virtual void Reset( void ) { return; }
-	virtual void InitHUDData( void ) {}		// called every time a server is connected to
+	virtual bool Draw( float flTime ) { return false; }
+	virtual void Think() {}
+	virtual void Reset() {}
+	virtual void InitHUDData() {}		// called every time a server is connected to
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDBASE_H

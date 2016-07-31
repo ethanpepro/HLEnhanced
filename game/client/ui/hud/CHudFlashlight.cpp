@@ -32,7 +32,7 @@ DECLARE_MESSAGE(m_Flash, Flashlight)
 
 #define BAT_NAME "sprites/%d_Flashlight.spr"
 
-int CHudFlashlight::Init(void)
+bool CHudFlashlight::Init()
 {
 	m_fFade = 0;
 	m_fOn = 0;
@@ -44,10 +44,10 @@ int CHudFlashlight::Init(void)
 
 	gHUD.AddHudElem(this);
 
-	return 1;
-};
+	return true;
+}
 
-void CHudFlashlight::Reset(void)
+void CHudFlashlight::Reset()
 {
 	m_fFade = 0;
 	m_fOn = 0;
@@ -91,16 +91,16 @@ int CHudFlashlight:: MsgFunc_Flashlight(const char *pszName,  int iSize, void *p
 	return 1;
 }
 
-int CHudFlashlight::Draw(float flTime)
+bool CHudFlashlight::Draw(float flTime)
 {
 	if ( gHUD.m_iHideHUDDisplay & ( HIDEHUD_FLASHLIGHT | HIDEHUD_ALL ) )
-		return 1;
+		return true;
 
 	int r, g, b, x, y, a;
 	wrect_t rc;
 
 	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
-		return 1;
+		return true;
 
 	if (m_fOn)
 		a = 225;
@@ -142,5 +142,5 @@ int CHudFlashlight::Draw(float flTime)
 	}
 
 
-	return 1;
+	return true;
 }

@@ -32,7 +32,7 @@ client_textmessage_t	g_pCustomMessage;
 const char* const g_pCustomName = "Custom";
 char g_pCustomText[1024];
 
-int CHudMessage::Init(void)
+bool CHudMessage::Init()
 {
 	HOOK_MESSAGE( HudText );
 	HOOK_MESSAGE( GameTitle );
@@ -41,8 +41,8 @@ int CHudMessage::Init(void)
 
 	Reset();
 
-	return 1;
-};
+	return true;
+}
 
 bool CHudMessage::VidInit()
 {
@@ -53,7 +53,7 @@ bool CHudMessage::VidInit()
 }
 
 
-void CHudMessage::Reset( void )
+void CHudMessage::Reset()
 {
  	memset( m_pMessages, 0, sizeof( m_pMessages[0] ) * maxHUDMessages );
 	memset( m_startTime, 0, sizeof( m_startTime[0] ) * maxHUDMessages );
@@ -138,7 +138,7 @@ int CHudMessage::YPosition( float y, int height )
 }
 
 
-void CHudMessage::MessageScanNextChar( void )
+void CHudMessage::MessageScanNextChar()
 {
 	int srcRed, srcGreen, srcBlue, destRed, destGreen, destBlue;
 	int blend;
@@ -201,7 +201,7 @@ void CHudMessage::MessageScanNextChar( void )
 }
 
 
-void CHudMessage::MessageScanStart( void )
+void CHudMessage::MessageScanStart()
 {
 	switch( m_parms.pMessage->effect )
 	{
@@ -314,7 +314,7 @@ void CHudMessage::MessageDrawScan( client_textmessage_t *pMessage, float time )
 }
 
 
-int CHudMessage::Draw( float fTime )
+bool CHudMessage::Draw( float fTime )
 {
 	int i, drawn;
 	client_textmessage_t *pMessage;
@@ -412,7 +412,7 @@ int CHudMessage::Draw( float fTime )
 	if ( !drawn )
 		m_iFlags &= ~HUD_ACTIVE;
 
-	return 1;
+	return true;
 }
 
 

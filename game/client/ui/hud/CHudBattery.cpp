@@ -27,7 +27,7 @@
 
 DECLARE_MESSAGE(m_Battery, Battery)
 
-int CHudBattery::Init(void)
+bool CHudBattery::Init()
 {
 	m_iBat = 0;
 	m_fFade = 0;
@@ -37,8 +37,8 @@ int CHudBattery::Init(void)
 
 	gHUD.AddHudElem(this);
 
-	return 1;
-};
+	return true;
+}
 
 
 bool CHudBattery::VidInit()
@@ -82,10 +82,10 @@ int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 }
 
 
-int CHudBattery::Draw(float flTime)
+bool CHudBattery::Draw(float flTime)
 {
 	if ( gHUD.m_iHideHUDDisplay & HIDEHUD_HEALTH )
-		return 1;
+		return true;
 
 	int r, g, b, x, y, a;
 	wrect_t rc;
@@ -106,7 +106,7 @@ int CHudBattery::Draw(float flTime)
 	UnpackRGB(r,g,b, RGB_YELLOWISH);
 
 	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
-		return 1;
+		return true;
 
 	// Has health changed? Flash the health #
 	if (m_fFade)
@@ -154,5 +154,5 @@ int CHudBattery::Draw(float flTime)
 	x += (m_prc1->right - m_prc1->left);
 	x = gHUD.DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iBat, r, g, b);
 
-	return 1;
+	return true;
 }

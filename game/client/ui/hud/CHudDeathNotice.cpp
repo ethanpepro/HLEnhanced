@@ -67,7 +67,7 @@ const Vector& GetClientColor( int clientIndex )
 	}
 }
 
-int CHudDeathNotice :: Init( void )
+bool CHudDeathNotice::Init()
 {
 	gHUD.AddHudElem( this );
 
@@ -75,11 +75,11 @@ int CHudDeathNotice :: Init( void )
 
 	CVAR_CREATE( "hud_deathnotice_time", "6", 0 );
 
-	return 1;
+	return true;
 }
 
 
-void CHudDeathNotice :: InitHUDData( void )
+void CHudDeathNotice::InitHUDData()
 {
 	memset( rgDeathNoticeList, 0, sizeof(rgDeathNoticeList) );
 }
@@ -92,7 +92,7 @@ bool CHudDeathNotice::VidInit()
 	return true;
 }
 
-int CHudDeathNotice :: Draw( float flTime )
+bool CHudDeathNotice::Draw( float flTime )
 {
 	int x, y, r, g, b;
 
@@ -152,7 +152,7 @@ int CHudDeathNotice :: Draw( float flTime )
 		}
 	}
 
-	return 1;
+	return true;
 }
 
 // This message handler may be better off elsewhere

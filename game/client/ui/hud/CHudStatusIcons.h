@@ -18,10 +18,10 @@
 class CHudStatusIcons : public CHudBase
 {
 public:
-	int Init( void );
+	bool Init() override;
 	bool VidInit() override;
-	void Reset( void );
-	int Draw( float flTime );
+	void Reset() override;
+	bool Draw( float flTime ) override;
 	int MsgFunc_StatusIcon( const char *pszName, int iSize, void *pbuf );
 
 	enum {

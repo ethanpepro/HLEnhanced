@@ -18,10 +18,10 @@
 class CHudFlashlight : public CHudBase
 {
 public:
-	int Init( void );
+	bool Init() override;
 	bool VidInit() override;
-	int Draw( float flTime );
-	void Reset( void );
+	bool Draw( float flTime ) override;
+	void Reset() override;
 	int MsgFunc_Flashlight( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_FlashBat( const char *pszName, int iSize, void *pbuf );
 

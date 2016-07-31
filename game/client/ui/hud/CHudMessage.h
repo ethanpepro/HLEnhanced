@@ -18,9 +18,9 @@
 class CHudMessage : public CHudBase
 {
 public:
-	int Init( void );
+	bool Init() override;
 	bool VidInit() override;
-	int Draw( float flTime );
+	bool Draw( float flTime ) override;
 	int MsgFunc_HudText( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_HudTextPro( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_GameTitle( const char *pszName, int iSize, void *pbuf );
@@ -32,9 +32,9 @@ public:
 	void MessageAdd( const char *pName, float time );
 	void MessageAdd( client_textmessage_t * newMessage );
 	void MessageDrawScan( client_textmessage_t *pMessage, float time );
-	void MessageScanStart( void );
-	void MessageScanNextChar( void );
-	void Reset( void );
+	void MessageScanStart();
+	void MessageScanNextChar();
+	void Reset() override;
 
 private:
 	client_textmessage_t		*m_pMessages[ maxHUDMessages ];

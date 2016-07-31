@@ -396,7 +396,7 @@ void CHudBenchmark::Think( void )
 }
 
 
-int CHudBenchmark::Init( void )
+bool CHudBenchmark::Init()
 {
 	gHUD.AddHudElem( this );
 
@@ -404,7 +404,7 @@ int CHudBenchmark::Init( void )
 
 	HOOK_MESSAGE(Bench);
 
-	return 1;
+	return true;
 }
 
 bool CHudBenchmark::VidInit()
@@ -460,7 +460,7 @@ int CHudBenchmark::Bench_ScoreForValue( int stage, float raw )
 	return score;
 }
 
-void CHudBenchmark::SetCompositeScore( void )
+void CHudBenchmark::SetCompositeScore()
 {
 	int	tracking_score	= Bench_ScoreForValue( THIRD_STAGE, m_fAvgScore );
 	int ping_score		= Bench_ScoreForValue( FIRST_STAGE, m_StoredLatency );
@@ -474,7 +474,7 @@ void CHudBenchmark::SetCompositeScore( void )
 	m_nCompositeScore = composite;
 }
 
-int CHudBenchmark::Draw( float flTime )
+bool CHudBenchmark::Draw( float flTime )
 {
 	char sz[ 256 ];
 	int x, y;
@@ -482,7 +482,7 @@ int CHudBenchmark::Draw( float flTime )
 	if ( m_fDrawTime < flTime || !Bench_Active() )
 	{
 		m_iFlags &= ~HUD_ACTIVE;
-		return 1;
+		return true;
 	}
 
 	x = 10;
@@ -565,7 +565,7 @@ int CHudBenchmark::Draw( float flTime )
 
 	m_fDrawTime = gHUD.m_flTime + BENCH_TIME;
 
-	return 1;
+	return true;
 }
 
 #define SCORE_AVG 0.9 

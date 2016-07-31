@@ -46,7 +46,7 @@ static int line_height = 0;
 
 DECLARE_MESSAGE( m_SayText, SayText );
 
-int CHudSayText :: Init( void )
+bool CHudSayText::Init()
 {
 	gHUD.AddHudElem( this );
 
@@ -59,11 +59,11 @@ int CHudSayText :: Init( void )
 
 	m_iFlags |= HUD_INTERMISSION; // is always drawn during an intermission
 
-	return 1;
+	return true;
 }
 
 
-void CHudSayText :: InitHUDData( void )
+void CHudSayText::InitHUDData()
 {
 	memset( g_szLineBuffer, 0, sizeof( g_szLineBuffer ) );
 	memset( g_pvecNameColors, 0, sizeof( g_pvecNameColors ) );
@@ -76,7 +76,7 @@ bool CHudSayText::VidInit()
 }
 
 
-int ScrollTextUp( void )
+int ScrollTextUp()
 {
 	ConsolePrint( g_szLineBuffer[0] ); // move the first line into the console buffer
 	g_szLineBuffer[MAX_LINES][0] = 0;
@@ -94,12 +94,12 @@ int ScrollTextUp( void )
 	return 1;
 }
 
-int CHudSayText :: Draw( float flTime )
+bool CHudSayText::Draw( float flTime )
 {
 	int y = Y_START;
 
 	if ( ( gViewPort && !gViewPort->AllowedToPrintText() ) || !m_HUD_saytext->value )
-		return 1;
+		return true;
 
 	// make sure the scrolltime is within reasonable bounds,  to guard against the clock being reset
 	flScrollTime = min( flScrollTime, flTime + m_HUD_saytext_time->value );
@@ -159,7 +159,7 @@ int CHudSayText :: Draw( float flTime )
 		y += line_height;
 	}
 
-	return 1;
+	return true;
 }
 
 int CHudSayText :: MsgFunc_SayText( const char *pszName, int iSize, void *pbuf )

@@ -18,9 +18,9 @@
 class CHudBattery : public CHudBase
 {
 public:
-	int Init( void );
+	bool Init()  override;
 	bool VidInit() override;
-	int Draw( float flTime );
+	bool Draw( float flTime ) override;
 	int MsgFunc_Battery( const char *pszName, int iSize, void *pbuf );
 
 private:
