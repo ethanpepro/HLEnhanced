@@ -177,18 +177,12 @@ void CMomentaryRotButton::UpdateSelfReturn( float value )
 void CMomentaryRotButton::UpdateAllButtons( float value, int start )
 {
 	// Update all rot buttons attached to the same target
-	edict_t *pentTarget = NULL;
-	for( ;;)
+	CBaseEntity* pTarget = nullptr;
+	while( pTarget = UTIL_FindEntityByTarget( pTarget, GetTarget() ) )
 	{
-
-		pentTarget = FIND_ENTITY_BY_STRING( pentTarget, "target", GetTarget() );
-		if( FNullEnt( pentTarget ) )
-			break;
-
-		if( FClassnameIs( VARS( pentTarget ), "momentary_rot_button" ) )
+		if( pTarget->ClassnameIs( "momentary_rot_button" ) )
 		{
-			CMomentaryRotButton *pEntity = CMomentaryRotButton::Instance( pentTarget );
-			if( pEntity )
+			if( CMomentaryRotButton* pEntity = CMomentaryRotButton::Instance( pTarget ) )
 			{
 				if( start )
 					pEntity->UpdateSelf( value );

@@ -193,45 +193,38 @@ CBaseEntity* CChangeLevel::FindLandmark( const char* const pszLandmarkName )
 // be moved across.
 int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 {
-	edict_t	*pentChangelevel;
-	int			i, count;
+	int count = 0;
 
-	count = 0;
+	CBaseEntity* pChangelevel = nullptr;
 
 	// Find all of the possible level changes on this BSP
-	pentChangelevel = FIND_ENTITY_BY_STRING( NULL, "classname", "trigger_changelevel" );
-	if( FNullEnt( pentChangelevel ) )
-		return 0;
-	while( !FNullEnt( pentChangelevel ) )
+	while( pChangelevel = UTIL_FindEntityByClassname( pChangelevel, "trigger_changelevel" ) )
 	{
-		CChangeLevel *pTrigger;
-
 		CBaseEntity* pLandmark;
 
-		pTrigger = GetClassPtr( ( CChangeLevel * ) VARS( pentChangelevel ) );
-		if( pTrigger )
+		CChangeLevel* pTrigger = static_cast<CChangeLevel*>( pChangelevel );
+		// Find the corresponding landmark
+		pLandmark = FindLandmark( pTrigger->m_szLandmarkName );
+		if( pLandmark )
 		{
-			// Find the corresponding landmark
-			pLandmark = FindLandmark( pTrigger->m_szLandmarkName );
-			if( pLandmark )
+			// Build a list of unique transitions
+			if( AddTransitionToList( pLevelList, count, pTrigger->m_szMapName, pTrigger->m_szLandmarkName, pLandmark ) )
 			{
-				// Build a list of unique transitions
-				if( AddTransitionToList( pLevelList, count, pTrigger->m_szMapName, pTrigger->m_szLandmarkName, pLandmark ) )
-				{
-					count++;
-					if( count >= maxList )		// FULL!!
-						break;
-				}
+				++count;
+				if( count >= maxList )		// FULL!!
+					break;
 			}
 		}
-		pentChangelevel = FIND_ENTITY_BY_STRING( pentChangelevel, "classname", "trigger_changelevel" );
 	}
+
+	if( count == 0 )
+		return 0;
 
 	if( gpGlobals->pSaveData && ( ( SAVERESTOREDATA * ) gpGlobals->pSaveData )->pTable )
 	{
 		CSave saveHelper( ( SAVERESTOREDATA * ) gpGlobals->pSaveData );
 
-		for( i = 0; i < count; i++ )
+		for( int i = 0; i < count; i++ )
 		{
 			int j, entityCount = 0;
 			CBaseEntity *pEntList[ MAX_ENTITY ];

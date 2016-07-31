@@ -1654,10 +1654,9 @@ bool CGraph::FSaveGraph( const char* const pszMapName ) const
 //=========================================================
 bool CGraph::FSetGraphPointers()
 {
-	int	i;
-	edict_t	*pentLinkEnt;
+	CBaseEntity* pLinkEnt;
 
-	for ( i = 0 ; i < m_cLinks ; i++ )
+	for ( int i = 0 ; i < m_cLinks ; i++ )
 	{// go through all of the links
 		
 		if ( m_pLinkPool[ i ].m_pLinkEnt != NULL )
@@ -1670,18 +1669,18 @@ bool CGraph::FSetGraphPointers()
 			// m_szLinkEntModelname is not necessarily NULL terminated (so we can store it in a more alignment-friendly 4 bytes)
 			memcpy( name, m_pLinkPool[ i ].m_szLinkEntModelname, 4 );
 			name[4] = 0;
-			pentLinkEnt =  FIND_ENTITY_BY_STRING( NULL, "model", name );
+			pLinkEnt =  UTIL_FindEntityByString( nullptr, "model", name );
 
-			if ( FNullEnt ( pentLinkEnt ) )
+			if ( !pLinkEnt )
 			{
 			// the ent isn't around anymore? Either there is a major problem, or it was removed from the world
 			// ( like a func_breakable that's been destroyed or something ). Make sure that LinkEnt is null.
 				ALERT ( at_aiconsole, "**Could not find model %s\n", name );
-				m_pLinkPool[ i ].m_pLinkEnt = NULL;
+				m_pLinkPool[ i ].m_pLinkEnt = nullptr;
 			}
 			else
 			{
-				m_pLinkPool[ i ].m_pLinkEnt = VARS( pentLinkEnt );
+				m_pLinkPool[ i ].m_pLinkEnt = pLinkEnt->pev;
 
 				if ( !FBitSet( m_pLinkPool[ i ].m_pLinkEnt->flags, FL_GRAPHED ) )
 				{

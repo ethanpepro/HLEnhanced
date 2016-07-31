@@ -301,14 +301,14 @@ void DispatchSave( edict_t *pent, SAVERESTOREDATA *pSaveData )
 // different classes with the same global name
 CBaseEntity *FindGlobalEntity( string_t classname, string_t globalname )
 {
-	edict_t *pent = FIND_ENTITY_BY_STRING( NULL, "globalname", STRING( globalname ) );
-	CBaseEntity *pReturn = CBaseEntity::Instance( pent );
+	CBaseEntity* pReturn = UTIL_FindEntityByString( nullptr, "globalname", STRING( globalname ) );
+
 	if( pReturn )
 	{
 		if( !FClassnameIs( pReturn->pev, STRING( classname ) ) )
 		{
 			ALERT( at_console, "Global entity found %s, wrong class %s\n", STRING( globalname ), pReturn->GetClassname() );
-			pReturn = NULL;
+			pReturn = nullptr;
 		}
 	}
 

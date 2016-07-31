@@ -46,7 +46,8 @@ public:
 	void	PlaySound( void );
 	void	UpdateTarget( float value );
 
-	static CMomentaryRotButton *Instance( edict_t *pent ) { return ( CMomentaryRotButton * ) GET_PRIVATE( pent ); };
+	static CMomentaryRotButton *Instance( edict_t *pent ) { return ( CMomentaryRotButton * ) GET_PRIVATE( pent ); }
+	static CMomentaryRotButton *Instance( CBaseEntity* pEntity ) { return ( CMomentaryRotButton * ) pEntity; }
 
 	int		m_lastUsed;
 	int		m_direction;
