@@ -48,9 +48,16 @@ void CDecal::TriggerDecal( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	// this is set up as a USE function for infodecals that have targetnames, so that the
 	// decal doesn't get applied until it is fired. (usually by a scripted sequence)
 	TraceResult trace;
-	int			entityIndex;
 
 	UTIL_TraceLine( GetAbsOrigin() - Vector( 5, 5, 5 ), GetAbsOrigin() + Vector( 5, 5, 5 ), ignore_monsters, ENT( pev ), &trace );
+
+	CBaseEntity* pEntity = CBaseEntity::Instance( trace.pHit );
+
+	//Should never happen since the engine sets it to the world if nothing was hit. - Solokiller
+	if( !pEntity )
+		return;
+
+	const int entityIndex = ( short ) pEntity->entindex();
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_BSPDECAL );
@@ -58,10 +65,9 @@ void CDecal::TriggerDecal( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	WRITE_COORD( GetAbsOrigin().y );
 	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_SHORT( ( int ) pev->skin );
-	entityIndex = ( short ) ENTINDEX( trace.pHit );
 	WRITE_SHORT( entityIndex );
 	if( entityIndex )
-		WRITE_SHORT( ( int ) VARS( trace.pHit )->modelindex );
+		WRITE_SHORT( ( int ) pEntity->GetModelIndex() );
 	MESSAGE_END();
 
 	SetThink( &CDecal::SUB_Remove );
@@ -72,15 +78,18 @@ void CDecal::TriggerDecal( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 void CDecal::StaticDecal( void )
 {
 	TraceResult trace;
-	int			entityIndex, modelIndex;
 
 	UTIL_TraceLine( GetAbsOrigin() - Vector( 5, 5, 5 ), GetAbsOrigin() + Vector( 5, 5, 5 ), ignore_monsters, ENT( pev ), &trace );
 
-	entityIndex = ( short ) ENTINDEX( trace.pHit );
-	if( entityIndex )
-		modelIndex = ( int ) VARS( trace.pHit )->modelindex;
-	else
-		modelIndex = 0;
+	CBaseEntity* pEntity = CBaseEntity::Instance( trace.pHit );
+
+	//Should never happen since the engine sets it to the world if nothing was hit. - Solokiller
+	if( !pEntity )
+		return;
+
+	const int entityIndex = ( short ) pEntity->entindex();
+
+	const int modelIndex = entityIndex ? ( int ) pEntity->GetModelIndex() : 0;
 
 	g_engfuncs.pfnStaticDecal( GetAbsOrigin(), ( int ) pev->skin, entityIndex, modelIndex );
 
