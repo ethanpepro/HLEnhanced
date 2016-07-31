@@ -133,7 +133,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 				//			pev->nextthink = pev->ltime + 0.1;
 			}
 			else
-				STOP_SOUND( ENT( pev ), CHAN_WEAPON, m_soundNames[ m_lastSound ] );
+				STOP_SOUND( this, CHAN_WEAPON, m_soundNames[ m_lastSound ] );
 		}
 	}
 }
@@ -194,7 +194,7 @@ void CPushable::StopSound( void )
 {
 	Vector dist = GetOldOrigin() - GetAbsOrigin();
 	if( dist.Length() <= 0 )
-		STOP_SOUND( ENT( pev ), CHAN_WEAPON, m_soundNames[ m_lastSound ] );
+		STOP_SOUND( this, CHAN_WEAPON, m_soundNames[ m_lastSound ] );
 }
 #endif
 

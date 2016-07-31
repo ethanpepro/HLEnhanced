@@ -513,7 +513,7 @@ void CFuncTrackTrain::StopSound( void )
 			g_vecZero, g_vecZero, 0.0, 0.0, us_encode, 0, 1, 0 );
 
 		/*
-		STOP_SOUND(ENT(pev), CHAN_STATIC, (char*)STRING(pev->noise));
+		STOP_SOUND( this, CHAN_STATIC, (char*)STRING( pev->noise ) );
 		*/
 		EMIT_SOUND_DYN( ENT( pev ), CHAN_ITEM, "plats/ttrain_brake1.wav", m_flVolume, ATTN_NORM, 0, 100 );
 	}

@@ -78,7 +78,7 @@ void CFuncPlat::Blocked( CBaseEntity *pOther )
 	pOther->TakeDamage( this, this, 1, DMG_CRUSH );
 
 	if( pev->noiseMovement )
-		STOP_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
+		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 
 	// Send the platform back where it came from
 	ASSERT( m_toggle_state == TS_GOING_UP || m_toggle_state == TS_GOING_DOWN );
@@ -150,7 +150,7 @@ void CFuncPlat::GoDown( void )
 void CFuncPlat::HitTop( void )
 {
 	if( pev->noiseMovement )
-		STOP_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
+		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 
 	if( pev->noiseStopMoving )
 		EMIT_SOUND( ENT( pev ), CHAN_WEAPON, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
@@ -172,7 +172,7 @@ void CFuncPlat::HitTop( void )
 void CFuncPlat::HitBottom( void )
 {
 	if( pev->noiseMovement )
-		STOP_SOUND( ENT( pev ), CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
+		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 
 	if( pev->noiseStopMoving )
 		EMIT_SOUND( ENT( pev ), CHAN_WEAPON, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );

@@ -354,7 +354,7 @@ void CISlave :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			ZapBeam( 1 );
 
 			EMIT_SOUND_DYN( ENT(pev), CHAN_WEAPON, "hassault/hw_shoot1.wav", 1, ATTN_NORM, 0, RANDOM_LONG( 130, 160 ) );
-			// STOP_SOUND( ENT(pev), CHAN_WEAPON, "debris/zap4.wav" );
+			// STOP_SOUND( this, CHAN_WEAPON, "debris/zap4.wav" );
 			g_MultiDamage.ApplyMultiDamage( this, this );
 
 			m_flNextAttack = gpGlobals->time + RANDOM_FLOAT( 0.5, 4.0 );
@@ -784,5 +784,5 @@ void CISlave :: ClearBeams( )
 	m_iBeams = 0;
 	pev->skin = 0;
 
-	STOP_SOUND( ENT(pev), CHAN_WEAPON, "debris/zap4.wav" );
+	STOP_SOUND( this, CHAN_WEAPON, "debris/zap4.wav" );
 }

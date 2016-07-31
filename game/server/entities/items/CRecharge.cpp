@@ -162,7 +162,7 @@ void CRecharge::Off(void)
 {
 	// Stop looping sound.
 	if (m_iOn > 1)
-		STOP_SOUND( ENT(pev), CHAN_STATIC, "items/suitcharge1.wav" );
+		STOP_SOUND( this, CHAN_STATIC, "items/suitcharge1.wav" );
 
 	m_iOn = 0;
 

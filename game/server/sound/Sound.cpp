@@ -270,7 +270,7 @@ int SENTENCEG_PlaySequentialSz(edict_t *entity, const char *szgroupname,
 // for this entity, for the given sentence within the sentence group, stop
 // the sentence.
 
-void SENTENCEG_Stop(edict_t *entity, int isentenceg, int ipick)
+void SENTENCEG_Stop( CBaseEntity* pEntity, int isentenceg, int ipick)
 {
 	char buffer[64];
 	char sznum[8];
@@ -286,7 +286,7 @@ void SENTENCEG_Stop(edict_t *entity, int isentenceg, int ipick)
 	sprintf(sznum, "%d", ipick);
 	strcat(buffer, sznum);
 
-	STOP_SOUND(entity, CHAN_VOICE, buffer);
+	STOP_SOUND( pEntity, CHAN_VOICE, buffer);
 }
 
 // open sentences.txt, scan for groups, build rgsentenceg
@@ -451,6 +451,11 @@ void EMIT_SOUND_DYN(edict_t *entity, int channel, const char *sample, float volu
 	}
 	else
 		EMIT_SOUND_DYN2(entity, channel, sample, volume, attenuation, flags, pitch);
+}
+
+void STOP_SOUND( CBaseEntity* pEntity, int channel, const char* const pszSample )
+{
+	EMIT_SOUND_DYN( pEntity->edict(), channel, pszSample, 0, 0, SND_STOP, PITCH_NORM );
 }
 
 // play a specific sentence over the HEV suit speaker - just pass player entity, and !sentencename

@@ -87,7 +87,7 @@ void CStomp::Think( void )
 		{
 			// Life has run out
 			UTIL_Remove( this );
-			STOP_SOUND( edict(), CHAN_BODY, GARG_STOMP_BUZZ_SOUND );
+			STOP_SOUND( this, CHAN_BODY, GARG_STOMP_BUZZ_SOUND );
 		}
 
 	}

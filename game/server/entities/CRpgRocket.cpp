@@ -71,7 +71,7 @@ void CRpgRocket::RocketTouch( CBaseEntity *pOther )
 		pLauncher->m_cActiveRockets--;
 	}
 
-	STOP_SOUND( edict(), CHAN_VOICE, "weapons/rocket1.wav" );
+	STOP_SOUND( this, CHAN_VOICE, "weapons/rocket1.wav" );
 	ExplodeTouch( pOther );
 }
 
@@ -180,7 +180,7 @@ void CRpgRocket::FollowThink( void )
 		if( pev->effects & EF_LIGHT )
 		{
 			pev->effects = 0;
-			STOP_SOUND( ENT( pev ), CHAN_VOICE, "weapons/rocket1.wav" );
+			STOP_SOUND( this, CHAN_VOICE, "weapons/rocket1.wav" );
 		}
 		pev->velocity = pev->velocity * 0.2 + vecTarget * flSpeed * 0.798;
 		if( pev->waterlevel == WATERLEVEL_DRY && pev->velocity.Length() < 1500 )

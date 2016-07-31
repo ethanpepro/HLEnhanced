@@ -403,14 +403,14 @@ void CNihilanthHVR::TeleportThink( void )
 	// check world boundaries
 	if( m_hEnemy == NULL || !m_hEnemy->IsAlive() || !IsInWorld() )
 	{
-		STOP_SOUND( edict(), CHAN_WEAPON, "x/x_teleattack1.wav" );
+		STOP_SOUND( this, CHAN_WEAPON, "x/x_teleattack1.wav" );
 		UTIL_Remove( this );
 		return;
 	}
 
 	if( ( m_hEnemy->Center() - GetAbsOrigin() ).Length() < 128 )
 	{
-		STOP_SOUND( edict(), CHAN_WEAPON, "x/x_teleattack1.wav" );
+		STOP_SOUND( this, CHAN_WEAPON, "x/x_teleattack1.wav" );
 		UTIL_Remove( this );
 
 		if( m_hTargetEnt != NULL )
@@ -459,13 +459,13 @@ void CNihilanthHVR::TeleportTouch( CBaseEntity *pOther )
 	}
 
 	SetTouch( NULL );
-	STOP_SOUND( edict(), CHAN_WEAPON, "x/x_teleattack1.wav" );
+	STOP_SOUND( this, CHAN_WEAPON, "x/x_teleattack1.wav" );
 	UTIL_Remove( this );
 }
 
 void CNihilanthHVR::RemoveTouch( CBaseEntity *pOther )
 {
-	STOP_SOUND( edict(), CHAN_WEAPON, "x/x_teleattack1.wav" );
+	STOP_SOUND( this, CHAN_WEAPON, "x/x_teleattack1.wav" );
 	UTIL_Remove( this );
 }
 

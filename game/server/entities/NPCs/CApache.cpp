@@ -128,7 +128,7 @@ void CApache::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	pev->movetype = MOVETYPE_TOSS;
 	pev->gravity = 0.3;
 
-	STOP_SOUND( ENT(pev), CHAN_STATIC, "apache/ap_rotor2.wav" );
+	STOP_SOUND( this, CHAN_STATIC, "apache/ap_rotor2.wav" );
 
 	SetSize( Vector( -32, -32, -64), Vector( 32, 32, 0) );
 	SetThink( &CApache::DyingThink );

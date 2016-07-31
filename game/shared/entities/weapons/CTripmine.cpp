@@ -172,8 +172,8 @@ void CTripmineGrenade :: PowerupThink( void  )
 		}
 		else
 		{
-			STOP_SOUND( ENT(pev), CHAN_VOICE, "weapons/mine_deploy.wav" );
-			STOP_SOUND( ENT(pev), CHAN_BODY, "weapons/mine_charge.wav" );
+			STOP_SOUND( this, CHAN_VOICE, "weapons/mine_deploy.wav" );
+			STOP_SOUND( this, CHAN_BODY, "weapons/mine_charge.wav" );
 			SetThink(&CTripmineGrenade::SUB_Remove );
 			pev->nextthink = gpGlobals->time + 0.1;
 			ALERT( at_console, "WARNING:Tripmine at %.0f, %.0f, %.0f removed\n", GetAbsOrigin().x, GetAbsOrigin().y, GetAbsOrigin().z );
@@ -184,8 +184,8 @@ void CTripmineGrenade :: PowerupThink( void  )
 	else if (m_posOwner != m_hOwner->GetAbsOrigin() || m_angleOwner != m_hOwner->pev->angles)
 	{
 		// disable
-		STOP_SOUND( ENT(pev), CHAN_VOICE, "weapons/mine_deploy.wav" );
-		STOP_SOUND( ENT(pev), CHAN_BODY, "weapons/mine_charge.wav" );
+		STOP_SOUND( this, CHAN_VOICE, "weapons/mine_deploy.wav" );
+		STOP_SOUND( this, CHAN_BODY, "weapons/mine_charge.wav" );
 		CBaseEntity *pMine = Create( "weapon_tripmine", GetAbsOrigin() + m_vecDir * 24, pev->angles );
 		pMine->pev->spawnflags |= SF_NORESPAWN;
 

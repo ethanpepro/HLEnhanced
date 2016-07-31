@@ -60,7 +60,7 @@ int USENTENCEG_PickSequential( int isentenceg, char *szfound, int ipick, const b
 void USENTENCEG_InitLRU( unsigned char *plru, int count );
 
 void SENTENCEG_Init();
-void SENTENCEG_Stop( edict_t *entity, int isentenceg, int ipick );
+void SENTENCEG_Stop( CBaseEntity* pEntity, int isentenceg, int ipick );
 int SENTENCEG_PlayRndI( edict_t *entity, int isentenceg, float volume, float attenuation, int flags, int pitch );
 int SENTENCEG_PlayRndSz( edict_t *entity, const char *szrootname, float volume, float attenuation, int flags, int pitch );
 int SENTENCEG_PlaySequentialSz( edict_t *entity, const char *szrootname, float volume, float attenuation, int flags, int pitch, int ipick, const bool bReset );
@@ -84,10 +84,7 @@ inline void EMIT_SOUND( edict_t *entity, int channel, const char *sample, float 
 	EMIT_SOUND_DYN( entity, channel, sample, volume, attenuation, 0, PITCH_NORM );
 }
 
-inline void STOP_SOUND( edict_t *entity, int channel, const char *sample )
-{
-	EMIT_SOUND_DYN( entity, channel, sample, 0, 0, SND_STOP, PITCH_NORM );
-}
+void STOP_SOUND( CBaseEntity* pEntity, int channel, const char* const pszSample );
 
 void EMIT_SOUND_SUIT( edict_t *entity, const char *sample );
 void EMIT_GROUPID_SUIT( edict_t *entity, int isentenceg );

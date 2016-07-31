@@ -424,7 +424,7 @@ void CFuncTank::StartRotSound( void )
 void CFuncTank::StopRotSound( void )
 {
 	if( pev->spawnflags & SF_TANK_SOUNDON )
-		STOP_SOUND( edict(), CHAN_STATIC, ( char* ) STRING( pev->noise ) );
+		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noise ) );
 	pev->spawnflags &= ~SF_TANK_SOUNDON;
 }
 

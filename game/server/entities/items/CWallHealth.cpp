@@ -146,7 +146,7 @@ void CWallHealth::Off(void)
 {
 	// Stop looping sound.
 	if (m_iOn > 1)
-		STOP_SOUND( ENT(pev), CHAN_STATIC, "items/medcharge4.wav" );
+		STOP_SOUND( this, CHAN_STATIC, "items/medcharge4.wav" );
 
 	m_iOn = 0;
 
