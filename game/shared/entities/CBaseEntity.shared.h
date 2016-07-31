@@ -2207,9 +2207,10 @@ public:
 	*	@param vecOrigin Intended entity origin.
 	*	@param vecAngles Intended entity angles.
 	*	@param pentOwner Optional. The owner of the newly created entity.
+	*	@param bSpawnEntity Whether to call spawn on the entity or not.
 	*	@return Newly created entity, or null if the entity could not be created.
 	*/
-	static CBaseEntity* Create( const char* const pszName, const Vector& vecOrigin, const Vector& vecAngles, edict_t* pentOwner = nullptr );
+	static CBaseEntity* Create( const char* const pszName, const Vector& vecOrigin, const Vector& vecAngles, edict_t* pentOwner = nullptr, const bool bSpawnEntity = true );
 
 	/*
 	*	Returns the type of group (i.e, "houndeye", or "human military" so that monsters with different classnames

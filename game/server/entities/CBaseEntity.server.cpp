@@ -258,7 +258,7 @@ int	CBaseEntity::DamageDecal( int bitsDamageType ) const
 
 // NOTE: szName must be a pointer to constant memory, e.g. "monster_class" because the entity
 // will keep a pointer to it after this call.
-CBaseEntity* CBaseEntity::Create( const char* const pszName, const Vector& vecOrigin, const Vector& vecAngles, edict_t* pentOwner )
+CBaseEntity* CBaseEntity::Create( const char* const pszName, const Vector& vecOrigin, const Vector& vecAngles, edict_t* pentOwner, const bool bSpawnEntity )
 {
 	edict_t* pent;
 	CBaseEntity* pEntity;
@@ -274,7 +274,14 @@ CBaseEntity* CBaseEntity::Create( const char* const pszName, const Vector& vecOr
 	pEntity->pev->owner = pentOwner;
 	pEntity->pev->origin = vecOrigin;
 	pEntity->pev->angles = vecAngles;
-	DispatchSpawn( pEntity->edict() );
+
+	if( bSpawnEntity )
+	{
+		//This didn't use to handle self removing entities. - Solokiller
+		if( -1 == DispatchSpawn( pEntity->edict() ) )
+			return nullptr;
+	}
+
 	return pEntity;
 }
 
