@@ -62,7 +62,7 @@ public:
 	void EXPORT CineThink( void );
 	void Pain( void );
 	void Die( void );
-	void DelayStart( int state );
+	void DelayStart( const bool bState );
 	bool FindEntity();
 	virtual void PossessEntity( void );
 

@@ -1272,7 +1272,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 		}
 	case TASK_ENABLE_SCRIPT:
 		{
-			m_pCine->DelayStart( 0 );
+			m_pCine->DelayStart( false );
 			TaskComplete();
 			break;
 		}
