@@ -1,47 +1,47 @@
 add_sources(
 	ammo.h
-	ammo.cpp
-	ammo_secondary.cpp
 	ammohistory.h
 	ammohistory.cpp
-	battery.cpp
 	bench.h
 	CHudAmmo.h
+	CHudAmmo.cpp
 	CHudAmmoSecondary.h
+	CHudAmmoSecondary.cpp
 	CHudBase.h
 	CHudBattery.h
+	CHudBattery.cpp
 	CHudBenchmark.h
+	CHudBenchmark.cpp
 	CHudDeathNotice.h
+	CHudDeathNotice.cpp
 	CHudFlashlight.h
+	CHudFlashlight.cpp
 	CHudGeiger.h
+	CHudGeiger.cpp
 	CHudHealth.h
 	CHudHealth.cpp
 	CHudMenu.h
+	CHudMenu.cpp
 	CHudMessage.h
+	CHudMessage.cpp
 	CHudSayText.h
+	CHudSayText.cpp
 	CHudSpectator.h
 	CHudSpectator.cpp
 	CHudStatusBar.h
+	CHudStatusBar.cpp
 	CHudStatusIcons.h
+	CHudStatusIcons.cpp
 	CHudTextMessage.h
+	CHudTextMessage.cpp
 	CHudTrain.h
-	death.cpp
-	flashlight.cpp
-	geiger.cpp
+	CHudTrain.cpp
 	hud.h
 	hud.cpp
-	hud_bench.cpp
 	hud_benchtrace.h
 	hud_benchtrace.cpp
 	hud_msg.cpp
 	hud_redraw.cpp
 	hud_update.cpp
-	menu.cpp
-	message.cpp
-	saytext.cpp
-	status_icons.cpp
-	statusbar.cpp
-	text_message.cpp
-	train.cpp
 	wrect.h
 )
