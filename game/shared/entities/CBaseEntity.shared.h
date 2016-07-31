@@ -1972,6 +1972,23 @@ public:
 		pev->fov = flFOV;
 	}
 
+	/**
+	*	@return This entity's owner.
+	*/
+	CBaseEntity* GetOwner()
+	{
+		return pev->owner ? Instance( pev->owner ) : nullptr;
+	}
+
+	/**
+	*	Sets this entity's owner.
+	*	@param pOwner Owner to set. Can be null.
+	*/
+	void SetOwner( CBaseEntity* pOwner )
+	{
+		pev->owner = pOwner ? pOwner->edict() : nullptr;
+	}
+
 	//TODO: edict_t* pointers - Solokiller
 	//TODO: dmg* vars
 	//TODO: noise* vars
@@ -2462,29 +2479,6 @@ public:
 	*	@return Whether this entity is locked by its master. Only applies to entities that support having a master.
 	*/
 	virtual bool IsLockedByMaster() const { return false; }
-
-	/**
-	*	Made these static. No point in having member functions that don't access this. - Solokiller
-	*	@return The given entity as a CBaseMonster, or null if the entity is not a monster.
-	*/
-	static CBaseMonster* GetMonsterPointer( entvars_t* pevMonster )
-	{
-		CBaseEntity* pEntity = Instance( pevMonster );
-		if( pEntity )
-			return pEntity->MyMonsterPointer();
-		return nullptr;
-	}
-
-	/**
-	*	@copydoc GetMonsterPointer( entvars_t* pevMonster )
-	*/
-	static CBaseMonster* GetMonsterPointer( edict_t* pentMonster )
-	{
-		CBaseEntity* pEntity = Instance( pentMonster );
-		if( pEntity )
-			return pEntity->MyMonsterPointer();
-		return nullptr;
-	}
 
 	// virtual functions used by a few classes
 
