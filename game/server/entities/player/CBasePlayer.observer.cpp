@@ -284,25 +284,24 @@ void CBasePlayer::Observer_SetMode( int iMode )
 //=========================================================
 void CBasePlayer::StartDeathCam()
 {
-	edict_t *pSpot, *pNewSpot;
-	int iRand;
-
 	if( pev->view_ofs == g_vecZero )
 	{
 		// don't accept subsequent attempts to StartDeathCam()
 		return;
 	}
 
-	pSpot = FIND_ENTITY_BY_CLASSNAME( NULL, "info_intermission" );
+	CBaseEntity* pSpot = UTIL_FindEntityByClassname( nullptr, "info_intermission" );
 
 	if( !FNullEnt( pSpot ) )
 	{
+		CBaseEntity* pNewSpot;
+
 		// at least one intermission spot in the world.
-		iRand = RANDOM_LONG( 0, 3 );
+		int iRand = RANDOM_LONG( 0, 3 );
 
 		while( iRand > 0 )
 		{
-			pNewSpot = FIND_ENTITY_BY_CLASSNAME( pSpot, "info_intermission" );
+			pNewSpot = UTIL_FindEntityByClassname( pSpot, "info_intermission" );
 
 			if( pNewSpot )
 			{
@@ -314,8 +313,8 @@ void CBasePlayer::StartDeathCam()
 
 		CopyToBodyQue( this );
 
-		SetAbsOrigin( pSpot->v.origin );
-		pev->angles = pev->v_angle = pSpot->v.v_angle;
+		SetAbsOrigin( pSpot->GetAbsOrigin() );
+		pev->angles = pev->v_angle = pSpot->GetViewAngle();
 	}
 	else
 	{

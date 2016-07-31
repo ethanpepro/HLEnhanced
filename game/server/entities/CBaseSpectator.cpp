@@ -60,10 +60,10 @@ Called by SpectatorThink if the spectator entered an impulse
 */
 void CBaseSpectator::SpectatorImpulseCommand(void)
 {
-	static edict_t	*pGoal		= NULL;
-	edict_t         *pPreviousGoal;
-	edict_t         *pCurrentGoal;
-	bool			bFound;
+	static EHANDLE hGoal = nullptr;
+	CBaseEntity* pPreviousGoal;
+	CBaseEntity* pCurrentGoal;
+	bool bFound;
 	
 	switch (pev->impulse)
 	{
@@ -71,15 +71,15 @@ void CBaseSpectator::SpectatorImpulseCommand(void)
 		// teleport the spectator to the next spawn point
 		// note that if the spectator is tracking, this doesn't do
 		// much
-		pPreviousGoal = pGoal;
-		pCurrentGoal  = pGoal;
+		pPreviousGoal = hGoal;
+		pCurrentGoal  = hGoal;
 		// Start at the current goal, skip the world, and stop if we looped
 		//  back around
 
 		bFound = false;
 		while (1)
 		{
-			pCurrentGoal = FIND_ENTITY_BY_CLASSNAME(pCurrentGoal, "info_player_deathmatch");
+			pCurrentGoal = UTIL_FindEntityByClassname(pCurrentGoal, "info_player_deathmatch");
 			// Looped around, failure
 			if (pCurrentGoal == pPreviousGoal)
 			{
@@ -97,9 +97,9 @@ void CBaseSpectator::SpectatorImpulseCommand(void)
 		if (!bFound)  // Didn't find a good spot.
 			break;
 		
-		pGoal = pCurrentGoal;
-		SetAbsOrigin( pGoal->v.origin );
-		pev->angles = pGoal->v.angles;
+		hGoal = pCurrentGoal;
+		SetAbsOrigin( pCurrentGoal->GetAbsOrigin() );
+		pev->angles = pCurrentGoal->GetAbsAngles();
 		SetFixAngleMode( FIXANGLE_NO );
 		break;
 	default:
