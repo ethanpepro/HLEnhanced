@@ -11,6 +11,9 @@
 //TODO: change to return bool - Solokiller
 int IsPointEntity( CBaseEntity *pEnt )
 {
+	if( !pEnt )
+		return false;
+
 	if( !pEnt->pev->modelindex )
 		return 1;
 	if( pEnt->ClassnameIs( "info_target" ) || pEnt->ClassnameIs( "info_landmark" ) || pEnt->ClassnameIs( "path_corner" ) )
@@ -428,6 +431,13 @@ void CLightning::BeamUpdateVars( void )
 
 	CBaseEntity* pStart = UTIL_FindEntityByTargetname( nullptr, STRING( m_iszStartEntity ) );
 	CBaseEntity* pEnd = UTIL_FindEntityByTargetname( nullptr, STRING( m_iszEndEntity ) );
+
+	if( !pStart )
+		pStart = CWorld::GetInstance();
+
+	if( !pEnd )
+		pEnd = CWorld::GetInstance();
+
 	pointStart = IsPointEntity( pStart );
 	pointEnd = IsPointEntity( pEnd );
 
