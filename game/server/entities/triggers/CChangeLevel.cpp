@@ -333,7 +333,7 @@ int CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
 	int inVolume = 1;	// Unless we find a trigger_transition, everything is in the volume
 
 	CBaseEntity* pVolume = nullptr;
-	while( pVolume = UTIL_FindEntityByTargetname( nullptr, pVolumeName ) )
+	while( pVolume = UTIL_FindEntityByTargetname( pVolume, pVolumeName ) )
 	{
 		if( pVolume->ClassnameIs( "trigger_transition" ) )
 		{
