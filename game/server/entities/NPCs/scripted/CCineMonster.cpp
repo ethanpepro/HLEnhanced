@@ -8,12 +8,12 @@
 
 #define CLASSNAME "scripted_sequence"
 
-void ScriptEntityCancel( edict_t *pentCine )
+void ScriptEntityCancel( CBaseEntity* pCine )
 {
 	// make sure they are a scripted_sequence
-	if( FClassnameIs( pentCine, CLASSNAME ) )
+	if( FClassnameIs( pCine, CLASSNAME ) )
 	{
-		CCineMonster *pCineTarget = GetClassPtr( ( CCineMonster * ) VARS( pentCine ) );
+		CCineMonster *pCineTarget = static_cast<CCineMonster*>( pCine );
 		// make sure they have a monster in mind for the script
 		CBaseEntity		*pEntity = pCineTarget->m_hTargetEnt;
 		CBaseMonster	*pTarget = NULL;
@@ -427,16 +427,15 @@ void CCineMonster::CancelScript( void )
 
 	if( !HasTargetname() )
 	{
-		ScriptEntityCancel( edict() );
+		ScriptEntityCancel( this );
 		return;
 	}
 
-	edict_t *pentCineTarget = FIND_ENTITY_BY_TARGETNAME( NULL, GetTargetname() );
+	CBaseEntity* pCineTarget = nullptr;
 
-	while( !FNullEnt( pentCineTarget ) )
+	while( pCineTarget = UTIL_FindEntityByTargetname( pCineTarget, GetTargetname() ) )
 	{
-		ScriptEntityCancel( pentCineTarget );
-		pentCineTarget = FIND_ENTITY_BY_TARGETNAME( pentCineTarget, GetTargetname() );
+		ScriptEntityCancel( pCineTarget );
 	}
 }
 
