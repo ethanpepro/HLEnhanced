@@ -141,40 +141,38 @@ void CScriptedSentence::DelayThink( void )
 
 CBaseMonster *CScriptedSentence::FindEntity( void )
 {
-	edict_t *pentTarget;
-	CBaseMonster *pMonster;
+	CBaseEntity* pTargetEnt = nullptr;
 
+	CBaseMonster* pMonster = nullptr;
 
-	pentTarget = FIND_ENTITY_BY_TARGETNAME( NULL, STRING( m_iszEntity ) );
-	pMonster = NULL;
-
-	while( !FNullEnt( pentTarget ) )
+	while( pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) ) )
 	{
-		pMonster = GetMonsterPointer( pentTarget );
-		if( pMonster != NULL )
+		if( pMonster = pTargetEnt->MyMonsterPointer() )
 		{
 			if( AcceptableSpeaker( pMonster ) )
 				return pMonster;
-			//			ALERT( at_console, "%s (%s), not acceptable\n", pMonster->GetClassname(), pMonster->GetTargetname() );
+
+			//ALERT( at_console, "%s (%s), not acceptable\n", pMonster->GetClassname(), pMonster->GetTargetname() );
 		}
-		pentTarget = FIND_ENTITY_BY_TARGETNAME( pentTarget, STRING( m_iszEntity ) );
 	}
 
-	CBaseEntity *pEntity = NULL;
-	while( ( pEntity = UTIL_FindEntityInSphere( pEntity, GetAbsOrigin(), m_flRadius ) ) != NULL )
+	pTargetEnt = nullptr;
+
+	while( pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius ) )
 	{
-		if( FClassnameIs( pEntity->pev, STRING( m_iszEntity ) ) )
+		if( pTargetEnt->ClassnameIs( m_iszEntity ) )
 		{
-			if( FBitSet( pEntity->pev->flags, FL_MONSTER ) )
+			if( pTargetEnt->AnyFlagsSet( FL_MONSTER ) )
 			{
-				pMonster = pEntity->MyMonsterPointer();
+				pMonster = pTargetEnt->MyMonsterPointer();
+
 				if( AcceptableSpeaker( pMonster ) )
 					return pMonster;
 			}
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 bool CScriptedSentence::AcceptableSpeaker( const CBaseMonster *pMonster ) const

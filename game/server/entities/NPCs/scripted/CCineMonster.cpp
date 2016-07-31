@@ -217,6 +217,7 @@ void CCineMonster::Activate( void )
 	// If no entity with that targetname, check the classname
 	if( !pTarget )
 	{
+		pNextTarget = nullptr;
 		while( !pTarget && ( pNextTarget = UTIL_FindEntityByClassname( pNextTarget, STRING( m_iszEntity ) ) ) )
 		{
 			pTarget = pNextTarget->MyMonsterPointer();
