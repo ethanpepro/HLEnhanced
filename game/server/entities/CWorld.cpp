@@ -272,10 +272,10 @@ void CWorld::Precache( void )
 		if( pEntity )
 		{
 			pEntity->SetThink( &CBaseEntity::SUB_CallUseToggle );
-			pEntity->pev->message = pev->netname;
-			pev->netname = 0;
-			pEntity->pev->nextthink = gpGlobals->time + 0.3;
-			pEntity->pev->spawnflags = SF_MESSAGE_ONCE;
+			pEntity->SetMessage( GetNetName() );
+			ClearNetName();
+			pEntity->SetNextThink( gpGlobals->time + 0.3 );
+			pEntity->SetSpawnFlags( SF_MESSAGE_ONCE );
 		}
 	}
 
