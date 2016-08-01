@@ -749,3 +749,49 @@ float UTIL_WeaponTimeBase()
 	return gpGlobals->time;
 #endif
 }
+
+void UTIL_DestructEntity( CBaseEntity* pEntity )
+{
+	ASSERT( pEntity );
+
+	pEntity->OnDestroy();
+	pEntity->~CBaseEntity();
+}
+
+#ifdef SERVER_DLL
+namespace
+{
+static void UTIL_RemoveCleanup( CBaseEntity* pEntity )
+{
+	pEntity->UpdateOnRemove();
+	pEntity->AddFlags( FL_KILLME );
+	pEntity->ClearTargetname();
+}
+}
+
+void UTIL_Remove( CBaseEntity *pEntity )
+{
+	if( !pEntity )
+		return;
+
+	UTIL_RemoveCleanup( pEntity );
+}
+#endif
+
+void UTIL_RemoveNow( CBaseEntity* pEntity )
+{
+	if( !pEntity )
+		return;
+
+#ifdef SERVER_DLL
+	//Let UTIL_Remove's stuff happen even when removing right away. - Solokiller
+	UTIL_RemoveCleanup( pEntity );
+
+	REMOVE_ENTITY( pEntity->edict() );
+#else
+	UTIL_DestructEntity( pEntity );
+
+	//On the client, entities are allocated using byte arrays. - Solokiller
+	delete[] reinterpret_cast<byte*>( pEntity );
+#endif
+}

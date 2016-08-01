@@ -56,14 +56,14 @@ Vector previousorigin;
 //TODO: move - Solokiller
 Vector g_vPlayerVelocity;
 
+//TODO: move all of this stuff into a class - Solokiller
+
 void HUD_PrepareWeapons()
 {
 	for( auto pWeapon : g_pWpns )
 	{
-		//On the client, entities are allocated using byte arrays. - Solokiller
-		//TODO: handle elsewhere - Solokiller
 		if( pWeapon )
-			delete[] reinterpret_cast<byte*>( pWeapon );
+			UTIL_RemoveNow( pWeapon );
 	}
 
 	memset( g_pWpns, 0, sizeof( g_pWpns ) );

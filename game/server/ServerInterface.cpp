@@ -464,9 +464,7 @@ void OnFreeEntPrivateData( edict_t* pEdict )
 	{
 		CBaseEntity* pEntity = GET_PRIVATE( pEdict );
 
-		pEntity->OnDestroy();
-
-		pEntity->~CBaseEntity();
+		UTIL_DestructEntity( pEntity );
 	}
 }
 

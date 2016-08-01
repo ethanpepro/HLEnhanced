@@ -951,35 +951,6 @@ bool UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 )
 	return false;
 }
 
-namespace
-{
-static void UTIL_RemoveCleanup( CBaseEntity* pEntity )
-{
-	pEntity->UpdateOnRemove();
-	pEntity->AddFlags( FL_KILLME );
-	pEntity->ClearTargetname();
-}
-}
-
-void UTIL_Remove( CBaseEntity *pEntity )
-{
-	if ( !pEntity )
-		return;
-
-	UTIL_RemoveCleanup( pEntity );
-}
-
-void UTIL_RemoveNow( CBaseEntity* pEntity )
-{
-	if( !pEntity )
-		return;
-
-	//Let UTIL_Remove's stuff happen even when removing right away. - Solokiller
-	UTIL_RemoveCleanup( pEntity );
-
-	REMOVE_ENTITY( pEntity->edict() );
-}
-
 bool UTIL_IsValidEntity( const CBaseEntity* const pEntity )
 {
 	if ( !pEntity || pEntity->edict()->free || pEntity->AnyFlagsSet( FL_KILLME ) )

@@ -268,4 +268,13 @@ void UTIL_Ricochet( const Vector& position, float scale );
 
 float UTIL_WeaponTimeBase();
 
+/**
+*	Used only by specific code to run code on destruction of the entity.
+*	If you're not already using it, you probably shouldn't use it.
+*/
+void UTIL_DestructEntity( CBaseEntity* pEntity );
+
+void UTIL_Remove( CBaseEntity* pEntity );
+void UTIL_RemoveNow( CBaseEntity* pEntity );
+
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H
