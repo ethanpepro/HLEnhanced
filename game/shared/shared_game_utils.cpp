@@ -40,6 +40,11 @@ entvars_t* VARS( CBaseEntity* pEntity )
 	return pEntity ? pEntity->pev : nullptr;
 }
 
+void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float* pVecOrigin, CBaseEntity* pPlayer )
+{
+	MESSAGE_BEGIN( iMsgType, iMsgID, pVecOrigin, pPlayer ? pPlayer->edict() : nullptr );
+}
+
 bool FNullEnt( const CBaseEntity* pEntity )
 {
 	return pEntity == nullptr || FNullEnt( pEntity->pev );

@@ -836,7 +836,7 @@ void CBasePlayer::ImpulseCommands()
 
 			ASSERT( gmsgLogo > 0 );
 			// send "health" update message
-			MESSAGE_BEGIN( MSG_ONE, gmsgLogo, NULL, pev );
+			MESSAGE_BEGIN( MSG_ONE, gmsgLogo, NULL, this );
 			WRITE_BYTE( iOn );
 			MESSAGE_END();
 
@@ -1242,7 +1242,7 @@ void CBasePlayer::UpdateGeigerCounter()
 	{
 		m_igeigerRangePrev = range;
 
-		MESSAGE_BEGIN( MSG_ONE, gmsgGeigerRange, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgGeigerRange, NULL, this );
 		WRITE_BYTE( range );
 		MESSAGE_END();
 	}

@@ -190,14 +190,14 @@ void CBasePlayer::Observer_CheckProperties()
 			m_iFOV = target->m_iFOV;
 			m_iClientFOV = m_iFOV;
 			// write fov before wepon data, so zoomed crosshair is set correctly
-			MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, pev );
+			MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, this );
 				WRITE_BYTE( m_iFOV );
 			MESSAGE_END();
 
 
 			m_iObserverWeapon = weapon;
 			//send weapon update
-			MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pev );
+			MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, this );
 				WRITE_BYTE( 1 );	// 1 = current weapon, not on target
 				WRITE_BYTE( m_iObserverWeapon );	
 				WRITE_BYTE( 0 );	// clip
@@ -212,7 +212,7 @@ void CBasePlayer::Observer_CheckProperties()
 		{
 			m_iObserverWeapon = 0;
 
-			MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pev );
+			MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, this );
 				WRITE_BYTE( 1 );	// 1 = current weapon
 				WRITE_BYTE( m_iObserverWeapon );	
 				WRITE_BYTE( 0 );	// clip
@@ -360,7 +360,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	SetSuitUpdate( NULL, SUIT_SENTENCE, 0 );
 
 	// Tell Ammo Hud that the player is dead
-	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pev );
+	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, this );
 		WRITE_BYTE( 0 );
 		WRITE_BYTE( 0XFF );
 		WRITE_BYTE( 0xFF );
@@ -369,7 +369,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	// reset FOV
 	m_iFOV = m_iClientFOV = 0;
 	pev->fov = m_iFOV;
-	MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, pev );
+	MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, this );
 		WRITE_BYTE( 0 );
 	MESSAGE_END();
 

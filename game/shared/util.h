@@ -96,6 +96,8 @@ inline void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float *pOrigin, entva
 	(*g_engfuncs.pfnMessageBegin)( iMsgType, iMsgID, pOrigin, ENT(ent));
 }
 
+void MESSAGE_BEGIN( int iMsgType, int iMsgID, const float* pVecOrigin, CBaseEntity* pPlayer );
+
 // Testing the three types of "entity" for nullity
 #define eoNullEntity 0
 inline bool FNullEnt(EOFFSET eoffset)		{ return eoffset == eoNullEntity; }

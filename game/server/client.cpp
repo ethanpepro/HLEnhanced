@@ -192,7 +192,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 			if ( !client->IsObserver() )
 				continue;
 
-		MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, client->pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, client );
 			WRITE_BYTE( ENTINDEX(pEntity) );
 			WRITE_STRING( text );
 		MESSAGE_END();
@@ -200,7 +200,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	}
 
 	// print to the sending client
-	MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, &pEntity->v );
+	MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, player );
 		WRITE_BYTE( ENTINDEX(pEntity) );
 		WRITE_STRING( text );
 	MESSAGE_END();

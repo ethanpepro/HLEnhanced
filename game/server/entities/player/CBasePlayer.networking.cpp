@@ -53,13 +53,13 @@ void CBasePlayer::UpdateClientData()
 		m_fInitHUD = false;
 		gInitHUD = false;
 
-		MESSAGE_BEGIN( MSG_ONE, gmsgResetHUD, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgResetHUD, NULL, this );
 			WRITE_BYTE( 0 );
 		MESSAGE_END();
 
 		if( !m_fGameHUDInitialized )
 		{
-			MESSAGE_BEGIN( MSG_ONE, gmsgInitHUD, NULL, pev );
+			MESSAGE_BEGIN( MSG_ONE, gmsgInitHUD, NULL, this );
 			MESSAGE_END();
 
 			g_pGameRules->InitHUD( this );
@@ -82,7 +82,7 @@ void CBasePlayer::UpdateClientData()
 
 	if( m_iHideHUD != m_iClientHideHUD )
 	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgHideWeapon, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgHideWeapon, NULL, this );
 			WRITE_BYTE( m_iHideHUD );
 		MESSAGE_END();
 
@@ -91,7 +91,7 @@ void CBasePlayer::UpdateClientData()
 
 	if( m_iFOV != m_iClientFOV )
 	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, this );
 			WRITE_BYTE( m_iFOV );
 		MESSAGE_END();
 
@@ -101,7 +101,7 @@ void CBasePlayer::UpdateClientData()
 	// HACKHACK -- send the message to display the game title
 	if( gDisplayTitle )
 	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgShowGameTitle, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgShowGameTitle, NULL, this );
 			WRITE_BYTE( 0 );
 		MESSAGE_END();
 		gDisplayTitle = false;
@@ -114,7 +114,7 @@ void CBasePlayer::UpdateClientData()
 			iHealth = 1;
 
 		// send "health" update message
-		MESSAGE_BEGIN( MSG_ONE, gmsgHealth, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgHealth, NULL, this );
 			WRITE_BYTE( iHealth );
 		MESSAGE_END();
 
@@ -128,7 +128,7 @@ void CBasePlayer::UpdateClientData()
 
 		ASSERT( gmsgBattery > 0 );
 		// send "health" update message
-		MESSAGE_BEGIN( MSG_ONE, gmsgBattery, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgBattery, NULL, this );
 			WRITE_SHORT( ( int ) pev->armorvalue );
 		MESSAGE_END();
 	}
@@ -150,7 +150,7 @@ void CBasePlayer::UpdateClientData()
 		// only send down damage type that have hud art
 		int visibleDamageBits = m_bitsDamageType & DMG_SHOWNHUD;
 
-		MESSAGE_BEGIN( MSG_ONE, gmsgDamage, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgDamage, NULL, this );
 			WRITE_BYTE( pev->dmg_save );
 			WRITE_BYTE( pev->dmg_take );
 			WRITE_LONG( visibleDamageBits );
@@ -193,7 +193,7 @@ void CBasePlayer::UpdateClientData()
 				m_flFlashLightTime = 0;
 		}
 
-		MESSAGE_BEGIN( MSG_ONE, gmsgFlashBattery, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgFlashBattery, NULL, this );
 			WRITE_BYTE( m_iFlashBattery );
 		MESSAGE_END();
 	}
@@ -202,7 +202,7 @@ void CBasePlayer::UpdateClientData()
 	{
 		ASSERT( gmsgTrain > 0 );
 		// send "health" update message
-		MESSAGE_BEGIN( MSG_ONE, gmsgTrain, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgTrain, NULL, this );
 			WRITE_BYTE( m_iTrain & 0xF );
 		MESSAGE_END();
 
@@ -243,7 +243,7 @@ void CBasePlayer::UpdateClientData()
 			else
 				pszName = II.pszName;
 
-			MESSAGE_BEGIN( MSG_ONE, gmsgWeaponList, NULL, pev );
+			MESSAGE_BEGIN( MSG_ONE, gmsgWeaponList, NULL, this );
 			WRITE_STRING( pszName );			// string	weapon name
 				WRITE_BYTE( GetAmmoIndex( II.pszAmmo1 ) );	// byte		Ammo Type
 				WRITE_BYTE( GetAmmoIndex( II.pszAmmo2 ) );	// byte		Ammo2 Type
@@ -313,7 +313,7 @@ void CBasePlayer::SendWeatherUpdate()
 
 	if( type != WeatherType::NONE )
 	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgReceiveW, nullptr, edict() );
+		MESSAGE_BEGIN( MSG_ONE, gmsgReceiveW, nullptr, this );
 			WRITE_BYTE( type );
 		MESSAGE_END();
 	}

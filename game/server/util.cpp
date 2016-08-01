@@ -405,7 +405,7 @@ void UTIL_ScreenShake( const Vector &center, float amplitude, float frequency, f
 		{
 			shake.amplitude = FixedUnsigned16( localAmplitude, 1<<12 );		// 4.12 fixed
 			
-			MESSAGE_BEGIN( MSG_ONE, gmsgShake, NULL, pPlayer->edict() );		// use the magic #1 for "one client"
+			MESSAGE_BEGIN( MSG_ONE, gmsgShake, NULL, pPlayer );		// use the magic #1 for "one client"
 				
 				WRITE_SHORT( shake.amplitude );				// shake amount
 				WRITE_SHORT( shake.duration );				// shake lasts this long
@@ -441,7 +441,7 @@ void UTIL_ScreenFadeWrite( const ScreenFade &fade, CBaseEntity *pEntity )
 	if ( !pEntity || !pEntity->IsNetClient() )
 		return;
 
-	MESSAGE_BEGIN( MSG_ONE, gmsgFade, NULL, pEntity->edict() );		// use the magic #1 for "one client"
+	MESSAGE_BEGIN( MSG_ONE, gmsgFade, NULL, pEntity );		// use the magic #1 for "one client"
 		
 		WRITE_SHORT( fade.duration );		// fade lasts this long
 		WRITE_SHORT( fade.holdTime );		// fade lasts this long
@@ -486,7 +486,7 @@ void UTIL_HudMessage( CBaseEntity *pEntity, const hudtextparms_t &textparms, con
 	if ( !pEntity || !pEntity->IsNetClient() )
 		return;
 
-	MESSAGE_BEGIN( MSG_ONE, SVC_TEMPENTITY, NULL, pEntity->edict() );
+	MESSAGE_BEGIN( MSG_ONE, SVC_TEMPENTITY, NULL, pEntity );
 		WRITE_BYTE( TE_TEXTMESSAGE );
 		WRITE_BYTE( textparms.channel & 0xFF );
 
@@ -578,7 +578,7 @@ void UTIL_SayText( const char *pText, CBaseEntity *pEntity )
 	if ( !pEntity->IsNetClient() )
 		return;
 
-	MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, pEntity->edict() );
+	MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, pEntity );
 		WRITE_BYTE( pEntity->entindex() );
 		WRITE_STRING( pText );
 	MESSAGE_END();
@@ -597,7 +597,7 @@ void UTIL_ShowMessage( const char *pString, CBaseEntity *pEntity )
 	if ( !pEntity || !pEntity->IsNetClient() )
 		return;
 
-	MESSAGE_BEGIN( MSG_ONE, gmsgHudText, NULL, pEntity->edict() );
+	MESSAGE_BEGIN( MSG_ONE, gmsgHudText, NULL, pEntity );
 	WRITE_STRING( pString );
 	MESSAGE_END();
 }

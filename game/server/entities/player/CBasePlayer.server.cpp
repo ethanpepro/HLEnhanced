@@ -577,12 +577,12 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 	// send "health" update message to zero
 	m_iClientHealth = 0;
-	MESSAGE_BEGIN( MSG_ONE, gmsgHealth, NULL, pev );
+	MESSAGE_BEGIN( MSG_ONE, gmsgHealth, NULL, this );
 		WRITE_BYTE( m_iClientHealth );
 	MESSAGE_END();
 
 	// Tell Ammo Hud that the player is dead
-	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pev );
+	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, this );
 		WRITE_BYTE(0);
 		WRITE_BYTE(0XFF);
 		WRITE_BYTE(0xFF);
@@ -591,7 +591,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	// reset FOV
 	pev->fov = m_iFOV = m_iClientFOV = 0;
 
-	MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, pev );
+	MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, this );
 		WRITE_BYTE(0);
 	MESSAGE_END();
 
@@ -819,7 +819,7 @@ void CBasePlayer::UpdateStatusBar()
 
 	if ( strcmp( sbuf0, m_SbarString0 ) )
 	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgStatusText, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgStatusText, NULL, this );
 			WRITE_BYTE( 0 );
 			WRITE_STRING( sbuf0 );
 		MESSAGE_END();
@@ -832,7 +832,7 @@ void CBasePlayer::UpdateStatusBar()
 
 	if ( strcmp( sbuf1, m_SbarString1 ) )
 	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgStatusText, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgStatusText, NULL, this );
 			WRITE_BYTE( 1 );
 			WRITE_STRING( sbuf1 );
 		MESSAGE_END();
@@ -848,7 +848,7 @@ void CBasePlayer::UpdateStatusBar()
 	{
 		if ( newSBarState[i] != m_izSBarState[i] || bForceResend )
 		{
-			MESSAGE_BEGIN( MSG_ONE, gmsgStatusValue, NULL, pev );
+			MESSAGE_BEGIN( MSG_ONE, gmsgStatusValue, NULL, this );
 				WRITE_BYTE( i );
 				WRITE_SHORT( newSBarState[i] );
 			MESSAGE_END();

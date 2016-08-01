@@ -34,7 +34,7 @@ bool CItemLongJump::MyTouch( CBasePlayer *pPlayer )
 
 		g_engfuncs.pfnSetPhysicsKeyValue( pPlayer->edict(), "slj", "1" );
 
-		MESSAGE_BEGIN( MSG_ONE, gmsgItemPickup, NULL, pPlayer->pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgItemPickup, NULL, pPlayer );
 		WRITE_STRING( GetClassname() );
 		MESSAGE_END();
 

@@ -144,7 +144,7 @@ bool CRpg::AddToPlayer( CBasePlayer *pPlayer )
 {
 	if ( CBasePlayerWeapon::AddToPlayer( pPlayer ) )
 	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgWeapPickup, NULL, pPlayer->pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgWeapPickup, NULL, pPlayer );
 			WRITE_BYTE( m_iId );
 		MESSAGE_END();
 		return true;

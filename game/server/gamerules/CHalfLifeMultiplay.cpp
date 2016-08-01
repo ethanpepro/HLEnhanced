@@ -390,7 +390,7 @@ bool CHalfLifeMultiplay :: ClientConnected( edict_t *pEntity, const char *pszNam
 
 void CHalfLifeMultiplay :: UpdateGameMode( CBasePlayer *pPlayer )
 {
-	MESSAGE_BEGIN( MSG_ONE, gmsgGameMode, NULL, pPlayer->edict() );
+	MESSAGE_BEGIN( MSG_ONE, gmsgGameMode, NULL, pPlayer );
 		WRITE_BYTE( 0 );  // game mode none
 	MESSAGE_END();
 }
@@ -423,7 +423,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 
 	// sending just one score makes the hud scoreboard active;  otherwise
 	// it is just disabled for single play
-	MESSAGE_BEGIN( MSG_ONE, gmsgScoreInfo, NULL, pl->edict() );
+	MESSAGE_BEGIN( MSG_ONE, gmsgScoreInfo, NULL, pl );
 		WRITE_BYTE( pl->entindex() );
 		WRITE_SHORT( 0 );
 		WRITE_SHORT( 0 );
@@ -441,7 +441,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 
 		if ( plr )
 		{
-			MESSAGE_BEGIN( MSG_ONE, gmsgScoreInfo, NULL, pl->edict() );
+			MESSAGE_BEGIN( MSG_ONE, gmsgScoreInfo, NULL, pl );
 				WRITE_BYTE( i );	// client number
 				WRITE_SHORT( plr->pev->frags );
 				WRITE_SHORT( plr->m_iDeaths );
@@ -453,7 +453,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 
 	if ( g_fGameOver )
 	{
-		MESSAGE_BEGIN( MSG_ONE, SVC_INTERMISSION, NULL, pl->edict() );
+		MESSAGE_BEGIN( MSG_ONE, SVC_INTERMISSION, NULL, pl );
 		MESSAGE_END();
 	}
 }
@@ -1529,7 +1529,7 @@ void CHalfLifeMultiplay :: SendMOTDToClient( CBasePlayer* pPlayer )
 	char *aFileList = pFileList = (char*)LOAD_FILE_FOR_ME( (char *)CVAR_GET_STRING( "motdfile" ), &length );
 
 	// send the server name
-	MESSAGE_BEGIN( MSG_ONE, gmsgServerName, NULL, pPlayer->edict() );
+	MESSAGE_BEGIN( MSG_ONE, gmsgServerName, NULL, pPlayer );
 		WRITE_STRING( CVAR_GET_STRING("hostname") );
 	MESSAGE_END();
 
@@ -1556,7 +1556,7 @@ void CHalfLifeMultiplay :: SendMOTDToClient( CBasePlayer* pPlayer )
 		else
 			*pFileList = 0;
 
-		MESSAGE_BEGIN( MSG_ONE, gmsgMOTD, NULL, pPlayer->edict() );
+		MESSAGE_BEGIN( MSG_ONE, gmsgMOTD, NULL, pPlayer );
 			WRITE_BYTE( *pFileList ? 0 : 1 );	// 0 means there is still more message to come
 			WRITE_STRING( chunk );
 		MESSAGE_END();

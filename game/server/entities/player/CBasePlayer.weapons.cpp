@@ -212,7 +212,7 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 
 	UpdateClientData();
 	// send Selected Weapon Message to our client
-	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pev );
+	MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, this );
 		WRITE_BYTE( 0 );
 		WRITE_BYTE( 0 );
 		WRITE_BYTE( 0 );
@@ -734,7 +734,7 @@ int CBasePlayer::GiveAmmo( int iCount, const char *szName )
 	if( gmsgAmmoPickup )  // make sure the ammo messages have been linked first
 	{
 		// Send the message that ammo has been picked up
-		MESSAGE_BEGIN( MSG_ONE, gmsgAmmoPickup, NULL, pev );
+		MESSAGE_BEGIN( MSG_ONE, gmsgAmmoPickup, NULL, this );
 		WRITE_BYTE( GetAmmoIndex( szName ) );		// ammo ID
 		WRITE_BYTE( iAdd );		// amount
 		MESSAGE_END();
@@ -759,7 +759,7 @@ void CBasePlayer::SendAmmoUpdate()
 			ASSERT( m_rgAmmo[ i ] < 255 );
 
 			// send "Ammo" update message
-			MESSAGE_BEGIN( MSG_ONE, gmsgAmmoX, NULL, pev );
+			MESSAGE_BEGIN( MSG_ONE, gmsgAmmoX, NULL, this );
 			WRITE_BYTE( i );
 			WRITE_BYTE( max( min( m_rgAmmo[ i ], 254 ), 0 ) );  // clamp the value to one byte
 			MESSAGE_END();
