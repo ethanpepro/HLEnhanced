@@ -34,7 +34,7 @@ precaches and defs for entities and other data that must always be available.
 
 #include "CMap.h"
 
-#include "Angelscript/CHLASManager.h"
+#include "Angelscript/CHLASServerManager.h"
 
 extern DLL_GLOBAL bool g_fGameOver;
 float g_flWeaponCheat;

@@ -5,5 +5,7 @@ add_sources(
 	CASMapModuleBuilder.cpp
 	CHLASManager.h
 	CHLASManager.cpp
+	CHLASBaseInitializer.h
+	CHLASBaseInitializer.cpp
 	HLASConstants.h
 )

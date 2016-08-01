@@ -20,7 +20,7 @@
 
 #include "CServerGameInterface.h"
 
-#include "Angelscript/CHLASManager.h"
+#include "Angelscript/CHLASServerManager.h"
 
 #include "Server.h"
 

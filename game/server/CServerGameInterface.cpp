@@ -11,7 +11,7 @@
 #include "nodes/Nodes.h"
 #include "nodes/CTestHull.h"
 
-#include "Angelscript/CHLASManager.h"
+#include "Angelscript/CHLASServerManager.h"
 
 #include "CServerGameInterface.h"
 

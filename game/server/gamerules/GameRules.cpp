@@ -7,7 +7,7 @@
 #include "CHalfLifeMultiplay.h"
 #include "CHalfLifeTeamplay.h"
 
-#include "Angelscript/CHLASManager.h"
+#include "Angelscript/CHLASServerManager.h"
 
 DLL_GLOBAL CGameRules* g_pGameRules = nullptr;
 
