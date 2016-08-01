@@ -42,7 +42,7 @@ void CPushable::Spawn( void )
 		pev->friction = 399;
 
 	m_maxSpeed = 400 - pev->friction;
-	SetBits( pev->flags, FL_FLOAT );
+	AddFlags( FL_FLOAT );
 	pev->friction = 0;
 
 	pev->origin.z += 1;	// Pick up off of the floor
@@ -75,7 +75,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 	int playerTouch = 0;
 
 	// Is entity standing on this pushable ?
-	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && pOther->pev->groundentity && GET_PRIVATE( pOther->pev->groundentity ) == this )
+	if( pOther->AnyFlagsSet( FL_ONGROUND ) && pOther->pev->groundentity && GET_PRIVATE( pOther->pev->groundentity ) == this )
 	{
 		// Only push if floating
 		if( GetWaterLevel() > WATERLEVEL_DRY )
@@ -96,7 +96,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 
 	if( playerTouch )
 	{
-		if( !( pOther->pev->flags & FL_ONGROUND ) )	// Don't push away from jumping/falling players unless in water
+		if( !pOther->AnyFlagsSet( FL_ONGROUND ) )	// Don't push away from jumping/falling players unless in water
 		{
 			if( GetWaterLevel() < WATERLEVEL_FEET )
 				return;
@@ -125,7 +125,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 		if( ( gpGlobals->time - m_soundTime ) > 0.7 )
 		{
 			m_soundTime = gpGlobals->time;
-			if( length > 0 && FBitSet( pev->flags, FL_ONGROUND ) )
+			if( length > 0 && AnyFlagsSet( FL_ONGROUND ) )
 			{
 				m_lastSound = RANDOM_LONG( 0, 2 );
 				EMIT_SOUND( this, CHAN_WEAPON, m_soundNames[ m_lastSound ], 0.5, ATTN_NORM );

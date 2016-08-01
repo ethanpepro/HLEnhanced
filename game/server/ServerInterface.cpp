@@ -168,7 +168,7 @@ int DispatchSpawn( edict_t *pent )
 		{
 			if( g_pGameRules && !g_pGameRules->IsAllowedToSpawn( pEntity ) )
 				return -1;	// return that this entity should be deleted
-			if( pEntity->pev->flags & FL_KILLME )
+			if( pEntity->AnyFlagsSet(FL_KILLME ) )
 				return -1;
 		}
 
@@ -204,7 +204,7 @@ void DispatchThink( edict_t *pent )
 	CBaseEntity *pEntity = ( CBaseEntity * ) GET_PRIVATE( pent );
 	if( pEntity )
 	{
-		if( FBitSet( pEntity->pev->flags, FL_DORMANT ) )
+		if( pEntity->AnyFlagsSet( FL_DORMANT ) )
 			ALERT( at_error, "Dormant entity %s is thinking!!\n", pEntity->GetClassname() );
 
 		pEntity->Think();
@@ -216,7 +216,7 @@ void DispatchUse( edict_t *pentUsed, edict_t *pentOther )
 	CBaseEntity *pEntity = ( CBaseEntity * ) GET_PRIVATE( pentUsed );
 	CBaseEntity *pOther = ( CBaseEntity * ) GET_PRIVATE( pentOther );
 
-	if( pEntity && !( pEntity->pev->flags & FL_KILLME ) )
+	if( pEntity && !pEntity->AnyFlagsSet( FL_KILLME ) )
 		pEntity->Use( pOther, pOther, USE_TOGGLE, 0 );
 }
 
@@ -231,7 +231,7 @@ void DispatchTouch( edict_t *pentTouched, edict_t *pentOther )
 	CBaseEntity *pEntity = ( CBaseEntity * ) GET_PRIVATE( pentTouched );
 	CBaseEntity *pOther = ( CBaseEntity * ) GET_PRIVATE( pentOther );
 
-	if( pEntity && pOther && !( ( pEntity->pev->flags | pOther->pev->flags ) & FL_KILLME ) )
+	if( pEntity && pOther && !( ( pEntity->GetFlags() | pOther->GetFlags() ) & FL_KILLME ) )
 		pEntity->Touch( pOther );
 }
 

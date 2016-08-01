@@ -674,7 +674,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 	const char* const tau = "tau_cannon";
 	const char* const gluon = "gluon gun";
 
-	if ( pKiller->pev->flags & FL_CLIENT )
+	if ( pKiller->AnyFlagsSet( FL_CLIENT ) )
 	{
 		killer_index = pKiller->entindex();
 		
@@ -745,7 +745,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 				killer_weapon_name );		
 		}
 	}
-	else if ( pKiller->pev->flags & FL_CLIENT )
+	else if ( pKiller->AnyFlagsSet( FL_CLIENT ) )
 	{
 		// team match?
 		if ( g_teamplay )
@@ -1002,7 +1002,7 @@ void CHalfLifeMultiplay::PlayerGotAmmo( CBasePlayer *pPlayer, char *szName, int 
 //=========================================================
 bool CHalfLifeMultiplay::IsAllowedToSpawn( CBaseEntity *pEntity )
 {
-//	if ( pEntity->pev->flags & FL_MONSTER )
+//	if ( pEntity->AnyFlagsSet( FL_MONSTER ) )
 //		return false;
 
 	return true;

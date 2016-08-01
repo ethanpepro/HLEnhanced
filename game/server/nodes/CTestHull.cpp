@@ -300,7 +300,7 @@ void CTestHull::BuildNodeGraph()
 
 				SetAbsOrigin( pSrcNode->m_vecOrigin );// place the hull on the node
 
-				if( !FBitSet( pev->flags, FL_ONGROUND ) )
+				if( !AnyFlagsSet( FL_ONGROUND ) )
 				{
 					ALERT( at_aiconsole, "OFFGROUND!\n" );
 				}
@@ -328,11 +328,11 @@ void CTestHull::BuildNodeGraph()
 
 				if( hull < NODE_FLY_HULL )
 				{
-					int SaveFlags = pev->flags;
+					const int SaveFlags = GetFlags();
 					WalkMove MoveMode = WALKMOVE_WORLDONLY;
 					if( pSrcNode->m_afNodeInfo & bits_NODE_WATER )
 					{
-						pev->flags |= FL_SWIM;
+						AddFlags( FL_SWIM );
 						MoveMode = WALKMOVE_NORMAL;
 					}
 
@@ -390,7 +390,7 @@ void CTestHull::BuildNodeGraph()
 							break;
 						}
 					}
-					pev->flags = SaveFlags;
+					SetFlags( SaveFlags );
 				}
 				else
 				{
