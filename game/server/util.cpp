@@ -385,7 +385,7 @@ void UTIL_ScreenShake( const Vector &center, float amplitude, float frequency, f
 	{
 		CBaseEntity *pPlayer = UTIL_PlayerByIndex( i );
 
-		if ( !pPlayer || !(pPlayer->pev->flags & FL_ONGROUND) )	// Don't shake if not onground
+		if ( !pPlayer || !pPlayer->AnyFlagsSet( FL_ONGROUND ) )	// Don't shake if not onground
 			continue;
 
 		localAmplitude = 0;
@@ -920,7 +920,7 @@ void UTIL_GunshotDecalTrace( TraceResult *pTrace, int decalNumber )
 //
 void DoSpark( CBaseEntity* pEntity, const Vector &location )
 {
-	Vector tmp = location + pEntity->pev->size * 0.5;
+	Vector tmp = location + pEntity->GetBounds() * 0.5;
 	UTIL_Sparks( tmp );
 
 	float flVolume = RANDOM_FLOAT( 0.25, 0.75 ) * 0.4;//random volume range
@@ -956,8 +956,8 @@ namespace
 static void UTIL_RemoveCleanup( CBaseEntity* pEntity )
 {
 	pEntity->UpdateOnRemove();
-	pEntity->pev->flags |= FL_KILLME;
-	pEntity->pev->targetname = 0;
+	pEntity->AddFlags( FL_KILLME );
+	pEntity->ClearTargetname();
 }
 }
 
@@ -966,9 +966,7 @@ void UTIL_Remove( CBaseEntity *pEntity )
 	if ( !pEntity )
 		return;
 
-	pEntity->UpdateOnRemove();
-	pEntity->pev->flags |= FL_KILLME;
-	pEntity->pev->targetname = 0;
+	UTIL_RemoveCleanup( pEntity );
 }
 
 void UTIL_RemoveNow( CBaseEntity* pEntity )
@@ -984,7 +982,7 @@ void UTIL_RemoveNow( CBaseEntity* pEntity )
 
 bool UTIL_IsValidEntity( const CBaseEntity* const pEntity )
 {
-	if ( !pEntity || pEntity->edict()->free || ( pEntity->pev->flags & FL_KILLME) )
+	if ( !pEntity || pEntity->edict()->free || pEntity->AnyFlagsSet( FL_KILLME ) )
 		return false;
 	return true;
 }
@@ -1154,7 +1152,7 @@ CBaseEntity* UTIL_RandomClassname( const char* pszName )
 //
 Vector VecBModelOrigin( const CBaseEntity* const pBModel )
 {
-	return pBModel->pev->absmin + ( pBModel->pev->size * 0.5 );
+	return pBModel->GetAbsMin() + ( pBModel->GetBounds() * 0.5 );
 }
 
 // Initialize absmin & absmax to the appropriate box
@@ -1200,8 +1198,8 @@ CBaseEntity* UTIL_FindEntityForward( CBaseEntity* pMe )
 {
 	TraceResult tr;
 
-	UTIL_MakeVectors( pMe->pev->v_angle );
-	UTIL_TraceLine( pMe->GetAbsOrigin() + pMe->pev->view_ofs, pMe->GetAbsOrigin() + pMe->pev->view_ofs + gpGlobals->v_forward * 8192, dont_ignore_monsters, pMe->edict(), &tr );
+	UTIL_MakeVectors( pMe->GetViewAngle() );
+	UTIL_TraceLine( pMe->GetAbsOrigin() + pMe->GetViewOffset(), pMe->GetAbsOrigin() + pMe->GetViewOffset() + gpGlobals->v_forward * 8192, dont_ignore_monsters, pMe->edict(), &tr );
 	if( tr.flFraction != 1.0 && !FNullEnt( tr.pHit ) )
 	{
 		CBaseEntity *pHit = CBaseEntity::Instance( tr.pHit );

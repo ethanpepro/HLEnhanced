@@ -925,6 +925,11 @@ public:
 	}
 
 	/**
+	*	@return The entity's bounds.
+	*/
+	const Vector& GetBounds() const { return pev->size; }
+
+	/**
 	*	Sets the size. The size is centered around the entity's origin.
 	*	@param vecSize Size to set.
 	*/
