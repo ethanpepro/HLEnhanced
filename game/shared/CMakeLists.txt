@@ -14,6 +14,7 @@ add_sources(
 	util.h
 	voice_common.h
 	Weapons.h
+	Weapons_Shared.cpp
 	Weather.h
 )
 

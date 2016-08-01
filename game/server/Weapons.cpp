@@ -146,28 +146,6 @@ void ExplodeModel( const Vector &vecOrigin, float speed, int model, int count )
 }
 #endif
 
-// Precaches the weapon and queues the weapon info for sending to clients
-void UTIL_PrecacheOtherWeapon( const char *szClassname )
-{
-	CBaseEntity* pEntity = UTIL_CreateNamedEntity( szClassname );
-
-	if( !pEntity )
-	{
-		ALERT ( at_console, "NULL Ent in UTIL_PrecacheOtherWeapon\n" );
-		return;
-	}
-
-	ItemInfo II;
-	pEntity->Precache( );
-	memset( &II, 0, sizeof II );
-	if ( ((CBasePlayerItem*)pEntity)->GetItemInfo( &II ) )
-	{
-		CBasePlayerItem::ItemInfoArray[II.iId] = II;
-	}
-
-	UTIL_RemoveNow( pEntity );
-}
-
 void RegisterAmmoTypes()
 {
 	g_AmmoTypes.Clear();
@@ -194,10 +172,8 @@ void RegisterAmmoTypes()
 }
 
 // called by worldspawn
-void W_Precache(void)
+void W_Precache()
 {
-	memset( CBasePlayerItem::ItemInfoArray, 0, sizeof(CBasePlayerItem::ItemInfoArray) );
-
 	// custom items...
 
 	// common world objects
@@ -207,60 +183,16 @@ void W_Precache(void)
 	UTIL_PrecacheOther( "item_security" );
 	UTIL_PrecacheOther( "item_longjump" );
 
-	//TODO: weapons and ammo could be added to a list that is enumerated. Would make things like cheats and map config parsers easier to write - Solokiller
+	PrecacheWeapons();
 
-	// shotgun
-	UTIL_PrecacheOtherWeapon( "weapon_shotgun" );
 	UTIL_PrecacheOther( "ammo_buckshot" );
-
-	// crowbar
-	UTIL_PrecacheOtherWeapon( "weapon_crowbar" );
-
-	// glock
-	UTIL_PrecacheOtherWeapon( "weapon_9mmhandgun" );
 	UTIL_PrecacheOther( "ammo_9mmclip" );
-
-	// mp5
-	UTIL_PrecacheOtherWeapon( "weapon_9mmAR" );
 	UTIL_PrecacheOther( "ammo_9mmAR" );
 	UTIL_PrecacheOther( "ammo_ARgrenades" );
-
-	// python
-	UTIL_PrecacheOtherWeapon( "weapon_357" );
 	UTIL_PrecacheOther( "ammo_357" );
-	
-	// gauss
-	UTIL_PrecacheOtherWeapon( "weapon_gauss" );
 	UTIL_PrecacheOther( "ammo_gaussclip" );
-
-	// rpg
-	UTIL_PrecacheOtherWeapon( "weapon_rpg" );
 	UTIL_PrecacheOther( "ammo_rpgclip" );
-
-	// crossbow
-	UTIL_PrecacheOtherWeapon( "weapon_crossbow" );
 	UTIL_PrecacheOther( "ammo_crossbow" );
-
-	// egon
-	UTIL_PrecacheOtherWeapon( "weapon_egon" );
-
-	// tripmine
-	UTIL_PrecacheOtherWeapon( "weapon_tripmine" );
-
-	// satchel charge
-	UTIL_PrecacheOtherWeapon( "weapon_satchel" );
-
-	// hand grenade
-	UTIL_PrecacheOtherWeapon("weapon_handgrenade");
-
-	// squeak grenade
-	UTIL_PrecacheOtherWeapon( "weapon_snark" );
-
-	// hornetgun
-	UTIL_PrecacheOtherWeapon( "weapon_hornetgun" );
-
-	//Sniper rifle
-	UTIL_PrecacheOtherWeapon( "weapon_sniperrifle" );
 	UTIL_PrecacheOther( "ammo_762" );
 
 	if ( g_pGameRules->IsDeathmatch() )
@@ -295,7 +227,6 @@ void W_Precache(void)
 	PRECACHE_SOUND ("weapons/bullet_hit2.wav");	// hit by bullet
 	
 	PRECACHE_SOUND ("items/weapondrop1.wav");// weapon falls to the ground
-
 }
 
 bool bIsMultiplayer()
