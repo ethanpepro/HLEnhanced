@@ -255,7 +255,7 @@ void CServerGameInterface::ClientUserInfoChanged( edict_t* pEntity, char* infobu
 	CBasePlayer* pPlayer = static_cast<CBasePlayer*>( GET_PRIVATE( pEntity ) );
 
 	// msg everyone if someone changes their name,  and it isn't the first time (changing no name to current name)
-	if( pEntity->v.netname && STRING( pEntity->v.netname )[ 0 ] != 0 && !FStrEq( STRING( pEntity->v.netname ), g_engfuncs.pfnInfoKeyValue( infobuffer, "name" ) ) )
+	if( pPlayer->HasNetName() && !FStrEq( pPlayer->GetNetName(), g_engfuncs.pfnInfoKeyValue( infobuffer, "name" ) ) )
 	{
 		char sName[ 256 ];
 		char *pName = g_engfuncs.pfnInfoKeyValue( infobuffer, "name" );
@@ -271,14 +271,14 @@ void CServerGameInterface::ClientUserInfoChanged( edict_t* pEntity, char* infobu
 		}
 
 		// Set the name
-		g_engfuncs.pfnSetClientKeyValue( ENTINDEX( pEntity ), infobuffer, "name", sName );
+		g_engfuncs.pfnSetClientKeyValue( pPlayer->entindex(), infobuffer, "name", sName );
 
 		if( gpGlobals->maxClients > 1 )
 		{
 			char text[ 256 ];
-			sprintf( text, "* %s changed name to %s\n", STRING( pEntity->v.netname ), g_engfuncs.pfnInfoKeyValue( infobuffer, "name" ) );
+			sprintf( text, "* %s changed name to %s\n", pPlayer->GetNetName(), g_engfuncs.pfnInfoKeyValue( infobuffer, "name" ) );
 			MESSAGE_BEGIN( MSG_ALL, gmsgSayText, NULL );
-			WRITE_BYTE( ENTINDEX( pEntity ) );
+			WRITE_BYTE( pPlayer->entindex() );
 			WRITE_STRING( text );
 			MESSAGE_END();
 		}
