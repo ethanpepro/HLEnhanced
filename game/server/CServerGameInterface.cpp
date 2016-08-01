@@ -86,7 +86,7 @@ void CServerGameInterface::ClientKill( edict_t* pEdict )
 	pPlayer->m_fNextSuicideTime = gpGlobals->time + 1;  // don't let them suicide for 5 seconds after suiciding
 
 	// have the player kill themself
-	pPlayer->pev->health = 0;
+	pPlayer->SetHealth( 0 );
 	pPlayer->Killed( CTakeDamageInfo( pPlayer, 0, 0 ), GIB_NEVER );
 }
 
@@ -163,10 +163,10 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	else if( FStrEq( pcmd, "spectate" ) )	// clients wants to become a spectator
 	{
 		// always allow proxies to become a spectator
-		if( ( pPlayer->pev->flags & FL_PROXY ) || allow_spectators.value )
+		if( pPlayer->AnyFlagsSet( FL_PROXY ) || allow_spectators.value )
 		{
 			CBaseEntity *pSpawnSpot = g_pGameRules->GetPlayerSpawnSpot( pPlayer );
-			pPlayer->StartObserver( pPlayer->GetAbsOrigin(), pSpawnSpot->pev->angles );
+			pPlayer->StartObserver( pPlayer->GetAbsOrigin(), pSpawnSpot->GetAbsAngles() );
 
 			// notify other clients of player switching to spectator mode
 			UTIL_ClientPrintAll( HUD_PRINTNOTIFY, UTIL_VarArgs( "%s switched to spectator mode\n",
@@ -324,7 +324,7 @@ void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, 
 
 		pClass = CBaseEntity::Instance( &pEdictList[ i ] );
 		// Activate this entity if it's got a class & isn't dormant
-		if( pClass && !( pClass->pev->flags & FL_DORMANT ) )
+		if( pClass && !pClass->AnyFlagsSet( FL_DORMANT ) )
 		{
 			pClass->Activate();
 		}
