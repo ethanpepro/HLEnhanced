@@ -3,6 +3,12 @@
 
 #include "Angelscript/CHLASManager.h"
 
+class CASModule;
+class CGameRules;
+
+/**
+*	Manages the map script and handles some important map stage activities.
+*/
 class CHLASServerManager final : public CHLASManager
 {
 public:

@@ -5,11 +5,10 @@
 
 #include <Angelscript/CASManager.h>
 
-class CASModule;
-class CGameRules;
+class IASInitializer;
 
 /**
-*	Manages the Angelscript engine, the map script and handles some important map stage activities.
+*	Manages the Angelscript engine.
 */
 class CHLASManager
 {
@@ -24,6 +23,9 @@ public:
 	*	@return true on success, false on failure.
 	*/
 	virtual bool Initialize() = 0;
+
+protected:
+	bool InitializeManager( IASInitializer& initializer );
 
 	/**
 	*	Shuts down Angelscript.

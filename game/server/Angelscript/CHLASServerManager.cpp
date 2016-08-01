@@ -23,11 +23,8 @@ bool CHLASServerManager::Initialize()
 {
 	CHLASServerInitializer initializer( *this );
 
-	if( !m_Manager.Initialize( initializer ) )
-	{
-		ALERT( at_console, "Failed to initialize Angelscript\n" );
+	if( !InitializeManager( initializer ) )
 		return false;
-	}
 
 	//Map scripts are per-map scripts that always have their hooks executed before any other module.
 	auto descriptor = m_Manager.GetModuleManager().AddDescriptor( "MapScript", ModuleAccessMask::MAPSCRIPT, as::ModulePriority::HIGHEST );

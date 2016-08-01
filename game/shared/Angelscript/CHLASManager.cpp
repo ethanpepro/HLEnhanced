@@ -46,6 +46,17 @@ void CHLASManager::MessageCallback( asSMessageInfo* pMsg )
 	Alert( at_console, "%s%s\n", pType, pMsg->message );
 }
 
+bool CHLASManager::InitializeManager( IASInitializer& initializer )
+{
+	if( !m_Manager.Initialize( initializer ) )
+	{
+		ALERT( at_console, "Failed to initialize Angelscript\n" );
+		return false;
+	}
+
+	return true;
+}
+
 void CHLASManager::Shutdown()
 {
 	m_Manager.Shutdown();
