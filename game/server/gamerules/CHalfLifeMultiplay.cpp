@@ -225,7 +225,7 @@ void CHalfLifeMultiplay :: Think ( void )
 		{
 			CBaseEntity *pPlayer = UTIL_PlayerByIndex( i );
 
-			if ( pPlayer && pPlayer->pev->frags >= flFragLimit )
+			if ( pPlayer && pPlayer->GetFrags() >= flFragLimit )
 			{
 				GoToIntermission();
 				return;
@@ -234,7 +234,7 @@ void CHalfLifeMultiplay :: Think ( void )
 
 			if ( pPlayer )
 			{
-				remain = flFragLimit - pPlayer->pev->frags;
+				remain = flFragLimit - pPlayer->GetFrags();
 				if ( remain < bestfrags )
 				{
 					bestfrags = remain;
@@ -443,7 +443,7 @@ void CHalfLifeMultiplay :: InitHUD( CBasePlayer *pl )
 		{
 			MESSAGE_BEGIN( MSG_ONE, gmsgScoreInfo, NULL, pl );
 				WRITE_BYTE( i );	// client number
-				WRITE_SHORT( plr->pev->frags );
+				WRITE_SHORT( plr->GetFrags() );
 				WRITE_SHORT( plr->m_iDeaths );
 				WRITE_SHORT( 0 );
 				WRITE_SHORT( GetTeamIndex( plr->m_szTeamName ) + 1 );
@@ -531,7 +531,7 @@ void CHalfLifeMultiplay :: PlayerThink( CBasePlayer *pPlayer )
 
 		// clear attack/use commands from player
 		pPlayer->m_afButtonPressed = 0;
-		pPlayer->pev->button = 0;
+		pPlayer->SetButtons( 0 );
 		pPlayer->m_afButtonReleased = 0;
 	}
 }
@@ -610,26 +610,26 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 	if( pVictim == pKiller )  
 	{
 		// killed self
-		pKiller->pev->frags -= 1;
+		pKiller->SetFrags( pKiller->GetFrags() - 1 );
 	}
 	else if( peKiller )
 	{
 		// if a player dies in a deathmatch game and the killer is a client, award the killer some points
-		peKiller->pev->frags += IPointsForKill( peKiller, pVictim );
+		peKiller->SetFrags( peKiller->GetFrags() + IPointsForKill( peKiller, pVictim ) );
 		
 		FireTargets( "game_playerkill", peKiller, peKiller, USE_TOGGLE, 0 );
 	}
 	else
 	{
 		// killed by the world
-		pKiller->pev->frags -= 1;
+		pKiller->SetFrags( pKiller->GetFrags() - 1 );
 	}
 
 	// update the scores
 	// killed scores
 	MESSAGE_BEGIN( MSG_ALL, gmsgScoreInfo );
 		WRITE_BYTE( pVictim->entindex() );
-		WRITE_SHORT( pVictim->pev->frags );
+		WRITE_SHORT( pVictim->GetFrags() );
 		WRITE_SHORT( pVictim->m_iDeaths );
 		WRITE_SHORT( 0 );
 		WRITE_SHORT( GetTeamIndex( pVictim->m_szTeamName ) + 1 );
@@ -640,7 +640,7 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 	{
 		MESSAGE_BEGIN( MSG_ALL, gmsgScoreInfo );
 			WRITE_BYTE( peKiller->entindex() );
-			WRITE_SHORT( peKiller->pev->frags );
+			WRITE_SHORT( peKiller->GetFrags() );
 			WRITE_SHORT( peKiller->m_iDeaths );
 			WRITE_SHORT( 0 );
 			WRITE_SHORT( GetTeamIndex( peKiller->m_szTeamName) + 1 );
@@ -910,7 +910,7 @@ Vector CHalfLifeMultiplay :: VecWeaponRespawnSpot( CBasePlayerItem *pWeapon )
 //=========================================================
 int CHalfLifeMultiplay :: WeaponShouldRespawn( CBasePlayerItem *pWeapon )
 {
-	if ( pWeapon->pev->spawnflags & SF_NORESPAWN )
+	if ( pWeapon->AnySpawnFlagsSet( SF_NORESPAWN ) )
 	{
 		return GR_WEAPON_RESPAWN_NO;
 	}
@@ -966,7 +966,7 @@ void CHalfLifeMultiplay::PlayerGotItem( CBasePlayer *pPlayer, CItem *pItem )
 //=========================================================
 int CHalfLifeMultiplay::ItemShouldRespawn( CItem *pItem )
 {
-	if ( pItem->pev->spawnflags & SF_NORESPAWN )
+	if ( pItem->AnySpawnFlagsSet( SF_NORESPAWN ) )
 	{
 		return GR_ITEM_RESPAWN_NO;
 	}
@@ -1012,7 +1012,7 @@ bool CHalfLifeMultiplay::IsAllowedToSpawn( CBaseEntity *pEntity )
 //=========================================================
 int CHalfLifeMultiplay::AmmoShouldRespawn( CBasePlayerAmmo *pAmmo )
 {
-	if ( pAmmo->pev->spawnflags & SF_NORESPAWN )
+	if ( pAmmo->AnySpawnFlagsSet( SF_NORESPAWN ) )
 	{
 		return GR_AMMO_RESPAWN_NO;
 	}
@@ -1087,7 +1087,7 @@ bool CHalfLifeMultiplay :: PlayFootstepSounds( CBasePlayer *pl, float fvol )
 	if ( g_footsteps && g_footsteps->value == 0 )
 		return false;
 
-	if ( pl->IsOnLadder() || pl->pev->velocity.Length2D() > PLAYER_STEP_SOUND_SPEED )
+	if ( pl->IsOnLadder() || pl->GetAbsVelocity().Length2D() > PLAYER_STEP_SOUND_SPEED )
 		return true;  // only make step sounds in multiplayer if the player is moving fast enough
 
 	return false;

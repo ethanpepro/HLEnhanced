@@ -291,7 +291,7 @@ void CHalfLifeTeamplay::ChangePlayerTeam( CBasePlayer *pPlayer, const char *pTea
 
 	MESSAGE_BEGIN( MSG_ALL, gmsgScoreInfo );
 		WRITE_BYTE( clientIndex );
-		WRITE_SHORT( pPlayer->pev->frags );
+		WRITE_SHORT( pPlayer->GetFrags() );
 		WRITE_SHORT( pPlayer->m_iDeaths );
 		WRITE_SHORT( 0 );
 		WRITE_SHORT( GetTeamIndex( pPlayer->m_szTeamName ) + 1 );
@@ -467,7 +467,7 @@ int CHalfLifeTeamplay::IPointsForKill( CBasePlayer *pAttacker, CBasePlayer *pKil
 //=========================================================
 const char *CHalfLifeTeamplay::GetTeamID( CBaseEntity *pEntity )
 {
-	if ( pEntity == NULL || pEntity->pev == NULL )
+	if ( FNullEnt( pEntity ) )
 		return "";
 
 	// return their team name
@@ -603,7 +603,7 @@ void CHalfLifeTeamplay::RecountTeams( bool bResendInfo )
 
 			if ( tm >= 0 )
 			{
-				team_scores[tm] += plr->pev->frags;
+				team_scores[tm] += plr->GetFrags();
 			}
 
 			if ( bResendInfo ) //Someone's info changed, let's send the team info again.
