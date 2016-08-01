@@ -24,13 +24,6 @@
 #include "../public/interface.h"
 //#include "vgui_schememanager.h"
 
-#include "extdll.h"
-#include "util.h"
-#include "cbase.h"
-#include "Weapons.h"
-
-#include "hl/hl_weapons.h"
-
 #include "pm_shared.h"
 
 #include <string.h>
@@ -49,10 +42,6 @@
 #include "effects/CEnvironment.h"
 
 #include "Angelscript/CHLASClientManager.h"
-
-#include "BSPIO.h"
-
-#include "com_model.h"
 
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
@@ -163,9 +152,6 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	return true;
 }
 
-bool g_bNewMapStarted = false;
-bool g_bParseMapData = false;
-
 /*
 ==========================
 	HUD_VidInit
@@ -185,110 +171,7 @@ int DLLEXPORT HUD_VidInit( void )
 
 	VGui_Startup();
 
-	g_bNewMapStarted = true;
-	g_bParseMapData = true;
-
-	return 1;
-}
-
-const char* ParseMapDataCallback( const char* pszBuffer, bool& bError )
-{
-	char szKey[ MAX_COM_TOKEN ];
-	char token[ MAX_COM_TOKEN ];
-
-	char szMapScript[ MAX_PATH ] = {};
-
-	bool bIsWorldspawn = false;
-
-	bool bEnd = false;
-
-	while( true )
-	{
-		pszBuffer = bsp::ParseKeyValue( pszBuffer, szKey, sizeof( szKey ), token, sizeof( token ), bError, bEnd );
-
-		if( bEnd )
-			break;
-
-		if( bError )
-			return pszBuffer;
-
-		if( strcmp( szKey, "mapscript" ) == 0 )
-		{
-			strncpy( szMapScript, token, sizeof( szMapScript ) );
-			szMapScript[ sizeof( szMapScript ) - 1 ] = '\0';
-		}
-		else if( strcmp( szKey, "classname" ) == 0 && strcmp( token, "worldspawn" ) == 0 )
-		{
-			bIsWorldspawn = true;
-		}
-	}
-
-	if( bIsWorldspawn && *szMapScript )
-	{
-		g_ASManager.WorldCreated( szMapScript );
-	}
-
-	return pszBuffer;
-}
-
-/**
-*	Parses in the map's data and gets the map script from it. - Solokiller
-*/
-void ParseMapData( const char* pszBuffer )
-{
-	bsp::ProcessEnts( pszBuffer, ParseMapDataCallback );
-}
-
-/**
-*	A new map has been started. - Solokiller
-*	@param pszMapName Name of the map, without path or extension.
-*	@param pszLevelName Name of the map, with path and extension.
-*/
-void HUD_NewMapStarted( const char* const pszMapName, const char* const pszLevelName )
-{
-	//Set the map name so scripts can access it the same way they can on the server. - Solokiller
-	gpGlobals->mapname = MAKE_STRING( g_StringPool.Allocate( pszMapName ) );
-}
-
-/**
-*	Checks if a new map has been started. If so, calls HUD_NewMapStarted.
-*	- Solokiller
-*/
-void HUD_CheckNewMapStarted()
-{
-	if( g_bNewMapStarted )
-	{
-		g_bNewMapStarted = false;
-
-		const char* pszLevelName = gEngfuncs.pfnGetLevelName();
-
-		char szMapName[ MAX_PATH ];
-
-		const int iResult = sscanf( pszLevelName, "maps/%s.bsp", szMapName );
-
-		if( iResult == 1 )
-		{
-			const size_t uiLength = strlen( szMapName );
-
-			//These checks are mostly to prevent crashes if the engine screws up. Better safe than sorry, it's only done once a map load.
-			const size_t uiExtLength = strlen( BSP_FILE_EXT );
-
-			//Trim the .bsp part.
-			if( uiLength > uiExtLength )
-			{
-				szMapName[ uiLength - uiExtLength ] = '\0';
-			}
-
-			HUD_NewMapStarted( szMapName, pszLevelName );
-		}
-		else
-		{
-			//Failed to get the map name, so quit now.
-			//This should never happen, but if it does, we're kinda screwed.
-			gEngfuncs.pfnClientCmd( "disconnect\n" );
-			gEngfuncs.Con_Printf( "HUD_CheckNewMapStarted: Couldn't get map name from level name!\n" );
-		}
-	}
+	return g_Client.ConnectionEstablished();
 }
 
 /*
@@ -359,19 +242,6 @@ void DLLEXPORT HUD_Reset( void )
 	gHUD.VidInit();
 }
 
-void HUD_MapInit( cl_entity_t* pWorldModel )
-{
-	HUD_PrepareWeapons();
-	PrecacheWeapons();
-
-	//Parse in map data now, since the map has been downloaded. - Solokiller
-	ParseMapData( pWorldModel->model->entities );
-
-	//TODO: call map script MapInit here - Solokiller
-
-	HUD_SetupWeapons();
-}
-
 /*
 ==========================
 HUD_Frame
@@ -382,16 +252,7 @@ Called by engine every frame that client .dll is loaded
 
 void DLLEXPORT HUD_Frame( double time )
 {
-	if( g_bParseMapData )
-	{
-		cl_entity_t* pWorldModel = gEngfuncs.GetEntityByIndex( 0 );
-
-		if( pWorldModel && pWorldModel->model )
-		{
-			g_bParseMapData = false;
-			HUD_MapInit( pWorldModel );
-		}
-	}
+	g_Client.Frame( time );
 
 	GetClientVoiceMgr()->Frame(time);
 }

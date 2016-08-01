@@ -16,11 +16,11 @@
 #include "mathlib.h"
 #include "Exports.h"
 
+#include "CClientGameInterface.h"
+
 #include "SDL2/SDL_mouse.h"
 
 float CL_KeyState (kbutton_t *key);
-
-void HUD_CheckNewMapStarted();
 
 extern cl_enginefunc_t gEngfuncs;
 
@@ -154,9 +154,7 @@ extern trace_t SV_ClipMoveToEntity (edict_t *ent, const Vector& start, const Vec
 
 void DLLEXPORT CAM_Think( void )
 {
-	//This is the earliest unconditional client library callback that gets called after a connection to a server has been established.
-	//It's the first chance we have to get the map name. - Solokiller
-	HUD_CheckNewMapStarted();
+	g_Client.CAM_Think();
 
 	Vector origin;
 	Vector ext, pnt, camForward, camRight, camUp;
