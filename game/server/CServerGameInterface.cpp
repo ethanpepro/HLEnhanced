@@ -145,7 +145,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 		}
 		else
 		{
-			ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, UTIL_VarArgs( "\"fov\" is \"%d\"\n", ( int ) pPlayer->m_iFOV ) );
+			ClientPrint( pPlayer, HUD_PRINTCONSOLE, UTIL_VarArgs( "\"fov\" is \"%d\"\n", ( int ) pPlayer->m_iFOV ) );
 		}
 	}
 	else if( FStrEq( pcmd, "use" ) )
@@ -173,7 +173,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 				pPlayer->HasNetName() ? pPlayer->GetNetName() : "unconnected" ) );
 		}
 		else
-			ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, "Spectator mode is disabled.\n" );
+			ClientPrint( pPlayer, HUD_PRINTCONSOLE, "Spectator mode is disabled.\n" );
 
 	}
 	else if( FStrEq( pcmd, "specmode" ) )	// new spectator mode
@@ -202,7 +202,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 				++uiCount;
 		}
 
-		ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, UTIL_VarArgs( "Number of entities: %u (max: %d)\n", uiCount, gpGlobals->maxEntities ) );
+		ClientPrint( pPlayer, HUD_PRINTCONSOLE, UTIL_VarArgs( "Number of entities: %u (max: %d)\n", uiCount, gpGlobals->maxEntities ) );
 	}
 	else if( FStrEq( pcmd, "ent_setname" ) )
 	{
@@ -214,16 +214,16 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 				{
 					pEnt->SetTargetname( ALLOC_STRING( CMD_ARGV( 1 ) ) );
 
-					ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, "Set name on entity\n" );
+					ClientPrint( pPlayer, HUD_PRINTCONSOLE, "Set name on entity\n" );
 				}
 				else
 				{
-					ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, "No entity in front of you\n" );
+					ClientPrint( pPlayer, HUD_PRINTCONSOLE, "No entity in front of you\n" );
 				}
 			}
 			else
 			{
-				ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, "Usage: ent_setname <name>\n" );
+				ClientPrint( pPlayer, HUD_PRINTCONSOLE, "Usage: ent_setname <name>\n" );
 			}
 		}
 	}
@@ -242,7 +242,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 		command[ sizeof( command ) - 1 ] = '\0';
 
 		// tell the user they entered an unknown command
-		ClientPrint( &pEntity->v, HUD_PRINTCONSOLE, UTIL_VarArgs( "Unknown command: %s\n", command ) );
+		ClientPrint( pPlayer, HUD_PRINTCONSOLE, UTIL_VarArgs( "Unknown command: %s\n", command ) );
 	}
 }
 

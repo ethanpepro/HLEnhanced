@@ -115,7 +115,7 @@ void CBaseTrigger::ActivateMultiTrigger( CBaseEntity *pActivator )
 	if( pev->message && pActivator->IsPlayer() )
 	{
 		UTIL_ShowMessage( STRING( pev->message ), pActivator );
-		//ClientPrint( pActivator->pev, HUD_PRINTCENTER, STRING(pev->message) );
+		//ClientPrint( pActivator, HUD_PRINTCENTER, STRING(pev->message) );
 	}
 
 	if( m_flWait > 0 )
