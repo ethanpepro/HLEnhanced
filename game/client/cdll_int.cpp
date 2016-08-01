@@ -48,6 +48,8 @@
 
 #include "BSPIO.h"
 
+#include "com_model.h"
+
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
 TeamFortressViewport *gViewPort = NULL;
@@ -158,6 +160,7 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 }
 
 bool g_bNewMapStarted = false;
+bool g_bParseMapData = false;
 
 /*
 ==========================
@@ -179,6 +182,7 @@ int DLLEXPORT HUD_VidInit( void )
 	VGui_Startup();
 
 	g_bNewMapStarted = true;
+	g_bParseMapData = true;
 
 	return 1;
 }
@@ -224,25 +228,22 @@ const char* ParseMapDataCallback( const char* pszBuffer, bool& bError )
 }
 
 /**
+*	Parses in the map's data and gets the map script from it. - Solokiller
+*/
+void ParseMapData( const char* pszBuffer )
+{
+	bsp::ProcessEnts( pszBuffer, ParseMapDataCallback );
+}
+
+/**
 *	A new map has been started. - Solokiller
 *	@param pszMapName Name of the map, without path or extension.
 *	@param pszLevelName Name of the map, with path and extension.
 */
 void HUD_NewMapStarted( const char* const pszMapName, const char* const pszLevelName )
 {
+	//Set the map name so scripts can access it the same way they can on the server. - Solokiller
 	gpGlobals->mapname = MAKE_STRING( g_StringPool.Allocate( pszMapName ) );
-
-	//This will fail if the map hasn't been downloaded yet, so move this to a later point. - Solokiller
-	if( char* pszBuffer = bsp::LoadEntityLump( pszLevelName ) )
-	{
-		bsp::ProcessEnts( pszBuffer, ParseMapDataCallback );
-
-		bsp::FreeEntityLump( pszBuffer );
-	}
-	else
-	{
-		gEngfuncs.Con_DPrintf( "Couldn't get entity lump for map \"%s\"\n", pszMapName );
-	}
 }
 
 /**
@@ -364,6 +365,18 @@ Called by engine every frame that client .dll is loaded
 
 void DLLEXPORT HUD_Frame( double time )
 {
+	if( g_bParseMapData )
+	{
+		cl_entity_t* pWorldModel = gEngfuncs.GetEntityByIndex( 0 );
+
+		if( pWorldModel && pWorldModel->model )
+		{
+			g_bParseMapData = false;
+			//Parse in map data now, since the map has been downloaded. - Solokiller
+			ParseMapData( pWorldModel->model->entities );
+		}
+	}
+
 	GetClientVoiceMgr()->Frame(time);
 }
 
