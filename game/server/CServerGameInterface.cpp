@@ -252,6 +252,8 @@ void CServerGameInterface::ClientUserInfoChanged( edict_t* pEntity, char* infobu
 	if( !pEntity->pvPrivateData )
 		return;
 
+	CBasePlayer* pPlayer = static_cast<CBasePlayer*>( GET_PRIVATE( pEntity ) );
+
 	// msg everyone if someone changes their name,  and it isn't the first time (changing no name to current name)
 	if( pEntity->v.netname && STRING( pEntity->v.netname )[ 0 ] != 0 && !FStrEq( STRING( pEntity->v.netname ), g_engfuncs.pfnInfoKeyValue( infobuffer, "name" ) ) )
 	{
@@ -285,24 +287,24 @@ void CServerGameInterface::ClientUserInfoChanged( edict_t* pEntity, char* infobu
 		if( g_teamplay )
 		{
 			UTIL_LogPrintf( "\"%s<%i><%s><%s>\" changed name to \"%s\"\n",
-							STRING( pEntity->v.netname ),
-							GETPLAYERUSERID( pEntity ),
-							GETPLAYERAUTHID( pEntity ),
+							pPlayer->GetNetName(),
+							UTIL_GetPlayerUserId( pPlayer ),
+							UTIL_GetPlayerAuthId( pPlayer ),
 							g_engfuncs.pfnInfoKeyValue( infobuffer, "model" ),
 							g_engfuncs.pfnInfoKeyValue( infobuffer, "name" ) );
 		}
 		else
 		{
 			UTIL_LogPrintf( "\"%s<%i><%s><%i>\" changed name to \"%s\"\n",
-							STRING( pEntity->v.netname ),
-							GETPLAYERUSERID( pEntity ),
-							GETPLAYERAUTHID( pEntity ),
-							GETPLAYERUSERID( pEntity ),
+							pPlayer->GetNetName(),
+							UTIL_GetPlayerUserId( pPlayer ),
+							UTIL_GetPlayerAuthId( pPlayer ),
+							UTIL_GetPlayerUserId( pPlayer ),
 							g_engfuncs.pfnInfoKeyValue( infobuffer, "name" ) );
 		}
 	}
 
-	g_pGameRules->ClientUserInfoChanged( GetClassPtr( ( CBasePlayer * ) &pEntity->v ), infobuffer );
+	g_pGameRules->ClientUserInfoChanged( pPlayer, infobuffer );
 }
 
 void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, const int clientMax )
