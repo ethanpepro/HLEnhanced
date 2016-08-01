@@ -915,8 +915,8 @@ Vector CBasePlayer::AutoaimDeflection( Vector &vecSrc, float flDist, float flDel
 	if( tr.pHit && tr.pHit->v.takedamage != DAMAGE_NO )
 	{
 		// don't look through water
-		if( !( ( pev->waterlevel != WATERLEVEL_HEAD && tr.pHit->v.waterlevel == WATERLEVEL_HEAD )
-			   || ( pev->waterlevel == WATERLEVEL_HEAD && tr.pHit->v.waterlevel == WATERLEVEL_DRY ) ) )
+		if( !( ( GetWaterLevel() != WATERLEVEL_HEAD && tr.pHit->v.waterlevel == WATERLEVEL_HEAD )
+			   || ( GetWaterLevel() == WATERLEVEL_HEAD && tr.pHit->v.waterlevel == WATERLEVEL_DRY ) ) )
 		{
 			if( tr.pHit->v.takedamage == DAMAGE_AIM )
 				m_fOnTarget = true;
@@ -953,8 +953,8 @@ Vector CBasePlayer::AutoaimDeflection( Vector &vecSrc, float flDist, float flDel
 			continue;
 
 		// don't look through water
-		if( ( pev->waterlevel != WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_HEAD )
-			|| ( pev->waterlevel == WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_DRY ) )
+		if( ( GetWaterLevel() != WATERLEVEL_HEAD && pEntity->GetWaterLevel() == WATERLEVEL_HEAD )
+			|| ( GetWaterLevel() == WATERLEVEL_HEAD && pEntity->GetWaterLevel() == WATERLEVEL_DRY ) )
 			continue;
 
 		center = pEntity->BodyTarget( vecSrc );

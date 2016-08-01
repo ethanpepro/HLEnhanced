@@ -386,8 +386,8 @@ bool CBaseEntity::FVisible( const CBaseEntity *pEntity ) const
 		return false;
 
 	// don't look through water
-	if( ( pev->waterlevel != WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_HEAD )
-		|| ( pev->waterlevel == WATERLEVEL_HEAD && pEntity->pev->waterlevel == WATERLEVEL_DRY ) )
+	if( ( GetWaterLevel() != WATERLEVEL_HEAD && pEntity->GetWaterLevel() == WATERLEVEL_HEAD )
+		|| ( GetWaterLevel() == WATERLEVEL_HEAD && pEntity->GetWaterLevel() == WATERLEVEL_DRY ) )
 		return false;
 
 	vecLookerOrigin = GetAbsOrigin() + pev->view_ofs;//look through the caller's 'eyes'

@@ -131,7 +131,7 @@ void CGauss::Holster( int skiplocal /* = 0 */ )
 void CGauss::PrimaryAttack()
 {
 	// don't fire underwater
-	if ( m_pPlayer->pev->waterlevel == WATERLEVEL_HEAD )
+	if ( m_pPlayer->GetWaterLevel() == WATERLEVEL_HEAD )
 	{
 		PlayEmptySound( );
 		m_flNextSecondaryAttack = m_flNextPrimaryAttack = GetNextAttackDelay(0.15);
@@ -159,7 +159,7 @@ void CGauss::PrimaryAttack()
 void CGauss::SecondaryAttack()
 {
 	// don't fire underwater
-	if ( m_pPlayer->pev->waterlevel == WATERLEVEL_HEAD )
+	if ( m_pPlayer->GetWaterLevel() == WATERLEVEL_HEAD )
 	{
 		if ( m_InAttack != AttackState::NOT_ATTACKING )
 		{

@@ -135,7 +135,7 @@ void CPython::SecondaryAttack( void )
 void CPython::PrimaryAttack()
 {
 	// don't fire underwater
-	if (m_pPlayer->pev->waterlevel == WATERLEVEL_HEAD )
+	if (m_pPlayer->GetWaterLevel() == WATERLEVEL_HEAD )
 	{
 		PlayEmptySound( );
 		m_flNextPrimaryAttack = 0.15;

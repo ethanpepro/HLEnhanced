@@ -115,14 +115,14 @@ void CSatchelCharge :: SatchelThink( void )
 		return;
 	}
 
-	if (pev->waterlevel == WATERLEVEL_HEAD )
+	if ( GetWaterLevel() == WATERLEVEL_HEAD )
 	{
 		pev->movetype = MOVETYPE_FLY;
 		pev->velocity = pev->velocity * 0.8;
 		pev->avelocity = pev->avelocity * 0.9;
 		pev->velocity.z += 8;
 	}
-	else if (pev->waterlevel == WATERLEVEL_DRY)
+	else if ( GetWaterLevel() == WATERLEVEL_DRY)
 	{
 		pev->movetype = MOVETYPE_BOUNCE;
 	}

@@ -160,7 +160,7 @@ void CEgon::UseAmmo( int count )
 void CEgon::Attack( void )
 {
 	// don't fire underwater
-	if ( m_pPlayer->pev->waterlevel == WATERLEVEL_HEAD )
+	if ( m_pPlayer->GetWaterLevel() == WATERLEVEL_HEAD )
 	{
 		
 		if ( m_fireState != FIRE_OFF || m_pBeam )

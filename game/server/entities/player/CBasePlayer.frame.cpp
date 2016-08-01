@@ -413,7 +413,7 @@ void CBasePlayer::PostThink()
 			SetAnimation( PLAYER_IDLE );
 		else if( ( pev->velocity.x || pev->velocity.y ) && ( FBitSet( pev->flags, FL_ONGROUND ) ) )
 			SetAnimation( PLAYER_WALK );
-		else if( pev->waterlevel > WATERLEVEL_FEET )
+		else if( GetWaterLevel() > WATERLEVEL_FEET )
 			SetAnimation( PLAYER_WALK );
 	}
 
@@ -705,7 +705,7 @@ void CBasePlayer::WaterMove()
 	if( pev->health < 0 )
 		return;
 
-	if( pev->waterlevel != WATERLEVEL_HEAD )
+	if( GetWaterLevel() != WATERLEVEL_HEAD )
 	{
 		// not underwater
 
@@ -763,7 +763,7 @@ void CBasePlayer::WaterMove()
 		}
 	}
 
-	if( !pev->waterlevel )
+	if( !GetWaterLevel() )
 	{
 		if( FBitSet( pev->flags, FL_INWATER ) )
 		{
@@ -789,12 +789,12 @@ void CBasePlayer::WaterMove()
 	if( pev->watertype == CONTENTS_LAVA )		// do damage
 	{
 		if( pev->dmgtime < gpGlobals->time )
-			TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), 10 * pev->waterlevel, DMG_BURN );
+			TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), 10 * GetWaterLevel(), DMG_BURN );
 	}
 	else if( pev->watertype == CONTENTS_SLIME )		// do damage
 	{
 		pev->dmgtime = gpGlobals->time + 1;
-		TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), 4 * pev->waterlevel, DMG_ACID );
+		TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), 4 * GetWaterLevel(), DMG_ACID );
 	}
 
 	if( !FBitSet( pev->flags, FL_INWATER ) )

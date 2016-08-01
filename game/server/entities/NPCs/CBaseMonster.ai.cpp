@@ -46,8 +46,8 @@
 bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector &vecTargetOrigin, float flSize )
 {
 	// don't look through water
-	if( ( pLooker->pev->waterlevel != WATERLEVEL_HEAD && pTarget->pev->waterlevel == WATERLEVEL_HEAD )
-		|| ( pLooker->pev->waterlevel == WATERLEVEL_HEAD && pTarget->pev->waterlevel == WATERLEVEL_DRY ) )
+	if( ( pLooker->GetWaterLevel() != WATERLEVEL_HEAD && pTarget->GetWaterLevel() == WATERLEVEL_HEAD )
+		|| ( pLooker->GetWaterLevel() == WATERLEVEL_HEAD && pTarget->GetWaterLevel() == WATERLEVEL_DRY ) )
 		return false;
 
 	TraceResult tr;

@@ -135,7 +135,7 @@ void CBasePlayer::Jump()
 	if( FBitSet( pev->flags, FL_WATERJUMP ) )
 		return;
 
-	if( pev->waterlevel >= WATERLEVEL_WAIST )
+	if( GetWaterLevel() >= WATERLEVEL_WAIST )
 	{
 		return;
 	}
@@ -208,7 +208,7 @@ void CBasePlayer::DeathSound()
 {
 	// water death sounds
 	/*
-	if (pev->waterlevel == WATERLEVEL_HEAD)
+	if (GetWaterLevel() == WATERLEVEL_HEAD)
 	{
 	EMIT_SOUND( this, CHAN_VOICE, "player/h2odeath.wav", 1, ATTN_NONE);
 	return;
@@ -381,7 +381,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 		{
 			m_IdealActivity = m_Activity;
 		}
-		else if( pev->waterlevel > WATERLEVEL_FEET )
+		else if( GetWaterLevel() > WATERLEVEL_FEET )
 		{
 			if( speed == 0 )
 				m_IdealActivity = ACT_HOVER;

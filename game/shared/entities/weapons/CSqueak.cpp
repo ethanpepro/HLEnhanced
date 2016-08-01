@@ -202,7 +202,7 @@ void CSqueakGrenade::HuntThink( void )
 	}
 
 	// float
-	if (pev->waterlevel != WATERLEVEL_DRY)
+	if ( GetWaterLevel() != WATERLEVEL_DRY)
 	{
 		if (pev->movetype == MOVETYPE_BOUNCE)
 		{

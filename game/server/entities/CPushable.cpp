@@ -78,7 +78,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && pOther->pev->groundentity && GET_PRIVATE( pOther->pev->groundentity ) == this )
 	{
 		// Only push if floating
-		if( pev->waterlevel > WATERLEVEL_DRY )
+		if( GetWaterLevel() > WATERLEVEL_DRY )
 			pev->velocity.z += pOther->pev->velocity.z * 0.1;
 
 		return;
@@ -98,7 +98,7 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 	{
 		if( !( pOther->pev->flags & FL_ONGROUND ) )	// Don't push away from jumping/falling players unless in water
 		{
-			if( pev->waterlevel < WATERLEVEL_FEET )
+			if( GetWaterLevel() < WATERLEVEL_FEET )
 				return;
 			else
 				factor = 0.1;

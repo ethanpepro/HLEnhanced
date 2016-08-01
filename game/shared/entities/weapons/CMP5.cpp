@@ -108,7 +108,7 @@ bool CMP5::Deploy()
 void CMP5::PrimaryAttack()
 {
 	// don't fire underwater
-	if (m_pPlayer->pev->waterlevel == WATERLEVEL_HEAD )
+	if (m_pPlayer->GetWaterLevel() == WATERLEVEL_HEAD )
 	{
 		PlayEmptySound( );
 		m_flNextPrimaryAttack = 0.15;
@@ -174,7 +174,7 @@ void CMP5::PrimaryAttack()
 void CMP5::SecondaryAttack( void )
 {
 	// don't fire underwater
-	if (m_pPlayer->pev->waterlevel == WATERLEVEL_HEAD )
+	if (m_pPlayer->GetWaterLevel() == WATERLEVEL_HEAD )
 	{
 		PlayEmptySound( );
 		m_flNextPrimaryAttack = 0.15;

@@ -664,9 +664,9 @@ void RadiusDamage( Vector vecSrc, const CTakeDamageInfo& info, float flRadius, i
 			}
 
 			// blast's don't tavel into or out of water
-			if( bInWater && pEntity->pev->waterlevel == WATERLEVEL_DRY )
+			if( bInWater && pEntity->GetWaterLevel() == WATERLEVEL_DRY )
 				continue;
-			if( !bInWater && pEntity->pev->waterlevel == WATERLEVEL_HEAD )
+			if( !bInWater && pEntity->GetWaterLevel() == WATERLEVEL_HEAD )
 				continue;
 
 			vecSpot = pEntity->BodyTarget( vecSrc );
