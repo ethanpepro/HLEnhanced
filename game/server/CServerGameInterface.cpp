@@ -13,6 +13,9 @@
 
 #include "Angelscript/CHLASServerManager.h"
 
+#include "entities/CEntityDictionary.h"
+#include "entities/CEntityRegistry.h"
+
 #include "CServerGameInterface.h"
 
 extern DLL_GLOBAL bool			g_fGameOver;
@@ -225,6 +228,42 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 			{
 				ClientPrint( pPlayer, HUD_PRINTCONSOLE, "Usage: ent_setname <name>\n" );
 			}
+		}
+	}
+	else if( FStrEq( pcmd, "listentityclass" ) )
+	{
+		if( g_flWeaponCheat != 0 )
+		{
+			if( CMD_ARGC() >= 1 )
+			{
+				if( auto pReg = g_EntityDict.FindEntityClassByEntityName( CMD_ARGV( 1 ) ) )
+				{
+					ClientPrint( pPlayer, HUD_PRINTCONSOLE, UTIL_VarArgs( "Class \"%s\": \"%s\" (%u bytes)\n", pReg->GetEntityname(), pReg->GetClassname(), pReg->GetSize() ) );
+				}
+				else
+				{
+					ClientPrint( pPlayer, HUD_PRINTCONSOLE, "Couldn't find entity class \"%s\"\n", CMD_ARGV( 1 ) );
+				}
+			}
+			else
+			{
+				ClientPrint( pPlayer, HUD_PRINTCONSOLE, "Usage: listentityclass <entity class name>\n" );
+			}
+		}
+	}
+	else if( FStrEq( pcmd, "listentityclasses" ) )
+	{
+		if( g_flWeaponCheat != 0 )
+		{
+			g_EntityDict.EnumEntityClasses(
+				[]( CBaseEntityRegistry& reg ) -> bool
+			{
+				//Using Alert here since it's a lot of data.
+				Alert( at_console, "Class \"%s\": \"%s\" (%u bytes)\n", reg.GetEntityname(), reg.GetClassname(), reg.GetSize() );
+
+				return true;
+			}
+			);
 		}
 	}
 	else if( g_pGameRules->ClientCommand( pPlayer, pcmd ) )

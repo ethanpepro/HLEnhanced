@@ -2636,4 +2636,15 @@ T* GetClassPtr( T* a )
 	return a;
 }
 
+#include "CEntityRegistry.h"
+
+// This is the glue that hooks .MAP entity class names to our CPP classes
+// The _declspec forces them to be exported by name so we can do a lookup with GetProcAddress()
+// The function is used to intialize / allocate the object for the entity
+#define LINK_ENTITY_TO_CLASS(mapClassName,DLLClassName)												\
+static CEntityRegistry<DLLClassName> __g_Entity##mapClassName##Reg( #mapClassName, #DLLClassName );	\
+																									\
+extern "C" DLLEXPORT void mapClassName( entvars_t *pev );											\
+void mapClassName( entvars_t *pev ) { GetClassPtr( (DLLClassName *)pev ); }
+
 #endif //GAME_SHARED_CBASEENTITY_SHARED_H
