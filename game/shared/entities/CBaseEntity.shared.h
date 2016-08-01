@@ -1978,6 +1978,20 @@ public:
 	}
 
 	/**
+	*	@return The damage value.
+	*/
+	float GetDamage() const { return pev->dmg; }
+
+	/**
+	*	Sets the damage value.
+	*	@param flDamage Damage value to set.
+	*/
+	void SetDamage( const float flDamage )
+	{
+		pev->dmg = flDamage;
+	}
+
+	/**
 	*	@return This entity's owner.
 	*/
 	CBaseEntity* GetOwner()

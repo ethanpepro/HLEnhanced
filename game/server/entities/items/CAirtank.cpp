@@ -22,18 +22,48 @@
 
 #include "CAirtank.h"
 
+const float CAirtank::DEFAULT_AIR_TIME = 12.0f;
+const float CAirtank::DEFAULT_BASE_RECHARGE_TIME = 18.0f;
+
 BEGIN_DATADESC(	CAirtank )
-	DEFINE_FIELD( m_state, FIELD_INTEGER ),
+	DEFINE_FIELD( m_bState, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_bDisableAccumRecharge, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flAirTimeToGive, FIELD_FLOAT ),
+	DEFINE_FIELD( m_flBaseRechargeTime, FIELD_FLOAT ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( item_airtank, CAirtank );
 
-void CAirtank :: Spawn( void )
+void CAirtank::KeyValue( KeyValueData* pkvd )
+{
+	if( FStrEq( pkvd->szKeyName, "DisableAccumRecharge" ) )
+	{
+		m_bDisableAccumRecharge = atoi( pkvd->szValue ) != 0;
+
+		pkvd->fHandled = true;
+	}
+	else if( FStrEq( pkvd->szKeyName, "AirTime" ) )
+	{
+		m_flAirTimeToGive = abs( atof( pkvd->szValue ) );
+
+		pkvd->fHandled = true;
+	}
+	else if( FStrEq( pkvd->szKeyName, "BaseRechargeTime" ) )
+	{
+		m_flBaseRechargeTime = abs( atof( pkvd->szValue ) );
+
+		pkvd->fHandled = true;
+	}
+	else
+		BaseClass::KeyValue( pkvd );
+}
+
+void CAirtank::Spawn()
 {
 	Precache( );
 	// motor
-	pev->movetype = MOVETYPE_FLY;
-	pev->solid = SOLID_BBOX;
+	SetMoveType( MOVETYPE_FLY );
+	SetSolidType( SOLID_BBOX );
 
 	SetModel( "models/w_oxygen.mdl");
 	SetSize( Vector( -16, -16, 0), Vector(16, 16, 36) );
@@ -42,19 +72,18 @@ void CAirtank :: Spawn( void )
 	SetTouch( &CAirtank::TankTouch );
 	SetThink( &CAirtank::TankThink );
 
-	pev->flags |= FL_MONSTER;
-	pev->takedamage		= DAMAGE_YES;
-	pev->health			= 20;
-	pev->dmg			= 50;
-	m_state				= 1;
+	AddFlags( FL_MONSTER );
+	SetTakeDamageMode( DAMAGE_YES );
+	SetHealth( 20 );
+	SetDamage( 50 );
+	m_bState = true;
 }
 
-void CAirtank::Precache( void )
+void CAirtank::Precache()
 {
 	PRECACHE_MODEL("models/w_oxygen.mdl");
 	PRECACHE_SOUND("doors/aliendoor3.wav");
 }
-
 
 void CAirtank::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
@@ -66,35 +95,44 @@ void CAirtank::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 }
 
 
-void CAirtank::TankThink( void )
+void CAirtank::TankThink()
 {
 	// Fire trigger
-	m_state = 1;
+	m_bState = true;
 	SUB_UseTargets( this, USE_TOGGLE, 0 );
 }
 
-
 void CAirtank::TankTouch( CBaseEntity *pOther )
 {
-	if ( !pOther->IsPlayer() )
+	if( !pOther->IsPlayer() )
 		return;
 
-	if (!m_state)
+	if( !m_bState )
 	{
 		// "no oxygen" sound
 		EMIT_SOUND( this, CHAN_BODY, "player/pl_swim2.wav", 1.0, ATTN_NORM );
 		return;
 	}
 		
-	//TODO: make customizable - Solokiller
-	// give player 12 more seconds of air
-	pOther->pev->air_finished = gpGlobals->time + 12;
+	// give player N more seconds of air
+	pOther->SetAirFinishedTime( gpGlobals->time + m_flAirTimeToGive );
 
 	// suit recharge sound
 	EMIT_SOUND( this, CHAN_VOICE, "doors/aliendoor3.wav", 1.0, ATTN_NORM );
 
-	// recharge airtank in 30 seconds
-	pev->nextthink = gpGlobals->time + 30;
-	m_state = 0;
+	// recharge airtank in M seconds
+	float flRechargeTime = m_flBaseRechargeTime;
+
+	//This lets mappers recharge the tank before players have run out of air.
+	//Useful when they want to force them to stay in place. - Solokiller
+	if( !m_bDisableAccumRecharge )
+	{
+		flRechargeTime += m_flAirTimeToGive;
+	}
+
+	ALERT( at_console, "giving %f more seconds of air\n", m_flAirTimeToGive );
+
+	SetNextThink( gpGlobals->time + flRechargeTime );
+	m_bState = false;
 	SUB_UseTargets( this, USE_TOGGLE, 1 );
 }
