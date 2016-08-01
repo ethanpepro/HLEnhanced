@@ -24,6 +24,7 @@ add_sources(
 	voice_status.cpp
 )
 
+add_subdirectory( Angelscript )
 add_subdirectory( effects )
 add_subdirectory( entities )
 add_subdirectory( hl )

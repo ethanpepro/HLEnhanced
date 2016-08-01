@@ -41,6 +41,8 @@
 
 #include "effects/CEnvironment.h"
 
+#include "Angelscript/CHLASClientManager.h"
+
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
 TeamFortressViewport *gViewPort = NULL;
@@ -141,6 +143,9 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	CL_LoadParticleMan();
 
 	if( !g_Client.Initialize() )
+		return false;
+
+	if( !g_ASManager.Initialize() )
 		return false;
 
 	// get tracker interface, if any

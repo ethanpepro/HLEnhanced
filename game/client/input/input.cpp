@@ -1016,6 +1016,9 @@ void ClearEventList( void );
 #endif
 
 #include "CClientGameInterface.h"
+#include "Angelscript/CHLASClientManager.h"
+
+//TODO: move this - Solokiller
 
 void DLLEXPORT HUD_Shutdown( void )
 {
@@ -1026,6 +1029,8 @@ void DLLEXPORT HUD_Shutdown( void )
 #endif
 	
 	CL_UnloadParticleMan();
+
+	g_ASManager.Shutdown();
 
 	g_Client.Shutdown();
 }

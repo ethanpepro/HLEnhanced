@@ -9,3 +9,5 @@ add_sources(
 	CHLASBaseInitializer.cpp
 	HLASConstants.h
 )
+
+add_subdirectory( ScriptAPI )

@@ -205,6 +205,23 @@ get_property(SHARED_SRCS GLOBAL PROPERTY SRCS_LIST)
 
 clear_sources()
 
+#Find shared dependencies
+find_library( ANGELSCRIPTLIB Angelscript PATHS external/Angelscript/lib/ )
+find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
+
+if( NOT WIN32 )
+
+	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
+	set( ANGELSCRIPTLIB "-l:\"${ANGELSCRIPTLIB}\"" )
+	set( ANGELSCRIPTUTILS "-l:\"${ANGELSCRIPTUTILS}\"" )
+
+endif()
+
+set( SHARED_DEPENDENCIES
+	"${ANGELSCRIPTLIB}"
+	"${ANGELSCRIPTUTILS}"
+)
+
 #
 #Client library
 #
@@ -306,6 +323,7 @@ endif()
 
 #Link with client dependencies
 target_link_libraries( client 
+	"${SHARED_DEPENDENCIES}"
 	"${VGUI1}"
 	"${CLIENT_PLAT_LIBS}"
 	"${SDL2}"
@@ -357,7 +375,6 @@ add_sources( "${SHARED_SRCS}" )
 
 #Add in the server directories
 add_subdirectory( game/server )
-add_subdirectory( game/shared/Angelscript )
 
 preprocess_sources()
 
@@ -389,21 +406,11 @@ target_compile_definitions( hl PRIVATE
 )
 
 #Find server dependencies
-find_library( ANGELSCRIPTLIB Angelscript PATHS external/Angelscript/lib/ )
-find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
 
-if( NOT WIN32 )
-
-	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
-	set( ANGELSCRIPTLIB "-l:\"${ANGELSCRIPTLIB}\"" )
-	set( ANGELSCRIPTUTILS "-l:\"${ANGELSCRIPTUTILS}\"" )
-
-endif()
 
 #Link with server dependencies
 target_link_libraries( hl 
-	"${ANGELSCRIPTUTILS}"
-	"${ANGELSCRIPTLIB}"
+	"${SHARED_DEPENDENCIES}"
 )
 
 #CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
