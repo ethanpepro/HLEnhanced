@@ -309,10 +309,10 @@ int CChangeLevel::AddTransitionToList( LEVELLIST *pLevelList, int listCount, con
 	return 1;
 }
 
-int CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
+bool CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
 {
 	if( pEntity->ObjectCaps() & FCAP_FORCE_TRANSITION )
-		return 1;
+		return true;
 
 	// If you're following another entity, follow it through the transition (weapons follow the player)
 	if( pEntity->pev->movetype == MOVETYPE_FOLLOW )
@@ -321,9 +321,7 @@ int CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
 			pEntity = CBaseEntity::Instance( pEntity->pev->aiment );
 	}
 
-	//TODO: change to bool - Solokiller
-
-	int inVolume = 1;	// Unless we find a trigger_transition, everything is in the volume
+	bool inVolume = true;	// Unless we find a trigger_transition, everything is in the volume
 
 	CBaseEntity* pVolume = nullptr;
 	while( pVolume = UTIL_FindEntityByTargetname( pVolume, pVolumeName ) )
@@ -331,9 +329,9 @@ int CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
 		if( pVolume->ClassnameIs( "trigger_transition" ) )
 		{
 			if( pVolume->Intersects( pEntity ) )	// It touches one, it's in the volume
-				return 1;
+				return true;
 			else
-				inVolume = 0;	// Found a trigger_transition, but I don't intersect it -- if I don't find another, don't go!
+				inVolume = false;	// Found a trigger_transition, but I don't intersect it -- if I don't find another, don't go!
 		}
 	}
 

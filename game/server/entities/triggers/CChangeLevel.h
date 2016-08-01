@@ -39,7 +39,7 @@ public:
 	static CBaseEntity* FindLandmark( const char* const pszLandmarkName );
 	static int ChangeList( LEVELLIST *pLevelList, int maxList );
 	static int AddTransitionToList( LEVELLIST *pLevelList, int listCount, const char *pMapName, const char *pLandmarkName, CBaseEntity* pLandmark );
-	static int InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName );
+	static bool InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName );
 
 	char m_szMapName[ cchMapNameMost ];		// trigger_changelevel only:  next map
 	char m_szLandmarkName[ cchMapNameMost ];		// trigger_changelevel only:  landmark on next map
