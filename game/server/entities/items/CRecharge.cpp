@@ -83,8 +83,7 @@ void CRecharge::Precache()
 void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 { 
 	// if it's not a player, ignore
-	//TODO: use IsPlayer instead - Solokiller
-	if( !pActivator->ClassnameIs( "player" ) )
+	if( !pActivator->IsPlayer() )
 		return;
 
 	// if there is no juice left, turn it off

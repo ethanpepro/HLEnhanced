@@ -218,8 +218,7 @@ void CBaseButton::ButtonActivate()
 void CBaseButton::ButtonTouch( CBaseEntity *pOther )
 {
 	// Ignore touches by anything but players
-	//TODO: change to IsPlayer - Solokiller
-	if( !pOther->ClassnameIs( "player" ) )
+	if( !pOther->IsPlayer() )
 		return;
 
 	m_hActivator = pOther;

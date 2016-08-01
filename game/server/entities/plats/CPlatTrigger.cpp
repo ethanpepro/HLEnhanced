@@ -39,8 +39,7 @@ void CPlatTrigger::SpawnInsideTrigger( CFuncPlat *pPlatform )
 void CPlatTrigger::Touch( CBaseEntity *pOther )
 {
 	// Ignore touches by non-players
-	//TODO: replace with IsPlayer - Solokiller
-	if( !pOther->ClassnameIs( "player" ) )
+	if( !pOther->IsPlayer() )
 		return;
 
 	auto pPlatform = EHANDLE_cast<CFuncPlat*>( m_hPlatform );

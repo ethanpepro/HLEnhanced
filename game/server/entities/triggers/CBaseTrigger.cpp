@@ -96,9 +96,8 @@ void CBaseTrigger::ActivateMultiTrigger( CBaseEntity *pActivator )
 
 	if( ClassnameIs( "trigger_secret" ) )
 	{
-		//TODO: replace with IsPlayer - Solokiller
 		CBaseEntity* pEnemy = GetPEVEnemy();
-		if( !pEnemy || !pEnemy->ClassnameIs( "player" ) )
+		if( !pEnemy || !pEnemy->IsPlayer() )
 			return;
 		gpGlobals->found_secrets++;
 	}
@@ -153,10 +152,9 @@ void CBaseTrigger::CounterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, US
 	if( m_cTriggersLeft < 0 )
 		return;
 
-	//TODO: replace with IsPlayer - Solokiller
 	const bool fTellActivator =
 		( m_hActivator != nullptr ) &&
-		m_hActivator->ClassnameIs( "player" ) &&
+		m_hActivator->IsPlayer() &&
 		!FBitSet( pev->spawnflags, SPAWNFLAG_NOMESSAGE );
 
 	if( m_cTriggersLeft != 0 )

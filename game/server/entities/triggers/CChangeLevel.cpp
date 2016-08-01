@@ -107,7 +107,7 @@ void CChangeLevel::ExecuteChangeLevel( void )
 //
 void CChangeLevel::TouchChangeLevel( CBaseEntity *pOther )
 {
-	if( !pOther->ClassnameIs( "player" ) )
+	if( !pOther->IsPlayer() )
 		return;
 
 	ChangeLevelNow( pOther );

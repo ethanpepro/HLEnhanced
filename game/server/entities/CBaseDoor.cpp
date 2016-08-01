@@ -205,8 +205,7 @@ void CBaseDoor::Precache( void )
 void CBaseDoor::DoorTouch( CBaseEntity *pOther )
 {
 	// Ignore touches by anything but players
-	//TODO: change to IsPlayer - Solokiller
-	if( !pOther->ClassnameIs( "player" ) )
+	if( !pOther->IsPlayer() )
 		return;
 
 	// If door has master, and it's not ready to trigger, 
