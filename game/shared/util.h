@@ -334,3 +334,5 @@ bool UTIL_WalkMove( CBaseEntity* pEntity, float yaw, float dist, WalkMove mode )
 int UTIL_GetPlayerUserId( CBaseEntity* pEntity );
 
 const char* UTIL_GetPlayerAuthId( const CBaseEntity* pEntity );
+
+bool UTIL_IsPointEntity( const CBaseEntity* const pEnt );

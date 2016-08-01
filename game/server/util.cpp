@@ -1238,3 +1238,19 @@ const char* UTIL_GetPlayerAuthId( const CBaseEntity* pEntity )
 
 	return GETPLAYERAUTHID( pEntity->edict() );
 }
+
+bool UTIL_IsPointEntity( const CBaseEntity* const pEnt )
+{
+	if( !pEnt )
+		return false;
+
+	if( !pEnt->pev->modelindex )
+		return true;
+
+	//TODO: there should be a better way to handle this. Entities are either brush or point entities, and brush entities have special model names. - Solokiller
+
+	if( pEnt->ClassnameIs( "info_target" ) || pEnt->ClassnameIs( "info_landmark" ) || pEnt->ClassnameIs( "path_corner" ) )
+		return true;
+
+	return false;
+}

@@ -8,20 +8,6 @@
 
 #include "CLightning.h"
 
-//TODO: change to return bool - Solokiller
-int IsPointEntity( CBaseEntity *pEnt )
-{
-	if( !pEnt )
-		return false;
-
-	if( !pEnt->pev->modelindex )
-		return 1;
-	if( pEnt->ClassnameIs( "info_target" ) || pEnt->ClassnameIs( "info_landmark" ) || pEnt->ClassnameIs( "path_corner" ) )
-		return 1;
-
-	return 0;
-}
-
 BEGIN_DATADESC( CLightning )
 	DEFINE_FIELD( m_active, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_iszStartEntity, FIELD_STRING ),
@@ -196,7 +182,7 @@ void CLightning::StrikeThink( void )
 
 	if( pStart != NULL && pEnd != NULL )
 	{
-		if( IsPointEntity( pStart ) || IsPointEntity( pEnd ) )
+		if( UTIL_IsPointEntity( pStart ) || UTIL_IsPointEntity( pEnd ) )
 		{
 			if( pev->spawnflags & SF_BEAM_RING )
 			{
@@ -206,16 +192,16 @@ void CLightning::StrikeThink( void )
 		}
 
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
-		if( IsPointEntity( pStart ) || IsPointEntity( pEnd ) )
+		if( UTIL_IsPointEntity( pStart ) || UTIL_IsPointEntity( pEnd ) )
 		{
-			if( !IsPointEntity( pEnd ) )	// One point entity must be in pEnd
+			if( !UTIL_IsPointEntity( pEnd ) )	// One point entity must be in pEnd
 			{
 				CBaseEntity *pTemp;
 				pTemp = pStart;
 				pStart = pEnd;
 				pEnd = pTemp;
 			}
-			if( !IsPointEntity( pStart ) )	// One sided
+			if( !UTIL_IsPointEntity( pStart ) )	// One sided
 			{
 				WRITE_BYTE( TE_BEAMENTPOINT );
 				WRITE_SHORT( pStart->entindex() );
@@ -427,7 +413,7 @@ void CLightning::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 void CLightning::BeamUpdateVars( void )
 {
 	int beamType;
-	int pointStart, pointEnd;
+	bool pointStart, pointEnd;
 
 	CBaseEntity* pStart = UTIL_FindEntityByTargetname( nullptr, STRING( m_iszStartEntity ) );
 	CBaseEntity* pEnd = UTIL_FindEntityByTargetname( nullptr, STRING( m_iszEndEntity ) );
@@ -438,8 +424,8 @@ void CLightning::BeamUpdateVars( void )
 	if( !pEnd )
 		pEnd = CWorld::GetInstance();
 
-	pointStart = IsPointEntity( pStart );
-	pointEnd = IsPointEntity( pEnd );
+	pointStart = UTIL_IsPointEntity( pStart );
+	pointEnd = UTIL_IsPointEntity( pEnd );
 
 	pev->skin = 0;
 	pev->sequence = 0;
@@ -458,7 +444,7 @@ void CLightning::BeamUpdateVars( void )
 			pTemp = pStart;
 			pStart = pEnd;
 			pEnd = pTemp;
-			int swap = pointStart;
+			bool swap = pointStart;
 			pointStart = pointEnd;
 			pointEnd = swap;
 		}
