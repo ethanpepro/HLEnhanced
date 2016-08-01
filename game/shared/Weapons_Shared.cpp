@@ -16,17 +16,25 @@
 #include "util.h"
 #include "cbase.h"
 
+#include "entities/CEntityDictionary.h"
+
+#ifdef CLIENT_DLL
+#include "hl/hl_weapons.h"
+#endif
+
 #include "Weapons.h"
 
+ItemInfo CBasePlayerItem::ItemInfoArray[ MAX_WEAPONS ];
+
 // Precaches the weapon and queues the weapon info for sending to clients
-void UTIL_PrecacheOtherWeapon( const char *szClassname )
+void UTIL_PrecacheOtherWeapon( const char* const pszClassname )
 {
 #ifdef SERVER_DLL
-	CBaseEntity* pEntity = UTIL_CreateNamedEntity( szClassname );
+	CBaseEntity* pEntity = UTIL_CreateNamedEntity( pszClassname );
 
 	if( !pEntity )
 	{
-		ALERT( at_console, "NULL Ent in UTIL_PrecacheOtherWeapon\n" );
+		ALERT( at_console, "NULL Ent \"%s\" in UTIL_PrecacheOtherWeapon\n", pszClassname );
 		return;
 	}
 
@@ -40,7 +48,44 @@ void UTIL_PrecacheOtherWeapon( const char *szClassname )
 
 	UTIL_RemoveNow( pEntity );
 #else
-	//TODO
+	auto pReg = g_EntityDict.FindEntityClassByEntityName( pszClassname );
+
+	if( !pReg )
+	{
+		ALERT( at_console, "NULL Ent \"%s\" in UTIL_PrecacheOtherWeapon\n", pszClassname );
+		return;
+	}
+
+	auto pev = HUD_AllocEntity();
+
+	CBaseEntity* pEntity = pReg->CreateInstance( pev );
+
+	if( !pEntity )
+	{
+		//We're in deep shit if this happens because we can't free the entvars instance. - Solokiller
+		ALERT( at_console, "NULL Ent \"%s\" in UTIL_PrecacheOtherWeapon\n", pszClassname );
+		return;
+	}
+
+	CBasePlayerWeapon* pWeapon = dynamic_cast<CBasePlayerWeapon*>( pEntity );
+
+	if( !pWeapon )
+	{
+		ASSERTSZ( false, "Check your class inheritance!" );
+		ALERT( at_console, "UTIL_PrecacheOtherWeapon: \"%s\" is not a weapon!\n", pszClassname );
+		return;
+	}
+
+	ItemInfo II;
+	pEntity->Precache();
+	memset( &II, 0, sizeof II );
+	if( pWeapon->GetItemInfo( &II ) )
+	{
+		CBasePlayerItem::ItemInfoArray[ II.iId ] = II;
+	}
+
+	HUD_AddWeapon( pWeapon );
+
 #endif
 }
 

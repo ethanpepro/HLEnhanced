@@ -152,6 +152,14 @@ void HUD_SetMaxSpeed( const edict_t *ed, float speed )
 {
 }
 
+/**
+*	Used for weapon allocations.
+*/
+void* HUD_PvAllocEntPrivateData( edict_t* pEdict, int32 cb )
+{
+	return new byte[ cb ];
+}
+
 /*
 ======================
 stub_*
@@ -187,6 +195,7 @@ void CL_SetupServerSupport()
 	g_engfuncs.pfnPlaybackEvent			= HUD_PlaybackEvent;
 	//Now uses the cross-dll version. Handles alert types properly.
 	g_engfuncs.pfnAlertMessage			= Alert;
+	g_engfuncs.pfnPvAllocEntPrivateData = HUD_PvAllocEntPrivateData;
 
 	// Pass through to engine
 	g_engfuncs.pfnPrecacheEvent			= gEngfuncs.pfnPrecacheEvent;

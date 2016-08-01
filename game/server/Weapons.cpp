@@ -41,8 +41,6 @@ DLL_GLOBAL	short	g_sModelIndexBubbles;// holds the index for the bubbles model
 DLL_GLOBAL	short	g_sModelIndexBloodDrop;// holds the sprite index for the initial blood
 DLL_GLOBAL	short	g_sModelIndexBloodSpray;// holds the sprite index for splattered blood
 
-ItemInfo CBasePlayerItem::ItemInfoArray[MAX_WEAPONS];
-
 CMultiDamage g_MultiDamage;
 
 /*

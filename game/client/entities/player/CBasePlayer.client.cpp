@@ -7,6 +7,12 @@
 
 extern bool g_brunninggausspred;
 
+void CBasePlayer::InitialSpawn()
+{
+	//Null this out so it doesn't refer to freed memory on map change - Solokiller
+	m_pActiveItem = nullptr;
+}
+
 /*
 =====================
 CBasePlayer::Spawn

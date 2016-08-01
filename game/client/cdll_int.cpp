@@ -26,6 +26,10 @@
 
 #include "extdll.h"
 #include "util.h"
+#include "cbase.h"
+#include "Weapons.h"
+
+#include "hl/hl_weapons.h"
 
 #include "pm_shared.h"
 
@@ -355,6 +359,19 @@ void DLLEXPORT HUD_Reset( void )
 	gHUD.VidInit();
 }
 
+void HUD_MapInit( cl_entity_t* pWorldModel )
+{
+	HUD_PrepareWeapons();
+	PrecacheWeapons();
+
+	//Parse in map data now, since the map has been downloaded. - Solokiller
+	ParseMapData( pWorldModel->model->entities );
+
+	//TODO: call map script MapInit here - Solokiller
+
+	HUD_SetupWeapons();
+}
+
 /*
 ==========================
 HUD_Frame
@@ -372,8 +389,7 @@ void DLLEXPORT HUD_Frame( double time )
 		if( pWorldModel && pWorldModel->model )
 		{
 			g_bParseMapData = false;
-			//Parse in map data now, since the map has been downloaded. - Solokiller
-			ParseMapData( pWorldModel->model->entities );
+			HUD_MapInit( pWorldModel );
 		}
 	}
 

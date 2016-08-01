@@ -15,8 +15,29 @@
 #ifndef GAME_CLIENT_HL_HL_WEAPONS_H
 #define GAME_CLIENT_HL_HL_WEAPONS_H
 
+class CBasePlayerWeapon;
 class CBasePlayer;
 class Vector;
+
+/**
+*	Prepares client weapons for a new map.
+*/
+void HUD_PrepareWeapons();
+
+/**
+*	Allocates a new entity for use by a client side entity. Should only be used by weapons and the local player.
+*/
+entvars_t* HUD_AllocEntity();
+
+/**
+*	Adds a weapon to the client weapon list.
+*/
+void HUD_AddWeapon( CBasePlayerWeapon* pWeapon );
+
+/**
+*	Sets up the weapon entities for use in a map.
+*/
+void HUD_SetupWeapons();
 
 /**
 *	Returns the last position that we stored for egon beam endpoint.
@@ -56,10 +77,5 @@ void UTIL_ParticleBoxes();
 *	@param b Blue color.
 */
 void UTIL_ParticleLine( const Vector& vecStart, const Vector& vecEnd, float life, unsigned char r, unsigned char g, unsigned char b );
-
-/**
-*	Set up weapons, player and functions needed to run weapons code client-side.
-*/
-void HUD_InitClientWeapons();
 
 #endif //GAME_CLIENT_HL_HL_WEAPONS_H

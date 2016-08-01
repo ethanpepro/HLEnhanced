@@ -264,6 +264,7 @@ void LoadVModel( const char* const pszViewModel, CBasePlayer* m_pPlayer );
 /**
 *	Precaches weapons for this map.
 *	Used on the server side to precache all weapons and load their data.
+*	Used on the client side to prepare all weapons for prediction.
 */
 void PrecacheWeapons();
 

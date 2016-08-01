@@ -19,21 +19,7 @@
 #include "Weapons.h"
 #include "nodes/Nodes.h"
 #include "CBasePlayer.h"
-#include "entities/weapons/CGlock.h"
-#include "entities/weapons/CCrowbar.h"
-#include "entities/weapons/CPython.h"
-#include "entities/weapons/CMP5.h"
-#include "entities/weapons/CCrossbow.h"
-#include "entities/weapons/CShotgun.h"
 #include "entities/weapons/CRpg.h"
-#include "entities/weapons/CGauss.h"
-#include "entities/weapons/CEgon.h"
-#include "entities/weapons/CHornetGun.h"
-#include "entities/weapons/CHandGrenade.h"
-#include "entities/weapons/CSatchel.h"
-#include "entities/weapons/CTripmine.h"
-#include "entities/weapons/CSqueak.h"
-#include "entities/weapons/CSniperRifle.h"
 
 #include "usercmd.h"
 #include "entity_state.h"
@@ -60,7 +46,7 @@ static int			num_ents = 0;
 // The entity we'll use to represent the local client
 static CBasePlayer	player;
 
-static CBasePlayerWeapon *g_pWpns[ MAX_WEAPONS ];
+static CBasePlayerWeapon *g_pWpns[ MAX_WEAPONS ] = {};
 
 float g_flApplyVel = 0.0;
 bool   g_brunninggausspred = false;
@@ -70,85 +56,63 @@ Vector previousorigin;
 //TODO: move - Solokiller
 Vector g_vPlayerVelocity;
 
-// HLDM Weapon placeholder entities.
-//TODO: find a way to not have these. - Solokiller
-CGlock g_Glock;
-CCrowbar g_Crowbar;
-CPython g_Python;
-CMP5 g_Mp5;
-CCrossbow g_Crossbow;
-CShotgun g_Shotgun;
-CRpg g_Rpg;
-CGauss g_Gauss;
-CEgon g_Egon;
-CHornetGun g_HGun;
-CHandGrenade g_HandGren;
-CSatchel g_Satchel;
-CTripmine g_Tripmine;
-CSqueak g_Snark;
-CSniperRifle g_SniperRifle;
-
-/*
-=====================
-HUD_PrepEntity
-
-Links the raw entity to an entvars_s holder.  If a player is passed in as the owner, then
-we set up the m_pPlayer field.
-=====================
-*/
-void HUD_PrepEntity( CBaseEntity *pEntity, CBasePlayer *pWeaponOwner )
+void HUD_PrepareWeapons()
 {
-	memset( &ev[ num_ents ], 0, sizeof( entvars_t ) );
-	pEntity->pev = &ev[ num_ents++ ];
-
-	pEntity->Precache();
-	pEntity->Spawn();
-
-	if ( pWeaponOwner )
+	for( auto pWeapon : g_pWpns )
 	{
-		ItemInfo info;
-		
-		((CBasePlayerWeapon *)pEntity)->m_pPlayer = pWeaponOwner;
-		
-		((CBasePlayerWeapon *)pEntity)->GetItemInfo( &info );
-
-		g_pWpns[ info.iId ] = (CBasePlayerWeapon *)pEntity;
+		//On the client, entities are allocated using byte arrays. - Solokiller
+		//TODO: handle elsewhere - Solokiller
+		if( pWeapon )
+			delete[] reinterpret_cast<byte*>( pWeapon );
 	}
-}
 
-void HUD_InitClientWeapons()
-{
-	static bool initialized = false;
-
-	//TODO: for some reason calling this in Initialize causes all event hooks to be ignored. - Solokiller
-
-	if ( initialized )
-		return;
-
-	initialized = true;
-
-	//Zero out the weapons list just in case - Solokiller
 	memset( g_pWpns, 0, sizeof( g_pWpns ) );
 
-	// Allocate a slot for the local player
-	HUD_PrepEntity( &player		, NULL );
+	num_ents = 0;
 
-	// Allocate slot(s) for each weapon that we are going to be predicting
-	HUD_PrepEntity( &g_Glock	, &player );
-	HUD_PrepEntity( &g_Crowbar	, &player );
-	HUD_PrepEntity( &g_Python	, &player );
-	HUD_PrepEntity( &g_Mp5	, &player );
-	HUD_PrepEntity( &g_Crossbow	, &player );
-	HUD_PrepEntity( &g_Shotgun	, &player );
-	HUD_PrepEntity( &g_Rpg	, &player );
-	HUD_PrepEntity( &g_Gauss	, &player );
-	HUD_PrepEntity( &g_Egon	, &player );
-	HUD_PrepEntity( &g_HGun	, &player );
-	HUD_PrepEntity( &g_HandGren	, &player );
-	HUD_PrepEntity( &g_Satchel	, &player );
-	HUD_PrepEntity( &g_Tripmine	, &player );
-	HUD_PrepEntity( &g_Snark	, &player );
-	HUD_PrepEntity( &g_SniperRifle, &player );
+	// Allocate a slot for the local player
+	player.pev = HUD_AllocEntity();
+
+	player.Precache();
+	player.InitialSpawn();
+	player.Spawn();
+}
+
+entvars_t* HUD_AllocEntity()
+{
+	ASSERT( static_cast<size_t>( num_ents ) < ARRAYSIZE( ev ) );
+
+	memset( &ev[ num_ents ], 0, sizeof( entvars_t ) );
+	return &ev[ num_ents++ ];
+}
+
+void HUD_AddWeapon( CBasePlayerWeapon* pWeapon )
+{
+	ASSERT( pWeapon );
+
+	if( !pWeapon )
+		return;
+
+	pWeapon->Precache();
+	pWeapon->Spawn();
+
+	if( g_pWpns[ pWeapon->m_iId ] )
+	{
+		Alert( at_warning, "HUD_AddWeapon: Weapon \"%s\" already in slot %d, overwriting!\n", pWeapon->GetClassname(), pWeapon->m_iId );
+	}
+
+	g_pWpns[ pWeapon->m_iId ] = pWeapon;
+}
+
+void HUD_SetupWeapons()
+{
+	for( auto pWeapon : g_pWpns )
+	{
+		if( pWeapon )
+		{
+			pWeapon->m_pPlayer = &player;
+		}
+	}
 }
 
 /*
@@ -169,8 +133,6 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 
 	memset( &nulldata, 0, sizeof( nulldata ) );
 
-	HUD_InitClientWeapons();
-
 	// Get current clock
 	gpGlobals->time = time;
 
@@ -178,6 +140,10 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 	// FIXME, make this a method in each weapon?  where you pass in an entity_state_t *?
 	//Just pull the weapon from the list. Does the same thing as the switch that used to be here, without needing an update every time you add a weapon - Solokiller
 	pWeapon = g_pWpns[ from->client.m_iId ];
+
+	//Non-predicted weapons should be null here. - Solokiller
+	if( pWeapon && !pWeapon->UseDecrement() )
+		pWeapon = nullptr;
 
 	// Store pointer to our destination entity_state_t so we can get our origin, etc. from it
 	//  for setting up events on the client
@@ -357,11 +323,11 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 		int body = 2;
 
 		//Pop the model to body 0.
-		if ( pWeapon == &g_Tripmine )
+		if ( pWeapon->ClassnameIs( "weapon_tripmine" ) )
 			 body = 0;
 
 		//Show laser sight/scope combo
-		if ( pWeapon == &g_Python && bIsMultiplayer() )
+		if ( pWeapon->ClassnameIs( "weapon_python" ) && bIsMultiplayer() )
 			 body = 1;
 		
 		// Force a fixed anim down to viewmodel

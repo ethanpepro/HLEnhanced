@@ -35,8 +35,6 @@ int gmsgWeapPickup = 0;
 enginefuncs_t g_engfuncs;
 globalvars_t  *gpGlobals;
 
-ItemInfo CBasePlayerItem::ItemInfoArray[MAX_WEAPONS];
-
 void EMIT_SOUND_DYN( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation, int flags, int pitch) { }
 
 void EMIT_SOUND( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation )
