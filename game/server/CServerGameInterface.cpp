@@ -54,11 +54,11 @@ void CServerGameInterface::ClientDisconnect( edict_t* pEdict )
 	auto pPlayer = GetClassPtr( ( CBasePlayer* ) &pEdict->v );
 
 	char text[ 256 ] = "";
-	if( pEdict->v.netname )
-		_snprintf( text, sizeof( text ), "- %s has left the game\n", STRING( pEdict->v.netname ) );
+	if( pPlayer->HasNetName() )
+		_snprintf( text, sizeof( text ), "- %s has left the game\n", pPlayer->GetNetName() );
 	text[ sizeof( text ) - 1 ] = 0;
 	MESSAGE_BEGIN( MSG_ALL, gmsgSayText, NULL );
-	WRITE_BYTE( ENTINDEX( pEdict ) );
+	WRITE_BYTE( pPlayer->entindex() );
 	WRITE_STRING( text );
 	MESSAGE_END();
 
@@ -69,9 +69,9 @@ void CServerGameInterface::ClientDisconnect( edict_t* pEdict )
 	}
 
 	// since the edict doesn't get deleted, fix it so it doesn't interfere.
-	pEdict->v.takedamage = DAMAGE_NO;// don't attract autoaim
-	pEdict->v.solid = SOLID_NOT;// nonsolid
-	pPlayer->SetAbsOrigin( pEdict->v.origin );
+	pPlayer->SetTakeDamageMode( DAMAGE_NO );// don't attract autoaim
+	pPlayer->SetSolidType( SOLID_NOT );// nonsolid
+	pPlayer->SetAbsOrigin( pPlayer ->GetAbsOrigin() );
 
 	g_pGameRules->ClientDisconnected( pEdict );
 }
