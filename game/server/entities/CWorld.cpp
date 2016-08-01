@@ -329,7 +329,7 @@ void CWorld::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "chaptertitle" ) )
 	{
-		pev->netname = ALLOC_STRING( pkvd->szValue );
+		SetNetName( ALLOC_STRING( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "startdark" ) )

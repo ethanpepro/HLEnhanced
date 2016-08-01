@@ -26,7 +26,7 @@ void CBaseDMStart::KeyValue( KeyValueData* pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "master" ) )
 	{
-		pev->netname = ALLOC_STRING( pkvd->szValue );
+		SetNetName( ALLOC_STRING( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else

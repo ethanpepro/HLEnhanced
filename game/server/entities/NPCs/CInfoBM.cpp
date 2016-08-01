@@ -47,7 +47,7 @@ void CInfoBM::KeyValue( KeyValueData* pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "reachsequence" ) )
 	{
-		pev->netname = ALLOC_STRING( pkvd->szValue );
+		SetNetName( ALLOC_STRING( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "presequence" ) )
