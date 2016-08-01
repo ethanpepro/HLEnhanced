@@ -31,13 +31,13 @@ SpectatorConnect
 called when a spectator connects to a server
 ============
 */
-void CBaseSpectator::SpectatorConnect(void)
+void CBaseSpectator::SpectatorConnect()
 {
-	pev->flags = FL_SPECTATOR;
-	pev->solid = SOLID_NOT;
-	pev->movetype = MOVETYPE_NOCLIP;
+	SetFlags( FL_SPECTATOR );
+	SetSolidType( SOLID_NOT );
+	SetMoveType( MOVETYPE_NOCLIP );
 	
-	m_pGoalEnt = NULL;
+	m_pGoalEnt = nullptr;
 }
 
 /*
@@ -47,7 +47,7 @@ SpectatorDisconnect
 called when a spectator disconnects from a server
 ============
 */
-void CBaseSpectator::SpectatorDisconnect(void)
+void CBaseSpectator::SpectatorDisconnect()
 {
 }
 
@@ -58,14 +58,14 @@ SpectatorImpulseCommand
 Called by SpectatorThink if the spectator entered an impulse
 ================
 */
-void CBaseSpectator::SpectatorImpulseCommand(void)
+void CBaseSpectator::SpectatorImpulseCommand()
 {
 	static EHANDLE hGoal = nullptr;
 	CBaseEntity* pPreviousGoal;
 	CBaseEntity* pCurrentGoal;
 	bool bFound;
 	
-	switch (pev->impulse)
+	switch( GetImpulse() )
 	{
 	case 1:
 		// teleport the spectator to the next spawn point
@@ -107,7 +107,7 @@ void CBaseSpectator::SpectatorImpulseCommand(void)
 		break;
 	}
 
-	pev->impulse = 0;
+	SetImpulse( 0 );
 }
 
 /*
@@ -117,17 +117,17 @@ SpectatorThink
 Called every frame after physics are run
 ================
 */
-void  CBaseSpectator::SpectatorThink(void)
+void CBaseSpectator::SpectatorThink()
 {
-	if (!(pev->flags & FL_SPECTATOR))
+	if( !AnyFlagsSet( FL_SPECTATOR ) )
 	{
-		pev->flags = FL_SPECTATOR;
+		SetFlags( FL_SPECTATOR );
 	}
 
-	pev->solid	   = SOLID_NOT;
-	pev->movetype  = MOVETYPE_NOCLIP;
+	SetSolidType( SOLID_NOT );
+	SetMoveType( MOVETYPE_NOCLIP );
 
-	if (pev->impulse)
+	if( GetImpulse() )
 		SpectatorImpulseCommand();
 }
 
@@ -141,9 +141,9 @@ Spawn
 */
 void CBaseSpectator::Spawn()
 {
-	pev->flags = FL_SPECTATOR;
-	pev->solid = SOLID_NOT;
-	pev->movetype = MOVETYPE_NOCLIP;
+	SetFlags( FL_SPECTATOR );
+	SetSolidType( SOLID_NOT );
+	SetMoveType( MOVETYPE_NOCLIP );
 	
-	m_pGoalEnt = NULL;
+	m_pGoalEnt = nullptr;
 }
