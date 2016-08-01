@@ -249,11 +249,6 @@ void ScorePanel::Initialize( void )
 	memset( g_PlayerExtraInfo, 0, sizeof g_PlayerExtraInfo );
 	memset( g_TeamInfo, 0, sizeof g_TeamInfo );
 }
-
-bool HACK_GetPlayerUniqueID( int iPlayer, char playerID[ PLAYERID_BUFFER_SIZE ] )
-{
-	return !!gEngfuncs.GetPlayerUniqueID( iPlayer, playerID ); // TODO remove after testing
-}
 		
 //-----------------------------------------------------------------------------
 // Purpose: Recalculate the internal scoreboard data

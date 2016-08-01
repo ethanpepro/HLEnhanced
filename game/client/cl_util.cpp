@@ -47,3 +47,8 @@ void ScaleColors( int& r, int& g, int& b, const int a )
 	g = ( int ) ( g * x );
 	b = ( int ) ( b * x );
 }
+
+bool UTIL_GetPlayerUniqueID( int iPlayer, char playerID[ PLAYERID_BUFFER_SIZE ] )
+{
+	return !!gEngfuncs.GetPlayerUniqueID( iPlayer, playerID );
+}

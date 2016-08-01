@@ -255,4 +255,9 @@ inline void UnpackRGB( int& r, int& g, int& b, unsigned long ulRGB )
 	b = ulRGB & 0xFF;
 }
 
+/**
+*	@copydoc cl_enginefunc_t::GetPlayerUniqueID
+*/
+bool UTIL_GetPlayerUniqueID( int iPlayer, char playerID[ PLAYERID_BUFFER_SIZE ] );
+
 #endif //GAME_CLIENT_CL_UTIL_H
