@@ -157,7 +157,11 @@ void HUD_SetMaxSpeed( const edict_t *ed, float speed )
 */
 void* HUD_PvAllocEntPrivateData( edict_t* pEdict, int32 cb )
 {
-	return new byte[ cb ];
+	byte* pData = new byte[ cb ];
+
+	memset( pData, 0, sizeof( byte ) * cb );
+
+	return pData;
 }
 
 /*

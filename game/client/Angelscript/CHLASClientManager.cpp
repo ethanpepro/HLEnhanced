@@ -38,8 +38,8 @@ void CHLASClientManager::Shutdown()
 {
 	if( m_pModule )
 	{
-		m_Manager.GetModuleManager().RemoveModule( m_pModule );
-		m_pModule = nullptr;
+		//The client doesn't know if the map is going to change, so clean up on shutdown. - Solokiller
+		WorldEnded();
 	}
 
 	CHLASManager::Shutdown();
@@ -47,6 +47,12 @@ void CHLASClientManager::Shutdown()
 
 void CHLASClientManager::WorldCreated( const char* const pszMapScriptFileName )
 {
+	if( m_pModule )
+	{
+		//The client doesn't know if the map is going to change, so clean up on new map start. - Solokiller
+		WorldEnded();
+	}
+
 	CASMapModuleBuilder builder( pszMapScriptFileName );
 
 	m_pModule = m_Manager.GetModuleManager().BuildModule( "MapScript", "MapModule", builder );
