@@ -145,7 +145,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 		}
 		else
 		{
-			CLIENT_PRINTF( pEntity, print_console, UTIL_VarArgs( "\"fov\" is \"%d\"\n", ( int ) pPlayer->m_iFOV ) );
+			ClientPrint( pPlayer->pev, HUD_PRINTCONSOLE, UTIL_VarArgs( "\"fov\" is \"%d\"\n", ( int ) pPlayer->m_iFOV ) );
 		}
 	}
 	else if( FStrEq( pcmd, "use" ) )
