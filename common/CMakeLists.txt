@@ -1,5 +1,7 @@
 add_sources(
 	beamdef.h
+	BSPIO.h
+	BSPIO.cpp
 	CAutoString.h
 	CHashStringPool.h
 	CHashStringPool.cpp
@@ -21,6 +23,7 @@ add_sources(
 	Game.h
 	hltv.h
 	in_buttons.h
+	MiniBSPFile.h
 	Minmax.h
 	netadr.h
 	parsemsg.h
