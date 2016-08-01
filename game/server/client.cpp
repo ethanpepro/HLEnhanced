@@ -84,7 +84,7 @@ void ClientPutInServer( edict_t* pEntity )
 // or as
 // blah blah blah
 //
-void Host_Say( edict_t *pEntity, int teamonly )
+void Host_Say( CBasePlayer* pPlayer, const bool bTeamOnly )
 {
 	//TODO: change param to CBasePlayer - Solokiller
 	CBasePlayer *client;
@@ -100,10 +100,8 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	if ( CMD_ARGC() == 0 )
 		return;
 
-	auto player = GetClassPtr( ( CBasePlayer* ) &pEntity->v );
-
 	//Not yet.
-	if ( player->m_flNextChatTime > gpGlobals->time )
+	if ( pPlayer->m_flNextChatTime > gpGlobals->time )
 		 return;
 
 	if ( !stricmp( pcmd, cpSay) || !stricmp( pcmd, cpSayTeam ) )
@@ -146,12 +144,12 @@ void Host_Say( edict_t *pEntity, int teamonly )
 
 // turn on color set 2  (color on,  no sound)
 	// turn on color set 2  (color on,  no sound)
-	if ( player->IsObserver() && ( teamonly ) )
-		sprintf( text, "%c(SPEC) %s: ", 2, STRING( pEntity->v.netname ) );
-	else if ( teamonly )
-		sprintf( text, "%c(TEAM) %s: ", 2, STRING( pEntity->v.netname ) );
+	if ( pPlayer->IsObserver() && ( bTeamOnly ) )
+		sprintf( text, "%c(SPEC) %s: ", 2, pPlayer->GetNetName() );
+	else if ( bTeamOnly )
+		sprintf( text, "%c(TEAM) %s: ", 2, pPlayer->GetNetName() );
 	else
-		sprintf( text, "%c%s: ", 2, STRING( pEntity->v.netname ) );
+		sprintf( text, "%c%s: ", 2, pPlayer ->GetNetName() );
 
 	j = sizeof(text) - 2 - strlen(text);  // -2 for /n and null terminator
 	if ( (int)strlen(p) > j )
@@ -161,7 +159,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	strcat( text, "\n" );
 
 
-	player->m_flNextChatTime = gpGlobals->time + CHAT_INTERVAL;
+	pPlayer->m_flNextChatTime = gpGlobals->time + CHAT_INTERVAL;
 
 	// loop through all players
 	// Start with the first player.
@@ -174,34 +172,34 @@ void Host_Say( edict_t *pEntity, int teamonly )
 		if ( !client->pev )
 			continue;
 		
-		if ( client->edict() == pEntity )
+		if ( client == pPlayer )
 			continue;
 
 		if ( !(client->IsNetClient()) )	// Not a client ? (should never be true)
 			continue;
 
 		// can the receiver hear the sender? or has he muted him?
-		if ( g_VoiceGameMgr.PlayerHasBlockedPlayer( client, player ) )
+		if ( g_VoiceGameMgr.PlayerHasBlockedPlayer( client, pPlayer ) )
 			continue;
 
-		if ( !player->IsObserver() && teamonly && g_pGameRules->PlayerRelationship(client, CBaseEntity::Instance(pEntity)) != GR_TEAMMATE )
+		if ( !pPlayer->IsObserver() && bTeamOnly && g_pGameRules->PlayerRelationship( client, pPlayer ) != GR_TEAMMATE )
 			continue;
 
 		// Spectators can only talk to other specs
-		if ( player->IsObserver() && teamonly )
+		if ( pPlayer->IsObserver() && bTeamOnly )
 			if ( !client->IsObserver() )
 				continue;
 
 		MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, client );
-			WRITE_BYTE( ENTINDEX(pEntity) );
+			WRITE_BYTE( pPlayer ->entindex() );
 			WRITE_STRING( text );
 		MESSAGE_END();
 
 	}
 
 	// print to the sending client
-	MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, player );
-		WRITE_BYTE( ENTINDEX(pEntity) );
+	MESSAGE_BEGIN( MSG_ONE, gmsgSayText, NULL, pPlayer );
+		WRITE_BYTE( pPlayer->entindex() );
 		WRITE_STRING( text );
 	MESSAGE_END();
 
@@ -209,7 +207,7 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	g_engfuncs.pfnServerPrint( text );
 
 	const char* pszTemp;
-	if ( teamonly )
+	if ( bTeamOnly )
 		pszTemp = "say_team";
 	else
 		pszTemp = "say";
@@ -220,20 +218,20 @@ void Host_Say( edict_t *pEntity, int teamonly )
 	if ( g_teamplay )
 	{
 		UTIL_LogPrintf( "\"%s<%i><%s><%s>\" %s \"%s\"\n", 
-			STRING( pEntity->v.netname ), 
-			GETPLAYERUSERID( pEntity ),
-			GETPLAYERAUTHID( pEntity ),
-			g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pEntity ), "model" ),
+			pPlayer->GetNetName(),
+			UTIL_GetPlayerUserId( pPlayer ),
+			UTIL_GetPlayerAuthId( pPlayer ),
+			g_engfuncs.pfnInfoKeyValue( g_engfuncs.pfnGetInfoKeyBuffer( pPlayer->edict() ), "model" ),
 			pszTemp,
 			p );
 	}
 	else
 	{
 		UTIL_LogPrintf( "\"%s<%i><%s><%i>\" %s \"%s\"\n", 
-			STRING( pEntity->v.netname ), 
-			GETPLAYERUSERID( pEntity ),
-			GETPLAYERAUTHID( pEntity ),
-			GETPLAYERUSERID( pEntity ),
+			pPlayer->GetNetName(),
+			UTIL_GetPlayerUserId( pPlayer ),
+			UTIL_GetPlayerAuthId( pPlayer ),
+			UTIL_GetPlayerUserId( pPlayer ),
 			pszTemp,
 			p );
 	}

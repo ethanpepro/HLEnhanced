@@ -23,7 +23,7 @@ extern DLL_GLOBAL unsigned int	g_ulFrameCount;
 
 extern cvar_t allow_spectators;
 
-void Host_Say( edict_t *pEntity, int teamonly );
+void Host_Say( CBasePlayer* pPlayer, const bool bTeamOnly );
 
 CServerGameInterface g_Server;
 
@@ -113,11 +113,11 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 
 	if( FStrEq( pcmd, "say" ) )
 	{
-		Host_Say( pEntity, 0 );
+		Host_Say( pPlayer, false );
 	}
 	else if( FStrEq( pcmd, "say_team" ) )
 	{
-		Host_Say( pEntity, 1 );
+		Host_Say( pPlayer, true );
 	}
 	else if( FStrEq( pcmd, "fullupdate" ) )
 	{
