@@ -173,6 +173,7 @@ void CL_SetupServerSupport()
 
 	// Fill in current time ( probably not needed )
 	gpGlobals->time = gEngfuncs.GetClientTime();
+	gpGlobals->pStringBase = "";
 
 	// Fake functions
 	g_engfuncs.pfnPrecacheModel			= stub_PrecacheModel;

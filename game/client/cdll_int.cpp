@@ -24,6 +24,9 @@
 #include "../public/interface.h"
 //#include "vgui_schememanager.h"
 
+#include "extdll.h"
+#include "util.h"
+
 #include "pm_shared.h"
 
 #include <string.h>
@@ -42,6 +45,8 @@
 #include "effects/CEnvironment.h"
 
 #include "Angelscript/CHLASClientManager.h"
+
+#include "BSPIO.h"
 
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
@@ -178,12 +183,66 @@ int DLLEXPORT HUD_VidInit( void )
 	return 1;
 }
 
+const char* ParseMapDataCallback( const char* pszBuffer, bool& bError )
+{
+	char szKey[ MAX_COM_TOKEN ];
+	char token[ MAX_COM_TOKEN ];
+
+	char szMapScript[ MAX_PATH ] = {};
+
+	bool bIsWorldspawn = false;
+
+	bool bEnd = false;
+
+	while( true )
+	{
+		pszBuffer = bsp::ParseKeyValue( pszBuffer, szKey, sizeof( szKey ), token, sizeof( token ), bError, bEnd );
+
+		if( bEnd )
+			break;
+
+		if( bError )
+			return pszBuffer;
+
+		if( strcmp( szKey, "mapscript" ) == 0 )
+		{
+			strncpy( szMapScript, token, sizeof( szMapScript ) );
+			szMapScript[ sizeof( szMapScript ) - 1 ] = '\0';
+		}
+		else if( strcmp( szKey, "classname" ) == 0 && strcmp( token, "worldspawn" ) == 0 )
+		{
+			bIsWorldspawn = true;
+		}
+	}
+
+	if( bIsWorldspawn && *szMapScript )
+	{
+		g_ASManager.WorldCreated( szMapScript );
+	}
+
+	return pszBuffer;
+}
+
 /**
 *	A new map has been started. - Solokiller
 *	@param pszMapName Name of the map, without path or extension.
+*	@param pszLevelName Name of the map, with path and extension.
 */
-void HUD_NewMapStarted( const char* const pszMapName )
+void HUD_NewMapStarted( const char* const pszMapName, const char* const pszLevelName )
 {
+	gpGlobals->mapname = MAKE_STRING( g_StringPool.Allocate( pszMapName ) );
+
+	//This will fail if the map hasn't been downloaded yet, so move this to a later point. - Solokiller
+	if( char* pszBuffer = bsp::LoadEntityLump( pszLevelName ) )
+	{
+		bsp::ProcessEnts( pszBuffer, ParseMapDataCallback );
+
+		bsp::FreeEntityLump( pszBuffer );
+	}
+	else
+	{
+		gEngfuncs.Con_DPrintf( "Couldn't get entity lump for map \"%s\"\n", pszMapName );
+	}
 }
 
 /**
@@ -215,7 +274,7 @@ void HUD_CheckNewMapStarted()
 				szMapName[ uiLength - uiExtLength ] = '\0';
 			}
 
-			HUD_NewMapStarted( szMapName );
+			HUD_NewMapStarted( szMapName, pszLevelName );
 		}
 		else
 		{

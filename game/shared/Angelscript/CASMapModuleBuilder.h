@@ -15,6 +15,8 @@ public:
 	*/
 	CASMapModuleBuilder( const char* const pszMapScript );
 
+	bool DefineWords( CScriptBuilder& builder ) override;
+
 	bool PreBuild( CScriptBuilder& builder ) override;
 
 	bool PostBuild( CScriptBuilder& builder, const bool bSuccess, CASModule* pModule ) override;
