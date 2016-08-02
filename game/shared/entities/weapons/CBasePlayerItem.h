@@ -15,55 +15,9 @@
 #ifndef GAME_SHARED_ENTITIES_WEAPONS_CBASEPLAYERITEM_H
 #define GAME_SHARED_ENTITIES_WEAPONS_CBASEPLAYERITEM_H
 
+#include "WeaponsConst.h"
+
 #include "CWeaponInfo.h"
-
-/**
-*	Flag values for CWeaponData::m_iFlags
-*	@see CWeaponData
-*/
-enum ItemInfoFlag
-{
-	ITEM_FLAG_NONE			= 0,
-	/**
-	*	Not used.
-	*	TODO: should be repurposed for replenishing weapons (e.g. hornet gun) - Solokiller
-	*/
-	ITEM_FLAG_SELECTONEMPTY = 1,
-
-	/**
-	*	Don't automatically reload this weapon.
-	*/
-	ITEM_FLAG_NOAUTORELOAD = 2,
-
-	/**
-	*	Don't automatically switch to another weapon if this weapon is empty.
-	*/
-	ITEM_FLAG_NOAUTOSWITCHEMPTY = 4,
-
-	/**
-	*	If the entity count is nearing the maximum, this entity's respawn will be delayed.
-	*	Multiplayer only.
-	*/
-	ITEM_FLAG_LIMITINWORLD = 8,
-
-	/**
-	*	A player can totally exhaust their ammo supply and lose this weapon.
-	*/
-	ITEM_FLAG_EXHAUSTIBLE = 16,
-};
-
-/**
-*	Converts the given item info flag to a string representation.
-*/
-const char* ItemInfoFlagToString( const ItemInfoFlag flag );
-
-/**
-*	Converts the given string to an item info flag.
-*	@return Item info flag, or ITEM_FLAG_NONE if the string didn't match any other constant.
-*/
-ItemInfoFlag StringToItemInfoFlag( const char* const pszString );
-
-#define WEAPON_IS_ONTARGET 0x40
 
 class CBasePlayerWeapon;
 
