@@ -282,7 +282,7 @@ find_library( VGUI1 vgui PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Li
 if( UNIX )
 	set( SDL2_NAME "libSDL2-2.0.so.0" )
 else()
-	set( SDL2_NAME "${CMAKE_SHARED_LIBRARY_PREFIX}SDL2${CMAKE_SHARED_LIBRARY_SUFFIX}" )
+	set( SDL2_NAME "${CMAKE_SHARED_LIBRARY_PREFIX}SDL2${CMAKE_STATIC_LIBRARY_SUFFIX}" )
 endif()
 
 find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ "${STEAMCOMMON}/Half-Life/" )
@@ -295,7 +295,7 @@ endif()
 
 if( "${USE_VGUI2}" STREQUAL "1" )
 	find_library( VGUI2 vgui_controls PATHS source_sdk/lib/public/ )
-	find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS lib/public/ )
+	find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_STATIC_LIBRARY_SUFFIX} PATHS lib/public/ )
 	find_library( TIER1 tier1 PATHS source_sdk/lib/public/ )
 
 	if( WIN32 )
