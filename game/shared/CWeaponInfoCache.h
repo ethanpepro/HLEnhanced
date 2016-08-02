@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <unordered_map>
+#include <vector>
 
 #include "StringUtils.h"
 
@@ -25,7 +26,8 @@ public:
 	using EnumInfoCallback = bool ( * )( const CWeaponInfo& info, void* pUserData );
 
 private:
-	typedef std::unordered_map<const char*, std::unique_ptr<CWeaponInfo>, RawCharHashI, RawCharEqualToI> Infos_t;
+	typedef std::unordered_map<const char*, size_t, RawCharHashI, RawCharEqualToI> InfoMap_t;
+	typedef std::vector<std::unique_ptr<CWeaponInfo>> InfoList_t;
 
 public:
 	CWeaponInfoCache() = default;
@@ -70,7 +72,8 @@ private:
 	bool LoadWeaponInfoFromFile( const char* const pszWeaponName, const char* const pszSubDir, CWeaponInfo& info );
 
 private:
-	Infos_t m_Infos;
+	InfoMap_t m_InfoMap;
+	InfoList_t m_InfoList;
 
 	//Used when a file failed to load.
 	CWeaponInfo m_DefaultInfo;

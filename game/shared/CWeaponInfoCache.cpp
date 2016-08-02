@@ -23,10 +23,10 @@ const CWeaponInfo* CWeaponInfoCache::FindWeaponInfo( const char* const pszWeapon
 	if( !pszWeaponName )
 		return nullptr;
 
-	auto it = m_Infos.find( pszWeaponName );
+	auto it = m_InfoMap.find( pszWeaponName );
 
-	if( it != m_Infos.end() )
-		return it->second.get();
+	if( it != m_InfoMap.end() )
+		return m_InfoList[ it->second ].get();
 
 	return nullptr;
 }
@@ -45,7 +45,9 @@ const CWeaponInfo* CWeaponInfoCache::LoadWeaponInfo( const int iID, const char* 
 	{
 		CWeaponInfo* pInfo = info.get();
 
-		auto result = m_Infos.insert( std::make_pair( pInfo->GetWeaponName(), std::move( info ) ) );
+		m_InfoList.emplace_back( std::move( info ) );
+
+		auto result = m_InfoMap.insert( std::make_pair( pInfo->GetWeaponName(), m_InfoList.size() - 1 ) );
 
 		if( result.second )
 		{
@@ -67,6 +69,8 @@ const CWeaponInfo* CWeaponInfoCache::LoadWeaponInfo( const int iID, const char* 
 		}
 
 		Alert( at_error, "CWeaponInfoCache::LoadWeaponInfo: Failed to insert weapon info \"%s\" into cache!\n", pszWeaponName );
+
+		m_InfoList.erase( m_InfoList.end() - 1 );
 	}
 
 	return &m_DefaultInfo;
@@ -74,7 +78,8 @@ const CWeaponInfo* CWeaponInfoCache::LoadWeaponInfo( const int iID, const char* 
 
 void CWeaponInfoCache::ClearInfos()
 {
-	m_Infos.clear();
+	m_InfoMap.clear();
+	m_InfoList.clear();
 }
 
 void CWeaponInfoCache::EnumInfos( EnumInfoCallback pCallback, void* pUserData ) const
@@ -84,9 +89,9 @@ void CWeaponInfoCache::EnumInfos( EnumInfoCallback pCallback, void* pUserData ) 
 	if( !pCallback )
 		return;
 
-	for( const auto& info : m_Infos )
+	for( const auto& info : m_InfoList )
 	{
-		if( !pCallback( *info.second, pUserData ) )
+		if( !pCallback( *info, pUserData ) )
 			break;
 	}
 }
