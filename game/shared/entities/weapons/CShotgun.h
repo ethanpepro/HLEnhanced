@@ -51,15 +51,6 @@ public:
 	float m_flNextReload;
 	int m_iShell;
 
-	virtual bool UseDecrement() const override
-	{
-#if defined( CLIENT_WEAPONS )
-		return true;
-#else
-		return false;
-#endif
-	}
-
 	void GetWeaponData( weapon_data_t& data ) override
 	{
 		BaseClass::GetWeaponData( data );

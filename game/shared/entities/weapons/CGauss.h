@@ -87,15 +87,6 @@ public:
 					   // we need to know so we can pick the right set of effects. 
 	bool m_fPrimaryFire;
 
-	virtual bool UseDecrement() const override
-	{
-#if defined( CLIENT_WEAPONS )
-		return true;
-#else
-		return false;
-#endif
-	}
-
 private:
 	unsigned short m_usGaussFire;
 	unsigned short m_usGaussSpin;

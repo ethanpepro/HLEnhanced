@@ -49,15 +49,6 @@ public:
 	void Holster() override;
 	void WeaponIdle( void ) override;
 
-	virtual bool UseDecrement() const override
-	{
-#if defined( CLIENT_WEAPONS )
-		return true;
-#else
-		return false;
-#endif
-	}
-
 private:
 	unsigned short m_usTripFire;
 };

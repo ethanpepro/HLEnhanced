@@ -46,15 +46,6 @@ public:
 	float m_flNextAnimTime;
 	int m_iShell;
 
-	virtual bool UseDecrement() const override
-	{
-#if defined( CLIENT_WEAPONS )
-		return true;
-#else
-		return false;
-#endif
-	}
-
 private:
 	unsigned short m_usMP5;
 	unsigned short m_usMP52;

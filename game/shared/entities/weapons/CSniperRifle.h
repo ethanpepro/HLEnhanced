@@ -44,15 +44,6 @@ public:
 
 	void Reload() override;
 
-	bool UseDecrement() const override
-	{
-#ifdef CLIENT_WEAPONS
-		return true;
-#else
-		return false;
-#endif
-	}
-
 	void ToggleZoom();
 
 private:

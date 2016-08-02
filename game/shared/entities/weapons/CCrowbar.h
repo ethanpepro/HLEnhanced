@@ -47,14 +47,6 @@ public:
 	int m_iSwing;
 	TraceResult m_trHit;
 
-	virtual bool UseDecrement() const override
-	{
-#if defined( CLIENT_WEAPONS )
-		return true;
-#else
-		return false;
-#endif
-	}
 private:
 	unsigned short m_usCrowbar;
 };

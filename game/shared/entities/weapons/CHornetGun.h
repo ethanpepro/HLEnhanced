@@ -56,14 +56,6 @@ public:
 
 	int m_iFirePhase;// don't save me.
 
-	virtual bool UseDecrement() const override
-	{
-#if defined( CLIENT_WEAPONS )
-		return true;
-#else
-		return false;
-#endif
-	}
 private:
 	unsigned short m_usHornetFire;
 };

@@ -46,15 +46,6 @@ public:
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
 
-	virtual bool UseDecrement() const override
-	{
-#if defined( CLIENT_WEAPONS )
-		return true;
-#else
-		return false;
-#endif
-	}
-
 private:
 	int m_iShell;
 
