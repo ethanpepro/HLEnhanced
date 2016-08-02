@@ -159,6 +159,7 @@ void DBG_AssertFunction( const bool fExpr, const char* szExpr, const char* szFil
 extern char com_token[ MAX_COM_TOKEN ];
 
 //TODO: tidy the parse code, make it use user provided buffers - Solokiller
+//TODO: const correctness - Solokiller
 char *COM_Parse( char *data );
 
 int COM_TokenWaiting( char *buffer );

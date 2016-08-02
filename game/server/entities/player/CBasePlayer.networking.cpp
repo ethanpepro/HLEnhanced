@@ -17,6 +17,7 @@
 #include "cbase.h"
 #include "CBasePlayer.h"
 #include "Weapons.h"
+#include "CWeaponInfoCache.h"
 
 #include "pm_shared.h"
 
@@ -43,9 +44,6 @@ void CBasePlayer::UpdateClientData()
 	if( !m_bSentInitData )
 	{
 		m_bSentInitData = true;
-
-		//Send ammo types now. - Solokiller
-		g_AmmoTypes.SendAmmoTypes( this );
 	}
 
 	if( m_fInitHUD )
@@ -230,29 +228,33 @@ void CBasePlayer::UpdateClientData()
 		// ????		Icons
 
 		// Send ALL the weapon info now
-		for( int i = 0; i < MAX_WEAPONS; ++i )
+		//TODO: obsolete - Solokiller
+		g_WeaponInfoCache.EnumInfos(
+			[]( const CWeaponInfo& info, void* pUserData ) -> bool
 		{
-			ItemInfo& II = CBasePlayerItem::ItemInfoArray[ i ];
-
-			if( !II.iId )
-				continue;
-
 			const char *pszName;
-			if( !II.pszName )
+
+			if( !info.GetWeaponName() )
 				pszName = "Empty";
 			else
-				pszName = II.pszName;
+				pszName = info.GetWeaponName();
 
-			MESSAGE_BEGIN( MSG_ONE, gmsgWeaponList, NULL, this );
-			WRITE_STRING( pszName );			// string	weapon name
-				WRITE_BYTE( GetAmmoIndex( II.pszAmmo1 ) );	// byte		Ammo Type
-				WRITE_BYTE( GetAmmoIndex( II.pszAmmo2 ) );	// byte		Ammo2 Type
-				WRITE_BYTE( II.iSlot );					// byte		bucket
-				WRITE_BYTE( II.iPosition );				// byte		bucket pos
-				WRITE_BYTE( II.iId );						// byte		id (bit index into pev->weapons)
-				WRITE_BYTE( II.iFlags );					// byte		Flags
+			MESSAGE_BEGIN( MSG_ONE, gmsgWeaponList, NULL, reinterpret_cast<CBasePlayer*>( pUserData ) );
+			WRITE_STRING( pszName );						// string	weapon name
+			WRITE_BYTE( info.GetPrimaryAmmo() ? 
+						info.GetPrimaryAmmo()->GetID() : 
+						WEAPON_NOCLIP );					// byte		Ammo Type
+			WRITE_BYTE( info.GetSecondaryAmmo() ? 
+						info.GetSecondaryAmmo()->GetID() : 
+						WEAPON_NOCLIP );					// byte		Ammo2 Type
+			WRITE_BYTE( info.GetBucket() );					// byte		bucket
+			WRITE_BYTE( info.GetPosition() );				// byte		bucket pos
+			WRITE_BYTE( info.GetID() );						// byte		id (bit index into pev->weapons)
+			WRITE_BYTE( info.GetFlags() );					// byte		Flags
 			MESSAGE_END();
-		}
+
+			return true;
+		}, this );
 	}
 
 	SendAmmoUpdate();

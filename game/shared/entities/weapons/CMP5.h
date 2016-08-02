@@ -32,9 +32,10 @@ class CMP5 : public CBasePlayerWeapon
 public:
 	DECLARE_CLASS( CMP5, CBasePlayerWeapon );
 
+	CMP5();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	void PrimaryAttack( void ) override;

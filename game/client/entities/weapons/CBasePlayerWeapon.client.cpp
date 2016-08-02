@@ -89,10 +89,10 @@ CBasePlayerWeapon :: DefaultReload
 bool CBasePlayerWeapon::DefaultReload( int iClipSize, int iAnim, float fDelay, int body )
 {
 
-	if( m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] <= 0 )
+	if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
 		return false;
 
-	int j = min( iClipSize - m_iClip, m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] );
+	int j = min( iClipSize - m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] );
 
 	if( j == 0 )
 		return false;
@@ -121,11 +121,11 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	{
 #if 0 // FIXME, need ammo on client to make this work right
 		// complete the reload. 
-		int j = min( iMaxClip() - m_iClip, m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] );
+		int j = min( iMaxClip() - m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] );
 
 		// Add them to the clip
 		m_iClip += j;
-		m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] -= j;
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= j;
 #else	
 		m_iClip += 10;
 #endif
@@ -201,16 +201,6 @@ void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
 	m_fInReload = false; // cancel any reload in progress.
 	g_brunninggausspred = false;
 	m_pPlayer->pev->viewmodel = 0;
-}
-
-int CBasePlayerWeapon::PrimaryAmmoIndex() const
-{
-	return -1;
-}
-
-int CBasePlayerWeapon::SecondaryAmmoIndex() const
-{
-	return -1;
 }
 
 float CBasePlayerWeapon::GetNextAttackDelay( float flTime )

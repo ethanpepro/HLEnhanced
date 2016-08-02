@@ -114,6 +114,7 @@ void CClientGameInterface::NewMapStarted( const char* const pszMapName, const ch
 
 void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
 {
+	RegisterAmmoTypes();
 	HUD_PrepareWeapons();
 	PrecacheWeapons();
 

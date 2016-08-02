@@ -34,10 +34,14 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( weapon_shotgun, CShotgun );
 
+CShotgun::CShotgun()
+	: BaseClass( WEAPON_SHOTGUN )
+{
+}
+
 void CShotgun::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_SHOTGUN;
 	SetModel( "models/w_shotgun.mdl");
 
 	m_iDefaultAmmo = SHOTGUN_DEFAULT_GIVE;
@@ -48,6 +52,8 @@ void CShotgun::Spawn( )
 
 void CShotgun::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/v_shotgun.mdl");
 	PRECACHE_MODEL("models/w_shotgun.mdl");
 	PRECACHE_MODEL("models/p_shotgun.mdl");
@@ -83,23 +89,6 @@ bool CShotgun::AddToPlayer( CBasePlayer *pPlayer )
 	}
 	return false;
 }
-
-
-bool CShotgun::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "buckshot";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = SHOTGUN_MAX_CLIP;
-	p->iSlot = 2;
-	p->iPosition = 1;
-	p->iFlags = 0;
-	p->iId = m_iId = WEAPON_SHOTGUN;
-	p->iWeight = SHOTGUN_WEIGHT;
-
-	return true;
-}
-
 
 
 bool CShotgun::Deploy()
@@ -158,7 +147,7 @@ void CShotgun::PrimaryAttack()
 	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usSingleFire, 0.0, g_vecZero, g_vecZero, vecDir.x, vecDir.y, 0, 0, 0, 0 );
 
 
-	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (!m_iClip && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 
@@ -228,7 +217,7 @@ void CShotgun::SecondaryAttack( void )
 		
 	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usDoubleFire, 0.0, g_vecZero, g_vecZero, vecDir.x, vecDir.y, 0, 0, 0, 0 );
 
-	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (!m_iClip && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 
@@ -249,7 +238,7 @@ void CShotgun::SecondaryAttack( void )
 
 void CShotgun::Reload( void )
 {
-	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0 || m_iClip == SHOTGUN_MAX_CLIP)
+	if (m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 || m_iClip == SHOTGUN_MAX_CLIP)
 		return;
 
 	// don't reload until recoil is done
@@ -288,7 +277,7 @@ void CShotgun::Reload( void )
 	{
 		// Add them to the clip
 		m_iClip += 1;
-		m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] -= 1;
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= 1;
 		m_fInSpecialReload = 1;
 	}
 }
@@ -309,13 +298,14 @@ void CShotgun::WeaponIdle( void )
 
 	if (m_flTimeWeaponIdle <  UTIL_WeaponTimeBase() )
 	{
-		if (m_iClip == 0 && m_fInSpecialReload == 0 && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType])
+		if (m_iClip == 0 && m_fInSpecialReload == 0 && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
 		{
 			Reload( );
 		}
 		else if (m_fInSpecialReload != 0)
 		{
-			if (m_iClip != 8 && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType])
+			//TODO: magic number - Solokiller
+			if (m_iClip != 8 && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
 			{
 				Reload( );
 			}

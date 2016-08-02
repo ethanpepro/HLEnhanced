@@ -2,6 +2,7 @@ add_sources(
 	CAmmoTypes.h
 	CAmmoTypes.cpp
 	CBasePlayerItem.h
+	CBasePlayerItem.shared.cpp
 	CBasePlayerWeapon.h
 	CBasePlayerWeapon.shared.cpp
 	CCrossbow.h

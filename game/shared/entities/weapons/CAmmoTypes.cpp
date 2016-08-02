@@ -173,22 +173,3 @@ void CAmmoTypes::Clear()
 
 	m_NextID = FIRST_VALID_ID;
 }
-
-#ifdef SERVER_DLL
-void CAmmoTypes::SendAmmoTypes( CBasePlayer* const pPlayer ) const
-{
-	if( !pPlayer )
-		return;
-
-	for( auto pType : m_AmmoList )
-	{
-		MESSAGE_BEGIN( MSG_ONE, gmsgAmmoType, nullptr, pPlayer->edict() );
-
-			WRITE_STRING( pType->GetName() );
-			WRITE_BYTE( pType->GetID() );
-			WRITE_LONG( pType->GetMaxCarry() );
-
-		MESSAGE_END();
-	}
-}
-#endif

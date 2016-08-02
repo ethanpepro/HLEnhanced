@@ -25,11 +25,16 @@
 LINK_ENTITY_TO_CLASS( weapon_glock, CGlock );
 LINK_ENTITY_TO_CLASS( weapon_9mmhandgun, CGlock );
 
+CGlock::CGlock()
+	: BaseClass( WEAPON_GLOCK )
+{
+}
+
 void CGlock::Spawn( )
 {
 	pev->classname = MAKE_STRING("weapon_9mmhandgun"); // hack to allow for old names
 	Precache( );
-	m_iId = WEAPON_GLOCK;
+
 	SetModel( "models/w_9mmhandgun.mdl");
 
 	m_iDefaultAmmo = GLOCK_DEFAULT_GIVE;
@@ -40,6 +45,8 @@ void CGlock::Spawn( )
 
 void CGlock::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/v_9mmhandgun.mdl");
 	PRECACHE_MODEL("models/w_9mmhandgun.mdl");
 	PRECACHE_MODEL("models/p_9mmhandgun.mdl");
@@ -55,21 +62,6 @@ void CGlock::Precache( void )
 
 	m_usFireGlock1 = PRECACHE_EVENT( 1, "events/glock1.sc" );
 	m_usFireGlock2 = PRECACHE_EVENT( 1, "events/glock2.sc" );
-}
-
-bool CGlock::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "9mm";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = GLOCK_MAX_CLIP;
-	p->iSlot = 1;
-	p->iPosition = 0;
-	p->iFlags = 0;
-	p->iId = m_iId = WEAPON_GLOCK;
-	p->iWeight = GLOCK_WEIGHT;
-
-	return true;
 }
 
 bool CGlock::Deploy()
@@ -148,7 +140,7 @@ void CGlock::GlockFire( float flSpread , float flCycleTime, const bool fUseAutoA
 
 	m_flNextPrimaryAttack = m_flNextSecondaryAttack = GetNextAttackDelay(flCycleTime);
 
-	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (!m_iClip && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 

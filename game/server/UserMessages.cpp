@@ -16,6 +16,8 @@
 #include "util.h"
 #include "shake.h"
 
+#include "UserMessages.h"
+
 int gmsgShake = 0;
 int gmsgFade = 0;
 int gmsgFlashlight = 0;
@@ -53,7 +55,6 @@ int gmsgTeamNames = 0;
 
 int gmsgStatusText = 0;
 int gmsgStatusValue = 0;
-int gmsgAmmoType = 0;
 
 int gmsgReceiveW = 0;
 
@@ -101,9 +102,6 @@ void LinkUserMessages()
 
 	gmsgStatusText = REG_USER_MSG( "StatusText", -1 );
 	gmsgStatusValue = REG_USER_MSG( "StatusValue", 3 );
-
-	//Send ammo type data.
-	gmsgAmmoType = REG_USER_MSG( "AmmoType", -1 );
 
 	gmsgReceiveW = REG_USER_MSG( "ReceiveW", 1 );
 }

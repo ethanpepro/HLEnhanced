@@ -21,8 +21,9 @@ class CWeaponCycler : public CBasePlayerWeapon
 public:
 	DECLARE_CLASS( CWeaponCycler, CBasePlayerWeapon );
 
+	CWeaponCycler();
+
 	void Spawn( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override { return false; }
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;

@@ -337,10 +337,14 @@ void CTripmineGrenade::DelayDeathThink( void )
 
 LINK_ENTITY_TO_CLASS( weapon_tripmine, CTripmine );
 
+CTripmine::CTripmine()
+	: BaseClass( WEAPON_TRIPMINE )
+{
+}
+
 void CTripmine::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_TRIPMINE;
 	SetModel( "models/v_tripmine.mdl");
 	pev->frame = 0;
 	pev->body = 3;
@@ -360,26 +364,13 @@ void CTripmine::Spawn( )
 
 void CTripmine::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL ("models/v_tripmine.mdl");
 	PRECACHE_MODEL ("models/p_tripmine.mdl");
 	UTIL_PrecacheOther( "monster_tripmine" );
 
 	m_usTripFire = PRECACHE_EVENT( 1, "events/tripfire.sc" );
-}
-
-bool CTripmine::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "Trip Mine";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = WEAPON_NOCLIP;
-	p->iSlot = 4;
-	p->iPosition = 2;
-	p->iId = m_iId = WEAPON_TRIPMINE;
-	p->iWeight = TRIPMINE_WEIGHT;
-	p->iFlags = ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
-
-	return true;
 }
 
 bool CTripmine::Deploy()
@@ -393,10 +384,10 @@ void CTripmine::Holster( int skiplocal /* = 0 */ )
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 
-	if (!m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType])
+	if (!m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
 	{
 		// out of mines
-		m_pPlayer->pev->weapons &= ~(1<<WEAPON_TRIPMINE);
+		m_pPlayer->pev->weapons &= ~(1<<m_iId);
 		SetThink( &CTripmine::DestroyItem );
 		pev->nextthink = gpGlobals->time + 0.1;
 	}
@@ -407,7 +398,7 @@ void CTripmine::Holster( int skiplocal /* = 0 */ )
 
 void CTripmine::PrimaryAttack( void )
 {
-	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 		return;
 
 	UTIL_MakeVectors( m_pPlayer->pev->v_angle + m_pPlayer->pev->punchangle );
@@ -436,12 +427,12 @@ void CTripmine::PrimaryAttack( void )
 
 			CBaseEntity *pEnt = CBaseEntity::Create( "monster_tripmine", tr.vecEndPos + tr.vecPlaneNormal * 8, angles, m_pPlayer->edict() );
 
-			m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;
+			m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;
 
 			// player "shoot" animation
 			m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 			
-			if ( m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0 )
+			if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
 			{
 				// no more mines! 
 				RetireWeapon();
@@ -467,7 +458,7 @@ void CTripmine::WeaponIdle( void )
 	if ( m_flTimeWeaponIdle > UTIL_WeaponTimeBase() )
 		return;
 
-	if ( m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] > 0 )
+	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] > 0 )
 	{
 		SendWeaponAnim( TRIPMINE_DRAW );
 	}

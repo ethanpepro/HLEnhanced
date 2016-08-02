@@ -37,9 +37,10 @@ public:
 public:
 	DECLARE_CLASS( CHornetGun, CBasePlayerWeapon );
 
+	CHornetGun();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	void PrimaryAttack( void ) override;

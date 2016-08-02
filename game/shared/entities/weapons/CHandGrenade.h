@@ -32,9 +32,10 @@ class CHandGrenade : public CBasePlayerWeapon
 public:
 	DECLARE_CLASS( CHandGrenade, CBasePlayerWeapon );
 
+	CHandGrenade();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 
 	void PrimaryAttack( void ) override;
 	bool Deploy() override;

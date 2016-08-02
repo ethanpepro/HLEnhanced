@@ -36,9 +36,10 @@ class CCrossbow : public CBasePlayerWeapon
 public:
 	DECLARE_CLASS( CCrossbow, CBasePlayerWeapon );
 
+	CCrossbow();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 
 	void FireBolt( void );
 	void FireSniperBolt( void );

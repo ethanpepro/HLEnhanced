@@ -132,8 +132,6 @@ BEGIN_DATADESC( CBasePlayerWeapon )
 	DEFINE_FIELD( m_flNextSecondaryAttack, FIELD_TIME ),
 	DEFINE_FIELD( m_flTimeWeaponIdle, FIELD_TIME ),
 #endif	// CLIENT_WEAPONS
-	DEFINE_FIELD( m_iPrimaryAmmoType, FIELD_INTEGER ),
-	DEFINE_FIELD( m_iSecondaryAmmoType, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iClip, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iDefaultAmmo, FIELD_INTEGER ),
 	//	DEFINE_FIELD( m_iClientClip, FIELD_INTEGER )	 , reset to zero on load so hud gets updated correctly

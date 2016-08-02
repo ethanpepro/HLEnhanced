@@ -38,9 +38,10 @@ public:
 	DECLARE_DATADESC();
 #endif
 
+	CEgon();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	bool Deploy() override;

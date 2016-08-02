@@ -27,6 +27,10 @@
 LINK_ENTITY_TO_CLASS( weapon_mp5, CMP5 );
 LINK_ENTITY_TO_CLASS( weapon_9mmAR, CMP5 );
 
+CMP5::CMP5()
+	: BaseClass( WEAPON_MP5 )
+{
+}
 
 //=========================================================
 //=========================================================
@@ -35,7 +39,6 @@ void CMP5::Spawn( )
 	pev->classname = MAKE_STRING("weapon_9mmAR"); // hack to allow for old names
 	Precache( );
 	SetModel( "models/w_9mmAR.mdl");
-	m_iId = WEAPON_MP5;
 
 	m_iDefaultAmmo = MP5_DEFAULT_GIVE;
 
@@ -45,6 +48,8 @@ void CMP5::Spawn( )
 
 void CMP5::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/v_9mmAR.mdl");
 	PRECACHE_MODEL("models/w_9mmAR.mdl");
 	PRECACHE_MODEL("models/p_9mmAR.mdl");
@@ -70,21 +75,6 @@ void CMP5::Precache( void )
 
 	m_usMP5 = PRECACHE_EVENT( 1, "events/mp5.sc" );
 	m_usMP52 = PRECACHE_EVENT( 1, "events/mp52.sc" );
-}
-
-bool CMP5::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "9mm";
-	p->pszAmmo2 = "ARgrenades";
-	p->iMaxClip = MP5_MAX_CLIP;
-	p->iSlot = 2;
-	p->iPosition = 0;
-	p->iFlags = 0;
-	p->iId = m_iId = WEAPON_MP5;
-	p->iWeight = MP5_WEIGHT;
-
-	return true;
 }
 
 bool CMP5::AddToPlayer( CBasePlayer *pPlayer )
@@ -157,7 +147,7 @@ void CMP5::PrimaryAttack()
 
 	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usMP5, 0.0, g_vecZero, g_vecZero, vecDir.x, vecDir.y, 0, 0, 0, 0 );
 
-	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (!m_iClip && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 
@@ -181,7 +171,7 @@ void CMP5::SecondaryAttack( void )
 		return;
 	}
 
-	if (m_pPlayer->m_rgAmmo[m_iSecondaryAmmoType] == 0)
+	if (m_pPlayer->m_rgAmmo[ SecondaryAmmoIndex() ] == 0)
 	{
 		PlayEmptySound( );
 		return;
@@ -193,7 +183,7 @@ void CMP5::SecondaryAttack( void )
 	m_pPlayer->m_iExtraSoundTypes = bits_SOUND_DANGER;
 	m_pPlayer->m_flStopExtraSoundTime = UTIL_WeaponTimeBase() + 0.2;
 			
-	m_pPlayer->m_rgAmmo[m_iSecondaryAmmoType]--;
+	m_pPlayer->m_rgAmmo[ SecondaryAmmoIndex() ]--;
 
 	// player "shoot" animation
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
@@ -218,7 +208,7 @@ void CMP5::SecondaryAttack( void )
 	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 1;
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 5;// idle pretty soon after shooting.
 
-	if (!m_pPlayer->m_rgAmmo[m_iSecondaryAmmoType])
+	if (!m_pPlayer->m_rgAmmo[ SecondaryAmmoIndex() ])
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 }

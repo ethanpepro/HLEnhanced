@@ -159,6 +159,11 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( weapon_satchel, CSatchel );
 
+CSatchel::CSatchel()
+	: BaseClass( WEAPON_SATCHEL )
+{
+}
+
 //=========================================================
 // CALLED THROUGH the newly-touched weapon's instance. The existing player weapon is pOriginal
 //=========================================================
@@ -200,7 +205,6 @@ bool CSatchel::AddToPlayer( CBasePlayer *pPlayer )
 void CSatchel::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_SATCHEL;
 	SetModel( "models/w_satchel.mdl");
 
 	m_iDefaultAmmo = SATCHEL_DEFAULT_GIVE;
@@ -211,6 +215,8 @@ void CSatchel::Spawn( )
 
 void CSatchel::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/v_satchel.mdl");
 	PRECACHE_MODEL("models/v_satchel_radio.mdl");
 	PRECACHE_MODEL("models/w_satchel.mdl");
@@ -218,22 +224,6 @@ void CSatchel::Precache( void )
 	PRECACHE_MODEL("models/p_satchel_radio.mdl");
 
 	UTIL_PrecacheOther( "monster_satchel" );
-}
-
-
-bool CSatchel::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "Satchel Charge";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = WEAPON_NOCLIP;
-	p->iSlot = 4;
-	p->iPosition = 1;
-	p->iFlags = ITEM_FLAG_SELECTONEMPTY | ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
-	p->iId = m_iId = WEAPON_SATCHEL;
-	p->iWeight = SATCHEL_WEIGHT;
-
-	return true;
 }
 
 //=========================================================
@@ -302,9 +292,9 @@ void CSatchel::Holster( int skiplocal /* = 0 */ )
 	}
 	EMIT_SOUND( m_pPlayer, CHAN_WEAPON, "common/null.wav", 1.0, ATTN_NORM);
 
-	if ( !m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] && m_chargeReady == ChargeState::NONE )
+	if ( !m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] && m_chargeReady == ChargeState::NONE )
 	{
-		m_pPlayer->pev->weapons &= ~(1<<WEAPON_SATCHEL);
+		m_pPlayer->pev->weapons &= ~(1<<m_iId);
 		SetThink( &CSatchel::DestroyItem );
 		pev->nextthink = gpGlobals->time + 0.1;
 	}
@@ -354,7 +344,7 @@ void CSatchel::SecondaryAttack( void )
 
 void CSatchel::Throw( void )
 {
-	if ( m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] )
+	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )
 	{
 		Vector vecSrc = m_pPlayer->GetAbsOrigin();
 
@@ -378,7 +368,7 @@ void CSatchel::Throw( void )
 
 		m_chargeReady = ChargeState::DEPLOYED;
 		
-		m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;
 
 		m_flNextPrimaryAttack = GetNextAttackDelay(1.0);
 		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.5;
@@ -404,7 +394,7 @@ void CSatchel::WeaponIdle( void )
 		m_pPlayer->SetWeaponAnimType( "hive" );
 		break;
 	case ChargeState::TRIGGERED:
-		if ( !m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] )
+		if ( !m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )
 		{
 			m_chargeReady = ChargeState::NONE;
 			RetireWeapon();

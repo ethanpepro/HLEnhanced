@@ -190,13 +190,6 @@ public:
 	*/
 	void Clear();
 
-#ifdef SERVER_DLL
-	/**
-	*	Send ammo types to the given player.
-	*/
-	void SendAmmoTypes( CBasePlayer* const pPlayer ) const;
-#endif
-
 private:
 	/*
 	*	Maps a name to an index.

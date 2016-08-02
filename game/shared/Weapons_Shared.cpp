@@ -24,7 +24,33 @@
 
 #include "Weapons.h"
 
-ItemInfo CBasePlayerItem::ItemInfoArray[ MAX_WEAPONS ];
+#include "CWeaponInfoCache.h"
+#include "CWeaponInfo.h"
+
+void RegisterAmmoTypes()
+{
+	g_AmmoTypes.Clear();
+
+	g_AmmoTypes.SetCanAddAmmoTypes( true );
+
+	// Precaches the ammo and queues the ammo info for sending to clients
+	g_AmmoTypes.AddAmmoType( "buckshot", BUCKSHOT_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "9mm", _9MM_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "ARgrenades", M203_GRENADE_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "357", _357_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "uranium", URANIUM_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "rockets", ROCKET_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "bolts", BOLT_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Trip Mine", TRIPMINE_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Satchel Charge", SATCHEL_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Hand Grenade", HANDGRENADE_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Snarks", SNARK_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Hornets", HORNET_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "762", NATO762_MAX_CARRY );
+
+	//No more letting weapons define ammo types. - Solokiller
+	g_AmmoTypes.SetCanAddAmmoTypes( false );
+}
 
 // Precaches the weapon and queues the weapon info for sending to clients
 void UTIL_PrecacheOtherWeapon( const char* const pszClassname )
@@ -38,13 +64,7 @@ void UTIL_PrecacheOtherWeapon( const char* const pszClassname )
 		return;
 	}
 
-	ItemInfo II;
 	pEntity->Precache();
-	memset( &II, 0, sizeof II );
-	if( ( ( CBasePlayerItem* ) pEntity )->GetItemInfo( &II ) )
-	{
-		CBasePlayerItem::ItemInfoArray[ II.iId ] = II;
-	}
 
 	UTIL_RemoveNow( pEntity );
 #else
@@ -76,22 +96,15 @@ void UTIL_PrecacheOtherWeapon( const char* const pszClassname )
 		return;
 	}
 
-	ItemInfo II;
-	pEntity->Precache();
-	memset( &II, 0, sizeof II );
-	if( pWeapon->GetItemInfo( &II ) )
-	{
-		CBasePlayerItem::ItemInfoArray[ II.iId ] = II;
-	}
+	pWeapon->Spawn();
 
 	HUD_AddWeapon( pWeapon );
-
 #endif
 }
 
 void PrecacheWeapons()
 {
-	memset( CBasePlayerItem::ItemInfoArray, 0, sizeof( CBasePlayerItem::ItemInfoArray ) );
+	g_WeaponInfoCache.ClearInfos();
 
 	//TODO: weapons and ammo could be added to a list that is enumerated. Would make things like cheats and map config parsers easier to write - Solokiller
 

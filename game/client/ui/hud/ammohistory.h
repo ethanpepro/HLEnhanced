@@ -93,8 +93,6 @@ public:
 	int CountAmmo( int iId ) const;
 
 	HSPRITE* GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect );
-
-	int MsgFunc_AmmoType( const char* pszName, int iSize, void* pBuf );
 };
 
 extern WeaponsResource gWR;

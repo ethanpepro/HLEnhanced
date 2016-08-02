@@ -866,8 +866,6 @@ int GetWeaponData( edict_t* pEntity, weapon_data_t* pInfo )
 	weapon_data_t *item;
 	auto pPlayer = static_cast<CBasePlayer*>( CBasePlayer::Instance( pEntity ) );
 	CBasePlayerWeapon *gun;
-	
-	ItemInfo II;
 
 	memset( pInfo, 0, MAX_WEAPONS * sizeof( weapon_data_t ) );
 
@@ -887,15 +885,11 @@ int GetWeaponData( edict_t* pEntity, weapon_data_t* pInfo )
 				gun = pPlayerItem->GetWeaponPtr();
 				if ( gun && gun->UseDecrement() )
 				{
-					// Get The ID.
-					memset( &II, 0, sizeof( II ) );
-					gun->GetItemInfo( &II );
-
-					if ( II.iId >= 0 && II.iId < MAX_WEAPONS )
+					if ( gun->m_iId >= 0 && gun->m_iId < MAX_WEAPONS )
 					{
-						item = &pInfo[ II.iId ];
+						item = &pInfo[ gun->m_iId ];
 					 	
-						item->m_iId = II.iId;
+						item->m_iId = gun->m_iId;
 
 						gun->GetWeaponData( *item );
 					}
@@ -1001,20 +995,19 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 
 			if ( pl->m_pActiveItem )
 			{
-				CBasePlayerWeapon *gun;
-				gun = (CBasePlayerWeapon *)pl->m_pActiveItem->GetWeaponPtr();
+				CBasePlayerWeapon* gun = pl->m_pActiveItem->GetWeaponPtr();
+
 				if ( gun && gun->UseDecrement() )
 				{
-					ItemInfo II;
-					memset( &II, 0, sizeof( II ) );
-					gun->GetItemInfo( &II );
+					const CWeaponInfo* pInfo = gun->GetWeaponInfo();
 
-					cd->m_iId = II.iId;
+					cd->m_iId = gun->m_iId;
 
-					cd->vuser3.z	= gun->m_iSecondaryAmmoType;
-					cd->vuser4.x	= gun->m_iPrimaryAmmoType;
-					cd->vuser4.y	= pl->m_rgAmmo[gun->m_iPrimaryAmmoType];
-					cd->vuser4.z	= pl->m_rgAmmo[gun->m_iSecondaryAmmoType];
+					if( auto pPrimaryAmmo = pInfo->GetPrimaryAmmo() )
+						cd->vuser4.y = pl->m_rgAmmo[ pPrimaryAmmo->GetID() ];
+
+					if( auto pSecondaryAmmo = pInfo->GetSecondaryAmmo() )
+						cd->vuser4.z = pl->m_rgAmmo[ pSecondaryAmmo->GetID() ];
 					
 					if ( pl->m_pActiveItem->m_iId == WEAPON_RPG )
 					{

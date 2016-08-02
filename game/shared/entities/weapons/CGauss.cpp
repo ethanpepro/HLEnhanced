@@ -36,6 +36,11 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( weapon_gauss, CGauss );
 
+CGauss::CGauss()
+	: BaseClass( WEAPON_GAUSS )
+{
+}
+
 float CGauss::GetFullChargeTime( void )
 {
 	if ( bIsMultiplayer() )
@@ -53,7 +58,6 @@ extern bool g_brunninggausspred;
 void CGauss::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_GAUSS;
 	SetModel( "models/w_gauss.mdl");
 
 	m_iDefaultAmmo = GAUSS_DEFAULT_GIVE;
@@ -64,6 +68,8 @@ void CGauss::Spawn( )
 
 void CGauss::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/w_gauss.mdl");
 	PRECACHE_MODEL("models/v_gauss.mdl");
 	PRECACHE_MODEL("models/p_gauss.mdl");
@@ -96,21 +102,6 @@ bool CGauss::AddToPlayer( CBasePlayer *pPlayer )
 	return false;
 }
 
-bool CGauss::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "uranium";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = WEAPON_NOCLIP;
-	p->iSlot = 3;
-	p->iPosition = 1;
-	p->iId = m_iId = WEAPON_GAUSS;
-	p->iFlags = 0;
-	p->iWeight = GAUSS_WEIGHT;
-
-	return true;
-}
-
 bool CGauss::Deploy()
 {
 	m_pPlayer->m_flPlayAftershock = 0.0;
@@ -138,7 +129,7 @@ void CGauss::PrimaryAttack()
 		return;
 	}
 
-	if ( m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] < 2 )
+	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] < 2 )
 	{
 		PlayEmptySound( );
 		m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
@@ -148,7 +139,7 @@ void CGauss::PrimaryAttack()
 	m_pPlayer->m_iWeaponVolume = GAUSS_PRIMARY_FIRE_VOLUME;
 	m_fPrimaryFire = true;
 
-	m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] -= 2;
+	m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= 2;
 
 	StartFire();
 	m_InAttack = AttackState::NOT_ATTACKING;
@@ -178,7 +169,7 @@ void CGauss::SecondaryAttack()
 
 	if ( m_InAttack == AttackState::NOT_ATTACKING )
 	{
-		if ( m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0 )
+		if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
 		{
 			EMIT_SOUND( m_pPlayer, CHAN_WEAPON, "weapons/357_cock1.wav", 0.8, ATTN_NORM);
 			m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
@@ -187,7 +178,7 @@ void CGauss::SecondaryAttack()
 
 		m_fPrimaryFire = false;
 
-		m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;// take one ammo just to start the spin
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;// take one ammo just to start the spin
 		m_pPlayer->m_flNextAmmoBurn = UTIL_WeaponTimeBase();
 
 		// spin up
@@ -218,17 +209,17 @@ void CGauss::SecondaryAttack()
 		{
 			if ( bIsMultiplayer() )
 			{
-				m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;
+				m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;
 				m_pPlayer->m_flNextAmmoBurn = UTIL_WeaponTimeBase() + 0.1;
 			}
 			else
 			{
-				m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;
+				m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;
 				m_pPlayer->m_flNextAmmoBurn = UTIL_WeaponTimeBase() + 0.3;
 			}
 		}
 
-		if ( m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0 )
+		if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
 		{
 			// out of ammo! force the gun to fire
 			StartFire();

@@ -49,10 +49,14 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( weapon_egon, CEgon );
 
+CEgon::CEgon()
+	: BaseClass( WEAPON_EGON )
+{
+}
+
 void CEgon::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_EGON;
 	SetModel( "models/w_egon.mdl");
 
 	m_iDefaultAmmo = EGON_DEFAULT_GIVE;
@@ -63,6 +67,8 @@ void CEgon::Spawn( )
 
 void CEgon::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/w_egon.mdl");
 	PRECACHE_MODEL("models/v_egon.mdl");
 	PRECACHE_MODEL("models/p_egon.mdl");
@@ -113,21 +119,6 @@ void CEgon::Holster( int skiplocal /* = 0 */ )
     EndAttack();
 }
 
-bool CEgon::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "uranium";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = WEAPON_NOCLIP;
-	p->iSlot = 3;
-	p->iPosition = 2;
-	p->iId = m_iId = WEAPON_EGON;
-	p->iFlags = 0;
-	p->iWeight = EGON_WEIGHT;
-
-	return true;
-}
-
 #define EGON_PULSE_INTERVAL			0.1
 #define EGON_DISCHARGE_INTERVAL		0.1
 
@@ -151,10 +142,10 @@ bool CEgon::HasAmmo() const
 
 void CEgon::UseAmmo( int count )
 {
-	if ( m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] >= count )
-		m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] -= count;
+	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] >= count )
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= count;
 	else
-		m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] = 0;
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] = 0;
 }
 
 void CEgon::Attack( void )

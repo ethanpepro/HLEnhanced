@@ -144,31 +144,6 @@ void ExplodeModel( const Vector &vecOrigin, float speed, int model, int count )
 }
 #endif
 
-void RegisterAmmoTypes()
-{
-	g_AmmoTypes.Clear();
-
-	g_AmmoTypes.SetCanAddAmmoTypes( true );
-
-	// Precaches the ammo and queues the ammo info for sending to clients
-	g_AmmoTypes.AddAmmoType( "buckshot", BUCKSHOT_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "9mm", _9MM_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "ARgrenades", M203_GRENADE_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "357", _357_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "uranium", URANIUM_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "rockets", ROCKET_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "bolts", BOLT_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "Trip Mine", TRIPMINE_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "Satchel Charge", SATCHEL_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "Hand Grenade", HANDGRENADE_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "Snarks", SNARK_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "Hornets", HORNET_MAX_CARRY );
-	g_AmmoTypes.AddAmmoType( "762", NATO762_MAX_CARRY );
-
-	//No more letting weapons define ammo types. - Solokiller
-	g_AmmoTypes.SetCanAddAmmoTypes( false );
-}
-
 // called by worldspawn
 void W_Precache()
 {

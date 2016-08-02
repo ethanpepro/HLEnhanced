@@ -15,14 +15,18 @@
 #ifndef GAME_SHARED_ENTITIES_WEAPONS_CBASEPLAYERITEM_H
 #define GAME_SHARED_ENTITIES_WEAPONS_CBASEPLAYERITEM_H
 
+#include "CWeaponInfo.h"
+
 /**
-*	Flag values for ItemInfo::iFlags
-*	@see ItemInfo
+*	Flag values for CWeaponData::m_iFlags
+*	@see CWeaponData
 */
 enum ItemInfoFlag
 {
+	ITEM_FLAG_NONE			= 0,
 	/**
 	*	Not used.
+	*	TODO: should be repurposed for replenishing weapons (e.g. hornet gun) - Solokiller
 	*/
 	ITEM_FLAG_SELECTONEMPTY = 1,
 
@@ -48,62 +52,18 @@ enum ItemInfoFlag
 	ITEM_FLAG_EXHAUSTIBLE = 16,
 };
 
-#define WEAPON_IS_ONTARGET 0x40
+/**
+*	Converts the given item info flag to a string representation.
+*/
+const char* ItemInfoFlagToString( const ItemInfoFlag flag );
 
 /**
-*	Contains item info that describes its HUD data and ammo types.
+*	Converts the given string to an item info flag.
+*	@return Item info flag, or ITEM_FLAG_NONE if the string didn't match any other constant.
 */
-struct ItemInfo
-{
-	/**
-	*	Bucket to place the weapon in.
-	*	@see MAX_WEAPON_SLOTS
-	*/
-	int iSlot;
+ItemInfoFlag StringToItemInfoFlag( const char* const pszString );
 
-	/**
-	*	Position in the bucket to place the weapon in.
-	*	@see MAX_WEAPON_POSITIONS
-	*/
-	int iPosition;
-
-	/**
-	*	Ammo 1 type
-	*/
-	const char* pszAmmo1;
-
-	/**
-	*	Ammo 2 type
-	*/
-	const char* pszAmmo2;
-
-	/**
-	*	Entity class name.
-	*/
-	const char* pszName;
-
-	/**
-	*	Maximum number of bullets in the primary ammo clip.
-	*/
-	int iMaxClip;
-
-	/**
-	*	Weapon ID.
-	*	@see WeaponId
-	*/
-	int iId;
-
-	/**
-	*	Item flags.
-	*	@see ItemInfoFlag
-	*/
-	int iFlags;
-
-	/**
-	*	This value used to determine this weapon's importance in autoselection.
-	*/
-	int iWeight;
-};
+#define WEAPON_IS_ONTARGET 0x40
 
 class CBasePlayerWeapon;
 
@@ -113,6 +73,17 @@ class CBasePlayerItem : public CBaseAnimating
 public:
 	DECLARE_CLASS( CBasePlayerItem, CBaseAnimating );
 	DECLARE_DATADESC();
+
+	/**
+	*	Constructor.
+	*	@param iID The weapon ID.
+	*/
+	CBasePlayerItem( const int iID );
+
+	/**
+	*	Must be called by subclasses.
+	*/
+	void Precache() override;
 
 	virtual void SetObjectCollisionBox( void ) override;
 
@@ -126,7 +97,6 @@ public:
 	CBaseEntity* Respawn( void ) override;// copy a weapon
 	void FallInit( void );
 	void CheckRespawn( void );
-	virtual bool GetItemInfo( ItemInfo* p ) { return false; } // returns false if struct not filled out
 	virtual bool CanDeploy() const { return true; }
 	// returns if deploy was successful
 	virtual bool Deploy() { return true; }
@@ -142,33 +112,33 @@ public:
 	virtual void Kill( void );
 	virtual void AttachToPlayer( CBasePlayer *pPlayer );
 
-	virtual int PrimaryAmmoIndex() const { return -1; }
-	virtual int SecondaryAmmoIndex() const { return -1; }
+	int PrimaryAmmoIndex() const;
+	int SecondaryAmmoIndex() const;
 
 	virtual bool UpdateClientData( CBasePlayer *pPlayer ) { return false; }
 
 	virtual CBasePlayerWeapon* GetWeaponPtr() { return nullptr; }
 
-	static ItemInfo ItemInfoArray[ MAX_WEAPONS ];
-
 	CBasePlayer	*m_pPlayer;
 	CBasePlayerItem *m_pNext;
-	int		m_iId;												// WEAPON_???
+	const int m_iId;												// WEAPON_???
 
 	/**
 	*	@eturn 0 to MAX_ITEMS_SLOTS, used in hud.
 	*/
-	int			iItemSlot() const { return ItemInfoArray[ m_iId ].iSlot; }
-	int			iItemPosition() const { return ItemInfoArray[ m_iId ].iPosition; }
-	const char	*pszAmmo1() const { return ItemInfoArray[ m_iId ].pszAmmo1; }
-	const char	*pszAmmo2() const { return ItemInfoArray[ m_iId ].pszAmmo2; }
-	const char	*pszName() const { return ItemInfoArray[ m_iId ].pszName; }
-	int			iMaxClip() const { return ItemInfoArray[ m_iId ].iMaxClip; }
-	int			iWeight() const { return ItemInfoArray[ m_iId ].iWeight; }
-	int			iFlags() const { return ItemInfoArray[ m_iId ].iFlags; }
+	int			iItemSlot() const { return m_pWeaponInfo->GetBucket(); }
+	int			iItemPosition() const { return m_pWeaponInfo->GetPosition(); }
+	const char	*pszAmmo1() const { return m_pWeaponInfo->GetPrimaryAmmoName(); }
+	const char	*pszAmmo2() const { return m_pWeaponInfo->GetSecondaryAmmoName(); }
+	const char	*pszName() const { return m_pWeaponInfo->GetWeaponName(); }
+	int			iMaxClip() const { return m_pWeaponInfo->GetMaxMagazine(); }
+	int			iWeight() const { return m_pWeaponInfo->GetWeight(); }
+	int			iFlags() const { return m_pWeaponInfo->GetFlags(); }
 
-	// int		m_iIdPrimary;										// Unique Id for primary ammo
-	// int		m_iIdSecondary;										// Unique Id for secondary ammo
+	const CWeaponInfo* GetWeaponInfo() const { return m_pWeaponInfo; }
+
+private:
+	const CWeaponInfo* m_pWeaponInfo = nullptr;
 };
 
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CBASEPLAYERITEM_H

@@ -36,6 +36,11 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( weapon_rpg, CRpg );
 
+CRpg::CRpg()
+	: BaseClass( WEAPON_RPG )
+{
+}
+
 void CRpg::Reload( void )
 {
 	if ( m_iClip == 1 )
@@ -88,7 +93,6 @@ void CRpg::Reload( void )
 void CRpg::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_RPG;
 
 	SetModel( "models/w_rpg.mdl");
 	m_fSpotActive = 1;
@@ -109,6 +113,8 @@ void CRpg::Spawn( )
 
 void CRpg::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/w_rpg.mdl");
 	PRECACHE_MODEL("models/v_rpg.mdl");
 	PRECACHE_MODEL("models/p_rpg.mdl");
@@ -122,22 +128,6 @@ void CRpg::Precache( void )
 	PRECACHE_SOUND("weapons/glauncher.wav"); // alternative fire sound
 
 	m_usRpg = PRECACHE_EVENT ( 1, "events/rpg.sc" );
-}
-
-
-bool CRpg::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "rockets";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = RPG_MAX_CLIP;
-	p->iSlot = 3;
-	p->iPosition = 0;
-	p->iId = m_iId = WEAPON_RPG;
-	p->iFlags = 0;
-	p->iWeight = RPG_WEIGHT;
-
-	return true;
 }
 
 bool CRpg::AddToPlayer( CBasePlayer *pPlayer )
@@ -264,7 +254,7 @@ void CRpg::WeaponIdle( void )
 	if ( m_flTimeWeaponIdle > UTIL_WeaponTimeBase() )
 		return;
 
-	if ( m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType])
+	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
 	{
 		int iAnim;
 		float flRand = UTIL_SharedRandomFloat( m_pPlayer->random_seed, 0, 1 );

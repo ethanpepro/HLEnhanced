@@ -1,9 +1,9 @@
 #include "extdll.h"
 #include "util.h"
+#include "cbase.h"
+#include "Weapons.h"
 
 #include "CMap.h"
-
-void RegisterAmmoTypes();
 
 CMap* CMap::m_pInstance = nullptr;
 

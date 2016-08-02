@@ -219,10 +219,14 @@ void CCrossbowBolt::ExplodeThink( void )
 
 LINK_ENTITY_TO_CLASS( weapon_crossbow, CCrossbow );
 
+CCrossbow::CCrossbow()
+	: BaseClass( WEAPON_CROSSBOW )
+{
+}
+
 void CCrossbow::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_CROSSBOW;
 	SetModel( "models/w_crossbow.mdl");
 
 	m_iDefaultAmmo = CROSSBOW_DEFAULT_GIVE;
@@ -244,6 +248,8 @@ bool CCrossbow::AddToPlayer( CBasePlayer *pPlayer )
 
 void CCrossbow::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/w_crossbow.mdl");
 	PRECACHE_MODEL("models/v_crossbow.mdl");
 	PRECACHE_MODEL("models/p_crossbow.mdl");
@@ -256,22 +262,6 @@ void CCrossbow::Precache( void )
 	m_usCrossbow = PRECACHE_EVENT( 1, "events/crossbow1.sc" );
 	m_usCrossbow2 = PRECACHE_EVENT( 1, "events/crossbow2.sc" );
 }
-
-
-bool CCrossbow::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "bolts";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = CROSSBOW_MAX_CLIP;
-	p->iSlot = 2;
-	p->iPosition = 2;
-	p->iId = WEAPON_CROSSBOW;
-	p->iFlags = 0;
-	p->iWeight = CROSSBOW_WEIGHT;
-	return true;
-}
-
 
 bool CCrossbow::Deploy()
 {
@@ -330,7 +320,7 @@ void CCrossbow::FireSniperBolt()
 	flags = 0;
 #endif
 
-	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usCrossbow2, 0.0, g_vecZero, g_vecZero, 0, 0, m_iClip, m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType], 0, 0 );
+	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usCrossbow2, 0.0, g_vecZero, g_vecZero, 0, 0, m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ], 0, 0 );
 
 	// player "shoot" animation
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
@@ -373,7 +363,7 @@ void CCrossbow::FireBolt()
 	flags = 0;
 #endif
 
-	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usCrossbow, 0.0, g_vecZero, g_vecZero, 0, 0, m_iClip, m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType], 0, 0 );
+	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usCrossbow, 0.0, g_vecZero, g_vecZero, 0, 0, m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ], 0, 0 );
 
 	// player "shoot" animation
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
@@ -404,7 +394,7 @@ void CCrossbow::FireBolt()
 	pBolt->pev->avelocity.z = 10;
 #endif
 
-	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (!m_iClip && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 

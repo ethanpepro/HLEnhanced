@@ -14,6 +14,11 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( weapon_sniperrifle, CSniperRifle );
 
+CSniperRifle::CSniperRifle()
+	: BaseClass( WEAPON_SNIPERRIFLE )
+{
+}
+
 void CSniperRifle::Precache()
 {
 	BaseClass::Precache();
@@ -40,28 +45,11 @@ void CSniperRifle::Spawn()
 	//Give it a name so it works on the client side - Solokiller
 	pev->classname = MAKE_STRING( "weapon_sniperrifle" );
 
-	m_iId = WEAPON_SNIPERRIFLE;
-
 	SetModel( "models/w_m40a1.mdl" );
 
 	m_iDefaultAmmo = SNIPERRIFLE_DEFAULT_GIVE;
 
 	FallInit(); // get ready to fall down.
-}
-
-bool CSniperRifle::GetItemInfo( ItemInfo* pInfo )
-{
-	pInfo->pszName = GetClassname();
-	pInfo->pszAmmo1 = "762";
-	pInfo->pszAmmo2 = nullptr;
-	pInfo->iMaxClip = SNIPERRIFLE_MAX_CLIP;
-	pInfo->iSlot = 5;
-	pInfo->iPosition = 2;
-	pInfo->iFlags = 0;
-	pInfo->iId = m_iId = WEAPON_SNIPERRIFLE;
-	pInfo->iWeight = SNIPERRIFLE_WEIGHT;
-
-	return true;
 }
 
 bool CSniperRifle::AddToPlayer( CBasePlayer* pPlayer )
@@ -168,7 +156,7 @@ void CSniperRifle::PrimaryAttack()
 							m_pPlayer->edict(), m_usSniper, 0, 
 							g_vecZero, g_vecZero, 
 							vecShot.x, vecShot.y, 
-							m_iClip, m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ],
+							m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ],
 							0, 0 );
 
 	m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 2.0f;
@@ -191,7 +179,7 @@ void CSniperRifle::SecondaryAttack()
 
 void CSniperRifle::Reload()
 {
-	if( m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] > 0 )
+	if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] > 0 )
 	{
 		if( m_iClip )
 		{

@@ -39,10 +39,11 @@ public:
 	DECLARE_DATADESC();
 #endif
 
+	CRpg();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void Reload( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	bool Deploy() override;

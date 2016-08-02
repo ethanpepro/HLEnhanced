@@ -24,19 +24,9 @@
 LINK_ENTITY_TO_CLASS( weapon_python, CPython );
 LINK_ENTITY_TO_CLASS( weapon_357, CPython );
 
-bool CPython::GetItemInfo( ItemInfo* p )
+CPython::CPython()
+	: BaseClass( WEAPON_PYTHON )
 {
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "357";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = PYTHON_MAX_CLIP;
-	p->iFlags = 0;
-	p->iSlot = 1;
-	p->iPosition = 1;
-	p->iId = m_iId = WEAPON_PYTHON;
-	p->iWeight = PYTHON_WEIGHT;
-
-	return true;
 }
 
 bool CPython::AddToPlayer( CBasePlayer *pPlayer )
@@ -55,7 +45,6 @@ void CPython::Spawn( )
 {
 	pev->classname = MAKE_STRING("weapon_357"); // hack to allow for old names
 	Precache( );
-	m_iId = WEAPON_PYTHON;
 	SetModel( "models/w_357.mdl");
 
 	m_iDefaultAmmo = PYTHON_DEFAULT_GIVE;
@@ -66,6 +55,8 @@ void CPython::Spawn( )
 
 void CPython::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/v_357.mdl");
 	PRECACHE_MODEL("models/w_357.mdl");
 	PRECACHE_MODEL("models/p_357.mdl");
@@ -183,7 +174,7 @@ void CPython::PrimaryAttack()
 
 	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usFirePython, 0.0, g_vecZero, g_vecZero, vecDir.x, vecDir.y, 0, 0, 0, 0 );
 
-	if (!m_iClip && m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (!m_iClip && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 

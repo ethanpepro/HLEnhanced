@@ -25,10 +25,10 @@ public:
 	DECLARE_CLASS( CSniperRifle, CBasePlayerWeapon );
 	DECLARE_DATADESC();
 
+	CSniperRifle();
+
 	void Precache() override;
 	void Spawn() override;
-
-	bool GetItemInfo( ItemInfo* pInfo ) override;
 
 	bool AddToPlayer( CBasePlayer* pPlayer ) override;
 

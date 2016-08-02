@@ -57,11 +57,11 @@ bool CBasePlayerWeapon::CanDeploy() const
 
 	if( pszAmmo1() )
 	{
-		bHasAmmo |= ( m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] != 0 );
+		bHasAmmo |= ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] != 0 );
 	}
 	if( pszAmmo2() )
 	{
-		bHasAmmo |= ( m_pPlayer->m_rgAmmo[ m_iSecondaryAmmoType ] != 0 );
+		bHasAmmo |= ( m_pPlayer->m_rgAmmo[ SecondaryAmmoIndex() ] != 0 );
 	}
 	if( m_iClip > 0 )
 	{

@@ -93,9 +93,6 @@ void HUD_AddWeapon( CBasePlayerWeapon* pWeapon )
 	if( !pWeapon )
 		return;
 
-	pWeapon->Precache();
-	pWeapon->Spawn();
-
 	if( g_pWpns[ pWeapon->m_iId ] )
 	{
 		Alert( at_warning, "HUD_AddWeapon: Weapon \"%s\" already in slot %d, overwriting!\n", pWeapon->GetClassname(), pWeapon->m_iId );
@@ -184,10 +181,11 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 		pCurrent->SetWeaponData( *pfrom );
 
 		//TODO: this doesn't look right. What if pCurrent isn't the current weapon? - Solokiller
-		pCurrent->m_iSecondaryAmmoType		= (int)from->client.vuser3[ 2 ];
-		pCurrent->m_iPrimaryAmmoType		= (int)from->client.vuser4[ 0 ];
-		player.m_rgAmmo[ pCurrent->m_iPrimaryAmmoType ]	= (int)from->client.vuser4[ 1 ];
-		player.m_rgAmmo[ pCurrent->m_iSecondaryAmmoType ]	= (int)from->client.vuser4[ 2 ];
+		if( pCurrent->PrimaryAmmoIndex() != WEAPON_NOCLIP )
+			player.m_rgAmmo[ pCurrent->PrimaryAmmoIndex() ]	= (int)from->client.vuser4[ 1 ];
+
+		if( pCurrent->SecondaryAmmoIndex() != WEAPON_NOCLIP )
+			player.m_rgAmmo[ pCurrent->SecondaryAmmoIndex() ]	= (int)from->client.vuser4[ 2 ];
 	}
 
 	// For random weapon events, use this seed to seed random # generator
@@ -356,10 +354,8 @@ void HUD_WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cm
 		pto->m_flTimeWeaponIdle			-= cmd->msec / 1000.0;
 		pto->fuser1						-= cmd->msec / 1000.0;
 
-		to->client.vuser3[2]				= pCurrent->m_iSecondaryAmmoType;
-		to->client.vuser4[0]				= pCurrent->m_iPrimaryAmmoType;
-		to->client.vuser4[1]				= player.m_rgAmmo[ pCurrent->m_iPrimaryAmmoType ];
-		to->client.vuser4[2]				= player.m_rgAmmo[ pCurrent->m_iSecondaryAmmoType ];
+		to->client.vuser4[1]				= pCurrent->PrimaryAmmoIndex() != WEAPON_NOCLIP ? player.m_rgAmmo[ pCurrent->PrimaryAmmoIndex() ] : 0;
+		to->client.vuser4[2]				= pCurrent->SecondaryAmmoIndex() != WEAPON_NOCLIP ? player.m_rgAmmo[ pCurrent->SecondaryAmmoIndex() ] : 0;
 
 /*		if ( pto->m_flPumpTime != -9999 )
 		{

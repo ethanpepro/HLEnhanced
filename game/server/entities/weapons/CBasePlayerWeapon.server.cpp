@@ -13,13 +13,6 @@ bool CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer )
 
 	pPlayer->pev->weapons |= ( 1 << m_iId );
 
-	if( !m_iPrimaryAmmoType )
-	{
-		m_iPrimaryAmmoType = pPlayer->GetAmmoIndex( pszAmmo1() );
-		m_iSecondaryAmmoType = pPlayer->GetAmmoIndex( pszAmmo2() );
-	}
-
-
 	if( bResult )
 		return AddWeapon();
 	return false;
@@ -112,7 +105,6 @@ bool CBasePlayerWeapon::AddPrimaryAmmo( int iCount, const char *szName, int iMax
 
 	if( iIdAmmo > 0 )
 	{
-		m_iPrimaryAmmoType = iIdAmmo;
 		if( m_pPlayer->HasPlayerItem( this ) )
 		{
 			// play the "got ammo" sound only if we gave some ammo to a player that already had this gun.
@@ -135,7 +127,6 @@ bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, const char *szName )
 
 	if( iIdAmmo > 0 )
 	{
-		m_iSecondaryAmmoType = iIdAmmo;
 		EMIT_SOUND( this, CHAN_ITEM, "items/9mmclip1.wav", 1, ATTN_NORM );
 	}
 	return iIdAmmo > 0;
@@ -171,7 +162,7 @@ bool CBasePlayerWeapon::IsUseable()
 {
 	if( m_iClip <= 0 )
 	{
-		if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 && ( m_pPrimaryAmmo && m_pPrimaryAmmo->GetMaxCarry() != -1 ) )
+		if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 && ( GetWeaponInfo()->GetPrimaryAmmo() && GetWeaponInfo()->GetPrimaryAmmo()->GetMaxCarry() != -1 ) )
 		{
 			// clip is empty (or nonexistant) and the player has no more ammo of this type. 
 			return false;
@@ -202,10 +193,10 @@ bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const cha
 
 bool CBasePlayerWeapon::DefaultReload( int iClipSize, int iAnim, float fDelay, int body )
 {
-	if( m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] <= 0 )
+	if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
 		return false;
 
-	int j = min( iClipSize - m_iClip, m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] );
+	int j = min( iClipSize - m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] );
 
 	if( j == 0 )
 		return false;
@@ -242,11 +233,11 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 	if( ( m_fInReload ) && ( m_pPlayer->m_flNextAttack <= UTIL_WeaponTimeBase() ) )
 	{
 		// complete the reload. 
-		int j = min( iMaxClip() - m_iClip, m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] );
+		int j = min( iMaxClip() - m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] );
 
 		// Add them to the clip
 		m_iClip += j;
-		m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] -= j;
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= j;
 
 		m_pPlayer->TabulateAmmo();
 
@@ -393,21 +384,6 @@ void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
 	m_fInReload = false; // cancel any reload in progress.
 	m_pPlayer->pev->viewmodel = 0;
 	m_pPlayer->pev->weaponmodel = 0;
-}
-
-//=========================================================
-//=========================================================
-int CBasePlayerWeapon::PrimaryAmmoIndex() const
-{
-	return m_iPrimaryAmmoType;
-}
-
-//=========================================================
-//=========================================================
-int CBasePlayerWeapon::SecondaryAmmoIndex() const
-{
-	//Used to return -1 unconditionally. - Solokiller
-	return m_iSecondaryAmmoType;
 }
 
 void CBasePlayerWeapon::PrintState( void )

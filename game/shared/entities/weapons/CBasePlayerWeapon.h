@@ -22,25 +22,9 @@ public:
 	DECLARE_CLASS( CBasePlayerWeapon, CBasePlayerItem );
 	DECLARE_DATADESC();
 
-	CBasePlayerWeapon()
-		: m_iSecondaryAmmoType( -1 ) //Default to -1 to achieve SDK behavior - Solokiller
+	CBasePlayerWeapon( const int iID )
+		: BaseClass( iID )
 	{
-	}
-
-	virtual void OnCreate() override
-	{
-		BaseClass::OnCreate();
-
-		ItemInfo II;
-
-		memset( &II, 0, sizeof( II ) );
-
-		//Set up the ammo types. - Solokiller
-		if( GetItemInfo( &II ) )
-		{
-			m_pPrimaryAmmo = g_AmmoTypes.GetAmmoTypeByName( II.pszAmmo1 );
-			m_pSecondaryAmmo = g_AmmoTypes.GetAmmoTypeByName( II.pszAmmo2 );
-		}
 	}
 
 	// generic weapon versions of CBasePlayerItem calls
@@ -83,9 +67,6 @@ public:
 	virtual void Holster( int skiplocal = 0 );
 	virtual bool UseDecrement() const { return false; }
 
-	int	PrimaryAmmoIndex() const;
-	int	SecondaryAmmoIndex() const;
-
 	void PrintState( void );
 
 	CBasePlayerWeapon* GetWeaponPtr() override { return this; }
@@ -106,8 +87,6 @@ public:
 	float	m_flNextPrimaryAttack;								// soonest time ItemPostFrame will call PrimaryAttack
 	float	m_flNextSecondaryAttack;							// soonest time ItemPostFrame will call SecondaryAttack
 	float	m_flTimeWeaponIdle;									// soonest time ItemPostFrame will call WeaponIdle
-	int		m_iPrimaryAmmoType;									// "primary" ammo index into players m_rgAmmo[]
-	int		m_iSecondaryAmmoType;								// "secondary" ammo index into players m_rgAmmo[]
 	int		m_iClip;											// number of shots left in the primary weapon clip, -1 it not used
 	int		m_iClientClip;										// the last version of m_iClip sent to hud dll
 	int		m_iClientWeaponState;								// the last version of the weapon state sent to hud dll (is current weapon, is on target)
@@ -118,16 +97,6 @@ public:
 						   // hle time creep vars
 	float	m_flPrevPrimaryAttack;
 	float	m_flLastFireTime;
-
-	/**
-	*	Pointer to the primary ammo type. - Solokiller
-	*/
-	CAmmoType* m_pPrimaryAmmo = nullptr;
-
-	/**
-	*	Pointer to the secondary ammo type. - Solokiller
-	*/
-	CAmmoType* m_pSecondaryAmmo = nullptr;
 };
 
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CBASEPLAYERWEAPON_H

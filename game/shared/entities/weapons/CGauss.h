@@ -47,9 +47,10 @@ public:
 	DECLARE_DATADESC();
 #endif
 
+	CGauss();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	bool Deploy() override;

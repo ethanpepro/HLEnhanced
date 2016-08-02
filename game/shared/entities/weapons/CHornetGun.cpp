@@ -25,6 +25,11 @@
 
 LINK_ENTITY_TO_CLASS( weapon_hornetgun, CHornetGun );
 
+CHornetGun::CHornetGun()
+	: BaseClass( WEAPON_HORNETGUN )
+{
+}
+
 bool CHornetGun::IsUseable()
 {
 	return true;
@@ -33,7 +38,6 @@ bool CHornetGun::IsUseable()
 void CHornetGun::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_HORNETGUN;
 	SetModel( "models/w_hgun.mdl");
 
 	m_iDefaultAmmo = HIVEHAND_DEFAULT_GIVE;
@@ -45,6 +49,8 @@ void CHornetGun::Spawn( )
 
 void CHornetGun::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/v_hgun.mdl");
 	PRECACHE_MODEL("models/w_hgun.mdl");
 	PRECACHE_MODEL("models/p_hgun.mdl");
@@ -75,22 +81,6 @@ bool CHornetGun::AddToPlayer( CBasePlayer *pPlayer )
 	return false;
 }
 
-bool CHornetGun::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "Hornets";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = WEAPON_NOCLIP;
-	p->iSlot = 3;
-	p->iPosition = 3;
-	p->iId = m_iId = WEAPON_HORNETGUN;
-	p->iFlags = ITEM_FLAG_NOAUTOSWITCHEMPTY | ITEM_FLAG_NOAUTORELOAD;
-	p->iWeight = HORNETGUN_WEIGHT;
-
-	return true;
-}
-
-
 bool CHornetGun::Deploy()
 {
 	return DefaultDeploy( "models/v_hgun.mdl", "models/p_hgun.mdl", HGUN_UP, "hive" );
@@ -113,7 +103,7 @@ void CHornetGun::PrimaryAttack()
 {
 	Reload( );
 
-	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 	{
 		return;
 	}
@@ -127,7 +117,7 @@ void CHornetGun::PrimaryAttack()
 	m_flRechargeTime = gpGlobals->time + 0.5;
 #endif
 	
-	m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;
+	m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;
 	
 
 	m_pPlayer->m_iWeaponVolume = QUIET_GUN_VOLUME;
@@ -163,7 +153,7 @@ void CHornetGun::SecondaryAttack( void )
 {
 	Reload();
 
-	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] <= 0)
+	if (m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0)
 	{
 		return;
 	}
@@ -230,7 +220,7 @@ void CHornetGun::SecondaryAttack( void )
 	PLAYBACK_EVENT_FULL( flags, m_pPlayer->edict(), m_usHornetFire, 0.0, g_vecZero, g_vecZero, 0.0, 0.0, FIREMODE_FAST, 0, 0, 0 );
 
 
-	m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;
+	m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;
 	m_pPlayer->m_iWeaponVolume = NORMAL_GUN_VOLUME;
 	m_pPlayer->m_iWeaponFlash = DIM_GUN_FLASH;
 
@@ -244,12 +234,12 @@ void CHornetGun::SecondaryAttack( void )
 
 void CHornetGun::Reload( void )
 {
-	if (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] >= HORNET_MAX_CARRY)
+	if (m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] >= HORNET_MAX_CARRY)
 		return;
 
-	while (m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType] < HORNET_MAX_CARRY && m_flRechargeTime < gpGlobals->time)
+	while (m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] < HORNET_MAX_CARRY && m_flRechargeTime < gpGlobals->time)
 	{
-		m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]++;
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]++;
 		m_flRechargeTime += 0.5;
 	}
 }

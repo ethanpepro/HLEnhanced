@@ -32,9 +32,10 @@ class CPython : public CBasePlayerWeapon
 public:
 	DECLARE_CLASS( CPython, CBasePlayerWeapon );
 
+	CPython();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;

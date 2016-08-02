@@ -29,10 +29,14 @@
 
 LINK_ENTITY_TO_CLASS( weapon_crowbar, CCrowbar );
 
+CCrowbar::CCrowbar()
+	: BaseClass( WEAPON_CROWBAR )
+{
+}
+
 void CCrowbar::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_CROWBAR;
 	SetModel( "models/w_crowbar.mdl");
 	m_iClip = -1;
 
@@ -42,6 +46,8 @@ void CCrowbar::Spawn( )
 
 void CCrowbar::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/v_crowbar.mdl");
 	PRECACHE_MODEL("models/w_crowbar.mdl");
 	PRECACHE_MODEL("models/p_crowbar.mdl");
@@ -54,21 +60,6 @@ void CCrowbar::Precache( void )
 
 	m_usCrowbar = PRECACHE_EVENT ( 1, "events/crowbar.sc" );
 }
-
-bool CCrowbar::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = NULL;
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = WEAPON_NOCLIP;
-	p->iSlot = 0;
-	p->iPosition = 0;
-	p->iId = WEAPON_CROWBAR;
-	p->iWeight = CROWBAR_WEIGHT;
-	return true;
-}
-
-
 
 bool CCrowbar::Deploy()
 {

@@ -38,9 +38,10 @@ class CSqueak : public CBasePlayerWeapon
 public:
 	DECLARE_CLASS( CSqueak, CBasePlayerWeapon );
 
+	CSqueak();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;

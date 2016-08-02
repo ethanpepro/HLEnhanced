@@ -4,6 +4,10 @@ add_sources(
 	CBaseGameInterface.cpp
 	cdll_dll.h
 	CTakeDamageInfo.h
+	CWeaponInfo.h
+	CWeaponInfo.cpp
+	CWeaponInfoCache.h
+	CWeaponInfoCache.cpp
 	Damage.h
 	enginecallback.h
 	extdll.h

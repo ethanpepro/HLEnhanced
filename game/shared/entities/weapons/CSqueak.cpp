@@ -392,11 +392,14 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 
 LINK_ENTITY_TO_CLASS( weapon_snark, CSqueak );
 
+CSqueak::CSqueak()
+	: BaseClass( WEAPON_SNARK )
+{
+}
 
 void CSqueak::Spawn( )
 {
 	Precache( );
-	m_iId = WEAPON_SNARK;
 	SetModel( "models/w_sqknest.mdl");
 
 	FallInit();//get ready to fall down.
@@ -411,6 +414,8 @@ void CSqueak::Spawn( )
 
 void CSqueak::Precache( void )
 {
+	BaseClass::Precache();
+
 	PRECACHE_MODEL("models/w_sqknest.mdl");
 	PRECACHE_MODEL("models/v_squeak.mdl");
 	PRECACHE_MODEL("models/p_squeak.mdl");
@@ -420,24 +425,6 @@ void CSqueak::Precache( void )
 
 	m_usSnarkFire = PRECACHE_EVENT ( 1, "events/snarkfire.sc" );
 }
-
-
-bool CSqueak::GetItemInfo( ItemInfo* p )
-{
-	p->pszName = GetClassname();
-	p->pszAmmo1 = "Snarks";
-	p->pszAmmo2 = NULL;
-	p->iMaxClip = WEAPON_NOCLIP;
-	p->iSlot = 4;
-	p->iPosition = 3;
-	p->iId = m_iId = WEAPON_SNARK;
-	p->iWeight = SNARK_WEIGHT;
-	p->iFlags = ITEM_FLAG_LIMITINWORLD | ITEM_FLAG_EXHAUSTIBLE;
-
-	return true;
-}
-
-
 
 bool CSqueak::Deploy()
 {
@@ -459,9 +446,9 @@ void CSqueak::Holster( int skiplocal /* = 0 */ )
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	
-	if ( !m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] )
+	if ( !m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )
 	{
-		m_pPlayer->pev->weapons &= ~(1<<WEAPON_SNARK);
+		m_pPlayer->pev->weapons &= ~(1<<m_iId);
 		SetThink( &CSqueak::DestroyItem );
 		pev->nextthink = gpGlobals->time + 0.1;
 		return;
@@ -474,7 +461,7 @@ void CSqueak::Holster( int skiplocal /* = 0 */ )
 
 void CSqueak::PrimaryAttack()
 {
-	if ( m_pPlayer->m_rgAmmo[ m_iPrimaryAmmoType ] )
+	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )
 	{
 		UTIL_MakeVectors( m_pPlayer->pev->v_angle );
 		TraceResult tr;
@@ -520,7 +507,7 @@ void CSqueak::PrimaryAttack()
 
 			m_pPlayer->m_iWeaponVolume = QUIET_GUN_VOLUME;
 
-			m_pPlayer->m_rgAmmo[m_iPrimaryAmmoType]--;
+			m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;
 
 			m_fJustThrown = 1;
 

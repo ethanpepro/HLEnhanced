@@ -33,11 +33,12 @@ class CCrowbar : public CBasePlayerWeapon
 public:
 	DECLARE_CLASS( CCrowbar, CBasePlayerWeapon );
 
+	CCrowbar();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void EXPORT SwingAgain( void );
 	void EXPORT Smack( void );
-	bool GetItemInfo( ItemInfo* p ) override;
 
 	void PrimaryAttack( void ) override;
 	bool Swing( const bool bFirst );

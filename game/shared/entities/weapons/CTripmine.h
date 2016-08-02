@@ -33,9 +33,10 @@ class CTripmine : public CBasePlayerWeapon
 public:
 	DECLARE_CLASS( CTripmine, CBasePlayerWeapon );
 
+	CTripmine();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	bool GetItemInfo( ItemInfo* p ) override;
 	void SetObjectCollisionBox( void ) override
 	{
 		//!!!BUGBUG - fix the model!

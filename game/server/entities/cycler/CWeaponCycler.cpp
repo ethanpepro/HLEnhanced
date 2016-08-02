@@ -23,6 +23,11 @@
 
 LINK_ENTITY_TO_CLASS( cycler_weapon, CWeaponCycler );
 
+CWeaponCycler::CWeaponCycler()
+	: BaseClass( WEAPON_NONE )
+{
+}
+
 void CWeaponCycler::Spawn()
 {
 	pev->solid = SOLID_SLIDEBOX;

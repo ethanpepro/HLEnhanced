@@ -261,6 +261,8 @@ bool bIsMultiplayer();
 void LoadVModel( const char* const pszViewModel, CBasePlayer* m_pPlayer );
 #endif
 
+void RegisterAmmoTypes();
+
 /**
 *	Precaches weapons for this map.
 *	Used on the server side to precache all weapons and load their data.
