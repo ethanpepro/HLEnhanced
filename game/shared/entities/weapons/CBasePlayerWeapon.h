@@ -187,7 +187,7 @@ public:
 	/**
 	*	@return Whether this weapon is predicted or not.
 	*/
-	virtual bool UseDecrement() const
+	virtual bool IsPredicted() const
 	{
 #ifdef CLIENT_WEAPONS
 		return true;

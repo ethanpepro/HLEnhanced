@@ -878,7 +878,7 @@ int GetWeaponData( edict_t* pEntity, weapon_data_t* pInfo )
 
 			while ( pPlayerItem )
 			{
-				if ( pPlayerItem->UseDecrement() )
+				if ( pPlayerItem->IsPredicted() )
 				{
 					if ( pPlayerItem->m_iId >= 0 && pPlayerItem->m_iId < MAX_WEAPONS )
 					{
@@ -990,7 +990,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 
 			if ( pl->m_pActiveItem )
 			{
-				if ( pl->m_pActiveItem->UseDecrement() )
+				if ( pl->m_pActiveItem->IsPredicted() )
 				{
 					const CWeaponInfo* pInfo = pl->m_pActiveItem->GetWeaponInfo();
 

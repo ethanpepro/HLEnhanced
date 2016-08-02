@@ -120,7 +120,7 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	pWeapon = m_pWeapons[ from->client.m_iId ];
 
 	//Non-predicted weapons should be null here. - Solokiller
-	if( pWeapon && !pWeapon->UseDecrement() )
+	if( pWeapon && !pWeapon->IsPredicted() )
 		pWeapon = nullptr;
 
 	// Store pointer to our destination entity_state_t so we can get our origin, etc. from it

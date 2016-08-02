@@ -434,7 +434,7 @@ pt_end:
 
 			while( pPlayerItem )
 			{
-				if( pPlayerItem->UseDecrement() )
+				if( pPlayerItem->IsPredicted() )
 				{
 					pPlayerItem->m_flNextPrimaryAttack = max( pPlayerItem->m_flNextPrimaryAttack - gpGlobals->frametime, -1.0f );
 					pPlayerItem->m_flNextSecondaryAttack = max( pPlayerItem->m_flNextSecondaryAttack - gpGlobals->frametime, -0.001f );

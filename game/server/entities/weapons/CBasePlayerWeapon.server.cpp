@@ -309,7 +309,7 @@ bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, const char *szName )
 
 void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int body )
 {
-	const bool bSkipLocal = UseDecrement();
+	const bool bSkipLocal = IsPredicted();
 
 	m_pPlayer->pev->weaponanim = iAnim;
 
@@ -427,7 +427,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 		m_flLastFireTime = 0.0f;
 	}
 
-	if( ( m_pPlayer->pev->button & IN_ATTACK2 ) && CanAttack( m_flNextSecondaryAttack, gpGlobals->time, UseDecrement() ) )
+	if( ( m_pPlayer->pev->button & IN_ATTACK2 ) && CanAttack( m_flNextSecondaryAttack, gpGlobals->time, IsPredicted() ) )
 	{
 		if( pszAmmo2() && !m_pPlayer->m_rgAmmo[ SecondaryAmmoIndex() ] )
 		{
@@ -438,7 +438,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 		SecondaryAttack();
 		m_pPlayer->pev->button &= ~IN_ATTACK2;
 	}
-	else if( ( m_pPlayer->pev->button & IN_ATTACK ) && CanAttack( m_flNextPrimaryAttack, gpGlobals->time, UseDecrement() ) )
+	else if( ( m_pPlayer->pev->button & IN_ATTACK ) && CanAttack( m_flNextPrimaryAttack, gpGlobals->time, IsPredicted() ) )
 	{
 		if( ( m_iClip == 0 && pszAmmo1() ) || ( iMaxClip() == -1 && !m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] ) )
 		{
@@ -459,19 +459,19 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 
 		m_bFireOnEmpty = false;
 
-		if( !IsUseable() && m_flNextPrimaryAttack < ( UseDecrement() ? 0.0 : gpGlobals->time ) )
+		if( !IsUseable() && m_flNextPrimaryAttack < ( IsPredicted() ? 0.0 : gpGlobals->time ) )
 		{
 			// weapon isn't useable, switch.
 			if( !( iFlags() & ITEM_FLAG_NOAUTOSWITCHEMPTY ) && g_pGameRules->GetNextBestWeapon( m_pPlayer, this ) )
 			{
-				m_flNextPrimaryAttack = ( UseDecrement() ? 0.0 : gpGlobals->time ) + 0.3;
+				m_flNextPrimaryAttack = ( IsPredicted() ? 0.0 : gpGlobals->time ) + 0.3;
 				return;
 			}
 		}
 		else
 		{
 			// weapon is useable. Reload if empty and weapon has waited as long as it has to after firing
-			if( m_iClip == 0 && !( iFlags() & ITEM_FLAG_NOAUTORELOAD ) && m_flNextPrimaryAttack < ( UseDecrement() ? 0.0 : gpGlobals->time ) )
+			if( m_iClip == 0 && !( iFlags() & ITEM_FLAG_NOAUTORELOAD ) && m_flNextPrimaryAttack < ( IsPredicted() ? 0.0 : gpGlobals->time ) )
 			{
 				Reload();
 				return;
