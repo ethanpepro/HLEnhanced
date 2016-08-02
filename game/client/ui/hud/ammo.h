@@ -16,8 +16,6 @@
 #ifndef __AMMO_H__
 #define __AMMO_H__
 
-#define MAX_WEAPON_NAME 128
-
 //TODO: defined in CBasePlayerItem.h - Solokiller
 #define WEAPON_FLAGS_SELECTONEMPTY	1
 
@@ -30,28 +28,6 @@ struct WEAPON
 	const CWeaponInfo* pInfo;
 
 	int iClip;
-
-	int		iCount;		// # of itesm in plist
-
-	HSPRITE hActive;
-	wrect_t rcActive;
-	HSPRITE hInactive;
-	wrect_t rcInactive;
-	HSPRITE	hAmmo;
-	wrect_t rcAmmo;
-	HSPRITE hAmmo2;
-	wrect_t rcAmmo2;
-	HSPRITE hCrosshair;
-	wrect_t rcCrosshair;
-	HSPRITE hAutoaim;
-	wrect_t rcAutoaim;
-	HSPRITE hZoomedCrosshair;
-	wrect_t rcZoomedCrosshair;
-	HSPRITE hZoomedAutoaim;
-	wrect_t rcZoomedAutoaim;
 };
-
-typedef int AMMO;
-
 
 #endif

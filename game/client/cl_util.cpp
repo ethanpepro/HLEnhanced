@@ -40,6 +40,32 @@ HSPRITE LoadSprite( const char* const pszName )
 	return SPR_Load( sz );
 }
 
+/* =================================
+GetSpriteList
+
+Finds and returns the matching
+sprite name 'psz' and resolution 'iRes'
+in the given sprite list 'pList'
+iCount is the number of items in the pList
+================================= */
+client_sprite_t *GetSpriteList( client_sprite_t *pList, const char *psz, int iRes, int iCount )
+{
+	if( !pList )
+		return NULL;
+
+	int i = iCount;
+	client_sprite_t *p = pList;
+
+	while( i-- )
+	{
+		if( ( !strcmp( psz, p->szName ) ) && ( p->iRes == iRes ) )
+			return p;
+		p++;
+	}
+
+	return NULL;
+}
+
 void ScaleColors( int& r, int& g, int& b, const int a )
 {
 	const float x = ( float ) a / 255;

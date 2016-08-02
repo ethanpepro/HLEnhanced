@@ -31,6 +31,8 @@
 #include "cbase.h"
 #include "Weapons.h"
 
+#include "CWeaponHUDInfo.h"
+
 #include "ammohistory.h"
 #include "vgui_TeamFortressViewport.h"
 
@@ -39,8 +41,6 @@
 WEAPON *gpActiveSel;	// NULL means off, 1 means just the menu bar, otherwise
 						// this points to the active weapon menu item
 WEAPON *gpLastSel;		// Last weapon menu selection 
-
-client_sprite_t *GetSpriteList(client_sprite_t *pList, const char *psz, int iRes, int iCount);
 
 WeaponsResource gWR;
 
@@ -56,15 +56,6 @@ void WeaponsResource::VidInit()
 {
 	//Zero out the weapon info so custom weapons don't get stuck in the list after map changes. - Solokiller
 	memset( rgWeapons, 0, sizeof( rgWeapons ) );
-}
-
-void WeaponsResource :: LoadAllWeaponSprites( void )
-{
-	for (int i = 0; i < MAX_WEAPONS; i++)
-	{
-		if ( rgWeapons[i].pInfo )
-			LoadWeaponSprites( &rgWeapons[i] );
-	}
 }
 
 int WeaponsResource::CountAmmo( int iId ) const
@@ -88,132 +79,6 @@ bool WeaponsResource::HasAmmo( const WEAPON* const p ) const
 		CountAmmo( p->pInfo->GetPrimaryAmmo()->GetID() )||
 		( p->pInfo->GetSecondaryAmmo() && CountAmmo( p->pInfo->GetSecondaryAmmo()->GetID() ) ) ||
 		( p->pInfo->GetFlags() & WEAPON_FLAGS_SELECTONEMPTY );
-}
-
-
-void WeaponsResource :: LoadWeaponSprites( WEAPON *pWeapon )
-{
-	int i, iRes;
-
-	if (ScreenWidth < 640)
-		iRes = 320;
-	else
-		iRes = 640;
-
-	char sz[128];
-
-	if ( !pWeapon || !pWeapon->pInfo )
-		return;
-
-	memset( &pWeapon->rcActive, 0, sizeof(wrect_t) );
-	memset( &pWeapon->rcInactive, 0, sizeof(wrect_t) );
-	memset( &pWeapon->rcAmmo, 0, sizeof(wrect_t) );
-	memset( &pWeapon->rcAmmo2, 0, sizeof(wrect_t) );
-	pWeapon->hInactive = 0;
-	pWeapon->hActive = 0;
-	pWeapon->hAmmo = 0;
-	pWeapon->hAmmo2 = 0;
-
-	sprintf(sz, "sprites/%s.txt", pWeapon->pInfo->GetWeaponName());
-	client_sprite_t *pList = SPR_GetList(sz, &i);
-
-	if (!pList)
-		return;
-
-	client_sprite_t *p;
-	
-	p = GetSpriteList( pList, "crosshair", iRes, i );
-	if (p)
-	{
-		sprintf(sz, "sprites/%s.spr", p->szSprite);
-		pWeapon->hCrosshair = SPR_Load(sz);
-		pWeapon->rcCrosshair = p->rc;
-	}
-	else
-		pWeapon->hCrosshair = INVALID_HSPRITE;
-
-	p = GetSpriteList(pList, "autoaim", iRes, i);
-	if (p)
-	{
-		sprintf(sz, "sprites/%s.spr", p->szSprite);
-		pWeapon->hAutoaim = SPR_Load(sz);
-		pWeapon->rcAutoaim = p->rc;
-	}
-	else
-		pWeapon->hAutoaim = INVALID_HSPRITE;
-
-	p = GetSpriteList( pList, "zoom", iRes, i );
-	if (p)
-	{
-		sprintf(sz, "sprites/%s.spr", p->szSprite);
-		pWeapon->hZoomedCrosshair = SPR_Load(sz);
-		pWeapon->rcZoomedCrosshair = p->rc;
-	}
-	else
-	{
-		pWeapon->hZoomedCrosshair = pWeapon->hCrosshair; //default to non-zoomed crosshair
-		pWeapon->rcZoomedCrosshair = pWeapon->rcCrosshair;
-	}
-
-	p = GetSpriteList(pList, "zoom_autoaim", iRes, i);
-	if (p)
-	{
-		sprintf(sz, "sprites/%s.spr", p->szSprite);
-		pWeapon->hZoomedAutoaim = SPR_Load(sz);
-		pWeapon->rcZoomedAutoaim = p->rc;
-	}
-	else
-	{
-		pWeapon->hZoomedAutoaim = pWeapon->hZoomedCrosshair;  //default to zoomed crosshair
-		pWeapon->rcZoomedAutoaim = pWeapon->rcZoomedCrosshair;
-	}
-
-	p = GetSpriteList(pList, "weapon", iRes, i);
-	if (p)
-	{
-		sprintf(sz, "sprites/%s.spr", p->szSprite);
-		pWeapon->hInactive = SPR_Load(sz);
-		pWeapon->rcInactive = p->rc;
-
-		gHR.iHistoryGap = max( gHR.iHistoryGap, pWeapon->rcActive.bottom - pWeapon->rcActive.top );
-	}
-	else
-		pWeapon->hInactive = INVALID_HSPRITE;
-
-	p = GetSpriteList(pList, "weapon_s", iRes, i);
-	if (p)
-	{
-		sprintf(sz, "sprites/%s.spr", p->szSprite);
-		pWeapon->hActive = SPR_Load(sz);
-		pWeapon->rcActive = p->rc;
-	}
-	else
-		pWeapon->hActive = INVALID_HSPRITE;
-
-	p = GetSpriteList(pList, "ammo", iRes, i);
-	if (p)
-	{
-		sprintf(sz, "sprites/%s.spr", p->szSprite);
-		pWeapon->hAmmo = SPR_Load(sz);
-		pWeapon->rcAmmo = p->rc;
-
-		gHR.iHistoryGap = max( gHR.iHistoryGap, pWeapon->rcActive.bottom - pWeapon->rcActive.top );
-	}
-	else
-		pWeapon->hAmmo = INVALID_HSPRITE;
-
-	p = GetSpriteList(pList, "ammo2", iRes, i);
-	if (p)
-	{
-		sprintf(sz, "sprites/%s.spr", p->szSprite);
-		pWeapon->hAmmo2 = SPR_Load(sz);
-		pWeapon->rcAmmo2 = p->rc;
-
-		gHR.iHistoryGap = max( gHR.iHistoryGap, pWeapon->rcActive.bottom - pWeapon->rcActive.top );
-	}
-	else
-		pWeapon->hAmmo2 = INVALID_HSPRITE;
-
 }
 
 // Returns the first weapon for a given slot.
@@ -346,9 +211,6 @@ bool CHudAmmo::VidInit()
 
 	gHR.iHistoryGap = max( gHR.iHistoryGap, gHUD.GetSpriteRect(m_HUD_bucket0).bottom - gHUD.GetSpriteRect(m_HUD_bucket0).top);
 
-	// If we've already loaded weapons, let's get new sprites
-	gWR.LoadAllWeaponSprites();
-
 	if (ScreenWidth >= 640)
 	{
 		giABWidth = 20;
@@ -414,8 +276,7 @@ void CHudAmmo::Think()
 //
 // Helper function to return a Ammo pointer from id
 //
-
-HSPRITE* WeaponsResource :: GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect )
+const WeaponHUDSprite* WeaponsResource :: GetAmmoPicFromWeapon( int iAmmoId ) const
 {
 	for ( int i = 0; i < MAX_WEAPONS; i++ )
 	{
@@ -423,18 +284,16 @@ HSPRITE* WeaponsResource :: GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect )
 		{
 			if ( rgWeapons[i].pInfo->GetPrimaryAmmo() && rgWeapons[ i ].pInfo->GetPrimaryAmmo()->GetID() == iAmmoId )
 			{
-				rect = rgWeapons[i].rcAmmo;
-				return &rgWeapons[i].hAmmo;
+				return &rgWeapons[ i ].pInfo->GetHUDInfo()->GetPrimaryAmmo();
 			}
 			else if ( rgWeapons[i].pInfo->GetSecondaryAmmo() && rgWeapons[ i ].pInfo->GetSecondaryAmmo()->GetID() == iAmmoId )
 			{
-				rect = rgWeapons[i].rcAmmo2;
-				return &rgWeapons[i].hAmmo2;
+				return &rgWeapons[ i ].pInfo->GetHUDInfo()->GetSecondaryAmmo();
 			}
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 
@@ -595,7 +454,10 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 	else
 	{
 		if ( m_pWeapon )
-			SetCrosshair( m_pWeapon->hCrosshair, m_pWeapon->rcCrosshair, 255, 255, 255 );
+		{
+			const auto& crosshair = m_pWeapon->pInfo->GetHUDInfo()->GetCrosshair();
+			SetCrosshair( crosshair.hSprite, crosshair.rect, 255, 255, 255 );
+		}
 	}
 
 	return 1;
@@ -657,19 +519,21 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 
 	m_pWeapon = pWeapon;
 
+	auto pHUDInfo = m_pWeapon->pInfo->GetHUDInfo();
+
 	if ( gHUD.m_iFOV >= 90 )
 	{ // normal crosshairs
-		if (fOnTarget && m_pWeapon->hAutoaim)
-			SetCrosshair(m_pWeapon->hAutoaim, m_pWeapon->rcAutoaim, 255, 255, 255);
+		if (fOnTarget && pHUDInfo->GetAutoAim().hSprite)
+			SetCrosshair( pHUDInfo->GetAutoAim().hSprite, pHUDInfo->GetAutoAim().rect, 255, 255, 255);
 		else
-			SetCrosshair(m_pWeapon->hCrosshair, m_pWeapon->rcCrosshair, 255, 255, 255);
+			SetCrosshair( pHUDInfo->GetCrosshair().hSprite, pHUDInfo->GetCrosshair().rect, 255, 255, 255);
 	}
 	else
 	{ // zoomed crosshairs
-		if (fOnTarget && m_pWeapon->hZoomedAutoaim)
-			SetCrosshair(m_pWeapon->hZoomedAutoaim, m_pWeapon->rcZoomedAutoaim, 255, 255, 255);
+		if (fOnTarget && pHUDInfo->GetZoomedAutoAim().hSprite)
+			SetCrosshair( pHUDInfo->GetZoomedAutoAim().hSprite, pHUDInfo->GetZoomedAutoAim().rect, 255, 255, 255);
 		else
-			SetCrosshair(m_pWeapon->hZoomedCrosshair, m_pWeapon->rcZoomedCrosshair, 255, 255, 255);
+			SetCrosshair( pHUDInfo->GetZoomedCrosshair().hSprite, pHUDInfo->GetZoomedCrosshair().rect, 255, 255, 255);
 
 	}
 
@@ -926,7 +790,9 @@ bool CHudAmmo::Draw(float flTime)
 	// Does weapon have any ammo at all?
 	if ( auto pAmmo = pw->pInfo->GetPrimaryAmmo() )
 	{
-		int iIconWidth = m_pWeapon->rcAmmo.right - m_pWeapon->rcAmmo.left;
+		const auto& ammo = m_pWeapon->pInfo->GetHUDInfo()->GetPrimaryAmmo();
+
+		int iIconWidth = ammo.rect.right - ammo.rect.left;
 		
 		if (pw->iClip >= 0)
 		{
@@ -966,15 +832,17 @@ bool CHudAmmo::Draw(float flTime)
 		}
 
 		// Draw the ammo Icon
-		int iOffset = (m_pWeapon->rcAmmo.bottom - m_pWeapon->rcAmmo.top)/8;
-		SPR_Set(m_pWeapon->hAmmo, r, g, b);
-		SPR_DrawAdditive(0, x, y - iOffset, &m_pWeapon->rcAmmo);
+		int iOffset = ( ammo.rect.bottom - ammo.rect.top)/8;
+		SPR_Set( ammo.hSprite, r, g, b);
+		SPR_DrawAdditive(0, x, y - iOffset, &ammo.rect );
 	}
 
 	// Does weapon have seconday ammo?
 	if ( auto pAmmo = pw->pInfo->GetSecondaryAmmo() ) 
 	{
-		int iIconWidth = m_pWeapon->rcAmmo2.right - m_pWeapon->rcAmmo2.left;
+		const auto& ammo2 = m_pWeapon->pInfo->GetHUDInfo()->GetSecondaryAmmo();
+
+		int iIconWidth = ammo2.rect.right - ammo2.rect.left;
 
 		// Do we have secondary ammo?
 		if ( gWR.CountAmmo( pAmmo->GetID() ) > 0 )
@@ -984,9 +852,9 @@ bool CHudAmmo::Draw(float flTime)
 			x = gHUD.DrawHudNumber(x, y, iFlags|DHN_3DIGITS, gWR.CountAmmo( pAmmo->GetID() ), r, g, b);
 
 			// Draw the ammo Icon
-			SPR_Set(m_pWeapon->hAmmo2, r, g, b);
-			int iOffset = (m_pWeapon->rcAmmo2.bottom - m_pWeapon->rcAmmo2.top)/8;
-			SPR_DrawAdditive(0, x, y - iOffset, &m_pWeapon->rcAmmo2);
+			SPR_Set( ammo2.hSprite, r, g, b);
+			int iOffset = ( ammo2.rect.bottom - ammo2.rect.top)/8;
+			SPR_DrawAdditive(0, x, y - iOffset, &ammo2.rect );
 		}
 	}
 	return true;
@@ -1109,7 +977,7 @@ int CHudAmmo::DrawWList(float flTime)
 		{
 			WEAPON *p = gWR.GetFirstPos(iActiveSlot);
 			if ( p )
-				iWidth = p->rcActive.right - p->rcActive.left;
+				iWidth = p->pInfo->GetHUDInfo()->GetActive().rect.right - p->pInfo->GetHUDInfo()->GetActive().rect.left;
 			else
 				iWidth = giBucketWidth;
 		}
@@ -1137,7 +1005,7 @@ int CHudAmmo::DrawWList(float flTime)
 			WEAPON *p = gWR.GetFirstPos( i );
 			int iWidth = giBucketWidth;
 			if ( p )
-				iWidth = p->rcActive.right - p->rcActive.left;
+				iWidth = p->pInfo->GetHUDInfo()->GetActive().rect.right - p->pInfo->GetHUDInfo()->GetActive().rect.left;
 
 			for ( int iPos = 0; iPos < MAX_WEAPON_POSITIONS; iPos++ )
 			{
@@ -1146,14 +1014,16 @@ int CHudAmmo::DrawWList(float flTime)
 				if ( !p || !p->pInfo )
 					continue;
 
+				auto pHUDInfo = p->pInfo->GetHUDInfo();
+
 				UnpackRGB( r,g,b, RGB_YELLOWISH );
 			
 				// if active, then we must have ammo.
 
 				if ( gpActiveSel == p )
 				{
-					SPR_Set(p->hActive, r, g, b );
-					SPR_DrawAdditive(0, x, y, &p->rcActive);
+					SPR_Set( pHUDInfo->GetActive().hSprite, r, g, b );
+					SPR_DrawAdditive(0, x, y, &pHUDInfo->GetActive().rect );
 
 					SPR_Set(gHUD.GetSprite(m_HUD_selection), r, g, b );
 					SPR_DrawAdditive(0, x, y, &gHUD.GetSpriteRect(m_HUD_selection));
@@ -1170,15 +1040,15 @@ int CHudAmmo::DrawWList(float flTime)
 						ScaleColors(r, g, b, 128);
 					}
 
-					SPR_Set( p->hInactive, r, g, b );
-					SPR_DrawAdditive( 0, x, y, &p->rcInactive );
+					SPR_Set( pHUDInfo->GetInactive().hSprite, r, g, b );
+					SPR_DrawAdditive( 0, x, y, &pHUDInfo->GetInactive().rect );
 				}
 
 				// Draw Ammo Bar
 
 				DrawAmmoBar(p, x + giABWidth/2, y, giABWidth, giABHeight);
 				
-				y += p->rcActive.bottom - p->rcActive.top + 5;
+				y += pHUDInfo->GetActive().rect.bottom - pHUDInfo->GetActive().rect.top + 5;
 			}
 
 			x += iWidth + 5;
@@ -1219,33 +1089,6 @@ int CHudAmmo::DrawWList(float flTime)
 
 	return 1;
 
-}
-
-
-/* =================================
-	GetSpriteList
-
-Finds and returns the matching 
-sprite name 'psz' and resolution 'iRes'
-in the given sprite list 'pList'
-iCount is the number of items in the pList
-================================= */
-client_sprite_t *GetSpriteList(client_sprite_t *pList, const char *psz, int iRes, int iCount)
-{
-	if (!pList)
-		return NULL;
-
-	int i = iCount;
-	client_sprite_t *p = pList;
-
-	while(i--)
-	{
-		if ((!strcmp(psz, p->szName)) && (p->iRes == iRes))
-			return p;
-		p++;
-	}
-
-	return NULL;
 }
 
 void CHudAmmo::SetCrosshair( HSPRITE hCrosshair, const wrect_t& rect, int r, int g, int b )

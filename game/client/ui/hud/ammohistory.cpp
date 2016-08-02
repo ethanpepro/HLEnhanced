@@ -29,6 +29,8 @@
 #include "cbase.h"
 #include "Weapons.h"
 
+#include "CWeaponHUDInfo.h"
+
 #include "ammohistory.h"
 
 HistoryResource gHR;
@@ -125,8 +127,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 			}
 			else if ( rgAmmoHistory[i].type == HISTSLOT_AMMO )
 			{
-				wrect_t rcPic;
-				HSPRITE *spr = gWR.GetAmmoPicFromWeapon( rgAmmoHistory[i].iId, rcPic );
+				const WeaponHUDSprite* spr = gWR.GetAmmoPicFromWeapon( rgAmmoHistory[i].iId );
 
 				int r, g, b;
 				UnpackRGB(r,g,b, RGB_YELLOWISH);
@@ -136,10 +137,10 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 				// Draw the pic
 				int ypos = ScreenHeight - (AMMO_PICKUP_PICK_HEIGHT + (AMMO_PICKUP_GAP * i));
 				int xpos = ScreenWidth - 24;
-				if ( spr && *spr )    // weapon isn't loaded yet so just don't draw the pic
+				if ( spr && spr->hSprite )    // weapon isn't loaded yet so just don't draw the pic
 				{ // the dll has to make sure it has sent info the weapons you need
-					SPR_Set( *spr, r, g, b );
-					SPR_DrawAdditive( 0, xpos, ypos, &rcPic );
+					SPR_Set( spr->hSprite, r, g, b );
+					SPR_DrawAdditive( 0, xpos, ypos, &spr->rect );
 				}
 
 				// Draw the number
@@ -161,10 +162,12 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 				float scale = (rgAmmoHistory[i].DisplayTime - flTime) * 80;
 				ScaleColors(r, g, b, min(scale, 255.0f) );
 
+				const auto& inactive = weap->pInfo->GetHUDInfo()->GetInactive();
+
 				int ypos = ScreenHeight - (AMMO_PICKUP_PICK_HEIGHT + (AMMO_PICKUP_GAP * i));
-				int xpos = ScreenWidth - (weap->rcInactive.right - weap->rcInactive.left);
-				SPR_Set( weap->hInactive, r, g, b );
-				SPR_DrawAdditive( 0, xpos, ypos, &weap->rcInactive );
+				int xpos = ScreenWidth - ( inactive.rect.right - inactive.rect.left);
+				SPR_Set( inactive.hSprite, r, g, b );
+				SPR_DrawAdditive( 0, xpos, ypos, &inactive.rect );
 			}
 			else if ( rgAmmoHistory[i].type == HISTSLOT_ITEM )
 			{

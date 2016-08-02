@@ -5,6 +5,11 @@
 
 #include "CWeaponInfo.h"
 
+#ifdef CLIENT_DLL
+#include "hud.h"
+#include "CWeaponHUDInfo.h"
+#endif
+
 #include "CWeaponInfoCache.h"
 
 CWeaponInfoCache g_WeaponInfoCache;
@@ -45,6 +50,19 @@ const CWeaponInfo* CWeaponInfoCache::LoadWeaponInfo( const int iID, const char* 
 		if( result.second )
 		{
 			pInfo->SetID( iID );
+
+#ifdef CLIENT_DLL
+			//Load HUD info right away.
+			CWeaponHUDInfo* pHUDInfo = new CWeaponHUDInfo();
+
+			if( !pHUDInfo->LoadFromFile( pszWeaponName ) )
+			{
+				Alert( at_warning, "CWeaponInfoCache::LoadWeaponInfo: Couldn't load weapon \"%s\" HUD info\n", pszWeaponName );
+			}
+
+			pInfo->SetHUDInfo( pHUDInfo );
+#endif
+
 			return pInfo;
 		}
 

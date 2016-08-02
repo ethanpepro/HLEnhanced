@@ -19,6 +19,8 @@
 #include "entities/weapons/CAmmoTypes.h"
 #include "CWeaponInfo.h"
 
+struct WeaponHUDSprite;
+
 // this is the max number of items in each bucket
 #define MAX_WEAPON_POSITIONS		MAX_WEAPONS
 
@@ -56,7 +58,6 @@ public:
 		ASSERT( wp->pInfo );
 
 		rgWeapons[ wp->pInfo->GetID() ] = *wp;	
-		LoadWeaponSprites( &rgWeapons[ wp->pInfo->GetID() ] );
 	}
 
 	void PickupWeapon( WEAPON *wp )
@@ -86,8 +87,6 @@ public:
 
 	WEAPON* GetWeaponSlot( int slot, int pos ) { return rgSlots[slot][pos]; }
 
-	void LoadWeaponSprites( WEAPON* wp );
-	void LoadAllWeaponSprites( void );
 	WEAPON* GetFirstPos( int iSlot );
 	void SelectSlot( int iSlot, const bool fAdvance, int iDirection );
 	WEAPON* GetNextActivePos( int iSlot, int iSlotPos );
@@ -95,13 +94,11 @@ public:
 	bool HasAmmo( const WEAPON* const p ) const;
 
 ///// AMMO /////
-	AMMO GetAmmo( int iId ) { return iId; }
-
 	void SetAmmo( int iId, int iCount ) { riAmmo[ iId ] = iCount;	}
 
 	int CountAmmo( int iId ) const;
 
-	HSPRITE* GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect );
+	const WeaponHUDSprite* GetAmmoPicFromWeapon( int iAmmoId ) const;
 
 	/**
 	*	Synchronize the weapons resource with the client side weapons list.

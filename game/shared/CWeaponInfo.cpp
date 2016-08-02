@@ -5,7 +5,19 @@
 
 #include "entities/weapons/CAmmoTypes.h"
 
+#ifdef CLIENT_DLL
+#include "hud.h"
+#include "CWeaponHUDInfo.h"
+#endif
+
 #include "CWeaponInfo.h"
+
+CWeaponInfo::~CWeaponInfo()
+{
+#ifdef CLIENT_DLL
+	delete m_pHUDInfo;
+#endif
+}
 
 bool CWeaponInfo::KeyValue( const char* const pszKey, const char* const pszValue )
 {

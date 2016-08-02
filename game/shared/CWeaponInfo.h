@@ -3,6 +3,8 @@
 
 #include "entities/weapons/CAmmoTypes.h"
 
+class CWeaponHUDInfo;
+
 /**
 *	Stores a single weapon's information.
 *	Avoid changing this information after the info has been loaded, since it's used on both the client and server side.
@@ -11,6 +13,7 @@ class CWeaponInfo final
 {
 public:
 	CWeaponInfo() = default;
+	~CWeaponInfo();
 
 	/**
 	*	Handles keyvalues loaded in from files.
@@ -116,6 +119,19 @@ public:
 	*/
 	int GetFlags() const { return m_iFlags; }
 
+	/**
+	*	@return The HUD info instance, if any.
+	*/
+	const CWeaponHUDInfo* GetHUDInfo() const { return m_pHUDInfo; }
+
+	/**
+	*	Sets the HUD info instance.
+	*/
+	void SetHUDInfo( const CWeaponHUDInfo* pHUDInfo )
+	{
+		m_pHUDInfo = pHUDInfo;
+	}
+
 private:
 	const char* m_pszWeaponName = "";
 
@@ -132,6 +148,8 @@ private:
 	int m_iWeight = 0;
 
 	int m_iFlags = 0;
+
+	const CWeaponHUDInfo* m_pHUDInfo = nullptr;
 
 private:
 	CWeaponInfo( const CWeaponInfo& ) = delete;

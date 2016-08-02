@@ -7,6 +7,8 @@ add_sources(
 	cl_util.cpp
 	com_weapons.h
 	com_weapons.cpp
+	CWeaponHUDInfo.h
+	CWeaponHUDInfo.cpp
 	demo.h
 	demo.cpp
 	entity.cpp

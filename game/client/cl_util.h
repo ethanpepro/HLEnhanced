@@ -99,6 +99,8 @@ const HSPRITE INVALID_HSPRITE = 0;
 */
 HSPRITE LoadSprite( const char* const pszName );
 
+client_sprite_t *GetSpriteList( client_sprite_t *pList, const char *psz, int iRes, int iCount );
+
 //
 #define FillRGBA (*gEngfuncs.pfnFillRGBA)
 
