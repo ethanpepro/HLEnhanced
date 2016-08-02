@@ -83,33 +83,6 @@ bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const cha
 
 /*
 =====================
-CBasePlayerWeapon :: DefaultReload
-=====================
-*/
-bool CBasePlayerWeapon::DefaultReload( int iClipSize, int iAnim, float fDelay, int body )
-{
-
-	if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
-		return false;
-
-	int j = min( iClipSize - m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] );
-
-	if( j == 0 )
-		return false;
-
-	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + fDelay;
-
-	//!!UNDONE -- reload sound goes here !!!
-	SendWeaponAnim( iAnim, UseDecrement(), body );
-
-	m_fInReload = true;
-
-	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 3;
-	return true;
-}
-
-/*
-=====================
 CBasePlayerWeapon::ItemPostFrame
 
 Handles weapon firing, reloading, etc.

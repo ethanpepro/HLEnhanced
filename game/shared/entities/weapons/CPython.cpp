@@ -197,7 +197,7 @@ void CPython::Reload( void )
 	//TODO: same code is below this - Solokiller
 	const int iScopeBody = bIsMultiplayer() ? 1 : 0;
 
-	DefaultReload( 6, PYTHON_RELOAD, 2.0, iScopeBody );
+	DefaultReload( PYTHON_RELOAD, 2.0, iScopeBody );
 }
 
 

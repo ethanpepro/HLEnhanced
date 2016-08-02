@@ -75,6 +75,33 @@ bool CBasePlayerWeapon::CanDeploy() const
 	return true;
 }
 
+bool CBasePlayerWeapon::DefaultReload( int iAnim, float fDelay, int body )
+{
+	if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
+		return false;
+
+	int j = min( GetWeaponInfo()->GetMaxMagazine() - m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] );
+
+	if( j == 0 )
+		return false;
+
+	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + fDelay;
+
+#ifdef SERVER_DLL
+	//The server doesn't pass this, so always 0 it out. - Solokiller
+	//TODO: why? - Solokiller
+	body = 0;
+#endif
+
+	//!!UNDONE -- reload sound goes here !!!
+	SendWeaponAnim( iAnim, UseDecrement(), body );
+
+	m_fInReload = true;
+
+	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 3;
+	return true;
+}
+
 void CBasePlayerWeapon::GetWeaponData( weapon_data_t& data )
 {
 	data.m_iClip = m_iClip;

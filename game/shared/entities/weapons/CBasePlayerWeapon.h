@@ -53,7 +53,7 @@ public:
 	virtual bool CanDeploy() const override;
 	virtual bool IsUseable();
 	bool DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int skiplocal = 0, int body = 0 );
-	bool DefaultReload( int iClipSize, int iAnim, float fDelay, int body = 0 );
+	bool DefaultReload( int iAnim, float fDelay, int body = 0 );
 
 	virtual void ItemPostFrame( void ) override;	// called each frame by the player PostThink
 													// called by CBasePlayerWeapons ItemPostFrame()

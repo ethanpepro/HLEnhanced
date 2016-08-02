@@ -183,7 +183,7 @@ void CSniperRifle::Reload()
 	{
 		if( m_iClip )
 		{
-			if( DefaultReload( SNIPERRIFLE_MAX_CLIP, SNIPERRIFLE_RELOAD3, 2.324, 1 ) )
+			if( DefaultReload( SNIPERRIFLE_RELOAD3, 2.324, 1 ) )
 			{
 				if( m_bInZoom )
 				{
@@ -193,7 +193,7 @@ void CSniperRifle::Reload()
 				m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 2.324;
 			}
 		}
-		else if( DefaultReload( SNIPERRIFLE_MAX_CLIP, SNIPERRIFLE_RELOAD1, 2.324, 1 ) )
+		else if( DefaultReload( SNIPERRIFLE_RELOAD1, 2.324, 1 ) )
 		{
 			if( m_bInZoom )
 			{

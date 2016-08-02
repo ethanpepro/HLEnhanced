@@ -156,9 +156,9 @@ void CGlock::Reload( void )
 	bool bResult;
 
 	if (m_iClip == 0)
-		bResult = DefaultReload( 17, GLOCK_RELOAD, 1.5 );
+		bResult = DefaultReload( GLOCK_RELOAD, 1.5 );
 	else
-		bResult = DefaultReload( 17, GLOCK_RELOAD_NOT_EMPTY, 1.5 );
+		bResult = DefaultReload( GLOCK_RELOAD_NOT_EMPTY, 1.5 );
 
 	if ( bResult )
 	{
