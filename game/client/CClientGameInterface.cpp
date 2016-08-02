@@ -18,6 +18,8 @@
 
 #include "Angelscript/CHLASClientManager.h"
 
+#include "hl/CClientPrediction.h"
+
 #include "CClientGameInterface.h"
 
 CClientGameInterface g_Client;
@@ -119,7 +121,7 @@ void CClientGameInterface::NewMapStarted( const char* const pszMapName, const ch
 void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
 {
 	RegisterAmmoTypes();
-	HUD_PrepareWeapons();
+	g_Prediction.MapInit();
 	PrecacheWeapons();
 
 	//Parse in map data now, since the map has been downloaded. - Solokiller
@@ -127,7 +129,7 @@ void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
 
 	//TODO: call map script MapInit here - Solokiller
 
-	HUD_SetupWeapons();
+	g_Prediction.SetupWeapons();
 
 	//Synchronize the HUD weapons list with the actual one. - Solokiller
 	//TODO: this should be merged.

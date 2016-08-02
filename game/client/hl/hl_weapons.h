@@ -20,26 +20,6 @@ class CBasePlayer;
 class Vector;
 
 /**
-*	Prepares client weapons for a new map.
-*/
-void HUD_PrepareWeapons();
-
-/**
-*	Allocates a new entity for use by a client side entity. Should only be used by weapons and the local player.
-*/
-entvars_t* HUD_AllocEntity();
-
-/**
-*	Adds a weapon to the client weapon list.
-*/
-void HUD_AddWeapon( CBasePlayerWeapon* pWeapon );
-
-/**
-*	Sets up the weapon entities for use in a map.
-*/
-void HUD_SetupWeapons();
-
-/**
 *	Returns the last position that we stored for egon beam endpoint.
 *	@param[ out ] vecOrigin Will contain the origin.
 */

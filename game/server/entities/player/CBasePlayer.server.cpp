@@ -80,8 +80,6 @@ int TrainSpeed( int iSpeed, int iMax )
 	return iRet;
 }
 
-LINK_ENTITY_TO_CLASS( player, CBasePlayer );
-
 //
 // ID's player as such.
 //

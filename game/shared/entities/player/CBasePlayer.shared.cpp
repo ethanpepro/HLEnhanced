@@ -17,6 +17,8 @@
 #include "cbase.h"
 #include "CBasePlayer.h"
 
+LINK_ENTITY_TO_CLASS( player, CBasePlayer );
+
 void CBasePlayer::SetWeaponAnimType( const char* const pszExtension )
 {
 	ASSERT( pszExtension );

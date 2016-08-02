@@ -19,7 +19,7 @@
 #include "entities/CEntityDictionary.h"
 
 #ifdef CLIENT_DLL
-#include "hl/hl_weapons.h"
+#include "hl/CClientPrediction.h"
 #endif
 
 #include "Weapons.h"
@@ -76,7 +76,7 @@ void UTIL_PrecacheOtherWeapon( const char* const pszClassname )
 		return;
 	}
 
-	auto pev = HUD_AllocEntity();
+	auto pev = g_Prediction.CreateEntity();
 
 	CBaseEntity* pEntity = pReg->CreateInstance( pev );
 
@@ -98,7 +98,7 @@ void UTIL_PrecacheOtherWeapon( const char* const pszClassname )
 
 	pWeapon->Spawn();
 
-	HUD_AddWeapon( pWeapon );
+	g_Prediction.AddWeapon( pWeapon );
 #endif
 }
 

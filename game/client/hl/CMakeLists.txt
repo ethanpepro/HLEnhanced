@@ -1,4 +1,6 @@
 add_sources(
+	CClientPrediction.h
+	CClientPrediction.cpp
 	hl_baseentity.cpp
 	hl_events.cpp
 	hl_objects.cpp

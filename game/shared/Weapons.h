@@ -220,7 +220,7 @@ extern CMultiDamage g_MultiDamage;
 bool bIsMultiplayer();
 
 #ifdef CLIENT_DLL
-void LoadVModel( const char* const pszViewModel, CBasePlayer* m_pPlayer );
+void LoadVModel( const char* const pszViewModel, CBasePlayer* pPlayer );
 #endif
 
 void RegisterAmmoTypes();
