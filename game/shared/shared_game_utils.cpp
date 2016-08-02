@@ -317,31 +317,31 @@ COM_Parse
 Parse a token out of a string
 ==============
 */
-char *COM_Parse( char *data )
+const char* COM_Parse( const char* pszData )
 {
 	int             c;
 	int             len;
 
 	len = 0;
-	com_token[ 0 ] = 0;
+	com_token[ 0 ] = '\0';
 
-	if( !data )
-		return NULL;
+	if( !pszData )
+		return nullptr;
 
 	// skip whitespace
 skipwhite:
-	while( ( c = *data ) <= ' ' )
+	while( ( c = *pszData ) <= ' ' )
 	{
-		if( c == 0 )
-			return NULL;                    // end of file;
-		data++;
+		if( c == '\0' )
+			return nullptr;                    // end of file;
+		++pszData;
 	}
 
 	// skip // comments
-	if( c == '/' && data[ 1 ] == '/' )
+	if( c == '/' && pszData[ 1 ] == '/' )
 	{
-		while( *data && *data != '\n' )
-			data++;
+		while( *pszData && *pszData != '\n' )
+			++pszData;
 		goto skipwhite;
 	}
 
@@ -349,17 +349,17 @@ skipwhite:
 	// handle quoted strings specially
 	if( c == '\"' )
 	{
-		data++;
+		++pszData;
 		while( 1 )
 		{
-			c = *data++;
+			c = *pszData++;
 			if( c == '\"' || !c )
 			{
-				com_token[ len ] = 0;
-				return data;
+				com_token[ len ] = '\0';
+				return pszData;
 			}
 			com_token[ len ] = c;
-			len++;
+			++len;
 		}
 	}
 
@@ -368,47 +368,39 @@ skipwhite:
 	{
 		com_token[ len ] = c;
 		len++;
-		com_token[ len ] = 0;
-		return data + 1;
+		com_token[ len ] = '\0';
+		return pszData + 1;
 	}
 
 	// parse a regular word
 	do
 	{
 		com_token[ len ] = c;
-		data++;
-		len++;
-		c = *data;
+		++pszData;
+		++len;
+		c = *pszData;
 		if( c == '{' || c == '}' || c == ')' || c == '(' || c == '\'' || c == ',' )
 			break;
 	}
-	while( c>32 );
+	while( c > ' ' );
 
-	com_token[ len ] = 0;
-	return data;
+	com_token[ len ] = '\0';
+	return pszData;
 }
 
-/*
-==============
-COM_TokenWaiting
-
-Returns 1 if additional data is waiting to be processed on this line
-==============
-*/
-int COM_TokenWaiting( char *buffer )
+bool COM_TokenWaiting( const char* const pszBuffer )
 {
-	char *p;
+	const char* p = pszBuffer;
 
-	p = buffer;
 	while( *p && *p != '\n' )
 	{
 		if( !isspace( *p ) || isalnum( *p ) )
-			return 1;
+			return true;
 
-		p++;
+		++p;
 	}
 
-	return 0;
+	return false;
 }
 
 char *memfgets( byte *pMemFile, int fileSize, int &filePos, char *pBuffer, int bufferSize )

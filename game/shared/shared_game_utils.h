@@ -159,10 +159,18 @@ void DBG_AssertFunction( const bool fExpr, const char* szExpr, const char* szFil
 extern char com_token[ MAX_COM_TOKEN ];
 
 //TODO: tidy the parse code, make it use user provided buffers - Solokiller
-//TODO: const correctness - Solokiller
-char *COM_Parse( char *data );
+/**
+*	Parses the given string and stores the result in com_token.
+*	@param pszData Data to parse.
+*	@return Pointer to the next token, or null if there are no more tokens.
+*/
+const char* COM_Parse( const char* pszData );
 
-int COM_TokenWaiting( char *buffer );
+/**
+*	@param pszBuffer Buffer to check.
+*	@return true if additional data is waiting to be processed on this line.
+*/
+bool COM_TokenWaiting( const char* const pszBuffer );
 
 char *memfgets( byte *pMemFile, int fileSize, int &filePos, char *pBuffer, int bufferSize );
 

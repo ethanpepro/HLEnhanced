@@ -1196,8 +1196,9 @@ int ReloadMapCycleFile( char *filename, mapcycle_t *cycle )
 	char szBuffer[ MAX_RULE_BUFFER ];
 	char szMap[ 32 ];
 	int length;
-	char *pFileList;
-	char *aFileList = pFileList = (char*)LOAD_FILE_FOR_ME( filename, &length );
+	char *aFileList = (char*)LOAD_FILE_FOR_ME( filename, &length );
+
+	const char* pFileList = aFileList;
 	int hasbuffer;
 	mapcycle_item_s *item, *newlist = NULL, *next;
 

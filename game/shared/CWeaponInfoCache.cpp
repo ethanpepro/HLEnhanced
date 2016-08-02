@@ -151,7 +151,7 @@ bool CWeaponInfoCache::LoadWeaponInfoFromFile( const char* const pszWeaponName, 
 
 	g_pFileSystem->Close( hFile );
 
-	char* pszBuffer = buffer.get();
+	const char* pszBuffer = buffer.get();
 
 	pszBuffer = COM_Parse( pszBuffer );
 
