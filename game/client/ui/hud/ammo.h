@@ -19,8 +19,6 @@
 //TODO: defined in CBasePlayerItem.h - Solokiller
 #define WEAPON_FLAGS_SELECTONEMPTY	1
 
-#define WEAPON_IS_ONTARGET 0x40
-
 class CWeaponInfo;
 
 struct WEAPON

@@ -205,6 +205,11 @@ const char* ItemInfoFlagToString( const ItemInfoFlag flag );
 */
 ItemInfoFlag StringToItemInfoFlag( const char* const pszString );
 
-#define WEAPON_IS_ONTARGET 0x40
+enum class WpnOnTargetState
+{
+	NOT_ACTIVE_WEAPON	= 0,
+	ACTIVE_WEAPON		= 1,
+	ACTIVE_IS_ONTARGET	= 0x40
+};
 
 #endif //GAME_SHARED_WEAPONSCONST_H

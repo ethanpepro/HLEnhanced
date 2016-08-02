@@ -471,19 +471,15 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 {
 	static wrect_t nullrc;
-	bool fOnTarget = false;
 
 	CBufferReader reader( pbuf, iSize );
 
-	int iState = reader.ReadByte();
+	const WpnOnTargetState state = static_cast<WpnOnTargetState>( reader.ReadByte() );
 	int iId = reader.ReadChar();
 	int iClip = reader.ReadChar();
 
 	// detect if we're also on target
-	if ( iState > 1 )
-	{
-		fOnTarget = true;
-	}
+	bool fOnTarget = state == WpnOnTargetState::ACTIVE_IS_ONTARGET;
 
 	if ( iId < 1 )
 	{
@@ -514,7 +510,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 		pWeapon->iClip = iClip;
 
 
-	if ( iState == 0 )	// we're not the current weapon, so update no more
+	if ( state == WpnOnTargetState::NOT_ACTIVE_WEAPON )	// we're not the current weapon, so update no more
 		return 1;
 
 	m_pWeapon = pWeapon;

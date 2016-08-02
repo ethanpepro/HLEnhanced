@@ -293,13 +293,13 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 bool CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 {
 	bool bSend = false;
-	int state = 0;
+	WpnOnTargetState state = WpnOnTargetState::NOT_ACTIVE_WEAPON;
 	if( pPlayer->m_pActiveItem == this )
 	{
 		if( pPlayer->m_fOnTarget )
-			state = WEAPON_IS_ONTARGET;
+			state = WpnOnTargetState::ACTIVE_IS_ONTARGET;
 		else
-			state = 1;//TODO: define constant - Solokiller
+			state = WpnOnTargetState::ACTIVE_WEAPON;
 	}
 
 	// Forcing send of all data!
@@ -329,7 +329,7 @@ bool CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 	if( bSend )
 	{
 		MESSAGE_BEGIN( MSG_ONE, gmsgCurWeapon, NULL, pPlayer );
-		WRITE_BYTE( state );
+		WRITE_BYTE( static_cast<int>( state ) );
 		WRITE_BYTE( m_iId );
 		WRITE_BYTE( m_iClip );
 		MESSAGE_END();
