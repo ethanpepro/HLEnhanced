@@ -46,7 +46,7 @@ public:
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
 	bool Deploy() override;
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 	void WeaponIdle( void ) override;
 	int m_fJustThrown;
 

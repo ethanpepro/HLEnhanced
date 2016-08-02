@@ -105,7 +105,7 @@ bool CBasePlayerWeapon::DefaultReload( int iAnim, float fDelay, int body )
 #endif
 
 	//!!UNDONE -- reload sound goes here !!!
-	SendWeaponAnim( iAnim, UseDecrement(), body );
+	SendWeaponAnim( iAnim, body );
 
 	m_fInReload = true;
 

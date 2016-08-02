@@ -72,7 +72,7 @@ public:
 	bool Deploy() override;
 	bool IsUseable() override;
 
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 	void WeaponIdle( void ) override;
 	void Throw( void );
 

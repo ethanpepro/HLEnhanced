@@ -65,7 +65,7 @@ void CGlock::Precache( void )
 bool CGlock::Deploy()
 {
 	// pev->body = 1;
-	return DefaultDeploy( "models/v_9mmhandgun.mdl", "models/p_9mmhandgun.mdl", GLOCK_DRAW, "onehanded", /*UseDecrement() ? 1 : 0*/ 0 );
+	return DefaultDeploy( "models/v_9mmhandgun.mdl", "models/p_9mmhandgun.mdl", GLOCK_DRAW, "onehanded" );
 }
 
 void CGlock::SecondaryAttack( void )
@@ -196,7 +196,7 @@ void CGlock::WeaponIdle( void )
 			iAnim = GLOCK_IDLE2;
 			m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 40.0 / 16.0;
 		}
-		SendWeaponAnim( iAnim, 1 );
+		SendWeaponAnim( iAnim );
 	}
 }
 

@@ -34,7 +34,7 @@ public:
 
 	bool Deploy() override;
 
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 
 	void WeaponIdle() override;
 

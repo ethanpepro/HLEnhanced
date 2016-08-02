@@ -45,7 +45,7 @@ public:
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 
 	bool Deploy() override;
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 
 	void UpdateEffect( const Vector &startPoint, const Vector &endPoint, float timeBlend );
 

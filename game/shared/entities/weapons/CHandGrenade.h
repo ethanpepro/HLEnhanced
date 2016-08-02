@@ -40,7 +40,7 @@ public:
 	void PrimaryAttack( void ) override;
 	bool Deploy() override;
 	bool CanHolster() override;
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 	void WeaponIdle( void ) override;
 
 	virtual bool UseDecrement() const override

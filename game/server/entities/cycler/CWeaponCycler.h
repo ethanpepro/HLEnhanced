@@ -28,7 +28,7 @@ public:
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
 	bool Deploy() override;
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 	int m_iszModel;
 	int m_iModel;
 };

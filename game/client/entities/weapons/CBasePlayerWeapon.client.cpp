@@ -52,7 +52,7 @@ CBasePlayerWeapon::SendWeaponAnim
 Animate weapon model
 =====================
 */
-void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
+void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int body )
 {
 	m_pPlayer->pev->weaponanim = iAnim;
 
@@ -70,14 +70,14 @@ CBasePlayerWeapon :: DefaultDeploy
 
 =====================
 */
-bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int skiplocal, int body )
+bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int body )
 {
 	if( !CanDeploy() )
 		return false;
 
 	LoadVModel( pszViewModel, m_pPlayer );
 
-	SendWeaponAnim( iAnim, skiplocal, body );
+	SendWeaponAnim( iAnim, body );
 
 	g_brunninggausspred = false;
 	m_pPlayer->m_flNextAttack = 0.5;
@@ -173,7 +173,7 @@ CBasePlayerWeapon::Holster
 Put away weapon
 =====================
 */
-void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
+void CBasePlayerWeapon::Holster()
 {
 	m_fInReload = false; // cancel any reload in progress.
 	g_brunninggausspred = false;

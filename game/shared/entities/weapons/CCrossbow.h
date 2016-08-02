@@ -47,7 +47,7 @@ public:
 	void SecondaryAttack( void ) override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 	bool Deploy() override;
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
 

@@ -82,11 +82,11 @@ bool CPython::Deploy()
 		pev->body = 0;
 	}
 
-	return DefaultDeploy( "models/v_357.mdl", "models/p_357.mdl", PYTHON_DRAW, "python", UseDecrement(), pev->body );
+	return DefaultDeploy( "models/v_357.mdl", "models/p_357.mdl", PYTHON_DRAW, "python", pev->body );
 }
 
 
-void CPython::Holster( int skiplocal /* = 0 */ )
+void CPython::Holster()
 {
 	m_fInReload = false;// cancel any reload in progress.
 
@@ -233,7 +233,7 @@ void CPython::WeaponIdle( void )
 	
 	const int iScopeBody = bIsMultiplayer() ? 1 : 0;
 	
-	SendWeaponAnim( iAnim, UseDecrement() ? 1 : 0, iScopeBody );
+	SendWeaponAnim( iAnim, iScopeBody );
 }
 
 

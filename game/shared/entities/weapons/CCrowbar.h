@@ -43,7 +43,7 @@ public:
 	void PrimaryAttack( void ) override;
 	bool Swing( const bool bFirst );
 	bool Deploy() override;
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 	int m_iSwing;
 	TraceResult m_trHit;
 

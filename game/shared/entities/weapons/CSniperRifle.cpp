@@ -69,7 +69,7 @@ bool CSniperRifle::Deploy()
 		SNIPERRIFLE_DRAW, "bow" );
 }
 
-void CSniperRifle::Holster( int skiplocal )
+void CSniperRifle::Holster()
 {
 	m_fInReload = false;// cancel any reload in progress.
 
@@ -78,7 +78,7 @@ void CSniperRifle::Holster( int skiplocal )
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.25;
 
-	SendWeaponAnim( SNIPERRIFLE_HOLSTER, skiplocal );
+	SendWeaponAnim( SNIPERRIFLE_HOLSTER );
 }
 
 void CSniperRifle::WeaponIdle()

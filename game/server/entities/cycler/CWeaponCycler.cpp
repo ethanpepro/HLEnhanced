@@ -81,7 +81,7 @@ bool CWeaponCycler::Deploy()
 	return true;
 }
 
-void CWeaponCycler::Holster( int skiplocal /* = 0 */ )
+void CWeaponCycler::Holster()
 {
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 }

@@ -307,17 +307,14 @@ bool CBasePlayerWeapon::AddSecondaryAmmo( int iCount, const char *szName )
 	return iIdAmmo > 0;
 }
 
-void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
+void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int body )
 {
-	if( UseDecrement() )
-		skiplocal = 1;
-	else
-		skiplocal = 0;
+	const bool bSkipLocal = UseDecrement();
 
 	m_pPlayer->pev->weaponanim = iAnim;
 
 #if defined( CLIENT_WEAPONS )
-	if( skiplocal && ENGINE_CANSKIP( m_pPlayer->edict() ) )
+	if( bSkipLocal && ENGINE_CANSKIP( m_pPlayer->edict() ) )
 		return;
 #endif
 
@@ -374,7 +371,7 @@ bool CBasePlayerWeapon::IsUseable()
 	return true;
 }
 
-bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int skiplocal /* = 0 */, int body )
+bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int body )
 {
 	if( !CanDeploy() )
 		return false;
@@ -384,7 +381,7 @@ bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const cha
 	m_pPlayer->pev->viewmodel = MAKE_STRING( pszViewModel );
 	m_pPlayer->pev->weaponmodel = MAKE_STRING( pszWeaponModel );
 	m_pPlayer->SetWeaponAnimType( pszAnimExt );
-	SendWeaponAnim( iAnim, skiplocal, body );
+	SendWeaponAnim( iAnim, body );
 
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.0;
@@ -560,7 +557,7 @@ void CBasePlayerWeapon::RetireWeapon( void )
 	g_pGameRules->GetNextBestWeapon( m_pPlayer, this );
 }
 
-void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
+void CBasePlayerWeapon::Holster()
 {
 	m_fInReload = false; // cancel any reload in progress.
 	m_pPlayer->pev->viewmodel = 0;

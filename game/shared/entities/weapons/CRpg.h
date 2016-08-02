@@ -48,7 +48,7 @@ public:
 
 	bool Deploy() override;
 	bool CanHolster() override;
-	void Holster( int skiplocal = 0 ) override;
+	void Holster() override;
 
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;

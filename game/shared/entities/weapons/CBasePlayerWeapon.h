@@ -120,9 +120,9 @@ public:
 	virtual void ResetEmptySound();
 
 	/**
-	*	Skiplocal is 1 if client is predicting weapon animations
+	*	Sends the weapon animation to the owning client.
 	*/
-	virtual void SendWeaponAnim( int iAnim, int skiplocal = 1, int body = 0 );
+	virtual void SendWeaponAnim( int iAnim, int body = 0 );
 
 	virtual bool CanDeploy() const;
 	/**
@@ -140,7 +140,7 @@ public:
 	virtual void AttachToPlayer( CBasePlayer *pPlayer );
 
 	virtual bool IsUseable();
-	bool DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int skiplocal = 0, int body = 0 );
+	bool DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int body = 0 );
 	bool DefaultReload( int iAnim, float fDelay, int body = 0 );
 
 	/**
@@ -182,7 +182,11 @@ public:
 
 	virtual void RetireWeapon();
 	virtual bool ShouldWeaponIdle() { return false; }
-	virtual void Holster( int skiplocal = 0 );
+	virtual void Holster();
+
+	/**
+	*	@return Whether this weapon is predicted or not.
+	*/
 	virtual bool UseDecrement() const { return false; }
 
 	void PrintState();
