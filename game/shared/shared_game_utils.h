@@ -158,7 +158,29 @@ void DBG_AssertFunction( const bool fExpr, const char* szExpr, const char* szFil
 
 extern char com_token[ MAX_COM_TOKEN ];
 
-//TODO: tidy the parse code, make it use user provided buffers - Solokiller
+/**
+*	Parses the given string and returns a pointer to the first non-whitespace character.
+*	Returns null if there are no non-whitespace characters left.
+*/
+const char* COM_SkipWhitespace( const char* pszData );
+
+/**
+*	Parses the given string and skips past any single line comments ("//") that there may be.
+*	@param pszData String to parse.
+*	@param bWasComment Whether this line was a comment or not.
+*	@return Pointer to the next line, or null if there was no more data.
+*/
+const char* COM_SkipComments( const char* pszData, bool& bWasComment );
+
+/**
+*	Parses the given string and stores the result in pszBuffer.
+*	@param pszData Data to parse.
+*	@param[ out ] pszBuffer Destination buffer.
+*	@param uiBufferSize Size of the destination buffer, in characters.
+*	@return Pointer to the next token, or null if there are no more tokens.
+*/
+const char* COM_Parse( const char* pszData, char* pszBuffer, const size_t uiBufferSize );
+
 /**
 *	Parses the given string and stores the result in com_token.
 *	@param pszData Data to parse.

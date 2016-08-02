@@ -310,26 +310,13 @@ void DBG_AssertFunction(
 
 char com_token[ MAX_COM_TOKEN ];
 
-/*
-==============
-COM_Parse
-
-Parse a token out of a string
-==============
-*/
-const char* COM_Parse( const char* pszData )
+const char* COM_SkipWhitespace( const char* pszData )
 {
-	int             c;
-	int             len;
-
-	len = 0;
-	com_token[ 0 ] = '\0';
-
 	if( !pszData )
 		return nullptr;
 
-	// skip whitespace
-skipwhite:
+	char c;
+
 	while( ( c = *pszData ) <= ' ' )
 	{
 		if( c == '\0' )
@@ -337,14 +324,70 @@ skipwhite:
 		++pszData;
 	}
 
+	return pszData;
+}
+
+const char* COM_SkipComments( const char* pszData, bool& bWasComment )
+{
+	if( !pszData )
+	{
+		bWasComment = false;
+		return nullptr;
+	}
+
+	char c = *pszData;
+
 	// skip // comments
 	if( c == '/' && pszData[ 1 ] == '/' )
 	{
 		while( *pszData && *pszData != '\n' )
 			++pszData;
-		goto skipwhite;
+		bWasComment = true;
+	}
+	else
+		bWasComment = false;
+
+	if( !( *pszData ) )
+		return nullptr;
+
+	return pszData;
+}
+
+const char* COM_Parse( const char* pszData, char* pszBuffer, const size_t uiBufferSize )
+{
+	ASSERT( pszBuffer );
+	ASSERT( uiBufferSize > 0 );
+
+	if( !pszBuffer || !uiBufferSize )
+		return nullptr;
+
+	size_t len = 0;
+	pszBuffer[ 0 ] = '\0';
+
+	if( !pszData )
+		return nullptr;
+
+	{
+		bool bWasComment;
+
+		do
+		{
+			// skip whitespace
+			pszData = COM_SkipWhitespace( pszData );
+
+			if( !pszData )
+				return nullptr;
+
+			// skip // comments
+			pszData = COM_SkipComments( pszData, bWasComment );
+
+			if( !pszData )
+				return nullptr;
+		}
+		while( bWasComment );
 	}
 
+	char c = *pszData;
 
 	// handle quoted strings specially
 	if( c == '\"' )
@@ -352,13 +395,20 @@ skipwhite:
 		++pszData;
 		while( 1 )
 		{
+			if( len + 1 >= uiBufferSize )
+			{
+				Alert( at_error, "COM_Parse: Buffer not large enough to contain token!\n" );
+				pszBuffer[ len ] = '\0';
+				return nullptr;
+			}
+
 			c = *pszData++;
 			if( c == '\"' || !c )
 			{
-				com_token[ len ] = '\0';
+				pszBuffer[ len ] = '\0';
 				return pszData;
 			}
-			com_token[ len ] = c;
+			pszBuffer[ len ] = c;
 			++len;
 		}
 	}
@@ -366,16 +416,30 @@ skipwhite:
 	// parse single characters
 	if( c == '{' || c == '}' || c == ')' || c == '(' || c == '\'' || c == ',' )
 	{
-		com_token[ len ] = c;
-		len++;
-		com_token[ len ] = '\0';
+		if( len + 1 >= uiBufferSize )
+		{
+			Alert( at_error, "COM_Parse: Buffer not large enough to contain token!\n" );
+			pszBuffer[ len ] = '\0';
+			return nullptr;
+		}
+
+		pszBuffer[ len ] = c;
+		++len;
+		pszBuffer[ len ] = '\0';
 		return pszData + 1;
 	}
 
 	// parse a regular word
 	do
 	{
-		com_token[ len ] = c;
+		if( len + 1 >= uiBufferSize )
+		{
+			Alert( at_error, "COM_Parse: Buffer not large enough to contain token!\n" );
+			pszBuffer[ len ] = '\0';
+			return nullptr;
+		}
+
+		pszBuffer[ len ] = c;
 		++pszData;
 		++len;
 		c = *pszData;
@@ -384,8 +448,13 @@ skipwhite:
 	}
 	while( c > ' ' );
 
-	com_token[ len ] = '\0';
+	pszBuffer[ len ] = '\0';
 	return pszData;
+}
+
+const char* COM_Parse( const char* pszData )
+{
+	return COM_Parse( pszData, com_token, sizeof( com_token ) );
 }
 
 bool COM_TokenWaiting( const char* const pszBuffer )
