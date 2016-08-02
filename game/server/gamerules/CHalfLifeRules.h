@@ -31,8 +31,8 @@ public:
 	virtual bool IsAllowedToSpawn( CBaseEntity *pEntity ) override;
 	virtual bool FAllowFlashlight() const override { return true; }
 
-	virtual bool FShouldSwitchWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pWeapon ) override;
-	virtual bool GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon ) override;
+	virtual bool FShouldSwitchWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pWeapon ) override;
+	virtual bool GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pCurrentWeapon ) override;
 
 	// Functions to verify the single/multiplayer status of a game
 	virtual bool IsMultiplayer() const override;
@@ -61,13 +61,13 @@ public:
 	virtual void DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
 
 	// Weapon retrieval
-	virtual void PlayerGotWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pWeapon ) override;
+	virtual void PlayerGotWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pWeapon ) override;
 
 	// Weapon spawn/respawn control
-	virtual int WeaponShouldRespawn( CBasePlayerItem *pWeapon ) override;
-	virtual float FlWeaponRespawnTime( CBasePlayerItem *pWeapon ) override;
-	virtual float FlWeaponTryRespawn( CBasePlayerItem *pWeapon ) override;
-	virtual Vector VecWeaponRespawnSpot( CBasePlayerItem *pWeapon ) override;
+	virtual int WeaponShouldRespawn( CBasePlayerWeapon *pWeapon ) override;
+	virtual float FlWeaponRespawnTime( CBasePlayerWeapon *pWeapon ) override;
+	virtual float FlWeaponTryRespawn( CBasePlayerWeapon *pWeapon ) override;
+	virtual Vector VecWeaponRespawnSpot( CBasePlayerWeapon *pWeapon ) override;
 
 	// Item retrieval
 	virtual bool CanHaveItem( CBasePlayer *pPlayer, CItem *pItem ) override;

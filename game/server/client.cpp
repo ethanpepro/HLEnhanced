@@ -862,7 +862,6 @@ int GetWeaponData( edict_t* pEntity, weapon_data_t* pInfo )
 #if defined( CLIENT_WEAPONS )
 	weapon_data_t *item;
 	auto pPlayer = static_cast<CBasePlayer*>( CBasePlayer::Instance( pEntity ) );
-	CBasePlayerWeapon *gun;
 
 	memset( pInfo, 0, MAX_WEAPONS * sizeof( weapon_data_t ) );
 
@@ -875,20 +874,19 @@ int GetWeaponData( edict_t* pEntity, weapon_data_t* pInfo )
 		if ( pPlayer->m_rgpPlayerItems[ i ] )
 		{
 			// there's a weapon here. Should I pack it?
-			CBasePlayerItem *pPlayerItem = pPlayer->m_rgpPlayerItems[ i ];
+			CBasePlayerWeapon *pPlayerItem = pPlayer->m_rgpPlayerItems[ i ];
 
 			while ( pPlayerItem )
 			{
-				gun = pPlayerItem->GetWeaponPtr();
-				if ( gun && gun->UseDecrement() )
+				if ( pPlayerItem->UseDecrement() )
 				{
-					if ( gun->m_iId >= 0 && gun->m_iId < MAX_WEAPONS )
+					if ( pPlayerItem->m_iId >= 0 && pPlayerItem->m_iId < MAX_WEAPONS )
 					{
-						item = &pInfo[ gun->m_iId ];
+						item = &pInfo[ pPlayerItem->m_iId ];
 					 	
-						item->m_iId = gun->m_iId;
+						item->m_iId = pPlayerItem->m_iId;
 
-						gun->GetWeaponData( *item );
+						pPlayerItem->GetWeaponData( *item );
 					}
 				}
 				pPlayerItem = pPlayerItem->m_pNext;
@@ -992,13 +990,11 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 
 			if ( pl->m_pActiveItem )
 			{
-				CBasePlayerWeapon* gun = pl->m_pActiveItem->GetWeaponPtr();
-
-				if ( gun && gun->UseDecrement() )
+				if ( pl->m_pActiveItem->UseDecrement() )
 				{
-					const CWeaponInfo* pInfo = gun->GetWeaponInfo();
+					const CWeaponInfo* pInfo = pl->m_pActiveItem->GetWeaponInfo();
 
-					cd->m_iId = gun->m_iId;
+					cd->m_iId = pl->m_pActiveItem->m_iId;
 
 					if( auto pPrimaryAmmo = pInfo->GetPrimaryAmmo() )
 						cd->vuser4.y = pl->m_rgAmmo[ pPrimaryAmmo->GetID() ];

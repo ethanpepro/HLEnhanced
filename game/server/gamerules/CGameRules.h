@@ -20,7 +20,7 @@
 //#include "Weapons.h"
 //#include "items.h"
 class CBaseEntity;
-class CBasePlayerItem;
+class CBasePlayerWeapon;
 class CBasePlayer;
 class CItem;
 class CBasePlayerAmmo;
@@ -71,8 +71,8 @@ public:
 	virtual bool IsAllowedToSpawn( CBaseEntity *pEntity ) = 0;  // Can this item spawn (eg monsters don't spawn in deathmatch).
 
 	virtual bool FAllowFlashlight() const = 0;// Are players allowed to switch on their flashlight?
-	virtual bool FShouldSwitchWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pWeapon ) = 0;// should the player switch to this weapon?
-	virtual bool GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon ) = 0;// I can't use this weapon anymore, get me the next best one.
+	virtual bool FShouldSwitchWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pWeapon ) = 0;// should the player switch to this weapon?
+	virtual bool GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pCurrentWeapon ) = 0;// I can't use this weapon anymore, get me the next best one.
 
 // Functions to verify the single/multiplayer status of a game
 	virtual bool IsMultiplayer() const = 0;// is this a multiplayer game? (either coop or deathmatch)
@@ -108,14 +108,14 @@ public:
 	virtual void PlayerKilled( CBasePlayer* pVictim, const CTakeDamageInfo& info ) = 0;// Called each time a player dies
 	virtual void DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info )=  0;// Call this from within a GameRules class to report an obituary.
 // Weapon retrieval
-	virtual bool CanHavePlayerItem( CBasePlayer *pPlayer, CBasePlayerItem *pWeapon );// The player is touching an CBasePlayerItem, do I give it to him?
-	virtual void PlayerGotWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pWeapon ) = 0;// Called each time a player picks up a weapon from the ground
+	virtual bool CanHavePlayerItem( CBasePlayer *pPlayer, CBasePlayerWeapon *pWeapon );// The player is touching a CBasePlayerWeapon, do I give it to him?
+	virtual void PlayerGotWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pWeapon ) = 0;// Called each time a player picks up a weapon from the ground
 
 // Weapon spawn/respawn control
-	virtual int WeaponShouldRespawn( CBasePlayerItem *pWeapon ) = 0;// should this weapon respawn?
-	virtual float FlWeaponRespawnTime( CBasePlayerItem *pWeapon ) = 0;// when may this weapon respawn?
-	virtual float FlWeaponTryRespawn( CBasePlayerItem *pWeapon ) = 0; // can i respawn now,  and if not, when should i try again?
-	virtual Vector VecWeaponRespawnSpot( CBasePlayerItem *pWeapon ) = 0;// where in the world should this weapon respawn?
+	virtual int WeaponShouldRespawn( CBasePlayerWeapon *pWeapon ) = 0;// should this weapon respawn?
+	virtual float FlWeaponRespawnTime( CBasePlayerWeapon *pWeapon ) = 0;// when may this weapon respawn?
+	virtual float FlWeaponTryRespawn( CBasePlayerWeapon *pWeapon ) = 0; // can i respawn now,  and if not, when should i try again?
+	virtual Vector VecWeaponRespawnSpot( CBasePlayerWeapon *pWeapon ) = 0;// where in the world should this weapon respawn?
 
 // Item retrieval
 	virtual bool CanHaveItem( CBasePlayer *pPlayer, CItem *pItem ) = 0;// is this player allowed to take this item?

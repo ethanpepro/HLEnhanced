@@ -51,8 +51,6 @@ size_t DeactivateSatchels( CBasePlayer* const pOwner, const SatchelAction action
 
 #include "entities/CGrenade.h"
 
-#include "entities/weapons/CBasePlayerItem.h"
-
 #include "entities/weapons/CBasePlayerWeapon.h"
 
 #include "entities/ammo/CBasePlayerAmmo.h"

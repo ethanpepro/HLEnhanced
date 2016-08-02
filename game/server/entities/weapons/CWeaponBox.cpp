@@ -91,7 +91,7 @@ void CWeaponBox::Touch( CBaseEntity *pOther )
 	{
 		if( m_rgpPlayerItems[ i ] )
 		{
-			CBasePlayerItem *pItem;
+			CBasePlayerWeapon *pItem;
 
 			// have at least one weapon in this slot
 			while( m_rgpPlayerItems[ i ] )
@@ -210,7 +210,7 @@ void CWeaponBox::SetObjectCollisionBox()
 //=========================================================
 void CWeaponBox::Kill()
 {
-	CBasePlayerItem *pWeapon;
+	CBasePlayerWeapon *pWeapon;
 	int i;
 
 	// destroy the weapons
@@ -220,7 +220,7 @@ void CWeaponBox::Kill()
 
 		while( pWeapon )
 		{
-			pWeapon->SetThink( &CBasePlayerItem::SUB_Remove );
+			pWeapon->SetThink( &CBasePlayerWeapon::SUB_Remove );
 			pWeapon->pev->nextthink = gpGlobals->time + 0.1;
 			pWeapon = pWeapon->m_pNext;
 		}
@@ -234,9 +234,9 @@ void CWeaponBox::Kill()
 // CWeaponBox::HasWeapon - is a weapon of this type already
 // packed in this box?
 //=========================================================
-bool CWeaponBox::HasWeapon( CBasePlayerItem *pCheckItem ) const
+bool CWeaponBox::HasWeapon( CBasePlayerWeapon *pCheckItem ) const
 {
-	CBasePlayerItem *pItem = m_rgpPlayerItems[ pCheckItem->iItemSlot() ];
+	CBasePlayerWeapon *pItem = m_rgpPlayerItems[ pCheckItem->iItemSlot() ];
 
 	while( pItem )
 	{
@@ -253,7 +253,7 @@ bool CWeaponBox::HasWeapon( CBasePlayerItem *pCheckItem ) const
 //=========================================================
 // CWeaponBox - PackWeapon: Add this weapon to the box
 //=========================================================
-bool CWeaponBox::PackWeapon( CBasePlayerItem *pWeapon )
+bool CWeaponBox::PackWeapon( CBasePlayerWeapon *pWeapon )
 {
 	// is one of these weapons already packed in this box?
 	if( HasWeapon( pWeapon ) )

@@ -18,6 +18,8 @@
 #include "CBasePlayer.h"
 #include "Weapons.h"
 
+#include "CWeaponInfoCache.h"
+
 #ifdef CLIENT_DLL
 #include "hud.h"
 #include "cl_util.h"
@@ -28,6 +30,8 @@
 void CBasePlayerWeapon::Precache()
 {
 	BaseClass::Precache();
+
+	m_pWeaponInfo = g_WeaponInfoCache.LoadWeaponInfo( m_iId, GetClassname() );
 
 	m_iDefaultAmmo = GetWeaponInfo()->GetDefaultAmmo();
 }
@@ -133,4 +137,15 @@ void CBasePlayerWeapon::SetWeaponData( const weapon_data_t& data )
 	m_fInReload = data.m_fInReload != 0;
 
 	pev->fuser1 = data.fuser1;
+}
+
+int CBasePlayerWeapon::PrimaryAmmoIndex() const
+{
+	return GetWeaponInfo()->GetPrimaryAmmo() ? GetWeaponInfo()->GetPrimaryAmmo()->GetID() : WEAPON_NOCLIP;
+}
+
+int CBasePlayerWeapon::SecondaryAmmoIndex() const
+{
+	//Used to return -1 unconditionally. - Solokiller
+	return GetWeaponInfo()->GetSecondaryAmmo() ? GetWeaponInfo()->GetSecondaryAmmo()->GetID() : WEAPON_NOCLIP;
 }

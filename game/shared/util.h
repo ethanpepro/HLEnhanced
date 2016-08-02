@@ -109,7 +109,7 @@ bool FClassnameIs( const CBaseEntity* pEntity, const char* pszClassname );
 CBaseEntity* UTIL_FindClientInPVS( const CBaseEntity* const pPVSEntity );
 
 class CBaseEntity;
-class CBasePlayerItem;
+class CBasePlayerWeapon;
 class CBasePlayer;
 
 // Misc. Prototypes
@@ -200,7 +200,7 @@ inline void			UTIL_CenterPrintAll( const char *msg_name, const char *param1 = NU
 	UTIL_ClientPrintAll( HUD_PRINTCENTER, msg_name, param1, param2, param3, param4 );
 }
 
-extern bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon );
+extern bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pCurrentWeapon );
 
 // prints messages through the HUD
 extern void ClientPrint( CBaseEntity* pClient, int msg_dest, const char *msg_name, const char *param1 = NULL, const char *param2 = NULL, const char *param3 = NULL, const char *param4 = NULL );

@@ -7,28 +7,203 @@
 
 #include "entities/weapons/CBasePlayerWeapon.h"
 
+extern bool gEvilImpulse101;
+
+void CBasePlayerWeapon::SetObjectCollisionBox( void )
+{
+	pev->absmin = GetAbsOrigin() + Vector( -24, -24, 0 );
+	pev->absmax = GetAbsOrigin() + Vector( 24, 24, 16 );
+}
+
 bool CBasePlayerWeapon::AddToPlayer( CBasePlayer *pPlayer )
 {
-	const bool bResult = CBasePlayerItem::AddToPlayer( pPlayer );
+	m_pPlayer = pPlayer;
 
 	pPlayer->pev->weapons |= ( 1 << m_iId );
 
-	if( bResult )
-		return AddWeapon();
-	return false;
+	return AddWeapon();
 }
 
 // CALLED THROUGH the newly-touched weapon's instance. The existing player weapon is pOriginal
-bool CBasePlayerWeapon::AddDuplicate( CBasePlayerItem *pOriginal )
+bool CBasePlayerWeapon::AddDuplicate( CBasePlayerWeapon *pOriginal )
 {
 	if( m_iDefaultAmmo )
 	{
-		return ExtractAmmo( ( CBasePlayerWeapon * ) pOriginal );
+		return ExtractAmmo( pOriginal );
 	}
 	else
 	{
 		// a dead player dropped this.
-		return ExtractClipAmmo( ( CBasePlayerWeapon * ) pOriginal );
+		return ExtractClipAmmo( pOriginal );
+	}
+}
+
+void CBasePlayerWeapon::DestroyItem( void )
+{
+	if( m_pPlayer )
+	{
+		// if attached to a player, remove. 
+		m_pPlayer->RemovePlayerItem( this );
+	}
+
+	Kill();
+}
+
+void CBasePlayerWeapon::DefaultTouch( CBaseEntity *pOther )
+{
+	// if it's not a player, ignore
+	if( !pOther->IsPlayer() )
+		return;
+
+	CBasePlayer *pPlayer = ( CBasePlayer * ) pOther;
+
+	// can I have this?
+	if( !g_pGameRules->CanHavePlayerItem( pPlayer, this ) )
+	{
+		if( gEvilImpulse101 )
+		{
+			UTIL_Remove( this );
+		}
+		return;
+	}
+
+	if( pPlayer->AddPlayerItem( this ) )
+	{
+		AttachToPlayer( pPlayer );
+		EMIT_SOUND( pPlayer, CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM );
+	}
+
+	SUB_UseTargets( pOther, USE_TOGGLE, 0 ); // UNDONE: when should this happen?
+}
+
+//=========================================================
+// FallThink - Items that have just spawned run this think
+// to catch them when they hit the ground. Once we're sure
+// that the object is grounded, we change its solid type
+// to trigger and set it in a large box that helps the
+// player get it.
+//=========================================================
+void CBasePlayerWeapon::FallThink( void )
+{
+	pev->nextthink = gpGlobals->time + 0.1;
+
+	if( pev->flags & FL_ONGROUND )
+	{
+		// clatter if we have an owner (i.e., dropped by someone)
+		// don't clatter if the gun is waiting to respawn (if it's waiting, it is invisible!)
+		if( !FNullEnt( pev->owner ) )
+		{
+			int pitch = 95 + RANDOM_LONG( 0, 29 );
+			EMIT_SOUND_DYN( this, CHAN_VOICE, "items/weapondrop1.wav", 1, ATTN_NORM, 0, pitch );
+		}
+
+		// lie flat
+		pev->angles.x = 0;
+		pev->angles.z = 0;
+
+		Materialize();
+	}
+}
+
+//=========================================================
+// Materialize - make a CBasePlayerWeapon visible and tangible
+//=========================================================
+void CBasePlayerWeapon::Materialize( void )
+{
+	if( pev->effects & EF_NODRAW )
+	{
+		// changing from invisible state to visible.
+		EMIT_SOUND_DYN( this, CHAN_WEAPON, "items/suitchargeok1.wav", 1, ATTN_NORM, 0, 150 );
+		pev->effects &= ~EF_NODRAW;
+		pev->effects |= EF_MUZZLEFLASH;
+	}
+
+	pev->solid = SOLID_TRIGGER;
+
+	SetAbsOrigin( GetAbsOrigin() );// link into world.
+	SetTouch( &CBasePlayerWeapon::DefaultTouch );
+	SetThink( NULL );
+
+}
+
+//=========================================================
+// AttemptToMaterialize - the item is trying to rematerialize,
+// should it do so now or wait longer?
+//=========================================================
+void CBasePlayerWeapon::AttemptToMaterialize( void )
+{
+	float time = g_pGameRules->FlWeaponTryRespawn( this );
+
+	if( time == 0 )
+	{
+		Materialize();
+		return;
+	}
+
+	pev->nextthink = gpGlobals->time + time;
+}
+
+//=========================================================
+// Respawn- this item is already in the world, but it is
+// invisible and intangible. Make it visible and tangible.
+//=========================================================
+CBaseEntity* CBasePlayerWeapon::Respawn( void )
+{
+	// make a copy of this weapon that is invisible and inaccessible to players (no touch function). The weapon spawn/respawn code
+	// will decide when to make the weapon visible and touchable.
+	CBaseEntity *pNewWeapon = CBaseEntity::Create( ( char * ) GetClassname(), g_pGameRules->VecWeaponRespawnSpot( this ), pev->angles, pev->owner );
+
+	if( pNewWeapon )
+	{
+		pNewWeapon->pev->effects |= EF_NODRAW;// invisible for now
+		pNewWeapon->SetTouch( NULL );// no touch
+		pNewWeapon->SetThink( &CBasePlayerWeapon::AttemptToMaterialize );
+
+		UTIL_DropToFloor( this );
+
+		// not a typo! We want to know when the weapon the player just picked up should respawn! This new entity we created is the replacement,
+		// but when it should respawn is based on conditions belonging to the weapon that was taken.
+		pNewWeapon->pev->nextthink = g_pGameRules->FlWeaponRespawnTime( this );
+	}
+	else
+	{
+		ALERT( at_console, "Respawn failed to create %s!\n", GetClassname() );
+	}
+
+	return pNewWeapon;
+}
+
+//=========================================================
+// Sets up movetype, size, solidtype for a new weapon. 
+//=========================================================
+void CBasePlayerWeapon::FallInit( void )
+{
+	pev->movetype = MOVETYPE_TOSS;
+	pev->solid = SOLID_BBOX;
+
+	SetAbsOrigin( GetAbsOrigin() );
+	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );//pointsize until it lands on the ground.
+
+	SetTouch( &CBasePlayerWeapon::DefaultTouch );
+	SetThink( &CBasePlayerWeapon::FallThink );
+
+	pev->nextthink = gpGlobals->time + 0.1;
+}
+
+//=========================================================
+// CheckRespawn - a player is taking this weapon, should 
+// it respawn?
+//=========================================================
+void CBasePlayerWeapon::CheckRespawn( void )
+{
+	switch( g_pGameRules->WeaponShouldRespawn( this ) )
+	{
+	case GR_WEAPON_RESPAWN_YES:
+		Respawn();
+		break;
+	case GR_WEAPON_RESPAWN_NO:
+		return;
+		break;
 	}
 }
 
@@ -150,6 +325,33 @@ void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
 	WRITE_BYTE( iAnim );						// sequence number
 	WRITE_BYTE( pev->body );					// weaponmodel bodygroup.
 	MESSAGE_END();
+}
+
+void CBasePlayerWeapon::Drop( void )
+{
+	SetTouch( NULL );
+	SetThink( &CBasePlayerWeapon::SUB_Remove );
+	pev->nextthink = gpGlobals->time + .1;
+}
+
+void CBasePlayerWeapon::Kill( void )
+{
+	SetTouch( NULL );
+	SetThink( &CBasePlayerWeapon::SUB_Remove );
+	pev->nextthink = gpGlobals->time + .1;
+}
+
+void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
+{
+	pev->movetype = MOVETYPE_FOLLOW;
+	pev->solid = SOLID_NOT;
+	pev->aiment = pPlayer->edict();
+	pev->effects = EF_NODRAW; // ??
+	pev->modelindex = 0;// server won't send down to clients if modelindex == 0
+	pev->model = iStringNull;
+	pev->owner = pPlayer->edict();
+	pev->nextthink = gpGlobals->time + .1;
+	SetTouch( NULL );
 }
 
 //=========================================================

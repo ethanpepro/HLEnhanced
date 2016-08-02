@@ -98,7 +98,7 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 {
 }
 
-bool CBasePlayer::SwitchWeapon( CBasePlayerItem *pWeapon )
+bool CBasePlayer::SwitchWeapon( CBasePlayerWeapon *pWeapon )
 {
 	return false;
 }
@@ -170,12 +170,12 @@ void CBasePlayer::AddPointsToTeam( int score, const bool bAllowNegativeScore )
 {
 }
 
-bool CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
+bool CBasePlayer::AddPlayerItem( CBasePlayerWeapon *pItem )
 {
 	return false;
 }
 
-bool CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem )
+bool CBasePlayer::RemovePlayerItem( CBasePlayerWeapon *pItem )
 {
 	return false;
 }
@@ -184,7 +184,7 @@ void CBasePlayer::DropPlayerItem( char *pszItemName )
 {
 }
 
-bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const
+bool CBasePlayer::HasPlayerItem( CBasePlayerWeapon *pCheckItem ) const
 {
 	return false;
 }
@@ -223,7 +223,7 @@ void CBasePlayer::SelectLastItem( void )
 	if( m_pActiveItem )
 		m_pActiveItem->Holster();
 
-	CBasePlayerItem *pTemp = m_pActiveItem;
+	CBasePlayerWeapon *pTemp = m_pActiveItem;
 	m_pActiveItem = m_pLastItem;
 	m_pLastItem = pTemp;
 	m_pActiveItem->Deploy();
@@ -241,7 +241,7 @@ void CBasePlayer::SelectItem( const char *pstr )
 	if( !pstr )
 		return;
 
-	CBasePlayerItem *pItem = NULL;
+	CBasePlayerWeapon *pItem = NULL;
 
 	if( !pItem )
 		return;

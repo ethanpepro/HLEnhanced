@@ -167,7 +167,7 @@ CSatchel::CSatchel()
 //=========================================================
 // CALLED THROUGH the newly-touched weapon's instance. The existing player weapon is pOriginal
 //=========================================================
-bool CSatchel::AddDuplicate( CBasePlayerItem *pOriginal )
+bool CSatchel::AddDuplicate( CBasePlayerWeapon *pOriginal )
 {
 	CSatchel *pSatchel;
 
@@ -189,7 +189,7 @@ bool CSatchel::AddDuplicate( CBasePlayerItem *pOriginal )
 //=========================================================
 bool CSatchel::AddToPlayer( CBasePlayer *pPlayer )
 {
-	int bResult = CBasePlayerItem::AddToPlayer( pPlayer );
+	int bResult = CBasePlayerWeapon::AddToPlayer( pPlayer );
 	
 	//TODO: why is this here? - Solokiller
 	pPlayer->pev->weapons |= (1<<m_iId);

@@ -117,7 +117,7 @@ CBaseEntity* UTIL_FindClientInPVS( const CBaseEntity* const pPVSEntity )
 	return pEnt ? CBaseEntity::Instance( pEnt ) : nullptr;
 }
 
-bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerItem *pCurrentWeapon )
+bool UTIL_GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pCurrentWeapon )
 {
 	return g_pGameRules->GetNextBestWeapon( pPlayer, pCurrentWeapon );
 }

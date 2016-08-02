@@ -430,25 +430,23 @@ pt_end:
 	{
 		if( m_rgpPlayerItems[ i ] )
 		{
-			CBasePlayerItem *pPlayerItem = m_rgpPlayerItems[ i ];
+			CBasePlayerWeapon *pPlayerItem = m_rgpPlayerItems[ i ];
 
 			while( pPlayerItem )
 			{
-				CBasePlayerWeapon *gun = pPlayerItem->GetWeaponPtr();
-
-				if( gun && gun->UseDecrement() )
+				if( pPlayerItem->UseDecrement() )
 				{
-					gun->m_flNextPrimaryAttack = max( gun->m_flNextPrimaryAttack - gpGlobals->frametime, -1.0f );
-					gun->m_flNextSecondaryAttack = max( gun->m_flNextSecondaryAttack - gpGlobals->frametime, -0.001f );
+					pPlayerItem->m_flNextPrimaryAttack = max( pPlayerItem->m_flNextPrimaryAttack - gpGlobals->frametime, -1.0f );
+					pPlayerItem->m_flNextSecondaryAttack = max( pPlayerItem->m_flNextSecondaryAttack - gpGlobals->frametime, -0.001f );
 
-					if( gun->m_flTimeWeaponIdle != 1000 )
+					if( pPlayerItem->m_flTimeWeaponIdle != 1000 )
 					{
-						gun->m_flTimeWeaponIdle = max( gun->m_flTimeWeaponIdle - gpGlobals->frametime, -0.001f );
+						pPlayerItem->m_flTimeWeaponIdle = max( pPlayerItem->m_flTimeWeaponIdle - gpGlobals->frametime, -0.001f );
 					}
 
-					if( gun->pev->fuser1 != 1000 )
+					if( pPlayerItem->pev->fuser1 != 1000 )
 					{
-						gun->pev->fuser1 = max( gun->pev->fuser1 - gpGlobals->frametime, -0.001f );
+						pPlayerItem->pev->fuser1 = max( pPlayerItem->pev->fuser1 - gpGlobals->frametime, -0.001f );
 					}
 
 					// Only decrement if not flagged as NO_DECREMENT

@@ -219,11 +219,13 @@ public:
 	int			m_iClientHideHUD;
 	int			m_iFOV;			// field of view
 	int			m_iClientFOV;	// client's known FOV
+
+	//TODO: correct these names - Solokiller
 	// usable player items 
-	CBasePlayerItem	*m_rgpPlayerItems[ MAX_WEAPON_SLOTS ];
-	CBasePlayerItem *m_pActiveItem;
-	CBasePlayerItem *m_pClientActiveItem;  // client version of the active item
-	CBasePlayerItem *m_pLastItem;
+	CBasePlayerWeapon* m_rgpPlayerItems[ MAX_WEAPON_SLOTS ];
+	CBasePlayerWeapon* m_pActiveItem;
+	CBasePlayerWeapon* m_pClientActiveItem;  // client version of the active item
+	CBasePlayerWeapon* m_pLastItem;
 	// shared ammo slots
 	int	m_rgAmmo[MAX_AMMO_SLOTS];
 	int	m_rgAmmoLast[MAX_AMMO_SLOTS];
@@ -326,7 +328,7 @@ public:
 	void RenewItems();
 	void PackDeadPlayerItems();
 	void RemoveAllItems( const bool removeSuit );
-	bool SwitchWeapon( CBasePlayerItem *pWeapon );
+	bool SwitchWeapon( CBasePlayerWeapon *pWeapon );
 
 	/**
 	*	@return The weapon animation type.
@@ -345,10 +347,10 @@ private:
 
 public:
 
-	bool AddPlayerItem( CBasePlayerItem *pItem );
-	bool RemovePlayerItem( CBasePlayerItem *pItem );
+	bool AddPlayerItem( CBasePlayerWeapon *pItem );
+	bool RemovePlayerItem( CBasePlayerWeapon *pItem );
 	void DropPlayerItem( char *pszItemName );
-	bool HasPlayerItem( CBasePlayerItem *pCheckItem ) const;
+	bool HasPlayerItem( CBasePlayerWeapon *pCheckItem ) const;
 	bool HasNamedPlayerItem( const char *pszItemName ) const;
 	bool HasWeapons() const;// do I have ANY weapons?
 	void SelectPrevItem( int iItem );

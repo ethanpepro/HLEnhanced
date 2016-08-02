@@ -19,7 +19,7 @@ class CBaseEntity;
 class CBaseMonster;
 class CSquadMonster;
 class CCineMonster;
-class CBasePlayerItem;
+class CBasePlayerWeapon;
 class CSound;
 
 #include "entities/CBaseEntity.shared.h"

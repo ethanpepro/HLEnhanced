@@ -11,12 +11,16 @@
 
 extern bool g_brunninggausspred;
 
+void CBasePlayerWeapon::SetObjectCollisionBox( void )
+{
+}
+
 bool CBasePlayerWeapon::AddToPlayer( CBasePlayer* pPlayer )
 {
 	return false;
 }
 
-bool CBasePlayerWeapon::AddDuplicate( CBasePlayerItem* pOriginal )
+bool CBasePlayerWeapon::AddDuplicate( CBasePlayerWeapon* pOriginal )
 {
 	return false;
 }
@@ -179,4 +183,49 @@ void CBasePlayerWeapon::Holster( int skiplocal /* = 0 */ )
 float CBasePlayerWeapon::GetNextAttackDelay( float flTime )
 {
 	return flTime;
+}
+
+void CBasePlayerWeapon::DestroyItem( void )
+{
+}
+
+void CBasePlayerWeapon::DefaultTouch( CBaseEntity* pOther )
+{
+}
+
+void CBasePlayerWeapon::FallThink( void )
+{
+}
+
+void CBasePlayerWeapon::Materialize( void )
+{
+}
+
+void CBasePlayerWeapon::AttemptToMaterialize( void )
+{
+}
+
+CBaseEntity* CBasePlayerWeapon::Respawn( void )
+{
+	return NULL;
+}
+
+void CBasePlayerWeapon::FallInit( void )
+{
+}
+
+void CBasePlayerWeapon::CheckRespawn( void )
+{
+}
+
+void CBasePlayerWeapon::Drop( void )
+{
+}
+
+void CBasePlayerWeapon::Kill( void )
+{
+}
+
+void CBasePlayerWeapon::AttachToPlayer( CBasePlayer* pPlayer )
+{
 }

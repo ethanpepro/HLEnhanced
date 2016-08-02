@@ -67,7 +67,7 @@ public:
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
 	void PrimaryAttack( void ) override;
 	void SecondaryAttack( void ) override;
-	bool AddDuplicate( CBasePlayerItem *pOriginal ) override;
+	bool AddDuplicate( CBasePlayerWeapon *pOriginal ) override;
 	bool CanDeploy() const override;
 	bool Deploy() override;
 	bool IsUseable() override;

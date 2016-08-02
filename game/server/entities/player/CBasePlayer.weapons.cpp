@@ -47,7 +47,7 @@ void CBasePlayer::PackDeadPlayerItems()
 	int iWeaponRules;
 	int iAmmoRules;
 	int i;
-	CBasePlayerWeapon *rgpPackWeapons[ 20 ];// 20 hardcoded for now. How to determine exactly how many weapons we have?
+	CBasePlayerWeapon *rgpPackWeapons[ 20 ];// 20 hardcoded for now. How to determine exactly how many weapons we have? TODO
 	int iPackAmmo[ MAX_AMMO_SLOTS + 1 ];
 	int iPW = 0;// index into packweapons array
 	int iPA = 0;// index into packammo array
@@ -72,7 +72,7 @@ void CBasePlayer::PackDeadPlayerItems()
 		if( m_rgpPlayerItems[ i ] )
 		{
 			// there's a weapon here. Should I pack it?
-			CBasePlayerItem *pPlayerItem = m_rgpPlayerItems[ i ];
+			CBasePlayerWeapon *pPlayerItem = m_rgpPlayerItems[ i ];
 
 			while( pPlayerItem )
 			{
@@ -185,7 +185,7 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 	}
 
 	int i;
-	CBasePlayerItem *pPendingItem;
+	CBasePlayerWeapon *pPendingItem;
 	for( i = 0; i < MAX_WEAPON_SLOTS; i++ )
 	{
 		m_pActiveItem = m_rgpPlayerItems[ i ];
@@ -222,7 +222,7 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 //=========================================================
 // 
 //=========================================================
-bool CBasePlayer::SwitchWeapon( CBasePlayerItem *pWeapon )
+bool CBasePlayer::SwitchWeapon( CBasePlayerWeapon *pWeapon )
 {
 	if( !pWeapon->CanDeploy() )
 	{
@@ -245,9 +245,9 @@ bool CBasePlayer::SwitchWeapon( CBasePlayerItem *pWeapon )
 //
 // Add a weapon to the player (Item == Weapon == Selectable Object)
 //
-bool CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
+bool CBasePlayer::AddPlayerItem( CBasePlayerWeapon *pItem )
 {
-	CBasePlayerItem *pInsert;
+	CBasePlayerWeapon *pInsert;
 
 	pInsert = m_rgpPlayerItems[ pItem->iItemSlot() ];
 
@@ -302,7 +302,7 @@ bool CBasePlayer::AddPlayerItem( CBasePlayerItem *pItem )
 	return false;
 }
 
-bool CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem )
+bool CBasePlayer::RemovePlayerItem( CBasePlayerWeapon *pItem )
 {
 	if( m_pActiveItem == pItem )
 	{
@@ -317,7 +317,7 @@ bool CBasePlayer::RemovePlayerItem( CBasePlayerItem *pItem )
 	else if( m_pLastItem == pItem )
 		m_pLastItem = NULL;
 
-	CBasePlayerItem *pPrev = m_rgpPlayerItems[ pItem->iItemSlot() ];
+	CBasePlayerWeapon *pPrev = m_rgpPlayerItems[ pItem->iItemSlot() ];
 
 	if( pPrev == pItem )
 	{
@@ -359,7 +359,7 @@ void CBasePlayer::DropPlayerItem( char *pszItemName )
 		pszItemName = NULL;
 	}
 
-	CBasePlayerItem *pWeapon;
+	CBasePlayerWeapon *pWeapon;
 	int i;
 
 	for( i = 0; i < MAX_WEAPON_SLOTS; i++ )
@@ -440,9 +440,9 @@ void CBasePlayer::DropPlayerItem( char *pszItemName )
 //=========================================================
 // HasPlayerItem Does the player already have this item?
 //=========================================================
-bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const
+bool CBasePlayer::HasPlayerItem( CBasePlayerWeapon *pCheckItem ) const
 {
-	CBasePlayerItem *pItem = m_rgpPlayerItems[ pCheckItem->iItemSlot() ];
+	CBasePlayerWeapon *pItem = m_rgpPlayerItems[ pCheckItem->iItemSlot() ];
 
 	while( pItem )
 	{
@@ -461,7 +461,7 @@ bool CBasePlayer::HasPlayerItem( CBasePlayerItem *pCheckItem ) const
 //=========================================================
 bool CBasePlayer::HasNamedPlayerItem( const char *pszItemName ) const
 {
-	CBasePlayerItem *pItem;
+	CBasePlayerWeapon *pItem;
 	int i;
 
 	for( i = 0; i < MAX_WEAPON_SLOTS; i++ )
@@ -506,7 +506,7 @@ void CBasePlayer::SelectPrevItem( int iItem )
 
 void CBasePlayer::SelectNextItem( int iItem )
 {
-	CBasePlayerItem *pItem;
+	CBasePlayerWeapon *pItem;
 
 	pItem = m_rgpPlayerItems[ iItem ];
 
@@ -522,7 +522,7 @@ void CBasePlayer::SelectNextItem( int iItem )
 			return;
 		}
 
-		CBasePlayerItem *pLast;
+		CBasePlayerWeapon *pLast;
 		pLast = pItem;
 		while( pLast->m_pNext )
 			pLast = pLast->m_pNext;
@@ -568,7 +568,7 @@ void CBasePlayer::SelectLastItem()
 	if( m_pActiveItem )
 		m_pActiveItem->Holster();
 
-	CBasePlayerItem *pTemp = m_pActiveItem;
+	CBasePlayerWeapon *pTemp = m_pActiveItem;
 	m_pActiveItem = m_pLastItem;
 	m_pLastItem = pTemp;
 	m_pActiveItem->Deploy();
@@ -580,7 +580,7 @@ void CBasePlayer::SelectItem( const char *pstr )
 	if( !pstr )
 		return;
 
-	CBasePlayerItem *pItem = NULL;
+	CBasePlayerWeapon *pItem = NULL;
 
 	for( int i = 0; i < MAX_WEAPON_SLOTS; i++ )
 	{

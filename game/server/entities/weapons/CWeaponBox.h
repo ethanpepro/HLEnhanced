@@ -24,11 +24,11 @@ private:
 public:
 	void EXPORT Kill();
 
-	bool HasWeapon( CBasePlayerItem *pCheckItem ) const;
-	bool PackWeapon( CBasePlayerItem *pWeapon );
+	bool HasWeapon( CBasePlayerWeapon *pCheckItem ) const;
+	bool PackWeapon( CBasePlayerWeapon *pWeapon );
 	bool PackAmmo( int iszName, int iCount );
 
-	CBasePlayerItem	*m_rgpPlayerItems[ MAX_WEAPON_SLOTS ];// one slot for each 
+	CBasePlayerWeapon* m_rgpPlayerItems[ MAX_WEAPON_SLOTS ];// one slot for each 
 
 	int m_rgiszAmmo[ MAX_AMMO_SLOTS ];// ammo names
 	int	m_rgAmmo[ MAX_AMMO_SLOTS ];// ammo quantities
