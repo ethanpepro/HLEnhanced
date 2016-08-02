@@ -19,83 +19,173 @@
 
 #include "CWeaponInfo.h"
 
-// Items that the player has in their inventory that they can use
+/**
+*	Items that the player has in their inventory that they can use
+*/
 class CBasePlayerWeapon : public CBaseAnimating
 {
 public:
 	DECLARE_CLASS( CBasePlayerWeapon, CBaseAnimating );
 	DECLARE_DATADESC();
 
+	/**
+	*	Constructor.
+	*	@param iID Weapon ID.
+	*/
 	CBasePlayerWeapon( const int iID )
 		: m_iId( iID )
 	{
 	}
 
+	/**
+	*	Must be called by subclasses to set up weapon info.
+	*/
 	void Precache() override;
 
-	virtual void SetObjectCollisionBox( void ) override;
+	virtual void SetObjectCollisionBox() override;
 
-	virtual bool AddToPlayer( CBasePlayer *pPlayer ); // return true if the item you want the item added to the player inventory
-	virtual bool AddDuplicate( CBasePlayerWeapon *pItem ); // return true if you want your duplicate removed from world
+	/**
+	*	@return true if the item you want the item added to the player inventory
+	*/
+	virtual bool AddToPlayer( CBasePlayer *pPlayer );
 
-	void EXPORT DestroyItem( void );
-	void EXPORT DefaultTouch( CBaseEntity *pOther );	// default weapon touch
-	void EXPORT FallThink( void );// when an item is first spawned, this think is run to determine when the object has hit the ground.
-	void EXPORT Materialize( void );// make a weapon visible and tangible
-	void EXPORT AttemptToMaterialize( void );  // the weapon desires to become visible and tangible, if the game rules allow for it
+	/**
+	*	In this method call, "this" is the duplicate, pOriginal is the player's weapon.
+	*	@return true if you want your duplicate removed from world
+	*/
+	virtual bool AddDuplicate( CBasePlayerWeapon *pOriginal );
 
-	CBaseEntity* Respawn( void ) override;// copy a weapon
-	void FallInit( void );
-	void CheckRespawn( void );
+	void EXPORT DestroyItem();
 
-	virtual bool ExtractAmmo( CBasePlayerWeapon *pWeapon ); //{ return true; }			// Return true if you can add ammo to yourself when picked up
-	virtual bool ExtractClipAmmo( CBasePlayerWeapon *pWeapon );// { return true; }			// Return true if you can add ammo to yourself when picked up
+	/**
+	*	Default weapon touch
+	*/
+	void EXPORT DefaultTouch( CBaseEntity *pOther );
 
-	virtual bool AddWeapon() { ExtractAmmo( this ); return true; }	// Return true if you want to add yourself to the player
+	/**
+	*	When an item is first spawned, this think is run to determine when the object has hit the ground.
+	*/
+	void EXPORT FallThink();
+
+	/**
+	*	Make a weapon visible and tangible
+	*/
+	void EXPORT Materialize();
+
+	/**
+	*	The weapon desires to become visible and tangible, if the game rules allow for it
+	*/
+	void EXPORT AttemptToMaterialize();
+
+	/**
+	*	Copy a weapon
+	*/
+	CBaseEntity* Respawn() override;
+	void FallInit();
+	void CheckRespawn();
+
+	/**
+	*	@return true if you can add ammo to yourself when picked up
+	*/
+	virtual bool ExtractAmmo( CBasePlayerWeapon *pWeapon );
+
+	/**
+	*	@return true if you can add ammo to yourself when picked up
+	*/
+	virtual bool ExtractClipAmmo( CBasePlayerWeapon *pWeapon );
+
+	/**
+	*	@return true if you want to add yourself to the player
+	*/
+	virtual bool AddWeapon() { ExtractAmmo( this ); return true; }
 
 	// generic "shared" ammo handlers
 	bool AddPrimaryAmmo( int iCount, const char *szName, int iMaxClip );
 	bool AddSecondaryAmmo( int iCount, const char *szName );
 
-	virtual void UpdateItemInfo( void ) {}	// updates HUD state
+	/**
+	*	Updates HUD state
+	*	TODO: never implemented, and UpdateClientData seems to be doing the same thing. Remove? - Solokiller
+	*/
+	virtual void UpdateItemInfo() {}
 
 	bool m_bPlayEmptySound;
-	bool m_bFireOnEmpty;		// True when the gun is empty and the player is still holding down the
-								// attack key(s)
+
+	/**
+	*	True when the gun is empty and the player is still holding down the attack key(s)
+	*/
+	bool m_bFireOnEmpty;
+
 	virtual bool PlayEmptySound();
 	virtual void ResetEmptySound();
 
-	virtual void SendWeaponAnim( int iAnim, int skiplocal = 1, int body = 0 );  // skiplocal is 1 if client is predicting weapon animations
+	/**
+	*	Skiplocal is 1 if client is predicting weapon animations
+	*/
+	virtual void SendWeaponAnim( int iAnim, int skiplocal = 1, int body = 0 );
 
 	virtual bool CanDeploy() const;
-	// returns if deploy was successful
+	/**
+	*	@return if deploy was successful
+	*/
 	virtual bool Deploy() { return true; }
 
-	virtual bool CanHolster() { return true; } // can this weapon be put away right now?
+	/**
+	*	Can this weapon be put away right now?
+	*/
+	virtual bool CanHolster() { return true; } 
 
-	virtual void Drop( void );
-	virtual void Kill( void );
+	virtual void Drop();
+	virtual void Kill();
 	virtual void AttachToPlayer( CBasePlayer *pPlayer );
 
 	virtual bool IsUseable();
 	bool DefaultDeploy( const char* const pszViewModel, const char* const pszWeaponModel, int iAnim, const char* const pszAnimExt, int skiplocal = 0, int body = 0 );
 	bool DefaultReload( int iAnim, float fDelay, int body = 0 );
 
-	virtual void ItemPreFrame( void ) { return; }		// called each frame by the player PreThink
-	virtual void ItemPostFrame( void );					// called each frame by the player PostThink
+	/**
+	*	Called each frame by the player PreThink
+	*/
+	virtual void ItemPreFrame() {}
+
+	/**
+	*	Called each frame by the player PostThink
+	*/
+	virtual void ItemPostFrame();
 
 	// called by CBasePlayerWeapons ItemPostFrame()
-	virtual void PrimaryAttack( void ) { return; }				// do "+ATTACK"
-	virtual void SecondaryAttack( void ) { return; }			// do "+ATTACK2"
-	virtual void Reload( void ) { return; }						// do "+RELOAD"
-	virtual void WeaponIdle( void ) { return; }					// called when no buttons pressed
-	virtual bool UpdateClientData( CBasePlayer *pPlayer );		// sends hud info to client dll, if things have changed
-	virtual void RetireWeapon( void );
+
+	/**
+	*	Do "+ATTACK"
+	*/
+	virtual void PrimaryAttack() {}
+
+	/**
+	*	Do "+ATTACK2"
+	*/
+	virtual void SecondaryAttack() {}
+
+	/**
+	*	Do "+RELOAD"
+	*/
+	virtual void Reload() {}
+
+	/**
+	*	Called when no buttons pressed
+	*/
+	virtual void WeaponIdle() {}
+
+	/**
+	*	Sends hud info to client dll, if things have changed
+	*/
+	virtual bool UpdateClientData( CBasePlayer *pPlayer );
+
+	virtual void RetireWeapon();
 	virtual bool ShouldWeaponIdle() { return false; }
 	virtual void Holster( int skiplocal = 0 );
 	virtual bool UseDecrement() const { return false; }
 
-	void PrintState( void );
+	void PrintState();
 
 	float GetNextAttackDelay( float delay );
 
@@ -115,7 +205,7 @@ public:
 	int SecondaryAmmoIndex() const;
 
 	/**
-	*	@eturn 0 to MAX_ITEMS_SLOTS, used in hud.
+	*	@return 0 to MAX_ITEMS_SLOTS, used in hud.
 	*/
 	int			iItemSlot() const { return m_pWeaponInfo->GetBucket(); }
 	int			iItemPosition() const { return m_pWeaponInfo->GetPosition(); }
@@ -128,24 +218,61 @@ public:
 
 	const CWeaponInfo* GetWeaponInfo() const { return m_pWeaponInfo; }
 
-	CBasePlayer	*m_pPlayer;
-	CBasePlayerWeapon *m_pNext;
+	/**
+	*	The player whose inventory we are currently in, if any.
+	*/
+	CBasePlayer* m_pPlayer;
+
+	/**
+	*	Next weapon in our bucket of the owning player's inventory, if any.
+	*/
+	CBasePlayerWeapon* m_pNext;
 
 	const int m_iId; // WEAPON_???
 
-	float	m_flNextPrimaryAttack;								// soonest time ItemPostFrame will call PrimaryAttack
-	float	m_flNextSecondaryAttack;							// soonest time ItemPostFrame will call SecondaryAttack
-	float	m_flTimeWeaponIdle;									// soonest time ItemPostFrame will call WeaponIdle
-	int		m_iClip;											// number of shots left in the primary weapon clip, -1 it not used
-	int		m_iClientClip;										// the last version of m_iClip sent to hud dll
-	WpnOnTargetState m_iClientWeaponState;						// the last version of the weapon state sent to hud dll (is current weapon, is on target)
-	bool	m_fInReload;										// Are we in the middle of a reload;
+	/**
+	*	Soonest time ItemPostFrame will call PrimaryAttack
+	*/
+	float m_flNextPrimaryAttack;
 
-	int		m_iDefaultAmmo;// how much ammo you get when you pick up this weapon as placed by a level designer.
+	/**
+	*	Doonest time ItemPostFrame will call SecondaryAttack
+	*/
+	float m_flNextSecondaryAttack;
 
-						   // hle time creep vars
-	float	m_flPrevPrimaryAttack;
-	float	m_flLastFireTime;
+	/**
+	*	Doonest time ItemPostFrame will call WeaponIdle
+	*/
+	float m_flTimeWeaponIdle;
+
+	/**
+	*	Number of shots left in the primary weapon clip, -1 it not used
+	*/
+	int m_iClip;
+
+	/**
+	*	The last version of m_iClip sent to hud dll
+	*/
+	int m_iClientClip;
+
+	/**
+	*	The last version of the weapon state sent to hud dll (is current weapon, is on target)
+	*/
+	WpnOnTargetState m_iClientWeaponState;
+
+	/**
+	*	Are we in the middle of a reload?
+	*/
+	bool m_fInReload;
+
+	/**
+	*	How much ammo you get when you pick up this weapon as placed by a level designer.
+	*/
+	int m_iDefaultAmmo;
+
+	// hle time creep vars
+	float m_flPrevPrimaryAttack;
+	float m_flLastFireTime;
 
 private:
 	const CWeaponInfo* m_pWeaponInfo = nullptr;
