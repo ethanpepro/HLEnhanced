@@ -25,7 +25,7 @@ void CSniperRifle::Precache()
 
 	PRECACHE_MODEL( "models/w_m40a1.mdl" );
 	PRECACHE_MODEL( "models/v_m40a1.mdl" );
-	PRECACHE_MODEL( "models/P_m40a1.mdl" );
+	PRECACHE_MODEL( "models/p_m40a1.mdl" );
 
 	PRECACHE_SOUND( "weapons/sniper_fire.wav" );
 	PRECACHE_SOUND( "weapons/sniper_zoom.wav" );
