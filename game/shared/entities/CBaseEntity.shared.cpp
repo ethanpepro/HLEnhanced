@@ -192,12 +192,10 @@ BEGIN_DATADESC( CBasePlayer )
 	//DEFINE_FIELD( m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 	//DEFINE_FIELD( m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
 	//DEFINE_FIELD( m_flStopExtraSoundTime, FIELD_TIME ),
-	//DEFINE_FIELD( m_bKnownItem, FIELD_BOOLEAN ), // reset to zero on load
 	//DEFINE_FIELD( m_iPlayerSound, FIELD_INTEGER ),	// Don't restore, set in Precache()
 	//DEFINE_FIELD( m_SndLast, FIELD_EHANDLE ),	// Don't restore, client needs reset
 	//DEFINE_FIELD( m_flSndRoomtype, FIELD_FLOAT ),	// Don't restore, client needs reset
 	//DEFINE_FIELD( m_flSndRange, FIELD_FLOAT ),	// Don't restore, client needs reset
-	//DEFINE_FIELD( m_fNewAmmo, FIELD_INTEGER ), // Don't restore, client needs reset
 	//DEFINE_FIELD( m_flgeigerRange, FIELD_FLOAT ),	// Don't restore, reset in Precache()
 	//DEFINE_FIELD( m_flgeigerDelay, FIELD_FLOAT ),	// Don't restore, reset in Precache()
 	//DEFINE_FIELD( m_igeigerRangePrev, FIELD_FLOAT ),	// Don't restore, reset in Precache()

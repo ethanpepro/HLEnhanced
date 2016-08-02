@@ -207,56 +207,6 @@ void CBasePlayer::UpdateClientData()
 		m_iTrain &= ~TRAIN_NEW;
 	}
 
-	//
-	// New Weapon?
-	//
-	if( !m_bKnownItem )
-	{
-		m_bKnownItem = true;
-
-		// WeaponInit Message
-		// byte  = # of weapons
-		//
-		// for each weapon:
-		// byte		name str length (not including null)
-		// bytes... name
-		// byte		Ammo Type
-		// byte		Ammo2 Type
-		// byte		bucket
-		// byte		bucket pos
-		// byte		flags	
-		// ????		Icons
-
-		// Send ALL the weapon info now
-		//TODO: obsolete - Solokiller
-		g_WeaponInfoCache.EnumInfos(
-			[]( const CWeaponInfo& info, void* pUserData ) -> bool
-		{
-			const char *pszName;
-
-			if( !info.GetWeaponName() )
-				pszName = "Empty";
-			else
-				pszName = info.GetWeaponName();
-
-			MESSAGE_BEGIN( MSG_ONE, gmsgWeaponList, NULL, reinterpret_cast<CBasePlayer*>( pUserData ) );
-			WRITE_STRING( pszName );						// string	weapon name
-			WRITE_BYTE( info.GetPrimaryAmmo() ? 
-						info.GetPrimaryAmmo()->GetID() : 
-						WEAPON_NOCLIP );					// byte		Ammo Type
-			WRITE_BYTE( info.GetSecondaryAmmo() ? 
-						info.GetSecondaryAmmo()->GetID() : 
-						WEAPON_NOCLIP );					// byte		Ammo2 Type
-			WRITE_BYTE( info.GetBucket() );					// byte		bucket
-			WRITE_BYTE( info.GetPosition() );				// byte		bucket pos
-			WRITE_BYTE( info.GetID() );						// byte		id (bit index into pev->weapons)
-			WRITE_BYTE( info.GetFlags() );					// byte		Flags
-			MESSAGE_END();
-
-			return true;
-		}, this );
-	}
-
 	SendAmmoUpdate();
 
 	// Update all the items
@@ -293,7 +243,6 @@ void CBasePlayer::ForceClientDllUpdate()
 	m_iClientBattery = -1;
 	m_iTrain |= TRAIN_NEW;	// Force new train message.
 	m_fWeapon = false;		// Force weapon send
-	m_bKnownItem = false;	// Force weaponinit messages.
 	m_fInitHUD = true;		// Force HUD gmsgResetHUD message
 
 	// Now force all the necessary messages to be sent.

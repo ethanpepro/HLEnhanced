@@ -40,8 +40,8 @@ public:
 	void Reset( void )
 	{
 		iOldWeaponBits = 0;
-		memset( rgSlots, 0, sizeof rgSlots );
-		memset( riAmmo, 0, sizeof riAmmo );
+		memset( rgSlots, 0, sizeof( rgSlots ) );
+		memset( riAmmo, 0, sizeof( riAmmo ) );
 	}
 
 	void VidInit();
@@ -93,6 +93,11 @@ public:
 	int CountAmmo( int iId ) const;
 
 	HSPRITE* GetAmmoPicFromWeapon( int iAmmoId, wrect_t& rect );
+
+	/**
+	*	Synchronize the weapons resource with the client side weapons list.
+	*/
+	void SyncWithWeapons();
 };
 
 extern WeaponsResource gWR;

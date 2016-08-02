@@ -10,6 +10,8 @@
 #include "com_weapons.h"
 #include "com_model.h"
 
+#include "ammohistory.h"
+
 #include "BSPIO.h"
 
 #include "Angelscript/CHLASClientManager.h"
@@ -124,6 +126,10 @@ void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
 	//TODO: call map script MapInit here - Solokiller
 
 	HUD_SetupWeapons();
+
+	//Synchronize the HUD weapons list with the actual one. - Solokiller
+	//TODO: this should be merged.
+	gWR.SyncWithWeapons();
 }
 
 void CClientGameInterface::CheckNewMapStarted()

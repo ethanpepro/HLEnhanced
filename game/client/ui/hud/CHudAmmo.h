@@ -48,7 +48,6 @@ public:
 
 	int DrawWList( float flTime );
 	int MsgFunc_CurWeapon( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_WeaponList( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_AmmoX( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_AmmoPickup( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_WeapPickup( const char *pszName, int iSize, void *pbuf );

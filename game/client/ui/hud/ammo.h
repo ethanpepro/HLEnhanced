@@ -25,11 +25,12 @@
 
 class CAmmoType;
 
+//TODO: now that we have all weapons on the client, this is rather wasteful. Could probably remove half of this and replace it with a CWeaponInfo or CBasePlayerItem pointer - Solokiller
 struct WEAPON
 {
 	char	szName[MAX_WEAPON_NAME];
-	CAmmoType* pAmmo;
-	CAmmoType* pAmmo2;
+	const CAmmoType* pAmmo;
+	const CAmmoType* pAmmo2;
 	int		iSlot;
 	int		iSlotPos;
 	int		iFlags;

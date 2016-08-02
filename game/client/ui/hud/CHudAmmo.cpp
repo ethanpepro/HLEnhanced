@@ -29,6 +29,13 @@
 #include "ammohistory.h"
 #include "vgui_TeamFortressViewport.h"
 
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Weapons.h"
+
+#include "CWeaponInfoCache.h"
+
 WEAPON *gpActiveSel;	// NULL means off, 1 means just the menu bar, otherwise
 						// this points to the active weapon menu item
 WEAPON *gpLastSel;		// Last weapon menu selection 
@@ -47,6 +54,8 @@ void WeaponsResource::Init()
 
 void WeaponsResource::VidInit()
 {
+	//Zero out the weapon info so custom weapons don't get stuck in the list after map changes. - Solokiller
+	memset( rgWeapons, 0, sizeof( rgWeapons ) );
 }
 
 void WeaponsResource :: LoadAllWeaponSprites( void )
@@ -243,7 +252,6 @@ int giBucketHeight, giBucketWidth, giABHeight, giABWidth; // Ammo Bar width and 
 HSPRITE ghsprBuckets;					// Sprite for top row of weapons menu
 
 DECLARE_MESSAGE(m_Ammo, CurWeapon );	// Current weapon and clip
-DECLARE_MESSAGE(m_Ammo, WeaponList);	// new weapon type
 DECLARE_MESSAGE(m_Ammo, AmmoX);			// update known ammo type's count
 DECLARE_MESSAGE(m_Ammo, AmmoPickup);	// flashes an ammo pickup record
 DECLARE_MESSAGE(m_Ammo, WeapPickup);    // flashes a weapon pickup record
@@ -275,7 +283,6 @@ bool CHudAmmo::Init()
 	gHUD.AddHudElem(this);
 
 	HOOK_MESSAGE(CurWeapon);
-	HOOK_MESSAGE(WeaponList);
 	HOOK_MESSAGE(AmmoPickup);
 	HOOK_MESSAGE(WeapPickup);
 	HOOK_MESSAGE(ItemPickup);
@@ -493,6 +500,35 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 		gpActiveSel = p;
 }
 
+void WeaponsResource::SyncWithWeapons()
+{
+	memset( rgWeapons, 0, sizeof( rgWeapons ) );
+
+	g_WeaponInfoCache.EnumInfos(
+		[]( const CWeaponInfo& info, void* pUserData ) -> bool
+	{
+		WEAPON Weapon;
+
+		memset( &Weapon, 0, sizeof( Weapon ) );
+
+		strcpy( Weapon.szName, info.GetWeaponName() );
+		Weapon.pAmmo = info.GetPrimaryAmmo();
+
+		Weapon.pAmmo2 = info.GetSecondaryAmmo();
+
+		Weapon.iSlot = info.GetBucket();
+		Weapon.iSlotPos = info.GetPosition();
+		Weapon.iId = info.GetID();
+		Weapon.iFlags = info.GetFlags();
+		Weapon.iClip = 0;
+
+		gWR.AddWeapon( &Weapon );
+
+		return true;
+	}
+	);
+}
+
 //------------------------------------------------------------------------
 // Message Handlers
 //------------------------------------------------------------------------
@@ -647,41 +683,6 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 	m_iFlags |= HUD_ACTIVE;
 	
 	return 1;
-}
-
-//
-// WeaponList -- Tells the hud about a new weapon type.
-//
-int CHudAmmo::MsgFunc_WeaponList(const char *pszName, int iSize, void *pbuf )
-{
-	CBufferReader reader( pbuf, iSize );
-	
-	WEAPON Weapon;
-
-	memset( &Weapon, 0, sizeof( Weapon ) );
-
-	strcpy( Weapon.szName, reader.ReadString() );
-	const int iAmmoType = ( int ) reader.ReadChar();
-
-	//TODO: this shouldn't be using -1 - Solokiller
-	if( iAmmoType != -1 )
-		Weapon.pAmmo = g_AmmoTypes.GetAmmoTypeByID( iAmmoType );
-
-	const int iAmmo2Type = ( int ) reader.ReadChar();
-
-	if( iAmmo2Type != -1 )
-		Weapon.pAmmo2 = g_AmmoTypes.GetAmmoTypeByID( iAmmo2Type );
-
-	Weapon.iSlot = reader.ReadChar();
-	Weapon.iSlotPos = reader.ReadChar();
-	Weapon.iId = reader.ReadChar();
-	Weapon.iFlags = reader.ReadByte();
-	Weapon.iClip = 0;
-
-	gWR.AddWeapon( &Weapon );
-
-	return 1;
-
 }
 
 //------------------------------------------------------------------------
