@@ -29,6 +29,8 @@
 #include "voice_gamemgr.h"
 #include "hltv.h"
 
+#include "CWeaponInfoCache.h"
+
 extern DLL_GLOBAL CGameRules	*g_pGameRules;
 extern DLL_GLOBAL bool	g_fGameOver;
 
@@ -555,7 +557,10 @@ void CHalfLifeMultiplay :: PlayerSpawn( CBasePlayer *pPlayer )
 	{
 		pPlayer->GiveNamedItem( "weapon_crowbar" );
 		pPlayer->GiveNamedItem( "weapon_9mmhandgun" );
-		pPlayer->GiveAmmo( GLOCK_DEFAULT_GIVE * 4, "9mm" );// 4 full reloads
+
+		//Now looks up the value so it auto-corrects. Change the weapon type if you change the weapon being given. - Solokiller
+		if( auto pInfo = g_WeaponInfoCache.FindWeaponInfo( "weapon_9mmhandgun" ) )
+			pPlayer->GiveAmmo( pInfo->GetMaxMagazine() * 4, "9mm" );// 4 full reloads
 	}
 }
 
