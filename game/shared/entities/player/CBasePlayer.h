@@ -373,6 +373,77 @@ public:
 
 	//Networking
 
+	enum class ConnectState
+	{
+		NOT_CONNECTED = 0,
+		CONNECTED,
+		DISCONNECTING
+	};
+
+private:
+	ConnectState m_ConnectState = ConnectState::NOT_CONNECTED;
+
+	float m_flConnectTime = 0;
+	float m_flDisconnectTime = 0;
+
+	bool m_bWeaponValidationReceived = false;
+
+public:
+
+	/**
+	*	@return The connection state.
+	*/
+	ConnectState GetConnectState() const { return m_ConnectState; }
+
+	/**
+	*	Sets the connection state.
+	*/
+	void SetConnectState( const ConnectState state )
+	{
+		m_ConnectState = state;
+	}
+
+	/**
+	*	@return Whether the client is connected.
+	*/
+	bool IsConnected() const { return m_ConnectState == ConnectState::CONNECTED; }
+
+	/**
+	*	@return The time at which the client connected.
+	*/
+	float GetConnectTime() const { return m_flConnectTime; }
+
+	/**
+	*	Sets the time at which the client connected.
+	*/
+	void SetConnectTime( const float flConnectTime )
+	{
+		m_flConnectTime = flConnectTime;
+	}
+
+	/**
+	*	@return The time at which the client disconnected.
+	*/
+	float GetDisconnectTime() const { return m_flDisconnectTime; }
+
+	/**
+	*	Sets the time at which the client connected.
+	*/
+	void SetDisconnectTime( const float flDisconnectTime )
+	{
+		m_flDisconnectTime = flDisconnectTime;
+	}
+
+	/**
+	*	@return Whether the weapon & ammo validation message was received.
+	*/
+	bool WeaponValidationReceived() const { return m_bWeaponValidationReceived; }
+
+	void SetWeaponValidationReceived( const bool bWeaponValidationReceived )
+	{
+		m_bWeaponValidationReceived = bWeaponValidationReceived;
+	}
+
 	// JOHN:  sends custom messages if player HUD data has changed  (eg health, ammo)
 	virtual void UpdateClientData();
 

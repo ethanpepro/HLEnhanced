@@ -40,6 +40,33 @@ reflecting all of the HUD state info.
 */
 void CBasePlayer::UpdateClientData()
 {
+	if( !m_bWeaponValidationReceived )
+	{
+		//If the client didn't send the message in time, drop the client. - Solokiller
+		//TODO: figure out if this is guaranteed to be received right after ClientPutInServer. If not, use a time delay. - Solokiller
+
+		//Set it to true to avoid running this multiple times. - Solokiller
+		m_bWeaponValidationReceived = true;
+
+		UTIL_LogPrintf( "Player \"%s\" didn't send weapon validation in time, disconnecting\n", GetNetName() );
+
+		if( !IS_DEDICATED_SERVER() )
+		{
+			//Listen server hosts usually don't have logging enabled, so echo to console unconditionally for them. - Solokiller
+			UTIL_ServerPrintf( "Player \"%s\" didn't send weapon validation in time, disconnecting\n", GetNetName() );
+		}
+
+		if( IS_DEDICATED_SERVER() || entindex() != 1 )
+		{
+			SERVER_COMMAND( UTIL_VarArgs( "kick \"%s\" \"No weapon validation received\"\n", GetNetName() ) );
+		}
+		else
+		{
+			//The local player can't be kicked, so terminate the session instead - Solokiller
+			CLIENT_COMMAND( edict(), "disconnect\n" );
+		}
+	}
+
 	//The engine will not call ClientPutInServer after transitions, so we'll have to catch this event every map change. - Solokiller
 	if( !m_bSentInitData )
 	{

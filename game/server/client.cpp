@@ -86,7 +86,6 @@ void ClientPutInServer( edict_t* pEntity )
 //
 void Host_Say( CBasePlayer* pPlayer, const bool bTeamOnly )
 {
-	//TODO: change param to CBasePlayer - Solokiller
 	CBasePlayer *client;
 	int		j;
 	char	*p;
@@ -211,8 +210,6 @@ void Host_Say( CBasePlayer* pPlayer, const bool bTeamOnly )
 		pszTemp = "say_team";
 	else
 		pszTemp = "say";
-
-	//TODO: change the player stuff to UTIL_ variants when possible - Solokiller
 	
 	// team match?
 	if ( g_teamplay )

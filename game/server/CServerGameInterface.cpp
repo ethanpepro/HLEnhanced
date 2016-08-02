@@ -1,9 +1,12 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
+#include "Weapons.h"
 #include "CBasePlayer.h"
 #include "entities/CSoundEnt.h"
 #include "entities/CBaseSpectator.h"
+
+#include "CWeaponInfoCache.h"
 
 #include "gamerules/GameRules.h"
 #include "Server.h"
@@ -45,6 +48,8 @@ void CServerGameInterface::Shutdown()
 
 bool CServerGameInterface::ClientConnect( edict_t* pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] )
 {
+	//Note: do not create the player instance here. The engine wipes it out before calling ClientPutInServer. - Solokiller
+
 	return g_pGameRules->ClientConnected( pEntity, pszName, pszAddress, szRejectReason );
 }
 
@@ -55,6 +60,9 @@ void CServerGameInterface::ClientDisconnect( edict_t* pEdict )
 
 	//Will be created if it doesn't exist, but should already exist. - Solokiller
 	auto pPlayer = GetClassPtr( ( CBasePlayer* ) &pEdict->v );
+
+	pPlayer->SetDisconnectTime( gpGlobals->time );
+	pPlayer->SetConnectState( CBasePlayer::ConnectState::DISCONNECTING );
 
 	char text[ 256 ] = "";
 	if( pPlayer->HasNetName() )
@@ -77,6 +85,8 @@ void CServerGameInterface::ClientDisconnect( edict_t* pEdict )
 	pPlayer->SetAbsOrigin( pPlayer ->GetAbsOrigin() );
 
 	g_pGameRules->ClientDisconnected( pEdict );
+
+	pPlayer->SetConnectState( CBasePlayer::ConnectState::NOT_CONNECTED );
 }
 
 void CServerGameInterface::ClientKill( edict_t* pEdict )
@@ -264,6 +274,90 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 				return true;
 			}
 			);
+		}
+	}
+	else if( FStrEq( pcmd, "WpnInfo" ) )
+	{
+		//Verify integrity. - Solokiller
+
+		bool bSuccess = false;
+
+		const char* pszMessage = nullptr;
+
+		pPlayer->SetWeaponValidationReceived( true );
+
+		if( CMD_ARGC() == 5 )
+		{
+			const size_t uiNumAmmoTypes = strtoul( CMD_ARGV( 1 ), nullptr, 10 );
+			const size_t uiClientAmmoHash = strtoul( CMD_ARGV( 2 ), nullptr, 10 );
+			const size_t uiNumWeapons = strtoul( CMD_ARGV( 3 ), nullptr, 10 );
+			const size_t uiClientWeaponHash = strtoul( CMD_ARGV( 4 ), nullptr, 10 );
+
+			const size_t uiAmmoHash = g_AmmoTypes.GenerateHash();
+			const size_t uiWeaponHash = g_WeaponInfoCache.GenerateHash();
+
+			if( g_AmmoTypes.GetAmmoTypesCount() != uiNumAmmoTypes )
+			{
+				pszMessage = UTIL_VarArgs( "Ammo count verification failed: Server has %u, Client has %u", g_AmmoTypes.GetAmmoTypesCount(), uiNumAmmoTypes );
+			}
+			else if( uiClientAmmoHash != uiAmmoHash )
+			{
+				pszMessage = UTIL_VarArgs( "Ammo hash verification failed: Server has %u, Client has %u", uiAmmoHash, uiClientAmmoHash );
+			}
+			else if( g_WeaponInfoCache.GetWeaponCount() != uiNumWeapons )
+			{
+				pszMessage = UTIL_VarArgs( "Weapon count verification failed: Server has %u, Client has %u", g_WeaponInfoCache.GetWeaponCount(), uiNumWeapons );
+			}
+			else if( uiClientWeaponHash != uiWeaponHash )
+			{
+				pszMessage = UTIL_VarArgs( "Weapon hash verification failed: Server has %u, Client has %u", uiWeaponHash, uiClientWeaponHash );
+			}
+			else
+			{
+				bSuccess = true;
+			}
+		}
+		else
+		{
+			pszMessage = "Invalid weapon verification message received\n";
+		}
+
+		if( !bSuccess )
+		{
+			ALERT( at_logged, "Client ammo & weapon verification failed for \"%s\", disconnecting\n", pPlayer->GetNetName() );
+
+			if( pszMessage )
+				ALERT( at_logged, "The reason given was: %s\n", pszMessage );
+
+			if( !IS_DEDICATED_SERVER() )
+			{
+				//Listen server hosts usually don't have logging enabled, so echo to console unconditionally for them. - Solokiller
+				UTIL_ServerPrintf( "Client ammo & weapon verification failed for \"%s\", disconnecting\n", pPlayer->GetNetName() );
+
+				if( pszMessage )
+					UTIL_ServerPrintf( "The reason given was: %s\n", pszMessage );
+			}
+
+			if( IS_DEDICATED_SERVER() || pPlayer->entindex() != 1 )
+			{
+				const char* pszCommand;
+
+				if( pszMessage )
+				{
+					pszCommand = UTIL_VarArgs( "kick \"%s\" \"%s\"\n", pPlayer->GetNetName(), pszMessage );
+				}
+				else
+				{
+					pszCommand = UTIL_VarArgs( "kick \"%s\"\n", pPlayer->GetNetName() );
+				}
+
+				SERVER_COMMAND( pszCommand );
+			}
+			else
+			{
+				//The local player can't be kicked, so terminate the session instead - Solokiller
+				CLIENT_COMMAND( pEntity, "disconnect\n" );
+			}
 		}
 	}
 	else if( g_pGameRules->ClientCommand( pPlayer, pcmd ) )

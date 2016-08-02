@@ -124,6 +124,9 @@ void CBasePlayer::InitialSpawn()
 	pev->iuser1 = 0;	// disable any spec modes
 	pev->iuser2 = 0;
 
+	SetConnectTime( gpGlobals->time );
+	SetConnectState( ConnectState::CONNECTED );
+
 	Spawn();
 }
 

@@ -6,6 +6,8 @@
 #include "cbase.h"
 #include "Weapons.h"
 
+#include "CWeaponInfoCache.h"
+
 #include "hl/hl_weapons.h"
 #include "com_weapons.h"
 #include "com_model.h"
@@ -130,6 +132,11 @@ void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
 	//Synchronize the HUD weapons list with the actual one. - Solokiller
 	//TODO: this should be merged.
 	gWR.SyncWithWeapons();
+
+	const size_t uiClientAmmoHash = g_AmmoTypes.GenerateHash();
+	const size_t uiClientWeaponHash = g_WeaponInfoCache.GenerateHash();
+
+	gEngfuncs.pfnServerCmd( UTIL_VarArgs( "WpnInfo %u %u %u %u\n", g_AmmoTypes.GetAmmoTypesCount(), uiClientAmmoHash, g_WeaponInfoCache.GetWeaponCount(), uiClientWeaponHash ) );
 }
 
 void CClientGameInterface::CheckNewMapStarted()
