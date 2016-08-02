@@ -190,6 +190,11 @@ public:
 	*/
 	void Clear();
 
+	/**
+	*	Generates a hash of all ammo types.
+	*/
+	size_t GenerateHash() const;
+
 private:
 	/*
 	*	Maps a name to an index.

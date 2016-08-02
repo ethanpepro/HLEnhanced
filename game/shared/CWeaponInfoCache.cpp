@@ -96,6 +96,19 @@ void CWeaponInfoCache::EnumInfos( EnumInfoCallback pCallback, void* pUserData ) 
 	}
 }
 
+size_t CWeaponInfoCache::GenerateHash() const
+{
+	size_t uiHash = 0;
+
+	//TODO: not the best hash, but it'll do. - Solokiller
+	for( const auto& info : m_InfoList )
+	{
+		uiHash += StringHash( info->GetWeaponName() );
+	}
+
+	return uiHash;
+}
+
 bool CWeaponInfoCache::LoadWeaponInfoFromFile( const char* const pszWeaponName, const char* const pszSubDir, CWeaponInfo& info )
 {
 	char szPath[ MAX_PATH ] = {};

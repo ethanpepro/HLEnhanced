@@ -173,3 +173,16 @@ void CAmmoTypes::Clear()
 
 	m_NextID = FIRST_VALID_ID;
 }
+
+size_t CAmmoTypes::GenerateHash() const
+{
+	size_t uiHash = 0;
+
+	//TODO: not the best hash, but it'll do. - Solokiller
+	for( const auto& ammo : m_AmmoList )
+	{
+		uiHash += StringHash( ammo->GetName() );
+	}
+
+	return uiHash;
+}

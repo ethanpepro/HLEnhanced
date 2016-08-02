@@ -34,6 +34,11 @@ public:
 	~CWeaponInfoCache() = default;
 
 	/**
+	*	@return The number of weapons.
+	*/
+	size_t GetWeaponCount() const { return m_InfoList.size(); }
+
+	/**
 	*	Finds weapon info by weapon name.
 	*	@param pszWeaponName Name of the weapon.
 	*	@return If found, the weapon info. Otherwise, null.
@@ -60,6 +65,8 @@ public:
 	*	@param pUserData User data to pass.
 	*/
 	void EnumInfos( EnumInfoCallback pCallback, void* pUserData = nullptr ) const;
+
+	size_t GenerateHash() const;
 
 private:
 	/**
