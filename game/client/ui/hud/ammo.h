@@ -16,9 +16,6 @@
 #ifndef __AMMO_H__
 #define __AMMO_H__
 
-//TODO: defined in CBasePlayerItem.h - Solokiller
-#define WEAPON_FLAGS_SELECTONEMPTY	1
-
 class CWeaponInfo;
 
 struct WEAPON

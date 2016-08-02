@@ -167,8 +167,7 @@ enum ItemInfoFlag
 {
 	ITEM_FLAG_NONE = 0,
 	/**
-	*	Not used.
-	*	TODO: should be repurposed for replenishing weapons (e.g. hornet gun) - Solokiller
+	*	Used on the client to allow selection of empty weapons.
 	*/
 	ITEM_FLAG_SELECTONEMPTY = 1,
 

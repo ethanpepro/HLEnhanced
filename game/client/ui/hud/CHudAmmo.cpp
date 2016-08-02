@@ -78,7 +78,7 @@ bool WeaponsResource::HasAmmo( const WEAPON* const p ) const
 	return p->iClip > 0 ||
 		CountAmmo( p->pInfo->GetPrimaryAmmo()->GetID() )||
 		( p->pInfo->GetSecondaryAmmo() && CountAmmo( p->pInfo->GetSecondaryAmmo()->GetID() ) ) ||
-		( p->pInfo->GetFlags() & WEAPON_FLAGS_SELECTONEMPTY );
+		( p->pInfo->GetFlags() & ITEM_FLAG_SELECTONEMPTY );
 }
 
 // Returns the first weapon for a given slot.
