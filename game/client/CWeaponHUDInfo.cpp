@@ -46,7 +46,7 @@ bool CWeaponHUDInfo::LoadFromFile( const char* const pszWeaponName )
 		{ m_ZoomedCrosshair, "zoom", &m_Crosshair, false },
 
 		//default to zoomed crosshair
-		{ m_ZoomedAutoAim, "zoom_autoaim", &m_AutoAim, false },
+		{ m_ZoomedAutoAim, "zoom_autoaim", &m_ZoomedCrosshair, false },
 		{ m_Inactive, "weapon", nullptr, false },
 		{ m_Active, "weapon_s", nullptr, true },
 		{ m_PrimaryAmmo, "ammo", nullptr, false },
