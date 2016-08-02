@@ -230,6 +230,13 @@ extern void			UTIL_HudMessage( CBaseEntity *pEntity, const hudtextparms_t &textp
 // Writes message to console with timestamp and FragLog header.
 extern void			UTIL_LogPrintf( const char* const pszFormat, ... );
 
+/**
+*	Writes a message to the server console, even if developer is disabled.
+*	@param pszFormat Format string.
+*	@param ... Arguments.
+*/
+void UTIL_ServerPrintf( const char* const pszFormat, ... );
+
 // Misc functions
 extern void SetMovedir( CBaseEntity* pEntity );
 extern Vector VecBModelOrigin( const CBaseEntity* const pBModel );

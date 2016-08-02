@@ -1011,6 +1011,19 @@ void UTIL_LogPrintf( const char* const pszFormat, ... )
 	ALERT( at_logged, "%s", string );
 }
 
+void UTIL_ServerPrintf( const char* const pszFormat, ... )
+{
+	va_list			argptr;
+	static char		string[ 1024 ];
+
+	va_start( argptr, pszFormat );
+	vsprintf( string, pszFormat, argptr );
+	va_end( argptr );
+
+	// Print to server console
+	g_engfuncs.pfnServerPrint( string );
+}
+
 //Newer compilers might define _rotr as a macro. - Solokiller
 #if !defined( _WIN32 ) && !defined( _rotr )
 extern "C" {
