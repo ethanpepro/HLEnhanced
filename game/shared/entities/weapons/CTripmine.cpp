@@ -354,8 +354,6 @@ void CTripmine::Spawn( )
 
 	FallInit();// get ready to fall down
 
-	m_iDefaultAmmo = TRIPMINE_DEFAULT_GIVE;
-
 	if ( !bIsMultiplayer() )
 	{
 		SetSize( Vector(-16, -16, 0), Vector(16, 16, 28) ); 

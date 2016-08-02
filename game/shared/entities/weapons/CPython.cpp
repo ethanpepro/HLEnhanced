@@ -47,8 +47,6 @@ void CPython::Spawn( )
 	Precache( );
 	SetModel( "models/w_357.mdl");
 
-	m_iDefaultAmmo = PYTHON_DEFAULT_GIVE;
-
 	FallInit();// get ready to fall down.
 }
 

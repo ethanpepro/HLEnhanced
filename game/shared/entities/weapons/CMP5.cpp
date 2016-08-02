@@ -40,8 +40,6 @@ void CMP5::Spawn( )
 	Precache( );
 	SetModel( "models/w_9mmAR.mdl");
 
-	m_iDefaultAmmo = MP5_DEFAULT_GIVE;
-
 	FallInit();// get ready to fall down.
 }
 

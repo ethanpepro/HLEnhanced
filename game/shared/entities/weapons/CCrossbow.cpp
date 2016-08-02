@@ -229,8 +229,6 @@ void CCrossbow::Spawn( )
 	Precache( );
 	SetModel( "models/w_crossbow.mdl");
 
-	m_iDefaultAmmo = CROSSBOW_DEFAULT_GIVE;
-
 	FallInit();// get ready to fall down.
 }
 

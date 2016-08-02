@@ -40,7 +40,6 @@ void CHornetGun::Spawn( )
 	Precache( );
 	SetModel( "models/w_hgun.mdl");
 
-	m_iDefaultAmmo = HIVEHAND_DEFAULT_GIVE;
 	m_iFirePhase = 0;
 
 	FallInit();// get ready to fall down.

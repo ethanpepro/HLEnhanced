@@ -60,8 +60,6 @@ void CGauss::Spawn( )
 	Precache( );
 	SetModel( "models/w_gauss.mdl");
 
-	m_iDefaultAmmo = GAUSS_DEFAULT_GIVE;
-
 	FallInit();// get ready to fall down.
 }
 

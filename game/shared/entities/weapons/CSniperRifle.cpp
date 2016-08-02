@@ -47,8 +47,6 @@ void CSniperRifle::Spawn()
 
 	SetModel( "models/w_m40a1.mdl" );
 
-	m_iDefaultAmmo = SNIPERRIFLE_DEFAULT_GIVE;
-
 	FallInit(); // get ready to fall down.
 }
 

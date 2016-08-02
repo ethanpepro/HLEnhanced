@@ -206,8 +206,6 @@ void CSatchel::Spawn( )
 {
 	Precache( );
 	SetModel( "models/w_satchel.mdl");
-
-	m_iDefaultAmmo = SATCHEL_DEFAULT_GIVE;
 		
 	FallInit();// get ready to fall down.
 }

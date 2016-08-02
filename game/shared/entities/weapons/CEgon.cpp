@@ -59,8 +59,6 @@ void CEgon::Spawn( )
 	Precache( );
 	SetModel( "models/w_egon.mdl");
 
-	m_iDefaultAmmo = EGON_DEFAULT_GIVE;
-
 	FallInit();// get ready to fall down.
 }
 

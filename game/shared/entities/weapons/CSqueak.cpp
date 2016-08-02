@@ -403,8 +403,6 @@ void CSqueak::Spawn( )
 	SetModel( "models/w_sqknest.mdl");
 
 	FallInit();//get ready to fall down.
-
-	m_iDefaultAmmo = SNARK_DEFAULT_GIVE;
 		
 	pev->sequence = 1;
 	pev->animtime = gpGlobals->time;

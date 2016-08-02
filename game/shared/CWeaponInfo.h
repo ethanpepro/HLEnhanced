@@ -108,6 +108,11 @@ public:
 	int GetMaxMagazine() const { return m_iMaxMagazine; }
 
 	/**
+	*	@return The default amount of ammo to store in the weapon.
+	*/
+	int GetDefaultAmmo() const { return m_iDefaultAmmo; }
+
+	/**
 	*	This value used to determine this weapon's importance in autoselection.
 	*	@return The weapon's weight.
 	*/
@@ -144,6 +149,8 @@ private:
 	CAmmoType* m_pSecondaryAmmo = nullptr;
 
 	int m_iMaxMagazine = WEAPON_NOCLIP;
+
+	int m_iDefaultAmmo = 0;
 
 	int m_iWeight = 0;
 

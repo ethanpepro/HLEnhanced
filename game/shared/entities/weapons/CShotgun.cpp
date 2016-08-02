@@ -44,8 +44,6 @@ void CShotgun::Spawn( )
 	Precache( );
 	SetModel( "models/w_shotgun.mdl");
 
-	m_iDefaultAmmo = SHOTGUN_DEFAULT_GIVE;
-
 	FallInit();// get ready to fall
 }
 

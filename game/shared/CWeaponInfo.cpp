@@ -65,6 +65,18 @@ bool CWeaponInfo::KeyValue( const char* const pszKey, const char* const pszValue
 
 		return true;
 	}
+	else if( FStrEq( pszKey, "default_ammo" ) )
+	{
+		m_iDefaultAmmo = atoi( pszValue );
+
+		if( m_iDefaultAmmo < 0 )
+		{
+			Alert( at_warning, "CWeaponInfo::KeyValue: Default ammo value \"%d\" is invalid!\n", m_iDefaultAmmo );
+			m_iDefaultAmmo = 0;
+		}
+
+		return true;
+	}
 	else if( FStrEq( pszKey, "weight" ) )
 	{
 		m_iWeight = atoi( pszValue );

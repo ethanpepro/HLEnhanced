@@ -27,6 +27,8 @@ public:
 	{
 	}
 
+	void Precache() override;
+
 	// generic weapon versions of CBasePlayerItem calls
 	virtual bool AddToPlayer( CBasePlayer *pPlayer ) override;
 	virtual bool AddDuplicate( CBasePlayerItem *pItem ) override;

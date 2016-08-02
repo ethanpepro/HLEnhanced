@@ -25,6 +25,13 @@
 #include "com_weapons.h"
 #endif
 
+void CBasePlayerWeapon::Precache()
+{
+	BaseClass::Precache();
+
+	m_iDefaultAmmo = GetWeaponInfo()->GetDefaultAmmo();
+}
+
 bool CBasePlayerWeapon::PlayEmptySound()
 {
 	if( m_bPlayEmptySound )
