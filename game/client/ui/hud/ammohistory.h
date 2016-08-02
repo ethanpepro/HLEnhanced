@@ -17,6 +17,7 @@
 //
 
 #include "entities/weapons/CAmmoTypes.h"
+#include "CWeaponInfo.h"
 
 // this is the max number of items in each bucket
 #define MAX_WEAPON_POSITIONS		MAX_WEAPONS
@@ -31,7 +32,6 @@ private:
 	WEAPON*		rgSlots[MAX_WEAPON_SLOTS+1][MAX_WEAPON_POSITIONS+1];	// The slots currently in use by weapons.  The value is a pointer to the weapon;  if it's NULL, no weapon is there
 
 	//Rather than dynamically allocate the array (and reallocate it a bunch on connect), just use the maximum. - Solokiller
-	//TODO: revisit this if/when bulk data transfers become possible.
 	int riAmmo[ CAmmoTypes::LAST_VALID_ID + 1 ];							// count of each ammo type
 
 public:
@@ -52,25 +52,34 @@ public:
 	WEAPON *GetWeapon( int iId ) { return &rgWeapons[iId]; }
 	void AddWeapon( WEAPON *wp ) 
 	{ 
-		rgWeapons[ wp->iId ] = *wp;	
-		LoadWeaponSprites( &rgWeapons[ wp->iId ] );
+		ASSERT( wp );
+		ASSERT( wp->pInfo );
+
+		rgWeapons[ wp->pInfo->GetID() ] = *wp;	
+		LoadWeaponSprites( &rgWeapons[ wp->pInfo->GetID() ] );
 	}
 
 	void PickupWeapon( WEAPON *wp )
 	{
-		rgSlots[ wp->iSlot ][ wp->iSlotPos ] = wp;
+		ASSERT( wp );
+		ASSERT( wp->pInfo );
+
+		rgSlots[ wp->pInfo->GetBucket() ][ wp->pInfo->GetPosition() ] = wp;
 	}
 
 	void DropWeapon( WEAPON *wp )
 	{
-		rgSlots[ wp->iSlot ][ wp->iSlotPos ] = NULL;
+		ASSERT( wp );
+		ASSERT( wp->pInfo );
+
+		rgSlots[ wp->pInfo->GetBucket() ][ wp->pInfo->GetPosition() ] = NULL;
 	}
 
 	void DropAllWeapons( void )
 	{
 		for ( int i = 0; i < MAX_WEAPONS; i++ )
 		{
-			if ( rgWeapons[i].iId )
+			if ( rgWeapons[i].pInfo )
 				DropWeapon( &rgWeapons[i] );
 		}
 	}

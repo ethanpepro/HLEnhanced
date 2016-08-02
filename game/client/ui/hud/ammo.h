@@ -18,24 +18,18 @@
 
 #define MAX_WEAPON_NAME 128
 
-
+//TODO: defined in CBasePlayerItem.h - Solokiller
 #define WEAPON_FLAGS_SELECTONEMPTY	1
 
 #define WEAPON_IS_ONTARGET 0x40
 
-class CAmmoType;
+class CWeaponInfo;
 
-//TODO: now that we have all weapons on the client, this is rather wasteful. Could probably remove half of this and replace it with a CWeaponInfo or CBasePlayerItem pointer - Solokiller
 struct WEAPON
 {
-	char	szName[MAX_WEAPON_NAME];
-	const CAmmoType* pAmmo;
-	const CAmmoType* pAmmo2;
-	int		iSlot;
-	int		iSlotPos;
-	int		iFlags;
-	int		iId;
-	int		iClip;
+	const CWeaponInfo* pInfo;
+
+	int iClip;
 
 	int		iCount;		// # of itesm in plist
 

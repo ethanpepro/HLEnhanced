@@ -24,6 +24,11 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Weapons.h"
+
 #include "ammohistory.h"
 
 HistoryResource gHR;
