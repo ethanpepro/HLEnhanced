@@ -169,15 +169,15 @@ CSysModule	*Sys_LoadModule( const char *pModuleName )
 	{
 		char str[512];
 #if defined ( _WIN32 )
-		_snprintf( str, sizeof(str), "%s.dll", pModuleName );
+		snprintf( str, sizeof(str), "%s.dll", pModuleName );
 		hDLL = LoadLibrary( str );
 #elif defined(OSX)
 		printf("Error:%s\n",dlerror());
-		_snprintf( str, sizeof(str), "%s.dylib", szAbsoluteModuleName );
+		snprintf( str, sizeof(str), "%s.dylib", szAbsoluteModuleName );
 		hDLL = dlopen(str, RTLD_NOW);		
 #else
 		printf("Error:%s\n",dlerror());
-		_snprintf( str, sizeof(str), "%s.so", szAbsoluteModuleName );
+		snprintf( str, sizeof(str), "%s.so", szAbsoluteModuleName );
 		hDLL = dlopen(str, RTLD_NOW);
 #endif
 	}
