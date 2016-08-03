@@ -568,6 +568,9 @@ void ScorePanel::FillGrid()
 			bRowIsGap = true;
 		}
 
+		// Get the team's data
+		team_info_t* const team_info = &g_TeamInfo[ m_iSortedRows[ row ] ];
+
 		for(int col=0; col < NUM_COLUMNS; col++)
 		{
 			CLabelHeader *pLabel = &m_PlayerEntries[col][row];
@@ -593,7 +596,6 @@ void ScorePanel::FillGrid()
 			
 			char sz[128];
 			hud_player_info_t *pl_info = NULL;
-			team_info_t *team_info = NULL;
 
 			if (m_iIsATeam[row] == TEAM_BLANK)
 			{
@@ -602,9 +604,6 @@ void ScorePanel::FillGrid()
 			}
 			else if ( m_iIsATeam[row] == TEAM_YES )
 			{
-				// Get the team's data
-				team_info = &g_TeamInfo[ m_iSortedRows[row] ];
-
 				// team color text for team names
 				pLabel->setFgColor(	iTeamColors[team_info->teamnumber % iNumberOfTeamColors][0],
 									iTeamColors[team_info->teamnumber % iNumberOfTeamColors][1],
