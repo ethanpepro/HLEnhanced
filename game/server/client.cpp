@@ -86,6 +86,9 @@ void ClientPutInServer( edict_t* pEntity )
 //
 void Host_Say( CBasePlayer* pPlayer, const bool bTeamOnly )
 {
+	if( !pPlayer )
+		return;
+
 	CBasePlayer *client;
 	int		j;
 	char	*p;

@@ -1299,8 +1299,11 @@ int CGraph :: LinkVisibleNodes ( CLink *pLinkPool, FILE *file, int *piBadNode )
 		}
 	}
 
-	fprintf ( file, "\n%4d Total Initial Connections - %4d Maximum connections for a single node.\n", cTotalLinks, cMaxInitialLinks );
-	fprintf ( file, "----------------------------------------------------------------------------\n\n\n" );
+	if( file )
+	{
+		fprintf ( file, "\n%4d Total Initial Connections - %4d Maximum connections for a single node.\n", cTotalLinks, cMaxInitialLinks );
+		fprintf ( file, "----------------------------------------------------------------------------\n\n\n" );
+	}
 
 	return cTotalLinks;
 }
@@ -2419,14 +2422,14 @@ void CGraph :: ComputeStaticRoutingTables( void )
 		}		
 		ALERT( at_aiconsole, "Size of Routes = %d\n", nTotalCompressedSize);
 	}
-	if (Routes) delete Routes;
-	if (BestNextNodes) delete BestNextNodes;
-	if (pRoute) delete pRoute;
-	if (pMyPath) delete pMyPath;
-	Routes = 0;
-	BestNextNodes = 0;
-	pRoute = 0;
-	pMyPath = 0;
+	if (Routes) delete[] Routes;
+	if (BestNextNodes) delete[] BestNextNodes;
+	if (pRoute) delete[] pRoute;
+	if (pMyPath) delete[] pMyPath;
+	Routes = nullptr;
+	BestNextNodes = nullptr;
+	pRoute = nullptr;
+	pMyPath = nullptr;
 
 #if 0
 	TestRoutingTables();
@@ -2553,8 +2556,8 @@ void CGraph :: TestRoutingTables( void )
 
 EnoughSaid:
 
-	if (pMyPath) delete pMyPath;
-	if (pMyPath2) delete pMyPath2;
-	pMyPath = 0;
-	pMyPath2 = 0;
+	if (pMyPath) delete[] pMyPath;
+	if (pMyPath2) delete[] pMyPath2;
+	pMyPath = nullptr;
+	pMyPath2 = nullptr;
 }

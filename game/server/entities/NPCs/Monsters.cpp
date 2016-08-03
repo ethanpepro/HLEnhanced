@@ -148,9 +148,14 @@ void CBaseMonster :: Listen ( void )
 	{
 		pCurrentSound = CSoundEnt::SoundPointerForIndex( iSound );
 
-		if ( pCurrentSound	&& 
-			 ( pCurrentSound->m_iType & iMySounds )	&& 
-			 ( pCurrentSound->m_vecOrigin - EarPosition() ).Length() <= pCurrentSound->m_iVolume * hearingSensitivity )
+		if( !pCurrentSound )
+		{
+			ALERT( at_console, "CBaseMonster::Listen: NULL sound pointer!\n" );
+			break;
+		}
+
+		if ( ( pCurrentSound->m_iType & iMySounds )	&& 
+				( pCurrentSound->m_vecOrigin - EarPosition() ).Length() <= pCurrentSound->m_iVolume * hearingSensitivity )
 
 		//if ( ( g_pSoundEnt->m_SoundPool[ iSound ].m_iType & iMySounds ) && ( g_pSoundEnt->m_SoundPool[ iSound ].m_vecOrigin - EarPosition()).Length () <= g_pSoundEnt->m_SoundPool[ iSound ].m_iVolume * hearingSensitivity ) 
 		{
@@ -187,7 +192,7 @@ void CBaseMonster :: Listen ( void )
 			m_iAudibleList = iSound;
 		}
 
-//		iSound = g_pSoundEnt->m_SoundPool[ iSound ].m_iNext;
+		//		iSound = g_pSoundEnt->m_SoundPool[ iSound ].m_iNext;
 		iSound = pCurrentSound->m_iNext;
 	}
 }
@@ -358,7 +363,13 @@ CSound* CBaseMonster :: PBestSound ( void )
 	{
 		pSound = CSoundEnt::SoundPointerForIndex( iThisSound );
 
-		if ( pSound && pSound->FIsSound() )
+		if( !pSound )
+		{
+			ALERT( at_console, "CBaseMonster::PBestSound: NULL sound pointer!\n" );
+			break;
+		}
+
+		if ( pSound->FIsSound() )
 		{
 			flDist = ( pSound->m_vecOrigin - EarPosition()).Length();
 
