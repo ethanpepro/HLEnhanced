@@ -28,7 +28,6 @@ class CControllerHeadBall : public CBaseMonster
 	void MovetoTarget( Vector vecTarget );
 	void Crawl( void );
 	int m_iTrail;
-	int m_flNextAttack;
 	Vector m_vecIdeal;
 	EHANDLE m_hOwner;
 };

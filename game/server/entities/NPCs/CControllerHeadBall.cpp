@@ -123,8 +123,6 @@ void CControllerHeadBall::HuntThink( void )
 
 		UTIL_EmitAmbientSound( this, tr.vecEndPos, "weapons/electro4.wav", 0.5, ATTN_NORM, 0, RANDOM_LONG( 140, 160 ) );
 
-		m_flNextAttack = gpGlobals->time + 3.0;
-
 		SetThink( &CControllerHeadBall::DieThink );
 		pev->nextthink = gpGlobals->time + 0.3;
 	}
