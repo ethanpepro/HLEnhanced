@@ -72,7 +72,7 @@ void CMultiSource::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 			break;
 
 	// if we didn't find it, report error and leave
-	if( i > m_iTotal )
+	if( i >= m_iTotal )
 	{
 		ALERT( at_console, "MultiSrc:Used by non member %s.\n", pCaller->GetClassname() );
 		return;
