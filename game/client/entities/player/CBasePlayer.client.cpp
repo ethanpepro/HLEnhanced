@@ -103,6 +103,10 @@ bool CBasePlayer::SwitchWeapon( CBasePlayerWeapon *pWeapon )
 	return false;
 }
 
+void CBasePlayer::TabulateAmmo()
+{
+}
+
 void CBasePlayer::UpdateClientData( void )
 {
 }

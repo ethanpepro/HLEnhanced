@@ -18,6 +18,8 @@
 #include "CBasePlayer.h"
 #include "Weapons.h"
 
+#include "gamerules/GameRules.h"
+
 #include "CWeaponInfoCache.h"
 
 #ifdef CLIENT_DLL
@@ -26,6 +28,12 @@
 
 #include "com_weapons.h"
 #endif
+
+void CBasePlayerWeapon::SetObjectCollisionBox()
+{
+	pev->absmin = GetAbsOrigin() + Vector( -24, -24, 0 );
+	pev->absmax = GetAbsOrigin() + Vector( 24, 24, 16 );
+}
 
 void CBasePlayerWeapon::Precache()
 {
@@ -111,6 +119,139 @@ bool CBasePlayerWeapon::DefaultReload( int iAnim, float fDelay, int body )
 
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 3;
 	return true;
+}
+
+bool CanAttack( float attack_time, float curtime, const bool isPredicted )
+{
+	//Client always predicts, so skip this block. - Solokiller
+#ifdef SERVER_DLL
+#if defined( CLIENT_WEAPONS )
+	if( !isPredicted )
+#else
+	if( 1 )
+#endif
+	{
+		return attack_time <= curtime;
+	}
+	else
+#endif
+	{
+		return attack_time <= 0.0;
+	}
+}
+
+bool CanReload( float flAttackTime, float flCurrentTime, const bool bIsPredicted )
+{
+	//Client always predicts, so skip this block. - Solokiller
+#ifdef SERVER_DLL
+	if( !bIsPredicted )
+	{
+		return  flAttackTime < flCurrentTime;
+	}
+	else
+#endif
+	{
+		return flAttackTime < 0.0;
+	}
+}
+
+/*
+=====================
+CBasePlayerWeapon::ItemPostFrame
+
+Handles weapon firing, reloading, etc.
+=====================
+*/
+void CBasePlayerWeapon::ItemPostFrame( void )
+{
+	if( ( m_fInReload ) && ( m_pPlayer->m_flNextAttack <= UTIL_WeaponTimeBase() ) )
+	{
+#ifdef SERVER_DLL // FIXME, need ammo on client to make this work right
+		// complete the reload. 
+		int j = min( iMaxClip() - m_iClip, m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] );
+
+		// Add them to the clip
+		m_iClip += j;
+		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= j;
+
+		m_pPlayer->TabulateAmmo();
+#else	
+		m_iClip += 10;
+#endif
+
+		m_fInReload = false;
+	}
+
+#ifdef SERVER_DLL
+	if( !( m_pPlayer->pev->button & IN_ATTACK ) )
+	{
+		m_flLastFireTime = 0.0f;
+	}
+#endif
+
+	if( ( m_pPlayer->pev->button & IN_ATTACK2 ) && CanAttack( m_flNextSecondaryAttack, gpGlobals->time, IsPredicted() ) )
+	{
+		if( pszAmmo2() && !m_pPlayer->m_rgAmmo[ SecondaryAmmoIndex() ] )
+		{
+			m_bFireOnEmpty = true;
+		}
+
+		m_pPlayer->TabulateAmmo();
+		SecondaryAttack();
+		m_pPlayer->pev->button &= ~IN_ATTACK2;
+	}
+	else if( ( m_pPlayer->pev->button & IN_ATTACK ) && CanAttack( m_flNextPrimaryAttack, gpGlobals->time, IsPredicted() ) )
+	{
+		if( ( m_iClip == 0 && pszAmmo1() ) || ( iMaxClip() == -1 && !m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] ) )
+		{
+			m_bFireOnEmpty = true;
+		}
+
+		m_pPlayer->TabulateAmmo();
+		PrimaryAttack();
+	}
+	else if( m_pPlayer->pev->button & IN_RELOAD && iMaxClip() != WEAPON_NOCLIP && !m_fInReload )
+	{
+		// reload when reload is pressed, or if no buttons are down and weapon is empty.
+		Reload();
+	}
+	else if( !( m_pPlayer->pev->button & ( IN_ATTACK | IN_ATTACK2 ) ) )
+	{
+		// no fire buttons down
+
+		m_bFireOnEmpty = false;
+
+		//Only the server checks for weapon switching. - Solokiller
+#ifdef SERVER_DLL
+		if( !IsUseable() && m_flNextPrimaryAttack < ( IsPredicted() ? 0.0 : gpGlobals->time ) )
+		{
+			// weapon isn't useable, switch.
+			if( !( iFlags() & ITEM_FLAG_NOAUTOSWITCHEMPTY ) && g_pGameRules->GetNextBestWeapon( m_pPlayer, this ) )
+			{
+				m_flNextPrimaryAttack = ( IsPredicted() ? 0.0 : gpGlobals->time ) + 0.3;
+				return;
+			}
+		}
+		else
+#endif
+		{
+			// weapon is useable. Reload if empty and weapon has waited as long as it has to after firing
+			if( m_iClip == 0 && !( iFlags() & ITEM_FLAG_NOAUTORELOAD ) && CanReload( m_flNextPrimaryAttack, gpGlobals->time, IsPredicted() ) )
+			{
+				Reload();
+				return;
+			}
+		}
+
+		WeaponIdle();
+		return;
+	}
+
+	// catch all
+	if( ShouldWeaponIdle() )
+	{
+		WeaponIdle();
+	}
 }
 
 void CBasePlayerWeapon::GetWeaponData( weapon_data_t& data )
