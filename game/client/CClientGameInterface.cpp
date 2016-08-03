@@ -155,6 +155,8 @@ void CClientGameInterface::CheckNewMapStarted()
 
 		if( iResult == 1 )
 		{
+			szMapName[ sizeof( szMapName ) - 1 ] = '\0';
+
 			const size_t uiLength = strlen( szMapName );
 
 			//These checks are mostly to prevent crashes if the engine screws up. Better safe than sorry, it's only done once a map load.
