@@ -1,4 +1,6 @@
 add_sources(
+	CBaseCombatCharacter.h
+	CBaseCombatCharacter.shared.cpp
 	CBaseEntity.shared.h
 	CBaseEntity.shared.cpp
 	CEntityDictionary.h

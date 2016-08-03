@@ -2634,24 +2634,20 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 
 // Combat
 
-Vector CBaseMonster :: GetGunPosition( )
+Vector CBaseMonster::GetGunPosition()
 {
-	UTIL_MakeVectors(pev->angles);
+	UTIL_MakeVectors( pev->angles );
 
 	// Vector vecSrc = GetAbsOrigin() + gpGlobals->v_forward * 10;
 	//vecSrc.z = pevShooter->absmin.z + pevShooter->size.z * 0.7;
 	//vecSrc.z = GetAbsOrigin().z + (pev->view_ofs.z - 4);
-	Vector vecSrc = GetAbsOrigin() 
-					+ gpGlobals->v_forward * m_HackedGunPos.y 
-					+ gpGlobals->v_right * m_HackedGunPos.x 
-					+ gpGlobals->v_up * m_HackedGunPos.z;
+	Vector vecSrc = GetAbsOrigin()
+		+ gpGlobals->v_forward * m_HackedGunPos.y
+		+ gpGlobals->v_right * m_HackedGunPos.x
+		+ gpGlobals->v_up * m_HackedGunPos.z;
 
 	return vecSrc;
 }
-
-
-
-
 
 //=========================================================
 // NODE GRAPH
@@ -3348,14 +3344,4 @@ CBaseEntity* CBaseMonster::DropItem( const char* const pszItemName, const Vector
 		return nullptr;
 	}
 
-}
-
-
-bool CBaseMonster::ShouldFadeOnDeath() const
-{
-	// if flagged to fade out or I have an owner (I came from a monster spawner)
-	if ( (pev->spawnflags & SF_MONSTER_FADECORPSE) || !FNullEnt( pev->owner ) )
-		return true;
-
-	return false;
 }

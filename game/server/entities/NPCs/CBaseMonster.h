@@ -68,7 +68,7 @@ enum TimeBasedDamage
 /**
 *	Generic Monster
 */
-class CBaseMonster : public CBaseToggle
+class CBaseMonster : public CBaseCombatCharacter
 {
 private:
 	/**
@@ -186,7 +186,6 @@ public:
 	void Listen ( void );
 
 	virtual bool	IsAlive() const override { return (pev->deadflag != DEAD_DEAD); }
-	virtual bool	ShouldFadeOnDeath() const;
 
 // Basic Monster AI functions
 	virtual float ChangeYaw ( int speed );
@@ -322,8 +321,8 @@ public:
 		virtual float HearingSensitivity( void ) { return 1.0; };
 
 		bool BarnacleVictimGrabbed( CBaseMonster* pBarnacle ) override;
-		virtual void BarnacleVictimBitten( CBaseEntity* pBarnacle );
-		virtual void BarnacleVictimReleased( void );
+		void BarnacleVictimBitten( CBaseEntity* pBarnacle ) override;
+		void BarnacleVictimReleased() override;
 
 		void SetEyePosition ( void );
 

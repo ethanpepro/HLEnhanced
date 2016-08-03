@@ -389,11 +389,6 @@ CBaseEntity* CBaseMonster::DropItem( const char* const pszItemName, const Vector
 	return nullptr;
 }
 
-bool CBaseMonster::ShouldFadeOnDeath() const
-{
-	return false;
-}
-
 void CBaseMonster::RadiusDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int iClassIgnore, int bitsDamageType )
 {
 }

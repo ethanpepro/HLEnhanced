@@ -32,6 +32,8 @@ class CSound;
 
 #include "entities/CBaseToggle.h"
 
+#include "entities/CBaseCombatCharacter.h"
+
 #include "entities/NPCs/CBaseMonster.h"
 
 #include "entities/CBaseButton.h"

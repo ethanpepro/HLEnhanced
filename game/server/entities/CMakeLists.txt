@@ -6,6 +6,7 @@ add_sources(
 	CBaseAnimating.cpp
 	CBaseButton.h
 	CBaseButton.cpp
+	CBaseCombatCharacter.server.cpp
 	CBaseDelay.h
 	CBaseDelay.cpp
 	CBaseDoor.h

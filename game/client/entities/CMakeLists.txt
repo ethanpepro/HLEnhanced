@@ -1,5 +1,6 @@
 add_sources(
 	CBaseAnimating.client.cpp
+	CBaseCombatCharacter.client.cpp
 	CBaseDelay.client.cpp
 	CBaseEntity.client.cpp
 	CBaseMonster.client.cpp
