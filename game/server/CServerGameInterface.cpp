@@ -240,6 +240,21 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 			}
 		}
 	}
+	else if( FStrEq( pcmd, "ent_trigger" ) )
+	{
+		if( g_flWeaponCheat != 0 )
+		{
+			if( CMD_ARGC() >= 1 )
+			{
+				ClientPrint( pPlayer, HUD_PRINTCONSOLE, UTIL_VarArgs( "\tent_trigger: Firing targets \"%s\"\n", CMD_ARGV( 1 ) ) );
+				FireTargets( CMD_ARGV( 1 ), pPlayer, pPlayer, USE_TOGGLE, 0 );
+			}
+			else
+			{
+				ClientPrint( pPlayer, HUD_PRINTCONSOLE, "Usage: ent_trigger <targetname>\n" );
+			}
+		}
+	}
 	else if( FStrEq( pcmd, "listentityclass" ) )
 	{
 		if( g_flWeaponCheat != 0 )
