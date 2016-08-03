@@ -231,6 +231,7 @@ void PM_PlayStepSound( int step, float fvol )
 			switch( irand )
 			{
 				//Right foot
+			default:
 			case 0: pszSound = "player/pl_snow1.wav"; break;
 			case 1: pszSound = "player/pl_snow3.wav"; break;
 
