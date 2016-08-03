@@ -719,6 +719,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 	case 7: // roar
 		switch( RANDOM_LONG(0,1) )
 		{
+		default:
 		case 0: sound = "tentacle/te_roar1.wav"; break;
 		case 1: sound = "tentacle/te_roar2.wav"; break;
 		}

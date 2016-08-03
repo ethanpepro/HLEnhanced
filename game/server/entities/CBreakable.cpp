@@ -301,6 +301,7 @@ void CBreakable::Precache( void )
 		PRECACHE_SOUND("debris/bustmetal2.wav");
 		break;
 
+	default:
 	case matUnbreakableGlass:
 	case matGlass:
 		pGibName = "models/glassgibs.mdl";
@@ -368,6 +369,7 @@ void CBreakable::DamageSound( void )
 
 	switch (material)
 	{
+	default:
 	case matComputer:
 	case matGlass:
 	case matUnbreakableGlass:
