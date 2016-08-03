@@ -29,7 +29,8 @@
 #ifdef _TFC
 #include "../tfc/tf_defs.h"
 #else
-#define PC_LASTCLASS 10
+//TODO: these constants are defined in StudioModelRenderer as well, but this one was incorrect. This should really be cleaned up - Solokiller
+#define PC_LASTCLASS 12
 #define PC_UNDEFINED 0
 #define MENU_DEFAULT				1
 #define MENU_TEAM 					2
