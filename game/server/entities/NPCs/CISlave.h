@@ -68,7 +68,6 @@ public:
 	CBeam *m_pBeam[ ISLAVE_MAX_BEAMS ];
 
 	int m_iBeams;
-	float m_flNextAttack;
 
 	int	m_voicePitch;
 
