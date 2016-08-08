@@ -152,6 +152,31 @@ float UTIL_SharedRandomFloat( unsigned int seed, float low, float high )
 	}
 }
 
+bool UTIL_GetGameDir( char* pszBuffer, const size_t uiBufferSize )
+{
+	ASSERT( pszBuffer );
+	ASSERT( uiBufferSize > 0 );
+
+#ifdef CLIENT_DLL
+	const char* pszDir = gEngfuncs.pfnGetGameDirectory();
+
+	strncpy( pszBuffer, pszDir, uiBufferSize );
+	pszBuffer[ uiBufferSize - 1 ] = '\0';
+
+	return strcmp( pszBuffer, pszDir ) == 0;
+
+#else
+	char szBuffer[ MAX_PATH ];
+
+	GET_GAME_DIR( szBuffer );
+
+	strncpy( pszBuffer, szBuffer, uiBufferSize );
+	pszBuffer[ uiBufferSize - 1 ] = '\0';
+
+	return strcmp( pszBuffer, szBuffer ) == 0;
+#endif
+}
+
 void UTIL_StringToVector( Vector& vecOut, const char *pString )
 {
 	char *pstr, *pfront, tempString[ 128 ];

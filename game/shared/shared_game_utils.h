@@ -86,6 +86,14 @@ inline float UTIL_RandomFloat( float flLow, float flHigh )
 }
 
 /**
+*	Gets the game directory.
+*	@param pszBuffer Buffer that will contain the game directory.
+*	@param uiBufferSize Size of the buffer, in bytes.
+*	@return Whether the directory was successfully copied into the buffer.
+*/
+bool UTIL_GetGameDir( char* pszBuffer, const size_t uiBufferSize );
+
+/**
 *	Gets circular gaussian spread.
 *	@param[ out ] x X value.
 *	@param[ out ] y Y value.
