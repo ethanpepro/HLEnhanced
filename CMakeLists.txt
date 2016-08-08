@@ -388,6 +388,7 @@ include_directories(
 	game/shared/entities/player
 	pm_shared
 	game/server
+	external/ASSQL/include
 	external/Angelscript/include
 	external
 )
@@ -406,11 +407,19 @@ target_compile_definitions( hl PRIVATE
 )
 
 #Find server dependencies
+find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
 
+if( NOT WIN32 )
+
+	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
+	set( ASSQL "-l:\"${ASSQL}\"" )
+
+endif()
 
 #Link with server dependencies
 target_link_libraries( hl 
 	"${SHARED_DEPENDENCIES}"
+	"${ASSQL}"
 )
 
 #CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
