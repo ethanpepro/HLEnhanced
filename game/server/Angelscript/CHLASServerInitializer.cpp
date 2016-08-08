@@ -7,6 +7,8 @@
 
 #include "Angelscript/ScriptAPI/Extensions/CASGameRules.h"
 
+#include "Angelscript/ScriptAPI/SQL/ASHLSQL.h"
+
 #include "CHLASServerInitializer.h"
 
 bool CHLASServerInitializer::RegisterCoreAPI( CASManager& manager )
@@ -19,6 +21,8 @@ bool CHLASServerInitializer::RegisterCoreAPI( CASManager& manager )
 
 	RegisterScriptCGameRules( engine );
 	RegisterScriptGameRules( engine );
+
+	RegisterScriptHLSQL( engine );
 
 	return true;
 }

@@ -388,6 +388,9 @@ include_directories(
 	game/shared/entities/player
 	pm_shared
 	game/server
+	external/CTPL/include
+	external/SQLite/include
+	external/MariaDB/include
 	external/ASSQL/include
 	external/Angelscript/include
 	external
@@ -408,6 +411,14 @@ target_compile_definitions( hl PRIVATE
 
 #Find server dependencies
 find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
+find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib )
+find_library( MARIADB "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
+
+if( WIN32 )
+	set( DELAYIMP "Delayimp.lib" )
+else()
+	set( DELAYIMP )
+endif()
 
 if( NOT WIN32 )
 
@@ -420,6 +431,9 @@ endif()
 target_link_libraries( hl 
 	"${SHARED_DEPENDENCIES}"
 	"${ASSQL}"
+	"${SQLITE3}"
+	"${MARIADB}"
+	"${DELAYIMP}"
 )
 
 #CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
@@ -438,7 +452,10 @@ else()
 	set( SERVER_LINK_FLAGS "" )
 endif()
 
-set_target_properties( hl PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG}" LINK_FLAGS "${SERVER_LINK_FLAGS} ${LINUX_32BIT_FLAG}" )
+#SQL libraries are delay loaded to keep them in the game directory.
+set_target_properties( hl 
+	PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG}" 
+	LINK_FLAGS "${SERVER_LINK_FLAGS} ${LINUX_32BIT_FLAG} /DELAYLOAD:sqlite3.dll /DELAYLOAD:libmariadb.dll" )
 
 #No lib prefix
 SET_TARGET_PROPERTIES( hl PROPERTIES PREFIX "" )
@@ -447,6 +464,20 @@ SET_TARGET_PROPERTIES( hl PROPERTIES PREFIX "" )
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
 
 clear_sources()
+
+#Copy the sqlite3 dll so the exe can get to it
+add_custom_command( TARGET hl POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/sqlite3.dll"
+	"$<TARGET_FILE_DIR:hl>/.."
+)
+
+#Copy the mariadb dll so the exe can get to it
+add_custom_command( TARGET hl POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.dll"
+	"$<TARGET_FILE_DIR:hl>/.."
+)
 
 #
 #End server library

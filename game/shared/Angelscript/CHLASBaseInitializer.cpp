@@ -15,6 +15,8 @@
 #include "Angelscript/ScriptAPI/CASEngine.h"
 #include "Angelscript/ScriptAPI/ASCGlobalVars.h"
 
+#include "HLASConstants.h"
+
 #include "CHLASManager.h"
 
 #include "CHLASBaseInitializer.h"
@@ -31,6 +33,8 @@ bool CHLASBaseInitializer::GetMessageCallback( asSFuncPtr& outFuncPtr, void*& pO
 bool CHLASBaseInitializer::RegisterCoreAPI( CASManager& manager )
 {
 	auto& engine = *manager.GetEngine();
+
+	engine.SetDefaultAccessMask( ModuleAccessMask::ALL );
 
 	Alert( at_console, "Angelscript v%s\nRegistering Angelscript API\n", ANGELSCRIPT_VERSION_STRING );
 

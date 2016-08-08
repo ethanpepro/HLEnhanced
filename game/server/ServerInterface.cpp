@@ -480,3 +480,37 @@ void CvarValue( const edict_t *pEnt, const char *value )
 void CvarValue2( const edict_t *pEnt, int requestID, const char *cvarName, const char *value )
 {
 }
+
+#ifdef WIN32
+#include <delayimp.h>
+
+FARPROC WINAPI DelayHook(
+	unsigned        dliNotify,
+	PDelayLoadInfo  pdli
+	)
+{
+	if( dliNotify == dliNotePreLoadLibrary )
+	{
+		char szGameDir[ MAX_PATH ];
+		char szPath[ MAX_PATH ];
+
+		if( !UTIL_GetGameDir( szGameDir, sizeof( szGameDir ) ) )
+			return nullptr;
+
+		const int iResult = snprintf( szPath, sizeof( szPath ), "%s/%s", szGameDir, pdli->szDll );
+
+		if( iResult < 0 || static_cast<size_t>( iResult ) >= sizeof( szPath ) )
+			return nullptr;
+
+		HMODULE hLib = LoadLibraryA( szPath );
+
+		return ( FARPROC ) hLib;
+	}
+
+	return nullptr;
+}
+
+ExternC PfnDliHook __pfnDliNotifyHook2 = DelayHook;
+
+ExternC PfnDliHook   __pfnDliFailureHook2 = nullptr;
+#endif
