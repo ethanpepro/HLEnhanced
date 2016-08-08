@@ -538,6 +538,8 @@ void CServerGameInterface::StartFrame()
 
 	gpGlobals->teamplay = teamplay.value;
 	++g_ulFrameCount;
+
+	g_ASManager.Think();
 }
 
 void CServerGameInterface::ParmsNewLevel()

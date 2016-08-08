@@ -3,10 +3,16 @@
 
 #include <angelscript.h>
 
+#include <Angelscript/ScriptAPI/ASCDateTime.h>
+#include <Angelscript/ScriptAPI/ASCTime.h>
+
 #include <Angelscript/ScriptAPI/SQL/CASSQLThreadPool.h>
+
 #include <Angelscript/ScriptAPI/SQL/SQLite/ASSQLite.h>
 #include <Angelscript/ScriptAPI/SQL/SQLite/CASSQLiteConnection.h>
+
 #include <Angelscript/ScriptAPI/SQL/MySQL/ASMySQL.h>
+#include <Angelscript/ScriptAPI/SQL/MySQL/CASMySQLConnection.h>
 
 #include "extdll.h"
 #include "util.h"
@@ -48,7 +54,7 @@ static size_t CalculateThreadCount()
 	return 0;
 }
 
-static CASSQLThreadPool* g_pSQLThreadPool = nullptr;
+CASSQLThreadPool* g_pSQLThreadPool = nullptr;
 
 static CASSQLiteConnection* HLCreateSQLiteConnection( const std::string& szDatabase )
 {
@@ -82,15 +88,27 @@ static CASSQLiteConnection* HLCreateSQLiteConnection( const std::string& szDatab
 	return new CASSQLiteConnection( *g_pSQLThreadPool, szFilename );
 }
 
+static CASMySQLConnection* HLCreateMySQLConnection( const std::string& szHost, const std::string& szUser, const std::string& szPassword, const std::string& szDatabase = "" )
+{
+	//TODO: get all of this information from server config.
+	return new CASMySQLConnection( *g_pSQLThreadPool, szHost.c_str(), szUser.c_str(), szPassword.c_str(), szDatabase.c_str(), 3306, "", 0 );
+}
+
 void RegisterScriptHLSQL( asIScriptEngine& engine )
 {
 	g_pSQLThreadPool = new CASSQLThreadPool( CalculateThreadCount(), &::SQLLogFunc );
 
-	RegisterScriptSQLite( engine );
-	//RegisterScriptMySQL( engine );
-
 	//Call an SQLite function to load the library. - Solokiller
 	Alert( at_console, "SQLite library version: %s\n", sqlite3_libversion() );
+
+	//Call a MySQL function to load the library. - Solokiller
+	Alert( at_console, "MariaDB library version: %s\n", mysql_get_client_info() );
+
+	RegisterScriptCTime( engine );
+	RegisterScriptCDateTime( engine );
+
+	RegisterScriptSQLite( engine );
+	RegisterScriptMySQL( engine );
 
 	const std::string szOldNS = engine.GetDefaultNamespace();
 
@@ -99,6 +117,10 @@ void RegisterScriptHLSQL( asIScriptEngine& engine )
 	engine.RegisterGlobalFunction(
 		"SQLiteConnection@ CreateSQLiteConnection(const string& in szDatabase)",
 		asFUNCTION( HLCreateSQLiteConnection ), asCALL_CDECL );
+
+	engine.RegisterGlobalFunction(
+		"MySQLConnection@ CreateMySQLConnection(const string& in szHost, const string& in szUser, const string& in szPassword, const string& in szDatabase = \"\")",
+		asFUNCTION( HLCreateMySQLConnection ), asCALL_CDECL );
 
 	engine.SetDefaultNamespace( szOldNS.c_str() );
 }

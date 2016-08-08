@@ -17,6 +17,8 @@ public:
 
 	void Shutdown() override;
 
+	void Think();
+
 	/**
 	*	Creates the gamerules object if the script has implemented it.
 	*	@return Gamerules instance, or null if the script didn't provide one.

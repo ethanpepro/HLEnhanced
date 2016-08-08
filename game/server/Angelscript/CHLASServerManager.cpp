@@ -7,6 +7,8 @@
 #include <Angelscript/util/ASExtendAdapter.h>
 #include <Angelscript/wrapper/ASCallable.h>
 
+#include <Angelscript/ScriptAPI/SQL/CASSQLThreadPool.h>
+
 #include "Angelscript/HLASConstants.h"
 
 #include "Angelscript/CHLASServerInitializer.h"
@@ -14,6 +16,8 @@
 #include "Angelscript/CASMapModuleBuilder.h"
 
 #include "ScriptAPI/Extensions/CASGameRules.h"
+
+#include "ScriptAPI/SQL/ASHLSQL.h"
 
 #include "CHLASServerManager.h"
 
@@ -40,6 +44,8 @@ bool CHLASServerManager::Initialize()
 
 void CHLASServerManager::Shutdown()
 {
+	g_pSQLThreadPool->Stop( false );
+
 	if( m_pModule )
 	{
 		m_Manager.GetModuleManager().RemoveModule( m_pModule );
@@ -47,6 +53,12 @@ void CHLASServerManager::Shutdown()
 	}
 
 	CHLASManager::Shutdown();
+}
+
+void CHLASServerManager::Think()
+{
+	CASOwningContext ctx( *m_Manager.GetEngine() );
+	g_pSQLThreadPool->ProcessQueue( *ctx.GetContext() );
 }
 
 CGameRules* CHLASServerManager::CreateGameRules()
