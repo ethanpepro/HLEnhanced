@@ -50,6 +50,9 @@ cvar_t  allow_spectators = { "allow_spectators", "0.0", FCVAR_SERVER };		// 0 pr
 
 cvar_t  mp_chattime = {"mp_chattime","10", FCVAR_SERVER };
 
+//Config file that contains the MySQL settings to use for default connections.
+cvar_t	as_mysql_config = { "as_mysql_config", "server/default_mysql_config.txt", FCVAR_SERVER | FCVAR_UNLOGGED };
+
 // Engine Cvars
 cvar_t 	*g_psv_gravity = NULL;
 cvar_t	*g_psv_aim = NULL;
@@ -506,6 +509,8 @@ void GameDLLInit( void )
 	CVAR_REGISTER (&allowmonsters);
 
 	CVAR_REGISTER (&mp_chattime);
+
+	CVAR_REGISTER( &as_mysql_config );
 
 // REGISTER CVARS FOR SKILL LEVEL STUFF
 	// Agrunt
