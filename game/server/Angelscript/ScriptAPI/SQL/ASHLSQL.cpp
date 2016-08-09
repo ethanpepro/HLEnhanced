@@ -91,7 +91,23 @@ static CASSQLiteConnection* HLCreateSQLiteConnection( const std::string& szDatab
 static CASMySQLConnection* HLCreateMySQLConnection( const std::string& szHost, const std::string& szUser, const std::string& szPassword, const std::string& szDatabase = "" )
 {
 	//TODO: get all of this information from server config.
-	return new CASMySQLConnection( *g_pSQLThreadPool, szHost.c_str(), szUser.c_str(), szPassword.c_str(), szDatabase.c_str(), 3306, "", 0 );
+
+	//Based on AMX's SQLX interface; allow scripts to specify a port using host:port format. - Solokiller
+	std::string szHostName = szHost;
+
+	size_t uiPortSep = szHostName.find( ':' );
+
+	unsigned int uiPort = 3306;
+
+	if( uiPortSep != std::string::npos )
+	{
+		uiPort = strtoul( &szHostName[ uiPortSep + 1 ], nullptr, 10 );
+
+		//Trim the port part from the string.
+		szHostName.resize( uiPortSep );
+	}
+
+	return new CASMySQLConnection( *g_pSQLThreadPool, szHost.c_str(), szUser.c_str(), szPassword.c_str(), szDatabase.c_str(), uiPort, "", 0 );
 }
 
 void RegisterScriptHLSQL( asIScriptEngine& engine )
