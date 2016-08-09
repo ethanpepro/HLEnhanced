@@ -2048,6 +2048,7 @@ public:
 
 	/**
 	*	Called when the entity is destroyed. - Solokiller
+	*	Do not access other entities or do anything beyond simple cleanup and memory freeing.
 	*/
 	virtual void  OnDestroy() {}
 
