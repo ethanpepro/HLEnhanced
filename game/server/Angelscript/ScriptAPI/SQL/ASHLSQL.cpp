@@ -107,7 +107,7 @@ static CASMySQLConnection* HLCreateMySQLConnection( const std::string& szHost, c
 		szHostName.resize( uiPortSep );
 	}
 
-	return new CASMySQLConnection( *g_pSQLThreadPool, szHost.c_str(), szUser.c_str(), szPassword.c_str(), szDatabase.c_str(), uiPort, "", 0 );
+	return new CASMySQLConnection( *g_pSQLThreadPool, szHostName.c_str(), szUser.c_str(), szPassword.c_str(), szDatabase.c_str(), uiPort, "", 0 );
 }
 
 void RegisterScriptHLSQL( asIScriptEngine& engine )
