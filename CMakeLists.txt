@@ -218,8 +218,8 @@ if( NOT WIN32 )
 endif()
 
 set( SHARED_DEPENDENCIES
-	"${ANGELSCRIPTLIB}"
 	"${ANGELSCRIPTUTILS}"
+	"${ANGELSCRIPTLIB}"
 )
 
 #
@@ -411,8 +411,16 @@ target_compile_definitions( hl PRIVATE
 
 #Find server dependencies
 find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
-find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib )
-find_library( MARIADB "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
+
+if( WIN32 )
+	find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib )
+	find_library( MARIADB "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
+	set( PTHREAD "" )
+else()
+	find_library( SQLITE3 "${CMAKE_SHARED_LIBRARY_PREFIX}sqlite3${CMAKE_SHARED_LIBRARY_SUFFIX}" PATHS "${GAME_BASE_PATH}" )
+	find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" )
+	set( PTHREAD "pthread" )
+endif()
 
 if( WIN32 )
 	set( DELAYIMP "Delayimp.lib" )
@@ -429,10 +437,10 @@ endif()
 
 #Link with server dependencies
 target_link_libraries( hl 
-	"${SHARED_DEPENDENCIES}"
-	"${ASSQL}"
 	"${SQLITE3}"
 	"${MARIADB}"
+	"${ASSQL}"
+	"${SHARED_DEPENDENCIES}"
 	"${DELAYIMP}"
 )
 
@@ -447,7 +455,8 @@ set_target_properties( hl PROPERTIES
 if( WIN32 AND MSVC )
 	#Set Windows subsystem
 	#Add the module definition file. Needed for GiveFnptrsToDll function export. Requires the project dir to be near the file.
-	set( SERVER_LINK_FLAGS "/SUBSYSTEM:WINDOWS /DEF:../hl.def" )
+	#Add delay loaded libraries.
+	set( SERVER_LINK_FLAGS "/SUBSYSTEM:WINDOWS /DEF:../hl.def /DELAYLOAD:sqlite3.dll /DELAYLOAD:libmariadb.dll" )
 else()
 	set( SERVER_LINK_FLAGS "" )
 endif()
@@ -455,7 +464,7 @@ endif()
 #SQL libraries are delay loaded to keep them in the game directory.
 set_target_properties( hl 
 	PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG}" 
-	LINK_FLAGS "${SERVER_LINK_FLAGS} ${LINUX_32BIT_FLAG} /DELAYLOAD:sqlite3.dll /DELAYLOAD:libmariadb.dll" )
+	LINK_FLAGS "${SERVER_LINK_FLAGS} ${LINUX_32BIT_FLAG}" )
 
 #No lib prefix
 SET_TARGET_PROPERTIES( hl PROPERTIES PREFIX "" )
@@ -465,6 +474,7 @@ create_source_groups( "${CMAKE_SOURCE_DIR}" )
 
 clear_sources()
 
+if( WIN32 )
 #Copy the sqlite3 dll so the exe can get to it
 add_custom_command( TARGET hl POST_BUILD
 	COMMAND ${CMAKE_COMMAND} -E copy_if_different
@@ -478,6 +488,21 @@ add_custom_command( TARGET hl POST_BUILD
 	"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.dll"
 	"$<TARGET_FILE_DIR:hl>/.."
 )
+else()
+#Copy the sqlite3 library so the exe can get to it
+add_custom_command( TARGET hl PRE_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/libsqlite3.so"
+	"$<TARGET_FILE_DIR:hl>/.."
+)
+
+#Copy the mariadb library so the exe can get to it
+add_custom_command( TARGET hl PRE_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_if_different
+	"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.so.2"
+	"$<TARGET_FILE_DIR:hl>/.."
+)
+endif()
 
 #
 #End server library
