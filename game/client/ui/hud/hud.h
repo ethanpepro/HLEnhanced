@@ -22,9 +22,25 @@
 #ifndef GAME_CLIENT_UI_HUD_HUD_H
 #define GAME_CLIENT_UI_HUD_HUD_H
 
-#define RGB_YELLOWISH 0x00FFA000 //255,160,0
-#define RGB_REDISH 0x00FF1010 //255,160,0
-#define RGB_GREENISH 0x0000A000 //0,160,0
+/**
+*	Makes a 4 byte RGB color.
+*/
+#define MAKE_RGB( r, g, b ) ( ( ( r & 0xFF ) << 16 ) | ( ( g & 0xFF ) << 8) | ( b & 0xFF ) )
+
+/**
+*	Main HUD color.
+*/
+#define RGB_YELLOWISH MAKE_RGB( 255, 160, 0 )
+
+/**
+*	Weapon with no ammo color.
+*/
+#define RGB_REDISH MAKE_RGB( 255, 16, 16 )
+
+/**
+*	Ammo bar color in weapon list.
+*/
+#define RGB_GREENISH MAKE_RGB( 0, 160, 0 )
 
 #ifndef _WIN32
 #define _cdecl 
