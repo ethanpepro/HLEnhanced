@@ -6,6 +6,7 @@ add_sources(
 	CFile.h
 	CHashStringPool.h
 	CHashStringPool.cpp
+	Color.h
 	com_model.h
 	con_nprint.h
 	const.h
