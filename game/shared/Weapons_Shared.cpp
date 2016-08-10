@@ -106,8 +106,6 @@ void PrecacheWeapons()
 {
 	g_WeaponInfoCache.ClearInfos();
 
-	//TODO: weapons and ammo could be added to a list that is enumerated. Would make things like cheats and map config parsers easier to write - Solokiller
-
 	// shotgun
 	UTIL_PrecacheOtherWeapon( "weapon_shotgun" );
 
