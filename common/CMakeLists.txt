@@ -3,6 +3,7 @@ add_sources(
 	BSPIO.h
 	BSPIO.cpp
 	CAutoString.h
+	CFile.h
 	CHashStringPool.h
 	CHashStringPool.cpp
 	com_model.h

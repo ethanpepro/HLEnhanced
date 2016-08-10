@@ -3,7 +3,6 @@ add_sources(
 	CBaseGameInterface.h
 	CBaseGameInterface.cpp
 	cdll_dll.h
-	CFile.h
 	CTakeDamageInfo.h
 	CWeaponInfo.h
 	CWeaponInfo.cpp

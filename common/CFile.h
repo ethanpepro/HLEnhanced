@@ -1,5 +1,5 @@
-#ifndef GAME_SHARED_CFILE_H
-#define GAME_SHARED_CFILE_H
+#ifndef COMMON_CFILE_H
+#define COMMON_CFILE_H
 
 /**
 *	RAII wrapper around IFileSystem files.
@@ -218,4 +218,4 @@ inline char* CFile::ReadLine( char* pOutput, int maxChars )
 	return g_pFileSystem->ReadLine( pOutput, maxChars, m_hFile );
 }
 
-#endif //GAME_SHARED_CFILE_H
+#endif //COMMON_CFILE_H
