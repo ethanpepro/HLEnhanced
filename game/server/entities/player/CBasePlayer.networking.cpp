@@ -19,6 +19,8 @@
 #include "Weapons.h"
 #include "CWeaponInfoCache.h"
 
+#include "CMap.h"
+
 #include "pm_shared.h"
 
 #include "Weather.h"
@@ -71,6 +73,9 @@ void CBasePlayer::UpdateClientData()
 	if( !m_bSentInitData )
 	{
 		m_bSentInitData = true;
+
+		//Update Hud colors. - Solokiller
+		CMap::GetInstance()->SendHudColors( this, true );
 	}
 
 	if( m_fInitHUD )

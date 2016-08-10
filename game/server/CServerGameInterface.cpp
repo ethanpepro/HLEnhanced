@@ -10,6 +10,7 @@
 
 #include "gamerules/GameRules.h"
 #include "Server.h"
+#include "CMap.h"
 
 #include "nodes/Nodes.h"
 #include "nodes/CTestHull.h"
@@ -553,6 +554,8 @@ void CServerGameInterface::StartFrame()
 
 	gpGlobals->teamplay = teamplay.value;
 	++g_ulFrameCount;
+
+	CMap::GetInstance()->Think();
 
 #if USE_ANGELSCRIPT
 	g_ASManager.Think();

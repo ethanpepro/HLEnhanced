@@ -52,6 +52,8 @@ add_sources(
 	CMultiSource.cpp
 	CNullEntity.h
 	CNullEntity.cpp
+	CPlayerHudColors.h
+	CPlayerHudColors.cpp
 	CPointEntity.h
 	CPointEntity.cpp
 	CPushable.h

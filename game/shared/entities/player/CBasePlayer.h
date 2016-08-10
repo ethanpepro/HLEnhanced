@@ -15,6 +15,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include "Color.h"
+#include "HudColors.h"
+
 #include "materials/MaterialsConst.h"
 
 class CRope;
@@ -526,6 +529,98 @@ public:
 	char m_SbarString1[ SBAR_STRING_SIZE ];
 	
 	float m_flNextChatTime;
+
+	/**
+	*	@return The primary HUD color.
+	*/
+	const Color& GetPrimaryHudColor() const { return m_HudColors.m_PrimaryColor; }
+
+	/**
+	*	Sets the primary HUD color.
+	*	@param color Color to set.
+	*/
+	void SetPrimaryHudColor( const Color& color )
+	{
+		m_HudColors.m_PrimaryColor = color;
+
+		m_bUseCustomHudColors = true;
+
+		m_flLastHudColorChangeTime = gpGlobals->time;
+	}
+
+	/**
+	*	@return The empty / nearly empty HUD color.
+	*/
+	const Color& GetEmptyItemHudColor() const { return m_HudColors.m_EmptyItemColor; }
+
+	/**
+	*	Sets the empty / nearly empty HUD color.
+	*	@param color Color to set.
+	*/
+	void SetEmptyItemHudColor( const Color& color )
+	{
+		m_HudColors.m_EmptyItemColor = color;
+
+		m_bUseCustomHudColors = true;
+
+		m_flLastHudColorChangeTime = gpGlobals->time;
+	}
+
+	/**
+	*	@return The ammo bar HUD color.
+	*/
+	const Color& GetAmmoBarHudColor() const { return m_HudColors.m_AmmoBarColor; }
+
+	/**
+	*	Sets the ammo bar HUD color.
+	*	@param color Color to set.
+	*/
+	void SetAmmoBarHudColor( const Color& color )
+	{
+		m_HudColors.m_AmmoBarColor = color;
+
+		m_bUseCustomHudColors = true;
+
+		m_flLastHudColorChangeTime = gpGlobals->time;
+	}
+
+	/**
+	*	Sets all hud colors.
+	*/
+	void SetHudColors( const CHudColors& colors )
+	{
+		m_HudColors = colors;
+
+		m_bUseCustomHudColors = true;
+
+		m_flLastHudColorChangeTime = gpGlobals->time;
+	}
+
+	/**
+	*	Resets Hud colors to their defaults.
+	*	@param bUpdateClients Whether to update all connected clients.
+	*/
+	void ResetHudColors()
+	{
+		m_bUseCustomHudColors = false;
+		//Tells CMap to resend Hud colors using its settings.
+		m_flLastHudColorChangeTime = gpGlobals->time;
+
+		m_HudColors.Reset();
+	}
+
+	bool UsesCustomHudColors() const { return m_bUseCustomHudColors; }
+
+	float GetLastHudColorChangeTime() const { return m_flLastHudColorChangeTime; }
+
+	const CHudColors& GetHudColors() const { return m_HudColors; }
+
+private:
+	bool m_bUseCustomHudColors = false;
+
+	float m_flLastHudColorChangeTime = 0;
+
+	CHudColors m_HudColors;
 };
 
 extern int	gmsgHudText;

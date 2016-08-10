@@ -65,6 +65,10 @@ void CWorld::OnCreate()
 	ASSERT( !m_pInstance );
 
 	m_pInstance = this;
+
+	//Due to how save/restore works, we can't just move all of this stuff over to CMap.
+	//Only data that must be available before any entities are created should be moved over to CMap. - Solokiller
+	CMap::CreateIfNeeded();
 }
 
 void CWorld::OnDestroy()
@@ -95,10 +99,6 @@ void CWorld::OnDestroy()
 
 void CWorld::Spawn( void )
 {
-	//Due to how save/restore works, we can't just move all of this stuff over to CMap.
-	//Only data that must be available before any entities are created should be moved over to CMap. - Solokiller
-	CMap::CreateIfNeeded();
-
 #if USE_ANGELSCRIPT
 	//TODO: due to save/restore's wonky restore order, this will be invoked in the wrong order.
 	//Perhaps find a way to save map script names in a block that's loaded before the rest? - Solokiller
@@ -389,6 +389,52 @@ void CWorld::KeyValue( KeyValueData *pkvd )
 
 		pkvd->fHandled = true;
 	}
+	else if( FStrEq( pkvd->szKeyName, "primary_hud_color" ) )
+	{
+		Color color;
+
+		UTIL_StringToColor( color, 3, pkvd->szValue );
+
+		CMap::GetInstance()->SetPrimaryHudColor( color );
+
+		pkvd->fHandled = true;
+	}
+	else if( FStrEq( pkvd->szKeyName, "empty_item_color" ) )
+	{
+		Color color;
+
+		UTIL_StringToColor( color, 3, pkvd->szValue );
+
+		CMap::GetInstance()->SetEmptyItemHudColor( color );
+
+		pkvd->fHandled = true;
+	}
+	else if( FStrEq( pkvd->szKeyName, "ammo_bar_color" ) )
+	{
+		Color color;
+
+		UTIL_StringToColor( color, 3, pkvd->szValue );
+
+		CMap::GetInstance()->SetAmmoBarHudColor( color );
+
+		pkvd->fHandled = true;
+	}
 	else
 		CBaseEntity::KeyValue( pkvd );
+}
+
+bool CWorld::Save( CSave& save )
+{
+	if( !BaseClass::Save( save ) )
+		return false;
+
+	return CMap::GetInstance()->Save( save );
+}
+
+bool CWorld::Restore( CRestore& restore )
+{
+	if( !BaseClass::Restore( restore ) )
+		return false;
+
+	return CMap::GetInstance()->Restore( restore );
 }

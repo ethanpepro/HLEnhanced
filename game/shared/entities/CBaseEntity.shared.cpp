@@ -182,6 +182,12 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD( m_pRope, FIELD_CLASSPTR ),
 	DEFINE_FIELD( m_flLastClimbTime, FIELD_TIME ),
 	DEFINE_FIELD( m_bIsClimbing, FIELD_BOOLEAN ),
+
+	DEFINE_FIELD( m_bUseCustomHudColors, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_flLastHudColorChangeTime, FIELD_TIME ),
+	DEFINE_FIELD( m_HudColors.m_PrimaryColor, FIELD_INTEGER ),
+	DEFINE_FIELD( m_HudColors.m_EmptyItemColor, FIELD_INTEGER ),
+	DEFINE_FIELD( m_HudColors.m_AmmoBarColor, FIELD_INTEGER ),
 	
 	//DEFINE_FIELD( m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 	//DEFINE_FIELD( m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games

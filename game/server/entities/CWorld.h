@@ -38,6 +38,10 @@ public:
 	void Precache( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
 
+	bool Save( CSave& save ) override;
+
+	bool Restore( CRestore& restore ) override;
+
 	/**
 	*	Gets the global instance of this entity.
 	*/

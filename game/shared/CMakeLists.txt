@@ -12,6 +12,7 @@ add_sources(
 	enginecallback.h
 	extdll.h
 	GameConstants.h
+	HudColors.h
 	ScriptEvent.h
 	shared_game_utils.h
 	shared_game_utils.cpp
