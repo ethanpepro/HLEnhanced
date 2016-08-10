@@ -148,12 +148,6 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	if( !g_Client.Initialize() )
 		return false;
 
-	//TODO: move into g_Client - Solokiller
-#if USE_ANGELSCRIPT
-	if( !g_ASManager.Initialize() )
-		return false;
-#endif
-
 	// get tracker interface, if any
 	return true;
 }
@@ -167,11 +161,6 @@ void DLLEXPORT HUD_Shutdown( void )
 #endif
 
 	CL_UnloadParticleMan();
-
-	//TODO: move into g_Client - Solokiller
-#if USE_ANGELSCRIPT
-	g_ASManager.Shutdown();
-#endif
 
 	g_Client.Shutdown();
 }

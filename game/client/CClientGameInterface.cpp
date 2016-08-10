@@ -79,11 +79,20 @@ bool CClientGameInterface::Initialize()
 	//Init ASAP so functions like AlertMessage get set up.
 	CL_SetupServerSupport();
 
+#if USE_ANGELSCRIPT
+	if( !g_ASManager.Initialize() )
+		return false;
+#endif
+
 	return true;
 }
 
 void CClientGameInterface::Shutdown()
 {
+#if USE_ANGELSCRIPT
+	g_ASManager.Shutdown();
+#endif
+
 	ShutdownCommon();
 }
 
