@@ -40,11 +40,22 @@ bool CServerGameInterface::Initialize()
 	if( !InitializeCommon() )
 		return false;
 
+#if USE_ANGELSCRIPT
+	if( !g_ASManager.Initialize() )
+	{
+		return false;
+	}
+#endif
+
 	return true;
 }
 
 void CServerGameInterface::Shutdown()
 {
+#if USE_ANGELSCRIPT
+	g_ASManager.Shutdown();
+#endif
+
 	ShutdownCommon();
 }
 

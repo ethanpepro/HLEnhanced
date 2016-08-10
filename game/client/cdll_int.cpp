@@ -41,10 +41,6 @@
 
 #include "effects/CEnvironment.h"
 
-#if USE_ANGELSCRIPT
-#include "Angelscript/CHLASClientManager.h"
-#endif
-
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
 TeamFortressViewport *gViewPort = NULL;
