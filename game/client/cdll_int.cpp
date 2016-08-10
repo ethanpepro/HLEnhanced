@@ -41,7 +41,9 @@
 
 #include "effects/CEnvironment.h"
 
+#if USE_ANGELSCRIPT
 #include "Angelscript/CHLASClientManager.h"
+#endif
 
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
@@ -145,8 +147,11 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	if( !g_Client.Initialize() )
 		return false;
 
+	//TODO: move into g_Client - Solokiller
+#if USE_ANGELSCRIPT
 	if( !g_ASManager.Initialize() )
 		return false;
+#endif
 
 	// get tracker interface, if any
 	return true;

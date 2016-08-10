@@ -20,7 +20,9 @@
 
 #include "CServerGameInterface.h"
 
+#if USE_ANGELSCRIPT
 #include "Angelscript/CHLASServerManager.h"
+#endif
 
 #include "Server.h"
 
@@ -933,14 +935,19 @@ void GameDLLInit( void )
 		ShutdownGame();
 	}
 
+	//TODO: move init and shutdown into g_Server - Solokiller
+#if USE_ANGELSCRIPT
 	if( !g_ASManager.Initialize() )
 	{
 		ShutdownGame();
 	}
+#endif
 }
 
 void GameDLLShutdown()
 {
+#if USE_ANGELSCRIPT
 	g_ASManager.Shutdown();
+#endif
 	g_Server.Shutdown();
 }

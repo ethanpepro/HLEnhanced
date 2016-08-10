@@ -35,7 +35,9 @@ add_sources(
 	Weapons.cpp
 )
 
-add_subdirectory( Angelscript )
+if( USE_ANGELSCRIPT )
+	add_subdirectory( Angelscript )
+endif()
 add_subdirectory( entities )
 add_subdirectory( gamerules )
 add_subdirectory( nodes )

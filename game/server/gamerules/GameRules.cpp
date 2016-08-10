@@ -7,7 +7,9 @@
 #include "CHalfLifeMultiplay.h"
 #include "CHalfLifeTeamplay.h"
 
+#if USE_ANGELSCRIPT
 #include "Angelscript/CHLASServerManager.h"
+#endif
 
 DLL_GLOBAL CGameRules* g_pGameRules = nullptr;
 
@@ -22,11 +24,13 @@ CGameRules *InstallGameRules()
 	SERVER_COMMAND( "exec game.cfg\n" );
 	SERVER_EXECUTE();
 
+#if USE_ANGELSCRIPT
 	//Use the one provided by the script if it exists. - Solokiller
 	if( auto pGameRules = g_ASManager.CreateGameRules() )
 	{
 		return pGameRules;
 	}
+#endif
 
 	if( !gpGlobals->deathmatch )
 	{

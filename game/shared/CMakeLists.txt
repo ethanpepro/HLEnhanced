@@ -25,6 +25,8 @@ add_sources(
 	Weather.h
 )
 
-add_subdirectory( Angelscript )
+if( USE_ANGELSCRIPT )
+	add_subdirectory( Angelscript )
+endif()
 add_subdirectory( entities )
 add_subdirectory( materials )

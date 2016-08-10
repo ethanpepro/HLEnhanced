@@ -14,7 +14,9 @@
 #include "nodes/Nodes.h"
 #include "nodes/CTestHull.h"
 
+#if USE_ANGELSCRIPT
 #include "Angelscript/CHLASServerManager.h"
+#endif
 
 #include "entities/CEntityDictionary.h"
 #include "entities/CEntityRegistry.h"
@@ -484,7 +486,9 @@ void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, 
 		}
 	}
 
+#if USE_ANGELSCRIPT
 	g_ASManager.WorldActivated();
+#endif
 
 	//If no graph is present, build it.
 	if( !WorldGraph.m_fGraphPresent )
@@ -539,7 +543,9 @@ void CServerGameInterface::StartFrame()
 	gpGlobals->teamplay = teamplay.value;
 	++g_ulFrameCount;
 
+#if USE_ANGELSCRIPT
 	g_ASManager.Think();
+#endif
 }
 
 void CServerGameInterface::ParmsNewLevel()

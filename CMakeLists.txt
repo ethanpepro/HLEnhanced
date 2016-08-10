@@ -173,7 +173,25 @@ set( GAME_BASE_PATH "${STEAMCOMMON}/Half-Life/hlenhanced" )
 
 MESSAGE( STATUS "Base Game Path: ${GAME_BASE_PATH}" )
 
+set( USE_ANGELSCRIPT "0" CACHE BOOL "Whether to include Angelscript" )
 set( USE_AS_SQL "0" CACHE BOOL "Whether to include Angelscript SQL APIs" )
+
+if( NOT USE_ANGELSCRIPT AND USE_AS_SQL )
+	MESSAGE( STATUS "Forcing USE_AS_SQL to off due to no Angelscript usage" )
+	set( USE_AS_SQL 0 )
+endif()
+
+if( USE_ANGELSCRIPT )
+	set( USE_ANGELSCRIPT_DEFINE 1 )
+else()
+	set( USE_ANGELSCRIPT_DEFINE 0 )
+endif()
+
+if( USE_AS_SQL )
+	set( USE_AS_SQL_DEFINE 1 )
+else()
+	set( USE_AS_SQL_DEFINE 0 )
+endif()
 
 #Shared preprocessor definitions
 set( SHARED_DEFS 
@@ -208,15 +226,20 @@ get_property(SHARED_SRCS GLOBAL PROPERTY SRCS_LIST)
 clear_sources()
 
 #Find shared dependencies
-find_library( ANGELSCRIPTLIB Angelscript PATHS external/Angelscript/lib/ )
-find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
+if( USE_ANGELSCRIPT )
+	find_library( ANGELSCRIPTLIB Angelscript PATHS external/Angelscript/lib/ )
+	find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
+	
+	if( NOT WIN32 )
 
-if( NOT WIN32 )
+		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
+		set( ANGELSCRIPTLIB "-l:\"${ANGELSCRIPTLIB}\"" )
+		set( ANGELSCRIPTUTILS "-l:\"${ANGELSCRIPTUTILS}\"" )
 
-	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
-	set( ANGELSCRIPTLIB "-l:\"${ANGELSCRIPTLIB}\"" )
-	set( ANGELSCRIPTUTILS "-l:\"${ANGELSCRIPTUTILS}\"" )
-
+	endif()
+else()
+	set( ANGELSCRIPTLIB )
+	set( ANGELSCRIPTUTILS )
 endif()
 
 set( SHARED_DEPENDENCIES
@@ -239,6 +262,7 @@ add_subdirectory( shared/engine/client )
 preprocess_sources()
 
 #Cache the old include directories list
+#TODO: this doesn't work. The include dirs as they are at the end of processing are used for all exes/libs defined in this file
 get_property( INCLUDE_DIRS DIRECTORY PROPERTY INCLUDE_DIRECTORIES )
 
 include_directories(
@@ -266,6 +290,7 @@ include_directories(
 add_library( client SHARED ${PREP_SRCS} )
 
 #Default to false
+#TODO: change to cached var
 if( NOT DEFINED USE_VGUI2 )
 	set( USE_VGUI2 0 )
 endif()
@@ -276,6 +301,7 @@ target_compile_definitions( client PRIVATE
 	CLIENT_WEAPONS
 	HL_DLL
 	"USE_VGUI2=${USE_VGUI2}"
+	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
 )
 
 #Find client dependencies
@@ -387,7 +413,12 @@ if( USE_AS_SQL )
 		"external/MariaDB/include"
 		"external/ASSQL/include"
 	)
-else()
+endif()
+
+if( USE_ANGELSCRIPT )
+include_directories(
+		"external/Angelscript/include"
+	)
 endif()
 
 include_directories(
@@ -400,17 +431,10 @@ include_directories(
 	game/shared/entities/player
 	pm_shared
 	game/server
-	external/Angelscript/include
 	external
 )
 
 add_library( hl SHARED ${PREP_SRCS} )
-
-if( USE_AS_SQL )
-	set( USE_AS_SQL_DEFINE 1 )
-else()
-	set( USE_AS_SQL_DEFINE 0 )
-endif()
 
 #So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
@@ -421,6 +445,7 @@ target_compile_definitions( hl PRIVATE
 	QUAKE2
 	VALVE_DLL
 	CLIENT_WEAPONS
+	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
 	USE_AS_SQL=${USE_AS_SQL_DEFINE}
 )
 

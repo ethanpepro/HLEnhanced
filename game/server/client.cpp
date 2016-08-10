@@ -46,8 +46,6 @@
 
 #include "CServerGameInterface.h"
 
-#include "Angelscript/CHLASManager.h"
-
 #include "voice_gamemgr.h"
 
 #include "client.h"

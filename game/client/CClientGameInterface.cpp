@@ -16,7 +16,9 @@
 
 #include "BSPIO.h"
 
+#if USE_ANGELSCRIPT
 #include "Angelscript/CHLASClientManager.h"
+#endif
 
 #include "hl/CClientPrediction.h"
 
@@ -61,7 +63,9 @@ const char* ParseMapDataCallback( const char* pszBuffer, bool& bError )
 
 	if( bIsWorldspawn && *szMapScript )
 	{
+#if USE_ANGELSCRIPT
 		g_ASManager.WorldCreated( szMapScript );
+#endif
 	}
 
 	return pszBuffer;
