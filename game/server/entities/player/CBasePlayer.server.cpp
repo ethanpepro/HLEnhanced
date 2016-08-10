@@ -687,6 +687,10 @@ bool CBasePlayer::Restore( CRestore &restore )
 	m_flNextAttack = UTIL_WeaponTimeBase();
 #endif
 
+	//If restored, always connected. - Solokiller
+	m_ConnectState = ConnectState::CONNECTED;
+	m_flConnectTime = gpGlobals->time;
+
 	return true;
 }
 
