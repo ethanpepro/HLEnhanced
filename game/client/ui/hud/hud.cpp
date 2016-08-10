@@ -81,8 +81,6 @@ static CHLVoiceStatusHelper g_VoiceStatusHelper;
 extern cvar_t *sensitivity;
 cvar_t *cl_lw = NULL;
 
-void ShutdownInput (void);
-
 //DECLARE_MESSAGE(m_Logo, Logo)
 int __MsgFunc_Logo(const char *pszName, int iSize, void *pbuf)
 {

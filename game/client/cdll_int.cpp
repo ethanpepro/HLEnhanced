@@ -54,12 +54,13 @@ TeamFortressViewport *gViewPort = NULL;
 CSysModule *g_hParticleManModule = NULL;
 IParticleMan *g_pParticleMan = NULL;
 
-void CL_LoadParticleMan( void );
-void CL_UnloadParticleMan( void );
+void CL_LoadParticleMan();
+void CL_UnloadParticleMan();
 
-void InitInput (void);
-void EV_HookEvents( void );
-void IN_Commands( void );
+void InitInput();
+void ShutdownInput();
+void EV_HookEvents();
+void IN_Commands();
 
 /*
 ================================
@@ -156,6 +157,25 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	// get tracker interface, if any
 	return true;
 }
+
+void DLLEXPORT HUD_Shutdown( void )
+{
+	ShutdownInput();
+
+#if defined( _TFC )
+	ClearEventList();
+#endif
+
+	CL_UnloadParticleMan();
+
+	//TODO: move into g_Client - Solokiller
+#if USE_ANGELSCRIPT
+	g_ASManager.Shutdown();
+#endif
+
+	g_Client.Shutdown();
+}
+
 
 /*
 ==========================

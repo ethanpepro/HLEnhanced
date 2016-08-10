@@ -1014,28 +1014,3 @@ void CL_UnloadParticleMan( void );
 #if defined( _TFC )
 void ClearEventList( void );
 #endif
-
-#include "CClientGameInterface.h"
-#if USE_ANGELSCRIPT
-#include "Angelscript/CHLASClientManager.h"
-#endif
-
-//TODO: move this - Solokiller
-
-void DLLEXPORT HUD_Shutdown( void )
-{
-	ShutdownInput();
-
-#if defined( _TFC )
-	ClearEventList();
-#endif
-	
-	CL_UnloadParticleMan();
-
-	//TODO: move into g_Client - Solokiller
-#if USE_ANGELSCRIPT
-	g_ASManager.Shutdown();
-#endif
-
-	g_Client.Shutdown();
-}
