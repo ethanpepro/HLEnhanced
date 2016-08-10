@@ -53,6 +53,7 @@ extern int gmsgStatusText;
 extern int gmsgStatusValue;
 
 extern int gmsgReceiveW;
+extern int gmsgHudColors;
 
 void LinkUserMessages();
 

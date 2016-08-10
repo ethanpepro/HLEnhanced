@@ -120,6 +120,11 @@ int __MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf )
 	return gHUD.MsgFunc_ReceiveW( pszName, iSize, pBuf );
 }
 
+int __MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf )
+{
+	return gHUD.MsgFunc_HudColors( pszName, iSize, pBuf );
+}
+
 int __MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 {
 	return gHUD.MsgFunc_GameMode( pszName, iSize, pbuf );
@@ -283,6 +288,7 @@ void CHud :: Init( void )
 	HOOK_MESSAGE( SetFOV );
 	HOOK_MESSAGE( Concuss );
 	HOOK_MESSAGE( ReceiveW );
+	HOOK_MESSAGE( HudColors );
 
 	// TFFree CommandMenu
 	HOOK_COMMAND( "+commandmenu", OpenCommandMenu );
@@ -413,9 +419,9 @@ int CHud :: GetSpriteIndex( const char *SpriteName )
 void CHud :: VidInit( void )
 {
 	//Reset to defaults for new maps. - Solokiller
-	SetPrimaryColor( RGB_YELLOWISH );
-	SetEmptyItemColor( RGB_REDISH );
-	SetAmmoBarColor( RGB_GREENISH );
+	SetPrimaryColor( HUD_DEFAULT_PRIMARY_COLOR );
+	SetEmptyItemColor( HUD_DEFAULT_EMPTYITEM_COLOR );
+	SetAmmoBarColor( HUD_DEFAULT_AMMOBAR_COLOR );
 
 	m_scrinfo.iSize = sizeof(m_scrinfo);
 	GetScreenInfo(&m_scrinfo);

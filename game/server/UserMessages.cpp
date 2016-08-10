@@ -56,6 +56,7 @@ int gmsgStatusText = 0;
 int gmsgStatusValue = 0;
 
 int gmsgReceiveW = 0;
+int gmsgHudColors = 0;
 
 void LinkUserMessages()
 {
@@ -102,4 +103,7 @@ void LinkUserMessages()
 	gmsgStatusValue = REG_USER_MSG( "StatusValue", 3 );
 
 	gmsgReceiveW = REG_USER_MSG( "ReceiveW", 1 );
+
+	//3 3 component Hud colors.
+	gmsgHudColors = REG_USER_MSG( "HudColors", 3 * 3 );
 }

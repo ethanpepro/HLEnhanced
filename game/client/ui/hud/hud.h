@@ -22,100 +22,8 @@
 #ifndef GAME_CLIENT_UI_HUD_HUD_H
 #define GAME_CLIENT_UI_HUD_HUD_H
 
-#include <cstdint>
-
-/**
-*	Makes a 4 byte RGB color.
-*/
-#define MAKE_RGB( r, g, b ) ( ( ( r & 0xFF ) << 16 ) | ( ( g & 0xFF ) << 8) | ( b & 0xFF ) )
-
-/**
-*	Represents a HUD color. - Solokiller
-*	TODO: can probably be generalized into a Color struct once all dependencies on the original layout are gone. - Solokiller
-*/
-struct HudColor final
-{
-	/**
-	*	Constructor.
-	*	Creates a color from a 32 bit color value. Layout is | Unused | R | G | B |
-	*	Defaults to white.
-	*/
-	HudColor( uint32_t color32 = MAKE_RGB( 255, 255, 255 ) )
-		: color32( color32 )
-	{
-	}
-
-	/**
-	*	Constructor.
-	*	Creates a color from a red, green and blue color.
-	*/
-	HudColor( uint8_t r, uint8_t g, uint8_t b )
-		: r( r )
-		, g( g )
-		, b( b )
-	{
-	}
-
-	HudColor( const HudColor& other ) = default;
-	HudColor& operator=( const HudColor& ) = default;
-
-	/**
-	*	Unpacks this color into r, g and b components.
-	*	Obsolete. Directly accessing the color components is easier.
-	*/
-	void UnpackRGB( int& r, int& g, int& b ) const
-	{
-		r = this->r;
-		g = this->g;
-		b = this->b;
-	}
-
-	/**
-	*	Sets a color from a 32 bit color value. Layout is | Unused | R | G | B |
-	*/
-	void Set( uint32_t color32 )
-	{
-		this->color32 = color32;
-	}
-
-	/**
-	*	Sets a color from a red, green and blue color.
-	*/
-	void Set( uint8_t r, uint8_t g, uint8_t b )
-	{
-		this->r = r;
-		this->g = g;
-		this->b = b;
-	}
-
-	union
-	{
-		uint32_t color32;
-
-		struct
-		{
-			uint8_t b;
-			uint8_t g;
-			uint8_t r;
-			uint8_t unused;
-		};
-	};
-};
-
-/**
-*	Default main HUD color.
-*/
-#define RGB_YELLOWISH MAKE_RGB( 255, 160, 0 )
-
-/**
-*	Default empty / nearly empty item color.
-*/
-#define RGB_REDISH MAKE_RGB( 255, 16, 16 )
-
-/**
-*	Default ammo bar color in weapon list.
-*/
-#define RGB_GREENISH MAKE_RGB( 0, 160, 0 )
+#include "Color.h"
+#include "HudColors.h"
 
 #ifndef _WIN32
 #define _cdecl 
@@ -241,52 +149,50 @@ private:
 	float						m_flMouseSensitivity;
 	int							m_iConcussionEffect; 
 
-	HudColor m_PrimaryColor;
-	HudColor m_EmptyItemColor;
-	HudColor m_AmmoBarColor;
+	CHudColors m_HudColors;
 
 public:
 
 	/**
 	*	@return The primary HUD color.
 	*/
-	const HudColor& GetPrimaryColor() const { return m_PrimaryColor; }
+	const Color& GetPrimaryColor() const { return m_HudColors.m_PrimaryColor; }
 
 	/**
 	*	Sets the primary HUD color.
 	*	@param color Color to set.
 	*/
-	void SetPrimaryColor( const HudColor& color )
+	void SetPrimaryColor( const Color& color )
 	{
-		m_PrimaryColor = color;
+		m_HudColors.m_PrimaryColor = color;
 	}
 
 	/**
 	*	@return The empty / nearly empty HUD color.
 	*/
-	const HudColor& GetEmptyItemColor() const { return m_EmptyItemColor; }
+	const Color& GetEmptyItemColor() const { return m_HudColors.m_EmptyItemColor; }
 
 	/**
 	*	Sets the empty / nearly empty HUD color.
 	*	@param color Color to set.
 	*/
-	void SetEmptyItemColor( const HudColor& color )
+	void SetEmptyItemColor( const Color& color )
 	{
-		m_EmptyItemColor = color;
+		m_HudColors.m_EmptyItemColor = color;
 	}
 
 	/**
 	*	@return The ammo bar HUD color.
 	*/
-	const HudColor& GetAmmoBarColor() const { return m_AmmoBarColor; }
+	const Color& GetAmmoBarColor() const { return m_HudColors.m_AmmoBarColor; }
 
 	/**
 	*	Sets the ammo bar HUD color.
 	*	@param color Color to set.
 	*/
-	void SetAmmoBarColor( const HudColor& color )
+	void SetAmmoBarColor( const Color& color )
 	{
-		m_AmmoBarColor = color;
+		m_HudColors.m_AmmoBarColor = color;
 	}
 
 	HSPRITE						m_hsprCursor;
@@ -370,6 +276,8 @@ public:
 	int _cdecl MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf);
 	int  _cdecl MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf );
 	int _cdecl MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf );
+
+	int MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf );
 
 	// Screen information
 	SCREENINFO	m_scrinfo;

@@ -140,3 +140,22 @@ int CHud::MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf )
 
 	return true;
 }
+
+int CHud::MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf )
+{
+	CBufferReader reader( pBuf, iSize );
+
+	m_HudColors.m_PrimaryColor.r = reader.ReadByte();
+	m_HudColors.m_PrimaryColor.g = reader.ReadByte();
+	m_HudColors.m_PrimaryColor.b = reader.ReadByte();
+
+	m_HudColors.m_EmptyItemColor.r = reader.ReadByte();
+	m_HudColors.m_EmptyItemColor.g = reader.ReadByte();
+	m_HudColors.m_EmptyItemColor.b = reader.ReadByte();
+
+	m_HudColors.m_AmmoBarColor.r = reader.ReadByte();
+	m_HudColors.m_AmmoBarColor.g = reader.ReadByte();
+	m_HudColors.m_AmmoBarColor.b = reader.ReadByte();
+
+	return true;
+}
