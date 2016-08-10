@@ -108,9 +108,9 @@ bool CHudFlashlight::Draw(float flTime)
 		a = MIN_ALPHA;
 
 	if (m_flBat < 0.20)
-		UnpackRGB(r,g,b, RGB_REDISH);
+		gHUD.GetEmptyItemColor().UnpackRGB(r,g,b);
 	else
-		UnpackRGB(r,g,b, RGB_YELLOWISH);
+		gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 
 	ScaleColors(r, g, b, a);
 

@@ -412,6 +412,11 @@ int CHud :: GetSpriteIndex( const char *SpriteName )
 
 void CHud :: VidInit( void )
 {
+	//Reset to defaults for new maps. - Solokiller
+	SetPrimaryColor( RGB_YELLOWISH );
+	SetEmptyItemColor( RGB_REDISH );
+	SetAmmoBarColor( RGB_GREENISH );
+
 	m_scrinfo.iSize = sizeof(m_scrinfo);
 	GetScreenInfo(&m_scrinfo);
 

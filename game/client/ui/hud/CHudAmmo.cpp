@@ -741,7 +741,7 @@ bool CHudAmmo::Draw(float flTime)
 	if (m_fFade > 0)
 		m_fFade -= (gHUD.m_flTimeDelta * 20);
 
-	UnpackRGB(r,g,b, RGB_YELLOWISH);
+	gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 
 	ScaleColors(r, g, b, a );
 
@@ -807,7 +807,7 @@ bool CHudAmmo::Draw(float flTime)
 
 			x += AmmoWidth/2;
 
-			UnpackRGB(r,g,b, RGB_YELLOWISH);
+			gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 
 			// draw the | bar
 			FillRGBA(x, y, iBarWidth, gHUD.m_iFontHeight, r, g, b, a);
@@ -876,13 +876,14 @@ int DrawBar(int x, int y, int width, int height, float f)
 		// Always show at least one pixel if we have ammo.
 		if (w <= 0)
 			w = 1;
-		UnpackRGB(r, g, b, RGB_GREENISH);
-		FillRGBA(x, y, w, height, r, g, b, 255);
+		const auto& barColor = gHUD.GetAmmoBarColor();
+
+		FillRGBA(x, y, w, height, barColor.r, barColor.g, barColor.b, 255);
 		x += w;
 		width -= w;
 	}
 
-	UnpackRGB(r, g, b, RGB_YELLOWISH);
+	gHUD.GetPrimaryColor().UnpackRGB(r, g, b);
 
 	FillRGBA(x, y, width, height, r, g, b, 128);
 
@@ -958,7 +959,7 @@ int CHudAmmo::DrawWList(float flTime)
 	{
 		int iWidth;
 
-		UnpackRGB(r,g,b, RGB_YELLOWISH);
+		gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 	
 		if ( iActiveSlot == i )
 			a = 255;
@@ -1012,7 +1013,7 @@ int CHudAmmo::DrawWList(float flTime)
 
 				auto pHUDInfo = p->pInfo->GetHUDInfo();
 
-				UnpackRGB( r,g,b, RGB_YELLOWISH );
+				gHUD.GetPrimaryColor().UnpackRGB( r,g,b );
 			
 				// if active, then we must have ammo.
 
@@ -1032,7 +1033,7 @@ int CHudAmmo::DrawWList(float flTime)
 						ScaleColors(r, g, b, 192);
 					else
 					{
-						UnpackRGB(r,g,b, RGB_REDISH);
+						gHUD.GetEmptyItemColor().UnpackRGB(r,g,b);
 						ScaleColors(r, g, b, 128);
 					}
 
@@ -1054,7 +1055,7 @@ int CHudAmmo::DrawWList(float flTime)
 		{
 			// Draw Row of weapons.
 
-			UnpackRGB(r,g,b, RGB_YELLOWISH);
+			gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 
 			for ( int iPos = 0; iPos < MAX_WEAPON_POSITIONS; iPos++ )
 			{
@@ -1065,12 +1066,12 @@ int CHudAmmo::DrawWList(float flTime)
 
 				if ( gWR.HasAmmo(p) )
 				{
-					UnpackRGB(r,g,b, RGB_YELLOWISH);
+					gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 					a = 128;
 				}
 				else
 				{
-					UnpackRGB(r,g,b, RGB_REDISH);
+					gHUD.GetEmptyItemColor().UnpackRGB(r,g,b);
 					a = 96;
 				}
 

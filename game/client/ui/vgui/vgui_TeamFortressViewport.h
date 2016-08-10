@@ -1738,6 +1738,7 @@ public:
 
 //=========================================================
 // Specific Menus to handle old HUD sections
+//TODO: early replacement for CHud* stuff? - Solokiller
 class CHealthPanel : public DragNDropPanel
 {
 private:
@@ -1805,7 +1806,10 @@ public:
 		// Draw the vertical line
 		int HealthWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
 		x += HealthWidth / 2;
-		FillRGBA(x, iYPos + 5, HealthWidth / 10, gHUD.m_iFontHeight, 255, 160, 0, a);
+
+		const auto& color = gHUD.GetPrimaryColor();
+
+		FillRGBA(x, iYPos + 5, HealthWidth / 10, gHUD.m_iFontHeight, color.r, color.g, color.b, a);
 	}
 };
 

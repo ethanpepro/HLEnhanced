@@ -22,23 +22,98 @@
 #ifndef GAME_CLIENT_UI_HUD_HUD_H
 #define GAME_CLIENT_UI_HUD_HUD_H
 
+#include <cstdint>
+
 /**
 *	Makes a 4 byte RGB color.
 */
 #define MAKE_RGB( r, g, b ) ( ( ( r & 0xFF ) << 16 ) | ( ( g & 0xFF ) << 8) | ( b & 0xFF ) )
 
 /**
-*	Main HUD color.
+*	Represents a HUD color. - Solokiller
+*	TODO: can probably be generalized into a Color struct once all dependencies on the original layout are gone. - Solokiller
+*/
+struct HudColor final
+{
+	/**
+	*	Constructor.
+	*	Creates a color from a 32 bit color value. Layout is | Unused | R | G | B |
+	*	Defaults to white.
+	*/
+	HudColor( uint32_t color32 = MAKE_RGB( 255, 255, 255 ) )
+		: color32( color32 )
+	{
+	}
+
+	/**
+	*	Constructor.
+	*	Creates a color from a red, green and blue color.
+	*/
+	HudColor( uint8_t r, uint8_t g, uint8_t b )
+		: r( r )
+		, g( g )
+		, b( b )
+	{
+	}
+
+	HudColor( const HudColor& other ) = default;
+	HudColor& operator=( const HudColor& ) = default;
+
+	/**
+	*	Unpacks this color into r, g and b components.
+	*	Obsolete. Directly accessing the color components is easier.
+	*/
+	void UnpackRGB( int& r, int& g, int& b ) const
+	{
+		r = this->r;
+		g = this->g;
+		b = this->b;
+	}
+
+	/**
+	*	Sets a color from a 32 bit color value. Layout is | Unused | R | G | B |
+	*/
+	void Set( uint32_t color32 )
+	{
+		this->color32 = color32;
+	}
+
+	/**
+	*	Sets a color from a red, green and blue color.
+	*/
+	void Set( uint8_t r, uint8_t g, uint8_t b )
+	{
+		this->r = r;
+		this->g = g;
+		this->b = b;
+	}
+
+	union
+	{
+		uint32_t color32;
+
+		struct
+		{
+			uint8_t b;
+			uint8_t g;
+			uint8_t r;
+			uint8_t unused;
+		};
+	};
+};
+
+/**
+*	Default main HUD color.
 */
 #define RGB_YELLOWISH MAKE_RGB( 255, 160, 0 )
 
 /**
-*	Weapon with no ammo color.
+*	Default empty / nearly empty item color.
 */
 #define RGB_REDISH MAKE_RGB( 255, 16, 16 )
 
 /**
-*	Ammo bar color in weapon list.
+*	Default ammo bar color in weapon list.
 */
 #define RGB_GREENISH MAKE_RGB( 0, 160, 0 )
 
@@ -58,6 +133,7 @@
 #define MIN_ALPHA	 100	
 
 //TODO: identical to PackedColorVec - Solokiller
+//TODO: used in only one place. Can replace with HudColor once it has alpha channel support - Solokiller
 struct RGBA
 {
 	unsigned char r,g,b,a;
@@ -165,7 +241,53 @@ private:
 	float						m_flMouseSensitivity;
 	int							m_iConcussionEffect; 
 
+	HudColor m_PrimaryColor;
+	HudColor m_EmptyItemColor;
+	HudColor m_AmmoBarColor;
+
 public:
+
+	/**
+	*	@return The primary HUD color.
+	*/
+	const HudColor& GetPrimaryColor() const { return m_PrimaryColor; }
+
+	/**
+	*	Sets the primary HUD color.
+	*	@param color Color to set.
+	*/
+	void SetPrimaryColor( const HudColor& color )
+	{
+		m_PrimaryColor = color;
+	}
+
+	/**
+	*	@return The empty / nearly empty HUD color.
+	*/
+	const HudColor& GetEmptyItemColor() const { return m_EmptyItemColor; }
+
+	/**
+	*	Sets the empty / nearly empty HUD color.
+	*	@param color Color to set.
+	*/
+	void SetEmptyItemColor( const HudColor& color )
+	{
+		m_EmptyItemColor = color;
+	}
+
+	/**
+	*	@return The ammo bar HUD color.
+	*/
+	const HudColor& GetAmmoBarColor() const { return m_AmmoBarColor; }
+
+	/**
+	*	Sets the ammo bar HUD color.
+	*	@param color Color to set.
+	*/
+	void SetAmmoBarColor( const HudColor& color )
+	{
+		m_AmmoBarColor = color;
+	}
 
 	HSPRITE						m_hsprCursor;
 	float m_flTime;	   // the current client time
