@@ -173,6 +173,8 @@ set( GAME_BASE_PATH "${STEAMCOMMON}/Half-Life/hlenhanced" )
 
 MESSAGE( STATUS "Base Game Path: ${GAME_BASE_PATH}" )
 
+set( USE_AS_SQL "0" CACHE STRING "Whether to include Angelscript SQL APIs" )
+
 #Shared preprocessor definitions
 set( SHARED_DEFS 
 	_CRT_SECURE_NO_WARNINGS
@@ -378,6 +380,16 @@ add_subdirectory( game/server )
 
 preprocess_sources()
 
+if( "${USE_AS_SQL}" STREQUAL 1 )
+	include_directories(
+		"external/CTPL/include"
+		"external/SQLite/include"
+		"external/MariaDB/include"
+		"external/ASSQL/include"
+	)
+else()
+endif()
+
 include_directories(
 	common
 	public
@@ -388,10 +400,6 @@ include_directories(
 	game/shared/entities/player
 	pm_shared
 	game/server
-	external/CTPL/include
-	external/SQLite/include
-	external/MariaDB/include
-	external/ASSQL/include
 	external/Angelscript/include
 	external
 )
@@ -407,32 +415,30 @@ target_compile_definitions( hl PRIVATE
 	QUAKE2
 	VALVE_DLL
 	CLIENT_WEAPONS
+	USE_AS_SQL=${USE_AS_SQL}
 )
 
 #Find server dependencies
-find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
+if( "${USE_AS_SQL}" STREQUAL 1 )
+	find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
 
-if( WIN32 )
-	find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib )
-	find_library( MARIADB "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
-	set( PTHREAD "" )
+	if( WIN32 )
+		find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib )
+		find_library( MARIADB "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
+		set( PTHREAD "" )
+	else()
+		find_library( SQLITE3 "${CMAKE_SHARED_LIBRARY_PREFIX}sqlite3${CMAKE_SHARED_LIBRARY_SUFFIX}" PATHS "${GAME_BASE_PATH}" )
+		find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" )
+		set( PTHREAD "pthread" )
+		
+		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
+		set( ASSQL "-l:\"${ASSQL}\"" )
+	endif()
 else()
-	find_library( SQLITE3 "${CMAKE_SHARED_LIBRARY_PREFIX}sqlite3${CMAKE_SHARED_LIBRARY_SUFFIX}" PATHS "${GAME_BASE_PATH}" )
-	find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" )
-	set( PTHREAD "pthread" )
-endif()
-
-if( WIN32 )
-	set( DELAYIMP "Delayimp.lib" )
-else()
-	set( DELAYIMP )
-endif()
-
-if( NOT WIN32 )
-
-	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
-	set( ASSQL "-l:\"${ASSQL}\"" )
-
+	set( ASSQL )
+	set( SQLITE3 )
+	set( MARIABDB )
+	set( PTHREAD )
 endif()
 
 #Link with server dependencies
@@ -453,10 +459,16 @@ set_target_properties( hl PROPERTIES
 )
 
 if( WIN32 AND MSVC )
+	if( "${USE_AS_SQL}" STREQUAL 1 )
+		set( SQL_DLL_DELAYLOAD "/DELAYLOAD:sqlite3.dll /DELAYLOAD:libmariadb.dll" )
+	else()
+		set( SQL_DLL_DELAYLOAD )
+	endif()
+
 	#Set Windows subsystem
 	#Add the module definition file. Needed for GiveFnptrsToDll function export. Requires the project dir to be near the file.
 	#Add delay loaded libraries.
-	set( SERVER_LINK_FLAGS "/SUBSYSTEM:WINDOWS /DEF:../hl.def /DELAYLOAD:sqlite3.dll /DELAYLOAD:libmariadb.dll" )
+	set( SERVER_LINK_FLAGS "/SUBSYSTEM:WINDOWS /DEF:../hl.def ${SQL_DLL_DELAYLOAD}" )
 else()
 	set( SERVER_LINK_FLAGS "" )
 endif()
@@ -474,34 +486,36 @@ create_source_groups( "${CMAKE_SOURCE_DIR}" )
 
 clear_sources()
 
-if( WIN32 )
-#Copy the sqlite3 dll so the exe can get to it
-add_custom_command( TARGET hl POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-	"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/sqlite3.dll"
-	"$<TARGET_FILE_DIR:hl>/.."
-)
+if( "${USE_AS_SQL}" STREQUAL 1 )
+	if( WIN32 )
+		#Copy the sqlite3 dll so the exe can get to it
+		add_custom_command( TARGET hl POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/sqlite3.dll"
+			"$<TARGET_FILE_DIR:hl>/.."
+		)
 
-#Copy the mariadb dll so the exe can get to it
-add_custom_command( TARGET hl POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-	"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.dll"
-	"$<TARGET_FILE_DIR:hl>/.."
-)
-else()
-#Copy the sqlite3 library so the exe can get to it
-add_custom_command( TARGET hl PRE_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-	"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/libsqlite3.so"
-	"$<TARGET_FILE_DIR:hl>/.."
-)
+		#Copy the mariadb dll so the exe can get to it
+		add_custom_command( TARGET hl POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.dll"
+			"$<TARGET_FILE_DIR:hl>/.."
+		)
+		else()
+		#Copy the sqlite3 library so the exe can get to it
+		add_custom_command( TARGET hl PRE_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/libsqlite3.so"
+			"$<TARGET_FILE_DIR:hl>/.."
+		)
 
-#Copy the mariadb library so the exe can get to it
-add_custom_command( TARGET hl PRE_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy_if_different
-	"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.so.2"
-	"$<TARGET_FILE_DIR:hl>/.."
-)
+		#Copy the mariadb library so the exe can get to it
+		add_custom_command( TARGET hl PRE_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.so.2"
+			"$<TARGET_FILE_DIR:hl>/.."
+		)
+	endif()
 endif()
 
 #

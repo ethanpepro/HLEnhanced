@@ -4,4 +4,7 @@ add_sources(
 )
 
 add_subdirectory( Extensions )
-add_subdirectory( SQL )
+
+if( "${USE_AS_SQL}" STREQUAL 1 )
+	add_subdirectory( SQL )
+endif()

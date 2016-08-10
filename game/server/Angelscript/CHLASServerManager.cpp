@@ -7,7 +7,9 @@
 #include <Angelscript/util/ASExtendAdapter.h>
 #include <Angelscript/wrapper/ASCallable.h>
 
+#if USE_AS_SQL
 #include <Angelscript/ScriptAPI/SQL/CASSQLThreadPool.h>
+#endif
 
 #include "Angelscript/HLASConstants.h"
 
@@ -44,7 +46,9 @@ bool CHLASServerManager::Initialize()
 
 void CHLASServerManager::Shutdown()
 {
+#if USE_AS_SQL
 	g_pSQLThreadPool->Stop( false );
+#endif
 
 	if( m_pModule )
 	{
@@ -57,8 +61,10 @@ void CHLASServerManager::Shutdown()
 
 void CHLASServerManager::Think()
 {
+#if USE_AS_SQL
 	CASOwningContext ctx( *m_Manager.GetEngine() );
 	g_pSQLThreadPool->ProcessQueue( *ctx.GetContext() );
+#endif
 }
 
 CGameRules* CHLASServerManager::CreateGameRules()
