@@ -173,7 +173,7 @@ set( GAME_BASE_PATH "${STEAMCOMMON}/Half-Life/hlenhanced" )
 
 MESSAGE( STATUS "Base Game Path: ${GAME_BASE_PATH}" )
 
-set( USE_AS_SQL "0" CACHE STRING "Whether to include Angelscript SQL APIs" )
+set( USE_AS_SQL "0" CACHE BOOL "Whether to include Angelscript SQL APIs" )
 
 #Shared preprocessor definitions
 set( SHARED_DEFS 
@@ -380,7 +380,7 @@ add_subdirectory( game/server )
 
 preprocess_sources()
 
-if( "${USE_AS_SQL}" STREQUAL 1 )
+if( USE_AS_SQL )
 	include_directories(
 		"external/CTPL/include"
 		"external/SQLite/include"
@@ -406,6 +406,12 @@ include_directories(
 
 add_library( hl SHARED ${PREP_SRCS} )
 
+if( USE_AS_SQL )
+	set( USE_AS_SQL_DEFINE 1 )
+else()
+	set( USE_AS_SQL_DEFINE 0 )
+endif()
+
 #So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
 	"${SHARED_DEFS}"
@@ -415,11 +421,11 @@ target_compile_definitions( hl PRIVATE
 	QUAKE2
 	VALVE_DLL
 	CLIENT_WEAPONS
-	USE_AS_SQL=${USE_AS_SQL}
+	USE_AS_SQL=${USE_AS_SQL_DEFINE}
 )
 
 #Find server dependencies
-if( "${USE_AS_SQL}" STREQUAL 1 )
+if( USE_AS_SQL )
 	find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
 
 	if( WIN32 )
@@ -459,7 +465,7 @@ set_target_properties( hl PROPERTIES
 )
 
 if( WIN32 AND MSVC )
-	if( "${USE_AS_SQL}" STREQUAL 1 )
+	if( USE_AS_SQL )
 		set( SQL_DLL_DELAYLOAD "/DELAYLOAD:sqlite3.dll /DELAYLOAD:libmariadb.dll" )
 	else()
 		set( SQL_DLL_DELAYLOAD )
@@ -486,7 +492,7 @@ create_source_groups( "${CMAKE_SOURCE_DIR}" )
 
 clear_sources()
 
-if( "${USE_AS_SQL}" STREQUAL 1 )
+if( USE_AS_SQL )
 	if( WIN32 )
 		#Copy the sqlite3 dll so the exe can get to it
 		add_custom_command( TARGET hl POST_BUILD
