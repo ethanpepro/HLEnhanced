@@ -1,6 +1,8 @@
 #ifndef GAME_SHARED_SHARED_GAME_UTILS_H
 #define GAME_SHARED_SHARED_GAME_UTILS_H
 
+#include "Color.h"
+
 #include "FileSystem.h"
 
 #include "CHashStringPool.h"
@@ -126,6 +128,14 @@ inline void UTIL_GetSharedCircularGaussianSpread( const int shared_rand, const u
 void UTIL_StringToVector( Vector& vecOut, const char *pString );
 
 void UTIL_StringToIntArray( int *pVector, int count, const char *pString );
+
+/**
+*	Parses a color out of a string. Format is RGBA.
+*	@param color Color instance to store the result in.
+*	@param uiCount Number of components to parse. Should never be more than 4.
+*	@param pszString String to parse.
+*/
+void UTIL_StringToColor( Color& color, const size_t uiCount, const char* const pszString );
 
 /**
 *	Utility function to format strings without creating a buffer to store the result in.

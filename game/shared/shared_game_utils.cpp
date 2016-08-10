@@ -233,6 +233,31 @@ void UTIL_StringToIntArray( int *pVector, int count, const char *pString )
 	}
 }
 
+void UTIL_StringToColor( Color& color, const size_t uiCount, const char* const pszString )
+{
+	ASSERT( pszString );
+	ASSERT( uiCount <= Color::NUM_COMPONENTS );
+
+	//strtoul's second param is char**, so need to use that here. - Solokiller
+	char* pszNext = const_cast<char*>( pszString );
+
+	size_t uiIndex;
+
+	for( uiIndex = 0; uiIndex < uiCount; ++uiIndex )
+	{
+		color[ uiIndex ] = strtoul( pszNext, &pszNext, 10 );
+
+		if( !( *pszNext ) )
+			break;
+	}
+
+	//Colors default to white.
+	for( ++uiIndex; uiIndex < uiCount; ++uiIndex )
+	{
+		color[ uiIndex ] = 255;
+	}
+}
+
 char* UTIL_VarArgs( const char* pszFormat, ... )
 {
 	static char szBuffers[ NUM_STATIC_BUFFERS ][ 1024 ];
