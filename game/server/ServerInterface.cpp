@@ -482,6 +482,8 @@ void CvarValue2( const edict_t *pEnt, int requestID, const char *cvarName, const
 }
 
 #ifdef WIN32
+//See post VS 2015 update 3 delayimp.h for the reason why this has to be defined. - Solokiller
+#define DELAYIMP_INSECURE_WRITABLE_HOOKS
 #include <delayimp.h>
 
 FARPROC WINAPI DelayHook(
