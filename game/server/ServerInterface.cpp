@@ -493,20 +493,24 @@ FARPROC WINAPI DelayHook(
 {
 	if( dliNotify == dliNotePreLoadLibrary )
 	{
-		char szGameDir[ MAX_PATH ];
-		char szPath[ MAX_PATH ];
+		if( strcmp( pdli->szDll, "sqlite3.dll" ) == 0 || 
+			strcmp( pdli->szDll, "libmariadb.dll" ) == 0 )
+		{
+			char szGameDir[ MAX_PATH ];
+			char szPath[ MAX_PATH ];
 
-		if( !UTIL_GetGameDir( szGameDir, sizeof( szGameDir ) ) )
-			return nullptr;
+			if( !UTIL_GetGameDir( szGameDir, sizeof( szGameDir ) ) )
+				return nullptr;
 
-		const int iResult = snprintf( szPath, sizeof( szPath ), "%s/%s", szGameDir, pdli->szDll );
+			const int iResult = snprintf( szPath, sizeof( szPath ), "%s/%s", szGameDir, pdli->szDll );
 
-		if( iResult < 0 || static_cast<size_t>( iResult ) >= sizeof( szPath ) )
-			return nullptr;
+			if( iResult < 0 || static_cast<size_t>( iResult ) >= sizeof( szPath ) )
+				return nullptr;
 
-		HMODULE hLib = LoadLibraryA( szPath );
+			HMODULE hLib = LoadLibraryA( szPath );
 
-		return ( FARPROC ) hLib;
+			return ( FARPROC ) hLib;
+		}
 	}
 
 	return nullptr;
