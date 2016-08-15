@@ -25,8 +25,19 @@
 
 #include "ServerInterface.h"
 
-// Holds engine functionality callbacks
+/**
+*	Holds engine functionality callbacks. Can be overridden by the server to implement additional functionality on top of the engine.
+*/
 enginefuncs_t g_engfuncs;
+
+/**
+*	Holds engine functionality callbacks. Identical to g_engfuncs, except this will always point to the original functions.
+*/
+enginefuncs_t g_hlenginefuncs;
+
+/**
+*	Holds global variables shared between the engine and the server.
+*/
 globalvars_t* gpGlobals;
 
 static DLL_FUNCTIONS gFunctionTable =
@@ -107,6 +118,7 @@ extern "C"
 void GIVEFNPTRS_DLLEXPORT GiveFnptrsToDll( enginefuncs_t* pengfuncsFromEngine, globalvars_t* pGlobals )
 {
 	memcpy( &g_engfuncs, pengfuncsFromEngine, sizeof( enginefuncs_t ) );
+	memcpy( &g_hlenginefuncs, pengfuncsFromEngine, sizeof( enginefuncs_t ) );
 	gpGlobals = pGlobals;
 }
 
