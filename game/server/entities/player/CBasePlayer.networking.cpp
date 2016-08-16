@@ -42,7 +42,14 @@ reflecting all of the HUD state info.
 */
 void CBasePlayer::UpdateClientData()
 {
-	if( !m_bWeaponValidationReceived )
+	if( m_bNeedsNewConnectTime )
+	{
+		m_bNeedsNewConnectTime = false;
+
+		m_flConnectTime = gpGlobals->time;
+	}
+
+	if( !m_bWeaponValidationReceived && m_flConnectTime + WEAPON_VALIDATION_GRACE_TIME < gpGlobals->time )
 	{
 		//If the client didn't send the message in time, drop the client. - Solokiller
 		//TODO: figure out if this is guaranteed to be received right after ClientPutInServer. If not, use a time delay. - Solokiller

@@ -117,6 +117,11 @@ enum sbar_data
 
 #define CHAT_INTERVAL 1.0f
 
+/**
+*	How many seconds the player can stay connected without having sent weapon validation. - Solokiller
+*/
+#define WEAPON_VALIDATION_GRACE_TIME 10
+
 int TrainSpeed( int iSpeed, int iMax );
 
 class CBasePlayer : public CBaseMonster
@@ -391,6 +396,9 @@ private:
 	float m_flConnectTime = 0;
 	float m_flDisconnectTime = 0;
 
+	//In singleplayer, restore will get the wrong time value since that's restored too late.
+	//This tells the game to reset the value later on. - Solokiller
+	bool m_bNeedsNewConnectTime = false;
 	bool m_bWeaponValidationReceived = false;
 
 public:

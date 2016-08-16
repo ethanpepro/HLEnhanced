@@ -690,6 +690,7 @@ bool CBasePlayer::Restore( CRestore &restore )
 	//If restored, always connected. - Solokiller
 	m_ConnectState = ConnectState::CONNECTED;
 	m_flConnectTime = gpGlobals->time;
+	m_bNeedsNewConnectTime = true;
 
 	return true;
 }
