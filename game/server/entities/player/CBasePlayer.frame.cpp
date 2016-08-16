@@ -111,6 +111,7 @@ void CBasePlayer::PreThink()
 	else
 		pev->flags &= ~FL_ONTRAIN;
 
+#if USE_OPFOR
 	//We're on a rope. - Solokiller
 	if( m_afPhysicsFlags & PFLAG_ONROPE && m_pRope )
 	{
@@ -241,6 +242,7 @@ void CBasePlayer::PreThink()
 		}
 		return;
 	}
+#endif
 
 	// Train speed control
 	if( m_afPhysicsFlags & PFLAG_ONTRAIN )
@@ -941,8 +943,10 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		GiveNamedItem( "weapon_snark" );
 		GiveNamedItem( "weapon_hornetgun" );
 
+#if USE_OPFOR
 		GiveNamedItem( "weapon_sniperrifle" );
 		GiveNamedItem( "ammo_762" );
+#endif
 
 		gEvilImpulse101 = false;
 		break;

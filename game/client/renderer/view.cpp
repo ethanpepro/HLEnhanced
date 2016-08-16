@@ -1402,6 +1402,9 @@ int V_FindViewModelByWeaponModel(int weaponindex)
 		{ "models/p_tripmine.mdl",		"models/v_tripmine.mdl"		},
 		{ "models/p_satchel_radio.mdl",	"models/v_satchel_radio.mdl"},
 		{ "models/p_satchel.mdl",		"models/v_satchel.mdl"		},
+#if USE_OPFOR
+		{ "models/p_m40a1.mdl",			"models/v_m40a1.mdl"		},
+#endif
 		{ nullptr, nullptr } };
 
 	struct model_s * weaponModel = IEngineStudio.GetModelByIndex( weaponindex );

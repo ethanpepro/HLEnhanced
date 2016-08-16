@@ -31,7 +31,11 @@
 *	Hud item selection slots.
 *	Now up to 10.
 */
+#if USE_OPFOR
 #define MAX_WEAPON_SLOTS		10
+#else
+#define MAX_WEAPON_SLOTS		5
+#endif
 
 /**
 *	Hard coded item types.

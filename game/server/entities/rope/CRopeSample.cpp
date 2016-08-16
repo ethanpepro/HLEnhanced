@@ -1,3 +1,4 @@
+#if USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -45,3 +46,4 @@ CRopeSample* CRopeSample::CreateSample()
 
 	return pSample;
 }
+#endif //USE_OPFOR

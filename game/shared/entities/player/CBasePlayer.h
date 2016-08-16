@@ -20,7 +20,9 @@
 
 #include "materials/MaterialsConst.h"
 
+#if USE_OPFOR
 class CRope;
+#endif
 
 /**
 *	Player PHYSICS FLAGS bits
@@ -506,6 +508,7 @@ public:
 			m_afPhysicsFlags &= ~PFLAG_ONROPE;
 	}
 
+#if USE_OPFOR
 	CRope* GetRope() { return m_pRope; }
 
 	void SetRope( CRope* pRope )
@@ -515,6 +518,9 @@ public:
 
 private:
 	CRope* m_pRope;
+#else
+private:
+#endif
 	
 	float m_flLastClimbTime = 0;
 	bool m_bIsClimbing = false;

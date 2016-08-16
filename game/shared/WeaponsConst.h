@@ -51,7 +51,9 @@ enum WeaponId
 	WEAPON_TRIPMINE = 13,
 	WEAPON_SATCHEL = 14,
 	WEAPON_SNARK = 15,
+#if USE_OPFOR
 	WEAPON_SNIPERRIFLE = 16,
+#endif
 };
 
 #define WEAPON_ALLWEAPONS	( ~( 1 << WEAPON_SUIT ) )
@@ -94,7 +96,9 @@ enum WeaponId
 #define SATCHEL_MAX_CLIP		WEAPON_NOCLIP
 #define TRIPMINE_MAX_CLIP		WEAPON_NOCLIP
 #define SNARK_MAX_CLIP			WEAPON_NOCLIP
+#ifdef USE_OPFOR
 #define SNIPERRIFLE_MAX_CLIP	5
+#endif
 
 // The amount of ammo given to a player by an ammo item.
 #define AMMO_URANIUMBOX_GIVE	20
@@ -108,7 +112,9 @@ enum WeaponId
 #define AMMO_RPGCLIP_GIVE		RPG_MAX_CLIP
 #define AMMO_URANIUMBOX_GIVE	20
 #define AMMO_SNARKBOX_GIVE		5
+#ifdef USE_OPFOR
 #define AMMO_SNIPERRIFLE_GIVE	5
+#endif
 
 // bullet types
 enum Bullet
