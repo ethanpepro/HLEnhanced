@@ -1,3 +1,4 @@
+#ifdef USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -62,3 +63,4 @@ private:
 };
 
 #endif //GAME_SERVER_ENTITIES_ROPE_CROPESAMPLE_H
+#endif //USE_OPFOR

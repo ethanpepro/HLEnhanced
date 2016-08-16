@@ -1,3 +1,4 @@
+#if USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -1130,3 +1131,4 @@ Vector CRope::GetAttachedObjectsPosition() const
 
 	return vecResult;
 }
+#endif //USE_OPFOR

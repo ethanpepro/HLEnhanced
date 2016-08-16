@@ -1,3 +1,4 @@
+#if USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -180,3 +181,4 @@ void CRopeSegment::SetCanBeGrabbed( const bool bCanBeGrabbed )
 {
 	m_bCanBeGrabbed = bCanBeGrabbed;
 }
+#endif //USE_OPFOR

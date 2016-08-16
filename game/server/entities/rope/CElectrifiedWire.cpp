@@ -1,3 +1,4 @@
+#if USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -269,3 +270,4 @@ void CElectrifiedWire::DoLightning()
 		WRITE_BYTE( 255 );
 	MESSAGE_END();
 }
+#endif //USE_OPFOR
