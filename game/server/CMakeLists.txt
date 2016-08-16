@@ -20,6 +20,8 @@ add_sources(
 	SaveRestore.h
 	Server.h
 	Server.cpp
+	ServerEngineOverride.h
+	ServerEngineOverride.cpp
 	ServerInterface.h
 	ServerInterface.cpp
 	Skill.h

@@ -21,6 +21,8 @@
 #include "pm_shared.h"
 #include "materials/Materials.h"
 
+#include "ServerEngineOverride.h"
+
 #include "CMap.h"
 
 #include "ServerInterface.h"
@@ -120,6 +122,8 @@ void GIVEFNPTRS_DLLEXPORT GiveFnptrsToDll( enginefuncs_t* pengfuncsFromEngine, g
 	memcpy( &g_engfuncs, pengfuncsFromEngine, sizeof( enginefuncs_t ) );
 	memcpy( &g_hlenginefuncs, pengfuncsFromEngine, sizeof( enginefuncs_t ) );
 	gpGlobals = pGlobals;
+
+	engine::InitOverrides();
 }
 
 int GetEntityAPI( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion )
