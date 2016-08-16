@@ -4,6 +4,7 @@
 #include <cctype>
 #include <cstring>
 #include <functional>
+#include <string>
 
 #include "Platform.h"
 
@@ -72,5 +73,35 @@ struct BaseRawCharEqualTo : public std::binary_function<const char*, const char*
 
 typedef BaseRawCharEqualTo<strcmp> RawCharEqualTo;
 typedef BaseRawCharEqualTo<stricmp> RawCharEqualToI;
+
+/**
+*	Case insensitive hash for std::string
+*/
+inline size_t StdStringHashI( const std::string& szString )
+{
+	return StringHashI( szString.c_str() );
+}
+
+/**
+*	Functor for case insensitive std::string hashing.
+*/
+struct CStdStringHashI : public std::unary_function<const std::string&, size_t>
+{
+	size_t operator()( const std::string& szString ) const
+	{
+		return StdStringHashI( szString );
+	}
+};
+
+/**
+*	Functor for case insensitive std::string comparison.
+*/
+struct CStdStringEqualToI : public std::binary_function<const std::string&, const std::string&, bool>
+{
+	bool operator()( const std::string& szLHS, const std::string& szRHS ) const
+	{
+		return stricmp( szLHS.c_str(), szRHS.c_str() ) == 0;
+	}
+};
 
 #endif //COMMON_STRINGUTILS_H
