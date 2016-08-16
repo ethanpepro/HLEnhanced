@@ -48,6 +48,9 @@ bool CServerGameInterface::Initialize()
 	}
 #endif
 
+	//Await first entity creation to start up. - Solokiller
+	m_bMapStartedLoading = true;
+
 	return true;
 }
 
@@ -58,6 +61,23 @@ void CServerGameInterface::Shutdown()
 #endif
 
 	ShutdownCommon();
+}
+
+void CServerGameInterface::EntityCreated( entvars_t* pev )
+{
+	if( m_bMapStartedLoading )
+	{
+		m_bMapStartedLoading = false;
+
+		//A new map has started, initialize everything. - Solokiller
+		//This will be worldspawn for new maps and multiplayer maps, the first restored entity when transitioning or loading maps.
+		CMap::CreateIfNeeded();
+	}
+}
+
+void Server_EntityCreated( entvars_t* pev )
+{
+	g_Server.EntityCreated( pev );
 }
 
 bool CServerGameInterface::ClientConnect( edict_t* pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] )
@@ -539,6 +559,9 @@ void CServerGameInterface::Deactivate()
 	}
 
 	m_bActive = false;
+
+	//Set this up for the next map. This requires no entities to be created after the server has deactivated. - Solokiller
+	m_bMapStartedLoading = true;
 
 	// Peform any shutdown operations here...
 	//

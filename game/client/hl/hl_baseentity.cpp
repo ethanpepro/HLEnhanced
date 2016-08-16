@@ -45,6 +45,10 @@ void EMIT_SOUND( CBaseEntity* pEntity, int channel, const char *sample, float vo
 // DEBUG Stubs
 edict_t *DBG_EntOfVars( const entvars_t *pev ) { return nullptr; }
 
+void Server_EntityCreated( entvars_t* pev )
+{
+}
+
 // UTIL_* Stubs
 void UTIL_PrecacheOther( const char *szClassname ) { }
 void UTIL_BloodDrips( const Vector &origin, const Vector &direction, int color, int amount ) { }

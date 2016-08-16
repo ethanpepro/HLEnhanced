@@ -73,7 +73,6 @@ void CWorld::OnCreate()
 
 	//Due to how save/restore works, we can't just move all of this stuff over to CMap.
 	//Only data that must be available before any entities are created should be moved over to CMap. - Solokiller
-	CMap::CreateIfNeeded();
 }
 
 void CWorld::OnDestroy()

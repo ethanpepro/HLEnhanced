@@ -24,6 +24,14 @@ public:
 	*/
 	void Shutdown();
 
+	/**
+	*	Called whenever an entity is created. Used to detect when a new map has started. - Solokiller
+	*/
+	void EntityCreated( entvars_t* pev );
+
+	/**
+	*	@return Whether the server is active.
+	*/
 	bool IsActive() const { return m_bActive; }
 
 	bool ClientConnect( edict_t* pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] );
@@ -63,6 +71,7 @@ public:
 	void SpectatorThink( edict_t* pEntity );
 
 private:
+	bool m_bMapStartedLoading = false;
 	bool m_bActive = false;
 
 private:

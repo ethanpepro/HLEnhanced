@@ -2610,6 +2610,12 @@ public:
 #endif
 
 /**
+*	Notify the main server interface when entities are created.
+*	Defined as a global function to avoid pulling in more dependencies. - Solokiller
+*/
+void Server_EntityCreated( entvars_t* pev );
+
+/**
 *	Converts a entvars_t * to a class pointer
 *	It will allocate the class and entity if necessary
 */
@@ -2627,6 +2633,7 @@ T* GetClassPtr( T* a )
 
 	if( a == nullptr )
 	{
+		Server_EntityCreated( pev );
 		// allocate private data 
 		a = new( pev ) T;
 		a->pev = pev;
