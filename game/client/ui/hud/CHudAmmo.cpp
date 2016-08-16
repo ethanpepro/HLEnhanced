@@ -978,9 +978,22 @@ int CHudAmmo::DrawWList(float flTime)
 			iActiveSlot = -1;
 		}
 	}
-		
-	// Draw top line
+
+	// Shepard : determine how many buckets we should draw
+	int iBucketsToDraw = 0;
 	for ( i = 0; i < MAX_WEAPON_SLOTS; i++ )
+	{
+		for ( int j = 0; j < MAX_WEAPON_POSITIONS; j++ )
+		{
+			WEAPON *pWeapon = gWR.GetWeaponSlot( i, j );
+			if ( pWeapon && pWeapon->pInfo && pWeapon->pInfo->GetBucket() > iBucketsToDraw )
+				iBucketsToDraw = pWeapon->pInfo->GetBucket();
+		}
+	}
+	iBucketsToDraw++;
+
+	// Draw top line
+	for ( i = 0; i < iBucketsToDraw; i++ )
 	{
 		int iWidth;
 
@@ -1016,7 +1029,7 @@ int CHudAmmo::DrawWList(float flTime)
 	x = 10;
 
 	// Draw all of the buckets
-	for (i = 0; i < MAX_WEAPON_SLOTS; i++)
+	for (i = 0; i < iBucketsToDraw; i++)
 	{
 		y = giBucketHeight + 10;
 
