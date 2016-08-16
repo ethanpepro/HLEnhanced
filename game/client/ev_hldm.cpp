@@ -50,7 +50,9 @@ static int tracerCount[ MAX_CLIENTS ];
 #include "entities/weapons/CMP5.h"
 #include "entities/weapons/CPython.h"
 #include "entities/weapons/CGauss.h"
+#if USE_OPFOR
 #include "entities/weapons/CSniperRifle.h"
+#endif
 
 void V_PunchAxis( int axis, float punch );
 
@@ -1517,6 +1519,7 @@ void EV_TrainPitchAdjust( event_args_t *args )
 	}
 }
 
+#if USE_OPFOR
 void EV_SniperRifle( event_args_t* args )
 {
 	const int idx = args->entindex;
@@ -1560,6 +1563,7 @@ void EV_SniperRifle( event_args_t* args )
 		args->fparam1,
 		args->fparam2 );
 }
+#endif
 
 int EV_TFC_IsAllyTeam( int iTeam1, int iTeam2 )
 {

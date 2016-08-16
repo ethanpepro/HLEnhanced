@@ -148,6 +148,8 @@ void PrecacheWeapons()
 	// hornetgun
 	UTIL_PrecacheOtherWeapon( "weapon_hornetgun" );
 
+#ifdef USE_OPFOR
 	//Sniper rifle
 	UTIL_PrecacheOtherWeapon( "weapon_sniperrifle" );
+#endif
 }
