@@ -29,13 +29,14 @@ class CWorld : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CWorld, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void OnCreate() override;
 
 	void OnDestroy() override;
 
-	void Spawn( void ) override;
-	void Precache( void ) override;
+	void Spawn() override;
+	void Precache() override;
 	void KeyValue( KeyValueData *pkvd ) override;
 
 	bool Save( CSave& save ) override;
@@ -51,9 +52,13 @@ public:
 	}
 
 private:
+	void LoadGMR();
+
+private:
 	static CWorld* m_pInstance;
 
-	char m_szMapScript[ MAX_PATH ] = { '\0' };
+	string_t m_iszMapScript = iStringNull;
+	string_t m_iszGMR = iStringNull;
 };
 
 #endif //GAME_SERVER_CWORLD_H

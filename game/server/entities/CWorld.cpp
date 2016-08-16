@@ -53,6 +53,11 @@ extern void W_Precache( void );
 // This spawns first when each level begins.
 //=======================
 
+BEGIN_DATADESC( CWorld )
+	DEFINE_FIELD( m_iszMapScript, FIELD_STRING ),
+	DEFINE_FIELD( m_iszGMR, FIELD_STRING ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( worldspawn, CWorld );
 
 CWorld* CWorld::m_pInstance = nullptr;
@@ -85,6 +90,7 @@ void CWorld::OnDestroy()
 #endif
 
 	//Should be the only place where this is called. - Solokiller
+	//TODO: move to after entities are destroyed - Solokiller
 	CMap::DestroyInstance();
 
 	ASSERT( m_pInstance );
@@ -97,12 +103,14 @@ void CWorld::OnDestroy()
 	g_StringPool.Clear();
 }
 
-void CWorld::Spawn( void )
+void CWorld::Spawn()
 {
+	LoadGMR();
+
 #if USE_ANGELSCRIPT
 	//TODO: due to save/restore's wonky restore order, this will be invoked in the wrong order.
 	//Perhaps find a way to save map script names in a block that's loaded before the rest? - Solokiller
-	g_ASManager.WorldCreated( m_szMapScript );
+	g_ASManager.WorldCreated( STRING( m_iszMapScript ) );
 #endif
 
 	g_fGameOver = false;
@@ -110,7 +118,7 @@ void CWorld::Spawn( void )
 	g_flWeaponCheat = CVAR_GET_FLOAT( "sv_cheats" );  // Is the impulse 101 command allowed?
 }
 
-void CWorld::Precache( void )
+void CWorld::Precache()
 {
 	g_pLastSpawn = NULL;
 
@@ -376,16 +384,7 @@ void CWorld::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "mapscript" ) )
 	{
-		const size_t uiLength = strlen( pkvd->szValue );
-
-		if( uiLength < sizeof( m_szMapScript ) )
-		{
-			strcpy( m_szMapScript, pkvd->szValue );
-		}
-		else
-		{
-			ALERT( at_error, "CWorld::KeyValue: Map script name length exceeds maximum (%u)!\n", sizeof( m_szMapScript ) );
-		}
+		m_iszMapScript = ALLOC_STRING( pkvd->szValue );
 
 		pkvd->fHandled = true;
 	}
@@ -419,6 +418,12 @@ void CWorld::KeyValue( KeyValueData *pkvd )
 
 		pkvd->fHandled = true;
 	}
+	else if( FStrEq( pkvd->szKeyName, "global_model_replacement" ) )
+	{
+		m_iszGMR = ALLOC_STRING( pkvd->szValue );
+
+		pkvd->fHandled = true;
+	}
 	else
 		CBaseEntity::KeyValue( pkvd );
 }
@@ -436,5 +441,16 @@ bool CWorld::Restore( CRestore& restore )
 	if( !BaseClass::Restore( restore ) )
 		return false;
 
-	return CMap::GetInstance()->Restore( restore );
+	if( !CMap::GetInstance()->Restore( restore ) )
+		return false;
+
+	LoadGMR();
+
+	return true;
+}
+
+void CWorld::LoadGMR()
+{
+	if( !FStringNull( m_iszGMR ) )
+		CMap::GetInstance()->LoadGlobalModelReplacement( STRING( m_iszGMR ) );
 }

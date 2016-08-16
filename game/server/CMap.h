@@ -6,6 +6,9 @@
 
 #include "SaveRestore.h"
 
+#include "CReplacementCache.h"
+#include "CReplacementMap.h"
+
 /**
 *	Stores global per-map data.
 */
@@ -101,6 +104,13 @@ public:
 	*/
 	void ResetHudColors();
 
+	const CReplacementMap* GetGlobalModelReplacement() const { return m_pGlobalModelReplacement; }
+
+	/**
+	*	Loads the global model replacement file.
+	*/
+	void LoadGlobalModelReplacement( const char* const pszFileName );
+
 private:
 	/**
 	*	Runs right after the constructor. Makes it easier to separate init and setup code.
@@ -118,6 +128,10 @@ private:
 	float m_flLastHudColorChangeTime = 0;
 
 	CHudColors m_HudColors;
+
+	//Cache of model replacement files. In the future, model replacement may be used by individual entities to replace effects models. - Solokiller
+	CReplacementCache m_ModelReplacement;
+	CReplacementMap* m_pGlobalModelReplacement = nullptr;
 
 private:
 	CMap( const CMap& ) = delete;
