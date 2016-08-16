@@ -57,7 +57,8 @@ public:
 		ASSERT( wp );
 		ASSERT( wp->pInfo );
 
-		rgWeapons[ wp->pInfo->GetID() ] = *wp;	
+		//TODO: this really needs to go - Solokiller
+		rgWeapons[ wp->pInfo->GetID() ].pInfo = wp->pInfo;	
 	}
 
 	void PickupWeapon( WEAPON *wp )

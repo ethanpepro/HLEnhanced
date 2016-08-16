@@ -231,6 +231,12 @@ bool CHudAmmo::VidInit()
 //
 void CHudAmmo::Think()
 {
+	if( m_bNeedsLocalUpdate )
+	{
+		m_bNeedsLocalUpdate = false;
+		UpdateWeaponHUD( m_pWeapon, m_bOnTarget );
+	}
+
 	if ( gHUD.m_bPlayerDead )
 		return;
 
@@ -364,7 +370,11 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 
 void WeaponsResource::SyncWithWeapons()
 {
-	memset( rgWeapons, 0, sizeof( rgWeapons ) );
+	//Only zero out the info, the clip might already be valid again. - Solokiller
+	for( auto& weapon : rgWeapons )
+	{
+		weapon.pInfo = nullptr;
+	}
 
 	g_WeaponInfoCache.EnumInfos(
 		[]( const CWeaponInfo& info, void* pUserData ) -> bool
@@ -515,28 +525,43 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 
 	m_pWeapon = pWeapon;
 
-	auto pHUDInfo = m_pWeapon->pInfo->GetHUDInfo();
+	if( !m_pWeapon->pInfo )
+	{
+		m_bNeedsLocalUpdate = true;
+		m_bOnTarget = fOnTarget;
+		m_iFlags |= HUD_ACTIVE;
+		return 1;
+	}
+	else if( m_bNeedsLocalUpdate )
+		m_bNeedsLocalUpdate = false;
 
-	if ( gHUD.m_iFOV >= 90 )
+	UpdateWeaponHUD( m_pWeapon, fOnTarget );
+	
+	return 1;
+}
+
+void CHudAmmo::UpdateWeaponHUD( WEAPON* pWeapon, bool bOnTarget )
+{
+	auto pHUDInfo = pWeapon->pInfo->GetHUDInfo();
+
+	if( gHUD.m_iFOV >= 90 )
 	{ // normal crosshairs
-		if (fOnTarget && pHUDInfo->GetAutoAim().hSprite)
-			SetCrosshair( pHUDInfo->GetAutoAim().hSprite, pHUDInfo->GetAutoAim().rect, 255, 255, 255);
+		if( bOnTarget && pHUDInfo->GetAutoAim().hSprite )
+			SetCrosshair( pHUDInfo->GetAutoAim().hSprite, pHUDInfo->GetAutoAim().rect, 255, 255, 255 );
 		else
-			SetCrosshair( pHUDInfo->GetCrosshair().hSprite, pHUDInfo->GetCrosshair().rect, 255, 255, 255);
+			SetCrosshair( pHUDInfo->GetCrosshair().hSprite, pHUDInfo->GetCrosshair().rect, 255, 255, 255 );
 	}
 	else
 	{ // zoomed crosshairs
-		if (fOnTarget && pHUDInfo->GetZoomedAutoAim().hSprite)
-			SetCrosshair( pHUDInfo->GetZoomedAutoAim().hSprite, pHUDInfo->GetZoomedAutoAim().rect, 255, 255, 255);
+		if( bOnTarget && pHUDInfo->GetZoomedAutoAim().hSprite )
+			SetCrosshair( pHUDInfo->GetZoomedAutoAim().hSprite, pHUDInfo->GetZoomedAutoAim().rect, 255, 255, 255 );
 		else
-			SetCrosshair( pHUDInfo->GetZoomedCrosshair().hSprite, pHUDInfo->GetZoomedCrosshair().rect, 255, 255, 255);
+			SetCrosshair( pHUDInfo->GetZoomedCrosshair().hSprite, pHUDInfo->GetZoomedCrosshair().rect, 255, 255, 255 );
 
 	}
 
 	m_fFade = 200.0f; //!!!
 	m_iFlags |= HUD_ACTIVE;
-	
-	return 1;
 }
 
 //------------------------------------------------------------------------

@@ -72,6 +72,9 @@ public:
 	void SetCrosshair( HSPRITE hCrosshair, const wrect_t& rect, int r, int g, int b );
 
 private:
+	void UpdateWeaponHUD( WEAPON* pWeapon, bool bOnTarget );
+
+private:
 	float m_fFade;
 	RGBA  m_rgba;
 	WEAPON *m_pWeapon;
@@ -85,6 +88,10 @@ private:
 	cvar_t* m_pCrosshair;
 	cvar_t* m_pCrosshairMode;
 	cvar_t* m_pCrosshairScale;
+
+	//The server sent a message before the client was ready, so update as soon as possible - Solokiller
+	bool m_bNeedsLocalUpdate = false;
+	bool m_bOnTarget = false;
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDAMMO_H
