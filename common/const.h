@@ -1307,5 +1307,31 @@ enum ALERT_TYPE
 
 #define BSP_FILE_EXT ".bsp"
 
+/**
+*	Engine limits.
+*/
+enum EngineLimit
+{
+	/**
+	*	Maximum number of models that can be precached.
+	*/
+	MAX_MODELS		= 512,
+
+	/**
+	*	Maximum number of sounds that can be precached.
+	*/
+	MAX_SOUNDS		= 512,
+
+	/**
+	*	Maximum number of generic files that can be precached.
+	*/
+	MAX_GENERIC		= 512,
+
+	/**
+	*	Maximum number of events that can be precached.
+	*/
+	MAX_EVENTS		= 256,
+};
+
 #endif
 
