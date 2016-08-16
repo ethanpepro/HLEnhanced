@@ -175,6 +175,7 @@ MESSAGE( STATUS "Base Game Path: ${GAME_BASE_PATH}" )
 
 set( USE_ANGELSCRIPT "0" CACHE BOOL "Whether to include Angelscript" )
 set( USE_AS_SQL "0" CACHE BOOL "Whether to include Angelscript SQL APIs" )
+set( USE_OPFOR "0" CACHE BOOL "Whether to include Opposing Force related stuff" )
 
 if( NOT USE_ANGELSCRIPT AND USE_AS_SQL )
 	MESSAGE( STATUS "Forcing USE_AS_SQL to off due to no Angelscript usage" )
@@ -191,6 +192,12 @@ if( USE_AS_SQL )
 	set( USE_AS_SQL_DEFINE 1 )
 else()
 	set( USE_AS_SQL_DEFINE 0 )
+endif()
+
+if( USE_OPFOR )
+	set( USE_OPFOR_DEFINE 1 )
+else()
+	set( USE_OPFOR_DEFINE 0 )
 endif()
 
 #Shared preprocessor definitions
@@ -302,6 +309,7 @@ target_compile_definitions( client PRIVATE
 	HL_DLL
 	"USE_VGUI2=${USE_VGUI2}"
 	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
+	USE_OPFOR=${USE_OPFOR_DEFINE}
 )
 
 #Find client dependencies
@@ -447,6 +455,7 @@ target_compile_definitions( hl PRIVATE
 	CLIENT_WEAPONS
 	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
 	USE_AS_SQL=${USE_AS_SQL_DEFINE}
+	USE_OPFOR=${USE_OPFOR_DEFINE}
 )
 
 #Find server dependencies
