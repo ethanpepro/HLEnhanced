@@ -290,7 +290,8 @@ public:
 	*	@param pOutput Destination buffer.
 	*	@param maxChars Maximum number of characters to read, including the null terminator.
 	*	@param file Handle to the file.
-	*	@return If the read operation succeeded, pointer to the destination buffer. Otherwise, a pointer to a read-only empty string is returned.
+	*	@return If file is FILESYSTEM_INVALID_HANDLE, a pointer to a read-only empty string is returned.
+				If characters were read from the file, a pointer to the destination buffer. Otherwise, a null pointer.
 	*/
 	virtual char			*ReadLine( char *pOutput, int maxChars, FileHandle_t file ) = 0;
 
