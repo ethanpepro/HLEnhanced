@@ -3,6 +3,10 @@ add_sources(
 	CBaseGameInterface.h
 	CBaseGameInterface.cpp
 	cdll_dll.h
+	CReplacementCache.h
+	CReplacementCache.cpp
+	CReplacementMap.h
+	CReplacementMap.cpp
 	CTakeDamageInfo.h
 	CWeaponInfo.h
 	CWeaponInfo.cpp
