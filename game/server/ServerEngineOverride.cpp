@@ -42,6 +42,6 @@ void SetModel( edict_t* pEdict, const char* pszModelName )
 
 	const char* pszNewName = pMap ? pMap->LookupFile( pszModelName ) : pszModelName;
 
-	return g_hlenginefuncs.pfnSetModel( pEdict, pszNewName );
+	g_hlenginefuncs.pfnSetModel( pEdict, pszNewName );
 }
 }
