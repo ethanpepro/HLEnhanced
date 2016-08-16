@@ -46,7 +46,9 @@ void RegisterAmmoTypes()
 	g_AmmoTypes.AddAmmoType( "Hand Grenade", HANDGRENADE_MAX_CARRY );
 	g_AmmoTypes.AddAmmoType( "Snarks", SNARK_MAX_CARRY );
 	g_AmmoTypes.AddAmmoType( "Hornets", HORNET_MAX_CARRY );
+#if USE_OPFOR
 	g_AmmoTypes.AddAmmoType( "762", NATO762_MAX_CARRY );
+#endif
 
 	//No more letting weapons define ammo types. - Solokiller
 	g_AmmoTypes.SetCanAddAmmoTypes( false );

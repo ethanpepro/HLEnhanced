@@ -211,7 +211,9 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	m_pPlayer->ammo_uranium = ( int ) from->client.ammo_cells;
 	m_pPlayer->ammo_hornets = ( int ) from->client.vuser2[ 0 ];
 	m_pPlayer->ammo_rockets = ( int ) from->client.ammo_rockets;
-
+#if USE_OPFOR
+	m_pPlayer->ammo_762		= ( int ) from->client.vuser3[ 0 ];
+#endif
 
 	// Point to current weapon object
 	if( from->client.m_iId )
@@ -286,6 +288,9 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	to->client.ammo_cells		= m_pPlayer->ammo_uranium;
 	to->client.vuser2[ 0 ]		= m_pPlayer->ammo_hornets;
 	to->client.ammo_rockets		= m_pPlayer->ammo_rockets;
+#if USE_OPFOR
+	to->client.vuser3[ 0 ]		= m_pPlayer->ammo_762;
+#endif
 
 	//TODO: why isn't this in the weapon's user variables? - Solokiller
 	if( m_pPlayer->m_pActiveItem->m_iId == WEAPON_RPG )

@@ -2587,6 +2587,9 @@ public:
 	int ammo_uranium;
 	int ammo_hornets;
 	int ammo_argrens;
+#if USE_OPFOR
+	int ammo_762;
+#endif
 };
 
 // Ugly technique to override base member functions
