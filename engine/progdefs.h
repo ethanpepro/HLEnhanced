@@ -212,13 +212,13 @@ typedef struct entvars_s
 	
 	/**
 	*	BB max translated to world coord.
-	*	Set by the engine whenever the engine moves, set by game code to adjust the size.
+	*	Set by the engine whenever the entity moves, set by game code to adjust the size.
 	*/
 	Vector		absmin;
 
 	/**
 	*	BB max translated to world coord.
-	*	Set by the engine whenever the engine moves, set by game code to adjust the size.
+	*	Set by the engine whenever the entity moves, set by game code to adjust the size.
 	*/
 	Vector		absmax;
 
