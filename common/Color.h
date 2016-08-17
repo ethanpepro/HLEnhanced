@@ -2,6 +2,7 @@
 #define COMMON_COLOR_H
 
 #include <cstdint>
+#include <cstring>
 
 /**
 *	Makes a 4 byte RGB color. A is set to 255.
