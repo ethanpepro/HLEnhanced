@@ -237,6 +237,12 @@ extern void			UTIL_LogPrintf( const char* const pszFormat, ... );
 */
 void UTIL_ServerPrintf( const char* const pszFormat, ... );
 
+#if !defined( _WIN32 ) && !defined( _rotr )
+extern "C" {
+	unsigned _rotr( unsigned val, int shift );
+}
+#endif
+
 // Misc functions
 extern void SetMovedir( CBaseEntity* pEntity );
 extern Vector VecBModelOrigin( const CBaseEntity* const pBModel );
