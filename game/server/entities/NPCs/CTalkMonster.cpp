@@ -18,7 +18,7 @@
 #include	"entities/NPCs/Monsters.h"
 #include	"entities/NPCs/Schedule.h"
 #include	"CTalkMonster.h"
-#include	"defaultai.h"
+#include	"DefaultAI.h"
 #include	"entities/NPCs/scripted/Scripted.h"
 #include	"entities/CSoundEnt.h"
 #include	"animation.h"
