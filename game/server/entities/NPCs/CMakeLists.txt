@@ -55,8 +55,8 @@ add_sources(
 	CGenericMonster.cpp
 	CGMan.h
 	CGMan.cpp
-	CHassassin.h
-	CHassassin.cpp
+	CHAssassin.h
+	CHAssassin.cpp
 	CHeadCrab.h
 	CHeadCrab.cpp
 	CHGrunt.h

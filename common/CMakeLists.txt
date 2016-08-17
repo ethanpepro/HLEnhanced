@@ -26,7 +26,7 @@ add_sources(
 	hltv.h
 	in_buttons.h
 	MiniBSPFile.h
-	Minmax.h
+	MinMax.h
 	netadr.h
 	parsemsg.h
 	parsemsg.cpp
