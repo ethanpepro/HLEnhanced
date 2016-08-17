@@ -313,7 +313,13 @@ target_compile_definitions( client PRIVATE
 )
 
 #Find client dependencies
-find_library( VGUI1 vgui PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Life/" )
+if( UNIX )
+	set( VGUI1_NAME "vgui.so" )
+else()
+	set( VGUI1_NAME "vgui.lib" )
+endif()
+
+find_library( VGUI1 ${VGUI1_NAME} PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Life/" )
 
 if( UNIX )
 	set( SDL2_NAME "libSDL2-2.0.so.0" )
