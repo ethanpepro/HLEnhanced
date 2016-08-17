@@ -178,6 +178,7 @@ enum FixAngleMode
 
 	/**
 	*	Add avelocity yaw value to view angles
+	*	avelocity yaw value is set to 0 after this
 	*/
 	FIXANGLE_ADD_AVEL	= 2
 };
