@@ -43,6 +43,9 @@ public:
 	bool Deploy() override;
 	void Reload( void ) override;
 	void WeaponIdle( void ) override;
+
+	bool IsUseable() override;
+
 	float m_flNextAnimTime;
 	int m_iShell;
 
