@@ -48,7 +48,9 @@ void CBasePlayer::PackDeadPlayerItems()
 	int iAmmoRules;
 	int i;
 	CBasePlayerWeapon *rgpPackWeapons[ 20 ];// 20 hardcoded for now. How to determine exactly how many weapons we have? TODO
-	int iPackAmmo[ MAX_AMMO_SLOTS + 1 ];
+
+	//+ 1 so it can be iterated until == -1. See below. - Solokiller
+	int iPackAmmo[ CAmmoTypes::MAX_AMMO_TYPES + 1 ];
 	int iPW = 0;// index into packweapons array
 	int iPA = 0;// index into packammo array
 
@@ -102,7 +104,7 @@ void CBasePlayer::PackDeadPlayerItems()
 	// now go through ammo and make a list of which types to pack.
 	if( iAmmoRules != GR_PLR_DROP_AMMO_NO )
 	{
-		for( i = 0; i < MAX_AMMO_SLOTS; i++ )
+		for( i = 0; i < CAmmoTypes::MAX_AMMO_TYPES; i++ )
 		{
 			if( m_rgAmmo[ i ] > 0 )
 			{
@@ -207,7 +209,7 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 	else
 		pev->weapons &= ~WEAPON_ALLWEAPONS;
 
-	for( i = 0; i < MAX_AMMO_SLOTS; i++ )
+	for( i = 0; i < CAmmoTypes::MAX_AMMO_TYPES; i++ )
 		m_rgAmmo[ i ] = 0;
 
 	UpdateClientData();
@@ -721,7 +723,7 @@ int CBasePlayer::GiveAmmo( int iCount, const char *szName )
 
 	i = GetAmmoIndex( szName );
 
-	if( i < 0 || i >= MAX_AMMO_SLOTS )
+	if( i < 0 || i >= CAmmoTypes::MAX_AMMO_TYPES )
 		return -1;
 
 	int iAdd = min( iCount, pType->GetMaxCarry() - m_rgAmmo[ i ] );
@@ -749,7 +751,7 @@ int CBasePlayer::GiveAmmo( int iCount, const char *szName )
 // makes sure the client has all the necessary ammo info,  if values have changed
 void CBasePlayer::SendAmmoUpdate()
 {
-	for( int i = 0; i < MAX_AMMO_SLOTS; i++ )
+	for( int i = 0; i < CAmmoTypes::MAX_AMMO_TYPES; i++ )
 	{
 		if( m_rgAmmo[ i ] != m_rgAmmoLast[ i ] )
 		{

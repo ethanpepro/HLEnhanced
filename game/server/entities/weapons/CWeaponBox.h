@@ -30,8 +30,8 @@ public:
 
 	CBasePlayerWeapon* m_rgpPlayerItems[ MAX_WEAPON_SLOTS ];// one slot for each 
 
-	int m_rgiszAmmo[ MAX_AMMO_SLOTS ];// ammo names
-	int	m_rgAmmo[ MAX_AMMO_SLOTS ];// ammo quantities
+	int m_rgiszAmmo[ CAmmoTypes::MAX_AMMO_TYPES ];// ammo names
+	int	m_rgAmmo[ CAmmoTypes::MAX_AMMO_TYPES ];// ammo quantities
 
 	int m_cAmmoTypes;// how many ammo types packed into this box (if packed by a level designer)
 };

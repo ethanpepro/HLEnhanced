@@ -207,7 +207,7 @@ void CBasePlayer::Spawn()
 	m_iClientBattery = -1;
 
 	// reset all ammo values to 0
-	for( int i = 0; i < MAX_AMMO_SLOTS; i++ )
+	for( int i = 0; i < CAmmoTypes::MAX_AMMO_TYPES; i++ )
 	{
 		m_rgAmmo[ i ] = 0;
 		m_rgAmmoLast[ i ] = 0;  // client ammo values also have to be reset  (the death hud clear messages does on the client side)

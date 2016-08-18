@@ -83,6 +83,8 @@ public:
 	*/
 	static const AmmoID_t LAST_VALID_ID = ( 1 << NUM_AMMO_ID_BITS ) - 1;
 
+	static const int MAX_AMMO_TYPES = LAST_VALID_ID + 1;
+
 private:
 	//Case insensitive hashing and comparison here. The original code uses stricmp.
 	typedef std::unordered_map<const char*, size_t, RawCharHashI, RawCharEqualToI> AmmoMap_t;

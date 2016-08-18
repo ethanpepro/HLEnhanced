@@ -42,11 +42,6 @@
 */
 #define MAX_ITEMS				5
 
-/**
-*	Not really slots.
-*/
-#define MAX_AMMO_SLOTS			32
-
 #define WEAPON_SUIT				31
 
 #define MAX_PLAYER_NAME_LENGTH	32

@@ -20,6 +20,8 @@
 
 #include "materials/MaterialsConst.h"
 
+#include "entities/weapons/CAmmoTypes.h"
+
 #if USE_OPFOR
 class CRope;
 #endif
@@ -237,8 +239,8 @@ public:
 	CBasePlayerWeapon* m_pClientActiveItem;  // client version of the active item
 	CBasePlayerWeapon* m_pLastItem;
 	// shared ammo slots
-	int	m_rgAmmo[MAX_AMMO_SLOTS];
-	int	m_rgAmmoLast[MAX_AMMO_SLOTS];
+	int	m_rgAmmo[ CAmmoTypes::MAX_AMMO_TYPES ];
+	int	m_rgAmmoLast[ CAmmoTypes::MAX_AMMO_TYPES ];
 
 	Vector				m_vecAutoAim;
 	bool				m_fOnTarget;

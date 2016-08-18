@@ -161,7 +161,7 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD( m_pActiveItem, FIELD_CLASSPTR ),
 	DEFINE_FIELD( m_pLastItem, FIELD_CLASSPTR ),
 	
-	DEFINE_ARRAY( m_rgAmmo, FIELD_INTEGER, MAX_AMMO_SLOTS ),
+	DEFINE_ARRAY( m_rgAmmo, FIELD_INTEGER, CAmmoTypes::MAX_AMMO_TYPES ),
 	DEFINE_FIELD( m_idrowndmg, FIELD_INTEGER ),
 	DEFINE_FIELD( m_idrownrestored, FIELD_INTEGER ),
 	
@@ -212,7 +212,7 @@ BEGIN_DATADESC( CBasePlayer )
 	//DEFINE_FIELD( m_fWeapon, FIELD_BOOLEAN ),  // Don't restore, client needs reset
 	//DEFINE_FIELD( m_nCustomSprayFrames, FIELD_INTEGER ), // Don't restore, depends on server message after spawning and only matters in multiplayer
 	//DEFINE_FIELD( m_vecAutoAim, FIELD_VECTOR ), // Don't save/restore - this is recomputed
-	//DEFINE_ARRAY( m_rgAmmoLast, FIELD_INTEGER, MAX_AMMO_SLOTS ), // Don't need to restore
+	//DEFINE_ARRAY( m_rgAmmoLast, FIELD_INTEGER, CAmmoTypes::MAX_AMMO_TYPES ), // Don't need to restore
 	//DEFINE_FIELD( m_fOnTarget, FIELD_BOOLEAN ), // Don't need to restore
 	//DEFINE_FIELD( m_nCustomSprayFrames, FIELD_INTEGER ), // Don't need to restore
 END_DATADESC()

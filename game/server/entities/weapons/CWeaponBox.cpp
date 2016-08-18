@@ -11,8 +11,8 @@
 //*********************************************************
 
 BEGIN_DATADESC( CWeaponBox )
-	DEFINE_ARRAY( m_rgAmmo, FIELD_INTEGER, MAX_AMMO_SLOTS ),
-	DEFINE_ARRAY( m_rgiszAmmo, FIELD_STRING, MAX_AMMO_SLOTS ),
+	DEFINE_ARRAY( m_rgAmmo, FIELD_INTEGER, CAmmoTypes::MAX_AMMO_TYPES ),
+	DEFINE_ARRAY( m_rgiszAmmo, FIELD_STRING, CAmmoTypes::MAX_AMMO_TYPES ),
 	DEFINE_ARRAY( m_rgpPlayerItems, FIELD_CLASSPTR, MAX_WEAPON_SLOTS ),
 	DEFINE_FIELD( m_cAmmoTypes, FIELD_INTEGER ),
 END_DATADESC()
@@ -69,7 +69,7 @@ void CWeaponBox::Touch( CBaseEntity *pOther )
 	int i;
 
 	// dole out ammo
-	for( i = 0; i < MAX_AMMO_SLOTS; i++ )
+	for( i = 0; i < CAmmoTypes::MAX_AMMO_TYPES; i++ )
 	{
 		if( !FStringNull( m_rgiszAmmo[ i ] ) )
 		{
@@ -118,7 +118,7 @@ void CWeaponBox::Touch( CBaseEntity *pOther )
 //=========================================================
 void CWeaponBox::KeyValue( KeyValueData *pkvd )
 {
-	if( m_cAmmoTypes < MAX_AMMO_SLOTS )
+	if( m_cAmmoTypes < CAmmoTypes::MAX_AMMO_TYPES )
 	{
 		PackAmmo( ALLOC_STRING( pkvd->szKeyName ), atoi( pkvd->szValue ) );
 		m_cAmmoTypes++;// count this new ammo type.
@@ -127,7 +127,7 @@ void CWeaponBox::KeyValue( KeyValueData *pkvd )
 	}
 	else
 	{
-		ALERT( at_console, "WeaponBox too full! only %d ammotypes allowed\n", MAX_AMMO_SLOTS );
+		ALERT( at_console, "WeaponBox too full! only %d ammotypes allowed\n", CAmmoTypes::MAX_AMMO_TYPES );
 	}
 }
 
@@ -146,7 +146,7 @@ bool CWeaponBox::IsEmpty() const
 		}
 	}
 
-	for( i = 0; i < MAX_AMMO_SLOTS; i++ )
+	for( i = 0; i < CAmmoTypes::MAX_AMMO_TYPES; i++ )
 	{
 		if( !FStringNull( m_rgiszAmmo[ i ] ) )
 		{
@@ -165,7 +165,7 @@ int CWeaponBox::GiveAmmo( int iCount, char *szName, int iMax, int *pIndex/* = NU
 {
 	int i;
 
-	for( i = 1; i < MAX_AMMO_SLOTS && !FStringNull( m_rgiszAmmo[ i ] ); i++ )
+	for( i = 1; i < CAmmoTypes::MAX_AMMO_TYPES && !FStringNull( m_rgiszAmmo[ i ] ); i++ )
 	{
 		if( stricmp( szName, STRING( m_rgiszAmmo[ i ] ) ) == 0 )
 		{
@@ -182,7 +182,7 @@ int CWeaponBox::GiveAmmo( int iCount, char *szName, int iMax, int *pIndex/* = NU
 			return -1;
 		}
 	}
-	if( i < MAX_AMMO_SLOTS )
+	if( i < CAmmoTypes::MAX_AMMO_TYPES )
 	{
 		if( pIndex )
 			*pIndex = i;

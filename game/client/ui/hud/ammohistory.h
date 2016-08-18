@@ -34,7 +34,7 @@ private:
 	WEAPON*		rgSlots[MAX_WEAPON_SLOTS+1][MAX_WEAPON_POSITIONS+1];	// The slots currently in use by weapons.  The value is a pointer to the weapon;  if it's NULL, no weapon is there
 
 	//Rather than dynamically allocate the array (and reallocate it a bunch on connect), just use the maximum. - Solokiller
-	int riAmmo[ CAmmoTypes::LAST_VALID_ID + 1 ];							// count of each ammo type
+	int riAmmo[ CAmmoTypes::MAX_AMMO_TYPES ];							// count of each ammo type
 
 public:
 	void Init();
