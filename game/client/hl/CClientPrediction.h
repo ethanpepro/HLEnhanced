@@ -23,6 +23,11 @@ public:
 	CBasePlayer* GetLocalPlayer() { return m_pPlayer; }
 
 	/**
+	*	Called when a map has started. This is the earliest time that this event is known.
+	*/
+	void NewMapStarted();
+
+	/**
 	*	Called when a map has started loading.
 	*/
 	void MapInit();

@@ -66,100 +66,6 @@ void WeaponsResource::DropAllWeapons()
 	}
 }
 
-CBasePlayerWeapon* WeaponsResource::GetWeaponSlot( int slot, int pos )
-{
-	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
-
-	ASSERT( pPlayer );
-
-	return pPlayer->GetWeapon( slot, pos );
-}
-
-int WeaponsResource::CountAmmo( int iId ) const
-{ 
-	if ( iId < 0 )
-		return 0;
-
-	return riAmmo[iId];
-}
-
-bool WeaponsResource::HasAmmo( const CBasePlayerWeapon* const p ) const
-{
-	if ( !p || !p->GetWeaponInfo() )
-		return false;
-
-	auto pInfo = p->GetWeaponInfo();
-
-	// weapons with no max ammo can always be selected
-	if ( !pInfo->GetPrimaryAmmo() || pInfo->GetPrimaryAmmo()->GetMaxCarry() == WEAPON_NOCLIP )
-		return true;
-
-	return p->m_iClientClip > 0 ||
-		CountAmmo( pInfo->GetPrimaryAmmo()->GetID() )||
-		( pInfo->GetSecondaryAmmo() && CountAmmo( pInfo->GetSecondaryAmmo()->GetID() ) ) ||
-		( pInfo->GetFlags() & ITEM_FLAG_SELECTONEMPTY );
-}
-
-//TODO: move these to CBasePlayer - Solokiller
-// Returns the first weapon for a given slot.
-CBasePlayerWeapon *WeaponsResource :: GetFirstPos( int iSlot )
-{
-	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
-
-	ASSERT( pPlayer );
-
-	CBasePlayerWeapon* pWeapon = pPlayer->m_rgpPlayerItems[ iSlot ];
-
-	CBasePlayerWeapon* pret = nullptr;
-
-	int iLastPos = INT_MAX;
-
-	while( pWeapon )
-	{
-		if( HasAmmo( pWeapon ) && pWeapon->GetWeaponInfo()->GetPosition() < iLastPos )
-		{
-			iLastPos = pWeapon->GetWeaponInfo()->GetPosition();
-			pret = pWeapon;
-		}
-
-		pWeapon = pWeapon->m_pNext;
-	}
-
-	return pret;
-}
-
-
-CBasePlayerWeapon* WeaponsResource :: GetNextActivePos( int iSlot, int iSlotPos )
-{
-	if ( iSlotPos >= MAX_WEAPONS || iSlot >= MAX_WEAPON_SLOTS )
-		return nullptr;
-
-	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
-
-	ASSERT( pPlayer );
-
-	CBasePlayerWeapon* pWeapon = pPlayer->m_rgpPlayerItems[ iSlot ];
-
-	CBasePlayerWeapon* pret = nullptr;
-
-	int iLastPos = INT_MAX;
-
-	while( pWeapon )
-	{
-		const int iPos = pWeapon->GetWeaponInfo()->GetPosition();
-
-		if( HasAmmo( pWeapon ) && iPos > iSlotPos && iPos < iLastPos )
-		{
-			iLastPos = pWeapon->GetWeaponInfo()->GetPosition();
-			pret = pWeapon;
-		}
-
-		pWeapon = pWeapon->m_pNext;
-	}
-
-	return pret;
-}
-
 //TODO: shouldn't be global - Solokiller
 int giBucketHeight, giBucketWidth, giABHeight, giABWidth; // Ammo Bar width and height
 
@@ -375,16 +281,18 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 	CBasePlayerWeapon *p = NULL;
 	bool fastSwitch = CVAR_GET_FLOAT( "hud_fastswitch" ) != 0;
 
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
+
 	if ( ( pActiveSel == NULL) || ( pActiveSel == ( CBasePlayerWeapon *)1) || (iSlot != pActiveSel->GetWeaponInfo()->GetBucket()) )
 	{
 		PlaySound( "common/wpn_hudon.wav", 1 );
-		p = GetFirstPos( iSlot );
+		p = pPlayer->GetFirstPos( iSlot );
 
 		if ( p && fastSwitch ) // check for fast weapon switch mode
 		{
 			// if fast weapon switch is on, then weapons can be selected in a single keypress
 			// but only if there is only one item in the bucket
-			CBasePlayerWeapon *p2 = GetNextActivePos( p->GetWeaponInfo()->GetBucket(), p->GetWeaponInfo()->GetPosition() );
+			CBasePlayerWeapon *p2 = pPlayer->GetNextActivePos( p->GetWeaponInfo()->GetBucket(), p->GetWeaponInfo()->GetPosition() );
 			if ( !p2 )
 			{	// only one active item in bucket, so change directly to weapon
 				ServerCmd( p->GetWeaponInfo()->GetWeaponName() );
@@ -397,9 +305,9 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 	{
 		PlaySound("common/wpn_moveselect.wav", 1);
 		if ( pActiveSel )
-			p = GetNextActivePos( pActiveSel->GetWeaponInfo()->GetBucket(), pActiveSel->GetWeaponInfo()->GetPosition() );
+			p = pPlayer->GetNextActivePos( pActiveSel->GetWeaponInfo()->GetBucket(), pActiveSel->GetWeaponInfo()->GetPosition() );
 		if ( !p )
-			p = GetFirstPos( iSlot );
+			p = pPlayer->GetFirstPos( iSlot );
 	}
 
 	
@@ -429,7 +337,9 @@ int CHudAmmo::MsgFunc_AmmoX(const char *pszName, int iSize, void *pbuf)
 	int iIndex = reader.ReadByte();
 	int iCount = reader.ReadByte();
 
-	gWR.SetAmmo( iIndex, abs(iCount) );
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
+
+	pPlayer->m_rgAmmoLast[ iIndex ] = abs(iCount);
 
 	return 1;
 }
@@ -676,15 +586,17 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 		slot = m_pActiveSel->GetWeaponInfo()->GetBucket();
 	}
 
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
+
 	for ( int loop = 0; loop <= 1; loop++ )
 	{
 		for ( ; slot < MAX_WEAPON_SLOTS; slot++ )
 		{
 			for ( ; pos < MAX_WEAPONS; pos++ )
 			{
-				CBasePlayerWeapon *wsp = gWR.GetWeaponSlot( slot, pos );
+				CBasePlayerWeapon *wsp = pPlayer->GetWeapon( slot, pos );
 
-				if ( wsp && gWR.HasAmmo(wsp) )
+				if ( wsp && pPlayer->HasAmmo(wsp) )
 				{
 					m_pActiveSel = wsp;
 					return;
@@ -716,6 +628,8 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 		pos = m_pActiveSel->GetWeaponInfo()->GetPosition() - 1;
 		slot = m_pActiveSel->GetWeaponInfo()->GetBucket();
 	}
+
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 	
 	for ( int loop = 0; loop <= 1; loop++ )
 	{
@@ -723,9 +637,9 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 		{
 			for ( ; pos >= 0; pos-- )
 			{
-				CBasePlayerWeapon *wsp = gWR.GetWeaponSlot( slot, pos );
+				CBasePlayerWeapon *wsp = pPlayer->GetWeapon( slot, pos );
 
-				if ( wsp && gWR.HasAmmo(wsp) )
+				if ( wsp && pPlayer->HasAmmo(wsp) )
 				{
 					m_pActiveSel = wsp;
 					return;
@@ -828,6 +742,8 @@ bool CHudAmmo::Draw(float flTime)
 		Tri_DrawScaledSprite( m_hCrosshair, 0, m_iR, m_iG, m_iB, 255, kRenderTransTexture, flScale, callback, &m_CrosshairRC );
 	}
 
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
+
 	// Does weapon have any ammo at all?
 	if ( auto pAmmo = pw->GetWeaponInfo()->GetPrimaryAmmo() )
 	{
@@ -861,7 +777,7 @@ bool CHudAmmo::Draw(float flTime)
 
 			// GL Seems to need this
 			ScaleColors(r, g, b, a );
-			x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, gWR.CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 
 
 		}
@@ -869,7 +785,7 @@ bool CHudAmmo::Draw(float flTime)
 		{
 			// SPR_Draw a bullets only line
 			x = ScreenWidth - 4 * AmmoWidth - iIconWidth;
-			x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, gWR.CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 		}
 
 		// Draw the ammo Icon
@@ -886,11 +802,11 @@ bool CHudAmmo::Draw(float flTime)
 		int iIconWidth = ammo2.rect.right - ammo2.rect.left;
 
 		// Do we have secondary ammo?
-		if ( gWR.CountAmmo( pAmmo->GetID() ) > 0 )
+		if ( pPlayer->CountAmmo( pAmmo->GetID() ) > 0 )
 		{
 			y -= gHUD.m_iFontHeight + gHUD.m_iFontHeight/4;
 			x = ScreenWidth - 4 * AmmoWidth - iIconWidth;
-			x = gHUD.DrawHudNumber(x, y, iFlags|DHN_3DIGITS, gWR.CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = gHUD.DrawHudNumber(x, y, iFlags|DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 
 			// Draw the ammo Icon
 			SPR_Set( ammo2.hSprite, r, g, b);
@@ -941,13 +857,15 @@ void DrawAmmoBar( CBasePlayerWeapon *p, int x, int y, int width, int height)
 {
 	if ( !p )
 		return;
+
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 	
 	if ( auto pAmmo = p->GetWeaponInfo()->GetPrimaryAmmo() )
 	{
-		if( !gWR.CountAmmo( pAmmo->GetID() ) )
+		if( !pPlayer->CountAmmo( pAmmo->GetID() ) )
 			return;
 
-		float f = (float)gWR.CountAmmo( pAmmo->GetID() )/(float) pAmmo->GetMaxCarry();
+		float f = (float)pPlayer->CountAmmo( pAmmo->GetID() )/(float) pAmmo->GetMaxCarry();
 		
 		x = DrawBar(x, y, width, height, f);
 
@@ -956,7 +874,7 @@ void DrawAmmoBar( CBasePlayerWeapon *p, int x, int y, int width, int height)
 
 		if ( auto pAmmo2 = p->GetWeaponInfo()->GetSecondaryAmmo() )
 		{
-			f = (float)gWR.CountAmmo( pAmmo2->GetID() )/(float) pAmmo2->GetMaxCarry();
+			f = (float)pPlayer->CountAmmo( pAmmo2->GetID() )/(float) pAmmo2->GetMaxCarry();
 
 			x += 5; //!!!
 
@@ -988,11 +906,12 @@ int CHudAmmo::DrawWList(float flTime)
 	x = 10; //!!!
 	y = 10; //!!!
 	
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 
 	// Ensure that there are available choices in the active slot
 	if ( iActiveSlot > 0 )
 	{
-		if ( !gWR.GetFirstPos( iActiveSlot ) )
+		if ( !pPlayer->GetFirstPos( iActiveSlot ) )
 		{
 			m_pActiveSel = ( CBasePlayerWeapon *)1;
 			iActiveSlot = -1;
@@ -1005,7 +924,7 @@ int CHudAmmo::DrawWList(float flTime)
 	{
 		for ( int j = 0; j < MAX_WEAPONS; j++ )
 		{
-			CBasePlayerWeapon *pWeapon = gWR.GetWeaponSlot( i, j );
+			CBasePlayerWeapon *pWeapon = pPlayer->GetWeapon( i, j );
 			if ( pWeapon && pWeapon->GetWeaponInfo() && pWeapon->GetWeaponInfo()->GetBucket() > iBucketsToDraw )
 				iBucketsToDraw = pWeapon->GetWeaponInfo()->GetBucket();
 		}
@@ -1030,7 +949,7 @@ int CHudAmmo::DrawWList(float flTime)
 		// make active slot wide enough to accomodate gun pictures
 		if ( i == iActiveSlot )
 		{
-			CBasePlayerWeapon *p = gWR.GetFirstPos(iActiveSlot);
+			CBasePlayerWeapon *p = pPlayer->GetFirstPos(iActiveSlot);
 			if ( p )
 				iWidth = p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.right - p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.left;
 			else
@@ -1057,14 +976,14 @@ int CHudAmmo::DrawWList(float flTime)
 		// otherwise just draw boxes
 		if ( i == iActiveSlot )
 		{
-			CBasePlayerWeapon *p = gWR.GetFirstPos( i );
+			CBasePlayerWeapon *p = pPlayer->GetFirstPos( i );
 			int iWidth = giBucketWidth;
 			if ( p )
 				iWidth = p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.right - p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.left;
 
 			for ( int iPos = 0; iPos < MAX_WEAPONS; iPos++ )
 			{
-				p = gWR.GetWeaponSlot( i, iPos );
+				p = pPlayer->GetWeapon( i, iPos );
 
 				if ( !p || !p->GetWeaponInfo() )
 					continue;
@@ -1087,7 +1006,7 @@ int CHudAmmo::DrawWList(float flTime)
 				{
 					// Draw Weapon if Red if no ammo
 
-					if ( gWR.HasAmmo(p) )
+					if ( pPlayer->HasAmmo(p) )
 						ScaleColors(r, g, b, 192);
 					else
 					{
@@ -1117,12 +1036,12 @@ int CHudAmmo::DrawWList(float flTime)
 
 			for ( int iPos = 0; iPos < MAX_WEAPONS; iPos++ )
 			{
-				CBasePlayerWeapon *p = gWR.GetWeaponSlot( i, iPos );
+				CBasePlayerWeapon *p = pPlayer->GetWeapon( i, iPos );
 				
 				if ( !p || !p->GetWeaponInfo() )
 					continue;
 
-				if ( gWR.HasAmmo(p) )
+				if ( pPlayer->HasAmmo(p) )
 				{
 					gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 					a = 128;

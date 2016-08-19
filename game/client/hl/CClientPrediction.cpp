@@ -26,7 +26,7 @@ Vector g_vPlayerVelocity;
 
 CClientPrediction g_Prediction;
 
-void CClientPrediction::MapInit()
+void CClientPrediction::NewMapStarted()
 {
 	for( auto pWeapon : m_pWeapons )
 	{
@@ -54,6 +54,10 @@ void CClientPrediction::MapInit()
 	}
 	else
 		Alert( at_error, "CClientPrediction::MapInit: Couldn't find player class!\n" );
+}
+
+void CClientPrediction::MapInit()
+{
 }
 
 entvars_t* CClientPrediction::CreateEntity()

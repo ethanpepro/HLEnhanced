@@ -107,6 +107,8 @@ void HistoryResource::CheckClearHistory()
 //
 int HistoryResource::DrawAmmoHistory( float flTime )
 {
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
+
 	for ( int i = 0; i < MAX_HISTORY; i++ )
 	{
 		if ( rgAmmoHistory[i].type )
@@ -149,7 +151,7 @@ int HistoryResource::DrawAmmoHistory( float flTime )
 				int r, g, b;
 				gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 
-				if ( !gWR.HasAmmo( weap ) )
+				if ( !pPlayer->HasAmmo( weap ) )
 					gHUD.GetEmptyItemColor().UnpackRGB(r,g,b);	// if the weapon doesn't have ammo, display it as red
 
 				float scale = (rgAmmoHistory[i].DisplayTime - flTime) * 80;

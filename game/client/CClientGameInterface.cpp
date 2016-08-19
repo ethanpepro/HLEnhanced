@@ -129,6 +129,8 @@ void CClientGameInterface::NewMapStarted( const char* const pszMapName, const ch
 {
 	//Set the map name so scripts can access it the same way they can on the server. - Solokiller
 	gpGlobals->mapname = MAKE_STRING( g_StringPool.Allocate( pszMapName ) );
+
+	g_Prediction.NewMapStarted();
 }
 
 void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )

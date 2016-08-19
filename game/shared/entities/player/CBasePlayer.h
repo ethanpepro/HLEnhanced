@@ -240,6 +240,10 @@ public:
 	CBasePlayerWeapon* m_pLastItem;
 	// shared ammo slots
 	int	m_rgAmmo[ CAmmoTypes::MAX_AMMO_TYPES ];
+
+	/**
+	*	On the client, this is the latest ammo value for every type. Not the predicted value. - Solokiller
+	*/
 	int	m_rgAmmoLast[ CAmmoTypes::MAX_AMMO_TYPES ];
 
 	Vector				m_vecAutoAim;
@@ -372,9 +376,25 @@ public:
 	CBasePlayerWeapon* GetWeapon( int iBucket, int iPosition );
 
 	/**
+	*	Counts the amount of ammo that the player has of the given ammo type.
+	*	Accesses the latest data on the client, not the currently predicted value. - Solokiller
+	*/
+	int CountAmmo( const int iID ) const;
+
+	/**
+	*	@return Whether the player has any ammo for the given weapon.
+	*/
+	bool HasAmmo( CBasePlayerWeapon* pWeapon ) const;
+
+	/**
 	*	Gets the first weapon in a given bucket, searching by position set in the weapon info file.
 	*/
 	CBasePlayerWeapon* GetFirstPos( int iBucket );
+
+	/**
+	*	Gets the next weapon in a given bucket, starting at a previous weapon's position.
+	*/
+	CBasePlayerWeapon* GetNextActivePos( int iBucket, int iPosition );
 
 	void SelectPrevItem( int iItem );
 	void SelectNextItem( int iItem );

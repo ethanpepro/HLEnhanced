@@ -23,17 +23,12 @@ struct WeaponHUDSprite;
 
 class WeaponsResource
 {
-private:
-	//Rather than dynamically allocate the array (and reallocate it a bunch on connect), just use the maximum. - Solokiller
-	int riAmmo[ CAmmoTypes::MAX_AMMO_TYPES ];							// count of each ammo type
-
 public:
 	void Init();
 
 	void Reset( void )
 	{
 		iOldWeaponBits = 0;
-		memset( riAmmo, 0, sizeof( riAmmo ) );
 	}
 
 ///// WEAPON /////
@@ -41,19 +36,9 @@ public:
 
 	void DropAllWeapons();
 
-	CBasePlayerWeapon* GetWeaponSlot( int slot, int pos );
-
-	CBasePlayerWeapon* GetFirstPos( int iSlot );
 	void SelectSlot( int iSlot, const bool fAdvance, int iDirection, CBasePlayerWeapon* pActiveSel );
-	CBasePlayerWeapon* GetNextActivePos( int iSlot, int iSlotPos );
-
-	bool HasAmmo( const CBasePlayerWeapon* const p ) const;
 
 ///// AMMO /////
-	void SetAmmo( int iId, int iCount ) { riAmmo[ iId ] = iCount;	}
-
-	int CountAmmo( int iId ) const;
-
 	const WeaponHUDSprite* GetAmmoPicFromWeapon( int iAmmoId ) const;
 };
 
