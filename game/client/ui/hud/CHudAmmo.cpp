@@ -43,9 +43,6 @@
 #include "CWeaponInfoCache.h"
 
 //TODO: shouldn't be global - Solokiller
-CBasePlayerWeapon *gpActiveSel;	// NULL means off, 1 means just the menu bar, otherwise
-						// this points to the active weapon menu item
-CBasePlayerWeapon *gpLastSel;		// Last weapon menu selection 
 
 WeaponsResource gWR;
 
@@ -239,7 +236,7 @@ void CHudAmmo::Reset()
 	m_fFade = 0;
 	m_iFlags |= HUD_ACTIVE; //!!!
 
-	gpActiveSel = NULL;
+	m_pActiveSel = nullptr;
 	gHUD.m_iHideHUDDisplay = 0;
 
 	gWR.Reset();
@@ -307,20 +304,20 @@ void CHudAmmo::Think()
 		}
 	}
 
-	if (!gpActiveSel)
+	if( !m_pActiveSel )
 		return;
 
 	// has the player selected one?
 	if (gHUD.m_iKeyBits & IN_ATTACK)
 	{
-		if (gpActiveSel != (CBasePlayerWeapon *)1)
+		if ( m_pActiveSel != (CBasePlayerWeapon *)1)
 		{
-			ServerCmd(gpActiveSel->GetWeaponInfo()->GetWeaponName());
-			g_weaponselect = gpActiveSel->GetWeaponInfo()->GetID();
+			ServerCmd( m_pActiveSel->GetWeaponInfo()->GetWeaponName());
+			g_weaponselect = m_pActiveSel->GetWeaponInfo()->GetID();
 		}
 
-		gpLastSel = gpActiveSel;
-		gpActiveSel = NULL;
+		m_pLastSel = m_pActiveSel;
+		m_pActiveSel = nullptr;
 		gHUD.m_iKeyBits &= ~IN_ATTACK;
 
 		PlaySound("common/wpn_select.wav", 1);
@@ -355,7 +352,7 @@ const WeaponHUDSprite* WeaponsResource :: GetAmmoPicFromWeapon( int iAmmoId ) co
 
 // Menu Selection Code
 
-void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirection )
+void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirection, CBasePlayerWeapon* pActiveSel )
 {
 	if ( gHUD.m_Menu.m_fMenuDisplayed && !fAdvance && (iDirection == 1) )	
 	{ // menu is overriding slot use commands
@@ -378,7 +375,7 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 	CBasePlayerWeapon *p = NULL;
 	bool fastSwitch = CVAR_GET_FLOAT( "hud_fastswitch" ) != 0;
 
-	if ( (gpActiveSel == NULL) || (gpActiveSel == ( CBasePlayerWeapon *)1) || (iSlot != gpActiveSel->GetWeaponInfo()->GetBucket()) )
+	if ( ( pActiveSel == NULL) || ( pActiveSel == ( CBasePlayerWeapon *)1) || (iSlot != pActiveSel->GetWeaponInfo()->GetBucket()) )
 	{
 		PlaySound( "common/wpn_hudon.wav", 1 );
 		p = GetFirstPos( iSlot );
@@ -399,8 +396,8 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 	else
 	{
 		PlaySound("common/wpn_moveselect.wav", 1);
-		if ( gpActiveSel )
-			p = GetNextActivePos( gpActiveSel->GetWeaponInfo()->GetBucket(), gpActiveSel->GetWeaponInfo()->GetPosition() );
+		if ( pActiveSel )
+			p = GetNextActivePos( pActiveSel->GetWeaponInfo()->GetBucket(), pActiveSel->GetWeaponInfo()->GetPosition() );
 		if ( !p )
 			p = GetFirstPos( iSlot );
 	}
@@ -410,12 +407,12 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 	{
 		// just display the weapon list, unless fastswitch is on just ignore it
 		if ( !fastSwitch )
-			gpActiveSel = ( CBasePlayerWeapon *)1;
+			pActiveSel = ( CBasePlayerWeapon *)1;
 		else
-			gpActiveSel = NULL;
+			pActiveSel = nullptr;
 	}
 	else 
-		gpActiveSel = p;
+		pActiveSel = p;
 }
 
 //------------------------------------------------------------------------
@@ -484,7 +481,7 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 	if ( gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 	{
 		static wrect_t nullrc;
-		gpActiveSel = NULL;
+		m_pActiveSel = nullptr;
 		SetCrosshair( 0, nullrc, 0, 0, 0 );
 	}
 	else
@@ -529,7 +526,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 		if ((iId == -1) && (iClip == -1))
 		{
 			gHUD.m_bPlayerDead = true;
-			gpActiveSel = NULL;
+			m_pActiveSel = nullptr;
 			return 1;
 		}
 		gHUD.m_bPlayerDead = false;
@@ -596,7 +593,7 @@ void CHudAmmo::SlotInput( int iSlot )
 	if ( gViewPort && gViewPort->SlotInput( iSlot ) )
 		return;
 
-	gWR.SelectSlot(iSlot, false, 1);
+	gWR.SelectSlot( iSlot, false, 1, m_pActiveSel );
 }
 
 void CHudAmmo::UserCmd_Slot1(void)
@@ -651,10 +648,10 @@ void CHudAmmo::UserCmd_Slot10(void)
 
 void CHudAmmo::UserCmd_Close(void)
 {
-	if (gpActiveSel)
+	if ( m_pActiveSel )
 	{
-		gpLastSel = gpActiveSel;
-		gpActiveSel = NULL;
+		m_pLastSel = m_pActiveSel;
+		m_pActiveSel = nullptr;
 		PlaySound("common/wpn_hudoff.wav", 1);
 	}
 	else
@@ -668,15 +665,15 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 	if ( gHUD.m_bPlayerDead || (gHUD.m_iHideHUDDisplay & (HIDEHUD_WEAPONS | HIDEHUD_ALL)) )
 		return;
 
-	if ( !gpActiveSel || gpActiveSel == ( CBasePlayerWeapon*)1 )
-		gpActiveSel = m_pWeapon;
+	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
+		m_pActiveSel = m_pWeapon;
 
 	int pos = 0;
 	int slot = 0;
-	if ( gpActiveSel )
+	if ( m_pActiveSel )
 	{
-		pos = gpActiveSel->GetWeaponInfo()->GetPosition() + 1;
-		slot = gpActiveSel->GetWeaponInfo()->GetBucket();
+		pos = m_pActiveSel->GetWeaponInfo()->GetPosition() + 1;
+		slot = m_pActiveSel->GetWeaponInfo()->GetBucket();
 	}
 
 	for ( int loop = 0; loop <= 1; loop++ )
@@ -689,7 +686,7 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 
 				if ( wsp && gWR.HasAmmo(wsp) )
 				{
-					gpActiveSel = wsp;
+					m_pActiveSel = wsp;
 					return;
 				}
 			}
@@ -700,7 +697,7 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 		slot = 0;  // start looking from the first slot again
 	}
 
-	gpActiveSel = NULL;
+	m_pActiveSel = nullptr;
 }
 
 // Selects the previous item in the menu
@@ -709,15 +706,15 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 	if ( gHUD.m_bPlayerDead || (gHUD.m_iHideHUDDisplay & (HIDEHUD_WEAPONS | HIDEHUD_ALL)) )
 		return;
 
-	if ( !gpActiveSel || gpActiveSel == ( CBasePlayerWeapon*)1 )
-		gpActiveSel = m_pWeapon;
+	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
+		m_pActiveSel = m_pWeapon;
 
 	int pos = MAX_WEAPONS -1;
 	int slot = MAX_WEAPON_SLOTS-1;
-	if ( gpActiveSel )
+	if ( m_pActiveSel )
 	{
-		pos = gpActiveSel->GetWeaponInfo()->GetPosition() - 1;
-		slot = gpActiveSel->GetWeaponInfo()->GetBucket();
+		pos = m_pActiveSel->GetWeaponInfo()->GetPosition() - 1;
+		slot = m_pActiveSel->GetWeaponInfo()->GetBucket();
 	}
 	
 	for ( int loop = 0; loop <= 1; loop++ )
@@ -730,7 +727,7 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 
 				if ( wsp && gWR.HasAmmo(wsp) )
 				{
-					gpActiveSel = wsp;
+					m_pActiveSel = wsp;
 					return;
 				}
 			}
@@ -741,7 +738,7 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 		slot = MAX_WEAPON_SLOTS-1;
 	}
 
-	gpActiveSel = NULL;
+	m_pActiveSel = nullptr;
 }
 
 #include "renderer/SpriteRenderUtils.h"
@@ -978,15 +975,15 @@ int CHudAmmo::DrawWList(float flTime)
 {
 	int r,g,b,x,y,a,i;
 
-	if ( !gpActiveSel )
+	if ( !m_pActiveSel )
 		return 0;
 
 	int iActiveSlot;
 
-	if ( gpActiveSel == ( CBasePlayerWeapon *)1 )
+	if ( m_pActiveSel == ( CBasePlayerWeapon *)1 )
 		iActiveSlot = -1;	// current slot has no weapons
 	else 
-		iActiveSlot = gpActiveSel->GetWeaponInfo()->GetBucket();
+		iActiveSlot = m_pActiveSel->GetWeaponInfo()->GetBucket();
 
 	x = 10; //!!!
 	y = 10; //!!!
@@ -997,7 +994,7 @@ int CHudAmmo::DrawWList(float flTime)
 	{
 		if ( !gWR.GetFirstPos( iActiveSlot ) )
 		{
-			gpActiveSel = ( CBasePlayerWeapon *)1;
+			m_pActiveSel = ( CBasePlayerWeapon *)1;
 			iActiveSlot = -1;
 		}
 	}
@@ -1078,7 +1075,7 @@ int CHudAmmo::DrawWList(float flTime)
 			
 				// if active, then we must have ammo.
 
-				if ( gpActiveSel == p )
+				if ( m_pActiveSel == p )
 				{
 					SPR_Set( pHUDInfo->GetActive().hSprite, r, g, b );
 					SPR_DrawAdditive(0, x, y, &pHUDInfo->GetActive().rect );

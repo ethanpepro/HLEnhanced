@@ -94,6 +94,17 @@ private:
 	//The server sent a message before the client was ready, so update as soon as possible - Solokiller
 	bool m_bNeedsLocalUpdate = false;
 	bool m_bOnTarget = false;
+
+	/**
+	*	NULL means off, 1 means just the menu bar, otherwise
+	*	this points to the active weapon menu item
+	*/
+	CBasePlayerWeapon* m_pActiveSel;
+
+	/**
+	*	Last weapon menu selection.
+	*/
+	CBasePlayerWeapon* m_pLastSel;
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDAMMO_H

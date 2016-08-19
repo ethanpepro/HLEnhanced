@@ -44,7 +44,7 @@ public:
 	CBasePlayerWeapon* GetWeaponSlot( int slot, int pos );
 
 	CBasePlayerWeapon* GetFirstPos( int iSlot );
-	void SelectSlot( int iSlot, const bool fAdvance, int iDirection );
+	void SelectSlot( int iSlot, const bool fAdvance, int iDirection, CBasePlayerWeapon* pActiveSel );
 	CBasePlayerWeapon* GetNextActivePos( int iSlot, int iSlotPos );
 
 	bool HasAmmo( const CBasePlayerWeapon* const p ) const;
