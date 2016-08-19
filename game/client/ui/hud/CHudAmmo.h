@@ -71,6 +71,8 @@ public:
 	void _cdecl UserCmd_NextWeapon( void );
 	void _cdecl UserCmd_PrevWeapon( void );
 
+	void SelectSlot( int iSlot, const bool fAdvance, int iDirection );
+
 	void SetCrosshair( HSPRITE hCrosshair, const wrect_t& rect, int r, int g, int b );
 
 private:

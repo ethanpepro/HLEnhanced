@@ -258,7 +258,7 @@ const WeaponHUDSprite* WeaponsResource :: GetAmmoPicFromWeapon( int iAmmoId ) co
 
 // Menu Selection Code
 
-void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirection, CBasePlayerWeapon* pActiveSel )
+void CHudAmmo::SelectSlot( int iSlot, const bool fAdvance, int iDirection )
 {
 	if ( gHUD.m_Menu.m_fMenuDisplayed && !fAdvance && (iDirection == 1) )	
 	{ // menu is overriding slot use commands
@@ -283,7 +283,7 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 
-	if ( ( pActiveSel == NULL) || ( pActiveSel == ( CBasePlayerWeapon *)1) || (iSlot != pActiveSel->GetWeaponInfo()->GetBucket()) )
+	if ( ( m_pActiveSel == NULL) || ( m_pActiveSel == ( CBasePlayerWeapon *)1) || (iSlot != m_pActiveSel->GetWeaponInfo()->GetBucket()) )
 	{
 		PlaySound( "common/wpn_hudon.wav", 1 );
 		p = pPlayer->GetFirstPos( iSlot );
@@ -304,8 +304,8 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 	else
 	{
 		PlaySound("common/wpn_moveselect.wav", 1);
-		if ( pActiveSel )
-			p = pPlayer->GetNextActivePos( pActiveSel->GetWeaponInfo()->GetBucket(), pActiveSel->GetWeaponInfo()->GetPosition() );
+		if ( m_pActiveSel )
+			p = pPlayer->GetNextActivePos( m_pActiveSel->GetWeaponInfo()->GetBucket(), m_pActiveSel->GetWeaponInfo()->GetPosition() );
 		if ( !p )
 			p = pPlayer->GetFirstPos( iSlot );
 	}
@@ -315,12 +315,12 @@ void WeaponsResource :: SelectSlot( int iSlot, const bool fAdvance, int iDirecti
 	{
 		// just display the weapon list, unless fastswitch is on just ignore it
 		if ( !fastSwitch )
-			pActiveSel = ( CBasePlayerWeapon *)1;
+			m_pActiveSel = ( CBasePlayerWeapon *)1;
 		else
-			pActiveSel = nullptr;
+			m_pActiveSel = nullptr;
 	}
 	else 
-		pActiveSel = p;
+		m_pActiveSel = p;
 }
 
 //------------------------------------------------------------------------
@@ -503,7 +503,7 @@ void CHudAmmo::SlotInput( int iSlot )
 	if ( gViewPort && gViewPort->SlotInput( iSlot ) )
 		return;
 
-	gWR.SelectSlot( iSlot, false, 1, m_pActiveSel );
+	SelectSlot( iSlot, false, 1 );
 }
 
 void CHudAmmo::UserCmd_Slot1(void)

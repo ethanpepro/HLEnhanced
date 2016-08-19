@@ -36,8 +36,6 @@ public:
 
 	void DropAllWeapons();
 
-	void SelectSlot( int iSlot, const bool fAdvance, int iDirection, CBasePlayerWeapon* pActiveSel );
-
 ///// AMMO /////
 	const WeaponHUDSprite* GetAmmoPicFromWeapon( int iAmmoId ) const;
 };
