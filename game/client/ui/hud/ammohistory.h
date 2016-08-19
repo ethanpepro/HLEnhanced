@@ -59,7 +59,7 @@ public:
 
 extern WeaponsResource gWR;
 
-
+//TODO: increase this? - Solokiller
 #define MAX_HISTORY 12
 enum {
 	HISTSLOT_EMPTY,
@@ -82,15 +82,18 @@ private:
 
 public:
 
-	void Init( void )
-	{
-		Reset();
-	}
+	void Init();
 
-	void Reset( void )
+	void Reset()
 	{
 		memset( rgAmmoHistory, 0, sizeof rgAmmoHistory );
 	}
+
+	int GetAmmoPickupGap() const { return iHistoryGap + 5; }
+
+	int GetAmmoPickupPickHeight() const { return 32 + ( iHistoryGap * 2 ); }
+
+	int GetAmmoPickupHeightMax() const { return ScreenHeight - 100; }
 
 	int iHistoryGap;
 	int iCurrentHistorySlot;
@@ -98,8 +101,11 @@ public:
 	void AddToHistory( int iType, int iId, int iCount = 0 );
 	void AddToHistory( int iType, const char *szName, int iCount = 0 );
 
-	void CheckClearHistory( void );
+	void CheckClearHistory();
 	int DrawAmmoHistory( float flTime );
+
+private:
+	cvar_t* m_phud_drawhistory_time = nullptr;
 };
 
 extern HistoryResource gHR;

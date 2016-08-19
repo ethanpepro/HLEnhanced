@@ -193,8 +193,6 @@ DECLARE_COMMAND(m_Ammo, PrevWeapon);
 #define AMMO_SMALL_WIDTH 10
 #define AMMO_LARGE_WIDTH 20
 
-#define HISTORY_DRAW_TIME	"5"
-
 bool CHudAmmo::Init()
 {
 	gHUD.AddHudElem(this);
@@ -222,7 +220,6 @@ bool CHudAmmo::Init()
 
 	Reset();
 
-	CVAR_CREATE( "hud_drawhistory_time", HISTORY_DRAW_TIME, 0 );
 	CVAR_CREATE( "hud_fastswitch", "0", FCVAR_ARCHIVE );		// controls whether or not weapons can be selected in one keypress
 
 	m_pCrosshair = gEngfuncs.pfnGetCvarPointer( "crosshair" );

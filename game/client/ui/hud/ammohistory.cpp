@@ -38,49 +38,38 @@
 
 HistoryResource gHR;
 
-#define AMMO_PICKUP_GAP (gHR.iHistoryGap+5)
-#define AMMO_PICKUP_PICK_HEIGHT		(32 + (gHR.iHistoryGap * 2))
-#define AMMO_PICKUP_HEIGHT_MAX		(ScreenHeight - 100)
-
-//TODO: unused. remove? - Solokiller
-#define MAX_ITEM_NAME	32
-int HISTORY_DRAW_TIME = 5;
-
-// keep a list of items
-//TODO: unused. remove? - Solokiller
-struct ITEM_INFO
+void HistoryResource::Init()
 {
-	char szName[MAX_ITEM_NAME];
-	HSPRITE spr;
-	wrect_t rect;
-};
+	m_phud_drawhistory_time = CVAR_CREATE( "hud_drawhistory_time", "5", 0 );
 
-void HistoryResource :: AddToHistory( int iType, int iId, int iCount )
+	Reset();
+}
+
+void HistoryResource::AddToHistory( int iType, int iId, int iCount )
 {
 	if ( iType == HISTSLOT_AMMO && !iCount )
 		return;  // no amount, so don't add
 
-	if ( (((AMMO_PICKUP_GAP * iCurrentHistorySlot) + AMMO_PICKUP_PICK_HEIGHT) > AMMO_PICKUP_HEIGHT_MAX) || (iCurrentHistorySlot >= MAX_HISTORY) )
+	if ( ((( GetAmmoPickupGap() * iCurrentHistorySlot) + GetAmmoPickupPickHeight()) > GetAmmoPickupHeightMax()) || (iCurrentHistorySlot >= MAX_HISTORY) )
 	{	// the pic would have to be drawn too high
 		// so start from the bottom
 		iCurrentHistorySlot = 0;
 	}
 	
 	HIST_ITEM *freeslot = &rgAmmoHistory[iCurrentHistorySlot++];  // default to just writing to the first slot
-	HISTORY_DRAW_TIME = CVAR_GET_FLOAT( "hud_drawhistory_time" );
 
 	freeslot->type = iType;
 	freeslot->iId = iId;
 	freeslot->iCount = iCount;
-	freeslot->DisplayTime = gHUD.m_flTime + HISTORY_DRAW_TIME;
+	freeslot->DisplayTime = gHUD.m_flTime + m_phud_drawhistory_time->value;
 }
 
-void HistoryResource :: AddToHistory( int iType, const char *szName, int iCount )
+void HistoryResource::AddToHistory( int iType, const char *szName, int iCount )
 {
 	if ( iType != HISTSLOT_ITEM )
 		return;
 
-	if ( (((AMMO_PICKUP_GAP * iCurrentHistorySlot) + AMMO_PICKUP_PICK_HEIGHT) > AMMO_PICKUP_HEIGHT_MAX) || (iCurrentHistorySlot >= MAX_HISTORY) )
+	if ( ((( GetAmmoPickupGap() * iCurrentHistorySlot) + GetAmmoPickupPickHeight() ) > GetAmmoPickupHeightMax() ) || (iCurrentHistorySlot >= MAX_HISTORY) )
 	{	// the pic would have to be drawn too high
 		// so start from the bottom
 		iCurrentHistorySlot = 0;
@@ -98,12 +87,11 @@ void HistoryResource :: AddToHistory( int iType, const char *szName, int iCount 
 	freeslot->type = iType;
 	freeslot->iCount = iCount;
 
-	HISTORY_DRAW_TIME = CVAR_GET_FLOAT( "hud_drawhistory_time" );
-	freeslot->DisplayTime = gHUD.m_flTime + HISTORY_DRAW_TIME;
+	freeslot->DisplayTime = gHUD.m_flTime + m_phud_drawhistory_time->value;
 }
 
 
-void HistoryResource :: CheckClearHistory( void )
+void HistoryResource::CheckClearHistory()
 {
 	for ( int i = 0; i < MAX_HISTORY; i++ )
 	{
@@ -117,13 +105,13 @@ void HistoryResource :: CheckClearHistory( void )
 //
 // Draw Ammo pickup history
 //
-int HistoryResource :: DrawAmmoHistory( float flTime )
+int HistoryResource::DrawAmmoHistory( float flTime )
 {
 	for ( int i = 0; i < MAX_HISTORY; i++ )
 	{
 		if ( rgAmmoHistory[i].type )
 		{
-			rgAmmoHistory[i].DisplayTime = min( rgAmmoHistory[i].DisplayTime, gHUD.m_flTime + HISTORY_DRAW_TIME );
+			rgAmmoHistory[i].DisplayTime = min( rgAmmoHistory[i].DisplayTime, gHUD.m_flTime + m_phud_drawhistory_time->value );
 
 			if ( rgAmmoHistory[i].DisplayTime <= flTime )
 			{  // pic drawing time has expired
@@ -140,7 +128,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 				ScaleColors(r, g, b, min(scale, 255.0f) );
 
 				// Draw the pic
-				int ypos = ScreenHeight - (AMMO_PICKUP_PICK_HEIGHT + (AMMO_PICKUP_GAP * i));
+				int ypos = ScreenHeight - ( GetAmmoPickupPickHeight() + ( GetAmmoPickupGap() * i));
 				int xpos = ScreenWidth - 24;
 				if ( spr && spr->hSprite )    // weapon isn't loaded yet so just don't draw the pic
 				{ // the dll has to make sure it has sent info the weapons you need
@@ -169,7 +157,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 
 				const auto& inactive = weap->GetWeaponInfo()->GetHUDInfo()->GetInactive();
 
-				int ypos = ScreenHeight - (AMMO_PICKUP_PICK_HEIGHT + (AMMO_PICKUP_GAP * i));
+				int ypos = ScreenHeight - ( GetAmmoPickupPickHeight() + ( GetAmmoPickupGap() * i));
 				int xpos = ScreenWidth - ( inactive.rect.right - inactive.rect.left);
 				SPR_Set( inactive.hSprite, r, g, b );
 				SPR_DrawAdditive( 0, xpos, ypos, &inactive.rect );
@@ -187,7 +175,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 				float scale = (rgAmmoHistory[i].DisplayTime - flTime) * 80;
 				ScaleColors(r, g, b, min(scale, 255.0f) );
 
-				int ypos = ScreenHeight - (AMMO_PICKUP_PICK_HEIGHT + (AMMO_PICKUP_GAP * i));
+				int ypos = ScreenHeight - ( GetAmmoPickupPickHeight() + ( GetAmmoPickupGap() * i));
 				int xpos = ScreenWidth - (rect.right - rect.left) - 10;
 
 				SPR_Set( gHUD.GetSprite( rgAmmoHistory[i].iId ), r, g, b );

@@ -1,5 +1,5 @@
 #include "hud.h"
-#include "cl_dll.h"
+#include "cl_util.h"
 
 #include "extdll.h"
 #include "util.h"
