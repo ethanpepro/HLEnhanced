@@ -13,6 +13,11 @@ public:
 	~CClientPrediction() = default;
 
 	/**
+	*	Gets a weapon by ID.
+	*/
+	CBasePlayerWeapon* GetWeapon( const int iID );
+
+	/**
 	*	@return The local player.
 	*/
 	CBasePlayer* GetLocalPlayer() { return m_pPlayer; }
@@ -53,6 +58,13 @@ private:
 	CClientPrediction( const CClientPrediction& ) = delete;
 	CClientPrediction& operator=( const CClientPrediction& ) = delete;
 };
+
+inline CBasePlayerWeapon* CClientPrediction::GetWeapon( const int iID )
+{
+	ASSERT( iID >= 0 && iID < MAX_WEAPONS );
+
+	return m_pWeapons[ iID ];
+}
 
 extern CClientPrediction g_Prediction;
 

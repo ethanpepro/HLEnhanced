@@ -70,7 +70,7 @@ public:
 
 	/**
 	*	@return The position in the bucket to place the weapon in.
-	*	@see MAX_WEAPON_POSITIONS
+	*	@see MAX_WEAPONS
 	*/
 	int GetPosition() const { return m_iPosition; }
 

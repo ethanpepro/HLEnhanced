@@ -365,6 +365,17 @@ public:
 	bool HasPlayerItem( CBasePlayerWeapon *pCheckItem ) const;
 	bool HasNamedPlayerItem( const char *pszItemName ) const;
 	bool HasWeapons() const;// do I have ANY weapons?
+
+	/**
+	*	Gets a weapon by bucket and position.
+	*/
+	CBasePlayerWeapon* GetWeapon( int iBucket, int iPosition );
+
+	/**
+	*	Gets the first weapon in a given bucket, searching by position set in the weapon info file.
+	*/
+	CBasePlayerWeapon* GetFirstPos( int iBucket );
+
 	void SelectPrevItem( int iItem );
 	void SelectNextItem( int iItem );
 	void SelectLastItem();

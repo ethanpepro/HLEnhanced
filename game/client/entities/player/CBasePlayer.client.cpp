@@ -174,13 +174,52 @@ void CBasePlayer::AddPointsToTeam( int score, const bool bAllowNegativeScore )
 {
 }
 
-bool CBasePlayer::AddPlayerItem( CBasePlayerWeapon *pItem )
+bool CBasePlayer::AddPlayerItem( CBasePlayerWeapon* pItem )
 {
-	return false;
+	ASSERT( pItem );
+
+	CBasePlayerWeapon* pInsert = m_rgpPlayerItems[ pItem->iItemSlot() ];
+
+	while( pInsert )
+	{
+		if( pInsert->ClassnameIs( pItem->GetClassname() ) )
+		{
+			return false;
+		}
+		pInsert = pInsert->m_pNext;
+	}
+
+	pItem->m_pNext = m_rgpPlayerItems[ pItem->iItemSlot() ];
+	m_rgpPlayerItems[ pItem->iItemSlot() ] = pItem;
+
+	return true;
 }
 
-bool CBasePlayer::RemovePlayerItem( CBasePlayerWeapon *pItem )
+bool CBasePlayer::RemovePlayerItem( CBasePlayerWeapon* pItem )
 {
+	ASSERT( pItem );
+
+	CBasePlayerWeapon* pPrev = m_rgpPlayerItems[ pItem->iItemSlot() ];
+
+	if( pPrev == pItem )
+	{
+		m_rgpPlayerItems[ pItem->iItemSlot() ] = pItem->m_pNext;
+		return true;
+	}
+	else
+	{
+		while( pPrev && pPrev->m_pNext != pItem )
+		{
+			pPrev = pPrev->m_pNext;
+		}
+
+		if( pPrev )
+		{
+			pPrev->m_pNext = pItem->m_pNext;
+			return true;
+		}
+	}
+
 	return false;
 }
 

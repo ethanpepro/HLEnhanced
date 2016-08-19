@@ -15,6 +15,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
+#include "Weapons.h"
 #include "CBasePlayer.h"
 
 LINK_ENTITY_TO_CLASS( player, CBasePlayer );
@@ -25,4 +26,21 @@ void CBasePlayer::SetWeaponAnimType( const char* const pszExtension )
 
 	strncpy( m_szAnimExtension, pszExtension, sizeof( m_szAnimExtension ) - 1 );
 	m_szAnimExtension[ sizeof( m_szAnimExtension ) - 1 ] = '\0';
+}
+
+CBasePlayerWeapon* CBasePlayer::GetWeapon( int iBucket, int iPosition )
+{
+	ASSERT( iBucket >= 0 && iBucket < MAX_WEAPON_SLOTS );
+
+	CBasePlayerWeapon* pWeapon = m_rgpPlayerItems[ iBucket ];
+
+	while( pWeapon )
+	{
+		if( pWeapon->GetWeaponInfo()->GetPosition() == iPosition )
+			return pWeapon;
+
+		pWeapon = pWeapon->m_pNext;
+	}
+
+	return nullptr;
 }

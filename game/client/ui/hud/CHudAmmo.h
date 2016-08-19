@@ -15,6 +15,8 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDAMMO_H
 #define GAME_CLIENT_UI_HUD_CHUDAMMO_H
 
+class CBasePlayerWeapon;
+
 class CHudAmmo : public CHudBase
 {
 private:
@@ -72,12 +74,12 @@ public:
 	void SetCrosshair( HSPRITE hCrosshair, const wrect_t& rect, int r, int g, int b );
 
 private:
-	void UpdateWeaponHUD( WEAPON* pWeapon, bool bOnTarget );
+	void UpdateWeaponHUD( CBasePlayerWeapon* pWeapon, bool bOnTarget );
 
 private:
 	float m_fFade;
 	RGBA  m_rgba;
-	WEAPON *m_pWeapon;
+	CBasePlayerWeapon *m_pWeapon;
 	int	m_HUD_bucket0;
 	int m_HUD_selection;
 

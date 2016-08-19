@@ -1,5 +1,4 @@
 add_sources(
-	ammo.h
 	ammohistory.h
 	ammohistory.cpp
 	bench.h

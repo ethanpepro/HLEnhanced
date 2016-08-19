@@ -144,10 +144,6 @@ void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
 
 	g_Prediction.SetupWeapons();
 
-	//Synchronize the HUD weapons list with the actual one. - Solokiller
-	//TODO: this should be merged.
-	gWR.SyncWithWeapons();
-
 	const size_t uiClientAmmoHash = g_AmmoTypes.GenerateHash();
 	const size_t uiClientWeaponHash = g_WeaponInfoCache.GenerateHash();
 

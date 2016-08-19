@@ -31,7 +31,6 @@
 
 #include "wrect.h"
 #include "cl_dll.h"
-#include "ammo.h"
 
 #include "global_consts.h"
 

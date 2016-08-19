@@ -364,6 +364,22 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 			else
 			{
 				bSuccess = true;
+
+				//Have to do this because player weapons on the client side are created after messages containing clips arrive. - Solokiller
+				//This tells the server to resend weapon clips on demand.
+				CBasePlayerWeapon* pWeapon;
+
+				for( int iBucket = 0; iBucket < MAX_WEAPON_SLOTS; ++iBucket )
+				{
+					pWeapon = pPlayer->m_rgpPlayerItems[ iBucket ];
+
+					while( pWeapon )
+					{
+						pWeapon->m_iClientClip = 0;
+
+						pWeapon = pWeapon->m_pNext;
+					}
+				}
 			}
 		}
 		else

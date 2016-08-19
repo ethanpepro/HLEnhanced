@@ -28,8 +28,11 @@
 #include "util.h"
 #include "cbase.h"
 #include "Weapons.h"
+#include "CBasePlayer.h"
 
 #include "CWeaponHUDInfo.h"
+
+#include "hl/CClientPrediction.h"
 
 #include "ammohistory.h"
 
@@ -39,10 +42,12 @@ HistoryResource gHR;
 #define AMMO_PICKUP_PICK_HEIGHT		(32 + (gHR.iHistoryGap * 2))
 #define AMMO_PICKUP_HEIGHT_MAX		(ScreenHeight - 100)
 
+//TODO: unused. remove? - Solokiller
 #define MAX_ITEM_NAME	32
 int HISTORY_DRAW_TIME = 5;
 
 // keep a list of items
+//TODO: unused. remove? - Solokiller
 struct ITEM_INFO
 {
 	char szName[MAX_ITEM_NAME];
@@ -148,7 +153,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 			}
 			else if ( rgAmmoHistory[i].type == HISTSLOT_WEAP )
 			{
-				WEAPON *weap = gWR.GetWeapon( rgAmmoHistory[i].iId );
+				CBasePlayerWeapon *weap = g_Prediction.GetWeapon( rgAmmoHistory[i].iId );
 
 				if ( !weap )
 					return 1;  // we don't know about the weapon yet, so don't draw anything
@@ -162,7 +167,7 @@ int HistoryResource :: DrawAmmoHistory( float flTime )
 				float scale = (rgAmmoHistory[i].DisplayTime - flTime) * 80;
 				ScaleColors(r, g, b, min(scale, 255.0f) );
 
-				const auto& inactive = weap->pInfo->GetHUDInfo()->GetInactive();
+				const auto& inactive = weap->GetWeaponInfo()->GetHUDInfo()->GetInactive();
 
 				int ypos = ScreenHeight - (AMMO_PICKUP_PICK_HEIGHT + (AMMO_PICKUP_GAP * i));
 				int xpos = ScreenWidth - ( inactive.rect.right - inactive.rect.left);

@@ -263,6 +263,7 @@ public:
 
 	/**
 	*	The last version of m_iClip sent to hud dll
+	*	Used on the client to store the predicted clip amount.
 	*/
 	int m_iClientClip;
 

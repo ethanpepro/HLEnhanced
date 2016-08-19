@@ -21,18 +21,9 @@
 
 struct WeaponHUDSprite;
 
-// this is the max number of items in each bucket
-#define MAX_WEAPON_POSITIONS		MAX_WEAPONS
-
 class WeaponsResource
 {
 private:
-	// Information about weapons & ammo
-	WEAPON		rgWeapons[MAX_WEAPONS];	// Weapons Array
-
-	// counts of weapons * ammo
-	WEAPON*		rgSlots[MAX_WEAPON_SLOTS+1][MAX_WEAPON_POSITIONS+1];	// The slots currently in use by weapons.  The value is a pointer to the weapon;  if it's NULL, no weapon is there
-
 	//Rather than dynamically allocate the array (and reallocate it a bunch on connect), just use the maximum. - Solokiller
 	int riAmmo[ CAmmoTypes::MAX_AMMO_TYPES ];							// count of each ammo type
 
@@ -42,57 +33,21 @@ public:
 	void Reset( void )
 	{
 		iOldWeaponBits = 0;
-		memset( rgSlots, 0, sizeof( rgSlots ) );
 		memset( riAmmo, 0, sizeof( riAmmo ) );
 	}
-
-	void VidInit();
 
 ///// WEAPON /////
 	int			iOldWeaponBits;
 
-	WEAPON *GetWeapon( int iId ) { return &rgWeapons[iId]; }
-	void AddWeapon( WEAPON *wp ) 
-	{ 
-		ASSERT( wp );
-		ASSERT( wp->pInfo );
+	void DropAllWeapons();
 
-		//TODO: this really needs to go - Solokiller
-		rgWeapons[ wp->pInfo->GetID() ].pInfo = wp->pInfo;	
-	}
+	CBasePlayerWeapon* GetWeaponSlot( int slot, int pos );
 
-	void PickupWeapon( WEAPON *wp )
-	{
-		ASSERT( wp );
-		ASSERT( wp->pInfo );
-
-		rgSlots[ wp->pInfo->GetBucket() ][ wp->pInfo->GetPosition() ] = wp;
-	}
-
-	void DropWeapon( WEAPON *wp )
-	{
-		ASSERT( wp );
-		ASSERT( wp->pInfo );
-
-		rgSlots[ wp->pInfo->GetBucket() ][ wp->pInfo->GetPosition() ] = NULL;
-	}
-
-	void DropAllWeapons( void )
-	{
-		for ( int i = 0; i < MAX_WEAPONS; i++ )
-		{
-			if ( rgWeapons[i].pInfo )
-				DropWeapon( &rgWeapons[i] );
-		}
-	}
-
-	WEAPON* GetWeaponSlot( int slot, int pos ) { return rgSlots[slot][pos]; }
-
-	WEAPON* GetFirstPos( int iSlot );
+	CBasePlayerWeapon* GetFirstPos( int iSlot );
 	void SelectSlot( int iSlot, const bool fAdvance, int iDirection );
-	WEAPON* GetNextActivePos( int iSlot, int iSlotPos );
+	CBasePlayerWeapon* GetNextActivePos( int iSlot, int iSlotPos );
 
-	bool HasAmmo( const WEAPON* const p ) const;
+	bool HasAmmo( const CBasePlayerWeapon* const p ) const;
 
 ///// AMMO /////
 	void SetAmmo( int iId, int iCount ) { riAmmo[ iId ] = iCount;	}
@@ -100,11 +55,6 @@ public:
 	int CountAmmo( int iId ) const;
 
 	const WeaponHUDSprite* GetAmmoPicFromWeapon( int iAmmoId ) const;
-
-	/**
-	*	Synchronize the weapons resource with the client side weapons list.
-	*/
-	void SyncWithWeapons();
 };
 
 extern WeaponsResource gWR;
