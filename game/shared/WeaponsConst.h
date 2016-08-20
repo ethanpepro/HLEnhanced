@@ -76,7 +76,9 @@ enum WeaponId
 #define SNARK_MAX_CARRY			15
 #define HORNET_MAX_CARRY		8
 #define M203_GRENADE_MAX_CARRY	10
+#if USE_OPFOR
 #define NATO762_MAX_CARRY		15
+#endif
 
 // the maximum amount of ammo each weapon's clip can hold
 #define WEAPON_NOCLIP			-1
@@ -130,8 +132,10 @@ enum Bullet
 	BULLET_MONSTER_MP5,
 	BULLET_MONSTER_12MM,
 
+#if USE_OPFOR
 	//TODO: fill in the rest - Solokiller
 	BULLET_PLAYER_762 = 10,
+#endif
 };
 
 #define LOUD_GUN_VOLUME			1000
