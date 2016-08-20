@@ -95,6 +95,9 @@ void DecalGunshot( TraceResult *pTrace, int iBulletType )
 			UTIL_GunshotDecalTrace( pTrace, DamageDecal( pHit, DMG_BULLET ) );
 			break;
 		case BULLET_PLAYER_CROWBAR:
+#if USE_OPFOR
+		case BULLET_PLAYER_PIPEWRENCH:
+#endif
 			// wall decal
 			UTIL_DecalTrace( pTrace, DamageDecal( pHit, DMG_CLUB ) );
 			break;
