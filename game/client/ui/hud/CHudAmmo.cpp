@@ -350,7 +350,7 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 
 	if ( gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 	{
-		wrect_t nullrc;
+		wrect_t nullrc = {};
 		m_pActiveSel = nullptr;
 		SetCrosshair( 0, nullrc, 0, 0, 0 );
 	}
@@ -373,7 +373,7 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 //
 int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 {
-	static wrect_t nullrc;
+	wrect_t nullrc = {};
 
 	CBufferReader reader( pbuf, iSize );
 
