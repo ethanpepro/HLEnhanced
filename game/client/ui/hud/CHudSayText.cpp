@@ -125,11 +125,12 @@ bool CHudSayText::Draw( float flTime )
 					// draw the first x characters in the player color
 					strncpy( buf, m_szLineBuffer[i], min(m_iNameLengths[i], MAX_PLAYER_NAME_LENGTH+32) );
 					buf[ min(m_iNameLengths[i], MAX_PLAYER_NAME_LENGTH+31) ] = 0;
-					gEngfuncs.pfnDrawSetTextColor( ( *m_pvecNameColors )[i][0], ( *m_pvecNameColors )[i][1], ( *m_pvecNameColors )[i][2] );
+					gEngfuncs.pfnDrawSetTextColor( *( m_pvecNameColors[ i ] )[0], *( m_pvecNameColors[ i ] )[1], *( m_pvecNameColors[ i ] )[2] );
 					int x = DrawConsoleString( LINE_START, y, buf + 1 ); // don't draw the control code at the start
 					strncpy( buf, m_szLineBuffer[i] + m_iNameLengths[i], strlen( m_szLineBuffer[i] ));
 					buf[ strlen( m_szLineBuffer[i] + m_iNameLengths[i] ) - 1 ] = '\0';
 					// color is reset after each string draw
+					gEngfuncs.pfnDrawSetTextColor( g_ColorYellow[ 0 ], g_ColorYellow[ 1 ], g_ColorYellow[ 2 ] );
 					DrawConsoleString( x, y, buf ); 
 				}
 				else
