@@ -141,6 +141,7 @@ bool CHudSayText::Draw( float flTime )
 			else
 			{
 				// normal draw
+				gEngfuncs.pfnDrawSetTextColor( g_ColorYellow[ 0 ], g_ColorYellow[ 1 ], g_ColorYellow[ 2 ] );
 				DrawConsoleString( LINE_START, y, m_szLineBuffer[i] );
 			}
 		}
