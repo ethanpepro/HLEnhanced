@@ -27,11 +27,6 @@
 DECLARE_MESSAGE( m_Message, HudText )
 DECLARE_MESSAGE( m_Message, GameTitle )
 
-// 1 Global client_textmessage_t for custom messages that aren't in the titles.txt
-client_textmessage_t	g_pCustomMessage;
-const char* const g_pCustomName = "Custom";
-char g_pCustomText[1024];
-
 bool CHudMessage::Init()
 {
 	HOOK_MESSAGE( HudText );
@@ -433,23 +428,23 @@ void CHudMessage::MessageAdd( const char *pName, float time )
 			// If we couldnt find it in the titles.txt, just create it
 			if ( !tempMessage )
 			{
-				g_pCustomMessage.effect = 2;
-				g_pCustomMessage.r1 = g_pCustomMessage.g1 = g_pCustomMessage.b1 = g_pCustomMessage.a1 = 100;
-				g_pCustomMessage.r2 = 240;
-				g_pCustomMessage.g2 = 110;
-				g_pCustomMessage.b2 = 0;
-				g_pCustomMessage.a2 = 0;
-				g_pCustomMessage.x = -1;		// Centered
-				g_pCustomMessage.y = 0.7;
-				g_pCustomMessage.fadein = 0.01;
-				g_pCustomMessage.fadeout = 1.5;
-				g_pCustomMessage.fxtime = 0.25;
-				g_pCustomMessage.holdtime = 5;
-				g_pCustomMessage.pName = g_pCustomName;
-				strcpy( g_pCustomText, pName );
-				g_pCustomMessage.pMessage = g_pCustomText;
+				m_CustomMessage.effect = 2;
+				m_CustomMessage.r1 = m_CustomMessage.g1 = m_CustomMessage.b1 = m_CustomMessage.a1 = 100;
+				m_CustomMessage.r2 = 240;
+				m_CustomMessage.g2 = 110;
+				m_CustomMessage.b2 = 0;
+				m_CustomMessage.a2 = 0;
+				m_CustomMessage.x = -1;		// Centered
+				m_CustomMessage.y = 0.7;
+				m_CustomMessage.fadein = 0.01;
+				m_CustomMessage.fadeout = 1.5;
+				m_CustomMessage.fxtime = 0.25;
+				m_CustomMessage.holdtime = 5;
+				m_CustomMessage.pName = m_pszCustomName;
+				strcpy( m_szCustomText, pName );
+				m_CustomMessage.pMessage = m_szCustomText;
 
-				tempMessage = &g_pCustomMessage;
+				tempMessage = &m_CustomMessage;
 			}
 
 			for ( j = 0; j < maxHUDMessages; j++ )

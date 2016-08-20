@@ -45,6 +45,11 @@ private:
 
 	int m_HUD_title_life;
 	int m_HUD_title_half;
+
+	// 1 Global client_textmessage_t for custom messages that aren't in the titles.txt
+	client_textmessage_t m_CustomMessage;
+	const char* const m_pszCustomName = "Custom";
+	char m_szCustomText[ 1024 ] = {};
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDMESSAGE_H
