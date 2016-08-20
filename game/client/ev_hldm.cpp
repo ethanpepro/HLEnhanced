@@ -1026,6 +1026,77 @@ void EV_Crowbar( event_args_t *args )
 //	   CROWBAR END 
 //======================
 
+#if USE_OPFOR
+//======================
+//	PIPE WRENCH START
+//======================
+
+enum pipewrench_e {
+	PIPEWRENCH_IDLE1 = 0,
+	PIPEWRENCH_IDLE2,
+	PIPEWRENCH_IDLE3,
+	PIPEWRENCH_DRAW,
+	PIPEWRENCH_HOLSTER,
+	PIPEWRENCH_ATTACK1HIT,
+	PIPEWRENCH_ATTACK1MISS,
+	PIPEWRENCH_ATTACK2HIT,
+	PIPEWRENCH_ATTACK2MISS,
+	PIPEWRENCH_ATTACK3HIT,
+	PIPEWRENCH_ATTACK3MISS,
+	PIPEWRENCH_BIG_SWING_START,
+	PIPEWRENCH_BIG_SWING_HIT,
+	PIPEWRENCH_BIG_SWING_MISS,
+	PIPEWRENCH_BIG_SWING_IDLE
+};
+
+//Only predict the miss sounds, hit sounds are still played 
+//server side, so players don't get the wrong idea.
+void EV_Pipewrench( event_args_t *args )
+{
+	const int idx = args->entindex;
+	Vector origin = args->origin;
+	const int iBigSwing = args->bparam1;
+
+	//Play Swing sound
+	if ( iBigSwing )
+		gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_WEAPON, "weapons/pwrench_big_miss.wav", 1, ATTN_NORM, 0, PITCH_NORM);
+	else
+	{
+		switch ( gEngfuncs.pfnRandomLong( 0, 1 ) )
+		{
+		case 0: gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_WEAPON, "weapons/pwrench_miss1.wav", 1, ATTN_NORM, 0, PITCH_NORM); break;
+		case 1: gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_WEAPON, "weapons/pwrench_miss2.wav", 1, ATTN_NORM, 0, PITCH_NORM); break;
+		}
+	}
+
+	if ( EV_IsLocal( idx ) )
+	{
+		if ( iBigSwing )
+		{
+			V_PunchAxis( 0, -2.0 );
+			gEngfuncs.pEventAPI->EV_WeaponAnimation( PIPEWRENCH_BIG_SWING_MISS, 1 );
+		}
+		else
+		{
+			gEngfuncs.pEventAPI->EV_WeaponAnimation( PIPEWRENCH_ATTACK1MISS, 1 );
+
+			switch ( (g_iSwing++) % 3 )
+			{
+			case 0:
+				gEngfuncs.pEventAPI->EV_WeaponAnimation ( PIPEWRENCH_ATTACK1MISS, 1 ); break;
+			case 1:
+				gEngfuncs.pEventAPI->EV_WeaponAnimation ( PIPEWRENCH_ATTACK2MISS, 1 ); break;
+			case 2:
+				gEngfuncs.pEventAPI->EV_WeaponAnimation ( PIPEWRENCH_ATTACK3MISS, 1 ); break;
+			}
+		}
+	}
+}
+//======================
+//	 PIPE WRENCH END 
+//======================
+#endif
+
 //======================
 //	  CROSSBOW START
 //======================
