@@ -62,6 +62,8 @@ public:
 private:
 	HSPRITE m_hSprite;
 	HSPRITE m_hDamage;
+
+	int m_iDmgHeight, m_iDmgWidth;
 	
 	DAMAGE_IMAGE m_dmg[NUM_DMG_TYPES];
 	int	m_bitsDamage;

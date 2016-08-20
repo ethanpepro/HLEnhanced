@@ -35,9 +35,7 @@ DECLARE_MESSAGE(m_Health, Damage )
 #define PAIN_NAME "sprites/%d_pain.spr"
 #define DAMAGE_NAME "sprites/%d_dmg.spr"
 
-int giDmgHeight, giDmgWidth;
-
-int giDmgFlags[NUM_DMG_TYPES] = 
+const int giDmgFlags[NUM_DMG_TYPES] = 
 {
 	DMG_POISON,
 	DMG_ACID,
@@ -62,8 +60,8 @@ bool CHudHealth::Init()
 	m_iFlags = 0;
 	m_bitsDamage = 0;
 	m_fAttackFront = m_fAttackRear = m_fAttackRight = m_fAttackLeft = 0;
-	giDmgHeight = 0;
-	giDmgWidth = 0;
+	m_iDmgHeight = 0;
+	m_iDmgWidth = 0;
 
 	memset(m_dmg, 0, sizeof(DAMAGE_IMAGE) * NUM_DMG_TYPES);
 
@@ -93,8 +91,8 @@ bool CHudHealth::VidInit()
 	m_HUD_dmg_bio = gHUD.GetSpriteIndex( "dmg_bio" ) + 1;
 	m_HUD_cross = gHUD.GetSpriteIndex( "cross" );
 
-	giDmgHeight = gHUD.GetSpriteRect(m_HUD_dmg_bio).right - gHUD.GetSpriteRect(m_HUD_dmg_bio).left;
-	giDmgWidth = gHUD.GetSpriteRect(m_HUD_dmg_bio).bottom - gHUD.GetSpriteRect(m_HUD_dmg_bio).top;
+	m_iDmgHeight = gHUD.GetSpriteRect(m_HUD_dmg_bio).right - gHUD.GetSpriteRect(m_HUD_dmg_bio).left;
+	m_iDmgWidth = gHUD.GetSpriteRect(m_HUD_dmg_bio).bottom - gHUD.GetSpriteRect(m_HUD_dmg_bio).top;
 	return true;
 }
 
@@ -415,7 +413,7 @@ bool CHudHealth::DrawDamage(float flTime)
 				{
 					pdmg = &m_dmg[j];
 					if ((pdmg->y) && (pdmg->y < y))
-						pdmg->y += giDmgHeight;
+						pdmg->y += m_iDmgHeight;
 
 				}
 
@@ -451,8 +449,8 @@ void CHudHealth::UpdateTiles(float flTime, long bitsDamage)
 		if (bitsOn & giDmgFlags[i])
 		{
 			// put this one at the bottom
-			pdmg->x = giDmgWidth/8;
-			pdmg->y = ScreenHeight - giDmgHeight * 2;
+			pdmg->x = m_iDmgWidth/8;
+			pdmg->y = ScreenHeight - m_iDmgHeight * 2;
 			pdmg->fExpire=flTime + DMG_IMAGE_LIFE;
 			
 			// move everyone else up
@@ -463,7 +461,7 @@ void CHudHealth::UpdateTiles(float flTime, long bitsDamage)
 
 				pdmg = &m_dmg[j];
 				if (pdmg->y)
-					pdmg->y -= giDmgHeight;
+					pdmg->y -= m_iDmgHeight;
 
 			}
 			pdmg = &m_dmg[i];
