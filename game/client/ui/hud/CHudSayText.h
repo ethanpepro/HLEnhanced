@@ -17,20 +17,40 @@
 
 class CHudSayText : public CHudBase
 {
+private:
+	static const size_t MAX_LINES = 5;
+	/**
+	*	it can be less than this, depending on char size
+	*/
+	static const size_t MAX_CHARS_PER_LINE = 256;
+
 public:
 	bool Init() override;
 	void InitHUDData() override;
 	bool VidInit() override;
 	bool Draw( float flTime ) override;
 	int MsgFunc_SayText( const char *pszName, int iSize, void *pbuf );
-	void SayTextPrint( const char *pszBuf, int iBufSize, int clientIndex = -1 );
+	void SayTextPrint( const char *pszBuf, size_t uiBufSize, int clientIndex = -1 );
 	void EnsureTextFitsInOneLineAndWrapIfHaveTo( int line );
 	friend class CHudSpectator;
+
+private:
+	int ScrollTextUp();
 
 private:
 
 	struct cvar_s *	m_HUD_saytext;
 	struct cvar_s *	m_HUD_saytext_time;
+
+	char m_szLineBuffer[ MAX_LINES + 1 ][ MAX_CHARS_PER_LINE ] = {};
+	const Vector* m_pvecNameColors[ MAX_LINES + 1 ] = {};
+	int m_iNameLengths[ MAX_LINES + 1 ] = {};
+
+	// the time at which the lines next scroll up
+	float m_flScrollTime = 0;
+
+	int m_iYStart = 0;
+	int m_iLineHeight = 0;
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDSAYTEXT_H
