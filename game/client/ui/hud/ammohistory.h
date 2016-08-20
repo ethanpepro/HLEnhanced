@@ -19,17 +19,6 @@
 #include "entities/weapons/CAmmoTypes.h"
 #include "CWeaponInfo.h"
 
-struct WeaponHUDSprite;
-
-class WeaponsResource
-{
-public:
-///// AMMO /////
-	const WeaponHUDSprite* GetAmmoPicFromWeapon( int iAmmoId ) const;
-};
-
-extern WeaponsResource gWR;
-
 //TODO: increase this? - Solokiller
 #define MAX_HISTORY 12
 enum {

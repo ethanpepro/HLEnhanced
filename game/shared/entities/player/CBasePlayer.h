@@ -22,6 +22,8 @@
 
 #include "entities/weapons/CAmmoTypes.h"
 
+struct WeaponHUDSprite;
+
 #if USE_OPFOR
 class CRope;
 #endif
@@ -395,6 +397,13 @@ public:
 	*	Gets the next weapon in a given bucket, starting at a previous weapon's position.
 	*/
 	CBasePlayerWeapon* GetNextActivePos( int iBucket, int iPosition );
+
+#ifdef CLIENT_DLL
+	/**
+	*	Helper function to return an Ammo pointer from id.
+	*/
+	static const WeaponHUDSprite* GetAmmoPicFromWeapon( int iAmmoId );
+#endif
 
 	void SelectPrevItem( int iItem );
 	void SelectNextItem( int iItem );

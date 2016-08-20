@@ -122,7 +122,7 @@ int HistoryResource::DrawAmmoHistory( float flTime )
 			}
 			else if ( rgAmmoHistory[i].type == HISTSLOT_AMMO )
 			{
-				const WeaponHUDSprite* spr = gWR.GetAmmoPicFromWeapon( rgAmmoHistory[i].iId );
+				const WeaponHUDSprite* spr = CBasePlayer::GetAmmoPicFromWeapon( rgAmmoHistory[i].iId );
 
 				int r, g, b;
 				gHUD.GetPrimaryColor().UnpackRGB(r,g,b);

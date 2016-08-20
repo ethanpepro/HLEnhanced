@@ -44,8 +44,6 @@
 
 //TODO: shouldn't be global - Solokiller
 
-WeaponsResource gWR;
-
 int g_weaponselect = 0;
 
 //TODO: shouldn't be global - Solokiller
@@ -220,31 +218,6 @@ void CHudAmmo::Think()
 	}
 
 }
-
-//
-// Helper function to return a Ammo pointer from id
-//
-const WeaponHUDSprite* WeaponsResource :: GetAmmoPicFromWeapon( int iAmmoId ) const
-{
-	for ( int i = 0; i < MAX_WEAPONS; i++ )
-	{
-		if( auto pWeapon = g_Prediction.GetWeapon( i ) )
-		{
-			auto pInfo = pWeapon->GetWeaponInfo();
-			if ( pInfo->GetPrimaryAmmo() && pInfo->GetPrimaryAmmo()->GetID() == iAmmoId )
-			{
-				return &pInfo->GetHUDInfo()->GetPrimaryAmmo();
-			}
-			else if ( pInfo->GetSecondaryAmmo() && pInfo->GetSecondaryAmmo()->GetID() == iAmmoId )
-			{
-				return &pInfo->GetHUDInfo()->GetSecondaryAmmo();
-			}
-		}
-	}
-
-	return nullptr;
-}
-
 
 // Menu Selection Code
 

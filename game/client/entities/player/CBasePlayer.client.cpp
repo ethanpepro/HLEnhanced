@@ -3,6 +3,8 @@
 #include "cbase.h"
 #include "Weapons.h"
 
+#include "CWeaponHUDInfo.h"
+
 #include "hl/CClientPrediction.h"
 
 #include "CBasePlayer.h"
@@ -108,6 +110,27 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 bool CBasePlayer::SwitchWeapon( CBasePlayerWeapon *pWeapon )
 {
 	return false;
+}
+
+const WeaponHUDSprite* CBasePlayer::GetAmmoPicFromWeapon( int iAmmoId )
+{
+	for( int i = 0; i < MAX_WEAPONS; i++ )
+	{
+		if( auto pWeapon = g_Prediction.GetWeapon( i ) )
+		{
+			auto pInfo = pWeapon->GetWeaponInfo();
+			if( pInfo->GetPrimaryAmmo() && pInfo->GetPrimaryAmmo()->GetID() == iAmmoId )
+			{
+				return &pInfo->GetHUDInfo()->GetPrimaryAmmo();
+			}
+			else if( pInfo->GetSecondaryAmmo() && pInfo->GetSecondaryAmmo()->GetID() == iAmmoId )
+			{
+				return &pInfo->GetHUDInfo()->GetSecondaryAmmo();
+			}
+		}
+	}
+
+	return nullptr;
 }
 
 void CBasePlayer::TabulateAmmo()
