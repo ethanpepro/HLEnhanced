@@ -26,10 +26,6 @@
 
 #include "vgui_TeamFortressViewport.h"
 
-#define MAX_MENU_STRING	512
-char g_szMenuString[MAX_MENU_STRING];
-char g_szPrelocalisedMenuString[MAX_MENU_STRING];
-
 int KB_ConvertString( char *in, char **ppout );
 
 DECLARE_MESSAGE( m_Menu, ShowMenu );
@@ -54,7 +50,7 @@ void CHudMenu::InitHUDData()
 
 void CHudMenu::Reset()
 {
-	g_szPrelocalisedMenuString[0] = 0;
+	m_szPrelocalisedMenuString[0] = '\0';
 	m_fWaitingForMore = false;
 }
 
@@ -150,9 +146,9 @@ bool CHudMenu::Draw( float flTime )
 	// count the number of newlines
 	int nlc = 0;
 	int i;
-	for ( i = 0; i < MAX_MENU_STRING && g_szMenuString[i] != '\0'; i++ )
+	for ( i = 0; i < MAX_MENU_STRING && m_szMenuString[i] != '\0'; i++ )
 	{
-		if ( g_szMenuString[i] == '\n' )
+		if ( m_szMenuString[i] == '\n' )
 			nlc++;
 	}
 
@@ -165,7 +161,7 @@ bool CHudMenu::Draw( float flTime )
 	menu_x		= 20;
 	menu_ralign	 = false;
 
-	const char* sptr = g_szMenuString;
+	const char* sptr = m_szMenuString;
 	
 	while ( *sptr != '\0' )
 	{
@@ -250,22 +246,22 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 	{
 		if ( !m_fWaitingForMore ) // this is the start of a new menu
 		{
-			strncpy( g_szPrelocalisedMenuString, reader.ReadString(), MAX_MENU_STRING );
+			strncpy( m_szPrelocalisedMenuString, reader.ReadString(), MAX_MENU_STRING );
 		}
 		else
 		{  // append to the current menu string
-			strncat( g_szPrelocalisedMenuString, reader.ReadString(), MAX_MENU_STRING - strlen(g_szPrelocalisedMenuString) );
+			strncat( m_szPrelocalisedMenuString, reader.ReadString(), MAX_MENU_STRING - strlen(m_szPrelocalisedMenuString) );
 		}
-		g_szPrelocalisedMenuString[MAX_MENU_STRING-1] = 0;  // ensure null termination (strncat/strncpy does not)
+		m_szPrelocalisedMenuString[MAX_MENU_STRING-1] = 0;  // ensure null termination (strncat/strncpy does not)
 
 		if ( !NeedMore )
 		{  // we have the whole string, so we can localise it now
-			strcpy( g_szMenuString, gHUD.m_TextMessage.BufferedLocaliseTextString( g_szPrelocalisedMenuString ) );
+			strcpy( m_szMenuString, gHUD.m_TextMessage.BufferedLocaliseTextString( m_szPrelocalisedMenuString ) );
 
 			// Swap in characters
-			if ( KB_ConvertString( g_szMenuString, &temp ) )
+			if ( KB_ConvertString( m_szMenuString, &temp ) )
 			{
-				strcpy( g_szMenuString, temp );
+				strcpy( m_szMenuString, temp );
 				free( temp );
 			}
 		}

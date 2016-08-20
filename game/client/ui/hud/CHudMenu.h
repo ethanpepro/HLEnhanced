@@ -17,6 +17,9 @@
 
 class CHudMenu : public CHudBase
 {
+private:
+	static const size_t MAX_MENU_STRING = 512;
+
 public:
 	bool Init() override;
 	void InitHUDData() override;
@@ -31,6 +34,10 @@ public:
 	int m_bitsValidSlots;
 	float m_flShutoffTime;
 	bool m_fWaitingForMore;
+
+private:
+	char m_szMenuString[ MAX_MENU_STRING ] = {};
+	char m_szPrelocalisedMenuString[ MAX_MENU_STRING ] = {};
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDMENU_H
