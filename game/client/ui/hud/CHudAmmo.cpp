@@ -48,11 +48,6 @@ WeaponsResource gWR;
 
 int g_weaponselect = 0;
 
-void WeaponsResource::Init()
-{
-	Reset();
-}
-
 void WeaponsResource::DropAllWeapons()
 {
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
@@ -131,7 +126,11 @@ bool CHudAmmo::Init()
 
 	m_iFlags |= HUD_ACTIVE; //!!!
 
-	gWR.Init();
+	if( CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer() )
+	{
+		pPlayer->pev->weapons = 0;
+	}
+
 	gHR.Init();
 
 	return true;
@@ -145,7 +144,11 @@ void CHudAmmo::Reset()
 	m_pActiveSel = nullptr;
 	gHUD.m_iHideHUDDisplay = 0;
 
-	gWR.Reset();
+	if( CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer() )
+	{
+		pPlayer->pev->weapons = 0;
+	}
+
 	gHR.Reset();
 }
 
@@ -190,11 +193,11 @@ void CHudAmmo::Think()
 	if ( gHUD.m_bPlayerDead )
 		return;
 
-	if ( gHUD.m_iWeaponBits != gWR.iOldWeaponBits )
-	{
-		gWR.iOldWeaponBits = gHUD.m_iWeaponBits;
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 
-		CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
+	if ( gHUD.m_iWeaponBits != pPlayer->pev->weapons )
+	{
+		pPlayer->pev->weapons = gHUD.m_iWeaponBits;
 
 		for (int i = MAX_WEAPONS-1; i > 0; i-- )
 		{

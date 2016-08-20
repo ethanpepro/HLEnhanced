@@ -24,16 +24,7 @@ struct WeaponHUDSprite;
 class WeaponsResource
 {
 public:
-	void Init();
-
-	void Reset( void )
-	{
-		iOldWeaponBits = 0;
-	}
-
 ///// WEAPON /////
-	int			iOldWeaponBits;
-
 	void DropAllWeapons();
 
 ///// AMMO /////
