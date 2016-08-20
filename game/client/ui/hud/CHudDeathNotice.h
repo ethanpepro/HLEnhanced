@@ -17,6 +17,22 @@
 
 class CHudDeathNotice : public CHudBase
 {
+private:
+	struct DeathNoticeItem
+	{
+		char szKiller[ MAX_PLAYER_NAME_LENGTH * 2 ];
+		char szVictim[ MAX_PLAYER_NAME_LENGTH * 2 ];
+		int iId;	// the index number of the associated sprite
+		bool bSuicide;
+		bool bTeamKill;
+		bool bNonPlayerKill;
+		float flDisplayTime;
+		const Vector* KillerColor;
+		const Vector* VictimColor;
+	};
+
+	static const size_t MAX_DEATHNOTICES = 4;
+
 public:
 	bool Init() override;
 	void InitHUDData() override;
@@ -28,6 +44,8 @@ private:
 	int m_HUD_d_skull;  // sprite index of skull icon
 
 	cvar_t* m_phud_deathnotice_time = nullptr;
+
+	DeathNoticeItem m_rgDeathNoticeList[ MAX_DEATHNOTICES + 1 ];
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDDEATHNOTICE_H
