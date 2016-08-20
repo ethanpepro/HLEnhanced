@@ -197,6 +197,10 @@ void skilldata_t::RefreshSkillData()
 	plrDmgTripmine = GetSkillCvar( "sk_plr_tripmine" );
 
 #if USE_OPFOR
+	// Pipewrench whack
+	plrDmgPipewrench = GetSkillCvar( "sk_plr_pipewrench" );
+
+	// 762 Round
 	plrDmg762 = GetSkillCvar( "sk_plr_762_bullet" );
 #endif
 
