@@ -22,6 +22,8 @@
 #include<VGUI_ScrollBar.h>
 #include<VGUI_Slider.h>
 
+#include "CImageLabel.h"
+
 // custom scheme handling
 #include "vgui_SchemeManager.h"
 
@@ -116,26 +118,6 @@ enum
 //==============================================================================
 // VIEWPORT PIECES
 //============================================================
-// Wrapper for an Image Label without a background
-class CImageLabel : public Label
-{
-public:
-	BitmapTGA	*m_pTGA;
-
-public:
-	void LoadImage(const char * pImageName);
-	CImageLabel( const char* pImageName,int x,int y );
-	CImageLabel( const char* pImageName,int x,int y,int wide,int tall );
-
-	virtual int getImageTall();
-	virtual int getImageWide();
-
-	virtual void paintBackground()
-	{
-		// Do nothing, so the background's left transparent.
-	}
-};
-
 // Command Label
 // Overridden label so we can darken it when submenus open
 class CommandLabel : public Label

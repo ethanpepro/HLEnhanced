@@ -1,4 +1,6 @@
 add_sources(
+	CImageLabel.h
+	CImageLabel.cpp
 	vgui_checkbutton2.h
 	vgui_checkbutton2.cpp
 	vgui_defaultinputsignal.h
