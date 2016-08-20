@@ -72,52 +72,6 @@ void CCrowbar::Holster()
 	SendWeaponAnim( CROWBAR_HOLSTER );
 }
 
-
-void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, const Vector& vecMins, const Vector& vecMaxs, CBaseEntity* pEntity )
-{
-	int			i, j, k;
-	float		distance;
-	const float* const minmaxs[2] = { vecMins, vecMaxs };
-	TraceResult tmpTrace;
-	Vector		vecHullEnd = tr.vecEndPos;
-	Vector		vecEnd;
-
-	distance = 1e6f;
-
-	vecHullEnd = vecSrc + ((vecHullEnd - vecSrc)*2);
-	UTIL_TraceLine( vecSrc, vecHullEnd, dont_ignore_monsters, pEntity->edict(), &tmpTrace );
-	if ( tmpTrace.flFraction < 1.0 )
-	{
-		tr = tmpTrace;
-		return;
-	}
-
-	for ( i = 0; i < 2; i++ )
-	{
-		for ( j = 0; j < 2; j++ )
-		{
-			for ( k = 0; k < 2; k++ )
-			{
-				vecEnd.x = vecHullEnd.x + minmaxs[i][0];
-				vecEnd.y = vecHullEnd.y + minmaxs[j][1];
-				vecEnd.z = vecHullEnd.z + minmaxs[k][2];
-
-				UTIL_TraceLine( vecSrc, vecEnd, dont_ignore_monsters, pEntity->edict(), &tmpTrace );
-				if ( tmpTrace.flFraction < 1.0 )
-				{
-					float thisDistance = (tmpTrace.vecEndPos - vecSrc).Length();
-					if ( thisDistance < distance )
-					{
-						tr = tmpTrace;
-						distance = thisDistance;
-					}
-				}
-			}
-		}
-	}
-}
-
-
 void CCrowbar::PrimaryAttack()
 {
 	if( !Swing( true ) )

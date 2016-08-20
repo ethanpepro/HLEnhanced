@@ -52,7 +52,8 @@ enum WeaponId
 	WEAPON_SATCHEL = 14,
 	WEAPON_SNARK = 15,
 #if USE_OPFOR
-	WEAPON_SNIPERRIFLE = 16,
+	WEAPON_PIPEWRENCH = 16,
+	WEAPON_SNIPERRIFLE = 17,
 #endif
 };
 
@@ -131,6 +132,7 @@ enum Bullet
 	BULLET_MONSTER_12MM,
 
 	//TODO: fill in the rest - Solokiller
+	BULLET_PLAYER_PIPEWRENCH = 9,
 	BULLET_PLAYER_762 = 10,
 };
 

@@ -148,7 +148,10 @@ public:
 	float plrDmgHandGrenade;
 	float plrDmgSatchel;
 	float plrDmgTripmine;
+#if USE_OPFOR
+	float plrDmgPipewrench;
 	float plrDmg762;
+#endif
 	
 // weapons shared by monsters
 	float monDmg9MM;

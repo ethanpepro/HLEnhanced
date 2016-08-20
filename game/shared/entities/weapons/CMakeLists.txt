@@ -19,6 +19,8 @@ add_sources(
 	CHornetGun.cpp
 	CMP5.h
 	CMP5.cpp
+	CPipewrench.h
+	CPipewrench.cpp
 	CPython.h
 	CPython.cpp
 	CRpg.h
