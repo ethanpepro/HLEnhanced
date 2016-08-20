@@ -24,9 +24,6 @@ struct WeaponHUDSprite;
 class WeaponsResource
 {
 public:
-///// WEAPON /////
-	void DropAllWeapons();
-
 ///// AMMO /////
 	const WeaponHUDSprite* GetAmmoPicFromWeapon( int iAmmoId ) const;
 };

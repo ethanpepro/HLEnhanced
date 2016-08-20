@@ -3,6 +3,8 @@
 #include "cbase.h"
 #include "Weapons.h"
 
+#include "hl/CClientPrediction.h"
+
 #include "CBasePlayer.h"
 
 extern bool g_brunninggausspred;
@@ -96,6 +98,11 @@ void CBasePlayer::PackDeadPlayerItems( void )
 
 void CBasePlayer::RemoveAllItems( const bool removeSuit )
 {
+	for( int i = 0; i < MAX_WEAPONS; i++ )
+	{
+		if( auto pWeapon = g_Prediction.GetWeapon( i ) )
+			RemovePlayerItem( pWeapon );
+	}
 }
 
 bool CBasePlayer::SwitchWeapon( CBasePlayerWeapon *pWeapon )

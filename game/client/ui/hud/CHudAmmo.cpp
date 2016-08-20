@@ -48,19 +48,6 @@ WeaponsResource gWR;
 
 int g_weaponselect = 0;
 
-void WeaponsResource::DropAllWeapons()
-{
-	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
-
-	ASSERT( pPlayer );
-
-	for( int i = 0; i < MAX_WEAPONS; i++ )
-	{
-		if( auto pWeapon = g_Prediction.GetWeapon( i ) )
-			pPlayer->RemovePlayerItem( pWeapon );
-	}
-}
-
 //TODO: shouldn't be global - Solokiller
 int giBucketHeight, giBucketWidth, giABHeight, giABWidth; // Ammo Bar width and height
 
