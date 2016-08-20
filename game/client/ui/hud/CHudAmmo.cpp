@@ -46,11 +46,6 @@
 
 int g_weaponselect = 0;
 
-//TODO: shouldn't be global - Solokiller
-int giBucketHeight, giBucketWidth, giABHeight, giABWidth; // Ammo Bar width and height
-
-HSPRITE ghsprBuckets;					// Sprite for top row of weapons menu
-
 DECLARE_MESSAGE(m_Ammo, CurWeapon );	// Current weapon and clip
 DECLARE_MESSAGE(m_Ammo, AmmoX);			// update known ammo type's count
 DECLARE_MESSAGE(m_Ammo, AmmoPickup);	// flashes an ammo pickup record
@@ -143,21 +138,21 @@ bool CHudAmmo::VidInit()
 	m_HUD_bucket0 = gHUD.GetSpriteIndex( "bucket1" );
 	m_HUD_selection = gHUD.GetSpriteIndex( "selection" );
 
-	ghsprBuckets = gHUD.GetSprite(m_HUD_bucket0);
-	giBucketWidth = gHUD.GetSpriteRect(m_HUD_bucket0).right - gHUD.GetSpriteRect(m_HUD_bucket0).left;
-	giBucketHeight = gHUD.GetSpriteRect(m_HUD_bucket0).bottom - gHUD.GetSpriteRect(m_HUD_bucket0).top;
+	m_hsprBuckets = gHUD.GetSprite(m_HUD_bucket0);
+	m_iBucketWidth = gHUD.GetSpriteRect(m_HUD_bucket0).right - gHUD.GetSpriteRect(m_HUD_bucket0).left;
+	m_iBucketHeight = gHUD.GetSpriteRect(m_HUD_bucket0).bottom - gHUD.GetSpriteRect(m_HUD_bucket0).top;
 
 	gHR.iHistoryGap = max( gHR.iHistoryGap, gHUD.GetSpriteRect(m_HUD_bucket0).bottom - gHUD.GetSpriteRect(m_HUD_bucket0).top);
 
 	if (ScreenWidth >= 640)
 	{
-		giABWidth = 20;
-		giABHeight = 4;
+		m_iABWidth = 20;
+		m_iABHeight = 4;
 	}
 	else
 	{
-		giABWidth = 10;
-		giABHeight = 2;
+		m_iABWidth = 10;
+		m_iABHeight = 2;
 	}
 
 	return true;
@@ -916,10 +911,10 @@ int CHudAmmo::DrawWList(float flTime)
 			if ( p )
 				iWidth = p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.right - p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.left;
 			else
-				iWidth = giBucketWidth;
+				iWidth = m_iBucketWidth;
 		}
 		else
-			iWidth = giBucketWidth;
+			iWidth = m_iBucketWidth;
 
 		SPR_DrawAdditive(0, x, y, &gHUD.GetSpriteRect(m_HUD_bucket0 + i));
 		
@@ -933,14 +928,14 @@ int CHudAmmo::DrawWList(float flTime)
 	// Draw all of the buckets
 	for (i = 0; i < iBucketsToDraw; i++)
 	{
-		y = giBucketHeight + 10;
+		y = m_iBucketHeight + 10;
 
 		// If this is the active slot, draw the bigger pictures,
 		// otherwise just draw boxes
 		if ( i == iActiveSlot )
 		{
 			CBasePlayerWeapon *p = pPlayer->GetFirstPos( i );
-			int iWidth = giBucketWidth;
+			int iWidth = m_iBucketWidth;
 			if ( p )
 				iWidth = p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.right - p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.left;
 
@@ -983,7 +978,7 @@ int CHudAmmo::DrawWList(float flTime)
 
 				// Draw Ammo Bar
 
-				DrawAmmoBar(p, x + giABWidth/2, y, giABWidth, giABHeight);
+				DrawAmmoBar(p, x + m_iABWidth/2, y, m_iABWidth, m_iABHeight);
 				
 				y += pHUDInfo->GetActive().rect.bottom - pHUDInfo->GetActive().rect.top + 5;
 			}
@@ -1015,12 +1010,12 @@ int CHudAmmo::DrawWList(float flTime)
 					a = 96;
 				}
 
-				FillRGBA( x, y, giBucketWidth, giBucketHeight, r, g, b, a );
+				FillRGBA( x, y, m_iBucketWidth, m_iBucketHeight, r, g, b, a );
 
-				y += giBucketHeight + 5;
+				y += m_iBucketHeight + 5;
 			}
 
-			x += giBucketWidth + 5;
+			x += m_iBucketWidth + 5;
 		}
 	}	
 

@@ -107,6 +107,12 @@ private:
 	*	Last weapon menu selection.
 	*/
 	CBasePlayerWeapon* m_pLastSel;
+
+	// Sprite for top row of weapons menu
+	HSPRITE m_hsprBuckets;
+
+	// Ammo Bar width and height
+	int m_iBucketHeight, m_iBucketWidth, m_iABHeight, m_iABWidth;
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDAMMO_H
