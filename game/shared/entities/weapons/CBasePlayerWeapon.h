@@ -212,6 +212,17 @@ public:
 	*/
 	virtual void SetWeaponData( const weapon_data_t& data );
 
+	/**
+	*	Used by melee weapons to calculate the point of intersection of the line (or hull) and the object we hit.
+	*	This is an approximation of the "best" intersection.
+	*	@param vecSrc Origin to perform the calculation from.
+	*	@param tr Result of line trace.
+	*	@param vecMins Minimums of the hull.
+	*	@param vecMaxs Maximums of the hull.
+	*	@param pEntity Entity to ignore during the line trace (usually the attacker).
+	*/
+	void FindHullIntersection( const Vector &vecSrc, TraceResult &tr, const Vector& vecMins, const Vector& vecMaxs, CBaseEntity* pEntity );
+
 	int PrimaryAmmoIndex() const;
 	int SecondaryAmmoIndex() const;
 
