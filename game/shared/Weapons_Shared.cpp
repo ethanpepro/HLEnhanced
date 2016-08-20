@@ -114,6 +114,11 @@ void PrecacheWeapons()
 	// crowbar
 	UTIL_PrecacheOtherWeapon( "weapon_crowbar" );
 
+#if USE_OPFOR
+	// pipe wrench
+	UTIL_PrecacheOtherWeapon( "weapon_pipewrench" );
+#endif
+
 	// glock
 	UTIL_PrecacheOtherWeapon( "weapon_9mmhandgun" );
 
