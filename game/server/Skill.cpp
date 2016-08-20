@@ -196,7 +196,9 @@ void skilldata_t::RefreshSkillData()
 	// Tripmine
 	plrDmgTripmine = GetSkillCvar( "sk_plr_tripmine" );
 
+#if USE_OPFOR
 	plrDmg762 = GetSkillCvar( "sk_plr_762_bullet" );
+#endif
 
 	// MONSTER WEAPONS
 	monDmg12MM = GetSkillCvar( "sk_12mm_bullet" );

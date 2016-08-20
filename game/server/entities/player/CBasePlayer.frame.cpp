@@ -942,7 +942,6 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		GiveNamedItem( "weapon_satchel" );
 		GiveNamedItem( "weapon_snark" );
 		GiveNamedItem( "weapon_hornetgun" );
-
 #if USE_OPFOR
 		GiveNamedItem( "weapon_sniperrifle" );
 		GiveNamedItem( "ammo_762" );
