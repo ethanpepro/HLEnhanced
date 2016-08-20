@@ -26,6 +26,8 @@ public:
 
 private:
 	int m_HUD_d_skull;  // sprite index of skull icon
+
+	cvar_t* m_phud_deathnotice_time = nullptr;
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDDEATHNOTICE_H

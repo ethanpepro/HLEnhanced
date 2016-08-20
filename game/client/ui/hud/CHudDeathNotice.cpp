@@ -39,7 +39,6 @@ struct DeathNoticeItem {
 };
 
 #define MAX_DEATHNOTICES	4
-static int DEATHNOTICE_DISPLAY_TIME = 6;
 
 #define DEATHNOTICE_TOP		32
 
@@ -73,7 +72,7 @@ bool CHudDeathNotice::Init()
 
 	HOOK_MESSAGE( DeathMsg );
 
-	CVAR_CREATE( "hud_deathnotice_time", "6", 0 );
+	m_phud_deathnotice_time = CVAR_CREATE( "hud_deathnotice_time", "6", 0 );
 
 	return true;
 }
@@ -109,7 +108,7 @@ bool CHudDeathNotice::Draw( float flTime )
 			continue;
 		}
 
-		rgDeathNoticeList[i].flDisplayTime = min( rgDeathNoticeList[i].flDisplayTime, gHUD.m_flTime + DEATHNOTICE_DISPLAY_TIME );
+		rgDeathNoticeList[i].flDisplayTime = min( rgDeathNoticeList[i].flDisplayTime, gHUD.m_flTime + m_phud_deathnotice_time->value );
 
 		// Only draw if the viewport will let me
 		if ( gViewPort && gViewPort->AllowedToPrintText() )
@@ -241,8 +240,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 
 	rgDeathNoticeList[i].iId = spr;
 
-	DEATHNOTICE_DISPLAY_TIME = CVAR_GET_FLOAT( "hud_deathnotice_time" );
-	rgDeathNoticeList[i].flDisplayTime = gHUD.m_flTime + DEATHNOTICE_DISPLAY_TIME;
+	rgDeathNoticeList[i].flDisplayTime = gHUD.m_flTime + m_phud_deathnotice_time->value;
 
 	if (rgDeathNoticeList[i].bNonPlayerKill )
 	{
