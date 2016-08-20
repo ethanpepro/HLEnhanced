@@ -129,6 +129,8 @@ void CHudAmmo::Reset()
 		pPlayer->pev->weapons = 0;
 	}
 
+	m_pWeapon = nullptr;
+
 	gHR.Reset();
 }
 
@@ -348,7 +350,7 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 
 	if ( gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 	{
-		static wrect_t nullrc;
+		wrect_t nullrc;
 		m_pActiveSel = nullptr;
 		SetCrosshair( 0, nullrc, 0, 0, 0 );
 	}
