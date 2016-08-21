@@ -41,6 +41,8 @@ public:
 
 	void Spawn() override;
 
+	bool AddDuplicate( CBasePlayerWeapon* pOriginal ) override;
+
 	bool AddToPlayer( CBasePlayer* pPlayer ) override;
 
 	bool Deploy() override;
@@ -52,6 +54,9 @@ public:
 	void PrimaryAttack() override;
 
 	void Reload() override;
+
+private:
+	static int RecalculateBody( int iClip );
 
 private:
 	int m_iShell;

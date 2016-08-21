@@ -55,6 +55,8 @@ extern int gmsgStatusValue;
 extern int gmsgReceiveW;
 extern int gmsgHudColors;
 
+extern int gmsgWpnBody;
+
 void LinkUserMessages();
 
 #endif //GAME_SERVER_USERMESSAGES_H

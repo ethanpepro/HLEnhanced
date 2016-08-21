@@ -2,6 +2,7 @@
 #define GAME_CLIENT_HL_CCLIENTPREDICTION_H
 
 class CBasePlayerWeapon;
+class CBasePlayer;
 
 /**
 *	Handles the client's weapon prediction.
@@ -21,6 +22,10 @@ public:
 	*	@return The local player.
 	*/
 	CBasePlayer* GetLocalPlayer() { return m_pPlayer; }
+
+	int MsgFunc_WpnBody( const char* pszName, int iSize, void* pBuf );
+
+	void Initialize();
 
 	/**
 	*	Called when a map has started. This is the earliest time that this event is known.

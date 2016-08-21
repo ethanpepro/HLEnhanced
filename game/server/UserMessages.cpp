@@ -57,6 +57,7 @@ int gmsgStatusValue = 0;
 
 int gmsgReceiveW = 0;
 int gmsgHudColors = 0;
+int gmsgWpnBody = 0;
 
 void LinkUserMessages()
 {
@@ -106,4 +107,6 @@ void LinkUserMessages()
 
 	//3 3 component Hud colors.
 	gmsgHudColors = REG_USER_MSG( "HudColors", 3 * 3 );
+
+	gmsgWpnBody = REG_USER_MSG( "WpnBody", 2 );
 }

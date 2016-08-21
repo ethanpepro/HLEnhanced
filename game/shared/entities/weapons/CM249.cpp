@@ -70,6 +70,24 @@ void CM249::Spawn()
 	FallInit(); // get ready to fall down.
 }
 
+bool CM249::AddDuplicate( CBasePlayerWeapon* pOriginal )
+{
+	const bool bResult = BaseClass::AddDuplicate( pOriginal );
+
+	//If the weapon's clip has been refilled, the body will be wrong. Correct it. - Solokiller
+	pOriginal->SetBody( RecalculateBody( pOriginal->m_iClip ) );
+
+#ifndef CLIENT_DLL
+	//Update the client so its body value matches it. - Solokiller
+	MESSAGE_BEGIN( MSG_ONE, gmsgWpnBody, nullptr, pOriginal->m_pPlayer->edict() );
+		WRITE_BYTE( pOriginal->m_iId );
+		WRITE_BYTE( pOriginal->GetBody() );
+	MESSAGE_END();
+#endif
+
+	return bResult;
+}
+
 bool CM249::AddToPlayer( CBasePlayer* pPlayer )
 {
 	if( BaseClass::AddToPlayer( pPlayer ) )
@@ -160,25 +178,14 @@ void CM249::PrimaryAttack()
 		return;
 	}
 
-	if( m_iClip == 1 )
-	{
-		SetBody( 8 );
-	}
-	else if( m_iClip >= 1 && m_iClip <= 8 )
-	{
-		SetBody( 10 - m_iClip );
-	}
-	else
-	{
-		SetBody( 0 );
-	}
+	--m_iClip;
+
+	SetBody( RecalculateBody( m_iClip  ) );
 
 	m_bAlternatingEject = !m_bAlternatingEject;
 
 	m_pPlayer->m_iWeaponVolume = NORMAL_GUN_VOLUME;
 	m_pPlayer->m_iWeaponFlash = NORMAL_GUN_FLASH;
-
-	--m_iClip;
 
 	m_pPlayer->AddEffectsFlags( EF_MUZZLEFLASH );
 
@@ -329,4 +336,21 @@ void CM249::Reload()
 		m_flReloadStart = gpGlobals->time;
 	}
 }
+
+int CM249::RecalculateBody( int iClip )
+{
+	if( iClip == 0 )
+	{
+		return 8;
+	}
+	else if( iClip >= 0 && iClip <= 7 )
+	{
+		return 9 - iClip;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 #endif //USE_OPFOR

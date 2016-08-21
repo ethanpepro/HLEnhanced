@@ -7,6 +7,7 @@
 #include "usercmd.h"
 #include "entity_state.h"
 #include "hl_weapons.h"
+#include "parsemsg.h"
 
 #include "extdll.h"
 #include "util.h"
@@ -25,6 +26,37 @@
 Vector g_vPlayerVelocity;
 
 CClientPrediction g_Prediction;
+
+int __MsgFunc_WpnBody( const char* pszName, int iSize, void* pBuf )
+{
+	return g_Prediction.MsgFunc_WpnBody( pszName, iSize, pBuf );
+}
+
+int CClientPrediction::MsgFunc_WpnBody( const char* pszName, int iSize, void* pBuf )
+{
+	CBufferReader reader( pBuf, iSize );
+
+	const int iWeaponID = reader.ReadByte();
+	const int iBody = reader.ReadByte();
+
+	if( CBasePlayerWeapon* pWeapon = GetWeapon( iWeaponID ) )
+	{
+		pWeapon->SetBody( iBody );
+
+		if( m_pPlayer->m_pActiveItem == pWeapon )
+		{
+			//This will reset some engine data, but it's better than going out of sync. - Solokiller
+			HUD_SendWeaponAnim( HUD_GetWeaponAnim(), iBody, true );
+		}
+	}
+
+	return true;
+}
+
+void CClientPrediction::Initialize()
+{
+	HOOK_MESSAGE( WpnBody );
+}
 
 void CClientPrediction::NewMapStarted()
 {

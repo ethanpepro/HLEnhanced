@@ -39,6 +39,8 @@
 
 #include "CClientGameInterface.h"
 
+#include "hl/CClientPrediction.h"
+
 #include "effects/CEnvironment.h"
 
 cl_enginefunc_t gEngfuncs;
@@ -199,6 +201,8 @@ void DLLEXPORT HUD_Init( void )
 	InitInput();
 	gHUD.Init();
 	Scheme_Init();
+
+	g_Prediction.Initialize();
 }
 
 
