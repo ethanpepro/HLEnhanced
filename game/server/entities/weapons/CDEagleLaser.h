@@ -12,8 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef GAME_SERVER_ENTITIES_WEAPONS_CDEAGLELASER_H
-#define GAME_SERVER_ENTITIES_WEAPONS_CDEAGLELASER_H
+#ifndef GAME_SERVER_ENTITIES_WEAPONS_CDESERTEAGLELASER_H
+#define GAME_SERVER_ENTITIES_WEAPONS_CDESERTEAGLELASER_H
 
 #if USE_OPFOR
 #include "entities/CLaserSpot.h"
@@ -21,12 +21,12 @@
 /**
 *	Identical to CLaserSpot, different class to avoid RPG laser confusion logic. - Solokiller
 */
-class CDEagleLaser : public CLaserSpot
+class CDesertEagleLaser : public CLaserSpot
 {
 public:
-	DECLARE_CLASS( CDEagleLaser, CLaserSpot );
+	DECLARE_CLASS( CDesertEagleLaser, CLaserSpot );
 
-	static CDEagleLaser* CreateSpot();
+	static CDesertEagleLaser* CreateSpot();
 };
 #endif //USE_OPFOR
 

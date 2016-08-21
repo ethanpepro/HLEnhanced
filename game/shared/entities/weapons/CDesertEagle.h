@@ -16,7 +16,7 @@
 #ifndef GAME_SHARED_ENTITIES_WEAPONS_CDESERTEAGLE_H
 #define GAME_SHARED_ENTITIES_WEAPONS_CDESERTEAGLE_H
 
-class CDEagleLaser;
+class CDesertEagleLaser;
 
 enum DesertEagleAnim
 {
@@ -71,7 +71,7 @@ private:
 
 	bool m_bSpotVisible;
 	bool m_bLaserActive;
-	CDEagleLaser* m_pLaser;
+	CDesertEagleLaser* m_pLaser;
 };
 #endif
 
