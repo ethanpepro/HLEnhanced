@@ -17,5 +17,5 @@ CBaseEntityRegistry::CBaseEntityRegistry( const char* const pszEntityName, const
 	assert( pszClassName );
 	assert( *pszClassName );
 
-	g_EntityDict.AddEntityClass( this );
+	GetEntityDict().AddEntityClass( this );
 }

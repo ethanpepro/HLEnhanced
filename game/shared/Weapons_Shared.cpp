@@ -70,7 +70,7 @@ void UTIL_PrecacheOtherWeapon( const char* const pszClassname )
 
 	UTIL_RemoveNow( pEntity );
 #else
-	auto pReg = g_EntityDict.FindEntityClassByEntityName( pszClassname );
+	auto pReg = GetEntityDict().FindEntityClassByEntityName( pszClassname );
 
 	if( !pReg )
 	{

@@ -295,7 +295,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 		{
 			if( CMD_ARGC() >= 1 )
 			{
-				if( auto pReg = g_EntityDict.FindEntityClassByEntityName( CMD_ARGV( 1 ) ) )
+				if( auto pReg = GetEntityDict().FindEntityClassByEntityName( CMD_ARGV( 1 ) ) )
 				{
 					ClientPrint( pPlayer, HUD_PRINTCONSOLE, UTIL_VarArgs( "Class \"%s\": \"%s\" (%u bytes)\n", pReg->GetEntityname(), pReg->GetClassname(), pReg->GetSize() ) );
 				}
@@ -314,7 +314,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	{
 		if( g_flWeaponCheat != 0 )
 		{
-			g_EntityDict.EnumEntityClasses(
+			GetEntityDict().EnumEntityClasses(
 				[]( CBaseEntityRegistry& reg ) -> bool
 			{
 				//Using Alert here since it's a lot of data.

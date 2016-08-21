@@ -6,7 +6,14 @@
 
 #include "CEntityDictionary.h"
 
-CEntityDictionary g_EntityDict;
+
+
+CEntityDictionary& GetEntityDict()
+{
+	static CEntityDictionary g_EntityDict;
+
+	return g_EntityDict;
+}
 
 CBaseEntityRegistry* CEntityDictionary::FindEntityClassByEntityName( const char* const pszEntityName )
 {

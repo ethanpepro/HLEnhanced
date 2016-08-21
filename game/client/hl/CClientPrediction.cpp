@@ -44,7 +44,7 @@ void CClientPrediction::NewMapStarted()
 
 	m_uiNumAllocatedEnts = 0;
 
-	if( auto pPlayer = g_EntityDict.FindEntityClassByEntityName( "player" ) )
+	if( auto pPlayer = GetEntityDict().FindEntityClassByEntityName( "player" ) )
 	{
 		m_pPlayer = static_cast<CBasePlayer*>( pPlayer->CreateInstance( CreateEntity() ) );
 

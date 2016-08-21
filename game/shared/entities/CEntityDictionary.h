@@ -81,6 +81,6 @@ private:
 	CEntityDictionary& operator=( const CEntityDictionary& ) = delete;
 };
 
-extern CEntityDictionary g_EntityDict;
+CEntityDictionary& GetEntityDict();
 
 #endif //GAME_SHARED_ENTITIES_CENTITYDICTIONARY_H
