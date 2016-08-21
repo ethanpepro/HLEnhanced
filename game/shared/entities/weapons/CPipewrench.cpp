@@ -113,7 +113,7 @@ void CPipewrench::SecondaryAttack()
 
 void CPipewrench::Smack( )
 {
-	DecalGunshot( &m_trHit, BULLET_PLAYER_PIPEWRENCH );
+	DecalGunshot( &m_trHit, BULLET_PLAYER_CROWBAR );
 }
 
 void CPipewrench::SwingAgain( void )
@@ -246,7 +246,7 @@ bool CPipewrench::Swing( const bool bFirst )
 
 		if( bHitWorld )
 		{
-			float fvolbar = TEXTURETYPE_PlaySound(&tr, vecSrc, vecSrc + (vecEnd-vecSrc)*2, BULLET_PLAYER_PIPEWRENCH);
+			float fvolbar = TEXTURETYPE_PlaySound(&tr, vecSrc, vecSrc + (vecEnd-vecSrc)*2, BULLET_PLAYER_CROWBAR );
 
 			if ( g_pGameRules->IsMultiplayer() )
 			{
@@ -386,7 +386,7 @@ void CPipewrench::BigSwing()
 
 		if( bHitWorld )
 		{
-			float fvolbar = TEXTURETYPE_PlaySound(&tr, vecSrc, vecSrc + (vecEnd-vecSrc)*2, BULLET_PLAYER_PIPEWRENCH);
+			float fvolbar = TEXTURETYPE_PlaySound(&tr, vecSrc, vecSrc + (vecEnd-vecSrc)*2, BULLET_PLAYER_CROWBAR );
 
 			if ( g_pGameRules->IsMultiplayer() )
 			{

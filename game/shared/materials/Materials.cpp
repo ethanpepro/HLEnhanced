@@ -91,11 +91,7 @@ bool GetMaterialForType( const char chTextureType, const int iBulletType, float&
 		uiCount = 3;
 		break;
 	case CHAR_TEX_FLESH:
-#if USE_OPFOR
-		if( iBulletType == BULLET_PLAYER_CROWBAR || iBulletType == BULLET_PLAYER_PIPEWRENCH )
-#else
 		if( iBulletType == BULLET_PLAYER_CROWBAR )
-#endif
 			return false; // crowbar already makes this sound
 		flVol = 1.0;	flVolBar = 0.2;
 		ppszSounds[ 0 ] = "weapons/bullet_hit1.wav";
