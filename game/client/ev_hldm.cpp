@@ -1696,7 +1696,7 @@ void EV_FireM249( event_args_t* args )
 	EV_HLDM_FireBullets( 
 		args->entindex,
 		forward, right, up, 
-		9, 
+		1, 
 		vecSrc, vecAiming, 
 		8192.0, 
 		BULLET_PLAYER_556, 
