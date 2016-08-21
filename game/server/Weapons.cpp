@@ -174,6 +174,7 @@ void W_Precache()
 	UTIL_PrecacheOther( "ammo_crossbow" );
 #if USE_OPFOR
 	UTIL_PrecacheOther( "ammo_762" );
+	UTIL_PrecacheOther( "ammo_556" );
 #endif
 
 	if ( g_pGameRules->IsDeathmatch() )
