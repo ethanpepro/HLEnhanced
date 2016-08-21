@@ -48,6 +48,7 @@ void EV_TrainPitchAdjust( event_args_t *args );
 #if USE_OPFOR
 void EV_Pipewrench( event_args_t *args );
 void EV_SniperRifle( event_args_t* args );
+void EV_FireM249( event_args_t* args );
 #endif
 }
 

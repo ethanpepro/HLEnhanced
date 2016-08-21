@@ -86,6 +86,7 @@ void DecalGunshot( TraceResult *pTrace, int iBulletType )
 		case BULLET_PLAYER_BUCKSHOT:
 		case BULLET_PLAYER_357:
 #if USE_OPFOR
+		case BULLET_PLAYER_556:
 		case BULLET_PLAYER_762:
 #endif
 		default:

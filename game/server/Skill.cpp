@@ -200,6 +200,9 @@ void skilldata_t::RefreshSkillData()
 	// Pipewrench whack
 	plrDmgPipewrench = GetSkillCvar( "sk_plr_pipewrench" );
 
+	// 556 Round
+	plrDmg556 = GetSkillCvar( "sk_plr_556_bullet" );
+
 	// 762 Round
 	plrDmg762 = GetSkillCvar( "sk_plr_762_bullet" );
 #endif

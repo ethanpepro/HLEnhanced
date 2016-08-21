@@ -52,8 +52,9 @@ enum WeaponId
 	WEAPON_SATCHEL = 14,
 	WEAPON_SNARK = 15,
 #if USE_OPFOR
-	WEAPON_PIPEWRENCH = 16,
-	WEAPON_SNIPERRIFLE = 17,
+	WEAPON_PIPEWRENCH	= 16,
+	WEAPON_SNIPERRIFLE	= 17,
+	WEAPON_M249			= 19,
 #endif
 };
 
@@ -78,6 +79,7 @@ enum WeaponId
 #define HORNET_MAX_CARRY		8
 #define M203_GRENADE_MAX_CARRY	10
 #define NATO762_MAX_CARRY		15
+#define NATO556_MAX_CARRY		200
 
 // the maximum amount of ammo each weapon's clip can hold
 #define WEAPON_NOCLIP			-1
@@ -115,6 +117,7 @@ enum WeaponId
 #define AMMO_SNARKBOX_GIVE		5
 #ifdef USE_OPFOR
 #define AMMO_SNIPERRIFLE_GIVE	5
+#define AMMO_556_GIVE			50
 #endif
 
 // bullet types
@@ -132,8 +135,9 @@ enum Bullet
 	BULLET_MONSTER_12MM,
 
 	//TODO: fill in the rest - Solokiller
-	BULLET_PLAYER_PIPEWRENCH = 9,
+	BULLET_PLAYER_556 = 9,
 	BULLET_PLAYER_762 = 10,
+	BULLET_PLAYER_PIPEWRENCH = 11,
 };
 
 #define LOUD_GUN_VOLUME			1000

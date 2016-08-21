@@ -350,6 +350,10 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 				break;
 
 #if USE_OPFOR
+			case BULLET_PLAYER_556:
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmg556, DMG_BULLET ), vecDir, &tr );
+				break;
+
 			case BULLET_PLAYER_762:
 				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmg762, DMG_BULLET | DMG_NEVERGIB ), vecDir, &tr );
 				break;

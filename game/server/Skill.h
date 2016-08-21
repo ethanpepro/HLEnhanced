@@ -150,6 +150,7 @@ public:
 	float plrDmgTripmine;
 #if USE_OPFOR
 	float plrDmgPipewrench;
+	float plrDmg556;
 	float plrDmg762;
 #endif
 	

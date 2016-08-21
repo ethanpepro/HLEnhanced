@@ -17,6 +17,8 @@ add_sources(
 	CHandGrenade.cpp
 	CHornetGun.h
 	CHornetGun.cpp
+	CM249.h
+	CM249.cpp
 	CMP5.h
 	CMP5.cpp
 	CPipewrench.h

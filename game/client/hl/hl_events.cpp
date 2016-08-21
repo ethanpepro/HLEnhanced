@@ -55,5 +55,6 @@ void Game_HookEvents( void )
 #if USE_OPFOR
 	gEngfuncs.pfnHookEvent( "events/pipewrench.sc",				EV_Pipewrench );
 	gEngfuncs.pfnHookEvent( "events/sniper.sc",					EV_SniperRifle );
+	gEngfuncs.pfnHookEvent( "events/m249.sc",					EV_FireM249 );
 #endif
 }
