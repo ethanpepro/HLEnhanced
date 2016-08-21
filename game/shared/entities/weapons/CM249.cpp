@@ -106,6 +106,8 @@ void CM249::Holster()
 
 void CM249::WeaponIdle()
 {
+	ResetEmptySound();
+
 	if( m_bReloading && gpGlobals->time >= m_flReloadStart + 1.33 )
 	{
 		m_bReloading = false;
@@ -150,16 +152,9 @@ void CM249::PrimaryAttack()
 	{
 		if( !m_fInReload )
 		{
-			if( m_bFireOnEmpty )
-			{
-				PlayEmptySound();
+			PlayEmptySound();
 
-				m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 0.15;
-			}
-			else
-			{
-				Reload();
-			}
+			m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 0.15;
 		}
 
 		return;
@@ -291,7 +286,7 @@ void CM249::PrimaryAttack()
 	if( vecInvPushDir.z >= 10.0 )
 		flNewZVel = vecInvPushDir.z;
 
-	if( g_pGameRules->IsDeathmatch() )
+	if( !g_pGameRules->IsDeathmatch() )
 	{
 		Vector vecNewVel = vecVelocity - vecInvPushDir;
 
