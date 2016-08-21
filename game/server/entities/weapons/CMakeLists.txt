@@ -1,7 +1,7 @@
 add_sources(
 	CBasePlayerWeapon.server.cpp
-	CDEagleLaser.h
-	CDEagleLaser.cpp
+	CDesertEagleLaser.h
+	CDesertEagleLaser.cpp
 	CWeaponBox.h
 	CWeaponBox.cpp
 )

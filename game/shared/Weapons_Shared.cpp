@@ -115,11 +115,6 @@ void PrecacheWeapons()
 	// crowbar
 	UTIL_PrecacheOtherWeapon( "weapon_crowbar" );
 
-#if USE_OPFOR
-	// pipe wrench
-	UTIL_PrecacheOtherWeapon( "weapon_pipewrench" );
-#endif
-
 	// glock
 	UTIL_PrecacheOtherWeapon( "weapon_9mmhandgun" );
 
@@ -157,13 +152,16 @@ void PrecacheWeapons()
 	UTIL_PrecacheOtherWeapon( "weapon_hornetgun" );
 
 #if USE_OPFOR
-	//Sniper rifle
+	// Pipe wrench
+	UTIL_PrecacheOtherWeapon("weapon_pipewrench");
+
+	// Sniper rifle
 	UTIL_PrecacheOtherWeapon( "weapon_sniperrifle" );
 
 	// M249
 	UTIL_PrecacheOtherWeapon( "weapon_m249" );
 
-	//Desert Eagle
+	// Desert Eagle
 	UTIL_PrecacheOtherWeapon( "weapon_eagle" );
 #endif
 }

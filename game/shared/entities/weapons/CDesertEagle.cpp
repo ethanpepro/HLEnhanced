@@ -1,3 +1,4 @@
+#if USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -12,14 +13,13 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#if USE_OPFOR
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
 #include "Weapons.h"
 #include "CBasePlayer.h"
 
-#include "entities/weapons/CDEagleLaser.h"
+#include "entities/weapons/CDesertEagleLaser.h"
 
 #include "CDesertEagle.h"
 
@@ -191,7 +191,7 @@ void CDesertEagle::PrimaryAttack()
 	if( m_pLaser && m_bLaserActive )
 	{
 		m_pLaser->AddEffectsFlags( EF_NODRAW );
-		m_pLaser->SetThink( &CDEagleLaser::Revive );
+		m_pLaser->SetThink( &CDesertEagleLaser::Revive );
 		m_pLaser->SetNextThink( gpGlobals->time + 0.6 );
 	}
 #endif
@@ -270,7 +270,7 @@ void CDesertEagle::Reload()
 		if( m_pLaser && m_bLaserActive )
 		{
 			m_pLaser->AddEffectsFlags( EF_NODRAW );
-			m_pLaser->SetThink( &CDEagleLaser::Revive );
+			m_pLaser->SetThink( &CDesertEagleLaser::Revive );
 			m_pLaser->SetNextThink( gpGlobals->time + 1.6 );
 
 			m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 1.5;
@@ -291,7 +291,7 @@ void CDesertEagle::UpdateLaser()
 	{
 		if( !m_pLaser )
 		{
-			m_pLaser = CDEagleLaser::CreateSpot();
+			m_pLaser = CDesertEagleLaser::CreateSpot();
 
 			EMIT_SOUND_DYN( this, CHAN_WEAPON, "weapons/desert_eagle_sight.wav", VOL_NORM, ATTN_NORM, 0, PITCH_NORM );
 		}
@@ -324,4 +324,4 @@ void CDesertEagle::SetWeaponData( const weapon_data_t& data )
 
 	m_bLaserActive = data.iuser1 != 0;
 }
-#endif
+#endif //USE_OPFOR

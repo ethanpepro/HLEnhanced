@@ -1,3 +1,4 @@
+#if USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -12,20 +13,19 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#if USE_OPFOR
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
 
-#include "CDEagleLaser.h"
+#include "CDesertEagleLaser.h"
 
-LINK_ENTITY_TO_CLASS( eagle_laser, CDEagleLaser );
+LINK_ENTITY_TO_CLASS( eagle_laser, CDesertEagleLaser );
 
 //=========================================================
 //=========================================================
-CDEagleLaser *CDEagleLaser::CreateSpot()
+CDesertEagleLaser *CDesertEagleLaser::CreateSpot()
 {
-	CDEagleLaser *pSpot = GetClassPtr( ( CDEagleLaser* ) NULL );
+	CDesertEagleLaser *pSpot = GetClassPtr( ( CDesertEagleLaser* ) NULL );
 	pSpot->Spawn();
 
 	pSpot->pev->classname = MAKE_STRING( "eagle_laser" );

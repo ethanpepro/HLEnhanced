@@ -2590,6 +2590,7 @@ public:
 	int ammo_argrens;
 #if USE_OPFOR
 	int ammo_762;
+	int ammo_556;
 #endif
 };
 

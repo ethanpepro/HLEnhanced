@@ -1,3 +1,4 @@
+#if USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -15,7 +16,6 @@
 #ifndef GAME_SHARED_ENTITIES_WEAPONS_CM249_H
 #define GAME_SHARED_ENTITIES_WEAPONS_CM249_H
 
-#if USE_OPFOR
 enum M249Anum
 {
 	M249_SLOWIDLE = 0,
@@ -75,6 +75,6 @@ private:
 
 	unsigned short m_usFireM249;
 };
-#endif //USE_OPFOR
-
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CM249_H
+
+#endif //USE_OPFOR
