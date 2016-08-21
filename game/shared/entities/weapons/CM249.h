@@ -75,6 +75,6 @@ private:
 
 	unsigned short m_usFireM249;
 };
-#endif //USE_OPFOR
-
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CM249_H
+
+#endif //USE_OPFOR

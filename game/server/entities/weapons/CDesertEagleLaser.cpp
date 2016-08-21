@@ -1,3 +1,4 @@
+#if USE_OPFOR
 /***
 *
 *	Copyright (c) 1996-2001, Valve LLC. All rights reserved.
@@ -12,22 +13,24 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef GAME_SERVER_ENTITIES_WEAPONS_CDESERTEAGLELASER_H
-#define GAME_SERVER_ENTITIES_WEAPONS_CDESERTEAGLELASER_H
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
 
-#if USE_OPFOR
-#include "entities/CLaserSpot.h"
+#include "CDesertEagleLaser.h"
 
-/**
-*	Identical to CLaserSpot, different class to avoid RPG laser confusion logic. - Solokiller
-*/
-class CDesertEagleLaser : public CLaserSpot
+LINK_ENTITY_TO_CLASS( eagle_laser, CDesertEagleLaser );
+
+//=========================================================
+//=========================================================
+CDesertEagleLaser *CDesertEagleLaser::CreateSpot()
 {
-public:
-	DECLARE_CLASS( CDesertEagleLaser, CLaserSpot );
+	CDesertEagleLaser *pSpot = GetClassPtr( ( CDesertEagleLaser* ) NULL );
+	pSpot->Spawn();
 
-	static CDesertEagleLaser* CreateSpot();
-};
+	pSpot->pev->classname = MAKE_STRING( "eagle_laser" );
+
+	return pSpot;
+}
+
 #endif //USE_OPFOR
-
-#endif //GAME_SERVER_ENTITIES_WEAPONS_CDEAGLELASER_H

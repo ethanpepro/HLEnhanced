@@ -73,6 +73,6 @@ private:
 	bool m_bLaserActive;
 	CDesertEagleLaser* m_pLaser;
 };
-#endif
-
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CDESERTEAGLE_H
+
+#endif //USE_OPFOR
