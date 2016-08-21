@@ -1031,5 +1031,6 @@ void CBasePlayer::TabulateAmmo()
 	ammo_hornets = AmmoInventory( GetAmmoIndex( "Hornets" ) );
 #if USE_OPFOR
 	ammo_762 = AmmoInventory( GetAmmoIndex( "762" ) );
+	ammo_556 = AmmoInventory( GetAmmoIndex( "556" ) );
 #endif
 }
