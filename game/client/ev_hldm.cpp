@@ -200,9 +200,11 @@ void EV_HLDM_DecalGunshot( pmtrace_t *pTrace, int iBulletType )
 		case BULLET_MONSTER_MP5:
 		case BULLET_PLAYER_BUCKSHOT:
 		case BULLET_PLAYER_357:
+#if USE_OPFOR
 		case BULLET_PLAYER_556:
 		case BULLET_PLAYER_762:
 		case BULLET_PLAYER_DEAGLE:
+#endif
 		default:
 			// smoke and decal
 			EV_HLDM_GunshotDecalTrace( pTrace, EV_HLDM_DamageDecal( pe ) );
@@ -342,7 +344,7 @@ void EV_HLDM_FireBullets( int idx,
 				EV_HLDM_DecalGunshot( &tr, iBulletType );
 				
 				break;
-
+#if USE_OPFOR
 			case BULLET_PLAYER_556:
 				{
 					EV_HLDM_PlayTextureSound( idx, &tr, vecSrc, vecEnd, iBulletType );
@@ -366,6 +368,7 @@ void EV_HLDM_FireBullets( int idx,
 
 					break;
 				}
+#endif
 			}
 		}
 
