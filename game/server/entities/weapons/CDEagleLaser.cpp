@@ -12,23 +12,25 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef GAME_SERVER_ENTITIES_CLASERSPOT_H
-#define GAME_SERVER_ENTITIES_CLASERSPOT_H
+#if USE_OPFOR
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
 
-class CLaserSpot : public CBaseEntity
+#include "CDEagleLaser.h"
+
+LINK_ENTITY_TO_CLASS( eagle_laser, CDEagleLaser );
+
+//=========================================================
+//=========================================================
+CDEagleLaser *CDEagleLaser::CreateSpot()
 {
-public:
-	DECLARE_CLASS( CLaserSpot, CBaseEntity );
+	CDEagleLaser *pSpot = GetClassPtr( ( CDEagleLaser* ) NULL );
+	pSpot->Spawn();
 
-	void Spawn() override;
-	void Precache() override;
+	pSpot->pev->classname = MAKE_STRING( "eagle_laser" );
 
-	int	ObjectCaps() const override { return FCAP_DONT_SAVE; }
+	return pSpot;
+}
 
-	void Suspend( float flSuspendTime );
-	void EXPORT Revive();
-
-	static CLaserSpot* CreateSpot();
-};
-
-#endif //GAME_SERVER_ENTITIES_CLASERSPOT_H
+#endif //USE_OPFOR

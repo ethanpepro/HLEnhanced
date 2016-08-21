@@ -392,6 +392,11 @@ cvar_t	sk_plr_556_bullet3 = { "sk_plr_556_bullet3","0" };
 cvar_t	sk_plr_762_bullet1 = { "sk_plr_762_bullet1","0" };
 cvar_t	sk_plr_762_bullet2 = { "sk_plr_762_bullet2","0" };
 cvar_t	sk_plr_762_bullet3 = { "sk_plr_762_bullet3","0" };
+
+// 762 Round
+cvar_t	sk_plr_eagle1 = { "sk_plr_eagle1","0" };
+cvar_t	sk_plr_eagle2 = { "sk_plr_eagle2","0" };
+cvar_t	sk_plr_eagle3 = { "sk_plr_eagle3","0" };
 #endif
 
 // WORLD WEAPONS
@@ -858,6 +863,11 @@ void GameDLLInit( void )
 	CVAR_REGISTER( &sk_plr_762_bullet1 );// {"sk_plr_762_bullet1","0"};
 	CVAR_REGISTER( &sk_plr_762_bullet2 );// {"sk_plr_762_bullet2","0"};
 	CVAR_REGISTER( &sk_plr_762_bullet3 );// {"sk_plr_762_bullet3","0"};
+
+	// Desert Eagle Round
+	CVAR_REGISTER( &sk_plr_eagle1 );// {"sk_plr_eagle1","0"};
+	CVAR_REGISTER( &sk_plr_eagle2 );// {"sk_plr_eagle2","0"};
+	CVAR_REGISTER( &sk_plr_eagle3 );// {"sk_plr_eagle3","0"};
 #endif
 
 	// WORLD WEAPONS

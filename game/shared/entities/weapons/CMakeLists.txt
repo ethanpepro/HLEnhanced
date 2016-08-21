@@ -7,6 +7,8 @@ add_sources(
 	CCrossbow.cpp
 	CCrowbar.h
 	CCrowbar.cpp
+	CDesertEagle.h
+	CDesertEagle.cpp
 	CEgon.h
 	CEgon.cpp
 	CGauss.h

@@ -160,8 +160,11 @@ void PrecacheWeapons()
 	//Sniper rifle
 	UTIL_PrecacheOtherWeapon( "weapon_sniperrifle" );
 
-	// m249
+	// M249
 	UTIL_PrecacheOtherWeapon( "weapon_m249" );
+
+	//Desert Eagle
+	UTIL_PrecacheOtherWeapon( "weapon_eagle" );
 #endif
 }
 

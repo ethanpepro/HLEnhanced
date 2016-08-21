@@ -53,6 +53,7 @@ static int tracerCount[ MAX_CLIENTS ];
 #if USE_OPFOR
 #include "entities/weapons/CSniperRifle.h"
 #include "entities/weapons/CM249.h"
+#include "entities/weapons/CDesertEagle.h"
 #endif
 
 void V_PunchAxis( int axis, float punch );
@@ -201,6 +202,7 @@ void EV_HLDM_DecalGunshot( pmtrace_t *pTrace, int iBulletType )
 		case BULLET_PLAYER_357:
 		case BULLET_PLAYER_556:
 		case BULLET_PLAYER_762:
+		case BULLET_PLAYER_DEAGLE:
 		default:
 			// smoke and decal
 			EV_HLDM_GunshotDecalTrace( pTrace, EV_HLDM_DamageDecal( pe ) );
@@ -350,6 +352,14 @@ void EV_HLDM_FireBullets( int idx,
 				}
 
 			case BULLET_PLAYER_762:
+				{
+					EV_HLDM_PlayTextureSound( idx, &tr, vecSrc, vecEnd, iBulletType );
+					EV_HLDM_DecalGunshot( &tr, iBulletType );
+
+					break;
+				}
+
+			case BULLET_PLAYER_DEAGLE:
 				{
 					EV_HLDM_PlayTextureSound( idx, &tr, vecSrc, vecEnd, iBulletType );
 					EV_HLDM_DecalGunshot( &tr, iBulletType );
@@ -1701,6 +1711,59 @@ void EV_FireM249( event_args_t* args )
 		8192.0, 
 		BULLET_PLAYER_556, 
 		0, nullptr, 
+		args->fparam1, args->fparam2 );
+}
+
+void EV_FireEagle( event_args_t* args )
+{
+	const bool bEmpty = args->bparam1 != 0;
+
+	Vector up, right, forward;
+
+	AngleVectors( args->angles, forward, right, up );
+
+	const int iShell = gEngfuncs.pEventAPI->EV_FindModelIndex( "models/shell.mdl" );
+
+	if( EV_IsLocal( args->entindex ) )
+	{
+		EV_MuzzleFlash();
+
+		gEngfuncs.pEventAPI->EV_WeaponAnimation( bEmpty ? DEAGLE_SHOOT_EMPTY : DEAGLE_SHOOT, 0 );
+		V_PunchAxis( 0, -4.0 );
+	}
+
+	Vector ShellVelocity;
+	Vector ShellOrigin;
+
+	EV_GetDefaultShellInfo(
+		args,
+		args->origin, args->velocity,
+		ShellVelocity,
+		ShellOrigin,
+		forward, right, up,
+		-9.0, 14.0, 9.0 );
+
+	EV_EjectBrass( ShellOrigin, ShellVelocity, args->angles.y, iShell, TE_BOUNCE_SHELL );
+
+	gEngfuncs.pEventAPI->EV_PlaySound(
+		args->entindex,
+		args->origin, CHAN_WEAPON, "weapons/desert_eagle_fire.wav",
+		UTIL_RandomFloat( 0.92, 1 ), ATTN_NORM, 0, 98 + UTIL_RandomLong( 0, 3 ) );
+
+	Vector vecSrc;
+
+	EV_GetGunPosition( args, vecSrc, args->origin );
+
+	Vector vecAiming = forward;
+
+	EV_HLDM_FireBullets(
+		args->entindex,
+		forward, right, up,
+		1,
+		vecSrc, vecAiming,
+		8192.0,
+		BULLET_PLAYER_DEAGLE,
+		0, nullptr,
 		args->fparam1, args->fparam2 );
 }
 #endif
