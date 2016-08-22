@@ -644,30 +644,7 @@ bool CHudAmmo::Draw(float flTime)
 	if (!m_pWeapon)
 		return false;
 
-	CBasePlayerWeapon *pw = m_pWeapon; // shorthand
-
-	// SPR_Draw Ammo
-	if( !pw->GetWeaponInfo()->GetPrimaryAmmo() && !pw->GetWeaponInfo()->GetSecondaryAmmo() )
-		return false;
-
-
-	int iFlags = DHN_DRAWZERO; // draw 0 values
-
-	AmmoWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
-
-	a = (int) max( static_cast<float>( MIN_ALPHA ), m_fFade );
-
-	if (m_fFade > 0)
-		m_fFade -= (gHUD.m_flTimeDelta * 20);
-
-	gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
-
-	ScaleColors(r, g, b, a );
-
-	// Does this weapon have a clip?
-	y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight/2;
-
-	if(  m_pCrosshair->value != 0 && m_hCrosshair != INVALID_HSPRITE )
+	if( m_pCrosshair->value != 0 && m_hCrosshair != INVALID_HSPRITE )
 	{
 		float flScale;
 
@@ -701,6 +678,28 @@ bool CHudAmmo::Draw(float flTime)
 
 		Tri_DrawScaledSprite( m_hCrosshair, 0, m_iR, m_iG, m_iB, 255, kRenderTransTexture, flScale, callback, &m_CrosshairRC );
 	}
+
+	CBasePlayerWeapon *pw = m_pWeapon; // shorthand
+
+	// SPR_Draw Ammo
+	if( !pw->GetWeaponInfo()->GetPrimaryAmmo() && !pw->GetWeaponInfo()->GetSecondaryAmmo() )
+		return false;
+
+	int iFlags = DHN_DRAWZERO; // draw 0 values
+
+	AmmoWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
+
+	a = (int) max( static_cast<float>( MIN_ALPHA ), m_fFade );
+
+	if (m_fFade > 0)
+		m_fFade -= (gHUD.m_flTimeDelta * 20);
+
+	gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+
+	ScaleColors(r, g, b, a );
+
+	// Does this weapon have a clip?
+	y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight/2;
 
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 
