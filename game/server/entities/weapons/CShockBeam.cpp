@@ -108,11 +108,7 @@ void CShockBeam::Spawn()
 
 			m_pBeam2->SetScrollRate( 30 );
 
-			if( bIsMultiplayer() )
-			{
-				SetNextThink( gpGlobals->time + 0.01 );
-				return;
-			}
+			SetNextThink( gpGlobals->time + 0.01 );
 		}
 	}
 }
