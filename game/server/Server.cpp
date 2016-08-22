@@ -407,6 +407,15 @@ cvar_t	sk_plr_762_bullet3 = { "sk_plr_762_bullet3","0" };
 cvar_t	sk_plr_eagle1 = { "sk_plr_eagle1","0" };
 cvar_t	sk_plr_eagle2 = { "sk_plr_eagle2","0" };
 cvar_t	sk_plr_eagle3 = { "sk_plr_eagle3","0" };
+
+// Shock Roach
+cvar_t	sk_plr_shockroachs1 = { "sk_plr_shockroachs1","0" };
+cvar_t	sk_plr_shockroachs2 = { "sk_plr_shockroachs2","0" };
+cvar_t	sk_plr_shockroachs3 = { "sk_plr_shockroachs3","0" };
+
+cvar_t	sk_plr_shockroachm1 = { "sk_plr_shockroachm1","0" };
+cvar_t	sk_plr_shockroachm2 = { "sk_plr_shockroachm2","0" };
+cvar_t	sk_plr_shockroachm3 = { "sk_plr_shockroachm3","0" };
 #endif
 
 // WORLD WEAPONS
@@ -888,6 +897,15 @@ void GameDLLInit( void )
 	CVAR_REGISTER( &sk_plr_eagle1 );// {"sk_plr_eagle1","0"};
 	CVAR_REGISTER( &sk_plr_eagle2 );// {"sk_plr_eagle2","0"};
 	CVAR_REGISTER( &sk_plr_eagle3 );// {"sk_plr_eagle3","0"};
+
+	// Shock Roach
+	CVAR_REGISTER( &sk_plr_shockroachs1 );// {"sk_plr_shockroachs1","0"};
+	CVAR_REGISTER( &sk_plr_shockroachs2 );// {"sk_plr_shockroachs2","0"};
+	CVAR_REGISTER( &sk_plr_shockroachs3 );// {"sk_plr_shockroachs3","0"};
+
+	CVAR_REGISTER( &sk_plr_shockroachm1 );// {"sk_plr_shockroachm1","0"};
+	CVAR_REGISTER( &sk_plr_shockroachm2 );// {"sk_plr_shockroachm2","0"};
+	CVAR_REGISTER( &sk_plr_shockroachm3 );// {"sk_plr_shockroachm3","0"};
 #endif
 
 	// WORLD WEAPONS

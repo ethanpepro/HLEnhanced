@@ -37,6 +37,8 @@ add_sources(
 	CRpg.cpp
 	CSatchel.h
 	CSatchel.cpp
+	CShockRifle.h
+	CShockRifle.cpp
 	CShotgun.h
 	CShotgun.cpp
 	CSniperRifle.h

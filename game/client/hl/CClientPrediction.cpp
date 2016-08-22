@@ -248,8 +248,9 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	m_pPlayer->ammo_hornets = ( int ) from->client.vuser2[ 0 ];
 	m_pPlayer->ammo_rockets = ( int ) from->client.ammo_rockets;
 #if USE_OPFOR
-	m_pPlayer->ammo_762		= ( int ) from->client.vuser3[ 0 ];
-	m_pPlayer->ammo_556		= ( int ) from->client.vuser3[ 1 ];
+	m_pPlayer->ammo_762				= ( int ) from->client.vuser3[ 0 ];
+	m_pPlayer->ammo_556				= ( int ) from->client.vuser3[ 1 ];
+	m_pPlayer->ammo_shock_rounds	= ( int ) from->client.vuser3[ 2 ];
 #endif
 
 	// Point to current weapon object
@@ -328,6 +329,7 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 #if USE_OPFOR
 	to->client.vuser3[ 0 ]		= m_pPlayer->ammo_762;
 	to->client.vuser3[ 1 ]		= m_pPlayer->ammo_556;
+	to->client.vuser3[ 2 ]		= m_pPlayer->ammo_shock_rounds;
 #endif
 
 	//TODO: why isn't this in the weapon's user variables? - Solokiller

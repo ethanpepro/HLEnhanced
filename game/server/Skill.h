@@ -155,6 +155,8 @@ public:
 	float plrDmg556;
 	float plrDmg762;
 	float plrDmgDeagle;
+	float plrDmgShockRoachS;
+	float plrDmgShockRoachM;
 #endif
 	
 // weapons shared by monsters

@@ -990,6 +990,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 #if USE_OPFOR
 			cd->vuser3.x		= pl->ammo_762;
 			cd->vuser3.y		= pl->ammo_556;
+			cd->vuser3.z		= pl->ammo_shock_rounds;
 #endif	
 
 			if ( pl->m_pActiveItem )

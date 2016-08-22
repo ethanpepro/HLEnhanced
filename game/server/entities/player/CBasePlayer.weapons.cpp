@@ -808,13 +808,17 @@ void CBasePlayer::ResetAutoaim()
 //=========================================================
 Vector CBasePlayer::GetAutoaimVector( float flDelta )
 {
+	return GetAutoaimVectorFromPoint( GetGunPosition(), flDelta );
+}
+
+Vector CBasePlayer::GetAutoaimVectorFromPoint( const Vector& vecSrc, float flDelta )
+{
 	if( gSkillData.GetSkillLevel() == SKILL_HARD )
 	{
 		UTIL_MakeVectors( pev->v_angle + pev->punchangle );
 		return gpGlobals->v_forward;
 	}
 
-	Vector vecSrc = GetGunPosition();
 	float flDist = 8192;
 
 	// always use non-sticky autoaim
@@ -887,7 +891,7 @@ Vector CBasePlayer::GetAutoaimVector( float flDelta )
 	return gpGlobals->v_forward;
 }
 
-Vector CBasePlayer::AutoaimDeflection( Vector &vecSrc, float flDist, float flDelta )
+Vector CBasePlayer::AutoaimDeflection( const Vector &vecSrc, float flDist, float flDelta )
 {
 	edict_t		*pEdict = g_engfuncs.pfnPEntityOfEntIndex( 1 );
 	CBaseEntity	*pEntity;
@@ -1032,5 +1036,6 @@ void CBasePlayer::TabulateAmmo()
 #if USE_OPFOR
 	ammo_762 = AmmoInventory( GetAmmoIndex( "762" ) );
 	ammo_556 = AmmoInventory( GetAmmoIndex( "556" ) );
+	ammo_shock_rounds = AmmoInventory( GetAmmoIndex( "shock_rounds" ) );
 #endif
 }

@@ -2591,6 +2591,7 @@ public:
 #if USE_OPFOR
 	int ammo_762;
 	int ammo_556;
+	int ammo_shock_rounds;
 #endif
 };
 

@@ -421,7 +421,12 @@ Vector CBasePlayer::GetAutoaimVector( float flDelta )
 	return g_vecZero;
 }
 
-Vector CBasePlayer::AutoaimDeflection( Vector &vecSrc, float flDist, float flDelta )
+Vector CBasePlayer::GetAutoaimVectorFromPoint( const Vector& vecSrc, float flDelta )
+{
+	return g_vecZero;
+}
+
+Vector CBasePlayer::AutoaimDeflection( const Vector &vecSrc, float flDist, float flDelta )
 {
 	return g_vecZero;
 }

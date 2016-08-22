@@ -211,6 +211,9 @@ void skilldata_t::RefreshSkillData()
 
 	// 762 Round
 	plrDmg762 = GetSkillCvar( "sk_plr_762_bullet" );
+
+	plrDmgShockRoachS = GetSkillCvar( "sk_plr_shockroachs" );
+	plrDmgShockRoachM = GetSkillCvar( "sk_plr_shockroachm" );
 #endif
 
 	// MONSTER WEAPONS

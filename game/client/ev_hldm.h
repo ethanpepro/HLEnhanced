@@ -51,6 +51,7 @@ void EV_Pipewrench( event_args_t *args );
 void EV_SniperRifle( event_args_t* args );
 void EV_FireM249( event_args_t* args );
 void EV_FireEagle( event_args_t* args );
+void EV_FireShockRifle( event_args_t* args );
 #endif
 }
 

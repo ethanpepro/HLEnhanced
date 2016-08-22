@@ -390,6 +390,26 @@ public:
 	bool CineCleanup();
 
 	CBaseEntity* DropItem ( const char* const pszItemName, const Vector &vecPos, const Vector &vecAng );// drop an item.
+
+	//Shock effect begin. - Solokiller
+	float m_flShockDuration;
+	float m_flShockTime;
+
+	bool m_bShockEffect;
+
+	RenderMode m_OldRenderMode;
+	RenderFX m_OldRenderFX;
+	Vector m_OldRenderColor;
+	float m_flOldRenderAmt;
+
+	/**
+	*	Adds a shock effect to this monster.
+	*/
+	void AddShockEffect( float r, float g, float b, float size, float flShockDuration );
+
+	void UpdateShockEffect();
+
+	//Shock effect end. - Solokiller
 };
 
 #endif //GAME_SERVER_ENTITIES_NPCS_BASEMONSTER_H

@@ -55,6 +55,7 @@ static int tracerCount[ MAX_CLIENTS ];
 #include "entities/weapons/CSniperRifle.h"
 #include "entities/weapons/CM249.h"
 #include "entities/weapons/CDesertEagle.h"
+#include "entities/weapons/CShockRifle.h"
 #endif
 
 void V_PunchAxis( int axis, float punch );
@@ -1805,6 +1806,17 @@ void EV_FireEagle( event_args_t* args )
 		BULLET_PLAYER_DEAGLE,
 		0, nullptr,
 		args->fparam1, args->fparam2 );
+}
+
+void EV_FireShockRifle( event_args_t* args )
+{
+	gEngfuncs.pEventAPI->EV_PlaySound( 
+		args->entindex, args->origin, 
+		CHAN_WEAPON, "weapons/shock_fire.wav", 
+		0.9, ATTN_NORM, 0, PITCH_NORM );
+
+	if( EV_IsLocal( args->entindex ) )
+		gEngfuncs.pEventAPI->EV_WeaponAnimation( SHOCKRIFLE_FIRE, 0 );
 }
 #endif
 

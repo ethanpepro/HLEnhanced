@@ -458,6 +458,8 @@ void CBaseMonster :: MonsterThink ( void )
 
 	RunAI();
 
+	UpdateShockEffect();
+
 	float flInterval = StudioFrameAdvance( ); // animate
 // start or end a fidget
 // This needs a better home -- switching animations over time should be encapsulated on a per-activity basis
@@ -3355,4 +3357,47 @@ CBaseEntity* CBaseMonster::DropItem( const char* const pszItemName, const Vector
 		return nullptr;
 	}
 
+}
+
+void CBaseMonster::AddShockEffect( float r, float g, float b, float size, float flShockDuration )
+{
+	if( GetDeadFlag() == DEAD_NO )
+	{
+		if( m_bShockEffect )
+		{
+			m_flShockDuration += flShockDuration;
+		}
+		else
+		{
+			m_OldRenderMode = GetRenderMode();
+			m_OldRenderFX = GetRenderFX();
+			m_OldRenderColor = GetRenderColor();
+			m_flOldRenderAmt = GetRenderAmount();
+
+			SetRenderMode( kRenderNormal );
+			SetRenderFX( kRenderFxGlowShell );
+			SetRenderColor( Vector( r, g, b ) );
+			SetRenderAmount( size );
+			m_bShockEffect = true;
+			m_flShockDuration = flShockDuration;
+
+			m_flShockTime = gpGlobals->time;
+		}
+	}
+}
+
+void CBaseMonster::UpdateShockEffect()
+{
+	if( m_bShockEffect )
+	{
+		if( gpGlobals->time - m_flShockTime > m_flShockDuration )
+		{
+			SetRenderMode( m_OldRenderMode );
+			SetRenderFX( m_OldRenderFX );
+			SetRenderColor( m_OldRenderColor );
+			SetRenderAmount( m_flOldRenderAmt );
+			m_flShockDuration = 0;
+			m_bShockEffect = false;
+		}
+	}
 }

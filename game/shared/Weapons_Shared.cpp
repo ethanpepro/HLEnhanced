@@ -49,6 +49,7 @@ void RegisterAmmoTypes()
 #if USE_OPFOR
 	g_AmmoTypes.AddAmmoType( "762", NATO762_MAX_CARRY );
 	g_AmmoTypes.AddAmmoType( "556", NATO556_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "shock_rounds", SHOCK_ROUNDS_MAX_CARRY );
 #endif
 
 	//No more letting weapons define ammo types. - Solokiller
@@ -169,6 +170,9 @@ void PrecacheWeapons()
 
 	// Desert Eagle
 	UTIL_PrecacheOtherWeapon( "weapon_eagle" );
+
+	// Shock Rifle
+	UTIL_PrecacheOtherWeapon( "weapon_shockrifle" );
 #endif
 }
 

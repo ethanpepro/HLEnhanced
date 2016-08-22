@@ -56,6 +56,7 @@ enum WeaponId
 	WEAPON_DESERT_EAGLE		= 17,
 	WEAPON_PIPEWRENCH		= 18,
 	WEAPON_M249				= 19,
+	WEAPON_SHOCKRIFLE		= 22,
 	WEAPON_SNIPERRIFLE		= 24,
 	WEAPON_KNIFE			= 25,
 #endif
@@ -84,6 +85,7 @@ enum WeaponId
 #if USE_OPFOR
 #define NATO762_MAX_CARRY		15
 #define NATO556_MAX_CARRY		200
+#define SHOCK_ROUNDS_MAX_CARRY	10
 #endif
 
 // the maximum amount of ammo each weapon's clip can hold
