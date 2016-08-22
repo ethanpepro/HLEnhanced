@@ -35,6 +35,8 @@ int gmsgWeapPickup = 0;
 enginefuncs_t g_engfuncs;
 globalvars_t  *gpGlobals;
 
+CWorld* CWorld::m_pInstance = nullptr;
+
 void EMIT_SOUND_DYN( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation, int flags, int pitch) { }
 
 void EMIT_SOUND( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation )
@@ -103,4 +105,15 @@ void UTIL_TraceLine( const Vector& vecStart, const Vector& vecEnd, IGNORE_MONSTE
 {
 	memset( ptr, 0, sizeof( *ptr ) );
 	ptr->flFraction = 1.0;
+}
+
+void UTIL_TraceHull( const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, const Hull::Hull hullNumber, edict_t *pentIgnore, TraceResult *ptr )
+{
+	memset( ptr, 0, sizeof( *ptr ) );
+	ptr->flFraction = 1.0;
+}
+
+const struct texture_s* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd )
+{
+	return nullptr;
 }
