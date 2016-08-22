@@ -393,6 +393,25 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 			m_IdealActivity = ACT_WALK;
 		}
 		break;
+
+#if USE_OPFOR
+	case PLAYER_GRAPPLE:
+		if( AnyFlagsSet( FL_SWIM ) )
+		{
+			m_IdealActivity = m_Activity;
+			break;
+		}
+
+		if( GetAbsVelocity().Length() == 0.0 )
+		{
+			m_IdealActivity = ACT_HOVER;
+		}
+		else
+		{
+			m_IdealActivity = ACT_SWIM;
+		}
+		break;
+#endif
 	}
 
 	switch( m_IdealActivity )

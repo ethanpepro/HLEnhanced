@@ -1,6 +1,10 @@
 add_sources(
 	CAmmoTypes.h
 	CAmmoTypes.cpp
+	CBarnacleGrapple.h
+	CBarnacleGrapple.cpp
+	CBarnacleGrappleTip.h
+	CBarnacleGrappleTip.cpp
 	CBasePlayerWeapon.h
 	CBasePlayerWeapon.shared.cpp
 	CCrossbow.h

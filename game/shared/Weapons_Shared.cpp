@@ -156,7 +156,10 @@ void PrecacheWeapons()
 	UTIL_PrecacheOtherWeapon( "weapon_knife" );
 
 	// Pipe wrench
-	UTIL_PrecacheOtherWeapon("weapon_pipewrench");
+	UTIL_PrecacheOtherWeapon("weapon_pipewrench" );
+
+	// Barnacle grapple
+	UTIL_PrecacheOtherWeapon( "weapon_grapple" );
 
 	// Sniper rifle
 	UTIL_PrecacheOtherWeapon( "weapon_sniperrifle" );

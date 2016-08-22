@@ -151,6 +151,7 @@ public:
 #if USE_OPFOR
 	float plrDmgKnife;
 	float plrDmgPipewrench;
+	float plrDmgGrapple;
 	float plrDmg556;
 	float plrDmg762;
 	float plrDmgDeagle;
