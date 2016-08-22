@@ -51,6 +51,7 @@ static int tracerCount[ MAX_CLIENTS ];
 #include "entities/weapons/CPython.h"
 #include "entities/weapons/CGauss.h"
 #if USE_OPFOR
+#include "entities/weapons/CKnife.h"
 #include "entities/weapons/CSniperRifle.h"
 #include "entities/weapons/CM249.h"
 #include "entities/weapons/CDesertEagle.h"
@@ -1005,6 +1006,7 @@ void EV_FireGauss( event_args_t *args )
 //	   CROWBAR START
 //======================
 
+//TODO: duplicate - Solokiller
 enum crowbar_e {
 	CROWBAR_IDLE = 0,
 	CROWBAR_DRAW,
@@ -1049,10 +1051,45 @@ void EV_Crowbar( event_args_t *args )
 //======================
 
 #if USE_OPFOR
+//Only predict the miss sounds, hit sounds are still played 
+//server side, so players don't get the wrong idea.
+void EV_Knife( event_args_t* args )
+{
+	const int idx = args->entindex;
+	Vector origin = args->origin;
+
+	const char* pszSwingSound;
+
+	switch( g_iSwing )
+	{
+	default:
+	case 0: pszSwingSound = "weapons/knife1.wav"; break;
+	case 1: pszSwingSound = "weapons/knife2.wav"; break;
+	case 2: pszSwingSound = "weapons/knife3.wav"; break;
+	}
+
+	//Play Swing sound
+	gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_WEAPON, pszSwingSound, 1, ATTN_NORM, 0, PITCH_NORM );
+
+	if( EV_IsLocal( idx ) )
+	{
+		switch( ( g_iSwing++ ) % 3 )
+		{
+		case 0:
+			gEngfuncs.pEventAPI->EV_WeaponAnimation( KNIFE_ATTACK1MISS, 0 ); break;
+		case 1:
+			gEngfuncs.pEventAPI->EV_WeaponAnimation( KNIFE_ATTACK2, 0 ); break;
+		case 2:
+			gEngfuncs.pEventAPI->EV_WeaponAnimation( KNIFE_ATTACK3, 0 ); break;
+		}
+	}
+}
+
 //======================
 //	PIPE WRENCH START
 //======================
 
+//TODO: duplicate - Solokiller
 enum pipewrench_e {
 	PIPEWRENCH_IDLE1 = 0,
 	PIPEWRENCH_IDLE2,

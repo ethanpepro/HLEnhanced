@@ -152,6 +152,9 @@ void PrecacheWeapons()
 	UTIL_PrecacheOtherWeapon( "weapon_hornetgun" );
 
 #if USE_OPFOR
+	// Knife
+	UTIL_PrecacheOtherWeapon( "weapon_knife" );
+
 	// Pipe wrench
 	UTIL_PrecacheOtherWeapon("weapon_pipewrench");
 

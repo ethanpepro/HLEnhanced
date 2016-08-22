@@ -378,6 +378,11 @@ cvar_t	sk_plr_tripmine2 = {"sk_plr_tripmine2","0"};
 cvar_t	sk_plr_tripmine3 = {"sk_plr_tripmine3","0"};
 
 #if USE_OPFOR
+// Knife whack
+cvar_t	sk_plr_knife1 = { "sk_plr_knife1","0" };
+cvar_t	sk_plr_knife2 = { "sk_plr_knife2","0" };
+cvar_t	sk_plr_knife3 = { "sk_plr_knife3","0" };
+
 // Pipewrench whack
 cvar_t	sk_plr_pipewrench1 = { "sk_plr_pipewrench1","0" };
 cvar_t	sk_plr_pipewrench2 = { "sk_plr_pipewrench2","0" };
@@ -849,6 +854,11 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_tripmine3 );// {"sk_plr_tripmine3","0"};
 
 #if USE_OPFOR
+	// Knife whack
+	CVAR_REGISTER( &sk_plr_knife1 );// {"sk_plr_knife1","0"};
+	CVAR_REGISTER( &sk_plr_knife2 );// {"sk_plr_knife2","0"};
+	CVAR_REGISTER( &sk_plr_knife3 );// {"sk_plr_knife3","0"};
+
 	// Pipe wrench whack
 	CVAR_REGISTER ( &sk_plr_pipewrench1 );// {"sk_plr_pipewrench1","0"};
 	CVAR_REGISTER ( &sk_plr_pipewrench2 );// {"sk_plr_pipewrench2","0"};

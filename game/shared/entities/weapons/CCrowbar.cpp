@@ -23,10 +23,6 @@
 #include "CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
-
-#define	CROWBAR_BODYHIT_VOLUME 128
-#define	CROWBAR_WALLHIT_VOLUME 512
-
 LINK_ENTITY_TO_CLASS( weapon_crowbar, CCrowbar );
 
 CCrowbar::CCrowbar()
@@ -191,7 +187,7 @@ bool CCrowbar::Swing( const bool bFirst )
 				case 2:
 					EMIT_SOUND( m_pPlayer, CHAN_ITEM, "weapons/cbar_hitbod3.wav", 1, ATTN_NORM); break;
 				}
-				m_pPlayer->m_iWeaponVolume = CROWBAR_BODYHIT_VOLUME;
+				m_pPlayer->m_iWeaponVolume = MELEE_BODYHIT_VOLUME;
 				if ( !pEntity->IsAlive() )
 					  return true;
 				else
@@ -231,7 +227,7 @@ bool CCrowbar::Swing( const bool bFirst )
 			m_trHit = tr;
 		}
 
-		m_pPlayer->m_iWeaponVolume = flVol * CROWBAR_WALLHIT_VOLUME;
+		m_pPlayer->m_iWeaponVolume = flVol * MELEE_WALLHIT_VOLUME;
 #endif
 		m_flNextPrimaryAttack = GetNextAttackDelay(0.25);
 		

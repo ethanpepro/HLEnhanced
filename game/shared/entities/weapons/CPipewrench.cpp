@@ -31,9 +31,6 @@ BEGIN_DATADESC( CPipewrench )
 END_DATADESC()
 #endif
 
-#define	PIPEWRENCH_BODYHIT_VOLUME 128
-#define	PIPEWRENCH_WALLHIT_VOLUME 512
-
 LINK_ENTITY_TO_CLASS( weapon_pipewrench, CPipewrench );
 
 CPipewrench::CPipewrench()
@@ -231,7 +228,7 @@ bool CPipewrench::Swing( const bool bFirst )
 				case 2:
 					EMIT_SOUND( m_pPlayer, CHAN_ITEM, "weapons/pwrench_hitbod3.wav", 1, ATTN_NORM); break;
 				}
-				m_pPlayer->m_iWeaponVolume = PIPEWRENCH_BODYHIT_VOLUME;
+				m_pPlayer->m_iWeaponVolume = MELEE_BODYHIT_VOLUME;
 				if ( !pEntity->IsAlive() )
 					  return true;
 				else
@@ -271,7 +268,7 @@ bool CPipewrench::Swing( const bool bFirst )
 			m_trHit = tr;
 		}
 
-		m_pPlayer->m_iWeaponVolume = flVol * PIPEWRENCH_WALLHIT_VOLUME;
+		m_pPlayer->m_iWeaponVolume = flVol * MELEE_WALLHIT_VOLUME;
 #endif
 		m_flNextPrimaryAttack = GetNextAttackDelay(0.5);
 		m_flNextSecondaryAttack = GetNextAttackDelay(0.5);
@@ -371,7 +368,7 @@ void CPipewrench::BigSwing()
 					EMIT_SOUND( m_pPlayer, CHAN_ITEM, "weapons/pwrench_big_hitbod2.wav", 1, ATTN_NORM);
 					break;
 				}
-				m_pPlayer->m_iWeaponVolume = PIPEWRENCH_BODYHIT_VOLUME;
+				m_pPlayer->m_iWeaponVolume = MELEE_BODYHIT_VOLUME;
 				if ( !pEntity->IsAlive() )
 					  return;
 				else
@@ -416,7 +413,7 @@ void CPipewrench::BigSwing()
 			m_trHit = tr;
 		}
 
-		m_pPlayer->m_iWeaponVolume = flVol * PIPEWRENCH_WALLHIT_VOLUME;
+		m_pPlayer->m_iWeaponVolume = flVol * MELEE_WALLHIT_VOLUME;
 #endif
 		m_flNextPrimaryAttack = GetNextAttackDelay(1.0);
 		m_flNextSecondaryAttack = GetNextAttackDelay(1.0);
