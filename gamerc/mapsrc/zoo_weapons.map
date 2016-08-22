@@ -70,12 +70,12 @@
 {
 "classname" "weapon_m249"
 "angles" "0 0 0"
-"origin" "320 256 8"
+"origin" "320 320 8"
 }
 {
 "classname" "ammo_556"
 "angles" "0 0 0"
-"origin" "384 256 8"
+"origin" "384 320 8"
 }
 {
 "classname" "weapon_crowbar"
@@ -155,7 +155,7 @@
 {
 "classname" "weapon_sniperrifle"
 "angles" "0 0 0"
-"origin" "320 320 8"
+"origin" "320 384 8"
 }
 {
 "classname" "ammo_9mmclip"
@@ -205,7 +205,7 @@
 {
 "classname" "ammo_762"
 "angles" "0 0 0"
-"origin" "384 320 8"
+"origin" "384 384 8"
 }
 {
 "classname" "ammo_357"
@@ -215,10 +215,15 @@
 {
 "classname" "weapon_eagle"
 "angles" "0 0 0"
-"origin" "320 192 8"
+"origin" "320 256 8"
 }
 {
 "classname" "ammo_357"
 "angles" "0 0 0"
-"origin" "384 192 8"
+"origin" "384 256 8"
+}
+{
+"classname" "weapon_knife"
+"angles" "0 0 0"
+"origin" "320 192 8"
 }
