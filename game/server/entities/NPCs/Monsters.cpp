@@ -858,7 +858,7 @@ void CBaseMonster::RouteSimplify( const CBaseEntity* const pTargetEnt )
 #endif
 }
 
-bool CBaseMonster::BarnacleVictimGrabbed( CBaseMonster* pBarnacle )
+bool CBaseMonster::BarnacleVictimGrabbed( CBaseEntity* pBarnacle )
 {
 	if ( FBitSet ( pev->flags, FL_ONGROUND ) )
 	{

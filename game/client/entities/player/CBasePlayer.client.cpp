@@ -384,7 +384,7 @@ void CBasePlayer::CheckTimeBasedDamage()
 {
 }
 
-bool CBasePlayer::BarnacleVictimGrabbed( CBaseMonster* pBarnacle )
+bool CBasePlayer::BarnacleVictimGrabbed( CBaseEntity* pBarnacle )
 {
 	return true;
 }

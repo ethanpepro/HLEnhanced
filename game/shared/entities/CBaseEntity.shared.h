@@ -2541,7 +2541,7 @@ public:
 	*	A barnacle is trying to grab this entity.
 	*	@return Whether the entity can be grabbed by the barnacle.
 	*/
-	virtual bool BarnacleVictimGrabbed( CBaseMonster* pBarnacle ) { return false; }
+	virtual bool BarnacleVictimGrabbed( CBaseEntity* pBarnacle ) { return false; }
 
 	/**
 	*	@return Center point of entity.

@@ -310,7 +310,7 @@ public:
 
 	bool Restore( CRestore &restore ) override;
 
-	bool BarnacleVictimGrabbed( CBaseMonster* pBarnacle ) override;
+	bool BarnacleVictimGrabbed( CBaseEntity* pBarnacle ) override;
 	void BarnacleVictimBitten( CBaseEntity* pBarnacle ) override;
 	void BarnacleVictimReleased() override;
 

@@ -320,7 +320,7 @@ public:
 		virtual CSound* PBestScent ( void );
 		virtual float HearingSensitivity( void ) { return 1.0; };
 
-		bool BarnacleVictimGrabbed( CBaseMonster* pBarnacle ) override;
+		bool BarnacleVictimGrabbed( CBaseEntity* pBarnacle ) override;
 		void BarnacleVictimBitten( CBaseEntity* pBarnacle ) override;
 		void BarnacleVictimReleased() override;
 

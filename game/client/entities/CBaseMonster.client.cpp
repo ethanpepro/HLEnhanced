@@ -113,7 +113,7 @@ void CBaseMonster::RouteSimplify( const CBaseEntity* const pTargetEnt )
 {
 }
 
-bool CBaseMonster::BarnacleVictimGrabbed( CBaseMonster* pBarnacle )
+bool CBaseMonster::BarnacleVictimGrabbed( CBaseEntity* pBarnacle )
 {
 	return true;
 }
