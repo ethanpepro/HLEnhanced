@@ -1817,6 +1817,16 @@ void EV_FireShockRifle( event_args_t* args )
 
 	if( EV_IsLocal( args->entindex ) )
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( SHOCKRIFLE_FIRE, 0 );
+
+	for( size_t uiIndex = 0; uiIndex < 3; ++uiIndex )
+	{
+		gEngfuncs.pEfxAPI->R_BeamEnts(
+			args->entindex | 0x1000, args->entindex | ( ( uiIndex + 2 ) << 12 ),
+			gEngfuncs.pEventAPI->EV_FindModelIndex( "sprites/lgtning.spr" ), 
+			0.08, 
+			1, 75 * 0.01, 190 / 255.0, 30, 0, 10, 
+			0, 253 / 255.0, 253 / 255.0 );
+	}
 }
 #endif
 

@@ -27,9 +27,6 @@ enum ShockRifleAnim
 
 class CShockRifle : public CBasePlayerWeapon
 {
-private:
-	static const size_t NUM_BEAMS = 3;
-
 public:
 	DECLARE_CLASS( CShockRifle, CBasePlayerWeapon );
 
@@ -58,19 +55,12 @@ public:
 	void ItemPostFrame() override;
 
 private:
-	void CreateChargeEffect();
-
-	void EXPORT DestroyChargeEffect();
-
-private:
 	int m_iSpriteTexture;
 
 	unsigned short m_usShockRifle;
 
 	float m_flRechargeTime;
 	float m_flSoundDelay;
-
-	CBeam* m_pNoseBeam[ NUM_BEAMS ];
 };
 
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CSHOCKRIFLE_H

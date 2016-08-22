@@ -110,18 +110,6 @@ bool CShockRifle::Deploy()
 
 void CShockRifle::Holster()
 {
-	if( !bIsMultiplayer() )
-	{
-		for( auto& pBeam : m_pNoseBeam )
-		{
-			if( pBeam )
-			{
-				UTIL_Remove( pBeam );
-				pBeam = nullptr;
-			}
-		}
-	}
-
 	m_fInReload = false;
 
 	SetThink( nullptr );
@@ -240,12 +228,6 @@ void CShockRifle::PrimaryAttack()
 	}
 
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 0.33;
-
-	CreateChargeEffect();
-
-	SetNextThink( gpGlobals->time + 0.08 );
-
-	SetThink( &CShockRifle::DestroyChargeEffect );
 }
 
 void CShockRifle::SecondaryAttack()
@@ -289,54 +271,5 @@ void CShockRifle::ItemPostFrame()
 	BaseClass::ItemPostFrame();
 
 	Reload();
-}
-
-void CShockRifle::CreateChargeEffect()
-{
-#ifndef CLIENT_DLL
-	if( !bIsMultiplayer() )
-	{
-		//TODO: this can probably be done on the client side. - Solokiller
-		const int iEntIndex = m_pPlayer->entindex();
-
-		int iEnd = 2;
-
-		for( auto& pBeam : m_pNoseBeam )
-		{
-			pBeam = CBeam::BeamCreate( "sprites/lgtning.spr", 16 );
-
-			pBeam->EntsInit( iEntIndex, iEntIndex );
-
-			pBeam->SetNoise( 75 );
-
-			pBeam->SetWidth( 10 );
-
-			pBeam->SetRenderColor( Vector( 0, 253, 253 ) );
-
-			pBeam->SetScrollRate( 30 );
-			pBeam->SetBrightness( 190 );
-
-			pBeam->SetStartAttachment( 1 );
-			pBeam->SetEndAttachment( iEnd++ );
-		}
-	}
-#endif
-}
-
-void CShockRifle::DestroyChargeEffect()
-{
-	if( !bIsMultiplayer() )
-	{
-		for( auto& pBeam : m_pNoseBeam )
-		{
-			if( pBeam )
-			{
-				UTIL_Remove( pBeam );
-				pBeam = nullptr;
-			}
-		}
-	}
-
-	SetThink( nullptr );
 }
 #endif //USE_OPFOR
