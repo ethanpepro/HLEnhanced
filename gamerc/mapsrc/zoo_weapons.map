@@ -454,3 +454,21 @@
 "angles" "0 0 0"
 "origin" "320 576 8"
 }
+{
+"classname" "ammo_spore"
+"angles" "90 0 0"
+"rendercolor" "0 0 0"
+"origin" "384 576 -16"
+}
+{
+"classname" "ammo_spore"
+"angles" "-90 0 0"
+"rendercolor" "0 0 0"
+"origin" "512 512 480"
+}
+{
+"classname" "ammo_spore"
+"angles" "0 270 0"
+"rendercolor" "0 0 0"
+"origin" "512 1008 480"
+}
