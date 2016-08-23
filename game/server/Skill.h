@@ -159,6 +159,7 @@ public:
 	float plrDmgShockRoachM;
 	float plrDmgDisplacerOther;
 	float plrRadiusDisplacer;
+	float plrDmgSpore;
 #endif
 	
 // weapons shared by monsters

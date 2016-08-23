@@ -6,6 +6,8 @@ add_sources(
 	CDisplacerBall.cpp
 	CShockBeam.h
 	CShockBeam.cpp
+	CSpore.h
+	CSpore.cpp
 	CWeaponBox.h
 	CWeaponBox.cpp
 )

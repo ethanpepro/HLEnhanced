@@ -50,6 +50,7 @@ void RegisterAmmoTypes()
 	g_AmmoTypes.AddAmmoType( "762", NATO762_MAX_CARRY );
 	g_AmmoTypes.AddAmmoType( "556", NATO556_MAX_CARRY );
 	g_AmmoTypes.AddAmmoType( "shock_rounds", SHOCK_ROUNDS_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "spores", SPORES_MAX_CARRY );
 #endif
 
 	//No more letting weapons define ammo types. - Solokiller
@@ -176,6 +177,9 @@ void PrecacheWeapons()
 
 	// Displacer Cannon
 	UTIL_PrecacheOtherWeapon( "weapon_displacer" );
+
+	// Spore Launcher
+	UTIL_PrecacheOtherWeapon( "weapon_sporelauncher" );
 #endif
 }
 

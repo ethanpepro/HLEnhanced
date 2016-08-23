@@ -72,6 +72,7 @@ private:
 	unsigned short m_usDoubleFire;
 	unsigned short m_usSingleFire;
 
+	//TODO: make enum - Solokiller
 	int m_fInSpecialReload;		// Are we in the middle of a reload for the shotguns
 	float m_flPumpTime;
 };

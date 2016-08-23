@@ -58,6 +58,7 @@ enum WeaponId
 	WEAPON_M249				= 19,
 	WEAPON_DISPLACER		= 20,
 	WEAPON_SHOCKRIFLE		= 22,
+	WEAPON_SPORELAUNCHER	= 23,
 	WEAPON_SNIPERRIFLE		= 24,
 	WEAPON_KNIFE			= 25,
 #endif
@@ -87,6 +88,7 @@ enum WeaponId
 #define NATO762_MAX_CARRY		15
 #define NATO556_MAX_CARRY		200
 #define SHOCK_ROUNDS_MAX_CARRY	10
+#define SPORES_MAX_CARRY		20
 #endif
 
 // the maximum amount of ammo each weapon's clip can hold

@@ -56,6 +56,7 @@ static int tracerCount[ MAX_CLIENTS ];
 #include "entities/weapons/CM249.h"
 #include "entities/weapons/CDisplacer.h"
 #include "entities/weapons/CDesertEagle.h"
+#include "entities/weapons/CSporeLauncher.h"
 #include "entities/weapons/CShockRifle.h"
 #endif
 
@@ -1874,6 +1875,36 @@ void EV_FireEagle( event_args_t* args )
 		BULLET_PLAYER_DEAGLE,
 		0, nullptr,
 		args->fparam1, args->fparam2 );
+}
+
+void EV_FireSpore( event_args_t* args )
+{
+	gEngfuncs.pEventAPI->EV_PlaySound( 
+		args->entindex, args->origin, 
+		CHAN_WEAPON, "weapons/splauncher_fire.wav",
+		0.9, 
+		ATTN_NORM, 0, PITCH_NORM );
+
+	if( EV_IsLocal( args->entindex ) )
+	{
+		gEngfuncs.pEventAPI->EV_WeaponAnimation( SPLAUNCHER_FIRE, 0 );
+
+		V_PunchAxis( 0, -3.0 );
+
+		if( cl_entity_t* pViewModel = gEngfuncs.GetViewModel() )
+		{
+			const Vector vecSrc = pViewModel->attachment[ 1 ];
+
+			Vector forward;
+
+			AngleVectors( args->angles, &forward, nullptr, nullptr );
+
+			gEngfuncs.pEfxAPI->R_Sprite_Spray( 
+				vecSrc, forward, 
+				gEngfuncs.pEventAPI->EV_FindModelIndex( "sprites/tinyspit.spr" ), 
+				10, 10, 180 );
+		}
+	}
 }
 
 void EV_FireShockRifle( event_args_t* args )

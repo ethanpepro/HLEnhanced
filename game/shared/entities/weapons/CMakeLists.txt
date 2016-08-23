@@ -29,6 +29,8 @@ add_sources(
 	CKnife.cpp
 	CM249.h
 	CM249.cpp
+	CSporeLauncher.h
+	CSporeLauncher.cpp
 	CMP5.h
 	CMP5.cpp
 	CPipewrench.h

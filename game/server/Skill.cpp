@@ -219,6 +219,9 @@ void skilldata_t::RefreshSkillData()
 	// Displacer Cannon
 	plrDmgDisplacerOther = GetSkillCvar( "sk_plr_displacer_other" );
 	plrRadiusDisplacer = GetSkillCvar( "sk_plr_displacer_radius" );
+
+	// Spore
+	plrDmgSpore = GetSkillCvar( "sk_plr_spore" );
 #endif
 
 	// MONSTER WEAPONS
