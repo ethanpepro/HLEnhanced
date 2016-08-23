@@ -26,7 +26,6 @@
 #include "CSporeLauncher.h"
 
 BEGIN_DATADESC( CSporeLauncher )
-	DEFINE_FIELD( m_iActiveRockets, FIELD_INTEGER ),
 	DEFINE_FIELD( m_ReloadState, FIELD_INTEGER ),
 END_DATADESC()
 
@@ -313,4 +312,18 @@ void CSporeLauncher::Reload()
 	}
 }
 
+void CSporeLauncher::GetWeaponData( weapon_data_t& data )
+{
+	BaseClass::GetWeaponData( data );
+
+	//m_ReloadState is called m_fInSpecialReload in Op4. - Solokiller
+	data.m_fInSpecialReload = static_cast<int>( m_ReloadState );
+}
+
+void CSporeLauncher::SetWeaponData( const weapon_data_t& data )
+{
+	BaseClass::SetWeaponData( data );
+
+	m_ReloadState = static_cast<ReloadState>( data.m_fInSpecialReload );
+}
 #endif //USE_OPFOR

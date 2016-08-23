@@ -65,14 +65,16 @@ public:
 
 	void Reload() override;
 
+	void GetWeaponData( weapon_data_t& data ) override;
+
+	void SetWeaponData( const weapon_data_t& data ) override;
+
 private:
 	unsigned short m_usFireSpore;
 
 	ReloadState m_ReloadState;
 
 	float m_flNextReload;
-
-	char m_iActiveRockets;
 };
 
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CSPORELAUNCHER_H
