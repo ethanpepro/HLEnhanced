@@ -352,7 +352,7 @@
 {
 "classname" "weapon_shockrifle"
 "angles" "0 0 0"
-"origin" "320 576 8"
+"origin" "320 640 8"
 }
 {
 "classname" "func_water"
@@ -448,4 +448,9 @@
 "classname" "ammo_gaussclip"
 "angles" "0 0 0"
 "origin" "384 512 8"
+}
+{
+"classname" "weapon_sporelauncher"
+"angles" "0 0 0"
+"origin" "320 576 8"
 }
