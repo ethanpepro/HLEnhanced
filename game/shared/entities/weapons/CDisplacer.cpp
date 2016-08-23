@@ -60,6 +60,8 @@ void CDisplacer::Precache()
 	m_iSpriteTexture = PRECACHE_MODEL( "sprites/shockwave.spr" );
 
 	UTIL_PrecacheOther( "displacer_ball" );
+
+	m_usFireDisplacer = PRECACHE_EVENT( 1, "events/displacer.sc" );
 }
 
 void CDisplacer::Spawn()
@@ -93,15 +95,6 @@ bool CDisplacer::Deploy()
 void CDisplacer::Holster()
 {
 	m_fInReload = false;
-
-	for( auto& pBeam : m_pNoseBeam )
-	{
-		if( pBeam )
-		{
-			UTIL_Remove( pBeam );
-			pBeam = nullptr;
-		}
-	}
 
 	EMIT_SOUND_DYN( 
 		m_pPlayer, 
@@ -223,7 +216,23 @@ void CDisplacer::SpinupThink()
 
 		m_Mode = Mode::SPINNING_UP;
 
-		CreateChargeEffect();
+		int flags;
+
+#if defined( CLIENT_WEAPONS )
+		flags = FEV_NOTHOST;
+#else
+		flags = 0;
+#endif
+
+		PLAYBACK_EVENT_FULL(
+			flags,
+			m_pPlayer->edict(),
+			m_usFireDisplacer,
+			0,
+			g_vecZero, g_vecZero,
+			0, 0,
+			static_cast<int>( m_Mode ), 0,
+			0, 0 );
 
 		m_flStartTime = gpGlobals->time;
 		m_iSoundState = 0;
@@ -259,7 +268,23 @@ void CDisplacer::AltSpinupThink()
 
 		m_Mode = Mode::SPINNING_UP;
 
-		CreateChargeEffect();
+		int flags;
+
+#if defined( CLIENT_WEAPONS )
+		flags = FEV_NOTHOST;
+#else
+		flags = 0;
+#endif
+
+		PLAYBACK_EVENT_FULL( 
+			flags, 
+			m_pPlayer->edict(), 
+			m_usFireDisplacer, 
+			0, 
+			g_vecZero, g_vecZero, 
+			0, 0, 
+			static_cast<int>( m_Mode ), 0, 
+			0, 0 );
 
 		m_flStartTime = gpGlobals->time;
 		m_iSoundState = 0;
@@ -291,8 +316,6 @@ void CDisplacer::FireThink()
 {
 	m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= 20;
 
-	DestroyChargeEffect();
-
 	m_pPlayer->m_iWeaponVolume = LOUD_GUN_VOLUME;
 	m_pPlayer->m_iWeaponFlash = BRIGHT_GUN_FLASH;
 
@@ -300,10 +323,23 @@ void CDisplacer::FireThink()
 
 	m_pPlayer->AddEffectsFlags( EF_MUZZLEFLASH );
 
-	EMIT_SOUND_DYN( 
-		m_pPlayer, 
-		CHAN_WEAPON, "weapons/displacer_fire.wav", 
-		UTIL_RandomFloat( 0.8, 0.9 ), ATTN_NORM, 0, PITCH_NORM );
+	int flags;
+
+#if defined( CLIENT_WEAPONS )
+	flags = FEV_NOTHOST;
+#else
+	flags = 0;
+#endif
+
+	PLAYBACK_EVENT_FULL(
+		flags,
+		m_pPlayer->edict(),
+		m_usFireDisplacer,
+		0,
+		g_vecZero, g_vecZero,
+		0, 0,
+		static_cast<int>( Mode::FIRED ), 0,
+		0, 0 );
 
 #ifndef CLIENT_DLL
 	const Vector vecAnglesAim = m_pPlayer->GetViewAngle() + m_pPlayer->GetPunchAngle();
@@ -320,12 +356,6 @@ void CDisplacer::FireThink()
 	{
 		m_pPlayer->SetSuitUpdate( "!HEV_AMO0", SUIT_SENTENCE,SUIT_REPEAT_OK );
 	}
-
-	Vector vecPunchAngle = m_pPlayer->GetPunchAngle();
-
-	vecPunchAngle.x -= 2;
-
-	m_pPlayer->SetPunchAngle( vecPunchAngle );
 #endif
 
 	SetThink( nullptr );
@@ -333,8 +363,6 @@ void CDisplacer::FireThink()
 
 void CDisplacer::AltFireThink()
 {
-	DestroyChargeEffect();
-
 #ifndef CLIENT_DLL
 	if( m_pPlayer->IsOnRope() )
 	{
@@ -362,9 +390,9 @@ void CDisplacer::AltFireThink()
 	}
 #endif
 
+#ifndef CLIENT_DLL
 	CBaseEntity* pDestination;
 
-#ifndef CLIENT_DLL
 	if( !g_pGameRules->IsMultiplayer() || g_pGameRules->IsCoOp() )
 	{
 		pDestination = UTIL_FindEntityByClassname( nullptr, "info_displacer_xen_target" );
@@ -417,10 +445,23 @@ void CDisplacer::AltFireThink()
 		m_pPlayer->m_iWeaponVolume = LOUD_GUN_VOLUME;
 		m_pPlayer->m_iWeaponFlash = BRIGHT_GUN_FLASH;
 
-		EMIT_SOUND_DYN( 
-			m_pPlayer, 
-			CHAN_WEAPON, "weapons/displacer_self.wav", 
-			UTIL_RandomFloat( 0.8, 0.9 ), ATTN_NORM, 0, PITCH_NORM );
+		int flags;
+
+#if defined( CLIENT_WEAPONS )
+		flags = FEV_NOTHOST;
+#else
+		flags = 0;
+#endif
+
+		PLAYBACK_EVENT_FULL(
+			flags,
+			m_pPlayer->edict(),
+			m_usFireDisplacer,
+			0,
+			g_vecZero, g_vecZero,
+			0, 0,
+			static_cast<int>( Mode::FIRED ), 0,
+			1, 0 );
 
 		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= 60;
 
@@ -446,54 +487,5 @@ void CDisplacer::AltFireThink()
 			UTIL_RandomFloat( 0.8, 0.9 ), ATTN_NORM, 0, PITCH_NORM );
 	}
 #endif
-}
-
-void CDisplacer::CreateChargeEffect()
-{
-#ifndef CLIENT_DLL
-	if( bIsMultiplayer() )
-		return;
-
-	const int iEntIndex = m_pPlayer->entindex();
-
-	int iAttach = 0;
-
-	for( auto& pBeam : m_pNoseBeam )
-	{
-		pBeam = CBeam::BeamCreate( "sprites/lgtning.spr", 16 );
-
-		pBeam->EntsInit( iEntIndex, iEntIndex );
-
-		pBeam->SetNoise( 60 );
-
-		pBeam->SetWidth( 10 );
-
-		pBeam->SetRenderColor( Vector( 96, 128, 16 ) );
-
-		pBeam->SetScrollRate( 30 );
-
-		pBeam->SetBrightness( 190 );
-
-		//Last beam isn't attached to anything.
-		if( iAttach <= 2 )
-		{
-			pBeam->SetStartAttachment( iAttach++ + 2 );
-
-			pBeam->SetEndAttachment( iAttach % 2 + 2 );
-		}
-	}
-#endif
-}
-
-void CDisplacer::DestroyChargeEffect()
-{
-	for( auto& pBeam : m_pNoseBeam )
-	{
-		if( pBeam )
-		{
-			UTIL_Remove( pBeam );
-			pBeam = nullptr;
-		}
-	}
 }
 #endif //USE_OPFOR

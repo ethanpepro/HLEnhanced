@@ -270,6 +270,13 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	if( ( m_pPlayer->pev->deadflag != ( DEAD_DISCARDBODY + 1 ) ) &&
 		!CL_IsDead() && m_pPlayer->pev->viewmodel && !g_iUser1 )
 	{
+		if( pWeapon->GetNextThink() > 0 && pWeapon->GetNextThink() <= gpGlobals->time )
+		{
+			pWeapon->SetNextThink( 0 );
+
+			pWeapon->Think();
+		}
+
 		if( m_pPlayer->m_flNextAttack <= 0 )
 		{
 			pWeapon->ItemPostFrame();

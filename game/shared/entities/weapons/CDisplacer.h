@@ -28,14 +28,15 @@ enum DisplacerAnim
 
 class CDisplacer : public CBasePlayerWeapon
 {
-private:
+public:
 	static const size_t NUM_BEAMS = 4;
 
 	enum class Mode
 	{
 		STARTED = 0,
 		SPINNING_UP,
-		SPINNING
+		SPINNING,
+		FIRED
 	};
 
 public:
@@ -69,14 +70,8 @@ public:
 
 	void EXPORT AltFireThink();
 
-	void CreateChargeEffect();
-
-	void DestroyChargeEffect();
-
 private:
 	int m_iSpriteTexture;
-
-	CBeam* m_pNoseBeam[ NUM_BEAMS ];
 
 	float m_flStartTime;
 	float m_flSoundDelay;
@@ -85,6 +80,8 @@ private:
 
 	int m_iImplodeCounter;
 	int m_iSoundState;
+
+	unsigned short m_usFireDisplacer;
 };
 
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CDISPLACER_H

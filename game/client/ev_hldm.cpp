@@ -54,6 +54,7 @@ static int tracerCount[ MAX_CLIENTS ];
 #include "entities/weapons/CKnife.h"
 #include "entities/weapons/CSniperRifle.h"
 #include "entities/weapons/CM249.h"
+#include "entities/weapons/CDisplacer.h"
 #include "entities/weapons/CDesertEagle.h"
 #include "entities/weapons/CShockRifle.h"
 #endif
@@ -1753,6 +1754,73 @@ void EV_FireM249( event_args_t* args )
 		BULLET_PLAYER_556, 
 		0, nullptr, 
 		args->fparam1, args->fparam2 );
+}
+
+void EV_FireDisplacer( event_args_t* args )
+{
+	const CDisplacer::Mode mode = static_cast<CDisplacer::Mode>( args->iparam1 );
+
+	switch( mode )
+	{
+	case CDisplacer::Mode::SPINNING_UP:
+		{
+			int iAttach = 0;
+
+			int iStartAttach, iEndAttach;
+
+			for( size_t uiIndex = 0; uiIndex < CDisplacer::NUM_BEAMS; ++uiIndex )
+			{
+				if( iAttach <= 2 )
+				{
+					iStartAttach = iAttach++ + 2;
+					iEndAttach = iAttach % 2 + 2;
+				}
+				else
+				{
+					iStartAttach = 0;
+					iEndAttach = 0;
+				}
+
+				gEngfuncs.pEfxAPI->R_BeamEnts(
+					args->entindex | ( iStartAttach << 12 ), args->entindex | ( iEndAttach << 12 ),
+					gEngfuncs.pEventAPI->EV_FindModelIndex( "sprites/lgtning.spr" ),
+					1,
+					1, 60 * 0.01, 190 / 255.0, 30, 0, 10,
+					96 / 255.0, 128 / 255.0, 16 / 255.0 );
+			}
+
+			break;
+		}
+
+	case CDisplacer::Mode::FIRED:
+		{
+			//bparam1 indicates whether it's a primary or secondary attack. - Solokiller
+			if( !args->bparam1 )
+			{
+				gEngfuncs.pEventAPI->EV_PlaySound(
+					args->entindex, args->origin, 
+					CHAN_WEAPON, "weapons/displacer_fire.wav", 
+					UTIL_RandomFloat( 0.8, 0.9 ), ATTN_NORM, 0, PITCH_NORM );
+			}
+			else
+			{
+				gEngfuncs.pEventAPI->EV_PlaySound(
+					args->entindex, args->origin,
+					CHAN_WEAPON, "weapons/displacer_self.wav",
+					UTIL_RandomFloat( 0.8, 0.9 ), ATTN_NORM, 0, PITCH_NORM );
+			}
+
+			if( EV_IsLocal( args->entindex ) )
+			{
+				gEngfuncs.pEventAPI->EV_WeaponAnimation( DISPLACER_FIRE, 0 );
+				V_PunchAxis( 0, -2 );
+			}
+
+			break;
+		}
+
+	default: break;
+	}
 }
 
 void EV_FireEagle( event_args_t* args )
