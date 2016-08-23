@@ -44,6 +44,11 @@ void EMIT_SOUND( CBaseEntity* pEntity, int channel, const char *sample, float vo
 	EMIT_SOUND_DYN( pEntity, channel, sample, volume, attenuation, 0, PITCH_NORM );
 }
 
+void STOP_SOUND( CBaseEntity* pEntity, int channel, const char* const pszSample )
+{
+	EMIT_SOUND_DYN( pEntity, channel, pszSample, 0, 0, SND_STOP, PITCH_NORM );
+}
+
 // DEBUG Stubs
 edict_t *DBG_EntOfVars( const entvars_t *pev ) { return nullptr; }
 

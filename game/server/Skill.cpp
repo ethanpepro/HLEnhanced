@@ -197,7 +197,7 @@ void skilldata_t::RefreshSkillData()
 	plrDmgTripmine = GetSkillCvar( "sk_plr_tripmine" );
 
 #if USE_OPFOR
-	//Knife whack
+	// Knife whack
 	plrDmgKnife = GetSkillCvar( "sk_plr_knife" );
 
 	// Pipewrench whack
@@ -212,8 +212,13 @@ void skilldata_t::RefreshSkillData()
 	// 762 Round
 	plrDmg762 = GetSkillCvar( "sk_plr_762_bullet" );
 
+	// Shock Rifle
 	plrDmgShockRoachS = GetSkillCvar( "sk_plr_shockroachs" );
 	plrDmgShockRoachM = GetSkillCvar( "sk_plr_shockroachm" );
+
+	// Displacer Cannon
+	plrDmgDisplacerOther = GetSkillCvar( "sk_plr_displacer_other" );
+	plrRadiusDisplacer = GetSkillCvar( "sk_plr_displacer_radius" );
 #endif
 
 	// MONSTER WEAPONS

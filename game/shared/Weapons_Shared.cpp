@@ -173,6 +173,9 @@ void PrecacheWeapons()
 
 	// Shock Rifle
 	UTIL_PrecacheOtherWeapon( "weapon_shockrifle" );
+
+	// Displacer Cannon
+	UTIL_PrecacheOtherWeapon( "weapon_displacer" );
 #endif
 }
 

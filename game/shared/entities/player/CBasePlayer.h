@@ -562,8 +562,31 @@ public:
 		m_pRope = pRope;
 	}
 
+	void SetIsClimbing( const bool bIsClimbing )
+	{
+		m_bIsClimbing = bIsClimbing;
+	}
+
+	const Vector& GetDisplacerReturn() const { return m_vecDisplacerReturn; }
+
+	void SetDisplacerReturn( const Vector& vecDisplacerReturn )
+	{
+		m_vecDisplacerReturn = vecDisplacerReturn;
+	}
+
+	float GetDisplacerSndRoomtype() const { return m_flDisplacerSndRoomtype; }
+
+	void SetDisplacerSndRoomtype( float flDisplacerSndRoomtype )
+	{
+		m_flDisplacerSndRoomtype = flDisplacerSndRoomtype;
+	}
+
 private:
 	CRope* m_pRope;
+
+	Vector m_vecDisplacerReturn;
+
+	float m_flDisplacerSndRoomtype;
 #else
 private:
 #endif

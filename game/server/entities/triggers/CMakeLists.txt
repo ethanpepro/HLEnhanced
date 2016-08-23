@@ -45,4 +45,6 @@ add_sources(
 	CTriggerTeleport.cpp
 	CTriggerVolume.h
 	CTriggerVolume.cpp
+	CTriggerXenReturn.h
+	CTriggerXenReturn.cpp
 )

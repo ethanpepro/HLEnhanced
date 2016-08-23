@@ -13,6 +13,8 @@ add_sources(
 	CCrowbar.cpp
 	CDesertEagle.h
 	CDesertEagle.cpp
+	CDisplacer.h
+	CDisplacer.cpp
 	CEgon.h
 	CEgon.cpp
 	CGauss.h
