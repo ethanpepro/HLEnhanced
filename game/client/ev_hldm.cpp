@@ -58,6 +58,7 @@ static int tracerCount[ MAX_CLIENTS ];
 #include "entities/weapons/CDesertEagle.h"
 #include "entities/weapons/CSporeLauncher.h"
 #include "entities/weapons/CShockRifle.h"
+#include "entities/weapons/CPenguin.h"
 #endif
 
 void V_PunchAxis( int axis, float punch );
@@ -1926,6 +1927,37 @@ void EV_FireShockRifle( event_args_t* args )
 			1, 75 * 0.01, 190 / 255.0, 30, 0, 10, 
 			0, 253 / 255.0, 253 / 255.0 );
 	}
+}
+
+void EV_PenguinFire( event_args_t* args )
+{
+	Vector vecOrigin = args->origin;
+
+	Vector up, right, forward;
+
+	AngleVectors( args->angles, forward, right, up );
+
+	if( !EV_IsLocal( args->entindex ) )
+		return;
+
+	if( args->ducking )
+		vecOrigin = vecOrigin - ( VEC_HULL_MIN - VEC_DUCK_HULL_MIN );
+
+	// Store off the old count
+	gEngfuncs.pEventAPI->EV_PushPMStates();
+
+	pmtrace_t tr;
+
+	// Now add in all of the players.
+	gEngfuncs.pEventAPI->EV_SetSolidPlayers( args->entindex - 1 );
+	gEngfuncs.pEventAPI->EV_SetTraceHull( 2 );
+	gEngfuncs.pEventAPI->EV_PlayerTrace( vecOrigin + forward * 20, vecOrigin + forward * 64, PM_NORMAL, -1, &tr );
+
+	//Find space to drop the thing.
+	if( tr.allsolid == 0 && tr.startsolid == 0 && tr.fraction > 0.25 )
+		gEngfuncs.pEventAPI->EV_WeaponAnimation( PENGUIN_THROW, 0 );
+
+	gEngfuncs.pEventAPI->EV_PopPMStates();
 }
 #endif
 

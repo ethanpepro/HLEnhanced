@@ -85,6 +85,8 @@ add_sources(
 	CNihilanthHVR.cpp
 	COsprey.h
 	COsprey.cpp
+	CPenguinGrenade.h
+	CPenguinGrenade.cpp
 	CRat.h
 	CRat.cpp
 	CRoach.h

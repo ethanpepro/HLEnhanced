@@ -51,6 +51,7 @@ void RegisterAmmoTypes()
 	g_AmmoTypes.AddAmmoType( "556", NATO556_MAX_CARRY );
 	g_AmmoTypes.AddAmmoType( "shock_rounds", SHOCK_ROUNDS_MAX_CARRY );
 	g_AmmoTypes.AddAmmoType( "spores", SPORES_MAX_CARRY );
+	g_AmmoTypes.AddAmmoType( "Penguins", PENGUINS_MAX_CARRY );
 #endif
 
 	//No more letting weapons define ammo types. - Solokiller
@@ -163,23 +164,26 @@ void PrecacheWeapons()
 	// Barnacle grapple
 	UTIL_PrecacheOtherWeapon( "weapon_grapple" );
 
-	// Sniper rifle
-	UTIL_PrecacheOtherWeapon( "weapon_sniperrifle" );
+	// Desert Eagle
+	UTIL_PrecacheOtherWeapon( "weapon_eagle" );
+
+	// Penguin Bomb
+	UTIL_PrecacheOtherWeapon( "weapon_penguin" );
 
 	// M249
 	UTIL_PrecacheOtherWeapon( "weapon_m249" );
 
-	// Desert Eagle
-	UTIL_PrecacheOtherWeapon( "weapon_eagle" );
-
-	// Shock Rifle
-	UTIL_PrecacheOtherWeapon( "weapon_shockrifle" );
-
 	// Displacer Cannon
 	UTIL_PrecacheOtherWeapon( "weapon_displacer" );
 
+	// Sniper rifle
+	UTIL_PrecacheOtherWeapon( "weapon_sniperrifle" );
+
 	// Spore Launcher
 	UTIL_PrecacheOtherWeapon( "weapon_sporelauncher" );
+
+	// Shock Rifle
+	UTIL_PrecacheOtherWeapon( "weapon_shockrifle" );
 #endif
 }
 

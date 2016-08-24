@@ -29,10 +29,10 @@ add_sources(
 	CKnife.cpp
 	CM249.h
 	CM249.cpp
-	CSporeLauncher.h
-	CSporeLauncher.cpp
 	CMP5.h
 	CMP5.cpp
+	CPenguin.h
+	CPenguin.cpp
 	CPipewrench.h
 	CPipewrench.cpp
 	CPython.h
@@ -41,6 +41,8 @@ add_sources(
 	CRpg.cpp
 	CSatchel.h
 	CSatchel.cpp
+	CSporeLauncher.h
+	CSporeLauncher.cpp
 	CShockRifle.h
 	CShockRifle.cpp
 	CShotgun.h

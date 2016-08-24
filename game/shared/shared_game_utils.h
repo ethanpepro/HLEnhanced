@@ -277,7 +277,7 @@ Vector UTIL_VecToAngles( const Vector& vec );
 Vector VecVelocityForDamage( const float flDamage );
 
 // Testing strings for nullity
-#define iStringNull 0
+#define iStringNull ( ( string_t ) 0 )
 inline bool FStringNull( string_t iString ) { return iString == iStringNull; }
 
 inline bool FStrEq( const char* sz1, const char* sz2 )
