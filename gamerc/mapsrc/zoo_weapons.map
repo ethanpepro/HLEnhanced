@@ -134,12 +134,12 @@
 {
 "classname" "weapon_m249"
 "angles" "0 0 0"
-"origin" "320 384 8"
+"origin" "320 448 8"
 }
 {
 "classname" "ammo_556"
 "angles" "0 0 0"
-"origin" "384 384 8"
+"origin" "384 448 8"
 }
 {
 "classname" "weapon_crowbar"
@@ -219,7 +219,7 @@
 {
 "classname" "weapon_sniperrifle"
 "angles" "0 0 0"
-"origin" "320 448 8"
+"origin" "320 576 8"
 }
 {
 "classname" "ammo_9mmclip"
@@ -269,7 +269,7 @@
 {
 "classname" "ammo_762"
 "angles" "0 0 0"
-"origin" "384 448 8"
+"origin" "384 576 8"
 }
 {
 "classname" "ammo_357"
@@ -352,7 +352,7 @@
 {
 "classname" "weapon_shockrifle"
 "angles" "0 0 0"
-"origin" "320 640 8"
+"origin" "320 704 8"
 }
 {
 "classname" "func_water"
@@ -452,13 +452,13 @@
 {
 "classname" "weapon_sporelauncher"
 "angles" "0 0 0"
-"origin" "320 576 8"
+"origin" "320 640 8"
 }
 {
 "classname" "ammo_spore"
 "angles" "90 0 0"
 "rendercolor" "0 0 0"
-"origin" "384 576 -16"
+"origin" "384 640 -16"
 }
 {
 "classname" "ammo_spore"
@@ -471,4 +471,14 @@
 "angles" "0 270 0"
 "rendercolor" "0 0 0"
 "origin" "512 1008 480"
+}
+{
+"classname" "weapon_penguin"
+"angles" "0 0 0"
+"origin" "320 384 8"
+}
+{
+"classname" "weapon_penguin"
+"angles" "0 0 0"
+"origin" "384 384 8"
 }
