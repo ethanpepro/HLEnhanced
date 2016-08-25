@@ -79,8 +79,10 @@ void CKnife::PrimaryAttack()
 {
 	if( !Swing( true ) )
 	{
+#ifndef CLIENT_DLL
 		SetThink( &CKnife::SwingAgain );
 		SetNextThink( gpGlobals->time + 0.1 );
+#endif
 	}
 }
 
@@ -220,13 +222,11 @@ bool CKnife::Swing( const bool bFirst )
 		}
 
 		m_pPlayer->m_iWeaponVolume = flVol * MELEE_WALLHIT_VOLUME;
-#endif
-		m_flNextPrimaryAttack = GetNextAttackDelay( 0.25 );
 
 		SetThink( &CKnife::Smack );
 		pev->nextthink = UTIL_WeaponTimeBase() + 0.2;
-
-
+#endif
+		m_flNextPrimaryAttack = GetNextAttackDelay( 0.25 );
 	}
 	return bDidHit;
 }

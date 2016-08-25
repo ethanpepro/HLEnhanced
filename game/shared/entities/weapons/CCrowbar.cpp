@@ -72,8 +72,10 @@ void CCrowbar::PrimaryAttack()
 {
 	if( !Swing( true ) )
 	{
+#ifndef CLIENT_DLL
 		SetThink( &CCrowbar::SwingAgain );
 		pev->nextthink = gpGlobals->time + 0.1;
+#endif
 	}
 }
 
@@ -228,13 +230,11 @@ bool CCrowbar::Swing( const bool bFirst )
 		}
 
 		m_pPlayer->m_iWeaponVolume = flVol * MELEE_WALLHIT_VOLUME;
-#endif
-		m_flNextPrimaryAttack = GetNextAttackDelay(0.25);
-		
+
 		SetThink( &CCrowbar::Smack );
 		pev->nextthink = UTIL_WeaponTimeBase() + 0.2;
-
-		
+#endif
+		m_flNextPrimaryAttack = GetNextAttackDelay(0.25);
 	}
 	return bDidHit;
 }
