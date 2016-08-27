@@ -137,6 +137,7 @@ void HUD_PlaybackEvent( int flags, const edict_t *pInvoker, unsigned short event
 	     return;
 
 	// Weapon prediction events are assumed to occur at the player's origin
+	//TODO: when using a trigger_camera, this data will be completely wrong. - Solokiller
 	Vector org = g_finalstate->playerstate.origin;
 	Vector ang = v_angles;
 	gEngfuncs.pfnPlaybackEvent( flags, pInvoker, eventindex, delay, org, ang, fparam1, fparam2, iparam1, iparam2, bparam1, bparam2 );
