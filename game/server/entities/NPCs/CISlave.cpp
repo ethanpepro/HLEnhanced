@@ -497,6 +497,13 @@ void CISlave :: Precache()
 		PRECACHE_SOUND((char *)pDeathSounds[i]);
 }	
 
+void CISlave::UpdateOnRemove()
+{
+	BaseClass::UpdateOnRemove();
+
+	ClearBeams();
+}
+
 
 //=========================================================
 // OnTakeDamage - get provoked when injured
