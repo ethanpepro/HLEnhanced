@@ -34,6 +34,9 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
+
+	void UpdateOnRemove() override;
+
 	void SetYawSpeed( void ) override;
 	int  Classify( void ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
