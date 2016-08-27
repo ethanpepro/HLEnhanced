@@ -43,6 +43,9 @@ public:
 
 	void Spawn( void ) override;
 	virtual void Precache( void ) override;
+
+	void UpdateOnRemove() override;
+
 	void KeyValue( KeyValueData *pkvd ) override;
 	void EXPORT TurretUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 

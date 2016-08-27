@@ -141,6 +141,17 @@ void CBaseTurret::Precache( )
 	PRECACHE_SOUND ("turret/tu_alert.wav");
 }
 
+void CBaseTurret::UpdateOnRemove()
+{
+	BaseClass::UpdateOnRemove();
+
+	if( m_pEyeGlow )
+	{
+		UTIL_Remove( m_pEyeGlow );
+		m_pEyeGlow = nullptr;
+	}
+}
+
 void CBaseTurret::Initialize(void)
 {
 	m_bOn = false;
