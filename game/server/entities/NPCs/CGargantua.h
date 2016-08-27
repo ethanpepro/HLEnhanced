@@ -45,6 +45,9 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
+
+	void UpdateOnRemove() override;
+
 	void SetYawSpeed( void ) override;
 	int  Classify( void ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;

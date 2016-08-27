@@ -590,6 +590,18 @@ void CGargantua :: Precache()
 		PRECACHE_SOUND((char *)pBreatheSounds[i]);
 }	
 
+void CGargantua::UpdateOnRemove()
+{
+	BaseClass::UpdateOnRemove();
+
+	if( m_pEyeGlow )
+	{
+		UTIL_Remove( m_pEyeGlow );
+		m_pEyeGlow = nullptr;
+	}
+
+	FlameDestroy();
+}
 
 void CGargantua::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
