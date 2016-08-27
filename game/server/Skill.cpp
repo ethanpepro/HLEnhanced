@@ -212,6 +212,9 @@ void skilldata_t::RefreshSkillData()
 	// 762 Round
 	plrDmg762 = GetSkillCvar( "sk_plr_762_bullet" );
 
+	// Desert Eagle
+	plrDmgDeagle = GetSkillCvar( "sk_plr_eagle" );
+
 	// Shock Rifle
 	plrDmgShockRoachS = GetSkillCvar( "sk_plr_shockroachs" );
 	plrDmgShockRoachM = GetSkillCvar( "sk_plr_shockroachm" );
