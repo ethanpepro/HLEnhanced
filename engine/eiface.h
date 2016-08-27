@@ -1260,7 +1260,7 @@ typedef struct enginefuncs_s
 	*	@param pCvar Cvar.
 	*	@param pszValue Value to set.
 	*/
-	void		(*pfnCvar_DirectSet)		( cvar_t* pCvar, char* pszValue );
+	void		(*pfnCvar_DirectSet)		( cvar_t* pCvar, const char* pszValue );
 
 	/*
 	*	Forces the client and server to be running with the same version of the specified file
