@@ -414,17 +414,17 @@ void CPipewrench::BigSwing()
 		}
 
 		m_pPlayer->m_iWeaponVolume = flVol * MELEE_WALLHIT_VOLUME;
-#endif
-		m_flNextPrimaryAttack = GetNextAttackDelay(1.0);
-		m_flNextSecondaryAttack = GetNextAttackDelay(1.0);
-		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.0;
-		
+
 		// Shepard - The original Opposing Force's pipe wrench
 		// doesn't make a bullet hole decal when making a big
 		// swing. If you want that decal, just uncomment the
 		// 2 lines below.
 		/*SetThink( &CPipewrench::Smack );
 		pev->nextthink = UTIL_WeaponTimeBase() + 0.2;*/
+#endif
+		m_flNextPrimaryAttack = GetNextAttackDelay(1.0);
+		m_flNextSecondaryAttack = GetNextAttackDelay(1.0);
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.0;
 	}
 }
 
