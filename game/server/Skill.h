@@ -29,12 +29,8 @@ enum SkillLevel
 	SKILL_LAST		= SKILL_HARD
 };
 
-//TODO: refer to the cvars directly when quering for values - Solokiller
 struct skilldata_t
 {
-	//TODO: temporary until the skill system is overhauled. - Solokiller
-	friend class CHalfLifeMultiplay;
-
 	/**
 	*	@return The current skill level.
 	*	@see SkillLevel
