@@ -26,6 +26,9 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
+
+	void UpdateOnRemove() override;
+
 	int  Classify( void ) override { return CLASS_ALIEN_MILITARY; };
 	int  BloodColor() const override { return BLOOD_COLOR_YELLOW; }
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
