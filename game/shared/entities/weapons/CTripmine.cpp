@@ -37,6 +37,8 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
+	void UpdateOnRemove() override;
+
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	
 	void EXPORT WarningThink( void );
@@ -60,8 +62,6 @@ public:
 	edict_t		*m_pRealOwner;// tracelines don't hit PEV->OWNER, which means a player couldn't detonate his own trip mine, so we store the owner here.
 };
 
-LINK_ENTITY_TO_CLASS( monster_tripmine, CTripmineGrenade );
-
 BEGIN_DATADESC(	CTripmineGrenade )
 	DEFINE_FIELD( m_flPowerUp, FIELD_TIME ),
 	DEFINE_FIELD( m_vecDir, FIELD_VECTOR ),
@@ -74,6 +74,7 @@ BEGIN_DATADESC(	CTripmineGrenade )
 	DEFINE_FIELD( m_pRealOwner, FIELD_EDICT ),
 END_DATADESC()
 
+LINK_ENTITY_TO_CLASS( monster_tripmine, CTripmineGrenade );
 
 void CTripmineGrenade :: Spawn( void )
 {
@@ -134,6 +135,12 @@ void CTripmineGrenade :: Precache( void )
 	PRECACHE_SOUND("weapons/mine_charge.wav");
 }
 
+void CTripmineGrenade::UpdateOnRemove()
+{
+	BaseClass::UpdateOnRemove();
+
+	KillBeam();
+}
 
 void CTripmineGrenade :: WarningThink( void  )
 {
