@@ -50,10 +50,10 @@ struct skilldata_t
 	}
 
 	/**
-	*	Gets the value for the given skill cvar.
-	*	@return Value for the given skill cvar.
+	*	Gets the cvar pointer for the given skill cvar.
+	*	@return Cvar pointer for the given skill cvar.
 	*/
-	float GetSkillCvar( const char* pszName ) const;
+	cvar_t* GetSkillCvar( const char* pszName ) const;
 
 	/**
 	*	Refreshes current skill data.
@@ -64,153 +64,153 @@ private:
 	SkillLevel m_SkillLevel; // game skill level
 
 	// Monster Health & Damage
-	float agruntHealth;
-	float agruntDmgPunch;
+	cvar_t* agruntHealth;
+	cvar_t* agruntDmgPunch;
 
-	float apacheHealth;
+	cvar_t* apacheHealth;
 
-	float barneyHealth;
+	cvar_t* barneyHealth;
 
-	float bigmommaHealthFactor;
-	float bigmommaDmgSlash;
-	float bigmommaDmgBlast;
-	float bigmommaRadiusBlast;
+	cvar_t* bigmommaHealthFactor;
+	cvar_t* bigmommaDmgSlash;
+	cvar_t* bigmommaDmgBlast;
+	cvar_t* bigmommaRadiusBlast;
 
-	float bullsquidHealth;
-	float bullsquidDmgBite;
-	float bullsquidDmgWhip;
-	float bullsquidDmgSpit;
+	cvar_t* bullsquidHealth;
+	cvar_t* bullsquidDmgBite;
+	cvar_t* bullsquidDmgWhip;
+	cvar_t* bullsquidDmgSpit;
 
-	float gargantuaHealth;
-	float gargantuaDmgSlash;
-	float gargantuaDmgFire;
-	float gargantuaDmgStomp;
+	cvar_t* gargantuaHealth;
+	cvar_t* gargantuaDmgSlash;
+	cvar_t* gargantuaDmgFire;
+	cvar_t* gargantuaDmgStomp;
 
-	float hassassinHealth;
+	cvar_t* hassassinHealth;
 
-	float headcrabHealth;
-	float headcrabDmgBite;
+	cvar_t* headcrabHealth;
+	cvar_t* headcrabDmgBite;
 
-	float hgruntHealth;
-	float hgruntDmgKick;
-	float hgruntShotgunPellets;
-	float hgruntGrenadeSpeed;
+	cvar_t* hgruntHealth;
+	cvar_t* hgruntDmgKick;
+	cvar_t* hgruntShotgunPellets;
+	cvar_t* hgruntGrenadeSpeed;
 
-	float houndeyeHealth;
-	float houndeyeDmgBlast;
+	cvar_t* houndeyeHealth;
+	cvar_t* houndeyeDmgBlast;
 
-	float slaveHealth;
-	float slaveDmgClaw;
-	float slaveDmgClawrake;
-	float slaveDmgZap;
+	cvar_t* slaveHealth;
+	cvar_t* slaveDmgClaw;
+	cvar_t* slaveDmgClawrake;
+	cvar_t* slaveDmgZap;
 
-	float ichthyosaurHealth;
-	float ichthyosaurDmgShake;
+	cvar_t* ichthyosaurHealth;
+	cvar_t* ichthyosaurDmgShake;
 
-	float leechHealth;
-	float leechDmgBite;
+	cvar_t* leechHealth;
+	cvar_t* leechDmgBite;
 
-	float controllerHealth;
-	float controllerDmgZap;
-	float controllerSpeedBall;
-	float controllerDmgBall;
+	cvar_t* controllerHealth;
+	cvar_t* controllerDmgZap;
+	cvar_t* controllerSpeedBall;
+	cvar_t* controllerDmgBall;
 
-	float nihilanthHealth;
-	float nihilanthZap;
+	cvar_t* nihilanthHealth;
+	cvar_t* nihilanthZap;
 
-	float scientistHealth;
+	cvar_t* scientistHealth;
 
-	float snarkHealth;
-	float snarkDmgBite;
-	float snarkDmgPop;
+	cvar_t* snarkHealth;
+	cvar_t* snarkDmgBite;
+	cvar_t* snarkDmgPop;
 
-	float zombieHealth;
-	float zombieDmgOneSlash;
-	float zombieDmgBothSlash;
+	cvar_t* zombieHealth;
+	cvar_t* zombieDmgOneSlash;
+	cvar_t* zombieDmgBothSlash;
 
-	float turretHealth;
-	float miniturretHealth;
-	float sentryHealth;
+	cvar_t* turretHealth;
+	cvar_t* miniturretHealth;
+	cvar_t* sentryHealth;
 
 	// Player Weapons
-	float plrDmgCrowbar;
-	float plrDmg9MM;
-	float plrDmg357;
-	float plrDmgMP5;
-	float plrDmgM203Grenade;
-	float plrDmgBuckshot;
-	float plrDmgCrossbowClient;
-	float plrDmgCrossbowMonster;
-	float plrDmgRPG;
-	float plrDmgGauss;
-	float plrDmgEgonNarrow;
-	float plrDmgEgonWide;
-	float plrDmgHornet;
-	float plrDmgHandGrenade;
-	float plrDmgSatchel;
-	float plrDmgTripmine;
+	cvar_t* plrDmgCrowbar;
+	cvar_t* plrDmg9MM;
+	cvar_t* plrDmg357;
+	cvar_t* plrDmgMP5;
+	cvar_t* plrDmgM203Grenade;
+	cvar_t* plrDmgBuckshot;
+	cvar_t* plrDmgCrossbowClient;
+	cvar_t* plrDmgCrossbowMonster;
+	cvar_t* plrDmgRPG;
+	cvar_t* plrDmgGauss;
+	cvar_t* plrDmgEgonNarrow;
+	cvar_t* plrDmgEgonWide;
+	cvar_t* plrDmgHornet;
+	cvar_t* plrDmgHandGrenade;
+	cvar_t* plrDmgSatchel;
+	cvar_t* plrDmgTripmine;
 
 #if USE_OPFOR
-	float plrDmgKnife;
-	float plrDmgPipewrench;
-	float plrDmgGrapple;
-	float plrDmg556;
-	float plrDmg762;
-	float plrDmgDeagle;
-	float plrDmgShockRoachS;
-	float plrDmgShockRoachM;
-	float plrDmgDisplacerOther;
-	float plrRadiusDisplacer;
-	float plrDmgSpore;
+	cvar_t* plrDmgKnife;
+	cvar_t* plrDmgPipewrench;
+	cvar_t* plrDmgGrapple;
+	cvar_t* plrDmg556;
+	cvar_t* plrDmg762;
+	cvar_t* plrDmgDeagle;
+	cvar_t* plrDmgShockRoachS;
+	cvar_t* plrDmgShockRoachM;
+	cvar_t* plrDmgDisplacerOther;
+	cvar_t* plrRadiusDisplacer;
+	cvar_t* plrDmgSpore;
 #endif
 
 	// weapons shared by monsters
-	float monDmg9MM;
-	float monDmgMP5;
-	float monDmg12MM;
-	float monDmgHornet;
+	cvar_t* monDmg9MM;
+	cvar_t* monDmgMP5;
+	cvar_t* monDmg12MM;
+	cvar_t* monDmgHornet;
 
 	// health/suit charge
-	float suitchargerCapacity;
-	float batteryCapacity;
-	float healthchargerCapacity;
-	float healthkitCapacity;
-	float scientistHeal;
+	cvar_t* suitchargerCapacity;
+	cvar_t* batteryCapacity;
+	cvar_t* healthchargerCapacity;
+	cvar_t* healthkitCapacity;
+	cvar_t* scientistHeal;
 
 	// monster damage adj
-	float monHead;
-	float monChest;
-	float monStomach;
-	float monLeg;
-	float monArm;
+	cvar_t* monHead;
+	cvar_t* monChest;
+	cvar_t* monStomach;
+	cvar_t* monLeg;
+	cvar_t* monArm;
 
 	// player damage adj
-	float plrHead;
-	float plrChest;
-	float plrStomach;
-	float plrLeg;
-	float plrArm;
+	cvar_t* plrHead;
+	cvar_t* plrChest;
+	cvar_t* plrStomach;
+	cvar_t* plrLeg;
+	cvar_t* plrArm;
 
 public:
 // Monster Health & Damage
 	float GetAGruntHealth() const
 	{
-		return agruntHealth;
+		return agruntHealth->value;
 	}
 
 	float GetAGruntDmgPunch() const
 	{
-		return agruntDmgPunch;
+		return agruntDmgPunch->value;
 	}
 
 	float GetApacheHealth() const
 	{
-		return apacheHealth;
+		return apacheHealth->value;
 	}
 
 	float GetBarneyHealth() const
 	{
-		return barneyHealth;
+		return barneyHealth->value;
 	}
 
 	/**
@@ -218,7 +218,7 @@ public:
 	*/
 	float GetBigMommaHealthFactor() const
 	{
-		return bigmommaHealthFactor;
+		return bigmommaHealthFactor->value;
 	}
 
 	/**
@@ -226,7 +226,7 @@ public:
 	*/
 	float GetBigMommaDmgSlash() const
 	{
-		return bigmommaDmgSlash;
+		return bigmommaDmgSlash->value;
 	}
 
 	/**
@@ -234,7 +234,7 @@ public:
 	*/
 	float GetBigMommaDmgBlast() const
 	{
-		return bigmommaDmgBlast;
+		return bigmommaDmgBlast->value;
 	}
 
 	/**
@@ -242,324 +242,324 @@ public:
 	*/
 	float GetBigMommaRadiusBlast() const
 	{
-		return bigmommaRadiusBlast;
+		return bigmommaRadiusBlast->value;
 	}
 
 	float GetBullsquidHealth() const
 	{
-		return bullsquidHealth;
+		return bullsquidHealth->value;
 	}
 
 	float GetBullsquidDmgBite() const
 	{
-		return bullsquidDmgBite;
+		return bullsquidDmgBite->value;
 	}
 
 	float GetBullsquidDmgWhip() const
 	{
-		return bullsquidDmgWhip;
+		return bullsquidDmgWhip->value;
 	}
 
 	float GetBullsquidDmgSpit() const
 	{
-		return bullsquidDmgSpit;
+		return bullsquidDmgSpit->value;
 	}
 
 	float GetGargantuaHealth() const
 	{
-		return gargantuaHealth;
+		return gargantuaHealth->value;
 	}
 
 	float GetGargantuaDmgSlash() const
 	{
-		return gargantuaDmgSlash;
+		return gargantuaDmgSlash->value;
 	}
 
 	float GetGargantuaDmgFire() const
 	{
-		return gargantuaDmgFire;
+		return gargantuaDmgFire->value;
 	}
 
 	float GetGargantuaDmgStomp() const
 	{
-		return gargantuaDmgStomp;
+		return gargantuaDmgStomp->value;
 	}
 
 	float GetHAssassinHealth() const
 	{
-		return hassassinHealth;
+		return hassassinHealth->value;
 	}
 
 	float GetHeadcrabHealth() const
 	{
-		return headcrabHealth;
+		return headcrabHealth->value;
 	}
 
 	float GetHeadcrabDmgBite() const
 	{
-		return headcrabDmgBite;
+		return headcrabDmgBite->value;
 	}
 
 	float GetHGruntHealth() const
 	{
-		return hgruntHealth;
+		return hgruntHealth->value;
 	}
 
 	float GetHGruntDmgKick() const
 	{
-		return hgruntDmgKick;
+		return hgruntDmgKick->value;
 	}
 
 	float GetHGruntShotgunPellets() const
 	{
-		return hgruntShotgunPellets;
+		return hgruntShotgunPellets->value;
 	}
 
 	float GetHGruntGrenadeSpeed() const
 	{
-		return hgruntGrenadeSpeed;
+		return hgruntGrenadeSpeed->value;
 	}
 
 	float GetHoundeyeHealth() const
 	{
-		return houndeyeHealth;
+		return houndeyeHealth->value;
 	}
 
 	float GetHoundeyeDmgBlast() const
 	{
-		return houndeyeDmgBlast;
+		return houndeyeDmgBlast->value;
 	}
 
 	float GetSlaveHealth() const
 	{
-		return slaveHealth;
+		return slaveHealth->value;
 	}
 
 	float GetSlaveDmgClaw() const
 	{
-		return slaveDmgClaw;
+		return slaveDmgClaw->value;
 	}
 
 	float GetSlaveDmgClawrake() const
 	{
-		return slaveDmgClawrake;
+		return slaveDmgClawrake->value;
 	}
 
 	float GetSlaveDmgZap() const
 	{
-		return slaveDmgZap;
+		return slaveDmgZap->value;
 	}
 
 	float GetIchthyosaurHealth() const
 	{
-		return ichthyosaurHealth;
+		return ichthyosaurHealth->value;
 	}
 
 	float GetIchthyosaurDmgShake() const
 	{
-		return ichthyosaurDmgShake;
+		return ichthyosaurDmgShake->value;
 	}
 
 	float GetLeechHealth() const
 	{
-		return leechHealth;
+		return leechHealth->value;
 	}
 
 	float GetLeechDmgBite() const
 	{
-		return leechDmgBite;
+		return leechDmgBite->value;
 	}
 
 	float GetControllerHealth() const
 	{
-		return controllerHealth;
+		return controllerHealth->value;
 	}
 
 	float GetControllerDmgZap() const
 	{
-		return controllerDmgZap;
+		return controllerDmgZap->value;
 	}
 
 	float GetControllerSpeedBall() const
 	{
-		return controllerSpeedBall;
+		return controllerSpeedBall->value;
 	}
 
 	float GetControllerDmgBall() const
 	{
-		return controllerDmgBall;
+		return controllerDmgBall->value;
 	}
 
 	float GetNihilanthHealth() const
 	{
-		return nihilanthHealth;
+		return nihilanthHealth->value;
 	}
 
 	float GetNihilanthZap() const
 	{
-		return nihilanthZap;
+		return nihilanthZap->value;
 	}
 
 	float GetScientistHealth() const
 	{
-		return scientistHealth;
+		return scientistHealth->value;
 	}
 
 	float GetSnarkHealth() const
 	{
-		return snarkHealth;
+		return snarkHealth->value;
 	}
 
 	float GetSnarkDmgBite() const
 	{
-		return snarkDmgBite;
+		return snarkDmgBite->value;
 	}
 
 	float GetSnarkDmgPop() const
 	{
-		return snarkDmgPop;
+		return snarkDmgPop->value;
 	}
 
 	float GetZombieHealth() const
 	{
-		return zombieHealth;
+		return zombieHealth->value;
 	}
 
 	float GetZombieDmgOneSlash() const
 	{
-		return zombieDmgOneSlash;
+		return zombieDmgOneSlash->value;
 	}
 
 	float GetZombieDmgBothSlash() const
 	{
-		return zombieDmgBothSlash;
+		return zombieDmgBothSlash->value;
 	}
 
 	float GetTurretHealth() const
 	{
-		return turretHealth;
+		return turretHealth->value;
 	}
 
 	float GetMiniTurretHealth() const
 	{
-		return miniturretHealth;
+		return miniturretHealth->value;
 	}
 
 	float GetSentryHealth() const
 	{
-		return sentryHealth;
+		return sentryHealth->value;
 	}
 
 // Player Weapons
 	float GetPlrDmgCrowbar() const
 	{
-		return plrDmgCrowbar;
+		return plrDmgCrowbar->value;
 	}
 
 	float GetDmg9MM() const
 	{
-		return plrDmg9MM;
+		return plrDmg9MM->value;
 	}
 
 	float GetPlrDmg357() const
 	{
-		return plrDmg357;
+		return plrDmg357->value;
 	}
 
 	float GetPlrDmgMP5() const
 	{
-		return plrDmgMP5;
+		return plrDmgMP5->value;
 	}
 
 	float GetPlrDmgM203Grenade() const
 	{
-		return plrDmgM203Grenade;
+		return plrDmgM203Grenade->value;
 	}
 
 	float GetPlrDmgBuckshot() const
 	{
-		return plrDmgBuckshot;
+		return plrDmgBuckshot->value;
 	}
 
 	float GetPlrDmgCrossbowClient() const
 	{
-		return plrDmgCrossbowClient;
+		return plrDmgCrossbowClient->value;
 	}
 
 	float GetPlrDmgCrossbowMonster() const
 	{
-		return plrDmgCrossbowMonster;
+		return plrDmgCrossbowMonster->value;
 	}
 
 	float GetPlrDmgRPG() const
 	{
-		return plrDmgRPG;
+		return plrDmgRPG->value;
 	}
 
 	float GetPlrDmgGauss() const
 	{
-		return plrDmgGauss;
+		return plrDmgGauss->value;
 	}
 
 	float GetPlrDmgEgonNarrow() const
 	{
-		return plrDmgEgonNarrow;
+		return plrDmgEgonNarrow->value;
 	}
 
 	float GetPlrDmgEgonWide() const
 	{
-		return plrDmgEgonWide;
+		return plrDmgEgonWide->value;
 	}
 
 	float GetPlrDmgHornet() const
 	{
-		return plrDmgHornet;
+		return plrDmgHornet->value;
 	}
 
 	float GetPlrDmgHandGrenade() const
 	{
-		return plrDmgHandGrenade;
+		return plrDmgHandGrenade->value;
 	}
 
 	float GetPlrDmgSatchel() const
 	{
-		return plrDmgSatchel;
+		return plrDmgSatchel->value;
 	}
 
 	float GetPlrDmgTripmine() const
 	{
-		return plrDmgTripmine;
+		return plrDmgTripmine->value;
 	}
 
 #if USE_OPFOR
 	float GetPlrDmgKnife() const
 	{
-		return plrDmgKnife;
+		return plrDmgKnife->value;
 	}
 
 	float GetPlrDmgPipewrench() const
 	{
-		return plrDmgPipewrench;
+		return plrDmgPipewrench->value;
 	}
 
 	float GetPlrDmgGrapple() const
 	{
-		return plrDmgGrapple;
+		return plrDmgGrapple->value;
 	}
 
 	float GetPlrDmg556() const
 	{
-		return plrDmg556;
+		return plrDmg556->value;
 	}
 
 	float GetPlrDmg762() const
 	{
-		return plrDmg762;
+		return plrDmg762->value;
 	}
 
 	float GetPlrDmgDeagle() const
 	{
-		return plrDmgDeagle;
+		return plrDmgDeagle->value;
 	}
 
 	/**
@@ -567,7 +567,7 @@ public:
 	*/
 	float GetPlrDmgShockRoachS() const
 	{
-		return plrDmgShockRoachS;
+		return plrDmgShockRoachS->value;
 	}
 
 	/**
@@ -575,122 +575,122 @@ public:
 	*/
 	float GetPlrDmgShockRoachM() const
 	{
-		return plrDmgShockRoachM;
+		return plrDmgShockRoachM->value;
 	}
 
 	float GetPlrDmgDisplacerOther() const
 	{
-		return plrDmgDisplacerOther;
+		return plrDmgDisplacerOther->value;
 	}
 
 	float GetPlrRadiusDisplacer() const
 	{
-		return plrRadiusDisplacer;
+		return plrRadiusDisplacer->value;
 	}
 
 	float GetPlrDmgSpore() const
 	{
-		return plrDmgSpore;
+		return plrDmgSpore->value;
 	}
 #endif
 	
 // weapons shared by monsters
 	float GetMonDmg9MM() const
 	{
-		return monDmg9MM;
+		return monDmg9MM->value;
 	}
 
 	float GetMonDmgMP5() const
 	{
-		return monDmgMP5;
+		return monDmgMP5->value;
 	}
 
 	float GetMonDmg12MM() const
 	{
-		return monDmg12MM;
+		return monDmg12MM->value;
 	}
 
 	float GetMonDmgHornet() const
 	{
-		return monDmgHornet;
+		return monDmgHornet->value;
 	}
 
 // health/suit charge
 	float GetSuitChargerCapacity() const
 	{
-		return suitchargerCapacity;
+		return suitchargerCapacity->value;
 	}
 
 	float GetBatteryCapacity() const
 	{
-		return batteryCapacity;
+		return batteryCapacity->value;
 	}
 
 	float GetHealthChargerCapacity() const
 	{
-		return healthchargerCapacity;
+		return healthchargerCapacity->value;
 	}
 
 	float GetHealthKitCapacity() const
 	{
-		return healthkitCapacity;
+		return healthkitCapacity->value;
 	}
 
 	float GetScientistHeal() const
 	{
-		return scientistHeal;
+		return scientistHeal->value;
 	}
 
 // monster damage adj
 	float GetMonHead() const
 	{
-		return monHead;
+		return monHead->value;
 	}
 
 	float GetMonChest() const
 	{
-		return monChest;
+		return monChest->value;
 	}
 
 	float GetMonStomach() const
 	{
-		return monStomach;
+		return monStomach->value;
 	}
 
 	float GetMonLeg() const
 	{
-		return monLeg;
+		return monLeg->value;
 	}
 
 	float GetMonArm() const
 	{
-		return monArm;
+		return monArm->value;
 	}
 
 // player damage adj
 	float GetPlrHead() const
 	{
-		return plrHead;
+		return plrHead->value;
 	}
 
 	float GetPlrChest() const
 	{
-		return plrChest;
+		return plrChest->value;
 	}
 
 	float GetPlrStomach() const
 	{
-		return plrStomach;
+		return plrStomach->value;
 	}
 
 	float GetPlrLeg() const
 	{
-		return plrLeg;
+		return plrLeg->value;
 	}
 
 	float GetPlrArm() const
 	{
-		return plrArm;
+		return plrArm->value;
 	}
 };
 

@@ -120,48 +120,50 @@ void CHalfLifeMultiplay::RefreshSkillData()
 
 // override some values for multiplay.
 
+	//TODO: refactor into using separate cvars. - Solokiller
+
 	// suitcharger
-	gSkillData.suitchargerCapacity = 30;
+	Cvar_DirectSet( gSkillData.suitchargerCapacity, 30 );
 
 	// Crowbar whack
-	gSkillData.plrDmgCrowbar = 25;
+	Cvar_DirectSet( gSkillData.plrDmgCrowbar, 25 );
 
 	// Glock Round
-	gSkillData.plrDmg9MM = 12;
+	Cvar_DirectSet( gSkillData.plrDmg9MM, 12 );
 
 	// 357 Round
-	gSkillData.plrDmg357 = 40;
+	Cvar_DirectSet( gSkillData.plrDmg357, 40 );
 
 	// MP5 Round
-	gSkillData.plrDmgMP5 = 12;
+	Cvar_DirectSet( gSkillData.plrDmgMP5, 12 );
 
 	// M203 grenade
-	gSkillData.plrDmgM203Grenade = 100;
+	Cvar_DirectSet( gSkillData.plrDmgM203Grenade, 100 );
 
 	// Shotgun buckshot
-	gSkillData.plrDmgBuckshot = 20;// fewer pellets in deathmatch
+	Cvar_DirectSet( gSkillData.plrDmgBuckshot, 20 );// fewer pellets in deathmatch
 
 	// Crossbow
-	gSkillData.plrDmgCrossbowClient = 20;
+	Cvar_DirectSet( gSkillData.plrDmgCrossbowClient, 20 );
 
 	// RPG
-	gSkillData.plrDmgRPG = 120;
+	Cvar_DirectSet( gSkillData.plrDmgRPG, 120 );
 
 	// Egon
-	gSkillData.plrDmgEgonWide = 20;
-	gSkillData.plrDmgEgonNarrow = 10;
+	Cvar_DirectSet( gSkillData.plrDmgEgonWide, 20 );
+	Cvar_DirectSet( gSkillData.plrDmgEgonNarrow, 10 );
 
 	// Hand Grendade
-	gSkillData.plrDmgHandGrenade = 100;
+	Cvar_DirectSet( gSkillData.plrDmgHandGrenade, 100 );
 
 	// Satchel Charge
-	gSkillData.plrDmgSatchel = 120;
+	Cvar_DirectSet( gSkillData.plrDmgSatchel, 120 );
 
 	// Tripmine
-	gSkillData.plrDmgTripmine = 150;
+	Cvar_DirectSet( gSkillData.plrDmgTripmine, 150 );
 
 	// hornet
-	gSkillData.plrDmgHornet = 10;
+	Cvar_DirectSet( gSkillData.plrDmgHornet, 10 );
 }
 
 // longest the intermission can last, in seconds

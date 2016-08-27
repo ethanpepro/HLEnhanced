@@ -21,24 +21,37 @@
 
 skilldata_t	gSkillData;
 
+namespace
+{
+static cvar_t g_DummyCvar = { "_not_a_real_cvar_", "0" };
+}
+
 //=========================================================
 // take the name of a cvar, tack a digit for the skill level
 // on, and return the value.of that Cvar 
 //=========================================================
-float skilldata_t::GetSkillCvar( const char* pszName ) const
+cvar_t* skilldata_t::GetSkillCvar( const char* pszName ) const
 {
 	char szBuffer[ 64 ];
 	
 	const int iCount = sprintf( szBuffer, "%s%d", pszName, GetSkillLevel() );
 
-	const float flValue = CVAR_GET_FLOAT ( szBuffer );
+	cvar_t* pCvar = CVAR_GET_POINTER( szBuffer );
 
-	if ( flValue <= 0 )
+	if( !pCvar )
 	{
-		ALERT ( at_console, "\n\n** GetSkillCVar Got a zero for %s **\n\n", szBuffer );
+		ALERT ( at_console, "\n\n** GetSkillCVar No such Cvar %s **\n\n", szBuffer );
+		//To prevent having to check if every cvar is null, just return a dummy.
+		//This is a problem if it gets modified (it shouldn't), but it's much easier to deal with. - Solokiller
+		pCvar = &g_DummyCvar;
 	}
 
-	return flValue;
+	if( pCvar->value <= 0 )
+	{
+		ALERT( at_console, "\n\n** GetSkillCVar Got a zero for %s **\n\n", szBuffer );
+	}
+
+	return pCvar;
 }
 
 void skilldata_t::RefreshSkillData()
