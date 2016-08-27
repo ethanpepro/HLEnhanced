@@ -85,6 +85,8 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 
 	m_hPlayer = pActivator;
 
+	CBasePlayer* pPlayer = static_cast<CBasePlayer*>( pActivator );
+
 	m_flReturnTime = gpGlobals->time + m_flWait;
 	pev->speed = m_initialSpeed;
 	m_targetSpeed = m_initialSpeed;
@@ -107,7 +109,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 
 	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_TAKECONTROL ) )
 	{
-		( ( CBasePlayer * ) pActivator )->EnableControl( false );
+		pPlayer->EnableControl( false );
 	}
 
 	if( m_sPath )
@@ -132,20 +134,22 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	// copy over player information
 	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_POSITION ) )
 	{
-		SetAbsOrigin( pActivator->GetAbsOrigin() + pActivator->pev->view_ofs );
-		pev->angles.x = -pActivator->pev->angles.x;
-		pev->angles.y = pActivator->pev->angles.y;
+		SetAbsOrigin( pPlayer->GetAbsOrigin() + pPlayer->pev->view_ofs );
+		pev->angles.x = -pPlayer->pev->angles.x;
+		pev->angles.y = pPlayer->pev->angles.y;
 		pev->angles.z = 0;
-		pev->velocity = pActivator->pev->velocity;
+		pev->velocity = pPlayer->pev->velocity;
 	}
 	else
 	{
 		pev->velocity = Vector( 0, 0, 0 );
 	}
 
-	SET_VIEW( pActivator->edict(), edict() );
+	SET_VIEW( pPlayer->edict(), edict() );
 
-	SetModel( STRING( pActivator->pev->model ) );
+	pPlayer->m_hCamera = this;
+
+	SetModel( STRING( pPlayer->pev->model ) );
 
 	// follow the player down
 	SetThink( &CTriggerCamera::FollowTarget );
@@ -160,12 +164,15 @@ void CTriggerCamera::FollowTarget()
 	if( m_hPlayer == NULL )
 		return;
 
+	CBasePlayer* pPlayer = EHANDLE_cast<CBasePlayer*>( m_hPlayer );
+
 	if( m_hTarget == NULL || m_flReturnTime < gpGlobals->time )
 	{
-		if( m_hPlayer->IsAlive() )
+		if( pPlayer->IsAlive() )
 		{
-			SET_VIEW( m_hPlayer->edict(), m_hPlayer->edict() );
-			( ( CBasePlayer * ) ( ( CBaseEntity * ) m_hPlayer ) )->EnableControl( true );
+			SET_VIEW( pPlayer->edict(), pPlayer->edict() );
+			pPlayer->EnableControl( true );
+			pPlayer->m_hCamera = nullptr;
 		}
 		SUB_UseTargets( this, USE_TOGGLE, 0 );
 		pev->avelocity = Vector( 0, 0, 0 );

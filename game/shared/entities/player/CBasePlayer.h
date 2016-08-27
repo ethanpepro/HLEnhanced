@@ -263,6 +263,12 @@ public:
 
 	char m_szTeamName[TEAM_NAME_LENGTH];
 
+	/**
+	*	If i'm currently looking through a camera, this is the camera. - Solokiller
+	*	Not save/restored because the engine doesn't save off the view entity variable.
+	*/
+	EHANDLE m_hCamera;
+
 public:
 	//CBaseEntity overrides
 
