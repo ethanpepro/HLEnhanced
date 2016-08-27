@@ -22,6 +22,8 @@
 
 #include "Server.h"
 
+cvar_t g_DummyCvar = { "_not_a_real_cvar_", "0" };
+
 cvar_t	displaysoundlist = {"displaysoundlist","0"};
 
 // multiplayer server rules
@@ -300,49 +302,76 @@ cvar_t	sk_plr_crowbar1 = {"sk_plr_crowbar1","0"};
 cvar_t	sk_plr_crowbar2 = {"sk_plr_crowbar2","0"};
 cvar_t	sk_plr_crowbar3 = {"sk_plr_crowbar3","0"};
 
+cvar_t	sk_plr_crowbar_mp1 = { "sk_plr_crowbar_mp1","0" };
+cvar_t	sk_plr_crowbar_mp2 = { "sk_plr_crowbar_mp2","0" };
+cvar_t	sk_plr_crowbar_mp3 = { "sk_plr_crowbar_mp3","0" };
+
 // Glock Round
 cvar_t	sk_plr_9mm_bullet1 = {"sk_plr_9mm_bullet1","0"};
 cvar_t	sk_plr_9mm_bullet2 = {"sk_plr_9mm_bullet2","0"};
 cvar_t	sk_plr_9mm_bullet3 = {"sk_plr_9mm_bullet3","0"};
+
+cvar_t	sk_plr_9mm_bullet_mp1 = { "sk_plr_9mm_bullet_mp1","0" };
+cvar_t	sk_plr_9mm_bullet_mp2 = { "sk_plr_9mm_bullet_mp2","0" };
+cvar_t	sk_plr_9mm_bullet_mp3 = { "sk_plr_9mm_bullet_mp3","0" };
 
 // 357 Round
 cvar_t	sk_plr_357_bullet1 = {"sk_plr_357_bullet1","0"};
 cvar_t	sk_plr_357_bullet2 = {"sk_plr_357_bullet2","0"};
 cvar_t	sk_plr_357_bullet3 = {"sk_plr_357_bullet3","0"};
 
+cvar_t	sk_plr_357_bullet_mp1 = { "sk_plr_357_bullet_mp1","0" };
+cvar_t	sk_plr_357_bullet_mp2 = { "sk_plr_357_bullet_mp2","0" };
+cvar_t	sk_plr_357_bullet_mp3 = { "sk_plr_357_bullet_mp3","0" };
+
 // MP5 Round
 cvar_t	sk_plr_9mmAR_bullet1 = {"sk_plr_9mmAR_bullet1","0"};
 cvar_t	sk_plr_9mmAR_bullet2 = {"sk_plr_9mmAR_bullet2","0"};
 cvar_t	sk_plr_9mmAR_bullet3 = {"sk_plr_9mmAR_bullet3","0"};
 
+cvar_t	sk_plr_9mmAR_bullet_mp1 = { "sk_plr_9mmAR_bullet_mp1","0" };
+cvar_t	sk_plr_9mmAR_bullet_mp2 = { "sk_plr_9mmAR_bullet_mp2","0" };
+cvar_t	sk_plr_9mmAR_bullet_mp3 = { "sk_plr_9mmAR_bullet_mp3","0" };
 
 // M203 grenade
 cvar_t	sk_plr_9mmAR_grenade1 = {"sk_plr_9mmAR_grenade1","0"};
 cvar_t	sk_plr_9mmAR_grenade2 = {"sk_plr_9mmAR_grenade2","0"};
 cvar_t	sk_plr_9mmAR_grenade3 = {"sk_plr_9mmAR_grenade3","0"};
 
+cvar_t	sk_plr_9mmAR_grenade_mp1 = { "sk_plr_9mmAR_grenade_mp1","0" };
+cvar_t	sk_plr_9mmAR_grenade_mp2 = { "sk_plr_9mmAR_grenade_mp2","0" };
+cvar_t	sk_plr_9mmAR_grenade_mp3 = { "sk_plr_9mmAR_grenade_mp3","0" };
 
 // Shotgun buckshot
 cvar_t	sk_plr_buckshot1 = {"sk_plr_buckshot1","0"};
 cvar_t	sk_plr_buckshot2 = {"sk_plr_buckshot2","0"};
 cvar_t	sk_plr_buckshot3 = {"sk_plr_buckshot3","0"};
 
+cvar_t	sk_plr_buckshot_mp1 = { "sk_plr_buckshot_mp1","0" };
+cvar_t	sk_plr_buckshot_mp2 = { "sk_plr_buckshot_mp2","0" };
+cvar_t	sk_plr_buckshot_mp3 = { "sk_plr_buckshot_mp3","0" };
 
 // Crossbow
 cvar_t	sk_plr_xbow_bolt_client1 = {"sk_plr_xbow_bolt_client1","0"};
 cvar_t	sk_plr_xbow_bolt_client2 = {"sk_plr_xbow_bolt_client2","0"};
 cvar_t	sk_plr_xbow_bolt_client3 = {"sk_plr_xbow_bolt_client3","0"};
 
+cvar_t	sk_plr_xbow_bolt_client_mp1 = { "sk_plr_xbow_bolt_client_mp1","0" };
+cvar_t	sk_plr_xbow_bolt_client_mp2 = { "sk_plr_xbow_bolt_client_mp2","0" };
+cvar_t	sk_plr_xbow_bolt_client_mp3 = { "sk_plr_xbow_bolt_client_mp3","0" };
+
 cvar_t	sk_plr_xbow_bolt_monster1 = {"sk_plr_xbow_bolt_monster1","0"};
 cvar_t	sk_plr_xbow_bolt_monster2 = {"sk_plr_xbow_bolt_monster2","0"};
 cvar_t	sk_plr_xbow_bolt_monster3 = {"sk_plr_xbow_bolt_monster3","0"};
-
 
 // RPG
 cvar_t	sk_plr_rpg1 = {"sk_plr_rpg1","0"};
 cvar_t	sk_plr_rpg2 = {"sk_plr_rpg2","0"};
 cvar_t	sk_plr_rpg3 = {"sk_plr_rpg3","0"};
 
+cvar_t	sk_plr_rpg_mp1 = { "sk_plr_rpg_mp1","0" };
+cvar_t	sk_plr_rpg_mp2 = { "sk_plr_rpg_mp2","0" };
+cvar_t	sk_plr_rpg_mp3 = { "sk_plr_rpg_mp3","0" };
 
 // Zero Point Generator
 cvar_t	sk_plr_gauss1 = {"sk_plr_gauss1","0"};
@@ -355,27 +384,44 @@ cvar_t	sk_plr_egon_narrow1 = {"sk_plr_egon_narrow1","0"};
 cvar_t	sk_plr_egon_narrow2 = {"sk_plr_egon_narrow2","0"};
 cvar_t	sk_plr_egon_narrow3 = {"sk_plr_egon_narrow3","0"};
 
+cvar_t	sk_plr_egon_narrow_mp1 = { "sk_plr_egon_narrow_mp1","0" };
+cvar_t	sk_plr_egon_narrow_mp2 = { "sk_plr_egon_narrow_mp2","0" };
+cvar_t	sk_plr_egon_narrow_mp3 = { "sk_plr_egon_narrow_mp3","0" };
+
 cvar_t	sk_plr_egon_wide1 = {"sk_plr_egon_wide1","0"};
 cvar_t	sk_plr_egon_wide2 = {"sk_plr_egon_wide2","0"};
 cvar_t	sk_plr_egon_wide3 = {"sk_plr_egon_wide3","0"};
 
+cvar_t	sk_plr_egon_wide_mp1 = { "sk_plr_egon_wide_mp1","0" };
+cvar_t	sk_plr_egon_wide_mp2 = { "sk_plr_egon_wide_mp2","0" };
+cvar_t	sk_plr_egon_wide_mp3 = { "sk_plr_egon_wide_mp3","0" };
 
 // Hand Grendade
 cvar_t	sk_plr_hand_grenade1 = {"sk_plr_hand_grenade1","0"};
 cvar_t	sk_plr_hand_grenade2 = {"sk_plr_hand_grenade2","0"};
 cvar_t	sk_plr_hand_grenade3 = {"sk_plr_hand_grenade3","0"};
 
+cvar_t	sk_plr_hand_grenade_mp1 = { "sk_plr_hand_grenade_mp1","0" };
+cvar_t	sk_plr_hand_grenade_mp2 = { "sk_plr_hand_grenade_mp2","0" };
+cvar_t	sk_plr_hand_grenade_mp3 = { "sk_plr_hand_grenade_mp3","0" };
 
 // Satchel Charge
 cvar_t	sk_plr_satchel1	= {"sk_plr_satchel1","0"};
 cvar_t	sk_plr_satchel2	= {"sk_plr_satchel2","0"};
 cvar_t	sk_plr_satchel3	= {"sk_plr_satchel3","0"};
 
+cvar_t	sk_plr_satchel_mp1 = { "sk_plr_satchel_mp1","0" };
+cvar_t	sk_plr_satchel_mp2 = { "sk_plr_satchel_mp2","0" };
+cvar_t	sk_plr_satchel_mp3 = { "sk_plr_satchel_mp3","0" };
 
 // Tripmine
 cvar_t	sk_plr_tripmine1 = {"sk_plr_tripmine1","0"};
 cvar_t	sk_plr_tripmine2 = {"sk_plr_tripmine2","0"};
 cvar_t	sk_plr_tripmine3 = {"sk_plr_tripmine3","0"};
+
+cvar_t	sk_plr_tripmine_mp1 = { "sk_plr_tripmine_mp1","0" };
+cvar_t	sk_plr_tripmine_mp2 = { "sk_plr_tripmine_mp2","0" };
+cvar_t	sk_plr_tripmine_mp3 = { "sk_plr_tripmine_mp3","0" };
 
 #if USE_OPFOR
 // Knife whack
@@ -450,10 +496,18 @@ cvar_t	sk_plr_hornet_dmg1 = { "sk_plr_hornet_dmg1","0" };
 cvar_t	sk_plr_hornet_dmg2 = { "sk_plr_hornet_dmg2","0" };
 cvar_t	sk_plr_hornet_dmg3 = { "sk_plr_hornet_dmg3","0" };
 
+cvar_t	sk_plr_hornet_dmg_mp1 = { "sk_plr_hornet_dmg_mp1","0" };
+cvar_t	sk_plr_hornet_dmg_mp2 = { "sk_plr_hornet_dmg_mp2","0" };
+cvar_t	sk_plr_hornet_dmg_mp3 = { "sk_plr_hornet_dmg_mp3","0" };
+
 // HEALTH/CHARGE
 cvar_t	sk_suitcharger1	= { "sk_suitcharger1","0" };
-cvar_t	sk_suitcharger2	= { "sk_suitcharger2","0" };		
-cvar_t	sk_suitcharger3	= { "sk_suitcharger3","0" };		
+cvar_t	sk_suitcharger2	= { "sk_suitcharger2","0" };
+cvar_t	sk_suitcharger3	= { "sk_suitcharger3","0" };
+
+cvar_t	sk_suitcharger_mp1 = { "sk_suitcharger_mp1","0" };
+cvar_t	sk_suitcharger_mp2 = { "sk_suitcharger_mp2","0" };
+cvar_t	sk_suitcharger_mp3 = { "sk_suitcharger_mp3","0" };
 
 cvar_t	sk_battery1	= { "sk_battery1","0" };			
 cvar_t	sk_battery2	= { "sk_battery2","0" };			
@@ -531,6 +585,9 @@ void GameDLLInit( void )
 	g_psv_gravity = CVAR_GET_POINTER( "sv_gravity" );
 	g_psv_aim = CVAR_GET_POINTER( "sv_aim" );
 	g_footsteps = CVAR_GET_POINTER( "mp_footsteps" );
+
+	//Needs to be registered so the engine handles the string value correctly. - Solokiller
+	CVAR_REGISTER( &g_DummyCvar );
 
 	CVAR_REGISTER (&displaysoundlist);
 	CVAR_REGISTER( &allow_spectators );
@@ -803,33 +860,54 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_crowbar2 );// {"sk_plr_crowbar2","0"};
 	CVAR_REGISTER ( &sk_plr_crowbar3 );// {"sk_plr_crowbar3","0"};
 
+	CVAR_REGISTER( &sk_plr_crowbar_mp1 );// {"sk_plr_crowbar_mp1","0"};
+	CVAR_REGISTER( &sk_plr_crowbar_mp2 );// {"sk_plr_crowbar_mp2","0"};
+	CVAR_REGISTER( &sk_plr_crowbar_mp3 );// {"sk_plr_crowbar_mp3","0"};
+
 	// Glock Round
 	CVAR_REGISTER ( &sk_plr_9mm_bullet1 );// {"sk_plr_9mm_bullet1","0"};
 	CVAR_REGISTER ( &sk_plr_9mm_bullet2 );// {"sk_plr_9mm_bullet2","0"};
 	CVAR_REGISTER ( &sk_plr_9mm_bullet3 );// {"sk_plr_9mm_bullet3","0"};
+
+	CVAR_REGISTER( &sk_plr_9mm_bullet_mp1 );// {"sk_plr_9mm_bullet_mp1","0"};
+	CVAR_REGISTER( &sk_plr_9mm_bullet_mp2 );// {"sk_plr_9mm_bullet_mp2","0"};
+	CVAR_REGISTER( &sk_plr_9mm_bullet_mp3 );// {"sk_plr_9mm_bullet_mp3","0"};
 
 	// 357 Round
 	CVAR_REGISTER ( &sk_plr_357_bullet1 );// {"sk_plr_357_bullet1","0"};
 	CVAR_REGISTER ( &sk_plr_357_bullet2 );// {"sk_plr_357_bullet2","0"};
 	CVAR_REGISTER ( &sk_plr_357_bullet3 );// {"sk_plr_357_bullet3","0"};
 
+	CVAR_REGISTER( &sk_plr_357_bullet_mp1 );// {"sk_plr_357_bullet_mp1","0"};
+	CVAR_REGISTER( &sk_plr_357_bullet_mp2 );// {"sk_plr_357_bullet_mp2","0"};
+	CVAR_REGISTER( &sk_plr_357_bullet_mp3 );// {"sk_plr_357_bullet_mp3","0"};
+
 	// MP5 Round
 	CVAR_REGISTER ( &sk_plr_9mmAR_bullet1 );// {"sk_plr_9mmAR_bullet1","0"};
 	CVAR_REGISTER ( &sk_plr_9mmAR_bullet2 );// {"sk_plr_9mmAR_bullet2","0"};
 	CVAR_REGISTER ( &sk_plr_9mmAR_bullet3 );// {"sk_plr_9mmAR_bullet3","0"};
 
+	CVAR_REGISTER( &sk_plr_9mmAR_bullet_mp1 );// {"sk_plr_9mmAR_bullet_mp1","0"};
+	CVAR_REGISTER( &sk_plr_9mmAR_bullet_mp2 );// {"sk_plr_9mmAR_bullet_mp2","0"};
+	CVAR_REGISTER( &sk_plr_9mmAR_bullet_mp3 );// {"sk_plr_9mmAR_bullet_mp3","0"};
 
 	// M203 grenade
 	CVAR_REGISTER ( &sk_plr_9mmAR_grenade1 );// {"sk_plr_9mmAR_grenade1","0"};
 	CVAR_REGISTER ( &sk_plr_9mmAR_grenade2 );// {"sk_plr_9mmAR_grenade2","0"};
 	CVAR_REGISTER ( &sk_plr_9mmAR_grenade3 );// {"sk_plr_9mmAR_grenade3","0"};
 
+	CVAR_REGISTER( &sk_plr_9mmAR_grenade_mp1 );// {"sk_plr_9mmAR_grenade_mp1","0"};
+	CVAR_REGISTER( &sk_plr_9mmAR_grenade_mp2 );// {"sk_plr_9mmAR_grenade_mp2","0"};
+	CVAR_REGISTER( &sk_plr_9mmAR_grenade_mp3 );// {"sk_plr_9mmAR_grenade_mp3","0"};
 
 	// Shotgun buckshot
 	CVAR_REGISTER ( &sk_plr_buckshot1 );// {"sk_plr_buckshot1","0"};
 	CVAR_REGISTER ( &sk_plr_buckshot2 );// {"sk_plr_buckshot2","0"};
 	CVAR_REGISTER ( &sk_plr_buckshot3 );// {"sk_plr_buckshot3","0"};
 
+	CVAR_REGISTER( &sk_plr_buckshot_mp1 );// {"sk_plr_buckshot_mp1","0"};
+	CVAR_REGISTER( &sk_plr_buckshot_mp2 );// {"sk_plr_buckshot_mp2","0"};
+	CVAR_REGISTER( &sk_plr_buckshot_mp3 );// {"sk_plr_buckshot_mp3","0"};
 
 	// Crossbow
 	CVAR_REGISTER ( &sk_plr_xbow_bolt_monster1 );// {"sk_plr_xbow_bolt1","0"};
@@ -840,12 +918,18 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_xbow_bolt_client2 );// {"sk_plr_xbow_bolt2","0"};
 	CVAR_REGISTER ( &sk_plr_xbow_bolt_client3 );// {"sk_plr_xbow_bolt3","0"};
 
+	CVAR_REGISTER( &sk_plr_xbow_bolt_client_mp1 );// {"sk_plr_xbow_bolt_mp1","0"};
+	CVAR_REGISTER( &sk_plr_xbow_bolt_client_mp2 );// {"sk_plr_xbow_bolt_mp2","0"};
+	CVAR_REGISTER( &sk_plr_xbow_bolt_client_mp3 );// {"sk_plr_xbow_bolt_mp3","0"};
 
 	// RPG
 	CVAR_REGISTER ( &sk_plr_rpg1 );// {"sk_plr_rpg1","0"};
 	CVAR_REGISTER ( &sk_plr_rpg2 );// {"sk_plr_rpg2","0"};
 	CVAR_REGISTER ( &sk_plr_rpg3 );// {"sk_plr_rpg3","0"};
 
+	CVAR_REGISTER( &sk_plr_rpg_mp1 );// {"sk_plr_rpg_mp1","0"};
+	CVAR_REGISTER( &sk_plr_rpg_mp2 );// {"sk_plr_rpg_mp2","0"};
+	CVAR_REGISTER( &sk_plr_rpg_mp3 );// {"sk_plr_rpg_mp3","0"};
 
 	// Gauss Gun
 	CVAR_REGISTER ( &sk_plr_gauss1 );// {"sk_plr_gauss1","0"};
@@ -858,27 +942,44 @@ void GameDLLInit( void )
 	CVAR_REGISTER ( &sk_plr_egon_narrow2 );// {"sk_plr_egon_narrow2","0"};
 	CVAR_REGISTER ( &sk_plr_egon_narrow3 );// {"sk_plr_egon_narrow3","0"};
 
+	CVAR_REGISTER( &sk_plr_egon_narrow_mp1 );// {"sk_plr_egon_narrow_mp1","0"};
+	CVAR_REGISTER( &sk_plr_egon_narrow_mp2 );// {"sk_plr_egon_narrow_mp2","0"};
+	CVAR_REGISTER( &sk_plr_egon_narrow_mp3 );// {"sk_plr_egon_narrow_mp3","0"};
+
 	CVAR_REGISTER ( &sk_plr_egon_wide1 );// {"sk_plr_egon_wide1","0"};
 	CVAR_REGISTER ( &sk_plr_egon_wide2 );// {"sk_plr_egon_wide2","0"};
 	CVAR_REGISTER ( &sk_plr_egon_wide3 );// {"sk_plr_egon_wide3","0"};
 
+	CVAR_REGISTER( &sk_plr_egon_wide_mp1 );// {"sk_plr_egon_wide_mp1","0"};
+	CVAR_REGISTER( &sk_plr_egon_wide_mp2 );// {"sk_plr_egon_wide_mp2","0"};
+	CVAR_REGISTER( &sk_plr_egon_wide_mp3 );// {"sk_plr_egon_wide_mp3","0"};
 
 	// Hand Grendade
 	CVAR_REGISTER ( &sk_plr_hand_grenade1 );// {"sk_plr_hand_grenade1","0"};
 	CVAR_REGISTER ( &sk_plr_hand_grenade2 );// {"sk_plr_hand_grenade2","0"};
 	CVAR_REGISTER ( &sk_plr_hand_grenade3 );// {"sk_plr_hand_grenade3","0"};
 
+	CVAR_REGISTER( &sk_plr_hand_grenade_mp1 );// {"sk_plr_hand_grenade_mp1","0"};
+	CVAR_REGISTER( &sk_plr_hand_grenade_mp2 );// {"sk_plr_hand_grenade_mp2","0"};
+	CVAR_REGISTER( &sk_plr_hand_grenade_mp3 );// {"sk_plr_hand_grenade_mp3","0"};
 
 	// Satchel Charge
 	CVAR_REGISTER ( &sk_plr_satchel1 );// {"sk_plr_satchel1","0"};
 	CVAR_REGISTER ( &sk_plr_satchel2 );// {"sk_plr_satchel2","0"};
 	CVAR_REGISTER ( &sk_plr_satchel3 );// {"sk_plr_satchel3","0"};
 
+	CVAR_REGISTER( &sk_plr_satchel_mp1 );// {"sk_plr_satchel_mp1","0"};
+	CVAR_REGISTER( &sk_plr_satchel_mp2 );// {"sk_plr_satchel_mp2","0"};
+	CVAR_REGISTER( &sk_plr_satchel_mp3 );// {"sk_plr_satchel_mp3","0"};
 
 	// Tripmine
 	CVAR_REGISTER ( &sk_plr_tripmine1 );// {"sk_plr_tripmine1","0"};
 	CVAR_REGISTER ( &sk_plr_tripmine2 );// {"sk_plr_tripmine2","0"};
 	CVAR_REGISTER ( &sk_plr_tripmine3 );// {"sk_plr_tripmine3","0"};
+
+	CVAR_REGISTER( &sk_plr_tripmine_mp1 );// {"sk_plr_tripmine_mp1","0"};
+	CVAR_REGISTER( &sk_plr_tripmine_mp2 );// {"sk_plr_tripmine_mp2","0"};
+	CVAR_REGISTER( &sk_plr_tripmine_mp3 );// {"sk_plr_tripmine_mp3","0"};
 
 #if USE_OPFOR
 	// Knife whack
@@ -954,10 +1055,18 @@ void GameDLLInit( void )
 	CVAR_REGISTER( &sk_plr_hornet_dmg2 );// {"sk_plr_hornet_dmg2","0"};
 	CVAR_REGISTER( &sk_plr_hornet_dmg3 );// {"sk_plr_hornet_dmg3","0"};
 
+	CVAR_REGISTER( &sk_plr_hornet_dmg_mp1 );// {"sk_plr_hornet_dmg_mp1","0"};
+	CVAR_REGISTER( &sk_plr_hornet_dmg_mp2 );// {"sk_plr_hornet_dmg_mp2","0"};
+	CVAR_REGISTER( &sk_plr_hornet_dmg_mp3 );// {"sk_plr_hornet_dmg_mp3","0"};
+
 	// HEALTH/SUIT CHARGE DISTRIBUTION
 	CVAR_REGISTER ( &sk_suitcharger1 );
 	CVAR_REGISTER ( &sk_suitcharger2 );
 	CVAR_REGISTER ( &sk_suitcharger3 );
+
+	CVAR_REGISTER( &sk_suitcharger_mp1 );
+	CVAR_REGISTER( &sk_suitcharger_mp2 );
+	CVAR_REGISTER( &sk_suitcharger_mp3 );
 
 	CVAR_REGISTER ( &sk_battery1 );
 	CVAR_REGISTER ( &sk_battery2 );

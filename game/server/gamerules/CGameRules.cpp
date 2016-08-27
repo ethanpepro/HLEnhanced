@@ -29,6 +29,11 @@
 
 extern DLL_GLOBAL bool	g_fGameOver;
 
+void CGameRules::OnCreate()
+{
+	RefreshSkillData();
+}
+
 //=========================================================
 //=========================================================
 bool CGameRules::CanHaveAmmo( CBasePlayer *pPlayer, const char *pszAmmoName )
@@ -108,4 +113,9 @@ bool CGameRules::CanHavePlayerItem( CBasePlayer *pPlayer, CBasePlayerWeapon *pWe
 void CGameRules::RefreshSkillData ( void )
 {
 	gSkillData.RefreshSkillData();
+}
+
+cvar_t* CGameRules::GetSkillCvar( const skilldata_t& skillData, const char* pszSkillCvarName )
+{
+	return skilldata_t::GetSkillCvar( pszSkillCvarName, skillData.GetSkillLevel() );
 }

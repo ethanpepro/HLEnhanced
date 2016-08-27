@@ -24,6 +24,7 @@ class CBasePlayerWeapon;
 class CBasePlayer;
 class CItem;
 class CBasePlayerAmmo;
+struct skilldata_t;
 
 typedef struct edict_s edict_t;
 
@@ -66,7 +67,10 @@ enum
 class CGameRules
 {
 public:
+	virtual void OnCreate();
+
 	virtual void RefreshSkillData();// fill skill data struct with proper values
+	virtual cvar_t* GetSkillCvar( const skilldata_t& skillData, const char* pszSkillCvarName );
 	virtual void Think() = 0;// GR_Think - runs every server frame, should handle any timer tasks, periodic events, etc.
 	virtual bool IsAllowedToSpawn( CBaseEntity *pEntity ) = 0;  // Can this item spawn (eg monsters don't spawn in deathmatch).
 

@@ -15,32 +15,25 @@
 //=========================================================
 // skill.cpp - code for skill level concerns
 //=========================================================
-#include	"extdll.h"
-#include	"util.h"
-#include	"Skill.h"
+#include "extdll.h"
+#include "util.h"
+#include "Skill.h"
+#include "Server.h"
+#include "gamerules/GameRules.h"
 
 skilldata_t	gSkillData;
 
-namespace
-{
-static cvar_t g_DummyCvar = { "_not_a_real_cvar_", "0" };
-}
-
-//=========================================================
-// take the name of a cvar, tack a digit for the skill level
-// on, and return the value.of that Cvar 
-//=========================================================
-cvar_t* skilldata_t::GetSkillCvar( const char* pszName ) const
+cvar_t* skilldata_t::GetSkillCvar( const char* pszName, const SkillLevel skillLevel )
 {
 	char szBuffer[ 64 ];
-	
-	const int iCount = sprintf( szBuffer, "%s%d", pszName, GetSkillLevel() );
+
+	const int iCount = sprintf( szBuffer, "%s%d", pszName, skillLevel );
 
 	cvar_t* pCvar = CVAR_GET_POINTER( szBuffer );
 
 	if( !pCvar )
 	{
-		ALERT ( at_console, "\n\n** GetSkillCVar No such Cvar %s **\n\n", szBuffer );
+		ALERT( at_console, "\n\n** GetSkillCVar No such Cvar %s **\n\n", szBuffer );
 		//To prevent having to check if every cvar is null, just return a dummy.
 		//This is a problem if it gets modified (it shouldn't), but it's much easier to deal with. - Solokiller
 		pCvar = &g_DummyCvar;
@@ -52,6 +45,15 @@ cvar_t* skilldata_t::GetSkillCvar( const char* pszName ) const
 	}
 
 	return pCvar;
+}
+
+//=========================================================
+// take the name of a cvar, tack a digit for the skill level
+// on, and return the value.of that Cvar 
+//=========================================================
+cvar_t* skilldata_t::GetSkillCvar( const char* pszName ) const
+{
+	return g_pGameRules->GetSkillCvar( *this, pszName );
 }
 
 void skilldata_t::RefreshSkillData()

@@ -20,6 +20,8 @@ void GameDLLInit();
 
 void GameDLLShutdown();
 
+extern cvar_t g_DummyCvar;
+
 extern cvar_t	displaysoundlist;
 
 // multiplayer server rules

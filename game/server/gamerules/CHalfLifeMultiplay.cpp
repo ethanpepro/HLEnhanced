@@ -70,10 +70,14 @@ CHalfLifeMultiplay :: CHalfLifeMultiplay()
 {
 	g_VoiceGameMgr.Init(&g_GameMgrHelper, gpGlobals->maxClients);
 
-	RefreshSkillData();
 	m_flIntermissionEndTime = 0;
 	g_flIntermissionStartTime = 0;
-	
+}
+
+void CHalfLifeMultiplay::OnCreate()
+{
+	CGameRules::OnCreate();
+
 	// 11/8/98
 	// Modified by YWB:  Server .cfg file is now a cvar, so that 
 	//  server ops can run multiple game servers, with different server .cfg files,
@@ -83,19 +87,19 @@ CHalfLifeMultiplay :: CHalfLifeMultiplay()
 	// 3/31/99
 	// Added lservercfg file cvar, since listen and dedicated servers should not
 	// share a single config file. (sjb)
-	if ( IS_DEDICATED_SERVER() )
+	if( IS_DEDICATED_SERVER() )
 	{
 		// this code has been moved into engine, to only run server.cfg once
 	}
 	else
 	{
 		// listen server
-		char *lservercfgfile = (char *)CVAR_GET_STRING( "lservercfgfile" );
+		char *lservercfgfile = ( char * ) CVAR_GET_STRING( "lservercfgfile" );
 
-		if ( lservercfgfile && lservercfgfile[0] )
+		if( lservercfgfile && lservercfgfile[ 0 ] )
 		{
-			char szCommand[256];
-			
+			char szCommand[ 256 ];
+
 			ALERT( at_console, "Executing listen server config file\n" );
 			sprintf( szCommand, "exec %s\n", lservercfgfile );
 			SERVER_COMMAND( szCommand );
@@ -111,59 +115,34 @@ bool CHalfLifeMultiplay::ClientCommand( CBasePlayer *pPlayer, const char *pcmd )
 	return CGameRules::ClientCommand(pPlayer, pcmd);
 }
 
-//=========================================================
-//=========================================================
-void CHalfLifeMultiplay::RefreshSkillData()
+cvar_t* CHalfLifeMultiplay::GetSkillCvar( const skilldata_t& skillData, const char* pszSkillCvarName )
 {
-// load all default values
-	CGameRules::RefreshSkillData();
+	//These cvars have overrides for multiplayer. - Solokiller
+	if( strcmp( pszSkillCvarName, "sk_suitcharger" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_crowbar" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_9mm_bullet" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_357_bullet" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_9mmAR_bullet" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_9mmAR_grenade" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_buckshot" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_xbow_bolt_client" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_rpg" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_egon_wide" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_egon_narrow" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_hand_grenade" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_satchel" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_tripmine" ) == 0 ||
+		strcmp( pszSkillCvarName, "sk_plr_hornet_dmg" ) == 0 )
+	{
+		char szBuffer[ 64 ];
 
-// override some values for multiplay.
+		//All overrides have _mp appended to their base name. - Solokiller
+		const int Result = snprintf( szBuffer, sizeof( szBuffer ), "%s_mp", pszSkillCvarName );
 
-	//TODO: refactor into using separate cvars. - Solokiller
+		return skilldata_t::GetSkillCvar( szBuffer, skillData.GetSkillLevel() );
+	}
 
-	// suitcharger
-	Cvar_DirectSet( gSkillData.suitchargerCapacity, 30 );
-
-	// Crowbar whack
-	Cvar_DirectSet( gSkillData.plrDmgCrowbar, 25 );
-
-	// Glock Round
-	Cvar_DirectSet( gSkillData.plrDmg9MM, 12 );
-
-	// 357 Round
-	Cvar_DirectSet( gSkillData.plrDmg357, 40 );
-
-	// MP5 Round
-	Cvar_DirectSet( gSkillData.plrDmgMP5, 12 );
-
-	// M203 grenade
-	Cvar_DirectSet( gSkillData.plrDmgM203Grenade, 100 );
-
-	// Shotgun buckshot
-	Cvar_DirectSet( gSkillData.plrDmgBuckshot, 20 );// fewer pellets in deathmatch
-
-	// Crossbow
-	Cvar_DirectSet( gSkillData.plrDmgCrossbowClient, 20 );
-
-	// RPG
-	Cvar_DirectSet( gSkillData.plrDmgRPG, 120 );
-
-	// Egon
-	Cvar_DirectSet( gSkillData.plrDmgEgonWide, 20 );
-	Cvar_DirectSet( gSkillData.plrDmgEgonNarrow, 10 );
-
-	// Hand Grendade
-	Cvar_DirectSet( gSkillData.plrDmgHandGrenade, 100 );
-
-	// Satchel Charge
-	Cvar_DirectSet( gSkillData.plrDmgSatchel, 120 );
-
-	// Tripmine
-	Cvar_DirectSet( gSkillData.plrDmgTripmine, 150 );
-
-	// hornet
-	Cvar_DirectSet( gSkillData.plrDmgHornet, 10 );
+	return CGameRules::GetSkillCvar( skillData, pszSkillCvarName );
 }
 
 // longest the intermission can last, in seconds

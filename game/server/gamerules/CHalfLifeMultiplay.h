@@ -26,9 +26,11 @@ class CHalfLifeMultiplay : public CGameRules
 public:
 	CHalfLifeMultiplay();
 
+	void OnCreate() override;
+
 	// GR_Think
 	virtual void Think() override;
-	virtual void RefreshSkillData() override;
+	cvar_t* GetSkillCvar( const skilldata_t& skillData, const char* pszSkillCvarName ) override;
 	virtual bool IsAllowedToSpawn( CBaseEntity *pEntity ) override;
 	virtual bool FAllowFlashlight() const override;
 

@@ -31,7 +31,6 @@ extern DLL_GLOBAL bool	g_fGameOver;
 //=========================================================
 CHalfLifeRules::CHalfLifeRules( void )
 {
-	RefreshSkillData();
 }
 
 //=========================================================

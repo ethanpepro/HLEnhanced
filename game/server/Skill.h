@@ -50,6 +50,12 @@ struct skilldata_t
 	}
 
 	/**
+	*	Gets the cvar pointer for the given skill cvar and skill level.
+	*	@return Cvar pointer for the given skill cvar.
+	*/
+	static cvar_t* GetSkillCvar( const char* pszName, const SkillLevel skillLevel );
+
+	/**
 	*	Gets the cvar pointer for the given skill cvar.
 	*	@return Cvar pointer for the given skill cvar.
 	*/

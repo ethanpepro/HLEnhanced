@@ -15,15 +15,8 @@ DLL_GLOBAL CGameRules* g_pGameRules = nullptr;
 
 int g_teamplay = 0;
 
-//=========================================================
-// instantiate the proper game rules object
-//=========================================================
-
-CGameRules *InstallGameRules()
+static CGameRules* CreateGameRules()
 {
-	SERVER_COMMAND( "exec game.cfg\n" );
-	SERVER_EXECUTE();
-
 #if USE_ANGELSCRIPT
 	//Use the one provided by the script if it exists. - Solokiller
 	if( auto pGameRules = g_ASManager.CreateGameRules() )
@@ -60,4 +53,20 @@ CGameRules *InstallGameRules()
 			return new CHalfLifeMultiplay;
 		}
 	}
+}
+
+//=========================================================
+// instantiate the proper game rules object
+//=========================================================
+
+CGameRules *InstallGameRules()
+{
+	SERVER_COMMAND( "exec game.cfg\n" );
+	SERVER_EXECUTE();
+
+	g_pGameRules = CreateGameRules();
+
+	g_pGameRules->OnCreate();
+
+	return g_pGameRules;
 }
