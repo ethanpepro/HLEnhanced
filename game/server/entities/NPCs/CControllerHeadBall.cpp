@@ -98,7 +98,7 @@ void CControllerHeadBall::HuntThink( void )
 		if( pEntity != NULL && pEntity->pev->takedamage )
 		{
 			g_MultiDamage.Clear();
-			pEntity->TraceAttack( CTakeDamageInfo( m_hOwner, gSkillData.controllerDmgZap, DMG_SHOCK ), pev->velocity, &tr );
+			pEntity->TraceAttack( CTakeDamageInfo( m_hOwner, gSkillData.GetControllerDmgZap(), DMG_SHOCK ), pev->velocity, &tr );
 			g_MultiDamage.ApplyMultiDamage( this, m_hOwner );
 		}
 

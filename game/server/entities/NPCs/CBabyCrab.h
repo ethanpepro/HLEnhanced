@@ -25,7 +25,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
-	float GetDamageAmount( void ) override { return gSkillData.headcrabDmgBite * 0.3; }
+	float GetDamageAmount( void ) override { return gSkillData.GetHeadcrabDmgBite() * 0.3; }
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	Schedule_t* GetScheduleOfType( int Type ) override;
 	virtual int GetVoicePitch( void ) override { return PITCH_NORM + RANDOM_LONG( 40, 50 ); }

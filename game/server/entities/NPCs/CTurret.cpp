@@ -31,7 +31,7 @@ void CTurret::Spawn()
 {
 	Precache();
 	SetModel( "models/turret.mdl" );
-	pev->health = gSkillData.turretHealth;
+	pev->health = gSkillData.GetTurretHealth();
 	m_HackedGunPos = Vector( 0, 0, 12.75 );
 	m_flMaxSpin = TURRET_MAXSPIN;
 	pev->view_ofs.z = 12.75;

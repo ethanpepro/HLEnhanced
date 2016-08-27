@@ -92,7 +92,7 @@ void CSpore::Spawn()
 		SetFriction( 0.7 );
 	}
 
-	SetDamage( gSkillData.plrDmgSpore );
+	SetDamage( gSkillData.GetPlrDmgSpore() );
 
 	m_flIgniteTime = gpGlobals->time;
 
@@ -236,8 +236,7 @@ void CSpore::RocketTouch( CBaseEntity* pOther )
 {
 	if( pOther->GetTakeDamageMode() != DAMAGE_NO )
 	{
-		//TODO: no damage type? - Solokiller
-		pOther->TakeDamage( CTakeDamageInfo( this, GetOwner(), gSkillData.plrDmgSpore, 0 ) );
+		pOther->TakeDamage( CTakeDamageInfo( this, GetOwner(), gSkillData.GetPlrDmgSpore(), DMG_GENERIC ) );
 	}
 
 	IgniteThink();
@@ -277,7 +276,7 @@ void CSpore::MyBounceTouch( CBaseEntity* pOther )
 	}
 	else
 	{
-		pOther->TakeDamage( CTakeDamageInfo( this, GetOwner(), gSkillData.plrDmgSpore, 0 ) );
+		pOther->TakeDamage( CTakeDamageInfo( this, GetOwner(), gSkillData.GetPlrDmgSpore(), DMG_GENERIC ) );
 
 		IgniteThink();
 	}

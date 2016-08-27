@@ -162,12 +162,12 @@ bool CCrowbar::Swing( const bool bFirst )
 		if ( (m_flNextPrimaryAttack + 1 < UTIL_WeaponTimeBase() ) || g_pGameRules->IsMultiplayer() )
 		{
 			// first swing does full damage
-			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.plrDmgCrowbar, DMG_CLUB ), gpGlobals->v_forward, &tr ); 
+			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgCrowbar(), DMG_CLUB ), gpGlobals->v_forward, &tr );
 		}
 		else
 		{
 			// subsequent swings do half
-			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.plrDmgCrowbar / 2, DMG_CLUB ), gpGlobals->v_forward, &tr ); 
+			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgCrowbar() / 2, DMG_CLUB ), gpGlobals->v_forward, &tr );
 		}	
 		g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 

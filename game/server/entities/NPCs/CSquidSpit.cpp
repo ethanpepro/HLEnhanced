@@ -103,7 +103,7 @@ void CSquidSpit::Touch( CBaseEntity *pOther )
 	}
 	else
 	{
-		pOther->TakeDamage( this, this, gSkillData.bullsquidDmgSpit, DMG_GENERIC );
+		pOther->TakeDamage( this, this, gSkillData.GetBullsquidDmgSpit(), DMG_GENERIC );
 	}
 
 	SetThink( &CSquidSpit::SUB_Remove );

@@ -69,11 +69,11 @@ void CPenguinGrenade::Spawn()
 
 	AddFlags( FL_MONSTER );
 	SetTakeDamageMode( DAMAGE_AIM );
-	SetHealth(  gSkillData.snarkHealth );
+	SetHealth(  gSkillData.GetSnarkHealth() );
 	SetGravity( 0.5 );
 	SetFriction( 0.5 );
 
-	SetDamage( gSkillData.plrDmgHandGrenade );
+	SetDamage( gSkillData.GetPlrDmgHandGrenade() );
 
 	m_flDie = gpGlobals->time + PENGUIN_DETONATE_DELAY;
 
@@ -186,7 +186,7 @@ void CPenguinGrenade::SuperBounceTouch( CBaseEntity *pOther )
 			{
 				bIsEnemy = g_pGameRules->FPlayerCanTakeDamage(
 					static_cast<CBasePlayer*>( pOther ), 
-					CTakeDamageInfo( pOwner, gSkillData.snarkDmgBite, DMG_SLASH ) );
+					CTakeDamageInfo( pOwner, gSkillData.GetSnarkDmgBite(), DMG_SLASH ) );
 			}
 		}
 
@@ -200,7 +200,7 @@ void CPenguinGrenade::SuperBounceTouch( CBaseEntity *pOther )
 			{
 				// ALERT( at_console, "hit enemy\n");
 				g_MultiDamage.Clear();
-				pOther->TraceAttack( CTakeDamageInfo( this, gSkillData.snarkDmgBite, DMG_SLASH ), gpGlobals->v_forward, &tr );
+				pOther->TraceAttack( CTakeDamageInfo( this, gSkillData.GetSnarkDmgBite(), DMG_SLASH ), gpGlobals->v_forward, &tr );
 				if( pRealOwner )
 					g_MultiDamage.ApplyMultiDamage( this, pRealOwner );
 				else
@@ -209,7 +209,7 @@ void CPenguinGrenade::SuperBounceTouch( CBaseEntity *pOther )
 				// add more explosion damage
 				// m_flDie += 2.0; // add more life
 				//Friendly players cause explosive damage to increase at a lower rate. - Solokiller
-				SetDamage( GetDamage() + bIsEnemy ? gSkillData.plrDmgHandGrenade : gSkillData.plrDmgHandGrenade / 5.0 );
+				SetDamage( GetDamage() + bIsEnemy ? gSkillData.GetPlrDmgHandGrenade() : gSkillData.GetPlrDmgHandGrenade() / 5.0 );
 
 				if( GetDamage() > 500 )
 					SetDamage( 500 );

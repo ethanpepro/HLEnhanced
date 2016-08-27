@@ -174,7 +174,7 @@ void CShockBeam::BallTouch( CBaseEntity* pOther )
 		pOther->TraceAttack( 
 			CTakeDamageInfo( 
 				pOwner, 
-				bIsMultiplayer() ? gSkillData.plrDmgShockRoachM : gSkillData.plrDmgShockRoachS,
+				bIsMultiplayer() ? gSkillData.GetPlrDmgShockRoachM() : gSkillData.GetPlrDmgShockRoachS(),
 				bitsDamageTypes ), 
 			GetAbsVelocity().Normalize(),
 			&tr );

@@ -55,7 +55,7 @@ void CStomp::Think( void )
 		CBaseEntity* pOwner = pev->owner ? Instance( pev->owner ) : this;
 
 		if( pEntity )
-			pEntity->TakeDamage( this, pOwner, gSkillData.gargantuaDmgStomp, DMG_SONIC );
+			pEntity->TakeDamage( this, pOwner, gSkillData.GetGargantuaDmgStomp(), DMG_SONIC );
 	}
 
 	// Accelerate the effect

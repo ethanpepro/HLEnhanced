@@ -92,7 +92,7 @@ void CLeech::Spawn( void )
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_FLY;
 	SetBits(pev->flags, FL_SWIM);
-	pev->health			= gSkillData.leechHealth;
+	pev->health			= gSkillData.GetLeechHealth();
 
 	m_flFieldOfView		= -0.5;	// 180 degree FOV
 	m_flDistLook		= 750;
@@ -230,7 +230,7 @@ void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )
 
 			
 			if ( DotProduct(dir, face) > 0.9 )		// Only take damage if the leech is facing the prey
-				pEnemy->TakeDamage( this, this, gSkillData.leechDmgBite, DMG_SLASH );
+				pEnemy->TakeDamage( this, this, gSkillData.GetLeechDmgBite(), DMG_SLASH );
 		}
 		m_stateTime -= 2;
 		break;

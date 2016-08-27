@@ -26,7 +26,7 @@ void CMiniTurret::Spawn()
 {
 	Precache();
 	SetModel( "models/miniturret.mdl" );
-	pev->health = gSkillData.miniturretHealth;
+	pev->health = gSkillData.GetMiniTurretHealth();
 	m_HackedGunPos = Vector( 0, 0, 12.75 );
 	m_flMaxSpin = 0;
 	pev->view_ofs.z = 12.75;

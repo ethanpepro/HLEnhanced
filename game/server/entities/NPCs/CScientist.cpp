@@ -595,7 +595,7 @@ void CScientist :: Spawn( void )
 	pev->solid			= SOLID_SLIDEBOX;
 	pev->movetype		= MOVETYPE_STEP;
 	m_bloodColor		= BLOOD_COLOR_RED;
-	pev->health			= gSkillData.scientistHealth;
+	pev->health			= gSkillData.GetScientistHealth();
 	pev->view_ofs		= Vector ( 0, 0, 50 );// position of the eyes relative to monster's origin.
 	m_flFieldOfView		= VIEW_FIELD_WIDE; // NOTE: we need a wide field of view so scientists will notice player and say hello
 	m_MonsterState		= MONSTERSTATE_NONE;
@@ -1011,7 +1011,7 @@ void CScientist::Heal( void )
 	if ( target.Length() > 100 )
 		return;
 
-	m_hTargetEnt->GiveHealth( gSkillData.scientistHeal, DMG_GENERIC );
+	m_hTargetEnt->GiveHealth( gSkillData.GetScientistHeal(), DMG_GENERIC );
 	// Don't heal again for 1 minute
 	m_healTime = gpGlobals->time + 60;
 }

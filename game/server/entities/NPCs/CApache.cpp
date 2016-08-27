@@ -58,7 +58,7 @@ void CApache :: Spawn( void )
 
 	pev->flags |= FL_MONSTER;
 	pev->takedamage		= DAMAGE_AIM;
-	pev->health			= gSkillData.apacheHealth;
+	pev->health			= gSkillData.GetApacheHealth();
 
 	m_flFieldOfView = -0.707; // 270 degrees
 

@@ -255,7 +255,7 @@ void CHoundeye :: Spawn()
 	pev->movetype		= MOVETYPE_STEP;
 	m_bloodColor		= BLOOD_COLOR_YELLOW;
 	pev->effects		= 0;
-	pev->health			= gSkillData.houndeyeHealth;
+	pev->health			= gSkillData.GetHoundeyeHealth();
 	pev->yaw_speed		= 5;//!!! should we put this in the monster's changeanim function since turn rates may vary with state/anim?
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
@@ -546,12 +546,12 @@ void CHoundeye :: SonicAttack ( void )
 				if ( SquadCount() > 1 )
 				{
 					// squad gets attack bonus.
-					flAdjustedDamage = gSkillData.houndeyeDmgBlast + gSkillData.houndeyeDmgBlast * ( HOUNDEYE_SQUAD_BONUS * ( SquadCount() - 1 ) );
+					flAdjustedDamage = gSkillData.GetHoundeyeDmgBlast() + gSkillData.GetHoundeyeDmgBlast() * ( HOUNDEYE_SQUAD_BONUS * ( SquadCount() - 1 ) );
 				}
 				else
 				{
 					// solo
-					flAdjustedDamage = gSkillData.houndeyeDmgBlast;
+					flAdjustedDamage = gSkillData.GetHoundeyeDmgBlast();
 				}
 
 				flDist = (pEntity->Center() - GetAbsOrigin()).Length();

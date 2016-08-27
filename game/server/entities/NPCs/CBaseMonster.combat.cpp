@@ -855,21 +855,21 @@ void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trac
 		case HITGROUP_GENERIC:
 			break;
 		case HITGROUP_HEAD:
-			newInfo.GetMutableDamage() *= gSkillData.monHead;
+			newInfo.GetMutableDamage() *= gSkillData.GetMonHead();
 			break;
 		case HITGROUP_CHEST:
-			newInfo.GetMutableDamage() *= gSkillData.monChest;
+			newInfo.GetMutableDamage() *= gSkillData.GetMonChest();
 			break;
 		case HITGROUP_STOMACH:
-			newInfo.GetMutableDamage() *= gSkillData.monStomach;
+			newInfo.GetMutableDamage() *= gSkillData.GetMonStomach();
 			break;
 		case HITGROUP_LEFTARM:
 		case HITGROUP_RIGHTARM:
-			newInfo.GetMutableDamage() *= gSkillData.monArm;
+			newInfo.GetMutableDamage() *= gSkillData.GetMonArm();
 			break;
 		case HITGROUP_LEFTLEG:
 		case HITGROUP_RIGHTLEG:
-			newInfo.GetMutableDamage() *= gSkillData.monLeg;
+			newInfo.GetMutableDamage() *= gSkillData.GetMonLeg();
 			break;
 		default:
 			break;

@@ -203,12 +203,12 @@ bool CPipewrench::Swing( const bool bFirst )
 		if ( (m_flNextPrimaryAttack + 1 < UTIL_WeaponTimeBase() ) || g_pGameRules->IsMultiplayer() )
 		{
 			// first swing does full damage
-			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.plrDmgPipewrench, DMG_CLUB ), gpGlobals->v_forward, &tr ); 
+			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgPipewrench(), DMG_CLUB ), gpGlobals->v_forward, &tr );
 		}
 		else
 		{
 			// subsequent swings do half
-			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.plrDmgPipewrench / 2, DMG_CLUB ), gpGlobals->v_forward, &tr ); 
+			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgPipewrench() / 2, DMG_CLUB ), gpGlobals->v_forward, &tr );
 		}	
 		g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 
@@ -337,7 +337,7 @@ void CPipewrench::BigSwing()
 
 		g_MultiDamage.Clear( );
 
-		float flDamage = (gpGlobals->time - m_flBigSwingStart) * gSkillData.plrDmgPipewrench + 25.0f;
+		float flDamage = (gpGlobals->time - m_flBigSwingStart) * gSkillData.GetPlrDmgPipewrench() + 25.0f;
 		if ( (m_flNextPrimaryAttack + 1 < UTIL_WeaponTimeBase() ) || g_pGameRules->IsMultiplayer() )
 		{
 			// first swing does full damage

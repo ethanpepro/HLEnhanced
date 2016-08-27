@@ -107,7 +107,7 @@ void CTripmineGrenade :: Spawn( void )
 	pev->nextthink = gpGlobals->time + 0.2;
 
 	pev->takedamage = DAMAGE_YES;
-	pev->dmg = gSkillData.plrDmgTripmine;
+	pev->dmg = gSkillData.GetPlrDmgTripmine();
 	pev->health = 1; // don't let die normally
 
 	if (pev->owner != NULL)

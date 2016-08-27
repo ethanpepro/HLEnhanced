@@ -384,7 +384,7 @@ void CBarnacleGrapple::PrimaryAttack()
 #ifndef CLIENT_DLL
 							g_MultiDamage.Clear();
 
-							float flDamage = gSkillData.plrDmgGrapple;
+							float flDamage = gSkillData.GetPlrDmgGrapple();
 
 							if( g_pGameRules->IsMultiplayer() )
 							{

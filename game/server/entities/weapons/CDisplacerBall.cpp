@@ -279,7 +279,7 @@ void CDisplacerBall::FizzleThink()
 
 	ClearBeams();
 
-	SetDamage( gSkillData.plrDmgDisplacerOther );
+	SetDamage( gSkillData.GetPlrDmgDisplacerOther() );
 
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );
 		WRITE_BYTE( TE_DLIGHT );
@@ -317,7 +317,7 @@ void CDisplacerBall::ExplodeThink()
 {
 	ClearBeams();
 
-	SetDamage( gSkillData.plrDmgDisplacerOther );
+	SetDamage( gSkillData.GetPlrDmgDisplacerOther() );
 
 	CBaseEntity* pOwner = GetOwner();
 
@@ -330,7 +330,7 @@ void CDisplacerBall::ExplodeThink()
 			pOwner,
 			GetDamage(),
 			DMG_ALWAYSGIB | DMG_BLAST ),
-		gSkillData.plrRadiusDisplacer, 0 );
+		gSkillData.GetPlrRadiusDisplacer(), 0 );
 
 	EMIT_SOUND_DYN(
 		this,

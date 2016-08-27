@@ -108,11 +108,11 @@ void CSqueakGrenade :: Spawn( void )
 
 	pev->flags |= FL_MONSTER;
 	pev->takedamage		= DAMAGE_AIM;
-	pev->health			= gSkillData.snarkHealth;
+	pev->health			= gSkillData.GetSnarkHealth();
 	pev->gravity		= 0.5;
 	pev->friction		= 0.5;
 
-	pev->dmg = gSkillData.snarkDmgPop;
+	pev->dmg = gSkillData.GetSnarkDmgPop();
 
 	m_flDie = gpGlobals->time + SQUEEK_DETONATE_DELAY;
 
@@ -333,13 +333,13 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 			{
 				// ALERT( at_console, "hit enemy\n");
 				g_MultiDamage.Clear( );
-				pOther->TraceAttack( CTakeDamageInfo( this, gSkillData.snarkDmgBite, DMG_SLASH ), gpGlobals->v_forward, &tr );
+				pOther->TraceAttack( CTakeDamageInfo( this, gSkillData.GetSnarkDmgBite(), DMG_SLASH ), gpGlobals->v_forward, &tr );
 				if (m_hOwner != NULL)
 					g_MultiDamage.ApplyMultiDamage( this, m_hOwner );
 				else
 					g_MultiDamage.ApplyMultiDamage( this, this );
 
-				pev->dmg += gSkillData.snarkDmgPop; // add more explosion damage
+				pev->dmg += gSkillData.GetSnarkDmgPop(); // add more explosion damage
 				// m_flDie += 2.0; // add more life
 
 				// make bite sound

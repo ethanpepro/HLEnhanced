@@ -270,21 +270,21 @@ void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 		case HITGROUP_GENERIC:
 			break;
 		case HITGROUP_HEAD:
-			newInfo.GetMutableDamage() *= gSkillData.plrHead;
+			newInfo.GetMutableDamage() *= gSkillData.GetPlrHead();
 			break;
 		case HITGROUP_CHEST:
-			newInfo.GetMutableDamage() *= gSkillData.plrChest;
+			newInfo.GetMutableDamage() *= gSkillData.GetPlrChest();
 			break;
 		case HITGROUP_STOMACH:
-			newInfo.GetMutableDamage() *= gSkillData.plrStomach;
+			newInfo.GetMutableDamage() *= gSkillData.GetPlrStomach();
 			break;
 		case HITGROUP_LEFTARM:
 		case HITGROUP_RIGHTARM:
-			newInfo.GetMutableDamage() *= gSkillData.plrArm;
+			newInfo.GetMutableDamage() *= gSkillData.GetPlrArm();
 			break;
 		case HITGROUP_LEFTLEG:
 		case HITGROUP_RIGHTLEG:
-			newInfo.GetMutableDamage() *= gSkillData.plrLeg;
+			newInfo.GetMutableDamage() *= gSkillData.GetPlrLeg();
 			break;
 		default:
 			break;

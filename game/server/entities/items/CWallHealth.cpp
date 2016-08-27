@@ -62,7 +62,7 @@ void CWallHealth::Spawn()
 	SetAbsOrigin( GetAbsOrigin());		// set size and link into world
 	SetSize( pev->mins, pev->maxs );
 	SetModel( STRING(pev->model) );
-	m_iJuice = gSkillData.healthchargerCapacity;
+	m_iJuice = gSkillData.GetHealthChargerCapacity();
 	pev->frame = 0;			
 
 }
@@ -137,7 +137,7 @@ void CWallHealth::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 void CWallHealth::Recharge(void)
 {
 	EMIT_SOUND( this, CHAN_ITEM, "items/medshot4.wav", 1.0, ATTN_NORM );
-	m_iJuice = gSkillData.healthchargerCapacity;
+	m_iJuice = gSkillData.GetHealthChargerCapacity();
 	pev->frame = 0;			
 	SetThink( &CWallHealth::SUB_DoNothing );
 }

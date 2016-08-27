@@ -235,7 +235,7 @@ void CBaseEntity::FireBullets( const unsigned int cShots,
 			{
 			default:
 			case BULLET_MONSTER_9MM:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.monDmg9MM, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetMonDmg9MM(), DMG_BULLET ), vecDir, &tr );
 
 				TEXTURETYPE_PlaySound( &tr, vecSrc, vecEnd, iBulletType );
 				DecalGunshot( &tr, iBulletType );
@@ -243,7 +243,7 @@ void CBaseEntity::FireBullets( const unsigned int cShots,
 				break;
 
 			case BULLET_MONSTER_MP5:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.monDmgMP5, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetMonDmgMP5(), DMG_BULLET ), vecDir, &tr );
 
 				TEXTURETYPE_PlaySound( &tr, vecSrc, vecEnd, iBulletType );
 				DecalGunshot( &tr, iBulletType );
@@ -251,7 +251,7 @@ void CBaseEntity::FireBullets( const unsigned int cShots,
 				break;
 
 			case BULLET_MONSTER_12MM:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.monDmg12MM, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetMonDmg12MM(), DMG_BULLET ), vecDir, &tr );
 				if( !tracer )
 				{
 					TEXTURETYPE_PlaySound( &tr, vecSrc, vecEnd, iBulletType );
@@ -333,33 +333,33 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 			{
 			default:
 			case BULLET_PLAYER_9MM:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmg9MM, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetDmg9MM(), DMG_BULLET ), vecDir, &tr );
 				break;
 
 			case BULLET_PLAYER_MP5:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmgMP5, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetPlrDmgMP5(), DMG_BULLET ), vecDir, &tr );
 				break;
 
 			case BULLET_PLAYER_BUCKSHOT:
 				// make distance based!
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmgBuckshot, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetPlrDmgBuckshot(), DMG_BULLET ), vecDir, &tr );
 				break;
 
 			case BULLET_PLAYER_357:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmg357, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetPlrDmg357(), DMG_BULLET ), vecDir, &tr );
 				break;
 
 #if USE_OPFOR
 			case BULLET_PLAYER_556:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmg556, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetPlrDmg556(), DMG_BULLET ), vecDir, &tr );
 				break;
 
 			case BULLET_PLAYER_762:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmg762, DMG_BULLET | DMG_NEVERGIB ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetPlrDmg762(), DMG_BULLET | DMG_NEVERGIB ), vecDir, &tr );
 				break;
 
 			case BULLET_PLAYER_DEAGLE:
-				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.plrDmgDeagle, DMG_BULLET ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( pAttacker, gSkillData.GetPlrDmgDeagle(), DMG_BULLET ), vecDir, &tr );
 				break;
 #endif
 

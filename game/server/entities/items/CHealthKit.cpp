@@ -32,7 +32,7 @@ bool CHealthKit::MyTouch( CBasePlayer *pPlayer )
 		return false;
 	}
 
-	if( pPlayer->GiveHealth( gSkillData.healthkitCapacity, DMG_GENERIC ) )
+	if( pPlayer->GiveHealth( gSkillData.GetHealthKitCapacity(), DMG_GENERIC ) )
 	{
 		MESSAGE_BEGIN( MSG_ONE, gmsgItemPickup, NULL, pPlayer );
 		WRITE_STRING( GetClassname() );

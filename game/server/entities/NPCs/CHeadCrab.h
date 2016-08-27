@@ -47,7 +47,7 @@ public:
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
-	virtual float GetDamageAmount( void ) { return gSkillData.headcrabDmgBite; }
+	virtual float GetDamageAmount( void ) { return gSkillData.GetHeadcrabDmgBite(); }
 	virtual int GetVoicePitch( void ) { return 100; }
 	virtual float GetSoundVolume() const { return 1.0; }
 	Schedule_t* GetScheduleOfType( int Type ) override;
