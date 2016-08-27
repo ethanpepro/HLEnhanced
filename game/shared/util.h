@@ -339,3 +339,10 @@ int UTIL_GetPlayerUserId( CBaseEntity* pEntity );
 const char* UTIL_GetPlayerAuthId( const CBaseEntity* pEntity );
 
 bool UTIL_IsPointEntity( const CBaseEntity* const pEnt );
+
+inline void Cvar_DirectSet( cvar_t* pCvar, const char* pszValue )
+{
+	g_engfuncs.pfnCvar_DirectSet( pCvar, pszValue );
+}
+
+void Cvar_DirectSet( cvar_t* pCvar, const float flValue );

@@ -1238,3 +1238,8 @@ bool UTIL_IsPointEntity( const CBaseEntity* const pEnt )
 
 	return false;
 }
+
+void Cvar_DirectSet( cvar_t* pCvar, const float flValue )
+{
+	g_engfuncs.pfnCvar_DirectSet( pCvar, UTIL_VarArgs( "%f", flValue ) );
+}
