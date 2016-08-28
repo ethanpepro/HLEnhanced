@@ -49,7 +49,7 @@ public:
 	Schedule_t* GetScheduleOfType( int Type ) override;
 	void StartTask( Task_t *pTask ) override;
 	void RunTask( Task_t *pTask ) override;
-	CUSTOM_SCHEDULES;
+	DECLARE_SCHEDULES();
 
 	void Stop( void ) override;
 	void Move( float flInterval ) override;

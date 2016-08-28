@@ -1662,8 +1662,7 @@ Schedule_t	slGruntRepelLand[] =
 };
 
 
-DEFINE_CUSTOM_SCHEDULES( CHGrunt )
-{
+BEGIN_SCHEDULES( CHGrunt )
 	slGruntFail,
 	slGruntCombatFail,
 	slGruntVictoryDance,
@@ -1685,9 +1684,7 @@ DEFINE_CUSTOM_SCHEDULES( CHGrunt )
 	slGruntRepel,
 	slGruntRepelAttack,
 	slGruntRepelLand,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CHGrunt, CSquadMonster );
+END_SCHEDULES()
 
 //=========================================================
 // SetActivity 

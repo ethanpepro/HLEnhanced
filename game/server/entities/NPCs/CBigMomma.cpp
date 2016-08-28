@@ -589,16 +589,10 @@ Schedule_t	slNodeFail[] =
 	},
 };
 
-DEFINE_CUSTOM_SCHEDULES( CBigMomma )
-{
+BEGIN_SCHEDULES( CBigMomma )
 	slBigNode,
 	slNodeFail,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CBigMomma, CBaseMonster );
-
-
-
+END_SCHEDULES()
 
 Schedule_t *CBigMomma::GetScheduleOfType( int Type )
 {

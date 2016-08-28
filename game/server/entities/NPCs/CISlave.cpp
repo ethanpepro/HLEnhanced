@@ -558,12 +558,9 @@ Schedule_t	slSlaveAttack1[] =
 };
 
 
-DEFINE_CUSTOM_SCHEDULES( CISlave )
-{
+BEGIN_SCHEDULES( CISlave )
 	slSlaveAttack1,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CISlave, CSquadMonster );
+END_SCHEDULES()
 
 
 //=========================================================

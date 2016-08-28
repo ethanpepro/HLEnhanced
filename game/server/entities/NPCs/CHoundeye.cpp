@@ -1046,8 +1046,7 @@ Schedule_t	slHoundCombatFailNoPVS[] =
 	},
 };
 
-DEFINE_CUSTOM_SCHEDULES( CHoundeye )
-{
+BEGIN_SCHEDULES( CHoundeye )
 	slHoundGuardPack,
 	slHoundRangeAttack,
 	&slHoundRangeAttack[ 1 ],
@@ -1059,9 +1058,7 @@ DEFINE_CUSTOM_SCHEDULES( CHoundeye )
 	slHoundHopRetreat,
 	slHoundCombatFailPVS,
 	slHoundCombatFailNoPVS,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CHoundeye, CSquadMonster );
+END_SCHEDULES()
 
 //=========================================================
 // GetScheduleOfType 

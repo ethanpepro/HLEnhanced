@@ -25,6 +25,8 @@
 
 */
 
+struct Schedule_t;
+
 // CHECKLOCALMOVE result types 
 #define	LOCALMOVE_INVALID					0 // move is not possible
 #define LOCALMOVE_INVALID_DONT_TRIANGULATE	1 // move is not possible, don't try to triangulate
@@ -150,22 +152,105 @@ enum
 		9 : "Hear Combat"
 */
 
-#define CUSTOM_SCHEDULES\
-		virtual Schedule_t *ScheduleFromName( const char *pName );\
-		static Schedule_t *m_scheduleList[];
+/**
+*	Monster schedules meta data. - Solokiller
+*/
+struct Schedules_t
+{
+	const Schedules_t* pBaseList;
 
-#define DEFINE_CUSTOM_SCHEDULES(derivedClass)\
-	Schedule_t *derivedClass::m_scheduleList[] =
+	const Schedule_t* const* ppSchedules;
 
-#define IMPLEMENT_CUSTOM_SCHEDULES(derivedClass, baseClass)\
-		Schedule_t *derivedClass::ScheduleFromName( const char *pName )\
-		{\
-			Schedule_t *pSchedule = ScheduleInList( pName, m_scheduleList, ARRAYSIZE(m_scheduleList) );\
-			if ( !pSchedule )\
-				return baseClass::ScheduleFromName(pName);\
-			return pSchedule;\
-		}
+	size_t uiNumSchedules;
+};
 
+/**
+*	Specialized for every monster that defines custom schedules. - Solokiller
+*	@tparam T Monster class.
+*	@return true if the schedules were initialized, false otherwise.
+*/
+template<typename T>
+bool InitSchedules()
+{
+	return false;
+}
 
+#define DECLARE_SCHEDULES()								\
+private:												\
+	static Schedules_t m_Schedules;						\
+														\
+	template<typename T>								\
+	friend bool InitSchedules();						\
+														\
+public:													\
+	static const Schedules_t* GetBaseSchedulesList();	\
+	static const Schedules_t* GetThisSchedulesList();	\
+	virtual const Schedules_t* GetSchedulesList() const
+
+#define __BEGIN_SCHEDULES( thisClass )							\
+																\
+Schedules_t thisClass::m_Schedules;								\
+																\
+const Schedules_t* thisClass::GetThisSchedulesList()			\
+{																\
+	return &m_Schedules;										\
+}																\
+																\
+const Schedules_t* thisClass::GetSchedulesList() const			\
+{																\
+	return &m_Schedules;										\
+}																\
+																\
+template<>														\
+bool InitSchedules<thisClass>();								\
+																\
+namespace __##thisClass##__Init									\
+{																\
+	const bool bInitSchedules = InitSchedules<thisClass>();		\
+}																\
+																\
+template<>														\
+bool InitSchedules<thisClass>()									\
+{																\
+	typedef thisClass ThisClass;								\
+																\
+	static Schedule_t* schedules[] =							\
+	{
+
+/**
+*	Begins the schedules list for the base class.
+*/
+#define BEGIN_SCHEDULES_NOBASE( thisClass )				\
+const Schedules_t* thisClass::GetBaseSchedulesList()	\
+{														\
+	return nullptr;										\
+}														\
+														\
+__BEGIN_SCHEDULES( thisClass )
+
+/**
+*	Begins the schedules list for subclasses.
+*/
+#define BEGIN_SCHEDULES( thisClass )						\
+const Schedules_t* thisClass::GetBaseSchedulesList()		\
+{															\
+	return thisClass::BaseClass::GetThisSchedulesList();	\
+}															\
+															\
+__BEGIN_SCHEDULES( thisClass )
+
+/**
+*	Ends the schedules list.
+*/
+#define END_SCHEDULES()											\
+	};															\
+																\
+	Schedules_t* pSchedules = &ThisClass::m_Schedules;			\
+	pSchedules->pBaseList = ThisClass::GetBaseSchedulesList();	\
+	pSchedules->ppSchedules = schedules;						\
+	pSchedules->uiNumSchedules = ARRAYSIZE( schedules );		\
+																\
+	return true;												\
+}
 
 #endif //GAME_SERVER_ENTITIES_NPCS_MONSTERS_H

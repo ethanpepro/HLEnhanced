@@ -202,14 +202,10 @@ Schedule_t	slGargSwipe[] =
 };
 
 
-DEFINE_CUSTOM_SCHEDULES( CGargantua )
-{
+BEGIN_SCHEDULES( CGargantua )
 	slGargFlame,
 	slGargSwipe,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CGargantua, CBaseMonster );
-
+END_SCHEDULES()
 
 void CGargantua::EyeOn( int level )
 {

@@ -142,16 +142,12 @@ Schedule_t	slIdleBaStand[] =
 	},
 };
 
-DEFINE_CUSTOM_SCHEDULES( CBarney )
-{
+BEGIN_SCHEDULES( CBarney )
 	slBaFollow,
 	slBarneyEnemyDraw,
 	slBaFaceTarget,
 	slIdleBaStand,
-};
-
-
-IMPLEMENT_CUSTOM_SCHEDULES( CBarney, CTalkMonster );
+END_SCHEDULES()
 
 void CBarney :: StartTask( Task_t *pTask )
 {

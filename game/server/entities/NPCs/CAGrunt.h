@@ -86,7 +86,7 @@ public:
 	int IRelationship( CBaseEntity *pTarget ) override;
 	void StopTalking( void );
 	bool ShouldSpeak();
-	CUSTOM_SCHEDULES;
+	DECLARE_SCHEDULES();
 
 	static const char *pAttackHitSounds[];
 	static const char *pAttackMissSounds[];

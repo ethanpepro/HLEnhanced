@@ -69,13 +69,10 @@ Schedule_t	slHCRangeAttack1Fast[] =
 
 LINK_ENTITY_TO_CLASS( monster_headcrab, CHeadCrab );
 
-DEFINE_CUSTOM_SCHEDULES( CHeadCrab )
-{
+BEGIN_SCHEDULES( CHeadCrab )
 	slHCRangeAttack1,
 	slHCRangeAttack1Fast,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CHeadCrab, CBaseMonster );
+END_SCHEDULES()
 
 const char *CHeadCrab::pIdleSounds[] = 
 {

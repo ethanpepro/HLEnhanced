@@ -423,17 +423,12 @@ Schedule_t	slControllerFail[] =
 
 
 
-DEFINE_CUSTOM_SCHEDULES( CController )
-{
+BEGIN_SCHEDULES( CController )
 	slControllerChaseEnemy,
 	slControllerStrafe,
 	slControllerTakeCover,
 	slControllerFail,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CController, CSquadMonster );
-
-
+END_SCHEDULES()
 
 //=========================================================
 // StartTask

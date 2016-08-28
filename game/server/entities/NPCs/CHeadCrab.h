@@ -52,7 +52,7 @@ public:
 	virtual float GetSoundVolume() const { return 1.0; }
 	Schedule_t* GetScheduleOfType( int Type ) override;
 
-	CUSTOM_SCHEDULES;
+	DECLARE_SCHEDULES();
 
 	static const char *pIdleSounds[];
 	static const char *pAlertSounds[];

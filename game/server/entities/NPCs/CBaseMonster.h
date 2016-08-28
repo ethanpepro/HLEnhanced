@@ -15,6 +15,8 @@
 #ifndef GAME_SERVER_ENTITIES_NPCS_BASEMONSTER_H
 #define GAME_SERVER_ENTITIES_NPCS_BASEMONSTER_H
 
+#include "Monsters.h"
+
 #define	ROUTE_SIZE			8 // how many waypoints a monster can store at one time
 #define MAX_OLD_ENEMIES		4 // how many old enemies to remember
 
@@ -233,10 +235,20 @@ public:
 		bool FScheduleDone() const;
 		void ChangeSchedule ( Schedule_t *pNewSchedule );
 		void NextScheduledTask ( void );
-		Schedule_t *ScheduleInList( const char *pName, Schedule_t **pList, int listCount );
+		const Schedule_t* ScheduleInList( const char* const pszName, const Schedule_t* const* pList, size_t listCount ) const;
 
-		virtual Schedule_t *ScheduleFromName( const char *pName );
-		static Schedule_t *m_scheduleList[];
+		/*
+		*	Schedule list.
+		*/
+		//TODO: the ifdef is temporary until the client no longer references monster code. - Solokiller
+#ifndef CLIENT_DLL
+		DECLARE_SCHEDULES();
+#endif
+
+		/**
+		*	Gets a schedule by name.
+		*/
+		const Schedule_t* ScheduleFromName( const char* const pszName ) const;
 		
 		void MaintainSchedule ( void );
 		virtual void StartTask ( Task_t *pTask );

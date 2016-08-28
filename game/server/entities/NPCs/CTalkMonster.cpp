@@ -341,8 +341,7 @@ Schedule_t	slTlkIdleEyecontact[] =
 };
 
 
-DEFINE_CUSTOM_SCHEDULES( CTalkMonster )
-{
+BEGIN_SCHEDULES( CTalkMonster )
 	slIdleResponse,
 	slIdleSpeak,
 	slIdleHello,
@@ -354,10 +353,7 @@ DEFINE_CUSTOM_SCHEDULES( CTalkMonster )
 	slTlkIdleWatchClient,
 	&slTlkIdleWatchClient[ 1 ],
 	slTlkIdleEyecontact,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CTalkMonster, CBaseMonster );
-
+END_SCHEDULES()
 
 void CTalkMonster :: SetActivity ( Activity newActivity )
 {

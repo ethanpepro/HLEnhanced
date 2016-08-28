@@ -333,8 +333,7 @@ Schedule_t	slFear[] =
 };
 
 
-DEFINE_CUSTOM_SCHEDULES( CScientist )
-{
+BEGIN_SCHEDULES( CScientist )
 	slFollow,
 	slFaceTarget,
 	slIdleSciStand,
@@ -347,11 +346,7 @@ DEFINE_CUSTOM_SCHEDULES( CScientist )
 	slSciPanic,
 	slFollowScared,
 	slFaceTargetScared,
-};
-
-
-IMPLEMENT_CUSTOM_SCHEDULES( CScientist, CTalkMonster );
-
+END_SCHEDULES()
 
 void CScientist::DeclineFollowing( void )
 {

@@ -804,8 +804,7 @@ Schedule_t slSquidWallow[] =
 	}
 };
 
-DEFINE_CUSTOM_SCHEDULES( CBullsquid ) 
-{
+BEGIN_SCHEDULES( CBullsquid ) 
 	slSquidRangeAttack1,
 	slSquidChaseEnemy,
 	slSquidHurtHop,
@@ -813,9 +812,7 @@ DEFINE_CUSTOM_SCHEDULES( CBullsquid )
 	slSquidEat,
 	slSquidSniffAndEat,
 	slSquidWallow
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CBullsquid, CBaseMonster );
+END_SCHEDULES()
 
 //=========================================================
 // GetSchedule 

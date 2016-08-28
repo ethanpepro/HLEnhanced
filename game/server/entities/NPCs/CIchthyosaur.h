@@ -33,7 +33,7 @@ public:
 	void  SetYawSpeed( void ) override;
 	int   Classify( void ) override;
 	void  HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	CUSTOM_SCHEDULES;
+	DECLARE_SCHEDULES();
 
 	Schedule_t *GetSchedule( void ) override;
 	Schedule_t *GetScheduleOfType( int Type ) override;

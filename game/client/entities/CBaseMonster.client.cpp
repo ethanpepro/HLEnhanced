@@ -443,7 +443,7 @@ void CBaseMonster::StartTask( Task_t* pTask )
 {
 }
 
-Schedule_t *CBaseMonster::ScheduleFromName( const char* pName )
+const Schedule_t *CBaseMonster::ScheduleFromName( const char* const pszName ) const
 {
 	return nullptr;
 }

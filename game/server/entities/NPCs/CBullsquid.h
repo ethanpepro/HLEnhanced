@@ -79,7 +79,7 @@ public:
 	int IgnoreConditions( void ) override;
 	MONSTERSTATE GetIdealState( void ) override;
 
-	CUSTOM_SCHEDULES;
+	DECLARE_SCHEDULES();
 
 	bool m_fCanThreatDisplay;// this is so the squid only does the "I see a headcrab!" dance one time. 
 

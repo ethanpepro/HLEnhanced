@@ -778,8 +778,7 @@ Schedule_t	slAGruntThreatDisplay[] =
 	},
 };
 
-DEFINE_CUSTOM_SCHEDULES( CAGrunt )
-{
+BEGIN_SCHEDULES( CAGrunt )
 	slAGruntFail,
 	slAGruntCombatFail,
 	slAGruntStandoff,
@@ -789,9 +788,7 @@ DEFINE_CUSTOM_SCHEDULES( CAGrunt )
 	slAGruntTakeCoverFromEnemy,
 	slAGruntVictoryDance,
 	slAGruntThreatDisplay,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CAGrunt, CSquadMonster );
+END_SCHEDULES()
 
 //=========================================================
 // FCanCheckAttacks - this is overridden for alien grunts

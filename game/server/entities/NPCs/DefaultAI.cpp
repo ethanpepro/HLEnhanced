@@ -978,8 +978,7 @@ Schedule_t	slTakeCoverFromEnemy[] =
 	},
 };
 
-Schedule_t *CBaseMonster::m_scheduleList[] = 
-{
+BEGIN_SCHEDULES_NOBASE( CBaseMonster )
 	slIdleStand,
 	slIdleTrigger,
 	slIdleWalk,
@@ -1018,36 +1017,44 @@ Schedule_t *CBaseMonster::m_scheduleList[] =
 	slTakeCoverFromBestSound,
 	slTakeCoverFromEnemy,
 	slFail
-};
+END_SCHEDULES()
 
-Schedule_t *CBaseMonster::ScheduleFromName( const char *pName )
+const Schedule_t* CBaseMonster::ScheduleFromName( const char* const pszName ) const
 {
-	return ScheduleInList( pName, m_scheduleList, ARRAYSIZE(m_scheduleList) );
+	const Schedules_t* pSchedules = GetSchedulesList();
+
+	while( pSchedules )
+	{
+		if( const Schedule_t* pSchedule = ScheduleInList( pszName, pSchedules->ppSchedules, pSchedules->uiNumSchedules ) )
+			return pSchedule;
+
+		pSchedules = pSchedules->pBaseList;
+	}
+
+	return nullptr;
 }
 
 
-Schedule_t *CBaseMonster :: ScheduleInList( const char *pName, Schedule_t **pList, int listCount )
+const Schedule_t* CBaseMonster::ScheduleInList( const char* const pszName, const Schedule_t* const* pList, size_t listCount ) const
 {
-	int i;
-	
-	if ( !pName )
+	if ( !pszName )
 	{
 		ALERT( at_console, "%s set to unnamed schedule!\n", GetClassname() );
-		return NULL;
+		return nullptr;
 	}
 
-
-	for ( i = 0; i < listCount; i++ )
+	for ( size_t i = 0; i < listCount; ++i )
 	{
 		if ( !pList[i]->pName )
 		{
 			ALERT( at_console, "Unnamed schedule!\n" );
 			continue;
 		}
-		if ( stricmp( pName, pList[i]->pName ) == 0 )
+		if ( stricmp( pszName, pList[i]->pName ) == 0 )
 			return pList[i];
 	}
-	return NULL;
+
+	return nullptr;
 }
 
 //=========================================================

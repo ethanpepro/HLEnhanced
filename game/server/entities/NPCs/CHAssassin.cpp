@@ -522,8 +522,7 @@ Schedule_t	slAssassinJumpLand[] =
 	},
 };
 
-DEFINE_CUSTOM_SCHEDULES( CHAssassin )
-{
+BEGIN_SCHEDULES( CHAssassin )
 	slAssassinFail,
 	slAssassinExposed,
 	slAssassinTakeCoverFromEnemy,
@@ -534,10 +533,7 @@ DEFINE_CUSTOM_SCHEDULES( CHAssassin )
 	slAssassinJump,
 	slAssassinJumpAttack,
 	slAssassinJumpLand,
-};
-
-IMPLEMENT_CUSTOM_SCHEDULES( CHAssassin, CBaseMonster );
-
+END_SCHEDULES()
 
 //=========================================================
 // CheckMeleeAttack1 - jump like crazy if the enemy gets too close. 

@@ -224,14 +224,12 @@ Schedule_t slTwitchDie[] =
 };
 
 
-DEFINE_CUSTOM_SCHEDULES(CIchthyosaur)
-{
+BEGIN_SCHEDULES(CIchthyosaur)
     slSwimAround,
 	slSwimAgitated,
 	slCircleEnemy,
 	slTwitchDie,
-};
-IMPLEMENT_CUSTOM_SCHEDULES(CIchthyosaur, CFlyingMonster);
+END_SCHEDULES()
 
 //=========================================================
 // Classify - indicates this monster's place in the 
