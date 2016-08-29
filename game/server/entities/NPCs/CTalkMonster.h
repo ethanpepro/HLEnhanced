@@ -120,8 +120,8 @@ public:
 	// AI functions
 	void			SetActivity ( Activity newActivity ) override;
 	Schedule_t		*GetScheduleOfType ( int Type ) override;
-	void			StartTask( Task_t *pTask ) override;
-	void			RunTask( Task_t *pTask ) override;
+	void			StartTask( const Task_t* pTask ) override;
+	void			RunTask( const Task_t* pTask ) override;
 	void			HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 	void			PrescheduleThink( void ) override;
 	

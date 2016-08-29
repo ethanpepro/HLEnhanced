@@ -65,9 +65,9 @@ public:
 																	// bool CheckMeleeAttack2 ( float flDot, float flDist ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;	// shoot
 	bool CheckRangeAttack2( float flDot, float flDist ) override;	// throw grenade
-	void StartTask( Task_t *pTask ) override;
+	void StartTask( const Task_t* pTask ) override;
 	void RunAI( void ) override;
-	void RunTask( Task_t *pTask ) override;
+	void RunTask( const Task_t* pTask ) override;
 	void DeathSound( void ) override;
 	void IdleSound( void ) override;
 	DECLARE_SCHEDULES();

@@ -40,8 +40,8 @@ public:
 	void SetYawSpeed() override;
 	int  Classify() override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	void RunTask( Task_t *pTask ) override;
-	void StartTask( Task_t *pTask ) override;
+	void RunTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t* pTask ) override;
 	int	ObjectCaps() const override { return CTalkMonster::ObjectCaps() | FCAP_IMPULSE_USE; }
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	virtual int FriendNumber( int arrayNumber ) const override;

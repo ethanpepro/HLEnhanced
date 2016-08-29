@@ -375,7 +375,7 @@ Activity CScientist::GetStoppedActivity( void )
 }
 
 
-void CScientist :: StartTask( Task_t *pTask )
+void CScientist :: StartTask( const Task_t* pTask )
 {
 	switch( pTask->iTask )
 	{
@@ -441,7 +441,7 @@ void CScientist :: StartTask( Task_t *pTask )
 	}
 }
 
-void CScientist :: RunTask( Task_t *pTask )
+void CScientist :: RunTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

@@ -272,7 +272,7 @@ void CHeadCrab :: Precache()
 //=========================================================
 // RunTask 
 //=========================================================
-void CHeadCrab :: RunTask ( Task_t *pTask )
+void CHeadCrab :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -333,7 +333,7 @@ void CHeadCrab :: PrescheduleThink ( void )
 	}
 }
 
-void CHeadCrab :: StartTask ( Task_t *pTask )
+void CHeadCrab :: StartTask ( const Task_t* pTask )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;
 

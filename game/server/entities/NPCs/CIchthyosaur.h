@@ -44,8 +44,8 @@ public:
 	void EXPORT CombatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void EXPORT BiteTouch( CBaseEntity *pOther );
 
-	void  StartTask( Task_t *pTask ) override;
-	void  RunTask( Task_t *pTask ) override;
+	void  StartTask( const Task_t* pTask ) override;
+	void  RunTask( const Task_t* pTask ) override;
 
 	bool  CheckMeleeAttack1( float flDot, float flDist ) override;
 	bool  CheckRangeAttack1( float flDot, float flDist ) override;

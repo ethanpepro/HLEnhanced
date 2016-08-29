@@ -2834,7 +2834,7 @@ void CBaseMonster::ReportAIState( void )
 		if ( !pName )
 			pName = "Unknown";
 		ALERT( level, "Schedule %s, ", pName );
-		Task_t *pTask = GetTask();
+		const Task_t* pTask = GetTask();
 		if ( pTask )
 			ALERT( level, "Task %d (#%d), ", pTask->iTask, m_iScheduleIndex );
 	}

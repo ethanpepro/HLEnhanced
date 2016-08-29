@@ -30,8 +30,8 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void RunTask( Task_t *pTask ) override;
-	void StartTask( Task_t *pTask ) override;
+	void RunTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t* pTask ) override;
 	void SetYawSpeed( void ) override;
 	void EXPORT LeapTouch( CBaseEntity *pOther );
 	Vector Center() const override;

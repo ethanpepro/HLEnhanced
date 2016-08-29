@@ -234,7 +234,7 @@ struct Task_t
 */
 struct Schedule_t
 {
-	Task_t	*pTasklist;
+	const Task_t* pTasklist;
 	size_t	cTasks;
 
 	/**

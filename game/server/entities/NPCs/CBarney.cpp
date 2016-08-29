@@ -149,12 +149,12 @@ BEGIN_SCHEDULES( CBarney )
 	slIdleBaStand,
 END_SCHEDULES()
 
-void CBarney :: StartTask( Task_t *pTask )
+void CBarney :: StartTask( const Task_t* pTask )
 {
 	CTalkMonster::StartTask( pTask );	
 }
 
-void CBarney :: RunTask( Task_t *pTask )
+void CBarney :: RunTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

@@ -42,8 +42,8 @@ public:
 	int  Classify( void ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 
-	void RunTask( Task_t *pTask ) override;
-	void StartTask( Task_t *pTask ) override;
+	void RunTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t* pTask ) override;
 	virtual int	ObjectCaps() const override { return CTalkMonster::ObjectCaps() | FCAP_IMPULSE_USE; }
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;

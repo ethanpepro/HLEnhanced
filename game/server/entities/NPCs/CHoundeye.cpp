@@ -588,7 +588,7 @@ void CHoundeye :: SonicAttack ( void )
 //=========================================================
 // start task
 //=========================================================
-void CHoundeye :: StartTask ( Task_t *pTask )
+void CHoundeye :: StartTask ( const Task_t* pTask )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;
 
@@ -690,7 +690,7 @@ void CHoundeye :: StartTask ( Task_t *pTask )
 //=========================================================
 // RunTask 
 //=========================================================
-void CHoundeye :: RunTask ( Task_t *pTask )
+void CHoundeye :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

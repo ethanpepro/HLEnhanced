@@ -959,7 +959,7 @@ Schedule_t* CBullsquid :: GetScheduleOfType ( int Type )
 // know explicitly when the last attempt to chase the enemy
 // failed, since that impacts its attack choices.
 //=========================================================
-void CBullsquid :: StartTask ( Task_t *pTask )
+void CBullsquid :: StartTask ( const Task_t* pTask )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;
 
@@ -1013,7 +1013,7 @@ void CBullsquid :: StartTask ( Task_t *pTask )
 //=========================================================
 // RunTask
 //=========================================================
-void CBullsquid :: RunTask ( Task_t *pTask )
+void CBullsquid :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

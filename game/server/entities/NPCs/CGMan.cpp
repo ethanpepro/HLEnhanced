@@ -115,7 +115,7 @@ void CGMan :: Precache()
 //=========================================================
 
 
-void CGMan :: StartTask( Task_t *pTask )
+void CGMan :: StartTask( const Task_t* pTask )
 {
 	switch( pTask->iTask )
 	{
@@ -129,7 +129,7 @@ void CGMan :: StartTask( Task_t *pTask )
 	CBaseMonster::StartTask( pTask );
 }
 
-void CGMan :: RunTask( Task_t *pTask )
+void CGMan :: RunTask( const Task_t* pTask )
 {
 	switch( pTask->iTask )
 	{

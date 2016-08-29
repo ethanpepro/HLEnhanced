@@ -333,8 +333,8 @@ public:
 		const Schedule_t* ScheduleFromName( const char* const pszName ) const;
 		
 		void MaintainSchedule ( void );
-		virtual void StartTask ( Task_t *pTask );
-		virtual void RunTask ( Task_t *pTask );
+		virtual void StartTask( const Task_t* pTask );
+		virtual void RunTask( const Task_t* pTask );
 		virtual Schedule_t *GetScheduleOfType( int Type );
 		virtual Schedule_t *GetSchedule( void );
 		virtual void ScheduleChange( void ) {}
@@ -346,7 +346,7 @@ public:
 
 		virtual void SentenceStop( void );
 
-		Task_t *GetTask ( void );
+		const Task_t* GetTask() const;
 		virtual MONSTERSTATE GetIdealState ( void );
 		virtual void SetActivity ( Activity NewActivity );
 		void SetSequenceByName( const char* const pszSequence );

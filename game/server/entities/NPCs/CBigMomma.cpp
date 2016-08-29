@@ -634,7 +634,7 @@ Schedule_t *CBigMomma::GetSchedule( void )
 }
 
 
-void CBigMomma::StartTask( Task_t *pTask )
+void CBigMomma::StartTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -746,7 +746,7 @@ void CBigMomma::StartTask( Task_t *pTask )
 //=========================================================
 // RunTask
 //=========================================================
-void CBigMomma::RunTask( Task_t *pTask )
+void CBigMomma::RunTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

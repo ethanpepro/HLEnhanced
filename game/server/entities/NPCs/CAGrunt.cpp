@@ -862,7 +862,7 @@ bool CAGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 //=========================================================
 // StartTask
 //=========================================================
-void CAGrunt :: StartTask ( Task_t *pTask )
+void CAGrunt :: StartTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

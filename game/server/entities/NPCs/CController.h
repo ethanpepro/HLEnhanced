@@ -47,8 +47,8 @@ public:
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;	// block, throw
 	Schedule_t* GetSchedule( void ) override;
 	Schedule_t* GetScheduleOfType( int Type ) override;
-	void StartTask( Task_t *pTask ) override;
-	void RunTask( Task_t *pTask ) override;
+	void StartTask( const Task_t* pTask ) override;
+	void RunTask( const Task_t* pTask ) override;
 	DECLARE_SCHEDULES();
 
 	void Stop( void ) override;

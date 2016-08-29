@@ -267,8 +267,8 @@ void CBaseMonster :: MaintainSchedule ( void )
 
 		if ( m_iTaskStatus == TASKSTATUS_NEW )
 		{	
-			Task_t *pTask = GetTask();
-			ASSERT( pTask != NULL );
+			const Task_t* pTask = GetTask();
+			ASSERT( pTask != nullptr );
 			TaskBegin();
 			StartTask( pTask );
 		}
@@ -285,8 +285,8 @@ void CBaseMonster :: MaintainSchedule ( void )
 
 	if ( TaskIsRunning() )
 	{
-		Task_t *pTask = GetTask();
-		ASSERT( pTask != NULL );
+		const Task_t* pTask = GetTask();
+		ASSERT( pTask != nullptr );
 		RunTask( pTask );
 	}
 
@@ -302,7 +302,7 @@ void CBaseMonster :: MaintainSchedule ( void )
 //=========================================================
 // RunTask 
 //=========================================================
-void CBaseMonster :: RunTask ( Task_t *pTask )
+void CBaseMonster :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -568,7 +568,7 @@ void CBaseMonster :: SetTurnActivity ( void )
 // any necessary calculations to start the next task on the
 // schedule. 
 //=========================================================
-void CBaseMonster :: StartTask ( Task_t *pTask )
+void CBaseMonster :: StartTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -1326,14 +1326,14 @@ case TASK_GET_PATH_TO_BESTSCENT:
 
 //=========================================================
 // GetTask - returns a pointer to the current 
-// scheduled task. NULL if there's a problem.
+// scheduled task. nullptr if there's a problem.
 //=========================================================
-Task_t	*CBaseMonster :: GetTask ( void ) 
+const Task_t* CBaseMonster::GetTask() const 
 {
 	if ( m_iScheduleIndex < 0 || m_iScheduleIndex >= m_pSchedule->cTasks )
 	{
 		// m_iScheduleIndex is not within valid range for the monster's current schedule.
-		return NULL;
+		return nullptr;
 	}
 	else
 	{

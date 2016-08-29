@@ -674,7 +674,7 @@ void CHAssassin :: RunAI( void )
 //=========================================================
 // StartTask
 //=========================================================
-void CHAssassin :: StartTask ( Task_t *pTask )
+void CHAssassin :: StartTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -700,7 +700,7 @@ void CHAssassin :: StartTask ( Task_t *pTask )
 //=========================================================
 // RunTask 
 //=========================================================
-void CHAssassin :: RunTask ( Task_t *pTask )
+void CHAssassin :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

@@ -130,8 +130,8 @@ public:
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
 	void CheckAmmo( void );
 	void SetActivity( Activity NewActivity ) override;
-	void StartTask( Task_t *pTask ) override;
-	void RunTask( Task_t *pTask ) override;
+	void StartTask( const Task_t* pTask ) override;
+	void RunTask( const Task_t* pTask ) override;
 	void DeathSound( void ) override;
 	void PainSound( void ) override;
 	void IdleSound( void ) override;

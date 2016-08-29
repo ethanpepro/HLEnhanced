@@ -507,7 +507,7 @@ Schedule_t* CIchthyosaur :: GetScheduleOfType ( int Type )
 // any necessary calculations to start the next task on the
 // schedule.
 //=========================================================
-void CIchthyosaur::StartTask(Task_t *pTask)
+void CIchthyosaur::StartTask( const Task_t* pTask )
 {
 	switch (pTask->iTask)
 	{
@@ -539,7 +539,7 @@ void CIchthyosaur::StartTask(Task_t *pTask)
 	}
 }
 
-void CIchthyosaur :: RunTask ( Task_t *pTask )
+void CIchthyosaur :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

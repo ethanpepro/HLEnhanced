@@ -862,7 +862,7 @@ Schedule_t *CGargantua::GetScheduleOfType( int Type )
 }
 
 
-void CGargantua::StartTask( Task_t *pTask )
+void CGargantua::StartTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -893,7 +893,7 @@ void CGargantua::StartTask( Task_t *pTask )
 //=========================================================
 // RunTask
 //=========================================================
-void CGargantua::RunTask( Task_t *pTask )
+void CGargantua::RunTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{

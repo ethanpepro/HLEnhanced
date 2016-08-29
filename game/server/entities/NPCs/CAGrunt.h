@@ -76,7 +76,7 @@ public:
 	bool FCanCheckAttacks() const override;
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
-	void StartTask( Task_t *pTask ) override;
+	void StartTask( const Task_t* pTask ) override;
 	void AlertSound( void ) override;
 	void DeathSound( void ) override;
 	void PainSound( void ) override;

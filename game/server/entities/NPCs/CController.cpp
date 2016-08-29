@@ -433,7 +433,7 @@ END_SCHEDULES()
 //=========================================================
 // StartTask
 //=========================================================
-void CController :: StartTask ( Task_t *pTask )
+void CController :: StartTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -560,7 +560,7 @@ int CController::LookupFloat( )
 //=========================================================
 // RunTask 
 //=========================================================
-void CController :: RunTask ( Task_t *pTask )
+void CController :: RunTask ( const Task_t* pTask )
 {
 
 	if (m_flShootEnd > gpGlobals->time)

@@ -367,7 +367,7 @@ void CTalkMonster :: SetActivity ( Activity newActivity )
 }
 
 
-void CTalkMonster :: StartTask( Task_t *pTask )
+void CTalkMonster :: StartTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
@@ -486,7 +486,7 @@ void CTalkMonster :: StartTask( Task_t *pTask )
 }
 
 
-void CTalkMonster :: RunTask( Task_t *pTask )
+void CTalkMonster :: RunTask( const Task_t* pTask )
 {
 	switch( pTask->iTask )
 	{

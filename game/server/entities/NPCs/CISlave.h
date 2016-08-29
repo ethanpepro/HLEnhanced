@@ -55,7 +55,7 @@ public:
 
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
-	void StartTask( Task_t *pTask ) override;
+	void StartTask( const Task_t* pTask ) override;
 	Schedule_t *GetSchedule( void ) override;
 	Schedule_t *GetScheduleOfType( int Type ) override;
 	DECLARE_SCHEDULES();

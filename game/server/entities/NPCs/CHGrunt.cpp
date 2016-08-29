@@ -910,7 +910,7 @@ void CHGrunt :: Precache()
 //=========================================================
 // start task
 //=========================================================
-void CHGrunt :: StartTask ( Task_t *pTask )
+void CHGrunt :: StartTask ( const Task_t* pTask )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;
 
@@ -961,7 +961,7 @@ void CHGrunt :: StartTask ( Task_t *pTask )
 //=========================================================
 // RunTask
 //=========================================================
-void CHGrunt :: RunTask ( Task_t *pTask )
+void CHGrunt :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
 	{
