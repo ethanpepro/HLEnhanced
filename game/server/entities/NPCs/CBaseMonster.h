@@ -258,7 +258,6 @@ public:
 
 // monster use function
 	void EXPORT			MonsterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT			CorpseUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 // overrideable Monster member functions
 	
@@ -428,8 +427,11 @@ public:
 		bool FacingIdeal() const;
 
 		bool FCheckAITrigger();// checks and, if necessary, fires the monster's trigger target. 
-		//TODO: not implemented here, but squad monster has it. Make virtual? - Solokiller
-		bool NoFriendlyFire();
+		
+		/**
+		*	@return Whether the monster would not hit a friendly if it were to attack a target in front of it.
+		*/
+		virtual bool NoFriendlyFire() { return true; }
 
 		bool BBoxFlat() const;
 
@@ -441,7 +443,6 @@ public:
 		void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr );
 
 	// combat functions
-	float UpdateTarget ( CBaseEntity* pTarget );
 	virtual Activity GetDeathActivity ( void );
 	Activity GetSmallFlinchActivity( void );
 	virtual void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;

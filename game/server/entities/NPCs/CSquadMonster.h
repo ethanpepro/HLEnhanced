@@ -75,7 +75,7 @@ public:
 	void ScheduleChange( void ) override;
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	bool OccupySlot( int iDesiredSlot );
-	bool NoFriendlyFire();
+	bool NoFriendlyFire() override;
 
 	// squad functions still left in base class
 	const CSquadMonster* MySquadLeader() const
