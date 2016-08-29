@@ -52,11 +52,6 @@ Vector CBasePlayer::GetGunPosition( void )
 	return g_vecZero;
 }
 
-float CBasePlayer::GiveHealth( float flHealth, int bitsDamageType )
-{
-	return 0;
-}
-
 void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 }

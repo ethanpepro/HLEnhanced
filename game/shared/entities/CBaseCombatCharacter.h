@@ -15,6 +15,19 @@
 #ifndef GAME_SHARED_ENTITIES_CBASECOMBATCHARACTER_H
 #define GAME_SHARED_ENTITIES_CBASECOMBATCHARACTER_H
 
+enum TimeBasedDamage
+{
+	itbd_Paralyze		= 0,
+	itbd_NerveGas		= 1,
+	itbd_Poison			= 2,
+	itbd_Radiation		= 3,
+	itbd_DrownRecover	= 4,
+	itbd_Acid			= 5,
+	itbd_SlowBurn		= 6,
+	itbd_SlowFreeze		= 7,
+	CDMG_TIMEBASED		= 8,
+};
+
 /**
 *	Generic character.
 */
@@ -22,6 +35,27 @@ class CBaseCombatCharacter : public CBaseToggle
 {
 public:
 	DECLARE_CLASS( CBaseCombatCharacter, CBaseToggle );
+	DECLARE_DATADESC();
+
+protected:
+	/**
+	*	What types of damage has monster (player) taken.
+	*/
+	int					m_bitsDamageType;
+
+	/**
+	*	Time based damage counters, decr. 1 per 2 seconds.
+	*/
+	byte				m_rgbTimeBasedDamage[ CDMG_TIMEBASED ];
+
+	/**
+	*	How much damage did monster (player) last take.
+	*/
+	int					m_lastDamageAmount;
+
+public:
+
+	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
 
 	virtual	Vector GetGunPosition() = 0;
 

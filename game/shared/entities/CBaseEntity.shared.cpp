@@ -96,8 +96,6 @@ BEGIN_DATADESC( CBaseMonster )
 	DEFINE_FIELD( m_afCapability, FIELD_INTEGER ),
 	
 	DEFINE_FIELD( m_flNextAttack, FIELD_TIME ),
-	DEFINE_FIELD( m_bitsDamageType, FIELD_INTEGER ),
-	DEFINE_ARRAY( m_rgbTimeBasedDamage, FIELD_CHARACTER, CDMG_TIMEBASED ),
 	DEFINE_FIELD( m_bloodColor, FIELD_INTEGER ),
 	DEFINE_FIELD( m_failSchedule, FIELD_INTEGER ),
 	
@@ -155,6 +153,7 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD( m_iSuitPlayNext, FIELD_INTEGER ),
 	DEFINE_ARRAY( m_rgiSuitNoRepeat, FIELD_INTEGER, CSUITNOREPEAT ),
 	DEFINE_ARRAY( m_rgflSuitNoRepeatTime, FIELD_TIME, CSUITNOREPEAT ),
+	//TODO also used by monsters. Move to CBaseCombatCharacter datadesc? - Solokiller
 	DEFINE_FIELD( m_lastDamageAmount, FIELD_INTEGER ),
 	
 	DEFINE_ARRAY( m_rgpPlayerItems, FIELD_CLASSPTR, MAX_WEAPON_SLOTS ),

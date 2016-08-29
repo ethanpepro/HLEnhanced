@@ -460,11 +460,6 @@ void CBaseMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 }
 
-float CBaseMonster::GiveHealth( float flHealth, int bitsDamageType )
-{
-	return 0;
-}
-
 void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 {
 }

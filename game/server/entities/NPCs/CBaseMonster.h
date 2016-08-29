@@ -54,19 +54,6 @@ enum MONSTERSTATE
 	MONSTERSTATE_DEAD
 };
 
-enum TimeBasedDamage
-{
-	itbd_Paralyze		= 0,		
-	itbd_NerveGas		= 1,
-	itbd_Poison			= 2,
-	itbd_Radiation		= 3,
-	itbd_DrownRecover	= 4,
-	itbd_Acid			= 5,
-	itbd_SlowBurn		= 6,
-	itbd_SlowFreeze		= 7,
-	CDMG_TIMEBASED		= 8,
-};
-
 /**
 *	These MoveFlag values are assigned to a WayPoint's TYPE in order to demonstrate the
 *	type of movement the monster should use to get there.
@@ -229,11 +216,6 @@ public:
 
 	float				m_flNextAttack;		// cannot attack again until this time
 
-	int					m_bitsDamageType;	// what types of damage has monster (player) taken
-	byte				m_rgbTimeBasedDamage[CDMG_TIMEBASED];
-
-	int					m_lastDamageAmount;// how much damage did monster (player) last take
-											// time based damage counters, decr. 1 per 2 seconds
 	int					m_bloodColor;		// color of blood particless
 
 	int					m_failSchedule;				// Schedule type to choose if current schedule fails
@@ -458,7 +440,6 @@ public:
 
 	virtual	Vector  GetGunPosition( void );
 
-	virtual float GiveHealth( float flHealth, int bitsDamageType ) override;
 	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void DeadTakeDamage( const CTakeDamageInfo& info );
 

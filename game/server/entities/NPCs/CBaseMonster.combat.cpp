@@ -414,22 +414,6 @@ void CBaseMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	m_IdealMonsterState = MONSTERSTATE_DEAD;
 }
 
-// take health
-float CBaseMonster::GiveHealth( float flHealth, int bitsDamageType )
-{
-	if( !pev->takedamage )
-		return 0;
-
-	// clear out any damage types we healed.
-	// UNDONE: generic health should not heal any
-	// UNDONE: time-based damage
-
-	//TODO: if this method is being used to hurt, shouldn't it retain time-based damage? - Solokiller
-	m_bitsDamageType &= ~(bitsDamageType & ~DMG_TIMEBASED);
-	
-	return CBaseEntity::GiveHealth( flHealth, bitsDamageType );
-}
-
 /*
 ============
 OnTakeDamage

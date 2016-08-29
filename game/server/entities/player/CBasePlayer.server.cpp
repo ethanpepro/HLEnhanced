@@ -246,14 +246,6 @@ Vector CBasePlayer::GetGunPosition()
 	return GetAbsOrigin() + pev->view_ofs;
 }
 
-// override GiveHealth
-// bitsDamageType indicates type of damage healed. 
-
-float CBasePlayer::GiveHealth( float flHealth, int bitsDamageType )
-{
-	return CBaseMonster::GiveHealth( flHealth, bitsDamageType );
-}
-
 //=========================================================
 // TraceAttack
 //=========================================================

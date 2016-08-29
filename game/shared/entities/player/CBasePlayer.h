@@ -292,8 +292,6 @@ public:
 	
 	Vector GetGunPosition() override;
 
-	float GiveHealth( float flHealth, int bitsDamageType ) override;
-
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
