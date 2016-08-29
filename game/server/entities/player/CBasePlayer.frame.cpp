@@ -822,25 +822,26 @@ void CBasePlayer::ImpulseCommands()
 	case 99:
 		{
 
-			int iOn;
+			bool bOn;
 
 			if( !gmsgLogo )
 			{
-				iOn = 1;
+				bOn = true;
+				//TODO: figure out why this is done here. - Solokiller
 				gmsgLogo = REG_USER_MSG( "Logo", 1 );
 			}
 			else
 			{
-				iOn = 0;
+				bOn = false;
 			}
 
 			ASSERT( gmsgLogo > 0 );
 			// send "health" update message
 			MESSAGE_BEGIN( MSG_ONE, gmsgLogo, NULL, this );
-			WRITE_BYTE( iOn );
+			WRITE_BYTE( bOn );
 			MESSAGE_END();
 
-			if( !iOn )
+			if( !bOn )
 				gmsgLogo = 0;
 			break;
 		}
