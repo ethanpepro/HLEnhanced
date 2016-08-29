@@ -14,8 +14,8 @@ addons:
             - ubuntu-toolchain-r-test
         packages:
             - libsdl2-dev
-            - gcc-5
-            - gcc-6
+            - gcc-5-multilib
+            - gcc-6-multilib
 
 matrix:
     include:
