@@ -68,6 +68,88 @@ enum TimeBasedDamage
 };
 
 /**
+*	These MoveFlag values are assigned to a WayPoint's TYPE in order to demonstrate the
+*	type of movement the monster should use to get there.
+*/
+enum MoveFlag
+{
+	/**
+	*	Local move to targetent.
+	*/
+	bits_MF_TO_TARGETENT	= 1 << 0,
+
+	/**
+	*	Local move to enemy.
+	*/
+	bits_MF_TO_ENEMY		= 1 << 1,
+
+	/**
+	*	Local move to a hiding place.
+	*/
+	bits_MF_TO_COVER		= 1 << 2,
+
+	/**
+	*	Local move to detour point.
+	*/
+	bits_MF_TO_DETOUR		= 1 << 3,
+
+	/**
+	*	Local move to a path corner.
+	*/
+	bits_MF_TO_PATHCORNER	= 1 << 4,
+
+	/**
+	*	Local move to a node.
+	*/
+	bits_MF_TO_NODE			= 1 << 5,
+
+	/**
+	*	Local move to an arbitrary point.
+	*/
+	bits_MF_TO_LOCATION		= 1 << 6,
+
+	/**
+	*	This waypoint is the goal of the whole move.
+	*/
+	bits_MF_IS_GOAL			= 1 << 7,
+
+	/**
+	*	Don't let the route code simplify this waypoint.
+	*/
+	bits_MF_DONT_SIMPLIFY	= 1 << 8,
+
+	/**
+	*	If you define any flags that aren't _TO_ flags, add them here so we can mask
+	*	them off when doing compares.
+	*/
+	bits_MF_NOT_TO_MASK = ( bits_MF_IS_GOAL | bits_MF_DONT_SIMPLIFY )
+};
+
+enum MoveGoal
+{
+	MOVEGOAL_NONE			= 0,
+	MOVEGOAL_TARGETENT		= bits_MF_TO_TARGETENT,
+	MOVEGOAL_ENEMY			= bits_MF_TO_ENEMY,
+	MOVEGOAL_PATHCORNER		= bits_MF_TO_PATHCORNER,
+	MOVEGOAL_LOCATION		= bits_MF_TO_LOCATION,
+	MOVEGOAL_NODE			= bits_MF_TO_NODE,
+};
+
+/**
+*	An array of waypoints makes up the monster's route. 
+*/
+struct WayPoint_t
+{
+	Vector	vecLocation;
+
+	/**
+	*	Waypoint type.
+	*	@see MoveFlag
+	*/
+	int		iType;
+};
+
+/**
 *	Generic Monster
 */
 class CBaseMonster : public CBaseCombatCharacter
