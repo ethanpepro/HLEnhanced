@@ -1,0 +1,47 @@
+# Setup C/C++ mode
+language: cpp
+
+# Switch to Ubuntu 14.04 Trusty beta instead of using the default 12.04 Precise
+# this is required due to the dependency to libsdl2-dev
+sudo: required
+dist: trusty
+
+# Linux - add the Ubuntu restricted tool chain to install GCC 5 and 6, also to
+# install the development package for SDL2
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - libsdl2-dev
+            - gcc-5
+            - gcc-6
+
+matrix:
+    include:
+        # Linux GCC 5
+        - os: linux
+          compiler: gcc-5
+
+install:
+    # Prepare the dependencies, build and fake Steam common directories for Travis
+    - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+    - STEAMCOMMON_DIR="${TRAVIS_BUILD_DIR}/steam_common"
+    - mkdir -p ${DEPS_DIR} && mkdir -p ${STEAMCOMMON_DIR} && cd ${DEPS_DIR}
+    # Get the latest CMake version
+    - |
+      if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+        CMAKE_URL="http://www.cmake.org/files/v3.6/cmake-3.6.1-Linux-x86_64_tar_gz"
+        mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
+        export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+      else
+        if ! brew ls --version cmake &>/dev/null; then brew install cmake; fi
+      fi
+
+before_script:
+    # Invoke CMake
+    - cd ${TRAVIS_BUILD_DIR}
+    - mkdir build && cd build
+    - cmake -DSTEAMCOMMON=${STEAMCOMMON_DIR} ..
+
+script: make
