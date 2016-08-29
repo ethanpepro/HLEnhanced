@@ -44,7 +44,7 @@ before_script:
     # Invoke CMake
     - cd ${TRAVIS_BUILD_DIR}
     - mkdir build && cd build
-    - if [[ "${COMPILER}" == "gcc-5" ]]; then export CC="gcc-5" && export CXX="g++-5"; fi
-    - cmake -DSTEAMCOMMON=${STEAMCOMMON_DIR} ..
 
-script: make
+script:
+    - if [[ "${COMPILER}" == "gcc-5" ]]; then cmake -DCMAKE_C_COMPILER="gcc-5" -DCMAKE_CXX_COMPILER="g++-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} ..; fi
+    - make
