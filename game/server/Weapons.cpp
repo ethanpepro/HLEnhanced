@@ -106,26 +106,21 @@ void DecalGunshot( TraceResult *pTrace, int iBulletType )
 	}
 }
 
-
-
-//
-// EjectBrass - tosses a brass shell from passed origin at passed velocity
-//
-void EjectBrass ( const Vector &vecOrigin, const Vector &vecVelocity, float rotation, int model, int soundtype )
+void EjectBrass( const Vector& vecOrigin, const Vector& vecVelocity, float rotation, int model, TE_Bounce soundtype )
 {
 	// FIX: when the player shoots, their gun isn't in the same position as it is on the model other players see.
 
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecOrigin );
-		WRITE_BYTE( TE_MODEL);
-		WRITE_COORD( vecOrigin.x);
-		WRITE_COORD( vecOrigin.y);
-		WRITE_COORD( vecOrigin.z);
-		WRITE_COORD( vecVelocity.x);
-		WRITE_COORD( vecVelocity.y);
-		WRITE_COORD( vecVelocity.z);
+		WRITE_BYTE( TE_MODEL );
+		WRITE_COORD( vecOrigin.x );
+		WRITE_COORD( vecOrigin.y );
+		WRITE_COORD( vecOrigin.z );
+		WRITE_COORD( vecVelocity.x );
+		WRITE_COORD( vecVelocity.y );
+		WRITE_COORD( vecVelocity.z );
 		WRITE_ANGLE( rotation );
 		WRITE_SHORT( model );
-		WRITE_BYTE ( soundtype);
+		WRITE_BYTE ( soundtype );
 		WRITE_BYTE ( 25 );// 2.5 seconds
 	MESSAGE_END();
 }

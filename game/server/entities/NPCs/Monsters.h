@@ -28,45 +28,117 @@
 struct Schedule_t;
 
 // CHECKLOCALMOVE result types 
-#define	LOCALMOVE_INVALID					0 // move is not possible
-#define LOCALMOVE_INVALID_DONT_TRIANGULATE	1 // move is not possible, don't try to triangulate
-#define LOCALMOVE_VALID						2 // move is possible
+enum LocalMove
+{
+	/**
+	*	Move is not possible.
+	*/
+	LOCALMOVE_INVALID					= 0,
 
-// Hit Group standards
-#define	HITGROUP_GENERIC	0
-#define	HITGROUP_HEAD		1
-#define	HITGROUP_CHEST		2
-#define	HITGROUP_STOMACH	3
-#define HITGROUP_LEFTARM	4	
-#define HITGROUP_RIGHTARM	5
-#define HITGROUP_LEFTLEG	6
-#define HITGROUP_RIGHTLEG	7
+	/**
+	*	Move is not possible, don't try to triangulate.
+	*/
+	LOCALMOVE_INVALID_DONT_TRIANGULATE	= 1,
+
+	/**
+	*	Move is possible.
+	*/
+	LOCALMOVE_VALID						= 2,
+};
+
+/**
+*	Hit Group standards
+*/
+enum HitGroup
+{
+	HITGROUP_GENERIC	= 0,
+	HITGROUP_HEAD		= 1,
+	HITGROUP_CHEST		= 2,
+	HITGROUP_STOMACH	= 3,
+	HITGROUP_LEFTARM	= 4,	
+	HITGROUP_RIGHTARM	= 5,
+	HITGROUP_LEFTLEG	= 6,
+	HITGROUP_RIGHTLEG	= 7,
+};
 
 
-// Monster Spawnflags
-#define	SF_MONSTER_WAIT_TILL_SEEN		1// spawnflag that makes monsters wait until player can see them before attacking.
-#define	SF_MONSTER_GAG					2 // no idle noises from this monster
-#define SF_MONSTER_HITMONSTERCLIP		4
+/**
+*	Monster Spawnflags
+*/
+enum MonsterSpawnFlag
+{
+	/**
+	*	Spawnflag that makes monsters wait until player can see them before attacking.
+	*/
+	SF_MONSTER_WAIT_TILL_SEEN		= 1,
+
+	/**
+	*	No idle noises from this monster.
+	*/
+	SF_MONSTER_GAG					= 2,
+
+	/**
+	*	Monster is blocked by monsterclip.
+	*/
+	SF_MONSTER_HITMONSTERCLIP		= 4,
+
 //										8
-#define SF_MONSTER_PRISONER				16 // monster won't attack anyone, no one will attacke him.
+
+/**
+*	Monster won't attack anyone, no one will attack him.
+*/
+	SF_MONSTER_PRISONER				= 16,
+
 //										32
+
 //										64
-#define	SF_MONSTER_WAIT_FOR_SCRIPT		128 //spawnflag that makes monsters wait to check for attacking until the script is done or they've been attacked
-#define SF_MONSTER_PREDISASTER			256	//this is a predisaster scientist or barney. Influences how they speak.
-//TODO: move & rename - Solokiller
-#define SF_MONSTER_FADECORPSE			512 // Fade out corpse after death
-#define SF_MONSTER_FALL_TO_GROUND		0x80000000
+
+	/**
+	*	Spawnflag that makes monsters wait to check for attacking until the script is done or they've been attacked.
+	*/
+	SF_MONSTER_WAIT_FOR_SCRIPT		= 128,
+
+	/**
+	*	This is a predisaster scientist or barney. Influences how they speak.
+	*/
+	SF_MONSTER_PREDISASTER			= 256,
+
+	//TODO: move & rename - Solokiller
+	/**
+	*	Fade out corpse after death.
+	*/
+	SF_MONSTER_FADECORPSE			= 512,
+
+	/**
+	*	If set, the monster naturally falls to the ground instead of being dropped onto the ground immediately.
+	*/
+	SF_MONSTER_FALL_TO_GROUND		= 0x80000000,
+};
 
 // specialty spawnflags
-#define SF_MONSTER_TURRET_AUTOACTIVATE	32
-#define SF_MONSTER_TURRET_STARTINACTIVE	64
-#define SF_MONSTER_WAIT_UNTIL_PROVOKED	64 // don't attack the player unless provoked
+enum
+{
+	/**
+	*	Don't attack the player unless provoked.
+	*/
+	SF_MONSTER_WAIT_UNTIL_PROVOKED	= 64,
+};
 
 
 
 // MoveToOrigin stuff
-#define		MOVE_START_TURN_DIST	64 // when this far away from moveGoal, start turning to face next goal
-#define		MOVE_STUCK_DIST			32 // if a monster can't step this far, it is stuck.
+enum
+{
+	/**
+	*	When this far away from moveGoal, start turning to face next goal.
+	*/
+	MOVE_START_TURN_DIST	= 64,
+
+	/**
+	*	If a monster can't step this far, it is stuck.
+	*/
+	MOVE_STUCK_DIST			= 32,
+};
 
 
 // MoveToOrigin stuff
@@ -84,73 +156,240 @@ enum MoveToOrigin
 };
 
 // spawn flags 256 and above are already taken by the engine
-extern void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDist, const MoveToOrigin moveType );
+/**
+*	Moves the given entity towards the destination, covering the given amount of distance.
+*	@param pEntity Entity to move.
+*	@param vecGoal Destination to move towards.
+*	@param flDist Distance to cover.
+*	@param moveType Movement type.
+*/
+void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDist, const MoveToOrigin moveType );
 
-Vector VecCheckToss( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSpot2, float flGravityAdj = 1.0 );
-Vector VecCheckThrow( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSpot2, float flSpeed, float flGravityAdj = 1.0 );
-extern DLL_GLOBAL Vector		g_vecAttackDir;
-extern DLL_GLOBAL CONSTANT float g_flMeleeRange;
-extern DLL_GLOBAL CONSTANT float g_flMediumRange;
-extern DLL_GLOBAL CONSTANT float g_flLongRange;
-extern void EjectBrass (const Vector &vecOrigin, const Vector &vecVelocity, float rotation, int model, int soundtype );
-extern void ExplodeModel( const Vector &vecOrigin, float speed, int model, int count );
+/**
+*	Checks if an object can be tossed from one position to another. (underhand throw)
+*	@param pEntity The entity that is tossing the object.
+*	@param vecSpot1 Starting position.
+*	@param vecSpot2 Destination.
+*	@param flGravityAdj Gravity to subject the object to.
+*	@return The velocity at which an object should be lobbed from vecspot1 to land near vecspot2.
+*	Returns g_vecZero if toss is not feasible.
+*/
+Vector VecCheckToss( CBaseEntity* pEntity, const Vector& vecSpot1, Vector vecSpot2, float flGravityAdj = 1.0 );
 
-bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget );
-bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector &vecTargetOrigin, float flSize = 0.0 );
+/**
+*	Checks if an object can be thrown from one position to another. (overhand throw)
+*	@param pEntity The entity that is throwing the object.
+*	@param vecSpot1 Starting position.
+*	@param vecSpot2 Destination.
+*	@param flGravityAdj Gravity to subject the object to.
+*	@return The velocity vector at which an object should be thrown from vecspot1 to hit vecspot2.
+*	Returns g_vecZero if throw is not feasible.
+*/
+Vector VecCheckThrow( CBaseEntity* pEntity, const Vector& vecSpot1, Vector vecSpot2, float flSpeed, float flGravityAdj = 1.0 );
 
-// monster to monster relationship types
-#define R_AL	-2 // (ALLY) pals. Good alternative to R_NO when applicable.
-#define R_FR	-1// (FEAR)will run
-#define	R_NO	0// (NO RELATIONSHIP) disregard
-#define R_DL	1// (DISLIKE) will attack
-#define R_HT	2// (HATE)will attack this character instead of any visible DISLIKEd characters
-#define R_NM	3// (NEMESIS)  A monster Will ALWAYS attack its nemsis, no matter what
+extern DLL_GLOBAL Vector g_vecAttackDir;
 
+/**
+*	Tosses a brass shell from passed origin at passed velocity.
+*	@param vecOrigin Shell origin.
+*	@param vecVelocity Shell velocity.
+*	@param rotation Shell yaw rotation.
+*	@param model Index of the model to use. Value returned by PRECACHE_MODEL.
+*	@param soundtype Type of sound to make when the shell hits something.
+*/
+void EjectBrass( const Vector& vecOrigin, const Vector& vecVelocity, float rotation, int model, TE_Bounce soundtype );
 
-// these bits represent the monster's memory
-#define MEMORY_CLEAR					0
-#define bits_MEMORY_PROVOKED			( 1 << 0 )// right now only used for houndeyes.
-#define bits_MEMORY_INCOVER				( 1 << 1 )// monster knows it is in a covered position.
-#define bits_MEMORY_SUSPICIOUS			( 1 << 2 )// Ally is suspicious of the player, and will move to provoked more easily
-#define bits_MEMORY_PATH_FINISHED		( 1 << 3 )// Finished monster path (just used by big momma for now)
-#define bits_MEMORY_ON_PATH				( 1 << 4 )// Moving on a path
-#define bits_MEMORY_MOVE_FAILED			( 1 << 5 )// Movement has already failed
-#define bits_MEMORY_FLINCHED			( 1 << 6 )// Has already flinched
-#define bits_MEMORY_KILLED				( 1 << 7 )// HACKHACK -- remember that I've already called my Killed()
-#define bits_MEMORY_CUSTOM4				( 1 << 28 )	// Monster-specific memory
-#define bits_MEMORY_CUSTOM3				( 1 << 29 )	// Monster-specific memory
-#define bits_MEMORY_CUSTOM2				( 1 << 30 )	// Monster-specific memory
-#define bits_MEMORY_CUSTOM1				( 1 << 31 )	// Monster-specific memory
+/**
+*	Creates models that explode outward.
+*	@param vecOrigin Origin around which to spawn the models.
+*	@param speed Movement speed.
+*	@param model Index of the model to use. Value returned by PRECACHE_MODEL.
+*	@param count Number of models to create.
+*	TODO: implementation is disabled. - Solokiller
+*/
+void ExplodeModel( const Vector& vecOrigin, float speed, int model, int count );
 
-// trigger conditions for scripted AI
-// these MUST match the CHOICES interface in halflife.fgd for the base monster
+/**
+*	A more accurate ( and slower ) version of FVisible. This will check if the looker can see the target's bounding box.
+*	@param pLooker The entity that is currently looking.
+*	@param pTarget Entity to check if it's visible.
+*	@param[ out ] vecTargetOrigin If this function returns true, this is the position that the looker can see.
+*	@param flSize Amount to shrink the target's bounding box in all axes.
+*	@return true if the target is visible, false otherwise.
+*	!!!UNDONE - make this CBaseMonster?
+*/
+bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize = 0.0 );
+
+/**
+*	Monster to monster relationship types.
+*/
+enum Relationship
+{
+	/**
+	*	(ALLY) pals. Good alternative to R_NO when applicable.
+	*/
+	R_AL	= -2,
+
+	/**
+	*	(FEAR)will run.
+	*/
+	R_FR	= -1,
+
+	/**
+	*	(NO RELATIONSHIP) disregard.
+	*/
+	R_NO	= 0,
+
+	/**
+	*	(DISLIKE) will attack.
+	*/
+	R_DL	= 1,
+
+	/**
+	*	(HATE) will attack this character instead of any visible DISLIKEd characters.
+	*/
+	R_HT	= 2,
+
+	/**
+	*	(NEMESIS)  A monster Will ALWAYS attack its nemsis, no matter what.
+	*/
+	R_NM	= 3,
+};
+
+/**
+*	These bits represent the monster's memory.
+*/
+enum MonsterMemory
+{
+	MEMORY_CLEAR					= 0,
+
+	/**
+	*	Right now only used for houndeyes.
+	*/
+	bits_MEMORY_PROVOKED			= 1 << 0,
+
+	/**
+	*	Monster knows it is in a covered position.
+	*/
+	bits_MEMORY_INCOVER				= 1 << 1,
+
+	/**
+	*	Ally is suspicious of the player, and will move to provoked more easily.
+	*/
+	bits_MEMORY_SUSPICIOUS			= 1 << 2,
+
+	/**
+	*	Finished monster path (just used by big momma for now).
+	*/
+	bits_MEMORY_PATH_FINISHED		= 1 << 3,
+
+	/**
+	*	Moving on a path.
+	*/
+	bits_MEMORY_ON_PATH				= 1 << 4,
+
+	/**
+	*	Movement has already failed.
+	*/
+	bits_MEMORY_MOVE_FAILED			= 1 << 5,
+
+	/**
+	*	Has already flinched.
+	*/
+	bits_MEMORY_FLINCHED			= 1 << 6,
+
+	/**
+	*	HACKHACK -- remember that I've already called my Killed().
+	*/
+	bits_MEMORY_KILLED				= 1 << 7,
+
+	/**
+	*	Monster-specific memory.
+	*/
+	bits_MEMORY_CUSTOM4				= 1 << 28,
+
+	/**
+	*	Monster-specific memory
+	*/
+	bits_MEMORY_CUSTOM3				= 1 << 29,
+
+	/**
+	*	Monster-specific memory
+	*/
+	bits_MEMORY_CUSTOM2				= 1 << 30,
+
+	/**
+	*	Monster-specific memory
+	*/
+	bits_MEMORY_CUSTOM1				= 1 << 31,
+};
+
+/**
+*	Trigger conditions for scripted AI
+*	These MUST match the CHOICES interface in halflife.fgd for the base monster
+*/
 enum 
 {
+	/**
+	*	"No Trigger"
+	*/
 	AITRIGGER_NONE = 0,
+
+	/**
+	*	"See Player"
+	*/
 	AITRIGGER_SEEPLAYER_ANGRY_AT_PLAYER,
+
+	/**
+	*	"Take Damage"
+	*/
 	AITRIGGER_TAKEDAMAGE,
+
+	/**
+	*	"50% Health Remaining"
+	*/
 	AITRIGGER_HALFHEALTH,
+
+	/**
+	*	"Death"
+	*/
 	AITRIGGER_DEATH,
+
+	/**
+	*	"Squad Member Dead"
+	*/
 	AITRIGGER_SQUADMEMBERDIE,
+
+	/**
+	*	"Squad Leader Dead"
+	*/
 	AITRIGGER_SQUADLEADERDIE,
+
+	/**
+	*	"Hear World"
+	*/
 	AITRIGGER_HEARWORLD,
+
+	/**
+	*	"Hear Player"
+	*/
 	AITRIGGER_HEARPLAYER,
+
+	/**
+	*	"Hear Combat"
+	*/
 	AITRIGGER_HEARCOMBAT,
+
+	/**
+	*	"See Player Unconditional"
+	*/
 	AITRIGGER_SEEPLAYER_UNCONDITIONAL,
+
+	/**
+	*	"See Player, Not In Combat"
+	*/
 	AITRIGGER_SEEPLAYER_NOT_IN_COMBAT,
 };
-/*
-		0 : "No Trigger"
-		1 : "See Player"
-		2 : "Take Damage"
-		3 : "50% Health Remaining"
-		4 : "Death"
-		5 : "Squad Member Dead"
-		6 : "Squad Leader Dead"
-		7 : "Hear World"
-		8 : "Hear Player"
-		9 : "Hear Combat"
-*/
 
 /**
 *	Monster schedules meta data. - Solokiller

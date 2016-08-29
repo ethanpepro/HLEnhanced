@@ -24,11 +24,6 @@
 #include	"cbase.h"
 #include	"entities/NPCs/Monsters.h"
 #include	"Server.h"
-	
-#define		NUM_LATERAL_CHECKS		13  // how many checks are made on each side of a monster looking for lateral cover
-#define		NUM_LATERAL_LOS_CHECKS		6  // how many checks are made on each side of a monster looking for lateral cover
-
-//float flRandom = RANDOM_FLOAT(0,1);
 
 //=========================================================
 // 
@@ -37,13 +32,7 @@
 // !!!UNDONE - move CBaseMonster functions to monsters.cpp
 //=========================================================
 
-//=========================================================
-// FBoxVisible - a more accurate ( and slower ) version
-// of FVisible. 
-//
-// !!!UNDONE - make this CBaseMonster?
-//=========================================================
-bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector &vecTargetOrigin, float flSize )
+bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize )
 {
 	// don't look through water
 	if( ( pLooker->GetWaterLevel() != WATERLEVEL_HEAD && pTarget->GetWaterLevel() == WATERLEVEL_HEAD )
@@ -75,11 +64,7 @@ void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDis
 	MOVE_TO_ORIGIN( pEntity->edict(), vecGoal, flDist, moveType );
 }
 
-//
-// VecCheckToss - returns the velocity at which an object should be lobbed from vecspot1 to land near vecspot2.
-// returns g_vecZero if toss is not feasible.
-// 
-Vector VecCheckToss ( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSpot2, float flGravityAdj )
+Vector VecCheckToss( CBaseEntity* pEntity, const Vector& vecSpot1, Vector vecSpot2, float flGravityAdj )
 {
 	TraceResult		tr;
 	Vector			vecMidPoint;// halfway point between Spot1 and Spot2
@@ -91,7 +76,7 @@ Vector VecCheckToss ( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSp
 
 	if (vecSpot2.z - vecSpot1.z > 500)
 	{
-		// to high, fail
+		// too high, fail
 		return g_vecZero;
 	}
 
@@ -160,14 +145,9 @@ Vector VecCheckToss ( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSp
 	return vecGrenadeVel;
 }
 
-
-//
-// VecCheckThrow - returns the velocity vector at which an object should be thrown from vecspot1 to hit vecspot2.
-// returns g_vecZero if throw is not feasible.
-// 
-Vector VecCheckThrow ( CBaseEntity* pEntity, const Vector &vecSpot1, Vector vecSpot2, float flSpeed, float flGravityAdj )
+Vector VecCheckThrow( CBaseEntity* pEntity, const Vector& vecSpot1, Vector vecSpot2, float flSpeed, float flGravityAdj )
 {
-	float			flGravity = g_psv_gravity->value * flGravityAdj;
+	float flGravity = g_psv_gravity->value * flGravityAdj;
 
 	Vector vecGrenadeVel = (vecSpot2 - vecSpot1);
 

@@ -33,6 +33,12 @@ enum TURRET_ANIM
 	TURRET_ANIM_DIE,
 };
 
+enum BaseTurretSpawnFlag
+{
+	SF_MONSTER_TURRET_AUTOACTIVATE	= 32,
+	SF_MONSTER_TURRET_STARTINACTIVE	= 64,
+};
+
 #define TURRET_GLOW_SPRITE "sprites/flare3.spr"
 
 class CBaseTurret : public CBaseMonster
