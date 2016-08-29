@@ -21,6 +21,7 @@ matrix:
     include:
         # Linux GCC 5
         - os: linux
+          env: COMPILER=gcc-5
           compiler: gcc-5
 
 install:
@@ -42,6 +43,7 @@ before_script:
     # Invoke CMake
     - cd ${TRAVIS_BUILD_DIR}
     - mkdir build && cd build
+    - if [[ "${COMPILER}" == "gcc-5" ]]; then CC="gcc-5" CXX="g++-5"; fi
     - cmake -DSTEAMCOMMON=${STEAMCOMMON_DIR} ..
 
 script: make
