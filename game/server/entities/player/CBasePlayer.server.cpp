@@ -334,24 +334,27 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 	m_lastDamageAmount = newInfo.GetDamage();
 
 	// Armor. 
-	if (pev->armorvalue && !( newInfo.GetDamageTypes() & (DMG_FALL | DMG_DROWN)) )// armor doesn't protect against fall or drown damage!
+	if ( GetArmorAmount() && !( newInfo.GetDamageTypes() & (DMG_FALL | DMG_DROWN)) )// armor doesn't protect against fall or drown damage!
 	{
 		float flNew = newInfo.GetDamage() * flRatio;
 
-		float flArmor;
+		float flArmor = ( newInfo.GetDamage() - flNew) * flBonus;
 
-		flArmor = ( newInfo.GetDamage() - flNew) * flBonus;
+		float flNewArmorValue = GetArmorAmount();
 
 		// Does this use more armor than we have?
-		if (flArmor > pev->armorvalue)
+		if (flArmor > GetArmorAmount() )
 		{
-			flArmor = pev->armorvalue;
+			flArmor = GetArmorAmount();
 			flArmor *= (1/flBonus);
 			flNew = newInfo.GetDamage() - flArmor;
-			pev->armorvalue = 0;
+			flNewArmorValue = 0;
 		}
 		else
-			pev->armorvalue -= flArmor;
+			flNewArmorValue -= flArmor;
+
+		if( !AnyFlagsSet( FL_GODMODE ) )
+			SetArmorAmount( flNewArmorValue );
 		
 		newInfo.GetMutableDamage() = flNew;
 	}
