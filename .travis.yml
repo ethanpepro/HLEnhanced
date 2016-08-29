@@ -53,7 +53,7 @@ notifications:
 script:
     - |
       if [[ "${COMPILER}" == "gcc-5" ]]; then
-        cmake -DCMAKE_C_COMPILER="gcc-5" -DCMAKE_CXX_COMPILER="g++-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} ..
+        cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} ..
       fi
     - make
 
