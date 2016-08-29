@@ -298,7 +298,7 @@ void CBaseTurret::ActiveThink(void)
 	Vector vecMidEnemy = m_hEnemy->BodyTarget( vecMid );
 
 	// Look for our current enemy
-	bool fEnemyVisible = FBoxVisible( this, m_hEnemy, vecMidEnemy );	
+	bool fEnemyVisible = FBoxVisible( m_hEnemy, vecMidEnemy );	
 
 	vecDirToEnemy = vecMidEnemy - vecMid;	// calculate dir and dist to enemy
 	float flDistToEnemy = vecDirToEnemy.Length();

@@ -210,17 +210,6 @@ void EjectBrass( const Vector& vecOrigin, const Vector& vecVelocity, float rotat
 void ExplodeModel( const Vector& vecOrigin, float speed, int model, int count );
 
 /**
-*	A more accurate ( and slower ) version of FVisible. This will check if the looker can see the target's bounding box.
-*	@param pLooker The entity that is currently looking.
-*	@param pTarget Entity to check if it's visible.
-*	@param[ out ] vecTargetOrigin If this function returns true, this is the position that the looker can see.
-*	@param flSize Amount to shrink the target's bounding box in all axes.
-*	@return true if the target is visible, false otherwise.
-*	!!!UNDONE - make this CBaseMonster?
-*/
-bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize = 0.0 );
-
-/**
 *	Monster to monster relationship types.
 */
 enum Relationship

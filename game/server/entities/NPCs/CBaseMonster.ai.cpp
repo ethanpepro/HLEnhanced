@@ -32,33 +32,6 @@
 // !!!UNDONE - move CBaseMonster functions to monsters.cpp
 //=========================================================
 
-bool FBoxVisible( CBaseEntity* pLooker, CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize )
-{
-	// don't look through water
-	if( ( pLooker->GetWaterLevel() != WATERLEVEL_HEAD && pTarget->GetWaterLevel() == WATERLEVEL_HEAD )
-		|| ( pLooker->GetWaterLevel() == WATERLEVEL_HEAD && pTarget->GetWaterLevel() == WATERLEVEL_DRY ) )
-		return false;
-
-	TraceResult tr;
-	Vector	vecLookerOrigin = pLooker->GetAbsOrigin() + pLooker->pev->view_ofs;//look through the monster's 'eyes'
-	for (int i = 0; i < 5; i++)
-	{
-		Vector vecTarget = pTarget->GetAbsOrigin();
-		vecTarget.x += RANDOM_FLOAT( pTarget->pev->mins.x + flSize, pTarget->pev->maxs.x - flSize);
-		vecTarget.y += RANDOM_FLOAT( pTarget->pev->mins.y + flSize, pTarget->pev->maxs.y - flSize);
-		vecTarget.z += RANDOM_FLOAT( pTarget->pev->mins.z + flSize, pTarget->pev->maxs.z - flSize);
-
-		UTIL_TraceLine(vecLookerOrigin, vecTarget, ignore_monsters, ignore_glass, pLooker->edict(), &tr);
-		
-		if (tr.flFraction == 1.0)
-		{
-			vecTargetOrigin = vecTarget;
-			return true;// line of sight is valid.
-		}
-	}
-	return false;// Line of sight is not established
-}
-
 void UTIL_MoveToOrigin( CBaseEntity* pEntity, const Vector& vecGoal, float flDist, const MoveToOrigin moveType )
 {
 	MOVE_TO_ORIGIN( pEntity->edict(), vecGoal, flDist, moveType );

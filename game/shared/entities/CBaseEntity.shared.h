@@ -2123,7 +2123,7 @@ public:
 	/**
 	*	@return This entity's edict.
 	*/
-	const edict_t* edict() const { return ENT( pev ); }
+	edict_t* edict() const { return ENT( pev ); }
 
 	/**
 	*	@copydoc edict_t* edict() const
@@ -2577,6 +2577,15 @@ public:
 	*	@return Whether this entity is visible from the given position.
 	*/
 	virtual	bool FVisible( const Vector &vecOrigin ) const;
+
+	/**
+	*	A more accurate ( and slower ) version of FVisible. This will check if this entity can see the target's bounding box.
+	*	@param pTarget Entity to check if it's visible.
+	*	@param[ out ] vecTargetOrigin If this function returns true, this is the position that the looker can see.
+	*	@param flSize Amount to shrink the target's bounding box in all axes.
+	*	@return true if the target is visible, false otherwise.
+	*/
+	bool FBoxVisible( CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize = 0.0 ) const;
 
 	//TODO: find a way to get rid of this stuff. We need to be able to network arbitrary ammo counts - Solokiller
 	//We use this variables to store each ammo count.
