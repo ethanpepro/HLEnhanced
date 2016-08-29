@@ -20,8 +20,15 @@
 *	Server commands to the client.
 */
 
+//TODO: add all of the commands. - Solokiller
 enum SVC
 {
+	/**
+	*	[string] stuffed into client's console buffer
+	*	The string should be \n terminated
+	*	Taken from WinQuake. - Solokiller
+	*/
+	SVC_STUFFTEXT		= 9,
 	SVC_TEMPENTITY		= 23,
 	SVC_INTERMISSION	= 30,
 	SVC_CDTRACK			= 32,

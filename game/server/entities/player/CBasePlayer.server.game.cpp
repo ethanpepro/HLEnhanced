@@ -275,6 +275,17 @@ void CBasePlayer::FlashlightTurnOff()
 	m_flFlashLightTime = FLASH_CHARGE_TIME + gpGlobals->time;
 }
 
+void CBasePlayer::ClientHearVox( const char* const pszSentence )
+{
+	ASSERT( pszSentence );
+
+	const char* const pszCommand = *pszSentence == '#' ? UTIL_VarArgs( "spk %s\n", pszSentence ) : UTIL_VarArgs( "spk \"%s\"\n", pszSentence );
+
+	MESSAGE_BEGIN( MSG_ONE, SVC_STUFFTEXT, nullptr, this );
+		WRITE_STRING( pszCommand );
+	MESSAGE_END();
+}
+
 void CBasePlayer::AddPoints( int score, const bool bAllowNegativeScore )
 {
 	// Positive score always adds

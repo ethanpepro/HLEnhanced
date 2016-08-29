@@ -350,6 +350,13 @@ public:
 	void FlashlightTurnOn();
 	void FlashlightTurnOff();
 
+	/**
+	*	Plays a vox sentence for this player.
+	*	Taken from TFC.
+	*	@param pszSentence to play.
+	*/
+	void ClientHearVox( const char* const pszSentence );
+
 	//Weapons
 
 	void RenewItems();
