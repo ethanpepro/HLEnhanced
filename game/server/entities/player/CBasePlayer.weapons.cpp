@@ -634,11 +634,7 @@ Called every frame by the player PreThink
 */
 void CBasePlayer::ItemPreFrame()
 {
-#if defined( CLIENT_WEAPONS )
-	if( m_flNextAttack > 0 )
-#else
-	if( gpGlobals->time < m_flNextAttack )
-#endif
+	if( m_flNextAttack > UTIL_WeaponTimeBase() )
 	{
 		return;
 	}
@@ -662,11 +658,7 @@ void CBasePlayer::ItemPostFrame()
 	if( m_pTank != NULL )
 		return;
 
-#if defined( CLIENT_WEAPONS )
-	if( m_flNextAttack > 0 )
-#else
-	if( gpGlobals->time < m_flNextAttack )
-#endif
+	if( m_flNextAttack > UTIL_WeaponTimeBase() )
 	{
 		return;
 	}
