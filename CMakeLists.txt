@@ -226,6 +226,7 @@ add_subdirectory( common )
 add_subdirectory( game/shared )
 add_subdirectory( pm_shared )
 add_subdirectory( public )
+add_subdirectory( shared/engine )
 
 #Save the shares sources into SHARED_SRCS
 get_property(SHARED_SRCS GLOBAL PROPERTY SRCS_LIST)
@@ -277,6 +278,7 @@ include_directories(
 	public
 	public/math
 	engine
+	shared/engine
 	shared/engine/client
 	game_shared
 	game/shared
@@ -448,6 +450,7 @@ include_directories(
 	public
 	public/math
 	engine
+	shared/engine
 	game_shared
 	game/shared
 	game/shared/entities/player

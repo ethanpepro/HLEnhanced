@@ -21,7 +21,11 @@
 #include "pm_shared.h"
 #include "materials/Materials.h"
 
+#include "r_studioint.h"
+
 #include "ServerEngineOverride.h"
+
+#include "CStudioBlending.h"
 
 #include "CMap.h"
 
@@ -161,6 +165,13 @@ int GetNewDLLFunctions( NEW_DLL_FUNCTIONS* pFunctionTable, int* pInterfaceVersio
 	memcpy( pFunctionTable, &gNewDLLFunctions, sizeof( gNewDLLFunctions ) );
 	return true;
 }
+
+#if 0
+int Server_GetBlendingInterface( int version, sv_blending_interface_t** ppInterface, server_studio_api_t* pStudio, Matrix3x4* pRotationMatrix, Matrix3x4* pBoneTransform )
+{
+	return g_StudioBlending.Initialize( version, ppInterface, pStudio, pRotationMatrix, pBoneTransform );
+}
+#endif
 }
 
 int DispatchSpawn( edict_t *pent )

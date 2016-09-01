@@ -5,7 +5,6 @@ add_sources(
 	ivoicetweak.h
 	net_api.h
 	r_efx.h
-	r_studioint.h
 	ref_params.h
 	triangleapi.h
 	voice_api.h

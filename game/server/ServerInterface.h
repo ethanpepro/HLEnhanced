@@ -20,6 +20,10 @@
 *	C functions for external declarations that call the appropriate C++ methods.
 */
 
+typedef struct sv_blending_interface_s sv_blending_interface_t;
+typedef struct server_studio_api_s server_studio_api_t;
+struct Matrix3x4;
+
 /*
 *	Server library initialization.
 */
@@ -91,5 +95,12 @@ extern "C" DLLEXPORT int GetEntityAPI2( DLL_FUNCTIONS *pFunctionTable, int *inte
 *	- Solokiller
 */
 extern "C" DLLEXPORT int GetNewDLLFunctions( NEW_DLL_FUNCTIONS* pFunctionTable, int* pInterfaceVersion );
+
+#if 0
+/**
+*	Provides a blending interface to the engine to allow the engine to set up bones on the server side to match non-standard blending on the client side. - Solokiller
+*/
+extern "C" DLLEXPORT int Server_GetBlendingInterface( int version, sv_blending_interface_t** ppInterface, server_studio_api_t* pStudio, Matrix3x4* pRotationMatrix, Matrix3x4* pBoneTransform );
+#endif
 
 #endif //GAME_SERVER_SERVERINTERFACE_H
