@@ -31,13 +31,19 @@ install:
     # Prepare the dependencies, build and fake Steam common directories for Travis
     - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
     - STEAMCOMMON_DIR="${TRAVIS_BUILD_DIR}/steam_common"
-    - mkdir -p ${DEPS_DIR} && mkdir -p ${STEAMCOMMON_DIR} && cd ${DEPS_DIR}
+    - SDL_DIR="${DEPS_DIR}/SDL2"
+    - mkdir -p ${DEPS_DIR} && mkdir -p ${STEAMCOMMON_DIR} && mkdir -p ${STEAMCOMMON_DIR} && cd ${DEPS_DIR}
     # Get the latest CMake version
     - |
       if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
         CMAKE_URL="http://www.cmake.org/files/v3.6/cmake-3.6.1-Linux-x86_64.tar.gz"
+        SDL_FILE="libsdl2-dev_2.0.2+dfsg1-3ubuntu1_i386.deb"
+        SDL_MIRROR="http://fr.archive.ubuntu.com/ubuntu/pool/universe/libs/libsdl2/${SDL_FILE}"
         mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
         export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+        travis_retry wget --no-check-certificate --quiet -O - ${SDL_URL}
+        dpkg -x ${SDL_FILE} ${SDL_DIR}
+        export LD_LIBRARY_PATH=${SDL_DIR}:${LD_LIBRARY_PATH}
       else
         if ! brew ls --version cmake &>/dev/null; then brew install cmake; fi
       fi
@@ -51,7 +57,7 @@ script:
     # Just execute the cmake and make commands
     - |
       if [[ "${COMPILER}" == "gcc-5" ]]; then
-        cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/linux/libSDL2-2.0.so.0 ..
+        cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} ..
       fi
     - make
 
