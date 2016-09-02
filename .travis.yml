@@ -13,7 +13,7 @@ addons:
         sources:
             - ubuntu-toolchain-r-test
         packages:
-            - libsdl2-dev
+            - libsdl2-dev:i386
             - gcc-5-multilib
             - gcc-6-multilib
 
@@ -42,22 +42,25 @@ install:
       fi
 
 before_script:
-    # Invoke CMake
+    # Move to build directory
     - cd ${TRAVIS_BUILD_DIR}
     - mkdir build && cd build
 
-notifications:
-    on_failure: change
-    on_success: change
-
 script:
+    # Just execute the cmake and make commands
     - |
       if [[ "${COMPILER}" == "gcc-5" ]]; then
         cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} ..
       fi
     - make
 
+notifications:
+    # Notify only if the status changed
+    on_failure: change
+    on_success: change
+
 cache:
+    # Avoid reinstalling GCC 5 and 6 (unless we clear the cache)
     directories:
         - .cache
     apt: true
