@@ -237,22 +237,26 @@ clear_sources()
 if( USE_ANGELSCRIPT )
 	find_library( ANGELSCRIPTLIB Angelscript PATHS external/Angelscript/lib/ )
 	find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
+	find_library( ANGELSCRIPTLIBD Angelscriptd PATHS external/Angelscript/lib/ )
+	find_library( ANGELSCRIPTUTILSD AngelscriptUtilsd PATHS external/Angelscript/lib/ )
 	
 	if( NOT WIN32 )
 
 		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
 		set( ANGELSCRIPTLIB "-l:\"${ANGELSCRIPTLIB}\"" )
 		set( ANGELSCRIPTUTILS "-l:\"${ANGELSCRIPTUTILS}\"" )
+		set( ANGELSCRIPTLIBD "-l:\"${ANGELSCRIPTLIBD}\"" )
+		set( ANGELSCRIPTUTILSD "-l:\"${ANGELSCRIPTUTILSD}\"" )
 
 	endif()
 else()
 	set( ANGELSCRIPTLIB )
 	set( ANGELSCRIPTUTILS )
+	set( ANGELSCRIPTLIBD )
+	set( ANGELSCRIPTUTILSD )
 endif()
 
 set( SHARED_DEPENDENCIES
-	"${ANGELSCRIPTUTILS}"
-	"${ANGELSCRIPTLIB}"
 )
 
 #
@@ -376,6 +380,10 @@ endif()
 #Link with client dependencies
 target_link_libraries( client 
 	"${SHARED_DEPENDENCIES}"
+	optimized "${ANGELSCRIPTUTILS}"
+	optimized "${ANGELSCRIPTLIB}"
+	debug "${ANGELSCRIPTUTILSD}"
+	debug "${ANGELSCRIPTLIBD}"
 	"${VGUI1}"
 	"${CLIENT_PLAT_LIBS}"
 	"${SDL2}"
@@ -478,6 +486,7 @@ target_compile_definitions( hl PRIVATE
 #Find server dependencies
 if( USE_AS_SQL )
 	find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
+	find_library( ASSQLD AngelscriptSQLd PATHS external/ASSQL/lib/ )
 
 	if( WIN32 )
 		find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib )
@@ -490,9 +499,11 @@ if( USE_AS_SQL )
 		
 		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
 		set( ASSQL "-l:\"${ASSQL}\"" )
+		set( ASSQLD "-l:\"${ASSQLD}\"" )
 	endif()
 else()
 	set( ASSQL )
+	set( ASSQLD )
 	set( SQLITE3 )
 	set( MARIABDB )
 	set( PTHREAD )
@@ -502,8 +513,13 @@ endif()
 target_link_libraries( hl 
 	"${SQLITE3}"
 	"${MARIADB}"
-	"${ASSQL}"
+	optimized "${ASSQL}"
+	debug "${ASSQLD}"
 	"${SHARED_DEPENDENCIES}"
+	optimized "${ANGELSCRIPTUTILS}"
+	optimized "${ANGELSCRIPTLIB}"
+	debug "${ANGELSCRIPTUTILSD}"
+	debug "${ANGELSCRIPTLIBD}"
 	"${DELAYIMP}"
 )
 
