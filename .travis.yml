@@ -28,12 +28,6 @@ matrix:
           env: COMPILER=gcc-5
           compiler: gcc-5
 
-before_install:
-    - sudo rm /etc/apt/sources.list.d/google-chrome.list
-    - sudo dpkg --add-architecture i386
-    - sudo apt-get update
-    - sudo apt-get install libsdl2-dev:i386
-
 install:
     # Prepare the dependencies, build and fake Steam common directories for Travis
     - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
