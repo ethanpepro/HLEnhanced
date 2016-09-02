@@ -41,7 +41,7 @@ install:
         SDL_MIRROR="http://fr.archive.ubuntu.com/ubuntu/pool/universe/libs/libsdl2/${SDL_FILE}"
         mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
         export PATH=${DEPS_DIR}/cmake/bin:${PATH}
-        travis_retry wget --no-check-certificate --quiet ${SDL_URL}
+        travis_retry wget --no-check-certificate --quiet ${SDL_MIRROR}
         dpkg -x ${SDL_FILE} ${SDL_DIR}
         export LD_LIBRARY_PATH=${SDL_DIR}:${LD_LIBRARY_PATH}
       else
