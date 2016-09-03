@@ -206,7 +206,13 @@ void CHudSayText :: SayTextPrint( const char *pszBuf, size_t uiBufSize, int clie
 		}
 	}
 
-	strncpy( m_szLineBuffer[i], pszBuf, max(uiBufSize , MAX_CHARS_PER_LINE) );
+	//Need to assign the constant to a local here because std::max takes it by reference, which won't work for this constant.
+	//Static const integrals initialized in their declaration have no address, which causes segfaults on Linux.
+	//See https://www.reddit.com/r/cpp_questions/comments/510sdc/strange_segfault_under_gcc_using_stdmax_and
+	// - Solokiller
+	const size_t uiMax = MAX_CHARS_PER_LINE;
+
+	strncpy( m_szLineBuffer[i], pszBuf, max(uiBufSize , uiMax ) );
 
 	// make sure the text fits in one line
 	EnsureTextFitsInOneLineAndWrapIfHaveTo( i );
