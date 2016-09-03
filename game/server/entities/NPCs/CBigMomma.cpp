@@ -438,12 +438,11 @@ void CBigMomma::NodeStart( int iszNextNode )
 {
 	pev->netname = iszNextNode;
 
-	CBaseEntity *pTarget = NULL;
+	CBaseEntity* pTarget = nullptr;
 
 	if ( HasNetName() )
 	{
-		if( CBaseEntity* pTarget = UTIL_FindEntityByTargetname( nullptr, GetNetName() ) )
-			pTarget = pTarget;
+		pTarget = UTIL_FindEntityByTargetname( nullptr, GetNetName() );
 	}
 
 
