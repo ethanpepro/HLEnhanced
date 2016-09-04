@@ -124,7 +124,7 @@ protected:
 	virtual void ChangeLevel();
 	virtual void GoToIntermission();
 	float m_flIntermissionEndTime;
-	bool m_bEndIntermissionButtonHit;
+	bool m_bEndIntermissionButtonHit = false;
 	void SendMOTDToClient( CBasePlayer* pPlayer );
 };
 
