@@ -127,28 +127,33 @@ void CShockRifle::Holster()
 
 void CShockRifle::WeaponIdle()
 {
-	//TODO: shouldn't this be using UTIL_WeaponTimeBase? - Solokiller
-	float flNextIdle;
-
-	if( m_flSoundDelay == 0 )
+	if( m_flSoundDelay != 0 && gpGlobals->time >= m_flSoundDelay )
 	{
-		flNextIdle = gpGlobals->time;
+		m_flSoundDelay = 0;
+	}
+
+	//This used to be completely broken. It used the current game time instead of the weapon time base, which froze the idle animation.
+	//It also never handled IDLE3, so it only ever played IDLE1, and then only animated it when you held down secondary fire.
+	//This is now fixed. - Solokiller
+	if( m_flTimeWeaponIdle > UTIL_WeaponTimeBase() )
+		return;
+
+	int iAnim;
+
+	const float flRand = UTIL_SharedRandomFloat( m_pPlayer->random_seed, 0, 1 );
+
+	if( flRand <= 0.75 )
+	{
+		iAnim = SHOCKRIFLE_IDLE3;
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 51.0 / 15.0;
 	}
 	else
 	{
-		if( gpGlobals->time >= m_flSoundDelay )
-		{
-			m_flSoundDelay = 0;
-			flNextIdle = gpGlobals->time;
-		}
+		iAnim = SHOCKRIFLE_IDLE1;
+		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 101.0 / 30.0;
 	}
 
-	if( m_flTimeWeaponIdle <= flNextIdle )
-	{
-		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1 / 3.0;
-
-		SendWeaponAnim( SHOCKRIFLE_IDLE1 );
-	}
+	SendWeaponAnim( iAnim );
 }
 
 void CShockRifle::PrimaryAttack()
