@@ -210,7 +210,7 @@ void CDesertEagle::PrimaryAttack()
 		8192.0, BULLET_PLAYER_DEAGLE, 0, 0,
 		m_pPlayer, m_pPlayer->random_seed );
 
-	m_flNextPrimaryAttack = m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + m_bLaserActive ? 0.5 : 0.22;
+	m_flNextPrimaryAttack = m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + ( m_bLaserActive ? 0.5 : 0.22 );
 
 	int flags;
 #if defined( CLIENT_WEAPONS )

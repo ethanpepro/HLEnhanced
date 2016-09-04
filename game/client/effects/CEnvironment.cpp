@@ -292,7 +292,7 @@ void CEnvironment::UpdateSnow()
 			vecOrigin.y += UTIL_RandomFloat( -300.0f, 300.0f );
 			vecOrigin.z += UTIL_RandomFloat( 100.0f, 300.0f );
 
-			vecEndPos.x = vecOrigin.x + ( UTIL_RandomLong( 0, 5 ) > 2 ) ? g_vPlayerVelocity.x : -g_vPlayerVelocity.x;
+			vecEndPos.x = vecOrigin.x + ( ( UTIL_RandomLong( 0, 5 ) > 2 ) ? g_vPlayerVelocity.x : -g_vPlayerVelocity.x );
 			vecEndPos.y = vecOrigin.y + g_vPlayerVelocity.y;
 			vecEndPos.z = 8000.0f;
 
@@ -335,7 +335,7 @@ void CEnvironment::UpdateRain()
 			vecOrigin.y += UTIL_RandomFloat( -400.0f, 400.0f );
 			vecOrigin.z += UTIL_RandomFloat( 100.0f, 300.0f );
 
-			vecEndPos.x = vecOrigin.x + ( UTIL_RandomLong( 0, 5 ) > 2 ) ? g_vPlayerVelocity.x : -g_vPlayerVelocity.x;
+			vecEndPos.x = vecOrigin.x + ( ( UTIL_RandomLong( 0, 5 ) > 2 ) ? g_vPlayerVelocity.x : -g_vPlayerVelocity.x );
 			vecEndPos.y = vecOrigin.y + g_vPlayerVelocity.y;
 			vecEndPos.z = 8000.0f;
 

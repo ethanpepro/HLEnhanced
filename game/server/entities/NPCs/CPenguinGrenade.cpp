@@ -209,7 +209,7 @@ void CPenguinGrenade::SuperBounceTouch( CBaseEntity *pOther )
 				// add more explosion damage
 				// m_flDie += 2.0; // add more life
 				//Friendly players cause explosive damage to increase at a lower rate. - Solokiller
-				SetDamage( GetDamage() + bIsEnemy ? gSkillData.GetPlrDmgHandGrenade() : gSkillData.GetPlrDmgHandGrenade() / 5.0 );
+				SetDamage( GetDamage() + ( bIsEnemy ? gSkillData.GetPlrDmgHandGrenade() : gSkillData.GetPlrDmgHandGrenade() / 5.0 ) );
 
 				if( GetDamage() > 500 )
 					SetDamage( 500 );
