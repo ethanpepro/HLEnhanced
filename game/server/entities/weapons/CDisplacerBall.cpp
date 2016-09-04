@@ -213,8 +213,6 @@ void CDisplacerBall::BallTouch( CBaseEntity* pOther )
 
 		vecEnd.z -= 100;
 
-		TraceResult tr;
-
 		UTIL_TraceLine( pSpawnSpot->GetAbsOrigin(), vecEnd, ignore_monsters, edict(), &tr );
 	
 		pPlayer->SetAbsOrigin( tr.vecEndPos + Vector( 0, 0, 37 ) );
@@ -234,7 +232,7 @@ void CDisplacerBall::BallTouch( CBaseEntity* pOther )
 
 	if( ClassifyTarget( pOther ) )
 	{
-		TraceResult tr = UTIL_GetGlobalTrace();
+		tr = UTIL_GetGlobalTrace();
 
 		g_MultiDamage.Clear();
 
