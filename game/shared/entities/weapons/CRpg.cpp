@@ -80,7 +80,21 @@ void CRpg::Reload( void )
 #ifdef CLIENT_DLL
 	if( m_pSpot && m_bSpotActive )
 	{
+		m_pSpot->callback = []( TEMPENTITY* pEntity, float frametime, float currenttime )
+		{
+			if( currenttime >= pEntity->entity.curstate.fuser1 )
+			{
+				pEntity->entity.curstate.effects &= EF_NODRAW;
 
+				pEntity->callback = nullptr;
+
+				pEntity->flags &= ~FTENT_NOMODEL;
+			}
+		};
+
+		m_pSpot->entity.curstate.fuser1 = gpGlobals->time + 2.1;
+		//Prevent it from being added. - Solokiller
+		m_pSpot->flags |= FTENT_NOMODEL;
 	}
 #else
 	if ( m_pSpot && m_bSpotActive )
@@ -323,6 +337,9 @@ void CRpg::UpdateSpot( void )
 
 			m_pSpot = gEngfuncs.pEfxAPI->CL_TempEntAllocHigh( g_vecZero, gEngfuncs.CL_LoadModel( "sprites/laserdot.spr", nullptr ) );
 
+			if( !m_pSpot )
+				return;
+
 			m_pSpot->entity.curstate.rendermode		= kRenderGlow;
 			m_pSpot->entity.curstate.renderfx		= kRenderFxNoDissipation;
 			m_pSpot->entity.curstate.renderamt		= 255;
@@ -330,11 +347,12 @@ void CRpg::UpdateSpot( void )
 			//Never die on its own. - Solokiller
 			m_pSpot->die = 1e10;
 
+			//Prevent it from being culled. - Solokiller
+			//Enable callbacks.
+			m_pSpot->flags |= FTENT_PERSIST | FTENT_CLIENTCUSTOM;
+
 			m_pSpot->entity.curstate.scale = 1.0;
 		}
-
-		if( !m_pSpot )
-			return;
 
 		if( !cl_lw->value )
 		{
@@ -343,25 +361,6 @@ void CRpg::UpdateSpot( void )
 			m_pSpot = nullptr;
 			return;
 		}
-
-		return;
-
-		cl_entity_t* pPlayer = gEngfuncs.GetLocalPlayer();
-
-		UTIL_MakeVectors( v_client_aimangles );
-
-		Vector vecSrc = v_origin;
-		Vector vecAiming = gpGlobals->v_forward;
-
-		pmtrace_t tr;
-
-		tr = *gEngfuncs.PM_TraceLine( vecSrc, vecSrc + vecAiming * 8192, PM_NORMAL, Hull::POINT, -1 );
-
-		m_pSpot->entity.origin = tr.endpos;
-		m_pSpot->entity.curstate.origin = tr.endpos;
-		m_pSpot->entity.prevstate.origin = tr.endpos;
-		m_pSpot->entity.baseline.origin = g_vecZero;
-		m_pSpot->entity.curstate.effects |= EF_NOINTERP;
 	}
 #else
 	if ( m_bSpotActive )
@@ -371,6 +370,7 @@ void CRpg::UpdateSpot( void )
 			m_pSpot = CLaserSpot::CreateSpot();
 
 			m_pSpot->AddFlags( FL_SKIPLOCALHOST );
+
 			m_pSpot->SetOwner( m_pPlayer );
 		}
 

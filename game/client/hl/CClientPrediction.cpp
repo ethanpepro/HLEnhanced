@@ -294,7 +294,11 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 
 	if( m_pPlayer->m_pActiveItem->m_iId == WEAPON_RPG )
 	{
-		( ( CRpg * ) m_pPlayer->m_pActiveItem )->m_bSpotActive = from->client.vuser2[ 1 ] != 0;
+		if( !cl_lw->value )
+		{
+			( ( CRpg * ) m_pPlayer->m_pActiveItem )->m_bSpotActive = from->client.vuser2[ 1 ] != 0;
+		}
+
 		( ( CRpg * ) m_pPlayer->m_pActiveItem )->m_cActiveRockets = ( int ) from->client.vuser2[ 2 ];
 	}
 
@@ -375,7 +379,11 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	//TODO: why isn't this in the weapon's user variables? - Solokiller
 	if( m_pPlayer->m_pActiveItem->m_iId == WEAPON_RPG )
 	{
-		from->client.vuser2[ 1 ] = ( ( CRpg * ) m_pPlayer->m_pActiveItem )->m_bSpotActive;
+		if( !cl_lw->value )
+		{
+			from->client.vuser2[ 1 ] = ( ( CRpg * ) m_pPlayer->m_pActiveItem )->m_bSpotActive;
+		}
+
 		from->client.vuser2[ 2 ] = ( ( CRpg * ) m_pPlayer->m_pActiveItem )->m_cActiveRockets;
 	}
 
