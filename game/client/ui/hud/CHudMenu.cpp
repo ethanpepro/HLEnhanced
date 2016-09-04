@@ -250,7 +250,7 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 		}
 		else
 		{  // append to the current menu string
-			strncat( m_szPrelocalisedMenuString, reader.ReadString(), MAX_MENU_STRING - strlen(m_szPrelocalisedMenuString) );
+			strncat( m_szPrelocalisedMenuString, reader.ReadString(), MAX_MENU_STRING - strlen(m_szPrelocalisedMenuString) - 1 );
 		}
 		m_szPrelocalisedMenuString[MAX_MENU_STRING-1] = 0;  // ensure null termination (strncat/strncpy does not)
 
