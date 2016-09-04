@@ -247,12 +247,12 @@ public:
 	float m_flNextPrimaryAttack;
 
 	/**
-	*	Doonest time ItemPostFrame will call SecondaryAttack
+	*	Soonest time ItemPostFrame will call SecondaryAttack
 	*/
 	float m_flNextSecondaryAttack;
 
 	/**
-	*	Doonest time ItemPostFrame will call WeaponIdle
+	*	Soonest time ItemPostFrame will call WeaponIdle
 	*/
 	float m_flTimeWeaponIdle;
 
