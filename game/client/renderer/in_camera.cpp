@@ -313,7 +313,7 @@ void DLLEXPORT CAM_Think( void )
 		{
 			if(dist<c_maxdistance->value)
 			{
-			    dist +=CAM_DIST_DELTA * ((cam_mouse.y-gEngfuncs.GetWindowCenterY())/2);
+				dist += CAM_DIST_DELTA * ( ( static_cast<double>( cam_mouse.y ) - gEngfuncs.GetWindowCenterY() ) / 2 );
 			}
 			if (dist>c_maxdistance->value)
 			{
@@ -324,7 +324,7 @@ void DLLEXPORT CAM_Think( void )
 		{
 			if (dist>c_mindistance->value)
 			{
-			   dist -= (CAM_DIST_DELTA)*((gEngfuncs.GetWindowCenterY()-cam_mouse.y)/2);
+				dist -= ( CAM_DIST_DELTA )*( ( static_cast<double>( gEngfuncs.GetWindowCenterY() ) - cam_mouse.y ) / 2 );
 			}
 			if (dist<c_mindistance->value)
 			{
