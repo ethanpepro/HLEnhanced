@@ -1,6 +1,8 @@
 #ifndef GAME_CLIENT_HL_CCLIENTPREDICTION_H
 #define GAME_CLIENT_HL_CCLIENTPREDICTION_H
 
+#include "WeaponsConst.h"
+
 class CBasePlayerWeapon;
 class CBasePlayer;
 
@@ -63,6 +65,11 @@ private:
 	CBasePlayerWeapon* m_pWeapons[ MAX_WEAPONS ] = {};
 
 	CBasePlayer* m_pPlayer = nullptr;
+
+	/**
+	*	The Id of the last weapon that the player was holding. - Solokiller
+	*/
+	int m_iLastId = WEAPON_NONE;
 
 private:
 	CClientPrediction( const CClientPrediction& ) = delete;
