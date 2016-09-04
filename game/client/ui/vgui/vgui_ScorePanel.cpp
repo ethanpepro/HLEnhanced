@@ -258,12 +258,9 @@ void ScorePanel::Update()
 	int i;
 
 	// Set the title
-	if (gViewPort->m_szServerName)
-	{
-		char sz[MAX_SERVERNAME_LENGTH + 16];
-		sprintf(sz, "%s", gViewPort->m_szServerName );
-		m_TitleLabel.setText(sz);
-	}
+	char sz[MAX_SERVERNAME_LENGTH + 16];
+	sprintf(sz, "%s", gViewPort->m_szServerName );
+	m_TitleLabel.setText(sz);
 
 	m_iRows = 0;
 	gViewPort->GetAllPlayersInfo();
