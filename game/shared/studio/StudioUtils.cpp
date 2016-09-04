@@ -81,7 +81,7 @@ void CalcBoneAdj( studiohdr_t* pHeader, float dadt, float *adj, const byte *pcon
 				}
 				else
 				{
-					value = ( ( pcontroller1[ i ] * dadt + ( pcontroller2[ i ] ) * ( 1.0 - dadt ) ) ) * ( 360.0 / 256.0 ) + pbonecontroller[ j ].start;
+					value = ( pcontroller1[ i ] * dadt + ( pcontroller2[ i ] ) * ( 1.0 - dadt ) ) * ( 360.0 / 256.0 ) + pbonecontroller[ j ].start;
 				}
 			}
 			else
