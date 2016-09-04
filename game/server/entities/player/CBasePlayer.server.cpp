@@ -303,15 +303,10 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 
 	// have suit diagnose the problem - ie: report damage type
 	int bitsDamage = newInfo.GetDamageTypes();
-	int fmajor;
-	int fcritical;
-	int ftrivial;
-	float flRatio;
-	float flBonus;
 	float flHealthPrev = pev->health;
 
-	flBonus = PLAYER_ARMOR_BONUS;
-	flRatio = PLAYER_ARMOR_RATIO;
+	float flBonus = PLAYER_ARMOR_BONUS;
+	float flRatio = PLAYER_ARMOR_RATIO;
 
 	if ( ( newInfo.GetDamageTypes() & DMG_BLAST ) && g_pGameRules->IsMultiplayer() )
 	{
@@ -387,9 +382,9 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 
 	// how bad is it, doc?
 
-	ftrivial = (pev->health > 75 || m_lastDamageAmount < 5);
-	fmajor = (m_lastDamageAmount > 25);
-	fcritical = (pev->health < 30);
+	const bool ftrivial = (pev->health > 75 || m_lastDamageAmount < 5);
+	const bool fmajor = (m_lastDamageAmount > 25);
+	const bool fcritical = (pev->health < 30);
 
 	// handle all bits set in this damage message,
 	// let the suit give player the diagnosis
