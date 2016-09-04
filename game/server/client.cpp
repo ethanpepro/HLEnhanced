@@ -1009,7 +1009,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 					
 					if ( pl->m_pActiveItem->m_iId == WEAPON_RPG )
 					{
-						cd->vuser2.y = ( ( CRpg * )pl->m_pActiveItem)->m_fSpotActive;
+						cd->vuser2.y = ( ( CRpg * )pl->m_pActiveItem)->m_bSpotActive;
 						cd->vuser2.z = ( ( CRpg * )pl->m_pActiveItem)->m_cActiveRockets;
 					}
 				}

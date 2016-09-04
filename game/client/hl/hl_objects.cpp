@@ -29,6 +29,14 @@
 
 #include "hl_weapons.h"
 
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "Weapons.h"
+#include "entities/weapons/CRpg.h"
+
+#include "CClientPrediction.h"
+
 extern BEAM *pBeam;
 extern BEAM *pBeam2;
 
@@ -76,6 +84,13 @@ void UpdateBeams ( void )
 		pBeam2->target = tr.endpos;
 		pBeam2->die	   = gEngfuncs.GetClientTime() + 0.1; // We keep it alive just a little bit forward in the future, just in case.
 	}
+
+	CRpg* pRpg = static_cast<CRpg*>( g_Prediction.GetWeapon( WEAPON_RPG ) );
+
+	if( pRpg && pRpg->m_pSpot )
+	{
+		pRpg->m_pSpot->entity.origin = tr.endpos;
+	}
 }
 
 /*
@@ -87,6 +102,9 @@ Add game specific, client-side objects here
 */
 void Game_AddObjects( void )
 {
-	if ( pBeam && pBeam2 )
+	//TODO: should be cleaned up. - Solokiller
+	CRpg* pRpg = static_cast<CRpg*>( g_Prediction.GetWeapon( WEAPON_RPG ) );
+
+	if ( ( pBeam && pBeam2 ) || ( pRpg && pRpg->m_pSpot ) )
 		UpdateBeams();
 }

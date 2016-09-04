@@ -57,8 +57,12 @@ public:
 	void UpdateSpot( void );
 	bool ShouldWeaponIdle() override { return true; }
 
+#ifdef CLIENT_DLL
+	TEMPENTITY* m_pSpot;
+#else
 	CLaserSpot *m_pSpot;
-	int m_fSpotActive;
+#endif
+	bool m_bSpotActive;
 	int m_cActiveRockets;// how many missiles in flight from this launcher right now?
 
 private:

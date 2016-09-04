@@ -25,11 +25,17 @@
 #ifdef SERVER_DLL
 #include "entities/CLaserSpot.h"
 #include "entities/CRpgRocket.h"
+#else
+#include "hud.h"
+#include "cl_util.h"
+#include "pm_defs.h"
+#include "renderer/view.h"
+#include "com_weapons.h"
 #endif
 
 #ifdef SERVER_DLL
 BEGIN_DATADESC( CRpg )
-	DEFINE_FIELD( m_fSpotActive, FIELD_INTEGER ),
+	DEFINE_FIELD( m_bSpotActive, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_cActiveRockets, FIELD_INTEGER ),
 END_DATADESC()
 #endif
@@ -64,15 +70,20 @@ void CRpg::Reload( void )
 	
 	m_flNextPrimaryAttack = GetNextAttackDelay(0.5);
 
-	if ( m_cActiveRockets && m_fSpotActive )
+	if ( m_cActiveRockets && m_bSpotActive )
 	{
 		// no reloading when there are active missiles tracking the designator.
 		// ward off future autoreload attempts by setting next attack time into the future for a bit. 
 		return;
 	}
 
-#ifndef CLIENT_DLL
-	if ( m_pSpot && m_fSpotActive )
+#ifdef CLIENT_DLL
+	if( m_pSpot && m_bSpotActive )
+	{
+
+	}
+#else
+	if ( m_pSpot && m_bSpotActive )
 	{
 		m_pSpot->Suspend( 2.1 );
 		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 2.1;
@@ -95,7 +106,7 @@ void CRpg::Spawn( )
 	Precache( );
 
 	SetModel( "models/w_rpg.mdl");
-	m_fSpotActive = 1;
+	m_bSpotActive = true;
 
 	if ( bIsMultiplayer() )
 	{
@@ -151,7 +162,7 @@ bool CRpg::Deploy()
 
 bool CRpg::CanHolster()
 {
-	if ( m_fSpotActive && m_cActiveRockets )
+	if ( m_bSpotActive && m_cActiveRockets )
 	{
 		// can't put away while guiding a missile.
 		return false;
@@ -168,7 +179,16 @@ void CRpg::Holster()
 	
 	SendWeaponAnim( RPG_HOLSTER1 );
 
-#ifndef CLIENT_DLL
+#ifdef CLIENT_DLL
+	if( m_pSpot )
+	{
+		//Die as soon as possible. - Solokiller
+		m_pSpot->die = 0;
+		//Make invisible. - Solokiller
+		m_pSpot->entity.curstate.effects |= EF_NODRAW;
+		m_pSpot = nullptr;
+	}
+#else
 	if (m_pSpot)
 	{
 		UTIL_Remove( m_pSpot );
@@ -227,10 +247,19 @@ void CRpg::PrimaryAttack()
 
 void CRpg::SecondaryAttack()
 {
-	m_fSpotActive = ! m_fSpotActive;
+	m_bSpotActive = !m_bSpotActive;
 
-#ifndef CLIENT_DLL
-	if (!m_fSpotActive && m_pSpot)
+#ifdef CLIENT_DLL
+	if( !m_bSpotActive && m_pSpot )
+	{
+		//Die as soon as possible. - Solokiller
+		m_pSpot->die = 0;
+		//Make invisible. - Solokiller
+		m_pSpot->entity.curstate.effects |= EF_NODRAW;
+		m_pSpot = nullptr;
+}
+#else
+	if (!m_bSpotActive && m_pSpot)
 	{
 		UTIL_Remove( m_pSpot );
 		m_pSpot = nullptr;
@@ -254,7 +283,7 @@ void CRpg::WeaponIdle( void )
 	{
 		int iAnim;
 		float flRand = UTIL_SharedRandomFloat( m_pPlayer->random_seed, 0, 1 );
-		if (flRand <= 0.75 || m_fSpotActive)
+		if (flRand <= 0.75 || m_bSpotActive )
 		{
 			if ( m_iClip == 0 )
 				iAnim = RPG_IDLE_UL;
@@ -281,21 +310,72 @@ void CRpg::WeaponIdle( void )
 	}
 }
 
-
-
 void CRpg::UpdateSpot( void )
 {
+#ifdef CLIENT_DLL
+	if( m_bSpotActive )
+	{
+		if( !m_pSpot )
+		{
+			//Don't locally predict if weapon prediction is disabled. - Solokiller
+			if( !cl_lw->value )
+				return;
 
-#ifndef CLIENT_DLL
-	if (m_fSpotActive)
+			m_pSpot = gEngfuncs.pEfxAPI->CL_TempEntAllocHigh( g_vecZero, gEngfuncs.CL_LoadModel( "sprites/laserdot.spr", nullptr ) );
+
+			m_pSpot->entity.curstate.rendermode		= kRenderGlow;
+			m_pSpot->entity.curstate.renderfx		= kRenderFxNoDissipation;
+			m_pSpot->entity.curstate.renderamt		= 255;
+
+			//Never die on its own. - Solokiller
+			m_pSpot->die = 1e10;
+
+			m_pSpot->entity.curstate.scale = 1.0;
+		}
+
+		if( !m_pSpot )
+			return;
+
+		if( !cl_lw->value )
+		{
+			m_pSpot->die = 0;
+			m_pSpot->entity.curstate.effects = EF_NODRAW;
+			m_pSpot = nullptr;
+			return;
+		}
+
+		return;
+
+		cl_entity_t* pPlayer = gEngfuncs.GetLocalPlayer();
+
+		UTIL_MakeVectors( v_client_aimangles );
+
+		Vector vecSrc = v_origin;
+		Vector vecAiming = gpGlobals->v_forward;
+
+		pmtrace_t tr;
+
+		tr = *gEngfuncs.PM_TraceLine( vecSrc, vecSrc + vecAiming * 8192, PM_NORMAL, Hull::POINT, -1 );
+
+		m_pSpot->entity.origin = tr.endpos;
+		m_pSpot->entity.curstate.origin = tr.endpos;
+		m_pSpot->entity.prevstate.origin = tr.endpos;
+		m_pSpot->entity.baseline.origin = g_vecZero;
+		m_pSpot->entity.curstate.effects |= EF_NOINTERP;
+	}
+#else
+	if ( m_bSpotActive )
 	{
 		if (!m_pSpot)
 		{
 			m_pSpot = CLaserSpot::CreateSpot();
+
+			m_pSpot->AddFlags( FL_SKIPLOCALHOST );
+			m_pSpot->SetOwner( m_pPlayer );
 		}
 
 		UTIL_MakeVectors( m_pPlayer->pev->v_angle );
-		Vector vecSrc = m_pPlayer->GetGunPosition( );;
+		Vector vecSrc = m_pPlayer->GetGunPosition();
 		Vector vecAiming = gpGlobals->v_forward;
 
 		TraceResult tr;
@@ -304,7 +384,6 @@ void CRpg::UpdateSpot( void )
 		m_pSpot->SetAbsOrigin( tr.vecEndPos );
 	}
 #endif
-
 }
 
 
