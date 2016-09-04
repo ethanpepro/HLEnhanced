@@ -50,8 +50,6 @@ float CBaseEntity::GiveHealth( float flHealth, int bitsDamageType )
 
 void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	Vector			vecTemp;
-
 	if( !pev->takedamage )
 		return;
 
@@ -61,15 +59,8 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 
 	// if Attacker == Inflictor, the attack was a melee or other instant-hit attack.
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
-	if( pInflictor == info.GetAttacker() )
-	{
-		vecTemp = pInflictor->GetAbsOrigin() - ( VecBModelOrigin( this ) );
-	}
-	else
-		// an actual missile was involved.
-	{
-		vecTemp = pInflictor->GetAbsOrigin() - ( VecBModelOrigin( this ) );
-	}
+	// Otherwise, an actual missile was involved.
+	Vector vecTemp = pInflictor->GetAbsOrigin() - ( VecBModelOrigin( this ) );
 
 	// this global is still used for glass and other non-monster killables, along with decals.
 	g_vecAttackDir = vecTemp.Normalize();

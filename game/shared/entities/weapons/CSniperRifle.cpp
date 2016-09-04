@@ -133,23 +133,11 @@ void CSniperRifle::PrimaryAttack()
 	Vector vecSrc = m_pPlayer->GetGunPosition();
 	Vector vecAiming = m_pPlayer->GetAutoaimVector( AUTOAIM_2DEGREES );
 
-	Vector vecShot;
-
-	if( !bIsMultiplayer() )
-	{
-		//TODO: 8192 constant should be defined somewhere - Solokiller
-		vecShot = m_pPlayer->FireBulletsPlayer( 1,
-										vecSrc, vecAiming, g_vecZero, 
-										8192, BULLET_PLAYER_762, 0, 0,
-										m_pPlayer, m_pPlayer->random_seed );
-	}
-	else
-	{
-		vecShot = m_pPlayer->FireBulletsPlayer( 1,
-										vecSrc, vecAiming, g_vecZero,
-										8192, BULLET_PLAYER_762, 0, 0,
-										m_pPlayer, m_pPlayer->random_seed );
-	}
+	//TODO: 8192 constant should be defined somewhere - Solokiller
+	Vector vecShot = m_pPlayer->FireBulletsPlayer( 1,
+									vecSrc, vecAiming, g_vecZero, 
+									8192, BULLET_PLAYER_762, 0, 0,
+									m_pPlayer, m_pPlayer->random_seed );
 
 	PLAYBACK_EVENT_FULL( FEV_NOTHOST, 
 							m_pPlayer->edict(), m_usSniper, 0, 
