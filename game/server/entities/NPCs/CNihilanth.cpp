@@ -805,8 +805,7 @@ void CNihilanth :: Flight( void )
 	}
 	else if (m_flForce > -100 && vecEst.z > m_posDesired.z)
 	{
-		if (vecEst.z > m_posDesired.z) 
-			m_flForce -= 10;
+		m_flForce -= 10;
 	}
 
 	SetAbsOrigin( GetAbsOrigin() + m_velocity * 0.1 );

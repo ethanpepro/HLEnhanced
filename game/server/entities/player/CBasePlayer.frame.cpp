@@ -632,11 +632,6 @@ void CBasePlayer::UpdatePlayerSound()
 
 	// decay weapon volume over time so bits_SOUND_COMBAT stays set for a while
 	m_iWeaponVolume -= 250 * gpGlobals->frametime;
-	if( m_iWeaponVolume < 0 )
-	{
-		iVolume = 0;
-	}
-
 
 	// if target volume is greater than the player sound's current volume, we paste the new volume in 
 	// immediately. If target is less than the current volume, current volume is not set immediately to the

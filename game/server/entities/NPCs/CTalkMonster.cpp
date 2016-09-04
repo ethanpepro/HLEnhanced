@@ -932,9 +932,6 @@ bool CTalkMonster::FOkToSpeak() const
 	if ( pev->spawnflags & SF_MONSTER_GAG )
 		return false;
 
-	if ( m_MonsterState == MONSTERSTATE_PRONE )
-		return false;
-
 	// if player is not in pvs, don't speak
 	if( !IsAlive() || !UTIL_FindClientInPVS( this ) )
 		return false;
