@@ -71,7 +71,6 @@ public:
 
 	Vector m_velocity;
 
-	float m_flIdealtilt;
 	float m_flRotortilt;
 
 	float m_flRightHealth;

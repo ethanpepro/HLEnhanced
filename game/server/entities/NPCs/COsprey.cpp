@@ -37,7 +37,6 @@ BEGIN_DATADESC(	COsprey )
 	DEFINE_FIELD( m_dTime, FIELD_FLOAT ),
 	DEFINE_FIELD( m_velocity, FIELD_VECTOR ),
 
-	DEFINE_FIELD( m_flIdealtilt, FIELD_FLOAT ),
 	DEFINE_FIELD( m_flRotortilt, FIELD_FLOAT ),
 
 	DEFINE_FIELD( m_flRightHealth, FIELD_FLOAT ),
@@ -284,11 +283,6 @@ void COsprey::UpdateGoal( )
 		{
 			m_ang1.y -= 360;
 		}
-
-		if (m_pGoalEnt->pev->speed < 400)
-			m_flIdealtilt = 0;
-		else
-			m_flIdealtilt = -90;
 	}
 	else
 	{
