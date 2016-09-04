@@ -171,7 +171,7 @@ CVoiceBanMgr::BannedPlayer* CVoiceBanMgr::InternalFindPlayerSquelch(char const p
 
 CVoiceBanMgr::BannedPlayer* CVoiceBanMgr::AddBannedPlayer(char const playerID[ PLAYERID_BUFFER_SIZE ])
 {
-	BannedPlayer *pNew = new BannedPlayer;
+	BannedPlayer *pNew = new( std::nothrow ) BannedPlayer;
 	if(!pNew)
 		return nullptr;
 

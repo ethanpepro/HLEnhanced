@@ -2139,11 +2139,11 @@ void CGraph :: ComputeStaticRoutingTables( void )
 {
 	int nRoutes = m_cNodes*m_cNodes;
 #define FROM_TO(x,y) ((x)*m_cNodes+(y))
-	short *Routes = new short[nRoutes];
+	short *Routes = new( std::nothrow ) short[nRoutes];
 
-	int *pMyPath = new int[m_cNodes];
-	unsigned short *BestNextNodes = new unsigned short[m_cNodes];
-	char *pRoute = new char[m_cNodes*2];
+	int *pMyPath = new( std::nothrow ) int[m_cNodes];
+	unsigned short *BestNextNodes = new( std::nothrow ) unsigned short[m_cNodes];
+	char *pRoute = new( std::nothrow ) char[m_cNodes*2];
 
 
 	if (Routes && pMyPath && BestNextNodes && pRoute)
@@ -2441,8 +2441,8 @@ void CGraph :: ComputeStaticRoutingTables( void )
 //
 void CGraph :: TestRoutingTables( void )
 {
-	int *pMyPath = new int[m_cNodes];
-	int *pMyPath2 = new int[m_cNodes];
+	int *pMyPath = new( std::nothrow ) int[m_cNodes];
+	int *pMyPath2 = new( std::nothrow ) int[m_cNodes];
 	if (pMyPath && pMyPath2)
 	{
 		for (int iHull = 0; iHull < MAX_NODE_HULLS; iHull++)

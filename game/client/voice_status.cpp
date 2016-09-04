@@ -198,7 +198,7 @@ int CVoiceStatus::Init(
 
 		pLabel->m_pBackground = new Label("");
 
-		if(pLabel->m_pLabel = new Label(""))
+		if(pLabel->m_pLabel = new( std::nothrow ) Label(""))
 		{
 			pLabel->m_pLabel->setVisible( true );
 			pLabel->m_pLabel->setFont( Scheme::sf_primary2 );
@@ -207,7 +207,7 @@ int CVoiceStatus::Init(
 			pLabel->m_pLabel->setParent( pLabel->m_pBackground );
 		}
 
-		if( pLabel->m_pIcon = new ImagePanel( NULL ) )
+		if( pLabel->m_pIcon = new( std::nothrow ) ImagePanel( NULL ) )
 		{
 			pLabel->m_pIcon->setVisible( true );
 			pLabel->m_pIcon->setParent( pLabel->m_pBackground );

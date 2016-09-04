@@ -46,7 +46,7 @@ char* LoadEntityLump( const char* const pszFileName )
 	g_pFileSystem->Seek( fp, curLump->fileofs, FILESYSTEM_SEEK_HEAD );
 
 	// Allocate sufficient memmory
-	char* pszBuffer = new char[ size + 1 ];
+	char* pszBuffer = new( std::nothrow ) char[ size + 1 ];
 	if( !pszBuffer )
 	{
 		g_pFileSystem->Close( fp );

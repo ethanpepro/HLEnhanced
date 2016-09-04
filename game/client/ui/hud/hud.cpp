@@ -688,7 +688,7 @@ void CHud::AddHudElem( CHudBase* pHudElem )
 	if( !pHudElem )
 		return;
 
-	HUDLIST* pdl = new HUDLIST;
+	HUDLIST* pdl = new( std::nothrow ) HUDLIST;
 
 	if( !pdl )
 		return;
