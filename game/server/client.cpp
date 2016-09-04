@@ -131,7 +131,7 @@ void Host_Say( CBasePlayer* pPlayer, const bool bTeamOnly )
 	}
 
 // remove quotes if present
-	if (*p == '"')
+	if( p && *p == '"' )
 	{
 		p++;
 		p[strlen(p)-1] = 0;

@@ -262,9 +262,10 @@ void CFuncTrain::Next( void )
 		// use CHAN_STATIC for their movement sounds to prevent sound field problems.
 		// this is not a hack or temporary fix, this is how things should be. (sjb).
 		if( pev->noiseMovement )
+		{
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
-		if( pev->noiseMovement )
 			EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
+		}
 		ClearBits( pev->effects, EF_NOINTERP );
 		SetMoveDone( &CFuncTrain::Wait );
 		LinearMove( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs )* 0.5, pev->speed );
