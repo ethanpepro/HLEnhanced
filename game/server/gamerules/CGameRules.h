@@ -67,6 +67,8 @@ enum
 class CGameRules
 {
 public:
+	virtual ~CGameRules() = 0;
+
 	virtual void OnCreate();
 
 	virtual void RefreshSkillData();// fill skill data struct with proper values
@@ -169,5 +171,9 @@ public:
 	// Immediately end a multiplayer game
 	virtual void EndMultiplayerGame() {}
 };
+
+inline CGameRules::~CGameRules()
+{
+}
 
 #endif //GAME_SERVER_GAMERULES_CGAMERULES_H
