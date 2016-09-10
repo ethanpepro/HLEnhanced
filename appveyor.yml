@@ -13,3 +13,8 @@ configuration:
 matrix:
   fast_finish: true
 
+# We don't have unit tests
+test: off
+
+# We don't do deploying
+deploy: off
