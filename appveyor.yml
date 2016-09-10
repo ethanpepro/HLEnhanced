@@ -9,3 +9,7 @@ configuration:
   - Debug
   - Release
 
+# If one job fail, mark the build as failed
+matrix:
+  fast_finish: true
+
