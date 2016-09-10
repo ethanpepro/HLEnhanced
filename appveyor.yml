@@ -15,6 +15,10 @@ before_build:
   - ps: wget https://cmake.org/files/v3.6/cmake-3.6.1-win64-x64.zip -OutFile cmake.zip
   - ps: Write-Host "=== (2/7) Installing CMake ===" -foregroundcolor green
   - cmd: 7z x cmake.zip -o"." -y
+  # Create the build directory and a fake Steam common directory
+  - ps: Write-Host "=== (3/7) Creating build and fake Steam common directory ===" -foregroundcolor green
+  - md build
+  - md fake_steamcommon
 
 # If one job fail, mark the build as failed
 matrix:
