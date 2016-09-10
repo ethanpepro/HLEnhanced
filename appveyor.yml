@@ -9,6 +9,13 @@ configuration:
   - Debug
   - Release
 
+before_build:
+  # Appveyor uses CMake 2.8, we require at least 3.6, so make the update
+  - ps: Write-Host "=== (1/7) Downloading CMake 3.6.1 ZIP for Windows 64 bits ===" -foregroundcolor green
+  - ps: wget https://cmake.org/files/v3.6/cmake-3.6.1-win64-x64.zip -OutFile cmake.zip
+  - ps: Write-Host "=== (2/7) Installing CMake ===" -foregroundcolor green
+  - cmd: 7z x cmake.zip -o"." -y
+
 # If one job fail, mark the build as failed
 matrix:
   fast_finish: true
