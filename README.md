@@ -1,3 +1,13 @@
+HLEnhanced
+======================
+
+For more information, read the [wiki](https://github.com/SamVanheer/HLEnhanced/wiki).
+
+Build status
+|             | Windows |
+|-------------|---------|
+| **master**  | [![AppVeyor](https://ci.appveyor.com/api/projects/status/yiiw1r7g7qnvcl9q/branch/master?svg=true)](https://ci.appveyor.com/project/JoelTroch/hlenhanced) |
+
 Half Life 1 SDK LICENSE
 ======================
 
