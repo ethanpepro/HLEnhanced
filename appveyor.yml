@@ -4,3 +4,8 @@ os: Visual Studio 2015
 # Only target Windows 32 bits
 platform: Win32
 
+# Build in both Debug and Release
+configuration:
+  - Debug
+  - Release
+
