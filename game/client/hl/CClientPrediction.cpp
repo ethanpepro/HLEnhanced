@@ -430,6 +430,8 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 		pto->m_flTimeWeaponIdle -= cmd->msec / 1000.0;
 		pto->fuser1 -= cmd->msec / 1000.0;
 
+		pCurrent->DecrementTimers( cmd->msec / 1000.0 );
+
 		to->client.vuser4[ 1 ] = pCurrent->PrimaryAmmoIndex() != WEAPON_NOCLIP ? m_pPlayer->m_rgAmmo[ pCurrent->PrimaryAmmoIndex() ] : 0;
 		to->client.vuser4[ 2 ] = pCurrent->SecondaryAmmoIndex() != WEAPON_NOCLIP ? m_pPlayer->m_rgAmmo[ pCurrent->SecondaryAmmoIndex() ] : 0;
 

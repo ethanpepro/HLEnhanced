@@ -196,6 +196,12 @@ public:
 #endif
 	}
 
+	/**
+	*	Decrement timers on predictable time variables.
+	*	@param flTime Time to decrement by.
+	*/
+	virtual void DecrementTimers( float flTime ) {}
+
 	void PrintState();
 
 	float GetNextAttackDelay( float delay );

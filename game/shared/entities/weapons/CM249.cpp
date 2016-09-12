@@ -24,7 +24,7 @@
 #include "CM249.h"
 
 BEGIN_DATADESC( CM249 )
-	DEFINE_FIELD( m_flReloadStart, FIELD_TIME ),
+	DEFINE_FIELD( m_flReloadEnd, FIELD_FLOAT ),
 	DEFINE_FIELD( m_bReloading, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_iFire, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iSmoke, FIELD_INTEGER ),
@@ -126,7 +126,7 @@ void CM249::WeaponIdle()
 {
 	ResetEmptySound();
 
-	if( m_bReloading && gpGlobals->time >= m_flReloadStart + 1.33 )
+	if( m_bReloading && UTIL_WeaponTimeBase() >= m_flReloadEnd )
 	{
 		m_bReloading = false;
 
@@ -333,8 +333,29 @@ void CM249::Reload()
 
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 3.78;
 
-		m_flReloadStart = gpGlobals->time;
+		m_flReloadEnd = UTIL_WeaponTimeBase() + 1.33;
 	}
+}
+
+void CM249::GetWeaponData( weapon_data_t& data )
+{
+	BaseClass::GetWeaponData( data );
+
+	data.fuser2 = m_flReloadEnd;
+}
+
+void CM249::SetWeaponData( const weapon_data_t& data )
+{
+	BaseClass::SetWeaponData( data );
+
+	m_flReloadEnd = data.fuser2;
+}
+
+void CM249::DecrementTimers( float flTime )
+{
+	BaseClass::DecrementTimers( flTime );
+
+	m_flReloadEnd = max( m_flReloadEnd - flTime, -0.001f );
 }
 
 int CM249::RecalculateBody( int iClip )

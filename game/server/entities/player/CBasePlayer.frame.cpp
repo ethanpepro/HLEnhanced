@@ -451,6 +451,8 @@ pt_end:
 						pPlayerItem->pev->fuser1 = max( pPlayerItem->pev->fuser1 - gpGlobals->frametime, -0.001f );
 					}
 
+					pPlayerItem->DecrementTimers( gpGlobals->frametime );
+
 					// Only decrement if not flagged as NO_DECREMENT
 					//					if ( gun->m_flPumpTime != 1000 )
 					//	{

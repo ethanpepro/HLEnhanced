@@ -55,6 +55,12 @@ public:
 
 	void Reload() override;
 
+	void GetWeaponData( weapon_data_t& data ) override;
+
+	void SetWeaponData( const weapon_data_t& data ) override;
+
+	void DecrementTimers( float flTime ) override;
+
 private:
 	static int RecalculateBody( int iClip );
 
@@ -64,7 +70,7 @@ private:
 	int m_iSmoke;
 	int m_iFire;
 
-	float m_flReloadStart;
+	float m_flReloadEnd;
 
 	//Used to alternate between ejecting shells and links. - Solokiller
 	bool m_bAlternatingEject;
