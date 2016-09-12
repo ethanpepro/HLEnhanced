@@ -132,3 +132,39 @@ CBasePlayerWeapon* CBasePlayer::GetNextActivePos( int iBucket, int iPosition )
 
 	return pret;
 }
+
+//TODO: remove this. - Solokiller
+int CBasePlayer::GetAmmoIndex( const char *psz )
+{
+	return g_AmmoTypes.GetAmmoID( psz );
+}
+
+int CBasePlayer::GetAmmoCount( const char* const pszName ) const
+{
+	return GetAmmoCountByID( g_AmmoTypes.GetAmmoID( pszName ) );
+}
+
+int CBasePlayer::GetAmmoCountByID( const AmmoID_t ammoID ) const
+{
+	if( ammoID == CAmmoTypes::INVALID_AMMO_ID )
+	{
+		return -1;
+	}
+
+	return m_rgAmmo[ ammoID ];
+}
+
+void CBasePlayer::SetAmmoCount( const char* const pszName, const int iCount )
+{
+	SetAmmoCountByID( g_AmmoTypes.GetAmmoID( pszName ), iCount );
+}
+
+void CBasePlayer::SetAmmoCountByID( const AmmoID_t ammoID, const int iCount )
+{
+	ASSERT( ammoID >= g_AmmoTypes.GetFirstAmmoID() && ammoID <= g_AmmoTypes.GetLastAmmoID() );
+
+	if( ammoID == CAmmoTypes::INVALID_AMMO_ID )
+		return;
+
+	m_rgAmmo[ ammoID ] = max( 0, iCount );
+}

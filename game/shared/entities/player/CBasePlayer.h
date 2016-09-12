@@ -431,14 +431,37 @@ public:
 	void SendAmmoUpdate();
 
 	static int GetAmmoIndex( const char *psz );
-	int AmmoInventory( int iAmmoIndex );
+
+	/**
+	*	Gets the amount of ammo of a given type that the player has.
+	*	@param pszName Name of the ammo type.
+	*/
+	int GetAmmoCount( const char* const pszName ) const;
+
+	/**
+	*	Gets the amount of ammo of a given type that the player has.
+	*	@param ammoID ID of the ammo type.
+	*/
+	int GetAmmoCountByID( const AmmoID_t ammoID ) const;
+
+	/**
+	*	Sets the amount of ammo of a given type the player has.
+	*	@param pszName Name of the ammo type.
+	*	@param iCount Amount of ammo the player will have.
+	*/
+	void SetAmmoCount( const char* const pszName, const int iCount );
+
+	/**
+	*	Sets the amount of ammo of a given type the player has.
+	*	@param ammoID ID of the ammo type.
+	*	@param iCount Amount of ammo the player will have.
+	*/
+	void SetAmmoCountByID( const AmmoID_t ammoID, const int iCount );
 
 	void ResetAutoaim();
 	Vector GetAutoaimVector( float flDelta );
 	Vector GetAutoaimVectorFromPoint( const Vector& vecSrc, float flDelta );
 	Vector AutoaimDeflection( const Vector &vecSrc, float flDist, float flDelta );
-
-	void TabulateAmmo();
 
 	//Networking
 

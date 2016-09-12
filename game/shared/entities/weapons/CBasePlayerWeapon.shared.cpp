@@ -173,8 +173,6 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 		// Add them to the clip
 		m_iClip += j;
 		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= j;
-
-		m_pPlayer->TabulateAmmo();
 #else	
 		m_iClip += 10;
 #endif
@@ -196,7 +194,6 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 			m_bFireOnEmpty = true;
 		}
 
-		m_pPlayer->TabulateAmmo();
 		SecondaryAttack();
 		m_pPlayer->pev->button &= ~IN_ATTACK2;
 	}
@@ -207,7 +204,6 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 			m_bFireOnEmpty = true;
 		}
 
-		m_pPlayer->TabulateAmmo();
 		PrimaryAttack();
 	}
 	else if( m_pPlayer->pev->button & IN_RELOAD && iMaxClip() != WEAPON_NOCLIP && !m_fInReload )

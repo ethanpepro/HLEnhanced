@@ -427,7 +427,7 @@ void CCrossbow::SecondaryAttack()
 
 void CCrossbow::Reload( void )
 {
-	if ( m_pPlayer->ammo_bolts <= 0 )
+	if ( m_pPlayer->GetAmmoCount( "bolts" ) <= 0 )
 		return;
 
 	if ( m_pPlayer->pev->fov != 0 )

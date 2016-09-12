@@ -44,7 +44,7 @@ bool CGameRules::CanHaveAmmo( CBasePlayer *pPlayer, const char *pszAmmoName )
 
 		if ( pType )
 		{
-			if ( pPlayer->AmmoInventory( pType->GetID() ) < pType->GetMaxCarry() )
+			if ( pPlayer->GetAmmoCountByID( pType->GetID() ) < pType->GetMaxCarry() )
 			{
 				// player has room for more of this type of ammo
 				return true;

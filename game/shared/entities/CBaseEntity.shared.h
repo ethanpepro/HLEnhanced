@@ -2586,22 +2586,6 @@ public:
 	*	@return true if the target is visible, false otherwise.
 	*/
 	bool FBoxVisible( CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize = 0.0 ) const;
-
-	//TODO: find a way to get rid of this stuff. We need to be able to network arbitrary ammo counts - Solokiller
-	//We use this variables to store each ammo count.
-	int ammo_9mm;
-	int ammo_357;
-	int ammo_bolts;
-	int ammo_buckshot;
-	int ammo_rockets;
-	int ammo_uranium;
-	int ammo_hornets;
-	int ammo_argrens;
-#if USE_OPFOR
-	int ammo_762;
-	int ammo_556;
-	int ammo_shock_rounds;
-#endif
 };
 
 // Ugly technique to override base member functions

@@ -132,7 +132,7 @@ float CEgon::GetDischargeInterval( void )
 
 bool CEgon::HasAmmo() const
 {
-	if ( m_pPlayer->ammo_uranium <= 0 )
+	if ( m_pPlayer->GetAmmoCountByID( PrimaryAmmoIndex() ) <= 0 )
 		return false;
 
 	return true;

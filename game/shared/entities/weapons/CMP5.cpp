@@ -213,7 +213,7 @@ void CMP5::SecondaryAttack( void )
 
 void CMP5::Reload( void )
 {
-	if ( m_pPlayer->ammo_9mm <= 0 )
+	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
 		return;
 
 	DefaultReload( MP5_RELOAD, 1.5 );

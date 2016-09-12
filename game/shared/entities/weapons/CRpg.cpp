@@ -55,7 +55,7 @@ void CRpg::Reload( void )
 		return;
 	}
 
-	if ( m_pPlayer->ammo_rockets <= 0 )
+	if ( m_pPlayer->GetAmmoCountByID( PrimaryAmmoIndex() ) <= 0 )
 		return;
 
 	// because the RPG waits to autoreload when no missiles are active while  the LTD is on, the

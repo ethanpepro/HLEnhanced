@@ -183,7 +183,7 @@ void CPython::PrimaryAttack()
 
 void CPython::Reload( void )
 {
-	if ( m_pPlayer->ammo_357 <= 0 )
+	if ( m_pPlayer->GetAmmoCountByID( PrimaryAmmoIndex() ) <= 0 )
 		return;
 
 	if ( m_pPlayer->pev->fov != 0 )

@@ -272,18 +272,18 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	g_vPlayerVelocity = m_pPlayer->pev->velocity;
 
 	//Stores all our ammo info, so the client side weapons can use them.
-	m_pPlayer->ammo_9mm = ( int ) from->client.vuser1[ 0 ];
-	m_pPlayer->ammo_357 = ( int ) from->client.vuser1[ 1 ];
-	m_pPlayer->ammo_argrens = ( int ) from->client.vuser1[ 2 ];
-	m_pPlayer->ammo_bolts = ( int ) from->client.ammo_nails; //is an int anyways...
-	m_pPlayer->ammo_buckshot = ( int ) from->client.ammo_shells;
-	m_pPlayer->ammo_uranium = ( int ) from->client.ammo_cells;
-	m_pPlayer->ammo_hornets = ( int ) from->client.vuser2[ 0 ];
-	m_pPlayer->ammo_rockets = ( int ) from->client.ammo_rockets;
+	m_pPlayer->SetAmmoCount( "9mm", ( int ) from->client.vuser1[ 0 ] );
+	m_pPlayer->SetAmmoCount( "357", ( int ) from->client.vuser1[ 1 ] );
+	m_pPlayer->SetAmmoCount( "ARgrenades", ( int ) from->client.vuser1[ 2 ] );
+	m_pPlayer->SetAmmoCount( "bolts", ( int ) from->client.ammo_nails ); //is an int anyways...
+	m_pPlayer->SetAmmoCount( "buckshot",  ( int ) from->client.ammo_shells );
+	m_pPlayer->SetAmmoCount( "uranium", ( int ) from->client.ammo_cells );
+	m_pPlayer->SetAmmoCount( "Hornets", ( int ) from->client.vuser2[ 0 ] );
+	m_pPlayer->SetAmmoCount( "rockets", ( int ) from->client.ammo_rockets );
 #if USE_OPFOR
-	m_pPlayer->ammo_762				= ( int ) from->client.vuser3[ 0 ];
-	m_pPlayer->ammo_556				= ( int ) from->client.vuser3[ 1 ];
-	m_pPlayer->ammo_shock_rounds	= ( int ) from->client.vuser3[ 2 ];
+	m_pPlayer->SetAmmoCount( "762", ( int ) from->client.vuser3[ 0 ] );
+	m_pPlayer->SetAmmoCount( "556", ( int ) from->client.vuser3[ 1 ] );
+	m_pPlayer->SetAmmoCount( "shock_rounds", ( int ) from->client.vuser3[ 2 ] );
 #endif
 
 	// Point to current weapon object
@@ -361,19 +361,19 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	to->client.maxspeed			= m_pPlayer->pev->maxspeed;
 
 	//HL Weapons
-	to->client.vuser1[ 0 ] = m_pPlayer->ammo_9mm;
-	to->client.vuser1[ 1 ] = m_pPlayer->ammo_357;
-	to->client.vuser1[ 2 ] = m_pPlayer->ammo_argrens;
+	to->client.vuser1[ 0 ] = m_pPlayer->GetAmmoCount( "9mm" );
+	to->client.vuser1[ 1 ] = m_pPlayer->GetAmmoCount( "357" );
+	to->client.vuser1[ 2 ] = m_pPlayer->GetAmmoCount( "ARgrenades" );
 
-	to->client.ammo_nails		= m_pPlayer->ammo_bolts;
-	to->client.ammo_shells		= m_pPlayer->ammo_buckshot;
-	to->client.ammo_cells		= m_pPlayer->ammo_uranium;
-	to->client.vuser2[ 0 ]		= m_pPlayer->ammo_hornets;
-	to->client.ammo_rockets		= m_pPlayer->ammo_rockets;
+	to->client.ammo_nails		= m_pPlayer->GetAmmoCount( "bolts" );
+	to->client.ammo_shells		= m_pPlayer->GetAmmoCount( "buckshot" );
+	to->client.ammo_cells		= m_pPlayer->GetAmmoCount( "uranium" );
+	to->client.vuser2[ 0 ]		= m_pPlayer->GetAmmoCount( "Hornets" );
+	to->client.ammo_rockets		= m_pPlayer->GetAmmoCount( "rockets" );
 #if USE_OPFOR
-	to->client.vuser3[ 0 ]		= m_pPlayer->ammo_762;
-	to->client.vuser3[ 1 ]		= m_pPlayer->ammo_556;
-	to->client.vuser3[ 2 ]		= m_pPlayer->ammo_shock_rounds;
+	to->client.vuser3[ 0 ]		= m_pPlayer->GetAmmoCount( "762" );
+	to->client.vuser3[ 1 ]		= m_pPlayer->GetAmmoCount( "556" );
+	to->client.vuser3[ 2 ]		= m_pPlayer->GetAmmoCount( "shock_rounds" );
 #endif
 
 	//TODO: why isn't this in the weapon's user variables? - Solokiller

@@ -370,7 +370,6 @@ bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const cha
 	if( !CanDeploy() )
 		return false;
 
-	m_pPlayer->TabulateAmmo();
 	//TODO: need to alloc these for custom ents - Solokiller
 	m_pPlayer->pev->viewmodel = MAKE_STRING( pszViewModel );
 	m_pPlayer->pev->weaponmodel = MAKE_STRING( pszWeaponModel );

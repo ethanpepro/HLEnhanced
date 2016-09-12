@@ -167,6 +167,12 @@ public:
 	int GetMaxCarryByName( const char* const pszName ) const;
 
 	/**
+	*	Gets the ID of an ammo type, or INVALID_AMMO_ID if no such ammo type exists.
+	*	@param pszName Ammo type name.
+	*/
+	AmmoID_t GetAmmoID( const char* const pszName ) const;
+
+	/**
 	*	@return Whether it is allowed to add new ammo types at this time.
 	*/
 	bool CanAddAmmoTypes() const { return m_bCanAddAmmoTypes; }

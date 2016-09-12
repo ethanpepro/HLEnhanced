@@ -128,10 +128,6 @@ const WeaponHUDSprite* CBasePlayer::GetAmmoPicFromWeapon( int iAmmoId )
 	return nullptr;
 }
 
-void CBasePlayer::TabulateAmmo()
-{
-}
-
 void CBasePlayer::UpdateClientData( void )
 {
 }
@@ -390,16 +386,6 @@ void CBasePlayer::BarnacleVictimBitten( CBaseEntity* pBarnacle )
 
 void CBasePlayer::BarnacleVictimReleased( void )
 {
-}
-
-int CBasePlayer::GetAmmoIndex( const char *psz )
-{
-	return -1;
-}
-
-int CBasePlayer::AmmoInventory( int iAmmoIndex )
-{
-	return -1;
 }
 
 int CBasePlayer::Illumination() const

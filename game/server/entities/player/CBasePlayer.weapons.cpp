@@ -734,8 +734,6 @@ int CBasePlayer::GiveAmmo( int iCount, const char *szName )
 		MESSAGE_END();
 	}
 
-	TabulateAmmo();
-
 	return i;
 }
 
@@ -759,29 +757,6 @@ void CBasePlayer::SendAmmoUpdate()
 			MESSAGE_END();
 		}
 	}
-}
-
-int CBasePlayer::GetAmmoIndex( const char *psz )
-{
-	if( !psz )
-		return -1;
-
-	auto pType = g_AmmoTypes.GetAmmoTypeByName( psz );
-
-	if( pType )
-		return pType->GetID();
-
-	return -1;
-}
-
-int CBasePlayer::AmmoInventory( int iAmmoIndex )
-{
-	if( iAmmoIndex == -1 )
-	{
-		return -1;
-	}
-
-	return m_rgAmmo[ iAmmoIndex ];
 }
 
 void CBasePlayer::ResetAutoaim()
@@ -1006,28 +981,4 @@ Vector CBasePlayer::AutoaimDeflection( const Vector &vecSrc, float flDist, float
 	}
 
 	return Vector( 0, 0, 0 );
-}
-
-/*
-===========
-TabulateAmmo
-This function is used to find and store
-all the ammo we have into the ammo vars.
-============
-*/
-void CBasePlayer::TabulateAmmo()
-{
-	ammo_9mm = AmmoInventory( GetAmmoIndex( "9mm" ) );
-	ammo_357 = AmmoInventory( GetAmmoIndex( "357" ) );
-	ammo_argrens = AmmoInventory( GetAmmoIndex( "ARgrenades" ) );
-	ammo_bolts = AmmoInventory( GetAmmoIndex( "bolts" ) );
-	ammo_buckshot = AmmoInventory( GetAmmoIndex( "buckshot" ) );
-	ammo_rockets = AmmoInventory( GetAmmoIndex( "rockets" ) );
-	ammo_uranium = AmmoInventory( GetAmmoIndex( "uranium" ) );
-	ammo_hornets = AmmoInventory( GetAmmoIndex( "Hornets" ) );
-#if USE_OPFOR
-	ammo_762 = AmmoInventory( GetAmmoIndex( "762" ) );
-	ammo_556 = AmmoInventory( GetAmmoIndex( "556" ) );
-	ammo_shock_rounds = AmmoInventory( GetAmmoIndex( "shock_rounds" ) );
-#endif
 }

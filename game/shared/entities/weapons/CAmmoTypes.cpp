@@ -107,6 +107,21 @@ int CAmmoTypes::GetMaxCarryByName( const char* const pszName ) const
 	return -1;
 }
 
+AmmoID_t CAmmoTypes::GetAmmoID( const char* const pszName ) const
+{
+	ASSERT( pszName );
+
+	if( !pszName )
+		return INVALID_AMMO_ID;
+
+	auto pAmmo = GetAmmoTypeByName( pszName );
+
+	if( !pAmmo )
+		return INVALID_AMMO_ID;
+
+	return pAmmo->GetID();
+}
+
 CAmmoType* CAmmoTypes::AddAmmoType( const char* const pszName, const int iMaxCarry )
 {
 	if( !m_bCanAddAmmoTypes )
