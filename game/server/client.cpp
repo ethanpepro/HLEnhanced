@@ -991,6 +991,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 			cd->vuser3.x		= pl->GetAmmoCount( "762" );
 			cd->vuser3.y		= pl->GetAmmoCount( "556" );
 			cd->vuser3.z		= pl->GetAmmoCount( "shock_rounds" );
+			cd->vuser4.x		= pl->GetAmmoCount( "spores" );
 #endif	
 
 			if ( pl->m_pActiveItem )

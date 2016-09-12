@@ -284,6 +284,7 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	m_pPlayer->SetAmmoCount( "762", ( int ) from->client.vuser3[ 0 ] );
 	m_pPlayer->SetAmmoCount( "556", ( int ) from->client.vuser3[ 1 ] );
 	m_pPlayer->SetAmmoCount( "shock_rounds", ( int ) from->client.vuser3[ 2 ] );
+	m_pPlayer->SetAmmoCount( "spores", ( int ) from->client.vuser4[ 0 ] );
 #endif
 
 	// Point to current weapon object
@@ -374,6 +375,7 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 	to->client.vuser3[ 0 ]		= m_pPlayer->GetAmmoCount( "762" );
 	to->client.vuser3[ 1 ]		= m_pPlayer->GetAmmoCount( "556" );
 	to->client.vuser3[ 2 ]		= m_pPlayer->GetAmmoCount( "shock_rounds" );
+	to->client.vuser4[ 0 ]		= m_pPlayer->GetAmmoCount( "spores" );
 #endif
 
 	//TODO: why isn't this in the weapon's user variables? - Solokiller
