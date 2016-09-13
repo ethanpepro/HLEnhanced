@@ -30,11 +30,9 @@ matrix:
         # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 5
         - os: linux
           env: COMPILER=gcc-5
-          compiler: gcc-5
         # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 6
         - os: linux
           env: COMPILER=gcc-6
-          compiler: gcc-6
 
 before_install:
     - |
