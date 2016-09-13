@@ -31,9 +31,8 @@ matrix:
           compiler: gcc-6
           sudo: required
           dist: trusty
-        # Mac OS X El Capitan 11.10 (Xcode 8)
+        # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
         - os: osx
-          osx_image: xcode8
 
 before_install:
     - |
