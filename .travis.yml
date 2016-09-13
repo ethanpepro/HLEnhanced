@@ -37,6 +37,7 @@ matrix:
     - os: osx
 
 before_install:
+  - echo -e "\033[0;32m=== UPDATING BUILDER ==="
   - |
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
       sudo dpkg --add-architecture i386
@@ -48,9 +49,11 @@ before_install:
 
 install:
   # Prepare the dependencies, build and fake Steam common directories for Travis
+  - echo -e "\033[0;32m=== CREATING DEPENDENCIES AND FAKE STEAM COMMON DIRECTORIES ==="
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
   - STEAMCOMMON_DIR="${TRAVIS_BUILD_DIR}/steam_common"
   - mkdir -p ${DEPS_DIR} && mkdir -p ${STEAMCOMMON_DIR} && mkdir -p ${STEAMCOMMON_DIR} && cd ${DEPS_DIR}
+  - echo -e "\033[0;32m=== INSTALLING LATEST CMAKE ==="
   # Get the latest CMake version
   - |
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
@@ -62,18 +65,23 @@ install:
     fi
 
 before_script:
+  - echo -e "\033[0;32m=== CREATING BUILD DIRECTORY ==="
   # Move to build directory
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir build && cd build
 
 script:
+  - echo -e "\033[0;32m=== BUILDING ==="
   # Just execute the cmake and make commands
   - |
     if [[ "${COMPILER}" == "gcc-5" ]]; then
+      - echo -e "\033[0;32m=== LINUX - GCC 5 - EVERYTHING DISABLED ==="
       cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so ..
     elif [[ "${COMPILER}" == "gcc-6" ]]; then
+      - echo -e "\033[0;32m=== LINUX - GCC 6 - EVERYTHING DISABLED ==="
       cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so ..
     else
+      - echo -e "\033[0;32m=== OS X - EVERYTHING DISABLED ==="
       cmake -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.0.dylib -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.dylib ..
     fi
   - make
