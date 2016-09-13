@@ -11,9 +11,9 @@ void CSave::WriteData( const char *pname, int size, const char *pdata )
 	BufferField( pname, size, pdata );
 }
 
-void CSave::WriteBoolean( const char* const pName, const bool* const pValue, const int iCount )
+void CSave::WriteBoolean( const char* const pName, const qboolean* const pValue, const int iCount )
 {
-	BufferField( pName, sizeof( bool ) * iCount, ( const char* ) pValue );
+	BufferField( pName, sizeof( qboolean ) * iCount, ( const char* ) pValue );
 }
 
 void CSave::WriteShort( const char *pname, const short *data, int count )
@@ -226,8 +226,7 @@ bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTI
 			break;
 
 		case FIELD_BOOLEAN:
-			//TODO: should be written as a bit perhaps? - Solokiller
-			WriteBoolean( pTest->fieldName, ( bool* ) pOutputData, pTest->fieldSize );
+			WriteBoolean( pTest->fieldName, ( qboolean* ) pOutputData, pTest->fieldSize );
 			break;
 
 		case FIELD_INTEGER:

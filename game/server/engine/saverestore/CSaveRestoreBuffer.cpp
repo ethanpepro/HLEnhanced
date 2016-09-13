@@ -24,7 +24,7 @@ const int g_SaveRestoreSizes[ FIELD_TYPECOUNT ] =
 #else
 	sizeof( int * ),		// FIELD_FUNCTION	
 #endif
-	sizeof( bool ),		// FIELD_BOOLEAN
+	sizeof( qboolean ),		// FIELD_BOOLEAN
 	sizeof( short ),		// FIELD_SHORT
 	sizeof( char ),		// FIELD_CHARACTER
 	sizeof( float ),		// FIELD_TIME

@@ -178,7 +178,7 @@ int CRestore::ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fi
 						break;
 
 					case FIELD_BOOLEAN:
-						*( ( bool* ) pOutputData ) = *( bool* ) pInputData;
+						*( ( qboolean* ) pOutputData ) = *( qboolean* ) pInputData;
 						break;
 
 					case FIELD_INTEGER:
