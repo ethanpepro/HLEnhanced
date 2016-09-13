@@ -18,6 +18,7 @@ addons:
             - g++-5-multilib
             - gcc-6-multilib
             - g++-6-multilib
+            - linux-libc-dev
 
 matrix:
     # If something failed, stop
