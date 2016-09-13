@@ -37,6 +37,9 @@ matrix:
           env: COMPILER=gcc-6
           compiler: gcc-6
 
+before_install:
+    - sudo apt-get install -y linux-libc-dev:i386
+
 install:
     # Prepare the dependencies, build and fake Steam common directories for Travis
     - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
