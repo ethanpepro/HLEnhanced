@@ -1,5 +1,5 @@
-#ifndef GAME_SHARED_DATAMAPPING_H
-#define GAME_SHARED_DATAMAPPING_H
+#ifndef GAME_SHARED_ENTITIES_DATAMAPPING_H
+#define GAME_SHARED_ENTITIES_DATAMAPPING_H
 
 struct TYPEDESCRIPTION;
 
@@ -148,4 +148,22 @@ __BEGIN_DATADESC( thisClass )
 	return true;												\
 }
 
-#endif //GAME_SHARED_DATAMAPPING_H
+/**
+*	Finds a type description entry in a single data map.
+*	@param dataMap Data map to search in.
+*	@param pszFieldName Name of the field to search for.
+*	@param bComparePublicName Whether the compare the public name or the field name.
+*	@return If found, returns the type description. Otherwise, returns nullptr.
+*/
+const TYPEDESCRIPTION* UTIL_FindTypeDescInSingleDataMap( const DataMap_t& dataMap, const char* const pszFieldName, const bool bComparePublicName = false );
+
+/**
+*	Finds a type description entry in a data map. Will search in all parent data maps until found.
+*	@param dataMap Data map to search in.
+*	@param pszFieldName Name of the field to search for.
+*	@param bComparePublicName Whether the compare the public name or the field name.
+*	@return If found, returns the type description. Otherwise, returns nullptr.
+*/
+const TYPEDESCRIPTION* UTIL_FindTypeDescInDataMap( const DataMap_t& dataMap, const char* const pszFieldName, const bool bComparePublicName = false );
+
+#endif //GAME_SHARED_ENTITIES_DATAMAPPING_H

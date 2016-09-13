@@ -1047,6 +1047,41 @@ unsigned _rotr ( unsigned val, int shift)
 }
 #endif
 
+bool UTIL_SetTypeDescValue( void* pEntity, const TYPEDESCRIPTION& desc, const char* const pszValue )
+{
+	switch( desc.fieldType )
+	{
+	case FIELD_MODELNAME:
+	case FIELD_SOUNDNAME:
+	case FIELD_STRING:
+		( *( int * ) ( ( char * ) pEntity + desc.fieldOffset ) ) = ALLOC_STRING( pszValue );
+		break;
+
+	case FIELD_TIME:
+	case FIELD_FLOAT:
+		( *( float * ) ( ( char * ) pEntity + desc.fieldOffset ) ) = atof( pszValue );
+		break;
+
+	case FIELD_INTEGER:
+		( *( int * ) ( ( char * ) pEntity + desc.fieldOffset ) ) = atoi( pszValue );
+		break;
+
+	case FIELD_POSITION_VECTOR:
+	case FIELD_VECTOR:
+		UTIL_StringToVector( *reinterpret_cast<Vector*>( ( ( char * ) pEntity + desc.fieldOffset ) ), pszValue );
+		break;
+
+	default:
+	case FIELD_EVARS:
+	case FIELD_CLASSPTR:
+	case FIELD_EDICT:
+	case FIELD_ENTITY:
+		return false;
+	}
+
+	return true;
+}
+
 void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 {
 	const TYPEDESCRIPTION* pField;
@@ -1057,36 +1092,9 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 
 		if ( !stricmp( pField->fieldName, pkvd->szKeyName ) )
 		{
-			switch( pField->fieldType )
-			{
-			case FIELD_MODELNAME:
-			case FIELD_SOUNDNAME:
-			case FIELD_STRING:
-				(*(int *)((char *)pev + pField->fieldOffset)) = ALLOC_STRING( pkvd->szValue );
-				break;
-
-			case FIELD_TIME:
-			case FIELD_FLOAT:
-				(*(float *)((char *)pev + pField->fieldOffset)) = atof( pkvd->szValue );
-				break;
-
-			case FIELD_INTEGER:
-				(*(int *)((char *)pev + pField->fieldOffset)) = atoi( pkvd->szValue );
-				break;
-
-			case FIELD_POSITION_VECTOR:
-			case FIELD_VECTOR:
-				UTIL_StringToVector( *reinterpret_cast<Vector*>( ((char *)pev + pField->fieldOffset) ), pkvd->szValue );
-				break;
-
-			default:
-			case FIELD_EVARS:
-			case FIELD_CLASSPTR:
-			case FIELD_EDICT:
-			case FIELD_ENTITY:
+			if( !UTIL_SetTypeDescValue( pev, *pField, pkvd->szValue ) )
 				ALERT( at_error, "Bad field in entity!!\n" );
-				break;
-			}
+
 			pkvd->fHandled = true;
 			return;
 		}

@@ -293,6 +293,19 @@ void DispatchKeyValue( edict_t *pentKeyvalue, KeyValueData *pkvd )
 	if( !pEntity )
 		return;
 
+	//See if the keyvalue is in the datadesc as a key.
+	if( auto pDesc = UTIL_FindTypeDescInDataMap( *pEntity->GetDataMap(), pkvd->szKeyName, true ) )
+	{
+		if( pDesc->flags & TypeDescFlag::KEY )
+		{
+			if( UTIL_SetTypeDescValue( pEntity, *pDesc, pkvd->szValue ) )
+			{
+				pkvd->fHandled = true;
+				return;
+			}
+		}
+	}
+
 	pEntity->KeyValue( pkvd );
 }
 

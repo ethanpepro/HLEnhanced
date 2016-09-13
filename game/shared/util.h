@@ -108,6 +108,8 @@ bool FClassnameIs( const CBaseEntity* pEntity, const char* pszClassname );
 
 CBaseEntity* UTIL_FindClientInPVS( const CBaseEntity* const pPVSEntity );
 
+struct TYPEDESCRIPTION;
+
 class CBaseEntity;
 class CBasePlayerWeapon;
 class CBasePlayer;
@@ -305,6 +307,15 @@ CBaseEntity* UTIL_RandomTargetname( const char* const pszName );
 *	@return Randomly selected entity, or null if no entities by that name exist.
 */
 CBaseEntity* UTIL_RandomClassname( const char* pszName );
+
+/**
+*	Sets the value for a given entity and type description.
+*	@param pEntity Entity to use as the base address.
+*	@param desc Type description that describes the variable to set.
+*	@param pszValue Value to set.
+*	@return Whether the field type supports conversion from string.
+*/
+bool UTIL_SetTypeDescValue( void* pEntity, const TYPEDESCRIPTION& desc, const char* const pszValue );
 
 /**
 *	Sets an entvars_t keyvalue, if the key can be found in the datamap.

@@ -38,15 +38,6 @@ enum FIELDTYPE
 	FIELD_TYPECOUNT,		// MUST BE LAST
 };
 
-#define _FIELD( type, name, fieldtype, count, flags )			{ fieldtype, #name, static_cast<int>( OFFSETOF( type, name ) ), count, flags }
-#define _BASEENT_FIELD( name, fieldtype, count, flags )			_FIELD( ThisClass, name, fieldtype, count, flags )
-#define DEFINE_FIELD( name, fieldtype )							_BASEENT_FIELD( name, fieldtype, 1, 0 )
-#define DEFINE_ARRAY( name, fieldtype, count )					_BASEENT_FIELD( name, fieldtype, count, 0 )
-#define DEFINE_ENTITY_FIELD( name, fieldtype )					_FIELD(entvars_t, name, fieldtype, 1, 0 )
-#define DEFINE_ENTITY_GLOBAL_FIELD( name, fieldtype )			_FIELD(entvars_t, name, fieldtype, 1, TypeDescFlag::GLOBAL )
-#define DEFINE_GLOBAL_FIELD( name, fieldtype )					_BASEENT_FIELD( name, fieldtype, 1, TypeDescFlag::GLOBAL )
-
-
 namespace TypeDescFlag
 {
 enum TypeDescFlag
@@ -54,7 +45,12 @@ enum TypeDescFlag
 	/**
 	*	This field is masked for global entity save/restore
 	*/
-	GLOBAL = 0x0001,
+	GLOBAL	= 0x0001,
+
+	/**
+	*	This field can be automatically initialized by DispatchKeyValue. - Solokiller
+	*/
+	KEY		= 0x0002,
 };
 }
 
@@ -62,9 +58,26 @@ struct TYPEDESCRIPTION
 {
 	FIELDTYPE		fieldType;
 	const char*		fieldName;
+	/**
+	*	The name used to refer to this field if it's a key. - Solokiller
+	*/
+	const char*		pszPublicName;
 	int				fieldOffset;
 	short			fieldSize;
 	short			flags;
 };
+
+#define _FIELD( type, name, fieldtype, count, flags )			{ fieldtype, #name, nullptr, static_cast<int>( OFFSETOF( type, name ) ), count, flags }
+#define _BASEENT_FIELD( name, fieldtype, count, flags )			_FIELD( ThisClass, name, fieldtype, count, flags )
+#define DEFINE_FIELD( name, fieldtype )							_BASEENT_FIELD( name, fieldtype, 1, 0 )
+#define DEFINE_ARRAY( name, fieldtype, count )					_BASEENT_FIELD( name, fieldtype, count, 0 )
+#define DEFINE_ENTITY_FIELD( name, fieldtype )					_FIELD( entvars_t, name, fieldtype, 1, 0 )
+#define DEFINE_ENTITY_GLOBAL_FIELD( name, fieldtype )			_FIELD( entvars_t, name, fieldtype, 1, TypeDescFlag::GLOBAL )
+#define DEFINE_GLOBAL_FIELD( name, fieldtype )					_BASEENT_FIELD( name, fieldtype, 1, TypeDescFlag::GLOBAL )
+
+/**
+*	Defines a field that can be automatically initialized by DispatchKeyValue. - Solokiller
+*/
+#define DEFINE_KEYFIELD( name, fieldtype, szKVName )			{ fieldtype, #name, szKVName, static_cast<int>( OFFSETOF( ThisClass, name ) ), 1, TypeDescFlag::KEY }
 
 #endif //GAME_SERVER_SAVERESTORE_SAVERESTOREDEFS_H

@@ -8,6 +8,7 @@ add_sources(
 	CEntityRegistry.h
 	CEntityRegistry.cpp
 	DataMapping.h
+	DataMapping.cpp
 	EHandle.h
 	EHandle.cpp
 )
