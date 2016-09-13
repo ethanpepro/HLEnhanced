@@ -6,10 +6,6 @@ language: c
 sudo: required
 dist: trusty
 
-env:
-  - ARCH=x86_64
-  - ARCH=i686
-
 # Linux - add the Ubuntu restricted tool chain to install GCC 5 and 6, also to
 # install the development package for SDL2
 addons:
@@ -66,9 +62,9 @@ script:
     # Just execute the cmake and make commands
     - |
       if [[ "${COMPILER}" == "gcc-5" ]]; then
-        cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so -DINCLUDE_PATHS=/usr/include/i386-linux-gnu ..
+        cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so ..
       else
-        cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so -DINCLUDE_PATHS=/usr/include/i386-linux-gnu ..
+        cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so ..
       fi
     - make
 
