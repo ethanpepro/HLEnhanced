@@ -1,11 +1,6 @@
 # Use the C base
 language: c
 
-# Switch to Ubuntu 14.04 Trusty beta instead of using the default 12.04 Precise
-# this is required due to the dependency to libsdl2-dev
-sudo: required
-dist: trusty
-
 # Linux - add the Ubuntu restricted tool chain to install GCC 5 and 6, also to
 # install the development package for SDL2
 addons:
