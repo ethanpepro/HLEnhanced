@@ -1,6 +1,11 @@
 # Use the C base
 language: c
 
+# Linux - use Ubuntu 14.04 Trusty Tahr instead of 12.04 Precise Pengolin, this
+# is required for the correct version of libsdl2-dev.
+sudo: required
+dist: trusty
+
 # Linux - add the Ubuntu restricted tool chain to install GCC 5 and 6, also to
 # install the development package for SDL2
 addons:
@@ -26,14 +31,10 @@ matrix:
         - os: linux
           env: COMPILER=gcc-5
           compiler: gcc-5
-          sudo: required
-          dist: trusty
         # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 6
         - os: linux
           env: COMPILER=gcc-6
           compiler: gcc-6
-          sudo: required
-          dist: trusty
 
 before_install:
     - |
