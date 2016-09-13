@@ -36,9 +36,12 @@ matrix:
           osx_image: xcode8
 
 before_install:
-    - sudo dpkg --add-architecture i386
-    - sudo apt-get -qq update
-    - sudo apt-get install -y linux-libc-dev:i386
+    - |
+      if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
+        sudo dpkg --add-architecture i386
+        sudo apt-get -qq update
+        sudo apt-get install -y linux-libc-dev:i386
+      fi
 
 install:
     # Prepare the dependencies, build and fake Steam common directories for Travis
