@@ -5,4 +5,5 @@ add_sources(
 	CSave.cpp
 	CSaveRestoreBuffer.h
 	CSaveRestoreBuffer.cpp
+	SaveRestoreDefs.h
 )

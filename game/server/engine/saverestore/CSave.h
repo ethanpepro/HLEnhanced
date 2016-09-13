@@ -12,8 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
-#ifndef GAME_ENGINE_SERVER_SAVERESTORE_CSAVE_H
-#define GAME_ENGINE_SERVER_SAVERESTORE_CSAVE_H
+#ifndef GAME_SERVER_ENGINE_SAVERESTORE_CSAVE_H
+#define GAME_SERVER_ENGINE_SAVERESTORE_CSAVE_H
 
 #include "CSaveRestoreBuffer.h"
 
@@ -64,4 +64,4 @@ private:
 };
 }
 
-#endif //GAME_ENGINE_SERVER_SAVERESTORE_CSAVE_H
+#endif //GAME_SERVER_ENGINE_SAVERESTORE_CSAVE_H

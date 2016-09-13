@@ -15,6 +15,8 @@
 #ifndef GAME_SERVER_SAVERESTORE_CSAVERESTOREBUFFER_H
 #define GAME_SERVER_SAVERESTORE_CSAVERESTOREBUFFER_H
 
+#include "SaveRestoreDefs.h"
+
 //TODO: all of these could probably go into a single header that forward declares everything - Solokiller
 typedef struct saverestore_s SAVERESTOREDATA;
 typedef struct entvars_s entvars_t;

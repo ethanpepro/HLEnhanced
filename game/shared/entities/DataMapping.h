@@ -1,7 +1,7 @@
 #ifndef GAME_SHARED_DATAMAPPING_H
 #define GAME_SHARED_DATAMAPPING_H
 
-#include "eiface.h"
+struct TYPEDESCRIPTION;
 
 #define DECLARE_CLASS_NOBASE( thisClass )	\
 typedef thisClass ThisClass
