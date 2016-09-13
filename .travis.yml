@@ -42,6 +42,8 @@ before_install:
       sudo dpkg --add-architecture i386
       sudo apt-get -qq update
       sudo apt-get install -y linux-libc-dev:i386
+    else
+      brew update
     fi
 
 install:
