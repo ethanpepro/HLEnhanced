@@ -33,6 +33,7 @@ matrix:
       env: COMPILER=gcc-6
     # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
     - os: osx
+      osx_image: beta-xcode6.1
 
 before_install:
   - |
