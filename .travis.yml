@@ -77,6 +77,4 @@ script:
     - make
 
 notifications:
-    # Notify only if the status changed
-    on_failure: change
-    on_success: change
+  email: false
