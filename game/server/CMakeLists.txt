@@ -42,6 +42,7 @@ add_sources(
 if( USE_ANGELSCRIPT )
 	add_subdirectory( Angelscript )
 endif()
+add_subdirectory( engine )
 add_subdirectory( entities )
 add_subdirectory( gamerules )
 add_subdirectory( nodes )
