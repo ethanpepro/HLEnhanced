@@ -29,6 +29,10 @@
 
 #include "CMap.h"
 
+#include "engine/saverestore/CSaveRestoreBuffer.h"
+#include "engine/saverestore/CSave.h"
+#include "engine/saverestore/CRestore.h"
+
 #include "ServerInterface.h"
 
 /**
@@ -466,7 +470,7 @@ void DispatchObjectCollisionBox( edict_t *pent )
 
 void SaveWriteFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount )
 {
-	CSave saveHelper( pSaveData );
+	engine::CSave saveHelper( pSaveData );
 	saveHelper.WriteFields( pname, pBaseData, pFields, fieldCount );
 }
 
@@ -481,7 +485,7 @@ void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseD
 		CMap::CreateIfNeeded();
 	}
 
-	CRestore restoreHelper( pSaveData );
+	engine::CRestore restoreHelper( pSaveData );
 	restoreHelper.ReadFields( pname, pBaseData, pFields, fieldCount );
 }
 
