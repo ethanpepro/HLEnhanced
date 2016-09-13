@@ -21,8 +21,6 @@ addons:
     - g++-6-multilib
 
 matrix:
-  # If something failed, stop
-  fast_finish: true
   allow_failures:
     # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
       - os: osx
