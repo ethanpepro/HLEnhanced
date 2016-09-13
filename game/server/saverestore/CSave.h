@@ -17,8 +17,6 @@
 
 #include "CSaveRestoreBuffer.h"
 
-#define MAX_ENTITYARRAY 64
-
 class Vector;
 
 /**
@@ -26,6 +24,9 @@ class Vector;
 */
 class CSave : public CSaveRestoreBuffer
 {
+public:
+	static const size_t MAX_ENTITYARRAY = 64;
+
 public:
 	CSave( SAVERESTOREDATA *pdata ) : CSaveRestoreBuffer( pdata ) {};
 
