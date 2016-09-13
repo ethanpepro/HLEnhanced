@@ -31,6 +31,7 @@ matrix:
           compiler: gcc-6
           sudo: required
           dist: trusty
+    allow_failures:
         # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
         - os: osx
 
