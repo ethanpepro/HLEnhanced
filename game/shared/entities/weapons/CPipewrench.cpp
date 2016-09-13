@@ -473,4 +473,18 @@ void CPipewrench::WeaponIdle()
 		SendWeaponAnim( iAnim );
 	}
 }
+
+void CPipewrench::GetWeaponData( weapon_data_t& data )
+{
+	BaseClass::GetWeaponData( data );
+
+	data.m_fInSpecialReload = static_cast<int>( m_iSwingMode );
+}
+
+void CPipewrench::SetWeaponData( const weapon_data_t& data )
+{
+	BaseClass::SetWeaponData( data );
+
+	m_iSwingMode = data.m_fInSpecialReload;
+}
 #endif //USE_OPFOR

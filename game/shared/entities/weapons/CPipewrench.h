@@ -57,6 +57,11 @@ public:
 	bool Deploy() override;
 	void Holster() override;
 	void WeaponIdle() override;
+
+	void GetWeaponData( weapon_data_t& data ) override;
+
+	void SetWeaponData( const weapon_data_t& data ) override;
+
 	float m_flBigSwingStart;
 	int m_iSwingMode;
 	int m_iSwing;
