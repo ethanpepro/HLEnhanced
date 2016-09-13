@@ -468,13 +468,13 @@ void DispatchObjectCollisionBox( edict_t *pent )
 		SetObjectCollisionBox( &pent->v );
 }
 
-void SaveWriteFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount )
+void SaveWriteFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, engine::TYPEDESCRIPTION *pFields, int fieldCount )
 {
 	engine::CSave saveHelper( pSaveData );
 	saveHelper.WriteFields( pname, pBaseData, pFields, fieldCount );
 }
 
-void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount )
+void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, engine::TYPEDESCRIPTION *pFields, int fieldCount )
 {
 	if( strcmp( pname, "GameHeader" ) == 0 )
 	{

@@ -55,8 +55,8 @@ void DispatchSave( edict_t *pent, SAVERESTOREDATA *pSaveData );
 int  DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity );
 void DispatchObjectCollisionBox( edict_t *pent );
 
-void SaveWriteFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount );
-void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, TYPEDESCRIPTION *pFields, int fieldCount );
+void SaveWriteFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, engine::TYPEDESCRIPTION *pFields, int fieldCount );
+void SaveReadFields( SAVERESTOREDATA *pSaveData, const char *pname, void *pBaseData, engine::TYPEDESCRIPTION *pFields, int fieldCount );
 
 void SaveGlobalState( SAVERESTOREDATA *pSaveData );
 void RestoreGlobalState( SAVERESTOREDATA *pSaveData );

@@ -1548,6 +1548,12 @@ typedef struct
 */
 #define CCONNECT_REJECT_REASON_SIZE 128
 
+//The engine uses a separate version of the save/restore code. - Solokiller
+namespace engine
+{
+struct TYPEDESCRIPTION;
+}
+
 typedef struct 
 {
 	/**
@@ -1612,7 +1618,7 @@ typedef struct
 	*	@param pFields List of type descriptions describing the object's data.
 	*	@param fieldCount Number of type descriptions in pFields.
 	*/
-	void			(*pfnSaveWriteFields)	( SAVERESTOREDATA* pSaveData, const char* pszName, void* pBaseData, TYPEDESCRIPTION* pFields, int fieldCount );
+	void			(*pfnSaveWriteFields)	( SAVERESTOREDATA* pSaveData, const char* pszName, void* pBaseData, engine::TYPEDESCRIPTION* pFields, int fieldCount );
 
 	/**
 	*	Called by the engine to restore a named block of data from the given save data block.
@@ -1622,7 +1628,7 @@ typedef struct
 	*	@param pFields List of type descriptions describing the object's data.
 	*	@param fieldCount Number of type descriptions in pFields.
 	*/
-	void			(*pfnSaveReadFields)	( SAVERESTOREDATA* pSaveData, const char* pszName, void* pBaseData, TYPEDESCRIPTION* pFields, int fieldCount );
+	void			(*pfnSaveReadFields)	( SAVERESTOREDATA* pSaveData, const char* pszName, void* pBaseData, engine::TYPEDESCRIPTION* pFields, int fieldCount );
 
 	/**
 	*	Called by the engine to save global state.
