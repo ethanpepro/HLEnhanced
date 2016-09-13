@@ -33,6 +33,8 @@ matrix:
         # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 6
         - os: linux
           env: COMPILER=gcc-6
+        # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
+        - os: osx
 
 before_install:
     - |
