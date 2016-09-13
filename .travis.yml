@@ -23,7 +23,7 @@ addons:
 matrix:
   allow_failures:
     # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
-      - os: osx
+    - os: osx
   include:
     # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 5
     - os: linux
