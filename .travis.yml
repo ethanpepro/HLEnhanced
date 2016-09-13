@@ -9,24 +9,31 @@ addons:
             - ubuntu-toolchain-r-test
         packages:
             - libsdl2-dev
+            - linux-libc-dev
             - gcc-5-multilib
             - g++-5-multilib
             - gcc-6-multilib
             - g++-6-multilib
-            - linux-libc-dev
 
 matrix:
     # If something failed, stop
     fast_finish: true
     include:
-        # Linux GCC 5
+        # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 5
         - os: linux
           env: COMPILER=gcc-5
           compiler: gcc-5
-        # Linux GCC 6
+          sudo: required
+          dist: trusty
+        # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 6
         - os: linux
           env: COMPILER=gcc-6
           compiler: gcc-6
+          sudo: required
+          dist: trusty
+        # Mac OS X El Capitan 11.10 (Xcode 8)
+        - os: osx
+          osx_image: xcode8
 
 before_install:
     - sudo dpkg --add-architecture i386
