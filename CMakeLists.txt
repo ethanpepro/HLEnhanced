@@ -296,7 +296,7 @@ include_directories(
 	game/client/ui/hud
 	game/client/ui/vgui
 	game/server
-	external
+	external/SDL2/include
 	source_sdk/public/tier1
 	source_sdk/public
 	source_sdk/common
