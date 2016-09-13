@@ -1084,7 +1084,6 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 			case FIELD_CLASSPTR:
 			case FIELD_EDICT:
 			case FIELD_ENTITY:
-			case FIELD_POINTER:
 				ALERT( at_error, "Bad field in entity!!\n" );
 				break;
 			}

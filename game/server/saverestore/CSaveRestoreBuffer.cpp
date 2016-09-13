@@ -15,7 +15,6 @@ const int g_SaveRestoreSizes[ FIELD_TYPECOUNT ] =
 	sizeof( int ),		// FIELD_EDICT
 	sizeof( float ) * 3,	// FIELD_VECTOR
 	sizeof( float ) * 3,	// FIELD_POSITION_VECTOR
-	sizeof( int * ),		// FIELD_POINTER
 	sizeof( int ),		// FIELD_INTEGER
 #ifdef GNUC
 	sizeof( int * ) * 2,		// FIELD_FUNCTION

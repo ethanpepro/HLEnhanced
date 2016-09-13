@@ -26,7 +26,6 @@ enum FIELDTYPE
 	FIELD_EDICT,			// edict_t *, or edict_t *  (same thing)
 	FIELD_VECTOR,			// Any vector
 	FIELD_POSITION_VECTOR,	// A world coordinate (these are fixed up across level transitions automagically)
-	FIELD_POINTER,			// Arbitrary data pointer... to be removed, use an array of FIELD_CHARACTER
 	FIELD_INTEGER,			// Any integer or enum
 	FIELD_FUNCTION,			// A class function pointer (Think, Use, etc)
 	FIELD_BOOLEAN,			// boolean, I may use this as a hint for compression
@@ -39,22 +38,25 @@ enum FIELDTYPE
 	FIELD_TYPECOUNT,		// MUST BE LAST
 };
 
-#define _FIELD(type,name,fieldtype,count,flags)				{ fieldtype, #name, static_cast<int>( OFFSETOF(type, name) ), count, flags }
-#define _BASEENT_FIELD( name, fieldtype, count, flags )		_FIELD( ThisClass, name, fieldtype, count, flags )
-#define DEFINE_FIELD( name,fieldtype)						_BASEENT_FIELD( name, fieldtype, 1, 0)
-#define DEFINE_ARRAY( name,fieldtype,count)					_BASEENT_FIELD( name, fieldtype, count, 0)
-#define DEFINE_ENTITY_FIELD(name,fieldtype)					_FIELD(entvars_t, name, fieldtype, 1, 0 )
-#define DEFINE_ENTITY_GLOBAL_FIELD(name,fieldtype)			_FIELD(entvars_t, name, fieldtype, 1, FTYPEDESC_GLOBAL )
-#define DEFINE_GLOBAL_FIELD( name,fieldtype)				_BASEENT_FIELD( name, fieldtype, 1, FTYPEDESC_GLOBAL )
+#define _FIELD( type, name, fieldtype, count, flags )			{ fieldtype, #name, static_cast<int>( OFFSETOF( type, name ) ), count, flags }
+#define _BASEENT_FIELD( name, fieldtype, count, flags )			_FIELD( ThisClass, name, fieldtype, count, flags )
+#define DEFINE_FIELD( name, fieldtype )							_BASEENT_FIELD( name, fieldtype, 1, 0 )
+#define DEFINE_ARRAY( name, fieldtype, count )					_BASEENT_FIELD( name, fieldtype, count, 0 )
+#define DEFINE_ENTITY_FIELD( name, fieldtype )					_FIELD(entvars_t, name, fieldtype, 1, 0 )
+#define DEFINE_ENTITY_GLOBAL_FIELD( name, fieldtype )			_FIELD(entvars_t, name, fieldtype, 1, TypeDescFlag::GLOBAL )
+#define DEFINE_GLOBAL_FIELD( name, fieldtype )					_BASEENT_FIELD( name, fieldtype, 1, TypeDescFlag::GLOBAL )
 
 
+namespace TypeDescFlag
+{
 enum TypeDescFlag
 {
 	/**
 	*	This field is masked for global entity save/restore
 	*/
-	FTYPEDESC_GLOBAL= 0x0001,
+	GLOBAL = 0x0001,
 };
+}
 
 struct TYPEDESCRIPTION
 {

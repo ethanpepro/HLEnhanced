@@ -37,7 +37,7 @@ bool CRestore::ReadFields( const char *pname, void *pBaseData, const TYPEDESCRIP
 	for( i = 0; i < fieldCount; i++ )
 	{
 		// Don't clear global fields
-		if( !m_global || !( pFields[ i ].flags & FTYPEDESC_GLOBAL ) )
+		if( !m_global || !( pFields[ i ].flags & TypeDescFlag::GLOBAL ) )
 			memset( ( ( char * ) pBaseData + pFields[ i ].fieldOffset ), 0, pFields[ i ].fieldSize * g_SaveRestoreSizes[ pFields[ i ].fieldType ] );
 	}
 
@@ -76,7 +76,7 @@ int CRestore::ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fi
 		pTest = &pFields[ fieldNumber ];
 		if( !stricmp( pTest->fieldName, pName ) )
 		{
-			if( !m_global || !( pTest->flags & FTYPEDESC_GLOBAL ) )
+			if( !m_global || !( pTest->flags & TypeDescFlag::GLOBAL ) )
 			{
 				for( j = 0; j < pTest->fieldSize; j++ )
 				{
@@ -191,9 +191,6 @@ int CRestore::ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fi
 						*( ( char * ) pOutputData ) = *( char * ) pInputData;
 						break;
 
-					case FIELD_POINTER:
-						*( ( int * ) pOutputData ) = *( int * ) pInputData;
-						break;
 					case FIELD_FUNCTION:
 						if( strlen( ( char * ) pInputData ) == 0 )
 							*( ( int * ) pOutputData ) = 0;

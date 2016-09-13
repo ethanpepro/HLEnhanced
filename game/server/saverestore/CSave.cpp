@@ -240,11 +240,6 @@ bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTI
 			WriteData( pTest->fieldName, pTest->fieldSize, ( ( char * ) pOutputData ) );
 			break;
 
-			// For now, just write the address out, we're not going to change memory while doing this yet!
-		case FIELD_POINTER:
-			WriteInt( pTest->fieldName, ( int * ) ( char * ) pOutputData, pTest->fieldSize );
-			break;
-
 		case FIELD_FUNCTION:
 			WriteFunction( pTest->fieldName, ( void ** ) pOutputData, pTest->fieldSize );
 			break;
