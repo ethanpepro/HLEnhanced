@@ -61,9 +61,9 @@ script:
     # Just execute the cmake and make commands
     - |
       if [[ "${COMPILER}" == "gcc-5" ]]; then
-        cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${STEAMCOMMON_DIR}/libSDL2-2.0.so.0 ..
+        cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${STEAMCOMMON_DIR}/libSDL2-2.0.so.0 -DINCLUDE_PATHS=/usr/include/i386-linux-gnu ..
       else
-        cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${STEAMCOMMON_DIR}/libSDL2-2.0.so.0 ..
+        cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${STEAMCOMMON_DIR}/libSDL2-2.0.so.0 -DINCLUDE_PATHS=/usr/include/i386-linux-gnu ..
       fi
     - make
 
