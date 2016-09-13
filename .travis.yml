@@ -18,6 +18,9 @@ addons:
 matrix:
     # If something failed, stop
     fast_finish: true
+    allow_failures:
+        # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
+        - os: osx
     include:
         # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 5
         - os: linux
@@ -31,9 +34,6 @@ matrix:
           compiler: gcc-6
           sudo: required
           dist: trusty
-        allow_failures:
-            # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
-            - os: osx
 
 before_install:
     - |
