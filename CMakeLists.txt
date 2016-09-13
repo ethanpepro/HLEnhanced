@@ -220,7 +220,15 @@ endif()
 #C++14 support
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
 
+#Shared include directories
+
+set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
+
 #Shared directories
+
+set( SHARED_INCLUDE_PATHS
+	${INCLUDE_PATHS}
+)
 
 add_subdirectory( common )
 add_subdirectory( game/shared )
@@ -294,10 +302,11 @@ include_directories(
 	game/client/ui/hud
 	game/client/ui/vgui
 	game/server
-	external
+	external/SDL2/include
 	source_sdk/public/tier1
 	source_sdk/public
 	source_sdk/common
+	${SHARED_INCLUDE_PATHS}
 )
 
 add_library( client SHARED ${PREP_SRCS} )
@@ -465,6 +474,7 @@ include_directories(
 	pm_shared
 	game/server
 	external
+	${SHARED_INCLUDE_PATHS}
 )
 
 add_library( hl SHARED ${PREP_SRCS} )
