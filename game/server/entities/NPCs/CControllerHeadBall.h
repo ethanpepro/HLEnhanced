@@ -26,9 +26,9 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void EXPORT HuntThink( void );
-	void EXPORT DieThink( void );
-	void EXPORT BounceTouch( CBaseEntity *pOther );
+	void HuntThink( void );
+	void DieThink( void );
+	void BounceTouch( CBaseEntity *pOther );
 	void MovetoTarget( Vector vecTarget );
 	void Crawl( void );
 

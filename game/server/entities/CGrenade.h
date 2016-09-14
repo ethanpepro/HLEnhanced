@@ -31,16 +31,16 @@ public:
 
 	void Explode( Vector vecSrc, Vector vecAim );
 	void Explode( TraceResult *pTrace, int bitsDamageType );
-	void EXPORT Smoke( void );
+	void Smoke( void );
 
-	void EXPORT BounceTouch( CBaseEntity *pOther );
-	void EXPORT SlideTouch( CBaseEntity *pOther );
-	void EXPORT ExplodeTouch( CBaseEntity *pOther );
-	void EXPORT DangerSoundThink( void );
-	void EXPORT PreDetonate( void );
-	void EXPORT Detonate( void );
-	void EXPORT DetonateUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT TumbleThink( void );
+	void BounceTouch( CBaseEntity *pOther );
+	void SlideTouch( CBaseEntity *pOther );
+	void ExplodeTouch( CBaseEntity *pOther );
+	void DangerSoundThink( void );
+	void PreDetonate( void );
+	void Detonate( void );
+	void DetonateUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void TumbleThink( void );
 
 	virtual void BounceSound( void );
 	virtual int	BloodColor() const override { return DONT_BLEED; }

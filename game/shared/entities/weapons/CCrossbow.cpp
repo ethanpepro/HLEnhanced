@@ -41,9 +41,9 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int  Classify ( void ) override;
-	void EXPORT BubbleThink( void );
-	void EXPORT BoltTouch( CBaseEntity *pOther );
-	void EXPORT ExplodeThink( void );
+	void BubbleThink( void );
+	void BoltTouch( CBaseEntity *pOther );
+	void ExplodeThink( void );
 
 	int m_iTrail;
 

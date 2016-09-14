@@ -29,7 +29,7 @@ public:
 	DECLARE_DATADESC();
 
 	void Spawn() override;
-	void EXPORT Smoke( void );
+	void Smoke( void );
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 

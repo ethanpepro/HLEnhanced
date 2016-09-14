@@ -2278,27 +2278,27 @@ public:
 	/**
 	*	Think function. Removes this entity.
 	*/
-	void EXPORT SUB_Remove();
+	void SUB_Remove();
 
 	/**
 	*	Think function. Does nothing. Useful for when you need a think function that doesn't actually do anything.
 	*/
-	void EXPORT SUB_DoNothing();
+	void SUB_DoNothing();
 
 	/**
 	*	Think function. Sets up the entity to start fading out.
 	*/
-	void EXPORT SUB_StartFadeOut();
+	void SUB_StartFadeOut();
 
 	/**
 	*	Think function. Fades the entity out.
 	*/
-	void EXPORT SUB_FadeOut();
+	void SUB_FadeOut();
 
 	/**
 	*	Think function. Calls this entity's use method with USE_TOGGLE.
 	*/
-	void EXPORT SUB_CallUseToggle() { this->Use( this, this, USE_TOGGLE, 0 ); }
+	void SUB_CallUseToggle() { this->Use( this, this, USE_TOGGLE, 0 ); }
 
 	/**
 	*	Returns whether the entity should toggle, given the use type and current state.

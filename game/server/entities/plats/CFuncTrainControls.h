@@ -24,7 +24,7 @@ public:
 
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void Spawn() override;
-	void EXPORT Find();
+	void Find();
 };
 
 #endif //GAME_SERVER_ENTITIES_PLATS_CFUNCTRAINCONTROLS_H

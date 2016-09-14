@@ -24,7 +24,7 @@ public:
 
 	void Spawn() override;
 
-	void EXPORT ReturnTouch( CBaseEntity* pOther );
+	void ReturnTouch( CBaseEntity* pOther );
 };
 
 #endif //GAME_SERVER_ENTITIES_TRIGGERS_CTRIGGERXENRETURN_H

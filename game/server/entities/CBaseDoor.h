@@ -63,14 +63,14 @@ public:
 	virtual void SetToggleState( int state ) override;
 
 	// used to selectivly override defaults
-	void EXPORT DoorTouch( CBaseEntity *pOther );
+	void DoorTouch( CBaseEntity *pOther );
 
 	// local functions
 	int DoorActivate();
-	void EXPORT DoorGoUp( void );
-	void EXPORT DoorGoDown( void );
-	void EXPORT DoorHitTop( void );
-	void EXPORT DoorHitBottom( void );
+	void DoorGoUp( void );
+	void DoorGoDown( void );
+	void DoorHitTop( void );
+	void DoorHitBottom( void );
 
 	byte	m_bHealthValue;// some doors are medi-kit doors, they give players health
 

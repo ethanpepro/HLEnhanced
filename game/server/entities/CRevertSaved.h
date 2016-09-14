@@ -22,8 +22,8 @@ public:
 	DECLARE_DATADESC();
 
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	void	EXPORT MessageThink( void );
-	void	EXPORT LoadThink( void );
+	void	MessageThink( void );
+	void	LoadThink( void );
 	void	KeyValue( KeyValueData *pkvd ) override;
 
 	inline	float	Duration( void ) { return pev->dmg_take; }

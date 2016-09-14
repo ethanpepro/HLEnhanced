@@ -30,7 +30,7 @@ public:
 	virtual void	KeyValue( KeyValueData* pkvd ) override;
 	// common member functions
 	void SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value );
-	void EXPORT DelayThink( void );
+	void DelayThink( void );
 };
 
 #endif //GAME_SERVER_CBASEDELAY_H

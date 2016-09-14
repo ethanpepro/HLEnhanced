@@ -38,8 +38,8 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void EXPORT SwingAgain( void );
-	void EXPORT Smack( void );
+	void SwingAgain( void );
+	void Smack( void );
 
 	void PrimaryAttack( void ) override;
 	bool Swing( const bool bFirst );

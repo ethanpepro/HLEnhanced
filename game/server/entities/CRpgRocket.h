@@ -25,9 +25,9 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void EXPORT FollowThink( void );
-	void EXPORT IgniteThink( void );
-	void EXPORT RocketTouch( CBaseEntity *pOther );
+	void FollowThink( void );
+	void IgniteThink( void );
+	void RocketTouch( CBaseEntity *pOther );
 	static CRpgRocket *CreateRpgRocket( Vector vecOrigin, Vector vecAngles, CBaseEntity *pOwner, CRpg *pLauncher );
 
 	int m_iTrail;

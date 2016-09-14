@@ -55,27 +55,27 @@ public:
 	*/
 	virtual bool AddDuplicate( CBasePlayerWeapon *pOriginal );
 
-	void EXPORT DestroyItem();
+	void DestroyItem();
 
 	/**
 	*	Default weapon touch
 	*/
-	void EXPORT DefaultTouch( CBaseEntity *pOther );
+	void DefaultTouch( CBaseEntity *pOther );
 
 	/**
 	*	When an item is first spawned, this think is run to determine when the object has hit the ground.
 	*/
-	void EXPORT FallThink();
+	void FallThink();
 
 	/**
 	*	Make a weapon visible and tangible
 	*/
-	void EXPORT Materialize();
+	void Materialize();
 
 	/**
 	*	The weapon desires to become visible and tangible, if the game rules allow for it
 	*/
-	void EXPORT AttemptToMaterialize();
+	void AttemptToMaterialize();
 
 	/**
 	*	Copy a weapon

@@ -32,9 +32,9 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void KeyValue( KeyValueData* pkvd ) override;
-	void EXPORT ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT CyclicUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT MakerThink( void );
+	void ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void CyclicUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void MakerThink( void );
 	void DeathNotice( CBaseEntity* pChild ) override;// monster maker children use this to tell the monster maker that they have died.
 	void MakeMonster( void );
 

@@ -35,8 +35,8 @@ public:
 	CBaseEntity *TongueTouchEnt( float *pflLength );
 	int  Classify( void ) override;
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
-	void EXPORT BarnacleThink( void );
-	void EXPORT WaitTillDead( void );
+	void BarnacleThink( void );
+	void WaitTillDead( void );
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 

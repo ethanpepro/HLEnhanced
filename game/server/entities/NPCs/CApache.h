@@ -37,12 +37,12 @@ public:
 		pev->absmax = GetAbsOrigin() + Vector( 300, 300, 8 );
 	}
 
-	void EXPORT HuntThink( void );
-	void EXPORT FlyTouch( CBaseEntity *pOther );
-	void EXPORT CrashTouch( CBaseEntity *pOther );
-	void EXPORT DyingThink( void );
-	void EXPORT StartupUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT NullThink( void );
+	void HuntThink( void );
+	void FlyTouch( CBaseEntity *pOther );
+	void CrashTouch( CBaseEntity *pOther );
+	void DyingThink( void );
+	void StartupUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void NullThink( void );
 
 	void ShowDamage( void );
 	void Flight( void );

@@ -50,10 +50,10 @@ public:
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void KeyValue( KeyValueData* pkvd ) override;
 
-	void EXPORT Next( void );
-	void EXPORT Find( void );
-	void EXPORT NearestPath( void );
-	void EXPORT DeadEnd( void );
+	void Next( void );
+	void Find( void );
+	void NearestPath( void );
+	void DeadEnd( void );
 
 	void		NextThink( float thinkTime, const bool alwaysThink );
 

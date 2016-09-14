@@ -59,8 +59,8 @@ public:
 	void KeyValue( KeyValueData *pkvd ) override;
 
 
-	void EXPORT Wait( void );
-	void EXPORT Next( void );
+	void Wait( void );
+	void Next( void );
 
 	entvars_t	*m_pevCurrentTarget;
 	int			m_sounds;

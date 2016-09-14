@@ -58,8 +58,8 @@ public:
 	virtual int	 ObjectCaps() const override { return ( CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 	virtual void Activate( void ) override;
 
-	// void EXPORT CineSpawnThink( void );
-	void EXPORT CineThink( void );
+	// void CineSpawnThink( void );
+	void CineThink( void );
 	void Pain( void );
 	void Die( void );
 	void DelayStart( const bool bState );

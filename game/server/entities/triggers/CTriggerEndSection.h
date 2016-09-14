@@ -26,9 +26,9 @@ public:
 	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
-	void EXPORT EndSectionTouch( CBaseEntity *pOther );
+	void EndSectionTouch( CBaseEntity *pOther );
 	void KeyValue( KeyValueData *pkvd ) override;
-	void EXPORT EndSectionUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void EndSectionUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 };
 
 #endif //GAME_SERVER_ENTITIES_TRIGGERS_CTRIGGERENDSECTION_H

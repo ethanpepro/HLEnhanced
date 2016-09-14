@@ -23,7 +23,7 @@ public:
 
 	void		Spawn() override;
 	void		KeyValue( KeyValueData *pkvd ) override;
-	void EXPORT	ChangeFriction( CBaseEntity *pOther );
+	void ChangeFriction( CBaseEntity *pOther );
 
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 

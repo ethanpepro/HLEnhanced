@@ -30,9 +30,9 @@ public:
 
 	void Spawn( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
-	void EXPORT UseChangeLevel( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT ExecuteChangeLevel( void );
-	void EXPORT TouchChangeLevel( CBaseEntity *pOther );
+	void UseChangeLevel( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void ExecuteChangeLevel( void );
+	void TouchChangeLevel( CBaseEntity *pOther );
 	void ChangeLevelNow( CBaseEntity *pActivator );
 
 	static CBaseEntity* FindLandmark( const char* const pszLandmarkName );

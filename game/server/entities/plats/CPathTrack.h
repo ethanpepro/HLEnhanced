@@ -49,7 +49,7 @@ public:
 	CPathTrack	*GetPrevious( void );
 
 #if PATH_SPARKLE_DEBUG
-	void EXPORT Sparkle( void );
+	void Sparkle( void );
 #endif
 
 	float		m_length;

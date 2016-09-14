@@ -44,16 +44,16 @@ public:
 
 	void UpdateGoal();
 	bool HasDead();
-	void EXPORT FlyThink( void );
-	void EXPORT DeployThink( void );
+	void FlyThink( void );
+	void DeployThink( void );
 	void Flight( void );
-	void EXPORT HitTouch( CBaseEntity *pOther );
-	void EXPORT FindAllThink( void );
-	void EXPORT HoverThink( void );
+	void HitTouch( CBaseEntity *pOther );
+	void FindAllThink( void );
+	void HoverThink( void );
 	CBaseMonster *MakeGrunt( Vector vecSrc );
-	void EXPORT CrashTouch( CBaseEntity *pOther );
-	void EXPORT DyingThink( void );
-	void EXPORT CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void CrashTouch( CBaseEntity *pOther );
+	void DyingThink( void );
+	void CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 	//void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;

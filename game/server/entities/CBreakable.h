@@ -38,7 +38,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void KeyValue( KeyValueData* pkvd) override;
-	void EXPORT BreakTouch( CBaseEntity *pOther );
+	void BreakTouch( CBaseEntity *pOther );
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void DamageSound( void );
 
@@ -52,7 +52,7 @@ public:
 
 	int	 DamageDecal( int bitsDamageType ) const override;
 
-	void EXPORT		Die( void );
+	void 	Die( void );
 	virtual int		ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 
 	inline bool		Explodable() const { return ExplosionMagnitude() > 0; }

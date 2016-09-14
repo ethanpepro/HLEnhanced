@@ -38,8 +38,8 @@ public:
 	void Spawn() override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	void EXPORT FindThink();
-	void EXPORT DelayThink();
+	void FindThink();
+	void DelayThink();
 	int	 ObjectCaps() const override { return ( CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 
 	CBaseMonster *FindEntity();

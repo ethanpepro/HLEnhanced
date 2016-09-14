@@ -42,7 +42,7 @@ public:
 		return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | flags;
 	}
 
-	void EXPORT TriggerTouch( CBaseEntity *pOther );
+	void TriggerTouch( CBaseEntity *pOther );
 
 	// These functions are here to show the way beams are encoded as entities.
 	// Encoding beams as entities simplifies their management in the client/server architecture

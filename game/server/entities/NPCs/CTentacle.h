@@ -105,14 +105,14 @@ public:
 		pev->absmax = GetAbsOrigin() + Vector( 400, 400, 850 );
 	}
 
-	void EXPORT Cycle();
-	void EXPORT CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT Start();
-	void EXPORT DieThink();
+	void Cycle();
+	void CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void Start();
+	void DieThink();
 
-	void EXPORT Test();
+	void Test();
 
-	void EXPORT HitTouch( CBaseEntity *pOther );
+	void HitTouch( CBaseEntity *pOther );
 
 	float HearingSensitivity() override { return 2.0; };
 

@@ -35,8 +35,8 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	int  Classify( void ) override;
-	void EXPORT SuperBounceTouch( CBaseEntity *pOther );
-	void EXPORT HuntThink( void );
+	void SuperBounceTouch( CBaseEntity *pOther );
+	void HuntThink( void );
 	int  BloodColor() const override { return BLOOD_COLOR_YELLOW; }
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void GibMonster( void ) override;

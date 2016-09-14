@@ -70,12 +70,12 @@ public:
 	// basic functions
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void EXPORT SpinUp( void );
-	void EXPORT SpinDown( void );
+	void SpinUp( void );
+	void SpinDown( void );
 	void KeyValue( KeyValueData* pkvd ) override;
-	void EXPORT HurtTouch( CBaseEntity *pOther );
-	void EXPORT RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT Rotate( void );
+	void HurtTouch( CBaseEntity *pOther );
+	void RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void Rotate( void );
 	void RampPitchVol( const bool bUp );
 	void Blocked( CBaseEntity *pOther ) override;
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }

@@ -26,8 +26,8 @@ public:
 
 	void Spawn() override;
 	void Precache() override;
-	void EXPORT Off();
-	void EXPORT Recharge();
+	void Off();
+	void Recharge();
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual int	ObjectCaps() const override { return ( CBaseToggle::ObjectCaps() | FCAP_CONTINUOUS_USE ) & ~FCAP_ACROSS_TRANSITION; }

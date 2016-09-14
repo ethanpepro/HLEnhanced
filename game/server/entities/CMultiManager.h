@@ -34,11 +34,11 @@ public:
 
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Spawn( void ) override;
-	void EXPORT ManagerThink( void );
-	void EXPORT ManagerUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void ManagerThink( void );
+	void ManagerUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 #if _DEBUG
-	void EXPORT ManagerReport( void );
+	void ManagerReport( void );
 #endif
 
 	bool		HasTarget( string_t targetname ) const override;

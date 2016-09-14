@@ -39,7 +39,7 @@ public:
 	void Spawn( void ) override;
 	void  Precache( void ) override;
 
-	void EXPORT SittingThink( void );
+	void SittingThink( void );
 	int	Classify( void ) override;
 
 	virtual void SetAnswerQuestion( CTalkMonster *pSpeaker ) override;

@@ -53,7 +53,7 @@ public:
 	void UpdateOnRemove() override;
 
 	void KeyValue( KeyValueData *pkvd ) override;
-	void EXPORT TurretUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void TurretUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 	virtual void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
@@ -64,24 +64,24 @@ public:
 
 										// Think functions
 
-	void EXPORT ActiveThink( void );
-	void EXPORT SearchThink( void );
-	void EXPORT AutoSearchThink( void );
-	void EXPORT TurretDeath( void );
+	void ActiveThink( void );
+	void SearchThink( void );
+	void AutoSearchThink( void );
+	void TurretDeath( void );
 
-	virtual void EXPORT SpinDownCall( void ) { m_iSpin = 0; }
-	virtual void EXPORT SpinUpCall( void ) { m_iSpin = 1; }
+	virtual void SpinDownCall( void ) { m_iSpin = 0; }
+	virtual void SpinUpCall( void ) { m_iSpin = 1; }
 
 	// void SpinDown(void);
-	// float EXPORT SpinDownCall( void ) { return SpinDown(); }
+	// float SpinDownCall( void ) { return SpinDown(); }
 
 	// virtual float SpinDown(void) { return 0;}
 	// virtual float Retire(void) { return 0;}
 
-	void EXPORT Deploy( void );
-	void EXPORT Retire( void );
+	void Deploy( void );
+	void Retire( void );
 
-	void EXPORT Initialize( void );
+	void Initialize( void );
 
 	virtual void Ping( void );
 	virtual void EyeOn( void );

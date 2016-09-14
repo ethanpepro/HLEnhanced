@@ -41,10 +41,10 @@ public:
 
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	
-	void EXPORT WarningThink( void );
-	void EXPORT PowerupThink( void );
-	void EXPORT BeamBreakThink( void );
-	void EXPORT DelayDeathThink( void );
+	void WarningThink( void );
+	void PowerupThink( void );
+	void BeamBreakThink( void );
+	void DelayDeathThink( void );
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	void MakeBeam( void );

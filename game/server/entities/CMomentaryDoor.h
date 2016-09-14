@@ -28,7 +28,7 @@ public:
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	virtual int	ObjectCaps() const override { return CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
-	void EXPORT DoorMoveDone( void );
+	void DoorMoveDone( void );
 
 	byte	m_bMoveSnd;			// sound a door makes while moving	
 };

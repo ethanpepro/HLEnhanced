@@ -38,8 +38,8 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
-	void EXPORT SwimThink( void );
-	void EXPORT DeadThink( void );
+	void SwimThink( void );
+	void DeadThink( void );
 	void Touch( CBaseEntity *pOther ) override
 	{
 		if( pOther->IsPlayer() )

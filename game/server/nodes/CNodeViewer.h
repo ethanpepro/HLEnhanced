@@ -39,7 +39,7 @@ public:
 
 	void FindNodeConnections( int iNode );
 	void AddNode( int iFrom, int iTo );
-	void EXPORT DrawThink( void );
+	void DrawThink( void );
 };
 
 #endif //GAME_SERVER_NODES_CNODEVIEWER_H

@@ -42,12 +42,12 @@ public:
 	int  IRelationship ( CBaseEntity *pTarget ) override;
 
 	void IgniteTrail( void );
-	void EXPORT StartTrack ( void );
-	void EXPORT StartDart ( void );
-	void EXPORT TrackTarget ( void );
-	void EXPORT TrackTouch ( CBaseEntity *pOther );
-	void EXPORT DartTouch( CBaseEntity *pOther );
-	void EXPORT DieTouch ( CBaseEntity *pOther );
+	void StartTrack ( void );
+	void StartDart ( void );
+	void TrackTarget ( void );
+	void TrackTouch ( CBaseEntity *pOther );
+	void DartTouch( CBaseEntity *pOther );
+	void DieTouch ( CBaseEntity *pOther );
 	
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 

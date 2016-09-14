@@ -35,8 +35,8 @@ public:
 			flags = FCAP_DONT_SAVE;
 		return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | flags;
 	}
-	void EXPORT AnimateThink( void );
-	void EXPORT ExpandThink( void );
+	void AnimateThink( void );
+	void ExpandThink( void );
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void Animate( float frames );
 	void Expand( float scaleSpeed, float fadeSpeed );
@@ -77,7 +77,7 @@ public:
 		pev->nextthink = gpGlobals->time;
 	}
 
-	void EXPORT AnimateUntilDead( void );
+	void AnimateUntilDead( void );
 
 	static CSprite *SpriteCreate( const char *pSpriteName, const Vector &origin, const bool animate );
 

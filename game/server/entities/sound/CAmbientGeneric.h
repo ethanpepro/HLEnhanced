@@ -85,8 +85,8 @@ public:
 	void KeyValue( KeyValueData* pkvd ) override;
 	void Spawn() override;
 	void Precache() override;
-	void EXPORT ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT RampThink();
+	void ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void RampThink();
 	void InitModulationParms();
 
 	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }

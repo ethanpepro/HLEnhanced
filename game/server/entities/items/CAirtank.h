@@ -35,8 +35,8 @@ public:
 	void KeyValue( KeyValueData* pkvd ) override;
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void EXPORT TankThink( void );
-	void EXPORT TankTouch( CBaseEntity *pOther );
+	void TankThink( void );
+	void TankTouch( CBaseEntity *pOther );
 	int	 BloodColor() const override { return DONT_BLEED; }
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 

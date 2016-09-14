@@ -63,13 +63,13 @@ public:
 
 	void Reload() override;
 
-	void EXPORT SpinupThink();
+	void SpinupThink();
 
-	void EXPORT AltSpinupThink();
+	void AltSpinupThink();
 
-	void EXPORT FireThink();
+	void FireThink();
 
-	void EXPORT AltFireThink();
+	void AltFireThink();
 
 private:
 	int m_iSpriteTexture;

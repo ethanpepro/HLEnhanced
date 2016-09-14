@@ -44,11 +44,11 @@ public:
 
 	void GibMonster() override;
 
-	void EXPORT SuperBounceTouch( CBaseEntity *pOther );
+	void SuperBounceTouch( CBaseEntity *pOther );
 
-	void EXPORT HuntThink();
+	void HuntThink();
 
-	void EXPORT Smoke();
+	void Smoke();
 
 private:
 	static float m_flNextBounceSoundTime;

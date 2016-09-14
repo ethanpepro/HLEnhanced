@@ -30,7 +30,7 @@ public:
 
 	static void Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity );
 	void Touch( CBaseEntity *pOther ) override;
-	void EXPORT Animate( void );
+	void Animate( void );
 
 	int  m_maxFrame;
 };

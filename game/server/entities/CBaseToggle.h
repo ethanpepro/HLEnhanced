@@ -64,9 +64,9 @@ public:
 
 	// common member functions
 	void LinearMove( Vector	vecDest, float flSpeed );
-	void EXPORT LinearMoveDone( void );
+	void LinearMoveDone( void );
 	void AngularMove( Vector vecDestAngle, float flSpeed );
-	void EXPORT AngularMoveDone( void );
+	void AngularMoveDone( void );
 	bool IsLockedByMaster() const override;
 
 	static float		AxisValue( int flags, const Vector &angles );

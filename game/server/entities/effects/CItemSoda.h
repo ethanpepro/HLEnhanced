@@ -26,8 +26,8 @@ public:
 
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
-	void	EXPORT CanThink( void );
-	void	EXPORT CanTouch( CBaseEntity *pOther );
+	void	CanThink( void );
+	void	CanTouch( CBaseEntity *pOther );
 };
 
 #endif //GAME_SERVER_ENTITIES_EFFECTS_CITEMSODA_H

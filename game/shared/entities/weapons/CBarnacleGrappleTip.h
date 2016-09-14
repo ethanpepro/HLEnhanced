@@ -36,11 +36,11 @@ public:
 
 	void Spawn() override;
 
-	void EXPORT FlyThink();
+	void FlyThink();
 
-	void EXPORT OffsetThink();
+	void OffsetThink();
 
-	void EXPORT TongueTouch( CBaseEntity* pOther );
+	void TongueTouch( CBaseEntity* pOther );
 
 	TargetClass ClassifyTarget( CBaseEntity* pTarget );
 

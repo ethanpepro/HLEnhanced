@@ -42,13 +42,13 @@ public:
 
 	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
 
-	void EXPORT StartupThink( void );
-	void EXPORT HuntThink( void );
-	void EXPORT CrashTouch( CBaseEntity *pOther );
-	void EXPORT DyingThink( void );
-	void EXPORT StartupUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT NullThink( void );
-	void EXPORT CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void StartupThink( void );
+	void HuntThink( void );
+	void CrashTouch( CBaseEntity *pOther );
+	void DyingThink( void );
+	void StartupUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void NullThink( void );
+	void CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 	void FloatSequence( void );
 	void NextActivity( void );

@@ -26,13 +26,13 @@ public:
 	void	KeyValue( KeyValueData *pkvd ) override;
 	void	Activate( void ) override;
 
-	void	EXPORT StrikeThink( void );
-	void	EXPORT DamageThink( void );
+	void	StrikeThink( void );
+	void	DamageThink( void );
 	void	RandomArea( void );
 	void	RandomPoint( const Vector &vecSrc );
 	void	Zap( const Vector &vecSrc, const Vector &vecDest );
-	void	EXPORT StrikeUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void	EXPORT ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void	StrikeUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void	ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 	inline bool ServerSide() const
 	{

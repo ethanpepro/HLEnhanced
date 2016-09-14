@@ -22,7 +22,7 @@ private:
 	void SetObjectCollisionBox() override;
 
 public:
-	void EXPORT Kill();
+	void Kill();
 
 	bool HasWeapon( CBasePlayerWeapon *pCheckItem ) const;
 	bool PackWeapon( CBasePlayerWeapon *pWeapon );

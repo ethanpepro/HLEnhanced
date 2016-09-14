@@ -27,7 +27,7 @@ public:
 	int	ObjectCaps() const override { return FCAP_DONT_SAVE; }
 
 	void Suspend( float flSuspendTime );
-	void EXPORT Revive();
+	void Revive();
 
 	static CLaserSpot* CreateSpot();
 };

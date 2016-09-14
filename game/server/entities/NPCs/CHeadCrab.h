@@ -34,7 +34,7 @@ public:
 	void RunTask( const Task_t* pTask ) override;
 	void StartTask( const Task_t* pTask ) override;
 	void SetYawSpeed( void ) override;
-	void EXPORT LeapTouch( CBaseEntity *pOther );
+	void LeapTouch( CBaseEntity *pOther );
 	Vector Center() const override;
 	Vector BodyTarget( const Vector &posSrc ) const override;
 	void PainSound( void ) override;

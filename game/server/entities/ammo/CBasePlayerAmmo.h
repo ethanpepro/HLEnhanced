@@ -24,11 +24,11 @@ public:
 #endif
 
 	virtual void Spawn() override;
-	void EXPORT DefaultTouch( CBaseEntity* pOther ); // default weapon touch
+	void DefaultTouch( CBaseEntity* pOther ); // default weapon touch
 	virtual bool AddAmmo( CBaseEntity* pOther ) { return true; }
 
 	CBaseEntity* Respawn() override;
-	void EXPORT Materialize();
+	void Materialize();
 };
 
 #define DEFAULT_AMMO_PICKUP_SOUND "items/9mmclip1.wav"

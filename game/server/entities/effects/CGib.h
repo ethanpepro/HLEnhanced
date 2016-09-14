@@ -25,9 +25,9 @@ public:
 	DECLARE_DATADESC();
 
 	void Spawn( const char *szGibModel );
-	void EXPORT BounceGibTouch( CBaseEntity *pOther );
-	void EXPORT StickyGibTouch( CBaseEntity *pOther );
-	void EXPORT WaitTillLand( void );
+	void BounceGibTouch( CBaseEntity *pOther );
+	void StickyGibTouch( CBaseEntity *pOther );
+	void WaitTillLand( void );
 	void		LimitVelocity( void );
 
 	virtual int	ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | FCAP_DONT_SAVE; }

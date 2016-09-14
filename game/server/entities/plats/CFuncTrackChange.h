@@ -43,12 +43,12 @@ public:
 	void Precache( void ) override;
 
 	//	virtual void	Blocked( void ) override;
-	virtual void	EXPORT GoUp( void ) override;
-	virtual void	EXPORT GoDown( void ) override;
+	virtual void	GoUp( void ) override;
+	virtual void	GoDown( void ) override;
 
 	void			KeyValue( KeyValueData* pkvd ) override;
 	void			Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	void			EXPORT Find( void );
+	void			Find( void );
 	TRAIN_CODE		EvaluateTrain( CPathTrack *pcurrent );
 	void			UpdateTrain( Vector &dest );
 	virtual void	HitBottom( void ) override;

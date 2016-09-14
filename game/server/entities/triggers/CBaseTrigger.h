@@ -41,13 +41,13 @@ public:
 	DECLARE_CLASS( CBaseTrigger, CBaseToggle );
 	DECLARE_DATADESC();
 
-	void EXPORT TeleportTouch( CBaseEntity *pOther );
+	void TeleportTouch( CBaseEntity *pOther );
 	void KeyValue( KeyValueData *pkvd ) override;
-	void EXPORT MultiTouch( CBaseEntity *pOther );
+	void MultiTouch( CBaseEntity *pOther );
 	void ActivateMultiTrigger( CBaseEntity *pActivator );
-	void EXPORT MultiWaitOver();
-	void EXPORT CounterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void MultiWaitOver();
+	void CounterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void InitTrigger();
 
 	virtual int	ObjectCaps() const override { return CBaseToggle::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }

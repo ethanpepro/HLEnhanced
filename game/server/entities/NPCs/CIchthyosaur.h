@@ -41,8 +41,8 @@ public:
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void BecomeDead( void ) override;
 
-	void EXPORT CombatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT BiteTouch( CBaseEntity *pOther );
+	void CombatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void BiteTouch( CBaseEntity *pOther );
 
 	void  StartTask( const Task_t* pTask ) override;
 	void  RunTask( const Task_t* pTask ) override;

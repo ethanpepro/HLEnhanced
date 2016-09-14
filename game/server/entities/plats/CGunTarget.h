@@ -31,9 +31,9 @@ public:
 
 	void			Spawn() override;
 	void			Activate() override;
-	void EXPORT		Next();
-	void EXPORT		Start();
-	void EXPORT		Wait();
+	void 	Next();
+	void 	Start();
+	void 	Wait();
 	void			Stop() override;
 
 	int				BloodColor() const override { return DONT_BLEED; }

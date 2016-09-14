@@ -31,9 +31,9 @@ public:
 
 	void Spawn( void ) override;
 
-	void EXPORT HurtTouch( CBaseEntity *pOther );
+	void HurtTouch( CBaseEntity *pOther );
 
-	void EXPORT RadiationThink( void );
+	void RadiationThink( void );
 };
 
 #endif //GAME_SERVER_ENTITIES_TRIGGERS_CTRIGGERHURT_H

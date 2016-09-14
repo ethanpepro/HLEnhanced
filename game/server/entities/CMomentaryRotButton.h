@@ -37,8 +37,8 @@ public:
 		return flags | FCAP_CONTINUOUS_USE;
 	}
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	void	EXPORT Off( void );
-	void	EXPORT Return( void );
+	void	Off( void );
+	void	Return( void );
 	void	UpdateSelf( float value );
 	void	UpdateSelfReturn( float value );
 	void	UpdateAllButtons( float value, int start );

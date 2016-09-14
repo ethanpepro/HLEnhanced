@@ -24,7 +24,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 
-	void EXPORT MortarExplode( void );
+	void MortarExplode( void );
 
 	int m_spriteTexture;
 };

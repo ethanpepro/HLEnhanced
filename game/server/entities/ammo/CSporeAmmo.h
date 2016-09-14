@@ -47,9 +47,9 @@ public:
 
 	bool AddAmmo( CBaseEntity* pOther ) override;
 
-	void EXPORT Idling();
+	void Idling();
 
-	void EXPORT SporeTouch( CBaseEntity* pOther );
+	void SporeTouch( CBaseEntity* pOther );
 };
 
 #endif //GAME_SERVER_ENTITIES_AMMO_CSPOREAMMO_H

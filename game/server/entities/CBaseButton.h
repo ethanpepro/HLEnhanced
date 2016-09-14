@@ -49,12 +49,12 @@ public:
 	virtual void KeyValue( KeyValueData* pkvd ) override;
 
 	void ButtonActivate();
-	void EXPORT ButtonTouch( CBaseEntity *pOther );
-	void EXPORT ButtonSpark( void );
-	void EXPORT TriggerAndWait( void );
-	void EXPORT ButtonReturn( void );
-	void EXPORT ButtonBackHome( void );
-	void EXPORT ButtonUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void ButtonTouch( CBaseEntity *pOther );
+	void ButtonSpark( void );
+	void TriggerAndWait( void );
+	void ButtonReturn( void );
+	void ButtonBackHome( void );
+	void ButtonUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	enum BUTTON_CODE { BUTTON_NOTHING, BUTTON_ACTIVATE, BUTTON_RETURN };

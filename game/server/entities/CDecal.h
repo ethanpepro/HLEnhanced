@@ -25,8 +25,8 @@ public:
 
 	void	Spawn( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
-	void	EXPORT StaticDecal( void );
-	void	EXPORT TriggerDecal( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void	StaticDecal( void );
+	void	TriggerDecal( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 };
 
 #endif //GAME_SERVER_CDECAL_H

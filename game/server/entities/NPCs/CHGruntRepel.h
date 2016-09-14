@@ -27,7 +27,7 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void EXPORT RepelUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void RepelUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	int m_iSpriteTexture;	// Don't save, precache
 };
 

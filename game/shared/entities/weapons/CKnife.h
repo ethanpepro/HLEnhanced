@@ -53,9 +53,9 @@ public:
 
 	bool Swing( const bool bFirst );
 
-	void EXPORT SwingAgain();
+	void SwingAgain();
 
-	void EXPORT Smack();
+	void Smack();
 
 private:
 	unsigned short m_usKnife;

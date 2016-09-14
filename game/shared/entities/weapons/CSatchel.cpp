@@ -32,8 +32,8 @@ public:
 	void Precache( void ) override;
 	void BounceSound( void ) override;
 
-	void EXPORT SatchelSlide( CBaseEntity *pOther );
-	void EXPORT SatchelThink( void );
+	void SatchelSlide( CBaseEntity *pOther );
+	void SatchelThink( void );
 
 public:
 	void Deactivate( void );

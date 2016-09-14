@@ -25,11 +25,11 @@ public:
 
 	void	Spawn( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
-	void	EXPORT Swing( void );
-	void	EXPORT PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void	EXPORT Stop( void );
+	void	Swing( void );
+	void	PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void	Stop( void );
 	void	Touch( CBaseEntity *pOther ) override;
-	void	EXPORT RopeTouch( CBaseEntity *pOther );// this touch func makes the pendulum a rope
+	void	RopeTouch( CBaseEntity *pOther );// this touch func makes the pendulum a rope
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void	Blocked( CBaseEntity *pOther ) override;
 

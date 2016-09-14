@@ -31,17 +31,17 @@ public:
 
 	int Classify() override;
 
-	void EXPORT BallTouch( CBaseEntity* pOther );
+	void BallTouch( CBaseEntity* pOther );
 
-	void EXPORT FlyThink();
+	void FlyThink();
 
-	void EXPORT FlyThink2();
+	void FlyThink2();
 
-	void EXPORT FizzleThink();
+	void FizzleThink();
 
-	void EXPORT ExplodeThink();
+	void ExplodeThink();
 
-	void EXPORT KillThink();
+	void KillThink();
 
 	void InitBeams();
 

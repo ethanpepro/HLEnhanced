@@ -23,8 +23,8 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void EXPORT IgniteThink( void );
-	void EXPORT AccelerateThink( void );
+	void IgniteThink( void );
+	void AccelerateThink( void );
 
 	int m_iTrail;
 	Vector m_vecForward;

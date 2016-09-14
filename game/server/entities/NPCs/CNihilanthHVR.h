@@ -35,19 +35,19 @@ public:
 	void GreenBallInit( void );
 	void ZapInit( CBaseEntity *pEnemy );
 
-	void EXPORT HoverThink( void );
+	void HoverThink( void );
 	bool CircleTarget( Vector vecTarget );
-	void EXPORT DissipateThink( void );
+	void DissipateThink( void );
 
-	void EXPORT ZapThink( void );
-	void EXPORT TeleportThink( void );
-	void EXPORT TeleportTouch( CBaseEntity *pOther );
+	void ZapThink( void );
+	void TeleportThink( void );
+	void TeleportTouch( CBaseEntity *pOther );
 
-	void EXPORT RemoveTouch( CBaseEntity *pOther );
-	void EXPORT BounceTouch( CBaseEntity *pOther );
-	void EXPORT ZapTouch( CBaseEntity *pOther );
+	void RemoveTouch( CBaseEntity *pOther );
+	void BounceTouch( CBaseEntity *pOther );
+	void ZapTouch( CBaseEntity *pOther );
 
-	// void EXPORT SphereUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	// void SphereUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 
 	void MovetoTarget( Vector vecTarget );
 	virtual void Crawl( void );

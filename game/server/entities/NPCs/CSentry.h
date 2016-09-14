@@ -31,8 +31,8 @@ public:
 	// other functions
 	void Shoot( Vector &vecSrc, Vector &vecDirToEnemy ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	void EXPORT SentryTouch( CBaseEntity *pOther );
-	void EXPORT SentryDeath( void );
+	void SentryTouch( CBaseEntity *pOther );
+	void SentryDeath( void );
 };
 
 #endif //GAME_SERVER_ENTITIES_NPCS_CSENTRY_H

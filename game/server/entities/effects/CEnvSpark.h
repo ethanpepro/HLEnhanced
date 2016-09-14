@@ -32,9 +32,9 @@ public:
 
 	void	Spawn( void ) override;
 	void	Precache( void ) override;
-	void	EXPORT SparkThink( void );
-	void	EXPORT SparkStart( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void	EXPORT SparkStop( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void	SparkThink( void );
+	void	SparkStart( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+	void	SparkStop( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void	KeyValue( KeyValueData *pkvd ) override;
 
 	float	m_flDelay;

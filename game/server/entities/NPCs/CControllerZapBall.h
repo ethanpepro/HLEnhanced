@@ -23,8 +23,8 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void EXPORT AnimateThink( void );
-	void EXPORT ExplodeTouch( CBaseEntity *pOther );
+	void AnimateThink( void );
+	void ExplodeTouch( CBaseEntity *pOther );
 
 private:
 	EHANDLE m_hOwner;

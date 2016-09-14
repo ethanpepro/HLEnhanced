@@ -33,8 +33,8 @@ private:
 	void BuildNodeGraph();
 
 public:
-	void EXPORT ShowBadNode();
-	void EXPORT PathFind();
+	void ShowBadNode();
+	void PathFind();
 
 private:
 	Vector vecBadNodeOrigin;

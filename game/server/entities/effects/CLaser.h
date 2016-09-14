@@ -31,7 +31,7 @@ public:
 
 	void	FireAtPoint( TraceResult &point );
 
-	void	EXPORT StrikeThink( void );
+	void	StrikeThink( void );
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
 	CSprite	*m_pSprite;

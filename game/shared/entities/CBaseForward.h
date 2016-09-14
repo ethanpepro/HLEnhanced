@@ -47,9 +47,6 @@ class CSquadMonster;
 */
 #define MAX_PATH_SIZE 10
 
-//TODO: what's with all of the dllexport definitions? - Solokiller
-#define EXPORT DLLEXPORT
-
 /**
 *	These are caps bits to indicate what an object's capabilities (currently used for save/restore and level transitions).
 */

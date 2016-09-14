@@ -24,7 +24,7 @@ public:
 	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
-	void EXPORT GravityTouch( CBaseEntity *pOther );
+	void GravityTouch( CBaseEntity *pOther );
 };
 
 #endif //GAME_SERVER_ENTITIES_TRIGGERS_CTRIGGERGRAVITY_H

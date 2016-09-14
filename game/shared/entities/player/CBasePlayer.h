@@ -556,7 +556,7 @@ public:
 
 	//virtual void Think();
 
-	void EXPORT PlayerDeathThink();
+	void PlayerDeathThink();
 
 	void UpdatePlayerSound();
 

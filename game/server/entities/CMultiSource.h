@@ -32,7 +32,7 @@ public:
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	int	ObjectCaps() const override { return ( CPointEntity::ObjectCaps() | FCAP_MASTER ); }
 	bool IsTriggered( const CBaseEntity* const pActivator ) const override;
-	void EXPORT Register( void );
+	void Register( void );
 
 	EHANDLE		m_rgEntities[ MS_MAX_TARGETS ];
 	int			m_rgTriggered[ MS_MAX_TARGETS ];
