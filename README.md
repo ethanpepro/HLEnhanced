@@ -5,9 +5,9 @@ For more information, read the [wiki](https://github.com/SamVanheer/HLEnhanced/w
 
 Build status
 
-|             | Windows |
-|-------------|---------|
-| **master**  | [![AppVeyor](https://ci.appveyor.com/api/projects/status/h4cwesn12o16p07j/branch/master?svg=true)](https://ci.appveyor.com/project/SamVanheer/hlenhanced/branch/master) |
+|             | Windows | Linux/OSX |
+|-------------|---------|-----------|
+| **master**  | [![AppVeyor](https://ci.appveyor.com/api/projects/status/h4cwesn12o16p07j/branch/master?svg=true)](https://ci.appveyor.com/project/SamVanheer/hlenhanced/branch/master) | [![Build Status](https://travis-ci.org/SamVanheer/HLEnhanced.svg?branch=master)](https://travis-ci.org/SamVanheer/HLEnhanced) |
 
 Half Life 1 SDK LICENSE
 ======================
