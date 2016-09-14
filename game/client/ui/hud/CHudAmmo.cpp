@@ -157,6 +157,8 @@ bool CHudAmmo::VidInit()
 		m_iABHeight = 2;
 	}
 
+	m_pWeapon = nullptr;
+
 	return true;
 }
 
@@ -615,6 +617,7 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 	m_pActiveSel = nullptr;
 }
 
+//TODO: move to top - Solokiller
 #include "renderer/SpriteRenderUtils.h"
 
 //-------------------------------------------------------------------------
