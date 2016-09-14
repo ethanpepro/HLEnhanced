@@ -145,22 +145,22 @@ bool CSave::WriteEntVars( const char *pname, entvars_t *pev )
 
 bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount )
 {
-	int				i, j, actualCount, emptyCount;
+	int				i, j;
 	const TYPEDESCRIPTION	*pTest;
 	int				entityArray[ MAX_ENTITYARRAY ];
 
 	// Precalculate the number of empty fields
-	emptyCount = 0;
+	int actualCount = 0;
 	for( i = 0; i < fieldCount; i++ )
 	{
+		pTest = &pFields[ i ];
 		void *pOutputData;
-		pOutputData = ( ( char * ) pBaseData + pFields[ i ].fieldOffset );
-		if( DataEmpty( ( const char * ) pOutputData, pFields[ i ].fieldSize * g_SaveRestoreSizes[ pFields[ i ].fieldType ] ) )
-			emptyCount++;
+		pOutputData = ( ( char * ) pBaseData + pTest->fieldOffset );
+		if( !DataEmpty( ( const char * ) pOutputData, pTest->fieldSize * g_SaveRestoreSizes[ pTest->fieldType ] ) )
+			++actualCount;
 	}
 
 	// Empty fields will not be written, write out the actual number of fields to be written
-	actualCount = fieldCount - emptyCount;
 	WriteInt( pname, &actualCount, 1 );
 
 	for( i = 0; i < fieldCount; i++ )
@@ -251,14 +251,14 @@ bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTI
 	return true;
 }
 
-int CSave::DataEmpty( const char *pdata, int size )
+bool CSave::DataEmpty( const char *pdata, int size )
 {
 	for( int i = 0; i < size; i++ )
 	{
 		if( pdata[ i ] )
-			return 0;
+			return false;
 	}
-	return 1;
+	return true;
 }
 
 void CSave::BufferField( const char *pname, int size, const char *pdata )
