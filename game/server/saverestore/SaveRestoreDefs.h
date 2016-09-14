@@ -86,13 +86,17 @@ struct TYPEDESCRIPTION
 *	Helper function to construct flags for DEFINE_KEYFIELD. - Solokiller
 *	@param iDummy Unused. Required for preprocessor.
 *	@param bSaveRestore Whether to save and restore this field.
+*	@param bInitKeyVal Whether to automatically initialize this field when encountered during keyvalue initialization.
 */
-inline TypeDescFlags_t _DEFINE_KEYFIELD_FLAGS( const int iDummy, const bool bSaveRestore = true )
+inline TypeDescFlags_t _DEFINE_KEYFIELD_FLAGS( const int iDummy, const bool bSaveRestore = true, const bool bInitKeyVal = true )
 {
 	TypeDescFlags_t flags = 0;
 
 	if( bSaveRestore )
 		flags |= TypeDescFlag::SAVE;
+
+	if( bInitKeyVal )
+		flags |= TypeDescFlag::KEY;
 
 	return flags;
 }
@@ -105,7 +109,7 @@ inline TypeDescFlags_t _DEFINE_KEYFIELD_FLAGS( const int iDummy, const bool bSav
 *	For optional parameters, see _DEFINE_KEYFIELD_FLAGS.
 *	@see _DEFINE_KEYFIELD_FLAGS
 */
-#define DEFINE_KEYFIELD( name, fieldtype, szKVName, ... )																						\
-{ fieldtype, #name, szKVName, static_cast<int>( OFFSETOF( ThisClass, name ) ), 1, static_cast<TypeDescFlags_t>( TypeDescFlag::KEY | _DEFINE_KEYFIELD_FLAGS( 0, ##__VA_ARGS__ ) ) }
+#define DEFINE_KEYFIELD( name, fieldtype, szKVName, ... )																										\
+{ fieldtype, #name, szKVName, static_cast<int>( OFFSETOF( ThisClass, name ) ), 1, static_cast<TypeDescFlags_t>( _DEFINE_KEYFIELD_FLAGS( 0, ##__VA_ARGS__ ) ) }
 
 #endif //GAME_SERVER_SAVERESTORE_SAVERESTOREDEFS_H
