@@ -3,6 +3,7 @@ add_sources(
 	CBaseCombatCharacter.shared.cpp
 	CBaseEntity.shared.h
 	CBaseEntity.shared.cpp
+	CBaseForward.h
 	CEntityDictionary.h
 	CEntityDictionary.cpp
 	CEntityRegistry.h

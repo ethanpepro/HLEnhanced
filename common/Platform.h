@@ -53,6 +53,20 @@
 #undef VOID
 #endif
 
+/**
+*	@defgroup InheritanceDecls
+*	Declarations used to specify a class has a specific inheritance model.
+*	Used to forward declare classes and allow the correct pointer to member pointer size to be specified.
+*	If this is not done, and the default model isn't correct for a pointer, it'll cause stack corruption issues at runtime.
+*	@{
+*/
+
+#define SINGLE_INHERITANCE __single_inheritance
+#define MULTIPLE_INHERITANCE __multiple_inheritance
+#define VIRTUAL_INHERITANCE __virtual_inheritance
+
+/** @} */
+
 #else
 
 //mkdir
@@ -94,6 +108,11 @@ typedef struct tagPOINT
 #define SO_ARCH_SUFFIX ".so"
 #endif
 #endif
+
+//Not used on Linux arches.
+#define SINGLE_INHERITANCE
+#define MULTIPLE_INHERITANCE
+#define VIRTUAL_INHERITANCE
 
 #endif
 

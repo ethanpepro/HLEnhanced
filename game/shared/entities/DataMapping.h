@@ -1,6 +1,9 @@
 #ifndef GAME_SHARED_ENTITIES_DATAMAPPING_H
 #define GAME_SHARED_ENTITIES_DATAMAPPING_H
 
+#include "CBaseForward.h"
+#include "saverestore/SaveRestoreDefs.h"
+
 struct TYPEDESCRIPTION;
 
 #define DECLARE_CLASS_NOBASE( thisClass )	\
@@ -78,36 +81,38 @@ __DECLARE_DATADESC_NOBASE();					\
 #define DECLARE_DATADESC()						\
 DECLARE_DATADESC_NOBASE()
 
-#define __BEGIN_DATADESC( thisClass )				\
-													\
-DataMap_t thisClass::m_DataMap;						\
-													\
-const DataMap_t* thisClass::GetThisDataMap()		\
-{													\
-	return &m_DataMap;								\
-}													\
-													\
-const DataMap_t* thisClass::GetDataMap() const		\
-{													\
-	return &m_DataMap;								\
-}													\
-													\
-template<>											\
-bool InitDataMap<thisClass>();						\
-													\
-namespace __##thisClass##__Init						\
-{													\
-	const bool bInit = InitDataMap<thisClass>();	\
-}													\
-													\
-template<>											\
-bool InitDataMap<thisClass>()						\
-{													\
-	typedef thisClass ThisClass;					\
-													\
-	const char* const pszClassName = #thisClass;	\
-													\
-	static TYPEDESCRIPTION typeDesc[] =				\
+#define __BEGIN_DATADESC( thisClass )					\
+														\
+DataMap_t thisClass::m_DataMap;							\
+														\
+const DataMap_t* thisClass::GetThisDataMap()			\
+{														\
+	return &m_DataMap;									\
+}														\
+														\
+const DataMap_t* thisClass::GetDataMap() const			\
+{														\
+	return &m_DataMap;									\
+}														\
+														\
+template<>												\
+bool InitDataMap<thisClass>();							\
+														\
+namespace __##thisClass##__Init							\
+{														\
+	const bool bInit = InitDataMap<thisClass>();		\
+}														\
+														\
+template<>												\
+bool InitDataMap<thisClass>()							\
+{														\
+	typedef thisClass ThisClass;						\
+														\
+	const char* const pszClassName = #thisClass;		\
+														\
+	static CMethodNameList methodNames( pszClassName );	\
+														\
+	static TYPEDESCRIPTION typeDesc[] =					\
 	{
 
 /**
@@ -136,7 +141,7 @@ __BEGIN_DATADESC( thisClass )
 *	Ends the data descriptor.
 */
 #define END_DATADESC()											\
-		{ FIELD_CHARACTER, "Dummy", 0, 0, 0 }					\
+		{ FIELD_CHARACTER, "Dummy", nullptr, 0, 0, 0, nullptr }	\
 	};															\
 																\
 	DataMap_t* pDataMap = &ThisClass::m_DataMap;				\
@@ -165,5 +170,35 @@ const TYPEDESCRIPTION* UTIL_FindTypeDescInSingleDataMap( const DataMap_t& dataMa
 *	@return If found, returns the type description. Otherwise, returns nullptr.
 */
 const TYPEDESCRIPTION* UTIL_FindTypeDescInDataMap( const DataMap_t& dataMap, const char* const pszFieldName, const bool bComparePublicName = false );
+
+/**
+*	Gets the name of a function out of a single data map from an address.
+*	@param dataMapData map to search in.
+*	@param pFunction Function to search for.
+*	@return If found, the name of the function. Otherwise, nullptr.
+*/
+const char* UTIL_NameFromFunctionSingle( const DataMap_t& dataMap, BASEPTR pFunction );
+
+/**
+*	Gets the name of a function out of a data map from an address. Searches in all parent data maps.
+*	@param dataMapData map to search in.
+*	@param pFunction Function to search for.
+*	@return If found, the name of the function. Otherwise, nullptr.
+*/
+const char* UTIL_NameFromFunction( const DataMap_t& dataMap, BASEPTR pFunction );
+
+template<typename FUNCPTR>
+const char* UTIL_NameFromFunction( const DataMap_t& dataMap, FUNCPTR pFunction )
+{
+	return UTIL_NameFromFunction( dataMap, reinterpret_cast<BASEPTR>( pFunction ) );
+}
+
+/**
+*	Gets a function address out of a data map from a name. Searches in all parent data maps.
+*	@param dataMap Data map to search in.
+*	@param pszName Name of the function. Format: ClassNameFunctionName.
+*	@return If found, the address of the function. Otherwise, nullptr.
+*/
+BASEPTR UTIL_FunctionFromName( const DataMap_t& dataMap, const char* const pszName );
 
 #endif //GAME_SHARED_ENTITIES_DATAMAPPING_H

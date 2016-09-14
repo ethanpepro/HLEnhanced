@@ -39,3 +39,45 @@ const TYPEDESCRIPTION* UTIL_FindTypeDescInDataMap( const DataMap_t& dataMap, con
 
 	return nullptr;
 }
+
+const char* UTIL_NameFromFunctionSingle( const DataMap_t& dataMap, BASEPTR pFunction )
+{
+	ASSERT( pFunction );
+
+	const TYPEDESCRIPTION* pDesc;
+
+	for( size_t uiIndex = 0; uiIndex < dataMap.uiNumDescriptors; ++uiIndex )
+	{
+		pDesc = &dataMap.pTypeDesc[ uiIndex ];
+
+		if( pDesc->pFunction == pFunction )
+			return pDesc->pszPublicName;
+	}
+
+	return nullptr;
+}
+
+const char* UTIL_NameFromFunction( const DataMap_t& dataMap, BASEPTR pFunction )
+{
+	ASSERT( pFunction );
+
+	const DataMap_t* pMap = &dataMap;
+
+	while( pMap )
+	{
+		if( auto pszName = UTIL_NameFromFunctionSingle( *pMap, pFunction ) )
+			return pszName;
+
+		pMap = pMap->pParent;
+	}
+
+	return nullptr;
+}
+
+BASEPTR UTIL_FunctionFromName( const DataMap_t& dataMap, const char* const pszName )
+{
+	if( auto pDesc = UTIL_FindTypeDescInDataMap( dataMap, pszName, true ) )
+		return pDesc->pFunction;
+
+	return nullptr;
+}

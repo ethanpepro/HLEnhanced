@@ -21,6 +21,7 @@ const int g_SaveRestoreSizes[ FIELD_TYPECOUNT ] =
 #else
 	sizeof( int * ),		// FIELD_FUNCPTR	
 #endif
+	0,						// FIELD_FUNCTION (never save/restored, doesn't need a size) - Solokiller
 	sizeof( bool ),			// FIELD_BOOLEAN
 	sizeof( short ),		// FIELD_SHORT
 	sizeof( char ),			// FIELD_CHARACTER
