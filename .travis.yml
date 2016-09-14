@@ -77,7 +77,7 @@ script:
       make
       cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 ..
       make
-      cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=1 ..
+      cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=1 -DMARIADB=${TRAVIS_BUILD_DIR}/external/MariaDB/libmariadb.so.2 ..
       make
     elif [[ "${COMPILER}" == "gcc-6" ]]; then
       cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so ..
@@ -86,7 +86,7 @@ script:
       make
       cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 ..
       make
-      cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=1 ..
+      cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=1 -DMARIADB=${TRAVIS_BUILD_DIR}/external/MariaDB/libmariadb.so.2 ..
       make
     else
       cmake -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.0.dylib -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.dylib ..
