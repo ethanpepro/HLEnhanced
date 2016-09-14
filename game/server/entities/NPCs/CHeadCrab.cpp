@@ -67,6 +67,10 @@ Schedule_t	slHCRangeAttack1Fast[] =
 	},
 };
 
+BEGIN_DATADESC( CHeadCrab )
+	DEFINE_TOUCHFUNC( LeapTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( monster_headcrab, CHeadCrab );
 
 BEGIN_SCHEDULES( CHeadCrab )

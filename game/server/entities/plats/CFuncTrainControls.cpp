@@ -6,6 +6,10 @@
 
 #include "CFuncTrainControls.h"
 
+BEGIN_DATADESC( CFuncTrainControls )
+	DEFINE_THINKFUNC( Find ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( func_traincontrols, CFuncTrainControls );
 
 void CFuncTrainControls::Spawn( void )

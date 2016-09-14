@@ -10,3 +10,11 @@ bool CBaseToggle::IsLockedByMaster() const
 {
 	return false;
 }
+
+void CBaseToggle::LinearMoveDone()
+{
+}
+
+void CBaseToggle::AngularMoveDone()
+{
+}

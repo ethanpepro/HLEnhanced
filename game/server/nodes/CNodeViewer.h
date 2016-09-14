@@ -23,7 +23,10 @@
 class CNodeViewer : public CBaseEntity
 {
 public:
-	void Spawn( void );
+	DECLARE_CLASS( CNodeViewer, CBaseEntity );
+	DECLARE_DATADESC();
+
+	void Spawn( void ) override;
 
 	int m_iBaseNode;
 	int m_iDraw;

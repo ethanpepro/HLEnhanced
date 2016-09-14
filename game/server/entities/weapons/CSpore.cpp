@@ -25,6 +25,11 @@
 
 BEGIN_DATADESC( CSpore )
 	DEFINE_FIELD( m_flIgniteTime, FIELD_TIME ),
+	DEFINE_THINKFUNC( IgniteThink ),
+	DEFINE_THINKFUNC( FlyThink ),
+	DEFINE_THINKFUNC( GibThink ),
+	DEFINE_TOUCHFUNC( RocketTouch ),
+	DEFINE_TOUCHFUNC( MyBounceTouch ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( spore, CSpore );

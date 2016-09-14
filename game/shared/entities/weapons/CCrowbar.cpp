@@ -23,6 +23,11 @@
 #include "CBasePlayer.h"
 #include "gamerules/GameRules.h"
 
+BEGIN_DATADESC( CCrowbar )
+	DEFINE_THINKFUNC( SwingAgain ),
+	DEFINE_THINKFUNC( Smack ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( weapon_crowbar, CCrowbar );
 
 CCrowbar::CCrowbar()

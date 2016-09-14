@@ -27,6 +27,7 @@ class CHeadCrab : public CBaseMonster
 {
 public:
 	DECLARE_CLASS( CHeadCrab, CBaseMonster );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;

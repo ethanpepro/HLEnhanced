@@ -20,6 +20,11 @@ BEGIN_DATADESC( CFuncTrackTrain )
 	DEFINE_FIELD( m_flVolume, FIELD_FLOAT ),
 	DEFINE_FIELD( m_flBank, FIELD_FLOAT ),
 	DEFINE_FIELD( m_oldSpeed, FIELD_FLOAT ),
+
+	DEFINE_THINKFUNC( Next ),
+	DEFINE_THINKFUNC( Find ),
+	DEFINE_THINKFUNC( NearestPath ),
+	DEFINE_THINKFUNC( DeadEnd ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_tracktrain, CFuncTrackTrain );

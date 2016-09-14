@@ -27,6 +27,7 @@ class CTriggerHurt : public CBaseTrigger
 {
 public:
 	DECLARE_CLASS( CTriggerHurt, CBaseTrigger );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 

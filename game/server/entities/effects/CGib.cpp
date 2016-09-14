@@ -12,6 +12,12 @@
 
 extern DLL_GLOBAL Vector		g_vecAttackDir;
 
+BEGIN_DATADESC( CGib )
+	DEFINE_TOUCHFUNC( BounceGibTouch ),
+	DEFINE_TOUCHFUNC( StickyGibTouch ),
+	DEFINE_THINKFUNC( WaitTillLand ),
+END_DATADESC()
+
 //
 // Throw a chunk
 //

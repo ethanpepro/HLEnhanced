@@ -44,6 +44,8 @@ BEGIN_DATADESC(	CTalkMonster )
 	DEFINE_FIELD( m_flLastSaidSmelled, FIELD_TIME ),
 	DEFINE_FIELD( m_flStopTalkTime, FIELD_TIME ),
 	DEFINE_FIELD( m_hTalkTarget, FIELD_EHANDLE ),
+
+	DEFINE_USEFUNC( FollowerUse ),
 END_DATADESC()
 
 // array of friend names

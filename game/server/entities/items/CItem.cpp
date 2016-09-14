@@ -7,6 +7,11 @@
 
 extern bool gEvilImpulse101;
 
+BEGIN_DATADESC( CItem )
+	DEFINE_TOUCHFUNC( ItemTouch ),
+	DEFINE_THINKFUNC( Materialize ),
+END_DATADESC()
+
 void CItem::Spawn( void )
 {
 	pev->movetype = MOVETYPE_TOSS;

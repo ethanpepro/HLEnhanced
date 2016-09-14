@@ -9,6 +9,9 @@ BEGIN_DATADESC( CFuncTrain )
 	DEFINE_FIELD( m_sounds, FIELD_INTEGER ),
 	DEFINE_FIELD( m_pevCurrentTarget, FIELD_EVARS ),
 	DEFINE_FIELD( m_activated, FIELD_BOOLEAN ),
+
+	DEFINE_THINKFUNC( Wait ),
+	DEFINE_THINKFUNC( Next ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_train, CFuncTrain );

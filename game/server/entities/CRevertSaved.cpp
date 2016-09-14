@@ -8,6 +8,8 @@
 BEGIN_DATADESC( CRevertSaved )
 	DEFINE_FIELD( m_messageTime, FIELD_FLOAT ),	// These are not actual times, but durations, so save as floats
 	DEFINE_FIELD( m_loadTime, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( MessageThink ),
+	DEFINE_THINKFUNC( LoadThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( player_loadsaved, CRevertSaved );

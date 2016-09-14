@@ -28,6 +28,8 @@
 BEGIN_DATADESC( CPipewrench )
 	DEFINE_FIELD( m_flBigSwingStart, FIELD_TIME ),
 	DEFINE_FIELD( m_iSwingMode, FIELD_INTEGER),
+	DEFINE_THINKFUNC( SwingAgain ),
+	DEFINE_THINKFUNC( Smack ),
 END_DATADESC()
 #endif
 

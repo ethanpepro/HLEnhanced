@@ -9,6 +9,11 @@
 
 extern bool gEvilImpulse101;
 
+BEGIN_DATADESC( CBasePlayerAmmo )
+	DEFINE_TOUCHFUNC( DefaultTouch ),
+	DEFINE_THINKFUNC( Materialize ),
+END_DATADESC()
+
 void CBasePlayerAmmo::Spawn()
 {
 	pev->movetype = MOVETYPE_TOSS;

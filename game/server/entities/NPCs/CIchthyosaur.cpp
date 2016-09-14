@@ -89,6 +89,8 @@ BEGIN_DATADESC(	CIchthyosaur )
 	DEFINE_FIELD( m_flMinSpeed, FIELD_FLOAT ),
 	DEFINE_FIELD( m_flMaxDist, FIELD_FLOAT ),
 	DEFINE_FIELD( m_flNextAlert, FIELD_TIME ),
+	DEFINE_USEFUNC( CombatUse ),
+	DEFINE_TOUCHFUNC( BiteTouch ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_ichthyosaur, CIchthyosaur );

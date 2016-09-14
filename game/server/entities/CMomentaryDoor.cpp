@@ -22,6 +22,7 @@
 
 BEGIN_DATADESC( CMomentaryDoor )
 	DEFINE_FIELD( m_bMoveSnd, FIELD_CHARACTER ),
+	DEFINE_THINKFUNC( DoorMoveDone ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( momentary_door, CMomentaryDoor );

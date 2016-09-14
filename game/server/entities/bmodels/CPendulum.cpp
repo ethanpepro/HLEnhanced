@@ -28,6 +28,10 @@ BEGIN_DATADESC( CPendulum )
 	DEFINE_FIELD( m_dampSpeed, FIELD_FLOAT ),
 	DEFINE_FIELD( m_center, FIELD_VECTOR ),
 	DEFINE_FIELD( m_start, FIELD_VECTOR ),
+	DEFINE_THINKFUNC( Swing ),
+	DEFINE_USEFUNC( PendulumUse ),
+	DEFINE_THINKFUNC( Stop ),
+	DEFINE_TOUCHFUNC( RopeTouch ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_pendulum, CPendulum );

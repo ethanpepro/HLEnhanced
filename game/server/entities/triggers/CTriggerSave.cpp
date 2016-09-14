@@ -5,6 +5,10 @@
 
 #include "CTriggerSave.h"
 
+BEGIN_DATADESC( CTriggerSave )
+	DEFINE_TOUCHFUNC( SaveTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( trigger_autosave, CTriggerSave );
 
 void CTriggerSave::Spawn( void )

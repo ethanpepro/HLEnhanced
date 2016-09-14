@@ -50,6 +50,7 @@ BEGIN_DATADESC( CCineMonster )
 	DEFINE_FIELD( m_saved_effects, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iFinishSchedule, FIELD_INTEGER ),
 	DEFINE_FIELD( m_interruptable, FIELD_BOOLEAN ),
+	DEFINE_THINKFUNC( CineThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( scripted_sequence, CCineMonster );

@@ -37,6 +37,7 @@ class CSporeAmmo : public CBasePlayerAmmo
 {
 public:
 	DECLARE_CLASS( CSporeAmmo, CBasePlayerAmmo );
+	DECLARE_DATADESC();
 
 	void Precache() override;
 

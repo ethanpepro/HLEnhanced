@@ -25,6 +25,13 @@ BEGIN_DATADESC( CMultiManager )
 	DEFINE_FIELD( m_startTime, FIELD_TIME ),
 	DEFINE_ARRAY( m_iTargetName, FIELD_STRING, MAX_MULTI_TARGETS ),
 	DEFINE_ARRAY( m_flTargetDelay, FIELD_FLOAT, MAX_MULTI_TARGETS ),
+
+	DEFINE_THINKFUNC( ManagerThink ),
+	DEFINE_USEFUNC( ManagerUse ),
+
+#if _DEBUG
+	DEFINE_THINKFUNC( ManagerReport ),
+#endif
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( multi_manager, CMultiManager );

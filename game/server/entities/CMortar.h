@@ -19,6 +19,7 @@ class CMortar : public CGrenade
 {
 public:
 	DECLARE_CLASS( CMortar, CGrenade );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;

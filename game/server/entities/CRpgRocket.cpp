@@ -10,6 +10,9 @@
 BEGIN_DATADESC( CRpgRocket )
 	DEFINE_FIELD( m_flIgniteTime, FIELD_TIME ),
 	DEFINE_FIELD( m_hLauncher, FIELD_EHANDLE ),
+	DEFINE_THINKFUNC( FollowThink ),
+	DEFINE_THINKFUNC( IgniteThink ),
+	DEFINE_TOUCHFUNC( RocketTouch ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( rpg_rocket, CRpgRocket );

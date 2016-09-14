@@ -36,6 +36,7 @@ class CCrossbowBolt : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CCrossbowBolt, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -49,6 +50,13 @@ public:
 public:
 	static CCrossbowBolt *BoltCreate( void );
 };
+
+BEGIN_DATADESC( CCrossbowBolt )
+	DEFINE_THINKFUNC( BubbleThink ),
+	DEFINE_TOUCHFUNC( BoltTouch ),
+	DEFINE_THINKFUNC( ExplodeThink ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( crossbow_bolt, CCrossbowBolt );
 
 CCrossbowBolt *CCrossbowBolt::BoltCreate( void )

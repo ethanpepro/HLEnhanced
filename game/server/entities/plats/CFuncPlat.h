@@ -36,6 +36,7 @@ class CFuncPlat : public CBasePlatTrain
 {
 public:
 	DECLARE_CLASS( CFuncPlat, CBasePlatTrain );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;

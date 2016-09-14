@@ -26,12 +26,18 @@ BEGIN_DATADESC_NOBASE( CBaseEntity )
 	DEFINE_FIELD( m_pfnTouch, FIELD_FUNCPTR ),
 	DEFINE_FIELD( m_pfnUse, FIELD_FUNCPTR ),
 	DEFINE_FIELD( m_pfnBlocked, FIELD_FUNCPTR ),
+	DEFINE_THINKFUNC( SUB_Remove ),
+	DEFINE_THINKFUNC( SUB_DoNothing ),
+	DEFINE_THINKFUNC( SUB_StartFadeOut ),
+	DEFINE_THINKFUNC( SUB_FadeOut ),
+	DEFINE_THINKFUNC( SUB_CallUseToggle ),
 END_DATADESC()
 
 // Global Savedata for Delay
 BEGIN_DATADESC( CBaseDelay )
 	DEFINE_FIELD( m_flDelay, FIELD_FLOAT ),
 	DEFINE_FIELD( m_iszKillTarget, FIELD_STRING ),
+	DEFINE_THINKFUNC( DelayThink ),
 END_DATADESC()
 
 BEGIN_DATADESC( CBaseAnimating )
@@ -63,6 +69,8 @@ BEGIN_DATADESC( CBaseToggle )
 	DEFINE_FIELD( m_vecFinalAngle, FIELD_VECTOR ),
 	DEFINE_FIELD( m_sMaster, FIELD_STRING ),
 	DEFINE_FIELD( m_bitsDamageInflict, FIELD_INTEGER ),	// damage type inflicted
+	DEFINE_THINKFUNC( LinearMoveDone ),
+	DEFINE_THINKFUNC( AngularMoveDone ),
 END_DATADESC()
 
 // Global Savedata for monster
@@ -123,6 +131,10 @@ BEGIN_DATADESC( CBaseMonster )
 	
 	DEFINE_FIELD( m_scriptState, FIELD_INTEGER ),
 	DEFINE_FIELD( m_pCine, FIELD_CLASSPTR ),
+	DEFINE_USEFUNC( MonsterUse ),
+	DEFINE_THINKFUNC( CallMonsterThink ),
+	DEFINE_THINKFUNC( CorpseFallThink ),
+	DEFINE_THINKFUNC( MonsterInitThink ),
 END_DATADESC()
 
 BEGIN_DATADESC( CBasePlayerWeapon )
@@ -142,6 +154,11 @@ BEGIN_DATADESC( CBasePlayerWeapon )
 	DEFINE_FIELD( m_iDefaultAmmo, FIELD_INTEGER ),
 	//	DEFINE_FIELD( m_iClientClip, FIELD_INTEGER )	 , reset to zero on load so hud gets updated correctly
 	//  DEFINE_FIELD( m_iClientWeaponState, FIELD_INTEGER ), reset to zero on load so hud gets updated correctly
+	DEFINE_THINKFUNC( DestroyItem ),
+	DEFINE_TOUCHFUNC( DefaultTouch ),
+	DEFINE_THINKFUNC( FallThink ),
+	DEFINE_THINKFUNC( Materialize ),
+	DEFINE_THINKFUNC( AttemptToMaterialize ),
 END_DATADESC()
 
 // Global Savedata for player
@@ -204,6 +221,8 @@ BEGIN_DATADESC( CBasePlayer )
 	DEFINE_FIELD( m_HudColors.m_PrimaryColor, FIELD_INTEGER ),
 	DEFINE_FIELD( m_HudColors.m_EmptyItemColor, FIELD_INTEGER ),
 	DEFINE_FIELD( m_HudColors.m_AmmoBarColor, FIELD_INTEGER ),
+
+	DEFINE_THINKFUNC( PlayerDeathThink ),
 	
 	//DEFINE_FIELD( m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 	//DEFINE_FIELD( m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
@@ -240,4 +259,9 @@ void CBaseEntity::TakeDamage( const CTakeDamageInfo& info )
 void CBaseEntity::TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType )
 {
 	TakeDamage( CTakeDamageInfo( pInflictor, pAttacker, flDamage, bitsDamageType ) );
+}
+
+// Convenient way to explicitly do nothing (passed to functions that require a method)
+void CBaseEntity::SUB_DoNothing( void )
+{
 }

@@ -5,6 +5,13 @@
 
 #include "CFuncPlat.h"
 
+BEGIN_DATADESC( CFuncPlat )
+	DEFINE_USEFUNC( PlatUse ),
+	DEFINE_THINKFUNC( CallGoDown ),
+	DEFINE_THINKFUNC( CallHitTop ),
+	DEFINE_THINKFUNC( CallHitBottom ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( func_plat, CFuncPlat );
 
 void CFuncPlat::Spawn()

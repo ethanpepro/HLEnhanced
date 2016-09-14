@@ -53,6 +53,15 @@ BEGIN_DATADESC(	COsprey )
 
 	DEFINE_FIELD( m_iDoLeftSmokePuff, FIELD_INTEGER ),
 	DEFINE_FIELD( m_iDoRightSmokePuff, FIELD_INTEGER ),
+
+	DEFINE_THINKFUNC( FlyThink ),
+	DEFINE_THINKFUNC( DeployThink ),
+	DEFINE_TOUCHFUNC( HitTouch ),
+	DEFINE_THINKFUNC( FindAllThink ),
+	DEFINE_THINKFUNC( HoverThink ),
+	DEFINE_TOUCHFUNC( CrashTouch ),
+	DEFINE_THINKFUNC( DyingThink ),
+	DEFINE_USEFUNC( CommandUse ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_osprey, COsprey );

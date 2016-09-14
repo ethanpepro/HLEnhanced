@@ -19,6 +19,7 @@ class CItem : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CItem, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void	Spawn( void ) override;
 	CBaseEntity*	Respawn( void ) override;

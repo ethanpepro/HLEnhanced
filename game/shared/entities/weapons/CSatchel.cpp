@@ -26,6 +26,7 @@ class CSatchelCharge : public CGrenade
 {
 public:
 	DECLARE_CLASS( CSatchelCharge, CGrenade );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -37,6 +38,12 @@ public:
 public:
 	void Deactivate( void );
 };
+
+BEGIN_DATADESC( CSatchelCharge )
+	DEFINE_TOUCHFUNC( SatchelSlide ),
+	DEFINE_THINKFUNC( SatchelThink ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( monster_satchel, CSatchelCharge );
 
 //=========================================================

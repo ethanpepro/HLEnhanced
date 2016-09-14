@@ -13,6 +13,7 @@ BEGIN_DATADESC( CGibShooter )
 	DEFINE_FIELD( m_flGibVelocity, FIELD_FLOAT ),
 	DEFINE_FIELD( m_flVariance, FIELD_FLOAT ),
 	DEFINE_FIELD( m_flGibLife, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( ShootThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( gibshooter, CGibShooter );

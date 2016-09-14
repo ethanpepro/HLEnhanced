@@ -4,6 +4,11 @@
 
 #include "CItemSoda.h"
 
+BEGIN_DATADESC( CItemSoda )
+	DEFINE_THINKFUNC( CanThink ),
+	DEFINE_TOUCHFUNC( CanTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( item_sodacan, CItemSoda );
 
 void CItemSoda::Spawn( void )

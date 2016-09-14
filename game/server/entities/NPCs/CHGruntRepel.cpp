@@ -20,6 +20,10 @@
 
 #include "CHGruntRepel.h"
 
+BEGIN_DATADESC( CHGruntRepel )
+	DEFINE_USEFUNC( RepelUse ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( monster_grunt_repel, CHGruntRepel );
 
 void CHGruntRepel::Spawn( void )

@@ -21,8 +21,9 @@ A simple entity that looks solid but lets you walk through it.
 class CFuncIllusionary : public CBaseToggle
 {
 public:
+	DECLARE_CLASS( CFuncIllusionary, CBaseToggle );
+
 	void Spawn( void ) override;
-	void EXPORT SloshTouch( CBaseEntity *pOther );
 	void KeyValue( KeyValueData *pkvd ) override;
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 };

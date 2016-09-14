@@ -35,6 +35,13 @@ extern CBaseEntity* g_pLastSpawn;
 LINK_ENTITY_TO_CLASS( info_displacer_xen_target, CPointEntity );
 #endif
 
+BEGIN_DATADESC( CDisplacer )
+	DEFINE_THINKFUNC( SpinupThink ),
+	DEFINE_THINKFUNC( AltSpinupThink ),
+	DEFINE_THINKFUNC( FireThink ),
+	DEFINE_THINKFUNC( AltFireThink ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( weapon_displacer, CDisplacer );
 
 CDisplacer::CDisplacer()

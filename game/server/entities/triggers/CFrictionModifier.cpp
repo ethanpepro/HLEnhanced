@@ -7,6 +7,7 @@
 // Global Savedata for changelevel friction modifier
 BEGIN_DATADESC( CFrictionModifier )
 	DEFINE_FIELD( m_frictionFraction, FIELD_FLOAT ),
+	DEFINE_TOUCHFUNC( ChangeFriction ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_friction, CFrictionModifier );

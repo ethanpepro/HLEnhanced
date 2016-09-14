@@ -29,6 +29,7 @@ class CRoach : public CBaseMonster
 {
 public:
 	DECLARE_CLASS( CRoach, CBaseMonster );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
@@ -36,7 +37,7 @@ public:
 	void EXPORT MonsterThink( void );
 	void Move( float flInterval ) override;
 	void PickNewDest( int iCondition );
-	void EXPORT Touch( CBaseEntity *pOther ) override;
+	void Touch( CBaseEntity *pOther ) override;
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	float	m_flLastLightLevel;

@@ -19,6 +19,12 @@ BEGIN_DATADESC( CFlockingFlyer )
 	DEFINE_FIELD( m_flFakeBlockedTime, FIELD_TIME ),
 	DEFINE_FIELD( m_flAlertTime, FIELD_TIME ),
 	//DEFINE_FIELD( m_flFlockNextSoundTime, FIELD_TIME ),	// don't need to save
+	DEFINE_THINKFUNC( IdleThink ),
+	DEFINE_THINKFUNC( FormFlock ),
+	DEFINE_THINKFUNC( Start ),
+	DEFINE_THINKFUNC( FlockLeaderThink ),
+	DEFINE_THINKFUNC( FlockFollowerThink ),
+	DEFINE_THINKFUNC( FallHack ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_flyer, CFlockingFlyer );

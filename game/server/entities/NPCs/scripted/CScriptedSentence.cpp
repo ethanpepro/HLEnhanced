@@ -14,6 +14,8 @@ BEGIN_DATADESC( CScriptedSentence )
 	DEFINE_FIELD( m_flVolume, FIELD_FLOAT ),
 	DEFINE_FIELD( m_active, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_iszListener, FIELD_STRING ),
+	DEFINE_THINKFUNC( FindThink ),
+	DEFINE_THINKFUNC( DelayThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( scripted_sentence, CScriptedSentence );

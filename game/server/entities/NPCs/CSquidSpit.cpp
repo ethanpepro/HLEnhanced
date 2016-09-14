@@ -24,6 +24,7 @@ int iSquidSpitSprite;
 
 BEGIN_DATADESC( CSquidSpit )
 	DEFINE_FIELD( m_maxFrame, FIELD_INTEGER ),
+	DEFINE_THINKFUNC( Animate ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( squidspit, CSquidSpit );

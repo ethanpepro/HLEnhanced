@@ -20,6 +20,11 @@
 
 #include "CSentry.h"
 
+BEGIN_DATADESC( CSentry )
+	DEFINE_TOUCHFUNC( SentryTouch ),
+	DEFINE_THINKFUNC( SentryDeath ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( monster_sentry, CSentry );
 
 void CSentry::Spawn()

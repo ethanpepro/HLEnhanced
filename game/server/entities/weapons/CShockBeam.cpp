@@ -23,6 +23,13 @@
 
 #include "CShockBeam.h"
 
+BEGIN_DATADESC( CShockBeam )
+	DEFINE_THINKFUNC( FlyThink ),
+	DEFINE_THINKFUNC( ExplodeThink ),
+	DEFINE_THINKFUNC( WaterExplodeThink ),
+	DEFINE_TOUCHFUNC( BallTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( shock_beam, CShockBeam );
 
 void CShockBeam::Precache()

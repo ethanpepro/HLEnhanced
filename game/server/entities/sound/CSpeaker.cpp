@@ -21,6 +21,9 @@
 
 BEGIN_DATADESC( CSpeaker )
 	DEFINE_FIELD( m_preset, FIELD_INTEGER ),
+
+	DEFINE_USEFUNC( ToggleUse ),
+	DEFINE_THINKFUNC( SpeakerThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( speaker, CSpeaker );

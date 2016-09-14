@@ -61,6 +61,19 @@ BEGIN_DATADESC(	CBaseTurret )
 
 	DEFINE_FIELD( m_flPingTime, FIELD_TIME ),
 	DEFINE_FIELD( m_flSpinUpTime, FIELD_TIME ),
+
+	DEFINE_USEFUNC( TurretUse ),
+	DEFINE_THINKFUNC( ActiveThink ),
+	DEFINE_THINKFUNC( SearchThink ),
+	DEFINE_THINKFUNC( AutoSearchThink ),
+	DEFINE_THINKFUNC( TurretDeath ),
+
+	DEFINE_THINKFUNC( SpinDownCall ),
+	DEFINE_THINKFUNC( SpinUpCall ),
+
+	DEFINE_THINKFUNC( Deploy ),
+	DEFINE_THINKFUNC( Retire ),
+	DEFINE_THINKFUNC( Initialize ),
 END_DATADESC()
 
 void CBaseTurret::KeyValue( KeyValueData *pkvd )

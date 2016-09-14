@@ -27,6 +27,7 @@ extern int gSpitSprite;
 
 BEGIN_DATADESC( CBMortar )
 	DEFINE_FIELD( m_maxFrame, FIELD_INTEGER ),
+	DEFINE_THINKFUNC( Animate ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( bmortar, CBMortar );

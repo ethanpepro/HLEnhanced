@@ -19,6 +19,7 @@ class CLaserSpot : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CLaserSpot, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void Spawn() override;
 	void Precache() override;

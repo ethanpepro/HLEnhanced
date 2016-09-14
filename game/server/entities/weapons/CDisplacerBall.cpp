@@ -71,6 +71,15 @@ const char* const displace[] =
 };
 }
 
+BEGIN_DATADESC( CDisplacerBall )
+	DEFINE_TOUCHFUNC( BallTouch ),
+	DEFINE_THINKFUNC( FlyThink ),
+	DEFINE_THINKFUNC( FlyThink2 ),
+	DEFINE_THINKFUNC( FizzleThink ),
+	DEFINE_THINKFUNC( ExplodeThink ),
+	DEFINE_THINKFUNC( KillThink ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( displacer_ball, CDisplacerBall );
 
 void CDisplacerBall::Precache()

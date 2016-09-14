@@ -22,6 +22,7 @@ class CItemSoda : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CItemSoda, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void	Spawn( void ) override;
 	void	Precache( void ) override;

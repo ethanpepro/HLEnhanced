@@ -23,6 +23,7 @@ class CTriggerEndSection : public CBaseTrigger
 {
 public:
 	DECLARE_CLASS( CTriggerEndSection, CBaseTrigger );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void EXPORT EndSectionTouch( CBaseEntity *pOther );

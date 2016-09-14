@@ -28,6 +28,12 @@ BEGIN_DATADESC( CBaseButton )
 	DEFINE_FIELD( m_bUnlockedSentence, FIELD_CHARACTER ),
 	DEFINE_FIELD( m_strChangeTarget, FIELD_STRING ),
 	//DEFINE_FIELD( m_ls, FIELD_??? ),   // This is restored in Precache()
+	DEFINE_TOUCHFUNC( ButtonTouch ),
+	DEFINE_THINKFUNC( ButtonSpark ),
+	DEFINE_THINKFUNC( TriggerAndWait ),
+	DEFINE_THINKFUNC( ButtonReturn ),
+	DEFINE_THINKFUNC( ButtonBackHome ),
+	DEFINE_USEFUNC( ButtonUse ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_button, CBaseButton );

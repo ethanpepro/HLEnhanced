@@ -5,6 +5,11 @@
 
 #include "CTriggerEndSection.h"
 
+BEGIN_DATADESC( CTriggerEndSection )
+	DEFINE_TOUCHFUNC( EndSectionTouch ),
+	DEFINE_USEFUNC( EndSectionUse ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( trigger_endsection, CTriggerEndSection );
 
 void CTriggerEndSection::Spawn( void )

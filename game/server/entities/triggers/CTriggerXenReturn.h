@@ -20,6 +20,7 @@ class CTriggerXenReturn : public CBaseTrigger
 {
 public:
 	DECLARE_CLASS( CTriggerXenReturn, CBaseTrigger );
+	DECLARE_DATADESC();
 
 	void Spawn() override;
 

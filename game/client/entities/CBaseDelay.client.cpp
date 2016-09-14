@@ -5,3 +5,7 @@
 void CBaseDelay::KeyValue( KeyValueData* )
 {
 }
+
+void CBaseDelay::DelayThink()
+{
+}

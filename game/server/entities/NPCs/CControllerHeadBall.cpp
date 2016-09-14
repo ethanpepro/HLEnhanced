@@ -20,6 +20,12 @@
 
 #include "CControllerHeadBall.h"
 
+BEGIN_DATADESC( CControllerHeadBall )
+	DEFINE_THINKFUNC( HuntThink ),
+	DEFINE_THINKFUNC( DieThink ),
+	DEFINE_TOUCHFUNC( BounceTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( controller_head_ball, CControllerHeadBall );
 
 void CControllerHeadBall::Spawn( void )

@@ -28,6 +28,14 @@ BEGIN_DATADESC( CNihilanthHVR )
 	DEFINE_FIELD( m_pNihilanth, FIELD_CLASSPTR ),
 	DEFINE_FIELD( m_hTouch, FIELD_EHANDLE ),
 	DEFINE_FIELD( m_nFrames, FIELD_INTEGER ),
+	DEFINE_THINKFUNC( HoverThink ),
+	DEFINE_THINKFUNC( DissipateThink ),
+	DEFINE_THINKFUNC( ZapThink ),
+	DEFINE_THINKFUNC( TeleportThink ),
+	DEFINE_TOUCHFUNC( TeleportTouch ),
+	DEFINE_TOUCHFUNC( RemoveTouch ),
+	DEFINE_TOUCHFUNC( BounceTouch ),
+	DEFINE_TOUCHFUNC( ZapTouch ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( nihilanth_energy_ball, CNihilanthHVR );

@@ -6,6 +6,11 @@
 
 #include "CTriggerHurt.h"
 
+BEGIN_DATADESC( CTriggerHurt )
+	DEFINE_TOUCHFUNC( HurtTouch ),
+	DEFINE_THINKFUNC( RadiationThink ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( trigger_hurt, CTriggerHurt );
 
 //

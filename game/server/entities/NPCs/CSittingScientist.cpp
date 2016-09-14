@@ -23,6 +23,7 @@ BEGIN_DATADESC( CSittingScientist )
 	// Don't need to save/restore m_baseSequence (recalced)
 	DEFINE_FIELD( m_headTurn, FIELD_INTEGER ),
 	DEFINE_FIELD( m_flResponseDelay, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( SittingThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_sitting_scientist, CSittingScientist );

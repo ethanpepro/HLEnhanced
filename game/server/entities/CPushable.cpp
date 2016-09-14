@@ -23,6 +23,9 @@ const char* const CPushable::m_soundNames[ 3 ] = { "debris/pushbox1.wav", "debri
 BEGIN_DATADESC( CPushable )
 	DEFINE_FIELD( m_maxSpeed, FIELD_FLOAT ),
 	DEFINE_FIELD( m_soundTime, FIELD_TIME ),
+#if 0
+	DEFINE_THINKFUNC( StopSound ),
+#endif
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_pushable, CPushable );

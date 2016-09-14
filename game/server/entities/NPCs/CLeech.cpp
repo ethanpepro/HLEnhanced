@@ -75,6 +75,8 @@ BEGIN_DATADESC( CLeech )
 	DEFINE_FIELD( m_zTime, FIELD_TIME ),
 	DEFINE_FIELD( m_stateTime, FIELD_TIME ),
 	DEFINE_FIELD( m_attackSoundTime, FIELD_TIME ),
+	DEFINE_THINKFUNC( SwimThink ),
+	DEFINE_THINKFUNC( DeadThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_leech, CLeech );

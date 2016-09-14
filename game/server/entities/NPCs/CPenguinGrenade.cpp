@@ -35,6 +35,9 @@ BEGIN_DATADESC( CPenguinGrenade )
 	DEFINE_FIELD( m_flNextHit, FIELD_TIME ),
 	DEFINE_FIELD( m_posPrev, FIELD_POSITION_VECTOR ),
 	DEFINE_FIELD( m_hOwner, FIELD_EHANDLE ),
+	DEFINE_TOUCHFUNC( SuperBounceTouch ),
+	DEFINE_THINKFUNC( HuntThink ),
+	DEFINE_THINKFUNC( Smoke ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_penguin, CPenguinGrenade );

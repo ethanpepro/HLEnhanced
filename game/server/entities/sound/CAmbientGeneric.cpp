@@ -65,6 +65,9 @@ BEGIN_DATADESC( CAmbientGeneric )
 	// The right way to do this is to split the input parms (read in keyvalue) into members and re-init this
 	// struct in Precache(), but it's unlikely that the struct will change, so it's not worth the time right now.
 	DEFINE_ARRAY( m_dpv, FIELD_CHARACTER, sizeof( dynpitchvol_t ) ),
+
+	DEFINE_USEFUNC( ToggleUse ),
+	DEFINE_THINKFUNC( RampThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( ambient_generic, CAmbientGeneric );

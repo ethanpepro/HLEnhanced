@@ -21,8 +21,8 @@ public:
 	DECLARE_CLASS( CFrictionModifier, CBaseEntity );
 	DECLARE_DATADESC();
 
-	void		Spawn();
-	void		KeyValue( KeyValueData *pkvd );
+	void		Spawn() override;
+	void		KeyValue( KeyValueData *pkvd ) override;
 	void EXPORT	ChangeFriction( CBaseEntity *pOther );
 
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }

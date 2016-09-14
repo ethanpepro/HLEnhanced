@@ -22,6 +22,10 @@ BEGIN_DATADESC( CLightning )
 	DEFINE_FIELD( m_iszSpriteName, FIELD_STRING ),
 	DEFINE_FIELD( m_frameStart, FIELD_INTEGER ),
 	DEFINE_FIELD( m_radius, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( StrikeThink ),
+	DEFINE_THINKFUNC( DamageThink ),
+	DEFINE_USEFUNC( StrikeUse ),
+	DEFINE_USEFUNC( ToggleUse ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( env_lightning, CLightning );

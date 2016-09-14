@@ -72,6 +72,10 @@ BEGIN_DATADESC(	CTripmineGrenade )
 	DEFINE_FIELD( m_posOwner, FIELD_POSITION_VECTOR ),
 	DEFINE_FIELD( m_angleOwner, FIELD_VECTOR ),
 	DEFINE_FIELD( m_pRealOwner, FIELD_EDICT ),
+	DEFINE_THINKFUNC( WarningThink ),
+	DEFINE_THINKFUNC( PowerupThink ),
+	DEFINE_THINKFUNC( BeamBreakThink ),
+	DEFINE_THINKFUNC( DelayDeathThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_tripmine, CTripmineGrenade );

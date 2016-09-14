@@ -23,6 +23,7 @@ class CTestHull : public CBaseMonster
 {
 public:
 	DECLARE_CLASS( CTestHull, CBaseMonster );
+	DECLARE_DATADESC();
 
 	void Spawn();
 	virtual int	ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }

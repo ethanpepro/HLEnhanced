@@ -31,7 +31,6 @@ public:
 	void Spawn( void ) override;
 	void KeyValue( KeyValueData *pkvd ) override;
 	void EXPORT UseChangeLevel( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-	void EXPORT TriggerChangeLevel( void );
 	void EXPORT ExecuteChangeLevel( void );
 	void EXPORT TouchChangeLevel( CBaseEntity *pOther );
 	void ChangeLevelNow( CBaseEntity *pActivator );

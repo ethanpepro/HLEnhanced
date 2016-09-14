@@ -130,6 +130,9 @@ BEGIN_DATADESC( CBreakable )
 	DEFINE_FIELD( m_iszGibModel, FIELD_STRING ),
 	DEFINE_FIELD( m_iszSpawnObject, FIELD_STRING ),
 
+	DEFINE_TOUCHFUNC( BreakTouch ),
+	DEFINE_THINKFUNC( Die ),
+
 	// Explosion magnitude is stored in pev->impulse
 END_DATADESC()
 

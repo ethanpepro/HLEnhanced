@@ -26,6 +26,12 @@
 
 #include "CBarnacleGrappleTip.h"
 
+BEGIN_DATADESC( CBarnacleGrappleTip )
+	DEFINE_THINKFUNC( FlyThink ),
+	DEFINE_THINKFUNC( OffsetThink ),
+	DEFINE_TOUCHFUNC( TongueTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( grapple_tip, CBarnacleGrappleTip );
 
 namespace

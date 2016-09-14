@@ -23,6 +23,7 @@ private:
 
 public:
 	DECLARE_CLASS( CDisplacerBall, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void Precache() override;
 

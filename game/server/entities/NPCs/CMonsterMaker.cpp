@@ -34,6 +34,9 @@ BEGIN_DATADESC(	CMonsterMaker )
 	DEFINE_FIELD( m_iMaxLiveChildren, FIELD_INTEGER ),
 	DEFINE_FIELD( m_fActive, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_fFadeChildren, FIELD_BOOLEAN ),
+	DEFINE_USEFUNC( ToggleUse ),
+	DEFINE_USEFUNC( CyclicUse ),
+	DEFINE_THINKFUNC( MakerThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monstermaker, CMonsterMaker );

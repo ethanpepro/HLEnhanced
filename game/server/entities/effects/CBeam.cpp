@@ -9,6 +9,7 @@
 #include "CBeam.h"
 
 BEGIN_DATADESC( CBeam )
+	DEFINE_TOUCHFUNC( TriggerTouch ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( beam, CBeam );

@@ -20,6 +20,7 @@ class CFuncTrainControls : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CFuncTrainControls, CBaseEntity );
+	DECLARE_DATADESC();
 
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void Spawn() override;

@@ -21,6 +21,10 @@
 
 #include "CNodeViewer.h"
 
+BEGIN_DATADESC( CNodeViewer )
+	DEFINE_THINKFUNC( DrawThink ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( node_viewer, CNodeViewer );
 LINK_ENTITY_TO_CLASS( node_viewer_human, CNodeViewer );
 LINK_ENTITY_TO_CLASS( node_viewer_fly, CNodeViewer );

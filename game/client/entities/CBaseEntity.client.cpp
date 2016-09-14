@@ -73,6 +73,14 @@ void CBaseEntity::SUB_Remove( void )
 {
 }
 
+void CBaseEntity::SUB_StartFadeOut()
+{
+}
+
+void CBaseEntity::SUB_FadeOut()
+{
+}
+
 bool CBaseEntity::ShouldToggle( USE_TYPE useType, const bool currentState ) const
 {
 	return false;

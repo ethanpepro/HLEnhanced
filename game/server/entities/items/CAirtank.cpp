@@ -30,6 +30,8 @@ BEGIN_DATADESC(	CAirtank )
 	DEFINE_FIELD( m_bDisableAccumRecharge, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_flAirTimeToGive, FIELD_FLOAT ),
 	DEFINE_FIELD( m_flBaseRechargeTime, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( TankThink ),
+	DEFINE_TOUCHFUNC( TankTouch ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( item_airtank, CAirtank );

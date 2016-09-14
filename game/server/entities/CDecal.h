@@ -21,6 +21,7 @@ class CDecal : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CDecal, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void	Spawn( void ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;

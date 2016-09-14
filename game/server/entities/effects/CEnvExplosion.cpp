@@ -29,6 +29,7 @@
 BEGIN_DATADESC(	CEnvExplosion )
 	DEFINE_FIELD( m_iMagnitude, FIELD_INTEGER ),
 	DEFINE_FIELD( m_spriteScale, FIELD_INTEGER ),
+	DEFINE_THINKFUNC( Smoke ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( env_explosion, CEnvExplosion );

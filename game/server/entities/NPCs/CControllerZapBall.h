@@ -17,11 +17,16 @@
 
 class CControllerZapBall : public CBaseMonster
 {
+public:
+	DECLARE_CLASS( CControllerZapBall, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void EXPORT AnimateThink( void );
 	void EXPORT ExplodeTouch( CBaseEntity *pOther );
 
+private:
 	EHANDLE m_hOwner;
 };
 

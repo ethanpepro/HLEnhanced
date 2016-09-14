@@ -22,6 +22,11 @@
 
 #include "CSporeAmmo.h"
 
+BEGIN_DATADESC( CSporeAmmo )
+	DEFINE_THINKFUNC( Idling ),
+	DEFINE_TOUCHFUNC( SporeTouch ),
+END_DATADESC()
+
 //TODO: Add an ammo entity to give it to players. - Solokiller
 LINK_ENTITY_TO_CLASS( ammo_spore, CSporeAmmo );
 

@@ -24,6 +24,11 @@ BEGIN_DATADESC( CFuncRotating )
 	DEFINE_FIELD( m_flVolume, FIELD_FLOAT ),
 	DEFINE_FIELD( m_pitch, FIELD_FLOAT ),
 	DEFINE_FIELD( m_sounds, FIELD_INTEGER ),
+	DEFINE_THINKFUNC( SpinUp ),
+	DEFINE_THINKFUNC( SpinDown ),
+	DEFINE_TOUCHFUNC( HurtTouch ),
+	DEFINE_USEFUNC( RotatingUse ),
+	DEFINE_THINKFUNC( Rotate ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_rotating, CFuncRotating );

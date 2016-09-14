@@ -22,6 +22,11 @@
 
 extern DLL_GLOBAL CBaseEntity* g_pBodyQueueHead;
 
+BEGIN_DATADESC( CTestHull )
+	DEFINE_THINKFUNC( ShowBadNode ),
+	DEFINE_THINKFUNC( PathFind ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( testhull, CTestHull );
 
 void CTestHull::Spawn()

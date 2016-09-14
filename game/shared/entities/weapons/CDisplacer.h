@@ -41,6 +41,7 @@ public:
 
 public:
 	DECLARE_CLASS( CDisplacer, CBasePlayerWeapon );
+	DECLARE_DATADESC();
 
 	CDisplacer();
 

@@ -23,6 +23,7 @@ class CHGruntRepel : public CBaseMonster
 {
 public:
 	DECLARE_CLASS( CHGruntRepel, CBaseMonster );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void Precache( void ) override;

@@ -24,6 +24,11 @@
 
 #include "CKnife.h"
 
+BEGIN_DATADESC( CKnife )
+	DEFINE_THINKFUNC( SwingAgain ),
+	DEFINE_THINKFUNC( Smack ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( weapon_knife, CKnife );
 
 CKnife::CKnife()

@@ -20,6 +20,9 @@ class CGrenade : public CBaseMonster
 {
 public:
 	DECLARE_CLASS( CGrenade, CBaseMonster );
+#ifndef CLIENT_DLL
+	DECLARE_DATADESC();
+#endif
 
 	void Spawn( void ) override;
 

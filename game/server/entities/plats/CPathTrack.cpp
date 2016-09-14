@@ -10,6 +10,10 @@ BEGIN_DATADESC( CPathTrack )
 	DEFINE_FIELD( m_paltpath, FIELD_CLASSPTR ),
 	DEFINE_FIELD( m_pprevious, FIELD_CLASSPTR ),
 	DEFINE_FIELD( m_altName, FIELD_STRING ),
+
+#ifdef PATH_SPARKLE_DEBUG
+	DEFINE_THINKFUNC( Sparkle ),
+#endif
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( path_track, CPathTrack );

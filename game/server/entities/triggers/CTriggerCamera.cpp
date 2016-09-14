@@ -22,6 +22,8 @@ BEGIN_DATADESC( CTriggerCamera )
 	DEFINE_FIELD( m_acceleration, FIELD_FLOAT ),
 	DEFINE_FIELD( m_deceleration, FIELD_FLOAT ),
 	DEFINE_FIELD( m_state, FIELD_BOOLEAN ),
+
+	DEFINE_THINKFUNC( FollowTarget ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( trigger_camera, CTriggerCamera );

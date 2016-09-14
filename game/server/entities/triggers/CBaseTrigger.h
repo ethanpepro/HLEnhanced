@@ -39,11 +39,11 @@ class CBaseTrigger : public CBaseToggle
 {
 public:
 	DECLARE_CLASS( CBaseTrigger, CBaseToggle );
+	DECLARE_DATADESC();
 
 	void EXPORT TeleportTouch( CBaseEntity *pOther );
 	void KeyValue( KeyValueData *pkvd ) override;
 	void EXPORT MultiTouch( CBaseEntity *pOther );
-	void EXPORT CDAudioTouch( CBaseEntity *pOther );
 	void ActivateMultiTrigger( CBaseEntity *pActivator );
 	void EXPORT MultiWaitOver();
 	void EXPORT CounterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );

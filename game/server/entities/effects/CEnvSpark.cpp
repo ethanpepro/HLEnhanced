@@ -6,6 +6,9 @@
 
 BEGIN_DATADESC( CEnvSpark )
 	DEFINE_FIELD( m_flDelay, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( SparkThink ),
+	DEFINE_USEFUNC( SparkStart ),
+	DEFINE_USEFUNC( SparkStop ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( env_spark, CEnvSpark );

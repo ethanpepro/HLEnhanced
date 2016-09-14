@@ -21,6 +21,7 @@ class CTriggerSave : public CBaseTrigger
 {
 public:
 	DECLARE_CLASS( CTriggerSave, CBaseTrigger );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void EXPORT SaveTouch( CBaseEntity *pOther );

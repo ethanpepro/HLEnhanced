@@ -7,6 +7,9 @@
 BEGIN_DATADESC( CSprite )
 	DEFINE_FIELD( m_lastTime, FIELD_TIME ),
 	DEFINE_FIELD( m_maxFrame, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( AnimateThink ),
+	DEFINE_THINKFUNC( ExpandThink ),
+	DEFINE_THINKFUNC( AnimateUntilDead ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( env_sprite, CSprite );

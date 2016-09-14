@@ -19,6 +19,10 @@
 
 #include "CMortar.h"
 
+BEGIN_DATADESC( CMortar )
+	DEFINE_THINKFUNC( MortarExplode ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( monster_mortar, CMortar );
 
 void CMortar::Spawn()

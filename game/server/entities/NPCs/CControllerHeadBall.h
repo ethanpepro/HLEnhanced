@@ -20,6 +20,10 @@
 //=========================================================
 class CControllerHeadBall : public CBaseMonster
 {
+public:
+	DECLARE_CLASS( CControllerHeadBall, CBaseMonster );
+	DECLARE_DATADESC();
+
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void EXPORT HuntThink( void );
@@ -27,6 +31,8 @@ class CControllerHeadBall : public CBaseMonster
 	void EXPORT BounceTouch( CBaseEntity *pOther );
 	void MovetoTarget( Vector vecTarget );
 	void Crawl( void );
+
+private:
 	int m_iTrail;
 	Vector m_vecIdeal;
 	EHANDLE m_hOwner;

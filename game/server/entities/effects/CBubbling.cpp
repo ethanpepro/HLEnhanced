@@ -10,6 +10,7 @@ BEGIN_DATADESC( CBubbling )
 	DEFINE_FIELD( m_state, FIELD_BOOLEAN ),
 	// Let spawn restore this!
 	//DEFINE_FIELD( m_bubbleModel, FIELD_INTEGER ),
+	DEFINE_THINKFUNC( FizzThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( env_bubbles, CBubbling );

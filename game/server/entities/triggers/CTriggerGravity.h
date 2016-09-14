@@ -21,6 +21,7 @@ class CTriggerGravity : public CBaseTrigger
 {
 public:
 	DECLARE_CLASS( CTriggerGravity, CBaseTrigger );
+	DECLARE_DATADESC();
 
 	void Spawn( void ) override;
 	void EXPORT GravityTouch( CBaseEntity *pOther );

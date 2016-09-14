@@ -74,12 +74,6 @@ void CBaseEntity :: SUB_Remove( void )
 	UTIL_RemoveNow( this );
 }
 
-
-// Convenient way to explicitly do nothing (passed to functions that require a method)
-void CBaseEntity :: SUB_DoNothing( void )
-{
-}
-
 void CBaseEntity :: SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value )
 {
 	//

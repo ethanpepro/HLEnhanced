@@ -38,6 +38,12 @@ BEGIN_DATADESC(	CHornet )
 	DEFINE_FIELD( m_flStopAttack, FIELD_TIME ),
 	DEFINE_FIELD( m_iHornetType, FIELD_INTEGER ),
 	DEFINE_FIELD( m_flFlySpeed, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( StartTrack ),
+	DEFINE_THINKFUNC( StartDart ),
+	DEFINE_THINKFUNC( TrackTarget ),
+	DEFINE_TOUCHFUNC( TrackTouch ),
+	DEFINE_TOUCHFUNC( DartTouch ),
+	DEFINE_TOUCHFUNC( DieTouch ),
 END_DATADESC()
 
 //=========================================================

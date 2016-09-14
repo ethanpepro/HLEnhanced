@@ -19,6 +19,9 @@ class CBasePlayerAmmo : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CBasePlayerAmmo, CBaseEntity );
+#ifndef CLIENT_DLL
+	DECLARE_DATADESC();
+#endif
 
 	virtual void Spawn() override;
 	void EXPORT DefaultTouch( CBaseEntity* pOther ); // default weapon touch

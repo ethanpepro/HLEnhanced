@@ -26,6 +26,10 @@ BEGIN_DATADESC( CChangeLevel )
 	DEFINE_ARRAY( m_szLandmarkName, FIELD_CHARACTER, cchMapNameMost ),
 	DEFINE_FIELD( m_changeTarget, FIELD_STRING ),
 	DEFINE_FIELD( m_changeTargetDelay, FIELD_FLOAT ),
+
+	DEFINE_USEFUNC( UseChangeLevel ),
+	DEFINE_THINKFUNC( ExecuteChangeLevel ),
+	DEFINE_TOUCHFUNC( TouchChangeLevel ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( trigger_changelevel, CChangeLevel );

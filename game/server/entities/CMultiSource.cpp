@@ -24,6 +24,7 @@ BEGIN_DATADESC( CMultiSource )
 	DEFINE_ARRAY( m_rgTriggered, FIELD_INTEGER, MS_MAX_TARGETS ),
 	DEFINE_FIELD( m_iTotal, FIELD_INTEGER ),
 	DEFINE_FIELD( m_globalstate, FIELD_STRING ),
+	DEFINE_THINKFUNC( Register ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( multisource, CMultiSource );

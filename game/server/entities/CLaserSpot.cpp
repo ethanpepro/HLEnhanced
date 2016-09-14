@@ -4,6 +4,10 @@
 
 #include "CLaserSpot.h"
 
+BEGIN_DATADESC( CLaserSpot )
+	DEFINE_THINKFUNC( Revive ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( laser_spot, CLaserSpot );
 
 //=========================================================

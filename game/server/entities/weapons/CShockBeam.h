@@ -20,6 +20,7 @@ class CShockBeam : public CGrenade
 {
 public:
 	DECLARE_CLASS( CShockBeam, CGrenade );
+	DECLARE_DATADESC();
 
 	void Precache() override;
 

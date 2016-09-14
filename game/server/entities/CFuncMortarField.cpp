@@ -29,6 +29,8 @@ BEGIN_DATADESC(	CFuncMortarField )
 	DEFINE_FIELD( m_flDelay, FIELD_FLOAT ),
 	DEFINE_FIELD( m_iCount, FIELD_INTEGER ),
 	DEFINE_FIELD( m_fControl, FIELD_INTEGER ),
+
+	DEFINE_USEFUNC( FieldUse ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_mortar_field, CFuncMortarField );

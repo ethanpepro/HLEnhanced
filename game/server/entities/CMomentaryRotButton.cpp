@@ -25,6 +25,9 @@ BEGIN_DATADESC( CMomentaryRotButton )
 	DEFINE_FIELD( m_start, FIELD_VECTOR ),
 	DEFINE_FIELD( m_end, FIELD_VECTOR ),
 	DEFINE_FIELD( m_sounds, FIELD_INTEGER ),
+
+	DEFINE_THINKFUNC( Off ),
+	DEFINE_THINKFUNC( Return ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( momentary_rot_button, CMomentaryRotButton );

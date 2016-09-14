@@ -22,6 +22,8 @@
 BEGIN_DATADESC( CApacheHVR )
 	//DEFINE_FIELD( m_iTrail, FIELD_INTEGER ),	// Dont' save, precache
 	DEFINE_FIELD( m_vecForward, FIELD_VECTOR ),
+	DEFINE_THINKFUNC( IgniteThink ),
+	DEFINE_THINKFUNC( AccelerateThink ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( hvr_rocket, CApacheHVR );

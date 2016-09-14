@@ -22,6 +22,7 @@ class CGib : public CBaseEntity
 {
 public:
 	DECLARE_CLASS( CGib, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void Spawn( const char *szGibModel );
 	void EXPORT BounceGibTouch( CBaseEntity *pOther );

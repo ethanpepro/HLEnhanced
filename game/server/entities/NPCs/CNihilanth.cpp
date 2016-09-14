@@ -55,6 +55,13 @@ BEGIN_DATADESC(	CNihilanth )
 	DEFINE_FIELD( m_flShootEnd, FIELD_TIME ),
 	DEFINE_FIELD( m_flShootTime, FIELD_TIME ),
 	DEFINE_ARRAY( m_hFriend, FIELD_EHANDLE, 3 ),
+	DEFINE_THINKFUNC( StartupThink ),
+	DEFINE_THINKFUNC( HuntThink ),
+	DEFINE_TOUCHFUNC( CrashTouch ),
+	DEFINE_THINKFUNC( DyingThink ),
+	DEFINE_USEFUNC( StartupUse ),
+	DEFINE_THINKFUNC( NullThink ),
+	DEFINE_USEFUNC( CommandUse ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_nihilanth, CNihilanth );

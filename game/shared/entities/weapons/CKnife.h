@@ -37,6 +37,7 @@ class CKnife : public CBasePlayerWeapon
 {
 public:
 	DECLARE_CLASS( CKnife, CBasePlayerWeapon );
+	DECLARE_DATADESC();
 
 	CKnife();
 

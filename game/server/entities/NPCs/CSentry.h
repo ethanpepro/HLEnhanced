@@ -24,6 +24,7 @@ class CSentry : public CBaseTurret
 {
 public:
 	DECLARE_CLASS( CSentry, CBaseTurret );
+	DECLARE_DATADESC();
 
 	void Spawn() override;
 	void Precache( void ) override;

@@ -32,6 +32,8 @@ BEGIN_DATADESC(	CBarnacle )
 	DEFINE_FIELD( m_fTongueExtended, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_fLiftingPrey, FIELD_BOOLEAN ),
 	DEFINE_FIELD( m_flTongueAdj, FIELD_FLOAT ),
+	DEFINE_THINKFUNC( BarnacleThink ),
+	DEFINE_THINKFUNC( WaitTillDead ),
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_barnacle, CBarnacle );

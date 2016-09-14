@@ -20,6 +20,11 @@
 
 #include "CControllerZapBall.h"
 
+BEGIN_DATADESC( CControllerZapBall )
+	DEFINE_THINKFUNC( AnimateThink ),
+	DEFINE_TOUCHFUNC( ExplodeTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( controller_energy_ball, CControllerZapBall );
 
 void CControllerZapBall::Spawn( void )

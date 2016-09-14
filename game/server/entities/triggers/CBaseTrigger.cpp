@@ -4,6 +4,14 @@
 
 #include "CBaseTrigger.h"
 
+BEGIN_DATADESC( CBaseTrigger )
+	DEFINE_TOUCHFUNC( TeleportTouch ),
+	DEFINE_TOUCHFUNC( MultiTouch ),
+	DEFINE_THINKFUNC( MultiWaitOver ),
+	DEFINE_USEFUNC( CounterUse ),
+	DEFINE_USEFUNC( ToggleUse ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( trigger, CBaseTrigger );
 
 void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )

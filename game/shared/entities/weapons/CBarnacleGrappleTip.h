@@ -30,6 +30,7 @@ public:
 
 public:
 	DECLARE_CLASS( CBarnacleGrappleTip, CBaseEntity );
+	DECLARE_DATADESC();
 
 	void Precache() override;
 

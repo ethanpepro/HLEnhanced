@@ -32,6 +32,7 @@ class CCrowbar : public CBasePlayerWeapon
 {
 public:
 	DECLARE_CLASS( CCrowbar, CBasePlayerWeapon );
+	DECLARE_DATADESC();
 
 	CCrowbar();
 

@@ -30,6 +30,17 @@
 
 //===================grenade
 
+BEGIN_DATADESC( CGrenade )
+	DEFINE_THINKFUNC( Smoke ),
+	DEFINE_TOUCHFUNC( BounceTouch ),
+	DEFINE_TOUCHFUNC( SlideTouch ),
+	DEFINE_TOUCHFUNC( ExplodeTouch ),
+	DEFINE_THINKFUNC( DangerSoundThink ),
+	DEFINE_THINKFUNC( PreDetonate ),
+	DEFINE_THINKFUNC( Detonate ),
+	DEFINE_USEFUNC( DetonateUse ),
+	DEFINE_THINKFUNC( TumbleThink ),
+END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( grenade, CGrenade );
 

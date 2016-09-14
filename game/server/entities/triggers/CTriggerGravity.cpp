@@ -4,6 +4,10 @@
 
 #include "CTriggerGravity.h"
 
+BEGIN_DATADESC( CTriggerGravity )
+	DEFINE_TOUCHFUNC( GravityTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( trigger_gravity, CTriggerGravity );
 
 void CTriggerGravity::Spawn( void )

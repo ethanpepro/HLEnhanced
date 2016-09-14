@@ -23,6 +23,10 @@
 
 LINK_ENTITY_TO_CLASS( info_displacer_earth_target, CPointEntity );
 
+BEGIN_DATADESC( CTriggerXenReturn )
+	DEFINE_TOUCHFUNC( ReturnTouch ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( trigger_xen_return, CTriggerXenReturn );
 
 void CTriggerXenReturn::Spawn()

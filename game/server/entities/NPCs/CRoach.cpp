@@ -26,6 +26,10 @@
 
 #include "CRoach.h"
 
+BEGIN_DATADESC( CRoach )
+	DEFINE_THINKFUNC( MonsterThink ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( monster_cockroach, CRoach );
 
 //=========================================================

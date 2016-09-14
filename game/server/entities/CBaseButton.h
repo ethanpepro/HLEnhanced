@@ -46,13 +46,9 @@ public:
 
 	void Spawn( void ) override;
 	virtual void Precache( void ) override;
-	void RotSpawn( void );
 	virtual void KeyValue( KeyValueData* pkvd ) override;
 
 	void ButtonActivate();
-	void SparkSoundCache( void );
-
-	void EXPORT ButtonShot( void );
 	void EXPORT ButtonTouch( CBaseEntity *pOther );
 	void EXPORT ButtonSpark( void );
 	void EXPORT TriggerAndWait( void );
