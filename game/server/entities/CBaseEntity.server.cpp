@@ -111,13 +111,14 @@ bool CBaseEntity::Save( CSave& save )
 {
 	if( save.WriteEntVars( "ENTVARS", pev ) )
 	{
-		const DataMap_t* pDataMap = GetDataMap();
+		const DataMap_t* pInstanceDataMap = GetDataMap();
+		const DataMap_t* pDataMap = pInstanceDataMap;
 
 		bool bResult = true;
 
 		while( pDataMap )
 		{
-			bResult = save.WriteFields( pDataMap->pszClassName, this, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
+			bResult = save.WriteFields( pDataMap->pszClassName, this, *pInstanceDataMap, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
 
 			if( !bResult )
 				return false;
@@ -137,11 +138,12 @@ bool CBaseEntity::Restore( CRestore &restore )
 
 	if( bResult )
 	{
-		const DataMap_t* pDataMap = GetDataMap();
+		const DataMap_t* pInstanceDataMap = GetDataMap();
+		const DataMap_t* pDataMap = pInstanceDataMap;
 
 		while( pDataMap )
 		{
-			bResult = restore.ReadFields( pDataMap->pszClassName, this, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
+			bResult = restore.ReadFields( pDataMap->pszClassName, this, *pInstanceDataMap, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
 
 			if( !bResult )
 				break;

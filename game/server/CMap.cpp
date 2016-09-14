@@ -69,14 +69,14 @@ bool CMap::Save( CSave& save )
 {
 	auto pDataMap = GetDataMap();
 
-	return save.WriteFields( "CMap", this, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
+	return save.WriteFields( "CMap", this, *pDataMap, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
 }
 
 bool CMap::Restore( CRestore& restore )
 {
 	auto pDataMap = GetDataMap();
 
-	return restore.ReadFields( "CMap", this, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
+	return restore.ReadFields( "CMap", this, *pDataMap, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
 }
 
 void CMap::Create()

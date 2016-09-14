@@ -6,10 +6,10 @@
 
 bool CRestore::ReadEntVars( const char *pname, entvars_t *pev )
 {
-	return ReadFields( pname, pev, gEntvarsDescription, gEntvarsCount );
+	return ReadFields( pname, pev, gEntvarsDataMap, gEntvarsDescription, gEntvarsCount );
 }
 
-bool CRestore::ReadFields( const char *pname, void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount )
+bool CRestore::ReadFields( const char *pname, void *pBaseData, const DataMap_t& dataMap, const TYPEDESCRIPTION *pFields, int fieldCount )
 {
 	unsigned short	i, token;
 	int		lastField, fileCount;
@@ -45,14 +45,14 @@ bool CRestore::ReadFields( const char *pname, void *pBaseData, const TYPEDESCRIP
 	for( i = 0; i < fileCount; i++ )
 	{
 		BufferReadHeader( &header );
-		lastField = ReadField( pBaseData, pFields, fieldCount, lastField, header.size, m_pdata->pTokens[ header.token ], header.pData );
+		lastField = ReadField( pBaseData, dataMap, pFields, fieldCount, lastField, header.size, m_pdata->pTokens[ header.token ], header.pData );
 		lastField++;
 	}
 
 	return true;
 }
 
-int CRestore::ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount, int startField, int size, char *pName, void *pData )
+int CRestore::ReadField( void *pBaseData, const DataMap_t& dataMap, const TYPEDESCRIPTION *pFields, int fieldCount, int startField, int size, char *pName, void *pData )
 {
 	int i, j, stringCount, fieldNumber, entityIndex;
 	const TYPEDESCRIPTION *pTest;
@@ -198,7 +198,10 @@ int CRestore::ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fi
 						if( strlen( ( char * ) pInputData ) == 0 )
 							*( ( int * ) pOutputData ) = 0;
 						else
-							*( ( int * ) pOutputData ) = FUNCTION_FROM_NAME( ( char * ) pInputData );
+						{
+							//All member functions pointers should have the same size, so this should work fine. - Solokiller
+							*( ( BASEPTR * ) pOutputData ) = UTIL_FunctionFromName( dataMap, ( const char* ) pInputData );
+						}
 						break;
 
 					default:

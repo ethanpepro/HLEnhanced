@@ -48,9 +48,9 @@ public:
 	void	WriteVector( const char *pname, const float *value, int count );	// Save a vector
 	void	WritePositionVector( const char *pname, const Vector &value );		// Offset for landmark if necessary
 	void	WritePositionVector( const char *pname, const float *value, int count );	// array of pos vectors
-	void	WriteFunction( const char *pname, void **value, int count );		// Save a function pointer
+	void	WriteFunction( const char *pname, void **value, int count, const DataMap_t& dataMap, const TYPEDESCRIPTION& field );		// Save a function pointer
 	bool	WriteEntVars( const char *pname, entvars_t *pev );		// Save entvars_t (entvars_t)
-	bool	WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount );
+	bool	WriteFields( const char *pname, void *pBaseData, const DataMap_t& dataMap, const TYPEDESCRIPTION *pFields, int fieldCount );
 
 private:
 	static bool	DataEmpty( const char *pdata, int size );

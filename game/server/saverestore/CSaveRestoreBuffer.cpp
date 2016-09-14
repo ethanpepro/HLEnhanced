@@ -144,6 +144,9 @@ const TYPEDESCRIPTION gEntvarsDescription[] =
 	DEFINE_ENTITY_FIELD( radsuit_finished, FIELD_TIME ),
 };
 
+const DataMap_t gEntvarsDataMap = { "ENTVARS", nullptr, gEntvarsDescription, ARRAYSIZE( gEntvarsDescription ) };
+
+//TODO: replace with gEntvarsDataMap.uiNumDescriptors - Solokiller
 const size_t gEntvarsCount = ARRAYSIZE( gEntvarsDescription );
 
 // Base class includes common SAVERESTOREDATA pointer, and manages the entity table

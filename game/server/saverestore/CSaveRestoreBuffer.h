@@ -28,6 +28,8 @@ extern const int g_SaveRestoreSizes[];
 
 extern const TYPEDESCRIPTION gEntvarsDescription[];
 
+extern const DataMap_t gEntvarsDataMap;
+
 extern const size_t gEntvarsCount;
 
 /**

@@ -127,23 +127,21 @@ void CSave::WritePositionVector( const char *pname, const float *value, int coun
 	}
 }
 
-void CSave::WriteFunction( const char *pname, void **data, int count )
+void CSave::WriteFunction( const char *pname, void **data, int count, const DataMap_t& dataMap, const TYPEDESCRIPTION& field )
 {
-	const char *functionName;
-
-	functionName = NAME_FOR_FUNCTION( ( uint32 ) *data );
+	const char *functionName = UTIL_NameFromFunction( dataMap, *reinterpret_cast<BASEPTR*>( data ) );
 	if( functionName )
 		BufferField( pname, strlen( functionName ) + 1, functionName );
 	else
-		ALERT( at_error, "Invalid function pointer in entity!" );
+		ALERT( at_error, "Invalid function pointer in entity! (class: %s)", pname );
 }
 
 bool CSave::WriteEntVars( const char *pname, entvars_t *pev )
 {
-	return WriteFields( pname, pev, gEntvarsDescription, gEntvarsCount );
+	return WriteFields( pname, pev, gEntvarsDataMap, gEntvarsDescription, gEntvarsCount );
 }
 
-bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount )
+bool CSave::WriteFields( const char *pname, void *pBaseData, const DataMap_t& dataMap, const TYPEDESCRIPTION *pFields, int fieldCount )
 {
 	int				i, j;
 	const TYPEDESCRIPTION	*pTest;
@@ -242,7 +240,7 @@ bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTI
 			break;
 
 		case FIELD_FUNCPTR:
-			WriteFunction( pTest->fieldName, ( void ** ) pOutputData, pTest->fieldSize );
+			WriteFunction( pTest->fieldName, ( void ** ) pOutputData, pTest->fieldSize, dataMap, *pTest );
 			break;
 		default:
 			ALERT( at_error, "Bad field type\n" );

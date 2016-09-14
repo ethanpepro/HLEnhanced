@@ -29,8 +29,8 @@ class CRestore : public CSaveRestoreBuffer
 public:
 	CRestore( SAVERESTOREDATA *pdata ) : CSaveRestoreBuffer( pdata ) { m_global = 0; m_precache = true; }
 	bool	ReadEntVars( const char *pname, entvars_t *pev );		// entvars_t
-	bool	ReadFields( const char *pname, void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount );
-	int		ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fieldCount, int startField, int size, char *pName, void *pData );
+	bool	ReadFields( const char *pname, void *pBaseData, const DataMap_t& dataMap, const TYPEDESCRIPTION *pFields, int fieldCount );
+	int		ReadField( void *pBaseData, const DataMap_t& dataMap, const TYPEDESCRIPTION *pFields, int fieldCount, int startField, int size, char *pName, void *pData );
 	int		ReadInt( void );
 	short	ReadShort( void );
 	int		ReadNamedInt( const char *pName );
