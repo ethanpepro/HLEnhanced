@@ -8,10 +8,10 @@
 BEGIN_DATADESC_NOBASE( CBaseEntity )
 	DEFINE_FIELD( m_pGoalEnt, FIELD_CLASSPTR ),
 	
-	DEFINE_FIELD( m_pfnThink, FIELD_FUNCTION ),		// UNDONE: Build table of these!!!
-	DEFINE_FIELD( m_pfnTouch, FIELD_FUNCTION ),
-	DEFINE_FIELD( m_pfnUse, FIELD_FUNCTION ),
-	DEFINE_FIELD( m_pfnBlocked, FIELD_FUNCTION ),
+	DEFINE_FIELD( m_pfnThink, FIELD_FUNCPTR ),		// UNDONE: Build table of these!!!
+	DEFINE_FIELD( m_pfnTouch, FIELD_FUNCPTR ),
+	DEFINE_FIELD( m_pfnUse, FIELD_FUNCPTR ),
+	DEFINE_FIELD( m_pfnBlocked, FIELD_FUNCPTR ),
 END_DATADESC()
 
 // Global Savedata for Delay
@@ -44,7 +44,7 @@ BEGIN_DATADESC( CBaseToggle )
 	DEFINE_FIELD( m_cTriggersLeft, FIELD_INTEGER ),
 	DEFINE_FIELD( m_flHeight, FIELD_FLOAT ),
 	DEFINE_FIELD( m_hActivator, FIELD_EHANDLE ),
-	DEFINE_FIELD( m_pfnCallWhenMoveDone, FIELD_FUNCTION ),
+	DEFINE_FIELD( m_pfnCallWhenMoveDone, FIELD_FUNCPTR ),
 	DEFINE_FIELD( m_vecFinalDest, FIELD_POSITION_VECTOR ),
 	DEFINE_FIELD( m_vecFinalAngle, FIELD_VECTOR ),
 	DEFINE_FIELD( m_sMaster, FIELD_STRING ),

@@ -7,26 +7,26 @@
 const int g_SaveRestoreSizes[ FIELD_TYPECOUNT ] =
 {
 	sizeof( float ),		// FIELD_FLOAT
-	sizeof( int ),		// FIELD_STRING
-	sizeof( int ),		// FIELD_ENTITY
-	sizeof( int ),		// FIELD_CLASSPTR
-	sizeof( int ),		// FIELD_EHANDLE
-	sizeof( int ),		// FIELD_entvars_t
-	sizeof( int ),		// FIELD_EDICT
+	sizeof( int ),			// FIELD_STRING
+	sizeof( int ),			// FIELD_ENTITY
+	sizeof( int ),			// FIELD_CLASSPTR
+	sizeof( int ),			// FIELD_EHANDLE
+	sizeof( int ),			// FIELD_entvars_t
+	sizeof( int ),			// FIELD_EDICT
 	sizeof( float ) * 3,	// FIELD_VECTOR
 	sizeof( float ) * 3,	// FIELD_POSITION_VECTOR
-	sizeof( int ),		// FIELD_INTEGER
+	sizeof( int ),			// FIELD_INTEGER
 #ifdef GNUC
-	sizeof( int * ) * 2,		// FIELD_FUNCTION
+	sizeof( int * ) * 2,	// FIELD_FUNCPTR
 #else
-	sizeof( int * ),		// FIELD_FUNCTION	
+	sizeof( int * ),		// FIELD_FUNCPTR	
 #endif
-	sizeof( bool ),		// FIELD_BOOLEAN
+	sizeof( bool ),			// FIELD_BOOLEAN
 	sizeof( short ),		// FIELD_SHORT
-	sizeof( char ),		// FIELD_CHARACTER
+	sizeof( char ),			// FIELD_CHARACTER
 	sizeof( float ),		// FIELD_TIME
-	sizeof( int ),		// FIELD_MODELNAME
-	sizeof( int ),		// FIELD_SOUNDNAME
+	sizeof( int ),			// FIELD_MODELNAME
+	sizeof( int ),			// FIELD_SOUNDNAME
 };
 
 //Verify that all types and no more than that are represented here - Solokiller

@@ -194,7 +194,7 @@ int CRestore::ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fi
 						*( ( char * ) pOutputData ) = *( char * ) pInputData;
 						break;
 
-					case FIELD_FUNCTION:
+					case FIELD_FUNCPTR:
 						if( strlen( ( char * ) pInputData ) == 0 )
 							*( ( int * ) pOutputData ) = 0;
 						else

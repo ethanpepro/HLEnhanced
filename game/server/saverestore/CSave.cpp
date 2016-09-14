@@ -241,7 +241,7 @@ bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTI
 			WriteData( pTest->fieldName, pTest->fieldSize, ( ( char * ) pOutputData ) );
 			break;
 
-		case FIELD_FUNCTION:
+		case FIELD_FUNCPTR:
 			WriteFunction( pTest->fieldName, ( void ** ) pOutputData, pTest->fieldSize );
 			break;
 		default:

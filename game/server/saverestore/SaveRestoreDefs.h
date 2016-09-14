@@ -27,7 +27,7 @@ enum FIELDTYPE
 	FIELD_VECTOR,			// Any vector
 	FIELD_POSITION_VECTOR,	// A world coordinate (these are fixed up across level transitions automagically)
 	FIELD_INTEGER,			// Any integer or enum
-	FIELD_FUNCTION,			// A class function pointer (Think, Use, etc)
+	FIELD_FUNCPTR,			// A class function pointer (Think, Use, etc)
 	FIELD_BOOLEAN,			// boolean, I may use this as a hint for compression
 	FIELD_SHORT,			// 2 byte integer
 	FIELD_CHARACTER,		// a byte
