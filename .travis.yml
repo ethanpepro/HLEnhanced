@@ -59,7 +59,7 @@ install:
     else
       CMAKE_URL="http://www.cmake.org/files/v3.6/cmake-3.6.2-Darwin-x86_64.tar.gz"
       mkdir cmake && travis_retry wget --no-check-certificate --quiet -O - ${CMAKE_URL} | tar --strip-components=1 -xz -C cmake
-      export PATH=${DEPS_DIR}/cmake/bin:${PATH}
+      export PATH=${DEPS_DIR}/cmake/CMake.app/Contents/bin:${PATH}
     fi
 
 before_script:
