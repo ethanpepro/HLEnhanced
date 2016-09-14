@@ -452,13 +452,9 @@ void CDisplacer::AltFireThink()
 		m_pPlayer->m_iWeaponVolume = LOUD_GUN_VOLUME;
 		m_pPlayer->m_iWeaponFlash = BRIGHT_GUN_FLASH;
 
-		int flags;
-
-#if defined( CLIENT_WEAPONS )
-		flags = FEV_NOTHOST;
-#else
-		flags = 0;
-#endif
+#ifndef CLIENT_DLL
+		//Must always be handled on the server side in order to play the right sounds and effects. - Solokiller
+		int flags = 0;
 
 		PLAYBACK_EVENT_FULL(
 			flags,
@@ -472,7 +468,6 @@ void CDisplacer::AltFireThink()
 
 		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= 60;
 
-#ifndef CLIENT_DLL
 		CDisplacerBall::CreateDisplacerBall( m_pPlayer->GetDisplacerReturn(), Vector( 90, 0, 0 ), m_pPlayer );
 
 		if( !m_iClip )
