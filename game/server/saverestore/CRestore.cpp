@@ -37,7 +37,8 @@ bool CRestore::ReadFields( const char *pname, void *pBaseData, const TYPEDESCRIP
 	for( i = 0; i < fieldCount; i++ )
 	{
 		// Don't clear global fields
-		if( !m_global || !( pFields[ i ].flags & TypeDescFlag::GLOBAL ) )
+		//Only clear out fields that are actually used for save/restore. - Solokiller
+		if( ( pFields[ i ].flags & TypeDescFlag::SAVE ) && ( !m_global || !( pFields[ i ].flags & TypeDescFlag::GLOBAL ) ) )
 			memset( ( ( char * ) pBaseData + pFields[ i ].fieldOffset ), 0, pFields[ i ].fieldSize * g_SaveRestoreSizes[ pFields[ i ].fieldType ] );
 	}
 
@@ -74,7 +75,9 @@ int CRestore::ReadField( void *pBaseData, const TYPEDESCRIPTION *pFields, int fi
 	{
 		fieldNumber = ( i + startField ) % fieldCount;
 		pTest = &pFields[ fieldNumber ];
-		if( !stricmp( pTest->fieldName, pName ) )
+
+		//Only check fields marked for save/restore - Solokiller
+		if( ( pTest->flags & TypeDescFlag::SAVE ) && !stricmp( pTest->fieldName, pName ) )
 		{
 			if( !m_global || !( pTest->flags & TypeDescFlag::GLOBAL ) )
 			{

@@ -156,7 +156,7 @@ bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTI
 		pTest = &pFields[ i ];
 		void *pOutputData;
 		pOutputData = ( ( char * ) pBaseData + pTest->fieldOffset );
-		if( !DataEmpty( ( const char * ) pOutputData, pTest->fieldSize * g_SaveRestoreSizes[ pTest->fieldType ] ) )
+		if( ( pTest->flags & TypeDescFlag::SAVE ) && !DataEmpty( ( const char * ) pOutputData, pTest->fieldSize * g_SaveRestoreSizes[ pTest->fieldType ] ) )
 			++actualCount;
 	}
 
@@ -170,7 +170,8 @@ bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTI
 		pOutputData = ( ( char * ) pBaseData + pTest->fieldOffset );
 
 		// UNDONE: Must we do this twice?
-		if( DataEmpty( ( const char * ) pOutputData, pTest->fieldSize * g_SaveRestoreSizes[ pTest->fieldType ] ) )
+		//TODO: update CSaveRestoreBuffer to allow seeking to write to earlier locations. - Solokiller
+		if( !( pTest->flags & TypeDescFlag::SAVE ) || DataEmpty( ( const char * ) pOutputData, pTest->fieldSize * g_SaveRestoreSizes[ pTest->fieldType ] ) )
 			continue;
 
 		switch( pTest->fieldType )

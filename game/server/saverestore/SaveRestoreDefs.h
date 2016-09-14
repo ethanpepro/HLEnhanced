@@ -48,9 +48,14 @@ enum TypeDescFlag
 	GLOBAL	= 0x0001,
 
 	/**
+	*	This field should be saved and restored. - Solokiller
+	*/
+	SAVE	= 0x0002,
+
+	/**
 	*	This field can be automatically initialized by DispatchKeyValue. - Solokiller
 	*/
-	KEY		= 0x0002,
+	KEY		= 0x0004,
 };
 }
 
@@ -69,15 +74,15 @@ struct TYPEDESCRIPTION
 
 #define _FIELD( type, name, fieldtype, count, flags )			{ fieldtype, #name, nullptr, static_cast<int>( OFFSETOF( type, name ) ), count, flags }
 #define _BASEENT_FIELD( name, fieldtype, count, flags )			_FIELD( ThisClass, name, fieldtype, count, flags )
-#define DEFINE_FIELD( name, fieldtype )							_BASEENT_FIELD( name, fieldtype, 1, 0 )
-#define DEFINE_ARRAY( name, fieldtype, count )					_BASEENT_FIELD( name, fieldtype, count, 0 )
-#define DEFINE_ENTITY_FIELD( name, fieldtype )					_FIELD( entvars_t, name, fieldtype, 1, 0 )
-#define DEFINE_ENTITY_GLOBAL_FIELD( name, fieldtype )			_FIELD( entvars_t, name, fieldtype, 1, TypeDescFlag::GLOBAL )
-#define DEFINE_GLOBAL_FIELD( name, fieldtype )					_BASEENT_FIELD( name, fieldtype, 1, TypeDescFlag::GLOBAL )
+#define DEFINE_FIELD( name, fieldtype )							_BASEENT_FIELD( name, fieldtype, 1, TypeDescFlag::SAVE )
+#define DEFINE_ARRAY( name, fieldtype, count )					_BASEENT_FIELD( name, fieldtype, count, TypeDescFlag::SAVE )
+#define DEFINE_ENTITY_FIELD( name, fieldtype )					_FIELD( entvars_t, name, fieldtype, 1, TypeDescFlag::SAVE )
+#define DEFINE_ENTITY_GLOBAL_FIELD( name, fieldtype )			_FIELD( entvars_t, name, fieldtype, 1, TypeDescFlag::GLOBAL | TypeDescFlag::SAVE )
+#define DEFINE_GLOBAL_FIELD( name, fieldtype )					_BASEENT_FIELD( name, fieldtype, 1, TypeDescFlag::GLOBAL | TypeDescFlag::SAVE )
 
 /**
 *	Defines a field that can be automatically initialized by DispatchKeyValue. - Solokiller
 */
-#define DEFINE_KEYFIELD( name, fieldtype, szKVName )			{ fieldtype, #name, szKVName, static_cast<int>( OFFSETOF( ThisClass, name ) ), 1, TypeDescFlag::KEY }
+#define DEFINE_KEYFIELD( name, fieldtype, szKVName )			{ fieldtype, #name, szKVName, static_cast<int>( OFFSETOF( ThisClass, name ) ), 1, TypeDescFlag::KEY | TypeDescFlag::SAVE }
 
 #endif //GAME_SERVER_SAVERESTORE_SAVERESTOREDEFS_H
