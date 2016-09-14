@@ -38,9 +38,11 @@ enum FIELDTYPE
 	FIELD_TYPECOUNT,		// MUST BE LAST
 };
 
+typedef short TypeDescFlags_t;
+
 namespace TypeDescFlag
 {
-enum TypeDescFlag
+enum TypeDescFlag : TypeDescFlags_t
 {
 	/**
 	*	This field is masked for global entity save/restore
@@ -69,7 +71,7 @@ struct TYPEDESCRIPTION
 	const char*		pszPublicName;
 	int				fieldOffset;
 	short			fieldSize;
-	short			flags;
+	TypeDescFlags_t	flags;
 };
 
 #define _FIELD( type, name, fieldtype, count, flags )			{ fieldtype, #name, nullptr, static_cast<int>( OFFSETOF( type, name ) ), count, flags }
@@ -81,8 +83,29 @@ struct TYPEDESCRIPTION
 #define DEFINE_GLOBAL_FIELD( name, fieldtype )					_BASEENT_FIELD( name, fieldtype, 1, TypeDescFlag::GLOBAL | TypeDescFlag::SAVE )
 
 /**
-*	Defines a field that can be automatically initialized by DispatchKeyValue. - Solokiller
+*	Helper function to construct flags for DEFINE_KEYFIELD. - Solokiller
+*	@param iDummy Unused. Required for preprocessor.
+*	@param bSaveRestore Whether to save and restore this field.
 */
-#define DEFINE_KEYFIELD( name, fieldtype, szKVName )			{ fieldtype, #name, szKVName, static_cast<int>( OFFSETOF( ThisClass, name ) ), 1, TypeDescFlag::KEY | TypeDescFlag::SAVE }
+inline TypeDescFlags_t _DEFINE_KEYFIELD_FLAGS( const int iDummy, const bool bSaveRestore = true )
+{
+	TypeDescFlags_t flags = 0;
+
+	if( bSaveRestore )
+		flags |= TypeDescFlag::SAVE;
+
+	return flags;
+}
+
+/**
+*	Defines a field that can be automatically initialized by DispatchKeyValue. - Solokiller
+*	@param name Name of the field, takes the variable name without quotes.
+*	@param fieldtype FIELDTYPE enum value.
+*	@param szKVName Name of the keyvalue as defined in the fgd.
+*	For optional parameters, see _DEFINE_KEYFIELD_FLAGS.
+*	@see _DEFINE_KEYFIELD_FLAGS
+*/
+#define DEFINE_KEYFIELD( name, fieldtype, szKVName, ... )																						\
+{ fieldtype, #name, szKVName, static_cast<int>( OFFSETOF( ThisClass, name ) ), 1, static_cast<TypeDescFlags_t>( TypeDescFlag::KEY | _DEFINE_KEYFIELD_FLAGS( 0, ##__VA_ARGS__ ) ) }
 
 #endif //GAME_SERVER_SAVERESTORE_SAVERESTOREDEFS_H
