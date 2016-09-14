@@ -4,39 +4,34 @@ os: Visual Studio 2015
 # Only target Windows 32 bits
 platform: Win32
 
-# Build in both Debug and Release
+# Build in both Debug and Release configurations
 configuration:
   - Debug
   - Release
 
+# Build with all those possible configurations
+environment:
+  matrix:
+    - BUILD_RULES: -DUSE_OPFOR=0 -DUSE_ANGELSCRIPT=0 -DUSE_AS_SQL=0
+    - BUILD_RULES: -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=0 -DUSE_AS_SQL=0
+    - BUILD_RULES: -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=0
+    - BUILD_RULES: -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=1
+
 before_build:
   # Appveyor uses CMake 2.8, we require at least 3.6, so make the update
-  - ps: Write-Host "=== (1/7) Downloading CMake 3.6.2 ZIP for Windows 64 bits ===" -foregroundcolor green
+  - ps: Write-Host "=== (1/4) Downloading CMake 3.6.2 ZIP for Windows 64 bits ===" -foregroundcolor green
   - ps: wget https://cmake.org/files/v3.6/cmake-3.6.2-win64-x64.zip -OutFile cmake.zip
-  - ps: Write-Host "=== (2/7) Installing CMake ===" -foregroundcolor green
+  - ps: Write-Host "=== (2/4) Installing CMake ===" -foregroundcolor green
   - cmd: 7z x cmake.zip -o"." -y
   # Create the build directory and a fake Steam common directory
-  - ps: Write-Host "=== (3/7) Creating build and fake Steam common directory ===" -foregroundcolor green
+  - ps: Write-Host "=== (3/4) Creating build and fake Steam common directory ===" -foregroundcolor green
   - md build
   - md fake_steamcommon
 
 build_script:
   - cd build
-  # Build HLEnhanced without any extra option
-  - ps: Write-Host "===  (4/7) BUILDING WITHOUT ANY EXTRA OPTION ===" -foregroundcolor green
-  - ..\cmake-3.6.1-win64-x64\bin\cmake.exe -DSTEAMCOMMON=..\fake_steamcommon -DUSE_OPFOR=0 -DUSE_ANGELSCRIPT=0 -DUSE_AS_SQL=0 -G"Visual Studio 14 2015" ..
-  - msbuild HLEnhanced.sln /t:Rebuild /p:Configuration=%CONFIGURATION% /m /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-  # Build HLEnhanced with USE_OPFOR
-  - ps: Write-Host "=== (5/7) BUILDING WITH OPPOSING FORCE ONLY ===" -foregroundcolor green
-  - ..\cmake-3.6.1-win64-x64\bin\cmake.exe -DSTEAMCOMMON=..\fake_steamcommon -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=0 -DUSE_AS_SQL=0 -G"Visual Studio 14 2015" ..
-  - msbuild HLEnhanced.sln /t:Rebuild /p:Configuration=%CONFIGURATION% /m /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-  # Build HLEnhanced with USE_OPFOR and USE_ANGELSCRIPT
-  - ps: Write-Host "=== (6/7) BUILDING WITH OPPOSING FORCE AND ANGELSCRIPT ===" -foregroundcolor green
-  - ..\cmake-3.6.1-win64-x64\bin\cmake.exe -DSTEAMCOMMON=..\fake_steamcommon -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=0 -G"Visual Studio 14 2015" ..
-  - msbuild HLEnhanced.sln /t:Rebuild /p:Configuration=%CONFIGURATION% /m /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
-  # Build HLEnhanced with USE_OPFOR, USE_ANGELSCRIPT and USE_AS_SQL
-  - ps: Write-Host "=== (7/7) BUILDING WITH ALL EXTRA OPTIONS ===" -foregroundcolor green
-  - ..\cmake-3.6.1-win64-x64\bin\cmake.exe -DSTEAMCOMMON=..\fake_steamcommon -DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=1 -G"Visual Studio 14 2015" ..
+  - ps: Write-Host "===  (4/4) Building ===" -foregroundcolor green
+  - ..\cmake-3.6.2-win64-x64\bin\cmake.exe -DSTEAMCOMMON=..\fake_steamcommon %BUILD_RULES% -G"Visual Studio 14 2015" ..
   - msbuild HLEnhanced.sln /t:Rebuild /p:Configuration=%CONFIGURATION% /m /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
 
 # If one job fail, mark the build as failed
@@ -46,5 +41,5 @@ matrix:
 # We don't have unit tests
 test: off
 
-# We don't do deploying
+# We don't do deploying yet
 deploy: off
