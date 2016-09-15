@@ -26,6 +26,10 @@
 
 #include "CShockRifle.h"
 
+BEGIN_DATADESC( CShockRifle )
+	DEFINE_FIELD( m_flRechargeTime, FIELD_FLOAT ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( weapon_shockrifle, CShockRifle );
 LINK_ENTITY_TO_CLASS( weapon_shockroach, CShockRifle );
 

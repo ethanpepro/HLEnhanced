@@ -23,6 +23,10 @@
 #include "entities/NPCs/CHornet.h"
 #include "gamerules/GameRules.h"
 
+BEGIN_DATADESC( CHornetGun )
+	DEFINE_FIELD( m_flRechargeTime, FIELD_FLOAT ),
+END_DATADESC()
+
 LINK_ENTITY_TO_CLASS( weapon_hornetgun, CHornetGun );
 
 CHornetGun::CHornetGun()

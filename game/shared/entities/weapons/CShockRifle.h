@@ -29,6 +29,7 @@ class CShockRifle : public CBasePlayerWeapon
 {
 public:
 	DECLARE_CLASS( CShockRifle, CBasePlayerWeapon );
+	DECLARE_DATADESC();
 
 	CShockRifle();
 

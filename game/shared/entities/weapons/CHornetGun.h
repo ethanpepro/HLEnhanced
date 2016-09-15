@@ -36,6 +36,7 @@ public:
 
 public:
 	DECLARE_CLASS( CHornetGun, CBasePlayerWeapon );
+	DECLARE_DATADESC();
 
 	CHornetGun();
 
