@@ -171,6 +171,11 @@ public:
 	virtual void Reload() {}
 
 	/**
+	*	Always called at beginning of ItemPostFrame. - Solokiller
+	*/
+	virtual void WeaponTick() {}
+
+	/**
 	*	Called when no buttons pressed
 	*/
 	virtual void WeaponIdle() {}

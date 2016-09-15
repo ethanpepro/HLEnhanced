@@ -164,6 +164,8 @@ Handles weapon firing, reloading, etc.
 */
 void CBasePlayerWeapon::ItemPostFrame( void )
 {
+	WeaponTick();
+
 	if( ( m_fInReload ) && ( m_pPlayer->m_flNextAttack <= UTIL_WeaponTimeBase() ) )
 	{
 #ifdef SERVER_DLL // FIXME, need ammo on client to make this work right
