@@ -47,7 +47,11 @@ public:
 	void SecondaryAttack( void ) override;
 	bool Deploy() override;
 	void Reload( void ) override;
+
+	void WeaponTick() override;
+
 	void WeaponIdle( void ) override;
+
 	float m_flNextReload;
 	int m_iShell;
 

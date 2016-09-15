@@ -149,7 +149,7 @@ void CShotgun::PrimaryAttack()
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 
-	if (m_iClip != 0)
+	//if (m_iClip != 0)
 		m_flPumpTime = gpGlobals->time + 0.5;
 
 	m_flNextPrimaryAttack = GetNextAttackDelay(0.75);
@@ -219,7 +219,7 @@ void CShotgun::SecondaryAttack( void )
 		// HEV suit - indicate out of ammo condition
 		m_pPlayer->SetSuitUpdate("!HEV_AMO0", SUIT_SENTENCE, 0);
 
-	if (m_iClip != 0)
+	//if (m_iClip != 0)
 		m_flPumpTime = gpGlobals->time + 0.95;
 
 	m_flNextPrimaryAttack = GetNextAttackDelay(1.5);
@@ -280,19 +280,21 @@ void CShotgun::Reload( void )
 	}
 }
 
+void CShotgun::WeaponTick()
+{
+	if( m_flPumpTime && m_flPumpTime < gpGlobals->time )
+	{
+		// play pumping sound
+		EMIT_SOUND_DYN( m_pPlayer, CHAN_ITEM, "weapons/scock1.wav", 1, ATTN_NORM, 0, 95 + RANDOM_LONG( 0, 0x1f ) );
+		m_flPumpTime = 0;
+	}
+}
 
 void CShotgun::WeaponIdle( void )
 {
 	ResetEmptySound( );
 
 	m_pPlayer->GetAutoaimVector( AUTOAIM_5DEGREES );
-
-	if ( m_flPumpTime && m_flPumpTime < gpGlobals->time )
-	{
-		// play pumping sound
-		EMIT_SOUND_DYN( m_pPlayer, CHAN_ITEM, "weapons/scock1.wav", 1, ATTN_NORM, 0, 95 + RANDOM_LONG(0,0x1f));
-		m_flPumpTime = 0;
-	}
 
 	if (m_flTimeWeaponIdle <  UTIL_WeaponTimeBase() )
 	{
