@@ -267,6 +267,8 @@ endif()
 set( SHARED_DEPENDENCIES
 )
 
+link_directories( "${CMAKE_SOURCE_DIR}/lib/public" )
+
 #
 #Client library
 #
