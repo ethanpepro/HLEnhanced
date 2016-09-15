@@ -364,7 +364,7 @@ if( NOT WIN32 )
 	if( NOT APPLE )
 		set( VGUI1 "-l:\"${VGUI1}\"" )
 	else()
-		set( VGUI1 "-L:\"${VGUI1}\"" )
+		#Do nothing for OSX.
 	endif()
 
 endif()
