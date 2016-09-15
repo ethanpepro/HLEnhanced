@@ -342,7 +342,7 @@ find_library( VGUI1 ${VGUI1_NAME} PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON
 
 if( UNIX )
 	if ( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )
-		set( SDL2_NAME "libSDL2-2.0.0.dylib" )
+		set( SDL2_NAME "libSDL2.dylib" )
 	else()
 		set( SDL2_NAME "libSDL2-2.0.so.0" )
 	endif()
