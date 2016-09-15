@@ -325,7 +325,7 @@ void CM249::PrimaryAttack()
 
 void CM249::Reload()
 {
-	if( DefaultReload( M249_RELOAD_START, 1.0 ) )
+	if( DefaultReload( M249_RELOAD_START, 1.0, GetBody() ) )
 	{
 		m_bReloading = true;
 
@@ -341,6 +341,8 @@ void CM249::GetWeaponData( weapon_data_t& data )
 {
 	BaseClass::GetWeaponData( data );
 
+	//Needed because the client may not get a chance to process the reload end if ping is low enough. - Solokiller
+	data.iuser2 = GetBody();
 	data.fuser2 = m_flReloadEnd;
 }
 
@@ -348,6 +350,7 @@ void CM249::SetWeaponData( const weapon_data_t& data )
 {
 	BaseClass::SetWeaponData( data );
 
+	SetBody( data.iuser2 );
 	m_flReloadEnd = data.fuser2;
 }
 
