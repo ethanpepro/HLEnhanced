@@ -66,7 +66,11 @@ public:
 	inline Vector()									{}
 	inline Vector(float X, float Y, float Z)		{ x = X; y = Y; z = Z;						}
 
-	inline Vector( vec_t flScalar )
+	/**
+	*	Initializes all members with flScalar.
+	*	Explicit to prevent implicit conversion issues.
+	*/
+	inline explicit Vector( vec_t flScalar )
 		: x( flScalar )
 		, y( flScalar )
 		, z( flScalar )
@@ -82,6 +86,9 @@ public:
 	inline Vector operator-(const Vector& v) const	{ return Vector(x-v.x, y-v.y, z-v.z);	}
 	inline Vector operator*(float fl) const			{ return Vector(x*fl, y*fl, z*fl);		}
 	inline Vector operator/(float fl) const			{ return Vector(x/fl, y/fl, z/fl);		}
+
+	inline Vector operator+( float fl ) const		{ return Vector( x + fl, y + fl, z + fl ); }
+	inline Vector operator-( float fl ) const		{ return Vector( x - fl, y - fl, z - fl ); }
 	
 	// Methods
 	inline void CopyToArray(float* rgfl) const		{ rgfl[0] = x, rgfl[1] = y, rgfl[2] = z; }
@@ -149,6 +156,8 @@ public:
 	vec_t x, y, z;
 };
 inline Vector operator*(float fl, const Vector& v)	{ return v * fl; }
+inline Vector operator+( float fl, const Vector& v ) { return v + fl; }
+inline Vector operator-( float fl, const Vector& v ) { return v - fl; }
 inline float DotProduct(const Vector& a, const Vector& b) { return(a.x*b.x+a.y*b.y+a.z*b.z); }
 inline Vector CrossProduct(const Vector& a, const Vector& b) { return Vector( a.y*b.z - a.z*b.y, a.z*b.x - a.x*b.z, a.x*b.y - a.y*b.x ); }
 

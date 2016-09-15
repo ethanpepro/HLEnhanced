@@ -139,7 +139,7 @@ Bullet shell casings
 */
 void EV_EjectBrass( const Vector& vecOrigin, const Vector& vecVelocity, float rotation, int model, int soundtype )
 {
-	Vector endpos = 0;
+	Vector endpos( 0 );
 
 	endpos[1] = rotation;
 	gEngfuncs.pEfxAPI->R_TempModel( vecOrigin, vecVelocity, endpos, 2.5, model, soundtype );
@@ -159,7 +159,7 @@ void EV_GetDefaultShellInfo( event_args_t *args,
 							 float forwardScale, float upScale, float rightScale )
 {
 	int i;
-	Vector view_ofs = 0;
+	Vector view_ofs( 0 );
 
 	float fR, fU;
 
