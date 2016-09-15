@@ -340,12 +340,7 @@ else()
 	set( VGUI1_NAME "vgui.lib" )
 endif()
 
-if( NOT APPLE )
-	find_library( VGUI1 ${VGUI1_NAME} PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Life/" )
-else()
-	#OSX can't find this library, so use the link path defined above to find it instead.
-	set( VGUI1 ${VGUI1_NAME} )
-endif()
+find_library( VGUI1 ${VGUI1_NAME} PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Life/" "${CMAKE_SOURCE_DIR}/lib/public" )
 
 if( UNIX )
 	if ( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )
