@@ -27,6 +27,8 @@
 #include "windows.h"
 #include "winsani_out.h"
 
+#include <malloc.h> // _alloca
+
 #define stricmp _stricmp
 #define strupr _strupr
 #define stricmp _stricmp
