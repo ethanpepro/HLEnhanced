@@ -65,15 +65,22 @@ void CMultiSource::Spawn()
 
 void CMultiSource::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	int i = 0;
+	int i;
+
+	bool bFound = false;
 
 	// Find the entity in our list
-	while( i < m_iTotal )
-		if( m_rgEntities[ i++ ] == pCaller )
+	for( i = 0; i < m_iTotal; ++i )
+	{
+		if( m_rgEntities[ i ] == pCaller )
+		{
+			bFound = true;
 			break;
+		}
+	}
 
 	// if we didn't find it, report error and leave
-	if( i >= m_iTotal )
+	if( !bFound )
 	{
 		ALERT( at_console, "MultiSrc:Used by non member %s.\n", pCaller->GetClassname() );
 		return;
@@ -81,7 +88,7 @@ void CMultiSource::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 
 	// CONSIDER: a Use input to the multisource always toggles.  Could check useType for ON/OFF/TOGGLE
 
-	m_rgTriggered[ i - 1 ] ^= 1;
+	m_rgTriggered[ i ] ^= 1;
 
 	// 
 	if( IsTriggered( pActivator ) )
@@ -140,7 +147,8 @@ void CMultiSource::Register( void )
 
 	while( ( pTarget = UTIL_FindEntityByClassname( pTarget, "multi_manager" ) ) && ( m_iTotal < MS_MAX_TARGETS ) )
 	{
-		m_rgEntities[ m_iTotal++ ] = pTarget;
+		if( pTarget->HasTarget( GetTargetname() ) )
+			m_rgEntities[ m_iTotal++ ] = pTarget;
 	}
 
 	pev->spawnflags &= ~SF_MULTI_INIT;
