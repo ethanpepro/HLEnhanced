@@ -384,7 +384,7 @@ void CTripmine::Precache( void )
 
 bool CTripmine::Deploy()
 {
-	//pev->body = 0;
+	SetBody( 0 );
 	return DefaultDeploy( "models/v_tripmine.mdl", "models/p_tripmine.mdl", TRIPMINE_DRAW, "trip" );
 }
 
