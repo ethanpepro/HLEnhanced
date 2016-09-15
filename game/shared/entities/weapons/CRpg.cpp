@@ -250,6 +250,8 @@ void CRpg::PrimaryAttack()
 				
 		m_flNextPrimaryAttack = GetNextAttackDelay(1.5);
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.5;
+
+		ResetEmptySound();
 	}
 	else
 	{
@@ -288,13 +290,13 @@ void CRpg::WeaponIdle( void )
 {
 	UpdateSpot( );
 
-	ResetEmptySound( );
-
 	if ( m_flTimeWeaponIdle > UTIL_WeaponTimeBase() )
 		return;
 
 	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
 	{
+		ResetEmptySound();
+
 		int iAnim;
 		float flRand = UTIL_SharedRandomFloat( m_pPlayer->random_seed, 0, 1 );
 		if (flRand <= 0.75 || m_bSpotActive )
