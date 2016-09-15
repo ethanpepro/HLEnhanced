@@ -361,7 +361,11 @@ find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ "${STEAMCOMMON}/Half-Life/" )
 
 if( NOT WIN32 )
 	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.so
-	set( VGUI1 "-l:\"${VGUI1}\"" )
+	if( NOT APPLE )
+		set( VGUI1 "-l:\"${VGUI1}\"" )
+	else()
+		set( VGUI1 "-L:\"${VGUI1}\"" )
+	endif()
 
 endif()
 
