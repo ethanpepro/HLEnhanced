@@ -391,21 +391,11 @@ void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to
 
 	// Make sure that weapon animation matches what the game .dll is telling us
 	//  over the wire ( fixes some animation glitches )
-	//TODO: weapon specific code. Great. - Solokiller
 	if( g_runfuncs && ( HUD_GetWeaponAnim() != to->client.weaponanim ) )
 	{
-		int body = 2;
-
-		//Pop the model to body 0.
-		if( pWeapon->ClassnameIs( "weapon_tripmine" ) )
-			body = 0;
-
-		//Show laser sight/scope combo
-		if( pWeapon->ClassnameIs( "weapon_python" ) && bIsMultiplayer() )
-			body = 1;
-
 		// Force a fixed anim down to viewmodel
-		HUD_SendWeaponAnim( to->client.weaponanim, body, 1 );
+		//Now uses the body that the weapon is currently using. - Solokiller
+		HUD_SendWeaponAnim( to->client.weaponanim, pWeapon->GetBody(), 1 );
 	}
 
 	for( i = 0; i < MAX_WEAPONS; i++ )
