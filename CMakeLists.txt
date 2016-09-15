@@ -344,7 +344,7 @@ if( NOT APPLE )
 	find_library( VGUI1 ${VGUI1_NAME} PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Life/" )
 else()
 	#OSX can't find this library, so use the link path defined above to find it instead.
-	set( VGUI1 VGUI1_NAME )
+	set( VGUI1 ${VGUI1_NAME} )
 endif()
 
 if( UNIX )
