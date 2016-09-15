@@ -2249,6 +2249,11 @@ public:
 	virtual bool HasTarget( string_t targetname ) const { return FStrEq( STRING( targetname ), GetTargetname() ); }
 
 	/**
+	*	@return Whether this entity has the given target.
+	*/
+	bool HasTarget( const char* const pszTargetName ) const { return HasTarget( MAKE_STRING( pszTargetName ) ); }
+
+	/**
 	*	@return Whether this entity is positioned in the world.
 	*/
 	virtual bool IsInWorld() const;
