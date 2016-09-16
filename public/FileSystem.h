@@ -48,7 +48,7 @@ typedef int WaitForResourcesHandle_t;
 /**
 *	Seek types.
 */
-typedef enum
+enum FileSystemSeek_t
 {
 	/**
 	*	Seek relative to the start of the file.
@@ -64,7 +64,7 @@ typedef enum
 	*	Seek relative to the end of the file.
 	*/
 	FILESYSTEM_SEEK_TAIL,
-} FileSystemSeek_t;
+};
 
 enum
 {
@@ -77,7 +77,7 @@ enum
 /**
 *	Filesystem warning levels.
 */
-typedef enum
+enum FileWarningLevel_t
 {
 	/**
 	*	Don't print anything.
@@ -98,7 +98,7 @@ typedef enum
 	*	Report all open/close events to console ( !slow! )
 	*/
 	FILESYSTEM_WARNING_REPORTALLACCESSES
-} FileWarningLevel_t;
+};
 
 /**
 *	Invalid file handle.

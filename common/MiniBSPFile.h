@@ -13,10 +13,10 @@
 #define BSPVERSION_QUAKE 29
 #define BSPVERSION	30
 
-typedef struct
+struct lump_t
 {
 	int		fileofs, filelen;
-} lump_t;
+};
 
 #define	LUMP_ENTITIES	0
 #define	LUMP_PLANES		1
@@ -36,11 +36,11 @@ typedef struct
 
 #define	HEADER_LUMPS	15
 
-typedef struct
+struct dheader_t
 {
 	int			version;	
 	lump_t		lumps[HEADER_LUMPS];
-} dheader_t;
+};
 
 
 #endif //COMMON_MINIBSPFILE_H

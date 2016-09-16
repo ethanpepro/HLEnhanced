@@ -9,7 +9,7 @@
 //---------------------------------------------------------------------------
 // client_textmessage_t
 //---------------------------------------------------------------------------
-typedef struct client_textmessage_s
+struct client_textmessage_t
 {
 	int		effect;
 	byte	r1, g1, b1, a1;		// 2 colors for effects
@@ -22,7 +22,7 @@ typedef struct client_textmessage_s
 	float	fxtime;
 	const char *pName;
 	const char *pMessage;
-} client_textmessage_t;
+};
 
 
 //--------------------------------------------------------------------------
@@ -31,7 +31,7 @@ typedef struct client_textmessage_s
 // Enumerated list of possible modifiers for a command.  This enumeration
 // is used in a bitarray controlling what modifiers are specified for a command.
 //---------------------------------------------------------------------------
-enum sequenceModifierBits
+enum sequenceModifierBits_e
 {
 	SEQUENCE_MODIFIER_EFFECT_BIT		= (1 << 1),
 	SEQUENCE_MODIFIER_POSITION_BIT		= (1 << 2),
@@ -45,7 +45,6 @@ enum sequenceModifierBits
 	SEQUENCE_MODIFIER_LISTENER_BIT		= (1 << 10),
 	SEQUENCE_MODIFIER_TEXTCHANNEL_BIT	= (1 << 11),
 };
-typedef enum sequenceModifierBits sequenceModifierBits_e ;
 
 
 //---------------------------------------------------------------------------
@@ -53,7 +52,7 @@ typedef enum sequenceModifierBits sequenceModifierBits_e ;
 // 
 // Enumerated sequence command types.
 //---------------------------------------------------------------------------
-enum sequenceCommandEnum_
+enum sequenceCommandEnum_e
 {
 	SEQUENCE_COMMAND_ERROR = -1,
 	SEQUENCE_COMMAND_PAUSE = 0,
@@ -81,7 +80,6 @@ enum sequenceCommandEnum_
 	SEQUENCE_MODIFIER_LISTENER,
 	SEQUENCE_MODIFIER_TEXTCHANNEL,
 };
-typedef enum sequenceCommandEnum_ sequenceCommandEnum_e;
 
 
 //---------------------------------------------------------------------------
@@ -89,21 +87,19 @@ typedef enum sequenceCommandEnum_ sequenceCommandEnum_e;
 // 
 // Typeerated sequence command types.
 //---------------------------------------------------------------------------
-enum sequenceCommandType_
+enum sequenceCommandType_e
 {
 	SEQUENCE_TYPE_COMMAND,
 	SEQUENCE_TYPE_MODIFIER,
 };
-typedef enum sequenceCommandType_ sequenceCommandType_e;
 
 
 //---------------------------------------------------------------------------
-// sequenceCommandMapping_s
+// sequenceCommandMapping_t
 // 
 // A mapping of a command enumerated-value to its name.
 //---------------------------------------------------------------------------
-typedef struct sequenceCommandMapping_ sequenceCommandMapping_s;
-struct sequenceCommandMapping_
+struct sequenceCommandMapping_t
 {
 	sequenceCommandEnum_e	commandEnum;
 	const char*				commandName;
@@ -112,13 +108,12 @@ struct sequenceCommandMapping_
 
 
 //---------------------------------------------------------------------------
-// sequenceCommandLine_s
+// sequenceCommandLine_t
 // 
 // Structure representing a single command (usually 1 line) from a
 //	.SEQ file entry.
 //---------------------------------------------------------------------------
-typedef struct sequenceCommandLine_ sequenceCommandLine_s;
-struct sequenceCommandLine_
+struct sequenceCommandLine_t
 {
 	int						commandType;		// Specifies the type of command
 	client_textmessage_t	clientMessage;		// Text HUD message struct
@@ -132,65 +127,62 @@ struct sequenceCommandLine_
 	int						repeatCount;		// If nonzero, reset execution pointer to top of block (N times, -1 = infinite)
 	int						textChannel;		// Display channel on which text message is sent
 	int						modifierBitField;	// Bit field to specify what clientmessage fields are valid
-	sequenceCommandLine_s*	nextCommandLine;	// Next command (linked list)
+	sequenceCommandLine_t*	nextCommandLine;	// Next command (linked list)
 };
 
 
 //---------------------------------------------------------------------------
-// sequenceEntry_s
+// sequenceEntry_t
 // 
 // Structure representing a single command (usually 1 line) from a
 //	.SEQ file entry.
 //---------------------------------------------------------------------------
-typedef struct sequenceEntry_ sequenceEntry_s;
-struct sequenceEntry_
+struct sequenceEntry_t
 {
 	char*					fileName;		// Name of sequence file without .SEQ extension
 	char*					entryName;		// Name of entry label in file
-	sequenceCommandLine_s*	firstCommand;	// Linked list of commands in entry
-	sequenceEntry_s*		nextEntry;		// Next loaded entry
+	sequenceCommandLine_t*	firstCommand;	// Linked list of commands in entry
+	sequenceEntry_t*		nextEntry;		// Next loaded entry
 	qboolean				isGlobal;		// Is entry retained over level transitions?
 };
 
 
 
 //---------------------------------------------------------------------------
-// sentenceEntry_s
+// sentenceEntry_t
 // Structure representing a single sentence of a group from a .SEQ
 // file entry.  Sentences are identical to entries in sentences.txt, but
 // can be unique per level and are loaded/unloaded with the level.
 //---------------------------------------------------------------------------
-typedef struct sentenceEntry_ sentenceEntry_s;
-struct sentenceEntry_
+struct sentenceEntry_t
 {
 	char*					data;			// sentence data (ie "We have hostiles" )
-	sentenceEntry_s*		nextEntry;		// Next loaded entry
+	sentenceEntry_t*		nextEntry;		// Next loaded entry
 	qboolean				isGlobal;		// Is entry retained over level transitions?
 	unsigned int			index;			// this entry's position in the file.
 };
 
 //--------------------------------------------------------------------------
-// sentenceGroupEntry_s
+// sentenceGroupEntry_t
 // Structure representing a group of sentences found in a .SEQ file.
 // A sentence group is defined by all sentences with the same name, ignoring
 // the number at the end of the sentence name.  Groups enable a sentence
 // to be picked at random across a group.
 //--------------------------------------------------------------------------
-typedef struct sentenceGroupEntry_ sentenceGroupEntry_s;
-struct sentenceGroupEntry_
+struct sentenceGroupEntry_t
 {
 	char*					groupName;		// name of the group (ie CT_ALERT )
 	unsigned int			numSentences;	// number of sentences in group
-	sentenceEntry_s*		firstSentence;	// head of linked list of sentences in group
-	sentenceGroupEntry_s*	nextEntry;		// next loaded group
+	sentenceEntry_t*		firstSentence;	// head of linked list of sentences in group
+	sentenceGroupEntry_t*	nextEntry;		// next loaded group
 };
 
 //---------------------------------------------------------------------------
 // Function declarations
 //---------------------------------------------------------------------------
-sequenceEntry_s* SequenceGet( const char* fileName, const char* entryName );
+sequenceEntry_t* SequenceGet( const char* fileName, const char* entryName );
 void Sequence_ParseFile( const char* fileName, qboolean isGlobal );
 void Sequence_OnLevelLoad( const char* mapName );
-sentenceEntry_s* SequencePickSentence( const char *groupName, int pickMethod, int *picked );
+sentenceEntry_t* SequencePickSentence( const char *groupName, int pickMethod, int *picked );
 
 #endif // _INCLUDE_SEQUENCE_H_

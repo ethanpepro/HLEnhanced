@@ -47,11 +47,11 @@ mstudioanim_t* GetAnim( studiohdr_t* pHeader, model_t* m_pSubModel, mstudioseqde
 		m_pSubModel->submodels = ( dmodel_t * ) paSequences;
 	}
 
-	if( !IEngineStudio.Cache_Check( ( struct cache_user_s * )&( paSequences[ pseqdesc->seqgroup ] ) ) )
+	if( !IEngineStudio.Cache_Check( ( cache_user_t * )&( paSequences[ pseqdesc->seqgroup ] ) ) )
 	{
 		//TODO: needs unconditional print. - Solokiller
 		Alert( at_console, "loading %s\n", pseqgroup->name );
-		IEngineStudio.LoadCacheFile( pseqgroup->name, ( struct cache_user_s * )&paSequences[ pseqdesc->seqgroup ] );
+		IEngineStudio.LoadCacheFile( pseqgroup->name, ( cache_user_t * )&paSequences[ pseqdesc->seqgroup ] );
 	}
 	return ( mstudioanim_t* ) ( ( byte* ) paSequences[ pseqdesc->seqgroup ].data + pseqdesc->animindex );
 }

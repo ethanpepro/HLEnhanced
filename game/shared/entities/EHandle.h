@@ -1,7 +1,7 @@
 #ifndef GAME_SHARED_EHANDLE_H
 #define GAME_SHARED_EHANDLE_H
 
-typedef struct edict_s edict_t;
+struct edict_t;
 
 class CBaseEntity;
 

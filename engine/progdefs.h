@@ -18,7 +18,7 @@
 #pragma once
 #endif
 
-typedef struct
+struct globalvars_t
 {	
 	float		time;
 	float		frametime;
@@ -52,13 +52,13 @@ typedef struct
 
 	void		*pSaveData;
 	Vector		vecLandmarkOffset;
-} globalvars_t;
+};
 
 
 /**
 *	Contains entity variables that the engine needs to access for graphics, networking and physics.
 */
-typedef struct entvars_s
+struct entvars_t
 {
 	/**
 	*	The classname of the entity.
@@ -752,7 +752,7 @@ typedef struct entvars_s
 
 	///@see euser1
 	edict_t		*euser4;
-} entvars_t;
+};
 
 
 #endif // PROGDEFS_H

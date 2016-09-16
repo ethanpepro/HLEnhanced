@@ -120,7 +120,7 @@ void UTIL_TraceHull( const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTE
 	ptr->flFraction = 1.0;
 }
 
-const struct texture_s* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd )
+const texture_t* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd )
 {
 	return nullptr;
 }

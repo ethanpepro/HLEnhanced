@@ -22,14 +22,14 @@
 #include "archtypes.h"     // DAL
 
 // MD5 Hash
-typedef struct
+struct MD5Context_t
 {
 	unsigned int buf[4];
     unsigned int bits[2];
     unsigned char in[64];
-} MD5Context_t;
+};
 
-
+//TODO: identical for both cases. - Solokiller
 #ifdef _WIN32
 typedef uint32 CRC32_t;
 #else

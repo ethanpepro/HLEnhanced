@@ -1,8 +1,8 @@
 #ifndef GAME_SHARED_ENTITIES_CENTITYREGISTRY_H
 #define GAME_SHARED_ENTITIES_CENTITYREGISTRY_H
 
-typedef struct entvars_s entvars_t;
-typedef struct edict_s edict_t;
+struct entvars_t;
+struct edict_t;
 
 class CBaseEntity;
 

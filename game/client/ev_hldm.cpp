@@ -1176,7 +1176,7 @@ enum crossbow_e {
 // This function is used to correct the origin and angles 
 // of the bolt, so it looks like it's stuck on the wall.
 //=====================
-void EV_BoltCallback ( struct tempent_s *ent, float frametime, float currenttime )
+void EV_BoltCallback ( TEMPENTITY *ent, float frametime, float currenttime )
 {
 	ent->entity.origin = ent->entity.baseline.vuser1;
 	ent->entity.angles = ent->entity.baseline.vuser2;

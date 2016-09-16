@@ -9,42 +9,42 @@
 #include "enums.h"
 #endif
 
-typedef struct cl_enginefuncs_s cl_enginefuncs_t;
-typedef struct kbutton_s kbutton_t;
-typedef struct cl_entity_s cl_entity_t;
-typedef struct client_data_s client_data_t;
+struct cl_enginefunc_t;
+struct kbutton_t;
+struct cl_entity_t;
+struct client_data_t;
 //Not a typo, both of these exist. - Solokiller
-typedef struct clientdata_s clientdata_t;
-typedef struct playermove_s playermove_t;
-typedef struct usercmd_s usercmd_t;
-typedef struct ref_params_s ref_params_t;
-typedef struct mstudioevent_s mstudioevent_t;
-typedef struct local_state_s local_state_t;
-typedef struct entity_state_s entity_state_t;
-typedef struct weapon_data_s weapon_data_t;
-typedef struct netadr_s netadr_t;
-typedef struct tempent_s TEMPENTITY;
-typedef struct r_studio_interface_s r_studio_interface_t;
-typedef struct engine_studio_api_s engine_studio_api_t;
-typedef struct client_sprite_s client_sprite_t;
-typedef struct cvar_s cvar_t;
-typedef struct hud_player_info_s hud_player_info_t;
-typedef struct client_textmessage_s client_textmessage_t;
-typedef struct SCREENINFO_s SCREENINFO;
-typedef struct rect_s wrect_t;
-typedef struct con_nprint_s con_nprint_t;
-typedef struct edict_s edict_t;
-typedef struct event_args_s event_args_t;
-typedef struct screenfade_s screenfade_t;
-typedef struct model_s model_t;
+struct clientdata_t;
+struct playermove_t;
+struct usercmd_t;
+struct ref_params_t;
+struct mstudioevent_t;
+struct local_state_t;
+struct entity_state_t;
+struct weapon_data_t;
+struct netadr_t;
+struct TEMPENTITY;
+struct r_studio_interface_t;
+struct engine_studio_api_t;
+struct client_sprite_t;
+struct cvar_t;
+struct hud_player_info_t;
+struct client_textmessage_t;
+struct SCREENINFO;
+struct wrect_t;
+struct con_nprint_t;
+struct edict_t;
+struct event_args_t;
+struct screenfade_t;
+struct model_t;
 typedef struct tagPOINT POINT;
-typedef struct pmtrace_s pmtrace_t;
+struct pmtrace_t;
 
-typedef struct triangleapi_s triangleapi_t;
-typedef struct efx_api_s efx_api_t;
-typedef struct event_api_s event_api_t;
-typedef struct demo_api_s demo_api_t;
-typedef struct net_api_s net_api_t;
+struct triangleapi_t;
+struct efx_api_t;
+struct event_api_t;
+struct demo_api_t;
+struct net_api_t;
 struct IVoiceTweak;
 
 typedef triangleapi_t*		pTriAPI;
@@ -56,12 +56,12 @@ typedef IVoiceTweak*		pVoiceTweak;
 
 #define	MAX_ALIAS_NAME	32
 
-typedef struct cmdalias_s
+struct cmdalias_t
 {
-	struct cmdalias_s	*next;
-	char	name[MAX_ALIAS_NAME];
-	char	*value;
-} cmdalias_t;
+	cmdalias_t	*next;
+	char		name[MAX_ALIAS_NAME];
+	char		*value;
+};
 
 //Now defined here. Who ever thought defining this somewhere else was a good idea? - Solokiller
 using pfnUserMsgHook = int ( * )( const char *pszName, int iSize, void *pbuf );
@@ -82,7 +82,7 @@ const size_t PLAYERID_BUFFER_SIZE = 16;
 // ********************************************************
 
 // Pointers to the exported client functions themselves
-typedef struct
+struct cldll_func_t
 {
 	/**
 	*	Called to initialize the client library.
@@ -91,7 +91,7 @@ typedef struct
 	*	@return true on success, false otherwise. If iVersion does not match CLDLL_INTERFACE_VERSION, return false.
 	*	@see CLDLL_INTERFACE_VERSION
 	*/
-	int				( *pInitFunc )					( cl_enginefuncs_t* pEngineFuncs, int iVersion );
+	int				( *pInitFunc )					( cl_enginefunc_t* pEngineFuncs, int iVersion );
 
 	/**
 	*	Called to initialize the client library. This occurs after the engine has loaded the client and has initialized all other systems.
@@ -407,7 +407,7 @@ typedef struct
 	*	Never actually called, but must be provided in order for CreateInterface to be called.
 	*/
 	void*			( *pClientFactory )				( void );
-} cldll_func_t;
+};
 
 /**
 *	@defgroup ClientExports Client Exports
@@ -469,7 +469,7 @@ using CLIENTFACTORY						= decltype( cldll_func_t::pClientFactory );
 // ********************************************************
 
 // Pointers to the exported engine functions themselves
-typedef struct cl_enginefuncs_s
+struct cl_enginefunc_t
 {
 	/**
 	*	Loads a sprite by name.
@@ -1279,7 +1279,7 @@ typedef struct cl_enginefuncs_s
 	*	@param pszEntryName Entry name.
 	*	@return Sequence, or null if no such sequence exists.
 	*/
-	sequenceEntry_s*		 ( *pfnSequenceGet )						( const char* const pszFileName, const char* const pszEntryName );
+	sequenceEntry_t*		 ( *pfnSequenceGet )						( const char* const pszFileName, const char* const pszEntryName );
 
 	/**
 	*	Draws the current sprite as solid.
@@ -1302,7 +1302,7 @@ typedef struct cl_enginefuncs_s
 	*	@param piPicked If not null, this is set to the index of the sentence that was picked.
 	*	@return Sentence that was picked, or null if there is no group by that name, or no sentences in the group.
 	*/
-	sentenceEntry_s*		 ( *pfnSequencePickSentence )				( const char* const pszGroupName, int pickMethod, int* piPicked );
+	sentenceEntry_t*		 ( *pfnSequencePickSentence )				( const char* const pszGroupName, int pickMethod, int* piPicked );
 	
 	/**
 	*	Draws a complete string.
@@ -1460,7 +1460,7 @@ typedef struct cl_enginefuncs_s
 	*	@param y Y offset.
 	*/
 	void					 ( *pfnVguiWrap2_GetMouseDelta )			( int* x, int* y );
-} cl_enginefunc_t;
+};
 
 /**
 *	@defgroup ClientEngineExports Client Engine Exports

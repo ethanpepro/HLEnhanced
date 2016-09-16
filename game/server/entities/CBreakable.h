@@ -20,8 +20,26 @@
 #define SF_BREAK_PRESSURE		4// can be broken by a player standing on it
 #define SF_BREAK_CROWBAR		256// instant break if hit with crowbar
 
-typedef enum { expRandom, expDirected} Explosions;
-typedef enum { matGlass = 0, matWood, matMetal, matFlesh, matCinderBlock, matCeilingTile, matComputer, matUnbreakableGlass, matRocks, matNone, matLastMaterial } Materials;
+enum Explosions
+{
+	expRandom,
+	expDirected
+};
+
+enum Materials
+{
+	matGlass = 0,
+	matWood,
+	matMetal,
+	matFlesh,
+	matCinderBlock,
+	matCeilingTile,
+	matComputer,
+	matUnbreakableGlass,
+	matRocks,
+	matNone,
+	matLastMaterial
+};
 
 #define	NUM_SHARDS 6 // this many shards spawned when breakable objects break;
 

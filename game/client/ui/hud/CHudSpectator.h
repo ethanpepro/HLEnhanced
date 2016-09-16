@@ -28,7 +28,8 @@
 // Purpose: Handles the drawing of the spectator stuff (camera & top-down map and all the things on it )
 //-----------------------------------------------------------------------------
 
-typedef struct overviewInfo_s {
+struct overviewInfo_t
+{
 	char		map[64];	// cl.levelname or empty
 	Vector		origin;		// center of map
 	float		zoom;		// zoom of map images
@@ -41,23 +42,24 @@ typedef struct overviewInfo_s {
 	int			insetWindowY;
 	int			insetWindowHeight;
 	int			insetWindowWidth;
-} overviewInfo_t;
+};
 
-typedef struct overviewEntity_s {
+struct overviewEntity_t
+{
 
-	HSPRITE					hSprite;
-	struct cl_entity_s *	entity;
-	double					killTime;
-} overviewEntity_t;
+	HSPRITE			hSprite;
+	cl_entity_t *	entity;
+	double			killTime;
+};
 
-typedef struct cameraWayPoint_s 
+struct cameraWayPoint_t
 {
 	float	time;
 	Vector	position;
 	Vector	angle;
 	float	fov;
 	int		flags;
-} cameraWayPoint_t;
+};
 
 #define	 MAX_OVERVIEW_ENTITIES		128
 #define	 MAX_CAM_WAYPOINTS			32
@@ -71,7 +73,7 @@ public:
 	void InitHUDData() override;
 	bool AddOverviewEntityToList( HSPRITE sprite, cl_entity_t * ent, double killTime);
 	void DeathMessage(int victim);
-	bool AddOverviewEntity( int type, struct cl_entity_s *ent, const char *modelname );
+	bool AddOverviewEntity( int type, cl_entity_t *ent, const char *modelname );
 	void CheckOverviewEntities();
 	void DrawOverview();
 	void DrawOverviewEntities();
@@ -139,7 +141,7 @@ private:
 
 	wrect_t		m_crosshairRect;
 
-	struct model_s * m_MapSprite;	// each layer image is saved in one sprite, where each tile is a sprite frame
+	model_t*	m_MapSprite;	// each layer image is saved in one sprite, where each tile is a sprite frame
 	float		m_flNextObserverInput;
 	float		m_FOV;
 	float		m_zoomDelta;

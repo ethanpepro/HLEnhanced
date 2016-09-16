@@ -138,7 +138,7 @@ HUD_WeaponsPostThink
 Run Weapon firing code on client
 =====================
 */
-void CClientPrediction::WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cmd, double time, unsigned int random_seed )
+void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to, usercmd_t *cmd, double time, unsigned int random_seed )
 {
 	int i;
 	int buttonsChanged;

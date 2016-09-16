@@ -17,12 +17,12 @@
 
 #include "CSaveRestoreBuffer.h"
 
-typedef struct
+struct HEADER
 {
 	unsigned short		size;
 	unsigned short		token;
 	char				*pData;
-} HEADER;
+};
 
 class CRestore : public CSaveRestoreBuffer
 {

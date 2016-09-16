@@ -35,7 +35,7 @@ HUD_AddEntity
 	Return 0 to filter entity from visible list for rendering
 ========================
 */
-int DLLEXPORT HUD_AddEntity( int type, struct cl_entity_s *ent, const char *modelname )
+int DLLEXPORT HUD_AddEntity( int type, cl_entity_t *ent, const char *modelname )
 {
 	switch ( type )
 	{
@@ -76,7 +76,7 @@ playerstate update in entity_state_t.  In order for these overrides to eventuall
 structure, we need to copy them into the state structure at this point.
 =========================
 */
-void DLLEXPORT HUD_TxferLocalOverrides( struct entity_state_s *state, const struct clientdata_s *client )
+void DLLEXPORT HUD_TxferLocalOverrides( entity_state_t *state, const clientdata_t *client )
 {
 	state->origin = client->origin;
 
@@ -99,7 +99,7 @@ We have received entity_state_t for this player over the network.  We need to co
 playerstate structure
 =========================
 */
-void DLLEXPORT HUD_ProcessPlayerState( struct entity_state_s *dst, const struct entity_state_s *src )
+void DLLEXPORT HUD_ProcessPlayerState( entity_state_t *dst, const entity_state_t *src )
 {
 	// Copy in network data
 	dst->origin = src->origin;
@@ -169,7 +169,7 @@ Because we can predict an arbitrary number of frames before the server responds 
  update is occupying.
 =========================
 */
-void DLLEXPORT HUD_TxferPredictionData ( struct entity_state_s *ps, const struct entity_state_s *pps, struct clientdata_s *pcd, const struct clientdata_s *ppcd, struct weapon_data_s *wd, const struct weapon_data_s *pwd )
+void DLLEXPORT HUD_TxferPredictionData ( entity_state_t *ps, const entity_state_t *pps, clientdata_t *pcd, const clientdata_t *ppcd, weapon_data_t *wd, const weapon_data_t *pwd )
 {
 	ps->oldbuttons				= pps->oldbuttons;
 	ps->flFallVelocity			= pps->flFallVelocity;
@@ -232,7 +232,7 @@ void BeamEndModel( void )
 {
 	cl_entity_t *player, *model;
 	int modelindex;
-	struct model_s *mod;
+	model_t *mod;
 
 	// Load it up with some bogus data
 	player = gEngfuncs.GetLocalPlayer();
@@ -267,7 +267,7 @@ void Beams( void )
 {
 	static float lasttime;
 	float curtime;
-	struct model_s *mod;
+	model_t *mod;
 	int index;
 
 	BeamEndModel();
@@ -327,7 +327,7 @@ The entity's studio model description indicated an event was
 fired during this frame, handle the event by it's tag ( e.g., muzzleflash, sound )
 =========================
 */
-void DLLEXPORT HUD_StudioEvent( const struct mstudioevent_s *event, const struct cl_entity_s *entity )
+void DLLEXPORT HUD_StudioEvent( const mstudioevent_t *event, const cl_entity_t *entity )
 {
 	int iMuzzleFlash = 1;
 

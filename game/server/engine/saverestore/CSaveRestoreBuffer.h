@@ -18,9 +18,9 @@
 #include "SaveRestoreDefs.h"
 
 //TODO: all of these could probably go into a single header that forward declares everything - Solokiller
-typedef struct saverestore_s SAVERESTOREDATA;
-typedef struct entvars_s entvars_t;
-typedef struct edict_s edict_t;
+struct SAVERESTOREDATA;
+struct entvars_t;
+struct edict_t;
 typedef int EOFFSET;
 class CBaseEntity;
 

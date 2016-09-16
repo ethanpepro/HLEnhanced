@@ -1199,7 +1199,7 @@ CBaseEntity* UTIL_FindEntityForward( CBaseEntity* pMe )
 	return nullptr;
 }
 
-const struct texture_s* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd )
+const texture_t* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd )
 {
 	return TRACE_TEXTURE( pEntity ? pEntity->edict() : nullptr, vecStart, vecEnd );
 }

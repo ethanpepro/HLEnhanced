@@ -6,6 +6,8 @@
 class CBasePlayerWeapon;
 class CBasePlayer;
 
+struct local_state_t;
+
 /**
 *	Handles the client's weapon prediction.
 */
@@ -54,7 +56,7 @@ public:
 	*/
 	void SetupWeapons();
 
-	void WeaponsPostThink( local_state_s *from, local_state_s *to, usercmd_t *cmd, double time, unsigned int random_seed );
+	void WeaponsPostThink( local_state_t *from, local_state_t *to, usercmd_t *cmd, double time, unsigned int random_seed );
 
 private:
 	// Pool of client side entities/entvars_t

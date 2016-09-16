@@ -59,7 +59,7 @@ bool CStudioBlending::Initialize( int version, sv_blending_interface_t** ppInter
 	return true;
 }
 
-void CStudioBlending::StudioSetupBones( struct model_s* pModel,
+void CStudioBlending::StudioSetupBones( model_t*		pModel,
 										float			frame,
 										int				sequence,
 										const Vector&	angles,

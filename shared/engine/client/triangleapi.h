@@ -18,6 +18,8 @@
 #pragma once
 #endif
 
+struct model_t;
+
 enum TRICULLSTYLE
 {
 	TRI_FRONT	= 0,
@@ -37,7 +39,7 @@ enum TriangleMode : int
 	TRI_QUAD_STRIP		= 6,
 };
 
-typedef struct triangleapi_s
+struct triangleapi_t
 {
 	/**
 	*	Interface version.
@@ -122,7 +124,7 @@ typedef struct triangleapi_s
 	*	@param frame Sprite frame to use.
 	*	@return true on success, false otherwise.
 	*/
-	int			( *SpriteTexture ) ( struct model_s *pSpriteModel, int frame );
+	int			( *SpriteTexture ) ( model_t *pSpriteModel, int frame );
 
 	/**
 	*	Converts a world coordinate to a screen coordinate.
@@ -189,6 +191,6 @@ typedef struct triangleapi_s
 	*/
 	void		( *FogParams ) ( float flDensity, int bFogSkybox );
 
-} triangleapi_t;
+};
 
 #endif // !TRIANGLEAPIH

@@ -18,6 +18,11 @@
 #pragma once
 #endif
 
+struct model_t;
+struct particle_t;
+struct pmtrace_t;
+struct TEMPENTITY;
+
 // particle_t
 #if !defined( PARTICLEDEFH )  
 #include "particledef.h"
@@ -235,9 +240,10 @@ enum class BeamCircleType
 	RING		= 0x18
 };
 
-using TemPEntThink = void( * )( struct tempent_s *ent, float frametime, float currenttime );
+//TODO: correct case - Solokiller
+using TemPEntThink = void( * )( TEMPENTITY *ent, float frametime, float currenttime );
 
-typedef struct tempent_s
+struct TEMPENTITY
 {
 	int			flags;
 	float		die;
@@ -248,9 +254,9 @@ typedef struct tempent_s
 	float		fadeSpeed;
 	float		bounceFactor;
 	int			hitSound;
-	void		( *hitcallback )	( struct tempent_s *ent, struct pmtrace_s *ptr );
+	void		( *hitcallback )	( TEMPENTITY *ent, pmtrace_t *ptr );
 	TemPEntThink callback;
-	struct tempent_s	*next;
+	TEMPENTITY	*next;
 	int			priority;
 	short		clientIndex;	// if attached, this is the index of the client to stick to
 								// if COLLIDEALL, this is the index of the client to ignore
@@ -262,11 +268,9 @@ typedef struct tempent_s
 	// baseline.origin		- velocity
 	// baseline.renderamt	- starting fadeout intensity
 	// baseline.angles		- angle velocity
-} TEMPENTITY;
+};
 
-typedef struct efx_api_s efx_api_t;
-
-struct efx_api_s
+struct efx_api_t
 {
 	/**
 	*	Creates a new custom particle.
@@ -354,7 +358,7 @@ struct efx_api_s
 	*	Creates particles around the given entity.
 	*	@param ent Entity.
 	*/
-	void		( *R_EntityParticles )			( struct cl_entity_s* ent );
+	void		( *R_EntityParticles )			( cl_entity_t* ent );
 
 	/**
 	*	Creates an explosion effect.
@@ -370,7 +374,7 @@ struct efx_api_s
 	*	Does not appear to do anything.
 	*	TODO: TE_FIZZ uses this. Check that as well. - Solokiller
 	*/
-	void		( *R_FizzEffect )				( struct cl_entity_s *pent, int modelIndex, int density );
+	void		( *R_FizzEffect )				( cl_entity_t *pent, int modelIndex, int density );
 	
 	/**
 	*	Creates a field of fire.
@@ -507,8 +511,9 @@ struct efx_api_s
 	*	@param life How long the projectile should live for, in seconds.
 	*	@param owner If not 0, which entity should never be collided with. Must be a player.
 	*	@param hitcallback Callback to invoke when it hits something.
+	*	TODO use callback definition - Solokiller
 	*/
-	void		( *R_Projectile )				( const float* vecOrigin, const float* vecVelocity, int modelIndex, int life, int owner, void (*hitcallback)( struct tempent_s *ent, struct pmtrace_s *ptr ) );
+	void		( *R_Projectile )				( const float* vecOrigin, const float* vecVelocity, int modelIndex, int life, int owner, void (*hitcallback)( TEMPENTITY *ent, pmtrace_t *ptr ) );
 	
 	/**
 	*	Plays a ricochet sound at the given location.
@@ -523,7 +528,7 @@ struct efx_api_s
 	*	@param duration How long the sprite should life for, in seconds.
 	*	@param scale Sprite scale.
 	*/
-	void		( *R_RicochetSprite )			( const float* vecOrigin, struct model_s* pmodel, float duration, float scale );
+	void		( *R_RicochetSprite )			( const float* vecOrigin, model_t* pmodel, float duration, float scale );
 
 	/**
 	*	Creates a rocket flare sprite at the given location. Will exist for 0.01 seconds.
@@ -674,7 +679,7 @@ struct efx_api_s
 	*	@param deathfunc Callback to invoke when the particle dies.
 	*/
 	void		( *R_UserTracerParticle )		( const float* vecOrigin, const float* vecVelocity, float life, int colorIndex, float length, 
-												  unsigned char deathcontext, void ( *deathfunc)( struct particle_s *particle ) );
+												  unsigned char deathcontext, void ( *deathfunc)( particle_t *particle ) );
 
 	/**
 	*	Creates tracer particles.
@@ -938,7 +943,7 @@ struct efx_api_s
 	*	@param model Model to use.
 	*	@return Temporary entity, or null if no entity could be allocated.
 	*/
-	TEMPENTITY*	( *CL_TempEntAlloc )			( const float* vecOrigin, struct model_s* model );
+	TEMPENTITY*	( *CL_TempEntAlloc )			( const float* vecOrigin, model_t* model );
 
 	/**
 	*	Allocates a low priority temp entity with no model.
@@ -953,7 +958,7 @@ struct efx_api_s
 	*	@param model Model to use.
 	*	@return Temporary entity, or null if no entity could be allocated.
 	*/
-	TEMPENTITY*	( *CL_TempEntAllocHigh )		( const float* vecOrigin, struct model_s* model );
+	TEMPENTITY*	( *CL_TempEntAllocHigh )		( const float* vecOrigin, model_t* model );
 
 	/**
 	*	@param vecOrigin Origin.
@@ -962,7 +967,7 @@ struct efx_api_s
 	*	@param callback Think callback.
 	*	@return Temporary entity, or null if no entity could be allocated.
 	*/
-	TEMPENTITY*	( *CL_TentEntAllocCustom )		( float *origin, struct model_s *model, int high, TemPEntThink callback );
+	TEMPENTITY*	( *CL_TentEntAllocCustom )		( float *origin, model_t *model, int high, TemPEntThink callback );
 
 	/**
 	*	Obsolete. Always zeroes out packed.

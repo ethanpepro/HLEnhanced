@@ -16,6 +16,7 @@
 #define GAME_SERVER_CSTUDIOBLENDING_H
 
 struct Matrix3x4;
+struct model_t;
 
 /**
 *	Studio model blending. - Solokiller
@@ -27,7 +28,7 @@ public:
 
 	bool Initialize( int version, sv_blending_interface_t** ppInterface, server_studio_api_t* pStudio, Matrix3x4* pRotationMatrix, Matrix3x4* pBoneTransform );
 
-	void StudioSetupBones( struct model_s* pModel,
+	void StudioSetupBones( model_t*			pModel,
 						   float			frame,
 						   int				sequence,
 						   const Vector&	angles,

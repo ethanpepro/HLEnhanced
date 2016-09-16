@@ -18,6 +18,11 @@
 #pragma once
 
 #include "archtypes.h"     // DAL
+
+struct hull_t;
+struct model_t;
+struct movevars_t;
+
 #define	MAX_PHYSENTS 600 		  // Must have room for all entities in the world.
 #define MAX_MOVEENTS 64
 #define	MAX_CLIP_PLANES	5
@@ -62,13 +67,13 @@ enum PMTraceFlag
 #endif
 
 // physent_t
-typedef struct physent_s
+struct physent_t
 {
 	char			name[32];             // Name of model, or "player" or "world".
 	int				player;
 	Vector			origin;               // Model's origin in world coordinates.
-	struct model_s	*model;		          // only for bsp models
-	struct model_s	*studiomodel;         // SOLID_BBOX, but studio clip intersections.
+	model_t			*model;		          // only for bsp models
+	model_t			*studiomodel;         // SOLID_BBOX, but studio clip intersections.
 	Vector			mins, maxs;	          // only for non-bsp models
 	int				info;		          // For client or server to use to identify (index into edicts or cl_entities)
 	Vector			angles;               // rotated entities need this info for hull testing to work.
@@ -102,10 +107,10 @@ typedef struct physent_s
 	Vector			vuser2;
 	Vector			vuser3;
 	Vector			vuser4;
-} physent_t;
+};
 
 
-typedef struct playermove_s
+struct playermove_t
 {
 	int				player_index;  // So we don't try to run the PM_CheckStuck nudging too quickly.
 	qboolean		server;        // For debugging, are we running physics code on server side?
@@ -198,7 +203,7 @@ typedef struct playermove_s
 
 	char			physinfo[ MAX_PHYSINFO_STRING ]; // Physics info string
 
-	struct movevars_s *movevars;
+	movevars_t		*movevars;
 	Vector player_mins[ 4 ];
 	Vector player_maxs[ 4 ];
 	
@@ -213,13 +218,13 @@ typedef struct playermove_s
 	void			(*PM_StuckTouch)( int hitent, pmtrace_t *ptraceresult );
 	int				(*PM_PointContents) (float *p, int *truecontents /*filled in if this is non-null*/ );
 	int				(*PM_TruePointContents) (float *p);
-	int				(*PM_HullPointContents) ( struct hull_s *hull, int num, float *p);   
+	int				(*PM_HullPointContents) ( hull_t *hull, int num, float *p);
 	pmtrace_t		(*PM_PlayerTrace) (const float *start, const float *end, int traceFlags, int ignore_pe );
-	struct pmtrace_s *(*PM_TraceLine)( float *start, float *end, int flags, int usehulll, int ignore_pe );
+	pmtrace_t		*(*PM_TraceLine)( float *start, float *end, int flags, int usehulll, int ignore_pe );
 	int32			(*RandomLong)( int32 lLow, int32 lHigh );
 	float			(*RandomFloat)( float flLow, float flHigh );
-	int				(*PM_GetModelType)( struct model_s *mod );
-	void			(*PM_GetModelBounds)( struct model_s *mod, float *mins, float *maxs );
+	int				(*PM_GetModelType)( model_t *mod );
+	void			(*PM_GetModelBounds)( model_t *mod, float *mins, float *maxs );
 	void			*(*PM_HullForBsp)( physent_t *pe, float *offset );
 	float			(*PM_TraceModel)( physent_t *pEnt, float *start, float *end, trace_t *trace );
 	int				(*COM_FileSize)(char *filename);
@@ -236,7 +241,7 @@ typedef struct playermove_s
 	
 	pmtrace_t		(*PM_PlayerTraceEx) (float *start, float *end, int traceFlags, int (*pfnIgnore)( physent_t *pe ) );
 	int				(*PM_TestPlayerPositionEx) (float *pos, pmtrace_t *ptrace, int (*pfnIgnore)( physent_t *pe ) );
-	struct pmtrace_s *(*PM_TraceLineEx)( float *start, float *end, int flags, int usehulll, int (*pfnIgnore)( physent_t *pe ) );
-} playermove_t;
+	pmtrace_t		*(*PM_TraceLineEx)( float *start, float *end, int flags, int usehulll, int (*pfnIgnore)( physent_t *pe ) );
+};
 
 #endif

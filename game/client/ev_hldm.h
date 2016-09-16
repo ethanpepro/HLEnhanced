@@ -10,7 +10,7 @@
 
 #include "event_args.h"
 
-typedef struct pmtrace_s pmtrace_t;
+struct pmtrace_t;
 
 void EV_HLDM_GunshotDecalTrace( pmtrace_t *pTrace, char *decalName );
 void EV_HLDM_DecalGunshot( pmtrace_t *pTrace, int iBulletType );

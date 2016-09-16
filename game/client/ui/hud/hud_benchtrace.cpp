@@ -19,7 +19,7 @@ typedef void* HANDLE;
 #endif
 
 // For tracking the trace threads
-typedef struct
+struct trace_params_t
 {
 	// Inputs
 	char	server[ 256 ];
@@ -32,13 +32,13 @@ typedef struct
 	DWORD	hThreadId;
 	HANDLE	hThread;
 	HANDLE	hEventDone;
-} trace_params_t;
+};
 
 // Static forces it to be zeroed out
 static trace_params_t tp;
 
 // For doing the actual traceroute
-struct trace_options_s
+struct trace_options_t
 {
 	unsigned char ucTTL;
 	unsigned char a[7];
@@ -49,7 +49,7 @@ struct
 	DWORD			dwAddress;
 	unsigned long	ulStatus, ulRoundTripTime;
 	unsigned char	a[8];
-	struct trace_options_s Options;
+	trace_options_t Options;
 } traceReturn;
 
 /*
@@ -66,7 +66,7 @@ int Trace_GetHopCount( char *pServer, int nMaxHops )
 	HANDLE					hIP;			// Handle to icmp session
 	DWORD					*dwIPAddr;		// remote IP Address as a DWORD
 	struct hostent			*pHostEnt;		// Name of remote host
-	struct trace_options_s	traceOptions;	// Input options
+	trace_options_t			traceOptions;	// Input options
 	int						c;				// Hop counter
 
 	// Prototypes

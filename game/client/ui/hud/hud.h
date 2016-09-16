@@ -46,7 +46,7 @@ struct RGBA
 	unsigned char r,g,b,a;
 };
 
-typedef struct cvar_s cvar_t;
+struct cvar_t;
 
 enum HudFlag
 {
@@ -222,7 +222,7 @@ private:
 	wrect_t *m_rgrcRects;	/*[HUD_SPRITE_COUNT]*/
 	char *m_rgszSpriteNames; /*[HUD_SPRITE_COUNT][MAX_SPRITE_NAME_LENGTH]*/
 
-	struct cvar_s *default_fov;
+	cvar_t *default_fov;
 public:
 	HSPRITE GetSprite( int index ) 
 	{

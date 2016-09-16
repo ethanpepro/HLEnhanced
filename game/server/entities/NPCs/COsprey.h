@@ -15,13 +15,13 @@
 #ifndef GAME_SERVER_ENTITIES_NPCS_COSPREY_H
 #define GAME_SERVER_ENTITIES_NPCS_COSPREY_H
 
-typedef struct
+struct t_ospreygrunt
 {
 	int isValid;
 	EHANDLE hGrunt;
 	Vector	vecOrigin;
 	Vector  vecAngles;
-} t_ospreygrunt;
+};
 
 #define SF_OSPREY_WAITFORTRIGGER	0x40
 

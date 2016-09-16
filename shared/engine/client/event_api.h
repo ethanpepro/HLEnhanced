@@ -18,9 +18,12 @@
 #pragma once
 #endif
 
+struct physent_t;
+struct pmtrace_t;
+
 #define EVENT_API_VERSION 1
 
-typedef struct event_api_s
+struct event_api_t
 {
 	/**
 	*	Interface version.
@@ -88,12 +91,12 @@ typedef struct event_api_s
 	*	@param pTrace Trace result.
 	*	@return Entity index.
 	*/
-	int		( *EV_IndexFromTrace ) ( struct pmtrace_s* pTrace );
+	int		( *EV_IndexFromTrace ) ( pmtrace_t* pTrace );
 
 	/**
 	*	Gets the physics entity at the given position.
 	*/
-	struct physent_s *( *EV_GetPhysent ) ( int idx );
+	physent_t *( *EV_GetPhysent ) ( int idx );
 
 	/**
 	*	Sets up player prediction.
@@ -132,7 +135,7 @@ typedef struct event_api_s
 	*	@param ignore_pe Index of the entity to ignore. -1 for none.
 	*	@param tr Trace result.
 	*/
-	void	( *EV_PlayerTrace ) ( const float* vecStart, const float* vecEnd, int traceFlags, int ignore_pe, struct pmtrace_s* tr );
+	void	( *EV_PlayerTrace ) ( const float* vecStart, const float* vecEnd, int traceFlags, int ignore_pe, pmtrace_t* tr );
 
 	/**
 	*	Sets the weapon animation and body.
@@ -163,7 +166,7 @@ typedef struct event_api_s
 	*	@param bparam1 Boolean parameter 1.
 	*	@param bparam2 Boolean parameter 2.
 	*/
-	void	( *EV_PlaybackEvent ) ( int flags, const struct edict_s* pInvoker, unsigned short eventindex, float delay, 
+	void	( *EV_PlaybackEvent ) ( int flags, const edict_t* pInvoker, unsigned short eventindex, float delay, 
 									const float* origin, const float* angles, 
 									float fparam1, float fparam2, 
 									int iparam1, int iparam2, 
@@ -191,7 +194,7 @@ typedef struct event_api_s
 	*	@param pszEventName Event name.
 	*/
 	void    ( *EV_KillEvents ) ( int entnum, const char* pszEventName );
-} event_api_t;
+};
 
 extern event_api_t eventapi;
 

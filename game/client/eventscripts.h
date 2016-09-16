@@ -13,6 +13,8 @@
 
 #include "Damage.h"
 
+struct cl_entity_t;
+
 // Some of these are HL/TFC specific?
 void EV_EjectBrass( const Vector& vecOrigin, const Vector& vecVelocity, float rotation, int model, int soundtype );
 void EV_GetGunPosition( event_args_t *args, Vector& pos, const Vector& origin );
@@ -25,8 +27,8 @@ bool EV_IsLocal( int idx );
 bool EV_IsPlayer( int idx );
 void EV_CreateTracer( Vector& start, const Vector& end );
 
-struct cl_entity_s *GetEntity( int idx );
-struct cl_entity_s *GetViewEntity( void );
+cl_entity_t *GetEntity( int idx );
+cl_entity_t *GetViewEntity( void );
 void EV_MuzzleFlash( void );
 
 #endif // EVENTSCRIPTSH

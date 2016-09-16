@@ -26,7 +26,7 @@ class CItem;
 class CBasePlayerAmmo;
 struct skilldata_t;
 
-typedef struct edict_s edict_t;
+struct edict_t;
 
 // weapon respawning return codes
 enum

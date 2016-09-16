@@ -51,18 +51,18 @@ void SpectatorThink ( edict_t *pEntity );
 void Sys_Error( const char *error_string );
 
 void SetupVisibility( edict_t *pViewEntity, edict_t *pClient, unsigned char **pvs, unsigned char **pas );
-void	UpdateClientData ( const edict_t* pClient, int sendweapons, struct clientdata_s* cd );
-int AddToFullPack( struct entity_state_s *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet );
-void CreateBaseline( int player, int eindex, struct entity_state_s* baseline, edict_t* entity, int playermodelindex, 
+void	UpdateClientData ( const edict_t* pClient, int sendweapons, clientdata_t* cd );
+int AddToFullPack( entity_state_t *state, int e, edict_t *ent, edict_t *host, int hostflags, int player, unsigned char *pSet );
+void CreateBaseline( int player, int eindex, entity_state_t* baseline, edict_t* entity, int playermodelindex,
 					 const Vector player_mins[ Hull::COUNT ], const Vector player_maxs[ Hull::COUNT ] );
 void RegisterEncoders();
 
-int GetWeaponData( edict_t* pPlayer, struct weapon_data_s* pInfo );
+int GetWeaponData( edict_t* pPlayer, weapon_data_t* pInfo );
 
-void CmdStart( const edict_t *player, const struct usercmd_s *cmd, unsigned int random_seed );
+void CmdStart( const edict_t *player, const usercmd_t *cmd, unsigned int random_seed );
 void CmdEnd ( const edict_t *player );
 
-int	ConnectionlessPacket( const struct netadr_s *net_from, const char *args, char *response_buffer, int *response_buffer_size );
+int	ConnectionlessPacket( const netadr_t *net_from, const char *args, char *response_buffer, int *response_buffer_size );
 
 int GetHullBounds( int hullnumber, Vector& mins, Vector& maxs );
 

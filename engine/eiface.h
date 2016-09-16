@@ -22,6 +22,22 @@
 #include "cvardef.h"
 #include "Sequence.h"
 
+struct clientdata_t;
+struct delta_t;
+struct entity_state_t;
+struct netadr_t;
+struct playermove_t;
+struct texture_t;
+struct weapon_data_t;
+struct usercmd_t;
+
+//The engine uses a separate version of the save/restore code. - Solokiller
+namespace engine
+{
+struct TYPEDESCRIPTION;
+}
+
+
 // Regular version of HL
 #define INTERFACE_VERSION 140
 
@@ -37,25 +53,25 @@
 //
 
 // 4-22-98  JOHN: added for use in pfnClientPrintf
-typedef enum
-	{
+enum PRINT_TYPE
+{
 	print_console,
 	print_center,
 	print_chat,
-	} PRINT_TYPE;
+};
 
 // For integrity checking of content on clients
-typedef enum
+enum FORCE_TYPE
 {
 	force_exactfile,					// File on client must exactly match server's file
 	force_model_samebounds,				// For model files only, the geometry must fit in the same bbox
 	force_model_specifybounds,			// For model files only, the geometry must fit in the specified bbox
 	force_model_specifybounds_if_avail,	// For Steam model files only, the geometry must fit in the specified bbox (if the file is available)
-} FORCE_TYPE;
+};
 
 // Returned by TraceLine
-typedef struct
-	{
+struct TraceResult
+{
 	int		fAllSolid;			// if true, plane is not valid
 	int		fStartSolid;		// if true, the initial point was in a solid area
 	int		fInOpen;
@@ -66,10 +82,10 @@ typedef struct
 	Vector	vecPlaneNormal;		// surface normal at impact
 	edict_t	*pHit;				// entity the surface is on
 	int		iHitgroup;			// 0 == generic, non zero is specific body part
-	} TraceResult;
+};
 
 // CD audio status
-typedef struct 
+struct CDStatus
 {
 	int	fPlaying;// is sound playing right now?
 	int	fWasPlaying;// if not, CD is paused if WasPlaying is true.
@@ -80,25 +96,23 @@ typedef struct
 	//byte 	remap[100];
 	int	fCDRom;
 	int	fPlayTrack;
-} CDStatus;
+};
 
-typedef enum
+enum TraceLineFlag
 {
 	TRF_NONE			= 0,
 	TRF_IGNORE_MONSTERS = 1,
 	TRF_IGNORE_GLASS	= 0x100
-} TraceLineFlag;
+};
 
 // More explicit than "int"
 typedef int EOFFSET;
-
-typedef struct delta_s delta_t;
 
 #include "../common/crc.h"
 
 
 // Engine hands this to DLLs for functionality callbacks
-typedef struct enginefuncs_s
+struct enginefuncs_t
 {
 	/**
 	*	Precaches a model.
@@ -447,7 +461,7 @@ typedef struct enginefuncs_s
 	*	@param v2 End position.
 	*	@return Texture instance, or null if no texture could be found.
 	*/
-	const struct texture_s*	(*pfnTraceTexture)			( edict_t* pTextureEntity, const float* v1, const float* v2 );
+	const texture_t*	(*pfnTraceTexture)			( edict_t* pTextureEntity, const float* v1, const float* v2 );
 	
 	/**
 	*	Not implemented. Triggers a sys error.
@@ -1253,7 +1267,7 @@ typedef struct enginefuncs_s
 	*	@param iszClassName Name of the entity class.
 	*	@param baseline Baseline to set.
 	*/
-	int			(*pfnCreateInstancedBaseline) ( string_t iszClassName, struct entity_state_s* baseline );
+	int			(*pfnCreateInstancedBaseline) ( string_t iszClassName, entity_state_t* baseline );
 
 	/**
 	*	Directly sets a cvar value.
@@ -1324,7 +1338,7 @@ typedef struct enginefuncs_s
 	*	@param pszEntryName Entry name.
 	*	@return Sequence, or null if no such sequence exists.
 	*/
-	sequenceEntry_s*	(*pfnSequenceGet)			( const char* pszFileName, const char* pszEntryName );
+	sequenceEntry_t*	(*pfnSequenceGet)			( const char* pszFileName, const char* pszEntryName );
 
 	/**
 	*	Picks a sentence from the given group.
@@ -1333,7 +1347,7 @@ typedef struct enginefuncs_s
 	*	@param piPicked If not null, this is set to the index of the sentence that was picked.
 	*	@return Sentence that was picked, or null if there is no group by that name, or no sentences in the group.
 	*/
-	sentenceEntry_s*	(*pfnSequencePickSentence)	( const char* pszGroupName, int pickMethod, int* piPicked );
+	sentenceEntry_t*	(*pfnSequencePickSentence)	( const char* pszGroupName, int pickMethod, int* piPicked );
 
 	/**
 	*	LH: Give access to filesize via filesystem
@@ -1421,33 +1435,33 @@ typedef struct enginefuncs_s
 	*	@return Key index in the command line buffer, or 0 if it wasn't found.
 	*/
 	int (*pfnCheckParm)( const char* pszCmdLineToken, char** ppNext );
-} enginefuncs_t;
+};
 
 
 // ONLY ADD NEW FUNCTIONS TO THE END OF THIS STRUCT.  INTERFACE VERSION IS FROZEN AT 138
 
 // Passed to pfnKeyValue
 //Made pointers const. Shouldn't be modifying them. - Solokiller
-typedef struct KeyValueData_s
+struct KeyValueData
 {
 	const char*		szClassName;	// in: entity classname
 	const char*		szKeyName;		// in: name of key
 	const char*		szValue;		// in: value of key
 	int32			fHandled;		// out: DLL sets to true if key-value pair was understood
-} KeyValueData;
+};
 
 
-typedef struct
+struct LEVELLIST
 {
 	//TODO: use constants - Solokiller
 	char		mapName[ cchMapNameMost ];
 	char		landmarkName[ 32 ];
 	edict_t	*pentLandmark;
 	Vector		vecLandmarkOrigin;
-} LEVELLIST;
+};
 #define MAX_LEVEL_CONNECTIONS	16		// These are encoded in the lower 16bits of ENTITYTABLE->flags
 
-typedef struct 
+struct ENTITYTABLE
 {
 	int			id;				// Ordinal ID of this entity (used for entity <--> pointer conversions)
 	edict_t	*pent;			// Pointer to the in-game entity
@@ -1457,19 +1471,14 @@ typedef struct
 	int			flags;			// This could be a short -- bit mask of transitions that this entity is in the PVS of
 	string_t	classname;		// entity class name
 
-} ENTITYTABLE;
+};
 
 #define FENTTABLE_PLAYER		0x80000000
 #define FENTTABLE_REMOVED		0x40000000
 #define FENTTABLE_MOVEABLE		0x20000000
 #define FENTTABLE_GLOBAL		0x10000000
 
-typedef struct saverestore_s SAVERESTOREDATA;
-
-#ifdef _WIN32
-typedef 
-#endif
-struct saverestore_s
+struct SAVERESTOREDATA
 {
 	char		*pBaseData;		// Start of all entity save data
 	char		*pCurrentData;	// Current buffer pointer for sequential access
@@ -1492,11 +1501,7 @@ struct saverestore_s
 	float		time;
 	char		szCurrentMapName[ cchMapNameMost ];	// To check global entities
 
-} 
-#ifdef _WIN32
-SAVERESTOREDATA 
-#endif
-;
+};
 
 /**
 *	Maximum size for ClientConnect reject reasons.
@@ -1504,13 +1509,7 @@ SAVERESTOREDATA
 */
 #define CCONNECT_REJECT_REASON_SIZE 128
 
-//The engine uses a separate version of the save/restore code. - Solokiller
-namespace engine
-{
-struct TYPEDESCRIPTION;
-}
-
-typedef struct 
+struct DLL_FUNCTIONS
 {
 	/**
 	*	Called when the game loads this DLL.
@@ -1722,12 +1721,12 @@ typedef struct
 	*	@param pPMove Pointer to player movement data.
 	*	@param server Whether this is the server or client physics code.
 	*/
-	void			(*pfnPM_Move) ( struct playermove_s* pPMove, qboolean server );
+	void			(*pfnPM_Move) ( playermove_t* pPMove, qboolean server );
 
 	/**
 	*	Called by the engine to initialize the player physics data.
 	*/
-	void			(*pfnPM_Init) ( struct playermove_s* pPMove );
+	void			(*pfnPM_Init) ( playermove_t* pPMove );
 
 	/**
 	*	Called by the engine to find the texture type of a given texture.
@@ -1753,7 +1752,7 @@ typedef struct
 	*	@param sendweapons Boolean indicating whether weapon data should be sent.
 	*	@param cd Client data to send. This is zeroed before the call to this function.
 	*/
-	void			(*pfnUpdateClientData) ( const edict_t* pClient, int sendweapons, struct clientdata_s* cd );
+	void			(*pfnUpdateClientData) ( const edict_t* pClient, int sendweapons, clientdata_t* cd );
 
 	/**
 	*	Called by the engine to determine whether the given entity should be added to the given client's list of visible entities.
@@ -1765,7 +1764,7 @@ typedef struct
 	*	@param player true if the entity being added is a player, false otherwise.
 	*	@param pSet The PVS provided by pfnSetupVisibility @see pfnSetupVisibility
 	*/
-	int				(*pfnAddToFullPack)( struct entity_state_s* state, int entIndex, edict_t* pEnt, edict_t* pHost, int hostflags, int player, unsigned char* pSet );
+	int				(*pfnAddToFullPack)( entity_state_t* state, int entIndex, edict_t* pEnt, edict_t* pHost, int hostflags, int player, unsigned char* pSet );
 
 	/**
 	*	Called by the engine to create a baseline for the given entity.
@@ -1777,7 +1776,7 @@ typedef struct
 	*	@param player_mins Array of the player minimum bounds for each hull.
 	*	@param player_maxs Array of the player maximum bounds for each hull.
 	*/
-	void			(*pfnCreateBaseline) ( int player, int eindex, struct entity_state_s* baseline, edict_t* entity, int playermodelindex, 
+	void			(*pfnCreateBaseline) ( int player, int eindex, entity_state_t* baseline, edict_t* entity, int playermodelindex,
 										   const Vector player_mins[ Hull::COUNT ], const Vector player_maxs[ Hull::COUNT ] );
 
 	/**
@@ -1792,7 +1791,7 @@ typedef struct
 	*	@param pInfo Array of weapon_data_t that should receive the player's weapon data. Is an array of MAX_WEAPONS entries.
 	*	@return true if data was added, false otherwise.
 	*/
-	int				(*pfnGetWeaponData)		( edict_t* pPlayer, struct weapon_data_s* pInfo );
+	int				(*pfnGetWeaponData)		( edict_t* pPlayer, weapon_data_t* pInfo );
 
 	/**
 	*	Called by the engine when a user command has been received and is about to begin processing.
@@ -1800,7 +1799,7 @@ typedef struct
 	*	@param cmd Command being executed.
 	*	@param random_seed The player's current random seed.
 	*/
-	void			(*pfnCmdStart)			( const edict_t* pPlayer, const struct usercmd_s* cmd, unsigned int random_seed );
+	void			(*pfnCmdStart)			( const edict_t* pPlayer, const usercmd_t* cmd, unsigned int random_seed );
 
 	/**
 	*	Called by the engine when a user command has finished processing.
@@ -1821,7 +1820,7 @@ typedef struct
 	*	@param response_buffer_size Size of the buffer.
 	*	@return true if the packet has been handled, false otherwise.
 	*/
-	int				(*pfnConnectionlessPacket )	( const struct netadr_s* net_from, const char* pszArgs, char* response_buffer, int* response_buffer_size );
+	int				(*pfnConnectionlessPacket )	( const netadr_t* net_from, const char* pszArgs, char* response_buffer, int* response_buffer_size );
 
 	/**
 	*	Enumerates player hulls. Returns 0 if the hull number doesn't exist, 1 otherwise.
@@ -1852,14 +1851,14 @@ typedef struct
 	*	 and tested for them.
 	*/
 	int				(*pfnAllowLagCompensation)( void );
-} DLL_FUNCTIONS;
+};
 
 extern DLL_FUNCTIONS		gEntityInterface;
 
 // Current version.
 #define NEW_DLL_FUNCTIONS_VERSION	1
 
-typedef struct
+struct NEW_DLL_FUNCTIONS
 {
 	/**
 	*	Called when an entity is freed by the engine, right before the object's memory is freed. Calls OnDestroy and runs the destructor.
@@ -1893,7 +1892,7 @@ typedef struct
 	*	@see pfnCvarValue
 	*/
 	void			(*pfnCvarValue2)( const edict_t* pEnt, int requestID, const char* pszCvarName, const char* pszValue );
-} NEW_DLL_FUNCTIONS;
+};
 typedef int	(*NEW_DLL_FUNCTIONS_FN)( NEW_DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
 
 // Pointers will be null if the game DLL doesn't support this API.

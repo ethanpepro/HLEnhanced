@@ -33,12 +33,12 @@
 
 #include "Damage.h"
 
-typedef struct
+struct DAMAGE_IMAGE
 {
 	float fExpire;
 	float fBaseline;
 	int	x, y;
-} DAMAGE_IMAGE;
+};
 	
 //
 //-----------------------------------------------------

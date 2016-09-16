@@ -19,12 +19,12 @@
 
 namespace engine
 {
-typedef struct
+struct HEADER
 {
 	unsigned short		size;
 	unsigned short		token;
 	char				*pData;
-} HEADER;
+};
 
 /**
 *	Buffer used for restoring operations.

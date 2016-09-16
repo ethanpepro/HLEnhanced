@@ -15,12 +15,15 @@
 #ifndef GAME_SERVER_CGLOBALSTATE_H
 #define GAME_SERVER_CGLOBALSTATE_H
 
-typedef enum { GLOBAL_OFF = 0, GLOBAL_ON = 1, GLOBAL_DEAD = 2 } GLOBALESTATE;
-
-typedef struct globalentity_s globalentity_t;
+enum GLOBALESTATE
+{
+	GLOBAL_OFF		= 0,
+	GLOBAL_ON		= 1,
+	GLOBAL_DEAD		= 2
+};
 
 //TODO: use constants - Solokiller
-struct globalentity_s
+struct globalentity_t
 {
 	DECLARE_CLASS_NOBASE( globalentity_t );
 	DECLARE_DATADESC_FINAL();

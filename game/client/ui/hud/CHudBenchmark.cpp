@@ -604,7 +604,7 @@ static Vector g_dotorg;
 Vector g_aimorg;
 float g_fZAdjust = 0.0;
 
-void Bench_CheckEntity( int type, struct cl_entity_s *ent, const char *modelname )
+void Bench_CheckEntity( int type, cl_entity_t *ent, const char *modelname )
 {
 	if ( Bench_InStage( THIRD_STAGE ) && !stricmp( modelname, "*3" ) )
 	{
@@ -650,7 +650,7 @@ int HUD_SetupBenchObjects( cl_entity_t *bench, int plindex, const Vector origin 
 	int i, j;
 	Vector ang;
 	float offset;
-	struct model_s *mdl;
+	model_t *mdl;
 	int index;
 	Vector forward, right, up;
 	Vector farpoint;
@@ -984,7 +984,7 @@ void Bench_AddObjects( void )
 
 static Vector v_stochastic;
 
-void Bench_SetViewAngles( int recalc_wander, Vector& viewangles, float frametime, struct usercmd_s *cmd )
+void Bench_SetViewAngles( int recalc_wander, Vector& viewangles, float frametime, usercmd_t *cmd )
 {
 	if ( !Bench_Active() )
 		return;

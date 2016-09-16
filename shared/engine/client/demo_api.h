@@ -18,7 +18,7 @@
 #pragma once
 #endif
 
-typedef struct demo_api_s
+struct demo_api_t
 {
 	/**
 	*	@return Whether a demo is currently being recorded.
@@ -39,7 +39,7 @@ typedef struct demo_api_s
 	*	Writes data to the demo buffer for this frame.
 	*/
 	void	( *WriteBuffer )	( int size, unsigned char* pBuffer );
-} demo_api_t;
+};
 
 extern demo_api_t demoapi;
 

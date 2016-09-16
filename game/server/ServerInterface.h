@@ -20,8 +20,8 @@
 *	C functions for external declarations that call the appropriate C++ methods.
 */
 
-typedef struct sv_blending_interface_s sv_blending_interface_t;
-typedef struct server_studio_api_s server_studio_api_t;
+struct sv_blending_interface_t;
+struct server_studio_api_t;
 struct Matrix3x4;
 
 /*

@@ -26,7 +26,12 @@ class CFuncTrackTrain;
 #define SF_TRACK_STARTBOTTOM		0x00000008
 #define SF_TRACK_DONT_MOVE			0x00000010
 
-typedef enum { TRAIN_SAFE, TRAIN_BLOCKING, TRAIN_FOLLOWING } TRAIN_CODE;
+enum TRAIN_CODE 
+{
+	TRAIN_SAFE,
+	TRAIN_BLOCKING,
+	TRAIN_FOLLOWING
+};
 
 //
 // This entity is a rotating/moving platform that will carry a train to a new track.

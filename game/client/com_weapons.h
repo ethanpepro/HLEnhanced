@@ -15,6 +15,8 @@
 
 #include "Exports.h"
 
+struct local_state_t;
+
 void			COM_Log( const char* const pszFile, const char* const pszFormat, ... );
 int				CL_IsDead();
 
@@ -28,7 +30,7 @@ extern int g_runfuncs;
 extern Vector v_angles;
 extern Vector v_client_aimangles;
 extern float g_lastFOV;
-extern struct local_state_s *g_finalstate;
+extern local_state_t *g_finalstate;
 
 void CL_SetupServerSupport();
 

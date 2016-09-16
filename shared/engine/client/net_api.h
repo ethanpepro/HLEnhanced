@@ -15,6 +15,8 @@
 #include "netadr.h"
 #endif
 
+struct net_response_t;
+
 enum NetRequest
 {
 	/**
@@ -36,7 +38,7 @@ enum NetApiFlag
 	FNETAPI_MULTIPLE_RESPONSE	= 1 << 0,
 };
 
-typedef void ( *net_api_response_func_t ) ( struct net_response_s *response );
+typedef void ( *net_api_response_func_t ) ( net_response_t *response );
 
 enum NetResult
 {
@@ -46,13 +48,13 @@ enum NetResult
 	NET_ERROR_UNDEFINED				= 1 << 2,
 };
 
-typedef struct net_adrlist_s
+struct net_adrlist_t
 {
-	struct net_adrlist_s	*next;
-	netadr_t				remote_address;
-} net_adrlist_t;
+	net_adrlist_t	*next;
+	netadr_t		remote_address;
+};
 
-typedef struct net_response_s
+struct net_response_t
 {
 	// NET_SUCCESS or an error code
 	int			error;
@@ -72,9 +74,9 @@ typedef struct net_response_s
 	//  by the engine right after the call!!!!
 	// ALSO:  For NETAPI_REQUEST_SERVERLIST requests, this will be a pointer to a linked list of net_adrlist_t's
 	void		*response;
-} net_response_t;
+};
 
-typedef struct net_status_s
+struct net_status_t
 {
 		// Connected to remote server?  1 == yes, 0 otherwise
 	int			connected; 
@@ -90,9 +92,9 @@ typedef struct net_status_s
 	double		connection_time;
 	// Rate setting ( for incoming data )
 	double		rate;
-} net_status_t;
+};
 
-typedef struct net_api_s
+struct net_api_t
 {
 	// APIs
 	/**
@@ -104,7 +106,7 @@ typedef struct net_api_s
 	*	Query the network's status.
 	*	@param[ out ] status Status.
 	*/
-	void		( *Status ) ( struct net_status_s *status );
+	void		( *Status ) ( net_status_t *status );
 
 	/**
 	*	Sends a request.
@@ -115,7 +117,7 @@ typedef struct net_api_s
 	*	@param remote_address Address to send the request to.
 	*	@param response Callback to invoke when the response has been received.
 	*/
-	void		( *SendRequest ) ( int context, int request, int flags, double timeout, struct netadr_s *remote_address, net_api_response_func_t response );
+	void		( *SendRequest ) ( int context, int request, int flags, double timeout, netadr_t *remote_address, net_api_response_func_t response );
 
 	/**
 	*	Cancels the request with the given context ID.
@@ -133,7 +135,7 @@ typedef struct net_api_s
 	*	@param a Address.
 	*	@return Pointer to a static buffer containing the string representation of the address. Can be an empty string if the address is invalid.
 	*/
-	char*		( *AdrToString ) ( struct netadr_s* a );
+	char*		( *AdrToString ) ( netadr_t* a );
 
 	/**
 	*	Compares 2 addresses.
@@ -141,7 +143,7 @@ typedef struct net_api_s
 	*	@param b Second address.
 	*	@return true if the addresses match, false otherwise.
 	*/
-	int			( *CompareAdr ) ( struct netadr_s *a, struct netadr_s *b );
+	int			( *CompareAdr ) ( netadr_t *a, netadr_t *b );
 
 	/**
 	*	Converts a string to an address.
@@ -149,7 +151,7 @@ typedef struct net_api_s
 	*	@param[ out ] a Address.
 	*	@return true on success, false otherwise.
 	*/
-	int			( *StringToAdr ) ( const char* const pszString, struct netadr_s *a );
+	int			( *StringToAdr ) ( const char* const pszString, netadr_t *a );
 
 	/**
 	*	Finds the value associated with the given key in the given info key buffer.
@@ -174,7 +176,7 @@ typedef struct net_api_s
 	*	@param iMaxSize Maximum size for the info key buffer.
 	*/
 	void		( *SetValueForKey ) ( const char* const pszBuffer, const char* const pszKey, const char* const pszValue, const int iMaxSize );
-} net_api_t;
+};
 
 extern net_api_t netapi;
 

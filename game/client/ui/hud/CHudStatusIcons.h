@@ -37,13 +37,13 @@ public:
 
 private:
 
-	typedef struct
+	struct icon_sprite_t
 	{
 		char szSpriteName[ MAX_ICONSPRITENAME_LENGTH ];
 		HSPRITE spr;
 		wrect_t rc;
 		unsigned char r, g, b;
-	} icon_sprite_t;
+	};
 
 	icon_sprite_t m_IconList[ MAX_ICONSPRITES ];
 

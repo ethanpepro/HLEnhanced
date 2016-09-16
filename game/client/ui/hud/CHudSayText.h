@@ -15,6 +15,8 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDSAYTEXT_H
 #define GAME_CLIENT_UI_HUD_CHUDSAYTEXT_H
 
+struct cvar_t;
+
 class CHudSayText : public CHudBase
 {
 private:
@@ -39,8 +41,8 @@ private:
 
 private:
 
-	struct cvar_s *	m_HUD_saytext;
-	struct cvar_s *	m_HUD_saytext_time;
+	cvar_t*	m_HUD_saytext;
+	cvar_t*	m_HUD_saytext_time;
 
 	char m_szLineBuffer[ MAX_LINES + 1 ][ MAX_CHARS_PER_LINE ] = {};
 	const Vector* m_pvecNameColors[ MAX_LINES + 1 ] = {};
