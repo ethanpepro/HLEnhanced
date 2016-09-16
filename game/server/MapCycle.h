@@ -51,8 +51,10 @@ void DestroyMapCycle( mapcycle_t* pCycle );
 /*
 *	Parse commands/key value pairs to issue right after map xxx command is issued on server
 *	level transition
+*	@param pszToken Token to parse.
+*	@param[ out ] pszCommand Command that was parsed out of the token.
 */
-void ExtractCommandString( char *s, char *szCommand );
+void ExtractCommandString( const char* pszToken, char* pszCommand );
 
 /**
 *	The map cycle.

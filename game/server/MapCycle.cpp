@@ -162,7 +162,7 @@ void DestroyMapCycle( mapcycle_t* pCycle )
 	pCycle->next_item = nullptr;
 }
 
-void ExtractCommandString( char *s, char *szCommand )
+void ExtractCommandString( const char* pszToken, char* pszCommand )
 {
 	// Now make rules happen
 	char	pkey[ 512 ];
@@ -170,41 +170,41 @@ void ExtractCommandString( char *s, char *szCommand )
 							// work without stomping on each other
 	char	*o;
 
-	if( *s == '\\' )
-		s++;
+	if( *pszToken == '\\' )
+		++pszToken;
 
 	while( 1 )
 	{
 		o = pkey;
-		while( *s != '\\' )
+		while( *pszToken != '\\' )
 		{
-			if( !*s )
+			if( !*pszToken )
 				return;
-			*o++ = *s++;
+			*o++ = *pszToken++;
 		}
-		*o = 0;
-		s++;
+		*o = '\0';
+		++pszToken;
 
 		o = value;
 
-		while( *s != '\\' && *s )
+		while( *pszToken != '\\' && *pszToken )
 		{
-			if( !*s )
+			if( !*pszToken )
 				return;
-			*o++ = *s++;
+			*o++ = *pszToken++;
 		}
-		*o = 0;
+		*o = '\0';
 
-		strcat( szCommand, pkey );
+		strcat( pszCommand, pkey );
 		if( strlen( value ) > 0 )
 		{
-			strcat( szCommand, " " );
-			strcat( szCommand, value );
+			strcat( pszCommand, " " );
+			strcat( pszCommand, value );
 		}
-		strcat( szCommand, "\n" );
+		strcat( pszCommand, "\n" );
 
-		if( !*s )
+		if( !*pszToken )
 			return;
-		s++;
+		++pszToken;
 	}
 }
