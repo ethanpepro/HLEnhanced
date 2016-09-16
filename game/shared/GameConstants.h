@@ -224,4 +224,29 @@
 
 /** @} */
 
+/**
+*	Longest the intermission can last, in seconds.
+*/
+#define MAX_INTERMISSION_TIME		120
+
+#define INTERMISSION_TIME		6
+
+/**
+*	@defgroup ObjectRespawnTimes Object multiplayer respawn times
+*
+*	@{
+*/
+
+#define ITEM_RESPAWN_TIME	30
+#define WEAPON_RESPAWN_TIME	20
+#define AMMO_RESPAWN_TIME	20
+
+/** @} */
+
+/**
+*	When we are within this close to running out of entities, items 
+*	marked with the ITEM_FLAG_LIMITINWORLD will delay their respawn
+*/
+#define ENTITY_INTOLERANCE	100
+
 #endif //GAME_SHARED_GAMECONSTANTS_H

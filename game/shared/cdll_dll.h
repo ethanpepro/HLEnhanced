@@ -110,4 +110,14 @@ enum ClientPrintDest
 */
 #define MAX_VELOCITY 2000
 
+/**
+*	Maximum size of a single chunk of an MOTD to send to clients in one message.
+*/
+#define MAX_MOTD_CHUNK	  60
+
+/**
+*	The largest amount of data in an MOTD that can be sent to clients. Anything beyond this much is discarded.
+*/
+#define MAX_MOTD_LENGTH   1536 // (MAX_MOTD_CHUNK * 4)
+
 #endif //GAME_SHARED_CDLL_DLL_H

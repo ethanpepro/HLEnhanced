@@ -99,9 +99,6 @@ struct message_parms_t
 
 #include "player_info.h"
 
-//TODO: move - Solokiller
-#define	MAX_MOTD_LENGTH				1536
-
 #define FADE_TIME 100
 
 #define MAX_SPRITE_NAME_LENGTH	24
