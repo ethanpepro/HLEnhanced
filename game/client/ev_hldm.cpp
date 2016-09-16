@@ -45,20 +45,28 @@ static int tracerCount[ MAX_CLIENTS ];
 #include "util.h"
 #include "cbase.h"
 #include "Weapons.h"
+#include "entities/weapons/CCrowbar.h"
+#include "entities/weapons/CCrossbow.h"
+#include "entities/weapons/CEgon.h"
+#include "entities/weapons/CGauss.h"
 #include "entities/weapons/CGlock.h"
-#include "entities/weapons/CShotgun.h"
+#include "entities/weapons/CHornetGun.h"
 #include "entities/weapons/CMP5.h"
 #include "entities/weapons/CPython.h"
-#include "entities/weapons/CGauss.h"
+#include "entities/weapons/CRpg.h"
+#include "entities/weapons/CShotgun.h"
+#include "entities/weapons/CSqueak.h"
+#include "entities/weapons/CTripmine.h"
 #if USE_OPFOR
-#include "entities/weapons/CKnife.h"
-#include "entities/weapons/CSniperRifle.h"
-#include "entities/weapons/CM249.h"
-#include "entities/weapons/CDisplacer.h"
 #include "entities/weapons/CDesertEagle.h"
-#include "entities/weapons/CSporeLauncher.h"
-#include "entities/weapons/CShockRifle.h"
+#include "entities/weapons/CDisplacer.h"
+#include "entities/weapons/CKnife.h"
+#include "entities/weapons/CM249.h"
 #include "entities/weapons/CPenguin.h"
+#include "entities/weapons/CPipewrench.h"
+#include "entities/weapons/CShockRifle.h"
+#include "entities/weapons/CSniperRifle.h"
+#include "entities/weapons/CSporeLauncher.h"
 #endif
 
 void V_PunchAxis( int axis, float punch );
@@ -1002,20 +1010,6 @@ void EV_FireGauss( event_args_t *args )
 //======================
 //	   CROWBAR START
 //======================
-
-//TODO: duplicate - Solokiller
-enum crowbar_e {
-	CROWBAR_IDLE = 0,
-	CROWBAR_DRAW,
-	CROWBAR_HOLSTER,
-	CROWBAR_ATTACK1HIT,
-	CROWBAR_ATTACK1MISS,
-	CROWBAR_ATTACK2MISS,
-	CROWBAR_ATTACK2HIT,
-	CROWBAR_ATTACK3MISS,
-	CROWBAR_ATTACK3HIT
-};
-
 int g_iSwing;
 
 //Only predict the miss sounds, hit sounds are still played 
@@ -1085,26 +1079,6 @@ void EV_Knife( event_args_t* args )
 //======================
 //	PIPE WRENCH START
 //======================
-
-//TODO: duplicate - Solokiller
-enum pipewrench_e {
-	PIPEWRENCH_IDLE1 = 0,
-	PIPEWRENCH_IDLE2,
-	PIPEWRENCH_IDLE3,
-	PIPEWRENCH_DRAW,
-	PIPEWRENCH_HOLSTER,
-	PIPEWRENCH_ATTACK1HIT,
-	PIPEWRENCH_ATTACK1MISS,
-	PIPEWRENCH_ATTACK2HIT,
-	PIPEWRENCH_ATTACK2MISS,
-	PIPEWRENCH_ATTACK3HIT,
-	PIPEWRENCH_ATTACK3MISS,
-	PIPEWRENCH_BIG_SWING_START,
-	PIPEWRENCH_BIG_SWING_HIT,
-	PIPEWRENCH_BIG_SWING_MISS,
-	PIPEWRENCH_BIG_SWING_IDLE
-};
-
 //Only predict the miss sounds, hit sounds are still played 
 //server side, so players don't get the wrong idea.
 void EV_Pipewrench( event_args_t *args )
@@ -1156,21 +1130,6 @@ void EV_Pipewrench( event_args_t *args )
 //======================
 //	  CROSSBOW START
 //======================
-enum crossbow_e {
-	CROSSBOW_IDLE1 = 0,	// full
-	CROSSBOW_IDLE2,		// empty
-	CROSSBOW_FIDGET1,	// full
-	CROSSBOW_FIDGET2,	// empty
-	CROSSBOW_FIRE1,		// full
-	CROSSBOW_FIRE2,		// reload
-	CROSSBOW_FIRE3,		// empty
-	CROSSBOW_RELOAD,	// from empty
-	CROSSBOW_DRAW1,		// full
-	CROSSBOW_DRAW2,		// empty
-	CROSSBOW_HOLSTER1,	// full
-	CROSSBOW_HOLSTER2,	// empty
-};
-
 //=====================
 // EV_BoltCallback
 // This function is used to correct the origin and angles 
@@ -1290,19 +1249,6 @@ void EV_FireCrossbow( event_args_t *args )
 //======================
 //	    RPG START 
 //======================
-enum rpg_e {
-	RPG_IDLE = 0,
-	RPG_FIDGET,
-	RPG_RELOAD,		// to reload
-	RPG_FIRE2,		// to empty
-	RPG_HOLSTER1,	// loaded
-	RPG_DRAW1,		// loaded
-	RPG_HOLSTER2,	// unloaded
-	RPG_DRAW_UL,	// unloaded
-	RPG_IDLE_UL,	// unloaded idle
-	RPG_FIDGET_UL,	// unloaded fidget
-};
-
 void EV_FireRpg( event_args_t *args )
 {
 	const int idx = args->entindex;
@@ -1326,25 +1272,8 @@ void EV_FireRpg( event_args_t *args )
 //======================
 //	    EGON START 
 //======================
-enum egon_e {
-	EGON_IDLE1 = 0,
-	EGON_FIDGET1,
-	EGON_ALTFIREON,
-	EGON_ALTFIRECYCLE,
-	EGON_ALTFIREOFF,
-	EGON_FIRE1,
-	EGON_FIRE2,
-	EGON_FIRE3,
-	EGON_FIRE4,
-	EGON_DRAW,
-	EGON_HOLSTER
-};
-
 const int g_fireAnims1[] = { EGON_FIRE1, EGON_FIRE2, EGON_FIRE3, EGON_FIRE4 };
 const int g_fireAnims2[] = { EGON_ALTFIRECYCLE };
-
-enum EGON_FIRESTATE { FIRE_OFF, FIRE_CHARGE };
-enum EGON_FIREMODE { FIRE_NARROW, FIRE_WIDE};
 
 #define	EGON_PRIMARY_VOLUME		450
 #define EGON_BEAM_SPRITE		"sprites/xbeam1.spr"
@@ -1368,7 +1297,7 @@ void EV_EgonFire( event_args_t *args )
 
 	if ( iStartup )
 	{
-		if ( iFireMode == FIRE_WIDE )
+		if ( iFireMode == CEgon::FIRE_WIDE )
 			gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_WEAPON, EGON_SOUND_STARTUP, 0.98, ATTN_NORM, 0, 125 );
 		else
 			gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_WEAPON, EGON_SOUND_STARTUP, 0.9, ATTN_NORM, 0, 100 );
@@ -1381,7 +1310,7 @@ void EV_EgonFire( event_args_t *args )
 		//This ensures no more than 1 of those is ever active at the same time.
 		gEngfuncs.pEventAPI->EV_StopSound( idx, CHAN_STATIC, EGON_SOUND_RUN );
 
-		if ( iFireMode == FIRE_WIDE )
+		if ( iFireMode == CEgon::FIRE_WIDE )
 			gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_STATIC, EGON_SOUND_RUN, 0.98, ATTN_NORM, 0, 125 );
 		else
 			gEngfuncs.pEventAPI->EV_PlaySound( idx, origin, CHAN_STATIC, EGON_SOUND_RUN, 0.9, ATTN_NORM, 0, 100 );
@@ -1481,15 +1410,6 @@ void EV_EgonStop( event_args_t *args )
 //======================
 //	   HORNET START
 //======================
-enum hgun_e {
-	HGUN_IDLE1 = 0,
-	HGUN_FIDGETSWAY,
-	HGUN_FIDGETSHAKE,
-	HGUN_DOWN,
-	HGUN_UP,
-	HGUN_SHOOT
-};
-
 void EV_HornetGunFire( event_args_t *args )
 {
 	const int idx = args->entindex;
@@ -1519,18 +1439,6 @@ void EV_HornetGunFire( event_args_t *args )
 //======================
 //	   TRIPMINE START
 //======================
-enum tripmine_e {
-	TRIPMINE_IDLE1 = 0,
-	TRIPMINE_IDLE2,
-	TRIPMINE_ARM1,
-	TRIPMINE_ARM2,
-	TRIPMINE_FIDGET,
-	TRIPMINE_HOLSTER,
-	TRIPMINE_DRAW,
-	TRIPMINE_WORLD,
-	TRIPMINE_GROUND,
-};
-
 //We only check if it's possible to put a trip mine
 //and if it is, then we play the animation. Server still places it.
 void EV_TripmineFire( event_args_t *args )
@@ -1572,15 +1480,6 @@ void EV_TripmineFire( event_args_t *args )
 //======================
 //	   SQUEAK START
 //======================
-enum squeak_e {
-	SQUEAK_IDLE1 = 0,
-	SQUEAK_FIDGETFIT,
-	SQUEAK_FIDGETNIP,
-	SQUEAK_DOWN,
-	SQUEAK_UP,
-	SQUEAK_THROW
-};
-
 void EV_SnarkFire( event_args_t *args )
 {
 	const int idx = args->entindex;

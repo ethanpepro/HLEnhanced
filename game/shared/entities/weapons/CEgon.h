@@ -33,6 +33,19 @@ enum egon_e
 class CEgon : public CBasePlayerWeapon
 {
 public:
+	enum EGON_FIREMODE
+	{
+		FIRE_NARROW,
+		FIRE_WIDE
+	};
+
+	enum EGON_FIRESTATE
+	{
+		FIRE_OFF,
+		FIRE_CHARGE
+	};
+
+public:
 	DECLARE_CLASS( CEgon, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
 	DECLARE_DATADESC();
@@ -81,10 +94,6 @@ public:
 
 		m_fireState = data.iuser3;
 	}
-
-	enum EGON_FIREMODE { FIRE_NARROW, FIRE_WIDE };
-
-	enum EGON_FIRESTATE { FIRE_OFF, FIRE_CHARGE };
 
 	CBeam				*m_pBeam;
 	CBeam				*m_pNoise;
