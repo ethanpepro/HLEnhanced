@@ -11,26 +11,62 @@
 #pragma once
 #endif
 
-// These provide access to the voice controls.
+/**
+*	These provide access to the voice controls.
+*/
 enum VoiceTweakControl
 {
-	MicrophoneVolume=0,			// values 0-1.
-	OtherSpeakerScale,			// values 0-1. Scales how loud other players are.
-	MicBoost,					// 20 db gain to voice input
+	/**
+	*	Values 0-1.
+	*/
+	MicrophoneVolume	= 0,	
+
+	/**
+	*	Values 0-1. Scales how loud other players are.
+	*/
+	OtherSpeakerScale,
+
+	/**
+	*	20 db gain to voice input.
+	*/
+	MicBoost,
 };
 
-
+/**
+*	Voice tweak API.
+*	These turn voice tweak mode on and off. While in voice tweak mode, the user's voice is echoed back
+*	without sending to the server. 
+*/
 struct IVoiceTweak
 {
-	// These turn voice tweak mode on and off. While in voice tweak mode, the user's voice is echoed back
-	// without sending to the server. 
-	int				(*StartVoiceTweakMode)();	// Returns 0 on error.
+	/**
+	*	Starts transmitting voice.
+	*	@return 0 on error.
+	*/
+	int				(*StartVoiceTweakMode)();
+
+	/**
+	*	Stops transmitting voice.
+	*/
 	void			(*EndVoiceTweakMode)();
 	
-	// Get/set control values.
-	void			(*SetControlFloat)(VoiceTweakControl iControl, float value);
-	float			(*GetControlFloat)(VoiceTweakControl iControl);
+	/**
+	*	Sets the value for the given control.
+	*	@param control Control to set.
+	*	@param value Value to set.
+	*/
+	void			(*SetControlFloat)( VoiceTweakControl iControl, float value );
 
+	/**
+	*	Gets the value for the given control.
+	*	@param control Control to get.
+	*	@return Value.
+	*/
+	float			(*GetControlFloat)( VoiceTweakControl iControl );
+
+	/**
+	*	@return The speaking volume.
+	*/
     int             (*GetSpeakingVolume)();
 };
 

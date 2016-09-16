@@ -7,5 +7,4 @@ add_sources(
 	r_efx.h
 	ref_params.h
 	triangleapi.h
-	voice_api.h
 )
