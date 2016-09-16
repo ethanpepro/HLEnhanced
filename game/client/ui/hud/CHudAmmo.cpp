@@ -42,6 +42,8 @@
 
 #include "CWeaponInfoCache.h"
 
+#include "renderer/SpriteRenderUtils.h"
+
 //TODO: shouldn't be global - Solokiller
 
 int g_weaponselect = 0;
@@ -618,9 +620,6 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 
 	m_pActiveSel = nullptr;
 }
-
-//TODO: move to top - Solokiller
-#include "renderer/SpriteRenderUtils.h"
 
 //-------------------------------------------------------------------------
 // Drawing code

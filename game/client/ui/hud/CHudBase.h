@@ -15,19 +15,13 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDBASE_H
 #define GAME_CLIENT_UI_HUD_CHUDBASE_H
 
-//Probably duplicate somewhere. TODO - Solokiller
-struct POSITION
-{
-	int x, y;
-};
-
 /**
 *	Base class for all HUD classes.
 */
 class CHudBase
 {
 public:
-	POSITION  m_pos;
+	POINT  m_pos;
 	int   m_type;
 	int	  m_iFlags; // active, moving, 
 	virtual	~CHudBase() {}

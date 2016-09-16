@@ -1614,7 +1614,6 @@ void EV_FireM249( event_args_t* args )
 
 	if( EV_IsLocal( args->entindex ) )
 	{
-		//TODO: SetLocalBody - Solokiller
 		EV_MuzzleFlash();
 		gEngfuncs.pEventAPI->EV_WeaponAnimation( UTIL_RandomLong( 0, 2 ) + M249_SHOOT1, iBody );
 		V_PunchAxis( 0, UTIL_RandomFloat( -2, 2 ) );

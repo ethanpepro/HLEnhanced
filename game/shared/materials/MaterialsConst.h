@@ -15,7 +15,10 @@
 #ifndef GAME_SHARED_MATERIALS_MATERIALSCONST_H
 #define GAME_SHARED_MATERIALS_MATERIALSCONST_H
 
-#define CTEXTURESMAX		512			// max number of textures loaded
+/**
+*	Max number of textures loaded.
+*/
+#define CTEXTURESMAX		512
 
 /**
 *	Now matches the maximum name length of a WAD lump. - Solokiller
@@ -27,9 +30,6 @@
 */
 enum CharTexType : char
 {
-	/**
-	*	Texture types.
-	*/
 	CHAR_TEX_CONCRETE	= 'C',
 	CHAR_TEX_METAL		= 'M',
 	CHAR_TEX_DIRT		= 'D',
@@ -45,7 +45,9 @@ enum CharTexType : char
 	CHAR_TEX_GRASS		= 'X', //TODO: needs to be handled in sound code - Solokiller
 };
 
-//TODO: is this even needed? Can just use the above enum directly. - Solokiller
+/**
+*	Step types. Note, not all step types have a texture type.
+*/
 enum StepTexType
 {
 	/**
