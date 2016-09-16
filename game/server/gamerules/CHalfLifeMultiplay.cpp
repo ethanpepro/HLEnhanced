@@ -1146,61 +1146,6 @@ int CountPlayers( void )
 
 /*
 ==============
-ExtractCommandString
-
-Parse commands/key value pairs to issue right after map xxx command is issued on server
- level transition
-==============
-*/
-void ExtractCommandString( char *s, char *szCommand )
-{
-	// Now make rules happen
-	char	pkey[512];
-	char	value[512];	// use two buffers so compares
-								// work without stomping on each other
-	char	*o;
-	
-	if ( *s == '\\' )
-		s++;
-
-	while (1)
-	{
-		o = pkey;
-		while ( *s != '\\' )
-		{
-			if ( !*s )
-				return;
-			*o++ = *s++;
-		}
-		*o = 0;
-		s++;
-
-		o = value;
-
-		while (*s != '\\' && *s)
-		{
-			if (!*s)
-				return;
-			*o++ = *s++;
-		}
-		*o = 0;
-
-		strcat( szCommand, pkey );
-		if ( strlen( value ) > 0 )
-		{
-			strcat( szCommand, " " );
-			strcat( szCommand, value );
-		}
-		strcat( szCommand, "\n" );
-
-		if (!*s)
-			return;
-		s++;
-	}
-}
-
-/*
-==============
 ChangeLevel
 
 Server is changing to a new level, check mapcycle.txt for map name and setup info
@@ -1208,10 +1153,6 @@ Server is changing to a new level, check mapcycle.txt for map name and setup inf
 */
 void CHalfLifeMultiplay :: ChangeLevel( void )
 {
-	//TODO: move out of this function - Solokiller
-	static char szPreviousMapCycleFile[ 256 ];
-	static mapcycle_t mapcycle;
-
 	char szNextMap[32];
 	char szFirstMapInList[32];
 	char szCommands[ 1500 ];
@@ -1232,20 +1173,20 @@ void CHalfLifeMultiplay :: ChangeLevel( void )
 	curplayers = CountPlayers();
 
 	// Has the map cycle filename changed?
-	if ( stricmp( mapcfile, szPreviousMapCycleFile ) )
+	if ( stricmp( mapcfile, g_szPreviousMapCycleFile ) )
 	{
-		strcpy( szPreviousMapCycleFile, mapcfile );
+		strcpy( g_szPreviousMapCycleFile, mapcfile );
 
-		DestroyMapCycle( &mapcycle );
+		DestroyMapCycle( &g_MapCycle );
 
-		if ( !ReloadMapCycleFile( mapcfile, &mapcycle ) || ( !mapcycle.items ) )
+		if ( !ReloadMapCycleFile( mapcfile, &g_MapCycle ) || ( !g_MapCycle.items ) )
 		{
 			ALERT( at_console, "Unable to load map cycle file %s\n", mapcfile );
 			do_cycle = false;
 		}
 	}
 
-	if ( do_cycle && mapcycle.items )
+	if ( do_cycle && g_MapCycle.items )
 	{
 		bool keeplooking = false;
 		bool found = false;
@@ -1256,7 +1197,7 @@ void CHalfLifeMultiplay :: ChangeLevel( void )
 		strcpy( szFirstMapInList, STRING(gpGlobals->mapname) );
 
 		// Traverse list
-		for ( item = mapcycle.next_item; item->next != mapcycle.next_item; item = item->next )
+		for ( item = g_MapCycle.next_item; item->next != g_MapCycle.next_item; item = item->next )
 		{
 			keeplooking = false;
 
@@ -1297,11 +1238,11 @@ void CHalfLifeMultiplay :: ChangeLevel( void )
 
 		if ( !found )
 		{
-			item = mapcycle.next_item;
+			item = g_MapCycle.next_item;
 		}			
 		
 		// Increment next item pointer
-		mapcycle.next_item = item->next;
+		g_MapCycle.next_item = item->next;
 
 		// Perform logic on current item
 		strcpy( szNextMap, item->mapname );

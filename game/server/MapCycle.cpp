@@ -17,15 +17,19 @@
 
 #include "MapCycle.h"
 
-int ReloadMapCycleFile( char *filename, mapcycle_t *cycle )
+mapcycle_t g_MapCycle;
+
+char g_szPreviousMapCycleFile[ MAX_PATH ] = {};
+
+bool ReloadMapCycleFile( const char* pszFileName, mapcycle_t* pCycle )
 {
 	char szBuffer[ MAX_RULE_BUFFER ];
 	char szMap[ 32 ];
 	int length;
-	char *aFileList = ( char* ) LOAD_FILE_FOR_ME( filename, &length );
+	char *aFileList = ( char* ) LOAD_FILE_FOR_ME( pszFileName, &length );
 
 	const char* pFileList = aFileList;
-	int hasbuffer;
+	bool hasbuffer;
 	mapcycle_item_t *item, *newlist = NULL, *next;
 
 	if( pFileList && length )
@@ -33,7 +37,7 @@ int ReloadMapCycleFile( char *filename, mapcycle_t *cycle )
 		// the first map name in the file becomes the default
 		while( 1 )
 		{
-			hasbuffer = 0;
+			hasbuffer = false;
 			memset( szBuffer, 0, MAX_RULE_BUFFER );
 
 			pFileList = COM_Parse( pFileList );
@@ -48,7 +52,7 @@ int ReloadMapCycleFile( char *filename, mapcycle_t *cycle )
 				pFileList = COM_Parse( pFileList );
 				if( strlen( com_token ) > 0 )
 				{
-					hasbuffer = 1;
+					hasbuffer = true;
 					strcpy( szBuffer, com_token );
 				}
 			}
@@ -93,8 +97,8 @@ int ReloadMapCycleFile( char *filename, mapcycle_t *cycle )
 					strcpy( item->rulebuffer, szBuffer );
 				}
 
-				item->next = cycle->items;
-				cycle->items = item;
+				item->next = pCycle->items;
+				pCycle->items = item;
 			}
 			else
 			{
@@ -107,7 +111,7 @@ int ReloadMapCycleFile( char *filename, mapcycle_t *cycle )
 	}
 
 	// Fixup circular list pointer
-	item = cycle->items;
+	item = pCycle->items;
 
 	// Reverse it to get original order
 	while( item )
@@ -117,30 +121,30 @@ int ReloadMapCycleFile( char *filename, mapcycle_t *cycle )
 		newlist = item;
 		item = next;
 	}
-	cycle->items = newlist;
-	item = cycle->items;
+	pCycle->items = newlist;
+	item = pCycle->items;
 
 	// Didn't parse anything
 	if( !item )
 	{
-		return 0;
+		return false;
 	}
 
 	while( item->next )
 	{
 		item = item->next;
 	}
-	item->next = cycle->items;
+	item->next = pCycle->items;
 
-	cycle->next_item = item->next;
+	pCycle->next_item = item->next;
 
-	return 1;
+	return true;
 }
 
-void DestroyMapCycle( mapcycle_t *cycle )
+void DestroyMapCycle( mapcycle_t* pCycle )
 {
 	mapcycle_item_t *p, *n, *start;
-	p = cycle->items;
+	p = pCycle->items;
 	if( p )
 	{
 		start = p;
@@ -152,8 +156,55 @@ void DestroyMapCycle( mapcycle_t *cycle )
 			p = n;
 		}
 
-		delete cycle->items;
+		delete pCycle->items;
 	}
-	cycle->items = nullptr;
-	cycle->next_item = nullptr;
+	pCycle->items = nullptr;
+	pCycle->next_item = nullptr;
+}
+
+void ExtractCommandString( char *s, char *szCommand )
+{
+	// Now make rules happen
+	char	pkey[ 512 ];
+	char	value[ 512 ];	// use two buffers so compares
+							// work without stomping on each other
+	char	*o;
+
+	if( *s == '\\' )
+		s++;
+
+	while( 1 )
+	{
+		o = pkey;
+		while( *s != '\\' )
+		{
+			if( !*s )
+				return;
+			*o++ = *s++;
+		}
+		*o = 0;
+		s++;
+
+		o = value;
+
+		while( *s != '\\' && *s )
+		{
+			if( !*s )
+				return;
+			*o++ = *s++;
+		}
+		*o = 0;
+
+		strcat( szCommand, pkey );
+		if( strlen( value ) > 0 )
+		{
+			strcat( szCommand, " " );
+			strcat( szCommand, value );
+		}
+		strcat( szCommand, "\n" );
+
+		if( !*s )
+			return;
+		s++;
+	}
 }

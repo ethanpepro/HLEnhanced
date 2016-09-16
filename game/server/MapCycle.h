@@ -17,6 +17,8 @@
 
 #define MAX_RULE_BUFFER 1024
 
+//TODO: use max map name constant - Solokiller
+
 struct mapcycle_item_t
 {
 	mapcycle_item_t *next;
@@ -33,22 +35,33 @@ struct mapcycle_t
 };
 
 /*
-==============
-ReloadMapCycleFile
-
-
-Parses mapcycle.txt file into mapcycle_t structure
-==============
+*	Parses mapcycle.txt file into mapcycle_t structure.
+*	@param pszFileName Name of the map cycle file to load.
+*	@param pCycle Map cycle to fill.
+*	@return Whether the file was successfully loaded or not.
 */
-int ReloadMapCycleFile( char *filename, mapcycle_t *cycle );
+bool ReloadMapCycleFile( const char* pszFileName, mapcycle_t* pCycle );
 
 /*
-==============
-DestroyMapCycle
-
-Clean up memory used by mapcycle when switching it
-==============
+*	Clean up memory used by mapcycle when switching it.
+*	@param pCycle Map cycle to clean up.
 */
-void DestroyMapCycle( mapcycle_t *cycle );
+void DestroyMapCycle( mapcycle_t* pCycle );
+
+/*
+*	Parse commands/key value pairs to issue right after map xxx command is issued on server
+*	level transition
+*/
+void ExtractCommandString( char *s, char *szCommand );
+
+/**
+*	The map cycle.
+*/
+extern mapcycle_t g_MapCycle;
+
+/**
+*	Name of the previous map cycle that was loaded. If no map cycle has been loaded, this will be empty.
+*/
+extern char g_szPreviousMapCycleFile[ MAX_PATH ];
 
 #endif //GAME_SERVER_MAPCYCLE_H
