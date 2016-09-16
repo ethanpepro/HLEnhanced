@@ -19,6 +19,8 @@ add_sources(
 	Decals.cpp
 	Effects.h
 	globals.cpp
+	MapCycle.h
+	MapCycle.cpp
 	SaveRestore.h
 	Server.h
 	Server.cpp

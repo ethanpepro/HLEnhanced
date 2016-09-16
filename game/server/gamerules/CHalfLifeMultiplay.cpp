@@ -31,6 +31,8 @@
 
 #include "CWeaponInfoCache.h"
 
+#include "MapCycle.h"
+
 extern DLL_GLOBAL CGameRules	*g_pGameRules;
 extern DLL_GLOBAL bool	g_fGameOver;
 
@@ -1118,179 +1120,6 @@ void CHalfLifeMultiplay::GoToIntermission()
 
 //TODO: everything that isn't gamerules should be moved out of this file - Solokiller
 
-#define MAX_RULE_BUFFER 1024
-
-struct mapcycle_item_t
-{
-	mapcycle_item_t *next;
-
-	char mapname[ 32 ];
-	int  minplayers, maxplayers;
-	char rulebuffer[ MAX_RULE_BUFFER ];
-};
-
-struct mapcycle_t
-{
-	mapcycle_item_t *items;
-	mapcycle_item_t *next_item;
-};
-
-/*
-==============
-DestroyMapCycle
-
-Clean up memory used by mapcycle when switching it
-==============
-*/
-void DestroyMapCycle( mapcycle_t *cycle )
-{
-	mapcycle_item_t *p, *n, *start;
-	p = cycle->items;
-	if ( p )
-	{
-		start = p;
-		p = p->next;
-		while ( p != start )
-		{
-			n = p->next;
-			delete p;
-			p = n;
-		}
-		
-		delete cycle->items;
-	}
-	cycle->items = NULL;
-	cycle->next_item = NULL;
-}
-
-/*
-==============
-ReloadMapCycleFile
-
-
-Parses mapcycle.txt file into mapcycle_t structure
-==============
-*/
-int ReloadMapCycleFile( char *filename, mapcycle_t *cycle )
-{
-	char szBuffer[ MAX_RULE_BUFFER ];
-	char szMap[ 32 ];
-	int length;
-	char *aFileList = (char*)LOAD_FILE_FOR_ME( filename, &length );
-
-	const char* pFileList = aFileList;
-	int hasbuffer;
-	mapcycle_item_t *item, *newlist = NULL, *next;
-
-	if ( pFileList && length )
-	{
-		// the first map name in the file becomes the default
-		while ( 1 )
-		{
-			hasbuffer = 0;
-			memset( szBuffer, 0, MAX_RULE_BUFFER );
-
-			pFileList = COM_Parse( pFileList );
-			if ( strlen( com_token ) <= 0 )
-				break;
-
-			strcpy( szMap, com_token );
-
-			// Any more tokens on this line?
-			if ( COM_TokenWaiting( pFileList ) )
-			{
-				pFileList = COM_Parse( pFileList );
-				if ( strlen( com_token ) > 0 )
-				{
-					hasbuffer = 1;
-					strcpy( szBuffer, com_token );
-				}
-			}
-
-			// Check map
-			if ( IS_MAP_VALID( szMap ) )
-			{
-				// Create entry
-				char *s;
-
-				item = new mapcycle_item_t;
-
-				strcpy( item->mapname, szMap );
-
-				item->minplayers = 0;
-				item->maxplayers = 0;
-
-				memset( item->rulebuffer, 0, MAX_RULE_BUFFER );
-
-				if ( hasbuffer )
-				{
-					s = g_engfuncs.pfnInfoKeyValue( szBuffer, "minplayers" );
-					if ( s && s[0] )
-					{
-						item->minplayers = atoi( s );
-						item->minplayers = max( item->minplayers, 0 );
-						item->minplayers = min( item->minplayers, gpGlobals->maxClients );
-					}
-					s = g_engfuncs.pfnInfoKeyValue( szBuffer, "maxplayers" );
-					if ( s && s[0] )
-					{
-						item->maxplayers = atoi( s );
-						item->maxplayers = max( item->maxplayers, 0 );
-						item->maxplayers = min( item->maxplayers, gpGlobals->maxClients );
-					}
-
-					// Remove keys
-					//
-					g_engfuncs.pfnInfo_RemoveKey( szBuffer, "minplayers" );
-					g_engfuncs.pfnInfo_RemoveKey( szBuffer, "maxplayers" );
-
-					strcpy( item->rulebuffer, szBuffer );
-				}
-
-				item->next = cycle->items;
-				cycle->items = item;
-			}
-			else
-			{
-				ALERT( at_console, "Skipping %s from mapcycle, not a valid map\n", szMap );
-			}
-
-		}
-
-		FREE_FILE( aFileList );
-	}
-
-	// Fixup circular list pointer
-	item = cycle->items;
-
-	// Reverse it to get original order
-	while ( item )
-	{
-		next = item->next;
-		item->next = newlist;
-		newlist = item;
-		item = next;
-	}
-	cycle->items = newlist;
-	item = cycle->items;
-
-	// Didn't parse anything
-	if ( !item )
-	{
-		return 0;
-	}
-
-	while ( item->next )
-	{
-		item = item->next;
-	}
-	item->next = cycle->items;
-	
-	cycle->next_item = item->next;
-
-	return 1;
-}
-
 /*
 ==============
 CountPlayers
@@ -1379,6 +1208,7 @@ Server is changing to a new level, check mapcycle.txt for map name and setup inf
 */
 void CHalfLifeMultiplay :: ChangeLevel( void )
 {
+	//TODO: move out of this function - Solokiller
 	static char szPreviousMapCycleFile[ 256 ];
 	static mapcycle_t mapcycle;
 
