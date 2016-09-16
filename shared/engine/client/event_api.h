@@ -20,6 +20,7 @@
 
 struct physent_t;
 struct pmtrace_t;
+class Vector;
 
 #define EVENT_API_VERSION 1
 
@@ -43,7 +44,7 @@ struct event_api_t
 	*	@param fFlags Sound flags.
 	*	@param pitch Pitch. [ 0, 255 ].
 	*/
-	void	( *EV_PlaySound ) ( int ent, const float* vecOrigin, int channel, const char* pszSample, float volume, float attenuation, int fFlags, int pitch );
+	void	( *EV_PlaySound ) ( int ent, const Vector& vecOrigin, int channel, const char* pszSample, float volume, float attenuation, int fFlags, int pitch );
 
 	/**
 	*	Stops the sound on the given entity's given channel.
@@ -76,7 +77,7 @@ struct event_api_t
 	*	Gets the view height of the local player.
 	*	@param[ out ] vecViewHeight View height.
 	*/
-	void	( *EV_LocalPlayerViewheight ) ( float* vecViewHeight );
+	void	( *EV_LocalPlayerViewheight ) ( Vector& vecViewHeight );
 
 	/**
 	*	Gets the local player's bounds for the given hull.
@@ -84,7 +85,7 @@ struct event_api_t
 	*	@param[ out ] vecMins Minimum bounds. Can be null.
 	*	@param[ out ] vecMaxs Maximum bounds. Can be null.
 	*/
-	void	( *EV_LocalPlayerBounds ) ( int hull, float* vecMins, float* vecMaxs );
+	void	( *EV_LocalPlayerBounds ) ( int hull, Vector& vecMins, Vector& vecMaxs );
 
 	/**
 	*	Gets the entity index of the entity that was hit by the given trace.
@@ -135,7 +136,7 @@ struct event_api_t
 	*	@param ignore_pe Index of the entity to ignore. -1 for none.
 	*	@param tr Trace result.
 	*/
-	void	( *EV_PlayerTrace ) ( const float* vecStart, const float* vecEnd, int traceFlags, int ignore_pe, pmtrace_t* tr );
+	void	( *EV_PlayerTrace ) ( const Vector& vecStart, const Vector& vecEnd, int traceFlags, int ignore_pe, pmtrace_t* tr );
 
 	/**
 	*	Sets the weapon animation and body.
@@ -167,7 +168,7 @@ struct event_api_t
 	*	@param bparam2 Boolean parameter 2.
 	*/
 	void	( *EV_PlaybackEvent ) ( int flags, const edict_t* pInvoker, unsigned short eventindex, float delay, 
-									const float* origin, const float* angles, 
+									const Vector& origin, const Vector& angles,
 									float fparam1, float fparam2, 
 									int iparam1, int iparam2, 
 									int bparam1, int bparam2 );
@@ -179,7 +180,7 @@ struct event_api_t
 	*	@param vecEnd End point.
 	*	@return Name of the texture, or null if it couldn't find any ground surfaces.
 	*/
-	const char *( *EV_TraceTexture ) ( int ground, const float* vecStart, const float* vecEnd );
+	const char *( *EV_TraceTexture ) ( int ground, const Vector& vecStart, const Vector& vecEnd );
 
 	/**
 	*	Stops all sounds on the given entity's given channel.

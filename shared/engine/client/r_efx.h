@@ -283,7 +283,7 @@ struct efx_api_t
 	*	Creates an explosion of blob particles.
 	*	@param vecOrigin Explosion origin.
 	*/
-	void		( *R_BlobExplosion )			( const float* vecOrigin );
+	void		( *R_BlobExplosion )			( const Vector& vecOrigin );
 
 	/**
 	*	Creates blood particles.
@@ -292,7 +292,7 @@ struct efx_api_t
 	*	@param pcolor Particle color.
 	*	@param speed Movement speed.
 	*/
-	void		( *R_Blood )					( const float* vecOrigin, const float* vecDir, int pcolor, int speed );
+	void		( *R_Blood )					( const Vector& vecOrigin, const Vector& vecDir, int pcolor, int speed );
 
 	/**
 	*	Creates blood sprites.
@@ -302,7 +302,7 @@ struct efx_api_t
 	*	@param modelIndex2 Second sprite index.
 	*	@param size Size of the sprites.
 	*/
-	void		( *R_BloodSprite )				( const float* vecOrigin, int colorindex, int modelIndex, int modelIndex2, float size );
+	void		( *R_BloodSprite )				( const Vector& vecOrigin, int colorindex, int modelIndex, int modelIndex2, float size );
 
 	/**
 	*	Creates a blood stream.
@@ -311,7 +311,7 @@ struct efx_api_t
 	*	@param pcolor Particle color.
 	*	@param speed Movement speed.
 	*/
-	void		( *R_BloodStream )				( const float* vecOrigin, const float* vecDir, int pcolor, int speed );
+	void		( *R_BloodStream )				( const Vector& vecOrigin, const Vector& vecDir, int pcolor, int speed );
 
 	/**
 	*	Creates a break model.
@@ -324,7 +324,7 @@ struct efx_api_t
 	*	@param modelIndex Index of the model to spawn.
 	*	@param flags Flags. TODO find constants - Solokliler
 	*/
-	void		( *R_BreakModel )				( const float* vecOrigin, const float* vecSize, const float* vecDir, float random, float life, int count, int modelIndex, char flags );
+	void		( *R_BreakModel )				( const Vector& vecOrigin, const Vector& vecSize, const Vector& vecDir, float random, float life, int count, int modelIndex, char flags );
 
 	/**
 	*	Creates bubbles within a box.
@@ -335,7 +335,7 @@ struct efx_api_t
 	*	@param count Number of bubbles to spawn.
 	*	@param speed Speed of the bubbles.
 	*/
-	void		( *R_Bubbles )					( const float* vecMins, const float* vecMaxs, float height, int modelIndex, int count, float speed );
+	void		( *R_Bubbles )					( const Vector& vecMins, const Vector& vecMaxs, float height, int modelIndex, int count, float speed );
 
 	/**
 	*	Creates a trail of bubbles between 2 points.
@@ -346,13 +346,13 @@ struct efx_api_t
 	*	@param count Number of bubbles to spawn.
 	*	@param speed Speed of the bubbles.
 	*/
-	void		( *R_BubbleTrail )				( const float* vecStart, const float* vecEnd, float height, int modelIndex, int count, float speed );
+	void		( *R_BubbleTrail )				( const Vector& vecStart, const Vector& vecEnd, float height, int modelIndex, int count, float speed );
 
 	/**
 	*	Creates bullet impact particles.
 	*	@param vecOrigin Origin.
 	*/
-	void		( *R_BulletImpactParticles )	( const float* vecOrigin );
+	void		( *R_BulletImpactParticles )	( const Vector& vecOrigin );
 
 	/**
 	*	Creates particles around the given entity.
@@ -368,7 +368,7 @@ struct efx_api_t
 	*	@param framerate Frame rate.
 	*	@param flags Flags. TODO figure out which flags apply - Solokiller
 	*/
-	void		( *R_Explosion )				( const float* vecOrigin, int model, float scale, float framerate, int flags );
+	void		( *R_Explosion )				( const Vector& vecOrigin, int model, float scale, float framerate, int flags );
 
 	/**
 	*	Does not appear to do anything.
@@ -385,13 +385,13 @@ struct efx_api_t
 	*	@param flags Flags. @see TEFireFlag
 	*	@param life How long the models should life for, in seconds.
 	*/
-	void		( *R_FireField ) 				( const float* vecOrigin, int radius, int modelIndex, int count, int flags, float life );
+	void		( *R_FireField ) 				( const Vector& vecOrigin, int radius, int modelIndex, int count, int flags, float life );
 
 	/**
 	*	Creates particles that flicker upwards, confetti style.
 	*	@param vecOrigin Origin to spawn the particles at.
 	*/
-	void		( *R_FlickerParticles )			( const float* vecOrigin );
+	void		( *R_FlickerParticles )			( const Vector& vecOrigin );
 
 	/**
 	*	Creates a funnel effect. Sprites moving along the surface of a cone that points downwards.
@@ -399,7 +399,7 @@ struct efx_api_t
 	*	@param modelIndex Index of the model to use.
 	*	@param bReverse If false, the sprites move towards the origin. If true, the sprites move away from the origin.
 	*/
-	void		( *R_FunnelSprite )				( const float* vecOrigin, int modelIndex, int bReverse );
+	void		( *R_FunnelSprite )				( const Vector& vecOrigin, int modelIndex, int bReverse );
 
 	/**
 	*	Creates an implosion effect. Tracers moving towards a point.
@@ -408,7 +408,7 @@ struct efx_api_t
 	*	@param count Number of tracers.
 	*	@param life How long the tracers should live for, in seconds.
 	*/
-	void		( *R_Implosion )				( const float* vecOrigin, float radius, int count, float life );
+	void		( *R_Implosion )				( const Vector& vecOrigin, float radius, int count, float life );
 
 	/**
 	*	Creates a large funnel of green particles.
@@ -416,13 +416,13 @@ struct efx_api_t
 	*	@param bReverse If false, particles move towards the origin. If true, particles move away from the origin.
 	*	@see R_FunnelSprite
 	*/
-	void		( *R_LargeFunnel )				( const float* vecOrigin, int bReverse );
+	void		( *R_LargeFunnel )				( const Vector& vecOrigin, int bReverse );
 
 	/**
 	*	Quake 1 lava splash. Creates red particles moving slightly upward.
 	*	@param vecOrigin Origin to spawn the particles around.
 	*/
-	void		( *R_LavaSplash )				( const float* vecOrigin );
+	void		( *R_LavaSplash )				( const Vector& vecOrigin );
 
 	/**
 	*	Creates effects for multiple gunshots. Also plays ricochet sounds.
@@ -433,7 +433,7 @@ struct efx_api_t
 	*	@param decalCount Number of decals to use.
 	*	@param pDecalIndices Array of decal indices to use.
 	*/
-	void		( *R_MultiGunshot )				( const float* vecOrigin, const float* vecDir, const float* vecNoise, int count, int decalCount, const int* pDecalIndices );
+	void		( *R_MultiGunshot )				( const Vector& vecOrigin, const Vector& vecDir, const Vector& vecNoise, int count, int decalCount, const int* pDecalIndices );
 
 	/**
 	*	Creates a muzzleflash sprite.
@@ -446,7 +446,7 @@ struct efx_api_t
 	*				sprites/muzzleflash2.spr
 	*				sprites/muzzleflash3.spr
 	*/
-	void		( *R_MuzzleFlash )				( const float* vecOrigin, int type );
+	void		( *R_MuzzleFlash )				( const Vector& vecOrigin, int type );
 
 	/**
 	*	Creates particles in a box.
@@ -457,7 +457,7 @@ struct efx_api_t
 	*	@param b Blue color. [ 0, 255 ].
 	*	@param life How long the particles should life for, in seconds.
 	*/
-	void		( *R_ParticleBox )				( const float* vecMins, const float* vecMaxs, unsigned char r, unsigned char g, unsigned char b, float life );
+	void		( *R_ParticleBox )				( const Vector& vecMins, const Vector& vecMaxs, unsigned char r, unsigned char g, unsigned char b, float life );
 
 	/**
 	*	Creates a burst of particles that move outward from the origin.
@@ -467,13 +467,13 @@ struct efx_api_t
 	*	@param color Particle color.
 	*	@param life How long the particles should live for, in seconds.
 	*/
-	void		( *R_ParticleBurst )			( const float* vecOrigin, int size, int color, float life );
+	void		( *R_ParticleBurst )			( const Vector& vecOrigin, int size, int color, float life );
 
 	/**
 	*	Creates yellowish particles around the origin that move upward.
 	*	@param vecOrigin Origin.
 	*/
-	void		( *R_ParticleExplosion )		( const float* vecOrigin );
+	void		( *R_ParticleExplosion )		( const Vector& vecOrigin );
 
 	/**
 	*	Creates particles using the given color set around the origin that move upward.
@@ -481,7 +481,7 @@ struct efx_api_t
 	*	@param colorStart Index of the first color to use.
 	*	@param colorLength Number of colors to use.
 	*/
-	void		( *R_ParticleExplosion2 )		( const float* vecOrigin, int colorStart, int colorLength );
+	void		( *R_ParticleExplosion2 )		( const Vector& vecOrigin, int colorStart, int colorLength );
 
 	/**
 	*	Creates a line of particles.
@@ -492,7 +492,7 @@ struct efx_api_t
 	*	@param b Blue color. [ 0, 255 ].
 	*	@param life How long the particles should live for, in seconds.
 	*/
-	void		( *R_ParticleLine )				( const float* vecStart, const float* vecEnd, unsigned char r, unsigned char g, unsigned char b, float life );
+	void		( *R_ParticleLine )				( const Vector& vecStart, const Vector& vecEnd, unsigned char r, unsigned char g, unsigned char b, float life );
 
 	/**
 	*	Emits sprites from a player's bounding box (ONLY use for players!).
@@ -513,13 +513,13 @@ struct efx_api_t
 	*	@param hitcallback Callback to invoke when it hits something.
 	*	TODO use callback definition - Solokiller
 	*/
-	void		( *R_Projectile )				( const float* vecOrigin, const float* vecVelocity, int modelIndex, int life, int owner, void (*hitcallback)( TEMPENTITY *ent, pmtrace_t *ptr ) );
+	void		( *R_Projectile )				( const Vector& vecOrigin, const Vector& vecVelocity, int modelIndex, int life, int owner, void (*hitcallback)( TEMPENTITY *ent, pmtrace_t *ptr ) );
 	
 	/**
 	*	Plays a ricochet sound at the given location.
 	*	@param vecOrigin Origin.
 	*/
-	void		( *R_RicochetSound )			( const float* vecOrigin );
+	void		( *R_RicochetSound )			( const Vector& vecOrigin );
 
 	/**
 	*	Creates a ricochet sprite.
@@ -528,14 +528,14 @@ struct efx_api_t
 	*	@param duration How long the sprite should life for, in seconds.
 	*	@param scale Sprite scale.
 	*/
-	void		( *R_RicochetSprite )			( const float* vecOrigin, model_t* pmodel, float duration, float scale );
+	void		( *R_RicochetSprite )			( const Vector& vecOrigin, model_t* pmodel, float duration, float scale );
 
 	/**
 	*	Creates a rocket flare sprite at the given location. Will exist for 0.01 seconds.
 	*	Uses the sprites/animglow01.spr sprite.
 	*	@param vecOrigin Origin.
 	*/
-	void		( *R_RocketFlare )				( const float* vecOrigin );
+	void		( *R_RocketFlare )				( const Vector& vecOrigin );
 
 	/**
 	*	Creates a rocket trail.
@@ -544,7 +544,7 @@ struct efx_api_t
 	*	@param type Trail type.
 	*	@see RocketTrailType
 	*/
-	void		( *R_RocketTrail )				( float* vecStart, const float* vecEnd, const RocketTrailType type );
+	void		( *R_RocketTrail )				( Vector& vecStart, const Vector& vecEnd, const RocketTrailType type );
 
 	/**
 	*	Particle effect that shows the appearance of running fast. See Team Fortress 2's Scout.
@@ -553,7 +553,7 @@ struct efx_api_t
 	*	@param color Particle color.
 	*	@param count Number of particles.
 	*/
-	void		( *R_RunParticleEffect )		( const float* vecOrigin, const float* vecDir, int color, int count );
+	void		( *R_RunParticleEffect )		( const Vector& vecOrigin, const Vector& vecDir, int color, int count );
 
 	/**
 	*	Creates a line made up out of red particles.
@@ -561,7 +561,7 @@ struct efx_api_t
 	*	@param vecStart Starting position.
 	*	@param vecEnd End position.
 	*/
-	void		( *R_ShowLine )					( const float* vecStart, const float* vecEnd );
+	void		( *R_ShowLine )					( const Vector& vecStart, const Vector& vecEnd );
 
 	/**
 	*	Creates a spark effect. Combines spark streaks and a ricochet sprite.
@@ -570,13 +570,13 @@ struct efx_api_t
 	*	@param velocityMin Minimum velocity.
 	*	@param velocityMin Maximum velocity.
 	*/
-	void		( *R_SparkEffect )				( const float* vecOrigin, int count, int velocityMin, int velocityMax );
+	void		( *R_SparkEffect )				( const Vector& vecOrigin, int count, int velocityMin, int velocityMax );
 
 	/**
 	*	Creates a shower of sparks.
 	*	@param vecOrigin Origin.
 	*/
-	void		( *R_SparkShower )				( const float* vecOrigin );
+	void		( *R_SparkShower )				( const Vector& vecOrigin );
 
 	/**
 	*	Creates spark streaks.
@@ -585,7 +585,7 @@ struct efx_api_t
 	*	@param velocityMin Minimum velocity.
 	*	@param velocityMin Maximum velocity.
 	*/
-	void		( *R_SparkStreaks )				( const float* vecOrigin, int count, int velocityMin, int velocityMax );
+	void		( *R_SparkStreaks )				( const Vector& vecOrigin, int count, int velocityMin, int velocityMax );
 
 	/**
 	*	Sprays models out like a gib shooter.
@@ -597,7 +597,7 @@ struct efx_api_t
 	*	@param spread Random spread.
 	*	@param rendermode Render mode. @see RenderMode
 	*/
-	void		( *R_Spray )					( const float* vecOrigin, const float* vecDir, int modelIndex, int count, int speed, int spread, int rendermode );
+	void		( *R_Spray )					( const Vector& vecOrigin, const Vector& vecDir, int modelIndex, int count, int speed, int spread, int rendermode );
 
 	/**
 	*	Sets the temp entity's parameters for an explosion sprite.
@@ -625,7 +625,7 @@ struct efx_api_t
 	*	@param speed Spray speed.
 	*	@param iRand Random spread.
 	*/
-	void		( *R_Sprite_Spray )				( const float* vecOrigin, const float* vecDir, int modelIndex, int count, int speed, int iRand );
+	void		( *R_Sprite_Spray )				( const Vector& vecOrigin, const Vector& vecDir, int modelIndex, int count, int speed, int iRand );
 
 	/**
 	*	Creates a sinusoidal wave of models between 2 points. The wave will fade out gradually from the start to end position.
@@ -640,7 +640,7 @@ struct efx_api_t
 	*	@param renderamt Render amount.
 	*	@param speed Speed.
 	*/
-	void		( *R_Sprite_Trail )				( int type, const float* vecStart, const float* vecEnd, int modelIndex, int count, float life, float size, float amplitude, int renderamt, float speed );
+	void		( *R_Sprite_Trail )				( int type, const Vector& vecStart, const Vector& vecEnd, int modelIndex, int count, float life, float size, float amplitude, int renderamt, float speed );
 
 	/**
 	*	Sets the temp entity's parameters for a wall puff effect.
@@ -660,14 +660,14 @@ struct efx_api_t
 	*	@param velocityMin Minimum velocity.
 	*	@param velocityMax Maximum velocity.
 	*/
-	void		( *R_StreakSplash )				( const float* vecOrigin, const float* vecDir, int color, int count, float speed, int velocityMin, int velocityMax );
+	void		( *R_StreakSplash )				( const Vector& vecOrigin, const Vector& vecDir, int color, int count, float speed, int velocityMin, int velocityMax );
 
 	/**
 	*	Creates a tracer effect between the given positions. Moves from start to end.
 	*	@param[ in, out ] Starting position. Will contain start + velocity.
 	*	@param vecEnd End position.
 	*/
-	void		( *R_TracerEffect )				( float* vecStart, const float* vecEnd );
+	void		( *R_TracerEffect )				( Vector& vecStart, const Vector& vecEnd );
 
 	/**
 	*	@param vecOrigin Origin.
@@ -678,7 +678,7 @@ struct efx_api_t
 	*	@param deathcontext user defined context value.
 	*	@param deathfunc Callback to invoke when the particle dies.
 	*/
-	void		( *R_UserTracerParticle )		( const float* vecOrigin, const float* vecVelocity, float life, int colorIndex, float length, 
+	void		( *R_UserTracerParticle )		( const Vector& vecOrigin, const Vector& vecVelocity, float life, int colorIndex, float length,
 												  unsigned char deathcontext, void ( *deathfunc)( particle_t *particle ) );
 
 	/**
@@ -688,12 +688,12 @@ struct efx_api_t
 	*	@param life How long the particle should live for, in seconds.
 	*	@return Particle.
 	*/
-	particle_t *( *R_TracerParticles )			( const float* vecOrigin, const float* vecVelocity, float life );
+	particle_t *( *R_TracerParticles )			( const Vector& vecOrigin, const Vector& vecVelocity, float life );
 
 	/**
 	*	Creates a Quake 1 teleport splash effect.
 	*/
-	void		( *R_TeleportSplash )			( const float* vecOrigin );
+	void		( *R_TeleportSplash )			( const Vector& vecOrigin );
 
 	/**
 	*	Creates particles and count temp entities with the given model that fall down.
@@ -703,7 +703,7 @@ struct efx_api_t
 	*	@param count Number of temporary entities to create.
 	*	@param modelIndex Index of the model to use.
 	*/
-	void		( *R_TempSphereModel )			( const float* vecOrigin, float speed, float life, int count, int modelIndex );
+	void		( *R_TempSphereModel )			( const Vector& vecOrigin, float speed, float life, int count, int modelIndex );
 	
 	/**
 	*	Creates a temporary entity with the given model.
@@ -715,7 +715,7 @@ struct efx_api_t
 	*	@param soundtype Bounce sound type. @see TE_Bounce
 	*	@return Temporary entity. Can be null.
 	*/
-	TEMPENTITY*	( *R_TempModel )				( const float* vecOrigin, const float* vecDir, const float* vecAngles, float life, int modelIndex, int soundtype );
+	TEMPENTITY*	( *R_TempModel )				( const Vector& vecOrigin, const Vector& vecDir, const Vector& vecAngles, float life, int modelIndex, int soundtype );
 
 	/**
 	*	Creates a temp entity with a sprite model with default settings.
@@ -724,7 +724,7 @@ struct efx_api_t
 	*	@param framerate Frame rate.
 	*	@return Temporary entity. Can be null.
 	*/
-	TEMPENTITY*	( *R_DefaultSprite )			( const float* vecOrigin, int spriteIndex, float framerate );
+	TEMPENTITY*	( *R_DefaultSprite )			( const Vector& vecOrigin, int spriteIndex, float framerate );
 
 	/**
 	*	Creates a temp entity with a sprite model with given settings.
@@ -739,7 +739,7 @@ struct efx_api_t
 	*	@param flags Flags. @see TempEntFlag.
 	*	@return Temporary entity. Can be null.
 	*/
-	TEMPENTITY*	( *R_TempSprite )				( const float* vecOrigin, const float* vecDir, float scale, int modelIndex, int rendermode, int renderfx, float a, float life, int flags );
+	TEMPENTITY*	( *R_TempSprite )				( const Vector& vecOrigin, const Vector& vecDir, float scale, int modelIndex, int rendermode, int renderfx, float a, float life, int flags );
 
 	/**
 	*	Converts a decal index to a texture index.
@@ -763,7 +763,7 @@ struct efx_api_t
 	*	@param vecPosition Position in the world to project at.
 	*	@param flags Flags. TODO: figure these out. - Solokiller
 	*/
-	void		( *R_DecalShoot )				( int textureIndex, int entity, int modelIndex, const float* vecPosition, int flags );
+	void		( *R_DecalShoot )				( int textureIndex, int entity, int modelIndex, const Vector& vecPosition, int flags );
 
 	/**
 	*	Attaches a temp entity to a player.
@@ -798,7 +798,7 @@ struct efx_api_t
 	*	@param b Blue color. [ 0, 1 ].
 	*	@return Beam, or null if no beam could be created.
 	*/
-	BEAM*		( *R_BeamCirclePoints )		( const BeamCircleType type, const float* vecStart, const float* vecEnd, int modelIndex,
+	BEAM*		( *R_BeamCirclePoints )		( const BeamCircleType type, const Vector& vecStart, const Vector& vecEnd, int modelIndex,
 												  float life, float width, float amplitude, float brightness, float speed, 
 												  int startFrame, float framerate, float r, float g, float b );
 
@@ -819,7 +819,7 @@ struct efx_api_t
 	*	@param b Blue color. [ 0, 1 ].
 	*	@return Beam, or null if no beam could be created.
 	*/
-	BEAM*		( *R_BeamEntPoint )			( int startEnt, const float* vecEnd, int modelIndex, 
+	BEAM*		( *R_BeamEntPoint )			( int startEnt, const Vector& vecEnd, int modelIndex,
 												  float life, float width, float amplitude, float brightness, float speed, 
 												  int startFrame, float framerate, float r, float g, float b );
 
@@ -878,7 +878,7 @@ struct efx_api_t
 	*	@param speed Speed.
 	*	@return Beam, or null if no beam could be created.
 	*/
-	BEAM*		( *R_BeamLightning )			( const float* vecStart, const float* vecEnd, int modelIndex, float life, float width, float amplitude, float brightness, float speed );
+	BEAM*		( *R_BeamLightning )			( const Vector& vecStart, const Vector& vecEnd, int modelIndex, float life, float width, float amplitude, float brightness, float speed );
 
 	/**
 	*	Creates a beam between 2 points.
@@ -897,7 +897,7 @@ struct efx_api_t
 	*	@param b Blue color. [ 0, 1 ].
 	*	@return Beam, or null if no beam could be created.
 	*/
-	BEAM*		( *R_BeamPoints )				( const float* vecStart, const float* vecEnd, int modelIndex, 
+	BEAM*		( *R_BeamPoints )				( const Vector& vecStart, const Vector& vecEnd, int modelIndex,
 												  float life, float width, float amplitude, float brightness, float speed, 
 												  int startFrame, float framerate, float r, float g, float b );
 
@@ -943,14 +943,14 @@ struct efx_api_t
 	*	@param model Model to use.
 	*	@return Temporary entity, or null if no entity could be allocated.
 	*/
-	TEMPENTITY*	( *CL_TempEntAlloc )			( const float* vecOrigin, model_t* model );
+	TEMPENTITY*	( *CL_TempEntAlloc )			( const Vector& vecOrigin, model_t* model );
 
 	/**
 	*	Allocates a low priority temp entity with no model.
 	*	@param vecOrigin Origin.
 	*	@return Temporary entity, or null if no entity could be allocated.
 	*/
-	TEMPENTITY*	( *CL_TempEntAllocNoModel )		( const float* vecOrigin );
+	TEMPENTITY*	( *CL_TempEntAllocNoModel )		( const Vector& vecOrigin );
 
 	/**
 	*	Allocates a high priority temp entity. High priority temp entities are never freed when a high priority entity is created.
@@ -958,7 +958,7 @@ struct efx_api_t
 	*	@param model Model to use.
 	*	@return Temporary entity, or null if no entity could be allocated.
 	*/
-	TEMPENTITY*	( *CL_TempEntAllocHigh )		( const float* vecOrigin, model_t* model );
+	TEMPENTITY*	( *CL_TempEntAllocHigh )		( const Vector& vecOrigin, model_t* model );
 
 	/**
 	*	@param vecOrigin Origin.
@@ -967,7 +967,7 @@ struct efx_api_t
 	*	@param callback Think callback.
 	*	@return Temporary entity, or null if no entity could be allocated.
 	*/
-	TEMPENTITY*	( *CL_TentEntAllocCustom )		( float *origin, model_t *model, int high, TemPEntThink callback );
+	TEMPENTITY*	( *CL_TentEntAllocCustom )		( const Vector& origin, model_t *model, int high, TemPEntThink callback );
 
 	/**
 	*	Obsolete. Always zeroes out packed.
@@ -998,7 +998,7 @@ struct efx_api_t
 	*	@param flags Flags. TODO: figure these out. - Solokiller
 	*	@param scale Scale.
 	*/
-	void		( *R_FireCustomDecal )			( int textureIndex, int entity, int modelIndex, const float* vecPosition, int flags, float scale );
+	void		( *R_FireCustomDecal )			( int textureIndex, int entity, int modelIndex, const Vector& vecPosition, int flags, float scale );
 };
 
 extern efx_api_t efx;

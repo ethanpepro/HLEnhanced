@@ -19,6 +19,7 @@
 #endif
 
 struct model_t;
+class Vector;
 
 enum TRICULLSTYLE
 {
@@ -96,7 +97,7 @@ struct triangleapi_t
 	*	Draws a vertex.
 	*	@param vecWorldPoint Point in the world.
 	*/
-	void		( *Vertex3fv ) ( const float* vecWorldPoint );
+	void		( *Vertex3fv ) ( const Vector& vecWorldPoint );
 
 	/**
 	*	Draws a vertex.
@@ -132,29 +133,30 @@ struct triangleapi_t
 	*	@param[ out ] vecScreen Screen coordinate.
 	*	@return true if it's Z clipped, false otherwise.
 	*/
-	int			( *WorldToScreen ) ( const float* vecWorld, float* vecScreen );
+	int			( *WorldToScreen ) ( const Vector& vecWorld, Vector& vecScreen );
 
 	/**
 	*	Sets the fog color.
-	*	Works just like GL_FOG, flFogColor is r/g/b.
-	*	@param flFogColor Fog color. [ 0, 255 ].
+	*	Works just like GL_FOG, vecFogColor is r/g/b.
+	*	@param vecFogColor Fog color. [ 0, 255 ].
 	*	@param flStart Distance from the player where the fog should start.
 	*	@param flEnd Distance from the player where the fog should be fully opaque.
 	*	@param bOn Whether to enable or disable the fog.
 	*/
-	void		( *Fog ) ( float flFogColor[3], float flStart, float flEnd, int bOn );
+	void		( *Fog ) ( const Vector& vecFogColor, float flStart, float flEnd, int bOn );
 
 	/**
 	*	Converts a screen coordinate to a world coordinate.
 	*	@param vecScreen Screen coordinate.
 	*	@param[ out ] vecWorld World coordinate.
 	*/
-	void		( *ScreenToWorld ) ( const float* vecScreen, float* vecWorld  );
+	void		( *ScreenToWorld ) ( const Vector& vecScreen, Vector& vecWorld  );
 
 	/**
 	*	Gets the value of a matrix.
 	*	@param pname Constant identifying the matrix. Must be an OpenGL constant.
 	*	@param matrix Pointer to the 4x4 matrix.
+	*	TODO use GLM matrix. - Solokiller
 	*/
 	void		( *GetMatrix ) ( const int pname, float* matrix );
 
@@ -164,14 +166,14 @@ struct triangleapi_t
 	*	@param vecMaxs Maximum bounds.
 	*	@return true if the box is inside the PVS, false otherwise.
 	*/
-	int			( *BoxInPVS ) ( const float* vecMins, const float* vecMaxs );
+	int			( *BoxInPVS ) ( const Vector& vecMins, const Vector& vecMaxs );
 
 	/**
 	*	gets the light value at the given position.
 	*	@param vecPos Position.
 	*	@param[ out ] vecValue RGB light value. [ 0, 255 ].
 	*/
-	void		( *LightAtPoint ) ( const float* vecPos, float* vecValue );
+	void		( *LightAtPoint ) ( const Vector& vecPos, Vector& vecValue );
 
 	/**
 	*	Sets the RGBA color, taking the render mode as a hint for the interpretation of the values.

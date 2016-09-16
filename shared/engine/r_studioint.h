@@ -41,7 +41,7 @@ struct engine_studio_api_t
 	// Get a pointer to a cvar by name
 	cvar_t	*( *GetCvar )							( const char *name );
 	// Get current render origin and view vectors ( up, right and vpn )
-	void			( *GetViewInfo )				( float *origin, float *upv, float *rightv, float *vpnv );
+	void			( *GetViewInfo )				( Vector& origin, Vector& upv, Vector& rightv, Vector& vpnv );
 	// Get sprite model used for applying chrome effect
 	model_t	*( *GetChromeSprite )					( void );
 	// Get model counters so we can incement instrumentation
@@ -105,7 +105,7 @@ struct engine_studio_api_t
 
 	void			( *StudioSetRenderamt )			(int iRenderamt); 	//!!!CZERO added for rendering glass on viewmodels
 	void			( *StudioSetCullState )			( int iCull	   );
-	void			( *StudioRenderShadow )			( int iSprite, float *p1, float *p2, float *p3, float *p4 );
+	void			( *StudioRenderShadow )			( int iSprite, const Vector& p1, const Vector& p2, const Vector& p3, const Vector& p4 );
 };
 
 struct server_studio_api_t
