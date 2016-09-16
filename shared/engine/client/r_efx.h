@@ -240,8 +240,7 @@ enum class BeamCircleType
 	RING		= 0x18
 };
 
-//TODO: correct case - Solokiller
-using TemPEntThink = void( * )( TEMPENTITY *ent, float frametime, float currenttime );
+using TempEntThink = void( * )( TEMPENTITY *ent, float frametime, float currenttime );
 
 struct TEMPENTITY
 {
@@ -255,7 +254,7 @@ struct TEMPENTITY
 	float		bounceFactor;
 	int			hitSound;
 	void		( *hitcallback )	( TEMPENTITY *ent, pmtrace_t *ptr );
-	TemPEntThink callback;
+	TempEntThink callback;
 	TEMPENTITY	*next;
 	int			priority;
 	short		clientIndex;	// if attached, this is the index of the client to stick to
@@ -967,7 +966,7 @@ struct efx_api_t
 	*	@param callback Think callback.
 	*	@return Temporary entity, or null if no entity could be allocated.
 	*/
-	TEMPENTITY*	( *CL_TentEntAllocCustom )		( const Vector& origin, model_t *model, int high, TemPEntThink callback );
+	TEMPENTITY*	( *CL_TentEntAllocCustom )		( const Vector& origin, model_t *model, int high, TempEntThink callback );
 
 	/**
 	*	Obsolete. Always zeroes out packed.

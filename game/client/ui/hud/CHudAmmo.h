@@ -15,6 +15,8 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDAMMO_H
 #define GAME_CLIENT_UI_HUD_CHUDAMMO_H
 
+#include "Color.h"
+
 class CBasePlayerWeapon;
 
 class CHudAmmo : public CHudBase
@@ -80,7 +82,7 @@ private:
 
 private:
 	float m_fFade;
-	RGBA  m_rgba;
+	Color  m_rgba;
 	CBasePlayerWeapon *m_pWeapon;
 	int	m_HUD_bucket0;
 	int m_HUD_selection;

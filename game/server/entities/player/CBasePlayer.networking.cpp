@@ -52,7 +52,6 @@ void CBasePlayer::UpdateClientData()
 	if( !m_bWeaponValidationReceived && m_flConnectTime + WEAPON_VALIDATION_GRACE_TIME < gpGlobals->time )
 	{
 		//If the client didn't send the message in time, drop the client. - Solokiller
-		//TODO: figure out if this is guaranteed to be received right after ClientPutInServer. If not, use a time delay. - Solokiller
 
 		//Set it to true to avoid running this multiple times. - Solokiller
 		m_bWeaponValidationReceived = true;

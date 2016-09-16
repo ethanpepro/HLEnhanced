@@ -1219,11 +1219,6 @@ struct colorVec
 #pragma pack(push,2)
 #endif
 
-struct PackedColorVec
-{
-	unsigned short r, g, b, a;
-};
-
 #ifdef _WIN32
 #pragma pack(pop)
 #endif

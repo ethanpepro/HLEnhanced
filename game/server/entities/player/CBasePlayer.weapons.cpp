@@ -677,8 +677,7 @@ void CBasePlayer::GiveNamedItem( const char *pszName )
 
 	if( !pEntity )
 	{
-		//TODO: output name - Solokiller
-		ALERT( at_console, "NULL Ent in GiveNamedItem!\n" );
+		ALERT( at_console, "NULL Ent in GiveNamedItem \"%s\"!\n", pszName );
 		return;
 	}
 	pEntity->SetAbsOrigin( GetAbsOrigin() );

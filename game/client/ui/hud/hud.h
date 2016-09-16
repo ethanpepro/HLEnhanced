@@ -39,13 +39,6 @@
 #define DHN_3DIGITS  4
 #define MIN_ALPHA	 100	
 
-//TODO: identical to PackedColorVec - Solokiller
-//TODO: used in only one place. Can replace with HudColor once it has alpha channel support - Solokiller
-struct RGBA
-{
-	unsigned char r,g,b,a;
-};
-
 struct cvar_t;
 
 enum HudFlag

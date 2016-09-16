@@ -29,12 +29,7 @@ struct MD5Context_t
     unsigned char in[64];
 };
 
-//TODO: identical for both cases. - Solokiller
-#ifdef _WIN32
 typedef uint32 CRC32_t;
-#else
-typedef uint32 CRC32_t;
-#endif
 
 #ifdef __cplusplus
 extern "C"

@@ -18,6 +18,17 @@
 #include "CBasePlayer.h"
 #include "CGlobalState.h"
 
+const char* GLOBALESTATEToString( const GLOBALESTATE state )
+{
+	switch( state )
+	{
+	case GLOBAL_OFF:	return "Off";
+	case GLOBAL_ON:		return "On";
+	case GLOBAL_DEAD:	return "Dead";
+	default:			return "unknown";
+	}
+}
+
 CGlobalState gGlobalState;
 
 CGlobalState::CGlobalState( void )
@@ -57,16 +68,11 @@ globalentity_t *CGlobalState::Find( string_t globalname )
 //#ifdef _DEBUG
 void CGlobalState::DumpGlobals( void )
 {
-	//TODO: move out of function - Solokiller
-	static const char* const estates[] = { "Off", "On", "Dead" };
-	globalentity_t *pTest;
-
 	ALERT( at_console, "-- Globals --\n" );
-	pTest = m_pList;
-	while( pTest )
+	
+	for( globalentity_t *pTest = m_pList; pTest; pTest = pTest->pNext )
 	{
-		ALERT( at_console, "%s: %s (%s)\n", pTest->name, pTest->levelName, estates[ pTest->state ] );
-		pTest = pTest->pNext;
+		ALERT( at_console, "%s: %s (%s)\n", pTest->name, pTest->levelName, GLOBALESTATEToString( pTest->state ) );
 	}
 }
 //#endif

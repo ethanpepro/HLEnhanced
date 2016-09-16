@@ -22,6 +22,11 @@ enum GLOBALESTATE
 	GLOBAL_DEAD		= 2
 };
 
+/**
+*	Converts a GLOBALESTATE value to string.
+*/
+const char* GLOBALESTATEToString( const GLOBALESTATE state );
+
 //TODO: use constants - Solokiller
 struct globalentity_t
 {

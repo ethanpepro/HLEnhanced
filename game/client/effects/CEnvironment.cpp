@@ -425,7 +425,6 @@ void CEnvironment::CreateGrassPiece( const Vector& vecOrigin, const Vector& vecN
 
 	pParticle->m_flFadeSpeed = -1.0f;
 
-	//TODO: really long running maps will break with this. - Solokiller
 	pParticle->m_flDieTime = gEngfuncs.GetClientTime() + 99999.0f;
 }
 
