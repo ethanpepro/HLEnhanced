@@ -35,7 +35,7 @@ int FindTransition( void *pmodel, int iEndingAnim, int iGoalAnim, int *piDir );
 void SetBodygroup( void *pmodel, entvars_t *pev, int iGroup, int iValue );
 int GetBodygroup( void *pmodel, entvars_t *pev, int iGroup );
 
-int GetAnimationEvent( void *pmodel, entvars_t *pev, MonsterEvent_t *pMonsterEvent, float flStart, float flEnd, int index );
+int GetAnimationEvent( void *pmodel, entvars_t *pev, AnimEvent_t& event, float flStart, float flEnd, int index );
 int ExtractBbox( void *pmodel, int sequence, Vector& vecMins, Vector& vecMaxs );
 
 // From /engine/studio.h

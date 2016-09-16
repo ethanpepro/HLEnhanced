@@ -41,7 +41,7 @@ public:
 	int	 ISoundMask( void ) override;
 	int  Classify( void ) override;
 	int  IRelationship( CBaseEntity *pTarget ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
 	void CallForHelp( const char* const pszClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation );

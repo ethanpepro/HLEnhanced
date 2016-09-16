@@ -58,7 +58,7 @@ public:
 	int  Classify( void ) override;
 	int  ISoundMask( void ) override;
 	void Shoot( void );
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	Schedule_t* GetSchedule( void ) override;
 	Schedule_t* GetScheduleOfType( int Type ) override;
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;	// jump

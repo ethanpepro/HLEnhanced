@@ -103,9 +103,9 @@ void CXenTree::Think( void )
 	}
 }
 
-void CXenTree::HandleAnimEvent( MonsterEvent_t *pEvent )
+void CXenTree::HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case TREE_AE_ATTACK:
 		{
@@ -138,7 +138,7 @@ void CXenTree::HandleAnimEvent( MonsterEvent_t *pEvent )
 		return;
 	}
 
-	CActAnimating::HandleAnimEvent( pEvent );
+	CActAnimating::HandleAnimEvent( event );
 }
 
 void CXenTree::Attack( void )

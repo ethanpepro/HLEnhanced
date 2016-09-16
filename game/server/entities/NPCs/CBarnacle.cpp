@@ -53,15 +53,15 @@ int	CBarnacle :: Classify ( void )
 //
 // Returns number of events handled, 0 if none.
 //=========================================================
-void CBarnacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CBarnacle :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case BARNACLE_AE_PUKEGIB:
 		CGib::SpawnRandomGibs( this, 1, 1 );
 		break;
 	default:
-		CBaseMonster::HandleAnimEvent( pEvent );
+		CBaseMonster::HandleAnimEvent( event );
 		break;
 	}
 }

@@ -321,9 +321,9 @@ void CAGrunt :: SetYawSpeed ( void )
 //
 // Returns number of events handled, 0 if none.
 //=========================================================
-void CAGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CAGrunt :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case AGRUNT_AE_HORNET1:
 	case AGRUNT_AE_HORNET2:
@@ -471,7 +471,7 @@ void CAGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	default:
-		CSquadMonster::HandleAnimEvent( pEvent );
+		CSquadMonster::HandleAnimEvent( event );
 		break;
 	}
 }

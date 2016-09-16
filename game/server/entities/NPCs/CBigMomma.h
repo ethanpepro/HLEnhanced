@@ -74,7 +74,7 @@ public:
 
 	void SetYawSpeed( void ) override;
 	int  Classify( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void LayHeadcrab( void );
 
 	int GetNodeSequence( void )

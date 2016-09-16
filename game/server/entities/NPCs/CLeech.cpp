@@ -210,9 +210,9 @@ void CLeech::OnTakeDamage( const CTakeDamageInfo& info )
 	CBaseMonster::OnTakeDamage( info );
 }
 
-void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )
+void CLeech::HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case LEECH_AE_ATTACK:
 		AttackSound();
@@ -242,7 +242,7 @@ void CLeech::HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 	
 	default:
-		CBaseMonster::HandleAnimEvent( pEvent );
+		CBaseMonster::HandleAnimEvent( event );
 		break;
 	}
 }

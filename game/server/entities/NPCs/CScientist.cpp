@@ -552,9 +552,9 @@ void CScientist :: SetYawSpeed ( void )
 // HandleAnimEvent - catches the monster-specific messages
 // that occur when tagged animation frames are played.
 //=========================================================
-void CScientist :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CScientist :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{		
 	case SCIENTIST_AE_HEAL:		// Heal my target (if within range)
 		Heal();
@@ -573,7 +573,7 @@ void CScientist :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	default:
-		CTalkMonster::HandleAnimEvent( pEvent );
+		CTalkMonster::HandleAnimEvent( event );
 	}
 }
 

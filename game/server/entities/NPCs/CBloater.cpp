@@ -141,9 +141,9 @@ void CBloater :: AttackSnd( void )
 // HandleAnimEvent - catches the monster-specific messages
 // that occur when tagged animation frames are played.
 //=========================================================
-void CBloater :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CBloater :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 		case BLOATER_AE_ATTACK_MELEE1:
 		{
@@ -153,7 +153,7 @@ void CBloater :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 		default:
-			CBaseMonster::HandleAnimEvent( pEvent );
+			CBaseMonster::HandleAnimEvent( event );
 			break;
 	}
 }

@@ -68,7 +68,7 @@ public:
 	void SwitchLeechState( void );
 
 	// Base entity functions
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	int	BloodColor() const override { return DONT_BLEED; }
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void Activate( void ) override;

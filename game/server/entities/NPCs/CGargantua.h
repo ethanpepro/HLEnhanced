@@ -52,7 +52,7 @@ public:
 	int  Classify( void ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;		// Swipe
 	bool CheckMeleeAttack2( float flDot, float flDist ) override;		// Flames

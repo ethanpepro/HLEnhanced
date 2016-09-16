@@ -668,12 +668,12 @@ void CHGrunt :: Shotgun ( void )
 // HandleAnimEvent - catches the monster-specific messages
 // that occur when tagged animation frames are played.
 //=========================================================
-void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CHGrunt :: HandleAnimEvent( AnimEvent_t& event )
 {
 	Vector	vecShootDir;
 	Vector	vecShootOrigin;
 
-	switch( pEvent->event )
+	switch( event.event )
 	{
 		case HGRUNT_AE_DROP_GUN:
 			{
@@ -797,7 +797,7 @@ void CHGrunt :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		}
 
 		default:
-			CSquadMonster::HandleAnimEvent( pEvent );
+			CSquadMonster::HandleAnimEvent( event );
 			break;
 	}
 }

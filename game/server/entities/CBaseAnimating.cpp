@@ -113,7 +113,7 @@ void CBaseAnimating::ResetSequenceInfo()
 //=========================================================
 void CBaseAnimating::DispatchAnimEvents( float flInterval )
 {
-	MonsterEvent_t	event;
+	AnimEvent_t	event;
 
 	void *pmodel = GET_MODEL_PTR( ENT( pev ) );
 
@@ -137,9 +137,9 @@ void CBaseAnimating::DispatchAnimEvents( float flInterval )
 
 	int index = 0;
 
-	while( ( index = GetAnimationEvent( pmodel, pev, &event, flStart, flEnd, index ) ) != 0 )
+	while( ( index = GetAnimationEvent( pmodel, pev, event, flStart, flEnd, index ) ) != 0 )
 	{
-		HandleAnimEvent( &event );
+		HandleAnimEvent( event );
 	}
 }
 

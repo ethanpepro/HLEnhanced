@@ -40,7 +40,7 @@ public:
 		pev->absmax = GetAbsOrigin() + Vector( 16 * N_SCALE, 16 * N_SCALE, 28 * N_SCALE );
 	}
 
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 
 	void StartupThink( void );
 	void HuntThink( void );

@@ -160,9 +160,9 @@ void CHAssassin :: Shoot ( void )
 //
 // Returns number of events handled, 0 if none.
 //=========================================================
-void CHAssassin :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CHAssassin :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case ASSASSIN_AE_SHOOT1:
 		Shoot( );
@@ -188,7 +188,7 @@ void CHAssassin :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		}
 		return;
 	default:
-		CBaseMonster::HandleAnimEvent( pEvent );
+		CBaseMonster::HandleAnimEvent( event );
 		break;
 	}
 }

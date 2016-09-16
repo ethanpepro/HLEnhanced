@@ -152,9 +152,9 @@ void CZombie :: AttackSound( void )
 // HandleAnimEvent - catches the monster-specific messages
 // that occur when tagged animation frames are played.
 //=========================================================
-void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 		case ZOMBIE_AE_ATTACK_RIGHT:
 		{
@@ -225,7 +225,7 @@ void CZombie :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 		default:
-			CBaseMonster::HandleAnimEvent( pEvent );
+			CBaseMonster::HandleAnimEvent( event );
 			break;
 	}
 }

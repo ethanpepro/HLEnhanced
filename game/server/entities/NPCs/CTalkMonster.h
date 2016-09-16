@@ -122,7 +122,7 @@ public:
 	Schedule_t		*GetScheduleOfType ( int Type ) override;
 	void			StartTask( const Task_t* pTask ) override;
 	void			RunTask( const Task_t* pTask ) override;
-	void			HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void			HandleAnimEvent( AnimEvent_t& event ) override;
 	void			PrescheduleThink( void ) override;
 	
 

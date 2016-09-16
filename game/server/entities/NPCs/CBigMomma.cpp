@@ -154,9 +154,9 @@ void CBigMomma :: SetYawSpeed ( void )
 //
 // Returns number of events handled, 0 if none.
 //=========================================================
-void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 		case BIG_AE_MELEE_ATTACKBR:
 		case BIG_AE_MELEE_ATTACKBL:
@@ -187,7 +187,7 @@ void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			{
 				pHurt->TakeDamage( this, this, gSkillData.GetBigMommaDmgSlash(), DMG_CRUSH | DMG_SLASH );
 				pHurt->pev->punchangle.x = 15;
-				switch( pEvent->event )
+				switch( event.event )
 				{
 					case BIG_AE_MELEE_ATTACKBR:
 						pHurt->pev->velocity = pHurt->pev->velocity + (forward * 150) + Vector(0,0,250) - (right * 200);
@@ -270,7 +270,7 @@ void CBigMomma :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			break;
 
 		default:
-			CBaseMonster::HandleAnimEvent( pEvent );
+			CBaseMonster::HandleAnimEvent( event );
 			break;
 	}
 }

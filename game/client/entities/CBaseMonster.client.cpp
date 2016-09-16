@@ -289,7 +289,7 @@ void CBaseMonster::SetEyePosition()
 {
 }
 
-void CBaseMonster::HandleAnimEvent( MonsterEvent_t *pEvent )
+void CBaseMonster::HandleAnimEvent( AnimEvent_t& event )
 {
 }
 

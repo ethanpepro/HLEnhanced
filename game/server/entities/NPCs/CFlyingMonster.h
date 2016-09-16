@@ -28,7 +28,7 @@ public:
 	void		Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 	void		Stop( void ) override;
 	float		ChangeYaw( int speed ) override;
-	void		HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void		HandleAnimEvent( AnimEvent_t& event ) override;
 	void		MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval ) override;
 	void		Move( float flInterval = 0.1 ) override;
 	bool		ShouldAdvanceRoute( float flWaypointDist ) override;

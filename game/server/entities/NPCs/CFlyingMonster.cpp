@@ -117,9 +117,9 @@ void CFlyingMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 }
 
 
-void CFlyingMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CFlyingMonster :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case FLYING_AE_FLAP:
 		m_flightSpeed = 400;
@@ -131,7 +131,7 @@ void CFlyingMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	default:
-		CBaseMonster::HandleAnimEvent( pEvent );
+		CBaseMonster::HandleAnimEvent( event );
 		break;
 	}
 }

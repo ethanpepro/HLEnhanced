@@ -59,7 +59,7 @@ public:
 	void SetYawSpeed( void ) override;
 	int  ISoundMask( void ) override;
 	int  Classify( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void IdleSound( void ) override;
 	void PainSound( void ) override;
 	void DeathSound( void ) override;

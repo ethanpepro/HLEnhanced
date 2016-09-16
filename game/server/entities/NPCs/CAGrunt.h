@@ -64,7 +64,7 @@ public:
 	void SetYawSpeed( void ) override;
 	int  Classify( void ) override;
 	int  ISoundMask( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void SetObjectCollisionBox( void ) override
 	{
 		pev->absmin = GetAbsOrigin() + Vector( -32, -32, 0 );

@@ -39,7 +39,7 @@ public:
 
 	void SetYawSpeed() override;
 	int  Classify() override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void RunTask( const Task_t* pTask ) override;
 	void StartTask( const Task_t* pTask ) override;
 	int	ObjectCaps() const override { return CTalkMonster::ObjectCaps() | FCAP_IMPULSE_USE; }

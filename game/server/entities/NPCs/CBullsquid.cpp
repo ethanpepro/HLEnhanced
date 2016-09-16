@@ -325,9 +325,9 @@ void CBullsquid :: SetYawSpeed ( void )
 // HandleAnimEvent - catches the monster-specific messages
 // that occur when tagged animation frames are played.
 //=========================================================
-void CBullsquid :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 		case BSQUID_AE_SPIT:
 		{
@@ -460,7 +460,7 @@ void CBullsquid :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 		default:
-			CBaseMonster::HandleAnimEvent( pEvent );
+			CBaseMonster::HandleAnimEvent( event );
 	}
 }
 

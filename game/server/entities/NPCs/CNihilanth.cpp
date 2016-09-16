@@ -896,9 +896,10 @@ void CNihilanth :: 	TargetSphere( USE_TYPE useType, float value )
 
 
 
-void CNihilanth :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CNihilanth :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	//TODO: no pass through to base? - Solokiller
+	switch( event.event )
 	{
 	case 1:	// shoot 
 		break;

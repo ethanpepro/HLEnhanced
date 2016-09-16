@@ -117,7 +117,7 @@ public:
 	float HearingSensitivity() override { return 2.0; };
 
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	MONSTERSTATE GetIdealState() override { return MONSTERSTATE_IDLE; };

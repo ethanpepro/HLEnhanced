@@ -30,7 +30,7 @@ public:
 	void		Touch( CBaseEntity *pOther ) override;
 	void		Think( void ) override;
 	void		OnTakeDamage( const CTakeDamageInfo& info ) override { Attack(); }
-	void		HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void		HandleAnimEvent( AnimEvent_t& event ) override;
 	void		Attack( void );
 	int			Classify() override { return CLASS_IGNORE; }
 

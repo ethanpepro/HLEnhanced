@@ -2537,9 +2537,9 @@ void CBaseMonster :: SetEyePosition ( void )
 	}
 }
 
-void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case SCRIPT_EVENT_DEAD:
 		if ( m_MonsterState == MONSTERSTATE_SCRIPT )
@@ -2566,11 +2566,11 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	case SCRIPT_EVENT_SOUND:			// Play a named wave file
-		EMIT_SOUND( this, CHAN_BODY, pEvent->options, 1.0, ATTN_IDLE );
+		EMIT_SOUND( this, CHAN_BODY, event.options, 1.0, ATTN_IDLE );
 		break;
 
 	case SCRIPT_EVENT_SOUND_VOICE:
-		EMIT_SOUND( this, CHAN_VOICE, pEvent->options, 1.0, ATTN_IDLE );
+		EMIT_SOUND( this, CHAN_VOICE, event.options, 1.0, ATTN_IDLE );
 		break;
 
 	case SCRIPT_EVENT_SENTENCE_RND1:		// Play a named sentence group 33% of the time
@@ -2578,11 +2578,11 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 			break;
 		// fall through...
 	case SCRIPT_EVENT_SENTENCE:			// Play a named sentence group
-		SENTENCEG_PlayRndSz( this, pEvent->options, 1.0, ATTN_IDLE, 0, 100 );
+		SENTENCEG_PlayRndSz( this, event.options, 1.0, ATTN_IDLE, 0, 100 );
 		break;
 
 	case SCRIPT_EVENT_FIREEVENT:		// Fire a trigger
-		FireTargets( pEvent->options, this, this, USE_TOGGLE, 0 );
+		FireTargets( event.options, this, this, USE_TOGGLE, 0 );
 		break;
 
 	case SCRIPT_EVENT_NOINTERRUPT:		// Can't be interrupted from now on
@@ -2637,7 +2637,7 @@ void CBaseMonster :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		}
 
 	default:
-		ALERT( at_aiconsole, "Unhandled animation event %d for %s\n", pEvent->event, GetClassname() );
+		ALERT( at_aiconsole, "Unhandled animation event %d for %s\n", event.event, GetClassname() );
 		break;
 
 	}

@@ -31,7 +31,7 @@ public:
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
 	int  Classify( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	int ISoundMask( void ) override;
 };
 

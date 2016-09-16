@@ -19,7 +19,7 @@
 *	An animation event.
 *	Called a monster event in the SDK, probably because it was originally added for monsters.
 */
-struct MonsterEvent_t
+struct AnimEvent_t
 {
 	int				event;
 	const char*		options;

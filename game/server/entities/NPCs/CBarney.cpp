@@ -309,9 +309,9 @@ void CBarney :: BarneyFirePistol ( void )
 //
 // Returns number of events handled, 0 if none.
 //=========================================================
-void CBarney :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CBarney :: HandleAnimEvent( AnimEvent_t& event )
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case BARNEY_AE_SHOOT:
 		BarneyFirePistol();
@@ -330,7 +330,7 @@ void CBarney :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	default:
-		CTalkMonster::HandleAnimEvent( pEvent );
+		CTalkMonster::HandleAnimEvent( event );
 	}
 }
 

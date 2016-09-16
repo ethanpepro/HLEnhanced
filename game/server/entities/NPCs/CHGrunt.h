@@ -123,7 +123,7 @@ public:
 	void SetYawSpeed( void ) override;
 	int  Classify( void ) override;
 	int ISoundMask( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	bool FCanCheckAttacks() const override;
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;

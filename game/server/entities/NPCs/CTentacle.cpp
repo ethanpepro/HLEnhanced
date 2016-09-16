@@ -650,11 +650,11 @@ void CTentacle :: DieThink( void )
 	}
 }
 
-void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
+void CTentacle :: HandleAnimEvent( AnimEvent_t& event )
 {
 	const char* sound;
 
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case 1:	// bang 
 		{
@@ -755,7 +755,7 @@ void CTentacle :: HandleAnimEvent( MonsterEvent_t *pEvent )
 		break;
 
 	default:
-		CBaseMonster::HandleAnimEvent( pEvent );
+		CBaseMonster::HandleAnimEvent( event );
 	}
 }
 

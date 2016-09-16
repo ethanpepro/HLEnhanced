@@ -43,7 +43,7 @@ public:
 	void AlertSound( void ) override;
 	void PrescheduleThink( void ) override;
 	int  Classify( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;

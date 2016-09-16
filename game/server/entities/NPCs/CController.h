@@ -39,7 +39,7 @@ public:
 
 	void SetYawSpeed( void ) override;
 	int  Classify( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 
 	void RunAI( void ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;	// balls

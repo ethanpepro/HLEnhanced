@@ -40,7 +40,7 @@ public:
 	void BarneyFirePistol( void );
 	void AlertSound( void ) override;
 	int  Classify( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 
 	void RunTask( const Task_t* pTask ) override;
 	void StartTask( const Task_t* pTask ) override;

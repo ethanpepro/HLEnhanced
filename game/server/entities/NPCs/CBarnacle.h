@@ -34,7 +34,7 @@ public:
 	void Precache( void ) override;
 	CBaseEntity *TongueTouchEnt( float *pflLength );
 	int  Classify( void ) override;
-	void HandleAnimEvent( MonsterEvent_t *pEvent ) override;
+	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void BarnacleThink( void );
 	void WaitTillDead( void );
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;

@@ -755,9 +755,9 @@ bool CGargantua::CheckRangeAttack1( float flDot, float flDist )
 // HandleAnimEvent - catches the monster-specific messages
 // that occur when tagged animation frames are played.
 //=========================================================
-void CGargantua::HandleAnimEvent(MonsterEvent_t *pEvent)
+void CGargantua::HandleAnimEvent(AnimEvent_t& event)
 {
-	switch( pEvent->event )
+	switch( event.event )
 	{
 	case GARG_AE_SLASH_LEFT:
 		{
@@ -799,7 +799,7 @@ void CGargantua::HandleAnimEvent(MonsterEvent_t *pEvent)
 		break;
 
 	default:
-		CBaseMonster::HandleAnimEvent(pEvent);
+		CBaseMonster::HandleAnimEvent( event );
 		break;
 	}
 }
