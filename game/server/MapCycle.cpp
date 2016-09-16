@@ -17,20 +17,21 @@
 
 #include "MapCycle.h"
 
-mapcycle_t g_MapCycle;
+CMapCycle g_MapCycle;
 
-char g_szPreviousMapCycleFile[ MAX_PATH ] = {};
-
-bool ReloadMapCycleFile( const char* pszFileName, mapcycle_t* pCycle )
+bool CMapCycle::LoadMapCycleFile( const char* pszFileName )
 {
+	strncpy( m_szFileName, pszFileName, sizeof( m_szFileName ) );
+	m_szFileName[ sizeof( m_szFileName ) - 1 ] = '\0';
+
 	char szBuffer[ MAX_RULE_BUFFER ];
-	char szMap[ 32 ];
+	char szMap[ cchMapNameMost ];
 	int length;
 	char *aFileList = ( char* ) LOAD_FILE_FOR_ME( pszFileName, &length );
 
 	const char* pFileList = aFileList;
 	bool hasbuffer;
-	mapcycle_item_t *item, *newlist = NULL, *next;
+	Item_t *item, *newlist = NULL, *next;
 
 	if( pFileList && length )
 	{
@@ -63,7 +64,7 @@ bool ReloadMapCycleFile( const char* pszFileName, mapcycle_t* pCycle )
 				// Create entry
 				char *s;
 
-				item = new mapcycle_item_t;
+				item = new Item_t;
 
 				strcpy( item->mapname, szMap );
 
@@ -97,8 +98,8 @@ bool ReloadMapCycleFile( const char* pszFileName, mapcycle_t* pCycle )
 					strcpy( item->rulebuffer, szBuffer );
 				}
 
-				item->next = pCycle->items;
-				pCycle->items = item;
+				item->next = items;
+				items = item;
 			}
 			else
 			{
@@ -111,7 +112,7 @@ bool ReloadMapCycleFile( const char* pszFileName, mapcycle_t* pCycle )
 	}
 
 	// Fixup circular list pointer
-	item = pCycle->items;
+	item = items;
 
 	// Reverse it to get original order
 	while( item )
@@ -121,8 +122,8 @@ bool ReloadMapCycleFile( const char* pszFileName, mapcycle_t* pCycle )
 		newlist = item;
 		item = next;
 	}
-	pCycle->items = newlist;
-	item = pCycle->items;
+	items = newlist;
+	item = items;
 
 	// Didn't parse anything
 	if( !item )
@@ -134,17 +135,17 @@ bool ReloadMapCycleFile( const char* pszFileName, mapcycle_t* pCycle )
 	{
 		item = item->next;
 	}
-	item->next = pCycle->items;
+	item->next = items;
 
-	pCycle->next_item = item->next;
+	next_item = item->next;
 
 	return true;
 }
 
-void DestroyMapCycle( mapcycle_t* pCycle )
+void CMapCycle::Clear()
 {
-	mapcycle_item_t *p, *n, *start;
-	p = pCycle->items;
+	Item_t *p, *n, *start;
+	p = items;
 	if( p )
 	{
 		start = p;
@@ -156,10 +157,10 @@ void DestroyMapCycle( mapcycle_t* pCycle )
 			p = n;
 		}
 
-		delete pCycle->items;
+		delete items;
 	}
-	pCycle->items = nullptr;
-	pCycle->next_item = nullptr;
+	items = nullptr;
+	next_item = nullptr;
 }
 
 void ExtractCommandString( const char* pszToken, char* pszCommand )

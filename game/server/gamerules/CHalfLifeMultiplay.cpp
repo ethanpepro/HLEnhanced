@@ -1118,8 +1118,6 @@ void CHalfLifeMultiplay::GoToIntermission()
 	m_bEndIntermissionButtonHit = false;
 }
 
-//TODO: everything that isn't gamerules should be moved out of this file - Solokiller
-
 /*
 ==============
 ChangeLevel
@@ -1129,8 +1127,8 @@ Server is changing to a new level, check mapcycle.txt for map name and setup inf
 */
 void CHalfLifeMultiplay :: ChangeLevel( void )
 {
-	char szNextMap[32];
-	char szFirstMapInList[32];
+	char szNextMap[ cchMapNameMost ];
+	char szFirstMapInList[ cchMapNameMost ];
 	char szCommands[ 1500 ];
 	char szRules[ 1500 ];
 	int minplayers = 0, maxplayers = 0;
@@ -1149,31 +1147,29 @@ void CHalfLifeMultiplay :: ChangeLevel( void )
 	curplayers = UTIL_CountPlayers();
 
 	// Has the map cycle filename changed?
-	if ( stricmp( mapcfile, g_szPreviousMapCycleFile ) )
+	if ( stricmp( mapcfile, g_MapCycle.GetFileName() ) )
 	{
-		strcpy( g_szPreviousMapCycleFile, mapcfile );
+		g_MapCycle.Clear();
 
-		DestroyMapCycle( &g_MapCycle );
-
-		if ( !ReloadMapCycleFile( mapcfile, &g_MapCycle ) || ( !g_MapCycle.items ) )
+		if ( !g_MapCycle.LoadMapCycleFile( mapcfile ) || ( !g_MapCycle.GetItems() ) )
 		{
 			ALERT( at_console, "Unable to load map cycle file %s\n", mapcfile );
 			do_cycle = false;
 		}
 	}
 
-	if ( do_cycle && g_MapCycle.items )
+	if ( do_cycle && g_MapCycle.GetItems() )
 	{
 		bool keeplooking = false;
 		bool found = false;
-		mapcycle_item_t *item;
+		CMapCycle::Item_t *item;
 
 		// Assume current map
 		strcpy( szNextMap, STRING(gpGlobals->mapname) );
 		strcpy( szFirstMapInList, STRING(gpGlobals->mapname) );
 
 		// Traverse list
-		for ( item = g_MapCycle.next_item; item->next != g_MapCycle.next_item; item = item->next )
+		for ( item = g_MapCycle.GetNextItem(); item->next != g_MapCycle.GetNextItem(); item = item->next )
 		{
 			keeplooking = false;
 
@@ -1214,11 +1210,11 @@ void CHalfLifeMultiplay :: ChangeLevel( void )
 
 		if ( !found )
 		{
-			item = g_MapCycle.next_item;
+			item = g_MapCycle.GetNextItem();
 		}			
 		
 		// Increment next item pointer
-		g_MapCycle.next_item = item->next;
+		g_MapCycle.SetNextItem( item->next );
 
 		// Perform logic on current item
 		strcpy( szNextMap, item->mapname );
