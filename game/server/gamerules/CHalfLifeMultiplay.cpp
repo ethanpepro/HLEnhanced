@@ -1122,30 +1122,6 @@ void CHalfLifeMultiplay::GoToIntermission()
 
 /*
 ==============
-CountPlayers
-
-Determine the current # of active players on the server for map cycling logic
-==============
-*/
-int CountPlayers( void )
-{
-	int	num = 0;
-
-	for ( int i = 1; i <= gpGlobals->maxClients; i++ )
-	{
-		CBaseEntity *pEnt = UTIL_PlayerByIndex( i );
-
-		if ( pEnt )
-		{
-			num = num + 1;
-		}
-	}
-
-	return num;
-}
-
-/*
-==============
 ChangeLevel
 
 Server is changing to a new level, check mapcycle.txt for map name and setup info
@@ -1170,7 +1146,7 @@ void CHalfLifeMultiplay :: ChangeLevel( void )
 	szCommands[ 0 ] = '\0';
 	szRules[ 0 ] = '\0';
 
-	curplayers = CountPlayers();
+	curplayers = UTIL_CountPlayers();
 
 	// Has the map cycle filename changed?
 	if ( stricmp( mapcfile, g_szPreviousMapCycleFile ) )

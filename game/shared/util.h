@@ -370,3 +370,8 @@ inline void Cvar_DirectSet( cvar_t* pCvar, const char* pszValue )
 }
 
 void Cvar_DirectSet( cvar_t* pCvar, const float flValue );
+
+/*
+*	Determine the current # of active players on the server for map cycling logic
+*/
+int UTIL_CountPlayers();

@@ -1250,3 +1250,21 @@ void Cvar_DirectSet( cvar_t* pCvar, const float flValue )
 {
 	g_engfuncs.pfnCvar_DirectSet( pCvar, UTIL_VarArgs( "%f", flValue ) );
 }
+
+int UTIL_CountPlayers()
+{
+	int	num = 0;
+
+	for( int i = 1; i <= gpGlobals->maxClients; i++ )
+	{
+		CBaseEntity *pEnt = UTIL_PlayerByIndex( i );
+
+		//TODO: this can be wrong if the client has disconnected. - Solokiller
+		if( pEnt )
+		{
+			num = num + 1;
+		}
+	}
+
+	return num;
+}
