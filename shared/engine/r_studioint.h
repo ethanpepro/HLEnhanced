@@ -12,6 +12,8 @@ struct entity_state_t;
 struct model_t;
 struct player_info_t;
 
+struct Matrix3x4;
+
 #define STUDIO_INTERFACE_VERSION 1
 
 struct engine_studio_api_t
@@ -50,10 +52,10 @@ struct engine_studio_api_t
 	void			( *GetAliasScale )				( float *x, float *y );
 
 	// Get bone, light, alias, and rotation matrices
-	float			****( *StudioGetBoneTransform ) ( void );
-	float			****( *StudioGetLightTransform )( void );
-	float			***( *StudioGetAliasTransform ) ( void );
-	float			***( *StudioGetRotationMatrix ) ( void );
+	Matrix3x4*		( *StudioGetBoneTransform )		( void );
+	Matrix3x4*		( *StudioGetLightTransform )	( void );
+	Matrix3x4*		( *StudioGetAliasTransform )	( void );
+	Matrix3x4*		( *StudioGetRotationMatrix )	( void );
 
 	// Set up body part, and get submodel pointers
 	void			( *StudioSetupModel )			( int bodypart, void **ppbodypart, void **ppsubmodel );

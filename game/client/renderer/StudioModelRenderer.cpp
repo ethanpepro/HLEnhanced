@@ -60,10 +60,10 @@ void CStudioModelRenderer::Init( void )
 	IEngineStudio.GetModelCounters( &m_pStudioModelCount, &m_pModelsDrawn );
 
 	// Get pointers to engine data structures
-	m_pbonetransform		= ( Matrix3x4* ) IEngineStudio.StudioGetBoneTransform();
-	m_plighttransform		= ( Matrix3x4* ) IEngineStudio.StudioGetLightTransform();
-	m_paliastransform		= ( Matrix3x4* ) IEngineStudio.StudioGetAliasTransform();
-	m_protationmatrix		= ( Matrix3x4* ) IEngineStudio.StudioGetRotationMatrix();
+	m_pbonetransform		= IEngineStudio.StudioGetBoneTransform();
+	m_plighttransform		= IEngineStudio.StudioGetLightTransform();
+	m_paliastransform		= IEngineStudio.StudioGetAliasTransform();
+	m_protationmatrix		= IEngineStudio.StudioGetRotationMatrix();
 }
 
 /*
