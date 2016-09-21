@@ -23,6 +23,7 @@ void GameDLLShutdown();
 extern cvar_t g_DummyCvar;
 
 extern cvar_t	displaysoundlist;
+extern cvar_t	coop;
 
 // multiplayer server rules
 extern cvar_t	teamplay;

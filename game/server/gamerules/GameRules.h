@@ -17,6 +17,38 @@
 
 #include "CGameRules.h"
 
+namespace Coop
+{
+/**
+*	Co-op setting options.
+*/
+enum Coop
+{
+	/**
+	*	Not in co-op game mode.
+	*/
+	NO = 0,
+
+	/**
+	*	Using singleplayer gamerules.
+	*/
+	SINGLEPLAYRULES = 1,
+
+	/**
+	*	using multiplayer gamerules.
+	*/
+	MULTIPLAYRULES	= 2
+};
+}
+
+namespace GameRules
+{
+/**
+*	Determines which co-op mode is in use.
+*/
+Coop::Coop DetermineCoopMode();
+}
+
 /**
 *	Instantiate the proper game rules object
 */

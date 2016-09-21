@@ -26,6 +26,9 @@ cvar_t g_DummyCvar = { "_not_a_real_cvar_", "0" };
 
 cvar_t	displaysoundlist = {"displaysoundlist","0"};
 
+//The engine has its own cvar for this, but it's reset so it's unreliable. - Solokiller
+cvar_t	coop		= { "sv_coop", "0", FCVAR_SERVER };
+
 // multiplayer server rules
 cvar_t	fragsleft	= {"mp_fragsleft","0", FCVAR_SERVER | FCVAR_UNLOGGED };	  // Don't spam console/log files/users with this changing
 cvar_t	timeleft	= {"mp_timeleft","0" , FCVAR_SERVER | FCVAR_UNLOGGED };	  // "      "
@@ -590,6 +593,7 @@ void GameDLLInit( void )
 	CVAR_REGISTER( &g_DummyCvar );
 
 	CVAR_REGISTER (&displaysoundlist);
+	CVAR_REGISTER( &coop );
 	CVAR_REGISTER( &allow_spectators );
 
 	CVAR_REGISTER (&teamplay);

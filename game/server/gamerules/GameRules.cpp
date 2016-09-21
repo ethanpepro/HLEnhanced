@@ -1,10 +1,13 @@
 #include "extdll.h"
 #include "util.h"
 #include "Server.h"
+#include "cbase.h"
+#include "CBasePlayer.h"
 
 #include "GameRules.h"
-#include "CHalfLifeRules.h"
+#include "CHalfLifeCoop.h"
 #include "CHalfLifeMultiplay.h"
+#include "CHalfLifeRules.h"
 #include "CHalfLifeTeamplay.h"
 
 #if USE_ANGELSCRIPT
@@ -14,6 +17,22 @@
 DLL_GLOBAL CGameRules* g_pGameRules = nullptr;
 
 int g_teamplay = 0;
+
+namespace GameRules
+{
+Coop::Coop DetermineCoopMode()
+{
+	const int iCoop = static_cast<int>( coop.value );
+
+	if( iCoop == 0 )
+		return Coop::NO;
+
+	if( iCoop == 1 )
+		return Coop::SINGLEPLAYRULES;
+
+	return Coop::MULTIPLAYRULES;
+}
+}
 
 static CGameRules* CreateGameRules()
 {
@@ -25,10 +44,34 @@ static CGameRules* CreateGameRules()
 	}
 #endif
 
+	g_teamplay = 0;
+
+	//Determine whether co-op mode is enabled, and which rules should be used.
+	const Coop::Coop coopMode = GameRules::DetermineCoopMode();
+
+	if( coopMode != Coop::NO )
+	{
+		//We're in co-op mode, so tweak the global vars to match a co-op environment.
+		//Needed since some code relies on them. - Solokiller
+		gpGlobals->coop = true;
+		gpGlobals->deathmatch = false;
+		gpGlobals->teamplay = false;
+
+		CVAR_SET_FLOAT( "coop", 1 );
+		CVAR_SET_FLOAT( "deathmatch", 0 );
+
+		switch( coopMode )
+		{
+			//Case to catch any missing cases if more modes are added. - Solokiller
+		case Coop::NO:					break;
+		case Coop::SINGLEPLAYRULES:		return new CHalfLifeSingleCoop;
+		case Coop::MULTIPLAYRULES:		return new CHalfLifeMultiCoop;
+		}
+	}
+
 	if( !gpGlobals->deathmatch )
 	{
 		// generic half-life
-		g_teamplay = 0;
 		return new CHalfLifeRules;
 	}
 	else
@@ -43,13 +86,11 @@ static CGameRules* CreateGameRules()
 		if( ( int ) gpGlobals->deathmatch == 1 )
 		{
 			// vanilla deathmatch
-			g_teamplay = 0;
 			return new CHalfLifeMultiplay;
 		}
 		else
 		{
 			// vanilla deathmatch??
-			g_teamplay = 0;
 			return new CHalfLifeMultiplay;
 		}
 	}

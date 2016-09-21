@@ -170,7 +170,7 @@ void W_Precache()
 	UTIL_PrecacheOther( "ammo_556" );
 #endif
 
-	if ( g_pGameRules->IsDeathmatch() )
+	if ( g_pGameRules->IsMultiplayer() )
 	{
 		UTIL_PrecacheOther( "weaponbox" );// container for dropped deathmatch weapons
 	}
