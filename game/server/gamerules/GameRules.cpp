@@ -69,6 +69,11 @@ static CGameRules* CreateGameRules()
 		}
 	}
 
+	//Make sure this is reset if cvars are changed. - Solokiller
+	gpGlobals->coop = false;
+
+	CVAR_SET_FLOAT( "coop", 0 );
+
 	if( !gpGlobals->deathmatch )
 	{
 		// generic half-life
