@@ -17,7 +17,10 @@
 
 #include "CGameRules.h"
 
-extern CGameRules* InstallGameRules();
+/**
+*	Instantiate the proper game rules object
+*/
+CGameRules* InstallGameRules();
 
 extern DLL_GLOBAL CGameRules* g_pGameRules;
 

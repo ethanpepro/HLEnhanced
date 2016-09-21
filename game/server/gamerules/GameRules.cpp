@@ -55,11 +55,7 @@ static CGameRules* CreateGameRules()
 	}
 }
 
-//=========================================================
-// instantiate the proper game rules object
-//=========================================================
-
-CGameRules *InstallGameRules()
+CGameRules* InstallGameRules()
 {
 	SERVER_COMMAND( "exec game.cfg\n" );
 	SERVER_EXECUTE();

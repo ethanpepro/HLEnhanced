@@ -17,16 +17,14 @@
 
 #include "CGameRules.h"
 
-//=========================================================
-// CHalfLifeRules - rules for the single player Half-Life 
-// game.
-//=========================================================
+/**
+*	Rules for the single player Half-Life game.
+*/
 class CHalfLifeRules : public CGameRules
 {
 public:
 	CHalfLifeRules();
 
-	// GR_Think
 	virtual void Think() override;
 	virtual bool IsAllowedToSpawn( CBaseEntity *pEntity ) override;
 	virtual bool FAllowFlashlight() const override { return true; }
@@ -34,20 +32,20 @@ public:
 	virtual bool FShouldSwitchWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pWeapon ) override;
 	virtual bool GetNextBestWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pCurrentWeapon ) override;
 
-	// Functions to verify the single/multiplayer status of a game
+// Functions to verify the single/multiplayer status of a game
 	virtual bool IsMultiplayer() const override;
 	virtual bool IsDeathmatch() const override;
 	virtual bool IsCoOp() const override;
 
-	// Client connection/disconnection
+// Client connection/disconnection
 	virtual bool ClientConnected( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] ) override;
-	virtual void InitHUD( CBasePlayer *pl );		// the client dll is ready for updating
+	virtual void InitHUD( CBasePlayer *pl );
 	virtual void ClientDisconnected( edict_t *pClient ) override;
 
-	// Client damage rules
+// Client damage rules
 	virtual float FlPlayerFallDamage( CBasePlayer *pPlayer ) override;
 
-	// Client spawn/respawn control
+// Client spawn/respawn control
 	virtual void PlayerSpawn( CBasePlayer *pPlayer ) override;
 	virtual void PlayerThink( CBasePlayer *pPlayer ) override;
 	virtual bool FPlayerCanRespawn( CBasePlayer *pPlayer ) override;
@@ -55,50 +53,50 @@ public:
 
 	virtual bool AllowAutoTargetCrosshair() override;
 
-	// Client kills/scoring
+// Client kills/scoring
 	virtual int IPointsForKill( CBasePlayer *pAttacker, CBasePlayer *pKilled ) override;
 	virtual void PlayerKilled( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
 	virtual void DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
 
-	// Weapon retrieval
+// Weapon retrieval
 	virtual void PlayerGotWeapon( CBasePlayer *pPlayer, CBasePlayerWeapon *pWeapon ) override;
 
-	// Weapon spawn/respawn control
+// Weapon spawn/respawn control
 	virtual int WeaponShouldRespawn( CBasePlayerWeapon *pWeapon ) override;
 	virtual float FlWeaponRespawnTime( CBasePlayerWeapon *pWeapon ) override;
 	virtual float FlWeaponTryRespawn( CBasePlayerWeapon *pWeapon ) override;
 	virtual Vector VecWeaponRespawnSpot( CBasePlayerWeapon *pWeapon ) override;
 
-	// Item retrieval
+// Item retrieval
 	virtual bool CanHaveItem( CBasePlayer *pPlayer, CItem *pItem ) override;
 	virtual void PlayerGotItem( CBasePlayer *pPlayer, CItem *pItem ) override;
 
-	// Item spawn/respawn control
+// Item spawn/respawn control
 	virtual int ItemShouldRespawn( CItem *pItem ) override;
 	virtual float FlItemRespawnTime( CItem *pItem ) override;
 	virtual Vector VecItemRespawnSpot( CItem *pItem ) override;
 
-	// Ammo retrieval
+// Ammo retrieval
 	virtual void PlayerGotAmmo( CBasePlayer *pPlayer, char *szName, int iCount ) override;
 
-	// Ammo spawn/respawn control
+// Ammo spawn/respawn control
 	virtual int AmmoShouldRespawn( CBasePlayerAmmo *pAmmo ) override;
 	virtual float FlAmmoRespawnTime( CBasePlayerAmmo *pAmmo ) override;
 	virtual Vector VecAmmoRespawnSpot( CBasePlayerAmmo *pAmmo ) override;
 
-	// Healthcharger respawn control
+// Healthcharger respawn control
 	virtual float FlHealthChargerRechargeTime() override;
 
-	// What happens to a dead player's weapons
+// What happens to a dead player's weapons
 	virtual int DeadPlayerWeapons( CBasePlayer *pPlayer ) override;
 
-	// What happens to a dead player's ammo	
+// What happens to a dead player's ammo	
 	virtual int DeadPlayerAmmo( CBasePlayer *pPlayer ) override;
 
-	// Monsters
+// Monsters
 	virtual bool FAllowMonsters() const override;
 
-	// Teamplay stuff	
+// Teamplay stuff	
 	virtual const char *GetTeamID( CBaseEntity *pEntity ) override { return ""; }
 	virtual int PlayerRelationship( CBaseEntity *pPlayer, CBaseEntity *pTarget ) override;
 };

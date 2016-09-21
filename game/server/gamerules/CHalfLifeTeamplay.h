@@ -22,10 +22,9 @@
 
 #define TEAMPLAY_TEAMLISTLENGTH		MAX_TEAMS*MAX_TEAMNAME_LENGTH
 
-//=========================================================
-// CHalfLifeTeamplay - rules for the basic half life teamplay
-// competition
-//=========================================================
+/**
+*	Rules for the basic half life teamplay competition.
+*/
 class CHalfLifeTeamplay : public CHalfLifeMultiplay
 {
 public:
@@ -41,8 +40,8 @@ public:
 	virtual int IPointsForKill( CBasePlayer *pAttacker, CBasePlayer *pKilled ) override;
 	virtual void InitHUD( CBasePlayer *pl ) override;
 	virtual void DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
-	virtual const char *GetGameDescription() const override { return "HL Teamplay"; }  // this is the game name that gets seen in the server browser
-	virtual void UpdateGameMode( CBasePlayer *pPlayer ) override;  // the client needs to be informed of the current game mode
+	virtual const char *GetGameDescription() const override { return "HL Teamplay"; }
+	virtual void UpdateGameMode( CBasePlayer *pPlayer ) override;
 	virtual void PlayerKilled( CBasePlayer* pVictim, const CTakeDamageInfo& info ) override;
 	virtual void Think() override;
 	virtual int GetTeamIndex( const char *pTeamName ) override;
