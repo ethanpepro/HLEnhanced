@@ -282,13 +282,6 @@ public:
 	void InitialSpawn();
 
 	void Spawn() override;
-
-	/**
-	*	Respawns this player.
-	*	Not called Respawn because that already exists.
-	*	@param bCopyCorpse Whether to make a copy for the player's corpse.
-	*/
-	void PlayerRespawn( const bool bCopyCorpse );
 	
 	Vector GetGunPosition() override;
 

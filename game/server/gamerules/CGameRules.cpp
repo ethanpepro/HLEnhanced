@@ -16,14 +16,15 @@
 // GameRules.cpp
 //=========================================================
 
-#include	"extdll.h"
-#include	"util.h"
-#include	"cbase.h"
-#include	"CBasePlayer.h"
-#include	"Weapons.h"
-#include	"gamerules/GameRules.h"
-#include	"Skill.h"
-#include	"Server.h"
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+#include "CBasePlayer.h"
+#include "Weapons.h"
+#include "entities/CCorpse.h"
+#include "gamerules/GameRules.h"
+#include "Skill.h"
+#include "Server.h"
 
 #include "entities/spawnpoints/CBaseSpawnPoint.h"
 
@@ -118,4 +119,23 @@ void CGameRules::RefreshSkillData ( void )
 cvar_t* CGameRules::GetSkillCvar( const skilldata_t& skillData, const char* pszSkillCvarName )
 {
 	return skilldata_t::GetSkillCvar( pszSkillCvarName, skillData.GetSkillLevel() );
+}
+
+void CGameRules::PlayerRespawn( CBasePlayer* pPlayer, const bool bCopyCorpse )
+{
+	if( gpGlobals->coop || gpGlobals->deathmatch )
+	{
+		if( bCopyCorpse )
+		{
+			// make a copy of the dead body for appearances sake
+			CopyToBodyQue( pPlayer );
+		}
+
+		// respawn player
+		pPlayer->Spawn();
+	}
+	else
+	{       // restart the entire server
+		SERVER_COMMAND( "reload\n" );
+	}
 }

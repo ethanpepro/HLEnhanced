@@ -193,6 +193,13 @@ public:
 	virtual void PlayerSpawn( CBasePlayer *pPlayer ) = 0;
 
 	/**
+	*	Handles player respawn. Called by PlayerDeathThink.
+	*	@param pPlayer Player to respawn.
+	*	@param bCopyCorpse Whether to copy the player's corpse in multiplayer games.
+	*/
+	virtual void PlayerRespawn( CBasePlayer* pPlayer, const bool bCopyCorpse );
+
+	/**
 	*	Called by CBasePlayer::PreThink every frame, before physics are run and after keys are accepted
 	*/
 	virtual void PlayerThink( CBasePlayer *pPlayer ) = 0;
