@@ -56,7 +56,7 @@ void CRopeSegment::Spawn()
 
 	SetMoveType( MOVETYPE_NOCLIP );
 	SetSolidType( SOLID_TRIGGER );
-	AddFlags( FL_ALWAYSTHINK );
+	GetFlags() |= FL_ALWAYSTHINK;
 	GetEffects().Set( EF_NODRAW );
 	SetAbsOrigin( GetAbsOrigin() );
 

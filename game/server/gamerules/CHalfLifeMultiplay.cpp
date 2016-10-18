@@ -508,7 +508,7 @@ void CHalfLifeMultiplay :: PlayerThink( CBasePlayer *pPlayer )
 
 		// clear attack/use commands from player
 		pPlayer->m_afButtonPressed = 0;
-		pPlayer->SetButtons( 0 );
+		pPlayer->GetButtons().Set( 0 );
 		pPlayer->m_afButtonReleased = 0;
 	}
 }
@@ -654,7 +654,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 	const char* const tau = "tau_cannon";
 	const char* const gluon = "gluon gun";
 
-	if ( pKiller->AnyFlagsSet( FL_CLIENT ) )
+	if ( pKiller->GetFlags().Any( FL_CLIENT ) )
 	{
 		killer_index = pKiller->entindex();
 		
@@ -725,7 +725,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 				killer_weapon_name );		
 		}
 	}
-	else if ( pKiller->AnyFlagsSet( FL_CLIENT ) )
+	else if ( pKiller->GetFlags().Any( FL_CLIENT ) )
 	{
 		// team match?
 		if ( g_teamplay )
@@ -797,7 +797,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 
 	char szBuffer[ 512 ];
 
-	if( pKiller->AnyFlagsSet( FL_MONSTER ) )
+	if( pKiller->GetFlags().Any( FL_MONSTER ) )
 	{
 		// killed by a monster
 		snprintf( szBuffer, sizeof( szBuffer ), "%s was killed by a monster.\n", pVictim->GetNetName() );
@@ -806,7 +806,7 @@ void CHalfLifeMultiplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInf
 	{
 		snprintf( szBuffer, sizeof( szBuffer ), "%s commited suicide.\n", pVictim->GetNetName() );
 	}
-	else if( pKiller->AnyFlagsSet( FL_CLIENT ) )
+	else if( pKiller->GetFlags().Any( FL_CLIENT ) )
 	{
 		snprintf( szBuffer, sizeof( szBuffer ), "%s : %s : %s\n", pKiller->GetNetName(), killer_weapon_name, pVictim->GetNetName() );
 	}
@@ -886,7 +886,7 @@ Vector CHalfLifeMultiplay :: VecWeaponRespawnSpot( CBasePlayerWeapon *pWeapon )
 //=========================================================
 int CHalfLifeMultiplay :: WeaponShouldRespawn( CBasePlayerWeapon *pWeapon )
 {
-	if ( pWeapon->AnySpawnFlagsSet( SF_NORESPAWN ) )
+	if ( pWeapon->GetSpawnFlags().Any( SF_NORESPAWN ) )
 	{
 		return GR_WEAPON_RESPAWN_NO;
 	}
@@ -942,7 +942,7 @@ void CHalfLifeMultiplay::PlayerGotItem( CBasePlayer *pPlayer, CItem *pItem )
 //=========================================================
 int CHalfLifeMultiplay::ItemShouldRespawn( CItem *pItem )
 {
-	if ( pItem->AnySpawnFlagsSet( SF_NORESPAWN ) )
+	if ( pItem->GetSpawnFlags().Any( SF_NORESPAWN ) )
 	{
 		return GR_ITEM_RESPAWN_NO;
 	}
@@ -988,7 +988,7 @@ bool CHalfLifeMultiplay::IsAllowedToSpawn( CBaseEntity *pEntity )
 //=========================================================
 int CHalfLifeMultiplay::AmmoShouldRespawn( CBasePlayerAmmo *pAmmo )
 {
-	if ( pAmmo->AnySpawnFlagsSet( SF_NORESPAWN ) )
+	if ( pAmmo->GetSpawnFlags().Any( SF_NORESPAWN ) )
 	{
 		return GR_AMMO_RESPAWN_NO;
 	}

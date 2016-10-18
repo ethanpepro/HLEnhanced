@@ -875,7 +875,7 @@ namespace
 static void UTIL_RemoveCleanup( CBaseEntity* pEntity )
 {
 	pEntity->UpdateOnRemove();
-	pEntity->AddFlags( FL_KILLME );
+	pEntity->GetFlags() |= FL_KILLME;
 	pEntity->ClearTargetname();
 }
 }

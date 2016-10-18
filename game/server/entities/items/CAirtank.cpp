@@ -74,7 +74,7 @@ void CAirtank::Spawn()
 	SetTouch( &CAirtank::TankTouch );
 	SetThink( &CAirtank::TankThink );
 
-	AddFlags( FL_MONSTER );
+	GetFlags() |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_YES );
 	SetHealth( 20 );
 	SetDamage( 50 );

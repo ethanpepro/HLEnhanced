@@ -18,13 +18,13 @@ void CRenderFxManager::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 		CBaseEntity* pTarget = nullptr;
 		while( pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() ) )
 		{
-			if( !pTarget->AnySpawnFlagsSet( SF_RENDER_MASKFX ) )
+			if( !pTarget->GetSpawnFlags().Any( SF_RENDER_MASKFX ) )
 				pTarget->SetRenderFX( GetRenderFX() );
-			if( !pTarget->AnySpawnFlagsSet( SF_RENDER_MASKAMT ) )
+			if( !pTarget->GetSpawnFlags().Any( SF_RENDER_MASKAMT ) )
 				pTarget->SetRenderAmount( GetRenderAmount() );
-			if( !pTarget->AnySpawnFlagsSet( SF_RENDER_MASKMODE ) )
+			if( !pTarget->GetSpawnFlags().Any( SF_RENDER_MASKMODE ) )
 				pTarget->SetRenderMode( GetRenderMode() );
-			if( !pTarget->AnySpawnFlagsSet( SF_RENDER_MASKCOLOR ) )
+			if( !pTarget->GetSpawnFlags().Any( SF_RENDER_MASKCOLOR ) )
 				pTarget->SetRenderColor( GetRenderColor() );
 		}
 	}

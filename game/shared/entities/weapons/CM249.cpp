@@ -203,11 +203,11 @@ void CM249::PrimaryAttack()
 
 	if( bIsMultiplayer() )
 	{
-		if( m_pPlayer->AnyButtonsSet( IN_DUCK ) )
+		if( m_pPlayer->GetButtons().Any( IN_DUCK ) )
 		{
 			vecSpread = VECTOR_CONE_3DEGREES;
 		}
-		else if( m_pPlayer->AnyButtonsSet( IN_MOVERIGHT | 
+		else if( m_pPlayer->GetButtons().Any( IN_MOVERIGHT |
 										   IN_MOVELEFT | 
 										   IN_FORWARD | 
 										   IN_BACK ) )
@@ -221,11 +221,11 @@ void CM249::PrimaryAttack()
 	}
 	else
 	{
-		if( m_pPlayer->AnyButtonsSet( IN_DUCK ) )
+		if( m_pPlayer->GetButtons().Any( IN_DUCK ) )
 		{
 			vecSpread = VECTOR_CONE_4DEGREES;
 		}
-		else if( m_pPlayer->AnyButtonsSet( IN_MOVERIGHT |
+		else if( m_pPlayer->GetButtons().Any( IN_MOVERIGHT |
 										   IN_MOVELEFT |
 										   IN_FORWARD |
 										   IN_BACK ) )

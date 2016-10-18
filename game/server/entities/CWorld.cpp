@@ -291,7 +291,7 @@ void CWorld::Precache()
 			pEntity->SetMessage( GetNetName() );
 			ClearNetName();
 			pEntity->SetNextThink( gpGlobals->time + 0.3 );
-			pEntity->SetSpawnFlags( SF_MESSAGE_ONCE );
+			pEntity->GetSpawnFlags().Set( SF_MESSAGE_ONCE );
 		}
 	}
 

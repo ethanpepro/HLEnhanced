@@ -305,7 +305,7 @@ void CTestHull::BuildNodeGraph()
 
 				SetAbsOrigin( pSrcNode->m_vecOrigin );// place the hull on the node
 
-				if( !AnyFlagsSet( FL_ONGROUND ) )
+				if( !GetFlags().Any( FL_ONGROUND ) )
 				{
 					ALERT( at_aiconsole, "OFFGROUND!\n" );
 				}
@@ -337,7 +337,7 @@ void CTestHull::BuildNodeGraph()
 					WalkMove MoveMode = WALKMOVE_WORLDONLY;
 					if( pSrcNode->m_afNodeInfo & bits_NODE_WATER )
 					{
-						AddFlags( FL_SWIM );
+						GetFlags() |= FL_SWIM;
 						MoveMode = WALKMOVE_NORMAL;
 					}
 
@@ -395,7 +395,7 @@ void CTestHull::BuildNodeGraph()
 							break;
 						}
 					}
-					SetFlags( SaveFlags );
+					GetFlags().Set( SaveFlags );
 				}
 				else
 				{

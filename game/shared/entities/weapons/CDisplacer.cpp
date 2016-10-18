@@ -424,7 +424,7 @@ void CDisplacer::AltFireThink()
 
 	if( pDestination && pDestination != CWorld::GetInstance() )
 	{
-		m_pPlayer->ClearFlags( FL_SKIPLOCALHOST );
+		m_pPlayer->GetFlags().ClearFlags( FL_SKIPLOCALHOST );
 
 		Vector vecNewOrigin = pDestination->GetAbsOrigin();
 

@@ -62,7 +62,7 @@ void CopyToBodyQue( CBaseEntity* pEntity )
 	g_pBodyQueueHead->SetColorMap( pEntity->GetColorMap() );
 	g_pBodyQueueHead->SetMoveType( MOVETYPE_TOSS );
 	g_pBodyQueueHead->SetAbsVelocity( pEntity->GetAbsVelocity() );
-	g_pBodyQueueHead->ClearAllFlags();
+	g_pBodyQueueHead->GetFlags().ClearAll();
 	g_pBodyQueueHead->SetDeadFlag( pEntity->GetDeadFlag() );
 	g_pBodyQueueHead->SetRenderFX( kRenderFxDeadPlayer );
 	g_pBodyQueueHead->SetRenderAmount( pEntity->entindex() );

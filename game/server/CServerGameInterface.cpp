@@ -210,7 +210,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	else if( FStrEq( pcmd, "spectate" ) )	// clients wants to become a spectator
 	{
 		// always allow proxies to become a spectator
-		if( pPlayer->AnyFlagsSet( FL_PROXY ) || allow_spectators.value )
+		if( pPlayer->GetFlags().Any( FL_PROXY ) || allow_spectators.value )
 		{
 			CBaseEntity *pSpawnSpot = g_pGameRules->GetPlayerSpawnSpot( pPlayer );
 			pPlayer->StartObserver( pPlayer->GetAbsOrigin(), pSpawnSpot->GetAbsAngles() );
@@ -524,7 +524,7 @@ void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, 
 
 		pClass = CBaseEntity::Instance( &pEdictList[ i ] );
 		// Activate this entity if it's got a class & isn't dormant
-		if( pClass && !pClass->AnyFlagsSet( FL_DORMANT ) )
+		if( pClass && !pClass->GetFlags().Any( FL_DORMANT ) )
 		{
 			pClass->Activate();
 		}

@@ -681,7 +681,7 @@ void CBasePlayer::GiveNamedItem( const char *pszName )
 		return;
 	}
 	pEntity->SetAbsOrigin( GetAbsOrigin() );
-	pEntity->AddSpawnFlags( SF_NORESPAWN );
+	pEntity->GetSpawnFlags() |= SF_NORESPAWN;
 
 	DispatchSpawn( pEntity->edict() );
 	pEntity->Touch( this );

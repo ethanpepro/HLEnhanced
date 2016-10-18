@@ -167,11 +167,11 @@ void CMonsterMaker::MakeMonster( void )
 
 	pEntity->SetAbsOrigin( GetAbsOrigin() );
 	pEntity->SetAbsAngles( GetAbsAngles() );
-	pEntity->AddSpawnFlags( SF_MONSTER_FALL_TO_GROUND );
+	pEntity->GetSpawnFlags() |= SF_MONSTER_FALL_TO_GROUND;
 
 	// Children hit monsterclip brushes
-	if ( AnySpawnFlagsSet(SF_MONSTERMAKER_MONSTERCLIP ) )
-		pEntity->AddSpawnFlags( SF_MONSTER_HITMONSTERCLIP );
+	if ( GetSpawnFlags().Any(SF_MONSTERMAKER_MONSTERCLIP ) )
+		pEntity->GetSpawnFlags() |= SF_MONSTER_HITMONSTERCLIP;
 
 	DispatchSpawn( pEntity->edict() );
 

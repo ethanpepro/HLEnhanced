@@ -164,7 +164,7 @@ CBaseMonster *CScriptedSentence::FindEntity( void )
 	{
 		if( pTargetEnt->ClassnameIs( m_iszEntity ) )
 		{
-			if( pTargetEnt->AnyFlagsSet( FL_MONSTER ) )
+			if( pTargetEnt->GetFlags().Any( FL_MONSTER ) )
 			{
 				pMonster = pTargetEnt->MyMonsterPointer();
 

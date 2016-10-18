@@ -264,7 +264,7 @@ void CSpore::MyBounceTouch( CBaseEntity* pOther )
 				m_flSoundDelay = gpGlobals->time + 1.0;
 			}
 
-			if( AnyFlagsSet( FL_SWIM ) )
+			if( GetFlags().Any( FL_SWIM ) )
 			{
 				SetAbsVelocity( GetAbsVelocity() * 0.5 );
 

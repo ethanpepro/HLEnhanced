@@ -168,7 +168,7 @@ void CBreakable::Spawn( void )
 
 	// Flag unbreakable glass as "worldbrush" so it will block ALL tracelines
 	if ( !IsBreakable() && pev->rendermode != kRenderNormal )
-		AddFlags( FL_WORLDBRUSH );
+		GetFlags() |= FL_WORLDBRUSH;
 }
 
 const char *CBreakable::pSoundsWood[] = 
@@ -533,7 +533,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( pev->absmin + ( pev->size * 0.5 ) );
 		
 		// if a client hit the breakable with a crowbar, and breakable is crowbar-sensitive, break it now.
-		if ( newInfo.GetAttacker()->AnyFlagsSet( FL_CLIENT ) &&
+		if ( newInfo.GetAttacker()->GetFlags().Any( FL_CLIENT ) &&
 				 FBitSet ( pev->spawnflags, SF_BREAK_CROWBAR ) && ( newInfo.GetDamageTypes() & DMG_CLUB))
 			newInfo.GetMutableDamage() = pev->health;
 	}
@@ -726,7 +726,7 @@ void CBreakable::Die( void )
 	{
 		for ( int i = 0; i < count; i++ )
 		{
-			pList[i]->ClearFlags( FL_ONGROUND );
+			pList[i]->GetFlags().ClearFlags( FL_ONGROUND );
 			pList[i]->pev->groundentity = NULL;
 		}
 	}

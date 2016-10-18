@@ -69,7 +69,7 @@ void CTriggerXenReturn::ReturnTouch( CBaseEntity* pOther )
 
 	if( pTarget && pTarget != CWorld::GetInstance() )
 	{
-		pPlayer->ClearFlags( FL_SKIPLOCALHOST );
+		pPlayer->GetFlags().ClearFlags( FL_SKIPLOCALHOST );
 
 		Vector vecDest = pTarget->GetAbsOrigin();
 

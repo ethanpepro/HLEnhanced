@@ -40,7 +40,7 @@ void CPlayerHudColors::KeyValue( KeyValueData* pkvd )
 
 void CPlayerHudColors::Use( CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float flValue )
 {
-	if( AnySpawnFlagsSet( SF_PLR_HUDCOLORS_ALLPLAYERS ) )
+	if( GetSpawnFlags().Any( SF_PLR_HUDCOLORS_ALLPLAYERS ) )
 	{
 		CBasePlayer* pPlayer;
 
@@ -51,7 +51,7 @@ void CPlayerHudColors::Use( CBaseEntity* pActivator, CBaseEntity* pCaller, USE_T
 			if( !pPlayer || !pPlayer->IsConnected() )
 				continue;
 
-			if( AnySpawnFlagsSet( SF_PLR_HUDCOLORS_RESET ) )
+			if( GetSpawnFlags().Any( SF_PLR_HUDCOLORS_RESET ) )
 				pPlayer->ResetHudColors();
 			else
 			{
@@ -69,7 +69,7 @@ void CPlayerHudColors::Use( CBaseEntity* pActivator, CBaseEntity* pCaller, USE_T
 
 		auto pPlayer = static_cast<CBasePlayer*>( pActivator );
 
-		if( AnySpawnFlagsSet( SF_PLR_HUDCOLORS_RESET ) )
+		if( GetSpawnFlags().Any( SF_PLR_HUDCOLORS_RESET ) )
 			pPlayer->ResetHudColors();
 		else
 		{

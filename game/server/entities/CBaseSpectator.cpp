@@ -33,7 +33,7 @@ called when a spectator connects to a server
 */
 void CBaseSpectator::SpectatorConnect()
 {
-	SetFlags( FL_SPECTATOR );
+	GetFlags().Set( FL_SPECTATOR );
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NOCLIP );
 	
@@ -107,7 +107,7 @@ void CBaseSpectator::SpectatorImpulseCommand()
 		break;
 	}
 
-	SetImpulse( 0 );
+	GetImpulse().Set( 0 );
 }
 
 /*
@@ -119,9 +119,9 @@ Called every frame after physics are run
 */
 void CBaseSpectator::SpectatorThink()
 {
-	if( !AnyFlagsSet( FL_SPECTATOR ) )
+	if( !GetFlags().Any( FL_SPECTATOR ) )
 	{
-		SetFlags( FL_SPECTATOR );
+		GetFlags().Set( FL_SPECTATOR );
 	}
 
 	SetSolidType( SOLID_NOT );
@@ -141,7 +141,7 @@ Spawn
 */
 void CBaseSpectator::Spawn()
 {
-	SetFlags( FL_SPECTATOR );
+	GetFlags().Set( FL_SPECTATOR );
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NOCLIP );
 	

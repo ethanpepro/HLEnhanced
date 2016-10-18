@@ -371,7 +371,7 @@ void CRpg::UpdateSpot( void )
 		{
 			m_pSpot = CLaserSpot::CreateSpot();
 
-			m_pSpot->AddFlags( FL_SKIPLOCALHOST );
+			m_pSpot->GetFlags() |= FL_SKIPLOCALHOST;
 
 			m_pSpot->SetOwner( m_pPlayer );
 		}

@@ -360,7 +360,7 @@ void CHalfLifeTeamplay::DeathNotice( CBasePlayer* pVictim, const CTakeDamageInfo
 
 	auto pKiller = info.GetAttacker();
 	
-	if ( pVictim && pKiller && pKiller->AnyFlagsSet( FL_CLIENT ) )
+	if ( pVictim && pKiller && pKiller->GetFlags().Any( FL_CLIENT ) )
 	{
 		CBasePlayer *pk = (CBasePlayer*) pKiller;
 

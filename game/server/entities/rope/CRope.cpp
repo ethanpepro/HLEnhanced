@@ -135,7 +135,7 @@ void CRope::Spawn()
 
 	m_bObjectAttached = false;
 
-	AddFlags( FL_ALWAYSTHINK );
+	GetFlags() |= FL_ALWAYSTHINK;
 	m_uiNumSamples = m_uiSegments + 1;
 
 	for( size_t uiSample = 0; uiSample < m_uiNumSamples; ++uiSample )

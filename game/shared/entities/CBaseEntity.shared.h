@@ -1232,293 +1232,83 @@ public:
 	}
 
 	/**
-	*	@param iButtons Button flags to check.
-	*	@return Whether any of the given button flags are set.
+	*	@return The entity's buttons flags.
 	*/
-	bool AnyButtonsSet( const int iButtons ) const
+	const CBitSet<int>& GetButtons() const
 	{
-		return ( pev->button & iButtons ) != 0;
+		return *reinterpret_cast<const CBitSet<int>*>( &pev->button );
 	}
 
 	/**
-	*	@param iButtons Button flags to check.
-	*	@return Whether all of the given button flags are set.
+	*	@copydoc GetButtons() const
 	*/
-	bool AllButtonsSet( const int iButtons ) const
+	CBitSet<int>& GetButtons()
 	{
-		return ( pev->button & iButtons ) == iButtons;
+		return *reinterpret_cast<CBitSet<int>*>( &pev->button );
 	}
 
 	/**
-	*	@return The buttons bit vector.
+	*	@return The entity's old buttons flags.
 	*/
-	int GetButtons() const { return pev->button; }
-
-	/**
-	*	Sets the buttons bit vector.
-	*	@param iButtons Button flags to set.
-	*/
-	void SetButtons( const int iButtons )
+	const CBitSet<int>& GetOldButtons() const
 	{
-		pev->button = iButtons;
+		return *reinterpret_cast<const CBitSet<int>*>( &pev->oldbuttons );
 	}
 
 	/**
-	*	Adds the given button flags.
-	*	@param iButtons Button flags to set.
+	*	@copydoc GetOldButtons() const
 	*/
-	void AddButtonFlags( const int iButtons )
+	CBitSet<int>& GetOldButtons()
 	{
-		pev->button |= iButtons;
+		return *reinterpret_cast<CBitSet<int>*>( &pev->oldbuttons );
 	}
 
 	/**
-	*	Clears all button flags.
+	*	@return The entity's impulse flags.
 	*/
-	void ClearAllButtons()
+	const CBitSet<int>& GetImpulse() const
 	{
-		pev->button = 0;
+		return *reinterpret_cast<const CBitSet<int>*>( &pev->impulse );
 	}
 
 	/**
-	*	Clears the given button flags.
-	*	@param iButtons Button flags to clear.
+	*	@copydoc GetImpulse() const
 	*/
-	void ClearButtonFlags( const int iButtons )
+	CBitSet<int>& GetImpulse()
 	{
-		pev->button &= ~iButtons;
+		return *reinterpret_cast<CBitSet<int>*>( &pev->impulse );
 	}
 
 	/**
-	*	@param iButtons Old button flags to check.
-	*	@return Whether any of the given old button flags are set.
+	*	@return The entity's spawn flags.
 	*/
-	bool AnyOldButtonsSet( const int iButtons ) const
+	const CBitSet<int>& GetSpawnFlags() const
 	{
-		return ( pev->oldbuttons & iButtons ) != 0;
+		return *reinterpret_cast<const CBitSet<int>*>( &pev->spawnflags );
 	}
 
 	/**
-	*	@param iButtons Old button flags to check.
-	*	@return Whether all of the given old button flags are set.
+	*	@copydoc GetSpawnFlags() const
 	*/
-	bool AllOldButtonsSet( const int iButtons ) const
+	CBitSet<int>& GetSpawnFlags()
 	{
-		return ( pev->oldbuttons & iButtons ) == iButtons;
+		return *reinterpret_cast<CBitSet<int>*>( &pev->spawnflags );
 	}
 
 	/**
-	*	@return The old buttons bit vector.
+	*	@return The entity's flags.
 	*/
-	int GetOldButtons() const { return pev->oldbuttons; }
-
-	/**
-	*	Sets the old buttons bit vector.
-	*	@param iButtons Old button flags to set.
-	*/
-	void SetOldButtons( const int iButtons )
+	const CBitSet<int>& GetFlags() const
 	{
-		pev->oldbuttons = iButtons;
+		return *reinterpret_cast<const CBitSet<int>*>( &pev->flags );
 	}
 
 	/**
-	*	Adds the given old button flags.
-	*	@param iButtons Old button flags to set.
+	*	@copydoc GetFlags() const
 	*/
-	void AddOldButtonFlags( const int iButtons )
+	CBitSet<int>& GetFlags()
 	{
-		pev->oldbuttons |= iButtons;
-	}
-
-	/**
-	*	Clears all old button flags.
-	*/
-	void ClearAllOldButtons()
-	{
-		pev->oldbuttons = 0;
-	}
-
-	/**
-	*	Clears the given old button flags.
-	*	@param iButtons Old button flags to clear.
-	*/
-	void ClearOldButtonFlags( const int iButtons )
-	{
-		pev->oldbuttons &= ~iButtons;
-	}
-
-	/**
-	*	@param iImpulse Impulse flags to check.
-	*	@return Whether any of the given impulse flags are set.
-	*/
-	bool AnyImpulseSet( const int iImpulse ) const
-	{
-		return ( pev->impulse & iImpulse ) != 0;
-	}
-
-	/**
-	*	@param iImpulse Impulse flags to check.
-	*	@return Whether all of the given impulse flags are set.
-	*/
-	bool AllImpulseSet( const int iImpulse ) const
-	{
-		return ( pev->impulse & iImpulse ) == iImpulse;
-	}
-
-	/**
-	*	@return The impulse bit vector.
-	*/
-	int GetImpulse() const { return pev->impulse; }
-
-	/**
-	*	Sets the impulse bit vector.
-	*	@param iImpulse Impulse flags to set.
-	*/
-	void SetImpulse( const int iImpulse )
-	{
-		pev->impulse = iImpulse;
-	}
-
-	/**
-	*	Adds the given impulse flags.
-	*	@param iImpulse Impulse flags to set.
-	*/
-	void AddImpulseFlags( const int iImpulse )
-	{
-		pev->impulse |= iImpulse;
-	}
-
-	/**
-	*	Clears all impulse flags.
-	*/
-	void ClearAllImpulse()
-	{
-		pev->impulse = 0;
-	}
-
-	/**
-	*	Clears the given impulse flags.
-	*	@param iImpulse Impulse flags to clear.
-	*/
-	void ClearImpulseFlags( const int iImpulse )
-	{
-		pev->impulse &= ~iImpulse;
-	}
-
-	/**
-	*	@param iFlags Spawn flags to check.
-	*	@return Whether any of the given spawn flags are set.
-	*/
-	bool AnySpawnFlagsSet( const int iFlags ) const
-	{
-		return ( pev->spawnflags & iFlags ) != 0;
-	}
-
-	/**
-	*	@param iFlags Spawn flags to check.
-	*	@return Whether all of the given spawn flags are set.
-	*/
-	bool AllSpawnFlagsSet( const int iFlags ) const
-	{
-		return ( pev->spawnflags & iFlags ) == iFlags;
-	}
-
-	/**
-	*	@return The spawn bit vector.
-	*/
-	int GetSpawnFlags() const { return pev->spawnflags; }
-
-	/**
-	*	Sets the spawn flags bit vector.
-	*	@param iFlags Spawn flags to set.
-	*/
-	void SetSpawnFlags( const int iFlags )
-	{
-		pev->spawnflags = iFlags;
-	}
-
-	/**
-	*	Adds the given spawn flags.
-	*	@param iFlags Spawn flags to set.
-	*/
-	void AddSpawnFlags( const int iFlags )
-	{
-		pev->spawnflags |= iFlags;
-	}
-
-	/**
-	*	Clears all spawn flags.
-	*/
-	void ClearAllSpawnFlags()
-	{
-		pev->spawnflags = 0;
-	}
-
-	/**
-	*	Clears the given spawn flags.
-	*	@param iFlags Spawn flags to clear.
-	*/
-	void ClearSpawnFlags( const int iFlags )
-	{
-		pev->spawnflags &= ~iFlags;
-	}
-
-	/**
-	*	@param iFlags Flags to check.
-	*	@return Whether any of the given flags are set.
-	*/
-	bool AnyFlagsSet( const int iFlags ) const
-	{
-		return ( pev->flags & iFlags ) != 0;
-	}
-
-	/**
-	*	@param iFlags Flags to check.
-	*	@return Whether all of the given flags are set.
-	*/
-	bool AllFlagsSet( const int iFlags ) const
-	{
-		return ( pev->flags & iFlags ) == iFlags;
-	}
-
-	/**
-	*	@return The spawn bit vector.
-	*/
-	int GetFlags() const { return pev->flags; }
-
-	/**
-	*	Sets the flags bit vector.
-	*	@param iFlags Flags to set.
-	*/
-	void SetFlags( const int iFlags )
-	{
-		pev->flags = iFlags;
-	}
-
-	/**
-	*	Adds the given flags.
-	*	@param iFlags Flags to set.
-	*/
-	void AddFlags( const int iFlags )
-	{
-		pev->flags |= iFlags;
-	}
-
-	/**
-	*	Clears all flags.
-	*/
-	void ClearAllFlags()
-	{
-		pev->flags = 0;
-	}
-
-	/**
-	*	Clears the given flags.
-	*	@param iFlags Flags to clear.
-	*/
-	void ClearFlags( const int iFlags )
-	{
-		pev->flags &= ~iFlags;
+		return *reinterpret_cast<CBitSet<int>*>( &pev->flags );
 	}
 
 	/**

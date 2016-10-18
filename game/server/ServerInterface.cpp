@@ -199,7 +199,7 @@ int DispatchSpawn( edict_t *pent )
 		{
 			if( g_pGameRules && !g_pGameRules->IsAllowedToSpawn( pEntity ) )
 				return -1;	// return that this entity should be deleted
-			if( pEntity->AnyFlagsSet(FL_KILLME ) )
+			if( pEntity->GetFlags().Any(FL_KILLME ) )
 				return -1;
 		}
 
@@ -235,7 +235,7 @@ void DispatchThink( edict_t *pent )
 	CBaseEntity *pEntity = ( CBaseEntity * ) GET_PRIVATE( pent );
 	if( pEntity )
 	{
-		if( pEntity->AnyFlagsSet( FL_DORMANT ) )
+		if( pEntity->GetFlags().Any( FL_DORMANT ) )
 			ALERT( at_error, "Dormant entity %s is thinking!!\n", pEntity->GetClassname() );
 
 		pEntity->Think();
@@ -247,7 +247,7 @@ void DispatchUse( edict_t *pentUsed, edict_t *pentOther )
 	CBaseEntity *pEntity = ( CBaseEntity * ) GET_PRIVATE( pentUsed );
 	CBaseEntity *pOther = ( CBaseEntity * ) GET_PRIVATE( pentOther );
 
-	if( pEntity && !pEntity->AnyFlagsSet( FL_KILLME ) )
+	if( pEntity && !pEntity->GetFlags().Any( FL_KILLME ) )
 		pEntity->Use( pOther, pOther, USE_TOGGLE, 0 );
 }
 

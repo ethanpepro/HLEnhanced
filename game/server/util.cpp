@@ -385,7 +385,7 @@ void UTIL_ScreenShake( const Vector &center, float amplitude, float frequency, f
 	{
 		CBaseEntity *pPlayer = UTIL_PlayerByIndex( i );
 
-		if ( !pPlayer || !pPlayer->AnyFlagsSet( FL_ONGROUND ) )	// Don't shake if not onground
+		if ( !pPlayer || !pPlayer->GetFlags().Any( FL_ONGROUND ) )	// Don't shake if not onground
 			continue;
 
 		localAmplitude = 0;
@@ -953,7 +953,7 @@ bool UTIL_TeamsMatch( const char *pTeamName1, const char *pTeamName2 )
 
 bool UTIL_IsValidEntity( const CBaseEntity* const pEntity )
 {
-	if ( !pEntity || pEntity->edict()->free || pEntity->AnyFlagsSet( FL_KILLME ) )
+	if ( !pEntity || pEntity->edict()->free || pEntity->GetFlags().Any( FL_KILLME ) )
 		return false;
 	return true;
 }

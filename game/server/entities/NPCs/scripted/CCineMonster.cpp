@@ -209,7 +209,7 @@ void CCineMonster::Activate( void )
 	// Check the targetname
 	while( !pTarget && ( pNextTarget = UTIL_FindEntityByTargetname( pNextTarget, STRING( m_iszEntity ) ) ) )
 	{
-		if( pNextTarget->AnyFlagsSet( FL_MONSTER ) )
+		if( pNextTarget->GetFlags().Any( FL_MONSTER ) )
 		{
 			pTarget = pNextTarget->MyMonsterPointer();
 		}
@@ -306,7 +306,7 @@ bool CCineMonster::FindEntity()
 
 	while( pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) ) )
 	{
-		if( pTargetEnt->AnyFlagsSet( FL_MONSTER ) )
+		if( pTargetEnt->GetFlags().Any( FL_MONSTER ) )
 		{
 			pTarget = pTargetEnt->MyMonsterPointer();
 
@@ -329,7 +329,7 @@ bool CCineMonster::FindEntity()
 		{
 			if( pTargetEnt->ClassnameIs( STRING( m_iszEntity ) ) )
 			{
-				if( pTargetEnt->AnyFlagsSet( FL_MONSTER ) )
+				if( pTargetEnt->GetFlags().Any( FL_MONSTER ) )
 				{
 					pTarget = pTargetEnt->MyMonsterPointer();
 					if( pTarget && pTarget->CanPlaySequence( FCanOverrideState(), SS_INTERRUPT_IDLE ) )

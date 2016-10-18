@@ -328,7 +328,7 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 		else
 			flNewArmorValue -= flArmor;
 
-		if( !AnyFlagsSet( FL_GODMODE ) )
+		if( !GetFlags().Any( FL_GODMODE ) )
 			SetArmorAmount( flNewArmorValue );
 		
 		newInfo.GetMutableDamage() = flNew;

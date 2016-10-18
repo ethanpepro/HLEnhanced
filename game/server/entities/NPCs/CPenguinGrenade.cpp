@@ -70,7 +70,7 @@ void CPenguinGrenade::Spawn()
 	SetNextThink( gpGlobals->time + 0.1 );
 	m_flNextHunt = gpGlobals->time + 1E6;
 
-	AddFlags( FL_MONSTER );
+	GetFlags() |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetHealth(  gSkillData.GetSnarkHealth() );
 	SetGravity( 0.5 );
@@ -240,7 +240,7 @@ void CPenguinGrenade::SuperBounceTouch( CBaseEntity *pOther )
 		}
 	}
 
-	if( !( AnyFlagsSet( FL_SWIM ) ) )
+	if( !( GetFlags().Any( FL_SWIM ) ) )
 	{
 		// play bounce sound
 		float flRndSound = RANDOM_FLOAT( 0, 1 );
@@ -357,7 +357,7 @@ void CPenguinGrenade::HuntThink()
 		SetAbsVelocity( GetAbsVelocity() * flAdj + m_vecTarget * 300 );
 	}
 
-	if( AnyFlagsSet( FL_SWIM ) )
+	if( GetFlags().Any( FL_SWIM ) )
 	{
 		SetAngularVelocity( g_vecZero );
 	}

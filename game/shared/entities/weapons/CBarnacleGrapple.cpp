@@ -181,7 +181,7 @@ void CBarnacleGrapple::PrimaryAttack()
 			{
 				SetMoveType( MOVETYPE_FLY );
 				//TODO: what does this do? - Solokiller
-				AddFlags( FL_IMMUNE_LAVA );
+				GetFlags() |= FL_IMMUNE_LAVA;
 			}
 
 			if( m_bMomentaryStuck )
@@ -446,7 +446,7 @@ void CBarnacleGrapple::SecondaryAttack()
 		UTIL_MakeVectors( m_pPlayer->GetViewAngle() + m_pPlayer->GetPunchAngle() );
 
 		m_pPlayer->SetMoveType( MOVETYPE_WALK );
-		m_pPlayer->ClearFlags( FL_IMMUNE_LAVA );
+		m_pPlayer->GetFlags().ClearFlags( FL_IMMUNE_LAVA );
 	}
 }
 
@@ -514,7 +514,7 @@ void CBarnacleGrapple::EndAttack()
 	}
 
 	m_pPlayer->SetMoveType( MOVETYPE_WALK );
-	m_pPlayer->ClearFlags( FL_IMMUNE_LAVA );
+	m_pPlayer->GetFlags().ClearFlags( FL_IMMUNE_LAVA );
 }
 
 void CBarnacleGrapple::CreateEffect()
@@ -552,7 +552,7 @@ void CBarnacleGrapple::CreateEffect()
 
 		m_pBeam->SetEndAttachment( 1 );
 
-		m_pBeam->AddSpawnFlags( SF_BEAM_TEMPORARY );
+		m_pBeam->GetSpawnFlags() |= SF_BEAM_TEMPORARY;
 	}
 #endif
 }

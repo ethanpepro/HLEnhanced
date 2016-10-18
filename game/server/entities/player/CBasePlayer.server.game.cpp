@@ -407,7 +407,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 #if USE_OPFOR
 	case PLAYER_GRAPPLE:
-		if( AnyFlagsSet( FL_SWIM ) )
+		if( GetFlags().Any( FL_SWIM ) )
 		{
 			m_IdealActivity = m_Activity;
 			break;

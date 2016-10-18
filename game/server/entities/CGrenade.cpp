@@ -264,7 +264,7 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 		m_fRegisteredSound = true;
 	}
 
-	if( AnyFlagsSet( FL_ONGROUND ) )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		// add a bit of static friction
 		pev->velocity = pev->velocity * 0.8;
@@ -294,7 +294,7 @@ void CGrenade::SlideTouch( CBaseEntity *pOther )
 
 	// pev->avelocity = Vector (300, 300, 300);
 
-	if( AnyFlagsSet( FL_ONGROUND ) )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		// add a bit of static friction
 		pev->velocity = pev->velocity * 0.95;
