@@ -64,8 +64,6 @@ public:
 
 	inline operator T&() { return m_Data; }
 
-	inline operator bool() const { return m_Data != 0; }
-
 	CBitSet& operator|=( const T flags );
 
 	CBitSet& operator&=( const T flags );
