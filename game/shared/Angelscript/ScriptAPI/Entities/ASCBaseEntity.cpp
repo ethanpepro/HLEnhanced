@@ -160,12 +160,47 @@ std::string CBaseEntity_GetClassname( const CBaseEntity* pThis )
 	return pThis->GetClassname();
 }
 
+bool CBaseEntity_ClassnameIs( const CBaseEntity* pThis, const std::string& szClassname )
+{
+	return pThis->ClassnameIs( szClassname.c_str() );
+}
+
+std::string CBaseEntity_GetGlobalName( const CBaseEntity* pThis )
+{
+	return pThis->GetGlobalName();
+}
+
+void CBaseEntity_SetGlobalName( CBaseEntity* pThis, const std::string& szGlobalName )
+{
+	pThis->SetGlobalName( szGlobalName.c_str() );
+}
+
 std::string CBaseEntity_GetTargetname( const CBaseEntity* pThis )
 {
 	return pThis->GetTargetname();
 }
 
+void CBaseEntity_SetTargetname( CBaseEntity* pThis, const std::string& szTargetname )
+{
+	pThis->SetTargetname( szTargetname.c_str() );
+}
+
 std::string CBaseEntity_GetTarget( const CBaseEntity* pThis )
 {
 	return pThis->GetTarget();
+}
+
+void CBaseEntity_SetTarget( CBaseEntity* pThis, const std::string& szTarget )
+{
+	pThis->SetTarget( szTarget.c_str() );
+}
+
+std::string CBaseEntity_GetNetName( const CBaseEntity* pThis )
+{
+	return pThis->GetNetName();
+}
+
+void CBaseEntity_SetNetName( CBaseEntity* pThis, const std::string& szNetName )
+{
+	pThis->SetNetName( szNetName.c_str() );
 }

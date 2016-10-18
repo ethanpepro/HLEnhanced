@@ -35,8 +35,24 @@ bool CBaseEntity_KeyValue( CLASS* pThis, const std::string& szKeyName, const std
 }
 
 std::string CBaseEntity_GetClassname( const CBaseEntity* pThis );
+
+bool CBaseEntity_ClassnameIs( const CBaseEntity* pThis, const std::string& szClassname );
+
+std::string CBaseEntity_GetGlobalName( const CBaseEntity* pThis );
+
+void CBaseEntity_SetGlobalName( CBaseEntity* pThis, const std::string& szGlobalName );
+
 std::string CBaseEntity_GetTargetname( const CBaseEntity* pThis );
+
+void CBaseEntity_SetTargetname( CBaseEntity* pThis, const std::string& szTargetname );
+
 std::string CBaseEntity_GetTarget( const CBaseEntity* pThis );
+
+void CBaseEntity_SetTarget( CBaseEntity* pThis, const std::string& szTarget );
+
+std::string CBaseEntity_GetNetName( const CBaseEntity* pThis );
+
+void CBaseEntity_SetNetName( CBaseEntity* pThis, const std::string& szNetName );
 
 /**
 *	Registers CBaseEntity methods and properties.
@@ -57,6 +73,78 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asOFFSET( CLASS, m_pLink ) );
 
 	engine.RegisterObjectMethod(
+		pszObjectName, "string GetClassname() const",
+		asFUNCTION( CBaseEntity_GetClassname ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool ClassnameIs(const string& in szClassname) const",
+		asFUNCTION( CBaseEntity_ClassnameIs ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasGlobalName() const",
+		asMETHOD( CLASS, HasGlobalName ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetGlobalName() const",
+		asFUNCTION( CBaseEntity_GetGlobalName ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetGlobalName(const string& in szGlobalName)",
+		asFUNCTION( CBaseEntity_SetGlobalName ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearGlobalName()",
+		asMETHOD( CLASS, ClearGlobalName ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasTargetname() const",
+		asMETHOD( CLASS, HasTargetname ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetTargetname() const",
+		asFUNCTION( CBaseEntity_GetTargetname ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetTargetname(const string& in szTargetname)",
+		asFUNCTION( CBaseEntity_SetTargetname ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearTargetname()",
+		asMETHOD( CLASS, ClearTargetname ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasTarget() const",
+		asMETHODPR( CLASS, HasTarget, () const, bool ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetTarget() const",
+		asFUNCTION( CBaseEntity_GetTarget ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetTarget(const string& in szTarget)",
+		asFUNCTION( CBaseEntity_SetTarget ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearTarget()",
+		asMETHOD( CLASS, ClearTarget ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasNetName() const",
+		asMETHOD( CLASS, HasNetName ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetNetName() const",
+		asFUNCTION( CBaseEntity_GetNetName ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetNetName(const string& in szNetName)",
+		asFUNCTION( CBaseEntity_SetNetName ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearNetName()",
+		asMETHOD( CLASS, ClearNetName ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
 		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",
 		asMETHOD( CLASS, KeyValue ), asCALL_THISCALL );
 
@@ -75,18 +163,6 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	engine.RegisterObjectMethod(
 		pszObjectName, "CBaseEntity@ Respawn()",
 		asMETHOD( CLASS, Respawn ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
-		pszObjectName, "string GetClassname() const",
-		asFUNCTION( CBaseEntity_GetClassname ), asCALL_CDECL_OBJFIRST );
-
-	engine.RegisterObjectMethod(
-		pszObjectName, "string GetTargetname() const",
-		asFUNCTION( CBaseEntity_GetTargetname ), asCALL_CDECL_OBJFIRST );
-
-	engine.RegisterObjectMethod(
-		pszObjectName, "string GetTarget() const",
-		asFUNCTION( CBaseEntity_GetTarget ), asCALL_CDECL_OBJFIRST );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void Think()",
