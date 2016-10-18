@@ -1,4 +1,6 @@
 add_sources(
+	ASCEntBitSet.h
+	ASCEntBitSet.cpp
 	ASCGlobalVars.h
 	ASCGlobalVars.cpp
 	CASEngine.h

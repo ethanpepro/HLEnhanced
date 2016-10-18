@@ -51,6 +51,8 @@ CBaseEntity
 
 #include "CTakeDamageInfo.h"
 
+using CEntBitSet = CBitSet<int>;
+
 //
 // Base Entity.  All entity types derive from this
 //

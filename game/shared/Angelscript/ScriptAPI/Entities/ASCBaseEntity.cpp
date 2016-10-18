@@ -2,6 +2,8 @@
 #include "util.h"
 #include "cbase.h"
 
+#include "../ASCEntBitSet.h"
+
 #include "ASCBaseEntity.h"
 
 /**
@@ -150,6 +152,7 @@ void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 	RegisterScriptUSE_TYPE( engine );
 	RegisterScriptClassification( engine );
 	RegisterScriptBloodColor( engine );
+	RegisterScriptCEntBitSet( engine );
 }
 
 std::string CBaseEntity_GetClassname( const CBaseEntity* pThis )
