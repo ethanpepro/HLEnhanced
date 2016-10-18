@@ -328,7 +328,7 @@ void CDisplacer::FireThink()
 
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 
-	m_pPlayer->AddEffectsFlags( EF_MUZZLEFLASH );
+	m_pPlayer->GetEffects() |= EF_MUZZLEFLASH;
 
 	int flags;
 

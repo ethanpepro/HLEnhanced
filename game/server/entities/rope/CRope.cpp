@@ -798,10 +798,10 @@ void CRope::SetRopeSegments( const size_t uiNumSegments,
 		}
 
 		ppVisible[ 0 ]->SetSolidType( SOLID_TRIGGER );
-		ppVisible[ 0 ]->SetEffects( 0 );
+		ppVisible[ 0 ]->GetEffects().Set( 0 );
 
 		ppActualHidden[ 0 ]->SetSolidType( SOLID_NOT );
-		ppActualHidden[ 0 ]->SetEffects( EF_NODRAW );
+		ppActualHidden[ 0 ]->GetEffects().Set( EF_NODRAW );
 
 		for( size_t uiIndex = 1; uiIndex < uiNumSegments; ++uiIndex )
 		{
@@ -809,10 +809,10 @@ void CRope::SetRopeSegments( const size_t uiNumSegments,
 			CRopeSegment* pHidden = ppActualHidden[ uiIndex ];
 
 			pPrim->SetSolidType( SOLID_TRIGGER );
-			pPrim->SetEffects( 0 );
+			pPrim->GetEffects().Set( 0 );
 			
 			pHidden->SetSolidType( SOLID_NOT );
-			pHidden->SetEffects( EF_NODRAW );
+			pHidden->GetEffects().Set( EF_NODRAW );
 
 			Vector vecOrigin = pPrim->GetAbsOrigin();
 

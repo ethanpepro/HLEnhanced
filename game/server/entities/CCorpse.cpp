@@ -66,7 +66,7 @@ void CopyToBodyQue( CBaseEntity* pEntity )
 	g_pBodyQueueHead->SetDeadFlag( pEntity->GetDeadFlag() );
 	g_pBodyQueueHead->SetRenderFX( kRenderFxDeadPlayer );
 	g_pBodyQueueHead->SetRenderAmount( pEntity->entindex() );
-	g_pBodyQueueHead->SetEffects( pEntity->GetEffects() | EF_NOINTERP );
+	g_pBodyQueueHead->GetEffects() |= EF_NOINTERP;
 
 	g_pBodyQueueHead->SetSequence( pEntity->GetSequence() );
 	g_pBodyQueueHead->SetAnimTime( pEntity->GetAnimTime() );

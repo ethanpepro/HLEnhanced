@@ -209,7 +209,7 @@ void CShockRifle::PrimaryAttack()
 
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 
-	m_pPlayer->AddEffectsFlags( EF_MUZZLEFLASH );
+	m_pPlayer->GetEffects() |= EF_MUZZLEFLASH;
 
 #ifndef CLIENT_DLL
 	const Vector vecAnglesAim = m_pPlayer->GetViewAngle() + m_pPlayer->GetPunchAngle();

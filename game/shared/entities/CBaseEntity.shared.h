@@ -30,6 +30,8 @@ CBaseEntity
 
 #include <cstddef>
 
+#include "CBitSet.h"
+
 #include "archtypes.h"     // DAL
 
 #include "CBaseForward.h"
@@ -867,61 +869,19 @@ public:
 	}
 
 	/**
-	*	@param iEffects Effects flags to check.
-	*	@return Whether any of the given effects flags are set.
+	*	@return The entity's effects flags.
 	*/
-	bool AnyEffectsSet( const int iEffects ) const
+	const CBitSet<int>& GetEffects() const
 	{
-		return ( pev->effects & iEffects ) != 0;
+		return *reinterpret_cast<const CBitSet<int>*>( &pev->effects );
 	}
 
 	/**
-	*	@param iEffects Effects flags to check.
-	*	@return Whether all of the given effects flags are set.
+	*	@copydoc GetEffects() const
 	*/
-	bool AllEffectsSet( const int iEffects ) const
+	CBitSet<int>& GetEffects()
 	{
-		return ( pev->effects & iEffects ) == iEffects;
-	}
-
-	/**
-	*	@return The effects bit vector.
-	*/
-	int GetEffects() const { return pev->effects; }
-
-	/**
-	*	Sets the effects bit vector.
-	*	@param iEffects Effects flags to set.
-	*/
-	void SetEffects( const int iEffects )
-	{
-		pev->effects = iEffects;
-	}
-
-	/**
-	*	Adds the given effects flags.
-	*	@param iEffects Effects flags to set.
-	*/
-	void AddEffectsFlags( const int iEffects )
-	{
-		pev->effects |= iEffects;
-	}
-
-	/**
-	*	Clears all effects flags.
-	*/
-	void ClearAllEffects()
-	{
-		pev->effects = 0;
-	}
-
-	/**
-	*	Clears the given effects flags.
-	*	@param iEffects Effects flags to clear.
-	*/
-	void ClearEffectsFlags( const int iEffects )
-	{
-		pev->effects &= ~iEffects;
+		return *reinterpret_cast<CBitSet<int>*>( &pev->effects );
 	}
 
 	/**
@@ -1203,61 +1163,19 @@ public:
 	}
 
 	/**
-	*	@param iWeapons Weapons flags to check.
-	*	@return Whether any of the given weapons flags are set.
+	*	@return The entity's weapons flags.
 	*/
-	bool AnyWeaponsSet( const int iWeapons ) const
+	const CBitSet<int>& GetWeapons() const
 	{
-		return ( pev->weapons & iWeapons ) != 0;
+		return *reinterpret_cast<const CBitSet<int>*>( &pev->weapons );
 	}
 
 	/**
-	*	@param iWeapons Weapons flags to check.
-	*	@return Whether all of the given weapons flags are set.
+	*	@copydoc GetWeapons() const
 	*/
-	bool AllWeaponsSet( const int iWeapons ) const
+	CBitSet<int>& GetWeapons()
 	{
-		return ( pev->weapons & iWeapons ) == iWeapons;
-	}
-
-	/**
-	*	@return The weapons bit vector.
-	*/
-	int GetWeapons() const { return pev->weapons; }
-
-	/**
-	*	Sets the weapons bit vector.
-	*	@param iWeapons Weapons flags to set.
-	*/
-	void SetWeapons( const int iWeapons )
-	{
-		pev->weapons = iWeapons;
-	}
-
-	/**
-	*	Adds the given weapons flags.
-	*	@param iWeapons Weapons flags to set.
-	*/
-	void AddWeaponsFlags( const int iWeapons )
-	{
-		pev->weapons |= iWeapons;
-	}
-
-	/**
-	*	Clears all weapons flags.
-	*/
-	void ClearAllWeapons()
-	{
-		pev->weapons = 0;
-	}
-
-	/**
-	*	Clears the given weapons flags.
-	*	@param iWeapons Weapons flags to clear.
-	*/
-	void ClearWeaponsFlags( const int iWeapons )
-	{
-		pev->weapons &= ~iWeapons;
+		return *reinterpret_cast<CBitSet<int>*>( &pev->weapons );
 	}
 
 	/**

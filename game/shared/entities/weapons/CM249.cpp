@@ -187,7 +187,7 @@ void CM249::PrimaryAttack()
 	m_pPlayer->m_iWeaponVolume = NORMAL_GUN_VOLUME;
 	m_pPlayer->m_iWeaponFlash = NORMAL_GUN_FLASH;
 
-	m_pPlayer->AddEffectsFlags( EF_MUZZLEFLASH );
+	m_pPlayer->GetEffects() |= EF_MUZZLEFLASH;
 
 	m_flNextAnimTime = UTIL_WeaponTimeBase() + 0.2;
 

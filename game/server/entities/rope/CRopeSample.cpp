@@ -35,7 +35,7 @@ void CRopeSample::Spawn()
 {
 	pev->classname = MAKE_STRING( "rope_sample" );
 
-	AddEffectsFlags( EF_NODRAW );
+	GetEffects() |= EF_NODRAW;
 }
 
 CRopeSample* CRopeSample::CreateSample()

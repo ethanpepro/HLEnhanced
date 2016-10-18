@@ -183,14 +183,14 @@ void CDesertEagle::PrimaryAttack()
 
 	--m_iClip;
 
-	m_pPlayer->AddEffectsFlags( EF_MUZZLEFLASH );
+	m_pPlayer->GetEffects() |= EF_MUZZLEFLASH;
 
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 
 #ifndef CLIENT_DLL
 	if( m_pLaser && m_bLaserActive )
 	{
-		m_pLaser->AddEffectsFlags( EF_NODRAW );
+		m_pLaser->GetEffects() |= EF_NODRAW;
 		m_pLaser->SetThink( &CDesertEagleLaser::Revive );
 		m_pLaser->SetNextThink( gpGlobals->time + 0.6 );
 	}
@@ -269,7 +269,7 @@ void CDesertEagle::Reload()
 #ifndef CLIENT_DLL
 		if( m_pLaser && m_bLaserActive )
 		{
-			m_pLaser->AddEffectsFlags( EF_NODRAW );
+			m_pLaser->GetEffects() |= EF_NODRAW;
 			m_pLaser->SetThink( &CDesertEagleLaser::Revive );
 			m_pLaser->SetNextThink( gpGlobals->time + 1.6 );
 
