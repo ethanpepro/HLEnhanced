@@ -30,8 +30,8 @@ private:
 	typedef std::vector<std::unique_ptr<CWeaponInfo>> InfoList_t;
 
 public:
-	CWeaponInfoCache() = default;
-	~CWeaponInfoCache() = default;
+	CWeaponInfoCache();
+	~CWeaponInfoCache();
 
 	/**
 	*	@return The number of weapons.

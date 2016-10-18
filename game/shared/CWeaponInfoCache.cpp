@@ -16,6 +16,18 @@ CWeaponInfoCache g_WeaponInfoCache;
 
 const char* const CWeaponInfoCache::WEAPON_INFO_DIR = "weapon_info";
 
+CWeaponInfoCache::CWeaponInfoCache()
+{
+	//Set dummy HUD info so missing files don't cause crashes. - Solokiller
+#ifdef CLIENT_DLL
+	m_DefaultInfo.SetHUDInfo( new CWeaponHUDInfo() );
+#endif
+}
+
+CWeaponInfoCache::~CWeaponInfoCache()
+{
+}
+
 const CWeaponInfo* CWeaponInfoCache::FindWeaponInfo( const char* const pszWeaponName ) const
 {
 	ASSERT( pszWeaponName );
