@@ -3,6 +3,7 @@ add_sources(
 	ASGameRules.cpp
 )
 
+add_subdirectory( Entities )
 add_subdirectory( Extensions )
 
 if( USE_AS_SQL )
