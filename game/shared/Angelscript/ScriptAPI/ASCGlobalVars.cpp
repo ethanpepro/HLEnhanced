@@ -6,16 +6,6 @@
 
 #include "ASCGlobalVars.h"
 
-static std::string CGlobalVars_mapname( const globalvars_t* pThis )
-{
-	return STRING( pThis->mapname );
-}
-
-static std::string CGlobalVars_startspot( const globalvars_t* pThis )
-{
-	return STRING( pThis->startspot );
-}
-
 static CBaseEntity* CGlobalVars_trace_ent( const globalvars_t* pThis )
 {
 	//Instance uses the world if it's given a null pointer, so avoid that.
@@ -48,14 +38,13 @@ void RegisterScriptCGlobalVars( asIScriptEngine& engine )
 		pszObjectName, "float force_retouch",
 		asOFFSET( globalvars_t, force_retouch ) );
 
-	//TODO: expose string_t
-	engine.RegisterObjectMethod(
-		pszObjectName, "string get_mapname() const",
-		asFUNCTION( CGlobalVars_mapname ), asCALL_CDECL_OBJFIRST );
+	engine.RegisterObjectProperty(
+		pszObjectName, "const string_t mapname",
+		asOFFSET( globalvars_t, mapname ) );
 
-	engine.RegisterObjectMethod(
-		pszObjectName, "string startspot() const",
-		asFUNCTION( CGlobalVars_startspot ), asCALL_CDECL_OBJFIRST );
+	engine.RegisterObjectProperty(
+		pszObjectName, "const string_t startspot",
+		asOFFSET( globalvars_t, startspot ) );
 
 	engine.RegisterObjectProperty(
 		pszObjectName, "const float deathmatch",

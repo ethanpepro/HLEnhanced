@@ -12,6 +12,7 @@
 #include <Angelscript/ScriptAPI/Reflection/ASReflection.h>
 
 #include "Angelscript/ScriptAPI/ASMath.h"
+#include "Angelscript/ScriptAPI/ASstring_t.h"
 
 #include "Angelscript/ScriptAPI/Entities/ASCBaseEntity.h"
 #include "Angelscript/ScriptAPI/CASEngine.h"
@@ -48,6 +49,7 @@ bool CHLASBaseInitializer::RegisterCoreAPI( CASManager& manager )
 	RegisterScriptReflection( engine );
 
 	RegisterScriptHLMath( engine );
+	RegisterScriptstring_t( engine );
 
 	RegisterScriptEntityDependencies( engine );
 	RegisterScriptCBaseEntity( engine );

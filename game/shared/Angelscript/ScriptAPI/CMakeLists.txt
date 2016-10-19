@@ -5,6 +5,8 @@ add_sources(
 	ASCGlobalVars.cpp
 	ASMath.h
 	ASMath.cpp
+	ASstring_t.h
+	ASstring_t.cpp
 	CASEngine.h
 	CASEngine.cpp
 )
