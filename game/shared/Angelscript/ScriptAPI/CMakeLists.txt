@@ -3,6 +3,8 @@ add_sources(
 	ASCEntBitSet.cpp
 	ASCGlobalVars.h
 	ASCGlobalVars.cpp
+	ASMath.h
+	ASMath.cpp
 	CASEngine.h
 	CASEngine.cpp
 )
