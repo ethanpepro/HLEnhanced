@@ -40,15 +40,6 @@ void CASPluginManager::WorldCreated()
 
 		LoadPluginsFile( "default_plugins.txt" );
 	}
-
-	//Initialize all plugins for this map.
-	for( auto pPlugin : m_PluginList )
-	{
-		if( auto pFunction = pPlugin->GetModule()->GetFunctionByDecl( "void MapInit()" ) )
-		{
-			as::Call( pFunction );
-		}
-	}
 }
 
 void CASPluginManager::Think()

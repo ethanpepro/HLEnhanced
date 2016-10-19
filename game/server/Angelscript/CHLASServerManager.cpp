@@ -123,28 +123,38 @@ void CHLASServerManager::WorldCreated( const char* const pszMapScriptFileName )
 
 	m_pModule = m_Manager.GetModuleManager().BuildModule( "MapScript", "MapModule", builder );
 
-	if( m_pModule )
-	{
-		//Call MapInit if it exists.
-		if( auto pFunction = m_pModule->GetModule()->GetFunctionByDecl( "void MapInit()" ) )
-		{
-			as::Call( pFunction );
-		}
-	}
-	else
+	if( !m_pModule )
 	{
 		ALERT( at_console, "Failed to create map script\n" );
 	}
 
 	m_PluginManager.WorldCreated();
+
+	//Must be done after the plugin manager has done its thing so plugins are loaded.
+	for( size_t uiIndex = 0; uiIndex < m_Manager.GetModuleManager().GetModuleCount(); ++uiIndex )
+	{
+		auto pModule = m_Manager.GetModuleManager().FindModuleByIndex( uiIndex );
+
+		ASSERT( pModule );
+
+		//Call MapInit if it exists.
+		if( auto pFunction = pModule->GetModule()->GetFunctionByDecl( "void MapInit()" ) )
+		{
+			as::Call( pFunction );
+		}
+	}
 }
 
 void CHLASServerManager::WorldActivated()
 {
-	if( m_pModule )
+	for( size_t uiIndex = 0; uiIndex < m_Manager.GetModuleManager().GetModuleCount(); ++uiIndex )
 	{
+		auto pModule = m_Manager.GetModuleManager().FindModuleByIndex( uiIndex );
+
+		ASSERT( pModule );
+
 		//Call MapActivate if it exists.
-		if( auto pFunction = m_pModule->GetModule()->GetFunctionByDecl( "void MapActivate()" ) )
+		if( auto pFunction = pModule->GetModule()->GetFunctionByDecl( "void MapActivate()" ) )
 		{
 			as::Call( pFunction );
 		}
@@ -153,14 +163,21 @@ void CHLASServerManager::WorldActivated()
 
 void CHLASServerManager::WorldEnded()
 {
-	if( m_pModule )
+	for( size_t uiIndex = 0; uiIndex < m_Manager.GetModuleManager().GetModuleCount(); ++uiIndex )
 	{
+		auto pModule = m_Manager.GetModuleManager().FindModuleByIndex( uiIndex );
+
+		ASSERT( pModule );
+
 		//Call MapShutdown if it exists.
-		if( auto pFunction = m_pModule->GetModule()->GetFunctionByDecl( "void MapShutdown()" ) )
+		if( auto pFunction = pModule->GetModule()->GetFunctionByDecl( "void MapShutdown()" ) )
 		{
 			as::Call( pFunction );
 		}
+	}
 
+	if( m_pModule )
+	{
 		m_Manager.GetModuleManager().RemoveModule( m_pModule );
 		m_pModule = nullptr;
 	}
