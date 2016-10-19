@@ -77,13 +77,17 @@ void RegisterScriptCGlobalVars( asIScriptEngine& engine )
 		pszObjectName, "float found_secrets",
 		asOFFSET( globalvars_t, found_secrets ) );
 
-	//TODO: register Vector
+	engine.RegisterObjectProperty(
+		pszObjectName, "const Vector v_forward",
+		asOFFSET( globalvars_t, v_forward ) );
 
-	/*
-	Vector		v_forward;
-	Vector		v_up;
-	Vector		v_right;
-	*/
+	engine.RegisterObjectProperty(
+		pszObjectName, "const Vector v_up",
+		asOFFSET( globalvars_t, v_up ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "const Vector v_right",
+		asOFFSET( globalvars_t, v_right ) );
 
 	engine.RegisterObjectProperty(
 		pszObjectName, "const float trace_allsolid",
@@ -97,10 +101,13 @@ void RegisterScriptCGlobalVars( asIScriptEngine& engine )
 		pszObjectName, "const float trace_fraction",
 		asOFFSET( globalvars_t, trace_fraction ) );
 
-	/*
-	Vector		trace_endpos;
-	Vector		trace_plane_normal;
-	*/
+	engine.RegisterObjectProperty(
+		pszObjectName, "const Vector trace_endpos",
+		asOFFSET( globalvars_t, trace_endpos ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "const Vector trace_plane_normal",
+		asOFFSET( globalvars_t, trace_plane_normal ) );
 
 	engine.RegisterObjectProperty(
 		pszObjectName, "const float trace_plane_dist",
@@ -145,7 +152,10 @@ void RegisterScriptCGlobalVars( asIScriptEngine& engine )
 
 	//TODO: allow access to save data? is it ever even set?
 	//void		*pSaveData;
-	//Vector		vecLandmarkOffset;
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "const Vector vecLandmarkOffset",
+		asOFFSET( globalvars_t, vecLandmarkOffset ) );
 
 	engine.RegisterGlobalProperty( AS_CGLOBALVARS_CLASSNAME " Globals", gpGlobals );
 }
