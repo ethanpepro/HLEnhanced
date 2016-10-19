@@ -51,6 +51,8 @@ CBaseEntity
 
 #include "CTakeDamageInfo.h"
 
+#undef GetMessage
+
 using CEntBitSet = CBitSet<int>;
 
 //
