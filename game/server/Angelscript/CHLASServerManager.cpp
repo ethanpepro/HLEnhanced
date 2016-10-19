@@ -11,6 +11,8 @@
 #include <Angelscript/ScriptAPI/SQL/CASSQLThreadPool.h>
 #endif
 
+#include <Angelscript/ScriptAPI/CASScheduler.h>
+
 #include "Angelscript/HLASConstants.h"
 
 #include "Angelscript/CHLASServerInitializer.h"
@@ -25,6 +27,11 @@
 
 CHLASServerManager g_ASManager;
 
+CHLASServerManager::CHLASServerManager()
+	: m_PluginManager( *this )
+{
+}
+
 bool CHLASServerManager::Initialize()
 {
 	CHLASServerInitializer initializer( *this );
@@ -38,6 +45,14 @@ bool CHLASServerManager::Initialize()
 	if( !descriptor.first )
 	{
 		ALERT( at_console, "Failed to add MapScript module type\n" );
+		return false;
+	}
+
+	descriptor = m_Manager.GetModuleManager().AddDescriptor( "HotReloadablePlugin", ModuleAccessMask::PLUGIN, as::ModulePriority::HIGHEST - 1 );
+
+	if( !descriptor.first )
+	{
+		ALERT( at_console, "Failed to add HotReloadablePlugin module type\n" );
 		return false;
 	}
 
@@ -65,6 +80,13 @@ void CHLASServerManager::Think()
 	CASOwningContext ctx( *m_Manager.GetEngine() );
 	g_pSQLThreadPool->ProcessQueue( *ctx.GetContext() );
 #endif
+
+	if( m_pModule )
+	{
+		m_pModule->GetScheduler()->Think( gpGlobals->time );
+	}
+
+	m_PluginManager.Think();
 }
 
 CGameRules* CHLASServerManager::CreateGameRules()
@@ -113,6 +135,8 @@ void CHLASServerManager::WorldCreated( const char* const pszMapScriptFileName )
 	{
 		ALERT( at_console, "Failed to create map script\n" );
 	}
+
+	m_PluginManager.WorldCreated();
 }
 
 void CHLASServerManager::WorldActivated()

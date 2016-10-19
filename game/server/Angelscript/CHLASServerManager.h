@@ -3,6 +3,8 @@
 
 #include "Angelscript/CHLASManager.h"
 
+#include "CASPluginManager.h"
+
 class CASModule;
 class CGameRules;
 
@@ -12,6 +14,11 @@ class CGameRules;
 class CHLASServerManager final : public CHLASManager
 {
 public:
+	CHLASServerManager();
+
+	CASManager& GetASManager() { return m_Manager; }
+
+	CASPluginManager& GetPluginManager() { return m_PluginManager; }
 
 	bool Initialize() override;
 
@@ -45,6 +52,8 @@ public:
 	void WorldEnded();
 
 private:
+	CASPluginManager m_PluginManager;
+
 	CASModule* m_pModule = nullptr;
 };
 
