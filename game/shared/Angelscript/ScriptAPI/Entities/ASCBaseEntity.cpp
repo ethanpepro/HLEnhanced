@@ -188,7 +188,7 @@ std::string CBaseEntity_GetGlobalName( const CBaseEntity* pThis )
 
 void CBaseEntity_SetGlobalName( CBaseEntity* pThis, const std::string& szGlobalName )
 {
-	pThis->SetGlobalName( szGlobalName.c_str() );
+	pThis->SetGlobalName( ALLOC_STRING( szGlobalName.c_str() ) );
 }
 
 std::string CBaseEntity_GetTargetname( const CBaseEntity* pThis )
@@ -198,7 +198,7 @@ std::string CBaseEntity_GetTargetname( const CBaseEntity* pThis )
 
 void CBaseEntity_SetTargetname( CBaseEntity* pThis, const std::string& szTargetname )
 {
-	pThis->SetTargetname( szTargetname.c_str() );
+	pThis->SetTargetname( ALLOC_STRING( szTargetname.c_str() ) );
 }
 
 std::string CBaseEntity_GetTarget( const CBaseEntity* pThis )
@@ -208,7 +208,7 @@ std::string CBaseEntity_GetTarget( const CBaseEntity* pThis )
 
 void CBaseEntity_SetTarget( CBaseEntity* pThis, const std::string& szTarget )
 {
-	pThis->SetTarget( szTarget.c_str() );
+	pThis->SetTarget( ALLOC_STRING( szTarget.c_str() ) );
 }
 
 std::string CBaseEntity_GetNetName( const CBaseEntity* pThis )
@@ -218,5 +218,35 @@ std::string CBaseEntity_GetNetName( const CBaseEntity* pThis )
 
 void CBaseEntity_SetNetName( CBaseEntity* pThis, const std::string& szNetName )
 {
-	pThis->SetNetName( szNetName.c_str() );
+	pThis->SetNetName( ALLOC_STRING( szNetName.c_str() ) );
+}
+
+std::string CBaseEntity_GetModelName( const CBaseEntity* pThis )
+{
+	return pThis->GetModelName();
+}
+
+void CBaseEntity_SetModel( CBaseEntity* pThis, const std::string& szModelName )
+{
+	pThis->SetModel( ALLOC_STRING( szModelName.c_str() ) );
+}
+
+std::string CBaseEntity_GetViewModelName( const CBaseEntity* pThis )
+{
+	return pThis->GetViewModelName();
+}
+
+void CBaseEntity_SetViewModelName( CBaseEntity* pThis, const std::string& szViewModelName )
+{
+	pThis->SetViewModelName( ALLOC_STRING( szViewModelName.c_str() ) );
+}
+
+std::string CBaseEntity_GetWeaponModelName( const CBaseEntity* pThis )
+{
+	return pThis->GetWeaponModelName();
+}
+
+void CBaseEntity_SetWeaponModelName( CBaseEntity* pThis, const std::string& szWeaponModelName )
+{
+	pThis->SetWeaponModelName( ALLOC_STRING( szWeaponModelName.c_str() ) );
 }

@@ -54,6 +54,18 @@ std::string CBaseEntity_GetNetName( const CBaseEntity* pThis );
 
 void CBaseEntity_SetNetName( CBaseEntity* pThis, const std::string& szNetName );
 
+std::string CBaseEntity_GetModelName( const CBaseEntity* pThis );
+
+void CBaseEntity_SetModel( CBaseEntity* pThis, const std::string& szModelName );
+
+std::string CBaseEntity_GetViewModelName( const CBaseEntity* pThis );
+
+void CBaseEntity_SetViewModelName( CBaseEntity* pThis, const std::string& szViewModelName );
+
+std::string CBaseEntity_GetWeaponModelName( const CBaseEntity* pThis );
+
+void CBaseEntity_SetWeaponModelName( CBaseEntity* pThis, const std::string& szWeaponModelName );
+
 /**
 *	Registers CBaseEntity methods and properties.
 *	Uses templates to avoid virtual function calls in scripts whenever possible.
@@ -267,6 +279,104 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	engine.RegisterObjectMethod(
 		pszObjectName, "void SetYawSpeed(const float flYawSpeed)",
 		asMETHOD( CLASS, SetYawSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetModelIndex() const",
+		asMETHOD( CLASS, GetModelIndex ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetModelIndex(const int iModelIndex)",
+		asMETHOD( CLASS, SetModelIndex ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasModel() const",
+		asMETHOD( CLASS, HasModel ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetModelName() const",
+		asMETHOD( CLASS, GetModelName ), asCALL_THISCALL );
+
+	//Not exposed: SetModelName. The engine handles it, if it's needed add a special handler for it. - Solokiller
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetModel(const string& in szModelName)",
+		asFUNCTION( CBaseEntity_SetModel ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearModel()",
+		asMETHOD( CLASS, ClearModel ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetViewModelName() const",
+		asFUNCTION( CBaseEntity_GetViewModelName ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetViewModelName(const string& in szViewModelName)",
+		asFUNCTION( CBaseEntity_SetViewModelName ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearViewModelName()",
+		asMETHOD( CLASS, ClearViewModelName ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetWeaponModelName() const",
+		asFUNCTION( CBaseEntity_GetWeaponModelName ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetWeaponModelName(const string& in szWeaponModelName)",
+		asFUNCTION( CBaseEntity_SetWeaponModelName ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearWeaponModelName()",
+		asMETHOD( CLASS, ClearWeaponModelName ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetWeaponAnim() const",
+		asMETHOD( CLASS, GetWeaponAnim ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetWeaponAnim(const int iWeaponAnim)",
+		asMETHOD( CLASS, SetWeaponAnim ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsDucking() const",
+		asMETHOD( CLASS, IsDucking ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetDucking(const bool bDucking)",
+		asMETHOD( CLASS, SetDucking ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetStepSoundTime() const",
+		asMETHOD( CLASS, GetStepSoundTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetStepSoundTime(const int iTime)",
+		asMETHOD( CLASS, SetStepSoundTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetSwimSoundTime() const",
+		asMETHOD( CLASS, GetSwimSoundTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetSwimSoundTime(const int iTime)",
+		asMETHOD( CLASS, SetSwimSoundTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetDuckSoundTime() const",
+		asMETHOD( CLASS, GetDuckSoundTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetDuckSoundTime(const int iTime)",
+		asMETHOD( CLASS, SetDuckSoundTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsStepLeft() const",
+		asMETHOD( CLASS, IsStepLeft ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetStepLeft(const bool bStepLeft)",
+		asMETHOD( CLASS, SetStepLeft ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",
