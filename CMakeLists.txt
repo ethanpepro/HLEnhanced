@@ -203,6 +203,7 @@ endif()
 #Shared preprocessor definitions
 set( SHARED_DEFS 
 	_CRT_SECURE_NO_WARNINGS
+	_SCL_SECURE_NO_WARNINGS
 )
 
 #Define LINUX so code can check for it
@@ -228,13 +229,17 @@ set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
 
 set( SHARED_INCLUDE_PATHS
 	${INCLUDE_PATHS}
+	${CMAKE_SOURCE_DIR}
 )
 
+#keyvalues and utility are temporary until the code between these repositories can be shared. - Solokiller
 add_subdirectory( common )
 add_subdirectory( game/shared )
+add_subdirectory( keyvalues )
 add_subdirectory( pm_shared )
 add_subdirectory( public )
 add_subdirectory( shared/engine )
+add_subdirectory( utility )
 
 #Save the shares sources into SHARED_SRCS
 get_property(SHARED_SRCS GLOBAL PROPERTY SRCS_LIST)

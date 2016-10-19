@@ -9,6 +9,14 @@
 #include "Platform.h"
 
 /**
+*	Checks if a printf operation was successful
+*/
+inline bool PrintfSuccess( const int iRet, const size_t uiBufferSize )
+{
+	return iRet >= 0 && static_cast<size_t>( iRet ) < uiBufferSize;
+}
+
+/**
 *	String hashing function
 *	Ripped from the MSVC std::hash<std::string> implementation
 */
