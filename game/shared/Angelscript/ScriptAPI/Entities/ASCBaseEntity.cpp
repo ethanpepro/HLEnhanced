@@ -428,9 +428,130 @@ static void RegisterScriptCTakeDamageInfo( asIScriptEngine& engine )
 		asMETHOD( CTakeDamageInfo, SetDamageTypes ), asCALL_THISCALL );
 }
 
+static void ConstructTraceResult( TraceResult* pMemory )
+{
+	new( pMemory ) TraceResult;
+
+	memset( pMemory, 0, sizeof( TraceResult ) );
+}
+
+static void CopyConstructTraceResult( TraceResult* pMemory, const TraceResult& tr )
+{
+	new( pMemory ) TraceResult( tr );
+}
+
+static void DestructTraceResult( TraceResult* pMemory )
+{
+	//Nothing.
+}
+
+static TraceResult& TraceResult_Assign( const TraceResult& tr, TraceResult* pTr )
+{
+	*pTr = tr;
+
+	return *pTr;
+}
+
+static CBaseEntity* TraceResult_get_pHit( const TraceResult* pThis )
+{
+	if( pThis->pHit )
+		return CBaseEntity::Instance( pThis->pHit );
+
+	return nullptr;
+}
+
+static void TraceResult_set_pHit( TraceResult* pThis, CBaseEntity* pEntity )
+{
+	pThis->pHit = pEntity ? pEntity->edict() : nullptr;
+}
+
+/**
+*	Registers TraceResult.
+*	@param engine Script engine.
+*/
+void RegisterScriptTraceResult( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "TraceResult";
+
+	engine.RegisterObjectType( pszObjectName, 
+		sizeof( TraceResult ), asOBJ_VALUE | asOBJ_APP_CLASS_CDAK );
+
+	engine.RegisterObjectBehaviour(
+		pszObjectName, asBEHAVE_CONSTRUCT, "void TraceResult()",
+		asFUNCTION( ConstructTraceResult ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectBehaviour(
+		pszObjectName, asBEHAVE_CONSTRUCT, "void TraceResult(const TraceResult& in tr)",
+		asFUNCTION( CopyConstructTraceResult ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectBehaviour(
+		pszObjectName, asBEHAVE_DESTRUCT, "void TraceResult()",
+		asFUNCTION( DestructTraceResult ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "TraceResult& opAssign(const TraceResult& in tr)", 
+		asFUNCTION( TraceResult_Assign ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "int fAllSolid", 
+		asOFFSET( TraceResult, fAllSolid ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "int fStartSolid", 
+		asOFFSET( TraceResult, fStartSolid ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "int fInOpen", 
+		asOFFSET( TraceResult, fInOpen ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "int fInWater", 
+		asOFFSET( TraceResult, fInWater ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "float flFraction", 
+		asOFFSET( TraceResult, flFraction ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "Vector vecEndPos", 
+		asOFFSET( TraceResult, vecEndPos ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "float flPlaneDist", 
+		asOFFSET( TraceResult, flPlaneDist ) );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "Vector vecPlaneNormal",
+		asOFFSET( TraceResult, vecPlaneNormal ) );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ get_pHit() const",
+		asFUNCTION( TraceResult_get_pHit ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void set_pHit(CBaseEntity@ pEntity)",
+		asFUNCTION( TraceResult_set_pHit ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectProperty(
+		pszObjectName, "int iHitgroup", 
+		asOFFSET( TraceResult, iHitgroup ) );
+}
+
+static void RegisterScriptGibAction( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "GibAction";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "GIB_NORMAL", GIB_NORMAL );
+	engine.RegisterEnumValue( pszObjectName, "GIB_NEVER", GIB_NEVER );
+	engine.RegisterEnumValue( pszObjectName, "GIB_ALWAYS", GIB_ALWAYS );
+}
+
 static const char* const g_pszEntities[] = 
 {
-	AS_CBASEENTITY_NAME
+	AS_CBASEENTITY_NAME,
+	"CBaseMonster",		//TODO: register fully elsewhere - Solokiller
 };
 
 void RegisterScriptEntityDependencies( asIScriptEngine& engine )
@@ -456,6 +577,10 @@ void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 	RegisterScriptClassification( engine );
 	RegisterScriptBloodColor( engine );
 	RegisterScriptCTakeDamageInfo( engine );
+	RegisterScriptTraceResult( engine );
+	RegisterScriptGibAction( engine );
+
+	//TODO: DMG_* flags - Solokiller
 
 	RegisterScriptCEntBitSet( engine );
 }
@@ -548,4 +673,14 @@ std::string CBaseEntity_GetMessage( const CBaseEntity* pThis )
 void CBaseEntity_SetMessage( CBaseEntity* pThis, const std::string& szMessage )
 {
 	pThis->SetMessage( ALLOC_STRING( szMessage.c_str() ) );
+}
+
+bool CBaseEntity_HasTarget( const CBaseEntity* pThis, const std::string& szTarget )
+{
+	return pThis->HasTarget( szTarget.c_str() );
+}
+
+std::string CBaseEntity_TeamID( const CBaseEntity* pThis )
+{
+	return pThis->TeamID();
 }

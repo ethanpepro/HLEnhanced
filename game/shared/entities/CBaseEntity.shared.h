@@ -2148,7 +2148,7 @@ public:
 	*	@param flSize Amount to shrink the target's bounding box in all axes.
 	*	@return true if the target is visible, false otherwise.
 	*/
-	bool FBoxVisible( CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize = 0.0 ) const;
+	bool FBoxVisible( const CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize = 0.0 ) const;
 };
 
 // Ugly technique to override base member functions

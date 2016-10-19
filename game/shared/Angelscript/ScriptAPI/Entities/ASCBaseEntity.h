@@ -70,6 +70,10 @@ std::string CBaseEntity_GetMessage( const CBaseEntity* pThis );
 
 void CBaseEntity_SetMessage( CBaseEntity* pThis, const std::string& szMessage );
 
+bool CBaseEntity_HasTarget( const CBaseEntity* pThis, const std::string& szTarget );
+
+std::string CBaseEntity_TeamID( const CBaseEntity* pThis );
+
 /**
 *	Registers CBaseEntity methods and properties.
 *	Uses templates to avoid virtual function calls in scripts whenever possible.
@@ -896,6 +900,187 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	engine.RegisterObjectMethod(
 		pszObjectName, "int BloodColor() const",
 		asMETHOD( CLASS, BloodColor ), asCALL_THISCALL );
+
+	//Pointers and references are equivalent, so we don't need to update CBaseEntity's methods just yet. - Solokiller
+	engine.RegisterObjectMethod(
+		pszObjectName, "void TraceAttack(const CTakeDamageInfo& in info, Vector vecDir, TraceResult& in tr)",
+		asMETHOD( CLASS, TraceAttack ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void TraceBleed(const CTakeDamageInfo& in info, Vector vecDir, TraceResult& in tr)",
+		asMETHOD( CLASS, TraceBleed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void TakeDamage(const CTakeDamageInfo& in info)",
+		asMETHODPR( CLASS, TakeDamage, ( const CTakeDamageInfo& ), void ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void TakeDamage(CBaseEntity@ pInflictor, CBaseEntity@ pAttacker, float flDamage, int bitsDamageType)",
+		asMETHODPR( CLASS, TakeDamage, ( CBaseEntity*, CBaseEntity*, float, int ), void ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Killed(const CTakeDamageInfo& in info, GibAction gibAction)",
+		asMETHOD( CLASS, Killed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GiveHealth(float flHealth, int bitsDamageType)",
+		asMETHOD( CLASS, GiveHealth ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsTriggered(const CBaseEntity@ pActivator) const",
+		asMETHOD( CLASS, IsTriggered ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseMonster@ MyMonsterPointer()",
+		asMETHOD( CLASS, MyMonsterPointer ), asCALL_THISCALL );
+
+	//TODO: MySquadMonsterPointer probably won't exist for much longer so don't expose it. - Solokiller
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsMoving() const",
+		asMETHOD( CLASS, IsMoving ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void OverrideReset()",
+		asMETHOD( CLASS, OverrideReset ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int DamageDecal(int bitsDamageType) const",
+		asMETHOD( CLASS, DamageDecal ), asCALL_THISCALL );
+
+	//TODO: OnControls may be replaced with a better way so don't expose it. - Solokiller
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsAlive() const",
+		asMETHOD( CLASS, IsAlive ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsBSPModel() const",
+		asMETHOD( CLASS, IsBSPModel ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool ReflectGauss() const",
+		asMETHOD( CLASS, ReflectGauss ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasTarget(const string& in szTarget) const",
+		asFUNCTION( CBaseEntity_HasTarget ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsInWorld() const",
+		asMETHOD( CLASS, IsInWorld ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsPlayer() const",
+		asMETHOD( CLASS, IsPlayer ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsNetClient() const",
+		asMETHOD( CLASS, IsNetClient ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ GetNextTarget()",
+		asMETHOD( CLASS, GetNextTarget ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SUB_Remove()",
+		asMETHOD( CLASS, SUB_Remove ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SUB_DoNothing()",
+		asMETHOD( CLASS, SUB_DoNothing ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SUB_StartFadeOut()",
+		asMETHOD( CLASS, SUB_StartFadeOut ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SUB_FadeOut()",
+		asMETHOD( CLASS, SUB_FadeOut ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SUB_CallUseToggle()",
+		asMETHOD( CLASS, SUB_CallUseToggle ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool ShouldToggle(USE_TYPE useType, const bool bCurrentState) const",
+		asMETHOD( CLASS, ShouldToggle ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void FireBullets("
+		"const uint uiShots,"
+		"Vector vecSrc, Vector vecDirShooting, Vector vecSpread,"
+		"float flDistance, int iBulletType,"
+		"int iTracerFreq = 4, int iDamage = 0, CBaseEntity@ pAttacker = null)",
+		asMETHOD( CLASS, FireBullets ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void FireBulletsPlayer("
+		"const uint uiShots,"
+		"Vector vecSrc, Vector vecDirShooting, Vector vecSpread,"
+		"float flDistance, int iBulletType,"
+		"int iTracerFreq = 4, int iDamage = 0, CBaseEntity@ pAttacker = null, int shared_rand = 0)",
+		asMETHOD( CLASS, FireBulletsPlayer ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SUB_UseTargets(CBaseEntity@ pActivator, USE_TYPE useType, float flValue)",
+		asMETHOD( CLASS, SUB_UseTargets ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool Intersects(CBaseEntity@ pOther) const",
+		asMETHOD( CLASS, Intersects ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void MakeDormant()",
+		asMETHOD( CLASS, MakeDormant ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsDormant() const",
+		asMETHOD( CLASS, IsDormant ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsLockedByMaster() const",
+		asMETHOD( CLASS, IsLockedByMaster ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void DeathNotice(CBaseEntity@ pChild)",
+		asMETHOD( CLASS, DeathNotice ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool BarnacleVictimGrabbed(CBaseEntity@ pBarnacle)",
+		asMETHOD( CLASS, BarnacleVictimGrabbed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector Center() const",
+		asMETHOD( CLASS, Center ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector EyePosition() const",
+		asMETHOD( CLASS, EyePosition ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector EarPosition() const",
+		asMETHOD( CLASS, EarPosition ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector BodyTarget(const Vector& in vecPosSrc) const",
+		asMETHOD( CLASS, Center ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int Illumination() const",
+		asMETHOD( CLASS, Illumination ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool FVisible(const CBaseEntity@ pEntity) const",
+		asMETHODPR( CLASS, FVisible, ( const CBaseEntity* ) const, bool ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool FVisible(const Vector& in vecOrigin) const",
+		asMETHODPR( CLASS, FVisible, ( const Vector& ) const, bool ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool FBoxVisible(const CBaseEntity@ pTarget, Vector& out vecTargetOrigin, float flSize = 0.0f) const",
+		asMETHOD( CLASS, FBoxVisible ), asCALL_THISCALL );
 }
 
 inline void RegisterScriptCBaseEntity( asIScriptEngine& engine )

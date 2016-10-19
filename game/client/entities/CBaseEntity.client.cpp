@@ -126,6 +126,10 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 	return Vector( x * vecSpread.x, y * vecSpread.y, 0.0 );
 }
 
+void CBaseEntity::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, float value )
+{
+}
+
 bool CBaseEntity::Intersects( const CBaseEntity* const pOther ) const
 {
 	return false;
@@ -146,6 +150,11 @@ bool CBaseEntity::FVisible( const CBaseEntity *pEntity ) const
 }
 
 bool CBaseEntity::FVisible( const Vector &vecOrigin ) const
+{
+	return false;
+}
+
+bool CBaseEntity::FBoxVisible( const CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize ) const
 {
 	return false;
 }

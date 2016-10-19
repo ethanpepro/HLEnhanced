@@ -439,7 +439,7 @@ bool CBaseEntity::FVisible( const Vector &vecOrigin ) const
 	}
 }
 
-bool CBaseEntity::FBoxVisible( CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize ) const
+bool CBaseEntity::FBoxVisible( const CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize ) const
 {
 	// don't look through water
 	if( ( GetWaterLevel() != WATERLEVEL_HEAD && pTarget->GetWaterLevel() == WATERLEVEL_HEAD )
