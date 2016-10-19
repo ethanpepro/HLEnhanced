@@ -332,8 +332,115 @@ static void RegisterScriptBloodColor( asIScriptEngine& engine )
 	engine.RegisterEnumValue( pszObjectName, "BLOOD_COLOR_GREEN", BLOOD_COLOR_GREEN );
 }
 
+static void DefaultConstructCTakeDamageInfo( CTakeDamageInfo* pMemory )
+{
+	new( pMemory ) CTakeDamageInfo();
+}
+
+static void CopyConstructCTakeDamageInfo( CTakeDamageInfo* pMemory, const CTakeDamageInfo& other )
+{
+	new( pMemory ) CTakeDamageInfo( other );
+}
+
+static void CompleteConstructCTakeDamageInfo( CTakeDamageInfo* pMemory, CBaseEntity* pInflictor, CBaseEntity* pAttacker, const float flDamage, const int iBitsDamageTypes )
+{
+	new( pMemory ) CTakeDamageInfo( pInflictor, pAttacker, flDamage, iBitsDamageTypes );
+}
+
+static void SimpleConstructCTakeDamageInfo( CTakeDamageInfo* pMemory, CBaseEntity* pAttacker, const float flDamage, const int iBitsDamageTypes )
+{
+	new( pMemory ) CTakeDamageInfo( pAttacker, flDamage, iBitsDamageTypes );
+}
+
+static void DestructCTakeDamageInfo( CTakeDamageInfo* pMemory )
+{
+	pMemory->~CTakeDamageInfo();
+}
+
+/**
+*	Registers CTakeDamageInfo.
+*	@param engine Script engine.
+*/
+static void RegisterScriptCTakeDamageInfo( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "CTakeDamageInfo";
+
+	engine.RegisterObjectType( pszObjectName, sizeof( CTakeDamageInfo ), asOBJ_VALUE | asOBJ_APP_CLASS_CDAK );
+
+	engine.RegisterObjectBehaviour(
+		pszObjectName, asBEHAVE_CONSTRUCT, "void CTakeDamageInfo()",
+		asFUNCTION( DefaultConstructCTakeDamageInfo ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectBehaviour(
+		pszObjectName, asBEHAVE_CONSTRUCT, "void CTakeDamageInfo(const CTakeDamageInfo& in other)",
+		asFUNCTION( CopyConstructCTakeDamageInfo ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectBehaviour(
+		pszObjectName, asBEHAVE_CONSTRUCT, "void CTakeDamageInfo(CBaseEntity@ pInflictor, CBaseEntity@ pAttacker, const float flDamage, const int iBitsDamageTypes)",
+		asFUNCTION( CompleteConstructCTakeDamageInfo ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectBehaviour(
+		pszObjectName, asBEHAVE_CONSTRUCT, "void CTakeDamageInfo(CBaseEntity@ pAttacker, const float flDamage, const int iBitsDamageTypes)",
+		asFUNCTION( SimpleConstructCTakeDamageInfo ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectBehaviour(
+		pszObjectName, asBEHAVE_DESTRUCT, "void CTakeDamageInfo()",
+		asFUNCTION( DestructCTakeDamageInfo ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ GetInflictor() const",
+		asMETHOD( CTakeDamageInfo, GetInflictor ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetInflictor(CBaseEntity@ pInflictor)",
+		asMETHOD( CTakeDamageInfo, SetInflictor ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ GetAttacker() const",
+		asMETHOD( CTakeDamageInfo, GetAttacker ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAttacker(CBaseEntity@ pAttacker)",
+		asMETHOD( CTakeDamageInfo, SetAttacker ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetDamage() const",
+		asMETHOD( CTakeDamageInfo, GetDamage ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float& GetMutableDamage()",
+		asMETHOD( CTakeDamageInfo, GetMutableDamage ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetDamage(const float flDamage)",
+		asMETHOD( CTakeDamageInfo, SetDamage ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetDamageTypes() const",
+		asMETHOD( CTakeDamageInfo, GetDamageTypes ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int& GetMutableDamageTypes()",
+		asMETHOD( CTakeDamageInfo, GetMutableDamageTypes ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetDamageTypes(const int iBitsDamageTypes)",
+		asMETHOD( CTakeDamageInfo, SetDamageTypes ), asCALL_THISCALL );
+}
+
+static const char* const g_pszEntities[] = 
+{
+	AS_CBASEENTITY_NAME
+};
+
 void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 {
+	//Forward declare all entity types for use in the API.
+	for( auto pszName : g_pszEntities )
+	{
+		engine.RegisterObjectType( pszName, 0, asOBJ_REF | asOBJ_NOCOUNT );
+	}
+
 	RegisterScriptFixAngleMode( engine );
 	RegisterScriptMoveType( engine );
 	RegisterScriptSolid( engine );
@@ -348,6 +455,8 @@ void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 	RegisterScriptUSE_TYPE( engine );
 	RegisterScriptClassification( engine );
 	RegisterScriptBloodColor( engine );
+	RegisterScriptCTakeDamageInfo( engine );
+
 	RegisterScriptCEntBitSet( engine );
 }
 

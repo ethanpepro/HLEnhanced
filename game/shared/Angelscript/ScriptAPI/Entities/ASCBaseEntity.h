@@ -78,8 +78,6 @@ void CBaseEntity_SetMessage( CBaseEntity* pThis, const std::string& szMessage );
 template<typename CLASS>
 inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* const pszObjectName )
 {
-	engine.RegisterObjectType( pszObjectName, 0, asOBJ_REF | asOBJ_NOCOUNT );
-
 	engine.RegisterObjectProperty(
 		pszObjectName, "CBaseEntity@ m_pGoalEnt",
 		asOFFSET( CLASS, m_pGoalEnt ) );
@@ -869,6 +867,10 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	engine.RegisterObjectMethod(
 		pszObjectName, "CBaseEntity@ Respawn()",
 		asMETHOD( CLASS, Respawn ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int entindex() const",
+		asMETHOD( CLASS, entindex ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void Think()",
