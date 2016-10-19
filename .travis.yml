@@ -6,8 +6,8 @@ language: c
 sudo: required
 dist: trusty
 
-# Linux - add the Ubuntu restricted tool chain to install GCC 5 and 6, also to
-# install the development package for SDL2
+# Linux - add the Ubuntu restricted tool chain to install GCC 6 and SDL2's dev
+# package
 addons:
   apt:
     sources:
@@ -15,8 +15,6 @@ addons:
     packages:
     - libsdl2-dev
     - linux-libc-dev
-    - gcc-5-multilib
-    - g++-5-multilib
     - gcc-6-multilib
     - g++-6-multilib
 
@@ -25,22 +23,6 @@ matrix:
     # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
     - os: osx
   include:
-    # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 5
-    # Everything disabled
-    - os: linux
-      env: COMPILER=gcc-5 BUILD_RULES="-DUSE_OPFOR=0 -DUSE_ANGELSCRIPT=0 -DUSE_AS_SQL=0"
-    # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 5
-    # Opposing Force
-    - os: linux
-      env: COMPILER=gcc-5 BUILD_RULES="-DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=0 -DUSE_AS_SQL=0"
-    # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 5
-    # Opposing Force + AngelScript
-    - os: linux
-      env: COMPILER=gcc-5 BUILD_RULES="-DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=0"
-    # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 5
-    # Opposing Force + AngelScript + MariaDB
-    - os: linux
-      env: COMPILER=gcc-5 BUILD_RULES="-DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=1 -DUSE_AS_SQL=1 -DMARIADB=${TRAVIS_BUILD_DIR}/external/MariaDB/lib/libmariadb.so.2 -DSQLITE3=${TRAVIS_BUILD_DIR}/external/SQLite/lib/libsqlite3.so"
     # Ubuntu 14.04 Trusty Tahr amd64 (Linux) GCC 6
     # Everything disabled
     - os: linux
@@ -104,9 +86,7 @@ before_script:
 script:
   # Just execute the cmake and make commands
   - |
-    if [[ "${COMPILER}" == "gcc-5" ]]; then
-      cmake -DCMAKE_CXX_COMPILER="g++-5" -DCMAKE_C_COMPILER="gcc-5" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so ${BUILD_RULES} ..
-    elif [[ "${COMPILER}" == "gcc-6" ]]; then
+    if [[ "${COMPILER}" == "gcc-6" ]]; then
       cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so ${BUILD_RULES} ..
     else
       cmake -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.0.dylib -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.dylib ${BUILD_RULES} ..
