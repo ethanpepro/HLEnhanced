@@ -7,6 +7,21 @@
 #include "ASCBaseEntity.h"
 
 /**
+*	Registers FixAngleMode.
+*	@param engine Script engine.
+*/
+static void RegisterScriptFixAngleMode( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "FixAngleMode";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "FIXANGLE_NO", FIXANGLE_NO );
+	engine.RegisterEnumValue( pszObjectName, "FIXANGLE_SET", FIXANGLE_SET );
+	engine.RegisterEnumValue( pszObjectName, "FIXANGLE_ADD_AVEL", FIXANGLE_ADD_AVEL );
+}
+
+/**
 *	Class name for KeyValueData in scripts.
 */
 #define AS_KEYVALUEDATA_NAME "KeyValueData"
@@ -147,6 +162,7 @@ static void RegisterScriptBloodColor( asIScriptEngine& engine )
 
 void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 {
+	RegisterScriptFixAngleMode( engine );
 	RegisterScriptKeyValueData( engine );
 	RegisterScriptFCapability( engine );
 	RegisterScriptUSE_TYPE( engine );

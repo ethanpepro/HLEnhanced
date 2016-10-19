@@ -145,6 +145,130 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, ClearNetName ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetAbsOrigin() const",
+		asMETHOD( CLASS, GetAbsOrigin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAbsOrigin(const Vector& in vecOrigin)",
+		asMETHOD( CLASS, SetAbsOrigin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetOldOrigin() const",
+		asMETHOD( CLASS, GetOldOrigin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetOldOrigin(const Vector& in vecOrigin)",
+		asMETHOD( CLASS, SetOldOrigin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetAbsVelocity() const",
+		asMETHOD( CLASS, GetAbsVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAbsVelocity(const Vector& in vecVelocity)",
+		asMETHOD( CLASS, SetAbsVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetBaseVelocity() const",
+		asMETHOD( CLASS, GetBaseVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetBaseVelocity(const Vector& in vecVelocity)",
+		asMETHOD( CLASS, SetBaseVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetMoveDir() const",
+		asMETHOD( CLASS, GetMoveDir ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetMoveDir(const Vector& in vecMoveDir)",
+		asMETHOD( CLASS, SetMoveDir ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetAbsAngles() const",
+		asMETHOD( CLASS, GetAbsAngles ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAbsAngles(const Vector& in vecAngles)",
+		asMETHOD( CLASS, SetAbsAngles ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetAngularVelocity() const",
+		asMETHOD( CLASS, GetAngularVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector& GetMutableAVelocity()",
+		asMETHOD( CLASS, GetMutableAVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAngularVelocity(const Vector& in vecVelocity)",
+		asMETHOD( CLASS, SetAngularVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetPunchAngle() const",
+		asMETHOD( CLASS, GetPunchAngle ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector& GetMutablePunchAngle()",
+		asMETHOD( CLASS, GetMutablePunchAngle ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetPunchAngle(const Vector& in vecPunchAngle)",
+		asMETHOD( CLASS, SetPunchAngle ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetViewAngle() const",
+		asMETHOD( CLASS, GetViewAngle ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector& GetMutableViewAngle()",
+		asMETHOD( CLASS, GetMutableViewAngle ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetViewAngle(const Vector& in vecViewAngle)",
+		asMETHOD( CLASS, SetViewAngle ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "FixAngleMode GetFixAngleMode() const",
+		asMETHOD( CLASS, GetFixAngleMode ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetFixAngleMode(const FixAngleMode mode)",
+		asMETHOD( CLASS, SetFixAngleMode ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetIdealPitch() const",
+		asMETHOD( CLASS, GetIdealPitch ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetIdealPitch(const float flIdealPitch)",
+		asMETHOD( CLASS, SetIdealPitch ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetPitchSpeed() const",
+		asMETHOD( CLASS, GetPitchSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetPitchSpeed(const float flPitchSpeed)",
+		asMETHOD( CLASS, SetPitchSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetIdealYaw() const",
+		asMETHOD( CLASS, GetIdealYaw ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetIdealYaw(const float flIdealYaw)",
+		asMETHOD( CLASS, SetIdealYaw ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetYawSpeed() const",
+		asMETHOD( CLASS, GetYawSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetYawSpeed(const float flYawSpeed)",
+		asMETHOD( CLASS, SetYawSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
 		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",
 		asMETHOD( CLASS, KeyValue ), asCALL_THISCALL );
 
