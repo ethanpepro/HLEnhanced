@@ -379,6 +379,178 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, SetStepLeft ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
+		pszObjectName, "float GetFallVelocity() const",
+		asMETHOD( CLASS, GetFallVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetFallVelocity(const float flFallVelocity)",
+		asMETHOD( CLASS, SetFallVelocity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetAbsMin() const",
+		asMETHOD( CLASS, GetAbsMin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAbsMin(const Vector& in vecMin)",
+		asMETHOD( CLASS, SetAbsMin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetAbsMax() const",
+		asMETHOD( CLASS, GetAbsMax ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAbsMax(const Vector& in vecMax)",
+		asMETHOD( CLASS, SetAbsMax ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetRelMin() const",
+		asMETHOD( CLASS, GetRelMin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetRelMin(const Vector& in vecMin)",
+		asMETHOD( CLASS, SetRelMin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetRelMax() const",
+		asMETHOD( CLASS, GetRelMax ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetRelMax(const Vector& in vecMax)",
+		asMETHOD( CLASS, SetRelMax ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetBounds() const",
+		asMETHOD( CLASS, GetBounds ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetSize(const Vector& in vecSize)",
+		asMETHODPR( CLASS, SetSize, ( const Vector& ), void ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetSize(const Vector& in vecMin, const Vector& in vecMax)",
+		asMETHODPR( CLASS, SetSize, ( const Vector&, const Vector& ), void ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetLastThink() const",
+		asMETHOD( CLASS, GetLastThink ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetLastThink(const float flLastThink)",
+		asMETHOD( CLASS, SetLastThink ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetNextThink() const",
+		asMETHOD( CLASS, GetNextThink ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetNextThink(const float flNextThink)",
+		asMETHOD( CLASS, SetNextThink ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "MoveType GetMoveType() const",
+		asMETHOD( CLASS, GetMoveType ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetMoveType(const MoveType moveType)",
+		asMETHOD( CLASS, SetMoveType ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Solid GetSolidType() const",
+		asMETHOD( CLASS, GetSolidType ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetSolidType(const Solid solidType)",
+		asMETHOD( CLASS, SetSolidType ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetSkin() const",
+		asMETHOD( CLASS, GetSkin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetSkin(const int iSkin)",
+		asMETHOD( CLASS, SetSkin ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetBody() const",
+		asMETHOD( CLASS, GetBody ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetBody(const int iBody)",
+		asMETHOD( CLASS, SetBody ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const CEntBitSet& GetEffects() const",
+		asMETHODPR( CLASS, GetEffects, () const, const CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CEntBitSet& GetEffects()",
+		asMETHODPR( CLASS, GetEffects, (), CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetGravity() const",
+		asMETHOD( CLASS, GetGravity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float& GetMutableGravity()",
+		asMETHOD( CLASS, GetMutableGravity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetGravity(const float flGravity)",
+		asMETHOD( CLASS, SetGravity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetFriction() const",
+		asMETHOD( CLASS, GetFriction ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float& GetMutableFriction()",
+		asMETHOD( CLASS, GetMutableFriction ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetFriction(const float flFriction)",
+		asMETHOD( CLASS, SetFriction ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetLightLevel() const",
+		asMETHOD( CLASS, GetLightLevel ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetSequence() const",
+		asMETHOD( CLASS, GetSequence ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetSequence(const int iSequence)",
+		asMETHOD( CLASS, SetSequence ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetGaitSequence() const",
+		asMETHOD( CLASS, GetGaitSequence ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetGaitSequence(const int iGaitSequence)",
+		asMETHOD( CLASS, SetGaitSequence ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetFrame() const",
+		asMETHOD( CLASS, GetFrame ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float& GetMutableFrame()",
+		asMETHOD( CLASS, GetMutableFrame ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetFrame(const float flFrame)",
+		asMETHOD( CLASS, SetFrame ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetAnimTime() const",
+		asMETHOD( CLASS, GetAnimTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAnimTime(const float flAnimTime)",
+		asMETHOD( CLASS, SetAnimTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
 		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",
 		asMETHOD( CLASS, KeyValue ), asCALL_THISCALL );
 

@@ -22,6 +22,47 @@ static void RegisterScriptFixAngleMode( asIScriptEngine& engine )
 }
 
 /**
+*	Registers MoveType.
+*	@param engine Script engine.
+*/
+static void RegisterScriptMoveType( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "MoveType";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_NONE", MOVETYPE_NONE );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_WALK", MOVETYPE_WALK );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_STEP", MOVETYPE_STEP );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_FLY", MOVETYPE_FLY );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_TOSS", MOVETYPE_TOSS );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_PUSH", MOVETYPE_PUSH );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_NOCLIP", MOVETYPE_NOCLIP );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_FLYMISSILE", MOVETYPE_FLYMISSILE );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_BOUNCE", MOVETYPE_BOUNCE );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_BOUNCEMISSILE", MOVETYPE_BOUNCEMISSILE );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_FOLLOW", MOVETYPE_FOLLOW );
+	engine.RegisterEnumValue( pszObjectName, "MOVETYPE_PUSHSTEP", MOVETYPE_PUSHSTEP );
+}
+
+/**
+*	Registers Solid.
+*	@param engine Script engine.
+*/
+static void RegisterScriptSolid( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "Solid";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "SOLID_NOT", SOLID_NOT );
+	engine.RegisterEnumValue( pszObjectName, "SOLID_TRIGGER", SOLID_TRIGGER );
+	engine.RegisterEnumValue( pszObjectName, "SOLID_BBOX", SOLID_BBOX );
+	engine.RegisterEnumValue( pszObjectName, "SOLID_SLIDEBOX", SOLID_SLIDEBOX );
+	engine.RegisterEnumValue( pszObjectName, "SOLID_BSP", SOLID_BSP );
+}
+
+/**
 *	Class name for KeyValueData in scripts.
 */
 #define AS_KEYVALUEDATA_NAME "KeyValueData"
@@ -163,6 +204,8 @@ static void RegisterScriptBloodColor( asIScriptEngine& engine )
 void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 {
 	RegisterScriptFixAngleMode( engine );
+	RegisterScriptMoveType( engine );
+	RegisterScriptSolid( engine );
 	RegisterScriptKeyValueData( engine );
 	RegisterScriptFCapability( engine );
 	RegisterScriptUSE_TYPE( engine );
