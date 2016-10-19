@@ -5,6 +5,8 @@
 
 #include <angelscript.h>
 
+#include <Angelscript/util/ASUtil.h>
+
 /**
 *	Registers types, constants, globals, etc used by entities.
 *	@param engine Script engine.
@@ -82,6 +84,9 @@ std::string CBaseEntity_TeamID( const CBaseEntity* pThis );
 template<typename CLASS>
 inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* const pszObjectName )
 {
+	//Register casts to convert between entity types.
+	as::RegisterCasts<CBaseEntity, CLASS>( engine, AS_CBASEENTITY_NAME, pszObjectName, &as::Cast_UpCast, &as::Cast_DownCast );
+
 	engine.RegisterObjectProperty(
 		pszObjectName, "CBaseEntity@ m_pGoalEnt",
 		asOFFSET( CLASS, m_pGoalEnt ) );
