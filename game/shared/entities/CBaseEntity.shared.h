@@ -530,11 +530,12 @@ public:
 	}
 
 	/**
-	*	Clears the model. Does not clear ModelIndex.
+	*	Clears the model.
 	*/
 	void ClearModel()
 	{
 		pev->model = iStringNull;
+		SetModelIndex( 0 );
 	}
 
 	/**
