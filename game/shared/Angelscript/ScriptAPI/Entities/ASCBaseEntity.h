@@ -66,6 +66,10 @@ std::string CBaseEntity_GetWeaponModelName( const CBaseEntity* pThis );
 
 void CBaseEntity_SetWeaponModelName( CBaseEntity* pThis, const std::string& szWeaponModelName );
 
+std::string CBaseEntity_GetMessage( const CBaseEntity* pThis );
+
+void CBaseEntity_SetMessage( CBaseEntity* pThis, const std::string& szMessage );
+
 /**
 *	Registers CBaseEntity methods and properties.
 *	Uses templates to avoid virtual function calls in scripts whenever possible.
@@ -549,6 +553,302 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	engine.RegisterObjectMethod(
 		pszObjectName, "void SetAnimTime(const float flAnimTime)",
 		asMETHOD( CLASS, SetAnimTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetFrameRate() const",
+		asMETHOD( CLASS, GetFrameRate ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetFrameRate(const float flFrameRate)",
+		asMETHOD( CLASS, SetFrameRate ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetScale() const",
+		asMETHOD( CLASS, GetScale ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetScale(const float flScale)",
+		asMETHOD( CLASS, SetScale ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "RenderMode GetRenderMode() const",
+		asMETHOD( CLASS, GetRenderMode ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetRenderMode(const RenderMode renderMode)",
+		asMETHOD( CLASS, SetRenderMode ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetRenderAmount() const",
+		asMETHOD( CLASS, GetRenderAmount ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetRenderAmount(const float flRenderAmount)",
+		asMETHOD( CLASS, SetRenderAmount ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetRenderColor() const",
+		asMETHOD( CLASS, GetRenderColor ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector& GetMutableRenderColor()",
+		asMETHOD( CLASS, GetMutableRenderColor ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetRenderColor(const Vector& in vecColor)",
+		asMETHOD( CLASS, SetRenderColor ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "RenderFX GetRenderFX() const",
+		asMETHOD( CLASS, GetRenderFX ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetRenderFX(const RenderFX renderFX)",
+		asMETHOD( CLASS, SetRenderFX ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetHealth() const",
+		asMETHOD( CLASS, GetHealth ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetHealth(const float flHealth)",
+		asMETHOD( CLASS, SetHealth ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetMaxHealth() const",
+		asMETHOD( CLASS, GetMaxHealth ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetMaxHealth(const float flMaxHealth)",
+		asMETHOD( CLASS, SetMaxHealth ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetArmorAmount() const",
+		asMETHOD( CLASS, GetArmorAmount ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetArmorAmount(const float flArmorAmount)",
+		asMETHOD( CLASS, SetArmorAmount ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetArmorType() const",
+		asMETHOD( CLASS, GetArmorType ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetArmorType(const float flArmorType)",
+		asMETHOD( CLASS, SetArmorType ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetFrags() const",
+		asMETHOD( CLASS, GetFrags ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetFrags(const float flFrags)",
+		asMETHOD( CLASS, SetFrags ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const CEntBitSet& GetWeapons() const",
+		asMETHODPR( CLASS, GetWeapons, () const, const CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CEntBitSet& GetWeapons()",
+		asMETHODPR( CLASS, GetWeapons, (), CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "TakeDamageMode GetTakeDamageMode() const",
+		asMETHOD( CLASS, GetTakeDamageMode ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetTakeDamageMode(const TakeDamageMode takeDamageMode)",
+		asMETHOD( CLASS, SetTakeDamageMode ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "DeadFlag GetDeadFlag() const",
+		asMETHOD( CLASS, GetDeadFlag ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetDeadFlag(const DeadFlag deadFlag)",
+		asMETHOD( CLASS, SetDeadFlag ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const Vector& GetViewOffset() const",
+		asMETHOD( CLASS, GetViewOffset ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector& GetMutableViewOffset()",
+		asMETHOD( CLASS, GetMutableViewOffset ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetViewOffset(const Vector& in vecViewOffset)",
+		asMETHOD( CLASS, SetViewOffset ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const CEntBitSet& GetButtons() const",
+		asMETHODPR( CLASS, GetButtons, () const, const CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CEntBitSet& GetButtons()",
+		asMETHODPR( CLASS, GetButtons, (), CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const CEntBitSet& GetOldButtons() const",
+		asMETHODPR( CLASS, GetOldButtons, () const, const CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CEntBitSet& GetOldButtons()",
+		asMETHODPR( CLASS, GetOldButtons, (), CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const CEntBitSet& GetImpulse() const",
+		asMETHODPR( CLASS, GetImpulse, () const, const CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CEntBitSet& GetImpulse()",
+		asMETHODPR( CLASS, GetImpulse, (), CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const CEntBitSet& GetSpawnFlags() const",
+		asMETHODPR( CLASS, GetSpawnFlags, () const, const CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CEntBitSet& GetSpawnFlags()",
+		asMETHODPR( CLASS, GetSpawnFlags, (), CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "const CEntBitSet& GetFlags() const",
+		asMETHODPR( CLASS, GetFlags, () const, const CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CEntBitSet& GetFlags()",
+		asMETHODPR( CLASS, GetFlags, (), CEntBitSet& ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetColorMap() const",
+		asMETHODPR( CLASS, GetColorMap, () const, int ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetColorMap(const int iColorMap)",
+		asMETHODPR( CLASS, SetColorMap, ( const int ), void ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void GetColorMap( int& out iTopColor, int& out iBottomColor ) const",
+		asMETHODPR( CLASS, GetColorMap, ( int&, int& ) const, void ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetColorMap(const int iTopColor, const int iBottomColor)",
+		asMETHODPR( CLASS, SetColorMap, ( const int, const int ), void ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetTeamID() const",
+		asMETHOD( CLASS, GetTeamID ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetTeamID(const int iTeamID)",
+		asMETHOD( CLASS, SetTeamID ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int GetPlayerClass() const",
+		asMETHOD( CLASS, GetPlayerClass ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetPlayerClass(const int iPlayerClass)",
+		asMETHOD( CLASS, SetPlayerClass ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "WaterLevel GetWaterLevel() const",
+		asMETHOD( CLASS, GetWaterLevel ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetWaterLevel(const WaterLevel waterLevel)",
+		asMETHOD( CLASS, SetWaterLevel ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Contents GetWaterType() const",
+		asMETHOD( CLASS, GetWaterType ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetWaterType(const Contents waterType)",
+		asMETHOD( CLASS, SetWaterType ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasMessage() const",
+		asMETHOD( CLASS, HasMessage ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetMessage() const",
+		asFUNCTION( CBaseEntity_GetMessage ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetMessage(const string& in szMessage)",
+		asFUNCTION( CBaseEntity_SetMessage ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearMessage()",
+		asMETHOD( CLASS, ClearMessage ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetSpeed() const",
+		asMETHOD( CLASS, GetSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetSpeed(const float flSpeed)",
+		asMETHOD( CLASS, SetSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetMaxSpeed() const",
+		asMETHOD( CLASS, GetMaxSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetMaxSpeed(const float flMaxSpeed)",
+		asMETHOD( CLASS, SetMaxSpeed ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetAirFinishedTime() const",
+		asMETHOD( CLASS, GetAirFinishedTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetAirFinishedTime(const float flime)",
+		asMETHOD( CLASS, SetAirFinishedTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetPainFinishedTime() const",
+		asMETHOD( CLASS, GetPainFinishedTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetPainFinishedTime(const float flime)",
+		asMETHOD( CLASS, SetPainFinishedTime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetFOV() const",
+		asMETHOD( CLASS, GetFOV ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetFOV(const float flFOV)",
+		asMETHOD( CLASS, SetFOV ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GetDamage() const",
+		asMETHOD( CLASS, GetDamage ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetDamage(const float flDamage)",
+		asMETHOD( CLASS, SetDamage ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ GetOwner() const",
+		asMETHOD( CLASS, GetOwner ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetOwner(CBaseEntity@ pOwner)",
+		asMETHOD( CLASS, SetOwner ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ GetGroundEntity() const",
+		asMETHOD( CLASS, GetGroundEntity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetGroundEntity(CBaseEntity@ pGroundEntity)",
+		asMETHOD( CLASS, SetGroundEntity ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",

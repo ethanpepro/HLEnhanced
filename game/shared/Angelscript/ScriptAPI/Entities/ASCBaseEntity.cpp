@@ -63,6 +63,137 @@ static void RegisterScriptSolid( asIScriptEngine& engine )
 }
 
 /**
+*	Registers RenderMode.
+*	@param engine Script engine.
+*/
+static void RegisterScriptRenderMode( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "RenderMode";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "kRenderNormal", kRenderNormal );
+	engine.RegisterEnumValue( pszObjectName, "kRenderTransColor", kRenderTransColor );
+	engine.RegisterEnumValue( pszObjectName, "kRenderTransTexture", kRenderTransTexture );
+	engine.RegisterEnumValue( pszObjectName, "kRenderGlow", kRenderGlow );
+	engine.RegisterEnumValue( pszObjectName, "kRenderTransAlpha", kRenderTransAlpha );
+	engine.RegisterEnumValue( pszObjectName, "kRenderTransAdd", kRenderTransAdd );
+}
+
+/**
+*	Registers RenderFX.
+*	@param engine Script engine.
+*/
+static void RegisterScriptRenderFX( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "RenderFX";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxNone", kRenderFxNone );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxPulseSlow", kRenderFxPulseSlow );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxPulseFast", kRenderFxPulseFast );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxPulseSlowWide", kRenderFxPulseSlowWide );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxPulseFastWide", kRenderFxPulseFastWide );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxFadeSlow", kRenderFxFadeSlow );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxFadeFast", kRenderFxFadeFast );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxSolidSlow", kRenderFxSolidSlow );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxSolidFast", kRenderFxSolidFast );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxStrobeSlow", kRenderFxStrobeSlow );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxStrobeFast", kRenderFxStrobeFast );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxStrobeFaster", kRenderFxStrobeFaster );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxFlickerSlow", kRenderFxFlickerSlow );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxFlickerFast", kRenderFxFlickerFast );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxNoDissipation", kRenderFxNoDissipation );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxDistort", kRenderFxDistort );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxHologram", kRenderFxHologram );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxDeadPlayer", kRenderFxDeadPlayer );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxExplode", kRenderFxExplode );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxGlowShell", kRenderFxGlowShell );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxClampMinScale", kRenderFxClampMinScale );
+	engine.RegisterEnumValue( pszObjectName, "kRenderFxLightMultiplier", kRenderFxLightMultiplier );
+}
+
+/**
+*	Registers TakeDamageMode.
+*	@param engine Script engine.
+*/
+static void RegisterScriptTakeDamageMode( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "TakeDamageMode";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "DAMAGE_NO", DAMAGE_NO );
+	engine.RegisterEnumValue( pszObjectName, "DAMAGE_YES", DAMAGE_YES );
+	engine.RegisterEnumValue( pszObjectName, "DAMAGE_AIM", DAMAGE_AIM );
+}
+
+/**
+*	Registers DeadFlag.
+*	@param engine Script engine.
+*/
+static void RegisterScriptDeadFlag( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "DeadFlag";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "DEAD_NO", DEAD_NO );
+	engine.RegisterEnumValue( pszObjectName, "DEAD_DYING", DEAD_DYING );
+	engine.RegisterEnumValue( pszObjectName, "DEAD_DEAD", DEAD_DEAD );
+	engine.RegisterEnumValue( pszObjectName, "DEAD_RESPAWNABLE", DEAD_RESPAWNABLE );
+	engine.RegisterEnumValue( pszObjectName, "DEAD_DISCARDBODY", DEAD_DISCARDBODY );
+}
+
+/**
+*	Registers WaterLevel.
+*	@param engine Script engine.
+*/
+static void RegisterScriptWaterLevel( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "WaterLevel";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "WATERLEVEL_DRY", WATERLEVEL_DRY );
+	engine.RegisterEnumValue( pszObjectName, "WATERLEVEL_FEET", WATERLEVEL_FEET );
+	engine.RegisterEnumValue( pszObjectName, "WATERLEVEL_WAIST", WATERLEVEL_WAIST );
+	engine.RegisterEnumValue( pszObjectName, "WATERLEVEL_HEAD", WATERLEVEL_HEAD );
+}
+
+/**
+*	Registers Contents.
+*	@param engine Script engine.
+*/
+static void RegisterScriptContents( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "Contents";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_EMPTY", CONTENTS_EMPTY );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_SOLID", CONTENTS_SOLID );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_WATER", CONTENTS_WATER );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_SLIME", CONTENTS_SLIME );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_LAVA", CONTENTS_LAVA );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_SKY", CONTENTS_SKY );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_ORIGIN", CONTENTS_ORIGIN );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_CLIP", CONTENTS_CLIP );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_CURRENT_0", CONTENTS_CURRENT_0 );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_CURRENT_90", CONTENTS_CURRENT_90 );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_CURRENT_180", CONTENTS_CURRENT_180 );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_CURRENT_270", CONTENTS_CURRENT_270 );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_CURRENT_UP", CONTENTS_CURRENT_UP );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_CURRENT_DOWN", CONTENTS_CURRENT_DOWN );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_TRANSLUCENT", CONTENTS_TRANSLUCENT );
+	engine.RegisterEnumValue( pszObjectName, "CONTENTS_LADDER", CONTENTS_LADDER );
+	engine.RegisterEnumValue( pszObjectName, "CONTENT_FLYFIELD", CONTENT_FLYFIELD );
+	engine.RegisterEnumValue( pszObjectName, "CONTENT_GRAVITY_FLYFIELD", CONTENT_GRAVITY_FLYFIELD );
+	engine.RegisterEnumValue( pszObjectName, "CONTENT_FOG", CONTENT_FOG );
+}
+
+/**
 *	Class name for KeyValueData in scripts.
 */
 #define AS_KEYVALUEDATA_NAME "KeyValueData"
@@ -206,6 +337,12 @@ void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 	RegisterScriptFixAngleMode( engine );
 	RegisterScriptMoveType( engine );
 	RegisterScriptSolid( engine );
+	RegisterScriptRenderMode( engine );
+	RegisterScriptRenderFX( engine );
+	RegisterScriptTakeDamageMode( engine );
+	RegisterScriptDeadFlag( engine );
+	RegisterScriptWaterLevel( engine );
+	RegisterScriptContents( engine );
 	RegisterScriptKeyValueData( engine );
 	RegisterScriptFCapability( engine );
 	RegisterScriptUSE_TYPE( engine );
@@ -292,4 +429,14 @@ std::string CBaseEntity_GetWeaponModelName( const CBaseEntity* pThis )
 void CBaseEntity_SetWeaponModelName( CBaseEntity* pThis, const std::string& szWeaponModelName )
 {
 	pThis->SetWeaponModelName( ALLOC_STRING( szWeaponModelName.c_str() ) );
+}
+
+std::string CBaseEntity_GetMessage( const CBaseEntity* pThis )
+{
+	return pThis->GetMessage();
+}
+
+void CBaseEntity_SetMessage( CBaseEntity* pThis, const std::string& szMessage )
+{
+	pThis->SetMessage( ALLOC_STRING( szMessage.c_str() ) );
 }
