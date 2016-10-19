@@ -1,4 +1,4 @@
-#include "angelscript.h"
+#include <angelscript.h>
 
 #include "extdll.h"
 #include "util.h"
