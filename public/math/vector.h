@@ -26,7 +26,11 @@ class Vector2D
 {
 public:
 	inline Vector2D(void)									{ }
+	inline Vector2D( const Vector2D& other ) = default;
+	inline Vector2D& operator=( const Vector2D& other ) = default;
 	inline Vector2D(float X, float Y)						{ x = X; y = Y; }
+	inline bool operator==( const Vector2D& v )		const	{ return x == v.x && y == v.y; }
+	inline bool operator!=( const Vector2D& v )		const	{ return !( *this == v ); }
 	inline Vector2D operator+(const Vector2D& v)	const	{ return Vector2D(x+v.x, y+v.y);	}
 	inline Vector2D operator-(const Vector2D& v)	const	{ return Vector2D(x-v.x, y-v.y);	}
 	inline Vector2D operator*(float fl)				const	{ return Vector2D(x*fl, y*fl);	}
