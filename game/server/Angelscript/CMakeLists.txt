@@ -1,4 +1,7 @@
 add_sources(
+	ASPluginConstants.h
+	ASPluginConstants.cpp
+	CASPluginData.h
 	CASPluginManager.h
 	CASPluginManager.cpp
 	CASPluginModuleBuilder.h

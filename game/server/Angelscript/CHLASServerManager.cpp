@@ -39,6 +39,9 @@ bool CHLASServerManager::Initialize()
 	if( !InitializeManager( initializer ) )
 		return false;
 
+	if( !m_PluginManager.Initialize() )
+		return false;
+
 	//Map scripts are per-map scripts that always have their hooks executed before any other module.
 	auto descriptor = m_Manager.GetModuleManager().AddDescriptor( "MapScript", ModuleAccessMask::MAPSCRIPT, as::ModulePriority::HIGHEST );
 
@@ -48,7 +51,7 @@ bool CHLASServerManager::Initialize()
 		return false;
 	}
 
-	descriptor = m_Manager.GetModuleManager().AddDescriptor( "HotReloadablePlugin", ModuleAccessMask::PLUGIN, as::ModulePriority::HIGHEST - 1 );
+	descriptor = m_Manager.GetModuleManager().AddDescriptor( "Plugin", ModuleAccessMask::PLUGIN, as::ModulePriority::HIGHEST - 1 );
 
 	if( !descriptor.first )
 	{
@@ -70,6 +73,8 @@ void CHLASServerManager::Shutdown()
 		m_Manager.GetModuleManager().RemoveModule( m_pModule );
 		m_pModule = nullptr;
 	}
+
+	m_PluginManager.Shutdown();
 
 	CHLASManager::Shutdown();
 }

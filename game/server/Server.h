@@ -40,6 +40,7 @@ extern cvar_t	teamlist;
 extern cvar_t	teamoverride;
 extern cvar_t	defaultteam;
 extern cvar_t	allowmonsters;
+extern cvar_t	as_plugin_list_file;
 extern cvar_t	as_mysql_config;
 
 // Engine Cvars

@@ -53,6 +53,8 @@ cvar_t  allow_spectators = { "allow_spectators", "0.0", FCVAR_SERVER };		// 0 pr
 
 cvar_t  mp_chattime = {"mp_chattime","10", FCVAR_SERVER };
 
+cvar_t	as_plugin_list_file = { "as_plugin_list_file", "default_plugins.txt", FCVAR_SERVER | FCVAR_UNLOGGED };
+
 //Config file that contains the MySQL settings to use for default connections.
 cvar_t	as_mysql_config = { "as_mysql_config", "server/default_mysql_config.txt", FCVAR_SERVER | FCVAR_UNLOGGED };
 
@@ -616,6 +618,8 @@ void GameDLLInit( void )
 	CVAR_REGISTER (&allowmonsters);
 
 	CVAR_REGISTER (&mp_chattime);
+
+	CVAR_REGISTER( &as_plugin_list_file );
 
 	CVAR_REGISTER( &as_mysql_config );
 
