@@ -112,4 +112,30 @@ struct CStdStringEqualToI : public std::binary_function<const std::string&, cons
 	}
 };
 
+/**
+*	Works like strstr, but the substring length is given.
+*/
+const char* strnstr( const char* pszString, const char* pszSubString, const size_t uiLength );
+
+/**
+*	Works like strrstr, but the substring length is given.
+*/
+const char* strnrstr( const char* pszString, const char* pszSubString, const size_t uiLength );
+
+/**
+*	Checks whether a token matches a string.
+*	The token can have '*' characters to signal 0 or more characters that can span the space between given characters.
+*	@param pszString String to match against.
+*	@param pszToken Token to match.
+*	@return Whether the token matches.
+*/
+bool UTIL_TokenMatches( const char* pszString, const char* pszToken );
+
+/**
+*	Fixes slashes to use the correct platform specific slashes.
+*/
+char* UTIL_FixSlashes( char* pszPath );
+
+char* UTIL_SafeStrncpy( char* pszDest, const char* pszSource, const size_t uiSizeInCharacters );
+
 #endif //COMMON_STRINGUTILS_H

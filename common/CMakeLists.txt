@@ -41,6 +41,7 @@ add_sources(
 	simple_checksum.h
 	steam_util.h
 	StringUtils.h
+	StringUtils.cpp
 	studio_event.h
 	usercmd.h
 	UTFUtils.h

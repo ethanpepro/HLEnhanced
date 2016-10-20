@@ -50,6 +50,11 @@
 #define DLLEXPORT __declspec( dllexport )
 #define DLLIMPORT __declspec( dllimport )
 
+#define FILESYSTEM_PATH_SEPARATOR "\\"
+#define FILESYSTEM_OTHER_PATH_SEPARATOR "/"
+#define FILESYSTEM_PATH_SEPARATOR_CHAR '\\'
+#define FILESYSTEM_OTHER_PATH_SEPARATOR_CHAR '/'
+
 //This isn't needed 99.99% of the time. Provide an escape hatch nonetheless. - Solokiller
 #ifndef HL_USE_VOID_DEF
 #undef VOID
@@ -88,6 +93,11 @@
 
 #define DLLEXPORT __attribute__( ( visibility( "default" ) ) )
 #define DLLIMPORT
+
+#define FILESYSTEM_PATH_SEPARATOR "/"
+#define FILESYSTEM_OTHER_PATH_SEPARATOR "\\"
+#define FILESYSTEM_PATH_SEPARATOR_CHAR '/'
+#define FILESYSTEM_OTHER_PATH_SEPARATOR_CHAR '\\'
 
 #define __cdecl
 
