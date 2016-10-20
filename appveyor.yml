@@ -46,5 +46,5 @@ deploy: off
 notifications:
 
   - provider: Gitter
-    url: https://webhooks.gitter.im/e/ff448fe56f7a597b2fec
+    url: https://webhooks.gitter.im/e/f03b9850c71ca52e1448
 	
