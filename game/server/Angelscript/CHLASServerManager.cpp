@@ -55,7 +55,7 @@ bool CHLASServerManager::Initialize()
 
 	if( !descriptor.first )
 	{
-		ALERT( at_console, "Failed to add HotReloadablePlugin module type\n" );
+		ALERT( at_console, "Failed to add Plugin module type\n" );
 		return false;
 	}
 
