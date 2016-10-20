@@ -5,16 +5,37 @@
 
 #include "ASPluginConstants.h"
 
+/**
+*	Contains data about plugins.
+*/
 class CASPluginData final
 {
 public:
+	/**
+	*	@param lifetime The minimum lifetime of the plugin. This dictates when plugins can be reloaded.
+	*/
 	CASPluginData( const PluginLifetime lifetime );
 
+	/**
+	*	@return The lifetime of the plugin.
+	*/
 	PluginLifetime GetLifetime() const { return m_Lifetime; }
 
+	/**
+	*	Sets the lifetime of the plugin.
+	*/
 	void SetLifetime( const PluginLifetime lifetime )
 	{
 		m_Lifetime = lifetime;
+	}
+
+	/**
+	*	Sets the minimum lifetime of the plugin. Used by plugins themselves to guarantee a certain lifetime.
+	*/
+	void SetMinimumLifetime( const PluginLifetime lifetime )
+	{
+		if( lifetime > m_Lifetime )
+			m_Lifetime = lifetime;
 	}
 
 	const PluginFlags_t& GetFlags() const { return m_Flags; }

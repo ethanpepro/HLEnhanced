@@ -3,6 +3,8 @@
 
 #include "Angelscript/CHLASManager.h"
 
+#include "Angelscript/ScriptAPI/ASPluginInterface.h"
+
 #include "Angelscript/ScriptAPI/Entities/ASEntityFuncs.h"
 
 #include "Angelscript/ScriptAPI/ASGameRules.h"
@@ -20,6 +22,8 @@ bool CHLASServerInitializer::RegisterCoreAPI( CASManager& manager )
 	CHLASBaseInitializer::RegisterCoreAPI( manager );
 
 	auto& engine = *manager.GetEngine();
+
+	RegisterScriptPluginInterface( engine );
 
 	RegisterScriptEntityFuncs( engine );
 
