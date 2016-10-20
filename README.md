@@ -1,6 +1,8 @@
 HLEnhanced
 ======================
 
+[![Join the chat at https://gitter.im/HLEnhanced-Project/Lobby](https://badges.gitter.im/HLEnhanced-Project/Lobby.svg)](https://gitter.im/HLEnhanced-Project/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 For more information, read the [wiki](https://github.com/SamVanheer/HLEnhanced/wiki).
 
 Build status
