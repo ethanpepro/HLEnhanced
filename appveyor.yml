@@ -42,3 +42,9 @@ test: off
 
 # We don't do deploying yet
 deploy: off
+
+notifications:
+
+  - provider: Gitter
+    url: https://webhooks.gitter.im/e/ff448fe56f7a597b2fec
+	
