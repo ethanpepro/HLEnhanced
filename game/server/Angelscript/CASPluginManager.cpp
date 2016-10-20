@@ -419,6 +419,12 @@ void CASPluginManager::UnloadPlugin( CASModule* pPlugin )
 {
 	Alert( at_console, "Unloading plugin \"%s\"\n", pPlugin->GetModuleName() );
 
+	//Tell the plugin it's about to be unloaded.
+	if( auto pFunction = pPlugin->GetModule()->GetFunctionByDecl( "void PluginUnload()" ) )
+	{
+		as::Call( pFunction );
+	}
+
 	auto pData = CASModule_GetPluginData( pPlugin );
 
 	ASSERT( pData );

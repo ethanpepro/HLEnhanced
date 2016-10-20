@@ -60,6 +60,16 @@ static CASPluginData* Plugin_GetPluginData()
 	return CASModule_GetPluginData( pModule );
 }
 
+static std::string CPluginData_GetName( const CASPluginData* pThis )
+{
+	auto pScriptModule = GetScriptModuleFromScriptContext( asGetActiveContext() );
+
+	if( !pScriptModule )
+		return "<Unknown>";
+
+	return pScriptModule->GetName();
+}
+
 static void RegisterScriptCPluginData( asIScriptEngine& engine )
 {
 	const char* const pszObjectName = "CPluginData";
@@ -73,6 +83,10 @@ static void RegisterScriptCPluginData( asIScriptEngine& engine )
 	engine.RegisterObjectMethod(
 		pszObjectName, "void SetMinimumLifetime(const PluginLifetime::PluginLifetime lifetime)",
 		asMETHOD( CASPluginData, SetMinimumLifetime ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetName() const",
+		asFUNCTION( CPluginData_GetName ), asCALL_CDECL_OBJFIRST );
 
 	engine.RegisterGlobalFunction(
 		"CPluginData@ get_PluginData()",
