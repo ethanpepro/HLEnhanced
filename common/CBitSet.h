@@ -11,7 +11,7 @@ class CBitSet
 public:
 	typedef T Type_t;
 
-	CBitSet( T value = 0 );
+	explicit CBitSet( T value = 0 );
 
 	CBitSet( const CBitSet& other ) = default;
 	CBitSet& operator=( const CBitSet& ) = default;
