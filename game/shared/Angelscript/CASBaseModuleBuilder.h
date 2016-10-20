@@ -21,8 +21,9 @@ public:
 	/**
 	*	Constructor.
 	*	@param szBasePath Path to prepend to scripts when loading them.
+	*	@param szModuleTypeName Name of the module type being built.
 	*/
-	CASBaseModuleBuilder( std::string&& szBasePath );
+	CASBaseModuleBuilder( std::string&& szBasePath, std::string&& szModuleTypeName );
 	~CASBaseModuleBuilder() = default;
 
 	/**
@@ -65,10 +66,17 @@ public:
 	*/
 	bool AddScript( std::string&& szName );
 
+	bool DefineWords( CScriptBuilder& builder ) override;
+
 	bool AddScripts( CScriptBuilder& builder ) override;
+
+	bool PreBuild( CScriptBuilder& builder ) override;
+
+	bool PostBuild( CScriptBuilder& builder, const bool bSuccess, CASModule* pModule ) override;
 
 private:
 	std::string m_szBasePath;
+	std::string m_szModuleTypeName;
 	InternalScripts_t m_InternalScripts;
 	std::vector<std::string> m_Scripts;
 };

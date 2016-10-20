@@ -10,7 +10,7 @@
 #include "CASPluginModuleBuilder.h"
 
 CASPluginModuleBuilder::CASPluginModuleBuilder( const char* const pszScript )
-	: CASBaseModuleBuilder( "scripts/plugins/" )
+	: CASBaseModuleBuilder( "scripts/plugins/", "Plugin" )
 {
 	if( pszScript && *pszScript )
 	{
@@ -22,27 +22,8 @@ CASPluginModuleBuilder::CASPluginModuleBuilder( const char* const pszScript )
 
 bool CASPluginModuleBuilder::DefineWords( CScriptBuilder& builder )
 {
-#ifdef CLIENT_DLL
-	builder.DefineWord( "CLIENT_DLL" );
-#else
-	builder.DefineWord( "SERVER_DLL" );
-#endif
-
-	return true;
-}
-
-bool CASPluginModuleBuilder::PreBuild( CScriptBuilder& builder )
-{
-	const auto& scripts = GetScripts();
-
-	Alert( at_console, "%u script%s\nCompiling...\n", scripts.size(), scripts.size() == 1 ? "" : "s" );
-
-	return true;
-}
-
-bool CASPluginModuleBuilder::PostBuild( CScriptBuilder& builder, const bool bSuccess, CASModule* pModule )
-{
-	Alert( at_console, "Done\nPlugin script compilation %s\n", bSuccess ? "succeeded" : "failed" );
+	if( !CASBaseModuleBuilder::DefineWords( builder ) )
+		return false;
 
 	return true;
 }

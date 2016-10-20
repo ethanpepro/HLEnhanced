@@ -8,8 +8,9 @@
 
 #include "CASBaseModuleBuilder.h"
 
-CASBaseModuleBuilder::CASBaseModuleBuilder( std::string&& szBasePath )
+CASBaseModuleBuilder::CASBaseModuleBuilder( std::string&& szBasePath, std::string&& szModuleTypeName )
 	: m_szBasePath( std::move( szBasePath ) )
+	, m_szModuleTypeName( std::move( szModuleTypeName ) )
 {
 }
 
@@ -67,6 +68,17 @@ bool CASBaseModuleBuilder::AddScript( std::string&& szName )
 	return true;
 }
 
+bool CASBaseModuleBuilder::DefineWords( CScriptBuilder& builder )
+{
+#ifdef CLIENT_DLL
+	builder.DefineWord( "CLIENT_DLL" );
+#else
+	builder.DefineWord( "SERVER_DLL" );
+#endif
+
+	return true;
+}
+
 bool CASBaseModuleBuilder::AddScripts( CScriptBuilder& builder )
 {
 	for( auto& script : m_InternalScripts )
@@ -106,6 +118,22 @@ bool CASBaseModuleBuilder::AddScripts( CScriptBuilder& builder )
 			return false;
 		}
 	}
+
+	return true;
+}
+
+bool CASBaseModuleBuilder::PreBuild( CScriptBuilder& builder )
+{
+	const auto& scripts = GetScripts();
+
+	Alert( at_console, "%u script%s\nCompiling...\n", scripts.size(), scripts.size() == 1 ? "" : "s" );
+
+	return true;
+}
+
+bool CASBaseModuleBuilder::PostBuild( CScriptBuilder& builder, const bool bSuccess, CASModule* pModule )
+{
+	Alert( at_console, "Done\n%s script compilation %s\n", m_szModuleTypeName.c_str(), bSuccess ? "succeeded" : "failed" );
 
 	return true;
 }

@@ -12,7 +12,7 @@
 //TODO: split into server and client builders - Solokiller
 
 CASMapModuleBuilder::CASMapModuleBuilder( const char* const pszMapScript )
-	: CASBaseModuleBuilder( "scripts/maps/" )
+	: CASBaseModuleBuilder( "scripts/maps/", "Map" )
 {
 #ifdef SERVER_DLL
 	AddInternalScript( "__ScriptGameRules", std::move( as::CreateExtendBaseclassDeclaration( "CScriptGameRules", "IGameRules", "CGameRules", "GameRules" ) ) );
@@ -28,27 +28,8 @@ CASMapModuleBuilder::CASMapModuleBuilder( const char* const pszMapScript )
 
 bool CASMapModuleBuilder::DefineWords( CScriptBuilder& builder )
 {
-#ifdef CLIENT_DLL
-	builder.DefineWord( "CLIENT_DLL" );
-#else
-	builder.DefineWord( "SERVER_DLL" );
-#endif
-
-	return true;
-}
-
-bool CASMapModuleBuilder::PreBuild( CScriptBuilder& builder )
-{
-	const auto& scripts = GetScripts();
-
-	Alert( at_console, "%u script%s\nCompiling...\n", scripts.size(), scripts.size() == 1 ? "" : "s" );
-
-	return true;
-}
-
-bool CASMapModuleBuilder::PostBuild( CScriptBuilder& builder, const bool bSuccess, CASModule* pModule )
-{
-	Alert( at_console, "Done\nMap script compilation %s\n", bSuccess ? "succeeded" : "failed" );
+	if( !CASBaseModuleBuilder::DefineWords( builder ) )
+		return false;
 
 	return true;
 }
