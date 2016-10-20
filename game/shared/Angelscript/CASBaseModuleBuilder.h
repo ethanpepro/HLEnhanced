@@ -70,6 +70,8 @@ public:
 
 	bool AddScripts( CScriptBuilder& builder ) override;
 
+	bool IncludeScript( CScriptBuilder& builder, const char* const pszIncludeFileName, const char* const pszFromFileName ) override;
+
 	bool PreBuild( CScriptBuilder& builder ) override;
 
 	bool PostBuild( CScriptBuilder& builder, const bool bSuccess, CASModule* pModule ) override;

@@ -1,12 +1,19 @@
 #include <algorithm>
 #include <cassert>
+#include <experimental/filesystem>
+#include <memory>
+#include <string>
 
 #include <Angelscript/add_on/scriptbuilder.h>
 
 #include "extdll.h"
 #include "util.h"
 
+#include "CFile.h"
+
 #include "CASBaseModuleBuilder.h"
+
+namespace fs = std::experimental::filesystem;
 
 CASBaseModuleBuilder::CASBaseModuleBuilder( std::string&& szBasePath, std::string&& szModuleTypeName )
 	: m_szBasePath( std::move( szBasePath ) )
@@ -98,7 +105,7 @@ bool CASBaseModuleBuilder::AddScripts( CScriptBuilder& builder )
 
 		if( iResult < 0 || static_cast<size_t>( iResult ) >= sizeof( szRelativePath ) )
 		{
-			Alert( at_console, "CASBaseModuleBuilder::AddScripts: Error formatting map script \"%s\" path!\n", script.c_str() );
+			Alert( at_console, "CASBaseModuleBuilder::AddScripts: Error formatting %s script \"%s\" path!\n", m_szModuleTypeName.c_str(), script.c_str() );
 			return false;
 		}
 
@@ -114,12 +121,124 @@ bool CASBaseModuleBuilder::AddScripts( CScriptBuilder& builder )
 		}
 		else
 		{
-			Alert( at_console, "CASBaseModuleBuilder::AddScripts: Couldn't find map script \"%s\"!\n", szRelativePath );
+			Alert( at_console, "CASBaseModuleBuilder::AddScripts: Couldn't find %s script \"%s\"!\n", m_szModuleTypeName.c_str(), szRelativePath );
 			return false;
 		}
 	}
 
 	return true;
+}
+
+bool CASBaseModuleBuilder::IncludeScript( CScriptBuilder& builder, const char* const pszIncludeFileName, const char* const pszFromFileName )
+{
+	std::error_code error;
+
+	fs::path path( pszFromFileName );
+
+	path.remove_filename();
+
+	path /= pszIncludeFileName;
+
+	//TODO: define extension. - Solokiller
+	path += ".as";
+
+	path.make_preferred();
+
+	//Convert the absolute path to a relative path.
+	//CScriptBuilder converts relative paths to absolute, which is why we need to undo that.
+	//This is pretty ugly, but there is nothing in the filesystem API to do this just yet.
+	auto current = fs::current_path( error );
+
+	if( error )
+	{
+		Alert( at_console, "CASBaseModuleBuilder::IncludeScript: Error composing path to include \"%s\" in \"%s\": error retrieving current path!\n", pszIncludeFileName, pszFromFileName );
+		return false;
+	}
+
+	//Just to be safe, canonicalize current as well in case it was set to use relative paths or something.
+	current = fs::canonical( current, current, error );
+
+	if( error )
+	{
+		Alert( at_console, "CASBaseModuleBuilder::IncludeScript: Error composing path to include \"%s\" in \"%s\": error canonicalizing current path!\n", pszIncludeFileName, pszFromFileName );
+		return false;
+	}
+
+	path = fs::canonical( path, current, error );
+
+	if( error )
+	{
+		Alert( at_console, "CASBaseModuleBuilder::IncludeScript: Error composing path to include \"%s\" in \"%s\": error canonicalizing path!\n", pszIncludeFileName, pszFromFileName );
+		return false;
+	}
+
+	auto it = path.begin();
+
+	auto end = path.end();
+
+	for( auto component : current )
+	{
+		//operator== is case sensitive so C:\ and c:\ are considered to be different.
+		if( stricmp( it->u8string().c_str(), component.u8string().c_str() ) != 0 )
+		{
+			Alert( at_console, "CASBaseModuleBuilder::IncludeScript: Error composing path to include \"%s\" in \"%s\": current path differs!\n", pszIncludeFileName, pszFromFileName );
+			return false;
+		}
+
+		if( it != end )
+			++it;
+	}
+
+	//The current directory is the exe directory, but filesystem calls start in exedir/moddir, so advance once more.
+	if( it != end )
+		++it;
+
+	fs::path relativePath;
+
+	for( ; it != end; ++it )
+	{
+		relativePath /= *it;
+	}
+
+	const auto szRelativePath = relativePath.u8string();
+
+	CFile file( szRelativePath.c_str(), "rb" );
+
+	bool bSuccess = false;
+
+	if( file.IsOpen() )
+	{
+		const auto size = file.Size();
+
+		auto data = std::make_unique<char[]>( size + 1 );
+
+		if( file.Read( data.get(), size ) == size )
+		{
+			const auto result = builder.AddSectionFromMemory( szRelativePath.c_str(), data.get(), size );
+
+			if( result >= 0 )
+			{
+				if( result == 1 )
+					Alert( at_console, "CASBaseModuleBuilder::IncludeScript: Included script \"%s\"\n", szRelativePath.c_str() );
+
+				bSuccess = true;
+			}
+			else
+			{
+				Alert( at_console, "CASBaseModuleBuilder::IncludeScript: Error including script \"%s\" in \"%s\"!\n", szRelativePath.c_str(), pszFromFileName );
+			}
+		}
+		else
+		{
+			Alert( at_console, "CASBaseModuleBuilder::IncludeScript: Error reading \"%s\" to include in \"%s\"!\n", szRelativePath.c_str(), pszFromFileName );
+		}
+	}
+	else
+	{
+		Alert( at_console, "CASBaseModuleBuilder::IncludeScript: Couldn't open script \"%s\" to include in \"%s\"!\n", szRelativePath.c_str(), pszFromFileName );
+	}
+
+	return bSuccess;
 }
 
 bool CASBaseModuleBuilder::PreBuild( CScriptBuilder& builder )
