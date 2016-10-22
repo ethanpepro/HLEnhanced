@@ -115,12 +115,12 @@ struct CStdStringEqualToI : public std::binary_function<const std::string&, cons
 /**
 *	Works like strstr, but the substring length is given.
 */
-const char* strnstr( const char* pszString, const char* pszSubString, const size_t uiLength );
+const char* UTIL_strnstr( const char* pszString, const char* pszSubString, const size_t uiLength );
 
 /**
 *	Works like strrstr, but the substring length is given.
 */
-const char* strnrstr( const char* pszString, const char* pszSubString, const size_t uiLength );
+const char* UTIL_strnrstr( const char* pszString, const char* pszSubString, const size_t uiLength );
 
 /**
 *	Checks whether a token matches a string.

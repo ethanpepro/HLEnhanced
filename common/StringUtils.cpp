@@ -4,7 +4,7 @@
 
 #include "StringUtils.h"
 
-const char* strnstr( const char* pszString, const char* pszSubString, const size_t uiLength )
+const char* UTIL_strnstr( const char* pszString, const char* pszSubString, const size_t uiLength )
 {
 	assert( pszString );
 	assert( pszSubString );
@@ -20,7 +20,7 @@ const char* strnstr( const char* pszString, const char* pszSubString, const size
 	return nullptr;
 }
 
-const char* strnrstr( const char* pszString, const char* pszSubString, const size_t uiLength )
+const char* UTIL_strnrstr( const char* pszString, const char* pszSubString, const size_t uiLength )
 {
 	assert( pszString );
 	assert( pszSubString );
@@ -71,7 +71,7 @@ bool UTIL_TokenMatches( const char* pszString, const char* pszToken )
 			if( ( pszPos - pszPrevPos ) > 0 )
 			{
 				//This uses reverse search since * covers any number of characters, so matching the last instance is most valid.
-				if( !( pszString = strnrstr( pszString, pszPrevPos, pszPos - pszPrevPos ) ) )
+				if( !( pszString = UTIL_strnrstr( pszString, pszPrevPos, pszPos - pszPrevPos ) ) )
 					return false;
 
 				pszString += ( pszPos - pszPrevPos );
