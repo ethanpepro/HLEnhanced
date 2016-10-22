@@ -95,7 +95,7 @@ void FireTargets( const char *targetName, CBaseEntity *pActivator, CBaseEntity *
 
 	CBaseEntity* pTarget = nullptr;
 
-	while( pTarget = UTIL_FindEntityByTargetname( pTarget, targetName ) )
+	while( (pTarget = UTIL_FindEntityByTargetname( pTarget, targetName )) )
 	{
 		if( !(pTarget->pev->flags & FL_KILLME) ) // Don't use dying ents
 		{
