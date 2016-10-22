@@ -68,18 +68,27 @@ public:											\
 __DECLARE_DATADESC_NOBASE();					\
 	const DataMap_t* GetDataMap() const
 
+//This trickery is needed to provide an override specifier for OSX compilation.
+//It requires the override specifier for these methods, but we can't pass empty macro arguments.
+//So we pass a macro name that expands to either override or nothing.
+#define _DUMMY_MACRO()
+#define _OVERRIDE_SPECIFIER() override
+
+#define _DECLARE_DATADESC_NOBASE( overrideSpecifier )				\
+__DECLARE_DATADESC_NOBASE();										\
+	virtual const DataMap_t* GetDataMap() const overrideSpecifier()
+
 /**
 *	Data descriptor for the root class, if it has a vtable.
 */
 #define DECLARE_DATADESC_NOBASE()				\
-__DECLARE_DATADESC_NOBASE();					\
-	virtual const DataMap_t* GetDataMap() const
+_DECLARE_DATADESC_NOBASE( _DUMMY_MACRO )
 
 /**
 *	Data descriptor for subclasses, if they have vtables.
 */
 #define DECLARE_DATADESC()						\
-DECLARE_DATADESC_NOBASE()
+_DECLARE_DATADESC_NOBASE( _OVERRIDE_SPECIFIER )
 
 #define __BEGIN_DATADESC( thisClass )					\
 														\
