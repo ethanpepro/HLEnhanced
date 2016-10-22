@@ -8,3 +8,6 @@ projects_*/*
 #Mapsrc data
 gamerc/mapsrc/*.max
 gamerc/mapsrc/*.rmx
+
+# Ignore OSX junk files
+.DS_Store

@@ -70,7 +70,7 @@ public:
 	void RunTask( const Task_t* pTask ) override;
 	void DeathSound( void ) override;
 	void IdleSound( void ) override;
-	DECLARE_SCHEDULES();
+	DECLARE_SCHEDULES() override;
 
 	float m_flLastShot;
 	float m_flDiviation;

@@ -357,7 +357,7 @@ else()
 	set( SDL2_NAME "${CMAKE_SHARED_LIBRARY_PREFIX}SDL2${CMAKE_STATIC_LIBRARY_SUFFIX}" )
 endif()
 
-find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ "${STEAMCOMMON}/Half-Life/" )
+find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ external/SDL2/lib "${STEAMCOMMON}/Half-Life/" )
 
 if( NOT WIN32 )
 	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.so

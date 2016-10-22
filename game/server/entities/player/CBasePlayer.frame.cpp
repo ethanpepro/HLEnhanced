@@ -1104,7 +1104,7 @@ void CBasePlayer::CheckSuitUpdate()
 		// play a sentence off of the end of the queue
 		for( int i = 0; i < CSUITPLAYLIST; ++i )
 		{
-			if( isentence = m_rgSuitPlayList[ isearch ] )
+			if( (isentence = m_rgSuitPlayList[ isearch ]) )
 				break;
 
 			if( ++isearch == CSUITPLAYLIST )

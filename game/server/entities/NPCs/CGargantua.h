@@ -85,7 +85,7 @@ public:
 
 	void FlameDamage( Vector vecStart, Vector vecEnd, CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int iClassIgnore, int bitsDamageType );
 
-	DECLARE_SCHEDULES();
+	DECLARE_SCHEDULES() override;
 
 private:
 	static const char *pAttackHitSounds[];

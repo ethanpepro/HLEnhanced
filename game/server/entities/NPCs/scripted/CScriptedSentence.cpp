@@ -147,9 +147,9 @@ CBaseMonster *CScriptedSentence::FindEntity( void )
 
 	CBaseMonster* pMonster = nullptr;
 
-	while( pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) ) )
+	while( (pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) )) )
 	{
-		if( pMonster = pTargetEnt->MyMonsterPointer() )
+		if( (pMonster = pTargetEnt->MyMonsterPointer()) )
 		{
 			if( AcceptableSpeaker( pMonster ) )
 				return pMonster;
@@ -160,7 +160,7 @@ CBaseMonster *CScriptedSentence::FindEntity( void )
 
 	pTargetEnt = nullptr;
 
-	while( pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius ) )
+	while( (pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius )) )
 	{
 		if( pTargetEnt->ClassnameIs( m_iszEntity ) )
 		{

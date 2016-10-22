@@ -80,7 +80,7 @@ public:
 
 	size_t GetSize() const override { return sizeof( T ); }
 
-	CBaseEntity* CreateInstance( entvars_t* pev )
+	CBaseEntity* CreateInstance( entvars_t* pev ) override
 	{
 		// allocate private data 
 		CBaseEntity* pEntity = new( pev ) T;
@@ -92,17 +92,17 @@ public:
 		return pEntity;
 	}
 
-	CBaseEntity* CreateInstance( edict_t* pEdict )
+	CBaseEntity* CreateInstance( edict_t* pEdict ) override
 	{
 		return CreateInstance( &pEdict->v );
 	}
 
-	CBaseEntity* CreateInstance()
+	CBaseEntity* CreateInstance() override
 	{
 		return CreateInstance( CREATE_ENTITY() );
 	}
 
-	void DestroyInstance( CBaseEntity* pInstance )
+	void DestroyInstance( CBaseEntity* pInstance ) override
 	{
 		UTIL_Remove( pInstance );
 	}

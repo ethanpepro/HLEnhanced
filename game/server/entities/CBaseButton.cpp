@@ -334,7 +334,7 @@ void CBaseButton::ButtonBackHome( void )
 	if( HasTarget() )
 	{
 		CBaseEntity* pTarget = nullptr;
-		while( pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() ) )
+		while( (pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() )) )
 		{
 			if( !pTarget->ClassnameIs( "multisource" ) )
 				continue;

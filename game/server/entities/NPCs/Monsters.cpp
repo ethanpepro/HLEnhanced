@@ -1346,7 +1346,7 @@ float CBaseMonster::OpenDoorAndWait( CBaseEntity* pDoor )
 		if( pDoor->HasTargetname() )
 		{
 			CBaseEntity* pTarget = nullptr;
-			while( pTarget = UTIL_FindEntityByTargetname( pTarget, pDoor->GetTargetname() ) )
+			while( (pTarget = UTIL_FindEntityByTargetname( pTarget, pDoor->GetTargetname() )) )
 			{
 				if( pTarget != pDoor )
 				{

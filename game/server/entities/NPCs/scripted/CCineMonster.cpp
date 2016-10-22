@@ -277,7 +277,7 @@ void CCineMonster::DelayStart( const bool bState )
 {
 	CBaseEntity* pCine = nullptr;
 
-	while( pCine = UTIL_FindEntityByTargetname( pCine, GetTargetname() ) )
+	while( (pCine = UTIL_FindEntityByTargetname( pCine, GetTargetname() )) )
 	{
 		if( pCine->ClassnameIs( "scripted_sequence" ) )
 		{
@@ -304,7 +304,7 @@ bool CCineMonster::FindEntity()
 	CBaseEntity* pTargetEnt = nullptr;
 	CBaseMonster* pTarget = nullptr;
 
-	while( pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) ) )
+	while( (pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) )) )
 	{
 		if( pTargetEnt->GetFlags().Any( FL_MONSTER ) )
 		{
@@ -325,7 +325,7 @@ bool CCineMonster::FindEntity()
 	if( !pTarget )
 	{
 		pTargetEnt = nullptr;
-		while( pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius ) )
+		while( (pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius )) )
 		{
 			if( pTargetEnt->ClassnameIs( STRING( m_iszEntity ) ) )
 			{
@@ -430,7 +430,7 @@ void CCineMonster::CancelScript( void )
 
 	CBaseEntity* pCineTarget = nullptr;
 
-	while( pCineTarget = UTIL_FindEntityByTargetname( pCineTarget, GetTargetname() ) )
+	while( (pCineTarget = UTIL_FindEntityByTargetname( pCineTarget, GetTargetname() )) )
 	{
 		ScriptEntityCancel( pCineTarget );
 	}

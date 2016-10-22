@@ -39,7 +39,7 @@ public:
 
 // Client connection/disconnection
 	virtual bool ClientConnected( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] ) override;
-	virtual void InitHUD( CBasePlayer *pl );
+	virtual void InitHUD( CBasePlayer *pl ) override;
 	virtual void ClientDisconnected( edict_t *pClient ) override;
 
 // Client damage rules
