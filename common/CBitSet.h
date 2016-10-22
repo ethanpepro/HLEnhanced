@@ -36,6 +36,11 @@ public:
 	inline T Get() const { return m_Data; }
 
 	/**
+	*	@return The bit vector.
+	*/
+	inline T& Get() { return m_Data; }
+
+	/**
 	*	Sets the bit vector flags to the given states.
 	*	@param flags Flags to set.
 	*/
@@ -61,8 +66,6 @@ public:
 	//operators
 
 	inline operator T() const { return m_Data; }
-
-	inline operator T&() { return m_Data; }
 
 	CBitSet& operator|=( const T flags );
 

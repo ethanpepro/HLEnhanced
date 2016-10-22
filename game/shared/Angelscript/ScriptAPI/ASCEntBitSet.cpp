@@ -66,7 +66,7 @@ void RegisterScriptCEntBitSet( asIScriptEngine& engine )
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "int Get() const",
-		asMETHOD( CEntBitSet, Get ), asCALL_THISCALL );
+		asMETHODPR( CEntBitSet, Get, () const, int ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void Set(const int flags)",
