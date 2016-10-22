@@ -235,7 +235,7 @@ void CBarnacleGrapple::PrimaryAttack()
 					
 					Vector vecPitch = UTIL_VecToAngles( m_pPlayer->GetAbsVelocity() );
 
-					if( vecPitch.x > 55.0 && vecPitch.x < 205.0 || vecPitch.x < -55.0 )
+					if( (vecPitch.x > 55.0 && vecPitch.x < 205.0) || vecPitch.x < -55.0 )
 					{
 						m_bGrappling = false;
 						m_pPlayer->SetAnimation( PLAYER_IDLE );
