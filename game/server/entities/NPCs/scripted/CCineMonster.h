@@ -74,7 +74,7 @@ public:
 	virtual void FixScriptMonsterSchedule( CBaseMonster *pMonster );
 	bool	CanInterrupt() const;
 	void	AllowInterrupt( const bool fAllow );
-	int		IgnoreConditions( void );
+	int		IgnoreConditions( void ) override;
 
 	int	m_iszIdle;		// string index for idle animation
 	int	m_iszPlay;		// string index for scripted animation

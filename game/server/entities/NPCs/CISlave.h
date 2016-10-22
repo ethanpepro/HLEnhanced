@@ -58,7 +58,7 @@ public:
 	void StartTask( const Task_t* pTask ) override;
 	Schedule_t *GetSchedule( void ) override;
 	Schedule_t *GetScheduleOfType( int Type ) override;
-	DECLARE_SCHEDULES();
+	DECLARE_SCHEDULES() override;
 
 	void ClearBeams();
 	void ArmBeam( int side );

@@ -71,7 +71,7 @@ public:
 	// UNDONE: What is this for?  It isn't used?
 	float	m_flPlayerDamage;// how much pain has the player inflicted on me?
 
-	DECLARE_SCHEDULES();
+	DECLARE_SCHEDULES() override;
 };
 
 #endif //GAME_SERVER_ENTITIES_NPCS_CBARNEY_H

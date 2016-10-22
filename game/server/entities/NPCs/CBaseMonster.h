@@ -422,7 +422,7 @@ public:
 
 		bool GetEnemy();
 		void MakeDamageBloodDecal ( int cCount, float flNoise, TraceResult *ptr, const Vector &vecDir );
-		void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr );
+		void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 
 	// combat functions
 	virtual Activity GetDeathActivity ( void );
@@ -438,7 +438,7 @@ public:
 	Vector ShootAtEnemy( const Vector &shootOrigin );
 	virtual Vector BodyTarget( const Vector &posSrc ) const override { return Center( ) * 0.75 + EyePosition() * 0.25; }		// position to shoot at
 
-	virtual	Vector  GetGunPosition( void );
+	virtual	Vector GetGunPosition( void ) override;
 
 	virtual void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void DeadTakeDamage( const CTakeDamageInfo& info );

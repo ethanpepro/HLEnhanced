@@ -69,7 +69,7 @@ public:
 
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
-	DECLARE_SCHEDULES();
+	DECLARE_SCHEDULES() override;
 
 private:
 	float m_painTime;

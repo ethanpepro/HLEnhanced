@@ -34,7 +34,7 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	void SetYawSpeed( void ) override;
-	void MonsterThink( void );
+	void MonsterThink( void ) override;
 	void Move( float flInterval ) override;
 	void PickNewDest( int iCondition );
 	void Touch( CBaseEntity *pOther ) override;

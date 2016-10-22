@@ -180,7 +180,7 @@ public:
 	static const char *pPainSounds[];
 	static const char *pFootSounds[];
 
-	DECLARE_SCHEDULES();
+	DECLARE_SCHEDULES() override;
 
 private:
 	float	m_nodeTime;

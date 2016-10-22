@@ -26,7 +26,7 @@ public:
 	void Spawn( void ) override;
 	int	Classify( void ) override { return	CLASS_HUMAN_MILITARY; }
 
-	void KeyValue( KeyValueData *pkvd );
+	void KeyValue( KeyValueData *pkvd ) override;
 
 	int	m_iPose;// which sequence to display	-- temporary, don't need to save
 	static const char* const m_szPoses[ 4 ];

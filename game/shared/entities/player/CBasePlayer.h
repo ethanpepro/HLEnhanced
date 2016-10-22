@@ -325,7 +325,7 @@ public:
 
 	void Pain();
 
-	void DeathSound();
+	void DeathSound() override;
 
 	void AddPoints( int score, const bool bAllowNegativeScore );
 	void AddPointsToTeam( int score, const bool bAllowNegativeScore );

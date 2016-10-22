@@ -88,7 +88,7 @@ public:
 	Schedule_t *GetScheduleOfType( int Type ) override;
 	Schedule_t *GetSchedule( void ) override;
 
-	DECLARE_SCHEDULES();
+	DECLARE_SCHEDULES() override;
 
 	int m_iSpriteTexture;
 	bool m_fAsleep;// some houndeyes sleep in idle mode if this is set, the houndeye is lying down

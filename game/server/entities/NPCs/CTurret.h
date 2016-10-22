@@ -26,8 +26,8 @@ public:
 	void Spawn( void ) override;
 	void Precache( void ) override;
 	// Think functions
-	void SpinUpCall( void );
-	void SpinDownCall( void );
+	void SpinUpCall( void ) override;
+	void SpinDownCall( void ) override;
 
 	// other functions
 	void Shoot( Vector &vecSrc, Vector &vecDirToEnemy ) override;

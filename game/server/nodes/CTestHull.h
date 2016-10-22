@@ -25,7 +25,7 @@ public:
 	DECLARE_CLASS( CTestHull, CBaseMonster );
 	DECLARE_DATADESC();
 
-	void Spawn();
+	void Spawn() override;
 	virtual int	ObjectCaps() const override { return CBaseMonster::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 	void CallBuildNodeGraph();
 

@@ -128,7 +128,7 @@ public:
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
-	void CheckAmmo( void );
+	void CheckAmmo( void ) override;
 	void SetActivity( Activity NewActivity ) override;
 	void StartTask( const Task_t* pTask ) override;
 	void RunTask( const Task_t* pTask ) override;
@@ -153,7 +153,7 @@ public:
 	bool FOkToSpeak() const;
 	void JustSpoke( void );
 
-	DECLARE_SCHEDULES();
+	DECLARE_SCHEDULES() override;
 
 	// checking the feasibility of a grenade toss is kind of costly, so we do it every couple of seconds,
 	// not every server frame.
