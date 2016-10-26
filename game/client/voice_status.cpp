@@ -510,7 +510,7 @@ void CVoiceStatus::UpdateServerState(bool bForce)
 		if(gEngfuncs.pfnGetCvarFloat("voice_clientdebug"))
 		{
 			char msg[256];
-			sprintf(msg, "CVoiceStatus::UpdateServerState: Sending '%s'\n", str);
+			snprintf(msg, sizeof( msg ), "CVoiceStatus::UpdateServerState: Sending '%s'\n", str);
 			gEngfuncs.pfnConsolePrint(msg);
 		}
 	}
@@ -550,7 +550,7 @@ void CVoiceStatus::UpdateServerState(bool bForce)
 		if(gEngfuncs.pfnGetCvarFloat("voice_clientdebug"))
 		{
 			char msg[256];
-			sprintf(msg, "CVoiceStatus::UpdateServerState: Sending '%s'\n", str);
+			snprintf(msg, sizeof( msg ), "CVoiceStatus::UpdateServerState: Sending '%s'\n", str);
 			gEngfuncs.pfnConsolePrint(msg);
 		}
 

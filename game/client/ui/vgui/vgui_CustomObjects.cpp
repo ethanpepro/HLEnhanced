@@ -49,8 +49,8 @@ char *GetTGANameForRes(const char *pszName)
 		i = 320;
 	else
 		i = 640;
-	sprintf(sz, pszName, i);
-	sprintf(gd, "gfx/vgui/%s.tga", sz);
+	snprintf(sz, sizeof( sz ), pszName, i);
+	snprintf(gd, sizeof( gd ), "gfx/vgui/%s.tga", sz);
 	return gd;
 }
 

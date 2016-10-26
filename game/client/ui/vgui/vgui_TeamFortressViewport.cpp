@@ -1583,7 +1583,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		if ( gHUD.m_Spectator.m_autoDirector->value )
 		{
 			char tempString[128];
-			sprintf(tempString, "#Spec_Auto %s", helpString2);
+			snprintf(tempString, sizeof( tempString ), "#Spec_Auto %s", helpString2);
 			strcpy( helpString2, tempString );
 		}
 
