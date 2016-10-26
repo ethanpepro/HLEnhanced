@@ -71,7 +71,7 @@ inline int32 UTIL_RandomLong( int32 lLow, int32 lHigh )
 }
 
 /**
-*	Generates a random float number in the range [ flLow, flLow ].
+*	Generates a random float number in the range [ flLow, flHigh ].
 *	@param flLow Lower bound.
 *	@param flHigh Higher bound.
 *	@return Random number.

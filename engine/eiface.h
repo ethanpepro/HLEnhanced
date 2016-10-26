@@ -881,7 +881,7 @@ struct enginefuncs_t
 	int32		(*pfnRandomLong)			( int32 lLow, int32 lHigh );
 
 	/**
-	*	Generates a random float number in the range [ flLow, flLow ].
+	*	Generates a random float number in the range [ flLow, flHigh ].
 	*	@param flLow Lower bound.
 	*	@param flHigh Higher bound.
 	*	@return Random number.
