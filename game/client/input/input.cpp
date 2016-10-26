@@ -541,11 +541,11 @@ Returns 0.25 if a key was pressed and released during the frame,
 float CL_KeyState (kbutton_t *key)
 {
 	float		val = 0.0;
-	int			impulsedown, impulseup, down;
-	
-	impulsedown = key->state & 2;
-	impulseup	= key->state & 4;
-	down		= key->state & 1;
+
+	//TODO: define these constants. - Solokiller
+	const int impulsedown	= key->state & 2;
+	const int impulseup		= key->state & 4;
+	const int down			= key->state & 1;
 	
 	if ( impulsedown && !impulseup )
 	{
@@ -556,7 +556,7 @@ float CL_KeyState (kbutton_t *key)
 	if ( impulseup && !impulsedown )
 	{
 		// released this frame?
-		val = down ? 0.0 : 0.0;
+		val = 0.0;//down ? 0.0 : 0.0;
 	}
 
 	if ( !impulsedown && !impulseup )
