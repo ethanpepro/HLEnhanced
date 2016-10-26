@@ -108,6 +108,9 @@ bool CHudSayText::Draw( float flTime )
 		}
 	}
 
+	//Must fit either an entire saytext line or an entire player name. - Solokiller
+	char szBuffer[ MAX_CHARS_PER_LINE > MAX_PLAYER_NAME_LENGTH ? MAX_CHARS_PER_LINE : MAX_PLAYER_NAME_LENGTH ];
+
 	for ( int i = 0; i < MAX_LINES; i++ )
 	{
 		if ( *m_szLineBuffer[i] )
@@ -115,27 +118,18 @@ bool CHudSayText::Draw( float flTime )
 			if ( *m_szLineBuffer[i] == 2 && m_pvecNameColors[i] )
 			{
 				// it's a saytext string
-				//TODO: don't use alloca here, it's in a loop - Solokiller
-				char *buf = static_cast<char *>( alloca( strlen( m_szLineBuffer[i] ) ) );
-				if ( buf )
-				{
-					//char buf[MAX_PLAYER_NAME_LENGTH+32];
 
-					// draw the first x characters in the player color
-					strncpy( buf, m_szLineBuffer[i], min(m_iNameLengths[i], MAX_PLAYER_NAME_LENGTH+32) );
-					buf[ min(m_iNameLengths[i], MAX_PLAYER_NAME_LENGTH+31) ] = 0;
-					gEngfuncs.pfnDrawSetTextColor( *( m_pvecNameColors[ i ] )[0], *( m_pvecNameColors[ i ] )[1], *( m_pvecNameColors[ i ] )[2] );
-					int x = DrawConsoleString( LINE_START, y, buf + 1 ); // don't draw the control code at the start
-					strncpy( buf, m_szLineBuffer[i] + m_iNameLengths[i], strlen( m_szLineBuffer[i] ));
-					buf[ strlen( m_szLineBuffer[i] + m_iNameLengths[i] ) - 1 ] = '\0';
-					// color is reset after each string draw
-					gEngfuncs.pfnDrawSetTextColor( g_ColorYellow[ 0 ], g_ColorYellow[ 1 ], g_ColorYellow[ 2 ] );
-					DrawConsoleString( x, y, buf ); 
-				}
-				else
-				{
-					assert( "Not able to alloca chat buffer!\n");
-				}
+				// draw the first x characters in the player color
+				strncpy( szBuffer, m_szLineBuffer[i], min(m_iNameLengths[i], MAX_PLAYER_NAME_LENGTH+32) );
+				szBuffer[ min(m_iNameLengths[i], MAX_PLAYER_NAME_LENGTH+31) ] = '\0';
+				gEngfuncs.pfnDrawSetTextColor( *( m_pvecNameColors[ i ] )[0], *( m_pvecNameColors[ i ] )[1], *( m_pvecNameColors[ i ] )[2] );
+
+				int x = DrawConsoleString( LINE_START, y, szBuffer + 1 ); // don't draw the control code at the start
+				strncpy( szBuffer, m_szLineBuffer[i] + m_iNameLengths[i], strlen( m_szLineBuffer[i] ));
+				szBuffer[ strlen( m_szLineBuffer[i] + m_iNameLengths[i] ) - 1 ] = '\0';
+				// color is reset after each string draw
+				gEngfuncs.pfnDrawSetTextColor( g_ColorYellow[ 0 ], g_ColorYellow[ 1 ], g_ColorYellow[ 2 ] );
+				DrawConsoleString( x, y, szBuffer );
 			}
 			else
 			{
