@@ -724,7 +724,7 @@ StudioMergeBones
 
 ====================
 */
-void CStudioModelRenderer::StudioMergeBones ( model_t *m_pSubModel )
+void CStudioModelRenderer::StudioMergeBones ( model_t *pSubModel )
 {
 	int					i, j;
 	double				f;
@@ -752,7 +752,7 @@ void CStudioModelRenderer::StudioMergeBones ( model_t *m_pSubModel )
 		//Con_DPrintf("%f %f\n", m_pCurrentEntity->prevframe, f );
 	}
 
-	panim = StudioGetAnim( m_pSubModel, pseqdesc );
+	panim = StudioGetAnim( pSubModel, pseqdesc );
 	StudioCalcRotations( pos, q, pseqdesc, panim, f );
 
 	pbones = (mstudiobone_t *)((byte *)m_pStudioHeader + m_pStudioHeader->boneindex);
