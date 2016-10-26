@@ -1046,7 +1046,6 @@ class DisguiseButton : public CommandButton
 {
 private:
 	int m_iValidTeamsBits;
-	int m_iThisTeam;
 public:
 	DisguiseButton( int iValidTeamNumsBits, const char* text,int x,int y,int wide,int tall ) : CommandButton( text,x,y,wide,tall,false )
 	{
