@@ -26,6 +26,8 @@ public:
 
 	operator const CBaseEntity*( ) const;
 
+	EHANDLE& operator=( const EHANDLE& other ) = default;
+
 	CBaseEntity * operator = ( CBaseEntity *pEntity );
 	CBaseEntity * operator ->() const;
 
