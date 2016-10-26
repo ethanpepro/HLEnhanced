@@ -94,7 +94,6 @@ public:
 
 		m_pMemory = nullptr;
 		m_uiSize = 0;
-		m_fOwnsMemory = false;
 	}
 
 	void Swap( CMemory& other )

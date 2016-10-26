@@ -91,7 +91,7 @@ public:
 	}
 
 private:
-	ChargeState m_chargeReady;
+	ChargeState m_chargeReady = ChargeState::NONE;
 };
 
 #endif //GAME_SHARED_ENTITIES_WEAPONS_CSATCHEL_H
