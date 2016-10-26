@@ -1754,22 +1754,19 @@ public:
 	void paint()
 	{
 		// Get the paint color
-		int r,g,b,a;
+		int r,g,b,a = MIN_ALPHA;
 		// Has health changed? Flash the health #
 		if (gHUD.m_Health.m_fFade)
 		{
 			gHUD.m_Health.m_fFade -= (gHUD.m_flTimeDelta * 20);
 			if (gHUD.m_Health.m_fFade <= 0)
 			{
-				a = MIN_ALPHA;
 				gHUD.m_Health.m_fFade = 0;
 			}
 
 			// Fade the health number back to dim
-			a = MIN_ALPHA +  (gHUD.m_Health.m_fFade/FADE_TIME) * 128;
+			a += ( gHUD.m_Health.m_fFade / FADE_TIME ) * 128;
 		}
-		else
-			a = MIN_ALPHA;
 
 		gHUD.m_Health.GetPainColor( r, g, b );
 		ScaleColors(r, g, b, a );

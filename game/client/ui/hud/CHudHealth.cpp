@@ -169,7 +169,7 @@ void CHudHealth::GetPainColor( int &r, int &g, int &b )
 bool CHudHealth::Draw(float flTime)
 {
 	int r, g, b;
-	int a = 0, x, y;
+	int a = MIN_ALPHA, x, y;
 	int HealthWidth;
 
 	if ( (gHUD.m_iHideHUDDisplay & HIDEHUD_HEALTH) || gEngfuncs.IsSpectateOnly() )
@@ -178,23 +178,21 @@ bool CHudHealth::Draw(float flTime)
 	if ( !m_hSprite )
 		m_hSprite = LoadSprite(PAIN_NAME);
 	
+	//TODO: this code is used by batteries too, so refactor it. - Solokiller
 	// Has health changed? Flash the health #
 	if (m_fFade)
 	{
 		m_fFade -= (gHUD.m_flTimeDelta * 20);
 		if (m_fFade <= 0)
 		{
-			a = MIN_ALPHA;
 			m_fFade = 0;
 		}
 
 		// Fade the health number back to dim
 
-		a = MIN_ALPHA +  (m_fFade/FADE_TIME) * 128;
+		a += ( m_fFade / FADE_TIME ) * 128;
 
 	}
-	else
-		a = MIN_ALPHA;
 
 	// If health is getting low, make it bright red
 	if (m_iHealth <= 15)
