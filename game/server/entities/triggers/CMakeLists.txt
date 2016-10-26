@@ -37,6 +37,8 @@ add_sources(
 	CTriggerOnce.cpp
 	CTriggerPush.h
 	CTriggerPush.cpp
+	CTriggerRandom.h
+	CTriggerRandom.cpp
 	CTriggerRelay.h
 	CTriggerRelay.cpp
 	CTriggerSave.h
