@@ -3,7 +3,7 @@
 
 #include <climits>
 
-class CTriggerRandom : public CBaseEntity
+class CTriggerRandom : public CBaseDelay
 {
 private:
 	static const size_t MAX_TARGETS = 16;
@@ -36,7 +36,7 @@ private:
 	static const int SF_TRIGGER_ONCE	= 1 << 4;
 
 public:
-	DECLARE_CLASS( CTriggerRandom, CBaseEntity );
+	DECLARE_CLASS( CTriggerRandom, CBaseDelay );
 	DECLARE_DATADESC();
 
 	void KeyValue( KeyValueData* pkvd ) override;
