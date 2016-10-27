@@ -106,12 +106,6 @@ void CWorld::Spawn()
 {
 	LoadGMR();
 
-#if USE_ANGELSCRIPT
-	//TODO: due to save/restore's wonky restore order, this will be invoked in the wrong order.
-	//Perhaps find a way to save map script names in a block that's loaded before the rest? - Solokiller
-	g_ASManager.WorldCreated( STRING( m_iszMapScript ) );
-#endif
-
 	g_fGameOver = false;
 	Precache();
 	g_flWeaponCheat = CVAR_GET_FLOAT( "sv_cheats" );  // Is the impulse 101 command allowed?
@@ -119,6 +113,13 @@ void CWorld::Spawn()
 
 void CWorld::Precache()
 {
+#if USE_ANGELSCRIPT
+	//TODO: due to save/restore's wonky restore order, this will be invoked in the wrong order.
+	//Perhaps find a way to save map script names in a block that's loaded before the rest? - Solokiller
+	//Must be in Precache to restore!
+	g_ASManager.WorldCreated( STRING( m_iszMapScript ) );
+#endif
+
 	g_pLastSpawn = NULL;
 
 #if 1
