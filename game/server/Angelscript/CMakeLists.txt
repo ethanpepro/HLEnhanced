@@ -12,4 +12,5 @@ add_sources(
 	CHLASServerManager.cpp
 )
 
+add_subdirectory( Entities )
 add_subdirectory( ScriptAPI )

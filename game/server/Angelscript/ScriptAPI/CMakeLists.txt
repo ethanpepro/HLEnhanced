@@ -3,6 +3,8 @@ add_sources(
 	ASGameRules.cpp
 	ASPluginInterface.h
 	ASPluginInterface.cpp
+	ASTriggerScript.h
+	ASTriggerScript.cpp
 )
 
 add_subdirectory( Entities )

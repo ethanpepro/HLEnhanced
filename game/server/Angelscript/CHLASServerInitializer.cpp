@@ -7,6 +7,8 @@
 
 #include "Angelscript/ScriptAPI/Entities/ASEntityFuncs.h"
 
+#include "Angelscript/ScriptAPI/ASTriggerScript.h"
+
 #include "Angelscript/ScriptAPI/ASGameRules.h"
 
 #include "Angelscript/ScriptAPI/Extensions/CASGameRules.h"
@@ -25,7 +27,10 @@ bool CHLASServerInitializer::RegisterCoreAPI( CASManager& manager )
 
 	RegisterScriptPluginInterface( engine );
 
+	//CBaseEntity is registered by CHLASBaseInitializer
 	RegisterScriptEntityFuncs( engine );
+
+	RegisterScriptTriggerScript( engine );
 
 	engine.RegisterInterface( "IGameRules" );
 
