@@ -116,6 +116,8 @@ void CTriggerScript::Spawn()
 
 void CTriggerScript::TriggerUse( CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float flValue )
 {
+	SUB_UseTargets( pActivator, USE_TOGGLE, 0 );
+
 	for( auto pFunction : m_FunctionList )
 	{
 		as::Call( pFunction, pActivator, pCaller, useType, flValue );
@@ -128,6 +130,8 @@ void CTriggerScript::ToggleUse( CBaseEntity* pActivator, CBaseEntity* pCaller, U
 
 	if( ShouldToggle( useType, bOn ) )
 	{
+		SUB_UseTargets( pActivator, USE_TOGGLE, 0 );
+
 		if( ShouldUpdateThinkStates() )
 		{
 			CallThink( bOn ? ThinkState::STOPPING : ThinkState::STARTING );
@@ -149,6 +153,7 @@ void CTriggerScript::CallScriptThink()
 
 void CTriggerScript::FindFunctions()
 {
+	//TODO: should parse out namespaces. - Solokiller
 	if( HasFunctionName() )
 	{
 		std::string szFunctionSignature;
