@@ -175,7 +175,7 @@ public:
 		}
 		else
 		{
-			pResult = Respawn();
+			pResult = BaseClass::Respawn();
 		}
 
 		return pResult;
@@ -263,6 +263,274 @@ public:
 	void Blocked( CBaseEntity* pOther ) override
 	{
 		CALL_EXTEND_FUNC_DIFFFUNC( Blocked, DefaultScriptBlocked, "(CBaseEntity@)", pOther );
+	}
+
+	int Classify() override
+	{
+		CALL_EXTEND_FUNC_RET( int, Classify, "()" );
+	}
+
+	int BloodColor() const override
+	{
+		CALL_EXTEND_FUNC_RET( int, BloodColor, "() const" );
+	}
+
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult* ptr ) override
+	{
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "void TraceAttack(const CTakeDamageInfo& in, Vector, TraceResult& in)" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			method.Call( CallFlag::NONE, &info, &vecDir, &ptr );
+		}
+		else
+		{
+			TraceAttack( info, vecDir, ptr );
+		}
+	}
+
+	void TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult* ptr ) override
+	{
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "void TraceBleed(const CTakeDamageInfo& in, Vector, TraceResult& in)" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			method.Call( CallFlag::NONE, &info, &vecDir, &ptr );
+		}
+		else
+		{
+			BaseClass::TraceBleed( info, vecDir, ptr );
+		}
+	}
+
+	void OnTakeDamage( const CTakeDamageInfo& info ) override
+	{
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "void OnTakeDamage(const CTakeDamageInfo& in)" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			method.Call( CallFlag::NONE, &info );
+		}
+		else
+		{
+			BaseClass::OnTakeDamage( info );
+		}
+	}
+
+	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override
+	{
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "void Killed(const CTakeDamageInfo& in, GibAction)" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			method.Call( CallFlag::NONE, &info, gibAction );
+		}
+		else
+		{
+			BaseClass::Killed( info, gibAction );
+		}
+	}
+
+	float GiveHealth( float flHealth, int bitsDamageType ) override
+	{
+		CALL_EXTEND_FUNC_RET( float, GiveHealth, "(float, int)", flHealth, bitsDamageType );
+	}
+
+	bool IsTriggered( const CBaseEntity* const pActivator ) const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, IsTriggered, "(const CBaseEntity@) const", pActivator );
+	}
+
+	//TODO: MyMonsterPointer. Allows scripts to return null if monsters need that kind of behavior. - Solokiller
+
+	bool IsMoving() const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, IsMoving, "() const" );
+	}
+
+	void OverrideReset() override
+	{
+		CALL_EXTEND_FUNC( OverrideReset, "()" );
+	}
+
+	int DamageDecal( int bitsDamageType ) const override
+	{
+		CALL_EXTEND_FUNC_RET( int, DamageDecal, "(int) const", bitsDamageType );
+	}
+
+	//TODO: temporary - Solokiller
+
+	bool OnControls( const CBaseEntity* const pTest ) const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, OnControls, "(const CBaseEntity@) const", pTest );
+	}
+
+	bool IsAlive() const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, IsAlive, "() const" );
+	}
+
+	bool IsBSPModel() const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, IsBSPModel, "() const" );
+	}
+
+	bool ReflectGauss() const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, ReflectGauss, "() const" );
+	}
+
+	//TODO: verify that passing by value works properly for this. - Solokiller
+	bool HasTarget( string_t targetname ) const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, HasTarget, "(string_t) const", targetname );
+	}
+
+	bool IsInWorld() const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, IsInWorld, "() const" );
+	}
+
+	//Do not override IsPlayer or IsNetClient: code assumes it's a CBasePlayer/CBaseSpectator in that case. - Solokiller
+
+	const char* TeamID() const override
+	{
+		std::string szString;
+
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "string TeamID() const" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			if( method.Call( CallFlag::NONE ) )
+			{
+				method.GetReturnValue( &szString );
+			}
+		}
+		else
+		{
+			szString = BaseClass::TeamID();
+		}
+
+		return STRING( ALLOC_STRING( szString.c_str() ) );
+	}
+
+	CBaseEntity *GetNextTarget() override
+	{
+		CBaseEntity* pResult = nullptr;
+
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "CBaseEntity@ GetNextTarget()" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			if( method.Call( CallFlag::NONE ) )
+			{
+				method.GetReturnValue( &pResult );
+			}
+		}
+		else
+		{
+			pResult = BaseClass::GetNextTarget();
+		}
+
+		return pResult;
+	}
+
+	bool IsLockedByMaster() const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, IsLockedByMaster, "() const" );
+	}
+
+	void DeathNotice( CBaseEntity* pChild ) override
+	{
+		CALL_EXTEND_FUNC( DeathNotice, "(CBaseEntity@)", pChild );
+	}
+
+	bool BarnacleVictimGrabbed( CBaseEntity* pBarnacle ) override
+	{
+		CALL_EXTEND_FUNC_RET( bool, BarnacleVictimGrabbed, "(CBaseEntity@)", pBarnacle );
+	}
+
+	Vector Center() const override
+	{
+		CALL_EXTEND_FUNC_RET( Vector, Center, "() const" );
+	}
+
+	Vector EyePosition() const override
+	{
+		CALL_EXTEND_FUNC_RET( Vector, EyePosition, "() const" );
+	}
+
+	Vector EarPosition() const override
+	{
+		CALL_EXTEND_FUNC_RET( Vector, EarPosition, "() const" );
+	}
+
+	Vector BodyTarget( const Vector &posSrc ) const override
+	{
+		Vector vecResult;
+
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "Vector BodyTarget(const Vector& in) const" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			if( method.Call( CallFlag::NONE, &posSrc ) )
+			{
+				method.GetReturnValue( &vecResult );
+			}
+		}
+		else
+		{
+			vecResult = BaseClass::BodyTarget( posSrc );
+		}
+
+		return vecResult;
+	}
+
+	int Illumination() const override
+	{
+		CALL_EXTEND_FUNC_RET( int, Illumination, "() const" );
+	}
+
+	bool FVisible( const CBaseEntity *pEntity ) const override
+	{
+		CALL_EXTEND_FUNC_RET( bool, FVisible, "(const CBaseEntity@) const", pEntity );
+	}
+
+	bool FVisible( const Vector &vecOrigin ) const override
+	{
+		bool bResult;
+
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "Vector BodyTarget(const Vector& in) const" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			if( method.Call( CallFlag::NONE, &vecOrigin ) )
+			{
+				method.GetReturnValue( &bResult );
+			}
+		}
+		else
+		{
+			bResult = BaseClass::FVisible( vecOrigin );
+		}
+
+		return bResult;
 	}
 
 private:

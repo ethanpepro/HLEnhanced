@@ -1876,6 +1876,9 @@ public:
 	void TakeDamage( CBaseEntity* pInflictor, CBaseEntity* pAttacker, float flDamage, int bitsDamageType );
 
 protected:
+	template<typename CLASS>
+	friend void BaseEntity_OnTakeDamage( CLASS* pThis, const CTakeDamageInfo& info );
+
 	/**
 	*	Called when this entity is damaged.
 	*	Should not be called directly, call TakeDamage.

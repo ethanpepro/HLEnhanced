@@ -1177,6 +1177,182 @@ void BaseEntity_Blocked( CLASS* pThis, CBaseEntity* pOther )
 	pThis->CLASS::Blocked( pOther );
 }
 
+template<typename CLASS>
+int BaseEntity_Classify( CLASS* pThis )
+{
+	return pThis->CLASS::Classify();
+}
+
+template<typename CLASS>
+int BaseEntity_BloodColor( const CLASS* pThis )
+{
+	return pThis->CLASS::BloodColor();
+}
+
+template<typename CLASS>
+void BaseEntity_TraceAttack( CLASS* pThis, const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
+{
+	pThis->CLASS::TraceAttack( info, vecDir, &tr );
+}
+
+template<typename CLASS>
+void BaseEntity_TraceBleed( CLASS* pThis, const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
+{
+	pThis->CLASS::TraceBleed( info, vecDir, &tr );
+}
+
+template<typename CLASS>
+void BaseEntity_OnTakeDamage( CLASS* pThis, const CTakeDamageInfo& info )
+{
+	pThis->CLASS::OnTakeDamage( info );
+}
+
+template<typename CLASS>
+void BaseEntity_Killed( CLASS* pThis, const CTakeDamageInfo& info, GibAction gibAction )
+{
+	pThis->CLASS::Killed( info, gibAction );
+}
+
+template<typename CLASS>
+float BaseEntity_GiveHealth( CLASS* pThis, float flHealth, int bitsDamageType )
+{
+	return pThis->CLASS::GiveHealth( flHealth, bitsDamageType );
+}
+
+template<typename CLASS>
+bool BaseEntity_IsTriggered( const CLASS* pThis, const CBaseEntity* const pActivator )
+{
+	return pThis->CLASS::IsTriggered( pActivator );
+}
+
+//TODO: MyMonsterPointer - Solokiller
+
+template<typename CLASS>
+bool BaseEntity_IsMoving( const CLASS* pThis )
+{
+	return pThis->CLASS::IsMoving();
+}
+
+template<typename CLASS>
+void BaseEntity_OverrideReset( CLASS* pThis )
+{
+	pThis->CLASS::OverrideReset();
+}
+
+template<typename CLASS>
+int BaseEntity_DamageDecal( const CLASS* pThis, int bitsDamageType )
+{
+	return pThis->CLASS::DamageDecal( bitsDamageType );
+}
+
+template<typename CLASS>
+bool BaseEntity_OnControls( const CLASS* pThis, const CBaseEntity* const pTest )
+{
+	return pThis->CLASS::OnControls( pTest );
+}
+
+template<typename CLASS>
+bool BaseEntity_IsAlive( const CLASS* pThis )
+{
+	return pThis->CLASS::IsAlive();
+}
+
+template<typename CLASS>
+bool BaseEntity_IsBSPModel( const CLASS* pThis )
+{
+	return pThis->CLASS::IsBSPModel();
+}
+
+template<typename CLASS>
+bool BaseEntity_ReflectGauss( const CLASS* pThis )
+{
+	return pThis->CLASS::ReflectGauss();
+}
+
+template<typename CLASS>
+bool BaseEntity_HasTarget( const CLASS* pThis, string_t targetname )
+{
+	return pThis->CLASS::HasTarget( targetname );
+}
+
+template<typename CLASS>
+bool BaseEntity_IsInWorld( const CLASS* pThis )
+{
+	return pThis->CLASS::IsInWorld();
+}
+
+template<typename CLASS>
+std::string BaseEntity_TeamID( const CLASS* pThis )
+{
+	return pThis->CLASS::TeamID();
+}
+
+template<typename CLASS>
+CBaseEntity* BaseEntity_GetNextTarget( CLASS* pThis )
+{
+	return pThis->CLASS::GetNextTarget();
+}
+
+template<typename CLASS>
+bool BaseEntity_IsLockedByMaster( const CLASS* pThis )
+{
+	return pThis->CLASS::IsLockedByMaster();
+}
+
+template<typename CLASS>
+void BaseEntity_DeathNotice( CLASS* pThis, CBaseEntity* pChild )
+{
+	pThis->CLASS::DeathNotice( pChild );
+}
+
+template<typename CLASS>
+bool BaseEntity_BarnacleVictimGrabbed( CLASS* pThis, CBaseEntity* pBarnacle )
+{
+	return pThis->CLASS::BarnacleVictimGrabbed( pBarnacle );
+}
+
+template<typename CLASS>
+Vector BaseEntity_Center( const CLASS* pThis )
+{
+	return pThis->CLASS::Center();
+}
+
+template<typename CLASS>
+Vector BaseEntity_EyePosition( const CLASS* pThis )
+{
+	return pThis->CLASS::EyePosition();
+}
+
+template<typename CLASS>
+Vector BaseEntity_EarPosition( const CLASS* pThis )
+{
+	return pThis->CLASS::EarPosition();
+}
+
+template<typename CLASS>
+Vector BaseEntity_BodyTarget( const CLASS* pThis, const Vector& posSrc )
+{
+	return pThis->CLASS::BodyTarget( posSrc );
+}
+
+template<typename CLASS>
+int BaseEntity_Illumination( const CLASS* pThis )
+{
+	return pThis->CLASS::Illumination();
+}
+
+template<typename CLASS>
+bool BaseEntity_FVisible( const CLASS* pThis, const CBaseEntity* pEntity )
+{
+	return pThis->CLASS::FVisible( pEntity );
+}
+
+template<typename CLASS>
+bool BaseEntity_FVisible( const CLASS* pThis, const Vector& vecOrigin )
+{
+	return pThis->CLASS::FVisible( vecOrigin );
+}
+
 /**
 *	Registers CBaseEntity methods for the BaseClass type for CLASS.
 *	@param engine Script engine.
@@ -1243,6 +1419,122 @@ void RegisterScriptBaseEntity( asIScriptEngine& engine, const char* const pszObj
 	engine.RegisterObjectMethod(
 		pszObjectName, "void Blocked(CBaseEntity@ pOther)",
 		asFUNCTION( BaseEntity_Blocked<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int Classify()",
+		asFUNCTION( BaseEntity_Classify<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int BloodColor() const",
+		asFUNCTION( BaseEntity_BloodColor<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void TraceAttack(const CTakeDamageInfo& in info, Vector vecDir, TraceResult& in tr)",
+		asFUNCTION( BaseEntity_TraceAttack<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void TraceBleed(const CTakeDamageInfo& in info, Vector vecDir, TraceResult& in tr)",
+		asFUNCTION( BaseEntity_TraceBleed<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void OnTakeDamage(const CTakeDamageInfo& in info)",
+		asFUNCTION( BaseEntity_OnTakeDamage<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Killed(const CTakeDamageInfo& in info, GibAction gibAction)",
+		asFUNCTION( BaseEntity_Killed<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "float GiveHealth(float flHealth, int bitsDamageTypes)",
+		asFUNCTION( BaseEntity_GiveHealth<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsTriggered(const CBaseEntity@ pActivator) const",
+		asFUNCTION( BaseEntity_IsTriggered<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsMoving() const",
+		asFUNCTION( BaseEntity_IsMoving<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void OverrideReset()",
+		asFUNCTION( BaseEntity_OverrideReset<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int DamageDecal(int bitsDamageType) const",
+		asFUNCTION( BaseEntity_DamageDecal<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool OnControls(const CBaseEntity@ pTest) const",
+		asFUNCTION( BaseEntity_OnControls<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsAlive() const",
+		asFUNCTION( BaseEntity_IsAlive<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsBSPModel() const",
+		asFUNCTION( BaseEntity_IsBSPModel<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool ReflectGauss() const",
+		asFUNCTION( BaseEntity_ReflectGauss<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasTarget(string_t targetname) const",
+		asFUNCTION( BaseEntity_HasTarget<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsInWorld() const",
+		asFUNCTION( BaseEntity_IsInWorld<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string TeamID() const",
+		asFUNCTION( BaseEntity_TeamID<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ GetNextTarget()",
+		asFUNCTION( BaseEntity_GetNextTarget<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool IsLockedByMaster() const",
+		asFUNCTION( BaseEntity_IsLockedByMaster<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void DeathNotice(CBaseEntity@ pChild)",
+		asFUNCTION( BaseEntity_DeathNotice<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool BarnacleVictimGrabbed(CBaseEntity@ pBarnacle)",
+		asFUNCTION( BaseEntity_BarnacleVictimGrabbed<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector Center() const",
+		asFUNCTION( BaseEntity_Center<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector EyePosition() const",
+		asFUNCTION( BaseEntity_EyePosition<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector EarPosition() const",
+		asFUNCTION( BaseEntity_EarPosition<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "Vector BodyTarget(const Vector& in posSrc) const",
+		asFUNCTION( BaseEntity_BodyTarget<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int Illumination() const",
+		asFUNCTION( BaseEntity_Illumination<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool FVisible(const CBaseEntity@ pEntity) const",
+		asFUNCTIONPR( BaseEntity_FVisible<CLASS>, ( const CBaseEntity*, const CBaseEntity* ), bool ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool FVisible(const Vector& in vecOrigin) const",
+		asFUNCTIONPR( BaseEntity_FVisible<CLASS>, ( const CBaseEntity*, const Vector& ), bool ), asCALL_CDECL_OBJFIRST );
 }
 
 /**
