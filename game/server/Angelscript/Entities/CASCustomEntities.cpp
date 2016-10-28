@@ -8,6 +8,8 @@
 #include "util.h"
 #include "cbase.h"
 
+#include "Angelscript/CASPluginData.h"
+
 #include "Angelscript/CASClassWriter.h"
 
 #include "StringUtils.h"
@@ -122,9 +124,17 @@ bool CASCustomEntities::RegisterCustomEntity( const std::string& szMapName, cons
 		return false;
 	}
 
-	auto pModule = GetScriptModuleFromScriptContext( asGetActiveContext() );
+	auto pModule = GetModuleFromScriptContext( asGetActiveContext() );
 
 	if( !pModule )
+	{
+		Alert( at_error, "CCustomEntities::RegisterCustomEntity: Couldn't get module from current script!\n" );
+		return false;
+	}
+
+	auto pScriptModule = pModule->GetModule();
+
+	if( !pScriptModule )
 	{
 		Alert( at_error, "CCustomEntities::RegisterCustomEntity: Couldn't get module from current script!\n" );
 		return false;
@@ -133,22 +143,22 @@ bool CASCustomEntities::RegisterCustomEntity( const std::string& szMapName, cons
 	const auto szNamespace = as::ExtractNamespaceFromName( szClassName );
 	const auto szName = as::ExtractNameFromName( szClassName );
 
-	const std::string szOldNS = pModule->GetDefaultNamespace();
-	pModule->SetDefaultNamespace( szNamespace.c_str() );
+	const std::string szOldNS = pScriptModule->GetDefaultNamespace();
+	pScriptModule->SetDefaultNamespace( szNamespace.c_str() );
 
-	auto pTypeInfo = pModule->GetTypeInfoByName( szName.c_str() );
+	auto pTypeInfo = pScriptModule->GetTypeInfoByName( szName.c_str() );
 
-	pModule->SetDefaultNamespace( szOldNS.c_str() );
+	pScriptModule->SetDefaultNamespace( szOldNS.c_str() );
 
 	if( !pTypeInfo )
 	{
-		Alert( at_error, "CCustomEntities::RegisterCustomEntity: Couldn't find class \"%s\" in module \"%s\"!\n", szNewClassName.c_str(), pModule->GetName() );
+		Alert( at_error, "CCustomEntities::RegisterCustomEntity: Couldn't find class \"%s\" in module \"%s\"!\n", szNewClassName.c_str(), pScriptModule->GetName() );
 		return false;
 	}
 
 	if( !( pTypeInfo->GetTypeId() & asTYPEID_MASK_OBJECT ) )
 	{
-		Alert( at_error, "CCustomEntities::RegisterCustomEntity: Type \"%s\" in module \"%s\" is not a class!\n", szNewClassName.c_str(), pModule->GetName() );
+		Alert( at_error, "CCustomEntities::RegisterCustomEntity: Type \"%s\" in module \"%s\" is not a class!\n", szNewClassName.c_str(), pScriptModule->GetName() );
 		return false;
 	}
 
@@ -164,7 +174,7 @@ bool CASCustomEntities::RegisterCustomEntity( const std::string& szMapName, cons
 
 		if( !pBase )
 		{
-			Alert( at_error, "CCustomEntities::RegisterCustomEntity: Class \"%s\" in module \"%s\" does not have a custom entity base class!\n", szNewClassName.c_str(), pModule->GetName() );
+			Alert( at_error, "CCustomEntities::RegisterCustomEntity: Class \"%s\" in module \"%s\" does not have a custom entity base class!\n", szNewClassName.c_str(), pScriptModule->GetName() );
 			return false;
 		}
 
@@ -176,6 +186,18 @@ bool CASCustomEntities::RegisterCustomEntity( const std::string& szMapName, cons
 	while( !pBaseClassData );
 
 	Alert( at_console, "Registering custom entity \"%s\" (class \"%s\")\n", szNewMapName.c_str(), szNewClassName.c_str() );
+
+	if( auto pData = CASModule_GetPluginData( pModule ) )
+	{
+		//Promote the lifetime to MAP if needed.
+		if( pData->GetLifetime() < PluginLifetime::MAP )
+		{
+			Alert( at_console, "Promoting plugin \"%s\" lifetime from %s to %s: Custom entities require at least %s lifetime\n", 
+				   pModule->GetModuleName(), PluginLifetimeToString( pData->GetLifetime() ), 
+				   PluginLifetimeToString( PluginLifetime::MAP ), PluginLifetimeToString( PluginLifetime::MAP ) );
+			pData->SetMinimumLifetime( PluginLifetime::MAP );
+		}
+	}
 
 	m_ClassList.emplace_back( std::make_unique<CCustomEntityClass>( std::move( szNewMapName ), pTypeInfo, *pBaseClassData ) );
 
