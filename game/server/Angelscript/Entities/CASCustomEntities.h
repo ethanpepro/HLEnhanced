@@ -146,7 +146,7 @@ public:
 private:
 	void GenerateBaseClasses();
 
-	static bool CallInitMethod( const asITypeInfo& typeInfo, void* pInstance, CBaseEntity* pCPPInstance, const char* const pszMethod );
+	static bool CallInitMethod( const asITypeInfo& typeInfo, void* pInstance, void* pCPPInstance, const char* const pszMethod );
 
 private:
 	BaseClassList_t m_BaseClasses;

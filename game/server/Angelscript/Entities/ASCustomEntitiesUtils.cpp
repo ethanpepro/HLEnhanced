@@ -26,6 +26,11 @@ void CASBaseClassCreator::GenerateCommonBaseClassContents( CASClassWriter& write
 		writer.WritePropGetter( "return @m_pBaseClass;", true );
 	writer.EndPropDeclaration();
 
+	writer.WriteProperty( CASClassWriter::Visibility::PRIVATE, "CCallbackHandler@", "m_pCallbackHandler", "null" );
+	writer.StartPropDeclaration( CASClassWriter::Visibility::PUBLIC, "CCallbackHandler@", "CallbackHandler" );
+		writer.WritePropGetter( "return @m_pCallbackHandler;", true );
+	writer.EndPropDeclaration();
+
 	writer.NewLine();
 
 	writer.WriteConstructorHeader();
@@ -50,6 +55,48 @@ void CASBaseClassCreator::GenerateCommonBaseClassContents( CASClassWriter& write
 			"if( m_pBaseClass !is null )\n"
 			"\treturn;\n"
 			"@m_pBaseClass = @pBaseClass;\n" );
+	writer.EndBracket();
+
+	writer.NewLine();
+
+	writer.WriteMethodHeader( CASClassWriter::Visibility::PUBLIC, "void", "SetCallbackHandler", "CCallbackHandler@ pHandler", false, true );
+	writer.StartBracket();
+		writer.Write(
+			"if( m_pCallbackHandler !is null )\n"
+			"\treturn;\n"
+			"@m_pCallbackHandler = @pHandler;\n" );
+	writer.EndBracket();
+
+	writer.NewLine();
+
+	writer.WriteMethodHeader( CASClassWriter::Visibility::PUBLIC, "void", "SetThink", "ThinkFunc@ pFunc", false, true );
+	writer.StartBracket();
+		writer.Write(
+			"m_pCallbackHandler.SetThink( pFunc );" );
+	writer.EndBracket();
+
+	writer.NewLine();
+
+	writer.WriteMethodHeader( CASClassWriter::Visibility::PUBLIC, "void", "SetTouch", "TouchFunc@ pFunc", false, true );
+	writer.StartBracket();
+		writer.Write(
+			"m_pCallbackHandler.SetTouch( pFunc );" );
+	writer.EndBracket();
+
+	writer.NewLine();
+
+	writer.WriteMethodHeader( CASClassWriter::Visibility::PUBLIC, "void", "SetUse", "UseFunc@ pFunc", false, true );
+	writer.StartBracket();
+		writer.Write(
+			"m_pCallbackHandler.SetUse( pFunc );" );
+	writer.EndBracket();
+
+	writer.NewLine();
+
+	writer.WriteMethodHeader( CASClassWriter::Visibility::PUBLIC, "void", "SetBlocked", "BlockedFunc@ pFunc", false, true );
+	writer.StartBracket();
+		writer.Write(
+			"m_pCallbackHandler.SetBlocked( pFunc );" );
 	writer.EndBracket();
 
 	writer.NewLine();

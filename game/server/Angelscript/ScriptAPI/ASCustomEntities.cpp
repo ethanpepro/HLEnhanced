@@ -40,6 +40,34 @@ static void RegisterScriptICustomEntity( asIScriptEngine& engine )
 	engine.RegisterInterface( pszObjectName );
 }
 
+static void RegisterScriptCallbackHandler( asIScriptEngine& engine )
+{
+	engine.RegisterFuncdef( "void ThinkFunc()" );
+	engine.RegisterFuncdef( "void TouchFunc(CBaseEntity@ pOther)" );
+	engine.RegisterFuncdef( "void UseFunc(CBaseEntity@ pActivator, CBaseEntity@ pCaller, USE_TYPE useType, float flValue)" );
+	engine.RegisterFuncdef( "void BlockedFunc(CBaseEntity@ pOther)" );
+
+	const char* const pszObjectName = "CCallbackHandler";
+
+	engine.RegisterObjectType( pszObjectName, 0, asOBJ_REF | asOBJ_NOCOUNT );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetThink(ThinkFunc@ pFunction)",
+		asMETHOD( IASCustomEntity, SetScriptThink ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetTouch(TouchFunc@ pFunction)",
+		asMETHOD( IASCustomEntity, SetScriptTouch ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetUse(UseFunc@ pFunction)",
+		asMETHOD( IASCustomEntity, SetScriptUse ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetBlocked(BlockedFunc@ pFunction)",
+		asMETHOD( IASCustomEntity, SetScriptBlocked ), asCALL_THISCALL );
+}
+
 namespace CustomEnts
 {
 static void* Cast( CBaseEntity* pEntity )
@@ -80,5 +108,6 @@ void RegisterScriptCustomEntities( asIScriptEngine& engine )
 {
 	RegisterScriptCASCustomEntities( engine );
 	RegisterScriptICustomEntity( engine );
+	RegisterScriptCallbackHandler( engine );
 	RegisterScriptCustomEntitiesUtils( engine );
 }

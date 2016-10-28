@@ -7,6 +7,9 @@
 
 #undef GetObject
 
+class CASCustomEntities;
+class CASCustomEntities::CCustomEntityClass;
+
 /**
 *	Interface for custom entity classes.
 */
@@ -18,12 +21,37 @@ public:
 	/**
 	*	@return The object pointer for this custom entity's script object.
 	*/
-	virtual CASObjPtr& GetObject() = 0;
+	virtual CASObjPtr& GetObject() const = 0;
 
 	/**
 	*	Sets this entity's script object.
 	*/
 	virtual void SetObject( CASObjPtr&& instance ) = 0;
+
+	/**
+	*	Sets the class object.
+	*/
+	virtual void SetClass( const CASCustomEntities::CCustomEntityClass* pClass ) = 0;
+
+	/**
+	*	Sets this entity's Think function.
+	*/
+	virtual void SetScriptThink( asIScriptFunction* pFunction ) = 0;
+
+	/**
+	*	Sets this entity's Touch function.
+	*/
+	virtual void SetScriptTouch( asIScriptFunction* pFunction ) = 0;
+
+	/**
+	*	Sets this entity's Use function.
+	*/
+	virtual void SetScriptUse( asIScriptFunction* pFunction ) = 0;
+
+	/**
+	*	Sets this entity's Blocked function.
+	*/
+	virtual void SetScriptBlocked( asIScriptFunction* pFunction ) = 0;
 
 	/*
 	*	Called when the script instance has fully initialized.

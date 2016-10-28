@@ -1105,6 +1105,60 @@ void BaseEntity_OnDestroy( CLASS* pThis )
 	pThis->CLASS::OnDestroy();
 }
 
+template<typename CLASS>
+void BaseEntity_UpdateOnRemove( CLASS* pThis )
+{
+	pThis->CLASS::UpdateOnRemove();
+}
+
+template<typename CLASS>
+void BaseEntity_KeyValue( CLASS* pThis, KeyValueData* pkvd )
+{
+	pThis->CLASS::KeyValue( pkvd );
+}
+
+template<typename CLASS>
+void BaseEntity_Precache( CLASS* pThis )
+{
+	pThis->CLASS::Precache();
+}
+
+template<typename CLASS>
+void BaseEntity_Spawn( CLASS* pThis )
+{
+	pThis->CLASS::Spawn();
+}
+
+template<typename CLASS>
+void BaseEntity_Activate( CLASS* pThis )
+{
+	pThis->CLASS::Activate();
+}
+
+template<typename CLASS>
+int BaseEntity_ObjectCaps( const CLASS* pThis )
+{
+	return pThis->CLASS::ObjectCaps();
+}
+
+template<typename CLASS>
+void BaseEntity_SetObjectCollisionBox( CLASS* pThis )
+{
+	pThis->CLASS::SetObjectCollisionBox();
+}
+
+template<typename CLASS>
+CBaseEntity* BaseEntity_Respawn( CLASS* pThis )
+{
+	return pThis->CLASS::Respawn();
+}
+
+template<typename CLASS>
+void BaseEntity_Think( CLASS* pThis )
+{
+	pThis->CLASS::Think();
+}
+
 /**
 *	Registers CBaseEntity methods for the BaseClass type for CLASS.
 *	@param engine Script engine.
@@ -1123,6 +1177,42 @@ void RegisterScriptBaseEntity( asIScriptEngine& engine, const char* const pszObj
 	engine.RegisterObjectMethod(
 		pszObjectName, "void OnDestroy()",
 		asFUNCTION( BaseEntity_OnDestroy<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void UpdateOnRemove()",
+		asFUNCTION( BaseEntity_UpdateOnRemove<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",
+		asFUNCTION( BaseEntity_KeyValue<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Precache()",
+		asFUNCTION( BaseEntity_Precache<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Spawn()",
+		asFUNCTION( BaseEntity_Spawn<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Activate()",
+		asFUNCTION( BaseEntity_Activate<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "int ObjectCaps() const",
+		asFUNCTION( BaseEntity_ObjectCaps<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetObjectCollisionBox()",
+		asFUNCTION( BaseEntity_SetObjectCollisionBox<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ Respawn()",
+		asFUNCTION( BaseEntity_Respawn<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Think()",
+		asFUNCTION( BaseEntity_Think<CLASS> ), asCALL_CDECL_OBJFIRST );
 }
 
 /**

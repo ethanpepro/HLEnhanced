@@ -301,6 +301,8 @@ CBaseEntity* CASCustomEntities::CreateCustomEntity( const char* const pszMapName
 	//Note: must transfer ownership here since CreateScriptObject added a reference for us.
 	pCustom->SetObject( CASObjPtr( pInstance, typeInfo, true ) );
 
+	pCustom->SetClass( pCustomClass );
+
 	if( !CallInitMethod( *typeInfo, pInstance, pCPPInstance, ( std::string( "void SetSelf(" ) + pCustomClass->GetBaseClassData().szCPPClassName + "@)" ).c_str() ) )
 	{
 		UTIL_RemoveNow( pCPPInstance );
@@ -308,6 +310,13 @@ CBaseEntity* CASCustomEntities::CreateCustomEntity( const char* const pszMapName
 	}
 
 	if( !CallInitMethod( *typeInfo, pInstance, pCPPInstance, ( std::string( "void SetBaseClass(" ) + pCustomClass->GetBaseClassData().szBaseClassName + "@)" ).c_str() ) )
+	{
+		UTIL_RemoveNow( pCPPInstance );
+		return nullptr;
+	}
+
+	//Note: pCustom is required here since the CBaseEntity pointer isn't adjusted for the class's vtable.
+	if( !CallInitMethod( *typeInfo, pInstance, pCustom, "void SetCallbackHandler(CCallbackHandler@)" ) )
 	{
 		UTIL_RemoveNow( pCPPInstance );
 		return nullptr;
@@ -370,7 +379,7 @@ void CASCustomEntities::GenerateBaseClasses()
 	}
 }
 
-bool CASCustomEntities::CallInitMethod( const asITypeInfo& typeInfo, void* pInstance, CBaseEntity* pCPPInstance, const char* const pszMethod )
+bool CASCustomEntities::CallInitMethod( const asITypeInfo& typeInfo, void* pInstance, void* pCPPInstance, const char* const pszMethod )
 {
 	bool bSuccess = false;
 
