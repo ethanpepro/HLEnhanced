@@ -47,7 +47,7 @@ void RegisterScriptstring_t( asIScriptEngine& engine )
 
 	engine.RegisterObjectType(
 		pszObjectName, 
-		sizeof( string_t ), asOBJ_VALUE | asOBJ_POD );
+		sizeof( string_t ), asOBJ_VALUE | asOBJ_POD | asOBJ_APP_PRIMITIVE );
 
 	engine.RegisterObjectBehaviour(
 		pszObjectName, asBEHAVE_CONSTRUCT, "void string_t()",
