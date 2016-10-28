@@ -133,12 +133,12 @@ void ConstructVector3D( Vector* pMemory )
 	new ( pMemory ) Vector();
 }
 
-void CopyConstructVector3D( const Vector& vec, void* pMemory )
+void CopyConstructVector3D( void* pMemory, const Vector& vec )
 {
 	new ( pMemory ) Vector( vec );
 }
 
-void Float3ConstructVector3D( float x, float y, float z, Vector* pMemory )
+void Float3ConstructVector3D( Vector* pMemory, float x, float y, float z )
 {
 	new ( pMemory ) Vector( x, y, z );
 }
@@ -162,12 +162,12 @@ static std::string Vector3D_ToString( const Vector* pThis )
 	return szBuffer;
 }
 
-static float& Vector3D_opIndex( uint32_t uiIndex, Vector* pThis )
+static float& Vector3D_opIndex( Vector* pThis, uint32_t uiIndex )
 {
 	return ( *pThis )[ uiIndex ];
 }
 
-static float Vector3D_opIndex_const( uint32_t uiIndex, const Vector* pThis )
+static float Vector3D_opIndex_const( const Vector* pThis, uint32_t uiIndex )
 {
 	return ( *pThis )[ uiIndex ];
 }
