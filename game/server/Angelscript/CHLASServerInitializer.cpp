@@ -13,6 +13,8 @@
 
 #include "Angelscript/ScriptAPI/Extensions/CASGameRules.h"
 
+#include "Angelscript/ScriptAPI/ASCustomEntities.h"
+
 #if USE_AS_SQL
 #include "Angelscript/ScriptAPI/SQL/ASHLSQL.h"
 #endif
@@ -36,6 +38,8 @@ bool CHLASServerInitializer::RegisterCoreAPI( CASManager& manager )
 
 	RegisterScriptCGameRules( engine );
 	RegisterScriptGameRules( engine );
+
+	RegisterScriptCustomEntities( engine );
 
 #if USE_AS_SQL
 	RegisterScriptHLSQL( engine );

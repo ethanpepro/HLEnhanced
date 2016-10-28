@@ -11,6 +11,8 @@
 
 #include "CFile.h"
 
+#include "Angelscript/Entities/CASCustomEntities.h"
+
 #include "CASBaseModuleBuilder.h"
 
 namespace fs = std::experimental::filesystem;
@@ -19,6 +21,14 @@ CASBaseModuleBuilder::CASBaseModuleBuilder( std::string&& szBasePath, std::strin
 	: m_szBasePath( std::move( szBasePath ) )
 	, m_szModuleTypeName( std::move( szModuleTypeName ) )
 {
+	//TODO: need to add support to the client for predicted weapons. - Solokiller
+#ifndef CLIENT_DLL
+	//Add in the custom entity base classes.
+	for( const auto baseClass : g_CustomEntities.GetBaseClassList() )
+	{
+		AddInternalScript( "__" + baseClass.szClassName, std::string( baseClass.szClassDeclaration ) );
+	}
+#endif
 }
 
 bool CASBaseModuleBuilder::HasInternalScript( const char* const pszName ) const

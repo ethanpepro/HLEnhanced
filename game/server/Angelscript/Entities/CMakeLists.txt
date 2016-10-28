@@ -1,4 +1,10 @@
 add_sources(
+	ASCustomEntitiesUtils.h
+	ASCustomEntitiesUtils.cpp
+	CASCustomEntities.h
+	CASCustomEntities.cpp
+	CCustomCBaseEntity.h
 	CTriggerScript.h
 	CTriggerScript.cpp
+	IASCustomEntity.h
 )

@@ -1,4 +1,6 @@
 add_sources(
+	ASCustomEntities.h
+	ASCustomEntities.cpp
 	ASGameRules.h
 	ASGameRules.cpp
 	ASPluginInterface.h

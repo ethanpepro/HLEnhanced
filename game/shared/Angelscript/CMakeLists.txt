@@ -1,6 +1,7 @@
 add_sources(
 	CASBaseModuleBuilder.h
 	CASBaseModuleBuilder.cpp
+	CASClassWriter.h
 	CASMapModuleBuilder.h
 	CASMapModuleBuilder.cpp
 	CHLASManager.h

@@ -21,6 +21,8 @@
 
 #include "ScriptAPI/Extensions/CASGameRules.h"
 
+#include "Entities/CASCustomEntities.h"
+
 #include "ScriptAPI/SQL/ASHLSQL.h"
 
 #include "CHLASServerManager.h"
@@ -59,11 +61,18 @@ bool CHLASServerManager::Initialize()
 		return false;
 	}
 
+	if( !g_CustomEntities.Initialize() )
+	{
+		Alert( at_error, "Failed to initialize Custom Entities system\n" );
+	}
+
 	return true;
 }
 
 void CHLASServerManager::Shutdown()
 {
+	g_CustomEntities.Shutdown();
+
 #if USE_AS_SQL
 	g_pSQLThreadPool->Stop( false );
 #endif
@@ -135,6 +144,9 @@ void CHLASServerManager::WorldCreated( const char* const pszMapScriptFileName )
 
 	m_PluginManager.WorldCreated();
 
+	//Prepare for custom entity registration.
+	g_CustomEntities.WorldCreated();
+
 	//Must be done after the plugin manager has done its thing so plugins are loaded.
 	for( size_t uiIndex = 0; uiIndex < m_Manager.GetModuleManager().GetModuleCount(); ++uiIndex )
 	{
@@ -164,10 +176,14 @@ void CHLASServerManager::WorldActivated()
 			as::Call( pFunction );
 		}
 	}
+
+	g_CustomEntities.WorldActivated();
 }
 
 void CHLASServerManager::WorldEnded()
 {
+	g_CustomEntities.WorldEnded();
+
 	for( size_t uiIndex = 0; uiIndex < m_Manager.GetModuleManager().GetModuleCount(); ++uiIndex )
 	{
 		auto pModule = m_Manager.GetModuleManager().FindModuleByIndex( uiIndex );
