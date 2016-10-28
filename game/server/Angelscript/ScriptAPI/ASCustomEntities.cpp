@@ -1,6 +1,11 @@
 #include <angelscript.h>
 
+#include "extdll.h"
+#include "util.h"
+#include "cbase.h"
+
 #include "Angelscript/Entities/CASCustomEntities.h"
+#include "Angelscript/Entities/IASCustomEntity.h"
 
 #include "ASCustomEntities.h"
 
@@ -35,8 +40,45 @@ static void RegisterScriptICustomEntity( asIScriptEngine& engine )
 	engine.RegisterInterface( pszObjectName );
 }
 
+namespace CustomEnts
+{
+static void* Cast( CBaseEntity* pEntity )
+{
+	if( !pEntity )
+		return nullptr;
+
+	auto pCustom = dynamic_cast<IASCustomEntity*>( pEntity );
+
+	if( !pCustom )
+		return nullptr;
+
+	auto& instance = pCustom->GetObject();
+
+	void* pInstance = nullptr;
+
+	//AddRef it to prevent problems.
+	as::SetObjPointer( pInstance, instance.Get(), *instance.GetTypeInfo().Get() );
+
+	return pInstance;
+}
+}
+
+static void RegisterScriptCustomEntitiesUtils( asIScriptEngine& engine )
+{
+	const std::string szOldNS = engine.GetDefaultNamespace();
+
+	engine.SetDefaultNamespace( "CustomEnts" );
+
+	engine.RegisterGlobalFunction(
+		"ICustomEntity@ Cast(CBaseEntity@ pEntity)",
+		asFUNCTION( CustomEnts::Cast ), asCALL_CDECL );
+
+	engine.SetDefaultNamespace( szOldNS.c_str() );
+}
+
 void RegisterScriptCustomEntities( asIScriptEngine& engine )
 {
 	RegisterScriptCASCustomEntities( engine );
 	RegisterScriptICustomEntity( engine );
+	RegisterScriptCustomEntitiesUtils( engine );
 }
