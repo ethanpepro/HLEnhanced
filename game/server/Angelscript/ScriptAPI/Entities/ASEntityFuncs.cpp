@@ -79,5 +79,9 @@ void RegisterScriptEntityFuncs( asIScriptEngine& engine )
 		"CBaseEntity@ FindEntityForward(CBaseEntity@ pMe)",
 		asFUNCTION( UTIL_FindEntityForward ), asCALL_CDECL );
 
+	engine.RegisterGlobalFunction(
+		"void Remove(CBaseEntity@ pEntity)",
+		asFUNCTION( UTIL_Remove ), asCALL_CDECL );
+
 	engine.SetDefaultNamespace( szOldNS.c_str() );
 }
