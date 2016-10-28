@@ -53,6 +53,7 @@ bool CHLASBaseInitializer::RegisterCoreAPI( CASManager& manager )
 
 	RegisterScriptEntityDependencies( engine );
 	RegisterScriptCBaseEntity( engine );
+	RegisterScriptBaseEntity( engine );
 	RegisterScriptCEngine( engine );
 	RegisterScriptCGlobalVars( engine );
 

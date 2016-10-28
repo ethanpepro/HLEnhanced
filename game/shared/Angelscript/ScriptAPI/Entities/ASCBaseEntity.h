@@ -1093,4 +1093,44 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine )
 	RegisterScriptCBaseEntity<CBaseEntity>( engine, AS_CBASEENTITY_NAME );
 }
 
+template<typename CLASS>
+void BaseEntity_OnCreate( CLASS* pThis )
+{
+	pThis->CLASS::OnCreate();
+}
+
+template<typename CLASS>
+void BaseEntity_OnDestroy( CLASS* pThis )
+{
+	pThis->CLASS::OnDestroy();
+}
+
+/**
+*	Registers CBaseEntity methods for the BaseClass type for CLASS.
+*	@param engine Script engine.
+*	@param pszObjectName Name of the class to register.
+*/
+template<typename CLASS>
+void RegisterScriptBaseEntity( asIScriptEngine& engine, const char* const pszObjectName )
+{
+	engine.RegisterObjectType(
+		pszObjectName, 0, asOBJ_REF | asOBJ_NOCOUNT );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void OnCreate()",
+		asFUNCTION( BaseEntity_OnCreate<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void OnDestroy()",
+		asFUNCTION( BaseEntity_OnDestroy<CLASS> ), asCALL_CDECL_OBJFIRST );
+}
+
+/**
+*	Registers the BaseClass type for CBaseEntity: BaseEntity.
+*/
+inline void RegisterScriptBaseEntity( asIScriptEngine& engine )
+{
+	RegisterScriptBaseEntity<CBaseEntity>( engine, AS_CBASEENTITY_NAME + 1 );
+}
+
 #endif //GAME_SERVER_ANGELSCRIPT_SCRIPTAPI_ENTITIES_ASCBASEENTITY_H
