@@ -1585,6 +1585,14 @@ public:
 	//TODO: noise* vars
 
 public:
+	CBaseEntity()
+	{
+	}
+
+	virtual ~CBaseEntity()
+	{
+	}
+
 	/**
 	*	Called when the entity is first created. - Solokiller
 	*/
