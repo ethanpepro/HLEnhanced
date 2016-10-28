@@ -1159,6 +1159,24 @@ void BaseEntity_Think( CLASS* pThis )
 	pThis->CLASS::Think();
 }
 
+template<typename CLASS>
+void BaseEntity_Touch( CLASS* pThis, CBaseEntity* pOther )
+{
+	pThis->CLASS::Touch( pOther );
+}
+
+template<typename CLASS>
+void BaseEntity_Use( CLASS* pThis, CBaseEntity* pActivator, CBaseEntity* pCaller, USE_TYPE useType, float flValue )
+{
+	pThis->CLASS::Use( pActivator, pCaller, useType, flValue );
+}
+
+template<typename CLASS>
+void BaseEntity_Blocked( CLASS* pThis, CBaseEntity* pOther )
+{
+	pThis->CLASS::Blocked( pOther );
+}
+
 /**
 *	Registers CBaseEntity methods for the BaseClass type for CLASS.
 *	@param engine Script engine.
@@ -1213,6 +1231,18 @@ void RegisterScriptBaseEntity( asIScriptEngine& engine, const char* const pszObj
 	engine.RegisterObjectMethod(
 		pszObjectName, "void Think()",
 		asFUNCTION( BaseEntity_Think<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Touch(CBaseEntity@ pOther)",
+		asFUNCTION( BaseEntity_Touch<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Use(CBaseEntity@ pActivator, CBaseEntity@ pCaller, USE_TYPE useType, float flValue)",
+		asFUNCTION( BaseEntity_Use<CLASS> ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void Blocked(CBaseEntity@ pOther)",
+		asFUNCTION( BaseEntity_Blocked<CLASS> ), asCALL_CDECL_OBJFIRST );
 }
 
 /**
