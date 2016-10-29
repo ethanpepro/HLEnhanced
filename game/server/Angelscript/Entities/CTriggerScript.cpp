@@ -153,14 +153,16 @@ void CTriggerScript::CallScriptThink()
 
 void CTriggerScript::FindFunctions()
 {
-	//TODO: should parse out namespaces. - Solokiller
 	if( HasFunctionName() )
 	{
 		std::string szFunctionSignature;
 
+		const std::string szNamespace = as::ExtractNamespaceFromName( STRING( m_iszFunctionName ) );
+		const std::string szName = as::ExtractNameFromName( STRING( m_iszFunctionName ) );
+
 		if( IsThinkTrigger() )
 		{
-			szFunctionSignature = std::string( "void " ) + STRING( m_iszFunctionName );
+			szFunctionSignature = std::string( "void " ) + szName;
 
 			if( ShouldUpdateThinkStates() )
 				szFunctionSignature += "(ThinkState::ThinkState)";
@@ -169,12 +171,14 @@ void CTriggerScript::FindFunctions()
 		}
 		else
 		{
-			szFunctionSignature = std::string( "void " ) + STRING( m_iszFunctionName ) + "(CBaseEntity@, CBaseEntity@, USE_TYPE, float)";
+			szFunctionSignature = std::string( "void " ) + szName + "(CBaseEntity@, CBaseEntity@, USE_TYPE, float)";
 		}
 
 		auto& moduleManager = g_ASManager.GetASManager().GetModuleManager();
 
 		const auto uiModuleCount = moduleManager.GetModuleCount();
+
+		std::string szOldNS;
 
 		for( size_t uiIndex = 0; uiIndex < uiModuleCount; ++uiIndex )
 		{
@@ -198,9 +202,19 @@ void CTriggerScript::FindFunctions()
 					continue;
 			}
 
-			if( auto pFunction = pModule->GetModule()->GetFunctionByDecl( szFunctionSignature.c_str() ) )
+			auto pScriptModule = pModule->GetModule();
+
+			szOldNS = pScriptModule->GetDefaultNamespace();
+
+			//User input needs to be sanitized, so check the result to prevent potential garbage results.
+			if( pScriptModule->SetDefaultNamespace( szNamespace.c_str() ) == 0 )
 			{
-				m_FunctionList.emplace_back( pFunction );
+				if( auto pFunction = pScriptModule->GetFunctionByDecl( szFunctionSignature.c_str() ) )
+				{
+					m_FunctionList.emplace_back( pFunction );
+				}
+
+				pScriptModule->SetDefaultNamespace( szOldNS.c_str() );
 			}
 		}
 	}
