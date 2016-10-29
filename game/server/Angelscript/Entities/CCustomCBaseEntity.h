@@ -388,10 +388,27 @@ public:
 		CALL_EXTEND_FUNC_RET( bool, ReflectGauss, "() const" );
 	}
 
-	//TODO: verify that passing by value works properly for this. - Solokiller
 	bool HasTarget( string_t targetname ) const override
 	{
-		CALL_EXTEND_FUNC_RET( bool, HasTarget, "(string_t) const", targetname );
+		bool bResult = false;
+
+		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "bool HasTarget(const string_t& in) const" ) )
+		{
+			CASOwningContext ctx( *pFunction->GetEngine() );
+
+			CASMethod method( *pFunction, ctx, GetObject().Get() );
+
+			if( method.Call( CallFlag::NONE, &targetname ) )
+			{
+				method.GetReturnValue( &bResult );
+			}
+		}
+		else
+		{
+			bResult = BaseClass::HasTarget( targetname );
+		}
+
+		return bResult;
 	}
 
 	bool IsInWorld() const override
