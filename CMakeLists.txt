@@ -512,6 +512,7 @@ if( USE_AS_SQL )
 	if( WIN32 )
 		find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib )
 		find_library( MARIADB "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
+		find_library( MARIADBD "mariadbclientd${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
 		set( PTHREAD "" )
 	else()
 		find_library( SQLITE3 "${CMAKE_SHARED_LIBRARY_PREFIX}sqlite3${CMAKE_SHARED_LIBRARY_SUFFIX}" PATHS "${GAME_BASE_PATH}" )
@@ -526,14 +527,16 @@ else()
 	set( ASSQL )
 	set( ASSQLD )
 	set( SQLITE3 )
-	set( MARIABDB )
+	set( MARIADB )
+	set( MARIADBD )
 	set( PTHREAD )
 endif()
 
 #Link with server dependencies
 target_link_libraries( hl 
 	"${SQLITE3}"
-	"${MARIADB}"
+	debug "${MARIADBD}"
+	optimized "${MARIADB}"
 	optimized "${ASSQL}"
 	debug "${ASSQLD}"
 	"${SHARED_DEPENDENCIES}"
@@ -595,7 +598,14 @@ if( USE_AS_SQL )
 			"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.dll"
 			"$<TARGET_FILE_DIR:hl>/.."
 		)
-		else()
+
+		#Copy the mariadbd dll so the exe can get to it
+		add_custom_command( TARGET hl POST_BUILD
+			COMMAND ${CMAKE_COMMAND} -E copy_if_different
+			"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadbd.dll"
+			"$<TARGET_FILE_DIR:hl>/.."
+		)
+	else()
 		#Copy the sqlite3 library so the exe can get to it
 		add_custom_command( TARGET hl PRE_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy_if_different
