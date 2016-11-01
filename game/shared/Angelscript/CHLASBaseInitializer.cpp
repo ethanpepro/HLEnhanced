@@ -10,6 +10,7 @@
 
 #include <Angelscript/ScriptAPI/CASScheduler.h>
 #include <Angelscript/ScriptAPI/Reflection/ASReflection.h>
+#include <Angelscript/CASEventManager.h>
 
 #include "ScriptAPI/ASScheduler.h"
 
@@ -51,6 +52,8 @@ bool CHLASBaseInitializer::RegisterCoreAPI( CASManager& manager )
 	RegisterScriptReflection( engine );
 
 	RegisterScriptSchedulerInterface( engine );
+
+	RegisterScriptEventAPI( engine );
 
 	RegisterScriptHLMath( engine );
 	RegisterScriptstring_t( engine );
