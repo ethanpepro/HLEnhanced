@@ -11,51 +11,6 @@
 
 #include "CASEngine.h"
 
-void CASEngine::Alert( ALERT_TYPE aType, const std::string& szString )
-{
-	ALERT( aType, "%s", szString.c_str() );
-}
-
-static void CASEngine_Alert( asIScriptGeneric* pArguments )
-{
-	const ALERT_TYPE aType = static_cast<ALERT_TYPE>( pArguments->GetArgDWord( 0 ) );
-	const std::string& szFormat = *reinterpret_cast<const std::string*>( pArguments->GetArgAddress( 1 ) );
-
-	char szBuffer[ 4096 ];
-
-	if( as::SPrintf( szBuffer, szFormat.c_str(), 2, *pArguments ) )
-	{
-		ALERT( aType, "%s", szBuffer );
-	}
-}
-
-void CASEngine::Print( const std::string& szString )
-{
-	g_engfuncs.pfnServerPrint( szString.c_str() );
-}
-
-static void CASEngine_Print( asIScriptGeneric* pArguments )
-{
-	const std::string& szFormat = *reinterpret_cast<const std::string*>( pArguments->GetArgAddress( 0 ) );
-
-	char szBuffer[ 4096 ];
-
-	if( as::SPrintf( szBuffer, szFormat.c_str(), 1, *pArguments ) )
-	{
-		g_engfuncs.pfnServerPrint( szBuffer );
-	}
-}
-
-int CASEngine::PrecacheModel( const std::string& szFileName )
-{
-	return PRECACHE_MODEL( STRING( ALLOC_STRING( szFileName.c_str() ) ) );
-}
-
-int CASEngine::PrecacheGeneric( const std::string& szFileName )
-{
-	return PRECACHE_GENERIC( STRING( ALLOC_STRING( szFileName.c_str() ) ) );
-}
-
 static void RegisterScriptALERT_TYPE( asIScriptEngine& engine )
 {
 	const char* const pszObjectName = "ALERT_TYPE";
@@ -83,6 +38,30 @@ static void RegisterScriptALERT_TYPE( asIScriptEngine& engine )
 	assert( result >= 0 );
 }
 
+void CASEngine::Alert( ALERT_TYPE aType, const std::string& szString )
+{
+	ALERT( aType, "%s", szString.c_str() );
+}
+
+static void CASEngine_Alert( asIScriptGeneric* pArguments )
+{
+	const ALERT_TYPE aType = static_cast<ALERT_TYPE>( pArguments->GetArgDWord( 0 ) );
+	const std::string& szFormat = *reinterpret_cast<const std::string*>( pArguments->GetArgAddress( 1 ) );
+
+	char szBuffer[ 4096 ];
+
+	if( as::SPrintf( szBuffer, szFormat.c_str(), 2, *pArguments ) )
+	{
+		ALERT( aType, "%s", szBuffer );
+	}
+}
+
+//TODO: the client will need to set pfnTime to GetAbsoluteTime for this to work. - Solokiller
+static float CASEngine_Time( CASEngine* pThis )
+{
+	return g_engfuncs.pfnTime();
+}
+
 /**
 *	Class name for CEngine in scripts.
 */
@@ -108,19 +87,8 @@ void RegisterScriptCEngine( asIScriptEngine& engine )
 		engine, pszObjectName, "void", "Alert", "ALERT_TYPE aType, const string& in szFormat", 1, AS_MAX_VARARGS, asFUNCTION( CASEngine_Alert ) );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "void Print(const string& in szString)",
-		asMETHOD( CASEngine, Print ), asCALL_THISCALL );
-
-	as::RegisterVarArgsMethod(
-		engine, pszObjectName, "void", "Print", "const string& in szFormat", 1, AS_MAX_VARARGS, asFUNCTION( CASEngine_Print ) );
-
-	engine.RegisterObjectMethod(
-		pszObjectName, "int PrecacheModel(const string& in szFileName)",
-		asMETHOD( CASEngine, PrecacheModel ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
-		pszObjectName, "int PrecacheGeneric(const string& in szFileName)",
-		asMETHOD( CASEngine, PrecacheGeneric ), asCALL_THISCALL );
+		pszObjectName, "float Time()",
+		asFUNCTION( CASEngine_Time ), asCALL_CDECL_OBJFIRST );
 
 	engine.RegisterGlobalProperty( "CEngine Engine", &g_ASEngine );
 }

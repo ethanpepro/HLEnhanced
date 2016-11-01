@@ -13,12 +13,6 @@ public:
 
 	void Alert( ALERT_TYPE aType, const std::string& szString );
 
-	void Print( const std::string& szString );
-
-	int PrecacheModel( const std::string& szFileName );
-
-	int PrecacheGeneric( const std::string& szFileName );
-
 private:
 	CASEngine( const CASEngine& ) = delete;
 	CASEngine& operator=( const CASEngine& ) = delete;
