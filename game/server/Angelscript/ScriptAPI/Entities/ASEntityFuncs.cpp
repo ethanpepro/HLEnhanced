@@ -8,6 +8,40 @@
 
 #include "ASEntityFuncs.h"
 
+static void RegisterScriptDropToFloor( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "DropToFloor";
+
+	const std::string szOldNS = engine.GetDefaultNamespace();
+
+	engine.SetDefaultNamespace( pszObjectName );
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "STUCK", static_cast<int>( DropToFloor::STUCK ) );
+	engine.RegisterEnumValue( pszObjectName, "TOOFAR", static_cast<int>( DropToFloor::TOOFAR ) );
+	engine.RegisterEnumValue( pszObjectName, "DROPPED", static_cast<int>( DropToFloor::DROPPED ) );
+
+	engine.SetDefaultNamespace( szOldNS.c_str() );
+}
+
+static void RegisterScriptWalkMove( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "WalkMove";
+
+	const std::string szOldNS = engine.GetDefaultNamespace();
+
+	engine.SetDefaultNamespace( pszObjectName );
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "NORMAL", WALKMOVE_NORMAL );
+	engine.RegisterEnumValue( pszObjectName, "WORLDONLY", WALKMOVE_WORLDONLY );
+	engine.RegisterEnumValue( pszObjectName, "CHECKONLY", WALKMOVE_CHECKONLY );
+
+	engine.SetDefaultNamespace( szOldNS.c_str() );
+}
+
 namespace Entity
 {
 static CBaseEntity* Create( const std::string& szClassname, const Vector& vecOrigin, const Vector& vecAngles, CBaseEntity* pOwner = nullptr, const bool bSpawnEntity = true )
@@ -39,10 +73,21 @@ static CBaseEntity* FindEntityGeneric( const std::string& szName, const Vector& 
 {
 	return UTIL_FindEntityGeneric( szName.c_str(), vecSrc, flRadius );
 }
+
+static CBaseEntity* EntityFromIndex( const int iIndex )
+{
+	if( auto pEntity = g_engfuncs.pfnPEntityOfEntIndex( iIndex ) )
+		return GET_PRIVATE( pEntity );
+
+	return nullptr;
+}
 }
 
 void RegisterScriptEntityFuncs( asIScriptEngine& engine )
 {
+	RegisterScriptDropToFloor( engine );
+	RegisterScriptWalkMove( engine );
+
 	const std::string szOldNS = engine.GetDefaultNamespace();
 
 	engine.SetDefaultNamespace( "Entity" );
@@ -80,8 +125,32 @@ void RegisterScriptEntityFuncs( asIScriptEngine& engine )
 		asFUNCTION( UTIL_FindEntityForward ), asCALL_CDECL );
 
 	engine.RegisterGlobalFunction(
+		"CBaseEntity@ FindEntitiesInPVS(CBaseEntity@ pEntity)",
+		asFUNCTION( UTIL_FindEntitiesInPVS ), asCALL_CDECL );
+
+	engine.RegisterGlobalFunction(
 		"void Remove(CBaseEntity@ pEntity)",
 		asFUNCTION( UTIL_Remove ), asCALL_CDECL );
+
+	engine.RegisterGlobalFunction(
+		"void MakeStatic(CBaseEntity@ pEntity)",
+		asFUNCTION( UTIL_MakeStatic ), asCALL_CDECL );
+
+	engine.RegisterGlobalFunction(
+		"bool EntIsOnFloor(CBaseEntity@ pEntity)",
+		asFUNCTION( UTIL_EntIsOnFloor ), asCALL_CDECL );
+
+	engine.RegisterGlobalFunction(
+		"DropToFloor::DropToFloor DropToFloor(CBaseEntity@ pEntity)",
+		asFUNCTION( UTIL_DropToFloor ), asCALL_CDECL );
+
+	engine.RegisterGlobalFunction(
+		"bool DropToFloor(CBaseEntity@ pEntity, float flYaw, float flDist, WalkMove::WalkMove mode)",
+		asFUNCTION( UTIL_WalkMove ), asCALL_CDECL );
+
+	engine.RegisterGlobalFunction(
+		"CBaseEntity@ EntityFromIndex(const int iIndex)",
+		asFUNCTION( Entity::EntityFromIndex ), asCALL_CDECL );
 
 	engine.SetDefaultNamespace( szOldNS.c_str() );
 }
