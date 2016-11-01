@@ -30,6 +30,7 @@ struct playermove_t;
 struct texture_t;
 struct weapon_data_t;
 struct usercmd_t;
+class Vector;
 
 //The engine uses a separate version of the save/restore code. - Solokiller
 namespace engine
@@ -119,7 +120,7 @@ struct enginefuncs_t
 	*	If pszModelName is null, is empty or contains an invalid value in the first character, triggers a host error.
 	*	If the maximum number of model precacheable resources has been reached, triggers a host error.
 	*	If this is called after ServerActivate, triggers a host error.
-	*	@param pszModelName Name of the model to precache. Starts in the game directory. This string must life for at least as long as the map itself.
+	*	@param pszModelName Name of the model to precache. Starts in the game directory. This string must live for at least as long as the map itself.
 	*	@return Index of the model.
 	*/
 	int			(*pfnPrecacheModel)			( const char* pszModelName );
@@ -129,7 +130,7 @@ struct enginefuncs_t
 	*	If pszSoundName is null, is empty or contains an invalid value in the first character, triggers a host error.
 	*	If the maximum number of sound precacheable resources has been reached, triggers a host error.
 	*	If this is called after ServerActivate, triggers a host error.
-	*	@param pszSoundName Name of the sound to precache. Starts in the sound/ directory. This string must life for at least as long as the map itself.
+	*	@param pszSoundName Name of the sound to precache. Starts in the sound/ directory. This string must live for at least as long as the map itself.
 	*	@return Index of the sound.
 	*/
 	int			(*pfnPrecacheSound)			( const char* pszSoundName );
@@ -137,7 +138,7 @@ struct enginefuncs_t
 	/**
 	*	Sets the model of the given entity. Also changes the entity bounds based on the model.
 	*	@param pEdict Entity to set the model on.
-	*	@param pszModelName Name of the model to set. This string must life for at least as long as the map itself.
+	*	@param pszModelName Name of the model to set. This string must live for at least as long as the map itself.
 	*	@see pfnPrecacheModel
 	*/
 	void		(*pfnSetModel)				( edict_t* pEdict, const char* pszModelName );
@@ -166,10 +167,10 @@ struct enginefuncs_t
 	*	entvars_t::mins, entvars_t::maxs and entvars_t::size are changed.
 	*	If the bounds are backwards (maxs smaller than mins), a host error is triggered.
 	*	@param pEdict Entity whose bounds are to be changed.
-	*	@param rgflMin Minimum relative bounds.
-	*	@param rgflMax Maximum relative bounds.
+	*	@param vecMin Minimum relative bounds.
+	*	@param vecMax Maximum relative bounds.
 	*/
-	void		(*pfnSetSize)				( edict_t* pEdict, const float* rgflMin, const float* rgflMax );
+	void		(*pfnSetSize)				( edict_t* pEdict, const Vector& vecMin, const Vector& vecMax );
 	
 	/**
 	*	Changes the level. This will append a changelevel command to the server command buffer.
@@ -193,26 +194,26 @@ struct enginefuncs_t
 
 	/**
 	*	Converts a direction vector to a yaw angle.
-	*	@param Direction vector.
+	*	@param vecVector Direction vector.
 	*	@return Yaw angle.
 	*/
-	float		(*pfnVecToYaw)				( const float* rgflVector );
+	float		(*pfnVecToYaw)				( const Vector& vecVector );
 
 	/**
 	*	Converts a direction vector to angles.
-	*	@param rgflVectorIn Direction vector.
-	*	@param rgflVectorOut Angles.
+	*	@param vecIn Direction vector.
+	*	@param vecOut Angles.
 	*/
-	void		(*pfnVecToAngles)			( const float* rgflVectorIn, float* rgflVectorOut );
+	void		(*pfnVecToAngles)			( const Vector& vecIn, Vector& vecOut );
 
 	/**
 	*	Moves the given entity to the given destination.
 	*	@param pEntity Entity to move.
-	*	@param pflGoal Destination.
+	*	@param vecGoal Destination.
 	*	@param dist Distance to cover in this movement operation, in units.
-	*	@param iMoveType Move type. @see MoveType
+	*	@param iMoveType Move type. @see MoveToOrigin
 	*/
-	void		(*pfnMoveToOrigin)			( edict_t* pEntity, const float* pflGoal, float dist, int iMoveType );
+	void		(*pfnMoveToOrigin)			( edict_t* pEntity, const Vector& vecGoal, float dist, int iMoveType );
 	
 	/**
 	*	Changes the entity's yaw angle to approach its ideal yaw.
@@ -249,11 +250,11 @@ struct enginefuncs_t
 	/**
 	*	Finds an entity in a sphere.
 	*	@param pEdictStartSearchAfter Edict to start searching after.
-	*	@param org Origin in the world to center the sphere around.
+	*	@param vecOrigin Origin in the world to center the sphere around.
 	*	@param rad Sphere radius.
 	*	@return The first valid entity in the sphere's radius, or null if no entity can be found.
 	*/
-	edict_t*	(*pfnFindEntityInSphere)	( edict_t* pEdictStartSearchAfter, const float* org, float rad );
+	edict_t*	(*pfnFindEntityInSphere)	( edict_t* pEdictStartSearchAfter, const Vector& vecOrigin, float rad );
 	
 	/**
 	*	Finds a client in the Potentially Visible Set.
@@ -273,26 +274,26 @@ struct enginefuncs_t
 	*
 	*	Note: this operation is expensive as it checks every entity.
 	*	Avoid using this unless it is absolutely necessary.
-	*	@param pPlayer Player whose origin and view offset should be used to determine which entities are visible.
+	*	@param pEntity Entity whose origin and view offset should be used to determine which entities are visible.
 	*	@return First entity in the chain of entities that are visible, or worldspawn if no entities are visible.
 	*/
-	edict_t*	(*pfnEntitiesInPVS)			( edict_t* pPlayer );
+	edict_t*	(*pfnEntitiesInPVS)			( edict_t* pEntity );
 
 	/**
 	*	Make direction vectors from angles.
-	*	@param rgflVector Angles to convert to direction vectors.
+	*	@param vecVector Angles to convert to direction vectors.
 	*	The results are stored in gpGlobals->v_forward, gpGlobals->v_right and gpGlobals->v_up.
 	*/
-	void		(*pfnMakeVectors)			( const float* rgflVector );
+	void		(*pfnMakeVectors)			( const Vector& vecVector );
 
 	/**
 	*	Make direction vectors from angles.
-	*	@param rgflVector Angles to convert to direction vectors.
+	*	@param vecVector Angles to convert to direction vectors.
 	*	@param forward Stores the forward direction vector.
 	*	@param right Stores the right direction vector.
 	*	@param up Stores the up direction vector.
 	*/
-	void		(*pfnAngleVectors)			( const float* rgflVector, float* forward, float* right, float* up );
+	void		(*pfnAngleVectors)			( const Vector& vecVector, float* forward, float* right, float* up );
 	
 	/**
 	*	Allocates an edict for use with an entity.
@@ -358,9 +359,9 @@ struct enginefuncs_t
 	/**
 	*	Sets the origin of the given entity.
 	*	@param pEntity Entity whose origin is to be set.
-	*	@param rgflOrigin Origin to set.
+	*	@param vecOrigin Origin to set.
 	*/
-	void		(*pfnSetOrigin)				( edict_t* pEntity, const float* rgflOrigin );
+	void		(*pfnSetOrigin)				( edict_t* pEntity, const Vector& vecOrigin );
 
 	/**
 	*	Emits a sounds from the given entity.
@@ -377,24 +378,24 @@ struct enginefuncs_t
 	/**
 	*	Emits a sounds from the given entity.
 	*	@param pEntity Entity that is emitting the sound.
-	*	@param pos Position in the world to play the sound at.
+	*	@param vecPos Position in the world to play the sound at.
 	*	@param pszSample Sample to play. The sound must be precached.
 	*	@param volume Sound volume. Must be a value in the range [ 0, 1 ].
 	*	@param attenuation Sound attenuation.
 	*	@param fFlags Sound flags.
 	*	@param pitch Sound pitch. Must be a value in the range [ 0, 255 ].
 	*/
-	void		(*pfnEmitAmbientSound)		( edict_t* pEntity, const float* pos, const char* pszSample, float vol, float attenuation, int fFlags, int pitch );
+	void		(*pfnEmitAmbientSound)		( edict_t* pEntity, const Vector& vecPos, const char* pszSample, float vol, float attenuation, int fFlags, int pitch );
 	
 	/**
 	*	Performs a trace between a starting and ending position.
-	*	@param v1 Start position.
-	*	@param v2 End position.
+	*	@param vecStart Start position.
+	*	@param vecEnd End position.
 	*	@param fNoMonsters Bit vector containing trace flags. @see TraceLineFlag
 	*	@param pentToSkip Entity to ignore during the trace.
 	*	@param ptr TraceResult instance.
 	*/
-	void		(*pfnTraceLine)				( const float* v1, const float* v2, int fNoMonsters, edict_t* pentToSkip, TraceResult* ptr );
+	void		(*pfnTraceLine)				( const Vector& vecStart, const Vector& vecEnd, int fNoMonsters, edict_t* pentToSkip, TraceResult* ptr );
 	
 	/**
 	*	Traces a toss.
@@ -410,25 +411,25 @@ struct enginefuncs_t
 	*	Performs a trace between a starting and ending position, using the given entity's mins and maxs.
 	*	This can be any entity, not just monsters.
 	*	@param pEntity Entity whose hull will be used.
-	*	@param v1 Start position.
-	*	@param v2 End position.
+	*	@param vecStart Start position.
+	*	@param vecEnd End position.
 	*	@param fNoMonsters Bit vector containing trace flags. @see TraceLineFlag
 	*	@param pentToSkip Entity to ignore during the trace.
 	*	@param ptr TraceResult instance.
 	*	@return true if the trace was entirely in a solid object, or if it hit something.
 	*/
-	int			(*pfnTraceMonsterHull)		( edict_t* pEntity, const float* v1, const float* v2, int fNoMonsters, edict_t* pentToSkip, TraceResult* ptr );
+	int			(*pfnTraceMonsterHull)		( edict_t* pEntity, const Vector& vecStart, const Vector& vecEnd, int fNoMonsters, edict_t* pentToSkip, TraceResult* ptr );
 	
 	/**
 	*	Performs a trace between a starting and ending position, using the specified hull.
-	*	@param v1 Start position.
-	*	@param v2 End position.
+	*	@param vecStart Start position.
+	*	@param vecEnd End position.
 	*	@param fNoMonsters Bit vector containing trace flags. @see TraceLineFlag
 	*	@param hullNumber Hull to use.
 	*	@param pentToSkip Entity to ignore during the trace.
 	*	@param ptr TraceResult instance.
 	*/
-	void		(*pfnTraceHull)				( const float* v1, const float* v2, int fNoMonsters, int hullNumber, edict_t* pentToSkip, TraceResult* ptr );
+	void		(*pfnTraceHull)				( const Vector& vecStart, const Vector& vecEnd, int fNoMonsters, int hullNumber, edict_t* pentToSkip, TraceResult* ptr );
 	
 	/**
 	*	Performs a trace between a starting and ending position.
@@ -439,13 +440,13 @@ struct enginefuncs_t
 	*	If it's a brush model, the brush model's hull for the given hull number is used (this may differ if custom brush hull sizes are in use).
 	*	Otherwise, the entity bounds are converted into a hull.
 	*
-	*	@param v1 Start position.
-	*	@param v2 End position.
+	*	@param vecStart Start position.
+	*	@param vecEnd End position.
 	*	@param hullNumber Hull to use.
 	*	@param pEntity Entity whose hull will be used.
 	*	@param ptr TraceResult instance.
 	*/
-	void		(*pfnTraceModel)			( const float* v1, const float* v2, int hullNumber, edict_t* pEntity, TraceResult* ptr );
+	void		(*pfnTraceModel)			( const Vector& vecStart, const Vector& vecEnd, int hullNumber, edict_t* pEntity, TraceResult* ptr );
 	
 	/**
 	*	Used to get texture info.
@@ -457,28 +458,28 @@ struct enginefuncs_t
 	*	texture_t's layout differs between software and hardware mode, so avoid accessing its members.
 	*
 	*	@param pTextureEntity Entity whose texture is to be retrieved.
-	*	@param v1 Start position.
-	*	@param v2 End position.
+	*	@param vecStart Start position.
+	*	@param vecEnd End position.
 	*	@return Texture instance, or null if no texture could be found.
 	*/
-	const texture_t*	(*pfnTraceTexture)			( edict_t* pTextureEntity, const float* v1, const float* v2 );
+	const texture_t*	(*pfnTraceTexture)			( edict_t* pTextureEntity, const Vector& vecStart, const Vector& vecEnd );
 	
 	/**
 	*	Not implemented. Triggers a sys error.
 	*/
-	void		(*pfnTraceSphere)			( const float* v1, const float* v2, int fNoMonsters, float radius, edict_t* pentToSkip, TraceResult* ptr );
+	void		(*pfnTraceSphere)			( const Vector& vecStart, const Vector& vecEnd, int fNoMonsters, float radius, edict_t* pentToSkip, TraceResult* ptr );
 	
 	/**
 	*	Get the aim vector for the given entity
-	*	Assumes MakeVectors was called with pEntity.vars.angles beforehand.
+	*	Assumes MakeVectors was called with pEntity->v.angles beforehand.
 	*
 	*	The aim vector is the autoaim vector used when sv_aim is enabled.
 	*	It will snap to entities that are close to the entity's forward vector axis.
 	*	@param pEntity Entity to retrieve the aim vector for.
 	*	@param speed Unused.
-	*	@param rgflReturn The resulting aim vector.
+	*	@param vecReturn The resulting aim vector.
 	*/
-	void		(*pfnGetAimVector)			( edict_t* pEntity, float speed, float* rgflReturn );
+	void		(*pfnGetAimVector)			( edict_t* pEntity, float speed, Vector& vecReturn );
 
 	/**
 	*	Issues a command to the server.
@@ -504,12 +505,12 @@ struct enginefuncs_t
 
 	/**
 	*	Creates a particle effect.
-	*	@param org Origin in the world.
-	*	@param dir Direction of the effect.
+	*	@param vecOrigin Origin in the world.
+	*	@param vecDir Direction of the effect.
 	*	@param color Color of the effect.
 	*	@param count Number of particles to create.
 	*/
-	void		(*pfnParticleEffect)		( const float* org, const float* dir, float color, float count );
+	void		(*pfnParticleEffect)		( const Vector& vecOrigin, const Vector& vecDir, float color, float count );
 	
 	/**
 	*	Sets the given light style to the given value.
@@ -527,10 +528,10 @@ struct enginefuncs_t
 
 	/**
 	*	Gets the contents of the given location in the world.
-	*	@param rgflVector Location in the world.
+	*	@param vecVector Location in the world.
 	*	@return Contents of the location in the world. @see Contents
 	*/
-	int			(*pfnPointContents)			( const float* rgflVector );
+	int			(*pfnPointContents)			( const Vector& vecVector );
 
 	/**
 	*	Begins a new network message.
@@ -783,10 +784,10 @@ struct enginefuncs_t
 	*	If the given entity is invalid, or does not have a studio model, or the bone index is invalid, will cause invalid accesses to occur.
 	*	@param pEdict Entity whose model should be queried.
 	*	@param iBone Bone index.
-	*	@param rgflOrigin Origin of the bone.
-	*	@param rgflAngles Angles of the bone. Is not set by the engine.
+	*	@param vecOrigin Origin of the bone.
+	*	@param vecAngles Angles of the bone. Is not set by the engine.
 	*/
-	void		(*pfnGetBonePosition)		( const edict_t* pEdict, int iBone, float* rgflOrigin, float* rgflAngles );
+	void		(*pfnGetBonePosition)		( const edict_t* pEdict, int iBone, Vector& vecOrigin, Vector& vecAngles );
 	
 	/**
 	*	Gets the index of an exported function.
@@ -840,10 +841,10 @@ struct enginefuncs_t
 	*	If the entity is null, or does not have a studio model, illegal access will occur.
 	*	@param pEdict Entity whose model will be queried for the attachment data.
 	*	@param iAttachment Attachment index.
-	*	@param rgflOrigin Attachment origin.
-	*	@param rgflAngles Attachment angles.
+	*	@param vecOrigin Attachment origin.
+	*	@param vecAngles Attachment angles.
 	*/
-	void		(*pfnGetAttachment)			( const edict_t* pEdict, int iAttachment, float* rgflOrigin, float* rgflAngles );
+	void		(*pfnGetAttachment)			( const edict_t* pEdict, int iAttachment, Vector& vecOrigin, Vector& vecAngles );
 	
 	/**
 	*	Initializes the CRC instance.
@@ -987,16 +988,16 @@ struct enginefuncs_t
 
 	/**
 	*	Runs player movement for a fake client.
-	*	@param pEdict client to move. Must be a fake client.
-	*	@param vecViewAngle Client view angles.
-	*	@param flForwardMove Velocity X value.
-	*	@param flSideMove Velocity Y value.
-	*	@param flUpMove Velocity Z value.
-	*	@param iButtons Buttons that are currently pressed in. Equivalent to player pev.button.
-	*	@param iImpulse Impulse commands to execute. Equivalent to player pev.impulse.
-	*	@param iMsec Time between now and previous RunPlayerMove call.
+	*	@param fakeclient client to move. Must be a fake client.
+	*	@param vecViewangles Client view angles.
+	*	@param forwardmove Velocity X value.
+	*	@param sidemove Velocity Y value.
+	*	@param upmove Velocity Z value.
+	*	@param buttons Buttons that are currently pressed in. Equivalent to player pev.button.
+	*	@param impulse Impulse commands to execute. Equivalent to player pev.impulse.
+	*	@param msec Time between now and previous RunPlayerMove call.
 	*/
-	void		(*pfnRunPlayerMove)			( edict_t* fakeclient, const float* viewangles, float forwardmove, float sidemove, float upmove, unsigned short buttons, byte impulse, byte msec );
+	void		(*pfnRunPlayerMove)			( edict_t* fakeclient, const Vector& vecViewangles, float forwardmove, float sidemove, float upmove, unsigned short buttons, byte impulse, byte msec );
 	
 	/**
 	*	Computes the total number of entities currently in existence.
@@ -1051,19 +1052,19 @@ struct enginefuncs_t
 
 	/**
 	*	Projects a static decal in the world.
-	*	@param origin Origin in the world to project the decal at.
+	*	@param vecOrigin Origin in the world to project the decal at.
 	*	@param decalIndex Index of the decal to project.
 	*	@param entityIndex Index of the entity to project the decal onto.
 	*	@param modelIndex Index of the model to project the decal onto.
 	*/
-	void		(*pfnStaticDecal)			( const float* origin, int decalIndex, int entityIndex, int modelIndex );
+	void		(*pfnStaticDecal)			( const Vector& vecOrigin, int decalIndex, int entityIndex, int modelIndex );
 	
 	/**
 	*	Precaches a file.
 	*	If pszFilename is null, is empty or contains an invalid value in the first character, triggers a host error.
 	*	If the maximum number of generic precacheable resources has been reached, triggers a host error.
 	*	If this is called after ServerActivate, triggers a host error.
-	*	@param pszFilename Name of the file to precache. Starts in the game directory. This string must life for at least as long as the map itself.
+	*	@param pszFilename Name of the file to precache. Starts in the game directory. This string must live for at least as long as the map itself.
 	*	@return Index of the file.
 	*/
 	int			(*pfnPrecacheGeneric)		( const char* pszFilename );
@@ -1088,10 +1089,10 @@ struct enginefuncs_t
 	*	@param pitch Pitch. Must be in the range [ 0, 255 ].
 	*	@param iMsgType Message type. @see NetMessageType
 	*	@param iMsgID Message ID.
-	*	@param pOrigin Origin in the world to use for PAS and PVS messages.
+	*	@param vecOrigin Origin in the world to use for PAS and PVS messages.
 	*	@param ed Client to send the message to for message types that target one client.
 	*/
-	void		(*pfnBuildSoundMsg)			( edict_t* pEntity, int channel, const char* pszSample, float volume, float attenuation, int fFlags, int pitch, int iMsgType, int iMsgID, const float* pOrigin, edict_t* ed );
+	void		(*pfnBuildSoundMsg)			( edict_t* pEntity, int channel, const char* pszSample, float volume, float attenuation, int fFlags, int pitch, int iMsgType, int iMsgID, const Vector& vecOrigin, edict_t* ed );
 	
 	/**
 	*	@return Whether this is a dedicated server.
@@ -1162,8 +1163,8 @@ struct enginefuncs_t
 	*	@param pInvoker Client that triggered the event.
 	*	@param eventindex Event index. @see pfnPrecacheEvent
 	*	@param delay Delay before the event should be run.
-	*	@param origin If not g_vecZero, this is the origin parameter sent to the clients.
-	*	@param angles If not g_vecZero, this is the angles parameter sent to the clients.
+	*	@param vecOrigin If not g_vecZero, this is the origin parameter sent to the clients.
+	*	@param vecAngles If not g_vecZero, this is the angles parameter sent to the clients.
 	*	@param fparam1 Float parameter 1.
 	*	@param fparam2 Float parameter 2.
 	*	@param iparam1 Integer parameter 1.
@@ -1173,22 +1174,22 @@ struct enginefuncs_t
 	*/
 	void		(*pfnPlaybackEvent)			( int flags, const edict_t* pInvoker, 
 											  unsigned short eventindex, float delay, 
-											  const float* origin, const float* angles, 
+											  const Vector& vecOrigin, const Vector& vecAngles, 
 											  float fparam1, float fparam2, 
 											  int iparam1, int iparam2, 
 											  int bparam1, int bparam2 );
 
 	/**
-	*	Adds the given origin to the current PVS.
+	*	Sets the Fat Potentially Visible Set buffer to contain data based on the given origin.
 	*	@return PVS data.
 	*/
-	unsigned char* (*pfnSetFatPVS)			( const float* org );
+	unsigned char* (*pfnSetFatPVS)			( const Vector& vecOrigin );
 
 	/**
-	*	Adds the given origin to the current PAS.
+	*	Sets the Fat Potentially Audible Set buffer to contain data based on the given origin.
 	*	@return PAS data.
 	*/
-	unsigned char* (*pfnSetFatPAS)			( const float* org );
+	unsigned char* (*pfnSetFatPAS)			( const Vector& vecOrigin );
 
 	/**
 	*	Checks if the given entity is visible in the given visible set.
@@ -1283,9 +1284,9 @@ struct enginefuncs_t
 	*	@param type Force type @see FORCE_TYPE
 	*	@param mins If not null, the minimum bounds that a model can be.
 	*	@param maxs If not null, the maximum bounds that a model can be.
-	*	@param pszFilename File to verify. This string must life for at least as long as the map itself.
+	*	@param pszFilename File to verify. This string must live for at least as long as the map itself.
 	*/
-	void		(*pfnForceUnmodified)		( FORCE_TYPE type, float* mins, float* maxs, const char* pszFilename );
+	void		(*pfnForceUnmodified)		( FORCE_TYPE type, const float* mins, const float* maxs, const char* pszFilename );
 
 	/**
 	*	Get player statistics.
