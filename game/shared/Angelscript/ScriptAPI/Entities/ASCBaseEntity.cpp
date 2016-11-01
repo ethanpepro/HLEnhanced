@@ -583,6 +583,7 @@ static const char* const g_pszEntities[] =
 {
 	AS_CBASEENTITY_NAME,
 	"CBaseMonster",		//TODO: register fully elsewhere - Solokiller
+	"CBasePlayer",
 };
 
 void RegisterScriptEntityDependencies( asIScriptEngine& engine )

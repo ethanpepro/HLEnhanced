@@ -1,6 +1,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
+#include "CBasePlayer.h"
 
 #include <Angelscript/add_on/scriptstdstring.h>
 #include <Angelscript/add_on/scriptarray.h>
@@ -18,6 +19,7 @@
 #include "Angelscript/ScriptAPI/ASstring_t.h"
 
 #include "Angelscript/ScriptAPI/Entities/ASCBaseEntity.h"
+#include "Angelscript/ScriptAPI/Entities/ASCBasePlayer.h"
 #include "Angelscript/ScriptAPI/CASEngine.h"
 #include "Angelscript/ScriptAPI/ASCGlobalVars.h"
 
@@ -61,6 +63,8 @@ bool CHLASBaseInitializer::RegisterCoreAPI( CASManager& manager )
 	RegisterScriptEntityDependencies( engine );
 	RegisterScriptCBaseEntity( engine );
 	RegisterScriptBaseEntity( engine );
+	RegisterScriptCBasePlayer( engine );
+
 	RegisterScriptCEngine( engine );
 	RegisterScriptCGlobalVars( engine );
 
