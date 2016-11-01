@@ -717,3 +717,43 @@ std::string CBaseEntity_TeamID( const CBaseEntity* pThis )
 {
 	return pThis->TeamID();
 }
+
+std::string CBaseEntity_GetNoise( const CBaseEntity* pThis )
+{
+	return pThis->GetNoise();
+}
+
+void CBaseEntity_SetNoise( CBaseEntity* pThis, const std::string& szNoise )
+{
+	pThis->SetNoise( ALLOC_STRING( szNoise.c_str() ) );
+}
+
+std::string CBaseEntity_GetNoise1( const CBaseEntity* pThis )
+{
+	return pThis->GetNoise1();
+}
+
+void CBaseEntity_SetNoise1( CBaseEntity* pThis, const std::string& szNoise )
+{
+	pThis->SetNoise1( ALLOC_STRING( szNoise.c_str() ) );
+}
+
+std::string CBaseEntity_GetNoise2( const CBaseEntity* pThis )
+{
+	return pThis->GetNoise2();
+}
+
+void CBaseEntity_SetNoise2( CBaseEntity* pThis, const std::string& szNoise )
+{
+	pThis->SetNoise2( ALLOC_STRING( szNoise.c_str() ) );
+}
+
+std::string CBaseEntity_GetNoise3( const CBaseEntity* pThis )
+{
+	return pThis->GetNoise3();
+}
+
+void CBaseEntity_SetNoise3( CBaseEntity* pThis, const std::string& szNoise )
+{
+	pThis->SetNoise3( ALLOC_STRING( szNoise.c_str() ) );
+}

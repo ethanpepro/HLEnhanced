@@ -1597,9 +1597,164 @@ public:
 		pev->chain = pEntity ? pEntity->edict() : nullptr;
 	}
 
+	/**
+	*	@return Whether this entity has a noise.
+	*/
+	bool HasNoise() const
+	{
+		return !!( *STRING( pev->noise ) );
+	}
+
+	/**
+	*	@return The noise.
+	*/
+	const char* GetNoise() const { return STRING( pev->noise ); }
+
+	/**
+	*	Sets the noise.
+	*	@param iszNoise Noise to set.
+	*/
+	void SetNoise( const string_t iszNoise )
+	{
+		pev->noise = iszNoise;
+	}
+
+	/**
+	*	Sets the noise.
+	*	@param pszNoise Noise to set.
+	*/
+	void SetNoise( const char* const pszNoise )
+	{
+		SetNoise( MAKE_STRING( pszNoise ) );
+	}
+
+	/**
+	*	Clears the noise.
+	*/
+	void ClearNoise()
+	{
+		pev->noise = iStringNull;
+	}
+
+	/**
+	*	@return Whether this entity has a noise1.
+	*/
+	bool HasNoise1() const
+	{
+		return !!( *STRING( pev->noise1 ) );
+	}
+
+	/**
+	*	@return The noise1.
+	*/
+	const char* GetNoise1() const { return STRING( pev->noise1 ); }
+
+	/**
+	*	Sets the noise1.
+	*	@param iszNoise Noise1 to set.
+	*/
+	void SetNoise1( const string_t iszNoise )
+	{
+		pev->noise1 = iszNoise;
+	}
+
+	/**
+	*	Sets the noise1.
+	*	@param pszNoise Noise1 to set.
+	*/
+	void SetNoise1( const char* const pszNoise )
+	{
+		SetNoise1( MAKE_STRING( pszNoise ) );
+	}
+
+	/**
+	*	Clears the noise1.
+	*/
+	void ClearNoise1()
+	{
+		pev->noise1 = iStringNull;
+	}
+
+	/**
+	*	@return Whether this entity has a noise2.
+	*/
+	bool HasNoise2() const
+	{
+		return !!( *STRING( pev->noise2 ) );
+	}
+
+	/**
+	*	@return The noise2.
+	*/
+	const char* GetNoise2() const { return STRING( pev->noise2 ); }
+
+	/**
+	*	Sets the noise2.
+	*	@param iszNoise Noise2 to set.
+	*/
+	void SetNoise2( const string_t iszNoise )
+	{
+		pev->noise2 = iszNoise;
+	}
+
+	/**
+	*	Sets the noise2.
+	*	@param pszNoise Noise2 to set.
+	*/
+	void SetNoise2( const char* const pszNoise )
+	{
+		SetNoise2( MAKE_STRING( pszNoise ) );
+	}
+
+	/**
+	*	Clears the noise.
+	*/
+	void ClearNoise2()
+	{
+		pev->noise2 = iStringNull;
+	}
+
+	/**
+	*	@return Whether this entity has a noise.
+	*/
+	bool HasNoise3() const
+	{
+		return !!( *STRING( pev->noise3 ) );
+	}
+
+	/**
+	*	@return The noise.
+	*/
+	const char* GetNoise3() const { return STRING( pev->noise3 ); }
+
+	/**
+	*	Sets the noise3.
+	*	@param iszNoise Noise3 to set.
+	*/
+	void SetNoise3( const string_t iszNoise )
+	{
+		pev->noise3 = iszNoise;
+	}
+
+	/**
+	*	Sets the noise3.
+	*	@param pszNoise Noise3 to set.
+	*/
+	void SetNoise3( const char* const pszNoise )
+	{
+		SetNoise3( MAKE_STRING( pszNoise ) );
+	}
+
+	/**
+	*	Clears the noise3.
+	*/
+	void ClearNoise3()
+	{
+		pev->noise3 = iStringNull;
+	}
+
 	//TODO: edict_t* pointers - Solokiller
 	//TODO: dmg* vars
-	//TODO: noise* vars
 
 public:
 	CBaseEntity()

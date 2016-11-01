@@ -76,6 +76,23 @@ bool CBaseEntity_HasTarget( const CBaseEntity* pThis, const std::string& szTarge
 
 std::string CBaseEntity_TeamID( const CBaseEntity* pThis );
 
+std::string CBaseEntity_GetNoise( const CBaseEntity* pThis );
+
+void CBaseEntity_SetNoise( CBaseEntity* pThis, const std::string& szNoise );
+
+std::string CBaseEntity_GetNoise1( const CBaseEntity* pThis );
+
+void CBaseEntity_SetNoise1( CBaseEntity* pThis, const std::string& szNoise );
+
+std::string CBaseEntity_GetNoise2( const CBaseEntity* pThis );
+
+void CBaseEntity_SetNoise2( CBaseEntity* pThis, const std::string& szNoise );
+
+std::string CBaseEntity_GetNoise3( const CBaseEntity* pThis );
+
+void CBaseEntity_SetNoise3( CBaseEntity* pThis, const std::string& szNoise );
+
+
 /**
 *	Registers CBaseEntity methods and properties.
 *	Uses templates to avoid virtual function calls in scripts whenever possible.
@@ -866,6 +883,70 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	engine.RegisterObjectMethod(
 		pszObjectName, "void SetChain(CBaseEntity@ pEntity)",
 		asMETHOD( CLASS, SetChain ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasNoise() const",
+		asMETHOD( CLASS, HasNoise ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetNoise() const",
+		asFUNCTION( CBaseEntity_GetNoise ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetNoise(const string& in szNoise)",
+		asFUNCTION( CBaseEntity_SetNoise ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearNoise()",
+		asMETHOD( CLASS, ClearNoise ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasNoise1() const",
+		asMETHOD( CLASS, HasNoise1 ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetNoise1() const",
+		asFUNCTION( CBaseEntity_GetNoise1 ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetNoise1(const string& in szNoise)",
+		asFUNCTION( CBaseEntity_SetNoise1 ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearNoise1()",
+		asMETHOD( CLASS, ClearNoise1 ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasNoise2() const",
+		asMETHOD( CLASS, HasNoise2 ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetNoise2() const",
+		asFUNCTION( CBaseEntity_GetNoise2 ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetNoise2(const string& in szNoise)",
+		asFUNCTION( CBaseEntity_SetNoise2 ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearNoise2()",
+		asMETHOD( CLASS, ClearNoise2 ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool HasNoise3() const",
+		asMETHOD( CLASS, HasNoise3 ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "string GetNoise3() const",
+		asFUNCTION( CBaseEntity_GetNoise3 ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetNoise3(const string& in szNoise)",
+		asFUNCTION( CBaseEntity_SetNoise3 ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void ClearNoise3()",
+		asMETHOD( CLASS, ClearNoise3 ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",
