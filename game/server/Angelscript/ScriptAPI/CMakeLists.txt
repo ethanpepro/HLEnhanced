@@ -1,12 +1,22 @@
 add_sources(
+	ASCSentenceGroups.h
+	ASCSentenceGroups.cpp
+	ASCServerEngine.h
+	ASCServerEngine.cpp
+	ASCSoundSystem.h
+	ASCSoundSystem.cpp
 	ASCustomEntities.h
 	ASCustomEntities.cpp
+	ASEffects.h
+	ASEffects.cpp
 	ASGameRules.h
 	ASGameRules.cpp
 	ASPluginInterface.h
 	ASPluginInterface.cpp
 	ASTriggerScript.h
 	ASTriggerScript.cpp
+	ASUtilityFuncs.h
+	ASUtilityFuncs.cpp
 )
 
 add_subdirectory( Entities )
