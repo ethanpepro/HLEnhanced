@@ -14,7 +14,7 @@
 template<typename CLASS>
 void RegisterScriptCBasePlayer( asIScriptEngine& engine, const char* const pszObjectName )
 {
-	RegisterScriptBaseEntity<CLASS>( engine, pszObjectName );
+	RegisterScriptCBaseEntity<CLASS>( engine, pszObjectName );
 
 	as::RegisterCasts<CBasePlayer, CLASS>( engine, AS_CBASEPLAYER_NAME, pszObjectName, &as::Cast_UpCast, &as::Cast_DownCast );
 
