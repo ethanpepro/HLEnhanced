@@ -79,7 +79,9 @@ std::string CBaseEntity_TeamID( const CBaseEntity* pThis );
 /**
 *	Registers CBaseEntity methods and properties.
 *	Uses templates to avoid virtual function calls in scripts whenever possible.
+*	Remember to add new entities to the list of forward declared types in ASCBaseEntity.cpp
 *	@param engine Script engine.
+*	@tparam CLASS Concrete C++ class being registered.
 */
 template<typename CLASS>
 inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* const pszObjectName )
@@ -1538,11 +1540,11 @@ void RegisterScriptBaseEntity( asIScriptEngine& engine, const char* const pszObj
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "bool FVisible(const CBaseEntity@ pEntity) const",
-		asFUNCTIONPR( BaseEntity_FVisible<CLASS>, ( const CBaseEntity*, const CBaseEntity* ), bool ), asCALL_CDECL_OBJFIRST );
+		asFUNCTIONPR( BaseEntity_FVisible<CLASS>, ( const CLASS*, const CBaseEntity* ), bool ), asCALL_CDECL_OBJFIRST );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "bool FVisible(const Vector& in vecOrigin) const",
-		asFUNCTIONPR( BaseEntity_FVisible<CLASS>, ( const CBaseEntity*, const Vector& ), bool ), asCALL_CDECL_OBJFIRST );
+		asFUNCTIONPR( BaseEntity_FVisible<CLASS>, ( const CLASS*, const Vector& ), bool ), asCALL_CDECL_OBJFIRST );
 }
 
 /**
