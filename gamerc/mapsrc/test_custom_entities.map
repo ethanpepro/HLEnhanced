@@ -1,6 +1,7 @@
 {
 "classname" "worldspawn"
 "mapscript" "test_custom_entities"
+"classname" "worldspawn"
 "sounds" "1"
 "MaxRange" "4096"
 "mapversion" "220"
@@ -86,4 +87,22 @@
 "classname" "info_player_start"
 "angles" "0 0 0"
 "origin" "56 64 40"
+}
+{
+"classname" "func_button"
+"spawnflags" "33"
+"rendercolor" "0 0 0"
+"angles" "0 0 0"
+"speed" "5"
+"sounds" "9"
+"wait" "3"
+"target" "customent"
+{
+( 56 136 64 ) ( 72 136 64 ) ( 72 120 64 ) +0BUTTON1 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1 
+( 56 120 0 ) ( 72 120 0 ) ( 72 136 0 ) +0BUTTON1 [ 1 0 0 0 ] [ 0 -1 0 0 ] 0 1 1 
+( 56 136 64 ) ( 56 120 64 ) ( 56 120 0 ) +0BUTTON1 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1 
+( 72 136 0 ) ( 72 120 0 ) ( 72 120 64 ) +0BUTTON1 [ 0 1 0 0 ] [ 0 0 -1 0 ] 0 1 1 
+( 72 136 64 ) ( 56 136 64 ) ( 56 136 0 ) +0BUTTON1 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1 
+( 72 120 0 ) ( 56 120 0 ) ( 56 120 64 ) +0BUTTON1 [ 1 0 0 0 ] [ 0 0 -1 0 ] 0 1 1 
+}
 }
