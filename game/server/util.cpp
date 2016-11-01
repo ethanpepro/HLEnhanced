@@ -623,6 +623,10 @@ void UTIL_TraceLine( const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTE
 	TRACE_LINE( vecStart, vecEnd, ( igmon == ignore_monsters ? TRF_IGNORE_MONSTERS : TRF_NONE ) | ( ignoreGlass ? TRF_IGNORE_GLASS : 0 ), pentIgnore, ptr );
 }
 
+void UTIL_TraceMonsterHull( CBaseEntity* pEntity, const Vector& v1, const Vector& v2, IGNORE_MONSTERS igmon, CBaseEntity* pentToSkip, TraceResult& tr )
+{
+	TRACE_MONSTER_HULL( pEntity->edict(), v1, v2, ( igmon == ignore_monsters ? TRF_IGNORE_MONSTERS : TRF_NONE ), pentToSkip ? pentToSkip->edict() : nullptr, &tr );
+}
 
 void UTIL_TraceLine( const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, edict_t *pentIgnore, TraceResult *ptr )
 {
@@ -1197,6 +1201,35 @@ CBaseEntity* UTIL_FindEntityForward( CBaseEntity* pMe )
 		return pHit;
 	}
 	return nullptr;
+}
+
+CBaseEntity* UTIL_FindEntitiesInPVS( CBaseEntity* pEntity )
+{
+	if( !pEntity )
+		return nullptr;
+
+	auto pResult = g_engfuncs.pfnEntitiesInPVS( pEntity->edict() );
+
+	if( pResult )
+		return GET_PRIVATE( pResult );
+
+	return nullptr;
+}
+
+void UTIL_MakeStatic( CBaseEntity* pEntity )
+{
+	if( !pEntity )
+		return;
+
+	g_engfuncs.pfnMakeStatic( pEntity->edict() );
+}
+
+bool UTIL_EntIsOnFloor( CBaseEntity* pEntity )
+{
+	if( !pEntity )
+		return false;
+
+	return !!g_engfuncs.pfnEntIsOnFloor( pEntity->edict() );
 }
 
 const texture_t* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd )

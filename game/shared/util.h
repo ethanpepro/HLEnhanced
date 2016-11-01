@@ -173,6 +173,7 @@ enum IGNORE_GLASS
 
 extern void			UTIL_TraceLine			(const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, edict_t *pentIgnore, TraceResult *ptr);
 extern void			UTIL_TraceLine			(const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, IGNORE_GLASS ignoreGlass, edict_t *pentIgnore, TraceResult *ptr);
+void UTIL_TraceMonsterHull( CBaseEntity* pEntity, const Vector& v1, const Vector& v2, IGNORE_MONSTERS igmon, CBaseEntity* pentToSkip, TraceResult& tr );
 extern void			UTIL_TraceHull			(const Vector &vecStart, const Vector &vecEnd, IGNORE_MONSTERS igmon, const Hull::Hull hullNumber, edict_t *pentIgnore, TraceResult *ptr);
 TraceResult UTIL_GetGlobalTrace();
 extern void			UTIL_TraceModel			(const Vector &vecStart, const Vector &vecEnd, const Hull::Hull hullNumber, edict_t *pentModel, TraceResult *ptr);
@@ -344,6 +345,21 @@ void SetObjectCollisionBox( entvars_t *pev );
 *	@return Entity being looked at, or null if no entity could be found.
 */
 CBaseEntity* UTIL_FindEntityForward( CBaseEntity* pMe );
+
+/**
+*	@copydoc enginefuncs_t::pfnEntitiesInPVS
+*/
+CBaseEntity* UTIL_FindEntitiesInPVS( CBaseEntity* pEntity );
+
+/**
+*	@copydoc enginefuncs_t::pfnMakeStatic
+*/
+void UTIL_MakeStatic( CBaseEntity* pEntity );
+
+/**
+*	@copydoc enginefuncs_t::pfnEntIsOnFloor
+*/
+bool UTIL_EntIsOnFloor( CBaseEntity* pEntity );
 
 const texture_t* UTIL_TraceTexture( CBaseEntity* pEntity, const Vector& vecStart, const Vector& vecEnd );
 
