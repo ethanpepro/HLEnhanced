@@ -1035,10 +1035,10 @@ enum SoundChannel
 };
 
 // attenuation values
-#define ATTN_NONE		0
-#define	ATTN_NORM		(float)0.8
-#define ATTN_IDLE		(float)2
-#define ATTN_STATIC		(float)1.25 
+const float ATTN_NONE	 = 0;
+const float ATTN_NORM	 = 0.8f;
+const float ATTN_IDLE	 = 2.f;
+const float ATTN_STATIC	 = 1.25f;
 
 /**
 *	Pitch values.
@@ -1327,6 +1327,11 @@ enum EngineLimit
 	*	Maximum number of events that can be precached.
 	*/
 	MAX_EVENTS		= 256,
+
+	/**
+	*	Maximum number of light styles.
+	*/
+	MAX_LIGHTSTYLES	= 64,
 };
 
 #endif
