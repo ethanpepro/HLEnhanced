@@ -1580,6 +1580,23 @@ public:
 		return pev->enemy ? Instance( pev->enemy ) : nullptr;
 	}
 
+	/**
+	*	@return The next entity in the chain of entities.
+	*/
+	CBaseEntity* GetChain()
+	{
+		return pev->chain ? Instance( pev->chain ) : nullptr;
+	}
+
+	/**
+	*	Sets the next entity in the chain.
+	*	@param pEntity Entity to set. Can be null.
+	*/
+	void SetChain( CBaseEntity* pEntity )
+	{
+		pev->chain = pEntity ? pEntity->edict() : nullptr;
+	}
+
 	//TODO: edict_t* pointers - Solokiller
 	//TODO: dmg* vars
 	//TODO: noise* vars

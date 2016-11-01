@@ -842,7 +842,7 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, SetDamage ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "CBaseEntity@ GetOwner() const",
+		pszObjectName, "CBaseEntity@ GetOwner()",
 		asMETHOD( CLASS, GetOwner ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
@@ -850,12 +850,20 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, SetOwner ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "CBaseEntity@ GetGroundEntity() const",
+		pszObjectName, "CBaseEntity@ GetGroundEntity()",
 		asMETHOD( CLASS, GetGroundEntity ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void SetGroundEntity(CBaseEntity@ pGroundEntity)",
 		asMETHOD( CLASS, SetGroundEntity ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ GetChain()",
+		asMETHOD( CLASS, GetChain ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "void SetChain(CBaseEntity@ pEntity)",
+		asMETHOD( CLASS, SetChain ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",
