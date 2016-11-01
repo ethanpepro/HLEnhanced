@@ -1,6 +1,7 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
+#include "WeaponsConst.h"
 
 #include "../ASCEntBitSet.h"
 
@@ -548,6 +549,36 @@ static void RegisterScriptGibAction( asIScriptEngine& engine )
 	engine.RegisterEnumValue( pszObjectName, "GIB_ALWAYS", GIB_ALWAYS );
 }
 
+static void RegisterScriptBullet( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "Bullet";
+
+	const std::string szOldNS = engine.GetDefaultNamespace();
+
+	engine.SetDefaultNamespace( pszObjectName );
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "NONE", BULLET_NONE );
+	engine.RegisterEnumValue( pszObjectName, "PLAYER_9MM", BULLET_PLAYER_9MM );
+	engine.RegisterEnumValue( pszObjectName, "PLAYER_MP5", BULLET_PLAYER_MP5 );
+	engine.RegisterEnumValue( pszObjectName, "PLAYER_357", BULLET_PLAYER_357 );
+	engine.RegisterEnumValue( pszObjectName, "PLAYER_BUCKSHOT", BULLET_PLAYER_BUCKSHOT );
+	engine.RegisterEnumValue( pszObjectName, "PLAYER_CROWBAR", BULLET_PLAYER_CROWBAR );
+
+	engine.RegisterEnumValue( pszObjectName, "MONSTER_9MM", BULLET_MONSTER_9MM );
+	engine.RegisterEnumValue( pszObjectName, "MONSTER_MP5", BULLET_MONSTER_MP5 );
+	engine.RegisterEnumValue( pszObjectName, "MONSTER_12MM", BULLET_MONSTER_12MM );
+
+#if USE_OPFOR
+	engine.RegisterEnumValue( pszObjectName, "PLAYER_556", BULLET_PLAYER_556 );
+	engine.RegisterEnumValue( pszObjectName, "PLAYER_762", BULLET_PLAYER_762 );
+	engine.RegisterEnumValue( pszObjectName, "PLAYER_DEAGLE", BULLET_PLAYER_DEAGLE );
+#endif
+
+	engine.SetDefaultNamespace( szOldNS.c_str() );
+}
+
 static const char* const g_pszEntities[] = 
 {
 	AS_CBASEENTITY_NAME,
@@ -579,6 +610,7 @@ void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 	RegisterScriptCTakeDamageInfo( engine );
 	RegisterScriptTraceResult( engine );
 	RegisterScriptGibAction( engine );
+	RegisterScriptBullet( engine );
 
 	//TODO: DMG_* flags - Solokiller
 
