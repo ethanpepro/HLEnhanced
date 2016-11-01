@@ -21,6 +21,8 @@
 #define CVOXFILESENTENCEMAX		1536		// max number of sentences in game. NOTE: this must match
 // CVOXFILESENTENCEMAX in engine\sound.h!!!
 
+const int SENTENCEG_INVALID_INDEX = -1;
+
 enum SoundFlag
 {
 	/**
@@ -45,6 +47,8 @@ enum SoundFlag
 	SND_CHANGE_PITCH = 1 << 7,
 };
 
+//TODO: refactor this code into a class. - Solokiller
+
 struct SENTENCEG
 {
 	char szgroupname[ CBSENTENCENAME_MAX ];
@@ -67,7 +71,7 @@ int SENTENCEG_PlaySequentialSz( CBaseEntity* pEntity, const char *szrootname, fl
 int SENTENCEG_GetIndex( const char *szrootname );
 int SENTENCEG_Lookup( const char *sample, char *sentencenum );
 
-float TEXTURETYPE_PlaySound( TraceResult *ptr, Vector vecSrc, Vector vecEnd, int iBulletType );
+float TEXTURETYPE_PlaySound( const TraceResult& tr, Vector vecSrc, Vector vecEnd, int iBulletType );
 
 // NOTE: use EMIT_SOUND_DYN to set the pitch of a sound. Pitch of 100
 // is no pitch shift.  Pitch > 100 up to 255 is a higher pitch, pitch < 100

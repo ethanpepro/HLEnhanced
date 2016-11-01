@@ -81,16 +81,16 @@ int USENTENCEG_PickSequential(int isentenceg, char *szfound, int ipick, const bo
 	char sznum[8];
 	
 	if (!fSentencesInit)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	if (isentenceg < 0)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	szgroupname = rgsentenceg[isentenceg].szgroupname;
 	count = rgsentenceg[isentenceg].count;
 	
 	if (count == 0)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	if (ipick >= count)
 		ipick = count-1;
@@ -133,10 +133,10 @@ int USENTENCEG_Pick(int isentenceg, char *szfound)
 	bool ffound = false;
 	
 	if (!fSentencesInit)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	if (isentenceg < 0)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	szgroupname = rgsentenceg[isentenceg].szgroupname;
 	count = rgsentenceg[isentenceg].count;
@@ -164,7 +164,7 @@ int USENTENCEG_Pick(int isentenceg, char *szfound)
 			return ipick;
 		}
 	}
-	return -1;
+	return SENTENCEG_INVALID_INDEX;
 }
 
 // ===================== SENTENCE GROUPS, MAIN ROUTINES ========================
@@ -177,7 +177,7 @@ int SENTENCEG_GetIndex(const char *szgroupname)
 	int i;
 
 	if (!fSentencesInit || !szgroupname)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	// search rgsentenceg for match on szgroupname
 
@@ -189,7 +189,7 @@ int SENTENCEG_GetIndex(const char *szgroupname)
 	i++;
 	}
 
-	return -1;
+	return SENTENCEG_INVALID_INDEX;
 }
 
 // given sentence group index, play random sentence for given entity.
@@ -204,7 +204,7 @@ int SENTENCEG_PlayRndI( CBaseEntity* pEntity, int isentenceg,
 	int ipick;
 
 	if (!fSentencesInit)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	name[0] = 0;
 
@@ -224,7 +224,7 @@ int SENTENCEG_PlayRndSz( CBaseEntity* pEntity, const char *szgroupname,
 	int isentenceg;
 
 	if (!fSentencesInit)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	name[0] = 0;
 
@@ -232,7 +232,7 @@ int SENTENCEG_PlayRndSz( CBaseEntity* pEntity, const char *szgroupname,
 	if (isentenceg < 0)
 	{
 		ALERT( at_console, "No such sentence group %s\n", szgroupname );
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 	}
 
 	ipick = USENTENCEG_Pick(isentenceg, name);
@@ -252,13 +252,13 @@ int SENTENCEG_PlaySequentialSz( CBaseEntity* pEntity, const char *szgroupname,
 	int isentenceg;
 
 	if (!fSentencesInit)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	name[0] = 0;
 
 	isentenceg = SENTENCEG_GetIndex(szgroupname);
 	if (isentenceg < 0)
-		return -1;
+		return SENTENCEG_INVALID_INDEX;
 
 	ipicknext = USENTENCEG_PickSequential(isentenceg, name, ipick, bReset );
 	if (ipicknext >= 0 && name[0])
@@ -435,7 +435,7 @@ int SENTENCEG_Lookup(const char *sample, char *sentencenum)
 			return i;
 		}
 	// sentence name not found!
-	return -1;
+	return SENTENCEG_INVALID_INDEX;
 }
 
 void EMIT_SOUND_DYN( CBaseEntity* pEntity, int channel, const char *sample, float volume, float attenuation,
@@ -529,7 +529,7 @@ void UTIL_EmitAmbientSound( CBaseEntity* pEntity, const Vector &vecOrigin, const
 // play a strike sound based on the texture that was hit by the attack traceline.  VecSrc/VecEnd are the
 // original traceline endpoints used by the attacker, iBulletType is the type of bullet that hit the texture.
 // returns volume of strike instrument (crowbar) to play
-float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int iBulletType)
+float TEXTURETYPE_PlaySound(const TraceResult& tr, Vector vecSrc, Vector vecEnd, int iBulletType)
 {
 	// hit the world, try to play sound based on texture material type
 	
@@ -539,7 +539,7 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 	if ( !g_pGameRules->PlayTextureSounds() )
 		return 0.0;
 
-	CBaseEntity *pEntity = CBaseEntity::Instance(ptr->pHit);
+	CBaseEntity *pEntity = CBaseEntity::Instance(tr.pHit);
 
 	char chTextureType = CHAR_TEX_CONCRETE;
 
@@ -599,15 +599,15 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 	{
 		// play random spark if computer
 
-		if ( ptr->flFraction != 1.0 && RANDOM_LONG(0,1))
+		if ( tr.flFraction != 1.0 && RANDOM_LONG(0,1))
 		{
-			UTIL_Sparks( ptr->vecEndPos );
+			UTIL_Sparks( tr.vecEndPos );
 
 			float flVolume = RANDOM_FLOAT ( 0.7 , 1.0 );//random volume range
 			switch ( RANDOM_LONG(0,1) )
 			{
-				case 0: UTIL_EmitAmbientSound( CWorld::GetInstance(), ptr->vecEndPos, "buttons/spark5.wav", flVolume, ATTN_NORM, 0, 100 ); break;
-				case 1: UTIL_EmitAmbientSound( CWorld::GetInstance(), ptr->vecEndPos, "buttons/spark6.wav", flVolume, ATTN_NORM, 0, 100 ); break;
+				case 0: UTIL_EmitAmbientSound( CWorld::GetInstance(), tr.vecEndPos, "buttons/spark5.wav", flVolume, ATTN_NORM, 0, 100 ); break;
+				case 1: UTIL_EmitAmbientSound( CWorld::GetInstance(), tr.vecEndPos, "buttons/spark6.wav", flVolume, ATTN_NORM, 0, 100 ); break;
 				// case 0: EMIT_SOUND( this, CHAN_VOICE, "buttons/spark5.wav", flVolume, ATTN_NORM );	break;
 				// case 1: EMIT_SOUND( this, CHAN_VOICE, "buttons/spark6.wav", flVolume, ATTN_NORM );	break;
 			}
@@ -615,7 +615,7 @@ float TEXTURETYPE_PlaySound(TraceResult *ptr,  Vector vecSrc, Vector vecEnd, int
 	}
 
 	// play material hit sound
-	UTIL_EmitAmbientSound( CWorld::GetInstance(), ptr->vecEndPos, rgsz[RANDOM_LONG(0,cnt-1)], fvol, fattn, 0, 96 + RANDOM_LONG(0,0xf));
+	UTIL_EmitAmbientSound( CWorld::GetInstance(), tr.vecEndPos, rgsz[RANDOM_LONG(0,cnt-1)], fvol, fattn, 0, 96 + RANDOM_LONG(0,0xf));
 	//EMIT_SOUND_DYN( m_pPlayer, CHAN_WEAPON, rgsz[RANDOM_LONG(0,cnt-1)], fvol, ATTN_NORM, 0, 96 + RANDOM_LONG(0,0xf));
 			
 	return fvolbar;

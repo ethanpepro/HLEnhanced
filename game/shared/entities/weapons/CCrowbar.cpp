@@ -212,7 +212,7 @@ bool CCrowbar::Swing( const bool bFirst )
 
 		if( bHitWorld )
 		{
-			float fvolbar = TEXTURETYPE_PlaySound(&tr, vecSrc, vecSrc + (vecEnd-vecSrc)*2, BULLET_PLAYER_CROWBAR);
+			float fvolbar = TEXTURETYPE_PlaySound(tr, vecSrc, vecSrc + (vecEnd-vecSrc)*2, BULLET_PLAYER_CROWBAR);
 
 			if ( g_pGameRules->IsMultiplayer() )
 			{
