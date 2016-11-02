@@ -28,7 +28,7 @@ public:
 	*/
 	CASBaseClassCreator( const char* const pszClassName,
 						 const char* const pszEntityClass, const char* const pszBaseClass,
-						 const CASCustomEntities::CreateFn createFn,
+						 const CustomEntCreateFn createFn,
 						 CASCustomEntities::BaseClassList_t& baseClassList )
 		: m_Writer( pszClassName )
 		, m_pszEntityClass( pszEntityClass )
@@ -55,7 +55,7 @@ public:
 
 	const char* GetBaseClass() const { return m_pszBaseClass; }
 
-	CASCustomEntities::CreateFn GetCreateFunction() const { return m_CreateFn; }
+	CustomEntCreateFn GetCreateFunction() const { return m_CreateFn; }
 
 private:
 	CASClassWriter m_Writer;
@@ -63,7 +63,7 @@ private:
 	const char* const m_pszEntityClass;
 	const char* const m_pszBaseClass;
 
-	const CASCustomEntities::CreateFn m_CreateFn;
+	const CustomEntCreateFn m_CreateFn;
 
 	CASCustomEntities::BaseClassList_t& m_BaseClassList;
 

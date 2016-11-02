@@ -34,7 +34,7 @@ public:
 		CBaseCustomCBaseEntity::m_Instance = std::move( instance );
 	}
 
-	void SetClass( const CASCustomEntities::CCustomEntityClass* pClass ) override final
+	void SetClass( const CCustomEntityClass* pClass ) override final
 	{
 		m_pClass = pClass;
 	}
@@ -104,7 +104,7 @@ public:
 				std::string( pActualFunction->GetNamespace() ) + "::" + pActualFunction->GetName();
 
 			Alert( at_warning, "Couldn't set custom entity \"%s\" (class %s) function %s to \"%s\"\n", 
-				   GetTargetname(), GetClassname(), pszName, szCompleteName.c_str() );
+				   ThisClass::GetTargetname(), ThisClass::GetClassname(), pszName, szCompleteName.c_str() );
 		}
 
 		pFunction->Release();
@@ -553,7 +553,7 @@ public:
 private:
 	CASObjPtr m_Instance;
 
-	const CASCustomEntities::CCustomEntityClass* m_pClass = nullptr;
+	const CCustomEntityClass* m_pClass = nullptr;
 
 	CASRefPtr<asIScriptFunction> m_ThinkFunc;
 	CASRefPtr<asIScriptFunction> m_TouchFunc;

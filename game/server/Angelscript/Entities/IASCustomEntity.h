@@ -7,8 +7,7 @@
 
 #undef GetObject
 
-class CASCustomEntities;
-class CASCustomEntities::CCustomEntityClass;
+class CCustomEntityClass;
 
 /**
 *	Interface for custom entity classes.
@@ -31,7 +30,7 @@ public:
 	/**
 	*	Sets the class object.
 	*/
-	virtual void SetClass( const CASCustomEntities::CCustomEntityClass* pClass ) = 0;
+	virtual void SetClass( const CCustomEntityClass* pClass ) = 0;
 
 	/**
 	*	Sets this entity's Think function.

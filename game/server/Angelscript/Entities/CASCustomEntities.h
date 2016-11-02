@@ -17,65 +17,64 @@ class CBaseEntity;
 
 class CASClassWriter;
 
+using CustomEntCreateFn = void( *)( entvars_t* );
+
+struct BaseClassData_t final
+{
+	BaseClassData_t( std::string&& szClassName, std::string&& szCPPClassName, std::string&& szBaseClassName, std::string&& szClassDeclaration, const CustomEntCreateFn createFn )
+		: szClassName( std::move( szClassName ) )
+		, szCPPClassName( std::move( szCPPClassName ) )
+		, szBaseClassName( std::move( szBaseClassName ) )
+		, szClassDeclaration( std::move( szClassDeclaration ) )
+		, createFn( createFn )
+	{
+	}
+
+	const std::string szClassName;
+	const std::string szCPPClassName;
+	const std::string szBaseClassName;
+	const std::string szClassDeclaration;
+	const CustomEntCreateFn createFn;
+};
+
+/**
+*	Represents a custom entity class.
+*/
+class CCustomEntityClass final
+{
+public:
+	/**
+	*	@param szMapName Name of this entity. This is the name that the fgd refers to.
+	*	@param typeInfo Type info that represents the class.
+	*	@param baseClassData Base class data that represents this custom entity's base class.
+	*/
+	CCustomEntityClass( std::string&& szMapName, CASRefPtr<asITypeInfo>&& typeInfo, const BaseClassData_t& baseClassData )
+		: m_szMapName( std::move( szMapName ) )
+		, m_TypeInfo( std::move( typeInfo ) )
+		, m_BaseClassData( baseClassData )
+	{
+	}
+
+	const std::string& GetMapName() const { return m_szMapName; }
+
+	const CASRefPtr<asITypeInfo>& GetTypeInfo() const { return m_TypeInfo; }
+
+	const BaseClassData_t& GetBaseClassData() const { return m_BaseClassData; }
+
+private:
+	std::string m_szMapName;
+	CASRefPtr<asITypeInfo> m_TypeInfo;
+
+	const BaseClassData_t& m_BaseClassData;
+};
+
 /**
 *	Manages the list of custom entity base classes and registered classes for the current map.
 */
 class CASCustomEntities final
 {
 public:
-	using CreateFn = void ( * )( entvars_t* );
-
-	struct BaseClassData_t final
-	{
-		BaseClassData_t( std::string&& szClassName, std::string&& szCPPClassName, std::string&& szBaseClassName, std::string&& szClassDeclaration, const CreateFn createFn )
-			: szClassName( std::move( szClassName ) )
-			, szCPPClassName( std::move( szCPPClassName ) )
-			, szBaseClassName( std::move( szBaseClassName ) )
-			, szClassDeclaration( std::move( szClassDeclaration ) )
-			, createFn( createFn )
-		{
-		}
-
-		const std::string szClassName;
-		const std::string szCPPClassName;
-		const std::string szBaseClassName;
-		const std::string szClassDeclaration;
-		const CreateFn createFn;
-	};
-
 	using BaseClassList_t = std::vector<BaseClassData_t>;
-
-	/**
-	*	Represents a custom entity class.
-	*/
-	class CCustomEntityClass final
-	{
-	public:
-		/**
-		*	@param szMapName Name of this entity. This is the name that the fgd refers to.
-		*	@param typeInfo Type info that represents the class.
-		*	@param baseClassData Base class data that represents this custom entity's base class.
-		*/
-		CCustomEntityClass( std::string&& szMapName, CASRefPtr<asITypeInfo>&& typeInfo, const BaseClassData_t& baseClassData )
-			: m_szMapName( std::move( szMapName ) )
-			, m_TypeInfo( std::move( typeInfo ) )
-			, m_BaseClassData( baseClassData )
-		{
-		}
-
-		const std::string& GetMapName() const { return m_szMapName; }
-
-		const CASRefPtr<asITypeInfo>& GetTypeInfo() const { return m_TypeInfo; }
-
-		const BaseClassData_t& GetBaseClassData() const { return m_BaseClassData; }
-
-	private:
-		std::string m_szMapName;
-		CASRefPtr<asITypeInfo> m_TypeInfo;
-
-		const BaseClassData_t& m_BaseClassData;
-	};
-
 	using ClassList_t = std::vector<std::unique_ptr<CCustomEntityClass>>;
 
 public:

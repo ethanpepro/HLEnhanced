@@ -66,7 +66,7 @@ void CASCustomEntities::WorldEnded()
 	m_ClassList.shrink_to_fit();
 }
 
-const CASCustomEntities::BaseClassData_t* CASCustomEntities::FindBaseClassByClassName( const char* const pszClassName ) const
+const BaseClassData_t* CASCustomEntities::FindBaseClassByClassName( const char* const pszClassName ) const
 {
 	for( const auto& baseClass : m_BaseClasses )
 	{
@@ -77,7 +77,7 @@ const CASCustomEntities::BaseClassData_t* CASCustomEntities::FindBaseClassByClas
 	return nullptr;
 }
 
-const CASCustomEntities::CCustomEntityClass* CASCustomEntities::FindCustomClassByMapName( const char* const pszMapName ) const
+const CCustomEntityClass* CASCustomEntities::FindCustomClassByMapName( const char* const pszMapName ) const
 {
 	ASSERT( pszMapName );
 
