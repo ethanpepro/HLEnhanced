@@ -138,7 +138,7 @@ static CCustomEntityHandler* g_pCustomHandler = nullptr;
 /**
 *	The engine will call into this function to create entities if it fails to find an exported function for it.
 */
-void DLLEXPORT custom( entvars_t* pev )
+extern "C" void DLLEXPORT custom( entvars_t* pev )
 {
 	if( !g_pCustomHandler )
 	{
