@@ -287,7 +287,7 @@ public:
 		}
 		else
 		{
-			TraceAttack( info, vecDir, ptr );
+			BaseClass::TraceAttack( info, vecDir, ptr );
 		}
 	}
 
