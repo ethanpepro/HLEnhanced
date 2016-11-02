@@ -1,11 +1,14 @@
 #include "extdll.h"
 #include "util.h"
+#include "cbase.h"
+#include "Entities/plats/CPathTrack.h"
 
 #include "Angelscript/CHLASManager.h"
 
 #include "Angelscript/ScriptAPI/ASPluginInterface.h"
 
 #include "Angelscript/ScriptAPI/Entities/ASEntityFuncs.h"
+#include "Angelscript/ScriptAPI/Entities/ASCPathTrack.h"
 
 #include "Angelscript/ScriptAPI/ASCServerEngine.h"
 #include "Angelscript/ScriptAPI/ASCSoundSystem.h"
@@ -43,6 +46,7 @@ bool CHLASServerInitializer::RegisterCoreAPI( CASManager& manager )
 
 	//CBaseEntity is registered by CHLASBaseInitializer
 	RegisterScriptEntityFuncs( engine );
+	RegisterScriptCPathTrack( engine );
 
 	RegisterScriptTriggerScript( engine );
 
