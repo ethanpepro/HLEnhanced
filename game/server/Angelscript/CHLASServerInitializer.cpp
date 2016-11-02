@@ -9,6 +9,7 @@
 
 #include "Angelscript/ScriptAPI/Entities/ASEntityFuncs.h"
 #include "Angelscript/ScriptAPI/Entities/ASCPathTrack.h"
+#include "Angelscript/ScriptAPI/Entities/ASPlayerFuncs.h"
 
 #include "Angelscript/ScriptAPI/ASCServerEngine.h"
 #include "Angelscript/ScriptAPI/ASCSoundSystem.h"
@@ -47,6 +48,7 @@ bool CHLASServerInitializer::RegisterCoreAPI( CASManager& manager )
 	//CBaseEntity is registered by CHLASBaseInitializer
 	RegisterScriptEntityFuncs( engine );
 	RegisterScriptCPathTrack( engine );
+	RegisterScriptPlayerFuncs( engine );
 
 	RegisterScriptTriggerScript( engine );
 
