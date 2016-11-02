@@ -1298,10 +1298,10 @@ struct enginefuncs_t
 
 	/**
 	*	Adds a server command.
-	*	@param pszCommandName Name of the command to add.
+	*	@param pszCommandName Name of the command to add. This string must live for the rest of the server's lifetime.
 	*	@param function Function to invoke when the command is received.
 	*/
-	void		(*pfnAddServerCommand)		( char* pszCommandName, void ( *function )( void ) );
+	void		(*pfnAddServerCommand)		( const char* pszCommandName, void ( *function )( void ) );
 
 	// For voice communications, set which clients hear eachother.
 	// NOTE: these functions take player entity indices (starting at 1).
