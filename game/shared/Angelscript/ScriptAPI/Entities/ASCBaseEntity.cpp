@@ -488,11 +488,11 @@ static void DestructTraceResult( TraceResult* pMemory )
 	//Nothing.
 }
 
-static TraceResult& TraceResult_Assign( const TraceResult& tr, TraceResult* pTr )
+static TraceResult& TraceResult_Assign( TraceResult* pThis, const TraceResult& tr )
 {
-	*pTr = tr;
+	*pThis = tr;
 
-	return *pTr;
+	return *pThis;
 }
 
 static CBaseEntity* TraceResult_get_pHit( const TraceResult* pThis )
