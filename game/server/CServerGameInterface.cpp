@@ -17,6 +17,7 @@
 
 #if USE_ANGELSCRIPT
 #include "Angelscript/CHLASServerManager.h"
+#include "Angelscript/ScriptAPI/ASEvents.h"
 #endif
 
 #include "entities/CEntityDictionary.h"
@@ -143,6 +144,10 @@ void CServerGameInterface::ClientPutInServer( edict_t* pEntity )
 	auto pPlayer = GetClassPtr( ( CBasePlayer* ) &pEntity->v );
 
 	pPlayer->InitialSpawn();
+
+#if USE_ANGELSCRIPT
+	g_ClientPutInServerEvent.Call( CallFlag::NONE, pPlayer );
+#endif
 }
 
 void CServerGameInterface::ClientCommand( edict_t* pEntity )

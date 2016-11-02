@@ -31,6 +31,10 @@
 
 #include "com_model.h"
 
+#if USE_ANGELSCRIPT
+#include "Angelscript/ScriptAPI/ASEvents.h"
+#endif
+
 extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			gEvilImpulse101;
@@ -66,6 +70,16 @@ void CBasePlayer::PreThink()
 	m_afButtonReleased = buttonsChanged & ( ~pev->button );	// The ones not down are "released"
 
 	g_pGameRules->PlayerThink( this );
+
+	bool bCheckVehicles = true;
+
+#if USE_ANGELSCRIPT
+	uint32_t uiFlags = PreThinkFlag::NONE;
+
+	g_PlayerPreThinkEvent.Call( CallFlag::NONE, this, &uiFlags );
+
+	bCheckVehicles = !( uiFlags & PreThinkFlag::SKIP_VEHICLES );
+#endif
 
 	if( g_fGameOver )
 		return;         // intermission or finale
@@ -111,6 +125,8 @@ void CBasePlayer::PreThink()
 	else
 		pev->flags &= ~FL_ONTRAIN;
 
+	if( bCheckVehicles )
+	{
 #if USE_OPFOR
 	//We're on a rope. - Solokiller
 	if( m_afPhysicsFlags & PFLAG_ONROPE && m_pRope )
@@ -244,61 +260,62 @@ void CBasePlayer::PreThink()
 	}
 #endif
 
-	// Train speed control
-	if( m_afPhysicsFlags & PFLAG_ONTRAIN )
-	{
-		CBaseEntity *pTrain = CBaseEntity::Instance( pev->groundentity );
-		float vel;
-
-		if( !pTrain )
+		// Train speed control
+		if( m_afPhysicsFlags & PFLAG_ONTRAIN )
 		{
-			TraceResult trainTrace;
-			// Maybe this is on the other side of a level transition
-			UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, -38 ), ignore_monsters, ENT( pev ), &trainTrace );
+			CBaseEntity *pTrain = CBaseEntity::Instance( pev->groundentity );
+			float vel;
 
-			// HACKHACK - Just look for the func_tracktrain classname
-			if( trainTrace.flFraction != 1.0 && trainTrace.pHit )
-				pTrain = CBaseEntity::Instance( trainTrace.pHit );
-
-
-			if( !pTrain || !( pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE ) || !pTrain->OnControls( this ) )
+			if( !pTrain )
 			{
-				//ALERT( at_error, "In train mode with no train!\n" );
+				TraceResult trainTrace;
+				// Maybe this is on the other side of a level transition
+				UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, -38 ), ignore_monsters, ENT( pev ), &trainTrace );
+
+				// HACKHACK - Just look for the func_tracktrain classname
+				if( trainTrace.flFraction != 1.0 && trainTrace.pHit )
+					pTrain = CBaseEntity::Instance( trainTrace.pHit );
+
+
+				if( !pTrain || !( pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE ) || !pTrain->OnControls( this ) )
+				{
+					//ALERT( at_error, "In train mode with no train!\n" );
+					m_afPhysicsFlags &= ~PFLAG_ONTRAIN;
+					m_iTrain = TRAIN_NEW | TRAIN_OFF;
+					return;
+				}
+			}
+			else if( !FBitSet( pev->flags, FL_ONGROUND ) || FBitSet( pTrain->pev->spawnflags, SF_TRACKTRAIN_NOCONTROL ) || ( pev->button & ( IN_MOVELEFT | IN_MOVERIGHT ) ) )
+			{
+				// Turn off the train if you jump, strafe, or the train controls go dead
 				m_afPhysicsFlags &= ~PFLAG_ONTRAIN;
 				m_iTrain = TRAIN_NEW | TRAIN_OFF;
 				return;
 			}
-		}
-		else if( !FBitSet( pev->flags, FL_ONGROUND ) || FBitSet( pTrain->pev->spawnflags, SF_TRACKTRAIN_NOCONTROL ) || ( pev->button & ( IN_MOVELEFT | IN_MOVERIGHT ) ) )
-		{
-			// Turn off the train if you jump, strafe, or the train controls go dead
-			m_afPhysicsFlags &= ~PFLAG_ONTRAIN;
-			m_iTrain = TRAIN_NEW | TRAIN_OFF;
-			return;
-		}
 
-		pev->velocity = g_vecZero;
-		vel = 0;
-		if( m_afButtonPressed & IN_FORWARD )
-		{
-			vel = 1;
-			pTrain->Use( this, this, USE_SET, ( float ) vel );
-		}
-		else if( m_afButtonPressed & IN_BACK )
-		{
-			vel = -1;
-			pTrain->Use( this, this, USE_SET, ( float ) vel );
-		}
+			pev->velocity = g_vecZero;
+			vel = 0;
+			if( m_afButtonPressed & IN_FORWARD )
+			{
+				vel = 1;
+				pTrain->Use( this, this, USE_SET, ( float ) vel );
+			}
+			else if( m_afButtonPressed & IN_BACK )
+			{
+				vel = -1;
+				pTrain->Use( this, this, USE_SET, ( float ) vel );
+			}
 
-		if( vel )
-		{
-			m_iTrain = TrainSpeed( pTrain->pev->speed, pTrain->pev->impulse );
-			m_iTrain |= TRAIN_ACTIVE | TRAIN_NEW;
-		}
+			if( vel )
+			{
+				m_iTrain = TrainSpeed( pTrain->pev->speed, pTrain->pev->impulse );
+				m_iTrain |= TRAIN_ACTIVE | TRAIN_NEW;
+			}
 
+		}
+		else if( m_iTrain & TRAIN_ACTIVE )
+			m_iTrain = TRAIN_NEW; // turn off train
 	}
-	else if( m_iTrain & TRAIN_ACTIVE )
-		m_iTrain = TRAIN_NEW; // turn off train
 
 	if( pev->button & IN_JUMP )
 	{

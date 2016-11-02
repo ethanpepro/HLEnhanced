@@ -9,6 +9,8 @@ public:
 	using CHLASBaseInitializer::CHLASBaseInitializer;
 
 	bool RegisterCoreAPI( CASManager& manager ) override;
+
+	bool AddEvents( CASManager& manager, CASEventManager& eventManager ) override;
 };
 
 #endif //GAME_SERVER_ANGELSCRIPT_CHLASSERVERINITIALIZER_H

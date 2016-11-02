@@ -9,6 +9,8 @@ add_sources(
 	ASCustomEntities.cpp
 	ASEffects.h
 	ASEffects.cpp
+	ASEvents.h
+	ASEvents.cpp
 	ASGameRules.h
 	ASGameRules.cpp
 	ASPluginInterface.h

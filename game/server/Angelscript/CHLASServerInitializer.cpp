@@ -1,6 +1,8 @@
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
+#include "client.h"
+
 #include "Entities/plats/CPathTrack.h"
 
 #include "Angelscript/CHLASManager.h"
@@ -25,9 +27,14 @@
 
 #include "Angelscript/ScriptAPI/ASCustomEntities.h"
 
+#include "ScriptAPI/Console/CASCommand.h"
+#include "ScriptAPI/CASSayArgs.h"
+
 #if USE_AS_SQL
 #include "Angelscript/ScriptAPI/SQL/ASHLSQL.h"
 #endif
+
+#include "ScriptAPI/ASEvents.h"
 
 #include "CHLASServerInitializer.h"
 
@@ -59,9 +66,32 @@ bool CHLASServerInitializer::RegisterCoreAPI( CASManager& manager )
 
 	RegisterScriptCustomEntities( engine );
 
+	RegisterScriptCCommand( engine );
+
+	RegisterScriptCSayArgs( engine );
+
 #if USE_AS_SQL
 	RegisterScriptHLSQL( engine );
 #endif
+
+	return true;
+}
+
+bool CHLASServerInitializer::AddEvents( CASManager& manager, CASEventManager& eventManager )
+{
+	RegisterScriptEventData( *manager.GetEngine() );
+
+	if( !eventManager.AddEvent( &g_ClientPutInServerEvent ) )
+		return false;
+
+	if( !eventManager.AddEvent( &g_PlayerPreThinkEvent ) )
+		return false;
+
+	if( !eventManager.AddEvent( &g_PlayerUseEvent ) )
+		return false;
+
+	if( !eventManager.AddEvent( &g_PlayerSayEvent ) )
+		return false;
 
 	return true;
 }
