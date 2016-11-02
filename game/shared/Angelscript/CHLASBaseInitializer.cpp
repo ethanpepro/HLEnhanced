@@ -73,6 +73,7 @@ bool CHLASBaseInitializer::RegisterCoreAPI( CASManager& manager )
 	RegisterScriptEHANDLE( engine );
 	RegisterScriptCBaseEntity( engine );
 	RegisterScriptBaseEntity( engine );
+	RegisterScriptPlayerDependencies( engine );
 	RegisterScriptCBasePlayer( engine );
 
 	RegisterScriptCEngine( engine );
