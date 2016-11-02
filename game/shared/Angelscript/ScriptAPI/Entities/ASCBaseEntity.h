@@ -324,7 +324,7 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "string GetModelName() const",
-		asMETHOD( CLASS, GetModelName ), asCALL_THISCALL );
+		asFUNCTION( CBaseEntity_GetModelName ), asCALL_CDECL_OBJFIRST );
 
 	//Not exposed: SetModelName. The engine handles it, if it's needed add a special handler for it. - Solokiller
 
@@ -1047,6 +1047,10 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	//TODO: OnControls may be replaced with a better way so don't expose it. - Solokiller
 
 	engine.RegisterObjectMethod(
+		pszObjectName, "bool OnControls(CBaseEntity@ pTest) const",
+		asMETHOD( CLASS, OnControls ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
 		pszObjectName, "bool IsAlive() const",
 		asMETHOD( CLASS, IsAlive ), asCALL_THISCALL );
 
@@ -1213,6 +1217,24 @@ template<typename CLASS>
 void BaseEntity_KeyValue( CLASS* pThis, KeyValueData* pkvd )
 {
 	pThis->CLASS::KeyValue( pkvd );
+}
+
+/**
+*	Wrapper so scripts can call KeyValue.
+*/
+template<typename CLASS>
+bool BaseEntity_KeyValue( CLASS* pThis, const std::string& szKeyName, const std::string& szValue )
+{
+	KeyValueData kvd;
+
+	kvd.szKeyName = szKeyName.c_str();
+	kvd.szValue = szValue.c_str();
+	kvd.szClassName = pThis->GetClassname();
+	kvd.fHandled = false;
+
+	pThis->CLASS::KeyValue( &kvd );
+
+	return kvd.fHandled != 0;
 }
 
 template<typename CLASS>
@@ -1476,7 +1498,11 @@ void RegisterScriptBaseEntity( asIScriptEngine& engine, const char* const pszObj
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void KeyValue(KeyValueData@ pkvd)",
-		asFUNCTION( BaseEntity_KeyValue<CLASS> ), asCALL_CDECL_OBJFIRST );
+		asFUNCTIONPR( BaseEntity_KeyValue<CLASS>, ( CLASS*, KeyValueData* ), void ), asCALL_CDECL_OBJFIRST );
+
+	engine.RegisterObjectMethod(
+		pszObjectName, "bool KeyValue(const string& in szKey, const string& in szValue)",
+		asFUNCTIONPR( BaseEntity_KeyValue<CLASS>, ( CLASS*, const std::string&, const std::string& ), bool ), asCALL_CDECL_OBJFIRST );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void Precache()",
