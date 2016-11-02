@@ -15,4 +15,5 @@ add_sources(
 	CASEngine.cpp
 )
 
+add_subdirectory( add_on )
 add_subdirectory( Entities )
