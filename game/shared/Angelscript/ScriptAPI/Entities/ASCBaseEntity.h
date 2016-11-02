@@ -1177,6 +1177,13 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	engine.RegisterObjectMethod(
 		pszObjectName, "bool FBoxVisible(const CBaseEntity@ pTarget, Vector& out vecTargetOrigin, float flSize = 0.0f) const",
 		asMETHOD( CLASS, FBoxVisible ), asCALL_THISCALL );
+
+#ifdef SERVER_DLL
+	//Available to all module types now.
+	engine.RegisterObjectMethod(
+		pszObjectName, "dictionary@ GetUserData() const",
+		asMETHOD( CLASS, GetUserData ), asCALL_THISCALL );
+#endif
 }
 
 inline void RegisterScriptCBaseEntity( asIScriptEngine& engine )

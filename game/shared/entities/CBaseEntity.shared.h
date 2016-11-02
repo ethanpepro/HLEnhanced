@@ -51,6 +51,12 @@ CBaseEntity
 
 #include "CTakeDamageInfo.h"
 
+#if USE_ANGELSCRIPT && defined( SERVER_DLL )
+#include <Angelscript/util/CASRefPtr.h>
+
+#include <Angelscript/add_on/scriptdictionary.h>
+#endif
+
 #undef GetMessage
 
 using CEntBitSet = CBitSet<int>;
@@ -2332,6 +2338,16 @@ public:
 	*	@return true if the target is visible, false otherwise.
 	*/
 	bool FBoxVisible( const CBaseEntity* pTarget, Vector& vecTargetOrigin, float flSize = 0.0 ) const;
+
+#if USE_ANGELSCRIPT && defined( SERVER_DLL )
+	//Angelscript specific extensions. - Solokiller
+	CScriptDictionary* GetUserData() const;
+
+private:
+	mutable CASRefPtr<CScriptDictionary> m_UserData;
+
+public:
+#endif
 };
 
 // Ugly technique to override base member functions
