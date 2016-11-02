@@ -272,6 +272,15 @@ endif()
 set( SHARED_DEPENDENCIES
 )
 
+set( THREADS_PREFER_PTHREAD_FLAG ON )
+find_package( Threads REQUIRED )
+
+if( UNIX )
+	set( UNIX_FS_LIB stdc++fs )
+else()
+	set( UNIX_FS_LIB )
+endif()
+
 link_directories( "${CMAKE_SOURCE_DIR}/lib/public" )
 
 #
@@ -394,7 +403,7 @@ endif()
 if( WIN32 )
 	set( CLIENT_PLAT_LIBS "wsock32" )
 else()
-	set( CLIENT_PLAT_LIBS "" )
+	set( CLIENT_PLAT_LIBS "dl" )
 endif()
 
 #Link with client dependencies
@@ -408,6 +417,8 @@ target_link_libraries( client
 	"${CLIENT_PLAT_LIBS}"
 	"${SDL2}"
 	"${VGUI2_LIBS}"
+	Threads::Threads
+	${UNIX_FS_LIB}
 )
 
 #CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
@@ -517,6 +528,7 @@ if( USE_AS_SQL )
 	else()
 		find_library( SQLITE3 "${CMAKE_SHARED_LIBRARY_PREFIX}sqlite3${CMAKE_SHARED_LIBRARY_SUFFIX}" PATHS "${GAME_BASE_PATH}" )
 		find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" )
+		set( MARIADBD ${MARIADB} )
 		set( PTHREAD "pthread" )
 		
 		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
@@ -545,6 +557,7 @@ target_link_libraries( hl
 	debug "${ANGELSCRIPTUTILSD}"
 	debug "${ANGELSCRIPTLIBD}"
 	"${DELAYIMP}"
+	${UNIX_FS_LIB}
 )
 
 #CMake places libraries in /Debug or /Release on Windows, so explicitly set the paths for both.
