@@ -17,8 +17,11 @@ add_sources(
 	ASTriggerScript.cpp
 	ASUtilityFuncs.h
 	ASUtilityFuncs.cpp
+	CASSayArgs.h
+	CASSayArgs.cpp
 )
 
+add_subdirectory( Console )
 add_subdirectory( Entities )
 add_subdirectory( Extensions )
 

@@ -25,6 +25,15 @@ enum HostFlag
 	HOSTFL_WEAPONPRED	= 1 << 0
 };
 
+namespace SayType
+{
+enum SayType
+{
+	SAY			= 0,
+	SAY_TEAM	= 1
+};
+}
+
 qboolean ClientConnect( edict_t *pEntity, const char *pszName, const char *pszAddress, char szRejectReason[ CCONNECT_REJECT_REASON_SIZE ] );
 void ClientDisconnect( edict_t *pEntity );
 void ClientKill( edict_t *pEntity );
