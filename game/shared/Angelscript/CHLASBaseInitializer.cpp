@@ -15,11 +15,14 @@
 
 #include "ScriptAPI/ASScheduler.h"
 
+#include "Angelscript/ScriptAPI/ASString.h"
 #include "Angelscript/ScriptAPI/ASMath.h"
 #include "Angelscript/ScriptAPI/ASstring_t.h"
 
 #include "Angelscript/ScriptAPI/Entities/ASCBaseEntity.h"
+#include "Angelscript/ScriptAPI/Entities/ASEHANDLE.h"
 #include "Angelscript/ScriptAPI/Entities/ASCBasePlayer.h"
+
 #include "Angelscript/ScriptAPI/CASEngine.h"
 #include "Angelscript/ScriptAPI/ASCGlobalVars.h"
 
@@ -57,10 +60,12 @@ bool CHLASBaseInitializer::RegisterCoreAPI( CASManager& manager )
 
 	RegisterScriptEventAPI( engine );
 
+	RegisterScriptStringUtils( engine );
 	RegisterScriptHLMath( engine );
 	RegisterScriptstring_t( engine );
 
 	RegisterScriptEntityDependencies( engine );
+	RegisterScriptEHANDLE( engine );
 	RegisterScriptCBaseEntity( engine );
 	RegisterScriptBaseEntity( engine );
 	RegisterScriptCBasePlayer( engine );

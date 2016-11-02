@@ -7,6 +7,8 @@ add_sources(
 	ASMath.cpp
 	ASScheduler.h
 	ASScheduler.cpp
+	ASString.h
+	ASString.cpp
 	ASstring_t.h
 	ASstring_t.cpp
 	CASEngine.h
