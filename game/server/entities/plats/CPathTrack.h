@@ -38,11 +38,11 @@ public:
 	void		Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
 	CPathTrack	*ValidPath( CPathTrack *ppath, const bool bTestFlag );		// Returns ppath if enabled, NULL otherwise
-	void		Project( CPathTrack *pstart, CPathTrack *pend, Vector *origin, float dist );
+	void		Project( CPathTrack *pstart, CPathTrack *pend, Vector& origin, float dist );
 
 	static CPathTrack* Instance( CBaseEntity* pEntity );
 
-	CPathTrack	*LookAhead( Vector *origin, float dist, const bool bMove );
+	CPathTrack	*LookAhead( Vector& origin, float dist, const bool bMove );
 	CPathTrack	*Nearest( Vector origin );
 
 	CPathTrack	*GetNext( void );

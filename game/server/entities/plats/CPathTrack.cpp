@@ -136,13 +136,13 @@ CPathTrack	*CPathTrack::ValidPath( CPathTrack *ppath, const bool bTestFlag )
 	return ppath;
 }
 
-void CPathTrack::Project( CPathTrack *pstart, CPathTrack *pend, Vector *origin, float dist )
+void CPathTrack::Project( CPathTrack *pstart, CPathTrack *pend, Vector& origin, float dist )
 {
 	if( pstart && pend )
 	{
 		Vector dir = ( pend->GetAbsOrigin() - pstart->GetAbsOrigin() );
 		dir = dir.Normalize();
-		*origin = pend->GetAbsOrigin() + dir * dist;
+		origin = pend->GetAbsOrigin() + dir * dist;
 	}
 }
 
@@ -155,13 +155,13 @@ CPathTrack* CPathTrack::Instance( CBaseEntity* pEntity )
 }
 
 // Assumes this is ALWAYS enabled
-CPathTrack *CPathTrack::LookAhead( Vector *origin, float dist, const bool bMove )
+CPathTrack *CPathTrack::LookAhead( Vector& origin, float dist, const bool bMove )
 {
 	CPathTrack *pcurrent;
 	float originalDist = dist;
 
 	pcurrent = this;
-	Vector currentPos = *origin;
+	Vector currentPos = origin;
 
 	if( dist < 0 )		// Travelling backwards through path
 	{
@@ -182,21 +182,21 @@ CPathTrack *CPathTrack::LookAhead( Vector *origin, float dist, const bool bMove 
 			}
 			else if( length > dist )	// enough left in this path to move
 			{
-				*origin = currentPos + ( dir * ( dist / length ) );
+				origin = currentPos + ( dir * ( dist / length ) );
 				return pcurrent;
 			}
 			else
 			{
 				dist -= length;
 				currentPos = pcurrent->GetAbsOrigin();
-				*origin = currentPos;
+				origin = currentPos;
 				if( !ValidPath( pcurrent->GetPrevious(), bMove ) )	// If there is no previous node, or it's disabled, return now.
 					return NULL;
 
 				pcurrent = pcurrent->GetPrevious();
 			}
 		}
-		*origin = currentPos;
+		origin = currentPos;
 		return pcurrent;
 	}
 	else
@@ -219,7 +219,7 @@ CPathTrack *CPathTrack::LookAhead( Vector *origin, float dist, const bool bMove 
 			}
 			if( length > dist )	// enough left in this path to move
 			{
-				*origin = currentPos + ( dir * ( dist / length ) );
+				origin = currentPos + ( dir * ( dist / length ) );
 				return pcurrent;
 			}
 			else
@@ -227,10 +227,10 @@ CPathTrack *CPathTrack::LookAhead( Vector *origin, float dist, const bool bMove 
 				dist -= length;
 				currentPos = pcurrent->GetNext()->GetAbsOrigin();
 				pcurrent = pcurrent->GetNext();
-				*origin = currentPos;
+				origin = currentPos;
 			}
 		}
-		*origin = currentPos;
+		origin = currentPos;
 	}
 
 	return pcurrent;
