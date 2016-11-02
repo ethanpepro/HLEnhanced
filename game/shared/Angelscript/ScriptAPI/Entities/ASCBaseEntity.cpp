@@ -195,6 +195,48 @@ static void RegisterScriptContents( asIScriptEngine& engine )
 }
 
 /**
+*	Registers entity flags.
+*	@param engine Script engine.
+*/
+static void RegisterScriptEntFlag( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "EntFlag";
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "FL_FLY", FL_FLY );
+	engine.RegisterEnumValue( pszObjectName, "FL_SWIM", FL_SWIM );
+	engine.RegisterEnumValue( pszObjectName, "FL_CONVEYOR", FL_CONVEYOR );
+	engine.RegisterEnumValue( pszObjectName, "FL_CLIENT", FL_CLIENT );
+	engine.RegisterEnumValue( pszObjectName, "FL_INWATER", FL_INWATER );
+	engine.RegisterEnumValue( pszObjectName, "FL_MONSTER", FL_MONSTER );
+	engine.RegisterEnumValue( pszObjectName, "FL_GODMODE", FL_GODMODE );
+	engine.RegisterEnumValue( pszObjectName, "FL_NOTARGET", FL_NOTARGET );
+	engine.RegisterEnumValue( pszObjectName, "FL_SKIPLOCALHOST", FL_SKIPLOCALHOST );
+	engine.RegisterEnumValue( pszObjectName, "FL_ONGROUND", FL_ONGROUND );
+	engine.RegisterEnumValue( pszObjectName, "FL_PARTIALGROUND", FL_PARTIALGROUND );
+	engine.RegisterEnumValue( pszObjectName, "FL_WATERJUMP", FL_WATERJUMP );
+	engine.RegisterEnumValue( pszObjectName, "FL_FROZEN", FL_FROZEN );
+	engine.RegisterEnumValue( pszObjectName, "FL_FAKECLIENT", FL_FAKECLIENT );
+	engine.RegisterEnumValue( pszObjectName, "FL_DUCKING", FL_DUCKING );
+	engine.RegisterEnumValue( pszObjectName, "FL_FLOAT", FL_FLOAT );
+	engine.RegisterEnumValue( pszObjectName, "FL_GRAPHED", FL_GRAPHED );
+	engine.RegisterEnumValue( pszObjectName, "FL_IMMUNE_WATER", FL_IMMUNE_WATER );
+	engine.RegisterEnumValue( pszObjectName, "FL_IMMUNE_SLIME", FL_IMMUNE_SLIME );
+	engine.RegisterEnumValue( pszObjectName, "FL_IMMUNE_LAVA", FL_IMMUNE_LAVA );
+	engine.RegisterEnumValue( pszObjectName, "FL_PROXY", FL_PROXY );
+	engine.RegisterEnumValue( pszObjectName, "FL_ALWAYSTHINK", FL_ALWAYSTHINK );
+	engine.RegisterEnumValue( pszObjectName, "FL_BASEVELOCITY", FL_BASEVELOCITY );
+	engine.RegisterEnumValue( pszObjectName, "FL_MONSTERCLIP", FL_MONSTERCLIP );
+	engine.RegisterEnumValue( pszObjectName, "FL_ONTRAIN", FL_ONTRAIN );
+	engine.RegisterEnumValue( pszObjectName, "FL_WORLDBRUSH", FL_WORLDBRUSH );
+	engine.RegisterEnumValue( pszObjectName, "FL_SPECTATOR", FL_SPECTATOR );
+	engine.RegisterEnumValue( pszObjectName, "FL_CUSTOMENTITY", FL_CUSTOMENTITY );
+	engine.RegisterEnumValue( pszObjectName, "FL_KILLME", FL_KILLME );
+	engine.RegisterEnumValue( pszObjectName, "FL_DORMANT", FL_DORMANT );
+}
+
+/**
 *	Class name for KeyValueData in scripts.
 */
 #define AS_KEYVALUEDATA_NAME "KeyValueData"
@@ -579,11 +621,53 @@ static void RegisterScriptBullet( asIScriptEngine& engine )
 	engine.SetDefaultNamespace( szOldNS.c_str() );
 }
 
+static void RegisterScriptDmg( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "Dmg";
+
+	const std::string szOldNS = engine.GetDefaultNamespace();
+
+	engine.SetDefaultNamespace( pszObjectName );
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "GENERIC", DMG_GENERIC );
+	engine.RegisterEnumValue( pszObjectName, "CRUSH", DMG_CRUSH );
+	engine.RegisterEnumValue( pszObjectName, "BULLET", DMG_BULLET );
+	engine.RegisterEnumValue( pszObjectName, "SLASH", DMG_SLASH );
+	engine.RegisterEnumValue( pszObjectName, "BURN", DMG_BURN );
+	engine.RegisterEnumValue( pszObjectName, "FREEZE", DMG_FREEZE );
+	engine.RegisterEnumValue( pszObjectName, "FALL", DMG_FALL );
+	engine.RegisterEnumValue( pszObjectName, "BLAST", DMG_BLAST );
+	engine.RegisterEnumValue( pszObjectName, "CLUB", DMG_CLUB );
+	engine.RegisterEnumValue( pszObjectName, "SHOCK", DMG_SHOCK );
+	engine.RegisterEnumValue( pszObjectName, "SONIC", DMG_SONIC );
+	engine.RegisterEnumValue( pszObjectName, "ENERGYBEAM", DMG_ENERGYBEAM );
+	engine.RegisterEnumValue( pszObjectName, "NEVERGIB", DMG_NEVERGIB );
+	engine.RegisterEnumValue( pszObjectName, "ALWAYSGIB", DMG_ALWAYSGIB );
+	engine.RegisterEnumValue( pszObjectName, "DROWN", DMG_DROWN );
+	engine.RegisterEnumValue( pszObjectName, "TIMEBASED", DMG_TIMEBASED );
+	engine.RegisterEnumValue( pszObjectName, "PARALYZE", DMG_PARALYZE );
+	engine.RegisterEnumValue( pszObjectName, "NERVEGAS", DMG_NERVEGAS );
+	engine.RegisterEnumValue( pszObjectName, "POISON", DMG_POISON );
+	engine.RegisterEnumValue( pszObjectName, "RADIATION", DMG_RADIATION );
+	engine.RegisterEnumValue( pszObjectName, "DROWNRECOVER", DMG_DROWNRECOVER );
+	engine.RegisterEnumValue( pszObjectName, "ACID", DMG_ACID );
+	engine.RegisterEnumValue( pszObjectName, "SLOWBURN", DMG_SLOWBURN );
+	engine.RegisterEnumValue( pszObjectName, "SLOWFREEZE", DMG_SLOWFREEZE );
+	engine.RegisterEnumValue( pszObjectName, "MORTAR", DMG_MORTAR );
+	engine.RegisterEnumValue( pszObjectName, "GIB_CORPSE", DMG_GIB_CORPSE );
+	engine.RegisterEnumValue( pszObjectName, "SHOWNHUD", DMG_SHOWNHUD );
+
+	engine.SetDefaultNamespace( szOldNS.c_str() );
+}
+
 static const char* const g_pszEntities[] = 
 {
 	AS_CBASEENTITY_NAME,
 	"CBaseMonster",		//TODO: register fully elsewhere - Solokiller
 	"CBasePlayer",
+	"CPathTrack",
 };
 
 void RegisterScriptEntityDependencies( asIScriptEngine& engine )
@@ -603,6 +687,7 @@ void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 	RegisterScriptDeadFlag( engine );
 	RegisterScriptWaterLevel( engine );
 	RegisterScriptContents( engine );
+	RegisterScriptEntFlag( engine );
 	RegisterScriptKeyValueData( engine );
 	RegisterScriptFCapability( engine );
 	RegisterScriptUSE_TYPE( engine );
@@ -612,8 +697,7 @@ void RegisterScriptEntityDependencies( asIScriptEngine& engine )
 	RegisterScriptTraceResult( engine );
 	RegisterScriptGibAction( engine );
 	RegisterScriptBullet( engine );
-
-	//TODO: DMG_* flags - Solokiller
+	RegisterScriptDmg( engine );
 
 	RegisterScriptCEntBitSet( engine );
 }
