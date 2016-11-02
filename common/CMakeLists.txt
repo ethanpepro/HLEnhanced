@@ -4,6 +4,8 @@ add_sources(
 	BSPIO.cpp
 	CAutoString.h
 	CBitSet.h
+	CCommand.h
+	CCommand.cpp
 	CFile.h
 	CHashStringPool.h
 	CHashStringPool.cpp
