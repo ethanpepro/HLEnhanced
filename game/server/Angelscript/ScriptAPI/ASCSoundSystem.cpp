@@ -40,6 +40,23 @@ static void RegisterScriptAttenuation( asIScriptEngine& engine )
 	engine.SetDefaultNamespace( szOldNS.c_str() );
 }
 
+static void RegisterScriptPitch( asIScriptEngine& engine )
+{
+	const char* const pszObjectName = "Pitch";
+
+	const std::string szOldNS = engine.GetDefaultNamespace();
+
+	engine.SetDefaultNamespace( pszObjectName );
+
+	engine.RegisterEnum( pszObjectName );
+
+	engine.RegisterEnumValue( pszObjectName, "NORM", PITCH_NORM );
+	engine.RegisterEnumValue( pszObjectName, "LOW", PITCH_LOW );
+	engine.RegisterEnumValue( pszObjectName, "HIGH", PITCH_HIGH );
+
+	engine.SetDefaultNamespace( szOldNS.c_str() );
+}
+
 static void RegisterScriptSoundChan( asIScriptEngine& engine )
 {
 	const char* const pszObjectName = "SoundChan";
@@ -141,6 +158,7 @@ void RegisterScriptCSoundSystem( asIScriptEngine& engine )
 {
 	RegisterScriptSoundFlag( engine );
 	RegisterScriptAttenuation( engine );
+	RegisterScriptPitch( engine );
 	RegisterScriptSoundChan( engine );
 
 	//Sound functionality is registered as an object in case the engine is ever upgraded to have a dedicated sound system interface.
