@@ -3,7 +3,7 @@
 #include "cbase.h"
 #include "client.h"
 
-#include "Entities/plats/CPathTrack.h"
+#include "entities/plats/CPathTrack.h"
 
 #include "Angelscript/CHLASManager.h"
 
