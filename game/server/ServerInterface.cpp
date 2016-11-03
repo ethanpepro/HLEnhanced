@@ -50,7 +50,7 @@ enginefuncs_t g_hlenginefuncs;
 */
 globalvars_t* gpGlobals;
 
-static DLL_FUNCTIONS gFunctionTable =
+DLL_FUNCTIONS gFunctionTable =
 {
 	GameDLLInit,				//pfnGameInit
 	DispatchSpawn,				//pfnSpawn
