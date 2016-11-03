@@ -39,10 +39,13 @@ struct TYPEDESCRIPTION;
 }
 
 
-// Regular version of HL
+/**
+*	Regular version of HL
+*/
 #define INTERFACE_VERSION 140
 
 #define cchMapNameMost 32
+#define ccLandmarkNameMost 32
 
 //
 // Defines entity interface between engine and DLLs.
@@ -53,7 +56,10 @@ struct TYPEDESCRIPTION;
 // This is conveniently done for them in extdll.h
 //
 
-// 4-22-98  JOHN: added for use in pfnClientPrintf
+/**
+*	4-22-98  JOHN: added for use in pfnClientPrintf
+*	@see enginefuncs_t::pfnClientPrintf
+*/
 enum PRINT_TYPE
 {
 	print_console,
@@ -61,31 +67,93 @@ enum PRINT_TYPE
 	print_chat,
 };
 
-// For integrity checking of content on clients
+/**
+*	For integrity checking of content on clients
+*/
 enum FORCE_TYPE
 {
-	force_exactfile,					// File on client must exactly match server's file
-	force_model_samebounds,				// For model files only, the geometry must fit in the same bbox
-	force_model_specifybounds,			// For model files only, the geometry must fit in the specified bbox
-	force_model_specifybounds_if_avail,	// For Steam model files only, the geometry must fit in the specified bbox (if the file is available)
+	/**
+	*	File on client must exactly match server's file
+	*/
+	force_exactfile,
+
+	/**
+	*	For model files only, the geometry must fit in the same bbox
+	*/
+	force_model_samebounds,
+
+	/**
+	*	For model files only, the geometry must fit in the specified bbox
+	*/
+	force_model_specifybounds,
+
+	/**
+	*	For Steam model files only, the geometry must fit in the specified bbox (if the file is available)
+	*/
+	force_model_specifybounds_if_avail,
 };
 
-// Returned by TraceLine
+/**
+*	Returned by TraceLine
+*/
 struct TraceResult
 {
-	int		fAllSolid;			// if true, plane is not valid
-	int		fStartSolid;		// if true, the initial point was in a solid area
+	/**
+	*	If true, plane is not valid
+	*/
+	int		fAllSolid;
+
+	/**
+	*	If true, the initial point was in a solid area
+	*/
+	int		fStartSolid;
+
+	/**
+	*	Trace crossed open space.
+	*/
 	int		fInOpen;
+
+	/**
+	*	Trace crossed a water boundary.
+	*/
 	int		fInWater;
-	float	flFraction;			// time completed, 1.0 = didn't hit anything
-	Vector	vecEndPos;			// final position
+
+	/**
+	*	How far the trace went until hitting something.
+	*	This is a fraction of end - start, equal to ( vecEndPos - start ).Length() / ( end - start ).Length()
+	*	If 1.0, the trace didn't hit anything.
+	*/
+	float	flFraction;
+
+	/**
+	*	Final position
+	*/
+	Vector	vecEndPos;
+
+	/**
+	*	Distance from origin that the plane is positioned at.
+	*	vecPlaneNormal * flPlaneDist represents a point that lies on the plane.
+	*/
 	float	flPlaneDist;
-	Vector	vecPlaneNormal;		// surface normal at impact
-	edict_t	*pHit;				// entity the surface is on
-	int		iHitgroup;			// 0 == generic, non zero is specific body part
+
+	/**
+	*	Surface normal at impact
+	*/
+	Vector	vecPlaneNormal;
+
+	/**
+	*	Entity the surface is on
+	*/
+	edict_t	*pHit;
+
+	/**
+	*	0 == generic, non zero is specific body part
+	*/
+	int		iHitgroup;
 };
 
 // CD audio status
+//TODO: unused, remove. - Solokiller
 struct CDStatus
 {
 	int	fPlaying;// is sound playing right now?
@@ -99,20 +167,47 @@ struct CDStatus
 	int	fPlayTrack;
 };
 
+/**
+*	Flags for enginefuncs_t::pfnTraceLine, enginefuncs_t::pfnTraceHull and enginefuncs_t::pfnTraceMonsterHull
+*	Aside from TRF_IGNORE_GLASS, all flags are mutually exclusive and cannot be used in combination with eachother.
+*	@see enginefuncs_t::pfnTraceLine
+*	@see enginefuncs_t::pfnTraceHull
+*	@see enginefuncs_t::pfnTraceMonsterHull
+*/
 enum TraceLineFlag
 {
 	TRF_NONE			= 0,
+
+	/**
+	*	Ignore monsters. (entities that don't have MOVETYPE_PUSHSTEP)
+	*/
 	TRF_IGNORE_MONSTERS = 1,
+
+	/**
+	*	Use missile bounds: -15 -15 -15, 15, 15, 15
+	*/
+	TRF_MISSILE_BOUNDS	= 2,
+
+	/**
+	*	Ignore transparent entities.
+	*	Transparent entities have a render mode other than kRenderNormal and don't have the flag FL_WORLDBRUSH set.
+	*/
 	TRF_IGNORE_GLASS	= 0x100
 };
 
-// More explicit than "int"
+/**
+*	Byte offset of an edict_t in the engine's list of entities.
+*	More explicit than "int"
+*/
 typedef int EOFFSET;
 
 #include "../common/crc.h"
 
 
-// Engine hands this to DLLs for functionality callbacks
+/**
+*	Engine hands this to DLLs for functionality callbacks
+*	ONLY ADD NEW FUNCTIONS TO THE END OF THIS STRUCT.  INTERFACE VERSION IS FROZEN AT 138 (actually 140)
+*/
 struct enginefuncs_t
 {
 	/**
@@ -1438,11 +1533,10 @@ struct enginefuncs_t
 	int (*pfnCheckParm)( const char* pszCmdLineToken, char** ppNext );
 };
 
-
-// ONLY ADD NEW FUNCTIONS TO THE END OF THIS STRUCT.  INTERFACE VERSION IS FROZEN AT 138
-
-// Passed to pfnKeyValue
-//Made pointers const. Shouldn't be modifying them. - Solokiller
+/**
+*	Passed to pfnKeyValue
+*	Made pointers const. Shouldn't be modifying them. - Solokiller
+*/
 struct KeyValueData
 {
 	const char*		szClassName;	// in: entity classname
@@ -1451,57 +1545,195 @@ struct KeyValueData
 	int32			fHandled;		// out: DLL sets to true if key-value pair was understood
 };
 
-
+/**
+*	Represents a transition to another level.
+*/
 struct LEVELLIST
 {
-	//TODO: use constants - Solokiller
+	/**
+	*	Name of the map to transition to.
+	*/
 	char		mapName[ cchMapNameMost ];
-	char		landmarkName[ 32 ];
-	edict_t	*pentLandmark;
+
+	/**
+	*	Name of the landmark in this and the next map.
+	*/
+	char		landmarkName[ ccLandmarkNameMost ];
+
+	/**
+	*	Landmark entity.
+	*/
+	edict_t*	pentLandmark;
+
+	/**
+	*	Landmark origin in this map.
+	*/
 	Vector		vecLandmarkOrigin;
 };
-#define MAX_LEVEL_CONNECTIONS	16		// These are encoded in the lower 16bits of ENTITYTABLE->flags
 
+/**
+*	These are encoded in the lower 16 bits of ENTITYTABLE->flags
+*/
+#define MAX_LEVEL_CONNECTIONS 16
+
+/**
+*	Describes one entity in the save restore data.
+*/
 struct ENTITYTABLE
 {
-	int			id;				// Ordinal ID of this entity (used for entity <--> pointer conversions)
-	edict_t	*pent;			// Pointer to the in-game entity
+	/**
+	*	Ordinal ID of this entity (used for entity <--> pointer conversions)
+	*	Identical to the entity index.
+	*/
+	int id;
 
-	int			location;		// Offset from the base data of this entity
-	int			size;			// Byte size of this entity's data
-	int			flags;			// This could be a short -- bit mask of transitions that this entity is in the PVS of
-	string_t	classname;		// entity class name
+	/**
+	*	Pointer to the in-game entity
+	*/
+	edict_t* pent;
 
+	/**
+	*	Offset from the base data of this entity
+	*/
+	int location;
+
+	/**
+	*	Byte size of this entity's data
+	*/
+	int size;
+
+	/**
+	*	This could be a short -- bit mask of transitions that this entity is in the PVS of
+	*/
+	int flags;
+
+	/**
+	*	Entity class name
+	*/
+	string_t classname;
 };
 
-#define FENTTABLE_PLAYER		0x80000000
-#define FENTTABLE_REMOVED		0x40000000
-#define FENTTABLE_MOVEABLE		0x20000000
-#define FENTTABLE_GLOBAL		0x10000000
+namespace EntTableFlag
+{
+/**
+*	Flags for ENTITYTABLE::flags
+*	@see ENTITYTABLE::flags
+*/
+enum EntTableFlag
+{
+	/**
+	*	This entity is a player.
+	*/
+	PLAYER = 0x80000000,
 
+	/**
+	*	Flags the entity as having been removed.
+	*	Done by the engine when reading .HL3 save patch files.
+	*/
+	REMOVED = 0x40000000,
+
+	/**
+	*	Entities that return FCAP_ACROSS_TRANSITION from ObjectCaps are flagged with this.
+	*/
+	MOVEABLE = 0x20000000,
+
+	/**
+	*	This is a global entity. The engine uses this to merge changes made to global entities.
+	*/
+	GLOBAL = 0x10000000
+};
+}
+
+/**
+*	Save data for a single level.
+*/
 struct SAVERESTOREDATA
 {
-	char		*pBaseData;		// Start of all entity save data
-	char		*pCurrentData;	// Current buffer pointer for sequential access
-	int			size;			// Current data size
-	int			bufferSize;		// Total space for data
-	int			tokenSize;		// Size of the linear list of tokens
-	int			tokenCount;		// Number of elements in the pTokens table
-	char		**pTokens;		// Hash table of entity strings (sparse)
-	int			currentIndex;	// Holds a global entity table ID
-	int			tableCount;		// Number of elements in the entity table
-	int			connectionCount;// Number of elements in the levelList[]
-	ENTITYTABLE	*pTable;		// Array of ENTITYTABLE elements (1 for each entity)
-	LEVELLIST	levelList[ MAX_LEVEL_CONNECTIONS ];		// List of connections from this level
+	/**
+	*	Start of all entity save data
+	*/
+	char* pBaseData;
 
-	// smooth transition
+	/**
+	*	Current buffer pointer for sequential access
+	*/
+	char* pCurrentData;
+
+	/**
+	*	Current data size
+	*/
+	int size;
+
+	/**
+	*	Total space for data
+	*/
+	int bufferSize;
+
+	/**
+	*	Size of the linear list of tokens
+	*/
+	int tokenSize;
+
+	/**
+	*	Number of elements in the pTokens table
+	*/
+	int tokenCount;
+
+	/**
+	*	Hash table of entity strings (sparse)
+	*/
+	char** pTokens;
+
+	/**
+	*	Holds a global entity table ID
+	*/
+	int currentIndex;
+
+	/**
+	*	Number of elements in the entity table
+	*/
+	int tableCount;
+
+	/**
+	*	Number of elements in the levelList[]
+	*/
+	int connectionCount;
+
+	/**
+	*	Array of ENTITYTABLE elements (1 for each entity)
+	*/
+	ENTITYTABLE* pTable;
+
+	/**
+	*	List of connections from this level
+	*/
+	LEVELLIST levelList[ MAX_LEVEL_CONNECTIONS ];
+
+	/**
+	*	smooth transition
+	*/
+	int fUseLandmark;
+
+	/**
+	*	landmark we'll spawn near in next level
+	*/
 	//TODO: use constants - Solokiller
-	int			fUseLandmark;
-	char		szLandmarkName[20];// landmark we'll spawn near in next level
-	Vector		vecLandmarkOffset;// for landmark transitions
-	float		time;
-	char		szCurrentMapName[ cchMapNameMost ];	// To check global entities
+	char szLandmarkName[20];
 
+	/**
+	*	for landmark transitions
+	*/
+	Vector vecLandmarkOffset;
+
+	/**
+	*	Game time when the save game was written.
+	*/
+	float time;
+
+	/**
+	*	To check global entities
+	*/
+	char szCurrentMapName[ cchMapNameMost ];
 };
 
 /**
@@ -1510,6 +1742,9 @@ struct SAVERESTOREDATA
 */
 #define CCONNECT_REJECT_REASON_SIZE 128
 
+/**
+*	Server library interface to the engine.
+*/
 struct DLL_FUNCTIONS
 {
 	/**
@@ -1854,11 +2089,16 @@ struct DLL_FUNCTIONS
 	int				(*pfnAllowLagCompensation)( void );
 };
 
-extern DLL_FUNCTIONS		gEntityInterface;
+extern DLL_FUNCTIONS gFunctionTable;
 
-// Current version.
-#define NEW_DLL_FUNCTIONS_VERSION	1
+/**
+*	Current version.
+*/
+#define NEW_DLL_FUNCTIONS_VERSION 1
 
+/**
+*	Additional server interface to the engine.
+*/
 struct NEW_DLL_FUNCTIONS
 {
 	/**
@@ -1894,12 +2134,14 @@ struct NEW_DLL_FUNCTIONS
 	*/
 	void			(*pfnCvarValue2)( const edict_t* pEnt, int requestID, const char* pszCvarName, const char* pszValue );
 };
-typedef int	(*NEW_DLL_FUNCTIONS_FN)( NEW_DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
 
-// Pointers will be null if the game DLL doesn't support this API.
-extern NEW_DLL_FUNCTIONS	gNewDLLFunctions;
+/**
+*	Pointers will be null if the game DLL doesn't support this API.
+*/
+extern NEW_DLL_FUNCTIONS gNewDLLFunctions;
 
-typedef int	(*APIFUNCTION)( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion );
-typedef int	(*APIFUNCTION2)( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
+typedef int	( *APIFUNCTION )( DLL_FUNCTIONS *pFunctionTable, int interfaceVersion );
+typedef int	( *APIFUNCTION2 )( DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
+typedef int ( *NEW_DLL_FUNCTIONS_FN )( NEW_DLL_FUNCTIONS *pFunctionTable, int *interfaceVersion );
 
 #endif //EIFACE_H
