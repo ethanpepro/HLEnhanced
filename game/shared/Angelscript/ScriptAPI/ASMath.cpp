@@ -419,6 +419,10 @@ float UTIL_RadiansToDegrees( float flRadians )
 
 static void RegisterScriptMathFunctions( asIScriptEngine& engine )
 {
+	const std::string szOldNS = engine.GetDefaultNamespace();
+
+	engine.SetDefaultNamespace( "Math" );
+
 	engine.RegisterGlobalFunction(
 		"int32 RandomLong(int32 low, int32 high)",
 		asFUNCTION( UTIL_RandomLong ), asCALL_CDECL );
@@ -472,6 +476,16 @@ static void RegisterScriptMathFunctions( asIScriptEngine& engine )
 		asFUNCTION( UTIL_AngleDistance ), asCALL_CDECL );
 
 	engine.RegisterGlobalFunction(
+		"float DegreesToRadians(float flDegrees)",
+		asFUNCTION( UTIL_DegreesToRadians ), asCALL_CDECL );
+
+	engine.RegisterGlobalFunction(
+		"float RadiansToDegrees(float flRadians)",
+		asFUNCTION( UTIL_RadiansToDegrees ), asCALL_CDECL );
+
+	engine.SetDefaultNamespace( szOldNS.c_str() );
+
+	engine.RegisterGlobalFunction(
 		"uint64 min(uint64 lhs, uint64 rhs)",
 		asFUNCTION( AS_Min<uint64_t> ), asCALL_CDECL );
 
@@ -506,14 +520,6 @@ static void RegisterScriptMathFunctions( asIScriptEngine& engine )
 	engine.RegisterGlobalFunction(
 		"double clamp(double value, double min, double max)",
 		asFUNCTION( AS_Clamp<double> ), asCALL_CDECL );
-
-	engine.RegisterGlobalFunction(
-		"float DegreesToRadians(float flDegrees)",
-		asFUNCTION( UTIL_DegreesToRadians ), asCALL_CDECL );
-
-	engine.RegisterGlobalFunction(
-		"float RadiansToDegrees(float flRadians)",
-		asFUNCTION( UTIL_RadiansToDegrees ), asCALL_CDECL );
 }
 
 void RegisterScriptHLMath( asIScriptEngine& engine )
