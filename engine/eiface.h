@@ -152,21 +152,6 @@ struct TraceResult
 	int		iHitgroup;
 };
 
-// CD audio status
-//TODO: unused, remove. - Solokiller
-struct CDStatus
-{
-	int	fPlaying;// is sound playing right now?
-	int	fWasPlaying;// if not, CD is paused if WasPlaying is true.
-	int	fInitialized;
-	int	fEnabled;
-	int	fPlayLooping;
-	float	cdvolume;
-	//byte 	remap[100];
-	int	fCDRom;
-	int	fPlayTrack;
-};
-
 /**
 *	Flags for enginefuncs_t::pfnTraceLine, enginefuncs_t::pfnTraceHull and enginefuncs_t::pfnTraceMonsterHull
 *	Aside from TRF_IGNORE_GLASS, all flags are mutually exclusive and cannot be used in combination with eachother.
