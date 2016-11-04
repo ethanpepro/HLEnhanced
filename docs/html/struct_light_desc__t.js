@@ -1,0 +1,25 @@
+var struct_light_desc__t =
+[
+    [ "LightDesc_t", "struct_light_desc__t.html#ae79eb177af9faff9b565d5c4700eedee", null ],
+    [ "LightDesc_t", "struct_light_desc__t.html#a08e152e2975b53563eb97b1fdc3bcd7a", null ],
+    [ "LightDesc_t", "struct_light_desc__t.html#a52a30d53a8863df25686b2eab800e8f9", null ],
+    [ "ComputeLightAtPoints", "struct_light_desc__t.html#af8562ef7e2ba0d5a74dedc3bf80dfaae", null ],
+    [ "IsDirectionWithinLightCone", "struct_light_desc__t.html#addebbd8e3777655180ccba9b41bba398", null ],
+    [ "RecalculateDerivedValues", "struct_light_desc__t.html#affd205b380301acc1bb935055d3628e5", null ],
+    [ "m_Attenuation0", "struct_light_desc__t.html#a5f2f4ff41ee8c3300d296cd973c6fb50", null ],
+    [ "m_Attenuation1", "struct_light_desc__t.html#abb657e64b5c0dd302919d8acd9ca6a0d", null ],
+    [ "m_Attenuation2", "struct_light_desc__t.html#a510dbe2d829f195e4d8c3228db5ebc89", null ],
+    [ "m_Color", "struct_light_desc__t.html#a5c42df3f04069ae046b7c42b473d9e7f", null ],
+    [ "m_Direction", "struct_light_desc__t.html#ad40c803d12ed73025c31a029033c6594", null ],
+    [ "m_Falloff", "struct_light_desc__t.html#af4dd6083f5dbba76af229f88332b25b8", null ],
+    [ "m_Flags", "struct_light_desc__t.html#ab77dc831e2c5b0d5f857ae377174d2c5", null ],
+    [ "m_Phi", "struct_light_desc__t.html#a81a0d7e1b57dbfc0293715fb640bbe54", null ],
+    [ "m_PhiDot", "struct_light_desc__t.html#abb9b6e25c3e61d9b01839430d98be32e", null ],
+    [ "m_Position", "struct_light_desc__t.html#af393b44b4dcb98258aacb094684949e1", null ],
+    [ "m_Range", "struct_light_desc__t.html#acd7207c671629f5c46f14d3bf3027e57", null ],
+    [ "m_RangeSquared", "struct_light_desc__t.html#a6e00a2b84537eb55704f627c05458329", null ],
+    [ "m_Theta", "struct_light_desc__t.html#aef4a66f7f79429a1acd77abd58af8974", null ],
+    [ "m_ThetaDot", "struct_light_desc__t.html#ad61c06c2ddf93e5e8d1d6f366ffd4ea1", null ],
+    [ "m_Type", "struct_light_desc__t.html#a820739e10ce97415379a04ea640fce35", null ],
+    [ "OneOver_ThetaDot_Minus_PhiDot", "struct_light_desc__t.html#a15e79b90fceee17de7d7001c9d3e3791", null ]
+];

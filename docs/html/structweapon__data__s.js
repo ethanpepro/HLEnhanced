@@ -1,0 +1,25 @@
+var structweapon__data__s =
+[
+    [ "fuser1", "structweapon__data__s.html#a6c644fd660157b54364d8cee65304f82", null ],
+    [ "fuser2", "structweapon__data__s.html#ab3cabb821054ae141d28b6b84d16c6e3", null ],
+    [ "fuser3", "structweapon__data__s.html#adcea82a1426f1d9e8fa7eb74638498b9", null ],
+    [ "fuser4", "structweapon__data__s.html#ac31b12787f0ad70d8cc19f1188e7c81a", null ],
+    [ "iuser1", "structweapon__data__s.html#a336aa046fe66378e6a81ecc0679ca883", null ],
+    [ "iuser2", "structweapon__data__s.html#a97307db1808cad969d268a28c63be85c", null ],
+    [ "iuser3", "structweapon__data__s.html#a5992d7fd467b3df5d054185663218f46", null ],
+    [ "iuser4", "structweapon__data__s.html#ac8ab754cd7a85716ff545702927856bb", null ],
+    [ "m_fAimedDamage", "structweapon__data__s.html#a2f9613e3a93b6e1836a279d822a5db98", null ],
+    [ "m_fInReload", "structweapon__data__s.html#a2dab385a69cc7eafd91e24eb2ff3a78f", null ],
+    [ "m_fInSpecialReload", "structweapon__data__s.html#a6b399e329c55445f4d86f51b7c4438b6", null ],
+    [ "m_fInZoom", "structweapon__data__s.html#af0ce5bc4eeca2a1ba870b8ae0852ecf4", null ],
+    [ "m_flNextPrimaryAttack", "structweapon__data__s.html#aaba3c300f7a926e554ce6d7f29876562", null ],
+    [ "m_flNextReload", "structweapon__data__s.html#ad1ccda1ca455bcc288bde591f0cd6aca", null ],
+    [ "m_flNextSecondaryAttack", "structweapon__data__s.html#adcaacc0f89b4d7e02904d98f67d57541", null ],
+    [ "m_flPumpTime", "structweapon__data__s.html#afbfef9b6a1d7f300f52cc48d06925e65", null ],
+    [ "m_flTimeWeaponIdle", "structweapon__data__s.html#a693698325c2a1581fa9e148ef27b85d3", null ],
+    [ "m_fNextAimBonus", "structweapon__data__s.html#abe0798fe848d67bd78c05dbd3efc866f", null ],
+    [ "m_fReloadTime", "structweapon__data__s.html#acf81890404f336d8631137382afe5077", null ],
+    [ "m_iClip", "structweapon__data__s.html#a0a4702663338bf361ee76c631b69900a", null ],
+    [ "m_iId", "structweapon__data__s.html#a8aa54730a11c9f4422e67b98d979fc84", null ],
+    [ "m_iWeaponState", "structweapon__data__s.html#a366127e3495a4aba6bc24a4679e3e7f9", null ]
+];

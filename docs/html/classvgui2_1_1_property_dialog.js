@@ -1,0 +1,25 @@
+var classvgui2_1_1_property_dialog =
+[
+    [ "PropertyDialog", "classvgui2_1_1_property_dialog.html#abfc3edcafd9ccc25abf154eb8ef721fa", null ],
+    [ "~PropertyDialog", "classvgui2_1_1_property_dialog.html#afcc335f7d4936bb85f078ddb080f2277", null ],
+    [ "ActivateBuildMode", "classvgui2_1_1_property_dialog.html#a70f9dc7ba1212fe8f80bf3063490a48d", null ],
+    [ "AddPage", "classvgui2_1_1_property_dialog.html#ab6649aa23d976954af67e6bdf068fb8c", null ],
+    [ "ApplyChanges", "classvgui2_1_1_property_dialog.html#ae646a7431392249ccc2efd9cc12e3265", null ],
+    [ "EnableApplyButton", "classvgui2_1_1_property_dialog.html#afa73cb4fbd93bcad0c5fb8c5b561ec64", null ],
+    [ "GetActivePage", "classvgui2_1_1_property_dialog.html#ad66a8ac521b6264a439067eb88d95e66", null ],
+    [ "GetPropertySheet", "classvgui2_1_1_property_dialog.html#af456354d2c1a0e20d90920f467dbc9c5", null ],
+    [ "MESSAGE_FUNC", "classvgui2_1_1_property_dialog.html#a02e37fb84f78445f8e3ba213299c9139", null ],
+    [ "OnCancel", "classvgui2_1_1_property_dialog.html#a34d5a615d85f6bdb4f8463c376f5b7f9", null ],
+    [ "OnCommand", "classvgui2_1_1_property_dialog.html#a25cb217e10e4b90f62101b946840757a", null ],
+    [ "OnKeyCodeTyped", "classvgui2_1_1_property_dialog.html#a837622b015b305d0ebbfe98fb87b5b0e", null ],
+    [ "OnOK", "classvgui2_1_1_property_dialog.html#a2b00866cdc2a2425752ce11184580981", null ],
+    [ "PerformLayout", "classvgui2_1_1_property_dialog.html#ada7cd0af46b24186770f4da086a644f0", null ],
+    [ "RequestFocus", "classvgui2_1_1_property_dialog.html#a11c6ad725c33bdf993c8257f68c3476c", null ],
+    [ "ResetAllData", "classvgui2_1_1_property_dialog.html#a105e6de4501a359b41aa38763005215c", null ],
+    [ "SetApplyButtonText", "classvgui2_1_1_property_dialog.html#a52b5bda59f8705df3c29ecc8960a3c1c", null ],
+    [ "SetApplyButtonVisible", "classvgui2_1_1_property_dialog.html#ae063c091a09965b2085c9cf155a0e78a", null ],
+    [ "SetCancelButtonText", "classvgui2_1_1_property_dialog.html#a09bd94016617dba9a756c1e1eea2833c", null ],
+    [ "SetCancelButtonVisible", "classvgui2_1_1_property_dialog.html#a9b7b13023978d4b03e8dfe829a573e0d", null ],
+    [ "SetOKButtonText", "classvgui2_1_1_property_dialog.html#ab785892f3f2614a8db5e73b40af5749a", null ],
+    [ "SetOKButtonVisible", "classvgui2_1_1_property_dialog.html#aad1d88523a9e113d873bef5243f30ee9", null ]
+];

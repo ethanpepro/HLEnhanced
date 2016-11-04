@@ -1,0 +1,25 @@
+var idmelementinternal_8h =
+[
+    [ "AddAttribute", "idmelementinternal_8h.html#a4265521da5dbde7765c773696a4c936f", null ],
+    [ "AddExternalAttribute", "idmelementinternal_8h.html#a197ae8eadf292698e6616d2d5f753734", null ],
+    [ "AttachToElement", "idmelementinternal_8h.html#af84fbe1b7e85c44e813e6ec3622996f1", null ],
+    [ "FindOrAddAttribute", "idmelementinternal_8h.html#a9f1feaaac55dd5818a051fc06fa4bc97", null ],
+    [ "FirstAttribute", "idmelementinternal_8h.html#a1f4941bc5f2ac854add0c984b256c53c", null ],
+    [ "GetAttribute", "idmelementinternal_8h.html#a2950057d67009a77a93e635c12cd3f9d", null ],
+    [ "GetElement", "idmelementinternal_8h.html#a449734484144244a29ac1908467ee85b", null ],
+    [ "GetId", "idmelementinternal_8h.html#a0bc5d6bd2cd4543ed5cd78ad48edfc86", null ],
+    [ "GetName", "idmelementinternal_8h.html#a0a0d3f55e2f77bfba76f772bf5402a97", null ],
+    [ "GetType", "idmelementinternal_8h.html#a6e3ae9db55db169c3859e16134c988bf", null ],
+    [ "HasAttribute", "idmelementinternal_8h.html#a7164eecbf827576c6157d80214f228db", null ],
+    [ "IsBeingUnserialized", "idmelementinternal_8h.html#ae6f54deb7361ea8d4e59ae5c3c3b4340", null ],
+    [ "IsDirty", "idmelementinternal_8h.html#ac488a486ef7db1cefc06daf263a6f6c2", null ],
+    [ "MarkAttributesClean", "idmelementinternal_8h.html#ac6737108eeab5f3bc100b3f571e85cdc", null ],
+    [ "MarkBeingUnserialized", "idmelementinternal_8h.html#a4efa8a5952600550c7daab67c84b460b", null ],
+    [ "MarkDirty", "idmelementinternal_8h.html#a4e04dfa556e20673ccbba3d0e8b8fe9f", null ],
+    [ "NumAttributes", "idmelementinternal_8h.html#ae2b8f6647e83b5283743d18c7d0dccc0", null ],
+    [ "Release", "idmelementinternal_8h.html#aa6dfe1b5e5def9c600a714308ca84512", null ],
+    [ "RemoveAttribute", "idmelementinternal_8h.html#a98414da434abbf18c2b180bd88382e49", null ],
+    [ "RemoveAttributeByPtr", "idmelementinternal_8h.html#a0a55151987bc88582e23589390c59cc2", null ],
+    [ "RenameAttribute", "idmelementinternal_8h.html#a9714f2c29e378edc4eb639ff38230e27", null ],
+    [ "IDmElementInternal", "idmelementinternal_8h.html#a589fe300e91ab8aa219a9c95edb16cb6", null ]
+];
