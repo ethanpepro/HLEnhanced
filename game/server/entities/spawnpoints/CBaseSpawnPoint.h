@@ -28,7 +28,7 @@ public:
 	/**
 	*	Checks whether the given player can use this spawn point.
 	*	@param pPlayer Player trying to spawn here.
-	*	@param true if the player is allowed to use this spawn point, false otherwise.
+	*	@return true if the player is allowed to use this spawn point, false otherwise.
 	*/
 	virtual bool CanUseSpawnPoint( CBasePlayer* const pPlayer ) { return m_bEnabled; }
 

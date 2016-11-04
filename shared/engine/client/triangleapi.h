@@ -58,7 +58,7 @@ struct triangleapi_t
 
 	/**
 	*	Begins a render operation.
-	*	@primitiveCode The type of operation to begin.
+	*	@param primitiveCode The type of operation to begin.
 	*	@see TriangleMode
 	*/
 	void		( *Begin )( const TriangleMode primitiveCode );

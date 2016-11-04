@@ -98,6 +98,7 @@ void CBaseEntity_SetNoise3( CBaseEntity* pThis, const std::string& szNoise );
 *	Uses templates to avoid virtual function calls in scripts whenever possible.
 *	Remember to add new entities to the list of forward declared types in ASCBaseEntity.cpp
 *	@param engine Script engine.
+*	@param pszObjectName Name of the class to register object data for.
 *	@tparam CLASS Concrete C++ class being registered.
 */
 template<typename CLASS>

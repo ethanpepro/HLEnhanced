@@ -50,13 +50,15 @@ public:
 
 	/**
 	*	Creates a new instance of the entity, using the given entvars_t instance.
+	*	@param pszEntityName Name of the entity to create.
 	*	@param pev Entvars instance that will be assigned to the entity.
 	*	@return Entity instance.
 	*/
-	CBaseEntity* CreateInstance( const char* const pszEntityName,entvars_t* pev );
+	CBaseEntity* CreateInstance( const char* const pszEntityName, entvars_t* pev );
 
 	/**
 	*	Creates a new instance of the entity, using the given edict_t instance.
+	*	@param pszEntityName Name of the entity to create.
 	*	@param pEdict Edict instance that will be assigned to the entity.
 	*	@return Entity instance.
 	*/
@@ -64,12 +66,13 @@ public:
 
 	/**
 	*	Creates a new instance of the entity. Allocates a new edict.
+	*	@param pszEntityName Name of the entity to create.
 	*	@return Entity instance.
 	*/
 	CBaseEntity* CreateInstance( const char* const pszEntityName );
 
 	/**
-	*	Enumerates all entity classes, invoking pCallback on each class. the order of the classes is undefined.
+	*	Enumerates all entity classes, invoking pCallback on each class. The order of the classes is undefined.
 	*/
 	void EnumEntityClasses( EntityEnumCallback pCallback );
 

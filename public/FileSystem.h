@@ -241,7 +241,7 @@ public:
 
 	/**
 	*	Converts the given file time to a string. The resulting string produces output as if the CRT function ctime were used.
-	*	@param pString Destination buffer.
+	*	@param pStrip Destination buffer.
 	*	@param maxCharsIncludingTerminator Maximum number of characters that can be written to pStrip, including the null terminator.
 	*	@param fileTime File time to convert.
 	*/
@@ -263,7 +263,7 @@ public:
 	/**
 	*	Checks whether the end of the file has been reached by an input operation.
 	*	@param file Handle to the file.
-	*	@param Whether the end of the file has been reached or not.
+	*	@return Whether the end of the file has been reached or not.
 	*/
 	virtual bool			EndOfFile( FileHandle_t file ) = 0;
 

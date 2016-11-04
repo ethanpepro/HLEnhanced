@@ -708,7 +708,6 @@ public:
 
 	/**
 	*	Resets Hud colors to their defaults.
-	*	@param bUpdateClients Whether to update all connected clients.
 	*/
 	void ResetHudColors()
 	{

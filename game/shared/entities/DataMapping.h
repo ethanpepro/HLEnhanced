@@ -182,7 +182,7 @@ const TYPEDESCRIPTION* UTIL_FindTypeDescInDataMap( const DataMap_t& dataMap, con
 
 /**
 *	Gets the name of a function out of a single data map from an address.
-*	@param dataMapData map to search in.
+*	@param dataMap Data map to search in.
 *	@param pFunction Function to search for.
 *	@return If found, the name of the function. Otherwise, nullptr.
 */
@@ -190,7 +190,7 @@ const char* UTIL_NameFromFunctionSingle( const DataMap_t& dataMap, BASEPTR pFunc
 
 /**
 *	Gets the name of a function out of a data map from an address. Searches in all parent data maps.
-*	@param dataMapData map to search in.
+*	@param dataMap Data map to search in.
 *	@param pFunction Function to search for.
 *	@return If found, the name of the function. Otherwise, nullptr.
 */

@@ -1246,7 +1246,7 @@ struct enginefuncs_t
 	*	Precaches an event.
 	*	The client will have to hook the event using cl_enginefunc_t::pfnHookEvent.
 	*	@param type Should always be 1. 
-	*	@param pszEventName Name of the event. Format should be events/<name>.sc, including the directory and extension.
+	*	@param pszEventName Name of the event. Format should be events/\<name\>.sc, including the directory and extension.
 	*	@return Event index. Used with pfnPlaybackEvent
 	*	@see cl_enginefunc_t::pfnHookEvent
 	*	@see pfnPlaybackEvent

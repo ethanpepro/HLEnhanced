@@ -181,6 +181,7 @@ Vector VecCheckToss( CBaseEntity* pEntity, const Vector& vecSpot1, Vector vecSpo
 *	@param pEntity The entity that is throwing the object.
 *	@param vecSpot1 Starting position.
 *	@param vecSpot2 Destination.
+*	@param flSpeed Throw speed, in units/sec.
 *	@param flGravityAdj Gravity to subject the object to.
 *	@return The velocity vector at which an object should be thrown from vecspot1 to hit vecspot2.
 *	Returns g_vecZero if throw is not feasible.

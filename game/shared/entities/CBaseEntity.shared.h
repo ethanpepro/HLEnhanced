@@ -785,7 +785,7 @@ public:
 	/**
 	*	Sets the size.
 	*	@param vecMin Minimum bounds.
-	*	@param vecMaxs Maximum bounds.
+	*	@param vecMax Maximum bounds.
 	*/
 	void SetSize( const Vector& vecMin, const Vector& vecMax )
 	{
@@ -1855,7 +1855,7 @@ public:
 	edict_t* edict() const { return ENT( pev ); }
 
 	/**
-	*	@copydoc edict_t* edict() const
+	*	@copydoc edict() const
 	*/
 	edict_t* edict() { return ENT( pev ); }
 

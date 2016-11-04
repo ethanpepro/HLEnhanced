@@ -58,6 +58,7 @@ public:
 *	@param a Alpha value. [ 0, 255 ].
 *	@param renderMode Render mode.
 *	@param flScale Scale.
+*	@param callback Callback used to calculate sprite coordinates.
 *	@param pSpriteRect Optional. Subrect to draw. 
 */
 void Tri_DrawScaledSprite( HSPRITE hSprite, int frame, int r, int g, int b, int a, const RenderMode renderMode, const float flScale, ITriCoordFallback& callback, const wrect_t* pSpriteRect = nullptr );

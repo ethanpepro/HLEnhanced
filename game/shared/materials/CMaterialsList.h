@@ -28,7 +28,7 @@ public:
 	*
 	*	NOTE: this routine should ONLY be called if the current texture under the player changes!
 	*	@param pszName Texture name.
-	*	@param Texture type.
+	*	@return Texture type.
 	*/
 	char FindTextureType( const char* const pszName ) const;
 

@@ -1,10 +1,12 @@
+#ifndef GAME_SHARED_ENTITIES_WEAPONS_CAMMOTYPES_H
+#define GAME_SHARED_ENTITIES_WEAPONS_CAMMOTYPES_H
+
 /**
-*	@file Ammo type definitions.
+*	@file
+*	Ammo type definitions.
 *
 *	- Solokiller
 */
-#ifndef GAME_SHARED_ENTITIES_WEAPONS_CAMMOTYPES_H
-#define GAME_SHARED_ENTITIES_WEAPONS_CAMMOTYPES_H
 
 #include <unordered_map>
 #include <vector>
@@ -153,7 +155,7 @@ public:
 	const CAmmoType* GetAmmoTypeByID( const AmmoID_t ID ) const;
 
 	/**
-	*	@copydoc CAmmoType* GetAmmoTypeByID( const AmmoID_t ID ) const
+	*	@copydoc GetAmmoTypeByID( const AmmoID_t ID ) const
 	*/
 	CAmmoType* GetAmmoTypeByID( const AmmoID_t ID );
 

@@ -89,7 +89,7 @@ struct TYPEDESCRIPTION
 
 /**
 *	Class used to generate method names for use in data descriptors.
-*	Allocates names as <classname><method name>.
+*	Allocates names as \<classname\>\<method name\>.
 */
 class CMethodNameList final
 {

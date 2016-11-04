@@ -16,7 +16,8 @@
 #define GAME_SERVER_TEMPENTITY_H
 
 /**
-*	@file Contains functions that wrap SVC_TEMPENTITY network messages.
+*	@file
+*	Contains functions that wrap SVC_TEMPENTITY network messages.
 *	@see SVC_TEMPENTITY
 */
 

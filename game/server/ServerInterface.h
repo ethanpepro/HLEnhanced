@@ -16,7 +16,8 @@
 #define GAME_SERVER_SERVERINTERFACE_H
 
 /**
-*	@file Server's interface to the engine.
+*	@file
+*	Server's interface to the engine.
 *	C functions for external declarations that call the appropriate C++ methods.
 */
 
