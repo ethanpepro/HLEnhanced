@@ -26,7 +26,7 @@
 #ifdef SERVER_DLL
 BEGIN_DATADESC( CShotgun )
 	DEFINE_FIELD( m_flNextReload, FIELD_TIME ),
-	DEFINE_FIELD( m_fInSpecialReload, FIELD_INTEGER ),
+	DEFINE_FIELD( m_InSpecialReload, FIELD_INTEGER ),
 	//DEFINE_FIELD( m_iShell, FIELD_INTEGER ),
 	DEFINE_FIELD( m_flPumpTime, FIELD_TIME ),
 END_DATADESC()
@@ -158,7 +158,7 @@ void CShotgun::PrimaryAttack()
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 5.0;
 	else
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 0.75;
-	m_fInSpecialReload = 0;
+	m_InSpecialReload = ReloadState::NOT_RELOADING;
 }
 
 
@@ -229,14 +229,13 @@ void CShotgun::SecondaryAttack( void )
 	else
 		m_flTimeWeaponIdle = 1.5;
 
-	m_fInSpecialReload = 0;
-
+	m_InSpecialReload = ReloadState::NOT_RELOADING;
 }
 
 
 void CShotgun::Reload( void )
 {
-	if (m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 || m_iClip == SHOTGUN_MAX_CLIP)
+	if (m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 || m_iClip == iMaxClip())
 		return;
 
 	// don't reload until recoil is done
@@ -244,22 +243,22 @@ void CShotgun::Reload( void )
 		return;
 
 	// check to see if we're ready to reload
-	if (m_fInSpecialReload == 0)
+	if (m_InSpecialReload == ReloadState::NOT_RELOADING )
 	{
 		SendWeaponAnim( SHOTGUN_START_RELOAD );
-		m_fInSpecialReload = 1;
+		m_InSpecialReload = ReloadState::DO_RELOAD_EFFECTS;
 		m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.6;
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 0.6;
 		m_flNextPrimaryAttack = GetNextAttackDelay(1.0);
 		m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 1.0;
 		return;
 	}
-	else if (m_fInSpecialReload == 1)
+	else if ( m_InSpecialReload == ReloadState::DO_RELOAD_EFFECTS )
 	{
 		if (m_flTimeWeaponIdle > UTIL_WeaponTimeBase())
 			return;
 		// was waiting for gun to move to side
-		m_fInSpecialReload = 2;
+		m_InSpecialReload = ReloadState::RELOAD_ONE;
 
 		if (RANDOM_LONG(0,1))
 			EMIT_SOUND_DYN( m_pPlayer, CHAN_ITEM, "weapons/reload1.wav", 1, ATTN_NORM, 0, 85 + RANDOM_LONG(0,0x1f));
@@ -276,7 +275,7 @@ void CShotgun::Reload( void )
 		// Add them to the clip
 		m_iClip += 1;
 		m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= 1;
-		m_fInSpecialReload = 1;
+		m_InSpecialReload = ReloadState::DO_RELOAD_EFFECTS;
 	}
 }
 
@@ -298,14 +297,13 @@ void CShotgun::WeaponIdle( void )
 
 	if (m_flTimeWeaponIdle <  UTIL_WeaponTimeBase() )
 	{
-		if (m_iClip == 0 && m_fInSpecialReload == 0 && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
+		if (m_iClip == 0 && m_InSpecialReload == ReloadState::NOT_RELOADING && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
 		{
 			Reload( );
 		}
-		else if (m_fInSpecialReload != 0)
+		else if (m_InSpecialReload != ReloadState::NOT_RELOADING )
 		{
-			//TODO: magic number - Solokiller
-			if (m_iClip != 8 && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
+			if (m_iClip != iMaxClip() && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
 			{
 				Reload( );
 			}
@@ -316,7 +314,7 @@ void CShotgun::WeaponIdle( void )
 				
 				// play cocking sound
 				EMIT_SOUND_DYN( m_pPlayer, CHAN_ITEM, "weapons/scock1.wav", 1, ATTN_NORM, 0, 95 + RANDOM_LONG(0,0x1f));
-				m_fInSpecialReload = 0;
+				m_InSpecialReload = ReloadState::NOT_RELOADING;
 				m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.5;
 			}
 		}

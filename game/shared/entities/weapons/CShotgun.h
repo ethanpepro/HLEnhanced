@@ -32,6 +32,14 @@ enum shotgun_e
 class CShotgun : public CBasePlayerWeapon
 {
 public:
+	enum class ReloadState
+	{
+		NOT_RELOADING = 0,
+		DO_RELOAD_EFFECTS,
+		RELOAD_ONE
+	};
+
+public:
 	DECLARE_CLASS( CShotgun, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
 	DECLARE_DATADESC();
@@ -59,7 +67,7 @@ public:
 	{
 		BaseClass::GetWeaponData( data );
 
-		data.m_fInSpecialReload = m_fInSpecialReload;
+		data.m_fInSpecialReload = static_cast<int>( m_InSpecialReload );
 
 		//data.m_flPumpTime		= max( m_flPumpTime, -0.001 );
 	}
@@ -68,7 +76,7 @@ public:
 	{
 		BaseClass::SetWeaponData( data );
 
-		m_fInSpecialReload = data.m_fInSpecialReload;
+		m_InSpecialReload = static_cast<ReloadState>( data.m_fInSpecialReload );
 		//m_flPumpTime		= data.m_flPumpTime;
 	}
 
@@ -76,8 +84,7 @@ private:
 	unsigned short m_usDoubleFire;
 	unsigned short m_usSingleFire;
 
-	//TODO: make enum - Solokiller
-	int m_fInSpecialReload;		// Are we in the middle of a reload for the shotguns
+	ReloadState m_InSpecialReload;		// Are we in the middle of a reload for the shotguns
 	float m_flPumpTime;
 };
 
