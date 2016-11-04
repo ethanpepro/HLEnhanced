@@ -173,7 +173,9 @@ void CHudAmmo::Think()
 	if( m_bNeedsLocalUpdate )
 	{
 		m_bNeedsLocalUpdate = false;
-		UpdateWeaponHUD( m_pWeapon, m_bOnTarget );
+
+		if( m_pWeapon )
+			UpdateWeaponHUD( m_pWeapon, m_bOnTarget );
 	}
 
 	if ( gHUD.m_bPlayerDead )
