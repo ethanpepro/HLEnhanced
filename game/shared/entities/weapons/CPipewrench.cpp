@@ -150,9 +150,12 @@ bool CPipewrench::Swing( const bool bFirst )
 	}
 #endif
 
-	PLAYBACK_EVENT_FULL( FEV_NOTHOST, m_pPlayer->edict(), m_usPipewrench, 
-	0.0, g_vecZero, g_vecZero, 0, 0, 0,
-	0.0, 0, 0.0 );
+	if( bFirst )
+	{
+		PLAYBACK_EVENT_FULL( FEV_NOTHOST, m_pPlayer->edict(), m_usPipewrench, 
+							 0.0, g_vecZero, g_vecZero, 0, 0, 0,
+							 0.0, 0, 0.0 );
+	}
 
 
 	if ( tr.flFraction >= 1.0 )
