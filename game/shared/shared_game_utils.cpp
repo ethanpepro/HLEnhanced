@@ -661,6 +661,53 @@ void Alert( ALERT_TYPE aType, const char* const pszFormat, ... )
 	va_end( list );
 }
 
+void Con_Printf( const char* const pszFormat, ... )
+{
+	assert( pszFormat );
+
+	va_list list;
+
+	va_start( list, pszFormat );
+
+	char szBuffer[ 4096 ];
+
+	const int iResult = vsnprintf( szBuffer, sizeof( szBuffer ), pszFormat, list );
+
+	if( iResult >= 0 && static_cast<size_t>( iResult ) < sizeof( szBuffer ) )
+	{
+#ifdef CLIENT_DLL
+		gEngfuncs.Con_Printf( "%s", szBuffer );
+#else
+		g_engfuncs.pfnServerPrint( szBuffer );
+#endif
+	}
+}
+
+void Con_DPrintf( const char* const pszFormat, ... )
+{
+	if( g_pDeveloper->value != 0 )
+	{
+		assert( pszFormat );
+
+		va_list list;
+
+		va_start( list, pszFormat );
+
+		char szBuffer[ 4096 ];
+
+		const int iResult = vsnprintf( szBuffer, sizeof( szBuffer ), pszFormat, list );
+
+		if( iResult >= 0 && static_cast<size_t>( iResult ) < sizeof( szBuffer ) )
+		{
+#ifdef CLIENT_DLL
+			gEngfuncs.Con_Printf( "%s", szBuffer );
+#else
+			g_engfuncs.pfnServerPrint( szBuffer );
+#endif
+		}
+	}
+}
+
 Contents UTIL_PointContents( const Vector &vec )
 {
 	return static_cast<Contents>(

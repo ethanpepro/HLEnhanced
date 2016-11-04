@@ -230,6 +230,20 @@ cvar_t* CVarGetPointer( const char* const pszName );
 void Alert( ALERT_TYPE aType, const char* const pszFormat, ... );
 
 /**
+*	Print to console.
+*	@param pszFormat Format string.
+*	@param ... Arguments.
+*/
+void Con_Printf( const char* const pszFormat, ... );
+
+/**
+*	Print to console if debug is enabled.
+*	@param pszFormat Format string.
+*	@param ... Arguments.
+*/
+void Con_DPrintf( const char* const pszFormat, ... );
+
+/**
 *	Gets the contents for the given position.
 *	@param vec Position.
 *	@return Contents.
