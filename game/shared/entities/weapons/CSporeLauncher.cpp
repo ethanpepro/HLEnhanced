@@ -117,7 +117,6 @@ void CSporeLauncher::WeaponIdle()
 		}
 		else if( m_ReloadState != ReloadState::NOT_RELOADING )
 		{
-			//TODO: magic number - Solokiller
 			if( m_iClip != GetWeaponInfo()->GetMaxMagazine() && m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )
 			{
 				Reload();
