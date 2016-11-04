@@ -8,13 +8,18 @@
 /**
 *	Contains data about plugins.
 */
-class CASPluginData final
+class CASPluginData final : public IASModuleUserData
 {
 public:
 	/**
 	*	@param lifetime The minimum lifetime of the plugin. This dictates when plugins can be reloaded.
 	*/
 	CASPluginData( const PluginLifetime lifetime );
+
+	void Release() const override final
+	{
+		delete this;
+	}
 
 	/**
 	*	@return The lifetime of the plugin.

@@ -429,7 +429,7 @@ void CASPluginManager::UnloadPlugin( CASModule* pPlugin )
 
 	ASSERT( pData );
 
-	delete pData;
+	//Plugin data is now removed by the module's destructor.
 
 	m_ASManager.GetASManager().GetModuleManager().RemoveModule( pPlugin );
 }
