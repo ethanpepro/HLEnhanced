@@ -145,7 +145,7 @@ void RegisterScriptEntityFuncs( asIScriptEngine& engine )
 		asFUNCTION( UTIL_DropToFloor ), asCALL_CDECL );
 
 	engine.RegisterGlobalFunction(
-		"bool DropToFloor(CBaseEntity@ pEntity, float flYaw, float flDist, WalkMove::WalkMove mode)",
+		"bool WalkMove(CBaseEntity@ pEntity, float flYaw, float flDist, WalkMove::WalkMove mode)",
 		asFUNCTION( UTIL_WalkMove ), asCALL_CDECL );
 
 	engine.RegisterGlobalFunction(
