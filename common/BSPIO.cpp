@@ -5,8 +5,6 @@
 
 #include "BSPIO.h"
 
-//TODO: use dll agnostic code - Solokiller
-
 namespace bsp
 {
 char* LoadEntityLump( const char* const pszFileName )
