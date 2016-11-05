@@ -1,6 +1,5 @@
-#ifdef CLIENT_DLL
-#include "hud.h"
-#include "cl_util.h"
+#include "extdll.h"
+#include "util.h"
 
 #include "MiniBSPFile.h"
 
@@ -80,7 +79,7 @@ void ProcessEnts( const char* pszBuffer, ParseEntCallback pCallback )
 	while( 1 )
 	{
 		// parse the opening brace	
-		pszBuffer = gEngfuncs.COM_ParseFile( pszBuffer, token );
+		pszBuffer = COM_Parse( pszBuffer, token, sizeof( token ) );
 		if( !pszBuffer )
 			break;
 
@@ -108,7 +107,7 @@ const char* ParseKeyValue( const char* pszBuffer, char* pszKey, const size_t uiK
 	char token[ 1024 ];
 
 	// Parse key
-	pszBuffer = gEngfuncs.COM_ParseFile( pszBuffer, token );
+	pszBuffer = COM_Parse( pszBuffer, token, sizeof( token ) );
 	if( token[ 0 ] == '}' )
 	{
 		bEnd = true;
@@ -128,7 +127,7 @@ const char* ParseKeyValue( const char* pszBuffer, char* pszKey, const size_t uiK
 	strncpy( pszKey, token, uiKeySize );
 	pszKey[ uiKeySize - 1 ] = '\0';
 
-	// Fix heynames with trailing spaces
+	// Fix keynames with trailing spaces
 	size_t n = strlen( pszKey );
 	while( n && pszKey[ n - 1 ] == ' ' )
 	{
@@ -137,7 +136,7 @@ const char* ParseKeyValue( const char* pszBuffer, char* pszKey, const size_t uiK
 	}
 
 	// Parse value	
-	pszBuffer = gEngfuncs.COM_ParseFile( pszBuffer, token );
+	pszBuffer = COM_Parse( pszBuffer, token, sizeof( token ) );
 
 	// Ran out of buffer?
 	if( !pszBuffer )
@@ -160,4 +159,3 @@ const char* ParseKeyValue( const char* pszBuffer, char* pszKey, const size_t uiK
 	return pszBuffer;
 }
 }
-#endif
