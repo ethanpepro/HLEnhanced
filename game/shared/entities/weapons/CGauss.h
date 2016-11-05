@@ -49,20 +49,26 @@ public:
 
 	CGauss();
 
-	void Spawn( void ) override;
-	void Precache( void ) override;
+	void Spawn() override;
+	void Precache() override;
 	bool AddToPlayer( CBasePlayer *pPlayer ) override;
+
+	/**
+	*	Overridden for the gauss because the case where a 1 ammo left secondary attack occurs requires a special check.
+	*	- Solokiller
+	*/
+	bool IsUseable() override;
 
 	bool Deploy() override;
 	void Holster() override;
 
-	void PrimaryAttack( void ) override;
-	void SecondaryAttack( void ) override;
-	void WeaponIdle( void ) override;
+	void PrimaryAttack() override;
+	void SecondaryAttack() override;
+	void WeaponIdle() override;
 
-	void StartFire( void );
+	void StartFire();
 	void Fire( Vector vecOrigSrc, Vector vecDirShooting, float flDamage );
-	float GetFullChargeTime( void );
+	float GetFullChargeTime();
 
 	void GetWeaponData( weapon_data_t& data ) override
 	{

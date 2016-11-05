@@ -41,7 +41,7 @@ CGauss::CGauss()
 {
 }
 
-float CGauss::GetFullChargeTime( void )
+float CGauss::GetFullChargeTime()
 {
 	if ( bIsMultiplayer() )
 	{
@@ -55,7 +55,7 @@ float CGauss::GetFullChargeTime( void )
 extern bool g_brunninggausspred;
 #endif
 
-void CGauss::Spawn( )
+void CGauss::Spawn()
 {
 	Precache( );
 	SetModel( "models/w_gauss.mdl");
@@ -64,7 +64,7 @@ void CGauss::Spawn( )
 }
 
 
-void CGauss::Precache( void )
+void CGauss::Precache()
 {
 	BaseClass::Precache();
 
@@ -100,6 +100,12 @@ bool CGauss::AddToPlayer( CBasePlayer *pPlayer )
 	return false;
 }
 
+bool CGauss::IsUseable()
+{
+	//Currently charging, allow the player to fire it first. - Solokiller
+	return BaseClass::IsUseable() || m_InAttack != AttackState::NOT_ATTACKING;
+}
+
 bool CGauss::Deploy()
 {
 	m_pPlayer->m_flPlayAftershock = 0.0;
@@ -127,6 +133,7 @@ void CGauss::PrimaryAttack()
 		return;
 	}
 
+	//TODO: define ammo usage - Solokiller
 	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] < 2 )
 	{
 		PlayEmptySound( );
@@ -202,6 +209,23 @@ void CGauss::SecondaryAttack()
 	}
 	else
 	{
+		//Moved to before the ammo burn.
+		//Because we drained 1 in AttackState::NOT_ATTACKING, then 1 again now before checking if we're out of ammo,
+		//this resuled in the player having -1 ammo, which in turn caused CanDeploy to think it could be deployed.
+		//This will need to be fixed further down the line by preventing negative ammo unless explicitly required (infinite ammo?),
+		//But this check will prevent the problem for now. - Solokiller
+		//TODO: investigate further.
+		if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
+		{
+			// out of ammo! force the gun to fire
+			StartFire();
+			m_InAttack = AttackState::NOT_ATTACKING;
+			m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.0;
+			//Need to set m_flNextPrimaryAttack so the weapon gets a chance to complete its secondary fire animation. - Solokiller
+			m_flNextPrimaryAttack = m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1;
+			return;
+		}
+
 		// during the charging process, eat one bit of ammo every once in a while
 		if ( UTIL_WeaponTimeBase() >= m_pPlayer->m_flNextAmmoBurn && m_pPlayer->m_flNextAmmoBurn != 1000 )
 		{
@@ -215,16 +239,6 @@ void CGauss::SecondaryAttack()
 				m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ]--;
 				m_pPlayer->m_flNextAmmoBurn = UTIL_WeaponTimeBase() + 0.3;
 			}
-		}
-
-		if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
-		{
-			// out of ammo! force the gun to fire
-			StartFire();
-			m_InAttack = AttackState::NOT_ATTACKING;
-			m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 1.0;
-			m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1;
-			return;
 		}
 		
 		if ( UTIL_WeaponTimeBase() >= m_pPlayer->m_flAmmoStartCharge )
@@ -277,7 +291,7 @@ void CGauss::SecondaryAttack()
 // of weaponidle() and make its own function then to try to
 // merge this into Fire(), which has some identical variable names 
 //=========================================================
-void CGauss::StartFire( void )
+void CGauss::StartFire()
 {
 	float flDamage;
 	
@@ -508,10 +522,7 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 	// ALERT( at_console, "%d bytes\n", nTotal );
 }
 
-
-
-
-void CGauss::WeaponIdle( void )
+void CGauss::WeaponIdle()
 {
 	ResetEmptySound( );
 
@@ -536,6 +547,10 @@ void CGauss::WeaponIdle( void )
 		StartFire();
 		m_InAttack = AttackState::NOT_ATTACKING;
 		m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 2.0;
+
+		//Need to set m_flNextPrimaryAttack so the weapon gets a chance to complete its secondary fire animation. - Solokiller
+		if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] <= 0 )
+			m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 0.5;
 	}
 	else
 	{
@@ -563,23 +578,18 @@ void CGauss::WeaponIdle( void )
 	}
 }
 
-
-
-
-
-
 class CGaussAmmo : public CBasePlayerAmmo
 {
 public:
 	DECLARE_CLASS( CGaussAmmo, CBasePlayerAmmo );
 
-	void Spawn( void ) override
+	void Spawn() override
 	{ 
 		Precache( );
 		SetModel( "models/w_gaussammo.mdl");
 		CBasePlayerAmmo::Spawn( );
 	}
-	void Precache( void ) override
+	void Precache() override
 	{
 		PRECACHE_MODEL ("models/w_gaussammo.mdl");
 		PRECACHE_SOUND("items/9mmclip1.wav");
@@ -589,4 +599,5 @@ public:
 		return UTIL_GiveAmmoToPlayer( this, pOther, AMMO_URANIUMBOX_GIVE, "uranium" );
 	}
 };
+
 LINK_ENTITY_TO_CLASS( ammo_gaussclip, CGaussAmmo );
