@@ -21,7 +21,7 @@ char* LoadEntityLump( const char* const pszFileName )
 	// Read in the .bsp header
 	if( g_pFileSystem->Read( &header, sizeof( dheader_t ), fp ) != sizeof( dheader_t ) )
 	{
-		gEngfuncs.Con_Printf( "bsp::LoadEntityLump: Could not read BSP header for map [%s].\n", pszFileName );
+		Con_Printf( "bsp::LoadEntityLump: Could not read BSP header for map [%s].\n", pszFileName );
 		g_pFileSystem->Close( fp );
 		return nullptr;
 	}
@@ -32,7 +32,7 @@ char* LoadEntityLump( const char* const pszFileName )
 		if( iBSPVersion != BSPVERSION_QUAKE && iBSPVersion != BSPVERSION )
 		{
 			g_pFileSystem->Close( fp );
-			gEngfuncs.Con_Printf( "bsp::LoadEntityLump: Map [%s] has incorrect BSP version (%i should be %i).\n", pszFileName, iBSPVersion, BSPVERSION );
+			Con_Printf( "bsp::LoadEntityLump: Map [%s] has incorrect BSP version (%i should be %i).\n", pszFileName, iBSPVersion, BSPVERSION );
 			return nullptr;
 		}
 	}
@@ -50,7 +50,7 @@ char* LoadEntityLump( const char* const pszFileName )
 	if( !pszBuffer )
 	{
 		g_pFileSystem->Close( fp );
-		gEngfuncs.Con_Printf( "bsp::LoadEntityLump: Couldn't allocate %i bytes\n", size + 1 );
+		Con_Printf( "bsp::LoadEntityLump: Couldn't allocate %i bytes\n", size + 1 );
 		return nullptr;
 	}
 
@@ -87,7 +87,7 @@ void ProcessEnts( const char* pszBuffer, ParseEntCallback pCallback )
 		// Didn't find opening brace?
 		if( token[ 0 ] != '{' )
 		{
-			gEngfuncs.Con_Printf( "bsp::ProcessEnts: found %s when expecting {\n", token );
+			Con_Printf( "bsp::ProcessEnts: found %s when expecting {\n", token );
 			return;
 		}
 
@@ -97,7 +97,7 @@ void ProcessEnts( const char* pszBuffer, ParseEntCallback pCallback )
 		// Check for errors and abort if any
 		if( bError )
 		{
-			gEngfuncs.Con_Printf( "bsp::ProcessEnts: error parsing entities\n" );
+			Con_Printf( "bsp::ProcessEnts: error parsing entities\n" );
 			return;
 		}
 	}
