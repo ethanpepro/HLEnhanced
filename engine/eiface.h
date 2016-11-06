@@ -430,7 +430,7 @@ struct enginefuncs_t
 	*	The entity must be capable of flying (FL_FLY) or swimming (FL_SWIM), or be on the ground (FL_ONGROUND).
 	*	@param pEntity Entity to move.
 	*	@param yaw Yaw distance. This is the entity's current movement direction in the XY plane.
-	*	@param Distance to move, in units.
+	*	@param dist Distance to move, in units.
 	*	@param iMove Movement type. @see WalkMove
 	*	@return 1 if the move succeeded (no obstacles in the way), 0 otherwise.
 	*/
