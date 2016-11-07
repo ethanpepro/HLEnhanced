@@ -40,7 +40,6 @@
 const float GARG_ATTACKDIST = 80.0;
 
 int gStompSprite = 0, gGargGibModel = 0;
-void SpawnExplosion( Vector center, float randomRange, float time, int magnitude );
 
 const char *CGargantua::pAttackHitSounds[] =
 {
@@ -661,7 +660,6 @@ void CGargantua::OnTakeDamage( const CTakeDamageInfo& info )
 
 void CGargantua::DeathEffect( void )
 {
-	int i;
 	UTIL_MakeVectors(pev->angles);
 	Vector deathPos = GetAbsOrigin() + gpGlobals->v_forward * 100;
 
@@ -670,9 +668,9 @@ void CGargantua::DeathEffect( void )
 
 	Vector position = GetAbsOrigin();
 	position.z += 32;
-	for ( i = 0; i < 7; i+=2 )
+	for ( int i = 0; i < 7; i+=2 )
 	{
-		SpawnExplosion( position, 70, (i * 0.3), 60 + (i*20) );
+		UTIL_CreateExplosion( position, g_vecZero, nullptr, 60 + ( i * 20 ), false, ( i * 0.3 ), 70 );
 		position.z += 15;
 	}
 
@@ -1013,26 +1011,4 @@ void CGargantua::RunTask( const Task_t* pTask )
 		CBaseMonster::RunTask( pTask );
 		break;
 	}
-}
-
-// HACKHACK Cut and pasted from explode.cpp
-//TODO: clean up - Solokiller
-void SpawnExplosion( Vector center, float randomRange, float time, int magnitude )
-{
-	KeyValueData	kvd;
-	char			buf[128];
-
-	center.x += RANDOM_FLOAT( -randomRange, randomRange );
-	center.y += RANDOM_FLOAT( -randomRange, randomRange );
-
-	CBaseEntity *pExplosion = CBaseEntity::Create( "env_explosion", center, g_vecZero, NULL );
-	sprintf( buf, "%3d", magnitude );
-	kvd.szKeyName = "iMagnitude";
-	kvd.szValue = buf;
-	pExplosion->KeyValue( &kvd );
-	pExplosion->pev->spawnflags |= SF_ENVEXPLOSION_NODAMAGE;
-
-	pExplosion->Spawn();
-	pExplosion->SetThink( &CBaseEntity::SUB_CallUseToggle );
-	pExplosion->pev->nextthink = gpGlobals->time + time;
 }

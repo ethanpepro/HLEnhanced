@@ -33,6 +33,14 @@ public:
 	void KeyValue( KeyValueData *pkvd ) override;
 	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 
+	/**
+	*	Sets the magnitude of the explosion.
+	*/
+	void SetMagnitude( int iMagnitude )
+	{
+		m_iMagnitude = iMagnitude;
+	}
+
 	int m_iMagnitude;// how large is the fireball? how much damage?
 	int m_spriteScale; // what's the exact fireball sprite scale? 
 };
@@ -40,6 +48,16 @@ public:
 extern DLL_GLOBAL	short	g_sModelIndexFireball;
 extern DLL_GLOBAL	short	g_sModelIndexSmoke;
 
-extern void ExplosionCreate( const Vector &center, const Vector &angles, CBaseEntity* pOwner, int magnitude, const bool doDamage );
+/**
+*	Creates an explosion.
+*	@param vecCenter Center point of the explosion.
+*	@param vecAngles Explosion angles.
+*	@param pOwner Optional. The owner of the explosion. Used to keep track of frags and perform damage filtering.
+*	@param iMagnitude Magnitude of the explosion.
+*	@param bDoDamage Whether to deal damage or not.
+*	@param flDelay Optional. Delay until the explosion occurs.
+*	@param flRandomRange Optional. Random offset to apply to the explosion's X and Y axes.
+*/
+void UTIL_CreateExplosion( Vector vecCenter, const Vector& vecAngles, CBaseEntity* pOwner, int iMagnitude, const bool bDoDamage, const float flDelay = 0, const float flRandomRange = 0 );
 
 #endif //GAME_SERVER_ENTITIES_EFFECTS_CENVEXPLOSION_H

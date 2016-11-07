@@ -38,7 +38,7 @@ void CEnvExplosion::KeyValue( KeyValueData *pkvd )
 {
 	if (FStrEq(pkvd->szKeyName, "iMagnitude"))
 	{
-		m_iMagnitude = atoi(pkvd->szValue);
+		SetMagnitude( atoi( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else
@@ -181,21 +181,30 @@ void CEnvExplosion::Smoke( void )
 	}
 }
 
-
-// HACKHACK -- create one of these and fake a keyvalue to get the right explosion setup
-void ExplosionCreate( const Vector &center, const Vector &angles, CBaseEntity* pOwner, int magnitude, const bool doDamage )
+void UTIL_CreateExplosion( Vector vecCenter, const Vector& vecAngles, CBaseEntity* pOwner, int iMagnitude, const bool bDoDamage, const float flDelay, const float flRandomRange )
 {
-	KeyValueData	kvd;
-	char			buf[128];
+	if( flRandomRange != 0 )
+	{
+		vecCenter.x += UTIL_RandomFloat( -flRandomRange, flRandomRange );
+		vecCenter.y += UTIL_RandomFloat( -flRandomRange, flRandomRange );
+	}
 
-	CBaseEntity *pExplosion = CBaseEntity::Create( "env_explosion", center, angles, pOwner->edict() );
-	sprintf( buf, "%3d", magnitude );
-	kvd.szKeyName = "iMagnitude";
-	kvd.szValue = buf;
-	pExplosion->KeyValue( &kvd );
-	if ( !doDamage )
+	CEnvExplosion* pExplosion = static_cast<CEnvExplosion*>( CBaseEntity::Create( "env_explosion", vecCenter, vecAngles, pOwner ? pOwner->edict() : nullptr, false ) );
+
+	pExplosion->SetMagnitude( iMagnitude );
+
+	if( !bDoDamage )
 		pExplosion->pev->spawnflags |= SF_ENVEXPLOSION_NODAMAGE;
 
 	pExplosion->Spawn();
-	pExplosion->Use( NULL, NULL, USE_TOGGLE, 0 );
+
+	if( flDelay <= 0 )
+	{
+		pExplosion->Use( nullptr, nullptr, USE_TOGGLE, 0 );
+	}
+	else
+	{
+		pExplosion->SetThink( &CBaseEntity::SUB_CallUseToggle );
+		pExplosion->pev->nextthink = gpGlobals->time + flDelay;
+	}
 }
