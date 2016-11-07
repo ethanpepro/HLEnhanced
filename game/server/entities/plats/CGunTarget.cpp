@@ -7,7 +7,7 @@
 #include "CGunTarget.h"
 
 BEGIN_DATADESC( CGunTarget )
-	DEFINE_FIELD( m_on, FIELD_BOOLEAN ),
+	DEFINE_FIELD( m_bOn, FIELD_BOOLEAN ),
 	DEFINE_THINKFUNC( Next ),
 	DEFINE_THINKFUNC( Start ),
 	DEFINE_THINKFUNC( Wait ),
@@ -15,47 +15,46 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_guntarget, CGunTarget );
 
-void CGunTarget::Spawn( void )
+void CGunTarget::Spawn()
 {
-	pev->solid = SOLID_BSP;
-	pev->movetype = MOVETYPE_PUSH;
+	SetSolidType( SOLID_BSP );
+	SetMoveType( MOVETYPE_PUSH );
 
 	SetAbsOrigin( GetAbsOrigin() );
-	SetModel( STRING( pev->model ) );
+	SetModel( GetModelName() );
 
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 
 	// Don't take damage until "on"
-	pev->takedamage = DAMAGE_NO;
-	pev->flags |= FL_MONSTER;
+	SetTakeDamageMode( DAMAGE_NO );
+	GetFlags() |= FL_MONSTER;
 
-	m_on = false;
-	pev->max_health = pev->health;
+	m_bOn = false;
+	SetMaxHealth( GetHealth() );
 
-	if( pev->spawnflags & FGUNTARGET_START_ON )
+	if( ShouldStartOn() )
 	{
 		SetThink( &CGunTarget::Start );
-		pev->nextthink = pev->ltime + 0.3;
+		SetNextThink( GetLastThink() + 0.3 );
 	}
 }
 
-void CGunTarget::Activate( void )
+void CGunTarget::Activate()
 {
-	CBaseEntity	*pTarg;
-
 	// now find our next target
-	pTarg = GetNextTarget();
+	CBaseEntity* pTarg = GetNextTarget();
+
 	if( pTarg )
 	{
 		m_hTargetEnt = pTarg;
-		SetAbsOrigin( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs ) * 0.5 );
+		SetAbsOrigin( pTarg->GetAbsOrigin() - ( GetRelMin() + GetRelMax() ) * 0.5 );
 	}
 }
 
-void CGunTarget::Next( void )
+void CGunTarget::Next()
 {
-	SetThink( NULL );
+	SetThink( nullptr );
 
 	m_hTargetEnt = GetNextTarget();
 	CBaseEntity *pTarget = m_hTargetEnt;
@@ -66,15 +65,15 @@ void CGunTarget::Next( void )
 		return;
 	}
 	SetMoveDone( &CGunTarget::Wait );
-	LinearMove( pTarget->GetAbsOrigin() - ( pev->mins + pev->maxs ) * 0.5, pev->speed );
+	LinearMove( pTarget->GetAbsOrigin() - ( GetRelMin() + GetRelMax() ) * 0.5, GetSpeed() );
 }
 
-void CGunTarget::Start( void )
+void CGunTarget::Start()
 {
 	Use( this, this, USE_ON, 0 );
 }
 
-void CGunTarget::Wait( void )
+void CGunTarget::Wait()
 {
 	CBaseEntity *pTarget = m_hTargetEnt;
 
@@ -85,20 +84,22 @@ void CGunTarget::Wait( void )
 	}
 
 	// Fire the pass target if there is one
-	if( pTarget->pev->message )
+	if( pTarget->GetMessage() )
 	{
-		FireTargets( STRING( pTarget->pev->message ), this, this, USE_TOGGLE, 0 );
-		if( FBitSet( pTarget->pev->spawnflags, SF_CORNER_FIREONCE ) )
-			pTarget->pev->message = 0;
+		FireTargets( STRING( pTarget->GetMessage() ), this, this, USE_TOGGLE, 0 );
+		if( pTarget->GetSpawnFlags().Any( SF_CORNER_FIREONCE ) )
+			pTarget->ClearMessage();
 	}
 
 	m_flWait = pTarget->GetDelay();
 
-	pev->target = pTarget->pev->target;
+	SetTarget( pTarget->GetTarget() );
+
 	SetThink( &CGunTarget::Next );
 	if( m_flWait != 0 )
-	{// -1 wait will wait forever!		
-		pev->nextthink = pev->ltime + m_flWait;
+	{
+		// -1 wait will wait forever!		
+		SetNextThink( GetLastThink() + m_flWait );
 	}
 	else
 	{
@@ -106,45 +107,48 @@ void CGunTarget::Wait( void )
 	}
 }
 
-void CGunTarget::Stop( void )
+void CGunTarget::Stop()
 {
-	pev->velocity = g_vecZero;
-	pev->nextthink = 0;
-	pev->takedamage = DAMAGE_NO;
+	m_bOn = false;
+
+	SetAbsVelocity( g_vecZero );
+	SetNextThink( 0 );
+	SetTakeDamageMode( DAMAGE_NO );
 }
 
 void CGunTarget::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if( pev->health > 0 )
+	if( GetHealth() > 0 )
 	{
-		pev->health -= info.GetDamage();
-		if( pev->health <= 0 )
+		SetHealth( GetHealth() - info.GetDamage() );
+		if( GetHealth() <= 0 )
 		{
-			pev->health = 0;
+			SetHealth( 0 );
 			Stop();
-			if( pev->message )
-				FireTargets( STRING( pev->message ), this, this, USE_TOGGLE, 0 );
+			if( HasMessage() )
+				FireTargets( GetMessage(), this, this, USE_TOGGLE, 0 );
 		}
 	}
 }
 
 void CGunTarget::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( !ShouldToggle( useType, m_on ) )
+	if( !ShouldToggle( useType, m_bOn ) )
 		return;
 
-	if( m_on )
+	if( m_bOn )
 	{
 		Stop();
 	}
 	else
 	{
-		//TODO: m_on is never turned on here. - Solokiller
-		pev->takedamage = DAMAGE_AIM;
+		m_bOn = true;
+
+		SetTakeDamageMode( DAMAGE_AIM );
 		m_hTargetEnt = GetNextTarget();
 		if( m_hTargetEnt == NULL )
 			return;
-		pev->health = pev->max_health;
+		SetHealth( GetMaxHealth() );
 		Next();
 	}
 }
