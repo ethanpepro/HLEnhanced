@@ -1254,7 +1254,8 @@ struct cl_enginefunc_t
 
 	/**
 	*	Sets the filter mode.
-	*	TODO: what is filtering? - Solokiller
+	*	Filtering will essentially overlay a single color on top of the entire viewport, with the exception of the HUD.
+	*	This works like Counter-Strike's night vision (though that uses a different implementation).
 	*	@param bMode Whether to filter or not.
 	*/
 	void					 ( *pfnSetFilterMode )						( int bMode );
