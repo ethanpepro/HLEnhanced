@@ -1159,7 +1159,7 @@ void CTalkMonster::PlaySentence( const char *pszSentence, float duration, float 
 	if ( pszSentence[0] == '!' )
 		EMIT_SOUND_DYN( this, CHAN_VOICE, pszSentence, volume, attenuation, 0, GetVoicePitch());
 	else
-		SENTENCEG_PlayRndSz( this, pszSentence, volume, attenuation, 0, GetVoicePitch() );
+		g_Sentences.PlayRndSz( this, pszSentence, volume, attenuation, 0, GetVoicePitch() );
 
 	// If you say anything, don't greet the player - you may have already spoken to them
 	SetBits(m_bitsSaid, bit_saidHelloPlayer);

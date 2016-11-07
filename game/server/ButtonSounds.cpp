@@ -162,7 +162,7 @@ void PlayLockSounds( CBaseEntity* pEntity, locksound_t *pls, const bool bLocked,
 			// play next 'door locked' sentence in group
 			int iprev = pls->iLockedSentence;
 
-			pls->iLockedSentence = SENTENCEG_PlaySequentialSz( pEntity, STRING( pls->sLockedSentence ),
+			pls->iLockedSentence = g_Sentences.PlaySequentialSz( pEntity, STRING( pls->sLockedSentence ),
 															   0.85, ATTN_NORM, 0, 100, pls->iLockedSentence, false );
 			pls->iUnlockedSentence = 0;
 
@@ -198,7 +198,7 @@ void PlayLockSounds( CBaseEntity* pEntity, locksound_t *pls, const bool bLocked,
 		{
 			int iprev = pls->iUnlockedSentence;
 
-			pls->iUnlockedSentence = SENTENCEG_PlaySequentialSz( pEntity, STRING( pls->sUnlockedSentence ),
+			pls->iUnlockedSentence = g_Sentences.PlaySequentialSz( pEntity, STRING( pls->sUnlockedSentence ),
 																 0.85, ATTN_NORM, 0, 100, pls->iUnlockedSentence, false );
 			pls->iLockedSentence = 0;
 

@@ -2578,7 +2578,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 			break;
 		// fall through...
 	case SCRIPT_EVENT_SENTENCE:			// Play a named sentence group
-		SENTENCEG_PlayRndSz( this, event.options, 1.0, ATTN_IDLE, 0, 100 );
+		g_Sentences.PlayRndSz( this, event.options, 1.0, ATTN_IDLE, 0, 100 );
 		break;
 
 	case SCRIPT_EVENT_FIREEVENT:		// Fire a trigger
@@ -3156,7 +3156,7 @@ void CBaseMonster::PlaySentence( const char *pszSentence, float duration, float 
 		if ( pszSentence[0] == '!' )
 			EMIT_SOUND_DYN( this, CHAN_VOICE, pszSentence, volume, attenuation, 0, PITCH_NORM );
 		else
-			SENTENCEG_PlayRndSz( this, pszSentence, volume, attenuation, 0, PITCH_NORM );
+			g_Sentences.PlayRndSz( this, pszSentence, volume, attenuation, 0, PITCH_NORM );
 	}
 }
 

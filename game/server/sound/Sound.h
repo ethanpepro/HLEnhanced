@@ -15,13 +15,7 @@
 #ifndef GAME_SERVER_SOUND_SOUND_H
 #define GAME_SERVER_SOUND_SOUND_H
 
-// sentence groups
-#define CBSENTENCENAME_MAX 16
-#define CSENTENCE_LRU_MAX	32		// max number of elements per sentence group
-#define CVOXFILESENTENCEMAX		1536		// max number of sentences in game. NOTE: this must match
-// CVOXFILESENTENCEMAX in engine\sound.h!!!
-
-const int SENTENCEG_INVALID_INDEX = -1;
+#include "CSentenceGroups.h"
 
 enum SoundFlag
 {
@@ -47,29 +41,7 @@ enum SoundFlag
 	SND_CHANGE_PITCH = 1 << 7,
 };
 
-//TODO: refactor this code into a class. - Solokiller
-
-struct SENTENCEG
-{
-	char szgroupname[ CBSENTENCENAME_MAX ];
-	int count;
-	unsigned char rgblru[ CSENTENCE_LRU_MAX ];
-};
-
-extern char gszallsentencenames[ CVOXFILESENTENCEMAX ][ CBSENTENCENAME_MAX ];
-extern int gcallsentences;
-
-int USENTENCEG_Pick( int isentenceg, char *szfound );
-int USENTENCEG_PickSequential( int isentenceg, char *szfound, int ipick, const bool bReset );
-void USENTENCEG_InitLRU( unsigned char *plru, int count );
-
-void SENTENCEG_Init();
-void SENTENCEG_Stop( CBaseEntity* pEntity, int isentenceg, int ipick );
-int SENTENCEG_PlayRndI( CBaseEntity* pEntity, int isentenceg, float volume, float attenuation, int flags, int pitch );
-int SENTENCEG_PlayRndSz( CBaseEntity* pEntity, const char *szrootname, float volume, float attenuation, int flags, int pitch );
-int SENTENCEG_PlaySequentialSz( CBaseEntity* pEntity, const char *szrootname, float volume, float attenuation, int flags, int pitch, int ipick, const bool bReset );
-int SENTENCEG_GetIndex( const char *szrootname );
-int SENTENCEG_Lookup( const char *sample, char *sentencenum );
+extern CSentenceGroups g_Sentences;
 
 float TEXTURETYPE_PlaySound( const TraceResult& tr, Vector vecSrc, Vector vecEnd, int iBulletType );
 

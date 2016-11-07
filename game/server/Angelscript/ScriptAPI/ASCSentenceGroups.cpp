@@ -6,35 +6,36 @@
 
 #include "ASCSentenceGroups.h"
 
+//TODO: remove helpers for non-string functions
 static void CSentenceGroups_Stop( enginefuncs_t* pThis, 
 								  CBaseEntity* pEntity, int iSentenceGroup, int iPick )
 {
-	SENTENCEG_Stop( pEntity, iSentenceGroup, iPick );
+	g_Sentences.Stop( pEntity, iSentenceGroup, iPick );
 }
 
 static int CSentenceGroups_PlayRandomIndex( enginefuncs_t* pThis,
 											CBaseEntity* pEntity, int iSentenceGroup, float flVolume, float flAttenuation, int iFlags, int iPitch )
 {
-	return SENTENCEG_PlayRndI( pEntity, iSentenceGroup, flVolume, flAttenuation, iFlags, iPitch );
+	return g_Sentences.PlayRndI( pEntity, iSentenceGroup, flVolume, flAttenuation, iFlags, iPitch );
 }
 
 static int CSentenceGroups_PlayRandomGroup( enginefuncs_t* pThis,
 											CBaseEntity* pEntity, const std::string& szGroupName, float flVolume, float flAttenuation, int iFlags, int iPitch )
 {
-	return SENTENCEG_PlayRndSz( pEntity, szGroupName.c_str(), flVolume, flAttenuation, iFlags, iPitch );
+	return g_Sentences.PlayRndSz( pEntity, szGroupName.c_str(), flVolume, flAttenuation, iFlags, iPitch );
 }
 
 static int CSentenceGroups_PlaySequentialGroup( enginefuncs_t* pThis, 
 												CBaseEntity* pEntity, const std::string& szGroupName, 
 												float flVolume, float flAttenuation, int iFlags, int iPitch, int iPick, const bool bReset )
 {
-	return SENTENCEG_PlaySequentialSz( pEntity, szGroupName.c_str(), flVolume, flAttenuation, iFlags, iPitch, iPick, bReset );
+	return g_Sentences.PlaySequentialSz( pEntity, szGroupName.c_str(), flVolume, flAttenuation, iFlags, iPitch, iPick, bReset );
 }
 
 static int CSentenceGroups_GetIndex( enginefuncs_t* pThis,
 									 const std::string& szGroupName )
 {
-	return SENTENCEG_GetIndex( szGroupName.c_str() );
+	return g_Sentences.GetIndex( szGroupName.c_str() );
 }
 
 //TODO: SENTENCEG_Lookup? - Solokiller
@@ -43,7 +44,7 @@ static int CSentenceGroups_GetIndex( enginefuncs_t* pThis,
 
 void RegisterScriptCSentenceGroups( asIScriptEngine& engine )
 {
-	engine.RegisterGlobalProperty( "const int SENTENCEGROUPS_INVALID_INDEX", const_cast<int*>( &SENTENCEG_INVALID_INDEX ) );
+	engine.RegisterGlobalProperty( "const int INVALID_SENTENCE_INDEX", const_cast<int*>( &CSentenceGroups::INVALID_SENTENCE_INDEX ) );
 
 	const char* const pszObjectName = AS_CSENTENCEGROUPS_NAME;
 

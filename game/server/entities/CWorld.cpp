@@ -160,7 +160,7 @@ void CWorld::Precache()
 	// init sentence group playback stuff from sentences.txt.
 	// ok to call this multiple times, calls after first are ignored.
 
-	SENTENCEG_Init();
+	g_Sentences.Initialize();
 
 	// init texture type array from materials.txt
 
