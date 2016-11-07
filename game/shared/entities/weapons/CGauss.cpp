@@ -133,8 +133,7 @@ void CGauss::PrimaryAttack()
 		return;
 	}
 
-	//TODO: define ammo usage - Solokiller
-	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] < 2 )
+	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] < AMMO_PER_PRIMARY_SHOT )
 	{
 		PlayEmptySound( );
 		m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 0.5;
@@ -144,7 +143,7 @@ void CGauss::PrimaryAttack()
 	m_pPlayer->m_iWeaponVolume = GAUSS_PRIMARY_FIRE_VOLUME;
 	m_fPrimaryFire = true;
 
-	m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= 2;
+	m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] -= AMMO_PER_PRIMARY_SHOT;
 
 	StartFire();
 	m_InAttack = AttackState::NOT_ATTACKING;

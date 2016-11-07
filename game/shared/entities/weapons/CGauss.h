@@ -41,6 +41,11 @@ public:
 		CHARGING = 2,
 	};
 
+	/**
+	*	Amount of ammo to use per primary attack shot.
+	*/
+	static const int AMMO_PER_PRIMARY_SHOT = 2;
+
 public:
 	DECLARE_CLASS( CGauss, CBasePlayerWeapon );
 #ifndef CLIENT_DLL
