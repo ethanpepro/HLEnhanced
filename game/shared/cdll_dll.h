@@ -42,8 +42,6 @@
 */
 #define MAX_ITEMS				5
 
-#define WEAPON_SUIT				31
-
 #define MAX_PLAYER_NAME_LENGTH	32
 
 /**

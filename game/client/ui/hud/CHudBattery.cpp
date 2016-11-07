@@ -22,6 +22,8 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
+#include "WeaponsConst.h"
+
 #include <string.h>
 #include <stdio.h>
 

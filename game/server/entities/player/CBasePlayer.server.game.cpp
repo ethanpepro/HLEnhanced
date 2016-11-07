@@ -16,6 +16,7 @@
 #include "util.h"
 #include "cbase.h"
 #include "CBasePlayer.h"
+#include "WeaponsConst.h"
 
 #include "gamerules/GameRules.h"
 

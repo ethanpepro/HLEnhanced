@@ -48,7 +48,6 @@ bool CMaterialsList::LoadFromFile( const char* const pszFileName )
 			continue;
 
 		// skip comment lines
-		//TODO: won't this skip stuff like /#? - Solokiller
 		if( buffer[ i ] == '/' || !isalpha( buffer[ i ] ) )
 			continue;
 

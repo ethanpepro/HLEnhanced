@@ -67,7 +67,6 @@ enum WeaponId
 
 #define WEAPON_ALLWEAPONS	( ~( 1 << WEAPON_SUIT ) )
 
-//TODO: also defined in cddl_dll.h. Remove that one - Solokiller
 #define WEAPON_SUIT			31	// ?????
 
 #define MAX_NORMAL_BATTERY	100

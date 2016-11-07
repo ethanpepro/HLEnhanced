@@ -26,6 +26,7 @@
 #include "SaveRestore.h"
 #include "Skill.h"
 #include "gamerules/GameRules.h"
+#include "WeaponsConst.h"
 
 #include "CRecharge.h"
 
