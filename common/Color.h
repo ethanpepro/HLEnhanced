@@ -7,11 +7,11 @@
 /**
 *	Makes a 4 byte RGB color. A is set to 255.
 */
-#define MAKE_RGB( r, g, b ) ( ( ( r & 0xFF ) ) | ( ( g & 0xFF ) << 8) | ( ( b & 0xFF ) << 16 ) | ( 0xFF << 24 ) )
+#define MAKE_RGB( r, g, b ) ( ( ( r & 0xFF ) ) | ( ( g & 0xFF ) << 8 ) | ( ( b & 0xFF ) << 16 ) | ( 0xFF << 24 ) )
 
 /**
 *	Represents a HUD color. - Solokiller
-*	TODO: conflicts with vgui::Color. Could probably merge them once they have identical layout. - Solokiller
+*	Note: not the same as vgui::Color. That has a scheme color member in addition to the RGBA data.
 */
 struct Color final
 {
