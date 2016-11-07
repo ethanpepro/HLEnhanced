@@ -234,6 +234,7 @@ set( SHARED_INCLUDE_PATHS
 
 #keyvalues and utility are temporary until the code between these repositories can be shared. - Solokiller
 add_subdirectory( common )
+add_subdirectory( engine )
 add_subdirectory( game/shared )
 add_subdirectory( keyvalues )
 add_subdirectory( pm_shared )

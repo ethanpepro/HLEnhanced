@@ -9,6 +9,8 @@
 #include "enums.h"
 #endif
 
+#include "cmd_function_t.h"
+
 struct cl_enginefunc_t;
 struct kbutton_t;
 struct cl_entity_t;
@@ -69,8 +71,6 @@ using pfnUserMsgHook = int ( * )( const char *pszName, int iSize, void *pbuf );
 using Callback_AddVisibleEntity = int ( * )( cl_entity_t* pEntity );
 using Callback_TempEntPlaySound = void ( * )( TEMPENTITY* pTemp, float damp );
 using pfnEventHook = void ( * )( event_args_t* args );
-
-using pfnEngSrc_function = void ( * )( void );
 
 /**
 *	Size of buffers used to store unique player IDs.
@@ -621,10 +621,10 @@ struct cl_enginefunc_t
 	/**
 	*	Adds a new command.
 	*	@param pszCmdName Command name. Must point to a string that will exist for the rest of the program's lifetime.
-	*	@param pCallback Callback to invoke when the command is executed.
+	*	@param pCallback Callback to invoke when the command is executed. If null, forwards the command to the server.
 	*	@return true in all cases.
 	*/
-	int						( *pfnAddCommand )							( const char* const pszCmdName, pfnEngSrc_function pCallback );
+	int						( *pfnAddCommand )							( const char* const pszCmdName, CmdFunction pCallback );
 
 	/**
 	*	Hooks a user message.
@@ -1217,23 +1217,22 @@ struct cl_enginefunc_t
 
 	/**
 	*	@return The first command function handle.
-	*	TODO: actually returns a pointer to the command. - Solokiller
 	*/
-	unsigned int			 ( *GetFirstCmdFunctionHandle )				( void );
+	cmd_function_t*			 ( *GetFirstCmdFunctionHandle )				( void );
 
 	/**
 	*	Gets the next command function handle.
 	*	@param cmdhandle Handle to the command function just before the handle to get.
 	*	@return Next handle, or 0 if it was the last handle.
 	*/
-	unsigned int			 ( *GetNextCmdFunctionHandle )				( unsigned int cmdhandle );
+	cmd_function_t*			 ( *GetNextCmdFunctionHandle )				( cmd_function_t* cmdhandle );
 
 	/**
 	*	Gets the command function name.
 	*	@param cmdhandle Handle to the command.
 	*	@return Command name.
 	*/
-	const char *			 ( *GetCmdFunctionName )					( unsigned int cmdhandle );
+	const char*				( *GetCmdFunctionName )					( cmd_function_t* cmdhandle );
 
 	/**
 	*	@return The old client time.

@@ -1,0 +1,17 @@
+add_sources(
+	anorms.h
+	APIProxy.h
+	cdll_int.h
+	cmd_function_t.h
+	custom.h
+	customentity.h
+	edict.h
+	eiface.h
+	IClientVGUI.h
+	IGameUIFuncs.h
+	kbutton.h
+	progdefs.h
+	progs.h
+	shake.h
+	studio.h
+)
