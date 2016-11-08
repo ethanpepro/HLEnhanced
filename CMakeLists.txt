@@ -176,6 +176,7 @@ MESSAGE( STATUS "Base Game Path: ${GAME_BASE_PATH}" )
 set( USE_ANGELSCRIPT "0" CACHE BOOL "Whether to include Angelscript" )
 set( USE_AS_SQL "0" CACHE BOOL "Whether to include Angelscript SQL APIs" )
 set( USE_OPFOR "0" CACHE BOOL "Whether to include Opposing Force related stuff" )
+set( USE_VGUI2 "0" CACHE BOOL "Whether to include VGUI2 features" )
 
 if( NOT USE_ANGELSCRIPT AND USE_AS_SQL )
 	MESSAGE( STATUS "Forcing USE_AS_SQL to off due to no Angelscript usage" )
@@ -198,6 +199,13 @@ if( USE_OPFOR )
 	set( USE_OPFOR_DEFINE 1 )
 else()
 	set( USE_OPFOR_DEFINE 0 )
+endif()
+
+#Default to false
+if( USE_VGUI2 )
+	set( USE_VGUI2_DEFINE 1 )
+else()
+	set( USE_VGUI2_DEFINE 0 )
 endif()
 
 #Shared preprocessor definitions
@@ -331,18 +339,12 @@ include_directories(
 
 add_library( client SHARED ${PREP_SRCS} )
 
-#Default to false
-#TODO: change to cached var
-if( NOT DEFINED USE_VGUI2 )
-	set( USE_VGUI2 0 )
-endif()
-
 target_compile_definitions( client PRIVATE
 	"${SHARED_DEFS}"
 	CLIENT_DLL
 	CLIENT_WEAPONS
 	HL_DLL
-	"USE_VGUI2=${USE_VGUI2}"
+	USE_VGUI2=${USE_VGUI2_DEFINE}
 	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
 	USE_OPFOR=${USE_OPFOR_DEFINE}
 )
@@ -382,8 +384,7 @@ if( NOT WIN32 )
 
 endif()
 
-if( "${USE_VGUI2}" STREQUAL "1" )
-	find_library( VGUI2 vgui_controls PATHS source_sdk/lib/public/ )
+if( USE_VGUI2 )
 	find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_STATIC_LIBRARY_SUFFIX} PATHS lib/public/ )
 	find_library( TIER1 tier1 PATHS source_sdk/lib/public/ )
 
@@ -394,10 +395,10 @@ if( "${USE_VGUI2}" STREQUAL "1" )
 	endif()
 	
 	set( VGUI2_LIBS
-		VGUI2
-		TIER0
-		TIER1
-		VSTDLIB
+		${TIER0}
+		${TIER1}
+		${VSTDLIB}
+		vgui2_controls
 	)
 else()
 	set( VGUI2_LIBS "" )
