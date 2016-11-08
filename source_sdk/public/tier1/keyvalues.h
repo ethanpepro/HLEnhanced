@@ -25,7 +25,7 @@
 #include "utlvector.h"
 #include "Color.h"
 
-class IBaseFileSystem;
+class IFileSystem;
 class CUtlBuffer;
 class Color;
 typedef void * FileHandle_t;
@@ -72,14 +72,14 @@ public:
 
 	// File access. Set UsesEscapeSequences true, if resource file/buffer uses Escape Sequences (eg \n, \t)
 	void UsesEscapeSequences(bool state); // default false
-	bool LoadFromFile( IBaseFileSystem *filesystem, const char *resourceName, const char *pathID = NULL );
-	bool SaveToFile( IBaseFileSystem *filesystem, const char *resourceName, const char *pathID = NULL);
+	bool LoadFromFile( IFileSystem *filesystem, const char *resourceName, const char *pathID = NULL );
+	bool SaveToFile( IFileSystem *filesystem, const char *resourceName, const char *pathID = NULL);
 
 	// Read from a buffer...  Note that the buffer must be null terminated
-	bool LoadFromBuffer( char const *resourceName, const char *pBuffer, IBaseFileSystem* pFileSystem = NULL, const char *pPathID = NULL );
+	bool LoadFromBuffer( char const *resourceName, const char *pBuffer, IFileSystem* pFileSystem = NULL, const char *pPathID = NULL );
 
 	// Read from a utlbuffer...
-	bool LoadFromBuffer( char const *resourceName, CUtlBuffer &buf, IBaseFileSystem* pFileSystem = NULL, const char *pPathID = NULL );
+	bool LoadFromBuffer( char const *resourceName, CUtlBuffer &buf, IFileSystem* pFileSystem = NULL, const char *pPathID = NULL );
 
 	// Find a keyValue, create it if it is not found.
 	// Set bCreate to true to create the key if it doesn't already exist (which ensures a valid pointer will be returned)
@@ -207,23 +207,23 @@ private:
 	
 	// NOTE: If both filesystem and pBuf are non-null, it'll save to both of them.
 	// If filesystem is null, it'll ignore f.
-	void RecursiveSaveToFile( IBaseFileSystem *filesystem, FileHandle_t f, CUtlBuffer *pBuf, int indentLevel );
-	void WriteConvertedString( IBaseFileSystem *filesystem, FileHandle_t f, CUtlBuffer *pBuf, const char *pszString );
+	void RecursiveSaveToFile( IFileSystem *filesystem, FileHandle_t f, CUtlBuffer *pBuf, int indentLevel );
+	void WriteConvertedString( IFileSystem *filesystem, FileHandle_t f, CUtlBuffer *pBuf, const char *pszString );
 	
 	void RecursiveLoadFromBuffer( char const *resourceName, CUtlBuffer &buf );
 
 	// For handling #include "filename"
 	void AppendIncludedKeys( CUtlVector< KeyValues * >& includedKeys );
 	void ParseIncludedKeys( char const *resourceName, const char *filetoinclude, 
-		IBaseFileSystem* pFileSystem, const char *pPathID, CUtlVector< KeyValues * >& includedKeys );
+							IFileSystem* pFileSystem, const char *pPathID, CUtlVector< KeyValues * >& includedKeys );
 
 	// NOTE: If both filesystem and pBuf are non-null, it'll save to both of them.
 	// If filesystem is null, it'll ignore f.
-	void InternalWrite( IBaseFileSystem *filesystem, FileHandle_t f, CUtlBuffer *pBuf, const void *pData, int len );
+	void InternalWrite( IFileSystem *filesystem, FileHandle_t f, CUtlBuffer *pBuf, const void *pData, int len );
 	
 	void Init();
 	const char * ReadToken( CUtlBuffer &buf, bool &wasQuoted );
-	void WriteIndents( IBaseFileSystem *filesystem, FileHandle_t f, CUtlBuffer *pBuf, int indentLevel );
+	void WriteIndents( IFileSystem *filesystem, FileHandle_t f, CUtlBuffer *pBuf, int indentLevel );
 
 	void FreeAllocatedValue();
 	void AllocateValueBlock(int size);
