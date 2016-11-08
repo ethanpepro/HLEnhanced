@@ -1,0 +1,25 @@
+add_sources(
+	cursor.h
+	dar.h
+	iborder.h
+	iclientpanel.h
+	ihtml.h
+	iimage.h
+	iinput.h
+	iinputinternal.h
+	ilocalize.h
+	ipanel.h
+	ischeme.h
+	isurface.h
+	isurfacev28.h
+	isurfacev29.h
+	isystem.h
+	ivgui.h
+	ivguimatinfo.h
+	ivguimatinfovar.h
+	ivguiv06.h
+	keycode.h
+	mousecode.h
+	point.h
+	vgui.h
+)

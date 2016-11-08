@@ -284,6 +284,9 @@ endif()
 
 link_directories( "${CMAKE_SOURCE_DIR}/lib/public" )
 
+#Set up source_sdk projects first
+add_subdirectory( source_sdk )
+
 #
 #Client library
 #
