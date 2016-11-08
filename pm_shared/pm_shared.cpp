@@ -1412,8 +1412,7 @@ bool PM_CheckStuck()
 	int i;
 	pmtrace_t traceresult;
 
-	//TODO: not reset after map changes - Solokiller
-	static float rgStuckCheckTime[MAX_CLIENTS][2]; // Last time we did a full
+	static float rgStuckCheckTime[MAX_CLIENTS][2]; // Last time we did a full check
 
 	// If position is okay, exit
 	int hitent = pmove->PM_TestPlayerPosition (pmove->origin, &traceresult );
