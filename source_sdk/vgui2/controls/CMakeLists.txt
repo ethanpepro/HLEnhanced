@@ -74,6 +74,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/source_sdk/public
 	${CMAKE_SOURCE_DIR}/source_sdk/public/tier1
 	${CMAKE_SOURCE_DIR}/public
+	${CMAKE_SOURCE_DIR}
 )
 
 add_library( vgui2_controls STATIC ${PREP_SRCS} )
