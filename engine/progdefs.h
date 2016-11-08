@@ -612,6 +612,9 @@ struct entvars_t
 
 	/**
 	*	The player's class. Mod specific.
+	*	If this is a SOLID_BSP, this will determine whether damage decals will be applied to the bsp model.
+	*	A setting of 1 enables damage decals.
+	*	@see EV_HLDM_DamageDecal
 	*	Networked.
 	*/
 	int			playerclass;

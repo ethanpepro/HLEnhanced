@@ -154,7 +154,7 @@ void CBreakable::Spawn( void )
 
 	// HACK:  matGlass can receive decals, we need the client to know about this
 	//  so use class to store the material flag
-	//TODO: is this actually used or not? - Solokiller
+	//@see EV_HLDM_DamageDecal
 	if ( m_Material == matGlass )
 	{
 		pev->playerclass = 1;

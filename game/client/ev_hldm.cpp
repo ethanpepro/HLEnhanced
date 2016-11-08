@@ -146,6 +146,7 @@ char *EV_HLDM_DamageDecal( physent_t *pe )
 	static char decalname[ 32 ];
 	int idx;
 
+	//@see CBreakable::Spawn for where this comes from.
 	if ( pe->classnumber == 1 )
 	{
 		idx = gEngfuncs.pfnRandomLong( 0, 2 );
