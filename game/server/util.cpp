@@ -1263,6 +1263,56 @@ const char* UTIL_GetPlayerAuthId( const CBaseEntity* pEntity )
 	return GETPLAYERAUTHID( pEntity->edict() );
 }
 
+bool UTIL_IsBrushEntity( const CBaseEntity* const pEnt )
+{
+	//This entire function could be replaced with:
+	/*
+	if( !pEnt )
+		return false;
+
+	model_t* pModel = g_pEngineModel->GetModelOfEntity( pEnt->edict() );
+
+	if( !pModel )
+		return false;
+
+	return pModel->type == mod_brush;
+	*/
+	//Just need that extra function.
+
+	//worldspawn has index 1, not 0. 0 is used to indicate "no model", and is an empty string.
+	if( !pEnt || pEnt->GetModelIndex() == 0 )
+		return false;
+
+	//The name of worldspawn's model is maps/<mapname>.bsp, so account for that case.
+	if( pEnt->GetModelIndex() == CWorld::WORLD_MODELINDEX )
+		return true;
+
+	const char* pszName = pEnt->GetModelName();
+
+	if( !pszName || !( *pszName ) )
+		return false;
+
+	if( *pszName != '*' )
+		return false;
+
+	++pszName;
+
+	if( *pszName == '\0' )
+		return false;
+
+	char* pszEnd;
+
+	const auto index = strtoul( pszName, &pszEnd, 10 );
+
+	if( *pszEnd != '\0' )
+		return false;
+
+	//The index of the model must match the number in the model name string + 1.
+	//This is oddly numbered because the world has index 1, but the numbers start at 1 for submodels.
+	//This means that the first brush entity has index 2, and name "*1".
+	return pEnt->GetModelIndex() == index + 1;
+}
+
 bool UTIL_IsPointEntity( const CBaseEntity* const pEnt )
 {
 	if( !pEnt )
@@ -1271,12 +1321,11 @@ bool UTIL_IsPointEntity( const CBaseEntity* const pEnt )
 	if( !pEnt->pev->modelindex )
 		return true;
 
-	//TODO: there should be a better way to handle this. Entities are either brush or point entities, and brush entities have special model names. - Solokiller
-
+	//Keep the special cases for these just in case of weird edge cases. - Solokiller
 	if( pEnt->ClassnameIs( "info_target" ) || pEnt->ClassnameIs( "info_landmark" ) || pEnt->ClassnameIs( "path_corner" ) )
 		return true;
 
-	return false;
+	return !UTIL_IsBrushEntity( pEnt );
 }
 
 void Cvar_DirectSet( cvar_t* pCvar, const float flValue )

@@ -378,6 +378,8 @@ int UTIL_GetPlayerUserId( CBaseEntity* pEntity );
 
 const char* UTIL_GetPlayerAuthId( const CBaseEntity* pEntity );
 
+bool UTIL_IsBrushEntity( const CBaseEntity* const pEnt );
+
 bool UTIL_IsPointEntity( const CBaseEntity* const pEnt );
 
 inline void Cvar_DirectSet( cvar_t* pCvar, const char* pszValue )

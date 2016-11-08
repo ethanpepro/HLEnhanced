@@ -28,6 +28,13 @@
 class CWorld : public CBaseEntity
 {
 public:
+
+	/**
+	*	The world always has model index 1.
+	*/
+	static const int WORLD_MODELINDEX = 1;
+
+public:
 	DECLARE_CLASS( CWorld, CBaseEntity );
 	DECLARE_DATADESC();
 
