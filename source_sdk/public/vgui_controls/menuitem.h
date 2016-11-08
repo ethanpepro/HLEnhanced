@@ -16,7 +16,7 @@
 #include <vgui_controls/Button.h>
 #include <vgui_controls/Menu.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class IBorder;
@@ -131,6 +131,6 @@ private:
 
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // MENUITEM_H

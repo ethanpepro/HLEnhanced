@@ -13,7 +13,7 @@
 #include "vgui_controls/Frame.h"
 #include "vgui/KeyCode.h"
 
-namespace vgui
+namespace vgui2
 {
 
 class ListPanel;
@@ -31,7 +31,7 @@ public:
 	~CKeyBindingHelpDialog();
 
 	virtual void			OnCommand( char const *cmd );
-	virtual void			OnKeyCodeTyped(vgui::KeyCode code);
+	virtual void			OnKeyCodeTyped(vgui2::KeyCode code);
 
 	// The key originally bound to help was pressed
 	void					HelpKeyPressed();
@@ -46,7 +46,7 @@ private:
 
 	void					AnsiText( char const *token, char *out, size_t buflen );
 
-	vgui::PHandle			m_hPanel;
+	vgui2::PHandle			m_hPanel;
 	KeyBindingContextHandle_t m_Handle;
 	KeyCode					m_KeyCode;
 	int						m_Modifiers;

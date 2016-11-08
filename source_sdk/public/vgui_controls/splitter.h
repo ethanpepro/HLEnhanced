@@ -14,7 +14,7 @@
 
 #include <vgui_controls/EditablePanel.h>
 
-namespace vgui
+namespace vgui2
 {
 
 enum SplitterMode_t
@@ -92,7 +92,7 @@ private:
 };
 
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // SPLITTER_H

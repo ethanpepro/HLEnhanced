@@ -15,7 +15,7 @@
 #include <vgui_controls/Panel.h>
 #include <UtlVector.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class ClickPanel;
@@ -244,7 +244,7 @@ private:
 	int DrawString(int iFirst, int iLast, TRenderState &renderState, HFont font);
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // RICHTEXT_H

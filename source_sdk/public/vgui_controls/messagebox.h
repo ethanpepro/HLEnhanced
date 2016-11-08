@@ -20,7 +20,7 @@
 #undef MessageBox
 #endif
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -84,11 +84,11 @@ private:
 	
 	KeyValues *m_OkCommand;
 	KeyValues *m_CancelCommand;
-	vgui::Frame *m_pFrameOver;
+	vgui2::Frame *m_pFrameOver;
 	bool m_bNoAutoClose;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // MESSAGEBOX_H

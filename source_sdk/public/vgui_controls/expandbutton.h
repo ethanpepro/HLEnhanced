@@ -16,7 +16,7 @@
 #include <vgui_controls/ToggleButton.h>
 
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -56,6 +56,6 @@ private:
 	Color m_Color;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // EXPANDBUTTON_H

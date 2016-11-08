@@ -35,7 +35,7 @@ enum
 	BUFFER_SIZE=999999,
 };
 
-using namespace vgui;
+using namespace vgui2;
 
 static const int DRAW_OFFSET_X = 3,DRAW_OFFSET_Y = 1; 
 

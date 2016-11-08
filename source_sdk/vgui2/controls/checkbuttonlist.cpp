@@ -12,7 +12,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 //-----------------------------------------------------------------------------
 // Purpose: Constructor
@@ -38,7 +38,7 @@ int CheckButtonList::AddItem(const char *itemText, bool startsSelected, KeyValue
 {
 	m_bIgnoreCheckSignals = true;
 	CheckItem_t newItem;
-	newItem.checkButton = new vgui::CheckButton(this, NULL, itemText);
+	newItem.checkButton = new vgui2::CheckButton(this, NULL, itemText);
 	newItem.checkButton->SetSelected(startsSelected);
 	newItem.checkButton->AddActionSignalTarget(this);
 	newItem.userData = userData;
@@ -181,7 +181,7 @@ void CheckButtonList::OnCheckButtonChecked( KeyValues *pParams )
 {
 	if ( !m_bIgnoreCheckSignals )
 	{
-		vgui::Panel *pPanel = (vgui::Panel *)pParams->GetPtr( "panel" );
+		vgui2::Panel *pPanel = (vgui2::Panel *)pParams->GetPtr( "panel" );
 		int c = m_CheckItems.Count();
 		for ( int i = 0; i < c; ++i )
 		{

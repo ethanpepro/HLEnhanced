@@ -14,12 +14,12 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 //-----------------------------------------------------------------------------
 // Purpose: Constructor
 //-----------------------------------------------------------------------------
-InputDialog::InputDialog(vgui::Panel *parent, const char *title, char const *prompt, char const *defaultValue /*=""*/ ) : 
+InputDialog::InputDialog(vgui2::Panel *parent, const char *title, char const *prompt, char const *defaultValue /*=""*/ ) : 
 	BaseClass(parent, NULL)
 {
 	m_pContextKeyValues = NULL;

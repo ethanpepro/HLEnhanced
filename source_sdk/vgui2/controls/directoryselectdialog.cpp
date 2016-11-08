@@ -27,7 +27,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 //-----------------------------------------------------------------------------
 // Purpose: Used to handle dynamically populating the tree view
@@ -76,15 +76,15 @@ public:
 		m_pNameEntry->SelectAllText(true);
 	
 		// If some other window was hogging the input focus, then we have to hog it or else we'll never get input.
-		m_PrevAppFocusPanel = vgui::input()->GetAppModalSurface();
+		m_PrevAppFocusPanel = vgui2::input()->GetAppModalSurface();
 		if ( m_PrevAppFocusPanel )
-			vgui::input()->SetAppModalSurface( GetVPanel() );
+			vgui2::input()->SetAppModalSurface( GetVPanel() );
 	}
 
 	~CreateDirectoryDialog()
 	{
 		if ( m_PrevAppFocusPanel )
-			vgui::input()->SetAppModalSurface( m_PrevAppFocusPanel );
+			vgui2::input()->SetAppModalSurface( m_PrevAppFocusPanel );
 	}
 
 	virtual void PerformLayout()
@@ -116,16 +116,16 @@ public:
 	}
 
 private:
-	vgui::Button *m_pOKButton;
-	vgui::Button *m_pCancelButton;
-	vgui::TextEntry *m_pNameEntry;
-	vgui::VPANEL m_PrevAppFocusPanel;
+	vgui2::Button *m_pOKButton;
+	vgui2::Button *m_pCancelButton;
+	vgui2::TextEntry *m_pNameEntry;
+	vgui2::VPANEL m_PrevAppFocusPanel;
 };
 
 //-----------------------------------------------------------------------------
 // Purpose: Constructor
 //-----------------------------------------------------------------------------
-DirectorySelectDialog::DirectorySelectDialog(vgui::Panel *parent, const char *title) : Frame(parent, NULL)
+DirectorySelectDialog::DirectorySelectDialog(vgui2::Panel *parent, const char *title) : Frame(parent, NULL)
 {
 	SetTitle(title, true);
 	SetSize(320, 360);

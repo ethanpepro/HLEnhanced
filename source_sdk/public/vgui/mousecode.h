@@ -10,7 +10,7 @@
 
 #include <vgui/VGUI.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -26,6 +26,6 @@ enum MouseCode
 	MOUSE_LAST,
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // MOUSECODE_H

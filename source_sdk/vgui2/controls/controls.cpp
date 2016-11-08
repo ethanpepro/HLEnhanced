@@ -25,41 +25,41 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-namespace vgui
+namespace vgui2
 {
 
-vgui::IInput *g_pInputInterface = NULL;
-vgui::IInput *input()
+vgui2::IInput *g_pInputInterface = NULL;
+vgui2::IInput *input()
 {
 	return g_pInputInterface;
 }
 
-vgui::ISchemeManager *g_pSchemeInterface = NULL;
-vgui::ISchemeManager *scheme()
+vgui2::ISchemeManager *g_pSchemeInterface = NULL;
+vgui2::ISchemeManager *scheme()
 {
 	return g_pSchemeInterface;
 }
 
-vgui::ISurface *g_pSurfaceInterface = NULL;
-vgui::ISurface *surface()
+vgui2::ISurface *g_pSurfaceInterface = NULL;
+vgui2::ISurface *surface()
 {
 	return g_pSurfaceInterface;
 }
 
-vgui::ISystem *g_pSystemInterface = NULL;
-vgui::ISystem *system()
+vgui2::ISystem *g_pSystemInterface = NULL;
+vgui2::ISystem *system()
 {
 	return g_pSystemInterface;
 }
 
-vgui::IVGui *g_pVGuiInterface = NULL;
-vgui::IVGui *ivgui()
+vgui2::IVGui *g_pVGuiInterface = NULL;
+vgui2::IVGui *ivgui()
 {
 	return g_pVGuiInterface;
 }
 
-vgui::IPanel *g_pPanelInterface = NULL;
-vgui::IPanel *ipanel()
+vgui2::IPanel *g_pPanelInterface = NULL;
+vgui2::IPanel *ipanel()
 {
 	return g_pPanelInterface;
 }
@@ -71,8 +71,8 @@ IFileSystem *filesystem()
 	return g_pFileSystemInterface;
 }
 
-vgui::ILocalize *g_pLocalizeInterface = NULL;
-vgui::ILocalize *localize()
+vgui2::ILocalize *g_pLocalizeInterface = NULL;
+vgui2::ILocalize *localize()
 {
 	return g_pLocalizeInterface;
 }
@@ -169,7 +169,7 @@ const char *GetControlsModuleName()
 
 
 
-} // namespace vgui
+} // namespace vgui2
 
 
 

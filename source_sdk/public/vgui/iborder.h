@@ -16,7 +16,7 @@
 
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 
 class IScheme;
@@ -55,7 +55,7 @@ public:
 	};
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // IBORDER_H

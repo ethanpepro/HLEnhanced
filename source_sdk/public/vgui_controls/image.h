@@ -16,7 +16,7 @@
 #include <Color.h>
 #include <vgui/IImage.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class Panel;
@@ -70,6 +70,6 @@ private:
 	Color _color;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // IMAGE_H

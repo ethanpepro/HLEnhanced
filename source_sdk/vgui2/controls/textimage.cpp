@@ -1,6 +1,6 @@
 //========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
 //
-// Purpose: Implementation of vgui::TextImage control
+// Purpose: Implementation of vgui2::TextImage control
 //
 // $NoKeywords: $
 //=============================================================================//
@@ -28,7 +28,7 @@
 // enable this define if you want unlocalized strings logged to files unfound.txt and unlocalized.txt
 // #define LOG_UNLOCALIZED_STRINGS
 
-using namespace vgui;
+using namespace vgui2;
 
 //-----------------------------------------------------------------------------
 // Purpose: Constructor

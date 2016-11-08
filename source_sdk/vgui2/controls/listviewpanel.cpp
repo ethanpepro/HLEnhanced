@@ -28,14 +28,14 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 	
 enum 
 {
 	WINDOW_BORDER_WIDTH=2 // the width of the window's border
 };
 
-namespace vgui
+namespace vgui2
 {
 class ListViewItem : public Label
 {

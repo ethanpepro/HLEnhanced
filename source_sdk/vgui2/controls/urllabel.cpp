@@ -19,9 +19,9 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-using namespace vgui;
+using namespace vgui2;
 
-vgui::Panel *URLLabel_Factory()
+vgui2::Panel *URLLabel_Factory()
 {
 	return new URLLabel(NULL, NULL, "URLLabel", NULL);
 }

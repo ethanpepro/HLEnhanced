@@ -15,7 +15,7 @@
 #include "vgui/Cursor.h"
 #include "tier1/UtlDict.h"
 
-using namespace vgui;
+using namespace vgui2;
 
 static char *CopyString( const char *in )
 {
@@ -49,32 +49,32 @@ class VControlsListPanel : public ListPanel
 
 public:
 	// Construction
-					VControlsListPanel( vgui::Panel *parent, const char *listName );
+					VControlsListPanel( vgui2::Panel *parent, const char *listName );
 	virtual			~VControlsListPanel();
 
 	// Start/end capturing
-	virtual void	StartCaptureMode(vgui::HCursor hCursor = NULL);
-	virtual void	EndCaptureMode(vgui::HCursor hCursor = NULL);
+	virtual void	StartCaptureMode(vgui2::HCursor hCursor = NULL);
+	virtual void	EndCaptureMode(vgui2::HCursor hCursor = NULL);
 	virtual bool	IsCapturing();
 
 	// Set which item should be associated with the prompt
 	virtual void	SetItemOfInterest(int itemID);
 	virtual int		GetItemOfInterest();
 
-	virtual void	OnMousePressed(vgui::MouseCode code);
-	virtual void	OnMouseDoublePressed(vgui::MouseCode code);
+	virtual void	OnMousePressed(vgui2::MouseCode code);
+	virtual void	OnMouseDoublePressed(vgui2::MouseCode code);
 	
 	KEYBINDING_FUNC( clearbinding, KEY_DELETE, 0, OnClearBinding, 0, 0 );
 
 private:
-	void ApplySchemeSettings(vgui::IScheme *pScheme );
+	void ApplySchemeSettings(vgui2::IScheme *pScheme );
 
 	// Are we showing the prompt?
 	bool			m_bCaptureMode;
 	// If so, where?
 	int				m_nClickRow;
 	// Font to use for showing the prompt
-	vgui::HFont		m_hFont;
+	vgui2::HFont		m_hFont;
 	// panel used to edit
 	class CInlineEditPanel *m_pInlineEditPanel;
 	int m_iMouseX, m_iMouseY;
@@ -83,12 +83,12 @@ private:
 //-----------------------------------------------------------------------------
 // Purpose: panel used for inline editing of key bindings
 //-----------------------------------------------------------------------------
-class CInlineEditPanel : public vgui::Panel
+class CInlineEditPanel : public vgui2::Panel
 {
-	DECLARE_CLASS_SIMPLE( CInlineEditPanel, vgui::Panel );
+	DECLARE_CLASS_SIMPLE( CInlineEditPanel, vgui2::Panel );
 
 public:
-	CInlineEditPanel() : vgui::Panel(NULL, "InlineEditPanel")
+	CInlineEditPanel() : vgui2::Panel(NULL, "InlineEditPanel")
 	{
 	}
 
@@ -98,11 +98,11 @@ public:
 		GetSize(wide, tall);
 
 		// Draw a white rectangle around that cell
-		vgui::surface()->DrawSetColor( 63, 63, 63, 255 );
-		vgui::surface()->DrawFilledRect( 0, 0, wide, tall );
+		vgui2::surface()->DrawSetColor( 63, 63, 63, 255 );
+		vgui2::surface()->DrawFilledRect( 0, 0, wide, tall );
 
-		vgui::surface()->DrawSetColor( 0, 255, 0, 255 );
-		vgui::surface()->DrawOutlinedRect( 0, 0, wide, tall );
+		vgui2::surface()->DrawSetColor( 0, 255, 0, 255 );
+		vgui2::surface()->DrawOutlinedRect( 0, 0, wide, tall );
 	}
 
 	virtual void OnKeyCodeTyped(KeyCode code)
@@ -120,7 +120,7 @@ public:
 		SetBorder(pScheme->GetBorder("DepressedButtonBorder"));
 	}
 
-	void OnMousePressed(vgui::MouseCode code)
+	void OnMousePressed(vgui2::MouseCode code)
 	{
 		// forward up mouse pressed messages to be handled by the key options
 		if (GetParent())
@@ -133,7 +133,7 @@ public:
 //-----------------------------------------------------------------------------
 // Purpose: Construction
 //-----------------------------------------------------------------------------
-VControlsListPanel::VControlsListPanel( vgui::Panel *parent, const char *listName )	: BaseClass( parent, listName )
+VControlsListPanel::VControlsListPanel( vgui2::Panel *parent, const char *listName )	: BaseClass( parent, listName )
 {
 	m_bCaptureMode	= false;
 	m_nClickRow		= 0;
@@ -173,7 +173,7 @@ void VControlsListPanel::StartCaptureMode( HCursor hCursor )
 		m_pInlineEditPanel->SetCursor(hCursor);
 
 		// save off the cursor position so we can restore it
-		vgui::input()->GetCursorPos( m_iMouseX, m_iMouseY );
+		vgui2::input()->GetCursorPos( m_iMouseX, m_iMouseY );
 	}
 }
 
@@ -204,7 +204,7 @@ void VControlsListPanel::EndCaptureMode( HCursor hCursor )
 		surface()->SetCursor(hCursor);	
 		if ( hCursor != dc_none )
 		{
-			vgui::input()->SetCursorPos ( m_iMouseX, m_iMouseY );	
+			vgui2::input()->SetCursorPos ( m_iMouseX, m_iMouseY );	
 		}
 	}
 }
@@ -236,7 +236,7 @@ bool VControlsListPanel::IsCapturing( void )
 //-----------------------------------------------------------------------------
 // Purpose: Forwards mouse pressed message up to keyboard page when in capture
 //-----------------------------------------------------------------------------
-void VControlsListPanel::OnMousePressed(vgui::MouseCode code)
+void VControlsListPanel::OnMousePressed(vgui2::MouseCode code)
 {
 	if (IsCapturing())
 	{
@@ -256,7 +256,7 @@ void VControlsListPanel::OnMousePressed(vgui::MouseCode code)
 //-----------------------------------------------------------------------------
 // Purpose: input handler
 //-----------------------------------------------------------------------------
-void VControlsListPanel::OnMouseDoublePressed( vgui::MouseCode code )
+void VControlsListPanel::OnMouseDoublePressed( vgui2::MouseCode code )
 {
 	int c = GetSelectedItemsCount();
 	if ( c > 0 )
@@ -467,7 +467,7 @@ void CKeyBoardEditorPage::OnPageHide()
 //-----------------------------------------------------------------------------
 // Purpose: binds double-clicking or hitting enter in the keybind list to changing the key
 //-----------------------------------------------------------------------------
-void CKeyBoardEditorPage::OnKeyCodeTyped(vgui::KeyCode code)
+void CKeyBoardEditorPage::OnKeyCodeTyped(vgui2::KeyCode code)
 {
 	switch ( code )
 	{
@@ -561,7 +561,7 @@ void CKeyBoardEditorPage::AnsiText( char const *token, char *out, size_t buflen 
 {
 	out[ 0 ] = 0;
 
-	wchar_t *str = vgui::localize()->Find( token );
+	wchar_t *str = vgui2::localize()->Find( token );
 	if ( !str )
 	{
 		Q_strncpy( out, token, buflen );

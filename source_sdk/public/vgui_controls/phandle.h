@@ -14,7 +14,7 @@
 
 #include <vgui/VGUI.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class Panel;

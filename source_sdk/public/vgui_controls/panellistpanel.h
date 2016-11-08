@@ -19,7 +19,7 @@
 
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -32,7 +32,7 @@ class PanelListPanel : public Panel
 	DECLARE_CLASS_SIMPLE( PanelListPanel, Panel );
 
 public:
-	PanelListPanel( vgui::Panel *parent, char const *panelName );
+	PanelListPanel( vgui2::Panel *parent, char const *panelName );
 	~PanelListPanel();
 
 	// DATA & ROW HANDLING
@@ -48,7 +48,7 @@ public:
 	void RemoveAll();
 
 	// painting
-	virtual vgui::Panel *GetCellRenderer( int row );
+	virtual vgui2::Panel *GetCellRenderer( int row );
 
 	// layout
 	void SetFirstColumnWidth( int width );
@@ -71,7 +71,7 @@ protected:
 	virtual void OnSizeChanged(int wide, int tall);
 	MESSAGE_FUNC_INT( OnSliderMoved, "ScrollBarSliderMoved", position );
 	virtual void PerformLayout();
-	virtual void ApplySchemeSettings(vgui::IScheme *pScheme);
+	virtual void ApplySchemeSettings(vgui2::IScheme *pScheme);
 	virtual void OnMouseWheeled(int delta);
 
 private:

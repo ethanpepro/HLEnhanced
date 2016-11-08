@@ -20,7 +20,7 @@
 
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 
 class ScrollBar;
@@ -200,7 +200,7 @@ public:
 	void		SetIgnoreDoubleClick( bool state );
 
 	// set up a field for editing
-	virtual void EnterEditMode(int itemID, int column, vgui::Panel *editPanel);
+	virtual void EnterEditMode(int itemID, int column, vgui2::Panel *editPanel);
 
 	// leaves editing mode
 	virtual void LeaveEditMode();
@@ -249,7 +249,7 @@ private:
 	void IndexItem(int itemID);
 
 	// Purpose: 
-	void UpdateSelection( vgui::MouseCode code, int x, int y, int row, int column );
+	void UpdateSelection( vgui2::MouseCode code, int x, int y, int row, int column );
 
 	// Handles multiselect 
 	void HandleMultiSelection( int itemID, int row, int column );
@@ -300,7 +300,7 @@ private:
 	int 				m_iSortColumnSecondary;
 
 	void 				ResortColumnRBTree(int col);
-	static bool 		RBTreeLessFunc(vgui::ListPanel::IndexItem_t &item1, vgui::ListPanel::IndexItem_t &item2);
+	static bool 		RBTreeLessFunc(vgui2::ListPanel::IndexItem_t &item1, vgui2::ListPanel::IndexItem_t &item2);
 
 	TextImage			*m_pTextImage; // used in rendering
 	ImagePanel			*m_pImagePanel; // used in rendering

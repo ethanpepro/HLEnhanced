@@ -32,11 +32,11 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 DECLARE_BUILD_FACTORY( CTreeViewListControl );
 
-CTreeViewListControl::CTreeViewListControl( vgui::Panel *pParent, const char *pName ) :
+CTreeViewListControl::CTreeViewListControl( vgui2::Panel *pParent, const char *pName ) :
 	BaseClass( pParent, pName )
 {
 	m_pTree = NULL;
@@ -46,7 +46,7 @@ CTreeViewListControl::CTreeViewListControl( vgui::Panel *pParent, const char *pN
 	SetPostChildPaintEnabled( true );
 }
 
-void CTreeViewListControl::SetTreeView( vgui::TreeView *pTree )
+void CTreeViewListControl::SetTreeView( vgui2::TreeView *pTree )
 {
 	m_pTree = pTree;
 	if ( m_pTree )
@@ -58,7 +58,7 @@ void CTreeViewListControl::SetTreeView( vgui::TreeView *pTree )
 	InvalidateLayout();
 }
 
-vgui::TreeView *CTreeViewListControl::GetTree()
+vgui2::TreeView *CTreeViewListControl::GetTree()
 {
 	return m_pTree;
 }
@@ -68,7 +68,7 @@ int CTreeViewListControl::GetTitleBarHeight()
 	return m_TitleBarHeight;
 }
 
-void CTreeViewListControl::SetTitleBarInfo( vgui::HFont hFont, int titleBarHeight )
+void CTreeViewListControl::SetTitleBarInfo( vgui2::HFont hFont, int titleBarHeight )
 {
 	m_TitleBarFont = hFont;
 	m_TitleBarHeight = titleBarHeight;
@@ -230,7 +230,7 @@ void CTreeViewListControl::PostChildPaint()
 	BaseClass::PostChildPaint();
 
 	// Draw the grid lines.
-	vgui::surface()->DrawSetColor( m_BorderColor );
+	vgui2::surface()->DrawSetColor( m_BorderColor );
 
 	if ( m_Columns.Count() <= 0 )
 		return;
@@ -246,17 +246,17 @@ void CTreeViewListControl::PostChildPaint()
 		GetGridElementBounds( 0, i, left, top, right, bottom );
 
 		bottomY = bottom;
-		vgui::surface()->DrawLine( 0, bottomY, endX, bottomY );
+		vgui2::surface()->DrawLine( 0, bottomY, endX, bottomY );
 	}
 
 	// Draw the vertical lines.
 	int curX = 0;
 	for ( int i=0; i < m_Columns.Count(); i++ )
 	{
-		vgui::surface()->DrawLine( curX, 0, curX, bottomY );
+		vgui2::surface()->DrawLine( curX, 0, curX, bottomY );
 		curX += m_Columns[i].m_Width;
 	}
-	vgui::surface()->DrawLine( curX, 0, curX, bottomY );
+	vgui2::surface()->DrawLine( curX, 0, curX, bottomY );
 }
 
 void CTreeViewListControl::Paint()
@@ -279,15 +279,15 @@ void CTreeViewListControl::DrawTitleBars()
 		if ( left >= rightEdge )
 			continue;
 
-		vgui::surface()->DrawSetColor( 0, 0, 0, 255 );
-		vgui::surface()->DrawFilledRect( left, top, right, bottom );
+		vgui2::surface()->DrawSetColor( 0, 0, 0, 255 );
+		vgui2::surface()->DrawFilledRect( left, top, right, bottom );
 
-		vgui::surface()->DrawSetTextColor( 255, 255, 255, 255 );
+		vgui2::surface()->DrawSetTextColor( 255, 255, 255, 255 );
 
 		const char *pTitleString = m_Columns[i].m_Title.String();
 
 		wchar_t unicodeString[1024];
-		vgui::localize()->ConvertANSIToUnicode( pTitleString, unicodeString, sizeof(unicodeString) );
+		vgui2::localize()->ConvertANSIToUnicode( pTitleString, unicodeString, sizeof(unicodeString) );
 	
 		int wide, tall;
 		surface()->GetTextSize( m_TitleBarFont, unicodeString, wide, tall );

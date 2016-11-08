@@ -24,7 +24,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 // global list of all the names of all the sounds played by buttons
 CUtlSymbolTable g_ButtonSoundNames;

@@ -11,12 +11,12 @@
 #include "tier0/memdbgon.h"
 #define MENU_SEPARATOR_HEIGHT 3
 
-using namespace vgui;
+using namespace vgui2;
 
 //-----------------------------------------------------------------------------
 // Purpose: divider line in a menu
 //-----------------------------------------------------------------------------
-class vgui::MenuSeparator : public Panel
+class vgui2::MenuSeparator : public Panel
 {
 public:
 	DECLARE_CLASS_SIMPLE( MenuSeparator, Panel );
@@ -1630,7 +1630,7 @@ private:
 // Singleton helper class
 static CMenuManager g_MenuMgr;
 
-namespace vgui
+namespace vgui2
 {
 void ValidateMenuGlobals( CValidator &validator )
 {
@@ -2472,12 +2472,12 @@ void Menu::PlaceContextMenu( Panel *parent, Menu *menu )
 //-----------------------------------------------------------------------------
 void Menu::Validate( CValidator &validator, char *pchName )
 {
-	validator.Push( "vgui::Menu", this, pchName );
+	validator.Push( "vgui2::Menu", this, pchName );
 
 	m_MenuItems.Validate( validator, "m_MenuItems" );
 	m_SortedItems.Validate( validator, "m_SortedItems" );
 
-	BaseClass::Validate( validator, "vgui::Menu" );
+	BaseClass::Validate( validator, "vgui2::Menu" );
 
 	validator.Pop();
 }

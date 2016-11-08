@@ -17,7 +17,7 @@
 #include <Color.h>
 #include <vgui_controls/Label.h>
 
-namespace vgui
+namespace vgui2
 {
 
 enum MouseCode;
@@ -200,6 +200,6 @@ private:
 	bool m_bSelectionStateSaved;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // BUTTON_H

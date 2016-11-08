@@ -19,7 +19,7 @@
 
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 
 // safe handle to a panel - can be converted to and from a VPANEL
@@ -28,7 +28,7 @@ typedef int HContext;
 
 enum
 {
-	DEFAULT_VGUI_CONTEXT = ((vgui::HContext)~0)
+	DEFAULT_VGUI_CONTEXT = ((vgui2::HContext)~0)
 };
 
 // safe handle to a panel - can be converted to and from a VPANEL

@@ -15,7 +15,7 @@
 #include <tier0/memdbgon.h>
 
 #include <stdio.h>
-using namespace vgui;
+using namespace vgui2;
 
 //-----------------------------------------------------------------------------
 // Purpose: Constructor

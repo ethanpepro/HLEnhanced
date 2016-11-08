@@ -19,7 +19,7 @@
 
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 
 class ExpandButton;

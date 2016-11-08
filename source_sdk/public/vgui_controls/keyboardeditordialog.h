@@ -16,7 +16,7 @@
 
 class VControlsListPanel;
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -32,7 +32,7 @@ public:
 
 	void	SetKeybindingsSaveFile( char const *filename, char const *pathID = 0 );
 
-	virtual void	OnKeyCodeTyped(vgui::KeyCode code);
+	virtual void	OnKeyCodeTyped(vgui2::KeyCode code);
 
 	virtual void	ApplySchemeSettings( IScheme *scheme );
 
@@ -51,7 +51,7 @@ protected:
 	void			GetMappingList( Panel *panel, CUtlVector< PanelKeyBindingMap * >& maps );
 	int				GetMappingCount( Panel *panel );
 
-	void			BindKey( vgui::KeyCode code );
+	void			BindKey( vgui2::KeyCode code );
 
 		// Trap row selection message
 	MESSAGE_FUNC( ItemSelected, "ItemSelected" );
@@ -102,7 +102,7 @@ public:
 
 protected:
 
-	vgui::PHandle			m_hPanel;
+	vgui2::PHandle			m_hPanel;
 	KeyBindingContextHandle_t m_Handle;
 	bool					m_bSaveToExternalFile;
 	CUtlSymbol				m_SaveFileName;

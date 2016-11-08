@@ -15,7 +15,7 @@
 #include <vgui/VGUI.h>
 #include <vgui_controls/Panel.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class Button;

@@ -20,7 +20,7 @@
 #undef ProgressBox
 #endif
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -93,7 +93,7 @@ private:
 	float m_flCurrentProgress;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // PROGRESSBOX_H

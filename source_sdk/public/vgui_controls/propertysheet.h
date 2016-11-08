@@ -17,7 +17,7 @@
 #include "vgui_controls/PHandle.h"
 #include "UtlVector.h"
 
-namespace vgui
+namespace vgui2
 {
 
 class PageTab;
@@ -176,6 +176,6 @@ private:
 	bool	m_bKBNavigationEnabled;
 };
 
-}; // namespace vgui
+}; // namespace vgui2
 
 #endif // PROPERTYSHEET_H

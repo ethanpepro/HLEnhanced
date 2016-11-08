@@ -25,7 +25,7 @@ typedef unsigned short wchar_t;
 
 class IFileSystem;
 
-namespace vgui
+namespace vgui2
 {
 // direct references to localized strings
 typedef unsigned long StringIndex_t;
@@ -108,6 +108,6 @@ public:
 
 #define VGUI_LOCALIZE_INTERFACE_VERSION "VGUI_Localize003"
 
-}; // namespace vgui
+}; // namespace vgui2
 
 #endif // ILOCALIZE_H

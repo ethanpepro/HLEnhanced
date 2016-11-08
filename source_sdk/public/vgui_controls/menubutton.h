@@ -15,7 +15,7 @@
 #include <vgui_controls/Button.h>
 #include "vgui_controls/Menu.h"
 
-namespace vgui
+namespace vgui2
 {
 
 class Menu;
@@ -77,6 +77,6 @@ private:
 	int			m_nImageIndex;
 };
 
-}; // namespace vgui
+}; // namespace vgui2
 
 #endif // MENUBUTTON_H

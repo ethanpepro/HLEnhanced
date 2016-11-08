@@ -38,7 +38,7 @@
 #define max(a,b)            (((a) > (b)) ? (a) : (b))
 #endif
 
-using namespace vgui;
+using namespace vgui2;
 enum 
 {
 	WINDOW_BORDER_WIDTH=2 // the width of the window's border
@@ -46,7 +46,7 @@ enum
 
 #define TREE_INDENT_AMOUNT 20
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -1680,7 +1680,7 @@ int TreeNode::CountVisibleIndex()
 }
 
 
-}; // namespace vgui
+}; // namespace vgui2
 
 DECLARE_BUILD_FACTORY( TreeView );
 

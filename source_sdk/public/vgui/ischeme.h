@@ -17,7 +17,7 @@
 
 class Color;
 
-namespace vgui
+namespace vgui2
 {
 
 typedef unsigned long HScheme;
@@ -106,7 +106,7 @@ public:
 #define VGUI_SCHEME_INTERFACE_VERSION "VGUI_Scheme010"
 
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // ISCHEME_H

@@ -19,7 +19,7 @@
 
 #include "tier0/memdbgon.h"
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------

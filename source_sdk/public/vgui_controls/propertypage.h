@@ -15,7 +15,7 @@
 #include <vgui_controls/EditablePanel.h>
 #include <vgui_controls/PHandle.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -53,6 +53,6 @@ private:
 	PHandle _pageTab;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // PROPERTYPAGE_H

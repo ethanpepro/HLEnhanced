@@ -15,7 +15,7 @@
 #include <vgui_controls/Panel.h>
 #include <UtlVector.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ private:
 	int						m_nRightEdge;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // MENUBAR_H
 

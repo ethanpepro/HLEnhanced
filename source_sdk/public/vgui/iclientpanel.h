@@ -20,7 +20,7 @@
 
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 
 class Panel;
@@ -90,7 +90,7 @@ public:
 #endif
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // ICLIENTPANEL_H

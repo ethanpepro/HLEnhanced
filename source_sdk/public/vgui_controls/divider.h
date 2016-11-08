@@ -14,7 +14,7 @@
 
 #include <vgui_controls/Panel.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -32,7 +32,7 @@ public:
 };
 
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // DIVIDER_H

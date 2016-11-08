@@ -15,7 +15,7 @@
 #include <vgui/VGUI.h>
 #include <vgui_controls/Button.h>
 
-namespace vgui
+namespace vgui2
 {
 
 enum MouseCode;
@@ -51,6 +51,6 @@ private:
 	Color _selectedColor;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // TOGGLEBUTTON_H

@@ -18,7 +18,7 @@
 #include <vgui_controls/Panel.h>
 #include <vgui_controls/PHandle.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ public:
 	// url handlers, lets you have web page links fire vgui events
 	// use to have custom web page links, eg. "steam://open/subscriptionpage"
 	// everything after the "://" is sent to the watcher in a message "CustomURL", "url", "protocol"
-	virtual void AddCustomURLHandler(const char *customProtocolName, vgui::Panel *target);
+	virtual void AddCustomURLHandler(const char *customProtocolName, vgui2::Panel *target);
 
 	// overridden to paint our special web browser texture
 	virtual void PaintBackground();
@@ -105,9 +105,9 @@ private:
 
 	IHTML *browser; // the interface to the browser itself
 
-	vgui::Label *loading;
+	vgui2::Label *loading;
 	IImage *picture;
-	vgui::ScrollBar *_hbar,*_vbar;
+	vgui2::ScrollBar *_hbar,*_vbar;
 
 	int m_iMouseX,m_iMouseY; // where the mouse is on the control
 	long m_iNextFrameTime; // next time (in milliseconds) to repaint
@@ -130,6 +130,6 @@ private:
 	CUtlVector<CustomURLHandler_t> m_CustomURLHandlers;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // HTML_H

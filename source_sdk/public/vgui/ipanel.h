@@ -21,7 +21,7 @@
 
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 
 class SurfacePlat;
@@ -123,7 +123,7 @@ public:
 
 #define VGUI_PANEL_INTERFACE_VERSION "VGUI_Panel009"
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // IPANEL_H

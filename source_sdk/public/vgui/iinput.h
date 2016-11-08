@@ -15,7 +15,7 @@
 #include <vgui/VGUI.h>
 #include "interface.h"
 
-namespace vgui
+namespace vgui2
 {
 
 enum MouseCode;
@@ -182,7 +182,7 @@ public:
 
 #define VGUI_INPUT_INTERFACE_VERSION "VGUI_Input005"
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // VGUI_IINPUT_H

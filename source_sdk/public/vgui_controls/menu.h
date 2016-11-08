@@ -17,7 +17,7 @@
 #include <UtlLinkedList.h>
 #include <UtlVector.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class MenuItem;
@@ -322,6 +322,6 @@ private:
 	HFont			m_hItemFont;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // MENU_H

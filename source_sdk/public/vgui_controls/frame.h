@@ -18,7 +18,7 @@
 #include <vgui_controls/EditablePanel.h>
 #include <vgui_controls/FocusNavGroup.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class FrameButton;
@@ -233,6 +233,6 @@ private:
 	VPANEL	m_hPreviousModal;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // VGUI_FRAME_H

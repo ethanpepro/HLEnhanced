@@ -15,7 +15,7 @@
 #include "tier1/UtlDict.h"
 #include "vgui_controls/KeyBoardEditorDialog.h"
 
-using namespace vgui;
+using namespace vgui2;
 
 // If the user holds the key bound to help down for this long, then the dialog will stay on automatically
 #define KB_HELP_CONTINUE_SHOWING_TIME		1.0
@@ -185,7 +185,7 @@ void CKeyBindingHelpDialog::OnCommand( char const *cmd )
 	}
 }
 
-void CKeyBindingHelpDialog::OnKeyCodeTyped(vgui::KeyCode code)
+void CKeyBindingHelpDialog::OnKeyCodeTyped(vgui2::KeyCode code)
 {
 	BaseClass::OnKeyCodeTyped( code );
 }
@@ -205,7 +205,7 @@ void CKeyBindingHelpDialog::AnsiText( char const *token, char *out, size_t bufle
 {
 	out[ 0 ] = 0;
 
-	wchar_t *str = vgui::localize()->Find( token );
+	wchar_t *str = vgui2::localize()->Find( token );
 	if ( !str )
 	{
 		Q_strncpy( out, token, buflen );
@@ -229,7 +229,7 @@ void CKeyBindingHelpDialog::PopulateList()
 	int i, j;
 
 	CUtlVector< ListInfo_t > maps;
-	vgui::Panel *pPanel = m_hPanel;
+	vgui2::Panel *pPanel = m_hPanel;
 	while ( pPanel->IsKeyBindingChainToParentAllowed() )
 	{
 		PanelKeyBindingMap *map = pPanel->GetKBMap();

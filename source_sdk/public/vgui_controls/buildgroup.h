@@ -24,7 +24,7 @@
 
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -176,6 +176,6 @@ private:
 typedef CUtlHandle<BuildGroup> HBuildGroup;
 
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // VGUI_BUILDGROUP_H

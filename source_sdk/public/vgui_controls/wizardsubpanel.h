@@ -14,7 +14,7 @@
 
 #include <vgui_controls/EditablePanel.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -85,7 +85,7 @@ private:
 	int m_iDesiredWide, m_iDesiredTall;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // WIZARDSUBPANEL_H	   

@@ -15,7 +15,7 @@
 #include <vgui_controls/TextEntry.h>
 #include <vgui_controls/Menu.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class ComboBoxButton;
@@ -135,6 +135,6 @@ private:
 	int 				m_iOpenOffsetY;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // COMBOBOX_H

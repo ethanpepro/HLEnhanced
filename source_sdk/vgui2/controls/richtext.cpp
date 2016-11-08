@@ -17,13 +17,13 @@ enum
 	DRAW_OFFSET_Y =	1,
 };
 
-using namespace vgui;
+using namespace vgui2;
 
 #ifndef max
 #define max(a,b)            (((a) > (b)) ? (a) : (b))
 #endif
 
-namespace vgui
+namespace vgui2
 {
 	
 //-----------------------------------------------------------------------------
@@ -109,7 +109,7 @@ private:
 //	IAppearance *m_pAppearanceScrollbar;    
 };
 	
-};	// namespace vgui
+};	// namespace vgui2
 
 DECLARE_BUILD_FACTORY( RichText );
 
@@ -2338,7 +2338,7 @@ bool RichText::IsScrollbarVisible()
 //-----------------------------------------------------------------------------
 void RichText::Validate( CValidator &validator, char *pchName )
 {
-	validator.Push( "vgui::RichText", this, pchName );
+	validator.Push( "vgui2::RichText", this, pchName );
 
 	m_TextStream.Validate( validator, "m_TextStream" );
 	m_FormatStream.Validate( validator, "m_FormatStream" );
@@ -2346,7 +2346,7 @@ void RichText::Validate( CValidator &validator, char *pchName )
 	_clickableTextPanels.Validate( validator, "_clickableTextPanels" );
 	validator.ClaimMemory( m_pszInitialText );
 
-	BaseClass::Validate( validator, "vgui::RichText" );
+	BaseClass::Validate( validator, "vgui2::RichText" );
 
 	validator.Pop();
 }

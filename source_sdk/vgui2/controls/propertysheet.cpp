@@ -29,9 +29,9 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
-namespace vgui
+namespace vgui2
 {
 
 class ContextLabel : public Label
@@ -425,7 +425,7 @@ public:
 	}
 };
 
-}; // namespace vgui
+}; // namespace vgui2
 
 //-----------------------------------------------------------------------------
 // Purpose: Constructor

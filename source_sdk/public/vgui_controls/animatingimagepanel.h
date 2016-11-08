@@ -15,7 +15,7 @@
 #include <UtlVector.h>
 #include <vgui_controls/Panel.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -60,6 +60,6 @@ private:
 	bool m_bFiltered;
 };
 
-}; // namespace vgui
+}; // namespace vgui2
 
 #endif // ANIMATINGIMAGEPANEL_H

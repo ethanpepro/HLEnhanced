@@ -34,7 +34,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-using namespace vgui;
+using namespace vgui2;
 
 static const int DEFAULT_SNAP_RANGE = 10; // number of pixels distance before the frame will snap to an edge
 static const int CAPTION_TITLE_BORDER = 7;
@@ -485,7 +485,7 @@ namespace
 	
 }
 
-namespace vgui
+namespace vgui2
 {
 	//-----------------------------------------------------------------------------
 	// Purpose: overrides normal button drawing to use different colors & borders
@@ -705,7 +705,7 @@ public:
 
 };
 
-} // namespace vgui
+} // namespace vgui2
 //-----------------------------------------------------------------------------
 // Purpose: Constructor
 //-----------------------------------------------------------------------------
@@ -802,10 +802,10 @@ Frame::~Frame()
 {
 	if ( input()->GetAppModalSurface() == GetVPanel() )
 	{
-		vgui::input()->ReleaseAppModalSurface();
+		vgui2::input()->ReleaseAppModalSurface();
 		if ( m_hPreviousModal != 0 )
 		{
-			vgui::input()->SetAppModalSurface( m_hPreviousModal );
+			vgui2::input()->SetAppModalSurface( m_hPreviousModal );
 			m_hPreviousModal = 0;
 		}
 	}
@@ -892,8 +892,8 @@ void Frame::DoModal( )
 	MoveToCenterOfScreen();
 	InvalidateLayout();
 	Activate();
-	m_hPreviousModal = vgui::input()->GetAppModalSurface();
-	vgui::input()->SetAppModalSurface( GetVPanel() );
+	m_hPreviousModal = vgui2::input()->GetAppModalSurface();
+	vgui2::input()->SetAppModalSurface( GetVPanel() );
 }
 
 
@@ -902,10 +902,10 @@ void Frame::DoModal( )
 //-----------------------------------------------------------------------------
 void Frame::CloseModal()
 {
-	vgui::input()->ReleaseAppModalSurface();
+	vgui2::input()->ReleaseAppModalSurface();
 	if ( m_hPreviousModal != 0 )
 	{
-		vgui::input()->SetAppModalSurface( m_hPreviousModal );
+		vgui2::input()->SetAppModalSurface( m_hPreviousModal );
 		m_hPreviousModal = 0;
 	}
 	PostMessage( this, new KeyValues("Close") );
@@ -1387,7 +1387,7 @@ void Frame::ApplyUserConfigSettings(KeyValues *userConfig)
 {
 	// calculate defaults
 	int wx, wy, ww, wt;
-	vgui::surface()->GetWorkspaceBounds(wx, wy, ww, wt);
+	vgui2::surface()->GetWorkspaceBounds(wx, wy, ww, wt);
 
 	int x, y, wide, tall;
 	GetBounds(x, y, wide, tall);
@@ -1674,7 +1674,7 @@ void Frame::OnClose()
 		input()->ReleaseAppModalSurface();
 		if ( m_hPreviousModal != 0 )
 		{
-			vgui::input()->SetAppModalSurface( m_hPreviousModal );
+			vgui2::input()->SetAppModalSurface( m_hPreviousModal );
 			m_hPreviousModal = 0;
 		}
 	}

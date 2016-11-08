@@ -40,7 +40,7 @@
 
 class CUtlBuffer;
 
-namespace vgui
+namespace vgui2
 {
 
 #if !defined( _XBOX )
@@ -693,7 +693,7 @@ inline bool	Panel::IsMouseInputDisabledForThisPanel() const
 }
 
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // PANEL_H

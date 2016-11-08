@@ -16,7 +16,7 @@
 
 struct PanelItem_t;
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ protected:
 	virtual void PerformLayout();
 	virtual void OnClose();
 	virtual void OnCommand( const char *command );
-	virtual void ApplySchemeSettings( vgui::IScheme *pScheme );
+	virtual void ApplySchemeSettings( vgui2::IScheme *pScheme );
 	virtual bool IsBuildGroupEnabled();
 
 private:
@@ -116,7 +116,7 @@ private:
 		TYPE_LOCALIZEDSTRING,
 	};
 
-	vgui::DHANDLE< Menu >	m_hContextMenu;
+	vgui2::DHANDLE< Menu >	m_hContextMenu;
 
 	ComboBox	*m_pEditableParents;
 	ComboBox	*m_pEditableChildren;
@@ -124,7 +124,7 @@ private:
 	friend class PanelList;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // BUILDMODEDIALOG_H

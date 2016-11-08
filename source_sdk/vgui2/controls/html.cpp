@@ -28,19 +28,19 @@
 
 #include "tier0/memdbgon.h"
 
-using namespace vgui;
+using namespace vgui2;
 
 enum 
 {
 	WINDOW_BORDER_WIDTH=1
 };
 
-vgui::Panel *HTML_NoJavascript_Factory()
+vgui2::Panel *HTML_NoJavascript_Factory()
 {
 	return new HTML( NULL, NULL, false );
 }
 
-vgui::Panel *HTML_Javascript_Factory()
+vgui2::Panel *HTML_Javascript_Factory()
 {
 	return new HTML( NULL, NULL, true );
 }
@@ -335,14 +335,14 @@ void HTML::OpenURL(const char *URL, bool force)
 			char otherName[128];
 			char fileLocation[_MAX_PATH];
 
-			if ( ! vgui::filesystem()->FileExists( baseDir ) ) 
+			if ( ! vgui2::filesystem()->FileExists( baseDir ) ) 
 			{
 				_snprintf( otherName, sizeof(otherName), "%senglish.html", OFFLINE_FILE );
 				baseDir = otherName;
 			}
-			vgui::filesystem()->GetLocalCopy( baseDir ); // put this file on disk for IE to load
+			vgui2::filesystem()->GetLocalCopy( baseDir ); // put this file on disk for IE to load
 
-			vgui::filesystem()->GetLocalPath( baseDir, fileLocation, sizeof(fileLocation) );
+			vgui2::filesystem()->GetLocalPath( baseDir, fileLocation, sizeof(fileLocation) );
 			_snprintf(htmlLocation, sizeof(htmlLocation), "file://%s", fileLocation);
 			browser->OpenURL( htmlLocation );
 		}
@@ -539,7 +539,7 @@ void HTML::OnMouseWheeled(int delta)
 //-----------------------------------------------------------------------------
 // Purpose: Inserts a custom URL handler
 //-----------------------------------------------------------------------------
-void HTML::AddCustomURLHandler(const char *customProtocolName, vgui::Panel *target)
+void HTML::AddCustomURLHandler(const char *customProtocolName, vgui2::Panel *target)
 {
 	int index = m_CustomURLHandlers.AddToTail();
 	m_CustomURLHandlers[index].hPanel = target;

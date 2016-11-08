@@ -16,7 +16,7 @@
 #include <vgui_controls/Controls.h>
 #include <UtlVector.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------

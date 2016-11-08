@@ -28,7 +28,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 enum
 {
@@ -39,7 +39,7 @@ enum
 	COLUMN_DATA_GAP = 2,
 };
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -601,18 +601,18 @@ private:
 	Color m_OutOfFocusSelectedTextColor;
 	Color m_ArmedBgColor;
 	Color m_SelectionBG2Color;
-	CUtlVector<vgui::TextImage *> m_TextImages;
+	CUtlVector<vgui2::TextImage *> m_TextImages;
 
 	bool m_bSelected;
 	bool m_bOverrideColors;
 };
 
-}; // namespace vgui
+}; // namespace vgui2
 
 //-----------------------------------------------------------------------------
 // Purpose: Constructor
 //-----------------------------------------------------------------------------
-SectionedListPanel::SectionedListPanel(vgui::Panel *parent, const char *name) : BaseClass(parent, name)
+SectionedListPanel::SectionedListPanel(vgui2::Panel *parent, const char *name) : BaseClass(parent, name)
 {
 	m_pScrollBar = new ScrollBar(this, "SectionedScrollBar", true);
 	m_pScrollBar->SetVisible(false);
@@ -1555,7 +1555,7 @@ void SectionedListPanel::InvalidateItem(int itemID)
 //-----------------------------------------------------------------------------
 // Purpose: set up a field for editing
 //-----------------------------------------------------------------------------
-void SectionedListPanel::EnterEditMode(int itemID, int column, vgui::Panel *editPanel)
+void SectionedListPanel::EnterEditMode(int itemID, int column, vgui2::Panel *editPanel)
 {
 	m_hEditModePanel = editPanel;
 	m_iEditModeItemID = itemID;

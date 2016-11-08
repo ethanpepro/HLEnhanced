@@ -15,7 +15,7 @@
 #include <vgui/VGUI.h>
 #include <vgui_controls/Panel.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class IImage;
@@ -58,6 +58,6 @@ private:
 	Color m_FillColor;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // IMAGEPANEL_H

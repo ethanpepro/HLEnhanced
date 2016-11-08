@@ -17,7 +17,7 @@
 #include "vgui_controls/Panel.h"
 #include "vgui_controls/PHandle.h"
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -206,6 +206,6 @@ private:
 	bool	m_bWrap;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // LABEL_H

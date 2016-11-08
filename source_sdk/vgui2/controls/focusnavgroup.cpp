@@ -21,7 +21,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 //-----------------------------------------------------------------------------
 // Purpose: Constructor
@@ -384,7 +384,7 @@ Panel *FocusNavGroup::GetDefaultPanel()
 //-----------------------------------------------------------------------------
 Panel *FocusNavGroup::GetCurrentFocus()
 {
-	return _currentFocus ? ipanel()->GetPanel(_currentFocus, vgui::GetControlsModuleName()) : NULL;
+	return _currentFocus ? ipanel()->GetPanel(_currentFocus, vgui2::GetControlsModuleName()) : NULL;
 }
 
 //-----------------------------------------------------------------------------

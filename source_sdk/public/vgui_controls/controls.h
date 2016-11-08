@@ -20,7 +20,7 @@
 
 class IFileSystem;
 
-namespace vgui
+namespace vgui2
 {
 
 // handles the initialization of the vgui interfaces
@@ -119,7 +119,7 @@ class TextImage;
 enum KeyCode;
 enum MouseCode;
 
-} // namespace vgui
+} // namespace vgui2
 
 // hotkeys disabled until we work out exactly how we want to do them
 #define VGUI_HOTKEYS_ENABLED

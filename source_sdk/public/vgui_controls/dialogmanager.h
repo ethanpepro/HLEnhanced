@@ -16,7 +16,7 @@
 #include <KeyValues.h>
 #include <vgui_controls/PHandle.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ public:
 	int Count();
 
 	// sets parent to use
-	void SetParent( vgui::VPANEL parent );
+	void SetParent( vgui2::VPANEL parent );
 
 private:
 	// checks if an index in the dialog list is valid; if it has been deleted, removes the entry
@@ -63,7 +63,7 @@ private:
 
 	CUtlLinkedList<DialogItem_t, int> m_Dialogs;
 	CreateNewDialogFunc_t m_CreateFunc;
-	vgui::VPANEL m_pVGUIParentPanel;
+	vgui2::VPANEL m_pVGUIParentPanel;
 };
 
 
@@ -185,12 +185,12 @@ inline bool DialogManager<TDialog, I>::ValidateIndex(int index)
 }
 
 template <class TDialog, class I>
-inline void DialogManager<TDialog, I>::SetParent( vgui::VPANEL parent )
+inline void DialogManager<TDialog, I>::SetParent( vgui2::VPANEL parent )
 {
 	m_pVGUIParentPanel = parent;
 }
 
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // DIALOGMANAGER_H

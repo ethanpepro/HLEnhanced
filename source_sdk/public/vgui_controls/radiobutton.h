@@ -17,7 +17,7 @@
 
 class RadioImage;
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -70,6 +70,6 @@ private:
 	int _subTabPosition;	// tab position with the radio button list
 };
 
-}; // namespace vgui
+}; // namespace vgui2
 
 #endif // RADIOBUTTON_H

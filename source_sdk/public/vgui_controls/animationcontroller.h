@@ -16,7 +16,7 @@
 #include "UtlSymbol.h"
 #include "UtlVector.h"
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -67,8 +67,8 @@ public:
 	};
 
 	// runs the specific animation command (doesn't use script file at all)
-	void RunAnimationCommand(vgui::Panel *panel, const char *variable, float targetValue, float startDelaySeconds, float durationSeconds, Interpolators_e interpolator, float animParameter = 0 );
-	void RunAnimationCommand(vgui::Panel *panel, const char *variable, Color targetValue, float startDelaySeconds, float durationSeconds, Interpolators_e interpolator, float animParameter = 0 );
+	void RunAnimationCommand(vgui2::Panel *panel, const char *variable, float targetValue, float startDelaySeconds, float durationSeconds, Interpolators_e interpolator, float animParameter = 0 );
+	void RunAnimationCommand(vgui2::Panel *panel, const char *variable, Color targetValue, float startDelaySeconds, float durationSeconds, Interpolators_e interpolator, float animParameter = 0 );
 
 private:
 	bool UpdateScreenSize();
@@ -216,7 +216,7 @@ private:
 	// removes all commands belonging to a script
 	void RemoveQueuedAnimationCommands(UtlSymId_t seqName);
 	// removes an existing instance of a command
-	void RemoveQueuedAnimationByType(vgui::Panel *panel, UtlSymId_t variable, UtlSymId_t sequenceToIgnore);
+	void RemoveQueuedAnimationByType(vgui2::Panel *panel, UtlSymId_t variable, UtlSymId_t sequenceToIgnore);
 
 	// handlers
 	void StartCmd_Animate(UtlSymId_t seqName, AnimCmdAnimate_t &cmd);
@@ -249,6 +249,6 @@ private:
 // singleton accessor for use only by other vgui_controls
 extern AnimationController *GetAnimationController();
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // ANIMATIONCONTROLLER_H

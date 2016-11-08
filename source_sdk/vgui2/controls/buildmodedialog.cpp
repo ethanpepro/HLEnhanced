@@ -34,7 +34,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 struct PanelItem_t
 {
@@ -178,11 +178,11 @@ private:
 		}
 	}
 
-	vgui::TextEntry *m_pTokenEntry;
-	vgui::TextEntry *m_pValueEntry;
-	vgui::ComboBox *m_pFileCombo;
-	vgui::Button *m_pOKButton;
-	vgui::Button *m_pCancelButton;
+	vgui2::TextEntry *m_pTokenEntry;
+	vgui2::TextEntry *m_pValueEntry;
+	vgui2::ComboBox *m_pFileCombo;
+	vgui2::Button *m_pOKButton;
+	vgui2::Button *m_pCancelButton;
 };
 
 
@@ -289,7 +289,7 @@ public:
 	}
 private:
 	bool	m_bParents;
-	vgui::PHandle m_hContext;
+	vgui2::PHandle m_hContext;
 };
 
 //-----------------------------------------------------------------------------

@@ -23,9 +23,9 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
-static vgui::DHANDLE< TextEntry > s_TooltipWindow;
+static vgui2::DHANDLE< TextEntry > s_TooltipWindow;
 static int s_iTooltipWindowCount = 0;
 
 //-----------------------------------------------------------------------------

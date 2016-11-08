@@ -13,7 +13,7 @@
 #include <vgui_controls/Controls.h>
 #include <vgui_controls/Frame.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class Label;
@@ -28,7 +28,7 @@ class InputDialog : public Frame
 	DECLARE_CLASS_SIMPLE( InputDialog, Frame );
 
 public:
-	InputDialog( vgui::Panel *parent, const char *title, char const *prompt, char const *defaultValue = "" );
+	InputDialog( vgui2::Panel *parent, const char *title, char const *prompt, char const *defaultValue = "" );
 	~InputDialog();
 
 	void SetMultiline( bool state );
@@ -53,14 +53,14 @@ private:
 	void CleanUpContextKeyValues();
 	KeyValues *m_pContextKeyValues;
 
-	vgui::Label			*m_pPrompt;
-	vgui::TextEntry		*m_pInput;
+	vgui2::Label			*m_pPrompt;
+	vgui2::TextEntry		*m_pInput;
 
-	vgui::Button		*m_pCancelButton;
-	vgui::Button		*m_pOKButton;
+	vgui2::Button		*m_pCancelButton;
+	vgui2::Button		*m_pOKButton;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // INPUTDIALOG_H

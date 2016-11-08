@@ -17,7 +17,7 @@
 #include <vgui/KeyCode.h>
 #include <vgui/IImage.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -60,7 +60,7 @@ public:
 	virtual void OnChar(wchar_t unichar)=0;
 	virtual void OnKeyDown(KeyCode code)=0;
 
-	virtual vgui::IImage *GetBitmap()=0;
+	virtual vgui2::IImage *GetBitmap()=0;
 
 	virtual void SetVisible( bool state ) = 0;
 };

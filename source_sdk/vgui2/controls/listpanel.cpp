@@ -35,7 +35,7 @@
 // memdbgon must be the last include file in a .cpp file
 #include "tier0/memdbgon.h"
 
-using namespace vgui;
+using namespace vgui2;
 
 enum 
 {
@@ -63,7 +63,7 @@ enum
 class ColumnButton : public Button
 {
 public:
-	ColumnButton(vgui::Panel *parent, const char *name, const char *text);
+	ColumnButton(vgui2::Panel *parent, const char *name, const char *text);
 
 	// Inherited from Button
 	virtual void ApplySchemeSettings(IScheme *pScheme);
@@ -72,7 +72,7 @@ public:
 	void OpenColumnChoiceMenu();
 };
 
-ColumnButton::ColumnButton(vgui::Panel *parent, const char *name, const char *text) : Button(parent, name, text)
+ColumnButton::ColumnButton(vgui2::Panel *parent, const char *name, const char *text) : Button(parent, name, text)
 {
 	SetBlockDragChaining( true );
 }
@@ -226,7 +226,7 @@ void Dragger::SetMovable(bool state)
 
 
 
-namespace vgui
+namespace vgui2
 {
 // optimized for sorting
 class FastSortListPanelItem : public ListPanelItem
@@ -263,7 +263,7 @@ static int __cdecl AscendingSortFunc(const void *elem1, const void *elem2)
 	int itemID2 = *((int *) elem2);
 
 	// convert the item index into the ListPanelItem pointers
-	vgui::ListPanelItem *p1, *p2;
+	vgui2::ListPanelItem *p1, *p2;
 	p1 = s_pCurrentSortingListPanel->GetItemData(itemID1);
 	p2 = s_pCurrentSortingListPanel->GetItemData(itemID2);
 	
@@ -313,8 +313,8 @@ static int __cdecl DefaultSortFunc(
 	const ListPanelItem &item1,
 	const ListPanelItem &item2 )
 {
-	const vgui::ListPanelItem *p1 = &item1;
-	const vgui::ListPanelItem *p2 = &item2;
+	const vgui2::ListPanelItem *p1 = &item1;
+	const vgui2::ListPanelItem *p2 = &item2;
 
 	if ( !p1 || !p2 )  // No meaningful comparison
 	{
@@ -375,8 +375,8 @@ static int __cdecl FastSortFunc(
 	const ListPanelItem &item1,
 	const ListPanelItem &item2 )
 {
-	const vgui::FastSortListPanelItem *p1 = (vgui::FastSortListPanelItem *)&item1;
-	const vgui::FastSortListPanelItem *p2 = (vgui::FastSortListPanelItem *)&item2;
+	const vgui2::FastSortListPanelItem *p1 = (vgui2::FastSortListPanelItem *)&item1;
+	const vgui2::FastSortListPanelItem *p2 = (vgui2::FastSortListPanelItem *)&item2;
 
 	Assert(p1 && p2);
 
@@ -411,7 +411,7 @@ static int s_iDuplicateIndex = 1;
 //-----------------------------------------------------------------------------
 // Purpose: sorting function used in the column index redblack tree
 //-----------------------------------------------------------------------------
-bool ListPanel::RBTreeLessFunc(vgui::ListPanel::IndexItem_t &item1, vgui::ListPanel::IndexItem_t &item2)
+bool ListPanel::RBTreeLessFunc(vgui2::ListPanel::IndexItem_t &item1, vgui2::ListPanel::IndexItem_t &item2)
 {
 	int result = s_pSortFunc( s_pCurrentSortingListPanel, *item1.dataItem, *item2.dataItem);
 	if (result == 0)
@@ -2982,7 +2982,7 @@ void ListPanel::SetIgnoreDoubleClick( bool state )
 //-----------------------------------------------------------------------------
 // Purpose: set up a field for editing
 //-----------------------------------------------------------------------------
-void ListPanel::EnterEditMode(int itemID, int column, vgui::Panel *editPanel)
+void ListPanel::EnterEditMode(int itemID, int column, vgui2::Panel *editPanel)
 {
 	m_hEditModePanel = editPanel;
 	m_iEditModeItemID = itemID;

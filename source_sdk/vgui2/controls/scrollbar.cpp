@@ -20,7 +20,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 namespace
 {
@@ -109,12 +109,12 @@ public:
 
 }
 
-vgui::Panel *ScrollBar_Vertical_Factory()
+vgui2::Panel *ScrollBar_Vertical_Factory()
 {
 	return new ScrollBar(NULL, NULL, true );
 }
 
-vgui::Panel *ScrollBar_Horizontal_Factory()
+vgui2::Panel *ScrollBar_Horizontal_Factory()
 {
 	return new ScrollBar(NULL, NULL, false );
 }

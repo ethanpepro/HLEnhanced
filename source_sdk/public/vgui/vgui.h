@@ -46,7 +46,7 @@ typedef unsigned short wchar_t;
 // do this in GOLDSRC only!!!
 //#define Assert assert
 
-namespace vgui
+namespace vgui2
 {
 // handle to an internal vgui panel
 // this is the only handle to a panel that is valid across dll boundaries

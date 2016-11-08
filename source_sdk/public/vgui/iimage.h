@@ -16,7 +16,7 @@
 
 class Color;
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ public:
 	virtual ~IImage() {}
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // IIMAGE_H

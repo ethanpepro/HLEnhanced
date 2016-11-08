@@ -17,7 +17,7 @@
 
 class CheckImage;
 
-namespace vgui
+namespace vgui2
 {
 
 class TextImage;
@@ -60,6 +60,6 @@ private:
 	friend CheckImage;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // CHECKBUTTON_H

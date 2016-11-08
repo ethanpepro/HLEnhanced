@@ -15,7 +15,7 @@
 #include <UtlLinkedList.h>
 #include <UtlVector.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class ListViewPanel;

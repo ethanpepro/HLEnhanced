@@ -15,7 +15,7 @@
 #include <vgui/VGUI.h>
 #include <vgui_controls/Panel.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -66,6 +66,6 @@ private:
 	char *m_pszDialogVar;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // PROGRESSBAR_H

@@ -15,7 +15,7 @@
 #include <vgui/VGUI.h>
 #include <vgui_controls/Panel.h>
 
-namespace vgui
+namespace vgui2
 {
 
 enum MouseCode;
@@ -85,6 +85,6 @@ private:
 	IBorder *_ScrollBarSliderBorder;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // SCROLLBARSLIDER_H

@@ -25,9 +25,9 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
 
-using namespace vgui;
+using namespace vgui2;
 
-namespace vgui
+namespace vgui2
 {
 //-----------------------------------------------------------------------------
 // Purpose: Scroll bar button
@@ -90,9 +90,9 @@ void ComboBoxButton::OnCursorExited()
 	CallParentFunction(new KeyValues("CursorExited"));
 }
 
-} // namespace vgui
+} // namespace vgui2
 
-vgui::Panel *ComboBox_Factory()
+vgui2::Panel *ComboBox_Factory()
 {
 	return new ComboBox( NULL, NULL, 5, true );
 }

@@ -41,7 +41,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 #define TRIPLE_PRESS_MSEC	300
 
@@ -60,9 +60,9 @@ static char *CopyString( const char *in )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-struct vgui::DragDrop_t
+struct vgui2::DragDrop_t
 {
-	vgui::DragDrop_t() :
+	vgui2::DragDrop_t() :
 		m_bDragEnabled( false ),
 		m_bDropEnabled( false ),
 		m_bDragStarted( false ),
@@ -127,7 +127,7 @@ private:
 	CUtlVector< DragHelperPanel_t >	m_PaintList;
 };
 
-vgui::DHANDLE< CDragDropHelperPanel >	s_DragDropHelper;
+vgui2::DHANDLE< CDragDropHelperPanel >	s_DragDropHelper;
 #endif
 
 #if defined( VGUI_USEKEYBINDINGMAPS )
@@ -534,7 +534,7 @@ void Panel::LoadKeyBindingsForOnePanel( KeyBindingContextHandle_t handle, Panel 
 	char const *pathID = g_KBMgr.GetKeyBindingsFilePathID( handle );
 
 	KeyValues *kv = new KeyValues( "keybindings" );
-	if ( kv->LoadFromFile( vgui::filesystem(), filename, pathID ) )
+	if ( kv->LoadFromFile( vgui2::filesystem(), filename, pathID ) )
 	{
 		int c = GetPanelsWithKeyBindingsCount( handle );
 		for ( int i = 0; i < c; ++i )
@@ -575,7 +575,7 @@ void Panel::ReloadKeyBindings( KeyBindingContextHandle_t handle )
 	char const *pathID = g_KBMgr.GetKeyBindingsFilePathID( handle );
 
 	KeyValues *kv = new KeyValues( "keybindings" );
-	if ( kv->LoadFromFile( vgui::filesystem(), filename, pathID ) )
+	if ( kv->LoadFromFile( vgui2::filesystem(), filename, pathID ) )
 	{
 		int c = GetPanelsWithKeyBindingsCount( handle );
 		for ( int i = 0; i < c; ++i )
@@ -802,7 +802,7 @@ const char *Panel::GetName()
 //-----------------------------------------------------------------------------
 const char *Panel::GetModuleName()
 {
-	return vgui::GetControlsModuleName();
+	return vgui2::GetControlsModuleName();
 }
 
 //-----------------------------------------------------------------------------
@@ -1522,7 +1522,7 @@ Panel *Panel::HasHotkey(wchar_t key)
 }
 
 #if defined( VGUI_USEDRAGDROP )
-static vgui::PHandle	g_DragDropCapture;
+static vgui2::PHandle	g_DragDropCapture;
 #endif // VGUI_USEDRAGDROP
 
 void Panel::InternalCursorMoved(int x, int y)
@@ -4745,7 +4745,7 @@ void Panel::SetMouseInputEnabled( bool state )
 	{
 		GetChild(i)->SetMouseInput(state);
 	}*/
-	vgui::surface()->CalculateMouseVisible();
+	vgui2::surface()->CalculateMouseVisible();
 #endif
 }
 
@@ -4763,7 +4763,7 @@ bool Panel::IsMouseInputEnabled()
 #endif
 }
 
-class CFloatProperty : public vgui::IPanelAnimationPropertyConverter
+class CFloatProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -4785,7 +4785,7 @@ public:
 	}
 };
 
-class CProportionalFloatProperty : public vgui::IPanelAnimationPropertyConverter
+class CProportionalFloatProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -4813,7 +4813,7 @@ public:
 	}
 };
 
-class CIntProperty : public vgui::IPanelAnimationPropertyConverter
+class CIntProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -4835,7 +4835,7 @@ public:
 	}
 };
 
-class CProportionalIntProperty : public vgui::IPanelAnimationPropertyConverter
+class CProportionalIntProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -4862,7 +4862,7 @@ public:
 	}
 };
 
-class CColorProperty : public vgui::IPanelAnimationPropertyConverter
+class CColorProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -4873,7 +4873,7 @@ public:
 	
 	virtual void SetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
 	{
-		vgui::IScheme *scheme = vgui::scheme()->GetIScheme( panel->GetScheme() );
+		vgui2::IScheme *scheme = vgui2::scheme()->GetIScheme( panel->GetScheme() );
 		Assert( scheme );
 		if ( scheme )
 		{
@@ -4893,7 +4893,7 @@ public:
 
 	virtual void InitFromDefault( Panel *panel, PanelAnimationMapEntry *entry )
 	{
-		vgui::IScheme *scheme = vgui::scheme()->GetIScheme( panel->GetScheme() );
+		vgui2::IScheme *scheme = vgui2::scheme()->GetIScheme( panel->GetScheme() );
 		Assert( scheme );
 		if ( scheme )
 		{
@@ -4903,7 +4903,7 @@ public:
 	}
 };
 
-class CBoolProperty : public vgui::IPanelAnimationPropertyConverter
+class CBoolProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -4932,7 +4932,7 @@ public:
 	}
 };
 
-class CStringProperty : public vgui::IPanelAnimationPropertyConverter
+class CStringProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -4954,12 +4954,12 @@ public:
 	}
 };
 
-class CHFontProperty : public vgui::IPanelAnimationPropertyConverter
+class CHFontProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
 	{
-		vgui::IScheme *scheme = vgui::scheme()->GetIScheme( panel->GetScheme() );
+		vgui2::IScheme *scheme = vgui2::scheme()->GetIScheme( panel->GetScheme() );
 		Assert( scheme );
 		if ( scheme )
 		{
@@ -4971,7 +4971,7 @@ public:
 	
 	virtual void SetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
 	{
-		vgui::IScheme *scheme = vgui::scheme()->GetIScheme( panel->GetScheme() );
+		vgui2::IScheme *scheme = vgui2::scheme()->GetIScheme( panel->GetScheme() );
 		Assert( scheme );
 		if ( scheme )
 		{
@@ -4983,7 +4983,7 @@ public:
 
 	virtual void InitFromDefault( Panel *panel, PanelAnimationMapEntry *entry )
 	{
-		vgui::IScheme *scheme = vgui::scheme()->GetIScheme( panel->GetScheme() );
+		vgui2::IScheme *scheme = vgui2::scheme()->GetIScheme( panel->GetScheme() );
 		Assert( scheme );
 		if ( scheme )
 		{
@@ -4993,7 +4993,7 @@ public:
 	}
 };
 
-class CTextureIdProperty : public vgui::IPanelAnimationPropertyConverter
+class CTextureIdProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -5102,12 +5102,12 @@ void Panel::InitPropertyConverters( void )
 	AddPropertyConverter( "float", &floatconverter );
 	AddPropertyConverter( "int", &intconverter );
 	AddPropertyConverter( "Color", &colorconverter );
-//	AddPropertyConverter( "vgui::Color", &colorconverter );
+//	AddPropertyConverter( "vgui2::Color", &colorconverter );
 	AddPropertyConverter( "bool", &boolconverter );
 	AddPropertyConverter( "char", &stringconverter );
 	AddPropertyConverter( "string", &stringconverter );
 	AddPropertyConverter( "HFont", &fontconverter );
-	AddPropertyConverter( "vgui::HFont", &fontconverter );
+	AddPropertyConverter( "vgui2::HFont", &fontconverter );
 
 	// This is an aliased type for proportional float
 	AddPropertyConverter( "proportional_float", &p_floatconverter );
@@ -5746,7 +5746,7 @@ void Panel::OnContinueDragging()
 
 	Assert( m_pDragDrop->m_DragData.Count() );
 
-	vgui::PHandle oldDrop = m_pDragDrop->m_hCurrentDrop;
+	vgui2::PHandle oldDrop = m_pDragDrop->m_hCurrentDrop;
 
 	// See what's under that
 	m_pDragDrop->m_hCurrentDrop = NULL;
@@ -6436,7 +6436,7 @@ private:
 
 char const *CPanelMessageMapDictionary::StripNamespace( char const *className )
 {
-	if ( !strnicmp( className, "vgui::", 6 ) )
+	if ( !strnicmp( className, "vgui2::", 6 ) )
 	{
 		return className + 6;
 	}
@@ -6505,7 +6505,7 @@ private:
 
 char const *CPanelKeyBindingMapDictionary::StripNamespace( char const *className )
 {
-	if ( !strnicmp( className, "vgui::", 6 ) )
+	if ( !strnicmp( className, "vgui2::", 6 ) )
 	{
 		return className + 6;
 	}
@@ -6559,7 +6559,7 @@ CPanelMessageMapDictionary& GetPanelMessageMapDictionary()
 	return dictionary;
 }
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------

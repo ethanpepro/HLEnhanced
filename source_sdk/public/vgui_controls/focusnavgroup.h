@@ -15,7 +15,7 @@
 #include <vgui/VGUI.h>
 #include <vgui_controls/PHandle.h>
 
-namespace vgui
+namespace vgui2
 {
 
 class Panel;
@@ -56,6 +56,6 @@ private:
 	bool _topLevelFocus;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // FOCUSNAVGROUP_H

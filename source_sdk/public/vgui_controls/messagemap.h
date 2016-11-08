@@ -17,7 +17,7 @@
 // more flexible than default pointers to members code required for casting member function pointers
 #pragma pointers_to_members( full_generality, virtual_inheritance )
 
-namespace vgui
+namespace vgui2
 {
 
 ////////////// MESSAGEMAP DEFINITIONS //////////////
@@ -79,17 +79,17 @@ struct MessageMapItem_t
 };
 
 #define DECLARE_PANELMESSAGEMAP( className )												\
-	static void AddToMap( char const *scriptname, vgui::MessageFunc_t function, int paramCount, int p1type, const char *p1name, int p2type, const char *p2name ) 	\
+	static void AddToMap( char const *scriptname, vgui2::MessageFunc_t function, int paramCount, int p1type, const char *p1name, int p2type, const char *p2name ) 	\
 	{																					\
-		vgui::PanelMessageMap *map = vgui::FindOrAddPanelMessageMap( GetPanelClassName() );			\
+		vgui2::PanelMessageMap *map = vgui2::FindOrAddPanelMessageMap( GetPanelClassName() );			\
 																						\
-		vgui::MessageMapItem_t entry;															\
+		vgui2::MessageMapItem_t entry;															\
 		entry.name = scriptname;														\
 		entry.func = function;															\
 		entry.numParams = paramCount;													\
-		entry.firstParamType = (vgui::DataType_t)p1type;								\
+		entry.firstParamType = (vgui2::DataType_t)p1type;								\
 		entry.firstParamName = p1name;													\
-		entry.secondParamType = (vgui::DataType_t)p2type;								\
+		entry.secondParamType = (vgui2::DataType_t)p2type;								\
 		entry.secondParamName = p2name;													\
 		entry.nameSymbol = 0;															\
 		entry.firstParamSymbol = 0;														\
@@ -104,11 +104,11 @@ struct MessageMapItem_t
 		if ( chained )																	\
 			return;																		\
 		chained = true;																	\
-		vgui::PanelMessageMap *map = vgui::FindOrAddPanelMessageMap( GetPanelClassName() );			\
+		vgui2::PanelMessageMap *map = vgui2::FindOrAddPanelMessageMap( GetPanelClassName() );			\
 		map->pfnClassName = &GetPanelClassName;											\
 		if ( map && GetPanelBaseClassName() && GetPanelBaseClassName()[0] )				\
 		{																				\
-			map->baseMap = vgui::FindOrAddPanelMessageMap( GetPanelBaseClassName() );			\
+			map->baseMap = vgui2::FindOrAddPanelMessageMap( GetPanelBaseClassName() );			\
 		}																				\
 	}																					\
 																						\
@@ -124,9 +124,9 @@ struct MessageMapItem_t
 	};																					\
 	className##_RegisterMap m_RegisterClass;												\
 																						\
-	virtual vgui::PanelMessageMap *GetMessageMap()											\
+	virtual vgui2::PanelMessageMap *GetMessageMap()											\
 	{																					\
-		static vgui::PanelMessageMap *s_pMap = vgui::FindOrAddPanelMessageMap( GetPanelClassName() );	\
+		static vgui2::PanelMessageMap *s_pMap = vgui2::FindOrAddPanelMessageMap( GetPanelClassName() );	\
 		return s_pMap;																	\
 	}
 
@@ -188,7 +188,7 @@ public:							\
 			if ( !bAdded ) \
 			{ \
 				bAdded = true; \
-				AddToMap( scriptname, (vgui::MessageFunc_t)&ThisClass::##name, paramCount, p1type, p1name, p2type, p2name ); \
+				AddToMap( scriptname, (vgui2::MessageFunc_t)&ThisClass::##name, paramCount, p1type, p1name, p2type, p2name ); \
 			} \
 		}												\
 		PanelMessageFunc_##name()						\
@@ -204,30 +204,30 @@ public:							\
 #define MESSAGE_FUNC( name, scriptname )			_MessageFuncCommon( name, scriptname, 0, 0, 0, 0, 0 );	virtual void name( void )
 
 // one parameter
-#define MESSAGE_FUNC_INT( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_INT, #p1, 0, 0 );	virtual void name( int p1 )
-#define MESSAGE_FUNC_UINT64( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_UINT64, #p1, 0, 0 );	virtual void name( uint64 p1 )
-#define MESSAGE_FUNC_PTR( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_PTR, #p1, 0, 0 );	virtual void name( vgui::Panel *p1 )
-#define MESSAGE_FUNC_ENUM( name, scriptname, t1, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_INT, #p1, 0, 0 );	virtual void name( t1 p1 )
-#define MESSAGE_FUNC_FLOAT( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_FLOAT, #p1, 0, 0 );	virtual void name( float p1 )
-#define MESSAGE_FUNC_CHARPTR( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_CONSTCHARPTR, #p1, 0, 0 );	virtual void name( const char *p1 )
-#define MESSAGE_FUNC_WCHARPTR( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_CONSTWCHARPTR, #p1, 0, 0 ); virtual void name( const wchar_t *p1 )
+#define MESSAGE_FUNC_INT( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_INT, #p1, 0, 0 );	virtual void name( int p1 )
+#define MESSAGE_FUNC_UINT64( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_UINT64, #p1, 0, 0 );	virtual void name( uint64 p1 )
+#define MESSAGE_FUNC_PTR( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_PTR, #p1, 0, 0 );	virtual void name( vgui2::Panel *p1 )
+#define MESSAGE_FUNC_ENUM( name, scriptname, t1, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_INT, #p1, 0, 0 );	virtual void name( t1 p1 )
+#define MESSAGE_FUNC_FLOAT( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_FLOAT, #p1, 0, 0 );	virtual void name( float p1 )
+#define MESSAGE_FUNC_CHARPTR( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_CONSTCHARPTR, #p1, 0, 0 );	virtual void name( const char *p1 )
+#define MESSAGE_FUNC_WCHARPTR( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_CONSTWCHARPTR, #p1, 0, 0 ); virtual void name( const wchar_t *p1 )
 
 // two parameters
-#define MESSAGE_FUNC_INT_INT( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui::DATATYPE_INT, #p1, vgui::DATATYPE_INT, #p2 );	virtual void name( int p1, int p2 )
-#define MESSAGE_FUNC_PTR_INT( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui::DATATYPE_PTR, #p1, vgui::DATATYPE_INT, #p2 );	virtual void name( vgui::Panel *p1, int p2 )
-#define MESSAGE_FUNC_ENUM_ENUM( name, scriptname, t1, p1, t2, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui::DATATYPE_INT, #p1, vgui::DATATYPE_INT, #p2 );	virtual void name( t1 p1, t2 p2 )
-#define MESSAGE_FUNC_INT_CHARPTR( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui::DATATYPE_INT, #p1, vgui::DATATYPE_CONSTCHARPTR, #p2 );	virtual void name( int p1, const char *p2 )
-#define MESSAGE_FUNC_PTR_CHARPTR( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui::DATATYPE_PTR, #p1, vgui::DATATYPE_CONSTCHARPTR, #p2 );	virtual void name( vgui::Panel *p1, const char *p2 )
-#define MESSAGE_FUNC_PTR_WCHARPTR( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui::DATATYPE_PTR, #p1, vgui::DATATYPE_CONSTWCHARPTR, #p2 );	virtual void name( vgui::Panel *p1, const wchar_t *p2 )
-#define MESSAGE_FUNC_CHARPTR_CHARPTR( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui::DATATYPE_CONSTCHARPTR, #p1, vgui::DATATYPE_CONSTCHARPTR, #p2 );	virtual void name( const char *p1, const char *p2 )
+#define MESSAGE_FUNC_INT_INT( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui2::DATATYPE_INT, #p1, vgui2::DATATYPE_INT, #p2 );	virtual void name( int p1, int p2 )
+#define MESSAGE_FUNC_PTR_INT( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui2::DATATYPE_PTR, #p1, vgui2::DATATYPE_INT, #p2 );	virtual void name( vgui2::Panel *p1, int p2 )
+#define MESSAGE_FUNC_ENUM_ENUM( name, scriptname, t1, p1, t2, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui2::DATATYPE_INT, #p1, vgui2::DATATYPE_INT, #p2 );	virtual void name( t1 p1, t2 p2 )
+#define MESSAGE_FUNC_INT_CHARPTR( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui2::DATATYPE_INT, #p1, vgui2::DATATYPE_CONSTCHARPTR, #p2 );	virtual void name( int p1, const char *p2 )
+#define MESSAGE_FUNC_PTR_CHARPTR( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui2::DATATYPE_PTR, #p1, vgui2::DATATYPE_CONSTCHARPTR, #p2 );	virtual void name( vgui2::Panel *p1, const char *p2 )
+#define MESSAGE_FUNC_PTR_WCHARPTR( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui2::DATATYPE_PTR, #p1, vgui2::DATATYPE_CONSTWCHARPTR, #p2 );	virtual void name( vgui2::Panel *p1, const wchar_t *p2 )
+#define MESSAGE_FUNC_CHARPTR_CHARPTR( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui2::DATATYPE_CONSTCHARPTR, #p1, vgui2::DATATYPE_CONSTCHARPTR, #p2 );	virtual void name( const char *p1, const char *p2 )
 
 // unlimited parameters (passed in the whole KeyValues)
-#define MESSAGE_FUNC_PARAMS( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_KEYVALUES, NULL, 0, 0 );	virtual void name( KeyValues *p1 )
+#define MESSAGE_FUNC_PARAMS( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_KEYVALUES, NULL, 0, 0 );	virtual void name( KeyValues *p1 )
 
 // no-virtual function version
 #define MESSAGE_FUNC_NV( name, scriptname )			_MessageFuncCommon( name, scriptname, 0, 0, 0, 0, 0 );	void name( void )
-#define MESSAGE_FUNC_NV_INT( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui::DATATYPE_INT, #p1, 0, 0 );	void name( int p1 )
-#define MESSAGE_FUNC_NV_INT_INT( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui::DATATYPE_INT, #p1, vgui::DATATYPE_INT, #p2 );	void name( int p1, int p2 )
+#define MESSAGE_FUNC_NV_INT( name, scriptname, p1 )	_MessageFuncCommon( name, scriptname, 1, vgui2::DATATYPE_INT, #p1, 0, 0 );	void name( int p1 )
+#define MESSAGE_FUNC_NV_INT_INT( name, scriptname, p1, p2 )	_MessageFuncCommon( name, scriptname, 2, vgui2::DATATYPE_INT, #p1, vgui2::DATATYPE_INT, #p2 );	void name( int p1, int p2 )
 
 
 // mapping, one per class
@@ -258,27 +258,27 @@ PanelMessageMap *FindOrAddPanelMessageMap( char const *className );
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // no parameters
-#define MAP_MESSAGE( type, name, func )						{ name, (vgui::MessageFunc_t)(type::func), 0 }
+#define MAP_MESSAGE( type, name, func )						{ name, (vgui2::MessageFunc_t)(type::func), 0 }
 
 // implicit single parameter (params is the data store)
-#define MAP_MESSAGE_PARAMS( type, name, func )				{ name, (vgui::MessageFunc_t)(type::func), 1, vgui::DATATYPE_KEYVALUES, NULL }
+#define MAP_MESSAGE_PARAMS( type, name, func )				{ name, (vgui2::MessageFunc_t)(type::func), 1, vgui2::DATATYPE_KEYVALUES, NULL }
 
 // single parameter
-#define MAP_MESSAGE_PTR( type, name, func, param1 )			{ name, (vgui::MessageFunc_t)(&type::func), 1, vgui::DATATYPE_PTR, param1 }
-#define MAP_MESSAGE_INT( type, name, func, param1 )			{ name, (vgui::MessageFunc_t)(&type::func), 1, vgui::DATATYPE_INT, param1 }
-#define MAP_MESSAGE_BOOL( type, name, func, param1 )		{ name, (vgui::MessageFunc_t)(&type::func), 1, vgui::DATATYPE_BOOL, param1 }
-#define MAP_MESSAGE_FLOAT( type, name, func, param1 )		{ name, (vgui::MessageFunc_t)(&type::func), 1, vgui::DATATYPE_FLOAT, param1 }
-#define MAP_MESSAGE_PTR( type, name, func, param1 )			{ name, (vgui::MessageFunc_t)(&type::func), 1, vgui::DATATYPE_PTR, param1 }
-#define MAP_MESSAGE_CONSTCHARPTR( type, name, func, param1) { name, (vgui::MessageFunc_t)(&type::func), 1, vgui::DATATYPE_CONSTCHARPTR, param1 }
-#define MAP_MESSAGE_CONSTWCHARPTR( type, name, func, param1) { name, (vgui::MessageFunc_t)(&type::func), 1, vgui::DATATYPE_CONSTWCHARPTR, param1 }
+#define MAP_MESSAGE_PTR( type, name, func, param1 )			{ name, (vgui2::MessageFunc_t)(&type::func), 1, vgui2::DATATYPE_PTR, param1 }
+#define MAP_MESSAGE_INT( type, name, func, param1 )			{ name, (vgui2::MessageFunc_t)(&type::func), 1, vgui2::DATATYPE_INT, param1 }
+#define MAP_MESSAGE_BOOL( type, name, func, param1 )		{ name, (vgui2::MessageFunc_t)(&type::func), 1, vgui2::DATATYPE_BOOL, param1 }
+#define MAP_MESSAGE_FLOAT( type, name, func, param1 )		{ name, (vgui2::MessageFunc_t)(&type::func), 1, vgui2::DATATYPE_FLOAT, param1 }
+#define MAP_MESSAGE_PTR( type, name, func, param1 )			{ name, (vgui2::MessageFunc_t)(&type::func), 1, vgui2::DATATYPE_PTR, param1 }
+#define MAP_MESSAGE_CONSTCHARPTR( type, name, func, param1) { name, (vgui2::MessageFunc_t)(&type::func), 1, vgui2::DATATYPE_CONSTCHARPTR, param1 }
+#define MAP_MESSAGE_CONSTWCHARPTR( type, name, func, param1) { name, (vgui2::MessageFunc_t)(&type::func), 1, vgui2::DATATYPE_CONSTWCHARPTR, param1 }
 
 // two parameters
-#define MAP_MESSAGE_INT_INT( type, name, func, param1, param2 ) { name, (vgui::MessageFunc_t)&type::func, 2, vgui::DATATYPE_INT, param1, vgui::DATATYPE_INT, param2 }
-#define MAP_MESSAGE_PTR_INT( type, name, func, param1, param2 ) { name, (vgui::MessageFunc_t)&type::func, 2, vgui::DATATYPE_PTR, param1, vgui::DATATYPE_INT, param2 }
-#define MAP_MESSAGE_INT_CONSTCHARPTR( type, name, func, param1, param2 ) { name, (vgui::MessageFunc_t)&type::func, 2, vgui::DATATYPE_INT, param1, vgui::DATATYPE_CONSTCHARPTR, param2 }
-#define MAP_MESSAGE_PTR_CONSTCHARPTR( type, name, func, param1, param2 ) { name, (vgui::MessageFunc_t)&type::func, 2, vgui::DATATYPE_PTR, param1, vgui::DATATYPE_CONSTCHARPTR, param2 }
-#define MAP_MESSAGE_PTR_CONSTWCHARPTR( type, name, func, param1, param2 ) { name, (vgui::MessageFunc_t)&type::func, 2, vgui::DATATYPE_PTR, param1, vgui::DATATYPE_CONSTWCHARPTR, param2 }
-#define MAP_MESSAGE_CONSTCHARPTR_CONSTCHARPTR( type, name, func, param1, param2 ) { name, (vgui::MessageFunc_t)&type::func, 2, vgui::DATATYPE_CONSTCHARPTR, param1, vgui::DATATYPE_CONSTCHARPTR, param2 }
+#define MAP_MESSAGE_INT_INT( type, name, func, param1, param2 ) { name, (vgui2::MessageFunc_t)&type::func, 2, vgui2::DATATYPE_INT, param1, vgui2::DATATYPE_INT, param2 }
+#define MAP_MESSAGE_PTR_INT( type, name, func, param1, param2 ) { name, (vgui2::MessageFunc_t)&type::func, 2, vgui2::DATATYPE_PTR, param1, vgui2::DATATYPE_INT, param2 }
+#define MAP_MESSAGE_INT_CONSTCHARPTR( type, name, func, param1, param2 ) { name, (vgui2::MessageFunc_t)&type::func, 2, vgui2::DATATYPE_INT, param1, vgui2::DATATYPE_CONSTCHARPTR, param2 }
+#define MAP_MESSAGE_PTR_CONSTCHARPTR( type, name, func, param1, param2 ) { name, (vgui2::MessageFunc_t)&type::func, 2, vgui2::DATATYPE_PTR, param1, vgui2::DATATYPE_CONSTCHARPTR, param2 }
+#define MAP_MESSAGE_PTR_CONSTWCHARPTR( type, name, func, param1, param2 ) { name, (vgui2::MessageFunc_t)&type::func, 2, vgui2::DATATYPE_PTR, param1, vgui2::DATATYPE_CONSTWCHARPTR, param2 }
+#define MAP_MESSAGE_CONSTCHARPTR_CONSTCHARPTR( type, name, func, param1, param2 ) { name, (vgui2::MessageFunc_t)&type::func, 2, vgui2::DATATYPE_CONSTCHARPTR, param1, vgui2::DATATYPE_CONSTCHARPTR, param2 }
 
 // if more parameters are needed, just use MAP_MESSAGE_PARAMS() and pass the keyvalue set into the function
 
@@ -299,16 +299,16 @@ struct PanelMap_t
 // for use in class declarations
 // declares the static variables and functions needed for the data description iteration
 #define DECLARE_PANELMAP() \
-	static vgui::PanelMap_t m_PanelMap; \
-	static vgui::MessageMapItem_t m_MessageMap[]; \
-	virtual vgui::PanelMap_t *GetPanelMap( void );
+	static vgui2::PanelMap_t m_PanelMap; \
+	static vgui2::MessageMapItem_t m_MessageMap[]; \
+	virtual vgui2::PanelMap_t *GetPanelMap( void );
 
 // could embed typeid() into here as well?
 #define IMPLEMENT_PANELMAP( derivedClass, baseClass ) \
-	vgui::PanelMap_t derivedClass::m_PanelMap = { derivedClass::m_MessageMap, ARRAYSIZE(derivedClass::m_MessageMap), #derivedClass, &baseClass::m_PanelMap }; \
-	vgui::PanelMap_t *derivedClass::GetPanelMap( void ) { return &m_PanelMap; }
+	vgui2::PanelMap_t derivedClass::m_PanelMap = { derivedClass::m_MessageMap, ARRAYSIZE(derivedClass::m_MessageMap), #derivedClass, &baseClass::m_PanelMap }; \
+	vgui2::PanelMap_t *derivedClass::GetPanelMap( void ) { return &m_PanelMap; }
 
-typedef vgui::Panel *( *PANELCREATEFUNC )( void );
+typedef vgui2::Panel *( *PANELCREATEFUNC )( void );
 
 //-----------------------------------------------------------------------------
 // Purpose: Used by DECLARE_BUILD_FACTORY macro to create a linked list of
@@ -329,9 +329,9 @@ public:
 
 	char const	*GetClassName() const;
 
-	vgui::Panel *CreatePanel();
+	vgui2::Panel *CreatePanel();
 
-	static vgui::Panel *InstancePanel( char const *className );
+	static vgui2::Panel *InstancePanel( char const *className );
 	static void GetFactoryNames( CUtlVector< char const * >& list );
 private:
 
@@ -350,7 +350,7 @@ private:
 // It them hooks that function up to the helper list so that the CHud objects can create
 //  the elements by name, with no header file dependency, etc.
 #define DECLARE_BUILD_FACTORY( className )										\
-	static vgui::Panel *Create_##className##( void )							\
+	static vgui2::Panel *Create_##className##( void )							\
 		{																		\
 			return new className( NULL, NULL );									\
 		};																		\
@@ -358,7 +358,7 @@ private:
 	className *g_##className##LinkerHack = NULL;
 
 #define DECLARE_BUILD_FACTORY_DEFAULT_TEXT( className, defaultText )			\
-	static vgui::Panel *Create_##className##( void )							\
+	static vgui2::Panel *Create_##className##( void )							\
 		{																		\
 			return new className( NULL, NULL, #defaultText );					\
 		};																		\
@@ -374,7 +374,7 @@ private:
 	static CBuildFactoryHelper g_##factoryName##_Helper( #factoryName, createFunc );\
 	className *g_##factoryName##LinkerHack = NULL;
 
-} // namespace vgui
+} // namespace vgui2
 
 
 #endif // MESSAGEMAP_H

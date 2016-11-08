@@ -48,7 +48,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 #ifndef _WIN32
 #error "This class is WIN32 specific, please port me"
@@ -196,7 +196,7 @@ static int ListFileTypeSortFunc(ListPanel *pPanel, const ListPanelItem &item1, c
 
 
 
-namespace vgui
+namespace vgui2
 {
 
 class FileCompletionMenu : public Menu
@@ -448,7 +448,7 @@ void FileCompletionEdit::OnMenuItemHighlight( int itemID )
 }
 
 
-} // namespace vgui
+} // namespace vgui2
 
 
 //-----------------------------------------------------------------------------
@@ -685,7 +685,7 @@ void FileOpenDialog::OnClose()
 	m_pFileNameEdit->SetText("");
 	m_pFileNameEdit->HideMenu();
 
-	if ( vgui::input()->GetAppModalSurface() == GetVPanel() )
+	if ( vgui2::input()->GetAppModalSurface() == GetVPanel() )
 	{
 		input()->SetAppModalSurface(NULL);
 	}
@@ -871,10 +871,10 @@ void FileOpenDialog::NewFolder( char const *folderName )
 	do
 	{
 		Q_MakeAbsolutePath( pFullPath, sizeof(pFullPath), pNewFolderName, pCurrentDirectory );
-		if ( !vgui::filesystem()->FileExists( pFullPath ) &&
-			 !vgui::filesystem()->IsDirectory( pFullPath ) )
+		if ( !vgui2::filesystem()->FileExists( pFullPath ) &&
+			 !vgui2::filesystem()->IsDirectory( pFullPath ) )
 		{
-			vgui::filesystem()->CreateDirHierarchy( pFullPath, NULL );
+			vgui2::filesystem()->CreateDirHierarchy( pFullPath, NULL );
 			return;
 		}
 
@@ -1344,7 +1344,7 @@ void FileOpenDialog::OnOpen()
 	}
 
 	// If the name specified is a directory, then change directory
-	if ( vgui::filesystem()->IsDirectory( pFullPath ) )
+	if ( vgui2::filesystem()->IsDirectory( pFullPath ) )
 	{
 		// it's a directory; change to the specified directory
 		if ( !bSpecifiedDirectory )
@@ -1379,7 +1379,7 @@ void FileOpenDialog::OnOpen()
 		Q_SetExtension( pFullPath, extension, sizeof(pFullPath) );
 	}
 
-	if ( vgui::filesystem()->FileExists( pFullPath ) )
+	if ( vgui2::filesystem()->FileExists( pFullPath ) )
 	{
 		// open the file!
 		SaveFileToStartDirContext( pFullPath );

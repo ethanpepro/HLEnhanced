@@ -24,7 +24,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-using namespace vgui;
+using namespace vgui2;
 
 static const float NOB_SIZE = 8.0f;
 
@@ -319,7 +319,7 @@ void Slider::DrawTicks()
 
     if (IsEnabled())
     {
-        surface()->DrawSetColor( m_TickColor ); //vgui::Color( 127, 140, 127, 255 ) );
+        surface()->DrawSetColor( m_TickColor ); //vgui2::Color( 127, 140, 127, 255 ) );
     	for ( int i = 0; i <= m_nNumTicks; i++ )
     	{
     		int xpos = (int)( leftpixel + i * pixelspertick );
@@ -329,13 +329,13 @@ void Slider::DrawTicks()
     }
     else
     {
-        surface()->DrawSetColor( m_DisabledTextColor1 ); //vgui::Color( 127, 140, 127, 255 ) );
+        surface()->DrawSetColor( m_DisabledTextColor1 ); //vgui2::Color( 127, 140, 127, 255 ) );
     	for ( int i = 0; i <= m_nNumTicks; i++ )
     	{
     		int xpos = (int)( leftpixel + i * pixelspertick );
     		surface()->DrawFilledRect( xpos+1, y+1, xpos + 2, y + tickHeight + 1 );
     	}
-        surface()->DrawSetColor( m_DisabledTextColor2 ); //vgui::Color( 127, 140, 127, 255 ) );
+        surface()->DrawSetColor( m_DisabledTextColor2 ); //vgui2::Color( 127, 140, 127, 255 ) );
     	for ( int i = 0; i <= m_nNumTicks; i++ )
     	{
     		int xpos = (int)( leftpixel + i * pixelspertick );
@@ -359,9 +359,9 @@ void Slider::DrawTickLabels()
 
 	// Draw Start and end range values
     if (IsEnabled())
-	    surface()->DrawSetTextColor( m_TickColor ); //vgui::Color( 127, 140, 127, 255 ) );
+	    surface()->DrawSetTextColor( m_TickColor ); //vgui2::Color( 127, 140, 127, 255 ) );
     else
-	    surface()->DrawSetTextColor( m_DisabledTextColor1 ); //vgui::Color( 127, 140, 127, 255 ) );
+	    surface()->DrawSetTextColor( m_DisabledTextColor1 ); //vgui2::Color( 127, 140, 127, 255 ) );
 
 
 	if ( _leftCaption != NULL )

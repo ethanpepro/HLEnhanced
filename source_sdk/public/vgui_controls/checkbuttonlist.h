@@ -13,7 +13,7 @@
 #include <vgui_controls/EditablePanel.h>
 #include "UtlVector.h"
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -62,11 +62,11 @@ private:
 
 	struct CheckItem_t
 	{
-		vgui::CheckButton *checkButton;
+		vgui2::CheckButton *checkButton;
 		KeyValues *userData;
 	};
 	CUtlVector<CheckItem_t> m_CheckItems;
-	vgui::ScrollBar *m_pScrollBar;
+	vgui2::ScrollBar *m_pScrollBar;
 	bool m_bIgnoreCheckSignals;
 };
 

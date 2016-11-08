@@ -32,7 +32,7 @@
 
 class Color;
 
-namespace vgui
+namespace vgui2
 {
 
 class IImage;
@@ -153,8 +153,8 @@ public:
 	virtual void DrawUnicodeChar(wchar_t wch, FontDrawType_t drawType = FONT_DRAW_DEFAULT ) = 0;
 
 	virtual void DrawFlushText() = 0;		// flushes any buffered text (for rendering optimizations)
-	virtual IHTML *CreateHTMLWindow(vgui::IHTMLEvents *events,VPANEL context)=0;
-	virtual void PaintHTMLWindow(vgui::IHTML *htmlwin) =0;
+	virtual IHTML *CreateHTMLWindow(vgui2::IHTMLEvents *events,VPANEL context)=0;
+	virtual void PaintHTMLWindow(vgui2::IHTML *htmlwin) =0;
 	virtual void DeleteHTMLWindow(IHTML *htmlwin)=0;
 
 	virtual int	 DrawGetTextureId( char const *filename ) = 0;
@@ -324,7 +324,7 @@ public:
 	// video mode changing
 	virtual void OnScreenSizeChanged( int nOldWidth, int nOldHeight ) = 0;
 #if !defined( _XBOX )
-	virtual vgui::HCursor	CreateCursorFromFile( char const *curOrAniFile, char const *pPathID = 0 ) = 0;
+	virtual vgui2::HCursor	CreateCursorFromFile( char const *curOrAniFile, char const *pPathID = 0 ) = 0;
 #endif
 	// create IVguiMatInfo object ( IMaterial wrapper in VguiMatSurface, NULL in CWin32Surface )
 	virtual IVguiMatInfo *DrawGetTextureMatInfoFactory( int id ) = 0;

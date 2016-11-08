@@ -14,7 +14,7 @@
 #include "UtlLinkedList.h"
 #include "UtlVector.h"
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -76,6 +76,6 @@ private:
 	int m_iGraphBarGapWidth;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // GRAPHPANEL_H
