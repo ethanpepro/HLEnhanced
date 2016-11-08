@@ -16,14 +16,13 @@ add_sources(
 	datamanager.cpp
 	diff.cpp
 	generichash.cpp
-	interface.cpp
+	#interface.cpp
 	jobthread.cpp
 	keyvalues.cpp
 	mempool.cpp
 	memstack.cpp
 	netadr.cpp
 	processor_detect.cpp
-	processor_detect_linux.cpp
 	rangecheckedvar.cpp
 	stringpool.cpp
 	strtools.cpp
@@ -36,6 +35,12 @@ add_sources(
 	xboxstubs.cpp
 )
 
+if( UNIX )
+	add_sources(
+		processor_detect_linux.cpp
+	)
+endif()
+
 preprocess_sources()
 
 include_directories(
@@ -43,6 +48,7 @@ include_directories(
 	${CMAKE_SOURCE_DIR}/source_sdk/public/tier1
 	${CMAKE_SOURCE_DIR}/source_sdk/common
 	${CMAKE_SOURCE_DIR}/public
+	${CMAKE_SOURCE_DIR}
 )
 
 add_library( tier1 STATIC ${PREP_SRCS} )

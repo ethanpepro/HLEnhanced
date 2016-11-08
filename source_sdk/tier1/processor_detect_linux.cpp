@@ -14,7 +14,7 @@ bool CheckMMXTechnology(void)
     unsigned long eax,ebx,edx,unused;
     cpuid(1,eax,ebx,unused,edx);
 
-    return edx & 0x800000;
+    return ( edx & 0x800000 ) != 0;
 }
 
 bool CheckSSETechnology(void)
@@ -22,7 +22,7 @@ bool CheckSSETechnology(void)
     unsigned long eax,ebx,edx,unused;
     cpuid(1,eax,ebx,unused,edx);
 
-    return edx & 0x2000000L;
+    return ( edx & 0x2000000L ) != 0;
 }
 
 bool CheckSSE2Technology(void)
@@ -30,7 +30,7 @@ bool CheckSSE2Technology(void)
     unsigned long eax,ebx,edx,unused;
     cpuid(1,eax,ebx,unused,edx);
 
-    return edx & 0x04000000;
+    return ( edx & 0x04000000 ) != 0;
 }
 
 bool Check3DNowTechnology(void)
@@ -41,7 +41,7 @@ bool Check3DNowTechnology(void)
     if ( eax > 0x80000000L )
     {
      	cpuid(0x80000001,unused,unused,unused,eax);
-	return ( eax & 1<<31 );
+	return ( eax & 1<<31 ) != 0;
     }
     return false;
 }

@@ -476,6 +476,26 @@ bool KeyValues::LoadFromFile( IBaseFileSystem *filesystem, const char *resourceN
 
 	// load file into a null-terminated buffer
 	int fileSize = filesystem->Size(f);
+
+	//New code:
+	unsigned bufSize = fileSize + 1;
+
+	char *buffer = new char[ bufSize ];
+
+	Assert( buffer );
+
+	( ( IFileSystem * ) filesystem )->Read( buffer, fileSize, f ); // read into local buffer
+
+	buffer[ fileSize ] = 0; // null terminate file as EOF
+
+	filesystem->Close( f );	// close file after reading
+
+	bool retOK = LoadFromBuffer( resourceName, buffer, filesystem );
+
+	delete[] buffer;
+
+	//Old code:
+	/*
 	unsigned bufSize = ((IFileSystem *)filesystem)->GetOptimalReadSize( f, fileSize + 1 );
 
 	char *buffer = (char*)((IFileSystem *)filesystem)->AllocOptimalReadBuffer( f, bufSize );
@@ -491,6 +511,7 @@ bool KeyValues::LoadFromFile( IBaseFileSystem *filesystem, const char *resourceN
 	bool retOK = LoadFromBuffer( resourceName, buffer, filesystem );
 
 	((IFileSystem *)filesystem)->FreeOptimalReadBuffer( buffer );
+	*/
 
 	return retOK;
 }
@@ -1200,9 +1221,9 @@ const wchar_t *KeyValues::GetWString( const char *keyName, const wchar_t *defaul
 //-----------------------------------------------------------------------------
 // Purpose: Gets a color
 //-----------------------------------------------------------------------------
-Color KeyValues::GetColor( const char *keyName )
+SDK_Color KeyValues::GetColor( const char *keyName )
 {
-	Color color(0, 0, 0, 0);
+	SDK_Color color(0, 0, 0, 0);
 	KeyValues *dat = FindKey( keyName, false );
 	if ( dat )
 	{
@@ -1238,7 +1259,7 @@ Color KeyValues::GetColor( const char *keyName )
 //-----------------------------------------------------------------------------
 // Purpose: Sets a color
 //-----------------------------------------------------------------------------
-void KeyValues::SetColor( const char *keyName, Color value)
+void KeyValues::SetColor( const char *keyName, SDK_Color value)
 {
 	KeyValues *dat = FindKey( keyName, true );
 
