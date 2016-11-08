@@ -477,6 +477,30 @@ void Panel::SaveKeyBindingsToFile( KeyBindingContextHandle_t handle, char const 
 
 	BufPrint( buf, 0, "}\n" );
 
+	//New code for file I/O:
+
+	FileHandle_t h = filesystem()->Open( filename, "rb", pathID );
+
+	const bool bExists = FILESYSTEM_INVALID_HANDLE != h;
+
+	filesystem()->Close( h );
+
+	h = filesystem()->Open( filename, "wb", pathID );
+
+	if ( bExists &&
+		 FILESYSTEM_INVALID_HANDLE != h )
+	{
+		Warning( "Panel::SaveKeyBindings '%s' is read-only!!!\n", filename );
+	}
+
+	if ( FILESYSTEM_INVALID_HANDLE != h )
+	{
+		filesystem()->Write( buf.Base(), buf.TellPut(), h );
+		filesystem()->Close( h );
+	}
+
+	//Original code:
+	/*
 	if ( filesystem()->FileExists( filename, pathID ) &&
 		!filesystem()->IsFileWritable( filename, pathID ) )
 	{
@@ -489,6 +513,7 @@ void Panel::SaveKeyBindingsToFile( KeyBindingContextHandle_t handle, char const 
 		filesystem()->Write( buf.Base(), buf.TellPut(), h );
 		filesystem()->Close( h );
 	}
+	*/
 }
 
 //-----------------------------------------------------------------------------

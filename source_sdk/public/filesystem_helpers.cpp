@@ -7,6 +7,9 @@
 
 #if !defined(_STATIC_LINKED) || defined(_SHARED_LIB)
 
+#include <cwchar>
+#include <experimental/filesystem>
+
 #include "filesystem.h"
 #include "filesystem_helpers.h"
 #include "characterset.h"
@@ -134,6 +137,26 @@ skipwhite:
 char* ParseFile( char* pFileBytes, char* pToken, bool* pWasQuoted )
 {
 	return (char*)ParseFile( (const char*)pFileBytes, pToken, pWasQuoted );
+}
+
+bool FS_GetFileTypeForFullPath( char const *pFullPath, wchar_t *buf, size_t bufSizeInBytes )
+{
+	if( !pFullPath )
+		return false;
+	
+	bufSizeInBytes /= sizeof( wchar_t );
+	
+	if( !buf || bufSizeInBytes == 0 )
+		return false;
+	
+	std::experimental::filesystem::path path( pFullPath );
+	
+	auto szExt = path.extension().wstring();
+	
+	wcsncpy( buf, szExt.c_str(), bufSizeInBytes );
+	buf[ bufSizeInBytes - 1 ] = L'\0';
+	
+	return true;
 }
 
 #endif // !_STATIC_LINKED || _SHARED_LIB

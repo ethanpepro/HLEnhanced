@@ -134,7 +134,8 @@ bool AnimationController::LoadScriptFile(const char *fileName)
 		nBufSize = AlignValue( nBufSize, 512 );
 	}
 	char *pMem = (char *)malloc(nBufSize);
-	int bytesRead = filesystem()->ReadEx(pMem, nBufSize, size, f);
+	int bytesRead = filesystem()->Read( pMem, size, f );
+	//int bytesRead = filesystem()->ReadEx(pMem, nBufSize, size, f);
 	Assert(bytesRead <= size);
 	pMem[bytesRead] = 0;
 	filesystem()->Close(f);

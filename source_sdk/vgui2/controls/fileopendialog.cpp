@@ -19,6 +19,7 @@
 #endif
 #undef GetCurrentDirectory
 #include "filesystem.h"
+#include "filesystem_helpers.h"
 
 #include "tier1/utldict.h"
 #include "tier1/utlstring.h"
@@ -870,8 +871,8 @@ void FileOpenDialog::NewFolder( char const *folderName )
 	do
 	{
 		Q_MakeAbsolutePath( pFullPath, sizeof(pFullPath), pNewFolderName, pCurrentDirectory );
-		if ( !vgui::filesystem()->FileExists( pFullPath, NULL ) &&
-			 !vgui::filesystem()->IsDirectory( pFullPath, NULL ) )
+		if ( !vgui::filesystem()->FileExists( pFullPath ) &&
+			 !vgui::filesystem()->IsDirectory( pFullPath ) )
 		{
 			vgui::filesystem()->CreateDirHierarchy( pFullPath, NULL );
 			return;
@@ -1105,7 +1106,7 @@ void FileOpenDialog::PopulateFileList()
 				kv->SetString( "filesize", Q_pretifymem( findData.nFileSizeLow, 0, true ) );
 				Q_FixSlashes( fullpath );
 				wchar_t fileType[ 80 ];
-				filesystem()->GetFileTypeForFullPath( fullpath, fileType, sizeof( fileType ) );
+				FS_GetFileTypeForFullPath( fullpath, fileType, sizeof( fileType ) );
 				kv->SetWString( "type", fileType );
 				kv->SetString( "attributes", GetAttributesAsString( findData.dwFileAttributes ) );
 				kv->SetString( "modified", GetFileTimetamp( findData.ftLastWriteTime ) );
@@ -1343,7 +1344,7 @@ void FileOpenDialog::OnOpen()
 	}
 
 	// If the name specified is a directory, then change directory
-	if ( vgui::filesystem()->IsDirectory( pFullPath, NULL ) )
+	if ( vgui::filesystem()->IsDirectory( pFullPath ) )
 	{
 		// it's a directory; change to the specified directory
 		if ( !bSpecifiedDirectory )
