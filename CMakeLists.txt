@@ -395,7 +395,6 @@ if( USE_VGUI2 )
 	
 	set( VGUI2_LIBS
 		${TIER0}
-		${TIER1}
 		${VSTDLIB}
 		vgui2_controls
 		tier1
