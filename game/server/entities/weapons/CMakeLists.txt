@@ -1,5 +1,7 @@
 add_sources(
 	CBasePlayerWeapon.server.cpp
+	CCrossbowBolt.h
+	CCrossbowBolt.cpp
 	CDesertEagleLaser.h
 	CDesertEagleLaser.cpp
 	CDisplacerBall.h
@@ -8,6 +10,10 @@ add_sources(
 	CShockBeam.cpp
 	CSpore.h
 	CSpore.cpp
+	CSqueakGrenade.h
+	CSqueakGrenade.cpp
+	CTripmineGrenade.h
+	CTripmineGrenade.cpp
 	CWeaponBox.h
 	CWeaponBox.cpp
 )
