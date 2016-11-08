@@ -40,7 +40,7 @@ public:
 	virtual IBorder *GetBorder(bool depressed, bool armed, bool selected, bool keyfocus);
 	virtual void OnCursorExited();
 
-	virtual Color GetButtonBgColor()
+	virtual SDK_Color GetButtonBgColor()
 	{
 		if (IsEnabled())
 			return  Button::GetButtonBgColor();
@@ -49,7 +49,7 @@ public:
 	}
 
 private:
-	Color m_DisabledBgColor;
+	SDK_Color m_DisabledBgColor;
 };
 
 

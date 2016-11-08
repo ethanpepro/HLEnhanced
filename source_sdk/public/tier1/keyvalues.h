@@ -23,11 +23,11 @@
 #endif
 
 #include "utlvector.h"
-#include "Color.h"
+#include "SDK_Color.h"
 
 class IFileSystem;
 class CUtlBuffer;
-class Color;
+class SDK_Color;
 typedef void * FileHandle_t;
 
 //-----------------------------------------------------------------------------
@@ -125,7 +125,7 @@ public:
 	const char *GetString( const char *keyName = NULL, const char *defaultValue = "" );
 	const wchar_t *GetWString( const char *keyName = NULL, const wchar_t *defaultValue = L"" );
 	void *GetPtr( const char *keyName = NULL, void *defaultValue = (void*)0 );
-	Color GetColor( const char *keyName = NULL /* default value is all black */);
+	SDK_Color GetColor( const char *keyName = NULL /* default value is all black */);
 	bool  IsEmpty(const char *keyName = NULL);
 
 	// Data access
@@ -134,7 +134,7 @@ public:
 	const char *GetString( int keySymbol, const char *defaultValue = "" );
 	const wchar_t *GetWString( int keySymbol, const wchar_t *defaultValue = L"" );
 	void *GetPtr( int keySymbol, void *defaultValue = (void*)0 );
-	Color GetColor( int keySymbol /* default value is all black */);
+	SDK_Color GetColor( int keySymbol /* default value is all black */);
 	bool  IsEmpty( int keySymbol );
 
 	// Key writing
@@ -144,7 +144,7 @@ public:
 	void SetUint64( const char *keyName, uint64 value );
 	void SetFloat( const char *keyName, float value );
 	void SetPtr( const char *keyName, void *value );
-	void SetColor( const char *keyName, Color value);
+	void SetColor( const char *keyName, SDK_Color value);
 
 	// Memory allocation (optimized)
 	void *operator new( unsigned int iAllocSize );
@@ -296,9 +296,9 @@ inline void *KeyValues::GetPtr( int keySymbol, void *defaultValue )
 	return dat ? dat->GetPtr( (const char *)NULL, defaultValue ) : defaultValue;
 }
 
-inline Color KeyValues::GetColor( int keySymbol )
+inline SDK_Color KeyValues::GetColor( int keySymbol )
 {
-	Color defaultValue( 0, 0, 0, 0 );
+	SDK_Color defaultValue( 0, 0, 0, 0 );
 	KeyValues *dat = FindKey( keySymbol );
 	return dat ? dat->GetColor( ) : defaultValue;
 }

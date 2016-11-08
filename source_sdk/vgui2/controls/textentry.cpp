@@ -132,7 +132,7 @@ void TextEntry::ApplySchemeSettings(IScheme *pScheme)
 	_selectionTextColor = GetSchemeColor("TextEntry.SelectedTextColor", GetFgColor(), pScheme);
 	_selectionColor = GetSchemeColor("TextEntry.SelectedBgColor", pScheme);
 	_defaultSelectionBG2Color = GetSchemeColor("TextEntry.OutOfFocusSelectedBgColor", pScheme);
-	_focusEdgeColor = GetSchemeColor("TextEntry.FocusEdgeColor", Color(0, 0, 0, 0), pScheme);
+	_focusEdgeColor = GetSchemeColor("TextEntry.FocusEdgeColor", SDK_Color(0, 0, 0, 0), pScheme);
 
 	SetBorder( pScheme->GetBorder("ButtonDepressedBorder"));
 
@@ -142,17 +142,17 @@ void TextEntry::ApplySchemeSettings(IScheme *pScheme)
 	SetFont( _font );
 }
 
-void TextEntry::SetSelectionTextColor( const Color& clr )
+void TextEntry::SetSelectionTextColor( const SDK_Color& clr )
 {
 	_selectionTextColor = clr;
 }
 
-void TextEntry::SetSelectionBgColor( const Color& clr )
+void TextEntry::SetSelectionBgColor( const SDK_Color& clr )
 {
 	_selectionColor = clr;
 }
 
-void TextEntry::SetSelectionUnfocusedBgColor( const Color& clr )
+void TextEntry::SetSelectionUnfocusedBgColor( const SDK_Color& clr )
 {
 	_defaultSelectionBG2Color = clr;
 }
@@ -160,7 +160,7 @@ void TextEntry::SetSelectionUnfocusedBgColor( const Color& clr )
 //-----------------------------------------------------------------------------
 // Purpose: sets the color of the background when the control is disabled
 //-----------------------------------------------------------------------------
-void TextEntry::SetDisabledBgColor(Color col)
+void TextEntry::SetDisabledBgColor( SDK_Color col)
 {
 	_disabledBgColor = col;
 }
@@ -540,7 +540,7 @@ int TextEntry::DrawChar(wchar_t ch, HFont font, int index, int x, int y)
 		{
 			// draw background selection color
             VPANEL focus = input()->GetFocus();
-			Color bgColor;
+			SDK_Color bgColor;
 			bool hasFocus = HasFocus();
 			bool childOfFocus = focus && ipanel()->HasParent(focus, GetVPanel());
 
@@ -601,7 +601,7 @@ bool TextEntry::DrawCursor(int x, int y)
 void TextEntry::PaintBackground()
 {
 	// draw background
-	Color col;
+	SDK_Color col;
 	if (IsEnabled())
 	{
 		col = GetBgColor();
@@ -610,7 +610,7 @@ void TextEntry::PaintBackground()
 	{
 		col = _disabledBgColor;
 	}
-	Color saveBgColor = col;
+	SDK_Color saveBgColor = col;
 
 	surface()->DrawSetColor(col);
 	int wide, tall;

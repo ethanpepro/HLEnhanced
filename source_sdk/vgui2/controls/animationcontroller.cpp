@@ -367,7 +367,7 @@ bool AnimationController::ParseScriptFile(char *pMem, int length)
 					if (0 == sscanf(token, "%f %f %f %f", &cmdAnimate.target.a, &cmdAnimate.target.b, &cmdAnimate.target.c, &cmdAnimate.target.d))
 					{
 						// could be referencing a value in the scheme file, lookup
-						Color col = scheme->GetColor(token, Color(0, 0, 0, 0));
+						SDK_Color col = scheme->GetColor(token, SDK_Color(0, 0, 0, 0));
 						cmdAnimate.target.a = col[0];
 						cmdAnimate.target.b = col[1];
 						cmdAnimate.target.c = col[2];
@@ -843,7 +843,7 @@ void AnimationController::RunAnimationCommand(vgui2::Panel *panel, const char *v
 //-----------------------------------------------------------------------------
 // Purpose: Runs a custom command from code, not from a script file
 //-----------------------------------------------------------------------------
-void AnimationController::RunAnimationCommand(vgui2::Panel *panel, const char *variable, Color targetValue, float startDelaySeconds, float duration, Interpolators_e interpolator, float animParameter /* = 0 */ )
+void AnimationController::RunAnimationCommand(vgui2::Panel *panel, const char *variable, SDK_Color targetValue, float startDelaySeconds, float duration, Interpolators_e interpolator, float animParameter /* = 0 */ )
 {
 	// clear any previous animations of this variable
 	UtlSymId_t var = g_ScriptSymbols.AddString(variable);
@@ -1173,7 +1173,7 @@ AnimationController::Value_t AnimationController::GetValue(ActiveAnimation_t& an
 	}
 	else if (var == m_sFgColor)
 	{
-		Color col = panel->GetFgColor();
+		SDK_Color col = panel->GetFgColor();
 		val.a = col[0];
 		val.b = col[1];
 		val.c = col[2];
@@ -1181,7 +1181,7 @@ AnimationController::Value_t AnimationController::GetValue(ActiveAnimation_t& an
 	}
 	else if (var == m_sBgColor)
 	{
-		Color col = panel->GetBgColor();
+		SDK_Color col = panel->GetBgColor();
 		val.a = col[0];
 		val.b = col[1];
 		val.c = col[2];
@@ -1227,7 +1227,7 @@ AnimationController::Value_t AnimationController::GetValue(ActiveAnimation_t& an
 			}
 			else if (kv && kv->GetDataType() == KeyValues::TYPE_COLOR)
 			{
-				Color col = kv->GetColor();
+				SDK_Color col = kv->GetColor();
 				val.a = col[0];
 				val.b = col[1];
 				val.c = col[2];
@@ -1260,7 +1260,7 @@ void AnimationController::SetValue(ActiveAnimation_t& anim, Panel *panel, UtlSym
 	}
 	else if (var == m_sFgColor)
 	{
-		Color col = panel->GetFgColor();
+		SDK_Color col = panel->GetFgColor();
 		col[0] = (unsigned char)value.a;
 		col[1] = (unsigned char)value.b;
 		col[2] = (unsigned char)value.c;
@@ -1269,7 +1269,7 @@ void AnimationController::SetValue(ActiveAnimation_t& anim, Panel *panel, UtlSym
 	}
 	else if (var == m_sBgColor)
 	{
-		Color col = panel->GetBgColor();
+		SDK_Color col = panel->GetBgColor();
 		col[0] = (unsigned char)value.a;
 		col[1] = (unsigned char)value.b;
 		col[2] = (unsigned char)value.c;
@@ -1320,7 +1320,7 @@ void AnimationController::SetValue(ActiveAnimation_t& anim, Panel *panel, UtlSym
 		else
 		{
 			// multivalue, set the color
-			Color col((unsigned char)value.a, (unsigned char)value.b, (unsigned char)value.c, (unsigned char)value.d);
+			SDK_Color col((unsigned char)value.a, (unsigned char)value.b, (unsigned char)value.c, (unsigned char)value.d);
 			inputData->SetColor(g_ScriptSymbols.String(var), col);
 		}
 		if (!panel->SetInfo(inputData))

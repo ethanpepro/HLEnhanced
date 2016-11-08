@@ -189,12 +189,12 @@ private:
 	void FinishClose();
 	void OnFrameFocusChanged(bool bHasFocus);
 
-	Color _titleBarBgColor;
-	Color _titleBarDisabledBgColor;
-	Color _titleBarFgColor;
-	Color _titleBarDisabledFgColor;
-	Color m_InFocusBgColor;
-	Color m_OutOfFocusBgColor;
+	SDK_Color _titleBarBgColor;
+	SDK_Color _titleBarDisabledBgColor;
+	SDK_Color _titleBarFgColor;
+	SDK_Color _titleBarDisabledFgColor;
+	SDK_Color m_InFocusBgColor;
+	SDK_Color m_OutOfFocusBgColor;
 	TextImage *_title;
 	Panel * _topGrip;
 	Panel *_bottomGrip;

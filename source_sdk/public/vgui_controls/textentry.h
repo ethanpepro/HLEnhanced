@@ -16,7 +16,7 @@
 #endif
 
 #include <vgui/VGUI.h>
-#include <Color.h>
+#include <SDK_Color.h>
 #include <vgui_controls/Panel.h>
 #include <vgui_controls/Label.h>
 #include <vgui_controls/ListPanel.h>
@@ -142,7 +142,7 @@ public:
 	virtual void MoveCursor(int line, int pixelsAcross);	
 
 	// sets the color of the background when the control is disabled
-	virtual void SetDisabledBgColor(Color col);
+	virtual void SetDisabledBgColor( SDK_Color col);
 	
 	// set whether the box handles more than one line of entry
 	virtual void SetMultiline(bool state);
@@ -223,9 +223,9 @@ public:
 	virtual void OnCreateDragData( KeyValues *msg );
 
 	void SelectAllOnFocusAlways( bool status );
-	void SetSelectionTextColor( const Color& clr );
-	void SetSelectionBgColor( const Color& clr );
-	void SetSelectionUnfocusedBgColor( const Color& clr );
+	void SetSelectionTextColor( const SDK_Color& clr );
+	void SetSelectionBgColor( const SDK_Color& clr );
+	void SetSelectionUnfocusedBgColor( const SDK_Color& clr );
 protected:
 	virtual void ResetCursorBlink();
 	virtual void PerformLayout();  // layout the text in the window
@@ -323,16 +323,16 @@ private:
 	bool			   _multiline;	   // whether buffer is multiline or just a single line
 	bool			   _verticalScrollbar; // whether window has a vertical scroll bar
 	ScrollBar		  *_vertScrollBar;		  // the scroll bar used in the window
-	Color			   _cursorColor;	  // color of the text cursor
-	Color			   _disabledFgColor;
-	Color			   _disabledBgColor;
-	Color			   _selectionColor;
-	Color			   _selectionTextColor;	 // color of the highlighted text
-	Color			   _defaultSelectionBG2Color;
+	SDK_Color		   _cursorColor;	  // color of the text cursor
+	SDK_Color		   _disabledFgColor;
+	SDK_Color		   _disabledBgColor;
+	SDK_Color		   _selectionColor;
+	SDK_Color		   _selectionTextColor;	 // color of the highlighted text
+	SDK_Color		   _defaultSelectionBG2Color;
 	int				   _currentStartLine; // use for checking vertical text scrolling (multiline)
 	int				   _currentStartIndex; // use for horizontal text scrolling (!multiline)
 	bool			   _horizScrollingAllowed;	// use to disable horizontal text scrolling period.
-	Color			   _focusEdgeColor;
+	SDK_Color		   _focusEdgeColor;
 	bool		       _catchEnterKey;
 	bool			   _wrap;
 	bool			   _sendNewLines;

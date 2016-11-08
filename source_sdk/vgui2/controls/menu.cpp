@@ -42,8 +42,8 @@ public:
 	{
 		BaseClass::ApplySchemeSettings( pScheme );
 
-		SetFgColor( pScheme->GetColor( "Menu.SeparatorColor", Color( 142, 142, 142, 255 ) ) );
-		SetBgColor( pScheme->GetColor( "Menu.BgColor", Color( 0, 0, 0, 255 ) ) );
+		SetFgColor( pScheme->GetColor( "Menu.SeparatorColor", SDK_Color( 142, 142, 142, 255 ) ) );
+		SetBgColor( pScheme->GetColor( "Menu.BgColor", SDK_Color( 0, 0, 0, 255 ) ) );
 	}
 };
 
@@ -1691,7 +1691,7 @@ void Menu::ApplySchemeSettings(IScheme *pScheme)
 	SetFgColor(GetSchemeColor("Menu.TextColor", pScheme));
 	SetBgColor(GetSchemeColor("Menu.BgColor", pScheme));
 
-	_borderDark = pScheme->GetColor("BorderDark", Color(255, 255, 255, 0));
+	_borderDark = pScheme->GetColor("BorderDark", SDK_Color(255, 255, 255, 0));
 
 	FOR_EACH_LL( m_MenuItems, i )
 	{
@@ -1709,7 +1709,7 @@ void Menu::ApplySchemeSettings(IScheme *pScheme)
 	InvalidateLayout();
 }
 
-void Menu::SetBgColor( Color newColor )
+void Menu::SetBgColor( SDK_Color newColor )
 {
 	BaseClass::SetBgColor( newColor );
 	FOR_EACH_LL( m_MenuItems, i )
@@ -1721,7 +1721,7 @@ void Menu::SetBgColor( Color newColor )
 	}
 }
 
-void Menu::SetFgColor( Color newColor )
+void Menu::SetFgColor( SDK_Color newColor )
 {
 	BaseClass::SetFgColor( newColor );
 	FOR_EACH_LL( m_MenuItems, i )

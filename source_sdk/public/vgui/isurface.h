@@ -30,7 +30,7 @@
 #undef PlaySound
 #endif
 
-class Color;
+class SDK_Color;
 
 namespace vgui2
 {
@@ -135,7 +135,7 @@ public:
 
 	// rendering functions
 	virtual void DrawSetColor(int r, int g, int b, int a) = 0;
-	virtual void DrawSetColor(Color col) = 0;
+	virtual void DrawSetColor( SDK_Color col) = 0;
 	
 	virtual void DrawFilledRect(int x0, int y0, int x1, int y1) = 0;
 	virtual void DrawFilledRectArray( IntRect *pRects, int numRects ) = 0;
@@ -146,7 +146,7 @@ public:
 
 	virtual void DrawSetTextFont(HFont font) = 0;
 	virtual void DrawSetTextColor(int r, int g, int b, int a) = 0;
-	virtual void DrawSetTextColor(Color col) = 0;
+	virtual void DrawSetTextColor( SDK_Color col) = 0;
 	virtual void DrawSetTextPos(int x, int y) = 0;
 	virtual void DrawGetTextPos(int& x,int& y) = 0;
 	virtual void DrawPrintText(const wchar_t *text, int textLen, FontDrawType_t drawType = FONT_DRAW_DEFAULT ) = 0;

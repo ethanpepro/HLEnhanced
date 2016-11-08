@@ -15,7 +15,7 @@
 #include <vgui/VGUI.h>
 #include "tier1/interface.h"
 
-class Color;
+class SDK_Color;
 
 namespace vgui2
 {
@@ -46,7 +46,7 @@ public:
 	virtual char const *GetFontName( const HFont& font ) = 0;
 
 	// colors
-	virtual Color GetColor(const char *colorName, Color defaultColor) = 0;
+	virtual SDK_Color GetColor(const char *colorName, SDK_Color defaultColor) = 0;
 };
 
 

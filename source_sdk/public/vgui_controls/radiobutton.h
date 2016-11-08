@@ -65,7 +65,7 @@ protected:
 private:
 	RadioImage *_radioBoxImage;
 	int _oldTabPosition;
-	Color _selectedFgColor;
+	SDK_Color _selectedFgColor;
 
 	int _subTabPosition;	// tab position with the radio button list
 };

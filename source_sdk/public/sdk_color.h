@@ -5,8 +5,8 @@
 // $NoKeywords: $
 //=============================================================================//
 
-#ifndef COLOR_H
-#define COLOR_H
+#ifndef SDK_COLOR_H
+#define SDK_COLOR_H
 
 #ifdef _WIN32
 #pragma once
@@ -16,19 +16,19 @@
 // Purpose: Basic handler for an rgb set of colors
 //			This class is fully inline
 //-----------------------------------------------------------------------------
-class Color
+class SDK_Color
 {
 public:
 	// constructors
-	Color()
+	SDK_Color()
 	{
 		SetColor(0, 0, 0, 0);
 	}
-	Color(int r,int g,int b)
+	SDK_Color(int r,int g,int b)
 	{
 		SetColor(r, g, b, 0);
 	}
-	Color(int r,int g,int b,int a)
+	SDK_Color(int r,int g,int b,int a)
 	{
 		SetColor(r, g, b, a);
 	}
@@ -79,17 +79,17 @@ public:
 		return _color[index];
 	}
 
-	bool operator == (const Color &rhs) const
+	bool operator == (const SDK_Color &rhs) const
 	{
 		return ( *((int *)this) == *((int *)&rhs) );
 	}
 
-	bool operator != (const Color &rhs) const
+	bool operator != (const SDK_Color &rhs) const
 	{
 		return !(operator==(rhs));
 	}
 
-	Color &operator=( const Color &rhs )
+	SDK_Color &operator=( const SDK_Color &rhs )
 	{
 		SetRawColor( rhs.GetRawColor() );
 		return *this;
@@ -100,4 +100,4 @@ private:
 };
 
 
-#endif // COLOR_H
+#endif // SDK_COLOR_H

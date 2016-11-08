@@ -6,7 +6,7 @@
 //=============================================================================//
 
 #include <vgui/VGUI.h>
-#include <Color.h>
+#include <SDK_Color.h>
 
 #include <vgui_controls/ImageList.h>
 
@@ -26,7 +26,7 @@ public:
 	virtual void GetContentSize(int &wide, int &tall) { wide = 0; tall = 0; }
 	virtual void GetSize(int &wide, int &tall) { wide = 0; tall = 0; }
 	virtual void SetSize(int wide, int tall) {}
-	virtual void SetColor(Color col) {}
+	virtual void SetColor( SDK_Color col) {}
 };
 
 //-----------------------------------------------------------------------------

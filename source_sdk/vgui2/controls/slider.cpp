@@ -406,7 +406,7 @@ void Slider::DrawNob()
 	int x, y;
 	int wide,tall;
 	GetTrackRect( x, y, wide, tall );
-	Color col = GetFgColor();
+	SDK_Color col = GetFgColor();
 	surface()->DrawSetColor(col);
 
 	int nobheight = 16;

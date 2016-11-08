@@ -49,10 +49,10 @@ public:
 
 	virtual void ApplySchemeSettings(IScheme *pScheme, bool proportional)
 	{
-		_bgColor = _radioButton->GetSchemeColor("CheckButton.BgColor", Color(150, 150, 150, 0), pScheme);
-		_borderColor1 = _radioButton->GetSchemeColor("CheckButton.Border1", Color(20, 20, 20, 0), pScheme);
-		_borderColor2 = _radioButton->GetSchemeColor("CheckButton.Border2", Color(90, 90, 90, 0), pScheme);
-		_checkColor = _radioButton->GetSchemeColor("CheckButton.Check", Color(20, 20, 20, 0), pScheme);
+		_bgColor = _radioButton->GetSchemeColor("CheckButton.BgColor", SDK_Color(150, 150, 150, 0), pScheme);
+		_borderColor1 = _radioButton->GetSchemeColor("CheckButton.Border1", SDK_Color(20, 20, 20, 0), pScheme);
+		_borderColor2 = _radioButton->GetSchemeColor("CheckButton.Border2", SDK_Color(90, 90, 90, 0), pScheme);
+		_checkColor = _radioButton->GetSchemeColor("CheckButton.Check", SDK_Color(20, 20, 20, 0), pScheme);
 		_font = pScheme->GetFont("Marlett", proportional);
 	}
 
@@ -87,10 +87,10 @@ public:
 
 private:
 	RadioButton *_radioButton;
-	Color _borderColor1;
-	Color _borderColor2;
-	Color _checkColor;
-	Color _bgColor;
+	SDK_Color _borderColor1;
+	SDK_Color _borderColor2;
+	SDK_Color _checkColor;
+	SDK_Color _bgColor;
 	HFont _font;
 };
 

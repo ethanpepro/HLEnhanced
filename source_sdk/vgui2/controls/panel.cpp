@@ -1157,7 +1157,7 @@ void Panel::PaintBackground()
 			int cornerWide, cornerTall;
 			GetCornerTextureSize( cornerWide, cornerTall );
 
-			Color col = GetBgColor();
+			SDK_Color col = GetBgColor();
 			DrawHollowBox( 0, 0, wide, tall, col, 1.0f );
 
 			wide -= 2 * cornerWide;
@@ -1173,7 +1173,7 @@ void Panel::PaintBackground()
 	else
 #endif
 	{
-		Color col = GetBgColor();
+		SDK_Color col = GetBgColor();
 
 		switch ( m_nPaintBackgroundType )
 		{
@@ -3399,22 +3399,22 @@ bool Panel::IsBuildGroupEnabled()
 	return false;
 }
 
-void Panel::SetBgColor(Color color)
+void Panel::SetBgColor( SDK_Color color)
 {
 	_bgColor = color;
 }
 
-void Panel::SetFgColor(Color color)
+void Panel::SetFgColor( SDK_Color color)
 {
 	_fgColor = color;
 }
 
-Color Panel::GetBgColor()
+SDK_Color Panel::GetBgColor()
 {
 	return _bgColor;
 }
 
-Color Panel::GetFgColor()
+SDK_Color Panel::GetFgColor()
 {
 	return _fgColor;
 }
@@ -3614,8 +3614,8 @@ void Panel::ApplySchemeSettings(IScheme *pScheme)
 	SetBgColor(GetSchemeColor("Panel.BgColor", pScheme));
 
 #if defined( VGUI_USEDRAGDROP )
-    m_clrDragFrame = pScheme->GetColor("DragDrop.DragFrame", Color(255, 255, 255, 192));
-	m_clrDropFrame = pScheme->GetColor("DragDrop.DropFrame", Color(150, 255, 150, 255));
+    m_clrDragFrame = pScheme->GetColor("DragDrop.DragFrame", SDK_Color(255, 255, 255, 192));
+	m_clrDropFrame = pScheme->GetColor("DragDrop.DropFrame", SDK_Color(150, 255, 150, 255));
 
 	m_infoFont = pScheme->GetFont( "DefaultVerySmall" );
 #endif
@@ -4020,15 +4020,15 @@ void Panel::GetSettings( KeyValues *outResourceData )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-Color Panel::GetSchemeColor(const char *keyName, IScheme *pScheme)
+SDK_Color Panel::GetSchemeColor(const char *keyName, IScheme *pScheme)
 {
-	return pScheme->GetColor(keyName, Color(255, 255, 255, 255));
+	return pScheme->GetColor(keyName, SDK_Color(255, 255, 255, 255));
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-Color Panel::GetSchemeColor(const char *keyName, Color defaultColor, IScheme *pScheme)
+SDK_Color Panel::GetSchemeColor(const char *keyName, SDK_Color defaultColor, IScheme *pScheme)
 {
 	return pScheme->GetColor(keyName, defaultColor);
 }
@@ -4868,7 +4868,7 @@ public:
 	virtual void GetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
 	{
 		void *data = ( void * )( (*entry->m_pfnLookup)( panel ) );
-		kv->SetColor( entry->name(), *(Color *)data );
+		kv->SetColor( entry->name(), *( SDK_Color *)data );
 	}
 	
 	virtual void SetData( Panel *panel, KeyValues *kv, PanelAnimationMapEntry *entry )
@@ -4882,11 +4882,11 @@ public:
 			char const *colorName = kv->GetString( entry->name() );
 			if ( !colorName || !colorName[0] )
 			{
-				*(Color *)data = kv->GetColor( entry->name() );
+				*( SDK_Color *)data = kv->GetColor( entry->name() );
 			}
 			else
 			{
-				*(Color *)data = scheme->GetColor( colorName, Color( 0, 0, 0, 0 ) );
+				*( SDK_Color *)data = scheme->GetColor( colorName, SDK_Color( 0, 0, 0, 0 ) );
 			}
 		}
 	}
@@ -4898,7 +4898,7 @@ public:
 		if ( scheme )
 		{
 			void *data = ( void * )( (*entry->m_pfnLookup)( panel ) );
-			*(Color *)data = scheme->GetColor( entry->defaultvalue(), Color( 0, 0, 0, 0 ) );
+			*( SDK_Color *)data = scheme->GetColor( entry->defaultvalue(), SDK_Color( 0, 0, 0, 0 ) );
 		}
 	}
 };
@@ -5266,7 +5266,7 @@ void Panel::GetCornerTextureSize( int& w, int& h )
 //-----------------------------------------------------------------------------
 // Purpose: draws a selection box
 //-----------------------------------------------------------------------------
-void Panel::DrawBox(int x, int y, int wide, int tall, Color color, float normalizedAlpha, bool hollow /*=false*/ )
+void Panel::DrawBox(int x, int y, int wide, int tall, SDK_Color color, float normalizedAlpha, bool hollow /*=false*/ )
 {
 	if ( m_nBgTextureId1 == -1 ||
 		 m_nBgTextureId2 == -1 ||
@@ -5317,7 +5317,7 @@ void Panel::DrawBox(int x, int y, int wide, int tall, Color color, float normali
 //			color - 
 //			normalizedAlpha - 
 //-----------------------------------------------------------------------------
-void Panel::DrawHollowBox(int x, int y, int wide, int tall, Color color, float normalizedAlpha )
+void Panel::DrawHollowBox(int x, int y, int wide, int tall, SDK_Color color, float normalizedAlpha )
 {
 	DrawBox( x, y, wide, tall, color, normalizedAlpha, true );
 }
@@ -5325,7 +5325,7 @@ void Panel::DrawHollowBox(int x, int y, int wide, int tall, Color color, float n
 //-----------------------------------------------------------------------------
 // Purpose: draws a selection box
 //-----------------------------------------------------------------------------
-void Panel::DrawTexturedBox(int x, int y, int wide, int tall, Color color, float normalizedAlpha )
+void Panel::DrawTexturedBox(int x, int y, int wide, int tall, SDK_Color color, float normalizedAlpha )
 {
 	if ( m_nBgTextureId1 == -1 )
 		return;
@@ -6204,12 +6204,12 @@ void Panel::OnDroppablePanelPaint( CUtlVector< KeyValues * >& msglist, CUtlVecto
 // Input  :  - 
 // Output : Color
 //-----------------------------------------------------------------------------
-Color Panel::GetDropFrameColor()
+SDK_Color Panel::GetDropFrameColor()
 {
 #if defined( VGUI_USEDRAGDROP )
 	return m_clrDropFrame;
 #endif
-	return Color(0, 0, 0, 0);
+	return SDK_Color(0, 0, 0, 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -6217,12 +6217,12 @@ Color Panel::GetDropFrameColor()
 // Input  :  - 
 // Output : Color
 //-----------------------------------------------------------------------------
-Color Panel::GetDragFrameColor()
+SDK_Color Panel::GetDragFrameColor()
 {
 #if defined( VGUI_USEDRAGDROP )
 	return m_clrDragFrame;
 #endif
-	return Color(0, 0, 0, 0);
+	return SDK_Color(0, 0, 0, 0);
 }
 
 //-----------------------------------------------------------------------------
@@ -6334,7 +6334,7 @@ struct srect_t
 };
 
 // Draws a filled rect of specified bounds, but omits the bounds of the skip panel from those bounds
-void Panel::FillRectSkippingPanel( Color& clr, int x, int y, int w, int h, Panel *skipPanel )
+void Panel::FillRectSkippingPanel( SDK_Color& clr, int x, int y, int w, int h, Panel *skipPanel )
 {
 	int sx = 0, sy = 0, sw, sh;
 	skipPanel->GetSize( sw, sh );

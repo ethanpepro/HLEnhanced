@@ -24,7 +24,7 @@
 #include "vgui_controls/Controls.h"
 #include "vgui_controls/PHandle.h"
 #include "vgui_controls/PanelAnimationVar.h"
-#include "Color.h"
+#include "SDK_Color.h"
 #include "vstdlib/IKeyValuesSystem.h"
 #include "tier1/UtlSymbol.h"
 #include "vgui_controls/buildgroup.h"
@@ -243,10 +243,10 @@ public:
 	void GetResizeOffset( int &dx, int &dy );
 
 	// colors
-	virtual void SetBgColor(Color color);
-	virtual void SetFgColor(Color color);
-	virtual Color GetBgColor();
-	virtual Color GetFgColor();
+	virtual void SetBgColor( SDK_Color color);
+	virtual void SetFgColor( SDK_Color color);
+	virtual SDK_Color GetBgColor();
+	virtual SDK_Color GetFgColor();
 
 	virtual void SetCursor(HCursor cursor);
 	virtual HCursor GetCursor();
@@ -283,8 +283,8 @@ public:
 	virtual HScheme GetScheme();
 	virtual void SetScheme(const char *tag);
 	virtual void SetScheme(HScheme scheme);
-	virtual Color GetSchemeColor(const char *keyName,IScheme *pScheme);
-	virtual Color GetSchemeColor(const char *keyName, Color defaultColor,IScheme *pScheme);
+	virtual SDK_Color GetSchemeColor(const char *keyName,IScheme *pScheme);
+	virtual SDK_Color GetSchemeColor(const char *keyName, SDK_Color defaultColor,IScheme *pScheme);
 
 	// called when scheme settings need to be applied; called the first time before the panel is painted
 	virtual void ApplySchemeSettings(IScheme *pScheme);
@@ -435,9 +435,9 @@ public:
 	virtual bool IsMouseInputEnabled();
 	virtual bool IsKeyBoardInputEnabled();
 
-	virtual void DrawTexturedBox( int x, int y, int wide, int tall, Color color, float normalizedAlpha );
-	virtual void DrawBox(int x, int y, int wide, int tall, Color color, float normalizedAlpha, bool hollow = false );
-	virtual void DrawHollowBox(int x, int y, int wide, int tall, Color color, float normalizedAlpha );
+	virtual void DrawTexturedBox( int x, int y, int wide, int tall, SDK_Color color, float normalizedAlpha );
+	virtual void DrawBox(int x, int y, int wide, int tall, SDK_Color color, float normalizedAlpha, bool hollow = false );
+	virtual void DrawHollowBox(int x, int y, int wide, int tall, SDK_Color color, float normalizedAlpha );
 
 // Drag Drop Public interface
 
@@ -490,14 +490,14 @@ public:
 	virtual Panel *GetDragPanel();
 	virtual bool	IsBeingDragged();
 
-	Color GetDropFrameColor();
-	Color GetDragFrameColor();
+	SDK_Color GetDropFrameColor();
+	SDK_Color GetDragFrameColor();
 
 	// Can override to require custom behavior to start the drag state
 	virtual bool	CanStartDragging( int startx, int starty, int mx, int my );
 
 	// Draws a filled rect of specified bounds, but omits the bounds of the skip panel from those bounds
-	virtual void FillRectSkippingPanel( Color& clr, int x, int y, int w, int h, Panel *skipPanel );
+	virtual void FillRectSkippingPanel( SDK_Color& clr, int x, int y, int w, int h, Panel *skipPanel );
 
 	virtual int	GetPaintBackgroundType();
 	virtual void GetCornerTextureSize( int& w, int& h );
@@ -621,8 +621,8 @@ private:
 
 #if defined( VGUI_USEDRAGDROP )
 	DragDrop_t		*m_pDragDrop;
-	Color			m_clrDragFrame;
-	Color			m_clrDropFrame;
+	SDK_Color			m_clrDragFrame;
+	SDK_Color			m_clrDropFrame;
 #endif
 
 	Tooltip			*m_pTooltips;
@@ -643,8 +643,8 @@ private:
 	CUtlFlags< unsigned short > _flags;	// see PanelFlags_t
 	Dar<HPanel>		_actionSignalTargetDar;	// the panel to direct notify messages to ("Command", "TextChanged", etc.)
 
-	Color			_fgColor;		// foreground color
-	Color			_bgColor;		// background color
+	SDK_Color			_fgColor;		// foreground color
+	SDK_Color			_bgColor;		// background color
 
 	HBuildGroup		_buildGroup;
 

@@ -39,8 +39,8 @@ public:
 	void SetShouldScaleImage( bool state );
 
 	// set the color to fill with, if no image is specified
-	void SetFillColor( Color col );
-	Color GetFillColor();
+	void SetFillColor( SDK_Color col );
+	SDK_Color GetFillColor();
 
 protected:
 	virtual void PaintBackground();
@@ -55,7 +55,7 @@ private:
 	char *m_pszImageName;
 	char *m_pszColorName;
 	bool m_bScaleImage;
-	Color m_FillColor;
+	SDK_Color m_FillColor;
 };
 
 } // namespace vgui2

@@ -63,11 +63,11 @@ public:
 		}
 	}
 
-	Color _borderColor1;
-	Color _borderColor2;
-	Color _checkColor;
+	SDK_Color _borderColor1;
+	SDK_Color _borderColor2;
+	SDK_Color _checkColor;
 
-	Color _bgColor;
+	SDK_Color _bgColor;
 
 private:
 	CheckButton *_CheckButton;
@@ -89,7 +89,7 @@ CheckButton::CheckButton(Panel *parent, const char *panelName, const char *text)
 	SetTextImageIndex(1);
 	SetImageAtIndex(0, _checkBoxImage, CHECK_INSET);
 
-	_selectedFgColor = Color( 196, 181, 80, 255 );
+	_selectedFgColor = SDK_Color( 196, 181, 80, 255 );
 }
 
 
@@ -109,10 +109,10 @@ void CheckButton::ApplySchemeSettings(IScheme *pScheme)
 	BaseClass::ApplySchemeSettings(pScheme);
 
 	SetDefaultColor( GetSchemeColor("CheckButton.TextColor", pScheme), GetBgColor() );
-	_checkBoxImage->_bgColor = GetSchemeColor("CheckButton.BgColor", Color(62, 70, 55, 255), pScheme);
-	_checkBoxImage->_borderColor1 = GetSchemeColor("CheckButton.Border1", Color(20, 20, 20, 255), pScheme);
-	_checkBoxImage->_borderColor2 = GetSchemeColor("CheckButton.Border2", Color(90, 90, 90, 255), pScheme);
-	_checkBoxImage->_checkColor = GetSchemeColor("CheckButton.Check", Color(20, 20, 20, 255), pScheme);
+	_checkBoxImage->_bgColor = GetSchemeColor("CheckButton.BgColor", SDK_Color(62, 70, 55, 255), pScheme);
+	_checkBoxImage->_borderColor1 = GetSchemeColor("CheckButton.Border1", SDK_Color(20, 20, 20, 255), pScheme);
+	_checkBoxImage->_borderColor2 = GetSchemeColor("CheckButton.Border2", SDK_Color(90, 90, 90, 255), pScheme);
+	_checkBoxImage->_checkColor = GetSchemeColor("CheckButton.Check", SDK_Color(20, 20, 20, 255), pScheme);
 	_selectedFgColor = GetSchemeColor("CheckButton.SelectedTextColor", GetSchemeColor("ControlText", pScheme), pScheme);
 
 	SetContentAlignment(Label::a_west);
@@ -160,7 +160,7 @@ void CheckButton::SetCheckButtonCheckable(bool state)
 //-----------------------------------------------------------------------------
 // Purpose: Gets a different foreground text color if we are selected
 //-----------------------------------------------------------------------------
-Color CheckButton::GetButtonFgColor()
+SDK_Color CheckButton::GetButtonFgColor()
 {
 	if (IsSelected())
 	{

@@ -53,7 +53,7 @@ protected:
 private:
 	bool m_bExpandable;
 	HFont m_hFont;
-	Color m_Color;
+	SDK_Color m_Color;
 };
 
 } // namespace vgui2

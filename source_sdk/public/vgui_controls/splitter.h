@@ -57,7 +57,7 @@ public:
 	virtual bool HasUserConfigSettings() { return true; }
 
 	// Sets the splitter color
-	void SetSplitterColor( Color c );
+	void SetSplitterColor( SDK_Color c );
 
 	// Enables borders on the splitters
 	void EnableBorders( bool bEnable );

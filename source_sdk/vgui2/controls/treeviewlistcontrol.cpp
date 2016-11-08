@@ -76,7 +76,7 @@ void CTreeViewListControl::SetTitleBarInfo( vgui2::HFont hFont, int titleBarHeig
 	InvalidateLayout();
 }
 
-void CTreeViewListControl::SetBorderColor( Color clr )
+void CTreeViewListControl::SetBorderColor( SDK_Color clr )
 {
 	m_BorderColor = clr;
 }

@@ -93,7 +93,7 @@ public:
 		surface()->DrawFilledRect(1, y, GetWide() - 2, y + 1);
 	}
 
-	void SetColor(Color col)
+	void SetColor( SDK_Color col)
 	{
 		m_SectionDividerColor = col;
 		SetFgColor(col);
@@ -197,7 +197,7 @@ public:
 
 private:
 	int m_iSectionID;
-	Color m_SectionDividerColor;
+	SDK_Color m_SectionDividerColor;
 	SectionedListPanel *m_pListPanel;
 };
 
@@ -594,13 +594,13 @@ private:
 	int m_iID;
 	int m_iSectionID;
 	KeyValues *m_pData;
-	Color m_FgColor2;
-	Color m_BgColor;
-	Color m_ArmedFgColor1;
-	Color m_ArmedFgColor2;
-	Color m_OutOfFocusSelectedTextColor;
-	Color m_ArmedBgColor;
-	Color m_SelectionBG2Color;
+	SDK_Color m_FgColor2;
+	SDK_Color m_BgColor;
+	SDK_Color m_ArmedFgColor1;
+	SDK_Color m_ArmedFgColor2;
+	SDK_Color m_OutOfFocusSelectedTextColor;
+	SDK_Color m_ArmedBgColor;
+	SDK_Color m_SelectionBG2Color;
 	CUtlVector<vgui2::TextImage *> m_TextImages;
 
 	bool m_bSelected;
@@ -1058,7 +1058,7 @@ bool SectionedListPanel::ModifyItem(int itemID, int sectionID, const KeyValues *
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void SectionedListPanel::SetItemFgColor( int itemID, Color color )
+void SectionedListPanel::SetItemFgColor( int itemID, SDK_Color color )
 {
 	Assert( m_Items.IsValidIndex(itemID) );
 	if ( !m_Items.IsValidIndex(itemID) )
@@ -1072,7 +1072,7 @@ void SectionedListPanel::SetItemFgColor( int itemID, Color color )
 //-----------------------------------------------------------------------------
 // Purpose: sets the color of a section text & underline
 //-----------------------------------------------------------------------------
-void SectionedListPanel::SetSectionFgColor(int sectionID, Color color)
+void SectionedListPanel::SetSectionFgColor(int sectionID, SDK_Color color)
 {
 	if (!m_Sections.IsValidIndex(sectionID))
 		return;

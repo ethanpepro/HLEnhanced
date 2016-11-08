@@ -286,7 +286,7 @@ void Button::PerformLayout()
 // Purpose: Get button foreground color
 // Output : Color
 //-----------------------------------------------------------------------------
-Color Button::GetButtonFgColor()
+SDK_Color Button::GetButtonFgColor()
 {
 	if (_buttonFlags.IsFlagSet( DEPRESSED ))
 		return _depressedFgColor;
@@ -298,7 +298,7 @@ Color Button::GetButtonFgColor()
 //-----------------------------------------------------------------------------
 // Purpose: Get button background color
 //-----------------------------------------------------------------------------
-Color Button::GetButtonBgColor()
+SDK_Color Button::GetButtonBgColor()
 {
 	if (_buttonFlags.IsFlagSet( DEPRESSED ))
 		return _depressedBgColor;
@@ -337,22 +337,22 @@ void Button::ApplySchemeSettings(IScheme *pScheme)
 	_depressedBorder = pScheme->GetBorder("ButtonDepressedBorder");
 	_keyFocusBorder = pScheme->GetBorder("ButtonKeyFocusBorder");
 
-	_defaultFgColor = GetSchemeColor("Button.TextColor", Color(255, 255, 255, 255), pScheme);
-	_defaultBgColor = GetSchemeColor("Button.BgColor", Color(0, 0, 0, 255), pScheme);
+	_defaultFgColor = GetSchemeColor("Button.TextColor", SDK_Color(255, 255, 255, 255), pScheme);
+	_defaultBgColor = GetSchemeColor("Button.BgColor", SDK_Color(0, 0, 0, 255), pScheme);
 
 	_armedFgColor = GetSchemeColor("Button.ArmedTextColor", _defaultFgColor, pScheme);
 	_armedBgColor = GetSchemeColor("Button.ArmedBgColor", _defaultBgColor, pScheme);
 
 	_depressedFgColor = GetSchemeColor("Button.DepressedTextColor", _defaultFgColor, pScheme);
 	_depressedBgColor = GetSchemeColor("Button.DepressedBgColor", _defaultBgColor, pScheme);
-	_keyboardFocusColor = GetSchemeColor("Button.FocusBorderColor", Color(0,0,0,255), pScheme);
+	_keyboardFocusColor = GetSchemeColor("Button.FocusBorderColor", SDK_Color(0,0,0,255), pScheme);
 	InvalidateLayout();
 }
 
 //-----------------------------------------------------------------------------
 // Purpose: Set default button colors.
 //-----------------------------------------------------------------------------
-void Button::SetDefaultColor(Color fgColor, Color bgColor)
+void Button::SetDefaultColor( SDK_Color fgColor, SDK_Color bgColor)
 {
 	if (!(_defaultFgColor == fgColor && _defaultBgColor == bgColor))
 	{
@@ -366,7 +366,7 @@ void Button::SetDefaultColor(Color fgColor, Color bgColor)
 //-----------------------------------------------------------------------------
 // Purpose: Set armed button colors
 //-----------------------------------------------------------------------------
-void Button::SetArmedColor(Color fgColor, Color bgColor)
+void Button::SetArmedColor( SDK_Color fgColor, SDK_Color bgColor)
 {
 	if (!(_armedFgColor == fgColor && _armedBgColor == bgColor))
 	{
@@ -380,7 +380,7 @@ void Button::SetArmedColor(Color fgColor, Color bgColor)
 //-----------------------------------------------------------------------------
 // Purpose: Set depressed button colors
 //-----------------------------------------------------------------------------
-void Button::SetDepressedColor(Color fgColor, Color bgColor)
+void Button::SetDepressedColor( SDK_Color fgColor, SDK_Color bgColor)
 {
 	if (!(_depressedFgColor == fgColor && _depressedBgColor == bgColor))
 	{

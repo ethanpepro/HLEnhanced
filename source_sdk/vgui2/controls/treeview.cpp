@@ -445,8 +445,8 @@ public:
 	virtual void SetVisible(bool state);
     virtual void Paint();
     virtual void ApplySchemeSettings(IScheme *pScheme);
-	virtual void SetBgColor( Color color );
-	virtual void SetFgColor( Color color );
+	virtual void SetBgColor( SDK_Color color );
+	virtual void SetFgColor( SDK_Color color );
     virtual void OnSetFocus();
     void SelectPrevChild(TreeNode *pCurrentChild);
     void SelectNextChild(TreeNode *pCurrentChild);
@@ -487,9 +487,9 @@ public:
 
 	void				RemoveChildren();
 
-	void SetSelectionTextColor( const Color& clr );
-	void SetSelectionBgColor( const Color& clr );
-	void SetSelectionUnfocusedBgColor( const Color& clr );
+	void SetSelectionTextColor( const SDK_Color& clr );
+	void SetSelectionBgColor( const SDK_Color& clr );
+	void SetSelectionUnfocusedBgColor( const SDK_Color& clr );
 public:
 	int                 m_ItemIndex;
 	int					m_ParentIndex;
@@ -1019,7 +1019,7 @@ void TreeNode::ApplySchemeSettings(IScheme *pScheme)
 	SetFont( m_pTreeView->GetFont() );
 }
 
-void TreeNode::SetSelectionTextColor( const Color& clr )
+void TreeNode::SetSelectionTextColor( const SDK_Color& clr )
 {
 	if ( m_pText )
 	{
@@ -1027,7 +1027,7 @@ void TreeNode::SetSelectionTextColor( const Color& clr )
 	}
 }
 
-void TreeNode::SetSelectionBgColor( const Color& clr )
+void TreeNode::SetSelectionBgColor( const SDK_Color& clr )
 {
 	if ( m_pText )
 	{
@@ -1035,7 +1035,7 @@ void TreeNode::SetSelectionBgColor( const Color& clr )
 	}
 }
 
-void TreeNode::SetSelectionUnfocusedBgColor( const Color& clr )
+void TreeNode::SetSelectionUnfocusedBgColor( const SDK_Color& clr )
 {
 	if ( m_pText )
 	{
@@ -1043,7 +1043,7 @@ void TreeNode::SetSelectionUnfocusedBgColor( const Color& clr )
 	}
 }
 
-void TreeNode::SetBgColor( Color color )
+void TreeNode::SetBgColor( SDK_Color color )
 {
 	BaseClass::SetBgColor( color );
 	if ( m_pText )
@@ -1053,7 +1053,7 @@ void TreeNode::SetBgColor( Color color )
 
 }
 
-void TreeNode::SetFgColor( Color color )
+void TreeNode::SetFgColor( SDK_Color color )
 {
 	BaseClass::SetFgColor( color );
 	if ( m_pText )
@@ -2039,7 +2039,7 @@ bool TreeView::ModifyItem(int itemIndex, KeyValues *data)
 // Purpose: set the selection colors of an element in the tree view
 //-----------------------------------------------------------------------------
 
-void TreeView::SetItemSelectionTextColor( int itemIndex, const Color& clr )
+void TreeView::SetItemSelectionTextColor( int itemIndex, const SDK_Color& clr )
 {
 	Assert( m_NodeList.IsValidIndex(itemIndex) );
 	if ( !m_NodeList.IsValidIndex(itemIndex) )
@@ -2049,7 +2049,7 @@ void TreeView::SetItemSelectionTextColor( int itemIndex, const Color& clr )
 	pNode->SetSelectionTextColor( clr );
 }
 
-void TreeView::SetItemSelectionBgColor( int itemIndex, const Color& clr )
+void TreeView::SetItemSelectionBgColor( int itemIndex, const SDK_Color& clr )
 {
 	Assert( m_NodeList.IsValidIndex(itemIndex) );
 	if ( !m_NodeList.IsValidIndex(itemIndex) )
@@ -2059,7 +2059,7 @@ void TreeView::SetItemSelectionBgColor( int itemIndex, const Color& clr )
 	pNode->SetSelectionBgColor( clr );
 }
 
-void TreeView::SetItemSelectionUnfocusedBgColor( int itemIndex, const Color& clr )
+void TreeView::SetItemSelectionUnfocusedBgColor( int itemIndex, const SDK_Color& clr )
 {
 	Assert( m_NodeList.IsValidIndex(itemIndex) );
 	if ( !m_NodeList.IsValidIndex(itemIndex) )
@@ -2072,7 +2072,7 @@ void TreeView::SetItemSelectionUnfocusedBgColor( int itemIndex, const Color& clr
 //-----------------------------------------------------------------------------
 // Purpose: set the fg color of an element in the tree view
 //-----------------------------------------------------------------------------
-void TreeView::SetItemFgColor(int itemIndex, const Color& color)
+void TreeView::SetItemFgColor(int itemIndex, const SDK_Color& color)
 {
 	Assert( m_NodeList.IsValidIndex(itemIndex) );
 	if ( !m_NodeList.IsValidIndex(itemIndex) )
@@ -2085,7 +2085,7 @@ void TreeView::SetItemFgColor(int itemIndex, const Color& color)
 //-----------------------------------------------------------------------------
 // Purpose: set the bg color of an element in the tree view
 //-----------------------------------------------------------------------------
-void TreeView::SetItemBgColor(int itemIndex, const Color& color)
+void TreeView::SetItemBgColor(int itemIndex, const SDK_Color& color)
 {
 	Assert( m_NodeList.IsValidIndex(itemIndex) );
 	if ( !m_NodeList.IsValidIndex(itemIndex) )
@@ -2434,7 +2434,7 @@ void TreeView::ApplySchemeSettings(IScheme *pScheme)
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-void TreeView::SetBgColor( Color color ) 
+void TreeView::SetBgColor( SDK_Color color )
 {
 	BaseClass::SetBgColor( color );
 	m_pSubPanel->SetBgColor( color );

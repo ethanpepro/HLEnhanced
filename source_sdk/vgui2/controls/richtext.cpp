@@ -143,7 +143,7 @@ RichText::RichText(Panel *parent, const char *panelName) : BaseClass(parent, pan
 	GotoTextEnd();
 	
 	// set default foreground color to black
-	_defaultTextColor =  Color(0, 0, 0, 0);
+	_defaultTextColor = SDK_Color(0, 0, 0, 0);
 	
 	// initialize the line break array
 	InvalidateLineBreakStream();
@@ -212,7 +212,7 @@ void RichText::ApplySchemeSettings(IScheme *pScheme)
 //-----------------------------------------------------------------------------
 // Purpose: if the default format color isn't set then set it
 //-----------------------------------------------------------------------------
-void RichText::SetFgColor( Color color )
+void RichText::SetFgColor( SDK_Color color )
 {
 	// Replace default format color if 
 	// the stream is empty and the color is the default ( or the previous FgColor )
@@ -555,7 +555,7 @@ void RichText::FinishingURL(int x, int y)
 void RichText::Paint()
 {
 	// draw background
-	Color col = GetBgColor();
+	SDK_Color col = GetBgColor();
 	surface()->DrawSetColor(col);
 	int wide, tall;
 	GetSize(wide, tall);
@@ -862,7 +862,7 @@ void RichText::PerformLayout()
 //-----------------------------------------------------------------------------
 // Purpose: inserts a color change into the formatting stream
 //-----------------------------------------------------------------------------
-void RichText::InsertColorChange(Color col)
+void RichText::InsertColorChange( SDK_Color col)
 {
 	// see if color already exists in text stream
 	TFormatStream &prevItem = m_FormatStream[m_FormatStream.Count() - 1];
@@ -2187,7 +2187,7 @@ void RichText::InvalidateLineBreakStream()
 //			URLTextColor - color for URL text
 //          normalTextColor - color for normal text
 //-----------------------------------------------------------------------------
-void RichText::InsertPossibleURLString(const char* text, Color URLTextColor, Color normalTextColor)
+void RichText::InsertPossibleURLString(const char* text, SDK_Color URLTextColor, SDK_Color normalTextColor)
 {
 	InsertColorChange(normalTextColor);
 

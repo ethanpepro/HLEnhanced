@@ -494,8 +494,8 @@ namespace vgui2
 	{
 	private:
 		IBorder *_brightBorder, *_depressedBorder, *_disabledBorder;
-		Color _enabledFgColor, _enabledBgColor;
-		Color _disabledFgColor, _disabledBgColor;
+		SDK_Color _enabledFgColor, _enabledBgColor;
+		SDK_Color _disabledFgColor, _disabledBgColor;
 		bool _disabledLook;
 	
 	public:
@@ -612,7 +612,7 @@ class FrameSystemButton : public MenuButton
 
 private:
 	IImage *_enabled, *_disabled;
-	Color _enCol, _disCol;
+	SDK_Color _enCol, _disCol;
 	bool _respond;
 	
 public:
@@ -1516,7 +1516,7 @@ void Frame::PaintBackground()
 	// take the panel with focus and check up tree for this panel
 	// if you find it, than some child of you has the focus, so
 	// you should be focused
-	Color titleColor = _titleBarDisabledBgColor;
+	SDK_Color titleColor = _titleBarDisabledBgColor;
 	if (m_bHasFocus)
 	{
 		titleColor = _titleBarBgColor;
