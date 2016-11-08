@@ -46,11 +46,15 @@ public:
 // Gets a singleton to the commandline interface
 // NOTE: The #define trickery here is necessary for backwards compat:
 // this interface used to lie in the vstdlib library.
+//	And because of that, it has to be called CommandLine - Solokiller
 //-----------------------------------------------------------------------------
-PLATFORM_INTERFACE ICommandLine *CommandLine_Tier0();
+PLATFORM_INTERFACE ICommandLine *CommandLine();
+//PLATFORM_INTERFACE ICommandLine *CommandLine_Tier0();
 
+/*
 #if !defined( VSTDLIB_BACKWARD_COMPAT )
 #define CommandLine CommandLine_Tier0
 #endif
+*/
 
 #endif // TIER0_ICOMMANDLINE_H

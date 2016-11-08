@@ -83,22 +83,22 @@ public:
 	// Hit an error, report it and the parsing stack for context
 	void ReportError( const char *pError )
 	{
-		DevMsg( 1, "KeyValues Error: %s in file %s\n", pError, m_pFilename );
+		Msg( "KeyValues Error: %s in file %s\n", pError, m_pFilename );
 		for ( int i = 0; i < m_maxErrorIndex; i++ )
 		{
 			if ( m_errorStack[i] != INVALID_KEY_SYMBOL )
 			{
 				if ( i < m_errorIndex )
 				{
-					DevMsg( 1, "%s, ", KeyValuesSystem()->GetStringForSymbol(m_errorStack[i]) );
+					Msg( "%s, ", KeyValuesSystem()->GetStringForSymbol(m_errorStack[i]) );
 				}
 				else
 				{
-					DevMsg( 1, "(*%s*), ", KeyValuesSystem()->GetStringForSymbol(m_errorStack[i]) );
+					Msg( "(*%s*), ", KeyValuesSystem()->GetStringForSymbol(m_errorStack[i]) );
 				}
 			}
 		}
-		DevMsg( 1, "\n" );
+		Msg( "\n" );
 	}
 
 private:
@@ -527,7 +527,7 @@ bool KeyValues::SaveToFile( IBaseFileSystem *filesystem, const char *resourceNam
 
 	if ( f == FILESYSTEM_INVALID_HANDLE )
 	{
-		DevMsg(1, "KeyValues::SaveToFile: couldn't open file \"%s\" in path \"%s\".\n", 
+		Msg( "KeyValues::SaveToFile: couldn't open file \"%s\" in path \"%s\".\n",
 			resourceName?resourceName:"NULL", pathID?pathID:"NULL" );
 		return false;
 	}
@@ -705,7 +705,7 @@ void KeyValues::RecursiveSaveToFile( IBaseFileSystem *filesystem, FileHandle_t f
 					break;
 				}
 			case TYPE_COLOR:
-				DevMsg(1, "KeyValues::RecursiveSaveToFile: TODO, missing code for TYPE_COLOR.\n");
+				Msg( "KeyValues::RecursiveSaveToFile: TODO, missing code for TYPE_COLOR.\n");
 				break;
 
 			default:
@@ -1004,7 +1004,7 @@ int KeyValues::GetInt( const char *keyName, int defaultValue )
 #ifdef _WIN32
 			return _wtoi(dat->m_wsValue);
 #else
-			DevMsg( "TODO: implement _wtoi\n");
+			Msg( "TODO: implement _wtoi\n");
 			return 0;
 #endif
 		case TYPE_FLOAT:
@@ -1213,7 +1213,7 @@ const wchar_t *KeyValues::GetWString( const char *keyName, const wchar_t *defaul
 		return (const wchar_t* )dat->m_wsValue;
 	}
 #else
-	DevMsg("TODO: implement wide char functions\n");
+	Msg("TODO: implement wide char functions\n");
 #endif
 	return defaultValue;
 }
@@ -1749,7 +1749,7 @@ void KeyValues::ParseIncludedKeys( char const *resourceName, const char *filetoi
 	}
 	else
 	{
-		DevMsg( "KeyValues::ParseIncludedKeys: Couldn't load included keyvalue file %s\n", fullpath );
+		Msg( "KeyValues::ParseIncludedKeys: Couldn't load included keyvalue file %s\n", fullpath );
 		newKV->deleteThis();
 	}
 

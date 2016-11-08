@@ -1,5 +1,5 @@
 add_sources(
-	afxmem_override.cpp
+	#afxmem_override.cpp
 	basetypes.h
 	commonmacros.h
 	dbg.h
@@ -16,7 +16,7 @@ add_sources(
 	memalloc.h
 	memdbgoff.h
 	memdbgon.h
-	memoverride-vc7.cpp
+	#memoverride-vc7.cpp
 	memoverride.cpp
 	minidump.h
 	p4performancecounters.h

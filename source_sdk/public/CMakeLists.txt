@@ -1,13 +1,18 @@
 add_sources(
 	basetypes.h
-	color.h
-	filesystem_helpers.h
+	commonmacros.h
+	coordsize.h
+	datamap.h
 	filesystem_helpers.cpp
+	filesystem_helpers.h
+	icvar.h
 	mathlib.h
-	offlinemode.h
+	OfflineMode.h
+	sdk_color.h
 	vector.h
-	vector2D.h
+	vector2d.h
 	winlite.h
+	worldsize.h
 )
 
 add_subdirectory( appframework )

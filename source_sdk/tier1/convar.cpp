@@ -806,7 +806,8 @@ void ConVar::ChangeStringValue( char const *tempVal )
 		m_fnChangeCallback( this, pszOldValue );
 	}
 
-	GetCVarIF()->CallGlobalChangeCallback( this, pszOldValue );
+	//Don't know where this export comes from, but it doesn't exist in GoldSource. - Solokiller
+	//GetCVarIF()->CallGlobalChangeCallback( this, pszOldValue );
 
 	stackfree( pszOldValue );
 }

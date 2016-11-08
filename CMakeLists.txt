@@ -307,6 +307,11 @@ add_subdirectory( game/client )
 add_subdirectory( vgui_utils )
 add_subdirectory( shared/engine/client )
 
+if( USE_VGUI2 )
+	add_subdirectory( source_sdk/common )
+	add_subdirectory( source_sdk/public )
+endif()
+
 preprocess_sources()
 
 #Cache the old include directories list
