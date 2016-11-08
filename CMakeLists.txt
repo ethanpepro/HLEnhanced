@@ -386,7 +386,6 @@ endif()
 
 if( USE_VGUI2 )
 	find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_STATIC_LIBRARY_SUFFIX} PATHS lib/public/ )
-	find_library( TIER1 tier1 PATHS source_sdk/lib/public/ )
 
 	if( WIN32 )
 		find_library( VSTDLIB vstdlib PATHS lib/public/ )
@@ -399,6 +398,7 @@ if( USE_VGUI2 )
 		${TIER1}
 		${VSTDLIB}
 		vgui2_controls
+		tier1
 	)
 else()
 	set( VGUI2_LIBS "" )
