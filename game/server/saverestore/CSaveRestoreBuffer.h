@@ -26,11 +26,7 @@ class CBaseEntity;
 
 extern const int g_SaveRestoreSizes[];
 
-extern const TYPEDESCRIPTION gEntvarsDescription[];
-
 extern const DataMap_t gEntvarsDataMap;
-
-extern const size_t gEntvarsCount;
 
 /**
 *	A buffer that contains save/restore data.

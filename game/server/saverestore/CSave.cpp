@@ -138,7 +138,7 @@ void CSave::WriteFunction( const char *pname, void **data, int count, const Data
 
 bool CSave::WriteEntVars( const char *pname, entvars_t *pev )
 {
-	return WriteFields( pname, pev, gEntvarsDataMap, gEntvarsDescription, gEntvarsCount );
+	return WriteFields( pname, pev, gEntvarsDataMap, gEntvarsDataMap.pTypeDesc, gEntvarsDataMap.uiNumDescriptors );
 }
 
 bool CSave::WriteFields( const char *pname, void *pBaseData, const DataMap_t& dataMap, const TYPEDESCRIPTION *pFields, int fieldCount )

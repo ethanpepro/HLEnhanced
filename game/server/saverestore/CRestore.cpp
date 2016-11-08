@@ -6,7 +6,7 @@
 
 bool CRestore::ReadEntVars( const char *pname, entvars_t *pev )
 {
-	return ReadFields( pname, pev, gEntvarsDataMap, gEntvarsDescription, gEntvarsCount );
+	return ReadFields( pname, pev, gEntvarsDataMap, gEntvarsDataMap.pTypeDesc, gEntvarsDataMap.uiNumDescriptors );
 }
 
 bool CRestore::ReadFields( const char *pname, void *pBaseData, const DataMap_t& dataMap, const TYPEDESCRIPTION *pFields, int fieldCount )

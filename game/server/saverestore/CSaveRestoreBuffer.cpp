@@ -33,7 +33,7 @@ const int g_SaveRestoreSizes[ FIELD_TYPECOUNT ] =
 //Verify that all types and no more than that are represented here - Solokiller
 static_assert( ARRAYSIZE( g_SaveRestoreSizes ) == FIELD_TYPECOUNT, "SaveRestore sizes data is incorrect!" );
 
-const TYPEDESCRIPTION gEntvarsDescription[] =
+static const TYPEDESCRIPTION gEntvarsDescription[] =
 {
 	DEFINE_ENTITY_FIELD( classname, FIELD_STRING ),
 	DEFINE_ENTITY_GLOBAL_FIELD( globalname, FIELD_STRING ),
@@ -145,9 +145,6 @@ const TYPEDESCRIPTION gEntvarsDescription[] =
 };
 
 const DataMap_t gEntvarsDataMap = { "ENTVARS", nullptr, gEntvarsDescription, ARRAYSIZE( gEntvarsDescription ) };
-
-//TODO: replace with gEntvarsDataMap.uiNumDescriptors - Solokiller
-const size_t gEntvarsCount = ARRAYSIZE( gEntvarsDescription );
 
 // Base class includes common SAVERESTOREDATA pointer, and manages the entity table
 CSaveRestoreBuffer::CSaveRestoreBuffer( void )

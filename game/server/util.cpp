@@ -1090,9 +1090,9 @@ void EntvarsKeyvalue( entvars_t *pev, KeyValueData *pkvd )
 {
 	const TYPEDESCRIPTION* pField;
 
-	for ( size_t i = 0; i < gEntvarsCount; i++ )
+	for ( size_t i = 0; i < gEntvarsDataMap.uiNumDescriptors; i++ )
 	{
-		pField = &gEntvarsDescription[i];
+		pField = &gEntvarsDataMap.pTypeDesc[i];
 
 		if ( !stricmp( pField->fieldName, pkvd->szKeyName ) )
 		{
