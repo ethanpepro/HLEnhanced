@@ -251,7 +251,7 @@ void CTreeViewListControl::PostChildPaint()
 
 	// Draw the vertical lines.
 	int curX = 0;
-	for ( i=0; i < m_Columns.Count(); i++ )
+	for ( int i=0; i < m_Columns.Count(); i++ )
 	{
 		vgui::surface()->DrawLine( curX, 0, curX, bottomY );
 		curX += m_Columns[i].m_Width;

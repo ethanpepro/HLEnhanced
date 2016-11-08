@@ -2349,7 +2349,10 @@ void Menu::AddSeparatorAfterItem( int itemID )
 void Menu::MoveMenuItem( int itemID, int moveBeforeThisItemID )
 {
 	int c = m_SortedItems.Count();
-	for ( int i = 0; i < c; ++i )
+
+	int i;
+
+	for ( i = 0; i < c; ++i )
 	{
 		if ( m_SortedItems[i] == itemID )
 		{

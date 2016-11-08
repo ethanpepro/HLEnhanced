@@ -463,7 +463,7 @@ bool BuildGroup::MousePressed(MouseCode code, Panel *panel)
 		basePanel->GetSize( _dragStartPanelSize[ 0 ], _dragStartPanelSize[ 1 ] );
 
 		// figure out the deltas of the other panels from the base panel
-		for (i=0; i<_controlGroup.Count(); ++i)
+		for (int i=0; i<_controlGroup.Count(); ++i)
 		{
 			int cx, cy;
 			_controlGroup[i].Get()->GetPos(cx, cy);
@@ -1316,7 +1316,7 @@ void BuildGroup::RemoveSettings()
 	}
 	
 	// remove deleted panels from the handle list
-	for( i = 0; i < _panelDar.Count(); i++ )
+	for( int i = 0; i < _panelDar.Count(); i++ )
 	{
 		if ( !_panelDar[i].Get() )	
 		{	
