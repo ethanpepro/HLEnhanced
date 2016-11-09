@@ -103,7 +103,7 @@ public:
 	// adds the contents of a file to the localization table
 	//!! in the next version of this, the IFileSystem * should be removed, the table should get it itself (not version safe)
 	// If bIncludeFallbackSearchPaths is true, then if you are running a mod, the hl2\resource\*.txt file will be added first, then the modname\resource\*.txt file...
-	virtual bool AddFileEx( IFileSystem *fileSystem, const char *fileName, char const *pPathID, bool bIncludeFallbackSearchPaths ) = 0;
+	//virtual bool AddFileEx( IFileSystem *fileSystem, const char *fileName, char const *pPathID, bool bIncludeFallbackSearchPaths ) = 0;
 };
 
 #define VGUI_LOCALIZE_INTERFACE_VERSION "VGUI_Localize003"

@@ -12,9 +12,9 @@
 #pragma once
 #endif
 
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 
-namespace vgui
+namespace vgui2
 {
 
 //-----------------------------------------------------------------------------
@@ -56,6 +56,6 @@ private:
 	int x, y;
 };
 
-} // namespace vgui
+} // namespace vgui2
 
 #endif // POINT_H

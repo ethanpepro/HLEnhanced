@@ -18,7 +18,7 @@
 #endif
 
 #include "interface.h"
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 
 #include "appframework/IAppSystem.h"
 
@@ -27,7 +27,7 @@
 //-----------------------------------------------------------------------------
 class KeyValues;
 
-namespace vgui
+namespace vgui2
 {
 // safe handle to a panel - can be converted to and from a VPANEL
 typedef unsigned long HPanel;
@@ -39,7 +39,7 @@ typedef int HContext;
 
 enum
 {
-	DEFAULT_VGUI_CONTEXT = ((vgui::HContext)~0)
+	DEFAULT_VGUI_CONTEXT = ((HContext)~0)
 };
 
 //-----------------------------------------------------------------------------
@@ -70,8 +70,8 @@ public:
 	virtual void ShutdownMessage(unsigned int shutdownID) = 0;
 
 	// panel allocation
-	virtual vgui::VPANEL AllocPanel() = 0;
-	virtual void FreePanel(vgui::VPANEL panel) = 0;
+	virtual vgui2::VPANEL AllocPanel() = 0;
+	virtual void FreePanel(vgui2::VPANEL panel) = 0;
 	
 	// debugging prints
 	virtual void DPrintf(const char *format, ...) = 0;
@@ -79,17 +79,17 @@ public:
 	virtual void SpewAllActivePanelNames() = 0;
 	
 	// safe-pointer handle methods
-	virtual vgui::HPanel PanelToHandle(vgui::VPANEL panel) = 0;
-	virtual vgui::VPANEL HandleToPanel(vgui::HPanel index) = 0;
-	virtual void MarkPanelForDeletion(vgui::VPANEL panel) = 0;
+	virtual vgui2::HPanel PanelToHandle(vgui2::VPANEL panel) = 0;
+	virtual vgui2::VPANEL HandleToPanel(vgui2::HPanel index) = 0;
+	virtual void MarkPanelForDeletion(vgui2::VPANEL panel) = 0;
 
 	// makes panel receive a 'Tick' message every frame (~50ms, depending on sleep times/framerate)
 	// panel is automatically removed from tick signal list when it's deleted
-	virtual void AddTickSignal(vgui::VPANEL panel, int intervalMilliseconds = 0 ) = 0;
-	virtual void RemoveTickSignal(vgui::VPANEL panel) = 0;
+	virtual void AddTickSignal(vgui2::VPANEL panel, int intervalMilliseconds = 0 ) = 0;
+	virtual void RemoveTickSignal(vgui2::VPANEL panel) = 0;
 
 	// message sending
-	virtual void PostMessage(vgui::VPANEL target, KeyValues *params, vgui::VPANEL from, float delaySeconds = 0.0f) = 0;
+	virtual void PostMessage(vgui2::VPANEL target, KeyValues *params, vgui2::VPANEL from, float delaySeconds = 0.0f) = 0;
 
 	// Creates/ destroys vgui contexts, which contains information
 	// about which controls have mouse + key focus, for example.
@@ -98,7 +98,7 @@ public:
 
 	// Associates a particular panel with a vgui context
 	// Associating NULL is valid; it disconnects the panel from the context
-	virtual void AssociatePanelWithContext( HContext context, vgui::VPANEL pRoot ) = 0;
+	virtual void AssociatePanelWithContext( HContext context, vgui2::VPANEL pRoot ) = 0;
 
 	// Activates a particular context, use DEFAULT_VGUI_CONTEXT
 	// to get the one normally used by VGUI
