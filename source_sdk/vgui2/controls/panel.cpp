@@ -3277,7 +3277,7 @@ void Panel::SetBorder(IBorder *border)
 		ipanel()->SetInset(GetVPanel(), x, y, x2, y2);
 
 		// update our background type based on the bord
-		SetPaintBackgroundType(border->GetBackgroundType());
+		//SetPaintBackgroundType(border->GetBackgroundType());
 	}
 	else
 	{
