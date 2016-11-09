@@ -15,6 +15,16 @@ void CViewport::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 void CViewport::Start()
 {
 	m_pBackground = new CBackgroundPanel( nullptr );
+
+	m_pBackground->SetScheme( "ClientScheme" );
+	m_pBackground->SetTitleBarVisible( false );
+	m_pBackground->SetMoveable( false );
+	m_pBackground->SetSizeable( false );
+	m_pBackground->SetProportional( true );
+	m_pBackground->SetZPos( -20 );
+	m_pBackground->SetVisible( false );
+	m_pBackground->SetKeyBoardInputEnabled( false );
+	m_pBackground->SetMouseInputEnabled( false );
 }
 
 vgui2::Panel* g_pPanel = nullptr;

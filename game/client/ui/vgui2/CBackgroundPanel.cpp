@@ -14,6 +14,8 @@ void CBackgroundPanel::ApplySchemeSettings( vgui2::IScheme* pScheme )
 	const auto color = pScheme->GetColor( "ViewportBG", SDK_Color( 0, 0, 0, 0 ) );
 
 	SetBgColor( color );
+	SetInFocusBgColor( color );
+	SetOutOfFocusBgColor( color );
 }
 
 void CBackgroundPanel::PerformLayout()
