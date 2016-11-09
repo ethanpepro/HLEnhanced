@@ -14,7 +14,7 @@
 #include <vgui_controls/MessageBox.h>
 #include <vgui/Cursor.h>
 #include <KeyValues.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/ISurface.h>
 #include <vgui/ISystem.h>
 

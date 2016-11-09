@@ -7,7 +7,7 @@
 
 #include <vgui/ISurface.h>
 #include <KeyValues.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 
 #include <vgui_controls/Button.h>
 #include <vgui_controls/Controls.h>

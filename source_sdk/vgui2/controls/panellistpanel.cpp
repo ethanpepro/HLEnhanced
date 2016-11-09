@@ -6,7 +6,7 @@
 //=============================================================================//
 
 #include "vgui/MouseCode.h"
-#include "vgui/IInput.h"
+#include "vgui/IInputInternal.h"
 #include "vgui/IScheme.h"
 #include "vgui/ISurface.h"
 

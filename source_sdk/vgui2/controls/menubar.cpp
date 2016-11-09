@@ -5,7 +5,7 @@
 // $NoKeywords: $
 //=============================================================================//
 
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/IPanel.h>
 #include <vgui/IScheme.h>
 #include <vgui/IBorder.h>

@@ -8,7 +8,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/IPanel.h>
 #include <vgui/IScheme.h>
 #include <vgui/ISystem.h>

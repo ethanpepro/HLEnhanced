@@ -8,7 +8,7 @@
 #include "vgui/ISurface.h"
 #include "vgui/IVGui.h"
 #include "vgui/ILocalize.h"
-#include "vgui/IInput.h"
+#include "vgui/IInputInternal.h"
 #include "vgui/ISystem.h"
 #include "KeyValues.h"
 #include "vgui/Cursor.h"

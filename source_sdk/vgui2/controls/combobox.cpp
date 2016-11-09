@@ -8,7 +8,7 @@
 #define PROTECTED_THINGS_DISABLE
 
 #include "vgui/Cursor.h"
-#include "vgui/IInput.h"
+#include "vgui/IInputInternal.h"
 #include "vgui/ILocalize.h"
 #include "vgui/IScheme.h"
 #include "vgui/ISurface.h"

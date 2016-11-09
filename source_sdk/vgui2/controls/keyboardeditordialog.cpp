@@ -8,7 +8,7 @@
 #include "vgui_controls/Button.h"
 #include "vgui_controls/TextEntry.h"
 #include "vgui/ISurface.h"
-#include "vgui/IInput.h"
+#include "vgui/IInputInternal.h"
 #include "vgui/IVGui.h"
 #include "vgui/ILocalize.h"
 #include "KeyValues.h"

@@ -88,9 +88,6 @@ public:
 	// returns the full command line, including the exe name
 	virtual const char *GetFullCommandLine() = 0;
 
-	// Convert a windows virtual key code to a VGUI key code.
-	virtual KeyCode KeyCode_VirtualKeyToVGUI( int keyCode ) = 0;
-
 	// returns the current local time and date
 	// fills in every field that a pointer is given to it for
 	virtual bool GetCurrentTimeAndDate(int *year, int *month, int *dayOfWeek, int *day, int *hour, int *minute, int *second) = 0;
@@ -113,11 +110,30 @@ public:
 	virtual bool DeleteRegistryKey(const char *keyName) = 0;
 
 	virtual const char *GetDesktopFolderPath() = 0;
+
+	// Convert a windows virtual key code to a VGUI key code.
+	virtual KeyCode KeyCode_VirtualKeyToVGUI( int keyCode ) = 0;
+
+	virtual int KeyCode_VGUIToVirtualKey( KeyCode keyCode ) = 0;
+
+	virtual const char *GetStartMenuFolderPath() = 0;
+
+	virtual const char *GetAllUserDesktopFolderPath() = 0;
+
+	virtual const char *GetAllUserStartMenuFolderPath() = 0;
 };
 
 }
 
-#define VGUI_SYSTEM_INTERFACE_VERSION "VGUI_System010"
+/**
+*	Interface version used by GoldSource.
+*/
+#define VGUI_SYSTEM_INTERFACE_VERSION_GS "VGUI_System009"
+
+/*
+*	Interface version used by Source 2006.
+*/
+//#define VGUI_SYSTEM_INTERFACE_VERSION "VGUI_System010"
 
 
 #endif // ISYSTEM_H

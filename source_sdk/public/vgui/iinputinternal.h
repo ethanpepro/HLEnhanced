@@ -13,7 +13,7 @@
 
 #include <vgui/IInput.h>
 
-namespace vgui
+namespace vgui2
 {
 
 typedef int HInputContext;
@@ -54,6 +54,12 @@ public:
 	// Activates a particular input context, use DEFAULT_INPUT_CONTEXT
 	// to get the one normally used by VGUI
 	virtual void ActivateInputContext( HInputContext context ) = 0;
+
+	virtual VPANEL 	GetMouseCapture() = 0;
+
+	virtual bool IsChildOfModalPanel( VPANEL panel ) = 0;
+
+	virtual void ResetInputContext( HInputContext context ) = 0;
 };
 
 } // namespace vgui

@@ -11,7 +11,7 @@
 
 #include <vgui/Cursor.h>
 #include <vgui/IScheme.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/IPanel.h>
 #include <vgui/ISurface.h>
 #include <vgui/ISystem.h>

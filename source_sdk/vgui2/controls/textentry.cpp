@@ -12,7 +12,7 @@
 #include <UtlVector.h>
 
 #include <vgui/Cursor.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/IScheme.h>
 #include <vgui/ISystem.h>
 #include <vgui/ISurface.h>
@@ -76,7 +76,7 @@ TextEntry::TextEntry(Panel *parent, const char *panelName) : Panel(parent, panel
 	_drawWidth = 0;
 	m_bAutoProgressOnHittingCharLimit = false;
 	m_pIMECandidates = NULL;
-	m_hPreviousIME = input()->GetEnglishIMEHandle();
+	m_hPreviousIME = 0;// input()->GetEnglishIMEHandle();
 	m_bDrawLanguageIDAtLeft = false;
 	m_nLangInset = 0;
 
@@ -626,6 +626,7 @@ void TextEntry::PaintBackground()
 	wchar_t shortcode[ 5 ];
 	shortcode[ 0 ] = L'\0';
 
+	/*
 	if ( m_bAllowNonAsciiCharacters )
 	{
 		input()->GetIMELanguageShortCode( shortcode, sizeof( shortcode ) );
@@ -650,6 +651,7 @@ void TextEntry::PaintBackground()
 			wide -= m_nLangInset;
 		}
 	}
+	*/
 
 	surface()->DrawSetTextFont(_font);
 	if (IsEnabled())
@@ -674,7 +676,7 @@ void TextEntry::PaintBackground()
 
 	// FIXME: Should insert at cursor pos instead
 	bool composing = m_bAllowNonAsciiCharacters && wcslen( m_szComposition ) > 0;
-	bool invertcomposition = input()->GetShouldInvertCompositionString();
+	bool invertcomposition = false;//input()->GetShouldInvertCompositionString();
 
 	if ( composing )
 	{
@@ -859,7 +861,7 @@ void TextEntry::PaintBackground()
 		{
 			LocalToScreen( x, y );
 #ifndef _XBOX
-			input()->SetCandidateWindowPos( x, y );
+			//input()->SetCandidateWindowPos( x, y );
 #endif
 		}
 	}
@@ -1248,7 +1250,7 @@ void TextEntry::CreateEditMenu()
 		m_pEditMenu->AddMenuItem("#TextEntry_Paste", new KeyValues("DoPaste"), this);
 	}
 	
-
+	/*
 	if ( m_bAllowNonAsciiCharacters )
 	{
 		IInput::LanguageItem *langs = NULL;
@@ -1328,6 +1330,7 @@ void TextEntry::CreateEditMenu()
 			delete[] sentencemodes;
 		}
 	}
+	*/
 	
 
 	m_pEditMenu->SetVisible(false);
@@ -3792,10 +3795,12 @@ void TextEntry::SetAllowNumericInputOnly(bool state)
 void TextEntry::OnChangeIME( bool forward )
 {
 	// Only change ime if Unicode aware
+	/*
 	if ( m_bAllowNonAsciiCharacters )
 	{
 		input()->OnChangeIME( forward );
 	}
+	*/
 }
 
 //-----------------------------------------------------------------------------
@@ -3804,7 +3809,7 @@ void TextEntry::OnChangeIME( bool forward )
 //-----------------------------------------------------------------------------
 void TextEntry::LanguageChanged( int handleValue )
 {
-	input()->OnChangeIMEByHandle( handleValue );
+	//input()->OnChangeIMEByHandle( handleValue );
 }
 
 
@@ -3814,7 +3819,7 @@ void TextEntry::LanguageChanged( int handleValue )
 //-----------------------------------------------------------------------------
 void TextEntry::ConversionModeChanged( int handleValue )
 {
-	input()->OnChangeIMEConversionModeByHandle( handleValue );
+	//input()->OnChangeIMEConversionModeByHandle( handleValue );
 }
 
 
@@ -3824,7 +3829,7 @@ void TextEntry::ConversionModeChanged( int handleValue )
 //-----------------------------------------------------------------------------
 void TextEntry::SentenceModeChanged( int handleValue )
 {
-	input()->OnChangeIMESentenceModeByHandle( handleValue );
+	//input()->OnChangeIMESentenceModeByHandle( handleValue );
 }
 
 //-----------------------------------------------------------------------------
@@ -3839,6 +3844,7 @@ void TextEntry::CompositionString( const wchar_t *compstr )
 
 void TextEntry::ShowIMECandidates()
 {
+	/*
 #ifndef _XBOX
 	HideIMECandidates();
 
@@ -3934,6 +3940,7 @@ void TextEntry::ShowIMECandidates()
 		}
 	}
 #endif
+*/
 }
 
 void TextEntry::HideIMECandidates()
@@ -3948,6 +3955,7 @@ void TextEntry::HideIMECandidates()
 
 void TextEntry::UpdateIMECandidates()
 {
+	/*
 #ifndef _XBOX
 	if ( !m_pIMECandidates )
 		return;
@@ -4014,6 +4022,7 @@ void TextEntry::UpdateIMECandidates()
 		}
 	}
 #endif
+*/
 }
 
 //-----------------------------------------------------------------------------
@@ -4021,6 +4030,7 @@ void TextEntry::UpdateIMECandidates()
 //-----------------------------------------------------------------------------
 void TextEntry::FlipToLastIME()
 {
+	/*
 	int hCurrentIME = input()->GetCurrentIMEHandle();
 	int hEnglishIME = input()->GetEnglishIMEHandle();
 
@@ -4037,6 +4047,7 @@ void TextEntry::FlipToLastIME()
 		m_hPreviousIME = hCurrentIME;
 		input()->OnChangeIMEByHandle( hEnglishIME );
 	}
+	*/
 }
 
 void TextEntry::SetDrawLanguageIDAtLeft( bool state )

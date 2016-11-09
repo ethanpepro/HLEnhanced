@@ -7,7 +7,7 @@
 
 #include <vgui/KeyCode.h>
 #include <KeyValues.h>
-#include "vgui/iinput.h"
+#include "vgui/iinputinternal.h"
 #include "vgui/MouseCode.h"
 #include "vgui/ISurface.h"
 

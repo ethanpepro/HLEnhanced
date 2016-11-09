@@ -12,7 +12,7 @@
 #include <string.h>
 #include <locale.h>
 
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/ILocalize.h>
 #include <vgui/IPanel.h>
 #include <vgui/IScheme.h>
@@ -28,8 +28,8 @@
 namespace vgui2
 {
 
-vgui2::IInput *g_pInputInterface = NULL;
-vgui2::IInput *input()
+vgui2::IInputInternal *g_pInputInterface = NULL;
+vgui2::IInputInternal *input()
 {
 	return g_pInputInterface;
 }
@@ -216,8 +216,8 @@ bool VGui_InitInterfacesList( const char *moduleName, CreateInterfaceFn *factory
 	g_pPanelInterface = (IPanel *)InitializeInterface( VGUI_PANEL_INTERFACE_VERSION_GS, factoryList, numFactories );
 	g_pSurfaceInterface = (ISurface *)InitializeInterface( VGUI_SURFACE_INTERFACE_VERSION_GS, factoryList, numFactories );
 	g_pSchemeInterface = (ISchemeManager *)InitializeInterface( VGUI_SCHEME_INTERFACE_VERSION_GS, factoryList, numFactories );
-	g_pSystemInterface = (ISystem *)InitializeInterface( VGUI_SYSTEM_INTERFACE_VERSION, factoryList, numFactories );
-	g_pInputInterface = (IInput *)InitializeInterface( VGUI_INPUT_INTERFACE_VERSION, factoryList, numFactories );
+	g_pSystemInterface = (ISystem *)InitializeInterface( VGUI_SYSTEM_INTERFACE_VERSION_GS, factoryList, numFactories );
+	g_pInputInterface = ( IInputInternal *)InitializeInterface( VGUI_INPUT_INTERFACE_VERSION_GS, factoryList, numFactories );
 	g_pLocalizeInterface = (ILocalize *)InitializeInterface( VGUI_LOCALIZE_INTERFACE_VERSION, factoryList, numFactories );
 	g_pFileSystemInterface = (IFileSystem *)InitializeInterface( FILESYSTEM_INTERFACE_VERSION, factoryList, numFactories );
 

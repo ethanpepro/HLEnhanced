@@ -9,7 +9,7 @@
 #include <UtlSymbol.h>
 
 #include <vgui/IBorder.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/IScheme.h>
 #include <vgui/ISurface.h>
 #include <vgui/ISystem.h>

@@ -12,7 +12,7 @@
 #include <vstdlib/IKeyValuesSystem.h>
 
 #include <vgui/IBorder.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/IPanel.h>
 #include <vgui/IScheme.h>
 #include <vgui/ISurface.h>
@@ -1634,14 +1634,7 @@ bool Panel::IsChildOfSurfaceModalPanel()
 //-----------------------------------------------------------------------------
 bool Panel::IsChildOfModalSubTree()
 {
-	VPANEL subTree = input()->GetModalSubTree();
-	if ( !subTree )
-		return true;
-
-	if ( HasParent( subTree ) )
-		return true;
-
-	return false;
+	return input()->IsChildOfModalPanel( GetVPanel() );
 }
 
 //-----------------------------------------------------------------------------
@@ -1652,20 +1645,13 @@ bool Panel::IsChildOfModalSubTree()
 bool Panel::ShouldHandleInputMessage()
 {
 	// If there is not modal subtree, then always handle the msg
-	if ( !input()->GetModalSubTree() )
+	if ( input()->GetAppModalSurface() == 0 )
 	{
 		return true;
 	}
 
 	// What state are we in?
-	bool childOfModal = IsChildOfModalSubTree();
-
-	if ( input()->ShouldModalSubTreeReceiveMessages() )
-	{
-		return childOfModal;
-	}
-
-	return !childOfModal;
+	return IsChildOfModalSubTree();
 }
 
 void Panel::InternalMousePressed(int code)
@@ -2521,7 +2507,7 @@ void Panel::InternalKeyCodeTyped( int code )
 #ifndef _XBOX
 	if ( !ShouldHandleInputMessage() )
 	{
-		input()->OnKeyCodeUnhandled( code );
+		//input()->OnKeyCodeUnhandled( code );
 		return;
 	}
 
@@ -2570,7 +2556,7 @@ void Panel::InternalKeyCodeTyped( int code )
 	{
 		if ( GetVPanel() == surface()->GetEmbeddedPanel() )
 		{
-			input()->OnKeyCodeUnhandled( code );
+			//input()->OnKeyCodeUnhandled( code );
 		}
 		CallParentFunction(new KeyValues("KeyCodeTyped", "code", code));
 	}
@@ -2842,7 +2828,7 @@ void Panel::OnKeyCodeTyped(KeyCode code)
 		// forward up
 		if ( GetVPanel() == surface()->GetEmbeddedPanel() )
 		{
-			input()->OnKeyCodeUnhandled( code );
+			//input()->OnKeyCodeUnhandled( code );
 		}
 		CallParentFunction(new KeyValues("KeyCodeTyped", "code", code));
 	}

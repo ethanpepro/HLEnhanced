@@ -12,7 +12,7 @@
 #include "vgui/Cursor.h"
 #include "vgui/MouseCode.h"
 #include "vgui/IBorder.h"
-#include "vgui/IInput.h"
+#include "vgui/IInputInternal.h"
 #include "vgui/ILocalize.h"
 #include "vgui/IPanel.h"
 #include "vgui/ISurface.h"
@@ -2034,7 +2034,7 @@ void Frame::OnKeyCodeTyped(KeyCode code)
 	}
 	else
 	{
-		input()->OnKeyCodeUnhandled( (int)code );
+		//input()->OnKeyCodeUnhandled( (int)code );
 	}
 }
 

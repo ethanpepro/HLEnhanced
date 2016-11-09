@@ -9,7 +9,7 @@
 
 #include <vgui/IScheme.h>
 #include <vgui/ISystem.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <KeyValues.h>
 
 #include <vgui_controls/ScrollBar.h>

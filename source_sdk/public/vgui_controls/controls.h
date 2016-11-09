@@ -37,8 +37,8 @@ const char *GetControlsModuleName();
 // #include <vgui/IPanel.h>
 class IPanel *ipanel();
 
-// #include <vgui/IInput.h>
-class IInput *input();
+// #include <vgui/IInputInternal.h>
+class IInputInternal *input();
 
 // #include <vgui/IScheme.h>
 class ISchemeManager *scheme();

@@ -30,7 +30,7 @@
 #include <KeyValues.h>
 #include <vgui/IVGui.h>
 #include <vgui/ILocalize.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 
 #include <vgui_controls/FileOpenDialog.h>
 

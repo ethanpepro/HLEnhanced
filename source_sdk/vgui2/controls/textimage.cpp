@@ -14,7 +14,7 @@
 #include <vgui/IPanel.h>
 #include <vgui/ISurface.h>
 #include <vgui/IScheme.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/ILocalize.h>
 #include <KeyValues.h>
 

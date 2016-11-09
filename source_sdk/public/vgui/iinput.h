@@ -80,107 +80,115 @@ public:
 
 	virtual void GetCursorPosition( int &x, int &y ) = 0;
 
-	virtual void SetIMEWindow( void *hwnd ) = 0;
-	virtual void *GetIMEWindow() = 0;
+	//virtual void SetIMEWindow( void *hwnd ) = 0;
+	//virtual void *GetIMEWindow() = 0;
 
-	virtual void OnChangeIME( bool forward ) = 0;
-	virtual int  GetCurrentIMEHandle() = 0;
-	virtual int  GetEnglishIMEHandle() = 0;
+	//virtual void OnChangeIME( bool forward ) = 0;
+	//virtual int  GetCurrentIMEHandle() = 0;
+	//virtual int  GetEnglishIMEHandle() = 0;
 
-	// Returns the Language Bar label (Chinese, Korean, Japanese, Russion, Thai, etc.)
-	virtual void GetIMELanguageName( wchar_t *buf, int unicodeBufferSizeInBytes ) = 0;
-	// Returns the short code for the language (EN, CH, KO, JP, RU, TH, etc. ).
-	virtual void GetIMELanguageShortCode( wchar_t *buf, int unicodeBufferSizeInBytes ) = 0;
+	//// Returns the Language Bar label (Chinese, Korean, Japanese, Russion, Thai, etc.)
+	//virtual void GetIMELanguageName( wchar_t *buf, int unicodeBufferSizeInBytes ) = 0;
+	//// Returns the short code for the language (EN, CH, KO, JP, RU, TH, etc. ).
+	//virtual void GetIMELanguageShortCode( wchar_t *buf, int unicodeBufferSizeInBytes ) = 0;
 
-	struct LanguageItem
-	{
-		wchar_t		shortname[ 4 ];
-		wchar_t		menuname[ 128 ];
-		int			handleValue;
-		bool		active; // true if this is the active language
-	};
+	//struct LanguageItem
+	//{
+	//	wchar_t		shortname[ 4 ];
+	//	wchar_t		menuname[ 128 ];
+	//	int			handleValue;
+	//	bool		active; // true if this is the active language
+	//};
 
-	struct ConversionModeItem
-	{
-		wchar_t		menuname[ 128 ];
-		int			handleValue;
-		bool		active; // true if this is the active conversion mode
-	};
+	//struct ConversionModeItem
+	//{
+	//	wchar_t		menuname[ 128 ];
+	//	int			handleValue;
+	//	bool		active; // true if this is the active conversion mode
+	//};
 
-	struct SentenceModeItem
-	{
-		wchar_t		menuname[ 128 ];
-		int			handleValue;
-		bool		active; // true if this is the active sentence mode
-	};
+	//struct SentenceModeItem
+	//{
+	//	wchar_t		menuname[ 128 ];
+	//	int			handleValue;
+	//	bool		active; // true if this is the active sentence mode
+	//};
 
-	// Call with NULL dest to get item count
-	virtual int	 GetIMELanguageList( LanguageItem *dest, int destcount ) = 0;
-	virtual int	 GetIMEConversionModes( ConversionModeItem *dest, int destcount ) = 0;
-	virtual int	 GetIMESentenceModes( SentenceModeItem *dest, int destcount ) = 0;
+	//// Call with NULL dest to get item count
+	//virtual int	 GetIMELanguageList( LanguageItem *dest, int destcount ) = 0;
+	//virtual int	 GetIMEConversionModes( ConversionModeItem *dest, int destcount ) = 0;
+	//virtual int	 GetIMESentenceModes( SentenceModeItem *dest, int destcount ) = 0;
 
-	virtual void OnChangeIMEByHandle( int handleValue ) = 0;
-	virtual void OnChangeIMEConversionModeByHandle( int handleValue ) = 0;
-	virtual void OnChangeIMESentenceModeByHandle( int handleValue ) = 0;
+	//virtual void OnChangeIMEByHandle( int handleValue ) = 0;
+	//virtual void OnChangeIMEConversionModeByHandle( int handleValue ) = 0;
+	//virtual void OnChangeIMESentenceModeByHandle( int handleValue ) = 0;
 
-	virtual void OnInputLanguageChanged() = 0;
-	virtual void OnIMEStartComposition() = 0;
-	virtual void OnIMEComposition( int flags ) = 0;
-	virtual void OnIMEEndComposition() = 0;
+	//virtual void OnInputLanguageChanged() = 0;
+	//virtual void OnIMEStartComposition() = 0;
+	//virtual void OnIMEComposition( int flags ) = 0;
+	//virtual void OnIMEEndComposition() = 0;
 
-	virtual void OnIMEShowCandidates() = 0;
-	virtual void OnIMEChangeCandidates() = 0;
-	virtual void OnIMECloseCandidates() = 0;
-	virtual void OnIMERecomputeModes() = 0;
+	//virtual void OnIMEShowCandidates() = 0;
+	//virtual void OnIMEChangeCandidates() = 0;
+	//virtual void OnIMECloseCandidates() = 0;
+	//virtual void OnIMERecomputeModes() = 0;
 
-	virtual int  GetCandidateListCount() = 0;
-	virtual void GetCandidate( int num, wchar_t *dest, int destSizeBytes ) = 0;
-	virtual int  GetCandidateListSelectedItem() = 0;
-	virtual int  GetCandidateListPageSize() = 0;
-	virtual int  GetCandidateListPageStart() = 0;
-	
-	//NOTE:  We render our own candidate lists most of the time...
-	virtual void SetCandidateWindowPos( int x, int y ) = 0;
+	//virtual int  GetCandidateListCount() = 0;
+	//virtual void GetCandidate( int num, wchar_t *dest, int destSizeBytes ) = 0;
+	//virtual int  GetCandidateListSelectedItem() = 0;
+	//virtual int  GetCandidateListPageSize() = 0;
+	//virtual int  GetCandidateListPageStart() = 0;
+	//
+	////NOTE:  We render our own candidate lists most of the time...
+	//virtual void SetCandidateWindowPos( int x, int y ) = 0;
 
-	virtual bool GetShouldInvertCompositionString() = 0;
-	virtual bool CandidateListStartsAtOne() = 0;
+	//virtual bool GetShouldInvertCompositionString() = 0;
+	//virtual bool CandidateListStartsAtOne() = 0;
 
-	virtual void SetCandidateListPageStart( int start ) = 0;
+	//virtual void SetCandidateListPageStart( int start ) = 0;
 
-	// Passes in a keycode which allows hitting other mouse buttons w/o cancelling capture mode
-	virtual void SetMouseCaptureEx(VPANEL panel, MouseCode captureStartMouseCode ) = 0;
+	//// Passes in a keycode which allows hitting other mouse buttons w/o cancelling capture mode
+	//virtual void SetMouseCaptureEx(VPANEL panel, MouseCode captureStartMouseCode ) = 0;
 
-	// Because OnKeyCodeTyped uses CallParentFunction and is therefore message based, there's no way
-	//  to know if handler actually swallowed the specified keycode.  To get around this, I set a global before calling the
-	//  kb focus OnKeyCodeTyped function and if we ever get to a Panel::OnKeyCodeTypes we know that nobody handled the message
-	//  and in that case we can post a message to any "unhandled keycode" listeners
-	// This will generate an MESSAGE_FUNC_INT( "KeyCodeUnhandled" "code" code ) message to each such listener
-	virtual void RegisterKeyCodeUnhandledListener( VPANEL panel ) = 0;
-	virtual void UnregisterKeyCodeUnhandledListener( VPANEL panel ) = 0;
+	//// Because OnKeyCodeTyped uses CallParentFunction and is therefore message based, there's no way
+	////  to know if handler actually swallowed the specified keycode.  To get around this, I set a global before calling the
+	////  kb focus OnKeyCodeTyped function and if we ever get to a Panel::OnKeyCodeTypes we know that nobody handled the message
+	////  and in that case we can post a message to any "unhandled keycode" listeners
+	//// This will generate an MESSAGE_FUNC_INT( "KeyCodeUnhandled" "code" code ) message to each such listener
+	//virtual void RegisterKeyCodeUnhandledListener( VPANEL panel ) = 0;
+	//virtual void UnregisterKeyCodeUnhandledListener( VPANEL panel ) = 0;
 
-	// Posts unhandled message to all interested panels
-	virtual void OnKeyCodeUnhandled( int keyCode ) = 0;
+	//// Posts unhandled message to all interested panels
+	//virtual void OnKeyCodeUnhandled( int keyCode ) = 0;
 
-	// Assumes subTree is a child panel of the root panel for the vgui contect
-	//  if restrictMessagesToSubTree is true, then mouse and kb messages are only routed to the subTree and it's children and mouse/kb focus
-	//   can only be on one of the subTree children, if a mouse click occurs outside of the subtree, and "UnhandledMouseClick" message is sent to unhandledMouseClickListener panel
-	//   if it's set
-	//  if restrictMessagesToSubTree is false, then mouse and kb messages are routed as normal except that they are not routed down into the subtree
-	//   however, if a mouse click occurs outside of the subtree, and "UnhandleMouseClick" message is sent to unhandledMouseClickListener panel
-	//   if it's set
-	virtual void	SetModalSubTree( VPANEL subTree, VPANEL unhandledMouseClickListener, bool restrictMessagesToSubTree = true ) = 0;
-	virtual void	ReleaseModalSubTree() = 0;
-	virtual VPANEL	GetModalSubTree() = 0;
+	//// Assumes subTree is a child panel of the root panel for the vgui contect
+	////  if restrictMessagesToSubTree is true, then mouse and kb messages are only routed to the subTree and it's children and mouse/kb focus
+	////   can only be on one of the subTree children, if a mouse click occurs outside of the subtree, and "UnhandledMouseClick" message is sent to unhandledMouseClickListener panel
+	////   if it's set
+	////  if restrictMessagesToSubTree is false, then mouse and kb messages are routed as normal except that they are not routed down into the subtree
+	////   however, if a mouse click occurs outside of the subtree, and "UnhandleMouseClick" message is sent to unhandledMouseClickListener panel
+	////   if it's set
+	//virtual void	SetModalSubTree( VPANEL subTree, VPANEL unhandledMouseClickListener, bool restrictMessagesToSubTree = true ) = 0;
+	//virtual void	ReleaseModalSubTree() = 0;
+	//virtual VPANEL	GetModalSubTree() = 0;
 
-	// These toggle whether the modal subtree is exclusively receiving messages or conversely whether it's being excluded from receiving messages
-	// Sends a "ModalSubTree", state message
-	virtual void	SetModalSubTreeReceiveMessages( bool state ) = 0;
-	virtual bool	ShouldModalSubTreeReceiveMessages() const = 0;
+	//// These toggle whether the modal subtree is exclusively receiving messages or conversely whether it's being excluded from receiving messages
+	//// Sends a "ModalSubTree", state message
+	//virtual void	SetModalSubTreeReceiveMessages( bool state ) = 0;
+	//virtual bool	ShouldModalSubTreeReceiveMessages() const = 0;
 
-	virtual VPANEL 	GetMouseCapture() = 0;
+	//virtual VPANEL 	GetMouseCapture() = 0;
 };
 
-#define VGUI_INPUT_INTERFACE_VERSION "VGUI_Input005"
+/**
+*	Interface version used by GoldSource.
+*/
+#define VGUI_INPUT_INTERFACE_VERSION_GS "VGUI_Input004"
+
+/*
+*	Interface version used by Source 2006.
+*/
+//#define VGUI_INPUT_INTERFACE_VERSION "VGUI_Input005"
 
 } // namespace vgui2
 

@@ -8,7 +8,7 @@
 #define PROTECTED_THINGS_DISABLE
 
 #include <vgui/IPanel.h>
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/ISurface.h>
 #include <KeyValues.h>
 #include <vgui/IVGui.h>

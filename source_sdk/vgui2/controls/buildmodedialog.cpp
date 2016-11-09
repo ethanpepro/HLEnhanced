@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <UtlVector.h>
 
-#include <vgui/IInput.h>
+#include <vgui/IInputInternal.h>
 #include <vgui/ILocalize.h>
 #include <vgui/ISurface.h>
 #include <vgui/ISystem.h>
