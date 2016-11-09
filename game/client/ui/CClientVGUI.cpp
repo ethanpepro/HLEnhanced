@@ -12,6 +12,7 @@
 #include <vgui/isurface.h>
 
 #include "IGameUIFuncs.h"
+#include "IBaseUI.h"
 
 #include "vgui2/CViewport.h"
 #endif
@@ -23,6 +24,8 @@ namespace
 CClientVGUI g_ClientVGUI;
 
 IGameUIFuncs* g_GameUIFuncs = nullptr;
+
+IBaseUI* g_pBaseUI = nullptr;
 }
 
 IClientVGUI* clientVGUI()
@@ -33,6 +36,11 @@ IClientVGUI* clientVGUI()
 IGameUIFuncs* gameUIFuncs()
 {
 	return g_GameUIFuncs;
+}
+
+IBaseUI* baseUI()
+{
+	return g_pBaseUI;
 }
 
 EXPOSE_SINGLE_INTERFACE_GLOBALVAR( CClientVGUI, IClientVGUI, ICLIENTVGUI_NAME, g_ClientVGUI );
@@ -72,6 +80,7 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 	vgui2::scheme()->LoadSchemeFromFile( "Resource/ClientScheme.res", "ClientScheme" );
 	vgui2::scheme()->LoadSchemeFromFile( "Resource/TutorScheme.res", "TutorScheme" );
 	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
+	g_pBaseUI = ( IBaseUI* ) pFactories[ 0 ]( IBASEUI_NAME, nullptr );
 
 #if USE_VGUI2
 	g_pViewport = new CViewport();

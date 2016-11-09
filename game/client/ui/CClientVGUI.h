@@ -4,6 +4,7 @@
 #include "IClientVGUI.h"
 
 class IGameUIFuncs;
+class IBaseUI;
 
 class CClientVGUI : public IClientVGUI
 {
@@ -51,5 +52,10 @@ IClientVGUI* clientVGUI();
 *	Global accessor for game UI funcs.
 */
 IGameUIFuncs* gameUIFuncs();
+
+/**
+*	Global accessor for the game UI.
+*/
+IBaseUI* baseUI();
 
 #endif //CL_UI_CCLIENTVGUI_H
