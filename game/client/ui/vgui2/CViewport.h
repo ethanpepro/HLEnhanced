@@ -3,6 +3,8 @@
 
 #include "../../source_sdk/public/vgui_controls/panel.h"
 
+class CBackgroundPanel;
+
 /**
 *	Represents the VGUI2 viewport.
 */
@@ -28,6 +30,9 @@ public:
 	void HideClientUI();
 
 	void Shutdown();
+
+private:
+	CBackgroundPanel* m_pBackground = nullptr;
 };
 
 extern CViewport* g_pViewport;

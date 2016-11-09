@@ -1,3 +1,5 @@
+#include "CBackgroundPanel.h"
+
 #include "CViewport.h"
 
 CViewport* g_pViewport = nullptr;
@@ -12,6 +14,7 @@ void CViewport::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 
 void CViewport::Start()
 {
+	m_pBackground = new CBackgroundPanel( nullptr );
 }
 
 vgui2::Panel* g_pPanel = nullptr;
@@ -19,6 +22,8 @@ vgui2::Panel* g_pPanel2 = nullptr;
 
 void CViewport::SetParent( vgui2::VPANEL parent )
 {
+	m_pBackground->SetParent( parent );
+
 	g_pPanel = new vgui2::Panel();
 
 	g_pPanel->SetParent( parent );
@@ -54,10 +59,12 @@ void CViewport::HideAllVGUIMenu()
 
 void CViewport::ActivateClientUI()
 {
+	m_pBackground->SetVisible( true );
 }
 
 void CViewport::HideClientUI()
 {
+	m_pBackground->SetVisible( false );
 }
 
 void CViewport::Shutdown()
