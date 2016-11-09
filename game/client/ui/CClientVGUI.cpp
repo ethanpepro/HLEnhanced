@@ -1,7 +1,6 @@
 #include <cassert>
 #include <clocale>
 
-//TODO: remove once VGUI1 is removed.
 #if USE_VGUI2
 #include "../../source_sdk/public/vgui/VGUI2.h"
 #include "../../source_sdk/public/vgui/IVGui.h"
@@ -13,6 +12,8 @@
 #include <vgui/isurface.h>
 
 #include "IGameUIFuncs.h"
+
+#include "vgui2/CViewport.h"
 #endif
 
 #include "CClientVGUI.h"
@@ -62,63 +63,77 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 		m_FactoryList[ uiIndex + 1 ] = pFactories[ uiIndex ];
 	}
 
-	//vgui2::VGui_InitInterfacesList( "CLIENT", pFactories, NUM_FACTORIES );
-	//
-	//vgui2::scheme()->LoadSchemeFromFile( "Resource/ClientScheme.res", "ClientScheme" );
-	//vgui2::scheme()->LoadSchemeFromFile( "Resource/TutorScheme.res", "TutorScheme" );
-	//g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
+	if( !vgui2::VGui_InitInterfacesList( "CLIENT", pFactories, NUM_FACTORIES ) )
+	{
+		Msg( "Failed to initialize VGUI2\n" );
+		return;
+	}
+	
+	vgui2::scheme()->LoadSchemeFromFile( "Resource/ClientScheme.res", "ClientScheme" );
+	vgui2::scheme()->LoadSchemeFromFile( "Resource/TutorScheme.res", "TutorScheme" );
+	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
+
+#if USE_VGUI2
+	g_pViewport = new CViewport();
+
+	g_pViewport->Initialize( pFactories, iNumFactories );
+#endif
 }
 
 void CClientVGUI::Start()
 {
+#if USE_VGUI2
+	g_pViewport->Start();
+#endif
 }
-
-//vgui2::Panel* g_pPanel = nullptr;
-//vgui2::Panel* g_pPanel2 = nullptr;
 
 void CClientVGUI::SetParent( vgui2::VPANEL parent )
 {
-	//g_pPanel = new vgui2::Panel();
-	//
-	//g_pPanel->SetParent( parent );
-	//
-	//g_pPanel->SetSize( 200, 200 );
-	//g_pPanel->SetPos( 10, 10 );
-	//
-	//g_pPanel->SetVisible( true );
-	//
-	//g_pPanel2 = new vgui2::Panel();
-	//
-	//g_pPanel2->SetParent( parent );
-	//
-	//g_pPanel2->SetSize( 100, 100 );
-	//g_pPanel2->SetPos( 10, 150 );
-	//
-	//g_pPanel2->SetVisible( true );
+#if USE_VGUI2
+	g_pViewport->SetParent( parent );
+#endif
 }
 
 int CClientVGUI::UseVGUI1()
 {
+#if USE_VGUI2
+	return g_pViewport->UseVGUI1();
+#else
 	return true;
+#endif
 }
 
 void CClientVGUI::HideScoreBoard()
 {
+#if USE_VGUI2
+	g_pViewport->HideScoreBoard();
+#endif
 }
 
 void CClientVGUI::HideAllVGUIMenu()
 {
-	//vgui2::surface()->UnlockCursor();
+#if USE_VGUI2
+	g_pViewport->HideAllVGUIMenu();
+#endif
 }
 
 void CClientVGUI::ActivateClientUI()
 {
+#if USE_VGUI2
+	g_pViewport->ActivateClientUI();
+#endif
 }
 
 void CClientVGUI::HideClientUI()
 {
+#if USE_VGUI2
+	g_pViewport->HideClientUI();
+#endif
 }
 
 void CClientVGUI::Shutdown()
 {
+#if USE_VGUI2
+	g_pViewport->Shutdown();
+#endif
 }
