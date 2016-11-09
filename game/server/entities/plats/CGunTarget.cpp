@@ -84,9 +84,9 @@ void CGunTarget::Wait()
 	}
 
 	// Fire the pass target if there is one
-	if( pTarget->GetMessage() )
+	if( pTarget->HasMessage() )
 	{
-		FireTargets( STRING( pTarget->GetMessage() ), this, this, USE_TOGGLE, 0 );
+		FireTargets( pTarget->GetMessage(), this, this, USE_TOGGLE, 0 );
 		if( pTarget->GetSpawnFlags().Any( SF_CORNER_FIREONCE ) )
 			pTarget->ClearMessage();
 	}
