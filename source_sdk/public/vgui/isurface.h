@@ -12,7 +12,7 @@
 #pragma once
 #endif
 
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 #include <vgui/IHTML.h> // CreateHTML, PaintHTML 
 #include "tier1/interface.h"
 #include "bitmap/imageformat.h"

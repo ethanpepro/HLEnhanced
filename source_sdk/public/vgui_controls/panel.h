@@ -13,7 +13,7 @@
 #endif
 
 #include "tier1/utlflags.h"
-#include "vgui/VGUI.h"
+#include "vgui/VGUI2.h"
 #include "vgui/Dar.h"
 #include "vgui_controls/MessageMap.h"
 #if defined( VGUI_USEKEYBINDINGMAPS )

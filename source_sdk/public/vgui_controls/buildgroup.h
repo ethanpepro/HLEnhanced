@@ -14,7 +14,7 @@
 
 #include "UtlVector.h"
 #include "UtlSymbol.h"
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 #include <vgui/Dar.h>
 #include <vgui/Cursor.h>
 #include <vgui/IScheme.h>

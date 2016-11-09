@@ -12,7 +12,7 @@
 #pragma once
 #endif
 
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 #include <vgui/MouseCode.h>
 #include <vgui/KeyCode.h>
 #include <vgui/IImage.h>

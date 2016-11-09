@@ -15,7 +15,7 @@
 #include <UtlLinkedList.h>
 #include <UtlVector.h>
 #include <UtlRBTree.h>
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 #include <vgui_controls/Panel.h>
 
 class KeyValues;

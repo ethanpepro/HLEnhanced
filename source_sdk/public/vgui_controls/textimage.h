@@ -12,7 +12,7 @@
 #pragma once
 #endif
 
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 #include <vgui/ILocalize.h>
 #include <vgui_controls/Image.h>
 

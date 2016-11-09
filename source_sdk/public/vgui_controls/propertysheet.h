@@ -12,7 +12,7 @@
 #pragma once
 #endif
 
-#include "vgui/VGUI.h"
+#include "vgui/VGUI2.h"
 #include "vgui_controls/EditablePanel.h"
 #include "vgui_controls/PHandle.h"
 #include "UtlVector.h"

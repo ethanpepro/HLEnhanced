@@ -13,7 +13,7 @@
 #endif
 
 #include "tier1/interface.h"
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 
 #include "appframework/IAppSystem.h"
 

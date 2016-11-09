@@ -3,9 +3,7 @@
 
 //TODO: remove once VGUI1 is removed.
 #if USE_VGUI2
-#undef VGUI_H
-
-#include "../../source_sdk/public/vgui/VGUI.h"
+#include "../../source_sdk/public/vgui/VGUI2.h"
 #include "../../source_sdk/public/vgui/IVGui.h"
 #include "../../source_sdk/public/vgui/ischeme.h"
 #include "../../source_sdk/public/vgui_controls/Controls.h"

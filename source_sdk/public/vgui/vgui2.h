@@ -5,8 +5,8 @@
 // $NoKeywords: $
 //=============================================================================//
 
-#ifndef VGUI_H
-#define VGUI_H
+#ifndef VGUI2_H
+#define VGUI2_H
 
 #ifdef _WIN32
 #pragma once
@@ -66,4 +66,4 @@ const HFont INVALID_FONT = 0; // the value of an invalid font handle
 #include "vstdlib/strtools.h"
 
 
-#endif // VGUI_H
+#endif // VGUI2_H

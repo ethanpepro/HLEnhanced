@@ -21,5 +21,5 @@ add_sources(
 	keycode.h
 	mousecode.h
 	point.h
-	vgui.h
+	vgui2.h
 )

@@ -3,11 +3,8 @@
 
 #include "interface.h"
 
-//TODO: remove once VGUI1 is removed.
-#undef VGUI_H
-
 #if USE_VGUI2
-#include "../../source_sdk/public/vgui/VGUI.h"
+#include "../../source_sdk/public/vgui/VGUI2.h"
 #include "../../source_sdk/public/vgui/ipanel.h"
 #endif
 

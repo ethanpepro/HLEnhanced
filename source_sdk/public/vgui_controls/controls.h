@@ -12,7 +12,7 @@
 #pragma once
 #endif
 
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 #include <vgui/IPanel.h>
 #include <vstdlib/IKeyValuesSystem.h>
 
