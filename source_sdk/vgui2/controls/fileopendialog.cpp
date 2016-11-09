@@ -1093,11 +1093,14 @@ void FileOpenDialog::PopulateFileList()
 
 				kv->SetInt("image", 1);
 
+				//Not supported in GoldSource. - Solokiller
+				/*
 				IImage *image = surface()->GetIconImageForFullPath( fullpath );
 				if ( image )
 				{
 					kv->SetPtr( "iconImage", (void *)image );
 				}
+				*/
 
 				kv->SetInt("imageSelected", 1);
 				kv->SetInt("directory", 0);

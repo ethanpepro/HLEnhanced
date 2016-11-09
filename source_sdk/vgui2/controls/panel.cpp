@@ -1017,7 +1017,7 @@ void Panel::PaintTraverse( bool repaint, bool allowForce )
 		return;
 	}
 
-	float oldAlphaMultiplier = surface()->DrawGetAlphaMultiplier();
+	float oldAlphaMultiplier = DrawGetAlphaMultiplier();
 	float newAlphaMultiplier = oldAlphaMultiplier * m_flAlpha * 1.0f/255.0f;
 
 	if ( IsXbox() && !newAlphaMultiplier )
@@ -1049,7 +1049,7 @@ void Panel::PaintTraverse( bool repaint, bool allowForce )
 	}
 
 	// set global alpha
-	surface()->DrawSetAlphaMultiplier( newAlphaMultiplier );
+	DrawSetAlphaMultiplier( newAlphaMultiplier );
 	if ( repaint && _flags.IsFlagSet( PAINT_BACKGROUND_ENABLED | PAINT_ENABLED ) )
 	{
 		// draw the background with no inset
@@ -1124,7 +1124,7 @@ void Panel::PaintTraverse( bool repaint, bool allowForce )
 		surface()->PopMakeCurrent( vpanel );
 	}
 
-	surface()->DrawSetAlphaMultiplier( oldAlphaMultiplier );
+	DrawSetAlphaMultiplier( oldAlphaMultiplier );
 
 	if ( IsPC() )
 	{	
@@ -4954,6 +4954,8 @@ public:
 	}
 };
 
+//This class won't work in GoldSource. - Solokiller
+/*
 class CHFontProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
@@ -4992,7 +4994,10 @@ public:
 		}
 	}
 };
+*/
 
+//This class won't work in GoldSource. - Solokiller
+/*
 class CTextureIdProperty : public vgui2::IPanelAnimationPropertyConverter
 {
 public:
@@ -5054,6 +5059,7 @@ public:
 		*(int *)data = currentId;
 	}
 };
+*/
 
 static CFloatProperty floatconverter;
 static CProportionalFloatProperty p_floatconverter;
@@ -5062,8 +5068,8 @@ static CProportionalIntProperty p_intconverter;
 static CColorProperty colorconverter;
 static CBoolProperty boolconverter;
 static CStringProperty stringconverter;
-static CHFontProperty fontconverter;
-static CTextureIdProperty textureidconverter;
+//static CHFontProperty fontconverter;
+//static CTextureIdProperty textureidconverter;
 
 static CUtlDict< IPanelAnimationPropertyConverter *, int > g_AnimationPropertyConverters;
 
@@ -5106,14 +5112,14 @@ void Panel::InitPropertyConverters( void )
 	AddPropertyConverter( "bool", &boolconverter );
 	AddPropertyConverter( "char", &stringconverter );
 	AddPropertyConverter( "string", &stringconverter );
-	AddPropertyConverter( "HFont", &fontconverter );
-	AddPropertyConverter( "vgui2::HFont", &fontconverter );
+	//AddPropertyConverter( "HFont", &fontconverter );
+	//AddPropertyConverter( "vgui2::HFont", &fontconverter );
 
 	// This is an aliased type for proportional float
 	AddPropertyConverter( "proportional_float", &p_floatconverter );
 	AddPropertyConverter( "proportional_int", &p_intconverter );
 
-	AddPropertyConverter( "textureid", &textureidconverter );
+	//AddPropertyConverter( "textureid", &textureidconverter );
 }
 
 bool Panel::InternalRequestInfo( PanelAnimationMap *map, KeyValues *outputData )

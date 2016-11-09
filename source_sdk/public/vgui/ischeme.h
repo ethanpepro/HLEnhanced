@@ -43,36 +43,34 @@ public:
 	virtual HFont GetFont(const char *fontName, bool proportional = false) = 0;
 
 	// inverse font lookup
-	virtual char const *GetFontName( const HFont& font ) = 0;
+	//virtual char const *GetFontName( const HFont& font ) = 0;
 
 	// colors
 	virtual SDK_Color GetColor(const char *colorName, SDK_Color defaultColor) = 0;
 };
 
-
-
-class ISchemeManager: public IBaseInterface
+class ISchemeManager009 : public IBaseInterface
 {
 public:
 	// loads a scheme from a file
 	// first scheme loaded becomes the default scheme, and all subsequent loaded scheme are derivitives of that
-	virtual HScheme LoadSchemeFromFile(const char *fileName, const char *tag) = 0;
+	virtual HScheme LoadSchemeFromFile( const char *fileName, const char *tag ) = 0;
 
 	// reloads the scheme from the file - should only be used during development
 	virtual void ReloadSchemes() = 0;
 
 	// reloads scheme fonts
-	virtual void ReloadFonts() = 0;
+	//virtual void ReloadFonts() = 0;
 
 	// returns a handle to the default (first loaded) scheme
 	virtual HScheme GetDefaultScheme() = 0;
 
 	// returns a handle to the scheme identified by "tag"
-	virtual HScheme GetScheme(const char *tag) = 0;
+	virtual HScheme GetScheme( const char *tag ) = 0;
 
 	// returns a pointer to an image
-	virtual IImage *GetImage(const char *imageName, bool hardwareFiltered) = 0;
-	virtual HTexture GetImageID(const char *imageName, bool hardwareFiltered) = 0;
+	virtual IImage *GetImage( const char *imageName, bool hardwareFiltered ) = 0;
+	virtual HTexture GetImageID( const char *imageName, bool hardwareFiltered ) = 0;
 #ifdef _XBOX
 	virtual void DeleteImage( const char *pImageName ) = 0;
 #endif
@@ -90,9 +88,13 @@ public:
 
 	// gets the proportional coordinates for doing screen-size independant panel layouts
 	// use these for font, image and panel size scaling (they all use the pixel height of the display for scaling)
-	virtual int GetProportionalScaledValue( int normalizedValue) = 0;
-	virtual int GetProportionalNormalizedValue(int scaledValue) = 0;
+	virtual int GetProportionalScaledValue( int normalizedValue ) = 0;
+	virtual int GetProportionalNormalizedValue( int scaledValue ) = 0;
+};
 
+class ISchemeManager: public ISchemeManager009
+{
+public:
 	// loads a scheme from a file
 	// first scheme loaded becomes the default scheme, and all subsequent loaded scheme are derivitives of that
 	virtual HScheme LoadSchemeFromFileEx( VPANEL sizingPanel, const char *fileName, const char *tag) = 0;
@@ -103,7 +105,15 @@ public:
 
 };
 
-#define VGUI_SCHEME_INTERFACE_VERSION "VGUI_Scheme010"
+/**
+*	Interface version used by GoldSource.
+*/
+#define VGUI_SCHEME_INTERFACE_VERSION_GS "VGUI_Scheme009"
+
+/*
+*	Interface version used by Source 2006.
+*/
+//#define VGUI_SCHEME_INTERFACE_VERSION "VGUI_Scheme010"
 
 
 } // namespace vgui2

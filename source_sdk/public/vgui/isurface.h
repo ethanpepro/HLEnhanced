@@ -44,10 +44,33 @@ typedef unsigned long HCursor;
 typedef unsigned long HTexture;
 typedef unsigned long HFont;
 
+struct VGuiVertex
+{
+	VGuiVertex() {}
+	VGuiVertex( int x, int y, float u = 0, float v = 0 )
+		: x( x )
+		, y( y )
+		, u( u )
+		, v( v )
+	{
+	}
+	void Init( int x, int y, float u = 0, float v = 0 )
+	{
+		this->x = x;
+		this->y = y;
+		this->u = u;
+		this->v = v;
+	}
+
+	int x, y;
+	float u, v;
+};
+
 
 //SRC only defines
+//These types aren't used in GoldSource. - Solokiller
 
-
+/*
 struct Vertex_t
 {
 	Vertex_t() {}
@@ -65,8 +88,9 @@ struct Vertex_t
 	Vector2D	m_Position;
 	Vector2D	m_TexCoord;
 };
+*/
 
-
+/*
 enum FontDrawType_t
 {
 	// Use the "additive" value from the scheme file
@@ -78,9 +102,11 @@ enum FontDrawType_t
 
 	FONT_DRAW_TYPE_COUNT = 2,
 };
+*/
 
 
 // Refactor these two
+/*
 struct CharRenderInfo
 {
 	// In:
@@ -103,8 +129,9 @@ struct CharRenderInfo
 	int				fontTall;
 	HFont			currentFont;
 };
+*/
 
-
+/*
 struct IntRect
 {
 	int x0;
@@ -112,11 +139,14 @@ struct IntRect
 	int x1;
 	int y1;
 };
+*/
 
 //-----------------------------------------------------------------------------
 // Purpose: Wraps contextless windows system functions
 //-----------------------------------------------------------------------------
-class ISurface : public IAppSystem
+//Inherits from IBaseInterface instead of IAppSystem - Solokiller
+//TODO: provide the IMouseControl interface. - Solokiller
+class ISurface : public IBaseInterface //public IAppSystem
 {
 public:
 	// call to Shutdown surface; surface can no longer be used after this is called
@@ -138,7 +168,8 @@ public:
 	virtual void DrawSetColor( SDK_Color col) = 0;
 	
 	virtual void DrawFilledRect(int x0, int y0, int x1, int y1) = 0;
-	virtual void DrawFilledRectArray( IntRect *pRects, int numRects ) = 0;
+	//Not used by GoldSource - Solokiller
+	//virtual void DrawFilledRectArray( IntRect *pRects, int numRects ) = 0;
 	virtual void DrawOutlinedRect(int x0, int y0, int x1, int y1) = 0;
 
 	virtual void DrawLine(int x0, int y0, int x1, int y1) = 0;
@@ -149,16 +180,18 @@ public:
 	virtual void DrawSetTextColor( SDK_Color col) = 0;
 	virtual void DrawSetTextPos(int x, int y) = 0;
 	virtual void DrawGetTextPos(int& x,int& y) = 0;
-	virtual void DrawPrintText(const wchar_t *text, int textLen, FontDrawType_t drawType = FONT_DRAW_DEFAULT ) = 0;
-	virtual void DrawUnicodeChar(wchar_t wch, FontDrawType_t drawType = FONT_DRAW_DEFAULT ) = 0;
+	//Font draw types aren't used. - Solokiller
+	virtual void DrawPrintText(const wchar_t *text, int textLen/*, FontDrawType_t drawType = FONT_DRAW_DEFAULT*/ ) = 0;
+	virtual void DrawUnicodeChar(wchar_t wch/*, FontDrawType_t drawType = FONT_DRAW_DEFAULT*/ ) = 0;
+	virtual void DrawUnicodeCharAdd( wchar_t wch ) = 0;
 
 	virtual void DrawFlushText() = 0;		// flushes any buffered text (for rendering optimizations)
 	virtual IHTML *CreateHTMLWindow(vgui2::IHTMLEvents *events,VPANEL context)=0;
 	virtual void PaintHTMLWindow(vgui2::IHTML *htmlwin) =0;
 	virtual void DeleteHTMLWindow(IHTML *htmlwin)=0;
 
-	virtual int	 DrawGetTextureId( char const *filename ) = 0;
-	virtual bool DrawGetTextureFile(int id, char *filename, int maxlen ) = 0;
+	//virtual int	 DrawGetTextureId( char const *filename ) = 0;
+	//virtual bool DrawGetTextureFile(int id, char *filename, int maxlen ) = 0;
 	virtual void DrawSetTextureFile(int id, const char *filename, int hardwareFilter, bool forceReload) = 0;
 	virtual void DrawSetTextureRGBA(int id, const unsigned char *rgba, int wide, int tall, int hardwareFilter, bool forceReload)=0;
 	virtual void DrawSetTexture(int id) = 0;
@@ -225,7 +258,7 @@ public:
 	virtual void SetTopLevelFocus(VPANEL panel) = 0;
 
 	// fonts
-	// creates an empty handle to a vgui font.  windows fonts can be add to this via SetFontGlyphSet().
+	// creates an empty handle to a vgui font.  windows fonts can be add to this via AddGlyphSetToFont().
 	virtual HFont CreateFont() = 0;
 
 	// adds to the font
@@ -246,15 +279,14 @@ public:
 		FONTFLAG_BITMAP			= 0x800,		// compiled bitmap font - no fallbacks
 	};
 
-	virtual bool SetFontGlyphSet(HFont font, const char *windowsFontName, int tall, int weight, int blur, int scanlines, int flags) = 0;
+	virtual bool AddGlyphSetToFont(HFont font, const char *windowsFontName, int tall, int weight, int blur, int scanlines, int flags, int lowRange, int highRange) = 0;
 
 	// adds a custom font file (only supports true type font files (.ttf) for now)
 	virtual bool AddCustomFontFile(const char *fontFileName) = 0;
 
 	// returns the details about the font
 	virtual int GetFontTall(HFont font) = 0;
-	virtual int GetFontAscent(HFont font, wchar_t wch) = 0;
-	virtual bool IsFontAdditive(HFont font) = 0;
+	//virtual bool IsFontAdditive(HFont font) = 0;
 	virtual void GetCharABCwide(HFont font, int ch, int &a, int &b, int &c) = 0;
 	virtual int GetCharacterWidth(HFont font, int ch) = 0;
 	virtual void GetTextSize(HFont font, const wchar_t *text, int &wide, int &tall) = 0;
@@ -300,58 +332,78 @@ public:
 
 
 	// SRC only functions!!!
-	virtual void DrawTexturedLine( const Vertex_t &a, const Vertex_t &b ) = 0;
-	virtual void DrawOutlinedCircle(int x, int y, int radius, int segments) = 0;
-	virtual void DrawTexturedPolyLine( const Vertex_t *p,int n ) = 0; // (Note: this connects the first and last points).
-	virtual void DrawTexturedSubRect( int x0, int y0, int x1, int y1, float texs0, float text0, float texs1, float text1 ) = 0;
-	virtual void DrawTexturedPolygon(int n, Vertex_t *pVertices) = 0;
-	virtual const wchar_t *GetTitle(VPANEL panel) = 0;
-	virtual bool IsCursorLocked( void ) const = 0;
-	virtual void SetWorkspaceInsets( int left, int top, int right, int bottom ) = 0;
+	//virtual void DrawTexturedLine( const Vertex_t &a, const Vertex_t &b ) = 0;
+	//virtual void DrawOutlinedCircle(int x, int y, int radius, int segments) = 0;
+	//virtual void DrawTexturedPolyLine( const Vertex_t *p,int n ) = 0; // (Note: this connects the first and last points).
+	//virtual void DrawTexturedSubRect( int x0, int y0, int x1, int y1, float texs0, float text0, float texs1, float text1 ) = 0;
+	virtual void DrawTexturedPolygon( VGuiVertex *pVertices, int n) = 0;
+	virtual int GetFontAscent( HFont font, wchar_t wch ) = 0;
+	//virtual const wchar_t *GetTitle(VPANEL panel) = 0;
+	//virtual bool IsCursorLocked( void ) const = 0;
+	//virtual void SetWorkspaceInsets( int left, int top, int right, int bottom ) = 0;
 
 	// Lower level char drawing code, call DrawGet then pass in info to DrawRender
-	virtual bool DrawGetUnicodeCharRenderInfo( wchar_t ch, CharRenderInfo& info ) = 0;
-	virtual void DrawRenderCharFromInfo( const CharRenderInfo& info ) = 0;
+	//virtual bool DrawGetUnicodeCharRenderInfo( wchar_t ch, CharRenderInfo& info ) = 0;
+	//virtual void DrawRenderCharFromInfo( const CharRenderInfo& info ) = 0;
 
 	// global alpha setting functions
 	// affect all subsequent draw calls - shouldn't normally be used directly, only in Panel::PaintTraverse()
-	virtual void DrawSetAlphaMultiplier( float alpha /* [0..1] */ ) = 0;
-	virtual float DrawGetAlphaMultiplier() = 0;
+	//virtual void DrawSetAlphaMultiplier( float alpha /* [0..1] */ ) = 0;
+	//virtual float DrawGetAlphaMultiplier() = 0;
 
 	// web browser
-	virtual void SetAllowHTMLJavaScript( bool state ) = 0;
+	//virtual void SetAllowHTMLJavaScript( bool state ) = 0;
 
 	// video mode changing
-	virtual void OnScreenSizeChanged( int nOldWidth, int nOldHeight ) = 0;
+	//virtual void OnScreenSizeChanged( int nOldWidth, int nOldHeight ) = 0;
 #if !defined( _XBOX )
-	virtual vgui2::HCursor	CreateCursorFromFile( char const *curOrAniFile, char const *pPathID = 0 ) = 0;
+	//virtual vgui2::HCursor	CreateCursorFromFile( char const *curOrAniFile, char const *pPathID = 0 ) = 0;
 #endif
 	// create IVguiMatInfo object ( IMaterial wrapper in VguiMatSurface, NULL in CWin32Surface )
-	virtual IVguiMatInfo *DrawGetTextureMatInfoFactory( int id ) = 0;
+	//virtual IVguiMatInfo *DrawGetTextureMatInfoFactory( int id ) = 0;
 
-	virtual void PaintTraverseEx(VPANEL panel, bool paintPopups = false ) = 0;
+	//virtual void PaintTraverseEx(VPANEL panel, bool paintPopups = false ) = 0;
 
-	virtual float GetZPos() const = 0;
+	//virtual float GetZPos() const = 0;
 
 	// From the Xbox
-	virtual void SetPanelForInput( VPANEL vpanel ) = 0;
-	virtual void DrawFilledRectFade( int x0, int y0, int x1, int y1, unsigned int alpha0, unsigned int alpha1, bool bHorizontal ) = 0;
-	virtual void DrawSetTextureRGBAEx(int id, const unsigned char *rgba, int wide, int tall, ImageFormat imageFormat ) = 0;
-	virtual void DrawSetTextScale(float sx, float sy) = 0;
-	virtual bool SetBitmapFontGlyphSet(HFont font, const char *windowsFontName, float scalex, float scaley, int flags) = 0;
-	// adds a bitmap font file
-	virtual bool AddBitmapFontFile(const char *fontFileName) = 0;
-	// sets a symbol for the bitmap font
-	virtual void SetBitmapFontName( const char *pName, const char *pFontFilename ) = 0;
-	// gets the bitmap font filename
-	virtual const char *GetBitmapFontName( const char *pName ) = 0;
+	//virtual void SetPanelForInput( VPANEL vpanel ) = 0;
+	//virtual void DrawFilledRectFade( int x0, int y0, int x1, int y1, unsigned int alpha0, unsigned int alpha1, bool bHorizontal ) = 0;
+	//virtual void DrawSetTextureRGBAEx(int id, const unsigned char *rgba, int wide, int tall, ImageFormat imageFormat ) = 0;
+	//virtual void DrawSetTextScale(float sx, float sy) = 0;
+	//virtual bool SetBitmapFontGlyphSet(HFont font, const char *windowsFontName, float scalex, float scaley, int flags) = 0;
+	//// adds a bitmap font file
+	//virtual bool AddBitmapFontFile(const char *fontFileName) = 0;
+	//// sets a symbol for the bitmap font
+	//virtual void SetBitmapFontName( const char *pName, const char *pFontFilename ) = 0;
+	//// gets the bitmap font filename
+	//virtual const char *GetBitmapFontName( const char *pName ) = 0;
 
-	virtual IImage *GetIconImageForFullPath( char const *pFullPath ) = 0;
-	virtual void DrawUnicodeString( const wchar_t *pwString, FontDrawType_t drawType = FONT_DRAW_DEFAULT ) = 0;
+	//virtual IImage *GetIconImageForFullPath( char const *pFullPath ) = 0;
+	//virtual void DrawUnicodeString( const wchar_t *pwString, FontDrawType_t drawType = FONT_DRAW_DEFAULT ) = 0;
 };
+
+//GoldSource doesn't use these, but provide the functions anyway so code is still there. - Solokiller
+
+inline float DrawGetAlphaMultiplier()
+{
+	return 1;
+}
+
+inline void DrawSetAlphaMultiplier( float )
+{
+}
 
 }
 
-#define VGUI_SURFACE_INTERFACE_VERSION "VGUI_Surface030"
+/**
+*	Interface version used by GoldSource.
+*/
+#define VGUI_SURFACE_INTERFACE_VERSION_GS "VGUI_Surface026"
+
+/*
+*	Interface version used by Source 2006.
+*/
+//#define VGUI_SURFACE_INTERFACE_VERSION "VGUI_Surface030"
 
 #endif // ISURFACE_H

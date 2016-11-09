@@ -64,7 +64,13 @@ public:
 	virtual bool HasParent(VPANEL vguiPanel, VPANEL potentialParent) = 0;
 	virtual bool IsPopup(VPANEL vguiPanel) = 0;
 	virtual void SetPopup(VPANEL vguiPanel, bool state) = 0;
-	virtual bool IsFullyVisible( VPANEL vguiPanel ) = 0;
+
+	//TODO:IClientPanel needs virtuals for these as well - Solokiller
+	//GoldSource has these methods. - Solokiller
+	virtual bool Render_GetPopupVisible( VPANEL vguiPanel ) = 0;
+	virtual void Render_SetPopupVisible( VPANEL vguiPanel, bool state ) = 0;
+
+	//virtual bool IsFullyVisible( VPANEL vguiPanel ) = 0;
 
 	// gets the scheme this panel uses
 	virtual HScheme GetScheme(VPANEL vguiPanel) = 0;
@@ -119,9 +125,21 @@ public:
 
 	virtual bool IsEnabled(VPANEL vguiPanel) = 0;
 	virtual void SetEnabled(VPANEL vguiPanel, bool state) = 0;
+
+	//GoldSource specific. - Solokiller
+	virtual IClientPanel* Client( VPANEL vguiPanel ) = 0;
+	virtual const char* GetModuleName( VPANEL vguiPanel ) = 0;
 };
 
-#define VGUI_PANEL_INTERFACE_VERSION "VGUI_Panel009"
+/**
+*	Interface version used by GoldSource.
+*/
+#define VGUI_PANEL_INTERFACE_VERSION_GS "VGUI_Panel007"
+
+/*
+*	Interface version used by Source 2006.
+*/
+//#define VGUI_PANEL_INTERFACE_VERSION "VGUI_Panel009"
 
 } // namespace vgui2
 
