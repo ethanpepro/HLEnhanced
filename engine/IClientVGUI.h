@@ -3,16 +3,7 @@
 
 #include "interface.h"
 
-#if USE_VGUI2
 #include "../../source_sdk/public/vgui/VGUI2.h"
-#include "../../source_sdk/public/vgui/ipanel.h"
-#endif
-
-//Forward declare it for now, avoids including headers that cause compilation issues on Linux - Solokiller
-namespace vgui2
-{
-typedef unsigned int VPANEL;
-}
 
 /**
 *	Client VGUI2 interface. Enables the client library to use VGUI2.
