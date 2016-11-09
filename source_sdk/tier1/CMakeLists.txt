@@ -55,6 +55,7 @@ add_library( tier1 STATIC ${PREP_SRCS} )
 
 target_compile_definitions( tier1 PRIVATE
 	TIER1_STATIC_LIB
+	NO_MALLOC_OVERRIDE
 )
 
 set_target_properties( tier1 

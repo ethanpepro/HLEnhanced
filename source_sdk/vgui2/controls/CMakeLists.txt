@@ -79,6 +79,10 @@ include_directories(
 
 add_library( vgui2_controls STATIC ${PREP_SRCS} )
 
+target_compile_definitions( vgui2_controls PRIVATE
+	NO_MALLOC_OVERRIDE
+)
+
 set_target_properties( vgui2_controls 
 	PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG}" 
 	LINK_FLAGS "${LINUX_32BIT_FLAG}" )

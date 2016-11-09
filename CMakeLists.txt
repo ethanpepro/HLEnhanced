@@ -352,6 +352,7 @@ target_compile_definitions( client PRIVATE
 	USE_VGUI2=${USE_VGUI2_DEFINE}
 	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
 	USE_OPFOR=${USE_OPFOR_DEFINE}
+	NO_MALLOC_OVERRIDE
 )
 
 #Find client dependencies
