@@ -1068,22 +1068,22 @@ void Frame::OnFrameFocusChanged(bool bHasFocus)
 	{
 		if (m_flFocusTransitionEffectTime)
 		{
-			GetAnimationController()->RunAnimationCommand(this, "BgColor", m_InFocusBgColor, 0.0f, m_flTransitionEffectTime, AnimationController::INTERPOLATOR_LINEAR);
+			GetAnimationController()->RunAnimationCommand(this, "BgColor", GetInFocusBgColor(), 0.0f, m_flTransitionEffectTime, AnimationController::INTERPOLATOR_LINEAR);
 		}
 		else
 		{
-			SetBgColor(m_InFocusBgColor);
+			SetBgColor( GetInFocusBgColor() );
 		}
 	}
 	else
 	{
 		if (m_flFocusTransitionEffectTime)
 		{
-			GetAnimationController()->RunAnimationCommand(this, "BgColor", m_OutOfFocusBgColor, 0.0f, m_flTransitionEffectTime, AnimationController::INTERPOLATOR_LINEAR);
+			GetAnimationController()->RunAnimationCommand(this, "BgColor", GetOutOfFocusBgColor(), 0.0f, m_flTransitionEffectTime, AnimationController::INTERPOLATOR_LINEAR);
 		}
 		else
 		{
-			SetBgColor(m_OutOfFocusBgColor);
+			SetBgColor( GetOutOfFocusBgColor() );
 		}
 	}
 
@@ -1588,8 +1588,8 @@ void Frame::ApplySchemeSettings(IScheme *pScheme)
 	m_flTransitionEffectTime = atof(pScheme->GetResourceString("Frame.TransitionEffectTime"));
 	m_flFocusTransitionEffectTime = atof(pScheme->GetResourceString("Frame.FocusTransitionEffectTime"));
 
-	m_InFocusBgColor = pScheme->GetColor("Frame.BgColor", GetBgColor());
-	m_OutOfFocusBgColor = pScheme->GetColor("Frame.OutOfFocusBgColor", m_InFocusBgColor);
+	SetInFocusBgColor( pScheme->GetColor("Frame.BgColor", GetBgColor()) );
+	SetOutOfFocusBgColor( pScheme->GetColor("Frame.OutOfFocusBgColor", GetInFocusBgColor() ) );
 
 	const char *resourceString = pScheme->GetResourceString("Frame.ClientInsetX");
 	if ( resourceString )
@@ -1607,7 +1607,7 @@ void Frame::ApplySchemeSettings(IScheme *pScheme)
 		m_iTitleTextInsetX = atoi(resourceString);
 	}
 
-	SetBgColor(m_InFocusBgColor);
+	SetBgColor(GetInFocusBgColor());
 	SetBorder(pScheme->GetBorder("FrameBorder"));
 
 	OnFrameFocusChanged( m_bHasFocus );
@@ -2162,3 +2162,22 @@ bool Frame::IsSmallCaption() const
 	return m_bSmallCaption;
 }
 
+void Frame::SetInFocusBgColor( SDK_Color color )
+{
+	m_InFocusBgColor = color;
+}
+
+void Frame::SetOutOfFocusBgColor( SDK_Color color )
+{
+	m_OutOfFocusBgColor = color;
+}
+
+SDK_Color Frame::GetInFocusBgColor()
+{
+	return m_InFocusBgColor;
+}
+
+SDK_Color Frame::GetOutOfFocusBgColor()
+{
+	return m_OutOfFocusBgColor;
+}

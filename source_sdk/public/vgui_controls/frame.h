@@ -122,6 +122,11 @@ public:
 	// Shows the dialog in a modal fashion
 	virtual void DoModal();
 
+	virtual void SetInFocusBgColor( SDK_Color color );
+	virtual void SetOutOfFocusBgColor( SDK_Color color );
+	virtual SDK_Color GetInFocusBgColor();
+	virtual SDK_Color GetOutOfFocusBgColor();
+
 protected:
 	// Respond to mouse presses
 	virtual void OnMousePressed(MouseCode code);
