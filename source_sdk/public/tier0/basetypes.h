@@ -195,10 +195,13 @@ inline float FloatNegate( vec_t f )
 #endif
 
 // FIXME: why are these here?  Hardly anyone actually needs them.
+//Disabled color24 & colorVec because only GoldSource uses them, and they conflict with these definitions - Solokiller
+/*
 struct color24
 {
 	byte r, g, b;
 };
+*/
 
 typedef struct color32_s
 {
@@ -212,10 +215,12 @@ inline bool color32::operator!=( const color32 &other ) const
 	return r != other.r || g != other.g || b != other.b || a != other.a;
 }
 
+/*
 struct colorVec
 {
 	unsigned r, g, b, a;
 };
+*/
 
 
 #ifndef NOTE_UNUSED
