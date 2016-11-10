@@ -35,8 +35,15 @@ public:
 
 	void Shutdown() override final;
 
+	/**
+	*	@return The root VGUI2 panel.
+	*/
+	vgui2::VPANEL GetRootPanel() const { return m_vRootPanel; }
+
 private:
 	CreateInterfaceFn m_FactoryList[ NUM_FACTORIES ];
+
+	vgui2::VPANEL m_vRootPanel = NULL;
 
 private:
 	CClientVGUI( const CClientVGUI& ) = delete;
@@ -46,7 +53,7 @@ private:
 /**
 *	Global accessor for the client VGUI.
 */
-IClientVGUI* clientVGUI();
+CClientVGUI* clientVGUI();
 
 /**
 *	Global accessor for game UI funcs.

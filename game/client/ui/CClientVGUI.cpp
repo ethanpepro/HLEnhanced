@@ -14,7 +14,7 @@
 #include "IGameUIFuncs.h"
 #include "IBaseUI.h"
 
-#include "vgui2/CViewport.h"
+#include "vgui2/CBaseViewport.h"
 #endif
 
 #include "CClientVGUI.h"
@@ -28,7 +28,7 @@ IGameUIFuncs* g_GameUIFuncs = nullptr;
 IBaseUI* g_pBaseUI = nullptr;
 }
 
-IClientVGUI* clientVGUI()
+CClientVGUI* clientVGUI()
 {
 	return &g_ClientVGUI;
 }
@@ -83,7 +83,8 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 	g_pBaseUI = ( IBaseUI* ) pFactories[ 0 ]( IBASEUI_NAME, nullptr );
 
 #if USE_VGUI2
-	g_pViewport = new CViewport();
+	//Constructor sets itself as the viewport.
+	new CBaseViewport();
 
 	g_pViewport->Initialize( pFactories, iNumFactories );
 #endif
@@ -98,6 +99,8 @@ void CClientVGUI::Start()
 
 void CClientVGUI::SetParent( vgui2::VPANEL parent )
 {
+	m_vRootPanel = parent;
+
 #if USE_VGUI2
 	g_pViewport->SetParent( parent );
 #endif

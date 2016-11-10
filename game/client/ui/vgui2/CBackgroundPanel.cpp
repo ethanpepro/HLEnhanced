@@ -1,13 +1,19 @@
 #include "../../source_sdk/public/vgui/isurface.h"
 
-#include "CBackgroundPanel.h"
+#include "CBackGroundPanel.h"
 
-CBackgroundPanel::CBackgroundPanel( vgui2::Panel* pParent )
+CBackGroundPanel::CBackGroundPanel( vgui2::Panel* pParent )
 	: BaseClass( pParent, "ViewPortBackGround" )
 {
+	SetScheme( "ClientScheme" );
+
+	SetTitleBarVisible( false );
+	SetMoveable( false );
+	SetSizeable( false );
+	SetProportional( true );
 }
 
-void CBackgroundPanel::ApplySchemeSettings( vgui2::IScheme* pScheme )
+void CBackGroundPanel::ApplySchemeSettings( vgui2::IScheme* pScheme )
 {
 	BaseClass::ApplySchemeSettings( pScheme );
 
@@ -18,7 +24,7 @@ void CBackgroundPanel::ApplySchemeSettings( vgui2::IScheme* pScheme )
 	SetOutOfFocusBgColor( color );
 }
 
-void CBackgroundPanel::PerformLayout()
+void CBackGroundPanel::PerformLayout()
 {
 	//Resize ourselves to the screen's size to fill the entire viewport.
 	int w, h;

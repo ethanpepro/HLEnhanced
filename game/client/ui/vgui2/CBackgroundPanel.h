@@ -3,17 +3,19 @@
 
 #include "../../source_sdk/public/vgui_controls/frame.h"
 
-class CBackgroundPanel : public vgui2::Frame
+class CBackGroundPanel : public vgui2::Frame
 {
 public:
-	DECLARE_CLASS_SIMPLE( CBackgroundPanel, vgui2::Frame );
+	typedef CBackGroundPanel ThisClass;
+	typedef vgui2::Frame BaseClass;
 
 public:
-	CBackgroundPanel( vgui2::Panel* pParent );
+	CBackGroundPanel( vgui2::Panel* pParent );
 	
+	// don't respond to mouse clicks
 	void OnMousePressed( vgui2::MouseCode code ) override {}
 
-	vgui2::VPANEL IsWithinTraverse( int x, int y, bool traversePopups ) override { return 0; }
+	vgui2::VPANEL IsWithinTraverse( int x, int y, bool traversePopups ) override { return NULL; }
 
 	void ApplySchemeSettings( vgui2::IScheme* pScheme ) override;
 

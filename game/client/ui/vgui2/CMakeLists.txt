@@ -1,6 +1,8 @@
 add_sources(
-	CBackgroundPanel.h
-	CBackgroundPanel.cpp
-	CViewport.h
-	CViewport.cpp
+	CBackGroundPanel.h
+	CBackGroundPanel.cpp
+	CBaseViewport.h
+	CBaseViewport.cpp
+	IViewportPanel.h
+	ViewportPanelNames.h
 )
