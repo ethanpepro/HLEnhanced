@@ -1,0 +1,10 @@
+add_sources(
+	CBaseHud2.h
+	CBaseHud2.cpp
+	CHud2Element.h
+	CHud2Element.cpp
+	CHud2ElementRegistry.h
+	CHud2ElementRegistry.cpp
+	CHud2Health.h
+	CHud2Health.cpp
+)

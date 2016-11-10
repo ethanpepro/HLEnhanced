@@ -6,3 +6,5 @@ add_sources(
 	IViewportPanel.h
 	ViewportPanelNames.h
 )
+
+add_subdirectory( hud )
