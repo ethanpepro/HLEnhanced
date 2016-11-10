@@ -71,18 +71,18 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 		m_FactoryList[ uiIndex + 1 ] = pFactories[ uiIndex ];
 	}
 
+#if USE_VGUI2
 	if( !vgui2::VGui_InitInterfacesList( "CLIENT", pFactories, NUM_FACTORIES ) )
 	{
 		Msg( "Failed to initialize VGUI2\n" );
 		return;
 	}
-	
+
 	vgui2::scheme()->LoadSchemeFromFile( "Resource/ClientScheme.res", "ClientScheme" );
 	vgui2::scheme()->LoadSchemeFromFile( "Resource/TutorScheme.res", "TutorScheme" );
 	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
 	g_pBaseUI = ( IBaseUI* ) pFactories[ 0 ]( IBASEUI_NAME, nullptr );
 
-#if USE_VGUI2
 	//Constructor sets itself as the viewport.
 	new CBaseViewport();
 
