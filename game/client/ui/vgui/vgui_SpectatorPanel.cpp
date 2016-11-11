@@ -14,6 +14,7 @@
 
 #include "Exports.h"
 
+#include "shared/CLocalize.h"
 #include "CHudTextMessage.h"
 
 /*
@@ -154,7 +155,7 @@ void SpectatorPanel::Initialize()
 	
 	// Initialize command buttons.
 //	m_OptionButton = new ColorButton( CHudTextMessage::BufferedLocaliseTextString( "#SPECT_OPTIONS" ), XRES(15), YRES(6), XRES(OPTIONS_BUTTON_X), YRES(20), false, false );
-	m_OptionButton = new DropDownButton( CHudTextMessage::BufferedLocaliseTextString( "#SPECT_OPTIONS" ), XRES(15), YRES(6), XRES(OPTIONS_BUTTON_X), YRES(20), false, false );
+	m_OptionButton = new DropDownButton( Localize().BufferedLocaliseTextString( "#SPECT_OPTIONS" ), XRES(15), YRES(6), XRES(OPTIONS_BUTTON_X), YRES(20), false, false );
 	m_OptionButton->setParent( m_BottomBorder );
 	m_OptionButton->setContentAlignment( vgui::Label::a_center );
 	m_OptionButton->setBoundKey( (char)255 );	// special no bound to avoid leading spaces in name 
@@ -164,7 +165,7 @@ void SpectatorPanel::Initialize()
 	m_OptionButton->setUnArmedColor ( 143, 143, 54, 0 );
 	m_OptionButton->setArmedColor ( 194, 202, 54, 0 );
 
-	m_CamButton = new DropDownButton( CHudTextMessage::BufferedLocaliseTextString( "#CAM_OPTIONS" ),  ScreenWidth - ( XRES ( CAMOPTIONS_BUTTON_X ) + 15 ), YRES(6), XRES ( CAMOPTIONS_BUTTON_X ), YRES(20), false, false );
+	m_CamButton = new DropDownButton( Localize().BufferedLocaliseTextString( "#CAM_OPTIONS" ),  ScreenWidth - ( XRES ( CAMOPTIONS_BUTTON_X ) + 15 ), YRES(6), XRES ( CAMOPTIONS_BUTTON_X ), YRES(20), false, false );
 	m_CamButton->setParent( m_BottomBorder );
 	m_CamButton->setContentAlignment( vgui::Label::a_center );
 	m_CamButton->setBoundKey( (char)255 );	// special no bound to avoid leading spaces in name 
@@ -286,7 +287,7 @@ void SpectatorPanel::ShowMenu(bool isVisible)
 			{
 				char string[ 64 ];
 
-				_snprintf( string, sizeof( string ) - 1, "%c%s", HUD_PRINTCENTER, CHudTextMessage::BufferedLocaliseTextString( "#Spec_Duck" ) );
+				_snprintf( string, sizeof( string ) - 1, "%c%s", HUD_PRINTCENTER, Localize().BufferedLocaliseTextString( "#Spec_Duck" ) );
 				string[ sizeof( string ) - 1 ] = '\0';
 
 				pTextMessage->MsgFunc_TextMsg( NULL, strlen( string ) + 1, string );
@@ -381,7 +382,7 @@ void SpectatorPanel::EnableInsetView(bool isEnabled)
 
 	Update();
 
-	m_CamButton->setText( CHudTextMessage::BufferedLocaliseTextString( GetSpectatorLabel( g_iUser1 ) ) );
+	m_CamButton->setText( Localize().BufferedLocaliseTextString( GetSpectatorLabel( g_iUser1 ) ) );
 }
 
 

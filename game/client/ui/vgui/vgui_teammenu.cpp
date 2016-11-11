@@ -24,7 +24,7 @@
 #include "cl_util.h"
 #include "vgui_TeamFortressViewport.h"
 
-#include "CHudTextMessage.h"
+#include "shared/CLocalize.h"
 
 // Team Menu Dimensions
 #define TEAMMENU_TITLE_X				XRES(40)
@@ -49,8 +49,6 @@
 // Creation
 CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,int tall) : CMenuPanel(iTrans, iRemoveMe, x,y,wide,tall)
 {
-	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
-
 	// Get the scheme used for the Titles
 	CSchemeManager *pSchemes = gViewPort->GetSchemeManager();
 
@@ -72,7 +70,7 @@ CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,i
 	pSchemes->getBgColor( hTitleScheme, r, g, b, a );
 	pLabel->setBgColor( r, g, b, a );
 	pLabel->setContentAlignment( vgui::Label::a_west );
-	pLabel->setText( "%s", pTextMessage ? pTextMessage->BufferedLocaliseTextString("#Title_SelectYourTeam") : "" );
+	pLabel->setText( "%s", Localize().BufferedLocaliseTextString("#Title_SelectYourTeam") );
 
 	// Create the Info Window
 	m_pTeamWindow  = new CTransparentPanel( 255, TEAMMENU_WINDOW_X, TEAMMENU_WINDOW_Y, TEAMMENU_WINDOW_SIZE_X, TEAMMENU_WINDOW_SIZE_Y );
@@ -103,7 +101,7 @@ CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,i
 	pSchemes->getBgColor( hTeamWindowText, r, g, b, a );
 	m_pBriefing->setBgColor( r, g, b, a );
 
-	m_pBriefing->setText( pTextMessage ? pTextMessage->BufferedLocaliseTextString("#Map_Description_not_available") : "" );
+	m_pBriefing->setText( Localize().BufferedLocaliseTextString("#Map_Description_not_available") );
 	
 	// Team Menu buttons
 	for (int i = 1; i <= 5; i++)
@@ -122,7 +120,7 @@ CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,i
 		if (i == 5)
 		{
 			m_pButtons[5]->setBoundKey( '5' );
-			m_pButtons[5]->setText( pTextMessage ? pTextMessage->BufferedLocaliseTextString("#Team_AutoAssign") : "" );
+			m_pButtons[5]->setText( Localize().BufferedLocaliseTextString("#Team_AutoAssign") );
 			m_pButtons[5]->setVisible( true );
 		}
 
@@ -143,12 +141,12 @@ CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,i
 	}
 
 	// Create the Cancel button
-	m_pCancelButton = new CommandButton( CHudTextMessage::BufferedLocaliseTextString( "#Menu_Cancel" ), TEAMMENU_TOPLEFT_BUTTON_X, 0, TEAMMENU_BUTTON_SIZE_X, TEAMMENU_BUTTON_SIZE_Y);
+	m_pCancelButton = new CommandButton( Localize().BufferedLocaliseTextString( "#Menu_Cancel" ), TEAMMENU_TOPLEFT_BUTTON_X, 0, TEAMMENU_BUTTON_SIZE_X, TEAMMENU_BUTTON_SIZE_Y);
 	m_pCancelButton->setParent( this );
 	m_pCancelButton->addActionSignal( new CMenuHandler_TextWindow(HIDE_TEXTWINDOW) );
 
 	// Create the Spectate button
-	m_pSpectateButton = new SpectateButton( CHudTextMessage::BufferedLocaliseTextString( "#Menu_Spectate" ), TEAMMENU_TOPLEFT_BUTTON_X, 0, TEAMMENU_BUTTON_SIZE_X, TEAMMENU_BUTTON_SIZE_Y, true);
+	m_pSpectateButton = new SpectateButton( Localize().BufferedLocaliseTextString( "#Menu_Spectate" ), TEAMMENU_TOPLEFT_BUTTON_X, 0, TEAMMENU_BUTTON_SIZE_X, TEAMMENU_BUTTON_SIZE_Y, true);
 	m_pSpectateButton->setParent( this );
 	m_pSpectateButton->addActionSignal( new CMenuHandler_StringCommand( "spectate", true ) );
 	m_pSpectateButton->setBoundKey( '6' );

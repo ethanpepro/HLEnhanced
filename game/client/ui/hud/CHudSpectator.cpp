@@ -31,6 +31,7 @@
 #include "CHudMessage.h"
 #include "CHudSayText.h"
 #include "CHudTextMessage.h"
+#include "shared/CLocalize.h"
 #include "CHudSpectator.h"
 
 
@@ -131,7 +132,7 @@ void SpectatorHelp(void)
 	}
 	else
 	{
-  		char *text = CHudTextMessage::BufferedLocaliseTextString( "#Spec_Help_Text" );
+  		char *text = Localize().BufferedLocaliseTextString( "#Spec_Help_Text" );
 			
 		if ( text )
 		{
@@ -1215,8 +1216,9 @@ void CHudSpectator::SetModes(int iNewMainMode, int iNewInsetMode)
 
 		char string[128];
 		sprintf(string, "#Spec_Mode%d", g_iUser1 );
-		sprintf(string, "%c%s", HUD_PRINTCENTER, CHudTextMessage::BufferedLocaliseTextString( string ));
+		sprintf(string, "%c%s", HUD_PRINTCENTER, Localize().BufferedLocaliseTextString( string ));
 
+		//TODO: rework this if possible. - Solokiller
 		if( auto pTextMessage = GETHUDCLASS( CHudTextMessage ) )
 			pTextMessage->MsgFunc_TextMsg(NULL, strlen(string)+1, string );
 	}

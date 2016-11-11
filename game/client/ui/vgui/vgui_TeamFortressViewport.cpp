@@ -55,6 +55,7 @@
 #include "shake.h"
 #include "screenfade.h"
 
+#include "shared/CLocalize.h"
 #include "CHudTextMessage.h"
 
 extern int g_iVisibleMouse;
@@ -712,12 +713,9 @@ int TeamFortressViewport::CreateCommandMenu( const char* const pszMenuFile, int 
 	// First, read in the localisation strings
 
 	// Detpack strings
-	if( auto pTextMessage = GETHUDCLASS( CHudTextMessage ) )
-	{
-		pTextMessage->LocaliseTextString( "#DetpackSet_For5Seconds",   m_sDetpackStrings[0], MAX_BUTTON_SIZE );
-		pTextMessage->LocaliseTextString( "#DetpackSet_For20Seconds",   m_sDetpackStrings[1], MAX_BUTTON_SIZE );
-		pTextMessage->LocaliseTextString( "#DetpackSet_For50Seconds",   m_sDetpackStrings[2], MAX_BUTTON_SIZE );
-	}
+	Localize().LocaliseTextString( "#DetpackSet_For5Seconds",   m_sDetpackStrings[0], MAX_BUTTON_SIZE );
+	Localize().LocaliseTextString( "#DetpackSet_For20Seconds",   m_sDetpackStrings[1], MAX_BUTTON_SIZE );
+	Localize().LocaliseTextString( "#DetpackSet_For50Seconds",   m_sDetpackStrings[2], MAX_BUTTON_SIZE );
 
 	// Now start parsing the menu structure
 	m_pCurrentCommandMenu = m_pCommandMenus[newIndex];
@@ -996,14 +994,12 @@ CommandButton *TeamFortressViewport::CreateCustomButton( char *pButtonText, char
 		}
 
 		// Auto Assign button
-		auto pTextMessage = GETHUDCLASS( CHudTextMessage );
-
-		m_pTeamButtons[4] = new TeamButton(5, pTextMessage ? pTextMessage->BufferedLocaliseTextString( "#Team_AutoAssign" ) : "", 0, BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y);
+		m_pTeamButtons[4] = new TeamButton(5, Localize().BufferedLocaliseTextString( "#Team_AutoAssign" ), 0, BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y);
 		m_pTeamButtons[4]->addActionSignal(new CMenuHandler_StringCommand( "jointeam 5" ));
 		pMenu->AddButton( m_pTeamButtons[4] ); 
 
 		// Spectate button
-		m_pTeamButtons[5] = new SpectateButton( CHudTextMessage::BufferedLocaliseTextString( "#Menu_Spectate" ), 0, BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y, false);
+		m_pTeamButtons[5] = new SpectateButton( Localize().BufferedLocaliseTextString( "#Menu_Spectate" ), 0, BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y, false);
 		m_pTeamButtons[5]->addActionSignal(new CMenuHandler_StringCommand( "spectate" ));
 		pMenu->AddButton( m_pTeamButtons[5] ); 
 	}
@@ -1541,7 +1537,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 			m_pSpectatorPanel->setVisible( true );	// show spectator panel, but
 			m_pSpectatorPanel->ShowMenu( false );	// dsiable all menus/buttons
 			
-			_snprintf( tempString, sizeof( tempString ) - 1, "%c%s", HUD_PRINTCENTER, CHudTextMessage::BufferedLocaliseTextString( "#Spec_Duck" ) );
+			_snprintf( tempString, sizeof( tempString ) - 1, "%c%s", HUD_PRINTCENTER, Localize().BufferedLocaliseTextString( "#Spec_Duck" ) );
 			tempString[ sizeof( tempString ) - 1 ] = '\0';
 
 			auto pTextMessage = GETHUDCLASS( CHudTextMessage );
@@ -1577,7 +1573,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		}
 		else
 		{
-			pBottomText = CHudTextMessage::BufferedLocaliseTextString( bottomText );
+			pBottomText = Localize().BufferedLocaliseTextString( bottomText );
 		}
 
 		// in first person mode colorize player names
@@ -1616,7 +1612,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		if ( gEngfuncs.IsSpectateOnly() )
 		{
 			// in HLTV mode show number of spectators
-			_snprintf( szText, 63, "%s: %d", CHudTextMessage::BufferedLocaliseTextString( "#Spectators" ), pSpectator->m_iSpectatorNumber );
+			_snprintf( szText, 63, "%s: %d", Localize().BufferedLocaliseTextString( "#Spectators" ), pSpectator->m_iSpectatorNumber );
 		}
 		else
 		{
@@ -1624,7 +1620,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 			char szMapName[64];
 			COM_FileBase( gEngfuncs.pfnGetLevelName(), szMapName );
 
-			_snprintf ( szText, 63, "%s: %s",CHudTextMessage::BufferedLocaliseTextString( "#Spec_Map" ), szMapName );
+			_snprintf ( szText, 63, "%s: %s", Localize().BufferedLocaliseTextString( "#Spec_Map" ), szMapName );
 		}
 
 		szText[63] = 0;
@@ -1808,10 +1804,10 @@ CMenuPanel* TeamFortressViewport::CreateTextWindow( int iTextToShow )
 #endif
 	else if ( iTextToShow == SHOW_SPECHELP )
 	{
-		CHudTextMessage::LocaliseTextString( "#Spec_Help_Title", cTitle, MAX_TITLE_LENGTH );
+		Localize().LocaliseTextString( "#Spec_Help_Title", cTitle, MAX_TITLE_LENGTH );
 		cTitle[MAX_TITLE_LENGTH-1] = 0;
 		
-		char* pfile = CHudTextMessage::BufferedLocaliseTextString( "#Spec_Help_Text" );
+		char* pfile = Localize().BufferedLocaliseTextString( "#Spec_Help_Text" );
 		if ( pfile )
 		{
 			cText = pfile;
@@ -2285,16 +2281,11 @@ int TeamFortressViewport::MsgFunc_TeamNames(const char *pszName, int iSize, void
 	
 	m_iNumberOfTeams = reader.ReadByte();
 
-	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
-
-	if( !pTextMessage )
-		return 0;
-
 	for (int i = 0; i < m_iNumberOfTeams; i++)
 	{
 		int teamNum = i + 1;
 
-		pTextMessage->LocaliseTextString( reader.ReadString(), m_sTeamNames[teamNum], MAX_TEAMNAME_SIZE );
+		Localize().LocaliseTextString( reader.ReadString(), m_sTeamNames[teamNum], MAX_TEAMNAME_SIZE );
 
 		// Set the team name buttons
 		if (m_pTeamButtons[i])

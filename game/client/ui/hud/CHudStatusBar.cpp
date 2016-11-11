@@ -28,7 +28,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "CHudTextMessage.h"
+#include "shared/CLocalize.h"
 #include "CHudStatusBar.h"
 
 DECLARE_MESSAGE( CHudStatusBar, StatusText );
@@ -84,15 +84,10 @@ void CHudStatusBar::Reset()
 
 void CHudStatusBar::ParseStatusString( int line_num )
 {
-	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
-
-	if( !pTextMessage )
-		return;
-
 	// localise string first
 	char szBuffer[MAX_STATUSTEXT_LENGTH];
 	memset( szBuffer, 0, sizeof szBuffer );
-	pTextMessage->LocaliseTextString( m_szStatusText[line_num], szBuffer, MAX_STATUSTEXT_LENGTH );
+	Localize().LocaliseTextString( m_szStatusText[line_num], szBuffer, MAX_STATUSTEXT_LENGTH );
 
 	// parse m_szStatusText & m_iStatusValues into m_szStatusBar
 	memset( m_szStatusBar[line_num], 0, MAX_STATUSTEXT_LENGTH );

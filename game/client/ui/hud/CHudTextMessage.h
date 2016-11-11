@@ -23,9 +23,6 @@ public:
 	CHudTextMessage( const char* const pszName );
 
 	bool Init() override;
-	static char *LocaliseTextString( const char *msg, char *dst_buffer, int buffer_size );
-	static char *BufferedLocaliseTextString( const char *msg );
-	const char* LookupString( const char* msg_name, int *msg_dest = NULL );
 	int MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf );
 };
 

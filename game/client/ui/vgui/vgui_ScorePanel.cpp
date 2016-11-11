@@ -31,6 +31,7 @@
 #include "voice_status.h"
 #include "vgui_SpectatorPanel.h"
 
+#include "shared/CLocalize.h"
 #include "CHudTextMessage.h"
 
 int HUD_IsGame( const char *game );
@@ -130,7 +131,7 @@ ScorePanel::ScorePanel(int x,int y,int wide,int tall) : Panel(x,y,wide,tall)
 	for(int i=0; i < NUM_COLUMNS; i++)
 	{
 		if (g_ColumnInfo[i].m_pTitle && g_ColumnInfo[i].m_pTitle[0] == '#')
-			m_HeaderLabels[i].setText(CHudTextMessage::BufferedLocaliseTextString(g_ColumnInfo[i].m_pTitle));
+			m_HeaderLabels[i].setText( Localize().BufferedLocaliseTextString(g_ColumnInfo[i].m_pTitle));
 		else if(g_ColumnInfo[i].m_pTitle)
 			m_HeaderLabels[i].setText(g_ColumnInfo[i].m_pTitle);
 
@@ -690,7 +691,7 @@ void ScorePanel::FillGrid()
 				case COLUMN_NAME:
 					if ( m_iIsATeam[row] == TEAM_SPECTATORS )
 					{
-						strcpy( sz2, CHudTextMessage::BufferedLocaliseTextString( "#Spectators" ) );
+						strcpy( sz2, Localize().BufferedLocaliseTextString( "#Spectators" ) );
 					}
 					else
 					{
@@ -704,11 +705,11 @@ void ScorePanel::FillGrid()
 					{
 						if (team_info->players == 1)
 						{
-							sprintf(sz2, "(%d %s)", team_info->players, CHudTextMessage::BufferedLocaliseTextString( "#Player" ) );
+							sprintf(sz2, "(%d %s)", team_info->players, Localize().BufferedLocaliseTextString( "#Player" ) );
 						}
 						else
 						{
-							sprintf(sz2, "(%d %s)", team_info->players, CHudTextMessage::BufferedLocaliseTextString( "#Player_plural" ) );
+							sprintf(sz2, "(%d %s)", team_info->players, Localize().BufferedLocaliseTextString( "#Player_plural" ) );
 						}
 
 						pLabel->setText2(sz2);
@@ -787,7 +788,7 @@ void ScorePanel::FillGrid()
 						if (bNoClass)
 							strcpy( sz, "" );
 						else
-							strcpy( sz, CHudTextMessage::BufferedLocaliseTextString( sLocalisedClasses[ g_PlayerExtraInfo[ m_iSortedRows[row] ].playerclass ] ) );
+							strcpy( sz, Localize().BufferedLocaliseTextString( sLocalisedClasses[ g_PlayerExtraInfo[ m_iSortedRows[row] ].playerclass ] ) );
 					}
 					else
 					{
@@ -917,7 +918,7 @@ void ScorePanel::mousePressed(MouseCode code, Panel* panel)
 						// remove mute
 						GetClientVoiceMgr()->SetPlayerBlockedState(iPlayer, false);
 
-						sprintf( string1, CHudTextMessage::BufferedLocaliseTextString( "#Unmuted" ), pl_info->name );
+						sprintf( string1, Localize().BufferedLocaliseTextString( "#Unmuted" ), pl_info->name );
 						sprintf( string, "%c** %s\n", HUD_PRINTTALK, string1 );
 
 						pTextMessage->MsgFunc_TextMsg(NULL, strlen(string)+1, string );
@@ -930,8 +931,8 @@ void ScorePanel::mousePressed(MouseCode code, Panel* panel)
 						// mute the player
 						GetClientVoiceMgr()->SetPlayerBlockedState(iPlayer, true);
 
-						sprintf( string1, CHudTextMessage::BufferedLocaliseTextString( "#Muted" ), pl_info->name );
-						strcpy( string2, CHudTextMessage::BufferedLocaliseTextString( "#No_longer_hear_that_player" ) );
+						sprintf( string1, Localize().BufferedLocaliseTextString( "#Muted" ), pl_info->name );
+						strcpy( string2, Localize().BufferedLocaliseTextString( "#No_longer_hear_that_player" ) );
 						sprintf( string, "%c** %s %s\n", HUD_PRINTTALK, string1, string2 );
 
 						pTextMessage->MsgFunc_TextMsg(NULL, strlen(string)+1, string );

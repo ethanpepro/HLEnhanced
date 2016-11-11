@@ -28,7 +28,7 @@
 
 #include "vgui_TeamFortressViewport.h"
 
-#include "CHudTextMessage.h"
+#include "shared/CLocalize.h"
 #include "CHudMenu.h"
 
 int KB_ConvertString( char *in, char **ppout );
@@ -239,11 +239,6 @@ void CHudMenu :: SelectMenuItem( int menu_item )
 // if this message is never received, then scores will simply be the combined totals of the players.
 int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 {
-	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
-
-	if( !pTextMessage )
-		return 0;
-
 	char *temp = NULL;
 
 	CBufferReader reader( pbuf, iSize );
@@ -271,7 +266,7 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 
 		if ( !NeedMore )
 		{  // we have the whole string, so we can localise it now
-			strcpy( m_szMenuString, pTextMessage->BufferedLocaliseTextString( m_szPrelocalisedMenuString ) );
+			strcpy( m_szMenuString, Localize().BufferedLocaliseTextString( m_szPrelocalisedMenuString ) );
 
 			// Swap in characters
 			if ( KB_ConvertString( m_szMenuString, &temp ) )

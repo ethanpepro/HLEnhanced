@@ -29,7 +29,7 @@
 
 #include "vgui_TeamFortressViewport.h"
 
-#include "CHudTextMessage.h"
+#include "shared/CLocalize.h"
 
 #define MOTD_TITLE_X		XRES(16)
 #define MOTD_TITLE_Y		YRES(16)
@@ -140,7 +140,7 @@ CMessageWindowPanel::CMessageWindowPanel( const char *szMOTD, const char *szTitl
 
 	pScrollPanel->validate();
 
-	CommandButton *pButton = new CommandButton( CHudTextMessage::BufferedLocaliseTextString( "#Menu_OK" ), iXPos + XRES(16), iYPos + iYSize - YRES(16) - BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y);
+	CommandButton *pButton = new CommandButton( Localize().BufferedLocaliseTextString( "#Menu_OK" ), iXPos + XRES(16), iYPos + iYSize - YRES(16) - BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y);
 	pButton->addActionSignal(new CMenuHandler_TextWindow(HIDE_TEXTWINDOW));
 	pButton->setParent(this);
 
