@@ -22,88 +22,12 @@
 #ifndef GAME_CLIENT_UI_HUD_HUD_H
 #define GAME_CLIENT_UI_HUD_HUD_H
 
-#include "Color.h"
-#include "HudColors.h"
-
-#ifndef _WIN32
-#define _cdecl 
-#endif
-
 #include "wrect.h"
 #include "cl_dll.h"
 
-#include "global_consts.h"
-
-#define DHN_DRAWZERO 1
-#define DHN_2DIGITS  2
-#define DHN_3DIGITS  4
-#define MIN_ALPHA	 100	
+#include "HudDefs.h"
 
 struct cvar_t;
-
-enum HudFlag
-{
-	HUD_ACTIVE			= 1,
-	HUD_INTERMISSION	= 2,
-};
-
-class CHudBase;
-
-struct HUDLIST
-{
-	CHudBase	*p;
-	HUDLIST		*pNext;
-};
-
-struct extra_player_info_t
-{
-	short frags;
-	short deaths;
-	short playerclass;
-	short health; // UNUSED currently, spectator UI would like this
-	bool dead; // UNUSED currently, spectator UI would like this
-	short teamnumber;
-	char teamname[ MAX_TEAM_NAME ];
-};
-
-struct team_info_t
-{
-	char name[ MAX_TEAM_NAME ];
-	short frags;
-	short deaths;
-	short ping;
-	short packetloss;
-	short ownteam;
-	short players;
-	bool already_drawn;
-	bool scores_overriden;
-	int teamnumber;
-};
-
-struct message_parms_t
-{
-	client_textmessage_t	*pMessage;
-	float	time;
-	int x, y;
-	int	totalWidth, totalHeight;
-	int width;
-	int lines;
-	int lineLength;
-	int length;
-	int r, g, b;
-	int text;
-	int fadeBlend;
-	float charTime;
-	float fadeTime;
-};
-
-#include "player_info.h"
-
-#define FADE_TIME 100
-
-#define MAX_SPRITE_NAME_LENGTH	24
-
-const int maxHUDMessages = 16;
 
 #include "CHudBase.h"
 
@@ -294,8 +218,5 @@ extern int g_iTeamNumber;
 extern int g_iUser1;
 extern int g_iUser2;
 extern int g_iUser3;
-
-const Vector& GetClientColor( int clientIndex );
-extern const Vector g_ColorYellow;
 
 #endif //GAME_CLIENT_UI_HUD_HUD_H

@@ -332,6 +332,7 @@ include_directories(
 	vgui_utils
 	pm_shared
 	game/client
+	game/client/ui
 	game/client/ui/hud
 	game/client/ui/vgui
 	game/server

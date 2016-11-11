@@ -99,6 +99,7 @@
 #define FILESYSTEM_PATH_SEPARATOR_CHAR '/'
 #define FILESYSTEM_OTHER_PATH_SEPARATOR_CHAR '\\'
 
+#define _cdecl
 #define __cdecl
 
 //TODO: GLM has ivec2, use that. - Solokiller

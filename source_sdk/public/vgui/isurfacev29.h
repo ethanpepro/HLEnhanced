@@ -17,7 +17,7 @@
 #pragma once
 #endif
 
-#include <vgui/VGUI.h>
+#include <vgui/VGUI2.h>
 #include <vgui/IHTML.h> // CreateHTML, PaintHTML 
 #include "interface.h"
 #include "IVguiMatInfo.h"
@@ -33,7 +33,7 @@
 #undef PlaySound
 #endif
 
-class Color;
+class SDK_Color;
 
 namespace vgui
 {
@@ -108,7 +108,7 @@ namespace SurfaceV29
 		int				abcB;
 		int				abcC;
 		int				fontTall;
-		vgui::HFont		currentFont;
+		vgui2::HFont		currentFont;
 	};
 
 
@@ -134,16 +134,16 @@ namespace SurfaceV29
 		virtual void RunFrame() = 0;
 
 		// hierarchy root
-	virtual vgui::VPANEL GetEmbeddedPanel() = 0;
-	virtual void SetEmbeddedPanel( vgui::VPANEL pPanel ) = 0;
+	virtual vgui2::VPANEL GetEmbeddedPanel() = 0;
+	virtual void SetEmbeddedPanel( vgui2::VPANEL pPanel ) = 0;
 
 		// drawing context
-	virtual void PushMakeCurrent(vgui::VPANEL panel, bool useInsets) = 0;
-	virtual void PopMakeCurrent(vgui::VPANEL panel) = 0;
+	virtual void PushMakeCurrent( vgui2::VPANEL panel, bool useInsets) = 0;
+	virtual void PopMakeCurrent(vgui2::VPANEL panel) = 0;
 
 		// rendering functions
 		virtual void DrawSetColor(int r, int g, int b, int a) = 0;
-		virtual void DrawSetColor(Color col) = 0;
+		virtual void DrawSetColor(SDK_Color col) = 0;
 
 		virtual void DrawFilledRect(int x0, int y0, int x1, int y1) = 0;
 		virtual void DrawFilledRectArray( IntRect *pRects, int numRects ) = 0;
@@ -152,18 +152,18 @@ namespace SurfaceV29
 		virtual void DrawLine(int x0, int y0, int x1, int y1) = 0;
 		virtual void DrawPolyLine(int *px, int *py, int numPoints) = 0;
 
-	virtual void DrawSetTextFont(vgui::HFont font) = 0;
+	virtual void DrawSetTextFont(vgui2::HFont font) = 0;
 		virtual void DrawSetTextColor(int r, int g, int b, int a) = 0;
-		virtual void DrawSetTextColor(Color col) = 0;
+		virtual void DrawSetTextColor( SDK_Color col) = 0;
 		virtual void DrawSetTextPos(int x, int y) = 0;
 		virtual void DrawGetTextPos(int& x,int& y) = 0;
 		virtual void DrawPrintText(const wchar_t *text, int textLen, FontDrawType_t drawType = FONT_DRAW_DEFAULT ) = 0;
 		virtual void DrawUnicodeChar(wchar_t wch, FontDrawType_t drawType = FONT_DRAW_DEFAULT ) = 0;
 
 		virtual void DrawFlushText() = 0;		// flushes any buffered text (for rendering optimizations)
-	virtual vgui::IHTML *CreateHTMLWindow(vgui::IHTMLEvents *events, vgui::VPANEL context )=0;
-		virtual void PaintHTMLWindow(vgui::IHTML *htmlwin) =0;
-	virtual void DeleteHTMLWindow(vgui::IHTML *htmlwin)=0;
+	virtual vgui2::IHTML *CreateHTMLWindow(vgui2::IHTMLEvents *events, vgui2::VPANEL context )=0;
+		virtual void PaintHTMLWindow(vgui2::IHTML *htmlwin) =0;
+	virtual void DeleteHTMLWindow(vgui2::IHTML *htmlwin)=0;
 
 		virtual int	 DrawGetTextureId( char const *filename ) = 0;
 		virtual bool DrawGetTextureFile(int id, char *filename, int maxlen ) = 0;
@@ -177,21 +177,21 @@ namespace SurfaceV29
 		virtual int CreateNewTextureID( bool procedural = false ) = 0;
 
 		virtual void GetScreenSize(int &wide, int &tall) = 0;
-	virtual void SetAsTopMost(vgui::VPANEL panel, bool state) = 0;
-	virtual void BringToFront(vgui::VPANEL panel) = 0;
-	virtual void SetForegroundWindow (vgui::VPANEL panel) = 0;
-	virtual void SetPanelVisible(vgui::VPANEL panel, bool state) = 0;
-	virtual void SetMinimized(vgui::VPANEL panel, bool state) = 0;
-	virtual bool IsMinimized(vgui::VPANEL panel) = 0;
-	virtual void FlashWindow(vgui::VPANEL panel, bool state) = 0;
-	virtual void SetTitle(vgui::VPANEL panel, const wchar_t *title) = 0;
-	virtual void SetAsToolBar(vgui::VPANEL panel, bool state) = 0;		// removes the window's task bar entry (for context menu's, etc.)
+	virtual void SetAsTopMost(vgui2::VPANEL panel, bool state) = 0;
+	virtual void BringToFront(vgui2::VPANEL panel) = 0;
+	virtual void SetForegroundWindow (vgui2::VPANEL panel) = 0;
+	virtual void SetPanelVisible(vgui2::VPANEL panel, bool state) = 0;
+	virtual void SetMinimized(vgui2::VPANEL panel, bool state) = 0;
+	virtual bool IsMinimized(vgui2::VPANEL panel) = 0;
+	virtual void FlashWindow(vgui2::VPANEL panel, bool state) = 0;
+	virtual void SetTitle(vgui2::VPANEL panel, const wchar_t *title) = 0;
+	virtual void SetAsToolBar(vgui2::VPANEL panel, bool state) = 0;		// removes the window's task bar entry (for context menu's, etc.)
 
 		// windows stuff
-	virtual void CreatePopup(vgui::VPANEL panel, bool minimised, bool showTaskbarIcon = true, bool disabled = false, bool mouseInput = true , bool kbInput = true) = 0;
-	virtual void SwapBuffers(vgui::VPANEL panel) = 0;
-	virtual void Invalidate(vgui::VPANEL panel) = 0;
-	virtual void SetCursor(vgui::HCursor cursor) = 0;
+	virtual void CreatePopup(vgui2::VPANEL panel, bool minimised, bool showTaskbarIcon = true, bool disabled = false, bool mouseInput = true , bool kbInput = true) = 0;
+	virtual void SwapBuffers(vgui2::VPANEL panel) = 0;
+	virtual void Invalidate(vgui2::VPANEL panel) = 0;
+	virtual void SetCursor(vgui2::HCursor cursor) = 0;
 		virtual bool IsCursorVisible() = 0;
 		virtual void ApplyChanges() = 0;
 		virtual bool IsWithin(int x, int y) = 0;
@@ -212,23 +212,23 @@ namespace SurfaceV29
 
 		// restricts what gets drawn to one panel and it's children
 		// currently only works in the game
-	virtual void RestrictPaintToSinglePanel(vgui::VPANEL panel) = 0;
+	virtual void RestrictPaintToSinglePanel(vgui2::VPANEL panel) = 0;
 
 		// these two functions obselete, use IInput::SetAppModalSurface() instead
-	virtual void SetModalPanel(vgui::VPANEL panel ) = 0;
-	virtual vgui::VPANEL GetModalPanel() = 0;
+	virtual void SetModalPanel(vgui2::VPANEL panel ) = 0;
+	virtual vgui2::VPANEL GetModalPanel() = 0;
 
 		virtual void UnlockCursor() = 0;
 		virtual void LockCursor() = 0;
 		virtual void SetTranslateExtendedKeys(bool state) = 0;
-	virtual vgui::VPANEL GetTopmostPopup() = 0;
+	virtual vgui2::VPANEL GetTopmostPopup() = 0;
 
 		// engine-only focus handling (replacing WM_FOCUS windows handling)
-	virtual void SetTopLevelFocus(vgui::VPANEL panel) = 0;
+	virtual void SetTopLevelFocus(vgui2::VPANEL panel) = 0;
 
 		// fonts
 		// creates an empty handle to a vgui font.  windows fonts can be add to this via SetFontGlyphSet().
-	virtual vgui::HFont CreateFont() = 0;
+	virtual vgui2::HFont CreateFont() = 0;
 
 		// adds to the font
 		enum EFontFlags
@@ -246,22 +246,22 @@ namespace SurfaceV29
 			FONTFLAG_OUTLINE		= 0x200,
 			FONTFLAG_CUSTOM			= 0x400,		// custom generated font - never fall back to asian compatibility mode
 		};
-	virtual bool SetFontGlyphSet(vgui::HFont font, const char *windowsFontName, int tall, int weight, int blur, int scanlines, int flags) = 0;
+	virtual bool SetFontGlyphSet(vgui2::HFont font, const char *windowsFontName, int tall, int weight, int blur, int scanlines, int flags) = 0;
 		// adds a custom font file (only supports true type font files (.ttf) for now)
 		virtual bool AddCustomFontFile(const char *fontFileName) = 0;
 
 
 		// returns the details about the font
-	virtual int GetFontTall(vgui::HFont font) = 0;
-	virtual int GetFontAscent(vgui::HFont font, wchar_t wch) = 0;
-	virtual bool IsFontAdditive(vgui::HFont font) = 0;
-	virtual void GetCharABCwide(vgui::HFont font, int ch, int &a, int &b, int &c) = 0;
-	virtual int GetCharacterWidth(vgui::HFont font, int ch) = 0;
-	virtual void GetTextSize(vgui::HFont font, const wchar_t *text, int &wide, int &tall) = 0;
+	virtual int GetFontTall(vgui2::HFont font) = 0;
+	virtual int GetFontAscent(vgui2::HFont font, wchar_t wch) = 0;
+	virtual bool IsFontAdditive(vgui2::HFont font) = 0;
+	virtual void GetCharABCwide(vgui2::HFont font, int ch, int &a, int &b, int &c) = 0;
+	virtual int GetCharacterWidth(vgui2::HFont font, int ch) = 0;
+	virtual void GetTextSize(vgui2::HFont font, const wchar_t *text, int &wide, int &tall) = 0;
 
 		// notify icons?!?
-	virtual vgui::VPANEL GetNotifyPanel() = 0;
-	virtual void SetNotifyIcon(vgui::VPANEL context, vgui::HTexture icon, vgui::VPANEL panelToReceiveMessages, const char *text) = 0;
+	virtual vgui2::VPANEL GetNotifyPanel() = 0;
+	virtual void SetNotifyIcon(vgui2::VPANEL context, vgui2::HTexture icon, vgui2::VPANEL panelToReceiveMessages, const char *text) = 0;
 
 		// plays a sound
 		virtual void PlaySound(const char *fileName) = 0;
@@ -269,18 +269,18 @@ namespace SurfaceV29
 		//!! these functions should not be accessed directly, but only through other vgui items
 		//!! need to move these to seperate interface
 	virtual int GetPopupCount() = 0;
-	virtual vgui::VPANEL GetPopup(int index) = 0;
-	virtual bool ShouldPaintChildPanel(vgui::VPANEL childPanel) = 0;
-	virtual bool RecreateContext(vgui::VPANEL panel) = 0;
-	virtual void AddPanel(vgui::VPANEL panel) = 0;
-	virtual void ReleasePanel(vgui::VPANEL panel) = 0;
-	virtual void MovePopupToFront(vgui::VPANEL panel) = 0;
-	virtual void MovePopupToBack(vgui::VPANEL panel) = 0;
+	virtual vgui2::VPANEL GetPopup(int index) = 0;
+	virtual bool ShouldPaintChildPanel(vgui2::VPANEL childPanel) = 0;
+	virtual bool RecreateContext(vgui2::VPANEL panel) = 0;
+	virtual void AddPanel(vgui2::VPANEL panel) = 0;
+	virtual void ReleasePanel(vgui2::VPANEL panel) = 0;
+	virtual void MovePopupToFront(vgui2::VPANEL panel) = 0;
+	virtual void MovePopupToBack(vgui2::VPANEL panel) = 0;
 
-	virtual void SolveTraverse(vgui::VPANEL panel, bool forceApplySchemeSettings = false) = 0;
-	virtual void PaintTraverse(vgui::VPANEL panel) = 0;
+	virtual void SolveTraverse(vgui2::VPANEL panel, bool forceApplySchemeSettings = false) = 0;
+	virtual void PaintTraverse(vgui2::VPANEL panel) = 0;
 
-	virtual void EnableMouseCapture(vgui::VPANEL panel, bool state) = 0;
+	virtual void EnableMouseCapture(vgui2::VPANEL panel, bool state) = 0;
 
 	// returns the size of the workspace
 	virtual void GetWorkspaceBounds(int &x, int &y, int &wide, int &tall) = 0;
@@ -305,7 +305,7 @@ namespace SurfaceV29
 	virtual void DrawTexturedPolyLine( const Vertex_t *p,int n ) = 0; // (Note: this connects the first and last points).
 	virtual void DrawTexturedSubRect( int x0, int y0, int x1, int y1, float texs0, float text0, float texs1, float text1 ) = 0;
 	virtual void DrawTexturedPolygon(int n, Vertex_t *pVertices) = 0;
-	virtual const wchar_t *GetTitle(vgui::VPANEL panel) = 0;
+	virtual const wchar_t *GetTitle(vgui2::VPANEL panel) = 0;
 	virtual bool IsCursorLocked( void ) const = 0;
 	virtual void SetWorkspaceInsets( int left, int top, int right, int bottom ) = 0;
 
@@ -324,12 +324,12 @@ namespace SurfaceV29
 	// video mode changing
 	virtual void OnScreenSizeChanged( int nOldWidth, int nOldHeight ) = 0;
 
-	virtual vgui::HCursor	CreateCursorFromFile( char const *curOrAniFile, char const *pPathID = 0 ) = 0;
+	virtual vgui2::HCursor	CreateCursorFromFile( char const *curOrAniFile, char const *pPathID = 0 ) = 0;
 
 	// create IVguiMatInfo object ( IMaterial wrapper in VguiMatSurface, NULL in CWin32Surface )
 	virtual IVguiMatInfo *DrawGetTextureMatInfoFactory( int id ) = 0;
 
-	virtual void PaintTraverseEx(vgui::VPANEL panel, bool paintPopups = false ) = 0;
+	virtual void PaintTraverseEx(vgui2::VPANEL panel, bool paintPopups = false ) = 0;
 
 	virtual float GetZPos() const = 0;
 	};

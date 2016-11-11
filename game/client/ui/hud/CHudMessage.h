@@ -15,6 +15,23 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDMESSAGE_H
 #define GAME_CLIENT_UI_HUD_CHUDMESSAGE_H
 
+struct message_parms_t
+{
+	client_textmessage_t	*pMessage;
+	float	time;
+	int x, y;
+	int	totalWidth, totalHeight;
+	int width;
+	int lines;
+	int lineLength;
+	int length;
+	int r, g, b;
+	int text;
+	int fadeBlend;
+	float charTime;
+	float fadeTime;
+};
+
 class CHudMessage : public CHudBase
 {
 public:

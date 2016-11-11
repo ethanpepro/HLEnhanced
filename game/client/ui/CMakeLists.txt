@@ -1,6 +1,8 @@
 add_sources(
 	CClientVGUI.h
 	CClientVGUI.cpp
+	HudDefs.h
+	HudDefs.cpp
 )
 
 add_subdirectory( hud )
