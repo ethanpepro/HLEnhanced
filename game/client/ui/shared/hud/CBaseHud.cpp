@@ -1,25 +1,25 @@
 #include "hud.h"
 #include "cl_util.h"
 
-#include "CHud2Element.h"
+#include "CHudElement.h"
 
-#include "CBaseHud2.h"
+#include "CBaseHud.h"
 
-CBaseHud2::CBaseHud2()
+CBaseHud::CBaseHud()
 {
 }
 
-CBaseHud2::~CBaseHud2()
+CBaseHud::~CBaseHud()
 {
 	RemoveAllElements();
 }
 
-int CBaseHud2::GetElementCount() const
+int CBaseHud::GetElementCount() const
 {
 	return m_Elements.Count();
 }
 
-CHud2Element* CBaseHud2::GetElementByIndex( int iIndex )
+CHudElement* CBaseHud::GetElementByIndex( int iIndex )
 {
 	ASSERT( iIndex >= 0 && iIndex < m_Elements.Count() );
 
@@ -29,7 +29,7 @@ CHud2Element* CBaseHud2::GetElementByIndex( int iIndex )
 	return m_Elements[ iIndex ];
 }
 
-CHud2Element* CBaseHud2::GetElementByName( const char* const pszName )
+CHudElement* CBaseHud::GetElementByName( const char* const pszName )
 {
 	ASSERT( pszName );
 
@@ -44,14 +44,14 @@ CHud2Element* CBaseHud2::GetElementByName( const char* const pszName )
 	return nullptr;
 }
 
-bool CBaseHud2::AddElement( CHud2Element* pElement )
+bool CBaseHud::AddElement( CHudElement* pElement )
 {
 	if( !pElement )
 		return false;
 
 	if( GetElementByName( pElement->GetName() ) )
 	{
-		Con_Printf( "CBaseHud2::AddElement: Attempted to add element '%s' multiple times.\n", pElement->GetName() );
+		Con_Printf( "CBaseHud::AddElement: Attempted to add element '%s' multiple times.\n", pElement->GetName() );
 		return false;
 	}
 
@@ -60,7 +60,7 @@ bool CBaseHud2::AddElement( CHud2Element* pElement )
 	return true;
 }
 
-void CBaseHud2::RemoveElement( CHud2Element* pElement, const bool bDelete )
+void CBaseHud::RemoveElement( CHudElement* pElement, const bool bDelete )
 {
 	if( !pElement )
 		return;
@@ -81,7 +81,7 @@ void CBaseHud2::RemoveElement( CHud2Element* pElement, const bool bDelete )
 	}
 }
 
-void CBaseHud2::RemoveAllElements( const bool bDelete )
+void CBaseHud::RemoveAllElements( const bool bDelete )
 {
 	if( bDelete )
 		m_Elements.PurgeAndDeleteElements();

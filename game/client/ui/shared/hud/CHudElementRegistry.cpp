@@ -1,11 +1,11 @@
-#include "CBaseHud2.h"
-#include "CHud2Element.h"
+#include "CBaseHud.h"
+#include "CHudElement.h"
 
-#include "CHud2ElementRegistry.h"
+#include "CHudElementRegistry.h"
 
-CHud2ElementRegistry* CHud2ElementRegistry::m_pHead = nullptr;
+CHudElementRegistry* CHudElementRegistry::m_pHead = nullptr;
 
-CHud2ElementRegistry::CHud2ElementRegistry( CreateFn createFn, const CHud2DefaultableArgs& args )
+CHudElementRegistry::CHudElementRegistry( CreateFn createFn, const CHudDefaultableArgs& args )
 	: m_CreateFn( createFn )
 	, m_iDepth( args.m_iDepth )
 {
@@ -19,7 +19,7 @@ CHud2ElementRegistry::CHud2ElementRegistry( CreateFn createFn, const CHud2Defaul
 	{
 		//Sort the element in the list. The list is sorted deepest to shallowest, so that the last element renders on top of all others.
 
-		CHud2ElementRegistry* pPrev = nullptr;
+		decltype( this ) pPrev = nullptr;
 		auto pCurrent = m_pHead;
 
 		while( pCurrent && m_iDepth < pCurrent->m_iDepth )
@@ -33,7 +33,7 @@ CHud2ElementRegistry::CHud2ElementRegistry( CreateFn createFn, const CHud2Defaul
 	}
 }
 
-size_t CHud2ElementRegistry::CreateAllElements( CBaseHud2& hud )
+size_t CHudElementRegistry::CreateAllElements( CBaseHud& hud )
 {
 	size_t uiCount = 0;
 
