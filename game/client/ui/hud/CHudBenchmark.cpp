@@ -133,7 +133,7 @@ void CHudBenchmark::Restart( void )
 	g_benchSwitchTime = gHUD.m_flTime + g_benchSwitchTimes[ FIRST_STAGE ];
 	StartNextSection( FIRST_STAGE );
 
-	gHUD.m_Benchmark.m_iFlags |= HUD_ACTIVE;
+	gHUD.m_Benchmark.GetFlags() |= HUD_ACTIVE;
 	gHUD.m_Benchmark.m_fDrawTime = gHUD.m_flTime + BENCH_TIME;
 }
 
@@ -390,7 +390,7 @@ void CHudBenchmark::Think( void )
 
 	if ( Bench_GetStage() > LAST_STAGE )
 	{
-		m_iFlags &= ~HUD_ACTIVE;
+		GetFlags() &= ~HUD_ACTIVE;
 		EngineClientCmd( "quit\n" );
 	}
 }
@@ -481,7 +481,7 @@ bool CHudBenchmark::Draw( float flTime )
 
 	if ( m_fDrawTime < flTime || !Bench_Active() )
 	{
-		m_iFlags &= ~HUD_ACTIVE;
+		GetFlags() &= ~HUD_ACTIVE;
 		return true;
 	}
 

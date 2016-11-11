@@ -33,7 +33,7 @@ bool CHudGeiger::Init()
 	HOOK_MESSAGE( Geiger );
 
 	m_iGeigerRange = 0;
-	m_iFlags = 0;
+	GetFlags() = 0;
 
 	gHUD.AddHudElem(this);
 
@@ -55,7 +55,7 @@ int CHudGeiger::MsgFunc_Geiger(const char *pszName,  int iSize, void *pbuf)
 	m_iGeigerRange = reader.ReadByte();
 	m_iGeigerRange = m_iGeigerRange << 2;
 	
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 
 	return 1;
 }

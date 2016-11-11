@@ -15,16 +15,28 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDBASE_H
 #define GAME_CLIENT_UI_HUD_CHUDBASE_H
 
+#include "CBitSet.h"
+
 /**
 *	Base class for all HUD classes.
 */
 class CHudBase
 {
 public:
-	POINT  m_pos;
-	int   m_type;
-	int	  m_iFlags; // active, moving, 
+	using Flags_t = CBitSet<int>;
+
+public: 
 	virtual	~CHudBase() {}
+
+	/**
+	*	@return This Hud element's flags.
+	*/
+	const Flags_t& GetFlags() const { return m_Flags; }
+
+	/**
+	*	@copydoc GetFlags() const
+	*/
+	Flags_t& GetFlags() { return m_Flags; }
 
 	/**
 	*	Called when the client is initializing.
@@ -59,6 +71,10 @@ public:
 	*	Called every time a server is connected to.
 	*/
 	virtual void InitHUDData() {}
+
+private:
+	// active, moving,
+	Flags_t m_Flags;
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDBASE_H

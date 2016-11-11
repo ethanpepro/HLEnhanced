@@ -59,7 +59,7 @@ bool CHudHealth::Init()
 	HOOK_MESSAGE(Damage);
 	m_iHealth = 100;
 	m_fFade = 0;
-	m_iFlags = 0;
+	GetFlags() = 0;
 	m_bitsDamage = 0;
 	m_fAttackFront = m_fAttackRear = m_fAttackRight = m_fAttackLeft = 0;
 	m_iDmgHeight = 0;
@@ -104,7 +104,7 @@ int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
 	CBufferReader reader( pbuf, iSize );
 	int x = reader.ReadByte();
 
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 
 	// Only update the fade if we've changed health
 	if (x != m_iHealth)

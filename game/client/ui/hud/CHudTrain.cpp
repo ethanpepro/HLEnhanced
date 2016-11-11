@@ -32,7 +32,7 @@ bool CHudTrain::Init()
 	HOOK_MESSAGE( Train );
 
 	m_iPos = 0;
-	m_iFlags = 0;
+	GetFlags() = 0;
 	gHUD.AddHudElem(this);
 
 	return true;
@@ -77,9 +77,9 @@ int CHudTrain::MsgFunc_Train(const char *pszName,  int iSize, void *pbuf)
 	m_iPos = reader.ReadByte();
 
 	if (m_iPos)
-		m_iFlags |= HUD_ACTIVE;
+		GetFlags() |= HUD_ACTIVE;
 	else
-		m_iFlags &= ~HUD_ACTIVE;
+		GetFlags() &= ~HUD_ACTIVE;
 
 	return 1;
 }

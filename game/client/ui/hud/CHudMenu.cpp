@@ -132,7 +132,7 @@ bool CHudMenu::Draw( float flTime )
 		if ( m_flShutoffTime <= gHUD.m_flTime )
 		{  // times up, shutoff
 			m_fMenuDisplayed = false;
-			m_iFlags &= ~HUD_ACTIVE;
+			GetFlags() &= ~HUD_ACTIVE;
 			return true;
 		}
 	}
@@ -215,7 +215,7 @@ void CHudMenu :: SelectMenuItem( int menu_item )
 
 		// remove the menu
 		m_fMenuDisplayed = false;
-		m_iFlags &= ~HUD_ACTIVE;
+		GetFlags() &= ~HUD_ACTIVE;
 	}
 }
 
@@ -267,12 +267,12 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 		}
 
 		m_fMenuDisplayed = true;
-		m_iFlags |= HUD_ACTIVE;
+		GetFlags() |= HUD_ACTIVE;
 	}
 	else
 	{
 		m_fMenuDisplayed = false; // no valid slots means that the menu should be turned off
-		m_iFlags &= ~HUD_ACTIVE;
+		GetFlags() &= ~HUD_ACTIVE;
 	}
 
 	m_fWaitingForMore = NeedMore;

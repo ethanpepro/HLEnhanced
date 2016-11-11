@@ -106,7 +106,7 @@ bool CHudAmmo::Init()
 	m_pCrosshairMode = CVAR_CREATE( "crosshair_mode", "0", FCVAR_ARCHIVE );
 	m_pCrosshairScale = CVAR_CREATE( "crosshair_scale", "1", FCVAR_ARCHIVE );
 
-	m_iFlags |= HUD_ACTIVE; //!!!
+	GetFlags() |= HUD_ACTIVE; //!!!
 
 	if( CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer() )
 	{
@@ -121,7 +121,7 @@ bool CHudAmmo::Init()
 void CHudAmmo::Reset()
 {
 	m_fFade = 0;
-	m_iFlags |= HUD_ACTIVE; //!!!
+	GetFlags() |= HUD_ACTIVE; //!!!
 
 	m_pActiveSel = nullptr;
 	gHUD.m_iHideHUDDisplay = 0;
@@ -416,7 +416,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 	{
 		m_bNeedsLocalUpdate = true;
 		m_bOnTarget = fOnTarget;
-		m_iFlags |= HUD_ACTIVE;
+		GetFlags() |= HUD_ACTIVE;
 		return 1;
 	}
 	else if( m_bNeedsLocalUpdate )
@@ -459,7 +459,7 @@ void CHudAmmo::UpdateWeaponHUD( CBasePlayerWeapon* pWeapon, bool bOnTarget )
 	}
 
 	m_fFade = 200.0f; //!!!
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 }
 
 //------------------------------------------------------------------------
@@ -644,7 +644,7 @@ bool CHudAmmo::Draw(float flTime)
 	// Draw ammo pickup history
 	gHR.DrawAmmoHistory( flTime );
 
-	if (!(m_iFlags & HUD_ACTIVE))
+	if (!( GetFlags() & HUD_ACTIVE))
 		return false;
 
 	if (!m_pWeapon)

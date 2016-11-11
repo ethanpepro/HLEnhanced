@@ -60,7 +60,7 @@ void CHudStatusBar::Reset()
 {
 	int i = 0;
 
-	m_iFlags &= ~HUD_ACTIVE;  // start out inactive
+	GetFlags() &= ~HUD_ACTIVE;  // start out inactive
 	for ( i = 0; i < MAX_STATUSBAR_LINES; i++ )
 		m_szStatusText[i][0] = 0;
 	memset( m_iStatusValues, 0, sizeof m_iStatusValues );
@@ -236,7 +236,7 @@ int CHudStatusBar::MsgFunc_StatusText( const char *pszName, int iSize, void *pbu
 	strncpy( m_szStatusText[line], reader.ReadString(), MAX_STATUSTEXT_LENGTH );
 	m_szStatusText[line][MAX_STATUSTEXT_LENGTH-1] = 0;  // ensure it's null terminated ( strncpy() won't null terminate if read string too long)
 
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 	m_bReparseString = true;
 
 	return 1;

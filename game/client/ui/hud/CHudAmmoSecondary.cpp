@@ -135,7 +135,7 @@ int CHudAmmoSecondary :: MsgFunc_SecAmmoVal( const char *pszName, int iSize, voi
 		return 1;
 
 	m_iAmmoAmounts[index] = reader.ReadByte();
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 
 	// check to see if there is anything left to draw
 	int count = 0;
@@ -146,7 +146,7 @@ int CHudAmmoSecondary :: MsgFunc_SecAmmoVal( const char *pszName, int iSize, voi
 
 	if ( count == 0 ) 
 	{	// the ammo fields are all empty, so turn off this hud area
-		m_iFlags &= ~HUD_ACTIVE;
+		GetFlags() &= ~HUD_ACTIVE;
 		return 1;
 	}
 

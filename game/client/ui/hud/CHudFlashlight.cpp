@@ -42,7 +42,7 @@ bool CHudFlashlight::Init()
 	HOOK_MESSAGE(Flashlight);
 	HOOK_MESSAGE(FlashBat);
 
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 
 	gHUD.AddHudElem(this);
 

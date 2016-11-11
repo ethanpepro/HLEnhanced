@@ -405,7 +405,7 @@ bool CHudMessage::Draw( float fTime )
 	m_parms.time = gHUD.m_flTime;
 	// Don't call until we get another message
 	if ( !drawn )
-		m_iFlags &= ~HUD_ACTIVE;
+		GetFlags() &= ~HUD_ACTIVE;
 
 	return true;
 }
@@ -487,8 +487,8 @@ int CHudMessage::MsgFunc_HudText( const char *pszName,  int iSize, void *pbuf )
 	m_parms.time = gHUD.m_flTime;
 
 	// Turn on drawing
-	if ( !(m_iFlags & HUD_ACTIVE) )
-		m_iFlags |= HUD_ACTIVE;
+	if ( !( GetFlags() & HUD_ACTIVE) )
+		GetFlags() |= HUD_ACTIVE;
 
 	return 1;
 }
@@ -502,8 +502,8 @@ int CHudMessage::MsgFunc_GameTitle( const char *pszName,  int iSize, void *pbuf 
 		m_gameTitleTime = gHUD.m_flTime;
 
 		// Turn on drawing
-		if ( !(m_iFlags & HUD_ACTIVE) )
-			m_iFlags |= HUD_ACTIVE;
+		if ( !( GetFlags() & HUD_ACTIVE) )
+			GetFlags() |= HUD_ACTIVE;
 	}
 
 	return 1;
@@ -514,8 +514,8 @@ void CHudMessage::MessageAdd(client_textmessage_t * newMessage )
 	m_parms.time = gHUD.m_flTime;
 
 	// Turn on drawing
-	if ( !(m_iFlags & HUD_ACTIVE) )
-		m_iFlags |= HUD_ACTIVE;
+	if ( !( GetFlags() & HUD_ACTIVE) )
+		GetFlags() |= HUD_ACTIVE;
 	
 	for ( int i = 0; i < maxHUDMessages; i++ )
 	{

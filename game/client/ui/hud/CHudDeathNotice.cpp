@@ -119,7 +119,7 @@ bool CHudDeathNotice::Draw( float flTime )
 // This message handler may be better off elsewhere
 int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *pbuf )
 {
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 
 	CBufferReader reader( pbuf, iSize );
 

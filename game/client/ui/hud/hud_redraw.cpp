@@ -49,7 +49,7 @@ void CHud::Think()
 
 	while (pList)
 	{
-		if (pList->p->m_iFlags & HUD_ACTIVE)
+		if (pList->p->GetFlags() & HUD_ACTIVE)
 			pList->p->Think();
 		pList = pList->pNext;
 	}
@@ -153,19 +153,19 @@ bool CHud::Redraw( float flTime, int intermission )
 			{
 				if ( !intermission )
 				{
-					if ( (pList->p->m_iFlags & HUD_ACTIVE) && !(m_iHideHUDDisplay & HIDEHUD_ALL) )
+					if ( (pList->p->GetFlags() & HUD_ACTIVE) && !(m_iHideHUDDisplay & HIDEHUD_ALL) )
 						pList->p->Draw(flTime);
 				}
 				else
 				{  // it's an intermission,  so only draw hud elements that are set to draw during intermissions
-					if ( pList->p->m_iFlags & HUD_INTERMISSION )
+					if ( pList->p->GetFlags() & HUD_INTERMISSION )
 						pList->p->Draw( flTime );
 				}
 			}
 			else
 			{
 				if ( ( pList->p == &m_Benchmark ) &&
-					 ( pList->p->m_iFlags & HUD_ACTIVE ) &&
+					 ( pList->p->GetFlags() & HUD_ACTIVE ) &&
 					 !( m_iHideHUDDisplay & HIDEHUD_ALL ) )
 				{
 					pList->p->Draw(flTime);

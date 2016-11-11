@@ -44,7 +44,7 @@ bool CHudSayText::Init()
 	m_HUD_saytext =			gEngfuncs.pfnRegisterVariable( "hud_saytext", "1", 0 );
 	m_HUD_saytext_time =	gEngfuncs.pfnRegisterVariable( "hud_saytext_time", "5", 0 );
 
-	m_iFlags |= HUD_INTERMISSION; // is always drawn during an intermission
+	GetFlags() |= HUD_INTERMISSION; // is always drawn during an intermission
 
 	return true;
 }
@@ -104,7 +104,7 @@ bool CHudSayText::Draw( float flTime )
 		}
 		else
 		{ // buffer is empty,  just disable drawing of this section
-			m_iFlags &= ~HUD_ACTIVE;
+			GetFlags() &= ~HUD_ACTIVE;
 		}
 	}
 
@@ -216,7 +216,7 @@ void CHudSayText :: SayTextPrint( const char *pszBuf, size_t uiBufSize, int clie
 		m_flScrollTime = gHUD.m_flTime + m_HUD_saytext_time->value;
 	}
 
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 	PlaySound( "misc/talk.wav", 1 );
 
 	m_iYStart = ScreenHeight - 60 - ( m_iLineHeight * (MAX_LINES+2) );

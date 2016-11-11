@@ -33,7 +33,7 @@ bool CHudBattery::Init()
 {
 	m_iBat = 0;
 	m_fFade = 0;
-	m_iFlags = 0;
+	GetFlags() = 0;
 
 	HOOK_MESSAGE(Battery);
 
@@ -58,7 +58,7 @@ bool CHudBattery::VidInit()
 
 int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 {
-	m_iFlags |= HUD_ACTIVE;
+	GetFlags() |= HUD_ACTIVE;
 	
 	CBufferReader reader( pbuf, iSize );
 	int x = reader.ReadShort();
