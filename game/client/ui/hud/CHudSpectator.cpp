@@ -30,7 +30,6 @@
 
 #include "CHudMessage.h"
 #include "CHudSayText.h"
-#include "CHudTextMessage.h"
 #include "shared/CLocalize.h"
 #include "CHudSpectator.h"
 
@@ -1212,15 +1211,13 @@ void CHudSpectator::SetModes(int iNewMainMode, int iNewInsetMode)
 			SetCrosshair( 0, m_crosshairRect, 0, 0, 0 );
 		} 
 
+		//TODO: stop calling message functions like this! - Solokiller
 		gViewPort->MsgFunc_ResetFade( NULL, 0, NULL );
 
 		char string[128];
 		sprintf(string, "#Spec_Mode%d", g_iUser1 );
-		sprintf(string, "%c%s", HUD_PRINTCENTER, Localize().BufferedLocaliseTextString( string ));
 
-		//TODO: rework this if possible. - Solokiller
-		if( auto pTextMessage = GETHUDCLASS( CHudTextMessage ) )
-			pTextMessage->MsgFunc_TextMsg(NULL, strlen(string)+1, string );
+		UTIL_LocalizedTextMsg( HUD_PRINTCENTER, string );
 	}
 
 	gViewPort->UpdateSpectatorPanel();

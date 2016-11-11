@@ -56,7 +56,6 @@
 #include "screenfade.h"
 
 #include "shared/CLocalize.h"
-#include "CHudTextMessage.h"
 
 extern int g_iVisibleMouse;
 class CCommandMenu;
@@ -1524,7 +1523,6 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 	{
 		char bottomText[128];
 		char helpString2[128];
-		char tempString[128];
 		char * name;
 		char *pBottomText = NULL;
 		int player = 0;
@@ -1536,14 +1534,8 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		{
 			m_pSpectatorPanel->setVisible( true );	// show spectator panel, but
 			m_pSpectatorPanel->ShowMenu( false );	// dsiable all menus/buttons
-			
-			_snprintf( tempString, sizeof( tempString ) - 1, "%c%s", HUD_PRINTCENTER, Localize().BufferedLocaliseTextString( "#Spec_Duck" ) );
-			tempString[ sizeof( tempString ) - 1 ] = '\0';
 
-			auto pTextMessage = GETHUDCLASS( CHudTextMessage );
-
-			if( pTextMessage )
-				pTextMessage->MsgFunc_TextMsg( NULL, strlen( tempString ) + 1, tempString );
+			UTIL_LocalizedTextMsg( HUD_PRINTCENTER, "%s", Localize().BufferedLocaliseTextString( "#Spec_Duck" ) );
 		}
 		
 		sprintf(bottomText,"#Spec_Mode%d", g_iUser1 );

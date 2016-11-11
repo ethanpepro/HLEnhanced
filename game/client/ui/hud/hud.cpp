@@ -506,6 +506,7 @@ COM_FileBase
 ============
 */
 // Extracts the base name of a file (no path, no extension, assumes '/' as path separator)
+//TODO: move (declarations too) - Solokiller
 void COM_FileBase ( const char *in, char *out)
 {
 	int len, start, end;

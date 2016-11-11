@@ -15,7 +15,6 @@
 #include "Exports.h"
 
 #include "shared/CLocalize.h"
-#include "CHudTextMessage.h"
 
 /*
 ==========================
@@ -283,15 +282,7 @@ void SpectatorPanel::ShowMenu(bool isVisible)
 		// if switching from visible menu to invisible menu, show help text
 		if ( m_menuVisible && this->isVisible() )
 		{
-			if( auto pTextMessage = GETHUDCLASS( CHudTextMessage ) )
-			{
-				char string[ 64 ];
-
-				_snprintf( string, sizeof( string ) - 1, "%c%s", HUD_PRINTCENTER, Localize().BufferedLocaliseTextString( "#Spec_Duck" ) );
-				string[ sizeof( string ) - 1 ] = '\0';
-
-				pTextMessage->MsgFunc_TextMsg( NULL, strlen( string ) + 1, string );
-			}
+			UTIL_LocalizedTextMsg( HUD_PRINTCENTER, "%s", Localize().BufferedLocaliseTextString( "#Spec_Duck" ) );
 		}
 	}
 

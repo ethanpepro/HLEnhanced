@@ -22,6 +22,12 @@
 #include "cl_util.h"
 #include <string.h>
 
+#include "CHudSayText.h"
+
+#include "vgui_TeamFortressViewport.h"
+
+#include "shared/CLocalize.h"
+
 HSPRITE LoadSprite( const char* const pszName )
 {
 	char sz[ MAX_PATH ];
@@ -77,4 +83,67 @@ void ScaleColors( int& r, int& g, int& b, const int a )
 bool UTIL_GetPlayerUniqueID( int iPlayer, char playerID[ PLAYERID_BUFFER_SIZE ] )
 {
 	return !!gEngfuncs.GetPlayerUniqueID( iPlayer, playerID );
+}
+
+void UTIL_TextMsg( const ClientPrintDest msgDest,
+				   const char* pszMessage,
+				   const char* pszString1, const char* pszString2, const char* pszString3, const char* pszString4 )
+{
+	static char szBuf[ MSG_BUF_SIZE ];
+
+	if( gViewPort && !gViewPort->AllowedToPrintText() )
+		return;
+
+	switch( msgDest )
+	{
+	case HUD_PRINTCENTER:
+		safe_sprintf( szBuf, MSG_BUF_SIZE, pszMessage, pszString1, pszString2, pszString3, pszString4 );
+		CenterPrint( UTIL_ConvertCRtoNL( szBuf ) );
+		break;
+
+	case HUD_PRINTNOTIFY:
+		szBuf[ 0 ] = 1;  // mark this message to go into the notify buffer
+		safe_sprintf( szBuf + 1, MSG_BUF_SIZE, pszMessage, pszString1, pszString2, pszString3, pszString4 );
+		ConsolePrint( UTIL_ConvertCRtoNL( szBuf ) );
+		break;
+
+	case HUD_PRINTTALK:
+		if( auto pSayText = GETHUDCLASS( CHudSayText ) )
+		{
+			safe_sprintf( szBuf, MSG_BUF_SIZE, pszMessage, pszString1, pszString2, pszString3, pszString4 );
+			pSayText->SayTextPrint( UTIL_ConvertCRtoNL( szBuf ), MSG_BUF_SIZE );
+		}
+		break;
+
+	case HUD_PRINTCONSOLE:
+		safe_sprintf( szBuf, MSG_BUF_SIZE, pszMessage, pszString1, pszString2, pszString3, pszString4 );
+		ConsolePrint( UTIL_ConvertCRtoNL( szBuf ) );
+		break;
+	}
+}
+
+void UTIL_LocalizedTextMsg( const ClientPrintDest msgDest,
+							const char* pszMessage,
+							const char* pszString1, const char* pszString2, const char* pszString3, const char* pszString4 )
+{
+	if( gViewPort && !gViewPort->AllowedToPrintText() )
+		return;
+
+	char szBuf[ 5 ][ MSG_BUF_SIZE ];
+
+	int msg_dest = msgDest;
+
+	char* msg_text = safe_strcpy( szBuf[ 0 ], Localize().LookupString( pszMessage, &msg_dest ), MSG_BUF_SIZE );
+
+	// keep reading strings and using C format strings for subsituting the strings into the localised text string
+	char* sstr1 = safe_strcpy( szBuf[ 1 ], Localize().LookupString( pszString1 ), MSG_BUF_SIZE );
+	UTIL_StripEndNewlineFromString( sstr1 );  // these strings are meant for subsitution into the main strings, so cull the automatic end newlines
+	char* sstr2 = safe_strcpy( szBuf[ 2 ], Localize().LookupString( pszString2 ), MSG_BUF_SIZE );
+	UTIL_StripEndNewlineFromString( sstr2 );
+	char* sstr3 = safe_strcpy( szBuf[ 3 ], Localize().LookupString( pszString3 ), MSG_BUF_SIZE );
+	UTIL_StripEndNewlineFromString( sstr3 );
+	char* sstr4 = safe_strcpy( szBuf[ 4 ], Localize().LookupString( pszString4 ), MSG_BUF_SIZE );
+	UTIL_StripEndNewlineFromString( sstr4 );
+
+	UTIL_TextMsg( static_cast<ClientPrintDest>( msg_dest ), msg_text, sstr1, sstr2, sstr3, sstr4 );
 }

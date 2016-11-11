@@ -275,4 +275,21 @@ inline void UnpackRGB( int& r, int& g, int& b, unsigned long ulRGB )
 */
 bool UTIL_GetPlayerUniqueID( int iPlayer, char playerID[ PLAYERID_BUFFER_SIZE ] );
 
+#define MSG_BUF_SIZE 128
+
+/**
+*	Prints a text message with up to 4 string arguments.
+*/
+void UTIL_TextMsg( const ClientPrintDest msgDest, 
+				   const char* pszMessage, 
+				   const char* pszString1 = nullptr, const char* pszString2 = nullptr, const char* pszString3 = nullptr, const char* pszString4 = nullptr );
+
+/**
+*	Localized version of UTIL_TextMsg.
+*	@see UTIL_TextMsg
+*/
+void UTIL_LocalizedTextMsg( const ClientPrintDest msgDest,
+				   const char* pszMessage,
+				   const char* pszString1 = nullptr, const char* pszString2 = nullptr, const char* pszString3 = nullptr, const char* pszString4 = nullptr );
+
 #endif //GAME_CLIENT_CL_UTIL_H
