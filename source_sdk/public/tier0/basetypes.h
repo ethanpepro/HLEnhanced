@@ -66,26 +66,8 @@ inline T AlignValue( T val, unsigned alignment )
 // In case this ever changes
 #define M_PI			3.14159265358979323846
 
-#ifndef min
-	#define min(a,b)  (((a) < (b)) ? (a) : (b))
-#endif
-
-#ifndef max
-	#define max(a,b)  (((a) > (b)) ? (a) : (b))
-#endif
-
-#ifdef __cplusplus
-	template< class T >
-	inline T clamp( T const &val, T const &minVal, T const &maxVal )
-	{
-		if( val < minVal )
-			return minVal;
-		else if( val > maxVal )
-			return maxVal;
-		else
-			return val;
-	}
-#endif
+//Replaced the Source SDK defs with this include, since it was conflicting. - Solokiller
+#include "MinMax.h"
 
 #ifndef FALSE
 #define FALSE 0

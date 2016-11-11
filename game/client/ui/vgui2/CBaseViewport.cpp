@@ -1,5 +1,3 @@
-//TODO: resolve conflicts - Solokiller
-#define NO_CLAMP_DEF
 #include "hud.h"
 #include "cl_util.h"
 #include "demo_api.h"

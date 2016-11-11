@@ -19,10 +19,6 @@ enum
 
 using namespace vgui2;
 
-#ifndef max
-#define max(a,b)            (((a) > (b)) ? (a) : (b))
-#endif
-
 namespace vgui2
 {
 	

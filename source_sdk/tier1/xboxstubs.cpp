@@ -10,6 +10,7 @@
 #ifndef _XBOX
 
 #ifdef _WIN32
+#define NOMINMAX
 #include <windows.h>
 #elif _LINUX
 #define ERROR_GEN_FAILURE 1

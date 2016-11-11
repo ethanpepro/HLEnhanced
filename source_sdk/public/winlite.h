@@ -18,6 +18,7 @@
 #define NOSERVICE
 #define NOMCX
 #define NOIME
+#define NOMINMAX
 #ifndef _XBOX
 #include <windows.h>
 #endif

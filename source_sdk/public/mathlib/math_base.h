@@ -600,11 +600,6 @@ template <class T> FORCEINLINE_TEMPLATE T AVG(T a, T b)
 // XYZ macro, for printf type functions - ex printf("%f %f %f",XYZ(myvector));
 #define XYZ(v) (v).x,(v).y,(v).z
 
-//
-// Returns a clamped value in the range [min, max].
-//
-#define clamp(val, min, max) (((val) > (max)) ? (max) : (((val) < (min)) ? (min) : (val)))
-
 inline float Sign( float x )
 {
 	return (x <0.0f) ? -1.0f : 1.0f;

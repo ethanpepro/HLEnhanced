@@ -11,6 +11,7 @@
 #include "xbox/xbox_win32stubs.h"
 #endif
 #if defined(_WIN32) && !defined(_XBOX)
+#define NOMINMAX
 #include <windows.h>		// for WideCharToMultiByte and MultiByteToWideChar
 #elif defined(_LINUX)
 #include <wchar.h> // wcslen()

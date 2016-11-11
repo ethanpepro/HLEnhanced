@@ -73,6 +73,7 @@ preprocess_sources()
 include_directories(
 	${CMAKE_SOURCE_DIR}/source_sdk/public
 	${CMAKE_SOURCE_DIR}/source_sdk/public/tier1
+	${CMAKE_SOURCE_DIR}/common
 	${CMAKE_SOURCE_DIR}/public
 	${CMAKE_SOURCE_DIR}
 )

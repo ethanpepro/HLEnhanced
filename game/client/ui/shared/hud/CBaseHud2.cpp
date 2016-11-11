@@ -1,5 +1,3 @@
-//TODO
-#define NO_CLAMP_DEF
 #include "hud.h"
 #include "cl_util.h"
 

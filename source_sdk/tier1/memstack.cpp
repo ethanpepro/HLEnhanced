@@ -7,6 +7,7 @@
 #if defined(_WIN32)
 #if !defined(_XBOX)
 #define WIN_32_LEAN_AND_MEAN
+#define NOMINMAX
 #include <windows.h>
 #define VA_COMMIT_FLAGS MEM_COMMIT
 #else
