@@ -6,6 +6,7 @@ add_sources(
 )
 
 add_subdirectory( hud )
+add_subdirectory( shared )
 add_subdirectory( vgui )
 
 if( USE_VGUI2 )

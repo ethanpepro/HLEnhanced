@@ -7,4 +7,4 @@ add_sources(
 	ViewportPanelNames.h
 )
 
-add_subdirectory( hud )
+#add_subdirectory( hud )
