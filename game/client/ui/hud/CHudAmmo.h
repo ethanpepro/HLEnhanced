@@ -47,8 +47,8 @@ public:
 
 	CHudAmmo( const char* const pszName );
 
-	bool Init() override;
-	bool VidInit() override;
+	void Init() override;
+	void VidInit() override;
 	bool Draw( float flTime ) override;
 	void Think() override;
 	void Reset() override;

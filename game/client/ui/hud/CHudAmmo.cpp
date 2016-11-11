@@ -85,7 +85,7 @@ CHudAmmo::CHudAmmo( const char* const pszName )
 {
 }
 
-bool CHudAmmo::Init()
+void CHudAmmo::Init()
 {
 	HOOK_MESSAGE(CurWeapon);
 	HOOK_MESSAGE(AmmoPickup);
@@ -124,9 +124,7 @@ bool CHudAmmo::Init()
 	}
 
 	gHR.Init();
-
-	return true;
-};
+}
 
 void CHudAmmo::Reset()
 {
@@ -146,7 +144,7 @@ void CHudAmmo::Reset()
 	gHR.Reset();
 }
 
-bool CHudAmmo::VidInit()
+void CHudAmmo::VidInit()
 {
 	// Load sprites for buckets (top row of weapon menu)
 	m_HUD_bucket0 = gHUD.GetSpriteIndex( "bucket1" );
@@ -170,8 +168,6 @@ bool CHudAmmo::VidInit()
 	}
 
 	m_pWeapon = nullptr;
-
-	return true;
 }
 
 //

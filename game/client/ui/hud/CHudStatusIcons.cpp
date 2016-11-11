@@ -38,18 +38,15 @@ CHudStatusIcons::CHudStatusIcons( const char* const pszName )
 {
 }
 
-bool CHudStatusIcons::Init()
+void CHudStatusIcons::Init()
 {
 	HOOK_MESSAGE( StatusIcon );
 
 	Reset();
-
-	return true;
 }
 
-bool CHudStatusIcons::VidInit()
+void CHudStatusIcons::VidInit()
 {
-	return true;
 }
 
 void CHudStatusIcons::Reset()

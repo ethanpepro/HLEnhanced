@@ -39,8 +39,8 @@ public:
 
 	CHudMessage( const char* const pszName );
 
-	bool Init() override;
-	bool VidInit() override;
+	void Init() override;
+	void VidInit() override;
 	bool Draw( float flTime ) override;
 	int MsgFunc_HudText( const char *pszName, int iSize, void *pbuf );
 	int MsgFunc_HudTextPro( const char *pszName, int iSize, void *pbuf );

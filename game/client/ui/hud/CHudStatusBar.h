@@ -22,8 +22,8 @@ public:
 
 	CHudStatusBar( const char* const pszName );
 
-	bool Init() override;
-	bool VidInit() override;
+	void Init() override;
+	void VidInit() override;
 	bool Draw( float flTime );
 	void Reset();
 	void ParseStatusString( int line_num );

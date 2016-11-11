@@ -44,7 +44,7 @@ CHudSayText::CHudSayText( const char* const pszName )
 {
 }
 
-bool CHudSayText::Init()
+void CHudSayText::Init()
 {
 	HOOK_MESSAGE( SayText );
 
@@ -54,8 +54,6 @@ bool CHudSayText::Init()
 	m_HUD_saytext_time =	gEngfuncs.pfnRegisterVariable( "hud_saytext_time", "5", 0 );
 
 	GetFlags() |= HUD_INTERMISSION; // is always drawn during an intermission
-
-	return true;
 }
 
 
@@ -66,9 +64,8 @@ void CHudSayText::InitHUDData()
 	memset( m_iNameLengths, 0, sizeof( m_iNameLengths ) );
 }
 
-bool CHudSayText::VidInit()
+void CHudSayText::VidInit()
 {
-	return true;
 }
 
 

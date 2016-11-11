@@ -38,9 +38,9 @@ public:
 
 	CHudDeathNotice( const char* const pszName );
 
-	bool Init() override;
+	void Init() override;
 	void InitHUDData() override;
-	bool VidInit() override;
+	void VidInit() override;
 	bool Draw( float flTime ) override;
 	int MsgFunc_DeathMsg( const char *pszName, int iSize, void *pbuf );
 

@@ -31,9 +31,9 @@ public:
 
 	CHudSayText( const char* const pszName );
 
-	bool Init() override;
+	void Init() override;
 	void InitHUDData() override;
-	bool VidInit() override;
+	void VidInit() override;
 	bool Draw( float flTime ) override;
 	int MsgFunc_SayText( const char *pszName, int iSize, void *pbuf );
 	void SayTextPrint( const char *pszBuf, size_t uiBufSize, int clientIndex = -1 );

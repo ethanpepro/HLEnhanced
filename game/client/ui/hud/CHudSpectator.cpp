@@ -181,7 +181,7 @@ CHudSpectator::CHudSpectator( const char* const pszName )
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-bool CHudSpectator::Init()
+void CHudSpectator::Init()
 {
 	GetFlags() |= HUD_ACTIVE;
 	m_flNextObserverInput = 0.0f;
@@ -213,10 +213,7 @@ bool CHudSpectator::Init()
 	if ( !m_drawnames || !m_drawcone || !m_drawstatus || !m_autoDirector || !m_pip)
 	{
 		gEngfuncs.Con_Printf("ERROR! Couldn't register all spectator variables.\n");
-		return 0;
 	}
-
-	return true;
 }
 
 int UTIL_FindEntityInMap( const char* const pszName, Vector& vecOrigin, Vector& vecAngle )
@@ -555,7 +552,7 @@ bool CHudSpectator::GetDirectorCamera( Vector &position, Vector &angle)
 //-----------------------------------------------------------------------------
 // Purpose: Loads new icons
 //-----------------------------------------------------------------------------
-bool CHudSpectator::VidInit()
+void CHudSpectator::VidInit()
 {
 	m_hsprPlayer		= SPR_Load("sprites/iplayer.spr");
 	m_hsprPlayerBlue	= SPR_Load("sprites/iplayerblue.spr");
@@ -572,8 +569,6 @@ bool CHudSpectator::VidInit()
 	m_iSpectatorNumber = 0;
 	iJumpSpectator	= 0;
 	g_iUser1 = g_iUser2 = 0;
-	
-	return true;
 }
 
 float CHudSpectator::GetFOV()

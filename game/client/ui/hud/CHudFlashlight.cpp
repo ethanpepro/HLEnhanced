@@ -43,7 +43,7 @@ CHudFlashlight::CHudFlashlight( const char* const pszName )
 {
 }
 
-bool CHudFlashlight::Init()
+void CHudFlashlight::Init()
 {
 	m_fFade = 0;
 	m_fOn = 0;
@@ -52,8 +52,6 @@ bool CHudFlashlight::Init()
 	HOOK_MESSAGE(FlashBat);
 
 	GetFlags() |= HUD_ACTIVE;
-
-	return true;
 }
 
 void CHudFlashlight::Reset()
@@ -62,7 +60,7 @@ void CHudFlashlight::Reset()
 	m_fOn = 0;
 }
 
-bool CHudFlashlight::VidInit()
+void CHudFlashlight::VidInit()
 {
 	int HUD_flash_empty = gHUD.GetSpriteIndex( "flash_empty" );
 	int HUD_flash_full = gHUD.GetSpriteIndex( "flash_full" );
@@ -75,8 +73,6 @@ bool CHudFlashlight::VidInit()
 	m_prc2 = &gHUD.GetSpriteRect(HUD_flash_full);
 	m_prcBeam = &gHUD.GetSpriteRect(HUD_flash_beam);
 	m_iWidth = m_prc2->right - m_prc2->left;
-
-	return true;
 }
 
 int CHudFlashlight:: MsgFunc_FlashBat(const char *pszName,  int iSize, void *pbuf )

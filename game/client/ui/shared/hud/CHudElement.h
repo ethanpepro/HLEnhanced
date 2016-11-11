@@ -39,15 +39,13 @@ public:
 
 	/**
 	*	Called when the client is initializing.
-	*	@return true on success, false otherwise. Ignored.
 	*/
-	virtual bool Init() { return false; }
+	virtual void Init() {}
 
 	/**
 	*	Called after a connection to a server has been established.
-	*	@return true on success, false otherwise. Ignored.
 	*/
-	virtual bool VidInit() { return false; }
+	virtual void VidInit() {}
 
 	/**
 	*	Step through the local data,  placing the appropriate graphics & text as appropriate

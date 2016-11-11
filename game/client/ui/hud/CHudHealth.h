@@ -50,8 +50,8 @@ public:
 
 	CHudHealth( const char* const pszName );
 
-	bool Init() override;
-	bool VidInit() override;
+	void Init() override;
+	void VidInit() override;
 	bool Draw( float fTime ) override;
 	void Reset()  override;
 	int MsgFunc_Health(const char *pszName,  int iSize, void *pbuf);

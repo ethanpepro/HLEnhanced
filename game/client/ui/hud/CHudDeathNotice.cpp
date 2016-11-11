@@ -39,13 +39,11 @@ CHudDeathNotice::CHudDeathNotice( const char* const pszName )
 {
 }
 
-bool CHudDeathNotice::Init()
+void CHudDeathNotice::Init()
 {
 	HOOK_MESSAGE( DeathMsg );
 
 	m_phud_deathnotice_time = CVAR_CREATE( "hud_deathnotice_time", "6", 0 );
-
-	return true;
 }
 
 
@@ -55,11 +53,9 @@ void CHudDeathNotice::InitHUDData()
 }
 
 
-bool CHudDeathNotice::VidInit()
+void CHudDeathNotice::VidInit()
 {
 	m_HUD_d_skull = gHUD.GetSpriteIndex( "d_skull" );
-
-	return true;
 }
 
 bool CHudDeathNotice::Draw( float flTime )

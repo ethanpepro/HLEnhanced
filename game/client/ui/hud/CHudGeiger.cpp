@@ -39,7 +39,7 @@ CHudGeiger::CHudGeiger( const char* const pszName )
 {
 }
 
-bool CHudGeiger::Init()
+void CHudGeiger::Init()
 {
 	HOOK_MESSAGE( Geiger );
 
@@ -47,13 +47,10 @@ bool CHudGeiger::Init()
 	GetFlags() = 0;
 
 	srand( (unsigned)time( NULL ) );
-
-	return true;
 }
 
-bool CHudGeiger::VidInit()
+void CHudGeiger::VidInit()
 {
-	return true;
 }
 
 int CHudGeiger::MsgFunc_Geiger(const char *pszName,  int iSize, void *pbuf)

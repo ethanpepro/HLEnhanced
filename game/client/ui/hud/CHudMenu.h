@@ -25,9 +25,9 @@ public:
 
 	CHudMenu( const char* const pszName );
 
-	bool Init() override;
+	void Init() override;
 	void InitHUDData() override;
-	bool VidInit() override;
+	void VidInit() override;
 	void Reset()  override;
 	bool Draw( float flTime );
 	int MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf );

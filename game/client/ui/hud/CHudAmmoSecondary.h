@@ -22,8 +22,8 @@ public:
 
 	CHudAmmoSecondary( const char* const pszName );
 
-	bool Init() override;
-	bool VidInit() override;
+	void Init() override;
+	void VidInit() override;
 	void Reset() override;
 	bool Draw( float flTime ) override;
 

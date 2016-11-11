@@ -38,7 +38,7 @@ CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName )
 {
 }
 
-bool CHudAmmoSecondary::Init()
+void CHudAmmoSecondary::Init()
 {
 	HOOK_MESSAGE( SecAmmoVal );
 	HOOK_MESSAGE( SecAmmoIcon );
@@ -49,8 +49,6 @@ bool CHudAmmoSecondary::Init()
 		m_iAmmoAmounts[i] = -1;  // -1 means don't draw this value
 
 	Reset();
-
-	return true;
 }
 
 void CHudAmmoSecondary::Reset()
@@ -58,9 +56,8 @@ void CHudAmmoSecondary::Reset()
 	m_fFade = 0;
 }
 
-bool CHudAmmoSecondary::VidInit()
+void CHudAmmoSecondary::VidInit()
 {
-	return true;
 }
 
 bool CHudAmmoSecondary::Draw(float flTime)

@@ -22,7 +22,7 @@ public:
 
 	CHudTextMessage( const char* const pszName );
 
-	bool Init() override;
+	void Init() override;
 	int MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf );
 };
 

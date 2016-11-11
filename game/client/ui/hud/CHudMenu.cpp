@@ -42,13 +42,11 @@ CHudMenu::CHudMenu( const char* const pszName )
 {
 }
 
-bool CHudMenu::Init()
+void CHudMenu::Init()
 {
 	HOOK_MESSAGE( ShowMenu );
 
 	InitHUDData();
-
-	return true;
 }
 
 void CHudMenu::InitHUDData()
@@ -64,9 +62,8 @@ void CHudMenu::Reset()
 	m_fWaitingForMore = false;
 }
 
-bool CHudMenu::VidInit()
+void CHudMenu::VidInit()
 {
-	return true;
 }
 
 

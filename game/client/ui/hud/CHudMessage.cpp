@@ -38,22 +38,18 @@ CHudMessage::CHudMessage( const char* const pszName )
 {
 }
 
-bool CHudMessage::Init()
+void CHudMessage::Init()
 {
 	HOOK_MESSAGE( HudText );
 	HOOK_MESSAGE( GameTitle );
 
 	Reset();
-
-	return true;
 }
 
-bool CHudMessage::VidInit()
+void CHudMessage::VidInit()
 {
 	m_HUD_title_half = gHUD.GetSpriteIndex( "title_half" );
 	m_HUD_title_life = gHUD.GetSpriteIndex( "title_life" );
-
-	return true;
 }
 
 

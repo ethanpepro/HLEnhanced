@@ -406,18 +406,15 @@ void CHudBenchmark::Think( void )
 }
 
 
-bool CHudBenchmark::Init()
+void CHudBenchmark::Init()
 {
 	HOOK_COMMAND( "ppdemostart", BenchMark );
 
 	HOOK_MESSAGE(Bench);
-
-	return true;
 }
 
-bool CHudBenchmark::VidInit()
+void CHudBenchmark::VidInit()
 {
-	return true;
 }
 
 int CHudBenchmark::Bench_ScoreForValue( int stage, float raw )

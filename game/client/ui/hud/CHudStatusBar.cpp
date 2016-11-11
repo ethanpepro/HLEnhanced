@@ -47,7 +47,7 @@ CHudStatusBar::CHudStatusBar( const char* const pszName )
 {
 }
 
-bool CHudStatusBar::Init()
+void CHudStatusBar::Init()
 {
 	HOOK_MESSAGE( StatusText );
 	HOOK_MESSAGE( StatusValue );
@@ -55,15 +55,11 @@ bool CHudStatusBar::Init()
 	Reset();
 
 	CVAR_CREATE( "hud_centerid", "0", FCVAR_ARCHIVE );
-
-	return true;
 }
 
-bool CHudStatusBar::VidInit()
+void CHudStatusBar::VidInit()
 {
 	// Load sprites here
-
-	return true;
 }
 
 void CHudStatusBar::Reset()

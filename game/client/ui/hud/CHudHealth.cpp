@@ -63,7 +63,7 @@ CHudHealth::CHudHealth( const char* const pszName )
 {
 }
 
-bool CHudHealth::Init()
+void CHudHealth::Init()
 {
 	HOOK_MESSAGE(Health);
 	HOOK_MESSAGE(Damage);
@@ -76,8 +76,6 @@ bool CHudHealth::Init()
 	m_iDmgWidth = 0;
 
 	memset(m_dmg, 0, sizeof(DAMAGE_IMAGE) * NUM_DMG_TYPES);
-
-	return true;
 }
 
 void CHudHealth::Reset()
@@ -94,7 +92,7 @@ void CHudHealth::Reset()
 	}
 }
 
-bool CHudHealth::VidInit()
+void CHudHealth::VidInit()
 {
 	m_hSprite = 0;
 
@@ -103,7 +101,6 @@ bool CHudHealth::VidInit()
 
 	m_iDmgHeight = gHUD.GetSpriteRect(m_HUD_dmg_bio).right - gHUD.GetSpriteRect(m_HUD_dmg_bio).left;
 	m_iDmgWidth = gHUD.GetSpriteRect(m_HUD_dmg_bio).bottom - gHUD.GetSpriteRect(m_HUD_dmg_bio).top;
-	return true;
 }
 
 int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )

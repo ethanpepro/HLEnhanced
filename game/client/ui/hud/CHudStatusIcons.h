@@ -22,8 +22,8 @@ public:
 
 	CHudStatusIcons( const char* const pszName );
 
-	bool Init() override;
-	bool VidInit() override;
+	void Init() override;
+	void VidInit() override;
 	void Reset() override;
 	bool Draw( float flTime ) override;
 	int MsgFunc_StatusIcon( const char *pszName, int iSize, void *pbuf );

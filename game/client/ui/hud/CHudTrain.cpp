@@ -37,21 +37,17 @@ CHudTrain::CHudTrain( const char* const pszName )
 {
 }
 
-bool CHudTrain::Init()
+void CHudTrain::Init()
 {
 	HOOK_MESSAGE( Train );
 
 	m_iPos = 0;
 	GetFlags() = 0;
-
-	return true;
 }
 
-bool CHudTrain::VidInit()
+void CHudTrain::VidInit()
 {
 	m_hSprite = 0;
-
-	return true;
 }
 
 bool CHudTrain::Draw(float fTime)

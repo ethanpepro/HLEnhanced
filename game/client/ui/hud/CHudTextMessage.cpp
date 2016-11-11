@@ -44,13 +44,11 @@ CHudTextMessage::CHudTextMessage( const char* const pszName )
 {
 }
 
-bool CHudTextMessage::Init()
+void CHudTextMessage::Init()
 {
 	HOOK_MESSAGE( TextMsg );
 
 	Reset();
-
-	return true;
 }
 
 // Message handler for text messages

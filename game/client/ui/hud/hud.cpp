@@ -340,8 +340,6 @@ void CHud :: Init( void )
 
 	CHudElementRegistry::CreateAllElements( *this );
 
-	//Return value is ignored in the SDK. - Solokiller
-	//TODO: make void function.
 	ForEachHudElem( &CHudElement::Init );
 
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
@@ -482,7 +480,6 @@ void CHud :: VidInit( void )
 
 	m_iFontHeight = m_rgrcRects[m_HUD_number_0].bottom - m_rgrcRects[m_HUD_number_0].top;
 
-	//Return value is ignored in the SDK - Solokiller
 	ForEachHudElem(  &CHudElement::VidInit );
 
 	GetClientVoiceMgr()->VidInit();
