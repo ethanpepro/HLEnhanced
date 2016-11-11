@@ -264,7 +264,7 @@ PLATFORM_INTERFACE VCR_t *g_pVCR;
 #define VCRGenericString						MUST_IFDEF_OUT_GenericString
 #define VCRGenericValueVerify					MUST_IFDEF_OUT_GenericValueVerify
 #define VCRGetPercentCompleted					(0.0)
-#define VCRHook_Sys_FloatTime					Sys_FloatTime
+#define VCRHook_Sys_FloatTime					Plat_FloatTime
 #define VCRHook_PeekMessage						PeekMessage
 #define VCRHook_RecordGameMsg					RecordGameMsg
 #define VCRHook_RecordEndGameMsg				RecordEndGameMsg
