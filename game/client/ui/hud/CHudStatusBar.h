@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDSTATUSBAR_H
 #define GAME_CLIENT_UI_HUD_CHUDSTATUSBAR_H
 
-class CHudStatusBar : public CHudBase
+class CHudStatusBar : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudStatusBar, CHudBase );
+	DECLARE_CLASS( CHudStatusBar, CHudElement );
 
 	CHudStatusBar( const char* const pszName );
 

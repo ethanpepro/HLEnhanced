@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDFLASHLIGHT_H
 #define GAME_CLIENT_UI_HUD_CHUDFLASHLIGHT_H
 
-class CHudFlashlight : public CHudBase
+class CHudFlashlight : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudFlashlight, CHudBase );
+	DECLARE_CLASS( CHudFlashlight, CHudElement );
 
 	CHudFlashlight( const char* const pszName );
 

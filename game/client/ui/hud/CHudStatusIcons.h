@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDSTATUSICONS_H
 #define GAME_CLIENT_UI_HUD_CHUDSTATUSICONS_H
 
-class CHudStatusIcons : public CHudBase
+class CHudStatusIcons : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudStatusIcons, CHudBase );
+	DECLARE_CLASS( CHudStatusIcons, CHudElement );
 
 	CHudStatusIcons( const char* const pszName );
 

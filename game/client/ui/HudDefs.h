@@ -19,14 +19,6 @@ enum HudFlag
 	HUD_INTERMISSION	= 2,
 };
 
-class CHudBase;
-
-struct HUDLIST
-{
-	CHudBase* p;
-	HUDLIST* pNext;
-};
-
 #define FADE_TIME 100
 
 #define MAX_SPRITE_NAME_LENGTH	24

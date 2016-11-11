@@ -17,7 +17,7 @@
 
 struct cvar_t;
 
-class CHudSayText : public CHudBase
+class CHudSayText : public CHudElement
 {
 private:
 	static const size_t MAX_LINES = 5;
@@ -27,7 +27,7 @@ private:
 	static const size_t MAX_CHARS_PER_LINE = 256;
 
 public:
-	DECLARE_CLASS( CHudSayText, CHudBase );
+	DECLARE_CLASS( CHudSayText, CHudElement );
 
 	CHudSayText( const char* const pszName );
 

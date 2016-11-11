@@ -19,7 +19,7 @@
 
 class CBasePlayerWeapon;
 
-class CHudAmmo : public CHudBase
+class CHudAmmo : public CHudElement
 {
 private:
 	/**
@@ -43,7 +43,7 @@ private:
 		CROSS_USERSCALE = 2,
 	};
 public:
-	DECLARE_CLASS( CHudAmmo, CHudBase );
+	DECLARE_CLASS( CHudAmmo, CHudElement );
 
 	CHudAmmo( const char* const pszName );
 

@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDBATTERY_H
 #define GAME_CLIENT_UI_HUD_CHUDBATTERY_H
 
-class CHudBattery : public CHudBase
+class CHudBattery : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudBattery, CHudBase );
+	DECLARE_CLASS( CHudBattery, CHudElement );
 
 	CHudBattery( const char* const pszName );
 

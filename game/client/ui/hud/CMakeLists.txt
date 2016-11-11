@@ -6,7 +6,6 @@ add_sources(
 	CHudAmmo.cpp
 	CHudAmmoSecondary.h
 	CHudAmmoSecondary.cpp
-	CHudBase.h
 	CHudBattery.h
 	CHudBattery.cpp
 	CHudBenchmark.h

@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDTEXTMESSAGE_H
 #define GAME_CLIENT_UI_HUD_CHUDTEXTMESSAGE_H
 
-class CHudTextMessage : public CHudBase
+class CHudTextMessage : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudTextMessage, CHudBase );
+	DECLARE_CLASS( CHudTextMessage, CHudElement );
 
 	CHudTextMessage( const char* const pszName );
 

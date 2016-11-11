@@ -15,7 +15,7 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDDEATHNOTICE_H
 #define GAME_CLIENT_UI_HUD_CHUDDEATHNOTICE_H
 
-class CHudDeathNotice : public CHudBase
+class CHudDeathNotice : public CHudElement
 {
 private:
 	struct DeathNoticeItem
@@ -34,7 +34,7 @@ private:
 	static const size_t MAX_DEATHNOTICES = 4;
 
 public:
-	DECLARE_CLASS( CHudDeathNotice, CHudBase );
+	DECLARE_CLASS( CHudDeathNotice, CHudElement );
 
 	CHudDeathNotice( const char* const pszName );
 

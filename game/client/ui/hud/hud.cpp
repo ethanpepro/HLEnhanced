@@ -342,7 +342,7 @@ void CHud :: Init( void )
 
 	//Return value is ignored in the SDK. - Solokiller
 	//TODO: make void function.
-	ForEachHudElem( &CHudBase::Init );
+	ForEachHudElem( &CHudElement::Init );
 
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 
@@ -366,7 +366,7 @@ CHud :: ~CHud()
 void CHud::ResetHUD()
 {
 	// clear all hud data
-	ForEachHudElem( &CHudBase::Reset );
+	ForEachHudElem( &CHudElement::Reset );
 
 	// reset sensitivity
 	m_flMouseSensitivity = 0;
@@ -483,7 +483,7 @@ void CHud :: VidInit( void )
 	m_iFontHeight = m_rgrcRects[m_HUD_number_0].bottom - m_rgrcRects[m_HUD_number_0].top;
 
 	//Return value is ignored in the SDK - Solokiller
-	ForEachHudElem(  &CHudBase::VidInit );
+	ForEachHudElem(  &CHudElement::VidInit );
 
 	GetClientVoiceMgr()->VidInit();
 }

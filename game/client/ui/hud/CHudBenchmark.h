@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDBENCHMARK_H
 #define GAME_CLIENT_UI_HUD_CHUDBENCHMARK_H
 
-class CHudBenchmark : public CHudBase
+class CHudBenchmark : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudBenchmark, CHudBase );
+	DECLARE_CLASS( CHudBenchmark, CHudElement );
 
 	CHudBenchmark( const char* const pszName );
 

@@ -32,10 +32,10 @@ struct message_parms_t
 	float fadeTime;
 };
 
-class CHudMessage : public CHudBase
+class CHudMessage : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudMessage, CHudBase );
+	DECLARE_CLASS( CHudMessage, CHudElement );
 
 	CHudMessage( const char* const pszName );
 

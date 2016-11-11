@@ -15,13 +15,13 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDMENU_H
 #define GAME_CLIENT_UI_HUD_CHUDMENU_H
 
-class CHudMenu : public CHudBase
+class CHudMenu : public CHudElement
 {
 private:
 	static const size_t MAX_MENU_STRING = 512;
 
 public:
-	DECLARE_CLASS( CHudMenu, CHudBase );
+	DECLARE_CLASS( CHudMenu, CHudElement );
 
 	CHudMenu( const char* const pszName );
 

@@ -3,6 +3,7 @@
 
 #include "shared_game_utils.h"
 #include "entities/DataMapping.h"
+#include "CBitSet.h"
 
 /**
 *	Base class for Hud elements.
@@ -11,6 +12,8 @@ class CHudElement
 {
 public:
 	DECLARE_CLASS_NOBASE( CHudElement );
+
+	using Flags_t = CBitSet<int>;
 
 public:
 	/**
@@ -24,8 +27,54 @@ public:
 	*/
 	const char* GetName() const { return m_pszName; }
 
+	/**
+	*	@return This Hud element's flags.
+	*/
+	const Flags_t& GetFlags() const { return m_Flags; }
+
+	/**
+	*	@copydoc GetFlags() const
+	*/
+	Flags_t& GetFlags() { return m_Flags; }
+
+	/**
+	*	Called when the client is initializing.
+	*	@return true on success, false otherwise. Ignored.
+	*/
+	virtual bool Init() { return false; }
+
+	/**
+	*	Called after a connection to a server has been established.
+	*	@return true on success, false otherwise. Ignored.
+	*/
+	virtual bool VidInit() { return false; }
+
+	/**
+	*	Step through the local data,  placing the appropriate graphics & text as appropriate
+	*	@param flTime Current time.
+	*	@return true if they've changed, false otherwise
+	*/
+	virtual bool Draw( float flTime ) { return false; }
+
+	/**
+	*	Called every time shared client dll/engine data gets changed.
+	*/
+	virtual void Think() {}
+
+	/**
+	*	Called when the HUD needs to be reset.
+	*/
+	virtual void Reset() {}
+
+	/**
+	*	Called every time a server is connected to.
+	*/
+	virtual void InitHUDData() {}
+
 private:
 	const char* const m_pszName;
+	// active, moving,
+	Flags_t m_Flags;
 
 private:
 	CHudElement( const CHudElement& ) = delete;

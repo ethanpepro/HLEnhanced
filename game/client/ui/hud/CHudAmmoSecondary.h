@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDAMMOSECONDARY_H
 #define GAME_CLIENT_UI_HUD_CHUDAMMOSECONDARY_H
 
-class CHudAmmoSecondary : public CHudBase
+class CHudAmmoSecondary : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudAmmoSecondary, CHudBase );
+	DECLARE_CLASS( CHudAmmoSecondary, CHudElement );
 
 	CHudAmmoSecondary( const char* const pszName );
 

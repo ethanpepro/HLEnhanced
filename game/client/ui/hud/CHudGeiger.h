@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDGEIGER_H
 #define GAME_CLIENT_UI_HUD_CHUDGEIGER_H
 
-class CHudGeiger : public CHudBase
+class CHudGeiger : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudGeiger, CHudBase );
+	DECLARE_CLASS( CHudGeiger, CHudElement );
 
 	CHudGeiger( const char* const pszName );
 

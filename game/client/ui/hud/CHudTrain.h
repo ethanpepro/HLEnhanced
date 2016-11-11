@@ -15,10 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDTRAIN_H
 #define GAME_CLIENT_UI_HUD_CHUDTRAIN_H
 
-class CHudTrain : public CHudBase
+class CHudTrain : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudTrain, CHudBase );
+	DECLARE_CLASS( CHudTrain, CHudElement );
 
 	CHudTrain( const char* const pszName );
 

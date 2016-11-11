@@ -43,10 +43,10 @@ struct DAMAGE_IMAGE
 //
 //-----------------------------------------------------
 //
-class CHudHealth: public CHudBase
+class CHudHealth: public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudHealth, CHudBase );
+	DECLARE_CLASS( CHudHealth, CHudElement );
 
 	CHudHealth( const char* const pszName );
 

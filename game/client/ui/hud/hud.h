@@ -31,7 +31,7 @@
 
 struct cvar_t;
 
-#include "CHudBase.h"
+#include "shared/hud/CHudElement.h"
 
 #include "voice_status.h" // base voice handling class
 
@@ -186,7 +186,7 @@ private:
 
 		for( decltype( count ) index = 0; index < count; ++index )
 		{
-			auto pElem = static_cast<CHudBase*>( GetElementByIndex( index ) );
+			auto pElem = GetElementByIndex( index );
 
 			( pElem->*function )( std::move( args )... );
 		}

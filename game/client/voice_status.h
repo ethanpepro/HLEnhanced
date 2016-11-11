@@ -80,7 +80,6 @@ public:
 				CVoiceStatus();
 	virtual		~CVoiceStatus();
 
-// CHudBase overrides.
 public:
 	
 	// Initialize the cl_dll's voice manager.

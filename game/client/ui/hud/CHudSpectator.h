@@ -64,10 +64,10 @@ struct cameraWayPoint_t
 #define	 MAX_OVERVIEW_ENTITIES		128
 #define	 MAX_CAM_WAYPOINTS			32
 
-class CHudSpectator : public CHudBase
+class CHudSpectator : public CHudElement
 {
 public:
-	DECLARE_CLASS( CHudSpectator, CHudBase );
+	DECLARE_CLASS( CHudSpectator, CHudElement );
 
 	CHudSpectator( const char* const pszName );
 

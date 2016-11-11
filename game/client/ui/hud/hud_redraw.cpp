@@ -50,7 +50,7 @@ void CHud::Think()
 
 	for( decltype( count ) index = 0; index < count; ++index )
 	{
-		auto pElem = static_cast<CHudBase*>( GetElementByIndex( index ) );
+		auto pElem = GetElementByIndex( index );
 
 		if( pElem->GetFlags() & HUD_ACTIVE )
 			pElem->Think();
@@ -154,7 +154,7 @@ bool CHud::Redraw( float flTime, int intermission )
 
 		for( decltype( count ) index = 0; index < count; ++index )
 		{
-			auto pElem = static_cast<CHudBase*>( GetElementByIndex( index ) );
+			auto pElem = GetElementByIndex( index );
 
 			if ( !Bench_Active() )
 			{
