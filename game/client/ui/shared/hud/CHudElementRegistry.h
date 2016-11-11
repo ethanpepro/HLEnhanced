@@ -5,6 +5,8 @@ class CHudElement;
 class CBaseHud;
 struct CHudDefaultableArgs;
 
+const int HUD_DEFAULT_DEPTH = 50;
+
 /**
 *	Class used to create a static list of Hud element classes.
 *	The list is sorted from deepest to shallowest element.
@@ -57,7 +59,7 @@ struct CHudDefaultableArgs final
 	*	First parameter is a dummy so this works on Linux, since pasting varargs to '(' doesn't work.
 	*	@param iDepth Depth of the element in the Hud element tree. Lower values render on top of higher values. [ 1, 100 ].
 	*/
-	CHudDefaultableArgs( const int, const int iDepth = 50 )
+	CHudDefaultableArgs( const int, const int iDepth = HUD_DEFAULT_DEPTH )
 		: m_iDepth( iDepth )
 	{
 	}

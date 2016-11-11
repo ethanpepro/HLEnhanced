@@ -18,6 +18,10 @@
 class CHudGeiger : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudGeiger, CHudBase );
+
+	CHudGeiger( const char* const pszName );
+
 	bool Init() override;
 	bool VidInit() override;
 	bool Draw( float flTime );

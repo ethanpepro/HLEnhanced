@@ -27,12 +27,15 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include "WeaponsConst.h"
 #include <string.h>
 
+#include "CHudHealth.h"
 
-DECLARE_MESSAGE(m_Health, Health )
-DECLARE_MESSAGE(m_Health, Damage )
+DECLARE_MESSAGE( CHudHealth, Health )
+DECLARE_MESSAGE( CHudHealth, Damage )
 
 #define PAIN_NAME "sprites/%d_pain.spr"
 #define DAMAGE_NAME "sprites/%d_dmg.spr"
@@ -53,6 +56,13 @@ const int giDmgFlags[NUM_DMG_TYPES] =
 	DMG_HALLUC
 };
 
+REGISTER_HUDELEMENT( CHudHealth, 95 );
+
+CHudHealth::CHudHealth( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
+
 bool CHudHealth::Init()
 {
 	HOOK_MESSAGE(Health);
@@ -67,8 +77,6 @@ bool CHudHealth::Init()
 
 	memset(m_dmg, 0, sizeof(DAMAGE_IMAGE) * NUM_DMG_TYPES);
 
-
-	gHUD.AddHudElem(this);
 	return true;
 }
 

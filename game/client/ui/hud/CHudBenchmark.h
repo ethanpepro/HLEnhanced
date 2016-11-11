@@ -18,6 +18,10 @@
 class CHudBenchmark : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudBenchmark, CHudBase );
+
+	CHudBenchmark( const char* const pszName );
+
 	bool Init() override;
 	bool VidInit() override;
 	bool Draw( float flTime ) override;
@@ -37,6 +41,11 @@ public:
 	void SetCompositeScore();
 
 	void Restart();
+
+	void UserCmd_BenchMark()
+	{
+		Restart();
+	}
 
 	int Bench_ScoreForValue( int stage, float raw );
 

@@ -19,19 +19,28 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include <string.h>
 #include <stdio.h>
 
 #include "vgui_TeamFortressViewport.h"
 
-DECLARE_MESSAGE( m_DeathNotice, DeathMsg );
+#include "CHudDeathNotice.h"
+
+DECLARE_MESSAGE( CHudDeathNotice, DeathMsg );
 
 #define DEATHNOTICE_TOP		32
 
+REGISTER_HUDELEMENT( CHudDeathNotice, 50 );
+
+CHudDeathNotice::CHudDeathNotice( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
+
 bool CHudDeathNotice::Init()
 {
-	gHUD.AddHudElem( this );
-
 	HOOK_MESSAGE( DeathMsg );
 
 	m_phud_deathnotice_time = CVAR_CREATE( "hud_deathnotice_time", "6", 0 );
@@ -133,7 +142,8 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 	if (gViewPort)
 		gViewPort->DeathMsg( killer, victim );
 
-	gHUD.m_Spectator.DeathMessage(victim);
+	if( auto pSpectator = GETHUDCLASS( CHudSpectator ) )
+		pSpectator->DeathMessage(victim);
 	int i;
 	for ( i = 0; i < MAX_DEATHNOTICES; i++ )
 	{

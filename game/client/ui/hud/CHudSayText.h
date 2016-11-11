@@ -27,6 +27,10 @@ private:
 	static const size_t MAX_CHARS_PER_LINE = 256;
 
 public:
+	DECLARE_CLASS( CHudSayText, CHudBase );
+
+	CHudSayText( const char* const pszName );
+
 	bool Init() override;
 	void InitHUDData() override;
 	bool VidInit() override;

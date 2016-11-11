@@ -24,6 +24,8 @@
 #include "cl_util.h"
 #include "vgui_TeamFortressViewport.h"
 
+#include "CHudTextMessage.h"
+
 // Team Menu Dimensions
 #define TEAMMENU_TITLE_X				XRES(40)
 #define TEAMMENU_TITLE_Y				YRES(32)
@@ -47,6 +49,8 @@
 // Creation
 CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,int tall) : CMenuPanel(iTrans, iRemoveMe, x,y,wide,tall)
 {
+	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
+
 	// Get the scheme used for the Titles
 	CSchemeManager *pSchemes = gViewPort->GetSchemeManager();
 
@@ -68,7 +72,7 @@ CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,i
 	pSchemes->getBgColor( hTitleScheme, r, g, b, a );
 	pLabel->setBgColor( r, g, b, a );
 	pLabel->setContentAlignment( vgui::Label::a_west );
-	pLabel->setText( "%s", gHUD.m_TextMessage.BufferedLocaliseTextString("#Title_SelectYourTeam"));
+	pLabel->setText( "%s", pTextMessage ? pTextMessage->BufferedLocaliseTextString("#Title_SelectYourTeam") : "" );
 
 	// Create the Info Window
 	m_pTeamWindow  = new CTransparentPanel( 255, TEAMMENU_WINDOW_X, TEAMMENU_WINDOW_Y, TEAMMENU_WINDOW_SIZE_X, TEAMMENU_WINDOW_SIZE_Y );
@@ -99,7 +103,7 @@ CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,i
 	pSchemes->getBgColor( hTeamWindowText, r, g, b, a );
 	m_pBriefing->setBgColor( r, g, b, a );
 
-	m_pBriefing->setText( gHUD.m_TextMessage.BufferedLocaliseTextString("#Map_Description_not_available") );
+	m_pBriefing->setText( pTextMessage ? pTextMessage->BufferedLocaliseTextString("#Map_Description_not_available") : "" );
 	
 	// Team Menu buttons
 	for (int i = 1; i <= 5; i++)
@@ -118,7 +122,7 @@ CTeamMenuPanel::CTeamMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,i
 		if (i == 5)
 		{
 			m_pButtons[5]->setBoundKey( '5' );
-			m_pButtons[5]->setText( gHUD.m_TextMessage.BufferedLocaliseTextString("#Team_AutoAssign") );
+			m_pButtons[5]->setText( pTextMessage ? pTextMessage->BufferedLocaliseTextString("#Team_AutoAssign") : "" );
 			m_pButtons[5]->setVisible( true );
 		}
 

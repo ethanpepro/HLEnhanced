@@ -21,6 +21,10 @@ private:
 	static const size_t MAX_MENU_STRING = 512;
 
 public:
+	DECLARE_CLASS( CHudMenu, CHudBase );
+
+	CHudMenu( const char* const pszName );
+
 	bool Init() override;
 	void InitHUDData() override;
 	bool VidInit() override;

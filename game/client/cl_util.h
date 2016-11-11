@@ -28,14 +28,24 @@
 
 // Macros to hook function calls into the HUD object
 /**
+*	Gets the Hud class instance of the given class name.
+*/
+#define GETHUDCLASS( className )									\
+( static_cast<className*>( gHUD.GetElementByName( #className ) ) )
+
+/**
 *	Declares a function that calls the HUD class method for the given network message.
 *	@param className HUD class name.
 *	@param messageName Name of the message. The HUD class method should be named MsgFunc_<messageName>.
 */
-#define DECLARE_MESSAGE( className, messageName )							\
-int __MsgFunc_##messageName( const char *pszName, int iSize, void *pbuf )	\
-{																			\
-	return gHUD.className.MsgFunc_##messageName( pszName, iSize, pbuf );	\
+#define DECLARE_MESSAGE( className, messageName )														\
+int __MsgFunc_##messageName( const char *pszName, int iSize, void *pbuf )								\
+{																										\
+	if( auto pElement = gHUD.GetElementByName( #className ) )											\
+	{																									\
+		return ( static_cast<className*>( pElement ) )->MsgFunc_##messageName( pszName, iSize, pbuf );	\
+	}																									\
+	return 0;																							\
 }
 
 /**
@@ -49,10 +59,13 @@ int __MsgFunc_##messageName( const char *pszName, int iSize, void *pbuf )	\
 *	@param className HUD class name.
 *	@param commandFuncName Name of the command. The HUD class method should be named UserCmd_<commandFuncName>.
 */
-#define DECLARE_COMMAND( className, commandFuncName )	\
-void __CmdFunc_##commandFuncName()						\
-{														\
-	gHUD.className.UserCmd_##commandFuncName();			\
+#define DECLARE_COMMAND( className, commandFuncName )							\
+void __CmdFunc_##commandFuncName()												\
+{																				\
+	if( auto pElement = gHUD.GetElementByName( #className ) )					\
+	{																			\
+		( static_cast<className*>( pElement ) )->UserCmd_##commandFuncName();	\
+	}																			\
 }
 
 /**

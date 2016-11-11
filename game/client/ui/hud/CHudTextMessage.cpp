@@ -26,15 +26,25 @@
 #include <stdio.h>
 #include "parsemsg.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include "vgui_TeamFortressViewport.h"
 
-DECLARE_MESSAGE( m_TextMessage, TextMsg );
+#include "CHudSayText.h"
+#include "CHudTextMessage.h"
+
+DECLARE_MESSAGE( CHudTextMessage, TextMsg );
+
+REGISTER_HUDELEMENT( CHudTextMessage, 40 );
+
+CHudTextMessage::CHudTextMessage( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudTextMessage::Init()
 {
 	HOOK_MESSAGE( TextMsg );
-
-	gHUD.AddHudElem( this );
 
 	Reset();
 
@@ -195,8 +205,11 @@ int CHudTextMessage::MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf
 		break;
 
 	case HUD_PRINTTALK:
-		safe_sprintf( psz, MSG_BUF_SIZE, msg_text, sstr1, sstr2, sstr3, sstr4 );
-		gHUD.m_SayText.SayTextPrint( ConvertCRtoNL( psz ), 128 );
+		if( auto pSayText = GETHUDCLASS( CHudSayText ) )
+		{
+			safe_sprintf( psz, MSG_BUF_SIZE, msg_text, sstr1, sstr2, sstr3, sstr4 );
+			pSayText->SayTextPrint( ConvertCRtoNL( psz ), 128 );
+		}
 		break;
 
 	case HUD_PRINTCONSOLE:

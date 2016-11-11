@@ -27,6 +27,9 @@
 // custom scheme handling
 #include "vgui_SchemeManager.h"
 
+#include "CHudHealth.h"
+#include "CHudSpectator.h"
+
 #define TF_DEFS_ONLY
 #ifdef _TFC
 #include "../tfc/tf_defs.h"
@@ -836,7 +839,8 @@ public:
 
 	virtual void actionPerformed(Panel* panel)
 	{
-		gHUD.m_Spectator.FindPlayer(m_szplayer);
+		if( auto pSpectator = GETHUDCLASS( CHudSpectator ) )
+			pSpectator->FindPlayer(m_szplayer);
 		gViewPort->HideCommandMenu();
 	}
 };
@@ -1752,26 +1756,31 @@ public:
 
 	void paint()
 	{
+		auto pHealth = GETHUDCLASS( CHudHealth );
+
+		if( !pHealth )
+			return;
+
 		// Get the paint color
 		int r,g,b,a = MIN_ALPHA;
 		// Has health changed? Flash the health #
-		if (gHUD.m_Health.m_fFade)
+		if ( pHealth->m_fFade)
 		{
-			gHUD.m_Health.m_fFade -= (gHUD.m_flTimeDelta * 20);
-			if (gHUD.m_Health.m_fFade <= 0)
+			pHealth->m_fFade -= (gHUD.m_flTimeDelta * 20);
+			if ( pHealth->m_fFade <= 0)
 			{
-				gHUD.m_Health.m_fFade = 0;
+				pHealth->m_fFade = 0;
 			}
 
 			// Fade the health number back to dim
-			a += ( gHUD.m_Health.m_fFade / FADE_TIME ) * 128;
+			a += ( pHealth->m_fFade / FADE_TIME ) * 128;
 		}
 
-		gHUD.m_Health.GetPainColor( r, g, b );
+		pHealth->GetPainColor( r, g, b );
 		ScaleColors(r, g, b, a );
 
 		// If health is getting low, make it bright red
-		if (gHUD.m_Health.m_iHealth <= 15)
+		if ( pHealth->m_iHealth <= 15)
 			a = 255;
 
 		int iXSize,iYSize, iXPos, iYPos;
@@ -1779,7 +1788,7 @@ public:
 		m_pHealthTGA->getPos(iXPos, iYPos);
 
 		// Paint the player's health
-		int x = gHUD.DrawHudNumber( iXPos + iXSize + 5, iYPos + 5, DHN_3DIGITS | DHN_DRAWZERO, gHUD.m_Health.m_iHealth, r, g, b);
+		int x = gHUD.DrawHudNumber( iXPos + iXSize + 5, iYPos + 5, DHN_3DIGITS | DHN_DRAWZERO, pHealth->m_iHealth, r, g, b);
 
 		// Draw the vertical line
 		int HealthWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;

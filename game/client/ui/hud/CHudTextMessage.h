@@ -18,6 +18,10 @@
 class CHudTextMessage : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudTextMessage, CHudBase );
+
+	CHudTextMessage( const char* const pszName );
+
 	bool Init() override;
 	static char *LocaliseTextString( const char *msg, char *dst_buffer, int buffer_size );
 	static char *BufferedLocaliseTextString( const char *msg );

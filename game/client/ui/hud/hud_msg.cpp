@@ -26,6 +26,8 @@ extern IParticleMan *g_pParticleMan;
 
 #include "effects/CEnvironment.h"
 
+#include "CHudStatusIcons.h"
+
 #if !defined( _TFC )
 extern BEAM *pBeam;
 extern BEAM *pBeam2;
@@ -57,14 +59,7 @@ void CHud :: MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf )
 void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 {
 	// prepare all hud data
-	HUDLIST *pList = m_pHudList;
-
-	while (pList)
-	{
-		if ( pList->p )
-			pList->p->InitHUDData();
-		pList = pList->pNext;
-	}
+	ForEachHudElem( &CHudBase::InitHUDData );
 
 	g_Environment.Initialize();
 
@@ -122,13 +117,16 @@ int CHud :: MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	m_iConcussionEffect = reader.ReadByte();
+
+	auto pStatusIcons = GETHUDCLASS( CHudStatusIcons );
+
 	if (m_iConcussionEffect)
 	{
 		const auto& color = gHUD.GetPrimaryColor();
-		this->m_StatusIcons.EnableIcon("dmg_concuss", color.r, color.g, color.b );
+		pStatusIcons->EnableIcon("dmg_concuss", color.r, color.g, color.b );
 	}
 	else
-		this->m_StatusIcons.DisableIcon("dmg_concuss");
+		pStatusIcons->DisableIcon("dmg_concuss");
 	return 1;
 }
 

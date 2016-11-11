@@ -22,21 +22,30 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include <string.h>
 #include <stdio.h>
 
 #include "vgui_TeamFortressViewport.h"
 
+#include "CHudSayText.h"
+
 // allow 20 pixels on either side of the text
 #define MAX_LINE_WIDTH  ( ScreenWidth - 40 )
 #define LINE_START  10
 
-DECLARE_MESSAGE( m_SayText, SayText );
+DECLARE_MESSAGE( CHudSayText, SayText );
+
+REGISTER_HUDELEMENT( CHudSayText, 90 );
+
+CHudSayText::CHudSayText( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudSayText::Init()
 {
-	gHUD.AddHudElem( this );
-
 	HOOK_MESSAGE( SayText );
 
 	InitHUDData();

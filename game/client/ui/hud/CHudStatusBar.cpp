@@ -23,11 +23,16 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include <string.h>
 #include <stdio.h>
 
-DECLARE_MESSAGE( m_StatusBar, StatusText );
-DECLARE_MESSAGE( m_StatusBar, StatusValue );
+#include "CHudTextMessage.h"
+#include "CHudStatusBar.h"
+
+DECLARE_MESSAGE( CHudStatusBar, StatusText );
+DECLARE_MESSAGE( CHudStatusBar, StatusValue );
 
 #ifdef _TFC
 #define STATUSBAR_ID_LINE		2
@@ -35,10 +40,15 @@ DECLARE_MESSAGE( m_StatusBar, StatusValue );
 #define STATUSBAR_ID_LINE		1
 #endif
 
+REGISTER_HUDELEMENT( CHudStatusBar, 55 );
+
+CHudStatusBar::CHudStatusBar( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
+
 bool CHudStatusBar::Init()
 {
-	gHUD.AddHudElem( this );
-
 	HOOK_MESSAGE( StatusText );
 	HOOK_MESSAGE( StatusValue );
 
@@ -74,10 +84,15 @@ void CHudStatusBar::Reset()
 
 void CHudStatusBar::ParseStatusString( int line_num )
 {
+	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
+
+	if( !pTextMessage )
+		return;
+
 	// localise string first
 	char szBuffer[MAX_STATUSTEXT_LENGTH];
 	memset( szBuffer, 0, sizeof szBuffer );
-	gHUD.m_TextMessage.LocaliseTextString( m_szStatusText[line_num], szBuffer, MAX_STATUSTEXT_LENGTH );
+	pTextMessage->LocaliseTextString( m_szStatusText[line_num], szBuffer, MAX_STATUSTEXT_LENGTH );
 
 	// parse m_szStatusText & m_iStatusValues into m_szStatusBar
 	memset( m_szStatusBar[line_num], 0, MAX_STATUSTEXT_LENGTH );

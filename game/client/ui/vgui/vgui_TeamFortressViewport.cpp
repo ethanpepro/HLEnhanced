@@ -55,6 +55,8 @@
 #include "shake.h"
 #include "screenfade.h"
 
+#include "CHudTextMessage.h"
+
 extern int g_iVisibleMouse;
 class CCommandMenu;
 int g_iPlayerClass;
@@ -710,9 +712,12 @@ int TeamFortressViewport::CreateCommandMenu( const char* const pszMenuFile, int 
 	// First, read in the localisation strings
 
 	// Detpack strings
-	gHUD.m_TextMessage.LocaliseTextString( "#DetpackSet_For5Seconds",   m_sDetpackStrings[0], MAX_BUTTON_SIZE );
-	gHUD.m_TextMessage.LocaliseTextString( "#DetpackSet_For20Seconds",   m_sDetpackStrings[1], MAX_BUTTON_SIZE );
-	gHUD.m_TextMessage.LocaliseTextString( "#DetpackSet_For50Seconds",   m_sDetpackStrings[2], MAX_BUTTON_SIZE );
+	if( auto pTextMessage = GETHUDCLASS( CHudTextMessage ) )
+	{
+		pTextMessage->LocaliseTextString( "#DetpackSet_For5Seconds",   m_sDetpackStrings[0], MAX_BUTTON_SIZE );
+		pTextMessage->LocaliseTextString( "#DetpackSet_For20Seconds",   m_sDetpackStrings[1], MAX_BUTTON_SIZE );
+		pTextMessage->LocaliseTextString( "#DetpackSet_For50Seconds",   m_sDetpackStrings[2], MAX_BUTTON_SIZE );
+	}
 
 	// Now start parsing the menu structure
 	m_pCurrentCommandMenu = m_pCommandMenus[newIndex];
@@ -991,7 +996,9 @@ CommandButton *TeamFortressViewport::CreateCustomButton( char *pButtonText, char
 		}
 
 		// Auto Assign button
-		m_pTeamButtons[4] = new TeamButton(5, gHUD.m_TextMessage.BufferedLocaliseTextString( "#Team_AutoAssign" ), 0, BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y);
+		auto pTextMessage = GETHUDCLASS( CHudTextMessage );
+
+		m_pTeamButtons[4] = new TeamButton(5, pTextMessage ? pTextMessage->BufferedLocaliseTextString( "#Team_AutoAssign" ) : "", 0, BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y);
 		m_pTeamButtons[4]->addActionSignal(new CMenuHandler_StringCommand( "jointeam 5" ));
 		pMenu->AddButton( m_pTeamButtons[4] ); 
 
@@ -1462,6 +1469,10 @@ void TeamFortressViewport::UpdatePlayerMenu(int menuIndex)
 	float flLabelSize = ( (ScreenWidth - (XRES ( CAMOPTIONS_BUTTON_X ) + 15)) - XRES ( 24 + 15 ) ) - XRES( (15 + OPTIONS_BUTTON_X + 15) + 38 );
 	gViewPort->GetAllPlayersInfo();
 
+	auto pSpectator = GETHUDCLASS( CHudSpectator );
+
+	if( !pSpectator )
+		return;
 
 	for (int i = 1; i < MAX_PLAYERS; i++ )
 	{
@@ -1470,7 +1481,7 @@ void TeamFortressViewport::UpdatePlayerMenu(int menuIndex)
 	
 		pEnt = gEngfuncs.GetEntityByIndex( i );
 
-		if ( !gHUD.m_Spectator.IsActivePlayer( pEnt ) )
+		if ( !pSpectator->IsActivePlayer( pEnt ) )
 			continue;
 
 		//if ( g_PlayerExtraInfo[i].teamname[0] == 0 )
@@ -1508,6 +1519,11 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 	if (!m_pSpectatorPanel)
 		return;
 
+	auto pSpectator = GETHUDCLASS( CHudSpectator );
+
+	if( !pSpectator )
+		return;
+
 	if ( g_iUser1 && gHUD.m_pCvarDraw->value && !gHUD.m_iIntermission)	// don't draw in dev_overview mode
 	{
 		char bottomText[128];
@@ -1518,7 +1534,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		int player = 0;
 
 		// check if spectator combinations are still valid
-		gHUD.m_Spectator.CheckSettings();
+		pSpectator->CheckSettings();
 
 		if ( !m_pSpectatorPanel->isVisible() )
 		{
@@ -1528,7 +1544,10 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 			_snprintf( tempString, sizeof( tempString ) - 1, "%c%s", HUD_PRINTCENTER, CHudTextMessage::BufferedLocaliseTextString( "#Spec_Duck" ) );
 			tempString[ sizeof( tempString ) - 1 ] = '\0';
 
-			gHUD.m_TextMessage.MsgFunc_TextMsg( NULL, strlen( tempString ) + 1, tempString );
+			auto pTextMessage = GETHUDCLASS( CHudTextMessage );
+
+			if( pTextMessage )
+				pTextMessage->MsgFunc_TextMsg( NULL, strlen( tempString ) + 1, tempString );
 		}
 		
 		sprintf(bottomText,"#Spec_Mode%d", g_iUser1 );
@@ -1544,7 +1563,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		}
 
 		// special case in free map and inset off, don't show names
-		if ( (g_iUser1 == OBS_MAP_FREE) && !gHUD.m_Spectator.m_pip->value )
+		if ( (g_iUser1 == OBS_MAP_FREE) && !pSpectator->m_pip->value )
 			name = NULL;
 		else
 			name = g_PlayerInfoList[player].name;
@@ -1580,7 +1599,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		}
 
 		// add sting auto if we are in auto directed mode
-		if ( gHUD.m_Spectator.m_autoDirector->value )
+		if ( pSpectator->m_autoDirector->value )
 		{
 			char tempString[128];
 			snprintf(tempString, sizeof( tempString ), "#Spec_Auto %s", helpString2);
@@ -1597,7 +1616,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		if ( gEngfuncs.IsSpectateOnly() )
 		{
 			// in HLTV mode show number of spectators
-			_snprintf( szText, 63, "%s: %d", CHudTextMessage::BufferedLocaliseTextString( "#Spectators" ), gHUD.m_Spectator.m_iSpectatorNumber );
+			_snprintf( szText, 63, "%s: %d", CHudTextMessage::BufferedLocaliseTextString( "#Spectators" ), pSpectator->m_iSpectatorNumber );
 		}
 		else
 		{
@@ -2266,11 +2285,16 @@ int TeamFortressViewport::MsgFunc_TeamNames(const char *pszName, int iSize, void
 	
 	m_iNumberOfTeams = reader.ReadByte();
 
+	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
+
+	if( !pTextMessage )
+		return 0;
+
 	for (int i = 0; i < m_iNumberOfTeams; i++)
 	{
 		int teamNum = i + 1;
 
-		gHUD.m_TextMessage.LocaliseTextString( reader.ReadString(), m_sTeamNames[teamNum], MAX_TEAMNAME_SIZE );
+		pTextMessage->LocaliseTextString( reader.ReadString(), m_sTeamNames[teamNum], MAX_TEAMNAME_SIZE );
 
 		// Set the team name buttons
 		if (m_pTeamButtons[i])

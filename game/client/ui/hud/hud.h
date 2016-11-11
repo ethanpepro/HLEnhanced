@@ -25,6 +25,8 @@
 #include "wrect.h"
 #include "cl_dll.h"
 
+#include "shared/hud/CBaseHud.h"
+
 #include "HudDefs.h"
 
 struct cvar_t;
@@ -33,27 +35,9 @@ struct cvar_t;
 
 #include "voice_status.h" // base voice handling class
 
-#include "CHudAmmo.h"
-#include "CHudAmmoSecondary.h"
-#include "CHudBattery.h"
-#include "CHudBenchmark.h"
-#include "CHudDeathNotice.h"
-#include "CHudFlashlight.h"
-#include "CHudGeiger.h"
-#include "CHudHealth.h"
-#include "CHudMenu.h"
-#include "CHudMessage.h"
-#include "CHudSayText.h"
-#include "CHudSpectator.h"
-#include "CHudStatusBar.h"
-#include "CHudStatusIcons.h"
-#include "CHudTextMessage.h"
-#include "CHudTrain.h"
-
-class CHud
+class CHud : public CBaseHud
 {
 private:
-	HUDLIST						*m_pHudList;
 	HSPRITE						m_hsprLogo;
 	int							m_iLogo;
 	client_sprite_t				*m_pSpriteList;
@@ -151,30 +135,13 @@ public:
 	
 	int GetSpriteIndex( const char *SpriteName );	// gets a sprite index, for use in the m_rghSprites[] array
 
-	CHudAmmo			m_Ammo;
-	CHudHealth			m_Health;
-	CHudSpectator		m_Spectator;
-	CHudGeiger			m_Geiger;
-	CHudBattery			m_Battery;
-	CHudTrain			m_Train;
-	CHudFlashlight		m_Flash;
-	CHudMessage			m_Message;
-	CHudStatusBar		m_StatusBar;
-	CHudDeathNotice		m_DeathNotice;
-	CHudSayText			m_SayText;
-	CHudMenu			m_Menu;
-	CHudAmmoSecondary	m_AmmoSecondary;
-	CHudTextMessage		m_TextMessage;
-	CHudStatusIcons		m_StatusIcons;
-	CHudBenchmark		m_Benchmark;
-
 	void Init();
 	void VidInit();
 	void Think();
 	bool Redraw( float flTime, int intermission );
 	int UpdateClientData( client_data_t *cdata, float time );
 
-	CHud() : m_iSpriteCount(0), m_pHudList(NULL) {}  
+	CHud();
 	~CHud();			// destructor, frees allocated memory
 
 	void ResetHUD();
@@ -202,13 +169,28 @@ public:
 	// sprite indexes
 	int m_HUD_number_0;
 
-
-	void AddHudElem( CHudBase* pHudElem );
-
 	float GetSensitivity();
 
 private:
-	void FreeHudList();
+	/**
+	*	Calls a member function on all Hud elements.
+	*	@param function Function to call.
+	*	@param args Arguments to pass to the function.
+	*	@tparam FUNC Pointer to member function type.
+	*	@tparam ARGS Argument types.
+	*/
+	template<typename FUNC, typename... ARGS>
+	void ForEachHudElem( FUNC function, ARGS&&... args )
+	{
+		auto count = GetElementCount();
+
+		for( decltype( count ) index = 0; index < count; ++index )
+		{
+			auto pElem = static_cast<CHudBase*>( GetElementByIndex( index ) );
+
+			( pElem->*function )( std::move( args )... );
+		}
+	}
 };
 
 extern CHud gHUD;

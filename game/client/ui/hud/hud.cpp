@@ -25,6 +25,8 @@
 #include "parsemsg.h"
 #include "vgui_TeamFortressViewport.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include "demo.h"
 #include "demo_api.h"
 #include "vgui_ScorePanel.h"
@@ -331,40 +333,25 @@ void CHud :: Init( void )
 	m_pSpriteList = NULL;
 
 	// Clear any old HUD list
-	FreeHudList();
+	RemoveAllElements();
 
 	// In case we get messages before the first update -- time will be valid
 	m_flTime = 1.0;
 
-	CHudBase* const pElements[] = 
-	{
-		&m_Ammo,
-		&m_Health,
-		&m_SayText,
-		&m_Spectator,
-		&m_Geiger,
-		&m_Train,
-		&m_Battery,
-		&m_Flash,
-		&m_Message,
-		&m_StatusBar,
-		&m_DeathNotice,
-		&m_AmmoSecondary,
-		&m_TextMessage,
-		&m_StatusIcons,
-		&m_Menu,
-		//&m_Benchmark
-	};
+	CHudElementRegistry::CreateAllElements( *this );
 
-	for( auto pElem : pElements )
-	{
-		//Return value is ignored in the SDK. - Solokiller
-		pElem->Init();
-	}
+	//Return value is ignored in the SDK. - Solokiller
+	//TODO: make void function.
+	ForEachHudElem( &CHudBase::Init );
 
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 
 	ResetHUD();
+}
+
+CHud::CHud()
+	: m_iSpriteCount( 0 )
+{
 }
 
 // CHud destructor
@@ -374,21 +361,12 @@ CHud :: ~CHud()
 	delete [] m_rghSprites;
 	delete [] m_rgrcRects;
 	delete [] m_rgszSpriteNames;
-
-	FreeHudList();
 }
 
 void CHud::ResetHUD()
 {
 	// clear all hud data
-	HUDLIST *pList = m_pHudList;
-
-	while( pList )
-	{
-		if( pList->p )
-			pList->p->Reset();
-		pList = pList->pNext;
-	}
+	ForEachHudElem( &CHudBase::Reset );
 
 	// reset sensitivity
 	m_flMouseSensitivity = 0;
@@ -504,30 +482,8 @@ void CHud :: VidInit( void )
 
 	m_iFontHeight = m_rgrcRects[m_HUD_number_0].bottom - m_rgrcRects[m_HUD_number_0].top;
 
-	CHudBase* const pElements[] = 
-	{
-		&m_Ammo,
-		&m_Health,
-		&m_Spectator,
-		&m_Geiger,
-		&m_Train,
-		&m_Battery,
-		&m_Flash,
-		&m_Message,
-		&m_StatusBar,
-		&m_DeathNotice,
-		&m_SayText,
-		&m_Menu,
-		&m_AmmoSecondary,
-		&m_TextMessage,
-		&m_StatusIcons
-	};
-
-	for( auto pElem : pElements )
-	{
-		//Return value is ignored in the SDK - Solokiller
-		pElem->VidInit();
-	}
+	//Return value is ignored in the SDK - Solokiller
+	ForEachHudElem(  &CHudBase::VidInit );
 
 	GetClientVoiceMgr()->VidInit();
 }
@@ -678,47 +634,4 @@ int CHud::MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf)
 float CHud::GetSensitivity()
 {
 	return m_flMouseSensitivity;
-}
-
-void CHud::AddHudElem( CHudBase* pHudElem )
-{
-	if( !pHudElem )
-		return;
-
-	HUDLIST* pdl = new( std::nothrow ) HUDLIST;
-
-	if( !pdl )
-		return;
-
-	memset( pdl, 0, sizeof( HUDLIST ) );
-
-	pdl->p = pHudElem;
-
-	if( !m_pHudList )
-	{
-		m_pHudList = pdl;
-		return;
-	}
-
-	HUDLIST* ptemp = m_pHudList;
-
-	while( ptemp->pNext )
-		ptemp = ptemp->pNext;
-
-	ptemp->pNext = pdl;
-}
-
-void CHud::FreeHudList()
-{
-	if( m_pHudList )
-	{
-		HUDLIST* pList;
-		while( m_pHudList )
-		{
-			pList = m_pHudList;
-			m_pHudList = m_pHudList->pNext;
-			delete pList;
-		}
-		m_pHudList = nullptr;
-	}
 }

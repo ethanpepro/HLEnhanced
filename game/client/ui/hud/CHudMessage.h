@@ -35,6 +35,10 @@ struct message_parms_t
 class CHudMessage : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudMessage, CHudBase );
+
+	CHudMessage( const char* const pszName );
+
 	bool Init() override;
 	bool VidInit() override;
 	bool Draw( float flTime ) override;

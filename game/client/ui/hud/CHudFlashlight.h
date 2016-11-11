@@ -18,6 +18,10 @@
 class CHudFlashlight : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudFlashlight, CHudBase );
+
+	CHudFlashlight( const char* const pszName );
+
 	bool Init() override;
 	bool VidInit() override;
 	bool Draw( float flTime ) override;

@@ -43,6 +43,8 @@
 
 #include "effects/CEnvironment.h"
 
+#include "CHudSpectator.h"
+
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
 TeamFortressViewport *gViewPort = NULL;
@@ -295,7 +297,8 @@ Called when a director event message was received
 
 void DLLEXPORT HUD_DirectorMessage( int iSize, void *pbuf )
 {
-	gHUD.m_Spectator.DirectorMessage( iSize, pbuf );
+	if( auto pSpectator = GETHUDCLASS( CHudSpectator ) )
+		pSpectator->DirectorMessage( iSize, pbuf );
 }
 
 void CL_UnloadParticleMan( void )

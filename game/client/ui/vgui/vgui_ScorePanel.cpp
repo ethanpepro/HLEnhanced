@@ -31,6 +31,8 @@
 #include "voice_status.h"
 #include "vgui_SpectatorPanel.h"
 
+#include "CHudTextMessage.h"
+
 int HUD_IsGame( const char *game );
 int EV_TFC_IsAllyTeam( int iTeam1, int iTeam2 );
 
@@ -905,31 +907,35 @@ void ScorePanel::mousePressed(MouseCode code, Panel* panel)
 			if (pl_info && pl_info->name && pl_info->name[0])
 			{
 				char string[256];
-				if (GetClientVoiceMgr()->IsPlayerBlocked(iPlayer))
+
+				if( auto pTextMessage = GETHUDCLASS( CHudTextMessage ) )
 				{
-					char string1[1024];
+					if (GetClientVoiceMgr()->IsPlayerBlocked(iPlayer))
+					{
+						char string1[1024];
 
-					// remove mute
-					GetClientVoiceMgr()->SetPlayerBlockedState(iPlayer, false);
+						// remove mute
+						GetClientVoiceMgr()->SetPlayerBlockedState(iPlayer, false);
 
-					sprintf( string1, CHudTextMessage::BufferedLocaliseTextString( "#Unmuted" ), pl_info->name );
-					sprintf( string, "%c** %s\n", HUD_PRINTTALK, string1 );
+						sprintf( string1, CHudTextMessage::BufferedLocaliseTextString( "#Unmuted" ), pl_info->name );
+						sprintf( string, "%c** %s\n", HUD_PRINTTALK, string1 );
 
-					gHUD.m_TextMessage.MsgFunc_TextMsg(NULL, strlen(string)+1, string );
-				}
-				else
-				{
-					char string1[1024];
-					char string2[1024];
+						pTextMessage->MsgFunc_TextMsg(NULL, strlen(string)+1, string );
+					}
+					else
+					{
+						char string1[1024];
+						char string2[1024];
 
-					// mute the player
-					GetClientVoiceMgr()->SetPlayerBlockedState(iPlayer, true);
+						// mute the player
+						GetClientVoiceMgr()->SetPlayerBlockedState(iPlayer, true);
 
-					sprintf( string1, CHudTextMessage::BufferedLocaliseTextString( "#Muted" ), pl_info->name );
-					strcpy( string2, CHudTextMessage::BufferedLocaliseTextString( "#No_longer_hear_that_player" ) );
-					sprintf( string, "%c** %s %s\n", HUD_PRINTTALK, string1, string2 );
+						sprintf( string1, CHudTextMessage::BufferedLocaliseTextString( "#Muted" ), pl_info->name );
+						strcpy( string2, CHudTextMessage::BufferedLocaliseTextString( "#No_longer_hear_that_player" ) );
+						sprintf( string, "%c** %s %s\n", HUD_PRINTTALK, string1, string2 );
 
-					gHUD.m_TextMessage.MsgFunc_TextMsg(NULL, strlen(string)+1, string );
+						pTextMessage->MsgFunc_TextMsg(NULL, strlen(string)+1, string );
+					}
 				}
 			}
 		}

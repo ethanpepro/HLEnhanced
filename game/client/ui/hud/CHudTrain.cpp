@@ -24,8 +24,18 @@
 #include <stdio.h>
 #include "parsemsg.h"
 
-DECLARE_MESSAGE(m_Train, Train )
+#include "shared/hud/CHudElementRegistry.h"
 
+#include "CHudTrain.h"
+
+DECLARE_MESSAGE( CHudTrain, Train )
+
+REGISTER_HUDELEMENT( CHudTrain, 75 );
+
+CHudTrain::CHudTrain( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudTrain::Init()
 {
@@ -33,7 +43,6 @@ bool CHudTrain::Init()
 
 	m_iPos = 0;
 	GetFlags() = 0;
-	gHUD.AddHudElem(this);
 
 	return true;
 }

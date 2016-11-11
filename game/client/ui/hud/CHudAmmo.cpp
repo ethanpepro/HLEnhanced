@@ -23,6 +23,8 @@
 #include "parsemsg.h"
 #include "pm_shared.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include <climits>
 #include <string.h>
 #include <stdio.h>
@@ -44,39 +46,47 @@
 
 #include "renderer/SpriteRenderUtils.h"
 
+#include "CHudMenu.h"
+#include "CHudAmmo.h"
+
 //TODO: shouldn't be global - Solokiller
 
 int g_weaponselect = 0;
 
-DECLARE_MESSAGE(m_Ammo, CurWeapon );	// Current weapon and clip
-DECLARE_MESSAGE(m_Ammo, AmmoX);			// update known ammo type's count
-DECLARE_MESSAGE(m_Ammo, AmmoPickup);	// flashes an ammo pickup record
-DECLARE_MESSAGE(m_Ammo, WeapPickup);    // flashes a weapon pickup record
-DECLARE_MESSAGE(m_Ammo, HideWeapon);	// hides the weapon, ammo, and crosshair displays temporarily
-DECLARE_MESSAGE(m_Ammo, ItemPickup);
+DECLARE_MESSAGE(CHudAmmo, CurWeapon );	// Current weapon and clip
+DECLARE_MESSAGE(CHudAmmo, AmmoX);			// update known ammo type's count
+DECLARE_MESSAGE(CHudAmmo, AmmoPickup);	// flashes an ammo pickup record
+DECLARE_MESSAGE(CHudAmmo, WeapPickup);    // flashes a weapon pickup record
+DECLARE_MESSAGE(CHudAmmo, HideWeapon);	// hides the weapon, ammo, and crosshair displays temporarily
+DECLARE_MESSAGE(CHudAmmo, ItemPickup);
 
-DECLARE_COMMAND(m_Ammo, Slot1);
-DECLARE_COMMAND(m_Ammo, Slot2);
-DECLARE_COMMAND(m_Ammo, Slot3);
-DECLARE_COMMAND(m_Ammo, Slot4);
-DECLARE_COMMAND(m_Ammo, Slot5);
-DECLARE_COMMAND(m_Ammo, Slot6);
-DECLARE_COMMAND(m_Ammo, Slot7);
-DECLARE_COMMAND(m_Ammo, Slot8);
-DECLARE_COMMAND(m_Ammo, Slot9);
-DECLARE_COMMAND(m_Ammo, Slot10);
-DECLARE_COMMAND(m_Ammo, Close);
-DECLARE_COMMAND(m_Ammo, NextWeapon);
-DECLARE_COMMAND(m_Ammo, PrevWeapon);
+DECLARE_COMMAND(CHudAmmo, Slot1);
+DECLARE_COMMAND(CHudAmmo, Slot2);
+DECLARE_COMMAND(CHudAmmo, Slot3);
+DECLARE_COMMAND(CHudAmmo, Slot4);
+DECLARE_COMMAND(CHudAmmo, Slot5);
+DECLARE_COMMAND(CHudAmmo, Slot6);
+DECLARE_COMMAND(CHudAmmo, Slot7);
+DECLARE_COMMAND(CHudAmmo, Slot8);
+DECLARE_COMMAND(CHudAmmo, Slot9);
+DECLARE_COMMAND(CHudAmmo, Slot10);
+DECLARE_COMMAND(CHudAmmo, Close);
+DECLARE_COMMAND(CHudAmmo, NextWeapon);
+DECLARE_COMMAND(CHudAmmo, PrevWeapon);
 
 // width of ammo fonts
 #define AMMO_SMALL_WIDTH 10
 #define AMMO_LARGE_WIDTH 20
 
+REGISTER_HUDELEMENT( CHudAmmo, 100 );
+
+CHudAmmo::CHudAmmo( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
+
 bool CHudAmmo::Init()
 {
-	gHUD.AddHudElem(this);
-
 	HOOK_MESSAGE(CurWeapon);
 	HOOK_MESSAGE(AmmoPickup);
 	HOOK_MESSAGE(WeapPickup);
@@ -226,10 +236,13 @@ void CHudAmmo::Think()
 
 void CHudAmmo::SelectSlot( int iSlot, const bool fAdvance, int iDirection )
 {
-	if ( gHUD.m_Menu.m_fMenuDisplayed && !fAdvance && (iDirection == 1) )	
-	{ // menu is overriding slot use commands
-		gHUD.m_Menu.SelectMenuItem( iSlot + 1 );  // slots are one off the key numbers
-		return;
+	if( auto pMenu = GETHUDCLASS( CHudMenu ) )
+	{
+		if ( pMenu->m_fMenuDisplayed && !fAdvance && (iDirection == 1) )
+		{ // menu is overriding slot use commands
+			pMenu->SelectMenuItem( iSlot + 1 );  // slots are one off the key numbers
+			return;
+		}
 	}
 
 	if ( iSlot > MAX_WEAPON_SLOTS )
@@ -1042,5 +1055,9 @@ void CHudAmmo::SetCrosshair( HSPRITE hCrosshair, const wrect_t& rect, int r, int
 void SetCrosshair( HSPRITE hCrosshair, const wrect_t& crosshairRC, int r, int g, int b )
 {
 	//gEngfuncs.pfnSetCrosshair( hCrosshair, crosshairRC, r, g, b );
-	gHUD.m_Ammo.SetCrosshair( hCrosshair, crosshairRC, r, g, b );
+
+	if( auto pElement = GETHUDCLASS( CHudAmmo ) )
+	{
+		pElement->SetCrosshair( hCrosshair, crosshairRC, r, g, b );
+	}
 }

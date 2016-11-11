@@ -46,6 +46,10 @@ struct DAMAGE_IMAGE
 class CHudHealth: public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudHealth, CHudBase );
+
+	CHudHealth( const char* const pszName );
+
 	bool Init() override;
 	bool VidInit() override;
 	bool Draw( float fTime ) override;

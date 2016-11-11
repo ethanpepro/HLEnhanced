@@ -22,12 +22,23 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include "WeaponsConst.h"
 
 #include <string.h>
 #include <stdio.h>
 
-DECLARE_MESSAGE(m_Battery, Battery)
+#include "CHudBattery.h"
+
+DECLARE_MESSAGE( CHudBattery, Battery)
+
+REGISTER_HUDELEMENT( CHudBattery, 70 );
+
+CHudBattery::CHudBattery( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudBattery::Init()
 {
@@ -36,8 +47,6 @@ bool CHudBattery::Init()
 	GetFlags() = 0;
 
 	HOOK_MESSAGE(Battery);
-
-	gHUD.AddHudElem(this);
 
 	return true;
 }

@@ -30,6 +30,8 @@
 
 #include "vgui_TeamFortressViewport.h"
 
+#include "CHudTextMessage.h"
+
 // Class Menu Dimensions
 #define CLASSMENU_TITLE_X				XRES(40)
 #define CLASSMENU_TITLE_Y				YRES(32)
@@ -79,7 +81,9 @@ CClassMenuPanel::CClassMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide
 	pSchemes->getBgColor( hTitleScheme, r, g, b, a );
 	pLabel->setBgColor( r, g, b, a );
 	pLabel->setContentAlignment( vgui::Label::a_west );
-	pLabel->setText(gHUD.m_TextMessage.BufferedLocaliseTextString("#Title_SelectYourClass"));
+
+	if( auto pTextMessage = GETHUDCLASS( CHudTextMessage ) )
+		pLabel->setText(pTextMessage->BufferedLocaliseTextString("#Title_SelectYourClass"));
 
 	// Create the Scroll panel
 	m_pScrollPanel = new CTFScrollPanel( CLASSMENU_WINDOW_X, CLASSMENU_WINDOW_Y, CLASSMENU_WINDOW_SIZE_X, CLASSMENU_WINDOW_SIZE_Y );
@@ -238,7 +242,9 @@ CClassMenuPanel::CClassMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide
 	}
 #endif
 	// Create the Cancel button
-	m_pCancelButton = new CommandButton( gHUD.m_TextMessage.BufferedLocaliseTextString( "#Menu_Cancel" ), CLASSMENU_TOPLEFT_BUTTON_X, 0, CLASSMENU_BUTTON_SIZE_X, CLASSMENU_BUTTON_SIZE_Y);
+	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
+
+	m_pCancelButton = new CommandButton( pTextMessage ? pTextMessage->BufferedLocaliseTextString( "#Menu_Cancel" ) : "", CLASSMENU_TOPLEFT_BUTTON_X, 0, CLASSMENU_BUTTON_SIZE_X, CLASSMENU_BUTTON_SIZE_Y);
 	m_pCancelButton->setParent( this );
 	m_pCancelButton->addActionSignal( new CMenuHandler_TextWindow(HIDE_TEXTWINDOW) );
 

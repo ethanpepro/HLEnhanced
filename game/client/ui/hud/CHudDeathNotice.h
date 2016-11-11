@@ -34,6 +34,10 @@ private:
 	static const size_t MAX_DEATHNOTICES = 4;
 
 public:
+	DECLARE_CLASS( CHudDeathNotice, CHudBase );
+
+	CHudDeathNotice( const char* const pszName );
+
 	bool Init() override;
 	void InitHUDData() override;
 	bool VidInit() override;

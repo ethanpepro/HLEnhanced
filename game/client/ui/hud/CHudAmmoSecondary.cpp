@@ -24,15 +24,25 @@
 #include <stdio.h>
 #include "parsemsg.h"
 
-DECLARE_MESSAGE( m_AmmoSecondary, SecAmmoVal );
-DECLARE_MESSAGE( m_AmmoSecondary, SecAmmoIcon );
+#include "shared/hud/CHudElementRegistry.h"
+
+#include "CHudAmmoSecondary.h"
+
+DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoVal );
+DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoIcon );
+
+REGISTER_HUDELEMENT( CHudAmmoSecondary, 45 );
+
+CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudAmmoSecondary::Init()
 {
 	HOOK_MESSAGE( SecAmmoVal );
 	HOOK_MESSAGE( SecAmmoIcon );
 
-	gHUD.AddHudElem(this);
 	m_HUD_ammoicon = 0;
 
 	for ( int i = 0; i < MAX_SEC_AMMO_VALUES; i++ )

@@ -18,6 +18,10 @@
 class CHudStatusBar : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudStatusBar, CHudBase );
+
+	CHudStatusBar( const char* const pszName );
+
 	bool Init() override;
 	bool VidInit() override;
 	bool Draw( float flTime );

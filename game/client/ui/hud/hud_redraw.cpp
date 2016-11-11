@@ -45,13 +45,15 @@ void CHud::Think()
 	GetScreenInfo(&m_scrinfo);
 
 	int newfov;
-	HUDLIST *pList = m_pHudList;
 
-	while (pList)
+	auto count = GetElementCount();
+
+	for( decltype( count ) index = 0; index < count; ++index )
 	{
-		if (pList->p->GetFlags() & HUD_ACTIVE)
-			pList->p->Think();
-		pList = pList->pNext;
+		auto pElem = static_cast<CHudBase*>( GetElementByIndex( index ) );
+
+		if( pElem->GetFlags() & HUD_ACTIVE )
+			pElem->Think();
 	}
 
 	newfov = HUD_GetFOV();
@@ -86,7 +88,10 @@ void CHud::Think()
 	
 	if ( gEngfuncs.IsSpectateOnly() )
 	{
-		m_iFOV = gHUD.m_Spectator.GetFOV();	// default_fov->value;
+		if( auto pSpectator = GETHUDCLASS( CHudSpectator ) )
+			m_iFOV = pSpectator->GetFOV();	// default_fov->value;
+		else
+			m_iFOV = default_fov->value;
 	}
 
 	Bench_CheckStart();
@@ -145,34 +150,34 @@ bool CHud::Redraw( float flTime, int intermission )
 	// draw all registered HUD elements
 	if ( m_pCvarDraw->value )
 	{
-		HUDLIST *pList = m_pHudList;
+		auto count = GetElementCount();
 
-		while (pList)
+		for( decltype( count ) index = 0; index < count; ++index )
 		{
+			auto pElem = static_cast<CHudBase*>( GetElementByIndex( index ) );
+
 			if ( !Bench_Active() )
 			{
 				if ( !intermission )
 				{
-					if ( (pList->p->GetFlags() & HUD_ACTIVE) && !(m_iHideHUDDisplay & HIDEHUD_ALL) )
-						pList->p->Draw(flTime);
+					if ( ( pElem->GetFlags() & HUD_ACTIVE) && !(m_iHideHUDDisplay & HIDEHUD_ALL) )
+						pElem->Draw(flTime);
 				}
 				else
 				{  // it's an intermission,  so only draw hud elements that are set to draw during intermissions
-					if ( pList->p->GetFlags() & HUD_INTERMISSION )
-						pList->p->Draw( flTime );
+					if ( pElem->GetFlags() & HUD_INTERMISSION )
+						pElem->Draw( flTime );
 				}
 			}
 			else
 			{
-				if ( ( pList->p == &m_Benchmark ) &&
-					 ( pList->p->GetFlags() & HUD_ACTIVE ) &&
+				if ( ( Q_strcmp( pElem->GetName(), "CHudBenckmark" ) == 0 ) &&
+					 ( pElem->GetFlags() & HUD_ACTIVE ) &&
 					 !( m_iHideHUDDisplay & HIDEHUD_ALL ) )
 				{
-					pList->p->Draw(flTime);
+					pElem->Draw(flTime);
 				}
 			}
-
-			pList = pList->pNext;
 		}
 	}
 

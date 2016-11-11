@@ -6,6 +6,8 @@
 #include "hud.h"
 #include "cl_util.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include "const.h"
 #include "entity_state.h"
 #include "cl_entity.h"
@@ -21,6 +23,8 @@
 #include <stdio.h>
 #include "parsemsg.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include "con_nprint.h"
 
 #include "netadr.h"
@@ -31,6 +35,8 @@
 #include "entity_types.h"
 
 #include "mathlib.h"
+
+#include "CHudBenchmark.h"
 
 #define NUM_BENCH_OBJ 12
 #define BENCH_CYCLE_TIME 10.0
@@ -84,7 +90,15 @@ static float g_benchSwitchTimes[ LAST_STAGE + 1 ] = { 0.0, 10.0, 12.0, 10.0, 5.0
 
 #define SCORE_TIME_UP 1.5
 
-DECLARE_MESSAGE(m_Benchmark, Bench);
+DECLARE_MESSAGE( CHudBenchmark, Bench);
+
+//Don't register this one, it's not working properly. - Solokiller
+//REGISTER_HUDELEMENT( CHudBenchmark, 25 );
+
+CHudBenchmark::CHudBenchmark( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 void Bench_SetStage( int stage )
 {
@@ -121,11 +135,7 @@ int Bench_Active( void )
 	return g_currentstage != 0 ? 1 : 0;
 }
 
-void __CmdFunc_BenchMark( void )
-{
-	gHUD.m_Benchmark.Restart();
-}
-
+DECLARE_COMMAND( CHudBenchmark, BenchMark );
 
 void CHudBenchmark::Restart( void )
 {
@@ -133,8 +143,8 @@ void CHudBenchmark::Restart( void )
 	g_benchSwitchTime = gHUD.m_flTime + g_benchSwitchTimes[ FIRST_STAGE ];
 	StartNextSection( FIRST_STAGE );
 
-	gHUD.m_Benchmark.GetFlags() |= HUD_ACTIVE;
-	gHUD.m_Benchmark.m_fDrawTime = gHUD.m_flTime + BENCH_TIME;
+	GetFlags() |= HUD_ACTIVE;
+	m_fDrawTime = gHUD.m_flTime + BENCH_TIME;
 }
 
 int CHudBenchmark::MsgFunc_Bench(const char *pszName, int iSize, void *pbuf)
@@ -384,7 +394,7 @@ void CHudBenchmark::Think( void )
 		if ( !m_nScoreComputed )
 		{
 			m_nScoreComputed = 1;
-			gHUD.m_Benchmark.SetCompositeScore();
+			SetCompositeScore();
 		}
 	}
 
@@ -398,8 +408,6 @@ void CHudBenchmark::Think( void )
 
 bool CHudBenchmark::Init()
 {
-	gHUD.AddHudElem( this );
-
 	HOOK_COMMAND( "ppdemostart", BenchMark );
 
 	HOOK_MESSAGE(Bench);
@@ -597,7 +605,8 @@ void Bench_SpotPosition( const Vector& dot, const Vector& target )
 	// Compute new score
 	Vector delta = target - dot;
 
-	gHUD.m_Benchmark.SetScore( delta.Length() );
+	if( auto pBenchmark = GETHUDCLASS( CHudBenchmark ) )
+		pBenchmark->SetScore( delta.Length() );
 }
 
 static Vector g_dotorg;
@@ -756,6 +765,11 @@ int HUD_SetupBenchObjects( cl_entity_t *bench, int plindex, const Vector origin 
 //TODO: this looks an awful lot like the function above. Consider refactoring - Solokiller
 void HUD_CreateBenchObjects( const Vector& origin )
 {
+	auto pBenchmark = GETHUDCLASS( CHudBenchmark );
+
+	if( !pBenchmark )
+		return;
+
 	static cl_entity_t bench[ NUM_BENCH_OBJ ];
 	cl_entity_t *player;
 	Vector forward, right, up;
@@ -873,7 +887,7 @@ void HUD_CreateBenchObjects( const Vector& origin )
 
 		bench[ i ].curstate.angles = bench[ i ].curstate.angles.Normalize();
 		
-		jfrac = ( (float)gHUD.m_Benchmark.GetObjects() / (float)NUM_BENCH_OBJ );
+		jfrac = ( (float)pBenchmark->GetObjects() / (float)NUM_BENCH_OBJ );
 
 		// Adjust velocity
 		//bench[ i ].curstate.velocity[ 2 ] -= bench[ i ].curstate.gravity * frametime * 800;
@@ -947,7 +961,7 @@ void HUD_CreateBenchObjects( const Vector& origin )
 		// Force no interpolation, etc., probably not necessary
 		bench[ i ].prevstate		= bench[ i ].curstate;
 
-		if ( ( NUM_BENCH_OBJ - i - 1 ) < gHUD.m_Benchmark.GetObjects() )
+		if ( ( NUM_BENCH_OBJ - i - 1 ) < pBenchmark->GetObjects() )
 		{
 			if ( bench[ i ].curstate.renderamt == 255 )
 			{

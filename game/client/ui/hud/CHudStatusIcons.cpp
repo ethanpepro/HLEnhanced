@@ -25,13 +25,22 @@
 #include "parsemsg.h"
 #include "event_api.h"
 
-DECLARE_MESSAGE( m_StatusIcons, StatusIcon );
+#include "shared/hud/CHudElementRegistry.h"
+
+#include "CHudStatusIcons.h"
+
+DECLARE_MESSAGE( CHudStatusIcons, StatusIcon );
+
+REGISTER_HUDELEMENT( CHudStatusIcons, 35 );
+
+CHudStatusIcons::CHudStatusIcons( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudStatusIcons::Init()
 {
 	HOOK_MESSAGE( StatusIcon );
-
-	gHUD.AddHudElem( this );
 
 	Reset();
 

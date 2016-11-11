@@ -18,6 +18,10 @@
 class CHudBattery : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudBattery, CHudBase );
+
+	CHudBattery( const char* const pszName );
+
 	bool Init()  override;
 	bool VidInit() override;
 	bool Draw( float flTime ) override;

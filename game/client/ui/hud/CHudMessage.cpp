@@ -24,15 +24,24 @@
 #include <stdio.h>
 #include "parsemsg.h"
 
-DECLARE_MESSAGE( m_Message, HudText )
-DECLARE_MESSAGE( m_Message, GameTitle )
+#include "shared/hud/CHudElementRegistry.h"
+
+#include "CHudMessage.h"
+
+DECLARE_MESSAGE( CHudMessage, HudText )
+DECLARE_MESSAGE( CHudMessage, GameTitle )
+
+REGISTER_HUDELEMENT( CHudMessage, 60 );
+
+CHudMessage::CHudMessage( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudMessage::Init()
 {
 	HOOK_MESSAGE( HudText );
 	HOOK_MESSAGE( GameTitle );
-
-	gHUD.AddHudElem(this);
 
 	Reset();
 

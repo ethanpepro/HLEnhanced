@@ -21,19 +21,29 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include <string.h>
 #include <stdio.h>
 
 #include "vgui_TeamFortressViewport.h"
 
+#include "CHudTextMessage.h"
+#include "CHudMenu.h"
+
 int KB_ConvertString( char *in, char **ppout );
 
-DECLARE_MESSAGE( m_Menu, ShowMenu );
+DECLARE_MESSAGE( CHudMenu, ShowMenu );
+
+REGISTER_HUDELEMENT( CHudMenu, 30 );
+
+CHudMenu::CHudMenu( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudMenu::Init()
 {
-	gHUD.AddHudElem( this );
-
 	HOOK_MESSAGE( ShowMenu );
 
 	InitHUDData();
@@ -229,6 +239,11 @@ void CHudMenu :: SelectMenuItem( int menu_item )
 // if this message is never received, then scores will simply be the combined totals of the players.
 int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 {
+	auto pTextMessage = GETHUDCLASS( CHudTextMessage );
+
+	if( !pTextMessage )
+		return 0;
+
 	char *temp = NULL;
 
 	CBufferReader reader( pbuf, iSize );
@@ -256,7 +271,7 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 
 		if ( !NeedMore )
 		{  // we have the whole string, so we can localise it now
-			strcpy( m_szMenuString, gHUD.m_TextMessage.BufferedLocaliseTextString( m_szPrelocalisedMenuString ) );
+			strcpy( m_szMenuString, pTextMessage->BufferedLocaliseTextString( m_szPrelocalisedMenuString ) );
 
 			// Swap in characters
 			if ( KB_ConvertString( m_szMenuString, &temp ) )

@@ -67,6 +67,10 @@ struct cameraWayPoint_t
 class CHudSpectator : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudSpectator, CHudBase );
+
+	CHudSpectator( const char* const pszName );
+
 	void Reset() override;
 	int  ToggleInset(bool allowOff);
 	void CheckSettings();

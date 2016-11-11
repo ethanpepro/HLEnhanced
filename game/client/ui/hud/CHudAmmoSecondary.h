@@ -18,6 +18,10 @@
 class CHudAmmoSecondary : public CHudBase
 {
 public:
+	DECLARE_CLASS( CHudAmmoSecondary, CHudBase );
+
+	CHudAmmoSecondary( const char* const pszName );
+
 	bool Init() override;
 	bool VidInit() override;
 	void Reset() override;

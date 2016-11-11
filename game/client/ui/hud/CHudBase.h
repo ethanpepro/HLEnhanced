@@ -15,17 +15,24 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDBASE_H
 #define GAME_CLIENT_UI_HUD_CHUDBASE_H
 
+#include "shared/hud/CHudElement.h"
+
 #include "CBitSet.h"
 
 /**
 *	Base class for all HUD classes.
 */
-class CHudBase
+class CHudBase : public CHudElement
 {
 public:
+	DECLARE_CLASS( CHudBase, CHudElement );
+
 	using Flags_t = CBitSet<int>;
 
 public: 
+	//TODO: use an empty name for now, replace with:
+	//using BaseClass::BaseClass;
+	CHudBase( const char* const pszName ) : BaseClass( pszName ) {}
 	virtual	~CHudBase() {}
 
 	/**

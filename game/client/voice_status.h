@@ -74,7 +74,7 @@ class VoiceImagePanel : public vgui::ImagePanel
 };
 
 
-class CVoiceStatus : public CHudBase, public vgui::CDefaultInputSignal
+class CVoiceStatus : public vgui::CDefaultInputSignal
 {
 public:
 				CVoiceStatus();
@@ -89,7 +89,7 @@ public:
 		vgui::Panel **pParentPanel);
 	
 	// ackPosition is the bottom position of where CVoiceStatus will draw the voice acknowledgement labels.
-	virtual bool VidInit() override;
+	virtual bool VidInit();
 
 
 public:

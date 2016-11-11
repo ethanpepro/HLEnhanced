@@ -29,6 +29,8 @@
 
 #include "vgui_TeamFortressViewport.h"
 
+#include "CHudTextMessage.h"
+
 #define MOTD_TITLE_X		XRES(16)
 #define MOTD_TITLE_Y		YRES(16)
 

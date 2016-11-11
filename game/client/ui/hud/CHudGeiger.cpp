@@ -24,9 +24,20 @@
 #include <time.h>
 #include <stdio.h>
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include "parsemsg.h"
 
-DECLARE_MESSAGE(m_Geiger, Geiger )
+#include "CHudGeiger.h"
+
+DECLARE_MESSAGE( CHudGeiger, Geiger )
+
+REGISTER_HUDELEMENT( CHudGeiger, 80 );
+
+CHudGeiger::CHudGeiger( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
 
 bool CHudGeiger::Init()
 {
@@ -34,8 +45,6 @@ bool CHudGeiger::Init()
 
 	m_iGeigerRange = 0;
 	GetFlags() = 0;
-
-	gHUD.AddHudElem(this);
 
 	srand( (unsigned)time( NULL ) );
 

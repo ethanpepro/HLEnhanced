@@ -42,8 +42,11 @@ private:
 		*/
 		CROSS_USERSCALE = 2,
 	};
-
 public:
+	DECLARE_CLASS( CHudAmmo, CHudBase );
+
+	CHudAmmo( const char* const pszName );
+
 	bool Init() override;
 	bool VidInit() override;
 	bool Draw( float flTime ) override;
@@ -82,7 +85,7 @@ private:
 
 private:
 	float m_fFade;
-	Color  m_rgba;
+	::Color  m_rgba;
 	CBasePlayerWeapon *m_pWeapon;
 	int	m_HUD_bucket0;
 	int m_HUD_selection;

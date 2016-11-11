@@ -14,6 +14,8 @@
 #include "hltv.h"
 #include "mathlib.h"
 
+#include "shared/hud/CHudElementRegistry.h"
+
 #include "pm_shared.h"
 #include "pm_defs.h"
 #include "pmtrace.h"
@@ -25,6 +27,11 @@
 #include "demo_api.h"
 #include "event_api.h"
 #include "screenfade.h"
+
+#include "CHudMessage.h"
+#include "CHudSayText.h"
+#include "CHudTextMessage.h"
+#include "CHudSpectator.h"
 
 
 #pragma warning(disable: 4244)
@@ -84,11 +91,16 @@ void SpectatorMode(void)
 		return;
 	}
 
+	auto pSpectator = GETHUDCLASS( CHudSpectator );
+
+	if( !pSpectator )
+		return;
+
 	// SetModes() will decide if command is executed on server or local
 	if ( gEngfuncs.Cmd_Argc() == 2 )
-		gHUD.m_Spectator.SetModes( atoi( gEngfuncs.Cmd_Argv(1) ), -1 );
+		pSpectator->SetModes( atoi( gEngfuncs.Cmd_Argv(1) ), -1 );
 	else if ( gEngfuncs.Cmd_Argc() == 3 )
-		gHUD.m_Spectator.SetModes( atoi( gEngfuncs.Cmd_Argv(1) ), atoi( gEngfuncs.Cmd_Argv(2) )  );	
+		pSpectator->SetModes( atoi( gEngfuncs.Cmd_Argv(1) ), atoi( gEngfuncs.Cmd_Argv(2) )  );
 }
 
 void SpectatorSpray(void)
@@ -159,19 +171,27 @@ void ToggleScores( void )
 	}
 }
 
+REGISTER_HUDELEMENT( CHudSpectator, 85 );
+
+CHudSpectator::CHudSpectator( const char* const pszName )
+	: BaseClass( pszName )
+{
+}
+
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
 bool CHudSpectator::Init()
 {
-	gHUD.AddHudElem(this);
-
 	GetFlags() |= HUD_ACTIVE;
 	m_flNextObserverInput = 0.0f;
 	m_zoomDelta	= 0.0f;
 	m_moveDelta = 0.0f;
 	m_FOV = 90.0f;
-	m_chatEnabled = (gHUD.m_SayText.m_HUD_saytext->value!=0);
+
+	auto pSayText = GETHUDCLASS( CHudSayText );
+
+	m_chatEnabled = pSayText && ( pSayText->m_HUD_saytext->value!=0);
 	iJumpSpectator	= 0;
 
 	memset( &m_OverviewData, 0, sizeof(m_OverviewData));
@@ -714,6 +734,11 @@ void CHudSpectator::DirectorMessage( int iSize, void *pbuf )
 
 		case DRC_CMD_MESSAGE:
 							{
+								auto pMessage = GETHUDCLASS( CHudMessage );
+
+								if( !pMessage )
+									break;
+
 								client_textmessage_t * msg = &m_HUDMessages[m_lastHudMessage];
 								
 								msg->effect = reader.ReadByte();		// effect
@@ -738,7 +763,7 @@ void CHudSpectator::DirectorMessage( int iSize, void *pbuf )
 								msg->pMessage = m_HUDMessageText[m_lastHudMessage];
 								msg->pName	  = "HUD_MESSAGE";
 
-								gHUD.m_Message.MessageAdd( msg );
+								pMessage->MessageAdd( msg );
 
 								m_lastHudMessage++;
 								m_lastHudMessage %= MAX_SPEC_HUD_MESSAGES;
@@ -1191,7 +1216,9 @@ void CHudSpectator::SetModes(int iNewMainMode, int iNewInsetMode)
 		char string[128];
 		sprintf(string, "#Spec_Mode%d", g_iUser1 );
 		sprintf(string, "%c%s", HUD_PRINTCENTER, CHudTextMessage::BufferedLocaliseTextString( string ));
-		gHUD.m_TextMessage.MsgFunc_TextMsg(NULL, strlen(string)+1, string );
+
+		if( auto pTextMessage = GETHUDCLASS( CHudTextMessage ) )
+			pTextMessage->MsgFunc_TextMsg(NULL, strlen(string)+1, string );
 	}
 
 	gViewPort->UpdateSpectatorPanel();
@@ -1822,18 +1849,21 @@ void CHudSpectator::CheckSettings()
 	if ( gHUD.m_iIntermission )
 		m_pip->value = INSET_OFF;
 
-	// check chat mode
-	if ( m_chatEnabled != (gHUD.m_SayText.m_HUD_saytext->value!=0) )
+	if( auto pSayText = GETHUDCLASS( CHudSayText ) )
 	{
-		// hud_saytext changed
-		m_chatEnabled = (gHUD.m_SayText.m_HUD_saytext->value!=0);
-
-		if ( gEngfuncs.IsSpectateOnly() )
+		// check chat mode
+		if ( m_chatEnabled != ( pSayText->m_HUD_saytext->value!=0) )
 		{
-			// tell proxy our new chat mode
-			char chatcmd[32];
-			sprintf(chatcmd, "ignoremsg %i", m_chatEnabled?0:1 );
-			gEngfuncs.pfnServerCmd(chatcmd);
+			// hud_saytext changed
+			m_chatEnabled = ( pSayText->m_HUD_saytext->value!=0);
+
+			if ( gEngfuncs.IsSpectateOnly() )
+			{
+				// tell proxy our new chat mode
+				char chatcmd[32];
+				sprintf(chatcmd, "ignoremsg %i", m_chatEnabled?0:1 );
+				gEngfuncs.pfnServerCmd(chatcmd);
+			}
 		}
 	}
 
