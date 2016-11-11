@@ -941,7 +941,7 @@ void CHudSpectator::FindNextPlayer(bool bReverse)
 	}
 
 	iJumpSpectator = 1;
-	gViewPort->MsgFunc_ResetFade( NULL, 0, NULL );
+	gViewPort->ResetFade();
 }
 
 
@@ -999,7 +999,7 @@ void CHudSpectator::FindPlayer(const char *name)
 	}
 
 	iJumpSpectator = 1;
-	gViewPort->MsgFunc_ResetFade( NULL, 0, NULL );
+	gViewPort->ResetFade();
 }
 
 void CHudSpectator::HandleButtonsDown( int ButtonPressed )
@@ -1211,8 +1211,7 @@ void CHudSpectator::SetModes(int iNewMainMode, int iNewInsetMode)
 			SetCrosshair( 0, m_crosshairRect, 0, 0, 0 );
 		} 
 
-		//TODO: stop calling message functions like this! - Solokiller
-		gViewPort->MsgFunc_ResetFade( NULL, 0, NULL );
+		gViewPort->ResetFade();
 
 		char string[128];
 		sprintf(string, "#Spec_Mode%d", g_iUser1 );

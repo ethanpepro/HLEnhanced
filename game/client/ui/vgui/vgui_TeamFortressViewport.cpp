@@ -2518,8 +2518,15 @@ extern globalvars_t *gpGlobals;
 // used to reset the player's screen immediately
 int TeamFortressViewport::MsgFunc_ResetFade( const char *pszName, int iSize, void *pbuf )
 {
+	ResetFade();
+
+	return 1;
+}
+
+void TeamFortressViewport::ResetFade()
+{
 #if defined( _TFC )
-	if ( !gpGlobals )
+	if( !gpGlobals )
 		return 0;
 
 	screenfade_t sf;
@@ -2541,8 +2548,6 @@ int TeamFortressViewport::MsgFunc_ResetFade( const char *pszName, int iSize, voi
 
 	gEngfuncs.pfnSetScreenFade( &sf );
 #endif
-
-	return 1;
 }
 
 // used to fade a player's screen out/in when they're spectating someone who is teleported

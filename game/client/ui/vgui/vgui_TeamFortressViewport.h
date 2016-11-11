@@ -599,6 +599,8 @@ public:
 	int MsgFunc_SpecFade( const char *pszName, int iSize, void *pbuf );	
 	int MsgFunc_ResetFade( const char *pszName, int iSize, void *pbuf );	
 
+	void ResetFade();
+
 	// Input
 	bool SlotInput( int iSlot );
 
