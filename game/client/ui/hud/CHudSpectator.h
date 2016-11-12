@@ -13,15 +13,21 @@
 #include "interpolation.h"
 
 
-#define INSET_OFF				0
-#define	INSET_CHASE_FREE		1
-#define	INSET_IN_EYE			2
-#define	INSET_MAP_FREE			3
-#define	INSET_MAP_CHASE			4
+enum SpecInset
+{
+	INSET_OFF			= 0,
+	INSET_CHASE_FREE	= 1,
+	INSET_IN_EYE		= 2,
+	INSET_MAP_FREE		= 3,
+	INSET_MAP_CHASE		= 4,
+};
 
 #define MAX_SPEC_HUD_MESSAGES	8
 
-#define OVERVIEW_TILE_SIZE		128		// don't change this
+/**
+*	Don't change this
+*/
+#define OVERVIEW_TILE_SIZE		128
 #define OVERVIEW_MAX_LAYERS		1
 
 //-----------------------------------------------------------------------------
@@ -71,36 +77,51 @@ public:
 
 	CHudSpectator( const char* const pszName );
 
+	void Init() override;
+
+	/**
+	*	Loads new icons
+	*/
+	void VidInit() override;
+	bool Draw( float flTime ) override;
 	void Reset() override;
-	int  ToggleInset(bool allowOff);
-	void CheckSettings();
 	void InitHUDData() override;
-	bool AddOverviewEntityToList( HSPRITE sprite, cl_entity_t * ent, double killTime);
-	void DeathMessage(int victim);
-	bool AddOverviewEntity( int type, cl_entity_t *ent, const char *modelname );
-	void CheckOverviewEntities();
-	void DrawOverview();
-	void DrawOverviewEntities();
-	void GetMapPosition( Vector& vecReturn );
-	void DrawOverviewLayer();
-	void LoadMapSprites();
+
+	float GetFOV() const;
+
+	bool IsActivePlayer( cl_entity_t* ent ) const;
+
+	int ToggleInset(bool allowOff);
+
+	void SetModes( int iMainMode, int iInsetMode );
+	void CheckSettings();
+	void DeathMessage( int victim );
+
 	bool ParseOverviewFile();
-	bool IsActivePlayer(cl_entity_t * ent);
-	void SetModes(int iMainMode, int iInsetMode);
+	void LoadMapSprites();
+
+	/**
+	*	Get valid map position and 'beam' spectator to this position
+	*/
+	void SetSpectatorStartPosition();
+
+	void DrawOverview();
+	void DrawOverviewLayer();
+	void DrawOverviewEntities();
+	void CheckOverviewEntities();
+
 	void HandleButtonsDown(int ButtonPressed);
 	void HandleButtonsUp(int ButtonPressed);
 	void FindNextPlayer( bool bReverse );
 	void FindPlayer(const char *name);
-	void DirectorMessage( int iSize, void *pbuf );
-	void SetSpectatorStartPosition();
-	void Init() override;
-	void VidInit() override;
 
-	bool Draw(float flTime) override;
+	void DirectorMessage( int iSize, void *pbuf );
+
+	bool AddOverviewEntityToList( HSPRITE sprite, cl_entity_t * ent, double killTime );
+	bool AddOverviewEntity( int type, cl_entity_t *ent, const char *modelname );
 
 	void	AddWaypoint( float time, const Vector& pos, const Vector& angle, float fov, int flags );
 	void	SetCameraView( const Vector& pos, const Vector& angle, float fov);
-	float	GetFOV();
 	bool	GetDirectorCamera( Vector &position, Vector &angle);
 	void	SetWayInterpolation(cameraWayPoint_t * prev, cameraWayPoint_t * start, cameraWayPoint_t * end, cameraWayPoint_t * next);
 
