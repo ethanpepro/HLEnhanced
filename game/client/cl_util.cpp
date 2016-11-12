@@ -147,3 +147,49 @@ void UTIL_LocalizedTextMsg( const ClientPrintDest msgDest,
 
 	UTIL_TextMsg( static_cast<ClientPrintDest>( msg_dest ), msg_text, sstr1, sstr2, sstr3, sstr4 );
 }
+
+static const char LEVEL_PREFIX[] = "maps/";
+static const size_t LEVEL_PREFIX_LENGTH = 5;
+
+static const char LEVEL_SUFFIX[] = ".bsp";
+static const size_t LEVEL_SUFFIX_LENGTH = 4;
+
+bool UTIL_GetMapName( char* pszBuffer, const size_t uiSizeInBytes )
+{
+	ASSERT( pszBuffer );
+	ASSERT( uiSizeInBytes > 0 );
+
+	if( !pszBuffer || uiSizeInBytes == 0 )
+		return false;
+
+	const char* pszLevelName = gEngfuncs.pfnGetLevelName();
+	
+	if( !pszLevelName || !( *pszLevelName ) )
+		return false;
+
+	auto length = strlen( pszLevelName );
+
+	//Note: the server can use case insensitive names, so make sure to use case insensitive comparison here. - Solokiller
+
+	if( length <= LEVEL_PREFIX_LENGTH || strnicmp( LEVEL_PREFIX, pszLevelName, LEVEL_PREFIX_LENGTH ) )
+		return false;
+
+	pszLevelName += LEVEL_PREFIX_LENGTH;
+
+	length -= LEVEL_PREFIX_LENGTH;
+
+	if( length <= LEVEL_SUFFIX_LENGTH )
+		return false;
+
+	if( strnicmp( LEVEL_SUFFIX, pszLevelName + ( length - LEVEL_SUFFIX_LENGTH ), LEVEL_SUFFIX_LENGTH ) )
+		return false;
+
+	length -= LEVEL_SUFFIX_LENGTH;
+
+	if( length >= uiSizeInBytes )
+		return false;
+
+	UTIL_SafeStrncpy( pszBuffer, pszLevelName, length + 1 );
+
+	return true;
+}

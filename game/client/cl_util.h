@@ -292,4 +292,13 @@ void UTIL_LocalizedTextMsg( const ClientPrintDest msgDest,
 				   const char* pszMessage,
 				   const char* pszString1 = nullptr, const char* pszString2 = nullptr, const char* pszString3 = nullptr, const char* pszString4 = nullptr );
 
+/**
+*	Gets the name of the current map, without maps/ and .bsp.
+*	The destination buffer is only modified if the function returns true.
+*	@param[ out ] pszBuffer Destination buffer.	Should ideally be MAX_PATH or greater.
+*	@param uiSizeInBytes Size of the destination buffer, in bytes.
+*	@return Whether the map name was successfully extracted.
+*/
+bool UTIL_GetMapName( char* pszBuffer, const size_t uiSizeInBytes );
+
 #endif //GAME_CLIENT_CL_UTIL_H
