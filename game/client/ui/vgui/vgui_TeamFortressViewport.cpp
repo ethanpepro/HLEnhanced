@@ -15,6 +15,8 @@
 //
 // $NoKeywords: $
 //=============================================================================
+#include <memory>
+
 #include<VGUI_Cursor.h>
 #include<VGUI_Frame.h>
 #include<VGUI_Label.h>
@@ -698,9 +700,15 @@ int TeamFortressViewport::CreateCommandMenu( const char* const pszMenuFile, int 
 
 	// Read Command Menu from the txt file
 	char token[1024];
-	byte* pBuffer = gEngfuncs.COM_LoadFile( pszMenuFile, 5, NULL);
 
-	const char* pfile = ( char* ) pBuffer;
+	//Automatically free the file so it doesn't leak if it fails to parse correctly. - Solokiller
+	std::unique_ptr<byte[], void( *)( byte* )> buffer( gEngfuncs.COM_LoadFile( pszMenuFile, 5, NULL ), []( byte* pBuffer )
+	{
+		gEngfuncs.COM_FreeFile( pBuffer );
+	}
+	);
+
+	const char* pfile = ( char* ) buffer.get();
 
 	if (!pfile)
 	{
@@ -925,7 +933,6 @@ int TeamFortressViewport::CreateCommandMenu( const char* const pszMenuFile, int 
 
 	SetCurrentMenu( NULL );
 	SetCurrentCommandMenu( NULL );
-	gEngfuncs.COM_FreeFile( pBuffer );
 
 	m_iInitialized = true;
 	return newIndex;

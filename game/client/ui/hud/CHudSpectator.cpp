@@ -5,6 +5,8 @@
 // $NoKeywords: $
 //=============================================================================
 
+#include <memory>
+
 #include "hud.h"
 #include "cl_util.h"
 #include "cl_entity.h"
@@ -615,9 +617,15 @@ bool CHudSpectator::ParseOverviewFile()
 
 	snprintf( filename, sizeof( filename ), "overviews/%s.txt", g_Client.GetMapName() );
 
-	byte* pBuffer = gEngfuncs.COM_LoadFile( filename, 5, NULL );
+	//TODO: can be replaced with a direct call to IFileSystem. - Solokiller
+	//Automatically free the file so it doesn't leak if it fails to parse correctly. - Solokiller
+	std::unique_ptr<byte[], void ( * )(byte* )> buffer( gEngfuncs.COM_LoadFile( filename, 5, NULL ), []( byte* pBuffer )
+	{
+		gEngfuncs.COM_FreeFile( pBuffer );
+	}
+	);
 
-	const char* pfile = ( char* ) pBuffer;
+	const char* pfile = ( char* ) buffer.get();
 
 	if( !pfile )
 	{
@@ -737,8 +745,6 @@ bool CHudSpectator::ParseOverviewFile()
 
 		}
 	}
-
-	gEngfuncs.COM_FreeFile( pBuffer );
 
 	m_mapZoom = m_OverviewData.zoom;
 	m_mapOrigin = m_OverviewData.origin;
