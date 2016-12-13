@@ -658,13 +658,14 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 
 				auto pWpn = pPlayer->m_rgpPlayerItems[ slot ];
 
-				while( pWpn && pWpn->m_pNext && pWpn->m_pNext != pWeapon )
+				while( pWpn && pWpn->m_pNext && pWpn != pWeapon && pWpn->m_pNext != pWeapon )
 					pWpn = pWpn->m_pNext;
 
-				pWeapon = pWpn;
+				if( pWpn != pWeapon )
+					pWeapon = pWpn;
+				else
+					pWeapon = nullptr;
 			}
-
-			pWeapon = nullptr;
 		}
 		
 		slot = MAX_WEAPON_SLOTS-1;
@@ -991,7 +992,7 @@ int CHudAmmo::DrawWList(float flTime)
 		// otherwise just draw boxes
 		if ( i == iActiveSlot )
 		{
-			CBasePlayerWeapon *p = pPlayer->GetFirstPos( i );
+			CBasePlayerWeapon *p = pPlayer->m_rgpPlayerItems[ i ];
 			int iWidth = m_iBucketWidth;
 			if ( p )
 				iWidth = p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.right - p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.left;
@@ -1047,11 +1048,11 @@ int CHudAmmo::DrawWList(float flTime)
 
 			gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 
-			for ( int iPos = 0; iPos < MAX_WEAPONS; iPos++ )
+			CBasePlayerWeapon* p = pPlayer->m_rgpPlayerItems[ i ];
+
+			for ( CBasePlayerWeapon* p = pPlayer->m_rgpPlayerItems[ i ]; p; p = p->m_pNext )
 			{
-				CBasePlayerWeapon *p = pPlayer->GetWeapon( i, iPos );
-				
-				if ( !p || !p->GetWeaponInfo() )
+				if ( !p->GetWeaponInfo() )
 					continue;
 
 				if ( pPlayer->HasAmmo(p) )
