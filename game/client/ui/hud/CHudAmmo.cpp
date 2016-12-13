@@ -555,12 +555,22 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
 		m_pActiveSel = m_pWeapon;
 
-	int pos = 0;
 	int slot = 0;
+
+	CBasePlayerWeapon* pWeapon = nullptr;
+
 	if ( m_pActiveSel )
 	{
-		pos = m_pActiveSel->GetWeaponInfo()->GetPosition() + 1;
 		slot = m_pActiveSel->GetWeaponInfo()->GetBucket();
+		pWeapon = m_pActiveSel->m_pNext;
+
+		if( !pWeapon )
+		{
+			if( slot == ( MAX_WEAPON_SLOTS - 1 ) )
+				slot = 0;
+			else
+				++slot;
+		}
 	}
 
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
@@ -569,18 +579,19 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 	{
 		for ( ; slot < MAX_WEAPON_SLOTS; slot++ )
 		{
-			for ( ; pos < MAX_WEAPONS; pos++ )
-			{
-				CBasePlayerWeapon *wsp = pPlayer->GetWeapon( slot, pos );
+			if( !pWeapon )
+				pWeapon = pPlayer->m_rgpPlayerItems[ slot ];
 
-				if ( wsp && pPlayer->HasAmmo(wsp) )
+			for ( ; pWeapon; pWeapon = pWeapon->m_pNext )
+			{
+				if ( pWeapon && pPlayer->HasAmmo( pWeapon ) )
 				{
-					m_pActiveSel = wsp;
+					m_pActiveSel = pWeapon;
 					return;
 				}
 			}
 
-			pos = 0;
+			pWeapon = nullptr;
 		}
 
 		slot = 0;  // start looking from the first slot again
@@ -598,32 +609,62 @@ void CHudAmmo::UserCmd_PrevWeapon(void)
 	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
 		m_pActiveSel = m_pWeapon;
 
-	int pos = MAX_WEAPONS -1;
+	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
+
+	CBasePlayerWeapon* pWeapon = nullptr;
 	int slot = MAX_WEAPON_SLOTS-1;
+
 	if ( m_pActiveSel )
 	{
-		pos = m_pActiveSel->GetWeaponInfo()->GetPosition() - 1;
 		slot = m_pActiveSel->GetWeaponInfo()->GetBucket();
-	}
+		for( CBasePlayerWeapon* pWpn = pPlayer->m_rgpPlayerItems[ slot ], * pPrev = nullptr; pWpn; pPrev = pWpn, pWpn = pWpn->m_pNext )
+		{
+			if( pWpn == m_pActiveSel )
+			{
+				pWeapon = pPrev;
+				break;
+			}
+		}
 
-	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
+		if( !pWeapon )
+		{
+			if( slot == 0 )
+				slot = MAX_WEAPON_SLOTS - 1;
+			else
+				--slot;
+		}
+	}
 	
 	for ( int loop = 0; loop <= 1; loop++ )
 	{
 		for ( ; slot >= 0; slot-- )
 		{
-			for ( ; pos >= 0; pos-- )
+			//TODO: consider making the weapon list a double linked list, or turn the weapon list into a single array of pointers. - Solokiller
+			if( !pWeapon )
 			{
-				CBasePlayerWeapon *wsp = pPlayer->GetWeapon( slot, pos );
+				pWeapon = pPlayer->m_rgpPlayerItems[ slot ];
 
-				if ( wsp && pPlayer->HasAmmo(wsp) )
-				{
-					m_pActiveSel = wsp;
-					return;
-				}
+				while( pWeapon && pWeapon->m_pNext )
+					pWeapon = pWeapon->m_pNext;
 			}
 
-			pos = MAX_WEAPONS -1;
+			while( pWeapon )
+			{
+				if( pPlayer->HasAmmo( pWeapon ) )
+				{
+					m_pActiveSel = pWeapon;
+					return;
+				}
+
+				auto pWpn = pPlayer->m_rgpPlayerItems[ slot ];
+
+				while( pWpn && pWpn->m_pNext && pWpn->m_pNext != pWeapon )
+					pWpn = pWpn->m_pNext;
+
+				pWeapon = pWpn;
+			}
+
+			pWeapon = nullptr;
 		}
 		
 		slot = MAX_WEAPON_SLOTS-1;
@@ -955,11 +996,9 @@ int CHudAmmo::DrawWList(float flTime)
 			if ( p )
 				iWidth = p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.right - p->GetWeaponInfo()->GetHUDInfo()->GetActive().rect.left;
 
-			for ( int iPos = 0; iPos < MAX_WEAPONS; iPos++ )
+			for( ; p; p = p->m_pNext )
 			{
-				p = pPlayer->GetWeapon( i, iPos );
-
-				if ( !p || !p->GetWeaponInfo() )
+				if ( !p->GetWeaponInfo() )
 					continue;
 
 				auto pHUDInfo = p->GetWeaponInfo()->GetHUDInfo();
