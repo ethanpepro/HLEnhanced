@@ -57,12 +57,14 @@ static char *CopyString( const char *in )
 }
 
 #if defined( VGUI_USEDRAGDROP )
+namespace vgui2
+{
 //-----------------------------------------------------------------------------
 // Purpose: 
 //-----------------------------------------------------------------------------
-struct vgui2::DragDrop_t
+struct DragDrop_t
 {
-	vgui2::DragDrop_t() :
+	DragDrop_t() :
 		m_bDragEnabled( false ),
 		m_bDropEnabled( false ),
 		m_bDragStarted( false ),
@@ -101,6 +103,7 @@ struct vgui2::DragDrop_t
 	// Misc data
 	bool			m_bPreventChaining;
 };
+}
 
 //-----------------------------------------------------------------------------
 // Purpose: Helper for painting to the full screen...

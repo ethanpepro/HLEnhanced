@@ -75,7 +75,7 @@ private:
 	vgui2::Button *m_pSelectButton;
 	vgui2::Button *m_pCreateButton;
 
-	friend class DirectoryTreeView;
+	friend class ::DirectoryTreeView;
 };
 
 } // namespace vgui2
