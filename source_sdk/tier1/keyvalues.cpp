@@ -31,7 +31,7 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
-static char * s_LastFileLoadingFrom = "unknown"; // just needed for error messages
+static const char * s_LastFileLoadingFrom = "unknown"; // just needed for error messages
 
 #define KEYVALUES_TOKEN_SIZE	1024
 static char s_pTokenBuf[KEYVALUES_TOKEN_SIZE];
@@ -472,7 +472,7 @@ bool KeyValues::LoadFromFile( IBaseFileSystem *filesystem, const char *resourceN
 	if (!f)
 		return false;
 
-	s_LastFileLoadingFrom = (char*)resourceName;
+	s_LastFileLoadingFrom = resourceName;
 
 	// load file into a null-terminated buffer
 	int fileSize = filesystem->Size(f);

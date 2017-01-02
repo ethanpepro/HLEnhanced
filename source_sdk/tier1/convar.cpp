@@ -276,7 +276,7 @@ bool ConCommandBase::IsCommand( void ) const
 //-----------------------------------------------------------------------------
 void ConCommandBase::Create( char const *pName, char const *pHelpString /*= 0*/, int flags /*= 0*/ )
 {
-	static char *empty_string = "";
+	static const char *empty_string = "";
 
 	m_bRegistered = false;
 
@@ -904,7 +904,7 @@ void ConVar::Create( char const *pName, char const *pDefaultValue, int flags /*=
 	char const *pHelpString /*= NULL*/, bool bMin /*= false*/, float fMin /*= 0.0*/,
 	bool bMax /*= false*/, float fMax /*= false*/, FnChangeCallback callback /*= NULL*/ )
 {
-	static char *empty_string = "";
+	static const char *empty_string = "";
 
 	m_pParent = this;
 

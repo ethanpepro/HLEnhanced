@@ -39,6 +39,7 @@ public:
 	void PrintContents();
 
 	void *GetBase();
+	const void *GetBase() const;
 
 private:
 	unsigned char *m_pNextAlloc;
@@ -72,6 +73,13 @@ inline int CMemoryStack::GetUsed()
 //-------------------------------------
 
 inline void *CMemoryStack::GetBase()
+{
+	return m_pBase;
+}
+
+//-------------------------------------
+
+inline const void *CMemoryStack::GetBase() const
 {
 	return m_pBase;
 }
