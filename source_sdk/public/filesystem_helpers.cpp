@@ -159,6 +159,19 @@ bool FS_GetFileTypeForFullPath( char const *pFullPath, wchar_t *buf, size_t bufS
 	return true;
 }
 
+bool FS_IsFileWritable( IFileSystem* pFileSystem, char const *pFileName, const char *pPathID )
+{
+	//Work around the lack of IsFileWritable - Solokiller
+	FileHandle_t hFile = pFileSystem->Open( pFileName, "w", pPathID );
+
+	const bool bIsWritable = hFile != FILESYSTEM_INVALID_HANDLE;
+
+	if( hFile != FILESYSTEM_INVALID_HANDLE )
+		pFileSystem->Close( hFile );
+
+	return bIsWritable;
+}
+
 #endif // !_STATIC_LINKED || _SHARED_LIB
 
 
