@@ -3571,7 +3571,7 @@ bool TextEntry::RequestInfo(KeyValues *outputData)
 	{
 		wchar_t wbuf[64];
 		GetText(wbuf, sizeof(wbuf));
-		outputData->SetInt("state", _wtoi(wbuf));
+		outputData->SetInt("state", wcstol(wbuf, NULL, 10));
 		return true;
 	}
 	return BaseClass::RequestInfo(outputData);

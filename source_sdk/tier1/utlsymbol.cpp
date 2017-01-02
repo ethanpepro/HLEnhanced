@@ -137,7 +137,7 @@ bool CUtlSymbolTable::CLess::operator()( const CStringPoolIndex &i1, const CStri
 	if ( !pTable->m_bInsensitive )
 		return strcmp( str1, str2 ) < 0;
 	else
-		return strcmpi( str1, str2 ) < 0;
+		return stricmp( str1, str2 ) < 0;
 }
 
 //-----------------------------------------------------------------------------

@@ -11,15 +11,26 @@
 
 #include "tier0/platform.h"
 
+#include <cstdarg>
+
 #ifdef _WIN32
 #pragma once
 #elif _LINUX
 #include <ctype.h>
+#include <wctype.h>
 #include <wchar.h>
 #endif
 
 #include <string.h>
 #include <stdlib.h>
+
+//Map these properly to their Linux equivalents. - Solokiller
+#ifdef _LINUX
+#define stricmp strcasecmp
+#define strnicmp strncasecmp
+#define wcsicmp wcscasecmp
+#define wcsnicmp wcsncasecmp
+#endif
 
 template< class T > class CUtlMemory;
 template< class T, class A > class CUtlVector;
@@ -268,8 +279,35 @@ void V_StrRight( const char *pStr, int nChars, char *pOut, int outSize );
 #define INCORRECT_PATH_SEPARATOR '\\'
 #endif
 
+//From Source 2013. Implementation is not. - Solokiller
+int V_vsnwprintf( wchar_t *pDest, size_t maxLenInCharacters, const wchar_t *pFormat, va_list params );
+template <size_t maxLenInCharacters> int V_vswprintf_safe( wchar_t( &pDest )[ maxLenInCharacters ], const wchar_t *pFormat, va_list params ) { return V_vsnwprintf( pDest, maxLenInCharacters, pFormat, params ); }
+
+// FMTFUNCTION can only be used on ASCII functions, not wide-char functions.
+int V_snwprintf( wchar_t *pDest, size_t maxLenInCharacters, const wchar_t *pFormat, ... );
+template <size_t maxLenInChars> int V_swprintf_safe( wchar_t( &pDest )[ maxLenInChars ], const wchar_t *pFormat, ... )
+{
+	va_list params;
+	va_start( params, pFormat );
+	int result = V_vsnwprintf( pDest, maxLenInChars, pFormat, params );
+	va_end( params );
+	return result;
+}
+
 // Force slashes of either type to be = separator character
 void V_FixSlashes( char *pname, char separator = CORRECT_PATH_SEPARATOR );
+
+//From Source 2013 begin - Solokiller
+// strips leading and trailing whitespace; returns true if any characters were removed. UTF-8 and UTF-16 versions.
+bool Q_StripPrecedingAndTrailingWhitespace( char *pch );
+bool Q_StripPrecedingAndTrailingWhitespaceW( wchar_t *pwch );
+
+// strips leading and trailing whitespace, also taking "aggressive" characters 
+// like punctuation spaces, non-breaking spaces, composing characters, and so on
+bool Q_AggressiveStripPrecedingAndTrailingWhitespace( char *pch );
+bool Q_AggressiveStripPrecedingAndTrailingWhitespaceW( wchar_t *pwch );
+
+//From Source 2013 end - Solokiller
 
 // Convert multibyte to wchar + back
 // Specify -1 for nInSize for null-terminated string

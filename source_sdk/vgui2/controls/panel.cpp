@@ -419,7 +419,7 @@ static void BufPrint( CUtlBuffer& buf, int level, char const *fmt, ... )
 	char string[ 2048 ];
 	va_list argptr;
 	va_start( argptr, fmt );
-	_vsnprintf( string, sizeof( string ) - 1, fmt, argptr );
+	Q_vsnprintf( string, sizeof( string ) - 1, fmt, argptr );
 	va_end( argptr );
 	string[ sizeof( string ) - 1 ] = 0;
 
@@ -2235,7 +2235,7 @@ wchar_t const *Panel::KeyCodeModifiersToDisplayString( KeyCode code, int modifie
 	}
 
 	static wchar_t unicode[ 256 ];
-	_snwprintf( unicode, 255, L"%S%s", sz, Panel::KeyCodeToDisplayString( (KeyCode)code ) );
+	V_swprintf_safe( unicode, L"%S%s", sz, Panel::KeyCodeToDisplayString( (KeyCode)code ) );
 	return unicode;
 }
 
@@ -6159,7 +6159,7 @@ void Panel::OnDraggablePanelPaint()
 		surface()->DrawSetTextPos( x + 5, y + 2 );
 
 		wchar_t sz[ 64 ];
-		_snwprintf( sz, 64, L"[ %i ]", m_pDragDrop->m_DragPanels.Count() );
+		V_swprintf_safe( sz, L"[ %i ]", m_pDragDrop->m_DragPanels.Count() );
 
 		surface()->DrawPrintText( sz, wcslen( sz ) );
 	}

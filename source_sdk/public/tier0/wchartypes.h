@@ -70,7 +70,7 @@ typedef wchar_t wchar;
 #define _tfopen fopen
 #define _stprintf sprintf 
 #define _ftprintf fprintf
-#define _vsntprintf _vsnprintf
+#define _vsntprintf vsnprintf
 #define _tprintf printf
 #define _sntprintf _snprintf
 #define _T(s) s

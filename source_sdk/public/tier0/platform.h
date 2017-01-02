@@ -204,6 +204,8 @@ FIXME: Enable this when we no longer fear change =)
 #endif
 
 #elif _LINUX
+#define _vsnprintf vsnprintf
+
 typedef unsigned int DWORD;
 typedef unsigned short WORD;
 typedef void * HINSTANCE;
