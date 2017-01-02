@@ -81,6 +81,7 @@ include_directories(
 add_library( vgui2_controls STATIC ${PREP_SRCS} )
 
 target_compile_definitions( vgui2_controls PRIVATE
+	${SHARED_DEFS}
 	NO_MALLOC_OVERRIDE
 )
 

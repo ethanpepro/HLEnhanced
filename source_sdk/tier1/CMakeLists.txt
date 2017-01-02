@@ -55,6 +55,7 @@ include_directories(
 add_library( tier1 STATIC ${PREP_SRCS} )
 
 target_compile_definitions( tier1 PRIVATE
+	${SHARED_DEFS}
 	TIER1_STATIC_LIB
 	NO_MALLOC_OVERRIDE
 )

@@ -214,11 +214,13 @@ set( SHARED_DEFS
 	_SCL_SECURE_NO_WARNINGS
 )
 
-#Define LINUX so code can check for it
 if( UNIX )
+	#Define LINUX so code can check for it
+	#Define _LINUX for Source SDK dependencies.
 	set( SHARED_DEFS
 		"${SHARED_DEFS}"
 		LINUX
+		_LINUX
 	)
 	
 	set( LINUX_32BIT_FLAG "-m32" )
@@ -392,11 +394,11 @@ if( NOT WIN32 )
 endif()
 
 if( USE_VGUI2 )
-	find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_STATIC_LIBRARY_SUFFIX} PATHS lib/public/ )
-
 	if( WIN32 )
+		find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_STATIC_LIBRARY_SUFFIX} PATHS lib/public/ )
 		find_library( VSTDLIB vstdlib PATHS lib/public/ )
 	else()
+		find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS ${STEAMCOMMON}/Half-Life/ )
 		set( VSTDLIB "" )
 	endif()
 	
