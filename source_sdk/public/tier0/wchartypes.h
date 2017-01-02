@@ -20,9 +20,13 @@
 // Temporarily turn off Valve defines
 #include "tier0/valve_off.h"
 
+//TODO: this block is copied to vgui2.h and ilocalize.h. Either include this header or move it to its own header. - Solokiller
 #ifndef _WCHAR_T_DEFINED
+// DAL - wchar_t is a built in define in gcc 3.2 with a size of 4 bytes
+#if !defined( __x86_64__ ) && !defined( __WCHAR_TYPE__  )
 typedef unsigned short wchar_t;
 #define _WCHAR_T_DEFINED
+#endif
 #endif
 
 // char8
