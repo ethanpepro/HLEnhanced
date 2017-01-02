@@ -11,6 +11,8 @@
 #pragma once
 #endif
 
+#include <cstddef> //offsetof
+
 #ifndef VECTOR_H
 #include "vector.h"
 #endif
@@ -110,7 +112,7 @@ DECLARE_FIELD_SIZE( FIELD_MODELINDEX,	sizeof(int) )
 DECLARE_FIELD_SIZE( FIELD_MATERIALINDEX,	sizeof(int) )
 
 
-#if !defined(offsetof) || defined(_LINUX)
+#if !defined(offsetof)
 #define offsetof(s,m)	(size_t)&(((s *)0)->m)
 #endif
 
