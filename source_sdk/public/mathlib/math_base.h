@@ -17,8 +17,11 @@
 
 #ifdef _WIN32
 #define FORCEINLINE_MATH FORCEINLINE
+#define FORCEINLINE_MATH_TEMPLATE FORCEINLINE_MATH
 #else
 #define FORCEINLINE_MATH extern __inline__ FORCEINLINE
+//Special case for templates because the extern specifier is not supported. - Solokiller
+#define FORCEINLINE_MATH_TEMPLATE __inline__ FORCEINLINE
 #endif
 
 // plane_t structure
@@ -526,7 +529,7 @@ static inline float FLerp(float f1, float f2, float i1, float i2, float x)
 #ifndef VECTOR_NO_SLOW_OPERATIONS
 
 // YWB:  Specialization for interpolating euler angles via quaternions...
-template<> FORCEINLINE_MATH QAngle Lerp<QAngle>( float flPercent, const QAngle& q1, const QAngle& q2 )
+template<> FORCEINLINE_MATH_TEMPLATE QAngle Lerp<QAngle>( float flPercent, const QAngle& q1, const QAngle& q2 )
 {
 	// Avoid precision errors
 	if ( q1 == q2 )
