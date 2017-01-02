@@ -530,15 +530,16 @@ inline float DWordSwapAsm<float>( float f )
 // The typically used methods. 
 //-------------------------------------
 
-#if defined(__i386__) || defined(_XBOX)
-#define LITTLE_ENDIAN 1
+//Valve later renamed this macro from LITTLE_ENDIAN to avoid conflicts with GCC's LITTLE_ENDIAN from endian.h. - Solokiller
+#if ( defined(__i386__) || defined(_XBOX) ) && !defined(VALVE_LITTLE_ENDIAN)
+#define VALVE_LITTLE_ENDIAN 1
 #endif
 
 #ifdef _SGI_SOURCE
-#define	BIG_ENDIAN 1
+#define	VALVE_BIG_ENDIAN 1
 #endif
 
-#if defined(LITTLE_ENDIAN)
+#if defined(VALVE_LITTLE_ENDIAN)
 
 #define BigShort( val )		WordSwap( val )
 #define BigWord( val )		WordSwap( val )
@@ -551,7 +552,7 @@ inline float DWordSwapAsm<float>( float f )
 #define LittleDWord( val )	( val )
 #define LittleFloat( val )	( val )
 
-#elif defined(BIG_ENDIAN)
+#elif defined(VALVE_BIG_ENDIAN)
 
 #define BigShort( val )		( val )
 #define BigWord( val )		( val )
