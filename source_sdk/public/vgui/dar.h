@@ -41,40 +41,40 @@ public:
 public:
 	void SetCount(int count)
 	{
-		EnsureCount( count );
+		this->EnsureCount( count );
 	}
 	int GetCount()
 	{
-		return Count();
+		return this->Count();
 	}
 	int AddElement(ELEMTYPE elem)
 	{
-		return AddToTail( elem );
+		return this->AddToTail( elem );
 	}
 	void MoveElementToEnd( ELEMTYPE elem )
 	{
-		if ( Count() == 0 )
+		if ( this->Count() == 0 )
 			return;
 
 		// quick check to see if it's already at the end
-		if ( Element( Count() - 1 ) == elem )
+		if ( Element( this->Count() - 1 ) == elem )
 			return;
 
 		int idx = Find( elem );
-		if ( idx == InvalidIndex() )
+		if ( idx == this->InvalidIndex() )
 			return;
 
-		Remove( idx );
-		AddToTail( elem );
+		this->Remove( idx );
+		this->AddToTail( elem );
 	}
 	// returns the index of the element in the array, -1 if not found
 	int FindElement(ELEMTYPE elem)
 	{
-		return Find( elem );
+		return this->Find( elem );
 	}
 	bool HasElement(ELEMTYPE elem)
 	{
-		if ( FindElement(elem) != InvalidIndex() )
+		if ( FindElement(elem) != this->InvalidIndex() )
 		{
 			return true;
 		}
@@ -96,34 +96,34 @@ public:
 	}
 	void SetElementAt(ELEMTYPE elem,int index)
 	{
-		EnsureCount( index + 1 );
-		Element( index ) = elem;
+		this->EnsureCount( index + 1 );
+		this->Element( index ) = elem;
 	}
 	void RemoveElementAt(int index)
 	{
-		Remove( index );
+		this->Remove( index );
 	} 
 
 	void RemoveElementsBefore(int index)
 	{
 		if ( index <= 0 )
 			return;
-		RemoveMultiple( 0, index - 1 );
+		this->RemoveMultiple( 0, index - 1 );
 	}  
 
 	void RemoveElement(ELEMTYPE elem)
 	{
-		FindAndRemove( elem );
+		this->FindAndRemove( elem );
 	}
 
 	void *GetBaseData()
 	{
-		return Base();
+		return this->Base();
 	}
 
 	void CopyFrom(Dar<ELEMTYPE> &dar)
 	{
-		CoypArray( dar.Base(), dar.Count() );
+		this->CopyArray( dar.Base(), dar.Count() );
 	}
 };
 

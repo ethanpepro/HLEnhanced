@@ -627,7 +627,7 @@ CUtlMemoryAligned<T, nAlignment>::CUtlMemoryAligned( int nGrowSize, int nInitAll
 	CUtlMemory<T>::m_pMemory = 0; 
 	CUtlMemory<T>::m_nAllocationCount = nInitAllocationCount;
 	CUtlMemory<T>::m_nGrowSize = nGrowSize;
-	ValidateGrowSize();
+	this->ValidateGrowSize();
 
 	// Alignment must be a power of two
 	COMPILE_TIME_ASSERT( (nAlignment & (nAlignment-1)) == 0 );
@@ -708,7 +708,7 @@ void CUtlMemoryAligned<T, nAlignment>::Grow( int num )
 {
 	Assert( num > 0 );
 
-	if ( IsExternallyAllocated() )
+	if ( this->IsExternallyAllocated() )
 	{
 		// Can't grow a buffer whose memory was externally allocated 
 		Assert(0);
@@ -750,7 +750,7 @@ inline void CUtlMemoryAligned<T, nAlignment>::EnsureCapacity( int num )
 	if ( CUtlMemory<T>::m_nAllocationCount >= num )
 		return;
 
-	if ( IsExternallyAllocated() )
+	if ( this->IsExternallyAllocated() )
 	{
 		// Can't grow a buffer whose memory was externally allocated 
 		Assert(0);
@@ -783,7 +783,7 @@ inline void CUtlMemoryAligned<T, nAlignment>::EnsureCapacity( int num )
 template< class T, int nAlignment >
 void CUtlMemoryAligned<T, nAlignment>::Purge()
 {
-	if ( !IsExternallyAllocated() )
+	if ( !this->IsExternallyAllocated() )
 	{
 		if (m_pMemoryBase)
 		{
