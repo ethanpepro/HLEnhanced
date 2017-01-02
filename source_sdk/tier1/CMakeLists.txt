@@ -28,7 +28,6 @@ add_sources(
 	strtools.cpp
 	tier1.cpp
 	tokenreader.cpp
-	undiff.cpp
 	utlbuffer.cpp
 	utlstring.cpp
 	utlsymbol.cpp
