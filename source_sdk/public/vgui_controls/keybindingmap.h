@@ -12,6 +12,8 @@
 
 #include "tier1/UtlVector.h"
 
+#include "vgui/KeyCode.h"
+
 // more flexible than default pointers to members code required for casting member function pointers
 #pragma pointers_to_members( full_generality, virtual_inheritance )
 

@@ -29,6 +29,9 @@
 #include "tier1/UtlSymbol.h"
 #include "vgui_controls/buildgroup.h"
 
+#include "vgui/MouseCode.h"
+#include "vgui/KeyCode.h"
+
 // undefine windows function macros that overlap 
 #ifdef PostMessage
 #undef PostMessage

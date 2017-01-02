@@ -14,6 +14,7 @@
 
 #include "UtlVector.h"
 #include "vgui/VGUI2.h"
+#include "vgui/MouseCode.h"
 #include "vgui_controls/Panel.h"
 #include "vgui_controls/PHandle.h"
 

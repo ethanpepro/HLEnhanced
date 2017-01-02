@@ -14,6 +14,8 @@
 
 #include <vgui/VGUI2.h>
 #include <vgui/IPanel.h>
+#include <vgui/MouseCode.h>
+#include <vgui/KeyCode.h>
 #include <vstdlib/IKeyValuesSystem.h>
 
 #include "tier1/interface.h"
@@ -116,8 +118,9 @@ class ImageList;
 class TextImage;
 
 // vgui enumerations
-enum KeyCode;
-enum MouseCode;
+//Can't forward declare regular enums. - Solokiller
+//enum KeyCode;
+//enum MouseCode;
 
 } // namespace vgui2
 

@@ -15,11 +15,15 @@
 #include <vgui/VGUI2.h>
 #include "interface.h"
 
+#include <vgui/MouseCode.h>
+#include <vgui/KeyCode.h>
+
 namespace vgui2
 {
 
-enum MouseCode;
-enum KeyCode;
+//Can't forward declare regular enums. - Solokiller
+//enum MouseCode;
+//enum KeyCode;
 class Cursor;
 typedef unsigned long HCursor;
 
