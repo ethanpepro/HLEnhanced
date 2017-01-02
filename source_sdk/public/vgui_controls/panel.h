@@ -675,7 +675,8 @@ private:
 	CPanelAnimationVarAliasType( int, m_nBgTextureId3, "Texture3", "vgui/hud/800corner3", "textureid" );
 	CPanelAnimationVarAliasType( int, m_nBgTextureId4, "Texture4", "vgui/hud/800corner4", "textureid" );
 	
-	friend class Panel;
+	//Being friends with yourself? That's impossibru. - Solokiller
+	//friend class Panel;
 	friend class BuildGroup;
 	friend class BuildModeDialog;
 	friend class PHandle;

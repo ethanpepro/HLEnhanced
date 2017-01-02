@@ -308,7 +308,7 @@ struct MemAllocFileLine_t
 #define MemAlloc_RegisterExternalAllocation( tag, p, size ) ((void)0)
 #define MemAlloc_RegisterExternalDeallocation( tag, p, size ) ((void)0)
 
-#endif !STEAM && NO_MALLOC_OVERRIDE
+#endif //!STEAM && NO_MALLOC_OVERRIDE
 
 //-----------------------------------------------------------------------------
 

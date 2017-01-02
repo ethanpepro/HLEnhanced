@@ -297,8 +297,8 @@ void netadr_t::SetFromSocket( int hSocket )
 	type = NA_IP;
 
 	struct sockaddr address;
-	int namelen = sizeof(address);
-	if ( getsockname( hSocket, (struct sockaddr *)&address, (int *)&namelen) == 0 )
+	socklen_t namelen = sizeof(address);
+	if ( getsockname( hSocket, (struct sockaddr *)&address, &namelen) == 0 )
 	{
 		SetFromSockadr( &address );
 	}

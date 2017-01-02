@@ -22,7 +22,7 @@
 
 // need this for _alloca
 #include <malloc.h>
-#include <new.h>
+#include <new>
 
 // need this for memset
 #include <string.h>
@@ -390,6 +390,11 @@ typedef void * HINSTANCE;
 #pragma warning( disable : 4267 )	// conversion from 'size_t' to 'int', possible loss of data
 #pragma warning( disable : 4311 )	// pointer truncation from 'char *' to 'int'
 #pragma warning( disable : 4312 )	// conversion from 'unsigned int' to 'memhandle_t' of greater size
+#endif
+
+#ifndef WIN32
+//Ported from Source 2013. - Solokiller
+#define _mkdir(dir) mkdir( dir, S_IRWXU | S_IRWXG | S_IRWXO )
 #endif
 
 //-----------------------------------------------------------------------------
