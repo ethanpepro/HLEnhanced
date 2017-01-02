@@ -9,6 +9,8 @@
 #ifndef UTLRBTREE_H
 #define UTLRBTREE_H
 
+#include "tier1/strtools.h"
+
 #include "tier1/utlmemory.h"
 
 //-----------------------------------------------------------------------------
@@ -28,7 +30,7 @@ public:
 //-------------------------------------
 
 inline bool StringLessThan( const char * const &lhs, const char * const &rhs)			{ return ( strcmp( lhs, rhs) < 0 );  }
-inline bool CaselessStringLessThan( const char * const &lhs, const char * const &rhs )	{ return ( stricmp( lhs, rhs) < 0 ); }
+inline bool CaselessStringLessThan( const char * const &lhs, const char * const &rhs )	{ return ( Q_stricmp( lhs, rhs) < 0 ); }
 
 //-------------------------------------
 // inline these two templates to stop multiple definitions of the same code
