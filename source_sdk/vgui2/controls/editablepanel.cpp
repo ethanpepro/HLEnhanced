@@ -688,11 +688,11 @@ void EditablePanel::RequestFocus(int direction)
 	// delegate focus
 	if (direction == 1)
 	{
-		RequestFocusNext(NULL);
+		RequestFocusNext(NULL_HANDLE);
 	}
 	else if (direction == -1)
 	{
-		RequestFocusPrev(NULL);
+		RequestFocusPrev(NULL_HANDLE);
 	}
 	else
 	{
@@ -754,7 +754,7 @@ VPANEL EditablePanel::GetCurrentKeyFocus()
 {
 	Panel *focus = m_NavGroup.GetCurrentFocus();
 	if (focus == this)
-		return NULL;
+		return NULL_HANDLE;
 
 	if (focus)
 	{

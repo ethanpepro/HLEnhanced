@@ -229,7 +229,7 @@ const typename CUtlHandleTable<T, HandleBits>::EntryType_t *CUtlHandleTable<T, H
 
 	if ( checkValidity &&
 		( 1 == entry.nInvalid ) )
-		return false;
+		return NULL;
 
 	return &entry;
 }

@@ -396,7 +396,7 @@ public:
 		// ensure mouse capture gets released
 		if (IsUseCaptureMouseEnabled())
 		{
-			input()->SetMouseCapture(NULL);
+			input()->SetMouseCapture(NULL_HANDLE);
 		}
 
 		// make sure the button gets unselected

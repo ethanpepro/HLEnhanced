@@ -170,7 +170,7 @@ void Dragger::OnMouseReleased(MouseCode code)
 {
 	if (m_bMovable)
 	{
-		input()->SetMouseCapture(NULL);
+		input()->SetMouseCapture(NULL_HANDLE);
 		m_bDragging = false;
 	}
 }

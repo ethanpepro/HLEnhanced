@@ -161,7 +161,7 @@ private:
 
 	virtual void OnClose()
 	{
-		input()->SetAppModalSurface(NULL);
+		input()->SetAppModalSurface(NULL_HANDLE);
 		BaseClass::OnClose();
 		//PostActionSignal(new KeyValues("Command"
 	}
@@ -906,7 +906,7 @@ void BuildModeDialog::ApplyDataToControls()
 		{
 			char messageString[255];
 			Q_snprintf(messageString, sizeof( messageString ), "Fieldname is not unique: %s\nRename it and try again.", fieldName);
-			MessageBox *errorBox = new MessageBox("Cannot Apply", messageString , false);
+			MessageBox *errorBox = new MessageBox("Cannot Apply", messageString , NULL);
 			errorBox->DoModal();
 			UpdateControlData(m_pCurrentPanel);
 			m_pApplyButton->SetEnabled(false);

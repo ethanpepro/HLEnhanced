@@ -253,8 +253,8 @@ public:
 	virtual void RequestFocus(int direction = 0);
 	virtual bool HasFocus();
 	virtual void InvalidateLayout(bool layoutNow = false, bool reloadScheme = false);
-	virtual bool RequestFocusPrev(VPANEL panel = NULL);
-	virtual bool RequestFocusNext(VPANEL panel = NULL);
+	virtual bool RequestFocusPrev(VPANEL panel = NULL_HANDLE);
+	virtual bool RequestFocusNext(VPANEL panel = NULL_HANDLE);
 	// tab positioning
 	virtual void   SetTabPosition(int position);
 	virtual int    GetTabPosition();

@@ -722,7 +722,7 @@ Panel::~Panel()
 	_flags.SetFlag( MARKED_FOR_DELETION );
 
 	// remove panel from any list
-	SetParent((VPANEL)NULL);
+	SetParent((VPANEL)NULL_HANDLE);
 
 	// Stop our children from pointing at us, and delete them if possible
 	while (ipanel()->GetChildCount(GetVPanel()))
@@ -734,7 +734,7 @@ Panel::~Panel()
 		}
 		else
 		{
-			ipanel()->SetParent(child, NULL);
+			ipanel()->SetParent(child, NULL_HANDLE);
 		}
 	}
 
@@ -743,7 +743,7 @@ Panel::~Panel()
 	// free our name
 	delete [] _panelName;
 
-	_vpanel = NULL;
+	_vpanel = NULL_HANDLE;
 #if defined( VGUI_USEDRAGDROP )
 	delete m_pDragDrop;
 #endif // VGUI_USEDRAGDROP
@@ -907,7 +907,7 @@ void Panel::OnScreenSizeChanged(int nOldWide, int nOldTall)
 	for (int i = 0; i < ipanel()->GetChildCount(GetVPanel()); i++)
 	{
 		VPANEL child = ipanel()->GetChild(GetVPanel(), i);
-		PostMessage(child, new KeyValues("OnScreenSizeChanged", "oldwide", nOldWide, "oldtall", nOldTall), NULL);
+		PostMessage(child, new KeyValues("OnScreenSizeChanged", "oldwide", nOldWide, "oldtall", nOldTall), 0);
 	}
 
 	// make any currently fullsize window stay fullsize
@@ -1276,7 +1276,7 @@ void Panel::SetParent(Panel *newParent)
 	}
 	else
 	{
-		SetParent((VPANEL)NULL);
+		SetParent((VPANEL)NULL_HANDLE);
 	}
 }
 
@@ -1291,7 +1291,7 @@ void Panel::SetParent(VPANEL newParent)
 	}
 	else
 	{
-		ipanel()->SetParent(GetVPanel(), NULL);
+		ipanel()->SetParent(GetVPanel(), NULL_HANDLE);
 	}
 
 	if (GetVParent() && !IsPopup())
@@ -2699,7 +2699,7 @@ void Panel::OnThink()
 			return;
 		}
 
-		if ( m_pDragDrop->m_hCurrentDrop != NULL )
+		if ( m_pDragDrop->m_hCurrentDrop != NULL_HANDLE )
 		{
 			if ( !input()->IsMouseDown( MOUSE_LEFT ) )
 			{
@@ -2896,7 +2896,7 @@ VPANEL Panel::IsWithinTraverse(int x, int y, bool traversePopups)
 	// if this one is not visible, its children won't be either
 	// also if it doesn't want mouse input its children can't get it either
 	if (!IsVisible() || !IsMouseInputEnabled())
-		return NULL;
+		return NULL_HANDLE;
 
 	if (traversePopups)
 	{
@@ -2907,7 +2907,7 @@ VPANEL Panel::IsWithinTraverse(int x, int y, bool traversePopups)
 			if (ipanel()->IsPopup(panel))
 			{
 				panel = ipanel()->IsWithinTraverse(panel, x, y, true);
-				if (panel != null)
+				if (panel != NULL_HANDLE)
 				{
 					return panel;
 				}
@@ -2924,7 +2924,7 @@ VPANEL Panel::IsWithinTraverse(int x, int y, bool traversePopups)
 			if (!ipanel()->IsPopup(panel))
 			{
 				panel = ipanel()->IsWithinTraverse(panel, x, y, true);
-				if (panel != NULL)
+				if (panel != NULL_HANDLE)
 				{
 					return panel;
 				}
@@ -2952,7 +2952,7 @@ VPANEL Panel::IsWithinTraverse(int x, int y, bool traversePopups)
 				if (!ipanel()->IsPopup(panel))
 				{
 					panel = ipanel()->IsWithinTraverse(panel, x, y, false);
-					if (panel != NULL)
+					if (panel != NULL_HANDLE)
 					{
 						return panel;
 					}
@@ -2965,7 +2965,7 @@ VPANEL Panel::IsWithinTraverse(int x, int y, bool traversePopups)
 		}
 	}
 
-	return NULL;
+	return NULL_HANDLE;
 }
 
 void Panel::LocalToScreen(int& x,int& y)
@@ -3127,7 +3127,7 @@ bool Panel::RequestFocusNext(VPANEL panel)
 void Panel::RequestFocus(int direction)
 {
 //	ivgui()->DPrintf2("RequestFocus(%s, %s)\n", GetName(), GetClassName());
-	OnRequestFocus(GetVPanel(), NULL);
+	OnRequestFocus(GetVPanel(), NULL_HANDLE);
 }
 
 //-----------------------------------------------------------------------------
@@ -3143,7 +3143,7 @@ void Panel::OnRequestFocus(VPANEL subFocus, VPANEL defaultPanel)
 //-----------------------------------------------------------------------------
 VPANEL Panel::GetCurrentKeyFocus()
 {
-	return NULL;
+	return NULL_HANDLE;
 }
 
 //-----------------------------------------------------------------------------
@@ -4657,7 +4657,7 @@ VPANEL VPanelHandle::Get()
 	{
 		return ivgui()->HandleToPanel(m_iPanelID);
 	}
-	return NULL;
+	return NULL_HANDLE;
 }
 
 //-----------------------------------------------------------------------------
@@ -5539,7 +5539,7 @@ void Panel::OnFinishDragging( bool mousereleased, MouseCode code, bool abort /*=
 		Q_strncpy( cmd, "default", sizeof( cmd ) );
 
 		if ( mousereleased &&
-			m_pDragDrop->m_hCurrentDrop != NULL &&
+			m_pDragDrop->m_hCurrentDrop != NULL_HANDLE &&
 			m_pDragDrop->m_hDropContextMenu.Get() )
 		{
 			Menu *menu = m_pDragDrop->m_hDropContextMenu;
@@ -5794,7 +5794,7 @@ void Panel::OnContinueDragging()
 		}
 	}
 
-	if ( m_pDragDrop->m_hCurrentDrop != NULL &&
+	if ( m_pDragDrop->m_hCurrentDrop != NULL_HANDLE &&
 		m_pDragDrop->m_hDropContextMenu.Get() )
 	{
 		Menu *menu = m_pDragDrop->m_hDropContextMenu;

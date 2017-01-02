@@ -329,7 +329,8 @@ FileNameHandle_t CUtlFilenameSymbolTable::FindFileName( char const *pFileName )
 	handle.path = g_CountedStringPool.FindStringHandle(basepath);
 	handle.file = g_CountedStringPool.FindStringHandle(filename);
 
-	if( handle.path == NULL || handle.file == NULL )
+	if( handle.path == CCountedStringPool::INVALID_ELEMENT || 
+		handle.file == CCountedStringPool::INVALID_ELEMENT )
 		return NULL;
 
 	return *( FileNameHandle_t * )( &handle );

@@ -1471,7 +1471,7 @@ void TextEntry::OnMouseReleased(MouseCode code)
 {
 	_mouseSelection = false;
 	
-	input()->SetMouseCapture(NULL);
+	input()->SetMouseCapture(NULL_HANDLE);
 	
 	// make sure something has been selected
 	int cx0, cx1;

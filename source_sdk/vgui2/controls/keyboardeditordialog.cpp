@@ -53,8 +53,8 @@ public:
 	virtual			~VControlsListPanel();
 
 	// Start/end capturing
-	virtual void	StartCaptureMode(vgui2::HCursor hCursor = NULL);
-	virtual void	EndCaptureMode(vgui2::HCursor hCursor = NULL);
+	virtual void	StartCaptureMode(vgui2::HCursor hCursor = NULL_HANDLE);
+	virtual void	EndCaptureMode(vgui2::HCursor hCursor = NULL_HANDLE);
 	virtual bool	IsCapturing();
 
 	// Set which item should be associated with the prompt
@@ -194,7 +194,7 @@ void VControlsListPanel::OnClearBinding()
 void VControlsListPanel::EndCaptureMode( HCursor hCursor )
 {
 	m_bCaptureMode = false;
-	input()->SetMouseCapture(NULL);
+	input()->SetMouseCapture(NULL_HANDLE);
 	LeaveEditMode();
 	RequestFocus();
 	input()->SetMouseFocus(GetVPanel());

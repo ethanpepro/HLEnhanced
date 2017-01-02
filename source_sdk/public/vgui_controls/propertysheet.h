@@ -61,8 +61,8 @@ public:
 
 	// focus handling - passed on to current active page
 	virtual void RequestFocus(int direction = 0);
-	virtual bool RequestFocusPrev(VPANEL panel = NULL);
-	virtual bool RequestFocusNext(VPANEL panel = NULL);
+	virtual bool RequestFocusPrev(VPANEL panel = NULL_HANDLE);
+	virtual bool RequestFocusNext(VPANEL panel = NULL_HANDLE);
 
 	// returns the ith panel 
 	virtual Panel *GetPage(int i);

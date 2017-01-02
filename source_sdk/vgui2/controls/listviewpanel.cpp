@@ -228,7 +228,7 @@ ListViewPanel::ListViewPanel(Panel *parent, const char *panelName) : Panel(paren
 {
 	m_iRowHeight = 20;
 	m_bNeedsSort = false;
-	m_hFont = NULL;
+	m_hFont = NULL_HANDLE;
 	m_pImageList = NULL;
 	m_bDeleteImageListWhenDone = false;
 	m_pSortFunc = DefaultSortFunc;

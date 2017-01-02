@@ -53,7 +53,7 @@ namespace vgui2
 typedef unsigned int VPANEL;
 
 // handles to vgui objects
-// NULL values signify an invalid value
+// NULL_HANDLE values signify an invalid value
 typedef unsigned long HScheme;
 typedef unsigned long HTexture;
 typedef unsigned long HCursor;
@@ -61,6 +61,11 @@ typedef unsigned long HPanel;
 const HPanel INVALID_PANEL = 0xffffffff;
 typedef unsigned long HFont;
 const HFont INVALID_FONT = 0; // the value of an invalid font handle
+
+/**
+*	Represents an invalid handle. Code originally used NULL, which isn't intended to be used with non-pointer types. - Solokiller
+*/
+#define NULL_HANDLE 0
 }
 
 #include "vstdlib/strtools.h"

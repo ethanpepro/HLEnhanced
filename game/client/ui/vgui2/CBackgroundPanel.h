@@ -15,7 +15,7 @@ public:
 	// don't respond to mouse clicks
 	void OnMousePressed( vgui2::MouseCode code ) override {}
 
-	vgui2::VPANEL IsWithinTraverse( int x, int y, bool traversePopups ) override { return NULL; }
+	vgui2::VPANEL IsWithinTraverse( int x, int y, bool traversePopups ) override { return NULL_HANDLE; }
 
 	void ApplySchemeSettings( vgui2::IScheme* pScheme ) override;
 

@@ -76,7 +76,7 @@ BuildGroup::BuildGroup(Panel *parentPanel, Panel *contextPanel)
 	for (int i=0; i<4; ++i)
 		_rulerNumber[i] = NULL;
 	SetContextPanel(contextPanel);
-	_controlGroup = NULL;
+	_controlGroup = NULL_HANDLE;
 	_groupDeltaX = 0;
 	_groupDeltaX = 0;
 	_showRulers = false;
@@ -343,10 +343,10 @@ bool BuildGroup::CursorMoved(int x, int y, Panel *panel)
 		{
 			KeyValues *keyval = new KeyValues("UpdateControlData");
 			keyval->SetPtr("panel", GetCurrentPanel());
-			ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL);
+			ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL_HANDLE);
 
 			keyval = new KeyValues("EnableSaveButton");	
-			ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL);	
+			ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL_HANDLE);
 		}
 		
 		panel->Repaint();
@@ -384,7 +384,7 @@ bool BuildGroup::MousePressed(MouseCode code, Panel *panel)
 	if (panel == m_hBuildDialog)
 	{
 		// hide the click menu if its up
-		ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("HideNewControlMenu"), NULL);
+		ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("HideNewControlMenu"), NULL_HANDLE);
 		return true;
 	}
 
@@ -402,7 +402,7 @@ bool BuildGroup::MousePressed(MouseCode code, Panel *panel)
 	if ( code == MOUSE_RIGHT && panel == GetContextPanel())
 	{		
 		// trigger a drop down menu to create new controls
-		ivgui()->PostMessage (m_hBuildDialog->GetVPanel(), new KeyValues("ShowNewControlMenu"), NULL);	
+		ivgui()->PostMessage (m_hBuildDialog->GetVPanel(), new KeyValues("ShowNewControlMenu"), NULL_HANDLE);
 	}	
 	else
 	{	
@@ -418,7 +418,7 @@ bool BuildGroup::MousePressed(MouseCode code, Panel *panel)
 
 		_dragging = true;
 		_dragMouseCode = code;
-		ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("HideNewControlMenu"), NULL);
+		ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("HideNewControlMenu"), NULL_HANDLE);
 		
 		int x, y;
 		input()->GetCursorPos(x, y);
@@ -483,12 +483,12 @@ bool BuildGroup::MousePressed(MouseCode code, Panel *panel)
 				
 				KeyValues *keyval = new KeyValues("SetActiveControl");
 				keyval->SetPtr("PanelPtr", GetCurrentPanel());
-				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL);
+				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL_HANDLE);
 			}		
 		}		
 
 		// store undo information upon panel selection.
-		ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("StoreUndo"), NULL);
+		ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("StoreUndo"), NULL_HANDLE);
 
 		panel->RequestFocus();
 	}
@@ -625,7 +625,7 @@ bool BuildGroup::KeyCodeTyped(KeyCode code, Panel *panel)
 		case KEY_DELETE:
 		{
 			// delete the panel we have selected 
-			ivgui()->PostMessage (m_hBuildDialog->GetVPanel(), new KeyValues ("DeletePanel"), NULL);
+			ivgui()->PostMessage (m_hBuildDialog->GetVPanel(), new KeyValues ("DeletePanel"), NULL_HANDLE);
 			break;
 		}
 
@@ -637,18 +637,18 @@ bool BuildGroup::KeyCodeTyped(KeyCode code, Panel *panel)
 		{
 		case KEY_Z:
 			{
-				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("Undo"), NULL);
+				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("Undo"), NULL_HANDLE);
 				break;
 			}
 
 		case KEY_C:
 			{
-				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("Copy"), NULL);
+				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("Copy"), NULL_HANDLE);
 				break;
 			}
 		case KEY_V:
 			{
-				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("Paste"), NULL);
+				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("Paste"), NULL_HANDLE);
 				break;
 			}
 		}
@@ -674,7 +674,7 @@ bool BuildGroup::KeyCodeTyped(KeyCode code, Panel *panel)
 		ApplySnap(panel);
 
 		panel->Repaint();
-		if (panel->GetVParent() != NULL)
+		if (panel->GetVParent() != NULL_HANDLE)
 		{
 			panel->PostMessage(panel->GetVParent(), new KeyValues("Repaint"));
 		}
@@ -686,10 +686,10 @@ bool BuildGroup::KeyCodeTyped(KeyCode code, Panel *panel)
 			// post that it's active
 			KeyValues *keyval = new KeyValues("SetActiveControl");
 			keyval->SetPtr("PanelPtr", GetCurrentPanel());
-			ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL);
+			ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL_HANDLE);
 
 			// post that it's been changed
-			ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("PanelMoved"), NULL);
+			ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("PanelMoved"), NULL_HANDLE);
 		}
 	}
 
@@ -778,7 +778,7 @@ void BuildGroup::ActivateBuildDialog( void )
 	_currentPanel = m_pParentPanel;
 	KeyValues *keyval = new KeyValues("SetActiveControl");
 	keyval->SetPtr("PanelPtr", GetCurrentPanel());
-	ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL);
+	ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL_HANDLE);
 }
 
 //-----------------------------------------------------------------------------
@@ -1013,7 +1013,7 @@ void BuildGroup::ChangeControlSettingsFile(const char *controlResourceName)
 	// force it to update
 	KeyValues *keyval = new KeyValues("SetActiveControl");
 	keyval->SetPtr("PanelPtr", GetCurrentPanel());
-	ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL);
+	ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), keyval, NULL_HANDLE);
 }
 
 //-----------------------------------------------------------------------------

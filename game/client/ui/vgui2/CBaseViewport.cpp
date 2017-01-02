@@ -168,7 +168,7 @@ void CBaseViewport::Layout()
 	int wide, tall;
 
 	// Make the viewport fill the root panel.
-	if( ( pRoot = clientVGUI()->GetRootPanel() ) != NULL )
+	if( ( pRoot = clientVGUI()->GetRootPanel() ) != NULL_HANDLE )
 	{
 		vgui2::ipanel()->GetSize( pRoot, wide, tall );
 

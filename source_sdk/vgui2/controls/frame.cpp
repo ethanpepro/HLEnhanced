@@ -218,7 +218,7 @@ namespace
 		void OnMouseReleased(MouseCode code)
 		{
 			_dragging = false;
-			input()->SetMouseCapture(NULL);
+			input()->SetMouseCapture(NULL_HANDLE);
 		}
 
 		void OnMouseCaptureLost()

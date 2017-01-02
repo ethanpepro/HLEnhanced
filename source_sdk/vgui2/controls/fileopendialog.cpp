@@ -687,7 +687,7 @@ void FileOpenDialog::OnClose()
 
 	if ( vgui2::input()->GetAppModalSurface() == GetVPanel() )
 	{
-		input()->SetAppModalSurface(NULL);
+		input()->SetAppModalSurface(NULL_HANDLE);
 	}
 
 	BaseClass::OnClose();

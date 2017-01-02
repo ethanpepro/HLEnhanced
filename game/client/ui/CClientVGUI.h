@@ -43,7 +43,7 @@ public:
 private:
 	CreateInterfaceFn m_FactoryList[ NUM_FACTORIES ];
 
-	vgui2::VPANEL m_vRootPanel = NULL;
+	vgui2::VPANEL m_vRootPanel = NULL_HANDLE;
 
 private:
 	CClientVGUI( const CClientVGUI& ) = delete;
