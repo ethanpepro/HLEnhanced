@@ -84,7 +84,9 @@
 #include <sys/types.h>
 #include <alloca.h>
 
+#ifndef MAX_PATH
 #define MAX_PATH PATH_MAX
+#endif
 
 #define stricmp strcasecmp
 #define strnicmp strncasecmp
