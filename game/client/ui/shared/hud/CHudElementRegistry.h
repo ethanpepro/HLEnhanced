@@ -68,7 +68,7 @@ struct CHudDefaultableArgs final
 };
 
 #define REGISTER_NAMED_HUDELEMENT( className, name, ... )																		\
-static CHudElement* __Create##name##()																							\
+static CHudElement* __Create##name()																							\
 {																																\
 	return new className( #name );																								\
 }																																\

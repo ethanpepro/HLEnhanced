@@ -188,7 +188,7 @@ public:							\
 			if ( !bAdded ) \
 			{ \
 				bAdded = true; \
-				AddToMap( scriptname, (vgui2::MessageFunc_t)&ThisClass::##name, paramCount, p1type, p1name, p2type, p2name ); \
+				AddToMap( scriptname, (vgui2::MessageFunc_t)&ThisClass::name, paramCount, p1type, p1name, p2type, p2name ); \
 			} \
 		}												\
 		PanelMessageFunc_##name()						\
@@ -350,19 +350,19 @@ private:
 // It them hooks that function up to the helper list so that the CHud objects can create
 //  the elements by name, with no header file dependency, etc.
 #define DECLARE_BUILD_FACTORY( className )										\
-	static vgui2::Panel *Create_##className##( void )							\
+	static vgui2::Panel *Create_##className( void )								\
 		{																		\
 			return new className( NULL, NULL );									\
 		};																		\
-	static CBuildFactoryHelper g_##className##_Helper( #className, Create_##className## );\
+	static CBuildFactoryHelper g_##className##_Helper( #className, Create_##className );\
 	className *g_##className##LinkerHack = NULL;
 
 #define DECLARE_BUILD_FACTORY_DEFAULT_TEXT( className, defaultText )			\
-	static vgui2::Panel *Create_##className##( void )							\
+	static vgui2::Panel *Create_##className( void )								\
 		{																		\
 			return new className( NULL, NULL, #defaultText );					\
 		};																		\
-	static CBuildFactoryHelper g_##className##_Helper( #className, Create_##className## );\
+	static CBuildFactoryHelper g_##className##_Helper( #className, Create_##className );\
 	className *g_##className##LinkerHack = NULL;
 
 // This one allows passing in a special function with calls new panel( xxx ) with arbitrary default parameters
