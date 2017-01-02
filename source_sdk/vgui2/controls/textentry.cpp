@@ -4105,12 +4105,13 @@ void TextEntry::OnPanelDropped( CUtlVector< KeyValues * >& msglist )
 		int curLen = m_TextStream.Count();
 
 		size_t outsize = sizeof( wchar_t ) * ( newLen + curLen + 1 );
-		wchar_t *out = (wchar_t *)_alloca( outsize );
+		wchar_t *out = (wchar_t *)stackalloc( outsize );
 		Q_memset( out, 0, outsize );
 		wcsncpy( out, m_TextStream.Base(), curLen );
 		wcsncat( out, newText, wcslen( newText ) );
 		out[ newLen + curLen ] = L'\0';
 		SetText( out );
+		stackfree( out );
 		_dataChanged = true;
 		FireActionSignal();
 	}
@@ -4120,12 +4121,13 @@ void TextEntry::OnPanelDropped( CUtlVector< KeyValues * >& msglist )
 		int curLen = m_TextStream.Count();
 
 		size_t outsize = sizeof( wchar_t ) * ( newLen + curLen + 1 );
-		wchar_t *out = (wchar_t *)_alloca( outsize );
+		wchar_t *out = (wchar_t *) stackalloc( outsize );
 		Q_memset( out, 0, outsize );
 		wcsncpy( out, newText, wcslen( newText ) );
 		wcsncat( out, m_TextStream.Base(), curLen );
 		out[ newLen + curLen ] = L'\0';
 		SetText( out );
+		stackfree( out );
 		_dataChanged = true;
 		FireActionSignal();
 	}

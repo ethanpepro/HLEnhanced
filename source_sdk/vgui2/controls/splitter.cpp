@@ -666,7 +666,7 @@ void Splitter::ApplyUserConfigSettings(KeyValues *userConfig)
 
 	// read the splitter sizes
 	int c = m_Splitters.Count();
-	float *pFractions = (float*)_alloca( c * sizeof(float) );
+	float *pFractions = (float*)stackalloc( c * sizeof(float) );
 	float flTotalSize = 0.0f;
 	for ( int i = 0; i < c; i++ )
 	{
@@ -685,6 +685,8 @@ void Splitter::ApplyUserConfigSettings(KeyValues *userConfig)
 			m_Splitters[i].m_flPos = pFractions[i] * nPosRange;
 		}
 	}
+
+	stackfree( pFractions );
 }
 
 //-----------------------------------------------------------------------------

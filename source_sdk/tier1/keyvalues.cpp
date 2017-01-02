@@ -15,7 +15,6 @@
 #include <windows.h>		// for WideCharToMultiByte and MultiByteToWideChar
 #elif defined(_LINUX)
 #include <wchar.h> // wcslen()
-#define _alloca alloca
 #endif
 
 #include <KeyValues.h>
@@ -558,7 +557,7 @@ void KeyValues::WriteConvertedString( IBaseFileSystem *filesystem, FileHandle_t 
 	// handle double quote chars within the string
 	// the worst possible case is that the whole string is quotes
 	int len = Q_strlen(pszString);
-	char *convertedString = (char *) _alloca ((len + 1)  * sizeof(char) * 2);
+	char *convertedString = (char *) stackalloc((len + 1)  * sizeof(char) * 2);
 	int j=0;
 	for (int i=0; i <= len; i++)
 	{
@@ -577,6 +576,7 @@ void KeyValues::WriteConvertedString( IBaseFileSystem *filesystem, FileHandle_t 
 	}		
 
 	INTERNALWRITE(convertedString, strlen(convertedString));
+	stackfree( convertedString );
 }
 
 
