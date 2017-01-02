@@ -14,12 +14,18 @@
 
 #define PROTECTED_THINGS_DISABLE
 
-#ifndef _XBOX
+#if !defined( _XBOX ) && defined( WIN32 )
 #include "winlite.h"
+#elif defined( _LINUX )
+//TODO: platform specific code should be avoided. - Solokiller
+#include <cstdlib>
+#define _stat stat
+#define _wcsnicmp wcsncmp
 #endif
 #undef GetCurrentDirectory
 #include "filesystem.h"
 #include "filesystem_helpers.h"
+#include <sys/stat.h>
 
 #include "tier1/utldict.h"
 #include "tier1/utlstring.h"
@@ -49,11 +55,6 @@
 #include <tier0/memdbgon.h>
 
 using namespace vgui2;
-
-#ifndef _WIN32
-#error "This class is WIN32 specific, please port me"
-
-#else
 
 static int ListFileNameSortFunc(ListPanel *pPanel, const ListPanelItem &item1, const ListPanelItem &item2 )
 {
@@ -651,7 +652,7 @@ void FileOpenDialog::PopulateDriveList()
 		m_pFullPathEdit->AddItem(pBuf, NULL);
 
 		// is this our drive - add all subdirectories
-		if (!_strnicmp(pBuf, fullpath, 2))
+		if (!strnicmp(pBuf, fullpath, 2))
 		{
 			int indent = 0;
 			char *pData = fullpath;
@@ -922,6 +923,39 @@ void FileOpenDialog::MoveUpFolder()
 //-----------------------------------------------------------------------------
 void FileOpenDialog::ValidatePath()
 {
+	char fullpath[ MAX_PATH * 4 ];
+	GetCurrentDirectory( fullpath, sizeof( fullpath ) - MAX_PATH );
+	Q_RemoveDotSlashes( fullpath );
+
+	// when statting a directory on Windows, you want to include
+	// the terminal slash exactly when you are statting a root
+	// directory. PKMN.
+#ifdef _WIN32
+	if( Q_strlen( fullpath ) != 3 )
+	{
+		Q_StripTrailingSlash( fullpath );
+	}
+#endif
+	// cleanup the path, we format tabs into the list to make it pretty in the UI
+	Q_StripPrecedingAndTrailingWhitespace( fullpath );
+
+	struct _stat buf;
+	if( ( 0 == _stat( fullpath, &buf ) ) &&
+		( 0 != ( buf.st_mode & S_IFDIR ) ) )
+	{
+		Q_AppendSlash( fullpath, sizeof( fullpath ) );
+		Q_strncpy( m_szLastPath, fullpath, sizeof( m_szLastPath ) );
+	}
+	else
+	{
+		// failed to load file, use the previously successful path
+	}
+
+	m_pFullPathEdit->SetText( m_szLastPath );
+	m_pFullPathEdit->GetTooltip()->SetText( m_szLastPath );
+
+	//Old code:
+	/*
 	char fullpath[MAX_PATH * 4];
 	GetCurrentDirectory(fullpath, sizeof(fullpath) - MAX_PATH);
 
@@ -960,8 +994,10 @@ void FileOpenDialog::ValidatePath()
 
 	m_pFullPathEdit->SetText(pData);
 	m_pFullPathEdit->GetTooltip()->SetText(pData);
+	*/
 }
 
+#ifdef WIN32
 const char *GetAttributesAsString( DWORD dwAttributes )
 {
 	static char out[ 256 ];
@@ -1024,6 +1060,7 @@ const char *GetFileTimetamp( FILETIME ft )
 		);
 	return out;
 }
+#endif
 
 //-----------------------------------------------------------------------------
 // Purpose: Fill the filelist with the names of all the files in the current directory
@@ -1031,6 +1068,155 @@ const char *GetFileTimetamp( FILETIME ft )
 #define MAX_FILTER_LENGTH 255
 void FileOpenDialog::PopulateFileList()
 {
+	// clear the current list
+	m_pFileList->DeleteAllItems();
+
+	FileFindHandle_t findHandle;
+	char pszFileModified[ 64 ];
+
+	// get the current directory
+	char currentDir[ MAX_PATH * 4 ];
+	char dir[ MAX_PATH * 4 ];
+	char filterList[ MAX_FILTER_LENGTH + 1 ];
+	GetCurrentDirectory( currentDir, sizeof( dir ) );
+
+	KeyValues *combokv = m_pFileTypeCombo->GetActiveItemUserData();
+	if( combokv )
+	{
+		Q_strncpy( filterList, combokv->GetString( "filter", "*" ), MAX_FILTER_LENGTH );
+	}
+	else
+	{
+		// add wildcard for search
+		Q_strncpy( filterList, "*\0", MAX_FILTER_LENGTH );
+	}
+
+
+	char *filterPtr = filterList;
+	KeyValues *kv = new KeyValues( "item" );
+
+	//TODO: fix the OSX specific stuff in this method. - Solokiller
+
+	//if( m_DialogType != FOD_SELECT_DIRECTORY )
+	//{
+		while( ( filterPtr != NULL ) && ( *filterPtr != 0 ) )
+		{
+			// parse the next filter in the list.
+			char curFilter[ MAX_FILTER_LENGTH ];
+			curFilter[ 0 ] = 0;
+			int i = 0;
+			while( ( filterPtr != NULL ) && ( ( *filterPtr == ',' ) || ( *filterPtr == ';' ) || ( *filterPtr <= ' ' ) ) )
+			{
+				++filterPtr;
+			}
+			while( ( filterPtr != NULL ) && ( *filterPtr != ',' ) && ( *filterPtr != ';' ) && ( *filterPtr > ' ' ) )
+			{
+				curFilter[ i++ ] = *( filterPtr++ );
+			}
+			curFilter[ i ] = 0;
+
+			if( curFilter[ 0 ] == 0 )
+			{
+				break;
+			}
+
+			Q_snprintf( dir, MAX_PATH * 4, "%s%s", currentDir, curFilter );
+
+			// Open the directory and walk it, loading files
+			const char *pszFileName = filesystem()->FindFirst( dir, &findHandle );
+			while( pszFileName )
+			{
+				if( !filesystem()->FindIsDirectory( findHandle )
+					/*|| !IsOSX()
+					|| ( IsOSX() && filesystem()->FindIsDirectory( findHandle ) && Q_stristr( pszFileName, ".app" ) )*/ )
+				{
+					char pFullPath[ MAX_PATH ];
+					Q_snprintf( pFullPath, MAX_PATH, "%s%s", currentDir, pszFileName );
+
+					// add the file to the list
+					kv->SetString( "text", pszFileName );
+
+					kv->SetInt( "image", 1 );
+
+					//Not supported in GoldSource. - Solokiller
+					/*
+					IImage *image = surface()->GetIconImageForFullPath( pFullPath );
+
+					if( image )
+					{
+						kv->SetPtr( "iconImage", ( void * ) image );
+					}
+					*/
+
+					kv->SetInt( "imageSelected", 1 );
+					kv->SetInt( "directory", 0 );
+
+					kv->SetString( "filesize", Q_pretifymem( filesystem()->Size( pFullPath ), 0, true ) );
+					Q_FixSlashes( pFullPath );
+					wchar_t fileType[ 80 ];
+					//filesystem()->GetFileTypeForFullPath( pFullPath, fileType, sizeof( fileType ) );
+					FS_GetFileTypeForFullPath( pFullPath, fileType, sizeof( fileType ) );
+					kv->SetWString( "type", fileType );
+
+					kv->SetString( "attributes", FS_IsFileWritable( filesystem(), pFullPath ) ? "" : "R" );
+
+					long fileModified = filesystem()->GetFileTime( pFullPath );
+					filesystem()->FileTimeToString( pszFileModified, sizeof( pszFileModified ), fileModified );
+					kv->SetString( "modified", pszFileModified );
+
+					//					kv->SetString( "created", GetFileTimetamp( findData.ftCreationTime ) );
+
+					m_pFileList->AddItem( kv, 0, false, false );
+				}
+
+				pszFileName = filesystem()->FindNext( findHandle );
+			}
+			filesystem()->FindClose( findHandle );
+		}
+	//}
+
+	// find all the directories
+	GetCurrentDirectory( dir, sizeof( dir ) );
+	Q_strncat( dir, "*", sizeof( dir ), COPY_ALL_CHARACTERS );
+
+	const char *pszFileName = filesystem()->FindFirst( dir, &findHandle );
+	while( pszFileName )
+	{
+		if( pszFileName[ 0 ] != '.' && filesystem()->FindIsDirectory( findHandle )
+			/*&& ( !IsOSX() || ( IsOSX() && !Q_stristr( pszFileName, ".app" ) ) )*/ )
+		{
+			char pFullPath[ MAX_PATH ];
+			Q_snprintf( pFullPath, MAX_PATH, "%s%s", currentDir, pszFileName );
+
+			kv->SetString( "text", pszFileName );
+			kv->SetPtr( "iconImage", ( void * ) NULL );
+			kv->SetInt( "image", 2 );
+			kv->SetInt( "imageSelected", 3 );
+			kv->SetInt( "directory", 1 );
+
+			kv->SetString( "filesize", "" );
+			kv->SetString( "type", "#FileOpenDialog_FileType_Folder" );
+
+			kv->SetString( "attributes", FS_IsFileWritable( filesystem(), pFullPath ) ? "" : "R" );
+
+			long fileModified = filesystem()->GetFileTime( pFullPath );
+			filesystem()->FileTimeToString( pszFileModified, sizeof( pszFileModified ), fileModified );
+			kv->SetString( "modified", pszFileModified );
+
+			//			kv->SetString( "created", GetFileTimetamp( findData.ftCreationTime ) );
+
+			m_pFileList->AddItem( kv, 0, false, false );
+		}
+
+		pszFileName = filesystem()->FindNext( findHandle );
+	}
+	filesystem()->FindClose( findHandle );
+
+	kv->deleteThis();
+	m_pFileList->SortList();
+
+	//Old code:
+#if 0
 	// clear the current list
 	m_pFileList->DeleteAllItems();
 	
@@ -1165,6 +1351,7 @@ void FileOpenDialog::PopulateFileList()
 
 	kv->deleteThis();
 	m_pFileList->SortList();
+#endif
 }
 
 
@@ -1496,4 +1683,3 @@ void FileOpenDialog::OnTextChanged(KeyValues *kv)
 		PopulateFileList();
 	}
 }
-#endif // ifndef _WIN32

@@ -18,9 +18,15 @@
 #include <vgui/ISurface.h>
 #include <vgui/ISystem.h>
 
+#include <FileSystem.h>
+
+//Note: parts of this file were taken from Source 2013 to fix Linux compatibility issues. - Solokiller
+
+#ifdef WIN32
 #include <direct.h>
 #include <stdio.h>
 #include <io.h>
+#endif
 #include <sys/types.h>
 #include <sys/stat.h>
 
@@ -393,6 +399,27 @@ void DirectorySelectDialog::ExpandTreeNode(const char *path, int parentNodeIndex
 	char searchString[512];
 	sprintf(searchString, "%s*.*", path);
 
+	//Updated to use IFileSystem instead of OS file enumeration functions. - Solokiller
+	//Also includes better directory detection for special directories.
+	FileFindHandle_t h;
+	const char *pFileName = filesystem()->FindFirst( searchString, &h );
+	for( ; pFileName; pFileName = filesystem()->FindNext( h ) )
+	{
+		if( !Q_stricmp( pFileName, ".." ) || !Q_stricmp( pFileName, "." ) )
+			continue;
+
+		KeyValues *kv = new KeyValues( "item" );
+		kv->SetString( "Text", pFileName );
+		// set the folder image
+		kv->SetInt( "Image", 1 );
+		kv->SetInt( "SelectedImage", 1 );
+		kv->SetInt( "Expand", DoesDirectoryHaveSubdirectories( path, pFileName ) );
+		m_pDirTree->AddItem( kv, parentNodeIndex );
+	}
+	filesystem()->FindClose( h );
+
+	//Old code:
+	/*
 	_finddata_t wfd;
 	memset(&wfd, 0, sizeof(_finddata_t));
 	long hResult = _findfirst(searchString, &wfd);
@@ -413,6 +440,7 @@ void DirectorySelectDialog::ExpandTreeNode(const char *path, int parentNodeIndex
 		} while (_findnext(hResult, &wfd) == 0);
 		_findclose(hResult);
 	}
+	*/
 }
 
 //-----------------------------------------------------------------------------
@@ -423,6 +451,23 @@ bool DirectorySelectDialog::DoesDirectoryHaveSubdirectories(const char *path, co
 	char searchString[512];
 	sprintf(searchString, "%s%s\\*.*", path, dir);
 
+	FileFindHandle_t h;
+	const char *pFileName = filesystem()->FindFirst( searchString, &h );
+	for( ; pFileName; pFileName = filesystem()->FindNext( h ) )
+	{
+		char szFullPath[ MAX_PATH ];
+		Q_snprintf( szFullPath, sizeof( szFullPath ), "%s\\%s", path, pFileName );
+		Q_FixSlashes( szFullPath );
+		if( filesystem()->IsDirectory( szFullPath ) )
+		{
+			filesystem()->FindClose( h );
+			return true;
+		}
+	}
+	filesystem()->FindClose( h );
+
+	//Old code:
+	/*
 	_finddata_t wfd;
 	memset(&wfd, 0, sizeof(_finddata_t));
 	long hResult = _findfirst(searchString, &wfd);
@@ -438,6 +483,8 @@ bool DirectorySelectDialog::DoesDirectoryHaveSubdirectories(const char *path, co
 		} while (_findnext(hResult, &wfd) == 0);
 		_findclose(hResult);
 	}
+	*/
+
 	return false;
 }
 
