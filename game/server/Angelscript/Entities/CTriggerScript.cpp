@@ -5,6 +5,7 @@
 #include "cbase.h"
 
 #include <Angelscript/CASModule.h>
+#include <Angelscript/wrapper/ASCallable.h>
 
 #include "Angelscript/CHLASServerManager.h"
 #include "Angelscript/CASPluginData.h"

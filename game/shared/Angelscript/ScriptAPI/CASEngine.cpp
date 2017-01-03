@@ -2,10 +2,10 @@
 
 #include <angelscript.h>
 
-#include <Angelscript/util/ASUtil.h>
-
 #include "extdll.h"
 #include "util.h"
+
+#include <Angelscript/util/ASUtil.h>
 
 #include "Angelscript/HLASConstants.h"
 

@@ -3,6 +3,7 @@
 #include <Angelscript/CASModule.h>
 
 #include <Angelscript/ScriptAPI/CASScheduler.h>
+#include <Angelscript/wrapper/ASCallable.h>
 
 #include "extdll.h"
 #include "util.h"

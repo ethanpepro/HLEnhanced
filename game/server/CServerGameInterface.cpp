@@ -146,7 +146,7 @@ void CServerGameInterface::ClientPutInServer( edict_t* pEntity )
 	pPlayer->InitialSpawn();
 
 #if USE_ANGELSCRIPT
-	g_ClientPutInServerEvent.Call( CallFlag::NONE, pPlayer );
+	CallGlobalEvent( g_ClientPutInServerEvent, CallFlag::NONE );
 #endif
 }
 

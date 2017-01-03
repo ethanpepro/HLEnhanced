@@ -1,9 +1,8 @@
-#include <Angelscript/util/ASExtendAdapter.h>
-
 #include "extdll.h"
 #include "util.h"
 
 #include <Angelscript/add_on/scriptbuilder.h>
+#include <Angelscript/util/ASExtendAdapter.h>
 
 #include "shared_game_utils.h"
 

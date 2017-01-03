@@ -76,7 +76,7 @@ void CBasePlayer::PreThink()
 #if USE_ANGELSCRIPT
 	uint32_t uiFlags = PreThinkFlag::NONE;
 
-	g_PlayerPreThinkEvent.Call( CallFlag::NONE, this, &uiFlags );
+	CallGlobalEvent( g_PlayerPreThinkEvent, CallFlag::NONE, this, &uiFlags );
 
 	bCheckVehicles = !( uiFlags & PreThinkFlag::SKIP_VEHICLES );
 #endif

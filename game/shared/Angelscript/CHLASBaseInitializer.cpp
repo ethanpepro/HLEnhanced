@@ -11,7 +11,7 @@
 
 #include <Angelscript/ScriptAPI/CASScheduler.h>
 #include <Angelscript/ScriptAPI/Reflection/ASReflection.h>
-#include <Angelscript/CASEventManager.h>
+#include <Angelscript/event/CASEventManager.h>
 
 #include "ScriptAPI/add_on/scriptmath.h"
 #include "ScriptAPI/add_on/scriptmathcomplex.h"

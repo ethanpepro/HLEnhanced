@@ -151,7 +151,7 @@ void Host_Say( CBasePlayer* pPlayer, const bool bTeamOnly )
 	{
 		CASSayArgs* pArgs = new CASSayArgs( pPlayer, bTeamOnly ? SayType::SAY_TEAM : SayType::SAY, p );
 
-		g_PlayerSayEvent.Call( CallFlag::NONE, pArgs );
+		CallGlobalEvent( g_PlayerSayEvent, CallFlag::NONE, pArgs );
 
 		const bool bShouldHide = pArgs->ShouldHide();
 

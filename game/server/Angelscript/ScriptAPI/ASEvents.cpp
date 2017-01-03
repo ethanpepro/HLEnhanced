@@ -1,10 +1,28 @@
+#include <cstdarg>
 #include <string>
 
 #include <angelscript.h>
 
 #include "Angelscript/HLASConstants.h"
+//TODO: avoid using server specific code here. - Solokiller
+#include "Angelscript/CHLASServerManager.h"
 
 #include "ASEvents.h"
+
+HookCallResult CallGlobalEvent( CASEvent& event, CallFlags_t flags, ... )
+{
+	va_list list;
+
+	va_start( list, flags );
+
+	CASEventCaller caller;
+
+	const auto result = caller.VCall( event, g_ASManager.GetASManager().GetEngine(), flags, list );
+
+	va_end( list );
+
+	return result;
+}
 
 CASEvent g_ClientPutInServerEvent( "ClientPutInServer", "CBasePlayer@", "Player", ModuleAccessMask::ALL, EventStopMode::CALL_ALL );
 
