@@ -399,7 +399,7 @@ if( USE_VGUI2 )
 		find_library( VSTDLIB vstdlib PATHS lib/public/ )
 	else()
 		find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS ${STEAMCOMMON}/Half-Life/ )
-		set( VSTDLIB "" )
+		find_library( VSTDLIB ${CMAKE_SHARED_LIBRARY_PREFIX}vstdlib${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS ${STEAMCOMMON}/Half-Life/ )
 	endif()
 	
 	set( VGUI2_LIBS
