@@ -3,12 +3,15 @@
 
 #include <cassert>
 #include <cstdarg>
-#include <cstdint>
 
 #include <angelscript.h>
 
+#include "Angelscript/util/ASPlatform.h"
 #include "Angelscript/util/ContextUtils.h"
 
+#include "Angelscript/IASContextResultHandler.h"
+
+#include "ASCallableConst.h"
 #include "CASContext.h"
 
 class CASContext;
@@ -19,22 +22,6 @@ class CASArguments;
 *
 *	@{
 */
-
-typedef uint32_t CallFlags_t;
-
-namespace CallFlag
-{
-/**
-*	Flags to affect function calls.
-*/
-enum CallFlag : CallFlags_t
-{
-	/**
-	*	No flags.
-	*/
-	NONE = 0,
-};
-}
 
 namespace as
 {
@@ -50,6 +37,8 @@ namespace as
 template<typename CALLABLE, typename ARGS>
 bool CallFunction( CALLABLE& callable, CallFlags_t flags, const ARGS& args )
 {
+	ASREFERENCED( flags );
+
 	auto pContext = callable.GetContext().GetContext();
 
 	assert( pContext );
@@ -60,6 +49,11 @@ bool CallFunction( CALLABLE& callable, CallFlags_t flags, const ARGS& args )
 	auto& function = callable.GetFunction();
 
 	auto result = pContext->Prepare( &function );
+
+	auto pResultHandler = as::GetContextResultHandler( *pContext );
+
+	if( pResultHandler )
+		pResultHandler->ProcessPrepareResult( function, *pContext, result );
 
 	if( result < 0 )
 	{
@@ -79,10 +73,11 @@ bool CallFunction( CALLABLE& callable, CallFlags_t flags, const ARGS& args )
 
 	result = pContext->Execute();
 
+	if( pResultHandler )
+		pResultHandler->ProcessExecuteResult( function, *pContext, result );
+
 	if( !callable.PostExecute( result ) )
 		return false;
-
-	//TODO: check for errors. - Solokiller
 
 	return result >= 0;
 }
@@ -98,7 +93,7 @@ protected:
 	template<typename CALLABLE, typename ARGS>
 	friend bool as::CallFunction( CALLABLE& callable, CallFlags_t flags, const ARGS& args );
 
-protected:
+public:
 	/**
 	*	Constructor.
 	*	@param function Function to call.
@@ -106,7 +101,6 @@ protected:
 	*/
 	CASCallable( asIScriptFunction& function, CASContext& context );
 
-public:
 	/**
 	*	@return The function.
 	*/
@@ -150,7 +144,7 @@ protected:
 	*	@param iResult Result of the asIScriptContext::Execute call.
 	*	@return true if the call should continue, false otherwise.
 	*/
-	bool PostExecute( const int iResult ) { return true; }
+	bool PostExecute( const int ASUNREFERENCED( iResult ) ) { return true; }
 
 private:
 	asIScriptFunction& m_Function;
@@ -190,7 +184,10 @@ template<typename SUBCLASS>
 class CASTCallable : public CASCallable
 {
 public:
-	using CASCallable::CASCallable;
+	CASTCallable( asIScriptFunction& function, CASContext& context )
+		: CASCallable( function, context )
+	{
+	}
 
 	/**
 	*	Calls the function.

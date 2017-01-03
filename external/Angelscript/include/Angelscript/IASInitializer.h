@@ -3,6 +3,8 @@
 
 #include <angelscript.h>
 
+#include "util/ASPlatform.h"
+
 /**
 *	@addtogroup ASManager
 *
@@ -21,13 +23,34 @@ public:
 	virtual ~IASInitializer() = 0;
 
 	/**
+	*	Called when initialization has started.
+	*/
+	virtual void OnInitBegin() {}
+
+	/**
+	*	Called when initialization has ended.
+	*	@param bSuccess Whether initialization succeeded.
+	*/
+	virtual void OnInitEnd( const bool bSuccess );
+
+	/**
 	*	Allows applications to provide a message callback to be installed upon initialization.
 	*	@param[ out ] outFuncPtr Function to use.
 	*	@param[ out ] pOutObj Object to use.
 	*	@param[ out ] outCallConv Calling convention.
 	*	@return true if a callback was set, false otherwise.
 	*/
-	virtual bool GetMessageCallback( asSFuncPtr& outFuncPtr, void*& pOutObj, asDWORD& outCallConv ) { return false; }
+	virtual bool GetMessageCallback( asSFuncPtr& outFuncPtr, void*& pOutObj, asDWORD& outCallConv );
+
+	/**
+	*	@return Whether to create an event manager.
+	*/
+	virtual bool UseEventManager() { return false; }
+
+	/**
+	*	Gets the namespace in which events should be registered. Default "Events".
+	*/
+	virtual const char* GetEventNamespace() { return "Events"; }
 
 	/**
 	*	Should register the core API, including the following types:
@@ -45,7 +68,7 @@ public:
 	*	@param eventManager Event manager.
 	*	@return true on success, false otherwise.
 	*/
-	virtual bool AddEvents( CASManager& manager, CASEventManager& eventManager ) { return true; }
+	virtual bool AddEvents( CASManager& manager, CASEventManager& eventManager );
 
 	/**
 	*	Should register the remainder of the API.
@@ -57,6 +80,20 @@ public:
 
 inline IASInitializer::~IASInitializer()
 {
+}
+
+inline void IASInitializer::OnInitEnd( const bool ASUNREFERENCED( bSuccess ) )
+{
+}
+
+inline bool IASInitializer::GetMessageCallback( asSFuncPtr& ASUNREFERENCED( outFuncPtr ), void*& ASUNREFERENCED( pOutObj ), asDWORD& ASUNREFERENCED( outCallConv ) )
+{
+	return false;
+}
+
+inline bool IASInitializer::AddEvents( CASManager& ASUNREFERENCED( manager ), CASEventManager& ASUNREFERENCED( eventManager ) )
+{
+	return true;
 }
 
 /** @} */

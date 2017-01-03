@@ -1,8 +1,12 @@
 #ifndef ANGELSCRIPT_CASMANAGER_H
 #define ANGELSCRIPT_CASMANAGER_H
 
+#include <memory>
+
+#include "Angelscript/util/ASPlatform.h"
+
 #include "CASModuleManager.h"
-#include "CASEventManager.h"
+#include "event/CASEventManager.h"
 
 class asIScriptEngine;
 struct asSMessageInfo;
@@ -63,12 +67,12 @@ public:
 	/**
 	*	@return The module manager.
 	*/
-	CASModuleManager& GetModuleManager() { return m_ModuleManager; }
+	CASModuleManager& GetModuleManager() { return *m_ModuleManager; }
 
 	/**
 	*	@return The event manager.
 	*/
-	CASEventManager& GetEventManager() { return m_EventManager; }
+	CASEventManager* GetEventManager() { return m_EventManager.get(); }
 
 	/**
 	*	Initializes the manager.
@@ -95,8 +99,8 @@ private:
 
 	asIScriptEngine* m_pScriptEngine = nullptr;
 
-	CASModuleManager m_ModuleManager;
-	CASEventManager m_EventManager;
+	std::unique_ptr<CASModuleManager> m_ModuleManager;
+	std::shared_ptr<CASEventManager> m_EventManager;
 
 private:
 	CASManager( const CASManager& ) = delete;
