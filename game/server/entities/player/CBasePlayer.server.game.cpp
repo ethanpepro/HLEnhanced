@@ -39,7 +39,7 @@ void CBasePlayer::PlayerUse()
 #if USE_ANGELSCRIPT
 	uint32_t uiFlags = UseFlag::NONE;
 
-	g_PlayerUseEvent.Call( CallFlag::NONE, this, &uiFlags );
+	CallGlobalEvent( g_PlayerUseEvent, CallFlag::NONE, this, &uiFlags );
 
 	if( uiFlags & UseFlag::SKIP_USE )
 		return;

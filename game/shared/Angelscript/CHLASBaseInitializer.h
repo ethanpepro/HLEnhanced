@@ -13,6 +13,8 @@ public:
 	{
 	}
 
+	bool UseEventManager() override { return true; }
+
 	bool GetMessageCallback( asSFuncPtr& outFuncPtr, void*& pOutObj, asDWORD& outCallConv ) override;
 
 	bool RegisterCoreAPI( CASManager& manager ) override;

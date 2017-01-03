@@ -3,7 +3,8 @@
 
 #include <cstdint>
 
-#include <Angelscript/CASEvent.h>
+#include <Angelscript/event/CASEvent.h>
+#include <Angelscript/event/CASEventCaller.h>
 
 class asIScriptEngine;
 
@@ -14,6 +15,8 @@ class asIScriptEngine;
 *
 *	@{
 */
+
+HookCallResult CallGlobalEvent( CASEvent& event, CallFlags_t flags, ... );
 
 extern CASEvent g_ClientPutInServerEvent;
 
