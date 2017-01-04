@@ -7,7 +7,6 @@
 
 #include "MemPool.h"
 #include <stdio.h>
-#include <malloc.h>
 #include <memory.h>
 #include "tier0/dbg.h"
 #include <ctype.h>
