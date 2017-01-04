@@ -215,9 +215,11 @@ set( SHARED_DEFS
 )
 
 if( UNIX )
+	#Match Source 2013 in defining GNUC for UNIX platforms.
 	#Match Source 2013 in defining POSIX for UNIX platforms.
 	set( SHARED_DEFS
 		"${SHARED_DEFS}"
+		GNUC
 		POSIX
 	)
 
