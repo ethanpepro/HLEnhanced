@@ -20,8 +20,18 @@
 // feature enables
 #define NEW_SOFTWARE_LIGHTING
 
+//OSX needs this as well. - Solokiller
+#ifdef OSX
 // need this for _alloca
+#include <alloca.h>
+#endif
+
+//OSX has this elsewhere. - Solokiller
+#ifndef OSX
 #include <malloc.h>
+#else
+#include <malloc/malloc.h>
+#endif
 #include <new>
 
 // need this for memset
