@@ -6,8 +6,8 @@
 
 #include <tier1/tier1.h>
 #include "tier0/dbg.h"
-#include "datamodel/idatamodel.h"
-#include "icvar.h"
+#include "datamodel/IDataModel.h"
+#include "ICVar.h"
 
 
 //-----------------------------------------------------------------------------

@@ -1,8 +1,8 @@
 add_sources(
-	bitmap.h
-	float_bm.h
-	imageformat.h
-	psd.h
-	tgaloader.h
-	tgawriter.h
+	Bitmap.h
+	Float_BM.h
+	ImageFormat.h
+	PSD.h
+	TGALoader.h
+	TGAWriter.h
 )

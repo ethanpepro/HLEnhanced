@@ -1,7 +1,7 @@
 #ifndef GAME_CLIENT_UI_SHARED_HUD_CBASEHUD_H
 #define GAME_CLIENT_UI_SHARED_HUD_CBASEHUD_H
 
-#include <utlvector.h>
+#include <UtlVector.h>
 
 #include "shared_game_utils.h"
 //TODO: need to move DataMapping out of entities. - Solokiller

@@ -14,10 +14,10 @@
 #include <cstddef> //offsetof
 
 #ifndef VECTOR_H
-#include "vector.h"
+#include "Vector.h"
 #endif
 
-#include "utlvector.h"
+#include "UtlVector.h"
 
 #include "tier0/memdbgon.h"
 

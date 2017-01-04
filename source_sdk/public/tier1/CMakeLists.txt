@@ -1,48 +1,48 @@
 add_sources(
 	bitbuf.h
 	byteswap.h
-	characterset.h
+	CharacterSet.h
 	checksum_crc.h
 	checksum_md5.h
-	convar.h
-	datamanager.h
-	diff.h
-	fmtstr.h
+	ConVar.h
+	DataManager.h
+	Diff.h
+	FmtStr.h
 	generichash.h
 	interface.h
-	jobthread.h
-	keyvalues.h
-	mempool.h
-	memstack.h
+	JobThread.h
+	KeyValues.h
+	MemPool.h
+	MemStack.h
 	netadr.h
 	processor_detect.h
-	rangecheckedvar.h
-	refcount.h
-	smartptr.h
-	stringpool.h
+	RangeCheckedVar.h
+	RefCount.h
+	SmartPtr.h
+	StringPool.h
 	strtools.h
 	tier1.h
-	tokenreader.h
-	utlbidirectionalset.h
-	utlbuffer.h
-	utldict.h
-	utlfixedlinkedlist.h
-	utlfixedmemory.h
-	utlflags.h
-	utlhandletable.h
-	utlhash.h
-	utllinkedlist.h
-	utlmap.h
-	utlmemory.h
-	utlmultilist.h
-	utlntree.h
-	utlpriorityqueue.h
-	utlqueue.h
-	utlrbtree.h
-	utlsortvector.h
-	utlstack.h
-	utlstring.h
-	utlstringmap.h
-	utlsymbol.h
-	utlvector.h
+	TokenReader.h
+	UtlBidirectionalSet.h
+	UtlBuffer.h
+	UtlDict.h
+	UtlFixedLinkedList.h
+	UtlFixedMemory.h
+	UtlFlags.h
+	UtlHandleTable.h
+	UtlHash.h
+	UtlLinkedList.h
+	UtlMap.h
+	UtlMemory.h
+	UtlMultiList.h
+	UtlNTree.h
+	UtlPriorityQueue.h
+	UtlQueue.h
+	UtlRBTree.h
+	UtlSortVector.h
+	UtlStack.h
+	UtlString.h
+	UtlStringMap.h
+	UtlSymbol.h
+	UtlVector.h
 )

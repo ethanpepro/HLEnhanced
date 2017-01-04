@@ -10,10 +10,10 @@
 
 #include <math.h>
 #include "basetypes.h"
-#include "vector.h"
-#include "vector2d.h"
+#include "Vector.h"
+#include "Vector2D.h"
 #include "tier0/dbg.h"
-#include "minmax.h"
+#include "MinMax.h"
 
 #ifdef _WIN32
 #define FORCEINLINE_MATH FORCEINLINE

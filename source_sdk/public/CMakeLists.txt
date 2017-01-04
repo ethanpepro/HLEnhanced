@@ -3,14 +3,14 @@ add_sources(
 	commonmacros.h
 	coordsize.h
 	datamap.h
-	filesystem_helpers.cpp
-	filesystem_helpers.h
-	icvar.h
+	FileSystem_Helpers.cpp
+	FileSystem_Helpers.h
+	ICVar.h
 	mathlib.h
 	OfflineMode.h
-	sdk_color.h
-	vector.h
-	vector2d.h
+	SDK_Color.h
+	Vector.h
+	Vector2D.h
 	winlite.h
 	worldsize.h
 )

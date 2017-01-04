@@ -4,12 +4,12 @@
 #if USE_VGUI2
 #include "../../source_sdk/public/vgui/VGUI2.h"
 #include "../../source_sdk/public/vgui/IVGui.h"
-#include "../../source_sdk/public/vgui/ischeme.h"
+#include "../../source_sdk/public/vgui/IScheme.h"
 #include "../../source_sdk/public/vgui_controls/Controls.h"
 #include "../../source_sdk/public/vgui_controls/Panel.h"
 #include "../../source_sdk/public/vgui_controls/Frame.h"
 
-#include <vgui/isurface.h>
+#include <vgui/ISurface.h>
 
 #include "IGameUIFuncs.h"
 #include "IBaseUI.h"

@@ -77,7 +77,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "tier0/basetypes.h"
-#include "tier1/utldict.h"
+#include "tier1/UtlDict.h"
 
 #include "tier0/memdbgon.h"
 

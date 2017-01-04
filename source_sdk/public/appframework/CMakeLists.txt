@@ -1,6 +1,6 @@
 add_sources(
-	appframework.h
-	iappsystem.h
-	iappsystemgroup.h
-	vguimatsysapp.h
+	AppFramework.h
+	IAppSystem.h
+	IAppSystemGroup.h
+	VguiMatSysApp.h
 )

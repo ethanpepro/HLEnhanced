@@ -9,28 +9,28 @@
 add_sources(
 	bitbuf.cpp
 	byteswap.cpp
-	characterset.cpp
+	CharacterSet.cpp
 	checksum_crc.cpp
 	checksum_md5.cpp
-	convar.cpp
-	datamanager.cpp
-	diff.cpp
+	ConVar.cpp
+	DataManager.cpp
+	Diff.cpp
 	generichash.cpp
 	#interface.cpp
-	jobthread.cpp
-	keyvalues.cpp
-	mempool.cpp
-	memstack.cpp
+	JobThread.cpp
+	KeyValues.cpp
+	MemPool.cpp
+	MemStack.cpp
 	netadr.cpp
 	processor_detect.cpp
-	rangecheckedvar.cpp
-	stringpool.cpp
+	RangeCheckedVar.cpp
+	StringPool.cpp
 	strtools.cpp
 	tier1.cpp
-	tokenreader.cpp
-	utlbuffer.cpp
-	utlstring.cpp
-	utlsymbol.cpp
+	TokenReader.cpp
+	UtlBuffer.cpp
+	UtlString.cpp
+	UtlSymbol.cpp
 	xboxstubs.cpp
 )
 

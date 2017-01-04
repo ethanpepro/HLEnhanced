@@ -13,8 +13,8 @@
 #endif
 
 #include "appframework/IAppSystem.h"
-#include "tier1/convar.h"
-#include "icvar.h"
+#include "tier1/ConVar.h"
+#include "ICVar.h"
 
 
 //-----------------------------------------------------------------------------

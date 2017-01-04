@@ -3,9 +3,9 @@
 
 #include "IClientVGUI.h"
 
-#include "utlvector.h"
+#include "UtlVector.h"
 
-#include "vgui_controls/editablepanel.h"
+#include "vgui_controls/EditablePanel.h"
 
 class CBackGroundPanel;
 class IViewportPanel;

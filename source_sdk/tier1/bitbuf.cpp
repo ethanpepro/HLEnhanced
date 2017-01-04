@@ -8,7 +8,7 @@
 
 #include "bitbuf.h"
 #include "coordsize.h"
-#include "vector.h"
+#include "Vector.h"
 #include "mathlib.h"
 #include "vstdlib/strtools.h"
 
