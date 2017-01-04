@@ -20,8 +20,7 @@
 // feature enables
 #define NEW_SOFTWARE_LIGHTING
 
-//OSX needs this as well. - Solokiller
-#ifdef OSX
+#ifdef POSIX
 // need this for _alloca
 #include <alloca.h>
 #endif
@@ -51,27 +50,50 @@
 #define IsDebug() false
 #endif
 
+//Backported some of these from Source 2013. - Solokiller
 #ifdef _WIN32
-#define IsLinux() false
-#ifndef _XBOX
-#define IsPC() true
-#define IsConsole() false
-#define IsXbox() false
+	#define IsLinux() false
+	#define IsOSX() false
+
+	#ifndef _XBOX
+		#define IsPC() true
+		#define IsConsole() false
+		#define IsXbox() false
+		#define IsWindows() true
+	#else
+		#ifndef _CONSOLE
+			#define _CONSOLE
+		#endif
+		#define IsPC() false
+		#define IsConsole() true
+		#define IsXbox() true
+		#define IsWindows() false
+	#endif
+
+	#define IsPosix() false
+	//Source 2013 uses a DX->GL translation layer, GoldSource does not. - Solokiller
+	#define IsPlatformOpenGL() true
+#elif defined(POSIX)
+	#define IsPC() true
+	#define IsWindows() false
+	#define IsConsole() false
+	#define IsXbox() false
+	#if defined( LINUX )
+		#define IsLinux() true
+	#else
+		#define IsLinux() false
+	#endif
+
+	#if defined( OSX )
+		#define IsOSX() true
+	#else
+		#define IsOSX() false
+	#endif
+
+	#define IsPosix() true
+	#define IsPlatformOpenGL() true
 #else
-#ifndef _CONSOLE
-#define _CONSOLE
-#endif
-#define IsPC() false
-#define IsConsole() true
-#define IsXbox() true
-#endif
-#elif defined(_LINUX)
-#define IsPC() true
-#define IsConsole() false
-#define IsXbox() false
-#define IsLinux() true
-#else
-#error
+	#error
 #endif
 
 typedef unsigned char uint8;
