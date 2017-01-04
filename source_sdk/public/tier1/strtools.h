@@ -15,7 +15,7 @@
 
 #ifdef _WIN32
 #pragma once
-#elif _LINUX
+#elif POSIX
 #include <ctype.h>
 #include <wctype.h>
 #include <wchar.h>
@@ -24,8 +24,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-//Map these properly to their Linux equivalents. - Solokiller
-#ifdef _LINUX
+//Map these properly to their Posix equivalents. - Solokiller
+#ifdef POSIX
 #define stricmp strcasecmp
 #define strnicmp strncasecmp
 #define wcsicmp wcscasecmp
@@ -74,7 +74,7 @@ int		_V_wcslen	( const char* file, int line, const wchar_t *pwch );
 
 #else
 
-#ifdef _LINUX
+#ifdef POSIX
 inline char *strupr( char *start )
 {
       char *str = start;
@@ -97,7 +97,7 @@ inline char *strlwr( char *start )
       return start;
 }
 
-#endif // _LINUX
+#endif // POSIX
 
 inline void		V_memset (void *dest, int fill, int count)			{ memset( dest, fill, count ); }
 inline void		V_memcpy (void *dest, const void *src, int count)	{ memcpy( dest, src, count ); }
@@ -170,7 +170,7 @@ typedef char *  va_list;
 
 #endif   // _VA_LIST_DEFINED
 
-#elif _LINUX
+#elif POSIX
 #include <stdarg.h>
 #endif
 
@@ -274,7 +274,7 @@ void V_StrRight( const char *pStr, int nChars, char *pOut, int outSize );
 #ifdef _WIN32
 #define CORRECT_PATH_SEPARATOR '\\'
 #define INCORRECT_PATH_SEPARATOR '/'
-#elif _LINUX
+#elif POSIX
 #define CORRECT_PATH_SEPARATOR '/'
 #define INCORRECT_PATH_SEPARATOR '\\'
 #endif
