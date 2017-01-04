@@ -8,6 +8,7 @@
 #include "MemPool.h"
 #include <stdio.h>
 #include <memory.h>
+#include "tier0/platform.h"
 #include "tier0/dbg.h"
 #include <ctype.h>
 #include "vstdlib/strtools.h"

@@ -9,7 +9,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <assert.h>
-#include <malloc.h>
 
 #include <vgui/IPanel.h>
 #include <vgui/ISurface.h>
@@ -21,6 +20,7 @@
 #include <vgui_controls/TextImage.h>
 #include <vgui_controls/Controls.h>
 
+#include "tier0/platform.h"
 #include "tier0/dbg.h"
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>

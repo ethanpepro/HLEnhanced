@@ -29,7 +29,7 @@
 #include <wchar.h>
 #endif
 #include <string.h>
-#include <malloc.h>
+#include "platform.h"
 #include "commonmacros.h"
 #include "memalloc.h"
 

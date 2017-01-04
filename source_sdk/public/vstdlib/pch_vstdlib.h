@@ -18,7 +18,6 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <math.h>
-#include <malloc.h>
 #include <memory.h>
 #include <ctype.h>
 #ifdef POSIX
@@ -28,6 +27,7 @@
 #endif
 
 // Next, include public
+#include "tier0/platform.h"
 #include "tier0/basetypes.h"
 #include "tier0/dbg.h"
 #include "tier0/valobject.h"
