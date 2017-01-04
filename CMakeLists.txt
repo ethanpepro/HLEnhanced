@@ -215,13 +215,21 @@ set( SHARED_DEFS
 )
 
 if( UNIX )
-	#Define LINUX so code can check for it
-	#Define _LINUX for Source SDK dependencies.
-	set( SHARED_DEFS
-		"${SHARED_DEFS}"
-		LINUX
-		_LINUX
-	)
+	if( LINUX )
+		#Define LINUX so code can check for it.
+		#Define _LINUX for Source SDK dependencies.
+		set( SHARED_DEFS
+			"${SHARED_DEFS}"
+			LINUX
+			_LINUX
+		)
+	elseif( OSX )
+		#Define OSX so code can check for it.
+		set( SHARED_DEFS
+			"${SHARED_DEFS}"
+			OSX
+		)
+	endif()
 	
 	set( LINUX_32BIT_FLAG "-m32" )
 else()
