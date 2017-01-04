@@ -102,13 +102,11 @@
 #define __cdecl
 
 //TODO: GLM has ivec2, use that. - Solokiller
-#ifdef LINUX
 typedef struct tagPOINT
 {
 	int x;
 	int y;
 } POINT;
-#endif
 
 //TODO: Should handle windows too - Solokiller
 #if defined(OSX)
