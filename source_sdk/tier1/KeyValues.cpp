@@ -13,7 +13,7 @@
 #if defined(_WIN32) && !defined(_XBOX)
 #define NOMINMAX
 #include <windows.h>		// for WideCharToMultiByte and MultiByteToWideChar
-#elif defined(_LINUX)
+#elif defined(POSIX)
 #include <wchar.h> // wcslen()
 #endif
 

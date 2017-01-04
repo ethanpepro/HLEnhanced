@@ -12,7 +12,7 @@
 #include <xmmintrin.h>
 #include <vector.h>
 
-#ifdef _LINUX
+#ifdef POSIX
 typedef int int32;
 typedef union __attribute__ ((aligned (16)))
  {
@@ -169,7 +169,7 @@ public:
 	// X(),Y(),Z() - get at the desired component of the i'th (0..3) vector.
 	inline float const &X(int idx) const
 	{
-#ifdef _LINUX
+#ifdef POSIX
 		return ((l_m128*)&x)->m128_f32[idx];
 #else
 		return x.m128_f32[idx];
@@ -178,7 +178,7 @@ public:
 
 	inline float const &Y(int idx) const
 	{
-#ifdef _LINUX
+#ifdef POSIX
 		return ((l_m128*)&y)->m128_f32[idx];
 #else
 		return y.m128_f32[idx];
@@ -186,7 +186,7 @@ public:
 	}
 	inline float const &Z(int idx) const
 	{
-#ifdef _LINUX
+#ifdef POSIX
 		return ((l_m128*)&z)->m128_f32[idx];
 #else
 		return z.m128_f32[idx];
@@ -196,7 +196,7 @@ public:
 	// X(),Y(),Z() - get at the desired component of the i'th (0..3) vector.
 	inline float &X(int idx)
 	{
-#ifdef _LINUX
+#ifdef POSIX
 		return ((l_m128*)&x)->m128_f32[idx];
 #else
 		return x.m128_f32[idx];
@@ -205,7 +205,7 @@ public:
 
 	inline float &Y(int idx)
 	{
-#ifdef _LINUX
+#ifdef POSIX
 		return ((l_m128*)&y)->m128_f32[idx];
 #else
 		return y.m128_f32[idx];
@@ -213,7 +213,7 @@ public:
 	}
 	inline float &Z(int idx)
 	{
-#ifdef _LINUX
+#ifdef POSIX
 		return ((l_m128*)&z)->m128_f32[idx];
 #else
 		return z.m128_f32[idx];
@@ -343,7 +343,7 @@ inline bool IsAllZeros(__m128 var)
 {
 #ifdef _WIN32
 	__declspec(align(16)) int32 myints[4];
-#elif _LINUX
+#elif POSIX
 	int32 myints[4] __attribute__ ((aligned (16)));
 #endif
 	_mm_store_ps((float *) myints,var);
@@ -356,7 +356,7 @@ inline __m128 fabs(__m128 x)
 #ifdef _WIN32
 	static __declspec(align(16)) int32 clear_signmask[4]=
 		{0x7fffffff,0x7fffffff,0x7fffffff,0x7fffffff};
-#elif _LINUX
+#elif POSIX
 	static int32 clear_signmask[4]  __attribute__ ((aligned (16)))=
 		{0x7fffffff,0x7fffffff,0x7fffffff,0x7fffffff};
 #endif
@@ -369,7 +369,7 @@ inline __m128 fnegate(__m128 x)
 #ifdef _WIN32
 	static __declspec(align(16)) int32 signmask[4]=
 		{0x80000000,0x80000000,0x80000000,0x80000000};
-#elif _LINUX
+#elif POSIX
 	static int32 signmask[4]  __attribute__ ((aligned (16)))=
 		{0x80000000,0x80000000,0x80000000,0x80000000};
 #endif

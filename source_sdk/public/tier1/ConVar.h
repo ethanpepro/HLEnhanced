@@ -19,7 +19,7 @@
 
 #ifdef _WIN32
 #define FORCEINLINE_CVAR FORCEINLINE
-#elif _LINUX
+#elif POSIX
 #define FORCEINLINE_CVAR __inline__ FORCEINLINE
 #else
 #error "implement me"

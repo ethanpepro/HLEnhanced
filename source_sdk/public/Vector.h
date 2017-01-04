@@ -31,7 +31,7 @@
 
 // For MMX intrinsics
 #include <emmintrin.h>
-#ifdef _LINUX
+#ifdef POSIX
 #include <xmmintrin.h>
 #endif
 
@@ -219,7 +219,7 @@ private:
 //=========================================================
 #ifdef _WIN32
 class __declspec(align(8)) ShortVector
-#elif _LINUX
+#elif POSIX
 class __attribute__((aligned(8))) ShortVector
 #endif
 {
@@ -317,7 +317,7 @@ public:
 
 #ifdef _WIN32
 class __declspec(align(16)) VectorAligned : public Vector
-#elif _LINUX
+#elif POSIX
 class __attribute__((aligned(16))) VectorAligned : public Vector
 #endif
 {

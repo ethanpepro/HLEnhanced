@@ -23,7 +23,7 @@
 #include "tier0/platform.h"
 #include "tier0/vcr_shared.h"
 
-#ifdef _LINUX
+#ifdef POSIX
 void BuildCmdLine( int argc, tchar **argv );
 tchar *GetCommandLine();
 #endif

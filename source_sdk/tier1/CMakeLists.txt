@@ -34,11 +34,12 @@ add_sources(
 	xboxstubs.cpp
 )
 
-if( UNIX )
-	add_sources(
-		processor_detect_linux.cpp
-	)
-endif()
+#Included by processor_detect.cpp
+#if( UNIX )
+#	add_sources(
+#		processor_detect_linux.cpp
+#	)
+#endif()
 
 preprocess_sources()
 

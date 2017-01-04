@@ -235,7 +235,7 @@ FIXME: Enable this when we no longer fear change =)
 #define __i386__	1
 #endif
 
-#elif _LINUX
+#elif POSIX
 #define _vsnprintf vsnprintf
 
 typedef unsigned int DWORD;
@@ -277,7 +277,7 @@ typedef void * HINSTANCE;
 #ifdef _WIN32
 	#define ALIGN16 __declspec(align(16))
 	#define ALIGN32 __declspec(align(32))
-#elif _LINUX
+#elif POSIX
 	#define ALIGN16 __attribute__((aligned(16)))
 	#define ALIGN32 __attribute__((aligned(32)))
 #else
@@ -287,7 +287,7 @@ typedef void * HINSTANCE;
 
 #ifdef _WIN32
 	#define SELECTANY __declspec(selectany)
-#elif _LINUX
+#elif POSIX
 	#define SELECTANY __attribute__((weak))
 #else
 	#define SELECTANY static
@@ -385,7 +385,7 @@ typedef void * HINSTANCE;
 // Alloca defined for this platform
 #define  stackalloc( _size ) _alloca( _size )
 #define  stackfree( _p )   0
-#elif _LINUX
+#elif POSIX
 // Alloca defined for this platform
 #define  stackalloc( _size ) alloca( _size )
 #define  stackfree( _p )   0

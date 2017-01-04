@@ -282,7 +282,7 @@ inline void CCycleCount::Sample()
 		mov		[ecx],     eax
 		mov		[ecx+4],   edx
 	}
-#elif defined _LINUX
+#elif defined POSIX
        __asm__ __volatile__ (  
 			"rdtsc\n\t"
 			"movl %%eax,  (%0)\n\t"

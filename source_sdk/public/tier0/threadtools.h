@@ -13,7 +13,7 @@
 #include "tier0/dbg.h"
 #include "tier0/vcrmode.h"
 
-#ifdef _LINUX
+#ifdef POSIX
 #include <pthread.h>
 #endif
 
@@ -62,7 +62,7 @@ const unsigned TT_INFINITE = 0xffffffff;
 #ifndef THREAD_LOCAL
 #ifdef _WIN32
 #define THREAD_LOCAL __declspec(thread)
-#elif _LINUX
+#elif POSIX
 #define THREAD_LOCAL __thread
 #endif
 #endif
@@ -97,7 +97,7 @@ inline void ThreadPause()
 {
 #ifdef _WIN32
 	__asm pause;
-#elif _LINUX
+#elif POSIX
 	__asm __volatile("pause");
 #else
 #error "implement me"
@@ -113,7 +113,7 @@ inline void ThreadPause()
 
 #ifdef _WIN32
 #define NOINLINE
-#elif _LINUX
+#elif POSIX
 #define NOINLINE __attribute__ ((noinline))
 #endif
 
@@ -153,7 +153,7 @@ public:
 private:
 #ifdef _WIN32
 	uint32 m_index;
-#elif _LINUX
+#elif POSIX
 	pthread_key_t m_index;
 #endif
 };
@@ -393,7 +393,7 @@ private:
 	#define TT_SIZEOF_CRITICALSECTION 28
 #endif
 	byte m_CriticalSection[TT_SIZEOF_CRITICALSECTION];
-#elif _LINUX
+#elif POSIX
 	pthread_mutex_t m_Mutex;
 	pthread_mutexattr_t m_Attr;
 #else
@@ -593,7 +593,7 @@ protected:
 
 #ifdef _WIN32
 	HANDLE m_hSyncObject;
-#elif _LINUX
+#elif POSIX
 	pthread_mutex_t	m_Mutex;
 	pthread_cond_t	m_Condition;
 	bool m_bInitalized;
@@ -693,7 +693,7 @@ public:
 private:
 	CThreadEvent( const CThreadEvent & );
 	CThreadEvent &operator=( const CThreadEvent & );
-#ifdef _LINUX
+#ifdef POSIX
 	CInterlockedInt m_cSet;
 #endif
 };
@@ -839,7 +839,7 @@ private:
 #ifdef _WIN32
 	HANDLE 	m_hThread;
 	ThreadId_t m_threadId;
-#elif _LINUX
+#elif POSIX
 	pthread_t m_threadId;
 #endif
 	int		m_result;
@@ -1045,7 +1045,7 @@ inline void CThreadMutex::SetTrace( bool bTrace )
 
 //---------------------------------------------------------
 
-#elif _LINUX
+#elif POSIX
 
 inline CThreadMutex::CThreadMutex()
 {
@@ -1089,7 +1089,7 @@ inline void CThreadMutex::SetTrace(bool fTrace)
 {
 }
 
-#endif // _LINUX
+#endif // POSIX
 
 //-----------------------------------------------------------------------------
 

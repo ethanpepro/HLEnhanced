@@ -93,7 +93,7 @@ typedef enum
 } xverbose_e;
 
 typedef unsigned short WORD;
-#ifndef _LINUX
+#ifndef POSIX
 typedef unsigned long DWORD;
 #endif
 typedef void* HANDLE;

@@ -12,7 +12,7 @@
 #ifdef _WIN32
 #define NOMINMAX
 #include <windows.h>
-#elif _LINUX
+#elif POSIX
 #define ERROR_GEN_FAILURE 1
 #define GetTickCount() Plat_FloatTime()
 #else

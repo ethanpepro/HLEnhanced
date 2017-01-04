@@ -21,7 +21,7 @@
 #include <malloc.h>
 #include <memory.h>
 #include <ctype.h>
-#ifdef _LINUX
+#ifdef POSIX
 #include <ctype.h>
 #include <limits.h>
 #define _MAX_PATH PATH_MAX

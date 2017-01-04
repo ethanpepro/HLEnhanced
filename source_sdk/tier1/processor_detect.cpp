@@ -6,7 +6,7 @@
 // $NoKeywords: $
 //=============================================================================//
 
-#ifdef _LINUX
+#ifdef POSIX
 #include "processor_detect_linux.cpp"
 #elif _WIN32
 

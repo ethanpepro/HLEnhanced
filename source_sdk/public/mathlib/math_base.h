@@ -292,7 +292,7 @@ void inline SinCos( float radians, float *sine, float *cosine )
 		fstp DWORD PTR [edx]
 		fstp DWORD PTR [eax]
 	}
-#elif _LINUX
+#elif POSIX
 	register double __cosr, __sinr;
  	__asm __volatile__
     		("fsincos"
@@ -1017,7 +1017,7 @@ inline int RoundFloatToInt(float f)
 		fld f
 		fistp nResult
 	}
-#elif _LINUX
+#elif POSIX
 	__asm __volatile__ (
 		"fistpl %0;": "=m" (nResult): "t" (f) : "st"
 	);
@@ -1035,7 +1035,7 @@ inline unsigned char RoundFloatToByte(float f)
 		fld f
 		fistp nResult
 	}
-#elif _LINUX
+#elif POSIX
 	__asm __volatile__ (
 		"fistpl %0;": "=m" (nResult): "t" (f) : "st"
 	);
@@ -1057,7 +1057,7 @@ inline unsigned long RoundFloatToUnsignedLong(float f)
 		fld f
 		fistp       qword ptr nResult
 	}
-#elif _LINUX
+#elif POSIX
 	__asm __volatile__ (
 		"fistpl %0;": "=m" (nResult): "t" (f) : "st"
 	);
@@ -1086,7 +1086,7 @@ inline int Float2Int( float a )
       fistp  RetVal				// Store and converted (to int) result
       fldcw  CtrlwdHolder		// Restore control word
    }
-#elif _LINUX
+#elif POSIX
 	RetVal = static_cast<int>( a );
 #endif
 
@@ -1113,7 +1113,7 @@ inline int Floor2Int( float a )
       fistp  RetVal				// Store floored and converted (to int) result
       fldcw  CtrlwdHolder		// Restore control word
    }
-#elif _LINUX
+#elif POSIX
 	RetVal = static_cast<int>( floor(a) );
 #endif
 
@@ -1161,7 +1161,7 @@ inline int Ceil2Int( float a )
       fistp  RetVal				// Store floored and converted (to int) result
       fldcw  CtrlwdHolder		// Restore control word
    }
-#elif _LINUX
+#elif POSIX
 	RetVal = static_cast<int>( ceil(a) );
 #endif
 

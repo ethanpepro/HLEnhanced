@@ -51,7 +51,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#ifdef _LINUX
+#ifdef POSIX
 #include <ctype.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -619,7 +619,7 @@ int V_snprintf( char *pDest, int maxLen, char const *pFormat, ... )
 	va_start( marker, pFormat );
 #ifdef _WIN32
 	int len = _vsnprintf( pDest, maxLen, pFormat, marker );
-#elif _LINUX
+#elif POSIX
 	int len = vsnprintf( pDest, maxLen, pFormat, marker );
 #else
 	#error "define vsnprintf type."
@@ -892,7 +892,7 @@ int V_UTF8ToUnicode( const char *pUTF8, wchar_t *pwchDest, int cubDestSizeInByte
 	pwchDest[0] = 0;
 #ifdef _WIN32
 	int cchResult = MultiByteToWideChar( CP_UTF8, 0, pUTF8, -1, pwchDest, cubDestSizeInBytes / sizeof(wchar_t) );
-#elif _LINUX
+#elif POSIX
 	int cchResult = mbstowcs( pwchDest, pUTF8, cubDestSizeInBytes / sizeof(wchar_t) );
 #endif
 	pwchDest[(cubDestSizeInBytes / sizeof(wchar_t)) - 1] = 0;
@@ -910,7 +910,7 @@ int V_UnicodeToUTF8( const wchar_t *pUnicode, char *pUTF8, int cubDestSizeInByte
 	pUTF8[0] = 0;
 #ifdef _WIN32
 	int cchResult = WideCharToMultiByte( CP_UTF8, 0, pUnicode, -1, pUTF8, cubDestSizeInBytes, NULL, NULL );
-#elif _LINUX
+#elif POSIX
 	int cchResult = wcstombs( pUTF8, pUnicode, cubDestSizeInBytes );
 #endif
 	pUTF8[cubDestSizeInBytes - 1] = 0;
@@ -1197,7 +1197,7 @@ void  V_StripFilename (char *path)
 #ifdef _WIN32
 #define CORRECT_PATH_SEPARATOR '\\'
 #define INCORRECT_PATH_SEPARATOR '/'
-#elif _LINUX
+#elif POSIX
 #define CORRECT_PATH_SEPARATOR '/'
 #define INCORRECT_PATH_SEPARATOR '\\'
 #endif
@@ -1941,7 +1941,7 @@ void V_strtowcs( const char *pString, int nInSize, wchar_t *pWString, int nOutSi
 	{
 		*pWString = L'\0';
 	}
-#elif _LINUX
+#elif POSIX
 	if ( mbstowcs( pWString, pString, nOutSize / sizeof(wchar_t) ) <= 0 )
 	{
 		*pWString = 0;
@@ -1956,7 +1956,7 @@ void V_wcstostr( const wchar_t *pWString, int nInSize, char *pString, int nOutSi
 	{
 		*pString = '\0';
 	}
-#elif _LINUX
+#elif POSIX
 	if ( wcstombs( pString, pWString, nOutSize ) <= 0 )
 	{
 		*pString = '\0';

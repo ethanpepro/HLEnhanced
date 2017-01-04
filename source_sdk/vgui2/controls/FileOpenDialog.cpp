@@ -16,7 +16,7 @@
 
 #if !defined( _XBOX ) && defined( WIN32 )
 #include "winlite.h"
-#elif defined( _LINUX )
+#elif defined( POSIX )
 //TODO: platform specific code should be avoided. - Solokiller
 #include <cstdlib>
 #define _stat stat

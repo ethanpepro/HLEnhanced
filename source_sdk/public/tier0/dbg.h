@@ -19,7 +19,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 
-#ifdef _LINUX
+#ifdef POSIX
 #define __cdecl
 #endif
 

@@ -25,7 +25,7 @@
 
 #define NO_THREADPOOL
 
-#ifdef _LINUX
+#ifdef POSIX
 #define NO_THREADPOOL
 #endif
 
@@ -179,7 +179,7 @@ CAsyncJobFuliller::CAsyncJobFuliller( int maxJobs )
 #ifdef _WIN32
 	m_PutSemaphore( maxJobs, maxJobs ),
 	m_bUseSemaphore( true ),
-#elif _LINUX
+#elif POSIX
 	m_bUseSemaphore( false ), // no semaphore support
 #endif
 	m_nSuspend( 0 )
