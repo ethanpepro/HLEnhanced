@@ -43,12 +43,10 @@ matrix:
     # Everything disabled
     - os: osx
       env: BUILD_RULES="-DUSE_OPFOR=0 -DUSE_ANGELSCRIPT=0 -DUSE_AS_SQL=0"
-      osx_image: beta-xcode6.1
     # Mac OS X Mavericks 10.9.5 (Xcode 6.1)
     # Opposing Force
     - os: osx
       env: BUILD_RULES="-DUSE_OPFOR=1 -DUSE_ANGELSCRIPT=0 -DUSE_AS_SQL=0"
-      osx_image: beta-xcode6.1
     # TODO: Add other OS X build matrix when AngelScript and MariaDB OS X binaries are built
 
 before_install:
