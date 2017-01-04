@@ -14,7 +14,6 @@ add_sources(
 	ISurfaceV28.h
 	ISurfaceV29.h
 	ISystem.h
-	ISystem.h~
 	IVGui.h
 	IVguiMatInfo.h
 	IVguiMatInfoVar.h
