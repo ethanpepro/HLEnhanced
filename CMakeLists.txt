@@ -208,7 +208,7 @@ set( SHARED_DEFS
 
 #Define LINUX so code can check for it
 if( UNIX )
-	if( LINUX )
+	if( NOT APPLE )
 		#Define LINUX so code can check for it.
 		#Define _LINUX for Source SDK dependencies.
 		set( SHARED_DEFS
@@ -216,7 +216,7 @@ if( UNIX )
 			LINUX
 			_LINUX
 		)
-	elseif( OSX )
+	else()
 		#Define OSX so code can check for it.
 		set( SHARED_DEFS
 			"${SHARED_DEFS}"
