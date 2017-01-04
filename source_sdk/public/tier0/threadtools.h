@@ -1051,7 +1051,8 @@ inline CThreadMutex::CThreadMutex()
 {
 	// enable recursive locks as we need them
 	pthread_mutexattr_init( &m_Attr );
-	pthread_mutexattr_settype( &m_Attr, PTHREAD_MUTEX_RECURSIVE_NP );
+	//Source 2013 uses a different type. - Solokiller
+	pthread_mutexattr_settype( &m_Attr, /*PTHREAD_MUTEX_RECURSIVE_NP*/ PTHREAD_MUTEX_RECURSIVE );
 	pthread_mutex_init( &m_Mutex, &m_Attr );
 }
 

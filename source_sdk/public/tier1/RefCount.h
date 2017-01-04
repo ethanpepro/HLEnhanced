@@ -302,7 +302,8 @@ public:
 //			referencing problems
 //-----------------------------------------------------------------------------
 
-template <class BASE_REFCOUNTED, int FINAL_REFS = 0, const char *pszName = NULL>
+//Source 2013 removes the default value for FINAL_REFS and pszName. - Solokiller
+template <class BASE_REFCOUNTED, int FINAL_REFS /*= 0*/, const char *pszName /*= NULL*/>
 class CRefDebug : public BASE_REFCOUNTED
 {
 public:
