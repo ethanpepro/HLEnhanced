@@ -527,8 +527,9 @@ if( USE_AS_SQL )
 		find_library( MARIADBD "mariadbclientd${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
 		set( PTHREAD "" )
 	else()
-		find_library( SQLITE3 "${CMAKE_SHARED_LIBRARY_PREFIX}sqlite3${CMAKE_SHARED_LIBRARY_SUFFIX}" PATHS "${GAME_BASE_PATH}" )
-		find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" )
+		#Never use the default install for these (could try to use 64 bit versions, which don't work for 32 bit builds).
+		find_library( SQLITE3 "${CMAKE_SHARED_LIBRARY_PREFIX}sqlite3${CMAKE_SHARED_LIBRARY_SUFFIX}" PATHS "${GAME_BASE_PATH}" NO_DEFAULT_PATH )
+		find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" NO_DEFAULT_PATH )
 		set( MARIADBD ${MARIADB} )
 		set( PTHREAD "pthread" )
 		
