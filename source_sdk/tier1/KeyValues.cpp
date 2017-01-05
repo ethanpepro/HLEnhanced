@@ -418,7 +418,7 @@ const char *KeyValues::ReadToken( CUtlBuffer &buf, bool &wasQuoted )
 	// read in the token until we hit a whitespace or a control character
 	bool bReportedError = false;
 	int nCount = 0;
-	while ( c = (const char*)buf.PeekGet( sizeof(char), 0 ) )
+	while ( ( c = (const char*)buf.PeekGet( sizeof(char), 0 ) ) != NULL )
 	{
 		// end of file
 		if ( *c == 0 )
