@@ -8,11 +8,11 @@
 #if !defined(_STATIC_LINKED) || defined(_SHARED_LIB)
 
 #include <cwchar>
-#include <experimental/filesystem>
 
 #include "FileSystem.h"
 #include "FileSystem_Helpers.h"
 #include "CharacterSet.h"
+#include "strtools.h"
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -144,17 +144,13 @@ bool FS_GetFileTypeForFullPath( char const *pFullPath, wchar_t *buf, size_t bufS
 	if( !pFullPath )
 		return false;
 	
-	bufSizeInBytes /= sizeof( wchar_t );
-	
 	if( !buf || bufSizeInBytes == 0 )
 		return false;
-	
-	std::experimental::filesystem::path path( pFullPath );
-	
-	auto szExt = path.extension().wstring();
-	
-	wcsncpy( buf, szExt.c_str(), bufSizeInBytes );
-	buf[ bufSizeInBytes - 1 ] = L'\0';
+
+	char szExt[ 32 ];
+
+	V_ExtractFileExtension( pFullPath, szExt, sizeof( szExt ) );
+	V_UTF8ToUnicode( szExt, buf, bufSizeInBytes );
 	
 	return true;
 }
