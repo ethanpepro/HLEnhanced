@@ -528,8 +528,7 @@ FARPROC WINAPI DelayHook(
 {
 	if( dliNotify == dliNotePreLoadLibrary )
 	{
-		if( strcmp( pdli->szDll, "sqlite3.dll" ) == 0 || 
-			strcmp( pdli->szDll, "libmariadb.dll" ) == 0 )
+		if( strcmp( pdli->szDll, "sqlite3.dll" ) == 0 )
 		{
 			char szGameDir[ MAX_PATH ];
 			char szPath[ MAX_PATH ];
