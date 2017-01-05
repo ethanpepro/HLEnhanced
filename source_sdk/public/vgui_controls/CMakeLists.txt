@@ -61,8 +61,12 @@ add_sources(
 	TreeView.h
 	TreeViewListControl.h
 	URLLabel.h
-	vgui_controls.cpp
 	WizardPanel.h
 	WizardSubPanel.h
 )
 
+if( USE_VGUI2 )
+	add_sources(
+		vgui_controls.cpp
+	)
+endif()

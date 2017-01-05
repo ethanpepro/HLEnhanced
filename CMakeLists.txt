@@ -296,7 +296,18 @@ else()
 	set( ANGELSCRIPTUTILSD )
 endif()
 
+if( WIN32 )
+	find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_STATIC_LIBRARY_SUFFIX} PATHS lib/public/ )
+	find_library( VSTDLIB vstdlib${CMAKE_STATIC_LIBRARY_SUFFIX} PATHS ${CMAKE_SOURCE_DIR}/lib/public/ )
+else()
+	find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS ${STEAMCOMMON}/Half-Life/ )
+	find_library( VSTDLIB ${CMAKE_SHARED_LIBRARY_PREFIX}vstdlib${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS ${STEAMCOMMON}/Half-Life/ )
+endif()
+
 set( SHARED_DEPENDENCIES
+	${TIER0}
+	${VSTDLIB}
+	tier1
 )
 
 set( THREADS_PREFER_PTHREAD_FLAG ON )
@@ -324,11 +335,8 @@ add_sources( "${SHARED_SRCS}" )
 add_subdirectory( game/client )
 add_subdirectory( vgui_utils )
 add_subdirectory( shared/engine/client )
-
-if( USE_VGUI2 )
-	add_subdirectory( source_sdk/common )
-	add_subdirectory( source_sdk/public )
-endif()
+add_subdirectory( source_sdk/common )
+add_subdirectory( source_sdk/public )
 
 preprocess_sources()
 
@@ -410,19 +418,8 @@ if( NOT WIN32 )
 endif()
 
 if( USE_VGUI2 )
-	if( WIN32 )
-		find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_STATIC_LIBRARY_SUFFIX} PATHS lib/public/ )
-		find_library( VSTDLIB vstdlib PATHS lib/public/ )
-	else()
-		find_library( TIER0 ${CMAKE_SHARED_LIBRARY_PREFIX}tier0${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS ${STEAMCOMMON}/Half-Life/ )
-		find_library( VSTDLIB ${CMAKE_SHARED_LIBRARY_PREFIX}vstdlib${CMAKE_SHARED_LIBRARY_SUFFIX} PATHS ${STEAMCOMMON}/Half-Life/ )
-	endif()
-	
 	set( VGUI2_LIBS
-		${TIER0}
-		${VSTDLIB}
 		vgui2_controls
-		tier1
 	)
 else()
 	set( VGUI2_LIBS "" )
@@ -437,7 +434,6 @@ endif()
 
 #Link with client dependencies
 target_link_libraries( client 
-	"${SHARED_DEPENDENCIES}"
 	optimized "${ANGELSCRIPTUTILS}"
 	optimized "${ANGELSCRIPTLIB}"
 	debug "${ANGELSCRIPTUTILSD}"
@@ -446,6 +442,7 @@ target_link_libraries( client
 	"${CLIENT_PLAT_LIBS}"
 	"${SDL2}"
 	"${VGUI2_LIBS}"
+	${SHARED_DEPENDENCIES}
 	Threads::Threads
 	${UNIX_FS_LIB}
 )
@@ -581,11 +578,11 @@ target_link_libraries( hl
 	optimized "${MARIADB}"
 	optimized "${ASSQL}"
 	debug "${ASSQLD}"
-	"${SHARED_DEPENDENCIES}"
 	optimized "${ANGELSCRIPTUTILS}"
 	optimized "${ANGELSCRIPTLIB}"
 	debug "${ANGELSCRIPTUTILSD}"
 	debug "${ANGELSCRIPTLIBD}"
+	${SHARED_DEPENDENCIES}
 	"${DELAYIMP}"
 	${UNIX_FS_LIB}
 )
