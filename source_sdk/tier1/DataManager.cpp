@@ -96,8 +96,15 @@ unsigned int CDataManagerBase::Purge( unsigned int nBytesToPurge )
 {
 	unsigned int nOriginalTargetSize = MemTotal_Inline();
 	unsigned int nTempTargetSize = MemUsed_Inline() - nBytesToPurge;
+	//Source 2013 version. - Solokiller
+	// Check for underflow
+	if( MemUsed_Inline() < nBytesToPurge )
+		nTempTargetSize = 0;
+	//Original code:
+	/*
 	if ( nTempTargetSize < 0 )
 		nTempTargetSize = 0;
+		*/
 	SetTargetSize( nTempTargetSize );
 	unsigned result = FlushToTargetSize();
 	SetTargetSize( nOriginalTargetSize );
