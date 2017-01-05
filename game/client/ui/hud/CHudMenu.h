@@ -29,7 +29,7 @@ public:
 	void InitHUDData() override;
 	void VidInit() override;
 	void Reset()  override;
-	bool Draw( float flTime );
+	bool Draw( float flTime ) override;
 	int MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf );
 
 	void SelectMenuItem( int menu_item );

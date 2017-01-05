@@ -929,7 +929,9 @@ void CHudSpectator::SetCameraView( const Vector& pos, const Vector& angle, float
 
 void CHudSpectator::AddWaypoint( float time, const Vector& pos, const Vector& angle, float fov, int flags )
 {
-	if ( !flags == 0 && time == 0.0f)
+	//TODO: figure out if this condition actually makes sense. - Solokiller
+	//Used to be: if( !flags == 0 && time == 0.0f )
+	if ( flags && time == 0.0f)
 	{
 		// switch instantly to this camera view
 		SetCameraView( pos, angle, fov );

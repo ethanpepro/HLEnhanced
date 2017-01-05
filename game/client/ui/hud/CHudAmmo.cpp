@@ -717,7 +717,7 @@ bool CHudAmmo::Draw(float flTime)
 			break;
 
 		case CROSS_USERSCALE:
-			flScale = abs( m_pCrosshairScale->value );
+			flScale = fabs( m_pCrosshairScale->value );
 			break;
 		}
 

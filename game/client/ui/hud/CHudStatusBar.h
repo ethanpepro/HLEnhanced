@@ -24,8 +24,8 @@ public:
 
 	void Init() override;
 	void VidInit() override;
-	bool Draw( float flTime );
-	void Reset();
+	bool Draw( float flTime ) override;
+	void Reset() override;
 	void ParseStatusString( int line_num );
 
 	int MsgFunc_StatusText( const char *pszName, int iSize, void *pbuf );
