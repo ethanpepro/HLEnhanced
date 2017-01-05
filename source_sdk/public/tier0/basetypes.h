@@ -64,7 +64,9 @@ inline T AlignValue( T val, unsigned alignment )
 	( ((number) + ((boundary)-1)) / (boundary) ) * (boundary)
 
 // In case this ever changes
+#ifndef M_PI
 #define M_PI			3.14159265358979323846
+#endif
 
 //Replaced the Source SDK defs with this include, since it was conflicting. - Solokiller
 #include "MinMax.h"
