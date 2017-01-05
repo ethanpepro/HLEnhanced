@@ -503,7 +503,8 @@ void CTestHull::BuildNodeGraph()
 	fprintf( file, "\n\n-------------------------------------------------------------------------------\n" );
 	fprintf( file, "Total Number of Connections in Pool: %d\n", cPoolLinks );
 	fprintf( file, "-------------------------------------------------------------------------------\n" );
-	fprintf( file, "Connection Pool: %u bytes\n", sizeof( CLink ) * cPoolLinks );
+	//Note: z requires C++11. - Solokiller
+	fprintf( file, "Connection Pool: %zu bytes\n", static_cast<size_t>( sizeof( CLink ) * cPoolLinks ) );
 	fprintf( file, "-------------------------------------------------------------------------------\n" );
 
 
