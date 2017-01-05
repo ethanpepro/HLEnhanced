@@ -220,6 +220,31 @@ int V_strncmp (const char *s1, const char *s2, int count)
 	return 0; // count characters compared the same
 }
 
+//Source 2013 version. - Solokiller
+char *V_strnlwr( char *s, size_t count )
+{
+	// Assert( count >= 0 ); tautology since size_t is unsigned
+	AssertValidStringPtr( s, count );
+
+	char* pRet = s;
+	if( !s || !count )
+		return s;
+
+	while( --count > 0 )
+	{
+		if( !*s )
+			return pRet; // reached end of string
+
+		*s = tolower( *s );
+		++s;
+	}
+
+	*s = 0; // null-terminate original string at "count-1"
+	return pRet;
+}
+
+//Old code:
+/*
 char *V_strnlwr(char *s, size_t count)
 {
 	Assert( count >= 0 );
@@ -240,6 +265,7 @@ char *V_strnlwr(char *s, size_t count)
 
 	return pRet;
 }
+*/
 
 
 int V_strncasecmp (const char *s1, const char *s2, int n)

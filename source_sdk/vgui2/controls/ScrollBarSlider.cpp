@@ -396,7 +396,6 @@ void ScrollBarSlider::OnCursorMoved(int x,int y)
 
 	int wide, tall;
 	GetPaintSize(wide, tall);
-	tall;
 
 	if (_vertical)
 	{

@@ -918,7 +918,7 @@ void Frame::CloseModal()
 //-----------------------------------------------------------------------------
 void Frame::ActivateMinimized()
 {
-	if ( IsVisible() && !IsMinimized() || !surface()->SupportsFeature( ISurface::FRAME_MINIMIZE_MAXIMIZE ) )
+	if ( ( IsVisible() && !IsMinimized() ) || !surface()->SupportsFeature( ISurface::FRAME_MINIMIZE_MAXIMIZE ) )
 	{
 		Activate();
 	}
