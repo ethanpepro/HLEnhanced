@@ -1021,6 +1021,8 @@ Schedule_t *CAGrunt :: GetSchedule ( void )
 
 			return GetScheduleOfType ( SCHED_STANDOFF );
 		}
+
+	default: break;
 	}
 
 	return CSquadMonster :: GetSchedule();

@@ -535,6 +535,12 @@ void CBaseTurret::SetTurretAnim(TURRET_ANIM anim)
 
 		switch(anim)
 		{
+			//Explicitly handle these in case more are added. - Solokiller
+		case TURRET_ANIM_NONE:
+		case TURRET_ANIM_FIRE:
+		case TURRET_ANIM_SPIN:
+		case TURRET_ANIM_DEPLOY: break;
+
 		case TURRET_ANIM_RETIRE:
 			pev->frame			= 255;
 			pev->framerate		= -1.0;

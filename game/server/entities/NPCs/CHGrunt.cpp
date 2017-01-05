@@ -2037,7 +2037,11 @@ Schedule_t *CHGrunt :: GetSchedule( void )
 			{
 				return GetScheduleOfType ( SCHED_GRUNT_ESTABLISH_LINE_OF_FIRE );
 			}
+
+			break;
 		}
+
+	default: break;
 	}
 	
 	// no special cases here, call the base class

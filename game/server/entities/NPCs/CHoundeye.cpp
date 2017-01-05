@@ -146,6 +146,8 @@ void CHoundeye :: SetYawSpeed ( void )
 	case ACT_TURN_RIGHT:
 		ys = 90;
 		break;
+
+	default: break;
 	}
 
 	pev->yaw_speed = ys;
@@ -1213,6 +1215,8 @@ Schedule_t *CHoundeye :: GetSchedule( void )
 			}
 			break;
 		}
+
+	default: break;
 	}
 
 	return CSquadMonster :: GetSchedule();
