@@ -673,7 +673,17 @@ struct CPUInformation
 	tchar* m_szProcessorID;				// Processor vendor Identification.
 };
 
+//Disable this warning because we can't fix it anyway. - Solokiller
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wreturn-type-c-linkage"
+#endif
+
 PLATFORM_INTERFACE const CPUInformation& GetCPUInformation();
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif
 
 // ---------------------------------------------------------------------------------- //
 // Performance Monitoring Events - L2 stats etc...
