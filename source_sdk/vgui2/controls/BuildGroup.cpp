@@ -629,6 +629,7 @@ bool BuildGroup::KeyCodeTyped(KeyCode code, Panel *panel)
 			break;
 		}
 
+		default: break;
 	}
 
 	if (ctrl)
@@ -651,6 +652,8 @@ bool BuildGroup::KeyCodeTyped(KeyCode code, Panel *panel)
 				ivgui()->PostMessage(m_hBuildDialog->GetVPanel(), new KeyValues("Paste"), NULL_HANDLE);
 				break;
 			}
+
+		default: break;
 		}
 	}
 

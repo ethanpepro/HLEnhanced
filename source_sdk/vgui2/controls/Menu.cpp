@@ -1334,6 +1334,8 @@ void Menu::OnKeyCodeTyped(KeyCode code)
 			}
 			break;
 		}
+
+	default: break;
 	}
 	
 	// don't chain back

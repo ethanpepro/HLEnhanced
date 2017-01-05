@@ -218,6 +218,8 @@ void MenuButton::OnKeyCodeTyped(KeyCode code)
 				}
 				break;
 			}
+
+		default: break;
 		}
 	}
 	BaseClass::OnKeyCodeTyped(code);

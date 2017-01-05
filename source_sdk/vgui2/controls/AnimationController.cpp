@@ -564,6 +564,8 @@ void AnimationController::UpdatePostedMessages(bool bRunToCompletion)
 		// handle the event
 		switch (msg.commandType)
 		{
+		case CMD_ANIMATE:
+			break;
 		case CMD_RUNEVENT:
 			// run the event, but only if we haven't already ran it this frame
 			if (!eventsRanThisFrame.HasElement(msg.event))
