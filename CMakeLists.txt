@@ -597,7 +597,7 @@ set_target_properties( hl PROPERTIES
 
 if( WIN32 AND MSVC )
 	if( USE_AS_SQL )
-		set( SQL_DLL_DELAYLOAD "/DELAYLOAD:sqlite3.dll /DELAYLOAD:libmariadb.dll" )
+		set( SQL_DLL_DELAYLOAD "/DELAYLOAD:sqlite3.dll" )
 	else()
 		set( SQL_DLL_DELAYLOAD )
 	endif()
@@ -629,20 +629,6 @@ if( USE_AS_SQL )
 		add_custom_command( TARGET hl POST_BUILD
 			COMMAND ${CMAKE_COMMAND} -E copy_if_different
 			"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/sqlite3.dll"
-			"$<TARGET_FILE_DIR:hl>/.."
-		)
-
-		#Copy the mariadb dll so the exe can get to it
-		add_custom_command( TARGET hl POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.dll"
-			"$<TARGET_FILE_DIR:hl>/.."
-		)
-
-		#Copy the mariadbd dll so the exe can get to it
-		add_custom_command( TARGET hl POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadbd.dll"
 			"$<TARGET_FILE_DIR:hl>/.."
 		)
 	else()

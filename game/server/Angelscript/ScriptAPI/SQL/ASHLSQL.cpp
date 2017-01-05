@@ -283,6 +283,7 @@ void RegisterScriptHLSQL( asIScriptEngine& engine )
 	RegisterScriptCTime( engine );
 	RegisterScriptCDateTime( engine );
 
+	RegisterScriptSQLCommon( engine );
 	RegisterScriptSQLite( engine );
 	RegisterScriptMySQL( engine );
 
