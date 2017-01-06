@@ -31,8 +31,6 @@
 
 struct cvar_t;
 
-#include "shared/hud/CHudElement.h"
-
 #include "voice_status.h" // base voice handling class
 
 class CHud : public CBaseHud
@@ -170,27 +168,6 @@ public:
 	int m_HUD_number_0;
 
 	float GetSensitivity();
-
-private:
-	/**
-	*	Calls a member function on all Hud elements.
-	*	@param function Function to call.
-	*	@param args Arguments to pass to the function.
-	*	@tparam FUNC Pointer to member function type.
-	*	@tparam ARGS Argument types.
-	*/
-	template<typename FUNC, typename... ARGS>
-	void ForEachHudElem( FUNC function, ARGS&&... args )
-	{
-		auto count = GetElementCount();
-
-		for( decltype( count ) index = 0; index < count; ++index )
-		{
-			auto pElem = GetElementByIndex( index );
-
-			( pElem->*function )( std::move( args )... );
-		}
-	}
 };
 
 extern CHud gHUD;

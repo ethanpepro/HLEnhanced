@@ -1,7 +1,8 @@
 #ifndef GAME_CLIENT_UI_SHARED_HUD_CHUDELEMENTREGISTRY_H
 #define GAME_CLIENT_UI_SHARED_HUD_CHUDELEMENTREGISTRY_H
 
-class CHudElement;
+#include "CHudElement.h"
+
 class CBaseHud;
 struct CHudDefaultableArgs;
 

@@ -7,7 +7,7 @@
 //TODO: need to move DataMapping out of entities. - Solokiller
 #include "entities/DataMapping.h"
 
-class CHudElement;
+#include "shared/hud/CHudElement.h"
 
 /**
 *	Base class for the Hud.
@@ -57,6 +57,27 @@ public:
 	*	@param bDelete Whether to also delete all elements.
 	*/
 	void RemoveAllElements( const bool bDelete = true );
+
+protected:
+	/**
+	*	Calls a member function on all Hud elements.
+	*	@param function Function to call.
+	*	@param args Arguments to pass to the function.
+	*	@tparam FUNC Pointer to member function type.
+	*	@tparam ARGS Argument types.
+	*/
+	template<typename FUNC, typename... ARGS>
+	void ForEachHudElem( FUNC function, ARGS&&... args )
+	{
+		auto count = GetElementCount();
+
+		for( decltype( count ) index = 0; index < count; ++index )
+		{
+			auto pElem = GetElementByIndex( index );
+
+			( pElem->*function )( std::move( args )... );
+		}
+	}
 
 protected:
 	CUtlVector<CHudElement*> m_Elements;

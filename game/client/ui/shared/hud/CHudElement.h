@@ -1,9 +1,15 @@
 #ifndef GAME_CLIENT_UI_SHARED_HUD_CHUDELEMENT_H
 #define GAME_CLIENT_UI_SHARED_HUD_CHUDELEMENT_H
 
+#include "Platform.h"
+
 #include "shared_game_utils.h"
 #include "entities/DataMapping.h"
 #include "CBitSet.h"
+
+//Must use single inheritance rules for pointers to member functions. - Solokiller
+//Used by ForEachHudElem.
+class SINGLE_INHERITANCE CHudElement;
 
 /**
 *	Base class for Hud elements.
