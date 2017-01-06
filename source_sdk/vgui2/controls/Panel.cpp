@@ -3762,11 +3762,20 @@ void Panel::ApplySettings(KeyValues *inResourceData)
 	InternalApplySettings( GetAnimMap(), inResourceData );
 
 	// clear any alignment flags
-	_buildModeFlags &= ~(BUILDMODE_SAVE_XPOS_RIGHTALIGNED | BUILDMODE_SAVE_XPOS_CENTERALIGNED | BUILDMODE_SAVE_YPOS_BOTTOMALIGNED | BUILDMODE_SAVE_YPOS_CENTERALIGNED);
+	_buildModeFlags &= ~( BUILDMODE_SAVE_XPOS_RIGHTALIGNED | 
+						  BUILDMODE_SAVE_XPOS_CENTERALIGNED | 
+						  BUILDMODE_SAVE_YPOS_BOTTOMALIGNED | 
+						  BUILDMODE_SAVE_YPOS_CENTERALIGNED | 
+						  BUILDMODE_SAVE_WIDE_FULL | 
+						  BUILDMODE_SAVE_TALL_FULL
+						  );
 
 	// get the position
-	int screenWide, screenTall;
-	surface()->GetScreenSize(screenWide, screenTall);
+	int alignScreenWide, alignScreenTall;	// screen dimensions used for pinning in splitscreen
+	surface()->GetScreenSize( alignScreenWide, alignScreenTall );
+	int screenWide = alignScreenWide;
+	int screenTall = alignScreenTall;
+
 	int x, y;
 	GetPos(x, y);
 	const char *xstr = inResourceData->GetString( "xpos", NULL );
@@ -3845,6 +3854,78 @@ void Panel::ApplySettings(KeyValues *inResourceData)
 	// size
 	int wide, tall;
 	GetSize( wide, tall );
+
+	const char *wstr = inResourceData->GetString( "wide", NULL );
+	if( wstr )
+	{
+		if( wstr[ 0 ] == 'f' || wstr[ 0 ] == 'F' )
+		{
+			_buildModeFlags |= BUILDMODE_SAVE_WIDE_FULL;
+			wstr++;
+		}
+		wide = atoi( wstr );
+		if( IsProportional() )
+		{
+			// scale the width up to our screen co-ords
+			wide = scheme()->GetProportionalScaledValueEx( GetScheme(), wide );
+		}
+		// now correct the alignment
+		if( _buildModeFlags & BUILDMODE_SAVE_WIDE_FULL )
+		{
+			wide = alignScreenWide - wide;
+		}
+	}
+
+	// allow tall to be use the "fill" option, set to the height of the parent/screen
+	wstr = inResourceData->GetString( "tall", NULL );
+	if( wstr )
+	{
+		if( wstr[ 0 ] == 'f' || wstr[ 0 ] == 'F' )
+		{
+			_buildModeFlags |= BUILDMODE_SAVE_TALL_FULL;
+			wstr++;
+		}
+		tall = atoi( wstr );
+		if( IsProportional() )
+		{
+			// scale the height up to our screen co-ords
+			tall = scheme()->GetProportionalScaledValueEx( GetScheme(), tall );
+		}
+		// now correct the alignment
+		if( _buildModeFlags & BUILDMODE_SAVE_TALL_FULL )
+		{
+			tall = alignScreenTall - tall;
+		}
+	}
+
+	//if( bUsesTitleSafeArea )
+	//{
+	//	if( _buildModeFlags & BUILDMODE_SAVE_WIDE_FULL )
+	//	{
+	//		if( !excludeEdgeFromTitleSafe.x )
+	//			wide -= titleSafeWide;
+	//
+	//		if( !excludeEdgeFromTitleSafe.width )
+	//			wide -= titleSafeWide;
+	//	}
+	//
+	//	if( _buildModeFlags & BUILDMODE_SAVE_TALL_FULL )
+	//	{
+	//		if( !excludeEdgeFromTitleSafe.y )
+	//			tall -= titleSafeTall;
+	//
+	//		if( !excludeEdgeFromTitleSafe.height )
+	//			tall -= titleSafeTall;
+	//	}
+	//}
+
+	SetSize( wide, tall );
+
+	//Old size code:
+	/*
+	// size
+	int wide, tall;
+	GetSize( wide, tall );
 	wide = inResourceData->GetInt( "wide", wide );
 	tall = inResourceData->GetInt( "tall", tall );
 	if ( IsProportional() )
@@ -3853,8 +3934,9 @@ void Panel::ApplySettings(KeyValues *inResourceData)
 		wide = scheme()->GetProportionalScaledValueEx(GetScheme(), wide);
 		tall = scheme()->GetProportionalScaledValueEx(GetScheme(), tall);
 	}
-	
+
 	SetSize( wide, tall );
+	*/
 
 	// NOTE: This has to happen after pos + size is set
 	ApplyAutoResizeSettings( inResourceData );
