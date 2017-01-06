@@ -147,6 +147,9 @@ public:
 		}
 		SetMouseClickEnabled( MOUSE_RIGHT, true );
 		m_pContextLabel = m_bShowContextLabel ? new ContextLabel( this, "Context", "9" ) : NULL;
+
+		REGISTER_COLOR_AS_OVERRIDABLE( _textColor, "selectedcolor" );
+		REGISTER_COLOR_AS_OVERRIDABLE( _dimTextColor, "unselectedcolor" );
 	}
 
 	~PageTab()

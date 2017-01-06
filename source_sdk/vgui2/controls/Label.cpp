@@ -40,6 +40,8 @@ Label::Label(Panel *parent, const char *panelName, const char *text) : Panel(par
 	_textImage->SetColor( SDK_Color(0, 0, 0, 0));
 	SetText(text);
 	_textImageIndex = AddImage(_textImage, 0);
+
+	REGISTER_COLOR_AS_OVERRIDABLE( _disabledFgColor2, "disabledfgcolor2_override" );
 }
 
 //-----------------------------------------------------------------------------
@@ -53,6 +55,8 @@ Label::Label(Panel *parent, const char *panelName, const wchar_t *wszText) : Pan
 	_textImage->SetColor( SDK_Color(0, 0, 0, 0));
 	SetText(wszText);
 	_textImageIndex = AddImage(_textImage, 0);
+
+	REGISTER_COLOR_AS_OVERRIDABLE( _disabledFgColor2, "disabledfgcolor2_override" );
 }
 
 //-----------------------------------------------------------------------------

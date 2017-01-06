@@ -106,6 +106,12 @@ TextEntry::TextEntry(Panel *parent, const char *panelName) : Panel(parent, panel
 	SetDropEnabled( true, 1.0f );
 	// If keyboard focus is in an edit control, don't chain keyboard mappings up to parents since it could mess with typing in text.
 	SetAllowKeyBindingChainToParent( false );
+
+	REGISTER_COLOR_AS_OVERRIDABLE( _disabledFgColor, "disabledFgColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _disabledBgColor, "disabledBgColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _selectionColor, "selectionColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _selectionTextColor, "selectionTextColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _defaultSelectionBG2Color, "defaultSelectionBG2Color_override" );
 }
 
 

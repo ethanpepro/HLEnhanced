@@ -6,6 +6,7 @@
 //=============================================================================//
 
 
+#include <cctype>
 #include <stdio.h>
 #include <assert.h>
 #include <UtlVector.h>
@@ -700,6 +701,9 @@ void Panel::Init( int x, int y, int wide, int tall )
 #if defined( VGUI_USEKEYBINDINGMAPS )
 	m_hKeyBindingsContext = INVALID_KEYBINDINGCONTEXT_HANDLE;
 #endif
+
+	REGISTER_COLOR_AS_OVERRIDABLE( _fgColor, "fgcolor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _bgColor, "bgcolor_override" );
 }
 
 
@@ -3637,6 +3641,8 @@ void Panel::PerformApplySchemeSettings()
 		{
 			ApplySchemeSettings( pScheme );
 			//_needsSchemeUpdate = false;	
+
+			ApplyOverridableColors();
 		}
 	}
 }
@@ -3992,6 +3998,36 @@ void Panel::ApplySettings(KeyValues *inResourceData)
 		// Only slam the name if the new one differs...
 		SetName(newName);
 	}
+
+	// Allow overriding of colors. Used mostly by HUD elements, where scheme color usage is often undesired.
+	IScheme *pScheme = vgui2::scheme()->GetIScheme( GetScheme() );
+	for( int i = 0; i < m_OverridableColorEntries.Count(); i++ )
+	{
+		// Need to ensure the key exists, so we don't overwrite existing colors when it's not set.
+		if( inResourceData->FindKey( m_OverridableColorEntries[ i ].m_pszScriptName, false ) )
+		{
+			// Get the color as a string - test whether it is an actual color or a reference to a scheme color
+			const char *pColorStr = inResourceData->GetString( m_OverridableColorEntries[ i ].m_pszScriptName );
+			SDK_Color &clrDest = m_OverridableColorEntries[ i ].m_colFromScript;
+			if( pColorStr[ 0 ] == '.' || isdigit( pColorStr[ 0 ] ) )
+			{
+				float r = 0.0f, g = 0.0f, b = 0.0f, a = 0.0f;
+				sscanf( pColorStr, "%f %f %f %f", &r, &g, &b, &a );
+				clrDest[ 0 ] = ( unsigned char ) r;
+				clrDest[ 1 ] = ( unsigned char ) g;
+				clrDest[ 2 ] = ( unsigned char ) b;
+				clrDest[ 3 ] = ( unsigned char ) a;
+			}
+			else
+			{
+				// First character wasn't a digit or a decimal - do a scheme color lookup
+				clrDest = pScheme->GetColor( pColorStr, SDK_Color( 255, 255, 255, 255 ) );
+			}
+
+			( *m_OverridableColorEntries[ i ].m_pColor ) = m_OverridableColorEntries[ i ].m_colFromScript;
+			m_OverridableColorEntries[ i ].m_bOverridden = true;
+		}
+	}
 }
 
 //-----------------------------------------------------------------------------
@@ -4086,6 +4122,48 @@ void Panel::GetSettings( KeyValues *outResourceData )
 	outResourceData->SetInt( "enabled", IsEnabled() );
 
 	outResourceData->SetInt( "tabPosition", GetTabPosition() );
+
+	for( int i = 0; i < m_OverridableColorEntries.Count(); i++ )
+	{
+		if( m_OverridableColorEntries[ i ].m_bOverridden )
+		{
+			outResourceData->SetColor( m_OverridableColorEntries[ i ].m_pszScriptName, m_OverridableColorEntries[ i ].m_colFromScript );
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: After applying settings, apply overridable colors.
+//			Done post apply settings, so that baseclass settings don't stomp
+//			the script specified override colors.
+//-----------------------------------------------------------------------------
+void Panel::ApplyOverridableColors( void )
+{
+	for( int i = 0; i < m_OverridableColorEntries.Count(); i++ )
+	{
+		if( m_OverridableColorEntries[ i ].m_bOverridden )
+		{
+			( *m_OverridableColorEntries[ i ].m_pColor ) = m_OverridableColorEntries[ i ].m_colFromScript;
+		}
+	}
+}
+
+//-----------------------------------------------------------------------------
+// Purpose: 
+//-----------------------------------------------------------------------------
+void Panel::SetOverridableColor( SDK_Color *pColor, const SDK_Color &newColor )
+{
+	for( int i = 0; i < m_OverridableColorEntries.Count(); i++ )
+	{
+		if( m_OverridableColorEntries[ i ].m_bOverridden )
+		{
+			if( m_OverridableColorEntries[ i ].m_pColor == pColor )
+				return;
+		}
+	}
+
+	// Didn't find it, or it's not been overridden.
+	*pColor = newColor;
 }
 
 //-----------------------------------------------------------------------------

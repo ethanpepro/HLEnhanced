@@ -793,6 +793,13 @@ Frame::Frame(Panel *parent, const char *panelName, bool showTaskbarIcon) : Edita
 	_menuButton->SetMenu(GetSysMenu());
 	
 	SetupResizeCursors();
+
+	REGISTER_COLOR_AS_OVERRIDABLE( m_InFocusBgColor, "infocus_bgcolor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( m_OutOfFocusBgColor, "outoffocus_bgcolor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _titleBarBgColor, "titlebarbgcolor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _titleBarDisabledBgColor, "titlebardisabledbgcolor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _titleBarFgColor, "titlebarfgcolor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _titleBarDisabledFgColor, "titlebardisabledfgcolor_override" );
 }
 
 //-----------------------------------------------------------------------------
@@ -1552,11 +1559,11 @@ void Frame::ApplySchemeSettings(IScheme *pScheme)
 {
 	// always chain back
 	BaseClass::ApplySchemeSettings(pScheme);
-	
-	_titleBarFgColor = GetSchemeColor("FrameTitleBar.TextColor", pScheme);
-	_titleBarBgColor = GetSchemeColor("FrameTitleBar.BgColor", pScheme);
-	_titleBarDisabledFgColor = GetSchemeColor("FrameTitleBar.DisabledTextColor", pScheme);
-	_titleBarDisabledBgColor = GetSchemeColor("FrameTitleBar.DisabledBgColor", pScheme);
+
+	SetOverridableColor( &_titleBarFgColor, GetSchemeColor( "FrameTitleBar.TextColor", pScheme ) );
+	SetOverridableColor( &_titleBarBgColor, GetSchemeColor( "FrameTitleBar.BgColor", pScheme ) );
+	SetOverridableColor( &_titleBarDisabledFgColor, GetSchemeColor( "FrameTitleBar.DisabledTextColor", pScheme ) );
+	SetOverridableColor( &_titleBarDisabledBgColor, GetSchemeColor( "FrameTitleBar.DisabledBgColor", pScheme ) );
 
 	const char *font = NULL;
 	if ( m_bSmallCaption )
@@ -1588,8 +1595,8 @@ void Frame::ApplySchemeSettings(IScheme *pScheme)
 	m_flTransitionEffectTime = atof(pScheme->GetResourceString("Frame.TransitionEffectTime"));
 	m_flFocusTransitionEffectTime = atof(pScheme->GetResourceString("Frame.FocusTransitionEffectTime"));
 
-	SetInFocusBgColor( pScheme->GetColor("Frame.BgColor", GetBgColor()) );
-	SetOutOfFocusBgColor( pScheme->GetColor("Frame.OutOfFocusBgColor", GetInFocusBgColor() ) );
+	SetOverridableColor( &m_InFocusBgColor, pScheme->GetColor( "Frame.BgColor", GetBgColor() ) );
+	SetOverridableColor( &m_OutOfFocusBgColor, pScheme->GetColor( "Frame.OutOfFocusBgColor", m_InFocusBgColor ) );
 
 	const char *resourceString = pScheme->GetResourceString("Frame.ClientInsetX");
 	if ( resourceString )

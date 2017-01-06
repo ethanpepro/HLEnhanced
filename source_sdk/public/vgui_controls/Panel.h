@@ -81,6 +81,22 @@ class Menu;
 #endif
 
 //-----------------------------------------------------------------------------
+// Purpose: Macro to handle Colors that can be overridden in .res files
+//-----------------------------------------------------------------------------
+struct OverridableColorEntry
+{
+	char const *name() { return m_pszScriptName; }
+
+	char const	*m_pszScriptName;
+	SDK_Color	*m_pColor;
+	SDK_Color	m_colFromScript;
+	bool		m_bOverridden;
+};
+
+#define REGISTER_COLOR_AS_OVERRIDABLE( name, scriptname )			\
+	AddToOverridableColors( &name, scriptname );
+
+//-----------------------------------------------------------------------------
 // Purpose: For hudanimations.txt scripting of vars
 //-----------------------------------------------------------------------------
 class IPanelAnimationPropertyConverter
@@ -536,6 +552,17 @@ protected:
 	MESSAGE_FUNC_INT_INT( OnScreenSizeChanged, "OnScreenSizeChanged", oldwide, oldtall );
 	virtual void *QueryInterface(EInterfaceID id);
 
+	void AddToOverridableColors( SDK_Color *pColor, char const *scriptname )
+	{
+		int iIdx = m_OverridableColorEntries.AddToTail();
+		m_OverridableColorEntries[ iIdx ].m_pszScriptName = scriptname;
+		m_OverridableColorEntries[ iIdx ].m_pColor = pColor;
+		m_OverridableColorEntries[ iIdx ].m_bOverridden = false;
+	}
+
+	void ApplyOverridableColors( void );
+	void SetOverridableColor( SDK_Color *pColor, const SDK_Color &newColor );
+
 private:
 	enum BuildModeFlags_t
 	{
@@ -647,6 +674,8 @@ private:
 
 	CUtlFlags< unsigned short > _flags;	// see PanelFlags_t
 	Dar<HPanel>		_actionSignalTargetDar;	// the panel to direct notify messages to ("Command", "TextChanged", etc.)
+
+	CUtlVector<OverridableColorEntry>	m_OverridableColorEntries;
 
 	SDK_Color			_fgColor;		// foreground color
 	SDK_Color			_bgColor;		// background color

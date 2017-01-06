@@ -79,6 +79,17 @@ void Button::Init()
 
 	// labels have this off by default, but we need it on
 	SetPaintBackgroundEnabled( true );
+
+	REGISTER_COLOR_AS_OVERRIDABLE( _defaultFgColor, "defaultFgColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _defaultBgColor, "defaultBgColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _armedFgColor, "armedFgColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _armedBgColor, "armedBgColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _depressedFgColor, "depressedFgColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _depressedBgColor, "depressedBgColor_override" );
+	//REGISTER_COLOR_AS_OVERRIDABLE( _selectedFgColor, "selectedFgColor_override" );
+	//REGISTER_COLOR_AS_OVERRIDABLE( _selectedBgColor, "selectedBgColor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( _keyboardFocusColor, "keyboardFocusColor_override" );
+	//REGISTER_COLOR_AS_OVERRIDABLE( _blinkFgColor, "blinkFgColor_override" );
 }
 
 //-----------------------------------------------------------------------------

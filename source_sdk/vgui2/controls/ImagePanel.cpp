@@ -43,6 +43,9 @@ ImagePanel::ImagePanel(Panel *parent, const char *name) : Panel(parent, name)
 	m_DrawColor = SDK_Color( 255, 255, 255, 255 );
 
 	SetImage(m_pImage);
+
+	REGISTER_COLOR_AS_OVERRIDABLE( m_FillColor, "fillcolor_override" );
+	REGISTER_COLOR_AS_OVERRIDABLE( m_DrawColor, "drawcolor_override" );
 }
 
 //-----------------------------------------------------------------------------
