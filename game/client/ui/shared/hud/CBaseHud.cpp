@@ -2,6 +2,14 @@
 #include "cl_util.h"
 
 #include "CHudElement.h"
+#include "CHudElementRegistry.h"
+
+#if USE_VGUI2
+#include <KeyValues.h>
+#include <vgui_controls/Panel.h>
+#include "vgui2/VGUI2Paths.h"
+#include "vgui2/CBaseViewport.h"
+#endif
 
 #include "CBaseHud.h"
 
@@ -19,6 +27,54 @@ CBaseHud::~CBaseHud()
 	{
 		RemoveAllElements();
 	}
+}
+
+void CBaseHud::InitHUDElements()
+{
+	CHudElementRegistry::CreateAllElements( *this );
+
+	ForEachHudElem( &CHudElement::Init );
+
+#if USE_VGUI2
+	KeyValues *kv = new KeyValues( "layout" );
+	if( kv )
+	{
+		if( kv->LoadFromFile( g_pFileSystem, UI_HUDLAYOUT_FILENAME ) )
+		{
+			int numelements = m_Elements.Size();
+
+			for( int i = 0; i < numelements; i++ )
+			{
+				CHudElement *element = m_Elements[ i ];
+
+				vgui2::Panel *pPanel = dynamic_cast<vgui2::Panel*>( element );
+				if( !pPanel )
+				{
+					Msg( "Non-vgui hud element %s\n", m_Elements[ i ]->GetName() );
+					continue;
+				}
+
+				KeyValues *key = kv->FindKey( pPanel->GetName(), false );
+				if( !key )
+				{
+					Msg( "Hud element '%s' doesn't have an entry '%s' in scripts/HudLayout.res\n", m_Elements[ i ]->GetName(), pPanel->GetName() );
+				}
+
+				// Note:  When a panel is parented to the module root, it's "parent" is returned as NULL.
+				if( /*!element->IsParentedToClientDLLRootPanel() &&*/
+					!pPanel->GetParent() )
+				{
+					Msg( "Hud element '%s'/'%s' doesn't have a parent\n", m_Elements[ i ]->GetName(), pPanel->GetName() );
+				}
+			}
+		}
+
+		kv->deleteThis();
+	}
+
+	g_pViewport->LoadControlSettings( UI_HUDLAYOUT_FILENAME );
+	g_pViewport->InvalidateLayout( true, true );
+#endif
 }
 
 void CBaseHud::GameShutdown()

@@ -6,6 +6,7 @@
 #include "shared_game_utils.h"
 #include "entities/DataMapping.h"
 #include "CBitSet.h"
+#include "HudDefs.h"
 
 //Must use single inheritance rules for pointers to member functions. - Solokiller
 //Used by ForEachHudElem.
@@ -44,6 +45,33 @@ public:
 	Flags_t& GetFlags() { return m_Flags; }
 
 	/**
+	*	@return Whether the element should draw.
+	*/
+	virtual bool ShouldDraw()
+	{
+		return ( GetFlags() & HUD_ACTIVE ) != 0;
+	}
+
+	/**
+	*	@return Whether this element is active.
+	*/
+	virtual bool IsActive()
+	{
+		return ( GetFlags() & HUD_ACTIVE ) != 0;
+	}
+
+	/**
+	*	Sets whether this element is active.
+	*/
+	virtual void SetActive( const bool bState )
+	{
+		if( bState )
+			GetFlags() |= HUD_ACTIVE;
+		else
+			GetFlags().ClearFlags( HUD_ACTIVE );
+	}
+
+	/**
 	*	Called when the client is initializing.
 	*/
 	virtual void Init() {}
@@ -74,6 +102,11 @@ public:
 	*	Called every time a server is connected to.
 	*/
 	virtual void InitHUDData() {}
+
+	/**
+	*	Called every frame when the element is active.
+	*/
+	virtual void ProcessInput() {}
 
 private:
 	const char* const m_pszName;

@@ -21,6 +21,8 @@ public:
 	CBaseHud();
 	virtual ~CBaseHud();
 
+	virtual void InitHUDElements();
+
 	/**
 	*	Called when the game is being shut down.
 	*/

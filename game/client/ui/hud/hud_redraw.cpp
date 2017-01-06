@@ -20,6 +20,10 @@
 #include "cl_util.h"
 #include "bench.h"
 
+#if USE_VGUI2
+#include <vgui_controls/Panel.h>
+#endif
+
 #include "vgui_TeamFortressViewport.h"
 
 #define MAX_LOGO_FRAMES 56
@@ -156,16 +160,41 @@ bool CHud::Redraw( float flTime, int intermission )
 		{
 			auto pElem = GetElementByIndex( index );
 
+#if USE_VGUI2
+			// Visible?
+			bool visible = pElem->ShouldDraw();
+
+			pElem->SetActive( visible );
+
+			// If it's a vgui panel, hide/show as appropriate
+			vgui2::Panel *pPanel = dynamic_cast<vgui2::Panel*>( pElem );
+			if( pPanel && pPanel->IsVisible() != visible )
+			{
+				pPanel->SetVisible( visible );
+			}
+			else if( !pPanel )
+			{
+				// All HUD elements should now derive from vgui!!!
+				//TODO - Solokiller
+				//Assert( false );
+			}
+
+			if( visible )
+			{
+				pElem->ProcessInput();
+			}
+#endif
+
 			if ( !Bench_Active() )
 			{
-				if ( !intermission )
+				if( !intermission )
 				{
-					if ( ( pElem->GetFlags() & HUD_ACTIVE) && !(m_iHideHUDDisplay & HIDEHUD_ALL) )
-						pElem->Draw(flTime);
+					if( ( pElem->GetFlags() & HUD_ACTIVE ) && !( m_iHideHUDDisplay & HIDEHUD_ALL ) )
+						pElem->Draw( flTime );
 				}
 				else
 				{  // it's an intermission,  so only draw hud elements that are set to draw during intermissions
-					if ( pElem->GetFlags() & HUD_INTERMISSION )
+					if( pElem->GetFlags() & HUD_INTERMISSION )
 						pElem->Draw( flTime );
 				}
 			}

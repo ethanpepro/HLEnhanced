@@ -338,9 +338,7 @@ void CHud :: Init( void )
 	// In case we get messages before the first update -- time will be valid
 	m_flTime = 1.0;
 
-	CHudElementRegistry::CreateAllElements( *this );
-
-	ForEachHudElem( &CHudElement::Init );
+	InitHUDElements();
 
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 
