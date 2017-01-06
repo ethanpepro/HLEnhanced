@@ -11,6 +11,11 @@ CBaseHud::CBaseHud()
 
 CBaseHud::~CBaseHud()
 {
+	Assert( m_Elements.Size() == 0 );
+}
+
+void CBaseHud::Shutdown()
+{
 	RemoveAllElements();
 }
 

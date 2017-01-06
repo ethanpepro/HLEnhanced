@@ -21,6 +21,8 @@ public:
 	CBaseHud();
 	virtual ~CBaseHud();
 
+	virtual void Shutdown();
+
 	//Element list
 
 	/**
@@ -56,7 +58,7 @@ public:
 	*/
 	void RemoveAllElements( const bool bDelete = true );
 
-private:
+protected:
 	CUtlVector<CHudElement*> m_Elements;
 
 private:

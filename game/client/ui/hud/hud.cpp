@@ -347,6 +347,12 @@ void CHud :: Init( void )
 	ResetHUD();
 }
 
+//TODO: temporary - Solokiller
+void ShutdownHUD()
+{
+	gHUD.Shutdown();
+}
+
 CHud::CHud()
 	: m_iSpriteCount( 0 )
 {

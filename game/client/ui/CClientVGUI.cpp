@@ -19,6 +19,9 @@
 
 #include "CClientVGUI.h"
 
+//TODO: temporary until conflicts are resolved. - Solokiller
+void ShutdownHUD();
+
 namespace
 {
 CClientVGUI g_ClientVGUI;
@@ -146,4 +149,6 @@ void CClientVGUI::Shutdown()
 #if USE_VGUI2
 	g_pViewport->Shutdown();
 #endif
+
+	ShutdownHUD();
 }
