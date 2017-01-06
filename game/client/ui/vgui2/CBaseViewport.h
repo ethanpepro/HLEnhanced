@@ -10,14 +10,18 @@
 class CBackGroundPanel;
 class IViewportPanel;
 
+namespace vgui2
+{
+class AnimationController;
+}
+
 /**
 *	Base class for VGUI2 viewports.
 */
 class CBaseViewport : public IClientVGUI, public vgui2::EditablePanel
 {
 public:
-	typedef CBaseViewport ThisClass;
-	typedef vgui2::EditablePanel BaseClass;
+	DECLARE_CLASS_SIMPLE( CBaseViewport, vgui2::EditablePanel );
 
 public:
 	CBaseViewport();
@@ -44,6 +48,10 @@ public:
 
 	//Panel overrides
 	void OnThink() override;
+
+	void OnScreenSizeChanged( int iOldWide, int iOldTall ) override;
+
+	void Paint() override;
 
 	//CBaseViewport
 	virtual void Layout();
@@ -95,6 +103,11 @@ public:
 
 	virtual void ShowBackGround( const bool bState );
 
+	//Scheme
+	virtual void ReloadScheme();
+
+	virtual void ReloadScheme( const char* pszFromFile );
+
 private:
 	int m_OldSize[ 2 ] = { -1, -1 };
 	int m_nRootSize[ 2 ] = { -1, -1 };
@@ -105,6 +118,8 @@ private:
 
 	IViewportPanel* m_pActivePanel = nullptr;
 	IViewportPanel* m_pLastActivePanel = nullptr;
+
+	vgui2::AnimationController* m_pAnimController = nullptr;
 };
 
 extern CBaseViewport* g_pViewport;

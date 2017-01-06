@@ -7,9 +7,12 @@
 
 #include <vgui/IPanel.h>
 #include <vgui/ISurface.h>
+#include <vgui_controls/AnimationController.h>
+#include <KeyValues.h>
 
 #include "CBackGroundPanel.h"
 #include "IViewportPanel.h"
+#include "VGUI2Paths.h"
 #include "ViewportPanelNames.h"
 
 #include "ui/CClientVGUI.h"
@@ -19,19 +22,26 @@
 CBaseViewport* g_pViewport = nullptr;
 
 CBaseViewport::CBaseViewport()
-	: BaseClass( nullptr, "ViewPort" )
+	: BaseClass( nullptr, "CBaseViewport" )
 {
 	g_pViewport = this;
 
 	SetKeyBoardInputEnabled( false );
 	SetMouseInputEnabled( false );
 
-	vgui2::HScheme scheme = vgui2::scheme()->LoadSchemeFromFile( "resource/ClientScheme.res", "ClientScheme" );
+	vgui2::HScheme scheme = vgui2::scheme()->LoadSchemeFromFile( UI_CLIENTSCHEME_FILENAME, "ClientScheme" );
 
 	SetScheme( scheme );
 	SetProportional( true );
 
-	//TODO: add the animation controller? - Solokiller
+	m_pAnimController = new vgui2::AnimationController( this );
+	// create our animation controller
+	m_pAnimController->SetScheme( scheme );
+	m_pAnimController->SetProportional( true );
+	if( !m_pAnimController->SetScriptFile( GetVPanel(), UI_HUDANIMS_FILENAME ) )
+	{
+		Assert( false );
+	}
 }
 
 CBaseViewport::~CBaseViewport()
@@ -47,6 +57,7 @@ CBaseViewport::~CBaseViewport()
 
 void CBaseViewport::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 {
+	ReloadScheme();
 }
 
 void CBaseViewport::Start()
@@ -64,30 +75,25 @@ void CBaseViewport::Start()
 	vgui2::ipanel()->MoveToBack( m_pBackGround->GetVPanel() ); // really send it to the back 
 }
 
-vgui2::Panel* g_pPanel = nullptr;
-vgui2::Panel* g_pPanel2 = nullptr;
-
 void CBaseViewport::SetParent( vgui2::VPANEL parent )
 {
+	const bool bIsProportional = IsProportional();
+
+	BaseClass::SetParent( parent );
+
+	//NOTE: the engine doesn't set the root to be proportional so it will override our settings. We must restore our settings here. - Solokiller
+	SetProportional( bIsProportional );
+
 	m_pBackGround->SetParent( parent );
 
-	g_pPanel = new vgui2::Panel();
+	for( int i = 0; i< m_Panels.Count(); i++ )
+	{
+		m_Panels[ i ]->SetParent( parent );
+	}
 
-	g_pPanel->SetParent( parent );
-
-	g_pPanel->SetSize( 200, 200 );
-	g_pPanel->SetPos( 10, 10 );
-
-	g_pPanel->SetVisible( true );
-
-	g_pPanel2 = new vgui2::Panel();
-
-	g_pPanel2->SetParent( parent );
-
-	g_pPanel2->SetSize( 100, 100 );
-	g_pPanel2->SetPos( 10, 150 );
-
-	g_pPanel2->SetVisible( true );
+	// restore proportionality on animation controller
+	// TODO: should all panels be restored to being proportional? 
+	m_pAnimController->SetProportional( true );
 }
 
 int CBaseViewport::UseVGUI1()
@@ -101,7 +107,6 @@ void CBaseViewport::HideScoreBoard()
 
 void CBaseViewport::HideAllVGUIMenu()
 {
-	//vgui2::surface()->UnlockCursor();
 }
 
 void CBaseViewport::ActivateClientUI()
@@ -133,9 +138,10 @@ void CBaseViewport::OnThink()
 			m_pActivePanel = NULL;
 	}
 
-	//m_pAnimController->UpdateAnimations( gEngfuncs.GetClientTime() );
+	m_pAnimController->UpdateAnimations( gEngfuncs.GetClientTime() );
 
 	// check the auto-reload cvar
+	//TODO - Solokiller
 	//m_pAnimController->SetAutoReloadScript( hud_autoreloadscript.GetBool() );
 
 	auto count = m_Panels.Count();
@@ -162,6 +168,30 @@ void CBaseViewport::OnThink()
 	BaseClass::OnThink();
 }
 
+void CBaseViewport::OnScreenSizeChanged( int iOldWide, int iOldTall )
+{
+	BaseClass::OnScreenSizeChanged( iOldWide, iOldTall );
+
+	// reload the script file, so the screen positions in it are correct for the new resolution
+	ReloadScheme( NULL );
+
+	// recreate all the default panels
+	RemoveAllPanels();
+
+	m_pBackGround = new CBackGroundPanel( nullptr );
+
+	m_pBackGround->SetZPos( -20 ); // send it to the back 
+	m_pBackGround->SetVisible( false );
+
+	CreateDefaultPanels();
+
+	vgui2::ipanel()->MoveToBack( m_pBackGround->GetVPanel() ); // really send it to the back 
+}
+
+void CBaseViewport::Paint()
+{
+}
+
 void CBaseViewport::Layout()
 {
 	vgui2::VPANEL pRoot;
@@ -179,8 +209,7 @@ void CBaseViewport::Layout()
 		SetBounds( 0, 0, wide, tall );
 		if( changed )
 		{
-			//TODO - Solokiller
-			//ReloadScheme();
+			ReloadScheme();
 		}
 	}
 }
@@ -370,4 +399,46 @@ bool CBaseViewport::IsBackGroundVisible() const
 void CBaseViewport::ShowBackGround( const bool bState )
 {
 	m_pBackGround->SetVisible( bState );
+}
+
+void CBaseViewport::ReloadScheme()
+{
+	ReloadScheme( UI_CLIENTSCHEME_FILENAME );
+}
+
+void CBaseViewport::ReloadScheme( const char* pszFromFile )
+{
+	// See if scheme should change
+
+	if( pszFromFile != nullptr )
+	{
+		// "resource/ClientScheme.res"
+		vgui2::HScheme scheme = vgui2::scheme()->LoadSchemeFromFile( pszFromFile, "HudScheme" );
+
+		//TODO: only used by CStrike & CZero. - Solokiller
+		vgui2::scheme()->LoadSchemeFromFile( UI_TUTORSCHEME_FILENAME, "TutorScheme" );
+
+		SetScheme( scheme );
+		SetProportional( true );
+		m_pAnimController->SetScheme( scheme );
+	}
+
+	// Force a reload
+	if( !m_pAnimController->SetScriptFile( GetVPanel(), UI_HUDANIMS_FILENAME, true ) )
+	{
+		Assert( false );
+	}
+
+	SetProportional( true );
+
+	// reload the .res file from disk
+	//LoadControlSettings( UI_HUDLAYOUT_FILENAME );
+
+	//TODO: implement - Solokiller
+	//gHUD.RefreshHudTextures();
+
+	InvalidateLayout( true, true );
+
+	// reset the hud
+	gHUD.ResetHUD();
 }

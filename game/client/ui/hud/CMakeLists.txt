@@ -43,3 +43,10 @@ add_sources(
 	hud_update.cpp
 	wrect.h
 )
+
+if( USE_VGUI2 )
+add_sources(
+	CHudViewport.h
+	CHudViewport.cpp
+)
+endif()

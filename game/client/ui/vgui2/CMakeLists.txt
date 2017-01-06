@@ -4,6 +4,7 @@ add_sources(
 	CBaseViewport.h
 	CBaseViewport.cpp
 	IViewportPanel.h
+	VGUI2Paths.h
 	ViewportPanelNames.h
 )
 

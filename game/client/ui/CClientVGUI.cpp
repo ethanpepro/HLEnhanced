@@ -14,7 +14,7 @@
 #include "IGameUIFuncs.h"
 #include "IBaseUI.h"
 
-#include "vgui2/CBaseViewport.h"
+#include "hud/CHudViewport.h"
 #endif
 
 #include "CClientVGUI.h"
@@ -78,13 +78,11 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 		return;
 	}
 
-	vgui2::scheme()->LoadSchemeFromFile( "Resource/ClientScheme.res", "ClientScheme" );
-	vgui2::scheme()->LoadSchemeFromFile( "Resource/TutorScheme.res", "TutorScheme" );
 	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
 	g_pBaseUI = ( IBaseUI* ) pFactories[ 0 ]( IBASEUI_NAME, nullptr );
 
 	//Constructor sets itself as the viewport.
-	new CBaseViewport();
+	new CHudViewport();
 
 	g_pViewport->Initialize( pFactories, iNumFactories );
 #endif
