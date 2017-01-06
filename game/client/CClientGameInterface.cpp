@@ -93,6 +93,8 @@ void CClientGameInterface::Shutdown()
 	g_ASManager.Shutdown();
 #endif
 
+	gHUD.GameShutdown();
+
 	ShutdownCommon();
 }
 

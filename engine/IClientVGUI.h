@@ -61,6 +61,7 @@ public:
 
 	/**
 	*	Shuts down the client UI.
+	*	Note: only called for CS & CZero, do not use! - Solokiller
 	*/
 	virtual void Shutdown() = 0;
 };

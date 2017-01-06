@@ -11,12 +11,19 @@ CBaseHud::CBaseHud()
 
 CBaseHud::~CBaseHud()
 {
-	Assert( m_Elements.Size() == 0 );
+	//Thanks to Valve not making the engine call IClientVGUI::Shutdown for games other than CS & CZero, we can't clean up properly.
+	//So instead we have to remove all elements only when the game hasn't shut down, because that means the instance is being destructed on dll unload.
+	//We can't free panels anymore because the parents are gone, as is vgui2's library. - Solokiller
+	//TODO: if Valve ever fixes this, destruct the Hud in CClientVGUI::Shutdown.
+	if( !m_bGameShutdown )
+	{
+		RemoveAllElements();
+	}
 }
 
-void CBaseHud::Shutdown()
+void CBaseHud::GameShutdown()
 {
-	RemoveAllElements();
+	m_bGameShutdown = true;
 }
 
 int CBaseHud::GetElementCount() const

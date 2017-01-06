@@ -21,7 +21,10 @@ public:
 	CBaseHud();
 	virtual ~CBaseHud();
 
-	virtual void Shutdown();
+	/**
+	*	Called when the game is being shut down.
+	*/
+	virtual void GameShutdown();
 
 	//Element list
 
@@ -81,6 +84,8 @@ protected:
 
 protected:
 	CUtlVector<CHudElement*> m_Elements;
+
+	bool m_bGameShutdown = false;
 
 private:
 	CBaseHud( const CBaseHud& ) = delete;
