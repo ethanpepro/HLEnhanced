@@ -42,6 +42,9 @@ public:
 	void SetFillColor( SDK_Color col );
 	SDK_Color GetFillColor();
 
+	virtual SDK_Color GetDrawColor();
+	virtual void SetDrawColor( SDK_Color drawColor );
+
 protected:
 	virtual void PaintBackground();
 	virtual void GetSettings(KeyValues *outResourceData);
@@ -53,9 +56,16 @@ protected:
 private:
 	IImage *m_pImage;
 	char *m_pszImageName;
-	char *m_pszColorName;
+	char *m_pszFillColorName;
+	char *m_pszDrawColorName;
+	bool m_bCenterImage;
 	bool m_bScaleImage;
+	bool m_bTileImage;
+	bool m_bTileHorizontally;
+	bool m_bTileVertically;
+	float m_fScaleAmount;
 	SDK_Color m_FillColor;
+	SDK_Color m_DrawColor;
 };
 
 } // namespace vgui2
