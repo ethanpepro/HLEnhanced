@@ -41,6 +41,9 @@ add_sources(
 #	)
 #endif()
 
+add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/common source_sdk/common )
+add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/public source_sdk/public )
+
 preprocess_sources()
 
 include_directories(
