@@ -109,6 +109,8 @@ public:
 	const char	*Get( ) const;
 	void		Set( const char *pValue );
 
+	void Clear() { Set( NULL ); }
+
 	// Converts to c-strings
 	operator const char*() const;
 
