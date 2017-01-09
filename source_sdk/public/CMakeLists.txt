@@ -17,6 +17,7 @@ add_sources(
 
 add_subdirectory( appframework )
 add_subdirectory( bitmap )
+add_subdirectory( html )
 add_subdirectory( mathlib )
 add_subdirectory( tier0 )
 add_subdirectory( tier1 )
