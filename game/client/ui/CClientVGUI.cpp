@@ -89,10 +89,10 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 		return;
 	}
 
+#if USE_VGUI2
 	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
 	g_pBaseUI = ( IBaseUI* ) pFactories[ 0 ]( IBASEUI_NAME, nullptr );
 
-#if USE_VGUI2
 	//Constructor sets itself as the viewport.
 	new CHudViewport();
 
