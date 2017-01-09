@@ -31,6 +31,8 @@
 #endif
 
 class SDK_Color;
+class IHTMLResponses;
+class IHTMLChromeController;
 
 namespace vgui2
 {
@@ -352,7 +354,42 @@ public:
 	//virtual float DrawGetAlphaMultiplier() = 0;
 
 	// web browser
-	//virtual void SetAllowHTMLJavaScript( bool state ) = 0;
+	virtual void SetAllowHTMLJavaScript( bool state ) = 0;
+
+	virtual void SetLanguage( const char* pchLang ) = 0;
+
+	virtual const char* GetLanguage() = 0;
+
+	virtual bool DeleteTextureByID( int id ) = 0;
+
+	virtual void DrawUpdateRegionTextureBGRA( int nTextureID, int x, int y, const unsigned char *pchData, int wide, int tall ) = 0;
+
+	virtual void DrawSetTextureBGRA( int id, const unsigned char *pchData, int wide, int tall ) = 0;
+
+	virtual void CreateBrowser( vgui2::VPANEL panel, IHTMLResponses *pBrowser, bool bPopupWindow, const char *pchUserAgentIdentifier ) = 0;
+
+	virtual void RemoveBrowser( vgui2::VPANEL panel, IHTMLResponses *pBrowser ) = 0;
+
+	virtual IHTMLChromeController *AccessChromeHTMLController() = 0;
+
+	//These *might* work, but will likely cause crashes due to interface compatibility issues. - Solokiller
+	/*
+	virtual bool setFullscreenMode( int wide, int tall, int bpp ) = 0;
+	virtual void setWindowedMode() = 0;
+
+	virtual void SetAsTopMost( bool state ) = 0;
+	virtual void SetAsToolBar( bool state ) = 0;
+
+	virtual void PanelRequestFocus( vgui2::VPANEL panel ) = 0;
+	virtual void EnableMouseCapture( bool state ) = 0;
+
+	virtual void DrawPrintChar( int x, int y, int wide, int tall, float s0, float t0, float s1, float t1 ) = 0;
+	
+	virtual void SetNotifyIcon( vgui2::Image *, vgui2::VPANEL, char const* ) = 0;
+
+	virtual bool SetWatchForComputerUse( bool state ) = 0;
+	virtual double GetTimeSinceLastUse() = 0;
+	*/
 
 	// video mode changing
 	//virtual void OnScreenSizeChanged( int nOldWidth, int nOldHeight ) = 0;
