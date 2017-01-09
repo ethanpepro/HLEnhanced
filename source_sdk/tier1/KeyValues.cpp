@@ -90,11 +90,11 @@ public:
 			{
 				if ( i < m_errorIndex )
 				{
-					Msg( "%s, ", KeyValuesSystem()->GetStringForSymbol(m_errorStack[i]) );
+					Msg( "%s, ", keyvalues()->GetStringForSymbol(m_errorStack[i]) );
 				}
 				else
 				{
-					Msg( "(*%s*), ", KeyValuesSystem()->GetStringForSymbol(m_errorStack[i]) );
+					Msg( "(*%s*), ", keyvalues()->GetStringForSymbol(m_errorStack[i]) );
 				}
 			}
 		}
@@ -284,16 +284,12 @@ void KeyValues::Init()
 
 	m_pSub = NULL;
 	m_pPeer = NULL;
-	m_pChain = NULL;
 
-	m_sValue = NULL;
-	m_wsValue = NULL;
 	m_pValue = NULL;
-	
-	m_bHasEscapeSequences = false;
 
-	// Needed for backward compatibility
-	memset( reserved, 0, sizeof(reserved) );
+	m_iAllocationSize = 0;
+	
+	//m_bHasEscapeSequences = false;
 }
 
 //-----------------------------------------------------------------------------
@@ -327,10 +323,7 @@ void KeyValues::RemoveEverything()
 		delete dat;
 	}
 
-	delete [] m_sValue;
-	m_sValue = NULL;
-	delete [] m_wsValue;
-	m_wsValue = NULL;
+	FreeAllocatedValue();
 }
 
 //-----------------------------------------------------------------------------
@@ -344,21 +337,11 @@ void KeyValues::RecursiveSaveToFile( CUtlBuffer& buf, int indentLevel )
 }
 
 //-----------------------------------------------------------------------------
-// Adds a chain... if we don't find stuff in this keyvalue, we'll look
-// in the one we're chained to.
-//-----------------------------------------------------------------------------
-
-void KeyValues::ChainKeyValue( KeyValues* pChain )
-{
-	m_pChain = pChain;
-}
-
-//-----------------------------------------------------------------------------
 // Purpose: Get the name of the current key section
 //-----------------------------------------------------------------------------
 const char *KeyValues::GetName( void ) const
 {
-	return KeyValuesSystem()->GetStringForSymbol(m_iKeyName);
+	return keyvalues()->GetStringForSymbol(m_iKeyName);
 }
 
 //-----------------------------------------------------------------------------
@@ -401,7 +384,7 @@ const char *KeyValues::ReadToken( CUtlBuffer &buf, bool &wasQuoted )
 	if ( *c == '\"' )
 	{
 		wasQuoted = true;
-		buf.GetDelimitedString( m_bHasEscapeSequences ? GetCStringCharConversion() : GetNoEscCharConversion(), 
+		buf.GetDelimitedString( /*m_bHasEscapeSequences ? GetCStringCharConversion() :*/ GetNoEscCharConversion(), 
 			s_pTokenBuf, KEYVALUES_TOKEN_SIZE );
 		return s_pTokenBuf;
 	}
@@ -448,17 +431,6 @@ const char *KeyValues::ReadToken( CUtlBuffer &buf, bool &wasQuoted )
 	return s_pTokenBuf;
 }
 #pragma warning (default:4706)
-
-	
-
-//-----------------------------------------------------------------------------
-// Purpose: if parser should translate escape sequences ( /n, /t etc), set to true
-//-----------------------------------------------------------------------------
-void KeyValues::UsesEscapeSequences(bool state)
-{
-	m_bHasEscapeSequences = state;
-}
-
 
 //-----------------------------------------------------------------------------
 // Purpose: Load keyValues from disk
@@ -566,11 +538,6 @@ void KeyValues::WriteConvertedString( IBaseFileSystem *filesystem, FileHandle_t 
 			convertedString[j] = '\\';
 			j++;
 		}
-		else if ( m_bHasEscapeSequences && pszString[i] == '\\' )
-		{
-			convertedString[j] = '\\';
-			j++;
-		}
 		convertedString[j] = pszString[i];
 		j++;
 	}		
@@ -623,14 +590,14 @@ void KeyValues::RecursiveSaveToFile( IBaseFileSystem *filesystem, FileHandle_t f
 			{
 			case TYPE_STRING:
 				{
-					if (dat->m_sValue && *(dat->m_sValue))
+					if (dat->m_pszValue && *(dat->m_pszValue))
 					{
 						WriteIndents(filesystem, f, pBuf, indentLevel + 1);
 						INTERNALWRITE("\"", 1);
 						WriteConvertedString(filesystem, f, pBuf, dat->GetName());	
 						INTERNALWRITE("\"\t\t\"", 4);
 
-						WriteConvertedString(filesystem, f, pBuf, dat->m_sValue);	
+						WriteConvertedString(filesystem, f, pBuf, dat->m_pszValue);
 
 						INTERNALWRITE("\"\n", 2);
 					}
@@ -638,14 +605,12 @@ void KeyValues::RecursiveSaveToFile( IBaseFileSystem *filesystem, FileHandle_t f
 				}
 			case TYPE_WSTRING:
 				{
-#ifdef _WIN32
-					if ( dat->m_wsValue )
+					if ( dat->m_pwszValue )
 					{
 						static char buf[KEYVALUES_TOKEN_SIZE];
-						// make sure we have enough space
-						Assert(::WideCharToMultiByte(CP_UTF8, 0, dat->m_wsValue, -1, NULL, 0, NULL, NULL) < KEYVALUES_TOKEN_SIZE);
-						int result = ::WideCharToMultiByte(CP_UTF8, 0, dat->m_wsValue, -1, buf, KEYVALUES_TOKEN_SIZE, NULL, NULL);
-						if (result)
+						int result = Q_UnicodeToUTF8( m_pwszValue, buf, sizeof( buf ) );
+
+						if( result > 0 )
 						{
 							WriteIndents(filesystem, f, pBuf, indentLevel + 1);
 							INTERNALWRITE("\"", 1);
@@ -657,7 +622,6 @@ void KeyValues::RecursiveSaveToFile( IBaseFileSystem *filesystem, FileHandle_t f
 							INTERNALWRITE("\"\n", 2);
 						}
 					}
-#endif
 					break;
 				}
 
@@ -684,7 +648,7 @@ void KeyValues::RecursiveSaveToFile( IBaseFileSystem *filesystem, FileHandle_t f
 					INTERNALWRITE("\"\t\t\"", 4);
 
 					char buf[32];
-					Q_binarytohex((byte *)dat->m_sValue, sizeof(uint64), buf, sizeof(buf));
+					Q_binarytohex((byte *)dat->m_pszValue, sizeof(uint64), buf, sizeof(buf));
 
 					INTERNALWRITE(buf, Q_strlen(buf));
 					INTERNALWRITE("\"\n", 2);
@@ -760,7 +724,7 @@ KeyValues *KeyValues::FindKey(const char *keyName, bool bCreate)
 	}
 
 	// lookup the symbol for the search string
-	HKeySymbol iSearchStr = KeyValuesSystem()->GetSymbolForString(searchStr);
+	HKeySymbol iSearchStr = keyvalues()->GetSymbolForString(searchStr);
 
 	KeyValues *lastItem = NULL;
 	KeyValues *dat;
@@ -774,11 +738,6 @@ KeyValues *KeyValues::FindKey(const char *keyName, bool bCreate)
 		{
 			break;
 		}
-	}
-
-	if ( !dat && m_pChain )
-	{
-		dat = m_pChain->FindKey(keyName, false);
 	}
 
 	// make sure a key was found
@@ -856,7 +815,7 @@ KeyValues* KeyValues::CreateKey( const char *keyName )
 	// key wasn't found so just create a new one
 	KeyValues* dat = new KeyValues( keyName );
 
-	dat->UsesEscapeSequences( m_bHasEscapeSequences != 0 ); // use same format as parent does
+	//dat->UsesEscapeSequences( m_bHasEscapeSequences != 0 ); // use same format as parent does
 	
 	// add into subkey list
 	AddSubKey( dat );
@@ -1000,14 +959,9 @@ int KeyValues::GetInt( const char *keyName, int defaultValue )
 		switch ( dat->m_iDataType )
 		{
 		case TYPE_STRING:
-			return atoi(dat->m_sValue);
+			return atoi(dat->m_pszValue);
 		case TYPE_WSTRING:
-#ifdef _WIN32
-			return _wtoi(dat->m_wsValue);
-#else
-			Msg( "TODO: implement _wtoi\n");
-			return 0;
-#endif
+			return wcstol(dat->m_pwszValue, NULL, 10);
 		case TYPE_FLOAT:
 			return (int)dat->m_flValue;
 		case TYPE_UINT64:
@@ -1035,18 +989,13 @@ uint64 KeyValues::GetUint64( const char *keyName, uint64 defaultValue )
 		switch ( dat->m_iDataType )
 		{
 		case TYPE_STRING:
-			return atoi(dat->m_sValue);
+			return atoi(dat->m_pszValue);
 		case TYPE_WSTRING:
-#ifdef _WIN32
-			return _wtoi(dat->m_wsValue);
-#else
-			AssertFatal( 0 );
-			return 0;
-#endif
+			return wcstoull( dat->m_pwszValue, NULL, 10 );
 		case TYPE_FLOAT:
 			return (int)dat->m_flValue;
 		case TYPE_UINT64:
-			return *((uint64 *)dat->m_sValue);
+			return *((uint64 *)dat->m_pszValue);
 		case TYPE_INT:
 		case TYPE_PTR:
 		default:
@@ -1094,15 +1043,15 @@ float KeyValues::GetFloat( const char *keyName, float defaultValue )
 		switch ( dat->m_iDataType )
 		{
 		case TYPE_STRING:
-			return (float)atof(dat->m_sValue);
+			return (float)atof(dat->m_pszValue);
 		case TYPE_WSTRING:
-			return 0.0f;		// no wtof
+			return wcstod( dat->m_pwszValue, NULL );
 		case TYPE_FLOAT:
 			return dat->m_flValue;
 		case TYPE_INT:
 			return (float)dat->m_iValue;
 		case TYPE_UINT64:
-			return (float)(*((uint64 *)dat->m_sValue));
+			return (float)(*((uint64 *)dat->m_pszValue));
 		case TYPE_PTR:
 		default:
 			return 0.0f;
@@ -1134,17 +1083,17 @@ const char *KeyValues::GetString( const char *keyName, const char *defaultValue 
 			SetString( keyName, buf );
 			break;
 		case TYPE_UINT64:
-			Q_snprintf( buf, sizeof( buf ), "%I64i", *((uint64 *)(dat->m_sValue)) );
+			Q_snprintf( buf, sizeof( buf ), "%I64i", *((uint64 *)(dat->m_pszValue)) );
 			SetString( keyName, buf );
 			break;
 
 		case TYPE_WSTRING:
 		{
-#ifdef _WIN32
 			// convert the string to char *, set it for future use, and return it
 			static char buf[512];
-			int result = ::WideCharToMultiByte(CP_UTF8, 0, dat->m_wsValue, -1, buf, 512, NULL, NULL);
-			if ( result )
+			int result = Q_UnicodeToUTF8( dat->m_pwszValue, buf, sizeof( buf ) );
+
+			if( result > 0 )
 			{
 				SetString( keyName, buf );
 			}
@@ -1152,7 +1101,6 @@ const char *KeyValues::GetString( const char *keyName, const char *defaultValue 
 			{
 				return defaultValue;
 			}
-#endif
 			break;
 		}
 		case TYPE_STRING:
@@ -1161,7 +1109,7 @@ const char *KeyValues::GetString( const char *keyName, const char *defaultValue 
 			return defaultValue;
 		};
 		
-		return dat->m_sValue;
+		return dat->m_pszValue;
 	}
 	return defaultValue;
 }
@@ -1169,24 +1117,24 @@ const char *KeyValues::GetString( const char *keyName, const char *defaultValue 
 const wchar_t *KeyValues::GetWString( const char *keyName, const wchar_t *defaultValue)
 {
 	KeyValues *dat = FindKey( keyName, false );
-#ifdef _WIN32
+
 	if ( dat )
 	{
 		wchar_t wbuf[64];
 		switch ( dat->m_iDataType )
 		{
 		case TYPE_FLOAT:
-			swprintf(wbuf, L"%f", dat->m_flValue);
+			swprintf(wbuf, ARRAYSIZE( wbuf ), L"%f", dat->m_flValue);
 			SetWString( keyName, wbuf);
 			break;
 		case TYPE_INT:
 		case TYPE_PTR:
-			swprintf( wbuf, L"%d", dat->m_iValue );
+			swprintf( wbuf, ARRAYSIZE( wbuf ), L"%d", dat->m_iValue );
 			SetWString( keyName, wbuf );
 			break;
 		case TYPE_UINT64:
 			{
-				swprintf( wbuf, L"%I64i", *((uint64 *)(dat->m_sValue)) );
+				swprintf( wbuf, ARRAYSIZE( wbuf ), L"%I64i", *((uint64 *)(dat->m_pszValue)) );
 				SetWString( keyName, wbuf );
 			}
 			break;
@@ -1196,10 +1144,11 @@ const wchar_t *KeyValues::GetWString( const char *keyName, const wchar_t *defaul
 		case TYPE_STRING:
 		{
 			static wchar_t wbuftemp[512]; // convert to wide	
-			int result = ::MultiByteToWideChar(CP_UTF8, 0, dat->m_sValue, -1, wbuftemp, 512);
-			if ( result )
+			int result = Q_UTF8ToUnicode( dat->m_pszValue, wbuftemp, sizeof( wbuftemp ) );
+
+			if( result > 0 )
 			{
-				SetWString( keyName, wbuftemp);
+				SetWString( keyName, wbuftemp );
 			}
 			else
 			{
@@ -1211,11 +1160,9 @@ const wchar_t *KeyValues::GetWString( const char *keyName, const wchar_t *defaul
 			return defaultValue;
 		};
 		
-		return (const wchar_t* )dat->m_wsValue;
+		return dat->m_pwszValue;
 	}
-#else
-	Msg("TODO: implement wide char functions\n");
-#endif
+
 	return defaultValue;
 }
 
@@ -1228,6 +1175,7 @@ SDK_Color KeyValues::GetColor( const char *keyName )
 	KeyValues *dat = FindKey( keyName, false );
 	if ( dat )
 	{
+		//TODO: convert to switch. - Solokiller
 		if ( dat->m_iDataType == TYPE_COLOR )
 		{
 			color[0] = dat->m_Color[0];
@@ -1247,11 +1195,21 @@ SDK_Color KeyValues::GetColor( const char *keyName )
 		{
 			// parse the colors out of the string
 			float a, b, c, d;
-			sscanf(dat->m_sValue, "%f %f %f %f", &a, &b, &c, &d);
+			sscanf(dat->m_pszValue, "%f %f %f %f", &a, &b, &c, &d);
 			color[0] = (unsigned char)a;
 			color[1] = (unsigned char)b;
 			color[2] = (unsigned char)c;
 			color[3] = (unsigned char)d;
+		}
+		else if( dat->m_iDataType == TYPE_WSTRING )
+		{
+			// parse the colors out of the string
+			float a, b, c, d;
+			swscanf( dat->m_pwszValue, L"%f %f %f %f", &a, &b, &c, &d );
+			color[ 0 ] = ( unsigned char ) a;
+			color[ 1 ] = ( unsigned char ) b;
+			color[ 2 ] = ( unsigned char ) c;
+			color[ 3 ] = ( unsigned char ) d;
 		}
 	}
 	return color;
@@ -1266,6 +1224,8 @@ void KeyValues::SetColor( const char *keyName, SDK_Color value)
 
 	if ( dat )
 	{
+		dat->FreeAllocatedValue();
+
 		dat->m_iDataType = TYPE_COLOR;
 		dat->m_Color[0] = value[0];
 		dat->m_Color[1] = value[1];
@@ -1276,24 +1236,7 @@ void KeyValues::SetColor( const char *keyName, SDK_Color value)
 
 void KeyValues::SetStringValue( char const *strValue )
 {
-	// delete the old value
-	delete [] m_sValue;
-	// make sure we're not storing the WSTRING  - as we're converting over to STRING
-	delete [] m_wsValue;
-	m_wsValue = NULL;
-
-	if (!strValue)
-	{
-		// ensure a valid value
-		strValue = "";
-	}
-
-	// allocate memory for the new value and copy it in
-	int len = Q_strlen( strValue );
-	m_sValue = new char[len + 1];
-	Q_memcpy( m_sValue, strValue, len+1 );
-
-	m_iDataType = TYPE_STRING;
+	SetString( NULL, strValue );
 }
 
 //-----------------------------------------------------------------------------
@@ -1305,11 +1248,7 @@ void KeyValues::SetString( const char *keyName, const char *value )
 
 	if ( dat )
 	{
-		// delete the old value
-		delete [] dat->m_sValue;
-		// make sure we're not storing the WSTRING  - as we're converting over to STRING
-		delete [] dat->m_wsValue;
-		dat->m_wsValue = NULL;
+		dat->FreeAllocatedValue();
 
 		if (!value)
 		{
@@ -1319,8 +1258,8 @@ void KeyValues::SetString( const char *keyName, const char *value )
 
 		// allocate memory for the new value and copy it in
 		int len = Q_strlen( value );
-		dat->m_sValue = new char[len + 1];
-		Q_memcpy( dat->m_sValue, value, len+1 );
+		dat->AllocateValueBlock( len + 1 );
+		Q_memcpy( dat->m_pszValue, value, len+1 );
 
 		dat->m_iDataType = TYPE_STRING;
 	}
@@ -1334,11 +1273,7 @@ void KeyValues::SetWString( const char *keyName, const wchar_t *value )
 	KeyValues *dat = FindKey( keyName, true );
 	if ( dat )
 	{
-		// delete the old value
-		delete [] dat->m_wsValue;
-		// make sure we're not storing the STRING  - as we're converting over to WSTRING
-		delete [] dat->m_sValue;
-		dat->m_sValue = NULL;
+		dat->FreeAllocatedValue();
 
 		if (!value)
 		{
@@ -1348,8 +1283,8 @@ void KeyValues::SetWString( const char *keyName, const wchar_t *value )
 
 		// allocate memory for the new value and copy it in
 		int len = wcslen( value );
-		dat->m_wsValue = new wchar_t[len + 1];
-		Q_memcpy( dat->m_wsValue, value, (len+1) * sizeof(wchar_t) );
+		dat->AllocateValueBlock( ( len + 1 ) * sizeof( wchar_t ) );
+		Q_memcpy( dat->m_pwszValue, value, (len+1) * sizeof(wchar_t) );
 
 		dat->m_iDataType = TYPE_WSTRING;
 	}
@@ -1364,6 +1299,8 @@ void KeyValues::SetInt( const char *keyName, int value )
 
 	if ( dat )
 	{
+		dat->FreeAllocatedValue();
+
 		dat->m_iValue = value;
 		dat->m_iDataType = TYPE_INT;
 	}
@@ -1378,14 +1315,10 @@ void KeyValues::SetUint64( const char *keyName, uint64 value )
 
 	if ( dat )
 	{
-		// delete the old value
-		delete [] dat->m_sValue;
-		// make sure we're not storing the WSTRING  - as we're converting over to STRING
-		delete [] dat->m_wsValue;
-		dat->m_wsValue = NULL;
+		dat->FreeAllocatedValue();
 
-		dat->m_sValue = new char[sizeof(uint64)];
-		*((uint64 *)dat->m_sValue) = value;
+		dat->AllocateValueBlock( sizeof( uint64 ) );
+		*((uint64 *)dat->m_pszValue) = value;
 		dat->m_iDataType = TYPE_UINT64;
 	}
 }
@@ -1399,6 +1332,8 @@ void KeyValues::SetFloat( const char *keyName, float value )
 
 	if ( dat )
 	{
+		dat->FreeAllocatedValue();
+
 		dat->m_flValue = value;
 		dat->m_iDataType = TYPE_FLOAT;
 	}
@@ -1406,7 +1341,7 @@ void KeyValues::SetFloat( const char *keyName, float value )
 
 void KeyValues::SetName( const char * setName )
 {
-	m_iKeyName = KeyValuesSystem()->GetSymbolForString( setName );
+	m_iKeyName = keyvalues()->GetSymbolForString( setName );
 }
 
 //-----------------------------------------------------------------------------
@@ -1418,6 +1353,8 @@ void KeyValues::SetPtr( const char *keyName, void *value )
 
 	if ( dat )
 	{
+		dat->FreeAllocatedValue();
+
 		dat->m_pValue = value;
 		dat->m_iDataType = TYPE_PTR;
 	}
@@ -1431,6 +1368,7 @@ void KeyValues::RecursiveCopyKeyValues( KeyValues& src )
 
 	if( !src.m_pSub )
 	{
+		FreeAllocatedValue();
 		m_iDataType = src.m_iDataType;
 		char buf[256];
 		switch( src.m_iDataType )
@@ -1438,11 +1376,11 @@ void KeyValues::RecursiveCopyKeyValues( KeyValues& src )
 		case TYPE_NONE:
 			break;
 		case TYPE_STRING:
-			if( src.m_sValue )
+			if( src.m_pszValue )
 			{
-				int len = Q_strlen(src.m_sValue) + 1;
-				m_sValue = new char[len];
-				Q_strncpy( m_sValue, src.m_sValue, len );
+				int len = Q_strlen(src.m_pszValue) + 1;
+				AllocateValueBlock( len );
+				Q_strncpy( m_pszValue, src.m_pszValue, len );
 			}
 			break;
 		case TYPE_INT:
@@ -1450,8 +1388,8 @@ void KeyValues::RecursiveCopyKeyValues( KeyValues& src )
 				m_iValue = src.m_iValue;
 				Q_snprintf( buf,sizeof(buf), "%d", m_iValue );
 				int len = Q_strlen(buf) + 1;
-				m_sValue = new char[len];
-				Q_strncpy( m_sValue, buf, len  );
+				AllocateValueBlock( len );
+				Q_strncpy( m_pszValue, buf, len  );
 			}
 			break;
 		case TYPE_FLOAT:
@@ -1459,8 +1397,8 @@ void KeyValues::RecursiveCopyKeyValues( KeyValues& src )
 				m_flValue = src.m_flValue;
 				Q_snprintf( buf,sizeof(buf), "%f", m_flValue );
 				int len = Q_strlen(buf) + 1;
-				m_sValue = new char[len];
-				Q_strncpy( m_sValue, buf, len );
+				AllocateValueBlock( len );
+				Q_strncpy( m_pszValue, buf, len );
 			}
 			break;
 		case TYPE_PTR:
@@ -1470,8 +1408,8 @@ void KeyValues::RecursiveCopyKeyValues( KeyValues& src )
 			break;
 		case TYPE_UINT64:
 			{
-				m_sValue = new char[sizeof(uint64)];
-				Q_memcpy( m_sValue, src.m_sValue, sizeof(uint64) );
+				AllocateValueBlock( sizeof( uint64 ) );
+				Q_memcpy( m_pszValue, src.m_pszValue, sizeof(uint64) );
 			}
 			break;
 		case TYPE_COLOR:
@@ -1577,22 +1515,22 @@ KeyValues *KeyValues::MakeCopy( void ) const
 	{
 	case TYPE_STRING:
 		{
-			if ( m_sValue )
+			if ( m_pszValue )
 			{
-				int len = Q_strlen( m_sValue );
-				Assert( !newKeyValue->m_sValue );
-				newKeyValue->m_sValue = new char[len + 1];
-				Q_memcpy( newKeyValue->m_sValue, m_sValue, len+1 );
+				int len = Q_strlen( m_pszValue );
+				Assert( !newKeyValue->m_pszValue );
+				newKeyValue->AllocateValueBlock( len + 1 );
+				Q_memcpy( newKeyValue->m_pszValue, m_pszValue, len+1 );
 			}
 		}
 		break;
 	case TYPE_WSTRING:
 		{
-			if ( m_wsValue )
+			if ( m_pwszValue )
 			{
-				int len = wcslen( m_wsValue );
-				newKeyValue->m_wsValue = new wchar_t[len+1];
-				Q_memcpy( newKeyValue->m_wsValue, m_wsValue, (len+1)*sizeof(wchar_t));
+				int len = wcslen( m_pwszValue );
+				newKeyValue->AllocateValueBlock( ( len + 1 ) * sizeof( wchar_t ) );
+				Q_memcpy( newKeyValue->m_pwszValue, m_pwszValue, (len+1)*sizeof(wchar_t));
 			}
 		}
 		break;
@@ -1617,8 +1555,8 @@ KeyValues *KeyValues::MakeCopy( void ) const
 		break;
 
 	case TYPE_UINT64:
-		newKeyValue->m_sValue = new char[sizeof(uint64)];
-		Q_memcpy( newKeyValue->m_sValue, m_sValue, sizeof(uint64) );
+		newKeyValue->AllocateValueBlock( sizeof( uint64 ) );
+		Q_memcpy( newKeyValue->m_pszValue, m_pszValue, sizeof(uint64) );
 		break;
 	};
 
@@ -1742,7 +1680,7 @@ void KeyValues::ParseIncludedKeys( char const *resourceName, const char *filetoi
 
 	// CUtlSymbol save = s_CurrentFileSymbol;	// did that had any use ???
 
-	newKV->UsesEscapeSequences( m_bHasEscapeSequences != 0 );	// use same format as parent
+	//newKV->UsesEscapeSequences( m_bHasEscapeSequences != 0 );	// use same format as parent
 
 	if ( newKV->LoadFromFile( pFileSystem, fullpath, pPathID ) )
 	{
@@ -1797,7 +1735,7 @@ bool KeyValues::LoadFromBuffer( char const *resourceName, CUtlBuffer &buf, IBase
 			pCurrentKey = new KeyValues( s );
 			Assert( pCurrentKey );
 
-			pCurrentKey->UsesEscapeSequences( m_bHasEscapeSequences != 0 ); // same format has parent use
+			//pCurrentKey->UsesEscapeSequences( m_bHasEscapeSequences != 0 ); // same format has parent use
 
 			if ( pPreviousKey )
 			{
@@ -1906,10 +1844,9 @@ void KeyValues::RecursiveLoadFromBuffer( char const *resourceName, CUtlBuffer &b
 		}
 		else 
 		{
-			if (dat->m_sValue)
+			if (dat->m_pszValue)
 			{
-				delete[] dat->m_sValue;
-				dat->m_sValue = NULL;
+				dat->FreeAllocatedValue();
 			}
 
 			int len = Q_strlen( value );
@@ -1944,8 +1881,8 @@ void KeyValues::RecursiveLoadFromBuffer( char const *resourceName, CUtlBuffer &b
 			if (dat->m_iDataType == TYPE_STRING)
 			{
 				// copy in the string information
-				dat->m_sValue = new char[len+1];
-				Q_memcpy( dat->m_sValue, value, len+1 );
+				dat->AllocateValueBlock( len + 1 );
+				Q_memcpy( dat->m_pszValue, value, len+1 );
 			}
 		}
 	}
@@ -1983,9 +1920,9 @@ bool KeyValues::WriteAsBinary( CUtlBuffer &buffer )
 			}
 		case TYPE_STRING:
 			{
-				if (dat->m_sValue && *(dat->m_sValue))
+				if (dat->m_pszValue && *(dat->m_pszValue))
 				{
-					buffer.PutString( dat->m_sValue );
+					buffer.PutString( dat->m_pszValue );
 				}
 				else
 				{
@@ -2007,7 +1944,7 @@ bool KeyValues::WriteAsBinary( CUtlBuffer &buffer )
 
 		case TYPE_UINT64:
 			{
-				buffer.PutDouble( *((double *)dat->m_sValue) );
+				buffer.PutDouble( *((double *)dat->m_pszValue) );
 				break;
 			}
 
@@ -2083,8 +2020,8 @@ bool KeyValues::ReadAsBinary( CUtlBuffer &buffer )
 				token[KEYVALUES_TOKEN_SIZE-1] = 0;
 
 				int len = Q_strlen( token );
-				dat->m_sValue = new char[len + 1];
-				Q_memcpy( dat->m_sValue, token, len+1 );
+				dat->AllocateValueBlock( len + 1 );
+				Q_memcpy( dat->m_pszValue, token, len+1 );
 								
 				break;
 			}
@@ -2102,8 +2039,8 @@ bool KeyValues::ReadAsBinary( CUtlBuffer &buffer )
 
 		case TYPE_UINT64:
 			{
-				dat->m_sValue = new char[sizeof(uint64)];
-				*((double *)dat->m_sValue) = buffer.GetDouble();
+				dat->AllocateValueBlock( sizeof( uint64 ) );
+				*((double *)dat->m_pszValue) = buffer.GetDouble();
 			}
 
 		case TYPE_FLOAT:
@@ -2144,6 +2081,41 @@ bool KeyValues::ReadAsBinary( CUtlBuffer &buffer )
 	return buffer.IsValid();
 }
 
+void KeyValues::FreeAllocatedValue()
+{
+	if( m_iAllocationSize )
+	{
+		if( m_iAllocationSize <= sizeof( KeyValues ) )
+		{
+			keyvalues()->FreeKeyValuesMemory( m_pValue );
+		}
+		else if( m_pValue )
+		{
+			delete[] m_pszValue;
+		}
+
+		m_pValue = NULL;
+
+		m_iAllocationSize = 0;
+	}
+}
+
+void KeyValues::AllocateValueBlock( int size )
+{
+	Assert( m_iAllocationSize == 0 );
+
+	if( size <= sizeof( KeyValues ) )
+	{
+		m_pValue = keyvalues()->AllocKeyValuesMemory( size );
+	}
+	else
+	{
+		m_pValue = new byte[ size ];
+	}
+
+	m_iAllocationSize = size;
+}
+
 #include "tier0/memdbgoff.h"
 
 //-----------------------------------------------------------------------------
@@ -2152,13 +2124,13 @@ bool KeyValues::ReadAsBinary( CUtlBuffer &buffer )
 void *KeyValues::operator new( size_t iAllocSize )
 {
 	MEM_ALLOC_CREDIT();
-	return KeyValuesSystem()->AllocKeyValuesMemory(iAllocSize);
+	return keyvalues()->AllocKeyValuesMemory(iAllocSize);
 }
 
 void *KeyValues::operator new( size_t iAllocSize, int nBlockUse, const char *pFileName, int nLine )
 {
 	MemAlloc_PushAllocDbgInfo( pFileName, nLine );
-	void *p = KeyValuesSystem()->AllocKeyValuesMemory(iAllocSize);
+	void *p = keyvalues()->AllocKeyValuesMemory(iAllocSize);
 	MemAlloc_PopAllocDbgInfo();
 	return p;
 }
@@ -2168,12 +2140,12 @@ void *KeyValues::operator new( size_t iAllocSize, int nBlockUse, const char *pFi
 //-----------------------------------------------------------------------------
 void KeyValues::operator delete( void *pMem )
 {
-	KeyValuesSystem()->FreeKeyValuesMemory(pMem);
+	keyvalues()->FreeKeyValuesMemory(pMem);
 }
 
 void KeyValues::operator delete( void *pMem, int nBlockUse, const char *pFileName, int nLine )
 {
-	KeyValuesSystem()->FreeKeyValuesMemory(pMem);
+	keyvalues()->FreeKeyValuesMemory(pMem);
 }
 
 #include "tier0/memdbgon.h"

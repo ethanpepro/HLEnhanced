@@ -522,6 +522,9 @@ include_directories(
 	pm_shared
 	game/server
 	external
+	source_sdk/public/tier1
+	source_sdk/public
+	source_sdk/common
 	${SHARED_INCLUDE_PATHS}
 )
 

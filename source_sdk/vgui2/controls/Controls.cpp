@@ -157,30 +157,6 @@ vgui2::ILocalize *localize()
 	return g_pLocalizeInterface;
 }
 
-//-----------------------------------------------------------------------------
-// Purpose: finds a particular interface in the factory set
-//-----------------------------------------------------------------------------
-static void *InitializeInterface( char const *interfaceName, CreateInterfaceFn *factoryList, int numFactories )
-{
-	void *retval;
-
-	for ( int i = 0; i < numFactories; i++ )
-	{
-		CreateInterfaceFn factory = factoryList[ i ];
-		if ( !factory )
-			continue;
-
-		retval = factory( interfaceName, NULL );
-		if ( retval )
-			return retval;
-	}
-
-	// No provider for requested interface!!!
-	// Assert( !"No provider for requested interface!!!" );
-
-	return NULL;
-}
-
 static char g_szControlsModuleName[256];
 
 //-----------------------------------------------------------------------------

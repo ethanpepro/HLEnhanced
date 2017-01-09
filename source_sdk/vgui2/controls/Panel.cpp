@@ -4292,7 +4292,7 @@ void PreparePanelMessageMap(PanelMessageMap *panelMap)
 
 			if (item->name)
 			{
-				item->nameSymbol = KeyValuesSystem()->GetSymbolForString(item->name);
+				item->nameSymbol = keyvalues()->GetSymbolForString(item->name);
 			}
 			else
 			{
@@ -4300,7 +4300,7 @@ void PreparePanelMessageMap(PanelMessageMap *panelMap)
 			}
 			if (item->firstParamName)
 			{
-				item->firstParamSymbol = KeyValuesSystem()->GetSymbolForString(item->firstParamName);
+				item->firstParamSymbol = keyvalues()->GetSymbolForString(item->firstParamName);
 			}
 			else
 			{
@@ -4308,7 +4308,7 @@ void PreparePanelMessageMap(PanelMessageMap *panelMap)
 			}
 			if (item->secondParamName)
 			{
-				item->secondParamSymbol = KeyValuesSystem()->GetSymbolForString(item->secondParamName);
+				item->secondParamSymbol = keyvalues()->GetSymbolForString(item->secondParamName);
 			}
 			else
 			{
@@ -4736,7 +4736,7 @@ void Panel::PreparePanelMap( PanelMap_t *panelMap )
 
 			if (item->name)
 			{
-				item->nameSymbol = KeyValuesSystem()->GetSymbolForString(item->name);
+				item->nameSymbol = keyvalues()->GetSymbolForString(item->name);
 			}
 			else
 			{
@@ -4744,7 +4744,7 @@ void Panel::PreparePanelMap( PanelMap_t *panelMap )
 			}
 			if (item->firstParamName)
 			{
-				item->firstParamSymbol = KeyValuesSystem()->GetSymbolForString(item->firstParamName);
+				item->firstParamSymbol = keyvalues()->GetSymbolForString(item->firstParamName);
 			}
 			else
 			{
@@ -4752,7 +4752,7 @@ void Panel::PreparePanelMap( PanelMap_t *panelMap )
 			}
 			if (item->secondParamName)
 			{
-				item->secondParamSymbol = KeyValuesSystem()->GetSymbolForString(item->secondParamName);
+				item->secondParamSymbol = keyvalues()->GetSymbolForString(item->secondParamName);
 			}
 			else
 			{

@@ -17,6 +17,8 @@
 #include "hud/CHudViewport.h"
 #endif
 
+#include "KeyValuesCompat.h"
+
 #include "CClientVGUI.h"
 
 namespace
@@ -72,15 +74,23 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 	}
 
 #if USE_VGUI2
-	if( !vgui2::VGui_InitInterfacesList( "CLIENT", pFactories, NUM_FACTORIES ) )
+	if( !vgui2::VGui_InitInterfacesList( "CLIENT", m_FactoryList, NUM_FACTORIES ) )
 	{
 		Msg( "Failed to initialize VGUI2\n" );
+		return;
+	}
+#endif
+
+	if( !KV_InitKeyValuesSystem( m_FactoryList, NUM_FACTORIES ) )
+	{
+		Msg( "Failed to initialize IKeyValues\n" );
 		return;
 	}
 
 	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
 	g_pBaseUI = ( IBaseUI* ) pFactories[ 0 ]( IBASEUI_NAME, nullptr );
 
+#if USE_VGUI2
 	//Constructor sets itself as the viewport.
 	new CHudViewport();
 

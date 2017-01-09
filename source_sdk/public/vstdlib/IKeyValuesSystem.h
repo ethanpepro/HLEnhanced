@@ -41,8 +41,21 @@ public:
 	virtual void RemoveKeyValuesFromMemoryLeakList(void *pMem) = 0;
 };
 
+//Hack begin - Solokiller
+//We have a problem in GoldSource. On the client side the VGUI2 keyvalues memory pool is used, which isn't accessible on dedicated servers.
+//To migitate this, we have to switch the server over to vstdlib's pool.
+//This requires us wrap the IKeyValues interface provided by VGUI2 with IKeyValuesSystem.
+//See KeyValuesCompat.h/.cpp in game/client and game/server for more information.
+//It sucks, but Valve isn't exactly giving us another way out.
+
+//Server only.
 VSTDLIB_INTERFACE IKeyValuesSystem *KeyValuesSystem();
 
 // #define KEYVALUESSYSTEM_INTERFACE_VERSION "KeyValuesSystem002"
+
+//Used by all code.
+IKeyValuesSystem *keyvalues();
+
+//Hack end - Solokiller
 
 #endif // VSTDLIB_IKEYVALUESSYSTEM_H

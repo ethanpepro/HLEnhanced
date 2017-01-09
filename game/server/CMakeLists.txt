@@ -19,6 +19,7 @@ add_sources(
 	Decals.cpp
 	Effects.h
 	globals.cpp
+	KeyValuesCompat.cpp
 	MapCycle.h
 	MapCycle.cpp
 	SaveRestore.h

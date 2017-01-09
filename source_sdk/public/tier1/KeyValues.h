@@ -70,8 +70,7 @@ public:
 	// gets the name as a unique int
 	virtual int GetNameSymbol() const;
 
-	// File access. Set UsesEscapeSequences true, if resource file/buffer uses Escape Sequences (eg \n, \t)
-	void UsesEscapeSequences(bool state); // default false
+	// File access.
 	virtual bool LoadFromFile( IFileSystem *filesystem, const char *resourceName, const char *pathID = NULL );
 	virtual bool SaveToFile( IFileSystem *filesystem, const char *resourceName, const char *pathID = NULL);
 
@@ -153,10 +152,6 @@ public:
 	void operator delete( void *pMem, int nBlockUse, const char *pFileName, int nLine );
 
 	KeyValues& operator=( KeyValues& src );
-
-	// Adds a chain... if we don't find stuff in this keyvalue, we'll look
-	// in the one we're chained to.
-	void ChainKeyValue( KeyValues* pChain );
 	
 	void RecursiveSaveToFile( CUtlBuffer& buf, int indentLevel );
 
@@ -228,11 +223,7 @@ private:
 	void FreeAllocatedValue();
 	void AllocateValueBlock(int size);
 
-	int m_iKeyName;	// keyname is a symbol defined in KeyValuesSystem
-
-	// These are needed out of the union because the API returns string pointers
-	char *m_sValue;
-	wchar_t *m_wsValue;
+	int m_iKeyName;	// keyname is a symbol defined in keyvalues
 
 	// we don't delete these
 	union
@@ -240,25 +231,23 @@ private:
 		int m_iValue;
 		float m_flValue;
 		void *m_pValue;
+		char* m_pszValue;
+		wchar_t* m_pwszValue;
 		unsigned char m_Color[4];
 	};
 	
 #ifdef _XBOX
-	char	   m_iDataType;
-	char	   m_bHasEscapeSequences; // true, if while parsing this KeyValue, Escape Sequences are used (default false)
-	char	   reserved[2];
+	unsigned short		m_iDataType;
+	short				m_iAllocationSize;
 
 	KeyValues *m_pPeer;	// pointer to next key in list
 	KeyValues *m_pSub;	// pointer to Start of a new sub key list
-	KeyValues *m_pChain;// Search here if it's not in our list
 #else
-	char	   m_iDataType;
-	char	   reserved[5];
+	unsigned short		m_iDataType;
+	short				m_iAllocationSize;
 
 	KeyValues *m_pPeer;	// pointer to next key in list
 	KeyValues *m_pSub;	// pointer to Start of a new sub key list
-	KeyValues *m_pChain;// Search here if it's not in our list
-	char	   m_bHasEscapeSequences; // true, if while parsing this KeyValue, Escape Sequences are used (default false)
 #endif
 };
 
