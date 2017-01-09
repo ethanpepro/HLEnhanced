@@ -70,11 +70,14 @@ add_sources(
 
 add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/common source_sdk/common )
 add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/public source_sdk/public )
+add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/vgui2/src source_sdk/vgui2/src )
 
 preprocess_sources()
 
 include_directories(
+	${CMAKE_SOURCE_DIR}/source_sdk/common
 	${CMAKE_SOURCE_DIR}/source_sdk/public
+	${CMAKE_SOURCE_DIR}/source_sdk/public/html
 	${CMAKE_SOURCE_DIR}/source_sdk/public/tier1
 	${CMAKE_SOURCE_DIR}/common
 	${CMAKE_SOURCE_DIR}/public
