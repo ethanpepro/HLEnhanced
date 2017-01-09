@@ -1,6 +1,8 @@
 #include <cassert>
 #include <clocale>
 
+#include "tier0/dbg.h"
+
 #if USE_VGUI2
 #include "../../source_sdk/public/vgui/VGUI2.h"
 #include "../../source_sdk/public/vgui/IVGui.h"
