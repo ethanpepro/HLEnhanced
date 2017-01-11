@@ -4,12 +4,12 @@
 #include "tier0/dbg.h"
 
 #if USE_VGUI2
-#include "../../source_sdk/public/vgui/VGUI2.h"
-#include "../../source_sdk/public/vgui/IVGui.h"
-#include "../../source_sdk/public/vgui/IScheme.h"
-#include "../../source_sdk/public/vgui_controls/Controls.h"
-#include "../../source_sdk/public/vgui_controls/Panel.h"
-#include "../../source_sdk/public/vgui_controls/Frame.h"
+#include <vgui/VGUI2.h>
+#include <vgui/IVGui.h>
+#include <vgui/IScheme.h>
+#include <vgui_controls/Controls.h>
+#include <vgui_controls/Panel.h>
+#include <vgui_controls/Frame.h>
 
 #include <vgui/ISurface.h>
 

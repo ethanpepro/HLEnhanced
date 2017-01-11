@@ -3,7 +3,7 @@
 
 #include "interface.h"
 
-#include "../../source_sdk/public/vgui/VGUI2.h"
+#include <vgui/VGUI2.h>
 
 /**
 *	Client VGUI2 interface. Enables the client library to use VGUI2.

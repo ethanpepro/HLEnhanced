@@ -1,7 +1,7 @@
 #ifndef GAME_CLIENT_UI_VGUI2_CBACKGROUNDPANEL_H
 #define GAME_CLIENT_UI_VGUI2_CBACKGROUNDPANEL_H
 
-#include "../../source_sdk/public/vgui_controls/Frame.h"
+#include <vgui_controls/Frame.h>
 
 class CBackGroundPanel : public vgui2::Frame
 {

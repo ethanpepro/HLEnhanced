@@ -1,4 +1,4 @@
-#include "../../source_sdk/public/vgui/ISurface.h"
+#include <vgui/ISurface.h>
 
 #include "CBackGroundPanel.h"
 
