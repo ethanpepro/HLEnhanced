@@ -280,7 +280,7 @@ bool CBaseViewport::AddNewPanel( IViewportPanel* pPanel )
 	return true;
 }
 
-void CBaseViewport::ShowPanel( const char* pszName, const bool bState )
+void CBaseViewport::ShowPanel( const char* pszName, bool bState )
 {
 	if( Q_strcmp( VIEWPORT_PANEL_ALL, pszName ) == 0 )
 	{
@@ -311,7 +311,7 @@ void CBaseViewport::ShowPanel( const char* pszName, const bool bState )
 	ShowPanel( pPanel, bState );
 }
 
-void CBaseViewport::ShowPanel( IViewportPanel* pPanel, const bool bState )
+void CBaseViewport::ShowPanel( IViewportPanel* pPanel, bool bState )
 {
 	if( bState )
 	{
@@ -396,7 +396,7 @@ bool CBaseViewport::IsBackGroundVisible() const
 	return m_pBackGround->IsVisible();
 }
 
-void CBaseViewport::ShowBackGround( const bool bState )
+void CBaseViewport::ShowBackGround( bool bState )
 {
 	m_pBackGround->SetVisible( bState );
 }

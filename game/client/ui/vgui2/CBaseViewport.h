@@ -5,6 +5,7 @@
 
 #include "UtlVector.h"
 
+#include "IViewport.h"
 #include "vgui_controls/EditablePanel.h"
 
 class CBackGroundPanel;
@@ -18,7 +19,7 @@ class AnimationController;
 /**
 *	Base class for VGUI2 viewports.
 */
-class CBaseViewport : public IClientVGUI, public vgui2::EditablePanel
+class CBaseViewport : public vgui2::EditablePanel, public IClientVGUI, public IViewport
 {
 public:
 	DECLARE_CLASS_SIMPLE( CBaseViewport, vgui2::EditablePanel );
@@ -59,7 +60,7 @@ public:
 	//Panels
 	virtual void CreateDefaultPanels();
 
-	virtual void UpdateAllPanels();
+	void UpdateAllPanels() override;
 
 	/**
 	*	Creates a viewport panel by name.
@@ -69,7 +70,7 @@ public:
 	/**
 	*	Finds a panel by name.
 	*/
-	virtual IViewportPanel* FindPanelByName( const char* pszName );
+	IViewportPanel* FindPanelByName( const char* pszName ) override;
 
 	/**
 	*	Adds a viewport panel to the viewport.
@@ -83,25 +84,25 @@ public:
 	*	@param pszName Name of the panel.
 	*	@param bState State to set. If false, the last active panel is restored if it exists.
 	*/
-	virtual void ShowPanel( const char* pszName, const bool bState );
+	void ShowPanel( const char* pszName, bool bState ) override;
 
 	/**
 	*	Shows/hides the given panel.
 	*	@param pPanel Panel to show or hide.
 	*	@param bState State to set. If false, the last active panel is restored if it exists.
 	*/
-	virtual void ShowPanel( IViewportPanel* pPanel, const bool bState );
+	void ShowPanel( IViewportPanel* pPanel, bool bState ) override;
 
 	virtual void RemoveAllPanels();
 
-	virtual IViewportPanel* GetActivePanel();
+	IViewportPanel* GetActivePanel() override;
 
 	virtual IViewportPanel* GetLastActivePanel();
 
 	//BackGround
 	virtual bool IsBackGroundVisible() const;
 
-	virtual void ShowBackGround( const bool bState );
+	void ShowBackGround( bool bState ) override;
 
 	//Scheme
 	virtual void ReloadScheme();
