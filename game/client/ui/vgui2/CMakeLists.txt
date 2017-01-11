@@ -3,6 +3,8 @@ add_sources(
 	CBackGroundPanel.cpp
 	CBaseViewport.h
 	CBaseViewport.cpp
+	CClientMOTD.h
+	CClientMOTD.cpp
 	IViewport.h
 	IViewportPanel.h
 	VGUI2Paths.h

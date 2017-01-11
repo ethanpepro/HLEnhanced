@@ -3,6 +3,8 @@
 
 #include "vgui2/CBaseViewport.h"
 
+class CClientMOTD;
+
 /**
 *	Viewport for the Hud.
 */
@@ -20,6 +22,16 @@ public:
 
 		SetPaintBackgroundEnabled( false );
 	}
+
+	void Start() override;
+
+	void ActivateClientUI() override;
+
+	void CreateDefaultPanels() override;
+
+	IViewportPanel* CreatePanelByName( const char* pszName ) override;
+
+private:
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDVIEWPORT_H
