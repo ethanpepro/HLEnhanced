@@ -252,11 +252,34 @@ set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
 set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
 
 #Shared directories
-
 set( SHARED_INCLUDE_PATHS
-	${INCLUDE_PATHS}
-	${CMAKE_SOURCE_DIR}
+	common
+	public
+	public/math
+	engine
+	pm_shared
+	game_shared
+	game/shared
+	game/shared/entities/player
+	game/server
+	shared/engine
+	source_sdk/public/tier1
+	source_sdk/public
+	source_sdk/common
+	${CMAKE_SOURCE_DIR}  #Should ideally get rid of this.
 )
+
+#Include paths for external dependencies. Should always come after all project paths.
+set( SHARED_INCLUDE_PATHS_EXTERNAL
+	${INCLUDE_PATHS}
+)
+
+if( USE_ANGELSCRIPT )
+	set( SHARED_INCLUDE_PATHS_EXTERNAL
+		external/Angelscript/include
+		${SHARED_INCLUDE_PATHS_EXTERNAL}
+	)
+endif()
 
 #keyvalues and utility are temporary until the code between these repositories can be shared. - Solokiller
 add_subdirectory( common )
@@ -340,36 +363,20 @@ add_subdirectory( source_sdk/public )
 
 preprocess_sources()
 
-#Cache the old include directories list
-#TODO: this doesn't work. The include dirs as they are at the end of processing are used for all exes/libs defined in this file
-get_property( INCLUDE_DIRS DIRECTORY PROPERTY INCLUDE_DIRECTORIES )
+add_library( client SHARED ${PREP_SRCS} )
 
-include_directories(
-	common
-	public
-	public/math
-	engine
-	shared/engine
+target_include_directories( client PRIVATE
 	shared/engine/client
-	game_shared
-	game/shared
-	game/shared/entities/player
 	utils/vgui/include
 	vgui_utils
-	pm_shared
 	game/client
 	game/client/ui
 	game/client/ui/hud
 	game/client/ui/vgui
-	game/server
-	external/SDL2/include
-	source_sdk/public/tier1
-	source_sdk/public
-	source_sdk/common
 	${SHARED_INCLUDE_PATHS}
+	external/SDL2/include
+	${SHARED_INCLUDE_PATHS_EXTERNAL}
 )
-
-add_library( client SHARED ${PREP_SRCS} )
 
 target_compile_definitions( client PRIVATE
 	"${SHARED_DEFS}"
@@ -480,9 +487,6 @@ clear_sources()
 #End client library
 #
 
-#Reset include dirs
-set_property( DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${INCLUDE_DIRS}" )
-
 #
 #Server library
 #
@@ -495,40 +499,26 @@ add_subdirectory( game/server )
 
 preprocess_sources()
 
-if( USE_AS_SQL )
-	include_directories(
-		"external/CTPL/include"
-		"external/SQLite/include"
-		"external/MariaDB/include"
-		"external/ASSQL/include"
-	)
-endif()
-
-if( USE_ANGELSCRIPT )
-include_directories(
-		"external/Angelscript/include"
-	)
-endif()
-
-include_directories(
-	common
-	public
-	public/math
-	engine
-	shared/engine
-	game_shared
-	game/shared
-	game/shared/entities/player
-	pm_shared
-	game/server
-	external
-	source_sdk/public/tier1
-	source_sdk/public
-	source_sdk/common
-	${SHARED_INCLUDE_PATHS}
+set( SERVER_INCLUDE_PATHS_EXTERNAL
 )
 
 add_library( hl SHARED ${PREP_SRCS} )
+
+if( USE_AS_SQL )
+	set( SERVER_INCLUDE_PATHS_EXTERNAL
+		${SERVER_INCLUDE_PATHS_EXTERNAL}
+		external/CTPL/include
+		external/SQLite/include
+		external/MariaDB/include
+		external/ASSQL/include
+	)
+endif()
+
+target_include_directories( hl PRIVATE
+	${SHARED_INCLUDE_PATHS}
+	${SERVER_INCLUDE_PATHS_EXTERNAL}
+	${SHARED_INCLUDE_PATHS_EXTERNAL}
+)
 
 #So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
