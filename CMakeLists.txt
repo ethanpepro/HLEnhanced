@@ -132,9 +132,6 @@ set( SHARED_GAME_DEFS
 	USE_OPFOR=${USE_OPFOR_DEFINE}
 )
 
-#Shared include directories
-set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
-
 #Shared directories
 
 set( SHARED_EXTERNAL_INCLUDE_PATHS
@@ -158,7 +155,6 @@ set( SHARED_INCLUDE_PATHS
 	game/shared/entities/player
 	pm_shared
 	game/server
-	${INCLUDE_PATHS}
 	${CMAKE_SOURCE_DIR}
 )
 
