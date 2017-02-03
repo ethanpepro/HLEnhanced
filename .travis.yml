@@ -64,6 +64,9 @@ install:
   - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
   - STEAMCOMMON_DIR="${TRAVIS_BUILD_DIR}/steam_common"
   - mkdir -p ${DEPS_DIR} && mkdir -p ${STEAMCOMMON_DIR} && mkdir -p ${STEAMCOMMON_DIR} && cd ${DEPS_DIR}
+  # Make symlinks so it can use vgui properly.
+  - ln -s ${TRAVIS_BUILD_DIR}/lib/public/vgui.so ${STEAMCOMMON_DIR}/Half-Life/vgui.so
+  - ln -s ${TRAVIS_BUILD_DIR}/lib/public/vgui.dylib ${STEAMCOMMON_DIR}/Half-Life/vgui.dylib
   # Get the latest CMake version
   - |
     if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
@@ -85,9 +88,9 @@ script:
   # Just execute the cmake and make commands
   - |
     if [[ "${COMPILER}" == "gcc-6" ]]; then
-      cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.so ${BUILD_RULES} ..
+      cmake -DCMAKE_CXX_COMPILER="g++-6" -DCMAKE_C_COMPILER="gcc-6" -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.so.0 ${BUILD_RULES} ..
     else
-      cmake -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.0.dylib -DVGUI1=${TRAVIS_BUILD_DIR}/lib/public/vgui.dylib ${BUILD_RULES} ..
+      cmake -DSTEAMCOMMON=${STEAMCOMMON_DIR} -DSDL2=${TRAVIS_BUILD_DIR}/external/SDL2/lib/libSDL2-2.0.0.dylib ${BUILD_RULES} ..
     fi
   - make
 
