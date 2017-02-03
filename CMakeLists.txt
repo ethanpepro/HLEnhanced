@@ -76,31 +76,42 @@ endif()
 
 #Shared preprocessor definitions
 set( SHARED_DEFS 
-	_CRT_SECURE_NO_WARNINGS
-	_SCL_SECURE_NO_WARNINGS
 )
 
-#Define LINUX so code can check for it
-if( UNIX )
-	if( NOT APPLE )
-		#Define LINUX so code can check for it.
-		#Define _LINUX for Source SDK dependencies.
-		set( SHARED_DEFS
-			"${SHARED_DEFS}"
-			LINUX
-			_LINUX
-		)
-	else()
+if( MSVC )
+	set( SHARED_DEFS
+		${SHARED_DEFS}
+		_CRT_SECURE_NO_WARNINGS
+		_SCL_SECURE_NO_WARNINGS
+	)
+	
+	set( LINUX_32BIT_FLAG "" )
+else()
+	#All non-MSVC targets need this. That includes Cygwin and Mingw.
+	set( SHARED_DEFS
+		${SHARED_DEFS}
+		POSIX
+	)
+
+	if( APPLE )
 		#Define OSX so code can check for it.
 		set( SHARED_DEFS
-			"${SHARED_DEFS}"
+			${SHARED_DEFS}
 			OSX
 		)
 	endif()
-	
+
+	if( UNIX )
+		#Define LINUX so code can check for it.
+		#Define _LINUX for Source SDK dependencies.
+		set( SHARED_DEFS
+			${SHARED_DEFS}
+			LINUX
+			_LINUX
+		)
+	endif()
+
 	set( LINUX_32BIT_FLAG "-m32" )
-else()
-	set( LINUX_32BIT_FLAG "" )
 endif()
 
 #C++14 support
@@ -167,6 +178,7 @@ else()
 	set( UNIX_FS_LIB )
 endif()
 
+#TODO: remove - Solokiller
 link_directories( "${CMAKE_SOURCE_DIR}/lib/public" )
 
 #
@@ -220,7 +232,7 @@ if( NOT DEFINED USE_VGUI2 )
 endif()
 
 target_compile_definitions( client PRIVATE
-	"${SHARED_DEFS}"
+	${SHARED_DEFS}
 	CLIENT_DLL
 	CLIENT_WEAPONS
 	HL_DLL
@@ -389,7 +401,7 @@ add_library( hl SHARED ${PREP_SRCS} )
 
 #So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
-	"${SHARED_DEFS}"
+	${SHARED_DEFS}
 	SERVER_DLL
 	QUIVER
 	VOXEL
