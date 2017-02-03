@@ -33,6 +33,14 @@ foreach(variable ${variables})
 endforeach()
 message(STATUS "")
 
+#C++14 support
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
+
+if( MSVC )
+	#Disable thread-safe init so Windows XP users don't get crashes.
+	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:threadSafeInit-" )
+endif()
+
 #Get the steam/steamapps/common directory
 set( STEAMCOMMON "$ENV{SteamCommon}" CACHE PATH "Steam common directory path" )
 
@@ -117,16 +125,14 @@ else()
 	set( LINUX_32BIT_FLAG "-m32" )
 endif()
 
-#C++14 support
-set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
-
-if( MSVC )
-	#Disable thread-safe init so Windows XP users don't get crashes.
-	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:threadSafeInit-" )
-endif()
+#Shared definitions for the client & server libaries.
+set( SHARED_GAME_DEFS
+	CLIENT_WEAPONS
+	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
+	USE_OPFOR=${USE_OPFOR_DEFINE}
+)
 
 #Shared include directories
-
 set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
 
 #Shared directories
@@ -235,12 +241,9 @@ endif()
 
 target_compile_definitions( client PRIVATE
 	${SHARED_DEFS}
+	${SHARED_GAME_DEFS}
 	CLIENT_DLL
-	CLIENT_WEAPONS
-	HL_DLL
-	"USE_VGUI2=${USE_VGUI2}"
-	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
-	USE_OPFOR=${USE_OPFOR_DEFINE}
+	USE_VGUI2=${USE_VGUI2}
 )
 
 #Find client dependencies
@@ -376,18 +379,11 @@ if( USE_AS_SQL )
 	)
 endif()
 
-#So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
 	${SHARED_DEFS}
+	${SHARED_GAME_DEFS}
 	SERVER_DLL
-	QUIVER
-	VOXEL
-	QUAKE2
-	VALVE_DLL
-	CLIENT_WEAPONS
-	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
 	USE_AS_SQL=${USE_AS_SQL_DEFINE}
-	USE_OPFOR=${USE_OPFOR_DEFINE}
 )
 
 #Copy the libraries first so they can be found by the code below.
