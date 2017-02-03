@@ -164,16 +164,6 @@ if( USE_ANGELSCRIPT )
 	find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
 	find_library( ANGELSCRIPTLIBD Angelscriptd PATHS external/Angelscript/lib/ )
 	find_library( ANGELSCRIPTUTILSD AngelscriptUtilsd PATHS external/Angelscript/lib/ )
-	
-	if( NOT WIN32 )
-
-		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
-		set( ANGELSCRIPTLIB "-l:\"${ANGELSCRIPTLIB}\"" )
-		set( ANGELSCRIPTUTILS "-l:\"${ANGELSCRIPTUTILS}\"" )
-		set( ANGELSCRIPTLIBD "-l:\"${ANGELSCRIPTLIBD}\"" )
-		set( ANGELSCRIPTUTILSD "-l:\"${ANGELSCRIPTUTILSD}\"" )
-
-	endif()
 else()
 	set( ANGELSCRIPTLIB )
 	set( ANGELSCRIPTUTILS )
@@ -441,10 +431,6 @@ if( USE_AS_SQL )
 		find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" NO_DEFAULT_PATH )
 		set( MARIADBD ${MARIADB} )
 		set( PTHREAD "pthread" )
-		
-		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
-		set( ASSQL "-l:\"${ASSQL}\"" )
-		set( ASSQLD "-l:\"${ASSQLD}\"" )
 	endif()
 else()
 	set( ASSQL )
