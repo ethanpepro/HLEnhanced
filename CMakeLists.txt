@@ -427,19 +427,28 @@ else()
 	set( PTHREAD )
 endif()
 
+#Set the list of platform specific libraries
+if( WIN32 )
+	set( SERVER_PLAT_LIBS "" )
+else()
+	set( SERVER_PLAT_LIBS "dl" )
+endif()
+
 #Link with server dependencies
 target_link_libraries( hl 
-	"${SQLITE3}"
-	debug "${MARIADBD}"
-	optimized "${MARIADB}"
-	optimized "${ASSQL}"
-	debug "${ASSQLD}"
 	"${SHARED_DEPENDENCIES}"
+	optimized "${ASSQL}"
 	optimized "${ANGELSCRIPTUTILS}"
 	optimized "${ANGELSCRIPTLIB}"
+	debug "${ASSQLD}"
 	debug "${ANGELSCRIPTUTILSD}"
 	debug "${ANGELSCRIPTLIBD}"
+	"${SQLITE3}"
+	optimized "${MARIADB}"
+	debug "${MARIADBD}"
 	"${DELAYIMP}"
+	Threads::Threads
+	${SERVER_PLAT_LIBS}
 	${UNIX_FS_LIB}
 )
 
