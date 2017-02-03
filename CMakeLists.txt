@@ -254,7 +254,11 @@ else()
 	set( VGUI1_NAME "vgui.lib" )
 endif()
 
-find_library( VGUI1 ${VGUI1_NAME} PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Life/" "${CMAKE_SOURCE_DIR}/lib/public" )
+#VGUI1 has issues linking with the client due to its non-standard filename. To work around this, we can instead import it and manually specify the location.
+#That sets the correct linker path and filename.
+add_library( vgui SHARED IMPORTED )
+set_property( TARGET vgui PROPERTY IMPORTED_LOCATION ${GAME_BIN_PATH}/${VGUI1_NAME} )
+set_property( TARGET vgui PROPERTY IMPORTED_IMPLIB ${CMAKE_SOURCE_DIR}/utils/vgui/lib/win32_vc6/vgui.lib )
 
 if( UNIX )
 	if ( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )
@@ -313,7 +317,7 @@ target_link_libraries( client
 	optimized "${ANGELSCRIPTLIB}"
 	debug "${ANGELSCRIPTUTILSD}"
 	debug "${ANGELSCRIPTLIBD}"
-	"${VGUI1}"
+	vgui
 	"${CLIENT_PLAT_LIBS}"
 	"${SDL2}"
 	"${VGUI2_LIBS}"
