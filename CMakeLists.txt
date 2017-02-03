@@ -120,6 +120,11 @@ endif()
 #C++14 support
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
 
+if( MSVC )
+	#Disable thread-safe init so Windows XP users don't get crashes.
+	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:threadSafeInit-" )
+endif()
+
 #Shared include directories
 
 set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
