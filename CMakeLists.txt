@@ -134,6 +134,13 @@ set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
 set( SHARED_EXTERNAL_INCLUDE_PATHS
 )
 
+if( USE_ANGELSCRIPT )
+	set( SHARED_EXTERNAL_INCLUDE_PATHS
+		${SHARED_EXTERNAL_INCLUDE_PATHS}
+		${EXTERNAL_DIR}/Angelscript/include
+	)
+endif()
+
 set( SHARED_INCLUDE_PATHS
 	common
 	public
@@ -353,27 +360,21 @@ add_subdirectory( game/server )
 
 preprocess_sources()
 
-if( USE_AS_SQL )
-	include_directories(
-		"external/CTPL/include"
-		"external/SQLite/include"
-		"external/MariaDB/include"
-		"external/ASSQL/include"
-	)
-endif()
-
-if( USE_ANGELSCRIPT )
-include_directories(
-		"external/Angelscript/include"
-	)
-endif()
-
 add_library( hl SHARED ${PREP_SRCS} )
 
 target_include_directories( hl PRIVATE
 	${SHARED_INCLUDE_PATHS}
 	${SHARED_EXTERNAL_INCLUDE_PATHS}
 )
+
+if( USE_AS_SQL )
+	target_include_directories( hl PRIVATE
+		${EXTERNAL_DIR}/CTPL/include
+		${EXTERNAL_DIR}/SQLite/include
+		${EXTERNAL_DIR}/MariaDB/include
+		${EXTERNAL_DIR}/ASSQL/include
+	)
+endif()
 
 #So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
