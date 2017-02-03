@@ -47,6 +47,8 @@ set( GAME_BASE_PATH "${STEAMCOMMON}/Half-Life/hlenhanced" )
 
 MESSAGE( STATUS "Base Game Path: ${GAME_BASE_PATH}" )
 
+set( EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/external )
+
 set( USE_ANGELSCRIPT "0" CACHE BOOL "Whether to include Angelscript" )
 set( USE_AS_SQL "0" CACHE BOOL "Whether to include Angelscript SQL APIs" )
 set( USE_OPFOR "0" CACHE BOOL "Whether to include Opposing Force related stuff" )
@@ -413,6 +415,25 @@ target_compile_definitions( hl PRIVATE
 	USE_OPFOR=${USE_OPFOR_DEFINE}
 )
 
+#Copy the libraries first so they can be found by the code below.
+set( LIBS_TO_COPY )
+
+if( USE_AS_SQL )
+	if( WIN32 )
+		#Copy the sqlite3 dll so the exe can get to it
+		set( LIBS_TO_COPY ${LIBS_TO_COPY} "${EXTERNAL_DIR}/SQLite/lib/sqlite3.dll" )
+	else()
+		#Copy the sqlite3 library so the exe can get to it
+		#Copy the mariadb library so the exe can get to it		
+		set( LIBS_TO_COPY ${LIBS_TO_COPY} "${EXTERNAL_DIR}/SQLite/lib/libsqlite3.so" "${EXTERNAL_DIR}/MariaDB/lib/libmariadb.so.2" )
+	endif()
+endif()
+
+foreach( lib IN LISTS LIBS_TO_COPY )
+	MESSAGE( STATUS "Copying library \"${lib}\"" )
+	file( COPY ${lib} DESTINATION ${GAME_BASE_PATH} )
+endforeach()
+
 #Find server dependencies
 if( USE_AS_SQL )
 	find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
@@ -494,31 +515,6 @@ SET_TARGET_PROPERTIES( hl PROPERTIES PREFIX "" )
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
 
 clear_sources()
-
-if( USE_AS_SQL )
-	if( WIN32 )
-		#Copy the sqlite3 dll so the exe can get to it
-		add_custom_command( TARGET hl POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/sqlite3.dll"
-			"$<TARGET_FILE_DIR:hl>/.."
-		)
-	else()
-		#Copy the sqlite3 library so the exe can get to it
-		add_custom_command( TARGET hl PRE_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/libsqlite3.so"
-			"$<TARGET_FILE_DIR:hl>/.."
-		)
-
-		#Copy the mariadb library so the exe can get to it
-		add_custom_command( TARGET hl PRE_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.so.2"
-			"$<TARGET_FILE_DIR:hl>/.."
-		)
-	endif()
-endif()
 
 #
 #End server library
