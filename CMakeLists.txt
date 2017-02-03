@@ -189,9 +189,6 @@ else()
 	set( UNIX_FS_LIB )
 endif()
 
-#TODO: remove - Solokiller
-link_directories( "${CMAKE_SOURCE_DIR}/lib/public" )
-
 #
 #Client library
 #
