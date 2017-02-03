@@ -125,7 +125,20 @@ set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
 
 #Shared directories
 
+set( SHARED_EXTERNAL_INCLUDE_PATHS
+)
+
 set( SHARED_INCLUDE_PATHS
+	common
+	public
+	public/math
+	engine
+	shared/engine
+	game_shared
+	game/shared
+	game/shared/entities/player
+	pm_shared
+	game/server
 	${INCLUDE_PATHS}
 	${CMAKE_SOURCE_DIR}
 )
@@ -197,35 +210,22 @@ add_subdirectory( shared/engine/client )
 
 preprocess_sources()
 
-#Cache the old include directories list
-#TODO: this doesn't work. The include dirs as they are at the end of processing are used for all exes/libs defined in this file
-get_property( INCLUDE_DIRS DIRECTORY PROPERTY INCLUDE_DIRECTORIES )
+add_library( client SHARED ${PREP_SRCS} )
 
-include_directories(
-	common
-	public
-	public/math
-	engine
-	shared/engine
+target_include_directories( client PRIVATE
 	shared/engine/client
-	game_shared
-	game/shared
-	game/shared/entities/player
 	utils/vgui/include
 	vgui_utils
-	pm_shared
 	game/client
 	game/client/ui/hud
 	game/client/ui/vgui
-	game/server
-	external/SDL2/include
+	${SHARED_INCLUDE_PATHS}
 	source_sdk/public/tier1
 	source_sdk/public
 	source_sdk/common
-	${SHARED_INCLUDE_PATHS}
+	external/SDL2/include
+	${SHARED_EXTERNAL_INCLUDE_PATHS}
 )
-
-add_library( client SHARED ${PREP_SRCS} )
 
 #Default to false
 #TODO: change to cached var
@@ -354,9 +354,6 @@ clear_sources()
 #End client library
 #
 
-#Reset include dirs
-set_property( DIRECTORY PROPERTY INCLUDE_DIRECTORIES "${INCLUDE_DIRS}" )
-
 #
 #Server library
 #
@@ -384,22 +381,12 @@ include_directories(
 	)
 endif()
 
-include_directories(
-	common
-	public
-	public/math
-	engine
-	shared/engine
-	game_shared
-	game/shared
-	game/shared/entities/player
-	pm_shared
-	game/server
-	external
-	${SHARED_INCLUDE_PATHS}
-)
-
 add_library( hl SHARED ${PREP_SRCS} )
+
+target_include_directories( hl PRIVATE
+	${SHARED_INCLUDE_PATHS}
+	${SHARED_EXTERNAL_INCLUDE_PATHS}
+)
 
 #So many of these... Do we need all of them?
 target_compile_definitions( hl PRIVATE
