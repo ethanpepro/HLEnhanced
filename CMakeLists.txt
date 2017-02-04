@@ -12,6 +12,8 @@ include( cmake/MSVCRuntime.cmake )
 
 project( HLEnhanced )
 
+include( cmake/WinXPSupport.cmake )
+
 #Needs static CRT to avoid alloc issues.
 set( MSVC_RUNTIME "static" )
 
@@ -35,11 +37,6 @@ message(STATUS "")
 
 #C++14 support
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
-
-if( MSVC )
-	#Disable thread-safe init so Windows XP users don't get crashes.
-	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:threadSafeInit-" )
-endif()
 
 #Get the steam/steamapps/common directory
 set( STEAMCOMMON "$ENV{SteamCommon}" CACHE PATH "Steam common directory path" )
