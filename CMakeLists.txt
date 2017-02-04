@@ -62,6 +62,11 @@ set( USE_ANGELSCRIPT "0" CACHE BOOL "Whether to include Angelscript" )
 set( USE_AS_SQL "0" CACHE BOOL "Whether to include Angelscript SQL APIs" )
 set( USE_OPFOR "0" CACHE BOOL "Whether to include Opposing Force related stuff" )
 
+#Some libraries that we use don't come with .a files (import libraries) for Cygwin compilation (Unix Makefiles on Windows).
+#This isn't really supported, and since we only use Makefiles on Windows for the compile_commands.json file right now this isn't really an issue.
+#Should we choose to support Cygwin we will need the import libraries though.
+set( CLANG_DB_BUILD OFF CACHE BOOL "Whether this is a Clang database build. If enabled, some settings are disabled in order to function on Windows" )
+
 if( NOT USE_ANGELSCRIPT AND USE_AS_SQL )
 	MESSAGE( STATUS "Forcing USE_AS_SQL to off due to no Angelscript usage" )
 	set( USE_AS_SQL 0 )
@@ -83,6 +88,11 @@ if( USE_OPFOR )
 	set( USE_OPFOR_DEFINE 1 )
 else()
 	set( USE_OPFOR_DEFINE 0 )
+endif()
+
+if( CLANG_DB_BUILD )
+	MESSAGE( STATUS "Exporting Compile Commands" )
+	set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
 endif()
 
 #Shared preprocessor definitions
@@ -259,17 +269,21 @@ add_library( vgui SHARED IMPORTED )
 set_property( TARGET vgui PROPERTY IMPORTED_LOCATION ${GAME_BIN_PATH}/${VGUI1_NAME} )
 set_property( TARGET vgui PROPERTY IMPORTED_IMPLIB ${CMAKE_SOURCE_DIR}/utils/vgui/lib/win32_vc6/vgui.lib )
 
-if( UNIX )
-	if ( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )
-		set( SDL2_NAME "libSDL2-2.0.0.dylib" )
+if( NOT CLANG_DB_BUILD )
+	if( UNIX )
+		if ( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )
+			set( SDL2_NAME "libSDL2-2.0.0.dylib" )
+		else()
+			set( SDL2_NAME "libSDL2-2.0.so.0" )
+		endif()
 	else()
-		set( SDL2_NAME "libSDL2-2.0.so.0" )
+		set( SDL2_NAME "${CMAKE_SHARED_LIBRARY_PREFIX}SDL2${CMAKE_STATIC_LIBRARY_SUFFIX}" )
 	endif()
-else()
-	set( SDL2_NAME "${CMAKE_SHARED_LIBRARY_PREFIX}SDL2${CMAKE_STATIC_LIBRARY_SUFFIX}" )
-endif()
 
-find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ external/SDL2/lib "${STEAMCOMMON}/Half-Life/" )
+	find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ external/SDL2/lib "${STEAMCOMMON}/Half-Life/" )
+else()
+	set( SDL2 )
+endif()
 
 if( "${USE_VGUI2}" STREQUAL "1" )
 	find_library( VGUI2 vgui_controls PATHS source_sdk/lib/public/ )
@@ -385,7 +399,7 @@ target_compile_definitions( hl PRIVATE
 #Copy the libraries first so they can be found by the code below.
 set( LIBS_TO_COPY )
 
-if( USE_AS_SQL )
+if( USE_AS_SQL AND NOT CLANG_DB_BUILD )
 	if( WIN32 )
 		#Copy the sqlite3 dll so the exe can get to it
 		set( LIBS_TO_COPY ${LIBS_TO_COPY} "${EXTERNAL_DIR}/SQLite/lib/sqlite3.dll" )
@@ -402,7 +416,7 @@ foreach( lib IN LISTS LIBS_TO_COPY )
 endforeach()
 
 #Find server dependencies
-if( USE_AS_SQL )
+if( USE_AS_SQL AND NOT CLANG_DB_BUILD )
 	find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
 	find_library( ASSQLD AngelscriptSQLd PATHS external/ASSQL/lib/ )
 
