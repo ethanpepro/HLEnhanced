@@ -16,7 +16,7 @@ if( NOT MSVC_VERSION OR NOT CMAKE_VS_PLATFORM_TOOLSET )
 	MESSAGE( FATAL_ERROR "Include WinXPSupport.cmake after starting a project" )
 endif()
 
-if( NOT "${MSVC_VERSION}" VERSION_LESS 19 AND CMAKE_VS_PLATFORM_TOOLSET MATCHES ".*_xp$" )
+if( NOT "${MSVC_VERSION}" LESS 1900 AND CMAKE_VS_PLATFORM_TOOLSET MATCHES ".*_xp$" )
 	MESSAGE( STATUS "Disabling Thread-safe initialization for Windows XP support" )
 	#Disable thread-safe init so Windows XP users don't get crashes.
 	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:threadSafeInit-" )
