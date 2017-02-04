@@ -7,136 +7,12 @@
 ###################################################
 cmake_minimum_required( VERSION 3.6 )
 
-# function to collect all the sources from sub-directories
-# into a single list
-function(add_sources)
-  get_property(is_defined GLOBAL PROPERTY SRCS_LIST DEFINED)
-  if(NOT is_defined)
-    define_property(GLOBAL PROPERTY SRCS_LIST
-      BRIEF_DOCS "List of source files"
-      FULL_DOCS "List of source files to be compiled in one library")
-  endif()
-  # make absolute paths
-  set(SRCS)
-  foreach(s IN LISTS ARGN)
-    if(NOT IS_ABSOLUTE "${s}")
-      get_filename_component(s "${s}" ABSOLUTE)
-    endif()
-    list(APPEND SRCS "${s}")
-  endforeach()
-  # append to global list
-  set_property(GLOBAL APPEND PROPERTY SRCS_LIST "${SRCS}")
-endfunction(add_sources)
-
-# preprocess sources
-function( preprocess_sources )
-	set(PREP_SRCS PARENT_SCOPE)
-	get_property(SRCS GLOBAL PROPERTY SRCS_LIST)
-	foreach(s IN LISTS SRCS)
-	  file(RELATIVE_PATH rs "${CMAKE_CURRENT_SOURCE_DIR}" "${s}")
-	  string(REGEX REPLACE "r$" "" o "${CMAKE_CURRENT_BINARY_DIR}/${rs}")
-	  add_custom_command(
-		OUTPUT "${o}"
-		COMMAND ${CMAKE_COMMAND} -E copy "${s}" "${o}"
-		DEPENDS "${s}"
-		COMMENT "Creating ${o}"
-		VERBATIM
-		)
-	  list(APPEND PREP_SRCS "${s}")
-	endforeach()
-	set(PREP_SRCS ${PREP_SRCS} PARENT_SCOPE)
-endfunction( preprocess_sources )
-
-function( create_source_groups _src_root_path )
-	get_property(SRCS GLOBAL PROPERTY SRCS_LIST)
-	foreach(_source IN ITEMS ${SRCS})
-		get_filename_component(_source_path "${_source}" PATH)
-		file(RELATIVE_PATH _source_path_rel "${_src_root_path}" "${_source_path}")
-		string(REPLACE "/" "\\" _group_path "${_source_path_rel}")
-		source_group("${_group_path}" FILES "${_source}")
-	endforeach()
-endfunction( create_source_groups )
-
-#Function to clear the sources list.
-function( clear_sources )
-	set_property( GLOBAL PROPERTY SRCS_LIST "" )
-	set( PREP_SRCS PARENT_SCOPE )
-endfunction( clear_sources )
-
-# Function to add include files.
-function( add_includes )
-  get_property(is_defined GLOBAL PROPERTY INCLUDES_LIST DEFINED)
-  if(NOT is_defined)
-    define_property(GLOBAL PROPERTY INCLUDES_LIST
-      BRIEF_DOCS "List of include files"
-      FULL_DOCS "List of include files to be compiled in one library")
-  endif()
-  # make absolute paths
-  set(INCLUDES)
-  foreach(s IN LISTS ARGN)
-    if(NOT IS_ABSOLUTE "${s}")
-      get_filename_component(s "${s}" ABSOLUTE)
-    endif()
-    list(APPEND INCLUDES "${s}")
-  endforeach()
-  # append to global list
-  set_property(GLOBAL APPEND PROPERTY INCLUDES_LIST "${INCLUDES}")
-endfunction( add_includes )
-
-# Function to install includes.
-function( install_includes _include_root_path )
-	get_property(INCLUDES GLOBAL PROPERTY INCLUDES_LIST)
-	
-	foreach(_include IN ITEMS ${INCLUDES})
-		get_filename_component(_include_path "${_include}" PATH)
-		file(RELATIVE_PATH _include_path_rel "${_include_root_path}" "${_include_path}")
-		string(REPLACE "/" "\\" _group_path "${_include_path_rel}")
-		install( FILES "${_include}" DESTINATION "include/${_group_path}" )
-	endforeach()
-	
-	set_property( GLOBAL PROPERTY INCLUDES_LIST "" )
-endfunction( install_includes )
-
-macro(configure_msvc_runtime)
-  if(MSVC)
-    # Default to statically-linked runtime.
-    if("${MSVC_RUNTIME}" STREQUAL "")
-      set(MSVC_RUNTIME "static")
-    endif()
-    # Set compiler options.
-    set(variables
-      CMAKE_C_FLAGS_DEBUG
-      CMAKE_C_FLAGS_MINSIZEREL
-      CMAKE_C_FLAGS_RELEASE
-      CMAKE_C_FLAGS_RELWITHDEBINFO
-      CMAKE_CXX_FLAGS_DEBUG
-      CMAKE_CXX_FLAGS_MINSIZEREL
-      CMAKE_CXX_FLAGS_RELEASE
-      CMAKE_CXX_FLAGS_RELWITHDEBINFO
-    )
-    if(${MSVC_RUNTIME} STREQUAL "static")
-      message(STATUS
-        "MSVC -> forcing use of statically-linked runtime."
-      )
-      foreach(variable ${variables})
-        if(${variable} MATCHES "/MD")
-          string(REGEX REPLACE "/MD" "/MT" ${variable} "${${variable}}")
-        endif()
-      endforeach()
-    else()
-      message(STATUS
-        "MSVC -> forcing use of dynamically-linked runtime."
-      )
-      foreach(variable ${variables})
-        if(${variable} MATCHES "/MT")
-          string(REGEX REPLACE "/MT" "/MD" ${variable} "${${variable}}")
-        endif()
-      endforeach()
-    endif()
-  endif()
-endmacro()
+include( cmake/InputFilesList.cmake )
+include( cmake/MSVCRuntime.cmake )
 
 project( HLEnhanced )
+
+include( cmake/WinXPSupport.cmake )
 
 #Needs static CRT to avoid alloc issues.
 set( MSVC_RUNTIME "static" )
@@ -159,6 +35,9 @@ foreach(variable ${variables})
 endforeach()
 message(STATUS "")
 
+#C++14 support
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
+
 #Get the steam/steamapps/common directory
 set( STEAMCOMMON "$ENV{SteamCommon}" CACHE PATH "Steam common directory path" )
 
@@ -169,14 +48,22 @@ if( "${STEAMCOMMON}" STREQUAL "" )
 endif()
 
 #Base dir for game outputs
-set( GAME_BASE_PATH "${STEAMCOMMON}/Half-Life/hlenhanced" )
+set( GAME_BIN_PATH "${STEAMCOMMON}/Half-Life" )
+set( GAME_BASE_PATH "${GAME_BIN_PATH}/hlenhanced" )
 
 MESSAGE( STATUS "Base Game Path: ${GAME_BASE_PATH}" )
+
+set( EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/external )
 
 set( USE_ANGELSCRIPT "0" CACHE BOOL "Whether to include Angelscript" )
 set( USE_AS_SQL "0" CACHE BOOL "Whether to include Angelscript SQL APIs" )
 set( USE_OPFOR "0" CACHE BOOL "Whether to include Opposing Force related stuff" )
 set( USE_VGUI2 "0" CACHE BOOL "Whether to include VGUI2 features" )
+
+#Some libraries that we use don't come with .a files (import libraries) for Cygwin compilation (Unix Makefiles on Windows).
+#This isn't really supported, and since we only use Makefiles on Windows for the compile_commands.json file right now this isn't really an issue.
+#Should we choose to support Cygwin we will need the import libraries though.
+set( CLANG_DB_BUILD OFF CACHE BOOL "Whether this is a Clang database build. If enabled, some settings are disabled in order to function on Windows" )
 
 if( NOT USE_ANGELSCRIPT AND USE_AS_SQL )
 	MESSAGE( STATUS "Forcing USE_AS_SQL to off due to no Angelscript usage" )
@@ -208,50 +95,73 @@ else()
 	set( USE_VGUI2_DEFINE 0 )
 endif()
 
+if( CLANG_DB_BUILD )
+	MESSAGE( STATUS "Exporting Compile Commands" )
+	set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+endif()
+
 #Shared preprocessor definitions
 set( SHARED_DEFS 
-	_CRT_SECURE_NO_WARNINGS
-	_SCL_SECURE_NO_WARNINGS
 )
 
-if( UNIX )
+if( MSVC )
+	set( SHARED_DEFS
+		${SHARED_DEFS}
+		_CRT_SECURE_NO_WARNINGS
+		_SCL_SECURE_NO_WARNINGS
+	)
+	
+	set( LINUX_32BIT_FLAG "" )
+else()
+	#All non-MSVC targets need this. That includes Cygwin and Mingw.
 	#Match Source 2013 in defining GNUC for UNIX platforms.
 	#Match Source 2013 in defining POSIX for UNIX platforms.
 	set( SHARED_DEFS
-		"${SHARED_DEFS}"
+		${SHARED_DEFS}
 		GNUC
 		POSIX
 	)
 
-	if( NOT APPLE )
-		#Define LINUX so code can check for it.
-		#Define _LINUX for Source SDK dependencies.
-		set( SHARED_DEFS
-			"${SHARED_DEFS}"
-			LINUX
-			_LINUX
-		)
-	else()
+	if( APPLE )
 		#Define OSX so code can check for it.
 		set( SHARED_DEFS
-			"${SHARED_DEFS}"
+			${SHARED_DEFS}
 			OSX
 		)
 	endif()
-	
+
+	if( UNIX )
+		#Define LINUX so code can check for it.
+		#Define _LINUX for Source SDK dependencies.
+		set( SHARED_DEFS
+			${SHARED_DEFS}
+			LINUX
+			_LINUX
+		)
+	endif()
+
 	set( LINUX_32BIT_FLAG "-m32" )
-else()
-	set( LINUX_32BIT_FLAG "" )
 endif()
 
-#C++14 support
-set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
-
-#Shared include directories
-
-set( INCLUDE_PATHS "" CACHE STRING "Additional include paths" )
+#Shared definitions for the client & server libaries.
+set( SHARED_GAME_DEFS
+	CLIENT_WEAPONS
+	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
+	USE_OPFOR=${USE_OPFOR_DEFINE}
+)
 
 #Shared directories
+#Include paths for external dependencies. Should always come after all project paths.
+set( SHARED_EXTERNAL_INCLUDE_PATHS
+)
+
+if( USE_ANGELSCRIPT )
+	set( SHARED_EXTERNAL_INCLUDE_PATHS
+		${SHARED_EXTERNAL_INCLUDE_PATHS}
+		${EXTERNAL_DIR}/Angelscript/include
+	)
+endif()
+
 set( SHARED_INCLUDE_PATHS
 	common
 	public
@@ -268,18 +178,6 @@ set( SHARED_INCLUDE_PATHS
 	source_sdk/common
 	${CMAKE_SOURCE_DIR}  #Should ideally get rid of this.
 )
-
-#Include paths for external dependencies. Should always come after all project paths.
-set( SHARED_INCLUDE_PATHS_EXTERNAL
-	${INCLUDE_PATHS}
-)
-
-if( USE_ANGELSCRIPT )
-	set( SHARED_INCLUDE_PATHS_EXTERNAL
-		external/Angelscript/include
-		${SHARED_INCLUDE_PATHS_EXTERNAL}
-	)
-endif()
 
 #keyvalues and utility are temporary until the code between these repositories can be shared. - Solokiller
 add_subdirectory( common )
@@ -302,16 +200,6 @@ if( USE_ANGELSCRIPT )
 	find_library( ANGELSCRIPTUTILS AngelscriptUtils PATHS external/Angelscript/lib/ )
 	find_library( ANGELSCRIPTLIBD Angelscriptd PATHS external/Angelscript/lib/ )
 	find_library( ANGELSCRIPTUTILSD AngelscriptUtilsd PATHS external/Angelscript/lib/ )
-	
-	if( NOT WIN32 )
-
-		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
-		set( ANGELSCRIPTLIB "-l:\"${ANGELSCRIPTLIB}\"" )
-		set( ANGELSCRIPTUTILS "-l:\"${ANGELSCRIPTUTILS}\"" )
-		set( ANGELSCRIPTLIBD "-l:\"${ANGELSCRIPTLIBD}\"" )
-		set( ANGELSCRIPTUTILSD "-l:\"${ANGELSCRIPTUTILSD}\"" )
-
-	endif()
 else()
 	set( ANGELSCRIPTLIB )
 	set( ANGELSCRIPTUTILS )
@@ -342,7 +230,6 @@ else()
 	set( UNIX_FS_LIB )
 endif()
 
-link_directories( "${CMAKE_SOURCE_DIR}/lib/public" )
 
 #Set up source_sdk projects first
 add_subdirectory( source_sdk )
@@ -375,17 +262,14 @@ target_include_directories( client PRIVATE
 	game/client/ui/vgui
 	${SHARED_INCLUDE_PATHS}
 	external/SDL2/include
-	${SHARED_INCLUDE_PATHS_EXTERNAL}
+	${SHARED_EXTERNAL_INCLUDE_PATHS}
 )
 
 target_compile_definitions( client PRIVATE
-	"${SHARED_DEFS}"
+	${SHARED_DEFS}
+	${SHARED_GAME_DEFS}
 	CLIENT_DLL
-	CLIENT_WEAPONS
-	HL_DLL
 	USE_VGUI2=${USE_VGUI2_DEFINE}
-	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
-	USE_OPFOR=${USE_OPFOR_DEFINE}
 	NO_MALLOC_OVERRIDE
 )
 
@@ -400,29 +284,29 @@ else()
 	set( VGUI1_NAME "vgui.lib" )
 endif()
 
-find_library( VGUI1 ${VGUI1_NAME} PATHS utils/vgui/lib/win32_vc6/ "${STEAMCOMMON}/Half-Life/" "${CMAKE_SOURCE_DIR}/lib/public" )
+#VGUI1 has issues linking with the client due to its non-standard filename. To work around this, we can instead import it and manually specify the location.
+#That sets the correct linker path and filename.
+add_library( vgui SHARED IMPORTED )
+set_property( TARGET vgui PROPERTY IMPORTED_LOCATION ${GAME_BIN_PATH}/${VGUI1_NAME} )
+set_property( TARGET vgui PROPERTY IMPORTED_IMPLIB ${CMAKE_SOURCE_DIR}/utils/vgui/lib/win32_vc6/vgui.lib )
 
-if( UNIX )
-	if ( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )
-		set( SDL2_NAME "libSDL2-2.0.0.dylib" )
+if( NOT CLANG_DB_BUILD )
+	if( UNIX )
+		if ( ${CMAKE_SYSTEM_NAME} MATCHES "Darwin" )
+			set( SDL2_NAME "libSDL2-2.0.0.dylib" )
+		else()
+			set( SDL2_NAME "libSDL2-2.0.so.0" )
+		endif()
 	else()
-		set( SDL2_NAME "libSDL2-2.0.so.0" )
+		set( SDL2_NAME "${CMAKE_SHARED_LIBRARY_PREFIX}SDL2${CMAKE_STATIC_LIBRARY_SUFFIX}" )
 	endif()
+
+	find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ external/SDL2/lib "${STEAMCOMMON}/Half-Life/" )
 else()
-	set( SDL2_NAME "${CMAKE_SHARED_LIBRARY_PREFIX}SDL2${CMAKE_STATIC_LIBRARY_SUFFIX}" )
+	set( SDL2 )
 endif()
 
-find_library( SDL2 ${SDL2_NAME} PATHS lib/public/ external/SDL2/lib "${STEAMCOMMON}/Half-Life/" )
 
-if( NOT WIN32 )
-	#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.so
-	if( NOT APPLE )
-		set( VGUI1 "-l:\"${VGUI1}\"" )
-	else()
-		#Do nothing for OSX.
-	endif()
-
-endif()
 
 if( USE_VGUI2 )
 	set( VGUI2_LIBS
@@ -441,15 +325,15 @@ endif()
 
 #Link with client dependencies
 target_link_libraries( client 
+	"${SHARED_DEPENDENCIES}"
 	optimized "${ANGELSCRIPTUTILS}"
 	optimized "${ANGELSCRIPTLIB}"
 	debug "${ANGELSCRIPTUTILSD}"
 	debug "${ANGELSCRIPTLIBD}"
-	"${VGUI1}"
+	vgui
 	"${CLIENT_PLAT_LIBS}"
 	"${SDL2}"
 	"${VGUI2_LIBS}"
-	${SHARED_DEPENDENCIES}
 	Threads::Threads
 	${UNIX_FS_LIB}
 )
@@ -499,43 +383,50 @@ add_subdirectory( game/server )
 
 preprocess_sources()
 
-set( SERVER_INCLUDE_PATHS_EXTERNAL
-)
-
 add_library( hl SHARED ${PREP_SRCS} )
-
-if( USE_AS_SQL )
-	set( SERVER_INCLUDE_PATHS_EXTERNAL
-		${SERVER_INCLUDE_PATHS_EXTERNAL}
-		external/CTPL/include
-		external/SQLite/include
-		external/MariaDB/include
-		external/ASSQL/include
-	)
-endif()
 
 target_include_directories( hl PRIVATE
 	${SHARED_INCLUDE_PATHS}
-	${SERVER_INCLUDE_PATHS_EXTERNAL}
-	${SHARED_INCLUDE_PATHS_EXTERNAL}
+	${SHARED_EXTERNAL_INCLUDE_PATHS}
 )
 
-#So many of these... Do we need all of them?
+if( USE_AS_SQL )
+	target_include_directories( hl PRIVATE
+		${EXTERNAL_DIR}/CTPL/include
+		${EXTERNAL_DIR}/SQLite/include
+		${EXTERNAL_DIR}/MariaDB/include
+		${EXTERNAL_DIR}/ASSQL/include
+	)
+endif()
+
 target_compile_definitions( hl PRIVATE
-	"${SHARED_DEFS}"
+	${SHARED_DEFS}
+	${SHARED_GAME_DEFS}
 	SERVER_DLL
-	QUIVER
-	VOXEL
-	QUAKE2
-	VALVE_DLL
-	CLIENT_WEAPONS
-	USE_ANGELSCRIPT=${USE_ANGELSCRIPT_DEFINE}
 	USE_AS_SQL=${USE_AS_SQL_DEFINE}
-	USE_OPFOR=${USE_OPFOR_DEFINE}
 )
+
+#Copy the libraries first so they can be found by the code below.
+set( LIBS_TO_COPY )
+
+if( USE_AS_SQL AND NOT CLANG_DB_BUILD )
+	if( WIN32 )
+		#Copy the sqlite3 dll so the exe can get to it
+		set( LIBS_TO_COPY ${LIBS_TO_COPY} "${EXTERNAL_DIR}/SQLite/lib/sqlite3.dll" )
+	else()
+		#Copy the sqlite3 library so the exe can get to it
+		#Copy the mariadb library so the exe can get to it		
+		set( LIBS_TO_COPY ${LIBS_TO_COPY} "${EXTERNAL_DIR}/SQLite/lib/libsqlite3.so" "${EXTERNAL_DIR}/MariaDB/lib/libmariadb.so.2" )
+	endif()
+endif()
+
+foreach( lib IN LISTS LIBS_TO_COPY )
+	MESSAGE( STATUS "Copying library \"${lib}\"" )
+	file( COPY ${lib} DESTINATION ${GAME_BASE_PATH} )
+endforeach()
 
 #Find server dependencies
-if( USE_AS_SQL )
+if( USE_AS_SQL AND NOT CLANG_DB_BUILD )
 	find_library( ASSQL AngelscriptSQL PATHS external/ASSQL/lib/ )
 	find_library( ASSQLD AngelscriptSQLd PATHS external/ASSQL/lib/ )
 
@@ -550,10 +441,6 @@ if( USE_AS_SQL )
 		find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" NO_DEFAULT_PATH )
 		set( MARIADBD ${MARIADB} )
 		set( PTHREAD "pthread" )
-		
-		#This mucking about is needed because CMake can't figure out how to handle libraries not named lib<name>.a
-		set( ASSQL "-l:\"${ASSQL}\"" )
-		set( ASSQLD "-l:\"${ASSQLD}\"" )
 	endif()
 else()
 	set( ASSQL )
@@ -564,19 +451,28 @@ else()
 	set( PTHREAD )
 endif()
 
+#Set the list of platform specific libraries
+if( WIN32 )
+	set( SERVER_PLAT_LIBS "" )
+else()
+	set( SERVER_PLAT_LIBS "dl" )
+endif()
+
 #Link with server dependencies
 target_link_libraries( hl 
-	"${SQLITE3}"
-	debug "${MARIADBD}"
-	optimized "${MARIADB}"
+	"${SHARED_DEPENDENCIES}"
 	optimized "${ASSQL}"
-	debug "${ASSQLD}"
 	optimized "${ANGELSCRIPTUTILS}"
 	optimized "${ANGELSCRIPTLIB}"
+	debug "${ASSQLD}"
 	debug "${ANGELSCRIPTUTILSD}"
 	debug "${ANGELSCRIPTLIBD}"
-	${SHARED_DEPENDENCIES}
+	"${SQLITE3}"
+	optimized "${MARIADB}"
+	debug "${MARIADBD}"
 	"${DELAYIMP}"
+	Threads::Threads
+	${SERVER_PLAT_LIBS}
 	${UNIX_FS_LIB}
 )
 
@@ -615,31 +511,6 @@ SET_TARGET_PROPERTIES( hl PROPERTIES PREFIX "" )
 create_source_groups( "${CMAKE_SOURCE_DIR}" )
 
 clear_sources()
-
-if( USE_AS_SQL )
-	if( WIN32 )
-		#Copy the sqlite3 dll so the exe can get to it
-		add_custom_command( TARGET hl POST_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/sqlite3.dll"
-			"$<TARGET_FILE_DIR:hl>/.."
-		)
-	else()
-		#Copy the sqlite3 library so the exe can get to it
-		add_custom_command( TARGET hl PRE_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${CMAKE_CURRENT_SOURCE_DIR}/external/SQLite/lib/libsqlite3.so"
-			"$<TARGET_FILE_DIR:hl>/.."
-		)
-
-		#Copy the mariadb library so the exe can get to it
-		add_custom_command( TARGET hl PRE_BUILD
-			COMMAND ${CMAKE_COMMAND} -E copy_if_different
-			"${CMAKE_CURRENT_SOURCE_DIR}/external/MariaDB/lib/libmariadb.so.2"
-			"$<TARGET_FILE_DIR:hl>/.."
-		)
-	endif()
-endif()
 
 #
 #End server library
