@@ -11,6 +11,7 @@ add_sources(
 	vgui_ControlConfigPanel.cpp
 	vgui_CustomObjects.cpp
 	vgui_Defs.h
+	vgui_Defs.cpp
 	vgui_DragNDropPanel.h
 	vgui_DragNDropPanel.cpp
 	vgui_InputSignalHandlers.h

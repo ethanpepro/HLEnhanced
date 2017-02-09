@@ -46,6 +46,7 @@
 //#define MAX_TEAMNAME_SIZE		64
 #define MAX_BUTTON_SIZE			32
 #define MAX_COMMAND_SIZE		256
+#define MAX_MAPNAME				256
 
 // Map Briefing Window
 #define MAPBRIEF_INDENT			30
@@ -74,5 +75,29 @@ enum
 	ARROW_LEFT,
 	ARROW_RIGHT,
 };
+
+// Scoreboard positions
+#define SBOARD_INDENT_X			XRES(104)
+#define SBOARD_INDENT_Y			YRES(40)
+
+// low-res scoreboard indents
+#define SBOARD_INDENT_X_512		30
+#define SBOARD_INDENT_Y_512		30
+
+#define SBOARD_INDENT_X_400		0
+#define SBOARD_INDENT_Y_400		20
+
+extern const char* const sTFClassSelection[];
+extern int sTFValidClassInts[];
+extern const char* const sLocalisedClasses[];
+extern int iNumberOfTeamColors;
+extern int iTeamColors[ 5 ][ 3 ];
+extern const char* const sTFClasses[];
+
+extern int iBuildingCosts[];
+#define BUILDSTATE_HASBUILDING		(1<<0)		// Data is building ID (1 = Dispenser, 2 = Sentry, 3 = Entry Teleporter, 4 = Exit Teleporter)
+#define BUILDSTATE_BUILDING			(1<<1)
+#define BUILDSTATE_BASE				(1<<2)
+#define BUILDSTATE_CANBUILD			(1<<3)		// Data is building ID (1 = Dispenser, 2 = Sentry, 3 = Entry Teleporter, 4 = Exit Teleporter)
 
 #endif //GAME_CLIENT_UI_VGUI_VGUI_DEFS_H

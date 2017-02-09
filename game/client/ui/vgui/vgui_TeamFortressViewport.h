@@ -56,12 +56,6 @@ class TeamFortressViewport;
 
 char* GetVGUITGAName(const char *pszName);
 BitmapTGA *LoadTGAForRes(const char* pImageName);
-void ScaleColors( int &r, int &g, int &b, int a );
-extern const char* const sTFClassSelection[];
-extern int sTFValidClassInts[];
-extern const char* const sLocalisedClasses[];
-extern int iTeamColors[5][3];
-extern int iNumberOfTeamColors;
 extern TeamFortressViewport *gViewPort;
 
 //==============================================================================
@@ -706,12 +700,6 @@ public:
 	}
 };
 
-extern int iBuildingCosts[];
-#define BUILDSTATE_HASBUILDING		(1<<0)		// Data is building ID (1 = Dispenser, 2 = Sentry, 3 = Entry Teleporter, 4 = Exit Teleporter)
-#define BUILDSTATE_BUILDING			(1<<1)
-#define BUILDSTATE_BASE				(1<<2)
-#define BUILDSTATE_CANBUILD			(1<<3)		// Data is building ID (1 = Dispenser, 2 = Sentry, 3 = Entry Teleporter, 4 = Exit Teleporter)
-
 class BuildButton : public CommandButton
 {
 private:
@@ -795,8 +783,6 @@ public:
 		return false;
 	}
 };
-
-#define MAX_MAPNAME 256
 
 class MapButton : public CommandButton
 {
