@@ -16,12 +16,16 @@
 // $NoKeywords: $
 //=============================================================================
 
-#include "VGUI_Font.h"
-#include "VGUI_ScrollPanel.h"
-#include "VGUI_TextImage.h"
+#include <VGUI_Font.h>
+#include <VGUI_ScrollPanel.h>
+#include <VGUI_TextImage.h>
+#include <VGUI_TextPanel.h>
 
 #include "hud.h"
 #include "cl_util.h"
+#include "vgui_ActionSignalHandlers.h"
+#include "vgui_InputSignalHandlers.h"
+#include "vgui_TeamMenu.h"
 #include "vgui_TeamFortressViewport.h"
 
 #include "shared/CLocalize.h"

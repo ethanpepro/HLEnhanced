@@ -28,6 +28,7 @@
 #include "mathlib.h"
 #include "parsemsg.h"
 
+#include "vgui_ActionSignalHandlers.h"
 #include "vgui_TeamFortressViewport.h"
 
 #include "shared/CLocalize.h"

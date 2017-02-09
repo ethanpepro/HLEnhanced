@@ -27,6 +27,7 @@
 #include "kbutton.h"
 #include "const.h"
 
+#include "vgui_ActionSignalHandlers.h"
 #include "vgui_TeamFortressViewport.h"
 
 #include "shared/CLocalize.h"
