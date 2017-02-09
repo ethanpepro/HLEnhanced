@@ -65,7 +65,6 @@
 #include "vgui_CommandMenu.h"
 
 extern int g_iVisibleMouse;
-class CCommandMenu;
 int g_iPlayerClass;
 int g_iTeamNumber;
 int g_iUser1 = 0;
@@ -195,7 +194,7 @@ char* GetVGUITGAName(const char *pszName)
 	return gd;
 }
 
-CMenuHandler_SpectateFollow::CMenuHandler_SpectateFollow( char *player )
+CMenuHandler_SpectateFollow::CMenuHandler_SpectateFollow( const char *player )
 {
 	strncpy( m_szplayer, player, MAX_COMMAND_SIZE );
 	m_szplayer[ MAX_COMMAND_SIZE - 1 ] = '\0';
@@ -270,9 +269,6 @@ void *TeamFortressViewport::operator new( size_t stAllocateBlock )
 class CViewPortInputHandler : public CDefaultInputSignal
 {
 public:
-	//TODO: remove - Solokiller
-	bool bPressed;
-
 	CViewPortInputHandler()
 	{
 	}

@@ -23,7 +23,7 @@ void CMenuHandler_TextWindow::actionPerformed( vgui::Panel* panel )
 	}
 }
 
-CMenuHandler_ToggleCvar::CMenuHandler_ToggleCvar( char * cvarname )
+CMenuHandler_ToggleCvar::CMenuHandler_ToggleCvar( const char * cvarname )
 {
 	m_cvar = gEngfuncs.pfnGetCvarPointer( cvarname );
 }

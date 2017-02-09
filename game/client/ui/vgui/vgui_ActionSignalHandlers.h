@@ -44,8 +44,7 @@ private:
 	cvar_t * m_cvar;
 
 public:
-	//TODO: const correctness - Solokiller
-	CMenuHandler_ToggleCvar( char * cvarname );
+	CMenuHandler_ToggleCvar( const char * cvarname );
 
 	virtual void actionPerformed( vgui::Panel* panel );
 };

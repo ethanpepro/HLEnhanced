@@ -277,8 +277,7 @@ class CMenuHandler_SpectateFollow : public vgui::ActionSignal
 protected:
 	char	m_szplayer[ MAX_COMMAND_SIZE ];
 public:
-	//TODO: const correctness - Solokiller
-	CMenuHandler_SpectateFollow( char *player );
+	CMenuHandler_SpectateFollow( const char *player );
 
 	virtual void actionPerformed( vgui::Panel* panel );
 };
