@@ -10,6 +10,8 @@
 #include <VGUI_Button.h>
 #include <VGUI_InputSignal.h>
 
+#include "vgui_defaultinputsignal.h"
+
 #include "vgui_CommandButton.h"
 
 class CMenuPanel;
@@ -21,9 +23,7 @@ class DragNDropPanel;
 *	Generic input signal handlers
 */
 
-//TODO: Use CDefaultInputSignal to avoid having to manually provide empty handlers. - Solokiller
-
-class CHandler_MenuButtonOver : public vgui::InputSignal
+class CHandler_MenuButtonOver : public vgui::CDefaultInputSignal
 {
 private:
 	int			m_iButton;
@@ -36,20 +36,9 @@ public:
 	}
 
 	void cursorEntered( vgui::Panel *panel );
-
-	void cursorMoved( int x, int y, vgui::Panel* panel ) {};
-	void mousePressed( vgui::MouseCode code, vgui::Panel* panel ) {};
-	void mouseReleased( vgui::MouseCode code, vgui::Panel* panel ) {};
-	void mouseDoublePressed( vgui::MouseCode code, vgui::Panel* panel ) {};
-	void cursorExited( vgui::Panel* panel ) {};
-	void mouseWheeled( int delta, vgui::Panel* panel ) {};
-	void keyPressed( vgui::KeyCode code, vgui::Panel* panel ) {};
-	void keyTyped( vgui::KeyCode code, vgui::Panel* panel ) {};
-	void keyReleased( vgui::KeyCode code, vgui::Panel* panel ) {};
-	void keyFocusTicked( vgui::Panel* panel ) {};
 };
 
-class CHandler_ButtonHighlight : public vgui::InputSignal
+class CHandler_ButtonHighlight : public vgui::CDefaultInputSignal
 {
 private:
 	vgui::Button *m_pButton;
@@ -67,15 +56,6 @@ public:
 	{
 		m_pButton->setArmed( false );
 	};
-	virtual void mousePressed( vgui::MouseCode code, vgui::Panel* panel ) {};
-	virtual void mouseReleased( vgui::MouseCode code, vgui::Panel* panel ) {};
-	virtual void cursorMoved( int x, int y, vgui::Panel* panel ) {};
-	virtual void mouseDoublePressed( vgui::MouseCode code, vgui::Panel* panel ) {};
-	virtual void mouseWheeled( int delta, vgui::Panel* panel ) {};
-	virtual void keyPressed( vgui::KeyCode code, vgui::Panel* panel ) {};
-	virtual void keyTyped( vgui::KeyCode code, vgui::Panel* panel ) {};
-	virtual void keyReleased( vgui::KeyCode code, vgui::Panel* panel ) {};
-	virtual void keyFocusTicked( vgui::Panel* panel ) {};
 };
 
 //-----------------------------------------------------------------------------

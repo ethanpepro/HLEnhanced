@@ -267,7 +267,7 @@ void *TeamFortressViewport::operator new( size_t stAllocateBlock )
 //-----------------------------------------------------------------------------
 // Purpose: InputSignal handler for the main viewport
 //-----------------------------------------------------------------------------
-class CViewPortInputHandler : public InputSignal
+class CViewPortInputHandler : public CDefaultInputSignal
 {
 public:
 	//TODO: remove - Solokiller
@@ -277,9 +277,6 @@ public:
 	{
 	}
 
-	virtual void cursorMoved(int x,int y,Panel* panel) {}
-	virtual void cursorEntered(Panel* panel) {}
-	virtual void cursorExited(Panel* panel) {}
 	virtual void mousePressed(MouseCode code,Panel* panel) 
 	{
 		if ( code != MOUSE_LEFT )
@@ -290,16 +287,10 @@ public:
 			gEngfuncs.pfnClientCmd( "ForceCloseCommandMenu\n" );
 		}
 	}
+
 	virtual void mouseReleased(MouseCode code,Panel* panel)
 	{
 	}
-
-	virtual void mouseDoublePressed(MouseCode code,Panel* panel) {}
-	virtual void mouseWheeled(int delta,Panel* panel) {}
-	virtual void keyPressed(KeyCode code,Panel* panel) {}
-	virtual void keyTyped(KeyCode code,Panel* panel) {}
-	virtual void keyReleased(KeyCode code,Panel* panel) {}
-	virtual void keyFocusTicked(Panel* panel) {}
 };
 
 

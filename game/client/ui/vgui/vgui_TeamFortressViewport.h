@@ -24,6 +24,7 @@
 
 #include "CImageLabel.h"
 
+#include "vgui_defaultinputsignal.h"
 // custom scheme handling
 #include "vgui_SchemeManager.h"
 
@@ -517,7 +518,7 @@ public:
 	virtual void actionPerformed(Panel* panel);
 };
 
-class CMenuHandler_PopupSubMenuInput : public InputSignal
+class CMenuHandler_PopupSubMenuInput : public CDefaultInputSignal
 {
 private:
 	CCommandMenu *m_pSubMenu;
@@ -540,19 +541,10 @@ public:
 
 		if (m_pButton)
 			m_pButton->setArmed(true);
-	};
-	virtual void cursorExited(Panel* Panel) {};
-	virtual void mousePressed(MouseCode code,Panel* panel)  {};
-	virtual void mouseDoublePressed(MouseCode code,Panel* panel)  {};
-	virtual void mouseReleased(MouseCode code,Panel* panel) {};
-	virtual void mouseWheeled(int delta,Panel* panel) {};
-	virtual void keyPressed(KeyCode code,Panel* panel) {};
-	virtual void keyTyped(KeyCode code,Panel* panel) {};
-	virtual void keyReleased(KeyCode code,Panel* panel) {};
-	virtual void keyFocusTicked(Panel* panel) {};
+	}
 };
 
-class CMenuHandler_LabelInput : public InputSignal
+class CMenuHandler_LabelInput : public CDefaultInputSignal
 {
 private:
 	ActionSignal *m_pActionSignal;
@@ -566,17 +558,6 @@ public:
 	{
 		m_pActionSignal->actionPerformed( panel );
 	}
-
-	virtual void mouseReleased(MouseCode code,Panel* panel) {};
-	virtual void cursorEntered(Panel* panel) {};
-	virtual void cursorExited(Panel* Panel) {};
-	virtual void cursorMoved(int x,int y,Panel* panel) {};
-	virtual void mouseDoublePressed(MouseCode code,Panel* panel)  {};
-	virtual void mouseWheeled(int delta,Panel* panel) {};
-	virtual void keyPressed(KeyCode code,Panel* panel) {};
-	virtual void keyTyped(KeyCode code,Panel* panel) {};
-	virtual void keyReleased(KeyCode code,Panel* panel) {};
-	virtual void keyFocusTicked(Panel* panel) {};
 };
 
 
@@ -867,7 +848,7 @@ public:
 //-----------------------------------------------------------------------------
 // Purpose: CommandButton which is only displayed if the player is on team X
 //-----------------------------------------------------------------------------
-class ToggleCommandButton : public CommandButton, public InputSignal
+class ToggleCommandButton : public CommandButton, public CDefaultInputSignal
 {
 private:
 	cvar_t *		m_cvar;
@@ -916,17 +897,7 @@ public:
 	virtual void mousePressed(MouseCode code,Panel* panel)
 	{
 		doClick();
-	};
-
-	virtual void cursorMoved(int x,int y,Panel* panel) {};
-	
-	virtual void mouseDoublePressed(MouseCode code,Panel* panel)  {};
-	virtual void mouseReleased(MouseCode code,Panel* panel) {};
-	virtual void mouseWheeled(int delta,Panel* panel) {};
-	virtual void keyPressed(KeyCode code,Panel* panel) {};
-	virtual void keyTyped(KeyCode code,Panel* panel) {};
-	virtual void keyReleased(KeyCode code,Panel* panel) {};
-	virtual void keyFocusTicked(Panel* panel) {};
+	}
 
 	virtual void paint( void )
 	{
@@ -947,10 +918,10 @@ public:
 		}
 
 		CommandButton::paint();
-
 	} 
 };
-class SpectToggleButton : public CommandButton, public InputSignal
+
+class SpectToggleButton : public CommandButton, public CDefaultInputSignal
 {
 private:
 	cvar_t *		m_cvar;
@@ -988,17 +959,7 @@ public:
 	virtual void mousePressed(MouseCode code,Panel* panel)
 	{
 		doClick();
-	};
-
-	virtual void cursorMoved(int x,int y,Panel* panel) {};
-	
-	virtual void mouseDoublePressed(MouseCode code,Panel* panel)  {};
-	virtual void mouseReleased(MouseCode code,Panel* panel) {};
-	virtual void mouseWheeled(int delta,Panel* panel) {};
-	virtual void keyPressed(KeyCode code,Panel* panel) {};
-	virtual void keyTyped(KeyCode code,Panel* panel) {};
-	virtual void keyReleased(KeyCode code,Panel* panel) {};
-	virtual void keyFocusTicked(Panel* panel) {};
+	}
 
 	virtual void paintBackground()
 	{

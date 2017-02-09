@@ -10,6 +10,8 @@
 #include <VGUI_InputSignal.h>
 #include <VGUI_Panel.h>
 
+#include "vgui_defaultinputsignal.h"
+
 namespace vgui
 {
 class LineBorder;
@@ -17,7 +19,7 @@ class LineBorder;
 
 class DragNDropPanel;
 
-class CDragNDropHandler : public vgui::InputSignal
+class CDragNDropHandler : public vgui::CDefaultInputSignal
 {
 private:
 	DragNDropPanel*	m_pPanel;
@@ -35,15 +37,6 @@ public:
 	void cursorMoved( int x, int y, vgui::Panel* panel );
 	void mousePressed( vgui::MouseCode code, vgui::Panel* panel );
 	void mouseReleased( vgui::MouseCode code, vgui::Panel* panel );
-
-	void mouseDoublePressed( vgui::MouseCode code, vgui::Panel* panel ) {};
-	void cursorEntered( vgui::Panel* panel ) {};
-	void cursorExited( vgui::Panel* panel ) {};
-	void mouseWheeled( int delta, vgui::Panel* panel ) {};
-	void keyPressed( vgui::KeyCode code, vgui::Panel* panel ) {};
-	void keyTyped( vgui::KeyCode code, vgui::Panel* panel ) {};
-	void keyReleased( vgui::KeyCode code, vgui::Panel* panel ) {};
-	void keyFocusTicked( vgui::Panel* panel ) {};
 };
 
 // Panel that can be dragged around
