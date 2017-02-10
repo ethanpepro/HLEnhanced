@@ -38,6 +38,11 @@ message(STATUS "")
 #C++14 support
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y" )
 
+if( UNIX )
+	#Additional debug info for GDB.
+	set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g" )
+endif()
+
 #Get the steam/steamapps/common directory
 set( STEAMCOMMON "$ENV{SteamCommon}" CACHE PATH "Steam common directory path" )
 
