@@ -15,6 +15,7 @@
 #include "vgui_SpectatorPanel.h"
 #include "hltv.h"
 #include "mathlib.h"
+#include "strtools.h"
 
 #include "shared/hud/CHudElementRegistry.h"
 
@@ -40,7 +41,7 @@
 
 #pragma warning(disable: 4244)
 
-extern int		iJumpSpectator;
+extern bool		g_bJumpSpectator;
 extern Vector	vJumpOrigin;
 extern Vector	vJumpAngles;
 
@@ -119,7 +120,7 @@ void SpectatorSpray()
 	pmtrace_t * trace = gEngfuncs.PM_TraceLine( v_origin, forward, PM_TRACELINE_PHYSENTSONLY, 2, -1 );
 	if ( trace->fraction != 1.0 )
 	{
-		sprintf(string, "drc_spray %.2f %.2f %.2f %i", 
+		V_sprintf_safe(string, "drc_spray %.2f %.2f %.2f %i", 
 			trace->endpos[0], trace->endpos[1], trace->endpos[2], trace->ent );
 		gEngfuncs.pfnServerCmd(string);
 	}
@@ -193,7 +194,7 @@ void CHudSpectator::Init()
 	auto pSayText = GETHUDCLASS( CHudSayText );
 
 	m_chatEnabled = pSayText && ( pSayText->m_HUD_saytext->value!=0);
-	iJumpSpectator	= 0;
+	g_bJumpSpectator = false;
 
 	memset( &m_OverviewData, 0, sizeof(m_OverviewData));
 	memset( &m_OverviewEntities, 0, sizeof(m_OverviewEntities));
@@ -232,7 +233,7 @@ void CHudSpectator::VidInit()
 	m_flNextObserverInput = 0.0f;
 	m_lastHudMessage = 0;
 	m_iSpectatorNumber = 0;
-	iJumpSpectator = 0;
+	g_bJumpSpectator = false;
 	g_iUser1 = g_iUser2 = 0;
 }
 
@@ -300,7 +301,7 @@ bool CHudSpectator::Draw( float flTime )
 		const Vector& vecColor = GetClientColor( i + 1 );
 
 		// draw the players name and health underneath
-		sprintf( string, "%s", g_PlayerInfoList[ i + 1 ].name );
+		V_sprintf_safe( string, "%s", g_PlayerInfoList[ i + 1 ].name );
 
 		lx = strlen( string ) * 3; // 3 is avg. character length :)
 
@@ -339,7 +340,7 @@ void CHudSpectator::InitHUDData()
 	m_flNextObserverInput = 0.0f;
 	m_lastHudMessage = 0;
 	m_iSpectatorNumber = 0;
-	iJumpSpectator = 0;
+	g_bJumpSpectator = false;
 	g_iUser1 = g_iUser2 = 0;
 
 	memset( &m_OverviewData, 0, sizeof( m_OverviewData ) );
@@ -435,7 +436,7 @@ void CHudSpectator::SetModes( int iNewMainMode, int iNewInsetMode )
 		{
 			char cmdstring[ 32 ];
 			// forward command to server
-			sprintf( cmdstring, "specmode %i", iNewMainMode );
+			V_sprintf_safe( cmdstring, "specmode %i", iNewMainMode );
 			gEngfuncs.pfnServerCmd( cmdstring );
 			return;
 		}
@@ -466,7 +467,7 @@ void CHudSpectator::SetModes( int iNewMainMode, int iNewInsetMode )
 			{
 				V_GetChasePos( g_iUser2, &v_cl_angles, vJumpOrigin, vJumpAngles );
 				gEngfuncs.SetViewAngles( vJumpAngles );
-				iJumpSpectator = 1;
+				g_bJumpSpectator = true;
 			}
 			break;
 
@@ -504,7 +505,7 @@ void CHudSpectator::SetModes( int iNewMainMode, int iNewInsetMode )
 		gViewPort->ResetFade();
 
 		char string[ 128 ];
-		sprintf( string, "#Spec_Mode%d", g_iUser1 );
+		V_sprintf_safe( string, "#Spec_Mode%d", g_iUser1 );
 
 		UTIL_LocalizedTextMsg( HUD_PRINTCENTER, string );
 	}
@@ -546,7 +547,7 @@ void CHudSpectator::CheckSettings()
 			{
 				// tell proxy our new chat mode
 				char chatcmd[ 32 ];
-				sprintf( chatcmd, "ignoremsg %i", m_chatEnabled ? 0 : 1 );
+				V_sprintf_safe( chatcmd, "ignoremsg %i", m_chatEnabled ? 0 : 1 );
 				gEngfuncs.pfnServerCmd( chatcmd );
 			}
 		}
@@ -894,16 +895,16 @@ void CHudSpectator::SetSpectatorStartPosition()
 {
 	// search for info_player start
 	if ( UTIL_FindEntityInMap( "trigger_camera",  m_cameraOrigin, m_cameraAngles ) )
-		iJumpSpectator = 1;
+		g_bJumpSpectator = true;
 
 	else if ( UTIL_FindEntityInMap( "info_player_start",  m_cameraOrigin, m_cameraAngles ) )
-		iJumpSpectator = 1;
+		g_bJumpSpectator = true;
 
 	else if ( UTIL_FindEntityInMap( "info_player_deathmatch",  m_cameraOrigin, m_cameraAngles ) )
-		iJumpSpectator = 1;
+		g_bJumpSpectator = true;
 
 	else if ( UTIL_FindEntityInMap( "info_player_coop",  m_cameraOrigin, m_cameraAngles ) )
-		iJumpSpectator = 1;
+		g_bJumpSpectator = true;
 	else
 	{
 		// jump to 0,0,0 if no better position was found
@@ -914,7 +915,7 @@ void CHudSpectator::SetSpectatorStartPosition()
 	vJumpOrigin = m_cameraOrigin;
 	vJumpAngles = m_cameraAngles;
 
-	iJumpSpectator = 1;	// jump anyway
+	g_bJumpSpectator = true;	// jump anyway
 }
 
 
@@ -924,7 +925,7 @@ void CHudSpectator::SetCameraView( const Vector& pos, const Vector& angle, float
 	vJumpOrigin = pos;
 	vJumpAngles = angle;
 	gEngfuncs.SetViewAngles( vJumpAngles );
-	iJumpSpectator = 1;	// jump anyway
+	g_bJumpSpectator = true;	// jump anyway
 }
 
 void CHudSpectator::AddWaypoint( float time, const Vector& pos, const Vector& angle, float fov, int flags )
@@ -1315,7 +1316,7 @@ void CHudSpectator::FindNextPlayer(bool bReverse)
 	{
 		char cmdstring[32];
 		// forward command to server
-		sprintf(cmdstring,"follownext %i",bReverse?1:0);
+		V_sprintf_safe(cmdstring,"follownext %i",bReverse?1:0);
 		gEngfuncs.pfnServerCmd(cmdstring);
 		return;
 	}
@@ -1372,7 +1373,7 @@ void CHudSpectator::FindNextPlayer(bool bReverse)
 		vJumpAngles = pEnt->angles;
 	}
 
-	iJumpSpectator = 1;
+	g_bJumpSpectator = true;
 	gViewPort->ResetFade();
 }
 
@@ -1387,7 +1388,7 @@ void CHudSpectator::FindPlayer(const char *name)
 	{
 		char cmdstring[32];
 		// forward command to server
-		sprintf(cmdstring,"follow %s",name);
+		V_sprintf_safe(cmdstring,"follow %s",name);
 		gEngfuncs.pfnServerCmd(cmdstring);
 		return;
 	}
@@ -1430,7 +1431,7 @@ void CHudSpectator::FindPlayer(const char *name)
 		vJumpAngles = pEnt->angles;
 	}
 
-	iJumpSpectator = 1;
+	g_bJumpSpectator = true;
 	gViewPort->ResetFade();
 }
 
@@ -1505,7 +1506,7 @@ void CHudSpectator::HandleButtonsDown( int ButtonPressed )
 			if ( g_iUser1 == OBS_ROAMING )
 			{
 				gEngfuncs.SetViewAngles( vJumpAngles );
-				iJumpSpectator = 1;
+				g_bJumpSpectator = true;
 	
 			}
 			// release directed mode if player wants to see another player

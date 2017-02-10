@@ -22,6 +22,7 @@
 #include "hud.h"
 #include "cl_util.h"
 #include "parsemsg.h"
+#include "strtools.h"
 
 #include "shared/hud/CHudElementRegistry.h"
 
@@ -158,7 +159,7 @@ void CHudStatusBar::ParseStatusString( int line_num )
 
 							break;
 						case 'i':  // number
-							sprintf( szRepString, "%d", indexval );
+							V_sprintf_safe( szRepString, "%d", indexval );
 							break;
 						default:
 							szRepString[0] = 0;

@@ -24,6 +24,8 @@
 #include <time.h>
 #include <stdio.h>
 
+#include "strtools.h"
+
 #include "shared/hud/CHudElementRegistry.h"
 
 #include "parsemsg.h"
@@ -175,7 +177,7 @@ bool CHudGeiger::Draw(float flTime)
 			if (i > 2)
 				j += rand() & 1;
 
-			sprintf(sz, "player/geiger%d.wav", j + 1);
+			V_sprintf_safe(sz, "player/geiger%d.wav", j + 1);
 			PlaySound(sz, flvol);
 			
 		}

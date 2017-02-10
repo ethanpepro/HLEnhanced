@@ -20,6 +20,7 @@
 #include "hud.h"
 #include "cl_util.h"
 #include "parsemsg.h"
+#include "strtools.h"
 
 #include "shared/hud/CHudElementRegistry.h"
 
@@ -217,7 +218,7 @@ void CHudMenu :: SelectMenuItem( int menu_item )
 	if ( (menu_item > 0) && (m_bitsValidSlots & (1 << (menu_item-1))) )
 	{
 		char szbuf[32];
-		sprintf( szbuf, "menuselect %d\n", menu_item );
+		V_sprintf_safe( szbuf, "menuselect %d\n", menu_item );
 		EngineClientCmd( szbuf );
 
 		// remove the menu

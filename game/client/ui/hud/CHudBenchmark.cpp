@@ -16,6 +16,7 @@
 #include "event_api.h"
 #include "com_model.h"
 #include "mathlib.h"
+#include "strtools.h"
 
 #include "bench.h"
 
@@ -171,7 +172,7 @@ int CHudBenchmark::MsgFunc_Bench(const char *pszName, int iSize, void *pbuf)
 		{
 			adr = status.remote_address;
 
-			sprintf( sz, "%i.%i.%i.%i",
+			V_sprintf_safe( sz, "%i.%i.%i.%i",
 				adr.ip[ 0 ], adr.ip[ 1 ], adr.ip[ 2 ], adr.ip[ 3 ] );
 
 			if ( adr.type == NA_IP )
@@ -493,13 +494,13 @@ bool CHudBenchmark::Draw( float flTime )
 	x = 10;
 	y = 25; //480 - 150;
 
-	sprintf( sz, "%s: %s", g_title , pp_strings[ Bench_GetPowerPlay() ? 0 : 1]);
+	V_sprintf_safe( sz, "%s: %s", g_title , pp_strings[ Bench_GetPowerPlay() ? 0 : 1]);
 
 	gHUD.DrawHudString( x, y, 320, sz, 251, 237, 7);// , 200, 200); //255, 255, 255 );
 
 	y += 20;
 	
-//	sprintf( sz, pp_strings[ Bench_GetPowerPlay() ? 0 : 1 ] );
+//	V_sprintf_safe( sz, pp_strings[ Bench_GetPowerPlay() ? 0 : 1 ] );
 
 //	gHUD.DrawHudString( x, y, 320, sz, 31, 200, 200 );
 
@@ -510,7 +511,7 @@ bool CHudBenchmark::Draw( float flTime )
 	{
 		if ( m_fReceiveTime && m_nSentFinish )
 		{
-			sprintf( sz, g_stage1[1], Bench_ScoreForValue( FIRST_STAGE, m_StoredLatency ));
+			V_sprintf_safe( sz, g_stage1[1], Bench_ScoreForValue( FIRST_STAGE, m_StoredLatency ));
 		}
 		else
 		{
@@ -535,7 +536,7 @@ bool CHudBenchmark::Draw( float flTime )
 
 		if ( m_nSentFinish /* Bench_InStage( THIRD_STAGE ) */|| Bench_InStage( FOURTH_STAGE ) )
 		{
-			sprintf( sz, g_stage2[1], Bench_ScoreForValue( SECOND_STAGE, m_fAvgFrameRate ) );
+			V_sprintf_safe( sz, g_stage2[1], Bench_ScoreForValue( SECOND_STAGE, m_fAvgFrameRate ) );
 		}
 		else
 		{
@@ -550,7 +551,7 @@ bool CHudBenchmark::Draw( float flTime )
 	{
 		if ( m_nSentFinish || Bench_InStage( FOURTH_STAGE ) )
 		{
-			sprintf( sz, g_stage3[1], Bench_ScoreForValue( THIRD_STAGE, m_fAvgScore ) );
+			V_sprintf_safe( sz, g_stage3[1], Bench_ScoreForValue( THIRD_STAGE, m_fAvgScore ) );
 		}
 		else
 		{
@@ -564,7 +565,7 @@ bool CHudBenchmark::Draw( float flTime )
 
 	if ( Bench_InStage( FOURTH_STAGE ) )
 	{
-		sprintf( sz, g_stage4, m_nCompositeScore );
+		V_sprintf_safe( sz, g_stage4, m_nCompositeScore );
 		gHUD.DrawHudString( x, y, 320, sz, 31, 200, 200 );
 	}
 

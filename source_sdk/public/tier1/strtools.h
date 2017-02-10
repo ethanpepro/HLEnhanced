@@ -294,6 +294,28 @@ template <size_t maxLenInChars> int V_swprintf_safe( wchar_t( &pDest )[ maxLenIn
 	return result;
 }
 
+/**
+*	Safe vsprintf with automatic buffer size determination.
+*/
+template<size_t SIZE_IN_CHARS>
+int V_vsprintf_safe( char( &dest )[ SIZE_IN_CHARS ], const char* pszFormat, va_list params )
+{
+	return vsnprintf( dest, SIZE_IN_CHARS, pszFormat, params );
+}
+
+/**
+*	Safe sprintf with automatic buffer size determination.
+*/
+template<size_t SIZE_IN_CHARS>
+int V_sprintf_safe( char ( &dest )[ SIZE_IN_CHARS ], const char* pszFormat, ... )
+{
+	va_list params;
+	va_start( params, pszFormat );
+	int result = vsnprintf( dest, SIZE_IN_CHARS, pszFormat, params );
+	va_end( params );
+	return result;
+}
+
 // Force slashes of either type to be = separator character
 void V_FixSlashes( char *pname, char separator = CORRECT_PATH_SEPARATOR );
 

@@ -19,6 +19,7 @@
 #include "hud.h"
 #include "cl_util.h"
 #include "bench.h"
+#include "strtools.h"
 
 #if USE_VGUI2
 #include <vgui_controls/Panel.h>
@@ -242,7 +243,7 @@ bool CHud::Redraw( float flTime, int intermission )
 		if (m_hsprCursor == 0)
 		{
 			char sz[256];
-			sprintf( sz, "sprites/cursor.spr" );
+			V_sprintf_safe( sz, "sprites/cursor.spr" );
 			m_hsprCursor = SPR_Load( sz );
 		}
 
@@ -264,7 +265,7 @@ int CHud :: DrawHudString(int xpos, int ypos, int iMaxX, char *szIt, int r, int 
 int CHud :: DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b )
 {
 	char szString[32];
-	sprintf( szString, "%d", iNumber );
+	V_sprintf_safe( szString, "%d", iNumber );
 	return DrawHudStringReverse( xpos, ypos, iMinX, szString, r, g, b );
 
 }
