@@ -16,7 +16,7 @@ class TextPanel;
 
 class CommandButton;
 
-#include "vgui_menupanel.h"
+#include "vgui_MenuPanel.h"
 
 class CTeamMenuPanel : public CMenuPanel
 {

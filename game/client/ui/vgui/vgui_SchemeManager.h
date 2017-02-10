@@ -52,4 +52,4 @@ private:
 	CScheme *getSafeScheme( SchemeHandle_t schemeHandle );
 };
 
-#endif GAME_CLIENT_UI_VGUI_VGUI_SCHEMEMANAGER_H
+#endif //GAME_CLIENT_UI_VGUI_VGUI_SCHEMEMANAGER_H
