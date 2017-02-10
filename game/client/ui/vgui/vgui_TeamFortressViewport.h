@@ -317,12 +317,12 @@ private:
 	BuildButton   *m_pBuildButtons[3];
 	BuildButton   *m_pBuildActiveButtons[3];
 
-	int					m_iAllowSpectators;
+	bool		m_bAllowSpectators;
 
 	// Data for specific sections of the Command Menu
 	int			m_iValidClasses[5];
 	bool		m_bIsFeigning;
-	int			m_iIsSettingDetpack;
+	DetpackState	m_DetpackState = DetpackState::CANNOT_DEPLOY;
 	int			m_iNumberOfTeams;
 	int			m_iBuildState;
 	int			m_iRandomPC;
@@ -377,14 +377,14 @@ public:
 	CCommandMenu *CreateSubMenu( CommandButton *pButton, CCommandMenu *pParentMenu, int iYOffset, int iXOffset = 0 );
 
 	// Data Handlers
-	int GetValidClasses(int iTeam) { return m_iValidClasses[iTeam]; };
-	int GetNumberOfTeams() { return m_iNumberOfTeams; };
+	int GetValidClasses(int iTeam) { return m_iValidClasses[iTeam]; }
+	int GetNumberOfTeams() { return m_iNumberOfTeams; }
 	bool GetIsFeigning() const { return m_bIsFeigning; }
-	int GetIsSettingDetpack() { return m_iIsSettingDetpack; };
-	int GetBuildState() { return m_iBuildState; };
-	int IsRandomPC() { return m_iRandomPC; };
-	char *GetTeamName( int iTeam ) { return m_sTeamNames[iTeam]; };
-	int GetAllowSpectators() { return m_iAllowSpectators; };
+	DetpackState GetDetpackState() const { return m_DetpackState; }
+	int GetBuildState() { return m_iBuildState; }
+	int IsRandomPC() { return m_iRandomPC; }
+	char *GetTeamName( int iTeam ) { return m_sTeamNames[iTeam]; }
+	bool GetAllowSpectators() const { return m_bAllowSpectators; }
 
 	// Message Handlers
 	int MsgFunc_ValClass(const char *pszName, int iSize, void *pbuf );
@@ -633,17 +633,12 @@ public:
 	virtual int IsNotValid()
 	{
 		// Only visible if the server allows it
-		if ( gViewPort->GetAllowSpectators() != 0 )
+		if ( gViewPort->GetAllowSpectators() )
 			return false;
 
 		return true;
 	}
 };
-
-#define		DISGUISE_TEAM1		(1<<0)
-#define		DISGUISE_TEAM2		(1<<1)
-#define		DISGUISE_TEAM3		(1<<2)
-#define		DISGUISE_TEAM4		(1<<3)
 
 class DisguiseButton : public CommandButton
 {
@@ -678,11 +673,11 @@ public:
 class DetpackButton : public CommandButton
 {
 private:
-	int	m_iDetpackState;
+	DetpackState	m_DetpackState;
 public:
-	DetpackButton( int iState, const char* text,int x,int y,int wide,int tall ) : CommandButton( text,x,y,wide,tall)
+	DetpackButton( DetpackState state, const char* text,int x,int y,int wide,int tall ) : CommandButton( text,x,y,wide,tall)
 	{
-		m_iDetpackState = iState;
+		m_DetpackState = state;
 	}
 
 	virtual int IsNotValid()
@@ -693,7 +688,7 @@ public:
 			return true;
 #endif
 
-		if (m_iDetpackState == gViewPort->GetIsSettingDetpack())
+		if ( m_DetpackState == gViewPort->GetDetpackState())
 			return false;
 
 		return true;

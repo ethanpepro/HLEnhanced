@@ -100,4 +100,16 @@ extern int iBuildingCosts[];
 #define BUILDSTATE_BASE				(1<<2)
 #define BUILDSTATE_CANBUILD			(1<<3)		// Data is building ID (1 = Dispenser, 2 = Sentry, 3 = Entry Teleporter, 4 = Exit Teleporter)
 
+#define DISGUISE_TEAM1		(1<<0)
+#define DISGUISE_TEAM2		(1<<1)
+#define DISGUISE_TEAM3		(1<<2)
+#define DISGUISE_TEAM4		(1<<3)
+
+enum class DetpackState
+{
+	CANNOT_DEPLOY = 0,	//!No detpack left
+	IS_DEPLOYING,		//!Currently deploying a detpack
+	IDLE				//!Has a detpack but isn't doing anything with it
+};
+
 #endif //GAME_CLIENT_UI_VGUI_VGUI_DEFS_H

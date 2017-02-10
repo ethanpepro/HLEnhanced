@@ -782,7 +782,7 @@ CommandButton *TeamFortressViewport::CreateCustomButton( char *pButtonText, char
 	else if ( !strcmp( pButtonName, "!DETPACKSTART" ) )
 	{
 		// Detpack Submenu
-		pButton = new DetpackButton(2, pButtonText, 0, BUTTON_SIZE_Y * 2, CMENU_SIZE_X, BUTTON_SIZE_Y);
+		pButton = new DetpackButton(DetpackState::IDLE, pButtonText, 0, BUTTON_SIZE_Y * 2, CMENU_SIZE_X, BUTTON_SIZE_Y);
 
 		// Create the submenu
 		pMenu = CreateSubMenu(pButton, m_pCurrentCommandMenu, iYOffset );
@@ -804,7 +804,7 @@ CommandButton *TeamFortressViewport::CreateCustomButton( char *pButtonText, char
 	// Stop setting a Detpack
 	else if ( !strcmp( pButtonName, "!DETPACKSTOP" ) )
 	{
-		pButton = new DetpackButton(1, pButtonText, 0, BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y);
+		pButton = new DetpackButton(DetpackState::IS_DEPLOYING, pButtonText, 0, BUTTON_SIZE_Y, CMENU_SIZE_X, BUTTON_SIZE_Y);
 		pButton->addActionSignal(new CMenuHandler_StringCommand( "detstop" ));
 		// Create an input signal that'll popup the current menu
 		pButton->addInputSignal( new CMenuHandler_PopupSubMenuInput(pButton, m_pCurrentCommandMenu) );
@@ -1940,7 +1940,7 @@ int TeamFortressViewport::MsgFunc_Detpack(const char *pszName, int iSize, void *
 {
 	CBufferReader reader( pbuf, iSize );
 
-	m_iIsSettingDetpack = reader.ReadByte();
+	m_DetpackState = static_cast<DetpackState>( reader.ReadByte() );
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
@@ -2123,7 +2123,7 @@ int TeamFortressViewport::MsgFunc_AllowSpec( const char *pszName, int iSize, voi
 {
 	CBufferReader reader( pbuf, iSize );
 
-	m_iAllowSpectators = reader.ReadByte();
+	m_bAllowSpectators = reader.ReadByte() != 0;
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
