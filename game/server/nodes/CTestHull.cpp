@@ -118,7 +118,8 @@ void CTestHull::BuildNodeGraph()
 	SetAbsOrigin( WorldGraph.m_pNodes[ 0 ].m_vecOrigin );
 
 	//Keep moving it down until it hits the floor. - Solokiller
-	while( UTIL_DropToFloor( this ) == DropToFloor::TOOFAR )
+	//Stop if we fall out of the world (avoids infinite loop)
+	while( UTIL_DropToFloor( this ) == DropToFloor::TOOFAR && IsInWorld() )
 	{
 		SetAbsOrigin( GetAbsOrigin() - Vector( 0, 0, 256 ) );
 	}
