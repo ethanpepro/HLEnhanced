@@ -185,9 +185,9 @@ void CHudAmmo::Think()
 
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 
-	if ( gHUD.m_iWeaponBits != pPlayer->pev->weapons )
+	if ( Hud().GetWeaponBits() != pPlayer->pev->weapons )
 	{
-		pPlayer->pev->weapons = gHUD.m_iWeaponBits;
+		pPlayer->pev->weapons = Hud().GetWeaponBits();
 
 		for (int i = MAX_WEAPONS-1; i > 0; i-- )
 		{
@@ -195,7 +195,7 @@ void CHudAmmo::Think()
 
 			if ( p && p->GetWeaponInfo() )
 			{
-				if ( gHUD.m_iWeaponBits & ( 1 << p->GetWeaponInfo()->GetID() ) )
+				if ( Hud().GetWeaponBits() & ( 1 << p->GetWeaponInfo()->GetID() ) )
 					pPlayer->AddPlayerItem( p );
 				else
 					pPlayer->RemovePlayerItem( p );
@@ -207,7 +207,7 @@ void CHudAmmo::Think()
 		return;
 
 	// has the player selected one?
-	if (gHUD.m_iKeyBits & IN_ATTACK)
+	if (Hud().GetKeyBits() & IN_ATTACK)
 	{
 		if ( m_pActiveSel != (CBasePlayerWeapon *)1)
 		{
@@ -217,7 +217,7 @@ void CHudAmmo::Think()
 
 		m_pLastSel = m_pActiveSel;
 		m_pActiveSel = nullptr;
-		gHUD.m_iKeyBits &= ~IN_ATTACK;
+		Hud().ClearKeyBits( IN_ATTACK );
 
 		PlaySound("common/wpn_select.wav", 1);
 	}
@@ -243,10 +243,10 @@ void CHudAmmo::SelectSlot( int iSlot, const bool fAdvance, int iDirection )
 	if ( gHUD.m_bPlayerDead || gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
-	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
+	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
 		return;
 
-	if ( ! ( gHUD.m_iWeaponBits & ~(1<<(WEAPON_SUIT)) ))
+	if ( ! ( Hud().GetWeaponBits() & ~(1<<(WEAPON_SUIT)) ))
 		return;
 
 	CBasePlayerWeapon *p = NULL;
@@ -680,7 +680,7 @@ bool CHudAmmo::Draw(float flTime)
 	int a, x, y, r, g, b;
 	int AmmoWidth;
 
-	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
+	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
 		return true;
 
 	if ( (gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL )) )

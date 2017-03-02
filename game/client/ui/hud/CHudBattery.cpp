@@ -106,7 +106,7 @@ bool CHudBattery::Draw(float flTime)
 	rc.top  += m_iHeight * ((float)(100-(min(100,m_iBat))) * 0.01);	// battery can go from 0 to 100 so * 0.01 goes from 0 to 1
 #endif
 
-	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
+	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
 		return true;
 
 	int r, g, b, x, y, a = MIN_ALPHA;

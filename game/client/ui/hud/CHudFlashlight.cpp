@@ -100,7 +100,7 @@ bool CHudFlashlight::Draw(float flTime)
 	int r, g, b, x, y, a;
 	wrect_t rc;
 
-	if (!(gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)) ))
+	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
 		return true;
 
 	if (m_fOn)

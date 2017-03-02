@@ -113,8 +113,6 @@ public:
 
 	double GetTimeDelta() const { return m_flTimeDelta; }
 
-	bool IsInIntermission() const { return m_bIntermission; }
-
 	const SCREENINFO& ScreenInfo() const { return m_scrinfo; }
 
 	int GetFOV() const { return m_iFOV; }
@@ -136,6 +134,21 @@ public:
 
 	int GetResolution() const { return m_iResolution; }
 
+	bool IsInIntermission() const { return m_bIntermission; }
+
+	const Vector& GetOrigin() const { return m_vecOrigin; }
+
+	const Vector& GetAngles() const { return m_vecAngles; }
+
+	int GetKeyBits() const { return m_iKeyBits; }
+
+	void ClearKeyBits( int bits )
+	{
+		m_iKeyBits &= ~bits;
+	}
+
+	int GetWeaponBits() const { return m_iWeaponBits; }
+
 	HSPRITE GetSprite( int index ) const;
 
 	const wrect_t& GetSpriteRect( int index ) const;
@@ -154,8 +167,6 @@ private:
 	float m_flOldTime		=	0;		// the time at which the HUD was last redrawn
 	double m_flTimeDelta	=	0;		// the difference between flTime and fOldTime
 
-	bool m_bIntermission = false;
-
 	float m_flSnapshotTime = 0;			//! If non-zero, the time at which to take a snapshot.
 
 	SCREENINFO m_scrinfo;				// Screen information
@@ -164,6 +175,16 @@ private:
 	float m_flMouseSensitivity = 0;
 
 	int m_iResolution = 0;
+
+	//Game state
+	bool		m_bIntermission = false;
+
+	//TODO: these should probably be taken from the local CBasePlayer - Solokiller
+	Vector		m_vecOrigin;
+	Vector		m_vecAngles;
+
+	int			m_iKeyBits = 0;
+	int			m_iWeaponBits = 0;
 
 	//Hud sprites
 	// the memory for these arrays are allocated in the first call to CBaseHud::VidInit(), when the hud.txt and associated sprites are loaded.

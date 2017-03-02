@@ -12,6 +12,8 @@
 #include "CBaseHud.h"
 
 float HUD_GetFOV();
+int CL_ButtonBits( int );
+void CL_ResetButtonBits( int bits );
 
 extern cvar_t *sensitivity;
 
@@ -241,12 +243,22 @@ bool CBaseHud::UpdateClientData( client_data_t* cdata )
 
 bool CBaseHud::PreThinkUpdateClient( client_data_t* cdata )
 {
+	m_vecOrigin = cdata->origin;
+	m_vecAngles = cdata->viewangles;
+
+	m_iKeyBits = CL_ButtonBits( 0 );
+	m_iWeaponBits = cdata->iWeaponBits;
+
 	return false;
 }
 
 bool CBaseHud::PostThinkUpdateClient( client_data_t* cdata )
 {
-	return false;
+	cdata->fov = GetFOV();
+
+	CL_ResetButtonBits( GetKeyBits() );
+
+	return true;
 }
 
 void CBaseHud::Think()

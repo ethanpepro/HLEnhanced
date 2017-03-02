@@ -205,7 +205,7 @@ bool CHudHealth::Draw(float flTime)
 	ScaleColors(r, g, b, a );
 
 	// Only draw health if we have the suit.
-	if (gHUD.m_iWeaponBits & (1<<(WEAPON_SUIT)))
+	if ( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)))
 	{
 		HealthWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
 		int CrossWidth = gHUD.GetSpriteRect(m_HUD_cross).right - gHUD.GetSpriteRect(m_HUD_cross).left;
@@ -245,8 +245,8 @@ void CHudHealth::CalcDamageDirection(Vector vecFrom)
 		return;
 	}
 
-	const Vector vecOrigin = gHUD.m_vecOrigin;
-	const Vector vecAngles = gHUD.m_vecAngles;
+	const Vector vecOrigin = Hud().GetOrigin();
+	const Vector vecAngles = Hud().GetAngles();
 
 
 	vecFrom = vecFrom - vecOrigin;

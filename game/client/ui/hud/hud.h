@@ -38,15 +38,23 @@ class CHud : public CBaseHud
 public:
 	DECLARE_CLASS( CHud, CBaseHud );
 
-private:
-	HSPRITE						m_hsprLogo;
-	int							m_iLogo;
-	int							m_iConcussionEffect; 
+public:
+	CHud();
+	~CHud();			// destructor, frees allocated memory
 
-	CHudColors m_HudColors;
+	void CreateHudElements( CHudList& list ) override;
+
+	void Init() override;
+	void VidInit() override;
+	void ResetHud() override;
+
+protected:
+	bool DoDraw( float flTime, bool intermission ) override;
+	bool PreThinkUpdateClient( client_data_t* cdata ) override;
+	bool PostThinkUpdateClient( client_data_t* cdata ) override;
+	void Think() override;
 
 public:
-
 	/**
 	*	@return The primary HUD color.
 	*/
@@ -89,40 +97,12 @@ public:
 		m_HudColors.m_AmmoBarColor = color;
 	}
 
-	HSPRITE						m_hsprCursor;
-	Vector	m_vecOrigin;
-	Vector	m_vecAngles;
-	int		m_iKeyBits;
-	int		m_iHideHUDDisplay;
-	int		m_Teamplay;
-	cvar_t  *m_pCvarStealMouse;
-	cvar_t	*m_pCvarDraw;
-
 	int m_iFontHeight;
 	int DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b );
 	int DrawHudString(int x, int y, int iMaxX, char *szString, int r, int g, int b );
 	int DrawHudStringReverse( int xpos, int ypos, int iMinX, char *szString, int r, int g, int b );
 	int DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b );
 	int GetNumWidth(int iNumber, int iFlags);
-
-public:	
-	void Init() override;
-	void VidInit() override;
-	void Think() override;
-	bool DoDraw( float flTime, bool intermission ) override;
-	
-protected:
-	bool PreThinkUpdateClient( client_data_t* cdata ) override;
-	bool PostThinkUpdateClient( client_data_t* cdata ) override;
-
-public:
-
-	CHud();
-	~CHud();			// destructor, frees allocated memory
-
-	void CreateHudElements( CHudList& list ) override;
-	
-	void ResetHud() override;
 
 	// user messages
 	int _cdecl MsgFunc_Damage(const char *pszName, int iSize, void *pbuf );
@@ -137,11 +117,25 @@ public:
 
 	int MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf );
 
-	int	m_iWeaponBits;
-	bool m_bPlayerDead;
+
+public:
+	HSPRITE		m_hsprCursor;
+	int			m_iHideHUDDisplay;
+	int			m_Teamplay;
+	cvar_t*		m_pCvarStealMouse;
+	cvar_t*		m_pCvarDraw;
+
+	bool		m_bPlayerDead;
 
 	// sprite indexes
-	int m_HUD_number_0;
+	int			m_HUD_number_0;
+
+private:
+	HSPRITE		m_hsprLogo;
+	int			m_iLogo;
+	int			m_iConcussionEffect;
+
+	CHudColors	m_HudColors;
 };
 
 extern CHud gHUD;
