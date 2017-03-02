@@ -749,7 +749,7 @@ bool CHudAmmo::Draw(float flTime)
 	a = (int) max( static_cast<float>( MIN_ALPHA ), m_fFade );
 
 	if (m_fFade > 0)
-		m_fFade -= (gHUD.m_flTimeDelta * 20);
+		m_fFade -= (Hud().GetTimeDelta() * 20);
 
 	gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 

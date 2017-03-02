@@ -137,7 +137,7 @@ bool CHudMenu::Draw( float flTime )
 	// check for if menu is set to disappear
 	if ( m_flShutoffTime > 0 )
 	{
-		if ( m_flShutoffTime <= gHUD.m_flTime )
+		if ( m_flShutoffTime <= Hud().GetTime() )
 		{  // times up, shutoff
 			m_fMenuDisplayed = false;
 			GetFlags() &= ~HUD_ACTIVE;
@@ -246,7 +246,7 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 	const bool NeedMore = reader.ReadByte() != 0;
 
 	if ( DisplayTime > 0 )
-		m_flShutoffTime = DisplayTime + gHUD.m_flTime;
+		m_flShutoffTime = DisplayTime + Hud().GetTime();
 	else
 		m_flShutoffTime = -1;
 

@@ -219,7 +219,7 @@ void CHudSayText :: SayTextPrint( const char *pszBuf, size_t uiBufSize, int clie
 	// Set scroll time
 	if ( i == 0 )
 	{
-		m_flScrollTime = gHUD.m_flTime + m_HUD_saytext_time->value;
+		m_flScrollTime = Hud().GetTime() + m_HUD_saytext_time->value;
 	}
 
 	GetFlags() |= HUD_ACTIVE;

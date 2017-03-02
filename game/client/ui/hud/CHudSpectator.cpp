@@ -532,7 +532,7 @@ void CHudSpectator::CheckSettings()
 	}
 
 	// disble in intermission screen
-	if( gHUD.m_bIntermission )
+	if( Hud().IsInIntermission() )
 		m_pip->value = INSET_OFF;
 
 	if( auto pSayText = GETHUDCLASS( CHudSayText ) )
@@ -985,7 +985,7 @@ void CHudSpectator::SetWayInterpolation(cameraWayPoint_t * prev, cameraWayPoint_
 
 bool CHudSpectator::GetDirectorCamera( Vector &position, Vector &angle)
 {
-	float now = gHUD.m_flTime;
+	float now = Hud().GetTime();
 	float fov = 90.0f;
 
 	if ( m_ChaseEntity )
@@ -1262,7 +1262,7 @@ void CHudSpectator::DirectorMessage( int iSize, void *pbuf )
 							m_WayPoint = 0;
 							for ( i2=0; i2<i1; i2++ )
 							{
-								f1 = gHUD.m_flTime + (float)(reader.ReadShort())/100.0f;
+								f1 = Hud().GetTime() + (float)(reader.ReadShort())/100.0f;
 
 								v1[0] = reader.ReadCoord();	// position
 								v1[1] = reader.ReadCoord();
@@ -1448,7 +1448,7 @@ void CHudSpectator::HandleButtonsDown( int ButtonPressed )
 		return;
 
 	//Not in intermission.
-	if ( gHUD.m_bIntermission )
+	if ( Hud().IsInIntermission() )
 		 return;
 
 	if ( !g_iUser1 )

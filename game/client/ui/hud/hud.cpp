@@ -338,9 +338,6 @@ void CHud::Init()
 	// Clear any old HUD list
 	HudList().RemoveAllElements();
 
-	// In case we get messages before the first update -- time will be valid
-	m_flTime = 1.0;
-
 	InitHudElements();
 
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);

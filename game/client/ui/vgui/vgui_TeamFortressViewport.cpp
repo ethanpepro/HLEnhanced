@@ -944,7 +944,7 @@ void TeamFortressViewport::ShowCommandMenu(int menuIndex)
 	}
 
 	// Not visible while in intermission
-	if ( gHUD.m_bIntermission )
+	if ( Hud().IsInIntermission() )
 		return;
 
 	// Recalculate visible menus
@@ -952,7 +952,7 @@ void TeamFortressViewport::ShowCommandMenu(int menuIndex)
 	HideVGUIMenu();
 
 	SetCurrentCommandMenu( m_pCommandMenus[menuIndex] );
-	m_flMenuOpenTime = gHUD.m_flTime;
+	m_flMenuOpenTime = Hud().GetTime();
 	UpdateCursorState();
 
 	// get command menu parameters
@@ -980,7 +980,7 @@ void TeamFortressViewport::InputSignalHideCommandMenu()
 		return;
 
 	// if they've just tapped the command menu key, leave it open
-	if ( (m_flMenuOpenTime + 0.3) > gHUD.m_flTime )
+	if ( (m_flMenuOpenTime + 0.3) > Hud().GetTime() )
 		return;
 
 	HideCommandMenu();
@@ -1053,7 +1053,7 @@ bool TeamFortressViewport::IsScoreBoardVisible( void )
 void TeamFortressViewport::HideScoreBoard( void )
 {
 	// Prevent removal of scoreboard during intermission
-	if ( gHUD.m_bIntermission )
+	if ( Hud().IsInIntermission() )
 		return;
 
 	if (m_pScoreBoard)
@@ -1181,7 +1181,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 	if( !pSpectator )
 		return;
 
-	if ( g_iUser1 && gHUD.m_pCvarDraw->value && !gHUD.m_bIntermission )	// don't draw in dev_overview mode
+	if ( g_iUser1 && gHUD.m_pCvarDraw->value && !Hud().IsInIntermission() )	// don't draw in dev_overview mode
 	{
 		char bottomText[128];
 		char helpString2[128];
@@ -1305,7 +1305,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		}
 	}
 
-	m_flSpectatorPanelLastUpdated = gHUD.m_flTime + 1.0; // update every second
+	m_flSpectatorPanelLastUpdated = Hud().GetTime() + 1.0; // update every second
 }
 
 //======================================================================
@@ -1491,7 +1491,7 @@ void TeamFortressViewport::ShowVGUIMenu( int iMenu )
 	// Don't open any menus except the MOTD during intermission
 	// MOTD needs to be accepted because it's sent down to the client 
 	// after map change, before intermission's turned off
-	if ( gHUD.m_bIntermission && iMenu != MENU_INTRO )
+	if ( Hud().IsInIntermission() && iMenu != MENU_INTRO )
 		return;
 
 	// Don't create one if it's already in the list
@@ -1763,16 +1763,16 @@ void TeamFortressViewport::paintBackground()
 
 	// See if the Spectator Menu needs to be update
 	if (	( g_iUser1 != m_iUser1 || g_iUser2 != m_iUser2 ) ||
-			( m_flSpectatorPanelLastUpdated < gHUD.m_flTime ) )
+			( m_flSpectatorPanelLastUpdated < Hud().GetTime() ) )
 	{
 		UpdateSpectatorPanel();
 	}
 
 	// Update the Scoreboard, if it's visible
-	if ( m_pScoreBoard->isVisible() && (m_flScoreBoardLastUpdated < gHUD.m_flTime) )
+	if ( m_pScoreBoard->isVisible() && (m_flScoreBoardLastUpdated < Hud().GetTime() ) )
 	{
 		m_pScoreBoard->Update();
-		m_flScoreBoardLastUpdated = gHUD.m_flTime + 0.5;
+		m_flScoreBoardLastUpdated = Hud().GetTime() + 0.5;
 	}
 
 	int extents[4];

@@ -21,10 +21,6 @@
 #include "bench.h"
 #include "strtools.h"
 
-#if USE_VGUI2
-#include <vgui_controls/Panel.h>
-#endif
-
 #include "vgui_TeamFortressViewport.h"
 
 #define MAX_LOGO_FRAMES 56
@@ -105,110 +101,61 @@ void CHud::Think()
 // Redraw
 // step through the local data,  placing the appropriate graphics & text as appropriate
 // returns true if they've changed, false otherwise
-bool CHud::Redraw( float flTime, bool intermission )
+bool CHud::DoDraw( float flTime, bool intermission )
 {
-	m_fOldTime = m_flTime;	// save time of previous redraw
-	m_flTime = flTime;
-	m_flTimeDelta = (double)m_flTime - m_fOldTime;
-	static float m_flShotTime = 0;
-	
-	// Clock was reset, reset delta
-	if ( m_flTimeDelta < 0 )
-		m_flTimeDelta = 0;
-
-	// Bring up the scoreboard during intermission
-	if (gViewPort)
-	{
-		if ( m_bIntermission && !intermission )
-		{
-			// Have to do this here so the scoreboard goes away
-			m_bIntermission = intermission;
-			gViewPort->HideCommandMenu();
-			gViewPort->HideScoreBoard();
-			gViewPort->UpdateSpectatorPanel();
-		}
-		else if ( !m_bIntermission && intermission )
-		{
-			m_bIntermission = intermission;
-			gViewPort->HideCommandMenu();
-			gViewPort->HideVGUIMenu();
-			gViewPort->ShowScoreBoard();
-			gViewPort->UpdateSpectatorPanel();
-
-			// Take a screenshot if the client's got the cvar set
-			if ( CVAR_GET_FLOAT( "hud_takesshots" ) != 0 )
-				m_flShotTime = flTime + 1.0;	// Take a screenshot in a second
-		}
-	}
-
-	if (m_flShotTime && m_flShotTime < flTime)
-	{
-		gEngfuncs.pfnClientCmd("snapshot\n");
-		m_flShotTime = 0;
-	}
-
-	m_bIntermission = intermission;
-
 	// if no redrawing is necessary
 	// return false;
 	
 	// draw all registered HUD elements
 	if ( m_pCvarDraw->value )
 	{
-		auto count = HudList().GetElementCount();
-
-		for( decltype( count ) index = 0; index < count; ++index )
+		struct CDrawInfo final
 		{
-			auto pElem = HudList().GetElementByIndex( index );
+			const bool bIntermission;
+			CHud& hud;
 
-#if USE_VGUI2
-			// Visible?
-			bool visible = pElem->ShouldDraw();
-
-			pElem->SetActive( visible );
-
-			// If it's a vgui panel, hide/show as appropriate
-			vgui2::Panel *pPanel = dynamic_cast<vgui2::Panel*>( pElem );
-			if( pPanel && pPanel->IsVisible() != visible )
+			CDrawInfo( bool bIntermission, CHud& hud )
+				: bIntermission( bIntermission )
+				, hud( hud )
 			{
-				pPanel->SetVisible( visible );
 			}
-			else if( !pPanel )
-			{
-				// All HUD elements should now derive from vgui!!!
-				//TODO - Solokiller
-				//Assert( false );
-			}
+		};
 
-			if( visible )
-			{
-				pElem->ProcessInput();
-			}
-#endif
+		CDrawInfo info( intermission, *this );
 
-			if ( !Bench_Active() )
+		DrawHudElements(
+			flTime,
+			[]( CHudElement* pElem, void* pUserData )
 			{
-				if( !intermission )
+				const auto& info = *reinterpret_cast<const CDrawInfo*>( pUserData );
+
+				if( !Bench_Active() )
 				{
-					if( ( pElem->GetFlags() & HUD_ACTIVE ) && !( m_iHideHUDDisplay & HIDEHUD_ALL ) )
-						pElem->Draw( flTime );
+					if( !info.bIntermission )
+					{
+						if( ( pElem->GetFlags() & HUD_ACTIVE ) && !( info.hud.m_iHideHUDDisplay & HIDEHUD_ALL ) )
+							return true;
+					}
+					else
+					{  // it's an intermission,  so only draw hud elements that are set to draw during intermissions
+						if( pElem->GetFlags() & HUD_INTERMISSION )
+							return true;
+					}
 				}
 				else
-				{  // it's an intermission,  so only draw hud elements that are set to draw during intermissions
-					if( pElem->GetFlags() & HUD_INTERMISSION )
-						pElem->Draw( flTime );
-				}
-			}
-			else
-			{
-				if ( ( Q_strcmp( pElem->GetName(), "CHudBenckmark" ) == 0 ) &&
-					 ( pElem->GetFlags() & HUD_ACTIVE ) &&
-					 !( m_iHideHUDDisplay & HIDEHUD_ALL ) )
 				{
-					pElem->Draw(flTime);
+					if( ( Q_strcmp( pElem->GetName(), "CHudBenckmark" ) == 0 ) &&
+						( pElem->GetFlags() & HUD_ACTIVE ) &&
+						!( info.hud.m_iHideHUDDisplay & HIDEHUD_ALL ) )
+					{
+						return true;
+					}
 				}
-			}
-		}
+
+				return false;
+			},
+			&info
+		);
 	}
 
 	// are we in demo mode? do we need to draw the logo in the top corner?

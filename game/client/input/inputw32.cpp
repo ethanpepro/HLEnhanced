@@ -471,7 +471,7 @@ void IN_MouseMove ( float frametime, usercmd_t *cmd)
 
 	//jjb - this disbles normal mouse control if the user is trying to 
 	//      move the camera, or if the mouse cursor is visible or if we're in intermission
-	if ( !iMouseInUse && !gHUD.m_bIntermission && !g_iVisibleMouse )
+	if ( !iMouseInUse && !Hud().IsInIntermission() && !g_iVisibleMouse )
 	{
 		int deltaX, deltaY;
 #ifdef _WIN32

@@ -97,9 +97,6 @@ public:
 	}
 
 	HSPRITE						m_hsprCursor;
-	float m_flTime;	   // the current client time
-	float m_fOldTime;  // the time at which the HUD was last redrawn
-	double m_flTimeDelta; // the difference between flTime and fOldTime
 	Vector	m_vecOrigin;
 	Vector	m_vecAngles;
 	int		m_iKeyBits;
@@ -142,7 +139,7 @@ public:
 	void Init() override;
 	void VidInit() override;
 	void Think();
-	bool Redraw( float flTime, bool intermission ) override;
+	bool DoDraw( float flTime, bool intermission ) override;
 	
 protected:
 	bool PreThinkUpdateClient( client_data_t* cdata ) override;
@@ -178,7 +175,6 @@ public:
 
 	int	m_iWeaponBits;
 	bool m_bPlayerDead;
-	bool m_bIntermission;
 
 	// sprite indexes
 	int m_HUD_number_0;

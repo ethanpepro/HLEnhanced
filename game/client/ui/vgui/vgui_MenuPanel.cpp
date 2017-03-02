@@ -14,7 +14,7 @@ void CMenuPanel::Open( void )
 	setVisible( true );
 
 	// Note the open time, so we can delay input for a bit
-	m_flOpenTime = gHUD.m_flTime;
+	m_flOpenTime = Hud().GetTime();
 }
 
 void CMenuPanel::Close( void )

@@ -135,7 +135,7 @@ int CHudHealth:: MsgFunc_Damage(const char *pszName,  int iSize, void *pbuf )
 	for ( int i = 0 ; i < 3 ; i++)
 		vecFrom[i] = reader.ReadCoord();
 
-	UpdateTiles(gHUD.m_flTime, bitsDamage);
+	UpdateTiles( Hud().GetTime(), bitsDamage);
 
 	// Actually took damage?
 	if ( damageTaken > 0 || armor > 0 )
@@ -189,7 +189,7 @@ bool CHudHealth::Draw(float flTime)
 	// Has health changed? Flash the health #
 	if (m_fFade)
 	{
-		m_fFade -= (gHUD.m_flTimeDelta * 20);
+		m_fFade -= ( Hud().GetTimeDelta() * 20);
 		if (m_fFade <= 0)
 		{
 			m_fFade = 0;
@@ -306,7 +306,7 @@ bool CHudHealth::DrawPain(float flTime)
 	// TODO:  get the shift value of the health
 	a = 255;	// max brightness until then
 
-	float fFade = gHUD.m_flTimeDelta * 2;
+	float fFade = Hud().GetTimeDelta() * 2;
 	
 	// SPR_Draw top
 	if (m_fAttackFront > 0.4)

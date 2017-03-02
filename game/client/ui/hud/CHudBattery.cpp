@@ -123,7 +123,7 @@ bool CHudBattery::Draw(float flTime)
 		if (m_fFade > FADE_TIME)
 			m_fFade = FADE_TIME;
 
-		m_fFade -= (gHUD.m_flTimeDelta * 20);
+		m_fFade -= ( Hud().GetTimeDelta() * 20);
 		if (m_fFade <= 0)
 		{
 			m_fFade = 0;

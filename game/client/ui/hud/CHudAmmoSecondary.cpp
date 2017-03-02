@@ -70,7 +70,7 @@ bool CHudAmmoSecondary::Draw(float flTime)
 	gHUD.GetPrimaryColor().UnpackRGB( r, g, b );
 	a = (int) max( static_cast<float>( MIN_ALPHA ), m_fFade );
 	if (m_fFade > 0)
-		m_fFade -= (gHUD.m_flTimeDelta * 20);  // slowly lower alpha to fade out icons
+		m_fFade -= ( Hud().GetTimeDelta() * 20);  // slowly lower alpha to fade out icons
 	ScaleColors( r, g, b, a );
 
 	AmmoWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
