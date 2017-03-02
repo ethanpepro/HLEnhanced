@@ -92,7 +92,7 @@ public:
 };
 static CHLVoiceStatusHelper g_VoiceStatusHelper;
 
-extern cvar_t *sensitivity;
+float g_lastFOV = 0.0;
 cvar_t *cl_lw = NULL;
 
 //DECLARE_MESSAGE(m_Logo, Logo)
@@ -429,8 +429,6 @@ int CHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)
 
 	return 1;
 }
-
-float g_lastFOV = 0.0;
 
 /*
 =====================

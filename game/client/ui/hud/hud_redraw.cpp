@@ -35,8 +35,6 @@ int grgLogoFrame[MAX_LOGO_FRAMES] =
 
 extern int g_iVisibleMouse;
 
-extern cvar_t *sensitivity;
-
 // Think
 void CHud::Think()
 {
