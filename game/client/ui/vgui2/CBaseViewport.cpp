@@ -435,7 +435,7 @@ void CBaseViewport::ReloadScheme( const char* pszFromFile )
 	//LoadControlSettings( UI_HUDLAYOUT_FILENAME );
 
 	//TODO: implement - Solokiller
-	//gHUD.RefreshHudTextures();
+	//Hud().RefreshHudTextures();
 
 	InvalidateLayout( true, true );
 

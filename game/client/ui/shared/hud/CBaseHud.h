@@ -175,7 +175,7 @@ public:
 
 	/**
 	*	Searches through the sprite list loaded from hud.txt for a name matching SpriteName
-	*	returns an index into the gHUD.m_rghSprites[] array
+	*	returns an index into the Hud().m_pSprites[] array
 	*	returns INVALID_SPRITE_INDEX if sprite not found
 	*/
 	int GetSpriteIndex( const char* SpriteName ) const;

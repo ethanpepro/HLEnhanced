@@ -415,7 +415,7 @@ void IN_ScaleMouse( float *x, float *y )
 	float my = *y;
 
 	// This is the default sensitivity
-	float mouse_senstivity = ( gHUD.GetSensitivity() != 0 ) ? gHUD.GetSensitivity() : sensitivity->value;
+	float mouse_senstivity = ( Hud().GetSensitivity() != 0 ) ? Hud().GetSensitivity() : sensitivity->value;
 
 	// Using special accleration values
 	if ( m_customaccel->value != 0 ) 

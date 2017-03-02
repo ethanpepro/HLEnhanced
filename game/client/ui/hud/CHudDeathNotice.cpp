@@ -51,7 +51,7 @@ void CHudDeathNotice::InitHUDData()
 
 void CHudDeathNotice::VidInit()
 {
-	m_HUD_d_skull = gHUD.GetSpriteIndex( "d_skull" );
+	m_HUD_d_skull = Hud().GetSpriteIndex( "d_skull" );
 }
 
 bool CHudDeathNotice::Draw( float flTime )
@@ -80,7 +80,7 @@ bool CHudDeathNotice::Draw( float flTime )
 			y = DEATHNOTICE_TOP + 2 + (20 * i);  //!!!
 
 			int id = ( m_rgDeathNoticeList[i].iId == -1) ? m_HUD_d_skull : m_rgDeathNoticeList[i].iId;
-			x = ScreenWidth - ConsoleStringLen( m_rgDeathNoticeList[i].szVictim) - (gHUD.GetSpriteRect(id).right - gHUD.GetSpriteRect(id).left);
+			x = ScreenWidth - ConsoleStringLen( m_rgDeathNoticeList[i].szVictim) - ( Hud().GetSpriteRect(id).right - Hud().GetSpriteRect(id).left);
 
 			if ( !m_rgDeathNoticeList[i].bSuicide )
 			{
@@ -99,10 +99,10 @@ bool CHudDeathNotice::Draw( float flTime )
 			}
 
 			// Draw death weapon
-			SPR_Set( gHUD.GetSprite(id), r, g, b );
-			SPR_DrawAdditive( 0, x, y, &gHUD.GetSpriteRect(id) );
+			SPR_Set( Hud().GetSprite(id), r, g, b );
+			SPR_DrawAdditive( 0, x, y, &Hud().GetSpriteRect(id) );
 
-			x += (gHUD.GetSpriteRect(id).right - gHUD.GetSpriteRect(id).left);
+			x += ( Hud().GetSpriteRect(id).right - Hud().GetSpriteRect(id).left);
 
 			// Draw victims name (if it was a player that was killed)
 			if ( !m_rgDeathNoticeList[i].bNonPlayerKill )
@@ -200,7 +200,7 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 	}
 
 	// Find the sprite in the list
-	int spr = gHUD.GetSpriteIndex( killedwith );
+	int spr = Hud().GetSpriteIndex( killedwith );
 
 	m_rgDeathNoticeList[i].iId = spr;
 

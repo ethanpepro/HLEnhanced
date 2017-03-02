@@ -92,11 +92,11 @@ void CHudHealth::VidInit()
 {
 	m_hSprite = 0;
 
-	m_HUD_dmg_bio = gHUD.GetSpriteIndex( "dmg_bio" ) + 1;
-	m_HUD_cross = gHUD.GetSpriteIndex( "cross" );
+	m_HUD_dmg_bio = Hud().GetSpriteIndex( "dmg_bio" ) + 1;
+	m_HUD_cross = Hud().GetSpriteIndex( "cross" );
 
-	m_iDmgHeight = gHUD.GetSpriteRect(m_HUD_dmg_bio).right - gHUD.GetSpriteRect(m_HUD_dmg_bio).left;
-	m_iDmgWidth = gHUD.GetSpriteRect(m_HUD_dmg_bio).bottom - gHUD.GetSpriteRect(m_HUD_dmg_bio).top;
+	m_iDmgHeight = Hud().GetSpriteRect(m_HUD_dmg_bio).right - Hud().GetSpriteRect(m_HUD_dmg_bio).left;
+	m_iDmgWidth = Hud().GetSpriteRect(m_HUD_dmg_bio).bottom - Hud().GetSpriteRect(m_HUD_dmg_bio).top;
 }
 
 int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
@@ -207,14 +207,14 @@ bool CHudHealth::Draw(float flTime)
 	// Only draw health if we have the suit.
 	if ( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)))
 	{
-		HealthWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
-		int CrossWidth = gHUD.GetSpriteRect(m_HUD_cross).right - gHUD.GetSpriteRect(m_HUD_cross).left;
+		HealthWidth = Hud().GetSpriteRect(gHUD.m_HUD_number_0).right - Hud().GetSpriteRect(gHUD.m_HUD_number_0).left;
+		int CrossWidth = Hud().GetSpriteRect(m_HUD_cross).right - Hud().GetSpriteRect(m_HUD_cross).left;
 
 		y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight / 2;
 		x = CrossWidth /2;
 
-		SPR_Set(gHUD.GetSprite(m_HUD_cross), r, g, b);
-		SPR_DrawAdditive(0, x, y, &gHUD.GetSpriteRect(m_HUD_cross));
+		SPR_Set( Hud().GetSprite(m_HUD_cross), r, g, b);
+		SPR_DrawAdditive(0, x, y, &Hud().GetSpriteRect(m_HUD_cross));
 
 		x = CrossWidth + HealthWidth / 2;
 
@@ -386,8 +386,8 @@ bool CHudHealth::DrawDamage(float flTime)
 		if (m_bitsDamage & giDmgFlags[i])
 		{
 			pdmg = &m_dmg[i];
-			SPR_Set(gHUD.GetSprite(m_HUD_dmg_bio + i), r, g, b );
-			SPR_DrawAdditive(0, pdmg->x, pdmg->y, &gHUD.GetSpriteRect(m_HUD_dmg_bio + i));
+			SPR_Set( Hud().GetSprite(m_HUD_dmg_bio + i), r, g, b );
+			SPR_DrawAdditive(0, pdmg->x, pdmg->y, &Hud().GetSpriteRect(m_HUD_dmg_bio + i));
 		}
 	}
 

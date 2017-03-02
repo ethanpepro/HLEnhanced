@@ -267,7 +267,7 @@ void DLLEXPORT CAM_Think( void )
 		//set old mouse coordinates to current mouse coordinates
 		//since we are done with the mouse
 
-		if ( ( flSensitivity = gHUD.GetSensitivity() ) != 0 )
+		if ( ( flSensitivity = Hud().GetSensitivity() ) != 0 )
 		{
 			cam_old_mouse_x=cam_mouse.x*flSensitivity;
 			cam_old_mouse_y=cam_mouse.y*flSensitivity;
@@ -333,8 +333,8 @@ void DLLEXPORT CAM_Think( void )
 		}
 		//set old mouse coordinates to current mouse coordinates
 		//since we are done with the mouse
-		cam_old_mouse_x=cam_mouse.x*gHUD.GetSensitivity();
-		cam_old_mouse_y=cam_mouse.y*gHUD.GetSensitivity();
+		cam_old_mouse_x=cam_mouse.x*Hud().GetSensitivity();
+		cam_old_mouse_y=cam_mouse.y*Hud().GetSensitivity();
 		SDL_SetCursorPos (gEngfuncs.GetWindowCenterX(), gEngfuncs.GetWindowCenterY());
 	}
 #ifdef LATER
@@ -550,7 +550,7 @@ void CAM_StartMouseMove(void)
 			iMouseInUse=1;
 			SDL_GetCursorPos (&cam_mouse);
 
-			if ( ( flSensitivity = gHUD.GetSensitivity() ) != 0 )
+			if ( ( flSensitivity = Hud().GetSensitivity() ) != 0 )
 			{
 				cam_old_mouse_x=cam_mouse.x*flSensitivity;
 				cam_old_mouse_y=cam_mouse.y*flSensitivity;
@@ -596,8 +596,8 @@ void CAM_StartDistance(void)
 		  cam_mousemove=1;
 		  iMouseInUse=1;
 		  SDL_GetCursorPos (&cam_mouse);
-		  cam_old_mouse_x=cam_mouse.x*gHUD.GetSensitivity();
-		  cam_old_mouse_y=cam_mouse.y*gHUD.GetSensitivity();
+		  cam_old_mouse_x=cam_mouse.x*Hud().GetSensitivity();
+		  cam_old_mouse_y=cam_mouse.y*Hud().GetSensitivity();
 	  }
 	}
 	//we are not in 3rd person view..therefore do not allow camera movement

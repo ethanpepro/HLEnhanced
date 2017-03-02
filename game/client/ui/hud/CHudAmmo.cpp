@@ -143,14 +143,15 @@ void CHudAmmo::Reset()
 void CHudAmmo::VidInit()
 {
 	// Load sprites for buckets (top row of weapon menu)
-	m_HUD_bucket0 = gHUD.GetSpriteIndex( "bucket1" );
-	m_HUD_selection = gHUD.GetSpriteIndex( "selection" );
+	m_HUD_bucket0 = Hud().GetSpriteIndex( "bucket1" );
+	m_HUD_selection = Hud().GetSpriteIndex( "selection" );
 
-	m_hsprBuckets = gHUD.GetSprite(m_HUD_bucket0);
-	m_iBucketWidth = gHUD.GetSpriteRect(m_HUD_bucket0).right - gHUD.GetSpriteRect(m_HUD_bucket0).left;
-	m_iBucketHeight = gHUD.GetSpriteRect(m_HUD_bucket0).bottom - gHUD.GetSpriteRect(m_HUD_bucket0).top;
+	//TODO: get the sprite once instead of fetching it over and over - Solokiller
+	m_hsprBuckets = Hud().GetSprite(m_HUD_bucket0);
+	m_iBucketWidth = Hud().GetSpriteRect(m_HUD_bucket0).right - Hud().GetSpriteRect(m_HUD_bucket0).left;
+	m_iBucketHeight = Hud().GetSpriteRect(m_HUD_bucket0).bottom - Hud().GetSpriteRect(m_HUD_bucket0).top;
 
-	gHR.iHistoryGap = max( gHR.iHistoryGap, gHUD.GetSpriteRect(m_HUD_bucket0).bottom - gHUD.GetSpriteRect(m_HUD_bucket0).top);
+	gHR.iHistoryGap = max( gHR.iHistoryGap, Hud().GetSpriteRect(m_HUD_bucket0).bottom - Hud().GetSpriteRect(m_HUD_bucket0).top);
 
 	if (ScreenWidth >= 640)
 	{
@@ -741,7 +742,7 @@ bool CHudAmmo::Draw(float flTime)
 
 	int iFlags = DHN_DRAWZERO; // draw 0 values
 
-	AmmoWidth = gHUD.GetSpriteRect(gHUD.m_HUD_number_0).right - gHUD.GetSpriteRect(gHUD.m_HUD_number_0).left;
+	AmmoWidth = Hud().GetSpriteRect(gHUD.m_HUD_number_0).right - Hud().GetSpriteRect(gHUD.m_HUD_number_0).left;
 
 	a = (int) max( static_cast<float>( MIN_ALPHA ), m_fFade );
 
@@ -957,7 +958,7 @@ int CHudAmmo::DrawWList(float flTime)
 			a = 192;
 
 		ScaleColors(r, g, b, 255);
-		SPR_Set(gHUD.GetSprite(m_HUD_bucket0 + i), r, g, b );
+		SPR_Set( Hud().GetSprite(m_HUD_bucket0 + i), r, g, b );
 
 		// make active slot wide enough to accomodate gun pictures
 		if ( i == iActiveSlot )
@@ -971,7 +972,7 @@ int CHudAmmo::DrawWList(float flTime)
 		else
 			iWidth = m_iBucketWidth;
 
-		SPR_DrawAdditive(0, x, y, &gHUD.GetSpriteRect(m_HUD_bucket0 + i));
+		SPR_DrawAdditive(0, x, y, &Hud().GetSpriteRect(m_HUD_bucket0 + i));
 		
 		x += iWidth + 5;
 	}
@@ -1010,8 +1011,8 @@ int CHudAmmo::DrawWList(float flTime)
 					SPR_Set( pHUDInfo->GetActive().hSprite, r, g, b );
 					SPR_DrawAdditive(0, x, y, &pHUDInfo->GetActive().rect );
 
-					SPR_Set(gHUD.GetSprite(m_HUD_selection), r, g, b );
-					SPR_DrawAdditive(0, x, y, &gHUD.GetSpriteRect(m_HUD_selection));
+					SPR_Set( Hud().GetSprite(m_HUD_selection), r, g, b );
+					SPR_DrawAdditive(0, x, y, &Hud().GetSpriteRect(m_HUD_selection));
 				}
 				else
 				{
