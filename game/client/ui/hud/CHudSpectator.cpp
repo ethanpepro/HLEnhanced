@@ -358,7 +358,7 @@ void CHudSpectator::InitHUDData()
 	g_iUser2 = 0; // fake not target until first camera command
 
 				  // reset HUD FOV
-	gHUD.m_iFOV = CVAR_GET_FLOAT( "default_fov" );
+	Hud().SetFOV( Hud().GetDefaultFOVCVar()->value );
 }
 
 float CHudSpectator::GetFOV() const

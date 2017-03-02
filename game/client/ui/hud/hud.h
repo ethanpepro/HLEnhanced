@@ -47,7 +47,6 @@ private:
 	client_sprite_t				*m_pSpriteList;
 	int							m_iSpriteCount;
 	int							m_iSpriteCountAllRes;
-	float						m_flMouseSensitivity;
 	int							m_iConcussionEffect; 
 
 	CHudColors m_HudColors;
@@ -101,7 +100,6 @@ public:
 	Vector	m_vecAngles;
 	int		m_iKeyBits;
 	int		m_iHideHUDDisplay;
-	int		m_iFOV;
 	int		m_Teamplay;
 	int		m_iRes;
 	cvar_t  *m_pCvarStealMouse;
@@ -120,8 +118,6 @@ private:
 	HSPRITE *m_rghSprites;	/*[HUD_SPRITE_COUNT]*/			// the sprites loaded from hud.txt
 	wrect_t *m_rgrcRects;	/*[HUD_SPRITE_COUNT]*/
 	char *m_rgszSpriteNames; /*[HUD_SPRITE_COUNT][MAX_SPRITE_NAME_LENGTH]*/
-
-	cvar_t *default_fov;
 public:
 	HSPRITE GetSprite( int index ) 
 	{
@@ -138,7 +134,7 @@ public:
 
 	void Init() override;
 	void VidInit() override;
-	void Think();
+	void Think() override;
 	bool DoDraw( float flTime, bool intermission ) override;
 	
 protected:
@@ -155,7 +151,7 @@ public:
 		return HLHud();
 	}
 
-	void ResetHUD();
+	void ResetHud() override;
 
 	// user messages
 	int _cdecl MsgFunc_Damage(const char *pszName, int iSize, void *pbuf );
@@ -170,16 +166,11 @@ public:
 
 	int MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf );
 
-	// Screen information
-	SCREENINFO	m_scrinfo;
-
 	int	m_iWeaponBits;
 	bool m_bPlayerDead;
 
 	// sprite indexes
 	int m_HUD_number_0;
-
-	float GetSensitivity();
 };
 
 extern CHud gHUD;

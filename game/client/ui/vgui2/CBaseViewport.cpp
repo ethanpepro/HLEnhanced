@@ -440,5 +440,5 @@ void CBaseViewport::ReloadScheme( const char* pszFromFile )
 	InvalidateLayout( true, true );
 
 	// reset the hud
-	gHUD.ResetHUD();
+	Hud().ResetHud();
 }

@@ -119,9 +119,9 @@ client_sprite_t *GetSpriteList( client_sprite_t *pList, const char *psz, int iRe
 
 
 // ScreenHeight returns the height of the screen, in pixels
-#define ScreenHeight (gHUD.m_scrinfo.iHeight)
+#define ScreenHeight (Hud().ScreenInfo().iHeight)
 // ScreenWidth returns the width of the screen, in pixels
-#define ScreenWidth (gHUD.m_scrinfo.iWidth)
+#define ScreenWidth (Hud().ScreenInfo().iWidth)
 
 // use this to project world coordinates to screen coordinates
 #define XPROJECT(x)	( (1.0f+(x))*ScreenWidth*0.5f )

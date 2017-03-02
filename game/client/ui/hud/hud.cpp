@@ -324,10 +324,8 @@ void CHud::Init()
 
 
 	m_iLogo = 0;
-	m_iFOV = 0;
 
 	CVAR_CREATE( "zoom_sensitivity_ratio", "1.2", 0 );
-	default_fov = CVAR_CREATE( "default_fov", "90", 0 );
 	m_pCvarStealMouse = CVAR_CREATE( "hud_capturemouse", "1", FCVAR_ARCHIVE );
 	m_pCvarDraw = CVAR_CREATE( "hud_draw", "1", FCVAR_ARCHIVE );
 	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
@@ -342,7 +340,7 @@ void CHud::Init()
 
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 
-	ResetHUD();
+	ResetHud();
 }
 
 CHud::CHud()
@@ -359,13 +357,9 @@ CHud :: ~CHud()
 	delete [] m_rgszSpriteNames;
 }
 
-void CHud::ResetHUD()
+void CHud::ResetHud()
 {
-	// clear all hud data
-	HudList().ForEachHudElem( &CHudElement::Reset );
-
-	// reset sensitivity
-	m_flMouseSensitivity = 0;
+	BaseClass::ResetHud();
 
 	// reset concussion effect
 	m_iConcussionEffect = 0;
@@ -395,9 +389,6 @@ void CHud::VidInit()
 	SetPrimaryColor( HUD_DEFAULT_PRIMARY_COLOR );
 	SetEmptyItemColor( HUD_DEFAULT_EMPTYITEM_COLOR );
 	SetAmmoBarColor( HUD_DEFAULT_AMMOBAR_COLOR );
-
-	m_scrinfo.iSize = sizeof(m_scrinfo);
-	GetScreenInfo(&m_scrinfo);
 
 	// ----------
 	// Load Sprites
@@ -594,8 +585,7 @@ int CHud::MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf)
 {
 	CBufferReader reader( pbuf, iSize );
 
-	int newfov = reader.ReadByte();
-	int def_fov = CVAR_GET_FLOAT( "default_fov" );
+	const int newfov = reader.ReadByte();
 
 	//Weapon prediction already takes care of changing the fog. ( g_lastFOV ).
 	if ( cl_lw && cl_lw->value )
@@ -603,33 +593,7 @@ int CHud::MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf)
 
 	g_lastFOV = newfov;
 
-	if ( newfov == 0 )
-	{
-		m_iFOV = def_fov;
-	}
-	else
-	{
-		m_iFOV = newfov;
-	}
-
-	// the clients fov is actually set in the client data update section of the hud
-
-	// Set a new sensitivity
-	if ( m_iFOV == def_fov )
-	{  
-		// reset to saved sensitivity
-		m_flMouseSensitivity = 0;
-	}
-	else
-	{  
-		// set a new sensitivity that is proportional to the change from the FOV default
-		m_flMouseSensitivity = sensitivity->value * ((float)newfov / (float)def_fov) * CVAR_GET_FLOAT("zoom_sensitivity_ratio");
-	}
+	UpdateFOV( newfov, false );
 
 	return 1;
-}
-
-float CHud::GetSensitivity()
-{
-	return m_flMouseSensitivity;
 }

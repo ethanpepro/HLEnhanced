@@ -44,7 +44,7 @@ int CHud :: MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf )
 	//This used to be 0, but the server sends a byte over, so it's changed now. - Solokiller
 	ASSERT( iSize == 1 );
 
-	ResetHUD();
+	ResetHud();
 
 	return 1;
 }

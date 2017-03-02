@@ -44,7 +44,7 @@ bool CHud::PreThinkUpdateClient( client_data_t* cdata )
 
 bool CHud::PostThinkUpdateClient( client_data_t* cdata )
 {
-	cdata->fov = m_iFOV;
+	cdata->fov = GetFOV();
 
 	v_idlescale = m_iConcussionEffect;
 

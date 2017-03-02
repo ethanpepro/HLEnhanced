@@ -451,7 +451,8 @@ void CHudAmmo::UpdateWeaponHUD( CBasePlayerWeapon* pWeapon, bool bOnTarget )
 {
 	auto pHUDInfo = pWeapon->GetWeaponInfo()->GetHUDInfo();
 
-	if( gHUD.m_iFOV >= 90 )
+	//TODO: define 90 constant - Solokiller
+	if( Hud().GetFOV() >= 90 )
 	{ // normal crosshairs
 		if( bOnTarget && pHUDInfo->GetAutoAim().hSprite )
 			SetCrosshair( pHUDInfo->GetAutoAim().hSprite, pHUDInfo->GetAutoAim().rect, 255, 255, 255 );

@@ -37,6 +37,8 @@ public:
 
 	virtual void VidInit();
 
+	virtual void ResetHud();
+
 	bool Redraw( float flTime, bool intermission );
 
 protected:
@@ -73,6 +75,13 @@ protected:
 	virtual void Think();
 
 public:
+	/**
+	*	Updates the FOV. Can be overridden for custom handling.
+	*	@param iNewFOV New Field Of Fiew
+	*	@param bForce Whether to force the FOV to this setting
+	*/
+	virtual void UpdateFOV( int iNewFOV, bool bForce );
+
 	virtual void InitHudElements();
 
 	/**
@@ -88,6 +97,27 @@ public:
 
 	bool IsInIntermission() const { return m_bIntermission; }
 
+	const SCREENINFO& ScreenInfo() const { return m_scrinfo; }
+
+	int GetFOV() const { return m_iFOV; }
+
+	void SetFOV( int iFOV )
+	{
+		m_iFOV = iFOV;
+	}
+
+	float GetSensitivity() const
+	{
+		return m_flMouseSensitivity;
+	}
+
+	void SetSensitivity( float flMouseSensitivity )
+	{
+		m_flMouseSensitivity = flMouseSensitivity;
+	}
+
+	cvar_t* GetDefaultFOVCVar() { return default_fov; }
+
 private:
 	float m_flTime			=	1.f;	// the current client time
 	float m_flOldTime		=	0;		// the time at which the HUD was last redrawn
@@ -96,6 +126,14 @@ private:
 	bool m_bIntermission = false;
 
 	float m_flSnapshotTime = 0;			//! If non-zero, the time at which to take a snapshot.
+
+	SCREENINFO m_scrinfo;				// Screen information
+
+	int	m_iFOV = 0;
+	float m_flMouseSensitivity = 0;
+
+	//CVars
+	cvar_t* default_fov = nullptr;
 
 private:
 	CBaseHud( const CBaseHud& ) = delete;

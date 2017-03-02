@@ -11,6 +11,10 @@
 
 #include "CBaseHud.h"
 
+float HUD_GetFOV();
+
+extern cvar_t *sensitivity;
+
 namespace
 {
 static CBaseHud* g_pHud = nullptr;
@@ -43,10 +47,25 @@ void CBaseHud::Init()
 {
 	// In case we get messages before the first update -- time will be valid
 	m_flTime = 1.0;
+
+	m_iFOV = 0;
+
+	default_fov = CVAR_CREATE( "default_fov", "90", 0 );
 }
 
 void CBaseHud::VidInit()
 {
+	m_scrinfo.iSize = sizeof( m_scrinfo );
+	GetScreenInfo( &m_scrinfo );
+}
+
+void CBaseHud::ResetHud()
+{
+	// clear all hud data
+	HudList().ForEachHudElem( &CHudElement::Reset );
+
+	// reset sensitivity
+	SetSensitivity( 0 );
 }
 
 bool CBaseHud::Redraw( float flTime, bool intermission )
@@ -158,6 +177,63 @@ bool CBaseHud::PostThinkUpdateClient( client_data_t* cdata )
 
 void CBaseHud::Think()
 {
+	m_scrinfo.iSize = sizeof( m_scrinfo );
+	GetScreenInfo( &m_scrinfo );
+
+	auto count = HudList().GetElementCount();
+
+	for( decltype( count ) index = 0; index < count; ++index )
+	{
+		auto pElem = HudList().GetElementByIndex( index );
+
+		if( pElem->GetFlags() & HUD_ACTIVE )
+			pElem->Think();
+	}
+
+	UpdateFOV( HUD_GetFOV(), true );
+}
+
+void CBaseHud::UpdateFOV( int iNewFOV, bool bForce )
+{
+	if( iNewFOV == 0 )
+	{
+		SetFOV( default_fov->value );
+	}
+	else
+	{
+		SetFOV( iNewFOV );
+	}
+
+	// the clients fov is actually set in the client data update section of the hud
+
+	// Set a new sensitivity
+	if( m_iFOV == default_fov->value )
+	{
+		// reset to saved sensitivity
+		SetSensitivity( 0 );
+	}
+	else
+	{
+		// set a new sensitivity that is proportional to the change from the FOV default
+		SetSensitivity( sensitivity->value * ( ( float ) iNewFOV / ( float ) default_fov->value ) * CVAR_GET_FLOAT( "zoom_sensitivity_ratio" ) );
+	}
+
+	if( !bForce )
+	{
+		// think about default fov
+		if( m_iFOV == 0 )
+		{  // only let players adjust up in fov,  and only if they are not overriden by something else
+			SetFOV( max( default_fov->value, 90.0f ) );
+		}
+	}
+
+	if( gEngfuncs.IsSpectateOnly() )
+	{
+		if( auto pSpectator = GETHUDCLASS( CHudSpectator ) )
+			SetFOV( pSpectator->GetFOV() );	// default_fov->value;
+		else
+			SetFOV( default_fov->value );
+	}
 }
 
 void CBaseHud::InitHudElements()

@@ -146,6 +146,9 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	EV_HookEvents();
 	CL_LoadParticleMan();
 
+	//TODO: use a dynamically allocated instance - Solokiller
+	SetHud( &gHUD );
+
 	if( !g_Client.Initialize() )
 		return false;
 
@@ -204,9 +207,6 @@ the hud variables.
 
 void DLLEXPORT HUD_Init( void )
 {
-	//TODO: use a dynamically allocated instance - Solokiller
-	SetHud( &gHUD );
-
 	InitInput();
 	Hud().Init();
 	Scheme_Init();
