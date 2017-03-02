@@ -69,9 +69,9 @@ bool CHudAmmoSecondary::Draw(float flTime)
 		m_fFade -= ( Hud().GetTimeDelta() * 20);  // slowly lower alpha to fade out icons
 	ScaleColors( r, g, b, a );
 
-	AmmoWidth = Hud().GetSpriteRect(gHUD.m_HUD_number_0).right - Hud().GetSpriteRect(gHUD.m_HUD_number_0).left;
+	AmmoWidth = Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).right - Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).left;
 
-	y = ScreenHeight - (gHUD.m_iFontHeight*4);  // this is one font height higher than the weapon ammo values
+	y = ScreenHeight - ( Hud().GetFontHeight() *4);  // this is one font height higher than the weapon ammo values
 	x = ScreenWidth - AmmoWidth;
 
 	if ( m_HUD_ammoicon )
@@ -86,7 +86,7 @@ bool CHudAmmoSecondary::Draw(float flTime)
 	else
 	{  // move the cursor by the '0' char instead, since we don't have an icon to work with
 		x -= AmmoWidth;
-		y -= ( Hud().GetSpriteRect(gHUD.m_HUD_number_0).top - Hud().GetSpriteRect(gHUD.m_HUD_number_0).bottom);
+		y -= ( Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).top - Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).bottom);
 	}
 
 	// draw the ammo counts, in reverse order, from right to left
@@ -106,7 +106,7 @@ bool CHudAmmoSecondary::Draw(float flTime)
 		{
 			// draw the divider bar
 			x -= (AmmoWidth / 2);
-			FillRGBA(x, y, (AmmoWidth/10), gHUD.m_iFontHeight, r, g, b, a);
+			FillRGBA(x, y, (AmmoWidth/10), Hud().GetFontHeight(), r, g, b, a);
 		}
 	}
 

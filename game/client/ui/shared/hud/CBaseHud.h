@@ -61,7 +61,7 @@ protected:
 	/**
 	*	Called when the Hud can load its sprites.
 	*/
-	virtual void LoadSprites() {}
+	virtual void LoadSprites();
 
 public:
 	virtual void ResetHud();
@@ -143,6 +143,8 @@ public:
 
 	int GetResolution() const { return m_iResolution; }
 
+	int GetFontHeight() const { return m_iFontHeight; }
+
 	bool IsInIntermission() const { return m_bIntermission; }
 
 	const Vector& GetOrigin() const { return m_vecOrigin; }
@@ -180,6 +182,8 @@ public:
 	*/
 	int GetSpriteIndex( const char* SpriteName ) const;
 
+	int GetHudNumber0Index() const { return m_HUD_number_0; }
+
 	cvar_t* GetDefaultFOVCVar() { return default_fov; }
 
 private:
@@ -195,6 +199,8 @@ private:
 	float m_flMouseSensitivity = 0;
 
 	int m_iResolution = 0;
+
+	int m_iFontHeight = 0;
 
 	//Game state
 	bool			m_bIntermission = false;
@@ -219,7 +225,10 @@ private:
 	int					m_iSpriteCountAllRes = 0;	//!Sprite count for all resolutions.
 
 	//Only one array now to make things a little saner.
-	HudSprite_t* m_pSprites = nullptr;	// the sprites loaded from hud.txt, total m_iSpriteCount
+	HudSprite_t*		m_pSprites = nullptr;	// the sprites loaded from hud.txt, total m_iSpriteCount
+
+	// sprite indexes
+	int					m_HUD_number_0;
 
 	//CVars
 	cvar_t* default_fov = nullptr;

@@ -139,6 +139,18 @@ void CBaseHud::VidInit()
 	HudList().ForEachHudElem( &CHudElement::VidInit );
 }
 
+void CBaseHud::LoadSprites()
+{
+	// assumption: number_1, number_2, etc, are all listed and loaded sequentially
+	m_HUD_number_0 = GetSpriteIndex( "number_0" );
+
+	ASSERT( m_HUD_number_0 != INVALID_SPRITE_INDEX );
+
+	const auto& rect = GetSpriteRect( m_HUD_number_0 );
+
+	m_iFontHeight = rect.bottom - rect.top;
+}
+
 void CBaseHud::ResetHud()
 {
 	// clear all hud data

@@ -742,7 +742,7 @@ bool CHudAmmo::Draw(float flTime)
 
 	int iFlags = DHN_DRAWZERO; // draw 0 values
 
-	AmmoWidth = Hud().GetSpriteRect(gHUD.m_HUD_number_0).right - Hud().GetSpriteRect(gHUD.m_HUD_number_0).left;
+	AmmoWidth = Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).right - Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).left;
 
 	a = (int) max( static_cast<float>( MIN_ALPHA ), m_fFade );
 
@@ -754,7 +754,7 @@ bool CHudAmmo::Draw(float flTime)
 	ScaleColors(r, g, b, a );
 
 	// Does this weapon have a clip?
-	y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight/2;
+	y = ScreenHeight - Hud().GetFontHeight() - Hud().GetFontHeight() /2;
 
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 
@@ -785,7 +785,7 @@ bool CHudAmmo::Draw(float flTime)
 			gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 
 			// draw the | bar
-			FillRGBA(x, y, iBarWidth, gHUD.m_iFontHeight, r, g, b, a);
+			FillRGBA(x, y, iBarWidth, Hud().GetFontHeight(), r, g, b, a);
 
 			x += iBarWidth + AmmoWidth/2;;
 
@@ -818,7 +818,7 @@ bool CHudAmmo::Draw(float flTime)
 		// Do we have secondary ammo?
 		if ( pPlayer->CountAmmo( pAmmo->GetID() ) > 0 )
 		{
-			y -= gHUD.m_iFontHeight + gHUD.m_iFontHeight/4;
+			y -= Hud().GetFontHeight() + Hud().GetFontHeight() /4;
 			x = ScreenWidth - 4 * AmmoWidth - iIconWidth;
 			x = gHUD.DrawHudNumber(x, y, iFlags|DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 

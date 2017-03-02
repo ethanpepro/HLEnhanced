@@ -79,7 +79,7 @@ public:
 
 	virtual int	GetAckIconHeight()
 	{
-		return ScreenHeight - gHUD.m_iFontHeight*3 - 6;
+		return ScreenHeight - Hud().GetFontHeight() *3 - 6;
 	}
 
 	virtual bool			CanShowSpeakerLabels()
@@ -404,6 +404,8 @@ void CHud::VidInit()
 
 void CHud::LoadSprites()
 {
+	BaseClass::LoadSprites();
+
 	// ----------
 	// Load Sprites
 	// ---------
@@ -411,13 +413,6 @@ void CHud::LoadSprites()
 
 	m_hsprLogo = INVALID_HSPRITE;
 	m_hsprCursor = INVALID_HSPRITE;
-
-	// assumption: number_1, number_2, etc, are all listed and loaded sequentially
-	m_HUD_number_0 = GetSpriteIndex( "number_0" );
-
-	ASSERT( m_HUD_number_0 != INVALID_SPRITE_INDEX );
-
-	m_iFontHeight = GetSpriteRect( m_HUD_number_0 ).bottom - GetSpriteRect( m_HUD_number_0 ).top;
 }
 
 int CHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)

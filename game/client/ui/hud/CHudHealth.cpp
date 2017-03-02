@@ -207,10 +207,10 @@ bool CHudHealth::Draw(float flTime)
 	// Only draw health if we have the suit.
 	if ( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)))
 	{
-		HealthWidth = Hud().GetSpriteRect(gHUD.m_HUD_number_0).right - Hud().GetSpriteRect(gHUD.m_HUD_number_0).left;
+		HealthWidth = Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).right - Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).left;
 		int CrossWidth = Hud().GetSpriteRect(m_HUD_cross).right - Hud().GetSpriteRect(m_HUD_cross).left;
 
-		y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight / 2;
+		y = ScreenHeight - Hud().GetFontHeight() - Hud().GetFontHeight() / 2;
 		x = CrossWidth /2;
 
 		SPR_Set( Hud().GetSprite(m_HUD_cross), r, g, b);
@@ -222,7 +222,7 @@ bool CHudHealth::Draw(float flTime)
 
 		x += HealthWidth/2;
 
-		int iHeight = gHUD.m_iFontHeight;
+		int iHeight = Hud().GetFontHeight();
 		int iWidth = HealthWidth/10;
 
 		const auto& color = gHUD.GetPrimaryColor();

@@ -98,7 +98,6 @@ public:
 		m_HudColors.m_AmmoBarColor = color;
 	}
 
-	int m_iFontHeight;
 	int DrawHudNumber(int x, int y, int iFlags, int iNumber, int r, int g, int b );
 	int DrawHudString(int x, int y, int iMaxX, char *szString, int r, int g, int b );
 	int DrawHudStringReverse( int xpos, int ypos, int iMinX, char *szString, int r, int g, int b );
@@ -121,9 +120,6 @@ public:
 public:
 	cvar_t*		m_pCvarStealMouse;
 	cvar_t*		m_pCvarDraw;
-
-	// sprite indexes
-	int			m_HUD_number_0;
 
 private:
 	HSPRITE		m_hsprCursor = 0;
