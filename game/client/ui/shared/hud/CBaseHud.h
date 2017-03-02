@@ -12,9 +12,10 @@
 
 /**
 *	Helper macro to easily create Hud elements.
+*	Should be used in CreateHudElements() only.
 */
 #define CREATE_HUDELEMENT( name )	\
-new name( #name )
+new name( #name, *this )
 
 /**
 *	Data for a single Hud sprite.

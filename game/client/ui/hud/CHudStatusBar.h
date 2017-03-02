@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDSTATUSBAR_H
 #define GAME_CLIENT_UI_HUD_CHUDSTATUSBAR_H
 
-class CHudStatusBar : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudStatusBar : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudStatusBar, CHudElement );
+	DECLARE_CLASS( CHudStatusBar, CBaseHudElement<CHud> );
 
-	CHudStatusBar( const char* const pszName );
+	CHudStatusBar( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

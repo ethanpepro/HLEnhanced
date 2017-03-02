@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDAMMOSECONDARY_H
 #define GAME_CLIENT_UI_HUD_CHUDAMMOSECONDARY_H
 
-class CHudAmmoSecondary : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudAmmoSecondary : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudAmmoSecondary, CHudElement );
+	DECLARE_CLASS( CHudAmmoSecondary, CBaseHudElement<CHud> );
 
-	CHudAmmoSecondary( const char* const pszName );
+	CHudAmmoSecondary( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

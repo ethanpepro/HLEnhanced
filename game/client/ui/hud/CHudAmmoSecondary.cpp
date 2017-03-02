@@ -29,8 +29,8 @@
 DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoVal );
 DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoIcon );
 
-CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName )
-	: BaseClass( pszName )
+CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 
@@ -63,7 +63,7 @@ bool CHudAmmoSecondary::Draw(float flTime)
 
 	// draw secondary ammo icons above normal ammo readout
 	int a, x, y, r, g, b, AmmoWidth;
-	gHUD.GetPrimaryColor().UnpackRGB( r, g, b );
+	GetHud().GetPrimaryColor().UnpackRGB( r, g, b );
 	a = (int) max( static_cast<float>( MIN_ALPHA ), m_fFade );
 	if (m_fFade > 0)
 		m_fFade -= ( Hud().GetTimeDelta() * 20);  // slowly lower alpha to fade out icons

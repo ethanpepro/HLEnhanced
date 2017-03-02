@@ -15,9 +15,12 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDSAYTEXT_H
 #define GAME_CLIENT_UI_HUD_CHUDSAYTEXT_H
 
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
 struct cvar_t;
 
-class CHudSayText : public CHudElement
+class CHudSayText : public CBaseHudElement<CHud>
 {
 private:
 	static const size_t MAX_LINES = 5;
@@ -27,9 +30,9 @@ private:
 	static const size_t MAX_CHARS_PER_LINE = 256;
 
 public:
-	DECLARE_CLASS( CHudSayText, CHudElement );
+	DECLARE_CLASS( CHudSayText, CBaseHudElement<CHud> );
 
-	CHudSayText( const char* const pszName );
+	CHudSayText( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void InitHUDData() override;

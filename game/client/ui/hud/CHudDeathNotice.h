@@ -15,7 +15,10 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDDEATHNOTICE_H
 #define GAME_CLIENT_UI_HUD_CHUDDEATHNOTICE_H
 
-class CHudDeathNotice : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudDeathNotice : public CBaseHudElement<CHud>
 {
 private:
 	struct DeathNoticeItem
@@ -34,9 +37,9 @@ private:
 	static const size_t MAX_DEATHNOTICES = 4;
 
 public:
-	DECLARE_CLASS( CHudDeathNotice, CHudElement );
+	DECLARE_CLASS( CHudDeathNotice, CBaseHudElement<CHud> );
 
-	CHudDeathNotice( const char* const pszName );
+	CHudDeathNotice( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void InitHUDData() override;

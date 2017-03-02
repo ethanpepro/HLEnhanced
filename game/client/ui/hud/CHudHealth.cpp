@@ -54,8 +54,8 @@ const int giDmgFlags[NUM_DMG_TYPES] =
 	DMG_HALLUC
 };
 
-CHudHealth::CHudHealth( const char* const pszName )
-	: BaseClass( pszName )
+CHudHealth::CHudHealth( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 
@@ -158,7 +158,7 @@ void CHudHealth::GetPainColor( int &r, int &g, int &b )
 #else
 	if (m_iHealth > 25)
 	{
-		gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+		GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 	}
 	else
 	{
@@ -225,7 +225,7 @@ bool CHudHealth::Draw(float flTime)
 		int iHeight = Hud().GetFontHeight();
 		int iWidth = HealthWidth/10;
 
-		const auto& color = gHUD.GetPrimaryColor();
+		const auto& color = GetHud().GetPrimaryColor();
 
 		FillRGBA(x, y, iWidth, iHeight, color.r, color.g, color.b, a);
 	}
@@ -373,7 +373,7 @@ bool CHudHealth::DrawDamage(float flTime)
 	if (!m_bitsDamage)
 		return true;
 
-	gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+	GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 	
 	a = (int)( fabs(sin(flTime*2)) * 256.0);
 

@@ -118,4 +118,28 @@ private:
 	CHudElement& operator=( const CHudElement& ) = delete;
 };
 
+/**
+*	Helper class to store a reference to the owning Hud in each Hud element.
+*/
+template<typename HUD>
+class CBaseHudElement : public CHudElement
+{
+public:
+	DECLARE_CLASS( CBaseHudElement, CHudElement );
+
+	/**
+	*	@param hud Hud that this element belongs to.
+	*/
+	CBaseHudElement( const char* const pszName, HUD& hud )
+		: BaseClass( pszName )
+		, m_Hud( hud )
+	{
+	}
+
+	HUD& GetHud() { return m_Hud; }
+
+protected:
+	HUD& m_Hud;
+};
+
 #endif //GAME_CLIENT_UI_SHARED_HUD_CHUDELEMENT_H

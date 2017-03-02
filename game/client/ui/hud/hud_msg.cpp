@@ -117,7 +117,7 @@ int CHud :: MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 
 	if (m_iConcussionEffect)
 	{
-		const auto& color = gHUD.GetPrimaryColor();
+		const auto& color = GetPrimaryColor();
 		pStatusIcons->EnableIcon("dmg_concuss", color.r, color.g, color.b );
 	}
 	else

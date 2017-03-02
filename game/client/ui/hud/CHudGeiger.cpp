@@ -32,8 +32,8 @@
 
 DECLARE_MESSAGE( CHudGeiger, Geiger )
 
-CHudGeiger::CHudGeiger( const char* const pszName )
-	: BaseClass( pszName )
+CHudGeiger::CHudGeiger( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 

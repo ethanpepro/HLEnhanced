@@ -31,8 +31,8 @@
 
 DECLARE_MESSAGE( CHudBattery, Battery)
 
-CHudBattery::CHudBattery( const char* const pszName )
-	: BaseClass( pszName )
+CHudBattery::CHudBattery( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 
@@ -111,7 +111,7 @@ bool CHudBattery::Draw(float flTime)
 
 	int r, g, b, x, y, a = MIN_ALPHA;
 
-	gHUD.GetPrimaryColor().UnpackRGB( r, g, b );
+	GetHud().GetPrimaryColor().UnpackRGB( r, g, b );
 
 	// Has health changed? Flash the health #
 	if (m_fFade)

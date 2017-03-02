@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDBENCHMARK_H
 #define GAME_CLIENT_UI_HUD_CHUDBENCHMARK_H
 
-class CHudBenchmark : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudBenchmark : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudBenchmark, CHudElement );
+	DECLARE_CLASS( CHudBenchmark, CBaseHudElement<CHud> );
 
-	CHudBenchmark( const char* const pszName );
+	CHudBenchmark( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

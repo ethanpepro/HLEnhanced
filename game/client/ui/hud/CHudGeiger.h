@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDGEIGER_H
 #define GAME_CLIENT_UI_HUD_CHUDGEIGER_H
 
-class CHudGeiger : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudGeiger : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudGeiger, CHudElement );
+	DECLARE_CLASS( CHudGeiger, CBaseHudElement<CHud> );
 
-	CHudGeiger( const char* const pszName );
+	CHudGeiger( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

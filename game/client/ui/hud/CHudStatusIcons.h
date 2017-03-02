@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDSTATUSICONS_H
 #define GAME_CLIENT_UI_HUD_CHUDSTATUSICONS_H
 
-class CHudStatusIcons : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudStatusIcons : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudStatusIcons, CHudElement );
+	DECLARE_CLASS( CHudStatusIcons, CBaseHudElement<CHud> );
 
-	CHudStatusIcons( const char* const pszName );
+	CHudStatusIcons( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

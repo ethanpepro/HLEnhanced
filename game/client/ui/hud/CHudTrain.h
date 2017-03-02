@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDTRAIN_H
 #define GAME_CLIENT_UI_HUD_CHUDTRAIN_H
 
-class CHudTrain : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudTrain : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudTrain, CHudElement );
+	DECLARE_CLASS( CHudTrain, CBaseHudElement<CHud> );
 
-	CHudTrain( const char* const pszName );
+	CHudTrain( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

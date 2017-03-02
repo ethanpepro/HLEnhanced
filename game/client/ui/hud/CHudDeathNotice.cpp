@@ -30,8 +30,8 @@ DECLARE_MESSAGE( CHudDeathNotice, DeathMsg );
 
 #define DEATHNOTICE_TOP		32
 
-CHudDeathNotice::CHudDeathNotice( const char* const pszName )
-	: BaseClass( pszName )
+CHudDeathNotice::CHudDeathNotice( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 

@@ -35,8 +35,8 @@
 
 DECLARE_MESSAGE( CHudTextMessage, TextMsg );
 
-CHudTextMessage::CHudTextMessage( const char* const pszName )
-	: BaseClass( pszName )
+CHudTextMessage::CHudTextMessage( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 

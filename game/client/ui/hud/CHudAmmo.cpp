@@ -76,8 +76,8 @@ DECLARE_COMMAND(CHudAmmo, PrevWeapon);
 #define AMMO_SMALL_WIDTH 10
 #define AMMO_LARGE_WIDTH 20
 
-CHudAmmo::CHudAmmo( const char* const pszName )
-	: BaseClass( pszName )
+CHudAmmo::CHudAmmo( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 
@@ -749,7 +749,7 @@ bool CHudAmmo::Draw(float flTime)
 	if (m_fFade > 0)
 		m_fFade -= (Hud().GetTimeDelta() * 20);
 
-	gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+	GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 
 	ScaleColors(r, g, b, a );
 
@@ -782,12 +782,12 @@ bool CHudAmmo::Draw(float flTime)
 
 			x += AmmoWidth/2;
 
-			gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+			GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 
 			// draw the | bar
 			FillRGBA(x, y, iBarWidth, Hud().GetFontHeight(), r, g, b, a);
 
-			x += iBarWidth + AmmoWidth/2;;
+			x += iBarWidth + AmmoWidth/2;
 
 			// GL Seems to need this
 			ScaleColors(r, g, b, a );
@@ -831,11 +831,10 @@ bool CHudAmmo::Draw(float flTime)
 	return true;
 }
 
-
 //
 // Draws the ammo bar on the hud
 //
-int DrawBar(int x, int y, int width, int height, float f)
+int CHudAmmo::DrawBar(int x, int y, int width, int height, float f)
 {
 	int r, g, b;
 
@@ -851,23 +850,21 @@ int DrawBar(int x, int y, int width, int height, float f)
 		// Always show at least one pixel if we have ammo.
 		if (w <= 0)
 			w = 1;
-		const auto& barColor = gHUD.GetAmmoBarColor();
+		const auto& barColor = GetHud().GetAmmoBarColor();
 
 		FillRGBA(x, y, w, height, barColor.r, barColor.g, barColor.b, 255);
 		x += w;
 		width -= w;
 	}
 
-	gHUD.GetPrimaryColor().UnpackRGB(r, g, b);
+	GetHud().GetPrimaryColor().UnpackRGB(r, g, b);
 
 	FillRGBA(x, y, width, height, r, g, b, 128);
 
 	return (x + width);
 }
 
-
-
-void DrawAmmoBar( CBasePlayerWeapon *p, int x, int y, int width, int height)
+void CHudAmmo::DrawAmmoBar( CBasePlayerWeapon *p, int x, int y, int width, int height)
 {
 	if ( !p )
 		return;
@@ -896,9 +893,6 @@ void DrawAmmoBar( CBasePlayerWeapon *p, int x, int y, int width, int height)
 		}
 	}
 }
-
-
-
 
 //
 // Draw Weapon Menu
@@ -950,7 +944,7 @@ int CHudAmmo::DrawWList(float flTime)
 	{
 		int iWidth;
 
-		gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+		GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 	
 		if ( iActiveSlot == i )
 			a = 255;
@@ -1002,7 +996,7 @@ int CHudAmmo::DrawWList(float flTime)
 
 				auto pHUDInfo = p->GetWeaponInfo()->GetHUDInfo();
 
-				gHUD.GetPrimaryColor().UnpackRGB( r,g,b );
+				GetHud().GetPrimaryColor().UnpackRGB( r,g,b );
 			
 				// if active, then we must have ammo.
 
@@ -1022,7 +1016,7 @@ int CHudAmmo::DrawWList(float flTime)
 						ScaleColors(r, g, b, 192);
 					else
 					{
-						gHUD.GetEmptyItemColor().UnpackRGB(r,g,b);
+						GetHud().GetEmptyItemColor().UnpackRGB(r,g,b);
 						ScaleColors(r, g, b, 128);
 					}
 
@@ -1044,7 +1038,7 @@ int CHudAmmo::DrawWList(float flTime)
 		{
 			// Draw Row of weapons.
 
-			gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+			GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 
 			CBasePlayerWeapon* p = pPlayer->m_rgpPlayerItems[ i ];
 
@@ -1055,12 +1049,12 @@ int CHudAmmo::DrawWList(float flTime)
 
 				if ( pPlayer->HasAmmo(p) )
 				{
-					gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+					GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 					a = 128;
 				}
 				else
 				{
-					gHUD.GetEmptyItemColor().UnpackRGB(r,g,b);
+					GetHud().GetEmptyItemColor().UnpackRGB(r,g,b);
 					a = 96;
 				}
 

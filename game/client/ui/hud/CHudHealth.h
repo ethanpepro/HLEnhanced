@@ -15,6 +15,9 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDHEALTH_H
 #define GAME_CLIENT_UI_HUD_CHUDHEALTH_H
 
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
 #define DMG_IMAGE_LIFE		2	// seconds that image is up
 
 #define DMG_IMAGE_POISON	0
@@ -45,12 +48,12 @@ struct DAMAGE_IMAGE
 //
 //-----------------------------------------------------
 //
-class CHudHealth: public CHudElement
+class CHudHealth: public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudHealth, CHudElement );
+	DECLARE_CLASS( CHudHealth, CBaseHudElement<CHud> );
 
-	CHudHealth( const char* const pszName );
+	CHudHealth( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

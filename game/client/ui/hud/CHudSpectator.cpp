@@ -174,8 +174,8 @@ void ToggleScores( void )
 	}
 }
 
-CHudSpectator::CHudSpectator( const char* const pszName )
-	: BaseClass( pszName )
+CHudSpectator::CHudSpectator( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 
@@ -1703,7 +1703,7 @@ void CHudSpectator::DrawOverviewEntities()
 
 	z = m_OverviewData.layersHeights[ 0 ] * zScale;
 	// get yellow/brown HUD color
-	gHUD.GetPrimaryColor().UnpackRGB( ir, ig, ib );
+	GetHud().GetPrimaryColor().UnpackRGB( ir, ig, ib );
 	r = ( float ) ir / 255.0f;
 	g = ( float ) ig / 255.0f;
 	b = ( float ) ib / 255.0f;

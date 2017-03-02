@@ -39,8 +39,8 @@ DECLARE_MESSAGE( CHudStatusBar, StatusValue );
 #define STATUSBAR_ID_LINE		1
 #endif
 
-CHudStatusBar::CHudStatusBar( const char* const pszName )
-	: BaseClass( pszName )
+CHudStatusBar::CHudStatusBar( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 

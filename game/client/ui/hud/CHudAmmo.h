@@ -15,11 +15,14 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDAMMO_H
 #define GAME_CLIENT_UI_HUD_CHUDAMMO_H
 
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
 #include "Color.h"
 
 class CBasePlayerWeapon;
 
-class CHudAmmo : public CHudElement
+class CHudAmmo : public CBaseHudElement<CHud>
 {
 private:
 	/**
@@ -43,9 +46,9 @@ private:
 		CROSS_USERSCALE = 2,
 	};
 public:
-	DECLARE_CLASS( CHudAmmo, CHudElement );
+	DECLARE_CLASS( CHudAmmo, CBaseHudElement<CHud> );
 
-	CHudAmmo( const char* const pszName );
+	CHudAmmo( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;
@@ -81,6 +84,9 @@ public:
 	void SetCrosshair( HSPRITE hCrosshair, const wrect_t& rect, int r, int g, int b );
 
 private:
+	int DrawBar( int x, int y, int width, int height, float f );
+	void DrawAmmoBar( CBasePlayerWeapon *p, int x, int y, int width, int height );
+
 	void UpdateWeaponHUD( CBasePlayerWeapon* pWeapon, bool bOnTarget );
 
 private:

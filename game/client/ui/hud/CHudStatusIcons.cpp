@@ -29,8 +29,8 @@
 
 DECLARE_MESSAGE( CHudStatusIcons, StatusIcon );
 
-CHudStatusIcons::CHudStatusIcons( const char* const pszName )
-	: BaseClass( pszName )
+CHudStatusIcons::CHudStatusIcons( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 

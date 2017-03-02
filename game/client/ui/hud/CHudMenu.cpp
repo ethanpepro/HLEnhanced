@@ -34,8 +34,8 @@ int KB_ConvertString( char *in, char **ppout );
 
 DECLARE_MESSAGE( CHudMenu, ShowMenu );
 
-CHudMenu::CHudMenu( const char* const pszName )
-	: BaseClass( pszName )
+CHudMenu::CHudMenu( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 

@@ -28,8 +28,8 @@
 
 DECLARE_MESSAGE( CHudTrain, Train )
 
-CHudTrain::CHudTrain( const char* const pszName )
-	: BaseClass( pszName )
+CHudTrain::CHudTrain( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 
@@ -55,7 +55,7 @@ bool CHudTrain::Draw(float fTime)
 	{
 		int r, g, b, x, y;
 
-		gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+		GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 		SPR_Set(m_hSprite, r, g, b );
 
 		// This should show up to the right and part way up the armor number

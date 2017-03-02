@@ -34,8 +34,8 @@ DECLARE_MESSAGE( CHudFlashlight, Flashlight)
 
 #define BAT_NAME "sprites/%d_Flashlight.spr"
 
-CHudFlashlight::CHudFlashlight( const char* const pszName )
-	: BaseClass( pszName )
+CHudFlashlight::CHudFlashlight( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 
@@ -109,9 +109,9 @@ bool CHudFlashlight::Draw(float flTime)
 		a = MIN_ALPHA;
 
 	if (m_flBat < 0.20)
-		gHUD.GetEmptyItemColor().UnpackRGB(r,g,b);
+		GetHud().GetEmptyItemColor().UnpackRGB(r,g,b);
 	else
-		gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
+		GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 
 	ScaleColors(r, g, b, a);
 

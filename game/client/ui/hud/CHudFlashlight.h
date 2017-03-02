@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDFLASHLIGHT_H
 #define GAME_CLIENT_UI_HUD_CHUDFLASHLIGHT_H
 
-class CHudFlashlight : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudFlashlight : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudFlashlight, CHudElement );
+	DECLARE_CLASS( CHudFlashlight, CBaseHudElement<CHud> );
 
-	CHudFlashlight( const char* const pszName );
+	CHudFlashlight( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

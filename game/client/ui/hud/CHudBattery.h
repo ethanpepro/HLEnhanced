@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDBATTERY_H
 #define GAME_CLIENT_UI_HUD_CHUDBATTERY_H
 
-class CHudBattery : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudBattery : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudBattery, CHudElement );
+	DECLARE_CLASS( CHudBattery, CBaseHudElement<CHud> );
 
-	CHudBattery( const char* const pszName );
+	CHudBattery( const char* const pszName, CHud& hud );
 
 	void Init()  override;
 	void VidInit() override;

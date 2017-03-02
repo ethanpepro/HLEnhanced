@@ -15,12 +15,15 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDTEXTMESSAGE_H
 #define GAME_CLIENT_UI_HUD_CHUDTEXTMESSAGE_H
 
-class CHudTextMessage : public CHudElement
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
+class CHudTextMessage : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudTextMessage, CHudElement );
+	DECLARE_CLASS( CHudTextMessage, CBaseHudElement<CHud> );
 
-	CHudTextMessage( const char* const pszName );
+	CHudTextMessage( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	int MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf );

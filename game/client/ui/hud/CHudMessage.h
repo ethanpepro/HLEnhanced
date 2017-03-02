@@ -15,6 +15,9 @@
 #ifndef GAME_CLIENT_UI_HUD_CHUDMESSAGE_H
 #define GAME_CLIENT_UI_HUD_CHUDMESSAGE_H
 
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
 struct message_parms_t
 {
 	client_textmessage_t	*pMessage;
@@ -32,12 +35,12 @@ struct message_parms_t
 	float fadeTime;
 };
 
-class CHudMessage : public CHudElement
+class CHudMessage : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudMessage, CHudElement );
+	DECLARE_CLASS( CHudMessage, CBaseHudElement<CHud> );
 
-	CHudMessage( const char* const pszName );
+	CHudMessage( const char* const pszName, CHud& hud );
 
 	void Init() override;
 	void VidInit() override;

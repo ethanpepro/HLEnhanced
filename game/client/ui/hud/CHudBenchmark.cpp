@@ -89,11 +89,8 @@ static float g_benchSwitchTimes[ LAST_STAGE + 1 ] = { 0.0, 10.0, 12.0, 10.0, 5.0
 
 DECLARE_MESSAGE( CHudBenchmark, Bench);
 
-//Don't register this one, it's not working properly. - Solokiller
-//REGISTER_HUDELEMENT( CHudBenchmark, 25 );
-
-CHudBenchmark::CHudBenchmark( const char* const pszName )
-	: BaseClass( pszName )
+CHudBenchmark::CHudBenchmark( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 

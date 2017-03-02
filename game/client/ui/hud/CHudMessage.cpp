@@ -29,8 +29,8 @@
 DECLARE_MESSAGE( CHudMessage, HudText )
 DECLARE_MESSAGE( CHudMessage, GameTitle )
 
-CHudMessage::CHudMessage( const char* const pszName )
-	: BaseClass( pszName )
+CHudMessage::CHudMessage( const char* const pszName, CHud& hud )
+	: BaseClass( pszName, hud )
 {
 }
 

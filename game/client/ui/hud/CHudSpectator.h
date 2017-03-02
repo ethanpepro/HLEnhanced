@@ -9,6 +9,9 @@
 #define SPECTATOR_H
 #pragma once
 
+#include "shared/hud/CHudElement.h"
+#include "hud.h"
+
 #include "cl_entity.h"
 #include "interpolation.h"
 
@@ -70,12 +73,12 @@ struct cameraWayPoint_t
 #define	 MAX_OVERVIEW_ENTITIES		128
 #define	 MAX_CAM_WAYPOINTS			32
 
-class CHudSpectator : public CHudElement
+class CHudSpectator : public CBaseHudElement<CHud>
 {
 public:
-	DECLARE_CLASS( CHudSpectator, CHudElement );
+	DECLARE_CLASS( CHudSpectator, CBaseHudElement<CHud> );
 
-	CHudSpectator( const char* const pszName );
+	CHudSpectator( const char* const pszName, CHud& hud );
 
 	void Init() override;
 
