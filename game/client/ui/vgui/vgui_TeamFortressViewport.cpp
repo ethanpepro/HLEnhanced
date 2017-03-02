@@ -1266,7 +1266,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		if ( gEngfuncs.IsSpectateOnly() )
 		{
 			// in HLTV mode show number of spectators
-			_snprintf( szText, 63, "%s: %d", Localize().BufferedLocaliseTextString( "#Spectators" ), pSpectator->m_iSpectatorNumber );
+			V_sprintf_safe( szText, "%s: %d", Localize().BufferedLocaliseTextString( "#Spectators" ), pSpectator->m_iSpectatorNumber );
 		}
 		else
 		{
@@ -1274,7 +1274,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 			char szMapName[64];
 			COM_FileBase( gEngfuncs.pfnGetLevelName(), szMapName );
 
-			_snprintf ( szText, 63, "%s: %s", Localize().BufferedLocaliseTextString( "#Spec_Map" ), szMapName );
+			V_sprintf_safe( szText, "%s: %s", Localize().BufferedLocaliseTextString( "#Spec_Map" ), szMapName );
 		}
 
 		szText[63] = 0;
@@ -1287,7 +1287,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		if ( timer < 0 )
 			 timer	= 0;
 
-		_snprintf ( szText, 63, "%d:%02d\n", (timer / 60), (timer % 60) );
+		V_sprintf_safe( szText, "%d:%02d\n", (timer / 60), (timer % 60) );
 		
 		szText[63] = 0;
 				

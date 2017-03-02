@@ -101,7 +101,7 @@ void CServerGameInterface::ClientDisconnect( edict_t* pEdict )
 
 	char text[ 256 ] = "";
 	if( pPlayer->HasNetName() )
-		_snprintf( text, sizeof( text ), "- %s has left the game\n", pPlayer->GetNetName() );
+		V_sprintf_safe( text, "- %s has left the game\n", pPlayer->GetNetName() );
 	text[ sizeof( text ) - 1 ] = 0;
 	MESSAGE_BEGIN( MSG_ALL, gmsgSayText, NULL );
 	WRITE_BYTE( pPlayer->entindex() );

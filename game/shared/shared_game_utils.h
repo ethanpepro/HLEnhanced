@@ -12,6 +12,8 @@
 #include "cl_dll.h"
 #endif
 
+#include "strtools.h"
+
 /**
 *	dll agnostic game utility functionality - Solokiller
 */

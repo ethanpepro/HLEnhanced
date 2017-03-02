@@ -1086,7 +1086,7 @@ void Label::ApplySettings( KeyValues *inResourceData )
 			localize()->ConvertANSIToUnicode(labelText, unicodeVar, sizeof(unicodeVar));
 
 			char var[256];
-			_snprintf(var, sizeof(var), "#var_%s", labelText);
+			V_sprintf_safe(var, "#var_%s", labelText);
 			localize()->AddString(var + 1, unicodeVar, "");
 			SetText(var);
 		}
