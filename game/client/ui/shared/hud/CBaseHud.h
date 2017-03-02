@@ -64,6 +64,7 @@ protected:
 	virtual void LoadSprites();
 
 public:
+	virtual void InitHud();
 	virtual void ResetHud();
 
 	bool Redraw( float flTime, bool intermission );

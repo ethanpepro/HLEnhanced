@@ -21,9 +21,6 @@
 #include "parsemsg.h"
 #include "r_efx.h"
 
-#include "particleman.h"
-extern IParticleMan *g_pParticleMan;
-
 #include "effects/CEnvironment.h"
 
 #include "CHudStatusIcons.h"
@@ -56,22 +53,16 @@ void CHud :: MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf )
 	CAM_ToFirstPerson();
 }
 
-void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
+void CHud::InitHud()
 {
-	// prepare all hud data
-	HudList().ForEachHudElem( &CHudElement::InitHUDData );
-
-	g_Environment.Initialize();
+	BaseClass::InitHud();
 
 #if defined( _TFC )
 	ClearEventList();
 
 	// catch up on any building events that are going on
-	gEngfuncs.pfnServerCmd("sendevents");
+	gEngfuncs.pfnServerCmd( "sendevents" );
 #endif
-
-	if ( g_pParticleMan )
-		 g_pParticleMan->ResetParticles();
 
 #if !defined( _TFC )
 	//Probably not a good place to put this.
@@ -79,6 +70,10 @@ void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 #endif
 }
 
+void CHud::MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
+{
+	InitHud();
+}
 
 int CHud :: MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 {

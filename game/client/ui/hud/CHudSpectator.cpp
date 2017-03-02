@@ -1111,8 +1111,8 @@ void CHudSpectator::DirectorMessage( int iSize, void *pbuf )
 							g_iTeamNumber = 0;
 
 							// fake a InitHUD & ResetHUD message
-							gHUD.MsgFunc_InitHUD(NULL,0, NULL);
-							gHUD.MsgFunc_ResetHUD(NULL, 0, NULL);
+							Hud().InitHud();
+							Hud().ResetHud();
 														
 							break;
 

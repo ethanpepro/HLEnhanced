@@ -5,6 +5,11 @@
 
 #include "vgui_TeamFortressViewport.h"
 
+#include "particleman.h"
+extern IParticleMan *g_pParticleMan;
+
+#include "effects/CEnvironment.h"
+
 #if USE_VGUI2
 #include <vgui_controls/Panel.h>
 #endif
@@ -149,6 +154,17 @@ void CBaseHud::LoadSprites()
 	const auto& rect = GetSpriteRect( m_HUD_number_0 );
 
 	m_iFontHeight = rect.bottom - rect.top;
+}
+
+void CBaseHud::InitHud()
+{
+	// prepare all hud data
+	HudList().ForEachHudElem( &CHudElement::InitHUDData );
+
+	g_Environment.Initialize();
+
+	if( g_pParticleMan )
+		g_pParticleMan->ResetParticles();
 }
 
 void CBaseHud::ResetHud()

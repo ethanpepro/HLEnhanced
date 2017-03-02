@@ -46,6 +46,7 @@ public:
 
 	void Init() override;
 	void VidInit() override;
+	void InitHud() override;
 	void ResetHud() override;
 
 protected:
