@@ -48,13 +48,19 @@ public:
 	CBaseHud();
 	virtual ~CBaseHud();
 
+	void Init();
+
+protected:
+	virtual void PreInit();
+
 	/**
 	*	Creates the Hud elements for this Hud.
 	*/
-	virtual void CreateHudElements( CHudList& list ) {}
+	virtual void CreateHudElements() {}
 
-	virtual void Init();
+	virtual void PostInit();
 
+public:
 	virtual void VidInit();
 
 protected:
@@ -116,12 +122,15 @@ public:
 	int DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b );
 	int GetNumWidth( int iNumber, int iFlags ) const;
 
-	virtual void InitHudElements();
-
 	/**
 	*	Called when the game is being shut down.
 	*/
 	virtual void GameShutdown();
+
+	/**
+	*	@return The Hud element list manager.
+	*/
+	CHudList& HudList() { return m_HudList; }
 
 	float GetTime() const { return m_flTime; }
 
@@ -194,6 +203,8 @@ public:
 	cvar_t* GetDefaultFOVCVar() { return default_fov; }
 
 private:
+	CHudList m_HudList;
+
 	float m_flTime			=	1.f;	// the current client time
 	float m_flOldTime		=	0;		// the time at which the HUD was last redrawn
 	double m_flTimeDelta	=	0;		// the difference between flTime and fOldTime

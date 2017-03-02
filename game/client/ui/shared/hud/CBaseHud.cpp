@@ -55,6 +55,18 @@ CBaseHud::~CBaseHud()
 
 void CBaseHud::Init()
 {
+	PreInit();
+
+	CreateHudElements();
+	HudList().InitHudElements();
+
+	PostInit();
+
+	ResetHud();
+}
+
+void CBaseHud::PreInit()
+{
 	// In case we get messages before the first update -- time will be valid
 	m_flTime = 1.0;
 
@@ -64,6 +76,10 @@ void CBaseHud::Init()
 	hud_takesshots = CVAR_CREATE( "hud_takesshots", "0", FCVAR_ARCHIVE );	// controls whether or not to automatically take screenshots at the end of a round
 	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
 	CVAR_CREATE( "zoom_sensitivity_ratio", "1.2", 0 );
+}
+
+void CBaseHud::PostInit()
+{
 }
 
 void CBaseHud::VidInit()
@@ -468,11 +484,6 @@ int CBaseHud::GetNumWidth( int iNumber, int iFlags ) const
 
 	return 3;
 
-}
-
-void CBaseHud::InitHudElements()
-{
-	HudList().InitHudElements( *this );
 }
 
 void CBaseHud::GameShutdown()

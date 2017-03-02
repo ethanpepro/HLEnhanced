@@ -291,10 +291,19 @@ int __MsgFunc_AllowSpec(const char *pszName, int iSize, void *pbuf)
 	return 0;
 }
 
-// This is called every time the DLL is loaded
-void CHud::Init()
+CHud::CHud()
 {
-	BaseClass::Init();
+}
+
+// CHud destructor
+CHud::~CHud()
+{
+}
+
+// This is called every time the DLL is loaded
+void CHud::PreInit()
+{
+	BaseClass::PreInit();
 
 	HOOK_MESSAGE( Logo );
 	HOOK_MESSAGE( ResetHUD );
@@ -338,45 +347,34 @@ void CHud::Init()
 	m_pCvarStealMouse = CVAR_CREATE( "hud_capturemouse", "1", FCVAR_ARCHIVE );
 	m_pCvarDraw = CVAR_CREATE( "hud_draw", "1", FCVAR_ARCHIVE );
 	cl_weather = CVAR_CREATE( "cl_weather", "1", FCVAR_ARCHIVE );
-
-	// Clear any old HUD list
-	HudList().RemoveAllElements();
-
-	InitHudElements();
-
-	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
-
-	ResetHud();
 }
 
-CHud::CHud()
+void CHud::PostInit()
 {
+	BaseClass::PostInit();
+
+	GetClientVoiceMgr()->Init( &g_VoiceStatusHelper, ( vgui::Panel** )&gViewPort );
 }
 
-// CHud destructor
-CHud::~CHud()
+void CHud::CreateHudElements()
 {
-}
+	BaseClass::CreateHudElements();
 
-void CHud::CreateHudElements( CHudList& list )
-{
-	BaseClass::CreateHudElements( list );
-
-	list.AddElement( CREATE_HUDELEMENT( CHudAmmo ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudHealth ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudSayText ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudSpectator ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudGeiger ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudTrain ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudBattery ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudFlashlight ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudMessage ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudStatusBar ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudDeathNotice ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudAmmoSecondary ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudTextMessage ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudStatusIcons ) );
-	list.AddElement( CREATE_HUDELEMENT( CHudMenu ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudAmmo ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudHealth ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudSayText ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudSpectator ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudGeiger ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudTrain ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudBattery ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudFlashlight ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudMessage ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudStatusBar ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudDeathNotice ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudAmmoSecondary ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudTextMessage ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudStatusIcons ) );
+	HudList().AddElement( CREATE_HUDELEMENT( CHudMenu ) );
 }
 
 void CHud::ResetHud()

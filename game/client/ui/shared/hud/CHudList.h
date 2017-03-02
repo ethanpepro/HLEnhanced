@@ -9,8 +9,6 @@
 
 #include "shared/hud/CHudElement.h"
 
-class CBaseHud;
-
 /**
 *	Manages the list of Hud elements.
 *	@see CHudElement
@@ -25,9 +23,9 @@ public:
 	~CHudList();
 
 	/**
-	*	Creates and initializes all Hud elements for the given Hud.
+	*	Initializes all Hud elements.
 	*/
-	void InitHudElements( CBaseHud& hud );
+	void InitHudElements();
 
 	/**
 	*	Called when the game is being shut down.
@@ -98,10 +96,5 @@ private:
 	CHudList( const CHudList& ) = delete;
 	CHudList& operator=( const CHudList& ) = delete;
 };
-
-/**
-*	@return The global Hud element list manager.
-*/
-CHudList& HudList();
 
 #endif //GAME_CLIENT_UI_SHARED_HUD_CHUDLIST_H

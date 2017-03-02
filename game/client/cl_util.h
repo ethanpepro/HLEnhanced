@@ -31,7 +31,7 @@
 *	Gets the Hud class instance of the given class name.
 */
 #define GETHUDCLASS( className )									\
-( static_cast<className*>( HudList().GetElementByName( #className ) ) )
+( static_cast<className*>( Hud().HudList().GetElementByName( #className ) ) )
 
 /**
 *	Declares a function that calls the HUD class method for the given network message.
@@ -41,7 +41,7 @@
 #define DECLARE_MESSAGE( className, messageName )														\
 int __MsgFunc_##messageName( const char *pszName, int iSize, void *pbuf )								\
 {																										\
-	if( auto pElement = HudList().GetElementByName( #className ) )										\
+	if( auto pElement = Hud().HudList().GetElementByName( #className ) )								\
 	{																									\
 		return ( static_cast<className*>( pElement ) )->MsgFunc_##messageName( pszName, iSize, pbuf );	\
 	}																									\
@@ -62,7 +62,7 @@ int __MsgFunc_##messageName( const char *pszName, int iSize, void *pbuf )							
 #define DECLARE_COMMAND( className, commandFuncName )							\
 void __CmdFunc_##commandFuncName()												\
 {																				\
-	if( auto pElement = HudList().GetElementByName( #className ) )				\
+	if( auto pElement = Hud().HudList().GetElementByName( #className ) )		\
 	{																			\
 		( static_cast<className*>( pElement ) )->UserCmd_##commandFuncName();	\
 	}																			\

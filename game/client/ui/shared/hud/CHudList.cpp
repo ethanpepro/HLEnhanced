@@ -1,7 +1,6 @@
 #include "hud.h"
 #include "cl_util.h"
 
-#include "CBaseHud.h"
 #include "CHudElement.h"
 
 #if USE_VGUI2
@@ -12,16 +11,6 @@
 #endif
 
 #include "CHudList.h"
-
-namespace
-{
-static CHudList g_HudList;
-}
-
-CHudList& HudList()
-{
-	return g_HudList;
-}
 
 CHudList::CHudList()
 {
@@ -39,10 +28,8 @@ CHudList::~CHudList()
 	}
 }
 
-void CHudList::InitHudElements( CBaseHud& hud )
+void CHudList::InitHudElements()
 {
-	hud.CreateHudElements( *this );
-
 	ForEachHudElem( &CHudElement::Init );
 
 #if USE_VGUI2

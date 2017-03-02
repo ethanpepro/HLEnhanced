@@ -42,14 +42,14 @@ public:
 	CHud();
 	~CHud();			// destructor, frees allocated memory
 
-	void CreateHudElements( CHudList& list ) override;
-
-	void Init() override;
 	void VidInit() override;
 	void InitHud() override;
 	void ResetHud() override;
 
 protected:
+	void PreInit() override;
+	void CreateHudElements() override;
+	void PostInit() override;
 	void LoadSprites() override;
 	bool DoDraw( float flTime, bool intermission ) override;
 	bool PreThinkUpdateClient( client_data_t* cdata ) override;
