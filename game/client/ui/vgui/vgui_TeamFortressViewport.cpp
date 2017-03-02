@@ -1163,10 +1163,6 @@ void TeamFortressViewport::UpdatePlayerMenu(int menuIndex)
 
 }
 
-
-
-void COM_FileBase ( const char *in, char *out);
-
 void TeamFortressViewport::UpdateSpectatorPanel()
 {
 	m_iUser1 = g_iUser1;
@@ -1272,12 +1268,13 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 		{
 			// otherwise show map name
 			char szMapName[64];
-			COM_FileBase( gEngfuncs.pfnGetLevelName(), szMapName );
+			if( !COM_FileBase( gEngfuncs.pfnGetLevelName(), szMapName ) )
+				Q_strncpy( szMapName, "Unknown map", sizeof( szMapName ) );
 
 			V_sprintf_safe( szText, "%s: %s", Localize().BufferedLocaliseTextString( "#Spec_Map" ), szMapName );
 		}
 
-		szText[63] = 0;
+		szText[ sizeof( szText ) - 1 ] = '\0';
 
 		m_pSpectatorPanel->m_ExtraInfo->setText ( szText );
 		

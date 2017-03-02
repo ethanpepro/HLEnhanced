@@ -33,7 +33,6 @@
 
 #include "shared/CLocalize.h"
 
-int HUD_IsGame( const char *game );
 int EV_TFC_IsAllyTeam( int iTeam1, int iTeam2 );
 
 // Scoreboard dimensions
