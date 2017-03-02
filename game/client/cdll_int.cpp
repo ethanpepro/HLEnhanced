@@ -164,6 +164,9 @@ void DLLEXPORT HUD_Shutdown( void )
 	CL_UnloadParticleMan();
 
 	g_Client.Shutdown();
+
+	//TODO: delete old hud here when it's dynamically allocated. - Solokiller
+	SetHud( nullptr, false );
 }
 
 
@@ -182,7 +185,7 @@ int DLLEXPORT HUD_VidInit( void )
 	//Clear the string pool now.
 	g_StringPool.Clear();
 
-	gHUD.VidInit();
+	Hud().VidInit();
 
 	VGui_Startup();
 
@@ -201,8 +204,11 @@ the hud variables.
 
 void DLLEXPORT HUD_Init( void )
 {
+	//TODO: use a dynamically allocated instance - Solokiller
+	SetHud( &gHUD );
+
 	InitInput();
-	gHUD.Init();
+	Hud().Init();
 	Scheme_Init();
 
 	g_Prediction.Initialize();
@@ -220,7 +226,7 @@ redraw the HUD.
 
 int DLLEXPORT HUD_Redraw( float time, int intermission )
 {
-	gHUD.Redraw( time, intermission );
+	Hud().Redraw( time, intermission != 0 );
 
 	return 1;
 }
@@ -243,7 +249,8 @@ int DLLEXPORT HUD_UpdateClientData(client_data_t *pcldata, float flTime )
 {
 	IN_Commands();
 
-	return gHUD.UpdateClientData(pcldata, flTime );
+	//Note: flTime isn't being passed in anymore because cl_enginefunc_t::GetClientTime returns the same value. - Solokiller
+	return Hud().UpdateClientData( pcldata );
 }
 
 /*
@@ -256,7 +263,7 @@ Called at start and end of demos to restore to "non"HUD state.
 
 void DLLEXPORT HUD_Reset( void )
 {
-	gHUD.VidInit();
+	Hud().VidInit();
 }
 
 /*

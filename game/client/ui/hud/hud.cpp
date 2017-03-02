@@ -278,8 +278,10 @@ int __MsgFunc_AllowSpec(const char *pszName, int iSize, void *pbuf)
 }
 
 // This is called every time the DLL is loaded
-void CHud :: Init( void )
+void CHud::Init()
 {
+	BaseClass::Init();
+
 	HOOK_MESSAGE( Logo );
 	HOOK_MESSAGE( ResetHUD );
 	HOOK_MESSAGE( GameMode );
@@ -388,8 +390,10 @@ int CHud :: GetSpriteIndex( const char *SpriteName )
 	return -1; // invalid sprite
 }
 
-void CHud :: VidInit( void )
+void CHud::VidInit()
 {
+	BaseClass::VidInit();
+
 	//Reset to defaults for new maps. - Solokiller
 	SetPrimaryColor( HUD_DEFAULT_PRIMARY_COLOR );
 	SetEmptyItemColor( HUD_DEFAULT_EMPTYITEM_COLOR );

@@ -38,6 +38,9 @@ DECLARE_HUDELEMENT_REGISTRY( HLHud );
 
 class CHud : public CBaseHud
 {
+public:
+	DECLARE_CLASS( CHud, CBaseHud );
+
 private:
 	HSPRITE						m_hsprLogo;
 	int							m_iLogo;
@@ -54,13 +57,13 @@ public:
 	/**
 	*	@return The primary HUD color.
 	*/
-	const Color& GetPrimaryColor() const { return m_HudColors.m_PrimaryColor; }
+	const ::Color& GetPrimaryColor() const { return m_HudColors.m_PrimaryColor; }
 
 	/**
 	*	Sets the primary HUD color.
 	*	@param color Color to set.
 	*/
-	void SetPrimaryColor( const Color& color )
+	void SetPrimaryColor( const ::Color& color )
 	{
 		m_HudColors.m_PrimaryColor = color;
 	}
@@ -68,13 +71,13 @@ public:
 	/**
 	*	@return The empty / nearly empty HUD color.
 	*/
-	const Color& GetEmptyItemColor() const { return m_HudColors.m_EmptyItemColor; }
+	const ::Color& GetEmptyItemColor() const { return m_HudColors.m_EmptyItemColor; }
 
 	/**
 	*	Sets the empty / nearly empty HUD color.
 	*	@param color Color to set.
 	*/
-	void SetEmptyItemColor( const Color& color )
+	void SetEmptyItemColor( const ::Color& color )
 	{
 		m_HudColors.m_EmptyItemColor = color;
 	}
@@ -82,13 +85,13 @@ public:
 	/**
 	*	@return The ammo bar HUD color.
 	*/
-	const Color& GetAmmoBarColor() const { return m_HudColors.m_AmmoBarColor; }
+	const ::Color& GetAmmoBarColor() const { return m_HudColors.m_AmmoBarColor; }
 
 	/**
 	*	Sets the ammo bar HUD color.
 	*	@param color Color to set.
 	*/
-	void SetAmmoBarColor( const Color& color )
+	void SetAmmoBarColor( const ::Color& color )
 	{
 		m_HudColors.m_AmmoBarColor = color;
 	}
@@ -136,11 +139,16 @@ public:
 	
 	int GetSpriteIndex( const char *SpriteName );	// gets a sprite index, for use in the m_rghSprites[] array
 
-	void Init();
-	void VidInit();
+	void Init() override;
+	void VidInit() override;
 	void Think();
-	bool Redraw( float flTime, int intermission );
-	int UpdateClientData( client_data_t *cdata, float time );
+	bool Redraw( float flTime, bool intermission ) override;
+	
+protected:
+	bool PreThinkUpdateClient( client_data_t* cdata ) override;
+	bool PostThinkUpdateClient( client_data_t* cdata ) override;
+
+public:
 
 	CHud();
 	~CHud();			// destructor, frees allocated memory
