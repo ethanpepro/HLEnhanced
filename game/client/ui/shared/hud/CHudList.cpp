@@ -1,6 +1,7 @@
 #include "hud.h"
 #include "cl_util.h"
 
+#include "CBaseHud.h"
 #include "CHudElement.h"
 #include "CHudElementRegistry.h"
 
@@ -41,8 +42,10 @@ CHudList::~CHudList()
 
 void CHudList::InitHudElements( CBaseHud& hud )
 {
-	//TODO: get the Hud element registry from the given Hud.
-	CHudElementRegistry::CreateAllElements( *this );
+	{
+		auto& registry = hud.GetHudElementRegistry();
+		registry.CreateAllElements( *this );
+	}
 
 	ForEachHudElem( &CHudElement::Init );
 

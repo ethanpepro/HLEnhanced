@@ -36,7 +36,7 @@ DECLARE_MESSAGE( CHudFlashlight, Flashlight)
 
 #define BAT_NAME "sprites/%d_Flashlight.spr"
 
-REGISTER_HUDELEMENT( CHudFlashlight, 65 );
+REGISTER_HUDELEMENT( HLHud, CHudFlashlight, 65 );
 
 CHudFlashlight::CHudFlashlight( const char* const pszName )
 	: BaseClass( pszName )

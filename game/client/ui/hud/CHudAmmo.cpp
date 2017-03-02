@@ -78,7 +78,7 @@ DECLARE_COMMAND(CHudAmmo, PrevWeapon);
 #define AMMO_SMALL_WIDTH 10
 #define AMMO_LARGE_WIDTH 20
 
-REGISTER_HUDELEMENT( CHudAmmo, 100 );
+REGISTER_HUDELEMENT( HLHud, CHudAmmo, 100 );
 
 CHudAmmo::CHudAmmo( const char* const pszName )
 	: BaseClass( pszName )

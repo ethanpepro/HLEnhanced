@@ -33,7 +33,7 @@
 
 DECLARE_MESSAGE( CHudBattery, Battery)
 
-REGISTER_HUDELEMENT( CHudBattery, 70 );
+REGISTER_HUDELEMENT( HLHud, CHudBattery, 70 );
 
 CHudBattery::CHudBattery( const char* const pszName )
 	: BaseClass( pszName )

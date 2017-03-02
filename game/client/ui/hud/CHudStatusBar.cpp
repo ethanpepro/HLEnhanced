@@ -41,7 +41,7 @@ DECLARE_MESSAGE( CHudStatusBar, StatusValue );
 #define STATUSBAR_ID_LINE		1
 #endif
 
-REGISTER_HUDELEMENT( CHudStatusBar, 55 );
+REGISTER_HUDELEMENT( HLHud, CHudStatusBar, 55 );
 
 CHudStatusBar::CHudStatusBar( const char* const pszName )
 	: BaseClass( pszName )

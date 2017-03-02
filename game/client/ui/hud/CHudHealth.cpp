@@ -56,7 +56,7 @@ const int giDmgFlags[NUM_DMG_TYPES] =
 	DMG_HALLUC
 };
 
-REGISTER_HUDELEMENT( CHudHealth, 95 );
+REGISTER_HUDELEMENT( HLHud, CHudHealth, 95 );
 
 CHudHealth::CHudHealth( const char* const pszName )
 	: BaseClass( pszName )

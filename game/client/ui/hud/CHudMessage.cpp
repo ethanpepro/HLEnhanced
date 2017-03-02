@@ -31,7 +31,7 @@
 DECLARE_MESSAGE( CHudMessage, HudText )
 DECLARE_MESSAGE( CHudMessage, GameTitle )
 
-REGISTER_HUDELEMENT( CHudMessage, 60 );
+REGISTER_HUDELEMENT( HLHud, CHudMessage, 60 );
 
 CHudMessage::CHudMessage( const char* const pszName )
 	: BaseClass( pszName )

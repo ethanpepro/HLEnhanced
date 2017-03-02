@@ -34,7 +34,7 @@
 
 DECLARE_MESSAGE( CHudGeiger, Geiger )
 
-REGISTER_HUDELEMENT( CHudGeiger, 80 );
+REGISTER_HUDELEMENT( HLHud, CHudGeiger, 80 );
 
 CHudGeiger::CHudGeiger( const char* const pszName )
 	: BaseClass( pszName )

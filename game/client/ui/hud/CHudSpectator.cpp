@@ -176,7 +176,7 @@ void ToggleScores( void )
 	}
 }
 
-REGISTER_HUDELEMENT( CHudSpectator, 85 );
+REGISTER_HUDELEMENT( HLHud, CHudSpectator, 85 );
 
 CHudSpectator::CHudSpectator( const char* const pszName )
 	: BaseClass( pszName )

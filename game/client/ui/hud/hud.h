@@ -26,12 +26,15 @@
 #include "cl_dll.h"
 
 #include "shared/hud/CBaseHud.h"
+#include "shared/hud/CHudElementRegistry.h"
 
 #include "HudDefs.h"
 
 struct cvar_t;
 
 #include "voice_status.h" // base voice handling class
+
+DECLARE_HUDELEMENT_REGISTRY( HLHud );
 
 class CHud : public CBaseHud
 {
@@ -141,6 +144,11 @@ public:
 
 	CHud();
 	~CHud();			// destructor, frees allocated memory
+
+	CHudElementRegistry& GetHudElementRegistry() override
+	{
+		return HLHud();
+	}
 
 	void ResetHUD();
 

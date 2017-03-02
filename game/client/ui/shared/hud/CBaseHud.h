@@ -7,6 +7,8 @@
 
 #include "CHudList.h"
 
+class CHudElementRegistry;
+
 /**
 *	Base class for the Hud.
 */
@@ -18,6 +20,11 @@ public:
 public:
 	CBaseHud();
 	virtual ~CBaseHud();
+
+	/**
+	*	@return The Hud element registry for this Hud.
+	*/
+	virtual CHudElementRegistry& GetHudElementRegistry() = 0;
 
 	virtual void InitHudElements();
 

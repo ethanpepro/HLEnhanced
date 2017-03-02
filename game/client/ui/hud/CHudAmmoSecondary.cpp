@@ -31,7 +31,7 @@
 DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoVal );
 DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoIcon );
 
-REGISTER_HUDELEMENT( CHudAmmoSecondary, 45 );
+REGISTER_HUDELEMENT( HLHud, CHudAmmoSecondary, 45 );
 
 CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName )
 	: BaseClass( pszName )

@@ -36,7 +36,7 @@ int KB_ConvertString( char *in, char **ppout );
 
 DECLARE_MESSAGE( CHudMenu, ShowMenu );
 
-REGISTER_HUDELEMENT( CHudMenu, 30 );
+REGISTER_HUDELEMENT( HLHud, CHudMenu, 30 );
 
 CHudMenu::CHudMenu( const char* const pszName )
 	: BaseClass( pszName )

@@ -30,7 +30,7 @@
 
 DECLARE_MESSAGE( CHudTrain, Train )
 
-REGISTER_HUDELEMENT( CHudTrain, 75 );
+REGISTER_HUDELEMENT( HLHud, CHudTrain, 75 );
 
 CHudTrain::CHudTrain( const char* const pszName )
 	: BaseClass( pszName )

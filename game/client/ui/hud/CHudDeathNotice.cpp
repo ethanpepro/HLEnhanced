@@ -32,7 +32,7 @@ DECLARE_MESSAGE( CHudDeathNotice, DeathMsg );
 
 #define DEATHNOTICE_TOP		32
 
-REGISTER_HUDELEMENT( CHudDeathNotice, 50 );
+REGISTER_HUDELEMENT( HLHud, CHudDeathNotice, 50 );
 
 CHudDeathNotice::CHudDeathNotice( const char* const pszName )
 	: BaseClass( pszName )

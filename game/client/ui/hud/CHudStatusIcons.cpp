@@ -31,7 +31,7 @@
 
 DECLARE_MESSAGE( CHudStatusIcons, StatusIcon );
 
-REGISTER_HUDELEMENT( CHudStatusIcons, 35 );
+REGISTER_HUDELEMENT( HLHud, CHudStatusIcons, 35 );
 
 CHudStatusIcons::CHudStatusIcons( const char* const pszName )
 	: BaseClass( pszName )

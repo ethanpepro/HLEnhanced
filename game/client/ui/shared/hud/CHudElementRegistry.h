@@ -3,50 +3,84 @@
 
 #include "CHudElement.h"
 
-class CBaseHud;
 class CHudList;
 struct CHudDefaultableArgs;
+class CHudElementRegistry;
 
-const int HUD_DEFAULT_DEPTH = 50;
+const int HUD_ELEMENT_DEPTH_MIN = 1;
+const int HUD_ELEMENT_DEPTH_MAX = 100;
+const int HUD_ELEMENT_DEPTH_DEFAULT = 50;
 
 /**
-*	Class used to create a static list of Hud element classes.
-*	The list is sorted from deepest to shallowest element.
-*	TODO: needs to be reworked so multiple registries can be created. Angelscript will eventually need to store off such registries for custom Huds.
+*	Represents one Hud element in a registry.
 */
-class CHudElementRegistry final
+class CHudElementRegistryEntry final
 {
 public:
 	using CreateFn = CHudElement* ( * )();
 
 public:
 	/**
-	*	@param createFn Function used to create the element.
-	*	@param args Defaultable arguments.
+	*	@param registry Registry of Hud elements to add this entry to
+	*	@param createFn Function used to create the element
+	*	@param args Defaultable arguments
 	*	@see CHudDefaultableArgs
 	*/
-	CHudElementRegistry( CreateFn createFn, const CHudDefaultableArgs& args );
+	CHudElementRegistryEntry( CHudElementRegistry& registry, CreateFn createFn, const CHudDefaultableArgs& args );
 
-	static CHudElementRegistry* GetHead() { return m_pHead; }
-
-	CHudElementRegistry* GetNext() { return m_pNext; }
+	CHudElementRegistryEntry* GetNext() { return m_pNext; }
 
 	CreateFn GetCreateFunction() { return m_CreateFn; }
 
-	/**
-	*	Creates all elements and adds them to the given Hud.
-	*	@return Number of elements created.
-	*/
-	static size_t CreateAllElements( CHudList& hudList );
+	int GetDepth() const { return m_iDepth; }
 
 private:
-	static CHudElementRegistry* m_pHead;
-
-	CHudElementRegistry* m_pNext;
+	CHudElementRegistryEntry* m_pNext;
 
 	CreateFn m_CreateFn;
 
 	const int m_iDepth;
+
+private:
+	CHudElementRegistryEntry( const CHudElementRegistryEntry& ) = delete;
+	CHudElementRegistryEntry& operator=( const CHudElementRegistryEntry& ) = delete;
+};
+
+/**
+*	Stores a list of Hud element factories to be used to populate a Hud.
+*	The list is sorted from deepest to shallowest element.
+*/
+class CHudElementRegistry final
+{
+public:
+	friend class CHudElementRegistryEntry;
+
+public:
+	/**
+	*	@param pszName Name of this registry
+	*/
+	CHudElementRegistry( const char* pszName );
+	~CHudElementRegistry() = default;
+
+	/**
+	*	@return The name of this registry
+	*/
+	const char* GetName() const { return m_pszName; }
+
+	/**
+	*	@return The first registry entry in the list
+	*/
+	CHudElementRegistryEntry* GetHead() { return m_pHead; }
+
+	/**
+	*	Creates all elements and adds them to the given Hud.
+	*	@return Number of elements created
+	*/
+	size_t CreateAllElements( CHudList& hudList );
+
+private:
+	const char* const m_pszName;
+	CHudElementRegistryEntry* m_pHead;
 
 private:
 	CHudElementRegistry( const CHudElementRegistry& ) = delete;
@@ -60,9 +94,9 @@ struct CHudDefaultableArgs final
 {
 	/**
 	*	First parameter is a dummy so this works on Linux, since pasting varargs to '(' doesn't work.
-	*	@param iDepth Depth of the element in the Hud element tree. Lower values render on top of higher values. [ 1, 100 ].
+	*	@param iDepth Depth of the element in the Hud element tree. Lower values render on top of higher values. [ 1, 100 ]
 	*/
-	CHudDefaultableArgs( const int, const int iDepth = HUD_DEFAULT_DEPTH )
+	CHudDefaultableArgs( const int, const int iDepth = HUD_ELEMENT_DEPTH_DEFAULT )
 		: m_iDepth( iDepth )
 	{
 	}
@@ -70,15 +104,43 @@ struct CHudDefaultableArgs final
 	const int m_iDepth;
 };
 
-#define REGISTER_NAMED_HUDELEMENT( className, name, ... )																		\
-static CHudElement* __Create##name()																							\
-{																																\
-	return new className( #name );																								\
-}																																\
-																																\
-static CHudElementRegistry __g_HudElement##name##Registry( &__Create##name, CHudDefaultableArgs( 0, ##__VA_ARGS__ ) )
+/**
+*	Declares a function "CHudElementRegistry& name()" that returns a registry.
+*/
+#define DECLARE_HUDELEMENT_REGISTRY( name )	\
+CHudElementRegistry& name()
 
-#define REGISTER_HUDELEMENT( className, ... )						\
-REGISTER_NAMED_HUDELEMENT( className, className, ##__VA_ARGS__ )
+/**
+*	Implements a Hud element registry accessor.
+*/
+#define IMPLEMENT_HUDELEMENT_REGISTRY( name )		\
+DECLARE_HUDELEMENT_REGISTRY( name )					\
+{													\
+	static CHudElementRegistry instance( #name );	\
+													\
+	return instance;								\
+}
+
+/**
+*	Registers a named Hud element with the given registry.
+*	@param registryName Name of the registry to add this to. Must be declared with DECLARE_HUDELEMENT_REGISTRY before you can reference it
+*	@param className Name of the class being registered
+*	@param name Name that this element can be referenced by
+*	@param ... Optional arguments
+*	@see CHudDefaultableArgs for optional arguments
+*/
+#define REGISTER_NAMED_HUDELEMENT( registryName, className, name, ... )																		\
+static CHudElement* __Create##name()																										\
+{																																			\
+	return new className( #name );																											\
+}																																			\
+																																			\
+static CHudElementRegistryEntry __g_HudElement##name##Entry( registryName(), &__Create##name, CHudDefaultableArgs( 0, ##__VA_ARGS__ ) )
+
+/**
+*	@see REGISTER_NAMED_HUDELEMENT
+*/
+#define REGISTER_HUDELEMENT( registryName, className, ... )						\
+REGISTER_NAMED_HUDELEMENT( registryName, className, className, ##__VA_ARGS__ )
 
 #endif //GAME_CLIENT_UI_SHARED_HUD_CHUDELEMENTREGISTRY_H

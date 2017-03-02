@@ -37,7 +37,7 @@
 
 DECLARE_MESSAGE( CHudTextMessage, TextMsg );
 
-REGISTER_HUDELEMENT( CHudTextMessage, 40 );
+REGISTER_HUDELEMENT( HLHud, CHudTextMessage, 40 );
 
 CHudTextMessage::CHudTextMessage( const char* const pszName )
 	: BaseClass( pszName )
