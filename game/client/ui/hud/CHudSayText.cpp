@@ -22,8 +22,6 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include <string.h>
 #include <stdio.h>
 
@@ -36,8 +34,6 @@
 #define LINE_START  10
 
 DECLARE_MESSAGE( CHudSayText, SayText );
-
-REGISTER_HUDELEMENT( HLHud, CHudSayText, 90 );
 
 CHudSayText::CHudSayText( const char* const pszName )
 	: BaseClass( pszName )

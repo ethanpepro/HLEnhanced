@@ -47,7 +47,6 @@
 
 cl_enginefunc_t gEngfuncs;
 CHud gHUD;
-IMPLEMENT_HUDELEMENT_REGISTRY( HLHud )
 TeamFortressViewport *gViewPort = NULL;
 
 

@@ -24,14 +24,10 @@
 #include <stdio.h>
 #include "parsemsg.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "CHudAmmoSecondary.h"
 
 DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoVal );
 DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoIcon );
-
-REGISTER_HUDELEMENT( HLHud, CHudAmmoSecondary, 45 );
 
 CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName )
 	: BaseClass( pszName )

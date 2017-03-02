@@ -12,6 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
+#ifndef GAME_CLIENT_UI_HUD_CHUDHEALTH_H
+#define GAME_CLIENT_UI_HUD_CHUDHEALTH_H
 
 #define DMG_IMAGE_LIFE		2	// seconds that image is up
 
@@ -76,3 +78,5 @@ private:
 	void CalcDamageDirection(Vector vecFrom);
 	void UpdateTiles(float fTime, long bits);
 };	
+
+#endif //GAME_CLIENT_UI_HUD_CHUDHEALTH_H

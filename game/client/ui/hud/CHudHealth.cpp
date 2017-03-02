@@ -27,8 +27,6 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "WeaponsConst.h"
 #include <string.h>
 
@@ -55,8 +53,6 @@ const int giDmgFlags[NUM_DMG_TYPES] =
 	DMG_CONCUSS,
 	DMG_HALLUC
 };
-
-REGISTER_HUDELEMENT( HLHud, CHudHealth, 95 );
 
 CHudHealth::CHudHealth( const char* const pszName )
 	: BaseClass( pszName )

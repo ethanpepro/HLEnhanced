@@ -26,11 +26,25 @@
 #include "strtools.h"
 #include "vgui_TeamFortressViewport.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "demo.h"
 #include "demo_api.h"
 #include "vgui_ScorePanel.h"
+
+#include "CHudAmmo.h"
+#include "CHudHealth.h"
+#include "CHudSayText.h"
+#include "CHudSpectator.h"
+#include "CHudGeiger.h"
+#include "CHudTrain.h"
+#include "CHudBattery.h"
+#include "CHudFlashlight.h"
+#include "CHudMessage.h"
+#include "CHudStatusBar.h"
+#include "CHudDeathNotice.h"
+#include "CHudAmmoSecondary.h"
+#include "CHudTextMessage.h"
+#include "CHudStatusIcons.h"
+#include "CHudMenu.h"
 
 #include "effects/CEnvironment.h"
 
@@ -355,6 +369,27 @@ CHud :: ~CHud()
 	delete [] m_rghSprites;
 	delete [] m_rgrcRects;
 	delete [] m_rgszSpriteNames;
+}
+
+void CHud::CreateHudElements( CHudList& list )
+{
+	BaseClass::CreateHudElements( list );
+
+	list.AddElement( CREATE_HUDELEMENT( CHudAmmo ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudHealth ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudSayText ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudSpectator ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudGeiger ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudTrain ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudBattery ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudFlashlight ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudMessage ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudStatusBar ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudDeathNotice ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudAmmoSecondary ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudTextMessage ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudStatusIcons ) );
+	list.AddElement( CREATE_HUDELEMENT( CHudMenu ) );
 }
 
 void CHud::ResetHud()

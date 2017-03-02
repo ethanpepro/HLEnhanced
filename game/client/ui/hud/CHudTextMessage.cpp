@@ -26,8 +26,6 @@
 #include <stdio.h>
 #include "parsemsg.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "vgui_TeamFortressViewport.h"
 
 #include "ui/shared/CLocalize.h"
@@ -36,8 +34,6 @@
 #include "CHudTextMessage.h"
 
 DECLARE_MESSAGE( CHudTextMessage, TextMsg );
-
-REGISTER_HUDELEMENT( HLHud, CHudTextMessage, 40 );
 
 CHudTextMessage::CHudTextMessage( const char* const pszName )
 	: BaseClass( pszName )

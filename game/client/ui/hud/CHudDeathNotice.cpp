@@ -19,8 +19,6 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include <string.h>
 #include <stdio.h>
 
@@ -31,8 +29,6 @@
 DECLARE_MESSAGE( CHudDeathNotice, DeathMsg );
 
 #define DEATHNOTICE_TOP		32
-
-REGISTER_HUDELEMENT( HLHud, CHudDeathNotice, 50 );
 
 CHudDeathNotice::CHudDeathNotice( const char* const pszName )
 	: BaseClass( pszName )

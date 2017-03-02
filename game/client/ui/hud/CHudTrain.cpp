@@ -24,13 +24,9 @@
 #include <stdio.h>
 #include "parsemsg.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "CHudTrain.h"
 
 DECLARE_MESSAGE( CHudTrain, Train )
-
-REGISTER_HUDELEMENT( HLHud, CHudTrain, 75 );
 
 CHudTrain::CHudTrain( const char* const pszName )
 	: BaseClass( pszName )

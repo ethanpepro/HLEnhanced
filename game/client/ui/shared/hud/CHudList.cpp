@@ -3,7 +3,6 @@
 
 #include "CBaseHud.h"
 #include "CHudElement.h"
-#include "CHudElementRegistry.h"
 
 #if USE_VGUI2
 #include <KeyValues.h>
@@ -42,10 +41,7 @@ CHudList::~CHudList()
 
 void CHudList::InitHudElements( CBaseHud& hud )
 {
-	{
-		auto& registry = hud.GetHudElementRegistry();
-		registry.CreateAllElements( *this );
-	}
+	hud.CreateHudElements( *this );
 
 	ForEachHudElem( &CHudElement::Init );
 

@@ -24,8 +24,6 @@
 #include "parsemsg.h"
 #include "strtools.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include <string.h>
 #include <stdio.h>
 
@@ -40,8 +38,6 @@ DECLARE_MESSAGE( CHudStatusBar, StatusValue );
 #else
 #define STATUSBAR_ID_LINE		1
 #endif
-
-REGISTER_HUDELEMENT( HLHud, CHudStatusBar, 55 );
 
 CHudStatusBar::CHudStatusBar( const char* const pszName )
 	: BaseClass( pszName )

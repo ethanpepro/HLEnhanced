@@ -7,7 +7,12 @@
 
 #include "CHudList.h"
 
-class CHudElementRegistry;
+/**
+*	Helper macro to easily create Hud elements.
+*/
+#define CREATE_HUDELEMENT( name )	\
+new name( #name )
+
 
 /**
 *	Base class for the Hud.
@@ -29,9 +34,9 @@ public:
 	virtual ~CBaseHud();
 
 	/**
-	*	@return The Hud element registry for this Hud.
+	*	Creates the Hud elements for this Hud.
 	*/
-	virtual CHudElementRegistry& GetHudElementRegistry() = 0;
+	virtual void CreateHudElements( CHudList& list ) {}
 
 	virtual void Init();
 

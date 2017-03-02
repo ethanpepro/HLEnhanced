@@ -17,8 +17,6 @@
 #include "mathlib.h"
 #include "strtools.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "pm_shared.h"
 #include "pm_defs.h"
 #include "pmtrace.h"
@@ -175,8 +173,6 @@ void ToggleScores( void )
 		}
 	}
 }
-
-REGISTER_HUDELEMENT( HLHud, CHudSpectator, 85 );
 
 CHudSpectator::CHudSpectator( const char* const pszName )
 	: BaseClass( pszName )

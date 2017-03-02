@@ -26,15 +26,11 @@
 
 #include "strtools.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "parsemsg.h"
 
 #include "CHudGeiger.h"
 
 DECLARE_MESSAGE( CHudGeiger, Geiger )
-
-REGISTER_HUDELEMENT( HLHud, CHudGeiger, 80 );
 
 CHudGeiger::CHudGeiger( const char* const pszName )
 	: BaseClass( pszName )

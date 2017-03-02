@@ -22,8 +22,6 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "WeaponsConst.h"
 
 #include <string.h>
@@ -35,8 +33,6 @@ DECLARE_MESSAGE( CHudFlashlight, FlashBat)
 DECLARE_MESSAGE( CHudFlashlight, Flashlight)
 
 #define BAT_NAME "sprites/%d_Flashlight.spr"
-
-REGISTER_HUDELEMENT( HLHud, CHudFlashlight, 65 );
 
 CHudFlashlight::CHudFlashlight( const char* const pszName )
 	: BaseClass( pszName )

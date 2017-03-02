@@ -6,8 +6,6 @@
 #include "hud.h"
 #include "cl_util.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "const.h"
 #include "entity_state.h"
 #include "cl_entity.h"
@@ -23,8 +21,6 @@
 #include <string.h>
 #include <stdio.h>
 #include "parsemsg.h"
-
-#include "shared/hud/CHudElementRegistry.h"
 
 #include "con_nprint.h"
 

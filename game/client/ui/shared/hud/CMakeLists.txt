@@ -3,8 +3,6 @@ add_sources(
 	CBaseHud.cpp
 	CHudElement.h
 	CHudElement.cpp
-	CHudElementRegistry.h
-	CHudElementRegistry.cpp
 	CHudList.h
 	CHudList.cpp
 )

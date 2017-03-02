@@ -22,8 +22,6 @@
 #include "cl_util.h"
 #include "parsemsg.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include "WeaponsConst.h"
 
 #include <string.h>
@@ -32,8 +30,6 @@
 #include "CHudBattery.h"
 
 DECLARE_MESSAGE( CHudBattery, Battery)
-
-REGISTER_HUDELEMENT( HLHud, CHudBattery, 70 );
 
 CHudBattery::CHudBattery( const char* const pszName )
 	: BaseClass( pszName )

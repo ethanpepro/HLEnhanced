@@ -22,8 +22,6 @@
 #include "parsemsg.h"
 #include "strtools.h"
 
-#include "shared/hud/CHudElementRegistry.h"
-
 #include <string.h>
 #include <stdio.h>
 
@@ -35,8 +33,6 @@
 int KB_ConvertString( char *in, char **ppout );
 
 DECLARE_MESSAGE( CHudMenu, ShowMenu );
-
-REGISTER_HUDELEMENT( HLHud, CHudMenu, 30 );
 
 CHudMenu::CHudMenu( const char* const pszName )
 	: BaseClass( pszName )
