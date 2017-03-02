@@ -336,9 +336,6 @@ void CHud::Init()
 	CVAR_CREATE( "hud_classautokill", "1", FCVAR_ARCHIVE | FCVAR_USERINFO );		// controls whether or not to suicide immediately on TF class switch
 	CVAR_CREATE( "hud_takesshots", "0", FCVAR_ARCHIVE );		// controls whether or not to automatically take screenshots at the end of a round
 
-
-	m_iLogo = 0;
-
 	CVAR_CREATE( "zoom_sensitivity_ratio", "1.2", 0 );
 	m_pCvarStealMouse = CVAR_CREATE( "hud_capturemouse", "1", FCVAR_ARCHIVE );
 	m_pCvarDraw = CVAR_CREATE( "hud_draw", "1", FCVAR_ARCHIVE );
@@ -412,8 +409,8 @@ void CHud::LoadSprites()
 	// ---------
 	//	m_hsprFont = LoadSprite("sprites/%d_font.spr");
 
-	m_hsprLogo = 0;
-	m_hsprCursor = 0;
+	m_hsprLogo = INVALID_HSPRITE;
+	m_hsprCursor = INVALID_HSPRITE;
 
 	// assumption: number_1, number_2, etc, are all listed and loaded sequentially
 	m_HUD_number_0 = GetSpriteIndex( "number_0" );
@@ -428,7 +425,7 @@ int CHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)
 	CBufferReader reader( pbuf, iSize );
 
 	// update Train data
-	m_iLogo = reader.ReadByte();
+	m_bLogo = reader.ReadByte() != 0;
 
 	return 1;
 }

@@ -158,6 +158,13 @@ public:
 
 	int GetWeaponBits() const { return m_iWeaponBits; }
 
+	bool IsTeamplay() const { return m_bIsTeamplay; }
+
+	void SetIsTeamplay( bool bIsTeamplay )
+	{
+		m_bIsTeamplay = bIsTeamplay;
+	}
+
 	const CBitSet<int>& GetHideHudBits() const { return m_HideHUDDisplay; }
 
 	CBitSet<int>& GetHideHudBits() { return m_HideHUDDisplay; }
@@ -198,6 +205,8 @@ private:
 
 	int				m_iKeyBits = 0;
 	int				m_iWeaponBits = 0;
+
+	bool			m_bIsTeamplay = false;
 
 	//Hud element state.
 	CBitSet<int>	m_HideHUDDisplay;

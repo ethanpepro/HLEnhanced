@@ -118,6 +118,8 @@ private:
 
 	// Ammo Bar width and height
 	int m_iBucketHeight, m_iBucketWidth, m_iABHeight, m_iABWidth;
+
+	bool m_bPlayerDead = false;
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDAMMO_H

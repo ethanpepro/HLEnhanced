@@ -180,7 +180,7 @@ void CHudAmmo::Think()
 			UpdateWeaponHUD( m_pWeapon, m_bOnTarget );
 	}
 
-	if ( gHUD.m_bPlayerDead )
+	if ( m_bPlayerDead )
 		return;
 
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
@@ -240,7 +240,7 @@ void CHudAmmo::SelectSlot( int iSlot, const bool fAdvance, int iDirection )
 	if ( iSlot > MAX_WEAPON_SLOTS )
 		return;
 
-	if ( gHUD.m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
@@ -408,11 +408,11 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 		// Is player dead???
 		if ((iId == -1) && (iClip == -1))
 		{
-			gHUD.m_bPlayerDead = true;
+			m_bPlayerDead = true;
 			m_pActiveSel = nullptr;
 			return 1;
 		}
-		gHUD.m_bPlayerDead = false;
+		m_bPlayerDead = false;
 	}
 
 	CBasePlayerWeapon *pWeapon = g_Prediction.GetWeapon( iId );
@@ -546,7 +546,7 @@ void CHudAmmo::UserCmd_Close(void)
 // Selects the next item in the weapon menu
 void CHudAmmo::UserCmd_NextWeapon(void)
 {
-	if ( gHUD.m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
@@ -600,7 +600,7 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 // Selects the previous item in the menu
 void CHudAmmo::UserCmd_PrevWeapon(void)
 {
-	if ( gHUD.m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )

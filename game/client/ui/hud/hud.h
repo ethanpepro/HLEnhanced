@@ -118,21 +118,17 @@ public:
 
 	int MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf );
 
-
 public:
-	HSPRITE		m_hsprCursor;
-	int			m_Teamplay;
 	cvar_t*		m_pCvarStealMouse;
 	cvar_t*		m_pCvarDraw;
-
-	bool		m_bPlayerDead;
 
 	// sprite indexes
 	int			m_HUD_number_0;
 
 private:
-	HSPRITE		m_hsprLogo;
-	int			m_iLogo;
+	HSPRITE		m_hsprCursor = 0;
+	HSPRITE		m_hsprLogo = 0;
+	bool		m_bLogo = false;
 	int			m_iConcussionEffect;
 
 	CHudColors	m_HudColors;

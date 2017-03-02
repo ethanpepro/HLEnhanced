@@ -104,11 +104,11 @@ bool CHud::DoDraw( float flTime, bool intermission )
 	}
 
 	// are we in demo mode? do we need to draw the logo in the top corner?
-	if (m_iLogo)
+	if( m_bLogo )
 	{
 		int x, y, i;
 
-		if (m_hsprLogo == 0)
+		if( m_hsprLogo == INVALID_HSPRITE )
 			m_hsprLogo = LoadSprite("sprites/%d_logo.spr");
 
 		SPR_Set(m_hsprLogo, 250, 250, 250 );
@@ -132,7 +132,7 @@ bool CHud::DoDraw( float flTime, bool intermission )
 
 		IN_GetMousePos( &mx, &my );
 		
-		if (m_hsprCursor == 0)
+		if( m_hsprCursor == INVALID_HSPRITE )
 		{
 			char sz[256];
 			V_sprintf_safe( sz, "sprites/cursor.spr" );

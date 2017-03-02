@@ -83,7 +83,7 @@ void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 int CHud :: MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
-	m_Teamplay = reader.ReadByte();
+	SetIsTeamplay( reader.ReadByte() != 0 );
 
 	return 1;
 }
