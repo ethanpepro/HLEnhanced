@@ -78,7 +78,7 @@ bool CHud::DoDraw( float flTime, bool intermission )
 				{
 					if( !info.bIntermission )
 					{
-						if( ( pElem->GetFlags() & HUD_ACTIVE ) && !( info.hud.m_iHideHUDDisplay & HIDEHUD_ALL ) )
+						if( ( pElem->GetFlags() & HUD_ACTIVE ) && !( info.hud.GetHideHudBits().Any( HIDEHUD_ALL ) ) )
 							return true;
 					}
 					else
@@ -91,7 +91,7 @@ bool CHud::DoDraw( float flTime, bool intermission )
 				{
 					if( ( Q_strcmp( pElem->GetName(), "CHudBenckmark" ) == 0 ) &&
 						( pElem->GetFlags() & HUD_ACTIVE ) &&
-						!( info.hud.m_iHideHUDDisplay & HIDEHUD_ALL ) )
+						!( info.hud.GetHideHudBits().Any( HIDEHUD_ALL ) ) )
 					{
 						return true;
 					}

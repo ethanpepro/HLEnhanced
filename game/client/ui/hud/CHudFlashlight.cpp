@@ -94,7 +94,7 @@ int CHudFlashlight:: MsgFunc_Flashlight(const char *pszName,  int iSize, void *p
 
 bool CHudFlashlight::Draw(float flTime)
 {
-	if ( gHUD.m_iHideHUDDisplay & ( HIDEHUD_FLASHLIGHT | HIDEHUD_ALL ) )
+	if ( Hud().GetHideHudBits().Any( HIDEHUD_FLASHLIGHT | HIDEHUD_ALL ) )
 		return true;
 
 	int r, g, b, x, y, a;

@@ -49,6 +49,7 @@ public:
 	void ResetHud() override;
 
 protected:
+	void LoadSprites() override;
 	bool DoDraw( float flTime, bool intermission ) override;
 	bool PreThinkUpdateClient( client_data_t* cdata ) override;
 	bool PostThinkUpdateClient( client_data_t* cdata ) override;
@@ -120,7 +121,6 @@ public:
 
 public:
 	HSPRITE		m_hsprCursor;
-	int			m_iHideHUDDisplay;
 	int			m_Teamplay;
 	cvar_t*		m_pCvarStealMouse;
 	cvar_t*		m_pCvarDraw;

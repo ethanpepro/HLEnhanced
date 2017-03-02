@@ -175,7 +175,7 @@ bool CHudHealth::Draw(float flTime)
 	int a = MIN_ALPHA, x, y;
 	int HealthWidth;
 
-	if ( (gHUD.m_iHideHUDDisplay & HIDEHUD_HEALTH) || gEngfuncs.IsSpectateOnly() )
+	if ( Hud().GetHideHudBits().Any( HIDEHUD_HEALTH ) || gEngfuncs.IsSpectateOnly() )
 		return true;
 
 	if ( !m_hSprite )

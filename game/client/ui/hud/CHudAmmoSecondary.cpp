@@ -58,7 +58,7 @@ void CHudAmmoSecondary::VidInit()
 
 bool CHudAmmoSecondary::Draw(float flTime)
 {
-	if ( (gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL )) )
+	if ( Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return true;
 
 	// draw secondary ammo icons above normal ammo readout

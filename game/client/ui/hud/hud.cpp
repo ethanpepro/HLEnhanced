@@ -402,12 +402,17 @@ void CHud::VidInit()
 	SetEmptyItemColor( HUD_DEFAULT_EMPTYITEM_COLOR );
 	SetAmmoBarColor( HUD_DEFAULT_AMMOBAR_COLOR );
 
+	GetClientVoiceMgr()->VidInit();
+}
+
+void CHud::LoadSprites()
+{
 	// ----------
 	// Load Sprites
 	// ---------
-//	m_hsprFont = LoadSprite("sprites/%d_font.spr");
-	
-	m_hsprLogo = 0;	
+	//	m_hsprFont = LoadSprite("sprites/%d_font.spr");
+
+	m_hsprLogo = 0;
 	m_hsprCursor = 0;
 
 	// assumption: number_1, number_2, etc, are all listed and loaded sequentially
@@ -416,10 +421,6 @@ void CHud::VidInit()
 	ASSERT( m_HUD_number_0 != INVALID_SPRITE_INDEX );
 
 	m_iFontHeight = GetSpriteRect( m_HUD_number_0 ).bottom - GetSpriteRect( m_HUD_number_0 ).top;
-
-	HudList().ForEachHudElem( &CHudElement::VidInit );
-
-	GetClientVoiceMgr()->VidInit();
 }
 
 int CHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)

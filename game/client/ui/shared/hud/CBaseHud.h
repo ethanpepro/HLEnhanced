@@ -8,6 +8,8 @@
 #include "CHudList.h"
 #include "HudDefs.h"
 
+#include "CBitSet.h"
+
 /**
 *	Helper macro to easily create Hud elements.
 */
@@ -55,6 +57,13 @@ public:
 
 	virtual void VidInit();
 
+protected:
+	/**
+	*	Called when the Hud can load its sprites.
+	*/
+	virtual void LoadSprites() {}
+
+public:
 	virtual void ResetHud();
 
 	bool Redraw( float flTime, bool intermission );
@@ -149,6 +158,10 @@ public:
 
 	int GetWeaponBits() const { return m_iWeaponBits; }
 
+	const CBitSet<int>& GetHideHudBits() const { return m_HideHUDDisplay; }
+
+	CBitSet<int>& GetHideHudBits() { return m_HideHUDDisplay; }
+
 	HSPRITE GetSprite( int index ) const;
 
 	const wrect_t& GetSpriteRect( int index ) const;
@@ -177,14 +190,17 @@ private:
 	int m_iResolution = 0;
 
 	//Game state
-	bool		m_bIntermission = false;
+	bool			m_bIntermission = false;
 
 	//TODO: these should probably be taken from the local CBasePlayer - Solokiller
-	Vector		m_vecOrigin;
-	Vector		m_vecAngles;
+	Vector			m_vecOrigin;
+	Vector			m_vecAngles;
 
-	int			m_iKeyBits = 0;
-	int			m_iWeaponBits = 0;
+	int				m_iKeyBits = 0;
+	int				m_iWeaponBits = 0;
+
+	//Hud element state.
+	CBitSet<int>	m_HideHUDDisplay;
 
 	//Hud sprites
 	// the memory for these arrays are allocated in the first call to CBaseHud::VidInit(), when the hud.txt and associated sprites are loaded.

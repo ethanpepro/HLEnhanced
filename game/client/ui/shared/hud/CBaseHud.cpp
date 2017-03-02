@@ -133,6 +133,10 @@ void CBaseHud::VidInit()
 			p++;
 		}
 	}
+
+	LoadSprites();
+
+	HudList().ForEachHudElem( &CHudElement::VidInit );
 }
 
 void CBaseHud::ResetHud()

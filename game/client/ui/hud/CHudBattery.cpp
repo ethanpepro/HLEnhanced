@@ -88,7 +88,7 @@ int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 
 bool CHudBattery::Draw(float flTime)
 {
-	if ( gHUD.m_iHideHUDDisplay & HIDEHUD_HEALTH )
+	if ( Hud().GetHideHudBits().Any( HIDEHUD_HEALTH ) )
 		return true;
 
 	wrect_t rc;

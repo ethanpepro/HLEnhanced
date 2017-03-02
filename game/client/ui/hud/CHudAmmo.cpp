@@ -128,7 +128,7 @@ void CHudAmmo::Reset()
 	GetFlags() |= HUD_ACTIVE; //!!!
 
 	m_pActiveSel = nullptr;
-	gHUD.m_iHideHUDDisplay = 0;
+	Hud().GetHideHudBits() = 0;
 
 	if( CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer() )
 	{
@@ -240,7 +240,7 @@ void CHudAmmo::SelectSlot( int iSlot, const bool fAdvance, int iDirection )
 	if ( iSlot > MAX_WEAPON_SLOTS )
 		return;
 
-	if ( gHUD.m_bPlayerDead || gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( gHUD.m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
@@ -354,12 +354,12 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	
-	gHUD.m_iHideHUDDisplay = reader.ReadByte();
+	Hud().GetHideHudBits() = reader.ReadByte();
 
 	if (gEngfuncs.IsSpectateOnly())
 		return 1;
 
-	if ( gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 	{
 		wrect_t nullrc = {};
 		m_pActiveSel = nullptr;
@@ -546,7 +546,7 @@ void CHudAmmo::UserCmd_Close(void)
 // Selects the next item in the weapon menu
 void CHudAmmo::UserCmd_NextWeapon(void)
 {
-	if ( gHUD.m_bPlayerDead || (gHUD.m_iHideHUDDisplay & (HIDEHUD_WEAPONS | HIDEHUD_ALL)) )
+	if ( gHUD.m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
@@ -600,7 +600,7 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 // Selects the previous item in the menu
 void CHudAmmo::UserCmd_PrevWeapon(void)
 {
-	if ( gHUD.m_bPlayerDead || (gHUD.m_iHideHUDDisplay & (HIDEHUD_WEAPONS | HIDEHUD_ALL)) )
+	if ( gHUD.m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
@@ -683,7 +683,7 @@ bool CHudAmmo::Draw(float flTime)
 	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
 		return true;
 
-	if ( (gHUD.m_iHideHUDDisplay & ( HIDEHUD_WEAPONS | HIDEHUD_ALL )) )
+	if ( Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return true;
 
 	// Draw Weapon Menu
