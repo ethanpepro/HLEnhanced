@@ -30,8 +30,8 @@ public:
 private:
 	HSPRITE m_hSprite1;
 	HSPRITE m_hSprite2;
-	wrect_t *m_prc1;
-	wrect_t *m_prc2;
+	const wrect_t *m_prc1;
+	const wrect_t *m_prc2;
 	int	  m_iBat;
 	int	  m_iBatMax;
 	float m_fFade;

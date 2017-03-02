@@ -41,9 +41,6 @@ public:
 private:
 	HSPRITE						m_hsprLogo;
 	int							m_iLogo;
-	client_sprite_t				*m_pSpriteList;
-	int							m_iSpriteCount;
-	int							m_iSpriteCountAllRes;
 	int							m_iConcussionEffect; 
 
 	CHudColors m_HudColors;
@@ -98,7 +95,6 @@ public:
 	int		m_iKeyBits;
 	int		m_iHideHUDDisplay;
 	int		m_Teamplay;
-	int		m_iRes;
 	cvar_t  *m_pCvarStealMouse;
 	cvar_t	*m_pCvarDraw;
 
@@ -109,26 +105,7 @@ public:
 	int DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b );
 	int GetNumWidth(int iNumber, int iFlags);
 
-private:
-	// the memory for these arrays are allocated in the first call to CHud::VidInit(), when the hud.txt and associated sprites are loaded.
-	// freed in ~CHud()
-	HSPRITE *m_rghSprites;	/*[HUD_SPRITE_COUNT]*/			// the sprites loaded from hud.txt
-	wrect_t *m_rgrcRects;	/*[HUD_SPRITE_COUNT]*/
-	char *m_rgszSpriteNames; /*[HUD_SPRITE_COUNT][MAX_SPRITE_NAME_LENGTH]*/
-public:
-	HSPRITE GetSprite( int index ) 
-	{
-		return (index < 0) ? 0 : m_rghSprites[index];
-	}
-
-	wrect_t& GetSpriteRect( int index )
-	{
-		return m_rgrcRects[index];
-	}
-
-	
-	int GetSpriteIndex( const char *SpriteName );	// gets a sprite index, for use in the m_rghSprites[] array
-
+public:	
 	void Init() override;
 	void VidInit() override;
 	void Think() override;

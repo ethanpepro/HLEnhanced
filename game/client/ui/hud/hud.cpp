@@ -345,8 +345,6 @@ void CHud::Init()
 	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
 	cl_weather = CVAR_CREATE( "cl_weather", "1", FCVAR_ARCHIVE );
 
-	m_pSpriteList = NULL;
-
 	// Clear any old HUD list
 	HudList().RemoveAllElements();
 
@@ -358,17 +356,12 @@ void CHud::Init()
 }
 
 CHud::CHud()
-	: m_iSpriteCount( 0 )
 {
 }
 
 // CHud destructor
-// cleans up memory allocated for m_rg* arrays
-CHud :: ~CHud()
+CHud::~CHud()
 {
-	delete [] m_rghSprites;
-	delete [] m_rgrcRects;
-	delete [] m_rgszSpriteNames;
 }
 
 void CHud::CreateHudElements( CHudList& list )
@@ -400,22 +393,6 @@ void CHud::ResetHud()
 	m_iConcussionEffect = 0;
 }
 
-// GetSpriteIndex()
-// searches through the sprite list loaded from hud.txt for a name matching SpriteName
-// returns an index into the gHUD.m_rghSprites[] array
-// returns 0 if sprite not found
-int CHud :: GetSpriteIndex( const char *SpriteName )
-{
-	// look through the loaded sprite name list for SpriteName
-	for ( int i = 0; i < m_iSpriteCount; i++ )
-	{
-		if ( strncmp( SpriteName, m_rgszSpriteNames + (i * MAX_SPRITE_NAME_LENGTH), MAX_SPRITE_NAME_LENGTH ) == 0 )
-			return i;
-	}
-
-	return -1; // invalid sprite
-}
-
 void CHud::VidInit()
 {
 	BaseClass::VidInit();
@@ -433,78 +410,12 @@ void CHud::VidInit()
 	m_hsprLogo = 0;	
 	m_hsprCursor = 0;
 
-	if (ScreenWidth < 640)
-		m_iRes = 320;
-	else
-		m_iRes = 640;
-
-	// Only load this once
-	if ( !m_pSpriteList )
-	{
-		// we need to load the hud.txt, and all sprites within
-		m_pSpriteList = SPR_GetList("sprites/hud.txt", &m_iSpriteCountAllRes);
-
-		if (m_pSpriteList)
-		{
-			// count the number of sprites of the appropriate res
-			m_iSpriteCount = 0;
-			client_sprite_t *p = m_pSpriteList;
-			int j;
-			for ( j = 0; j < m_iSpriteCountAllRes; j++ )
-			{
-				if ( p->iRes == m_iRes )
-					m_iSpriteCount++;
-				p++;
-			}
-
-			// allocated memory for sprite handle arrays
- 			m_rghSprites = new HSPRITE[m_iSpriteCount];
-			m_rgrcRects = new wrect_t[m_iSpriteCount];
-			m_rgszSpriteNames = new char[m_iSpriteCount * MAX_SPRITE_NAME_LENGTH];
-
-			p = m_pSpriteList;
-			int index = 0;
-			for ( j = 0; j < m_iSpriteCountAllRes; j++ )
-			{
-				if ( p->iRes == m_iRes )
-				{
-					char sz[256];
-					V_sprintf_safe(sz, "sprites/%s.spr", p->szSprite);
-					m_rghSprites[index] = SPR_Load(sz);
-					m_rgrcRects[index] = p->rc;
-					strncpy( &m_rgszSpriteNames[index * MAX_SPRITE_NAME_LENGTH], p->szName, MAX_SPRITE_NAME_LENGTH );
-
-					index++;
-				}
-
-				p++;
-			}
-		}
-	}
-	else
-	{
-		// we have already have loaded the sprite reference from hud.txt, but
-		// we need to make sure all the sprites have been loaded (we've gone through a transition, or loaded a save game)
-		client_sprite_t *p = m_pSpriteList;
-		int index = 0;
-		for ( int j = 0; j < m_iSpriteCountAllRes; j++ )
-		{
-			if ( p->iRes == m_iRes )
-			{
-				char sz[256];
-				V_sprintf_safe( sz, "sprites/%s.spr", p->szSprite );
-				m_rghSprites[index] = SPR_Load(sz);
-				index++;
-			}
-
-			p++;
-		}
-	}
-
 	// assumption: number_1, number_2, etc, are all listed and loaded sequentially
 	m_HUD_number_0 = GetSpriteIndex( "number_0" );
 
-	m_iFontHeight = m_rgrcRects[m_HUD_number_0].bottom - m_rgrcRects[m_HUD_number_0].top;
+	ASSERT( m_HUD_number_0 != INVALID_SPRITE_INDEX );
+
+	m_iFontHeight = GetSpriteRect( m_HUD_number_0 ).bottom - GetSpriteRect( m_HUD_number_0 ).top;
 
 	HudList().ForEachHudElem( &CHudElement::VidInit );
 

@@ -19,6 +19,9 @@ new name( #name )
 */
 class CBaseHud
 {
+public:
+	static const int INVALID_SPRITE_INDEX = -1;
+
 protected:
 	/**
 	*	Callback used to evaluate whether an element should be drawn.
@@ -121,6 +124,19 @@ public:
 		m_flMouseSensitivity = flMouseSensitivity;
 	}
 
+	int GetResolution() const { return m_iResolution; }
+
+	HSPRITE GetSprite( int index ) const;
+
+	const wrect_t& GetSpriteRect( int index ) const;
+
+	/**
+	*	Searches through the sprite list loaded from hud.txt for a name matching SpriteName
+	*	returns an index into the gHUD.m_rghSprites[] array
+	*	returns INVALID_SPRITE_INDEX if sprite not found
+	*/
+	int GetSpriteIndex( const char* SpriteName ) const;
+
 	cvar_t* GetDefaultFOVCVar() { return default_fov; }
 
 private:
@@ -136,6 +152,19 @@ private:
 
 	int	m_iFOV = 0;
 	float m_flMouseSensitivity = 0;
+
+	int m_iResolution = 0;
+
+	//Hud sprites
+	// the memory for these arrays are allocated in the first call to CBaseHud::VidInit(), when the hud.txt and associated sprites are loaded.
+	// freed in ~CBaseHud()
+	client_sprite_t*	m_pSpriteList = nullptr;
+	int					m_iSpriteCount = 0;
+	int					m_iSpriteCountAllRes = 0;	//!Sprite count for all resolutions.
+
+	HSPRITE*			m_rghSprites;	/*[HUD_SPRITE_COUNT]*/			// the sprites loaded from hud.txt
+	wrect_t*			m_rgrcRects;	/*[HUD_SPRITE_COUNT]*/
+	char*				m_rgszSpriteNames; /*[HUD_SPRITE_COUNT][MAX_SPRITE_NAME_LENGTH]*/
 
 	//CVars
 	cvar_t* default_fov = nullptr;
