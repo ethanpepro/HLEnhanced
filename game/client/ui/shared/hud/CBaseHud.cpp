@@ -354,6 +354,118 @@ void CBaseHud::UpdateFOV( int iNewFOV, bool bForce )
 	}
 }
 
+int CBaseHud::DrawHudString( int xpos, int ypos, int iMaxX, char *szIt, int r, int g, int b )
+{
+	return xpos + gEngfuncs.pfnDrawString( xpos, ypos, szIt, r, g, b );
+}
+
+int CBaseHud::DrawHudNumberString( int xpos, int ypos, int iMinX, int iNumber, int r, int g, int b )
+{
+	char szString[ 32 ];
+	V_sprintf_safe( szString, "%d", iNumber );
+	return DrawHudStringReverse( xpos, ypos, iMinX, szString, r, g, b );
+}
+
+// draws a string from right to left (right-aligned)
+int CBaseHud::DrawHudStringReverse( int xpos, int ypos, int iMinX, char *szString, int r, int g, int b )
+{
+	return xpos - gEngfuncs.pfnDrawStringReverse( xpos, ypos, szString, r, g, b );
+}
+
+int CBaseHud::DrawHudNumber( int x, int y, int iFlags, int iNumber, int r, int g, int b )
+{
+	int iWidth = GetSpriteRect( GetHudNumber0Index() ).right - GetSpriteRect( GetHudNumber0Index() ).left;
+	int k;
+
+	if( iNumber > 0 )
+	{
+		// SPR_Draw 100's
+		if( iNumber >= 100 )
+		{
+			k = iNumber / 100;
+			SPR_Set( GetSprite( GetHudNumber0Index() + k ), r, g, b );
+			SPR_DrawAdditive( 0, x, y, &GetSpriteRect( GetHudNumber0Index() + k ) );
+			x += iWidth;
+		}
+		else if( iFlags & ( DHN_3DIGITS ) )
+		{
+			//SPR_DrawAdditive( 0, x, y, &rc );
+			x += iWidth;
+		}
+
+		// SPR_Draw 10's
+		if( iNumber >= 10 )
+		{
+			k = ( iNumber % 100 ) / 10;
+			SPR_Set( GetSprite( GetHudNumber0Index() + k ), r, g, b );
+			SPR_DrawAdditive( 0, x, y, &GetSpriteRect( GetHudNumber0Index() + k ) );
+			x += iWidth;
+		}
+		else if( iFlags & ( DHN_3DIGITS | DHN_2DIGITS ) )
+		{
+			//SPR_DrawAdditive( 0, x, y, &rc );
+			x += iWidth;
+		}
+
+		// SPR_Draw ones
+		k = iNumber % 10;
+		SPR_Set( GetSprite( GetHudNumber0Index() + k ), r, g, b );
+		SPR_DrawAdditive( 0, x, y, &GetSpriteRect( GetHudNumber0Index() + k ) );
+		x += iWidth;
+	}
+	else if( iFlags & DHN_DRAWZERO )
+	{
+		SPR_Set( GetSprite( GetHudNumber0Index() ), r, g, b );
+
+		// SPR_Draw 100's
+		if( iFlags & ( DHN_3DIGITS ) )
+		{
+			//SPR_DrawAdditive( 0, x, y, &rc );
+			x += iWidth;
+		}
+
+		if( iFlags & ( DHN_3DIGITS | DHN_2DIGITS ) )
+		{
+			//SPR_DrawAdditive( 0, x, y, &rc );
+			x += iWidth;
+		}
+
+		// SPR_Draw ones
+
+		SPR_DrawAdditive( 0, x, y, &GetSpriteRect( GetHudNumber0Index() ) );
+		x += iWidth;
+	}
+
+	return x;
+}
+
+
+int CBaseHud::GetNumWidth( int iNumber, int iFlags ) const
+{
+	if( iFlags & ( DHN_3DIGITS ) )
+		return 3;
+
+	if( iFlags & ( DHN_2DIGITS ) )
+		return 2;
+
+	if( iNumber <= 0 )
+	{
+		if( iFlags & ( DHN_DRAWZERO ) )
+			return 1;
+		else
+			return 0;
+	}
+
+	if( iNumber < 10 )
+		return 1;
+
+	if( iNumber < 100 )
+		return 2;
+
+	return 3;
+
+}
+
 void CBaseHud::InitHudElements()
 {
 	HudList().InitHudElements( *this );

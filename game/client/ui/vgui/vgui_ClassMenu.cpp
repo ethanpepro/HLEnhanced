@@ -189,7 +189,7 @@ CClassMenuPanel::CClassMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide
 		}
 
 		// Create the Player count string
-		gHUD.m_TextMessage.LocaliseTextString( "#Title_CurrentlyOnYourTeam", m_sPlayersOnTeamString, STRLENMAX_PLAYERSONTEAM );
+		Localize().LocaliseTextString( "#Title_CurrentlyOnYourTeam", m_sPlayersOnTeamString, STRLENMAX_PLAYERSONTEAM );
 		m_pPlayers[i] = new Label( "", textOffs, CLASSMENU_WINDOW_PLAYERS_Y );
 		m_pPlayers[i]->setParent( m_pClassInfoPanel[i] );
 		m_pPlayers[i]->setBgColor( 0, 0, 0, 255 );

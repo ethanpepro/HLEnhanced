@@ -154,7 +154,7 @@ bool CHudBattery::Draw(float flTime)
 	}
 
 	x += (m_prc1->right - m_prc1->left);
-	x = gHUD.DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iBat, r, g, b);
+	x = Hud().DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iBat, r, g, b);
 
 	return true;
 }

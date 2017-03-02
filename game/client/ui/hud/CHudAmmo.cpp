@@ -770,7 +770,7 @@ bool CHudAmmo::Draw(float flTime)
 			// room for the number and the '|' and the current ammo
 			
 			x = ScreenWidth - (8 * AmmoWidth) - iIconWidth;
-			x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pw->m_iClientClip, r, g, b);
+			x = Hud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pw->m_iClientClip, r, g, b);
 
 			wrect_t rc;
 			rc.top = 0;
@@ -791,7 +791,7 @@ bool CHudAmmo::Draw(float flTime)
 
 			// GL Seems to need this
 			ScaleColors(r, g, b, a );
-			x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = Hud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 
 
 		}
@@ -799,7 +799,7 @@ bool CHudAmmo::Draw(float flTime)
 		{
 			// SPR_Draw a bullets only line
 			x = ScreenWidth - 4 * AmmoWidth - iIconWidth;
-			x = gHUD.DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = Hud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 		}
 
 		// Draw the ammo Icon
@@ -820,7 +820,7 @@ bool CHudAmmo::Draw(float flTime)
 		{
 			y -= Hud().GetFontHeight() + Hud().GetFontHeight() /4;
 			x = ScreenWidth - 4 * AmmoWidth - iIconWidth;
-			x = gHUD.DrawHudNumber(x, y, iFlags|DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = Hud().DrawHudNumber(x, y, iFlags|DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 
 			// Draw the ammo Icon
 			SPR_Set( ammo2.hSprite, r, g, b);

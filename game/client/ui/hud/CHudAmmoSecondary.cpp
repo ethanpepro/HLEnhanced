@@ -99,8 +99,8 @@ bool CHudAmmoSecondary::Draw(float flTime)
 		x -= (AmmoWidth / 2);
 
 		// draw the number, right-aligned
-		x -= (gHUD.GetNumWidth( m_iAmmoAmounts[i], DHN_DRAWZERO ) * AmmoWidth);
-		gHUD.DrawHudNumber( x, y, DHN_DRAWZERO, m_iAmmoAmounts[i], r, g, b );
+		x -= ( Hud().GetNumWidth( m_iAmmoAmounts[i], DHN_DRAWZERO ) * AmmoWidth);
+		Hud().DrawHudNumber( x, y, DHN_DRAWZERO, m_iAmmoAmounts[i], r, g, b );
 
 		if ( i != 0 )
 		{
