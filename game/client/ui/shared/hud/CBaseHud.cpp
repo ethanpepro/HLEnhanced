@@ -41,10 +41,8 @@ CBaseHud::CBaseHud()
 
 CBaseHud::~CBaseHud()
 {
-	// cleans up memory allocated for m_rg* arrays
-	delete[] m_rghSprites;
-	delete[] m_rgrcRects;
-	delete[] m_rgszSpriteNames;
+	// cleans up memory allocated for sprite arrays
+	delete[] m_pSprites;
 }
 
 void CBaseHud::Init()
@@ -73,6 +71,7 @@ void CBaseHud::VidInit()
 		m_iResolution = 640;
 
 	// Only load this once
+	//TODO: reload it so we can load the Hud from different locations in the future. - Solokiller
 	if( !m_pSpriteList )
 	{
 		// we need to load the hud.txt, and all sprites within
@@ -91,10 +90,8 @@ void CBaseHud::VidInit()
 				p++;
 			}
 
-			// allocated memory for sprite handle arrays
-			m_rghSprites = new HSPRITE[ m_iSpriteCount ];
-			m_rgrcRects = new wrect_t[ m_iSpriteCount ];
-			m_rgszSpriteNames = new char[ m_iSpriteCount * MAX_SPRITE_NAME_LENGTH ];
+			// allocated memory for sprite arrays
+			m_pSprites = new HudSprite_t[ m_iSpriteCount ];
 
 			p = m_pSpriteList;
 			int index = 0;
@@ -104,9 +101,9 @@ void CBaseHud::VidInit()
 				{
 					char sz[ 256 ];
 					V_sprintf_safe( sz, "sprites/%s.spr", p->szSprite );
-					m_rghSprites[ index ] = SPR_Load( sz );
-					m_rgrcRects[ index ] = p->rc;
-					strncpy( &m_rgszSpriteNames[ index * MAX_SPRITE_NAME_LENGTH ], p->szName, MAX_SPRITE_NAME_LENGTH );
+					m_pSprites[ index ].hSprite = SPR_Load( sz );
+					m_pSprites[ index ].rect = p->rc;
+					strncpy( m_pSprites[ index ].szName, p->szName, sizeof( m_pSprites[ index ].szName ) );
 
 					index++;
 				}
@@ -127,7 +124,7 @@ void CBaseHud::VidInit()
 			{
 				char sz[ 256 ];
 				V_sprintf_safe( sz, "sprites/%s.spr", p->szSprite );
-				m_rghSprites[ index ] = SPR_Load( sz );
+				m_pSprites[ index ].hSprite = SPR_Load( sz );
 				index++;
 			}
 
@@ -321,20 +318,27 @@ void CBaseHud::InitHudElements()
 void CBaseHud::GameShutdown()
 {
 	HudList().GameShutdown();
+
+	//Free the list so we don't leak memory.
+	if( m_pSpriteList )
+	{
+		gEngfuncs.COM_FreeFile( m_pSpriteList );
+		m_pSpriteList = nullptr;
+	}
 }
 
 HSPRITE CBaseHud::GetSprite( int index ) const
 {
 	ASSERT( index >= 0 && index < m_iSpriteCount );
 
-	return ( index < 0 ) ? INVALID_HSPRITE : m_rghSprites[ index ];
+	return ( index < 0 ) ? INVALID_HSPRITE : m_pSprites[ index ].hSprite;
 }
 
 const wrect_t& CBaseHud::GetSpriteRect( int index ) const
 {
 	ASSERT( index >= 0 && index < m_iSpriteCount );
 
-	return m_rgrcRects[ index ];
+	return m_pSprites[ index ].rect;
 }
 
 int CBaseHud::GetSpriteIndex( const char* SpriteName ) const
@@ -344,7 +348,7 @@ int CBaseHud::GetSpriteIndex( const char* SpriteName ) const
 	// look through the loaded sprite name list for SpriteName
 	for( int i = 0; i < m_iSpriteCount; i++ )
 	{
-		if( strncmp( SpriteName, m_rgszSpriteNames + ( i * MAX_SPRITE_NAME_LENGTH ), MAX_SPRITE_NAME_LENGTH ) == 0 )
+		if( strncmp( SpriteName, m_pSprites[ i ].szName, MAX_SPRITE_NAME_LENGTH ) == 0 )
 			return i;
 	}
 

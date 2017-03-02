@@ -6,6 +6,7 @@
 #include "entities/DataMapping.h"
 
 #include "CHudList.h"
+#include "HudDefs.h"
 
 /**
 *	Helper macro to easily create Hud elements.
@@ -13,6 +14,15 @@
 #define CREATE_HUDELEMENT( name )	\
 new name( #name )
 
+/**
+*	Data for a single Hud sprite.
+*/
+struct HudSprite_t
+{
+	HSPRITE hSprite;
+	wrect_t rect;
+	char szName[ MAX_SPRITE_NAME_LENGTH ];
+};
 
 /**
 *	Base class for the Hud.
@@ -162,9 +172,8 @@ private:
 	int					m_iSpriteCount = 0;
 	int					m_iSpriteCountAllRes = 0;	//!Sprite count for all resolutions.
 
-	HSPRITE*			m_rghSprites;	/*[HUD_SPRITE_COUNT]*/			// the sprites loaded from hud.txt
-	wrect_t*			m_rgrcRects;	/*[HUD_SPRITE_COUNT]*/
-	char*				m_rgszSpriteNames; /*[HUD_SPRITE_COUNT][MAX_SPRITE_NAME_LENGTH]*/
+	//Only one array now to make things a little saner.
+	HudSprite_t* m_pSprites = nullptr;	// the sprites loaded from hud.txt, total m_iSpriteCount
 
 	//CVars
 	cvar_t* default_fov = nullptr;
