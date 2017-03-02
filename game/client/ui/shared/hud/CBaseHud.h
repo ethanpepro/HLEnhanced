@@ -239,6 +239,7 @@ private:
 
 	//CVars
 	cvar_t* default_fov = nullptr;
+	cvar_t* hud_takesshots = nullptr;
 
 private:
 	CBaseHud( const CBaseHud& ) = delete;

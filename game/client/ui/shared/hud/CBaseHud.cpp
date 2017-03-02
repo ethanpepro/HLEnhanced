@@ -20,7 +20,8 @@ float HUD_GetFOV();
 int CL_ButtonBits( int );
 void CL_ResetButtonBits( int bits );
 
-extern cvar_t *sensitivity;
+extern cvar_t* sensitivity;
+cvar_t* cl_lw = nullptr;
 
 namespace
 {
@@ -60,6 +61,9 @@ void CBaseHud::Init()
 	m_iFOV = 0;
 
 	default_fov = CVAR_CREATE( "default_fov", "90", 0 );
+	hud_takesshots = CVAR_CREATE( "hud_takesshots", "0", FCVAR_ARCHIVE );	// controls whether or not to automatically take screenshots at the end of a round
+	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
+	CVAR_CREATE( "zoom_sensitivity_ratio", "1.2", 0 );
 }
 
 void CBaseHud::VidInit()

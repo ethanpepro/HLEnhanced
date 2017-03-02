@@ -91,9 +91,9 @@ public:
 	}
 };
 static CHLVoiceStatusHelper g_VoiceStatusHelper;
+extern cvar_t* cl_lw;
 
 float g_lastFOV = 0.0;
-cvar_t *cl_lw = NULL;
 
 //DECLARE_MESSAGE(m_Logo, Logo)
 int __MsgFunc_Logo(const char *pszName, int iSize, void *pbuf)
@@ -334,12 +334,9 @@ void CHud::Init()
 	HOOK_MESSAGE( VGUIMenu );
 
 	CVAR_CREATE( "hud_classautokill", "1", FCVAR_ARCHIVE | FCVAR_USERINFO );		// controls whether or not to suicide immediately on TF class switch
-	CVAR_CREATE( "hud_takesshots", "0", FCVAR_ARCHIVE );		// controls whether or not to automatically take screenshots at the end of a round
 
-	CVAR_CREATE( "zoom_sensitivity_ratio", "1.2", 0 );
 	m_pCvarStealMouse = CVAR_CREATE( "hud_capturemouse", "1", FCVAR_ARCHIVE );
 	m_pCvarDraw = CVAR_CREATE( "hud_draw", "1", FCVAR_ARCHIVE );
-	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
 	cl_weather = CVAR_CREATE( "cl_weather", "1", FCVAR_ARCHIVE );
 
 	// Clear any old HUD list
