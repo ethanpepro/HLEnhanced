@@ -4,6 +4,7 @@
 #include "CHudElement.h"
 
 class CBaseHud;
+class CHudList;
 struct CHudDefaultableArgs;
 
 const int HUD_DEFAULT_DEPTH = 50;
@@ -11,17 +12,18 @@ const int HUD_DEFAULT_DEPTH = 50;
 /**
 *	Class used to create a static list of Hud element classes.
 *	The list is sorted from deepest to shallowest element.
+*	TODO: needs to be reworked so multiple registries can be created. Angelscript will eventually need to store off such registries for custom Huds.
 */
 class CHudElementRegistry final
 {
 public:
-	using CreateFn = CHudElement* ( * )( );
+	using CreateFn = CHudElement* ( * )();
 
 public:
 	/**
 	*	@param createFn Function used to create the element.
 	*	@param args Defaultable arguments.
-	*	@see CHud2DefaultableArgs
+	*	@see CHudDefaultableArgs
 	*/
 	CHudElementRegistry( CreateFn createFn, const CHudDefaultableArgs& args );
 
@@ -35,7 +37,7 @@ public:
 	*	Creates all elements and adds them to the given Hud.
 	*	@return Number of elements created.
 	*/
-	static size_t CreateAllElements( CBaseHud& hud );
+	static size_t CreateAllElements( CHudList& hudList );
 
 private:
 	static CHudElementRegistry* m_pHead;

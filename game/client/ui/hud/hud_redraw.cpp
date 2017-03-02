@@ -51,11 +51,11 @@ void CHud::Think()
 
 	int newfov;
 
-	auto count = GetElementCount();
+	auto count = HudList().GetElementCount();
 
 	for( decltype( count ) index = 0; index < count; ++index )
 	{
-		auto pElem = GetElementByIndex( index );
+		auto pElem = HudList().GetElementByIndex( index );
 
 		if( pElem->GetFlags() & HUD_ACTIVE )
 			pElem->Think();
@@ -155,11 +155,11 @@ bool CHud::Redraw( float flTime, int intermission )
 	// draw all registered HUD elements
 	if ( m_pCvarDraw->value )
 	{
-		auto count = GetElementCount();
+		auto count = HudList().GetElementCount();
 
 		for( decltype( count ) index = 0; index < count; ++index )
 		{
-			auto pElem = GetElementByIndex( index );
+			auto pElem = HudList().GetElementByIndex( index );
 
 #if USE_VGUI2
 			// Visible?

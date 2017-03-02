@@ -59,7 +59,7 @@ void CHud :: MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf )
 void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 {
 	// prepare all hud data
-	ForEachHudElem( &CHudElement::InitHUDData );
+	HudList().ForEachHudElem( &CHudElement::InitHUDData );
 
 	g_Environment.Initialize();
 

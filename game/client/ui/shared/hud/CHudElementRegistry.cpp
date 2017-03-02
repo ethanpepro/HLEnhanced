@@ -1,5 +1,6 @@
 #include "CBaseHud.h"
 #include "CHudElement.h"
+#include "CHudList.h"
 
 #include "CHudElementRegistry.h"
 
@@ -33,7 +34,7 @@ CHudElementRegistry::CHudElementRegistry( CreateFn createFn, const CHudDefaultab
 	}
 }
 
-size_t CHudElementRegistry::CreateAllElements( CBaseHud& hud )
+size_t CHudElementRegistry::CreateAllElements( CHudList& hudList )
 {
 	size_t uiCount = 0;
 
@@ -44,7 +45,7 @@ size_t CHudElementRegistry::CreateAllElements( CBaseHud& hud )
 		if( auto pElement = pFn() )
 		{
 			//Shouldn't happen, but just in case.
-			if( hud.AddElement( pElement ) )
+			if( hudList.AddElement( pElement ) )
 			{
 				++uiCount;
 			}

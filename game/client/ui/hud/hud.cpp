@@ -334,12 +334,12 @@ void CHud :: Init( void )
 	m_pSpriteList = NULL;
 
 	// Clear any old HUD list
-	RemoveAllElements();
+	HudList().RemoveAllElements();
 
 	// In case we get messages before the first update -- time will be valid
 	m_flTime = 1.0;
 
-	InitHUDElements();
+	InitHudElements();
 
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 
@@ -363,7 +363,7 @@ CHud :: ~CHud()
 void CHud::ResetHUD()
 {
 	// clear all hud data
-	ForEachHudElem( &CHudElement::Reset );
+	HudList().ForEachHudElem( &CHudElement::Reset );
 
 	// reset sensitivity
 	m_flMouseSensitivity = 0;
@@ -479,7 +479,7 @@ void CHud :: VidInit( void )
 
 	m_iFontHeight = m_rgrcRects[m_HUD_number_0].bottom - m_rgrcRects[m_HUD_number_0].top;
 
-	ForEachHudElem(  &CHudElement::VidInit );
+	HudList().ForEachHudElem( &CHudElement::VidInit );
 
 	GetClientVoiceMgr()->VidInit();
 }

@@ -5,4 +5,6 @@ add_sources(
 	CHudElement.cpp
 	CHudElementRegistry.h
 	CHudElementRegistry.cpp
+	CHudList.h
+	CHudList.cpp
 )
