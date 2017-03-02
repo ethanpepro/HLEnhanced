@@ -887,7 +887,7 @@ void ScorePanel::Open( void )
 
 void ScorePanel::mousePressed(MouseCode code, Panel* panel)
 {
-	if(gHUD.m_iIntermission)
+	if( gHUD.m_bIntermission )
 		return;
 
 	if (!GetClientVoiceMgr()->IsInSquelchMode())

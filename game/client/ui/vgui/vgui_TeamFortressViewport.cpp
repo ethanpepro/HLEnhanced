@@ -944,7 +944,7 @@ void TeamFortressViewport::ShowCommandMenu(int menuIndex)
 	}
 
 	// Not visible while in intermission
-	if ( gHUD.m_iIntermission )
+	if ( gHUD.m_bIntermission )
 		return;
 
 	// Recalculate visible menus
@@ -1053,7 +1053,7 @@ bool TeamFortressViewport::IsScoreBoardVisible( void )
 void TeamFortressViewport::HideScoreBoard( void )
 {
 	// Prevent removal of scoreboard during intermission
-	if ( gHUD.m_iIntermission )
+	if ( gHUD.m_bIntermission )
 		return;
 
 	if (m_pScoreBoard)
@@ -1181,7 +1181,7 @@ void TeamFortressViewport::UpdateSpectatorPanel()
 	if( !pSpectator )
 		return;
 
-	if ( g_iUser1 && gHUD.m_pCvarDraw->value && !gHUD.m_iIntermission)	// don't draw in dev_overview mode
+	if ( g_iUser1 && gHUD.m_pCvarDraw->value && !gHUD.m_bIntermission )	// don't draw in dev_overview mode
 	{
 		char bottomText[128];
 		char helpString2[128];
@@ -1491,7 +1491,7 @@ void TeamFortressViewport::ShowVGUIMenu( int iMenu )
 	// Don't open any menus except the MOTD during intermission
 	// MOTD needs to be accepted because it's sent down to the client 
 	// after map change, before intermission's turned off
-	if ( gHUD.m_iIntermission && iMenu != MENU_INTRO )
+	if ( gHUD.m_bIntermission && iMenu != MENU_INTRO )
 		return;
 
 	// Don't create one if it's already in the list

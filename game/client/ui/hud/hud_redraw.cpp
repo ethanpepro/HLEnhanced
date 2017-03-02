@@ -119,17 +119,17 @@ bool CHud::Redraw( float flTime, int intermission )
 	// Bring up the scoreboard during intermission
 	if (gViewPort)
 	{
-		if ( m_iIntermission && !intermission )
+		if ( m_bIntermission && !intermission )
 		{
 			// Have to do this here so the scoreboard goes away
-			m_iIntermission = intermission;
+			m_bIntermission = intermission;
 			gViewPort->HideCommandMenu();
 			gViewPort->HideScoreBoard();
 			gViewPort->UpdateSpectatorPanel();
 		}
-		else if ( !m_iIntermission && intermission )
+		else if ( !m_bIntermission && intermission )
 		{
-			m_iIntermission = intermission;
+			m_bIntermission = intermission;
 			gViewPort->HideCommandMenu();
 			gViewPort->HideVGUIMenu();
 			gViewPort->ShowScoreBoard();
@@ -147,7 +147,7 @@ bool CHud::Redraw( float flTime, int intermission )
 		m_flShotTime = 0;
 	}
 
-	m_iIntermission = intermission;
+	m_bIntermission = intermission;
 
 	// if no redrawing is necessary
 	// return false;

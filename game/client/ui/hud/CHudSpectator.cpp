@@ -532,7 +532,7 @@ void CHudSpectator::CheckSettings()
 	}
 
 	// disble in intermission screen
-	if( gHUD.m_iIntermission )
+	if( gHUD.m_bIntermission )
 		m_pip->value = INSET_OFF;
 
 	if( auto pSayText = GETHUDCLASS( CHudSayText ) )
@@ -1448,7 +1448,7 @@ void CHudSpectator::HandleButtonsDown( int ButtonPressed )
 		return;
 
 	//Not in intermission.
-	if ( gHUD.m_iIntermission )
+	if ( gHUD.m_bIntermission )
 		 return;
 
 	if ( !g_iUser1 )

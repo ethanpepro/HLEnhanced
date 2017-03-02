@@ -170,7 +170,7 @@ public:
 
 	int	m_iWeaponBits;
 	bool m_bPlayerDead;
-	int m_iIntermission;
+	bool m_bIntermission;
 
 	// sprite indexes
 	int m_HUD_number_0;
