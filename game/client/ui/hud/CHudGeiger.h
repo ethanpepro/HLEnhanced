@@ -28,7 +28,7 @@ public:
 	void Init() override;
 	void VidInit() override;
 	bool Draw( float flTime ) override;
-	int MsgFunc_Geiger( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_Geiger( const char *pszName, int iSize, void *pbuf );
 
 private:
 	int m_iGeigerRange;

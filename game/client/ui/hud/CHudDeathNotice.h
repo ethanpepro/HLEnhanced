@@ -45,7 +45,7 @@ public:
 	void InitHUDData() override;
 	void VidInit() override;
 	bool Draw( float flTime ) override;
-	int MsgFunc_DeathMsg( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_DeathMsg( const char *pszName, int iSize, void *pbuf );
 
 private:
 	int m_HUD_d_skull;  // sprite index of skull icon

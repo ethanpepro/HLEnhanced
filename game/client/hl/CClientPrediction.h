@@ -27,7 +27,7 @@ public:
 	*/
 	CBasePlayer* GetLocalPlayer() { return m_pPlayer; }
 
-	int MsgFunc_WpnBody( const char* pszName, int iSize, void* pBuf );
+	void MsgFunc_WpnBody( const char* pszName, int iSize, void* pBuf );
 
 	void Initialize();
 

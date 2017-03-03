@@ -32,9 +32,6 @@
 
 #include "CHudHealth.h"
 
-DECLARE_MESSAGE( CHudHealth, Health )
-DECLARE_MESSAGE( CHudHealth, Damage )
-
 #define PAIN_NAME "sprites/%d_pain.spr"
 #define DAMAGE_NAME "sprites/%d_dmg.spr"
 
@@ -99,7 +96,7 @@ void CHudHealth::VidInit()
 	m_iDmgWidth = Hud().GetSpriteRect(m_HUD_dmg_bio).bottom - Hud().GetSpriteRect(m_HUD_dmg_bio).top;
 }
 
-int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
+void CHudHealth::MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
 {
 	// TODO: update local health data
 	CBufferReader reader( pbuf, iSize );
@@ -113,12 +110,9 @@ int CHudHealth:: MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
 		m_fFade = FADE_TIME;
 		m_iHealth = x;
 	}
-
-	return 1;
 }
 
-
-int CHudHealth:: MsgFunc_Damage(const char *pszName,  int iSize, void *pbuf )
+void CHudHealth:: MsgFunc_Damage(const char *pszName,  int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -136,10 +130,7 @@ int CHudHealth:: MsgFunc_Damage(const char *pszName,  int iSize, void *pbuf )
 	// Actually took damage?
 	if ( damageTaken > 0 || armor > 0 )
 		CalcDamageDirection(vecFrom);
-
-	return 1;
 }
-
 
 // Returns back a color from the
 // Green <-> Yellow <-> Red ramp

@@ -26,7 +26,7 @@ public:
 	CHudTextMessage( const char* const pszName, CHud& hud );
 
 	void Init() override;
-	int MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf );
 };
 
 #endif //GAME_CLIENT_UI_HUD_CHUDTEXTMESSAGE_H

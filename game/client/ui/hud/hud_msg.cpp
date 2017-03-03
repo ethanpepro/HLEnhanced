@@ -36,14 +36,12 @@ void ClearEventList( void );
 
 /// USER-DEFINED SERVER MESSAGE HANDLERS
 
-int CHud :: MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf )
+void CHud::MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf )
 {
 	//This used to be 0, but the server sends a byte over, so it's changed now. - Solokiller
 	ASSERT( iSize == 1 );
 
 	ResetHud();
-
-	return 1;
 }
 
 void CAM_ToFirstPerson(void);
@@ -75,16 +73,14 @@ void CHud::MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 	InitHud();
 }
 
-int CHud :: MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
+void CHud::MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	SetIsTeamplay( reader.ReadByte() != 0 );
-
-	return 1;
 }
 
 
-int CHud :: MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
+void CHud::MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
 {
 	int		armor, blood;
 	Vector	from;
@@ -104,11 +100,9 @@ int CHud :: MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
 		count = 10;
 
 	// TODO: kick viewangles,  show damage visually
-
-	return 1;
 }
 
-int CHud :: MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
+void CHud::MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	m_iConcussionEffect = reader.ReadByte();
@@ -122,19 +116,16 @@ int CHud :: MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 	}
 	else
 		pStatusIcons->DisableIcon("dmg_concuss");
-	return 1;
 }
 
-int CHud::MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf )
+void CHud::MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf )
 {
 	CBufferReader reader( pBuf, iSize );
 
 	g_Environment.SetWeatherType( static_cast<WeatherType::WeatherType>( reader.ReadByte() ) );
-
-	return true;
 }
 
-int CHud::MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf )
+void CHud::MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf )
 {
 	CBufferReader reader( pBuf, iSize );
 
@@ -149,6 +140,4 @@ int CHud::MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf )
 	m_HudColors.m_AmmoBarColor.r = reader.ReadByte();
 	m_HudColors.m_AmmoBarColor.g = reader.ReadByte();
 	m_HudColors.m_AmmoBarColor.b = reader.ReadByte();
-
-	return true;
 }

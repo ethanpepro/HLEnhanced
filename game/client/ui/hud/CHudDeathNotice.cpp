@@ -26,8 +26,6 @@
 
 #include "CHudDeathNotice.h"
 
-DECLARE_MESSAGE( CHudDeathNotice, DeathMsg );
-
 #define DEATHNOTICE_TOP		32
 
 CHudDeathNotice::CHudDeathNotice( const char* const pszName, CHud& hud )
@@ -118,7 +116,7 @@ bool CHudDeathNotice::Draw( float flTime )
 }
 
 // This message handler may be better off elsewhere
-int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *pbuf )
+void CHudDeathNotice::MsgFunc_DeathMsg( const char *pszName, int iSize, void *pbuf )
 {
 	GetFlags() |= HUD_ACTIVE;
 
@@ -257,8 +255,6 @@ int CHudDeathNotice :: MsgFunc_DeathMsg( const char *pszName, int iSize, void *p
 
 		ConsolePrint( "\n" );
 	}
-
-	return 1;
 }
 
 

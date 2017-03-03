@@ -30,9 +30,6 @@
 #include "shared/CLocalize.h"
 #include "CHudStatusBar.h"
 
-DECLARE_MESSAGE( CHudStatusBar, StatusText );
-DECLARE_MESSAGE( CHudStatusBar, StatusValue );
-
 #ifdef _TFC
 #define STATUSBAR_ID_LINE		2
 #else
@@ -227,39 +224,35 @@ bool CHudStatusBar::Draw( float fTime )
 // if StatusValue[slotnum] != 0, the following string is drawn, upto the next newline - otherwise the text is skipped upto next newline
 // %pX, where X is an integer, will substitute a player name here, getting the player index from StatusValue[X]
 // %iX, where X is an integer, will substitute a number here, getting the number from StatusValue[X]
-int CHudStatusBar::MsgFunc_StatusText( const char *pszName, int iSize, void *pbuf )
+void CHudStatusBar::MsgFunc_StatusText( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
 	int line = reader.ReadByte();
 
 	if ( line < 0 || line > MAX_STATUSBAR_LINES )
-		return 1;
+		return;
 
 	strncpy( m_szStatusText[line], reader.ReadString(), MAX_STATUSTEXT_LENGTH );
 	m_szStatusText[line][MAX_STATUSTEXT_LENGTH-1] = 0;  // ensure it's null terminated ( strncpy() won't null terminate if read string too long)
 
 	GetFlags() |= HUD_ACTIVE;
 	m_bReparseString = true;
-
-	return 1;
 }
 
 // Message handler for StatusText message
 // accepts two values:
 //		byte: index into the status value array
 //		short: value to store
-int CHudStatusBar::MsgFunc_StatusValue( const char *pszName, int iSize, void *pbuf )
+void CHudStatusBar::MsgFunc_StatusValue( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
 	int index = reader.ReadByte();
 	if ( index < 1 || index > MAX_STATUSBAR_VALUES )
-		return 1; // index out of range
+		return; // index out of range
 
 	m_iStatusValues[index] = reader.ReadShort();
 
 	m_bReparseString = true;
-	
-	return 1;
 }

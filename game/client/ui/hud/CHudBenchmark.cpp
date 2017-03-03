@@ -87,8 +87,6 @@ static float g_benchSwitchTimes[ LAST_STAGE + 1 ] = { 0.0, 10.0, 12.0, 10.0, 5.0
 
 #define SCORE_TIME_UP 1.5
 
-DECLARE_MESSAGE( CHudBenchmark, Bench);
-
 CHudBenchmark::CHudBenchmark( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -141,7 +139,7 @@ void CHudBenchmark::Restart( void )
 	m_fDrawTime = Hud().GetTime() + BENCH_TIME;
 }
 
-int CHudBenchmark::MsgFunc_Bench(const char *pszName, int iSize, void *pbuf)
+void CHudBenchmark::MsgFunc_Bench(const char *pszName, int iSize, void *pbuf)
 {
 	CBufferReader reader;
 	int section = reader.ReadByte();
@@ -178,8 +176,6 @@ int CHudBenchmark::MsgFunc_Bench(const char *pszName, int iSize, void *pbuf)
 			}
 		}
 	}
-
-	return 1;
 }
 
 void CHudBenchmark::StartNextSection( int section )

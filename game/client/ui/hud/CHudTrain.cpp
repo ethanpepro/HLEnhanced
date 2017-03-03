@@ -26,8 +26,6 @@
 
 #include "CHudTrain.h"
 
-DECLARE_MESSAGE( CHudTrain, Train )
-
 CHudTrain::CHudTrain( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -69,8 +67,7 @@ bool CHudTrain::Draw(float fTime)
 	return true;
 }
 
-
-int CHudTrain::MsgFunc_Train(const char *pszName,  int iSize, void *pbuf)
+void CHudTrain::MsgFunc_Train(const char *pszName,  int iSize, void *pbuf)
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -81,6 +78,4 @@ int CHudTrain::MsgFunc_Train(const char *pszName,  int iSize, void *pbuf)
 		GetFlags() |= HUD_ACTIVE;
 	else
 		GetFlags() &= ~HUD_ACTIVE;
-
-	return 1;
 }

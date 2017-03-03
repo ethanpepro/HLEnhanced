@@ -33,7 +33,7 @@ public:
 	void VidInit() override;
 	void Reset()  override;
 	bool Draw( float flTime ) override;
-	int MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf );
 
 	void SelectMenuItem( int menu_item );
 

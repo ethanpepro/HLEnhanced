@@ -18,6 +18,8 @@
 #ifndef GAME_CLIENT_CL_UTIL_H
 #define GAME_CLIENT_CL_UTIL_H
 
+#include <type_traits>
+
 #include "cvardef.h"
 
 #include <stdio.h> // for safe_sprintf()
@@ -33,26 +35,36 @@
 #define GETHUDCLASS( className )									\
 ( static_cast<className*>( Hud().HudList().GetElementByName( #className ) ) )
 
+#define __HOOK_MESSAGE_ON_HANDLER( handler, object, messageName )				\
+handler.Add( 																	\
+	#messageName, 																\
+	object, 																	\
+	&std::remove_reference<decltype( object )>::type::MsgFunc_##messageName )
+
 /**
-*	Declares a function that calls the HUD class method for the given network message.
-*	@param className HUD class name.
-*	@param messageName Name of the message. The HUD class method should be named MsgFunc_<messageName>.
+*	Hooks a message for an object on the global message handlers.
 */
-#define DECLARE_MESSAGE( className, messageName )														\
-int __MsgFunc_##messageName( const char *pszName, int iSize, void *pbuf )								\
-{																										\
-	if( auto pElement = Hud().HudList().GetElementByName( #className ) )								\
-	{																									\
-		return ( static_cast<className*>( pElement ) )->MsgFunc_##messageName( pszName, iSize, pbuf );	\
-	}																									\
-	return 0;																							\
-}
+#define HOOK_GLOBAL_MESSAGE( object, messageName )						\
+__HOOK_MESSAGE_ON_HANDLER( MessageHandlers(), object, messageName )
+
+/**
+*	Hooks a message for an object on a specific Hud.
+*/
+#define HOOK_OBJECT_MESSAGE( hud, object, messageName )						\
+__HOOK_MESSAGE_ON_HANDLER( hud.GetMessageHandlers(), object, messageName )
+
+/**
+*	Same as HOOK_MESSAGE, but for classes deriving from CBaseHud. Uses the local message handlers.
+*/
+#define HOOK_HUD_MESSAGE( messageName )				\
+HOOK_OBJECT_MESSAGE( ( *this ), *this, messageName )
 
 /**
 *	Hooks a network message function.
-*	@param messageName Name of the message whose function should be hooked. The function name is __MsgFunc_<messageName>.
+*	@param messageName Name of the message whose function should be hooked. The function name is ThisClass::MsgFunc_<messageName>.
 */
-#define HOOK_MESSAGE( messageName ) gEngfuncs.pfnHookUserMsg( #messageName, __MsgFunc_##messageName );
+#define HOOK_MESSAGE( messageName )					\
+HOOK_OBJECT_MESSAGE( GetHud(), *this, messageName )
 
 /**
 *	Declares a function that calls the HUD class method for the given command.

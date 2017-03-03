@@ -29,7 +29,7 @@ public:
 	void VidInit() override;
 	void Reset() override;
 	bool Draw( float flTime ) override;
-	int MsgFunc_StatusIcon( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_StatusIcon( const char *pszName, int iSize, void *pbuf );
 
 	enum {
 		MAX_ICONSPRITENAME_LENGTH = MAX_SPRITE_NAME_LENGTH,

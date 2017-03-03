@@ -31,8 +31,8 @@ public:
 	void Reset() override;
 	void ParseStatusString( int line_num );
 
-	int MsgFunc_StatusText( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_StatusValue( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_StatusText( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_StatusValue( const char *pszName, int iSize, void *pbuf );
 
 protected:
 	enum {

@@ -33,8 +33,6 @@
 #define MAX_LINE_WIDTH  ( ScreenWidth - 40 )
 #define LINE_START  10
 
-DECLARE_MESSAGE( CHudSayText, SayText );
-
 CHudSayText::CHudSayText( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -147,14 +145,12 @@ bool CHudSayText::Draw( float flTime )
 	return true;
 }
 
-int CHudSayText :: MsgFunc_SayText( const char *pszName, int iSize, void *pbuf )
+void CHudSayText::MsgFunc_SayText( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
 	int client_index = reader.ReadByte();		// the client who spoke the message
 	SayTextPrint( reader.ReadString(), iSize - 1,  client_index );
-	
-	return 1;
 }
 
 void CHudSayText :: SayTextPrint( const char *pszBuf, size_t uiBufSize, int clientIndex )

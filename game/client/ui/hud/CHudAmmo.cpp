@@ -51,13 +51,6 @@
 
 int g_weaponselect = 0;
 
-DECLARE_MESSAGE(CHudAmmo, CurWeapon );	// Current weapon and clip
-DECLARE_MESSAGE(CHudAmmo, AmmoX);			// update known ammo type's count
-DECLARE_MESSAGE(CHudAmmo, AmmoPickup);	// flashes an ammo pickup record
-DECLARE_MESSAGE(CHudAmmo, WeapPickup);    // flashes a weapon pickup record
-DECLARE_MESSAGE(CHudAmmo, HideWeapon);	// hides the weapon, ammo, and crosshair displays temporarily
-DECLARE_MESSAGE(CHudAmmo, ItemPickup);
-
 DECLARE_COMMAND(CHudAmmo, Slot1);
 DECLARE_COMMAND(CHudAmmo, Slot2);
 DECLARE_COMMAND(CHudAmmo, Slot3);
@@ -83,12 +76,12 @@ CHudAmmo::CHudAmmo( const char* const pszName, CHud& hud )
 
 void CHudAmmo::Init()
 {
-	HOOK_MESSAGE(CurWeapon);
-	HOOK_MESSAGE(AmmoPickup);
-	HOOK_MESSAGE(WeapPickup);
-	HOOK_MESSAGE(ItemPickup);
-	HOOK_MESSAGE(HideWeapon);
-	HOOK_MESSAGE(AmmoX);
+	HOOK_MESSAGE( CurWeapon );		// Current weapon and clip
+	HOOK_MESSAGE( AmmoPickup );		// flashes an ammo pickup record
+	HOOK_MESSAGE( WeapPickup );		// flashes a weapon pickup record
+	HOOK_MESSAGE( ItemPickup );
+	HOOK_MESSAGE( HideWeapon );		// hides the weapon, ammo, and crosshair displays temporarily
+	HOOK_MESSAGE( AmmoX );			// update known ammo type's count
 
 	HOOK_COMMAND("slot1", Slot1);
 	HOOK_COMMAND("slot2", Slot2);
@@ -302,7 +295,7 @@ void CHudAmmo::SelectSlot( int iSlot, const bool fAdvance, int iDirection )
 //
 // AmmoX  -- Update the count of a known type of ammo
 // 
-int CHudAmmo::MsgFunc_AmmoX(const char *pszName, int iSize, void *pbuf)
+void CHudAmmo::MsgFunc_AmmoX(const char *pszName, int iSize, void *pbuf)
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -312,11 +305,9 @@ int CHudAmmo::MsgFunc_AmmoX(const char *pszName, int iSize, void *pbuf)
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 
 	pPlayer->m_rgAmmoLast[ iIndex ] = abs(iCount);
-
-	return 1;
 }
 
-int CHudAmmo::MsgFunc_AmmoPickup( const char *pszName, int iSize, void *pbuf )
+void CHudAmmo::MsgFunc_AmmoPickup( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	int iIndex = reader.ReadByte();
@@ -324,41 +315,35 @@ int CHudAmmo::MsgFunc_AmmoPickup( const char *pszName, int iSize, void *pbuf )
 
 	// Add ammo to the history
 	gHR.AddToHistory( HISTSLOT_AMMO, iIndex, abs(iCount) );
-
-	return 1;
 }
 
-int CHudAmmo::MsgFunc_WeapPickup( const char *pszName, int iSize, void *pbuf )
+void CHudAmmo::MsgFunc_WeapPickup( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	int iIndex = reader.ReadByte();
 
 	// Add the weapon to the history
 	gHR.AddToHistory( HISTSLOT_WEAP, iIndex );
-
-	return 1;
 }
 
-int CHudAmmo::MsgFunc_ItemPickup( const char *pszName, int iSize, void *pbuf )
+void CHudAmmo::MsgFunc_ItemPickup( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	const char *szName = reader.ReadString();
 
 	// Add the weapon to the history
 	gHR.AddToHistory( HISTSLOT_ITEM, szName );
-
-	return 1;
 }
 
 
-int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
+void CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	
 	Hud().GetHideHudBits() = reader.ReadByte();
 
 	if (gEngfuncs.IsSpectateOnly())
-		return 1;
+		return;
 
 	if ( Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 	{
@@ -374,8 +359,6 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 			SetCrosshair( crosshair.hSprite, crosshair.rect, 255, 255, 255 );
 		}
 	}
-
-	return 1;
 }
 
 // 
@@ -383,7 +366,7 @@ int CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 //  counts are updated with AmmoX. Server assures that the Weapon ammo type 
 //  numbers match a real ammo type.
 //
-int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
+bool CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 {
 	wrect_t nullrc = {};
 
@@ -401,7 +384,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 		SetCrosshair(0, nullrc, 0, 0, 0);
 		//Clear out the weapon so we don't keep drawing the last active weapon's ammo. - Solokiller
 		m_pWeapon = nullptr;
-		return 0;
+		return false;
 	}
 
 	if ( g_iUser1 != OBS_IN_EYE )
@@ -411,7 +394,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 		{
 			m_bPlayerDead = true;
 			m_pActiveSel = nullptr;
-			return 1;
+			return true;
 		}
 		m_bPlayerDead = false;
 	}
@@ -423,7 +406,7 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 		m_bNeedsLocalUpdate = true;
 		m_bOnTarget = fOnTarget;
 		GetFlags() |= HUD_ACTIVE;
-		return 1;
+		return true;
 	}
 	else if( m_bNeedsLocalUpdate )
 		m_bNeedsLocalUpdate = false;
@@ -435,13 +418,13 @@ int CHudAmmo::MsgFunc_CurWeapon(const char *pszName, int iSize, void *pbuf )
 
 
 	if ( state == WpnOnTargetState::NOT_ACTIVE_WEAPON )	// we're not the current weapon, so update no more
-		return 1;
+		return true;
 
 	m_pWeapon = pWeapon;
 
 	UpdateWeaponHUD( m_pWeapon, fOnTarget );
 	
-	return 1;
+	return true;
 }
 
 void CHudAmmo::UpdateWeaponHUD( CBasePlayerWeapon* pWeapon, bool bOnTarget )

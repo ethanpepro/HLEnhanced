@@ -37,10 +37,20 @@ CBaseHud& Hud()
 
 void SetHud( CBaseHud* pHud, bool bDeleteOldHud )
 {
-	if( bDeleteOldHud && g_pHud )
-		delete g_pHud;
+	if( g_pHud )
+	{
+		g_pHud->ActiveHudStateChanged( false );
+
+		if( bDeleteOldHud )
+			delete g_pHud;
+	}
 
 	g_pHud = pHud;
+
+	if( g_pHud )
+	{
+		g_pHud->ActiveHudStateChanged( true );
+	}
 }
 
 CBaseHud::CBaseHud()
@@ -80,6 +90,14 @@ void CBaseHud::PreInit()
 
 void CBaseHud::PostInit()
 {
+}
+
+void CBaseHud::ActiveHudStateChanged( bool bIsActive )
+{
+	if( bIsActive )
+		::MessageHandlers().SetFallbackHandlers( &m_MessageHandlers );
+	else
+		::MessageHandlers().SetFallbackHandlers( nullptr );
 }
 
 void CBaseHud::VidInit()

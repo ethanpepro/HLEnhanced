@@ -27,8 +27,6 @@
 
 #include "CHudStatusIcons.h"
 
-DECLARE_MESSAGE( CHudStatusIcons, StatusIcon );
-
 CHudStatusIcons::CHudStatusIcons( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -82,7 +80,7 @@ bool CHudStatusIcons::Draw( float flTime )
 //		byte   : red
 //		byte   : green
 //		byte   : blue
-int CHudStatusIcons::MsgFunc_StatusIcon( const char *pszName, int iSize, void *pbuf )
+void CHudStatusIcons::MsgFunc_StatusIcon( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -100,8 +98,6 @@ int CHudStatusIcons::MsgFunc_StatusIcon( const char *pszName, int iSize, void *p
 	{
 		DisableIcon( pszIconName );
 	}
-
-	return 1;
 }
 
 // add the icon to the icon list, and set it's drawing color

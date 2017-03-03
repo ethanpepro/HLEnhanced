@@ -45,9 +45,9 @@ public:
 	void Init() override;
 	void VidInit() override;
 	bool Draw( float flTime ) override;
-	int MsgFunc_HudText( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_HudTextPro( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_GameTitle( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_HudText( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_HudTextPro( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_GameTitle( const char *pszName, int iSize, void *pbuf );
 
 	float FadeBlend( float fadein, float fadeout, float hold, float localTime );
 	int	XPosition( float x, int width, int lineWidth );

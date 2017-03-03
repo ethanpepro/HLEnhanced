@@ -32,8 +32,6 @@
 
 int KB_ConvertString( char *in, char **ppout );
 
-DECLARE_MESSAGE( CHudMenu, ShowMenu );
-
 CHudMenu::CHudMenu( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -231,7 +229,7 @@ void CHudMenu :: SelectMenuItem( int menu_item )
 //		byte : a boolean, true if there is more string yet to be received before displaying the menu, false if it's the last string
 //		string: menu string to display
 // if this message is never received, then scores will simply be the combined totals of the players.
-int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
+void CHudMenu::MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 {
 	char *temp = NULL;
 
@@ -280,6 +278,4 @@ int CHudMenu :: MsgFunc_ShowMenu( const char *pszName, int iSize, void *pbuf )
 	}
 
 	m_fWaitingForMore = NeedMore;
-
-	return 1;
 }

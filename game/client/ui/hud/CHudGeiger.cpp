@@ -30,8 +30,6 @@
 
 #include "CHudGeiger.h"
 
-DECLARE_MESSAGE( CHudGeiger, Geiger )
-
 CHudGeiger::CHudGeiger( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -51,7 +49,7 @@ void CHudGeiger::VidInit()
 {
 }
 
-int CHudGeiger::MsgFunc_Geiger(const char *pszName,  int iSize, void *pbuf)
+void CHudGeiger::MsgFunc_Geiger(const char *pszName,  int iSize, void *pbuf)
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -60,8 +58,6 @@ int CHudGeiger::MsgFunc_Geiger(const char *pszName,  int iSize, void *pbuf)
 	m_iGeigerRange = m_iGeigerRange << 2;
 	
 	GetFlags() |= HUD_ACTIVE;
-
-	return 1;
 }
 
 bool CHudGeiger::Draw(float flTime)

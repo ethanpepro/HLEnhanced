@@ -10,6 +10,8 @@
 
 #include "CBitSet.h"
 
+#include "MessageHandler.h"
+
 /**
 *	Helper macro to easily create Hud elements.
 *	Should be used in CreateHudElements() only.
@@ -62,6 +64,11 @@ protected:
 	virtual void PostInit();
 
 public:
+	/**
+	*	Called when the active Hud is changed, and this Hud became or was active.
+	*/
+	virtual void ActiveHudStateChanged( bool bIsActive );
+
 	virtual void VidInit();
 
 protected:
@@ -132,6 +139,8 @@ public:
 	*	@return The Hud element list manager.
 	*/
 	CHudList& HudList() { return m_HudList; }
+
+	CMessageHandlers& GetMessageHandlers() { return m_MessageHandlers; }
 
 	float GetTime() const { return m_flTime; }
 
@@ -205,6 +214,7 @@ public:
 
 private:
 	CHudList m_HudList;
+	CMessageHandlers m_MessageHandlers;
 
 	float m_flTime			=	1.f;	// the current client time
 	float m_flOldTime		=	0;		// the time at which the HUD was last redrawn

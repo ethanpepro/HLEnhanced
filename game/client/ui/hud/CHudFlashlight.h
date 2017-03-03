@@ -29,8 +29,8 @@ public:
 	void VidInit() override;
 	bool Draw( float flTime ) override;
 	void Reset() override;
-	int MsgFunc_Flashlight( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_FlashBat( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_Flashlight( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_FlashBat( const char *pszName, int iSize, void *pbuf );
 
 private:
 	HSPRITE m_hSprite1;

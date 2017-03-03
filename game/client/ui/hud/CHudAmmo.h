@@ -57,12 +57,12 @@ public:
 	void Reset() override;
 
 	int DrawWList( float flTime );
-	int MsgFunc_CurWeapon( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_AmmoX( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_AmmoPickup( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_WeapPickup( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_ItemPickup( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf );
+	bool MsgFunc_CurWeapon( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_AmmoX( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_AmmoPickup( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_WeapPickup( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_ItemPickup( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf );
 
 	void SlotInput( int iSlot );
 	void _cdecl UserCmd_Slot1( void );

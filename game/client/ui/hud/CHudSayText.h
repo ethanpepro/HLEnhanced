@@ -38,10 +38,10 @@ public:
 	void InitHUDData() override;
 	void VidInit() override;
 	bool Draw( float flTime ) override;
-	int MsgFunc_SayText( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_SayText( const char *pszName, int iSize, void *pbuf );
 	void SayTextPrint( const char *pszBuf, size_t uiBufSize, int clientIndex = -1 );
 	void EnsureTextFitsInOneLineAndWrapIfHaveTo( int line );
-	friend class CHudSpectator;
+	friend class CHudSpectator; //TODO: needed? - Solokiller
 
 private:
 	int ScrollTextUp();

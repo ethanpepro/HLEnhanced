@@ -282,6 +282,28 @@ TeamFortressViewport::TeamFortressViewport(int x,int y,int wide,int tall) : Pane
 	m_pCommandMenus[m_PlayerMenu]->m_iSpectCmdMenu = 1;
 
 	UpdatePlayerMenu(m_PlayerMenu);
+
+	//TODO: this viewport might be tied to a specific Hud instance, so make sure it gets bound to the right message handlers. - Solokiller
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, ValClass );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, TeamNames );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, Feign );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, Detpack );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, MOTD );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, BuildSt );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, RandomPC );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, ServerName );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, ScoreInfo );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, TeamScore );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, TeamInfo );
+
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, Spectator );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, AllowSpec );
+
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, SpecFade );
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, ResetFade );
+
+	// VGUI Menus
+	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, VGUIMenu );
 }
 
 //-----------------------------------------------------------------------------
@@ -1876,7 +1898,7 @@ int	TeamFortressViewport::KeyInput( int down, int keynum, const char *pszCurrent
 
 //================================================================
 // Message Handlers
-int TeamFortressViewport::MsgFunc_ValClass(const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_ValClass(const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	
@@ -1885,11 +1907,9 @@ int TeamFortressViewport::MsgFunc_ValClass(const char *pszName, int iSize, void 
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_TeamNames(const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_TeamNames(const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	
@@ -1917,11 +1937,9 @@ int TeamFortressViewport::MsgFunc_TeamNames(const char *pszName, int iSize, void
 	// Update the Team Menu
 	if (m_pTeamMenu)
 		m_pTeamMenu->Update();
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_Feign(const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_Feign(const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	
@@ -1929,11 +1947,9 @@ int TeamFortressViewport::MsgFunc_Feign(const char *pszName, int iSize, void *pb
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_Detpack(const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_Detpack(const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -1941,11 +1957,9 @@ int TeamFortressViewport::MsgFunc_Detpack(const char *pszName, int iSize, void *
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_VGUIMenu(const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_VGUIMenu(const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -1960,11 +1974,9 @@ int TeamFortressViewport::MsgFunc_VGUIMenu(const char *pszName, int iSize, void 
 
 	// Bring up the menu6
 	ShowVGUIMenu( iMenu );
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_MOTD( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_MOTD( const char *pszName, int iSize, void *pbuf )
 {
 	if (m_iGotAllMOTD)
 		m_szMOTD[0] = 0;
@@ -1983,11 +1995,9 @@ int TeamFortressViewport::MsgFunc_MOTD( const char *pszName, int iSize, void *pb
 	{
 		ShowVGUIMenu( MENU_INTRO );
 	}
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_BuildSt( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_BuildSt( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -1995,30 +2005,24 @@ int TeamFortressViewport::MsgFunc_BuildSt( const char *pszName, int iSize, void 
 
 	// Force the menu to update
 	UpdateCommandMenu( m_StandardMenu );
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_RandomPC( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_RandomPC( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
 	m_iRandomPC = reader.ReadByte();
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_ServerName( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_ServerName( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
 	strncpy( m_szServerName, reader.ReadString(), sizeof(m_szServerName) );
 	m_szServerName[sizeof(m_szServerName) - 1] = 0;
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_ScoreInfo( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_ScoreInfo( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	short cl = reader.ReadByte();
@@ -2040,8 +2044,6 @@ int TeamFortressViewport::MsgFunc_ScoreInfo( const char *pszName, int iSize, voi
 
 		UpdateOnPlayerInfo();
 	}
-
-	return 1;
 }
 
 // Message handler for TeamScore message
@@ -2050,7 +2052,7 @@ int TeamFortressViewport::MsgFunc_ScoreInfo( const char *pszName, int iSize, voi
 //		short: teams kills
 //		short: teams deaths 
 // if this message is never received, then scores will simply be the combined totals of the players.
-int TeamFortressViewport::MsgFunc_TeamScore( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_TeamScore( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	char *TeamName = reader.ReadString();
@@ -2064,24 +2066,22 @@ int TeamFortressViewport::MsgFunc_TeamScore( const char *pszName, int iSize, voi
 	}
 
 	if ( i > m_pScoreBoard->m_iNumTeams )
-		return 1;
+		return;
 
 	// use this new score data instead of combined player scoresw
 	g_TeamInfo[i].scores_overriden = true;
 	g_TeamInfo[i].frags = reader.ReadShort();
 	g_TeamInfo[i].deaths = reader.ReadShort();
-
-	return 1;
 }
 
 // Message handler for TeamInfo message
 // accepts two values:
 //		byte: client number
 //		string: client team name
-int TeamFortressViewport::MsgFunc_TeamInfo( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_TeamInfo( const char *pszName, int iSize, void *pbuf )
 {
 	if (!m_pScoreBoard)
-		return 1;
+		return;
 
 	CBufferReader reader( pbuf, iSize );
 	short cl = reader.ReadByte();
@@ -2094,8 +2094,6 @@ int TeamFortressViewport::MsgFunc_TeamInfo( const char *pszName, int iSize, void
 
 	// rebuild the list of teams
 	m_pScoreBoard->RebuildTeams();
-
-	return 1;
 }
 
 void TeamFortressViewport::DeathMsg( int killer, int victim )
@@ -2103,7 +2101,7 @@ void TeamFortressViewport::DeathMsg( int killer, int victim )
 	m_pScoreBoard->DeathMsg(killer,victim);
 }
 
-int TeamFortressViewport::MsgFunc_Spectator( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_Spectator( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -2112,11 +2110,9 @@ int TeamFortressViewport::MsgFunc_Spectator( const char *pszName, int iSize, voi
 	{
 		g_IsSpectator[cl] = reader.ReadByte();
 	}
-
-	return 1;
 }
 
-int TeamFortressViewport::MsgFunc_AllowSpec( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_AllowSpec( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -2128,8 +2124,6 @@ int TeamFortressViewport::MsgFunc_AllowSpec( const char *pszName, int iSize, voi
 	// If the team menu is up, update it too
 	if (m_pTeamMenu)
 		m_pTeamMenu->Update();
-
-	return 1;
 }
 
 #if defined( _TFC )
@@ -2138,18 +2132,16 @@ extern globalvars_t *gpGlobals;
 #endif 
 
 // used to reset the player's screen immediately
-int TeamFortressViewport::MsgFunc_ResetFade( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_ResetFade( const char *pszName, int iSize, void *pbuf )
 {
 	ResetFade();
-
-	return 1;
 }
 
 void TeamFortressViewport::ResetFade()
 {
 #if defined( _TFC )
 	if( !gpGlobals )
-		return 0;
+		return;
 
 	screenfade_t sf;
 	gEngfuncs.pfnGetScreenFade( &sf );
@@ -2173,7 +2165,7 @@ void TeamFortressViewport::ResetFade()
 }
 
 // used to fade a player's screen out/in when they're spectating someone who is teleported
-int TeamFortressViewport::MsgFunc_SpecFade( const char *pszName, int iSize, void *pbuf )
+void TeamFortressViewport::MsgFunc_SpecFade( const char *pszName, int iSize, void *pbuf )
 {
 #if defined( _TFC )
 	CBufferReader reader( pbuf, iSize );
@@ -2231,6 +2223,4 @@ int TeamFortressViewport::MsgFunc_SpecFade( const char *pszName, int iSize, void
 		}
 	}
 #endif
-
-	return 1;
 }

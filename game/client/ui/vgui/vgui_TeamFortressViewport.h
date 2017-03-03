@@ -387,22 +387,22 @@ public:
 	bool GetAllowSpectators() const { return m_bAllowSpectators; }
 
 	// Message Handlers
-	int MsgFunc_ValClass(const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_TeamNames(const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_Feign(const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_Detpack(const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_VGUIMenu(const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_MOTD( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_BuildSt( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_RandomPC( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_ServerName( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_ScoreInfo( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_TeamScore( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_TeamInfo( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_Spectator( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_AllowSpec( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_SpecFade( const char *pszName, int iSize, void *pbuf );	
-	int MsgFunc_ResetFade( const char *pszName, int iSize, void *pbuf );	
+	void MsgFunc_ValClass(const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_TeamNames(const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_Feign(const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_Detpack(const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_VGUIMenu(const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_MOTD( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_BuildSt( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_RandomPC( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_ServerName( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_ScoreInfo( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_TeamScore( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_TeamInfo( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_Spectator( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_AllowSpec( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_SpecFade( const char *pszName, int iSize, void *pbuf );	
+	void MsgFunc_ResetFade( const char *pszName, int iSize, void *pbuf );	
 
 	void ResetFade();
 

@@ -100,17 +100,17 @@ public:
 	}
 
 	// user messages
-	int _cdecl MsgFunc_Damage(const char *pszName, int iSize, void *pbuf );
-	int _cdecl MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf );
-	int _cdecl MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf);
-	int _cdecl MsgFunc_ResetHUD(const char *pszName,  int iSize, void *pbuf);
-	void _cdecl MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf );
-	void _cdecl MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf );
-	int _cdecl MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf);
-	int  _cdecl MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf );
-	int _cdecl MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf );
+	void MsgFunc_Damage(const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf);
+	void MsgFunc_ResetHUD(const char *pszName,  int iSize, void *pbuf);
+	void MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf);
+	void MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf );
 
-	int MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf );
+	void MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf );
 
 public:
 	cvar_t*		m_pCvarStealMouse;

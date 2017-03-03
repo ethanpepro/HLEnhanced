@@ -109,10 +109,10 @@ public:
 	void	CreateEntities();
 
 	// Called when the server registers a change to who this client can hear.
-	void	HandleVoiceMaskMsg(int iSize, void *pbuf);
+	void	MsgFunc_VoiceMask( const char* pszName, int iSize, void *pbuf);
 
 	// The server sends this message initially to tell the client to send their state.
-	void	HandleReqStateMsg(int iSize, void *pbuf);
+	void	MsgFunc_ReqState( const char* pszName, int iSize, void *pbuf);
 
 
 // Squelch mode functions.

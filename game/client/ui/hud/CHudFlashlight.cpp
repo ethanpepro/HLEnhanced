@@ -29,9 +29,6 @@
 
 #include "CHudFlashlight.h"
 
-DECLARE_MESSAGE( CHudFlashlight, FlashBat)
-DECLARE_MESSAGE( CHudFlashlight, Flashlight)
-
 #define BAT_NAME "sprites/%d_Flashlight.spr"
 
 CHudFlashlight::CHudFlashlight( const char* const pszName, CHud& hud )
@@ -71,25 +68,21 @@ void CHudFlashlight::VidInit()
 	m_iWidth = m_prc2->right - m_prc2->left;
 }
 
-int CHudFlashlight:: MsgFunc_FlashBat(const char *pszName,  int iSize, void *pbuf )
+void CHudFlashlight:: MsgFunc_FlashBat(const char *pszName,  int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	int x = reader.ReadByte();
 	m_iBat = x;
 	m_flBat = ((float)x)/100.0;
-
-	return 1;
 }
 
-int CHudFlashlight:: MsgFunc_Flashlight(const char *pszName,  int iSize, void *pbuf )
+void CHudFlashlight:: MsgFunc_Flashlight(const char *pszName,  int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	m_fOn = reader.ReadByte();
 	int x = reader.ReadByte();
 	m_iBat = x;
 	m_flBat = ((float)x)/100.0;
-
-	return 1;
 }
 
 bool CHudFlashlight::Draw(float flTime)

@@ -26,9 +26,6 @@
 
 #include "CHudAmmoSecondary.h"
 
-DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoVal );
-DECLARE_MESSAGE( CHudAmmoSecondary, SecAmmoIcon );
-
 CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -116,12 +113,10 @@ bool CHudAmmoSecondary::Draw(float flTime)
 // Message handler for Secondary Ammo Value
 // accepts one value:
 //		string:  sprite name
-int CHudAmmoSecondary :: MsgFunc_SecAmmoIcon( const char *pszName, int iSize, void *pbuf )
+void CHudAmmoSecondary::MsgFunc_SecAmmoIcon( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	m_HUD_ammoicon = Hud().GetSpriteIndex( reader.ReadString() );
-
-	return 1;
 }
 
 // Message handler for Secondary Ammo Icon
@@ -129,13 +124,13 @@ int CHudAmmoSecondary :: MsgFunc_SecAmmoIcon( const char *pszName, int iSize, vo
 // takes two values:
 //		byte:  ammo index
 //		byte:  ammo value
-int CHudAmmoSecondary :: MsgFunc_SecAmmoVal( const char *pszName, int iSize, void *pbuf )
+void CHudAmmoSecondary::MsgFunc_SecAmmoVal( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
 	int index = reader.ReadByte();
 	if ( index < 0 || index >= MAX_SEC_AMMO_VALUES )
-		return 1;
+		return;
 
 	m_iAmmoAmounts[index] = reader.ReadByte();
 	GetFlags() |= HUD_ACTIVE;
@@ -150,13 +145,11 @@ int CHudAmmoSecondary :: MsgFunc_SecAmmoVal( const char *pszName, int iSize, voi
 	if ( count == 0 ) 
 	{	// the ammo fields are all empty, so turn off this hud area
 		GetFlags() &= ~HUD_ACTIVE;
-		return 1;
+		return;
 	}
 
 	// make the icons light up
 	m_fFade = 200.0f;
-
-	return 1;
 }
 
 

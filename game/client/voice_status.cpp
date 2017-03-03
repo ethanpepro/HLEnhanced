@@ -59,23 +59,6 @@ CVoiceStatus* GetClientVoiceMgr()
 
 static CVoiceStatus *g_pInternalVoiceStatus = NULL;
 
-int __MsgFunc_VoiceMask(const char *pszName, int iSize, void *pbuf)
-{
-	if(g_pInternalVoiceStatus)
-		g_pInternalVoiceStatus->HandleVoiceMaskMsg(iSize, pbuf);
-
-	return 1;
-}
-
-int __MsgFunc_ReqState(const char *pszName, int iSize, void *pbuf)
-{
-	if(g_pInternalVoiceStatus)
-		g_pInternalVoiceStatus->HandleReqStateMsg(iSize, pbuf);
-
-	return 1;
-}
-
-
 int g_BannedPlayerPrintCount;
 void ForEachBannedPlayer( const char id[ PLAYERID_BUFFER_SIZE ] )
 {
@@ -223,8 +206,8 @@ int CVoiceStatus::Init(
 	m_pHelper = pHelper;
 	m_pParentPanel = pParentPanel;
 	//GetFlags() = HUD_ACTIVE;
-	HOOK_MESSAGE(VoiceMask);
-	HOOK_MESSAGE(ReqState);
+	HOOK_GLOBAL_MESSAGE( *this, VoiceMask );
+	HOOK_GLOBAL_MESSAGE( *this, ReqState );
 
 	// Cache the game directory for use when we shut down
 	const char *pchGameDirT = gEngfuncs.pfnGetGameDirectory();
@@ -618,7 +601,7 @@ void CVoiceStatus::UpdateBanButton(int iClient)
 }
 
 
-void CVoiceStatus::HandleVoiceMaskMsg(int iSize, void *pbuf)
+void CVoiceStatus::MsgFunc_VoiceMask( const char* pszName, int iSize, void *pbuf)
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -644,7 +627,7 @@ void CVoiceStatus::HandleVoiceMaskMsg(int iSize, void *pbuf)
 	m_bServerModEnable = reader.ReadByte();
 }
 
-void CVoiceStatus::HandleReqStateMsg(int iSize, void *pbuf)
+void CVoiceStatus::MsgFunc_ReqState( const char* pszName, int iSize, void *pbuf)
 {
 	if(gEngfuncs.pfnGetCvarFloat("voice_clientdebug"))
 	{

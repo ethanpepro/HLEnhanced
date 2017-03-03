@@ -43,6 +43,8 @@
 
 #include "effects/CEnvironment.h"
 
+#include "MessageHandler.h"
+
 #include "CHudSpectator.h"
 
 cl_enginefunc_t gEngfuncs;
@@ -53,6 +55,16 @@ TeamFortressViewport *gViewPort = NULL;
 #include "particleman.h"
 CSysModule *g_hParticleManModule = NULL;
 IParticleMan *g_pParticleMan = NULL;
+
+namespace
+{
+static CMessageHandlers g_MessageHandlers;
+}
+
+CMessageHandlers& MessageHandlers()
+{
+	return g_MessageHandlers;
+}
 
 void CL_LoadParticleMan();
 void CL_UnloadParticleMan();
@@ -206,6 +218,8 @@ the hud variables.
 
 void DLLEXPORT HUD_Init( void )
 {
+	msghandler::Initialize();
+
 	InitInput();
 	Hud().Init();
 	Scheme_Init();

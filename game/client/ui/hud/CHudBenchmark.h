@@ -35,7 +35,7 @@ public:
 
 	void StartNextSection( int section );
 
-	int MsgFunc_Bench( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_Bench( const char *pszName, int iSize, void *pbuf );
 
 	void CountFrame( float dt );
 

@@ -29,8 +29,6 @@
 
 #include "CHudBattery.h"
 
-DECLARE_MESSAGE( CHudBattery, Battery)
-
 CHudBattery::CHudBattery( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -58,7 +56,7 @@ void CHudBattery::VidInit()
 	m_fFade = 0;
 }
 
-int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
+void CHudBattery::MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 {
 	GetFlags() |= HUD_ACTIVE;
 	
@@ -81,8 +79,6 @@ int CHudBattery:: MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 		m_iBat = x;
 	}
 #endif
-
-	return 1;
 }
 
 

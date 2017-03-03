@@ -30,8 +30,8 @@ public:
 	void Reset() override;
 	bool Draw( float flTime ) override;
 
-	int MsgFunc_SecAmmoVal( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_SecAmmoIcon( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_SecAmmoVal( const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_SecAmmoIcon( const char *pszName, int iSize, void *pbuf );
 
 private:
 	enum {

@@ -26,9 +26,6 @@
 
 #include "CHudMessage.h"
 
-DECLARE_MESSAGE( CHudMessage, HudText )
-DECLARE_MESSAGE( CHudMessage, GameTitle )
-
 CHudMessage::CHudMessage( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -477,7 +474,7 @@ void CHudMessage::MessageAdd( const char *pName, float time )
 }
 
 
-int CHudMessage::MsgFunc_HudText( const char *pszName,  int iSize, void *pbuf )
+void CHudMessage::MsgFunc_HudText( const char *pszName,  int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -490,12 +487,10 @@ int CHudMessage::MsgFunc_HudText( const char *pszName,  int iSize, void *pbuf )
 	// Turn on drawing
 	if ( !( GetFlags() & HUD_ACTIVE) )
 		GetFlags() |= HUD_ACTIVE;
-
-	return 1;
 }
 
 
-int CHudMessage::MsgFunc_GameTitle( const char *pszName,  int iSize, void *pbuf )
+void CHudMessage::MsgFunc_GameTitle( const char *pszName,  int iSize, void *pbuf )
 {
 	m_pGameTitle = TextMessageGet( "GAMETITLE" );
 	if ( m_pGameTitle != NULL )
@@ -506,8 +501,6 @@ int CHudMessage::MsgFunc_GameTitle( const char *pszName,  int iSize, void *pbuf 
 		if ( !( GetFlags() & HUD_ACTIVE) )
 			GetFlags() |= HUD_ACTIVE;
 	}
-
-	return 1;
 }
 
 void CHudMessage::MessageAdd(client_textmessage_t * newMessage )

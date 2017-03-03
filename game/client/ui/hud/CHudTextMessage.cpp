@@ -33,8 +33,6 @@
 #include "CHudSayText.h"
 #include "CHudTextMessage.h"
 
-DECLARE_MESSAGE( CHudTextMessage, TextMsg );
-
 CHudTextMessage::CHudTextMessage( const char* const pszName, CHud& hud )
 	: BaseClass( pszName, hud )
 {
@@ -59,7 +57,7 @@ void CHudTextMessage::Init()
 //   string: message parameter 4
 // any string that starts with the character '#' is a message name, and is used to look up the real message in titles.txt
 // the next (optional) one to four strings are parameters for that string (which can also be message names if they begin with '#')
-int CHudTextMessage::MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf )
+void CHudTextMessage::MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -80,6 +78,4 @@ int CHudTextMessage::MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf
 	UTIL_StripEndNewlineFromString( sstr4 );
 
 	UTIL_TextMsg( static_cast<ClientPrintDest>( msg_dest ), msg_text, sstr1, sstr2, sstr3, sstr4 );
-
-	return 1;
 }
