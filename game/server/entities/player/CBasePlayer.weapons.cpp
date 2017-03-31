@@ -24,6 +24,8 @@
 #include "Server.h"
 #include "ServerInterface.h"
 
+#include "CBasePlayerUtils.h"
+
 //Wasn't initialized - Solokiller
 bool DLL_GLOBAL gEvilImpulse101 = false;
 
@@ -639,6 +641,15 @@ void CBasePlayer::ItemPreFrame()
 		return;
 	}
 
+	//Update all holstered weapons. - Solokiller
+	ForEachPlayerWeapon( *this, []( CBasePlayer& player, CBasePlayerWeapon& weapon )
+	{
+		if( &weapon == player.m_pActiveItem )
+			return;
+
+		weapon.WeaponHolsterPreFrame();
+	});
+
 	if( !m_pActiveItem )
 		return;
 
@@ -660,6 +671,11 @@ void CBasePlayer::ItemPostFrame()
 
 	if( m_flNextAttack > UTIL_WeaponTimeBase() )
 	{
+		if( m_pActiveItem )
+		{
+			m_pActiveItem->WeaponBusyPostFrame();
+		}
+
 		return;
 	}
 
