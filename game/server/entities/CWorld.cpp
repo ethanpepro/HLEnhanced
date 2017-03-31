@@ -41,7 +41,6 @@ precaches and defs for entities and other data that must always be available.
 extern DLL_GLOBAL bool g_fGameOver;
 float g_flWeaponCheat;
 extern CBaseEntity				*g_pLastSpawn;
-extern CSoundEnt *pSoundEnt;
 extern CGraph WorldGraph;
 extern DLL_GLOBAL	bool		gDisplayTitle;
 
@@ -144,11 +143,11 @@ void CWorld::Precache()
 
 	///!!!LATER - do we want a sound ent in deathmatch? (sjb)
 	//pSoundEnt = CBaseEntity::Create( "soundent", g_vecZero, g_vecZero, edict() );
-	pSoundEnt = GetClassPtr( ( CSoundEnt * ) NULL );
+	g_pSoundEnt = GetClassPtr( ( CSoundEnt * ) NULL );
 
-	if( pSoundEnt )
+	if( g_pSoundEnt )
 	{
-		pSoundEnt->Spawn();
+		g_pSoundEnt->Spawn();
 	}
 	else
 	{
