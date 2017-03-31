@@ -108,8 +108,8 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	as::RegisterCasts<CBaseEntity, CLASS>( engine, AS_CBASEENTITY_NAME, pszObjectName, &as::Cast_UpCast, &as::Cast_DownCast );
 
 	engine.RegisterObjectProperty(
-		pszObjectName, "CBaseEntity@ m_pGoalEnt",
-		asOFFSET( CLASS, m_pGoalEnt ) );
+		pszObjectName, "EHANDLE m_hGoalEnt",
+		asOFFSET( CLASS, m_hGoalEnt ) );
 
 	engine.RegisterObjectProperty(
 		pszObjectName, "CBaseEntity@ m_pLink",

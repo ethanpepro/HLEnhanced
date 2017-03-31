@@ -586,7 +586,7 @@ bool CBaseMonster::FRefreshRoute()
 		case MOVEGOAL_PATHCORNER:
 			{
 				// monster is on a path_corner loop
-				pPathCorner = m_pGoalEnt;
+				pPathCorner = m_hGoalEnt;
 				i = 0;
 
 				while ( pPathCorner && i < ROUTE_SIZE )
@@ -1383,9 +1383,9 @@ void CBaseMonster :: AdvanceRoute ( float distance )
 	{
 		if ( ! (m_Route[ m_iRouteIndex ].iType & bits_MF_IS_GOAL) )
 		{
-			// If we've just passed a path_corner, advance m_pGoalEnt
+			// If we've just passed a path_corner, advance m_hGoalEnt
 			if ( (m_Route[ m_iRouteIndex ].iType & ~bits_MF_NOT_TO_MASK) == bits_MF_TO_PATHCORNER )
-				m_pGoalEnt = m_pGoalEnt->GetNextTarget();
+				m_hGoalEnt = m_hGoalEnt->GetNextTarget();
 
 			// IF both waypoints are nodes, then check for a link for a door and operate it.
 			//
@@ -2024,21 +2024,21 @@ void CBaseMonster :: StartMonster ( void )
 	if ( HasTarget() )// this monster has a target
 	{
 		// Find the monster's initial target entity, stash it
-		m_pGoalEnt = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
+		m_hGoalEnt = UTIL_FindEntityByTargetname( nullptr, GetTarget() );
 
-		if ( !m_pGoalEnt )
+		if ( !m_hGoalEnt )
 		{
 			ALERT(at_error, "ReadyMonster()--%s couldn't find target %s", GetClassname(), GetTarget() );
 		}
 		else
 		{
 			// Monster will start turning towards his destination
-			MakeIdealYaw ( m_pGoalEnt->GetAbsOrigin() );
+			MakeIdealYaw ( m_hGoalEnt->GetAbsOrigin() );
 
 			// JAY: How important is this error message?  Big Momma doesn't obey this rule, so I took it out.
 #if 0
 			// At this point, we expect only a path_corner as initial goal
-			if( !m_pGoalEnt->ClassnameIs( "path_corner" ) )
+			if( !m_hGoalEnt->ClassnameIs( "path_corner" ) )
 			{
 				ALERT(at_warning, "ReadyMonster--monster's initial goal '%s' is not a path_corner", GetTarget() );
 			}

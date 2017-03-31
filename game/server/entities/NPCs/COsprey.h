@@ -59,7 +59,6 @@ public:
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	void ShowDamage( void );
 
-	CBaseEntity *m_pGoalEnt;
 	Vector m_vel1;
 	Vector m_vel2;
 	Vector m_pos1;

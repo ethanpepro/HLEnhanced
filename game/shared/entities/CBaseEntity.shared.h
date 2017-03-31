@@ -75,7 +75,7 @@ public:
 	entvars_t *pev;		// Don't need to save/restore this pointer, the engine resets it
 
 						// path corners
-	CBaseEntity			*m_pGoalEnt;// path corner we are heading towards
+	EHANDLE				m_hGoalEnt;// path corner we are heading towards
 	CBaseEntity			*m_pLink;// used for temporary link-list operations. 
 
 	/*

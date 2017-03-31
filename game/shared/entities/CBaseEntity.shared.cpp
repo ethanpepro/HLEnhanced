@@ -24,7 +24,7 @@
 
 // Global Savedata for Delay
 BEGIN_DATADESC_NOBASE( CBaseEntity )
-	DEFINE_FIELD( m_pGoalEnt, FIELD_CLASSPTR ),
+	DEFINE_FIELD( m_hGoalEnt, FIELD_EHANDLE ),
 	
 	DEFINE_FIELD( m_pfnThink, FIELD_FUNCPTR ),		// UNDONE: Build table of these!!!
 	DEFINE_FIELD( m_pfnTouch, FIELD_FUNCPTR ),
