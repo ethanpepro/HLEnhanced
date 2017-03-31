@@ -669,22 +669,26 @@ void CBasePlayer::ItemPostFrame()
 	if( m_pTank != NULL )
 		return;
 
-	if( m_flNextAttack > UTIL_WeaponTimeBase() )
+	const bool bCanAttack = m_flNextAttack <= UTIL_WeaponTimeBase();
+
+	//The original code would only check for impulse commands if the weapon could fire.
+	//If this cvar is non-zero we'll let players perform impulse commands whenever they want (Source engine behavior) - Solokiller
+	if( sv_new_impulse_check.value == 1 || bCanAttack )
 	{
-		if( m_pActiveItem )
+		ImpulseCommands();
+	}
+
+	if( m_pActiveItem )
+	{
+		if( !bCanAttack )
 		{
 			m_pActiveItem->WeaponBusyPostFrame();
 		}
-
-		return;
+		else
+		{
+			m_pActiveItem->ItemPostFrame();
+		}
 	}
-
-	ImpulseCommands();
-
-	if( !m_pActiveItem )
-		return;
-
-	m_pActiveItem->ItemPostFrame();
 }
 
 void CBasePlayer::GiveNamedItem( const char *pszName )

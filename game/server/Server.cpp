@@ -53,6 +53,9 @@ cvar_t  allow_spectators = { "allow_spectators", "0.0", FCVAR_SERVER };		// 0 pr
 
 cvar_t  mp_chattime = {"mp_chattime","10", FCVAR_SERVER };
 
+//Whether to use the new way to check for impulse commands (unaffected by weapon state) - Solokiller
+cvar_t	sv_new_impulse_check = { "sv_new_impulse_check", "0", FCVAR_SERVER };
+
 cvar_t	as_plugin_list_file = { "as_plugin_list_file", "default_plugins.txt", FCVAR_SERVER | FCVAR_UNLOGGED };
 
 //Config file that contains the MySQL settings to use for default connections.
@@ -618,6 +621,8 @@ void GameDLLInit( void )
 	CVAR_REGISTER (&allowmonsters);
 
 	CVAR_REGISTER (&mp_chattime);
+
+	CVAR_REGISTER( &sv_new_impulse_check );
 
 	CVAR_REGISTER( &as_plugin_list_file );
 
