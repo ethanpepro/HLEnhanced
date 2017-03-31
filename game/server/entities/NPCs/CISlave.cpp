@@ -337,7 +337,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 				{
 					CBaseEntity *pNew = Create( "monster_alien_slave", m_hDead->GetAbsOrigin(), m_hDead->pev->angles );
 					CBaseMonster *pNewMonster = pNew->MyMonsterPointer( );
-					pNew->pev->spawnflags |= 1;
+					pNew->pev->spawnflags |= SF_MONSTER_WAIT_TILL_SEEN;
 					WackBeam( -1, pNew );
 					WackBeam( 1, pNew );
 					UTIL_Remove( m_hDead );
