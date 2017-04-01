@@ -547,7 +547,7 @@ void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, 
 	if( !WorldGraph.m_fGraphPresent )
 	{
 		//spawn the test hull entity that builds and walks the node tree
-		CTestHull* pTestHull = GetClassPtr<CTestHull>( nullptr );
+		auto pTestHull = static_cast<CTestHull*>( UTIL_CreateNamedEntity( "testhull" ) );
 
 		pTestHull->Spawn();
 

@@ -36,7 +36,6 @@ LINK_ENTITY_TO_CLASS( bmortar, CBMortar );
 void CBMortar::Spawn( void )
 {
 	pev->movetype = MOVETYPE_TOSS;
-	pev->classname = MAKE_STRING( "bmortar" );
 
 	pev->solid = SOLID_BBOX;
 	pev->rendermode = kRenderTransAlpha;
@@ -54,7 +53,7 @@ void CBMortar::Spawn( void )
 
 CBMortar *CBMortar::Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity )
 {
-	CBMortar *pSpit = GetClassPtr( ( CBMortar * ) NULL );
+	auto pSpit = static_cast<CBMortar*>( UTIL_CreateNamedEntity( "bmortar" ) );
 	pSpit->Spawn();
 
 	pSpit->SetAbsOrigin( vecStart );

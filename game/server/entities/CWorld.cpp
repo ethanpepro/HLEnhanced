@@ -143,7 +143,7 @@ void CWorld::Precache()
 
 	///!!!LATER - do we want a sound ent in deathmatch? (sjb)
 	//pSoundEnt = CBaseEntity::Create( "soundent", g_vecZero, g_vecZero, edict() );
-	g_pSoundEnt = GetClassPtr( ( CSoundEnt * ) NULL );
+	g_pSoundEnt = static_cast<CSoundEnt*>( UTIL_CreateNamedEntity( "soundent" ) );
 
 	if( g_pSoundEnt )
 	{

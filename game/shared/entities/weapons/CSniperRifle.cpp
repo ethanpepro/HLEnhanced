@@ -43,9 +43,6 @@ void CSniperRifle::Spawn()
 {
 	Precache();
 
-	//Give it a name so it works on the client side - Solokiller
-	pev->classname = MAKE_STRING( "weapon_sniperrifle" );
-
 	SetModel( "models/w_m40a1.mdl" );
 
 	FallInit(); // get ready to fall down.

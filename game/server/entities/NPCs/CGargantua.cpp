@@ -909,9 +909,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 			int parts = MODEL_FRAMES( gGargGibModel );
 			for ( i = 0; i < 10; i++ )
 			{
-				CGib *pGib = GetClassPtr( (CGib *)NULL );
-
-				pGib->Spawn( GARG_GIB_MODEL );
+				auto pGib = CGib::GibCreate( GARG_GIB_MODEL );
 				
 				int bodyPart = 0;
 				if ( parts > 1 )

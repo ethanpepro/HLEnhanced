@@ -31,9 +31,7 @@ LINK_ENTITY_TO_CLASS( crossbow_bolt, CCrossbowBolt );
 CCrossbowBolt *CCrossbowBolt::BoltCreate()
 {
 	// Create a new entity with CCrossbowBolt private data
-	CCrossbowBolt *pBolt = GetClassPtr( ( CCrossbowBolt * ) NULL );
-	//TODO: classname doesn't match LINK_ENTITY_TO_CLASS. - Solokiller
-	pBolt->pev->classname = MAKE_STRING( "bolt" );
+	auto pBolt = static_cast<CCrossbowBolt*>( UTIL_CreateNamedEntity( "crossbow_bolt" ) );
 	pBolt->Spawn();
 
 	return pBolt;

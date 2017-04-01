@@ -223,7 +223,7 @@ bool CSittingScientist::FIdleSpeak()
 
 	if( pentFriend && RANDOM_LONG( 0, 1 ) )
 	{
-		CTalkMonster *pTalkMonster = GetClassPtr( ( CTalkMonster * ) pentFriend->pev );
+		auto pTalkMonster = static_cast<CTalkMonster*>( pentFriend );
 		pTalkMonster->SetAnswerQuestion( this );
 
 		IdleHeadTurn( pentFriend->GetAbsOrigin() );

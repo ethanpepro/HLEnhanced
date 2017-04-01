@@ -129,7 +129,7 @@ void CMortar::MortarExplode( void )
 #if 0
 void CMortar::ShootTimed( EVARS *pevOwner, Vector vecStart, float time )
 {
-	CMortar *pMortar = GetClassPtr( ( CMortar * ) NULL );
+	auto pMortar = static_cast<CMortar*>( UTIL_CreateNamedEntity( "monster_mortar" ) );
 	pMortar->Spawn();
 
 	TraceResult tr;
