@@ -12,6 +12,9 @@
 *   without written permission from Valve LLC.
 *
 ****/
+#ifndef GAME_SHARED_UTIL_H
+#define GAME_SHARED_UTIL_H
+
 #include "archtypes.h"     // DAL
 
 //
@@ -393,3 +396,5 @@ void Cvar_DirectSet( cvar_t* pCvar, const float flValue );
 *	Determine the current # of active players on the server for map cycling logic
 */
 int UTIL_CountPlayers();
+
+#endif //GAME_SHARED_UTIL_H
