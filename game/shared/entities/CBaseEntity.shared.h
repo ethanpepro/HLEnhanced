@@ -88,11 +88,21 @@ public:
 	const char* GetClassname() const { return STRING( pev->classname ); }
 
 	/**
+	*	Sets this entity's classname.
+	*	It is assumed that pszClassName is either a string in the program's string table or allocated using ALLOC_STRING,
+	*	or otherwise has a lifetime that is at least as long as the rest of the map.
+	*/
+	void SetClassname( const char* pszClassName )
+	{
+		pev->classname = MAKE_STRING( pszClassName );
+	}
+
+	/**
 	*	@return Whether this entity's classname matches the given classname.
 	*/
 	bool ClassnameIs( const char* const pszClassName ) const
 	{
-		return FClassnameIs( this, pszClassName );
+		return FStrEq( GetClassname(), pszClassName );
 	}
 
 	/**
@@ -100,7 +110,7 @@ public:
 	*/
 	bool ClassnameIs( const string_t iszClassName ) const
 	{
-		return FClassnameIs( this, STRING( iszClassName ) );
+		return ClassnameIs( STRING( iszClassName ) );
 	}
 
 	/**

@@ -104,13 +104,6 @@ inline bool FNullEnt(entvars_t* pev)		{ return pev == NULL || FNullEnt(OFFSET(pe
 bool FNullEnt( const CBaseEntity* pEntity );
 
 // Misc useful
-inline bool FClassnameIs(edict_t* pent, const char* szClassname)
-	{ return FStrEq(STRING(VARS(pent)->classname), szClassname); }
-inline bool FClassnameIs(const entvars_t* pev, const char* szClassname)
-	{ return FStrEq(STRING(pev->classname), szClassname); }
-
-bool FClassnameIs( const CBaseEntity* pEntity, const char* pszClassname );
-
 CBaseEntity* UTIL_FindClientInPVS( const CBaseEntity* const pPVSEntity );
 
 struct TYPEDESCRIPTION;

@@ -61,7 +61,7 @@ void CShockRifle::Precache()
 void CShockRifle::Spawn()
 {
 	// Hack to allow for old names.
-	pev->classname = MAKE_STRING( "weapon_shockrifle" );
+	SetClassname( "weapon_shockrifle" );
 
 	Precache();
 
