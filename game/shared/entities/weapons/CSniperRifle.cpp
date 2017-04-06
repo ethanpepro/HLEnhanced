@@ -165,25 +165,20 @@ void CSniperRifle::Reload()
 {
 	if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] > 0 )
 	{
+		if( m_bInZoom )
+		{
+			ToggleZoom();
+		}
+
 		if( m_iClip )
 		{
 			if( DefaultReload( SNIPERRIFLE_RELOAD3, 2.324, 1 ) )
 			{
-				if( m_bInZoom )
-				{
-					ToggleZoom();
-				}
-
 				m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 2.324;
 			}
 		}
 		else if( DefaultReload( SNIPERRIFLE_RELOAD1, 2.324, 1 ) )
 		{
-			if( m_bInZoom )
-			{
-				ToggleZoom();
-			}
-
 			m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 4.102;
 			m_flReloadStart = gpGlobals->time;
 			m_bReloading = true;
