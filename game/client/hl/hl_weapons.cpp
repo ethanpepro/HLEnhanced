@@ -76,7 +76,7 @@ void DLLEXPORT HUD_PostRunCmd( local_state_t *from, local_state_t *to, usercmd_t
 
 bool bIsMultiplayer()
 {
-	return gEngfuncs.GetMaxClients() != 1;
+	return gHUD.m_bIsMultiplayer;
 }
 //Just loads a v_ model.
 void LoadVModel( const char* const pszViewModel, CBasePlayer* pPlayer )

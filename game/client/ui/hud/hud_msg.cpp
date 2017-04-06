@@ -93,6 +93,14 @@ int CHud :: MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 	return 1;
 }
 
+int CHud::MsgFunc_GameState( const char *pszName, int iSize, void *pbuf )
+{
+	CBufferReader reader( pbuf, iSize );
+
+	m_bIsMultiplayer = reader.ReadByte() != 0;
+
+	return true;
+}
 
 int CHud :: MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
 {

@@ -194,6 +194,7 @@ public:
 	int		m_iHideHUDDisplay;
 	int		m_iFOV;
 	int		m_Teamplay;
+	bool	m_bIsMultiplayer = false;
 	int		m_iRes;
 	cvar_t  *m_pCvarStealMouse;
 	cvar_t	*m_pCvarDraw;
@@ -258,6 +259,7 @@ public:
 	// user messages
 	int _cdecl MsgFunc_Damage(const char *pszName, int iSize, void *pbuf );
 	int _cdecl MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf );
+	int MsgFunc_GameState( const char *pszName, int iSize, void *pbuf );
 	int _cdecl MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf);
 	int _cdecl MsgFunc_ResetHUD(const char *pszName,  int iSize, void *pbuf);
 	void _cdecl MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf );

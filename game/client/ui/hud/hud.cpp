@@ -130,6 +130,11 @@ int __MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 	return gHUD.MsgFunc_GameMode( pszName, iSize, pbuf );
 }
 
+int __MsgFunc_GameState( const char *pszName, int iSize, void *pbuf )
+{
+	return gHUD.MsgFunc_GameState( pszName, iSize, pbuf );
+}
+
 // TFFree Command Menu
 void __CmdFunc_OpenCommandMenu(void)
 {
@@ -283,6 +288,7 @@ void CHud :: Init( void )
 	HOOK_MESSAGE( Logo );
 	HOOK_MESSAGE( ResetHUD );
 	HOOK_MESSAGE( GameMode );
+	HOOK_MESSAGE( GameState );
 	HOOK_MESSAGE( InitHUD );
 	HOOK_MESSAGE( ViewMode );
 	HOOK_MESSAGE( SetFOV );
