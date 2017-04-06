@@ -38,7 +38,7 @@ public:
 
 	void Spawn() override;
 	void Precache() override;
-	int  Classify() override { return CLASS_MACHINE; };
+	EntityClassification_t GetClassification() override { return EntityClassifications().GetClassificationId( classify::MACHINE ); }
 	int  BloodColor() const override { return DONT_BLEED; }
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 

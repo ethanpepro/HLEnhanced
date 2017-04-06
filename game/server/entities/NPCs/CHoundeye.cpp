@@ -44,9 +44,9 @@ LINK_ENTITY_TO_CLASS( monster_houndeye, CHoundeye );
 // Classify - indicates this monster's place in the 
 // relationship table.
 //=========================================================
-int	CHoundeye :: Classify ( void )
+EntityClassification_t CHoundeye::GetClassification()
 {
-	return	CLASS_ALIEN_MONSTER;
+	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );
 }
 
 //=========================================================

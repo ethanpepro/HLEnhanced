@@ -179,9 +179,9 @@ void CSittingScientist::SittingThink( void )
 //=========================================================
 // ID as a passive human
 //=========================================================
-int	CSittingScientist::Classify( void )
+EntityClassification_t CSittingScientist::GetClassification()
 {
-	return	CLASS_HUMAN_PASSIVE;
+	return EntityClassifications().GetClassificationId( classify::HUMAN_PASSIVE );
 }
 
 // prepare sitting scientist to answer a question

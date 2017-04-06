@@ -60,6 +60,10 @@
 #undef VOID
 #endif
 
+#ifndef HL_USE_IGNORE_DEF
+#undef IGNORE
+#endif
+
 /**
 *	@defgroup InheritanceDecls
 *	Declarations used to specify a class has a specific inheritance model.

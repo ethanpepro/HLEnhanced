@@ -42,6 +42,8 @@ bool CServerGameInterface::Initialize()
 	if( !InitializeCommon() )
 		return false;
 
+	EntityClassifications().Initialize();
+
 #if USE_ANGELSCRIPT
 	if( !g_ASManager.Initialize() )
 	{

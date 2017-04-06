@@ -100,7 +100,7 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 
 	pev->owner = nullptr; // can't traceline attack owner if this is set
 
-	RadiusDamage( this, pOwner, pev->dmg, CLASS_NONE, bitsDamageType );
+	RadiusDamage( this, pOwner, pev->dmg, EntityClassifications().GetNoneId(), bitsDamageType );
 
 	if ( RANDOM_FLOAT( 0 , 1 ) < 0.5 )
 	{

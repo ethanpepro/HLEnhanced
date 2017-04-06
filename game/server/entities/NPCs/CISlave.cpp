@@ -71,13 +71,13 @@ LINK_ENTITY_TO_CLASS( monster_vortigaunt, CISlave );
 // Classify - indicates this monster's place in the 
 // relationship table.
 //=========================================================
-int	CISlave :: Classify ( void )
+EntityClassification_t CISlave::GetClassification()
 {
-	return	CLASS_ALIEN_MILITARY;
+	return EntityClassifications().GetClassificationId( classify::ALIEN_MILITARY );
 }
 
 
-int CISlave::IRelationship( CBaseEntity *pTarget )
+Relationship CISlave::IRelationship( CBaseEntity *pTarget )
 {
 	if ( (pTarget->IsPlayer()) )
 		if ( (pev->spawnflags & SF_MONSTER_WAIT_UNTIL_PROVOKED ) && ! (m_afMemory & bits_MEMORY_PROVOKED ))

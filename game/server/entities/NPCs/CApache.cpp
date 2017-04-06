@@ -289,7 +289,7 @@ void CApache :: DyingThink( void )
 
 		EMIT_SOUND( this, CHAN_STATIC, "weapons/mortarhit.wav", 1.0, 0.3);
 
-		RadiusDamage( GetAbsOrigin(), this, this, 300, CLASS_NONE, DMG_BLAST );
+		RadiusDamage( GetAbsOrigin(), this, this, 300, EntityClassifications().GetNoneId(), DMG_BLAST );
 
 		if (/*!(pev->spawnflags & SF_NOWRECKAGE) && */(pev->flags & FL_ONGROUND))
 		{

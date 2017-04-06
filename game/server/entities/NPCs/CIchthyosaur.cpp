@@ -237,9 +237,9 @@ END_SCHEDULES()
 // Classify - indicates this monster's place in the 
 // relationship table.
 //=========================================================
-int	CIchthyosaur :: Classify ( void )
+EntityClassification_t CIchthyosaur::GetClassification()
 {
-	return	CLASS_ALIEN_MONSTER;
+	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );
 }
 
 

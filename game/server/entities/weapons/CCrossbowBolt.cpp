@@ -68,9 +68,9 @@ void CCrossbowBolt::Precache()
 }
 
 
-int	CCrossbowBolt::Classify()
+EntityClassification_t CCrossbowBolt::GetClassification()
 {
-	return	CLASS_NONE;
+	return EntityClassifications().GetNoneId();
 }
 
 void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
@@ -187,7 +187,7 @@ void CCrossbowBolt::ExplodeThink()
 
 	pev->owner = nullptr; // can't traceline attack owner if this is set
 
-	::RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, pev->dmg, DMG_BLAST | DMG_ALWAYSGIB ), 128, CLASS_NONE );
+	::RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, pev->dmg, DMG_BLAST | DMG_ALWAYSGIB ), 128, EntityClassifications().GetNoneId() );
 
 	UTIL_Remove( this );
 }

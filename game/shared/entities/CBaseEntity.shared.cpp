@@ -254,6 +254,17 @@ BEGIN_DATADESC( CBasePlayer )
 	//DEFINE_FIELD( m_nCustomSprayFrames, FIELD_INTEGER ), // Don't need to restore
 END_DATADESC()
 
+void CBaseEntity::KeyValue( KeyValueData* pkvd )
+{
+	if( FStrEq( "classificationOverride", pkvd->szKeyName ) )
+	{
+		SetClassificationOverride( EntityClassifications().GetClassificationId( pkvd->szValue ) );
+		pkvd->fHandled = true;
+	}
+	else
+		pkvd->fHandled = false;
+}
+
 void CBaseEntity::TakeDamage( const CTakeDamageInfo& info )
 {
 	//This method exists so we can intercept damage events in the base class unconditionally.

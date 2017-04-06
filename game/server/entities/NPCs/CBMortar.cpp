@@ -103,7 +103,7 @@ void CBMortar::Touch( CBaseEntity *pOther )
 
 	CBaseEntity* pOwner = pev->owner ? Instance( pev->owner ) : nullptr;
 
-	RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, gSkillData.GetBigMommaDmgBlast(), DMG_ACID ), gSkillData.GetBigMommaRadiusBlast(), CLASS_NONE );
+	RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, gSkillData.GetBigMommaDmgBlast(), DMG_ACID ), gSkillData.GetBigMommaRadiusBlast(), EntityClassifications().GetNoneId() );
 	UTIL_Remove( this );
 }
 
