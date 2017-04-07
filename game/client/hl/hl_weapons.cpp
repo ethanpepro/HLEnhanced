@@ -72,6 +72,9 @@ void DLLEXPORT HUD_PostRunCmd( local_state_t *from, local_state_t *to, usercmd_t
 	
 	// All games can use FOV state
 	g_lastFOV = to->client.fov;
+
+	//Update user's FOV now. Fixes crosshairs using the wrong FOV if we just changed weapons. - Solokiller
+	Hud().UpdateFOV( g_lastFOV, true );
 }
 
 bool bIsMultiplayer()

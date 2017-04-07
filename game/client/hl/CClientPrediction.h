@@ -68,11 +68,6 @@ private:
 
 	CBasePlayer* m_pPlayer = nullptr;
 
-	/**
-	*	The Id of the last weapon that the player was holding. - Solokiller
-	*/
-	int m_iLastId = WEAPON_NONE;
-
 private:
 	CClientPrediction( const CClientPrediction& ) = delete;
 	CClientPrediction& operator=( const CClientPrediction& ) = delete;

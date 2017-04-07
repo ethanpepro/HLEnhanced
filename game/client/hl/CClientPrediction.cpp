@@ -79,8 +79,6 @@ void CClientPrediction::NewMapStarted()
 	}
 	else
 		Alert( at_error, "CClientPrediction::MapInit: Couldn't find player class!\n" );
-
-	m_iLastId = WEAPON_NONE;
 }
 
 void CClientPrediction::MapInit()
@@ -144,37 +142,6 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 
 	// Get current clock
 	gpGlobals->time = time;
-
-	//Changed weapons on the server side. - Solokiller
-	if( from->client.m_iId != m_iLastId )
-	{
-		int newWeaponId = m_iLastId = from->client.m_iId;
-
-		// Now see if we're not dead
-		if( m_pPlayer->pev->deadflag != ( DEAD_DISCARDBODY + 1 ) )
-		{
-			// Switched to a different weapon?
-			if( from->weapondata[ newWeaponId ].m_iId == newWeaponId )
-			{
-				// Put away old weapon
-				if( m_pPlayer->m_pActiveItem )
-					m_pPlayer->m_pActiveItem->Holster();
-
-				m_pPlayer->m_pLastItem = m_pPlayer->m_pActiveItem;
-
-				m_pPlayer->m_pActiveItem = m_pWeapons[ newWeaponId ];
-
-				// Deploy new weapon
-				if( m_pPlayer->m_pActiveItem )
-				{
-					m_pPlayer->m_pActiveItem->Deploy();
-				}
-
-				// Update weapon id so we can predict things correctly.
-				to->client.m_iId = newWeaponId;
-			}
-		}
-	}
 
 	// Fill in data based on selected weapon
 	// FIXME, make this a method in each weapon?  where you pass in an entity_state_t *?
