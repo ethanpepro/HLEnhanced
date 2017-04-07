@@ -764,7 +764,12 @@ void CBasePlayer::UpdateStatusBar()
 		{
 			CBaseEntity *pEntity = CBaseEntity::Instance( tr.pHit );
 
-			if (pEntity->Classify() == EntityClassifications().GetClassificationId( classify::PLAYER ) )
+			//Use my own classification instead of classify::PLAYER, this accounts for class changes. - Solokiller
+			const auto myClassId = Classify();
+
+			//Only do this when my class is not NONE. Otherwise every bit of scenery shows status info.
+			//Unfortunately this will cause issues when resetting classes, so adding the PLAYER class back is a requirement to fix this. - Solokiller
+			if( myClassId != EntityClassifications().GetNoneId() && pEntity->Classify() == myClassId )
 			{
 				newSBarState[ SBAR_ID_TARGETNAME ] = pEntity->entindex();
 				strcpy( sbuf1, "1 %p1\n2 Health: %i2%%\n3 Armor: %i3%%" );
