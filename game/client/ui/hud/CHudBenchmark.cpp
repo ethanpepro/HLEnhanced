@@ -87,7 +87,7 @@ static float g_benchSwitchTimes[ LAST_STAGE + 1 ] = { 0.0, 10.0, 12.0, 10.0, 5.0
 
 #define SCORE_TIME_UP 1.5
 
-CHudBenchmark::CHudBenchmark( const char* const pszName, CHud& hud )
+CHudBenchmark::CHudBenchmark( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -485,7 +485,7 @@ bool CHudBenchmark::Draw( float flTime )
 
 	V_sprintf_safe( sz, "%s: %s", g_title , pp_strings[ Bench_GetPowerPlay() ? 0 : 1]);
 
-	Hud().DrawHudString( x, y, 320, sz, 251, 237, 7);// , 200, 200); //255, 255, 255 );
+	GetHud().DrawHudString( x, y, 320, sz, 251, 237, 7);// , 200, 200); //255, 255, 255 );
 
 	y += 20;
 	
@@ -506,7 +506,7 @@ bool CHudBenchmark::Draw( float flTime )
 		{
 			strcpy( sz, g_stage1[0] );
 		}
-		Hud().DrawHudString( x, y, 320, sz, 255, 255, 255 );
+		GetHud().DrawHudString( x, y, 320, sz, 255, 255, 255 );
 
 		y += 20;
 
@@ -531,7 +531,7 @@ bool CHudBenchmark::Draw( float flTime )
 		{
 			strcpy( sz, g_stage2[0] );
 		}
-		Hud().DrawHudString( x, y, 320, sz, 255, 255, 255 );
+		GetHud().DrawHudString( x, y, 320, sz, 255, 255, 255 );
 		y += 20;
 	}
 
@@ -547,7 +547,7 @@ bool CHudBenchmark::Draw( float flTime )
 			strcpy( sz, g_stage3[0] );
 		}
 
-		Hud().DrawHudString( x, y, 320, sz, 255, 255, 255 );
+		GetHud().DrawHudString( x, y, 320, sz, 255, 255, 255 );
 
 		y += 20;
 	}
@@ -555,7 +555,7 @@ bool CHudBenchmark::Draw( float flTime )
 	if ( Bench_InStage( FOURTH_STAGE ) )
 	{
 		V_sprintf_safe( sz, g_stage4, m_nCompositeScore );
-		Hud().DrawHudString( x, y, 320, sz, 31, 200, 200 );
+		GetHud().DrawHudString( x, y, 320, sz, 31, 200, 200 );
 	}
 
 	m_fDrawTime = Hud().GetTime() + BENCH_TIME;

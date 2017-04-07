@@ -30,7 +30,7 @@
 
 #include "CHudGeiger.h"
 
-CHudGeiger::CHudGeiger( const char* const pszName, CHud& hud )
+CHudGeiger::CHudGeiger( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }

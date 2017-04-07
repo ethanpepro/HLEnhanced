@@ -22,7 +22,7 @@
 
 class CBasePlayerWeapon;
 
-class CHudAmmo : public CBaseHudElement<CHud>
+class CHudAmmo : public CBaseHudElement<CHLHud>
 {
 private:
 	/**
@@ -46,9 +46,9 @@ private:
 		CROSS_USERSCALE = 2,
 	};
 public:
-	DECLARE_CLASS( CHudAmmo, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudAmmo, CBaseHudElement<CHLHud> );
 
-	CHudAmmo( const char* const pszName, CHud& hud );
+	CHudAmmo( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void VidInit() override;

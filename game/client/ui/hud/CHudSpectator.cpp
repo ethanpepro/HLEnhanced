@@ -174,7 +174,7 @@ void ToggleScores( void )
 	}
 }
 
-CHudSpectator::CHudSpectator( const char* const pszName, CHud& hud )
+CHudSpectator::CHudSpectator( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -1111,8 +1111,8 @@ void CHudSpectator::DirectorMessage( int iSize, void *pbuf )
 							g_iTeamNumber = 0;
 
 							// fake a InitHUD & ResetHUD message
-							Hud().InitHud();
-							Hud().ResetHud();
+							GetHud().InitHud();
+							GetHud().ResetHud();
 														
 							break;
 

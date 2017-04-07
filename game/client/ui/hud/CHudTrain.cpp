@@ -26,7 +26,7 @@
 
 #include "CHudTrain.h"
 
-CHudTrain::CHudTrain( const char* const pszName, CHud& hud )
+CHudTrain::CHudTrain( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -57,7 +57,7 @@ bool CHudTrain::Draw(float fTime)
 		SPR_Set(m_hSprite, r, g, b );
 
 		// This should show up to the right and part way up the armor number
-		y = ScreenHeight - SPR_Height(m_hSprite,0) - Hud().GetFontHeight();
+		y = ScreenHeight - SPR_Height(m_hSprite,0) - GetHud().GetFontHeight();
 		x = ScreenWidth/3 + SPR_Width(m_hSprite,0)/4;
 
 		SPR_DrawAdditive( m_iPos - 1,  x, y, NULL);

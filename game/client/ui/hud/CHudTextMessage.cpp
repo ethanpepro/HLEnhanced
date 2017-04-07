@@ -33,7 +33,7 @@
 #include "CHudSayText.h"
 #include "CHudTextMessage.h"
 
-CHudTextMessage::CHudTextMessage( const char* const pszName, CHud& hud )
+CHudTextMessage::CHudTextMessage( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }

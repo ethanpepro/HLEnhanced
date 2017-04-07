@@ -35,12 +35,12 @@ struct message_parms_t
 	float fadeTime;
 };
 
-class CHudMessage : public CBaseHudElement<CHud>
+class CHudMessage : public CBaseHudElement<CHLHud>
 {
 public:
-	DECLARE_CLASS( CHudMessage, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudMessage, CBaseHudElement<CHLHud> );
 
-	CHudMessage( const char* const pszName, CHud& hud );
+	CHudMessage( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void VidInit() override;

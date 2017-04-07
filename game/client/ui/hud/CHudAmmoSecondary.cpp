@@ -26,7 +26,7 @@
 
 #include "CHudAmmoSecondary.h"
 
-CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName, CHud& hud )
+CHudAmmoSecondary::CHudAmmoSecondary( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -55,7 +55,7 @@ void CHudAmmoSecondary::VidInit()
 
 bool CHudAmmoSecondary::Draw(float flTime)
 {
-	if ( Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( GetHud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return true;
 
 	// draw secondary ammo icons above normal ammo readout
@@ -66,24 +66,24 @@ bool CHudAmmoSecondary::Draw(float flTime)
 		m_fFade -= ( Hud().GetTimeDelta() * 20);  // slowly lower alpha to fade out icons
 	ScaleColors( r, g, b, a );
 
-	AmmoWidth = Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).right - Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).left;
+	AmmoWidth = GetHud().GetSpriteRect( GetHud().GetHudNumber0Index() ).right - GetHud().GetSpriteRect( GetHud().GetHudNumber0Index() ).left;
 
-	y = ScreenHeight - ( Hud().GetFontHeight() *4);  // this is one font height higher than the weapon ammo values
+	y = ScreenHeight - ( GetHud().GetFontHeight() *4);  // this is one font height higher than the weapon ammo values
 	x = ScreenWidth - AmmoWidth;
 
 	if ( m_HUD_ammoicon )
 	{
 		// Draw the ammo icon
-		x -= ( Hud().GetSpriteRect(m_HUD_ammoicon).right - Hud().GetSpriteRect(m_HUD_ammoicon).left);
-		y -= ( Hud().GetSpriteRect(m_HUD_ammoicon).top - Hud().GetSpriteRect(m_HUD_ammoicon).bottom);
+		x -= ( GetHud().GetSpriteRect(m_HUD_ammoicon).right - GetHud().GetSpriteRect(m_HUD_ammoicon).left);
+		y -= ( GetHud().GetSpriteRect(m_HUD_ammoicon).top - GetHud().GetSpriteRect(m_HUD_ammoicon).bottom);
 
-		SPR_Set( Hud().GetSprite(m_HUD_ammoicon), r, g, b );
-		SPR_DrawAdditive( 0, x, y, &Hud().GetSpriteRect(m_HUD_ammoicon) );
+		SPR_Set( GetHud().GetSprite(m_HUD_ammoicon), r, g, b );
+		SPR_DrawAdditive( 0, x, y, &GetHud().GetSpriteRect(m_HUD_ammoicon) );
 	}
 	else
 	{  // move the cursor by the '0' char instead, since we don't have an icon to work with
 		x -= AmmoWidth;
-		y -= ( Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).top - Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).bottom);
+		y -= ( GetHud().GetSpriteRect( GetHud().GetHudNumber0Index() ).top - GetHud().GetSpriteRect( GetHud().GetHudNumber0Index() ).bottom);
 	}
 
 	// draw the ammo counts, in reverse order, from right to left
@@ -96,14 +96,14 @@ bool CHudAmmoSecondary::Draw(float flTime)
 		x -= (AmmoWidth / 2);
 
 		// draw the number, right-aligned
-		x -= ( Hud().GetNumWidth( m_iAmmoAmounts[i], DHN_DRAWZERO ) * AmmoWidth);
-		Hud().DrawHudNumber( x, y, DHN_DRAWZERO, m_iAmmoAmounts[i], r, g, b );
+		x -= ( GetHud().GetNumWidth( m_iAmmoAmounts[i], DHN_DRAWZERO ) * AmmoWidth);
+		GetHud().DrawHudNumber( x, y, DHN_DRAWZERO, m_iAmmoAmounts[i], r, g, b );
 
 		if ( i != 0 )
 		{
 			// draw the divider bar
 			x -= (AmmoWidth / 2);
-			FillRGBA(x, y, (AmmoWidth/10), Hud().GetFontHeight(), r, g, b, a);
+			FillRGBA(x, y, (AmmoWidth/10), GetHud().GetFontHeight(), r, g, b, a);
 		}
 	}
 
@@ -116,7 +116,7 @@ bool CHudAmmoSecondary::Draw(float flTime)
 void CHudAmmoSecondary::MsgFunc_SecAmmoIcon( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
-	m_HUD_ammoicon = Hud().GetSpriteIndex( reader.ReadString() );
+	m_HUD_ammoicon = GetHud().GetSpriteIndex( reader.ReadString() );
 }
 
 // Message handler for Secondary Ammo Icon

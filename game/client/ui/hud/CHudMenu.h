@@ -18,15 +18,15 @@
 #include "shared/hud/CHudElement.h"
 #include "hud.h"
 
-class CHudMenu : public CBaseHudElement<CHud>
+class CHudMenu : public CBaseHudElement<CHLHud>
 {
 private:
 	static const size_t MAX_MENU_STRING = 512;
 
 public:
-	DECLARE_CLASS( CHudMenu, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudMenu, CBaseHudElement<CHLHud> );
 
-	CHudMenu( const char* const pszName, CHud& hud );
+	CHudMenu( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void InitHUDData() override;

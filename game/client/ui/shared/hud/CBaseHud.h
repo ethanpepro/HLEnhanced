@@ -12,6 +12,8 @@
 
 #include "MessageHandler.h"
 
+#include "CHud.h"
+
 /**
 *	Helper macro to easily create Hud elements.
 *	Should be used in CreateHudElements() only.
@@ -98,9 +100,6 @@ protected:
 	void DrawHudElements( float flTime, HudElementEvaluatorFn evaluatorFn, void* pUserData = nullptr );
 
 public:
-	bool UpdateClientData( client_data_t* cdata );
-
-protected:
 	/**
 	*	Called before the Hud runs think.
 	*/
@@ -117,10 +116,9 @@ protected:
 	virtual void Think();
 
 public:
-	/**
-	*	Updates the FOV. Can be overridden for custom handling.
-	*	@param iNewFOV New Field Of Fiew
-	*	@param bForce Whether to force the FOV to this setting
+	/*
+	*	Called when the FOV is updated, lets Huds respond to the change.
+	*	Called by CHud, do not call directly.
 	*/
 	virtual void UpdateFOV( int iNewFOV, bool bForce );
 
@@ -142,56 +140,7 @@ public:
 
 	CMessageHandlers& GetMessageHandlers() { return m_MessageHandlers; }
 
-	float GetTime() const { return m_flTime; }
-
-	float GetOldTime() const { return m_flOldTime; }
-
-	double GetTimeDelta() const { return m_flTimeDelta; }
-
-	const SCREENINFO& ScreenInfo() const { return m_scrinfo; }
-
-	int GetFOV() const { return m_iFOV; }
-
-	void SetFOV( int iFOV )
-	{
-		m_iFOV = iFOV;
-	}
-
-	float GetSensitivity() const
-	{
-		return m_flMouseSensitivity;
-	}
-
-	void SetSensitivity( float flMouseSensitivity )
-	{
-		m_flMouseSensitivity = flMouseSensitivity;
-	}
-
-	int GetResolution() const { return m_iResolution; }
-
 	int GetFontHeight() const { return m_iFontHeight; }
-
-	bool IsInIntermission() const { return m_bIntermission; }
-
-	const Vector& GetOrigin() const { return m_vecOrigin; }
-
-	const Vector& GetAngles() const { return m_vecAngles; }
-
-	int GetKeyBits() const { return m_iKeyBits; }
-
-	void ClearKeyBits( int bits )
-	{
-		m_iKeyBits &= ~bits;
-	}
-
-	int GetWeaponBits() const { return m_iWeaponBits; }
-
-	bool IsTeamplay() const { return m_bIsTeamplay; }
-
-	void SetIsTeamplay( bool bIsTeamplay )
-	{
-		m_bIsTeamplay = bIsTeamplay;
-	}
 
 	const CBitSet<int>& GetHideHudBits() const { return m_HideHUDDisplay; }
 
@@ -210,38 +159,11 @@ public:
 
 	int GetHudNumber0Index() const { return m_HUD_number_0; }
 
-	cvar_t* GetDefaultFOVCVar() { return default_fov; }
-
 private:
 	CHudList m_HudList;
 	CMessageHandlers m_MessageHandlers;
 
-	float m_flTime			=	1.f;	// the current client time
-	float m_flOldTime		=	0;		// the time at which the HUD was last redrawn
-	double m_flTimeDelta	=	0;		// the difference between flTime and fOldTime
-
-	float m_flSnapshotTime = 0;			//! If non-zero, the time at which to take a snapshot.
-
-	SCREENINFO m_scrinfo;				// Screen information
-
-	int	m_iFOV = 0;
-	float m_flMouseSensitivity = 0;
-
-	int m_iResolution = 0;
-
 	int m_iFontHeight = 0;
-
-	//Game state
-	bool			m_bIntermission = false;
-
-	//TODO: these should probably be taken from the local CBasePlayer - Solokiller
-	Vector			m_vecOrigin;
-	Vector			m_vecAngles;
-
-	int				m_iKeyBits = 0;
-	int				m_iWeaponBits = 0;
-
-	bool			m_bIsTeamplay = false;
 
 	//Hud element state.
 	CBitSet<int>	m_HideHUDDisplay;
@@ -259,25 +181,9 @@ private:
 	// sprite indexes
 	int					m_HUD_number_0;
 
-	//CVars
-	cvar_t* default_fov = nullptr;
-	cvar_t* hud_takesshots = nullptr;
-
 private:
 	CBaseHud( const CBaseHud& ) = delete;
 	CBaseHud& operator=( const CBaseHud& ) = delete;
 };
-
-/**
-*	@return The current Hud. If no Hud was set, this will cause a crash.
-*/
-CBaseHud& Hud();
-
-/**
-*	Sets the current Hud.
-*	@param pHud Hud to set. Can be null
-*	@param bDeleteOldHud If true, the old Hud is deleted
-*/
-void SetHud( CBaseHud* pHud, bool bDeleteOldHud = true );
 
 #endif //GAME_CLIENT_UI_SHARED_HUD_CBASEHUD_H

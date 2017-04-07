@@ -284,26 +284,26 @@ TeamFortressViewport::TeamFortressViewport(int x,int y,int wide,int tall) : Pane
 	UpdatePlayerMenu(m_PlayerMenu);
 
 	//TODO: this viewport might be tied to a specific Hud instance, so make sure it gets bound to the right message handlers. - Solokiller
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, ValClass );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, TeamNames );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, Feign );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, Detpack );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, MOTD );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, BuildSt );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, RandomPC );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, ServerName );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, ScoreInfo );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, TeamScore );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, TeamInfo );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, ValClass );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, TeamNames );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, Feign );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, Detpack );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, MOTD );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, BuildSt );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, RandomPC );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, ServerName );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, ScoreInfo );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, TeamScore );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, TeamInfo );
 
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, Spectator );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, AllowSpec );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, Spectator );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, AllowSpec );
 
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, SpecFade );
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, ResetFade );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, SpecFade );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, ResetFade );
 
 	// VGUI Menus
-	HOOK_OBJECT_MESSAGE( Hud(), *gViewPort, VGUIMenu );
+	HOOK_OBJECT_MESSAGE( Hud().GetHud(), *gViewPort, VGUIMenu );
 }
 
 //-----------------------------------------------------------------------------

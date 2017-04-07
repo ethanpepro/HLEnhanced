@@ -48,12 +48,12 @@ struct DAMAGE_IMAGE
 //
 //-----------------------------------------------------
 //
-class CHudHealth: public CBaseHudElement<CHud>
+class CHudHealth: public CBaseHudElement<CHLHud>
 {
 public:
-	DECLARE_CLASS( CHudHealth, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudHealth, CBaseHudElement<CHLHud> );
 
-	CHudHealth( const char* const pszName, CHud& hud );
+	CHudHealth( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void VidInit() override;

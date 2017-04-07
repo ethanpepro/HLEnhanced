@@ -36,7 +36,7 @@
 #define STATUSBAR_ID_LINE		1
 #endif
 
-CHudStatusBar::CHudStatusBar( const char* const pszName, CHud& hud )
+CHudStatusBar::CHudStatusBar( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }

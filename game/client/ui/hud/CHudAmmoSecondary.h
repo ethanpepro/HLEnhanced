@@ -18,12 +18,12 @@
 #include "shared/hud/CHudElement.h"
 #include "hud.h"
 
-class CHudAmmoSecondary : public CBaseHudElement<CHud>
+class CHudAmmoSecondary : public CBaseHudElement<CHLHud>
 {
 public:
-	DECLARE_CLASS( CHudAmmoSecondary, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudAmmoSecondary, CBaseHudElement<CHLHud> );
 
-	CHudAmmoSecondary( const char* const pszName, CHud& hud );
+	CHudAmmoSecondary( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void VidInit() override;

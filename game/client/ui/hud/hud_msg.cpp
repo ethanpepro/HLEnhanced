@@ -36,7 +36,7 @@ void ClearEventList( void );
 
 /// USER-DEFINED SERVER MESSAGE HANDLERS
 
-void CHud::MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf )
+void CHLHud::MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf )
 {
 	//This used to be 0, but the server sends a byte over, so it's changed now. - Solokiller
 	ASSERT( iSize == 1 );
@@ -46,12 +46,12 @@ void CHud::MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf )
 
 void CAM_ToFirstPerson(void);
 
-void CHud :: MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf )
+void CHLHud :: MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf )
 {
 	CAM_ToFirstPerson();
 }
 
-void CHud::InitHud()
+void CHLHud::InitHud()
 {
 	BaseClass::InitHud();
 
@@ -68,19 +68,19 @@ void CHud::InitHud()
 #endif
 }
 
-void CHud::MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
+void CHLHud::MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 {
 	InitHud();
 }
 
-void CHud::MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
+void CHLHud::MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
-	SetIsTeamplay( reader.ReadByte() != 0 );
+	Hud().SetIsTeamplay( reader.ReadByte() != 0 );
 }
 
 
-void CHud::MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
+void CHLHud::MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
 {
 	int		armor, blood;
 	Vector	from;
@@ -102,7 +102,7 @@ void CHud::MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
 	// TODO: kick viewangles,  show damage visually
 }
 
-void CHud::MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
+void CHLHud::MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	m_iConcussionEffect = reader.ReadByte();
@@ -118,14 +118,14 @@ void CHud::MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf )
 		pStatusIcons->DisableIcon("dmg_concuss");
 }
 
-void CHud::MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf )
+void CHLHud::MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf )
 {
 	CBufferReader reader( pBuf, iSize );
 
 	g_Environment.SetWeatherType( static_cast<WeatherType::WeatherType>( reader.ReadByte() ) );
 }
 
-void CHud::MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf )
+void CHLHud::MsgFunc_HudColors( const char* pszName, int iSize, void* pBuf )
 {
 	CBufferReader reader( pBuf, iSize );
 

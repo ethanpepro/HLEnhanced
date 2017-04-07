@@ -27,7 +27,7 @@
 
 #include "CHudStatusIcons.h"
 
-CHudStatusIcons::CHudStatusIcons( const char* const pszName, CHud& hud )
+CHudStatusIcons::CHudStatusIcons( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -129,9 +129,9 @@ void CHudStatusIcons::EnableIcon( const char* const pszIconName, unsigned char r
 
 	// Load the sprite and add it to the list
 	// the sprite must be listed in hud.txt
-	int spr_index = Hud().GetSpriteIndex( pszIconName );
-	m_IconList[i].spr = Hud().GetSprite( spr_index );
-	m_IconList[i].rc = Hud().GetSpriteRect( spr_index );
+	int spr_index = GetHud().GetSpriteIndex( pszIconName );
+	m_IconList[i].spr = GetHud().GetSprite( spr_index );
+	m_IconList[i].rc = GetHud().GetSpriteRect( spr_index );
 	m_IconList[i].r = red;
 	m_IconList[i].g = green;
 	m_IconList[i].b = blue;

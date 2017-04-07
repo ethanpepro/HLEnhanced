@@ -15,7 +15,7 @@
 //
 // hud.cpp
 //
-// implementation of CHud class
+// implementation of CHLHud class
 //
 
 #include "hud.h"
@@ -79,7 +79,7 @@ public:
 
 	virtual int	GetAckIconHeight()
 	{
-		return ScreenHeight - Hud().GetFontHeight() *3 - 6;
+		return ScreenHeight - Hud().GetHud().GetFontHeight() *3 - 6;
 	}
 
 	virtual bool			CanShowSpeakerLabels()
@@ -129,17 +129,8 @@ void __CmdFunc_ForceCloseCommandMenu( void )
 	}
 }
 
-CHud::CHud()
-{
-}
-
-// CHud destructor
-CHud::~CHud()
-{
-}
-
 // This is called every time the DLL is loaded
-void CHud::PreInit()
+void CHLHud::PreInit()
 {
 	BaseClass::PreInit();
 
@@ -148,7 +139,6 @@ void CHud::PreInit()
 	HOOK_HUD_MESSAGE( GameMode );
 	HOOK_HUD_MESSAGE( InitHUD );
 	HOOK_HUD_MESSAGE( ViewMode );
-	HOOK_HUD_MESSAGE( SetFOV );
 	HOOK_HUD_MESSAGE( Concuss );
 	HOOK_HUD_MESSAGE( ReceiveW );
 	HOOK_HUD_MESSAGE( HudColors );
@@ -166,14 +156,14 @@ void CHud::PreInit()
 	cl_weather = CVAR_CREATE( "cl_weather", "1", FCVAR_ARCHIVE );
 }
 
-void CHud::PostInit()
+void CHLHud::PostInit()
 {
 	BaseClass::PostInit();
 
 	GetClientVoiceMgr()->Init( &g_VoiceStatusHelper, ( vgui::Panel** )&gViewPort );
 }
 
-void CHud::CreateHudElements()
+void CHLHud::CreateHudElements()
 {
 	BaseClass::CreateHudElements();
 
@@ -194,7 +184,7 @@ void CHud::CreateHudElements()
 	HudList().AddElement( CREATE_HUDELEMENT( CHudMenu ) );
 }
 
-void CHud::ResetHud()
+void CHLHud::ResetHud()
 {
 	BaseClass::ResetHud();
 
@@ -202,7 +192,7 @@ void CHud::ResetHud()
 	m_iConcussionEffect = 0;
 }
 
-void CHud::VidInit()
+void CHLHud::VidInit()
 {
 	BaseClass::VidInit();
 
@@ -214,7 +204,7 @@ void CHud::VidInit()
 	GetClientVoiceMgr()->VidInit();
 }
 
-void CHud::LoadSprites()
+void CHLHud::LoadSprites()
 {
 	BaseClass::LoadSprites();
 
@@ -227,7 +217,7 @@ void CHud::LoadSprites()
 	m_hsprCursor = INVALID_HSPRITE;
 }
 
-void CHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)
+void CHLHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)
 {
 	CBufferReader reader( pbuf, iSize );
 
@@ -262,19 +252,4 @@ float HUD_GetFOV( void )
 		g_lastFOV = g_demozoom;
 	}
 	return g_lastFOV;
-}
-
-void CHud::MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf)
-{
-	CBufferReader reader( pbuf, iSize );
-
-	const int newfov = reader.ReadByte();
-
-	//Weapon prediction already takes care of changing the fog. ( g_lastFOV ).
-	if ( cl_lw && cl_lw->value )
-		return;
-
-	g_lastFOV = newfov;
-
-	UpdateFOV( newfov, false );
 }

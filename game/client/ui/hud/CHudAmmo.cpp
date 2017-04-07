@@ -69,7 +69,7 @@ DECLARE_COMMAND(CHudAmmo, PrevWeapon);
 #define AMMO_SMALL_WIDTH 10
 #define AMMO_LARGE_WIDTH 20
 
-CHudAmmo::CHudAmmo( const char* const pszName, CHud& hud )
+CHudAmmo::CHudAmmo( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -121,7 +121,7 @@ void CHudAmmo::Reset()
 	GetFlags() |= HUD_ACTIVE; //!!!
 
 	m_pActiveSel = nullptr;
-	Hud().GetHideHudBits() = 0;
+	GetHud().GetHideHudBits() = 0;
 
 	if( CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer() )
 	{
@@ -136,15 +136,15 @@ void CHudAmmo::Reset()
 void CHudAmmo::VidInit()
 {
 	// Load sprites for buckets (top row of weapon menu)
-	m_HUD_bucket0 = Hud().GetSpriteIndex( "bucket1" );
-	m_HUD_selection = Hud().GetSpriteIndex( "selection" );
+	m_HUD_bucket0 = GetHud().GetSpriteIndex( "bucket1" );
+	m_HUD_selection = GetHud().GetSpriteIndex( "selection" );
 
 	//TODO: get the sprite once instead of fetching it over and over - Solokiller
-	m_hsprBuckets = Hud().GetSprite(m_HUD_bucket0);
-	m_iBucketWidth = Hud().GetSpriteRect(m_HUD_bucket0).right - Hud().GetSpriteRect(m_HUD_bucket0).left;
-	m_iBucketHeight = Hud().GetSpriteRect(m_HUD_bucket0).bottom - Hud().GetSpriteRect(m_HUD_bucket0).top;
+	m_hsprBuckets = GetHud().GetSprite(m_HUD_bucket0);
+	m_iBucketWidth = GetHud().GetSpriteRect(m_HUD_bucket0).right - GetHud().GetSpriteRect(m_HUD_bucket0).left;
+	m_iBucketHeight = GetHud().GetSpriteRect(m_HUD_bucket0).bottom - GetHud().GetSpriteRect(m_HUD_bucket0).top;
 
-	gHR.iHistoryGap = max( gHR.iHistoryGap, Hud().GetSpriteRect(m_HUD_bucket0).bottom - Hud().GetSpriteRect(m_HUD_bucket0).top);
+	gHR.iHistoryGap = max( gHR.iHistoryGap, GetHud().GetSpriteRect(m_HUD_bucket0).bottom - GetHud().GetSpriteRect(m_HUD_bucket0).top);
 
 	if (ScreenWidth >= 640)
 	{
@@ -234,7 +234,7 @@ void CHudAmmo::SelectSlot( int iSlot, const bool fAdvance, int iDirection )
 	if ( iSlot > MAX_WEAPON_SLOTS )
 		return;
 
-	if ( m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( m_bPlayerDead || GetHud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
@@ -340,12 +340,12 @@ void CHudAmmo::MsgFunc_HideWeapon( const char *pszName, int iSize, void *pbuf )
 {
 	CBufferReader reader( pbuf, iSize );
 	
-	Hud().GetHideHudBits() = reader.ReadByte();
+	GetHud().GetHideHudBits() = reader.ReadByte();
 
 	if (gEngfuncs.IsSpectateOnly())
 		return;
 
-	if ( Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( GetHud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 	{
 		wrect_t nullrc = {};
 		m_pActiveSel = nullptr;
@@ -530,7 +530,7 @@ void CHudAmmo::UserCmd_Close(void)
 // Selects the next item in the weapon menu
 void CHudAmmo::UserCmd_NextWeapon(void)
 {
-	if ( m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( m_bPlayerDead || GetHud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
@@ -584,7 +584,7 @@ void CHudAmmo::UserCmd_NextWeapon(void)
 // Selects the previous item in the menu
 void CHudAmmo::UserCmd_PrevWeapon(void)
 {
-	if ( m_bPlayerDead || Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( m_bPlayerDead || GetHud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return;
 
 	if ( !m_pActiveSel || m_pActiveSel == ( CBasePlayerWeapon*)1 )
@@ -667,7 +667,7 @@ bool CHudAmmo::Draw(float flTime)
 	if (!( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)) ))
 		return true;
 
-	if ( Hud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
+	if ( GetHud().GetHideHudBits().Any( HIDEHUD_WEAPONS | HIDEHUD_ALL ) )
 		return true;
 
 	// Draw Weapon Menu
@@ -725,19 +725,19 @@ bool CHudAmmo::Draw(float flTime)
 
 	int iFlags = DHN_DRAWZERO; // draw 0 values
 
-	AmmoWidth = Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).right - Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).left;
+	AmmoWidth = GetHud().GetSpriteRect( GetHud().GetHudNumber0Index() ).right - GetHud().GetSpriteRect( GetHud().GetHudNumber0Index() ).left;
 
 	a = (int) max( static_cast<float>( MIN_ALPHA ), m_fFade );
 
 	if (m_fFade > 0)
-		m_fFade -= (Hud().GetTimeDelta() * 20);
+		m_fFade -= ( Hud().GetTimeDelta() * 20 );
 
 	GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 
 	ScaleColors(r, g, b, a );
 
 	// Does this weapon have a clip?
-	y = ScreenHeight - Hud().GetFontHeight() - Hud().GetFontHeight() /2;
+	y = ScreenHeight - GetHud().GetFontHeight() - GetHud().GetFontHeight() /2;
 
 	CBasePlayer* pPlayer = g_Prediction.GetLocalPlayer();
 
@@ -753,7 +753,7 @@ bool CHudAmmo::Draw(float flTime)
 			// room for the number and the '|' and the current ammo
 			
 			x = ScreenWidth - (8 * AmmoWidth) - iIconWidth;
-			x = Hud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pw->m_iClientClip, r, g, b);
+			x = GetHud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pw->m_iClientClip, r, g, b);
 
 			wrect_t rc;
 			rc.top = 0;
@@ -768,13 +768,13 @@ bool CHudAmmo::Draw(float flTime)
 			GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 
 			// draw the | bar
-			FillRGBA(x, y, iBarWidth, Hud().GetFontHeight(), r, g, b, a);
+			FillRGBA(x, y, iBarWidth, GetHud().GetFontHeight(), r, g, b, a);
 
 			x += iBarWidth + AmmoWidth/2;
 
 			// GL Seems to need this
 			ScaleColors(r, g, b, a );
-			x = Hud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = GetHud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 
 
 		}
@@ -782,7 +782,7 @@ bool CHudAmmo::Draw(float flTime)
 		{
 			// SPR_Draw a bullets only line
 			x = ScreenWidth - 4 * AmmoWidth - iIconWidth;
-			x = Hud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = GetHud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 		}
 
 		// Draw the ammo Icon
@@ -801,9 +801,9 @@ bool CHudAmmo::Draw(float flTime)
 		// Do we have secondary ammo?
 		if ( pPlayer->CountAmmo( pAmmo->GetID() ) > 0 )
 		{
-			y -= Hud().GetFontHeight() + Hud().GetFontHeight() /4;
+			y -= GetHud().GetFontHeight() + GetHud().GetFontHeight() /4;
 			x = ScreenWidth - 4 * AmmoWidth - iIconWidth;
-			x = Hud().DrawHudNumber(x, y, iFlags|DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
+			x = GetHud().DrawHudNumber(x, y, iFlags|DHN_3DIGITS, pPlayer->CountAmmo( pAmmo->GetID() ), r, g, b);
 
 			// Draw the ammo Icon
 			SPR_Set( ammo2.hSprite, r, g, b);
@@ -935,7 +935,7 @@ int CHudAmmo::DrawWList(float flTime)
 			a = 192;
 
 		ScaleColors(r, g, b, 255);
-		SPR_Set( Hud().GetSprite(m_HUD_bucket0 + i), r, g, b );
+		SPR_Set( GetHud().GetSprite(m_HUD_bucket0 + i), r, g, b );
 
 		// make active slot wide enough to accomodate gun pictures
 		if ( i == iActiveSlot )
@@ -949,7 +949,7 @@ int CHudAmmo::DrawWList(float flTime)
 		else
 			iWidth = m_iBucketWidth;
 
-		SPR_DrawAdditive(0, x, y, &Hud().GetSpriteRect(m_HUD_bucket0 + i));
+		SPR_DrawAdditive(0, x, y, &GetHud().GetSpriteRect(m_HUD_bucket0 + i));
 		
 		x += iWidth + 5;
 	}
@@ -988,8 +988,8 @@ int CHudAmmo::DrawWList(float flTime)
 					SPR_Set( pHUDInfo->GetActive().hSprite, r, g, b );
 					SPR_DrawAdditive(0, x, y, &pHUDInfo->GetActive().rect );
 
-					SPR_Set( Hud().GetSprite(m_HUD_selection), r, g, b );
-					SPR_DrawAdditive(0, x, y, &Hud().GetSpriteRect(m_HUD_selection));
+					SPR_Set( GetHud().GetSprite(m_HUD_selection), r, g, b );
+					SPR_DrawAdditive(0, x, y, &GetHud().GetSpriteRect(m_HUD_selection));
 				}
 				else
 				{

@@ -32,7 +32,7 @@
 
 int KB_ConvertString( char *in, char **ppout );
 
-CHudMenu::CHudMenu( const char* const pszName, CHud& hud )
+CHudMenu::CHudMenu( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -193,11 +193,11 @@ bool CHudMenu::Draw( float flTime )
 			if ( menu_ralign )
 			{		
 				// IMPORTANT: Right-to-left rendered text does not parse escape tokens!
-				menu_x = Hud().DrawHudStringReverse( menu_x, y, 0, menubuf, menu_r, menu_g, menu_b );
+				menu_x = GetHud().DrawHudStringReverse( menu_x, y, 0, menubuf, menu_r, menu_g, menu_b );
 			}
 			else
 			{
-				menu_x = Hud().DrawHudString( menu_x, y, 320, menubuf, menu_r, menu_g, menu_b );
+				menu_x = GetHud().DrawHudString( menu_x, y, 320, menubuf, menu_r, menu_g, menu_b );
 			}
 		}
 	}

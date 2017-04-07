@@ -51,7 +51,7 @@ const int giDmgFlags[NUM_DMG_TYPES] =
 	DMG_HALLUC
 };
 
-CHudHealth::CHudHealth( const char* const pszName, CHud& hud )
+CHudHealth::CHudHealth( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -89,11 +89,11 @@ void CHudHealth::VidInit()
 {
 	m_hSprite = 0;
 
-	m_HUD_dmg_bio = Hud().GetSpriteIndex( "dmg_bio" ) + 1;
-	m_HUD_cross = Hud().GetSpriteIndex( "cross" );
+	m_HUD_dmg_bio = GetHud().GetSpriteIndex( "dmg_bio" ) + 1;
+	m_HUD_cross = GetHud().GetSpriteIndex( "cross" );
 
-	m_iDmgHeight = Hud().GetSpriteRect(m_HUD_dmg_bio).right - Hud().GetSpriteRect(m_HUD_dmg_bio).left;
-	m_iDmgWidth = Hud().GetSpriteRect(m_HUD_dmg_bio).bottom - Hud().GetSpriteRect(m_HUD_dmg_bio).top;
+	m_iDmgHeight = GetHud().GetSpriteRect(m_HUD_dmg_bio).right - GetHud().GetSpriteRect(m_HUD_dmg_bio).left;
+	m_iDmgWidth = GetHud().GetSpriteRect(m_HUD_dmg_bio).bottom - GetHud().GetSpriteRect(m_HUD_dmg_bio).top;
 }
 
 void CHudHealth::MsgFunc_Health(const char *pszName,  int iSize, void *pbuf )
@@ -166,7 +166,7 @@ bool CHudHealth::Draw(float flTime)
 	int a = MIN_ALPHA, x, y;
 	int HealthWidth;
 
-	if ( Hud().GetHideHudBits().Any( HIDEHUD_HEALTH ) || gEngfuncs.IsSpectateOnly() )
+	if ( GetHud().GetHideHudBits().Any( HIDEHUD_HEALTH ) || gEngfuncs.IsSpectateOnly() )
 		return true;
 
 	if ( !m_hSprite )
@@ -198,22 +198,22 @@ bool CHudHealth::Draw(float flTime)
 	// Only draw health if we have the suit.
 	if ( Hud().GetWeaponBits() & (1<<(WEAPON_SUIT)))
 	{
-		HealthWidth = Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).right - Hud().GetSpriteRect( Hud().GetHudNumber0Index() ).left;
-		int CrossWidth = Hud().GetSpriteRect(m_HUD_cross).right - Hud().GetSpriteRect(m_HUD_cross).left;
+		HealthWidth = GetHud().GetSpriteRect( GetHud().GetHudNumber0Index() ).right - GetHud().GetSpriteRect( GetHud().GetHudNumber0Index() ).left;
+		int CrossWidth = GetHud().GetSpriteRect(m_HUD_cross).right - GetHud().GetSpriteRect(m_HUD_cross).left;
 
-		y = ScreenHeight - Hud().GetFontHeight() - Hud().GetFontHeight() / 2;
+		y = ScreenHeight - GetHud().GetFontHeight() - GetHud().GetFontHeight() / 2;
 		x = CrossWidth /2;
 
-		SPR_Set( Hud().GetSprite(m_HUD_cross), r, g, b);
-		SPR_DrawAdditive(0, x, y, &Hud().GetSpriteRect(m_HUD_cross));
+		SPR_Set( GetHud().GetSprite(m_HUD_cross), r, g, b);
+		SPR_DrawAdditive(0, x, y, &GetHud().GetSpriteRect(m_HUD_cross));
 
 		x = CrossWidth + HealthWidth / 2;
 
-		x = Hud().DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iHealth, r, g, b);
+		x = GetHud().DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iHealth, r, g, b);
 
 		x += HealthWidth/2;
 
-		int iHeight = Hud().GetFontHeight();
+		int iHeight = GetHud().GetFontHeight();
 		int iWidth = HealthWidth/10;
 
 		const auto& color = GetHud().GetPrimaryColor();
@@ -377,8 +377,8 @@ bool CHudHealth::DrawDamage(float flTime)
 		if (m_bitsDamage & giDmgFlags[i])
 		{
 			pdmg = &m_dmg[i];
-			SPR_Set( Hud().GetSprite(m_HUD_dmg_bio + i), r, g, b );
-			SPR_DrawAdditive(0, pdmg->x, pdmg->y, &Hud().GetSpriteRect(m_HUD_dmg_bio + i));
+			SPR_Set( GetHud().GetSprite(m_HUD_dmg_bio + i), r, g, b );
+			SPR_DrawAdditive(0, pdmg->x, pdmg->y, &GetHud().GetSpriteRect(m_HUD_dmg_bio + i));
 		}
 	}
 

@@ -15,9 +15,9 @@
 //			
 //  hud.h
 //
-// class CHud declaration
+// class CHLHud declaration
 //
-// CHud handles the message, calculation, and drawing the HUD
+// CHLHud handles the message, calculation, and drawing the HUD
 //
 #ifndef GAME_CLIENT_UI_HUD_HUD_H
 #define GAME_CLIENT_UI_HUD_HUD_H
@@ -33,14 +33,14 @@ struct cvar_t;
 
 #include "voice_status.h" // base voice handling clas
 
-class CHud : public CBaseHud
+class CHLHud : public CBaseHud
 {
 public:
-	DECLARE_CLASS( CHud, CBaseHud );
+	DECLARE_CLASS( CHLHud, CBaseHud );
 
 public:
-	CHud();
-	~CHud();			// destructor, frees allocated memory
+	CHLHud() = default;
+	~CHLHud() = default;			// destructor, frees allocated memory
 
 	void VidInit() override;
 	void InitHud() override;
@@ -106,7 +106,6 @@ public:
 	void MsgFunc_ResetHUD(const char *pszName,  int iSize, void *pbuf);
 	void MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf );
 	void MsgFunc_ViewMode( const char *pszName, int iSize, void *pbuf );
-	void MsgFunc_SetFOV(const char *pszName,  int iSize, void *pbuf);
 	void MsgFunc_Concuss( const char *pszName, int iSize, void *pbuf );
 	void MsgFunc_ReceiveW( const char* pszName, int iSize, void* pBuf );
 
@@ -125,7 +124,7 @@ private:
 	CHudColors	m_HudColors;
 };
 
-extern CHud gHUD;
+extern CHLHud gHUD;
 
 extern int g_iPlayerClass;
 extern int g_iTeamNumber;

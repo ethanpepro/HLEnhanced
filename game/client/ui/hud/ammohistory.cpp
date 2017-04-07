@@ -79,7 +79,7 @@ void HistoryResource::AddToHistory( int iType, const char *szName, int iCount )
 
 	// I am really unhappy with all the code in this file
 
-	int i = Hud().GetSpriteIndex( szName );
+	int i = Hud().GetHud().GetSpriteIndex( szName );
 	if ( i == -1 )
 		return;  // unknown sprite name, don't add it to history
 
@@ -139,7 +139,7 @@ int HistoryResource::DrawAmmoHistory( float flTime )
 				}
 
 				// Draw the number
-				Hud().DrawHudNumberString( xpos - 10, ypos, xpos - 100, rgAmmoHistory[i].iCount, r, g, b );
+				Hud().GetHud().DrawHudNumberString( xpos - 10, ypos, xpos - 100, rgAmmoHistory[i].iCount, r, g, b );
 			}
 			else if ( rgAmmoHistory[i].type == HISTSLOT_WEAP )
 			{
@@ -171,7 +171,7 @@ int HistoryResource::DrawAmmoHistory( float flTime )
 				if ( !rgAmmoHistory[i].iId )
 					continue;  // sprite not loaded
 
-				wrect_t rect = Hud().GetSpriteRect( rgAmmoHistory[i].iId );
+				wrect_t rect = Hud().GetHud().GetSpriteRect( rgAmmoHistory[i].iId );
 
 				gHUD.GetPrimaryColor().UnpackRGB(r,g,b);
 				float scale = (rgAmmoHistory[i].DisplayTime - flTime) * 80;
@@ -180,7 +180,7 @@ int HistoryResource::DrawAmmoHistory( float flTime )
 				int ypos = ScreenHeight - ( GetAmmoPickupPickHeight() + ( GetAmmoPickupGap() * i));
 				int xpos = ScreenWidth - (rect.right - rect.left) - 10;
 
-				SPR_Set( Hud().GetSprite( rgAmmoHistory[i].iId ), r, g, b );
+				SPR_Set( Hud().GetHud().GetSprite( rgAmmoHistory[i].iId ), r, g, b );
 				SPR_DrawAdditive( 0, xpos, ypos, &rect );
 			}
 		}

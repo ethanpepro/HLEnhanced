@@ -18,7 +18,7 @@
 #include "shared/hud/CHudElement.h"
 #include "hud.h"
 
-class CHudDeathNotice : public CBaseHudElement<CHud>
+class CHudDeathNotice : public CBaseHudElement<CHLHud>
 {
 private:
 	struct DeathNoticeItem
@@ -37,9 +37,9 @@ private:
 	static const size_t MAX_DEATHNOTICES = 4;
 
 public:
-	DECLARE_CLASS( CHudDeathNotice, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudDeathNotice, CBaseHudElement<CHLHud> );
 
-	CHudDeathNotice( const char* const pszName, CHud& hud );
+	CHudDeathNotice( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void InitHUDData() override;

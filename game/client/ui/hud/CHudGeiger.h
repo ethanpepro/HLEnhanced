@@ -18,12 +18,12 @@
 #include "shared/hud/CHudElement.h"
 #include "hud.h"
 
-class CHudGeiger : public CBaseHudElement<CHud>
+class CHudGeiger : public CBaseHudElement<CHLHud>
 {
 public:
-	DECLARE_CLASS( CHudGeiger, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudGeiger, CBaseHudElement<CHLHud> );
 
-	CHudGeiger( const char* const pszName, CHud& hud );
+	CHudGeiger( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void VidInit() override;

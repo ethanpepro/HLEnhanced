@@ -33,7 +33,7 @@
 #define MAX_LINE_WIDTH  ( ScreenWidth - 40 )
 #define LINE_START  10
 
-CHudSayText::CHudSayText( const char* const pszName, CHud& hud )
+CHudSayText::CHudSayText( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }

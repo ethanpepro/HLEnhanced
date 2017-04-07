@@ -16,43 +16,6 @@ extern IParticleMan *g_pParticleMan;
 
 #include "CBaseHud.h"
 
-float HUD_GetFOV();
-int CL_ButtonBits( int );
-void CL_ResetButtonBits( int bits );
-
-extern cvar_t* sensitivity;
-cvar_t* cl_lw = nullptr;
-
-namespace
-{
-static CBaseHud* g_pHud = nullptr;
-}
-
-CBaseHud& Hud()
-{
-	ASSERT( g_pHud );
-
-	return *g_pHud;
-}
-
-void SetHud( CBaseHud* pHud, bool bDeleteOldHud )
-{
-	if( g_pHud )
-	{
-		g_pHud->ActiveHudStateChanged( false );
-
-		if( bDeleteOldHud )
-			delete g_pHud;
-	}
-
-	g_pHud = pHud;
-
-	if( g_pHud )
-	{
-		g_pHud->ActiveHudStateChanged( true );
-	}
-}
-
 CBaseHud::CBaseHud()
 {
 }
@@ -77,15 +40,6 @@ void CBaseHud::Init()
 
 void CBaseHud::PreInit()
 {
-	// In case we get messages before the first update -- time will be valid
-	m_flTime = 1.0;
-
-	m_iFOV = 0;
-
-	default_fov = CVAR_CREATE( "default_fov", "90", 0 );
-	hud_takesshots = CVAR_CREATE( "hud_takesshots", "0", FCVAR_ARCHIVE );	// controls whether or not to automatically take screenshots at the end of a round
-	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
-	CVAR_CREATE( "zoom_sensitivity_ratio", "1.2", 0 );
 }
 
 void CBaseHud::PostInit()
@@ -102,19 +56,6 @@ void CBaseHud::ActiveHudStateChanged( bool bIsActive )
 
 void CBaseHud::VidInit()
 {
-	m_scrinfo.iSize = sizeof( m_scrinfo );
-	GetScreenInfo( &m_scrinfo );
-
-	// ----------
-	// Load Sprites
-	// ---------
-	//	m_hsprFont = LoadSprite("sprites/%d_font.spr");
-
-	if( ScreenWidth < 640 )
-		m_iResolution = 320;
-	else
-		m_iResolution = 640;
-
 	// Only load this once
 	//TODO: reload it so we can load the Hud from different locations in the future. - Solokiller
 	if( !m_pSpriteList )
@@ -130,7 +71,7 @@ void CBaseHud::VidInit()
 			int j;
 			for( j = 0; j < m_iSpriteCountAllRes; j++ )
 			{
-				if( p->iRes == m_iResolution )
+				if( p->iRes == Hud().GetResolution() )
 					m_iSpriteCount++;
 				p++;
 			}
@@ -142,7 +83,7 @@ void CBaseHud::VidInit()
 			int index = 0;
 			for( j = 0; j < m_iSpriteCountAllRes; j++ )
 			{
-				if( p->iRes == m_iResolution )
+				if( p->iRes == Hud().GetResolution() )
 				{
 					char sz[ 256 ];
 					V_sprintf_safe( sz, "sprites/%s.spr", p->szSprite );
@@ -165,7 +106,7 @@ void CBaseHud::VidInit()
 		int index = 0;
 		for( int j = 0; j < m_iSpriteCountAllRes; j++ )
 		{
-			if( p->iRes == m_iResolution )
+			if( p->iRes == Hud().GetResolution() )
 			{
 				char sz[ 256 ];
 				V_sprintf_safe( sz, "sprites/%s.spr", p->szSprite );
@@ -211,33 +152,25 @@ void CBaseHud::ResetHud()
 	HudList().ForEachHudElem( &CHudElement::Reset );
 
 	// reset sensitivity
-	SetSensitivity( 0 );
+	Hud().SetSensitivity( 0 );
 }
 
 bool CBaseHud::Redraw( float flTime, bool intermission )
 {
-	m_flOldTime = m_flTime;	// save time of previous redraw
-	m_flTime = flTime;
-	m_flTimeDelta = ( double ) m_flTime - m_flOldTime;
-
-	// Clock was reset, reset delta
-	if( m_flTimeDelta < 0 )
-		m_flTimeDelta = 0;
-
 	// Bring up the scoreboard during intermission
 	if( gViewPort )
 	{
-		if( m_bIntermission && !intermission )
+		if( Hud().IsInIntermission() && !intermission )
 		{
 			// Have to do this here so the scoreboard goes away
-			m_bIntermission = intermission;
+			Hud().SetInIntermission( intermission );
 			gViewPort->HideCommandMenu();
 			gViewPort->HideScoreBoard();
 			gViewPort->UpdateSpectatorPanel();
 		}
-		else if( !m_bIntermission && intermission )
+		else if( !Hud().IsInIntermission() && intermission )
 		{
-			m_bIntermission = intermission;
+			Hud().SetInIntermission( intermission );
 			gViewPort->HideCommandMenu();
 			gViewPort->HideVGUIMenu();
 			gViewPort->ShowScoreBoard();
@@ -245,17 +178,11 @@ bool CBaseHud::Redraw( float flTime, bool intermission )
 
 			// Take a screenshot if the client's got the cvar set
 			if( CVAR_GET_FLOAT( "hud_takesshots" ) != 0 )
-				m_flSnapshotTime = flTime + 1.0;	// Take a screenshot in a second
+				Hud().SetSnapshotTime( flTime + 1.0 );	// Take a screenshot in a second
 		}
 	}
 
-	if( m_flSnapshotTime && m_flSnapshotTime < flTime )
-	{
-		gEngfuncs.pfnClientCmd( "snapshot\n" );
-		m_flSnapshotTime = 0;
-	}
-
-	m_bIntermission = intermission;
+	Hud().SetInIntermission( intermission );
 
 	return DoDraw( flTime, intermission );
 }
@@ -300,42 +227,18 @@ void CBaseHud::DrawHudElements( float flTime, HudElementEvaluatorFn evaluatorFn,
 	}
 }
 
-bool CBaseHud::UpdateClientData( client_data_t* cdata )
-{
-	auto bChanged = PreThinkUpdateClient( cdata );
-
-	Think();
-
-	bChanged = PostThinkUpdateClient( cdata ) || bChanged;
-
-	return bChanged;
-}
-
 bool CBaseHud::PreThinkUpdateClient( client_data_t* cdata )
 {
-	m_vecOrigin = cdata->origin;
-	m_vecAngles = cdata->viewangles;
-
-	m_iKeyBits = CL_ButtonBits( 0 );
-	m_iWeaponBits = cdata->iWeaponBits;
-
 	return false;
 }
 
 bool CBaseHud::PostThinkUpdateClient( client_data_t* cdata )
 {
-	cdata->fov = GetFOV();
-
-	CL_ResetButtonBits( GetKeyBits() );
-
-	return true;
+	return false;
 }
 
 void CBaseHud::Think()
 {
-	m_scrinfo.iSize = sizeof( m_scrinfo );
-	GetScreenInfo( &m_scrinfo );
-
 	auto count = HudList().GetElementCount();
 
 	for( decltype( count ) index = 0; index < count; ++index )
@@ -345,50 +248,16 @@ void CBaseHud::Think()
 		if( pElem->GetFlags() & HUD_ACTIVE )
 			pElem->Think();
 	}
-
-	UpdateFOV( HUD_GetFOV(), true );
 }
 
 void CBaseHud::UpdateFOV( int iNewFOV, bool bForce )
 {
-	if( iNewFOV == 0 )
-	{
-		SetFOV( default_fov->value );
-	}
-	else
-	{
-		SetFOV( iNewFOV );
-	}
-
-	// the clients fov is actually set in the client data update section of the hud
-
-	// Set a new sensitivity
-	if( m_iFOV == default_fov->value )
-	{
-		// reset to saved sensitivity
-		SetSensitivity( 0 );
-	}
-	else
-	{
-		// set a new sensitivity that is proportional to the change from the FOV default
-		SetSensitivity( sensitivity->value * ( ( float ) iNewFOV / ( float ) default_fov->value ) * CVAR_GET_FLOAT( "zoom_sensitivity_ratio" ) );
-	}
-
-	if( !bForce )
-	{
-		// think about default fov
-		if( m_iFOV == 0 )
-		{  // only let players adjust up in fov,  and only if they are not overriden by something else
-			SetFOV( max( default_fov->value, 90.0f ) );
-		}
-	}
-
 	if( gEngfuncs.IsSpectateOnly() )
 	{
 		if( auto pSpectator = GETHUDCLASS( CHudSpectator ) )
-			SetFOV( pSpectator->GetFOV() );	// default_fov->value;
+			Hud().SetFOV( pSpectator->GetFOV() );	// default_fov->value;
 		else
-			SetFOV( default_fov->value );
+			Hud().SetFOV( Hud().GetDefaultFOVCVar()->value );
 	}
 }
 

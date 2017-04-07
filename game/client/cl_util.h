@@ -33,7 +33,7 @@
 *	Gets the Hud class instance of the given class name.
 */
 #define GETHUDCLASS( className )									\
-( static_cast<className*>( Hud().HudList().GetElementByName( #className ) ) )
+( static_cast<className*>( Hud().GetHud().HudList().GetElementByName( #className ) ) )
 
 #define __HOOK_MESSAGE_ON_HANDLER( handler, object, messageName )				\
 handler.Add( 																	\
@@ -71,13 +71,13 @@ HOOK_OBJECT_MESSAGE( GetHud(), *this, messageName )
 *	@param className HUD class name.
 *	@param commandFuncName Name of the command. The HUD class method should be named UserCmd_<commandFuncName>.
 */
-#define DECLARE_COMMAND( className, commandFuncName )							\
-void __CmdFunc_##commandFuncName()												\
-{																				\
-	if( auto pElement = Hud().HudList().GetElementByName( #className ) )		\
-	{																			\
-		( static_cast<className*>( pElement ) )->UserCmd_##commandFuncName();	\
-	}																			\
+#define DECLARE_COMMAND( className, commandFuncName )								\
+void __CmdFunc_##commandFuncName()													\
+{																					\
+	if( auto pElement = Hud().GetHud().HudList().GetElementByName( #className ) )	\
+	{																				\
+		( static_cast<className*>( pElement ) )->UserCmd_##commandFuncName();		\
+	}																				\
 }
 
 /**

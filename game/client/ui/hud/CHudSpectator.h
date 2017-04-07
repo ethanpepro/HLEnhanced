@@ -73,12 +73,12 @@ struct cameraWayPoint_t
 #define	 MAX_OVERVIEW_ENTITIES		128
 #define	 MAX_CAM_WAYPOINTS			32
 
-class CHudSpectator : public CBaseHudElement<CHud>
+class CHudSpectator : public CBaseHudElement<CHLHud>
 {
 public:
-	DECLARE_CLASS( CHudSpectator, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudSpectator, CBaseHudElement<CHLHud> );
 
-	CHudSpectator( const char* const pszName, CHud& hud );
+	CHudSpectator( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 

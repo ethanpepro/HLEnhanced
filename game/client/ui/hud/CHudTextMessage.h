@@ -18,12 +18,12 @@
 #include "shared/hud/CHudElement.h"
 #include "hud.h"
 
-class CHudTextMessage : public CBaseHudElement<CHud>
+class CHudTextMessage : public CBaseHudElement<CHLHud>
 {
 public:
-	DECLARE_CLASS( CHudTextMessage, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudTextMessage, CBaseHudElement<CHLHud> );
 
-	CHudTextMessage( const char* const pszName, CHud& hud );
+	CHudTextMessage( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void MsgFunc_TextMsg( const char *pszName, int iSize, void *pbuf );

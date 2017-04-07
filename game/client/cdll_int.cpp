@@ -48,7 +48,7 @@
 #include "CHudSpectator.h"
 
 cl_enginefunc_t gEngfuncs;
-CHud gHUD;
+CHLHud gHUD;
 TeamFortressViewport *gViewPort = NULL;
 
 
@@ -158,7 +158,7 @@ int DLLEXPORT Initialize( cl_enginefunc_t *pEnginefuncs, int iVersion )
 	CL_LoadParticleMan();
 
 	//TODO: use a dynamically allocated instance - Solokiller
-	SetHud( &gHUD );
+	Hud().SetHud( &gHUD );
 
 	if( !g_Client.Initialize() )
 		return false;
@@ -179,8 +179,7 @@ void DLLEXPORT HUD_Shutdown( void )
 
 	g_Client.Shutdown();
 
-	//TODO: delete old hud here when it's dynamically allocated. - Solokiller
-	SetHud( nullptr, false );
+	Hud().SetHud( nullptr );
 }
 
 

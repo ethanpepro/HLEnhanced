@@ -18,12 +18,12 @@
 #include "shared/hud/CHudElement.h"
 #include "hud.h"
 
-class CHudFlashlight : public CBaseHudElement<CHud>
+class CHudFlashlight : public CBaseHudElement<CHLHud>
 {
 public:
-	DECLARE_CLASS( CHudFlashlight, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudFlashlight, CBaseHudElement<CHLHud> );
 
-	CHudFlashlight( const char* const pszName, CHud& hud );
+	CHudFlashlight( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void VidInit() override;

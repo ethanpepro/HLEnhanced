@@ -27,7 +27,7 @@ void CL_ResetButtonBits( int bits );
 extern float v_idlescale;
 float in_fov;
 
-bool CHud::PreThinkUpdateClient( client_data_t* cdata )
+bool CHLHud::PreThinkUpdateClient( client_data_t* cdata )
 {
 	auto bChanged = BaseClass::PreThinkUpdateClient( cdata );
 
@@ -36,7 +36,7 @@ bool CHud::PreThinkUpdateClient( client_data_t* cdata )
 	return bChanged;
 }
 
-bool CHud::PostThinkUpdateClient( client_data_t* cdata )
+bool CHLHud::PostThinkUpdateClient( client_data_t* cdata )
 {
 	auto bChanged = BaseClass::PostThinkUpdateClient( cdata );
 

@@ -20,7 +20,7 @@
 
 struct cvar_t;
 
-class CHudSayText : public CBaseHudElement<CHud>
+class CHudSayText : public CBaseHudElement<CHLHud>
 {
 private:
 	static const size_t MAX_LINES = 5;
@@ -30,9 +30,9 @@ private:
 	static const size_t MAX_CHARS_PER_LINE = 256;
 
 public:
-	DECLARE_CLASS( CHudSayText, CBaseHudElement<CHud> );
+	DECLARE_CLASS( CHudSayText, CBaseHudElement<CHLHud> );
 
-	CHudSayText( const char* const pszName, CHud& hud );
+	CHudSayText( const char* const pszName, CHLHud& hud );
 
 	void Init() override;
 	void InitHUDData() override;

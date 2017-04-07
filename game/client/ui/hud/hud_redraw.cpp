@@ -36,7 +36,7 @@ int grgLogoFrame[MAX_LOGO_FRAMES] =
 extern int g_iVisibleMouse;
 
 // Think
-void CHud::Think()
+void CHLHud::Think()
 {
 	BaseClass::Think();
 }
@@ -44,7 +44,7 @@ void CHud::Think()
 // Redraw
 // step through the local data,  placing the appropriate graphics & text as appropriate
 // returns true if they've changed, false otherwise
-bool CHud::DoDraw( float flTime, bool intermission )
+bool CHLHud::DoDraw( float flTime, bool intermission )
 {
 	// if no redrawing is necessary
 	// return false;
@@ -55,9 +55,9 @@ bool CHud::DoDraw( float flTime, bool intermission )
 		struct CDrawInfo final
 		{
 			const bool bIntermission;
-			CHud& hud;
+			CHLHud& hud;
 
-			CDrawInfo( bool bIntermission, CHud& hud )
+			CDrawInfo( bool bIntermission, CHLHud& hud )
 				: bIntermission( bIntermission )
 				, hud( hud )
 			{

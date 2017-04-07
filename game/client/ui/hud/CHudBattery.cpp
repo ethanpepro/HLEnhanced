@@ -29,7 +29,7 @@
 
 #include "CHudBattery.h"
 
-CHudBattery::CHudBattery( const char* const pszName, CHud& hud )
+CHudBattery::CHudBattery( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -46,12 +46,12 @@ void CHudBattery::Init()
 
 void CHudBattery::VidInit()
 {
-	int HUD_suit_empty = Hud().GetSpriteIndex( "suit_empty" );
-	int HUD_suit_full = Hud().GetSpriteIndex( "suit_full" );
+	int HUD_suit_empty = GetHud().GetSpriteIndex( "suit_empty" );
+	int HUD_suit_full = GetHud().GetSpriteIndex( "suit_full" );
 
 	m_hSprite1 = m_hSprite2 = 0;  // delaying get sprite handles until we know the sprites are loaded
-	m_prc1 = &Hud().GetSpriteRect( HUD_suit_empty );
-	m_prc2 = &Hud().GetSpriteRect( HUD_suit_full );
+	m_prc1 = &GetHud().GetSpriteRect( HUD_suit_empty );
+	m_prc2 = &GetHud().GetSpriteRect( HUD_suit_full );
 	m_iHeight = m_prc2->bottom - m_prc1->top;
 	m_fFade = 0;
 }
@@ -84,7 +84,7 @@ void CHudBattery::MsgFunc_Battery(const char *pszName,  int iSize, void *pbuf )
 
 bool CHudBattery::Draw(float flTime)
 {
-	if ( Hud().GetHideHudBits().Any( HIDEHUD_HEALTH ) )
+	if ( GetHud().GetHideHudBits().Any( HIDEHUD_HEALTH ) )
 		return true;
 
 	wrect_t rc;
@@ -131,14 +131,14 @@ bool CHudBattery::Draw(float flTime)
 	
 	int iOffset = (m_prc1->bottom - m_prc1->top)/6;
 
-	y = ScreenHeight - Hud().GetFontHeight() - Hud().GetFontHeight() / 2;
+	y = ScreenHeight - GetHud().GetFontHeight() - GetHud().GetFontHeight() / 2;
 	x = ScreenWidth/5;
 
 	// make sure we have the right sprite handles
 	if ( !m_hSprite1 )
-		m_hSprite1 = Hud().GetSprite( Hud().GetSpriteIndex( "suit_empty" ) );
+		m_hSprite1 = GetHud().GetSprite( GetHud().GetSpriteIndex( "suit_empty" ) );
 	if ( !m_hSprite2 )
-		m_hSprite2 = Hud().GetSprite( Hud().GetSpriteIndex( "suit_full" ) );
+		m_hSprite2 = GetHud().GetSprite( GetHud().GetSpriteIndex( "suit_full" ) );
 
 	SPR_Set(m_hSprite1, r, g, b );
 	SPR_DrawAdditive( 0,  x, y - iOffset, m_prc1);
@@ -150,7 +150,7 @@ bool CHudBattery::Draw(float flTime)
 	}
 
 	x += (m_prc1->right - m_prc1->left);
-	x = Hud().DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iBat, r, g, b);
+	x = GetHud().DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iBat, r, g, b);
 
 	return true;
 }

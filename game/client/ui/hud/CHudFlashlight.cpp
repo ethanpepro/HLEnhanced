@@ -31,7 +31,7 @@
 
 #define BAT_NAME "sprites/%d_Flashlight.spr"
 
-CHudFlashlight::CHudFlashlight( const char* const pszName, CHud& hud )
+CHudFlashlight::CHudFlashlight( const char* const pszName, CHLHud& hud )
 	: BaseClass( pszName, hud )
 {
 }
@@ -55,16 +55,16 @@ void CHudFlashlight::Reset()
 
 void CHudFlashlight::VidInit()
 {
-	int HUD_flash_empty = Hud().GetSpriteIndex( "flash_empty" );
-	int HUD_flash_full = Hud().GetSpriteIndex( "flash_full" );
-	int HUD_flash_beam = Hud().GetSpriteIndex( "flash_beam" );
+	int HUD_flash_empty = GetHud().GetSpriteIndex( "flash_empty" );
+	int HUD_flash_full = GetHud().GetSpriteIndex( "flash_full" );
+	int HUD_flash_beam = GetHud().GetSpriteIndex( "flash_beam" );
 
-	m_hSprite1 = Hud().GetSprite(HUD_flash_empty);
-	m_hSprite2 = Hud().GetSprite(HUD_flash_full);
-	m_hBeam = Hud().GetSprite(HUD_flash_beam);
-	m_prc1 = &Hud().GetSpriteRect(HUD_flash_empty);
-	m_prc2 = &Hud().GetSpriteRect(HUD_flash_full);
-	m_prcBeam = &Hud().GetSpriteRect(HUD_flash_beam);
+	m_hSprite1 = GetHud().GetSprite(HUD_flash_empty);
+	m_hSprite2 = GetHud().GetSprite(HUD_flash_full);
+	m_hBeam = GetHud().GetSprite(HUD_flash_beam);
+	m_prc1 = &GetHud().GetSpriteRect(HUD_flash_empty);
+	m_prc2 = &GetHud().GetSpriteRect(HUD_flash_full);
+	m_prcBeam = &GetHud().GetSpriteRect(HUD_flash_beam);
 	m_iWidth = m_prc2->right - m_prc2->left;
 }
 
@@ -87,7 +87,7 @@ void CHudFlashlight:: MsgFunc_Flashlight(const char *pszName,  int iSize, void *
 
 bool CHudFlashlight::Draw(float flTime)
 {
-	if ( Hud().GetHideHudBits().Any( HIDEHUD_FLASHLIGHT | HIDEHUD_ALL ) )
+	if ( GetHud().GetHideHudBits().Any( HIDEHUD_FLASHLIGHT | HIDEHUD_ALL ) )
 		return true;
 
 	int r, g, b, x, y, a;
