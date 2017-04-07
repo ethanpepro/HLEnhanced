@@ -43,9 +43,6 @@ void CSniperRifle::Spawn()
 {
 	Precache();
 
-	//Give it a name so it works on the client side - Solokiller
-	pev->classname = MAKE_STRING( "weapon_sniperrifle" );
-
 	SetModel( "models/w_m40a1.mdl" );
 
 	FallInit(); // get ready to fall down.
@@ -168,25 +165,20 @@ void CSniperRifle::Reload()
 {
 	if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] > 0 )
 	{
+		if( m_bInZoom )
+		{
+			ToggleZoom();
+		}
+
 		if( m_iClip )
 		{
 			if( DefaultReload( SNIPERRIFLE_RELOAD3, 2.324, 1 ) )
 			{
-				if( m_bInZoom )
-				{
-					ToggleZoom();
-				}
-
 				m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 2.324;
 			}
 		}
 		else if( DefaultReload( SNIPERRIFLE_RELOAD1, 2.324, 1 ) )
 		{
-			if( m_bInZoom )
-			{
-				ToggleZoom();
-			}
-
 			m_flNextPrimaryAttack = UTIL_WeaponTimeBase() + 4.102;
 			m_flReloadStart = gpGlobals->time;
 			m_bReloading = true;

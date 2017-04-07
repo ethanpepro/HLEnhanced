@@ -96,6 +96,13 @@ public:
 		m_bIsTeamplay = bIsTeamplay;
 	}
 
+	bool IsMultiplayer() const { return m_bIsMultiplayer; }
+
+	void SetIsMultiplayer( bool bIsMultiplayer )
+	{
+		m_bIsMultiplayer = bIsMultiplayer;
+	}
+
 	cvar_t* GetDefaultFOVCVar() { return default_fov; }
 
 	/**
@@ -150,6 +157,7 @@ private:
 	int				m_iWeaponBits = 0;
 
 	bool			m_bIsTeamplay = false;
+	bool			m_bIsMultiplayer = false;
 
 	//CVars
 	cvar_t* default_fov = nullptr;

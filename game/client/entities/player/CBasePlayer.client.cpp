@@ -162,9 +162,9 @@ void CBasePlayer::DeathSound( void )
 {
 }
 
-int CBasePlayer::Classify( void )
+EntityClassification_t CBasePlayer::GetClassification()
 {
-	return 0;
+	return EntityClassifications().GetNoneId();
 }
 
 void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )

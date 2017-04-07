@@ -137,6 +137,7 @@ void CHLHud::PreInit()
 	HOOK_HUD_MESSAGE( Logo );
 	HOOK_HUD_MESSAGE( ResetHUD );
 	HOOK_HUD_MESSAGE( GameMode );
+	HOOK_HUD_MESSAGE( GameState );
 	HOOK_HUD_MESSAGE( InitHUD );
 	HOOK_HUD_MESSAGE( ViewMode );
 	HOOK_HUD_MESSAGE( Concuss );

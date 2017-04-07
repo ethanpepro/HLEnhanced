@@ -78,9 +78,9 @@ const char *CController::pDeathSounds[] =
 // Classify - indicates this monster's place in the 
 // relationship table.
 //=========================================================
-int	CController :: Classify ( void )
+EntityClassification_t CController::GetClassification()
 {
-	return	CLASS_ALIEN_MILITARY;
+	return EntityClassifications().GetClassificationId( classify::ALIEN_MILITARY );
 }
 
 //=========================================================

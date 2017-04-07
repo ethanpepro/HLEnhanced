@@ -110,6 +110,8 @@ public:
 	*/
 	void LoadGlobalModelReplacement( const char* const pszFileName );
 
+	void InitializeEntityClassifications();
+
 private:
 	/**
 	*	Runs right after the constructor. Makes it easier to separate init and setup code.

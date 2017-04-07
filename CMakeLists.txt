@@ -155,6 +155,33 @@ set( SHARED_GAME_DEFS
 	USE_OPFOR=${USE_OPFOR_DEFINE}
 )
 
+#Shared linker flags
+set( SHARED_GAME_LINKER_FLAGS
+)
+
+if( MSVC )
+	#Set Windows subsystem
+	set( SHARED_GAME_LINKER_FLAGS
+		${SHARED_GAME_LINKER_FLAGS} "/SUBSYSTEM:WINDOWS "
+)
+elseif( UNIX )
+	#From the Github 2013 Makefile, match the settings for Unix environments.
+	# force 387 for FP math so the precision between win32 and linux and osx match
+	# Trigger an error if any code tries to use an implicit return type
+	# Default visibility is hidden unless explicitly altered with __attribute__( visibility() )
+	set( SHARED_GAME_LINKER_FLAGS
+		${SHARED_GAME_LINKER_FLAGS} "-mfpmath=387 -Werror=return-type -fvisibility=hidden "
+	)
+
+	if( APPLE )
+		set( SHARED_GAME_LINKER_FLAGS
+			${SHARED_GAME_LINKER_FLAGS} "-momit-leaf-frame-pointer -mtune=core2 "
+		)
+	else()
+		#Linux, Cygwin, etc.
+	endif()
+endif()
+
 #Shared directories
 #Include paths for external dependencies. Should always come after all project paths.
 set( SHARED_EXTERNAL_INCLUDE_PATHS
@@ -351,14 +378,19 @@ set_target_properties( client PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY_RELEASE "${GAME_BASE_PATH}/cl_dlls"
 )
 
-if( WIN32 AND MSVC )
-	#Set Windows subsystem
-	set( CLIENT_LINK_FLAGS "/SUBSYSTEM:WINDOWS" )
-else()
-	set( CLIENT_LINK_FLAGS "" )
+set( CLIENT_LINK_FLAGS )
+
+if( NOT MSVC AND NOT APPLE )
+	#Generate a map file that provides information about the linking stage.
+	set( CLIENT_LINK_FLAGS
+		${CLIENT_LINK_FLAGS} "-Wl,-Map,client_map.txt "
+	)
 endif()
 
-set_target_properties( client PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG}" LINK_FLAGS "${CLIENT_LINK_FLAGS} ${LINUX_32BIT_FLAG}" )
+set_target_properties( client PROPERTIES
+	COMPILE_FLAGS "${LINUX_32BIT_FLAG}"
+	LINK_FLAGS "${SHARED_GAME_LINKER_FLAGS} ${CLIENT_LINK_FLAGS} ${LINUX_32BIT_FLAG}"
+)
 
 #No lib prefix
 SET_TARGET_PROPERTIES( client PROPERTIES PREFIX "" )
@@ -489,25 +521,32 @@ set_target_properties( hl PROPERTIES
 	RUNTIME_OUTPUT_DIRECTORY_RELEASE "${GAME_BASE_PATH}/dlls"
 )
 
-if( WIN32 AND MSVC )
+set( SERVER_LINK_FLAGS )
+
+if( MSVC )
 	if( USE_AS_SQL )
 		set( SQL_DLL_DELAYLOAD "/DELAYLOAD:sqlite3.dll" )
 	else()
 		set( SQL_DLL_DELAYLOAD )
 	endif()
 
-	#Set Windows subsystem
 	#Add the module definition file. Needed for GiveFnptrsToDll function export. Requires the project dir to be near the file.
 	#Add delay loaded libraries.
-	set( SERVER_LINK_FLAGS "/SUBSYSTEM:WINDOWS /DEF:../hl.def ${SQL_DLL_DELAYLOAD}" )
+	set( SERVER_LINK_FLAGS "/DEF:../hl.def ${SQL_DLL_DELAYLOAD} " )
 else()
-	set( SERVER_LINK_FLAGS "" )
+	if( NOT APPLE )
+		#Generate a map file that provides information about the linking stage.
+		set( SERVER_LINK_FLAGS
+			${SERVER_LINK_FLAGS} "-Wl,-Map,hl_map.txt "
+		)
+	endif()
 endif()
 
 #SQL libraries are delay loaded to keep them in the game directory.
-set_target_properties( hl 
-	PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG}" 
-	LINK_FLAGS "${SERVER_LINK_FLAGS} ${LINUX_32BIT_FLAG}" )
+set_target_properties( hl PROPERTIES
+	COMPILE_FLAGS "${LINUX_32BIT_FLAG}" 
+	LINK_FLAGS "${SHARED_GAME_LINKER_FLAGS} ${SERVER_LINK_FLAGS} ${LINUX_32BIT_FLAG}"
+)
 
 #No lib prefix
 SET_TARGET_PROPERTIES( hl PROPERTIES PREFIX "" )

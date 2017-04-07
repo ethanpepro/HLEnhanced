@@ -512,9 +512,9 @@ void CScientist :: RunTask( const Task_t* pTask )
 // Classify - indicates this monster's place in the 
 // relationship table.
 //=========================================================
-int	CScientist :: Classify ( void )
+EntityClassification_t CScientist::GetClassification()
 {
-	return	CLASS_HUMAN_PASSIVE;
+	return EntityClassifications().GetClassificationId( classify::HUMAN_PASSIVE );
 }
 
 
@@ -879,7 +879,7 @@ Schedule_t *CScientist :: GetSchedule ( void )
 				break;
 			}
 
-			int relationship = R_NO;
+			Relationship relationship = R_NO;
 
 			// Nothing scary, just me and the player
 			if ( pEnemy != NULL )
@@ -940,7 +940,7 @@ MONSTERSTATE CScientist :: GetIdealState ( void )
 		{
 			if ( IsFollowing() )
 			{
-				int relationship = IRelationship( m_hEnemy );
+				Relationship relationship = IRelationship( m_hEnemy );
 				if ( relationship != R_FR || ( relationship != R_HT && !HasConditions( bits_COND_LIGHT_DAMAGE | bits_COND_HEAVY_DAMAGE ) ) )
 				{
 					// Don't go to combat if you're following the player

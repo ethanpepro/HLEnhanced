@@ -83,9 +83,9 @@ int TrainSpeed( int iSpeed, int iMax )
 //
 // ID's player as such.
 //
-int CBasePlayer::Classify()
+EntityClassification_t CBasePlayer::GetClassification()
 {
-	return CLASS_PLAYER;
+	return EntityClassifications().GetClassificationId( classify::PLAYER );
 }
 
 void CBasePlayer::Precache()
@@ -130,7 +130,7 @@ void CBasePlayer::InitialSpawn()
 
 void CBasePlayer::Spawn()
 {
-	pev->classname		= MAKE_STRING( "player" );
+	SetClassname( "player" );
 	pev->health			= 100;
 	pev->armorvalue		= 0;
 	pev->takedamage		= DAMAGE_AIM;
@@ -764,7 +764,7 @@ void CBasePlayer::UpdateStatusBar()
 		{
 			CBaseEntity *pEntity = CBaseEntity::Instance( tr.pHit );
 
-			if (pEntity->Classify() == CLASS_PLAYER )
+			if (pEntity->Classify() == EntityClassifications().GetClassificationId( classify::PLAYER ) )
 			{
 				newSBarState[ SBAR_ID_TARGETNAME ] = pEntity->entindex();
 				strcpy( sbuf1, "1 %p1\n2 Health: %i2%%\n3 Armor: %i3%%" );

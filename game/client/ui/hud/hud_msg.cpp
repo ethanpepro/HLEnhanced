@@ -79,6 +79,12 @@ void CHLHud::MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf )
 	Hud().SetIsTeamplay( reader.ReadByte() != 0 );
 }
 
+void CHLHud::MsgFunc_GameState( const char *pszName, int iSize, void *pbuf )
+{
+	CBufferReader reader( pbuf, iSize );
+
+	Hud().SetIsMultiplayer( reader.ReadByte() != 0 );
+}
 
 void CHLHud::MsgFunc_Damage(const char *pszName, int iSize, void *pbuf )
 {

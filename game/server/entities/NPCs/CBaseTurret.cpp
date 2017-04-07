@@ -866,9 +866,9 @@ int CBaseTurret::MoveTurret(void)
 //
 // ID as a machine
 //
-int	CBaseTurret::Classify ( void )
+EntityClassification_t CBaseTurret::GetClassification()
 {
 	if ( m_bOn || m_bAutoStart )
-		return	CLASS_MACHINE;
-	return CLASS_NONE;
+		return EntityClassifications().GetClassificationId( classify::MACHINE );
+	return EntityClassifications().GetNoneId();
 }

@@ -53,7 +53,12 @@ public:
 
 	void Reload() override;
 
+	void WeaponHolsterPreFrame() override;
+
 	void ItemPostFrame() override;
+
+private:
+	void RechargeAmmo( bool bLoud );
 
 private:
 	int m_iSpriteTexture;

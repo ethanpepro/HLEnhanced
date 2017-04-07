@@ -102,6 +102,7 @@ public:
 	// user messages
 	void MsgFunc_Damage(const char *pszName, int iSize, void *pbuf );
 	void MsgFunc_GameMode(const char *pszName, int iSize, void *pbuf );
+	void MsgFunc_GameState( const char *pszName, int iSize, void *pbuf );
 	void MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf);
 	void MsgFunc_ResetHUD(const char *pszName,  int iSize, void *pbuf);
 	void MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf );
