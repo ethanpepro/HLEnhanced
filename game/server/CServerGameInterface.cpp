@@ -27,7 +27,6 @@
 #include "CServerGameInterface.h"
 
 extern DLL_GLOBAL bool			g_fGameOver;
-extern DLL_GLOBAL float			g_flWeaponCheat;
 extern DLL_GLOBAL int			g_teamplay;
 extern DLL_GLOBAL bool			g_bPrecacheGrunt;
 extern DLL_GLOBAL unsigned int	g_ulFrameCount;
@@ -178,7 +177,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	}
 	else if( FStrEq( pcmd, "give" ) )
 	{
-		if( g_flWeaponCheat != 0.0 )
+		if( UTIL_CheatsAllowed() )
 		{
 			int iszItem = ALLOC_STRING( CMD_ARGV( 1 ) );	// Make a copy of the classname
 			pPlayer->GiveNamedItem( STRING( iszItem ) );
@@ -192,7 +191,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	}
 	else if( FStrEq( pcmd, "fov" ) )
 	{
-		if( g_flWeaponCheat && CMD_ARGC() > 1 )
+		if( UTIL_CheatsAllowed() && CMD_ARGC() > 1 )
 		{
 			pPlayer->m_iFOV = atoi( CMD_ARGV( 1 ) );
 		}
@@ -259,7 +258,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	}
 	else if( FStrEq( pcmd, "ent_setname" ) )
 	{
-		if( g_flWeaponCheat != 0 )
+		if( UTIL_CheatsAllowed() )
 		{
 			if( CMD_ARGC() >= 1 )
 			{
@@ -282,7 +281,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	}
 	else if( FStrEq( pcmd, "ent_trigger" ) )
 	{
-		if( g_flWeaponCheat != 0 )
+		if( UTIL_CheatsAllowed() )
 		{
 			if( CMD_ARGC() >= 1 )
 			{
@@ -297,7 +296,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	}
 	else if( FStrEq( pcmd, "listentityclass" ) )
 	{
-		if( g_flWeaponCheat != 0 )
+		if( UTIL_CheatsAllowed() )
 		{
 			if( CMD_ARGC() >= 1 )
 			{
@@ -318,7 +317,7 @@ void CServerGameInterface::ClientCommand( edict_t* pEntity )
 	}
 	else if( FStrEq( pcmd, "listentityclasses" ) )
 	{
-		if( g_flWeaponCheat != 0 )
+		if( UTIL_CheatsAllowed() )
 		{
 			GetEntityDict().EnumEntityClasses(
 				[]( CBaseEntityRegistry& reg ) -> bool

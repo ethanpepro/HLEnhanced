@@ -39,7 +39,6 @@ precaches and defs for entities and other data that must always be available.
 #endif
 
 extern DLL_GLOBAL bool g_fGameOver;
-float g_flWeaponCheat;
 extern CBaseEntity				*g_pLastSpawn;
 extern CGraph WorldGraph;
 extern DLL_GLOBAL	bool		gDisplayTitle;
@@ -107,7 +106,6 @@ void CWorld::Spawn()
 
 	g_fGameOver = false;
 	Precache();
-	g_flWeaponCheat = CVAR_GET_FLOAT( "sv_cheats" );  // Is the impulse 101 command allowed?
 }
 
 void CWorld::Precache()

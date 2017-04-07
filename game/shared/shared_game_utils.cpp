@@ -1003,3 +1003,15 @@ bool UTIL_IsGame( const char* game )
 	}
 	return false;
 }
+
+static cvar_t* sv_cheats = nullptr;
+
+bool UTIL_CheatsAllowed()
+{
+	if( !sv_cheats )
+		sv_cheats = CVAR_GET_POINTER( "sv_cheats" );
+
+	ASSERT( sv_cheats );
+
+	return sv_cheats->value != 0;
+}

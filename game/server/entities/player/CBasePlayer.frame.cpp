@@ -39,8 +39,6 @@ extern DLL_GLOBAL bool			g_fGameOver;
 extern DLL_GLOBAL unsigned int	g_ulModelIndexPlayer;
 extern DLL_GLOBAL bool			gEvilImpulse101;
 
-extern float g_flWeaponCheat;
-
 bool g_bPrecacheGrunt = false;
 
 /*
@@ -904,7 +902,7 @@ void CBasePlayer::ImpulseCommands()
 //=========================================================
 void CBasePlayer::CheatImpulseCommands( int iImpulse )
 {
-	if( g_flWeaponCheat == 0.0 )
+	if( !UTIL_CheatsAllowed() )
 	{
 		return;
 	}

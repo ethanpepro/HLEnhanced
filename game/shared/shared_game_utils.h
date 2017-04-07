@@ -358,4 +358,9 @@ bool COM_FileBase( const char *in, char ( & out )[ SIZE ] )
 */
 bool UTIL_IsGame( const char* game );
 
+/**
+*	Can cheats (e.g. impulse 101) be used?
+*/
+bool UTIL_CheatsAllowed();
+
 #endif //GAME_SHARED_SHARED_GAME_UTILS_H
