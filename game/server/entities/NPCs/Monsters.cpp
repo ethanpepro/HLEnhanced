@@ -3332,6 +3332,10 @@ CBaseEntity* CBaseMonster::DropItem( const char* const pszItemName, const Vector
 		// do we want this behavior to be default?! (sjb)
 		pItem->pev->velocity = pev->velocity;
 		pItem->pev->avelocity = Vector ( 0, RANDOM_FLOAT( 0, 100 ), 0 );
+
+		//Dropped items should never respawn (unless this rule changes in the future). - Solokiller
+		pItem->GetSpawnFlags() |= SF_NORESPAWN;
+
 		return pItem;
 	}
 	else
