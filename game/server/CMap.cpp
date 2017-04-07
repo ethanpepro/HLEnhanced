@@ -64,13 +64,6 @@ CMap::CMap()
 	InitializeEntityClassifications();
 
 	LoadMapConfig();
-
-	if( m_MapConfig )
-	{
-		//TODO: invoke Angelscript pre classification parse - Solokiller
-		m_MapConfig->ProcessEntityClassifications();
-		//TODO: invoke Angelscript post classification parse - Solokiller
-	}
 }
 
 CMap::~CMap()
@@ -88,7 +81,7 @@ void CMap::LoadMapConfig()
 	{
 		V_sprintf_safe( szConfigName, "%s/maps/%s.txt", szGameDir, STRING( gpGlobals->mapname ) );
 
-		if( !m_MapConfig->Parse( szConfigName ) )
+		if( !m_MapConfig->Parse( szConfigName, nullptr, true ) )
 		{
 			m_MapConfig.reset();
 		}
@@ -112,6 +105,16 @@ bool CMap::Restore( CRestore& restore )
 	auto pDataMap = GetDataMap();
 
 	return restore.ReadFields( "CMap", this, *pDataMap, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
+}
+
+void CMap::WorldInit()
+{
+	if( m_MapConfig )
+	{
+		//TODO: invoke Angelscript pre classification parse - Solokiller
+		m_MapConfig->ProcessEntityClassifications();
+		//TODO: invoke Angelscript post classification parse - Solokiller
+	}
 }
 
 void CMap::WorldActivated()

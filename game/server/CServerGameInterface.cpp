@@ -11,6 +11,7 @@
 #include "gamerules/GameRules.h"
 #include "Server.h"
 #include "CMap.h"
+#include "config/CServerConfig.h"
 
 #include "nodes/Nodes.h"
 #include "nodes/CTestHull.h"
@@ -72,9 +73,7 @@ void CServerGameInterface::EntityCreated( entvars_t* pev )
 	{
 		m_bMapStartedLoading = false;
 
-		//A new map has started, initialize everything. - Solokiller
-		//This will be worldspawn for new maps and multiplayer maps, the first restored entity when transitioning or loading maps.
-		CMap::CreateIfNeeded();
+		WorldInit();
 	}
 }
 
@@ -512,6 +511,28 @@ void CServerGameInterface::ClientUserInfoChanged( edict_t* pEntity, char* infobu
 	g_pGameRules->ClientUserInfoChanged( pPlayer, infobuffer );
 }
 
+void CServerGameInterface::WorldInit()
+{
+	//Reload the server cfg file so the latest version can be used. - Solokiller
+	m_ServerConfig = std::make_unique<CServerConfig>();
+
+	//TODO: consider: a list of config files to process in order. Much cleaner than manually managing 2 or more instances. - Solokiller
+	if( !m_ServerConfig->Parse( server_cfg.string, "GAMECONFIG", false ) )
+		m_ServerConfig.reset();
+
+	//A new map has started, initialize everything. - Solokiller
+	//This will be worldspawn for new maps and multiplayer maps, the first restored entity when transitioning or loading maps.
+	CMap::CreateIfNeeded();
+
+	if( m_ServerConfig )
+	{
+		//Apply server classification settings first.
+		m_ServerConfig->ProcessEntityClassifications();
+	}
+
+	CMap::GetInstance()->WorldInit();
+}
+
 void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, const int clientMax )
 {
 	CBaseEntity* pClass;
@@ -541,6 +562,12 @@ void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, 
 		}
 	}
 
+	if( m_ServerConfig )
+	{
+		//Process server cvars first, then map cvars. - Solokiller
+		//TODO: the server should be able to enforce cvars if it wants to, adding a condition to cvars to allow execution after the map should be good enough. - Solokiller
+		m_ServerConfig->ProcessCVars();
+	}
 	CMap::GetInstance()->WorldActivated();
 
 #if USE_ANGELSCRIPT

@@ -42,6 +42,7 @@ public:
 	bool Save( CSave& save );
 	bool Restore( CRestore& restore );
 
+	void WorldInit();
 	void WorldActivated();
 
 	/**

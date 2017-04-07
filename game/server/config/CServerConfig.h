@@ -20,7 +20,7 @@ public:
 	*	@param pszPathID If not null, ID of the path to search in. If null, all paths are searched
 	*	@return Whether the file was successfully parsed
 	*/
-	bool Parse( const char* pszFilename, const char* pszPathID = nullptr );
+	bool Parse( const char* pszFilename, const char* pszPathID = nullptr, bool bOptional = false );
 
 	const char* GetFilename() const { return m_szFilename; }
 

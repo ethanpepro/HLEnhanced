@@ -4,7 +4,7 @@
 
 #include "CServerConfig.h"
 
-bool CServerConfig::Parse( const char* pszFilename, const char* pszPathID )
+bool CServerConfig::Parse( const char* pszFilename, const char* pszPathID, bool bOptional )
 {
 	ASSERT( pszFilename );
 
@@ -18,7 +18,8 @@ bool CServerConfig::Parse( const char* pszFilename, const char* pszPathID )
 
 	if( !bParsedSuccessfully )
 	{
-		Alert( at_warning, "Couldn't load server config \"%s\"\n", pszFilename );
+		if( !bOptional )
+			Alert( at_warning, "Couldn't load server config \"%s\"\n", pszFilename );
 		m_KeyValues.reset();
 	}
 
