@@ -1,6 +1,8 @@
 #ifndef GAME_SERVER_CMAP_H
 #define GAME_SERVER_CMAP_H
 
+#include <memory>
+
 #include "Color.h"
 #include "HudColors.h"
 
@@ -8,6 +10,8 @@
 
 #include "CReplacementCache.h"
 #include "CReplacementMap.h"
+
+class CServerConfig;
 
 /**
 *	Stores global per-map data.
@@ -31,8 +35,14 @@ public:
 	CMap();
 	~CMap();
 
+private:
+	void LoadMapConfig();
+
+public:
 	bool Save( CSave& save );
 	bool Restore( CRestore& restore );
+
+	void WorldActivated();
 
 	/**
 	*	Runs per-frame think operations.
@@ -133,6 +143,8 @@ private:
 	//Cache of model replacement files. In the future, model replacement may be used by individual entities to replace effects models. - Solokiller
 	CReplacementCache m_ModelReplacement;
 	CReplacementMap* m_pGlobalModelReplacement = nullptr;
+
+	std::unique_ptr<CServerConfig> m_MapConfig;
 
 private:
 	CMap( const CMap& ) = delete;

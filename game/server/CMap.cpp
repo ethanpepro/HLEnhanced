@@ -3,6 +3,7 @@
 #include "cbase.h"
 #include "Weapons.h"
 #include "CBasePlayer.h"
+#include "config/CServerConfig.h"
 
 #include "CMap.h"
 
@@ -61,10 +62,42 @@ CMap::CMap()
 {
 	EntityClassifications().Reset();
 	InitializeEntityClassifications();
+
+	LoadMapConfig();
+
+	if( m_MapConfig )
+	{
+		//TODO: invoke Angelscript pre classification parse - Solokiller
+		m_MapConfig->ProcessEntityClassifications();
+		//TODO: invoke Angelscript post classification parse - Solokiller
+	}
 }
 
 CMap::~CMap()
 {
+}
+
+void CMap::LoadMapConfig()
+{
+	m_MapConfig = std::make_unique<CServerConfig>();
+
+	char szGameDir[ MAX_PATH ];
+	char szConfigName[ MAX_PATH ];
+
+	if( UTIL_GetGameDir( szGameDir, sizeof( szGameDir ) ) )
+	{
+		V_sprintf_safe( szConfigName, "%s/maps/%s.txt", szGameDir, STRING( gpGlobals->mapname ) );
+
+		if( !m_MapConfig->Parse( szConfigName ) )
+		{
+			m_MapConfig.reset();
+		}
+	}
+	else
+	{
+		//TODO: should just cache the dir once and use a library-local global to track it. - Solokiller
+		Alert( at_error, "Couldn't get game directory\n" );
+	}
 }
 
 bool CMap::Save( CSave& save )
@@ -79,6 +112,12 @@ bool CMap::Restore( CRestore& restore )
 	auto pDataMap = GetDataMap();
 
 	return restore.ReadFields( "CMap", this, *pDataMap, pDataMap->pTypeDesc, pDataMap->uiNumDescriptors );
+}
+
+void CMap::WorldActivated()
+{
+	if( m_MapConfig )
+		m_MapConfig->ProcessCVars();
 }
 
 void CMap::Create()

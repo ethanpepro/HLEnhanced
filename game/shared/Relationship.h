@@ -41,6 +41,10 @@ enum Relationship
 	R_LAST = R_NM,
 };
 
+const char* RelationshipToString( const Relationship relationship );
+
+Relationship RelationshipFromString( const char* pszString, const Relationship defaultValue = R_NO );
+
 const char* RelationshipToPrettyString( const Relationship relationship );
 
 /**

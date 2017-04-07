@@ -541,6 +541,8 @@ void CServerGameInterface::Activate( edict_t* pEdictList, const int edictCount, 
 		}
 	}
 
+	CMap::GetInstance()->WorldActivated();
+
 #if USE_ANGELSCRIPT
 	g_ASManager.WorldActivated();
 #endif

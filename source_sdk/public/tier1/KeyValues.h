@@ -298,5 +298,15 @@ inline bool  KeyValues::IsEmpty( int keySymbol )
 	return dat ? dat->IsEmpty( ) : true;
 }
 
+/**
+*	Deleter used for smart pointers. - Solokiller
+*/
+struct KeyValuesDeleter final
+{
+	inline void operator()( KeyValues* pKV )
+	{
+		pKV->deleteThis();
+	}
+};
 
 #endif // KEYVALUES_H
