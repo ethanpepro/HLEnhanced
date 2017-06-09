@@ -529,10 +529,13 @@ if( MSVC )
 	else()
 		set( SQL_DLL_DELAYLOAD )
 	endif()
+	
+	#Copy the def file so it's local to the binary directory
+	file( COPY ${CMAKE_SOURCE_DIR}/hl.def DESTINATION ${CMAKE_BINARY_DIR} )
 
-	#Add the module definition file. Needed for GiveFnptrsToDll function export. Requires the project dir to be near the file.
+	#Add the module definition file. Needed for GiveFnptrsToDll function export.
 	#Add delay loaded libraries.
-	set( SERVER_LINK_FLAGS "/DEF:../hl.def ${SQL_DLL_DELAYLOAD} " )
+	set( SERVER_LINK_FLAGS "/DEF:hl.def ${SQL_DLL_DELAYLOAD} " )
 else()
 	if( NOT APPLE )
 		#Generate a map file that provides information about the linking stage.
