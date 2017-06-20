@@ -63,9 +63,10 @@ public:
 
 			//Note: when checking for inheritance, check if our concrete type inherits from the given type.
 			//When checking if our C++ type matches, check if the given type inherits from it.
-			//This prevents subclasses from being
+			//This prevents subclasses from being treated as incompatible
 			const bool bIsScriptFunction = m_Instance.GetTypeInfo()->DerivesFrom( pDelegateType );
 
+			//TODO: can probably cache the C++ type pointer - Solokiller
 			auto pCPPType = pDelegateType->GetEngine()->GetTypeInfoByName( m_pClass->GetBaseClassData().szCPPClassName.c_str() );
 
 			if( bIsScriptFunction ||
