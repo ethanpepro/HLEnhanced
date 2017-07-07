@@ -179,9 +179,9 @@ void CBarnacleGrapple::PrimaryAttack()
 
 			if( m_pTip->GetGrappleType() > CBarnacleGrappleTip::TargetClass::SMALL )
 			{
-				SetMoveType( MOVETYPE_FLY );
-				//TODO: what does this do? - Solokiller
-				GetFlags() |= FL_IMMUNE_LAVA;
+				m_pPlayer->SetMoveType( MOVETYPE_FLY );
+				//Tells the physics code that the player is not on a ladder - Solokiller
+				m_pPlayer->GetFlags() |= FL_IMMUNE_LAVA;
 			}
 
 			if( m_bMomentaryStuck )
