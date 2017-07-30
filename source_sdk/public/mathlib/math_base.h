@@ -1,4 +1,4 @@
-//========= Copyright © 1996-2005, Valve Corporation, All rights reserved. ============//
+//========= Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ============//
 //
 // Purpose: 
 //
@@ -583,6 +583,7 @@ template<> FORCEINLINE_TEMPLATE QAngleByValue Lerp<QAngleByValue>( float flPerce
 #endif // VECTOR_NO_SLOW_OPERATIONS
 
 
+#if !( __linux__ && __GNUC__ >= 7 ) 
 // Swap two of anything.
 template <class T> 
 FORCEINLINE_TEMPLATE void swap( T& x, T& y )
@@ -591,6 +592,7 @@ FORCEINLINE_TEMPLATE void swap( T& x, T& y )
 	x = y;
 	y = temp;
 }
+#endif
 
 template <class T> FORCEINLINE_TEMPLATE T AVG(T a, T b)
 {

@@ -23,7 +23,7 @@
 #include "html/ihtmlchrome.h"
 #include "html/ichromehtmlwrapper.h"
 
-#include "filesystem.h"
+#include "FileSystem.h"
 #include "../vgui2/src/vgui_key_translation.h"
 
 #undef PostMessage
