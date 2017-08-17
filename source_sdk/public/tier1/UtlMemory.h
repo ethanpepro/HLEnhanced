@@ -1,4 +1,4 @@
-//===== Copyright © 1996-2005, Valve Corporation, All rights reserved. ======//
+//===== Copyright ï¿½ 1996-2005, Valve Corporation, All rights reserved. ======//
 //
 // Purpose: 
 //
@@ -12,6 +12,10 @@
 
 #ifdef _WIN32
 #pragma once
+#endif
+
+#if __linux__ && __GNUC__ >= 7 // Shepard - Fix missing "swap"
+#include <algorithm>
 #endif
 
 #include "tier0/dbg.h"
@@ -226,9 +230,15 @@ CUtlMemory<T>::~CUtlMemory()
 template< class T >
 void CUtlMemory<T>::Swap( CUtlMemory< T > &mem )
 {
+#if __linux__ && __GNUC__ >= 7 // Shepard - Fix missing "swap"
+	std::swap( m_nGrowSize, mem.m_nGrowSize );
+	std::swap( m_pMemory, mem.m_pMemory );
+	std::swap( m_nAllocationCount, mem.m_nAllocationCount );
+#else
 	swap( m_nGrowSize, mem.m_nGrowSize );
 	swap( m_pMemory, mem.m_pMemory );
 	swap( m_nAllocationCount, mem.m_nAllocationCount );
+#endif
 }
 
 
