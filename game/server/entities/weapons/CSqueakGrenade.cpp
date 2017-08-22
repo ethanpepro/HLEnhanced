@@ -194,7 +194,6 @@ void CSqueakGrenade::HuntThink( void )
 
 	m_flNextHunt = gpGlobals->time + 2.0;
 
-	CBaseEntity *pOther = NULL;
 	Vector vecDir;
 	TraceResult tr;
 

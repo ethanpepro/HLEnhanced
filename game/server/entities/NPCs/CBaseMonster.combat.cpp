@@ -367,9 +367,6 @@ Killed
 */
 void CBaseMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
-	unsigned int	cCount = 0;
-	bool			fDone = false;
-
 	if ( HasMemory( bits_MEMORY_KILLED ) )
 	{
 		if ( ShouldGibMonster( gibAction ) )

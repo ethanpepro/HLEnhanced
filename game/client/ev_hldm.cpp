@@ -493,7 +493,6 @@ void EV_FireShotGunDouble( event_args_t *args )
 	Vector vecSrc;
 	Vector vecSpread;
 	Vector up, right, forward;
-	float flSpread = 0.01;
 
 	AngleVectors( angles, forward, right, up );
 
@@ -543,7 +542,6 @@ void EV_FireShotGunSingle( event_args_t *args )
 	Vector vecSrc;
 	Vector vecSpread;
 	Vector up, right, forward;
-	float flSpread = 0.01;
 
 	AngleVectors( angles, forward, right, up );
 
@@ -596,7 +594,6 @@ void EV_FireMP5( event_args_t *args )
 
 	Vector vecSrc;
 	Vector up, right, forward;
-	float flSpread = 0.01;
 
 	AngleVectors( angles, forward, right, up );
 
@@ -672,7 +669,6 @@ void EV_FirePython( event_args_t *args )
 
 	Vector vecSrc;
 	Vector up, right, forward;
-	float flSpread = 0.01;
 
 	AngleVectors( angles, forward, right, up );
 
@@ -751,15 +747,12 @@ void EV_FireGauss( event_args_t *args )
 	Vector angles = args->angles;
 	Vector velocity = args->velocity;
 	float flDamage = args->fparam1;
-	int primaryfire = args->bparam1;
 
 	int m_fPrimaryFire = args->bparam1;
-	int m_iWeaponVolume = GAUSS_PRIMARY_FIRE_VOLUME;
 	Vector vecSrc;
 	Vector vecDest;
 	pmtrace_t tr, beam_tr;
 	float flMaxFrac = 1.0;
-	int	nTotal = 0;
 	int fHasPunched = 0;
 	int fFirstBeam = 1;
 	int	nMaxHits = 10;

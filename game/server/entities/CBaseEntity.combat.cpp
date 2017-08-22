@@ -295,7 +295,7 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 	TraceResult tr;
 	Vector vecRight = gpGlobals->v_right;
 	Vector vecUp = gpGlobals->v_up;
-	float x, y;
+	float x = 0, y = 0;
 
 	if( pAttacker == nullptr )
 		pAttacker = this;  // the default attacker is ourselves

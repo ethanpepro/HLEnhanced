@@ -144,7 +144,7 @@ void CCheckButton2::SetChecked(bool bChecked)
 }
 
 
-void CCheckButton2::internalMousePressed(MouseCode code)
+void CCheckButton2::internalMousePressed(MouseCode /*code*/)
 {
 	m_bChecked = !m_bChecked;
 
@@ -189,7 +189,7 @@ void CCheckButton2::SetupControls()
 }
 
 
-void CCheckButton2::mousePressed(MouseCode code, Panel *panel)
+void CCheckButton2::mousePressed(MouseCode code, Panel* /*panel*/)
 {
 	internalMousePressed(code);
 }

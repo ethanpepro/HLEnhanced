@@ -1692,7 +1692,6 @@ END_SCHEDULES()
 void CHGrunt :: SetActivity ( Activity NewActivity )
 {
 	int	iSequence = ACTIVITY_NOT_AVAILABLE;
-	void *pmodel = GET_MODEL_PTR( ENT(pev) );
 
 	switch ( NewActivity)
 	{

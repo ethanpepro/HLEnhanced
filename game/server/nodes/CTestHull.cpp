@@ -73,7 +73,6 @@ void CTestHull::CallBuildNodeGraph()
 //=========================================================
 void CTestHull::BuildNodeGraph()
 {
-	TraceResult	tr;
 	FILE	*file;
 
 	char	szNrpFilename[ MAX_PATH ];// text node report filename
@@ -90,10 +89,6 @@ void CTestHull::BuildNodeGraph()
 
 	int		iBadNode;// this is the node that caused graph generation to fail
 
-	int		cMaxInitialLinks = 0;
-	int		cMaxValidLinks = 0;
-
-	int		iPoolIndex = 0;
 	int		cPoolLinks;// number of links in the pool.
 
 	Vector	vecDirToCheckNode;

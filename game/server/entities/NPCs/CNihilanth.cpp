@@ -795,8 +795,6 @@ void CNihilanth :: Flight( void )
 	if (flDir < 0)
 		flSpeed = -flSpeed;
 
-	float flDist = DotProduct( m_posDesired - vecEst, gpGlobals->v_forward );
-
 	// sideways drag
 	m_velocity.x = m_velocity.x * (1.0 - fabs( gpGlobals->v_right.x ) * 0.05);
 	m_velocity.y = m_velocity.y * (1.0 - fabs( gpGlobals->v_right.y ) * 0.05);

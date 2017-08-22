@@ -554,7 +554,7 @@ void CBarney::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 		GetAttachment( 0, vecGunPos, vecGunAngles );
 		
-		CBaseEntity *pGun = DropItem( "weapon_9mmhandgun", vecGunPos, vecGunAngles );
+		/*CBaseEntity *pGun = */DropItem( "weapon_9mmhandgun", vecGunPos, vecGunAngles );
 	}
 
 	SetUse( NULL );	

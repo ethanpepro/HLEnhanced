@@ -105,8 +105,6 @@ void CSentry::SentryTouch( CBaseEntity *pOther )
 
 void CSentry::SentryDeath( void )
 {
-	bool iActive = false;
-
 	StudioFrameAdvance();
 	pev->nextthink = gpGlobals->time + 0.1;
 

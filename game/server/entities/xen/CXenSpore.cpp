@@ -68,7 +68,7 @@ void CXenSpore::Touch( CBaseEntity *pOther )
 
 void CXenSpore::Think( void )
 {
-	float flInterval = StudioFrameAdvance();
+	/*float flInterval = */StudioFrameAdvance();
 	pev->nextthink = gpGlobals->time + 0.1;
 
 #if 0

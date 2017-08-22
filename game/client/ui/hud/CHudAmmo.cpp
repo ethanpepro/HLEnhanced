@@ -1023,8 +1023,6 @@ int CHudAmmo::DrawWList(float flTime)
 
 			GetHud().GetPrimaryColor().UnpackRGB(r,g,b);
 
-			CBasePlayerWeapon* p = pPlayer->m_rgpPlayerItems[ i ];
-
 			for ( CBasePlayerWeapon* p = pPlayer->m_rgpPlayerItems[ i ]; p; p = p->m_pNext )
 			{
 				if ( !p->GetWeaponInfo() )

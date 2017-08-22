@@ -105,7 +105,7 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 									   float flDistance, int iBulletType,
 									   int iTracerFreq, int iDamage, CBaseEntity* pAttacker, int shared_rand )
 {
-	float x, y;
+	float x = 0, y = 0;
 
 	for( unsigned int iShot = 1; iShot <= cShots; iShot++ )
 	{

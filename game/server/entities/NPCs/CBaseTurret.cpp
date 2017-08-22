@@ -654,8 +654,6 @@ void CBaseTurret::AutoSearchThink(void)
 
 void CBaseTurret ::	TurretDeath( void )
 {
-	bool iActive = false;
-
 	StudioFrameAdvance( );
 	pev->nextthink = gpGlobals->time + 0.1;
 

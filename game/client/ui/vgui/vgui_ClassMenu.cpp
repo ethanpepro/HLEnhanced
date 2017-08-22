@@ -68,7 +68,6 @@ CClassMenuPanel::CClassMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide
 
 	// schemes
 	SchemeHandle_t hTitleScheme = pSchemes->getSchemeHandle( "Title Font" );
-	SchemeHandle_t hClassWindowText = pSchemes->getSchemeHandle( "Briefing Text" );
 
 	// color schemes
 	int r, g, b, a;
@@ -94,8 +93,6 @@ CClassMenuPanel::CClassMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide
 	m_pScrollPanel->setBorder( new LineBorder( vgui::Color(255 * 0.7,170 * 0.7,0,0) ) );
 	m_pScrollPanel->validate();
 
-	int clientWide=m_pScrollPanel->getClient()->getWide();
-
 	//turn scrollpanel back into auto show scrollbar mode and validate
 	m_pScrollPanel->setScrollBarAutoVisible(false,true);
 	m_pScrollPanel->setScrollBarVisible(false,false);
@@ -103,6 +100,9 @@ CClassMenuPanel::CClassMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide
 
 	// Create the Class buttons
 #ifdef _TFC
+	SchemeHandle_t hClassWindowText = pSchemes->getSchemeHandle( "Briefing Text" );
+	int clientWide = m_pScrollPanel->getClient()->getWide();
+
 	for (int i = 0; i <= PC_RANDOM; i++)
 	{
 		char sz[256]; 

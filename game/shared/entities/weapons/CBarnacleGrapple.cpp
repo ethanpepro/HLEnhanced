@@ -163,8 +163,6 @@ void CBarnacleGrapple::PrimaryAttack()
 
 	UTIL_MakeVectors( m_pPlayer->GetViewAngle() + m_pPlayer->GetPunchAngle() );
 
-	Vector vecSrc = m_pPlayer->GetGunPosition();
-
 	if( m_pTip )
 	{
 		if( m_pTip->IsStuck() )

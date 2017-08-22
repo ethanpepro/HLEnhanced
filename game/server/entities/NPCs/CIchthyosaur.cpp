@@ -796,8 +796,6 @@ void CIchthyosaur :: Stop( void )
 
 void CIchthyosaur::Swim( )
 {
-	int retValue = 0;
-
 	Vector start = GetAbsOrigin();
 
 	Vector Angles;

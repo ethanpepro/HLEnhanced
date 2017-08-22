@@ -907,7 +907,8 @@ void CTalkMonster :: Touch( CBaseEntity *pOther )
 //=========================================================
 void CTalkMonster :: IdleRespond( void )
 {
-	int pitch = GetVoicePitch();
+	//GetVoicePitch mutates the random number generator so removing the call changes behavior - Solokiller
+	/*int pitch = */GetVoicePitch();
 	
 	// play response
 	PlaySentence( m_szGrp[TLK_ANSWER], RANDOM_FLOAT(2.8, 3.2), VOL_NORM, ATTN_IDLE );

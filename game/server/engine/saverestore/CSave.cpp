@@ -34,7 +34,6 @@ void CSave::WriteFloat( const char *pname, const float *data, int count )
 void CSave::WriteTime( const char *pname, const float *data, int count )
 {
 	int i;
-	Vector tmp, input;
 
 	BufferHeader( pname, sizeof( float ) * count );
 	for( i = 0; i < count; i++ )
@@ -114,7 +113,6 @@ void CSave::WritePositionVector( const char *pname, const Vector &value )
 void CSave::WritePositionVector( const char *pname, const float *value, int count )
 {
 	int i;
-	Vector tmp, input;
 
 	BufferHeader( pname, sizeof( float ) * 3 * count );
 	for( i = 0; i < count; i++ )

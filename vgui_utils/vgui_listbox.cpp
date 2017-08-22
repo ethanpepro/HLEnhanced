@@ -124,7 +124,7 @@ void CListBox::setSize(int wide,int tall)
 	InternalLayout();
 }
 
-void CListBox::setPixelScroll(int value)
+void CListBox::setPixelScroll(int /*value*/)
 {
 	m_ItemOffset = m_ScrollBar.getValue();
 	InternalLayout();
