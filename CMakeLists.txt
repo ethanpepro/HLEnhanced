@@ -363,16 +363,21 @@ else()
 endif()
 
 #Link with client dependencies
+if( USE_ANGELSCRIPT )
+	target_link_libraries( client 
+		optimized ${ANGELSCRIPTUTILS}
+		debug ${ANGELSCRIPTUTILSD}
+		optimized ${ANGELSCRIPTLIB}
+		debug ${ANGELSCRIPTLIBD}
+	)
+endif()
+
 target_link_libraries( client 
-	"${SHARED_DEPENDENCIES}"
-	optimized "${ANGELSCRIPTUTILS}"
-	optimized "${ANGELSCRIPTLIB}"
-	debug "${ANGELSCRIPTUTILSD}"
-	debug "${ANGELSCRIPTLIBD}"
 	vgui
-	"${CLIENT_PLAT_LIBS}"
-	"${SDL2}"
-	"${VGUI2_LIBS}"
+	${VGUI2_LIBS}
+	${CLIENT_PLAT_LIBS}
+	${SDL2}
+	${SHARED_DEPENDENCIES}
 	Threads::Threads
 	${UNIX_FS_LIB}
 )
@@ -501,16 +506,31 @@ else()
 endif()
 
 #Link with server dependencies
+if( USE_AS_SQL AND NOT CLANG_DB_BUILD )
+	target_link_libraries( hl 
+		optimized ${ASSQL}
+		debug ${ASSQLD}
+	)
+endif()
+
+if( USE_ANGELSCRIPT )
+	target_link_libraries( hl 
+		optimized ${ANGELSCRIPTUTILS}
+		debug ${ANGELSCRIPTUTILSD}
+		optimized ${ANGELSCRIPTLIB}
+		debug ${ANGELSCRIPTLIBD}
+	)
+endif()
+
+if( USE_AS_SQL AND NOT CLANG_DB_BUILD )
+	target_link_libraries( hl 
+		${SQLITE3}
+		optimized ${MARIADB}
+		debug ${MARIADBD}
+	)
+endif()
+
 target_link_libraries( hl 
-	optimized ${ASSQL}
-	debug ${ASSQLD}
-	optimized ${ANGELSCRIPTUTILS}
-	debug ${ANGELSCRIPTUTILSD}
-	optimized ${ANGELSCRIPTLIB}
-	debug ${ANGELSCRIPTLIBD}
-	${SQLITE3}
-	optimized ${MARIADB}
-	debug ${MARIADBD}
 	${DELAYIMP}
 	Threads::Threads
 	${SERVER_PLAT_LIBS}
