@@ -21,7 +21,6 @@
 #include "const.h"
 #include "mathlib.h"
 #include "vgui_TeamFortressViewport.h"
-#include "vgui_ControlConfigPanel.h"
 
 namespace
 {
