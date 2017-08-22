@@ -224,7 +224,7 @@ ScorePanel::ScorePanel(int x,int y,int wide,int tall) : Panel(x,y,wide,tall)
 	m_pCloseButton->setBgColor(0,0,0,255);
 	m_pCloseButton->setFgColor( 255, 255, 255, 0 );
 	m_pCloseButton->setFont(tfont);
-	m_pCloseButton->setBoundKey( (char)255 );
+	m_pCloseButton->setBoundKey( CommandButton::NO_BOUND_KEY );
 	m_pCloseButton->setContentAlignment(Label::a_center);
 
 

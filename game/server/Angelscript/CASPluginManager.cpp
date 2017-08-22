@@ -291,7 +291,7 @@ void CASPluginManager::LoadPluginsFile( const char* const pszPluginFile, LoadLis
 
 	const auto read = file.Read( data.get(), size );
 
-	if( read != size )
+	if( static_cast<decltype( size )>( read ) != size )
 	{
 		Alert( at_console, "CASPluginManager::LoadPluginsFile: Failed to read file \"%s\" contents\n", pszPluginFile );
 		return;

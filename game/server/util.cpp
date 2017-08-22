@@ -1310,7 +1310,7 @@ bool UTIL_IsBrushEntity( const CBaseEntity* const pEnt )
 	//The index of the model must match the number in the model name string + 1.
 	//This is oddly numbered because the world has index 1, but the numbers start at 1 for submodels.
 	//This means that the first brush entity has index 2, and name "*1".
-	return pEnt->GetModelIndex() == index + 1;
+	return pEnt->GetModelIndex() == static_cast<int>( index + 1 );
 }
 
 bool UTIL_IsPointEntity( const CBaseEntity* const pEnt )

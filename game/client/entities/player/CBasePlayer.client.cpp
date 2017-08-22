@@ -107,7 +107,7 @@ bool CBasePlayer::SwitchWeapon( CBasePlayerWeapon *pWeapon )
 	return false;
 }
 
-const WeaponHUDSprite* CBasePlayer::GetAmmoPicFromWeapon( int iAmmoId )
+const WeaponHUDSprite* CBasePlayer::GetAmmoPicFromWeapon( AmmoID_t iAmmoId )
 {
 	for( int i = 0; i < MAX_WEAPONS; i++ )
 	{

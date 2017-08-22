@@ -969,14 +969,14 @@ void CString::VFormat( const char* pszFormat, va_list list )
 
 CString& CString::ToLowercase()
 {
-	std::transform( Begin(), End(), Begin(), ::tolower );
+	std::transform( Begin(), End(), Begin(), []( char c ) { return static_cast<char>( ::tolower( c ) ); } );
 
 	return *this;
 }
 
 CString& CString::ToUppercase()
 {
-	std::transform( Begin(), End(), Begin(), ::toupper );
+	std::transform( Begin(), End(), Begin(), []( char c ) { return static_cast<char>( ::toupper( c ) ); } );
 
 	return *this;
 }
