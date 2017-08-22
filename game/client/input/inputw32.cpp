@@ -473,7 +473,6 @@ void IN_MouseMove ( float frametime, usercmd_t *cmd)
 	//      move the camera, or if the mouse cursor is visible or if we're in intermission
 	if ( !iMouseInUse && !Hud().IsInIntermission() && !g_iVisibleMouse )
 	{
-		int deltaX, deltaY;
 #ifdef _WIN32
 		if ( !m_bRawInput )
 		{
@@ -483,30 +482,14 @@ void IN_MouseMove ( float frametime, usercmd_t *cmd)
 				ThreadInterlockedExchange( &current_pos.y, s_mouseDeltaY );
 				ThreadInterlockedExchange( &s_mouseDeltaX, 0 );
 				ThreadInterlockedExchange( &s_mouseDeltaY, 0 );
-			}
-			else
-			{
-				GetCursorPos (&current_pos);
-			}
-		}
-		else
-#endif
-		{
-			SDL_GetRelativeMouseState( &deltaX, &deltaY );
-			current_pos.x = deltaX;
-			current_pos.y = deltaY;	
-		}
-		
-#ifdef _WIN32
-		if ( !m_bRawInput )
-		{
-			if ( m_bMouseThread )
-			{
+
 				mx = current_pos.x;
 				my = current_pos.y;
 			}
 			else
 			{
+				GetCursorPos (&current_pos);
+
 				mx = current_pos.x - gEngfuncs.GetWindowCenterX() + mx_accum;
 				my = current_pos.y - gEngfuncs.GetWindowCenterY() + my_accum;
 			}
@@ -514,6 +497,12 @@ void IN_MouseMove ( float frametime, usercmd_t *cmd)
 		else
 #endif
 		{
+			int deltaX, deltaY;
+
+			SDL_GetRelativeMouseState( &deltaX, &deltaY );
+			current_pos.x = deltaX;
+			current_pos.y = deltaY;	
+
 			mx = deltaX + mx_accum;
 			my = deltaY + my_accum;
 		}
