@@ -182,6 +182,13 @@ elseif( UNIX )
 	endif()
 endif()
 
+#Highest warning level and warnings as errors
+if( MSVC )
+	set( WARNING_LEVEL_STRICTEST "/W4 /WX " )
+else()
+	set( WARNING_LEVEL_STRICTEST "-Wall -Werror " )
+endif()
+
 #Shared directories
 #Include paths for external dependencies. Should always come after all project paths.
 set( SHARED_EXTERNAL_INCLUDE_PATHS
@@ -388,7 +395,7 @@ if( NOT MSVC AND NOT APPLE )
 endif()
 
 set_target_properties( client PROPERTIES
-	COMPILE_FLAGS "${LINUX_32BIT_FLAG}"
+	COMPILE_FLAGS "${LINUX_32BIT_FLAG} ${WARNING_LEVEL_STRICTEST}"
 	LINK_FLAGS "${SHARED_GAME_LINKER_FLAGS} ${CLIENT_LINK_FLAGS} ${LINUX_32BIT_FLAG}"
 )
 
@@ -545,7 +552,7 @@ endif()
 
 #SQL libraries are delay loaded to keep them in the game directory.
 set_target_properties( hl PROPERTIES
-	COMPILE_FLAGS "${LINUX_32BIT_FLAG}" 
+	COMPILE_FLAGS "${LINUX_32BIT_FLAG} ${WARNING_LEVEL_STRICTEST}" 
 	LINK_FLAGS "${SHARED_GAME_LINKER_FLAGS} ${SERVER_LINK_FLAGS} ${LINUX_32BIT_FLAG}"
 )
 
