@@ -468,16 +468,15 @@ if( USE_AS_SQL AND NOT CLANG_DB_BUILD )
 	find_library( ASSQLD AngelscriptSQLd PATHS external/ASSQL/lib/ )
 
 	if( WIN32 )
-		find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib )
-		find_library( MARIADB "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
-		find_library( MARIADBD "mariadbclientd${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib )
-		set( PTHREAD "" )
+		#Never use the default install for these (we need our builds with PDBs).
+		find_library( SQLITE3 "sqlite3${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/SQLite/lib NO_DEFAULT_PATH )
+		find_library( MARIADB "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib/release NO_DEFAULT_PATH )
+		find_library( MARIADBD "mariadbclient${CMAKE_STATIC_LIBRARY_SUFFIX}" PATHS external/MariaDB/lib/debug NO_DEFAULT_PATH )
 	else()
 		#Never use the default install for these (could try to use 64 bit versions, which don't work for 32 bit builds).
 		find_library( SQLITE3 "${CMAKE_SHARED_LIBRARY_PREFIX}sqlite3${CMAKE_SHARED_LIBRARY_SUFFIX}" PATHS "${GAME_BASE_PATH}" NO_DEFAULT_PATH )
 		find_library( MARIADB "${CMAKE_SHARED_LIBRARY_PREFIX}mariadb.so.2" PATHS "${GAME_BASE_PATH}" NO_DEFAULT_PATH )
 		set( MARIADBD ${MARIADB} )
-		set( PTHREAD "pthread" )
 	endif()
 else()
 	set( ASSQL )
@@ -485,31 +484,30 @@ else()
 	set( SQLITE3 )
 	set( MARIADB )
 	set( MARIADBD )
-	set( PTHREAD )
 endif()
 
 #Set the list of platform specific libraries
 if( WIN32 )
-	set( SERVER_PLAT_LIBS "" )
+	set( SERVER_PLAT_LIBS Ws2_32 Shlwapi )
 else()
-	set( SERVER_PLAT_LIBS "dl" )
+	set( SERVER_PLAT_LIBS dl )
 endif()
 
 #Link with server dependencies
 target_link_libraries( hl 
-	"${SHARED_DEPENDENCIES}"
-	optimized "${ASSQL}"
-	optimized "${ANGELSCRIPTUTILS}"
-	optimized "${ANGELSCRIPTLIB}"
-	debug "${ASSQLD}"
-	debug "${ANGELSCRIPTUTILSD}"
-	debug "${ANGELSCRIPTLIBD}"
-	"${SQLITE3}"
-	optimized "${MARIADB}"
-	debug "${MARIADBD}"
-	"${DELAYIMP}"
+	optimized ${ASSQL}
+	debug ${ASSQLD}
+	optimized ${ANGELSCRIPTUTILS}
+	debug ${ANGELSCRIPTUTILSD}
+	optimized ${ANGELSCRIPTLIB}
+	debug ${ANGELSCRIPTLIBD}
+	${SQLITE3}
+	optimized ${MARIADB}
+	debug ${MARIADBD}
+	${DELAYIMP}
 	Threads::Threads
 	${SERVER_PLAT_LIBS}
+	${SHARED_DEPENDENCIES}
 	${UNIX_FS_LIB}
 )
 
