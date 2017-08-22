@@ -907,9 +907,6 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		return;
 	}
 
-	CBaseEntity *pEntity;
-	TraceResult tr;
-
 	switch( iImpulse )
 	{
 	case 76:
@@ -927,72 +924,79 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			break;
 		}
 
-
 	case 101:
-		gEvilImpulse101 = true;
-		GiveNamedItem( "item_suit" );
-		GiveNamedItem( "item_battery" );
-		GiveNamedItem( "weapon_crowbar" );
-		GiveNamedItem( "weapon_9mmhandgun" );
-		GiveNamedItem( "ammo_9mmclip" );
-		GiveNamedItem( "weapon_shotgun" );
-		GiveNamedItem( "ammo_buckshot" );
-		GiveNamedItem( "weapon_9mmAR" );
-		GiveNamedItem( "ammo_9mmAR" );
-		GiveNamedItem( "ammo_ARgrenades" );
-		GiveNamedItem( "weapon_handgrenade" );
-		GiveNamedItem( "weapon_tripmine" );
+		{
+			gEvilImpulse101 = true;
+			GiveNamedItem( "item_suit" );
+			GiveNamedItem( "item_battery" );
+			GiveNamedItem( "weapon_crowbar" );
+			GiveNamedItem( "weapon_9mmhandgun" );
+			GiveNamedItem( "ammo_9mmclip" );
+			GiveNamedItem( "weapon_shotgun" );
+			GiveNamedItem( "ammo_buckshot" );
+			GiveNamedItem( "weapon_9mmAR" );
+			GiveNamedItem( "ammo_9mmAR" );
+			GiveNamedItem( "ammo_ARgrenades" );
+			GiveNamedItem( "weapon_handgrenade" );
+			GiveNamedItem( "weapon_tripmine" );
 
-		GiveNamedItem( "weapon_357" );
-		GiveNamedItem( "ammo_357" );
-		GiveNamedItem( "weapon_crossbow" );
-		GiveNamedItem( "ammo_crossbow" );
-		GiveNamedItem( "weapon_egon" );
-		GiveNamedItem( "weapon_gauss" );
-		GiveNamedItem( "ammo_gaussclip" );
-		GiveNamedItem( "weapon_rpg" );
-		GiveNamedItem( "ammo_rpgclip" );
-		GiveNamedItem( "weapon_satchel" );
-		GiveNamedItem( "weapon_snark" );
-		GiveNamedItem( "weapon_hornetgun" );
+			GiveNamedItem( "weapon_357" );
+			GiveNamedItem( "ammo_357" );
+			GiveNamedItem( "weapon_crossbow" );
+			GiveNamedItem( "ammo_crossbow" );
+			GiveNamedItem( "weapon_egon" );
+			GiveNamedItem( "weapon_gauss" );
+			GiveNamedItem( "ammo_gaussclip" );
+			GiveNamedItem( "weapon_rpg" );
+			GiveNamedItem( "ammo_rpgclip" );
+			GiveNamedItem( "weapon_satchel" );
+			GiveNamedItem( "weapon_snark" );
+			GiveNamedItem( "weapon_hornetgun" );
 
 #if USE_OPFOR
-		GiveNamedItem( "weapon_knife" );
-		GiveNamedItem( "weapon_pipewrench" );
-		GiveNamedItem( "weapon_grapple" );
-		GiveNamedItem( "weapon_eagle" );
-		GiveNamedItem( "weapon_m249" );
-		GiveNamedItem( "weapon_displacer" );
-		GiveNamedItem( "weapon_sniperrifle" );
-		GiveNamedItem( "weapon_sporelauncher" );
-		GiveNamedItem( "weapon_shockrifle" );
-		GiveNamedItem( "ammo_556" );
-		GiveNamedItem( "ammo_762" );
+			GiveNamedItem( "weapon_knife" );
+			GiveNamedItem( "weapon_pipewrench" );
+			GiveNamedItem( "weapon_grapple" );
+			GiveNamedItem( "weapon_eagle" );
+			GiveNamedItem( "weapon_m249" );
+			GiveNamedItem( "weapon_displacer" );
+			GiveNamedItem( "weapon_sniperrifle" );
+			GiveNamedItem( "weapon_sporelauncher" );
+			GiveNamedItem( "weapon_shockrifle" );
+			GiveNamedItem( "ammo_556" );
+			GiveNamedItem( "ammo_762" );
 #endif
 
-		gEvilImpulse101 = false;
-		break;
+			gEvilImpulse101 = false;
+			break;
+		}
 
 	case 102:
-		// Gibbage!!!
-		CGib::SpawnRandomGibs( this, 1, 1 );
-		break;
+		{
+			// Gibbage!!!
+			CGib::SpawnRandomGibs( this, 1, 1 );
+			break;
+		}
 
 	case 103:
-		// What the hell are you doing?
-		pEntity = UTIL_FindEntityForward( this );
-		if( pEntity )
 		{
-			CBaseMonster *pMonster = pEntity->MyMonsterPointer();
-			if( pMonster )
-				pMonster->ReportAIState();
+			// What the hell are you doing?
+			auto pEntity = UTIL_FindEntityForward( this );
+			if( pEntity )
+			{
+				CBaseMonster *pMonster = pEntity->MyMonsterPointer();
+				if( pMonster )
+					pMonster->ReportAIState();
+			}
+			break;
 		}
-		break;
 
 	case 104:
-		// Dump all of the global state varaibles (and global entity names)
-		gGlobalState.DumpGlobals();
-		break;
+		{
+			// Dump all of the global state varaibles (and global entity names)
+			gGlobalState.DumpGlobals();
+			break;
+		}
 
 	case	105:// player makes no sound for monsters to hear.
 		{
@@ -1010,26 +1014,29 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		}
 
 	case 106:
-		// Give me the classname and targetname of this entity.
-		pEntity = UTIL_FindEntityForward( this );
-		if( pEntity )
 		{
-			ALERT( at_console, "Classname: %s", pEntity->GetClassname() );
-
-			if( pEntity->HasTargetname() )
+			// Give me the classname and targetname of this entity.
+			auto pEntity = UTIL_FindEntityForward( this );
+			if( pEntity )
 			{
-				ALERT( at_console, " - Targetname: %s\n", pEntity->GetTargetname() );
-			}
-			else
-			{
-				ALERT( at_console, " - TargetName: No Targetname\n" );
+				ALERT( at_console, "Classname: %s", pEntity->GetClassname() );
+
+				if( pEntity->HasTargetname() )
+				{
+					ALERT( at_console, " - Targetname: %s\n", pEntity->GetTargetname() );
+				}
+				else
+				{
+					ALERT( at_console, " - TargetName: No Targetname\n" );
+				}
+
+				ALERT( at_console, "Model: %s\n", STRING( pEntity->pev->model ) );
+				if( HasGlobalName() )
+					ALERT( at_console, "Globalname: %s\n", pEntity->GetGlobalName() );
 			}
 
-			ALERT( at_console, "Model: %s\n", STRING( pEntity->pev->model ) );
-			if( HasGlobalName() )
-				ALERT( at_console, "Globalname: %s\n", pEntity->GetGlobalName() );
+			break;
 		}
-		break;
 
 	case 107:
 		{
@@ -1045,47 +1052,59 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			const texture_t* pTexture = UTIL_TraceTexture( pWorld, start, end );
 			if( pTexture )
 				ALERT( at_console, "Texture: %s\n", pTexture->name );
+			break;
 		}
-		break;
+
 	case	195:// show shortest paths for entire level to nearest node
 		{
 			Create( "node_viewer_fly", GetAbsOrigin(), pev->angles );
+			break;
 		}
-		break;
+
 	case	196:// show shortest paths for entire level to nearest node
 		{
 			Create( "node_viewer_large", GetAbsOrigin(), pev->angles );
+			break;
 		}
-		break;
+
 	case	197:// show shortest paths for entire level to nearest node
 		{
 			Create( "node_viewer_human", GetAbsOrigin(), pev->angles );
+			break;
 		}
-		break;
+
 	case	199:// show nearest node and all connections
 		{
 			ALERT( at_console, "%d\n", WorldGraph.FindNearestNode( GetAbsOrigin(), bits_NODE_GROUP_REALM ) );
 			WorldGraph.ShowNodeConnections( WorldGraph.FindNearestNode( GetAbsOrigin(), bits_NODE_GROUP_REALM ) );
-		}
-		break;
-	case	202:// Random blood splatter
-		UTIL_MakeVectors( pev->v_angle );
-		UTIL_TraceLine( GetAbsOrigin() + pev->view_ofs, GetAbsOrigin() + pev->view_ofs + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
 
-		if( tr.flFraction != 1.0 )
-		{// line hit something, so paint a decal
-			auto pBlood = static_cast<CBloodSplat*>( UTIL_CreateNamedEntity( "blood_splat" ) );
-			pBlood->Spawn( this );
+			break;
 		}
-		break;
-	case	203:// remove creature.
-		pEntity = UTIL_FindEntityForward( this );
-		if( pEntity )
+		
+	case	202:// Random blood splatter
 		{
-			if( pEntity->pev->takedamage )
-				pEntity->SetThink( &CBaseEntity::SUB_Remove );
+			UTIL_MakeVectors( pev->v_angle );
+			TraceResult tr;
+			UTIL_TraceLine( GetAbsOrigin() + pev->view_ofs, GetAbsOrigin() + pev->view_ofs + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
+
+			if( tr.flFraction != 1.0 )
+			{// line hit something, so paint a decal
+				auto pBlood = static_cast< CBloodSplat* >( UTIL_CreateNamedEntity( "blood_splat" ) );
+				pBlood->Spawn( this );
+			}
+			break;
 		}
-		break;
+
+	case	203:// remove creature.
+		{
+			auto pEntity = UTIL_FindEntityForward( this );
+			if( pEntity )
+			{
+				if( pEntity->pev->takedamage )
+					pEntity->SetThink( &CBaseEntity::SUB_Remove );
+			}
+			break;
+		}
 	}
 }
 

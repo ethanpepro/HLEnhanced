@@ -869,7 +869,7 @@ bool CNihilanth::EmitSphere()
 
 void CNihilanth :: 	TargetSphere( USE_TYPE useType, float value )
 {
-	CBaseMonster *pSphere;
+	CBaseMonster *pSphere = nullptr;
 	int i;
 	for (i = 0; i < N_SPHERES; i++)
 	{

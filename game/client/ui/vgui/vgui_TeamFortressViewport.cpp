@@ -1480,10 +1480,10 @@ CMenuPanel* TeamFortressViewport::CreateTextWindow( int iTextToShow )
 		Localize().LocaliseTextString( "#Spec_Help_Title", cTitle, MAX_TITLE_LENGTH );
 		cTitle[MAX_TITLE_LENGTH-1] = 0;
 		
-		char* pfile = Localize().BufferedLocaliseTextString( "#Spec_Help_Text" );
-		if ( pfile )
+		char* pszLocalized = Localize().BufferedLocaliseTextString( "#Spec_Help_Text" );
+		if ( pszLocalized )
 		{
-			cText = pfile;
+			cText = pszLocalized;
 		}
 	}
 

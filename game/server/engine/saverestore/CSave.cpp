@@ -33,10 +33,8 @@ void CSave::WriteFloat( const char *pname, const float *data, int count )
 
 void CSave::WriteTime( const char *pname, const float *data, int count )
 {
-	int i;
-
 	BufferHeader( pname, sizeof( float ) * count );
-	for( i = 0; i < count; i++ )
+	for( int i = 0; i < count; i++ )
 	{
 		float tmp = data[ 0 ];
 
@@ -62,7 +60,7 @@ void CSave::WriteString( const char *pname, const char *pdata )
 
 void CSave::WriteString( const char *pname, const int *stringId, int count )
 {
-	int i, size;
+	int i;
 
 #ifdef TOKENIZE
 	short	token = ( short ) TokenHash( STRING( *stringId ) );
@@ -74,7 +72,7 @@ void CSave::WriteString( const char *pname, const int *stringId, int count )
 	WriteString( pname, ( char * ) STRING( *stringId ) );
 #endif
 
-	size = 0;
+	int size = 0;
 	for( i = 0; i < count; i++ )
 		size += strlen( STRING( stringId[ i ] ) ) + 1;
 
@@ -100,7 +98,6 @@ void CSave::WriteVector( const char *pname, const float *value, int count )
 
 void CSave::WritePositionVector( const char *pname, const Vector &value )
 {
-
 	if( m_pdata && m_pdata->fUseLandmark )
 	{
 		Vector tmp = value - m_pdata->vecLandmarkOffset;
@@ -112,10 +109,8 @@ void CSave::WritePositionVector( const char *pname, const Vector &value )
 
 void CSave::WritePositionVector( const char *pname, const float *value, int count )
 {
-	int i;
-
 	BufferHeader( pname, sizeof( float ) * 3 * count );
-	for( i = 0; i < count; i++ )
+	for( int i = 0; i < count; i++ )
 	{
 		Vector tmp( value[ 0 ], value[ 1 ], value[ 2 ] );
 
@@ -129,9 +124,7 @@ void CSave::WritePositionVector( const char *pname, const float *value, int coun
 
 void CSave::WriteFunction( const char *pname, void **data, int count )
 {
-	const char *functionName;
-
-	functionName = NAME_FOR_FUNCTION( ( uint32 ) *data );
+	const char *functionName = NAME_FOR_FUNCTION( ( uint32 ) *data );
 	if( functionName )
 		BufferField( pname, strlen( functionName ) + 1, functionName );
 	else

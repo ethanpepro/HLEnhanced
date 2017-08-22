@@ -530,7 +530,7 @@ public:
 
 	bool FVisible( const Vector &vecOrigin ) const override
 	{
-		bool bResult;
+		bool bResult = false;
 
 		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "Vector BodyTarget(const Vector& in) const" ) )
 		{

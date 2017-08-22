@@ -549,15 +549,15 @@ const char *CHalfLifeTeamplay::TeamWithFewestPlayers( void )
 void CHalfLifeTeamplay::RecountTeams( bool bResendInfo )
 {
 	char	*pName;
-	char	teamlist[TEAMPLAY_TEAMLISTLENGTH];
+	char	szTeamlist[TEAMPLAY_TEAMLISTLENGTH];
 
 	// loop through all teams, recounting everything
 	num_teams = 0;
 
 	// Copy all of the teams from the teamlist
 	// make a copy because strtok is destructive
-	strcpy( teamlist, m_szTeamList );
-	pName = teamlist;
+	strcpy( szTeamlist, m_szTeamList );
+	pName = szTeamlist;
 	pName = strtok( pName, ";" );
 	while ( pName != NULL && *pName )
 	{

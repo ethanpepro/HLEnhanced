@@ -1017,7 +1017,7 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 	{
 		// distance to enemy's feet
 		vecEnemyPos.z -= pEnemy->pev->size.z;
-		float flDistToEnemy2 = (vecEnemyPos - GetAbsOrigin()).Length();
+		flDistToEnemy2 = (vecEnemyPos - GetAbsOrigin()).Length();
 		if (flDistToEnemy2 < flDistToEnemy)
 			flDistToEnemy = flDistToEnemy2;
 	}

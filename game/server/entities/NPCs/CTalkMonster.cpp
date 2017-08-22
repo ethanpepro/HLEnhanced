@@ -494,70 +494,71 @@ void CTalkMonster :: RunTask( const Task_t* pTask )
 	{
 	case TASK_TLK_CLIENT_STARE:
 	case TASK_TLK_LOOK_AT_CLIENT:
-
-		edict_t *pPlayer;
-
-		// track head to the client for a while.
-		if ( m_MonsterState == MONSTERSTATE_IDLE		&& 
-			 !IsMoving()								&&
-			 !IsTalking()								)
 		{
-			// Get edict for one player
-			pPlayer = g_engfuncs.pfnPEntityOfEntIndex( 1 );
+			edict_t *pPlayer;
 
-			if ( pPlayer )
+			// track head to the client for a while.
+			if( m_MonsterState == MONSTERSTATE_IDLE &&
+				!IsMoving() &&
+				!IsTalking() )
 			{
-				IdleHeadTurn( pPlayer->v.origin );
-			}
-		}
-		else
-		{
-			// started moving or talking
-			TaskFail();
-			return;
-		}
+				// Get edict for one player
+				pPlayer = g_engfuncs.pfnPEntityOfEntIndex( 1 );
 
-		if( pPlayer )
-		{
-			if ( pTask->iTask == TASK_TLK_CLIENT_STARE )
-			{
-				// fail out if the player looks away or moves away.
-				if ( ( pPlayer->v.origin - GetAbsOrigin() ).Length2D() > TLK_STARE_DIST )
+				if( pPlayer )
 				{
-					// player moved away.
-					TaskFail();
-				}
-
-				UTIL_MakeVectors( pPlayer->v.angles );
-				if ( UTIL_DotPoints( pPlayer->v.origin, GetAbsOrigin(), gpGlobals->v_forward ) < m_flFieldOfView )
-				{
-					// player looked away
-					TaskFail();
+					IdleHeadTurn( pPlayer->v.origin );
 				}
 			}
-		}
-		else
-		{
-			TaskFail();
-		}
+			else
+			{
+				// started moving or talking
+				TaskFail();
+				return;
+			}
 
-		if ( gpGlobals->time > m_flWaitFinished )
-		{
-			TaskComplete();
+			if( pPlayer )
+			{
+				if( pTask->iTask == TASK_TLK_CLIENT_STARE )
+				{
+					// fail out if the player looks away or moves away.
+					if( ( pPlayer->v.origin - GetAbsOrigin() ).Length2D() > TLK_STARE_DIST )
+					{
+						// player moved away.
+						TaskFail();
+					}
+
+					UTIL_MakeVectors( pPlayer->v.angles );
+					if( UTIL_DotPoints( pPlayer->v.origin, GetAbsOrigin(), gpGlobals->v_forward ) < m_flFieldOfView )
+					{
+						// player looked away
+						TaskFail();
+					}
+				}
+			}
+			else
+			{
+				TaskFail();
+			}
+
+			if( gpGlobals->time > m_flWaitFinished )
+			{
+				TaskComplete();
+			}
+			break;
 		}
-		break;
 
 	case TASK_FACE_PLAYER:
 		{
 			// Get edict for one player
 			edict_t *pPlayer = g_engfuncs.pfnPEntityOfEntIndex( 1 );
 
-			if ( pPlayer )
+			if( pPlayer )
 			{
-				MakeIdealYaw ( pPlayer->v.origin );
-				ChangeYaw ( pev->yaw_speed );
+				MakeIdealYaw( pPlayer->v.origin );
+				ChangeYaw( pev->yaw_speed );
 				IdleHeadTurn( pPlayer->v.origin );
-				if ( gpGlobals->time > m_flWaitFinished && FlYawDiff() < 10 )
+				if( gpGlobals->time > m_flWaitFinished && FlYawDiff() < 10 )
 				{
 					TaskComplete();
 				}
@@ -566,20 +567,23 @@ void CTalkMonster :: RunTask( const Task_t* pTask )
 			{
 				TaskFail();
 			}
+
+			break;
 		}
-		break;
 
 	case TASK_TLK_EYECONTACT:
-		if (!IsMoving() && IsTalking() && m_hTalkTarget != NULL)
 		{
-			// ALERT( at_console, "waiting %f\n", m_flStopTalkTime - gpGlobals->time );
-			IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
+			if( !IsMoving() && IsTalking() && m_hTalkTarget != NULL )
+			{
+				// ALERT( at_console, "waiting %f\n", m_flStopTalkTime - gpGlobals->time );
+				IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
+			}
+			else
+			{
+				TaskComplete();
+			}
+			break;
 		}
-		else
-		{
-			TaskComplete();
-		}
-		break;
 
 	case TASK_WALK_PATH_FOR_UNITS:
 		{
@@ -593,40 +597,48 @@ void CTalkMonster :: RunTask( const Task_t* pTask )
 				TaskComplete();
 				RouteClear();		// Stop moving
 			}
-		}
-		break;
-	case TASK_WAIT_FOR_MOVEMENT:
-		if (IsTalking() && m_hTalkTarget != NULL)
-		{
-			// ALERT(at_console, "walking, talking\n");
-			IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
-		}
-		else
-		{
-			IdleHeadTurn( GetAbsOrigin() );
-			// override so that during walk, a scientist may talk and greet player
-			FIdleHello();
-			if (RANDOM_LONG(0,m_nSpeak * 20) == 0)
-			{
-				FIdleSpeak();
-			}
-		}
 
-		CBaseMonster::RunTask( pTask );
-		if (TaskIsComplete())
-			IdleHeadTurn( GetAbsOrigin() );
-		break;
+			break;
+		}
+		
+	case TASK_WAIT_FOR_MOVEMENT:
+		{
+			if( IsTalking() && m_hTalkTarget != NULL )
+			{
+				// ALERT(at_console, "walking, talking\n");
+				IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
+			}
+			else
+			{
+				IdleHeadTurn( GetAbsOrigin() );
+				// override so that during walk, a scientist may talk and greet player
+				FIdleHello();
+				if( RANDOM_LONG( 0, m_nSpeak * 20 ) == 0 )
+				{
+					FIdleSpeak();
+				}
+			}
+
+			CBaseMonster::RunTask( pTask );
+			if( TaskIsComplete() )
+				IdleHeadTurn( GetAbsOrigin() );
+			break;
+		}
 
 	default:
-		if (IsTalking() && m_hTalkTarget != NULL)
 		{
-			IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
+			if( IsTalking() && m_hTalkTarget != NULL )
+			{
+				IdleHeadTurn( m_hTalkTarget->GetAbsOrigin() );
+			}
+			else
+			{
+				SetBoneController( 0, 0 );
+			}
+			CBaseMonster::RunTask( pTask );
+
+			break;
 		}
-		else
-		{
-			SetBoneController( 0, 0 );
-		}
-		CBaseMonster::RunTask( pTask );
 	}
 }
 
@@ -1098,22 +1110,24 @@ bool CTalkMonster::FIdleSpeak()
 		}
 	}
 
-	// if there is a friend nearby to speak to, play sentence, set friend's response time, return
-	CBaseEntity *pFriend = FindNearestFriend( false );
-
-	if (pFriend && !(pFriend->IsMoving()) && (RANDOM_LONG(0,99) < 75))
 	{
-		PlaySentence( szQuestionGroup, duration, VOL_NORM, ATTN_IDLE );
-		//SENTENCEG_PlayRndSz( this, szQuestionGroup, 1.0, ATTN_IDLE, 0, pitch );
+		// if there is a friend nearby to speak to, play sentence, set friend's response time, return
+		CBaseEntity *pFriend = FindNearestFriend( false );
 
-		// force friend to answer
-		CTalkMonster *pTalkMonster = (CTalkMonster *)pFriend;
-		m_hTalkTarget = pFriend;
-		pTalkMonster->SetAnswerQuestion( this ); // UNDONE: This is EVIL!!!
-		pTalkMonster->m_flStopTalkTime = m_flStopTalkTime;
+		if( pFriend && !( pFriend->IsMoving() ) && ( RANDOM_LONG( 0, 99 ) < 75 ) )
+		{
+			PlaySentence( szQuestionGroup, duration, VOL_NORM, ATTN_IDLE );
+			//SENTENCEG_PlayRndSz( this, szQuestionGroup, 1.0, ATTN_IDLE, 0, pitch );
 
-		m_nSpeak++;
-		return true;
+			// force friend to answer
+			CTalkMonster *pTalkMonster = ( CTalkMonster * ) pFriend;
+			m_hTalkTarget = pFriend;
+			pTalkMonster->SetAnswerQuestion( this ); // UNDONE: This is EVIL!!!
+			pTalkMonster->m_flStopTalkTime = m_flStopTalkTime;
+
+			m_nSpeak++;
+			return true;
+		}
 	}
 
 	// otherwise, play an idle statement, try to face client when making a statement.

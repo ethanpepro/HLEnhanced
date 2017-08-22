@@ -857,9 +857,7 @@ void EV_FireGauss( event_args_t *args )
 
 		if ( pEntity->solid == SOLID_BSP )
 		{
-			float n;
-
-			n = -DotProduct( tr.plane.normal, forward );
+			float n = -DotProduct( tr.plane.normal, forward );
 
 			if (n < 0.5) // 60 degrees	
 			{
@@ -924,22 +922,19 @@ void EV_FireGauss( event_args_t *args )
 
 					if ( !beam_tr.allsolid )
 					{
-						Vector delta;
-						float n;
-
 						// trace backwards to find exit point
 
 						gEngfuncs.pEventAPI->EV_PlayerTrace( beam_tr.endpos, tr.endpos, PM_STUDIO_BOX, -1, &beam_tr );
 
-						delta = beam_tr.endpos - tr.endpos;
+						Vector delta = beam_tr.endpos - tr.endpos;
 						
-						n = delta.Length();
+						float n2 = delta.Length();
 
-						if (n < flDamage)
+						if ( n2 < flDamage)
 						{
-							if (n == 0)
-								n = 1;
-							flDamage -= n;
+							if ( n2 == 0)
+								n2 = 1;
+							flDamage -= n2;
 
 							// absorption balls
 							{

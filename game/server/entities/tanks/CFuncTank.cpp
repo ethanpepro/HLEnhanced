@@ -246,7 +246,7 @@ void CFuncTank::TrackTarget( void )
 	bool updateTime = false, lineOfSight;
 	Vector angles, direction, targetPosition, barrelEnd;
 
-	CBaseEntity* pTarget;
+	CBaseEntity* pTarget = nullptr;
 
 	// Get a position to aim for
 	if( m_pController )

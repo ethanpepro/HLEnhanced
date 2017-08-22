@@ -153,9 +153,9 @@ StudioGetAnim
 
 ====================
 */
-mstudioanim_t *CStudioModelRenderer::StudioGetAnim( model_t *m_pSubModel, mstudioseqdesc_t *pseqdesc )
+mstudioanim_t *CStudioModelRenderer::StudioGetAnim( model_t *pSubModel, mstudioseqdesc_t *pseqdesc )
 {
-	return studio::GetAnim( m_pStudioHeader, m_pSubModel, pseqdesc );
+	return studio::GetAnim( m_pStudioHeader, pSubModel, pseqdesc );
 }
 
 /*

@@ -456,7 +456,7 @@ void CTentacle :: Cycle( void )
 				if (m_flNextSong < gpGlobals->time)
 				{
 					// play "I hear new something" sound
-					const char* sound;	
+					const char* sound = "";	
 
 					switch( RANDOM_LONG(0,1) )
 					{
@@ -653,7 +653,7 @@ void CTentacle :: DieThink( void )
 
 void CTentacle :: HandleAnimEvent( AnimEvent_t& event )
 {
-	const char* sound;
+	const char* sound = "";
 
 	switch( event.event )
 	{
