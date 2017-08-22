@@ -1299,10 +1299,10 @@ void RichText::OnCursorMoved(int x, int y)
 	if (_mouseSelection)
 	{
 		// update the cursor position
-		int x, y;
-		input()->GetCursorPos(x, y);
-		ScreenToLocal(x, y);
-		_cursorPos = PixelToCursorSpace(x, y);
+		int cursorX, cursorY;
+		input()->GetCursorPos( cursorX, cursorY );
+		ScreenToLocal( cursorX, cursorY );
+		_cursorPos = PixelToCursorSpace( cursorX, cursorY );
 		
 		if (_cursorPos != _select[1])
 		{

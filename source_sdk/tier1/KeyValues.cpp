@@ -1090,12 +1090,12 @@ const char *KeyValues::GetString( const char *keyName, const char *defaultValue 
 		case TYPE_WSTRING:
 		{
 			// convert the string to char *, set it for future use, and return it
-			static char buf[512];
-			int result = Q_UnicodeToUTF8( dat->m_pwszValue, buf, sizeof( buf ) );
+			static char szBuf[512];
+			int result = Q_UnicodeToUTF8( dat->m_pwszValue, szBuf, sizeof( szBuf ) );
 
 			if( result > 0 )
 			{
-				SetString( keyName, buf );
+				SetString( keyName, szBuf );
 			}
 			else
 			{
