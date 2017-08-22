@@ -432,7 +432,7 @@ size_t DeactivateSatchels( CBasePlayer* const pOwner, const SatchelAction action
 
 	CBaseEntity* pEntity = nullptr;
 
-	while( (pEntity = UTIL_FindEntityByClassname( pEntity, "monster_satchel" )) )
+	while( ( pEntity = UTIL_FindEntityByClassname( pEntity, "monster_satchel" ) ) != nullptr )
 	{
 		CSatchelCharge* pSatchel = ( CSatchelCharge* ) pEntity;
 

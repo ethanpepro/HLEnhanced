@@ -103,7 +103,7 @@ void CBaseDelay::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, floa
 		CBaseEntity* pKillTarget = nullptr;
 
 		ALERT( at_aiconsole, "KillTarget: %s\n", STRING( m_iszKillTarget ) );
-		while( (pKillTarget = UTIL_FindEntityByTargetname( pKillTarget, STRING( m_iszKillTarget ) )) )
+		while( ( pKillTarget = UTIL_FindEntityByTargetname( pKillTarget, STRING( m_iszKillTarget ) ) ) != nullptr )
 		{
 			UTIL_Remove( pKillTarget );
 

@@ -449,7 +449,7 @@ void CBaseDoor::Blocked( CBaseEntity *pOther )
 	if( HasTargetname() )
 	{
 		CBaseEntity* pTarget = nullptr;
-		while( (pTarget = UTIL_FindEntityByTargetname( pTarget, GetTargetname() )) )
+		while( ( pTarget = UTIL_FindEntityByTargetname( pTarget, GetTargetname() ) ) != nullptr )
 		{
 			if( pTarget != this )
 			{

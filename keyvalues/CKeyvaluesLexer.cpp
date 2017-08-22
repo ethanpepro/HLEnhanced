@@ -136,7 +136,7 @@ bool CKeyvaluesLexer::SkipComments()
 {
 	bool fSkipped = false;
 
-	if( ( fSkipped = SkipCommentLine() ) )
+	if( ( fSkipped = SkipCommentLine() ) != false )
 	{
 		//Skip any more lines
 		while( SkipCommentLine() )

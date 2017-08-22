@@ -16,7 +16,7 @@ void CRenderFxManager::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	if( HasTarget() )
 	{
 		CBaseEntity* pTarget = nullptr;
-		while( (pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() )) )
+		while( ( pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() ) ) != nullptr )
 		{
 			if( !pTarget->GetSpawnFlags().Any( SF_RENDER_MASKFX ) )
 				pTarget->SetRenderFX( GetRenderFX() );

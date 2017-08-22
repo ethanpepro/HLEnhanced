@@ -207,7 +207,7 @@ void CCineMonster::Activate( void )
 
 	// The entity name could be a target name or a classname
 	// Check the targetname
-	while( !pTarget && ( pNextTarget = UTIL_FindEntityByTargetname( pNextTarget, STRING( m_iszEntity ) ) ) )
+	while( !pTarget && ( pNextTarget = UTIL_FindEntityByTargetname( pNextTarget, STRING( m_iszEntity ) ) ) != nullptr )
 	{
 		if( pNextTarget->GetFlags().Any( FL_MONSTER ) )
 		{
@@ -219,7 +219,7 @@ void CCineMonster::Activate( void )
 	if( !pTarget )
 	{
 		pNextTarget = nullptr;
-		while( !pTarget && ( pNextTarget = UTIL_FindEntityByClassname( pNextTarget, STRING( m_iszEntity ) ) ) )
+		while( !pTarget && ( pNextTarget = UTIL_FindEntityByClassname( pNextTarget, STRING( m_iszEntity ) ) ) != nullptr )
 		{
 			pTarget = pNextTarget->MyMonsterPointer();
 		}
@@ -277,7 +277,7 @@ void CCineMonster::DelayStart( const bool bState )
 {
 	CBaseEntity* pCine = nullptr;
 
-	while( (pCine = UTIL_FindEntityByTargetname( pCine, GetTargetname() )) )
+	while( ( pCine = UTIL_FindEntityByTargetname( pCine, GetTargetname() ) ) != nullptr )
 	{
 		if( pCine->ClassnameIs( "scripted_sequence" ) )
 		{
@@ -304,7 +304,7 @@ bool CCineMonster::FindEntity()
 	CBaseEntity* pTargetEnt = nullptr;
 	CBaseMonster* pTarget = nullptr;
 
-	while( (pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) )) )
+	while( ( pTargetEnt = UTIL_FindEntityByTargetname( pTargetEnt, STRING( m_iszEntity ) ) ) != nullptr )
 	{
 		if( pTargetEnt->GetFlags().Any( FL_MONSTER ) )
 		{
@@ -325,7 +325,7 @@ bool CCineMonster::FindEntity()
 	if( !pTarget )
 	{
 		pTargetEnt = nullptr;
-		while( (pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius )) )
+		while( ( pTargetEnt = UTIL_FindEntityInSphere( pTargetEnt, GetAbsOrigin(), m_flRadius ) ) != nullptr )
 		{
 			if( pTargetEnt->ClassnameIs( STRING( m_iszEntity ) ) )
 			{
@@ -430,7 +430,7 @@ void CCineMonster::CancelScript( void )
 
 	CBaseEntity* pCineTarget = nullptr;
 
-	while( (pCineTarget = UTIL_FindEntityByTargetname( pCineTarget, GetTargetname() )) )
+	while( ( pCineTarget = UTIL_FindEntityByTargetname( pCineTarget, GetTargetname() ) ) != nullptr )
 	{
 		ScriptEntityCancel( pCineTarget );
 	}

@@ -157,7 +157,7 @@ entvars_t* CGraph :: LinkEntForLink ( CLink *pLink, CNode *pNode )
 		TraceResult	tr;
 
 		// find the button or trigger
-		while( (pSearch = UTIL_FindEntityByTarget( pSearch, pLinkEnt->GetTargetname() )) )
+		while( ( pSearch = UTIL_FindEntityByTarget( pSearch, pLinkEnt->GetTargetname() ) ) != nullptr )
 		{		
 			if ( pSearch->ClassnameIs( "func_button" ) || pSearch->ClassnameIs( "func_rot_button" ) )
 			{// only buttons are handled right now. 

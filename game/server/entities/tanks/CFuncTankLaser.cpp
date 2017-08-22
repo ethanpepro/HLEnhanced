@@ -84,7 +84,7 @@ CLaser *CFuncTankLaser::GetLaser( void )
 
 	CBaseEntity* pLaser = nullptr;
 
-	while( (pLaser = UTIL_FindEntityByTargetname( pLaser, STRING( pev->message ) )) )
+	while( ( pLaser = UTIL_FindEntityByTargetname( pLaser, STRING( pev->message ) ) ) != nullptr )
 	{
 		// Found the landmark
 		if( pLaser->ClassnameIs( "env_laser" ) )

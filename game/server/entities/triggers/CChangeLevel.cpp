@@ -176,7 +176,7 @@ CBaseEntity* CChangeLevel::FindLandmark( const char* const pszLandmarkName )
 {
 	CBaseEntity* pLandmark = nullptr;
 
-	while( (pLandmark = UTIL_FindEntityByTargetname( pLandmark, pszLandmarkName )) )
+	while( ( pLandmark = UTIL_FindEntityByTargetname( pLandmark, pszLandmarkName ) ) != nullptr )
 	{
 		// Found the landmark
 		if( pLandmark->ClassnameIs( "info_landmark" ) )
@@ -200,7 +200,7 @@ int CChangeLevel::ChangeList( LEVELLIST *pLevelList, int maxList )
 	CBaseEntity* pChangelevel = nullptr;
 
 	// Find all of the possible level changes on this BSP
-	while( (pChangelevel = UTIL_FindEntityByClassname( pChangelevel, "trigger_changelevel" )) )
+	while( ( pChangelevel = UTIL_FindEntityByClassname( pChangelevel, "trigger_changelevel" ) ) != nullptr )
 	{
 		CBaseEntity* pLandmark;
 
@@ -326,7 +326,7 @@ bool CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
 	bool inVolume = true;	// Unless we find a trigger_transition, everything is in the volume
 
 	CBaseEntity* pVolume = nullptr;
-	while( (pVolume = UTIL_FindEntityByTargetname( pVolume, pVolumeName )) )
+	while( ( pVolume = UTIL_FindEntityByTargetname( pVolume, pVolumeName ) ) != nullptr )
 	{
 		if( pVolume->ClassnameIs( "trigger_transition" ) )
 		{

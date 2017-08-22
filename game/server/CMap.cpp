@@ -195,7 +195,7 @@ void CMap::LoadGlobalModelReplacement( const char* const pszFileName )
 {
 	ASSERT( pszFileName );
 
-	if( (m_pGlobalModelReplacement = m_ModelReplacement.AcquireMap( pszFileName)) )
+	if( ( m_pGlobalModelReplacement = m_ModelReplacement.AcquireMap( pszFileName ) ) != nullptr )
 	{
 		Alert( at_console, "Global Model Replacement file \"%s\" loaded\n", pszFileName );
 	}

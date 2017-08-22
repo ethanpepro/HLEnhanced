@@ -138,14 +138,14 @@ void CMultiSource::Register( void )
 
 	CBaseEntity* pTarget = nullptr;
 
-	while( ( pTarget = UTIL_FindEntityByTarget( pTarget, GetTargetname() ) ) && ( m_iTotal < MS_MAX_TARGETS ) )
+	while( ( pTarget = UTIL_FindEntityByTarget( pTarget, GetTargetname() ) ) != nullptr && ( m_iTotal < MS_MAX_TARGETS ) )
 	{
 		m_rgEntities[ m_iTotal++ ] = pTarget;
 	}
 
 	pTarget = nullptr;
 
-	while( ( pTarget = UTIL_FindEntityByClassname( pTarget, "multi_manager" ) ) && ( m_iTotal < MS_MAX_TARGETS ) )
+	while( ( pTarget = UTIL_FindEntityByClassname( pTarget, "multi_manager" ) ) != nullptr && ( m_iTotal < MS_MAX_TARGETS ) )
 	{
 		if( pTarget->HasTarget( GetTargetname() ) )
 			m_rgEntities[ m_iTotal++ ] = pTarget;

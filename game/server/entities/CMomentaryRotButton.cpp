@@ -181,7 +181,7 @@ void CMomentaryRotButton::UpdateAllButtons( float value, int start )
 {
 	// Update all rot buttons attached to the same target
 	CBaseEntity* pTarget = nullptr;
-	while( (pTarget = UTIL_FindEntityByTarget( pTarget, GetTarget() )) )
+	while( ( pTarget = UTIL_FindEntityByTarget( pTarget, GetTarget() ) ) != nullptr )
 	{
 		if( pTarget->ClassnameIs( "momentary_rot_button" ) )
 		{
@@ -207,7 +207,7 @@ void CMomentaryRotButton::UpdateTarget( float value )
 	{
 		CBaseEntity* pTarget = nullptr;
 
-		while( (pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() )) )
+		while( ( pTarget = UTIL_FindEntityByTargetname( pTarget, GetTarget() ) ) != nullptr )
 		{
 			pTarget->Use( this, this, USE_SET, value );
 		}
