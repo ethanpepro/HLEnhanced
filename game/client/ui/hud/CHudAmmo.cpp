@@ -835,7 +835,7 @@ int CHudAmmo::DrawBar(int x, int y, int width, int height, float f)
 			w = 1;
 		const auto& barColor = GetHud().GetAmmoBarColor();
 
-		FillRGBA(x, y, w, height, barColor.r, barColor.g, barColor.b, 255);
+		FillRGBA(x, y, w, height, barColor.r(), barColor.g(), barColor.b(), 255);
 		x += w;
 		width -= w;
 	}

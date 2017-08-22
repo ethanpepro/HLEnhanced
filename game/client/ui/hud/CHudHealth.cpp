@@ -218,7 +218,7 @@ bool CHudHealth::Draw(float flTime)
 
 		const auto& color = GetHud().GetPrimaryColor();
 
-		FillRGBA(x, y, iWidth, iHeight, color.r, color.g, color.b, a);
+		FillRGBA(x, y, iWidth, iHeight, color.r(), color.g(), color.b(), a);
 	}
 
 	DrawDamage(flTime);

@@ -168,17 +168,17 @@ void CMap::SendHudColors( CBasePlayer* pPlayer, const bool bForce )
 void CMap::SendHudColors( CBasePlayer* pPlayer, const CHudColors& colors )
 {
 	MESSAGE_BEGIN( MSG_ONE, gmsgHudColors, nullptr, pPlayer );
-		WRITE_BYTE( colors.m_PrimaryColor.r );
-		WRITE_BYTE( colors.m_PrimaryColor.g );
-		WRITE_BYTE( colors.m_PrimaryColor.b );
+		WRITE_BYTE( colors.m_PrimaryColor.r() );
+		WRITE_BYTE( colors.m_PrimaryColor.g() );
+		WRITE_BYTE( colors.m_PrimaryColor.b() );
 
-		WRITE_BYTE( colors.m_EmptyItemColor.r );
-		WRITE_BYTE( colors.m_EmptyItemColor.g );
-		WRITE_BYTE( colors.m_EmptyItemColor.b );
+		WRITE_BYTE( colors.m_EmptyItemColor.r() );
+		WRITE_BYTE( colors.m_EmptyItemColor.g() );
+		WRITE_BYTE( colors.m_EmptyItemColor.b() );
 
-		WRITE_BYTE( colors.m_AmmoBarColor.r );
-		WRITE_BYTE( colors.m_AmmoBarColor.g );
-		WRITE_BYTE( colors.m_AmmoBarColor.b );
+		WRITE_BYTE( colors.m_AmmoBarColor.r() );
+		WRITE_BYTE( colors.m_AmmoBarColor.g() );
+		WRITE_BYTE( colors.m_AmmoBarColor.b() );
 	MESSAGE_END();
 }
 
