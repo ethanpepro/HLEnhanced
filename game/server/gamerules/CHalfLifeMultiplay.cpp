@@ -579,6 +579,9 @@ void CHalfLifeMultiplay::PlayerKilled( CBasePlayer* pVictim, const CTakeDamageIn
 	ASSERT( pKiller );
 	ASSERT( pInflictor );
 
+	//Prevents an unreferenced var warning, inflictor needs to be asserted so can't remove it - Solokiller
+	pInflictor = pInflictor;
+
 	DeathNotice( pVictim, info );
 
 	pVictim->m_iDeaths += 1;

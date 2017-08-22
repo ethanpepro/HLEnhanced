@@ -426,9 +426,7 @@ void CASPluginManager::UnloadPlugin( CASModule* pPlugin )
 		as::Call( pFunction );
 	}
 
-	auto pData = CASModule_GetPluginData( pPlugin );
-
-	ASSERT( pData );
+	ASSERT( CASModule_GetPluginData( pPlugin ) );
 
 	//Plugin data is now removed by the module's destructor.
 

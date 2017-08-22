@@ -883,7 +883,7 @@ void V_GetChaseOrigin( const Vector& angles, const Vector& origin, float distanc
 	Vector	vecEnd;
 	Vector	forward;
 	Vector	vecStart;
-	pmtrace_t * trace;
+	pmtrace_t * trace = nullptr;
 	int maxLoops = 8;
 
 	int ignoreent = -1;	// first, ignore no entity
