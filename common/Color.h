@@ -92,25 +92,27 @@ struct Color final
 	void b( uint8_t b ) { rgba.b = b; }
 	void a( uint8_t a ) { rgba.a = a; }
 
+	struct rgba_t
+	{
+		uint8_t r;
+		uint8_t g;
+		uint8_t b;
+		uint8_t a;
+
+		rgba_t( uint8_t rIn, uint8_t gIn, uint8_t bIn, uint8_t aIn )
+			: r( rIn )
+			, g( gIn )
+			, b( bIn )
+			, a( aIn )
+		{
+		}
+	};
+
 	union
 	{
 		uint32_t color32;
 
-		struct rgba_t
-		{
-			uint8_t r;
-			uint8_t g;
-			uint8_t b;
-			uint8_t a;
-
-			rgba_t( uint8_t rIn, uint8_t gIn, uint8_t bIn, uint8_t aIn )
-				: r( rIn )
-				, g( gIn )
-				, b( bIn )
-				, a( aIn )
-			{
-			}
-		} rgba;
+		rgba_t rgba;
 	};
 };
 
