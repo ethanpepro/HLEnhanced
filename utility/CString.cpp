@@ -894,7 +894,7 @@ CString::size_type CString::FindFirstNotOf( const char* pszString, size_t uiStar
 CString::size_type CString::FindFirstNotOf( const CString& str, size_t uiStartIndex, const String::CompareType compare ) const
 {
 	if( str.IsEmpty() || IsEmpty() )
-		return -1;
+		return INVALID_INDEX;
 
 	const size_t uiMyLength = Length();
 
@@ -920,7 +920,7 @@ CString::size_type CString::FindLastNotOf( const char* pszString, size_t uiStart
 CString::size_type CString::FindLastNotOf( const CString& str, size_t uiStartIndex, const String::CompareType compare ) const
 {
 	if( str.IsEmpty() || IsEmpty() )
-		return -1;
+		return INVALID_INDEX;
 
 	const size_t uiMyLength = Length();
 
@@ -929,7 +929,7 @@ CString::size_type CString::FindLastNotOf( const CString& str, size_t uiStartInd
 	else if( uiStartIndex >= uiMyLength )
 		return INVALID_INDEX;
 
-	while (uiStartIndex != INVALID_INDEX && str.FindLastOf( *( m_pszString + uiStartIndex ) ) != INVALID_INDEX )
+	while (uiStartIndex != INVALID_INDEX && str.FindLastOf( *( m_pszString + uiStartIndex ), compare ) != INVALID_INDEX )
 		--uiStartIndex;
 
 	return uiStartIndex;
