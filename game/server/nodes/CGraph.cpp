@@ -629,8 +629,12 @@ int CGraph :: FindShortestPath ( int *piPath, int iStart, int iDest, int iHull, 
 	{
 		CQueuePriority	queue;
 
+		//TODO: could use 1 << iHull here - Solokiller
 		switch( iHull )
 		{
+		default:
+			ASSERT( !"Unknown hull number encountered in graph path calculation" );
+
 		case NODE_SMALL_HULL:
 			iHullMask = bits_LINK_SMALL_HULL;
 			break;
@@ -2069,6 +2073,7 @@ void CGraph::BuildRegionTables(void)
 			int jCode;
 			switch (i)
 			{
+			default:
 			case 0:
 				jCode = (jCodeX << 16) + (jCodeY << 8) + jCodeZ;
 				break;
@@ -2089,6 +2094,7 @@ void CGraph::BuildRegionTables(void)
 				int kCode;
 				switch (i)
 				{
+				default:
 				case 0:
 					kCode = (kCodeX << 16) + (kCodeY << 8) + kCodeZ;
 					break;
@@ -2172,6 +2178,7 @@ void CGraph :: ComputeStaticRoutingTables( void )
 				int iCapMask;
 				switch (iCap)
 				{
+				default:
 				case 0:
 					iCapMask = 0;
 					break;
@@ -2468,6 +2475,7 @@ void CGraph :: TestRoutingTables( void )
 				int iCapMask;
 				switch (iCap)
 				{
+				default:
 				case 0:
 					iCapMask = 0;
 					break;
