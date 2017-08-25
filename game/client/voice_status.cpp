@@ -24,7 +24,11 @@
 #include "vgui_helpers.h"
 #include "VGUI_MouseCode.h"
 
-
+//GCC complains about deleting vgui objects due to them having no virtual destructor - Solokiller
+#ifdef POSIX
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#endif
 
 using namespace vgui;
 
@@ -851,3 +855,7 @@ void CVoiceStatus::SetPlayerBlockedState(int iPlayer, bool blocked)
 	m_BanMgr.SetPlayerBan( playerID, blocked );
 	UpdateServerState(false);
 }
+
+#ifdef POSIX
+#pragma GCC diagnostic pop
+#endif

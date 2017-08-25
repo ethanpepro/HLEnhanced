@@ -23,6 +23,12 @@
 #include <string.h>
 #include <cstdio>
 
+//GCC complains about deleting vgui objects due to them having no virtual destructor - Solokiller
+#ifdef POSIX
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#endif
+
 
 cvar_t *g_CV_BitmapFonts;
 
@@ -556,5 +562,6 @@ void CSchemeManager::getBorderColor( SchemeHandle_t schemeHandle, int &r, int &g
 	a = pScheme->borderColor[3];
 }
 
-
-
+#ifdef POSIX
+#pragma GCC diagnostic pop
+#endif

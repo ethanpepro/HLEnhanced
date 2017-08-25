@@ -31,6 +31,12 @@
 // memdbgon must be the last include file in a .cpp file!!!
 #include <tier0/memdbgon.h>
 
+//GCC complains about deleting KeyValues due to it having no virtual destructor - Solokiller
+#ifdef POSIX
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#endif
+
 static const char * s_LastFileLoadingFrom = "unknown"; // just needed for error messages
 
 #define KEYVALUES_TOKEN_SIZE	1024
@@ -2149,3 +2155,7 @@ void KeyValues::operator delete( void *pMem, int nBlockUse, const char *pFileNam
 }
 
 #include "tier0/memdbgon.h"
+
+#ifdef POSIX
+#pragma GCC diagnostic pop
+#endif

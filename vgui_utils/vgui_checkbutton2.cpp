@@ -13,6 +13,12 @@
 #include "vgui_checkbutton2.h"
 #include "vgui_loadtga.h"
 
+//GCC complains about deleting vgui objects due to them having no virtual destructor - Solokiller
+#ifdef POSIX
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdelete-non-virtual-dtor"
+#endif
+
 
 #define EXTRA_X	5
 
@@ -194,7 +200,6 @@ void CCheckButton2::mousePressed(MouseCode code, Panel* /*panel*/)
 	internalMousePressed(code);
 }
 
-
-
-
-
+#ifdef POSIX
+#pragma GCC diagnostic pop
+#endif
