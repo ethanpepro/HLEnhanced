@@ -51,8 +51,6 @@ void V_DropPunchAngle( float frametime, Vector& ev_punchangle );
 
 static bool pm_shared_initialized = false;
 
-#pragma warning( disable : 4305 )
-
 playermove_t* pmove = nullptr;
 
 // Ducking time
@@ -67,9 +65,6 @@ playermove_t* pmove = nullptr;
 
 // Only allow bunny jumping up to 1.7x server / player maxspeed setting
 #define BUNNYJUMP_MAX_SPEED_FACTOR 1.7f
-
-// double to float warning
-#pragma warning(disable : 4244)
 
 static const size_t STUCKTABLE_SIZE = 54;
 

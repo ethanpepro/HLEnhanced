@@ -362,7 +362,6 @@ int KeyValues::GetNameSymbol() const
 //-----------------------------------------------------------------------------
 // Purpose: Read a single token from buffer (0 terminated)
 //-----------------------------------------------------------------------------
-#pragma warning (disable:4706)
 const char *KeyValues::ReadToken( CUtlBuffer &buf, bool &wasQuoted )
 {
 	wasQuoted = false;
@@ -436,7 +435,6 @@ const char *KeyValues::ReadToken( CUtlBuffer &buf, bool &wasQuoted )
 	s_pTokenBuf[ nCount ] = 0;
 	return s_pTokenBuf;
 }
-#pragma warning (default:4706)
 
 //-----------------------------------------------------------------------------
 // Purpose: Load keyValues from disk

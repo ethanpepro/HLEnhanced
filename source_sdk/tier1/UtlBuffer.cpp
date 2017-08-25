@@ -6,9 +6,6 @@
 // Serialization buffer
 //===========================================================================//
 
-#ifndef _XBOX
-#pragma warning (disable : 4514)
-#endif
 #include "UtlBuffer.h"
 #include <stdio.h>
 #include <stdarg.h>
@@ -872,8 +869,6 @@ void CUtlBuffer::SeekGet( SeekType_t type, int offset )
 // Parse...
 //-----------------------------------------------------------------------------
 
-#pragma warning ( disable : 4706 )
-
 int CUtlBuffer::VaScanf( const char* pFmt, va_list list )
 {
 	Assert( pFmt );
@@ -1042,8 +1037,6 @@ int CUtlBuffer::VaScanf( const char* pFmt, va_list list )
 	}
 	return numScanned;
 }
-
-#pragma warning ( default : 4706 )
 
 int CUtlBuffer::Scanf( const char* pFmt, ... )
 {
