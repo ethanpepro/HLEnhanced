@@ -351,13 +351,6 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 {
 	m_pPlayer->m_iWeaponVolume = GAUSS_PRIMARY_FIRE_VOLUME;
 
-	Vector vecSrc = vecOrigSrc;
-	Vector vecDest = vecSrc + vecDir * 8192;
-	edict_t		*pentIgnore;
-	TraceResult tr, beam_tr;
-
-	pentIgnore = ENT( m_pPlayer->pev );
-
 #ifdef CLIENT_DLL
 	if ( !m_fPrimaryFire )
 		g_brunninggausspred = true;
@@ -381,6 +374,13 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 //	ALERT( at_console, "%f %f\n", tr.flFraction, flMaxFrac );
 
 #ifndef CLIENT_DLL
+	Vector vecSrc = vecOrigSrc;
+	Vector vecDest = vecSrc + vecDir * 8192;
+
+	TraceResult tr, beam_tr;
+
+	edict_t* pentIgnore = ENT( m_pPlayer->pev );
+
 	float flMaxFrac = 1.0;
 
 	int	nTotal = 0;

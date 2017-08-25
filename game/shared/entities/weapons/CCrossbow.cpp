@@ -179,10 +179,11 @@ void CCrossbow::FireBolt()
 	UTIL_MakeVectors( anglesAim );
 	
 	anglesAim.x		= -anglesAim.x;
-	Vector vecSrc	 = m_pPlayer->GetGunPosition( ) - gpGlobals->v_up * 2;
-	Vector vecDir	 = gpGlobals->v_forward;
 
 #ifndef CLIENT_DLL
+	Vector vecSrc = m_pPlayer->GetGunPosition() - gpGlobals->v_up * 2;
+	Vector vecDir = gpGlobals->v_forward;
+
 	CCrossbowBolt *pBolt = CCrossbowBolt::BoltCreate();
 	pBolt->pev->origin = vecSrc;
 	pBolt->pev->angles = anglesAim;
