@@ -1015,6 +1015,8 @@ void HTML::OnKeyCodeTyped(KeyCode code)
 			}
 			break;
 		}
+
+	default: break;
 	}
 
 	m_Serializer->KeyDown( KeyCode_VGUIToVirtualKey( code ), GetKeyModifiers() );
