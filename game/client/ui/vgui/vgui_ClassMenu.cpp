@@ -54,13 +54,6 @@
 // Creation
 CClassMenuPanel::CClassMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide,int tall) : CMenuPanel(iTrans, iRemoveMe, x,y,wide,tall)
 {
-	// don't show class graphics at below 640x480 resolution
-	bool bShowClassGraphic = true;
-	if ( ScreenWidth < 640 )
-	{
-		bShowClassGraphic = false;
-	}
-
 	memset( m_pClassImages, 0, sizeof(m_pClassImages) );
 
 	// Get the scheme used for the Titles
@@ -100,6 +93,13 @@ CClassMenuPanel::CClassMenuPanel(int iTrans, int iRemoveMe, int x,int y,int wide
 
 	// Create the Class buttons
 #ifdef _TFC
+	// don't show class graphics at below 640x480 resolution
+	bool bShowClassGraphic = true;
+	if( ScreenWidth < 640 )
+	{
+		bShowClassGraphic = false;
+	}
+
 	SchemeHandle_t hClassWindowText = pSchemes->getSchemeHandle( "Briefing Text" );
 	int clientWide = m_pScrollPanel->getClient()->getWide();
 
