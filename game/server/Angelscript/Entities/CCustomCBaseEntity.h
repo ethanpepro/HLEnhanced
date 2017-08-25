@@ -70,7 +70,7 @@ public:
 			auto pCPPType = pDelegateType->GetEngine()->GetTypeInfoByName( m_pClass->GetBaseClassData().szCPPClassName.c_str() );
 
 			if( bIsScriptFunction ||
-				pCPPType && pCPPType->DerivesFrom( pDelegateType ) )
+				( pCPPType && pCPPType->DerivesFrom( pDelegateType ) ) )
 			{
 				bool bIsValid = false;
 
