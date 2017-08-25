@@ -2032,7 +2032,7 @@ void RichText::OnClickPanel(int index)
 	_currentTextClickable = true;
 	TRenderState renderState;
 	GenerateRenderStateForTextStreamIndex(index, renderState);
-	for (int i = index; i < (sizeof(wBuf) - 1) && i < m_TextStream.Count(); i++)
+	for (int i = index; static_cast<size_t>( i ) < (sizeof(wBuf) - 1) && i < m_TextStream.Count(); i++)
 	{
 		// stop getting characters when text is no longer clickable
 		UpdateRenderState(i, renderState);

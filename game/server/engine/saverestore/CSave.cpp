@@ -184,7 +184,7 @@ bool CSave::WriteFields( const char *pname, void *pBaseData, const TYPEDESCRIPTI
 		case FIELD_EDICT:
 		case FIELD_ENTITY:
 		case FIELD_EHANDLE:
-			if( pTest->fieldSize > MAX_ENTITYARRAY )
+			if( static_cast<size_t>( pTest->fieldSize ) > MAX_ENTITYARRAY )
 				ALERT( at_error, "Can't save more than %d entities in an array!!!\n", MAX_ENTITYARRAY );
 			for( j = 0; j < pTest->fieldSize; j++ )
 			{

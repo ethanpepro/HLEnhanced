@@ -2085,7 +2085,7 @@ void KeyValues::FreeAllocatedValue()
 {
 	if( m_iAllocationSize )
 	{
-		if( m_iAllocationSize <= sizeof( KeyValues ) )
+		if( m_iAllocationSize <= static_cast<int>( sizeof( KeyValues ) ) )
 		{
 			keyvalues()->FreeKeyValuesMemory( m_pValue );
 		}
@@ -2104,7 +2104,7 @@ void KeyValues::AllocateValueBlock( int size )
 {
 	Assert( m_iAllocationSize == 0 );
 
-	if( size <= sizeof( KeyValues ) )
+	if( size <= static_cast<int>( sizeof( KeyValues ) ) )
 	{
 		m_pValue = keyvalues()->AllocKeyValuesMemory( size );
 	}

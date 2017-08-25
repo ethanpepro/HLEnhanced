@@ -591,10 +591,10 @@ void ListPanel::AddColumnHeader(int index, const char *columnName, const char *c
 	column.m_pHeader = pButton;
 	column.m_iMinWidth = minWidth;
 	column.m_iMaxWidth = maxWidth;
-	column.m_bResizesWithWindow = columnFlags & COLUMN_RESIZEWITHWINDOW;
+	column.m_bResizesWithWindow = ( columnFlags & COLUMN_RESIZEWITHWINDOW ) != 0;
 	column.m_bTypeIsText = !(columnFlags & COLUMN_IMAGE);
 	column.m_bHidden = false;
-	column.m_bUnhidable = (columnFlags & COLUMN_UNHIDABLE);
+	column.m_bUnhidable = (columnFlags & COLUMN_UNHIDABLE) != 0;
 	column.m_nContentAlignment = Label::a_west;
 
 	Dragger *dragger = new Dragger(index);
