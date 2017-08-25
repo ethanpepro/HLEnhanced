@@ -384,11 +384,11 @@ typedef void * HINSTANCE;
 #ifdef _WIN32
 // Alloca defined for this platform
 #define  stackalloc( _size ) _alloca( _size )
-#define  stackfree( _p )   0
+#define  stackfree( _p )   ( ( void ) 0 )
 #elif POSIX
 // Alloca defined for this platform
 #define  stackalloc( _size ) alloca( _size )
-#define  stackfree( _p )   0
+#define  stackfree( _p )   ( ( void ) 0 )
 #endif
 
 #ifdef _WIN32
