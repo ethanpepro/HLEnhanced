@@ -12,6 +12,8 @@
 *   without written permission from Valve LLC.
 *
 ****/
+#include <cstdint>
+
 #include "extdll.h"
 #include "UTFUtils.h"
 
