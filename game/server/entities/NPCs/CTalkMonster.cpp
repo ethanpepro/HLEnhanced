@@ -1039,7 +1039,6 @@ void CTalkMonster :: IdleHeadTurn( const Vector &vecFriend )
 bool CTalkMonster::FIdleSpeak()
 { 
 	// try to start a conversation, or make statement
-	int pitch;
 	const char *szIdleGroup;
 	const char *szQuestionGroup;
 	float duration;
@@ -1064,7 +1063,7 @@ bool CTalkMonster::FIdleSpeak()
 
 	}
 
-	pitch = GetVoicePitch();
+	/*int pitch = */GetVoicePitch();
 		
 	// player using this entity is alive and wounded?
 	CBaseEntity *pTarget = m_hTargetEnt;
