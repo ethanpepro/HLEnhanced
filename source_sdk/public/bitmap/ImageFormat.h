@@ -266,8 +266,15 @@ enum
 
 struct ResampleInfo_t
 {
-	ResampleInfo_t() : m_flColorScale( 1.0f ), m_nFlags(0), m_flAlphaThreshhold(0.4f),
-		m_flAlphaHiFreqThreshhold(0.4f), m_nSrcDepth(1), m_nDestDepth(1) {}
+	ResampleInfo_t()
+		: m_nSrcDepth(1)
+		, m_nDestDepth(1)
+		, m_flColorScale( 1.0f )
+		, m_flAlphaThreshhold( 0.4f )
+		, m_flAlphaHiFreqThreshhold( 0.4f )
+		, m_nFlags( 0 )
+	{
+	}
 
 	unsigned char *m_pSrc;
 	unsigned char *m_pDest;

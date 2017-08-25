@@ -12,8 +12,8 @@
 namespace keyvalues
 {
 CKeyvaluesLexer::CKeyvaluesLexer( const CKeyvaluesLexerSettings& settings )
-	: m_TokenType( TokenType::NONE )
-	, m_pszCurrentPosition( nullptr )
+	: m_pszCurrentPosition( nullptr )
+	, m_TokenType( TokenType::NONE )
 	, m_Settings( settings )
 {
 }
@@ -42,8 +42,8 @@ CKeyvaluesLexer::CKeyvaluesLexer( Memory_t& memory, CEscapeSequences& escapeSeqC
 }
 
 CKeyvaluesLexer::CKeyvaluesLexer( const char* const pszFilename, const CKeyvaluesLexerSettings& settings )
-	: m_TokenType( TokenType::NONE )
-	, m_pszCurrentPosition( nullptr )
+	: m_pszCurrentPosition( nullptr )
+	, m_TokenType( TokenType::NONE )
 	, m_Settings( settings )
 {
 	assert( pszFilename );

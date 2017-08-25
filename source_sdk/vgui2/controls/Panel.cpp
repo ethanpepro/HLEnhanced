@@ -67,10 +67,10 @@ struct DragDrop_t
 {
 	DragDrop_t() :
 		m_bDragEnabled( false ),
-		m_bDropEnabled( false ),
+		m_bDragging( false ),
 		m_bDragStarted( false ),
 		m_nDragStartTolerance( 8 ),
-		m_bDragging( false ),
+		m_bDropEnabled( false ),
 		m_lDropHoverTime( 0 ),
 		m_bDropMenuShown( false ),
 		m_bPreventChaining( false )

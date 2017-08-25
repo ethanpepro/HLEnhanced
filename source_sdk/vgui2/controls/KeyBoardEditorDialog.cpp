@@ -684,8 +684,8 @@ void CKeyBoardEditorPage::OnClearBinding( int item )
 
 CKeyBoardEditorSheet::CKeyBoardEditorSheet( Panel *parent, Panel *panelToEdit, KeyBindingContextHandle_t handle )
 	: BaseClass( parent, "KeyBoardEditorSheet" ),
-	m_bSaveToExternalFile( false ),
 	m_Handle( handle ),
+	m_bSaveToExternalFile( false ),
 	m_SaveFileName( UTL_INVAL_SYMBOL ),
 	m_SaveFilePathID( UTL_INVAL_SYMBOL )
 {
