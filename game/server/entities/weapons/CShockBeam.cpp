@@ -211,8 +211,6 @@ void CShockBeam::BallTouch( CBaseEntity* pOther )
 
 void CShockBeam::Explode()
 {
-	const Contents contents = UTIL_PointContents( GetAbsOrigin() );
-
 	if( m_pSprite )
 	{
 		UTIL_Remove( m_pSprite );

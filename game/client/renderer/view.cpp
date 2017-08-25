@@ -416,14 +416,11 @@ V_CalcIntermissionRefdef
 */
 void V_CalcIntermissionRefdef ( ref_params_t *pparams )
 {
-	cl_entity_t	*ent, *view;
-	float		old;
-
 	// ent is the player model ( visible when out of body )
-	ent = gEngfuncs.GetLocalPlayer();
+	//cl_entity_t* ent = gEngfuncs.GetLocalPlayer();
 	
 	// view is the weapon model (only visible from inside body )
-	view = gEngfuncs.GetViewModel();
+	cl_entity_t* view = gEngfuncs.GetViewModel();
 
 	pparams->vieworg = pparams->simorg;
 	pparams->viewangles = pparams->cl_viewangles;
@@ -431,7 +428,7 @@ void V_CalcIntermissionRefdef ( ref_params_t *pparams )
 	view->model = NULL;
 
 	// allways idle in intermission
-	old = v_idlescale;
+	const float old = v_idlescale;
 	v_idlescale = 1;
 
 	V_AddIdle ( pparams );

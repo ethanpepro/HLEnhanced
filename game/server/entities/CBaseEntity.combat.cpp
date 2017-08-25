@@ -291,7 +291,7 @@ Vector CBaseEntity::FireBulletsPlayer( const unsigned int cShots,
 									   float flDistance, int iBulletType,
 									   int iTracerFreq, int iDamage, CBaseEntity* pAttacker, int shared_rand )
 {
-	static int tracerCount;
+	//static int tracerCount;
 	TraceResult tr;
 	Vector vecRight = gpGlobals->v_right;
 	Vector vecUp = gpGlobals->v_up;

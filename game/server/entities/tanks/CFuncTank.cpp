@@ -243,7 +243,7 @@ void CFuncTank::TrackTarget( void )
 {
 	TraceResult tr;
 	CBaseEntity* pPlayer = UTIL_FindClientInPVS( this );
-	bool updateTime = false, lineOfSight;
+	bool updateTime = false;
 	Vector angles, direction, targetPosition, barrelEnd;
 
 	CBaseEntity* pTarget = nullptr;
@@ -285,11 +285,11 @@ void CFuncTank::TrackTarget( void )
 
 		UTIL_TraceLine( barrelEnd, targetPosition, dont_ignore_monsters, edict(), &tr );
 
-		lineOfSight = false;
+		//bool lineOfSight = false;
 		// No line of sight, don't track
 		if( tr.flFraction == 1.0 || tr.pHit == pTarget->edict() )
 		{
-			lineOfSight = true;
+			//lineOfSight = true;
 
 			if( InRange( range ) && pTarget && pTarget->IsAlive() )
 			{

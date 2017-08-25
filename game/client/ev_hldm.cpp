@@ -665,7 +665,6 @@ void EV_FirePython( event_args_t *args )
 	const int idx = args->entindex;
 	Vector origin = args->origin;
 	Vector angles = args->angles;
-	Vector velocity = args->velocity;
 
 	Vector vecSrc;
 	Vector up, right, forward;
@@ -714,8 +713,6 @@ void EV_SpinGauss( event_args_t *args )
 {
 	const int idx = args->entindex;
 	Vector origin = args->origin;
-	Vector angles = args->angles;
-	Vector velocity = args->velocity;
 	int iSoundState = 0;
 
 	const int pitch = args->iparam1;
@@ -745,7 +742,6 @@ void EV_FireGauss( event_args_t *args )
 	const int idx = args->entindex;
 	Vector origin = args->origin;
 	Vector angles = args->angles;
-	Vector velocity = args->velocity;
 	float flDamage = args->fparam1;
 
 	int m_fPrimaryFire = args->bparam1;
@@ -1135,7 +1131,6 @@ void EV_FireCrossbow2( event_args_t *args )
 	const int idx = args->entindex;
 	Vector origin = args->origin;
 	Vector angles = args->angles;
-	Vector velocity = args->velocity;
 	
 	AngleVectors( angles, forward, right, up );
 
@@ -1275,7 +1270,7 @@ void EV_EgonFire( event_args_t *args )
 	const int idx = args->entindex;
 	Vector origin = args->origin;
 
-	const int iFireState = args->iparam1;
+	//const int iFireState = args->iparam1;
 	const int iFireMode = args->iparam2;
 	const int iStartup = args->bparam1;
 
@@ -1399,9 +1394,8 @@ void EV_HornetGunFire( event_args_t *args )
 {
 	const int idx = args->entindex;
 	Vector origin = args->origin;
-	Vector angles = args->angles;
 
-	const int iFireMode = args->iparam1;
+	//const int iFireMode = args->iparam1;
 
 	//Only play the weapon anims if I shot it.
 	if ( EV_IsLocal( idx ) )

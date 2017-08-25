@@ -360,6 +360,7 @@ void CTentacle :: Cycle( void )
 		if (m_flSoundTime < gpGlobals->time)
 		{
 			// play "I hear new something" sound
+			/*
 			const char* sound;	
 
 			switch( RANDOM_LONG(0,1) )
@@ -367,6 +368,7 @@ void CTentacle :: Cycle( void )
 			case 0: sound = "tentacle/te_alert1.wav"; break;
 			case 1: sound = "tentacle/te_alert2.wav"; break;
 			}
+			*/
 
 			// UTIL_EmitAmbientSound( this, GetAbsOrigin() + Vector( 0, 0, MyHeight()), sound, 1.0, ATTN_NORM, 0, 100);
 		}

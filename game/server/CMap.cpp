@@ -217,7 +217,7 @@ void CMap::InitializeEntityClassifications()
 	const auto playerAllyId = EntityClassifications().AddClassification( classify::PLAYER_ALLY );
 	const auto plrBioWpnId = EntityClassifications().AddClassification( classify::PLAYER_BIOWEAPON );
 	const auto alienBioWpnId = EntityClassifications().AddClassification( classify::ALIEN_BIOWEAPON );
-	const auto ignoreId = EntityClassifications().AddClassification( classify::IGNORE, R_NO, R_NO );
+	/*const auto ignoreId = */EntityClassifications().AddClassification( classify::IGNORE, R_NO, R_NO );
 
 	EntityClassifications().AddRelationship( machineId, playerId, R_DL, true );
 	EntityClassifications().AddRelationship( machineId, humanPassiveId, R_DL );

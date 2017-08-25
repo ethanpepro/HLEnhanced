@@ -135,7 +135,7 @@ cvar_t* CHalfLifeMultiplay::GetSkillCvar( const skilldata_t& skillData, const ch
 		char szBuffer[ 64 ];
 
 		//All overrides have _mp appended to their base name. - Solokiller
-		const int Result = snprintf( szBuffer, sizeof( szBuffer ), "%s_mp", pszSkillCvarName );
+		/*const int Result = */snprintf( szBuffer, sizeof( szBuffer ), "%s_mp", pszSkillCvarName );
 
 		return skilldata_t::GetSkillCvar( szBuffer, skillData.GetSkillLevel() );
 	}

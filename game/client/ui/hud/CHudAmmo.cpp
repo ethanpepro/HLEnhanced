@@ -755,12 +755,6 @@ bool CHudAmmo::Draw(float flTime)
 			x = ScreenWidth - (8 * AmmoWidth) - iIconWidth;
 			x = GetHud().DrawHudNumber(x, y, iFlags | DHN_3DIGITS, pw->m_iClientClip, r, g, b);
 
-			wrect_t rc;
-			rc.top = 0;
-			rc.left = 0;
-			rc.right = AmmoWidth;
-			rc.bottom = 100;
-
 			int iBarWidth =  AmmoWidth/10;
 
 			x += AmmoWidth/2;

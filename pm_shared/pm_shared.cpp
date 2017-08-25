@@ -822,7 +822,7 @@ Only used by players.  Moves along the ground when player is a MOVETYPE_WALK.
 */
 void PM_WalkMove ()
 {
-	int			clip;
+	//int			clip;
 	int			oldonground;
 
 	Vector		wishvel;
@@ -917,7 +917,7 @@ void PM_WalkMove ()
 	originalvel = pmove->velocity;  //  velocity.
 
 	// Slide move
-	clip = PM_FlyMove ();
+	/*clip = */PM_FlyMove ();
 
 	// Copy the results out
 	down = pmove->origin;
@@ -942,7 +942,7 @@ void PM_WalkMove ()
 	}
 
 // slide move the rest of the way.
-	clip = PM_FlyMove ();
+	/*clip = */PM_FlyMove ();
 
 // Now try going back down from the end point
 //  press down the stepheight
@@ -1699,8 +1699,8 @@ void PM_Duck()
 	const int buttonsChanged = ( pmove->oldbuttons ^ pmove->cmd.buttons );	// These buttons have changed this frame
 	const int nButtonPressed =  buttonsChanged & pmove->cmd.buttons;		// The changed ones still down are "pressed"
 
-	const bool duckchange	= ( buttonsChanged & IN_DUCK ) != 0;
-	const bool duckpressed	= ( nButtonPressed & IN_DUCK ) != 0;
+	//const bool duckchange	= ( buttonsChanged & IN_DUCK ) != 0;
+	//const bool duckpressed	= ( nButtonPressed & IN_DUCK ) != 0;
 
 	if ( pmove->cmd.buttons & IN_DUCK )
 	{

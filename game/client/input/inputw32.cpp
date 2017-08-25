@@ -54,10 +54,11 @@ extern cvar_t *cl_forwardspeed;
 extern cvar_t *cl_pitchspeed;
 extern cvar_t *cl_movespeedkey;
 
-
+#ifdef WIN32
 static double s_flRawInputUpdateTime = 0.0f;
 static bool m_bRawInput = false;
 static bool m_bMouseThread = false;
+#endif
 extern globalvars_t *gpGlobals;
 
 // mouse variables
@@ -75,8 +76,10 @@ static cvar_t *m_customaccel_max;
 //Mouse move is raised to this power before being scaled by scale factor
 static cvar_t *m_customaccel_exponent;
 
+#ifdef WIN32
 // if threaded mouse is enabled then the time to sleep between polls
 static cvar_t *m_mousethread_sleep;
+#endif
 
 int			mouse_buttons;
 int			mouse_oldbuttonstate;
@@ -84,12 +87,16 @@ POINT		current_pos;
 int			old_mouse_x, old_mouse_y, mx_accum, my_accum;
 float		mouse_x, mouse_y;
 
+#ifdef WIN32
 static int	restore_spi;
 static int	originalmouseparms[3], newmouseparms[3] = {0, 0, 1};
+#endif
 static int	mouseactive = 0;
 int			mouseinitialized;
+#ifdef WIN32
 static int	mouseparmsvalid;
 static int	mouseshowtoggle = 1;
+#endif
 
 // joystick defines and variables
 // where should defines be moved?

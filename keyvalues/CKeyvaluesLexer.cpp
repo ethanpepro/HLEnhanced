@@ -120,7 +120,6 @@ CKeyvaluesLexer::ReadResult CKeyvaluesLexer::Read()
 
 bool CKeyvaluesLexer::IsValidReadPosition()
 {
-	const size_t offset = ( m_pszCurrentPosition - reinterpret_cast<const char*>( m_Memory.GetMemory() ) );
 	return static_cast<size_type>( m_pszCurrentPosition - reinterpret_cast<const char*>( m_Memory.GetMemory() ) ) < m_Memory.GetSize();
 }
 

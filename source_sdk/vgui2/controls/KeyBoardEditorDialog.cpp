@@ -17,17 +17,6 @@
 
 using namespace vgui2;
 
-static char *CopyString( const char *in )
-{
-	if ( !in )
-		return NULL;
-
-	int len = strlen( in );
-	char *n = new char[ len + 1 ];
-	Q_strncpy( n, in, len  + 1 );
-	return n;
-}
-
 CKeyBoardEditorPage::SaveMapping_t::SaveMapping_t() : map( 0 )
 {
 }

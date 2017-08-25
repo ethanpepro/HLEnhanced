@@ -81,7 +81,7 @@ void CSniperRifle::Holster()
 
 void CSniperRifle::WeaponIdle()
 {
-	Vector vecAiming = m_pPlayer->GetAutoaimVector( AUTOAIM_2DEGREES );
+	/*Vector vecAiming = */m_pPlayer->GetAutoaimVector( AUTOAIM_2DEGREES );
 
 	ResetEmptySound();
 

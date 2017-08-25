@@ -246,12 +246,10 @@ Activity CBaseMonster :: GetDeathActivity ( void )
 Activity CBaseMonster :: GetSmallFlinchActivity ( void )
 {
 	Activity	flinchActivity;
-	bool		fTriedDirection;
-	float		flDot;
+	//bool		fTriedDirection = false;
 
-	fTriedDirection = false;
 	UTIL_MakeVectors ( pev->angles );
-	flDot = DotProduct ( gpGlobals->v_forward, g_vecAttackDir * -1 );
+	//float flDot = DotProduct ( gpGlobals->v_forward, g_vecAttackDir * -1 );
 	
 	switch ( m_LastHitGroup )
 	{

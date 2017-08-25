@@ -539,7 +539,7 @@ void ScorePanel::FillGrid()
 		m_iHighlightRow = -1;
 	}
 
-	bool bNextRowIsGap = false;
+	//bool bNextRowIsGap = false;
 	int row;
 	for(row=0; row < NUM_ROWS; row++)
 	{
@@ -554,12 +554,14 @@ void ScorePanel::FillGrid()
 			continue;
 		}
 
+		/*
 		bool bRowIsGap = false;
 		if (bNextRowIsGap)
 		{
 			bNextRowIsGap = false;
 			bRowIsGap = true;
 		}
+		*/
 
 		// Get the team's data
 		team_info_t* const team_info = &g_TeamInfo[ m_iSortedRows[ row ] ];

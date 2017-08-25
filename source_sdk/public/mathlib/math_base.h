@@ -1071,8 +1071,10 @@ inline unsigned long RoundFloatToUnsignedLong(float f)
 // Fast, accurate ftol:
 inline int Float2Int( float a )
 {
+#ifdef _WIN32
    int CtrlwdHolder;
    int CtrlwdSetter;
+#endif
    int RetVal;
 
 #ifdef _WIN32
@@ -1098,8 +1100,10 @@ inline int Float2Int( float a )
 // Over 15x faster than: (int)floor(value)
 inline int Floor2Int( float a )
 {
+#ifdef _WIN32
    int CtrlwdHolder;
    int CtrlwdSetter;
+#endif
    int RetVal;
 
 #ifdef _WIN32
@@ -1146,8 +1150,10 @@ inline float ClampToMsec( float in )
 // Over 15x faster than: (int)ceil(value)
 inline int Ceil2Int( float a )
 {
+#ifdef _WIN32
    int CtrlwdHolder;
    int CtrlwdSetter;
+#endif
    int RetVal;
 
 #ifdef _WIN32

@@ -282,8 +282,6 @@ void CDisplacerBall::FlyThink2()
 
 void CDisplacerBall::FizzleThink()
 {
-	const Contents contents = UTIL_PointContents( GetAbsOrigin() );
-
 	ClearBeams();
 
 	SetDamage( gSkillData.GetPlrDmgDisplacerOther() );
