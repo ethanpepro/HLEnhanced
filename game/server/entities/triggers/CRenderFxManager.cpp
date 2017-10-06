@@ -8,7 +8,7 @@ LINK_ENTITY_TO_CLASS( env_render, CRenderFxManager );
 
 void CRenderFxManager::Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 }
 
 void CRenderFxManager::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

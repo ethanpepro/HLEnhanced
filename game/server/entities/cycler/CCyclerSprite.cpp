@@ -28,7 +28,7 @@ LINK_ENTITY_TO_CLASS( cycler_sprite, CCyclerSprite );
 
 void CCyclerSprite::Spawn( void )
 {
-	pev->solid = SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_NONE;
 	pev->takedamage = DAMAGE_YES;
 	pev->effects = 0;

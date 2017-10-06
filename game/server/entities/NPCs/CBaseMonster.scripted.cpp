@@ -65,14 +65,14 @@ bool CBaseMonster::CineCleanup()
 		// okay, reset me to what it thought I was before
 		m_pCine->m_hTargetEnt = NULL;
 		pev->movetype = m_pCine->m_saved_movetype;
-		pev->solid = m_pCine->m_saved_solid;
+		SetSolidType( m_pCine->m_saved_solid );
 		pev->effects = m_pCine->m_saved_effects;
 	}
 	else
 	{
 		// arg, punt
 		pev->movetype = MOVETYPE_STEP;// this is evil
-		pev->solid = SOLID_SLIDEBOX;
+		SetSolidType( SOLID_SLIDEBOX );
 	}
 	m_pCine = NULL;
 	m_hTargetEnt = NULL;
@@ -82,7 +82,7 @@ bool CBaseMonster::CineCleanup()
 		// last frame of death animation?
 		pev->health			= 0;
 		pev->framerate		= 0.0;
-		pev->solid			= SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 		SetState( MONSTERSTATE_DEAD );
 		pev->deadflag = DEAD_DEAD;
 		SetSize( pev->mins, Vector(pev->maxs.x, pev->maxs.y, pev->mins.z + 2) );

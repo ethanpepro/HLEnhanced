@@ -31,7 +31,7 @@ void CMomentaryDoor::Spawn( void )
 {
 	SetMovedir( this );
 
-	pev->solid = SOLID_BSP;
+	SetSolidType( SOLID_BSP );
 	pev->movetype = MOVETYPE_PUSH;
 
 	SetAbsOrigin( GetAbsOrigin() );

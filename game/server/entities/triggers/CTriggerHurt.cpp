@@ -39,7 +39,7 @@ void CTriggerHurt::Spawn( void )
 	}
 
 	if( FBitSet( pev->spawnflags, SF_TRIGGER_HURT_START_OFF ) )// if flagged to Start Turned Off, make trigger nonsolid.
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 
 	SetAbsOrigin( GetAbsOrigin() );		// Link into the list
 }

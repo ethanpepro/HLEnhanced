@@ -9,7 +9,7 @@ LINK_ENTITY_TO_CLASS( button_target, CButtonTarget );
 void CButtonTarget::Spawn( void )
 {
 	pev->movetype = MOVETYPE_PUSH;
-	pev->solid = SOLID_BSP;
+	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
 	pev->takedamage = DAMAGE_YES;
 

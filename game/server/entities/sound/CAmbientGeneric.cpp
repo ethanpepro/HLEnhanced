@@ -270,7 +270,7 @@ void CAmbientGeneric::Spawn( void )
 		SetThink( &CAmbientGeneric::SUB_Remove );
 		return;
 	}
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 
 	// Set up think function for dynamic modification 

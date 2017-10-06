@@ -15,7 +15,7 @@ LINK_ENTITY_TO_CLASS( func_friction, CFrictionModifier );
 // Modify an entity's friction
 void CFrictionModifier::Spawn( void )
 {
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 	SetModel( GetModelName() );    // set size and link into world
 	pev->movetype = MOVETYPE_NONE;
 	SetTouch( &CFrictionModifier::ChangeFriction );

@@ -47,9 +47,9 @@ void CFuncTrackTrain::Spawn( void )
 		ALERT( at_console, "FuncTrain with no target" );
 
 	if( pev->spawnflags & SF_TRACKTRAIN_PASSABLE )
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 	else
-		pev->solid = SOLID_BSP;
+		SetSolidType( SOLID_BSP );
 	pev->movetype = MOVETYPE_PUSH;
 
 	SetModel( GetModelName() );

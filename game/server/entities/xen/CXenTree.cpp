@@ -46,7 +46,7 @@ void CXenTree::Spawn( void )
 
 	SetModel( "models/tree.mdl" );
 	pev->movetype = MOVETYPE_NONE;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 
 	pev->takedamage = DAMAGE_YES;
 

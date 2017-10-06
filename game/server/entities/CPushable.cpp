@@ -38,7 +38,7 @@ void CPushable::Spawn( void )
 		Precache();
 
 	pev->movetype = MOVETYPE_PUSHSTEP;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 	SetModel( GetModelName() );
 
 	if( pev->friction > 399 )

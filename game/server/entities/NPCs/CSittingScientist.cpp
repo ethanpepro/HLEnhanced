@@ -40,7 +40,7 @@ void CSittingScientist::Spawn()
 
 	SetSize( Vector( -14, -14, 0 ), Vector( 14, 14, 36 ) );
 
-	pev->solid = SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_STEP;
 	pev->effects = 0;
 	pev->health = 50;

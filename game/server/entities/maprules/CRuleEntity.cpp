@@ -27,7 +27,7 @@ END_DATADESC()
 
 void CRuleEntity::Spawn( void )
 {
-	pev->solid			= SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype		= MOVETYPE_NONE;
 	pev->effects		= EF_NODRAW;
 }

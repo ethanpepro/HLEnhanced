@@ -24,7 +24,7 @@ void CFuncIllusionary::Spawn( void )
 {
 	pev->angles = g_vecZero;
 	pev->movetype = MOVETYPE_NONE;
-	pev->solid = SOLID_NOT;// always solid_not 
+	SetSolidType( SOLID_NOT );// always solid_not 
 	SetModel( GetModelName() );
 
 	// I'd rather eat the network bandwidth of this than figure out how to save/restore

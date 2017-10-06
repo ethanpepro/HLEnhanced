@@ -42,21 +42,21 @@ void CFuncWallToggle::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 
 void CFuncWallToggle::TurnOff( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->effects |= EF_NODRAW;
 	SetAbsOrigin( GetAbsOrigin() );
 }
 
 void CFuncWallToggle::TurnOn( void )
 {
-	pev->solid = SOLID_BSP;
+	SetSolidType( SOLID_BSP );
 	pev->effects &= ~EF_NODRAW;
 	SetAbsOrigin( GetAbsOrigin() );
 }
 
 bool CFuncWallToggle::IsOn() const
 {
-	if( pev->solid == SOLID_NOT )
+	if( GetSolidType() == SOLID_NOT )
 		return false;
 	return true;
 }

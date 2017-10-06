@@ -147,7 +147,7 @@ void CBaseTrigger::MultiWaitOver( void )
 	//		{
 	//		pev->health		= pev->max_health;
 	//		pev->takedamage	= DAMAGE_YES;
-	//		pev->solid		= SOLID_BBOX;
+	//		SetSolidType( SOLID_BBOX );
 	//		}
 	SetThink( NULL );
 }
@@ -217,16 +217,16 @@ void CBaseTrigger::KeyValue( KeyValueData *pkvd )
 //
 void CBaseTrigger::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( pev->solid == SOLID_NOT )
+	if( GetSolidType() == SOLID_NOT )
 	{// if the trigger is off, turn it on
-		pev->solid = SOLID_TRIGGER;
+		SetSolidType( SOLID_TRIGGER );
 
 		// Force retouch
 		gpGlobals->force_retouch++;
 	}
 	else
 	{// turn the trigger off
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 	}
 	SetAbsOrigin( GetAbsOrigin() );
 }
@@ -242,7 +242,7 @@ void CBaseTrigger::InitTrigger()
 	// to mean no restrictions, so use a yaw of 360 instead.
 	if( pev->angles != g_vecZero )
 		SetMovedir( this );
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 	pev->movetype = MOVETYPE_NONE;
 	SetModel( GetModelName() );    // set size and link into world
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )

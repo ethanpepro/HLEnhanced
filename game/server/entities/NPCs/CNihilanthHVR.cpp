@@ -67,7 +67,7 @@ void CNihilanthHVR::Precache( void )
 void CNihilanthHVR::CircleInit( CBaseEntity *pTarget )
 {
 	pev->movetype = MOVETYPE_NOCLIP;
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 
 	// SetModel( "sprites/flare6.spr");
 	// pev->scale = 3.0;
@@ -116,7 +116,7 @@ void CNihilanthHVR::AbsorbInit( void )
 void CNihilanthHVR::TeleportInit( CNihilanth *pOwner, CBaseEntity *pEnemy, CBaseEntity *pTarget, CBaseEntity *pTouch )
 {
 	pev->movetype = MOVETYPE_FLY;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;
@@ -140,7 +140,7 @@ void CNihilanthHVR::TeleportInit( CNihilanth *pOwner, CBaseEntity *pEnemy, CBase
 void CNihilanthHVR::GreenBallInit()
 {
 	pev->movetype = MOVETYPE_FLY;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;
@@ -155,7 +155,7 @@ void CNihilanthHVR::GreenBallInit()
 void CNihilanthHVR::ZapInit( CBaseEntity *pEnemy )
 {
 	pev->movetype = MOVETYPE_FLY;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 
 	SetModel( "sprites/nhth1.spr" );
 

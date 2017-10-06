@@ -39,9 +39,9 @@ void CRotDoor::Spawn( void )
 	ASSERTSZ( m_vecAngle1 != m_vecAngle2, "rotating door start/end positions are equal" );
 
 	if( FBitSet( pev->spawnflags, SF_DOOR_PASSABLE ) )
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 	else
-		pev->solid = SOLID_BSP;
+		SetSolidType( SOLID_BSP );
 
 	pev->movetype = MOVETYPE_PUSH;
 	SetAbsOrigin( GetAbsOrigin() );

@@ -91,7 +91,7 @@ void CLeech::Spawn( void )
 //	SetSize( g_vecZero, g_vecZero );
 	SetSize( Vector(-1,-1,0), Vector(1,1,2));
 	// Don't push the minz down too much or the water check will fail because this entity is really point-sized
-	pev->solid			= SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_FLY;
 	SetBits(pev->flags, FL_SWIM);
 	pev->health			= gSkillData.GetLeechHealth();
@@ -321,7 +321,7 @@ void CLeech::DeadThink( void )
 		}
 		else if ( pev->flags & FL_ONGROUND )
 		{
-			pev->solid = SOLID_NOT;
+			SetSolidType( SOLID_NOT );
 			SetActivity(ACT_DIEFORWARD);
 		}
 	}

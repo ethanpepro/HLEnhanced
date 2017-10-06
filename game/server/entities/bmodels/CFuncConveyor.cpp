@@ -31,7 +31,7 @@ void CFuncConveyor::Spawn( void )
 	// HACKHACK - This is to allow for some special effects
 	if( pev->spawnflags & SF_CONVEYOR_NOTSOLID )
 	{
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 		pev->skin = 0;		// Don't want the engine thinking we've got special contents on this brush
 	}
 

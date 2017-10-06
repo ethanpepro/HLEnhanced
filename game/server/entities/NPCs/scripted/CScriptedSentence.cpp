@@ -22,7 +22,7 @@ LINK_ENTITY_TO_CLASS( scripted_sentence, CScriptedSentence );
 
 void CScriptedSentence::Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 
 	m_active = true;
 	// if no targetname, start now

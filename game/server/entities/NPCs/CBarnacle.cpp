@@ -76,7 +76,7 @@ void CBarnacle :: Spawn()
 	SetModel( "models/barnacle.mdl");
 	SetSize( Vector(-16, -16, -32), Vector(16, 16, 0) );
 
-	pev->solid			= SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_NONE;
 	pev->takedamage		= DAMAGE_AIM;
 	m_bloodColor		= BLOOD_COLOR_RED;
@@ -293,7 +293,7 @@ void CBarnacle::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	CBaseMonster *pVictim;
 
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->takedamage = DAMAGE_NO;
 
 	if ( m_hEnemy != NULL )

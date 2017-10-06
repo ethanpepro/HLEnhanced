@@ -134,7 +134,7 @@ void CBasePlayer::Spawn()
 	pev->health			= 100;
 	pev->armorvalue		= 0;
 	pev->takedamage		= DAMAGE_AIM;
-	pev->solid			= SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_WALK;
 	pev->max_health		= pev->health;
 	pev->flags			&= FL_PROXY;	// keep proxy flag sey by engine
@@ -572,7 +572,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 	if ( ( pev->health < -40 && gibAction != GIB_NEVER ) || gibAction == GIB_ALWAYS )
 	{
-		pev->solid			= SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 		GibMonster();	// This clears pev->model
 		pev->effects |= EF_NODRAW;
 		return;

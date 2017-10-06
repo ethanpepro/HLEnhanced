@@ -112,7 +112,7 @@ void CBasePlayerWeapon::Materialize( void )
 		pev->effects |= EF_MUZZLEFLASH;
 	}
 
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 
 	SetAbsOrigin( GetAbsOrigin() );// link into world.
 	SetTouch( &CBasePlayerWeapon::DefaultTouch );
@@ -173,7 +173,7 @@ CBaseEntity* CBasePlayerWeapon::Respawn( void )
 void CBasePlayerWeapon::FallInit( void )
 {
 	pev->movetype = MOVETYPE_TOSS;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 
 	SetAbsOrigin( GetAbsOrigin() );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );//pointsize until it lands on the ground.
@@ -335,7 +335,7 @@ void CBasePlayerWeapon::Kill( void )
 void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
 {
 	pev->movetype = MOVETYPE_FOLLOW;
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->aiment = pPlayer->edict();
 	pev->effects = EF_NODRAW; // ??
 	SetModelIndex( 0 );// server won't send down to clients if modelindex == 0

@@ -9,7 +9,7 @@ LINK_ENTITY_TO_CLASS( env_beverage, CEnvBeverage );
 void CEnvBeverage::Spawn( void )
 {
 	Precache();
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->effects = EF_NODRAW;
 	pev->frags = 0;
 

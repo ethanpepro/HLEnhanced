@@ -33,7 +33,7 @@ void CSquidSpit::Spawn( void )
 {
 	pev->movetype = MOVETYPE_FLY;
 
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 	pev->rendermode = kRenderTransAlpha;
 	pev->renderamt = 255;
 

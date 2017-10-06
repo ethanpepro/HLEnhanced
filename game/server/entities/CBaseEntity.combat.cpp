@@ -137,7 +137,7 @@ void CBaseEntity::SUB_StartFadeOut( void )
 		pev->rendermode = kRenderTransTexture;
 	}
 
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->avelocity = g_vecZero;
 
 	pev->nextthink = gpGlobals->time + 0.1;

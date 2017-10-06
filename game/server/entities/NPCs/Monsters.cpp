@@ -3175,7 +3175,7 @@ void CBaseMonster :: MonsterInitDead( void )
 {
 	InitBoneControllers();
 
-	pev->solid			= SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 	pev->movetype		= MOVETYPE_TOSS;// so he'll fall to ground
 
 	pev->frame = 0;

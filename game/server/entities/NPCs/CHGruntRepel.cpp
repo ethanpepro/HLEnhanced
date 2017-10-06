@@ -29,7 +29,7 @@ LINK_ENTITY_TO_CLASS( monster_grunt_repel, CHGruntRepel );
 void CHGruntRepel::Spawn( void )
 {
 	Precache();
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 
 	SetUse( &CHGruntRepel::RepelUse );
 }
@@ -45,7 +45,7 @@ void CHGruntRepel::RepelUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 	TraceResult tr;
 	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, -4096.0 ), dont_ignore_monsters, ENT( pev ), &tr );
 	/*
-	if ( tr.pHit && Instance( tr.pHit )->pev->solid != SOLID_BSP)
+	if ( tr.pHit && Instance( tr.pHit )->GetSolidType() != SOLID_BSP)
 	return NULL;
 	*/
 

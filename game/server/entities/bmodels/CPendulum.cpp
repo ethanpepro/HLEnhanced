@@ -42,9 +42,9 @@ void CPendulum::Spawn( void )
 	CBaseToggle::AxisDir( this );
 
 	if( FBitSet( pev->spawnflags, SF_DOOR_PASSABLE ) )
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 	else
-		pev->solid = SOLID_BSP;
+		SetSolidType( SOLID_BSP );
 	pev->movetype = MOVETYPE_PUSH;
 	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( GetModelName() );

@@ -32,7 +32,7 @@ void CShower::Spawn( void )
 	pev->movetype = MOVETYPE_BOUNCE;
 	pev->gravity = 0.5;
 	pev->nextthink = gpGlobals->time + 0.1;
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	SetModel( "models/grenade.mdl" );	// Need a model, just use the grenade, we don't draw it anyway
 	SetSize( g_vecZero, g_vecZero );
 	pev->effects |= EF_NODRAW;

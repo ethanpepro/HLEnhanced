@@ -8,7 +8,7 @@ LINK_ENTITY_TO_CLASS( env_blood, CBlood );
 
 void CBlood::Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 	pev->effects = 0;
 	pev->frame = 0;

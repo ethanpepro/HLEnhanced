@@ -38,7 +38,7 @@ void CLightning::Spawn( void )
 		SetThink( &CLightning::SUB_Remove );
 		return;
 	}
-	pev->solid = SOLID_NOT;							// Remove model & collisions
+	SetSolidType( SOLID_NOT );							// Remove model & collisions
 	Precache();
 
 	pev->dmgtime = gpGlobals->time;

@@ -10,7 +10,7 @@ LINK_ENTITY_TO_CLASS( target_cdaudio, CTargetCDAudio );
 
 void CTargetCDAudio::Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 
 	if( pev->scale > 0 )

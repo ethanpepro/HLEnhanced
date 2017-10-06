@@ -26,7 +26,7 @@ void CSpiral::Spawn( void )
 {
 	pev->movetype = MOVETYPE_NONE;
 	pev->nextthink = gpGlobals->time;
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	SetSize( g_vecZero, g_vecZero );
 	pev->effects |= EF_NODRAW;
 	pev->angles = g_vecZero;

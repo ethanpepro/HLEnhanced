@@ -147,7 +147,7 @@ void CBreakable::Spawn( void )
 	else
 		pev->takedamage	= DAMAGE_YES;
   
-	pev->solid		= SOLID_BSP;
+	SetSolidType( SOLID_BSP );
     pev->movetype	= MOVETYPE_PUSH;
     m_angle			= pev->angles.y;
 	pev->angles.y	= 0;
@@ -746,7 +746,7 @@ void CBreakable::Die( void )
 	// Don't fire something that could fire myself
 	pev->targetname = 0;
 
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	// Fire targets on break
 	SUB_UseTargets( NULL, USE_TOGGLE, 0 );
 

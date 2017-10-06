@@ -19,7 +19,7 @@ int	CFuncTankControls::ObjectCaps() const
 
 void CFuncTankControls::Spawn( void )
 {
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 	pev->movetype = MOVETYPE_NONE;
 	pev->effects |= EF_NODRAW;
 	SetModel( GetModelName() );

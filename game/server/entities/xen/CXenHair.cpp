@@ -34,7 +34,7 @@ void CXenHair::Spawn( void )
 	}
 	ResetSequenceInfo();
 
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 	pev->nextthink = gpGlobals->time + RANDOM_FLOAT( 0.1, 0.4 );	// Load balance these a bit
 }

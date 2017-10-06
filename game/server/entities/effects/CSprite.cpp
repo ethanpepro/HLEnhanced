@@ -16,7 +16,7 @@ LINK_ENTITY_TO_CLASS( env_sprite, CSprite );
 
 void CSprite::Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 	pev->effects = 0;
 	pev->frame = 0;
@@ -161,7 +161,7 @@ CSprite *CSprite::SpriteCreate( const char *pSpriteName, const Vector &origin, c
 {
 	auto pSprite = static_cast<CSprite*>( UTIL_CreateNamedEntity( "env_sprite" ) );
 	pSprite->SpriteInit( pSpriteName, origin );
-	pSprite->pev->solid = SOLID_NOT;
+	pSprite->SetSolidType( SOLID_NOT );
 	pSprite->pev->movetype = MOVETYPE_NOCLIP;
 	if( animate )
 		pSprite->TurnOn();

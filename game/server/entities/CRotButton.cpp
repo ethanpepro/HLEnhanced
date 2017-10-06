@@ -43,9 +43,9 @@ void CRotButton::Spawn( void )
 	pev->movetype = MOVETYPE_PUSH;
 
 	if( pev->spawnflags & SF_ROTBUTTON_NOTSOLID )
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 	else
-		pev->solid = SOLID_BSP;
+		SetSolidType( SOLID_BSP );
 
 	SetModel( GetModelName() );
 

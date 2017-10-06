@@ -106,13 +106,13 @@ void CBaseDoor::Spawn()
 	if( pev->skin == 0 )
 	{//normal door
 		if( FBitSet( pev->spawnflags, SF_DOOR_PASSABLE ) )
-			pev->solid = SOLID_NOT;
+			SetSolidType( SOLID_NOT );
 		else
-			pev->solid = SOLID_BSP;
+			SetSolidType( SOLID_BSP );
 	}
 	else
 	{// special contents
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 		SetBits( pev->spawnflags, SF_DOOR_SILENT );	// water is silent for now
 	}
 

@@ -16,7 +16,7 @@ LINK_ENTITY_TO_CLASS( beam, CBeam );
 
 void CBeam::Spawn( void )
 {
-	pev->solid = SOLID_NOT;							// Remove model & collisions
+	SetSolidType( SOLID_NOT );							// Remove model & collisions
 	Precache();
 }
 

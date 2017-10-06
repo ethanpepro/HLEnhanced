@@ -17,7 +17,7 @@ END_DATADESC()
 void CBasePlayerAmmo::Spawn()
 {
 	pev->movetype = MOVETYPE_TOSS;
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 	SetSize( Vector( -16, -16, 0 ), Vector( 16, 16, 16 ) );
 	SetAbsOrigin( GetAbsOrigin() );
 

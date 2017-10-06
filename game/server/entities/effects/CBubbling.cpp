@@ -20,7 +20,7 @@ void CBubbling::Spawn( void )
 	Precache();
 	SetModel( GetModelName() );		// Set size
 
-	pev->solid = SOLID_NOT;							// Remove model & collisions
+	SetSolidType( SOLID_NOT );							// Remove model & collisions
 	pev->renderamt = 0;								// The engine won't draw this model if this is set to 0 and blending is on
 	pev->rendermode = kRenderTransTexture;
 	int speed = pev->speed > 0 ? pev->speed : -pev->speed;

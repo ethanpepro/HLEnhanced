@@ -54,9 +54,9 @@ void CMomentaryRotButton::Spawn( void )
 	}
 
 	if( pev->spawnflags & SF_MOMENTARY_DOOR )
-		pev->solid = SOLID_BSP;
+		SetSolidType( SOLID_BSP );
 	else
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 
 	pev->movetype = MOVETYPE_PUSH;
 	SetAbsOrigin( GetAbsOrigin() );

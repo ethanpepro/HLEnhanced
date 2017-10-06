@@ -24,7 +24,7 @@ void CTriggerMultiple::Spawn( void )
 	//UNDONE: where to get pfnDie from?
 	//		pev->pfnDie = multi_killed;
 	//		pev->takedamage = DAMAGE_YES;
-	//		pev->solid = SOLID_BBOX;
+	//		SetSolidType( SOLID_BBOX );
 	//		SetAbsOrigin( GetAbsOrigin());  // make sure it links into the world
 	//		}
 	//	else

@@ -59,7 +59,7 @@ void CPenguinGrenade::Spawn()
 	Precache();
 	// motor
 	pev->movetype = MOVETYPE_BOUNCE;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 
 	SetModel( "models/w_penguin.mdl" );
 	SetSize( Vector( -4, -4, 0 ), Vector( 4, 4, 8 ) );

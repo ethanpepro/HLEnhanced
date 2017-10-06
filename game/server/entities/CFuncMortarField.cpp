@@ -68,7 +68,7 @@ void CFuncMortarField :: KeyValue( KeyValueData *pkvd )
 // Drop bombs from above
 void CFuncMortarField :: Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	SetModel( GetModelName() );    // set size and link into world
 	pev->movetype = MOVETYPE_NONE;
 	SetBits( pev->effects, EF_NODRAW );

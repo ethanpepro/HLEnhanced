@@ -60,7 +60,7 @@ void CCineAI::PossessEntity( void )
 		pTarget->m_hTargetEnt = this;
 
 		m_saved_movetype = pTarget->pev->movetype;
-		m_saved_solid = pTarget->pev->solid;
+		m_saved_solid = pTarget->GetSolidType();
 		m_saved_effects = pTarget->pev->effects;
 		pTarget->pev->effects |= pev->effects;
 

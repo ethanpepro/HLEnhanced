@@ -80,13 +80,13 @@ void CFuncRotating::Spawn()
 	// some rotating objects like fake volumetric lights will not be solid.
 	if( FBitSet( pev->spawnflags, SF_ROTATING_NOT_SOLID ) )
 	{
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 		pev->skin = CONTENTS_EMPTY;
 		pev->movetype = MOVETYPE_PUSH;
 	}
 	else
 	{
-		pev->solid = SOLID_BSP;
+		SetSolidType( SOLID_BSP );
 		pev->movetype = MOVETYPE_PUSH;
 	}
 

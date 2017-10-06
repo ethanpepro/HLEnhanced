@@ -37,7 +37,7 @@ void CBMortar::Spawn( void )
 {
 	pev->movetype = MOVETYPE_TOSS;
 
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 	pev->rendermode = kRenderTransAlpha;
 	pev->renderamt = 255;
 

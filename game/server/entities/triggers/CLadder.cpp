@@ -22,7 +22,7 @@ void CLadder::Spawn( void )
 void CLadder::Precache( void )
 {
 	// Do all of this in here because we need to 'convert' old saved games
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->skin = CONTENTS_LADDER;
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )
 	{

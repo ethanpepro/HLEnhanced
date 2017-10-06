@@ -15,7 +15,7 @@ END_DATADESC()
 void CItem::Spawn( void )
 {
 	pev->movetype = MOVETYPE_TOSS;
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 	SetAbsOrigin( GetAbsOrigin() );
 	SetSize( Vector( -16, -16, 0 ), Vector( 16, 16, 16 ) );
 	SetTouch( &CItem::ItemTouch );

@@ -57,9 +57,9 @@ LINK_ENTITY_TO_CLASS( scripted_sequence, CCineMonster );
 
 void CCineMonster::Spawn( void )
 {
-	// pev->solid = SOLID_TRIGGER;
+	// SetSolidType( SOLID_TRIGGER );
 	// SetSize( Vector(-8, -8, -8), Vector(8, 8, 8));
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 
 
 	// REMOVE: The old side-effect
@@ -194,7 +194,7 @@ pOther->pev->velocity = pev->movedir * pev->speed;
 pOther->pev->velocity.z += m_flHeight;
 
 
-pev->solid = SOLID_NOT;// kill the trigger for now !!!UNDONE
+SetSolidType( SOLID_NOT );// kill the trigger for now !!!UNDONE
 }
 */
 
@@ -370,7 +370,7 @@ void CCineMonster::PossessEntity( void )
 		pTarget->m_hTargetEnt = this;
 
 		m_saved_movetype = pTarget->pev->movetype;
-		m_saved_solid = pTarget->pev->solid;
+		m_saved_solid = pTarget->GetSolidType();
 		m_saved_effects = pTarget->pev->effects;
 		pTarget->pev->effects |= pev->effects;
 

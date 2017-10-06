@@ -332,7 +332,7 @@ void CBaseMonster::CallGibMonster( void )
 	}
 
 	pev->takedamage = DAMAGE_NO;
-	pev->solid = SOLID_NOT;// do something with the body. while monster blows up
+	SetSolidType( SOLID_NOT );// do something with the body. while monster blows up
 
 	if ( fade )
 	{
@@ -477,7 +477,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 	}
 
 	// if this is a player, move him around!
-	if ( ( !FNullEnt( info.GetInflictor() ) ) && (pev->movetype == MOVETYPE_WALK) && (!info.GetAttacker() || info.GetAttacker()->pev->solid != SOLID_TRIGGER) )
+	if ( ( !FNullEnt( info.GetInflictor() ) ) && (pev->movetype == MOVETYPE_WALK) && (!info.GetAttacker() || info.GetAttacker()->GetSolidType() != SOLID_TRIGGER) )
 	{
 		pev->velocity = pev->velocity + vecDir * -DamageForce( info.GetDamage() );
 	}
@@ -570,7 +570,7 @@ void CBaseMonster::DeadTakeDamage( const CTakeDamageInfo& info )
 	GetAbsOrigin().z += 1;
 	
 	// let the damage scoot the corpse around a bit.
-	if ( !FNullEnt( pAttacker ) && ( pAttacker->pev->solid != SOLID_TRIGGER) )
+	if ( !FNullEnt( pAttacker ) && ( pAttacker->GetSolidType() != SOLID_TRIGGER) )
 	{
 		pev->velocity = pev->velocity + vecDir * -DamageForce( flDamage );
 	}

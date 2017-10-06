@@ -61,7 +61,7 @@ void CBaseButton::Spawn()
 	SetMovedir( this );
 
 	pev->movetype = MOVETYPE_PUSH;
-	pev->solid = SOLID_BSP;
+	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
 
 	if( pev->speed == 0 )

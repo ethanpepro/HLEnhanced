@@ -22,7 +22,7 @@ void CGibShooter::Spawn( void )
 {
 	Precache();
 
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->effects = EF_NODRAW;
 
 	if( m_flDelay == 0 )

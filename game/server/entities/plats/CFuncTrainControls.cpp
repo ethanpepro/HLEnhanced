@@ -14,7 +14,7 @@ LINK_ENTITY_TO_CLASS( func_traincontrols, CFuncTrainControls );
 
 void CFuncTrainControls::Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 	SetModel( GetModelName() );
 

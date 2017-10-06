@@ -16,7 +16,7 @@ void CFurniture::Spawn()
 	SetModel( GetModelName() );
 
 	pev->movetype = MOVETYPE_NONE;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 	pev->health = 80000;
 	pev->takedamage = DAMAGE_AIM;
 	pev->effects = 0;

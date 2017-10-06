@@ -52,7 +52,7 @@ void CFuncTank::Spawn( void )
 	Precache();
 
 	pev->movetype = MOVETYPE_PUSH;  // so it doesn't get pushed by anything
-	pev->solid = SOLID_BSP;
+	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
 
 	m_yawCenter = pev->angles.y;

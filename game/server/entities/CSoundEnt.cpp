@@ -80,7 +80,7 @@ bool CSound::FIsScent() const
 //=========================================================
 void CSoundEnt::Spawn()
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	Initialize();
 
 	pev->nextthink = gpGlobals->time + 1; 

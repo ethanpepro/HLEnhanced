@@ -42,7 +42,7 @@ void CGib::Spawn( const char *szGibModel )
 	pev->renderamt = 255;
 	pev->rendermode = kRenderNormal;
 	pev->renderfx = kRenderFxNone;
-	pev->solid = SOLID_SLIDEBOX;/// hopefully this will fix the VELOCITY TOO LOW crap
+	SetSolidType( SOLID_SLIDEBOX );/// hopefully this will fix the VELOCITY TOO LOW crap
 
 	SetModel( szGibModel );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
@@ -295,7 +295,7 @@ void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 				pGib->pev->velocity = pGib->pev->velocity * 4;
 			}
 
-			pGib->pev->solid = SOLID_BBOX;
+			pGib->SetSolidType( SOLID_BBOX );
 			pGib->SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 		}
 		pGib->LimitVelocity();
@@ -360,7 +360,7 @@ void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 
 
 			pGib->pev->movetype = MOVETYPE_TOSS;
-			pGib->pev->solid = SOLID_BBOX;
+			pGib->SetSolidType( SOLID_BBOX );
 			pGib->SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 			pGib->SetTouch( &CGib::StickyGibTouch );
 			pGib->SetThink( NULL );

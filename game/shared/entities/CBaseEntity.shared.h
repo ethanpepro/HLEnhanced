@@ -2144,7 +2144,7 @@ public:
 	/**
 	*	@return Whether this is a BSP model.
 	*/
-	virtual bool IsBSPModel() const { return pev->solid == SOLID_BSP || pev->movetype == MOVETYPE_PUSHSTEP; }
+	virtual bool IsBSPModel() const { return GetSolidType() == SOLID_BSP || pev->movetype == MOVETYPE_PUSHSTEP; }
 
 	/**
 	*	@return Whether gauss gun beams should reflect off of this entity.

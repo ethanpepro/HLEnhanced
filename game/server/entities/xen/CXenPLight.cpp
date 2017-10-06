@@ -31,7 +31,7 @@ void CXenPLight::Spawn( void )
 
 	SetModel( "models/light.mdl" );
 	pev->movetype = MOVETYPE_NONE;
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 
 	SetSize( Vector( -80, -80, 0 ), Vector( 80, 80, 32 ) );
 	SetActivity( ACT_IDLE );

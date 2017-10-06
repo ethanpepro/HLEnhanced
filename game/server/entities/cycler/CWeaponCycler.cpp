@@ -30,7 +30,7 @@ CWeaponCycler::CWeaponCycler()
 
 void CWeaponCycler::Spawn()
 {
-	pev->solid = SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_NONE;
 
 	PRECACHE_MODEL( GetModelName() );

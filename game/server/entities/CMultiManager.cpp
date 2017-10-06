@@ -67,7 +67,7 @@ void CMultiManager::KeyValue( KeyValueData *pkvd )
 
 void CMultiManager::Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	SetUse( &CMultiManager::ManagerUse );
 	SetThink( &CMultiManager::ManagerThink );
 

@@ -14,7 +14,7 @@ void CPlatTrigger::SpawnInsideTrigger( CFuncPlat *pPlatform )
 {
 	m_hPlatform = pPlatform;
 	// Create trigger entity, "point" it at the owning platform, give it a touch method
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 	pev->movetype = MOVETYPE_NONE;
 	pev->origin = pPlatform->GetAbsOrigin();
 

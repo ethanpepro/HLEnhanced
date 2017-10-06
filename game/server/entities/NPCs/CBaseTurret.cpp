@@ -118,7 +118,7 @@ void CBaseTurret::Spawn()
 	pev->movetype		= MOVETYPE_FLY;
 	pev->sequence		= 0;
 	pev->frame			= 0;
-	pev->solid			= SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->takedamage		= DAMAGE_AIM;
 
 	SetBits (pev->flags, FL_MONSTER);

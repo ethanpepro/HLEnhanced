@@ -9,7 +9,7 @@ LINK_ENTITY_TO_CLASS( env_funnel, CEnvFunnel );
 void CEnvFunnel::Spawn( void )
 {
 	Precache();
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->effects = EF_NODRAW;
 }
 

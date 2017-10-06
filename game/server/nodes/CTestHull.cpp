@@ -34,7 +34,7 @@ void CTestHull::Spawn()
 	SetModel( "models/player.mdl" );
 	SetSize( VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
-	pev->solid = SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_STEP;
 	pev->effects = 0;
 	pev->health = 50;
@@ -237,7 +237,7 @@ void CTestHull::BuildNodeGraph()
 		if( g_pDeveloper->value != 0 )
 		{
 			SetThink( &CTestHull::ShowBadNode );// send the hull off to show the offending node.
-												//pev->solid = SOLID_NOT;
+												//SetSolidType( SOLID_NOT );
 			pev->origin = WorldGraph.m_pNodes[ iBadNode ].m_vecOrigin;
 		}
 

@@ -14,7 +14,7 @@ LINK_ENTITY_TO_CLASS( item_sodacan, CItemSoda );
 void CItemSoda::Spawn( void )
 {
 	Precache();
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_TOSS;
 
 	SetModel( "models/can.mdl" );
@@ -32,7 +32,7 @@ void CItemSoda::CanThink( void )
 {
 	EMIT_SOUND( this, CHAN_WEAPON, "weapons/g_bounce3.wav", 1, ATTN_NORM );
 
-	pev->solid = SOLID_TRIGGER;
+	SetSolidType( SOLID_TRIGGER );
 	SetSize( Vector( -8, -8, 0 ), Vector( 8, 8, 8 ) );
 	SetThink( NULL );
 	SetTouch( &CItemSoda::CanTouch );
@@ -55,7 +55,7 @@ void CItemSoda::CanTouch( CBaseEntity *pOther )
 		pev->owner->v.frags = 0;
 	}
 
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 	pev->effects = EF_NODRAW;
 	SetTouch( NULL );

@@ -117,7 +117,7 @@ void CNihilanth :: Spawn( void )
 	Precache( );
 	// motor
 	pev->movetype = MOVETYPE_FLY;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 
 	SetModel( "models/nihilanth.mdl");
 	// SetSize( Vector( -300, -300, 0), Vector(300, 300, 512) );
@@ -396,7 +396,7 @@ void CNihilanth :: DyingThink( void )
 void CNihilanth::CrashTouch( CBaseEntity *pOther )
 {
 	// only crash if we hit something solid
-	if ( pOther->pev->solid == SOLID_BSP) 
+	if ( pOther->GetSolidType() == SOLID_BSP) 
 	{
 		SetTouch( NULL );
 		pev->nextthink = gpGlobals->time;

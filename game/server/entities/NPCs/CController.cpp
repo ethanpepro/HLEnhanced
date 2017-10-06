@@ -287,7 +287,7 @@ void CController :: Spawn()
 	SetModel( "models/controller.mdl");
 	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ));
 
-	pev->solid			= SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_FLY;
 	pev->flags			|= FL_FLY;
 	m_bloodColor		= BLOOD_COLOR_GREEN;

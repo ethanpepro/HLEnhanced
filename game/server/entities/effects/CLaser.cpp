@@ -23,7 +23,7 @@ void CLaser::Spawn( void )
 		SetThink( &CLaser::SUB_Remove );
 		return;
 	}
-	pev->solid = SOLID_NOT;							// Remove model & collisions
+	SetSolidType( SOLID_NOT );							// Remove model & collisions
 	Precache();
 
 	SetThink( &CLaser::StrikeThink );

@@ -18,7 +18,7 @@ void CTriggerMonsterJump::Spawn( void )
 
 	if( HasTargetname() )
 	{// if targetted, spawn turned off
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 		SetAbsOrigin( GetAbsOrigin() ); // Unlink from trigger list
 		SetUse( &CTriggerMonsterJump::ToggleUse );
 	}
@@ -26,7 +26,7 @@ void CTriggerMonsterJump::Spawn( void )
 
 void CTriggerMonsterJump::Think( void )
 {
-	pev->solid = SOLID_NOT;// kill the trigger for now !!!UNDONE
+	SetSolidType( SOLID_NOT );// kill the trigger for now !!!UNDONE
 	SetAbsOrigin( GetAbsOrigin() ); // Unlink from trigger list
 	SetThink( NULL );
 }

@@ -82,7 +82,7 @@ void CCycler::OnTakeDamage( const CTakeDamageInfo& info )
 void CCycler :: Spawn( )
 {
 	InitBoneControllers();
-	pev->solid			= SOLID_SLIDEBOX;
+	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_NONE;
 	pev->takedamage		= DAMAGE_YES;
 	pev->effects		= 0;

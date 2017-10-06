@@ -47,7 +47,7 @@ void CEnvExplosion::KeyValue( KeyValueData *pkvd )
 
 void CEnvExplosion::Spawn( void )
 { 
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->effects = EF_NODRAW;
 
 	pev->movetype = MOVETYPE_NONE;
@@ -80,7 +80,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	TraceResult tr;
 
 	SetModelName( iStringNull );//invisible
-	pev->solid = SOLID_NOT;// intangible
+	SetSolidType( SOLID_NOT );// intangible
 
 	Vector		vecSpot;// trace starts here!
 

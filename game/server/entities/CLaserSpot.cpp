@@ -26,7 +26,7 @@ void CLaserSpot::Spawn()
 {
 	Precache();
 	pev->movetype = MOVETYPE_NONE;
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 
 	pev->rendermode = kRenderGlow;
 	pev->renderfx = kRenderFxNoDissipation;

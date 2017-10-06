@@ -32,9 +32,9 @@ void CFuncTrain::Spawn( void )
 
 	//Remove tracktrain include when changed
 	if( FBitSet( pev->spawnflags, SF_TRAIN_PASSABLE ) )
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 	else
-		pev->solid = SOLID_BSP;
+		SetSolidType( SOLID_BSP );
 
 	SetModel( GetModelName() );
 	SetSize( pev->mins, pev->maxs );

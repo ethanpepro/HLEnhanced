@@ -24,7 +24,7 @@ void CFuncWall::Spawn( void )
 {
 	pev->angles = g_vecZero;
 	pev->movetype = MOVETYPE_PUSH;  // so it doesn't get pushed by anything
-	pev->solid = SOLID_BSP;
+	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
 
 	// If it can't move/go away, it's really part of the world

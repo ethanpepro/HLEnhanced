@@ -128,7 +128,7 @@ void CSentry::SentryDeath( void )
 
 		SetTurretAnim( TURRET_ANIM_DIE );
 
-		pev->solid = SOLID_NOT;
+		SetSolidType( SOLID_NOT );
 		pev->angles.y = UTIL_AngleMod( pev->angles.y + RANDOM_LONG( 0, 2 ) * 120 );
 
 		EyeOn();

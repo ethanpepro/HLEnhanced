@@ -104,7 +104,7 @@ void CTentacle :: Spawn( )
 {
 	Precache( );
 
-	pev->solid			= SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 	pev->movetype		= MOVETYPE_FLY;
 	pev->effects		= 0;
 	pev->health			= 75;

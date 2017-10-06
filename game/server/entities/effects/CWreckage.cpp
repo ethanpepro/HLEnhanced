@@ -27,7 +27,7 @@ LINK_ENTITY_TO_CLASS( cycler_wreckage, CWreckage );
 
 void CWreckage::Spawn( void )
 {
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 	pev->takedamage = 0;
 	pev->effects = 0;

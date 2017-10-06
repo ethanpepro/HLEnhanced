@@ -10,7 +10,7 @@ void CMessage::Spawn( void )
 {
 	Precache();
 
-	pev->solid = SOLID_NOT;
+	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
 
 	switch( pev->impulse )

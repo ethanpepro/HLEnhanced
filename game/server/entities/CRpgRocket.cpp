@@ -41,7 +41,7 @@ void CRpgRocket::Spawn( void )
 	Precache();
 	// motor
 	pev->movetype = MOVETYPE_BOUNCE;
-	pev->solid = SOLID_BBOX;
+	SetSolidType( SOLID_BBOX );
 
 	SetModel( "models/rpgrocket.mdl" );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
