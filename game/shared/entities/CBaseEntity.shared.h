@@ -617,6 +617,11 @@ public:
 #endif
 
 	/**
+	*	@brief Whether the weaponmodel name is set
+	*/
+	bool HasWeaponModelName() const { return !!( *STRING( pev->weaponmodel ) ); }
+
+	/**
 	*	@return The third person weapon model name.
 	*/
 	const char* GetWeaponModelName() const { return STRING( pev->weaponmodel ); }

@@ -204,7 +204,7 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 	m_pActiveItem = NULL;
 
 	ClearViewModelName();
-	pev->weaponmodel = 0;
+	ClearWeaponModelName();
 
 	if( removeSuit )
 		pev->weapons = 0;
@@ -316,7 +316,7 @@ bool CBasePlayer::RemovePlayerItem( CBasePlayerWeapon *pItem )
 		pItem->SetThink( NULL );
 		m_pActiveItem = NULL;
 		ClearViewModelName();
-		pev->weaponmodel = 0;
+		ClearWeaponModelName();
 	}
 
 	//In some cases an item can be both the active and last item, like for instance dropping all weapons and only having an exhaustible weapon left. - Solokiller

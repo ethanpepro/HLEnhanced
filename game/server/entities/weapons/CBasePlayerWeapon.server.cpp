@@ -372,7 +372,7 @@ bool CBasePlayerWeapon::DefaultDeploy( const char* const pszViewModel, const cha
 
 	//TODO: need to alloc these for custom ents - Solokiller
 	m_pPlayer->SetViewModelName( pszViewModel );
-	m_pPlayer->pev->weaponmodel = MAKE_STRING( pszWeaponModel );
+	m_pPlayer->SetWeaponModelName( pszWeaponModel );
 	m_pPlayer->SetWeaponAnimType( pszAnimExt );
 	SendWeaponAnim( iAnim, body );
 
@@ -445,8 +445,7 @@ void CBasePlayerWeapon::RetireWeapon( void )
 {
 	// first, no viewmodel at all.
 	m_pPlayer->ClearViewModelName();
-	m_pPlayer->pev->weaponmodel = iStringNull;
-	//m_pPlayer->pev->viewmodelindex = NULL;
+	m_pPlayer->ClearWeaponModelName();
 
 	g_pGameRules->GetNextBestWeapon( m_pPlayer, this );
 }
@@ -455,7 +454,7 @@ void CBasePlayerWeapon::Holster()
 {
 	m_fInReload = false; // cancel any reload in progress.
 	m_pPlayer->ClearViewModelName();
-	m_pPlayer->pev->weaponmodel = 0;
+	m_pPlayer->ClearWeaponModelName();
 }
 
 void CBasePlayerWeapon::PrintState( void )
