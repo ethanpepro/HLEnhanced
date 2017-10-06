@@ -194,15 +194,17 @@ void CSniperRifle::Reload()
 
 void CSniperRifle::ToggleZoom()
 {
-	if( m_pPlayer->pev->fov == 0 )
+	if( m_pPlayer->GetFOV() == 0 )
 	{
-		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 18;
+		m_pPlayer->SetFOV( 18 );
+		m_pPlayer->m_iFOV = 18;
 
 		m_bInZoom = true;
 	}
 	else
 	{
-		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 0;
+		m_pPlayer->SetFOV( 0 );
+		m_pPlayer->m_iFOV = 0;
 
 		m_bInZoom = false;
 	}

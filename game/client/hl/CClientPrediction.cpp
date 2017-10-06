@@ -222,7 +222,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	m_pPlayer->pev->deadflag = from->client.deadflag;
 	m_pPlayer->pev->waterlevel = from->client.waterlevel;
 	m_pPlayer->pev->maxspeed = from->client.maxspeed;
-	m_pPlayer->pev->fov = from->client.fov;
+	m_pPlayer->SetFOV( from->client.fov );
 	m_pPlayer->SetWeaponAnim( from->client.weaponanim );
 	m_pPlayer->SetViewModelIndex( from->client.viewmodel );
 	m_pPlayer->m_flNextAttack = from->client.m_flNextAttack;
@@ -314,7 +314,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 
 	// Copy in results of prediction code
 	to->client.viewmodel		= m_pPlayer->GetViewModelIndex();
-	to->client.fov				= m_pPlayer->pev->fov;
+	to->client.fov				= m_pPlayer->GetFOV();
 	to->client.weaponanim		= m_pPlayer->GetWeaponAnim();
 	to->client.m_flNextAttack	= m_pPlayer->m_flNextAttack;
 	to->client.fuser2			= m_pPlayer->m_flNextAmmoBurn;

@@ -971,7 +971,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	strcpy( cd->physinfo, ENGINE_GETPHYSINFO( pClient ) );
 
 	cd->maxspeed		= pev->maxspeed;
-	cd->fov				= pev->fov;
+	cd->fov				= pl->GetFOV();
 	cd->weaponanim		= pl->GetWeaponAnim();
 
 	cd->pushmsec		= pev->pushmsec;

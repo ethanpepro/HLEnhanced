@@ -368,7 +368,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 
 	// reset FOV
 	m_iFOV = m_iClientFOV = 0;
-	pev->fov = m_iFOV;
+	SetFOV( m_iFOV );
 	MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, this );
 		WRITE_BYTE( 0 );
 	MESSAGE_END();

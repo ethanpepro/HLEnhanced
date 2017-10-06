@@ -107,15 +107,17 @@ void CPython::SecondaryAttack( void )
 		return;
 	}
 
-	if ( m_pPlayer->pev->fov != 0 )
+	if ( m_pPlayer->GetFOV() != 0 )
 	{
 		m_fInZoom = false;
-		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 0;  // 0 means reset to default fov
+		m_pPlayer->SetFOV( 0 );
+		m_pPlayer->m_iFOV = 0;  // 0 means reset to default fov
 	}
-	else if ( m_pPlayer->pev->fov != 40 )
+	else if ( m_pPlayer->GetFOV() != 40 )
 	{
 		m_fInZoom = true;
-		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 40;
+		m_pPlayer->SetFOV( 40 );
+		m_pPlayer->m_iFOV = 40;
 	}
 
 	m_flNextSecondaryAttack = 0.5;
@@ -186,10 +188,11 @@ void CPython::Reload( void )
 	if ( m_pPlayer->GetAmmoCountByID( PrimaryAmmoIndex() ) <= 0 )
 		return;
 
-	if ( m_pPlayer->pev->fov != 0 )
+	if ( m_pPlayer->GetFOV() != 0 )
 	{
 		m_fInZoom = false;
-		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 0;  // 0 means reset to default fov
+		m_pPlayer->SetFOV( 0 );
+		m_pPlayer->m_iFOV = 0;  // 0 means reset to default fov
 	}
 
 	//TODO: same code is below this - Solokiller

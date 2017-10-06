@@ -219,14 +219,17 @@ void CCrossbow::FireBolt()
 
 void CCrossbow::SecondaryAttack()
 {
-	if ( m_pPlayer->pev->fov != 0 )
+	if ( m_pPlayer->GetFOV() != 0 )
 	{
-		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 0; // 0 means reset to default fov
+		//TODO: figure out if these can be merged - Solokiller
+		m_pPlayer->SetFOV( 0 );
+		m_pPlayer->m_iFOV = 0; // 0 means reset to default fov
 		m_fInZoom = false;
 	}
-	else if ( m_pPlayer->pev->fov != 20 )
+	else if ( m_pPlayer->GetFOV() != 20 )
 	{
-		m_pPlayer->pev->fov = m_pPlayer->m_iFOV = 20;
+		m_pPlayer->SetFOV( 20 );
+		m_pPlayer->m_iFOV = 20;
 		m_fInZoom = true;
 	}
 	
@@ -240,7 +243,7 @@ void CCrossbow::Reload( void )
 	if ( m_pPlayer->GetAmmoCountByID( PrimaryAmmoIndex() ) <= 0 )
 		return;
 
-	if ( m_pPlayer->pev->fov != 0 )
+	if ( m_pPlayer->GetFOV() != 0 )
 	{
 		SecondaryAttack();
 	}

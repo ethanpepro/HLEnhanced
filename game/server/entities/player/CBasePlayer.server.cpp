@@ -155,7 +155,8 @@ void CBasePlayer::Spawn()
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "slj", "0" );
 	g_engfuncs.pfnSetPhysicsKeyValue( edict(), "hl", "1" );
 
-	pev->fov = m_iFOV = 0;// init field of view.
+	SetFOV( 0 );
+	m_iFOV = 0;// init field of view.
 	m_iClientFOV = -1; // make sure fov reset is sent
 
 	m_flNextDecalTime = 0;// let this player decal as soon as he spawns.
@@ -560,7 +561,8 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	MESSAGE_END();
 
 	// reset FOV
-	pev->fov = m_iFOV = m_iClientFOV = 0;
+	SetFOV( m_iFOV );
+	m_iFOV = m_iClientFOV = 0;
 
 	MESSAGE_BEGIN( MSG_ONE, gmsgSetFOV, NULL, this );
 		WRITE_BYTE(0);
