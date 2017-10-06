@@ -73,7 +73,7 @@ void CBaseDelay::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, floa
 		pTemp->SetThink( &CBaseDelay::DelayThink );
 
 		// Save the useType
-		pTemp->pev->button = ( int ) useType;
+		pTemp->GetButtons().Set( ( int ) useType );
 		pTemp->m_iszKillTarget = m_iszKillTarget;
 		pTemp->m_flDelay = 0; // prevent "recursion"
 		pTemp->pev->target = pev->target;
@@ -128,7 +128,7 @@ void CBaseDelay::DelayThink( void )
 	{
 		pActivator = CBaseEntity::Instance( pev->owner );
 	}
-	// The use type is cached (and stashed) in pev->button
-	SUB_UseTargets( pActivator, ( USE_TYPE ) pev->button, 0 );
+	// The use type is cached (and stashed) in GetButtons()
+	SUB_UseTargets( pActivator, ( USE_TYPE ) GetButtons().Get(), 0 );
 	UTIL_RemoveNow( this );
 }

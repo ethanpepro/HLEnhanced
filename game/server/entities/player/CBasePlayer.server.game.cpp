@@ -33,7 +33,7 @@ void CBasePlayer::PlayerUse()
 		return;
 
 	// Was use pressed or released?
-	if( !( ( pev->button | m_afButtonPressed | m_afButtonReleased ) & IN_USE ) )
+	if( !( ( GetButtons().Get() | m_afButtonPressed | m_afButtonReleased ) & IN_USE ) )
 		return;
 
 #if USE_ANGELSCRIPT
@@ -68,7 +68,7 @@ void CBasePlayer::PlayerUse()
 			{	// Start controlling the train!
 				CBaseEntity *pTrain = CBaseEntity::Instance( pev->groundentity );
 
-				if( pTrain && !( pev->button & IN_JUMP ) && FBitSet( pev->flags, FL_ONGROUND ) && ( pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE ) && pTrain->OnControls( this ) )
+				if( pTrain && !GetButtons().Any( IN_JUMP ) && FBitSet( pev->flags, FL_ONGROUND ) && ( pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE ) && pTrain->OnControls( this ) )
 				{
 					m_afPhysicsFlags |= PFLAG_ONTRAIN;
 					m_iTrain = TrainSpeed( pTrain->pev->speed, pTrain->pev->impulse );
@@ -123,7 +123,7 @@ void CBasePlayer::PlayerUse()
 		if( m_afButtonPressed & IN_USE )
 			EMIT_SOUND( this, CHAN_ITEM, "common/wpn_select.wav", 0.4, ATTN_NORM );
 
-		if( ( ( pev->button & IN_USE ) && ( caps & FCAP_CONTINUOUS_USE ) ) ||
+		if( ( GetButtons().Any( IN_USE ) && ( caps & FCAP_CONTINUOUS_USE ) ) ||
 			( ( m_afButtonPressed & IN_USE ) && ( caps & ( FCAP_IMPULSE_USE | FCAP_ONOFF_USE ) ) ) )
 		{
 			if( caps & FCAP_CONTINUOUS_USE )
@@ -173,7 +173,7 @@ void CBasePlayer::Jump()
 	SetAnimation( PLAYER_JUMP );
 
 	if( m_fLongJump &&
-		( pev->button & IN_DUCK ) &&
+		GetButtons().Any( IN_DUCK ) &&
 		( pev->flDuckTime > 0 ) &&
 		pev->velocity.Length() > 50 )
 	{
@@ -196,7 +196,7 @@ void CBasePlayer::Jump()
 
 void CBasePlayer::Duck()
 {
-	if( pev->button & IN_DUCK )
+	if( GetButtons().Any( IN_DUCK ) )
 	{
 		if( m_IdealActivity != ACT_LEAP )
 		{

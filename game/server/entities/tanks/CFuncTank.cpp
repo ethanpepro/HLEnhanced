@@ -553,7 +553,7 @@ void CFuncTank::ControllerPostFrame( void )
 	if( gpGlobals->time < m_flNextAttack )
 		return;
 
-	if( m_pController->pev->button & IN_ATTACK )
+	if( m_pController->GetButtons().Any( IN_ATTACK ) )
 	{
 		Vector vecForward;
 		UTIL_MakeVectorsPrivate( pev->angles, &vecForward, nullptr, nullptr );

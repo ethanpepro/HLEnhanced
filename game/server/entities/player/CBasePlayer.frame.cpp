@@ -60,12 +60,12 @@ static void CheckPowerups( CBaseEntity* pEntity )
 
 void CBasePlayer::PreThink()
 {
-	const int buttonsChanged = ( m_afButtonLast ^ pev->button );	// These buttons have changed this frame
+	const int buttonsChanged = ( m_afButtonLast ^ GetButtons().Get() );	// These buttons have changed this frame
 
 	// Debounced button codes for pressed/released
 	// UNDONE: Do we need auto-repeat?
-	m_afButtonPressed = buttonsChanged & pev->button;		// The changed ones still down are "pressed"
-	m_afButtonReleased = buttonsChanged & ( ~pev->button );	// The ones not down are "released"
+	m_afButtonPressed = buttonsChanged & GetButtons().Get();		// The changed ones still down are "pressed"
+	m_afButtonReleased = buttonsChanged & ( ~GetButtons().Get() );	// The ones not down are "released"
 
 	g_pGameRules->PlayerThink( this );
 
@@ -138,8 +138,9 @@ void CBasePlayer::PreThink()
 		Vector vecForce;
 
 		/*
-		//This causes sideways acceleration that doesn't occur in Op4. - Solokiller
-		if( pev->button & IN_DUCK )
+		//TODO: This causes sideways acceleration that doesn't occur in Op4. - Solokiller
+		//TODO: should be IN_MOVERIGHT and IN_MOVELEFT - Solokiller
+		if( GetButtons().Any( IN_DUCK ) )
 		{
 			vecForce.x = gpGlobals->v_right.x;
 			vecForce.y = gpGlobals->v_right.y;
@@ -148,7 +149,7 @@ void CBasePlayer::PreThink()
 			m_pRope->ApplyForceFromPlayer( vecForce );
 		}
 
-		if( pev->button & IN_JUMP )
+		if( GetButtons().Any( IN_JUMP ) )
 		{
 			vecForce.x = -gpGlobals->v_right.x;
 			vecForce.y = -gpGlobals->v_right.y;
@@ -158,7 +159,7 @@ void CBasePlayer::PreThink()
 		*/
 
 		//Determine if any force should be applied to the rope, or if we should move around. - Solokiller
-		if( pev->button & ( IN_BACK | IN_FORWARD ) )
+		if( GetButtons().Any( IN_BACK | IN_FORWARD ) )
 		{
 			if( ( gpGlobals->v_forward.x * gpGlobals->v_forward.x + 
 				gpGlobals->v_forward.y * gpGlobals->v_forward.y - 
@@ -168,7 +169,7 @@ void CBasePlayer::PreThink()
 				{
 					const float flDelta = gpGlobals->time - m_flLastClimbTime;
 					m_flLastClimbTime = gpGlobals->time;
-					if( pev->button & IN_FORWARD )
+					if( GetButtons().Any( IN_FORWARD ) )
 					{
 						if( gpGlobals->v_forward.z < 0.0 )
 						{
@@ -189,7 +190,7 @@ void CBasePlayer::PreThink()
 							m_pRope->MoveUp( flDelta );
 						}
 					}
-					if( pev->button & IN_BACK )
+					if( GetButtons().Any( IN_BACK ) )
 					{
 						if( gpGlobals->v_forward.z < 0.0 )
 						{
@@ -218,7 +219,7 @@ void CBasePlayer::PreThink()
 				vecForce.x = gpGlobals->v_forward.x;
 				vecForce.y = gpGlobals->v_forward.y;
 				vecForce.z = 0.0;
-				if( pev->button & IN_BACK )
+				if( GetButtons().Any( IN_BACK ) )
 				{
 					vecForce.x = -gpGlobals->v_forward.x;
 					vecForce.y = -gpGlobals->v_forward.y;
@@ -283,7 +284,7 @@ void CBasePlayer::PreThink()
 					return;
 				}
 			}
-			else if( !FBitSet( pev->flags, FL_ONGROUND ) || FBitSet( pTrain->pev->spawnflags, SF_TRACKTRAIN_NOCONTROL ) || ( pev->button & ( IN_MOVELEFT | IN_MOVERIGHT ) ) )
+			else if( !FBitSet( pev->flags, FL_ONGROUND ) || FBitSet( pTrain->pev->spawnflags, SF_TRACKTRAIN_NOCONTROL ) || ( GetButtons().Any( IN_MOVELEFT | IN_MOVERIGHT ) ) )
 			{
 				// Turn off the train if you jump, strafe, or the train controls go dead
 				m_afPhysicsFlags &= ~PFLAG_ONTRAIN;
@@ -315,7 +316,7 @@ void CBasePlayer::PreThink()
 			m_iTrain = TRAIN_NEW; // turn off train
 	}
 
-	if( pev->button & IN_JUMP )
+	if( GetButtons().Any( IN_JUMP ) )
 	{
 		// If on a ladder, jump off the ladder
 		// else Jump
@@ -324,7 +325,7 @@ void CBasePlayer::PreThink()
 
 
 	// If trying to duck, already ducked, or in the process of ducking
-	if( ( pev->button & IN_DUCK ) || FBitSet( pev->flags, FL_DUCKING ) || ( m_afPhysicsFlags & PFLAG_DUCKING ) )
+	if( GetButtons().Any( IN_DUCK ) || FBitSet( pev->flags, FL_DUCKING ) || ( m_afPhysicsFlags & PFLAG_DUCKING ) )
 		Duck();
 
 	if( !FBitSet( pev->flags, FL_ONGROUND ) )
@@ -503,7 +504,7 @@ pt_end:
 #endif
 
 	// Track button info so we can detect 'pressed' and 'released' buttons next frame
-	m_afButtonLast = pev->button;
+	m_afButtonLast = GetButtons().Get();
 }
 
 void CBasePlayer::PlayerDeathThink()
@@ -549,7 +550,7 @@ void CBasePlayer::PlayerDeathThink()
 	pev->effects |= EF_NOINTERP;
 	pev->framerate = 0.0;
 
-	const bool fAnyButtonDown = ( pev->button & ~IN_SCORE ) != 0;
+	const bool fAnyButtonDown = ( GetButtons().Any( ~IN_SCORE ) ) != 0;
 
 	// wait for all buttons released
 	if( pev->deadflag == DEAD_DEAD )
@@ -583,7 +584,7 @@ void CBasePlayer::PlayerDeathThink()
 		&& !( g_pGameRules->IsMultiplayer() && forcerespawn.value > 0 && ( gpGlobals->time > ( m_fDeadTime + 5 ) ) ) )
 		return;
 
-	pev->button = 0;
+	GetButtons().ClearAll();
 	m_iRespawnFrames = 0;
 
 	//ALERT(at_console, "Respawn\n");
@@ -629,7 +630,7 @@ void CBasePlayer::UpdatePlayerSound()
 		iBodyVolume = 0;
 	}
 
-	if( pev->button & IN_JUMP )
+	if( GetButtons().Any( IN_JUMP ) )
 	{
 		iBodyVolume += 100;
 	}

@@ -214,7 +214,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	m_pPlayer->m_afButtonReleased = buttonsChanged & ( ~cmd->buttons );
 
 	// Set player variables that weapons code might check/alter
-	m_pPlayer->pev->button = cmd->buttons;
+	m_pPlayer->GetButtons().Set( cmd->buttons );
 
 	m_pPlayer->pev->velocity = from->client.velocity;
 	m_pPlayer->pev->flags = from->client.flags;
