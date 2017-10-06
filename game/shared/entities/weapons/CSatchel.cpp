@@ -360,7 +360,7 @@ void CSatchel::Throw( void )
 		pSatchel->pev->velocity = vecThrow;
 		pSatchel->pev->avelocity.y = 400;
 
-		m_pPlayer->pev->viewmodel = MAKE_STRING("models/v_satchel_radio.mdl");
+		m_pPlayer->SetViewModelName( "models/v_satchel_radio.mdl" );
 		m_pPlayer->pev->weaponmodel = MAKE_STRING("models/p_satchel_radio.mdl");
 #else
 		LoadVModel ( "models/v_satchel_radio.mdl", m_pPlayer );
@@ -407,7 +407,7 @@ void CSatchel::WeaponIdle( void )
 		}
 
 #ifndef CLIENT_DLL
-		m_pPlayer->pev->viewmodel = MAKE_STRING("models/v_satchel.mdl");
+		m_pPlayer->SetViewModelName( "models/v_satchel.mdl" );
 		m_pPlayer->pev->weaponmodel = MAKE_STRING("models/p_satchel.mdl");
 #else
 		LoadVModel ( "models/v_satchel.mdl", m_pPlayer );

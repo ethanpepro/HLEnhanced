@@ -224,7 +224,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	m_pPlayer->pev->maxspeed = from->client.maxspeed;
 	m_pPlayer->pev->fov = from->client.fov;
 	m_pPlayer->SetWeaponAnim( from->client.weaponanim );
-	m_pPlayer->pev->viewmodel = from->client.viewmodel;
+	m_pPlayer->SetViewModelIndex( from->client.viewmodel );
 	m_pPlayer->m_flNextAttack = from->client.m_flNextAttack;
 	m_pPlayer->m_flNextAmmoBurn = from->client.fuser2;
 	m_pPlayer->m_flAmmoStartCharge = from->client.fuser3;
@@ -266,7 +266,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	// Don't go firing anything if we have died or are spectating
 	// Or if we don't have a weapon model deployed
 	if( ( m_pPlayer->pev->deadflag != ( DEAD_DISCARDBODY + 1 ) ) &&
-		!CL_IsDead() && m_pPlayer->pev->viewmodel && !g_iUser1 )
+		!CL_IsDead() && m_pPlayer->GetViewModelIndex() && !g_iUser1 )
 	{
 		if( pWeapon->GetNextThink() > 0 && pWeapon->GetNextThink() <= gpGlobals->time )
 		{
@@ -313,7 +313,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	}
 
 	// Copy in results of prediction code
-	to->client.viewmodel		= m_pPlayer->pev->viewmodel;
+	to->client.viewmodel		= m_pPlayer->GetViewModelIndex();
 	to->client.fov				= m_pPlayer->pev->fov;
 	to->client.weaponanim		= m_pPlayer->GetWeaponAnim();
 	to->client.m_flNextAttack	= m_pPlayer->m_flNextAttack;

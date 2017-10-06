@@ -60,9 +60,11 @@ std::string CBaseEntity_GetModelName( const CBaseEntity* pThis );
 
 void CBaseEntity_SetModel( CBaseEntity* pThis, const std::string& szModelName );
 
+#ifdef SERVER_DLL
 std::string CBaseEntity_GetViewModelName( const CBaseEntity* pThis );
 
 void CBaseEntity_SetViewModelName( CBaseEntity* pThis, const std::string& szViewModelName );
+#endif
 
 std::string CBaseEntity_GetWeaponModelName( const CBaseEntity* pThis );
 
@@ -337,6 +339,7 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		pszObjectName, "void ClearModel()",
 		asMETHOD( CLASS, ClearModel ), asCALL_THISCALL );
 
+#ifdef SERVER_DLL
 	engine.RegisterObjectMethod(
 		pszObjectName, "string GetViewModelName() const",
 		asFUNCTION( CBaseEntity_GetViewModelName ), asCALL_CDECL_OBJFIRST );
@@ -348,6 +351,7 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 	engine.RegisterObjectMethod(
 		pszObjectName, "void ClearViewModelName()",
 		asMETHOD( CLASS, ClearViewModelName ), asCALL_THISCALL );
+#endif
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "string GetWeaponModelName() const",

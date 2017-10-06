@@ -74,7 +74,7 @@ void CWeaponCycler::SecondaryAttack( void )
 
 bool CWeaponCycler::Deploy()
 {
-	m_pPlayer->pev->viewmodel = m_iszModel;
+	m_pPlayer->SetViewModelName( m_iszModel );
 	m_pPlayer->m_flNextAttack = UTIL_WeaponTimeBase() + 1.0;
 	SendWeaponAnim( 0 );
 	m_iClip = 0;

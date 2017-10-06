@@ -558,6 +558,8 @@ public:
 		SetModelIndex( 0 );
 	}
 
+	//On the server side the viewmodel is a string_t, on the client it's a model index
+#ifdef SERVER_DLL
 	/**
 	*	@return The view model name.
 	*/
@@ -588,6 +590,31 @@ public:
 	{
 		pev->viewmodel = iStringNull;
 	}
+#endif
+
+#ifdef CLIENT_DLL
+	/**
+	*	@return The view model index
+	*/
+	int GetViewModelIndex() const { return pev->viewmodel; }
+
+	/**
+	*	@brief Sets the view model index
+	*	@param iszModelName Model name
+	*/
+	void SetViewModelIndex( const int iModelIndex )
+	{
+		pev->viewmodel = iModelIndex;
+	}
+
+	/**
+	*	@brief Clears the view model index
+	*/
+	void ClearViewModelIndex()
+	{
+		pev->viewmodel = 0;
+	}
+#endif
 
 	/**
 	*	@return The third person weapon model name.

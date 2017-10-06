@@ -101,7 +101,7 @@ void CBasePlayerWeapon::Holster()
 {
 	m_fInReload = false; // cancel any reload in progress.
 	g_brunninggausspred = false;
-	m_pPlayer->pev->viewmodel = 0;
+	m_pPlayer->ClearViewModelIndex();
 }
 
 float CBasePlayerWeapon::GetNextAttackDelay( float flTime )
