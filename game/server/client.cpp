@@ -972,7 +972,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 
 	cd->maxspeed		= pev->maxspeed;
 	cd->fov				= pev->fov;
-	cd->weaponanim		= pev->weaponanim;
+	cd->weaponanim		= pl->GetWeaponAnim();
 
 	cd->pushmsec		= pev->pushmsec;
 

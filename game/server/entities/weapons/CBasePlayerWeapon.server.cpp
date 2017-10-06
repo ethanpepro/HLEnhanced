@@ -305,7 +305,7 @@ void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int body )
 {
 	const bool bSkipLocal = IsPredicted();
 
-	m_pPlayer->pev->weaponanim = iAnim;
+	m_pPlayer->SetWeaponAnim( iAnim );
 
 #if defined( CLIENT_WEAPONS )
 	if( bSkipLocal && ENGINE_CANSKIP( m_pPlayer->edict() ) )
