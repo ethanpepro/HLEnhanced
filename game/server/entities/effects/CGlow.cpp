@@ -21,7 +21,7 @@ void CGlow::Spawn( void )
 	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
 	SetModel( STRING( pev->model ) );
 
-	m_maxFrame = ( float ) MODEL_FRAMES( pev->modelindex ) - 1;
+	m_maxFrame = ( float ) MODEL_FRAMES( GetModelIndex() ) - 1;
 	if( m_maxFrame > 1.0 && pev->framerate != 0 )
 		pev->nextthink = gpGlobals->time + 0.1;
 

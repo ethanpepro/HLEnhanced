@@ -47,7 +47,7 @@ void CBMortar::Spawn( void )
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 
-	m_maxFrame = ( float ) MODEL_FRAMES( pev->modelindex ) - 1;
+	m_maxFrame = ( float ) MODEL_FRAMES( GetModelIndex() ) - 1;
 	pev->dmgtime = gpGlobals->time + 0.4;
 }
 

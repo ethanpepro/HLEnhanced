@@ -145,7 +145,8 @@ void CHornet :: Precache()
 //=========================================================
 Relationship CHornet::IRelationship ( CBaseEntity *pTarget )
 {
-	if ( pTarget->pev->modelindex == pev->modelindex )
+	//TODO: not exactly a good identity check - Solokiller
+	if ( pTarget->GetModelIndex() == GetModelIndex() )
 	{
 		return R_NO;
 	}
@@ -370,7 +371,7 @@ void CHornet :: TrackTarget ( void )
 //=========================================================
 void CHornet :: TrackTouch ( CBaseEntity *pOther )
 {
-	if ( pOther->edict() == pev->owner || pOther->pev->modelindex == pev->modelindex )
+	if ( pOther->edict() == pev->owner || pOther->GetModelIndex() == GetModelIndex() )
 	{// bumped into the guy that shot it.
 		pev->solid = SOLID_NOT;
 		return;
@@ -420,7 +421,7 @@ void CHornet::DieTouch ( CBaseEntity *pOther )
 		pOther->TakeDamage( this, pOwner, pev->dmg, DMG_BULLET );
 	}
 
-	pev->modelindex = 0;// so will disappear for the 0.1 secs we wait until NEXTTHINK gets rid
+	SetModelIndex( 0 );// so will disappear for the 0.1 secs we wait until NEXTTHINK gets rid
 	pev->solid = SOLID_NOT;
 
 	SetThink ( &CHornet::SUB_Remove );

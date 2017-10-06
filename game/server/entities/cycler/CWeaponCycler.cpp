@@ -36,7 +36,7 @@ void CWeaponCycler::Spawn()
 	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
 	SetModel( STRING( pev->model ) );
 	m_iszModel = pev->model;
-	m_iModel = pev->modelindex;
+	m_iModel = GetModelIndex();
 
 	SetAbsOrigin( GetAbsOrigin() );
 	SetSize( Vector( -16, -16, 0 ), Vector( 16, 16, 16 ) );
@@ -57,10 +57,10 @@ void CWeaponCycler::SecondaryAttack( void )
 
 	pev->sequence = ( pev->sequence + 1 ) % 8;
 
-	pev->modelindex = m_iModel;
+	SetModelIndex( m_iModel );
 	void *pmodel = GET_MODEL_PTR( ENT( pev ) );
 	GetSequenceInfo( pmodel, pev, flFrameRate, flGroundSpeed );
-	pev->modelindex = 0;
+	SetModelIndex( 0 );
 
 	if( flFrameRate == 0.0 )
 	{

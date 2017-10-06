@@ -789,14 +789,14 @@ void CTentacle :: HitTouch( CBaseEntity *pOther )
 {
 	TraceResult tr = UTIL_GetGlobalTrace( );
 
-	if (pOther->pev->modelindex == pev->modelindex)
+	if (pOther->GetModelIndex() == GetModelIndex() )
 		return;
 
 	if (m_flHitTime > gpGlobals->time)
 		return;
 
 	// only look at the ones where the player hit me
-	if (tr.pHit == NULL || tr.pHit->v.modelindex != pev->modelindex)
+	if (tr.pHit == NULL || tr.pHit->v.modelindex != GetModelIndex() )
 		return;
 
 	if (tr.iHitgroup >= 3)

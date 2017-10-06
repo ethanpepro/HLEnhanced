@@ -335,7 +335,7 @@ void CBasePlayer::StartDeathCam()
 	pev->solid = SOLID_NOT;
 	pev->takedamage = DAMAGE_NO;
 	pev->movetype = MOVETYPE_NONE;
-	pev->modelindex = 0;
+	SetModelIndex( 0 );
 }
 
 void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )

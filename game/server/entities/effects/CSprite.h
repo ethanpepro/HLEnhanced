@@ -64,7 +64,7 @@ public:
 		pev->renderamt = a;
 		pev->renderfx = fx;
 	}
-	inline void SetTexture( int spriteIndex ) { pev->modelindex = spriteIndex; }
+	inline void SetTexture( int spriteIndex ) { SetModelIndex( spriteIndex ); }
 	inline void SetScale( float scale ) { pev->scale = scale; }
 	inline void SetColor( int r, int g, int b ) { pev->rendercolor.x = r; pev->rendercolor.y = g; pev->rendercolor.z = b; }
 	inline void SetBrightness( int brightness ) { pev->renderamt = brightness; }

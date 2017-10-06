@@ -162,7 +162,7 @@ bool CBaseEntity::Restore( CRestore &restore )
 		SetClassificationOverride( EntityClassifications().GetClassificationId( restore.ReadNamedString( "classificationOverride" ) ) );
 	}
 
-	if( pev->modelindex != 0 && !FStringNull( pev->model ) )
+	if( GetModelIndex() != 0 && !FStringNull( pev->model ) )
 	{
 		Vector mins, maxs;
 		mins = pev->mins;	// Set model is about to destroy these

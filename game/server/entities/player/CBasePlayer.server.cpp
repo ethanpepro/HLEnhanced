@@ -180,7 +180,7 @@ void CBasePlayer::Spawn()
 	g_pGameRules->GetPlayerSpawnSpot( this );
 
 	SetModel( "models/player.mdl" );
-	g_ulModelIndexPlayer = pev->modelindex;
+	g_ulModelIndexPlayer = GetModelIndex();
 	pev->sequence = LookupActivity( ACT_IDLE );
 
 	if( FBitSet( pev->flags, FL_DUCKING ) )
@@ -535,7 +535,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	
 	m_iRespawnFrames = 0;
 
-	pev->modelindex = g_ulModelIndexPlayer;    // don't use eyes
+	SetModelIndex( g_ulModelIndexPlayer );    // don't use eyes
 
 	pev->deadflag		= DEAD_DYING;
 	pev->movetype		= MOVETYPE_TOSS;
@@ -620,7 +620,7 @@ bool CBasePlayer::Restore( CRestore &restore )
 											// Copied from spawn() for now
 	m_bloodColor = BLOOD_COLOR_RED;
 
-	g_ulModelIndexPlayer = pev->modelindex;
+	g_ulModelIndexPlayer = GetModelIndex();
 
 	if( FBitSet( pev->flags, FL_DUCKING ) )
 	{

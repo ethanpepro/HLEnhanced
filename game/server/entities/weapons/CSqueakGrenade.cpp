@@ -300,7 +300,7 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 		if( tr.pHit == pOther->edict() )
 		{
 			// and it's not another squeakgrenade
-			if( tr.pHit->v.modelindex != pev->modelindex )
+			if( tr.pHit->v.modelindex != GetModelIndex() )
 			{
 				// ALERT( at_console, "hit enemy\n");
 				g_MultiDamage.Clear();

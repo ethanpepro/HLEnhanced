@@ -1318,7 +1318,7 @@ bool UTIL_IsPointEntity( const CBaseEntity* const pEnt )
 	if( !pEnt )
 		return false;
 
-	if( !pEnt->pev->modelindex )
+	if( !pEnt->GetModelIndex() )
 		return true;
 
 	//Keep the special cases for these just in case of weird edge cases. - Solokiller

@@ -47,7 +47,7 @@ void CLaser::Spawn( void )
 
 void CLaser::Precache( void )
 {
-	pev->modelindex = PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
+	SetModelIndex( PRECACHE_MODEL( ( char * ) STRING( pev->model ) ) );
 	if( m_iszSpriteName )
 		PRECACHE_MODEL( ( char * ) STRING( m_iszSpriteName ) );
 }

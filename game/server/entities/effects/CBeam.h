@@ -56,7 +56,7 @@ public:
 	inline void SetStartAttachment( int attachment ) { pev->sequence = ( pev->sequence & 0x0FFF ) | ( ( attachment & 0xF ) << 12 ); }
 	inline void SetEndAttachment( int attachment ) { pev->skin = ( pev->skin & 0x0FFF ) | ( ( attachment & 0xF ) << 12 ); }
 
-	inline void SetTexture( int spriteIndex ) { pev->modelindex = spriteIndex; }
+	inline void SetTexture( int spriteIndex ) { SetModelIndex( spriteIndex ); }
 	inline void SetWidth( int width ) { pev->scale = width; }
 	inline void SetNoise( int amplitude ) { pev->body = amplitude; }
 	inline void SetColor( int r, int g, int b ) { pev->rendercolor.x = r; pev->rendercolor.y = g; pev->rendercolor.z = b; }
@@ -74,7 +74,7 @@ public:
 
 	Vector Center() const override { return ( GetStartPos() + GetEndPos() ) * 0.5; } // center point of beam
 
-	inline int  GetTexture( void ) { return pev->modelindex; }
+	inline int  GetTexture( void ) { return GetModelIndex(); }
 	inline int  GetWidth( void ) { return pev->scale; }
 	inline int  GetNoise( void ) { return pev->body; }
 	// inline void GetColor( int r, int g, int b ) { pev->rendercolor.x = r; pev->rendercolor.y = g; pev->rendercolor.z = b; }

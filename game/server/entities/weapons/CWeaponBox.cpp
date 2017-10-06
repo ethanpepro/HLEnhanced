@@ -290,7 +290,7 @@ bool CWeaponBox::PackWeapon( CBasePlayerWeapon *pWeapon )
 	pWeapon->pev->movetype = MOVETYPE_NONE;
 	pWeapon->pev->solid = SOLID_NOT;
 	pWeapon->pev->effects = EF_NODRAW;
-	pWeapon->pev->modelindex = 0;
+	pWeapon->SetModelIndex( 0 );
 	pWeapon->pev->model = iStringNull;
 	pWeapon->pev->owner = edict();
 	pWeapon->SetThink( NULL );// crowbar may be trying to swing again, etc.

@@ -55,7 +55,7 @@ static void CheckPowerups( CBaseEntity* pEntity )
 	if( pEntity->pev->health <= 0 )
 		return;
 
-	pEntity->pev->modelindex = g_ulModelIndexPlayer;    // don't use eyes
+	pEntity->SetModelIndex( g_ulModelIndexPlayer );    // don't use eyes
 }
 
 void CBasePlayer::PreThink()
@@ -527,7 +527,7 @@ void CBasePlayer::PlayerDeathThink()
 	}
 
 
-	if( pev->modelindex && ( !m_fSequenceFinished ) && ( pev->deadflag == DEAD_DYING ) )
+	if( GetModelIndex() && ( !m_fSequenceFinished ) && ( pev->deadflag == DEAD_DYING ) )
 	{
 		StudioFrameAdvance();
 
