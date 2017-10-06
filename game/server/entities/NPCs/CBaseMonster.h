@@ -250,7 +250,7 @@ public:
 	virtual void RunAI ( void );// core ai function!	
 	void Listen ( void );
 
-	virtual bool	IsAlive() const override { return (pev->deadflag != DEAD_DEAD); }
+	virtual bool	IsAlive() const override { return ( GetDeadFlag() != DEAD_DEAD); }
 
 // Basic Monster AI functions
 	virtual float ChangeYaw ( int speed );

@@ -94,7 +94,7 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 void CBaseEntity::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	pev->takedamage = DAMAGE_NO;
-	pev->deadflag = DEAD_DEAD;
+	SetDeadFlag( DEAD_DEAD );
 	UTIL_Remove( this );
 }
 

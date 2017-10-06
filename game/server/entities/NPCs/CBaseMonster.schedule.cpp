@@ -452,7 +452,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 		{
 			if ( m_fSequenceFinished && pev->frame >= 255 )
 			{
-				pev->deadflag = DEAD_DEAD;
+				SetDeadFlag( DEAD_DEAD );
 				
 				SetThink ( NULL );
 				StopAnimation();
@@ -1208,7 +1208,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 			
 			m_IdealActivity = GetDeathActivity();
 
-			pev->deadflag = DEAD_DYING;
+			SetDeadFlag( DEAD_DYING );
 			break;
 		}
 	case TASK_SOUND_WAKE:

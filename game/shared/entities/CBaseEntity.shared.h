@@ -2171,7 +2171,7 @@ public:
 	/**
 	*	@return Whether this entity is alive.
 	*/
-	virtual bool IsAlive() const { return ( pev->deadflag == DEAD_NO ) && pev->health > 0; }
+	virtual bool IsAlive() const { return ( GetDeadFlag() == DEAD_NO ) && pev->health > 0; }
 
 	/**
 	*	@return Whether this is a BSP model.

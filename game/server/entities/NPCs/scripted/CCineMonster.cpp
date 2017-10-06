@@ -529,7 +529,7 @@ bool CCineMonster::CanInterrupt() const
 
 	const CBaseEntity *pTarget = m_hTargetEnt;
 
-	if( pTarget != NULL && pTarget->pev->deadflag == DEAD_NO )
+	if( pTarget != NULL && pTarget->GetDeadFlag() == DEAD_NO )
 		return true;
 
 	return false;

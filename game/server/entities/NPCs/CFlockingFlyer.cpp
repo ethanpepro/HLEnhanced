@@ -48,7 +48,7 @@ void CFlockingFlyer::Precache()
 
 void CFlockingFlyer::SpawnCommonCode()
 {
-	pev->deadflag = DEAD_NO;
+	SetDeadFlag( DEAD_NO );
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_FLY;
 	pev->takedamage = DAMAGE_NO;
@@ -513,7 +513,7 @@ void CFlockingFlyer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 		m_pSquadLeader->SquadRemove( this );
 	}
 
-	pev->deadflag = DEAD_DEAD;
+	SetDeadFlag( DEAD_DEAD );
 
 	pev->framerate = 0;
 	pev->effects = EF_NOINTERP;

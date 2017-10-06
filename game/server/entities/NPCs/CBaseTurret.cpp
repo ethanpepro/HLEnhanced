@@ -657,9 +657,9 @@ void CBaseTurret ::	TurretDeath( void )
 	StudioFrameAdvance( );
 	pev->nextthink = gpGlobals->time + 0.1;
 
-	if (pev->deadflag != DEAD_DEAD)
+	if ( GetDeadFlag() != DEAD_DEAD)
 	{
-		pev->deadflag = DEAD_DEAD;
+		SetDeadFlag( DEAD_DEAD );
 
 		float flRndSound = RANDOM_FLOAT ( 0 , 1 );
 

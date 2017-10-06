@@ -635,7 +635,7 @@ void CIchthyosaur :: RunTask ( const Task_t* pTask )
 	case TASK_DIE:
 		if ( m_fSequenceFinished )
 		{
-			pev->deadflag = DEAD_DEAD;
+			SetDeadFlag( DEAD_DEAD );
 
 			TaskComplete( );
 		}
@@ -765,7 +765,7 @@ void CIchthyosaur::MonsterThink ( void )
 {
 	CFlyingMonster::MonsterThink( );
 
-	if (pev->deadflag == DEAD_NO)
+	if ( GetDeadFlag() == DEAD_NO)
 	{
 		if (m_MonsterState != MONSTERSTATE_SCRIPT)
 		{

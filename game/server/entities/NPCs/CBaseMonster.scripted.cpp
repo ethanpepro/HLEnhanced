@@ -39,7 +39,7 @@
 
 bool CBaseMonster::ExitScriptedSequence()
 {
-	if ( pev->deadflag == DEAD_DYING )
+	if ( GetDeadFlag() == DEAD_DYING )
 	{
 		// is this legal?
 		// BUGBUG -- This doesn't call Killed()
@@ -77,14 +77,14 @@ bool CBaseMonster::CineCleanup()
 	m_pCine = NULL;
 	m_hTargetEnt = NULL;
 	m_hGoalEnt = NULL;
-	if (pev->deadflag == DEAD_DYING)
+	if ( GetDeadFlag() == DEAD_DYING)
 	{
 		// last frame of death animation?
 		pev->health			= 0;
 		pev->framerate		= 0.0;
 		SetSolidType( SOLID_NOT );
 		SetState( MONSTERSTATE_DEAD );
-		pev->deadflag = DEAD_DEAD;
+		SetDeadFlag( DEAD_DEAD );
 		SetSize( pev->mins, Vector(pev->maxs.x, pev->maxs.y, pev->mins.z + 2) );
 
 		if ( pOldCine && FBitSet( pOldCine->pev->spawnflags, SF_SCRIPT_LEAVECORPSE ) )
@@ -166,9 +166,9 @@ bool CBaseMonster::CineCleanup()
 		// Can't call killed() no attacker and weirdness (late gibbing) may result
 		m_IdealMonsterState = MONSTERSTATE_DEAD;
 		SetConditions( bits_COND_LIGHT_DAMAGE );
-		pev->deadflag = DEAD_DYING;
+		SetDeadFlag( DEAD_DYING );
 		FCheckAITrigger();
-		pev->deadflag = DEAD_NO;
+		SetDeadFlag( DEAD_NO );
 	}
 
 

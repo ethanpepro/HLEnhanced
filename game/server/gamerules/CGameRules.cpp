@@ -80,7 +80,7 @@ CBaseEntity* CGameRules::GetPlayerSpawnSpot( CBasePlayer* pPlayer )
 bool CGameRules::CanHavePlayerItem( CBasePlayer *pPlayer, CBasePlayerWeapon *pWeapon )
 {
 	// only living players can have items
-	if ( pPlayer->pev->deadflag != DEAD_NO )
+	if ( pPlayer->GetDeadFlag() != DEAD_NO )
 		return false;
 
 	if ( pWeapon->pszAmmo1() )

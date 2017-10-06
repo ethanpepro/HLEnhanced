@@ -130,7 +130,7 @@ Activity CBaseMonster :: GetDeathActivity ( void )
 	TraceResult	tr;
 	Vector		vecSrc;
 
-	if ( pev->deadflag != DEAD_NO )
+	if ( GetDeadFlag() != DEAD_NO )
 	{
 		// don't run this while dying.
 		return m_IdealActivity;
@@ -344,7 +344,7 @@ void CBaseMonster::CallGibMonster( void )
 		GibMonster();
 	}
 
-	pev->deadflag = DEAD_DEAD;
+	SetDeadFlag( DEAD_DEAD );
 	FCheckAITrigger();
 
 	// don't let the status bar glitch for players.with <0 health.
@@ -439,7 +439,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 		return;
 	}
 
-	if ( pev->deadflag == DEAD_NO )
+	if ( GetDeadFlag() == DEAD_NO )
 	{
 		// no pain sound during death animation.
 		PainSound();// "Ouch!"

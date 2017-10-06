@@ -281,15 +281,15 @@ void CNihilanth :: DyingThink( void )
 	DispatchAnimEvents( );
 	StudioFrameAdvance( );
 
-	if (pev->deadflag == DEAD_NO)
+	if ( GetDeadFlag() == DEAD_NO)
 	{
 		DeathSound( );
-		pev->deadflag = DEAD_DYING;
+		SetDeadFlag( DEAD_DYING );
 
 		m_posDesired.z = m_flMaxZ;
 	}
 
-	if (pev->deadflag == DEAD_DYING)
+	if ( GetDeadFlag() == DEAD_DYING)
 	{
 		Flight( );
 
@@ -297,7 +297,7 @@ void CNihilanth :: DyingThink( void )
 		{
 			pev->velocity = Vector( 0, 0, 0 );
 			FireTargets( m_szDeadUse, this, this, USE_ON, 1.0 );
-			pev->deadflag = DEAD_DEAD;
+			SetDeadFlag( DEAD_DEAD );
 		}
 	}
 

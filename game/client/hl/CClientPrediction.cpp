@@ -219,7 +219,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	m_pPlayer->pev->velocity = from->client.velocity;
 	m_pPlayer->pev->flags = from->client.flags;
 
-	m_pPlayer->pev->deadflag = from->client.deadflag;
+	m_pPlayer->SetDeadFlag( static_cast<DeadFlag>( from->client.deadflag ) );
 	m_pPlayer->pev->waterlevel = from->client.waterlevel;
 	m_pPlayer->pev->maxspeed = from->client.maxspeed;
 	m_pPlayer->SetFOV( from->client.fov );
@@ -265,7 +265,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 
 	// Don't go firing anything if we have died or are spectating
 	// Or if we don't have a weapon model deployed
-	if( ( m_pPlayer->pev->deadflag != ( DEAD_DISCARDBODY + 1 ) ) &&
+	if( ( m_pPlayer->GetDeadFlag() != ( DEAD_DISCARDBODY + 1 ) ) &&
 		!CL_IsDead() && m_pPlayer->GetViewModelIndex() && !g_iUser1 )
 	{
 		if( pWeapon->GetNextThink() > 0 && pWeapon->GetNextThink() <= gpGlobals->time )
@@ -285,7 +285,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	to->client.m_iId = from->client.m_iId;
 
 	// Now see if we issued a changeweapon command ( and we're not dead )
-	if( cmd->weaponselect && ( m_pPlayer->pev->deadflag != ( DEAD_DISCARDBODY + 1 ) ) )
+	if( cmd->weaponselect && ( m_pPlayer->GetDeadFlag() != ( DEAD_DISCARDBODY + 1 ) ) )
 	{
 		// Switched to a different weapon?
 		if( from->weapondata[ cmd->weaponselect ].m_iId == cmd->weaponselect )

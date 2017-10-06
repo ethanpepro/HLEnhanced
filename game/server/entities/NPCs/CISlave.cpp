@@ -407,7 +407,7 @@ bool CISlave :: CheckRangeAttack2 ( float flDot, float flDist )
 		UTIL_TraceLine( EyePosition( ), pEntity->EyePosition( ), ignore_monsters, ENT(pev), &tr );
 		if (tr.flFraction == 1.0 || tr.pHit == pEntity->edict())
 		{
-			if (pEntity->pev->deadflag == DEAD_DEAD)
+			if (pEntity->GetDeadFlag() == DEAD_DEAD)
 			{
 				float d = (GetAbsOrigin() - pEntity->GetAbsOrigin()).Length();
 				if (d < flDist)

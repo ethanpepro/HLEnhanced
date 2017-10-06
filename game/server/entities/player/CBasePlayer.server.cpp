@@ -142,7 +142,7 @@ void CBasePlayer::Spawn()
 	pev->air_finished	= gpGlobals->time + 12;
 	pev->dmg			= 2;				// initial water damage
 	pev->effects		= 0;
-	pev->deadflag		= DEAD_NO;
+	SetDeadFlag( DEAD_NO );
 	pev->dmg_take		= 0;
 	pev->dmg_save		= 0;
 	pev->friction		= 1.0;
@@ -538,7 +538,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 	SetModelIndex( g_ulModelIndexPlayer );    // don't use eyes
 
-	pev->deadflag		= DEAD_DYING;
+	SetDeadFlag( DEAD_DYING );
 	pev->movetype		= MOVETYPE_TOSS;
 	ClearBits( pev->flags, FL_ONGROUND );
 	if (pev->velocity.z < 10)

@@ -1941,7 +1941,7 @@ void CBaseMonster :: MonsterInit ( void )
 	pev->takedamage		= DAMAGE_AIM;
 	pev->ideal_yaw		= pev->angles.y;
 	pev->max_health		= pev->health;
-	pev->deadflag		= DEAD_NO;
+	SetDeadFlag( DEAD_NO );
 	m_IdealMonsterState	= MONSTERSTATE_IDLE;// Assume monster will be idle, until proven otherwise
 
 	m_IdealActivity = ACT_IDLE;
@@ -2528,7 +2528,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 	case SCRIPT_EVENT_DEAD:
 		if ( m_MonsterState == MONSTERSTATE_SCRIPT )
 		{
-			pev->deadflag = DEAD_DYING;
+			SetDeadFlag( DEAD_DYING );
 			// Kill me now! (and fade out when CineCleanup() is called)
 #if _DEBUG
 			ALERT( at_aiconsole, "Death event: %s\n", GetClassname() );
@@ -2543,7 +2543,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 	case SCRIPT_EVENT_NOT_DEAD:
 		if ( m_MonsterState == MONSTERSTATE_SCRIPT )
 		{
-			pev->deadflag = DEAD_NO;
+			SetDeadFlag( DEAD_NO );
 			// This is for life/death sequences where the player can determine whether a character is dead or alive after the script 
 			pev->health = pev->max_health;
 		}
@@ -2938,7 +2938,7 @@ bool CBaseMonster::FCheckAITrigger()
 		}
 		break;
 	case AITRIGGER_DEATH:
-		if ( pev->deadflag != DEAD_NO )
+		if ( GetDeadFlag() != DEAD_NO )
 		{
 			fFireTarget = true;
 		}
@@ -3184,7 +3184,7 @@ void CBaseMonster :: MonsterInitDead( void )
 	
 	// Copy health
 	pev->max_health		= pev->health;
-	pev->deadflag		= DEAD_DEAD;
+	SetDeadFlag( DEAD_DEAD );
 	
 	SetSize( g_vecZero, g_vecZero );
 	SetAbsOrigin( GetAbsOrigin() );

@@ -162,7 +162,7 @@ void CBasePlayer::Observer_CheckTarget()
 	}
 
 	// check taget
-	if (target->pev->deadflag == DEAD_DEAD)
+	if (target->GetDeadFlag() == DEAD_DEAD)
 	{
 		if ( (target->m_fDeadTime + 2.0f ) < gpGlobals->time )
 		{
@@ -385,7 +385,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	pev->movetype = MOVETYPE_NONE;
 	ClearBits( m_afPhysicsFlags, PFLAG_DUCKING );
 	ClearBits( pev->flags, FL_DUCKING );
-	pev->deadflag = DEAD_RESPAWNABLE;
+	SetDeadFlag( DEAD_RESPAWNABLE );
 	pev->health = 1;
 
 	// Clear out the status bar

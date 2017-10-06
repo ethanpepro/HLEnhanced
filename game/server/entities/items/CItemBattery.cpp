@@ -26,7 +26,7 @@ void CItemBattery::Precache( void )
 
 bool CItemBattery::MyTouch( CBasePlayer *pPlayer )
 {
-	if( pPlayer->pev->deadflag != DEAD_NO )
+	if( pPlayer->GetDeadFlag() != DEAD_NO )
 	{
 		return false;
 	}

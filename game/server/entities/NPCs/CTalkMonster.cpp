@@ -935,7 +935,7 @@ bool CTalkMonster::FOkToSpeak() const
 	}
 
 	// if not alive, certainly don't speak
-	if ( pev->deadflag != DEAD_NO )
+	if ( GetDeadFlag() != DEAD_NO )
 	{
 		return false;
 	}

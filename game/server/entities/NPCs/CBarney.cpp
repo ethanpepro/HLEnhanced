@@ -444,7 +444,7 @@ void CBarney::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	// make sure friends talk about it if player hurts talkmonsters...
 	CTalkMonster::OnTakeDamage( info );
-	if ( !IsAlive() || pev->deadflag == DEAD_DYING )
+	if ( !IsAlive() || GetDeadFlag() == DEAD_DYING )
 		return;
 
 	if ( m_MonsterState != MONSTERSTATE_PRONE && (info.GetAttacker()->pev->flags & FL_CLIENT) )
@@ -471,7 +471,7 @@ void CBarney::OnTakeDamage( const CTakeDamageInfo& info )
 				Remember( bits_MEMORY_SUSPICIOUS );
 			}
 		}
-		else if ( !(m_hEnemy->IsPlayer()) && pev->deadflag == DEAD_NO )
+		else if ( !(m_hEnemy->IsPlayer()) && GetDeadFlag() == DEAD_NO )
 		{
 			PlaySentence( "BA_SHOT", 4, VOL_NORM, ATTN_NORM );
 		}

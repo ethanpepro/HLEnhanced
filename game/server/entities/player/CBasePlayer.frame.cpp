@@ -110,7 +110,7 @@ void CBasePlayer::PreThink()
 		return;
 	}
 
-	if( pev->deadflag >= DEAD_DYING )
+	if( GetDeadFlag() >= DEAD_DYING )
 	{
 		PlayerDeathThink();
 		return;
@@ -528,7 +528,7 @@ void CBasePlayer::PlayerDeathThink()
 	}
 
 
-	if( GetModelIndex() && ( !m_fSequenceFinished ) && ( pev->deadflag == DEAD_DYING ) )
+	if( GetModelIndex() && ( !m_fSequenceFinished ) && ( GetDeadFlag() == DEAD_DYING ) )
 	{
 		StudioFrameAdvance();
 
@@ -542,8 +542,8 @@ void CBasePlayer::PlayerDeathThink()
 	if( pev->movetype != MOVETYPE_NONE && FBitSet( pev->flags, FL_ONGROUND ) )
 		pev->movetype = MOVETYPE_NONE;
 
-	if( pev->deadflag == DEAD_DYING )
-		pev->deadflag = DEAD_DEAD;
+	if( GetDeadFlag() == DEAD_DYING )
+		SetDeadFlag( DEAD_DEAD );
 
 	StopAnimation();
 
@@ -553,7 +553,7 @@ void CBasePlayer::PlayerDeathThink()
 	const bool fAnyButtonDown = ( GetButtons().Any( ~IN_SCORE ) ) != 0;
 
 	// wait for all buttons released
-	if( pev->deadflag == DEAD_DEAD )
+	if( GetDeadFlag() == DEAD_DEAD )
 	{
 		if( fAnyButtonDown )
 			return;
@@ -561,7 +561,7 @@ void CBasePlayer::PlayerDeathThink()
 		if( g_pGameRules->FPlayerCanRespawn( this ) )
 		{
 			m_fDeadTime = gpGlobals->time;
-			pev->deadflag = DEAD_RESPAWNABLE;
+			SetDeadFlag( DEAD_RESPAWNABLE );
 		}
 
 		return;

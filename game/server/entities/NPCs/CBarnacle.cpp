@@ -135,7 +135,7 @@ void CBarnacle :: BarnacleThink ( void )
 
 		if ( m_fLiftingPrey )
 		{
-			if ( m_hEnemy != NULL && m_hEnemy->pev->deadflag != DEAD_NO )
+			if ( m_hEnemy != NULL && m_hEnemy->GetDeadFlag() != DEAD_NO )
 			{
 				// crap, someone killed the prey on the way up.
 				m_hEnemy = NULL;
@@ -388,7 +388,7 @@ CBaseEntity *CBarnacle :: TongueTouchEnt ( float *pflLength )
 		for ( int i = 0; i < count; i++ )
 		{
 			// only clients and monsters
-			if ( pList[i] != this && IRelationship( pList[i] ) > R_NO && pList[ i ]->pev->deadflag == DEAD_NO )	// this ent is one of our enemies. Barnacle tries to eat it.
+			if ( pList[i] != this && IRelationship( pList[i] ) > R_NO && pList[ i ]->GetDeadFlag() == DEAD_NO )	// this ent is one of our enemies. Barnacle tries to eat it.
 			{
 				return pList[i];
 			}
