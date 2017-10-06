@@ -467,7 +467,7 @@ void CBigMomma::NodeReach( void )
 		return;
 
 	if ( pTarget->pev->health )
-		pev->max_health = pev->health = pTarget->pev->health * gSkillData.GetBigMommaHealthFactor();
+		SetMaxHealth( pev->health = pTarget->pev->health * gSkillData.GetBigMommaHealthFactor() );
 
 	if ( !HasMemory( bits_MEMORY_FIRED_NODE ) )
 	{

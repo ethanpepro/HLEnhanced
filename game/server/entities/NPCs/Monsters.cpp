@@ -1940,7 +1940,7 @@ void CBaseMonster :: MonsterInit ( void )
 	pev->effects		= 0;
 	pev->takedamage		= DAMAGE_AIM;
 	pev->ideal_yaw		= pev->angles.y;
-	pev->max_health		= pev->health;
+	SetMaxHealth( pev->health );
 	SetDeadFlag( DEAD_NO );
 	m_IdealMonsterState	= MONSTERSTATE_IDLE;// Assume monster will be idle, until proven otherwise
 
@@ -2545,7 +2545,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 		{
 			SetDeadFlag( DEAD_NO );
 			// This is for life/death sequences where the player can determine whether a character is dead or alive after the script 
-			pev->health = pev->max_health;
+			pev->health = GetMaxHealth();
 		}
 		break;
 
@@ -2944,7 +2944,7 @@ bool CBaseMonster::FCheckAITrigger()
 		}
 		break;
 	case AITRIGGER_HALFHEALTH:
-		if ( IsAlive() && pev->health <= ( pev->max_health / 2 ) )
+		if ( IsAlive() && pev->health <= ( GetMaxHealth() / 2 ) )
 		{
 			fFireTarget = true;
 		}
@@ -3183,7 +3183,7 @@ void CBaseMonster :: MonsterInitDead( void )
 	pev->framerate = 0;
 	
 	// Copy health
-	pev->max_health		= pev->health;
+	SetMaxHealth( pev->health );
 	SetDeadFlag( DEAD_DEAD );
 	
 	SetSize( g_vecZero, g_vecZero );

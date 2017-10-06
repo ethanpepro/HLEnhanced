@@ -64,14 +64,14 @@ void CBaseEntity::TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceR
 	if ( !IsAlive() )
 	{
 	// dealing with a dead monster.
-	if ( pev->max_health <= 0 )
+	if ( GetMaxHealth() <= 0 )
 	{
 	// no blood decal for a monster that has already decalled its limit.
 	return;
 	}
 	else
 	{
-	pev->max_health--;
+		SetMaxHealth( GetMaxHealth() - 1 );
 	}
 	}
 	*/

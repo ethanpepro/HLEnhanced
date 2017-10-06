@@ -295,8 +295,8 @@ void CBaseMonster::BecomeDead( void )
 	pev->takedamage = DAMAGE_YES;// don't let autoaim aim at corpses.
 	
 	// give the corpse half of the monster's original maximum health. 
-	pev->health = pev->max_health / 2;
-	pev->max_health = 5; // max_health now becomes a counter for how many blood decals the corpse can place.
+	pev->health = GetMaxHealth() / 2;
+	SetMaxHealth( 5 ); // max_health now becomes a counter for how many blood decals the corpse can place.
 
 	// make the corpse fly away from the attack vector
 	pev->movetype = MOVETYPE_TOSS;
@@ -872,14 +872,14 @@ void CBaseMonster :: MakeDamageBloodDecal ( int cCount, float flNoise, TraceResu
 	if ( !IsAlive() )
 	{
 		// dealing with a dead monster. 
-		if ( pev->max_health <= 0 )
+		if ( GetMaxHealth() <= 0 )
 		{
 			// no blood decal for a monster that has already decalled its limit.
 			return; 
 		}
 		else
 		{
-			pev->max_health--;
+			SetMaxHealth( GetMaxHealth() - 1 );
 		}
 	}
 

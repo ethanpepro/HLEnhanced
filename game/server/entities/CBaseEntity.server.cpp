@@ -31,7 +31,7 @@ float CBaseEntity::GiveHealth( float flHealth, int bitsDamageType )
 		return 0;
 
 	// heal
-	if( pev->health >= pev->max_health )
+	if( pev->health >= GetMaxHealth() )
 		return 0;
 
 	const float flOldHealth = pev->health;
@@ -40,8 +40,8 @@ float CBaseEntity::GiveHealth( float flHealth, int bitsDamageType )
 
 	//TODO: if the entity's health drops below 1, kill it. - Solokiller
 
-	if( pev->health > pev->max_health )
-		pev->health = pev->max_health;
+	if( pev->health > GetMaxHealth() )
+		pev->health = GetMaxHealth();
 
 	return pev->health - flOldHealth;
 }

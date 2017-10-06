@@ -143,9 +143,9 @@ void CBaseTrigger::ActivateMultiTrigger( CBaseEntity *pActivator )
 // the wait time has passed, so set back up for another activation
 void CBaseTrigger::MultiWaitOver( void )
 {
-	//	if (pev->max_health)
+	//	if ( GetMaxHealth() )
 	//		{
-	//		pev->health		= pev->max_health;
+	//		pev->health		= GetMaxHealth();
 	//		pev->takedamage	= DAMAGE_YES;
 	//		SetSolidType( SOLID_BBOX );
 	//		}

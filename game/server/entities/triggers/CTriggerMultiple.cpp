@@ -20,7 +20,7 @@ void CTriggerMultiple::Spawn( void )
 	//		{
 	//		if (FBitSet(pev->spawnflags, SPAWNFLAG_NOTOUCH))
 	//			ALERT(at_error, "trigger_multiple spawn: health and notouch don't make sense");
-	//		pev->max_health = pev->health;
+	//		SetMaxHealth( pev->health );
 	//UNDONE: where to get pfnDie from?
 	//		pev->pfnDie = multi_killed;
 	//		pev->takedamage = DAMAGE_YES;

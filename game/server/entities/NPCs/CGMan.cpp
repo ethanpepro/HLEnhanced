@@ -175,7 +175,7 @@ void CGMan :: RunTask( const Task_t* pTask )
 //=========================================================
 void CGMan::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	pev->health = pev->max_health / 2; // always trigger the 50% damage aitrigger
+	pev->health = GetMaxHealth() / 2; // always trigger the 50% damage aitrigger
 
 	if ( info.GetDamage() > 0 )
 	{

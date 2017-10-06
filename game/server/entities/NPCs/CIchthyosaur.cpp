@@ -319,8 +319,8 @@ void CIchthyosaur::BecomeDead( void )
 	pev->takedamage = DAMAGE_YES;// don't let autoaim aim at corpses.
 
 	// give the corpse half of the monster's original maximum health. 
-	pev->health = pev->max_health / 2;
-	pev->max_health = 5; // max_health now becomes a counter for how many blood decals the corpse can place.
+	pev->health = GetMaxHealth() / 2;
+	SetMaxHealth( 5 ); // max_health now becomes a counter for how many blood decals the corpse can place.
 }
 
 #define ICHTHYOSAUR_AE_SHAKE_RIGHT 1
@@ -468,7 +468,7 @@ Schedule_t* CIchthyosaur::GetSchedule()
 		{
 			m_bOnAttack = true;
 		}
-		if ( pev->health < pev->max_health - 20 )
+		if ( pev->health < GetMaxHealth() - 20 )
 		{
 			m_bOnAttack = true;
 		}
