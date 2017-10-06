@@ -18,7 +18,7 @@ LINK_ENTITY_TO_CLASS( env_bubbles, CBubbling );
 void CBubbling::Spawn( void )
 {
 	Precache();
-	SetModel( STRING( pev->model ) );		// Set size
+	SetModel( GetModelName() );		// Set size
 
 	pev->solid = SOLID_NOT;							// Remove model & collisions
 	pev->renderamt = 0;								// The engine won't draw this model if this is set to 0 and blending is on

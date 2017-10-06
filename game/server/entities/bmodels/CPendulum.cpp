@@ -47,7 +47,7 @@ void CPendulum::Spawn( void )
 		pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
 	SetAbsOrigin( GetAbsOrigin() );
-	SetModel( STRING( pev->model ) );
+	SetModel( GetModelName() );
 
 	if( m_distance == 0 )
 		return;

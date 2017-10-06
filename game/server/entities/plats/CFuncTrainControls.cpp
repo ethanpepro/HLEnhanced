@@ -16,7 +16,7 @@ void CFuncTrainControls::Spawn( void )
 {
 	pev->solid = SOLID_NOT;
 	pev->movetype = MOVETYPE_NONE;
-	SetModel( STRING( pev->model ) );
+	SetModel( GetModelName() );
 
 	SetSize( pev->mins, pev->maxs );
 	SetAbsOrigin( GetAbsOrigin() );

@@ -38,8 +38,8 @@ void CCyclerSprite::Spawn( void )
 	m_animate = 1;
 	m_lastTime = gpGlobals->time;
 
-	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-	SetModel( STRING( pev->model ) );
+	PRECACHE_MODEL( GetModelName() );
+	SetModel( GetModelName() );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( GetModelIndex() ) - 1;
 }
@@ -56,7 +56,7 @@ void CCyclerSprite::Think( void )
 void CCyclerSprite::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	m_animate = !m_animate;
-	ALERT( at_console, "Sprite: %s\n", STRING( pev->model ) );
+	ALERT( at_console, "Sprite: %s\n", GetModelName() );
 }
 
 void CCyclerSprite::OnTakeDamage( const CTakeDamageInfo& info )

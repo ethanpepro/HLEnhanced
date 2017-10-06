@@ -291,7 +291,7 @@ bool CWeaponBox::PackWeapon( CBasePlayerWeapon *pWeapon )
 	pWeapon->pev->solid = SOLID_NOT;
 	pWeapon->pev->effects = EF_NODRAW;
 	pWeapon->SetModelIndex( 0 );
-	pWeapon->pev->model = iStringNull;
+	pWeapon->SetModelName( iStringNull );
 	pWeapon->pev->owner = edict();
 	pWeapon->SetThink( NULL );// crowbar may be trying to swing again, etc.
 	pWeapon->SetTouch( NULL );

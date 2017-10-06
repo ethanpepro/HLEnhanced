@@ -61,7 +61,7 @@ void CGrenade::Explode( Vector vecSrc, Vector vecAim )
 // UNDONE: temporary scorching for PreAlpha - find a less sleazy permenant solution.
 void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 {
-	pev->model = iStringNull;//invisible
+	SetModelName( iStringNull );//invisible
 	pev->solid = SOLID_NOT;// intangible
 
 	pev->takedamage = DAMAGE_NO;

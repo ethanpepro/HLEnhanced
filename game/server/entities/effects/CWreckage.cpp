@@ -35,10 +35,10 @@ void CWreckage::Spawn( void )
 	pev->frame = 0;
 	pev->nextthink = gpGlobals->time + 0.1;
 
-	if( pev->model )
+	if( HasModel() )
 	{
-		PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-		SetModel( STRING( pev->model ) );
+		PRECACHE_MODEL( GetModelName() );
+		SetModel( GetModelName() );
 	}
 	// pev->scale = 5.0;
 
@@ -47,8 +47,8 @@ void CWreckage::Spawn( void )
 
 void CWreckage::Precache()
 {
-	if( pev->model )
-		PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
+	if( HasModel() )
+		PRECACHE_MODEL( GetModelName() );
 }
 
 void CWreckage::Think( void )

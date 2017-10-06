@@ -53,7 +53,7 @@ void CFuncTank::Spawn( void )
 
 	pev->movetype = MOVETYPE_PUSH;  // so it doesn't get pushed by anything
 	pev->solid = SOLID_BSP;
-	SetModel( STRING( pev->model ) );
+	SetModel( GetModelName() );
 
 	m_yawCenter = pev->angles.y;
 	m_pitchCenter = pev->angles.x;

@@ -82,16 +82,16 @@ void CGenericMonster :: Spawn()
 {
 	Precache();
 
-	SetModel( STRING(pev->model) );
+	SetModel( GetModelName() );
 
 /*
-	if ( FStrEq( STRING(pev->model), "models/player.mdl" ) )
+	if ( FStrEq( GetModelName(), "models/player.mdl" ) )
 		SetSize( VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX);
 	else
 		SetSize( VEC_HULL_MIN, VEC_HULL_MAX);
 */
 
-	if ( FStrEq( STRING(pev->model), "models/player.mdl" ) || FStrEq( STRING(pev->model), "models/holo.mdl" ) )
+	if ( FStrEq( GetModelName(), "models/player.mdl" ) || FStrEq( GetModelName(), "models/holo.mdl" ) )
 		SetSize( VEC_HULL_MIN, VEC_HULL_MAX );
 	else
 		SetSize( VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
@@ -117,7 +117,7 @@ void CGenericMonster :: Spawn()
 //=========================================================
 void CGenericMonster :: Precache()
 {
-	PRECACHE_MODEL( (char *)STRING(pev->model) );
+	PRECACHE_MODEL( GetModelName() );
 }	
 
 //=========================================================

@@ -162,15 +162,15 @@ bool CBaseEntity::Restore( CRestore &restore )
 		SetClassificationOverride( EntityClassifications().GetClassificationId( restore.ReadNamedString( "classificationOverride" ) ) );
 	}
 
-	if( GetModelIndex() != 0 && !FStringNull( pev->model ) )
+	if( GetModelIndex() != 0 && HasModel() )
 	{
 		Vector mins, maxs;
 		mins = pev->mins;	// Set model is about to destroy these
 		maxs = pev->maxs;
 
 
-		PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-		SetModel( STRING( pev->model ) );
+		PRECACHE_MODEL( GetModelName() );
+		SetModel( GetModelName() );
 		SetSize( mins, maxs );	// Reset them
 	}
 

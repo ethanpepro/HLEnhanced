@@ -294,7 +294,7 @@ void CApache :: DyingThink( void )
 		if (/*!(pev->spawnflags & SF_NOWRECKAGE) && */(pev->flags & FL_ONGROUND))
 		{
 			CBaseEntity *pWreckage = Create( "cycler_wreckage", GetAbsOrigin(), pev->angles );
-			// pWreckage->SetModel( STRING(pev->model) );
+			// pWreckage->SetModel( GetModelName() );
 			pWreckage->SetSize( Vector( -200, -200, -128 ), Vector( 200, 200, -32 ) );
 			pWreckage->pev->frame = pev->frame;
 			pWreckage->pev->sequence = pev->sequence;

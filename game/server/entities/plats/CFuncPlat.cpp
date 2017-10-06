@@ -62,7 +62,7 @@ void CFuncPlat::Setup( void )
 
 	SetAbsOrigin( GetAbsOrigin() );		// set size and link into world
 	SetSize( pev->mins, pev->maxs );
-	SetModel( STRING( pev->model ) );
+	SetModel( GetModelName() );
 
 	// vecPosition1 is the top position, vecPosition2 is the bottom
 	m_vecPosition1 = GetAbsOrigin();

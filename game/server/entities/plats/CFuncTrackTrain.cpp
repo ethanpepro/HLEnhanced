@@ -52,7 +52,7 @@ void CFuncTrackTrain::Spawn( void )
 		pev->solid = SOLID_BSP;
 	pev->movetype = MOVETYPE_PUSH;
 
-	SetModel( STRING( pev->model ) );
+	SetModel( GetModelName() );
 
 	SetSize( pev->mins, pev->maxs );
 	SetAbsOrigin( GetAbsOrigin() );

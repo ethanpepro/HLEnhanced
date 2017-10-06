@@ -339,7 +339,7 @@ void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
 	pev->aiment = pPlayer->edict();
 	pev->effects = EF_NODRAW; // ??
 	SetModelIndex( 0 );// server won't send down to clients if modelindex == 0
-	pev->model = iStringNull;
+	SetModelName( iStringNull );
 	pev->owner = pPlayer->edict();
 	pev->nextthink = gpGlobals->time + .1;
 	SetTouch( NULL );

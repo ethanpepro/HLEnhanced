@@ -15,7 +15,7 @@ void CTriggerMultiple::Spawn( void )
 
 	ASSERTSZ( pev->health == 0, "trigger_multiple with health" );
 	//	SetAbsOrigin( GetAbsOrigin());
-	//	SetModel( STRING(pev->model) );
+	//	SetModel( GetModelName() );
 	//	if (pev->health > 0)
 	//		{
 	//		if (FBitSet(pev->spawnflags, SPAWNFLAG_NOTOUCH))

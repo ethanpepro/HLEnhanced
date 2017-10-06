@@ -22,5 +22,5 @@ void CRulePointEntity::Spawn( void )
 {
 	CRuleEntity::Spawn();
 	pev->frame = 0;
-	pev->model = 0;
+	SetModelName( iStringNull );
 }

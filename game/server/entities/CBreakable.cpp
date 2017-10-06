@@ -160,7 +160,7 @@ void CBreakable::Spawn( void )
 		pev->playerclass = 1;
 	}
 
-	SetModel( STRING(pev->model) );//set size and link into world.
+	SetModel( GetModelName() );//set size and link into world.
 
 	SetTouch( &CBreakable::BreakTouch );
 	if ( FBitSet( pev->spawnflags, SF_BREAK_TRIGGER_ONLY ) )		// Only break on trigger

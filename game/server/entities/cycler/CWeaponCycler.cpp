@@ -33,9 +33,9 @@ void CWeaponCycler::Spawn()
 	pev->solid = SOLID_SLIDEBOX;
 	pev->movetype = MOVETYPE_NONE;
 
-	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
-	SetModel( STRING( pev->model ) );
-	m_iszModel = pev->model;
+	PRECACHE_MODEL( GetModelName() );
+	SetModel( GetModelName() );
+	m_iszModel = MAKE_STRING( GetModelName() );
 	m_iModel = GetModelIndex();
 
 	SetAbsOrigin( GetAbsOrigin() );

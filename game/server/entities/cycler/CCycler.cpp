@@ -32,7 +32,7 @@ END_DATADESC()
 
 // Cycler member functions
 
-void CCycler :: GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax)
+void CCycler :: GenericCyclerSpawn(const char* szModel, Vector vecMin, Vector vecMax)
 {
 	if (!szModel || !*szModel)
 	{
@@ -44,7 +44,7 @@ void CCycler :: GenericCyclerSpawn(char *szModel, Vector vecMin, Vector vecMax)
 	//TODO: needed? Only the "cycler" entity ever calls this method anyway. - Solokiller
 	SetClassname( "cycler" );
 	PRECACHE_MODEL( szModel );
-	SetModel(	szModel);
+	SetModel( szModel );
 
 	CCycler::Spawn( );
 

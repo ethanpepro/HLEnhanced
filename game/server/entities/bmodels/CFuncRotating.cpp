@@ -91,7 +91,7 @@ void CFuncRotating::Spawn()
 	}
 
 	SetAbsOrigin( GetAbsOrigin() );
-	SetModel( STRING( pev->model ) );
+	SetModel( GetModelName() );
 
 	SetUse( &CFuncRotating::RotatingUse );
 	// did level designer forget to assign speed?

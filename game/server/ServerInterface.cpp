@@ -430,14 +430,14 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 #if 0
 		if( pEntity && pEntity->HasGlobalName() && globalEntity )
 		{
-			ALERT( at_console, "Global %s is %s\n", pEntity->GetGlobalName(), STRING( pEntity->pev->model ) );
+			ALERT( at_console, "Global %s is %s\n", pEntity->GetGlobalName(), pEntity->GetModelName() );
 		}
 #endif
 
 		// Is this an overriding global entity (coming over the transition), or one restoring in a level
 		if( globalEntity )
 		{
-			//			ALERT( at_console, "After: %f %f %f %s\n", pEntity->GetAbsOrigin().x, pEntity->GetAbsOrigin().y, pEntity->GetAbsOrigin().z, STRING(pEntity->pev->model) );
+			//			ALERT( at_console, "After: %f %f %f %s\n", pEntity->GetAbsOrigin().x, pEntity->GetAbsOrigin().y, pEntity->GetAbsOrigin().z, pEntity->GetModelName() );
 			pSaveData->vecLandmarkOffset = oldOffset;
 			if( pEntity )
 			{

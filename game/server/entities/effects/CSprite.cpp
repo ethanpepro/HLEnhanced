@@ -22,7 +22,7 @@ void CSprite::Spawn( void )
 	pev->frame = 0;
 
 	Precache();
-	SetModel( STRING( pev->model ) );
+	SetModel( GetModelName() );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( GetModelIndex() ) - 1;
 	if( HasTargetname() && !( pev->spawnflags & SF_SPRITE_STARTON ) )
@@ -40,7 +40,7 @@ void CSprite::Spawn( void )
 
 void CSprite::Precache( void )
 {
-	PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
+	PRECACHE_MODEL( GetModelName() );
 
 	// Reset attachment after save/restore
 	if( pev->aiment )
@@ -123,7 +123,7 @@ void CSprite::Expand( float scaleSpeed, float fadeSpeed )
 
 void CSprite::SpriteInit( const char *pSpriteName, const Vector &origin )
 {
-	pev->model = MAKE_STRING( pSpriteName );
+	SetModelName( pSpriteName );
 	pev->origin = origin;
 	Spawn();
 }

@@ -18,7 +18,7 @@ LINK_ENTITY_TO_CLASS( env_laser, CLaser );
 
 void CLaser::Spawn( void )
 {
-	if( FStringNull( pev->model ) )
+	if( !HasModel() )
 	{
 		SetThink( &CLaser::SUB_Remove );
 		return;
@@ -47,7 +47,7 @@ void CLaser::Spawn( void )
 
 void CLaser::Precache( void )
 {
-	SetModelIndex( PRECACHE_MODEL( ( char * ) STRING( pev->model ) ) );
+	SetModelIndex( PRECACHE_MODEL( GetModelName() ) );
 	if( m_iszSpriteName )
 		PRECACHE_MODEL( ( char * ) STRING( m_iszSpriteName ) );
 }
@@ -76,7 +76,7 @@ void CLaser::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "texture" ) )
 	{
-		pev->model = ALLOC_STRING( pkvd->szValue );
+		SetModelName( ALLOC_STRING( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "EndSprite" ) )

@@ -10,7 +10,7 @@ LINK_ENTITY_TO_CLASS( env_shooter, CEnvShooter );
 
 void CEnvShooter::Precache( void )
 {
-	m_iGibModelIndex = PRECACHE_MODEL( ( char * ) STRING( pev->model ) );
+	m_iGibModelIndex = PRECACHE_MODEL( GetModelName() );
 	CBreakable::MaterialSoundPrecache( ( Materials ) m_iGibMaterial );
 }
 
@@ -18,7 +18,7 @@ void CEnvShooter::KeyValue( KeyValueData *pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "shootmodel" ) )
 	{
-		pev->model = ALLOC_STRING( pkvd->szValue );
+		SetModelName( ALLOC_STRING( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "shootsounds" ) )
@@ -57,7 +57,7 @@ void CEnvShooter::KeyValue( KeyValueData *pkvd )
 
 CGib *CEnvShooter::CreateGib( void )
 {
-	auto pGib = CGib::GibCreate( STRING( pev->model ) );
+	auto pGib = CGib::GibCreate( GetModelName() );
 
 	int bodyPart = 0;
 

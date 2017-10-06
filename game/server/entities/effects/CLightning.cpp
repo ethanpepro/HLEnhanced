@@ -435,7 +435,7 @@ void CLightning::BeamUpdateVars( void )
 	pev->sequence = 0;
 	pev->rendermode = 0;
 	pev->flags |= FL_CUSTOMENTITY;
-	pev->model = m_iszSpriteName;
+	SetModelName( m_iszSpriteName );
 	SetTexture( m_spriteTexture );
 
 	beamType = BEAM_ENTS;

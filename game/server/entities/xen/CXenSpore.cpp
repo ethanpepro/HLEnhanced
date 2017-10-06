@@ -118,7 +118,7 @@ CXenHull *CXenHull::CreateHull( CBaseEntity *source, const Vector &mins, const V
 	auto pHull = static_cast<CXenHull*>( UTIL_CreateNamedEntity( "xen_hull" ) );
 
 	pHull->SetAbsOrigin( source->GetAbsOrigin() + offset );
-	pHull->SetModel( STRING( source->pev->model ) );
+	pHull->SetModel( source->GetModelName() );
 	pHull->pev->solid = SOLID_BBOX;
 	pHull->pev->movetype = MOVETYPE_NONE;
 	pHull->pev->owner = source->edict();

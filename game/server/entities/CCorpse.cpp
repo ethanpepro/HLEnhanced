@@ -56,7 +56,7 @@ void CopyToBodyQue( CBaseEntity* pEntity )
 		return;
 
 	g_pBodyQueueHead->SetAbsAngles( pEntity->GetAbsAngles() );
-	g_pBodyQueueHead->SetModelName( pEntity->pev->model );
+	g_pBodyQueueHead->SetModelName( pEntity->GetModelName() );
 	g_pBodyQueueHead->SetModelIndex( pEntity->GetModelIndex() );
 	g_pBodyQueueHead->SetFrame( pEntity->GetFrame() );
 	g_pBodyQueueHead->SetColorMap( pEntity->GetColorMap() );
