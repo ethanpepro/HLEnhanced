@@ -221,7 +221,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 
 	m_pPlayer->SetDeadFlag( static_cast<DeadFlag>( from->client.deadflag ) );
 	m_pPlayer->SetWaterLevel( static_cast<WaterLevel>( from->client.waterlevel ) );
-	m_pPlayer->pev->maxspeed = from->client.maxspeed;
+	m_pPlayer->SetMaxSpeed( from->client.maxspeed );
 	m_pPlayer->SetFOV( from->client.fov );
 	m_pPlayer->SetWeaponAnim( from->client.weaponanim );
 	m_pPlayer->SetViewModelIndex( from->client.viewmodel );
@@ -319,7 +319,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	to->client.m_flNextAttack	= m_pPlayer->m_flNextAttack;
 	to->client.fuser2			= m_pPlayer->m_flNextAmmoBurn;
 	to->client.fuser3			= m_pPlayer->m_flAmmoStartCharge;
-	to->client.maxspeed			= m_pPlayer->pev->maxspeed;
+	to->client.maxspeed			= m_pPlayer->GetMaxSpeed();
 
 	//HL Weapons
 	to->client.vuser1[ 0 ] = m_pPlayer->GetAmmoCount( "9mm" );
