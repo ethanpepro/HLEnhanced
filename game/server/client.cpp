@@ -953,7 +953,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	cd->viewmodel		= MODEL_INDEX( pl->GetViewModelName() );
 
 	cd->waterlevel		= pl->GetWaterLevel();
-	cd->watertype		= pev->watertype;
+	cd->watertype		= pl->GetWaterType();
 	cd->weapons			= pev->weapons;
 
 	// Vectors
