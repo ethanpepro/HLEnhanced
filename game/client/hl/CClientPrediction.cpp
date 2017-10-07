@@ -220,7 +220,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	m_pPlayer->pev->flags = from->client.flags;
 
 	m_pPlayer->SetDeadFlag( static_cast<DeadFlag>( from->client.deadflag ) );
-	m_pPlayer->pev->waterlevel = from->client.waterlevel;
+	m_pPlayer->SetWaterLevel( static_cast<WaterLevel>( from->client.waterlevel ) );
 	m_pPlayer->pev->maxspeed = from->client.maxspeed;
 	m_pPlayer->SetFOV( from->client.fov );
 	m_pPlayer->SetWeaponAnim( from->client.weaponanim );

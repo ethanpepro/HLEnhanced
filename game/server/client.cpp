@@ -952,7 +952,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 
 	cd->viewmodel		= MODEL_INDEX( pl->GetViewModelName() );
 
-	cd->waterlevel		= pev->waterlevel;
+	cd->waterlevel		= pl->GetWaterLevel();
 	cd->watertype		= pev->watertype;
 	cd->weapons			= pev->weapons;
 
