@@ -2144,7 +2144,7 @@ public:
 	/**
 	*	@return Whether this entity is moving.
 	*/
-	virtual bool IsMoving() const { return pev->velocity != g_vecZero; }
+	virtual bool IsMoving() const { return GetAbsVelocity() != g_vecZero; }
 
 	/**
 	*	Called when the entity is restored, and the entity either has a global name or was transitioned over. Resets the entity for the current level.

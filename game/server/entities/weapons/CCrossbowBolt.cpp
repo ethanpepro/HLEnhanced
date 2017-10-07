@@ -89,16 +89,16 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 
 		if( pOther->IsPlayer() )
 		{
-			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetPlrDmgCrossbowClient(), DMG_NEVERGIB ), pev->velocity.Normalize(), &tr );
+			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetPlrDmgCrossbowClient(), DMG_NEVERGIB ), GetAbsVelocity().Normalize(), &tr );
 		}
 		else
 		{
-			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetPlrDmgCrossbowMonster(), DMG_BULLET | DMG_NEVERGIB ), pev->velocity.Normalize(), &tr );
+			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetPlrDmgCrossbowMonster(), DMG_BULLET | DMG_NEVERGIB ), GetAbsVelocity().Normalize(), &tr );
 		}
 
 		g_MultiDamage.ApplyMultiDamage( this, pOwner );
 
-		pev->velocity = Vector( 0, 0, 0 );
+		SetAbsVelocity( Vector( 0, 0, 0 ) );
 		// play body "thwack" sound
 		switch( RANDOM_LONG( 0, 1 ) )
 		{
@@ -123,12 +123,12 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 		if( pOther->ClassnameIs( "worldspawn" ) )
 		{
 			// if what we hit is static architecture, can stay around for a while.
-			Vector vecDir = pev->velocity.Normalize();
+			Vector vecDir = GetAbsVelocity().Normalize();
 			SetAbsOrigin( GetAbsOrigin() - vecDir * 12 );
 			pev->angles = UTIL_VecToAngles( vecDir );
 			SetSolidType( SOLID_NOT );
 			pev->movetype = MOVETYPE_FLY;
-			pev->velocity = Vector( 0, 0, 0 );
+			SetAbsVelocity( Vector( 0, 0, 0 ) );
 			pev->avelocity.z = 0;
 			pev->angles.z = RANDOM_LONG( 0, 360 );
 			pev->nextthink = gpGlobals->time + 10.0;
@@ -154,7 +154,7 @@ void CCrossbowBolt::BubbleThink()
 	if( GetWaterLevel() == WATERLEVEL_DRY )
 		return;
 
-	UTIL_BubbleTrail( GetAbsOrigin() - pev->velocity * 0.1, GetAbsOrigin(), 1 );
+	UTIL_BubbleTrail( GetAbsOrigin() - GetAbsVelocity() * 0.1, GetAbsOrigin(), 1 );
 }
 
 void CCrossbowBolt::ExplodeThink()

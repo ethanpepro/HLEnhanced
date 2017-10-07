@@ -112,7 +112,7 @@ void CFuncTrain::OverrideReset( void )
 	CBaseEntity	*pTarg;
 
 	// Are we moving?
-	if( pev->velocity != g_vecZero && pev->nextthink != 0 )
+	if( GetAbsVelocity() != g_vecZero && pev->nextthink != 0 )
 	{
 		pev->target = pev->message;
 		// now find our next target
@@ -120,7 +120,7 @@ void CFuncTrain::OverrideReset( void )
 		if( !pTarg )
 		{
 			pev->nextthink = 0;
-			pev->velocity = g_vecZero;
+			SetAbsVelocity( g_vecZero );
 		}
 		else	// Keep moving for 0.1 secs, then find path_corner again and restart
 		{
@@ -155,7 +155,7 @@ void CFuncTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 		if( pev->enemy )
 			pev->target = pev->enemy->v.targetname;
 		pev->nextthink = 0;
-		pev->velocity = g_vecZero;
+		SetAbsVelocity( g_vecZero );
 		if( pev->noiseStopMoving )
 			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
 	}

@@ -69,7 +69,7 @@ void CGib::BounceGibTouch( CBaseEntity *pOther )
 
 	if( pev->flags & FL_ONGROUND )
 	{
-		pev->velocity = pev->velocity * 0.9;
+		SetAbsVelocity( GetAbsVelocity() * 0.9 );
 		pev->angles.x = 0;
 		pev->angles.z = 0;
 		pev->avelocity.x = 0;
@@ -90,7 +90,7 @@ void CGib::BounceGibTouch( CBaseEntity *pOther )
 		if( m_material != matNone && RANDOM_LONG( 0, 2 ) == 0 )
 		{
 			float volume;
-			float zvel = fabs( pev->velocity.z );
+			float zvel = fabs( GetAbsVelocity().z );
 
 			volume = 0.8 * min( 1.0, ( ( float ) zvel ) / 450.0 );
 
@@ -116,13 +116,12 @@ void CGib::StickyGibTouch( CBaseEntity *pOther )
 		return;
 	}
 
-	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + pev->velocity * 32, ignore_monsters, ENT( pev ), &tr );
+	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + GetAbsVelocity() * 32, ignore_monsters, ENT( pev ), &tr );
 
 	UTIL_BloodDecalTrace( &tr, m_bloodColor );
 
-	pev->velocity = tr.vecPlaneNormal * -1;
-	pev->angles = UTIL_VecToAngles( pev->velocity );
-	pev->velocity = g_vecZero;
+	pev->angles = UTIL_VecToAngles( tr.vecPlaneNormal * -1 );
+	SetAbsVelocity( g_vecZero );
 	pev->avelocity = g_vecZero;
 	pev->movetype = MOVETYPE_NONE;
 }
@@ -141,7 +140,7 @@ void CGib::WaitTillLand( void )
 		return;
 	}
 
-	if( pev->velocity == g_vecZero )
+	if( GetAbsVelocity() == g_vecZero )
 	{
 		SetThink( &CGib::SUB_StartFadeOut );
 		pev->nextthink = gpGlobals->time + m_lifeTime;
@@ -163,12 +162,12 @@ void CGib::WaitTillLand( void )
 // HACKHACK -- The gib velocity equations don't work
 void CGib::LimitVelocity( void )
 {
-	float length = pev->velocity.Length();
+	float length = GetAbsVelocity().Length();
 
 	// ceiling at 1500.  The gib velocity equation is not bounded properly.  Rather than tune it
 	// in 3 separate places again, I'll just limit it here.
 	if( length > 1500.0 )
-		pev->velocity = pev->velocity.Normalize() * 1500;		// This should really be sv_maxvelocity * 0.75 or something
+		SetAbsVelocity( GetAbsVelocity().Normalize() * 1500 );		// This should really be sv_maxvelocity * 0.75 or something
 }
 
 void CGib::SpawnHeadGib( CBaseEntity* pVictim )
@@ -197,12 +196,13 @@ void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 		if( RANDOM_LONG( 0, 100 ) <= 5 && pPlayer )
 		{
 			// 5% chance head will be thrown at player's face.
-			pGib->pev->velocity = ( ( pPlayer->GetAbsOrigin() + pPlayer->GetViewOffset() ) - pGib->GetAbsOrigin() ).Normalize() * 300;
-			pGib->pev->velocity.z += 100;
+			Vector vecVelocity = ( ( pPlayer->GetAbsOrigin() + pPlayer->GetViewOffset() ) - pGib->GetAbsOrigin() ).Normalize() * 300;
+			vecVelocity.z += 100;
+			pGib->SetAbsVelocity( vecVelocity );
 		}
 		else
 		{
-			pGib->pev->velocity = Vector( RANDOM_FLOAT( -100, 100 ), RANDOM_FLOAT( -100, 100 ), RANDOM_FLOAT( 200, 300 ) );
+			pGib->SetAbsVelocity( Vector( RANDOM_FLOAT( -100, 100 ), RANDOM_FLOAT( -100, 100 ), RANDOM_FLOAT( 200, 300 ) ) );
 		}
 
 
@@ -214,15 +214,15 @@ void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 
 		if( pVictim->pev->health > -50 )
 		{
-			pGib->pev->velocity = pGib->pev->velocity * 0.7;
+			pGib->SetAbsVelocity( pGib->GetAbsVelocity() * 0.7 );
 		}
 		else if( pVictim->pev->health > -200 )
 		{
-			pGib->pev->velocity = pGib->pev->velocity * 2;
+			pGib->SetAbsVelocity( pGib->GetAbsVelocity() * 2 );
 		}
 		else
 		{
-			pGib->pev->velocity = pGib->pev->velocity * 4;
+			pGib->SetAbsVelocity( pGib->GetAbsVelocity() * 4 );
 		}
 	}
 	pGib->LimitVelocity();
@@ -266,15 +266,15 @@ void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 			pGib->pev->origin.y = pVictim->pev->absmin.y + pVictim->pev->size.y * ( RANDOM_FLOAT( 0, 1 ) );
 			pGib->pev->origin.z = pVictim->pev->absmin.z + pVictim->pev->size.z * ( RANDOM_FLOAT( 0, 1 ) ) + 1;	// absmin.z is in the floor because the engine subtracts 1 to enlarge the box
 
-																											// make the gib fly away from the attack vector
-			pGib->pev->velocity = g_vecAttackDir * -1;
+			// make the gib fly away from the attack vector
+			Vector vecVelocity = g_vecAttackDir * -1;
 
 			// mix in some noise
-			pGib->pev->velocity.x += RANDOM_FLOAT( -0.25, 0.25 );
-			pGib->pev->velocity.y += RANDOM_FLOAT( -0.25, 0.25 );
-			pGib->pev->velocity.z += RANDOM_FLOAT( -0.25, 0.25 );
+			vecVelocity.x += RANDOM_FLOAT( -0.25, 0.25 );
+			vecVelocity.y += RANDOM_FLOAT( -0.25, 0.25 );
+			vecVelocity.z += RANDOM_FLOAT( -0.25, 0.25 );
 
-			pGib->pev->velocity = pGib->pev->velocity * RANDOM_FLOAT( 300, 400 );
+			vecVelocity = vecVelocity * RANDOM_FLOAT( 300, 400 );
 
 			pGib->pev->avelocity.x = RANDOM_FLOAT( 100, 200 );
 			pGib->pev->avelocity.y = RANDOM_FLOAT( 100, 300 );
@@ -284,16 +284,18 @@ void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 
 			if( pVictim->pev->health > -50 )
 			{
-				pGib->pev->velocity = pGib->pev->velocity * 0.7;
+				vecVelocity = vecVelocity * 0.7;
 			}
 			else if( pVictim->pev->health > -200 )
 			{
-				pGib->pev->velocity = pGib->pev->velocity * 2;
+				vecVelocity = vecVelocity * 2;
 			}
 			else
 			{
-				pGib->pev->velocity = pGib->pev->velocity * 4;
+				vecVelocity = vecVelocity * 4;
 			}
+
+			pGib->SetAbsVelocity( vecVelocity );
 
 			pGib->SetSolidType( SOLID_BBOX );
 			pGib->SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
@@ -304,6 +306,7 @@ void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 
 void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 {
+	//TODO: this code is similar to the code above - Solokiller
 	int i;
 
 	if( g_Language == LANGUAGE_GERMAN )
@@ -330,14 +333,16 @@ void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 			*/
 
 			// make the gib fly away from the attack vector
-			pGib->pev->velocity = g_vecAttackDir * -1;
+			Vector vecVelocity = g_vecAttackDir * -1;
 
 			// mix in some noise
-			pGib->pev->velocity.x += RANDOM_FLOAT( -0.15, 0.15 );
-			pGib->pev->velocity.y += RANDOM_FLOAT( -0.15, 0.15 );
-			pGib->pev->velocity.z += RANDOM_FLOAT( -0.15, 0.15 );
+			vecVelocity.x += RANDOM_FLOAT( -0.15, 0.15 );
+			vecVelocity.y += RANDOM_FLOAT( -0.15, 0.15 );
+			vecVelocity.z += RANDOM_FLOAT( -0.15, 0.15 );
 
-			pGib->pev->velocity = pGib->pev->velocity * 900;
+			vecVelocity = vecVelocity * 900;
+
+
 
 			pGib->pev->avelocity.x = RANDOM_FLOAT( 250, 400 );
 			pGib->pev->avelocity.y = RANDOM_FLOAT( 250, 400 );
@@ -347,17 +352,18 @@ void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 
 			if( pVictim->pev->health > -50 )
 			{
-				pGib->pev->velocity = pGib->pev->velocity * 0.7;
+				vecVelocity = vecVelocity * 0.7;
 			}
 			else if( pVictim->pev->health > -200 )
 			{
-				pGib->pev->velocity = pGib->pev->velocity * 2;
+				vecVelocity = vecVelocity * 2;
 			}
 			else
 			{
-				pGib->pev->velocity = pGib->pev->velocity * 4;
+				vecVelocity = vecVelocity * 4;
 			}
 
+			pGib->SetAbsVelocity( vecVelocity );
 
 			pGib->pev->movetype = MOVETYPE_TOSS;
 			pGib->SetSolidType( SOLID_BBOX );

@@ -253,7 +253,7 @@ void CFuncTrackChange::UpdateTrain( Vector &dest )
 {
 	float time = ( pev->nextthink - pev->ltime );
 
-	m_train->pev->velocity = pev->velocity;
+	m_train->SetAbsVelocity( GetAbsVelocity() );
 	m_train->pev->avelocity = pev->avelocity;
 	m_train->NextThink( m_train->pev->ltime + time, false );
 
@@ -271,7 +271,7 @@ void CFuncTrackChange::UpdateTrain( Vector &dest )
 	local.z = DotProduct( offset, gpGlobals->v_up );
 
 	local = local - offset;
-	m_train->pev->velocity = pev->velocity + ( local * ( 1.0 / time ) );
+	m_train->SetAbsVelocity( GetAbsVelocity() + ( local * ( 1.0 / time ) ) );
 }
 
 //

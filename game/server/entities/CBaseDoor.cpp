@@ -459,13 +459,14 @@ void CBaseDoor::Blocked( CBaseEntity *pOther )
 
 					if( pDoor->m_flWait >= 0 )
 					{
-						if( pDoor->pev->velocity == pev->velocity && pDoor->pev->avelocity == pev->velocity )
+						//TODO: comparing avel with vel is probably wrong - Solokiller
+						if( pDoor->GetAbsVelocity() == GetAbsVelocity() && pDoor->pev->avelocity == GetAbsVelocity() )
 						{
 							// this is the most hacked, evil, bastardized thing I've ever seen. kjb
 							if( pTarget->ClassnameIs( "func_door" ) )
 							{// set origin to realign normal doors
 								pDoor->pev->origin = GetAbsOrigin();
-								pDoor->pev->velocity = g_vecZero;// stop!
+								pDoor->SetAbsVelocity( g_vecZero );// stop!
 							}
 							else
 							{// set angles to realign rotating doors

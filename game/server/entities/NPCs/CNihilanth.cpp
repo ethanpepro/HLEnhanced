@@ -295,7 +295,7 @@ void CNihilanth :: DyingThink( void )
 
 		if (fabs( GetAbsOrigin().z - m_flMaxZ ) < 16)
 		{
-			pev->velocity = Vector( 0, 0, 0 );
+			SetAbsVelocity( Vector( 0, 0, 0 ) );
 			FireTargets( m_szDeadUse, this, this, USE_ON, 1.0 );
 			SetDeadFlag( DEAD_DEAD );
 		}
@@ -385,7 +385,7 @@ void CNihilanth :: DyingThink( void )
 
 	GetAttachment( 0, vecSrc, vecAngles ); 
 	CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-	pEntity->pev->velocity = Vector ( RANDOM_FLOAT( -0.7, 0.7 ), RANDOM_FLOAT( -0.7, 0.7 ), 1.0 ) * 600.0;
+	pEntity->SetAbsVelocity( Vector ( RANDOM_FLOAT( -0.7, 0.7 ), RANDOM_FLOAT( -0.7, 0.7 ), 1.0 ) * 600.0 );
 	pEntity->GreenBallInit( );
 
 	return;
@@ -455,21 +455,21 @@ void CNihilanth :: ShootBalls( void )
 				CNihilanthHVR *pEntity;
 
 				GetAttachment( 2, vecHand, vecAngle );
-				vecSrc = vecHand + pev->velocity * (m_flShootTime - gpGlobals->time);
+				vecSrc = vecHand + GetAbsVelocity() * (m_flShootTime - gpGlobals->time);
 				// vecDir = (m_posTarget - vecSrc).Normalize( );
 				vecDir = (m_posTarget - GetAbsOrigin()).Normalize( );
 				vecSrc = vecSrc + vecDir * (gpGlobals->time - m_flShootTime);
 				pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-				pEntity->pev->velocity = vecDir * 200.0; 
+				pEntity->SetAbsVelocity( vecDir * 200.0 ); 
 				pEntity->ZapInit( m_hEnemy );
 
 				GetAttachment( 3, vecHand, vecAngle );
-				vecSrc = vecHand + pev->velocity * (m_flShootTime - gpGlobals->time);
+				vecSrc = vecHand + GetAbsVelocity() * (m_flShootTime - gpGlobals->time);
 				// vecDir = (m_posTarget - vecSrc).Normalize( );
 				vecDir = (m_posTarget - GetAbsOrigin()).Normalize( );
 				vecSrc = vecSrc + vecDir * (gpGlobals->time - m_flShootTime);
 				pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-				pEntity->pev->velocity = vecDir * 200.0; 
+				pEntity->SetAbsVelocity( vecDir * 200.0 ); 
 				pEntity->ZapInit( m_hEnemy );
 			}
 			m_flShootTime += 0.2;
@@ -859,7 +859,7 @@ bool CNihilanth::EmitSphere()
 
 	Vector vecSrc = m_hRecharger->GetAbsOrigin();
 	CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-	pEntity->pev->velocity = GetAbsOrigin() - vecSrc;
+	pEntity->SetAbsVelocity( GetAbsOrigin() - vecSrc );
 	pEntity->CircleInit( this );
 
 	m_hSphere[empty] = pEntity;
@@ -889,7 +889,7 @@ void CNihilanth :: 	TargetSphere( USE_TYPE useType, float value )
 	GetAttachment( 2, vecSrc, vecAngles ); 
 	pSphere->SetAbsOrigin( vecSrc );
 	pSphere->Use( this, this, useType, value );
-	pSphere->pev->velocity = m_vecDesired * RANDOM_FLOAT( 50, 100 ) + Vector( RANDOM_FLOAT( -50, 50 ), RANDOM_FLOAT( -50, 50 ), RANDOM_FLOAT( -50, 50 ) );
+	pSphere->SetAbsVelocity( m_vecDesired * RANDOM_FLOAT( 50, 100 ) + Vector( RANDOM_FLOAT( -50, 50 ), RANDOM_FLOAT( -50, 50 ), RANDOM_FLOAT( -50, 50 ) ) );
 }
 
 
@@ -959,7 +959,7 @@ void CNihilanth :: HandleAnimEvent( AnimEvent_t& event )
 				Vector vecSrc, vecAngles;
 				GetAttachment( 2, vecSrc, vecAngles ); 
 				CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-				pEntity->pev->velocity = GetAbsOrigin() - vecSrc;
+				pEntity->SetAbsVelocity( GetAbsOrigin() - vecSrc );
 				pEntity->TeleportInit( this, m_hEnemy, pTrigger, pTouch );
 			}
 			else
@@ -1025,7 +1025,7 @@ void CNihilanth :: HandleAnimEvent( AnimEvent_t& event )
 			Vector vecSrc, vecAngles;
 			GetAttachment( 2, vecSrc, vecAngles ); 
 			CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-			pEntity->pev->velocity = GetAbsOrigin() - vecSrc;
+			pEntity->SetAbsVelocity( GetAbsOrigin() - vecSrc );
 			pEntity->ZapInit( m_hEnemy );
 		}
 		break;
@@ -1034,7 +1034,7 @@ void CNihilanth :: HandleAnimEvent( AnimEvent_t& event )
 		Vector vecSrc, vecAngles;
 		GetAttachment( 0, vecSrc, vecAngles ); 
 		CNihilanthHVR *pEntity = (CNihilanthHVR *)Create( "nihilanth_energy_ball", vecSrc, pev->angles, edict() );
-		pEntity->pev->velocity = Vector ( RANDOM_FLOAT( -0.7, 0.7 ), RANDOM_FLOAT( -0.7, 0.7 ), 1.0 ) * 600.0;
+		pEntity->SetAbsVelocity( Vector ( RANDOM_FLOAT( -0.7, 0.7 ), RANDOM_FLOAT( -0.7, 0.7 ), 1.0 ) * 600.0 );
 		pEntity->GreenBallInit( );
 		*/
 		break;

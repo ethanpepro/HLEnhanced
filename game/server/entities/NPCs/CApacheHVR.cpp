@@ -98,14 +98,14 @@ void CApacheHVR::AccelerateThink( void )
 	}
 
 	// accelerate
-	float flSpeed = pev->velocity.Length();
+	float flSpeed = GetAbsVelocity().Length();
 	if( flSpeed < 1800 )
 	{
-		pev->velocity = pev->velocity + m_vecForward * 200;
+		SetAbsVelocity( GetAbsVelocity() + m_vecForward * 200 );
 	}
 
 	// re-aim
-	pev->angles = UTIL_VecToAngles( pev->velocity );
+	pev->angles = UTIL_VecToAngles( GetAbsVelocity() );
 
 	pev->nextthink = gpGlobals->time + 0.1;
 }

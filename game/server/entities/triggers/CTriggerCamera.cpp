@@ -140,11 +140,11 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 		pev->angles.x = -pPlayer->pev->angles.x;
 		pev->angles.y = pPlayer->pev->angles.y;
 		pev->angles.z = 0;
-		pev->velocity = pPlayer->pev->velocity;
+		SetAbsVelocity( pPlayer->GetAbsVelocity() );
 	}
 	else
 	{
-		pev->velocity = Vector( 0, 0, 0 );
+		SetAbsVelocity( Vector( 0, 0, 0 ) );
 	}
 
 	SET_VIEW( pPlayer->edict(), edict() );
@@ -210,9 +210,9 @@ void CTriggerCamera::FollowTarget()
 
 	if( !( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_TAKECONTROL ) ) )
 	{
-		pev->velocity = pev->velocity * 0.8;
-		if( pev->velocity.Length() < 10.0 )
-			pev->velocity = g_vecZero;
+		SetAbsVelocity( GetAbsVelocity() * 0.8 );
+		if( GetAbsVelocity().Length() < 10.0 )
+			SetAbsVelocity( g_vecZero );
 	}
 
 	pev->nextthink = gpGlobals->time;
@@ -245,7 +245,7 @@ void CTriggerCamera::Move()
 		// Set up next corner
 		if( !m_pentPath )
 		{
-			pev->velocity = g_vecZero;
+			SetAbsVelocity( g_vecZero );
 		}
 		else
 		{
@@ -265,5 +265,5 @@ void CTriggerCamera::Move()
 		pev->speed = UTIL_Approach( m_targetSpeed, pev->speed, m_acceleration * gpGlobals->frametime );
 
 	float fraction = 2 * gpGlobals->frametime;
-	pev->velocity = ( ( pev->movedir * pev->speed ) * fraction ) + ( pev->velocity * ( 1 - fraction ) );
+	SetAbsVelocity( ( ( pev->movedir * pev->speed ) * fraction ) + ( GetAbsVelocity() * ( 1 - fraction ) ) );
 }

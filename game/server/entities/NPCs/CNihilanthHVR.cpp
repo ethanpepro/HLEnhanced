@@ -121,7 +121,9 @@ void CNihilanthHVR::TeleportInit( CNihilanth *pOwner, CBaseEntity *pEnemy, CBase
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;
 	pev->rendercolor.z = 255;
-	pev->velocity.z *= 0.2;
+	Vector vecVelocity = GetAbsVelocity();
+	vecVelocity.z *= 0.2;
+	SetAbsVelocity( vecVelocity );
 
 	SetModel( "sprites/exit1.spr" );
 
@@ -164,7 +166,7 @@ void CNihilanthHVR::ZapInit( CBaseEntity *pEnemy )
 	pev->rendercolor.z = 255;
 	pev->scale = 2.0;
 
-	pev->velocity = ( pEnemy->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * 200;
+	SetAbsVelocity( ( pEnemy->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * 200 );
 
 	m_hEnemy = pEnemy;
 	SetThink( &CNihilanthHVR::ZapThink );
@@ -241,7 +243,7 @@ bool CNihilanthHVR::CircleTarget( Vector vecTarget )
 	bool fClose = false;
 
 	Vector vecDest = vecTarget;
-	Vector vecEst = GetAbsOrigin() + pev->velocity * 0.5;
+	Vector vecEst = GetAbsOrigin() + GetAbsVelocity() * 0.5;
 	Vector vecSrc = GetAbsOrigin();
 	vecDest.z = 0;
 	vecEst.z = 0;
@@ -251,7 +253,7 @@ bool CNihilanthHVR::CircleTarget( Vector vecTarget )
 
 	if( m_vecIdeal == Vector( 0, 0, 0 ) )
 	{
-		m_vecIdeal = pev->velocity;
+		m_vecIdeal = GetAbsVelocity();
 	}
 
 	if( d1 < 0 && d2 <= d1 )
@@ -284,7 +286,7 @@ bool CNihilanthHVR::CircleTarget( Vector vecTarget )
 	else if( d1 < 0 && m_vecIdeal.z > -200 )
 		m_vecIdeal.z -= 20;
 
-	pev->velocity = m_vecIdeal;
+	SetAbsVelocity( m_vecIdeal );
 
 	// ALERT( at_console, "%.0f %.0f %.0f\n", m_vecIdeal.x, m_vecIdeal.y, m_vecIdeal.z );
 	return fClose;
@@ -336,9 +338,9 @@ void CNihilanthHVR::ZapThink( void )
 		return;
 	}
 
-	if( pev->velocity.Length() < 2000 )
+	if( GetAbsVelocity().Length() < 2000 )
 	{
-		pev->velocity = pev->velocity * 1.2;
+		SetAbsVelocity( GetAbsVelocity() * 1.2 );
 	}
 
 
@@ -354,7 +356,7 @@ void CNihilanthHVR::ZapThink( void )
 		if( pEntity != NULL && pEntity->pev->takedamage )
 		{
 			g_MultiDamage.Clear();
-			pEntity->TraceAttack( CTakeDamageInfo( this, gSkillData.GetNihilanthZap(), DMG_SHOCK ), pev->velocity, &tr );
+			pEntity->TraceAttack( CTakeDamageInfo( this, gSkillData.GetNihilanthZap(), DMG_SHOCK ), GetAbsVelocity(), &tr );
 			g_MultiDamage.ApplyMultiDamage( this, this );
 		}
 
@@ -495,7 +497,7 @@ void CNihilanthHVR::ZapTouch( CBaseEntity *pOther )
 	UTIL_EmitAmbientSound( this, GetAbsOrigin(), "weapons/electro4.wav", 1.0, ATTN_NORM, 0, RANDOM_LONG( 90, 95 ) );
 
 	RadiusDamage( this, this, 50, EntityClassifications().GetNoneId(), DMG_SHOCK );
-	pev->velocity = pev->velocity * 0;
+	SetAbsVelocity( GetAbsVelocity() * 0 );
 
 	/*
 	for (int i = 0; i < 10; i++)
@@ -513,7 +515,7 @@ void CNihilanthHVR::MovetoTarget( Vector vecTarget )
 {
 	if( m_vecIdeal == Vector( 0, 0, 0 ) )
 	{
-		m_vecIdeal = pev->velocity;
+		m_vecIdeal = GetAbsVelocity();
 	}
 
 	// accelerate
@@ -523,14 +525,14 @@ void CNihilanthHVR::MovetoTarget( Vector vecTarget )
 		m_vecIdeal = m_vecIdeal.Normalize() * 300;
 	}
 	m_vecIdeal = m_vecIdeal + ( vecTarget - GetAbsOrigin() ).Normalize() * 300;
-	pev->velocity = m_vecIdeal;
+	SetAbsVelocity( m_vecIdeal );
 }
 
 void CNihilanthHVR::Crawl( void )
 {
 
 	Vector vecAim = Vector( RANDOM_FLOAT( -1, 1 ), RANDOM_FLOAT( -1, 1 ), RANDOM_FLOAT( -1, 1 ) ).Normalize();
-	Vector vecPnt = GetAbsOrigin() + pev->velocity * 0.2 + vecAim * 128;
+	Vector vecPnt = GetAbsOrigin() + GetAbsVelocity() * 0.2 + vecAim * 128;
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_BEAMENTPOINT );

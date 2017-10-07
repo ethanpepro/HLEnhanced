@@ -541,8 +541,12 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetDeadFlag( DEAD_DYING );
 	pev->movetype		= MOVETYPE_TOSS;
 	ClearBits( pev->flags, FL_ONGROUND );
-	if (pev->velocity.z < 10)
-		pev->velocity.z += RANDOM_FLOAT(0,300);
+	if ( GetAbsVelocity().z < 10)
+	{
+		Vector vecVelocity = GetAbsVelocity();
+		vecVelocity.z += RANDOM_FLOAT(0,300);
+		SetAbsVelocity( vecVelocity );
+	}
 
 	// clear out the suit message cache so we don't keep chattering
 	SetSuitUpdate(NULL, SUIT_SENTENCE, 0);

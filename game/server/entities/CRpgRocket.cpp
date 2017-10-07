@@ -54,7 +54,7 @@ void CRpgRocket::Spawn( void )
 	UTIL_MakeVectors( pev->angles );
 	pev->angles.x = -( pev->angles.x + 30 );
 
-	pev->velocity = gpGlobals->v_forward * 250;
+	SetAbsVelocity( gpGlobals->v_forward * 250 );
 	pev->gravity = 0.5;
 
 	pev->nextthink = gpGlobals->time + 0.4;
@@ -155,24 +155,24 @@ void CRpgRocket::FollowThink( void )
 	pev->angles = UTIL_VecToAngles( vecTarget );
 
 	// this acceleration and turning math is totally wrong, but it seems to respond well so don't change it.
-	float flSpeed = pev->velocity.Length();
+	float flSpeed = GetAbsVelocity().Length();
 	if( gpGlobals->time - m_flIgniteTime < 1.0 )
 	{
-		pev->velocity = pev->velocity * 0.2 + vecTarget * ( flSpeed * 0.8 + 400 );
+		SetAbsVelocity( GetAbsVelocity() * 0.2 + vecTarget * ( flSpeed * 0.8 + 400 ) );
 		if( GetWaterLevel() == WATERLEVEL_HEAD )
 		{
 			// go slow underwater
-			if( pev->velocity.Length() > 300 )
+			if( GetAbsVelocity().Length() > 300 )
 			{
-				pev->velocity = pev->velocity.Normalize() * 300;
+				SetAbsVelocity( GetAbsVelocity().Normalize() * 300 );
 			}
-			UTIL_BubbleTrail( GetAbsOrigin() - pev->velocity * 0.1, GetAbsOrigin(), 4 );
+			UTIL_BubbleTrail( GetAbsOrigin() - GetAbsVelocity() * 0.1, GetAbsOrigin(), 4 );
 		}
 		else
 		{
-			if( pev->velocity.Length() > 2000 )
+			if( GetAbsVelocity().Length() > 2000 )
 			{
-				pev->velocity = pev->velocity.Normalize() * 2000;
+				SetAbsVelocity( GetAbsVelocity().Normalize() * 2000 );
 			}
 		}
 	}
@@ -183,8 +183,8 @@ void CRpgRocket::FollowThink( void )
 			pev->effects = 0;
 			STOP_SOUND( this, CHAN_VOICE, "weapons/rocket1.wav" );
 		}
-		pev->velocity = pev->velocity * 0.2 + vecTarget * flSpeed * 0.798;
-		if( GetWaterLevel() == WATERLEVEL_DRY && pev->velocity.Length() < 1500 )
+		SetAbsVelocity( GetAbsVelocity() * 0.2 + vecTarget * flSpeed * 0.798 );
+		if( GetWaterLevel() == WATERLEVEL_DRY && GetAbsVelocity().Length() < 1500 )
 		{
 			Detonate();
 		}

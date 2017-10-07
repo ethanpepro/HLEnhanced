@@ -45,8 +45,8 @@ void CTriggerPush::Touch( CBaseEntity *pOther )
 		// Instant trigger, just transfer velocity and remove
 		if( FBitSet( pev->spawnflags, SF_TRIG_PUSH_ONCE ) )
 		{
-			pOther->pev->velocity = pOther->pev->velocity + ( pev->speed * pev->movedir );
-			if( pOther->pev->velocity.z > 0 )
+			pOther->SetAbsVelocity( pOther->GetAbsVelocity() + ( pev->speed * pev->movedir ) );
+			if( pOther->GetAbsVelocity().z > 0 )
 				pOther->pev->flags &= ~FL_ONGROUND;
 			UTIL_Remove( this );
 		}

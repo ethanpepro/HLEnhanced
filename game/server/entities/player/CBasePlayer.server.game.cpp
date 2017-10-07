@@ -175,7 +175,7 @@ void CBasePlayer::Jump()
 	if( m_fLongJump &&
 		GetButtons().Any( IN_DUCK ) &&
 		( pev->flDuckTime > 0 ) &&
-		pev->velocity.Length() > 50 )
+		GetAbsVelocity().Length() > 50 )
 	{
 		SetAnimation( PLAYER_SUPERJUMP );
 	}
@@ -183,13 +183,13 @@ void CBasePlayer::Jump()
 	if( CBaseEntity* pGround = Instance( pev->groundentity ) )
 	{
 		//Add ground entity velocity to yourself. Maintains intertia. - Solokiller
-		pev->velocity = pev->velocity + pGround->GetAbsVelocity();
+		SetAbsVelocity( GetAbsVelocity() + pGround->GetAbsVelocity() );
 
 		// If you're standing on a conveyor, add it's velocity to yours (for momentum)
 		if( ( pGround->pev->flags & FL_CONVEYOR ) )
 		{
 			//Note: basevelocity is set by the physics code. It accounts for conveyors. - Solokiller
-			pev->velocity = pev->velocity + pev->basevelocity;
+			SetAbsVelocity( GetAbsVelocity() + pev->basevelocity );
 		}
 	}
 }
@@ -362,7 +362,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 	float speed;
 	char szAnim[ 64 ];
 
-	speed = pev->velocity.Length2D();
+	speed = GetAbsVelocity().Length2D();
 
 	if( pev->flags & FL_FROZEN )
 	{

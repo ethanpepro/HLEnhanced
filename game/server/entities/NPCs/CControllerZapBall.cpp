@@ -64,9 +64,10 @@ void CControllerZapBall::AnimateThink( void )
 {
 	pev->nextthink = gpGlobals->time + 0.1;
 
+	//TODO: hardcoded sprite frame count? - Solokiller
 	pev->frame = ( ( int ) pev->frame + 1 ) % 11;
 
-	if( gpGlobals->time - pev->dmgtime > 5 || pev->velocity.Length() < 10 )
+	if( gpGlobals->time - pev->dmgtime > 5 || GetAbsVelocity().Length() < 10 )
 	{
 		SetTouch( NULL );
 		UTIL_Remove( this );
@@ -90,7 +91,7 @@ void CControllerZapBall::ExplodeTouch( CBaseEntity *pOther )
 		}
 
 		g_MultiDamage.Clear();
-		pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetControllerDmgBall(), DMG_ENERGYBEAM ), pev->velocity.Normalize(), &tr );
+		pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetControllerDmgBall(), DMG_ENERGYBEAM ), GetAbsVelocity().Normalize(), &tr );
 		g_MultiDamage.ApplyMultiDamage( pOwner, pOwner );
 
 		UTIL_EmitAmbientSound( this, tr.vecEndPos, "weapons/electro4.wav", 0.3, ATTN_NORM, 0, RANDOM_LONG( 90, 99 ) );

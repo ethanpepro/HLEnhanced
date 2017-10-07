@@ -251,7 +251,7 @@ void CBarnacle :: BarnacleThink ( void )
 				m_hEnemy = pTouchEnt;
 
 				pTouchEnt->pev->movetype = MOVETYPE_FLY;
-				pTouchEnt->pev->velocity = g_vecZero;
+				pTouchEnt->SetAbsVelocity( g_vecZero );
 				pTouchEnt->pev->basevelocity = g_vecZero;
 				pTouchEnt->pev->origin.x = GetAbsOrigin().x;
 				pTouchEnt->pev->origin.y = GetAbsOrigin().y;

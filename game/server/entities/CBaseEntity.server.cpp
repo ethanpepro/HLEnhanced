@@ -77,7 +77,7 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 
 		if( flForce > 1000.0 )
 			flForce = 1000.0;
-		pev->velocity = pev->velocity + vecDir * flForce;
+		SetAbsVelocity( GetAbsVelocity() + vecDir * flForce );
 	}
 
 	// do the damage
@@ -225,12 +225,12 @@ bool CBaseEntity::IsInWorld() const
 	if( GetAbsOrigin().y <= -WORLD_BOUNDARY ) return false;
 	if( GetAbsOrigin().z <= -WORLD_BOUNDARY ) return false;
 	// speed
-	if( pev->velocity.x >= MAX_VELOCITY ) return false;
-	if( pev->velocity.y >= MAX_VELOCITY ) return false;
-	if( pev->velocity.z >= MAX_VELOCITY ) return false;
-	if( pev->velocity.x <= -MAX_VELOCITY ) return false;
-	if( pev->velocity.y <= -MAX_VELOCITY ) return false;
-	if( pev->velocity.z <= -MAX_VELOCITY ) return false;
+	if( GetAbsVelocity().x >= MAX_VELOCITY ) return false;
+	if( GetAbsVelocity().y >= MAX_VELOCITY ) return false;
+	if( GetAbsVelocity().z >= MAX_VELOCITY ) return false;
+	if( GetAbsVelocity().x <= -MAX_VELOCITY ) return false;
+	if( GetAbsVelocity().y <= -MAX_VELOCITY ) return false;
+	if( GetAbsVelocity().z <= -MAX_VELOCITY ) return false;
 
 	return true;
 }

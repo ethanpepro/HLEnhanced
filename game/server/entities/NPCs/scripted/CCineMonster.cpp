@@ -190,8 +190,10 @@ if( FBitSet ( pOther->pev->flags, FL_ONGROUND ) )
 }
 
 // toss the monster!
-pOther->pev->velocity = pev->movedir * pev->speed;
-pOther->pev->velocity.z += m_flHeight;
+Vector vecVelocity = pOther->GetAbsVelocity();
+vecVelocity = pev->movedir * pev->speed;
+vecVelocity.z += m_flHeight;
+pOther->SetAbsVelocity( vecVelocity );
 
 
 SetSolidType( SOLID_NOT );// kill the trigger for now !!!UNDONE
@@ -394,7 +396,7 @@ void CCineMonster::PossessEntity( void )
 			pTarget->SetAbsOrigin( GetAbsOrigin() );
 			pTarget->pev->ideal_yaw = pev->angles.y;
 			pTarget->pev->avelocity = Vector( 0, 0, 0 );
-			pTarget->pev->velocity = Vector( 0, 0, 0 );
+			pTarget->SetAbsVelocity( Vector( 0, 0, 0 ) );
 			pTarget->pev->effects |= EF_NOINTERP;
 			pTarget->pev->angles.y = pev->angles.y;
 			pTarget->m_scriptState = SCRIPT_WAIT;

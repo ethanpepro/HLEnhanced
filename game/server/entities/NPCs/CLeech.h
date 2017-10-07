@@ -47,7 +47,7 @@ public:
 			// If the client is pushing me, give me some base velocity
 			if( gpGlobals->trace_ent && gpGlobals->trace_ent == edict() )
 			{
-				pev->basevelocity = pOther->pev->velocity;
+				pev->basevelocity = pOther->GetAbsVelocity();
 				pev->flags |= FL_BASEVELOCITY;
 			}
 		}

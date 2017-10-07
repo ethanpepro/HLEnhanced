@@ -65,7 +65,7 @@ bool CBaseMonster::HasAlienGibs()
 void CBaseMonster::FadeMonster( void )
 {
 	StopAnimation();
-	pev->velocity = g_vecZero;
+	SetAbsVelocity( g_vecZero );
 	pev->movetype = MOVETYPE_NONE;
 	pev->avelocity = g_vecZero;
 	pev->animtime = gpGlobals->time;
@@ -302,8 +302,8 @@ void CBaseMonster::BecomeDead( void )
 	pev->movetype = MOVETYPE_TOSS;
 	//pev->flags &= ~FL_ONGROUND;
 	//GetAbsOrigin().z += 2;
-	//pev->velocity = g_vecAttackDir * -1;
-	//pev->velocity = pev->velocity * RANDOM_FLOAT( 300, 400 );
+	//SetAbsVelocity( g_vecAttackDir * -1 );
+	//SetAbsVelocity( GetAbsVelocity() * RANDOM_FLOAT( 300, 400 ) );
 }
 
 
@@ -479,7 +479,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 	// if this is a player, move him around!
 	if ( ( !FNullEnt( info.GetInflictor() ) ) && (pev->movetype == MOVETYPE_WALK) && (!info.GetAttacker() || info.GetAttacker()->GetSolidType() != SOLID_TRIGGER) )
 	{
-		pev->velocity = pev->velocity + vecDir * -DamageForce( info.GetDamage() );
+		SetAbsVelocity( GetAbsVelocity() + vecDir * -DamageForce( info.GetDamage() ) );
 	}
 
 	// do the damage
@@ -572,7 +572,7 @@ void CBaseMonster::DeadTakeDamage( const CTakeDamageInfo& info )
 	// let the damage scoot the corpse around a bit.
 	if ( !FNullEnt( pAttacker ) && ( pAttacker->GetSolidType() != SOLID_TRIGGER) )
 	{
-		pev->velocity = pev->velocity + vecDir * -DamageForce( flDamage );
+		SetAbsVelocity( GetAbsVelocity() + vecDir * -DamageForce( flDamage ) );
 	}
 
 #endif

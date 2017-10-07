@@ -47,7 +47,7 @@ void CBaseToggle::KeyValue( KeyValueData *pkvd )
 =============
 LinearMove
 
-calculate pev->velocity and pev->nextthink to reach vecDest from
+calculate GetAbsVelocity() and pev->nextthink to reach vecDest from
 GetAbsOrigin() traveling at flSpeed
 ===============
 */
@@ -76,7 +76,7 @@ void CBaseToggle::LinearMove( Vector	vecDest, float flSpeed )
 	SetThink( &CBaseToggle::LinearMoveDone );
 
 	// scale the destdelta vector by the time spent traveling to get velocity
-	pev->velocity = vecDestDelta / flTravelTime;
+	SetAbsVelocity( vecDestDelta / flTravelTime );
 }
 
 /*
@@ -95,7 +95,7 @@ void CBaseToggle::LinearMoveDone( void )
 	}
 
 	SetAbsOrigin( m_vecFinalDest );
-	pev->velocity = g_vecZero;
+	SetAbsVelocity( g_vecZero );
 	pev->nextthink = -1;
 	if( m_pfnCallWhenMoveDone )
 		( this->*m_pfnCallWhenMoveDone )( );
@@ -105,7 +105,7 @@ void CBaseToggle::LinearMoveDone( void )
 =============
 AngularMove
 
-calculate pev->velocity and pev->nextthink to reach vecDest from
+calculate GetAbsVelocity() and pev->nextthink to reach vecDest from
 GetAbsOrigin() traveling at flSpeed
 Just like LinearMove, but rotational.
 ===============

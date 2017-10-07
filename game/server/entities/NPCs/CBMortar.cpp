@@ -57,7 +57,7 @@ CBMortar *CBMortar::Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVeloc
 	pSpit->Spawn();
 
 	pSpit->SetAbsOrigin( vecStart );
-	pSpit->pev->velocity = vecVelocity;
+	pSpit->SetAbsVelocity( vecVelocity );
 	pSpit->pev->owner = pOwner->edict();
 	pSpit->pev->scale = 2.5;
 	pSpit->SetThink( &CBMortar::Animate );
@@ -90,13 +90,13 @@ void CBMortar::Touch( CBaseEntity *pOther )
 	{
 
 		// make a splat on the wall
-		UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + pev->velocity * 10, dont_ignore_monsters, ENT( pev ), &tr );
+		UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + GetAbsVelocity() * 10, dont_ignore_monsters, ENT( pev ), &tr );
 		UTIL_DecalTrace( &tr, DECAL_MOMMASPLAT );
 	}
 	else
 	{
 		tr.vecEndPos = GetAbsOrigin();
-		tr.vecPlaneNormal = -1 * pev->velocity.Normalize();
+		tr.vecPlaneNormal = -1 * GetAbsVelocity().Normalize();
 	}
 	// make some flecks
 	SpriteSpray( tr.vecEndPos, tr.vecPlaneNormal, gSpitSprite, 24 );
@@ -114,7 +114,7 @@ void CBMortar::Animate( void )
 	if( gpGlobals->time > pev->dmgtime )
 	{
 		pev->dmgtime = gpGlobals->time + 0.2;
-		SpriteSpray( GetAbsOrigin(), -pev->velocity.Normalize(), gSpitSprite, 3 );
+		SpriteSpray( GetAbsOrigin(), -GetAbsVelocity().Normalize(), gSpitSprite, 3 );
 	}
 	if( pev->frame++ )
 	{

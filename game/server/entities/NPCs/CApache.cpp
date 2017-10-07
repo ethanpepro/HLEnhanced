@@ -201,9 +201,7 @@ void CApache :: DyingThink( void )
 			WRITE_COORD( 132 );
 
 			// velocity
-			WRITE_COORD( pev->velocity.x ); 
-			WRITE_COORD( pev->velocity.y );
-			WRITE_COORD( pev->velocity.z );
+			WRITE_COORD_VECTOR( GetAbsVelocity() );
 
 			// randomization
 			WRITE_BYTE( 50 ); 
@@ -353,7 +351,7 @@ void CApache::FlyTouch( CBaseEntity *pOther )
 		TraceResult tr = UTIL_GetGlobalTrace( );
 
 		// UNDONE, do a real bounce
-		pev->velocity = pev->velocity + tr.vecPlaneNormal * (pev->velocity.Length() + 200);
+		SetAbsVelocity( GetAbsVelocity() + tr.vecPlaneNormal * ( GetAbsVelocity().Length() + 200) );
 	}
 }
 
@@ -448,7 +446,7 @@ void CApache :: HuntThink( void )
 
 	if (flLength > 250) // 500
 	{
-		// float flLength2 = (m_posTarget - GetAbsOrigin()).Length() * (1.5 - DotProduct((m_posTarget - GetAbsOrigin()).Normalize(), pev->velocity.Normalize() ));
+		// float flLength2 = (m_posTarget - GetAbsOrigin()).Length() * (1.5 - DotProduct((m_posTarget - GetAbsOrigin()).Normalize(), GetAbsVelocity().Normalize() ));
 		// if (flLength2 < flLength)
 		if (m_flLastSeen + 90 > gpGlobals->time && DotProduct( (m_posTarget - GetAbsOrigin()).Normalize(), (m_posDesired - GetAbsOrigin()).Normalize( )) > 0.25)
 		{
@@ -482,8 +480,8 @@ void CApache :: HuntThink( void )
 	}
 
 	UTIL_MakeAimVectors( pev->angles );
-	Vector vecEst = (gpGlobals->v_forward * 800 + pev->velocity).Normalize( );
-	// ALERT( at_console, "%d %d %d %4.2f\n", pev->angles.x < 0, DotProduct( pev->velocity, gpGlobals->v_forward ) > -100, m_flNextRocket < gpGlobals->time, DotProduct( m_vecTarget, vecEst ) );
+	Vector vecEst = (gpGlobals->v_forward * 800 + GetAbsVelocity() ).Normalize( );
+	// ALERT( at_console, "%d %d %d %4.2f\n", pev->angles.x < 0, DotProduct( GetAbsVelocity(), gpGlobals->v_forward ) > -100, m_flNextRocket < gpGlobals->time, DotProduct( m_vecTarget, vecEst ) );
 
 	if ((m_iRockets % 2) == 1)
 	{
@@ -495,7 +493,7 @@ void CApache :: HuntThink( void )
 			m_iRockets = 10;
 		}
 	}
-	else if (pev->angles.x < 0 && DotProduct( pev->velocity, gpGlobals->v_forward ) > -100 && m_flNextRocket < gpGlobals->time)
+	else if (pev->angles.x < 0 && DotProduct( GetAbsVelocity(), gpGlobals->v_forward ) > -100 && m_flNextRocket < gpGlobals->time)
 	{
 		if (m_flLastSeen + 60 > gpGlobals->time)
 		{
@@ -532,7 +530,7 @@ void CApache :: Flight( void )
 
 	// estimate where I'll be facing in one seconds
 	UTIL_MakeAimVectors( pev->angles + pev->avelocity * 2 + vecAdj);
-	// Vector vecEst1 = GetAbsOrigin() + pev->velocity + gpGlobals->v_up * m_flForce - Vector( 0, 0, 384 );
+	// Vector vecEst1 = GetAbsOrigin() + GetAbsVelocity() + gpGlobals->v_up * m_flForce - Vector( 0, 0, 384 );
 	// float flSide = DotProduct( m_posDesired - vecEst1, gpGlobals->v_right );
 	
 	float flSide = DotProduct( m_vecDesired, gpGlobals->v_right );
@@ -555,25 +553,29 @@ void CApache :: Flight( void )
 
 	// estimate where I'll be in two seconds
 	UTIL_MakeAimVectors( pev->angles + pev->avelocity * 1 + vecAdj);
-	Vector vecEst = GetAbsOrigin() + pev->velocity * 2.0 + gpGlobals->v_up * m_flForce * 20 - Vector( 0, 0, 384 * 2 );
+	Vector vecEst = GetAbsOrigin() + GetAbsVelocity() * 2.0 + gpGlobals->v_up * m_flForce * 20 - Vector( 0, 0, 384 * 2 );
 
 	// add immediate force
 	UTIL_MakeAimVectors( pev->angles + vecAdj);
-	pev->velocity.x += gpGlobals->v_up.x * m_flForce;
-	pev->velocity.y += gpGlobals->v_up.y * m_flForce;
-	pev->velocity.z += gpGlobals->v_up.z * m_flForce;
-	// add gravity
-	pev->velocity.z -= 38.4; // 32ft/sec
+	{
+		Vector vecVelocity = GetAbsVelocity();
+		vecVelocity.x += gpGlobals->v_up.x * m_flForce;
+		vecVelocity.y += gpGlobals->v_up.y * m_flForce;
+		vecVelocity.z += gpGlobals->v_up.z * m_flForce;
+		// add gravity
+		vecVelocity.z -= 38.4; // 32ft/sec
 
+		SetAbsVelocity( vecVelocity );
+	}
 
-	float flSpeed = pev->velocity.Length();
-	float flDir = DotProduct( Vector( gpGlobals->v_forward.x, gpGlobals->v_forward.y, 0 ), Vector( pev->velocity.x, pev->velocity.y, 0 ) );
+	float flSpeed = GetAbsVelocity().Length();
+	float flDir = DotProduct( Vector( gpGlobals->v_forward.x, gpGlobals->v_forward.y, 0 ), Vector( GetAbsVelocity().x, GetAbsVelocity().y, 0 ) );
 	if (flDir < 0)
 		flSpeed = -flSpeed;
 
 	float flDist = DotProduct( m_posDesired - vecEst, gpGlobals->v_forward );
 
-	// float flSlip = DotProduct( pev->velocity, gpGlobals->v_right );
+	// float flSlip = DotProduct( GetAbsVelocity(), gpGlobals->v_right );
 	float flSlip = -DotProduct( m_posDesired - vecEst, gpGlobals->v_right );
 
 	// fly sideways
@@ -594,12 +596,17 @@ void CApache :: Flight( void )
 	}
 
 	// sideways drag
-	pev->velocity.x = pev->velocity.x * (1.0 - fabs( gpGlobals->v_right.x ) * 0.05);
-	pev->velocity.y = pev->velocity.y * (1.0 - fabs( gpGlobals->v_right.y ) * 0.05);
-	pev->velocity.z = pev->velocity.z * (1.0 - fabs( gpGlobals->v_right.z ) * 0.05);
+	{
+		Vector vecVelocity = GetAbsVelocity();
+		vecVelocity.x = vecVelocity.x * (1.0 - fabs( gpGlobals->v_right.x ) * 0.05);
+		vecVelocity.y = vecVelocity.y * (1.0 - fabs( gpGlobals->v_right.y ) * 0.05);
+		vecVelocity.z = vecVelocity.z * (1.0 - fabs( gpGlobals->v_right.z ) * 0.05);
 
-	// general drag
-	pev->velocity = pev->velocity * 0.995;
+		// general drag
+		vecVelocity = vecVelocity * 0.995;
+
+		SetAbsVelocity( vecVelocity );
+	}
 	
 	// apply power to stay correct height
 	if (m_flForce < 80 && vecEst.z < m_posDesired.z) 
@@ -636,8 +643,8 @@ void CApache :: Flight( void )
 		pev->avelocity.x += 4.0;
 	}
 
-	// ALERT( at_console, "%.0f %.0f : %.0f %.0f : %.0f %.0f : %.0f\n", GetAbsOrigin().x, pev->velocity.x, flDist, flSpeed, pev->angles.x, pev->avelocity.x, m_flForce ); 
-	// ALERT( at_console, "%.0f %.0f : %.0f %0.f : %.0f\n", GetAbsOrigin().z, pev->velocity.z, vecEst.z, m_posDesired.z, m_flForce ); 
+	// ALERT( at_console, "%.0f %.0f : %.0f %.0f : %.0f %.0f : %.0f\n", GetAbsOrigin().x, GetAbsVelocity().x, flDist, flSpeed, pev->angles.x, pev->avelocity.x, m_flForce ); 
+	// ALERT( at_console, "%.0f %.0f : %.0f %0.f : %.0f\n", GetAbsOrigin().z, GetAbsVelocity().z, vecEst.z, m_posDesired.z, m_flForce ); 
 
 	// make rotor, engine sounds
 	if (m_iSoundState == 0)
@@ -656,7 +663,7 @@ void CApache :: Flight( void )
 		if (pPlayer)
 		{
 
-			float pitch = DotProduct( pev->velocity - pPlayer->pev->velocity, (pPlayer->GetAbsOrigin() - GetAbsOrigin()).Normalize() );
+			float pitch = DotProduct( GetAbsVelocity() - pPlayer->GetAbsVelocity(), (pPlayer->GetAbsOrigin() - GetAbsOrigin()).Normalize() );
 
 			pitch = (int)(100 + pitch / 50.0);
 
@@ -712,7 +719,7 @@ void CApache :: FireRocket( void )
 
 	CBaseEntity *pRocket = CBaseEntity::Create( "hvr_rocket", vecSrc, pev->angles, edict() );
 	if (pRocket)
-		pRocket->pev->velocity = pev->velocity + gpGlobals->v_forward * 100;
+		pRocket->SetAbsVelocity( GetAbsVelocity() + gpGlobals->v_forward * 100 );
 
 	m_iRockets--;
 

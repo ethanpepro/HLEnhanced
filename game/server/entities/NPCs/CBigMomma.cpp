@@ -190,15 +190,15 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 				switch( event.event )
 				{
 					case BIG_AE_MELEE_ATTACKBR:
-						pHurt->pev->velocity = pHurt->pev->velocity + (forward * 150) + Vector(0,0,250) - (right * 200);
+						pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + (forward * 150) + Vector(0,0,250) - (right * 200) );
 					break;
 
 					case BIG_AE_MELEE_ATTACKBL:
-						pHurt->pev->velocity = pHurt->pev->velocity + (forward * 150) + Vector(0,0,250) + (right * 200);
+						pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + (forward * 150) + Vector(0,0,250) + (right * 200) );
 					break;
 
 					case BIG_AE_MELEE_ATTACK1:
-						pHurt->pev->velocity = pHurt->pev->velocity + (forward * 220) + Vector(0,0,200);
+						pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + (forward * 220) + Vector(0,0,200) );
 					break;
 				}
 
@@ -257,7 +257,7 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 			SetAbsOrigin( GetAbsOrigin() + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
 			UTIL_MakeVectors( pev->angles );
 
-			pev->velocity = (gpGlobals->v_forward * 200) + gpGlobals->v_up * 500;
+			SetAbsVelocity( (gpGlobals->v_forward * 200) + gpGlobals->v_up * 500 );
 			break;
 
 		case BIG_AE_EARLY_TARGET:

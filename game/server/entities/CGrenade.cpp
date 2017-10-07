@@ -120,7 +120,7 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 
 	pev->effects |= EF_NODRAW;
 	SetThink( &CGrenade::Smoke );
-	pev->velocity = g_vecZero;
+	SetAbsVelocity( g_vecZero );
 	pev->nextthink = gpGlobals->time + 0.3;
 
 	if (iContents != CONTENTS_WATER)
@@ -197,8 +197,8 @@ void CGrenade::ExplodeTouch( CBaseEntity *pOther )
 
 	pev->enemy = pOther->edict();
 
-	vecSpot = GetAbsOrigin() - pev->velocity.Normalize() * 32;
-	UTIL_TraceLine( vecSpot, vecSpot + pev->velocity.Normalize() * 64, ignore_monsters, ENT(pev), &tr );
+	vecSpot = GetAbsOrigin() - GetAbsVelocity().Normalize() * 32;
+	UTIL_TraceLine( vecSpot, vecSpot + GetAbsVelocity().Normalize() * 64, ignore_monsters, ENT(pev), &tr );
 
 	Explode( &tr, DMG_BLAST );
 }
@@ -212,12 +212,12 @@ void CGrenade::DangerSoundThink( void )
 		return;
 	}
 
-	CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin() + pev->velocity * 0.5, pev->velocity.Length( ), 0.2 );
+	CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin() + GetAbsVelocity() * 0.5, GetAbsVelocity().Length(), 0.2 );
 	pev->nextthink = gpGlobals->time + 0.2;
 
 	if ( GetWaterLevel() != WATERLEVEL_DRY)
 	{
-		pev->velocity = pev->velocity * 0.5;
+		SetAbsVelocity( GetAbsVelocity() * 0.5 );
 	}
 }
 
@@ -229,7 +229,7 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 		return;
 
 	// only do damage if we're moving fairly fast
-	if (m_flNextAttack < gpGlobals->time && pev->velocity.Length() > 100)
+	if (m_flNextAttack < gpGlobals->time && GetAbsVelocity().Length() > 100)
 	{
 		if ( auto pOwner = Instance( pev->owner ) )
 		{
@@ -241,13 +241,12 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 		m_flNextAttack = gpGlobals->time + 1.0; // debounce
 	}
 
-	Vector vecTestVelocity;
 	// pev->avelocity = Vector (300, 300, 300);
 
 	// this is my heuristic for modulating the grenade velocity because grenades dropped purely vertical
 	// or thrown very far tend to slow down too quickly for me to always catch just by testing velocity. 
 	// trimming the Z velocity a bit seems to help quite a bit.
-	vecTestVelocity = pev->velocity; 
+	Vector vecTestVelocity = GetAbsVelocity();
 	vecTestVelocity.z *= 0.45;
 
 	if ( !m_fRegisteredSound && vecTestVelocity.Length() <= 60 )
@@ -265,7 +264,7 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		// add a bit of static friction
-		pev->velocity = pev->velocity * 0.8;
+		SetAbsVelocity( GetAbsVelocity() * 0.8 );
 
 		pev->sequence = RANDOM_LONG( 1, 1 );
 	}
@@ -274,7 +273,7 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 		// play bounce sound
 		BounceSound();
 	}
-	pev->framerate = pev->velocity.Length() / 200.0;
+	pev->framerate = GetAbsVelocity().Length() / 200.0;
 	if (pev->framerate > 1.0)
 		pev->framerate = 1;
 	else if (pev->framerate < 0.5)
@@ -295,9 +294,9 @@ void CGrenade::SlideTouch( CBaseEntity *pOther )
 	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		// add a bit of static friction
-		pev->velocity = pev->velocity * 0.95;
+		SetAbsVelocity( GetAbsVelocity() * 0.95 );
 
-		if (pev->velocity.x != 0 || pev->velocity.y != 0)
+		if ( GetAbsVelocity().x != 0 || GetAbsVelocity().y != 0)
 		{
 			// maintain sliding sound
 		}
@@ -331,7 +330,7 @@ void CGrenade :: TumbleThink( void )
 
 	if (pev->dmgtime - 1 < gpGlobals->time)
 	{
-		CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin() + pev->velocity * (pev->dmgtime - gpGlobals->time), 400, 0.1 );
+		CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin() + GetAbsVelocity() * (pev->dmgtime - gpGlobals->time), 400, 0.1 );
 	}
 
 	if (pev->dmgtime <= gpGlobals->time)
@@ -340,7 +339,7 @@ void CGrenade :: TumbleThink( void )
 	}
 	if ( GetWaterLevel() != WATERLEVEL_DRY )
 	{
-		pev->velocity = pev->velocity * 0.5;
+		SetAbsVelocity( GetAbsVelocity() * 0.5 );
 		pev->framerate = 0.2;
 	}
 }
@@ -373,8 +372,8 @@ CGrenade* CGrenade::ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector v
 	// contact grenades arc lower
 	pGrenade->pev->gravity = 0.5;// lower gravity since grenade is aerodynamic and engine doesn't know it.
 	pGrenade->SetAbsOrigin( vecStart );
-	pGrenade->pev->velocity = vecVelocity;
-	pGrenade->pev->angles = UTIL_VecToAngles (pGrenade->pev->velocity);
+	pGrenade->SetAbsVelocity( vecVelocity );
+	pGrenade->pev->angles = UTIL_VecToAngles (pGrenade->GetAbsVelocity() );
 	pGrenade->pev->owner = pOwner->edict();
 	
 	// make monsters afaid of it while in the air
@@ -398,8 +397,8 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 	auto pGrenade = GrenadeCreate();
 	pGrenade->Spawn();
 	pGrenade->SetAbsOrigin( vecStart );
-	pGrenade->pev->velocity = vecVelocity;
-	pGrenade->pev->angles = UTIL_VecToAngles(pGrenade->pev->velocity);
+	pGrenade->SetAbsVelocity( vecVelocity );
+	pGrenade->pev->angles = UTIL_VecToAngles(pGrenade->GetAbsVelocity() );
 	pGrenade->pev->owner = pOwner->edict();
 	
 	pGrenade->SetTouch( &CGrenade::BounceTouch );	// Bounce if touched
@@ -414,7 +413,7 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 	if (time < 0.1)
 	{
 		pGrenade->pev->nextthink = gpGlobals->time;
-		pGrenade->pev->velocity = Vector( 0, 0, 0 );
+		pGrenade->SetAbsVelocity( Vector( 0, 0, 0 ) );
 	}
 		
 	pGrenade->pev->sequence = RANDOM_LONG( 3, 6 );

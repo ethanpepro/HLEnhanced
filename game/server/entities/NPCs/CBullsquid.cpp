@@ -378,8 +378,10 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				//pHurt->pev->punchangle.z = -15;
 				//pHurt->pev->punchangle.x = -45;
-				pHurt->pev->velocity = pHurt->pev->velocity - gpGlobals->v_forward * 100;
-				pHurt->pev->velocity = pHurt->pev->velocity + gpGlobals->v_up * 100;
+				Vector vecVelocity = pHurt->GetAbsVelocity();
+				vecVelocity = vecVelocity - gpGlobals->v_forward * 100;
+				vecVelocity = vecVelocity + gpGlobals->v_up * 100;
+				pHurt->SetAbsVelocity( vecVelocity );
 			}
 		}
 		break;
@@ -391,8 +393,10 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				pHurt->pev->punchangle.z = -20;
 				pHurt->pev->punchangle.x = 20;
-				pHurt->pev->velocity = pHurt->pev->velocity + gpGlobals->v_right * 200;
-				pHurt->pev->velocity = pHurt->pev->velocity + gpGlobals->v_up * 100;
+				Vector vecVelocity = pHurt->GetAbsVelocity();
+				vecVelocity = vecVelocity + gpGlobals->v_right * 200;
+				vecVelocity = vecVelocity + gpGlobals->v_up * 100;
+				pHurt->SetAbsVelocity( vecVelocity );
 			}
 		}
 		break;
@@ -415,8 +419,10 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 			}
 
 			// jump into air for 0.8 (24/30) seconds
-//			pev->velocity.z += (0.875 * flGravity) * 0.5;
-			pev->velocity.z += (0.625 * flGravity) * 0.5;
+			Vector vecVelocity = GetAbsVelocity();
+//			vecVelocity.z += (0.875 * flGravity) * 0.5;
+			vecVelocity.z += (0.625 * flGravity) * 0.5;
+			SetAbsVelocity( vecVelocity );
 		}
 		break;
 
@@ -453,7 +459,7 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 					if ( pHurt->IsPlayer() )
 					{
 						UTIL_MakeVectors( pev->angles );
-						pHurt->pev->velocity = pHurt->pev->velocity + gpGlobals->v_forward * 300 + gpGlobals->v_up * 300;
+						pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + gpGlobals->v_forward * 300 + gpGlobals->v_up * 300 );
 					}
 				}
 			}

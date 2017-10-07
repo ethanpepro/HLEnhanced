@@ -74,7 +74,7 @@ void CFlockingFlyerFlock::SpawnFlock( void )
 		pBoid->pev->movetype = MOVETYPE_FLY;
 		pBoid->SpawnCommonCode();
 		pBoid->pev->flags &= ~FL_ONGROUND;
-		pBoid->pev->velocity = g_vecZero;
+		pBoid->SetAbsVelocity( g_vecZero );
 		pBoid->pev->angles = pev->angles;
 
 		pBoid->pev->frame = 0;

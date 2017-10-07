@@ -99,11 +99,11 @@ void CSatchelCharge::SatchelSlide( CBaseEntity *pOther )
 	if ( tr.flFraction < 1.0 )
 	{
 		// add a bit of static friction
-		pev->velocity = pev->velocity * 0.95;
+		SetAbsVelocity( GetAbsVelocity() * 0.95 );
 		pev->avelocity = pev->avelocity * 0.9;
 		// play sliding sound, volume based on velocity
 	}
-	if ( !(pev->flags & FL_ONGROUND) && pev->velocity.Length2D() > 10 )
+	if ( !(pev->flags & FL_ONGROUND) && GetAbsVelocity().Length2D() > 10 )
 	{
 		BounceSound();
 	}
@@ -125,9 +125,10 @@ void CSatchelCharge :: SatchelThink( void )
 	if ( GetWaterLevel() == WATERLEVEL_HEAD )
 	{
 		pev->movetype = MOVETYPE_FLY;
-		pev->velocity = pev->velocity * 0.8;
+		Vector vecVelocity = GetAbsVelocity() * 0.8;
 		pev->avelocity = pev->avelocity * 0.9;
-		pev->velocity.z += 8;
+		vecVelocity.z += 8;
+		SetAbsVelocity( vecVelocity );
 	}
 	else if ( GetWaterLevel() == WATERLEVEL_DRY)
 	{
@@ -135,7 +136,9 @@ void CSatchelCharge :: SatchelThink( void )
 	}
 	else
 	{
-		pev->velocity.z -= 8;
+		Vector vecVelocity = GetAbsVelocity();
+		vecVelocity.z -= 8;
+		SetAbsVelocity( vecVelocity );
 	}	
 }
 
@@ -354,10 +357,10 @@ void CSatchel::Throw( void )
 #ifndef CLIENT_DLL
 		Vector vecSrc = m_pPlayer->GetAbsOrigin();
 
-		Vector vecThrow = gpGlobals->v_forward * 274 + m_pPlayer->pev->velocity;
+		Vector vecThrow = gpGlobals->v_forward * 274 + m_pPlayer->GetAbsVelocity();
 
 		CBaseEntity *pSatchel = Create( "monster_satchel", vecSrc, Vector( 0, 0, 0), m_pPlayer->edict() );
-		pSatchel->pev->velocity = vecThrow;
+		pSatchel->SetAbsVelocity( vecThrow );
 		pSatchel->pev->avelocity.y = 400;
 
 		m_pPlayer->SetViewModelName( "models/v_satchel_radio.mdl" );

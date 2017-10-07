@@ -37,7 +37,7 @@ void CFuncTrackTrain::Spawn( void )
 		m_speed = pev->speed;
 
 	pev->speed = 0;
-	pev->velocity = g_vecZero;
+	SetAbsVelocity( g_vecZero );
 	pev->avelocity = g_vecZero;
 	pev->impulse = m_speed;
 
@@ -103,12 +103,16 @@ void CFuncTrackTrain::Blocked( CBaseEntity *pOther )
 		float deltaSpeed = fabs( pev->speed );
 		if( deltaSpeed > 50 )
 			deltaSpeed = 50;
-		if( !pOther->pev->velocity.z )
-			pOther->pev->velocity.z += deltaSpeed;
+		if( !pOther->GetAbsVelocity().z )
+		{
+			Vector vecVelocity = pOther->GetAbsVelocity();
+			vecVelocity.z += deltaSpeed;
+			pOther->SetAbsVelocity( vecVelocity );
+		}
 		return;
 	}
 	else
-		pOther->pev->velocity = ( pOther->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * pev->dmg;
+		pOther->SetAbsVelocity( ( pOther->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * pev->dmg );
 
 	ALERT( at_aiconsole, "TRAIN(%s): Blocked by %s (dmg:%.2f)\n", GetTargetname(), pOther->GetClassname(), pev->dmg );
 	if( pev->dmg <= 0 )
@@ -133,7 +137,7 @@ void CFuncTrackTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 		else
 		{
 			pev->speed = 0;
-			pev->velocity = g_vecZero;
+			SetAbsVelocity( g_vecZero );
 			pev->avelocity = g_vecZero;
 			StopSound();
 			SetThink( NULL );
@@ -222,7 +226,7 @@ void CFuncTrackTrain::Next( void )
 	CPathTrack *pnext = m_ppath->LookAhead( nextPos, pev->speed * 0.1, true );
 	nextPos.z += m_height;
 
-	pev->velocity = ( nextPos - GetAbsOrigin() ) * 10;
+	SetAbsVelocity( ( nextPos - GetAbsOrigin() ) * 10 );
 	Vector nextFront = GetAbsOrigin();
 
 	nextFront.z -= m_height;
@@ -303,9 +307,9 @@ void CFuncTrackTrain::Next( void )
 	else	// end of path, stop
 	{
 		StopSound();
-		pev->velocity = ( nextPos - GetAbsOrigin() );
+		SetAbsVelocity( nextPos - GetAbsOrigin() );
 		pev->avelocity = g_vecZero;
-		float distance = pev->velocity.Length();
+		float distance = GetAbsVelocity().Length();
 		m_oldSpeed = pev->speed;
 
 
@@ -318,7 +322,7 @@ void CFuncTrackTrain::Next( void )
 		{
 			// no, how long to get there?
 			time = distance / m_oldSpeed;
-			pev->velocity = pev->velocity * ( m_oldSpeed / distance );
+			SetAbsVelocity( GetAbsVelocity() * ( m_oldSpeed / distance ) );
 			SetThink( &CFuncTrackTrain::DeadEnd );
 			NextThink( pev->ltime + time, false );
 		}
@@ -446,7 +450,7 @@ void CFuncTrackTrain::DeadEnd( void )
 		}
 	}
 
-	pev->velocity = g_vecZero;
+	SetAbsVelocity( g_vecZero );
 	pev->avelocity = g_vecZero;
 	if( pTrack )
 	{

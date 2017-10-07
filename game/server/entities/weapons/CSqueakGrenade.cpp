@@ -167,7 +167,7 @@ void CSqueakGrenade::HuntThink( void )
 	// explode when ready
 	if( gpGlobals->time >= m_flDie )
 	{
-		g_vecAttackDir = pev->velocity.Normalize();
+		g_vecAttackDir = GetAbsVelocity().Normalize();
 		pev->health = -1;
 		Killed( CTakeDamageInfo( this, 0, 0 ), GIB_NORMAL );
 		return;
@@ -180,8 +180,10 @@ void CSqueakGrenade::HuntThink( void )
 		{
 			pev->movetype = MOVETYPE_FLY;
 		}
-		pev->velocity = pev->velocity * 0.9;
-		pev->velocity.z += 8.0;
+
+		Vector vecVelocity = GetAbsVelocity() * 0.9;
+		vecVelocity.z += 8.0;
+		SetAbsVelocity( vecVelocity );
 	}
 	else if( pev->movetype == MOVETYPE_FLY )
 	{
@@ -197,7 +199,7 @@ void CSqueakGrenade::HuntThink( void )
 	Vector vecDir;
 	TraceResult tr;
 
-	Vector vecFlat = pev->velocity;
+	Vector vecFlat = GetAbsVelocity();
 	vecFlat.z = 0;
 	vecFlat = vecFlat.Normalize();
 
@@ -230,7 +232,7 @@ void CSqueakGrenade::HuntThink( void )
 			m_vecTarget = vecDir.Normalize();
 		}
 
-		float flVel = pev->velocity.Length();
+		float flVel = GetAbsVelocity().Length();
 		float flAdj = 50.0 / ( flVel + 10.0 );
 
 		if( flAdj > 1.2 )
@@ -240,7 +242,7 @@ void CSqueakGrenade::HuntThink( void )
 
 		// ALERT( at_console, "%.0f %.2f %.2f %.2f\n", flVel, m_vecTarget.x, m_vecTarget.y, m_vecTarget.z );
 
-		pev->velocity = pev->velocity * flAdj + m_vecTarget * 300;
+		SetAbsVelocity( GetAbsVelocity() * flAdj + m_vecTarget * 300 );
 	}
 
 	if( pev->flags & FL_ONGROUND )
@@ -258,12 +260,14 @@ void CSqueakGrenade::HuntThink( void )
 
 	if( ( GetAbsOrigin() - m_posPrev ).Length() < 1.0 )
 	{
-		pev->velocity.x = RANDOM_FLOAT( -100, 100 );
-		pev->velocity.y = RANDOM_FLOAT( -100, 100 );
+		Vector vecVelocity = GetAbsVelocity();
+		vecVelocity.x = RANDOM_FLOAT( -100, 100 );
+		vecVelocity.y = RANDOM_FLOAT( -100, 100 );
+		SetAbsVelocity( vecVelocity );
 	}
 	m_posPrev = GetAbsOrigin();
 
-	pev->angles = UTIL_VecToAngles( pev->velocity );
+	pev->angles = UTIL_VecToAngles( GetAbsVelocity() );
 	pev->angles.z = 0;
 	pev->angles.x = 0;
 }

@@ -311,7 +311,7 @@ void CIchthyosaur :: SetYawSpeed ( void )
 void CIchthyosaur::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	CBaseMonster::Killed( info, gibAction );
-	pev->velocity = Vector( 0, 0, 0 );
+	SetAbsVelocity( Vector( 0, 0, 0 ) );
 }
 
 void CIchthyosaur::BecomeDead( void )
@@ -354,7 +354,7 @@ void CIchthyosaur :: HandleAnimEvent( AnimEvent_t& event )
 					m_bOnAttack = true;
 					pHurt->pev->punchangle.z = -18;
 					pHurt->pev->punchangle.x = 5;
-					pHurt->pev->velocity = pHurt->pev->velocity - gpGlobals->v_right * 300;
+					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() - gpGlobals->v_right * 300 );
 					if (pHurt->IsPlayer())
 					{
 						pHurt->pev->angles.x += RANDOM_FLOAT( -35, 35 );
@@ -417,8 +417,8 @@ void CIchthyosaur :: Spawn()
 
 	Vector Forward;
 	UTIL_MakeVectorsPrivate(pev->angles, &Forward, nullptr, nullptr );
-	pev->velocity = m_flightSpeed * Forward.Normalize();
-	m_SaveVelocity = pev->velocity;
+	SetAbsVelocity( m_flightSpeed * Forward.Normalize() );
+	m_SaveVelocity = GetAbsVelocity();
 }
 
 //=========================================================
@@ -643,16 +643,20 @@ void CIchthyosaur :: RunTask ( const Task_t* pTask )
 
 	case TASK_ICHTHYOSAUR_FLOAT:
 		pev->angles.x = UTIL_ApproachAngle( 0, pev->angles.x, 20 );
-		pev->velocity = pev->velocity * 0.8;
-		if ( GetWaterLevel() > WATERLEVEL_FEET && pev->velocity.z < 64)
+		SetAbsVelocity( GetAbsVelocity() * 0.8 );
+		if ( GetWaterLevel() > WATERLEVEL_FEET && GetAbsVelocity().z < 64)
 		{
-			pev->velocity.z += 8;
+			Vector vecVelocity = GetAbsVelocity();
+			vecVelocity.z += 8;
+			SetAbsVelocity( vecVelocity );
 		}
 		else 
 		{
-			pev->velocity.z -= 8;
+			Vector vecVelocity = GetAbsVelocity();
+			vecVelocity.z -= 8;
+			SetAbsVelocity( vecVelocity );
 		}
-		// ALERT( at_console, "%f\n", pev->velocity.z );
+		// ALERT( at_console, "%f\n", GetAbsVelocity().z );
 		break;
 
 	default: 
@@ -810,7 +814,7 @@ void CIchthyosaur::Swim( )
 		Angles = Vector( -pev->angles.x, pev->angles.y, pev->angles.z );
 		UTIL_MakeVectorsPrivate(Angles, &Forward, &Right, &Up);
 
-		pev->velocity = Forward * 200 + Up * 200;
+		SetAbsVelocity( Forward * 200 + Up * 200 );
 
 		return;
 	}
@@ -867,19 +871,21 @@ void CIchthyosaur::Swim( )
 
 	float flDot = DotProduct( Forward, m_SaveVelocity );
 	if (flDot > 0.5)
-		pev->velocity = m_SaveVelocity = m_SaveVelocity * m_flightSpeed;
+		m_SaveVelocity = m_SaveVelocity * m_flightSpeed;
 	else if (flDot > 0)
-		pev->velocity = m_SaveVelocity = m_SaveVelocity * m_flightSpeed * (flDot + 0.5);
+		m_SaveVelocity = m_SaveVelocity * m_flightSpeed * (flDot + 0.5);
 	else
-		pev->velocity = m_SaveVelocity = m_SaveVelocity * 80;
+		m_SaveVelocity = m_SaveVelocity * 80;
 
-	// ALERT( at_console, "%.0f %.0f\n", m_flightSpeed, pev->velocity.Length() );
+	SetAbsVelocity( m_SaveVelocity );
+
+	// ALERT( at_console, "%.0f %.0f\n", m_flightSpeed, GetAbsVelocity().Length() );
 
 
 	// ALERT( at_console, "Steer %f %f %f\n", SteeringVector.x, SteeringVector.y, SteeringVector.z );
 
 /*
-	m_pBeam->SetStartPos( GetAbsOrigin() + pev->velocity );
+	m_pBeam->SetStartPos( GetAbsOrigin() + GetAbsVelocity() );
 	m_pBeam->RelinkBeam( );
 */
 

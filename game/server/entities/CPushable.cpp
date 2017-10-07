@@ -82,7 +82,11 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 	{
 		// Only push if floating
 		if( GetWaterLevel() > WATERLEVEL_DRY )
-			pev->velocity.z += pOther->pev->velocity.z * 0.1;
+		{
+			Vector vecVelocity = GetAbsVelocity();
+			vecVelocity.z += pOther->GetAbsVelocity().z * 0.1;
+			SetAbsVelocity( vecVelocity );
+		}
 
 		return;
 	}
@@ -112,19 +116,29 @@ void CPushable::Move( CBaseEntity *pOther, int push )
 	else
 		factor = 0.25;
 
-	pev->velocity.x += pOther->pev->velocity.x * factor;
-	pev->velocity.y += pOther->pev->velocity.y * factor;
+	Vector vecVelocity = GetAbsVelocity();
 
-	float length = sqrt( pev->velocity.x * pev->velocity.x + pev->velocity.y * pev->velocity.y );
+	vecVelocity.x += pOther->GetAbsVelocity().x * factor;
+	vecVelocity.y += pOther->GetAbsVelocity().y * factor;
+
+	float length = sqrt( vecVelocity.x * vecVelocity.x + vecVelocity.y * vecVelocity.y );
 	if( push && ( length > MaxSpeed() ) )
 	{
-		pev->velocity.x = ( pev->velocity.x * MaxSpeed() / length );
-		pev->velocity.y = ( pev->velocity.y * MaxSpeed() / length );
+		vecVelocity.x = ( vecVelocity.x * MaxSpeed() / length );
+		vecVelocity.y = ( vecVelocity.y * MaxSpeed() / length );
 	}
+
+	SetAbsVelocity( vecVelocity );
+
 	if( playerTouch )
 	{
-		pOther->pev->velocity.x = pev->velocity.x;
-		pOther->pev->velocity.y = pev->velocity.y;
+		vecVelocity = pOther->GetAbsVelocity();
+
+		vecVelocity.x = GetAbsVelocity().x;
+		vecVelocity.y = GetAbsVelocity().y;
+
+		pOther->SetAbsVelocity( vecVelocity );
+
 		if( ( gpGlobals->time - m_soundTime ) > 0.7 )
 		{
 			m_soundTime = gpGlobals->time;
@@ -188,7 +202,7 @@ void CPushable::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 		return;
 	}
 
-	if( pActivator->pev->velocity != g_vecZero )
+	if( pActivator->GetAbsVelocity() != g_vecZero )
 		Move( pActivator, 0 );
 }
 

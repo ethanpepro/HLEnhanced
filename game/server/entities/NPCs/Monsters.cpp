@@ -110,7 +110,7 @@ void CBaseMonster :: BarnacleVictimReleased ( void )
 {
 	m_IdealMonsterState = MONSTERSTATE_IDLE;
 
-	pev->velocity = g_vecZero;
+	SetAbsVelocity( g_vecZero );
 	pev->movetype = MOVETYPE_STEP;
 }
 
@@ -1041,10 +1041,10 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 				ClearConditions( bits_COND_ENEMY_FACING_ME );
 		}
 
-		if (pEnemy->pev->velocity != Vector( 0, 0, 0))
+		if (pEnemy->GetAbsVelocity() != Vector( 0, 0, 0))
 		{
 			// trail the enemy a bit
-			m_vecEnemyLKP = m_vecEnemyLKP - pEnemy->pev->velocity * RANDOM_FLOAT( -0.05, 0 );
+			m_vecEnemyLKP = m_vecEnemyLKP - pEnemy->GetAbsVelocity() * RANDOM_FLOAT( -0.05, 0 );
 		}
 		else
 		{
@@ -3330,7 +3330,7 @@ CBaseEntity* CBaseMonster::DropItem( const char* const pszItemName, const Vector
 	if ( pItem )
 	{
 		// do we want this behavior to be default?! (sjb)
-		pItem->pev->velocity = pev->velocity;
+		pItem->SetAbsVelocity( GetAbsVelocity() );
 		pItem->pev->avelocity = Vector ( 0, RANDOM_FLOAT( 0, 100 ), 0 );
 
 		//Dropped items should never respawn (unless this rule changes in the future). - Solokiller

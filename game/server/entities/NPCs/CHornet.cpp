@@ -280,15 +280,15 @@ void CHornet :: TrackTarget ( void )
 	}
 	else
 	{
-		m_vecEnemyLKP = m_vecEnemyLKP + pev->velocity * m_flFlySpeed * 0.1;
+		m_vecEnemyLKP = m_vecEnemyLKP + GetAbsVelocity() * m_flFlySpeed * 0.1;
 	}
 
 	vecDirToEnemy = ( m_vecEnemyLKP - GetAbsOrigin() ).Normalize();
 
-	if (pev->velocity.Length() < 0.1)
+	if ( GetAbsVelocity().Length() < 0.1)
 		vecFlightDir = vecDirToEnemy;
 	else 
-		vecFlightDir = pev->velocity.Normalize();
+		vecFlightDir = GetAbsVelocity().Normalize();
 
 	// measure how far the turn is, the wider the turn, the slow we'll go this time.
 	flDelta = DotProduct ( vecFlightDir, vecDirToEnemy );
@@ -308,30 +308,31 @@ void CHornet :: TrackTarget ( void )
 		flDelta = 0.25;
 	}
 
-	pev->velocity = ( vecFlightDir + vecDirToEnemy).Normalize();
+	SetAbsVelocity( ( vecFlightDir + vecDirToEnemy).Normalize() );
 
 	if ( pev->owner && (pev->owner->v.flags & FL_MONSTER) )
 	{
 		// random pattern only applies to hornets fired by monsters, not players. 
-
-		pev->velocity.x += RANDOM_FLOAT ( -0.10, 0.10 );// scramble the flight dir a bit.
-		pev->velocity.y += RANDOM_FLOAT ( -0.10, 0.10 );
-		pev->velocity.z += RANDOM_FLOAT ( -0.10, 0.10 );
+		Vector vecVelocity = GetAbsVelocity();
+		vecVelocity.x += RANDOM_FLOAT ( -0.10, 0.10 );// scramble the flight dir a bit.
+		vecVelocity.y += RANDOM_FLOAT ( -0.10, 0.10 );
+		vecVelocity.z += RANDOM_FLOAT ( -0.10, 0.10 );
+		SetAbsVelocity( vecVelocity );
 	}
 	
 	switch ( m_iHornetType )
 	{
 		case HORNET_TYPE_RED:
-			pev->velocity = pev->velocity * ( m_flFlySpeed * flDelta );// scale the dir by the ( speed * width of turn )
+			SetAbsVelocity( GetAbsVelocity() * ( m_flFlySpeed * flDelta ) );// scale the dir by the ( speed * width of turn )
 			pev->nextthink = gpGlobals->time + RANDOM_FLOAT( 0.1, 0.3 );
 			break;
 		case HORNET_TYPE_ORANGE:
-			pev->velocity = pev->velocity * m_flFlySpeed;// do not have to slow down to turn.
+			SetAbsVelocity( GetAbsVelocity() * m_flFlySpeed );// do not have to slow down to turn.
 			pev->nextthink = gpGlobals->time + 0.1;// fixed think time
 			break;
 	}
 
-	pev->angles = UTIL_VecToAngles (pev->velocity);
+	pev->angles = UTIL_VecToAngles( GetAbsVelocity() );
 
 	SetSolidType( SOLID_BBOX );
 
@@ -358,7 +359,7 @@ void CHornet :: TrackTarget ( void )
 			case 1:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz2.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
 			case 2:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz3.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
 			}
-			pev->velocity = pev->velocity * 2;
+			SetAbsVelocity( GetAbsVelocity() * 2 );
 			pev->nextthink = gpGlobals->time + 1.0;
 			// don't attack again
 			m_flStopAttack = gpGlobals->time;
@@ -381,13 +382,15 @@ void CHornet :: TrackTouch ( CBaseEntity *pOther )
 	{
 		// hit something we don't want to hurt, so turn around.
 
-		pev->velocity = pev->velocity.Normalize();
+		Vector vecVelocity = GetAbsVelocity().Normalize();
 
-		pev->velocity.x *= -1;
-		pev->velocity.y *= -1;
+		vecVelocity.x *= -1;
+		vecVelocity.y *= -1;
 
-		pev->origin = GetAbsOrigin() + pev->velocity * 4; // bounce the hornet off a bit.
-		pev->velocity = pev->velocity * m_flFlySpeed;
+		pev->origin = GetAbsOrigin() + vecVelocity * 4; // bounce the hornet off a bit.
+		vecVelocity = vecVelocity * m_flFlySpeed;
+
+		SetAbsVelocity( vecVelocity );
 
 		return;
 	}

@@ -216,7 +216,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	// Set player variables that weapons code might check/alter
 	m_pPlayer->GetButtons().Set( cmd->buttons );
 
-	m_pPlayer->pev->velocity = from->client.velocity;
+	m_pPlayer->SetAbsVelocity( from->client.velocity );
 	m_pPlayer->pev->flags = from->client.flags;
 
 	m_pPlayer->SetDeadFlag( static_cast<DeadFlag>( from->client.deadflag ) );
@@ -229,7 +229,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	m_pPlayer->m_flNextAmmoBurn = from->client.fuser2;
 	m_pPlayer->m_flAmmoStartCharge = from->client.fuser3;
 
-	g_vPlayerVelocity = m_pPlayer->pev->velocity;
+	g_vPlayerVelocity = m_pPlayer->GetAbsVelocity();
 
 	//Stores all our ammo info, so the client side weapons can use them.
 	m_pPlayer->SetAmmoCount( "9mm", ( int ) from->client.vuser1[ 0 ] );

@@ -769,7 +769,7 @@ void CGargantua::HandleAnimEvent(AnimEvent_t& event)
 					pHurt->pev->punchangle.y = -30;	// yaw
 					pHurt->pev->punchangle.z = 30;	// roll
 					//UTIL_MakeVectors(pev->angles);	// called by CheckTraceHullAttack
-					pHurt->pev->velocity = pHurt->pev->velocity - gpGlobals->v_right * 100;
+					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() - gpGlobals->v_right * 100 );
 				}
 				EMIT_SOUND_DYN ( this, CHAN_WEAPON, pAttackHitSounds[ RANDOM_LONG(0,ARRAYSIZE(pAttackHitSounds)-1) ], 1.0, ATTN_NORM, 0, 50 + RANDOM_LONG(0,15) );
 			}
@@ -919,7 +919,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 				pGib->m_bloodColor = BLOOD_COLOR_YELLOW;
 				pGib->m_material = matNone;
 				pGib->pev->origin = GetAbsOrigin();
-				pGib->pev->velocity = UTIL_RandomBloodVector() * RANDOM_FLOAT( 300, 500 );
+				pGib->SetAbsVelocity( UTIL_RandomBloodVector() * RANDOM_FLOAT( 300, 500 ) );
 				pGib->pev->nextthink = gpGlobals->time + 1.25;
 				pGib->SetThink( &CGib::SUB_FadeOut );
 			}

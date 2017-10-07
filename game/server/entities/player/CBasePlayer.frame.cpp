@@ -292,7 +292,7 @@ void CBasePlayer::PreThink()
 				return;
 			}
 
-			pev->velocity = g_vecZero;
+			SetAbsVelocity( g_vecZero );
 			vel = 0;
 			if( m_afButtonPressed & IN_FORWARD )
 			{
@@ -330,7 +330,7 @@ void CBasePlayer::PreThink()
 
 	if( !FBitSet( pev->flags, FL_ONGROUND ) )
 	{
-		m_flFallVelocity = -pev->velocity.z;
+		m_flFallVelocity = -GetAbsVelocity().z;
 	}
 
 	// StudioFrameAdvance( );//!!!HACKHACK!!! Can't be hit by traceline when not animating?
@@ -340,7 +340,7 @@ void CBasePlayer::PreThink()
 
 	if( m_afPhysicsFlags & PFLAG_ONBARNACLE )
 	{
-		pev->velocity = g_vecZero;
+		SetAbsVelocity( g_vecZero );
 	}
 }
 
@@ -427,9 +427,9 @@ void CBasePlayer::PostThink()
 	// select the proper animation for the player character	
 	if( IsAlive() )
 	{
-		if( !pev->velocity.x && !pev->velocity.y )
+		if( !GetAbsVelocity().x && !GetAbsVelocity().y )
 			SetAnimation( PLAYER_IDLE );
-		else if( ( pev->velocity.x || pev->velocity.y ) && ( FBitSet( pev->flags, FL_ONGROUND ) ) )
+		else if( ( GetAbsVelocity().x || GetAbsVelocity().y ) && ( FBitSet( pev->flags, FL_ONGROUND ) ) )
 			SetAnimation( PLAYER_WALK );
 		else if( GetWaterLevel() > WATERLEVEL_FEET )
 			SetAnimation( PLAYER_WALK );
@@ -511,11 +511,11 @@ void CBasePlayer::PlayerDeathThink()
 {
 	if( FBitSet( pev->flags, FL_ONGROUND ) )
 	{
-		const float flForward = pev->velocity.Length() - 20;
+		const float flForward = GetAbsVelocity().Length() - 20;
 		if( flForward <= 0 )
-			pev->velocity = g_vecZero;
+			SetAbsVelocity( g_vecZero );
 		else
-			pev->velocity = flForward * pev->velocity.Normalize();
+			SetAbsVelocity( flForward * GetAbsVelocity().Normalize() );
 	}
 
 	if( HasWeapons() )
@@ -616,7 +616,7 @@ void CBasePlayer::UpdatePlayerSound()
 
 	if( FBitSet( pev->flags, FL_ONGROUND ) )
 	{
-		iBodyVolume = pev->velocity.Length();
+		iBodyVolume = GetAbsVelocity().Length();
 
 		// clamp the noise that can be made by the body, in case a push trigger,
 		// weapon recoil, or anything shoves the player abnormally fast. 

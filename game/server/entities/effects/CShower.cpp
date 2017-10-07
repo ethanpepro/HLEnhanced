@@ -22,13 +22,16 @@ LINK_ENTITY_TO_CLASS( spark_shower, CShower );
 
 void CShower::Spawn( void )
 {
-	pev->velocity = RANDOM_FLOAT( 200, 300 ) * pev->angles;
-	pev->velocity.x += RANDOM_FLOAT( -100.f, 100.f );
-	pev->velocity.y += RANDOM_FLOAT( -100.f, 100.f );
-	if( pev->velocity.z >= 0 )
-		pev->velocity.z += 200;
+	Vector vecVelocity = RANDOM_FLOAT( 200, 300 ) * pev->angles;
+	vecVelocity.x += RANDOM_FLOAT( -100.f, 100.f );
+	vecVelocity.y += RANDOM_FLOAT( -100.f, 100.f );
+	if( vecVelocity.z >= 0 )
+		vecVelocity.z += 200;
 	else
-		pev->velocity.z -= 200;
+		vecVelocity.z -= 200;
+
+	SetAbsVelocity( vecVelocity );
+
 	pev->movetype = MOVETYPE_BOUNCE;
 	pev->gravity = 0.5;
 	pev->nextthink = gpGlobals->time + 0.1;
@@ -56,10 +59,10 @@ void CShower::Think( void )
 void CShower::Touch( CBaseEntity *pOther )
 {
 	if( pev->flags & FL_ONGROUND )
-		pev->velocity = pev->velocity * 0.1;
+		SetAbsVelocity( GetAbsVelocity() * 0.1 );
 	else
-		pev->velocity = pev->velocity * 0.6;
+		SetAbsVelocity( GetAbsVelocity() * 0.6 );
 
-	if( ( pev->velocity.x*pev->velocity.x + pev->velocity.y*pev->velocity.y ) < 10.0 )
+	if( ( GetAbsVelocity().x*GetAbsVelocity().x + GetAbsVelocity().y*GetAbsVelocity().y ) < 10.0 )
 		pev->speed = 0;
 }

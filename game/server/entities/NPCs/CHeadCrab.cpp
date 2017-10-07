@@ -223,7 +223,7 @@ void CHeadCrab :: HandleAnimEvent( AnimEvent_t& event )
 			if ( iSound != 0 )
 				EMIT_SOUND_DYN( this, CHAN_VOICE, pAttackSounds[iSound], GetSoundVolume(), ATTN_IDLE, 0, GetVoicePitch() );
 
-			pev->velocity = vecJumpDir;
+			SetAbsVelocity( vecJumpDir );
 			m_flNextAttack = gpGlobals->time + 2;
 		}
 		break;

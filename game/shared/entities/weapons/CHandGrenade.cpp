@@ -122,7 +122,7 @@ void CHandGrenade::WeaponIdle( void )
 
 		Vector vecSrc = m_pPlayer->GetAbsOrigin() + m_pPlayer->pev->view_ofs + gpGlobals->v_forward * 16;
 
-		Vector vecThrow = gpGlobals->v_forward * flVel + m_pPlayer->pev->velocity;
+		Vector vecThrow = gpGlobals->v_forward * flVel + m_pPlayer->GetAbsVelocity();
 
 		// alway explode 3 seconds after the pin was pulled
 		float time = m_flStartThrow - gpGlobals->time + 3.0;

@@ -211,8 +211,10 @@ void CHoundeye :: HandleAnimEvent( AnimEvent_t& event )
 
 				pev->flags &= ~FL_ONGROUND;
 
-				pev->velocity = gpGlobals->v_forward * -200;
-				pev->velocity.z += (0.6 * flGravity) * 0.5;
+				Vector vecVelocity = GetAbsVelocity();
+				vecVelocity = gpGlobals->v_forward * -200;
+				vecVelocity.z += (0.6 * flGravity) * 0.5;
+				SetAbsVelocity( vecVelocity );
 
 				break;
 			}

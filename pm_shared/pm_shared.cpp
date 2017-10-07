@@ -1856,7 +1856,7 @@ void PM_LadderMove( physent_t *pLadder )
 				float normal;
 
 				//ALERT(at_console, "pev %.2f %.2f %.2f - ",
-				//	pev->velocity.x, pev->velocity.y, pev->velocity.z);
+				//	GetAbsVelocity().x, GetAbsVelocity().y, GetAbsVelocity().z);
 				// Calculate player's intended velocity
 				//Vector velocity = (forward * gpGlobals->v_forward) + (right * gpGlobals->v_right);
 				velocity = vpn * forward;
@@ -1892,7 +1892,7 @@ void PM_LadderMove( physent_t *pLadder )
 				{
 					VectorMA( pmove->velocity, CLIMB_MAX_SPEED, trace.plane.normal, pmove->velocity );
 				}
-				//pev->velocity = lateral - (CrossProduct( trace.vecPlaneNormal, perp ) * normal);
+				//SetAbsVelocity( lateral - (CrossProduct( trace.vecPlaneNormal, perp ) * normal) );
 			}
 			else
 			{

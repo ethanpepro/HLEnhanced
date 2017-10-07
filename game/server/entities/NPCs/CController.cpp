@@ -240,7 +240,7 @@ void CController :: HandleAnimEvent( AnimEvent_t& event )
 
 			CBaseMonster *pBall = (CBaseMonster*)Create( "controller_head_ball", vecStart, pev->angles, edict() );
 
-			pBall->pev->velocity = Vector( 0, 0, 32 );
+			pBall->SetAbsVelocity( Vector( 0, 0, 32 ) );
 			pBall->m_hEnemy = m_hEnemy;
 
 			m_iBall[0] = 0;
@@ -571,14 +571,14 @@ void CController :: RunTask ( const Task_t* pTask )
 	
 		while (m_flShootTime < m_flShootEnd && m_flShootTime < gpGlobals->time)
 		{
-			Vector vecSrc = vecHand + pev->velocity * (m_flShootTime - gpGlobals->time);
+			Vector vecSrc = vecHand + GetAbsVelocity() * (m_flShootTime - gpGlobals->time);
 			Vector vecDir;
 			
 			if (m_hEnemy != NULL)
 			{
 				if (HasConditions( bits_COND_SEE_ENEMY ))
 				{
-					m_vecEstVelocity = m_vecEstVelocity * 0.5 + m_hEnemy->pev->velocity * 0.5;
+					m_vecEstVelocity = m_vecEstVelocity * 0.5 + m_hEnemy->GetAbsVelocity() * 0.5;
 				}
 				else
 				{
@@ -590,7 +590,7 @@ void CController :: RunTask ( const Task_t* pTask )
 
 				vecSrc = vecSrc + vecDir * (gpGlobals->time - m_flShootTime);
 				CBaseMonster *pBall = (CBaseMonster*)Create( "controller_energy_ball", vecSrc, pev->angles, edict() );
-				pBall->pev->velocity = vecDir;
+				pBall->SetAbsVelocity( vecDir );
 			}
 			m_flShootTime += 0.2;
 		}

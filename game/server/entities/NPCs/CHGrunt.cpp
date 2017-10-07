@@ -123,7 +123,7 @@ void CHGrunt :: GibMonster ( void )
 		}
 		if ( pGun )
 		{
-			pGun->pev->velocity = Vector (RANDOM_FLOAT(-100,100), RANDOM_FLOAT(-100,100), RANDOM_FLOAT(200,300));
+			pGun->SetAbsVelocity( Vector (RANDOM_FLOAT(-100,100), RANDOM_FLOAT(-100,100), RANDOM_FLOAT(200,300)) );
 			pGun->pev->avelocity = Vector ( 0, RANDOM_FLOAT( 200, 400 ), 0 );
 		}
 	
@@ -132,7 +132,7 @@ void CHGrunt :: GibMonster ( void )
 			pGun = DropItem( "ammo_ARgrenades", vecGunPos, vecGunAngles );
 			if ( pGun )
 			{
-				pGun->pev->velocity = Vector (RANDOM_FLOAT(-100,100), RANDOM_FLOAT(-100,100), RANDOM_FLOAT(200,300));
+				pGun->SetAbsVelocity( Vector (RANDOM_FLOAT(-100,100), RANDOM_FLOAT(-100,100), RANDOM_FLOAT(200,300)) );
 				pGun->pev->avelocity = Vector ( 0, RANDOM_FLOAT( 200, 400 ), 0 );
 			}
 		}
@@ -344,7 +344,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 		}
 		// vecTarget = m_vecEnemyLKP + (m_hEnemy->BodyTarget( GetAbsOrigin() ) - m_hEnemy->GetAbsOrigin());
 		// estimate position
-		// vecTarget = vecTarget + m_hEnemy->pev->velocity * 2;
+		// vecTarget = vecTarget + m_hEnemy->GetAbsVelocity() * 2;
 	}
 	else
 	{
@@ -353,7 +353,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 		vecTarget = m_vecEnemyLKP + (m_hEnemy->BodyTarget( GetAbsOrigin() ) - m_hEnemy->GetAbsOrigin());
 		// estimate position
 		if (HasConditions( bits_COND_SEE_ENEMY))
-			vecTarget = vecTarget + ((vecTarget - GetAbsOrigin()).Length() / gSkillData.GetHGruntGrenadeSpeed() ) * m_hEnemy->pev->velocity;
+			vecTarget = vecTarget + ((vecTarget - GetAbsOrigin()).Length() / gSkillData.GetHGruntGrenadeSpeed() ) * m_hEnemy->GetAbsVelocity();
 	}
 
 	// are any of my squad members near the intended grenade impact area?
@@ -780,7 +780,7 @@ void CHGrunt :: HandleAnimEvent( AnimEvent_t& event )
 				// SOUND HERE!
 				UTIL_MakeVectors( pev->angles );
 				pHurt->pev->punchangle.x = 15;
-				pHurt->pev->velocity = pHurt->pev->velocity + gpGlobals->v_forward * 100 + gpGlobals->v_up * 50;
+				pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + gpGlobals->v_forward * 100 + gpGlobals->v_up * 50 );
 				pHurt->TakeDamage( this, this, gSkillData.GetHGruntDmgKick(), DMG_CLUB );
 			}
 		}
@@ -2179,14 +2179,22 @@ Schedule_t* CHGrunt :: GetScheduleOfType ( int Type )
 		}
 	case SCHED_GRUNT_REPEL:
 		{
-			if (pev->velocity.z > -128)
-				pev->velocity.z -= 32;
+			if ( GetAbsVelocity().z > -128)
+			{
+				Vector vecVelocity = GetAbsVelocity();
+				vecVelocity.z -= 32;
+				SetAbsVelocity( vecVelocity );
+			}
 			return &slGruntRepel[ 0 ];
 		}
 	case SCHED_GRUNT_REPEL_ATTACK:
 		{
-			if (pev->velocity.z > -128)
-				pev->velocity.z -= 32;
+			if ( GetAbsVelocity().z > -128)
+			{
+				Vector vecVelocity = GetAbsVelocity();
+				vecVelocity.z -= 32;
+				SetAbsVelocity( vecVelocity );
+			}
 			return &slGruntRepelAttack[ 0 ];
 		}
 	case SCHED_GRUNT_REPEL_LAND:

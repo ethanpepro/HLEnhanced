@@ -282,7 +282,7 @@ void CPenguinGrenade::HuntThink()
 	// explode when ready
 	if( gpGlobals->time >= m_flDie )
 	{
-		g_vecAttackDir = pev->velocity.Normalize();
+		g_vecAttackDir = GetAbsVelocity().Normalize();
 		SetHealth( -1 );
 		Killed( CTakeDamageInfo( this, 0, 0 ), GIB_NORMAL );
 		return;
@@ -347,7 +347,7 @@ void CPenguinGrenade::HuntThink()
 			m_vecTarget = vecDir.Normalize();
 		}
 
-		float flVel = pev->velocity.Length();
+		float flVel = GetAbsVelocity().Length();
 		float flAdj = 50.0 / ( flVel + 10.0 );
 
 		if( flAdj > 1.2 )

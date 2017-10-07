@@ -186,7 +186,7 @@ void CPendulum::Touch( CBaseEntity *pOther )
 
 	pOther->TakeDamage( this, this, damage, DMG_CRUSH );
 
-	pOther->pev->velocity = ( pOther->GetAbsOrigin() - VecBModelOrigin( this ) ).Normalize() * damage;
+	pOther->SetAbsVelocity( ( pOther->GetAbsOrigin() - VecBModelOrigin( this ) ).Normalize() * damage );
 }
 
 void CPendulum::RopeTouch( CBaseEntity *pOther )
@@ -203,7 +203,7 @@ void CPendulum::RopeTouch( CBaseEntity *pOther )
 	}
 
 	pev->enemy = pOther->edict();
-	pOther->pev->velocity = g_vecZero;
+	pOther->SetAbsVelocity( g_vecZero );
 	pOther->pev->movetype = MOVETYPE_NONE;
 }
 

@@ -104,7 +104,7 @@ void CControllerHeadBall::HuntThink( void )
 		if( pEntity != NULL && pEntity->pev->takedamage )
 		{
 			g_MultiDamage.Clear();
-			pEntity->TraceAttack( CTakeDamageInfo( m_hOwner, gSkillData.GetControllerDmgZap(), DMG_SHOCK ), pev->velocity, &tr );
+			pEntity->TraceAttack( CTakeDamageInfo( m_hOwner, gSkillData.GetControllerDmgZap(), DMG_SHOCK ), GetAbsVelocity(), &tr );
 			g_MultiDamage.ApplyMultiDamage( this, m_hOwner );
 		}
 
@@ -160,7 +160,7 @@ void CControllerHeadBall::MovetoTarget( Vector vecTarget )
 	float flSpeed = m_vecIdeal.Length();
 	if( flSpeed == 0 )
 	{
-		m_vecIdeal = pev->velocity;
+		m_vecIdeal = GetAbsVelocity();
 		flSpeed = m_vecIdeal.Length();
 	}
 
@@ -169,14 +169,14 @@ void CControllerHeadBall::MovetoTarget( Vector vecTarget )
 		m_vecIdeal = m_vecIdeal.Normalize() * 400;
 	}
 	m_vecIdeal = m_vecIdeal + ( vecTarget - GetAbsOrigin() ).Normalize() * 100;
-	pev->velocity = m_vecIdeal;
+	SetAbsVelocity( m_vecIdeal );
 }
 
 void CControllerHeadBall::Crawl( void )
 {
 
 	Vector vecAim = Vector( RANDOM_FLOAT( -1, 1 ), RANDOM_FLOAT( -1, 1 ), RANDOM_FLOAT( -1, 1 ) ).Normalize();
-	Vector vecPnt = GetAbsOrigin() + pev->velocity * 0.3 + vecAim * 64;
+	Vector vecPnt = GetAbsOrigin() + GetAbsVelocity() * 0.3 + vecAim * 64;
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_BEAMENTPOINT );

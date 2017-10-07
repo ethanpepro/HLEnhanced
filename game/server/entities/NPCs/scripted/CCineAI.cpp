@@ -84,7 +84,7 @@ void CCineAI::PossessEntity( void )
 			pTarget->SetAbsOrigin( GetAbsOrigin() );
 			pTarget->pev->ideal_yaw = pev->angles.y;
 			pTarget->pev->avelocity = Vector( 0, 0, 0 );
-			pTarget->pev->velocity = Vector( 0, 0, 0 );
+			pTarget->SetAbsVelocity( Vector( 0, 0, 0 ) );
 			pTarget->pev->effects |= EF_NOINTERP;
 			pTarget->pev->angles.y = pev->angles.y;
 			pTarget->m_scriptState = SCRIPT_WAIT;
