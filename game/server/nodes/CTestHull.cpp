@@ -238,7 +238,7 @@ void CTestHull::BuildNodeGraph()
 		{
 			SetThink( &CTestHull::ShowBadNode );// send the hull off to show the offending node.
 												//SetSolidType( SOLID_NOT );
-			pev->origin = WorldGraph.m_pNodes[ iBadNode ].m_vecOrigin;
+			SetAbsOrigin( WorldGraph.m_pNodes[ iBadNode ].m_vecOrigin );
 		}
 
 		if( pTempPool )

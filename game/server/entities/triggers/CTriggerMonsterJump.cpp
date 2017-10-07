@@ -38,7 +38,9 @@ void CTriggerMonsterJump::Touch( CBaseEntity *pOther )
 		return;
 	}
 
-	pOther->pev->origin.z += 1;
+	Vector vecOrigin = pOther->GetAbsOrigin();
+	vecOrigin.z += 1;
+	pOther->SetAbsOrigin( vecOrigin );
 
 	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) )
 	{

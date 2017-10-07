@@ -253,8 +253,10 @@ void CBarnacle :: BarnacleThink ( void )
 				pTouchEnt->pev->movetype = MOVETYPE_FLY;
 				pTouchEnt->SetAbsVelocity( g_vecZero );
 				pTouchEnt->pev->basevelocity = g_vecZero;
-				pTouchEnt->pev->origin.x = GetAbsOrigin().x;
-				pTouchEnt->pev->origin.y = GetAbsOrigin().y;
+				Vector vecOrigin = pTouchEnt->GetAbsOrigin();
+				vecOrigin.x = GetAbsOrigin().x;
+				vecOrigin.y = GetAbsOrigin().y;
+				pTouchEnt->SetAbsOrigin( vecOrigin );
 
 				m_fLiftingPrey = true;// indicate that we should be lifting prey.
 				m_flKillVictimTime = -1;// set this to a bogus time while the victim is lifted.

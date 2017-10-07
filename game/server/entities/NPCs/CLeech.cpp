@@ -590,7 +590,9 @@ void CLeech::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	{
 		pev->angles.z = 0;
 		pev->angles.x = 0;
-		pev->origin.z += 1;
+		Vector vecOrigin = GetAbsOrigin();
+		vecOrigin.z += 1;
+		SetAbsOrigin( vecOrigin );
 		pev->avelocity = g_vecZero;
 		if ( RANDOM_LONG( 0, 99 ) < 70 )
 			pev->avelocity.y = RANDOM_LONG( -720, 720 );

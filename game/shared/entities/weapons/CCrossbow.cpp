@@ -185,7 +185,7 @@ void CCrossbow::FireBolt()
 	Vector vecDir = gpGlobals->v_forward;
 
 	CCrossbowBolt *pBolt = CCrossbowBolt::BoltCreate();
-	pBolt->pev->origin = vecSrc;
+	pBolt->SetAbsOrigin( vecSrc );
 	pBolt->pev->angles = anglesAim;
 	pBolt->pev->owner = m_pPlayer->edict();
 

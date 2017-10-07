@@ -65,12 +65,12 @@ void CTriggerHurt::RadiationThink( void )
 	origin = GetAbsOrigin();
 	view_ofs = pev->view_ofs;
 
-	pev->origin = ( pev->absmin + pev->absmax ) * 0.5;
+	SetAbsOrigin( ( pev->absmin + pev->absmax ) * 0.5 );
 	pev->view_ofs = pev->view_ofs * 0.0;
 
 	CBaseEntity* pentPlayer = UTIL_FindClientInPVS( this );
 
-	pev->origin = origin;
+	SetAbsOrigin( origin );
 	pev->view_ofs = view_ofs;
 
 	// reset origin

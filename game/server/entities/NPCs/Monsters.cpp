@@ -2007,7 +2007,9 @@ void CBaseMonster :: StartMonster ( void )
 	// Raise monster off the floor one unit, then drop to floor
 	if ( pev->movetype != MOVETYPE_FLY && !FBitSet( pev->spawnflags, SF_MONSTER_FALL_TO_GROUND ) )
 	{
-		pev->origin.z += 1;
+		Vector vecOrigin = GetAbsOrigin();
+		vecOrigin.z += 1;
+		SetAbsOrigin( vecOrigin );
 		UTIL_DropToFloor( this );
 		// Try to move the monster to make sure it's not stuck in a brush.
 		if (!UTIL_WalkMove( this, 0, 0, WALKMOVE_NORMAL ) )

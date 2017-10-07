@@ -48,8 +48,9 @@ void CPushable::Spawn( void )
 	GetFlags() |= FL_FLOAT;
 	pev->friction = 0;
 
-	pev->origin.z += 1;	// Pick up off of the floor
-	SetAbsOrigin( GetAbsOrigin() );
+	Vector vecOrigin = GetAbsOrigin();
+	vecOrigin.z += 1;	// Pick up off of the floor
+	SetAbsOrigin( vecOrigin );
 
 	// Multiply by area of the box's cross-section (assume 1000 units^3 standard volume)
 	pev->skin = ( pev->skin * ( pev->maxs.x - pev->mins.x ) * ( pev->maxs.y - pev->mins.y ) ) * 0.0005;

@@ -48,6 +48,7 @@ public:
 	// Encoding beams as entities simplifies their management in the client/server architecture
 	inline void	SetType( int type ) { pev->rendermode = ( pev->rendermode & 0xF0 ) | ( type & 0x0F ); }
 	inline void	SetFlags( int flags ) { pev->rendermode = ( pev->rendermode & 0x0F ) | ( flags & 0xF0 ); }
+	//TODO: can't use SetAbsOrigin since it calls into the engine, but can't keep pev exposed either - Solokiller
 	inline void SetStartPos( const Vector& pos ) { pev->origin = pos; }
 	inline void SetEndPos( const Vector& pos ) { pev->angles = pos; }
 	void SetStartEntity( int entityIndex );

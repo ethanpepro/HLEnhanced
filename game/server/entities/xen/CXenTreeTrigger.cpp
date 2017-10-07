@@ -32,7 +32,7 @@ void CXenTreeTrigger::Touch( CBaseEntity *pOther )
 CXenTreeTrigger *CXenTreeTrigger::TriggerCreate( CBaseEntity* pOwner, const Vector &position )
 {
 	auto pTrigger = static_cast<CXenTreeTrigger*>( UTIL_CreateNamedEntity( "xen_ttrigger" ) );
-	pTrigger->pev->origin = position;
+	pTrigger->SetAbsOrigin( position );
 	pTrigger->SetSolidType( SOLID_TRIGGER );
 	pTrigger->pev->movetype = MOVETYPE_NONE;
 	pTrigger->pev->owner = pOwner->edict();

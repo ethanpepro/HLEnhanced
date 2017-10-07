@@ -129,26 +129,32 @@ bool CBaseMonster::CineCleanup()
 			if ((oldOrigin - new_origin).Length2D() < 8.0)
 				new_origin = oldOrigin;
 
-			pev->origin.x = new_origin.x;
-			pev->origin.y = new_origin.y;
-			pev->origin.z += 1;
+			Vector vecOrigin = GetAbsOrigin();
+
+			vecOrigin.x = new_origin.x;
+			vecOrigin.y = new_origin.y;
+			vecOrigin.z += 1;
 
 			pev->flags |= FL_ONGROUND;
 			const DropToFloor drop = UTIL_DropToFloor( this );
 			
 			// Origin in solid?  Set to org at the end of the sequence
 			if ( drop == DropToFloor::STUCK )
-				pev->origin = oldOrigin;
+				vecOrigin = oldOrigin;
 			else if ( drop == DropToFloor::TOOFAR ) // Hanging in air?
 			{
-				pev->origin.z = new_origin.z;
+				vecOrigin.z = new_origin.z;
 				pev->flags &= ~FL_ONGROUND;
 			}
 			// else entity hit floor, leave there
 
-			// pEntity->GetAbsOrigin().z = new_origin.z + 5.0; // damn, got to fix this
+			/*
+			Vector vecEntOrigin = pEntity->GetAbsOrigin();
+			vecEntOrigin.z = new_origin.z + 5.0; // damn, got to fix this
+			pEntity->SetAbsOrigin( vecEntOrigin );
+			*/
 
-			SetAbsOrigin( GetAbsOrigin() );
+			SetAbsOrigin( vecOrigin );
 			pev->effects |= EF_NOINTERP;
 		}
 

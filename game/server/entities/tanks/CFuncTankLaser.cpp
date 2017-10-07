@@ -51,7 +51,7 @@ void CFuncTankLaser::Fire( const Vector &barrelEnd, const Vector &forward, CBase
 		{
 			for( i = 0; i < bulletCount; i++ )
 			{
-				m_pLaser->pev->origin = barrelEnd;
+				m_pLaser->SetAbsOrigin( barrelEnd );
 				TankTrace( barrelEnd, forward, gTankSpread[ m_spread ], tr );
 
 				m_laserTime = gpGlobals->time;

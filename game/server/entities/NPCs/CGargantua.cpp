@@ -918,7 +918,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 				pGib->pev->body = bodyPart;
 				pGib->m_bloodColor = BLOOD_COLOR_YELLOW;
 				pGib->m_material = matNone;
-				pGib->pev->origin = GetAbsOrigin();
+				pGib->SetAbsOrigin( GetAbsOrigin() );
 				pGib->SetAbsVelocity( UTIL_RandomBloodVector() * RANDOM_FLOAT( 300, 500 ) );
 				pGib->pev->nextthink = gpGlobals->time + 1.25;
 				pGib->SetThink( &CGib::SUB_FadeOut );

@@ -64,14 +64,14 @@ void CStomp::Think( void )
 	// Move and spawn trails
 	while( gpGlobals->time - pev->dmgtime > STOMP_INTERVAL )
 	{
-		pev->origin = GetAbsOrigin() + pev->movedir * pev->speed * STOMP_INTERVAL;
+		SetAbsOrigin( GetAbsOrigin() + pev->movedir * pev->speed * STOMP_INTERVAL );
 		for( int i = 0; i < 2; i++ )
 		{
 			CSprite *pSprite = CSprite::SpriteCreate( GARG_STOMP_SPRITE_NAME, GetAbsOrigin(), true );
 			if( pSprite )
 			{
 				UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() - Vector( 0, 0, 500 ), ignore_monsters, edict(), &tr );
-				pSprite->pev->origin = tr.vecEndPos;
+				pSprite->SetAbsOrigin( tr.vecEndPos );
 				pSprite->SetAbsVelocity( Vector( RANDOM_FLOAT( -200, 200 ), RANDOM_FLOAT( -200, 200 ), 175 ) );
 				// pSprite->AnimateAndDie( RANDOM_FLOAT( 8.0, 12.0 ) );
 				pSprite->pev->nextthink = gpGlobals->time + 0.3;
@@ -96,7 +96,7 @@ CStomp *CStomp::StompCreate( const Vector &origin, const Vector &end, float spee
 {
 	auto pStomp = static_cast<CStomp*>( UTIL_CreateNamedEntity( "garg_stomp"  ) );
 
-	pStomp->pev->origin = origin;
+	pStomp->SetAbsOrigin( origin );
 	Vector dir = ( end - origin );
 	pStomp->pev->scale = dir.Length();
 	pStomp->pev->movedir = dir.Normalize();

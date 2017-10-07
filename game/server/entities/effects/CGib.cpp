@@ -189,7 +189,7 @@ void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 
 	if( pVictim )
 	{
-		pGib->pev->origin = pVictim->GetAbsOrigin() + pVictim->pev->view_ofs;
+		pGib->SetAbsOrigin( pVictim->GetAbsOrigin() + pVictim->pev->view_ofs );
 
 		CBaseEntity* pPlayer = UTIL_FindClientInPVS( pGib );
 
@@ -262,9 +262,10 @@ void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 		if( pVictim )
 		{
 			// spawn the gib somewhere in the monster's bounding volume
-			pGib->pev->origin.x = pVictim->pev->absmin.x + pVictim->pev->size.x * ( RANDOM_FLOAT( 0, 1 ) );
-			pGib->pev->origin.y = pVictim->pev->absmin.y + pVictim->pev->size.y * ( RANDOM_FLOAT( 0, 1 ) );
-			pGib->pev->origin.z = pVictim->pev->absmin.z + pVictim->pev->size.z * ( RANDOM_FLOAT( 0, 1 ) ) + 1;	// absmin.z is in the floor because the engine subtracts 1 to enlarge the box
+			pGib->SetAbsOrigin( Vector( 
+				pVictim->pev->absmin.x + pVictim->pev->size.x * ( RANDOM_FLOAT( 0, 1 ) ),
+				pVictim->pev->absmin.y + pVictim->pev->size.y * ( RANDOM_FLOAT( 0, 1 ) ),
+				pVictim->pev->absmin.z + pVictim->pev->size.z * ( RANDOM_FLOAT( 0, 1 ) ) + 1 ) );	// absmin.z is in the floor because the engine subtracts 1 to enlarge the box
 
 			// make the gib fly away from the attack vector
 			Vector vecVelocity = g_vecAttackDir * -1;
@@ -322,14 +323,16 @@ void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 
 		if( pVictim )
 		{
-			pGib->pev->origin.x = vecOrigin.x + RANDOM_FLOAT( -3, 3 );
-			pGib->pev->origin.y = vecOrigin.y + RANDOM_FLOAT( -3, 3 );
-			pGib->pev->origin.z = vecOrigin.z + RANDOM_FLOAT( -3, 3 );
+			pGib->SetAbsOrigin( Vector(
+				vecOrigin.x + RANDOM_FLOAT( -3, 3 ),
+				vecOrigin.y + RANDOM_FLOAT( -3, 3 ),
+				vecOrigin.z + RANDOM_FLOAT( -3, 3 ) ) );
 
 			/*
-			pGib->pev->origin.x = pevVictim->absmin.x + pevVictim->size.x * (RANDOM_FLOAT ( 0 , 1 ) );
-			pGib->pev->origin.y = pevVictim->absmin.y + pevVictim->size.y * (RANDOM_FLOAT ( 0 , 1 ) );
-			pGib->pev->origin.z = pevVictim->absmin.z + pevVictim->size.z * (RANDOM_FLOAT ( 0 , 1 ) );
+			pGib->SetAbsOrigin( Vector(
+				pevVictim->absmin.x + pevVictim->size.x * (RANDOM_FLOAT ( 0 , 1 ) ),
+				pevVictim->absmin.y + pevVictim->size.y * (RANDOM_FLOAT ( 0 , 1 ) ),
+				pevVictim->absmin.z + pevVictim->size.z * (RANDOM_FLOAT ( 0 , 1 ) ) ) );
 			*/
 
 			// make the gib fly away from the attack vector

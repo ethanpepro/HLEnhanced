@@ -148,7 +148,7 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 			// Set target and delay
 			pFireAndDie->pev->target = m_changeTarget;
 			pFireAndDie->m_flDelay = m_changeTargetDelay;
-			pFireAndDie->pev->origin = pPlayer->GetAbsOrigin();
+			pFireAndDie->SetAbsOrigin( pPlayer->GetAbsOrigin() );
 			// Call spawn
 			DispatchSpawn( pFireAndDie->edict() );
 		}

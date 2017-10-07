@@ -1280,7 +1280,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 		{
 			if ( m_hTargetEnt != NULL )
 			{
-				pev->origin = m_hTargetEnt->GetAbsOrigin();	// Plant on target
+				SetAbsOrigin( m_hTargetEnt->GetAbsOrigin() );	// Plant on target
 			}
 
 			TaskComplete();

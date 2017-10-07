@@ -387,7 +387,7 @@ void CHornet :: TrackTouch ( CBaseEntity *pOther )
 		vecVelocity.x *= -1;
 		vecVelocity.y *= -1;
 
-		pev->origin = GetAbsOrigin() + vecVelocity * 4; // bounce the hornet off a bit.
+		SetAbsOrigin( GetAbsOrigin() + vecVelocity * 4 ); // bounce the hornet off a bit.
 		vecVelocity = vecVelocity * m_flFlySpeed;
 
 		SetAbsVelocity( vecVelocity );

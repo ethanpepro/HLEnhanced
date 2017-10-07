@@ -615,7 +615,7 @@ bool CBasePlayer::Restore( CRestore &restore )
 
 		// default to normal spawn
 		CBaseEntity* pSpawnSpot = EntSelectSpawnPoint( this );
-		pev->origin = pSpawnSpot->GetAbsOrigin() + Vector( 0, 0, 1 );
+		SetAbsOrigin( pSpawnSpot->GetAbsOrigin() + Vector( 0, 0, 1 ) );
 		pev->angles = pSpawnSpot->pev->angles;
 	}
 	pev->v_angle.z = 0;	// Clear out roll

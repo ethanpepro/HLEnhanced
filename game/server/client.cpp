@@ -957,7 +957,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	cd->weapons			= pev->weapons;
 
 	// Vectors
-	cd->origin			= pev->origin;
+	cd->origin			= pl->GetAbsOrigin();
 	cd->velocity		= pl->GetAbsVelocity();
 	cd->view_ofs		= pev->view_ofs;
 	cd->punchangle		= pev->punchangle;

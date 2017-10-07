@@ -11,7 +11,7 @@ LINK_ENTITY_TO_CLASS( spray_can, CSprayCan );
 
 void CSprayCan::Spawn( CBaseEntity* pOwner )
 {
-	pev->origin = pOwner->GetAbsOrigin() + Vector( 0, 0, 32 );
+	SetAbsOrigin( pOwner->GetAbsOrigin() + Vector( 0, 0, 32 ) );
 	pev->angles = pOwner->pev->v_angle;
 	pev->owner = pOwner->edict();
 	pev->frame = 0;

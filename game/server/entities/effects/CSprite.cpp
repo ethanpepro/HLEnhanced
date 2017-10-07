@@ -124,7 +124,7 @@ void CSprite::Expand( float scaleSpeed, float fadeSpeed )
 void CSprite::SpriteInit( const char *pSpriteName, const Vector &origin )
 {
 	SetModelName( pSpriteName );
-	pev->origin = origin;
+	SetAbsOrigin( origin );
 	Spawn();
 }
 

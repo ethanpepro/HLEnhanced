@@ -465,7 +465,7 @@ void CBaseDoor::Blocked( CBaseEntity *pOther )
 							// this is the most hacked, evil, bastardized thing I've ever seen. kjb
 							if( pTarget->ClassnameIs( "func_door" ) )
 							{// set origin to realign normal doors
-								pDoor->pev->origin = GetAbsOrigin();
+								pDoor->SetAbsOrigin( GetAbsOrigin() );
 								pDoor->SetAbsVelocity( g_vecZero );// stop!
 							}
 							else

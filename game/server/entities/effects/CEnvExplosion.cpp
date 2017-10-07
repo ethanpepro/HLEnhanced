@@ -91,11 +91,11 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	// Pull out of the wall a bit
 	if ( tr.flFraction != 1.0 )
 	{
-		pev->origin = tr.vecEndPos + (tr.vecPlaneNormal * (m_iMagnitude - 24) * 0.6);
+		SetAbsOrigin( tr.vecEndPos + (tr.vecPlaneNormal * (m_iMagnitude - 24) * 0.6) );
 	}
 	else
 	{
-		pev->origin = GetAbsOrigin();
+		SetAbsOrigin( GetAbsOrigin() );
 	}
 
 	// draw decal

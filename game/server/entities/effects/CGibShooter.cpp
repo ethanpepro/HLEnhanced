@@ -96,7 +96,7 @@ void CGibShooter::ShootThink( void )
 
 	if( pGib )
 	{
-		pGib->pev->origin = GetAbsOrigin();
+		pGib->SetAbsOrigin( GetAbsOrigin() );
 		pGib->SetAbsVelocity( vecShootDir * m_flGibVelocity );
 
 		pGib->pev->avelocity.x = RANDOM_FLOAT( 100, 200 );

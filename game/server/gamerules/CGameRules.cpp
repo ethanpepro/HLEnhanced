@@ -65,7 +65,7 @@ CBaseEntity* CGameRules::GetPlayerSpawnSpot( CBasePlayer* pPlayer )
 	//This should never be null.
 	ASSERT( pSpawnSpot );
 
-	pPlayer->pev->origin		= pSpawnSpot->GetAbsOrigin() + Vector( 0, 0, 1 );
+	pPlayer->SetAbsOrigin( pSpawnSpot->GetAbsOrigin() + Vector( 0, 0, 1 ) );
 	pPlayer->pev->v_angle		= g_vecZero;
 	pPlayer->SetAbsVelocity( g_vecZero );
 	pPlayer->pev->angles		= pSpawnSpot->pev->angles;

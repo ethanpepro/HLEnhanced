@@ -12,7 +12,7 @@ LINK_ENTITY_TO_CLASS( blood_splat, CBloodSplat );
 
 void CBloodSplat::Spawn( CBaseEntity* pOwner )
 {
-	pev->origin = pOwner->GetAbsOrigin() + Vector( 0, 0, 32 );
+	SetAbsOrigin( pOwner->GetAbsOrigin() + Vector( 0, 0, 32 ) );
 	pev->angles = pOwner->pev->v_angle;
 	pev->owner = pOwner->edict();
 
