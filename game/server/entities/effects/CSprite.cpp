@@ -18,7 +18,7 @@ void CSprite::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->frame = 0;
 
 	Precache();
@@ -80,7 +80,8 @@ void CSprite::ExpandThink( void )
 
 void CSprite::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	const bool on = pev->effects != EF_NODRAW;
+	//TODO: not going to work properly if any other flags are set - Solokiller
+	const bool on = GetEffects().Get() != EF_NODRAW;
 	if( ShouldToggle( useType, on ) )
 	{
 		if( on )
@@ -130,13 +131,13 @@ void CSprite::SpriteInit( const char *pSpriteName, const Vector &origin )
 
 void CSprite::TurnOff( void )
 {
-	pev->effects = EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 	pev->nextthink = 0;
 }
 
 void CSprite::TurnOn( void )
 {
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	if( ( pev->framerate && m_maxFrame > 1.0 ) || ( pev->spawnflags & SF_SPRITE_ONCE ) )
 	{
 		SetThink( &CSprite::AnimateThink );

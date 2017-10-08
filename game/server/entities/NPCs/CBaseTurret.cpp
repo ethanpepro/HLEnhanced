@@ -182,7 +182,7 @@ void CBaseTurret::Initialize(void)
 		pev->idealpitch = 180;
 		pev->angles.x = 180;
 		pev->view_ofs.z = -pev->view_ofs.z;
-		pev->effects |= EF_INVLIGHT;
+		GetEffects() |= EF_INVLIGHT;
 		pev->angles.y = pev->angles.y + 180;
 		if (pev->angles.y > 360)
 			pev->angles.y = pev->angles.y - 360;

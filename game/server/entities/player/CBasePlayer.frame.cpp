@@ -547,7 +547,7 @@ void CBasePlayer::PlayerDeathThink()
 
 	StopAnimation();
 
-	pev->effects |= EF_NOINTERP;
+	GetEffects() |= EF_NOINTERP;
 	pev->framerate = 0.0;
 
 	const bool fAnyButtonDown = ( GetButtons().Any( ~IN_SCORE ) ) != 0;

@@ -407,7 +407,7 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 
 		if ( fFirstBeam )
 		{
-			m_pPlayer->pev->effects |= EF_MUZZLEFLASH;
+			m_pPlayer->GetEffects() |= EF_MUZZLEFLASH;
 			fFirstBeam = false;
 	
 			nTotal += 26;

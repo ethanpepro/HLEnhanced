@@ -64,7 +64,7 @@ void CSentry::Shoot( Vector &vecSrc, Vector &vecDirToEnemy )
 	case 1: EMIT_SOUND( this, CHAN_WEAPON, "weapons/hks2.wav", 1, ATTN_NORM ); break;
 	case 2: EMIT_SOUND( this, CHAN_WEAPON, "weapons/hks3.wav", 1, ATTN_NORM ); break;
 	}
-	pev->effects = pev->effects | EF_MUZZLEFLASH;
+	GetEffects() |= EF_MUZZLEFLASH;
 }
 
 void CSentry::OnTakeDamage( const CTakeDamageInfo& info )

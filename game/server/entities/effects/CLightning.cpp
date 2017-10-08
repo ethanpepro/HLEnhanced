@@ -55,7 +55,7 @@ void CLightning::Spawn( void )
 		{
 			if( !( pev->spawnflags & SF_BEAM_STARTON ) )
 			{
-				pev->effects = EF_NODRAW;
+				GetEffects() = EF_NODRAW;
 				m_active = false;
 				pev->nextthink = 0;
 			}
@@ -398,13 +398,13 @@ void CLightning::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	if( m_active )
 	{
 		m_active = false;
-		pev->effects |= EF_NODRAW;
+		GetEffects() |= EF_NODRAW;
 		pev->nextthink = 0;
 	}
 	else
 	{
 		m_active = true;
-		pev->effects &= ~EF_NODRAW;
+		GetEffects().ClearFlags( EF_NODRAW );
 		DoSparks( GetStartPos(), GetEndPos() );
 		if( pev->dmg > 0 )
 		{

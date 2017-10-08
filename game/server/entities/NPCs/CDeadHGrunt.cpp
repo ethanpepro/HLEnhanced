@@ -34,7 +34,7 @@ void CDeadHGrunt::Spawn( void )
 	PRECACHE_MODEL( "models/hgrunt.mdl" );
 	SetModel( "models/hgrunt.mdl" );
 
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->yaw_speed = 8;
 	pev->sequence = 0;
 	m_bloodColor = BLOOD_COLOR_RED;

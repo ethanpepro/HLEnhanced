@@ -42,7 +42,7 @@ void CSittingScientist::Spawn()
 
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_STEP;
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->health = 50;
 
 	m_bloodColor = BLOOD_COLOR_RED;

@@ -284,7 +284,7 @@ void CBarney :: BarneyFirePistol ( void )
 
 	Vector angDir = UTIL_VecToAngles( vecShootDir );
 	SetBlending( 0, angDir.x );
-	pev->effects = EF_MUZZLEFLASH;
+	GetEffects() = EF_MUZZLEFLASH;
 
 	FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_2DEGREES, 1024, BULLET_MONSTER_9MM );
 	

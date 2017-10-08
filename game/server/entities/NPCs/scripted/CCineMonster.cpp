@@ -373,8 +373,8 @@ void CCineMonster::PossessEntity( void )
 
 		m_saved_movetype = pTarget->pev->movetype;
 		m_saved_solid = pTarget->GetSolidType();
-		m_saved_effects = pTarget->pev->effects;
-		pTarget->pev->effects |= pev->effects;
+		m_saved_effects = pTarget->GetEffects();
+		pTarget->GetEffects() |= GetEffects();
 
 		switch( m_fMoveTo )
 		{
@@ -397,7 +397,7 @@ void CCineMonster::PossessEntity( void )
 			pTarget->pev->ideal_yaw = pev->angles.y;
 			pTarget->pev->avelocity = Vector( 0, 0, 0 );
 			pTarget->SetAbsVelocity( Vector( 0, 0, 0 ) );
-			pTarget->pev->effects |= EF_NOINTERP;
+			pTarget->GetEffects() |= EF_NOINTERP;
 			pTarget->pev->angles.y = pev->angles.y;
 			pTarget->m_scriptState = SCRIPT_WAIT;
 			m_startTime = gpGlobals->time + 1E6;

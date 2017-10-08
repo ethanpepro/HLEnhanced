@@ -1937,7 +1937,7 @@ void CBaseMonster :: MonsterInit ( void )
 	}
 
 	// Set fields common to all monsters
-	pev->effects		= 0;
+	GetEffects().ClearAll();
 	pev->takedamage		= DAMAGE_AIM;
 	pev->ideal_yaw		= pev->angles.y;
 	SetMaxHealth( pev->health );
@@ -2015,7 +2015,7 @@ void CBaseMonster :: StartMonster ( void )
 		if (!UTIL_WalkMove( this, 0, 0, WALKMOVE_NORMAL ) )
 		{
 			ALERT(at_error, "Monster %s stuck in wall--level design error", GetClassname() );
-			pev->effects = EF_BRIGHTFIELD;
+			GetEffects() = EF_BRIGHTFIELD;
 		}
 	}
 	else 

@@ -255,11 +255,11 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 	{
 		if ( m_pSprite && pEntity->pev->takedamage )
 		{
-			m_pSprite->pev->effects &= ~EF_NODRAW;
+			m_pSprite->GetEffects().ClearFlags( EF_NODRAW );
 		}
 		else if ( m_pSprite )
 		{
-			m_pSprite->pev->effects |= EF_NODRAW;
+			m_pSprite->GetEffects() |= EF_NODRAW;
 		}
 	}
 

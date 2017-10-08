@@ -66,7 +66,7 @@ bool CBaseMonster::CineCleanup()
 		m_pCine->m_hTargetEnt = NULL;
 		pev->movetype = m_pCine->m_saved_movetype;
 		SetSolidType( m_pCine->m_saved_solid );
-		pev->effects = m_pCine->m_saved_effects;
+		GetEffects() = m_pCine->m_saved_effects;
 	}
 	else
 	{
@@ -98,7 +98,7 @@ bool CBaseMonster::CineCleanup()
 		// This turns off animation & physics in case their origin ends up stuck in the world or something
 		StopAnimation();
 		pev->movetype = MOVETYPE_NONE;
-		pev->effects |= EF_NOINTERP;	// Don't interpolate either, assume the corpse is positioned in its final resting place
+		GetEffects() |= EF_NOINTERP;	// Don't interpolate either, assume the corpse is positioned in its final resting place
 		return false;
 	}
 
@@ -155,7 +155,7 @@ bool CBaseMonster::CineCleanup()
 			*/
 
 			SetAbsOrigin( vecOrigin );
-			pev->effects |= EF_NOINTERP;
+			GetEffects() |= EF_NOINTERP;
 		}
 
 		// We should have some animation to put these guys in, but for now it's idle.

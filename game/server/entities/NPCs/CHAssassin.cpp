@@ -145,7 +145,7 @@ void CHAssassin :: Shoot ( void )
 		break;
 	}
 
-	pev->effects |= EF_MUZZLEFLASH;
+	GetEffects() |= EF_MUZZLEFLASH;
 
 	Vector angDir = UTIL_VecToAngles( vecShootDir );
 	SetBlending( 0, angDir.x );
@@ -206,7 +206,7 @@ void CHAssassin :: Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_STEP;
 	m_bloodColor		= BLOOD_COLOR_RED;
-	pev->effects		= 0;
+	GetEffects().ClearAll();
 	pev->health			= gSkillData.GetHAssassinHealth();
 	m_flFieldOfView		= VIEW_FIELD_WIDE; // indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;

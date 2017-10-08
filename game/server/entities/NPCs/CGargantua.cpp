@@ -224,9 +224,9 @@ void CGargantua::EyeUpdate( void )
 	{
 		m_pEyeGlow->pev->renderamt = UTIL_Approach( m_eyeBrightness, m_pEyeGlow->pev->renderamt, 26 );
 		if ( m_pEyeGlow->pev->renderamt == 0 )
-			m_pEyeGlow->pev->effects |= EF_NODRAW;
+			m_pEyeGlow->GetEffects() |= EF_NODRAW;
 		else
-			m_pEyeGlow->pev->effects &= ~EF_NODRAW;
+			m_pEyeGlow->GetEffects().ClearFlags( EF_NODRAW );
 		m_pEyeGlow->SetAbsOrigin( GetAbsOrigin() );
 	}
 }

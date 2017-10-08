@@ -43,14 +43,14 @@ void CFuncWallToggle::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 void CFuncWallToggle::TurnOff( void )
 {
 	SetSolidType( SOLID_NOT );
-	pev->effects |= EF_NODRAW;
+	GetEffects() |= EF_NODRAW;
 	SetAbsOrigin( GetAbsOrigin() );
 }
 
 void CFuncWallToggle::TurnOn( void )
 {
 	SetSolidType( SOLID_BSP );
-	pev->effects &= ~EF_NODRAW;
+	GetEffects().ClearFlags( EF_NODRAW );
 	SetAbsOrigin( GetAbsOrigin() );
 }
 

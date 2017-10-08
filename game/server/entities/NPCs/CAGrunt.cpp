@@ -349,7 +349,7 @@ void CAGrunt :: HandleAnimEvent( AnimEvent_t& event )
 				vecDirToEnemy = gpGlobals->v_forward;
 			}
 
-			pev->effects = EF_MUZZLEFLASH;
+			GetEffects() = EF_MUZZLEFLASH;
 
 			// make angles +-180
 			if (angDir.x > 180)
@@ -489,7 +489,7 @@ void CAGrunt :: Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_STEP;
 	m_bloodColor		= BLOOD_COLOR_GREEN;
-	pev->effects		= 0;
+	GetEffects().ClearAll();
 	pev->health			= gSkillData.GetAGruntHealth();
 	m_flFieldOfView		= 0.2;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;

@@ -30,7 +30,7 @@ void CDeadBarney::Spawn()
 	PRECACHE_MODEL( "models/barney.mdl" );
 	SetModel( "models/barney.mdl" );
 
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->yaw_speed = 8;
 	pev->sequence = 0;
 	m_bloodColor = BLOOD_COLOR_RED;

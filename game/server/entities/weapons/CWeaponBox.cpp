@@ -289,7 +289,7 @@ bool CWeaponBox::PackWeapon( CBasePlayerWeapon *pWeapon )
 	pWeapon->pev->spawnflags |= SF_NORESPAWN;// never respawn
 	pWeapon->pev->movetype = MOVETYPE_NONE;
 	pWeapon->SetSolidType( SOLID_NOT );
-	pWeapon->pev->effects = EF_NODRAW;
+	pWeapon->GetEffects() = EF_NODRAW;
 	pWeapon->SetModelIndex( 0 );
 	pWeapon->SetModelName( iStringNull );
 	pWeapon->pev->owner = edict();

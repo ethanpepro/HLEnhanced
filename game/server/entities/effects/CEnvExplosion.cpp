@@ -48,7 +48,7 @@ void CEnvExplosion::KeyValue( KeyValueData *pkvd )
 void CEnvExplosion::Spawn( void )
 { 
 	SetSolidType( SOLID_NOT );
-	pev->effects = EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 
 	pev->movetype = MOVETYPE_NONE;
 	/*

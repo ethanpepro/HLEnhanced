@@ -10,7 +10,7 @@ void CInfoIntermission::Spawn( void )
 {
 	SetAbsOrigin( GetAbsOrigin() );
 	SetSolidType( SOLID_NOT );
-	pev->effects = EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 	pev->v_angle = g_vecZero;
 
 	pev->nextthink = gpGlobals->time + 2;// let targets spawn!

@@ -117,7 +117,7 @@ void CBasePlayer::InitialSpawn()
 	SetCustomDecalFrames( -1 ); // Assume none;
 
 	// Reset interpolation during first frame
-	pev->effects |= EF_NOINTERP;
+	GetEffects() |= EF_NOINTERP;
 
 	pev->iuser1 = 0;	// disable any spec modes
 	pev->iuser2 = 0;
@@ -141,7 +141,7 @@ void CBasePlayer::Spawn()
 	pev->flags			|= FL_CLIENT;
 	pev->air_finished	= gpGlobals->time + 12;
 	pev->dmg			= 2;				// initial water damage
-	pev->effects		= 0;
+	GetEffects().ClearAll();
 	SetDeadFlag( DEAD_NO );
 	pev->dmg_take		= 0;
 	pev->dmg_save		= 0;
@@ -580,7 +580,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	{
 		SetSolidType( SOLID_NOT );
 		GibMonster();	// This clears pev->model
-		pev->effects |= EF_NODRAW;
+		GetEffects() |= EF_NODRAW;
 		return;
 	}
 

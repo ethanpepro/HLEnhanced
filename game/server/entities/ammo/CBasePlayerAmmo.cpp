@@ -55,7 +55,7 @@ void CBasePlayerAmmo::DefaultTouch( CBaseEntity* pOther )
 
 CBaseEntity* CBasePlayerAmmo::Respawn()
 {
-	pev->effects |= EF_NODRAW;
+	GetEffects() |= EF_NODRAW;
 	SetTouch( NULL );
 
 	SetAbsOrigin( g_pGameRules->VecAmmoRespawnSpot( this ) );// move to wherever I'm supposed to repawn.
@@ -68,12 +68,12 @@ CBaseEntity* CBasePlayerAmmo::Respawn()
 
 void CBasePlayerAmmo::Materialize()
 {
-	if( pev->effects & EF_NODRAW )
+	if( GetEffects() & EF_NODRAW )
 	{
 		// changing from invisible state to visible.
 		EMIT_SOUND_DYN( this, CHAN_WEAPON, "items/suitchargeok1.wav", 1, ATTN_NORM, 0, 150 );
-		pev->effects &= ~EF_NODRAW;
-		pev->effects |= EF_MUZZLEFLASH;
+		GetEffects().ClearFlags( EF_NODRAW );
+		GetEffects() |= EF_MUZZLEFLASH;
 	}
 
 	SetTouch( &CBasePlayerAmmo::DefaultTouch );

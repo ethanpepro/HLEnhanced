@@ -23,7 +23,7 @@ void CGibShooter::Spawn( void )
 	Precache();
 
 	SetSolidType( SOLID_NOT );
-	pev->effects = EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 
 	if( m_flDelay == 0 )
 	{

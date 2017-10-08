@@ -93,7 +93,7 @@ void CGlock::GlockFire( float flSpread , float flCycleTime, const bool fUseAutoA
 
 	m_iClip--;
 
-	m_pPlayer->pev->effects = (int)(m_pPlayer->pev->effects) | EF_MUZZLEFLASH;
+	m_pPlayer->GetEffects().AddFlags( EF_MUZZLEFLASH );
 
 	int flags;
 

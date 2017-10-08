@@ -31,7 +31,7 @@ void CCyclerSprite::Spawn( void )
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_NONE;
 	pev->takedamage = DAMAGE_YES;
-	pev->effects = 0;
+	GetEffects().ClearAll();
 
 	pev->frame = 0;
 	pev->nextthink = gpGlobals->time + 0.1;

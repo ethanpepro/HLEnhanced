@@ -29,5 +29,5 @@ void CLadder::Precache( void )
 		pev->rendermode = kRenderTransTexture;
 		pev->renderamt = 0;
 	}
-	pev->effects &= ~EF_NODRAW;
+	GetEffects().ClearFlags( EF_NODRAW );
 }

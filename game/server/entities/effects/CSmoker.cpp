@@ -27,7 +27,7 @@ void CSmoker::Spawn( void )
 	pev->nextthink = gpGlobals->time;
 	SetSolidType( SOLID_NOT );
 	SetSize( g_vecZero, g_vecZero );
-	pev->effects |= EF_NODRAW;
+	GetEffects() |= EF_NODRAW;
 	pev->angles = g_vecZero;
 }
 

@@ -31,7 +31,7 @@ void CItem::Spawn( void )
 CBaseEntity* CItem::Respawn( void )
 {
 	SetTouch( NULL );
-	pev->effects |= EF_NODRAW;
+	GetEffects() |= EF_NODRAW;
 
 	SetAbsOrigin( g_pGameRules->VecItemRespawnSpot( this ) );// blip to whereever you should respawn.
 
@@ -81,12 +81,12 @@ void CItem::ItemTouch( CBaseEntity *pOther )
 
 void CItem::Materialize( void )
 {
-	if( pev->effects & EF_NODRAW )
+	if( GetEffects().Any( EF_NODRAW ) )
 	{
 		// changing from invisible state to visible.
 		EMIT_SOUND_DYN( this, CHAN_WEAPON, "items/suitchargeok1.wav", 1, ATTN_NORM, 0, 150 );
-		pev->effects &= ~EF_NODRAW;
-		pev->effects |= EF_MUZZLEFLASH;
+		GetEffects().ClearFlags( EF_NODRAW );
+		GetEffects() |= EF_MUZZLEFLASH;
 	}
 
 	SetTouch( &CItem::ItemTouch );

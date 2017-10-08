@@ -36,7 +36,7 @@ void CTestHull::Spawn()
 
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_STEP;
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->health = 50;
 	pev->yaw_speed = 8;
 

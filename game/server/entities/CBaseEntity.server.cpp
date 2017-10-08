@@ -203,7 +203,7 @@ void CBaseEntity::MakeDormant( void )
 	// Don't move
 	pev->movetype = MOVETYPE_NONE;
 	// Don't draw
-	SetBits( pev->effects, EF_NODRAW );
+	GetEffects() |= EF_NODRAW;
 	// Don't think
 	pev->nextthink = 0;
 	// Relink

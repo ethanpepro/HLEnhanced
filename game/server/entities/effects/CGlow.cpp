@@ -15,7 +15,7 @@ void CGlow::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->frame = 0;
 
 	PRECACHE_MODEL( GetModelName() );

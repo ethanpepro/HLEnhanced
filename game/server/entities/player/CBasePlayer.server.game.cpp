@@ -254,7 +254,7 @@ bool CBasePlayer::IsOnLadder() const
 
 bool CBasePlayer::FlashlightIsOn() const
 {
-	return FBitSet( pev->effects, EF_DIMLIGHT ) != 0;
+	return GetEffects().Any( EF_DIMLIGHT );
 }
 
 void CBasePlayer::FlashlightTurnOn()
@@ -267,7 +267,7 @@ void CBasePlayer::FlashlightTurnOn()
 	if( ( pev->weapons & ( 1 << WEAPON_SUIT ) ) )
 	{
 		EMIT_SOUND_DYN( this, CHAN_WEAPON, SOUND_FLASHLIGHT_ON, 1.0, ATTN_NORM, 0, PITCH_NORM );
-		SetBits( pev->effects, EF_DIMLIGHT );
+		GetEffects() |= EF_DIMLIGHT;
 		MESSAGE_BEGIN( MSG_ONE, gmsgFlashlight, NULL, this );
 			WRITE_BYTE( 1 );
 			WRITE_BYTE( m_iFlashBattery );
@@ -280,7 +280,7 @@ void CBasePlayer::FlashlightTurnOn()
 void CBasePlayer::FlashlightTurnOff()
 {
 	EMIT_SOUND_DYN( this, CHAN_WEAPON, SOUND_FLASHLIGHT_OFF, 1.0, ATTN_NORM, 0, PITCH_NORM );
-	ClearBits( pev->effects, EF_DIMLIGHT );
+	GetEffects().ClearFlags( EF_DIMLIGHT );
 	MESSAGE_BEGIN( MSG_ONE, gmsgFlashlight, NULL, this );
 		WRITE_BYTE( 0 );
 		WRITE_BYTE( m_iFlashBattery );
@@ -479,7 +479,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 		if( !m_fSequenceLoops )
 		{
-			pev->effects |= EF_NOINTERP;
+			GetEffects() |= EF_NOINTERP;
 		}
 
 		m_Activity = m_IdealActivity;

@@ -10,7 +10,7 @@ void CEnvBeverage::Spawn( void )
 {
 	Precache();
 	SetSolidType( SOLID_NOT );
-	pev->effects = EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 	pev->frags = 0;
 
 	if( pev->health == 0 )

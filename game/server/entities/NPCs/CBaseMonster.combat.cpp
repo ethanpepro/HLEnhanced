@@ -69,7 +69,7 @@ void CBaseMonster::FadeMonster( void )
 	pev->movetype = MOVETYPE_NONE;
 	pev->avelocity = g_vecZero;
 	pev->animtime = gpGlobals->time;
-	pev->effects |= EF_NOINTERP;
+	GetEffects() |= EF_NOINTERP;
 	SUB_StartFadeOut();
 }
 
@@ -340,7 +340,7 @@ void CBaseMonster::CallGibMonster( void )
 	}
 	else
 	{
-		pev->effects = EF_NODRAW; // make the model invisible.
+		GetEffects() = EF_NODRAW; // make the model invisible.
 		GibMonster();
 	}
 

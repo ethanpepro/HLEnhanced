@@ -29,7 +29,7 @@ void CRuleEntity::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
 	pev->movetype		= MOVETYPE_NONE;
-	pev->effects		= EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 }
 
 void CRuleEntity::KeyValue( KeyValueData *pkvd )

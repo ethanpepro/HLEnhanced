@@ -118,7 +118,7 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 		case 2:	EMIT_SOUND( this, CHAN_VOICE, "weapons/debris3.wav", 0.55, ATTN_NORM);	break;
 	}
 
-	pev->effects |= EF_NODRAW;
+	GetEffects() |= EF_NODRAW;
 	SetThink( &CGrenade::Smoke );
 	SetAbsVelocity( g_vecZero );
 	pev->nextthink = gpGlobals->time + 0.3;

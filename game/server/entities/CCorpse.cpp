@@ -52,7 +52,7 @@ void InitBodyQue()
 //
 void CopyToBodyQue( CBaseEntity* pEntity )
 {
-	if( pEntity->pev->effects & EF_NODRAW )
+	if( pEntity->GetEffects().Any( EF_NODRAW ) )
 		return;
 
 	g_pBodyQueueHead->SetAbsAngles( pEntity->GetAbsAngles() );

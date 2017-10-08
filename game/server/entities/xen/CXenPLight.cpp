@@ -99,12 +99,12 @@ void CXenPLight::LightOn( void )
 {
 	SUB_UseTargets( this, USE_ON, 0 );
 	if( m_pGlow )
-		m_pGlow->pev->effects &= ~EF_NODRAW;
+		m_pGlow->GetEffects().ClearFlags( EF_NODRAW );
 }
 
 void CXenPLight::LightOff( void )
 {
 	SUB_UseTargets( this, USE_OFF, 0 );
 	if( m_pGlow )
-		m_pGlow->pev->effects |= EF_NODRAW;
+		m_pGlow->GetEffects() |= EF_NODRAW;
 }

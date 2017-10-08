@@ -104,12 +104,12 @@ void CBasePlayerWeapon::FallThink( void )
 //=========================================================
 void CBasePlayerWeapon::Materialize( void )
 {
-	if( pev->effects & EF_NODRAW )
+	if( GetEffects().Any( EF_NODRAW ) )
 	{
 		// changing from invisible state to visible.
 		EMIT_SOUND_DYN( this, CHAN_WEAPON, "items/suitchargeok1.wav", 1, ATTN_NORM, 0, 150 );
-		pev->effects &= ~EF_NODRAW;
-		pev->effects |= EF_MUZZLEFLASH;
+		GetEffects().ClearFlags( EF_NODRAW );
+		GetEffects() |= EF_MUZZLEFLASH;
 	}
 
 	SetSolidType( SOLID_TRIGGER );
@@ -149,7 +149,7 @@ CBaseEntity* CBasePlayerWeapon::Respawn( void )
 
 	if( pNewWeapon )
 	{
-		pNewWeapon->pev->effects |= EF_NODRAW;// invisible for now
+		pNewWeapon->GetEffects() |= EF_NODRAW;// invisible for now
 		pNewWeapon->SetTouch( NULL );// no touch
 		pNewWeapon->SetThink( &CBasePlayerWeapon::AttemptToMaterialize );
 
@@ -337,7 +337,7 @@ void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
 	pev->movetype = MOVETYPE_FOLLOW;
 	SetSolidType( SOLID_NOT );
 	pev->aiment = pPlayer->edict();
-	pev->effects = EF_NODRAW; // ??
+	GetEffects() = EF_NODRAW; // ??
 	SetModelIndex( 0 );// server won't send down to clients if modelindex == 0
 	SetModelName( iStringNull );
 	pev->owner = pPlayer->edict();

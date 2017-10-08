@@ -91,7 +91,7 @@ void CRpgRocket::IgniteThink( void )
 	// pev->movetype = MOVETYPE_TOSS;
 
 	pev->movetype = MOVETYPE_FLY;
-	pev->effects |= EF_LIGHT;
+	GetEffects() |= EF_LIGHT;
 
 	// make rocket sound
 	EMIT_SOUND( this, CHAN_VOICE, "weapons/rocket1.wav", 1, 0.5 );
@@ -178,9 +178,9 @@ void CRpgRocket::FollowThink( void )
 	}
 	else
 	{
-		if( pev->effects & EF_LIGHT )
+		if( GetEffects().Any( EF_LIGHT ) )
 		{
-			pev->effects = 0;
+			GetEffects().ClearAll();
 			STOP_SOUND( this, CHAN_VOICE, "weapons/rocket1.wav" );
 		}
 		SetAbsVelocity( GetAbsVelocity() * 0.2 + vecTarget * flSpeed * 0.798 );

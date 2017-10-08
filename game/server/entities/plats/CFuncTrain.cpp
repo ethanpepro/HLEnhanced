@@ -253,7 +253,7 @@ void CFuncTrain::Next( void )
 	if( FBitSet( m_pevCurrentTarget->spawnflags, SF_CORNER_TELEPORT ) )
 	{
 		// Path corner has indicated a teleport to the next corner.
-		SetBits( pev->effects, EF_NOINTERP );
+		GetEffects() |= EF_NOINTERP;
 		SetAbsOrigin( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs )* 0.5 );
 		Wait(); // Get on with doing the next path corner.
 	}
@@ -269,7 +269,7 @@ void CFuncTrain::Next( void )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 			EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ), m_volume, ATTN_NORM );
 		}
-		ClearBits( pev->effects, EF_NOINTERP );
+		GetEffects().ClearFlags( EF_NOINTERP );
 		SetMoveDone( &CFuncTrain::Wait );
 		LinearMove( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs )* 0.5, pev->speed );
 	}

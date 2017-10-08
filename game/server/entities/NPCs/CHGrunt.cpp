@@ -629,7 +629,7 @@ void CHGrunt :: Shoot ( void )
 	EjectBrass ( vecShootOrigin - vecShootDir * 24, vecShellVelocity, pev->angles.y, m_iBrassShell, TE_BOUNCE_SHELL); 
 	FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_10DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-5 degrees
 
-	pev->effects |= EF_MUZZLEFLASH;
+	GetEffects() |= EF_MUZZLEFLASH;
 	
 	m_cAmmoLoaded--;// take away a bullet!
 
@@ -656,7 +656,7 @@ void CHGrunt :: Shotgun ( void )
 	EjectBrass ( vecShootOrigin - vecShootDir * 24, vecShellVelocity, pev->angles.y, m_iShotgunShell, TE_BOUNCE_SHOTSHELL); 
 	FireBullets(gSkillData.GetHGruntShotgunPellets(), vecShootOrigin, vecShootDir, VECTOR_CONE_15DEGREES, 2048, BULLET_PLAYER_BUCKSHOT, 0 ); // shoot +-7.5 degrees
 
-	pev->effects |= EF_MUZZLEFLASH;
+	GetEffects() |= EF_MUZZLEFLASH;
 	
 	m_cAmmoLoaded--;// take away a bullet!
 
@@ -815,7 +815,7 @@ void CHGrunt :: Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_STEP;
 	m_bloodColor		= BLOOD_COLOR_RED;
-	pev->effects		= 0;
+	GetEffects().ClearAll();
 	pev->health			= gSkillData.GetHGruntHealth();
 	m_flFieldOfView		= 0.2;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;

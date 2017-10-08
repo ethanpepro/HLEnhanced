@@ -524,7 +524,7 @@ void CFlockingFlyer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetDeadFlag( DEAD_DEAD );
 
 	pev->framerate = 0;
-	pev->effects = EF_NOINTERP;
+	GetEffects() = EF_NOINTERP;
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	pev->movetype = MOVETYPE_TOSS;

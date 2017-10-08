@@ -54,7 +54,7 @@ void CBasePlayer::Observer_FindNextPlayer( bool bReverse )
 		if ( pEnt == this )
 			continue;
 		// Don't spec observers or players who haven't picked a class yet
-		if ( ((CBasePlayer*)pEnt)->IsObserver() || (pEnt->pev->effects & EF_NODRAW) )
+		if ( ((CBasePlayer*)pEnt)->IsObserver() || (pEnt->GetEffects().Any( EF_NODRAW ) ) )
 			continue;
 
 		// MOD AUTHORS: Add checks on target here.
@@ -239,7 +239,7 @@ void CBasePlayer::Observer_SetMode( int iMode )
 
 		if ( (pEnt == this) || (pEnt == NULL) )
 			m_hObserverTarget = NULL;
-		else if ( ((CBasePlayer*)pEnt)->IsObserver() || (pEnt->pev->effects & EF_NODRAW) )
+		else if ( ((CBasePlayer*)pEnt)->IsObserver() || (pEnt->GetEffects().Any( EF_NODRAW ) ) )
 			m_hObserverTarget = NULL;
 	}
 
@@ -376,7 +376,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	// Setup flags
 	m_iHideHUD = ( HIDEHUD_HEALTH | HIDEHUD_WEAPONS );
 	m_afPhysicsFlags |= PFLAG_OBSERVER;
-	pev->effects = EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 	pev->view_ofs = g_vecZero;
 	pev->angles = pev->v_angle = vecViewAngle;
 	SetFixAngleMode( FIXANGLE_SET );

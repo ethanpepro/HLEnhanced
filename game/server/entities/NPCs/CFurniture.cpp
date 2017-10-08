@@ -19,7 +19,7 @@ void CFurniture::Spawn()
 	SetSolidType( SOLID_BBOX );
 	pev->health = 80000;
 	pev->takedamage = DAMAGE_AIM;
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->yaw_speed = 0;
 	pev->sequence = 0;
 	pev->frame = 0;

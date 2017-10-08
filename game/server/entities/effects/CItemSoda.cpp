@@ -57,7 +57,7 @@ void CItemSoda::CanTouch( CBaseEntity *pOther )
 
 	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
-	pev->effects = EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 	SetTouch( NULL );
 	SetThink( &CItemSoda::SUB_Remove );
 	pev->nextthink = gpGlobals->time;

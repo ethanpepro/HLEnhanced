@@ -247,5 +247,5 @@ void CBaseTrigger::InitTrigger()
 	pev->movetype = MOVETYPE_NONE;
 	SetModel( GetModelName() );    // set size and link into world
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )
-		SetBits( pev->effects, EF_NODRAW );
+		GetEffects() |= EF_NODRAW;
 }

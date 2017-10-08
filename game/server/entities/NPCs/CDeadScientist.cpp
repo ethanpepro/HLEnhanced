@@ -33,7 +33,7 @@ void CDeadScientist::Spawn()
 	PRECACHE_MODEL( "models/scientist.mdl" );
 	SetModel( "models/scientist.mdl" );
 
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->sequence = 0;
 	// Corpses have less health
 	pev->health = 8;//gSkillData.GetScientistHealth();

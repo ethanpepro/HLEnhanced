@@ -10,7 +10,7 @@ void CEnvFunnel::Spawn( void )
 {
 	Precache();
 	SetSolidType( SOLID_NOT );
-	pev->effects = EF_NODRAW;
+	GetEffects() = EF_NODRAW;
 }
 
 void CEnvFunnel::Precache( void )

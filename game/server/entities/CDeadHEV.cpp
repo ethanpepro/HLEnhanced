@@ -16,7 +16,7 @@ void CDeadHEV::Spawn( void )
 	PRECACHE_MODEL( "models/player.mdl" );
 	SetModel( "models/player.mdl" );
 
-	pev->effects = 0;
+	GetEffects().ClearAll();
 	pev->yaw_speed = 8;
 	pev->sequence = 0;
 	pev->body = 1;
@@ -28,7 +28,7 @@ void CDeadHEV::Spawn( void )
 	{
 		ALERT( at_console, "Dead hevsuit with bad pose\n" );
 		pev->sequence = 0;
-		pev->effects = EF_BRIGHTFIELD;
+		GetEffects() = EF_BRIGHTFIELD;
 	}
 
 	// Corpses have less health

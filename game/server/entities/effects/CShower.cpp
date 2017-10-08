@@ -38,7 +38,7 @@ void CShower::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	SetModel( "models/grenade.mdl" );	// Need a model, just use the grenade, we don't draw it anyway
 	SetSize( g_vecZero, g_vecZero );
-	pev->effects |= EF_NODRAW;
+	GetEffects() |= EF_NODRAW;
 	pev->speed = RANDOM_FLOAT( 0.5, 1.5 );
 
 	pev->angles = g_vecZero;

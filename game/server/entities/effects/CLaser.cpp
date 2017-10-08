@@ -100,7 +100,7 @@ void CLaser::KeyValue( KeyValueData *pkvd )
 
 void CLaser::TurnOn( void )
 {
-	pev->effects &= ~EF_NODRAW;
+	GetEffects().ClearFlags( EF_NODRAW );
 	if( m_pSprite )
 		m_pSprite->TurnOn();
 	pev->dmgtime = gpGlobals->time;
@@ -109,7 +109,7 @@ void CLaser::TurnOn( void )
 
 void CLaser::TurnOff( void )
 {
-	pev->effects |= EF_NODRAW;
+	GetEffects() |= EF_NODRAW;
 	pev->nextthink = 0;
 	if( m_pSprite )
 		m_pSprite->TurnOff();
@@ -117,7 +117,7 @@ void CLaser::TurnOff( void )
 
 bool CLaser::IsOn() const
 {
-	if( pev->effects & EF_NODRAW )
+	if( GetEffects().Any( EF_NODRAW ) )
 		return false;
 	return true;
 }
