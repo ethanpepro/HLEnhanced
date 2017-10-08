@@ -245,7 +245,7 @@ void CHeadCrab :: Spawn()
 	SetSize( Vector(-12, -12, 0), Vector(12, 12, 24) );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	GetEffects().ClearAll();
 	pev->health			= gSkillData.GetHeadcrabHealth();

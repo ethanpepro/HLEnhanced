@@ -288,7 +288,7 @@ void CController :: Spawn()
 	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ));
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	pev->flags			|= FL_FLY;
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	pev->health			= gSkillData.GetControllerHealth();

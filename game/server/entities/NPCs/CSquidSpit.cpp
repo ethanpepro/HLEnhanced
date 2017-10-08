@@ -31,7 +31,7 @@ LINK_ENTITY_TO_CLASS( squidspit, CSquidSpit );
 
 void CSquidSpit::Spawn( void )
 {
-	pev->movetype = MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 
 	SetSolidType( SOLID_BBOX );
 	pev->rendermode = kRenderTransAlpha;

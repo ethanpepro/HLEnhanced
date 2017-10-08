@@ -43,7 +43,7 @@ void CRotDoor::Spawn( void )
 	else
 		SetSolidType( SOLID_BSP );
 
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( GetModelName() );
 

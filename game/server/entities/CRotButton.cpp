@@ -40,7 +40,7 @@ void CRotButton::Spawn( void )
 	if( FBitSet( pev->spawnflags, SF_DOOR_ROTATE_BACKWARDS ) )
 		pev->movedir = pev->movedir * -1;
 
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 
 	if( pev->spawnflags & SF_ROTBUTTON_NOTSOLID )
 		SetSolidType( SOLID_NOT );

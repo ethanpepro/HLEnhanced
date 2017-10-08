@@ -23,7 +23,7 @@ LINK_ENTITY_TO_CLASS( env_smoker, CSmoker );
 
 void CSmoker::Spawn( void )
 {
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	pev->nextthink = gpGlobals->time;
 	SetSolidType( SOLID_NOT );
 	SetSize( g_vecZero, g_vecZero );

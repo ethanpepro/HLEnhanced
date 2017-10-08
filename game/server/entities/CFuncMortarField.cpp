@@ -70,7 +70,7 @@ void CFuncMortarField :: Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
 	SetModel( GetModelName() );    // set size and link into world
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	GetEffects() |= EF_NODRAW;
 	SetUse( & CFuncMortarField::FieldUse );
 	Precache();

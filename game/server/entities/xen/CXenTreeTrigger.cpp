@@ -34,7 +34,7 @@ CXenTreeTrigger *CXenTreeTrigger::TriggerCreate( CBaseEntity* pOwner, const Vect
 	auto pTrigger = static_cast<CXenTreeTrigger*>( UTIL_CreateNamedEntity( "xen_ttrigger" ) );
 	pTrigger->SetAbsOrigin( position );
 	pTrigger->SetSolidType( SOLID_TRIGGER );
-	pTrigger->pev->movetype = MOVETYPE_NONE;
+	pTrigger->SetMoveType( MOVETYPE_NONE );
 	pTrigger->pev->owner = pOwner->edict();
 
 	return pTrigger;

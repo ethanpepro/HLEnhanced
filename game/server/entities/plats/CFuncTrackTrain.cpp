@@ -50,7 +50,7 @@ void CFuncTrackTrain::Spawn( void )
 		SetSolidType( SOLID_NOT );
 	else
 		SetSolidType( SOLID_BSP );
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 
 	SetModel( GetModelName() );
 

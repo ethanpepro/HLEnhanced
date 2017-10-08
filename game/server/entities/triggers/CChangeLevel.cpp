@@ -317,7 +317,7 @@ bool CChangeLevel::InTransitionVolume( CBaseEntity *pEntity, char *pVolumeName )
 		return true;
 
 	// If you're following another entity, follow it through the transition (weapons follow the player)
-	if( pEntity->pev->movetype == MOVETYPE_FOLLOW )
+	if( pEntity->GetMoveType() == MOVETYPE_FOLLOW )
 	{
 		if( pEntity->pev->aiment != NULL )
 			pEntity = CBaseEntity::Instance( pEntity->pev->aiment );

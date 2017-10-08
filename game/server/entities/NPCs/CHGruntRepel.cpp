@@ -51,7 +51,7 @@ void CHGruntRepel::RepelUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 
 	CBaseEntity *pEntity = Create( "monster_human_grunt", GetAbsOrigin(), pev->angles );
 	CBaseMonster *pGrunt = pEntity->MyMonsterPointer();
-	pGrunt->pev->movetype = MOVETYPE_FLY;
+	pGrunt->SetMoveType( MOVETYPE_FLY );
 	pGrunt->SetAbsVelocity( Vector( 0, 0, RANDOM_FLOAT( -196, -128 ) ) );
 	pGrunt->SetActivity( ACT_GLIDE );
 	// UNDONE: position?

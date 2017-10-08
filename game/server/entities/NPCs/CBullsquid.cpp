@@ -481,7 +481,7 @@ void CBullsquid :: Spawn()
 	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	GetEffects().ClearAll();
 	pev->health			= gSkillData.GetBullsquidHealth();

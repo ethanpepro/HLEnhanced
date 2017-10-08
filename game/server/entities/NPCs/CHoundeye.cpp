@@ -256,7 +256,7 @@ void CHoundeye :: Spawn()
 	SetSize( Vector ( -16, -16, 0 ), Vector ( 16, 16, 36 ) );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_YELLOW;
 	GetEffects().ClearAll();
 	pev->health			= gSkillData.GetHoundeyeHealth();

@@ -97,7 +97,7 @@ void CRoach :: Spawn()
 	SetSize( Vector( -1, -1, 0 ), Vector( 1, 1, 2 ) );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_YELLOW;
 	GetEffects().ClearAll();
 	pev->health			= 1;

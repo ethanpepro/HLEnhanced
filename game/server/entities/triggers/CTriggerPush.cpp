@@ -31,7 +31,7 @@ void CTriggerPush::KeyValue( KeyValueData *pkvd )
 void CTriggerPush::Touch( CBaseEntity *pOther )
 {
 	// UNDONE: Is there a better way than health to detect things that have physics? (clients/monsters)
-	switch( pOther->pev->movetype )
+	switch( pOther->GetMoveType() )
 	{
 	case MOVETYPE_NONE:
 	case MOVETYPE_PUSH:

@@ -347,7 +347,7 @@ void CGrenade :: TumbleThink( void )
 
 void CGrenade:: Spawn( void )
 {
-	pev->movetype = MOVETYPE_BOUNCE;
+	SetMoveType( MOVETYPE_BOUNCE );
 	
 	SetSolidType( SOLID_BBOX );
 

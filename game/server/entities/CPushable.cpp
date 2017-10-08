@@ -37,7 +37,7 @@ void CPushable::Spawn( void )
 	else
 		Precache();
 
-	pev->movetype = MOVETYPE_PUSHSTEP;
+	SetMoveType( MOVETYPE_PUSHSTEP );
 	SetSolidType( SOLID_BBOX );
 	SetModel( GetModelName() );
 

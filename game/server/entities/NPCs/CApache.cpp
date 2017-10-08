@@ -55,7 +55,7 @@ void CApache :: Spawn( void )
 {
 	Precache( );
 	// motor
-	pev->movetype = MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	SetSolidType( SOLID_BBOX );
 
 	SetModel( "models/apache.mdl");
@@ -131,7 +131,7 @@ void CApache::StartupUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 
 void CApache::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 	pev->gravity = 0.3;
 
 	STOP_SOUND( this, CHAN_STATIC, "apache/ap_rotor2.wav" );

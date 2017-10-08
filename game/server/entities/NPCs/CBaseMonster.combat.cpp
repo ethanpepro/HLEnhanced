@@ -66,7 +66,7 @@ void CBaseMonster::FadeMonster( void )
 {
 	StopAnimation();
 	SetAbsVelocity( g_vecZero );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	pev->avelocity = g_vecZero;
 	pev->animtime = gpGlobals->time;
 	GetEffects() |= EF_NOINTERP;
@@ -299,7 +299,7 @@ void CBaseMonster::BecomeDead( void )
 	SetMaxHealth( 5 ); // max_health now becomes a counter for how many blood decals the corpse can place.
 
 	// make the corpse fly away from the attack vector
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 	//pev->flags &= ~FL_ONGROUND;
 	//GetAbsOrigin().z += 2;
 	//SetAbsVelocity( g_vecAttackDir * -1 );
@@ -477,7 +477,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 	}
 
 	// if this is a player, move him around!
-	if ( ( !FNullEnt( info.GetInflictor() ) ) && (pev->movetype == MOVETYPE_WALK) && (!info.GetAttacker() || info.GetAttacker()->GetSolidType() != SOLID_TRIGGER) )
+	if ( ( !FNullEnt( info.GetInflictor() ) ) && ( GetMoveType() == MOVETYPE_WALK) && (!info.GetAttacker() || info.GetAttacker()->GetSolidType() != SOLID_TRIGGER) )
 	{
 		SetAbsVelocity( GetAbsVelocity() + vecDir * -DamageForce( info.GetDamage() ) );
 	}

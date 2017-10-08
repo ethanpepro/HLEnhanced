@@ -28,7 +28,7 @@ LINK_ENTITY_TO_CLASS( cycler_wreckage, CWreckage );
 void CWreckage::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetTakeDamageMode( DAMAGE_NO );
 	GetEffects().ClearAll();
 

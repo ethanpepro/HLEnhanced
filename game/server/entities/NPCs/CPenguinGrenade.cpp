@@ -58,7 +58,7 @@ void CPenguinGrenade::Spawn()
 {
 	Precache();
 	// motor
-	pev->movetype = MOVETYPE_BOUNCE;
+	SetMoveType( MOVETYPE_BOUNCE );
 	SetSolidType( SOLID_BBOX );
 
 	SetModel( "models/w_penguin.mdl" );
@@ -291,18 +291,18 @@ void CPenguinGrenade::HuntThink()
 	// float
 	if( GetWaterLevel() != WATERLEVEL_DRY )
 	{
-		if( pev->movetype == MOVETYPE_BOUNCE )
+		if( GetMoveType() == MOVETYPE_BOUNCE )
 		{
-			pev->movetype = MOVETYPE_FLY;
+			SetMoveType( MOVETYPE_FLY );
 		}
 		Vector vecVelocity = GetAbsVelocity() * 0.9;
 		vecVelocity.z += 8.0;
 
 		SetAbsVelocity( vecVelocity );
 	}
-	else if( pev->movetype == MOVETYPE_FLY )
+	else if( GetMoveType() == MOVETYPE_FLY )
 	{
-		pev->movetype = MOVETYPE_BOUNCE;
+		SetMoveType( MOVETYPE_BOUNCE );
 	}
 
 	// return if not time to hunt

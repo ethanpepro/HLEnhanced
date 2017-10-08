@@ -135,7 +135,7 @@ void CBasePlayer::Spawn()
 	pev->armorvalue		= 0;
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_WALK;
+	SetMoveType( MOVETYPE_WALK );
 	SetMaxHealth( pev->health );
 	pev->flags			&= FL_PROXY;	// keep proxy flag sey by engine
 	pev->flags			|= FL_CLIENT;
@@ -539,7 +539,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetModelIndex( g_ulModelIndexPlayer );    // don't use eyes
 
 	SetDeadFlag( DEAD_DYING );
-	pev->movetype		= MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 	ClearBits( pev->flags, FL_ONGROUND );
 	if ( GetAbsVelocity().z < 10)
 	{

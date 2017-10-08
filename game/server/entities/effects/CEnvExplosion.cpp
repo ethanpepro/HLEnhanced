@@ -50,7 +50,7 @@ void CEnvExplosion::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	GetEffects() = EF_NODRAW;
 
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	/*
 	if ( m_iMagnitude > 250 )
 	{

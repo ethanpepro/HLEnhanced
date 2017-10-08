@@ -45,7 +45,7 @@ void CPendulum::Spawn( void )
 		SetSolidType( SOLID_NOT );
 	else
 		SetSolidType( SOLID_BSP );
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( GetModelName() );
 
@@ -204,7 +204,7 @@ void CPendulum::RopeTouch( CBaseEntity *pOther )
 
 	pev->enemy = pOther->edict();
 	pOther->SetAbsVelocity( g_vecZero );
-	pOther->pev->movetype = MOVETYPE_NONE;
+	pOther->SetMoveType( MOVETYPE_NONE );
 }
 
 void CPendulum::Blocked( CBaseEntity *pOther )

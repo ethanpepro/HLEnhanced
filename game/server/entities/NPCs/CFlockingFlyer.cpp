@@ -50,7 +50,7 @@ void CFlockingFlyer::SpawnCommonCode()
 {
 	SetDeadFlag( DEAD_NO );
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype = MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	SetTakeDamageMode( DAMAGE_NO );
 	pev->health = 1;
 
@@ -527,7 +527,7 @@ void CFlockingFlyer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	GetEffects() = EF_NOINTERP;
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 
 	SetThink( &CFlockingFlyer::FallHack );
 	pev->nextthink = gpGlobals->time + 0.1;

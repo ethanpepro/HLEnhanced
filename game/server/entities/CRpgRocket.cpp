@@ -40,7 +40,7 @@ void CRpgRocket::Spawn( void )
 {
 	Precache();
 	// motor
-	pev->movetype = MOVETYPE_BOUNCE;
+	SetMoveType( MOVETYPE_BOUNCE );
 	SetSolidType( SOLID_BBOX );
 
 	SetModel( "models/rpgrocket.mdl" );
@@ -88,9 +88,9 @@ void CRpgRocket::Precache( void )
 
 void CRpgRocket::IgniteThink( void )
 {
-	// pev->movetype = MOVETYPE_TOSS;
+	// SetMoveType( MOVETYPE_TOSS );
 
-	pev->movetype = MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	GetEffects() |= EF_LIGHT;
 
 	// make rocket sound

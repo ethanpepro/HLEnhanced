@@ -14,7 +14,7 @@ LINK_ENTITY_TO_CLASS( env_glow, CGlow );
 void CGlow::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	GetEffects().ClearAll();
 	pev->frame = 0;
 

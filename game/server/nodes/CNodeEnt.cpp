@@ -26,7 +26,7 @@ LINK_ENTITY_TO_CLASS( info_node_air, CNodeEnt );
 
 void CNodeEnt::Spawn( void )
 {
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_NOT );// always solid_not 
 
 	if( WorldGraph.m_fGraphPresent )

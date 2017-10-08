@@ -29,7 +29,7 @@ LINK_ENTITY_TO_CLASS( cycler_sprite, CCyclerSprite );
 void CCyclerSprite::Spawn( void )
 {
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetTakeDamageMode( DAMAGE_YES );
 	GetEffects().ClearAll();
 

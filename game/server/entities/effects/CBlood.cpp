@@ -9,7 +9,7 @@ LINK_ENTITY_TO_CLASS( env_blood, CBlood );
 void CBlood::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	GetEffects().ClearAll();
 	pev->frame = 0;
 	SetMovedir( this );

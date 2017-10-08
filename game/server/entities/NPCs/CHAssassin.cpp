@@ -181,7 +181,7 @@ void CHAssassin :: HandleAnimEvent( AnimEvent_t& event )
 		{
 			// ALERT( at_console, "jumping");
 			UTIL_MakeAimVectors( pev->angles );
-			pev->movetype = MOVETYPE_TOSS;
+			SetMoveType( MOVETYPE_TOSS );
 			pev->flags &= ~FL_ONGROUND;
 			SetAbsVelocity( m_vecJumpVelocity );
 			m_flNextJump = gpGlobals->time + 3.0;
@@ -204,7 +204,7 @@ void CHAssassin :: Spawn()
 	SetSize( VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_RED;
 	GetEffects().ClearAll();
 	pev->health			= gSkillData.GetHAssassinHealth();
@@ -781,13 +781,13 @@ Schedule_t *CHAssassin :: GetSchedule ( void )
 			}
 
 			// flying?
-			if ( pev->movetype == MOVETYPE_TOSS)
+			if ( GetMoveType() == MOVETYPE_TOSS)
 			{
 				if (pev->flags & FL_ONGROUND)
 				{
 					// ALERT( at_console, "landed\n");
 					// just landed
-					pev->movetype = MOVETYPE_STEP;
+					SetMoveType( MOVETYPE_STEP );
 					return GetScheduleOfType ( SCHED_ASSASSIN_JUMP_LAND );
 				}
 				else

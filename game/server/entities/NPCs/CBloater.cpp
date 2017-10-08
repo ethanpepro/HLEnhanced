@@ -169,7 +169,7 @@ void CBloater :: Spawn()
 	SetSize( VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	pev->spawnflags		|= FL_FLY;
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	pev->health			= 40;

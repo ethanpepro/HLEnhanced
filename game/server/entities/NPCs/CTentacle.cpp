@@ -105,7 +105,7 @@ void CTentacle :: Spawn( )
 	Precache( );
 
 	SetSolidType( SOLID_BBOX );
-	pev->movetype		= MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	GetEffects().ClearAll();
 	pev->health			= 75;
 	pev->sequence		= 0;

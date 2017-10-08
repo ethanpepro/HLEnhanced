@@ -148,7 +148,7 @@ void CBreakable::Spawn( void )
 		SetTakeDamageMode( DAMAGE_YES );
   
 	SetSolidType( SOLID_BSP );
-    pev->movetype	= MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
     m_angle			= pev->angles.y;
 	pev->angles.y	= 0;
 

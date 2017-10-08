@@ -59,7 +59,7 @@ void CWallHealth::Spawn()
 	Precache( );
 
 	SetSolidType( SOLID_BSP );
-	pev->movetype	= MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 
 	SetAbsOrigin( GetAbsOrigin());		// set size and link into world
 	SetSize( pev->mins, pev->maxs );

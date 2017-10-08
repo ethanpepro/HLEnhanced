@@ -64,14 +64,14 @@ bool CBaseMonster::CineCleanup()
 	{
 		// okay, reset me to what it thought I was before
 		m_pCine->m_hTargetEnt = NULL;
-		pev->movetype = m_pCine->m_saved_movetype;
+		SetMoveType( m_pCine->m_saved_movetype );
 		SetSolidType( m_pCine->m_saved_solid );
 		GetEffects() = m_pCine->m_saved_effects;
 	}
 	else
 	{
 		// arg, punt
-		pev->movetype = MOVETYPE_STEP;// this is evil
+		SetMoveType( MOVETYPE_STEP );// this is evil
 		SetSolidType( SOLID_SLIDEBOX );
 	}
 	m_pCine = NULL;
@@ -97,7 +97,7 @@ bool CBaseMonster::CineCleanup()
 			SUB_StartFadeOut(); // SetThink( SUB_DoNothing );
 		// This turns off animation & physics in case their origin ends up stuck in the world or something
 		StopAnimation();
-		pev->movetype = MOVETYPE_NONE;
+		SetMoveType( MOVETYPE_NONE );
 		GetEffects() |= EF_NOINTERP;	// Don't interpolate either, assume the corpse is positioned in its final resting place
 		return false;
 	}

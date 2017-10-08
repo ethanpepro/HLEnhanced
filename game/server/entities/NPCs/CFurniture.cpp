@@ -15,7 +15,7 @@ void CFurniture::Spawn()
 	PRECACHE_MODEL( GetModelName() );
 	SetModel( GetModelName() );
 
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_BBOX );
 	pev->health = 80000;
 	SetTakeDamageMode( DAMAGE_AIM );

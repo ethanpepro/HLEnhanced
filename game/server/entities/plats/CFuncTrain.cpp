@@ -28,7 +28,7 @@ void CFuncTrain::Spawn( void )
 	if( pev->dmg == 0 )
 		pev->dmg = 2;
 
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 
 	//Remove tracktrain include when changed
 	if( FBitSet( pev->spawnflags, SF_TRAIN_PASSABLE ) )

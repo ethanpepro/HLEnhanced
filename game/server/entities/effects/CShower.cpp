@@ -32,7 +32,7 @@ void CShower::Spawn( void )
 
 	SetAbsVelocity( vecVelocity );
 
-	pev->movetype = MOVETYPE_BOUNCE;
+	SetMoveType( MOVETYPE_BOUNCE );
 	pev->gravity = 0.5;
 	pev->nextthink = gpGlobals->time + 0.1;
 	SetSolidType( SOLID_NOT );

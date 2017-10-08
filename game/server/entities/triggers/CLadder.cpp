@@ -16,7 +16,7 @@ void CLadder::Spawn( void )
 	Precache();
 
 	SetModel( GetModelName() );    // set size and link into world
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 }
 
 void CLadder::Precache( void )

@@ -23,7 +23,7 @@ LINK_ENTITY_TO_CLASS( func_illusionary, CFuncIllusionary );
 void CFuncIllusionary::Spawn( void )
 {
 	pev->angles = g_vecZero;
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_NOT );// always solid_not 
 	SetModel( GetModelName() );
 

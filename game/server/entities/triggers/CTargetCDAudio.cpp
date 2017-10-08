@@ -11,7 +11,7 @@ LINK_ENTITY_TO_CLASS( target_cdaudio, CTargetCDAudio );
 void CTargetCDAudio::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 
 	if( pev->scale > 0 )
 		pev->nextthink = gpGlobals->time + 1.0;

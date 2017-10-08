@@ -27,7 +27,7 @@ LINK_ENTITY_TO_CLASS( monster_mortar, CMortar );
 
 void CMortar::Spawn()
 {
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_NOT );
 
 	pev->dmg = 200;

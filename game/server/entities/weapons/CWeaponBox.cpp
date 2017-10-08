@@ -35,7 +35,7 @@ void CWeaponBox::Spawn()
 {
 	Precache();
 
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 	SetSolidType( SOLID_TRIGGER );
 
 	SetSize( g_vecZero, g_vecZero );
@@ -287,7 +287,7 @@ bool CWeaponBox::PackWeapon( CBasePlayerWeapon *pWeapon )
 	}
 
 	pWeapon->pev->spawnflags |= SF_NORESPAWN;// never respawn
-	pWeapon->pev->movetype = MOVETYPE_NONE;
+	pWeapon->SetMoveType( MOVETYPE_NONE );
 	pWeapon->SetSolidType( SOLID_NOT );
 	pWeapon->GetEffects() = EF_NODRAW;
 	pWeapon->SetModelIndex( 0 );

@@ -45,7 +45,7 @@ void CXenSpore::Spawn( void )
 	Precache();
 
 	SetModel( pModelNames[ pev->skin ] );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_BBOX );
 	SetTakeDamageMode( DAMAGE_YES );
 
@@ -120,7 +120,7 @@ CXenHull *CXenHull::CreateHull( CBaseEntity *source, const Vector &mins, const V
 	pHull->SetAbsOrigin( source->GetAbsOrigin() + offset );
 	pHull->SetModel( source->GetModelName() );
 	pHull->SetSolidType( SOLID_BBOX );
-	pHull->pev->movetype = MOVETYPE_NONE;
+	pHull->SetMoveType( MOVETYPE_NONE );
 	pHull->pev->owner = source->edict();
 	pHull->SetSize( mins, maxs );
 	pHull->pev->renderamt = 0;

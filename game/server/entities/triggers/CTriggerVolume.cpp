@@ -9,7 +9,7 @@ LINK_ENTITY_TO_CLASS( trigger_transition, CTriggerVolume );
 void CTriggerVolume::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetModel( GetModelName() );    // set size and link into world
 	SetModelName( iStringNull );
 	SetModelIndex( 0 );

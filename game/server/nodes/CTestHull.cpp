@@ -35,7 +35,7 @@ void CTestHull::Spawn()
 	SetSize( VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype = MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	GetEffects().ClearAll();
 	pev->health = 50;
 	pev->yaw_speed = 8;
@@ -555,7 +555,7 @@ void CTestHull::BuildNodeGraph()
 //=========================================================
 void CTestHull::ShowBadNode()
 {
-	pev->movetype = MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	pev->angles.y = pev->angles.y + 4;
 
 	UTIL_MakeVectors( pev->angles );

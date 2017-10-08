@@ -35,7 +35,7 @@ LINK_ENTITY_TO_CLASS( bmortar, CBMortar );
 // UNDONE: right now this is pretty much a copy of the squid spit with minor changes to the way it does damage
 void CBMortar::Spawn( void )
 {
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 
 	SetSolidType( SOLID_BBOX );
 	pev->rendermode = kRenderTransAlpha;

@@ -14,7 +14,7 @@ END_DATADESC()
 
 void CItem::Spawn( void )
 {
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 	SetSolidType( SOLID_TRIGGER );
 	SetAbsOrigin( GetAbsOrigin() );
 	SetSize( Vector( -16, -16, 0 ), Vector( 16, 16, 16 ) );

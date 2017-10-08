@@ -56,7 +56,7 @@ void CSpeaker::Spawn( void )
 		return;
 	}
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 
 
 	SetThink( &CSpeaker::SpeakerThink );

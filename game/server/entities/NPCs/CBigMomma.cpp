@@ -387,7 +387,7 @@ void CBigMomma :: Spawn()
 	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	pev->health			= 150 * gSkillData.GetBigMommaHealthFactor();
 	SetViewOffset( Vector ( 0, 0, 128 ) );// position of the eyes relative to monster's origin.

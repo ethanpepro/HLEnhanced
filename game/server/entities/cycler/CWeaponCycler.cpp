@@ -31,7 +31,7 @@ CWeaponCycler::CWeaponCycler()
 void CWeaponCycler::Spawn()
 {
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 
 	PRECACHE_MODEL( GetModelName() );
 	SetModel( GetModelName() );

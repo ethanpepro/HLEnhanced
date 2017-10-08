@@ -25,7 +25,7 @@ CLaserSpot *CLaserSpot::CreateSpot()
 void CLaserSpot::Spawn()
 {
 	Precache();
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_NOT );
 
 	pev->rendermode = kRenderGlow;

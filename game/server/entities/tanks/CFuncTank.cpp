@@ -51,7 +51,7 @@ void CFuncTank::Spawn( void )
 {
 	Precache();
 
-	pev->movetype = MOVETYPE_PUSH;  // so it doesn't get pushed by anything
+	SetMoveType( MOVETYPE_PUSH );  // so it doesn't get pushed by anything
 	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
 

@@ -32,7 +32,7 @@ void CControllerHeadBall::Spawn( void )
 {
 	Precache();
 	// motor
-	pev->movetype = MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	SetSolidType( SOLID_BBOX );
 
 	SetModel( "sprites/xspark4.spr" );

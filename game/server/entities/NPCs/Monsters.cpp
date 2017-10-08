@@ -111,7 +111,7 @@ void CBaseMonster :: BarnacleVictimReleased ( void )
 	m_IdealMonsterState = MONSTERSTATE_IDLE;
 
 	SetAbsVelocity( g_vecZero );
-	pev->movetype = MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 }
 
 //=========================================================
@@ -1581,7 +1581,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 
 	vecLeft = GetAbsOrigin() + ( vecForward * ( flDist + sizeX ) ) - vecDir * ( sizeX * 3 );
 	vecRight = GetAbsOrigin() + ( vecForward * ( flDist + sizeX ) ) + vecDir * ( sizeX * 3 );
-	if (pev->movetype == MOVETYPE_FLY)
+	if ( GetMoveType() == MOVETYPE_FLY)
 	{
 		vecTop = GetAbsOrigin() + (vecForward * flDist) + (vecDirUp * sizeZ * 3);
 		vecBottom = GetAbsOrigin() + (vecForward * flDist) - (vecDirUp *  sizeZ * 3);
@@ -1590,7 +1590,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 	vecFarSide = m_Route[ m_iRouteIndex ].vecLocation;
 	
 	vecDir = vecDir * sizeX * 2;
-	if (pev->movetype == MOVETYPE_FLY)
+	if ( GetMoveType() == MOVETYPE_FLY)
 		vecDirUp = vecDirUp * sizeZ * 2;
 
 	for ( i = 0 ; i < 8; i++ )
@@ -1619,7 +1619,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 #endif
 
 #if 0
-		if (pev->movetype == MOVETYPE_FLY)
+		if ( GetMoveType() == MOVETYPE_FLY)
 		{
 			MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 				WRITE_BYTE( TE_SHOWLINE );
@@ -1668,7 +1668,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 			}
 		}
 
-		if (pev->movetype == MOVETYPE_FLY)
+		if ( GetMoveType() == MOVETYPE_FLY)
 		{
 			if ( CheckLocalMove( GetAbsOrigin(), vecTop, pTargetEnt, NULL ) == LOCALMOVE_VALID)
 			{
@@ -1702,7 +1702,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 
 		vecRight = vecRight + vecDir;
 		vecLeft = vecLeft - vecDir;
-		if (pev->movetype == MOVETYPE_FLY)
+		if ( GetMoveType() == MOVETYPE_FLY)
 		{
 			vecTop = vecTop + vecDirUp;
 			vecBottom = vecBottom - vecDirUp;
@@ -2005,7 +2005,7 @@ void CBaseMonster :: StartMonster ( void )
 	}
 
 	// Raise monster off the floor one unit, then drop to floor
-	if ( pev->movetype != MOVETYPE_FLY && !FBitSet( pev->spawnflags, SF_MONSTER_FALL_TO_GROUND ) )
+	if ( GetMoveType() != MOVETYPE_FLY && !FBitSet( pev->spawnflags, SF_MONSTER_FALL_TO_GROUND ) )
 	{
 		Vector vecOrigin = GetAbsOrigin();
 		vecOrigin.z += 1;
@@ -2051,7 +2051,7 @@ void CBaseMonster :: StartMonster ( void )
 			// JAYJAY
 			m_movementGoal = MOVEGOAL_PATHCORNER;
 			
-			if ( pev->movetype == MOVETYPE_FLY )
+			if ( GetMoveType() == MOVETYPE_FLY )
 				m_movementActivity = ACT_FLY;
 			else
 				m_movementActivity = ACT_WALK;
@@ -3178,7 +3178,7 @@ void CBaseMonster :: MonsterInitDead( void )
 	InitBoneControllers();
 
 	SetSolidType( SOLID_BBOX );
-	pev->movetype		= MOVETYPE_TOSS;// so he'll fall to ground
+	SetMoveType( MOVETYPE_TOSS );// so he'll fall to ground
 
 	pev->frame = 0;
 	ResetSequenceInfo( );

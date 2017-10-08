@@ -15,7 +15,7 @@ void CItemSoda::Spawn( void )
 {
 	Precache();
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 
 	SetModel( "models/can.mdl" );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
@@ -56,7 +56,7 @@ void CItemSoda::CanTouch( CBaseEntity *pOther )
 	}
 
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	GetEffects() = EF_NODRAW;
 	SetTouch( NULL );
 	SetThink( &CItemSoda::SUB_Remove );

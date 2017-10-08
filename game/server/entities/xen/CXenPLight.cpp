@@ -30,7 +30,7 @@ void CXenPLight::Spawn( void )
 	Precache();
 
 	SetModel( "models/light.mdl" );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_TRIGGER );
 
 	SetSize( Vector( -80, -80, 0 ), Vector( 80, 80, 32 ) );

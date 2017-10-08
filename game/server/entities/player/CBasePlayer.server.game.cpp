@@ -249,7 +249,7 @@ void CBasePlayer::DeathSound()
 
 bool CBasePlayer::IsOnLadder() const
 {
-	return ( pev->movetype == MOVETYPE_FLY );
+	return ( GetMoveType() == MOVETYPE_FLY );
 }
 
 bool CBasePlayer::FlashlightIsOn() const

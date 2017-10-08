@@ -66,7 +66,7 @@ bool CFlyingMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd
 
 Activity CFlyingMonster :: GetStoppedActivity( void )
 { 
-	if ( pev->movetype != MOVETYPE_FLY )		// UNDONE: Ground idle here, IDLE may be something else
+	if ( GetMoveType() != MOVETYPE_FLY )		// UNDONE: Ground idle here, IDLE may be something else
 		return ACT_IDLE;
 
 	return ACT_HOVER; 
@@ -89,7 +89,7 @@ void CFlyingMonster :: Stop( void )
 
 float CFlyingMonster :: ChangeYaw( int speed )
 {
-	if ( pev->movetype == MOVETYPE_FLY )
+	if ( GetMoveType() == MOVETYPE_FLY )
 	{
 		float diff = FlYawDiff();
 		float target = 0;
@@ -109,7 +109,7 @@ float CFlyingMonster :: ChangeYaw( int speed )
 
 void CFlyingMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
-	pev->movetype = MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	ClearBits( pev->flags, FL_ONGROUND );
 	pev->angles.z = 0;
 	pev->angles.x = 0;
@@ -139,7 +139,7 @@ void CFlyingMonster :: HandleAnimEvent( AnimEvent_t& event )
 
 void CFlyingMonster :: Move( float flInterval )
 {
-	if ( pev->movetype == MOVETYPE_FLY )
+	if ( GetMoveType() == MOVETYPE_FLY )
 		m_flGroundSpeed = m_flightSpeed;
 	CBaseMonster::Move( flInterval );
 }
@@ -160,7 +160,7 @@ bool CFlyingMonster::ShouldAdvanceRoute( float flWaypointDist )
 
 void CFlyingMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, float flInterval )
 {
-	if ( pev->movetype == MOVETYPE_FLY )
+	if ( GetMoveType() == MOVETYPE_FLY )
 	{
 		if ( gpGlobals->time - m_stopTime > 1.0 )
 		{

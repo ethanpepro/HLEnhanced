@@ -244,7 +244,7 @@ void CBaseTrigger::InitTrigger()
 	if( pev->angles != g_vecZero )
 		SetMovedir( this );
 	SetSolidType( SOLID_TRIGGER );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	SetModel( GetModelName() );    // set size and link into world
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )
 		GetEffects() |= EF_NODRAW;

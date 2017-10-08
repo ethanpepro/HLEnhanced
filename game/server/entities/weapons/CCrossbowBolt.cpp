@@ -40,7 +40,7 @@ CCrossbowBolt *CCrossbowBolt::BoltCreate()
 void CCrossbowBolt::Spawn()
 {
 	Precache();
-	pev->movetype = MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	SetSolidType( SOLID_BBOX );
 
 	pev->gravity = 0.5;
@@ -127,7 +127,7 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			SetAbsOrigin( GetAbsOrigin() - vecDir * 12 );
 			pev->angles = UTIL_VecToAngles( vecDir );
 			SetSolidType( SOLID_NOT );
-			pev->movetype = MOVETYPE_FLY;
+			SetMoveType( MOVETYPE_FLY );
 			SetAbsVelocity( Vector( 0, 0, 0 ) );
 			pev->avelocity.z = 0;
 			pev->angles.z = RANDOM_LONG( 0, 360 );

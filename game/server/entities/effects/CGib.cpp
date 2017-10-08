@@ -34,7 +34,7 @@ CGib* CGib::GibCreate( const char* szGibModel )
 //
 void CGib::Spawn( const char *szGibModel )
 {
-	pev->movetype = MOVETYPE_BOUNCE;
+	SetMoveType( MOVETYPE_BOUNCE );
 	pev->friction = 0.55; // deading the bounce a bit
 
 						  // sometimes an entity inherits the edict from a former piece of glass,
@@ -123,7 +123,7 @@ void CGib::StickyGibTouch( CBaseEntity *pOther )
 	pev->angles = UTIL_VecToAngles( tr.vecPlaneNormal * -1 );
 	SetAbsVelocity( g_vecZero );
 	pev->avelocity = g_vecZero;
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 }
 
 //=========================================================
@@ -368,7 +368,7 @@ void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 
 			pGib->SetAbsVelocity( vecVelocity );
 
-			pGib->pev->movetype = MOVETYPE_TOSS;
+			pGib->SetMoveType( MOVETYPE_TOSS );
 			pGib->SetSolidType( SOLID_BBOX );
 			pGib->SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 			pGib->SetTouch( &CGib::StickyGibTouch );

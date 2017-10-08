@@ -345,7 +345,7 @@ void CBarney :: Spawn()
 	SetSize( VEC_HUMAN_HULL_MIN, VEC_HUMAN_HULL_MAX );
 
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_STEP;
+	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_RED;
 	pev->health			= gSkillData.GetBarneyHealth();
 	SetViewOffset( Vector ( 0, 0, 50 ) );// position of the eyes relative to monster's origin.

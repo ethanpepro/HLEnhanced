@@ -539,8 +539,8 @@ void CBasePlayer::PlayerDeathThink()
 
 	// once we're done animating our death and we're on the ground, we want to set movetype to None so our dead body won't do collisions and stuff anymore
 	// this prevents a bug where the dead body would go to a player's head if he walked over it while the dead player was clicking their button to respawn
-	if( pev->movetype != MOVETYPE_NONE && FBitSet( pev->flags, FL_ONGROUND ) )
-		pev->movetype = MOVETYPE_NONE;
+	if( GetMoveType() != MOVETYPE_NONE && FBitSet( pev->flags, FL_ONGROUND ) )
+		SetMoveType( MOVETYPE_NONE );
 
 	if( GetDeadFlag() == DEAD_DYING )
 		SetDeadFlag( DEAD_DEAD );
@@ -712,7 +712,7 @@ WaterMove
 */
 void CBasePlayer::WaterMove()
 {
-	if( pev->movetype == MOVETYPE_NOCLIP )
+	if( GetMoveType() == MOVETYPE_NOCLIP )
 		return;
 
 	if( pev->health < 0 )

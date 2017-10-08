@@ -116,7 +116,7 @@ void CBaseDoor::Spawn()
 		SetBits( pev->spawnflags, SF_DOOR_SILENT );	// water is silent for now
 	}
 
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( GetModelName() );
 

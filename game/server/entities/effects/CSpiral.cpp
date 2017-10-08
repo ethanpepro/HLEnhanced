@@ -24,7 +24,7 @@ LINK_ENTITY_TO_CLASS( streak_spiral, CSpiral );
 
 void CSpiral::Spawn( void )
 {
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 	pev->nextthink = gpGlobals->time;
 	SetSolidType( SOLID_NOT );
 	SetSize( g_vecZero, g_vecZero );

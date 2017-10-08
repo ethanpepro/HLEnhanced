@@ -393,7 +393,7 @@ void CIchthyosaur :: Spawn()
 	SetSize( Vector( -32, -32, -32 ), Vector( 32, 32, 32 ) );
 
 	SetSolidType( SOLID_BBOX );
-	pev->movetype		= MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	pev->health			= gSkillData.GetIchthyosaurHealth();
 	SetViewOffset( Vector ( 0, 0, 16 ) );
@@ -716,7 +716,7 @@ float CIchthyosaur::FlPitchDiff( void )
 
 float CIchthyosaur :: ChangePitch( int speed )
 {
-	if ( pev->movetype == MOVETYPE_FLY )
+	if ( GetMoveType() == MOVETYPE_FLY )
 	{
 		float diff = FlPitchDiff();
 		float target = 0;
@@ -734,7 +734,7 @@ float CIchthyosaur :: ChangePitch( int speed )
 
 float CIchthyosaur::ChangeYaw( int speed )
 {
-	if ( pev->movetype == MOVETYPE_FLY )
+	if ( GetMoveType() == MOVETYPE_FLY )
 	{
 		float diff = FlYawDiff();
 		float target = 0;
@@ -754,7 +754,7 @@ float CIchthyosaur::ChangeYaw( int speed )
 
 Activity CIchthyosaur:: GetStoppedActivity( void )
 { 
-	if ( pev->movetype != MOVETYPE_FLY )		// UNDONE: Ground idle here, IDLE may be something else
+	if ( GetMoveType() != MOVETYPE_FLY )		// UNDONE: Ground idle here, IDLE may be something else
 		return ACT_IDLE;
 	return ACT_WALK;
 }

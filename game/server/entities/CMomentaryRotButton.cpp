@@ -58,7 +58,7 @@ void CMomentaryRotButton::Spawn( void )
 	else
 		SetSolidType( SOLID_NOT );
 
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( GetModelName() );
 

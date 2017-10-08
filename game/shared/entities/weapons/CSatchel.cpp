@@ -61,7 +61,7 @@ void CSatchelCharge :: Spawn( void )
 {
 	Precache( );
 	// motor
-	pev->movetype = MOVETYPE_BOUNCE;
+	SetMoveType( MOVETYPE_BOUNCE );
 	SetSolidType( SOLID_BBOX );
 
 	SetModel( "models/w_satchel.mdl");
@@ -124,7 +124,7 @@ void CSatchelCharge :: SatchelThink( void )
 
 	if ( GetWaterLevel() == WATERLEVEL_HEAD )
 	{
-		pev->movetype = MOVETYPE_FLY;
+		SetMoveType( MOVETYPE_FLY );
 		Vector vecVelocity = GetAbsVelocity() * 0.8;
 		pev->avelocity = pev->avelocity * 0.9;
 		vecVelocity.z += 8;
@@ -132,7 +132,7 @@ void CSatchelCharge :: SatchelThink( void )
 	}
 	else if ( GetWaterLevel() == WATERLEVEL_DRY)
 	{
-		pev->movetype = MOVETYPE_BOUNCE;
+		SetMoveType( MOVETYPE_BOUNCE );
 	}
 	else
 	{

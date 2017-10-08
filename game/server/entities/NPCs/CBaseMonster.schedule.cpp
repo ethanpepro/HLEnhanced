@@ -1141,7 +1141,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 		}
 	case TASK_WALK_PATH:
 		{
-			if ( pev->movetype == MOVETYPE_FLY )
+			if ( GetMoveType() == MOVETYPE_FLY )
 			{
 				m_movementActivity = ACT_FLY;
 			}
@@ -1265,7 +1265,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 		}
 	case TASK_PLAY_SCRIPT:
 		{
-			pev->movetype = MOVETYPE_FLY;
+			SetMoveType( MOVETYPE_FLY );
 			ClearBits(pev->flags, FL_ONGROUND);
 			m_scriptState = SCRIPT_PLAYING;
 			break;

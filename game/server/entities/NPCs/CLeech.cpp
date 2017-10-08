@@ -92,7 +92,7 @@ void CLeech::Spawn( void )
 	SetSize( Vector(-1,-1,0), Vector(1,1,2));
 	// Don't push the minz down too much or the water check will fail because this entity is really point-sized
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->movetype		= MOVETYPE_FLY;
+	SetMoveType( MOVETYPE_FLY );
 	SetBits(pev->flags, FL_SWIM);
 	pev->health			= gSkillData.GetLeechHealth();
 
@@ -394,7 +394,7 @@ void CLeech::UpdateMotion( void )
 	// Out of water check
 	if ( !GetWaterLevel() )
 	{
-		pev->movetype = MOVETYPE_TOSS;
+		SetMoveType( MOVETYPE_TOSS );
 		m_IdealActivity = ACT_TWITCH;
 		SetAbsVelocity( g_vecZero );
 
@@ -405,9 +405,9 @@ void CLeech::UpdateMotion( void )
 		if ( pev->framerate < 1.0 )
 			pev->framerate = 1.0;
 	}
-	else if ( pev->movetype == MOVETYPE_TOSS )
+	else if ( GetMoveType() == MOVETYPE_TOSS )
 	{
-		pev->movetype = MOVETYPE_FLY;
+		SetMoveType( MOVETYPE_FLY );
 		pev->flags &= ~FL_ONGROUND;
 		RecalculateWaterlevel();
 		m_waterTime = gpGlobals->time + 2;	// Recalc again soon, water may be rising
@@ -604,7 +604,7 @@ void CLeech::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	else
 		SetActivity( ACT_DIEFORWARD );
 	
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 	SetTakeDamageMode( DAMAGE_NO );
 	SetThink( &CLeech::DeadThink );
 }

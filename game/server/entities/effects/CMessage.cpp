@@ -11,7 +11,7 @@ void CMessage::Spawn( void )
 	Precache();
 
 	SetSolidType( SOLID_NOT );
-	pev->movetype = MOVETYPE_NONE;
+	SetMoveType( MOVETYPE_NONE );
 
 	switch( pev->impulse )
 	{

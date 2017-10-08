@@ -60,7 +60,7 @@ void CBaseButton::Spawn()
 
 	SetMovedir( this );
 
-	pev->movetype = MOVETYPE_PUSH;
+	SetMoveType( MOVETYPE_PUSH );
 	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
 

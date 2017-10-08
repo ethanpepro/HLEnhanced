@@ -30,7 +30,7 @@ LINK_ENTITY_TO_CLASS( trigger_camera, CTriggerCamera );
 
 void CTriggerCamera::Spawn( void )
 {
-	pev->movetype = MOVETYPE_NOCLIP;
+	SetMoveType( MOVETYPE_NOCLIP );
 	SetSolidType( SOLID_NOT );							// Remove model & collisions
 	pev->renderamt = 0;								// The engine won't draw this model if this is set to 0 and blending is on
 	pev->rendermode = kRenderTransTexture;

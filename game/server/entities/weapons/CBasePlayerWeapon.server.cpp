@@ -172,7 +172,7 @@ CBaseEntity* CBasePlayerWeapon::Respawn( void )
 //=========================================================
 void CBasePlayerWeapon::FallInit( void )
 {
-	pev->movetype = MOVETYPE_TOSS;
+	SetMoveType( MOVETYPE_TOSS );
 	SetSolidType( SOLID_BBOX );
 
 	SetAbsOrigin( GetAbsOrigin() );
@@ -334,7 +334,7 @@ void CBasePlayerWeapon::Kill( void )
 
 void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
 {
-	pev->movetype = MOVETYPE_FOLLOW;
+	SetMoveType( MOVETYPE_FOLLOW );
 	SetSolidType( SOLID_NOT );
 	pev->aiment = pPlayer->edict();
 	GetEffects() = EF_NODRAW; // ??

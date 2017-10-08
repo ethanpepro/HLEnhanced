@@ -82,12 +82,12 @@ void CFuncRotating::Spawn()
 	{
 		SetSolidType( SOLID_NOT );
 		pev->skin = CONTENTS_EMPTY;
-		pev->movetype = MOVETYPE_PUSH;
+		SetMoveType( MOVETYPE_PUSH );
 	}
 	else
 	{
 		SetSolidType( SOLID_BSP );
-		pev->movetype = MOVETYPE_PUSH;
+		SetMoveType( MOVETYPE_PUSH );
 	}
 
 	SetAbsOrigin( GetAbsOrigin() );
