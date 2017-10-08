@@ -233,11 +233,11 @@ void CTriggerCamera::Move()
 	if( m_moveDistance <= 0 )
 	{
 		// Fire the passtarget if there is one
-		if( m_pentPath->pev->message )
+		if( m_pentPath->HasMessage() )
 		{
-			FireTargets( STRING( m_pentPath->pev->message ), this, this, USE_TOGGLE, 0 );
+			FireTargets( m_pentPath->GetMessage(), this, this, USE_TOGGLE, 0 );
 			if( FBitSet( m_pentPath->pev->spawnflags, SF_CORNER_FIREONCE ) )
-				m_pentPath->pev->message = 0;
+				m_pentPath->ClearMessage();
 		}
 		// Time to go to the next target
 		m_pentPath = m_pentPath->GetNextTarget();

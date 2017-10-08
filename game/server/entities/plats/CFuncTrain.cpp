@@ -114,7 +114,7 @@ void CFuncTrain::OverrideReset( void )
 	// Are we moving?
 	if( GetAbsVelocity() != g_vecZero && pev->nextthink != 0 )
 	{
-		pev->target = pev->message;
+		pev->target = MAKE_STRING( GetMessage() );
 		// now find our next target
 		pTarg = GetNextTarget();
 		if( !pTarg )
@@ -236,7 +236,7 @@ void CFuncTrain::Next( void )
 	}
 
 	// Save last target in case we need to find it again
-	pev->message = pev->target;
+	SetMessage( pev->target );
 
 	pev->target = pTarg->pev->target;
 	m_flWait = pTarg->GetDelay();

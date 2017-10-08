@@ -50,7 +50,7 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 	CBaseEntity *pPlayer = NULL;
 
 	if( pev->spawnflags & SF_MESSAGE_ALL )
-		UTIL_ShowMessageAll( STRING( pev->message ) );
+		UTIL_ShowMessageAll( GetMessage() );
 	else
 	{
 		if( pActivator && pActivator->IsPlayer() )
@@ -60,7 +60,7 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 			pPlayer = CBaseEntity::Instance( g_engfuncs.pfnPEntityOfEntIndex( 1 ) );
 		}
 		if( pPlayer )
-			UTIL_ShowMessage( STRING( pev->message ), pPlayer );
+			UTIL_ShowMessage( GetMessage(), pPlayer );
 	}
 	if( pev->noise )
 	{

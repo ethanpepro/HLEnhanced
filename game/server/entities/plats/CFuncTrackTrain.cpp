@@ -280,11 +280,11 @@ void CFuncTrackTrain::Next( void )
 
 			m_ppath = pnext;
 			// Fire the pass target if there is one
-			if( pFire->pev->message )
+			if( pFire->HasMessage() )
 			{
-				FireTargets( STRING( pFire->pev->message ), this, this, USE_TOGGLE, 0 );
+				FireTargets( pFire->GetMessage(), this, this, USE_TOGGLE, 0 );
 				if( FBitSet( pFire->pev->spawnflags, SF_PATH_FIREONCE ) )
-					pFire->pev->message = 0;
+					pFire->ClearMessage();
 			}
 
 			if( pFire->pev->spawnflags & SF_PATH_DISABLE_TRAIN )

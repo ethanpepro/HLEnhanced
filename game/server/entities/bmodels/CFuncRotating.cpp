@@ -119,11 +119,11 @@ void CFuncRotating::Spawn()
 
 void CFuncRotating::Precache( void )
 {
-	char* szSoundFile = ( char* ) STRING( pev->message );
+	const char* szSoundFile = GetMessage();
 
 	// set up fan sounds
 
-	if( !FStringNull( pev->message ) && strlen( szSoundFile ) > 0 )
+	if( HasMessage() && strlen( szSoundFile ) > 0 )
 	{
 		// if a path is set for a wave, use it
 
@@ -159,7 +159,7 @@ void CFuncRotating::Precache( void )
 
 		case 0:
 		default:
-			if( !FStringNull( pev->message ) && strlen( szSoundFile ) > 0 )
+			if( HasMessage() && strlen( szSoundFile ) > 0 )
 			{
 				PRECACHE_SOUND( szSoundFile );
 

@@ -46,9 +46,9 @@ void CSpeaker::KeyValue( KeyValueData *pkvd )
 
 void CSpeaker::Spawn( void )
 {
-	char* szSoundFile = ( char* ) STRING( pev->message );
+	const char* szSoundFile = GetMessage();
 
-	if( !m_preset && ( FStringNull( pev->message ) || strlen( szSoundFile ) < 1 ) )
+	if( !m_preset && ( !HasMessage() || strlen( szSoundFile ) < 1 ) )
 	{
 		ALERT( at_error, "SPEAKER with no Level/Sentence! at: %f, %f, %f\n", GetAbsOrigin().x, GetAbsOrigin().y, GetAbsOrigin().z );
 		pev->nextthink = gpGlobals->time + 0.1;
@@ -160,7 +160,7 @@ void CSpeaker::SpeakerThink( void )
 		}
 	}
 	else
-		szSoundFile = ( char* ) STRING( pev->message );
+		szSoundFile = GetMessage();
 
 	if( szSoundFile[ 0 ] == '!' )
 	{

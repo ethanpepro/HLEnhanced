@@ -29,7 +29,7 @@ void CFuncTankLaser::KeyValue( KeyValueData *pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "laserentity" ) )
 	{
-		pev->message = ALLOC_STRING( pkvd->szValue );
+		SetMessage( ALLOC_STRING( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else
@@ -84,7 +84,7 @@ CLaser *CFuncTankLaser::GetLaser( void )
 
 	CBaseEntity* pLaser = nullptr;
 
-	while( ( pLaser = UTIL_FindEntityByTargetname( pLaser, STRING( pev->message ) ) ) != nullptr )
+	while( ( pLaser = UTIL_FindEntityByTargetname( pLaser, GetMessage() ) ) != nullptr )
 	{
 		// Found the landmark
 		if( pLaser->ClassnameIs( "env_laser" ) )

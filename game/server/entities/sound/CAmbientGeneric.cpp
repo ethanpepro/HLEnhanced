@@ -261,9 +261,9 @@ void CAmbientGeneric::Spawn( void )
 		m_flAttenuation = ATTN_STATIC;
 	}
 
-	char* szSoundFile = ( char* ) STRING( pev->message );
+	const char* szSoundFile = GetMessage();
 
-	if( FStringNull( pev->message ) || strlen( szSoundFile ) < 1 )
+	if( !HasMessage() || strlen( szSoundFile ) < 1 )
 	{
 		ALERT( at_error, "EMPTY AMBIENT AT: %f, %f, %f\n", GetAbsOrigin().x, GetAbsOrigin().y, GetAbsOrigin().z );
 		pev->nextthink = gpGlobals->time + 0.1;
@@ -295,9 +295,9 @@ void CAmbientGeneric::Spawn( void )
 
 void CAmbientGeneric::Precache( void )
 {
-	char* szSoundFile = ( char* ) STRING( pev->message );
+	const char* szSoundFile = GetMessage();
 
-	if( !FStringNull( pev->message ) && strlen( szSoundFile ) > 1 )
+	if( HasMessage() && strlen( szSoundFile ) > 1 )
 	{
 		if( *szSoundFile != '!' )
 			PRECACHE_SOUND( szSoundFile );
@@ -328,7 +328,7 @@ void CAmbientGeneric::Precache( void )
 //
 void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	char* szSoundFile = ( char* ) STRING( pev->message );
+	const char* szSoundFile = GetMessage();
 	float fraction;
 
 	if( useType != USE_TOGGLE )
@@ -443,7 +443,7 @@ void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 
 void CAmbientGeneric::RampThink( void )
 {
-	char* szSoundFile = ( char* ) STRING( pev->message );
+	const char* szSoundFile = GetMessage();
 	int pitch = m_dpv.pitch;
 	int vol = m_dpv.vol;
 	int flags = 0;

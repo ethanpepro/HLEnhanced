@@ -32,7 +32,7 @@ public:
 	// next in pev->target
 	// radius in pev->scale
 	// health in GetHealth()
-	// Reach target in pev->message
+	// Reach target in GetMessage()
 	// Reach delay in pev->speed
 	// Reach sequence in pev->netname
 

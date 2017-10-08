@@ -33,8 +33,8 @@ public:
 	void	KeyValue( KeyValueData *pkvd ) override;
 
 	inline	bool	MessageToAll() const { return ( pev->spawnflags & SF_ENVTEXT_ALLPLAYERS ) != 0; }
-	inline	void	MessageSet( const char *pMessage ) { pev->message = ALLOC_STRING( pMessage ); }
-	inline	const char *MessageGet() const { return STRING( pev->message ); }
+	inline	void	MessageSet( const char *pMessage ) { SetMessage( ALLOC_STRING( pMessage ) ); }
+	inline	const char *MessageGet() const { return GetMessage(); }
 
 private:
 

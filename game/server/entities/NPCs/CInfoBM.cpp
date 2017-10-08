@@ -42,7 +42,7 @@ void CInfoBM::KeyValue( KeyValueData* pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "reachtarget" ) )
 	{
-		pev->message = ALLOC_STRING( pkvd->szValue );
+		SetMessage( ALLOC_STRING( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "reachsequence" ) )

@@ -56,7 +56,7 @@ void CLaser::KeyValue( KeyValueData *pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "LaserTarget" ) )
 	{
-		pev->message = ALLOC_STRING( pkvd->szValue );
+		SetMessage( ALLOC_STRING( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "width" ) )
@@ -134,7 +134,7 @@ void CLaser::FireAtPoint( TraceResult &tr )
 
 void CLaser::StrikeThink( void )
 {
-	CBaseEntity *pEnd = UTIL_RandomTargetname( STRING( pev->message ) );
+	CBaseEntity *pEnd = UTIL_RandomTargetname( GetMessage() );
 
 	if( pEnd )
 		m_firePosition = pEnd->GetAbsOrigin();

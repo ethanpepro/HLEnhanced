@@ -23,7 +23,7 @@ void CRevertSaved::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 
 void CRevertSaved::MessageThink( void )
 {
-	UTIL_ShowMessageAll( STRING( pev->message ) );
+	UTIL_ShowMessageAll( GetMessage() );
 	float nextThink = LoadTime() - MessageTime();
 	if( nextThink > 0 )
 	{
