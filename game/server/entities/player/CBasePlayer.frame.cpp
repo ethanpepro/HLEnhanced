@@ -52,7 +52,7 @@ GLOBALS ASSUMED SET:  g_ulModelIndexPlayer
 */
 static void CheckPowerups( CBaseEntity* pEntity )
 {
-	if( pEntity->pev->health <= 0 )
+	if( pEntity->GetHealth() <= 0 )
 		return;
 
 	pEntity->SetModelIndex( g_ulModelIndexPlayer );    // don't use eyes
@@ -376,7 +376,7 @@ void CBasePlayer::PostThink()
 	// of maximum safe distance will make no sound. Falling farther than max safe distance will play a 
 	// fallpain sound, and damage will be inflicted based on how far the player fell
 
-	if( ( FBitSet( pev->flags, FL_ONGROUND ) ) && ( pev->health > 0 ) && m_flFallVelocity >= PLAYER_FALL_PUNCH_THRESHHOLD )
+	if( ( FBitSet( pev->flags, FL_ONGROUND ) ) && ( GetHealth() > 0 ) && m_flFallVelocity >= PLAYER_FALL_PUNCH_THRESHHOLD )
 	{
 		// ALERT ( at_console, "%f\n", m_flFallVelocity );
 
@@ -395,7 +395,7 @@ void CBasePlayer::PostThink()
 
 			float flFallDamage = g_pGameRules->FlPlayerFallDamage( this );
 
-			if( flFallDamage > pev->health )
+			if( flFallDamage > GetHealth() )
 			{//splat
 			 // note: play on item channel because we play footstep landing on body channel
 				EMIT_SOUND( this, CHAN_ITEM, "common/bodysplat.wav", 1, ATTN_NORM );
@@ -715,7 +715,7 @@ void CBasePlayer::WaterMove()
 	if( GetMoveType() == MOVETYPE_NOCLIP )
 		return;
 
-	if( pev->health < 0 )
+	if( GetHealth() < 0 )
 		return;
 
 	if( GetWaterLevel() != WATERLEVEL_HEAD )

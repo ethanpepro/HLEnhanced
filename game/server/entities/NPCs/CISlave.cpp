@@ -455,7 +455,7 @@ void CISlave :: Spawn()
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	GetEffects().ClearAll();
-	pev->health			= gSkillData.GetSlaveHealth();
+	SetHealth( gSkillData.GetSlaveHealth() );
 	SetViewOffset( Vector ( 0, 0, 64 ) );// position of the eyes relative to monster's origin.
 	m_flFieldOfView		= VIEW_FIELD_WIDE; // NOTE: we need a wide field of view so npc will notice player and say hello
 	m_MonsterState		= MONSTERSTATE_NONE;
@@ -599,7 +599,7 @@ Schedule_t *CISlave :: GetSchedule( void )
 			return CBaseMonster :: GetSchedule();
 		}
 
-		if (pev->health < 20 || m_iBravery < 0)
+		if ( GetHealth() < 20 || m_iBravery < 0)
 		{
 			if (!HasConditions( bits_COND_CAN_MELEE_ATTACK1 ))
 			{

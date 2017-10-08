@@ -126,7 +126,7 @@ void CNihilanth :: Spawn( void )
 
 	pev->flags			|= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
-	pev->health			= gSkillData.GetNihilanthHealth();
+	SetHealth( gSkillData.GetNihilanthHealth() );
 	SetViewOffset( Vector( 0, 0, 300 ) );
 
 	m_flFieldOfView = -1; // 360 degrees
@@ -157,7 +157,7 @@ void CNihilanth :: Spawn( void )
 	m_iTeleport = 10;
 	m_iLevel = 10;
 	m_irritation = 2;
-	pev->health = 100;
+	SetHealth( 100 );
 	*/
 }
 
@@ -207,7 +207,7 @@ void CNihilanth :: PainSound( void )
 	
 	m_flNextPainSound = gpGlobals->time + RANDOM_FLOAT( 2, 5 );
 
-	if (pev->health > gSkillData.GetNihilanthHealth() / 2)
+	if ( GetHealth() > gSkillData.GetNihilanthHealth() / 2)
 	{
 		EMIT_SOUND( this, CHAN_VOICE, RANDOM_SOUND_ARRAY( pLaughSounds ), 1.0, 0.2 );
 	}
@@ -565,7 +565,7 @@ void CNihilanth :: NextActivity( )
 		}
 	}
 
-	if ((pev->health < gSkillData.GetNihilanthHealth() / 2 || m_iActiveSpheres < N_SPHERES / 2) && m_hRecharger == NULL && m_iLevel <= 9)
+	if (( GetHealth() < gSkillData.GetNihilanthHealth() / 2 || m_iActiveSpheres < N_SPHERES / 2) && m_hRecharger == NULL && m_iLevel <= 9)
 	{
 		char szName[64];
 
@@ -651,7 +651,7 @@ void CNihilanth :: NextActivity( )
 	{
 		if (m_flLastSeen + 5 > gpGlobals->time && flDist < 256 && flDot > 0)
 		{
-			if (m_irritation >= 2 && pev->health < gSkillData.GetNihilanthHealth() / 2.0)
+			if (m_irritation >= 2 && GetHealth() < gSkillData.GetNihilanthHealth() / 2.0)
 			{
 				pev->sequence = LookupSequence( "attack1_open" );
 			}
@@ -698,19 +698,19 @@ void CNihilanth :: HuntThink( void )
 	ShootBalls( );
 
 	// if dead, force cancelation of current animation
-	if (pev->health <= 0)
+	if ( GetHealth() <= 0)
 	{
 		SetThink( &CNihilanth::DyingThink );
 		m_fSequenceFinished = true;
 		return;
 	}
 
-	// ALERT( at_console, "health %.0f\n", pev->health );
+	// ALERT( at_console, "health %.0f\n", GetHealth() );
 
 	// if damaged, try to abosorb some spheres
-	if (pev->health < gSkillData.GetNihilanthHealth() && AbsorbSphere( ))
+	if ( GetHealth() < gSkillData.GetNihilanthHealth() && AbsorbSphere( ))
 	{
-		pev->health += gSkillData.GetNihilanthHealth() / N_SPHERES;
+		SetHealth( GetHealth() + ( gSkillData.GetNihilanthHealth() / N_SPHERES ) );
 	}
 
 	// get new sequence
@@ -720,7 +720,7 @@ void CNihilanth :: HuntThink( void )
 		pev->frame = 0;
 		NextActivity( );
 		ResetSequenceInfo( );
-		pev->framerate = 2.0 - 1.0 * (pev->health / gSkillData.GetNihilanthHealth() );
+		pev->framerate = 2.0 - 1.0 * ( GetHealth() / gSkillData.GetNihilanthHealth() );
 	}
 
 	// look for current enemy	
@@ -1088,16 +1088,16 @@ void CNihilanth::OnTakeDamage( const CTakeDamageInfo& info )
 	if ( info.GetInflictor()->pev->owner == edict() )
 		return;
 
-	if (info.GetDamage() >= pev->health)
+	if (info.GetDamage() >= GetHealth() )
 	{
-		pev->health = 1;
+		SetHealth( 1 );
 		if (m_irritation != 3)
 			return;
 	}
 	
 	PainSound( );
 
-	pev->health -= info.GetDamage();
+	SetHealth( GetHealth() - info.GetDamage() );
 }
 
 
@@ -1114,7 +1114,7 @@ void CNihilanth::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceR
 	{
 		Vector vecBlood = (ptr->vecEndPos - GetAbsOrigin()).Normalize( );
 
-		UTIL_BloodStream( ptr->vecEndPos, vecBlood, BloodColor(), info.GetDamage() + (100 - 100 * (pev->health / gSkillData.GetNihilanthHealth() )));
+		UTIL_BloodStream( ptr->vecEndPos, vecBlood, BloodColor(), info.GetDamage() + (100 - 100 * ( GetHealth() / gSkillData.GetNihilanthHealth() )));
 	}
 
 	// SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage * 5.0);// a little surface blood.

@@ -64,7 +64,7 @@ void CApache :: Spawn( void )
 
 	pev->flags |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
-	pev->health			= gSkillData.GetApacheHealth();
+	SetHealth( gSkillData.GetApacheHealth() );
 
 	m_flFieldOfView = -0.707; // 270 degrees
 
@@ -140,7 +140,7 @@ void CApache::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetThink( &CApache::DyingThink );
 	SetTouch( &CApache::CrashTouch );
 	pev->nextthink = gpGlobals->time + 0.1;
-	pev->health = 0;
+	SetHealth( 0 );
 	SetTakeDamageMode( DAMAGE_NO );
 
 	if (pev->spawnflags & SF_NOWRECKAGE)
@@ -813,7 +813,7 @@ bool CApache::FireGun()
 
 void CApache :: ShowDamage( void )
 {
-	if (m_iDoSmokePuff > 0 || RANDOM_LONG(0,99) > pev->health)
+	if (m_iDoSmokePuff > 0 || RANDOM_LONG(0,99) > GetHealth() )
 	{
 		MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );
 			WRITE_BYTE( TE_SMOKE );

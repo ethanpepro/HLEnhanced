@@ -131,12 +131,12 @@ void CBasePlayer::InitialSpawn()
 void CBasePlayer::Spawn()
 {
 	SetClassname( "player" );
-	pev->health			= 100;
+	SetHealth( 100 );
 	pev->armorvalue		= 0;
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_WALK );
-	SetMaxHealth( pev->health );
+	SetMaxHealth( GetHealth() );
 	pev->flags			&= FL_PROXY;	// keep proxy flag sey by engine
 	pev->flags			|= FL_CLIENT;
 	pev->air_finished	= gpGlobals->time + 12;
@@ -284,7 +284,7 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 
 	// have suit diagnose the problem - ie: report damage type
 	int bitsDamage = newInfo.GetDamageTypes();
-	float flHealthPrev = pev->health;
+	float flHealthPrev = GetHealth();
 
 	float flBonus = PLAYER_ARMOR_BONUS;
 	float flRatio = PLAYER_ARMOR_RATIO;
@@ -338,10 +338,10 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 	// this cast to INT is critical!!! If a player ends up with 0.5 health, the engine will get that
 	// as an int (zero) and think the player is dead! (this will incite a clientside screentilt, etc)
 	newInfo.GetMutableDamage() = int( newInfo.GetDamage() );
-	const float flOldHealth = pev->health;
+	const float flOldHealth = GetHealth();
 	CBaseMonster::OnTakeDamage( newInfo );
 
-	const bool bTookDamage = flOldHealth != pev->health;
+	const bool bTookDamage = flOldHealth != GetHealth();
 
 	// reset damage time countdown for each type of time based damage player just sustained
 
@@ -363,9 +363,9 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 
 	// how bad is it, doc?
 
-	const bool ftrivial = (pev->health > 75 || m_lastDamageAmount < 5);
+	const bool ftrivial = ( GetHealth() > 75 || m_lastDamageAmount < 5);
 	const bool fmajor = (m_lastDamageAmount > 25);
-	const bool fcritical = (pev->health < 30);
+	const bool fcritical = ( GetHealth() < 30);
 
 	// handle all bits set in this damage message,
 	// let the suit give player the diagnosis
@@ -486,9 +486,9 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 	{
 
 		// already took major damage, now it's critical...
-		if (pev->health < 6)
+		if ( GetHealth() < 6)
 			SetSuitUpdate("!HEV_HLTH3", SUIT_SENTENCE, SUIT_NEXT_IN_10MIN);	// near death
-		else if (pev->health < 20)
+		else if ( GetHealth() < 20)
 			SetSuitUpdate("!HEV_HLTH2", SUIT_SENTENCE, SUIT_NEXT_IN_10MIN);	// health critical
 	
 		// give critical health warnings
@@ -576,7 +576,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	// UNDONE: Put this in, but add FFADE_PERMANENT and make fade time 8.8 instead of 4.12
 	// UTIL_ScreenFade( edict(), Vector(128,0,0), 6, 15, 255, FFADE_OUT | FFADE_MODULATE );
 
-	if ( ( pev->health < -40 && gibAction != GIB_NEVER ) || gibAction == GIB_ALWAYS )
+	if ( ( GetHealth() < -40 && gibAction != GIB_NEVER ) || gibAction == GIB_ALWAYS )
 	{
 		SetSolidType( SOLID_NOT );
 		GibMonster();	// This clears pev->model
@@ -685,7 +685,7 @@ bool CBasePlayer::BarnacleVictimGrabbed( CBaseEntity* pBarnacle )
 //=========================================================
 void CBasePlayer::BarnacleVictimBitten( CBaseEntity* pBarnacle )
 {
-	TakeDamage( pBarnacle, pBarnacle, pev->health + pev->armorvalue, DMG_SLASH | DMG_ALWAYSGIB );
+	TakeDamage( pBarnacle, pBarnacle, GetHealth() + pev->armorvalue, DMG_SLASH | DMG_ALWAYSGIB );
 }
 
 //=========================================================
@@ -783,7 +783,7 @@ void CBasePlayer::UpdateStatusBar()
 				// allies and medics get to see the targets health
 				if ( g_pGameRules->PlayerRelationship( this, pEntity ) == GR_TEAMMATE )
 				{
-					newSBarState[ SBAR_ID_TARGETHEALTH ] = 100 * (pEntity->pev->health / pEntity->GetMaxHealth() );
+					newSBarState[ SBAR_ID_TARGETHEALTH ] = 100 * (pEntity->GetHealth() / pEntity->GetMaxHealth() );
 					newSBarState[ SBAR_ID_TARGETARMOR ] = pEntity->pev->armorvalue; //No need to get it % based since 100 it's the max. TODO unless you're a modder - Solokiller
 				}
 

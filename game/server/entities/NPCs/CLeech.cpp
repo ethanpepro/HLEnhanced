@@ -94,7 +94,7 @@ void CLeech::Spawn( void )
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_FLY );
 	SetBits(pev->flags, FL_SWIM);
-	pev->health			= gSkillData.GetLeechHealth();
+	SetHealth( gSkillData.GetLeechHealth() );
 
 	m_flFieldOfView		= -0.5;	// 180 degree FOV
 	m_flDistLook		= 750;

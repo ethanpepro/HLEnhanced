@@ -31,7 +31,7 @@ public:
 	// name in pev->targetname
 	// next in pev->target
 	// radius in pev->scale
-	// health in pev->health
+	// health in GetHealth()
 	// Reach target in pev->message
 	// Reach delay in pev->speed
 	// Reach sequence in pev->netname

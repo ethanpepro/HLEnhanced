@@ -439,7 +439,7 @@ void CBreakable::BreakTouch( CBaseEntity *pOther )
 	{// can be broken when run into 
 		flDamage = pevToucher->velocity.Length() * 0.01;
 
-		if (flDamage >= pev->health)
+		if (flDamage >= GetHealth() )
 		{
 			SetTouch( NULL );
 			TakeDamage( pOther, pOther, flDamage, DMG_CRUSH);
@@ -539,7 +539,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 		// if a client hit the breakable with a crowbar, and breakable is crowbar-sensitive, break it now.
 		if ( newInfo.GetAttacker()->GetFlags().Any( FL_CLIENT ) &&
 				 FBitSet ( pev->spawnflags, SF_BREAK_CROWBAR ) && ( newInfo.GetDamageTypes() & DMG_CLUB))
-			newInfo.GetMutableDamage() = pev->health;
+			newInfo.GetMutableDamage() = GetHealth();
 	}
 	else
 	// an actual missile was involved.
@@ -562,8 +562,8 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 	g_vecAttackDir = vecTemp.Normalize();
 		
 // do the damage
-	pev->health -= newInfo.GetDamage();
-	if (pev->health <= 0)
+	SetHealth( GetHealth() - newInfo.GetDamage() );
+	if ( GetHealth() <= 0)
 	{
 		Killed( newInfo, GIB_NORMAL );
 		Die();
@@ -591,10 +591,10 @@ void CBreakable::Die( void )
 	if (pitch > 97 && pitch < 103)
 		pitch = 100;
 
-	// The more negative pev->health, the louder
+	// The more negative GetHealth(), the louder
 	// the sound should be.
 
-	fvol = RANDOM_FLOAT(0.85, 1.0) + ( fabs(pev->health) / 100.0);
+	fvol = RANDOM_FLOAT(0.85, 1.0) + ( fabs( GetHealth() ) / 100.0);
 
 	if (fvol > 1.0)
 		fvol = 1.0;

@@ -70,7 +70,7 @@ void CRoach :: Touch ( CBaseEntity *pOther )
 	// This isn't really blood.  So you don't have to screen it out based on violence levels (UTIL_ShouldShowBlood())
 	UTIL_DecalTrace( &tr, DECAL_YBLOOD1 +RANDOM_LONG(0,5) );
 
-	TakeDamage( pOther, pOther, pev->health, DMG_CRUSH );
+	TakeDamage( pOther, pOther, GetHealth(), DMG_CRUSH );
 }
 
 //=========================================================
@@ -100,7 +100,7 @@ void CRoach :: Spawn()
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_YELLOW;
 	GetEffects().ClearAll();
-	pev->health			= 1;
+	SetHealth( 1 );
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 
@@ -400,7 +400,7 @@ void CRoach :: Look ( int iDistance )
 		// only consider ents that can be damaged. !!!temporarily only considering other monsters and clients
 		if (  pSightEnt->IsPlayer() || FBitSet ( pSightEnt->pev->flags, FL_MONSTER ) )
 		{
-			if ( /*FVisible( pSightEnt ) &&*/ !FBitSet( pSightEnt->pev->flags, FL_NOTARGET ) && pSightEnt->pev->health > 0 )
+			if ( /*FVisible( pSightEnt ) &&*/ !FBitSet( pSightEnt->pev->flags, FL_NOTARGET ) && pSightEnt->GetHealth() > 0 )
 			{
 				// NULL the Link pointer for each ent added to the link list. If other ents follow, the will overwrite
 				// this value. If this ent happens to be the last, the list will be properly terminated.

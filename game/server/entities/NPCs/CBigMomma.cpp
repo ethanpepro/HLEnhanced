@@ -312,9 +312,9 @@ void CBigMomma::OnTakeDamage( const CTakeDamageInfo& info )
 
 	if ( !HasMemory(bits_MEMORY_PATH_FINISHED) )
 	{
-		if ( pev->health <= newInfo.GetDamage() )
+		if ( GetHealth() <= newInfo.GetDamage() )
 		{
-			pev->health = newInfo.GetDamage() + 1;
+			SetHealth( newInfo.GetDamage() + 1 );
 			Remember( bits_MEMORY_ADVANCE_NODE | bits_MEMORY_COMPLETED_NODE );
 			ALERT( at_aiconsole, "BM: Finished node health!!!\n" );
 		}
@@ -389,7 +389,7 @@ void CBigMomma :: Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
-	pev->health			= 150 * gSkillData.GetBigMommaHealthFactor();
+	SetHealth( 150 * gSkillData.GetBigMommaHealthFactor() );
 	SetViewOffset( Vector ( 0, 0, 128 ) );// position of the eyes relative to monster's origin.
 	m_flFieldOfView		= 0.3;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
@@ -466,8 +466,11 @@ void CBigMomma::NodeReach( void )
 	if ( !pTarget )
 		return;
 
-	if ( pTarget->pev->health )
-		SetMaxHealth( pev->health = pTarget->pev->health * gSkillData.GetBigMommaHealthFactor() );
+	if ( pTarget->GetHealth() )
+	{
+		SetHealth( pTarget->GetHealth() * gSkillData.GetBigMommaHealthFactor() );
+		SetMaxHealth( GetHealth() );
+	}
 
 	if ( !HasMemory( bits_MEMORY_FIRED_NODE ) )
 	{
@@ -477,7 +480,7 @@ void CBigMomma::NodeReach( void )
 	Forget( bits_MEMORY_FIRED_NODE );
 
 	pev->netname = pTarget->pev->target;
-	if ( pTarget->pev->health == 0 )
+	if ( pTarget->GetHealth() == 0 )
 		Remember( bits_MEMORY_ADVANCE_NODE );	// Move on if no health at this node
 }
 

@@ -255,7 +255,7 @@ void CBaseMonster :: Look ( int iDistance )
 			// !!!temporarily only considering other monsters and clients, don't see prisoners
 			if ( pSightEnt != this												&& 
 				 !FBitSet( pSightEnt->pev->spawnflags, SF_MONSTER_PRISONER )	&& 
-				 pSightEnt->pev->health > 0 )
+				 pSightEnt->GetHealth() > 0 )
 			{
 				// the looker will want to consider this entity
 				// don't check anything else about an entity that can't be seen, or an entity that you don't care about.
@@ -1940,7 +1940,7 @@ void CBaseMonster :: MonsterInit ( void )
 	GetEffects().ClearAll();
 	SetTakeDamageMode( DAMAGE_AIM );
 	pev->ideal_yaw		= pev->angles.y;
-	SetMaxHealth( pev->health );
+	SetMaxHealth( GetHealth() );
 	SetDeadFlag( DEAD_NO );
 	m_IdealMonsterState	= MONSTERSTATE_IDLE;// Assume monster will be idle, until proven otherwise
 
@@ -2535,7 +2535,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 #if _DEBUG
 			ALERT( at_aiconsole, "Death event: %s\n", GetClassname() );
 #endif
-			pev->health = 0;
+			SetHealth( 0 );
 		}
 #if _DEBUG
 		else
@@ -2547,7 +2547,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 		{
 			SetDeadFlag( DEAD_NO );
 			// This is for life/death sequences where the player can determine whether a character is dead or alive after the script 
-			pev->health = GetMaxHealth();
+			SetHealth( GetMaxHealth() );
 		}
 		break;
 
@@ -2860,7 +2860,7 @@ void CBaseMonster::ReportAIState( void )
 	}
 
 	ALERT( level, "\n" );
-	ALERT( level, "Yaw speed:%3.1f,Health: %3.1f\n", pev->yaw_speed, pev->health );
+	ALERT( level, "Yaw speed:%3.1f,Health: %3.1f\n", pev->yaw_speed, GetHealth() );
 	if ( pev->spawnflags & SF_MONSTER_PRISONER )
 		ALERT( level, " PRISONER! " );
 	if ( pev->spawnflags & SF_MONSTER_PREDISASTER )
@@ -2946,7 +2946,7 @@ bool CBaseMonster::FCheckAITrigger()
 		}
 		break;
 	case AITRIGGER_HALFHEALTH:
-		if ( IsAlive() && pev->health <= ( GetMaxHealth() / 2 ) )
+		if ( IsAlive() && GetHealth() <= ( GetMaxHealth() / 2 ) )
 		{
 			fFireTarget = true;
 		}
@@ -3185,7 +3185,7 @@ void CBaseMonster :: MonsterInitDead( void )
 	pev->framerate = 0;
 	
 	// Copy health
-	SetMaxHealth( pev->health );
+	SetMaxHealth( GetHealth() );
 	SetDeadFlag( DEAD_DEAD );
 	
 	SetSize( g_vecZero, g_vecZero );

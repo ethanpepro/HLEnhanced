@@ -81,7 +81,7 @@ void CBarnacle :: Spawn()
 	SetTakeDamageMode( DAMAGE_AIM );
 	m_bloodColor		= BLOOD_COLOR_RED;
 	GetEffects() = EF_INVLIGHT; // take light from the ceiling 
-	pev->health			= 25;
+	SetHealth( 25 );
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 	m_flKillVictimTime	= 0;
@@ -105,7 +105,7 @@ void CBarnacle::OnTakeDamage( const CTakeDamageInfo& info )
 
 	if ( newInfo.GetDamageTypes() & DMG_CLUB )
 	{
-		newInfo.GetMutableDamage() = pev->health;
+		newInfo.GetMutableDamage() = GetHealth();
 	}
 
 	CBaseMonster::OnTakeDamage( newInfo );
@@ -186,7 +186,7 @@ void CBarnacle :: BarnacleThink ( void )
 				// kill!
 				if ( pVictim )
 				{
-					pVictim->TakeDamage ( this, this, pVictim->pev->health, DMG_SLASH | DMG_ALWAYSGIB );
+					pVictim->TakeDamage ( this, this, pVictim->GetHealth(), DMG_SLASH | DMG_ALWAYSGIB );
 					m_cGibs = 3;
 				}
 

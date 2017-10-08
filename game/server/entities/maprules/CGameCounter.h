@@ -38,7 +38,7 @@ public:
 	inline void CountDown() { pev->frags--; }
 	inline void ResetCount() { pev->frags = pev->dmg; }
 	inline int  CountValue() const { return pev->frags; }
-	inline int	LimitValue() const { return pev->health; }
+	inline int	LimitValue() const { return GetHealth(); }
 
 	inline bool HitLimit() const { return CountValue() == LimitValue(); }
 

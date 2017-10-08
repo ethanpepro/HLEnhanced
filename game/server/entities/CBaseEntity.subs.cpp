@@ -64,10 +64,10 @@ void CBaseEntity::UpdateOnRemove( void )
 void CBaseEntity :: SUB_Remove( void )
 {
 	UpdateOnRemove();
-	if (pev->health > 0)
+	if ( GetHealth() > 0)
 	{
 		// this situation can screw up monsters who can't tell their entity pointers are invalid.
-		pev->health = 0;
+		SetHealth( 0 );
 		ALERT( at_aiconsole, "SUB_Remove called on entity with health > 0\n");
 	}
 

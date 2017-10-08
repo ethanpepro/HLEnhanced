@@ -754,10 +754,10 @@ void CBaseTurret::OnTakeDamage( const CTakeDamageInfo& info )
 	if (!m_bOn )
 		newInfo.GetMutableDamage() /= 10.0;
 
-	pev->health -= newInfo.GetDamage();
-	if (pev->health <= 0)
+	SetHealth( GetHealth() - newInfo.GetDamage() );
+	if ( GetHealth() <= 0)
 	{
-		pev->health = 0;
+		SetHealth( 0 );
 		SetTakeDamageMode( DAMAGE_NO );
 		pev->dmgtime = gpGlobals->time;
 
@@ -771,7 +771,7 @@ void CBaseTurret::OnTakeDamage( const CTakeDamageInfo& info )
 		return;
 	}
 
-	if (pev->health <= 10)
+	if ( GetHealth() <= 10)
 	{
 		if ( m_bOn && (1 || RANDOM_LONG(0, 0x7FFF) > 800))
 		{

@@ -17,7 +17,7 @@
 
 /**
 *	pev->speed is the travel speed
-*	pev->health is current health
+*	GetHealth() is current health
 *	GetMaxHealth() is the amount to reset to each time it starts
 */
 class CGunTarget : public CBaseMonster

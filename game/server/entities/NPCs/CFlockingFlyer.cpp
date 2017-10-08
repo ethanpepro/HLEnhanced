@@ -52,7 +52,7 @@ void CFlockingFlyer::SpawnCommonCode()
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_FLY );
 	SetTakeDamageMode( DAMAGE_NO );
-	pev->health = 1;
+	SetHealth( 1 );
 
 	m_fPathBlocked = false;// obstacles will be detected
 	m_flFieldOfView = 0.2;

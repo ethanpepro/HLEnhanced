@@ -13,9 +13,9 @@ void CEnvBeverage::Spawn( void )
 	GetEffects() = EF_NODRAW;
 	pev->frags = 0;
 
-	if( pev->health == 0 )
+	if( GetHealth() == 0 )
 	{
-		pev->health = 10;
+		SetHealth( 10 );
 	}
 }
 
@@ -27,7 +27,7 @@ void CEnvBeverage::Precache( void )
 
 void CEnvBeverage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( pev->frags != 0 || pev->health <= 0 )
+	if( pev->frags != 0 || GetHealth() <= 0 )
 	{
 		// no more cans while one is waiting in the dispenser, or if I'm out of cans.
 		return;
@@ -46,7 +46,7 @@ void CEnvBeverage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 	}
 
 	pev->frags = 1;
-	pev->health--;
+	SetHealth( GetHealth() - 1 );
 
 	//SetThink (SUB_Remove);
 	//pev->nextthink = gpGlobals->time;

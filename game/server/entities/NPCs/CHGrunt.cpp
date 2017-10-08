@@ -816,7 +816,7 @@ void CHGrunt :: Spawn()
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_RED;
 	GetEffects().ClearAll();
-	pev->health			= gSkillData.GetHGruntHealth();
+	SetHealth( gSkillData.GetHGruntHealth() );
 	m_flFieldOfView		= 0.2;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 	m_flNextGrenadeCheck = gpGlobals->time + 1;
@@ -1739,7 +1739,7 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 		}
 		break;
 	case ACT_RUN:
-		if ( pev->health <= HGRUNT_LIMP_HEALTH )
+		if ( GetHealth() <= HGRUNT_LIMP_HEALTH )
 		{
 			// limp!
 			iSequence = LookupActivity ( ACT_RUN_HURT );
@@ -1750,7 +1750,7 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 		}
 		break;
 	case ACT_WALK:
-		if ( pev->health <= HGRUNT_LIMP_HEALTH )
+		if ( GetHealth() <= HGRUNT_LIMP_HEALTH )
 		{
 			// limp!
 			iSequence = LookupActivity ( ACT_WALK_HURT );

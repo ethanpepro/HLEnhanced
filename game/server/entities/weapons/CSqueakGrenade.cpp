@@ -80,7 +80,7 @@ void CSqueakGrenade::Spawn( void )
 
 	pev->flags |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
-	pev->health = gSkillData.GetSnarkHealth();
+	SetHealth( gSkillData.GetSnarkHealth() );
 	pev->gravity = 0.5;
 	pev->friction = 0.5;
 
@@ -168,7 +168,7 @@ void CSqueakGrenade::HuntThink( void )
 	if( gpGlobals->time >= m_flDie )
 	{
 		g_vecAttackDir = GetAbsVelocity().Normalize();
-		pev->health = -1;
+		SetHealth( -1 );
 		Killed( CTakeDamageInfo( this, 0, 0 ), GIB_NORMAL );
 		return;
 	}

@@ -31,19 +31,21 @@ float CBaseEntity::GiveHealth( float flHealth, int bitsDamageType )
 		return 0;
 
 	// heal
-	if( pev->health >= GetMaxHealth() )
+	if( GetHealth() >= GetMaxHealth() )
 		return 0;
 
-	const float flOldHealth = pev->health;
+	const float flOldHealth = GetHealth();
 
-	pev->health += flHealth;
+	float flNewHealth = GetHealth() + flHealth;
 
 	//TODO: if the entity's health drops below 1, kill it. - Solokiller
 
-	if( pev->health > GetMaxHealth() )
-		pev->health = GetMaxHealth();
+	if( flNewHealth > GetMaxHealth() )
+		flNewHealth = GetMaxHealth();
 
-	return pev->health - flOldHealth;
+	SetHealth( flNewHealth );
+
+	return GetHealth() - flOldHealth;
 }
 
 // inflict damage on this entity.  bitsDamageType indicates type of damage inflicted, ie: DMG_CRUSH
@@ -81,8 +83,8 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 	}
 
 	// do the damage
-	pev->health -= info.GetDamage();
-	if( pev->health <= 0 )
+	SetHealth( GetHealth() - info.GetDamage() );
+	if( GetHealth() <= 0 )
 	{
 		Killed( info, GIB_NORMAL );
 		return;

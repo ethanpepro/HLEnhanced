@@ -126,7 +126,7 @@ void CSpeaker::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 void CSpeaker::SpeakerThink( void )
 {
 	const char* szSoundFile;
-	float flvolume = pev->health * 0.1;
+	float flvolume = GetHealth() * 0.1;
 	float flattenuation = 0.3;
 	int flags = 0;
 	int pitch = 100;

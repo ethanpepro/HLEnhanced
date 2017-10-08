@@ -243,7 +243,7 @@ void CZombie :: Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
-	pev->health			= gSkillData.GetZombieHealth();
+	SetHealth( gSkillData.GetZombieHealth() );
 	SetViewOffset( VEC_VIEW );// position of the eyes relative to monster's origin.
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
@@ -293,7 +293,7 @@ int CZombie::IgnoreConditions ( void )
 	if ( m_Activity == ACT_MELEE_ATTACK1 )
 	{
 #if 0
-		if (pev->health < 20)
+		if ( GetHealth() < 20)
 			iIgnore |= (bits_COND_LIGHT_DAMAGE|bits_COND_HEAVY_DAMAGE);
 		else
 #endif			

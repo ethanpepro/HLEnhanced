@@ -36,7 +36,7 @@ void CDeadScientist::Spawn()
 	GetEffects().ClearAll();
 	pev->sequence = 0;
 	// Corpses have less health
-	pev->health = 8;//gSkillData.GetScientistHealth();
+	SetHealth( 8 );//gSkillData.GetScientistHealth();
 
 	m_bloodColor = BLOOD_COLOR_RED;
 

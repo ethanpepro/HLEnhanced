@@ -146,7 +146,7 @@ void CBaseTrigger::MultiWaitOver( void )
 {
 	//	if ( GetMaxHealth() )
 	//		{
-	//		pev->health		= GetMaxHealth();
+	//		SetHealth( GetMaxHealth() );
 	//		SetTakeDamageMode( DAMAGE_YES );
 	//		SetSolidType( SOLID_BBOX );
 	//		}

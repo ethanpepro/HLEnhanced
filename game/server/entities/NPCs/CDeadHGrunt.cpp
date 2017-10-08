@@ -47,7 +47,7 @@ void CDeadHGrunt::Spawn( void )
 	}
 
 	// Corpses have less health
-	pev->health = 8;
+	SetHealth( 8 );
 
 	// map old bodies onto new bodies
 	switch( pev->body )

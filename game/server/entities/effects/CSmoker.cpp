@@ -44,8 +44,8 @@ void CSmoker::Think( void )
 	WRITE_BYTE( RANDOM_LONG( 8, 14 ) ); // framerate
 	MESSAGE_END();
 
-	pev->health--;
-	if( pev->health > 0 )
+	SetHealth( GetHealth() - 1 );
+	if( GetHealth() > 0 )
 		pev->nextthink = gpGlobals->time + RANDOM_FLOAT( 0.1, 0.2 );
 	else
 		UTIL_Remove( this );

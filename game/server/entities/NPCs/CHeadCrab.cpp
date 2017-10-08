@@ -248,7 +248,7 @@ void CHeadCrab :: Spawn()
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	GetEffects().ClearAll();
-	pev->health			= gSkillData.GetHeadcrabHealth();
+	SetHealth( gSkillData.GetHeadcrabHealth() );
 	SetViewOffset( Vector ( 0, 0, 20 ) );// position of the eyes relative to monster's origin.
 	pev->yaw_speed		= 5;//!!! should we put this in the monster's changeanim function since turn rates may vary with state/anim?
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )

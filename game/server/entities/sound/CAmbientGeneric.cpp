@@ -637,7 +637,7 @@ void CAmbientGeneric::InitModulationParms( void )
 {
 	int pitchinc;
 
-	m_dpv.volrun = pev->health * 10;	// 0 - 100
+	m_dpv.volrun = GetHealth() * 10;	// 0 - 100
 	if( m_dpv.volrun > 100 ) m_dpv.volrun = 100;
 	if( m_dpv.volrun < 0 ) m_dpv.volrun = 0;
 

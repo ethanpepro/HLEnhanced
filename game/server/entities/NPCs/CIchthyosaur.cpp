@@ -319,7 +319,7 @@ void CIchthyosaur::BecomeDead( void )
 	SetTakeDamageMode( DAMAGE_YES );// don't let autoaim aim at corpses.
 
 	// give the corpse half of the monster's original maximum health. 
-	pev->health = GetMaxHealth() / 2;
+	SetHealth( GetMaxHealth() / 2 );
 	SetMaxHealth( 5 ); // max_health now becomes a counter for how many blood decals the corpse can place.
 }
 
@@ -395,7 +395,7 @@ void CIchthyosaur :: Spawn()
 	SetSolidType( SOLID_BBOX );
 	SetMoveType( MOVETYPE_FLY );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
-	pev->health			= gSkillData.GetIchthyosaurHealth();
+	SetHealth( gSkillData.GetIchthyosaurHealth() );
 	SetViewOffset( Vector ( 0, 0, 16 ) );
 	m_flFieldOfView		= VIEW_FIELD_WIDE;
 	m_MonsterState		= MONSTERSTATE_NONE;
@@ -468,7 +468,7 @@ Schedule_t* CIchthyosaur::GetSchedule()
 		{
 			m_bOnAttack = true;
 		}
-		if ( pev->health < GetMaxHealth() - 20 )
+		if ( GetHealth() < GetMaxHealth() - 20 )
 		{
 			m_bOnAttack = true;
 		}

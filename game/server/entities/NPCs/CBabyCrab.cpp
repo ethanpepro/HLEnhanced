@@ -29,7 +29,7 @@ void CBabyCrab::Spawn( void )
 	pev->renderamt = 192;
 	SetSize( Vector( -12, -12, 0 ), Vector( 12, 12, 24 ) );
 
-	pev->health = gSkillData.GetHeadcrabHealth() * 0.25;	// less health than full grown
+	SetHealth( gSkillData.GetHeadcrabHealth() * 0.25 );	// less health than full grown
 }
 
 void CBabyCrab::Precache( void )

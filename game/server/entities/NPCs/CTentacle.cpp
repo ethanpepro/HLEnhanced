@@ -107,7 +107,7 @@ void CTentacle :: Spawn( )
 	SetSolidType( SOLID_BBOX );
 	SetMoveType( MOVETYPE_FLY );
 	GetEffects().ClearAll();
-	pev->health			= 75;
+	SetHealth( 75 );
 	pev->sequence		= 0;
 
 	SetModel( "models/tentacle2.mdl");
@@ -306,7 +306,7 @@ void CTentacle :: Cycle( void )
 	// ALERT( at_console, "%s %.2f %d %d\n", GetTargetname(), GetAbsOrigin().z, m_MonsterState, m_IdealMonsterState );
 	pev->nextthink = gpGlobals-> time + 0.1;
 
-	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), pev->sequence, m_iGoalAnim, m_iDir, pev->framerate, pev->health );
+	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), pev->sequence, m_iGoalAnim, m_iDir, pev->framerate, GetHealth() );
 
 	if (m_MonsterState == MONSTERSTATE_SCRIPT || m_IdealMonsterState == MONSTERSTATE_SCRIPT)
 	{
@@ -403,12 +403,12 @@ void CTentacle :: Cycle( void )
 	if (m_fSequenceFinished)
 	{
 		// ALERT( at_console, "%s done %d %d\n", GetTargetname(), pev->sequence, m_iGoalAnim );
-		if (pev->health <= 1)
+		if ( GetHealth() <= 1)
 		{
 			m_iGoalAnim = TENTACLE_ANIM_Pit_Idle;
 			if (pev->sequence == TENTACLE_ANIM_Pit_Idle)
 			{
-				pev->health = 75;
+				SetHealth( 75 );
 			}
 		}
 		else if ( m_flSoundTime > gpGlobals->time )
@@ -825,13 +825,13 @@ void CTentacle :: HitTouch( CBaseEntity *pOther )
 
 void CTentacle::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if (info.GetDamage() > pev->health)
+	if (info.GetDamage() > GetHealth() )
 	{
-		pev->health = 1;
+		SetHealth( 1 );
 	}
 	else
 	{
-		pev->health -= info.GetDamage();
+		SetHealth( GetHealth() - info.GetDamage() );
 	}
 }
 

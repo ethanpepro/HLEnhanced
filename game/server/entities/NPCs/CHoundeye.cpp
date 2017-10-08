@@ -259,7 +259,7 @@ void CHoundeye :: Spawn()
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_YELLOW;
 	GetEffects().ClearAll();
-	pev->health			= gSkillData.GetHoundeyeHealth();
+	SetHealth( gSkillData.GetHoundeyeHealth() );
 	pev->yaw_speed		= 5;//!!! should we put this in the monster's changeanim function since turn rates may vary with state/anim?
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;

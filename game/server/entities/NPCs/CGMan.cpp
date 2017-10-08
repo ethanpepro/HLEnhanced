@@ -94,7 +94,7 @@ void CGMan :: Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= DONT_BLEED;
-	pev->health			= 100;
+	SetHealth( 100 );
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 
@@ -175,7 +175,7 @@ void CGMan :: RunTask( const Task_t* pTask )
 //=========================================================
 void CGMan::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	pev->health = GetMaxHealth() / 2; // always trigger the 50% damage aitrigger
+	SetHealth( GetMaxHealth() / 2 ); // always trigger the 50% damage aitrigger
 
 	if ( info.GetDamage() > 0 )
 	{

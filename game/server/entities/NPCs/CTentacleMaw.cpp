@@ -18,7 +18,7 @@ void CTentacleMaw::Spawn()
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_STEP );
 	GetEffects().ClearAll();
-	pev->health = 75;
+	SetHealth( 75 );
 	pev->yaw_speed = 8;
 	pev->sequence = 0;
 

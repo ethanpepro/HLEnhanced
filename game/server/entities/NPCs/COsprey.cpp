@@ -80,7 +80,7 @@ void COsprey :: Spawn( void )
 	SetTakeDamageMode( DAMAGE_YES );
 	m_flRightHealth		= 200;
 	m_flLeftHealth		= 200;
-	pev->health			= 400;
+	SetHealth( 400 );
 
 	m_flFieldOfView = 0; // 180 degrees
 
@@ -247,10 +247,11 @@ CBaseMonster *COsprey :: MakeGrunt( Vector vecSrc )
 
 void COsprey :: HoverThink( void )
 {
+	//TODO: make more flexible - Solokiller
 	int i;
 	for (i = 0; i < 4; i++)
 	{
-		if (m_hRepel[i] != NULL && m_hRepel[i]->pev->health > 0 && !(m_hRepel[i]->pev->flags & FL_ONGROUND))
+		if (m_hRepel[i] != NULL && m_hRepel[i]->GetHealth() > 0 && !(m_hRepel[i]->pev->flags & FL_ONGROUND))
 		{
 			break;
 		}
@@ -440,7 +441,7 @@ void COsprey::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetThink( &COsprey::DyingThink );
 	SetTouch( &COsprey::CrashTouch );
 	pev->nextthink = gpGlobals->time + 0.1;
-	pev->health = 0;
+	SetHealth( 0 );
 	SetTakeDamageMode( DAMAGE_NO );
 
 	m_startTime = gpGlobals->time + 4.0;

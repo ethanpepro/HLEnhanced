@@ -55,7 +55,7 @@ void CRotButton::Spawn( void )
 	if( m_flWait == 0 )
 		m_flWait = 1;
 
-	if( pev->health > 0 )
+	if( GetHealth() > 0 )
 	{
 		SetTakeDamageMode( DAMAGE_YES );
 	}

@@ -67,7 +67,7 @@ void CBaseButton::Spawn()
 	if( pev->speed == 0 )
 		pev->speed = 40;
 
-	if( pev->health > 0 )
+	if( GetHealth() > 0 )
 	{
 		SetTakeDamageMode( DAMAGE_YES );
 	}

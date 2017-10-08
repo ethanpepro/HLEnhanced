@@ -212,11 +212,11 @@ void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 		// copy owner's blood color
 		pGib->m_bloodColor = pVictim->BloodColor();
 
-		if( pVictim->pev->health > -50 )
+		if( pVictim->GetHealth() > -50 )
 		{
 			pGib->SetAbsVelocity( pGib->GetAbsVelocity() * 0.7 );
 		}
-		else if( pVictim->pev->health > -200 )
+		else if( pVictim->GetHealth() > -200 )
 		{
 			pGib->SetAbsVelocity( pGib->GetAbsVelocity() * 2 );
 		}
@@ -283,11 +283,11 @@ void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 			// copy owner's blood color
 			pGib->m_bloodColor = pVictim->BloodColor();
 
-			if( pVictim->pev->health > -50 )
+			if( pVictim->GetHealth() > -50 )
 			{
 				vecVelocity = vecVelocity * 0.7;
 			}
-			else if( pVictim->pev->health > -200 )
+			else if( pVictim->GetHealth() > -200 )
 			{
 				vecVelocity = vecVelocity * 2;
 			}
@@ -353,11 +353,11 @@ void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 			// copy owner's blood color
 			pGib->m_bloodColor = pVictim->BloodColor();
 
-			if( pVictim->pev->health > -50 )
+			if( pVictim->GetHealth() > -50 )
 			{
 				vecVelocity = vecVelocity * 0.7;
 			}
-			else if( pVictim->pev->health > -200 )
+			else if( pVictim->GetHealth() > -200 )
 			{
 				vecVelocity = vecVelocity * 2;
 			}

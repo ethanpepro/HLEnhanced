@@ -80,7 +80,7 @@ bool CBaseMonster::CineCleanup()
 	if ( GetDeadFlag() == DEAD_DYING)
 	{
 		// last frame of death animation?
-		pev->health			= 0;
+		SetHealth( 0 );
 		pev->framerate		= 0.0;
 		SetSolidType( SOLID_NOT );
 		SetState( MONSTERSTATE_DEAD );
@@ -164,7 +164,7 @@ bool CBaseMonster::CineCleanup()
 	}
 	// set them back into a normal state
 	pev->enemy = NULL;
-	if ( pev->health > 0 )
+	if ( GetHealth() > 0 )
 		m_IdealMonsterState = MONSTERSTATE_IDLE; // m_previousState;
 	else
 	{

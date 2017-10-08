@@ -948,7 +948,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	}
 
 	cd->flags			= pev->flags;
-	cd->health			= pev->health;
+	cd->health			= pl->GetHealth();
 
 	cd->viewmodel		= MODEL_INDEX( pl->GetViewModelName() );
 

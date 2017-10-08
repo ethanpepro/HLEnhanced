@@ -43,10 +43,10 @@ void CSpiral::Think( void )
 
 		float fraction = 1.0 / pev->speed;
 
-		float radius = ( pev->scale * pev->health ) * fraction;
+		float radius = ( pev->scale * GetHealth() ) * fraction;
 
-		position.z += ( pev->health * pev->dmg ) * fraction;
-		pev->angles.y = ( pev->health * 360 * 8 ) * fraction;
+		position.z += ( GetHealth() * pev->dmg ) * fraction;
+		pev->angles.y = ( GetHealth() * 360 * 8 ) * fraction;
 		UTIL_MakeVectors( pev->angles );
 		position = position + gpGlobals->v_forward * radius;
 		direction = ( direction + gpGlobals->v_forward ).Normalize();
@@ -55,13 +55,13 @@ void CSpiral::Think( void )
 
 		// Jeez, how many counters should this take ? :)
 		pev->dmgtime += SPIRAL_INTERVAL;
-		pev->health += SPIRAL_INTERVAL;
+		SetHealth( GetHealth() + SPIRAL_INTERVAL );
 		time -= SPIRAL_INTERVAL;
 	}
 
 	pev->nextthink = gpGlobals->time;
 
-	if( pev->health >= pev->speed )
+	if( GetHealth() >= pev->speed )
 		UTIL_Remove( this );
 }
 
@@ -77,7 +77,7 @@ CSpiral *CSpiral::Create( const Vector &origin, float height, float radius, floa
 	pSpiral->pev->scale = radius;
 	pSpiral->pev->dmg = height;
 	pSpiral->pev->speed = duration;
-	pSpiral->pev->health = 0;
+	pSpiral->SetHealth( 0 );
 	pSpiral->pev->angles = g_vecZero;
 
 	return pSpiral;

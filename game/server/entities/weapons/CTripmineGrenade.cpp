@@ -71,7 +71,7 @@ void CTripmineGrenade::Spawn()
 
 	SetTakeDamageMode( DAMAGE_YES );
 	pev->dmg = gSkillData.GetPlrDmgTripmine();
-	pev->health = 1; // don't let die normally
+	SetHealth( 1 ); // don't let die normally
 
 	if( pev->owner != NULL )
 	{
@@ -255,7 +255,7 @@ void CTripmineGrenade::BeamBreakThink()
 		// that a player couldn't trigger his own tripmine. Now that the mine is exploding, it's safe the restore the owner so the 
 		// CGrenade code knows who the explosive really belongs to.
 		pev->owner = m_pRealOwner;
-		pev->health = 0;
+		SetHealth( 0 );
 		Killed( CTakeDamageInfo( Instance( pev->owner ), 0, 0 ), GIB_NORMAL );
 		return;
 	}
@@ -265,7 +265,7 @@ void CTripmineGrenade::BeamBreakThink()
 
 void CTripmineGrenade::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if( gpGlobals->time < m_flPowerUp && info.GetDamage() < pev->health )
+	if( gpGlobals->time < m_flPowerUp && info.GetDamage() < GetHealth() )
 	{
 		// disable
 		// Create( "weapon_tripmine", GetAbsOrigin() + m_vecDir * 24, pev->angles );

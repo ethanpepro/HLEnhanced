@@ -295,7 +295,7 @@ void CBaseMonster::BecomeDead( void )
 	SetTakeDamageMode( DAMAGE_YES );// don't let autoaim aim at corpses.
 	
 	// give the corpse half of the monster's original maximum health. 
-	pev->health = GetMaxHealth() / 2;
+	SetHealth( GetMaxHealth() / 2 );
 	SetMaxHealth( 5 ); // max_health now becomes a counter for how many blood decals the corpse can place.
 
 	// make the corpse fly away from the attack vector
@@ -309,7 +309,7 @@ void CBaseMonster::BecomeDead( void )
 
 bool CBaseMonster::ShouldGibMonster( GibAction gibAction ) const
 {
-	if ( ( gibAction == GIB_NORMAL && pev->health < GIB_HEALTH_VALUE ) || ( gibAction == GIB_ALWAYS ) )
+	if ( ( gibAction == GIB_NORMAL && GetHealth() < GIB_HEALTH_VALUE ) || ( gibAction == GIB_ALWAYS ) )
 		return true;
 	
 	return false;
@@ -348,9 +348,9 @@ void CBaseMonster::CallGibMonster( void )
 	FCheckAITrigger();
 
 	// don't let the status bar glitch for players.with <0 health.
-	if (pev->health < -99)
+	if ( GetHealth() < -99)
 	{
-		pev->health = 0;
+		SetHealth( 0 );
 	}
 	
 	if ( ShouldFadeOnDeath() && !fade )
@@ -399,9 +399,9 @@ void CBaseMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	}
 	
 	// don't let the status bar glitch for players.with <0 health.
-	if (pev->health < -99)
+	if ( GetHealth() < -99)
 	{
-		pev->health = 0;
+		SetHealth( 0 );
 	}
 	
 	//pev->enemy = ENT( info.GetAttacker() );//why? (sjb)
@@ -483,7 +483,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 	}
 
 	// do the damage
-	pev->health -= flTake;
+	SetHealth( GetHealth() - flTake );
 
 	
 	// HACKHACK Don't kill monsters in a script.  Let them break their scripts first
@@ -493,7 +493,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 		return;
 	}
 
-	if ( pev->health <= 0 )
+	if ( GetHealth() <= 0 )
 	{
 		if ( info.GetDamageTypes() & DMG_ALWAYSGIB )
 		{
@@ -580,14 +580,14 @@ void CBaseMonster::DeadTakeDamage( const CTakeDamageInfo& info )
 	// kill the corpse if enough damage was done to destroy the corpse and the damage is of a type that is allowed to destroy the corpse.
 	if ( info.GetDamageTypes() & DMG_GIB_CORPSE && !( info.GetDamageTypes() & DMG_NEVERGIB ) )
 	{
-		if ( pev->health <= info.GetDamage() )
+		if ( GetHealth() <= info.GetDamage() )
 		{
-			pev->health = -50;
+			SetHealth( -50 );
 			Killed( info, GIB_ALWAYS );
 			return;
 		}
 		// Accumulate corpse gibbing damage, so you can gib with multiple hits
-		pev->health -= info.GetDamage() * 0.1;
+		SetHealth( GetHealth() - ( info.GetDamage() * 0.1 ) );
 	}
 }
 

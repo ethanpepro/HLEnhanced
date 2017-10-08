@@ -31,7 +31,7 @@ void CSentry::Spawn()
 {
 	Precache();
 	SetModel( "models/sentry.mdl" );
-	pev->health = gSkillData.GetSentryHealth();
+	SetHealth( gSkillData.GetSentryHealth() );
 	m_HackedGunPos = Vector( 0, 0, 48 );
 	Vector vecView = GetViewOffset();
 	vecView.z = 48;
@@ -81,10 +81,10 @@ void CSentry::OnTakeDamage( const CTakeDamageInfo& info )
 		pev->nextthink = gpGlobals->time + 0.1;
 	}
 
-	pev->health -= info.GetDamage();
-	if( pev->health <= 0 )
+	SetHealth( GetHealth() - info.GetDamage() );
+	if( GetHealth() <= 0 )
 	{
-		pev->health = 0;
+		SetHealth( 0 );
 		SetTakeDamageMode( DAMAGE_NO );
 		pev->dmgtime = gpGlobals->time;
 

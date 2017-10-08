@@ -292,7 +292,7 @@ public:
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	Vector BodyTarget( const Vector &posSrc ) const override { return Center() + GetViewOffset() * RANDOM_FLOAT( 0.5, 1.1 ); }
-	bool IsAlive() const override { return ( GetDeadFlag() == DEAD_NO) && pev->health > 0; }
+	bool IsAlive() const override { return ( GetDeadFlag() == DEAD_NO) && GetHealth() > 0; }
 	bool ShouldFadeOnDeath() const override { return false; }
 
 	/**

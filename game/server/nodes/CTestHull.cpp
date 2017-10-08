@@ -37,7 +37,7 @@ void CTestHull::Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_STEP );
 	GetEffects().ClearAll();
-	pev->health = 50;
+	SetHealth( 50 );
 	pev->yaw_speed = 8;
 
 	if( WorldGraph.m_fGraphPresent )

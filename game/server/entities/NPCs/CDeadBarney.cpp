@@ -41,7 +41,7 @@ void CDeadBarney::Spawn()
 		ALERT( at_console, "Dead barney with bad pose\n" );
 	}
 	// Corpses have less health
-	pev->health = 8;//gSkillData.GetBarneyHealth();
+	SetHealth( 8 );//gSkillData.GetBarneyHealth();
 
 	MonsterInitDead();
 }

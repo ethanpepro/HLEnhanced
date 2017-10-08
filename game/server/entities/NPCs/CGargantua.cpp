@@ -520,7 +520,7 @@ void CGargantua :: Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
-	pev->health			= gSkillData.GetGargantuaHealth();
+	SetHealth( gSkillData.GetGargantuaHealth() );
 	//SetViewOffset( Vector ( 0, 0, 96 ) );// taken from mdl file
 	m_flFieldOfView		= -0.2;// width of forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
@@ -675,7 +675,7 @@ void CGargantua::DeathEffect( void )
 	}
 
 	CBaseEntity *pSmoker = CBaseEntity::Create( "env_smoker", GetAbsOrigin(), g_vecZero, NULL );
-	pSmoker->pev->health = 1;	// 1 smoke balls
+	pSmoker->SetHealth( 1 );	// 1 smoke balls
 	pSmoker->pev->scale = 46;	// 4.6X normal size
 	pSmoker->pev->dmg = 0;		// 0 radial distribution
 	pSmoker->pev->nextthink = gpGlobals->time + 2.5;	// Start in 2.5 seconds

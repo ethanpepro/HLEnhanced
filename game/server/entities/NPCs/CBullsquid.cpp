@@ -161,7 +161,7 @@ bool CBullsquid :: CheckRangeAttack1 ( float flDot, float flDist )
 //=========================================================
 bool CBullsquid :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
-	if ( m_hEnemy->pev->health <= gSkillData.GetBullsquidDmgWhip() && flDist <= 85 && flDot >= 0.7 )
+	if ( m_hEnemy->GetHealth() <= gSkillData.GetBullsquidDmgWhip() && flDist <= 85 && flDot >= 0.7 )
 	{
 		return true;
 	}
@@ -484,7 +484,7 @@ void CBullsquid :: Spawn()
 	SetMoveType( MOVETYPE_STEP );
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	GetEffects().ClearAll();
-	pev->health			= gSkillData.GetBullsquidHealth();
+	SetHealth( gSkillData.GetBullsquidHealth() );
 	m_flFieldOfView		= 0.2;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 

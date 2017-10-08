@@ -386,7 +386,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	ClearBits( m_afPhysicsFlags, PFLAG_DUCKING );
 	ClearBits( pev->flags, FL_DUCKING );
 	SetDeadFlag( DEAD_RESPAWNABLE );
-	pev->health = 1;
+	SetHealth( 1 );
 
 	// Clear out the status bar
 	m_fInitHUD = true;
