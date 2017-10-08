@@ -396,7 +396,7 @@ void CIchthyosaur :: Spawn()
 	pev->movetype		= MOVETYPE_FLY;
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	pev->health			= gSkillData.GetIchthyosaurHealth();
-	pev->view_ofs		= Vector ( 0, 0, 16 );
+	SetViewOffset( Vector ( 0, 0, 16 ) );
 	m_flFieldOfView		= VIEW_FIELD_WIDE;
 	m_MonsterState		= MONSTERSTATE_NONE;
 	SetBits(pev->flags, FL_SWIM);

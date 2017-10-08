@@ -879,7 +879,7 @@ void CBasePlayer::ImpulseCommands()
 		}
 
 		UTIL_MakeVectors( pev->v_angle );
-		UTIL_TraceLine( GetAbsOrigin() + pev->view_ofs, GetAbsOrigin() + pev->view_ofs + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
+		UTIL_TraceLine( GetAbsOrigin() + GetViewOffset(), GetAbsOrigin() + GetViewOffset() + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
 
 		if( tr.flFraction != 1.0 )
 		{// line hit something, so paint a decal
@@ -1045,7 +1045,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 
 			CBaseEntity* pWorld = CWorld::GetInstance();
 
-			Vector start = GetAbsOrigin() + pev->view_ofs;
+			Vector start = GetAbsOrigin() + GetViewOffset();
 			Vector end = start + gpGlobals->v_forward * 1024;
 			UTIL_TraceLine( start, end, ignore_monsters, edict(), &tr );
 			if( tr.pHit )
@@ -1086,7 +1086,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		{
 			UTIL_MakeVectors( pev->v_angle );
 			TraceResult tr;
-			UTIL_TraceLine( GetAbsOrigin() + pev->view_ofs, GetAbsOrigin() + pev->view_ofs + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
+			UTIL_TraceLine( GetAbsOrigin() + GetViewOffset(), GetAbsOrigin() + GetViewOffset() + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
 
 			if( tr.flFraction != 1.0 )
 			{// line hit something, so paint a decal

@@ -521,7 +521,7 @@ void CGargantua :: Spawn()
 	pev->movetype		= MOVETYPE_STEP;
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	pev->health			= gSkillData.GetGargantuaHealth();
-	//pev->view_ofs		= Vector ( 0, 0, 96 );// taken from mdl file
+	//SetViewOffset( Vector ( 0, 0, 96 ) );// taken from mdl file
 	m_flFieldOfView		= -0.2;// width of forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 

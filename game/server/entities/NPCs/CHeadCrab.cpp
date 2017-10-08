@@ -192,14 +192,14 @@ void CHeadCrab :: HandleAnimEvent( AnimEvent_t& event )
 					gravity = 1;
 
 				// How fast does the headcrab need to travel to reach that height given gravity?
-				float height = (m_hEnemy->GetAbsOrigin().z + m_hEnemy->pev->view_ofs.z - GetAbsOrigin().z);
+				float height = (m_hEnemy->GetAbsOrigin().z + m_hEnemy->GetViewOffset().z - GetAbsOrigin().z);
 				if (height < 16)
 					height = 16;
 				float speed = sqrt( 2 * gravity * height );
 				float time = speed / gravity;
 
 				// Scale the sideways velocity to get there at the right time
-				vecJumpDir = (m_hEnemy->GetAbsOrigin() + m_hEnemy->pev->view_ofs - GetAbsOrigin());
+				vecJumpDir = (m_hEnemy->GetAbsOrigin() + m_hEnemy->GetViewOffset() - GetAbsOrigin());
 				vecJumpDir = vecJumpDir * ( 1.0 / time );
 
 				// Speed to offset gravity at the desired height
@@ -249,7 +249,7 @@ void CHeadCrab :: Spawn()
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	GetEffects().ClearAll();
 	pev->health			= gSkillData.GetHeadcrabHealth();
-	pev->view_ofs		= Vector ( 0, 0, 20 );// position of the eyes relative to monster's origin.
+	SetViewOffset( Vector ( 0, 0, 20 ) );// position of the eyes relative to monster's origin.
 	pev->yaw_speed		= 5;//!!! should we put this in the monster's changeanim function since turn rates may vary with state/anim?
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;

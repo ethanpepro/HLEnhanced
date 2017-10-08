@@ -277,7 +277,7 @@ void CFuncTank::TrackTarget( void )
 
 		// Calculate angle needed to aim at target
 		barrelEnd = BarrelPosition();
-		targetPosition = pTarget->GetAbsOrigin() + pTarget->pev->view_ofs;
+		targetPosition = pTarget->GetAbsOrigin() + pTarget->GetViewOffset();
 		float range = ( targetPosition - barrelEnd ).Length();
 
 		if( !InRange( range ) )

@@ -181,7 +181,9 @@ void CBaseTurret::Initialize(void)
 	{
 		pev->idealpitch = 180;
 		pev->angles.x = 180;
-		pev->view_ofs.z = -pev->view_ofs.z;
+		Vector vecView = GetViewOffset();
+		vecView.z = -vecView.z;
+		SetViewOffset( vecView );
 		GetEffects() |= EF_INVLIGHT;
 		pev->angles.y = pev->angles.y + 180;
 		if (pev->angles.y > 360)
@@ -307,7 +309,7 @@ void CBaseTurret::ActiveThink(void)
 		}
 	}
 
-	Vector vecMid = GetAbsOrigin() + pev->view_ofs;
+	Vector vecMid = GetAbsOrigin() + GetViewOffset();
 	Vector vecMidEnemy = m_hEnemy->BodyTarget( vecMid );
 
 	// Look for our current enemy

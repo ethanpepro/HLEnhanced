@@ -34,7 +34,9 @@ void CTurret::Spawn()
 	pev->health = gSkillData.GetTurretHealth();
 	m_HackedGunPos = Vector( 0, 0, 12.75 );
 	m_flMaxSpin = TURRET_MAXSPIN;
-	pev->view_ofs.z = 12.75;
+	Vector vecView = GetViewOffset();
+	vecView.z = 12.75;
+	SetViewOffset( vecView );
 
 	CBaseTurret::Spawn();
 

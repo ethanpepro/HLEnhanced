@@ -354,7 +354,7 @@ int CSquadMonster :: SquadRecruit( int searchRadius, int maxMembers )
 				    !pRecruit->HasNetName() )
 				{
 					TraceResult tr;
-					UTIL_TraceLine( GetAbsOrigin() + pev->view_ofs, pRecruit->GetAbsOrigin() + pev->view_ofs, ignore_monsters, pRecruit->edict(), &tr );// try to hit recruit with a traceline.
+					UTIL_TraceLine( GetAbsOrigin() + GetViewOffset(), pRecruit->GetAbsOrigin() + GetViewOffset(), ignore_monsters, pRecruit->edict(), &tr );// try to hit recruit with a traceline.
 					if ( tr.flFraction == 1.0 )
 					{
 						if (!SquadAdd( pRecruit ))

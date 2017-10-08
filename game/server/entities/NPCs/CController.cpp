@@ -292,7 +292,7 @@ void CController :: Spawn()
 	pev->flags			|= FL_FLY;
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	pev->health			= gSkillData.GetControllerHealth();
-	pev->view_ofs		= Vector( 0, 0, -2 );// position of the eyes relative to monster's origin.
+	SetViewOffset( Vector( 0, 0, -2 ) );// position of the eyes relative to monster's origin.
 	m_flFieldOfView		= VIEW_FIELD_FULL;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 
@@ -442,7 +442,7 @@ void CController :: StartTask ( const Task_t* pTask )
 		break;
 	case TASK_GET_PATH_TO_ENEMY_LKP:
 		{
-			if (BuildNearestRoute( m_vecEnemyLKP, pev->view_ofs, pTask->flData, (m_vecEnemyLKP - GetAbsOrigin()).Length() + 1024 ))
+			if (BuildNearestRoute( m_vecEnemyLKP, GetViewOffset(), pTask->flData, (m_vecEnemyLKP - GetAbsOrigin()).Length() + 1024 ))
 			{
 				TaskComplete();
 			}
@@ -464,7 +464,7 @@ void CController :: StartTask ( const Task_t* pTask )
 				return;
 			}
 
-			if (BuildNearestRoute( pEnemy->GetAbsOrigin(), pEnemy->pev->view_ofs, pTask->flData, (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() + 1024 ))
+			if (BuildNearestRoute( pEnemy->GetAbsOrigin(), pEnemy->GetViewOffset(), pTask->flData, (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() + 1024 ))
 			{
 				TaskComplete();
 			}

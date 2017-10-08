@@ -63,7 +63,7 @@ void CBaseMonster :: SetState ( MONSTERSTATE State )
 void CBaseMonster :: RunAI ( void )
 {
 	// to test model's eye height
-	//UTIL_ParticleEffect ( GetAbsOrigin() + pev->view_ofs, g_vecZero, 255, 10 );
+	//UTIL_ParticleEffect ( GetAbsOrigin() + GetViewOffset(), g_vecZero, 255, 10 );
 
 	// IDLE sound permitted in ALERT state is because monsters were silent in ALERT state. Only play IDLE sound in IDLE state
 	// once we have sounds for that state.

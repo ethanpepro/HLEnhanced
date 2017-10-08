@@ -107,7 +107,7 @@ void CRoach :: Spawn()
 	MonsterInit();
 	SetActivity ( ACT_IDLE );
 
-	pev->view_ofs		= Vector ( 0, 0, 1 );// position of the eyes relative to monster's origin.
+	SetViewOffset( Vector ( 0, 0, 1 ) );// position of the eyes relative to monster's origin.
 	SetTakeDamageMode( DAMAGE_YES );
 	m_fLightHacked		= false;
 	m_flLastLightLevel	= -1;

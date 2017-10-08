@@ -2341,12 +2341,12 @@ public:
 	/**
 	*	@return Position of eyes.
 	*/
-	virtual Vector EyePosition() const { return GetAbsOrigin() + pev->view_ofs; }
+	virtual Vector EyePosition() const { return GetAbsOrigin() + GetViewOffset(); }
 
 	/**
 	*	@return Position of ears.
 	*/
-	virtual Vector EarPosition() const { return GetAbsOrigin() + pev->view_ofs; }
+	virtual Vector EarPosition() const { return GetAbsOrigin() + GetViewOffset(); }
 
 	/**
 	*	@return Position to shoot at.

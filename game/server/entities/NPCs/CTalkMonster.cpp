@@ -463,7 +463,7 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 			{
 				TaskComplete();
 			}
-			else if ( FindCover( GetAbsOrigin(), pev->view_ofs, 0, CoverRadius() ) )
+			else if ( FindCover( GetAbsOrigin(), GetViewOffset(), 0, CoverRadius() ) )
 			{
 				// then try for plain ole cover
 				m_flMoveWaitFinished = gpGlobals->time + 2;

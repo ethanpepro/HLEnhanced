@@ -536,7 +536,9 @@ void CTentacle :: Cycle( void )
 			m_flTapRadius = 336; // 400 - 64
 			break;
 		}
-		pev->view_ofs.z = MyHeight( );
+		Vector vecView = GetViewOffset();
+		vecView.z = MyHeight();
+		SetViewOffset( vecView );
 		// ALERT( at_console, "seq %d\n", pev->sequence );
 	}
 

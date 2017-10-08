@@ -127,7 +127,7 @@ void CNihilanth :: Spawn( void )
 	pev->flags			|= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
 	pev->health			= gSkillData.GetNihilanthHealth();
-	pev->view_ofs		= Vector( 0, 0, 300 );
+	SetViewOffset( Vector( 0, 0, 300 ) );
 
 	m_flFieldOfView = -1; // 360 degrees
 

@@ -189,7 +189,7 @@ void CBasePlayer::Spawn()
 	else
 		SetSize( VEC_HULL_MIN, VEC_HULL_MAX );
 
-	pev->view_ofs = VEC_VIEW;
+	SetViewOffset( VEC_VIEW );
 	Precache();
 	m_HackedGunPos = Vector( 0, 32, 0 );
 
@@ -223,8 +223,8 @@ void CBasePlayer::Spawn()
 
 Vector CBasePlayer::GetGunPosition()
 {
-	//m_HackedGunPos = pev->view_ofs;
-	return GetAbsOrigin() + pev->view_ofs;
+	//m_HackedGunPos = GetViewOffset();
+	return GetAbsOrigin() + GetViewOffset();
 }
 
 //=========================================================

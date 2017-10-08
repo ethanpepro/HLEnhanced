@@ -684,7 +684,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 				return;
 			}
 
-			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->pev->view_ofs, 0, pTask->flData ) )
+			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->GetViewOffset(), 0, pTask->flData ) )
 			{
 				// try for cover farther than the FLData from the schedule.
 				TaskComplete();
@@ -704,7 +704,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 				return;
 			}
 
-			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->pev->view_ofs, pTask->flData, CoverRadius() ) )
+			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->GetViewOffset(), pTask->flData, CoverRadius() ) )
 			{
 				// try for cover farther than the FLData from the schedule.
 				TaskComplete();
@@ -724,7 +724,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 				return;
 			}
 
-			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->pev->view_ofs, 0, CoverRadius() ) )
+			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->GetViewOffset(), 0, CoverRadius() ) )
 			{
 				// try for cover farther than the FLData from the schedule.
 				TaskComplete();
@@ -750,13 +750,13 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			else
 				pCover = m_hEnemy;
 
-			if ( FindLateralCover( pCover->GetAbsOrigin(), pCover->pev->view_ofs ) )
+			if ( FindLateralCover( pCover->GetAbsOrigin(), pCover->GetViewOffset() ) )
 			{
 				// try lateral first
 				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
 				TaskComplete();
 			}
-			else if ( FindCover( pCover->GetAbsOrigin(), pCover->pev->view_ofs, 0, CoverRadius() ) )
+			else if ( FindCover( pCover->GetAbsOrigin(), pCover->GetViewOffset(), 0, CoverRadius() ) )
 			{
 				// then try for plain ole cover
 				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
@@ -771,7 +771,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 		}
 	case TASK_FIND_COVER_FROM_ORIGIN:
 		{
-			if ( FindCover( GetAbsOrigin(), pev->view_ofs, 0, CoverRadius() ) )
+			if ( FindCover( GetAbsOrigin(), GetViewOffset(), 0, CoverRadius() ) )
 			{
 				// then try for plain ole cover
 				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
@@ -975,7 +975,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			{
 				TaskComplete();
 			}
-			else if (BuildNearestRoute( m_vecEnemyLKP, pev->view_ofs, 0, (m_vecEnemyLKP - GetAbsOrigin()).Length() ))
+			else if (BuildNearestRoute( m_vecEnemyLKP, GetViewOffset(), 0, (m_vecEnemyLKP - GetAbsOrigin()).Length() ))
 			{
 				TaskComplete();
 			}
@@ -1001,7 +1001,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			{
 				TaskComplete();
 			}
-			else if (BuildNearestRoute( pEnemy->GetAbsOrigin(), pEnemy->pev->view_ofs, 0, (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() ))
+			else if (BuildNearestRoute( pEnemy->GetAbsOrigin(), pEnemy->GetViewOffset(), 0, (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() ))
 			{
 				TaskComplete();
 			}

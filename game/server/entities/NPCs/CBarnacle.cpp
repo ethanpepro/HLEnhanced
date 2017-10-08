@@ -155,7 +155,7 @@ void CBarnacle :: BarnacleThink ( void )
 			m_flAltitude -= BARNACLE_PULL_SPEED;
 			vecNewEnemyOrigin.z += BARNACLE_PULL_SPEED;
 
-			if ( fabs( GetAbsOrigin().z - ( vecNewEnemyOrigin.z + m_hEnemy->pev->view_ofs.z - 8 ) ) < BARNACLE_BODY_HEIGHT )
+			if ( fabs( GetAbsOrigin().z - ( vecNewEnemyOrigin.z + m_hEnemy->GetViewOffset().z - 8 ) ) < BARNACLE_BODY_HEIGHT )
 			{
 		// prey has just been lifted into position ( if the victim origin + eye height + 8 is higher than the bottom of the barnacle, it is assumed that the head is within barnacle's body )
 				m_fLiftingPrey = false;

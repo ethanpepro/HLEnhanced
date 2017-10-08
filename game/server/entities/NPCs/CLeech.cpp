@@ -102,7 +102,7 @@ void CLeech::Spawn( void )
 	SetThink( &CLeech::SwimThink );
 	SetUse( NULL );
 	SetTouch( NULL );
-	pev->view_ofs = g_vecZero;
+	SetViewOffset( g_vecZero );
 
 	m_flTurning = 0;
 	m_fPathBlocked = false;
@@ -478,14 +478,14 @@ void CLeech::SwimThink( void )
 		else
 		{
 			// Chase the enemy's eyes
-			m_height = pTarget->GetAbsOrigin().z + pTarget->pev->view_ofs.z - 5;
+			m_height = pTarget->GetAbsOrigin().z + pTarget->GetViewOffset().z - 5;
 			// Clip to viable water area
 			if ( m_height < m_bottom )
 				m_height = m_bottom;
 			else if ( m_height > m_top )
 				m_height = m_top;
 			Vector location = pTarget->GetAbsOrigin() - GetAbsOrigin();
-			location.z += (pTarget->pev->view_ofs.z);
+			location.z += (pTarget->GetViewOffset().z);
 			if ( location.Length() < 40 )
 				SetConditions( bits_COND_CAN_MELEE_ATTACK1 );
 			// Turn towards target ent

@@ -2303,7 +2303,7 @@ bool CBaseMonster::BuildNearestRoute( Vector vecThreat, Vector vecViewOffset, fl
 			if ( flDist > flMinDist && flDist < flMaxDist)
 			{
 				// can I see where I want to be from there?
-				UTIL_TraceLine( node.m_vecOrigin + pev->view_ofs, vecLookersOffset, ignore_monsters, edict(), &tr );
+				UTIL_TraceLine( node.m_vecOrigin + GetViewOffset(), vecLookersOffset, ignore_monsters, edict(), &tr );
 
 				if (tr.flFraction == 1.0)
 				{
@@ -2515,9 +2515,9 @@ void CBaseMonster :: SetEyePosition ( void )
 
 	GetEyePosition( pmodel, vecEyePosition );
 
-	pev->view_ofs = vecEyePosition;
+	SetViewOffset( vecEyePosition );
 
-	if ( pev->view_ofs == g_vecZero )
+	if ( GetViewOffset() == g_vecZero )
 	{
 		ALERT ( at_aiconsole, "%s has no view_ofs!\n", GetClassname() );
 	}
@@ -2638,7 +2638,7 @@ Vector CBaseMonster::GetGunPosition()
 
 	// Vector vecSrc = GetAbsOrigin() + gpGlobals->v_forward * 10;
 	//vecSrc.z = pevShooter->absmin.z + pevShooter->size.z * 0.7;
-	//vecSrc.z = GetAbsOrigin().z + (pev->view_ofs.z - 4);
+	//vecSrc.z = GetAbsOrigin().z + (GetViewOffset().z - 4);
 	Vector vecSrc = GetAbsOrigin()
 		+ gpGlobals->v_forward * m_HackedGunPos.y
 		+ gpGlobals->v_right * m_HackedGunPos.x
@@ -2774,7 +2774,7 @@ int CBaseMonster :: FindHintNode ( void )
 			{
 				if ( !node.m_sHintActivity || LookupActivity ( node.m_sHintActivity ) != ACTIVITY_NOT_AVAILABLE )
 				{
-					UTIL_TraceLine ( GetAbsOrigin() + pev->view_ofs, node.m_vecOrigin + pev->view_ofs, ignore_monsters, ENT(pev), &tr );
+					UTIL_TraceLine ( GetAbsOrigin() + GetViewOffset(), node.m_vecOrigin + GetViewOffset(), ignore_monsters, ENT(pev), &tr );
 
 					if ( tr.flFraction == 1.0 )
 					{
@@ -3057,7 +3057,7 @@ bool CBaseMonster::FindLateralCover( const Vector &vecThreat, const Vector &vecV
 		vecRightTest = vecRightTest + vecStepRight;
 
 		// it's faster to check the SightEnt's visibility to the potential spot than to check the local move, so we do that first.
-		UTIL_TraceLine( vecThreat + vecViewOffset, vecLeftTest + pev->view_ofs, ignore_monsters, ignore_glass, ENT(pev)/*pentIgnore*/, &tr);
+		UTIL_TraceLine( vecThreat + vecViewOffset, vecLeftTest + GetViewOffset(), ignore_monsters, ignore_glass, ENT(pev)/*pentIgnore*/, &tr);
 		
 		if (tr.flFraction != 1.0)
 		{
@@ -3071,7 +3071,7 @@ bool CBaseMonster::FindLateralCover( const Vector &vecThreat, const Vector &vecV
 		}
 		
 		// it's faster to check the SightEnt's visibility to the potential spot than to check the local move, so we do that first.
-		UTIL_TraceLine(vecThreat + vecViewOffset, vecRightTest + pev->view_ofs, ignore_monsters, ignore_glass, ENT(pev)/*pentIgnore*/, &tr);
+		UTIL_TraceLine(vecThreat + vecViewOffset, vecRightTest + GetViewOffset(), ignore_monsters, ignore_glass, ENT(pev)/*pentIgnore*/, &tr);
 		
 		if ( tr.flFraction != 1.0 )
 		{

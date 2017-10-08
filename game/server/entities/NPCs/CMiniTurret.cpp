@@ -29,7 +29,9 @@ void CMiniTurret::Spawn()
 	pev->health = gSkillData.GetMiniTurretHealth();
 	m_HackedGunPos = Vector( 0, 0, 12.75 );
 	m_flMaxSpin = 0;
-	pev->view_ofs.z = 12.75;
+	Vector vecView = GetViewOffset();
+	vecView.z = 12.75;
+	SetViewOffset( vecView );
 
 	CBaseTurret::Spawn();
 	m_iRetractHeight = 16;

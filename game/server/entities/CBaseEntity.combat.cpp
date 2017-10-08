@@ -401,7 +401,7 @@ bool CBaseEntity::FVisible( const CBaseEntity *pEntity ) const
 		|| ( GetWaterLevel() == WATERLEVEL_HEAD && pEntity->GetWaterLevel() == WATERLEVEL_DRY ) )
 		return false;
 
-	vecLookerOrigin = GetAbsOrigin() + pev->view_ofs;//look through the caller's 'eyes'
+	vecLookerOrigin = GetAbsOrigin() + GetViewOffset();//look through the caller's 'eyes'
 	vecTargetOrigin = pEntity->EyePosition();
 
 	UTIL_TraceLine( vecLookerOrigin, vecTargetOrigin, ignore_monsters, ignore_glass, ENT( pev )/*pentIgnore*/, &tr );
@@ -447,7 +447,7 @@ bool CBaseEntity::FBoxVisible( const CBaseEntity* pTarget, Vector& vecTargetOrig
 		return false;
 
 	TraceResult tr;
-	Vector	vecLookerOrigin = GetAbsOrigin() + pev->view_ofs;//look through the monster's 'eyes'
+	Vector	vecLookerOrigin = GetAbsOrigin() + GetViewOffset();//look through the monster's 'eyes'
 	for( int i = 0; i < 5; i++ )
 	{
 		Vector vecTarget = pTarget->GetAbsOrigin();

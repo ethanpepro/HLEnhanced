@@ -33,7 +33,9 @@ void CSentry::Spawn()
 	SetModel( "models/sentry.mdl" );
 	pev->health = gSkillData.GetSentryHealth();
 	m_HackedGunPos = Vector( 0, 0, 48 );
-	pev->view_ofs.z = 48;
+	Vector vecView = GetViewOffset();
+	vecView.z = 48;
+	SetViewOffset( vecView );
 	m_flMaxWait = 1E6;
 	m_flMaxSpin = 1E6;
 

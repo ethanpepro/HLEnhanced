@@ -136,7 +136,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	// copy over player information
 	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_POSITION ) )
 	{
-		SetAbsOrigin( pPlayer->GetAbsOrigin() + pPlayer->pev->view_ofs );
+		SetAbsOrigin( pPlayer->GetAbsOrigin() + pPlayer->GetViewOffset() );
 		pev->angles.x = -pPlayer->pev->angles.x;
 		pev->angles.y = pPlayer->pev->angles.y;
 		pev->angles.z = 0;

@@ -284,7 +284,7 @@ void CBasePlayer::Observer_SetMode( int iMode )
 //=========================================================
 void CBasePlayer::StartDeathCam()
 {
-	if( pev->view_ofs == g_vecZero )
+	if( GetViewOffset() == g_vecZero )
 	{
 		// don't accept subsequent attempts to StartDeathCam()
 		return;
@@ -330,7 +330,7 @@ void CBasePlayer::StartDeathCam()
 	// start death cam
 
 	m_afPhysicsFlags |= PFLAG_OBSERVER;
-	pev->view_ofs = g_vecZero;
+	SetViewOffset( g_vecZero );
 	SetFixAngleMode( FIXANGLE_SET );
 	SetSolidType( SOLID_NOT );
 	SetTakeDamageMode( DAMAGE_NO );
@@ -377,7 +377,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	m_iHideHUD = ( HIDEHUD_HEALTH | HIDEHUD_WEAPONS );
 	m_afPhysicsFlags |= PFLAG_OBSERVER;
 	GetEffects() = EF_NODRAW;
-	pev->view_ofs = g_vecZero;
+	SetViewOffset( g_vecZero );
 	pev->angles = pev->v_angle = vecViewAngle;
 	SetFixAngleMode( FIXANGLE_SET );
 	SetSolidType( SOLID_NOT );

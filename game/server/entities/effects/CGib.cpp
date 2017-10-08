@@ -189,7 +189,7 @@ void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 
 	if( pVictim )
 	{
-		pGib->SetAbsOrigin( pVictim->GetAbsOrigin() + pVictim->pev->view_ofs );
+		pGib->SetAbsOrigin( pVictim->GetAbsOrigin() + pVictim->GetViewOffset() );
 
 		CBaseEntity* pPlayer = UTIL_FindClientInPVS( pGib );
 
