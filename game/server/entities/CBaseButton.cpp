@@ -69,7 +69,7 @@ void CBaseButton::Spawn()
 
 	if( pev->health > 0 )
 	{
-		pev->takedamage = DAMAGE_YES;
+		SetTakeDamageMode( DAMAGE_YES );
 	}
 
 	if( m_flWait == 0 )

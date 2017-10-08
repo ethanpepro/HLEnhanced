@@ -119,7 +119,7 @@ void CBaseTurret::Spawn()
 	pev->sequence		= 0;
 	pev->frame			= 0;
 	SetSolidType( SOLID_SLIDEBOX );
-	pev->takedamage		= DAMAGE_AIM;
+	SetTakeDamageMode( DAMAGE_AIM );
 
 	SetBits (pev->flags, FL_MONSTER);
 	SetUse( &CBaseTurret::TurretUse );
@@ -734,7 +734,7 @@ void CBaseTurret::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 		newInfo.GetMutableDamage() = 0.1;// don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated
 	}
 
-	if ( !pev->takedamage )
+	if ( GetTakeDamageMode() == DAMAGE_NO )
 		return;
 
 	g_MultiDamage.AddMultiDamage( newInfo, this );
@@ -744,7 +744,7 @@ void CBaseTurret::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 
 void CBaseTurret::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if ( !pev->takedamage )
+	if ( GetTakeDamageMode() == DAMAGE_NO )
 		return;
 
 	CTakeDamageInfo newInfo = info;
@@ -756,7 +756,7 @@ void CBaseTurret::OnTakeDamage( const CTakeDamageInfo& info )
 	if (pev->health <= 0)
 	{
 		pev->health = 0;
-		pev->takedamage = DAMAGE_NO;
+		SetTakeDamageMode( DAMAGE_NO );
 		pev->dmgtime = gpGlobals->time;
 
 		ClearBits (pev->flags, FL_MONSTER); // why are they set in the first place???

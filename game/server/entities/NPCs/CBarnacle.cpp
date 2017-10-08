@@ -78,7 +78,7 @@ void CBarnacle :: Spawn()
 
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_NONE;
-	pev->takedamage		= DAMAGE_AIM;
+	SetTakeDamageMode( DAMAGE_AIM );
 	m_bloodColor		= BLOOD_COLOR_RED;
 	GetEffects() = EF_INVLIGHT; // take light from the ceiling 
 	pev->health			= 25;
@@ -296,7 +296,7 @@ void CBarnacle::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	CBaseMonster *pVictim;
 
 	SetSolidType( SOLID_NOT );
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 
 	if ( m_hEnemy != NULL )
 	{

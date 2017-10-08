@@ -77,7 +77,7 @@ void COsprey :: Spawn( void )
 	SetAbsOrigin( GetAbsOrigin() );
 
 	pev->flags |= FL_MONSTER;
-	pev->takedamage		= DAMAGE_YES;
+	SetTakeDamageMode( DAMAGE_YES );
 	m_flRightHealth		= 200;
 	m_flLeftHealth		= 200;
 	pev->health			= 400;
@@ -441,7 +441,7 @@ void COsprey::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetTouch( &COsprey::CrashTouch );
 	pev->nextthink = gpGlobals->time + 0.1;
 	pev->health = 0;
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 
 	m_startTime = gpGlobals->time + 4.0;
 }

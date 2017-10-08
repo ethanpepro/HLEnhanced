@@ -1101,7 +1101,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			auto pEntity = UTIL_FindEntityForward( this );
 			if( pEntity )
 			{
-				if( pEntity->pev->takedamage )
+				if( pEntity->GetTakeDamageMode() != DAMAGE_NO )
 					pEntity->SetThink( &CBaseEntity::SUB_Remove );
 			}
 			break;

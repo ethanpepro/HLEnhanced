@@ -68,7 +68,7 @@ void CHornet :: Spawn( void )
 
 	pev->movetype	= MOVETYPE_FLY;
 	SetSolidType( SOLID_BBOX );
-	pev->takedamage = DAMAGE_YES;
+	SetTakeDamageMode( DAMAGE_YES );
 	pev->flags		|= FL_MONSTER;
 	pev->health		= 1;// weak!
 	
@@ -405,7 +405,7 @@ void CHornet::DartTouch( CBaseEntity *pOther )
 
 void CHornet::DieTouch ( CBaseEntity *pOther )
 {
-	if ( pOther && pOther->pev->takedamage )
+	if ( pOther && pOther->GetTakeDamageMode() != DAMAGE_NO )
 	{// do the damage
 
 		switch (RANDOM_LONG(0,2))

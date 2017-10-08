@@ -63,7 +63,7 @@ void CApache :: Spawn( void )
 	SetAbsOrigin( GetAbsOrigin() );
 
 	pev->flags |= FL_MONSTER;
-	pev->takedamage		= DAMAGE_AIM;
+	SetTakeDamageMode( DAMAGE_AIM );
 	pev->health			= gSkillData.GetApacheHealth();
 
 	m_flFieldOfView = -0.707; // 270 degrees
@@ -141,7 +141,7 @@ void CApache::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetTouch( &CApache::CrashTouch );
 	pev->nextthink = gpGlobals->time + 0.1;
 	pev->health = 0;
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 
 	if (pev->spawnflags & SF_NOWRECKAGE)
 	{

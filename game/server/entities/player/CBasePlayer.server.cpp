@@ -133,7 +133,7 @@ void CBasePlayer::Spawn()
 	SetClassname( "player" );
 	pev->health			= 100;
 	pev->armorvalue		= 0;
-	pev->takedamage		= DAMAGE_AIM;
+	SetTakeDamageMode( DAMAGE_AIM );
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_WALK;
 	SetMaxHealth( pev->health );
@@ -234,7 +234,7 @@ void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 {
 	CTakeDamageInfo newInfo = info;
 
-	if ( pev->takedamage )
+	if ( GetTakeDamageMode() != DAMAGE_NO )
 	{
 		m_LastHitGroup = ptr->iHitgroup;
 

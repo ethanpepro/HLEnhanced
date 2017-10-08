@@ -143,9 +143,9 @@ void CBreakable::Spawn( void )
     Precache( );    
 
 	if ( FBitSet( pev->spawnflags, SF_BREAK_TRIGGER_ONLY ) )
-		pev->takedamage	= DAMAGE_NO;
+		SetTakeDamageMode( DAMAGE_NO );
 	else
-		pev->takedamage	= DAMAGE_YES;
+		SetTakeDamageMode( DAMAGE_YES );
   
 	SetSolidType( SOLID_BSP );
     pev->movetype	= MOVETYPE_PUSH;

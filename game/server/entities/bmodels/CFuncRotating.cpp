@@ -294,7 +294,7 @@ void CFuncRotating::KeyValue( KeyValueData* pkvd )
 void CFuncRotating::HurtTouch( CBaseEntity *pOther )
 {
 	// we can't hurt this thing, so we're not concerned with it
-	if( !pOther->pev->takedamage )
+	if( pOther->GetTakeDamageMode() == DAMAGE_NO )
 		return;
 
 	// calculate damage based on rotation speed

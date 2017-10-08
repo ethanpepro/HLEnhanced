@@ -113,7 +113,7 @@ void CTentacle :: Spawn( )
 	SetModel( "models/tentacle2.mdl");
 	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
 
-	pev->takedamage		= DAMAGE_AIM;
+	SetTakeDamageMode( DAMAGE_AIM );
 	pev->flags			|= FL_MONSTER;
 	
 	m_bloodColor		= BLOOD_COLOR_GREEN;
@@ -558,7 +558,7 @@ void CTentacle::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	switch( useType )
 	{
 	case USE_OFF:
-		pev->takedamage = DAMAGE_NO;
+		SetTakeDamageMode( DAMAGE_NO );
 		SetThink( &CTentacle::DieThink );
 		m_iGoalAnim = TENTACLE_ANIM_Engine_Death1;
 		break;
@@ -572,7 +572,7 @@ void CTentacle::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	case USE_SET:
 		break;
 	case USE_TOGGLE:
-		pev->takedamage = DAMAGE_NO;
+		SetTakeDamageMode( DAMAGE_NO );
 		SetThink( &CTentacle::DieThink );
 		m_iGoalAnim = TENTACLE_ANIM_Engine_Idle;
 		break;

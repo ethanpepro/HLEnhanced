@@ -28,7 +28,7 @@ void CBaseEntity::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 {
 	Vector vecOrigin = ptr->vecEndPos - vecDir * 4;
 
-	if( pev->takedamage )
+	if( GetTakeDamageMode() != DAMAGE_NO )
 	{
 		g_MultiDamage.AddMultiDamage( info, this );
 

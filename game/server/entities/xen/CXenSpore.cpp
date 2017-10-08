@@ -47,7 +47,7 @@ void CXenSpore::Spawn( void )
 	SetModel( pModelNames[ pev->skin ] );
 	pev->movetype = MOVETYPE_NONE;
 	SetSolidType( SOLID_BBOX );
-	pev->takedamage = DAMAGE_YES;
+	SetTakeDamageMode( DAMAGE_YES );
 
 	//	SetActivity( ACT_IDLE );
 	pev->sequence = 0;

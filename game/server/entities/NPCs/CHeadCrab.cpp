@@ -304,7 +304,7 @@ void CHeadCrab :: RunTask ( const Task_t* pTask )
 //=========================================================
 void CHeadCrab :: LeapTouch ( CBaseEntity *pOther )
 {
-	if ( !pOther->pev->takedamage )
+	if ( pOther->GetTakeDamageMode() == DAMAGE_NO )
 	{
 		return;
 	}

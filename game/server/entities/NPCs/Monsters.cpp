@@ -1938,7 +1938,7 @@ void CBaseMonster :: MonsterInit ( void )
 
 	// Set fields common to all monsters
 	GetEffects().ClearAll();
-	pev->takedamage		= DAMAGE_AIM;
+	SetTakeDamageMode( DAMAGE_AIM );
 	pev->ideal_yaw		= pev->angles.y;
 	SetMaxHealth( pev->health );
 	SetDeadFlag( DEAD_NO );

@@ -57,7 +57,7 @@ void CRotButton::Spawn( void )
 
 	if( pev->health > 0 )
 	{
-		pev->takedamage = DAMAGE_YES;
+		SetTakeDamageMode( DAMAGE_YES );
 	}
 
 	m_toggle_state = TS_AT_BOTTOM;

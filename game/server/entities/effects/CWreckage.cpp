@@ -29,7 +29,7 @@ void CWreckage::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
 	pev->movetype = MOVETYPE_NONE;
-	pev->takedamage = 0;
+	SetTakeDamageMode( DAMAGE_NO );
 	GetEffects().ClearAll();
 
 	pev->frame = 0;

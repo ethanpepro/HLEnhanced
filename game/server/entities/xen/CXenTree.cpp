@@ -48,7 +48,7 @@ void CXenTree::Spawn( void )
 	pev->movetype = MOVETYPE_NONE;
 	SetSolidType( SOLID_BBOX );
 
-	pev->takedamage = DAMAGE_YES;
+	SetTakeDamageMode( DAMAGE_YES );
 
 	SetSize( Vector( -30, -30, 0 ), Vector( 30, 30, 188 ) );
 	SetActivity( ACT_IDLE );

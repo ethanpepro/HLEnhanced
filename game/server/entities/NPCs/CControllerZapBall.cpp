@@ -76,7 +76,7 @@ void CControllerZapBall::AnimateThink( void )
 
 void CControllerZapBall::ExplodeTouch( CBaseEntity *pOther )
 {
-	if( pOther->pev->takedamage )
+	if( pOther->GetTakeDamageMode() != DAMAGE_NO )
 	{
 		TraceResult tr = UTIL_GetGlobalTrace();
 

@@ -384,7 +384,7 @@ void CGargantua::FlameDamage( Vector vecStart, Vector vecEnd, CBaseEntity* pInfl
 	// iterate on all entities in the vicinity.
 	while ((pEntity = UTIL_FindEntityInSphere( pEntity, vecMid, searchRadius )) != NULL)
 	{
-		if ( pEntity->pev->takedamage != DAMAGE_NO )
+		if ( pEntity->GetTakeDamageMode() != DAMAGE_NO )
 		{
 			// UNDONE: this should check a damage mask, not an ignore
 			if ( iClassIgnore != EntityClassifications().GetNoneId() && pEntity->Classify() == iClassIgnore )

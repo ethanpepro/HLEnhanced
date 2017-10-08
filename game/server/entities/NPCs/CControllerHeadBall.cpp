@@ -101,7 +101,7 @@ void CControllerHeadBall::HuntThink( void )
 		UTIL_TraceLine( GetAbsOrigin(), m_hEnemy->Center(), dont_ignore_monsters, ENT( pev ), &tr );
 
 		CBaseEntity *pEntity = CBaseEntity::Instance( tr.pHit );
-		if( pEntity != NULL && pEntity->pev->takedamage )
+		if( pEntity != NULL && pEntity->GetTakeDamageMode() != DAMAGE_NO )
 		{
 			g_MultiDamage.Clear();
 			pEntity->TraceAttack( CTakeDamageInfo( m_hOwner, gSkillData.GetControllerDmgZap(), DMG_SHOCK ), GetAbsVelocity(), &tr );

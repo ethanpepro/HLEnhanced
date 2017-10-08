@@ -763,7 +763,7 @@ void CISlave :: ZapBeam( int side )
 	m_iBeams++;
 
 	pEntity = CBaseEntity::Instance(tr.pHit);
-	if (pEntity != NULL && pEntity->pev->takedamage)
+	if (pEntity != NULL && pEntity->GetTakeDamageMode() != DAMAGE_NO )
 	{
 		pEntity->TraceAttack( CTakeDamageInfo( this, gSkillData.GetSlaveDmgZap(), DMG_SHOCK ), vecAim, &tr );
 	}

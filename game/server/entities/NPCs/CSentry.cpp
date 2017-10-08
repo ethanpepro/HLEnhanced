@@ -69,7 +69,7 @@ void CSentry::Shoot( Vector &vecSrc, Vector &vecDirToEnemy )
 
 void CSentry::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if( !pev->takedamage )
+	if( GetTakeDamageMode() == DAMAGE_NO )
 		return;
 
 	if( !m_bOn )
@@ -83,7 +83,7 @@ void CSentry::OnTakeDamage( const CTakeDamageInfo& info )
 	if( pev->health <= 0 )
 	{
 		pev->health = 0;
-		pev->takedamage = DAMAGE_NO;
+		SetTakeDamageMode( DAMAGE_NO );
 		pev->dmgtime = gpGlobals->time;
 
 		ClearBits( pev->flags, FL_MONSTER ); // why are they set in the first place???

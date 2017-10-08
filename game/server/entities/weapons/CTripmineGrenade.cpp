@@ -69,7 +69,7 @@ void CTripmineGrenade::Spawn()
 	SetThink( &CTripmineGrenade::PowerupThink );
 	pev->nextthink = gpGlobals->time + 0.2;
 
-	pev->takedamage = DAMAGE_YES;
+	SetTakeDamageMode( DAMAGE_YES );
 	pev->dmg = gSkillData.GetPlrDmgTripmine();
 	pev->health = 1; // don't let die normally
 
@@ -279,7 +279,7 @@ void CTripmineGrenade::OnTakeDamage( const CTakeDamageInfo& info )
 
 void CTripmineGrenade::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 
 	if( info.GetAttacker() && ( info.GetAttacker()->pev->flags & FL_CLIENT ) )
 	{

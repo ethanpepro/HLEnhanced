@@ -51,7 +51,7 @@ void CFlockingFlyer::SpawnCommonCode()
 	SetDeadFlag( DEAD_NO );
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_FLY;
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 	pev->health = 1;
 
 	m_fPathBlocked = false;// obstacles will be detected

@@ -103,7 +103,7 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 {
 	float fldmg;
 
-	if( !pOther->pev->takedamage )
+	if( pOther->GetTakeDamageMode() == DAMAGE_NO )
 		return;
 
 	if( ( pev->spawnflags & SF_TRIGGER_HURT_CLIENTONLYTOUCH ) && !pOther->IsPlayer() )

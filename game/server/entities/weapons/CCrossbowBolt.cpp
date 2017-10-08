@@ -78,7 +78,7 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 	SetTouch( NULL );
 	SetThink( NULL );
 
-	if( pOther->pev->takedamage )
+	if( pOther->GetTakeDamageMode() != DAMAGE_NO )
 	{
 		TraceResult tr = UTIL_GetGlobalTrace();
 

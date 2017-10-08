@@ -292,7 +292,7 @@ Activity CBaseMonster :: GetSmallFlinchActivity ( void )
 
 void CBaseMonster::BecomeDead( void )
 {
-	pev->takedamage = DAMAGE_YES;// don't let autoaim aim at corpses.
+	SetTakeDamageMode( DAMAGE_YES );// don't let autoaim aim at corpses.
 	
 	// give the corpse half of the monster's original maximum health. 
 	pev->health = GetMaxHealth() / 2;
@@ -331,7 +331,7 @@ void CBaseMonster::CallGibMonster( void )
 			fade = true;
 	}
 
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 	SetSolidType( SOLID_NOT );// do something with the body. while monster blows up
 
 	if ( fade )
@@ -430,7 +430,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 	float	flTake;
 	Vector	vecDir;
 
-	if (!pev->takedamage)
+	if ( GetTakeDamageMode() == DAMAGE_NO )
 		return;
 
 	if ( !IsAlive() )
@@ -634,7 +634,7 @@ void RadiusDamage( Vector vecSrc, const CTakeDamageInfo& info, float flRadius, E
 	// iterate on all entities in the vicinity.
 	while ((pEntity = UTIL_FindEntityInSphere( pEntity, vecSrc, flRadius )) != NULL)
 	{
-		if ( pEntity->pev->takedamage != DAMAGE_NO )
+		if ( pEntity->GetTakeDamageMode() != DAMAGE_NO )
 		{
 			// UNDONE: this should check a damage mask, not an ignore
 			if ( iClassIgnore != EntityClassifications().GetNoneId() && pEntity->Classify() == iClassIgnore )
@@ -804,7 +804,7 @@ void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trac
 	ALERT ( at_console, "%d\n", ptr->iHitgroup );
 
 
-	if ( pev->takedamage )
+	if ( GetTakeDamageMode() != DAMAGE_NO )
 	{
 		g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, info.GetDamage(), info.GetDamageTypes() );
 
@@ -825,7 +825,7 @@ void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trac
 {
 	CTakeDamageInfo newInfo = info;
 
-	if ( pev->takedamage )
+	if ( GetTakeDamageMode() != DAMAGE_NO )
 	{
 		m_LastHitGroup = ptr->iHitgroup;
 

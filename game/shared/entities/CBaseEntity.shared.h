@@ -2181,7 +2181,7 @@ public:
 	/**
 	*	@return Whether gauss gun beams should reflect off of this entity.
 	*/
-	virtual bool ReflectGauss() const { return ( IsBSPModel() && !pev->takedamage ); }
+	virtual bool ReflectGauss() const { return ( IsBSPModel() && GetTakeDamageMode() == DAMAGE_NO ); }
 
 	/**
 	*	@return Whether this entity has the given target.

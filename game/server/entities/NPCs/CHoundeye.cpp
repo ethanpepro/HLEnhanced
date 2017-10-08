@@ -538,7 +538,7 @@ void CHoundeye :: SonicAttack ( void )
 	// iterate on all entities in the vicinity.
 	while ((pEntity = UTIL_FindEntityInSphere( pEntity, GetAbsOrigin(), HOUNDEYE_MAX_ATTACK_RADIUS )) != NULL)
 	{
-		if ( pEntity->pev->takedamage != DAMAGE_NO )
+		if ( pEntity->GetTakeDamageMode() != DAMAGE_NO )
 		{
 			if ( !pEntity->ClassnameIs( "monster_houndeye" ) )
 			{// houndeyes don't hurt other houndeyes with their attack

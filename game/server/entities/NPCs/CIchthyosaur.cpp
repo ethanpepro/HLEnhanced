@@ -316,7 +316,7 @@ void CIchthyosaur::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 void CIchthyosaur::BecomeDead( void )
 {
-	pev->takedamage = DAMAGE_YES;// don't let autoaim aim at corpses.
+	SetTakeDamageMode( DAMAGE_YES );// don't let autoaim aim at corpses.
 
 	// give the corpse half of the monster's original maximum health. 
 	pev->health = GetMaxHealth() / 2;

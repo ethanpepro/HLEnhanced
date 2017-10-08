@@ -64,7 +64,7 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 	SetModelName( iStringNull );//invisible
 	SetSolidType( SOLID_NOT );// intangible
 
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 
 	// Pull out of the wall a bit
 	if ( pTrace->flFraction != 1.0 )

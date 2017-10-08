@@ -253,7 +253,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 
 	if ( g_pGameRules->IsMultiplayer() )
 	{
-		if ( m_pSprite && pEntity->pev->takedamage )
+		if ( m_pSprite && pEntity->GetTakeDamageMode() != DAMAGE_NO )
 		{
 			m_pSprite->GetEffects().ClearFlags( EF_NODRAW );
 		}
@@ -276,7 +276,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 		{
 			// Narrow mode only does damage to the entity it hits
 			g_MultiDamage.Clear();
-			if (pEntity->pev->takedamage)
+			if (pEntity->GetTakeDamageMode() != DAMAGE_NO )
 			{
 				pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgEgonNarrow(), DMG_ENERGYBEAM ), vecDir, &tr );
 			}
@@ -313,7 +313,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 		{
 			// wide mode does damage to the ent, and radius damage
 			g_MultiDamage.Clear();
-			if (pEntity->pev->takedamage)
+			if (pEntity->GetTakeDamageMode() != DAMAGE_NO )
 			{
 				pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgEgonWide(), DMG_ENERGYBEAM | DMG_ALWAYSGIB ), vecDir, &tr );
 			}

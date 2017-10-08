@@ -23,7 +23,7 @@ void CTriggerMultiple::Spawn( void )
 	//		SetMaxHealth( pev->health );
 	//UNDONE: where to get pfnDie from?
 	//		pev->pfnDie = multi_killed;
-	//		pev->takedamage = DAMAGE_YES;
+	//		SetTakeDamageMode( DAMAGE_YES );
 	//		SetSolidType( SOLID_BBOX );
 	//		SetAbsOrigin( GetAbsOrigin());  // make sure it links into the world
 	//		}

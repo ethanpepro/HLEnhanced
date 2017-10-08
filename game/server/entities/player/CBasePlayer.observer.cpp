@@ -333,7 +333,7 @@ void CBasePlayer::StartDeathCam()
 	pev->view_ofs = g_vecZero;
 	SetFixAngleMode( FIXANGLE_SET );
 	SetSolidType( SOLID_NOT );
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 	pev->movetype = MOVETYPE_NONE;
 	SetModelIndex( 0 );
 }
@@ -381,7 +381,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	pev->angles = pev->v_angle = vecViewAngle;
 	SetFixAngleMode( FIXANGLE_SET );
 	SetSolidType( SOLID_NOT );
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 	pev->movetype = MOVETYPE_NONE;
 	ClearBits( m_afPhysicsFlags, PFLAG_DUCKING );
 	ClearBits( pev->flags, FL_DUCKING );

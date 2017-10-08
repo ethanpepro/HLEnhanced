@@ -84,7 +84,7 @@ void CCycler :: Spawn( )
 	InitBoneControllers();
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype		= MOVETYPE_NONE;
-	pev->takedamage		= DAMAGE_YES;
+	SetTakeDamageMode( DAMAGE_YES );
 	GetEffects().ClearAll();
 	pev->health			= 80000;// no cycler should die
 	pev->yaw_speed		= 5;

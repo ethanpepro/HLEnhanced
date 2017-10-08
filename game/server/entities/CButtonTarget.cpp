@@ -11,7 +11,7 @@ void CButtonTarget::Spawn( void )
 	pev->movetype = MOVETYPE_PUSH;
 	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
-	pev->takedamage = DAMAGE_YES;
+	SetTakeDamageMode( DAMAGE_YES );
 
 	if( FBitSet( pev->spawnflags, SF_BTARGET_ON ) )
 		pev->frame = 1;

@@ -27,7 +27,7 @@ void SetObjectCollisionBox( entvars_t *pev );
 // give health
 float CBaseEntity::GiveHealth( float flHealth, int bitsDamageType )
 {
-	if( !pev->takedamage )
+	if( GetTakeDamageMode() == DAMAGE_NO )
 		return 0;
 
 	// heal
@@ -50,7 +50,7 @@ float CBaseEntity::GiveHealth( float flHealth, int bitsDamageType )
 
 void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if( !pev->takedamage )
+	if( GetTakeDamageMode() == DAMAGE_NO )
 		return;
 
 	auto pInflictor = info.GetInflictor();
@@ -93,7 +93,7 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 
 void CBaseEntity::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 	SetDeadFlag( DEAD_DEAD );
 	UTIL_Remove( this );
 }

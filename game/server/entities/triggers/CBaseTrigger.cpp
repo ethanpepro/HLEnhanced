@@ -115,7 +115,7 @@ void CBaseTrigger::ActivateMultiTrigger( CBaseEntity *pActivator )
 		EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
 
 	// don't trigger again until reset
-	// pev->takedamage = DAMAGE_NO;
+	// SetTakeDamageMode( DAMAGE_NO );
 
 	m_hActivator = pActivator;
 	SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 );
@@ -147,7 +147,7 @@ void CBaseTrigger::MultiWaitOver( void )
 	//	if ( GetMaxHealth() )
 	//		{
 	//		pev->health		= GetMaxHealth();
-	//		pev->takedamage	= DAMAGE_YES;
+	//		SetTakeDamageMode( DAMAGE_YES );
 	//		SetSolidType( SOLID_BBOX );
 	//		}
 	SetThink( NULL );

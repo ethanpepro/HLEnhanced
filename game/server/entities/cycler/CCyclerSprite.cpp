@@ -30,7 +30,7 @@ void CCyclerSprite::Spawn( void )
 {
 	SetSolidType( SOLID_SLIDEBOX );
 	pev->movetype = MOVETYPE_NONE;
-	pev->takedamage = DAMAGE_YES;
+	SetTakeDamageMode( DAMAGE_YES );
 	GetEffects().ClearAll();
 
 	pev->frame = 0;

@@ -79,7 +79,7 @@ void CSquidSpit::Touch( CBaseEntity *pOther )
 		break;
 	}
 
-	if( !pOther->pev->takedamage )
+	if( pOther->GetTakeDamageMode() == DAMAGE_NO )
 	{
 
 		// make a splat on the wall

@@ -79,7 +79,7 @@ void CSqueakGrenade::Spawn( void )
 	m_flNextHunt = gpGlobals->time + 1E6;
 
 	pev->flags |= FL_MONSTER;
-	pev->takedamage = DAMAGE_AIM;
+	SetTakeDamageMode( DAMAGE_AIM );
 	pev->health = gSkillData.GetSnarkHealth();
 	pev->gravity = 0.5;
 	pev->friction = 0.5;
@@ -122,7 +122,7 @@ void CSqueakGrenade::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	// since squeak grenades never leave a body behind, clear out their takedamage now.
 	// Squeaks do a bit of radius damage when they pop, and that radius damage will
 	// continue to call this function unless we acknowledge the Squeak's death now. (sjb)
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 
 	// play squeek blast
 	EMIT_SOUND_DYN( this, CHAN_ITEM, "squeek/sqk_blast1.wav", 1, 0.5, 0, PITCH_NORM );
@@ -296,7 +296,7 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 	// higher pitch as squeeker gets closer to detonation time
 	flpitch = 155.0 - 60.0 * ( ( m_flDie - gpGlobals->time ) / SQUEEK_DETONATE_DELAY );
 
-	if( pOther->pev->takedamage && m_flNextAttack < gpGlobals->time )
+	if( pOther->GetTakeDamageMode() != DAMAGE_NO && m_flNextAttack < gpGlobals->time )
 	{
 		// attack!
 

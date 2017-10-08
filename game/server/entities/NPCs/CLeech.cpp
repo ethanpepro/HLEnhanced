@@ -605,6 +605,6 @@ void CLeech::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 		SetActivity( ACT_DIEFORWARD );
 	
 	pev->movetype = MOVETYPE_TOSS;
-	pev->takedamage = DAMAGE_NO;
+	SetTakeDamageMode( DAMAGE_NO );
 	SetThink( &CLeech::DeadThink );
 }
