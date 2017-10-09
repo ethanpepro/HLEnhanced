@@ -130,10 +130,10 @@ EntityClassification_t CBigMomma::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CBigMomma :: SetYawSpeed ( void )
+void CBigMomma::UpdateYawSpeed()
 {
 	int ys;
 

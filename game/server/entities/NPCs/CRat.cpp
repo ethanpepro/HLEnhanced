@@ -36,10 +36,10 @@ EntityClassification_t CRat::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CRat :: SetYawSpeed ( void )
+void CRat::UpdateYawSpeed()
 {
 	int ys;
 

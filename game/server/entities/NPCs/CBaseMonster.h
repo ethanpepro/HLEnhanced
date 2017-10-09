@@ -356,7 +356,7 @@ public:
 		void AdvanceRoute ( float distance );
 		virtual bool FTriangulate( const Vector &vecStart , const Vector &vecEnd, float flDist, const CBaseEntity* const pTargetEnt, Vector *pApex );
 		void MakeIdealYaw( Vector vecTarget );
-		virtual void SetYawSpeed ( void ) { return; };// allows different yaw_speeds for each activity
+		virtual void UpdateYawSpeed() {} // allows different yaw_speeds for each activity
 		bool BuildRoute( const Vector &vecGoal, int iMoveFlag, const CBaseEntity* const pTarget );
 		virtual bool BuildNearestRoute( Vector vecThreat, Vector vecViewOffset, float flMinDist, float flMaxDist );
 		int RouteClassify( int iMoveFlag );

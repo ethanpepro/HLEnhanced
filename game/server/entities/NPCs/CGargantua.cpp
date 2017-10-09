@@ -477,10 +477,10 @@ EntityClassification_t CGargantua::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CGargantua :: SetYawSpeed ( void )
+void CGargantua::UpdateYawSpeed()
 {
 	int ys;
 

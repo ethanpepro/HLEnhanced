@@ -203,10 +203,10 @@ void CISlave::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CISlave :: SetYawSpeed ( void )
+void CISlave ::UpdateYawSpeed()
 {
 	int ys;
 

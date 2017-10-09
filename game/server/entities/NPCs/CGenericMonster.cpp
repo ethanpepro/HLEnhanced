@@ -35,10 +35,10 @@ EntityClassification_t CGenericMonster::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CGenericMonster :: SetYawSpeed ( void )
+void CGenericMonster::UpdateYawSpeed()
 {
 	int ys;
 

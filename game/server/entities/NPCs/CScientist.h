@@ -37,7 +37,7 @@ public:
 	void Spawn() override;
 	void Precache() override;
 
-	void SetYawSpeed() override;
+	void UpdateYawSpeed() override;
 	EntityClassification_t GetClassification() override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void RunTask( const Task_t* pTask ) override;

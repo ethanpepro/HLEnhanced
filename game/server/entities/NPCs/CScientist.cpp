@@ -519,10 +519,10 @@ EntityClassification_t CScientist::GetClassification()
 
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CScientist :: SetYawSpeed ( void )
+void CScientist::UpdateYawSpeed()
 {
 	int ys;
 

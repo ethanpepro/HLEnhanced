@@ -466,10 +466,10 @@ void CHGrunt::OnTakeDamage( const CTakeDamageInfo& info )
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CHGrunt :: SetYawSpeed ( void )
+void CHGrunt::UpdateYawSpeed()
 {
 	int ys;
 
@@ -1787,7 +1787,7 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 
 		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
 		ResetSequenceInfo( );
-		SetYawSpeed();
+		UpdateYawSpeed();
 	}
 	else
 	{

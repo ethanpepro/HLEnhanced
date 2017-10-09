@@ -296,10 +296,10 @@ EntityClassification_t CAGrunt::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CAGrunt :: SetYawSpeed ( void )
+void CAGrunt::UpdateYawSpeed()
 {
 	int ys;
 

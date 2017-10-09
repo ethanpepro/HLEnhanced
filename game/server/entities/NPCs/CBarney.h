@@ -35,7 +35,7 @@ public:
 
 	void Spawn( void ) override;
 	void Precache( void ) override;
-	void SetYawSpeed( void ) override;
+	void UpdateYawSpeed() override;
 	int  ISoundMask( void ) override;
 	void BarneyFirePistol( void );
 	void AlertSound( void ) override;

@@ -69,7 +69,7 @@ public:
 	void Precache( void ) override;
 	EntityClassification_t GetClassification() override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;
-	void SetYawSpeed( void ) override;
+	void UpdateYawSpeed() override;
 	void WarmUpSound( void );
 	void AlertSound( void ) override;
 	void DeathSound( void ) override;

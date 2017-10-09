@@ -1165,7 +1165,7 @@ void CBaseMonster :: SetActivity ( Activity NewActivity )
 
 		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
 		ResetSequenceInfo( );
-		SetYawSpeed();
+		UpdateYawSpeed();
 	}
 	else
 	{
@@ -1201,7 +1201,7 @@ void CBaseMonster::SetSequenceByName( const char* const pszSequence )
 
 		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
 		ResetSequenceInfo( );
-		SetYawSpeed();
+		UpdateYawSpeed();
 	}
 	else
 	{

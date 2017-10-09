@@ -295,10 +295,10 @@ bool CIchthyosaur :: CheckRangeAttack1 ( float flDot, float flDist )
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CIchthyosaur :: SetYawSpeed ( void )
+void CIchthyosaur::UpdateYawSpeed()
 {
 	pev->yaw_speed = 100;
 }

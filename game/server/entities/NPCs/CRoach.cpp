@@ -74,10 +74,10 @@ void CRoach :: Touch ( CBaseEntity *pOther )
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CRoach :: SetYawSpeed ( void )
+void CRoach::UpdateYawSpeed()
 {
 	int ys;
 

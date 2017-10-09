@@ -84,10 +84,10 @@ EntityClassification_t CController::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CController :: SetYawSpeed ( void )
+void CController::UpdateYawSpeed()
 {
 	int ys;
 

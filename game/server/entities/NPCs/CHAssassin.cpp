@@ -82,10 +82,10 @@ EntityClassification_t CHAssassin::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CHAssassin :: SetYawSpeed ( void )
+void CHAssassin::UpdateYawSpeed()
 {
 	int ys;
 
@@ -726,7 +726,7 @@ void CHAssassin :: RunTask ( const Task_t* pTask )
 			}
 			
 			ResetSequenceInfo( );
-			SetYawSpeed();
+			UpdateYawSpeed();
 		}
 		if (pev->flags & FL_ONGROUND)
 		{

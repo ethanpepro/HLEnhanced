@@ -78,10 +78,10 @@ EntityClassification_t CZombie::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CZombie :: SetYawSpeed ( void )
+void CZombie::UpdateYawSpeed()
 {
 	int ys;
 

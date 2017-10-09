@@ -37,7 +37,7 @@ public:
 
 	void UpdateOnRemove() override;
 
-	void SetYawSpeed( void ) override;
+	void UpdateYawSpeed() override;
 	int	 ISoundMask( void ) override;
 	EntityClassification_t GetClassification() override;
 	Relationship  IRelationship( CBaseEntity *pTarget ) override;

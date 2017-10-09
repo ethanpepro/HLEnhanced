@@ -36,10 +36,10 @@ EntityClassification_t CBloater::GetClassification()
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CBloater :: SetYawSpeed ( void )
+void CBloater::UpdateYawSpeed()
 {
 	int ys;
 

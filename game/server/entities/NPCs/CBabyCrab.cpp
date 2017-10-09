@@ -38,7 +38,7 @@ void CBabyCrab::Precache( void )
 	CHeadCrab::Precache();
 }
 
-void CBabyCrab::SetYawSpeed( void )
+void CBabyCrab::UpdateYawSpeed()
 {
 	pev->yaw_speed = 120;
 }

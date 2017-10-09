@@ -48,7 +48,7 @@ public:
 
 	void UpdateOnRemove() override;
 
-	void SetYawSpeed( void ) override;
+	void UpdateYawSpeed() override;
 	EntityClassification_t GetClassification() override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;

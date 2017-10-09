@@ -119,10 +119,10 @@ bool CHoundeye :: CheckRangeAttack1 ( float flDot, float flDist )
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CHoundeye :: SetYawSpeed ( void )
+void CHoundeye ::UpdateYawSpeed()
 {
 	int ys;
 
@@ -179,7 +179,7 @@ void CHoundeye :: SetActivity ( Activity NewActivity )
 			pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
 			pev->frame			= 0;		// FIX: frame counter shouldn't be reset when its the same activity as before
 			ResetSequenceInfo();
-			SetYawSpeed();
+			UpdateYawSpeed();
 		}
 	}
 	else

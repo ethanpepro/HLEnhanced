@@ -138,10 +138,10 @@ Vector CHeadCrab::BodyTarget( const Vector &posSrc ) const
 }
 
 //=========================================================
-// SetYawSpeed - allows each sequence to have a different
+// UpdateYawSpeed - allows each sequence to have a different
 // turn rate associated with it.
 //=========================================================
-void CHeadCrab :: SetYawSpeed ( void )
+void CHeadCrab::UpdateYawSpeed()
 {
 	int ys;
 

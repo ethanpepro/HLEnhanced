@@ -72,7 +72,7 @@ public:
 	void NodeReach( void );
 	bool ShouldGoToNode() const;
 
-	void SetYawSpeed( void ) override;
+	void UpdateYawSpeed() override;
 	EntityClassification_t GetClassification() override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void LayHeadcrab( void );
