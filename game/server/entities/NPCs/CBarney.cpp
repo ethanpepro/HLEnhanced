@@ -428,7 +428,7 @@ static bool IsFacing( CBaseEntity* pEntity, const Vector &reference )
 	vecDir.z = 0;
 	vecDir = vecDir.Normalize();
 	Vector forward, angle;
-	angle = pEntity->pev->v_angle;
+	angle = pEntity->GetViewAngle();
 	angle.x = 0;
 	UTIL_MakeVectorsPrivate( angle, &forward, nullptr, nullptr );
 	// He's facing me, he meant it

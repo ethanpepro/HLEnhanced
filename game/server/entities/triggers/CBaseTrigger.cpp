@@ -60,7 +60,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 
 	if( pOther->IsPlayer() )
 	{
-		pOther->pev->v_angle = pTarget->GetAbsAngles();
+		pOther->SetViewAngle( pTarget->GetAbsAngles() );
 	}
 
 	pOther->SetFixAngleMode( FIXANGLE_SET );

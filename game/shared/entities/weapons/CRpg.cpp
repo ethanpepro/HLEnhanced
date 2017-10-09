@@ -225,12 +225,12 @@ void CRpg::PrimaryAttack()
 		// player "shoot" animation
 		m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 
-		UTIL_MakeVectors( m_pPlayer->pev->v_angle );
+		UTIL_MakeVectors( m_pPlayer->GetViewAngle() );
 		Vector vecSrc = m_pPlayer->GetGunPosition( ) + gpGlobals->v_forward * 16 + gpGlobals->v_right * 8 + gpGlobals->v_up * -8;
 		
-		CRpgRocket *pRocket = CRpgRocket::CreateRpgRocket( vecSrc, m_pPlayer->pev->v_angle, m_pPlayer, this );
+		CRpgRocket *pRocket = CRpgRocket::CreateRpgRocket( vecSrc, m_pPlayer->GetViewAngle(), m_pPlayer, this );
 
-		UTIL_MakeVectors( m_pPlayer->pev->v_angle );// RpgRocket::Create stomps on globals, so remake.
+		UTIL_MakeVectors( m_pPlayer->GetViewAngle() );// RpgRocket::Create stomps on globals, so remake.
 		pRocket->SetAbsVelocity( pRocket->GetAbsVelocity() + gpGlobals->v_forward * DotProduct( m_pPlayer->GetAbsVelocity(), gpGlobals->v_forward ) );
 #endif
 
@@ -376,7 +376,7 @@ void CRpg::UpdateSpot( void )
 			m_pSpot->SetOwner( m_pPlayer );
 		}
 
-		UTIL_MakeVectors( m_pPlayer->pev->v_angle );
+		UTIL_MakeVectors( m_pPlayer->GetViewAngle() );
 		Vector vecSrc = m_pPlayer->GetGunPosition();
 		Vector vecAiming = gpGlobals->v_forward;
 

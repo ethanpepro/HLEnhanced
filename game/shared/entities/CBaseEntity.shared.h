@@ -404,11 +404,6 @@ public:
 	const Vector& GetViewAngle() const { return pev->v_angle; }
 
 	/**
-	*	@return The view angle, in mutable form.
-	*/
-	Vector& GetMutableViewAngle() { return pev->v_angle; }
-
-	/**
 	*	Sets the view angle.
 	*	@param vecViewAngle View angle to set.
 	*/

@@ -11,7 +11,7 @@ void CInfoIntermission::Spawn( void )
 	SetAbsOrigin( GetAbsOrigin() );
 	SetSolidType( SOLID_NOT );
 	GetEffects() = EF_NODRAW;
-	pev->v_angle = g_vecZero;
+	SetViewAngle( g_vecZero );
 
 	pev->nextthink = gpGlobals->time + 2;// let targets spawn!
 
@@ -24,7 +24,8 @@ void CInfoIntermission::Think( void )
 
 	if( pTarget )
 	{
-		pev->v_angle = UTIL_VecToAngles( ( pTarget->GetAbsOrigin() - GetAbsOrigin() ).Normalize() );
-		pev->v_angle.x = -pev->v_angle.x;
+		Vector vecViewAngle = UTIL_VecToAngles( ( pTarget->GetAbsOrigin() - GetAbsOrigin() ).Normalize() );
+		vecViewAngle.x = -vecViewAngle.x;
+		SetViewAngle( vecViewAngle );
 	}
 }

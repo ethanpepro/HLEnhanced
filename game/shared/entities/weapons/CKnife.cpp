@@ -97,7 +97,7 @@ bool CKnife::Swing( const bool bFirst )
 
 	TraceResult tr;
 
-	UTIL_MakeVectors( m_pPlayer->pev->v_angle );
+	UTIL_MakeVectors( m_pPlayer->GetViewAngle() );
 	Vector vecSrc = m_pPlayer->GetGunPosition();
 	Vector vecEnd = vecSrc + gpGlobals->v_forward * 32;
 

@@ -136,7 +136,7 @@ void CPenguin::PrimaryAttack()
 {
 	if( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )
 	{
-		UTIL_MakeVectors( m_pPlayer->pev->v_angle );
+		UTIL_MakeVectors( m_pPlayer->GetViewAngle() );
 		TraceResult tr;
 
 		// HACK HACK:  Ugly hacks to handle change in origin based on new physics code for players
@@ -165,7 +165,7 @@ void CPenguin::PrimaryAttack()
 			m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 
 #ifndef CLIENT_DLL
-			CBaseEntity *pSqueak = CBaseEntity::Create( "monster_penguin", tr.vecEndPos, m_pPlayer->pev->v_angle, m_pPlayer->edict() );
+			CBaseEntity *pSqueak = CBaseEntity::Create( "monster_penguin", tr.vecEndPos, m_pPlayer->GetViewAngle(), m_pPlayer->edict() );
 			pSqueak->SetAbsVelocity( gpGlobals->v_forward * 200 + m_pPlayer->GetAbsVelocity() );
 #endif
 

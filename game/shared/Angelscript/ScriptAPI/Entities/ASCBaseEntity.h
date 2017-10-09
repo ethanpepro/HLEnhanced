@@ -266,10 +266,6 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, GetViewAngle ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "Vector& GetMutableViewAngle()",
-		asMETHOD( CLASS, GetMutableViewAngle ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
 		pszObjectName, "void SetViewAngle(const Vector& in vecViewAngle)",
 		asMETHOD( CLASS, SetViewAngle ), asCALL_THISCALL );
 

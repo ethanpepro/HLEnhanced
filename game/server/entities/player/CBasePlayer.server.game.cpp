@@ -86,7 +86,7 @@ void CBasePlayer::PlayerUse()
 	float flMaxDot = VIEW_FIELD_NARROW;
 	float flDot;
 
-	UTIL_MakeVectors( pev->v_angle );// so we know which way we are facing
+	UTIL_MakeVectors( GetViewAngle() );// so we know which way we are facing
 
 	while( ( pObject = UTIL_FindEntityInSphere( pObject, GetAbsOrigin(), PLAYER_USE_SEARCH_RADIUS ) ) != NULL )
 	{

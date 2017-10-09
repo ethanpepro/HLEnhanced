@@ -314,7 +314,8 @@ void CBasePlayer::StartDeathCam()
 		CopyToBodyQue( this );
 
 		SetAbsOrigin( pSpot->GetAbsOrigin() );
-		pev->angles = pev->v_angle = pSpot->GetViewAngle();
+		SetViewAngle( pSpot->GetViewAngle() );
+		pev->angles = pSpot->GetViewAngle();
 	}
 	else
 	{
@@ -324,7 +325,8 @@ void CBasePlayer::StartDeathCam()
 		UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + Vector( 0, 0, 128 ), ignore_monsters, edict(), &tr );
 
 		SetAbsOrigin( tr.vecEndPos );
-		pev->angles = pev->v_angle = UTIL_VecToAngles( tr.vecEndPos - GetAbsOrigin() );
+		SetViewAngle( UTIL_VecToAngles( tr.vecEndPos - GetAbsOrigin() ) );
+		pev->angles = GetViewAngle();
 	}
 
 	// start death cam
@@ -378,7 +380,8 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	m_afPhysicsFlags |= PFLAG_OBSERVER;
 	GetEffects() = EF_NODRAW;
 	SetViewOffset( g_vecZero );
-	pev->angles = pev->v_angle = vecViewAngle;
+	SetViewAngle( vecViewAngle );
+	pev->angles = vecViewAngle;
 	SetFixAngleMode( FIXANGLE_SET );
 	SetSolidType( SOLID_NOT );
 	SetTakeDamageMode( DAMAGE_NO );

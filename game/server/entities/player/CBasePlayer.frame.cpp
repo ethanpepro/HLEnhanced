@@ -82,7 +82,7 @@ void CBasePlayer::PreThink()
 	if( g_fGameOver )
 		return;         // intermission or finale
 
-	UTIL_MakeVectors( pev->v_angle );             // is this still used?
+	UTIL_MakeVectors( GetViewAngle() );             // is this still used?
 
 	ItemPreFrame();
 	WaterMove();
@@ -878,7 +878,7 @@ void CBasePlayer::ImpulseCommands()
 			break;
 		}
 
-		UTIL_MakeVectors( pev->v_angle );
+		UTIL_MakeVectors( GetViewAngle() );
 		UTIL_TraceLine( GetAbsOrigin() + GetViewOffset(), GetAbsOrigin() + GetViewOffset() + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
 
 		if( tr.flFraction != 1.0 )
@@ -919,7 +919,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			}
 			else
 			{
-				UTIL_MakeVectors( Vector( 0, pev->v_angle.y, 0 ) );
+				UTIL_MakeVectors( Vector( 0, GetViewAngle().y, 0 ) );
 				Create( "monster_human_grunt", GetAbsOrigin() + gpGlobals->v_forward * 128, pev->angles );
 			}
 			break;
@@ -1084,7 +1084,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		
 	case	202:// Random blood splatter
 		{
-			UTIL_MakeVectors( pev->v_angle );
+			UTIL_MakeVectors( GetViewAngle() );
 			TraceResult tr;
 			UTIL_TraceLine( GetAbsOrigin() + GetViewOffset(), GetAbsOrigin() + GetViewOffset() + gpGlobals->v_forward * 128, ignore_monsters, ENT( pev ), &tr );
 

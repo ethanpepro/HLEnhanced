@@ -90,7 +90,7 @@ void CSqueak::PrimaryAttack()
 {
 	if ( m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )
 	{
-		UTIL_MakeVectors( m_pPlayer->pev->v_angle );
+		UTIL_MakeVectors( m_pPlayer->GetViewAngle() );
 		TraceResult tr;
 		Vector trace_origin;
 
@@ -120,7 +120,7 @@ void CSqueak::PrimaryAttack()
 			m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 
 #ifndef CLIENT_DLL
-			CBaseEntity *pSqueak = CBaseEntity::Create( "monster_snark", tr.vecEndPos, m_pPlayer->pev->v_angle, m_pPlayer->edict() );
+			CBaseEntity *pSqueak = CBaseEntity::Create( "monster_snark", tr.vecEndPos, m_pPlayer->GetViewAngle(), m_pPlayer->edict() );
 			pSqueak->SetAbsVelocity( gpGlobals->v_forward * 200 + m_pPlayer->GetAbsVelocity() );
 #endif
 

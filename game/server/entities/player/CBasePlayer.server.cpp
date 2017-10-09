@@ -618,8 +618,10 @@ bool CBasePlayer::Restore( CRestore &restore )
 		SetAbsOrigin( pSpawnSpot->GetAbsOrigin() + Vector( 0, 0, 1 ) );
 		pev->angles = pSpawnSpot->pev->angles;
 	}
-	pev->v_angle.z = 0;	// Clear out roll
-	pev->angles = pev->v_angle;
+	Vector vecViewAngle = GetViewAngle();
+	vecViewAngle.z = 0;	// Clear out roll
+	SetViewAngle( vecViewAngle );
+	pev->angles = GetViewAngle();
 
 	SetFixAngleMode( FIXANGLE_SET );		// turn this way immediately
 
@@ -759,7 +761,7 @@ void CBasePlayer::UpdateStatusBar()
 
 	// Find an ID Target
 	TraceResult tr;
-	UTIL_MakeVectors( pev->v_angle + pev->punchangle );
+	UTIL_MakeVectors( GetViewAngle() + pev->punchangle );
 	Vector vecSrc = EyePosition();
 	Vector vecEnd = vecSrc + (gpGlobals->v_forward * MAX_ID_RANGE);
 	UTIL_TraceLine( vecSrc, vecEnd, dont_ignore_monsters, edict(), &tr);
