@@ -677,7 +677,7 @@ CBaseEntity	*CTalkMonster::EnumFriends( CBaseEntity *pPrevious, int listNumber, 
 		if ( bTrace )
 		{
 			vecCheck = pFriend->GetAbsOrigin();
-			vecCheck.z = pFriend->pev->absmax.z;
+			vecCheck.z = pFriend->GetAbsMax().z;
 
 			UTIL_TraceLine( GetAbsOrigin(), vecCheck, ignore_monsters, ENT(pev), &tr);
 		}
@@ -826,7 +826,7 @@ CBaseEntity* CTalkMonster::FindNearestFriend( const bool fPlayer ) const
 	const char* pszFriend;
 	int cfriends;
 
-	vecStart.z = pev->absmax.z;
+	vecStart.z = GetAbsMax().z;
 	
 	if (fPlayer)
 		cfriends = 1;
@@ -859,7 +859,7 @@ CBaseEntity* CTalkMonster::FindNearestFriend( const bool fPlayer ) const
 				continue;
 
 			vecCheck = pFriend->GetAbsOrigin();
-			vecCheck.z = pFriend->pev->absmax.z;
+			vecCheck.z = pFriend->GetAbsMax().z;
 
 			// if closer than previous friend, and in range, see if he's visible
 

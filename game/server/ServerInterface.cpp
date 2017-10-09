@@ -185,8 +185,8 @@ int DispatchSpawn( edict_t *pent )
 	if( pEntity )
 	{
 		// Initialize these or entities who don't link to the world won't have anything in here
-		pEntity->pev->absmin = pEntity->GetAbsOrigin() - Vector( 1, 1, 1 );
-		pEntity->pev->absmax = pEntity->GetAbsOrigin() + Vector( 1, 1, 1 );
+		pEntity->SetAbsMin( pEntity->GetAbsOrigin() - Vector( 1, 1, 1 ) );
+		pEntity->SetAbsMax( pEntity->GetAbsOrigin() + Vector( 1, 1, 1 ) );
 
 		pEntity->Spawn();
 

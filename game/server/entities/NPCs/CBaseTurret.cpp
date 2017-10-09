@@ -691,8 +691,8 @@ void CBaseTurret ::	TurretDeath( void )
 		// lots of smoke
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 			WRITE_BYTE( TE_SMOKE );
-			WRITE_COORD( RANDOM_FLOAT( pev->absmin.x, pev->absmax.x ) );
-			WRITE_COORD( RANDOM_FLOAT( pev->absmin.y, pev->absmax.y ) );
+			WRITE_COORD( RANDOM_FLOAT( GetAbsMin().x, GetAbsMax().x ) );
+			WRITE_COORD( RANDOM_FLOAT( GetAbsMin().y, GetAbsMax().y ) );
 			WRITE_COORD( GetAbsOrigin().z - m_iOrientation * 64 );
 			WRITE_SHORT( g_sModelIndexSmoke );
 			WRITE_BYTE( 25 ); // scale * 10
@@ -702,11 +702,11 @@ void CBaseTurret ::	TurretDeath( void )
 	
 	if (pev->dmgtime + RANDOM_FLOAT( 0, 5 ) > gpGlobals->time)
 	{
-		Vector vecSrc = Vector( RANDOM_FLOAT( pev->absmin.x, pev->absmax.x ), RANDOM_FLOAT( pev->absmin.y, pev->absmax.y ), 0 );
+		Vector vecSrc = Vector( RANDOM_FLOAT( GetAbsMin().x, GetAbsMax().x ), RANDOM_FLOAT( GetAbsMin().y, GetAbsMax().y ), 0 );
 		if (m_iOrientation == 0)
-			vecSrc = vecSrc + Vector( 0, 0, RANDOM_FLOAT( GetAbsOrigin().z, pev->absmax.z ) );
+			vecSrc = vecSrc + Vector( 0, 0, RANDOM_FLOAT( GetAbsOrigin().z, GetAbsMax().z ) );
 		else
-			vecSrc = vecSrc + Vector( 0, 0, RANDOM_FLOAT( pev->absmin.z, GetAbsOrigin().z ) );
+			vecSrc = vecSrc + Vector( 0, 0, RANDOM_FLOAT( GetAbsMin().z, GetAbsOrigin().z ) );
 
 		UTIL_Sparks( vecSrc );
 	}

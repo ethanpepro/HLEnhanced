@@ -36,8 +36,8 @@ public:
 
 	void SetObjectCollisionBox( void ) override
 	{
-		pev->absmin = GetAbsOrigin() + Vector( -16 * N_SCALE, -16 * N_SCALE, -48 * N_SCALE );
-		pev->absmax = GetAbsOrigin() + Vector( 16 * N_SCALE, 16 * N_SCALE, 28 * N_SCALE );
+		SetAbsMin( GetAbsOrigin() + Vector( -16 * N_SCALE, -16 * N_SCALE, -48 * N_SCALE ) );
+		SetAbsMax( GetAbsOrigin() + Vector( 16 * N_SCALE, 16 * N_SCALE, 28 * N_SCALE ) );
 	}
 
 	void HandleAnimEvent( AnimEvent_t& event ) override;

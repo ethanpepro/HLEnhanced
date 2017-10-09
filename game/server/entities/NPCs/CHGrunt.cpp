@@ -318,7 +318,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 		return m_fThrowGrenade;
 	}
 
-	if ( !FBitSet ( m_hEnemy->pev->flags, FL_ONGROUND ) && m_hEnemy->GetWaterLevel() == WATERLEVEL_DRY && m_vecEnemyLKP.z > pev->absmax.z  )
+	if ( !FBitSet ( m_hEnemy->pev->flags, FL_ONGROUND ) && m_hEnemy->GetWaterLevel() == WATERLEVEL_DRY && m_vecEnemyLKP.z > GetAbsMax().z  )
 	{
 		//!!!BUGBUG - we should make this check movetype and make sure it isn't FLY? Players who jump a lot are unlikely to 
 		// be grenaded.
@@ -335,7 +335,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 		if (RANDOM_LONG(0,1))
 		{
 			// magically know where they are
-			vecTarget = Vector( m_hEnemy->GetAbsOrigin().x, m_hEnemy->GetAbsOrigin().y, m_hEnemy->pev->absmin.z );
+			vecTarget = Vector( m_hEnemy->GetAbsOrigin().x, m_hEnemy->GetAbsOrigin().y, m_hEnemy->GetAbsMin().z );
 		}
 		else
 		{

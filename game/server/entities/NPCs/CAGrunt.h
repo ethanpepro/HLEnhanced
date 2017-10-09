@@ -67,8 +67,8 @@ public:
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void SetObjectCollisionBox( void ) override
 	{
-		pev->absmin = GetAbsOrigin() + Vector( -32, -32, 0 );
-		pev->absmax = GetAbsOrigin() + Vector( 32, 32, 85 );
+		SetAbsMin( GetAbsOrigin() + Vector( -32, -32, 0 ) );
+		SetAbsMax( GetAbsOrigin() + Vector( 32, 32, 85 ) );
 	}
 
 	Schedule_t* GetSchedule( void ) override;

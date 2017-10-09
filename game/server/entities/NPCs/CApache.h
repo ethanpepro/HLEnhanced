@@ -33,8 +33,8 @@ public:
 
 	void SetObjectCollisionBox( void ) override
 	{
-		pev->absmin = GetAbsOrigin() + Vector( -300, -300, -172 );
-		pev->absmax = GetAbsOrigin() + Vector( 300, 300, 8 );
+		SetAbsMin( GetAbsOrigin() + Vector( -300, -300, -172 ) );
+		SetAbsMax( GetAbsOrigin() + Vector( 300, 300, 8 ) );
 	}
 
 	void HuntThink( void );

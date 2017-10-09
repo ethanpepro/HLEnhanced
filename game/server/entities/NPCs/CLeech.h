@@ -55,8 +55,8 @@ public:
 
 	void SetObjectCollisionBox( void ) override
 	{
-		pev->absmin = GetAbsOrigin() + Vector( -8, -8, 0 );
-		pev->absmax = GetAbsOrigin() + Vector( 8, 8, 2 );
+		SetAbsMin( GetAbsOrigin() + Vector( -8, -8, 0 ) );
+		SetAbsMax( GetAbsOrigin() + Vector( 8, 8, 2 ) );
 	}
 
 	void AttackSound( void );

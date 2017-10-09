@@ -31,8 +31,8 @@
 
 void CBasePlayerWeapon::SetObjectCollisionBox()
 {
-	pev->absmin = GetAbsOrigin() + Vector( -24, -24, 0 );
-	pev->absmax = GetAbsOrigin() + Vector( 24, 24, 16 );
+	SetAbsMin( GetAbsOrigin() + Vector( -24, -24, 0 ) );
+	SetAbsMax( GetAbsOrigin() + Vector( 24, 24, 16 ) );
 }
 
 void CBasePlayerWeapon::Precache()

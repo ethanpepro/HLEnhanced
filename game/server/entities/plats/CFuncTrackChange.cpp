@@ -205,7 +205,7 @@ void CFuncTrackChange::Find( void )
 					ALERT( at_error, "Can't find train for track change! %s\n", STRING( m_trainName ) );
 					return;
 				}
-				Vector center = ( pev->absmin + pev->absmax ) * 0.5;
+				Vector center = ( GetAbsMin() + GetAbsMax() ) * 0.5;
 				m_trackBottom = m_trackBottom->Nearest( center );
 				m_trackTop = m_trackTop->Nearest( center );
 				UpdateAutoTargets( m_toggle_state );

@@ -111,7 +111,7 @@ void CXenTree::HandleAnimEvent( AnimEvent_t& event )
 		{
 			CBaseEntity *pList[ 8 ];
 			bool sound = false;
-			int count = UTIL_EntitiesInBox( pList, 8, m_pTrigger->pev->absmin, m_pTrigger->pev->absmax, FL_MONSTER | FL_CLIENT );
+			int count = UTIL_EntitiesInBox( pList, 8, m_pTrigger->GetAbsMin(), m_pTrigger->GetAbsMax(), FL_MONSTER | FL_CLIENT );
 			Vector forward;
 
 			UTIL_MakeVectorsPrivate( pev->angles, &forward, nullptr, nullptr );

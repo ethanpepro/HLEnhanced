@@ -72,7 +72,7 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 	// figure momentum add (don't let hurt brushes or other triggers move player)
 	if( ( !FNullEnt( pInflictor ) ) && ( GetMoveType() == MOVETYPE_WALK || GetMoveType() == MOVETYPE_STEP ) && ( info.GetAttacker()->GetSolidType() != SOLID_TRIGGER ) )
 	{
-		Vector vecDir = GetAbsOrigin() - ( pInflictor->pev->absmin + pInflictor->pev->absmax ) * 0.5;
+		Vector vecDir = GetAbsOrigin() - ( pInflictor->GetAbsMin() + pInflictor->GetAbsMax() ) * 0.5;
 		vecDir = vecDir.Normalize();
 
 		float flForce = info.GetDamage() * ( ( 32 * 32 * 72.0 ) / ( pev->size.x * pev->size.y * pev->size.z ) ) * 5;
@@ -186,12 +186,12 @@ void CBaseEntity::SetObjectCollisionBox( void )
 
 bool CBaseEntity::Intersects( const CBaseEntity* const pOther ) const
 {
-	if( pOther->pev->absmin.x > pev->absmax.x ||
-		pOther->pev->absmin.y > pev->absmax.y ||
-		pOther->pev->absmin.z > pev->absmax.z ||
-		pOther->pev->absmax.x < pev->absmin.x ||
-		pOther->pev->absmax.y < pev->absmin.y ||
-		pOther->pev->absmax.z < pev->absmin.z )
+	if( pOther->GetAbsMin().x > GetAbsMax().x ||
+		pOther->GetAbsMin().y > GetAbsMax().y ||
+		pOther->GetAbsMin().z > GetAbsMax().z ||
+		pOther->GetAbsMax().x < GetAbsMin().x ||
+		pOther->GetAbsMax().y < GetAbsMin().y ||
+		pOther->GetAbsMax().z < GetAbsMin().z )
 		return false;
 	return true;
 }

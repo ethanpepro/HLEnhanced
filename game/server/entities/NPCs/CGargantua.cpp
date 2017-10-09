@@ -664,7 +664,7 @@ void CGargantua::DeathEffect( void )
 	Vector deathPos = GetAbsOrigin() + gpGlobals->v_forward * 100;
 
 	// Create a spiral of streaks
-	CSpiral::Create( deathPos, (pev->absmax.z - pev->absmin.z) * 0.6, 125, 1.5 );
+	CSpiral::Create( deathPos, ( GetAbsMax().z - GetAbsMin().z) * 0.6, 125, 1.5 );
 
 	Vector position = GetAbsOrigin();
 	position.z += 32;

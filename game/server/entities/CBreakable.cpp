@@ -534,7 +534,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
 	if ( newInfo.GetAttacker() == newInfo.GetInflictor() )
 	{
-		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( pev->absmin + ( pev->size * 0.5 ) );
+		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( GetAbsMin() + ( pev->size * 0.5 ) );
 		
 		// if a client hit the breakable with a crowbar, and breakable is crowbar-sensitive, break it now.
 		if ( newInfo.GetAttacker()->GetFlags().Any( FL_CLIENT ) &&
@@ -544,7 +544,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 	else
 	// an actual missile was involved.
 	{
-		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( pev->absmin + ( pev->size * 0.5 ) );
+		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( GetAbsMin() + ( pev->size * 0.5 ) );
 	}
 	
 	if (!IsBreakable())
@@ -726,9 +726,9 @@ void CBreakable::Die( void )
 
 	// !!! HACK  This should work!
 	// Build a box above the entity that looks like an 8 pixel high sheet
-	Vector mins = pev->absmin;
-	Vector maxs = pev->absmax;
-	mins.z = pev->absmax.z;
+	Vector mins = GetAbsMin();
+	Vector maxs = GetAbsMax();
+	mins.z = GetAbsMax().z;
 	maxs.z += 8;
 
 	// BUGBUG -- can only find 256 entities on a breakable -- should be enough

@@ -59,8 +59,8 @@ public:
 	bool CheckRangeAttack1( float flDot, float flDist ) override;		// Stomp attack
 	void SetObjectCollisionBox( void ) override
 	{
-		pev->absmin = GetAbsOrigin() + Vector( -80, -80, 0 );
-		pev->absmax = GetAbsOrigin() + Vector( 80, 80, 214 );
+		SetAbsMin( GetAbsOrigin() + Vector( -80, -80, 0 ) );
+		SetAbsMax( GetAbsOrigin() + Vector( 80, 80, 214 ) );
 	}
 
 	Schedule_t *GetScheduleOfType( int Type ) override;

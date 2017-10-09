@@ -2336,7 +2336,7 @@ public:
 	/**
 	*	@return Center point of entity.
 	*/
-	virtual Vector Center() const { return ( pev->absmax + pev->absmin ) * 0.5; }
+	virtual Vector Center() const { return ( GetAbsMax() + GetAbsMin() ) * 0.5; }
 
 	/**
 	*	@return Position of eyes.

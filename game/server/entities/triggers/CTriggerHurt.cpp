@@ -65,7 +65,7 @@ void CTriggerHurt::RadiationThink( void )
 	origin = GetAbsOrigin();
 	view_ofs = GetViewOffset();
 
-	SetAbsOrigin( ( pev->absmin + pev->absmax ) * 0.5 );
+	SetAbsOrigin( ( GetAbsMin() + GetAbsMax() ) * 0.5 );
 	SetViewOffset( GetViewOffset() * 0.0 );
 
 	CBaseEntity* pentPlayer = UTIL_FindClientInPVS( this );
@@ -81,8 +81,8 @@ void CTriggerHurt::RadiationThink( void )
 
 		// get range to player;
 
-		vecSpot1 = ( pev->absmin + pev->absmax ) * 0.5;
-		vecSpot2 = ( pPlayer->pev->absmin + pPlayer->pev->absmax ) * 0.5;
+		vecSpot1 = ( GetAbsMin() + GetAbsMax() ) * 0.5;
+		vecSpot2 = ( pPlayer->GetAbsMin() + pPlayer->GetAbsMax() ) * 0.5;
 
 		vecRange = vecSpot1 - vecSpot2;
 		flRange = vecRange.Length();

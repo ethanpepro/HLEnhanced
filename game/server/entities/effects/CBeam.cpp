@@ -100,12 +100,17 @@ void CBeam::SetObjectCollisionBox( void )
 {
 	const Vector &startPos = GetStartPos(), &endPos = GetEndPos();
 
-	pev->absmin.x = min( startPos.x, endPos.x );
-	pev->absmin.y = min( startPos.y, endPos.y );
-	pev->absmin.z = min( startPos.z, endPos.z );
-	pev->absmax.x = max( startPos.x, endPos.x );
-	pev->absmax.y = max( startPos.y, endPos.y );
-	pev->absmax.z = max( startPos.z, endPos.z );
+	SetAbsMin( Vector(
+		min( startPos.x, endPos.x ),
+		min( startPos.y, endPos.y ),
+		min( startPos.z, endPos.z )
+		) );
+
+	SetAbsMax( Vector(
+		max( startPos.x, endPos.x ),
+		max( startPos.y, endPos.y ),
+		max( startPos.z, endPos.z )
+	) );
 }
 #endif
 

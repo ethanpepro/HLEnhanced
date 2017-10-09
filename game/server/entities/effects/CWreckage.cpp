@@ -71,9 +71,9 @@ void CWreckage::Think( void )
 
 	Vector VecSrc;
 
-	VecSrc.x = RANDOM_FLOAT( pev->absmin.x, pev->absmax.x );
-	VecSrc.y = RANDOM_FLOAT( pev->absmin.y, pev->absmax.y );
-	VecSrc.z = RANDOM_FLOAT( pev->absmin.z, pev->absmax.z );
+	VecSrc.x = RANDOM_FLOAT( GetAbsMin().x, GetAbsMax().x );
+	VecSrc.y = RANDOM_FLOAT( GetAbsMin().y, GetAbsMax().y );
+	VecSrc.z = RANDOM_FLOAT( GetAbsMin().z, GetAbsMax().z );
 
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, VecSrc );
 	WRITE_BYTE( TE_SMOKE );

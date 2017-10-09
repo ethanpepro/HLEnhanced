@@ -188,7 +188,7 @@ bool CBaseMonster::FScheduleValid() const
 			ALERT ( at_aiconsole, "Schedule: %s Failed\n", m_pSchedule->pName );
 
 			Vector tmp = GetAbsOrigin();
-			tmp.z = pev->absmax.z + 16;
+			tmp.z = GetAbsMax().z + 16;
 			UTIL_Sparks( tmp );
 		}
 #endif // DEBUG
