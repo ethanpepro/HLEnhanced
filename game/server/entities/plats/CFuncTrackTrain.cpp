@@ -31,12 +31,12 @@ LINK_ENTITY_TO_CLASS( func_tracktrain, CFuncTrackTrain );
 
 void CFuncTrackTrain::Spawn( void )
 {
-	if( pev->speed == 0 )
+	if( GetSpeed() == 0 )
 		m_speed = 100;
 	else
-		m_speed = pev->speed;
+		m_speed = GetSpeed();
 
-	pev->speed = 0;
+	SetSpeed( 0 );
 	SetAbsVelocity( g_vecZero );
 	pev->avelocity = g_vecZero;
 	pev->impulse = m_speed;
@@ -100,7 +100,7 @@ void CFuncTrackTrain::Blocked( CBaseEntity *pOther )
 	// Blocker is on-ground on the train
 	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && GET_PRIVATE( pOther->pev->groundentity ) == this )
 	{
-		float deltaSpeed = fabs( pev->speed );
+		float deltaSpeed = fabs( GetSpeed() );
 		if( deltaSpeed > 50 )
 			deltaSpeed = 50;
 		if( !pOther->GetAbsVelocity().z )
@@ -125,18 +125,18 @@ void CFuncTrackTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 {
 	if( useType != USE_SET )
 	{
-		if( !ShouldToggle( useType, ( pev->speed != 0 ) ) )
+		if( !ShouldToggle( useType, ( GetSpeed() != 0 ) ) )
 			return;
 
-		if( pev->speed == 0 )
+		if( GetSpeed() == 0 )
 		{
-			pev->speed = m_speed * m_dir;
+			SetSpeed( m_speed * m_dir );
 
 			Next();
 		}
 		else
 		{
-			pev->speed = 0;
+			SetSpeed( 0 );
 			SetAbsVelocity( g_vecZero );
 			pev->avelocity = g_vecZero;
 			StopSound();
@@ -145,7 +145,7 @@ void CFuncTrackTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	}
 	else
 	{
-		float delta = ( ( int ) ( pev->speed * 4 ) / ( int ) m_speed )*0.25 + 0.25 * value;
+		float delta = ( ( int ) ( GetSpeed() * 4 ) / ( int ) m_speed )*0.25 + 0.25 * value;
 		if( delta > 1 )
 			delta = 1;
 		else if( delta < -1 )
@@ -155,9 +155,9 @@ void CFuncTrackTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 			if( delta < 0 )
 				delta = 0;
 		}
-		pev->speed = m_speed * delta;
+		SetSpeed( m_speed * delta );
 		Next();
-		ALERT( at_aiconsole, "TRAIN(%s), speed to %.2f\n", GetTargetname(), pev->speed );
+		ALERT( at_aiconsole, "TRAIN(%s), speed to %.2f\n", GetTargetname(), GetSpeed() );
 	}
 }
 
@@ -202,7 +202,7 @@ void CFuncTrackTrain::Next( void )
 {
 	float time = 0.5;
 
-	if( !pev->speed )
+	if( !GetSpeed() )
 	{
 		ALERT( at_aiconsole, "TRAIN(%s): Speed is 0\n", GetTargetname() );
 		StopSound();
@@ -223,7 +223,7 @@ void CFuncTrackTrain::Next( void )
 	Vector nextPos = GetAbsOrigin();
 
 	nextPos.z -= m_height;
-	CPathTrack *pnext = m_ppath->LookAhead( nextPos, pev->speed * 0.1, true );
+	CPathTrack *pnext = m_ppath->LookAhead( nextPos, GetSpeed() * 0.1, true );
 	nextPos.z += m_height;
 
 	SetAbsVelocity( ( nextPos - GetAbsOrigin() ) * 10 );
@@ -273,7 +273,7 @@ void CFuncTrackTrain::Next( void )
 		if( pnext != m_ppath )
 		{
 			CPathTrack *pFire;
-			if( pev->speed >= 0 )
+			if( GetSpeed() >= 0 )
 				pFire = pnext;
 			else
 				pFire = m_ppath;
@@ -293,10 +293,10 @@ void CFuncTrackTrain::Next( void )
 			// Don't override speed if under user control
 			if( pev->spawnflags & SF_TRACKTRAIN_NOCONTROL )
 			{
-				if( pFire->pev->speed != 0 )
+				if( pFire->GetSpeed() != 0 )
 				{// don't copy speed from target if it is 0 (uninitialized)
-					pev->speed = pFire->pev->speed;
-					ALERT( at_aiconsole, "TrackTrain %s speed to %4.2f\n", GetTargetname(), pev->speed );
+					SetSpeed( pFire->GetSpeed() );
+					ALERT( at_aiconsole, "TrackTrain %s speed to %4.2f\n", GetTargetname(), GetSpeed() );
 				}
 			}
 
@@ -310,10 +310,10 @@ void CFuncTrackTrain::Next( void )
 		SetAbsVelocity( nextPos - GetAbsOrigin() );
 		pev->avelocity = g_vecZero;
 		float distance = GetAbsVelocity().Length();
-		m_oldSpeed = pev->speed;
+		m_oldSpeed = GetSpeed();
 
 
-		pev->speed = 0;
+		SetSpeed( 0 );
 
 		// Move to the dead end
 
@@ -363,7 +363,7 @@ void CFuncTrackTrain::Find( void )
 	SetAbsOrigin( nextPos );
 	NextThink( pev->ltime + 0.1, false );
 	SetThink( &CFuncTrackTrain::Next );
-	pev->speed = m_startSpeed;
+	SetSpeed( m_startSpeed );
 
 	UpdateSound();
 }
@@ -408,7 +408,7 @@ void CFuncTrackTrain::NearestPath( void )
 
 	m_ppath = ( CPathTrack * ) pNearest;
 
-	if( pev->speed != 0 )
+	if( GetSpeed() != 0 )
 	{
 		NextThink( pev->ltime + 0.1, false );
 		SetThink( &CFuncTrackTrain::Next );
@@ -539,7 +539,7 @@ void CFuncTrackTrain::UpdateSound( void )
 	if( !pev->noise )
 		return;
 
-	flpitch = TRAIN_STARTPITCH + ( fabs( pev->speed ) * ( TRAIN_MAXPITCH - TRAIN_STARTPITCH ) / TRAIN_MAXSPEED );
+	flpitch = TRAIN_STARTPITCH + ( fabs( GetSpeed() ) * ( TRAIN_MAXPITCH - TRAIN_STARTPITCH ) / TRAIN_MAXSPEED );
 
 	if( !m_soundPlaying )
 	{

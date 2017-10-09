@@ -95,8 +95,8 @@ void CFuncRotating::Spawn()
 
 	SetUse( &CFuncRotating::RotatingUse );
 	// did level designer forget to assign speed?
-	if( pev->speed <= 0 )
-		pev->speed = 0;
+	if( GetSpeed() <= 0 )
+		SetSpeed( 0 );
 
 	// Removed this per level designers request.  -- JAY
 	//	if (pev->dmg == 0)
@@ -192,16 +192,16 @@ void CFuncRotating::SpinUp( void )
 	Vector	vecAVel;//rotational velocity
 
 	pev->nextthink = pev->ltime + 0.1;
-	pev->avelocity = pev->avelocity + ( pev->movedir * ( pev->speed * m_flFanFriction ) );
+	pev->avelocity = pev->avelocity + ( pev->movedir * ( GetSpeed() * m_flFanFriction ) );
 
 	vecAVel = pev->avelocity;// cache entity's rotational velocity
 
 							 // if we've met or exceeded target speed, set target speed and stop thinking
-	if( fabs( vecAVel.x ) >= fabs( pev->movedir.x * pev->speed ) &&
-		fabs( vecAVel.y ) >= fabs( pev->movedir.y * pev->speed ) &&
-		fabs( vecAVel.z ) >= fabs( pev->movedir.z * pev->speed ) )
+	if( fabs( vecAVel.x ) >= fabs( pev->movedir.x * GetSpeed() ) &&
+		fabs( vecAVel.y ) >= fabs( pev->movedir.y * GetSpeed() ) &&
+		fabs( vecAVel.z ) >= fabs( pev->movedir.z * GetSpeed() ) )
 	{
-		pev->avelocity = pev->movedir * pev->speed;// set speed in case we overshot
+		pev->avelocity = pev->movedir * GetSpeed();// set speed in case we overshot
 		EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 						m_flVolume, m_flAttenuation, SND_CHANGE_PITCH | SND_CHANGE_VOL, FANPITCHMAX );
 
@@ -224,7 +224,7 @@ void CFuncRotating::SpinDown( void )
 
 	pev->nextthink = pev->ltime + 0.1;
 
-	pev->avelocity = pev->avelocity - ( pev->movedir * ( pev->speed * m_flFanFriction ) );//spin down slower than spinup
+	pev->avelocity = pev->avelocity - ( pev->movedir * ( GetSpeed() * m_flFanFriction ) );//spin down slower than spinup
 
 	vecAVel = pev->avelocity;// cache entity's rotational velocity
 
@@ -348,7 +348,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 		{
 			EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 							m_flVolume, m_flAttenuation, 0, FANPITCHMAX );
-			pev->avelocity = pev->movedir * pev->speed;
+			pev->avelocity = pev->movedir * GetSpeed();
 
 			SetThink( &CFuncRotating::Rotate );
 			Rotate();
@@ -382,7 +382,7 @@ void CFuncRotating::RampPitchVol( const bool bUp )
 	// get target angular velocity
 
 	vecFinal = ( pev->movedir.x != 0 ? pev->movedir.x : ( pev->movedir.y != 0 ? pev->movedir.y : pev->movedir.z ) );
-	vecFinal *= pev->speed;
+	vecFinal *= GetSpeed();
 	vecFinal = fabs( vecFinal );
 
 	// calc volume and pitch as % of final vol and pitch

@@ -37,8 +37,8 @@ void CMomentaryDoor::Spawn( void )
 	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( GetModelName() );
 
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 	if( pev->dmg == 0 )
 		pev->dmg = 2;
 

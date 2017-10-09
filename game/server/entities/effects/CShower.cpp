@@ -39,7 +39,7 @@ void CShower::Spawn( void )
 	SetModel( "models/grenade.mdl" );	// Need a model, just use the grenade, we don't draw it anyway
 	SetSize( g_vecZero, g_vecZero );
 	GetEffects() |= EF_NODRAW;
-	pev->speed = RANDOM_FLOAT( 0.5, 1.5 );
+	SetSpeed( RANDOM_FLOAT( 0.5, 1.5 ) );
 
 	pev->angles = g_vecZero;
 }
@@ -48,8 +48,8 @@ void CShower::Think( void )
 {
 	UTIL_Sparks( GetAbsOrigin() );
 
-	pev->speed -= 0.1;
-	if( pev->speed > 0 )
+	SetSpeed( GetSpeed() - 0.1 );
+	if( GetSpeed() > 0 )
 		pev->nextthink = gpGlobals->time + 0.1;
 	else
 		UTIL_Remove( this );
@@ -64,5 +64,5 @@ void CShower::Touch( CBaseEntity *pOther )
 		SetAbsVelocity( GetAbsVelocity() * 0.6 );
 
 	if( ( GetAbsVelocity().x*GetAbsVelocity().x + GetAbsVelocity().y*GetAbsVelocity().y ) < 10.0 )
-		pev->speed = 0;
+		SetSpeed( 0 );
 }

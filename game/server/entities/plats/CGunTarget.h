@@ -16,7 +16,7 @@
 #define GAME_SERVER_ENTITIES_PLATS_CGUNTARGET_H
 
 /**
-*	pev->speed is the travel speed
+*	GetSpeed() is the travel speed
 *	GetHealth() is current health
 *	GetMaxHealth() is the amount to reset to each time it starts
 */

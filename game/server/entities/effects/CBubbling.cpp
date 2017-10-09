@@ -23,12 +23,12 @@ void CBubbling::Spawn( void )
 	SetSolidType( SOLID_NOT );							// Remove model & collisions
 	pev->renderamt = 0;								// The engine won't draw this model if this is set to 0 and blending is on
 	pev->rendermode = kRenderTransTexture;
-	int speed = pev->speed > 0 ? pev->speed : -pev->speed;
+	int speed = fabs( GetSpeed() );
 
 	// HACKHACK!!! - Speed in rendercolor
 	pev->rendercolor.x = speed >> 8;
 	pev->rendercolor.y = speed & 255;
-	pev->rendercolor.z = ( pev->speed < 0 ) ? 1 : 0;
+	pev->rendercolor.z = ( GetSpeed() < 0 ) ? 1 : 0;
 
 
 	if( !( pev->spawnflags & SF_BUBBLES_STARTOFF ) )
@@ -60,7 +60,7 @@ void CBubbling::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "current" ) )
 	{
-		pev->speed = atoi( pkvd->szValue );
+		SetSpeed( atoi( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else

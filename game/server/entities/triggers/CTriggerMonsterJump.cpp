@@ -13,7 +13,7 @@ void CTriggerMonsterJump::Spawn( void )
 	InitTrigger();
 
 	pev->nextthink = 0;
-	pev->speed = 200;
+	SetSpeed( 200 );
 	m_flHeight = 150;
 
 	if( HasTargetname() )
@@ -49,7 +49,7 @@ void CTriggerMonsterJump::Touch( CBaseEntity *pOther )
 	}
 
 	// toss the monster!
-	Vector vecVelocity = pev->movedir * pev->speed;
+	Vector vecVelocity = pev->movedir * GetSpeed();
 	vecVelocity.z += m_flHeight;
 	pOther->SetAbsVelocity( vecVelocity );
 	pev->nextthink = gpGlobals->time;

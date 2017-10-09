@@ -64,7 +64,7 @@ void CSprite::AnimateThink( void )
 void CSprite::ExpandThink( void )
 {
 	float frametime = gpGlobals->time - m_lastTime;
-	pev->scale += pev->speed * frametime;
+	pev->scale += GetSpeed() * frametime;
 	pev->renderamt -= GetHealth() * frametime;
 	if( pev->renderamt <= 0 )
 	{
@@ -114,7 +114,7 @@ void CSprite::Animate( float frames )
 
 void CSprite::Expand( float scaleSpeed, float fadeSpeed )
 {
-	pev->speed = scaleSpeed;
+	SetSpeed( scaleSpeed );
 	SetHealth( fadeSpeed );
 	SetThink( &CSprite::ExpandThink );
 

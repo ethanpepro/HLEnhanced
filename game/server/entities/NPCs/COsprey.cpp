@@ -279,10 +279,10 @@ void COsprey::UpdateGoal( )
 		m_pos2 = m_hGoalEnt->GetAbsOrigin();
 		m_ang2 = m_hGoalEnt->pev->angles;
 		UTIL_MakeAimVectors( Vector( 0, m_ang2.y, 0 ) );
-		m_vel2 = gpGlobals->v_forward * m_hGoalEnt->pev->speed;
+		m_vel2 = gpGlobals->v_forward * m_hGoalEnt->GetSpeed();
 
 		m_startTime = m_startTime + m_dTime;
-		m_dTime = 2.0 * (m_pos1 - m_pos2).Length() / (m_vel1.Length() + m_hGoalEnt->pev->speed);
+		m_dTime = 2.0 * (m_pos1 - m_pos2).Length() / (m_vel1.Length() + m_hGoalEnt->GetSpeed() );
 
 		if (m_ang1.y - m_ang2.y < -180)
 		{
@@ -313,7 +313,7 @@ void COsprey::FlyThink( void )
 
 	if (gpGlobals->time > m_startTime + m_dTime)
 	{
-		if ( m_hGoalEnt->pev->speed == 0)
+		if ( m_hGoalEnt->GetSpeed() == 0)
 		{
 			SetThink( &COsprey::DeployThink );
 		}
@@ -321,7 +321,7 @@ void COsprey::FlyThink( void )
 		{
 			m_hGoalEnt = UTIL_FindEntityByTargetname( nullptr, m_hGoalEnt->GetTarget() );
 		}
-		while( m_hGoalEnt->pev->speed < 400 && !HasDead() );
+		while( m_hGoalEnt->GetSpeed() < 400 && !HasDead() );
 		UpdateGoal( );
 	}
 

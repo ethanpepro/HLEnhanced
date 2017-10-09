@@ -78,8 +78,8 @@ void CFlockingFlyer::IdleThink( void )
 
 void CFlockingFlyer::BoidAdvanceFrame()
 {
-	float flapspeed = ( pev->speed - pev->armorvalue ) / AFLOCK_ACCELERATE;
-	pev->armorvalue = pev->armorvalue * .8 + pev->speed * .2;
+	float flapspeed = ( GetSpeed() - pev->armorvalue ) / AFLOCK_ACCELERATE;
+	pev->armorvalue = pev->armorvalue * .8 + GetSpeed() * .2;
 
 	if( flapspeed < 0 ) flapspeed = -flapspeed;
 	if( flapspeed < 0.25 ) flapspeed = 0.25;
@@ -158,14 +158,14 @@ void CFlockingFlyer::Start( void )
 	SetAbsVelocity( vecTakeOff );
 
 
-	pev->speed = GetAbsVelocity().Length();
+	SetSpeed( GetAbsVelocity().Length() );
 	pev->sequence = 0;
 	*/
 	SetActivity( ACT_FLY );
 	ResetSequenceInfo();
 	BoidAdvanceFrame();
 
-	pev->speed = AFLOCK_FLY_SPEED;// no delay!
+	SetSpeed( AFLOCK_FLY_SPEED );// no delay!
 }
 
 //=========================================================
@@ -197,10 +197,10 @@ void CFlockingFlyer::FlockLeaderThink( void )
 
 		m_fPathBlocked = false;
 
-		if( pev->speed <= AFLOCK_FLY_SPEED )
-			pev->speed += 5;
+		if( GetSpeed() <= AFLOCK_FLY_SPEED )
+			SetSpeed( GetSpeed() + 5 );
 
-		SetAbsVelocity( gpGlobals->v_forward * pev->speed );
+		SetAbsVelocity( gpGlobals->v_forward * GetSpeed() );
 
 		BoidAdvanceFrame();
 
@@ -250,7 +250,7 @@ void CFlockingFlyer::FlockLeaderThink( void )
 	}
 	SpreadFlock();
 
-	SetAbsVelocity( gpGlobals->v_forward * pev->speed );
+	SetAbsVelocity( gpGlobals->v_forward * GetSpeed() );
 
 	// check and make sure we aren't about to plow into the ground, don't let it happen
 	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() - gpGlobals->v_up * 16, ignore_monsters, ENT( pev ), &tr );
@@ -332,7 +332,7 @@ void CFlockingFlyer::FlockFollowerThink( void )
 
 	SpreadFlock2();
 
-	pev->speed = GetAbsVelocity().Length();
+	SetSpeed( GetAbsVelocity().Length() );
 	SetAbsVelocity( GetAbsVelocity().Normalize() );
 
 	// if we are too far from leader, average a vector towards it into our current velocity
@@ -348,16 +348,16 @@ void CFlockingFlyer::FlockFollowerThink( void )
 		m_flGoalSpeed = AFLOCK_FLY_SPEED * 2;
 	}
 
-	if( pev->speed < m_flGoalSpeed )
+	if( GetSpeed() < m_flGoalSpeed )
 	{
-		pev->speed += AFLOCK_ACCELERATE;
+		SetSpeed( GetSpeed() + AFLOCK_ACCELERATE );
 	}
-	else if( pev->speed > m_flGoalSpeed )
+	else if( GetSpeed() > m_flGoalSpeed )
 	{
-		pev->speed -= AFLOCK_ACCELERATE;
+		SetSpeed( GetSpeed() - AFLOCK_ACCELERATE );
 	}
 
-	SetAbsVelocity( GetAbsVelocity() * pev->speed );
+	SetAbsVelocity( GetAbsVelocity() * GetSpeed() );
 
 	BoidAdvanceFrame();
 }
@@ -370,7 +370,7 @@ if ( FBoidPathBlocked (pev) )
 // velocity
 if ( m_fCourseAdjust )
 {
-SetAbsVelocity( m_vecAdjustedVelocity * pev->speed );
+SetAbsVelocity( m_vecAdjustedVelocity * GetSpeed() );
 return;
 }
 else // set course adjust flag and calculate adjusted velocity

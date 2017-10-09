@@ -120,8 +120,8 @@ void CBaseDoor::Spawn()
 	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( GetModelName() );
 
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 
 	m_vecPosition1 = GetAbsOrigin();
 	// Subtract 2 from size because the engine expands bboxes by 1 in all directions making the size too big
@@ -321,10 +321,10 @@ void CBaseDoor::DoorGoUp( void )
 					sign = -1.0;
 			}
 		}
-		AngularMove( m_vecAngle2*sign, pev->speed );
+		AngularMove( m_vecAngle2*sign, GetSpeed() );
 	}
 	else
-		LinearMove( m_vecPosition2, pev->speed );
+		LinearMove( m_vecPosition2, GetSpeed() );
 }
 
 
@@ -387,9 +387,9 @@ void CBaseDoor::DoorGoDown( void )
 
 	SetMoveDone( &CBaseDoor::DoorHitBottom );
 	if( ClassnameIs( "func_door_rotating" ) )//rotating door
-		AngularMove( m_vecAngle1, pev->speed );
+		AngularMove( m_vecAngle1, GetSpeed() );
 	else
-		LinearMove( m_vecPosition1, pev->speed );
+		LinearMove( m_vecPosition1, GetSpeed() );
 }
 
 //

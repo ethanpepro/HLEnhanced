@@ -64,8 +64,8 @@ void CBaseButton::Spawn()
 	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
 
-	if( pev->speed == 0 )
-		pev->speed = 40;
+	if( GetSpeed() == 0 )
+		SetSpeed( 40 );
 
 	if( GetHealth() > 0 )
 	{
@@ -213,9 +213,9 @@ void CBaseButton::ButtonActivate()
 
 	SetMoveDone( &CBaseButton::TriggerAndWait );
 	if( !m_fRotating )
-		LinearMove( m_vecPosition2, pev->speed );
+		LinearMove( m_vecPosition2, GetSpeed() );
 	else
-		AngularMove( m_vecAngle2, pev->speed );
+		AngularMove( m_vecAngle2, GetSpeed() );
 }
 
 //
@@ -308,9 +308,9 @@ void CBaseButton::ButtonReturn( void )
 
 	SetMoveDone( &CBaseButton::ButtonBackHome );
 	if( !m_fRotating )
-		LinearMove( m_vecPosition1, pev->speed );
+		LinearMove( m_vecPosition1, GetSpeed() );
 	else
-		AngularMove( m_vecAngle1, pev->speed );
+		AngularMove( m_vecAngle1, GetSpeed() );
 
 	pev->frame = 0;			// use normal textures
 }

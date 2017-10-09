@@ -43,7 +43,7 @@ void CStomp::Think( void )
 	// Do damage for this frame
 	Vector vecStart = GetAbsOrigin();
 	vecStart.z += 30;
-	Vector vecEnd = vecStart + ( pev->movedir * pev->speed * gpGlobals->frametime );
+	Vector vecEnd = vecStart + ( pev->movedir * GetSpeed() * gpGlobals->frametime );
 
 	UTIL_TraceHull( vecStart, vecEnd, dont_ignore_monsters, Hull::HEAD, ENT( pev ), &tr );
 
@@ -61,13 +61,13 @@ void CStomp::Think( void )
 	}
 
 	// Accelerate the effect
-	pev->speed = pev->speed + ( gpGlobals->frametime ) * pev->framerate;
+	SetSpeed( GetSpeed() + ( gpGlobals->frametime ) * pev->framerate );
 	pev->framerate = pev->framerate + ( gpGlobals->frametime ) * 1500;
 
 	// Move and spawn trails
 	while( gpGlobals->time - pev->dmgtime > STOMP_INTERVAL )
 	{
-		SetAbsOrigin( GetAbsOrigin() + pev->movedir * pev->speed * STOMP_INTERVAL );
+		SetAbsOrigin( GetAbsOrigin() + pev->movedir * GetSpeed() * STOMP_INTERVAL );
 		for( int i = 0; i < 2; i++ )
 		{
 			CSprite *pSprite = CSprite::SpriteCreate( GARG_STOMP_SPRITE_NAME, GetAbsOrigin(), true );
@@ -84,7 +84,7 @@ void CStomp::Think( void )
 		}
 		pev->dmgtime += STOMP_INTERVAL;
 		// Scale has the "life" of this effect
-		pev->scale -= STOMP_INTERVAL * pev->speed;
+		pev->scale -= STOMP_INTERVAL * GetSpeed();
 		if( pev->scale <= 0 )
 		{
 			// Life has run out
@@ -103,7 +103,7 @@ CStomp *CStomp::StompCreate( const Vector &origin, const Vector &end, float spee
 	Vector dir = ( end - origin );
 	pStomp->pev->scale = dir.Length();
 	pStomp->pev->movedir = dir.Normalize();
-	pStomp->pev->speed = speed;
+	pStomp->SetSpeed( speed );
 	pStomp->Spawn();
 
 	return pStomp;

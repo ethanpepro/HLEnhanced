@@ -33,7 +33,7 @@ public:
 	// radius in pev->scale
 	// health in GetHealth()
 	// Reach target in GetMessage()
-	// Reach delay in pev->speed
+	// Reach delay in GetSpeed()
 	// Reach sequence in pev->netname
 
 	int		m_preSequence;

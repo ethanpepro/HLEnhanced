@@ -272,7 +272,7 @@ float CLeech::ObstacleDistance( CBaseEntity *pTarget )
 
 	if ( tr.fStartSolid )
 	{
-		pev->speed = -LEECH_SWIM_SPEED * 0.5;
+		SetSpeed( -LEECH_SWIM_SPEED * 0.5 );
 //		ALERT( at_console, "Stuck from (%f %f %f) to (%f %f %f)\n", GetOldOrigin().x, GetOldOrigin().y, GetOldOrigin().z, GetAbsOrigin().x, GetAbsOrigin().y, GetAbsOrigin().z );
 //		SetAbsOrigin( GetOldOrigin() );
 	}
@@ -347,8 +347,8 @@ void CLeech::DeadThink( void )
 
 void CLeech::UpdateMotion( void )
 {
-	float flapspeed = (pev->speed - m_flAccelerate) / LEECH_ACCELERATE;
-	m_flAccelerate = m_flAccelerate * 0.8 + pev->speed * 0.2;
+	float flapspeed = ( GetSpeed() - m_flAccelerate) / LEECH_ACCELERATE;
+	m_flAccelerate = m_flAccelerate * 0.8 + GetSpeed() * 0.2;
 
 	if (flapspeed < 0) 
 		flapspeed = -flapspeed;
@@ -538,8 +538,8 @@ void CLeech::SwimThink( void )
 		}
 
 		m_fPathBlocked = false;
-		pev->speed = UTIL_Approach( targetSpeed, pev->speed, LEECH_SWIM_ACCEL * LEECH_FRAMETIME );
-		SetAbsVelocity( gpGlobals->v_forward * pev->speed );
+		SetSpeed( UTIL_Approach( targetSpeed, GetSpeed(), LEECH_SWIM_ACCEL * LEECH_FRAMETIME ) );
+		SetAbsVelocity( gpGlobals->v_forward * GetSpeed() );
 
 	}
 	else
@@ -567,8 +567,8 @@ void CLeech::SwimThink( void )
 			else
 				m_flTurning = LEECH_TURN_RATE;
 		}
-		pev->speed = UTIL_Approach( -(LEECH_SWIM_SPEED*0.5), pev->speed, LEECH_SWIM_DECEL * LEECH_FRAMETIME * m_obstacle );
-		SetAbsVelocity( gpGlobals->v_forward * pev->speed );
+		SetSpeed( UTIL_Approach( -(LEECH_SWIM_SPEED*0.5), GetSpeed(), LEECH_SWIM_DECEL * LEECH_FRAMETIME * m_obstacle ) );
+		SetAbsVelocity( gpGlobals->v_forward * GetSpeed() );
 	}
 	pev->ideal_yaw = m_flTurning + targetYaw;
 	UpdateMotion();

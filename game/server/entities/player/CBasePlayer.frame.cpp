@@ -307,7 +307,7 @@ void CBasePlayer::PreThink()
 
 			if( vel )
 			{
-				m_iTrain = TrainSpeed( pTrain->pev->speed, pTrain->pev->impulse );
+				m_iTrain = TrainSpeed( pTrain->GetSpeed(), pTrain->pev->impulse );
 				m_iTrain |= TRAIN_ACTIVE | TRAIN_NEW;
 			}
 

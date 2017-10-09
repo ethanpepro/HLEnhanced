@@ -191,7 +191,7 @@ if( FBitSet ( pOther->pev->flags, FL_ONGROUND ) )
 
 // toss the monster!
 Vector vecVelocity = pOther->GetAbsVelocity();
-vecVelocity = pev->movedir * pev->speed;
+vecVelocity = pev->movedir * GetSpeed();
 vecVelocity.z += m_flHeight;
 pOther->SetAbsVelocity( vecVelocity );
 

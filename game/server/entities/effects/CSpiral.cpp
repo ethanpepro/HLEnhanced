@@ -41,7 +41,7 @@ void CSpiral::Think( void )
 		Vector position = GetAbsOrigin();
 		Vector direction = Vector( 0, 0, 1 );
 
-		float fraction = 1.0 / pev->speed;
+		float fraction = 1.0 / GetSpeed();
 
 		float radius = ( pev->scale * GetHealth() ) * fraction;
 
@@ -61,7 +61,7 @@ void CSpiral::Think( void )
 
 	pev->nextthink = gpGlobals->time;
 
-	if( GetHealth() >= pev->speed )
+	if( GetHealth() >= GetSpeed() )
 		UTIL_Remove( this );
 }
 
@@ -76,7 +76,7 @@ CSpiral *CSpiral::Create( const Vector &origin, float height, float radius, floa
 	pSpiral->SetAbsOrigin( origin );
 	pSpiral->pev->scale = radius;
 	pSpiral->pev->dmg = height;
-	pSpiral->pev->speed = duration;
+	pSpiral->SetSpeed( duration );
 	pSpiral->SetHealth( 0 );
 	pSpiral->pev->angles = g_vecZero;
 

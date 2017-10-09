@@ -52,11 +52,11 @@ void CPendulum::Spawn( void )
 	if( m_distance == 0 )
 		return;
 
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 
-	m_accel = ( pev->speed * pev->speed ) / ( 2 * fabs( m_distance ) );	// Calculate constant acceleration from speed and distance
-	m_maxSpeed = pev->speed;
+	m_accel = ( GetSpeed() * GetSpeed() ) / ( 2 * fabs( m_distance ) );	// Calculate constant acceleration from speed and distance
+	m_maxSpeed = GetSpeed();
 	m_start = pev->angles;
 	m_center = pev->angles + ( m_distance * 0.5 ) * pev->movedir;
 
@@ -65,7 +65,7 @@ void CPendulum::Spawn( void )
 		SetThink( &CPendulum::SUB_CallUseToggle );
 		pev->nextthink = gpGlobals->time + 0.1;
 	}
-	pev->speed = 0;
+	SetSpeed( 0 );
 	SetUse( &CPendulum::PendulumUse );
 
 	if( FBitSet( pev->spawnflags, SF_PENDULUM_SWING ) )
@@ -99,16 +99,16 @@ void CPendulum::Swing( void )
 	m_time = gpGlobals->time;		// Remember the last time called
 
 	if( delta > 0 && m_accel > 0 )
-		pev->speed -= m_accel * dt;	// Integrate velocity
+		SetSpeed( GetSpeed() - m_accel * dt );	// Integrate velocity
 	else
-		pev->speed += m_accel * dt;
+		SetSpeed( GetSpeed() + m_accel * dt );
 
-	if( pev->speed > m_maxSpeed )
-		pev->speed = m_maxSpeed;
-	else if( pev->speed < -m_maxSpeed )
-		pev->speed = -m_maxSpeed;
+	if( GetSpeed() > m_maxSpeed )
+		SetSpeed( m_maxSpeed );
+	else if( GetSpeed() < -m_maxSpeed )
+		SetSpeed( -m_maxSpeed );
 	// scale the destdelta vector by the time spent traveling to get velocity
-	pev->avelocity = pev->speed * pev->movedir;
+	pev->avelocity = GetSpeed() * pev->movedir;
 
 	// Call this again
 	pev->nextthink = pev->ltime + 0.1;
@@ -119,21 +119,21 @@ void CPendulum::Swing( void )
 		if( m_dampSpeed < 30.0 )
 		{
 			pev->angles = m_center;
-			pev->speed = 0;
+			SetSpeed( 0 );
 			SetThink( NULL );
 			pev->avelocity = g_vecZero;
 		}
-		else if( pev->speed > m_dampSpeed )
-			pev->speed = m_dampSpeed;
-		else if( pev->speed < -m_dampSpeed )
-			pev->speed = -m_dampSpeed;
+		else if( GetSpeed() > m_dampSpeed )
+			SetSpeed( m_dampSpeed );
+		else if( GetSpeed() < -m_dampSpeed )
+			SetSpeed( -m_dampSpeed );
 
 	}
 }
 
 void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( pev->speed )		// Pendulum is moving, stop it and auto-return if necessary
+	if( GetSpeed() )		// Pendulum is moving, stop it and auto-return if necessary
 	{
 		if( FBitSet( pev->spawnflags, SF_PENDULUM_AUTO_RETURN ) )
 		{
@@ -147,7 +147,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 		}
 		else
 		{
-			pev->speed = 0;		// Dead stop
+			SetSpeed( 0 );		// Dead stop
 			SetThink( NULL );
 			pev->avelocity = g_vecZero;
 		}
@@ -164,7 +164,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 void CPendulum::Stop( void )
 {
 	pev->angles = m_start;
-	pev->speed = 0;
+	SetSpeed( 0 );
 	SetThink( NULL );
 	pev->avelocity = g_vecZero;
 }
@@ -179,7 +179,7 @@ void CPendulum::Touch( CBaseEntity *pOther )
 		return;
 
 	// calculate damage based on rotation speed
-	float damage = pev->dmg * pev->speed * 0.01;
+	float damage = pev->dmg * GetSpeed() * 0.01;
 
 	if( damage < 0 )
 		damage = -damage;

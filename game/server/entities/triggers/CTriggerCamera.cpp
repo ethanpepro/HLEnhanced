@@ -35,7 +35,7 @@ void CTriggerCamera::Spawn( void )
 	pev->renderamt = 0;								// The engine won't draw this model if this is set to 0 and blending is on
 	pev->rendermode = kRenderTransTexture;
 
-	m_initialSpeed = pev->speed;
+	m_initialSpeed = GetSpeed();
 	if( m_acceleration == 0 )
 		m_acceleration = 500;
 	if( m_deceleration == 0 )
@@ -90,7 +90,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	CBasePlayer* pPlayer = static_cast<CBasePlayer*>( pActivator );
 
 	m_flReturnTime = gpGlobals->time + m_flWait;
-	pev->speed = m_initialSpeed;
+	SetSpeed( m_initialSpeed );
 	m_targetSpeed = m_initialSpeed;
 
 	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_TARGET ) )
@@ -127,8 +127,8 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	m_flStopTime = gpGlobals->time;
 	if( m_pentPath )
 	{
-		if( m_pentPath->pev->speed != 0 )
-			m_targetSpeed = m_pentPath->pev->speed;
+		if( m_pentPath->GetSpeed() != 0 )
+			m_targetSpeed = m_pentPath->GetSpeed();
 
 		m_flStopTime += m_pentPath->GetDelay();
 	}
@@ -227,7 +227,7 @@ void CTriggerCamera::Move()
 		return;
 
 	// Subtract movement from the previous frame
-	m_moveDistance -= pev->speed * gpGlobals->frametime;
+	m_moveDistance -= GetSpeed() * gpGlobals->frametime;
 
 	// Have we moved enough to reach the target?
 	if( m_moveDistance <= 0 )
@@ -249,8 +249,8 @@ void CTriggerCamera::Move()
 		}
 		else
 		{
-			if( m_pentPath->pev->speed != 0 )
-				m_targetSpeed = m_pentPath->pev->speed;
+			if( m_pentPath->GetSpeed() != 0 )
+				m_targetSpeed = m_pentPath->GetSpeed();
 
 			Vector delta = m_pentPath->GetAbsOrigin() - GetAbsOrigin();
 			m_moveDistance = delta.Length();
@@ -260,10 +260,10 @@ void CTriggerCamera::Move()
 	}
 
 	if( m_flStopTime > gpGlobals->time )
-		pev->speed = UTIL_Approach( 0, pev->speed, m_deceleration * gpGlobals->frametime );
+		SetSpeed( UTIL_Approach( 0, GetSpeed(), m_deceleration * gpGlobals->frametime ) );
 	else
-		pev->speed = UTIL_Approach( m_targetSpeed, pev->speed, m_acceleration * gpGlobals->frametime );
+		SetSpeed( UTIL_Approach( m_targetSpeed, GetSpeed(), m_acceleration * gpGlobals->frametime ) );
 
 	float fraction = 2 * gpGlobals->frametime;
-	SetAbsVelocity( ( ( pev->movedir * pev->speed ) * fraction ) + ( GetAbsVelocity() * ( 1 - fraction ) ) );
+	SetAbsVelocity( ( ( pev->movedir * GetSpeed() ) * fraction ) + ( GetAbsVelocity() * ( 1 - fraction ) ) );
 }

@@ -103,7 +103,7 @@ public:
 		CBaseEntity *pTarget = m_hTargetEnt;
 		if( pTarget )
 		{
-			return pTarget->pev->speed;	// Speed holds node delay
+			return pTarget->GetSpeed();	// Speed holds node delay
 		}
 		return 0;
 	}

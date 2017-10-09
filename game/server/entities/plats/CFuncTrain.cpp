@@ -19,8 +19,8 @@ LINK_ENTITY_TO_CLASS( func_train, CFuncTrain );
 void CFuncTrain::Spawn( void )
 {
 	Precache();
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 
 	if( !HasTarget() )
 		ALERT( at_console, "FuncTrain with no target" );
@@ -243,8 +243,8 @@ void CFuncTrain::Next( void )
 
 	if( m_pevCurrentTarget && m_pevCurrentTarget->speed != 0 )
 	{// don't copy speed from target if it is 0 (uninitialized)
-		pev->speed = m_pevCurrentTarget->speed;
-		ALERT( at_aiconsole, "Train %s speed to %4.2f\n", GetTargetname(), pev->speed );
+		SetSpeed( m_pevCurrentTarget->speed );
+		ALERT( at_aiconsole, "Train %s speed to %4.2f\n", GetTargetname(), GetSpeed() );
 	}
 	m_pevCurrentTarget = pTarg->pev;// keep track of this since path corners change our target for us.
 
@@ -271,6 +271,6 @@ void CFuncTrain::Next( void )
 		}
 		GetEffects().ClearFlags( EF_NOINTERP );
 		SetMoveDone( &CFuncTrain::Wait );
-		LinearMove( pTarg->GetAbsOrigin() - ( GetRelMin() + GetRelMax() )* 0.5, pev->speed );
+		LinearMove( pTarg->GetAbsOrigin() - ( GetRelMin() + GetRelMax() )* 0.5, GetSpeed() );
 	}
 }

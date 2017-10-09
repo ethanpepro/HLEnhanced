@@ -192,12 +192,12 @@ void CCrossbow::FireBolt()
 	if (m_pPlayer->GetWaterLevel() == WATERLEVEL_HEAD)
 	{
 		pBolt->SetAbsVelocity( vecDir * BOLT_WATER_VELOCITY );
-		pBolt->pev->speed = BOLT_WATER_VELOCITY;
+		pBolt->SetSpeed( BOLT_WATER_VELOCITY );
 	}
 	else
 	{
 		pBolt->SetAbsVelocity( vecDir * BOLT_AIR_VELOCITY );
-		pBolt->pev->speed = BOLT_AIR_VELOCITY;
+		pBolt->SetSpeed( BOLT_AIR_VELOCITY );
 	}
 	pBolt->pev->avelocity.z = 10;
 #endif

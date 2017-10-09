@@ -78,7 +78,7 @@ void CFuncTrackChange::GoUp( void )
 	{
 		m_toggle_state = TS_GOING_UP;
 		SetMoveDone( &CFuncTrackChange::CallHitTop );
-		AngularMove( m_end, pev->speed );
+		AngularMove( m_end, GetSpeed() );
 	}
 	else
 	{
@@ -112,7 +112,7 @@ void CFuncTrackChange::GoDown( void )
 	{
 		SetMoveDone( &CFuncTrackChange::CallHitBottom );
 		m_toggle_state = TS_GOING_DOWN;
-		AngularMove( m_start, pev->speed );
+		AngularMove( m_start, GetSpeed() );
 	}
 	else
 	{
@@ -233,7 +233,7 @@ TRAIN_CODE CFuncTrackChange::EvaluateTrain( CPathTrack *pcurrent )
 	if( m_train->m_ppath == pcurrent || ( pcurrent->m_pprevious && m_train->m_ppath == pcurrent->m_pprevious ) ||
 		( pcurrent->m_pnext && m_train->m_ppath == pcurrent->m_pnext ) )
 	{
-		if( m_train->pev->speed != 0 )
+		if( m_train->GetSpeed() != 0 )
 			return TRAIN_BLOCKING;
 
 		Vector dist = GetAbsOrigin() - m_train->GetAbsOrigin();

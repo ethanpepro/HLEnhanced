@@ -47,8 +47,8 @@ void CRotDoor::Spawn( void )
 	SetAbsOrigin( GetAbsOrigin() );
 	SetModel( GetModelName() );
 
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 
 	// DOOR_START_OPEN is to allow an entity to be lighted in the closed position
 	// but spawn in the open position

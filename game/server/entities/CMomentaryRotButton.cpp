@@ -36,8 +36,8 @@ void CMomentaryRotButton::Spawn( void )
 {
 	CBaseToggle::AxisDir( this );
 
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 
 	if( m_flMoveDistance < 0 )
 	{
@@ -157,7 +157,7 @@ void CMomentaryRotButton::UpdateSelf( float value )
 	else
 		pev->nextthink += 0.1;
 
-	pev->avelocity = ( m_direction * pev->speed ) * pev->movedir;
+	pev->avelocity = ( m_direction * GetSpeed() ) * pev->movedir;
 	SetThink( &CMomentaryRotButton::Off );
 }
 

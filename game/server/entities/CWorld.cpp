@@ -274,8 +274,8 @@ void CWorld::Precache()
 		}
 	}
 
-	if( pev->speed > 0 )
-		CVAR_SET_FLOAT( "sv_zmax", pev->speed );
+	if( GetSpeed() > 0 )
+		CVAR_SET_FLOAT( "sv_zmax", GetSpeed() );
 	else
 		CVAR_SET_FLOAT( "sv_zmax", 4096 );
 
@@ -338,7 +338,7 @@ void CWorld::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "MaxRange" ) )
 	{
-		pev->speed = atof( pkvd->szValue );
+		SetSpeed( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "chaptertitle" ) )

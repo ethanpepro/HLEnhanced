@@ -71,8 +71,8 @@ void CFuncPlat::Setup( void )
 		m_vecPosition2.z = GetAbsOrigin().z - m_flHeight;
 	else
 		m_vecPosition2.z = GetAbsOrigin().z - GetBounds().z + 8;
-	if( pev->speed == 0 )
-		pev->speed = 150;
+	if( GetSpeed() == 0 )
+		SetSpeed( 150 );
 
 	if( m_volume == 0 )
 		m_volume = 0.85;
@@ -134,7 +134,7 @@ void CFuncPlat::GoUp( void )
 	ASSERT( m_toggle_state == TS_AT_BOTTOM || m_toggle_state == TS_GOING_DOWN );
 	m_toggle_state = TS_GOING_UP;
 	SetMoveDone( &CFuncPlat::CallHitTop );
-	LinearMove( m_vecPosition1, pev->speed );
+	LinearMove( m_vecPosition1, GetSpeed() );
 }
 
 //
@@ -148,7 +148,7 @@ void CFuncPlat::GoDown( void )
 	ASSERT( m_toggle_state == TS_AT_TOP || m_toggle_state == TS_GOING_UP );
 	m_toggle_state = TS_GOING_DOWN;
 	SetMoveDone( &CFuncPlat::CallHitBottom );
-	LinearMove( m_vecPosition2, pev->speed );
+	LinearMove( m_vecPosition2, GetSpeed() );
 }
 
 //

@@ -16,20 +16,20 @@ void CMessage::Spawn( void )
 	switch( pev->impulse )
 	{
 	case 1: // Medium radius
-		pev->speed = ATTN_STATIC;
+		SetSpeed( ATTN_STATIC );
 		break;
 
 	case 2:	// Large radius
-		pev->speed = ATTN_NORM;
+		SetSpeed( ATTN_NORM );
 		break;
 
 	case 3:	//EVERYWHERE
-		pev->speed = ATTN_NONE;
+		SetSpeed( ATTN_NONE );
 		break;
 
 	default:
 	case 0: // Small radius
-		pev->speed = ATTN_IDLE;
+		SetSpeed( ATTN_IDLE );
 		break;
 	}
 	pev->impulse = 0;
@@ -64,7 +64,7 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 	}
 	if( pev->noise )
 	{
-		EMIT_SOUND( this, CHAN_BODY, STRING( pev->noise ), pev->scale, pev->speed );
+		EMIT_SOUND( this, CHAN_BODY, STRING( pev->noise ), pev->scale, GetSpeed() );
 	}
 	if( pev->spawnflags & SF_MESSAGE_ONCE )
 		UTIL_Remove( this );

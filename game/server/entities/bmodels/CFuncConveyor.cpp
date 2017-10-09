@@ -35,16 +35,16 @@ void CFuncConveyor::Spawn( void )
 		pev->skin = 0;		// Don't want the engine thinking we've got special contents on this brush
 	}
 
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 
-	UpdateSpeed( pev->speed );
+	UpdateSpeed( GetSpeed() );
 }
 
 void CFuncConveyor::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	pev->speed = -pev->speed;
-	UpdateSpeed( pev->speed );
+	SetSpeed( -GetSpeed() );
+	UpdateSpeed( GetSpeed() );
 }
 
 // HACKHACK -- This is ugly, but encode the speed in the rendercolor to avoid adding more data to the network stream

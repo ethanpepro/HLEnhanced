@@ -37,7 +37,7 @@ void CInfoBM::KeyValue( KeyValueData* pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "reachdelay" ) )
 	{
-		pev->speed = atof( pkvd->szValue );
+		SetSpeed( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "reachtarget" ) )

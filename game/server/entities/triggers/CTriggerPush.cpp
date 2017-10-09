@@ -12,8 +12,8 @@ void CTriggerPush::Spawn()
 		pev->angles.y = 360;
 	InitTrigger();
 
-	if( pev->speed == 0 )
-		pev->speed = 100;
+	if( GetSpeed() == 0 )
+		SetSpeed( 100 );
 
 	if( FBitSet( pev->spawnflags, SF_TRIGGER_PUSH_START_OFF ) )// if flagged to Start Turned Off, make trigger nonsolid.
 		SetSolidType( SOLID_NOT );
@@ -45,14 +45,14 @@ void CTriggerPush::Touch( CBaseEntity *pOther )
 		// Instant trigger, just transfer velocity and remove
 		if( FBitSet( pev->spawnflags, SF_TRIG_PUSH_ONCE ) )
 		{
-			pOther->SetAbsVelocity( pOther->GetAbsVelocity() + ( pev->speed * pev->movedir ) );
+			pOther->SetAbsVelocity( pOther->GetAbsVelocity() + ( GetSpeed() * pev->movedir ) );
 			if( pOther->GetAbsVelocity().z > 0 )
 				pOther->pev->flags &= ~FL_ONGROUND;
 			UTIL_Remove( this );
 		}
 		else
 		{	// Push field, transfer to base velocity
-			Vector vecPush = ( pev->speed * pev->movedir );
+			Vector vecPush = ( GetSpeed() * pev->movedir );
 			if( pOther->pev->flags & FL_BASEVELOCITY )
 				vecPush = vecPush + pOther->pev->basevelocity;
 

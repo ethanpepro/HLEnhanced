@@ -49,8 +49,8 @@ void CRotButton::Spawn( void )
 
 	SetModel( GetModelName() );
 
-	if( pev->speed == 0 )
-		pev->speed = 40;
+	if( GetSpeed() == 0 )
+		SetSpeed( 40 );
 
 	if( m_flWait == 0 )
 		m_flWait = 1;
