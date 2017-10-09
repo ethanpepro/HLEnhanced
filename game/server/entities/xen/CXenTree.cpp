@@ -120,7 +120,7 @@ void CXenTree::HandleAnimEvent( AnimEvent_t& event )
 			{
 				if( pList[ i ] != this )
 				{
-					if( pList[ i ]->pev->owner != edict() )
+					if( pList[ i ]->GetOwner() != this )
 					{
 						sound = true;
 						pList[ i ]->TakeDamage( this, this, 25, DMG_CRUSH | DMG_SLASH );

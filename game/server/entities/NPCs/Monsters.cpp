@@ -3281,7 +3281,7 @@ bool CBaseMonster::GetEnemy()
 					m_vecEnemyLKP = m_hEnemy->GetAbsOrigin();
 				}
 				// if the new enemy has an owner, take that one as well
-				if (pNewEnemy->pev->owner != NULL)
+				if ( pNewEnemy->GetOwner() )
 				{
 					if( CBaseEntity* pOwnerEnt = pNewEnemy->GetOwner() )
 					{

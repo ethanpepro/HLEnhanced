@@ -1085,7 +1085,7 @@ void CNihilanth::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 
 void CNihilanth::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if ( info.GetInflictor()->pev->owner == edict() )
+	if ( info.GetInflictor()->GetOwner() == this )
 		return;
 
 	if (info.GetDamage() >= GetHealth() )

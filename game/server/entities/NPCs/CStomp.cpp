@@ -47,11 +47,14 @@ void CStomp::Think( void )
 
 	UTIL_TraceHull( vecStart, vecEnd, dont_ignore_monsters, Hull::HEAD, ENT( pev ), &tr );
 
-	if( tr.pHit && tr.pHit != pev->owner )
+	if( tr.pHit && Instance( tr.pHit ) != GetOwner() )
 	{
 		CBaseEntity *pEntity = CBaseEntity::Instance( tr.pHit );
 
-		CBaseEntity* pOwner = pev->owner ? Instance( pev->owner ) : this;
+		CBaseEntity* pOwner = GetOwner();
+
+		if( !pOwner )
+			pOwner = this;
 
 		if( pEntity )
 			pEntity->TakeDamage( this, pOwner, gSkillData.GetGargantuaDmgStomp(), DMG_SONIC );

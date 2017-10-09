@@ -90,8 +90,8 @@ void CSqueakGrenade::Spawn( void )
 
 	m_flFieldOfView = 0; // 180 degrees
 
-	if( pev->owner )
-		m_hOwner = Instance( pev->owner );
+	if( GetOwner() )
+		m_hOwner = GetOwner();
 
 	m_flNextBounceSoundTime = gpGlobals->time;// reset each time a snark is spawned.
 
@@ -138,7 +138,7 @@ void CSqueakGrenade::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 	// reset owner so death message happens
 	if( m_hOwner != NULL )
-		pev->owner = m_hOwner->edict();
+		SetOwner( m_hOwner );
 
 	CBaseMonster::Killed( info, GIB_ALWAYS );
 }
@@ -280,11 +280,11 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 	TraceResult tr = UTIL_GetGlobalTrace();
 
 	// don't hit the guy that launched this grenade
-	if( pev->owner && pOther->edict() == pev->owner )
+	if( GetOwner() && pOther == GetOwner() )
 		return;
 
 	// at least until we've bounced once
-	pev->owner = NULL;
+	SetOwner( NULL );
 
 	pev->angles.x = 0;
 	pev->angles.z = 0;

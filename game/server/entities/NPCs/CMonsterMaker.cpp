@@ -276,7 +276,7 @@ void CMonsterMaker::DeathNotice( CBaseEntity* pChild )
 
 	if( !m_fFadeChildren )
 	{
-		pChild->pev->owner = nullptr;
+		pChild->SetOwner( nullptr );
 	}
 }
 

@@ -14,7 +14,7 @@ void CBloodSplat::Spawn( CBaseEntity* pOwner )
 {
 	SetAbsOrigin( pOwner->GetAbsOrigin() + Vector( 0, 0, 32 ) );
 	pev->angles = pOwner->GetViewAngle();
-	pev->owner = pOwner->edict();
+	SetOwner( pOwner );
 
 	SetThink( &CBloodSplat::Spray );
 	pev->nextthink = gpGlobals->time + 0.1;
@@ -27,6 +27,7 @@ void CBloodSplat::Spray()
 	if( g_Language != LANGUAGE_GERMAN )
 	{
 		UTIL_MakeVectors( pev->angles );
+		//TODO: need ignore ent to be CBaseEntity* so owner can be changed - Solokiller
 		UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + gpGlobals->v_forward * 128, ignore_monsters, pev->owner, &tr );
 
 		UTIL_BloodDecalTrace( &tr, BLOOD_COLOR_RED );

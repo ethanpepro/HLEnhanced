@@ -86,7 +86,7 @@ void CSatchelCharge :: Spawn( void )
 void CSatchelCharge::SatchelSlide( CBaseEntity *pOther )
 {
 	// don't hit the guy that launched this grenade
-	if ( pOther->edict() == pev->owner )
+	if ( pOther == GetOwner() )
 		return;
 
 	// pev->avelocity = Vector (300, 300, 300);
@@ -441,7 +441,7 @@ size_t DeactivateSatchels( CBasePlayer* const pOwner, const SatchelAction action
 
 		if( pSatchel )
 		{
-			if( pSatchel->pev->owner == pOwner->edict() )
+			if( pSatchel->GetOwner() == pOwner )
 			{
 				if( action == SatchelAction::DETONATE )
 					pSatchel->Use( pOwner, pOwner, USE_ON, 0 );

@@ -858,8 +858,12 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, SetDamage ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
+		pszObjectName, "CBaseEntity@ GetOwner() const",
+		asMETHODPR( CLASS, GetOwner, () const, CBaseEntity* ), asCALL_THISCALL );
+
+	engine.RegisterObjectMethod(
 		pszObjectName, "CBaseEntity@ GetOwner()",
-		asMETHOD( CLASS, GetOwner ), asCALL_THISCALL );
+		asMETHODPR( CLASS, GetOwner, (), CBaseEntity* ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "void SetOwner(CBaseEntity@ pOwner)",

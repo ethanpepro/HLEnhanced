@@ -53,7 +53,7 @@ void CControllerHeadBall::Spawn( void )
 
 	pev->nextthink = gpGlobals->time + 0.1;
 
-	m_hOwner = Instance( pev->owner );
+	m_hOwner = GetOwner();
 	pev->dmgtime = gpGlobals->time;
 }
 

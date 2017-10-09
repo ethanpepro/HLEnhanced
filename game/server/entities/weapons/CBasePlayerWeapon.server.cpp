@@ -85,7 +85,7 @@ void CBasePlayerWeapon::FallThink( void )
 	{
 		// clatter if we have an owner (i.e., dropped by someone)
 		// don't clatter if the gun is waiting to respawn (if it's waiting, it is invisible!)
-		if( !FNullEnt( pev->owner ) )
+		if( !FNullEnt( GetOwner() ) )
 		{
 			int pitch = 95 + RANDOM_LONG( 0, 29 );
 			EMIT_SOUND_DYN( this, CHAN_VOICE, "items/weapondrop1.wav", 1, ATTN_NORM, 0, pitch );
@@ -340,7 +340,7 @@ void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
 	GetEffects() = EF_NODRAW; // ??
 	SetModelIndex( 0 );// server won't send down to clients if modelindex == 0
 	SetModelName( iStringNull );
-	pev->owner = pPlayer->edict();
+	SetOwner( pPlayer );
 	pev->nextthink = gpGlobals->time + .1;
 	SetTouch( NULL );
 }

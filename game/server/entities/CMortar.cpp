@@ -107,7 +107,7 @@ void CMortar::MortarExplode( void )
 
 	// ExplodeModel( GetAbsOrigin(), 400, g_sModelIndexShrapnel, 30 );
 
-	RadiusDamage( this, GET_PRIVATE( pev->owner ), pev->dmg, EntityClassifications().GetNoneId(), DMG_BLAST );
+	RadiusDamage( this, GetOwner(), pev->dmg, EntityClassifications().GetNoneId(), DMG_BLAST );
 
 	/*
 	if ( RANDOM_FLOAT ( 0 , 1 ) < 0.5 )

@@ -1576,7 +1576,15 @@ public:
 	}
 
 	/**
-	*	@return This entity's owner.
+	*	@return This entity's owner
+	*/
+	CBaseEntity* GetOwner() const
+	{
+		return pev->owner ? Instance( pev->owner ) : nullptr;
+	}
+
+	/**
+	*	@copydoc GetOwner() const
 	*/
 	CBaseEntity* GetOwner()
 	{

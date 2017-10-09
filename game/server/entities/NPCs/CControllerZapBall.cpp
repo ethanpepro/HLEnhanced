@@ -48,7 +48,7 @@ void CControllerZapBall::Spawn( void )
 	SetThink( &CControllerZapBall::AnimateThink );
 	SetTouch( &CControllerZapBall::ExplodeTouch );
 
-	m_hOwner = Instance( pev->owner );
+	m_hOwner = GetOwner();
 	pev->dmgtime = gpGlobals->time; // keep track of when ball spawned
 	pev->nextthink = gpGlobals->time + 0.1;
 }

@@ -187,7 +187,7 @@ void CCrossbow::FireBolt()
 	CCrossbowBolt *pBolt = CCrossbowBolt::BoltCreate();
 	pBolt->SetAbsOrigin( vecSrc );
 	pBolt->pev->angles = anglesAim;
-	pBolt->pev->owner = m_pPlayer->edict();
+	pBolt->SetOwner( m_pPlayer );
 
 	if (m_pPlayer->GetWaterLevel() == WATERLEVEL_HEAD)
 	{

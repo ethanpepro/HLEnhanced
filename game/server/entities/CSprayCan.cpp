@@ -13,7 +13,7 @@ void CSprayCan::Spawn( CBaseEntity* pOwner )
 {
 	SetAbsOrigin( pOwner->GetAbsOrigin() + Vector( 0, 0, 32 ) );
 	pev->angles = pOwner->GetViewAngle();
-	pev->owner = pOwner->edict();
+	SetOwner( pOwner );
 	pev->frame = 0;
 
 	pev->nextthink = gpGlobals->time + 0.1;
@@ -23,18 +23,15 @@ void CSprayCan::Spawn( CBaseEntity* pOwner )
 void CSprayCan::Think()
 {
 	TraceResult	tr;
-	int playernum;
 	int nFrames;
-	CBasePlayer *pPlayer;
-
-	pPlayer = ( CBasePlayer * ) GET_PRIVATE( pev->owner );
+	CBasePlayer* pPlayer = ( CBasePlayer* ) GetOwner();
 
 	if( pPlayer )
 		nFrames = pPlayer->GetCustomDecalFrames();
 	else
 		nFrames = -1;
 
-	playernum = ENTINDEX( pev->owner );
+	const int playernum = pPlayer ? pPlayer->entindex() : 0;
 
 	// ALERT(at_console, "Spray by player %i, %i of %i\n", playernum, (int)(pev->frame + 1), nFrames);
 

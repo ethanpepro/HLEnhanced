@@ -147,7 +147,7 @@ void CRoach::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	
 	CSoundEnt::InsertSound ( bits_SOUND_WORLD, GetAbsOrigin(), 128, 1 );
 
-	CBaseEntity *pOwner = CBaseEntity::Instance(pev->owner);
+	CBaseEntity *pOwner = GetOwner();
 	if ( pOwner )
 	{
 		pOwner->DeathNotice( this );

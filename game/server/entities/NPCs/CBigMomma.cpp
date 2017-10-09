@@ -178,7 +178,7 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				if ( pList[i] != this )
 				{
-					if ( pList[i]->pev->owner != edict() )
+					if ( pList[i]->GetOwner() != this )
 						pHurt = pList[i];
 				}
 			}

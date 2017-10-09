@@ -22,8 +22,8 @@ void CBeam::Spawn( void )
 
 void CBeam::Precache( void )
 {
-	if( pev->owner )
-		SetStartEntity( ENTINDEX( pev->owner ) );
+	if( GetOwner() )
+		SetStartEntity( GetOwner()->entindex() );
 	if( pev->aiment )
 		SetEndEntity( ENTINDEX( pev->aiment ) );
 }
@@ -32,9 +32,9 @@ void CBeam::TriggerTouch( CBaseEntity *pOther )
 {
 	if( pOther->pev->flags & ( FL_CLIENT | FL_MONSTER ) )
 	{
-		if( pev->owner )
+		if( GetOwner() )
 		{
-			CBaseEntity *pOwner = CBaseEntity::Instance( pev->owner );
+			CBaseEntity *pOwner = GetOwner();
 			pOwner->Use( pOther, this, USE_TOGGLE, 0 );
 		}
 		ALERT( at_console, "Firing targets!!!\n" );
@@ -44,7 +44,7 @@ void CBeam::TriggerTouch( CBaseEntity *pOther )
 void CBeam::SetStartEntity( int entityIndex )
 {
 	pev->sequence = ( entityIndex & 0x0FFF ) | ( ( pev->sequence & 0xF000 ) << 12 );
-	pev->owner = g_engfuncs.pfnPEntityOfEntIndex( entityIndex );
+	SetOwner( UTIL_EntityByIndex( entityIndex ) );
 }
 
 void CBeam::SetEndEntity( int entityIndex )

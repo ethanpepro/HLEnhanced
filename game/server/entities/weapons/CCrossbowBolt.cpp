@@ -82,7 +82,7 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 	{
 		TraceResult tr = UTIL_GetGlobalTrace();
 
-		auto pOwner = Instance( pev->owner );
+		auto pOwner = GetOwner();
 
 		// UNDONE: this needs to call TraceAttack instead
 		g_MultiDamage.Clear();
@@ -183,9 +183,9 @@ void CCrossbowBolt::ExplodeThink()
 	WRITE_BYTE( TE_EXPLFLAG_NONE );
 	MESSAGE_END();
 
-	CBaseEntity* pOwner = pev->owner ? Instance( pev->owner ) : nullptr;
+	CBaseEntity* pOwner = GetOwner();
 
-	pev->owner = nullptr; // can't traceline attack owner if this is set
+	SetOwner( nullptr ); // can't traceline attack owner if this is set
 
 	::RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, pev->dmg, DMG_BLAST | DMG_ALWAYSGIB ), 128, EntityClassifications().GetNoneId() );
 

@@ -101,11 +101,11 @@ void CHornet :: Spawn( void )
 	SetTouch( &CHornet::DieTouch );
 	SetThink( &CHornet::StartTrack );
 
-	edict_t *pSoundEnt = pev->owner;
+	CBaseEntity* pSoundEnt = GetOwner();
 	if ( !pSoundEnt )
-		pSoundEnt = edict();
+		pSoundEnt = this;
 
-	if ( !FNullEnt(pev->owner) && (pev->owner->v.flags & FL_CLIENT) )
+	if ( !FNullEnt( GetOwner() ) && ( GetOwner()->pev->flags & FL_CLIENT) )
 	{
 		pev->dmg = gSkillData.GetPlrDmgHornet();
 	}
@@ -310,7 +310,7 @@ void CHornet :: TrackTarget ( void )
 
 	SetAbsVelocity( ( vecFlightDir + vecDirToEnemy).Normalize() );
 
-	if ( pev->owner && (pev->owner->v.flags & FL_MONSTER) )
+	if ( GetOwner() && ( GetOwner()->pev->flags & FL_MONSTER) )
 	{
 		// random pattern only applies to hornets fired by monsters, not players. 
 		Vector vecVelocity = GetAbsVelocity();
@@ -372,7 +372,7 @@ void CHornet :: TrackTarget ( void )
 //=========================================================
 void CHornet :: TrackTouch ( CBaseEntity *pOther )
 {
-	if ( pOther->edict() == pev->owner || pOther->GetModelIndex() == GetModelIndex() )
+	if ( pOther == GetOwner() || pOther->GetModelIndex() == GetModelIndex() )
 	{// bumped into the guy that shot it.
 		SetSolidType( SOLID_NOT );
 		return;
@@ -415,7 +415,7 @@ void CHornet::DieTouch ( CBaseEntity *pOther )
 			case 2:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_hornethit3.wav", 1, ATTN_NORM);	break;
 		}
 
-		CBaseEntity* pOwner = Instance( pev->owner );
+		CBaseEntity* pOwner = GetOwner();
 
 		//Fall back to using yourself as the attacker if the owner is gone. - Solokiller
 		if( !pOwner )

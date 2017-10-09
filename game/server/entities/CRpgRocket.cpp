@@ -29,7 +29,7 @@ CRpgRocket *CRpgRocket::CreateRpgRocket( Vector vecOrigin, Vector vecAngles, CBa
 	pRocket->SetTouch( &CRpgRocket::RocketTouch );
 	pRocket->m_hLauncher = pLauncher;// remember what RPG fired me. 
 	pLauncher->m_cActiveRockets++;// register this missile as active for the launcher
-	pRocket->pev->owner = pOwner->edict();
+	pRocket->SetOwner( pOwner );
 
 	return pRocket;
 }

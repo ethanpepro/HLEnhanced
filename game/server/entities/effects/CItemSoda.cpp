@@ -49,10 +49,10 @@ void CItemSoda::CanTouch( CBaseEntity *pOther )
 
 	pOther->GiveHealth( 1, DMG_GENERIC );// a bit of health.
 
-	if( !FNullEnt( pev->owner ) )
+	if( !FNullEnt( GetOwner() ) )
 	{
 		// tell the machine the can was taken
-		pev->owner->v.frags = 0;
+		GetOwner()->pev->frags = 0;
 	}
 
 	SetSolidType( SOLID_NOT );

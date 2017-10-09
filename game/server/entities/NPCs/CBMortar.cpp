@@ -58,7 +58,7 @@ CBMortar *CBMortar::Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVeloc
 
 	pSpit->SetAbsOrigin( vecStart );
 	pSpit->SetAbsVelocity( vecVelocity );
-	pSpit->pev->owner = pOwner->edict();
+	pSpit->SetOwner( pOwner );
 	pSpit->pev->scale = 2.5;
 	pSpit->SetThink( &CBMortar::Animate );
 	pSpit->pev->nextthink = gpGlobals->time + 0.1;
@@ -101,7 +101,7 @@ void CBMortar::Touch( CBaseEntity *pOther )
 	// make some flecks
 	SpriteSpray( tr.vecEndPos, tr.vecPlaneNormal, gSpitSprite, 24 );
 
-	CBaseEntity* pOwner = pev->owner ? Instance( pev->owner ) : nullptr;
+	CBaseEntity* pOwner = GetOwner();
 
 	RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, gSkillData.GetBigMommaDmgBlast(), DMG_ACID ), gSkillData.GetBigMommaRadiusBlast(), EntityClassifications().GetNoneId() );
 	UTIL_Remove( this );

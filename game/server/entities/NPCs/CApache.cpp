@@ -834,7 +834,7 @@ void CApache::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	CTakeDamageInfo newInfo = info;
 
-	if ( newInfo.GetInflictor()->pev->owner == edict())
+	if ( newInfo.GetInflictor()->GetOwner() == this )
 		return;
 
 	if ( newInfo.GetDamageTypes() & DMG_BLAST)
