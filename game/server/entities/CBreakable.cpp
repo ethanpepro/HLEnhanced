@@ -534,7 +534,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 	// (that is, no actual entity projectile was involved in the attack so use the shooter's origin). 
 	if ( newInfo.GetAttacker() == newInfo.GetInflictor() )
 	{
-		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( GetAbsMin() + ( pev->size * 0.5 ) );
+		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( GetAbsMin() + ( GetBounds() * 0.5 ) );
 		
 		// if a client hit the breakable with a crowbar, and breakable is crowbar-sensitive, break it now.
 		if ( newInfo.GetAttacker()->GetFlags().Any( FL_CLIENT ) &&
@@ -544,7 +544,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 	else
 	// an actual missile was involved.
 	{
-		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( GetAbsMin() + ( pev->size * 0.5 ) );
+		vecTemp = newInfo.GetInflictor()->GetAbsOrigin() - ( GetAbsMin() + ( GetBounds() * 0.5 ) );
 	}
 	
 	if (!IsBreakable())
@@ -693,9 +693,7 @@ void CBreakable::Die( void )
 		WRITE_COORD( vecSpot.z );
 
 		// size
-		WRITE_COORD( pev->size.x);
-		WRITE_COORD( pev->size.y);
-		WRITE_COORD( pev->size.z);
+		WRITE_COORD_VECTOR( GetBounds() );
 
 		// velocity
 		WRITE_COORD( vecVelocity.x ); 
@@ -718,11 +716,11 @@ void CBreakable::Die( void )
 		WRITE_BYTE( cFlag );
 	MESSAGE_END();
 
-	float size = pev->size.x;
-	if ( size < pev->size.y )
-		size = pev->size.y;
-	if ( size < pev->size.z )
-		size = pev->size.z;
+	float size = GetBounds().x;
+	if ( size < GetBounds().y )
+		size = GetBounds().y;
+	if ( size < GetBounds().z )
+		size = GetBounds().z;
 
 	// !!! HACK  This should work!
 	// Build a box above the entity that looks like an 8 pixel high sheet

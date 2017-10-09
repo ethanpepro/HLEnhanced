@@ -471,8 +471,8 @@ bool CSquadMonster::NoFriendlyFire()
 
 	//UTIL_MakeVectors ( pev->angles );
 	
-	vecLeftSide = GetAbsOrigin() - ( gpGlobals->v_right * ( pev->size.x * 1.5 ) );
-	vecRightSide = GetAbsOrigin() + ( gpGlobals->v_right * ( pev->size.x * 1.5 ) );
+	vecLeftSide = GetAbsOrigin() - ( gpGlobals->v_right * ( GetBounds().x * 1.5 ) );
+	vecRightSide = GetAbsOrigin() + ( gpGlobals->v_right * ( GetBounds().x * 1.5 ) );
 	v_left = gpGlobals->v_right * -1;
 
 	leftPlane.InitializePlane ( gpGlobals->v_right, vecLeftSide );

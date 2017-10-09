@@ -100,7 +100,7 @@ void CBasePlayer::PlayerUse()
 
 			// This essentially moves the origin of the target to the corner nearest the player to test to see 
 			// if it's "hull" is in the view cone
-			vecLOS = UTIL_ClampVectorToBox( vecLOS, pObject->pev->size * 0.5 );
+			vecLOS = UTIL_ClampVectorToBox( vecLOS, pObject->GetBounds() * 0.5 );
 
 			flDot = DotProduct( vecLOS, gpGlobals->v_forward );
 			if( flDot > flMaxDot )

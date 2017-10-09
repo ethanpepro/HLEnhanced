@@ -70,7 +70,7 @@ void CFuncPlat::Setup( void )
 	if( m_flHeight != 0 )
 		m_vecPosition2.z = GetAbsOrigin().z - m_flHeight;
 	else
-		m_vecPosition2.z = GetAbsOrigin().z - pev->size.z + 8;
+		m_vecPosition2.z = GetAbsOrigin().z - GetBounds().z + 8;
 	if( pev->speed == 0 )
 		pev->speed = 150;
 

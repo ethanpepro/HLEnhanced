@@ -594,7 +594,7 @@ void CBaseMonster::DeadTakeDamage( const CTakeDamageInfo& info )
 
 float CBaseMonster :: DamageForce( float damage )
 { 
-	float force = damage * ((32 * 32 * 72.0) / (pev->size.x * pev->size.y * pev->size.z)) * 5;
+	float force = damage * ((32 * 32 * 72.0) / ( GetBounds().x * GetBounds().y * GetBounds().z)) * 5;
 	
 	if ( force > 1000.0) 
 	{
@@ -718,7 +718,7 @@ CBaseEntity* CBaseMonster :: CheckTraceHullAttack( float flDist, int iDamage, in
 		UTIL_MakeAimVectors( pev->angles );
 
 	Vector vecStart = GetAbsOrigin();
-	vecStart.z += pev->size.z * 0.5;
+	vecStart.z += GetBounds().z * 0.5;
 	Vector vecEnd = vecStart + (gpGlobals->v_forward * flDist );
 
 	UTIL_TraceHull( vecStart, vecEnd, dont_ignore_monsters, Hull::HEAD, ENT(pev), &tr );

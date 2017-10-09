@@ -1008,7 +1008,7 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 	Vector vecEnemyPos = pEnemy->GetAbsOrigin();
 	// distance to enemy's origin
 	flDistToEnemy = ( vecEnemyPos - GetAbsOrigin() ).Length();
-	vecEnemyPos.z += pEnemy->pev->size.z * 0.5;
+	vecEnemyPos.z += pEnemy->GetBounds().z * 0.5;
 	// distance to enemy's head
 	float flDistToEnemy2 = (vecEnemyPos - GetAbsOrigin()).Length();
 	if (flDistToEnemy2 < flDistToEnemy)
@@ -1016,7 +1016,7 @@ bool CBaseMonster::CheckEnemy( CBaseEntity* pEnemy )
 	else
 	{
 		// distance to enemy's feet
-		vecEnemyPos.z -= pEnemy->pev->size.z;
+		vecEnemyPos.z -= pEnemy->GetBounds().z;
 		flDistToEnemy2 = (vecEnemyPos - GetAbsOrigin()).Length();
 		if (flDistToEnemy2 < flDistToEnemy)
 			flDistToEnemy = flDistToEnemy2;
@@ -1303,7 +1303,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 	if ( iReturn == LOCALMOVE_VALID && 	!(pev->flags & (FL_FLY|FL_SWIM) ) && (!pTarget || (pTarget->pev->flags & FL_ONGROUND)) )
 	{
 		// The monster can move to a spot UNDER the target, but not to it. Don't try to triangulate, go directly to the node graph.
-		// UNDONE: Magic # 64 -- this used to be pev->size.z but that won't work for small creatures like the headcrab
+		// UNDONE: Magic # 64 -- this used to be GetBounds().z but that won't work for small creatures like the headcrab
 		if ( fabs(vecEnd.z - GetAbsOrigin().z) > 64 )
 		{
 			iReturn = LOCALMOVE_INVALID_DONT_TRIANGULATE;
@@ -1559,12 +1559,12 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 
 	// If the hull width is less than 24, use 24 because CheckLocalMove uses a min of
 	// 24.
-	sizeX = pev->size.x;
+	sizeX = GetBounds().x;
 	if (sizeX < 24.0)
 		sizeX = 24.0;
 	else if (sizeX > 48.0)
 		sizeX = 48.0;
-	sizeZ = pev->size.z;
+	sizeZ = GetBounds().z;
 	//if (sizeZ < 24.0)
 	//	sizeZ = 24.0;
 
@@ -1575,7 +1575,7 @@ bool CBaseMonster::FTriangulate( const Vector &vecStart , const Vector &vecEnd, 
 
 	// start checking right about where the object is, picking two equidistant starting points, one on
 	// the left, one on the right. As we progress through the loop, we'll push these away from the obstacle, 
-	// hoping to find a way around on either side. pev->size.x is added to the ApexDist in order to help select
+	// hoping to find a way around on either side. GetBounds().x is added to the ApexDist in order to help select
 	// an apex point that insures that the monster is sufficiently past the obstacle before trying to turn back
 	// onto its original course.
 
@@ -3210,8 +3210,8 @@ bool CBaseMonster::BBoxFlat() const
 	float		flLength;
 	float		flLength2;
 
-	flXSize = pev->size.x / 2;
-	flYSize = pev->size.y / 2;
+	flXSize = GetBounds().x / 2;
+	flYSize = GetBounds().y / 2;
 
 	vecPoint.x = GetAbsOrigin().x + flXSize;
 	vecPoint.y = GetAbsOrigin().y + flYSize;

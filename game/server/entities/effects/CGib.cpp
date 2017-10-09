@@ -263,9 +263,9 @@ void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 		{
 			// spawn the gib somewhere in the monster's bounding volume
 			pGib->SetAbsOrigin( Vector( 
-				pVictim->GetAbsMin().x + pVictim->pev->size.x * ( RANDOM_FLOAT( 0, 1 ) ),
-				pVictim->GetAbsMin().y + pVictim->pev->size.y * ( RANDOM_FLOAT( 0, 1 ) ),
-				pVictim->GetAbsMin().z + pVictim->pev->size.z * ( RANDOM_FLOAT( 0, 1 ) ) + 1 ) );	// absmin.z is in the floor because the engine subtracts 1 to enlarge the box
+				pVictim->GetAbsMin().x + pVictim->GetBounds().x * ( RANDOM_FLOAT( 0, 1 ) ),
+				pVictim->GetAbsMin().y + pVictim->GetBounds().y * ( RANDOM_FLOAT( 0, 1 ) ),
+				pVictim->GetAbsMin().z + pVictim->GetBounds().z * ( RANDOM_FLOAT( 0, 1 ) ) + 1 ) );	// absmin.z is in the floor because the engine subtracts 1 to enlarge the box
 
 			// make the gib fly away from the attack vector
 			Vector vecVelocity = g_vecAttackDir * -1;

@@ -75,7 +75,8 @@ void CBaseEntity::OnTakeDamage( const CTakeDamageInfo& info )
 		Vector vecDir = GetAbsOrigin() - ( pInflictor->GetAbsMin() + pInflictor->GetAbsMax() ) * 0.5;
 		vecDir = vecDir.Normalize();
 
-		float flForce = info.GetDamage() * ( ( 32 * 32 * 72.0 ) / ( pev->size.x * pev->size.y * pev->size.z ) ) * 5;
+		//TODO: use human hull here? - Solokiller
+		float flForce = info.GetDamage() * ( ( 32 * 32 * 72.0 ) / ( GetBounds().x * GetBounds().y * GetBounds().z ) ) * 5;
 
 		if( flForce > 1000.0 )
 			flForce = 1000.0;

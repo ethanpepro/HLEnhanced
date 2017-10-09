@@ -22,12 +22,12 @@ void CPlatTrigger::SpawnInsideTrigger( CFuncPlat *pPlatform )
 	Vector vecTMin = pPlatform->pev->mins + Vector( 25, 25, 0 );
 	Vector vecTMax = pPlatform->pev->maxs + Vector( 25, 25, 8 );
 	vecTMin.z = vecTMax.z - ( pPlatform->m_vecPosition1.z - pPlatform->m_vecPosition2.z + 8 );
-	if( pPlatform->pev->size.x <= 50 )
+	if( pPlatform->GetBounds().x <= 50 )
 	{
 		vecTMin.x = ( pPlatform->pev->mins.x + pPlatform->pev->maxs.x ) / 2;
 		vecTMax.x = vecTMin.x + 1;
 	}
-	if( pPlatform->pev->size.y <= 50 )
+	if( pPlatform->GetBounds().y <= 50 )
 	{
 		vecTMin.y = ( pPlatform->pev->mins.y + pPlatform->pev->maxs.y ) / 2;
 		vecTMax.y = vecTMin.y + 1;

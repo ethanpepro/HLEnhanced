@@ -580,7 +580,7 @@ CBaseEntity *CHGrunt :: Kick( void )
 
 	UTIL_MakeVectors( pev->angles );
 	Vector vecStart = GetAbsOrigin();
-	vecStart.z += pev->size.z * 0.5;
+	vecStart.z += GetBounds().z * 0.5;
 	Vector vecEnd = vecStart + (gpGlobals->v_forward * 70);
 
 	UTIL_TraceHull( vecStart, vecEnd, dont_ignore_monsters, Hull::HEAD, ENT(pev), &tr );
