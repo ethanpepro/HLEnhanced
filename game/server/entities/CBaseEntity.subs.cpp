@@ -50,7 +50,7 @@ void CBaseEntity::UpdateOnRemove( void )
 		}
 	}
 	if ( HasGlobalName() )
-		gGlobalState.EntitySetState( pev->globalname, GLOBAL_DEAD );
+		gGlobalState.EntitySetState( MAKE_STRING( GetGlobalName() ), GLOBAL_DEAD );
 
 	// tell owner ( if any ) that we're dead.This is mostly for MonsterMaker functionality.
 	//Killtarget didn't do this before, so the counter broke. - Solokiller

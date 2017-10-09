@@ -207,7 +207,7 @@ int DispatchSpawn( edict_t *pent )
 		// Handle global stuff here
 		if( pEntity && pEntity->HasGlobalName() )
 		{
-			const globalentity_t *pGlobal = gGlobalState.EntityFromTable( pEntity->pev->globalname );
+			const globalentity_t *pGlobal = gGlobalState.EntityFromTable( MAKE_STRING( pEntity->GetGlobalName() ) );
 			if( pGlobal )
 			{
 				// Already dead? delete
@@ -220,7 +220,7 @@ int DispatchSpawn( edict_t *pent )
 			else
 			{
 				// Spawned entities default to 'On'
-				gGlobalState.EntityAdd( pEntity->pev->globalname, gpGlobals->mapname, GLOBAL_ON );
+				gGlobalState.EntityAdd( MAKE_STRING( pEntity->GetGlobalName() ), gpGlobals->mapname, GLOBAL_ON );
 				//				ALERT( at_console, "Added global entity %s (%s)\n", pEntity->GetClassname(), pEntity->GetGlobalName() );
 			}
 		}
@@ -402,7 +402,7 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 				pEntity = pNewEntity;// we're going to restore this data OVER the old entity
 				pent = ENT( pEntity->pev );
 				// Update the global table to say that the global definition of this entity should come from this level
-				gGlobalState.EntityUpdate( pEntity->pev->globalname, gpGlobals->mapname );
+				gGlobalState.EntityUpdate( MAKE_STRING( pEntity->GetGlobalName() ), gpGlobals->mapname );
 			}
 			else
 			{
@@ -447,7 +447,7 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 		}
 		else if( pEntity && pEntity->HasGlobalName() )
 		{
-			const globalentity_t *pGlobal = gGlobalState.EntityFromTable( pEntity->pev->globalname );
+			const globalentity_t *pGlobal = gGlobalState.EntityFromTable( MAKE_STRING( pEntity->GetGlobalName() ) );
 			if( pGlobal )
 			{
 				// Already dead? delete
@@ -463,7 +463,7 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 			{
 				ALERT( at_error, "Global Entity %s (%s) not in table!!!\n", pEntity->GetGlobalName(), pEntity->GetClassname() );
 				// Spawned entities default to 'On'
-				gGlobalState.EntityAdd( pEntity->pev->globalname, gpGlobals->mapname, GLOBAL_ON );
+				gGlobalState.EntityAdd( MAKE_STRING( pEntity->GetGlobalName() ), gpGlobals->mapname, GLOBAL_ON );
 			}
 		}
 	}
