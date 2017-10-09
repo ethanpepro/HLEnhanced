@@ -248,8 +248,10 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
 				{
-					pHurt->pev->punchangle.z = -18;
-					pHurt->pev->punchangle.x = 5;
+					Vector vecPunchAngle = pHurt->GetPunchAngle();
+					vecPunchAngle.z = -18;
+					vecPunchAngle.x = 5;
+					pHurt->SetPunchAngle( vecPunchAngle );
 				}
 				// Play a random attack hit sound
 				EMIT_SOUND_DYN ( this, CHAN_WEAPON, pAttackHitSounds[ RANDOM_LONG(0,ARRAYSIZE(pAttackHitSounds)-1) ], 1.0, ATTN_NORM, 0, m_voicePitch );
@@ -269,8 +271,10 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
 				{
-					pHurt->pev->punchangle.z = -18;
-					pHurt->pev->punchangle.x = 5;
+					Vector vecPunchAngle = pHurt->GetPunchAngle();
+					vecPunchAngle.z = -18;
+					vecPunchAngle.x = 5;
+					pHurt->SetPunchAngle( vecPunchAngle );
 				}
 				EMIT_SOUND_DYN ( this, CHAN_WEAPON, pAttackHitSounds[ RANDOM_LONG(0,ARRAYSIZE(pAttackHitSounds)-1) ], 1.0, ATTN_NORM, 0, m_voicePitch );
 			}

@@ -470,7 +470,9 @@ void CBasePlayer::OnTakeDamage( const CTakeDamageInfo& info )
 		}
 	}
 
-	pev->punchangle.x = -2;
+	Vector vecPunchAngle = GetPunchAngle();
+	vecPunchAngle.x = -2;
+	SetPunchAngle( vecPunchAngle );
 
 	if ( bTookDamage && !ftrivial && fmajor && flHealthPrev >= 75)
 	{
@@ -761,7 +763,7 @@ void CBasePlayer::UpdateStatusBar()
 
 	// Find an ID Target
 	TraceResult tr;
-	UTIL_MakeVectors( GetViewAngle() + pev->punchangle );
+	UTIL_MakeVectors( GetViewAngle() + GetPunchAngle() );
 	Vector vecSrc = EyePosition();
 	Vector vecEnd = vecSrc + (gpGlobals->v_forward * MAX_ID_RANGE);
 	UTIL_TraceLine( vecSrc, vecEnd, dont_ignore_monsters, edict(), &tr);

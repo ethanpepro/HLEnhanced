@@ -765,9 +765,11 @@ void CGargantua::HandleAnimEvent(AnimEvent_t& event)
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
 				{
-					pHurt->pev->punchangle.x = -30; // pitch
-					pHurt->pev->punchangle.y = -30;	// yaw
-					pHurt->pev->punchangle.z = 30;	// roll
+					pHurt->SetPunchAngle( Vector(
+						-30, // pitch
+						-30, // yaw
+						30 //roll
+					) );
 					//UTIL_MakeVectors(pev->angles);	// called by CheckTraceHullAttack
 					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() - gpGlobals->v_right * 100 );
 				}

@@ -404,7 +404,9 @@ void CBasePlayer::PostThink()
 			if( flFallDamage > 0 )
 			{
 				TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), flFallDamage, DMG_FALL );
-				pev->punchangle.x = 0;
+				Vector vecPunchAngle = GetPunchAngle();
+				vecPunchAngle.x = 0;
+				SetPunchAngle( vecPunchAngle );
 			}
 		}
 

@@ -803,7 +803,7 @@ Vector CBasePlayer::GetAutoaimVectorFromPoint( const Vector& vecSrc, float flDel
 {
 	if( gSkillData.GetSkillLevel() == SKILL_HARD )
 	{
-		UTIL_MakeVectors( GetViewAngle() + pev->punchangle );
+		UTIL_MakeVectors( GetViewAngle() + GetPunchAngle() );
 		return gpGlobals->v_forward;
 	}
 
@@ -875,7 +875,7 @@ Vector CBasePlayer::GetAutoaimVectorFromPoint( const Vector& vecSrc, float flDel
 
 	// ALERT( at_console, "%f %f\n", angles.x, angles.y );
 
-	UTIL_MakeVectors( GetViewAngle() + pev->punchangle + m_vecAutoAim );
+	UTIL_MakeVectors( GetViewAngle() + GetPunchAngle() + m_vecAutoAim );
 	return gpGlobals->v_forward;
 }
 
@@ -894,7 +894,7 @@ Vector CBasePlayer::AutoaimDeflection( const Vector &vecSrc, float flDist, float
 		return g_vecZero;
 	}
 
-	UTIL_MakeVectors( GetViewAngle() + pev->punchangle + m_vecAutoAim );
+	UTIL_MakeVectors( GetViewAngle() + GetPunchAngle() + m_vecAutoAim );
 
 	// try all possible entities
 	bestdir = gpGlobals->v_forward;
@@ -993,7 +993,7 @@ Vector CBasePlayer::AutoaimDeflection( const Vector &vecSrc, float flDist, float
 	{
 		bestdir = UTIL_VecToAngles( bestdir );
 		bestdir.x = -bestdir.x;
-		bestdir = bestdir - GetViewAngle() - pev->punchangle;
+		bestdir = bestdir - GetViewAngle() - GetPunchAngle();
 
 		if( bestent->v.takedamage == DAMAGE_AIM )
 			m_fOnTarget = true;

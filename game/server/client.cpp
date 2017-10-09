@@ -960,7 +960,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	cd->origin			= pl->GetAbsOrigin();
 	cd->velocity		= pl->GetAbsVelocity();
 	cd->view_ofs		= pl->GetViewOffset();
-	cd->punchangle		= pev->punchangle;
+	cd->punchangle		= pl->GetPunchAngle();
 
 	cd->bInDuck			= pev->bInDuck;
 	cd->flTimeStepSound = pev->flTimeStepSound;

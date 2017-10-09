@@ -352,8 +352,10 @@ void CIchthyosaur :: HandleAnimEvent( AnimEvent_t& event )
 				if (DotProduct( vecShootDir, gpGlobals->v_forward ) > 0.707)
 				{
 					m_bOnAttack = true;
-					pHurt->pev->punchangle.z = -18;
-					pHurt->pev->punchangle.x = 5;
+					Vector vecPunchAngle = pHurt->GetPunchAngle();
+					vecPunchAngle.z = -18;
+					vecPunchAngle.x = 5;
+					pHurt->SetPunchAngle( vecPunchAngle );
 					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() - gpGlobals->v_right * 300 );
 					if (pHurt->IsPlayer())
 					{

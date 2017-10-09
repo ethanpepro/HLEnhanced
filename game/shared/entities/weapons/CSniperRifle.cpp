@@ -123,7 +123,7 @@ void CSniperRifle::PrimaryAttack()
 
 	m_pPlayer->SetAnimation( PLAYER_ATTACK1 );
 
-	Vector vecAngles = m_pPlayer->GetViewAngle() + m_pPlayer->pev->punchangle;
+	Vector vecAngles = m_pPlayer->GetViewAngle() + m_pPlayer->GetPunchAngle();
 
 	UTIL_MakeVectors( vecAngles );
 

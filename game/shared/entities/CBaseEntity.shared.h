@@ -385,11 +385,6 @@ public:
 	const Vector& GetPunchAngle() const { return pev->punchangle; }
 
 	/**
-	*	@return This entity's punch angle, in mutable form.
-	*/
-	Vector& GetMutablePunchAngle() { return pev->punchangle; }
-
-	/**
 	*	Sets the punch angle.
 	*	@param vecPunchAngle Punch angle to set.
 	*/

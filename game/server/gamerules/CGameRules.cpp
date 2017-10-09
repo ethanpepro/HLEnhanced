@@ -69,7 +69,7 @@ CBaseEntity* CGameRules::GetPlayerSpawnSpot( CBasePlayer* pPlayer )
 	pPlayer->SetViewAngle( g_vecZero );
 	pPlayer->SetAbsVelocity( g_vecZero );
 	pPlayer->pev->angles		= pSpawnSpot->pev->angles;
-	pPlayer->pev->punchangle	= g_vecZero;
+	pPlayer->SetPunchAngle( g_vecZero );
 	pPlayer->SetFixAngleMode( FIXANGLE_SET );
 	
 	return pSpawnSpot;

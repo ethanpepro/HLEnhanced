@@ -376,8 +376,10 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 			
 			if ( pHurt )
 			{
-				//pHurt->pev->punchangle.z = -15;
-				//pHurt->pev->punchangle.x = -45;
+				//Vector vecPunchAngle = pHurt->GetPunchAngle();
+				//vecPunchAngle.z = -15;
+				//vecPunchAngle.x = -45;
+				//pHurt->SetPunchAngle( vecPunchAngle );
 				Vector vecVelocity = pHurt->GetAbsVelocity();
 				vecVelocity = vecVelocity - gpGlobals->v_forward * 100;
 				vecVelocity = vecVelocity + gpGlobals->v_up * 100;
@@ -391,8 +393,10 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.GetBullsquidDmgWhip(), DMG_CLUB | DMG_ALWAYSGIB );
 			if ( pHurt ) 
 			{
-				pHurt->pev->punchangle.z = -20;
-				pHurt->pev->punchangle.x = 20;
+				Vector vecPunchAngle = pHurt->GetPunchAngle();
+				vecPunchAngle.z = -20;
+				vecPunchAngle.x = 20;
+				pHurt->SetPunchAngle( vecPunchAngle );
 				Vector vecVelocity = pHurt->GetAbsVelocity();
 				vecVelocity = vecVelocity + gpGlobals->v_right * 200;
 				vecVelocity = vecVelocity + gpGlobals->v_up * 100;
@@ -448,10 +452,11 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 						break;
 					}
 
-					
-					//pHurt->pev->punchangle.x = RANDOM_LONG(0,34) - 5;
-					//pHurt->pev->punchangle.z = RANDOM_LONG(0,49) - 25;
-					//pHurt->pev->punchangle.y = RANDOM_LONG(0,89) - 45;
+					//pHurt->SetPunchAngle( Vector(
+					//	RANDOM_LONG( 0, 34 ) - 5,
+					//	RANDOM_LONG( 0, 89 ) - 45,
+					//	RANDOM_LONG( 0, 49 ) - 25
+					//) );
 		
 					// screeshake transforms the viewmodel as well as the viewangle. No problems with seeing the ends of the viewmodels.
 					UTIL_ScreenShake( pHurt->GetAbsOrigin(), 25.0, 1.5, 0.7, 2 );

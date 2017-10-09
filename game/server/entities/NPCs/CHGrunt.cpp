@@ -779,7 +779,10 @@ void CHGrunt :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				// SOUND HERE!
 				UTIL_MakeVectors( pev->angles );
-				pHurt->pev->punchangle.x = 15;
+
+				Vector vecPunchAngle = pHurt->GetPunchAngle();
+				vecPunchAngle.x = 15;
+				pHurt->SetPunchAngle( vecPunchAngle );
 				pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + gpGlobals->v_forward * 100 + gpGlobals->v_up * 50 );
 				pHurt->TakeDamage( this, this, gSkillData.GetHGruntDmgKick(), DMG_CLUB );
 			}

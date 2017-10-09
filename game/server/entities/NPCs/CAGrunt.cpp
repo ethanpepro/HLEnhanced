@@ -416,8 +416,10 @@ void CAGrunt :: HandleAnimEvent( AnimEvent_t& event )
 			
 			if ( pHurt )
 			{
-				pHurt->pev->punchangle.y = -25;
-				pHurt->pev->punchangle.x = 8;
+				Vector vecPunchAngle = pHurt->GetPunchAngle();
+				vecPunchAngle.y = -25;
+				vecPunchAngle.x = 8;
+				pHurt->SetPunchAngle( vecPunchAngle );
 
 				// OK to use gpGlobals without calling MakeVectors, cause CheckTraceHullAttack called it above.
 				if ( pHurt->IsPlayer() )
@@ -446,8 +448,10 @@ void CAGrunt :: HandleAnimEvent( AnimEvent_t& event )
 
 			if ( pHurt )
 			{
-				pHurt->pev->punchangle.y = 25;
-				pHurt->pev->punchangle.x = 8;
+				Vector vecPunchAngle = pHurt->GetPunchAngle();
+				vecPunchAngle.y = 25;
+				vecPunchAngle.x = 8;
+				pHurt->SetPunchAngle( vecPunchAngle );
 
 				// OK to use gpGlobals without calling MakeVectors, cause CheckTraceHullAttack called it above.
 				if ( pHurt->IsPlayer() )

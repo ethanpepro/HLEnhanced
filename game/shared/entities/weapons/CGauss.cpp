@@ -294,7 +294,7 @@ void CGauss::StartFire()
 {
 	float flDamage;
 	
-	UTIL_MakeVectors( m_pPlayer->GetViewAngle() + m_pPlayer->pev->punchangle );
+	UTIL_MakeVectors( m_pPlayer->GetViewAngle() + m_pPlayer->GetPunchAngle() );
 	Vector vecAiming = gpGlobals->v_forward;
 	Vector vecSrc = m_pPlayer->GetGunPosition( ); // + gpGlobals->v_up * -8 + gpGlobals->v_right * 8;
 	

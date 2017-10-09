@@ -107,7 +107,7 @@ void CHandGrenade::WeaponIdle( void )
 
 	if ( m_flStartThrow )
 	{
-		Vector angThrow = m_pPlayer->GetViewAngle() + m_pPlayer->pev->punchangle;
+		Vector angThrow = m_pPlayer->GetViewAngle() + m_pPlayer->GetPunchAngle();
 
 		if ( angThrow.x < 0 )
 			angThrow.x = -10 + angThrow.x * ( ( 90 - 10 ) / 90.0 );

@@ -124,7 +124,9 @@ void CXenTree::HandleAnimEvent( AnimEvent_t& event )
 					{
 						sound = true;
 						pList[ i ]->TakeDamage( this, this, 25, DMG_CRUSH | DMG_SLASH );
-						pList[ i ]->pev->punchangle.x = 15;
+						Vector vecPunchAngle = pList[ i ]->GetPunchAngle();
+						vecPunchAngle.x = 15;
+						pList[ i ]->SetPunchAngle( vecPunchAngle );
 						pList[ i ]->SetAbsVelocity( pList[ i ]->GetAbsVelocity() + forward * 100 );
 					}
 				}

@@ -186,7 +186,9 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 			if ( pHurt )
 			{
 				pHurt->TakeDamage( this, this, gSkillData.GetBigMommaDmgSlash(), DMG_CRUSH | DMG_SLASH );
-				pHurt->pev->punchangle.x = 15;
+				Vector vecPunchAngle = pHurt->GetPunchAngle();
+				vecPunchAngle.x = 15;
+				pHurt->SetPunchAngle( vecPunchAngle );
 				switch( event.event )
 				{
 					case BIG_AE_MELEE_ATTACKBR:

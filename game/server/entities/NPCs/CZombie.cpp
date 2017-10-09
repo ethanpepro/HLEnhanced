@@ -165,8 +165,10 @@ void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
 				{
-					pHurt->pev->punchangle.z = -18;
-					pHurt->pev->punchangle.x = 5;
+					Vector vecPunchAngle = pHurt->GetPunchAngle();
+					vecPunchAngle.z = -18;
+					vecPunchAngle.x = 5;
+					pHurt->SetPunchAngle( vecPunchAngle );
 					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() - gpGlobals->v_right * 100 );
 				}
 				// Play a random attack hit sound
@@ -189,8 +191,10 @@ void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
 				{
-					pHurt->pev->punchangle.z = 18;
-					pHurt->pev->punchangle.x = 5;
+					Vector vecPunchAngle = pHurt->GetPunchAngle();
+					vecPunchAngle.z = 18;
+					vecPunchAngle.x = 5;
+					pHurt->SetPunchAngle( vecPunchAngle );
 					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + gpGlobals->v_right * 100 );
 				}
 				EMIT_SOUND_DYN ( this, CHAN_WEAPON, pAttackHitSounds[ RANDOM_LONG(0,ARRAYSIZE(pAttackHitSounds)-1) ], 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
@@ -211,7 +215,9 @@ void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
 				{
-					pHurt->pev->punchangle.x = 5;
+					Vector vecPunchAngle = pHurt->GetPunchAngle();
+					vecPunchAngle.x = 5;
+					pHurt->SetPunchAngle( vecPunchAngle );
 					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + gpGlobals->v_forward * -100 );
 				}
 				EMIT_SOUND_DYN ( this, CHAN_WEAPON, pAttackHitSounds[ RANDOM_LONG(0,ARRAYSIZE(pAttackHitSounds)-1) ], 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );

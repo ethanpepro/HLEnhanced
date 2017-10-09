@@ -254,10 +254,6 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, GetPunchAngle ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "Vector& GetMutablePunchAngle()",
-		asMETHOD( CLASS, GetMutablePunchAngle ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
 		pszObjectName, "void SetPunchAngle(const Vector& in vecPunchAngle)",
 		asMETHOD( CLASS, SetPunchAngle ), asCALL_THISCALL );
 
