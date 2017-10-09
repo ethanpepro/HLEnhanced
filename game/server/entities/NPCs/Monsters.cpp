@@ -1767,7 +1767,7 @@ void CBaseMonster :: Move ( float flInterval )
 	flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() ).Length2D();
 	
 	MakeIdealYaw ( m_Route[ m_iRouteIndex ].vecLocation );
-	ChangeYaw ( pev->yaw_speed );
+	ChangeYaw ( GetYawSpeed() );
 
 	// if the waypoint is closer than CheckDist, CheckDist is the dist to waypoint
 	if ( flWaypointDist < DIST_TO_CHECK )
@@ -2860,7 +2860,7 @@ void CBaseMonster::ReportAIState( void )
 	}
 
 	ALERT( level, "\n" );
-	ALERT( level, "Yaw speed:%3.1f,Health: %3.1f\n", pev->yaw_speed, GetHealth() );
+	ALERT( level, "Yaw speed:%3.1f,Health: %3.1f\n", GetYawSpeed(), GetHealth() );
 	if ( pev->spawnflags & SF_MONSTER_PRISONER )
 		ALERT( level, " PRISONER! " );
 	if ( pev->spawnflags & SF_MONSTER_PREDISASTER )

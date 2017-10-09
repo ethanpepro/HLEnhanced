@@ -127,7 +127,7 @@ void CTentacle :: Spawn( )
 	ResetSequenceInfo( );
 	m_iDir = 1;
 
-	pev->yaw_speed = 18;
+	SetYawSpeed( 18 );
 	m_flInitialYaw = pev->angles.y;
 	pev->ideal_yaw = m_flInitialYaw;
 
@@ -321,7 +321,7 @@ void CTentacle :: Cycle( void )
 	DispatchAnimEvents( );
 	StudioFrameAdvance( );
 
-	ChangeYaw( pev->yaw_speed );
+	ChangeYaw( GetYawSpeed() );
 
 	CSound *pSound;
 

@@ -145,7 +145,7 @@ void CBigMomma::UpdateYawSpeed()
 	default:
 		ys = 90;
 	}
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 //=========================================================

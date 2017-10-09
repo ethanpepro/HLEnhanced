@@ -40,7 +40,7 @@ void CBabyCrab::Precache( void )
 
 void CBabyCrab::UpdateYawSpeed()
 {
-	pev->yaw_speed = 120;
+	SetYawSpeed( 120 );
 }
 
 bool CBabyCrab::CheckRangeAttack1( float flDot, float flDist )

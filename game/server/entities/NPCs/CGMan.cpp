@@ -55,7 +55,7 @@ void CGMan::UpdateYawSpeed()
 		ys = 90;
 	}
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 //=========================================================

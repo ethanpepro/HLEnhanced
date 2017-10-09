@@ -411,7 +411,7 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 	case TASK_TLK_IDEALYAW:
 		if (m_hTalkTarget != NULL)
 		{
-			pev->yaw_speed = 60;
+			SetYawSpeed( 60 );
 			float yaw = VecToYaw(m_hTalkTarget->GetAbsOrigin() - GetAbsOrigin()) - pev->angles.y;
 
 			if (yaw > 180) yaw -= 360;
@@ -556,7 +556,7 @@ void CTalkMonster :: RunTask( const Task_t* pTask )
 			if( pPlayer )
 			{
 				MakeIdealYaw( pPlayer->v.origin );
-				ChangeYaw( pev->yaw_speed );
+				ChangeYaw( GetYawSpeed() );
 				IdleHeadTurn( pPlayer->v.origin );
 				if( gpGlobals->time > m_flWaitFinished && FlYawDiff() < 10 )
 				{

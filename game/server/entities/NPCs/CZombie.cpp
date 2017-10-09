@@ -93,7 +93,7 @@ void CZombie::UpdateYawSpeed()
 	}
 #endif
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 void CZombie::OnTakeDamage( const CTakeDamageInfo& info )

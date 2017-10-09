@@ -38,7 +38,7 @@ void CTestHull::Spawn()
 	SetMoveType( MOVETYPE_STEP );
 	GetEffects().ClearAll();
 	SetHealth( 50 );
-	pev->yaw_speed = 8;
+	SetYawSpeed( 8 );
 
 	if( WorldGraph.m_fGraphPresent )
 	{

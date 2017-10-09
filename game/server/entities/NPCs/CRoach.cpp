@@ -83,7 +83,7 @@ void CRoach::UpdateYawSpeed()
 
 	ys = 120;
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 //=========================================================
@@ -329,7 +329,7 @@ void CRoach :: Move ( float flInterval )
 	flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() ).Length2D();
 	MakeIdealYaw ( m_Route[ m_iRouteIndex ].vecLocation );
 
-	ChangeYaw ( pev->yaw_speed );
+	ChangeYaw ( GetYawSpeed() );
 	UTIL_MakeVectors( pev->angles );
 
 	if ( RANDOM_LONG(0,7) == 1 )

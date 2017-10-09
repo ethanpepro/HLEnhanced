@@ -509,7 +509,7 @@ void CHGrunt::UpdateYawSpeed()
 		break;
 	}
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 void CHGrunt :: IdleSound( void )
@@ -972,7 +972,7 @@ void CHGrunt :: RunTask ( const Task_t* pTask )
 		{
 			// project a point along the toss vector and turn to face that point.
 			MakeIdealYaw( GetAbsOrigin() + m_vecTossVelocity * 64 );
-			ChangeYaw( pev->yaw_speed );
+			ChangeYaw( GetYawSpeed() );
 
 			if ( FacingIdeal() )
 			{

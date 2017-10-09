@@ -150,7 +150,7 @@ void CHoundeye ::UpdateYawSpeed()
 	default: break;
 	}
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 //=========================================================
@@ -260,7 +260,7 @@ void CHoundeye :: Spawn()
 	m_bloodColor		= BLOOD_COLOR_YELLOW;
 	GetEffects().ClearAll();
 	SetHealth( gSkillData.GetHoundeyeHealth() );
-	pev->yaw_speed		= 5;//!!! should we put this in the monster's changeanim function since turn rates may vary with state/anim?
+	SetYawSpeed( 5 );//!!! should we put this in the monster's changeanim function since turn rates may vary with state/anim?
 	m_flFieldOfView		= 0.5;// indicates the width of this monster's forward view cone ( as a dotproduct result )
 	m_MonsterState		= MONSTERSTATE_NONE;
 	m_fAsleep			= false; // everyone spawns awake
@@ -701,7 +701,7 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 	case TASK_HOUND_THREAT_DISPLAY:
 		{
 			MakeIdealYaw ( m_vecEnemyLKP );
-			ChangeYaw ( pev->yaw_speed );
+			ChangeYaw( GetYawSpeed() );
 
 			if ( m_fSequenceFinished )
 			{
@@ -731,7 +731,7 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 			pev->skin = RANDOM_LONG(0, HOUNDEYE_EYE_FRAMES - 1);
 
 			MakeIdealYaw ( m_vecEnemyLKP );
-			ChangeYaw ( pev->yaw_speed );
+			ChangeYaw ( GetYawSpeed() );
 			
 			float life;
 			life = ((255 - pev->frame) / (pev->framerate * m_flFrameRate));

@@ -318,7 +318,7 @@ void CBullsquid::UpdateYawSpeed()
 		break;
 	}
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 //=========================================================
@@ -1033,7 +1033,7 @@ void CBullsquid :: RunTask ( const Task_t* pTask )
 	case TASK_SQUID_HOPTURN:
 		{
 			MakeIdealYaw( m_vecEnemyLKP );
-			ChangeYaw( pev->yaw_speed );
+			ChangeYaw( GetYawSpeed() );
 
 			if ( m_fSequenceFinished )
 			{

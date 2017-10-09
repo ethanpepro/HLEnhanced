@@ -312,7 +312,7 @@ void CAGrunt::UpdateYawSpeed()
 	default:			ys = 100;
 	}
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 //=========================================================

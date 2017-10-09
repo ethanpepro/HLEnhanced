@@ -300,7 +300,7 @@ bool CIchthyosaur :: CheckRangeAttack1 ( float flDot, float flDist )
 //=========================================================
 void CIchthyosaur::UpdateYawSpeed()
 {
-	pev->yaw_speed = 100;
+	SetYawSpeed( 100 );
 }
 
 

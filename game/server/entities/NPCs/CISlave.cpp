@@ -226,7 +226,7 @@ void CISlave ::UpdateYawSpeed()
 		break;
 	}
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 //=========================================================

@@ -20,7 +20,7 @@ void CFurniture::Spawn()
 	SetHealth( 80000 );
 	SetTakeDamageMode( DAMAGE_AIM );
 	GetEffects().ClearAll();
-	pev->yaw_speed = 0;
+	SetYawSpeed( 0 );
 	pev->sequence = 0;
 	pev->frame = 0;
 

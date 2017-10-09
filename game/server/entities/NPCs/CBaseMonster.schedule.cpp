@@ -309,7 +309,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 	case TASK_TURN_RIGHT:
 	case TASK_TURN_LEFT:
 		{
-			ChangeYaw( pev->yaw_speed );
+			ChangeYaw( GetYawSpeed() );
 
 			if ( FacingIdeal() )
 			{
@@ -330,7 +330,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 			if ( pTarget )
 			{
 				pev->ideal_yaw = UTIL_VecToYaw( pTarget->GetAbsOrigin() - GetAbsOrigin() );
-				ChangeYaw( pev->yaw_speed );
+				ChangeYaw( GetYawSpeed() );
 			}
 			if ( m_fSequenceFinished )
 				TaskComplete();
@@ -352,7 +352,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 		{
 			MakeIdealYaw( m_vecEnemyLKP );
 
-			ChangeYaw( pev->yaw_speed );
+			ChangeYaw( GetYawSpeed() );
 
 			if ( FacingIdeal() )
 			{
@@ -366,7 +366,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 	case TASK_FACE_IDEAL:
 	case TASK_FACE_ROUTE:
 		{
-			ChangeYaw( pev->yaw_speed );
+			ChangeYaw( GetYawSpeed() );
 
 			if ( FacingIdeal() )
 			{
@@ -399,7 +399,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 	case TASK_WAIT_FACE_ENEMY:
 		{
 			MakeIdealYaw ( m_vecEnemyLKP );
-			ChangeYaw( pev->yaw_speed ); 
+			ChangeYaw( GetYawSpeed() );
 
 			if ( gpGlobals->time >= m_flWaitFinished )
 			{
@@ -502,7 +502,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 	case TASK_RELOAD:
 		{
 			MakeIdealYaw ( m_vecEnemyLKP );
-			ChangeYaw ( pev->yaw_speed );
+			ChangeYaw ( GetYawSpeed() );
 
 			if ( m_fSequenceFinished )
 			{

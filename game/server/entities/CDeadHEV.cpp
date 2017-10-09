@@ -17,7 +17,7 @@ void CDeadHEV::Spawn( void )
 	SetModel( "models/player.mdl" );
 
 	GetEffects().ClearAll();
-	pev->yaw_speed = 8;
+	SetYawSpeed( 8 );
 	pev->sequence = 0;
 	pev->body = 1;
 	m_bloodColor = BLOOD_COLOR_RED;

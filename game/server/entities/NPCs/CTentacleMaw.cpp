@@ -19,7 +19,7 @@ void CTentacleMaw::Spawn()
 	SetMoveType( MOVETYPE_STEP );
 	GetEffects().ClearAll();
 	SetHealth( 75 );
-	pev->yaw_speed = 8;
+	SetYawSpeed( 8 );
 	pev->sequence = 0;
 
 	pev->angles.x = 90;

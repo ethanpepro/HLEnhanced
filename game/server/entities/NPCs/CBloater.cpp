@@ -51,7 +51,7 @@ void CBloater::UpdateYawSpeed()
 	}
 #endif
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 void CBloater::OnTakeDamage( const CTakeDamageInfo& info )

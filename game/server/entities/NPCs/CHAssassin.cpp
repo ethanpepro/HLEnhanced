@@ -100,7 +100,7 @@ void CHAssassin::UpdateYawSpeed()
 		break;
 	}
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 
@@ -706,7 +706,7 @@ void CHAssassin :: RunTask ( const Task_t* pTask )
 	{
 	case TASK_ASSASSIN_FALL_TO_GROUND:
 		MakeIdealYaw( m_vecEnemyLKP );
-		ChangeYaw( pev->yaw_speed );
+		ChangeYaw( GetYawSpeed() );
 
 		if (m_fSequenceFinished)
 		{

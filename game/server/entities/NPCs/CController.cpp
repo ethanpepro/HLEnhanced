@@ -99,7 +99,7 @@ void CController::UpdateYawSpeed()
 	}
 #endif
 
-	pev->yaw_speed = ys;
+	SetYawSpeed( ys );
 }
 
 void CController::OnTakeDamage( const CTakeDamageInfo& info )
@@ -612,7 +612,7 @@ void CController :: RunTask ( const Task_t* pTask )
 	case TASK_WAIT_FACE_ENEMY:
 	case TASK_WAIT_PVS:
 		MakeIdealYaw( m_vecEnemyLKP );
-		ChangeYaw( pev->yaw_speed );
+		ChangeYaw( GetYawSpeed() );
 
 		if (m_fSequenceFinished)
 		{
@@ -881,7 +881,7 @@ void CController :: Move ( float flInterval )
 		flWaypointDist = ( m_Route[ m_iRouteIndex ].vecLocation - GetAbsOrigin() ).Length();
 		
 		// MakeIdealYaw ( m_Route[ m_iRouteIndex ].vecLocation );
-		// ChangeYaw ( pev->yaw_speed );
+		// ChangeYaw( GetYawSpeed() );
 
 		// if the waypoint is closer than CheckDist, CheckDist is the dist to waypoint
 		if ( flWaypointDist < DIST_TO_CHECK )

@@ -87,7 +87,7 @@ void CCycler :: Spawn( )
 	SetTakeDamageMode( DAMAGE_YES );
 	GetEffects().ClearAll();
 	SetHealth( 80000 );// no cycler should die
-	pev->yaw_speed		= 5;
+	SetYawSpeed( 5 );
 	pev->ideal_yaw		= pev->angles.y;
 	ChangeYaw( 360 );
 	
