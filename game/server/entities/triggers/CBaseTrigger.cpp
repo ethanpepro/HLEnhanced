@@ -47,7 +47,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 
 	if( pOther->IsPlayer() )
 	{
-		tmp.z -= pOther->pev->mins.z;// make origin adjustments in case the teleportee is a player. (origin in center, not at feet)
+		tmp.z -= pOther->GetRelMin().z;// make origin adjustments in case the teleportee is a player. (origin in center, not at feet)
 	}
 
 	tmp.z++;

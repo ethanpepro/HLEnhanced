@@ -429,11 +429,11 @@ int	CGraph::HullIndex( const CBaseEntity *pEntity )
 	if ( pEntity->GetMoveType() == MOVETYPE_FLY)
 		return NODE_FLY_HULL;
 
-	if ( pEntity->pev->mins == Vector( -12, -12, 0 ) )
+	if ( pEntity->GetRelMin() == Vector( -12, -12, 0 ) )
 		return NODE_SMALL_HULL;
-	else if ( pEntity->pev->mins == VEC_HUMAN_HULL_MIN )
+	else if ( pEntity->GetRelMin() == VEC_HUMAN_HULL_MIN )
 		return NODE_HUMAN_HULL;
-	else if ( pEntity->pev->mins == Vector ( -32, -32, 0 ) )
+	else if ( pEntity->GetRelMin() == Vector ( -32, -32, 0 ) )
 		return NODE_LARGE_HULL;
 
 //	ALERT ( at_aiconsole, "Unknown Hull Mins!\n" );

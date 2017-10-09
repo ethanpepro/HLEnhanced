@@ -499,7 +499,7 @@ void COsprey :: DyingThink( void )
 		MESSAGE_END();
 
 
-		vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
+		vecSpot = GetAbsOrigin() + ( GetRelMin() + GetRelMax() ) * 0.5;
 		MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSpot );
 			WRITE_BYTE( TE_BREAKMODEL);
 
@@ -542,7 +542,7 @@ void COsprey :: DyingThink( void )
 	}
 	else
 	{
-		Vector vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
+		Vector vecSpot = GetAbsOrigin() + ( GetRelMin() + GetRelMax() ) * 0.5;
 
 		/*
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
@@ -606,7 +606,7 @@ void COsprey :: DyingThink( void )
 		RadiusDamage( GetAbsOrigin(), this, this, 300, EntityClassifications().GetNoneId(), DMG_BLAST );
 
 		// gibs
-		vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
+		vecSpot = GetAbsOrigin() + ( GetRelMin() + GetRelMax() ) * 0.5;
 		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, vecSpot );
 			WRITE_BYTE( TE_BREAKMODEL);
 

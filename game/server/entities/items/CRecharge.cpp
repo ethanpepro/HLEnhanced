@@ -69,7 +69,7 @@ void CRecharge::Spawn()
 	SetMoveType( MOVETYPE_PUSH );
 
 	SetAbsOrigin( GetAbsOrigin());		// set size and link into world
-	SetSize( pev->mins, pev->maxs );
+	SetSize( GetRelMin(), GetRelMax() );
 	SetModel( GetModelName() );
 	m_iJuice = gSkillData.GetSuitChargerCapacity();
 	pev->frame = 0;			

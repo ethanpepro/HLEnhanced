@@ -451,9 +451,9 @@ bool CBaseEntity::FBoxVisible( const CBaseEntity* pTarget, Vector& vecTargetOrig
 	for( int i = 0; i < 5; i++ )
 	{
 		Vector vecTarget = pTarget->GetAbsOrigin();
-		vecTarget.x += RANDOM_FLOAT( pTarget->pev->mins.x + flSize, pTarget->pev->maxs.x - flSize );
-		vecTarget.y += RANDOM_FLOAT( pTarget->pev->mins.y + flSize, pTarget->pev->maxs.y - flSize );
-		vecTarget.z += RANDOM_FLOAT( pTarget->pev->mins.z + flSize, pTarget->pev->maxs.z - flSize );
+		vecTarget.x += RANDOM_FLOAT( pTarget->GetRelMin().x + flSize, pTarget->GetRelMax().x - flSize );
+		vecTarget.y += RANDOM_FLOAT( pTarget->GetRelMin().y + flSize, pTarget->GetRelMax().y - flSize );
+		vecTarget.z += RANDOM_FLOAT( pTarget->GetRelMin().z + flSize, pTarget->GetRelMax().z - flSize );
 
 		UTIL_TraceLine( vecLookerOrigin, vecTarget, ignore_monsters, ignore_glass, edict(), &tr );
 

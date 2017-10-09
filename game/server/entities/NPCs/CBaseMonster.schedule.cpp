@@ -465,7 +465,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 					SetSize( Vector ( -4, -4, 0 ), Vector ( 4, 4, 1 ) );
 				}
 				else // !!!HACKHACK - put monster in a thin, wide bounding box until we fix the solid type/bounding volume problem
-					SetSize( Vector ( pev->mins.x, pev->mins.y, pev->mins.z ), Vector ( pev->maxs.x, pev->maxs.y, pev->mins.z + 1 ) );
+					SetSize( Vector ( GetRelMin().x, GetRelMin().y, GetRelMin().z ), Vector ( GetRelMax().x, GetRelMax().y, GetRelMin().z + 1 ) );
 
 				if ( ShouldFadeOnDeath() )
 				{

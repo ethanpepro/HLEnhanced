@@ -449,7 +449,7 @@ void CBreakable::BreakTouch( CBaseEntity *pOther )
 		}
 	}
 
-	if ( FBitSet ( pev->spawnflags, SF_BREAK_PRESSURE ) && pevToucher->absmin.z >= pev->maxs.z - 2 )
+	if ( FBitSet ( pev->spawnflags, SF_BREAK_PRESSURE ) && pevToucher->absmin.z >= GetRelMax().z - 2 )
 	{// can be broken when stood upon
 		
 		// play creaking sound here.
@@ -683,7 +683,7 @@ void CBreakable::Die( void )
 		vecVelocity.z = 0;
 	}
 
-	vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
+	vecSpot = GetAbsOrigin() + ( GetRelMin() + GetRelMax() ) * 0.5;
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSpot );
 		WRITE_BYTE( TE_BREAKMODEL);
 

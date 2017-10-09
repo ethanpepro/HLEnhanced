@@ -186,7 +186,7 @@ void CApache :: DyingThink( void )
 			WRITE_BYTE( 10  ); // framerate
 		MESSAGE_END();
 
-		Vector vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
+		Vector vecSpot = GetAbsOrigin() + ( GetRelMin() + GetRelMax() ) * 0.5;
 		MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSpot );
 			WRITE_BYTE( TE_BREAKMODEL);
 
@@ -227,7 +227,7 @@ void CApache :: DyingThink( void )
 	}
 	else
 	{
-		Vector vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
+		Vector vecSpot = GetAbsOrigin() + ( GetRelMin() + GetRelMax() ) * 0.5;
 
 		/*
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
@@ -301,7 +301,7 @@ void CApache :: DyingThink( void )
 		}
 
 		// gibs
-		vecSpot = GetAbsOrigin() + (pev->mins + pev->maxs) * 0.5;
+		vecSpot = GetAbsOrigin() + ( GetRelMin() + GetRelMax() ) * 0.5;
 		MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSpot );
 			WRITE_BYTE( TE_BREAKMODEL);
 

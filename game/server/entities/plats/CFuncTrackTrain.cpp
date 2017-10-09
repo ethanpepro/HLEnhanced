@@ -54,14 +54,14 @@ void CFuncTrackTrain::Spawn( void )
 
 	SetModel( GetModelName() );
 
-	SetSize( pev->mins, pev->maxs );
+	SetSize( GetRelMin(), GetRelMax() );
 	SetAbsOrigin( GetAbsOrigin() );
 
 	// Cache off placed origin for train controls
 	SetOldOrigin( GetAbsOrigin() );
 
-	m_controlMins = pev->mins;
-	m_controlMaxs = pev->maxs;
+	m_controlMins = GetRelMin();
+	m_controlMaxs = GetRelMax();
 	m_controlMaxs.z += 72;
 	// start trains on the next frame, to make sure their targets have had
 	// a chance to spawn/activate
@@ -481,8 +481,8 @@ void CFuncTrackTrain::SetControls( CBaseEntity* pControls )
 {
 	Vector offset = pControls->GetAbsOrigin() - GetOldOrigin();
 
-	m_controlMins = pControls->pev->mins + offset;
-	m_controlMaxs = pControls->pev->maxs + offset;
+	m_controlMins = pControls->GetRelMin() + offset;
+	m_controlMaxs = pControls->GetRelMax() + offset;
 }
 
 bool CFuncTrackTrain::OnControls( const CBaseEntity* const pTest ) const

@@ -24,7 +24,7 @@ void CFuncTankControls::Spawn( void )
 	GetEffects() |= EF_NODRAW;
 	SetModel( GetModelName() );
 
-	SetSize( pev->mins, pev->maxs );
+	SetSize( GetRelMin(), GetRelMax() );
 	SetAbsOrigin( GetAbsOrigin() );
 
 	pev->nextthink = gpGlobals->time + 0.3;	// After all the func_tank's have spawned

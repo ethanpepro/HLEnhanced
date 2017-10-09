@@ -82,16 +82,20 @@ void CBeam::RelinkBeam( void )
 {
 	const Vector &startPos = GetStartPos(), &endPos = GetEndPos();
 
-	pev->mins.x = min( startPos.x, endPos.x );
-	pev->mins.y = min( startPos.y, endPos.y );
-	pev->mins.z = min( startPos.z, endPos.z );
-	pev->maxs.x = max( startPos.x, endPos.x );
-	pev->maxs.y = max( startPos.y, endPos.y );
-	pev->maxs.z = max( startPos.z, endPos.z );
-	pev->mins = pev->mins - GetAbsOrigin();
-	pev->maxs = pev->maxs - GetAbsOrigin();
+	Vector vecMins(
+		min( startPos.x, endPos.x ),
+		min( startPos.y, endPos.y ),
+		min( startPos.z, endPos.z )
+	);
+	Vector vecMaxs(
+		max( startPos.x, endPos.x ),
+		max( startPos.y, endPos.y ),
+		max( startPos.z, endPos.z )
+	);
+	vecMins = vecMins - GetAbsOrigin();
+	vecMaxs = vecMaxs - GetAbsOrigin();
 
-	SetSize( pev->mins, pev->maxs );
+	SetSize( vecMins, vecMaxs );
 	SetAbsOrigin( GetAbsOrigin() );
 }
 

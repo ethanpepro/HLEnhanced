@@ -1884,7 +1884,7 @@ public:
 	virtual int ObjectCaps() const { return FCAP_ACROSS_TRANSITION; }
 
 	/**
-	*	Setup the object->object collision box (pev->mins / pev->maxs is the object->world collision box)
+	*	Setup the object->object collision box (GetRelMin() / GetRelMax() is the object->world collision box)
 	*/
 	virtual void SetObjectCollisionBox();
 

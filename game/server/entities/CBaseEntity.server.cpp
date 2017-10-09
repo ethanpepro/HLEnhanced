@@ -167,9 +167,8 @@ bool CBaseEntity::Restore( CRestore &restore )
 
 	if( GetModelIndex() != 0 && HasModel() )
 	{
-		Vector mins, maxs;
-		mins = pev->mins;	// Set model is about to destroy these
-		maxs = pev->maxs;
+		Vector mins = GetRelMin();	// Set model is about to destroy these
+		Vector maxs = GetRelMax();
 
 
 		PRECACHE_MODEL( GetModelName() );

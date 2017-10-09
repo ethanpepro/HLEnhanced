@@ -85,7 +85,7 @@ bool CBaseMonster::CineCleanup()
 		SetSolidType( SOLID_NOT );
 		SetState( MONSTERSTATE_DEAD );
 		SetDeadFlag( DEAD_DEAD );
-		SetSize( pev->mins, Vector(pev->maxs.x, pev->maxs.y, pev->mins.z + 2) );
+		SetSize( GetRelMin(), Vector( GetRelMax().x, GetRelMax().y, GetRelMin().z + 2) );
 
 		if ( pOldCine && FBitSet( pOldCine->pev->spawnflags, SF_SCRIPT_LEAVECORPSE ) )
 		{

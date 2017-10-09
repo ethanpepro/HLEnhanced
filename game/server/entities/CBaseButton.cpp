@@ -259,7 +259,7 @@ void CBaseButton::ButtonSpark( void )
 	SetThink( &CBaseButton::ButtonSpark );
 	pev->nextthink = gpGlobals->time + ( 0.1 + RANDOM_FLOAT( 0, 1.5 ) );// spark again at random interval
 
-	DoSpark( this, pev->mins );
+	DoSpark( this, GetRelMin() );
 }
 
 //

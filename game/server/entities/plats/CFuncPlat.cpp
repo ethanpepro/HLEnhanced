@@ -61,7 +61,7 @@ void CFuncPlat::Setup( void )
 	SetMoveType( MOVETYPE_PUSH );
 
 	SetAbsOrigin( GetAbsOrigin() );		// set size and link into world
-	SetSize( pev->mins, pev->maxs );
+	SetSize( GetRelMin(), GetRelMax() );
 	SetModel( GetModelName() );
 
 	// vecPosition1 is the top position, vecPosition2 is the bottom

@@ -18,7 +18,7 @@ void CFuncTrainControls::Spawn( void )
 	SetMoveType( MOVETYPE_NONE );
 	SetModel( GetModelName() );
 
-	SetSize( pev->mins, pev->maxs );
+	SetSize( GetRelMin(), GetRelMax() );
 	SetAbsOrigin( GetAbsOrigin() );
 
 	SetThink( &CFuncTrainControls::Find );

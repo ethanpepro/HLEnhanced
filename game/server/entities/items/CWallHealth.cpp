@@ -62,7 +62,7 @@ void CWallHealth::Spawn()
 	SetMoveType( MOVETYPE_PUSH );
 
 	SetAbsOrigin( GetAbsOrigin());		// set size and link into world
-	SetSize( pev->mins, pev->maxs );
+	SetSize( GetRelMin(), GetRelMax() );
 	SetModel( GetModelName() );
 	m_iJuice = gSkillData.GetHealthChargerCapacity();
 	pev->frame = 0;			

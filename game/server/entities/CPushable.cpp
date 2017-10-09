@@ -53,7 +53,7 @@ void CPushable::Spawn( void )
 	SetAbsOrigin( vecOrigin );
 
 	// Multiply by area of the box's cross-section (assume 1000 units^3 standard volume)
-	pev->skin = ( pev->skin * ( pev->maxs.x - pev->mins.x ) * ( pev->maxs.y - pev->mins.y ) ) * 0.0005;
+	pev->skin = ( pev->skin * ( GetRelMax().x - GetRelMin().x ) * ( GetRelMax().y - GetRelMin().y ) ) * 0.0005;
 	m_soundTime = 0;
 }
 

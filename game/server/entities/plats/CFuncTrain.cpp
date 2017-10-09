@@ -37,7 +37,7 @@ void CFuncTrain::Spawn( void )
 		SetSolidType( SOLID_BSP );
 
 	SetModel( GetModelName() );
-	SetSize( pev->mins, pev->maxs );
+	SetSize( GetRelMin(), GetRelMax() );
 	SetAbsOrigin( GetAbsOrigin() );
 
 	m_activated = false;
@@ -95,7 +95,7 @@ void CFuncTrain::Activate( void )
 		//TODO change to EHANDLE - Solokiller
 		m_pevCurrentTarget = pTarg->pev;// keep track of this since path corners change our target for us.
 
-		SetAbsOrigin( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs ) * 0.5 );
+		SetAbsOrigin( pTarg->GetAbsOrigin() - ( GetRelMin() + GetRelMax() ) * 0.5 );
 
 		if( !HasTargetname() )
 		{	// not triggered, so start immediately
@@ -254,7 +254,7 @@ void CFuncTrain::Next( void )
 	{
 		// Path corner has indicated a teleport to the next corner.
 		GetEffects() |= EF_NOINTERP;
-		SetAbsOrigin( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs )* 0.5 );
+		SetAbsOrigin( pTarg->GetAbsOrigin() - ( GetRelMin() + GetRelMax() )* 0.5 );
 		Wait(); // Get on with doing the next path corner.
 	}
 	else
@@ -271,6 +271,6 @@ void CFuncTrain::Next( void )
 		}
 		GetEffects().ClearFlags( EF_NOINTERP );
 		SetMoveDone( &CFuncTrain::Wait );
-		LinearMove( pTarg->GetAbsOrigin() - ( pev->mins + pev->maxs )* 0.5, pev->speed );
+		LinearMove( pTarg->GetAbsOrigin() - ( GetRelMin() + GetRelMax() )* 0.5, pev->speed );
 	}
 }

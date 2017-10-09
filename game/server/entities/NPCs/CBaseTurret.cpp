@@ -444,9 +444,11 @@ void CBaseTurret::Deploy(void)
 
 	if (m_fSequenceFinished)
 	{
-		pev->maxs.z = m_iDeployHeight;
-		pev->mins.z = -m_iDeployHeight;
-		SetSize( pev->mins, pev->maxs );
+		Vector vecMaxs = GetRelMax();
+		vecMaxs.z = m_iDeployHeight;
+		Vector vecMins = GetRelMin();
+		vecMins.z = -m_iDeployHeight;
+		SetSize( vecMins, vecMaxs );
 
 		m_vecCurAngles.x = 0;
 
@@ -496,9 +498,11 @@ void CBaseTurret::Retire(void)
 			m_bOn = false;
 			m_flLastSight = 0;
 			SetTurretAnim(TURRET_ANIM_NONE);
-			pev->maxs.z = m_iRetractHeight;
-			pev->mins.z = -m_iRetractHeight;
-			SetSize( pev->mins, pev->maxs );
+			Vector vecMaxs = GetRelMax();
+			vecMaxs.z = m_iRetractHeight;
+			Vector vecMins = GetRelMin();
+			vecMins.z = -m_iRetractHeight;
+			SetSize( vecMins, vecMaxs );
 			if ( m_bAutoStart )
 			{
 				SetThink(&CBaseTurret::AutoSearchThink);		

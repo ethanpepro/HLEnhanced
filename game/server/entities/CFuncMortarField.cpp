@@ -90,9 +90,9 @@ void CFuncMortarField :: FieldUse( CBaseEntity *pActivator, CBaseEntity *pCaller
 {
 	Vector vecStart;
 
-	vecStart.x = RANDOM_FLOAT( pev->mins.x, pev->maxs.x );
-	vecStart.y = RANDOM_FLOAT( pev->mins.y, pev->maxs.y );
-	vecStart.z = pev->maxs.z;
+	vecStart.x = RANDOM_FLOAT( GetRelMin().x, GetRelMax().x );
+	vecStart.y = RANDOM_FLOAT( GetRelMin().y, GetRelMax().y );
+	vecStart.z = GetRelMax().z;
 
 	switch( m_fControl )
 	{
@@ -114,7 +114,7 @@ void CFuncMortarField :: FieldUse( CBaseEntity *pActivator, CBaseEntity *pCaller
 				pController = UTIL_FindEntityByTargetname( NULL, STRING(m_iszXController));
 				if (pController != NULL)
 				{
-					vecStart.x = pev->mins.x + pController->pev->ideal_yaw * ( GetBounds().x);
+					vecStart.x = GetRelMin().x + pController->pev->ideal_yaw * ( GetBounds().x);
 				}
 			}
 			if (!FStringNull(m_iszYController))
@@ -122,7 +122,7 @@ void CFuncMortarField :: FieldUse( CBaseEntity *pActivator, CBaseEntity *pCaller
 				pController = UTIL_FindEntityByTargetname( NULL, STRING(m_iszYController));
 				if (pController != NULL)
 				{
-					vecStart.y = pev->mins.y + pController->pev->ideal_yaw * ( GetBounds().y);
+					vecStart.y = GetRelMin().y + pController->pev->ideal_yaw * ( GetBounds().y);
 				}
 			}
 		}

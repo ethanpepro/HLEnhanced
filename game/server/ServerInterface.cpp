@@ -398,7 +398,7 @@ int DispatchRestore( edict_t *pent, SAVERESTOREDATA *pSaveData, int globalEntity
 				//				ALERT( at_console, "Overlay %s with %s\n", pNewEntity->GetClassname(), STRING(tmpVars.classname) );
 				// Tell the restore code we're overlaying a global entity from another level
 				restoreHelper.SetGlobalMode( 1 );	// Don't overwrite global fields
-				pSaveData->vecLandmarkOffset = ( pSaveData->vecLandmarkOffset - pNewEntity->pev->mins ) + tmpVars.mins;
+				pSaveData->vecLandmarkOffset = ( pSaveData->vecLandmarkOffset - pNewEntity->GetRelMin() ) + tmpVars.mins;
 				pEntity = pNewEntity;// we're going to restore this data OVER the old entity
 				pent = ENT( pEntity->pev );
 				// Update the global table to say that the global definition of this entity should come from this level
