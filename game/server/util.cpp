@@ -298,6 +298,13 @@ CBaseEntity* UTIL_FindEntityByTarget( CBaseEntity* pStartEntity, const char* con
 	return UTIL_FindEntityByString( pStartEntity, "target", pszTarget );
 }
 
+CBaseEntity* UTIL_EntityByIndex( const int iIndex )
+{
+	if( auto pEntity = g_engfuncs.pfnPEntityOfEntIndex( iIndex ) )
+		return GET_PRIVATE( pEntity );
+
+	return nullptr;
+}
 
 // returns a CBasePlayer pointer to a player by index.  Only returns if the player is spawned and connected
 // otherwise returns nullptr
