@@ -518,10 +518,6 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, GetGravity ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "float& GetMutableGravity()",
-		asMETHOD( CLASS, GetMutableGravity ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
 		pszObjectName, "void SetGravity(const float flGravity)",
 		asMETHOD( CLASS, SetGravity ), asCALL_THISCALL );
 
