@@ -44,7 +44,7 @@ void CApacheHVR::Spawn( void )
 
 	UTIL_MakeAimVectors( pev->angles );
 	m_vecForward = gpGlobals->v_forward;
-	pev->gravity = 0.5;
+	SetGravity( 0.5 );
 
 	pev->nextthink = gpGlobals->time + 0.1;
 

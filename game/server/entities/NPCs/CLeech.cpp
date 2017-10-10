@@ -597,7 +597,7 @@ void CLeech::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 		if ( RANDOM_LONG( 0, 99 ) < 70 )
 			pev->avelocity.y = RANDOM_LONG( -720, 720 );
 
-		pev->gravity = 0.02;
+		SetGravity( 0.02 );
 		ClearBits(pev->flags, FL_ONGROUND);
 		SetActivity( ACT_DIESIMPLE );
 	}

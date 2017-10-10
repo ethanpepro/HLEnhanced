@@ -81,7 +81,7 @@ void CSqueakGrenade::Spawn( void )
 	pev->flags |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetHealth( gSkillData.GetSnarkHealth() );
-	pev->gravity = 0.5;
+	SetGravity( 0.5 );
 	pev->friction = 0.5;
 
 	pev->dmg = gSkillData.GetSnarkDmgPop();

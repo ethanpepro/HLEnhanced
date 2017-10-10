@@ -33,7 +33,7 @@ void CShower::Spawn( void )
 	SetAbsVelocity( vecVelocity );
 
 	SetMoveType( MOVETYPE_BOUNCE );
-	pev->gravity = 0.5;
+	SetGravity( 0.5 );
 	pev->nextthink = gpGlobals->time + 0.1;
 	SetSolidType( SOLID_NOT );
 	SetModel( "models/grenade.mdl" );	// Need a model, just use the grenade, we don't draw it anyway

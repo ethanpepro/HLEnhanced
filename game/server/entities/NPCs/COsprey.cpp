@@ -432,7 +432,7 @@ void COsprey::OnTakeDamage( const CTakeDamageInfo& info )
 void COsprey::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	SetMoveType( MOVETYPE_TOSS );
-	pev->gravity = 0.3;
+	SetGravity( 0.3 );
 	SetAbsVelocity( m_velocity );
 	pev->avelocity = Vector( RANDOM_FLOAT( -20, 20 ), 0, RANDOM_FLOAT( -50, 50 ) );
 	STOP_SOUND( this, CHAN_STATIC, "apache/ap_rotor4.wav" );

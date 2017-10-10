@@ -74,7 +74,7 @@ void CSatchelCharge :: Spawn( void )
 	SetThink( &CSatchelCharge::SatchelThink );
 	pev->nextthink = gpGlobals->time + 0.1;
 
-	pev->gravity = 0.5;
+	SetGravity( 0.5 );
 	pev->friction = 0.8;
 
 	pev->dmg = gSkillData.GetPlrDmgSatchel();
@@ -90,7 +90,7 @@ void CSatchelCharge::SatchelSlide( CBaseEntity *pOther )
 		return;
 
 	// pev->avelocity = Vector (300, 300, 300);
-	pev->gravity = 1;// normal gravity now
+	SetGravity( 1 );// normal gravity now
 
 	// HACKHACK - On ground isn't always set, so look for ground underneath
 	TraceResult tr;

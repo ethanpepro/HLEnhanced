@@ -43,7 +43,7 @@ void CCrossbowBolt::Spawn()
 	SetMoveType( MOVETYPE_FLY );
 	SetSolidType( SOLID_BBOX );
 
-	pev->gravity = 0.5;
+	SetGravity( 0.5 );
 
 	SetModel( "models/crossbow_bolt.mdl" );
 

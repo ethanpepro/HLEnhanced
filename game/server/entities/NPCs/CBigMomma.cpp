@@ -374,7 +374,7 @@ void CBigMomma::LaunchMortar( void )
 
 	EMIT_SOUND_DYN( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY(pSackSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
 	CBMortar *pBomb = CBMortar::Shoot( this, startPos, pev->movedir );
-	pBomb->pev->gravity = 1.0;
+	pBomb->SetGravity( 1.0 );
 	SpriteSpray( startPos, Vector(0,0,1), gSpitSprite, 24 );
 }
 

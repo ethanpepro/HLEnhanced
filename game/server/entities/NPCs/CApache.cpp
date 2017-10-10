@@ -132,7 +132,7 @@ void CApache::StartupUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 void CApache::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	SetMoveType( MOVETYPE_TOSS );
-	pev->gravity = 0.3;
+	SetGravity( 0.3 );
 
 	STOP_SOUND( this, CHAN_STATIC, "apache/ap_rotor2.wav" );
 

@@ -55,7 +55,7 @@ void CRpgRocket::Spawn( void )
 	pev->angles.x = -( pev->angles.x + 30 );
 
 	SetAbsVelocity( gpGlobals->v_forward * 250 );
-	pev->gravity = 0.5;
+	SetGravity( 0.5 );
 
 	pev->nextthink = gpGlobals->time + 0.4;
 

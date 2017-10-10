@@ -935,11 +935,6 @@ public:
 	float GetGravity() const { return pev->gravity; }
 
 	/**
-	*	@return The gravity multiplier, in mutable form.
-	*/
-	float& GetMutableGravity() { return pev->gravity; }
-
-	/**
 	*	Sets the gravity multiplier.
 	*	@param flGravity Gravity to set.
 	*/
