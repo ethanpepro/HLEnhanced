@@ -32,7 +32,7 @@ void CInfoBM::KeyValue( KeyValueData* pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "radius" ) )
 	{
-		pev->scale = atof( pkvd->szValue );
+		SetScale( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "reachdelay" ) )

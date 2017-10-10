@@ -21,7 +21,7 @@
 #define SF_SHAKE_INAIR		0x0004		// Shake players in air
 
 // Screen shake
-// pev->scale is amplitude
+// GetScale() is amplitude
 // pev->dmg_save is frequency
 // pev->dmg_take is duration
 // pev->dmg is radius
@@ -36,12 +36,12 @@ public:
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
 
-	inline	float	Amplitude( void ) { return pev->scale; }
+	inline	float	Amplitude( void ) { return GetScale(); }
 	inline	float	Frequency( void ) { return pev->dmg_save; }
 	inline	float	Duration( void ) { return pev->dmg_take; }
 	inline	float	Radius( void ) { return pev->dmg; }
 
-	inline	void	SetAmplitude( float amplitude ) { pev->scale = amplitude; }
+	inline	void	SetAmplitude( float amplitude ) { SetScale( amplitude ); }
 	inline	void	SetFrequency( float frequency ) { pev->dmg_save = frequency; }
 	inline	void	SetDuration( float duration ) { pev->dmg_take = duration; }
 	inline	void	SetRadius( float radius ) { pev->dmg = radius; }

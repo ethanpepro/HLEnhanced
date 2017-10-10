@@ -422,7 +422,7 @@ void CEgon::CreateEffect( void )
 	m_pNoise->SetOwner( m_pPlayer );
 
 	m_pSprite = CSprite::SpriteCreate( EGON_FLARE_SPRITE, GetAbsOrigin(), false );
-	m_pSprite->pev->scale = 1.0;
+	m_pSprite->SetScale( 1.0 );
 	m_pSprite->SetTransparency( kRenderGlow, 255, 255, 255, 255, kRenderFxNoDissipation );
 	m_pSprite->pev->spawnflags |= SF_SPRITE_TEMPORARY;
 	m_pSprite->pev->flags |= FL_SKIPLOCALHOST;

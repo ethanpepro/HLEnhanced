@@ -43,7 +43,7 @@ void CBMortar::Spawn( void )
 
 	SetModel( "sprites/mommaspit.spr" );
 	pev->frame = 0;
-	pev->scale = 0.5;
+	SetScale( 0.5 );
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 
@@ -59,7 +59,7 @@ CBMortar *CBMortar::Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVeloc
 	pSpit->SetAbsOrigin( vecStart );
 	pSpit->SetAbsVelocity( vecVelocity );
 	pSpit->SetOwner( pOwner );
-	pSpit->pev->scale = 2.5;
+	pSpit->SetScale( 2.5 );
 	pSpit->SetThink( &CBMortar::Animate );
 	pSpit->pev->nextthink = gpGlobals->time + 0.1;
 

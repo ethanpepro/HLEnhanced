@@ -35,8 +35,8 @@ void CMessage::Spawn( void )
 	pev->impulse = 0;
 
 	// No volume, use normal
-	if( pev->scale <= 0 )
-		pev->scale = 1.0;
+	if( GetScale() <= 0 )
+		SetScale( 1.0 );
 }
 
 void CMessage::Precache( void )
@@ -64,7 +64,7 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 	}
 	if( pev->noise )
 	{
-		EMIT_SOUND( this, CHAN_BODY, STRING( pev->noise ), pev->scale, GetSpeed() );
+		EMIT_SOUND( this, CHAN_BODY, STRING( pev->noise ), GetScale(), GetSpeed() );
 	}
 	if( pev->spawnflags & SF_MESSAGE_ONCE )
 		UTIL_Remove( this );
@@ -81,7 +81,7 @@ void CMessage::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "messagevolume" ) )
 	{
-		pev->scale = atof( pkvd->szValue ) * 0.1;
+		SetScale( atof( pkvd->szValue ) * 0.1 );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "messageattenuation" ) )

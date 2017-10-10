@@ -676,7 +676,7 @@ void CGargantua::DeathEffect( void )
 
 	CBaseEntity *pSmoker = CBaseEntity::Create( "env_smoker", GetAbsOrigin(), g_vecZero, NULL );
 	pSmoker->SetHealth( 1 );	// 1 smoke balls
-	pSmoker->pev->scale = 46;	// 4.6X normal size
+	pSmoker->SetScale( 46 );	// 4.6X normal size
 	pSmoker->pev->dmg = 0;		// 0 radial distribution
 	pSmoker->pev->nextthink = gpGlobals->time + 2.5;	// Start in 2.5 seconds
 }

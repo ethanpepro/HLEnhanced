@@ -64,7 +64,7 @@ void CSprite::AnimateThink( void )
 void CSprite::ExpandThink( void )
 {
 	float frametime = gpGlobals->time - m_lastTime;
-	pev->scale += GetSpeed() * frametime;
+	SetScale( GetScale() + ( GetSpeed() * frametime ) );
 	pev->renderamt -= GetHealth() * frametime;
 	if( pev->renderamt <= 0 )
 	{

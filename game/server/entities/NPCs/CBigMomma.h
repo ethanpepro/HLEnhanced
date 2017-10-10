@@ -113,7 +113,7 @@ public:
 		CBaseEntity *pTarget = m_hTargetEnt;
 		if( pTarget )
 		{
-			return pTarget->pev->scale;	// Scale holds node delay
+			return pTarget->GetScale();	// Scale holds node delay
 		}
 		return 1e6;
 	}

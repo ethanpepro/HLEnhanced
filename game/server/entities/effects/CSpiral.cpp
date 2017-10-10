@@ -43,7 +43,7 @@ void CSpiral::Think( void )
 
 		float fraction = 1.0 / GetSpeed();
 
-		float radius = ( pev->scale * GetHealth() ) * fraction;
+		float radius = ( GetScale() * GetHealth() ) * fraction;
 
 		position.z += ( GetHealth() * pev->dmg ) * fraction;
 		pev->angles.y = ( GetHealth() * 360 * 8 ) * fraction;
@@ -74,7 +74,7 @@ CSpiral *CSpiral::Create( const Vector &origin, float height, float radius, floa
 	pSpiral->Spawn();
 	pSpiral->pev->dmgtime = pSpiral->pev->nextthink;
 	pSpiral->SetAbsOrigin( origin );
-	pSpiral->pev->scale = radius;
+	pSpiral->SetScale( radius );
 	pSpiral->pev->dmg = height;
 	pSpiral->SetSpeed( duration );
 	pSpiral->SetHealth( 0 );

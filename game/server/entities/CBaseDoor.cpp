@@ -91,7 +91,7 @@ void CBaseDoor::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "WaveHeight" ) )
 	{
-		pev->scale = atof( pkvd->szValue ) * ( 1.0 / 8.0 );
+		SetScale( atof( pkvd->szValue ) * ( 1.0 / 8.0 ) );
 		pkvd->fHandled = true;
 	}
 	else

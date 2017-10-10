@@ -39,7 +39,7 @@ void CSquidSpit::Spawn( void )
 
 	SetModel( "sprites/bigspit.spr" );
 	pev->frame = 0;
-	pev->scale = 0.5;
+	SetScale( 0.5 );
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 

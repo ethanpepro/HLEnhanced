@@ -40,7 +40,7 @@ void CSmoker::Think( void )
 	WRITE_COORD( GetAbsOrigin().y + RANDOM_FLOAT( -pev->dmg, pev->dmg ) );
 	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_SHORT( g_sModelIndexSmoke );
-	WRITE_BYTE( RANDOM_LONG( pev->scale, pev->scale * 1.1 ) );
+	WRITE_BYTE( RANDOM_LONG( GetScale(), GetScale() * 1.1 ) );
 	WRITE_BYTE( RANDOM_LONG( 8, 14 ) ); // framerate
 	MESSAGE_END();
 

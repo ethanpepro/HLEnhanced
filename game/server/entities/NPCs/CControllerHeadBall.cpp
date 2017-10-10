@@ -41,7 +41,7 @@ void CControllerHeadBall::Spawn( void )
 	pev->rendercolor.y = 255;
 	pev->rendercolor.z = 255;
 	pev->renderamt = 255;
-	pev->scale = 2.0;
+	SetScale( 2.0 );
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	SetAbsOrigin( GetAbsOrigin() );

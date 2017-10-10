@@ -84,8 +84,8 @@ void CStomp::Think( void )
 		}
 		pev->dmgtime += STOMP_INTERVAL;
 		// Scale has the "life" of this effect
-		pev->scale -= STOMP_INTERVAL * GetSpeed();
-		if( pev->scale <= 0 )
+		SetScale( GetScale() - ( STOMP_INTERVAL * GetSpeed() ) );
+		if( GetScale() <= 0 )
 		{
 			// Life has run out
 			UTIL_Remove( this );
@@ -101,7 +101,7 @@ CStomp *CStomp::StompCreate( const Vector &origin, const Vector &end, float spee
 
 	pStomp->SetAbsOrigin( origin );
 	Vector dir = ( end - origin );
-	pStomp->pev->scale = dir.Length();
+	pStomp->SetScale( dir.Length() );
 	pStomp->pev->movedir = dir.Normalize();
 	pStomp->SetSpeed( speed );
 	pStomp->Spawn();

@@ -40,7 +40,7 @@ void CWreckage::Spawn( void )
 		PRECACHE_MODEL( GetModelName() );
 		SetModel( GetModelName() );
 	}
-	// pev->scale = 5.0;
+	// SetScale( 5.0 );
 
 	m_flStartTime = gpGlobals->time;
 }

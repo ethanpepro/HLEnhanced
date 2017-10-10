@@ -47,7 +47,7 @@ void CNihilanthHVR::Spawn( void )
 
 	pev->rendermode = kRenderTransAdd;
 	pev->renderamt = 255;
-	pev->scale = 3.0;
+	SetScale( 3.0 );
 }
 
 void CNihilanthHVR::Precache( void )
@@ -70,13 +70,13 @@ void CNihilanthHVR::CircleInit( CBaseEntity *pTarget )
 	SetSolidType( SOLID_NOT );
 
 	// SetModel( "sprites/flare6.spr");
-	// pev->scale = 3.0;
+	// SetScale( 3.0 );
 	// SetModel( "sprites/xspark4.spr");
 	SetModel( "sprites/muzzleflash3.spr" );
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 224;
 	pev->rendercolor.z = 192;
-	pev->scale = 2.0;
+	SetScale( 2.0 );
 	m_nFrames = 1;
 	pev->renderamt = 255;
 
@@ -147,7 +147,7 @@ void CNihilanthHVR::GreenBallInit()
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;
 	pev->rendercolor.z = 255;
-	pev->scale = 1.0;
+	SetScale( 1.0 );
 
 	SetModel( "sprites/exit1.spr" );
 
@@ -164,7 +164,7 @@ void CNihilanthHVR::ZapInit( CBaseEntity *pEnemy )
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;
 	pev->rendercolor.z = 255;
-	pev->scale = 2.0;
+	SetScale( 2.0 );
 
 	SetAbsVelocity( ( pEnemy->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * 200 );
 
@@ -296,11 +296,11 @@ void CNihilanthHVR::DissipateThink( void )
 {
 	pev->nextthink = gpGlobals->time + 0.1;
 
-	if( pev->scale > 5.0 )
+	if( GetScale() > 5.0 )
 		UTIL_Remove( this );
 
 	pev->renderamt -= 2;
-	pev->scale += 0.1;
+	SetScale( GetScale() + 0.1 );
 
 	if( m_hTargetEnt != NULL )
 	{

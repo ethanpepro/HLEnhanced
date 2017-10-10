@@ -13,7 +13,7 @@ void CTargetCDAudio::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NONE );
 
-	if( pev->scale > 0 )
+	if( GetScale() > 0 )
 		pev->nextthink = gpGlobals->time + 1.0;
 }
 
@@ -21,7 +21,7 @@ void CTargetCDAudio::KeyValue( KeyValueData *pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "radius" ) )
 	{
-		pev->scale = atof( pkvd->szValue );
+		SetScale( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else
@@ -47,7 +47,7 @@ void CTargetCDAudio::Think( void )
 
 	pev->nextthink = gpGlobals->time + 0.5;
 
-	if( ( pClient->v.origin - GetAbsOrigin() ).Length() <= pev->scale )
+	if( ( pClient->v.origin - GetAbsOrigin() ).Length() <= GetScale() )
 		Play();
 
 }
