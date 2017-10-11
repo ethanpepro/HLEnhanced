@@ -59,7 +59,7 @@ void CFuncTank::Spawn( void )
 	m_pitchCenter = pev->angles.x;
 
 	if( IsActive() )
-		pev->nextthink = pev->ltime + 1.0;
+		pev->nextthink = GetLastThink() + 1.0;
 
 	m_sightOrigin = BarrelPosition(); // Point at the end of the barrel
 
@@ -254,19 +254,19 @@ void CFuncTank::TrackTarget( void )
 		// Tanks attempt to mirror the player's angles
 		angles = m_pController->GetViewAngle();
 		angles[ 0 ] = 0 - angles[ 0 ];
-		pev->nextthink = pev->ltime + 0.05;
+		pev->nextthink = GetLastThink() + 0.05;
 	}
 	else
 	{
 		if( IsActive() )
-			pev->nextthink = pev->ltime + 0.1;
+			pev->nextthink = GetLastThink() + 0.1;
 		else
 			return;
 
 		if( FNullEnt( pPlayer ) )
 		{
 			if( IsActive() )
-				pev->nextthink = pev->ltime + 2;	// Wait 2 secs
+				pev->nextthink = GetLastThink() + 2;	// Wait 2 secs
 			return;
 		}
 
@@ -522,7 +522,7 @@ bool CFuncTank::StartControl( CBasePlayer *pController )
 	m_pController->m_iHideHUD |= HIDEHUD_WEAPONS;
 	m_vecControllerUsePos = m_pController->GetAbsOrigin();
 
-	pev->nextthink = pev->ltime + 0.1;
+	pev->nextthink = GetLastThink() + 0.1;
 
 	return true;
 }
@@ -544,7 +544,7 @@ void CFuncTank::StopControl()
 	m_pController = NULL;
 
 	if( IsActive() )
-		pev->nextthink = pev->ltime + 1.0;
+		pev->nextthink = GetLastThink() + 1.0;
 }
 
 // Called each frame by the player's ItemPostFrame

@@ -111,7 +111,7 @@ void CPendulum::Swing( void )
 	pev->avelocity = GetSpeed() * pev->movedir;
 
 	// Call this again
-	pev->nextthink = pev->ltime + 0.1;
+	pev->nextthink = GetLastThink() + 0.1;
 
 	if( m_damp )
 	{
@@ -142,7 +142,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 			delta = CBaseToggle::AxisDelta( pev->spawnflags, pev->angles, m_start );
 
 			pev->avelocity = m_maxSpeed * pev->movedir;
-			pev->nextthink = pev->ltime + ( delta / m_maxSpeed );
+			pev->nextthink = GetLastThink() + ( delta / m_maxSpeed );
 			SetThink( &CPendulum::Stop );
 		}
 		else
@@ -154,7 +154,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 	}
 	else
 	{
-		pev->nextthink = pev->ltime + 0.1;		// Start the pendulum moving
+		pev->nextthink = GetLastThink() + 0.1;		// Start the pendulum moving
 		m_time = gpGlobals->time;		// Save time to calculate dt
 		SetThink( &CPendulum::Swing );
 		m_dampSpeed = m_maxSpeed;

@@ -94,7 +94,7 @@ void CMomentaryRotButton::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, US
 	UpdateAllButtons( pev->ideal_yaw, 1 );
 
 	// Calculate destination angle and use it to predict value, this prevents sending target in wrong direction on retriggering
-	Vector dest = pev->angles + pev->avelocity * ( pev->nextthink - pev->ltime );
+	Vector dest = pev->angles + pev->avelocity * ( pev->nextthink - GetLastThink() );
 	float value1 = CBaseToggle::AxisDelta( pev->spawnflags, dest, m_start ) / m_flMoveDistance;
 	UpdateTarget( value1 );
 
@@ -107,7 +107,7 @@ void CMomentaryRotButton::Off( void )
 	if( FBitSet( pev->spawnflags, SF_PENDULUM_AUTO_RETURN ) && m_returnSpeed > 0 )
 	{
 		SetThink( &CMomentaryRotButton::Return );
-		pev->nextthink = pev->ltime + 0.1;
+		pev->nextthink = GetLastThink() + 0.1;
 		m_direction = -1;
 	}
 	else
@@ -134,7 +134,7 @@ void CMomentaryRotButton::UpdateSelf( float value )
 	}
 	m_lastUsed = 1;
 
-	pev->nextthink = pev->ltime + 0.1;
+	pev->nextthink = GetLastThink() + 0.1;
 	if( m_direction > 0 && value >= 1.0 )
 	{
 		pev->avelocity = g_vecZero;
@@ -152,8 +152,8 @@ void CMomentaryRotButton::UpdateSelf( float value )
 		PlaySound();
 
 	// HACKHACK -- If we're going slow, we'll get multiple player packets per frame, bump nexthink on each one to avoid stalling
-	if( pev->nextthink < pev->ltime )
-		pev->nextthink = pev->ltime + 0.1;
+	if( pev->nextthink < GetLastThink() )
+		pev->nextthink = GetLastThink() + 0.1;
 	else
 		pev->nextthink += 0.1;
 
@@ -173,7 +173,7 @@ void CMomentaryRotButton::UpdateSelfReturn( float value )
 	else
 	{
 		pev->avelocity = -m_returnSpeed * pev->movedir;
-		pev->nextthink = pev->ltime + 0.1;
+		pev->nextthink = GetLastThink() + 0.1;
 	}
 }
 

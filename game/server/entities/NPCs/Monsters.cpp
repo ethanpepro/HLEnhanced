@@ -1340,8 +1340,8 @@ float CBaseMonster::OpenDoorAndWait( CBaseEntity* pDoor )
 		//ALERT(at_aiconsole, "pevDoor->nextthink = %d ms\n", (int)(1000*pevDoor->nextthink));
 		//ALERT(at_aiconsole, "pevDoor->ltime = %d ms\n", (int)(1000*pevDoor->ltime));
 		//ALERT(at_aiconsole, "pev-> nextthink = %d ms\n", (int)(1000*pev->nextthink));
-		//ALERT(at_aiconsole, "pev->ltime = %d ms\n", (int)(1000*pev->ltime));
-		flTravelTime = pDoor->pev->nextthink - pDoor->pev->ltime;
+		//ALERT(at_aiconsole, "ltime = %d ms\n", (int)(1000*GetLastThink()));
+		flTravelTime = pDoor->pev->nextthink - pDoor->GetLastThink();
 		//ALERT(at_aiconsole, "Waiting %d ms\n", (int)(1000*flTravelTime));
 		if( pDoor->HasTargetname() )
 		{

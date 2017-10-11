@@ -72,7 +72,7 @@ void CBaseToggle::LinearMove( Vector	vecDest, float flSpeed )
 	float flTravelTime = vecDestDelta.Length() / flSpeed;
 
 	// set nextthink to trigger a call to LinearMoveDone when dest is reached
-	pev->nextthink = pev->ltime + flTravelTime;
+	pev->nextthink = GetLastThink() + flTravelTime;
 	SetThink( &CBaseToggle::LinearMoveDone );
 
 	// scale the destdelta vector by the time spent traveling to get velocity
@@ -131,7 +131,7 @@ void CBaseToggle::AngularMove( Vector vecDestAngle, float flSpeed )
 	float flTravelTime = vecDestDelta.Length() / flSpeed;
 
 	// set nextthink to trigger a call to AngularMoveDone when dest is reached
-	pev->nextthink = pev->ltime + flTravelTime;
+	pev->nextthink = GetLastThink() + flTravelTime;
 	SetThink( &CBaseToggle::AngularMoveDone );
 
 	// scale the destdelta vector by the time spent traveling to get velocity

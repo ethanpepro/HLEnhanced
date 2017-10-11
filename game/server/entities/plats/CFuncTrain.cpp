@@ -99,7 +99,7 @@ void CFuncTrain::Activate( void )
 
 		if( !HasTargetname() )
 		{	// not triggered, so start immediately
-			pev->nextthink = pev->ltime + 0.1;
+			pev->nextthink = GetLastThink() + 0.1;
 			SetThink( &CFuncTrain::Next );
 		}
 		else
@@ -125,7 +125,7 @@ void CFuncTrain::OverrideReset( void )
 		else	// Keep moving for 0.1 secs, then find path_corner again and restart
 		{
 			SetThink( &CFuncTrain::Next );
-			pev->nextthink = pev->ltime + 0.1;
+			pev->nextthink = GetLastThink() + 0.1;
 		}
 	}
 }
@@ -199,7 +199,7 @@ void CFuncTrain::Wait( void )
 
 	if( m_flWait != 0 )
 	{// -1 wait will wait forever!		
-		pev->nextthink = pev->ltime + m_flWait;
+		pev->nextthink = GetLastThink() + m_flWait;
 		if( pev->noiseMovement )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 		if( pev->noiseStopMoving )

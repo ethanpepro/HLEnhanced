@@ -112,7 +112,7 @@ void CMomentaryDoor::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 
 	// This entity only thinks when it moves, so if it's thinking, it's in the process of moving
 	// play the sound when it starts moving (not yet thinking)
-	if( pev->nextthink < pev->ltime || pev->nextthink == 0 )
+	if( pev->nextthink < GetLastThink() || pev->nextthink == 0 )
 		EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ), 1, ATTN_NORM );
 	// If we already moving to designated point, return
 	else if( move == m_vecFinalDest )

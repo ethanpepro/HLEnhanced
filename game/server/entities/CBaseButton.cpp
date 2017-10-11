@@ -288,7 +288,7 @@ void CBaseButton::TriggerAndWait( void )
 	}
 	else
 	{
-		pev->nextthink = pev->ltime + m_flWait;
+		pev->nextthink = GetLastThink() + m_flWait;
 		SetThink( &CBaseButton::ButtonReturn );
 	}
 

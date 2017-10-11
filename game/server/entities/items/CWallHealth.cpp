@@ -104,7 +104,7 @@ void CWallHealth::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE u
 		return;
 	}
 
-	pev->nextthink = pev->ltime + 0.25;
+	pev->nextthink = GetLastThink() + 0.25;
 	SetThink(&CWallHealth::Off);
 
 	// Time to recharge yet?
@@ -154,7 +154,7 @@ void CWallHealth::Off(void)
 
 	if ((!m_iJuice) &&  ( ( m_iReactivate = g_pGameRules->FlHealthChargerRechargeTime() ) > 0) )
 	{
-		pev->nextthink = pev->ltime + m_iReactivate;
+		pev->nextthink = GetLastThink() + m_iReactivate;
 		SetThink(&CWallHealth::Recharge);
 	}
 	else

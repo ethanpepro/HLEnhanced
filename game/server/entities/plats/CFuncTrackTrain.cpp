@@ -65,7 +65,7 @@ void CFuncTrackTrain::Spawn( void )
 	m_controlMaxs.z += 72;
 	// start trains on the next frame, to make sure their targets have had
 	// a chance to spawn/activate
-	NextThink( pev->ltime + 0.1, false );
+	NextThink( GetLastThink() + 0.1, false );
 	SetThink( &CFuncTrackTrain::Find );
 	Precache();
 }
@@ -302,7 +302,7 @@ void CFuncTrackTrain::Next( void )
 
 		}
 		SetThink( &CFuncTrackTrain::Next );
-		NextThink( pev->ltime + time, true );
+		NextThink( GetLastThink() + time, true );
 	}
 	else	// end of path, stop
 	{
@@ -324,7 +324,7 @@ void CFuncTrackTrain::Next( void )
 			time = distance / m_oldSpeed;
 			SetAbsVelocity( GetAbsVelocity() * ( m_oldSpeed / distance ) );
 			SetThink( &CFuncTrackTrain::DeadEnd );
-			NextThink( pev->ltime + time, false );
+			NextThink( GetLastThink() + time, false );
 		}
 		else
 		{
@@ -361,7 +361,7 @@ void CFuncTrackTrain::Find( void )
 	if( pev->spawnflags & SF_TRACKTRAIN_NOPITCH )
 		pev->angles.x = 0;
 	SetAbsOrigin( nextPos );
-	NextThink( pev->ltime + 0.1, false );
+	NextThink( GetLastThink() + 0.1, false );
 	SetThink( &CFuncTrackTrain::Next );
 	SetSpeed( m_startSpeed );
 
@@ -410,7 +410,7 @@ void CFuncTrackTrain::NearestPath( void )
 
 	if( GetSpeed() != 0 )
 	{
-		NextThink( pev->ltime + 0.1, false );
+		NextThink( GetLastThink() + 0.1, false );
 		SetThink( &CFuncTrackTrain::Next );
 	}
 }
@@ -580,6 +580,6 @@ CFuncTrackTrain* CFuncTrackTrain::Instance( CBaseEntity* pEntity )
 
 void CFuncTrackTrain::OverrideReset( void )
 {
-	NextThink( pev->ltime + 0.1, false );
+	NextThink( GetLastThink() + 0.1, false );
 	SetThink( &CFuncTrackTrain::NearestPath );
 }
