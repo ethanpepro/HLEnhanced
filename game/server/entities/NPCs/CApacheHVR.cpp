@@ -46,7 +46,7 @@ void CApacheHVR::Spawn( void )
 	m_vecForward = gpGlobals->v_forward;
 	SetGravity( 0.5 );
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	pev->dmg = 150;
 }
@@ -85,7 +85,7 @@ void CApacheHVR::IgniteThink( void )
 
 					// set to accelerate
 	SetThink( &CApacheHVR::AccelerateThink );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 void CApacheHVR::AccelerateThink( void )
@@ -107,5 +107,5 @@ void CApacheHVR::AccelerateThink( void )
 	// re-aim
 	pev->angles = UTIL_VecToAngles( GetAbsVelocity() );
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }

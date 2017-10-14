@@ -109,7 +109,7 @@ void CBaseMonster :: GibMonster( void )
 		{
 			// don't remove players!
 			SetThink ( &CBaseMonster::SUB_Remove );
-			pev->nextthink = gpGlobals->time;
+			SetNextThink( gpGlobals->time );
 		}
 		else
 		{

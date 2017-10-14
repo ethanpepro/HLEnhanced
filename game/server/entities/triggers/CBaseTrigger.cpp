@@ -97,7 +97,7 @@ void CBaseTrigger::MultiTouch( CBaseEntity *pOther )
 //
 void CBaseTrigger::ActivateMultiTrigger( CBaseEntity *pActivator )
 {
-	if( pev->nextthink > gpGlobals->time )
+	if( GetNextThink() > gpGlobals->time )
 		return;         // still waiting for reset time
 
 	if( !UTIL_IsMasterTriggered( m_sMaster, pActivator ) )
@@ -129,14 +129,14 @@ void CBaseTrigger::ActivateMultiTrigger( CBaseEntity *pActivator )
 	if( m_flWait > 0 )
 	{
 		SetThink( &CBaseTrigger::MultiWaitOver );
-		pev->nextthink = gpGlobals->time + m_flWait;
+		SetNextThink( gpGlobals->time + m_flWait );
 	}
 	else
 	{
 		// we can't just remove (self) here, because this is a touch function
 		// called while C code is looping through area links...
 		SetTouch( NULL );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 		SetThink( &CBaseTrigger::SUB_Remove );
 	}
 }

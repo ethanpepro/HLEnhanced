@@ -16,7 +16,7 @@ void CSprayCan::Spawn( CBaseEntity* pOwner )
 	SetOwner( pOwner );
 	pev->frame = 0;
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	EMIT_SOUND( this, CHAN_VOICE, "player/sprayer.wav", 1, ATTN_NORM );
 }
 
@@ -52,5 +52,5 @@ void CSprayCan::Think()
 			UTIL_Remove( this );
 	}
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }

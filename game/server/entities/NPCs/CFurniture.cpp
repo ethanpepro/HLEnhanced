@@ -24,7 +24,7 @@ void CFurniture::Spawn()
 	pev->sequence = 0;
 	pev->frame = 0;
 
-	//	pev->nextthink += 1.0;
+	//	SetNextThink( GetNextThink() + 1.0 );
 	//	SetThink (WalkMonsterDelay);
 
 	ResetSequenceInfo();
@@ -38,7 +38,7 @@ void CFurniture::Spawn()
 void CFurniture::Die( void )
 {
 	SetThink( &CFurniture::SUB_Remove );
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 }
 
 //=========================================================

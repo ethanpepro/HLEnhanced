@@ -56,7 +56,7 @@ void CSquidSpit::Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity
 	pSpit->SetOwner( pOwner );
 
 	pSpit->SetThink( &CSquidSpit::Animate );
-	pSpit->pev->nextthink = gpGlobals->time + 0.1;
+	pSpit->SetNextThink( gpGlobals->time + 0.1 );
 }
 
 void CSquidSpit::Touch( CBaseEntity *pOther )
@@ -107,12 +107,12 @@ void CSquidSpit::Touch( CBaseEntity *pOther )
 	}
 
 	SetThink( &CSquidSpit::SUB_Remove );
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 }
 
 void CSquidSpit::Animate( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	if( pev->frame++ )
 	{

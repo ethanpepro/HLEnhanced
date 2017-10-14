@@ -592,7 +592,7 @@ void CBasePlayer::PlayerDeathThink()
 	//ALERT(at_console, "Respawn\n");
 
 	g_pGameRules->PlayerRespawn( this, !( m_afPhysicsFlags & PFLAG_OBSERVER ) );// don't copy a corpse if we're in deathcam.
-	pev->nextthink = -1;
+	SetNextThink( -1 );
 }
 
 //=========================================================

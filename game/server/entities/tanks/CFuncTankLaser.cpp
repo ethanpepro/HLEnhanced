@@ -58,7 +58,7 @@ void CFuncTankLaser::Fire( const Vector &barrelEnd, const Vector &forward, CBase
 				m_pLaser->TurnOn();
 				m_pLaser->pev->dmgtime = gpGlobals->time - 1.0;
 				m_pLaser->FireAtPoint( tr );
-				m_pLaser->pev->nextthink = 0;
+				m_pLaser->SetNextThink( 0 );
 			}
 			CFuncTank::Fire( barrelEnd, forward, pAttacker );
 		}

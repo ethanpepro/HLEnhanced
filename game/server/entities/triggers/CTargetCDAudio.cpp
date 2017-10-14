@@ -14,7 +14,7 @@ void CTargetCDAudio::Spawn( void )
 	SetMoveType( MOVETYPE_NONE );
 
 	if( GetScale() > 0 )
-		pev->nextthink = gpGlobals->time + 1.0;
+		SetNextThink( gpGlobals->time + 1.0 );
 }
 
 void CTargetCDAudio::KeyValue( KeyValueData *pkvd )
@@ -45,7 +45,7 @@ void CTargetCDAudio::Think( void )
 	if( !pClient )
 		return;
 
-	pev->nextthink = gpGlobals->time + 0.5;
+	SetNextThink( gpGlobals->time + 0.5 );
 
 	if( ( pClient->v.origin - GetAbsOrigin() ).Length() <= GetScale() )
 		Play();

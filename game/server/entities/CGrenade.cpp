@@ -121,7 +121,7 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 	GetEffects() |= EF_NODRAW;
 	SetThink( &CGrenade::Smoke );
 	SetAbsVelocity( g_vecZero );
-	pev->nextthink = gpGlobals->time + 0.3;
+	SetNextThink( gpGlobals->time + 0.3 );
 
 	if (iContents != CONTENTS_WATER)
 	{
@@ -163,7 +163,7 @@ void CGrenade::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 void CGrenade::DetonateUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	SetThink( &CGrenade::Detonate );
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 }
 
 void CGrenade::PreDetonate( void )
@@ -171,7 +171,7 @@ void CGrenade::PreDetonate( void )
 	CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin(), 400, 0.3 );
 
 	SetThink( &CGrenade::Detonate );
-	pev->nextthink = gpGlobals->time + 1;
+	SetNextThink( gpGlobals->time + 1 );
 }
 
 
@@ -213,7 +213,7 @@ void CGrenade::DangerSoundThink( void )
 	}
 
 	CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin() + GetAbsVelocity() * 0.5, GetAbsVelocity().Length(), 0.2 );
-	pev->nextthink = gpGlobals->time + 0.2;
+	SetNextThink( gpGlobals->time + 0.2 );
 
 	if ( GetWaterLevel() != WATERLEVEL_DRY)
 	{
@@ -326,7 +326,7 @@ void CGrenade :: TumbleThink( void )
 	}
 
 	StudioFrameAdvance( );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	if (pev->dmgtime - 1 < gpGlobals->time)
 	{
@@ -378,7 +378,7 @@ CGrenade* CGrenade::ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector v
 	
 	// make monsters afaid of it while in the air
 	pGrenade->SetThink( &CGrenade::DangerSoundThink );
-	pGrenade->pev->nextthink = gpGlobals->time;
+	pGrenade->SetNextThink( gpGlobals->time );
 	
 	// Tumble in air
 	pGrenade->pev->avelocity.x = RANDOM_FLOAT ( -100, -500 );
@@ -409,10 +409,10 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 
 	pGrenade->pev->dmgtime = gpGlobals->time + time;
 	pGrenade->SetThink( &CGrenade::TumbleThink );
-	pGrenade->pev->nextthink = gpGlobals->time + 0.1;
+	pGrenade->SetNextThink( gpGlobals->time + 0.1 );
 	if (time < 0.1)
 	{
-		pGrenade->pev->nextthink = gpGlobals->time;
+		pGrenade->SetNextThink( gpGlobals->time );
 		pGrenade->SetAbsVelocity( Vector( 0, 0, 0 ) );
 	}
 		

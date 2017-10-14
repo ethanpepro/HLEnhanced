@@ -24,7 +24,7 @@ LINK_ENTITY_TO_CLASS( env_smoker, CSmoker );
 void CSmoker::Spawn( void )
 {
 	SetMoveType( MOVETYPE_NONE );
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 	SetSolidType( SOLID_NOT );
 	SetSize( g_vecZero, g_vecZero );
 	GetEffects() |= EF_NODRAW;
@@ -46,7 +46,7 @@ void CSmoker::Think( void )
 
 	SetHealth( GetHealth() - 1 );
 	if( GetHealth() > 0 )
-		pev->nextthink = gpGlobals->time + RANDOM_FLOAT( 0.1, 0.2 );
+		SetNextThink( gpGlobals->time + RANDOM_FLOAT( 0.1, 0.2 ) );
 	else
 		UTIL_Remove( this );
 }

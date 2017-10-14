@@ -44,7 +44,7 @@ void CEnvSound::KeyValue( KeyValueData *pkvd )
 void CEnvSound::Spawn()
 {
 	// spread think times
-	pev->nextthink = gpGlobals->time + RANDOM_FLOAT( 0.0, 0.5 );
+	SetNextThink( gpGlobals->time + RANDOM_FLOAT( 0.0, 0.5 ) );
 }
 
 // returns true if the given sound entity (pev) is in range 
@@ -174,10 +174,10 @@ void CEnvSound::Think( void )
 	// not in range. do nothing, fall through to think_fast...
 
 env_sound_Think_fast:
-	pev->nextthink = gpGlobals->time + 0.25;
+	SetNextThink( gpGlobals->time + 0.25 );
 	return;
 
 env_sound_Think_slow:
-	pev->nextthink = gpGlobals->time + 0.75;
+	SetNextThink( gpGlobals->time + 0.75 );
 	return;
 }

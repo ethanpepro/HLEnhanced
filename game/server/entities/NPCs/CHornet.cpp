@@ -115,7 +115,7 @@ void CHornet :: Spawn( void )
 		pev->dmg = gSkillData.GetMonDmgHornet();
 	}
 	
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	ResetSequenceInfo( );
 }
 
@@ -177,7 +177,7 @@ void CHornet :: StartTrack ( void )
 	SetTouch( &CHornet::TrackTouch );
 	SetThink( &CHornet::TrackTarget );
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 //=========================================================
@@ -190,7 +190,7 @@ void CHornet :: StartDart ( void )
 	SetTouch( &CHornet::DartTouch );
 
 	SetThink( &CHornet::SUB_Remove );
-	pev->nextthink = gpGlobals->time + 4;
+	SetNextThink( gpGlobals->time + 4 );
 }
 
 void CHornet::IgniteTrail( void )
@@ -263,7 +263,7 @@ void CHornet :: TrackTarget ( void )
 	{
 		SetTouch( NULL );
 		SetThink( &CHornet::SUB_Remove );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 		return;
 	}
 
@@ -324,11 +324,11 @@ void CHornet :: TrackTarget ( void )
 	{
 		case HORNET_TYPE_RED:
 			SetAbsVelocity( GetAbsVelocity() * ( m_flFlySpeed * flDelta ) );// scale the dir by the ( speed * width of turn )
-			pev->nextthink = gpGlobals->time + RANDOM_FLOAT( 0.1, 0.3 );
+			SetNextThink( gpGlobals->time + RANDOM_FLOAT( 0.1, 0.3 ) );
 			break;
 		case HORNET_TYPE_ORANGE:
 			SetAbsVelocity( GetAbsVelocity() * m_flFlySpeed );// do not have to slow down to turn.
-			pev->nextthink = gpGlobals->time + 0.1;// fixed think time
+			SetNextThink( gpGlobals->time + 0.1 );// fixed think time
 			break;
 	}
 
@@ -360,7 +360,7 @@ void CHornet :: TrackTarget ( void )
 			case 2:	EMIT_SOUND( this, CHAN_VOICE, "hornet/ag_buzz3.wav", HORNET_BUZZ_VOLUME, ATTN_NORM);	break;
 			}
 			SetAbsVelocity( GetAbsVelocity() * 2 );
-			pev->nextthink = gpGlobals->time + 1.0;
+			SetNextThink( gpGlobals->time + 1.0 );
 			// don't attack again
 			m_flStopAttack = gpGlobals->time;
 		}
@@ -428,6 +428,6 @@ void CHornet::DieTouch ( CBaseEntity *pOther )
 	SetSolidType( SOLID_NOT );
 
 	SetThink ( &CHornet::SUB_Remove );
-	pev->nextthink = gpGlobals->time + 1;// stick around long enough for the sound to finish!
+	SetNextThink( gpGlobals->time + 1 );// stick around long enough for the sound to finish!
 }
 

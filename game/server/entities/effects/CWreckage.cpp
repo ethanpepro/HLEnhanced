@@ -33,7 +33,7 @@ void CWreckage::Spawn( void )
 	GetEffects().ClearAll();
 
 	pev->frame = 0;
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	if( HasModel() )
 	{
@@ -54,7 +54,7 @@ void CWreckage::Precache()
 void CWreckage::Think( void )
 {
 	StudioFrameAdvance();
-	pev->nextthink = gpGlobals->time + 0.2;
+	SetNextThink( gpGlobals->time + 0.2 );
 
 	if( pev->dmgtime )
 	{

@@ -50,7 +50,7 @@ void CControllerZapBall::Spawn( void )
 
 	m_hOwner = GetOwner();
 	pev->dmgtime = gpGlobals->time; // keep track of when ball spawned
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 void CControllerZapBall::Precache( void )
@@ -62,7 +62,7 @@ void CControllerZapBall::Precache( void )
 
 void CControllerZapBall::AnimateThink( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	//TODO: hardcoded sprite frame count? - Solokiller
 	pev->frame = ( ( int ) pev->frame + 1 ) % 11;

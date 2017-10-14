@@ -93,7 +93,7 @@ void CPipewrench::PrimaryAttack()
 	{
 #ifndef CLIENT_DLL
 		SetThink( &CPipewrench::SwingAgain );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 #endif
 	}
 }
@@ -281,7 +281,7 @@ bool CPipewrench::Swing( const bool bFirst )
 		m_pPlayer->m_iWeaponVolume = flVol * MELEE_WALLHIT_VOLUME;
 
 		SetThink( &CPipewrench::Smack );
-		pev->nextthink = UTIL_WeaponTimeBase() + 0.2;
+		SetNextThink( UTIL_WeaponTimeBase() + 0.2 );
 #endif
 		m_flNextPrimaryAttack = GetNextAttackDelay(0.5);
 		m_flNextSecondaryAttack = GetNextAttackDelay(0.5);
@@ -431,7 +431,7 @@ void CPipewrench::BigSwing()
 		// swing. If you want that decal, just uncomment the
 		// 2 lines below.
 		/*SetThink( &CPipewrench::Smack );
-		pev->nextthink = UTIL_WeaponTimeBase() + 0.2;*/
+		SetNextThink( UTIL_WeaponTimeBase() + 0.2 );*/
 #endif
 		m_flNextPrimaryAttack = GetNextAttackDelay(1.0);
 		m_flNextSecondaryAttack = GetNextAttackDelay(1.0);

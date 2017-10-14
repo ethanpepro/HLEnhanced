@@ -49,7 +49,7 @@ void CLightning::Spawn( void )
 		if( pev->dmg > 0 )
 		{
 			SetThink( &CLightning::DamageThink );
-			pev->nextthink = gpGlobals->time + 0.1;
+			SetNextThink( gpGlobals->time + 0.1 );
 		}
 		if( HasTargetname() )
 		{
@@ -57,7 +57,7 @@ void CLightning::Spawn( void )
 			{
 				GetEffects() = EF_NODRAW;
 				m_active = false;
-				pev->nextthink = 0;
+				SetNextThink( 0 );
 			}
 			else
 				m_active = true;
@@ -75,7 +75,7 @@ void CLightning::Spawn( void )
 		if( !HasTargetname() || FBitSet( pev->spawnflags, SF_BEAM_STARTON ) )
 		{
 			SetThink( &CLightning::StrikeThink );
-			pev->nextthink = gpGlobals->time + 1.0;
+			SetNextThink( gpGlobals->time + 1.0 );
 		}
 	}
 }
@@ -158,9 +158,9 @@ void CLightning::StrikeThink( void )
 	if( m_life != 0 )
 	{
 		if( pev->spawnflags & SF_BEAM_RANDOM )
-			pev->nextthink = gpGlobals->time + m_life + RANDOM_FLOAT( 0, m_restrike );
+			SetNextThink( gpGlobals->time + m_life + RANDOM_FLOAT( 0, m_restrike ) );
 		else
-			pev->nextthink = gpGlobals->time + m_life + m_restrike;
+			SetNextThink( gpGlobals->time + m_life + m_restrike );
 	}
 	m_active = true;
 
@@ -260,7 +260,7 @@ void CLightning::StrikeThink( void )
 
 void CLightning::DamageThink( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	TraceResult tr;
 	UTIL_TraceLine( GetStartPos(), GetEndPos(), dont_ignore_monsters, NULL, &tr );
 	BeamDamage( &tr );
@@ -384,7 +384,7 @@ void CLightning::StrikeUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	else
 	{
 		SetThink( &CLightning::StrikeThink );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 	}
 
 	if( !FBitSet( pev->spawnflags, SF_BEAM_TOGGLE ) )
@@ -399,7 +399,7 @@ void CLightning::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 	{
 		m_active = false;
 		GetEffects() |= EF_NODRAW;
-		pev->nextthink = 0;
+		SetNextThink( 0 );
 	}
 	else
 	{
@@ -408,7 +408,7 @@ void CLightning::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 		DoSparks( GetStartPos(), GetEndPos() );
 		if( pev->dmg > 0 )
 		{
-			pev->nextthink = gpGlobals->time;
+			SetNextThink( gpGlobals->time );
 			pev->dmgtime = gpGlobals->time;
 		}
 	}

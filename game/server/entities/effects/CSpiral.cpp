@@ -25,7 +25,7 @@ LINK_ENTITY_TO_CLASS( streak_spiral, CSpiral );
 void CSpiral::Spawn( void )
 {
 	SetMoveType( MOVETYPE_NONE );
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 	SetSolidType( SOLID_NOT );
 	SetSize( g_vecZero, g_vecZero );
 	GetEffects() |= EF_NODRAW;
@@ -59,7 +59,7 @@ void CSpiral::Think( void )
 		time -= SPIRAL_INTERVAL;
 	}
 
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 
 	if( GetHealth() >= GetSpeed() )
 		UTIL_Remove( this );
@@ -72,7 +72,7 @@ CSpiral *CSpiral::Create( const Vector &origin, float height, float radius, floa
 
 	auto pSpiral = static_cast<CSpiral*>( UTIL_CreateNamedEntity( "streak_spiral" ) );
 	pSpiral->Spawn();
-	pSpiral->pev->dmgtime = pSpiral->pev->nextthink;
+	pSpiral->pev->dmgtime = pSpiral->GetNextThink();
 	pSpiral->SetAbsOrigin( origin );
 	pSpiral->SetScale( radius );
 	pSpiral->pev->dmg = height;

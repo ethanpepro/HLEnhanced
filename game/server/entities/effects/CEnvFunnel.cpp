@@ -40,5 +40,5 @@ void CEnvFunnel::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 	MESSAGE_END();
 
 	SetThink( &CEnvFunnel::SUB_Remove );
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 }

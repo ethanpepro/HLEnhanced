@@ -38,7 +38,7 @@ void CDecal::Spawn( void )
 	{
 		SetThink( &CDecal::StaticDecal );
 		// if there's no targetname, the decal will spray itself on as soon as the world is done spawning.
-		pev->nextthink = gpGlobals->time;
+		SetNextThink( gpGlobals->time );
 	}
 	else
 	{
@@ -76,7 +76,7 @@ void CDecal::TriggerDecal( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	MESSAGE_END();
 
 	SetThink( &CDecal::SUB_Remove );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 

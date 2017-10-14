@@ -59,7 +59,7 @@ void CFuncTank::Spawn( void )
 	m_pitchCenter = pev->angles.x;
 
 	if( IsActive() )
-		pev->nextthink = GetLastThink() + 1.0;
+		SetNextThink( GetLastThink() + 1.0 );
 
 	m_sightOrigin = BarrelPosition(); // Point at the end of the barrel
 
@@ -254,19 +254,19 @@ void CFuncTank::TrackTarget( void )
 		// Tanks attempt to mirror the player's angles
 		angles = m_pController->GetViewAngle();
 		angles[ 0 ] = 0 - angles[ 0 ];
-		pev->nextthink = GetLastThink() + 0.05;
+		SetNextThink( GetLastThink() + 0.05 );
 	}
 	else
 	{
 		if( IsActive() )
-			pev->nextthink = GetLastThink() + 0.1;
+			SetNextThink( GetLastThink() + 0.1 );
 		else
 			return;
 
 		if( FNullEnt( pPlayer ) )
 		{
 			if( IsActive() )
-				pev->nextthink = GetLastThink() + 2;	// Wait 2 secs
+				SetNextThink( GetLastThink() + 2 );	// Wait 2 secs
 			return;
 		}
 
@@ -406,7 +406,7 @@ void CFuncTank::Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntit
 			pSprite->SetScale( m_spriteScale );
 
 			// Hack Hack, make it stick around for at least 100 ms.
-			pSprite->pev->nextthink += 0.1;
+			pSprite->SetNextThink( GetNextThink() + 0.1 );
 		}
 		SUB_UseTargets( this, USE_TOGGLE, 0 );
 	}
@@ -522,7 +522,7 @@ bool CFuncTank::StartControl( CBasePlayer *pController )
 	m_pController->m_iHideHUD |= HIDEHUD_WEAPONS;
 	m_vecControllerUsePos = m_pController->GetAbsOrigin();
 
-	pev->nextthink = GetLastThink() + 0.1;
+	SetNextThink( GetLastThink() + 0.1 );
 
 	return true;
 }
@@ -540,11 +540,11 @@ void CFuncTank::StopControl()
 
 	m_pController->m_iHideHUD &= ~HIDEHUD_WEAPONS;
 
-	pev->nextthink = 0;
+	SetNextThink( 0 );
 	m_pController = NULL;
 
 	if( IsActive() )
-		pev->nextthink = GetLastThink() + 1.0;
+		SetNextThink( GetLastThink() + 1.0 );
 }
 
 // Called each frame by the player's ItemPostFrame

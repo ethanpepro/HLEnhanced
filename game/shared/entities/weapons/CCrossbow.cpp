@@ -233,7 +233,7 @@ void CCrossbow::SecondaryAttack()
 		m_fInZoom = true;
 	}
 	
-	pev->nextthink = UTIL_WeaponTimeBase() + 0.1;
+	SetNextThink( UTIL_WeaponTimeBase() + 0.1 );
 	m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 1.0;
 }
 

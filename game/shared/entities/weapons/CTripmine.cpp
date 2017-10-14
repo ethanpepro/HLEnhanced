@@ -77,7 +77,7 @@ void CTripmine::Holster()
 		// out of mines
 		m_pPlayer->pev->weapons &= ~(1<<m_iId);
 		SetThink( &CTripmine::DestroyItem );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 	}
 
 	SendWeaponAnim( TRIPMINE_HOLSTER );

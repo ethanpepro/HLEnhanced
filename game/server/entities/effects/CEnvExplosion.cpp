@@ -146,7 +146,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	}
 
 	SetThink( &CEnvExplosion::Smoke );
-	pev->nextthink = gpGlobals->time + 0.3;
+	SetNextThink( gpGlobals->time + 0.3 );
 
 	// draw sparks
 	if ( !( pev->spawnflags & SF_ENVEXPLOSION_NOSPARKS ) )
@@ -205,6 +205,6 @@ void UTIL_CreateExplosion( Vector vecCenter, const Vector& vecAngles, CBaseEntit
 	else
 	{
 		pExplosion->SetThink( &CBaseEntity::SUB_CallUseToggle );
-		pExplosion->pev->nextthink = gpGlobals->time + flDelay;
+		pExplosion->SetNextThink( gpGlobals->time + flDelay );
 	}
 }

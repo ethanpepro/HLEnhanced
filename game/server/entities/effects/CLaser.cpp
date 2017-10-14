@@ -104,13 +104,13 @@ void CLaser::TurnOn( void )
 	if( m_pSprite )
 		m_pSprite->TurnOn();
 	pev->dmgtime = gpGlobals->time;
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 }
 
 void CLaser::TurnOff( void )
 {
 	GetEffects() |= EF_NODRAW;
-	pev->nextthink = 0;
+	SetNextThink( 0 );
 	if( m_pSprite )
 		m_pSprite->TurnOff();
 }
@@ -143,7 +143,7 @@ void CLaser::StrikeThink( void )
 
 	UTIL_TraceLine( GetAbsOrigin(), m_firePosition, dont_ignore_monsters, NULL, &tr );
 	FireAtPoint( tr );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 void CLaser::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

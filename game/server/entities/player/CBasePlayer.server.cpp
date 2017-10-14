@@ -592,7 +592,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	pev->angles.z = 0;
 
 	SetThink(&CBasePlayer::PlayerDeathThink);
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 const char *CBasePlayer::TeamID() const

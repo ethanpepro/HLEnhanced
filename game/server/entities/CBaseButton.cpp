@@ -55,7 +55,7 @@ void CBaseButton::Spawn()
 	if( FBitSet( pev->spawnflags, SF_BUTTON_SPARK_IF_OFF ) )// this button should spark in OFF state
 	{
 		SetThink( &CBaseButton::ButtonSpark );
-		pev->nextthink = gpGlobals->time + 0.5;// no hurry, make sure everything else spawns
+		SetNextThink( gpGlobals->time + 0.5 );// no hurry, make sure everything else spawns
 	}
 
 	SetMovedir( this );
@@ -257,7 +257,7 @@ void CBaseButton::ButtonTouch( CBaseEntity *pOther )
 void CBaseButton::ButtonSpark( void )
 {
 	SetThink( &CBaseButton::ButtonSpark );
-	pev->nextthink = gpGlobals->time + ( 0.1 + RANDOM_FLOAT( 0, 1.5 ) );// spark again at random interval
+	SetNextThink( gpGlobals->time + ( 0.1 + RANDOM_FLOAT( 0, 1.5 ) ) );// spark again at random interval
 
 	DoSpark( this, GetRelMin() );
 }
@@ -288,7 +288,7 @@ void CBaseButton::TriggerAndWait( void )
 	}
 	else
 	{
-		pev->nextthink = GetLastThink() + m_flWait;
+		SetNextThink( GetLastThink() + m_flWait );
 		SetThink( &CBaseButton::ButtonReturn );
 	}
 
@@ -356,7 +356,7 @@ void CBaseButton::ButtonBackHome( void )
 	if( FBitSet( pev->spawnflags, SF_BUTTON_SPARK_IF_OFF ) )
 	{
 		SetThink( &CBaseButton::ButtonSpark );
-		pev->nextthink = gpGlobals->time + 0.5;// no hurry.
+		SetNextThink( gpGlobals->time + 0.5 );// no hurry.
 	}
 }
 

@@ -57,7 +57,7 @@ void CSprite::AnimateThink( void )
 {
 	Animate( pev->framerate * ( gpGlobals->time - m_lastTime ) );
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	m_lastTime = gpGlobals->time;
 }
 
@@ -73,7 +73,7 @@ void CSprite::ExpandThink( void )
 	}
 	else
 	{
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 		m_lastTime = gpGlobals->time;
 	}
 }
@@ -118,7 +118,7 @@ void CSprite::Expand( float scaleSpeed, float fadeSpeed )
 	SetHealth( fadeSpeed );
 	SetThink( &CSprite::ExpandThink );
 
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 	m_lastTime = gpGlobals->time;
 }
 
@@ -132,7 +132,7 @@ void CSprite::SpriteInit( const char *pSpriteName, const Vector &origin )
 void CSprite::TurnOff( void )
 {
 	GetEffects() = EF_NODRAW;
-	pev->nextthink = 0;
+	SetNextThink( 0 );
 }
 
 void CSprite::TurnOn( void )
@@ -141,7 +141,7 @@ void CSprite::TurnOn( void )
 	if( ( pev->framerate && m_maxFrame > 1.0 ) || ( pev->spawnflags & SF_SPRITE_ONCE ) )
 	{
 		SetThink( &CSprite::AnimateThink );
-		pev->nextthink = gpGlobals->time;
+		SetNextThink( gpGlobals->time );
 		m_lastTime = gpGlobals->time;
 	}
 	pev->frame = 0;
@@ -154,7 +154,7 @@ void CSprite::AnimateUntilDead( void )
 	else
 	{
 		AnimateThink();
-		pev->nextthink = gpGlobals->time;
+		SetNextThink( gpGlobals->time );
 	}
 }
 

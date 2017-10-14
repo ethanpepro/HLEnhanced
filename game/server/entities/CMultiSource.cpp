@@ -58,7 +58,7 @@ void CMultiSource::Spawn()
 
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NONE );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	pev->spawnflags |= SF_MULTI_INIT;	// Until it's initialized
 	SetThink( &CMultiSource::Register );
 }

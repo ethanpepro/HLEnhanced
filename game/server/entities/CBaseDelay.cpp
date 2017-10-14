@@ -68,7 +68,7 @@ void CBaseDelay::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, floa
 		// create a temp object to fire at a later time
 		auto pTemp = static_cast<CBaseDelay*>( UTIL_CreateNamedEntity( "DelayedUse" ) );
 
-		pTemp->pev->nextthink = gpGlobals->time + m_flDelay;
+		pTemp->SetNextThink( gpGlobals->time + m_flDelay );
 
 		pTemp->SetThink( &CBaseDelay::DelayThink );
 

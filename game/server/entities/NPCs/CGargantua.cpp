@@ -678,7 +678,7 @@ void CGargantua::DeathEffect( void )
 	pSmoker->SetHealth( 1 );	// 1 smoke balls
 	pSmoker->SetScale( 46 );	// 4.6X normal size
 	pSmoker->pev->dmg = 0;		// 0 radial distribution
-	pSmoker->pev->nextthink = gpGlobals->time + 2.5;	// Start in 2.5 seconds
+	pSmoker->SetNextThink( gpGlobals->time + 2.5 );	// Start in 2.5 seconds
 }
 
 
@@ -905,7 +905,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 			pev->rendercolor.y = 0;
 			pev->rendercolor.z = 0;
 			StopAnimation();
-			pev->nextthink = gpGlobals->time + 0.15;
+			SetNextThink( gpGlobals->time + 0.15 );
 			SetThink( &CGargantua::SUB_Remove );
 			int i;
 			int parts = MODEL_FRAMES( gGargGibModel );
@@ -922,7 +922,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 				pGib->m_material = matNone;
 				pGib->SetAbsOrigin( GetAbsOrigin() );
 				pGib->SetAbsVelocity( UTIL_RandomBloodVector() * RANDOM_FLOAT( 300, 500 ) );
-				pGib->pev->nextthink = gpGlobals->time + 1.25;
+				pGib->SetNextThink( gpGlobals->time + 1.25 );
 				pGib->SetThink( &CGib::SUB_FadeOut );
 			}
 			MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );

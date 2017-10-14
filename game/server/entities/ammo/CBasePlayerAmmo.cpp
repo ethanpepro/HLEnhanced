@@ -41,7 +41,7 @@ void CBasePlayerAmmo::DefaultTouch( CBaseEntity* pOther )
 		{
 			SetTouch( NULL );
 			SetThink( &CBasePlayerAmmo::SUB_Remove );
-			pev->nextthink = gpGlobals->time + .1;
+			SetNextThink( gpGlobals->time + .1 );
 		}
 	}
 	else if( gEvilImpulse101 )
@@ -49,7 +49,7 @@ void CBasePlayerAmmo::DefaultTouch( CBaseEntity* pOther )
 		// evil impulse 101 hack, kill always
 		SetTouch( NULL );
 		SetThink( &CBasePlayerAmmo::SUB_Remove );
-		pev->nextthink = gpGlobals->time + .1;
+		SetNextThink( gpGlobals->time + .1 );
 	}
 }
 
@@ -61,7 +61,7 @@ CBaseEntity* CBasePlayerAmmo::Respawn()
 	SetAbsOrigin( g_pGameRules->VecAmmoRespawnSpot( this ) );// move to wherever I'm supposed to repawn.
 
 	SetThink( &CBasePlayerAmmo::Materialize );
-	pev->nextthink = g_pGameRules->FlAmmoRespawnTime( this );
+	SetNextThink( g_pGameRules->FlAmmoRespawnTime( this ) );
 
 	return this;
 }

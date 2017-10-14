@@ -137,7 +137,7 @@ void CNihilanth :: Spawn( void )
 	InitBoneControllers();
 
 	SetThink( &CNihilanth::StartupThink );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	m_vecDesired = Vector( 1, 0, 0 );
 	m_posDesired = Vector( GetAbsOrigin().x, GetAbsOrigin().y, 512 );
@@ -226,14 +226,14 @@ void CNihilanth :: DeathSound( void )
 void CNihilanth::NullThink( void )
 {
 	StudioFrameAdvance( );
-	pev->nextthink = gpGlobals->time + 0.5;
+	SetNextThink( gpGlobals->time + 0.5 );
 }
 
 
 void CNihilanth::StartupUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	SetThink( &CNihilanth::HuntThink );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	SetUse( &CNihilanth::CommandUse );
 }
 
@@ -266,7 +266,7 @@ void CNihilanth::StartupThink( void )
 
 	SetThink( &CNihilanth::HuntThink);
 	SetUse( &CNihilanth::CommandUse );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 
@@ -277,7 +277,7 @@ void CNihilanth::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 void CNihilanth :: DyingThink( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	DispatchAnimEvents( );
 	StudioFrameAdvance( );
 
@@ -399,7 +399,7 @@ void CNihilanth::CrashTouch( CBaseEntity *pOther )
 	if ( pOther->GetSolidType() == SOLID_BSP) 
 	{
 		SetTouch( NULL );
-		pev->nextthink = gpGlobals->time;
+		SetNextThink( gpGlobals->time );
 	}
 }
 
@@ -691,7 +691,7 @@ void CNihilanth :: NextActivity( )
 
 void CNihilanth :: HuntThink( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	DispatchAnimEvents( );
 	StudioFrameAdvance( );
 

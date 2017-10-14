@@ -78,7 +78,7 @@ void CHandGrenade::Holster()
 		// no more grenades!
 		m_pPlayer->pev->weapons &= ~(1<<m_iId);
 		SetThink( &CHandGrenade::DestroyItem );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 	}
 
 	EMIT_SOUND( m_pPlayer, CHAN_WEAPON, "common/null.wav", 1.0, ATTN_NORM);

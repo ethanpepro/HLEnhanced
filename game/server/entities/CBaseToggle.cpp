@@ -47,7 +47,7 @@ void CBaseToggle::KeyValue( KeyValueData *pkvd )
 =============
 LinearMove
 
-calculate GetAbsVelocity() and pev->nextthink to reach vecDest from
+calculate GetAbsVelocity() and GetNextThink() to reach vecDest from
 GetAbsOrigin() traveling at flSpeed
 ===============
 */
@@ -72,7 +72,7 @@ void CBaseToggle::LinearMove( Vector	vecDest, float flSpeed )
 	float flTravelTime = vecDestDelta.Length() / flSpeed;
 
 	// set nextthink to trigger a call to LinearMoveDone when dest is reached
-	pev->nextthink = GetLastThink() + flTravelTime;
+	SetNextThink( GetLastThink() + flTravelTime );
 	SetThink( &CBaseToggle::LinearMoveDone );
 
 	// scale the destdelta vector by the time spent traveling to get velocity
@@ -96,7 +96,7 @@ void CBaseToggle::LinearMoveDone( void )
 
 	SetAbsOrigin( m_vecFinalDest );
 	SetAbsVelocity( g_vecZero );
-	pev->nextthink = -1;
+	SetNextThink( -1 );
 	if( m_pfnCallWhenMoveDone )
 		( this->*m_pfnCallWhenMoveDone )( );
 }
@@ -105,7 +105,7 @@ void CBaseToggle::LinearMoveDone( void )
 =============
 AngularMove
 
-calculate GetAbsVelocity() and pev->nextthink to reach vecDest from
+calculate GetAbsVelocity() and GetNextThink() to reach vecDest from
 GetAbsOrigin() traveling at flSpeed
 Just like LinearMove, but rotational.
 ===============
@@ -131,7 +131,7 @@ void CBaseToggle::AngularMove( Vector vecDestAngle, float flSpeed )
 	float flTravelTime = vecDestDelta.Length() / flSpeed;
 
 	// set nextthink to trigger a call to AngularMoveDone when dest is reached
-	pev->nextthink = GetLastThink() + flTravelTime;
+	SetNextThink( GetLastThink() + flTravelTime );
 	SetThink( &CBaseToggle::AngularMoveDone );
 
 	// scale the destdelta vector by the time spent traveling to get velocity
@@ -148,7 +148,7 @@ void CBaseToggle::AngularMoveDone( void )
 {
 	pev->angles = m_vecFinalAngle;
 	pev->avelocity = g_vecZero;
-	pev->nextthink = -1;
+	SetNextThink( -1 );
 	if( m_pfnCallWhenMoveDone )
 		( this->*m_pfnCallWhenMoveDone )( );
 }

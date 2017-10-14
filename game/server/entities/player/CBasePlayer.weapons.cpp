@@ -144,7 +144,7 @@ void CBasePlayer::PackDeadPlayerItems()
 	pWeaponBox->pev->angles.z = 0;
 
 	pWeaponBox->SetThink( &CWeaponBox::Kill );
-	pWeaponBox->pev->nextthink = gpGlobals->time + 120;
+	pWeaponBox->SetNextThink( gpGlobals->time + 120 );
 
 	// back these two lists up to their first elements
 	iPA = 0;
@@ -312,7 +312,7 @@ bool CBasePlayer::RemovePlayerItem( CBasePlayerWeapon *pItem )
 	{
 		ResetAutoaim();
 		pItem->Holster();
-		pItem->pev->nextthink = 0;// crowbar may be trying to swing again, etc.
+		pItem->SetNextThink( 0 );// crowbar may be trying to swing again, etc.
 		pItem->SetThink( NULL );
 		m_pActiveItem = NULL;
 		ClearViewModelName();

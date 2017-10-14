@@ -51,7 +51,7 @@ void CControllerHeadBall::Spawn( void )
 
 	m_vecIdeal = Vector( 0, 0, 0 );
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	m_hOwner = GetOwner();
 	pev->dmgtime = gpGlobals->time;
@@ -66,7 +66,7 @@ void CControllerHeadBall::Precache( void )
 
 void CControllerHeadBall::HuntThink( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	pev->renderamt -= 5;
 
@@ -130,7 +130,7 @@ void CControllerHeadBall::HuntThink( void )
 		UTIL_EmitAmbientSound( this, tr.vecEndPos, "weapons/electro4.wav", 0.5, ATTN_NORM, 0, RANDOM_LONG( 140, 160 ) );
 
 		SetThink( &CControllerHeadBall::DieThink );
-		pev->nextthink = gpGlobals->time + 0.3;
+		SetNextThink( gpGlobals->time + 0.3 );
 	}
 
 	// Crawl( );

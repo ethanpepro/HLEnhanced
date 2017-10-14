@@ -452,7 +452,7 @@ CSound* CBaseMonster :: PBestScent ( void )
 //=========================================================
 void CBaseMonster :: MonsterThink ( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;// keep monster thinking.
+	SetNextThink( gpGlobals->time + 0.1 );// keep monster thinking.
 
 
 	RunAI();
@@ -1339,9 +1339,9 @@ float CBaseMonster::OpenDoorAndWait( CBaseEntity* pDoor )
 		pDoor->Use(this, this, USE_ON, 0.0);
 		//ALERT(at_aiconsole, "pevDoor->nextthink = %d ms\n", (int)(1000*pevDoor->nextthink));
 		//ALERT(at_aiconsole, "pevDoor->ltime = %d ms\n", (int)(1000*pevDoor->ltime));
-		//ALERT(at_aiconsole, "pev-> nextthink = %d ms\n", (int)(1000*pev->nextthink));
+		//ALERT(at_aiconsole, "pev-> nextthink = %d ms\n", (int)(1000*GetNextThink()));
 		//ALERT(at_aiconsole, "ltime = %d ms\n", (int)(1000*GetLastThink()));
-		flTravelTime = pDoor->pev->nextthink - pDoor->GetLastThink();
+		flTravelTime = pDoor->GetNextThink() - pDoor->GetLastThink();
 		//ALERT(at_aiconsole, "Waiting %d ms\n", (int)(1000*flTravelTime));
 		if( pDoor->HasTargetname() )
 		{
@@ -1967,7 +1967,7 @@ void CBaseMonster :: MonsterInit ( void )
 	SetEyePosition();
 
 	SetThink( &CBaseMonster::MonsterInitThink );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	SetUse ( &CBaseMonster::MonsterUse );
 }
 
@@ -2071,7 +2071,7 @@ void CBaseMonster :: StartMonster ( void )
 	// Delay drop to floor to make sure each door in the level has had its chance to spawn
 	// Spread think times so that they don't all happen at the same time (Carmack)
 	SetThink ( &CBaseMonster::CallMonsterThink );
-	pev->nextthink += RANDOM_FLOAT(0.1, 0.4); // spread think times.
+	SetNextThink( GetNextThink() + RANDOM_FLOAT(0.1, 0.4) ); // spread think times.
 	
 	if ( HasTargetname() )// wait until triggered
 	{
@@ -3169,7 +3169,7 @@ void CBaseMonster::CorpseFallThink( void )
 		SetAbsOrigin( GetAbsOrigin() );// link into world.
 	}
 	else
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 }
 
 // Call after animation/pose is set up
@@ -3194,7 +3194,7 @@ void CBaseMonster :: MonsterInitDead( void )
 	// Setup health counters, etc.
 	BecomeDead();
 	SetThink( &CBaseMonster::CorpseFallThink );
-	pev->nextthink = gpGlobals->time + 0.5;
+	SetNextThink( gpGlobals->time + 0.5 );
 }
 
 //=========================================================

@@ -63,7 +63,7 @@ public:
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
 	inline bool IsActive() const { return ( pev->spawnflags & SF_TANK_ACTIVE ) != 0; }
-	inline void TankActivate( void ) { pev->spawnflags |= SF_TANK_ACTIVE; pev->nextthink = GetLastThink() + 0.1; m_fireLast = 0; }
+	inline void TankActivate( void ) { pev->spawnflags |= SF_TANK_ACTIVE; SetNextThink( GetLastThink() + 0.1 ); m_fireLast = 0; }
 	inline void TankDeactivate( void ) { pev->spawnflags &= ~SF_TANK_ACTIVE; m_fireLast = 0; StopRotSound(); }
 	inline bool CanFire() const { return ( gpGlobals->time - m_lastSightTime ) < m_persist; }
 	bool		InRange( float range ) const;

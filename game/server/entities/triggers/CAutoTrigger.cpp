@@ -46,7 +46,7 @@ void CAutoTrigger::Spawn( void )
 
 void CAutoTrigger::Precache( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 void CAutoTrigger::Think( void )

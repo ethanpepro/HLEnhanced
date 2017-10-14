@@ -81,7 +81,7 @@ void CGibShooter::KeyValue( KeyValueData *pkvd )
 
 void CGibShooter::ShootThink( void )
 {
-	pev->nextthink = gpGlobals->time + m_flDelay;
+	SetNextThink( gpGlobals->time + m_flDelay );
 
 	Vector vecShootDir;
 
@@ -102,12 +102,12 @@ void CGibShooter::ShootThink( void )
 		pGib->pev->avelocity.x = RANDOM_FLOAT( 100, 200 );
 		pGib->pev->avelocity.y = RANDOM_FLOAT( 100, 300 );
 
-		float thinkTime = pGib->pev->nextthink - gpGlobals->time;
+		float thinkTime = pGib->GetNextThink() - gpGlobals->time;
 
 		pGib->m_lifeTime = ( m_flGibLife * RANDOM_FLOAT( 0.95, 1.05 ) );	// +/- 5%
 		if( pGib->m_lifeTime < thinkTime )
 		{
-			pGib->pev->nextthink = gpGlobals->time + pGib->m_lifeTime;
+			pGib->SetNextThink( gpGlobals->time + pGib->m_lifeTime );
 			pGib->m_lifeTime = 0;
 		}
 
@@ -119,12 +119,12 @@ void CGibShooter::ShootThink( void )
 		{
 			m_iGibs = m_iGibCapacity;
 			SetThink( NULL );
-			pev->nextthink = gpGlobals->time;
+			SetNextThink( gpGlobals->time );
 		}
 		else
 		{
 			SetThink( &CGibShooter::SUB_Remove );
-			pev->nextthink = gpGlobals->time;
+			SetNextThink( gpGlobals->time );
 		}
 	}
 }
@@ -132,7 +132,7 @@ void CGibShooter::ShootThink( void )
 void CGibShooter::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	SetThink( &CGibShooter::ShootThink );
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 }
 
 CGib *CGibShooter::CreateGib( void )

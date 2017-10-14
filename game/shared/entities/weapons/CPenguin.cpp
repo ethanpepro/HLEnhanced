@@ -84,7 +84,7 @@ void CPenguin::Holster()
 	{
 		m_pPlayer->pev->weapons &= ~( 1 << m_iId );
 		SetThink( &CPenguin::DestroyItem );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 		return;
 	}
 

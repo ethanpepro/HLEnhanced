@@ -17,7 +17,7 @@ LINK_ENTITY_TO_CLASS( player_loadsaved, CRevertSaved );
 void CRevertSaved::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	UTIL_ScreenFadeAll( pev->rendercolor, Duration(), HoldTime(), pev->renderamt, FFADE_OUT );
-	pev->nextthink = gpGlobals->time + MessageTime();
+	SetNextThink( gpGlobals->time + MessageTime() );
 	SetThink( &CRevertSaved::MessageThink );
 }
 
@@ -27,7 +27,7 @@ void CRevertSaved::MessageThink( void )
 	float nextThink = LoadTime() - MessageTime();
 	if( nextThink > 0 )
 	{
-		pev->nextthink = gpGlobals->time + nextThink;
+		SetNextThink( gpGlobals->time + nextThink );
 		SetThink( &CRevertSaved::LoadThink );
 	}
 	else

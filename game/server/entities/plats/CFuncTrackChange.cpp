@@ -49,7 +49,7 @@ void CFuncTrackChange::Spawn( void )
 	}
 
 	EnableUse();
-	pev->nextthink = GetLastThink() + 2.0;
+	SetNextThink( GetLastThink() + 2.0 );
 	SetThink( &CFuncTrackChange::Find );
 	Precache();
 }
@@ -85,7 +85,7 @@ void CFuncTrackChange::GoUp( void )
 		// If ROTMOVE, move & rotate
 		CFuncPlat::GoUp();
 		SetMoveDone( &CFuncTrackChange::CallHitTop );
-		RotMove( m_end, pev->nextthink - GetLastThink() );
+		RotMove( m_end, GetNextThink() - GetLastThink() );
 	}
 
 	// Otherwise, move first, rotate second
@@ -118,7 +118,7 @@ void CFuncTrackChange::GoDown( void )
 	{
 		CFuncPlat::GoDown();
 		SetMoveDone( &CFuncTrackChange::CallHitBottom );
-		RotMove( m_start, pev->nextthink - GetLastThink() );
+		RotMove( m_start, GetNextThink() - GetLastThink() );
 	}
 	// Otherwise, rotate first, move second
 
@@ -251,7 +251,7 @@ TRAIN_CODE CFuncTrackChange::EvaluateTrain( CPathTrack *pcurrent )
 
 void CFuncTrackChange::UpdateTrain( Vector &dest )
 {
-	float time = ( pev->nextthink - GetLastThink() );
+	float time = ( GetNextThink() - GetLastThink() );
 
 	m_train->SetAbsVelocity( GetAbsVelocity() );
 	m_train->pev->avelocity = pev->avelocity;
@@ -286,7 +286,7 @@ void CFuncTrackChange::HitBottom( void )
 		m_train->SetTrack( m_trackBottom );
 	}
 	SetThink( NULL );
-	pev->nextthink = -1;
+	SetNextThink( -1 );
 
 	UpdateAutoTargets( m_toggle_state );
 
@@ -307,7 +307,7 @@ void CFuncTrackChange::HitTop( void )
 
 	// Don't let the plat go back down
 	SetThink( NULL );
-	pev->nextthink = -1;
+	SetNextThink( -1 );
 	UpdateAutoTargets( m_toggle_state );
 	EnableUse();
 }
@@ -339,6 +339,6 @@ void CFuncTrackChange::UpdateAutoTargets( int toggleState )
 
 void CFuncTrackChange::OverrideReset( void )
 {
-	pev->nextthink = GetLastThink() + 1.0;
+	SetNextThink( GetLastThink() + 1.0 );
 	SetThink( &CFuncTrackChange::Find );
 }

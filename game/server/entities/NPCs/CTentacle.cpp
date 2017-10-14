@@ -122,7 +122,7 @@ void CTentacle :: Spawn( )
 	SetTouch( &CTentacle::HitTouch );
 	SetUse( &CTentacle::CommandUse );
 
-	pev->nextthink = gpGlobals->time + 0.2;
+	SetNextThink( gpGlobals->time + 0.2 );
 
 	ResetSequenceInfo( );
 	m_iDir = 1;
@@ -295,7 +295,7 @@ void CTentacle :: Test( void )
 	pev->sequence = TENTACLE_ANIM_Floor_Strike;
 	pev->framerate = 0;
 	StudioFrameAdvance( );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 //
@@ -304,7 +304,7 @@ void CTentacle :: Test( void )
 void CTentacle :: Cycle( void )
 {
 	// ALERT( at_console, "%s %.2f %d %d\n", GetTargetname(), GetAbsOrigin().z, m_MonsterState, m_IdealMonsterState );
-	pev->nextthink = gpGlobals-> time + 0.1;
+	SetNextThink( gpGlobals-> time + 0.1 );
 
 	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), pev->sequence, m_iGoalAnim, m_iDir, pev->framerate, GetHealth() );
 
@@ -584,7 +584,7 @@ void CTentacle::CommandUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 
 void CTentacle :: DieThink( void )
 {
-	pev->nextthink = gpGlobals-> time + 0.1;
+	SetNextThink( gpGlobals-> time + 0.1 );
 
 	DispatchAnimEvents( );
 	StudioFrameAdvance( );
@@ -776,7 +776,7 @@ void CTentacle :: Start( void )
 	{
 		EMIT_SOUND ( this, CHAN_BODY, "ambience/flies.wav", 1, ATTN_NORM );
 		g_fFlySound = true;
-//		pev->nextthink = gpGlobals-> time + 0.1;
+//		SetNextThink( gpGlobals-> time + 0.1 );
 	}
 	else if ( !g_fSquirmSound )
 	{
@@ -784,7 +784,7 @@ void CTentacle :: Start( void )
 		g_fSquirmSound = true;
 	}
 	
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 void CTentacle :: HitTouch( CBaseEntity *pOther )

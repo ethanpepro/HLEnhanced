@@ -78,7 +78,7 @@ void CFlockingFlyerFlock::SpawnFlock( void )
 		pBoid->pev->angles = pev->angles;
 
 		pBoid->pev->frame = 0;
-		pBoid->pev->nextthink = gpGlobals->time + 0.2;
+		pBoid->SetNextThink( gpGlobals->time + 0.2 );
 		pBoid->SetThink( &CFlockingFlyer::IdleThink );
 
 		if( pBoid != pLeader )

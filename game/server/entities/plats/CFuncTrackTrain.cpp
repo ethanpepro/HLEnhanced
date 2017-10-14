@@ -469,7 +469,7 @@ void CFuncTrackTrain::NextThink( float thinkTime, const bool alwaysThink )
 	else
 		pev->flags &= ~FL_ALWAYSTHINK;
 
-	pev->nextthink = thinkTime;
+	SetNextThink( thinkTime );
 }
 
 void CFuncTrackTrain::SetTrack( CPathTrack *track )

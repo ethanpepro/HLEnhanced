@@ -99,7 +99,7 @@ void CFuncTrain::Activate( void )
 
 		if( !HasTargetname() )
 		{	// not triggered, so start immediately
-			pev->nextthink = GetLastThink() + 0.1;
+			SetNextThink( GetLastThink() + 0.1 );
 			SetThink( &CFuncTrain::Next );
 		}
 		else
@@ -112,20 +112,20 @@ void CFuncTrain::OverrideReset( void )
 	CBaseEntity	*pTarg;
 
 	// Are we moving?
-	if( GetAbsVelocity() != g_vecZero && pev->nextthink != 0 )
+	if( GetAbsVelocity() != g_vecZero && GetNextThink() != 0 )
 	{
 		pev->target = MAKE_STRING( GetMessage() );
 		// now find our next target
 		pTarg = GetNextTarget();
 		if( !pTarg )
 		{
-			pev->nextthink = 0;
+			SetNextThink( 0 );
 			SetAbsVelocity( g_vecZero );
 		}
 		else	// Keep moving for 0.1 secs, then find path_corner again and restart
 		{
 			SetThink( &CFuncTrain::Next );
-			pev->nextthink = GetLastThink() + 0.1;
+			SetNextThink( GetLastThink() + 0.1 );
 		}
 	}
 }
@@ -154,7 +154,7 @@ void CFuncTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 		// Pop back to last target if it's available
 		if( pev->enemy )
 			pev->target = pev->enemy->v.targetname;
-		pev->nextthink = 0;
+		SetNextThink( 0 );
 		SetAbsVelocity( g_vecZero );
 		if( pev->noiseStopMoving )
 			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
@@ -191,7 +191,7 @@ void CFuncTrain::Wait( void )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 		if( pev->noiseStopMoving )
 			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noiseStopMoving ), m_volume, ATTN_NORM );
-		pev->nextthink = 0;
+		SetNextThink( 0 );
 		return;
 	}
 
@@ -199,7 +199,7 @@ void CFuncTrain::Wait( void )
 
 	if( m_flWait != 0 )
 	{// -1 wait will wait forever!		
-		pev->nextthink = GetLastThink() + m_flWait;
+		SetNextThink( GetLastThink() + m_flWait );
 		if( pev->noiseMovement )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );
 		if( pev->noiseStopMoving )

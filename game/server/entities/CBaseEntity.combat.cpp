@@ -114,12 +114,12 @@ void CBaseEntity::SUB_FadeOut( void )
 	if( pev->renderamt > 7 )
 	{
 		pev->renderamt -= 7;
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 	}
 	else
 	{
 		pev->renderamt = 0;
-		pev->nextthink = gpGlobals->time + 0.2;
+		SetNextThink( gpGlobals->time + 0.2 );
 		SetThink( &CBaseEntity::SUB_Remove );
 	}
 }
@@ -140,7 +140,7 @@ void CBaseEntity::SUB_StartFadeOut( void )
 	SetSolidType( SOLID_NOT );
 	pev->avelocity = g_vecZero;
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	SetThink( &CBaseEntity::SUB_FadeOut );
 }
 

@@ -35,7 +35,7 @@ void CFlockingFlyer::Spawn()
 	SpawnCommonCode();
 
 	pev->frame = 0;
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 	SetThink( &CFlockingFlyer::IdleThink );
 }
 
@@ -66,13 +66,13 @@ void CFlockingFlyer::SpawnCommonCode()
 
 void CFlockingFlyer::IdleThink( void )
 {
-	pev->nextthink = gpGlobals->time + 0.2;
+	SetNextThink( gpGlobals->time + 0.2 );
 
 	// see if there's a client in the same pvs as the monster
 	if( UTIL_FindClientInPVS( this ) )
 	{
 		SetThink( &CFlockingFlyer::Start );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 	}
 }
 
@@ -128,7 +128,7 @@ void CFlockingFlyer::FormFlock( void )
 	}
 
 	SetThink( &CFlockingFlyer::IdleThink );// now that flock is formed, go to idle and wait for a player to come along.
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 }
 
 //=========================================================
@@ -136,7 +136,7 @@ void CFlockingFlyer::FormFlock( void )
 //=========================================================
 void CFlockingFlyer::Start( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	if( IsLeader() )
 	{
@@ -181,7 +181,7 @@ void CFlockingFlyer::FlockLeaderThink( void )
 	float			flRightSide;
 
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	UTIL_MakeVectors( pev->angles );
 
@@ -292,7 +292,7 @@ void CFlockingFlyer::FlockFollowerThink( void )
 	Vector			vecDirToLeader;
 	float			flDistToLeader;
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	if( IsLeader() || !InSquad() )
 	{
@@ -417,7 +417,7 @@ void CFlockingFlyer::FallHack( void )
 		if( !GetGroundEntity()->ClassnameIs( "worldspawn" ) )
 		{
 			pev->flags &= ~FL_ONGROUND;
-			pev->nextthink = gpGlobals->time + 0.1;
+			SetNextThink( gpGlobals->time + 0.1 );
 		}
 		else
 		{
@@ -530,7 +530,7 @@ void CFlockingFlyer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetMoveType( MOVETYPE_TOSS );
 
 	SetThink( &CFlockingFlyer::FallHack );
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 //=========================================================

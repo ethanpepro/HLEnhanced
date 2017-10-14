@@ -207,7 +207,7 @@ void CBaseEntity::MakeDormant( void )
 	// Don't draw
 	GetEffects() |= EF_NODRAW;
 	// Don't think
-	pev->nextthink = 0;
+	SetNextThink( 0 );
 	// Relink
 	SetAbsOrigin( GetAbsOrigin() );
 }

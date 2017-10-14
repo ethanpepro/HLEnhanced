@@ -47,7 +47,7 @@ void CGib::Spawn( const char *szGibModel )
 	SetModel( szGibModel );
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 
-	pev->nextthink = gpGlobals->time + 4;
+	SetNextThink( gpGlobals->time + 4 );
 	m_lifeTime = 25;
 	SetThink( &CGib::WaitTillLand );
 	SetTouch( &CGib::BounceGibTouch );
@@ -108,11 +108,11 @@ void CGib::StickyGibTouch( CBaseEntity *pOther )
 	TraceResult	tr;
 
 	SetThink( &CGib::SUB_Remove );
-	pev->nextthink = gpGlobals->time + 10;
+	SetNextThink( gpGlobals->time + 10 );
 
 	if( !pOther->ClassnameIs( "worldspawn" ) )
 	{
-		pev->nextthink = gpGlobals->time;
+		SetNextThink( gpGlobals->time );
 		return;
 	}
 
@@ -143,7 +143,7 @@ void CGib::WaitTillLand( void )
 	if( GetAbsVelocity() == g_vecZero )
 	{
 		SetThink( &CGib::SUB_StartFadeOut );
-		pev->nextthink = gpGlobals->time + m_lifeTime;
+		SetNextThink( gpGlobals->time + m_lifeTime );
 
 		// If you bleed, you stink!
 		if( m_bloodColor != DONT_BLEED )
@@ -155,7 +155,7 @@ void CGib::WaitTillLand( void )
 	else
 	{
 		// wait and check again in another half second.
-		pev->nextthink = gpGlobals->time + 0.5;
+		SetNextThink( gpGlobals->time + 0.5 );
 	}
 }
 

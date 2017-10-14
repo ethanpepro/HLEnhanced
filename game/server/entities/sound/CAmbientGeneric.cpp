@@ -266,7 +266,7 @@ void CAmbientGeneric::Spawn( void )
 	if( !HasMessage() || strlen( szSoundFile ) < 1 )
 	{
 		ALERT( at_error, "EMPTY AMBIENT AT: %f, %f, %f\n", GetAbsOrigin().x, GetAbsOrigin().y, GetAbsOrigin().z );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 		SetThink( &CAmbientGeneric::SUB_Remove );
 		return;
 	}
@@ -278,7 +278,7 @@ void CAmbientGeneric::Spawn( void )
 	// start thinking yet.
 
 	SetThink( &CAmbientGeneric::RampThink );
-	pev->nextthink = 0;
+	SetNextThink( 0 );
 
 	// allow on/off switching via 'use' function.
 
@@ -316,7 +316,7 @@ void CAmbientGeneric::Precache( void )
 		UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 			( m_dpv.vol * 0.01 ), m_flAttenuation, SND_SPAWNING, m_dpv.pitch );
 
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 	}
 }
 
@@ -383,7 +383,7 @@ void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 				m_dpv.pitchrun = m_dpv.pitchstart + pitchinc * m_dpv.cspincount;
 				if( m_dpv.pitchrun > 255 ) m_dpv.pitchrun = 255;
 
-				pev->nextthink = gpGlobals->time + 0.1;
+				SetNextThink( gpGlobals->time + 0.1 );
 			}
 
 		}
@@ -402,7 +402,7 @@ void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 
 				m_dpv.fadeout = m_dpv.fadeoutsav;
 				m_dpv.fadein = 0;
-				pev->nextthink = gpGlobals->time + 0.1;
+				SetNextThink( gpGlobals->time + 0.1 );
 			}
 			else
 				UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
@@ -431,7 +431,7 @@ void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 		UTIL_EmitAmbientSound( this, GetAbsOrigin(), szSoundFile,
 			( m_dpv.vol * 0.01 ), m_flAttenuation, 0, m_dpv.pitch );
 
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 
 	}
 }
@@ -627,7 +627,7 @@ void CAmbientGeneric::RampThink( void )
 	}
 
 	// update ramps at 5hz
-	pev->nextthink = gpGlobals->time + 0.2;
+	SetNextThink( gpGlobals->time + 0.2 );
 	return;
 }
 

@@ -79,7 +79,7 @@ void CBasePlayerWeapon::DefaultTouch( CBaseEntity *pOther )
 //=========================================================
 void CBasePlayerWeapon::FallThink( void )
 {
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	if( pev->flags & FL_ONGROUND )
 	{
@@ -134,7 +134,7 @@ void CBasePlayerWeapon::AttemptToMaterialize( void )
 		return;
 	}
 
-	pev->nextthink = gpGlobals->time + time;
+	SetNextThink( gpGlobals->time + time );
 }
 
 //=========================================================
@@ -157,7 +157,7 @@ CBaseEntity* CBasePlayerWeapon::Respawn( void )
 
 		// not a typo! We want to know when the weapon the player just picked up should respawn! This new entity we created is the replacement,
 		// but when it should respawn is based on conditions belonging to the weapon that was taken.
-		pNewWeapon->pev->nextthink = g_pGameRules->FlWeaponRespawnTime( this );
+		pNewWeapon->SetNextThink( g_pGameRules->FlWeaponRespawnTime( this ) );
 	}
 	else
 	{
@@ -181,7 +181,7 @@ void CBasePlayerWeapon::FallInit( void )
 	SetTouch( &CBasePlayerWeapon::DefaultTouch );
 	SetThink( &CBasePlayerWeapon::FallThink );
 
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 }
 
 //=========================================================
@@ -322,14 +322,14 @@ void CBasePlayerWeapon::Drop( void )
 {
 	SetTouch( NULL );
 	SetThink( &CBasePlayerWeapon::SUB_Remove );
-	pev->nextthink = gpGlobals->time + .1;
+	SetNextThink( gpGlobals->time + .1 );
 }
 
 void CBasePlayerWeapon::Kill( void )
 {
 	SetTouch( NULL );
 	SetThink( &CBasePlayerWeapon::SUB_Remove );
-	pev->nextthink = gpGlobals->time + .1;
+	SetNextThink( gpGlobals->time + .1 );
 }
 
 void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
@@ -341,7 +341,7 @@ void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
 	SetModelIndex( 0 );// server won't send down to clients if modelindex == 0
 	SetModelName( iStringNull );
 	SetOwner( pPlayer );
-	pev->nextthink = gpGlobals->time + .1;
+	SetNextThink( gpGlobals->time + .1 );
 	SetTouch( NULL );
 }
 

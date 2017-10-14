@@ -22,7 +22,7 @@ void CFuncTrainControls::Spawn( void )
 	SetAbsOrigin( GetAbsOrigin() );
 
 	SetThink( &CFuncTrainControls::Find );
-	pev->nextthink = gpGlobals->time;
+	SetNextThink( gpGlobals->time );
 }
 
 void CFuncTrainControls::Find( void )

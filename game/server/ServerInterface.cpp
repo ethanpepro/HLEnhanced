@@ -326,9 +326,9 @@ void DispatchSave( edict_t *pent, SAVERESTOREDATA *pSaveData )
 		// These don't use ltime & nextthink as times really, but we'll fudge around it.
 		if( pEntity->GetMoveType() == MOVETYPE_PUSH )
 		{
-			float delta = pEntity->pev->nextthink - pEntity->GetLastThink();
+			float delta = pEntity->GetNextThink() - pEntity->GetLastThink();
 			pEntity->SetLastThink( gpGlobals->time );
-			pEntity->pev->nextthink = pEntity->GetLastThink() + delta;
+			pEntity->SetNextThink( pEntity->GetLastThink() + delta );
 		}
 
 		pTable->location = pSaveData->size;		// Remember entity position for file I/O

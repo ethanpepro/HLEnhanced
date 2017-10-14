@@ -326,7 +326,7 @@ void CLeech::DeadThink( void )
 		}
 	}
 	StudioFrameAdvance();
-	pev->nextthink = gpGlobals->time + 0.1;
+	SetNextThink( gpGlobals->time + 0.1 );
 
 	// Apply damage velocity, but keep out of the walls
 	if ( GetAbsVelocity().x != 0 || GetAbsVelocity().y != 0 )
@@ -453,12 +453,12 @@ void CLeech::SwimThink( void )
 
 	if ( !UTIL_FindClientInPVS( this ) )
 	{
-		pev->nextthink = gpGlobals->time + RANDOM_FLOAT(1,1.5);
+		SetNextThink( gpGlobals->time + RANDOM_FLOAT(1,1.5) );
 		SetAbsVelocity( g_vecZero );
 		return;
 	}
 	else
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 
 	targetSpeed = LEECH_SWIM_SPEED;
 

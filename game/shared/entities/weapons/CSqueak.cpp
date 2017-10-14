@@ -77,7 +77,7 @@ void CSqueak::Holster()
 	{
 		m_pPlayer->pev->weapons &= ~(1<<m_iId);
 		SetThink( &CSqueak::DestroyItem );
-		pev->nextthink = gpGlobals->time + 0.1;
+		SetNextThink( gpGlobals->time + 0.1 );
 		return;
 	}
 	

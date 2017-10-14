@@ -73,7 +73,7 @@ public:
 		SetThink( &CSprite::AnimateUntilDead );
 		pev->framerate = framerate;
 		pev->dmgtime = gpGlobals->time + ( m_maxFrame / framerate );
-		pev->nextthink = gpGlobals->time;
+		SetNextThink( gpGlobals->time );
 	}
 
 	void AnimateUntilDead( void );

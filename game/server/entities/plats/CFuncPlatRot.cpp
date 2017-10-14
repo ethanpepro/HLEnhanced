@@ -42,13 +42,13 @@ void CFuncPlatRot::SetupRotation( void )
 void CFuncPlatRot::GoUp( void )
 {
 	CFuncPlat::GoUp();
-	RotMove( m_end, pev->nextthink - GetLastThink() );
+	RotMove( m_end, GetNextThink() - GetLastThink() );
 }
 
 void CFuncPlatRot::GoDown( void )
 {
 	CFuncPlat::GoDown();
-	RotMove( m_start, pev->nextthink - GetLastThink() );
+	RotMove( m_start, GetNextThink() - GetLastThink() );
 }
 
 //
@@ -82,6 +82,6 @@ void CFuncPlatRot::RotMove( Vector &destAngle, float time )
 	else
 	{
 		pev->avelocity = vecDestDelta;
-		pev->nextthink = GetLastThink() + 1;
+		SetNextThink( GetLastThink() + 1 );
 	}
 }
