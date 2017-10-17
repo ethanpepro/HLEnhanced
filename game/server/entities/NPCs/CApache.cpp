@@ -291,7 +291,7 @@ void CApache :: DyingThink( void )
 
 		if (/*!(pev->spawnflags & SF_NOWRECKAGE) && */(pev->flags & FL_ONGROUND))
 		{
-			CBaseEntity *pWreckage = Create( "cycler_wreckage", GetAbsOrigin(), pev->angles );
+			CBaseEntity *pWreckage = Create( "cycler_wreckage", GetAbsOrigin(), GetAbsAngles() );
 			// pWreckage->SetModel( GetModelName() );
 			pWreckage->SetSize( Vector( -200, -200, -128 ), Vector( 200, 200, -32 ) );
 			pWreckage->pev->frame = pev->frame;
@@ -388,7 +388,7 @@ void CApache :: HuntThink( void )
 		if ( m_hGoalEnt )
 		{
 			m_posDesired = m_hGoalEnt->GetAbsOrigin();
-			UTIL_MakeAimVectors( m_hGoalEnt->pev->angles );
+			UTIL_MakeAimVectors( m_hGoalEnt->GetAbsAngles() );
 			m_vecGoal = gpGlobals->v_forward;
 		}
 	}
@@ -433,7 +433,7 @@ void CApache :: HuntThink( void )
 			if ( m_hGoalEnt )
 			{
 				m_posDesired = m_hGoalEnt->GetAbsOrigin();
-				UTIL_MakeAimVectors( m_hGoalEnt->pev->angles );
+				UTIL_MakeAimVectors( m_hGoalEnt->GetAbsAngles() );
 				m_vecGoal = gpGlobals->v_forward;
 				flLength = (GetAbsOrigin() - m_posDesired).Length();
 			}
@@ -479,9 +479,9 @@ void CApache :: HuntThink( void )
 			m_flNextRocket = gpGlobals->time + 10.0;
 	}
 
-	UTIL_MakeAimVectors( pev->angles );
+	UTIL_MakeAimVectors( GetAbsAngles() );
 	Vector vecEst = (gpGlobals->v_forward * 800 + GetAbsVelocity() ).Normalize( );
-	// ALERT( at_console, "%d %d %d %4.2f\n", pev->angles.x < 0, DotProduct( GetAbsVelocity(), gpGlobals->v_forward ) > -100, m_flNextRocket < gpGlobals->time, DotProduct( m_vecTarget, vecEst ) );
+	// ALERT( at_console, "%d %d %d %4.2f\n", GetAbsAngles().x < 0, DotProduct( GetAbsVelocity(), gpGlobals->v_forward ) > -100, m_flNextRocket < gpGlobals->time, DotProduct( m_vecTarget, vecEst ) );
 
 	if ((m_iRockets % 2) == 1)
 	{
@@ -493,7 +493,7 @@ void CApache :: HuntThink( void )
 			m_iRockets = 10;
 		}
 	}
-	else if (pev->angles.x < 0 && DotProduct( GetAbsVelocity(), gpGlobals->v_forward ) > -100 && m_flNextRocket < gpGlobals->time)
+	else if ( GetAbsAngles().x < 0 && DotProduct( GetAbsVelocity(), gpGlobals->v_forward ) > -100 && m_flNextRocket < gpGlobals->time)
 	{
 		if (m_flLastSeen + 60 > gpGlobals->time)
 		{
@@ -529,7 +529,7 @@ void CApache :: Flight( void )
 	Vector vecAdj = Vector( 5.0, 0, 0 );
 
 	// estimate where I'll be facing in one seconds
-	UTIL_MakeAimVectors( pev->angles + pev->avelocity * 2 + vecAdj);
+	UTIL_MakeAimVectors( GetAbsAngles() + pev->avelocity * 2 + vecAdj);
 	// Vector vecEst1 = GetAbsOrigin() + GetAbsVelocity() + gpGlobals->v_up * m_flForce - Vector( 0, 0, 384 );
 	// float flSide = DotProduct( m_posDesired - vecEst1, gpGlobals->v_right );
 	
@@ -552,11 +552,11 @@ void CApache :: Flight( void )
 	pev->avelocity.y *= 0.98;
 
 	// estimate where I'll be in two seconds
-	UTIL_MakeAimVectors( pev->angles + pev->avelocity * 1 + vecAdj);
+	UTIL_MakeAimVectors( GetAbsAngles() + pev->avelocity * 1 + vecAdj);
 	Vector vecEst = GetAbsOrigin() + GetAbsVelocity() * 2.0 + gpGlobals->v_up * m_flForce * 20 - Vector( 0, 0, 384 * 2 );
 
 	// add immediate force
-	UTIL_MakeAimVectors( pev->angles + vecAdj);
+	UTIL_MakeAimVectors( GetAbsAngles() + vecAdj);
 	{
 		Vector vecVelocity = GetAbsVelocity();
 		vecVelocity.x += gpGlobals->v_up.x * m_flForce;
@@ -581,7 +581,7 @@ void CApache :: Flight( void )
 	// fly sideways
 	if (flSlip > 0)
 	{
-		if (pev->angles.z > -30 && pev->avelocity.z > -15)
+		if ( GetAbsAngles().z > -30 && pev->avelocity.z > -15)
 			pev->avelocity.z -= 4;
 		else
 			pev->avelocity.z += 2;
@@ -589,7 +589,7 @@ void CApache :: Flight( void )
 	else
 	{
 
-		if (pev->angles.z < 30 && pev->avelocity.z < 15)
+		if ( GetAbsAngles().z < 30 && pev->avelocity.z < 15)
 			pev->avelocity.z += 4;
 		else
 			pev->avelocity.z -= 2;
@@ -620,30 +620,30 @@ void CApache :: Flight( void )
 	}
 
 	// pitch forward or back to get to target
-	if (flDist > 0 && flSpeed < m_flGoalSpeed /* && flSpeed < flDist */ && pev->angles.x + pev->avelocity.x > -40)
+	if (flDist > 0 && flSpeed < m_flGoalSpeed /* && flSpeed < flDist */ && GetAbsAngles().x + pev->avelocity.x > -40)
 	{
 		// ALERT( at_console, "F " );
 		// lean forward
 		pev->avelocity.x -= 12.0;
 	}
-	else if (flDist < 0 && flSpeed > -50 && pev->angles.x + pev->avelocity.x  < 20)
+	else if (flDist < 0 && flSpeed > -50 && GetAbsAngles().x + pev->avelocity.x  < 20)
 	{
 		// ALERT( at_console, "B " );
 		// lean backward
 		pev->avelocity.x += 12.0;
 	}
-	else if (pev->angles.x + pev->avelocity.x > 0)
+	else if ( GetAbsAngles().x + pev->avelocity.x > 0)
 	{
 		// ALERT( at_console, "f " );
 		pev->avelocity.x -= 4.0;
 	}
-	else if (pev->angles.x + pev->avelocity.x < 0)
+	else if ( GetAbsAngles().x + pev->avelocity.x < 0)
 	{
 		// ALERT( at_console, "b " );
 		pev->avelocity.x += 4.0;
 	}
 
-	// ALERT( at_console, "%.0f %.0f : %.0f %.0f : %.0f %.0f : %.0f\n", GetAbsOrigin().x, GetAbsVelocity().x, flDist, flSpeed, pev->angles.x, pev->avelocity.x, m_flForce ); 
+	// ALERT( at_console, "%.0f %.0f : %.0f %.0f : %.0f %.0f : %.0f\n", GetAbsOrigin().x, GetAbsVelocity().x, flDist, flSpeed, GetAbsAngles().x, pev->avelocity.x, m_flForce ); 
 	// ALERT( at_console, "%.0f %.0f : %.0f %0.f : %.0f\n", GetAbsOrigin().z, GetAbsVelocity().z, vecEst.z, m_posDesired.z, m_flForce ); 
 
 	// make rotor, engine sounds
@@ -695,7 +695,7 @@ void CApache :: FireRocket( void )
 	if (m_iRockets <= 0)
 		return;
 
-	UTIL_MakeAimVectors( pev->angles );
+	UTIL_MakeAimVectors( GetAbsAngles() );
 	Vector vecSrc = GetAbsOrigin() + 1.5 * (gpGlobals->v_forward * 21 + gpGlobals->v_right * 70 * side + gpGlobals->v_up * -79);
 
 	switch( m_iRockets % 5)
@@ -717,7 +717,7 @@ void CApache :: FireRocket( void )
 		WRITE_BYTE( 12 ); // framerate
 	MESSAGE_END();
 
-	CBaseEntity *pRocket = CBaseEntity::Create( "hvr_rocket", vecSrc, pev->angles, edict() );
+	CBaseEntity *pRocket = CBaseEntity::Create( "hvr_rocket", vecSrc, GetAbsAngles(), edict() );
 	if (pRocket)
 		pRocket->SetAbsVelocity( GetAbsVelocity() + gpGlobals->v_forward * 100 );
 
@@ -730,7 +730,7 @@ void CApache :: FireRocket( void )
 
 bool CApache::FireGun()
 {
-	UTIL_MakeAimVectors( pev->angles );
+	UTIL_MakeAimVectors( GetAbsAngles() );
 		
 	Vector posGun, angGun;
 	GetAttachment( 1, posGun, angGun );

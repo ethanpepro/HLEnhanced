@@ -76,7 +76,7 @@ public:
 	Vector		BarrelPosition( void )
 	{
 		Vector forward, right, up;
-		UTIL_MakeVectorsPrivate( pev->angles, &forward, &right, &up );
+		UTIL_MakeVectorsPrivate( GetAbsAngles(), &forward, &right, &up );
 		return GetAbsOrigin() + ( forward * m_barrelPos.x ) + ( right * m_barrelPos.y ) + ( up * m_barrelPos.z );
 	}
 

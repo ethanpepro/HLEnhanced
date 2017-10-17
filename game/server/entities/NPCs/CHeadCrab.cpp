@@ -182,7 +182,7 @@ void CHeadCrab :: HandleAnimEvent( AnimEvent_t& event )
 			ClearBits( pev->flags, FL_ONGROUND );
 
 			SetAbsOrigin( GetAbsOrigin() + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
-			UTIL_MakeVectors ( pev->angles );
+			UTIL_MakeVectors ( GetAbsAngles() );
 
 			Vector vecJumpDir;
 			if (m_hEnemy != NULL)

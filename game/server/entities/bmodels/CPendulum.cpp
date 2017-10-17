@@ -57,8 +57,8 @@ void CPendulum::Spawn( void )
 
 	m_accel = ( GetSpeed() * GetSpeed() ) / ( 2 * fabs( m_distance ) );	// Calculate constant acceleration from speed and distance
 	m_maxSpeed = GetSpeed();
-	m_start = pev->angles;
-	m_center = pev->angles + ( m_distance * 0.5 ) * pev->movedir;
+	m_start = GetAbsAngles();
+	m_center = GetAbsAngles() + ( m_distance * 0.5 ) * pev->movedir;
 
 	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_INSTANT ) )
 	{
@@ -94,7 +94,7 @@ void CPendulum::Swing( void )
 {
 	float delta, dt;
 
-	delta = CBaseToggle::AxisDelta( pev->spawnflags, pev->angles, m_center );
+	delta = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_center );
 	dt = gpGlobals->time - m_time;	// How much time has passed?
 	m_time = gpGlobals->time;		// Remember the last time called
 
@@ -118,7 +118,7 @@ void CPendulum::Swing( void )
 		m_dampSpeed -= m_damp * m_dampSpeed * dt;
 		if( m_dampSpeed < 30.0 )
 		{
-			pev->angles = m_center;
+			SetAbsAngles( m_center );
 			SetSpeed( 0 );
 			SetThink( NULL );
 			pev->avelocity = g_vecZero;
@@ -139,7 +139,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 		{
 			float	delta;
 
-			delta = CBaseToggle::AxisDelta( pev->spawnflags, pev->angles, m_start );
+			delta = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_start );
 
 			pev->avelocity = m_maxSpeed * pev->movedir;
 			SetNextThink( GetLastThink() + ( delta / m_maxSpeed ) );
@@ -163,7 +163,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 
 void CPendulum::Stop( void )
 {
-	pev->angles = m_start;
+	SetAbsAngles( m_start );
 	SetSpeed( 0 );
 	SetThink( NULL );
 	pev->avelocity = g_vecZero;

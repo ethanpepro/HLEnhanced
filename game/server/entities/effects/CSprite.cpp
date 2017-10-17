@@ -31,10 +31,12 @@ void CSprite::Spawn( void )
 		TurnOn();
 
 	// Worldcraft only sets y rotation, copy to Z
-	if( pev->angles.y != 0 && pev->angles.z == 0 )
+	if( GetAbsAngles().y != 0 && GetAbsAngles().z == 0 )
 	{
-		pev->angles.z = pev->angles.y;
-		pev->angles.y = 0;
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.z = vecAngles.y;
+		vecAngles.y = 0;
+		SetAbsAngles( vecAngles );
 	}
 }
 

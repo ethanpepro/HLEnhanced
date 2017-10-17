@@ -344,7 +344,9 @@ void CTestHull::BuildNodeGraph()
 					bool bWalkFailed = false;
 
 					// in this loop we take tiny steps from the current node to the nodes that it links to, one at a time.
-					// pev->angles.y = flYaw;
+					// Vector vecAngles = GetAbsAngles();
+					// vecAngles.y = flYaw;
+					// SetAbsAngles( vecAngles );
 					for( step = 0; step < flDist && !bWalkFailed; step += HULL_STEP_SIZE )
 					{
 						float stepSize = HULL_STEP_SIZE;
@@ -556,9 +558,11 @@ void CTestHull::BuildNodeGraph()
 void CTestHull::ShowBadNode()
 {
 	SetMoveType( MOVETYPE_FLY );
-	pev->angles.y = pev->angles.y + 4;
+	Vector vecAngles = GetAbsAngles();
+	vecAngles.y += 4;
+	SetAbsAngles( vecAngles );
 
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 
 	UTIL_ParticleEffect( GetAbsOrigin(), g_vecZero, 255, 25 );
 	UTIL_ParticleEffect( GetAbsOrigin() + gpGlobals->v_forward * 64, g_vecZero, 255, 25 );

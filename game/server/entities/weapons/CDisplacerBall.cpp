@@ -392,7 +392,7 @@ void CDisplacerBall::ArmBeam( int iSide )
 	TraceResult tr;
 	float flDist = 1.0;
 
-	UTIL_MakeAimVectors( pev->angles );
+	UTIL_MakeAimVectors( GetAbsAngles() );
 	Vector vecSrc = GetAbsOrigin() + gpGlobals->v_up * 36 + gpGlobals->v_right * iSide * 16 + gpGlobals->v_forward * 32;
 
 	for( int i = 0; i < 3; i++ )

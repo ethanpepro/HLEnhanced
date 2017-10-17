@@ -69,13 +69,13 @@ const Vector& CBeam::GetEndPos() const
 	int type = GetType();
 	if( type == BEAM_POINTS || type == BEAM_HOSE )
 	{
-		return pev->angles;
+		return GetAbsAngles();
 	}
 
 	edict_t *pent = g_engfuncs.pfnPEntityOfEntIndex( GetEndEntity() );
 	if( pent )
 		return pent->v.origin;
-	return pev->angles;
+	return GetAbsAngles();
 }
 
 void CBeam::RelinkBeam( void )

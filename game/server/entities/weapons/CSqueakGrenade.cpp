@@ -203,7 +203,7 @@ void CSqueakGrenade::HuntThink( void )
 	vecFlat.z = 0;
 	vecFlat = vecFlat.Normalize();
 
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 
 	if( m_hEnemy == NULL || !m_hEnemy->IsAlive() )
 	{
@@ -267,9 +267,11 @@ void CSqueakGrenade::HuntThink( void )
 	}
 	m_posPrev = GetAbsOrigin();
 
-	pev->angles = UTIL_VecToAngles( GetAbsVelocity() );
-	pev->angles.z = 0;
-	pev->angles.x = 0;
+	SetAbsAngles( UTIL_VecToAngles( GetAbsVelocity() ) );
+	Vector vecAngles = GetAbsAngles();
+	vecAngles.z = 0;
+	vecAngles.x = 0;
+	SetAbsAngles( vecAngles );
 }
 
 
@@ -286,8 +288,10 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 	// at least until we've bounced once
 	SetOwner( NULL );
 
-	pev->angles.x = 0;
-	pev->angles.z = 0;
+	Vector vecAngles = GetAbsAngles();
+	vecAngles.x = 0;
+	vecAngles.z = 0;
+	SetAbsAngles( vecAngles );
 
 	// avoid bouncing too much
 	if( m_flNextHit > gpGlobals->time )

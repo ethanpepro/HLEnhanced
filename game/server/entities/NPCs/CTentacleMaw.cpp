@@ -22,7 +22,9 @@ void CTentacleMaw::Spawn()
 	SetYawSpeed( 8 );
 	pev->sequence = 0;
 
-	pev->angles.x = 90;
+	Vector vecAngles = GetAbsAngles();
+	vecAngles.x = 90;
+	SetAbsAngles( vecAngles );
 	// ResetSequenceInfo( );
 }
 

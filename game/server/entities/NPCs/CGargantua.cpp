@@ -236,7 +236,7 @@ void CGargantua::StompAttack( void )
 {
 	TraceResult trace;
 
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 	Vector vecStart = GetAbsOrigin() + Vector(0,0,60) + 35 * gpGlobals->v_forward;
 	Vector vecAim = ShootAtEnemy( vecStart );
 	Vector vecEnd = (vecAim * 1024) + vecStart;
@@ -258,7 +258,7 @@ void CGargantua :: FlameCreate( void )
 	Vector		posGun, angleGun;
 	TraceResult trace;
 
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 	
 	for ( i = 0; i < 4; i++ )
 	{
@@ -324,7 +324,7 @@ void CGargantua :: FlameUpdate( void )
 	{
 		if ( m_pFlame[i] )
 		{
-			Vector vecAim = pev->angles;
+			Vector vecAim = GetAbsAngles();
 			vecAim.x += m_flameX;
 			vecAim.y += m_flameY;
 
@@ -660,7 +660,7 @@ void CGargantua::OnTakeDamage( const CTakeDamageInfo& info )
 
 void CGargantua::DeathEffect( void )
 {
-	UTIL_MakeVectors(pev->angles);
+	UTIL_MakeVectors( GetAbsAngles() );
 	Vector deathPos = GetAbsOrigin() + gpGlobals->v_forward * 100;
 
 	// Create a spiral of streaks
@@ -770,7 +770,7 @@ void CGargantua::HandleAnimEvent(AnimEvent_t& event)
 						-30, // yaw
 						30 //roll
 					) );
-					//UTIL_MakeVectors(pev->angles);	// called by CheckTraceHullAttack
+					//UTIL_MakeVectors( GetAbsAngles() );	// called by CheckTraceHullAttack
 					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() - gpGlobals->v_right * 100 );
 				}
 				EMIT_SOUND_DYN ( this, CHAN_WEAPON, pAttackHitSounds[ RANDOM_LONG(0,ARRAYSIZE(pAttackHitSounds)-1) ], 1.0, ATTN_NORM, 0, 50 + RANDOM_LONG(0,15) );
@@ -779,7 +779,7 @@ void CGargantua::HandleAnimEvent(AnimEvent_t& event)
 				EMIT_SOUND_DYN ( this, CHAN_WEAPON, pAttackMissSounds[ RANDOM_LONG(0,ARRAYSIZE(pAttackMissSounds)-1) ], 1.0, ATTN_NORM, 0, 50 + RANDOM_LONG(0,15) );
 
 			Vector forward;
-			UTIL_MakeVectorsPrivate( pev->angles, &forward, nullptr, nullptr );
+			UTIL_MakeVectorsPrivate( GetAbsAngles(), &forward, nullptr, nullptr );
 		}
 		break;
 
@@ -820,7 +820,7 @@ CBaseEntity* CGargantua::GargantuaCheckTraceHullAttack(float flDist, int iDamage
 {
 	TraceResult tr;
 
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 	Vector vecStart = GetAbsOrigin();
 	vecStart.z += 64;
 	Vector vecEnd = vecStart + (gpGlobals->v_forward * flDist) - (gpGlobals->v_up * flDist * 0.3);
@@ -990,7 +990,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 				Vector dir = pEnemy->BodyTarget(org) - org;
 				angles = UTIL_VecToAngles( dir );
 				angles.x = -angles.x;
-				angles.y -= pev->angles.y;
+				angles.y -= GetAbsAngles().y;
 				if ( dir.Length() > 400 )
 					cancel = true;
 			}

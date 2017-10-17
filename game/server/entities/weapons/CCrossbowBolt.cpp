@@ -125,12 +125,15 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			// if what we hit is static architecture, can stay around for a while.
 			Vector vecDir = GetAbsVelocity().Normalize();
 			SetAbsOrigin( GetAbsOrigin() - vecDir * 12 );
-			pev->angles = UTIL_VecToAngles( vecDir );
+
+			Vector vecAngles = UTIL_VecToAngles( vecDir );
+			vecAngles.z = RANDOM_LONG( 0, 360 );
+			SetAbsAngles( vecAngles );
+
 			SetSolidType( SOLID_NOT );
 			SetMoveType( MOVETYPE_FLY );
 			SetAbsVelocity( Vector( 0, 0, 0 ) );
 			pev->avelocity.z = 0;
-			pev->angles.z = RANDOM_LONG( 0, 360 );
 			SetNextThink( gpGlobals->time + 10.0 );
 		}
 

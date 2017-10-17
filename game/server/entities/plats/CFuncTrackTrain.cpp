@@ -243,17 +243,19 @@ void CFuncTrackTrain::Next( void )
 
 	// !!!  All of this crap has to be done to make the angles not wrap around, revisit this.
 	FixupAngles( angles );
-	FixupAngles( pev->angles );
+	Vector vecAngles = GetAbsAngles();
+	FixupAngles( vecAngles );
+	SetAbsAngles( vecAngles );
 
 	if( !pnext || ( delta.x == 0 && delta.y == 0 ) )
-		angles = pev->angles;
+		angles = GetAbsAngles();
 
 	float vy, vx;
 	if( !( pev->spawnflags & SF_TRACKTRAIN_NOPITCH ) )
-		vx = UTIL_AngleDistance( angles.x, pev->angles.x );
+		vx = UTIL_AngleDistance( angles.x, GetAbsAngles().x );
 	else
 		vx = 0;
-	vy = UTIL_AngleDistance( angles.y, pev->angles.y );
+	vy = UTIL_AngleDistance( angles.y, GetAbsAngles().y );
 
 	pev->avelocity.y = vy * 10;
 	pev->avelocity.x = vx * 10;
@@ -261,11 +263,11 @@ void CFuncTrackTrain::Next( void )
 	if( m_flBank != 0 )
 	{
 		if( pev->avelocity.y < -5 )
-			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( -m_flBank, pev->angles.z, m_flBank * 2 ), pev->angles.z );
+			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( -m_flBank, GetAbsAngles().z, m_flBank * 2 ), GetAbsAngles().z );
 		else if( pev->avelocity.y > 5 )
-			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( m_flBank, pev->angles.z, m_flBank * 2 ), pev->angles.z );
+			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( m_flBank, GetAbsAngles().z, m_flBank * 2 ), GetAbsAngles().z );
 		else
-			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( 0, pev->angles.z, m_flBank * 4 ), pev->angles.z ) * 4;
+			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( 0, GetAbsAngles().z, m_flBank * 4 ), GetAbsAngles().z ) * 4;
 	}
 
 	if( pnext )
@@ -354,12 +356,14 @@ void CFuncTrackTrain::Find( void )
 	m_ppath->LookAhead( look, m_length, false );
 	look.z += m_height;
 
-	pev->angles = UTIL_VecToAngles( look - nextPos );
+	Vector vecAngles = UTIL_VecToAngles( look - nextPos );
 	// The train actually points west
-	pev->angles.y += 180;
+	vecAngles.y += 180;
 
 	if( pev->spawnflags & SF_TRACKTRAIN_NOPITCH )
-		pev->angles.x = 0;
+		vecAngles.x = 0;
+	SetAbsAngles( vecAngles );
+
 	SetAbsOrigin( nextPos );
 	NextThink( GetLastThink() + 0.1, false );
 	SetThink( &CFuncTrackTrain::Next );
@@ -493,7 +497,7 @@ bool CFuncTrackTrain::OnControls( const CBaseEntity* const pTest ) const
 		return false;
 
 	// Transform offset into local coordinates
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 	Vector local;
 	local.x = DotProduct( offset, gpGlobals->v_forward );
 	local.y = -DotProduct( offset, gpGlobals->v_right );

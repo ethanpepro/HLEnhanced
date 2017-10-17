@@ -206,7 +206,7 @@ void CHornetGun::SecondaryAttack( void )
 
 	pHornet = CBaseEntity::Create( "hornet", vecSrc, m_pPlayer->GetViewAngle(), m_pPlayer->edict() );
 	pHornet->SetAbsVelocity( gpGlobals->v_forward * 1200 );
-	pHornet->pev->angles = UTIL_VecToAngles( pHornet->GetAbsVelocity() );
+	pHornet->SetAbsAngles( UTIL_VecToAngles( pHornet->GetAbsVelocity() ) );
 
 	pHornet->SetThink( &CHornet::StartDart );
 

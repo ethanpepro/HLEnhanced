@@ -61,8 +61,8 @@ void CRotButton::Spawn( void )
 	}
 
 	m_toggle_state = TS_AT_BOTTOM;
-	m_vecAngle1 = pev->angles;
-	m_vecAngle2 = pev->angles + pev->movedir * m_flMoveDistance;
+	m_vecAngle1 = GetAbsAngles();
+	m_vecAngle2 = GetAbsAngles() + pev->movedir * m_flMoveDistance;
 	ASSERTSZ( m_vecAngle1 != m_vecAngle2, "rotating button start/end positions are equal" );
 
 	m_fStayPushed = m_flWait == -1;

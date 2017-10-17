@@ -106,7 +106,7 @@ void CXenSporeLarge::Spawn( void )
 
 	Vector forward, right;
 
-	UTIL_MakeVectorsPrivate( pev->angles, &forward, &right, nullptr );
+	UTIL_MakeVectorsPrivate( GetAbsAngles(), &forward, &right, nullptr );
 
 	// Rotate the leg hulls into position
 	for( size_t i = 0; i < ARRAYSIZE( m_hullSizes ); i++ )

@@ -330,7 +330,7 @@ void CRoach :: Move ( float flInterval )
 	MakeIdealYaw ( m_Route[ m_iRouteIndex ].vecLocation );
 
 	ChangeYaw ( GetYawSpeed() );
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 
 	if ( RANDOM_LONG(0,7) == 1 )
 	{

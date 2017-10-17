@@ -56,7 +56,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 
 	pOther->SetAbsOrigin( tmp );
 
-	pOther->pev->angles = pTarget->GetAbsAngles();
+	pOther->SetAbsAngles( pTarget->GetAbsAngles() );
 
 	if( pOther->IsPlayer() )
 	{
@@ -80,7 +80,7 @@ void CBaseTrigger::MultiTouch( CBaseEntity *pOther )
 		// if the trigger has an angles field, check player's facing direction
 		if( pev->movedir != g_vecZero )
 		{
-			UTIL_MakeVectors( pOther->pev->angles );
+			UTIL_MakeVectors( pOther->GetAbsAngles() );
 			if( DotProduct( gpGlobals->v_forward, pev->movedir ) < 0 )
 				return;         // not facing the right way
 		}
@@ -241,7 +241,7 @@ void CBaseTrigger::InitTrigger()
 {
 	// trigger angles are used for one-way touches.  An angle of 0 is assumed
 	// to mean no restrictions, so use a yaw of 360 instead.
-	if( pev->angles != g_vecZero )
+	if( GetAbsAngles() != g_vecZero )
 		SetMovedir( this );
 	SetSolidType( SOLID_TRIGGER );
 	SetMoveType( MOVETYPE_NONE );

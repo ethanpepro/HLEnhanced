@@ -28,7 +28,7 @@ void CSmoker::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	SetSize( g_vecZero, g_vecZero );
 	GetEffects() |= EF_NODRAW;
-	pev->angles = g_vecZero;
+	SetAbsAngles( g_vecZero );
 }
 
 void CSmoker::Think( void )

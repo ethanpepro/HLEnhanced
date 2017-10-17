@@ -698,7 +698,7 @@ void CBasePlayer::UpdatePlayerSound()
 	if( m_iWeaponFlash < 0 )
 		m_iWeaponFlash = 0;
 
-	//UTIL_MakeVectors ( pev->angles );
+	//UTIL_MakeVectors ( GetAbsAngles() );
 	//gpGlobals->v_forward.z = 0;
 
 	// Below are a couple of useful little bits that make it easier to determine just how much noise the 
@@ -922,7 +922,7 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 			else
 			{
 				UTIL_MakeVectors( Vector( 0, GetViewAngle().y, 0 ) );
-				Create( "monster_human_grunt", GetAbsOrigin() + gpGlobals->v_forward * 128, pev->angles );
+				Create( "monster_human_grunt", GetAbsOrigin() + gpGlobals->v_forward * 128, GetAbsAngles() );
 			}
 			break;
 		}
@@ -1060,19 +1060,19 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 
 	case	195:// show shortest paths for entire level to nearest node
 		{
-			Create( "node_viewer_fly", GetAbsOrigin(), pev->angles );
+			Create( "node_viewer_fly", GetAbsOrigin(), GetAbsAngles() );
 			break;
 		}
 
 	case	196:// show shortest paths for entire level to nearest node
 		{
-			Create( "node_viewer_large", GetAbsOrigin(), pev->angles );
+			Create( "node_viewer_large", GetAbsOrigin(), GetAbsAngles() );
 			break;
 		}
 
 	case	197:// show shortest paths for entire level to nearest node
 		{
-			Create( "node_viewer_human", GetAbsOrigin(), pev->angles );
+			Create( "node_viewer_human", GetAbsOrigin(), GetAbsAngles() );
 			break;
 		}
 

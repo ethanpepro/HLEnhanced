@@ -70,8 +70,11 @@ void CGib::BounceGibTouch( CBaseEntity *pOther )
 	if( pev->flags & FL_ONGROUND )
 	{
 		SetAbsVelocity( GetAbsVelocity() * 0.9 );
-		pev->angles.x = 0;
-		pev->angles.z = 0;
+		SetAbsAngles( Vector( 0, GetAbsAngles().y, 0 ) );
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.x = 0;
+		vecAngles.z = 0;
+		SetAbsAngles( vecAngles );
 		pev->avelocity.x = 0;
 		pev->avelocity.z = 0;
 	}
@@ -120,7 +123,7 @@ void CGib::StickyGibTouch( CBaseEntity *pOther )
 
 	UTIL_BloodDecalTrace( &tr, m_bloodColor );
 
-	pev->angles = UTIL_VecToAngles( tr.vecPlaneNormal * -1 );
+	SetAbsAngles( UTIL_VecToAngles( tr.vecPlaneNormal * -1 ) );
 	SetAbsVelocity( g_vecZero );
 	pev->avelocity = g_vecZero;
 	SetMoveType( MOVETYPE_NONE );

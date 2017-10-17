@@ -44,7 +44,7 @@ void CFuncTankLaser::Fire( const Vector &barrelEnd, const Vector &forward, CBase
 	if( m_fireLast != 0 && GetLaser() )
 	{
 		// TankTrace needs gpGlobals->v_up, etc.
-		UTIL_MakeAimVectors( pev->angles );
+		UTIL_MakeAimVectors( GetAbsAngles() );
 
 		int bulletCount = ( gpGlobals->time - m_fireLast ) * m_fireRate;
 		if( bulletCount )

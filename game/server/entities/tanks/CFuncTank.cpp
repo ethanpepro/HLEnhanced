@@ -55,8 +55,8 @@ void CFuncTank::Spawn( void )
 	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );
 
-	m_yawCenter = pev->angles.y;
-	m_pitchCenter = pev->angles.x;
+	m_yawCenter = GetAbsAngles().y;
+	m_pitchCenter = GetAbsAngles().x;
 
 	if( IsActive() )
 		SetNextThink( GetLastThink() + 1.0 );
@@ -331,7 +331,7 @@ void CFuncTank::TrackTarget( void )
 		m_lastSightTime = gpGlobals->time;
 
 	// Move toward target at rate or less
-	float distY = UTIL_AngleDistance( angles.y, pev->angles.y );
+	float distY = UTIL_AngleDistance( angles.y, GetAbsAngles().y );
 	pev->avelocity.y = distY * 10;
 	if( pev->avelocity.y > m_yawRate )
 		pev->avelocity.y = m_yawRate;
@@ -345,7 +345,7 @@ void CFuncTank::TrackTarget( void )
 		angles.x = m_pitchCenter - m_pitchRange;
 
 	// Move toward target at rate or less
-	float distX = UTIL_AngleDistance( angles.x, pev->angles.x );
+	float distX = UTIL_AngleDistance( angles.x, GetAbsAngles().x );
 	pev->avelocity.x = distX * 10;
 
 	if( pev->avelocity.x > m_pitchRate )
@@ -360,7 +360,7 @@ void CFuncTank::TrackTarget( void )
 	{
 		bool fire = false;
 		Vector forward;
-		UTIL_MakeVectorsPrivate( pev->angles, &forward, nullptr, nullptr );
+		UTIL_MakeVectorsPrivate( GetAbsAngles(), &forward, nullptr, nullptr );
 
 		if( pev->spawnflags & SF_TANK_LINEOFSIGHT )
 		{
@@ -558,7 +558,7 @@ void CFuncTank::ControllerPostFrame( void )
 	if( m_pController->GetButtons().Any( IN_ATTACK ) )
 	{
 		Vector vecForward;
-		UTIL_MakeVectorsPrivate( pev->angles, &vecForward, nullptr, nullptr );
+		UTIL_MakeVectorsPrivate( GetAbsAngles(), &vecForward, nullptr, nullptr );
 
 		m_fireLast = gpGlobals->time - ( 1 / m_fireRate ) - 0.01;  // to make sure the gun doesn't fire too many bullets
 

@@ -138,10 +138,12 @@ void CBasePlayer::PackDeadPlayerItems()
 	}
 
 	// create a box to pack the stuff into.
-	CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", GetAbsOrigin(), pev->angles, edict() );
+	CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", GetAbsOrigin(), GetAbsAngles(), edict() );
 
-	pWeaponBox->pev->angles.x = 0;// don't let weaponbox tilt.
-	pWeaponBox->pev->angles.z = 0;
+	Vector vecAngles = pWeaponBox->GetAbsAngles();
+	vecAngles.x = 0;// don't let weaponbox tilt.
+	vecAngles.z = 0;
+	pWeaponBox->SetAbsAngles( vecAngles );
 
 	pWeaponBox->SetThink( &CWeaponBox::Kill );
 	pWeaponBox->SetNextThink( gpGlobals->time + 120 );
@@ -404,13 +406,15 @@ void CBasePlayer::DropPlayerItem( char *pszItemName )
 			if( !g_pGameRules->GetNextBestWeapon( this, pWeapon ) )
 				return; // can't drop the item they asked for, may be our last item or something we can't holster
 
-			UTIL_MakeVectors( pev->angles );
+			UTIL_MakeVectors( GetAbsAngles() );
 
 			pev->weapons &= ~( 1 << pWeapon->m_iId );// take item off hud
 
-			CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", GetAbsOrigin() + gpGlobals->v_forward * 10, pev->angles, edict() );
-			pWeaponBox->pev->angles.x = 0;
-			pWeaponBox->pev->angles.z = 0;
+			CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", GetAbsOrigin() + gpGlobals->v_forward * 10, GetAbsAngles(), edict() );
+			Vector vecAngles = pWeaponBox->GetAbsAngles();
+			vecAngles.x = 0;
+			vecAngles.z = 0;
+			pWeaponBox->SetAbsAngles( vecAngles );
 			pWeaponBox->PackWeapon( pWeapon );
 			pWeaponBox->SetAbsVelocity( gpGlobals->v_forward * 300 + gpGlobals->v_forward * 100 );
 

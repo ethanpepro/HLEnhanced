@@ -41,15 +41,15 @@ void CMomentaryRotButton::Spawn( void )
 
 	if( m_flMoveDistance < 0 )
 	{
-		m_start = pev->angles + pev->movedir * m_flMoveDistance;
-		m_end = pev->angles;
+		m_start = GetAbsAngles() + pev->movedir * m_flMoveDistance;
+		m_end = GetAbsAngles();
 		m_direction = 1;		// This will toggle to -1 on the first use()
 		m_flMoveDistance = -m_flMoveDistance;
 	}
 	else
 	{
-		m_start = pev->angles;
-		m_end = pev->angles + pev->movedir * m_flMoveDistance;
+		m_start = GetAbsAngles();
+		m_end = GetAbsAngles() + pev->movedir * m_flMoveDistance;
 		m_direction = -1;		// This will toggle to +1 on the first use()
 	}
 
@@ -89,12 +89,12 @@ void CMomentaryRotButton::KeyValue( KeyValueData *pkvd )
 // current, not future position.
 void CMomentaryRotButton::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	pev->ideal_yaw = CBaseToggle::AxisDelta( pev->spawnflags, pev->angles, m_start ) / m_flMoveDistance;
+	pev->ideal_yaw = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_start ) / m_flMoveDistance;
 
 	UpdateAllButtons( pev->ideal_yaw, 1 );
 
 	// Calculate destination angle and use it to predict value, this prevents sending target in wrong direction on retriggering
-	Vector dest = pev->angles + pev->avelocity * ( GetNextThink() - GetLastThink() );
+	Vector dest = GetAbsAngles() + pev->avelocity * ( GetNextThink() - GetLastThink() );
 	float value1 = CBaseToggle::AxisDelta( pev->spawnflags, dest, m_start ) / m_flMoveDistance;
 	UpdateTarget( value1 );
 
@@ -116,7 +116,7 @@ void CMomentaryRotButton::Off( void )
 
 void CMomentaryRotButton::Return( void )
 {
-	float value = CBaseToggle::AxisDelta( pev->spawnflags, pev->angles, m_start ) / m_flMoveDistance;
+	float value = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_start ) / m_flMoveDistance;
 
 	UpdateAllButtons( value, 0 );	// This will end up calling UpdateSelfReturn() n times, but it still works right
 	if( value > 0 )
@@ -138,13 +138,13 @@ void CMomentaryRotButton::UpdateSelf( float value )
 	if( m_direction > 0 && value >= 1.0 )
 	{
 		pev->avelocity = g_vecZero;
-		pev->angles = m_end;
+		SetAbsAngles( m_end );
 		return;
 	}
 	else if( m_direction < 0 && value <= 0 )
 	{
 		pev->avelocity = g_vecZero;
-		pev->angles = m_start;
+		SetAbsAngles( m_start );
 		return;
 	}
 
@@ -166,7 +166,7 @@ void CMomentaryRotButton::UpdateSelfReturn( float value )
 	if( value <= 0 )
 	{
 		pev->avelocity = g_vecZero;
-		pev->angles = m_start;
+		SetAbsAngles( m_start );
 		SetNextThink( -1 );
 		SetThink( NULL );
 	}

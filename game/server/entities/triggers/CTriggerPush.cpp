@@ -8,8 +8,14 @@ LINK_ENTITY_TO_CLASS( trigger_push, CTriggerPush );
 
 void CTriggerPush::Spawn()
 {
-	if( pev->angles == g_vecZero )
-		pev->angles.y = 360;
+	Vector vecAngles = GetAbsAngles();
+
+	if( vecAngles == g_vecZero )
+	{
+		vecAngles.y = 360;
+		SetAbsAngles( vecAngles );
+	}
+
 	InitTrigger();
 
 	if( GetSpeed() == 0 )

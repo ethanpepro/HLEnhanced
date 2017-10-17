@@ -99,7 +99,7 @@ void CBaseSpectator::SpectatorImpulseCommand()
 		
 		hGoal = pCurrentGoal;
 		SetAbsOrigin( pCurrentGoal->GetAbsOrigin() );
-		pev->angles = pCurrentGoal->GetAbsAngles();
+		SetAbsAngles( pCurrentGoal->GetAbsAngles() );
 		SetFixAngleMode( FIXANGLE_NO );
 		break;
 	default:

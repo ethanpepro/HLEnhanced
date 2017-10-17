@@ -123,10 +123,10 @@ public:
 		CBaseEntity *pTarget = m_hTargetEnt;
 		if( pTarget )
 		{
-			if( pTarget->pev->angles.y != 0 )
-				return pTarget->pev->angles.y;
+			if( pTarget->GetAbsAngles().y != 0 )
+				return pTarget->GetAbsAngles().y;
 		}
-		return pev->angles.y;
+		return GetAbsAngles().y;
 	}
 
 	// Restart the crab count on each new level

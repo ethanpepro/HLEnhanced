@@ -347,7 +347,7 @@ void CIchthyosaur :: HandleAnimEvent( AnimEvent_t& event )
 					break;
 
 				Vector vecShootDir = ShootAtEnemy( GetAbsOrigin() );
-				UTIL_MakeAimVectors ( pev->angles );
+				UTIL_MakeAimVectors ( GetAbsAngles() );
 
 				if (DotProduct( vecShootDir, gpGlobals->v_forward ) > 0.707)
 				{
@@ -359,9 +359,11 @@ void CIchthyosaur :: HandleAnimEvent( AnimEvent_t& event )
 					pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() - gpGlobals->v_right * 300 );
 					if (pHurt->IsPlayer())
 					{
-						pHurt->pev->angles.x += RANDOM_FLOAT( -35, 35 );
-						pHurt->pev->angles.y += RANDOM_FLOAT( -90, 90 );
-						pHurt->pev->angles.z = 0;
+						Vector vecAngles = pHurt->GetAbsAngles();
+						vecAngles.x += RANDOM_FLOAT( -35, 35 );
+						vecAngles.y += RANDOM_FLOAT( -90, 90 );
+						vecAngles.z = 0;
+						pHurt->SetAbsAngles( vecAngles );
 						pHurt->SetFixAngleMode( FIXANGLE_SET );
 					}
 					pHurt->TakeDamage( this, this, gSkillData.GetIchthyosaurDmgShake(), DMG_SLASH );
@@ -418,7 +420,7 @@ void CIchthyosaur :: Spawn()
 	m_flMaxDist = 384;
 
 	Vector Forward;
-	UTIL_MakeVectorsPrivate(pev->angles, &Forward, nullptr, nullptr );
+	UTIL_MakeVectorsPrivate( GetAbsAngles(), &Forward, nullptr, nullptr );
 	SetAbsVelocity( m_flightSpeed * Forward.Normalize() );
 	m_SaveVelocity = GetAbsVelocity();
 }
@@ -644,22 +646,26 @@ void CIchthyosaur :: RunTask ( const Task_t* pTask )
 		break;
 
 	case TASK_ICHTHYOSAUR_FLOAT:
-		pev->angles.x = UTIL_ApproachAngle( 0, pev->angles.x, 20 );
-		SetAbsVelocity( GetAbsVelocity() * 0.8 );
-		if ( GetWaterLevel() > WATERLEVEL_FEET && GetAbsVelocity().z < 64)
 		{
-			Vector vecVelocity = GetAbsVelocity();
-			vecVelocity.z += 8;
-			SetAbsVelocity( vecVelocity );
+			Vector vecAngles = GetAbsAngles();
+			vecAngles.x = UTIL_ApproachAngle( 0, vecAngles.x, 20 );
+			SetAbsAngles( vecAngles );
+			SetAbsVelocity( GetAbsVelocity() * 0.8 );
+			if ( GetWaterLevel() > WATERLEVEL_FEET && GetAbsVelocity().z < 64)
+			{
+				Vector vecVelocity = GetAbsVelocity();
+				vecVelocity.z += 8;
+				SetAbsVelocity( vecVelocity );
+			}
+			else 
+			{
+				Vector vecVelocity = GetAbsVelocity();
+				vecVelocity.z -= 8;
+				SetAbsVelocity( vecVelocity );
+			}
+			// ALERT( at_console, "%f\n", GetAbsVelocity().z );
+			break;
 		}
-		else 
-		{
-			Vector vecVelocity = GetAbsVelocity();
-			vecVelocity.z -= 8;
-			SetAbsVelocity( vecVelocity );
-		}
-		// ALERT( at_console, "%f\n", GetAbsVelocity().z );
-		break;
 
 	default: 
 		CFlyingMonster :: RunTask ( pTask );
@@ -694,7 +700,7 @@ float CIchthyosaur::FlPitchDiff( void )
 	float	flPitchDiff;
 	float	flCurrentPitch;
 
-	flCurrentPitch = UTIL_AngleMod( pev->angles.z );
+	flCurrentPitch = UTIL_AngleMod( GetAbsAngles().z );
 
 	if ( flCurrentPitch == pev->idealpitch )
 	{
@@ -729,7 +735,9 @@ float CIchthyosaur :: ChangePitch( int speed )
 			else if (diff > 20)
 				target = -45;
 		}
-		pev->angles.x = UTIL_Approach(target, pev->angles.x, 220.0 * 0.1 );
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.x = UTIL_Approach(target, vecAngles.x, 220.0 * 0.1 );
+		SetAbsAngles( vecAngles );
 	}
 	return 0;
 }
@@ -748,7 +756,9 @@ float CIchthyosaur::ChangeYaw( int speed )
 			else if ( diff > 20 )
 				target = -20;
 		}
-		pev->angles.z = UTIL_Approach( target, pev->angles.z, 220.0 * 0.1 );
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.z = UTIL_Approach( target, vecAngles.z, 220.0 * 0.1 );
+		SetAbsAngles( vecAngles );
 	}
 	return CFlyingMonster::ChangeYaw( speed );
 }
@@ -809,11 +819,13 @@ void CIchthyosaur::Swim( )
 
 	if (FBitSet( pev->flags, FL_ONGROUND))
 	{
-		pev->angles.x = 0;
-		pev->angles.y += RANDOM_FLOAT( -45, 45 );
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.x = 0;
+		vecAngles.y += RANDOM_FLOAT( -45, 45 );
+		SetAbsAngles( vecAngles );
 		ClearBits( pev->flags, FL_ONGROUND );
 
-		Angles = Vector( -pev->angles.x, pev->angles.y, pev->angles.z );
+		Angles = Vector( -GetAbsAngles().x, GetAbsAngles().y, GetAbsAngles().z );
 		UTIL_MakeVectorsPrivate(Angles, &Forward, &Right, &Up);
 
 		SetAbsVelocity( Forward * 200 + Up * 200 );
@@ -867,7 +879,7 @@ void CIchthyosaur::Swim( )
 	Vector SteeringVector = f+r+l+u+d;
 	m_SaveVelocity = (m_SaveVelocity + SteeringVector/2).Normalize();
 
-	Angles = Vector( -pev->angles.x, pev->angles.y, pev->angles.z );
+	Angles = Vector( -GetAbsAngles().x, GetAbsAngles().y, GetAbsAngles().z );
 	UTIL_MakeVectorsPrivate(Angles, &Forward, &Right, &Up);
 	// ALERT( at_console, "%f : %f\n", Angles.x, Forward.z );
 
@@ -899,26 +911,30 @@ void CIchthyosaur::Swim( )
 	//
 	if (Angles.x > 180)
 		Angles.x = Angles.x - 360;
-	pev->angles.x = UTIL_Approach(Angles.x, pev->angles.x, 50 * 0.1 );
-	if (pev->angles.x < -80) pev->angles.x = -80;
-	if (pev->angles.x >  80) pev->angles.x =  80;
+	{
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.x = UTIL_Approach(Angles.x, vecAngles.x, 50 * 0.1 );
+		if (vecAngles.x < -80) vecAngles.x = -80;
+		if (vecAngles.x >  80) vecAngles.x =  80;
+		SetAbsAngles( vecAngles );
+	}
 
 	// Smooth Yaw and generate Roll
 	//
 	float turn = 360;
-	// ALERT( at_console, "Y %.0f %.0f\n", Angles.y, pev->angles.y );
+	// ALERT( at_console, "Y %.0f %.0f\n", Angles.y, GetAbsAngles().y );
 
-	if (fabs(Angles.y - pev->angles.y) < fabs(turn))
+	if (fabs(Angles.y - GetAbsAngles().y) < fabs(turn))
 	{
-		turn = Angles.y - pev->angles.y;
+		turn = Angles.y - GetAbsAngles().y;
 	}
-	if (fabs(Angles.y - pev->angles.y + 360) < fabs(turn))
+	if (fabs(Angles.y - GetAbsAngles().y + 360) < fabs(turn))
 	{
-		turn = Angles.y - pev->angles.y + 360;
+		turn = Angles.y - GetAbsAngles().y + 360;
 	}
-	if (fabs(Angles.y - pev->angles.y - 360) < fabs(turn))
+	if (fabs(Angles.y - GetAbsAngles().y - 360) < fabs(turn))
 	{
-		turn = Angles.y - pev->angles.y - 360;
+		turn = Angles.y - GetAbsAngles().y - 360;
 	}
 
 	float speed = m_flightSpeed * 0.1;
@@ -935,9 +951,13 @@ void CIchthyosaur::Swim( )
 			turn = speed;
 		}
 	}
-	pev->angles.y += turn;
-	pev->angles.z -= turn;
-	pev->angles.y = fmod((pev->angles.y + 360.0), 360.0);
+	{
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.y += turn;
+		vecAngles.z -= turn;
+		vecAngles.y = fmod(( vecAngles.y + 360.0), 360.0);
+		SetAbsAngles( vecAngles );
+	}
 
 	static float yaw_adj;
 
@@ -950,36 +970,41 @@ void CIchthyosaur::Swim( )
 	// Roll Smoothing
 	//
 	turn = 360;
-	if (fabs(Angles.z - pev->angles.z) < fabs(turn))
+	if (fabs(Angles.z - GetAbsAngles().z) < fabs(turn))
 	{
-		turn = Angles.z - pev->angles.z;
+		turn = Angles.z - GetAbsAngles().z;
 	}
-	if (fabs(Angles.z - pev->angles.z + 360) < fabs(turn))
+	if (fabs(Angles.z - GetAbsAngles().z + 360) < fabs(turn))
 	{
-		turn = Angles.z - pev->angles.z + 360;
+		turn = Angles.z - GetAbsAngles().z + 360;
 	}
-	if (fabs(Angles.z - pev->angles.z - 360) < fabs(turn))
+	if (fabs(Angles.z - GetAbsAngles().z - 360) < fabs(turn))
 	{
-		turn = Angles.z - pev->angles.z - 360;
+		turn = Angles.z - GetAbsAngles().z - 360;
 	}
 	speed = m_flightSpeed/2 * 0.1;
+
+	Vector vecAngles = GetAbsAngles();
+
 	if (fabs(turn) < speed)
 	{
-		pev->angles.z += turn;
+		vecAngles.z += turn;
 	}
 	else
 	{
 		if (turn < 0.0)
 		{
-			pev->angles.z -= speed;
+			vecAngles.z -= speed;
 		}
 		else
 		{
-			pev->angles.z += speed;
+			vecAngles.z += speed;
 		}
 	}
-	if (pev->angles.z < -20) pev->angles.z = -20;
-	if (pev->angles.z >  20) pev->angles.z =  20;
+	if (vecAngles.z < -20) vecAngles.z = -20;
+	if (vecAngles.z >  20) vecAngles.z =  20;
+
+	SetAbsAngles( vecAngles );
 
 	UTIL_MakeVectorsPrivate( Vector( -Angles.x, Angles.y, Angles.z ), &Forward, &Right, &Up);
 

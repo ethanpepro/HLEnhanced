@@ -223,7 +223,7 @@ void CLeech::HandleAnimEvent( AnimEvent_t& event )
 		{
 			Vector dir, face;
 
-			UTIL_MakeVectorsPrivate( pev->angles, &face, nullptr, nullptr );
+			UTIL_MakeVectorsPrivate( GetAbsAngles(), &face, nullptr, nullptr );
 			face.z = 0;
 			dir = (pEnemy->GetAbsOrigin() - GetAbsOrigin());
 			dir.z = 0;
@@ -249,7 +249,7 @@ void CLeech::HandleAnimEvent( AnimEvent_t& event )
 
 void CLeech::MakeVectors( void )
 {
-	Vector tmp = pev->angles;
+	Vector tmp = GetAbsAngles();
 	tmp.x = -tmp.x;
 	UTIL_MakeVectors ( tmp );
 }
@@ -383,10 +383,14 @@ void CLeech::UpdateMotion( void )
 	else
 		targetPitch = 0;
 
-	pev->angles.x = UTIL_Approach( targetPitch, pev->angles.x, 60 * LEECH_FRAMETIME );
+	{
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.x = UTIL_Approach( targetPitch, vecAngles.x, 60 * LEECH_FRAMETIME );
+		SetAbsAngles( vecAngles );
+	}
 
 	// bank
-	pev->avelocity.z = - (pev->angles.z + (pev->avelocity.y * 0.25));
+	pev->avelocity.z = - ( GetAbsAngles().z + (pev->avelocity.y * 0.25));
 
 	if ( m_MonsterState == MONSTERSTATE_COMBAT && HasConditions( bits_COND_CAN_MELEE_ATTACK1 ) )
 		m_IdealActivity = ACT_MELEE_ATTACK1;
@@ -399,8 +403,10 @@ void CLeech::UpdateMotion( void )
 		SetAbsVelocity( g_vecZero );
 
 		// Animation will intersect the floor if either of these is non-zero
-		pev->angles.z = 0;
-		pev->angles.x = 0;
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.z = 0;
+		vecAngles.x = 0;
+		SetAbsAngles( vecAngles );
 
 		if ( pev->framerate < 1.0 )
 			pev->framerate = 1.0;
@@ -491,7 +497,7 @@ void CLeech::SwimThink( void )
 			// Turn towards target ent
 			targetYaw = UTIL_VecToYaw( location );
 
-			targetYaw = UTIL_AngleDiff( targetYaw, UTIL_AngleMod( pev->angles.y ) );
+			targetYaw = UTIL_AngleDiff( targetYaw, UTIL_AngleMod( GetAbsAngles().y ) );
 
 			if ( targetYaw < (-LEECH_TURN_RATE*0.75) )
 				targetYaw = (-LEECH_TURN_RATE*0.75);
@@ -588,8 +594,10 @@ void CLeech::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	// When we hit the ground, play the "death_end" activity
 	if ( GetWaterLevel() )
 	{
-		pev->angles.z = 0;
-		pev->angles.x = 0;
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.z = 0;
+		vecAngles.x = 0;
+		SetAbsAngles( vecAngles );
 		Vector vecOrigin = GetAbsOrigin();
 		vecOrigin.z += 1;
 		SetAbsOrigin( vecOrigin );

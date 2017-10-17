@@ -412,18 +412,18 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 		if (m_hTalkTarget != NULL)
 		{
 			SetYawSpeed( 60 );
-			float yaw = VecToYaw(m_hTalkTarget->GetAbsOrigin() - GetAbsOrigin()) - pev->angles.y;
+			float yaw = VecToYaw(m_hTalkTarget->GetAbsOrigin() - GetAbsOrigin()) - GetAbsAngles().y;
 
 			if (yaw > 180) yaw -= 360;
 			if (yaw < -180) yaw += 360;
 
 			if (yaw < 0)
 			{
-				pev->ideal_yaw = min( yaw + 45, 0.0f ) + pev->angles.y;
+				pev->ideal_yaw = min( yaw + 45, 0.0f ) + GetAbsAngles().y;
 			}
 			else
 			{
-				pev->ideal_yaw = max( yaw - 45, 0.0f ) + pev->angles.y;
+				pev->ideal_yaw = max( yaw - 45, 0.0f ) + GetAbsAngles().y;
 			}
 		}
 		TaskComplete();
@@ -453,7 +453,7 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 
 	case TASK_MOVE_AWAY_PATH:
 		{
-			Vector dir = pev->angles;
+			Vector dir = GetAbsAngles();
 			dir.y = pev->ideal_yaw + 180;
 			Vector move;
 
@@ -1022,7 +1022,7 @@ void CTalkMonster :: IdleHeadTurn( const Vector &vecFriend )
 	 // turn head in desired direction only if ent has a turnable head
 	if (m_afCapability & bits_CAP_TURN_HEAD)
 	{
-		float yaw = VecToYaw(vecFriend - GetAbsOrigin()) - pev->angles.y;
+		float yaw = VecToYaw(vecFriend - GetAbsOrigin()) - GetAbsAngles().y;
 
 		if (yaw > 180) yaw -= 360;
 		if (yaw < -180) yaw += 360;

@@ -141,7 +141,7 @@ Activity CBaseMonster :: GetDeathActivity ( void )
 	fTriedDirection = false;
 	deathActivity = ACT_DIESIMPLE;// in case we can't find any special deaths to do.
 
-	UTIL_MakeVectors ( pev->angles );
+	UTIL_MakeVectors ( GetAbsAngles() );
 	flDot = DotProduct ( gpGlobals->v_forward, g_vecAttackDir * -1 );
 
 	switch ( m_LastHitGroup )
@@ -248,7 +248,7 @@ Activity CBaseMonster :: GetSmallFlinchActivity ( void )
 	Activity	flinchActivity;
 	//bool		fTriedDirection = false;
 
-	UTIL_MakeVectors ( pev->angles );
+	UTIL_MakeVectors ( GetAbsAngles() );
 	//float flDot = DotProduct ( gpGlobals->v_forward, g_vecAttackDir * -1 );
 	
 	switch ( m_LastHitGroup )
@@ -713,9 +713,9 @@ CBaseEntity* CBaseMonster :: CheckTraceHullAttack( float flDist, int iDamage, in
 	TraceResult tr;
 
 	if (IsPlayer())
-		UTIL_MakeVectors( pev->angles );
+		UTIL_MakeVectors( GetAbsAngles() );
 	else
-		UTIL_MakeAimVectors( pev->angles );
+		UTIL_MakeAimVectors( GetAbsAngles() );
 
 	Vector vecStart = GetAbsOrigin();
 	vecStart.z += GetBounds().z * 0.5;
@@ -749,7 +749,7 @@ bool CBaseMonster::FInViewCone( const CBaseEntity *pEntity ) const
 	Vector2D	vec2LOS;
 	float	flDot;
 
-	UTIL_MakeVectors ( pev->angles );
+	UTIL_MakeVectors ( GetAbsAngles() );
 	
 	vec2LOS = ( pEntity->GetAbsOrigin() - GetAbsOrigin() ).Make2D();
 	vec2LOS = vec2LOS.Normalize();
@@ -776,7 +776,7 @@ bool CBaseMonster::FInViewCone( const Vector& vecOrigin ) const
 	Vector2D	vec2LOS;
 	float		flDot;
 
-	UTIL_MakeVectors ( pev->angles );
+	UTIL_MakeVectors ( GetAbsAngles() );
 	
 	vec2LOS = ( vecOrigin - GetAbsOrigin() ).Make2D();
 	vec2LOS = vec2LOS.Normalize();

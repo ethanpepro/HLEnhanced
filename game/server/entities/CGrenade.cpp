@@ -373,7 +373,7 @@ CGrenade* CGrenade::ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector v
 	pGrenade->SetGravity( 0.5 );// lower gravity since grenade is aerodynamic and engine doesn't know it.
 	pGrenade->SetAbsOrigin( vecStart );
 	pGrenade->SetAbsVelocity( vecVelocity );
-	pGrenade->pev->angles = UTIL_VecToAngles (pGrenade->GetAbsVelocity() );
+	pGrenade->SetAbsAngles( UTIL_VecToAngles (pGrenade->GetAbsVelocity() ) );
 	pGrenade->SetOwner( pOwner );
 	
 	// make monsters afaid of it while in the air
@@ -398,7 +398,7 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 	pGrenade->Spawn();
 	pGrenade->SetAbsOrigin( vecStart );
 	pGrenade->SetAbsVelocity( vecVelocity );
-	pGrenade->pev->angles = UTIL_VecToAngles(pGrenade->GetAbsVelocity() );
+	pGrenade->SetAbsAngles( UTIL_VecToAngles(pGrenade->GetAbsVelocity() ) );
 	pGrenade->SetOwner( pOwner );
 	
 	pGrenade->SetTouch( &CGrenade::BounceTouch );	// Bounce if touched

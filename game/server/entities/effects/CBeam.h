@@ -50,7 +50,7 @@ public:
 	inline void	SetFlags( int flags ) { pev->rendermode = ( pev->rendermode & 0x0F ) | ( flags & 0xF0 ); }
 	//TODO: can't use SetAbsOrigin since it calls into the engine, but can't keep pev exposed either - Solokiller
 	inline void SetStartPos( const Vector& pos ) { pev->origin = pos; }
-	inline void SetEndPos( const Vector& pos ) { pev->angles = pos; }
+	inline void SetEndPos( const Vector& pos ) { SetAbsAngles( pos ); }
 	void SetStartEntity( int entityIndex );
 	void SetEndEntity( int entityIndex );
 

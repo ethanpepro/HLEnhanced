@@ -137,7 +137,7 @@ void CGMan :: RunTask( const Task_t* pTask )
 		// look at who I'm talking to
 		if (m_flTalkTime > gpGlobals->time && m_hTalkTarget != NULL)
 		{
-			float yaw = VecToYaw(m_hTalkTarget->GetAbsOrigin() - GetAbsOrigin()) - pev->angles.y;
+			float yaw = VecToYaw(m_hTalkTarget->GetAbsOrigin() - GetAbsOrigin()) - GetAbsAngles().y;
 
 			if (yaw > 180) yaw -= 360;
 			if (yaw < -180) yaw += 360;
@@ -148,7 +148,7 @@ void CGMan :: RunTask( const Task_t* pTask )
 		// look at player, but only if playing a "safe" idle animation
 		else if (m_hPlayer != NULL && pev->sequence == 0)
 		{
-			float yaw = VecToYaw(m_hPlayer->GetAbsOrigin() - GetAbsOrigin()) - pev->angles.y;
+			float yaw = VecToYaw(m_hPlayer->GetAbsOrigin() - GetAbsOrigin()) - GetAbsAngles().y;
 
 			if (yaw > 180) yaw -= 360;
 			if (yaw < -180) yaw += 360;

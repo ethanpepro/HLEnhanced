@@ -81,8 +81,10 @@ void CFlyingMonster :: Stop( void )
 		m_flightSpeed = 0;
 		m_IdealActivity = stopped;
 	}
-	pev->angles.z = 0;
-	pev->angles.x = 0;
+	Vector vecAngles = GetAbsAngles();
+	vecAngles.z = 0;
+	vecAngles.x = 0;
+	SetAbsAngles( vecAngles );
 	m_vecTravel = g_vecZero;
 }
 
@@ -101,7 +103,9 @@ float CFlyingMonster :: ChangeYaw( int speed )
 			else if ( diff > 20 )
 				target = -90;
 		}
-		pev->angles.z = UTIL_Approach( target, pev->angles.z, 220.0 * gpGlobals->frametime );
+		Vector vecAngles = GetAbsAngles();		
+		vecAngles.z = UTIL_Approach( target, vecAngles.z, 220.0 * gpGlobals->frametime );
+		SetAbsAngles( vecAngles );
 	}
 	return CBaseMonster::ChangeYaw( speed );
 }
@@ -111,8 +115,10 @@ void CFlyingMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 {
 	SetMoveType( MOVETYPE_STEP );
 	ClearBits( pev->flags, FL_ONGROUND );
-	pev->angles.z = 0;
-	pev->angles.x = 0;
+	Vector vecAngles = GetAbsAngles();
+	vecAngles.z = 0;
+	vecAngles.x = 0;
+	SetAbsAngles( vecAngles );
 	CBaseMonster::Killed( info, gibAction );
 }
 

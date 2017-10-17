@@ -278,7 +278,7 @@ void CBarney :: BarneyFirePistol ( void )
 {
 	Vector vecShootOrigin;
 
-	UTIL_MakeVectors(pev->angles);
+	UTIL_MakeVectors( GetAbsAngles() );
 	vecShootOrigin = GetAbsOrigin() + Vector( 0, 0, 55 );
 	Vector vecShootDir = ShootAtEnemy( vecShootOrigin );
 

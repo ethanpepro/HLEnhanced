@@ -33,8 +33,8 @@ void CRotDoor::Spawn( void )
 		pev->movedir = pev->movedir * -1;
 
 	//m_flWait			= 2; who the hell did this? (sjb)
-	m_vecAngle1 = pev->angles;
-	m_vecAngle2 = pev->angles + pev->movedir * m_flMoveDistance;
+	m_vecAngle1 = GetAbsAngles();
+	m_vecAngle2 = GetAbsAngles() + pev->movedir * m_flMoveDistance;
 
 	ASSERTSZ( m_vecAngle1 != m_vecAngle2, "rotating door start/end positions are equal" );
 
@@ -54,7 +54,7 @@ void CRotDoor::Spawn( void )
 	// but spawn in the open position
 	if( FBitSet( pev->spawnflags, SF_DOOR_START_OPEN ) )
 	{	// swap pos1 and pos2, put door at pos2, invert movement direction
-		pev->angles = m_vecAngle2;
+		SetAbsAngles( m_vecAngle2 );
 		Vector vecSav = m_vecAngle1;
 		m_vecAngle2 = m_vecAngle1;
 		m_vecAngle1 = vecSav;
@@ -75,9 +75,9 @@ void CRotDoor::Spawn( void )
 void CRotDoor::SetToggleState( int state )
 {
 	if( state == TS_AT_TOP )
-		pev->angles = m_vecAngle2;
+		SetAbsAngles( m_vecAngle2 );
 	else
-		pev->angles = m_vecAngle1;
+		SetAbsAngles( m_vecAngle1 );
 
 	SetAbsOrigin( GetAbsOrigin() );
 }

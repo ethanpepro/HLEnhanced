@@ -928,7 +928,7 @@ void CBaseMonster :: CheckAttacks ( CBaseEntity *pTarget, float flDist )
 	Vector2D	vec2LOS;
 	float		flDot;
 
-	UTIL_MakeVectors ( pev->angles );
+	UTIL_MakeVectors ( GetAbsAngles() );
 
 	vec2LOS = ( pTarget->GetAbsOrigin() - GetAbsOrigin() ).Make2D();
 	vec2LOS = vec2LOS.Normalize();
@@ -1939,7 +1939,7 @@ void CBaseMonster :: MonsterInit ( void )
 	// Set fields common to all monsters
 	GetEffects().ClearAll();
 	SetTakeDamageMode( DAMAGE_AIM );
-	pev->ideal_yaw		= pev->angles.y;
+	pev->ideal_yaw		= GetAbsAngles().y;
 	SetMaxHealth( GetHealth() );
 	SetDeadFlag( DEAD_NO );
 	m_IdealMonsterState	= MONSTERSTATE_IDLE;// Assume monster will be idle, until proven otherwise
@@ -2422,7 +2422,7 @@ float CBaseMonster::FlYawDiff() const
 {
 	float	flCurrentYaw;
 
-	flCurrentYaw = UTIL_AngleMod( pev->angles.y );
+	flCurrentYaw = UTIL_AngleMod( GetAbsAngles().y );
 
 	if ( flCurrentYaw == pev->ideal_yaw )
 	{
@@ -2441,7 +2441,7 @@ float CBaseMonster::ChangeYaw ( int yawSpeed )
 {
 	float		ideal, current, move, speed;
 
-	current = UTIL_AngleMod( pev->angles.y );
+	current = UTIL_AngleMod( GetAbsAngles().y );
 	ideal = pev->ideal_yaw;
 	if (current != ideal)
 	{
@@ -2470,12 +2470,14 @@ float CBaseMonster::ChangeYaw ( int yawSpeed )
 				move = -speed;
 		}
 		
-		pev->angles.y = UTIL_AngleMod (current + move);
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.y = UTIL_AngleMod (current + move);
+		SetAbsAngles( vecAngles );
 
 		// turn head in desired direction only if they have a turnable head
 		if (m_afCapability & bits_CAP_TURN_HEAD)
 		{
-			float yaw = pev->ideal_yaw - pev->angles.y;
+			float yaw = pev->ideal_yaw - GetAbsAngles().y;
 			if (yaw > 180) yaw -= 360;
 			if (yaw < -180) yaw += 360;
 			// yaw *= 0.8;
@@ -2495,7 +2497,7 @@ float CBaseMonster::ChangeYaw ( int yawSpeed )
 float	CBaseMonster::VecToYaw ( Vector vecDir )
 {
 	if (vecDir.x == 0 && vecDir.y == 0 && vecDir.z == 0)
-		return pev->angles.y;
+		return GetAbsAngles().y;
 
 	return UTIL_VecToYaw( vecDir );
 }
@@ -2634,7 +2636,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 
 Vector CBaseMonster::GetGunPosition()
 {
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 
 	// Vector vecSrc = GetAbsOrigin() + gpGlobals->v_forward * 10;
 	//vecSrc.z = pevShooter->absmin.z + pevShooter->size.z * 0.7;
@@ -3045,7 +3047,7 @@ bool CBaseMonster::FindLateralCover( const Vector &vecThreat, const Vector &vecV
 	Vector	vecStepRight;
 	int		i;
 
-	UTIL_MakeVectors ( pev->angles );
+	UTIL_MakeVectors ( GetAbsAngles() );
 	vecStepRight = gpGlobals->v_right * COVER_DELTA;
 	vecStepRight.z = 0; 
 	

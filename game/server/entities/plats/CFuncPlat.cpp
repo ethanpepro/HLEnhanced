@@ -55,7 +55,7 @@ void CFuncPlat::Setup( void )
 	if( m_flTWidth == 0 )
 		m_flTWidth = 10;
 
-	pev->angles = g_vecZero;
+	SetAbsAngles( g_vecZero );
 
 	SetSolidType( SOLID_BSP );
 	SetMoveType( MOVETYPE_PUSH );

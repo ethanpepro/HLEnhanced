@@ -80,18 +80,22 @@ void CCineAI::PossessEntity( void )
 			break;
 
 		case 4:
-			// zap the monster instantly to the site of the script entity.
-			pTarget->SetAbsOrigin( GetAbsOrigin() );
-			pTarget->pev->ideal_yaw = pev->angles.y;
-			pTarget->pev->avelocity = Vector( 0, 0, 0 );
-			pTarget->SetAbsVelocity( Vector( 0, 0, 0 ) );
-			pTarget->GetEffects() |= EF_NOINTERP;
-			pTarget->pev->angles.y = pev->angles.y;
-			pTarget->m_scriptState = SCRIPT_WAIT;
-			m_startTime = gpGlobals->time + 1E6;
-			// UNDONE: Add a flag to do this so people can fixup physics after teleporting monsters
-			pTarget->pev->flags &= ~FL_ONGROUND;
-			break;
+			{
+				// zap the monster instantly to the site of the script entity.
+				pTarget->SetAbsOrigin( GetAbsOrigin() );
+				pTarget->pev->ideal_yaw = GetAbsAngles().y;
+				pTarget->pev->avelocity = Vector( 0, 0, 0 );
+				pTarget->SetAbsVelocity( Vector( 0, 0, 0 ) );
+				pTarget->GetEffects() |= EF_NOINTERP;
+				Vector vecAngles = pTarget->GetAbsAngles();
+				vecAngles.y = GetAbsAngles().y;
+				pTarget->SetAbsAngles( vecAngles );
+				pTarget->m_scriptState = SCRIPT_WAIT;
+				m_startTime = gpGlobals->time + 1E6;
+				// UNDONE: Add a flag to do this so people can fixup physics after teleporting monsters
+				pTarget->pev->flags &= ~FL_ONGROUND;
+				break;
+			}
 		default:
 			ALERT( at_aiconsole, "aiscript:  invalid Move To Position value!" );
 			break;

@@ -131,7 +131,9 @@ void CSentry::SentryDeath( void )
 		SetTurretAnim( TURRET_ANIM_DIE );
 
 		SetSolidType( SOLID_NOT );
-		pev->angles.y = UTIL_AngleMod( pev->angles.y + RANDOM_LONG( 0, 2 ) * 120 );
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.y = UTIL_AngleMod( vecAngles.y + RANDOM_LONG( 0, 2 ) * 120 );
+		SetAbsAngles( vecAngles );
 
 		EyeOn();
 	}

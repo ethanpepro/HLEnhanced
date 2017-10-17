@@ -588,8 +588,10 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 	DeathSound();
 	
-	pev->angles.x = 0;
-	pev->angles.z = 0;
+	Vector vecAngles = GetAbsAngles();
+	vecAngles.x = 0;
+	vecAngles.z = 0;
+	SetAbsAngles( vecAngles );
 
 	SetThink(&CBasePlayer::PlayerDeathThink);
 	SetNextThink( gpGlobals->time + 0.1 );
@@ -618,12 +620,12 @@ bool CBasePlayer::Restore( CRestore &restore )
 		// default to normal spawn
 		CBaseEntity* pSpawnSpot = EntSelectSpawnPoint( this );
 		SetAbsOrigin( pSpawnSpot->GetAbsOrigin() + Vector( 0, 0, 1 ) );
-		pev->angles = pSpawnSpot->pev->angles;
+		SetAbsAngles( pSpawnSpot->GetAbsAngles() );
 	}
 	Vector vecViewAngle = GetViewAngle();
 	vecViewAngle.z = 0;	// Clear out roll
 	SetViewAngle( vecViewAngle );
-	pev->angles = GetViewAngle();
+	SetAbsAngles( GetViewAngle() );
 
 	SetFixAngleMode( FIXANGLE_SET );		// turn this way immediately
 

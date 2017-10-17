@@ -92,8 +92,10 @@ void CBasePlayerWeapon::FallThink( void )
 		}
 
 		// lie flat
-		pev->angles.x = 0;
-		pev->angles.z = 0;
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.x = 0;
+		vecAngles.z = 0;
+		SetAbsAngles( vecAngles );
 
 		Materialize();
 	}
@@ -145,7 +147,7 @@ CBaseEntity* CBasePlayerWeapon::Respawn( void )
 {
 	// make a copy of this weapon that is invisible and inaccessible to players (no touch function). The weapon spawn/respawn code
 	// will decide when to make the weapon visible and touchable.
-	CBaseEntity *pNewWeapon = CBaseEntity::Create( ( char * ) GetClassname(), g_pGameRules->VecWeaponRespawnSpot( this ), pev->angles, pev->owner );
+	CBaseEntity *pNewWeapon = CBaseEntity::Create( ( char * ) GetClassname(), g_pGameRules->VecWeaponRespawnSpot( this ), GetAbsAngles(), pev->owner );
 
 	if( pNewWeapon )
 	{

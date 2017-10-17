@@ -469,7 +469,7 @@ bool CSquadMonster::NoFriendlyFire()
 		return false;
 	}
 
-	//UTIL_MakeVectors ( pev->angles );
+	//UTIL_MakeVectors ( GetAbsAngles() );
 	
 	vecLeftSide = GetAbsOrigin() - ( gpGlobals->v_right * ( GetBounds().x * 1.5 ) );
 	vecRightSide = GetAbsOrigin() + ( gpGlobals->v_right * ( GetBounds().x * 1.5 ) );

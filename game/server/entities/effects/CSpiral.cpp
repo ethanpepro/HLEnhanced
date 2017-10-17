@@ -29,7 +29,7 @@ void CSpiral::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	SetSize( g_vecZero, g_vecZero );
 	GetEffects() |= EF_NODRAW;
-	pev->angles = g_vecZero;
+	SetAbsAngles( g_vecZero );
 }
 
 void CSpiral::Think( void )
@@ -46,8 +46,10 @@ void CSpiral::Think( void )
 		float radius = ( GetScale() * GetHealth() ) * fraction;
 
 		position.z += ( GetHealth() * pev->dmg ) * fraction;
-		pev->angles.y = ( GetHealth() * 360 * 8 ) * fraction;
-		UTIL_MakeVectors( pev->angles );
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.y = ( GetHealth() * 360 * 8 ) * fraction;
+		SetAbsAngles( vecAngles );
+		UTIL_MakeVectors( GetAbsAngles() );
 		position = position + gpGlobals->v_forward * radius;
 		direction = ( direction + gpGlobals->v_forward ).Normalize();
 
@@ -78,7 +80,7 @@ CSpiral *CSpiral::Create( const Vector &origin, float height, float radius, floa
 	pSpiral->pev->dmg = height;
 	pSpiral->SetSpeed( duration );
 	pSpiral->SetHealth( 0 );
-	pSpiral->pev->angles = g_vecZero;
+	pSpiral->SetAbsAngles( g_vecZero );
 
 	return pSpiral;
 }

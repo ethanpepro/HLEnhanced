@@ -137,9 +137,11 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_POSITION ) )
 	{
 		SetAbsOrigin( pPlayer->GetAbsOrigin() + pPlayer->GetViewOffset() );
-		pev->angles.x = -pPlayer->pev->angles.x;
-		pev->angles.y = pPlayer->pev->angles.y;
-		pev->angles.z = 0;
+		SetAbsAngles( Vector(
+			-pPlayer->GetAbsAngles().x,
+			pPlayer->GetAbsAngles().y,
+			0
+		) );
 		SetAbsVelocity( pPlayer->GetAbsVelocity() );
 	}
 	else
@@ -185,14 +187,18 @@ void CTriggerCamera::FollowTarget()
 	Vector vecGoal = UTIL_VecToAngles( m_hTarget->GetAbsOrigin() - GetAbsOrigin() );
 	vecGoal.x = -vecGoal.x;
 
-	if( pev->angles.y > 360 )
-		pev->angles.y -= 360;
+	Vector vecAngles = GetAbsAngles();
 
-	if( pev->angles.y < 0 )
-		pev->angles.y += 360;
+	if( vecAngles.y > 360 )
+		vecAngles.y -= 360;
 
-	float dx = vecGoal.x - pev->angles.x;
-	float dy = vecGoal.y - pev->angles.y;
+	if( vecAngles.y < 0 )
+		vecAngles.y += 360;
+
+	SetAbsAngles( vecAngles );
+
+	float dx = vecGoal.x - GetAbsAngles().x;
+	float dy = vecGoal.y - GetAbsAngles().y;
 
 	if( dx < -180 )
 		dx += 360;

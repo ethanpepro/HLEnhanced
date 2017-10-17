@@ -332,7 +332,7 @@ void CHornet :: TrackTarget ( void )
 			break;
 	}
 
-	pev->angles = UTIL_VecToAngles( GetAbsVelocity() );
+	SetAbsAngles( UTIL_VecToAngles( GetAbsVelocity() ) );
 
 	SetSolidType( SOLID_BBOX );
 

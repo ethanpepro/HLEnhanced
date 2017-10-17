@@ -578,7 +578,7 @@ CBaseEntity *CHGrunt :: Kick( void )
 {
 	TraceResult tr;
 
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 	Vector vecStart = GetAbsOrigin();
 	vecStart.z += GetBounds().z * 0.5;
 	Vector vecEnd = vecStart + (gpGlobals->v_forward * 70);
@@ -623,10 +623,10 @@ void CHGrunt :: Shoot ( void )
 	Vector vecShootOrigin = GetGunPosition();
 	Vector vecShootDir = ShootAtEnemy( vecShootOrigin );
 
-	UTIL_MakeVectors ( pev->angles );
+	UTIL_MakeVectors ( GetAbsAngles() );
 
 	Vector	vecShellVelocity = gpGlobals->v_right * RANDOM_FLOAT(40,90) + gpGlobals->v_up * RANDOM_FLOAT(75,200) + gpGlobals->v_forward * RANDOM_FLOAT(-40, 40);
-	EjectBrass ( vecShootOrigin - vecShootDir * 24, vecShellVelocity, pev->angles.y, m_iBrassShell, TE_BOUNCE_SHELL); 
+	EjectBrass ( vecShootOrigin - vecShootDir * 24, vecShellVelocity, GetAbsAngles().y, m_iBrassShell, TE_BOUNCE_SHELL);
 	FireBullets(1, vecShootOrigin, vecShootDir, VECTOR_CONE_10DEGREES, 2048, BULLET_MONSTER_MP5 ); // shoot +-5 degrees
 
 	GetEffects() |= EF_MUZZLEFLASH;
@@ -650,10 +650,10 @@ void CHGrunt :: Shotgun ( void )
 	Vector vecShootOrigin = GetGunPosition();
 	Vector vecShootDir = ShootAtEnemy( vecShootOrigin );
 
-	UTIL_MakeVectors ( pev->angles );
+	UTIL_MakeVectors ( GetAbsAngles() );
 
 	Vector	vecShellVelocity = gpGlobals->v_right * RANDOM_FLOAT(40,90) + gpGlobals->v_up * RANDOM_FLOAT(75,200) + gpGlobals->v_forward * RANDOM_FLOAT(-40, 40);
-	EjectBrass ( vecShootOrigin - vecShootDir * 24, vecShellVelocity, pev->angles.y, m_iShotgunShell, TE_BOUNCE_SHOTSHELL); 
+	EjectBrass ( vecShootOrigin - vecShootDir * 24, vecShellVelocity, GetAbsAngles().y, m_iShotgunShell, TE_BOUNCE_SHOTSHELL);
 	FireBullets(gSkillData.GetHGruntShotgunPellets(), vecShootOrigin, vecShootDir, VECTOR_CONE_15DEGREES, 2048, BULLET_PLAYER_BUCKSHOT, 0 ); // shoot +-7.5 degrees
 
 	GetEffects() |= EF_MUZZLEFLASH;
@@ -710,7 +710,7 @@ void CHGrunt :: HandleAnimEvent( AnimEvent_t& event )
 
 		case HGRUNT_AE_GREN_TOSS:
 		{
-			UTIL_MakeVectors( pev->angles );
+			UTIL_MakeVectors( GetAbsAngles() );
 			// CGrenade::ShootTimed( this, GetAbsOrigin() + gpGlobals->v_forward * 34 + Vector (0, 0, 32), m_vecTossVelocity, 3.5 );
 			CGrenade::ShootTimed( this, GetGunPosition(), m_vecTossVelocity, 3.5 );
 
@@ -734,7 +734,7 @@ void CHGrunt :: HandleAnimEvent( AnimEvent_t& event )
 
 		case HGRUNT_AE_GREN_DROP:
 		{
-			UTIL_MakeVectors( pev->angles );
+			UTIL_MakeVectors( GetAbsAngles() );
 			CGrenade::ShootTimed( this, GetAbsOrigin() + gpGlobals->v_forward * 17 - gpGlobals->v_right * 27 + gpGlobals->v_up * 6, g_vecZero, 3 );
 		}
 		break;
@@ -778,7 +778,7 @@ void CHGrunt :: HandleAnimEvent( AnimEvent_t& event )
 			if ( pHurt )
 			{
 				// SOUND HERE!
-				UTIL_MakeVectors( pev->angles );
+				UTIL_MakeVectors( GetAbsAngles() );
 
 				Vector vecPunchAngle = pHurt->GetPunchAngle();
 				vecPunchAngle.x = 15;

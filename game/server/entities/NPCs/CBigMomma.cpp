@@ -164,7 +164,7 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 		{
 			Vector forward, right;
 
-			UTIL_MakeVectorsPrivate( pev->angles, &forward, &right, nullptr );
+			UTIL_MakeVectorsPrivate( GetAbsAngles(), &forward, &right, nullptr );
 
 			Vector center = GetAbsOrigin() + forward * 128;
 			Vector mins = center - Vector( 64, 64, 0 );
@@ -257,7 +257,7 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 			ClearBits( pev->flags, FL_ONGROUND );
 
 			SetAbsOrigin( GetAbsOrigin() + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
-			UTIL_MakeVectors( pev->angles );
+			UTIL_MakeVectors( GetAbsAngles() );
 
 			SetAbsVelocity( (gpGlobals->v_forward * 200) + gpGlobals->v_up * 500 );
 			break;
@@ -327,7 +327,7 @@ void CBigMomma::OnTakeDamage( const CTakeDamageInfo& info )
 
 void CBigMomma :: LayHeadcrab( void )
 {
-	CBaseEntity *pChild = CBaseEntity::Create( BIG_CHILDCLASS, GetAbsOrigin(), pev->angles, edict() );
+	CBaseEntity *pChild = CBaseEntity::Create( BIG_CHILDCLASS, GetAbsOrigin(), GetAbsAngles(), edict() );
 
 	pChild->pev->spawnflags |= SF_MONSTER_FALL_TO_GROUND;
 

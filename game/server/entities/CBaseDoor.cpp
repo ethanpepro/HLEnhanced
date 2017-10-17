@@ -470,7 +470,7 @@ void CBaseDoor::Blocked( CBaseEntity *pOther )
 							}
 							else
 							{// set angles to realign rotating doors
-								pDoor->pev->angles = pev->angles;
+								pDoor->SetAbsAngles( GetAbsAngles() );
 								pDoor->pev->avelocity = g_vecZero;
 							}
 						}

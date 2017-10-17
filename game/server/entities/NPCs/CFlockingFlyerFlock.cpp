@@ -75,7 +75,7 @@ void CFlockingFlyerFlock::SpawnFlock( void )
 		pBoid->SpawnCommonCode();
 		pBoid->pev->flags &= ~FL_ONGROUND;
 		pBoid->SetAbsVelocity( g_vecZero );
-		pBoid->pev->angles = pev->angles;
+		pBoid->SetAbsAngles( GetAbsAngles() );
 
 		pBoid->pev->frame = 0;
 		pBoid->SetNextThink( gpGlobals->time + 0.2 );

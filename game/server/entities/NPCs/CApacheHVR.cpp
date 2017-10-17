@@ -42,7 +42,7 @@ void CApacheHVR::Spawn( void )
 	SetThink( &CApacheHVR::IgniteThink );
 	SetTouch( &CApacheHVR::ExplodeTouch );
 
-	UTIL_MakeAimVectors( pev->angles );
+	UTIL_MakeAimVectors( GetAbsAngles() );
 	m_vecForward = gpGlobals->v_forward;
 	SetGravity( 0.5 );
 
@@ -105,7 +105,7 @@ void CApacheHVR::AccelerateThink( void )
 	}
 
 	// re-aim
-	pev->angles = UTIL_VecToAngles( GetAbsVelocity() );
+	SetAbsAngles( UTIL_VecToAngles( GetAbsVelocity() ) );
 
 	SetNextThink( gpGlobals->time + 0.1 );
 }

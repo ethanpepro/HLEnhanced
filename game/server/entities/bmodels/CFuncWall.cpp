@@ -22,7 +22,7 @@ LINK_ENTITY_TO_CLASS( func_wall, CFuncWall );
 
 void CFuncWall::Spawn( void )
 {
-	pev->angles = g_vecZero;
+	SetAbsAngles( g_vecZero );
 	SetMoveType( MOVETYPE_PUSH );  // so it doesn't get pushed by anything
 	SetSolidType( SOLID_BSP );
 	SetModel( GetModelName() );

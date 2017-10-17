@@ -128,7 +128,7 @@ void CTentacle :: Spawn( )
 	m_iDir = 1;
 
 	SetYawSpeed( 18 );
-	m_flInitialYaw = pev->angles.y;
+	m_flInitialYaw = GetAbsAngles().y;
 	pev->ideal_yaw = m_flInitialYaw;
 
 	g_fFlySound = false;
@@ -310,7 +310,9 @@ void CTentacle :: Cycle( void )
 
 	if (m_MonsterState == MONSTERSTATE_SCRIPT || m_IdealMonsterState == MONSTERSTATE_SCRIPT)
 	{
-		pev->angles.y = m_flInitialYaw;
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.y = m_flInitialYaw;
+		SetAbsAngles( vecAngles );
 		pev->ideal_yaw = m_flInitialYaw;	
 		ClearConditions( IgnoreConditions() );
 		MonsterThink( );
@@ -517,7 +519,7 @@ void CTentacle :: Cycle( void )
 		case TENTACLE_ANIM_Lev3_Tap:
 			{
 				Vector vecSrc;
-				UTIL_MakeVectors( pev->angles );
+				UTIL_MakeVectors( GetAbsAngles() );
 
 				TraceResult tr1, tr2;
 
@@ -666,7 +668,7 @@ void CTentacle :: HandleAnimEvent( AnimEvent_t& event )
 			Vector vecSrc, vecAngles;
 			GetAttachment( 0, vecSrc, vecAngles );
 
-			// Vector vecSrc = GetAbsOrigin() + m_flTapRadius * Vector( cos( pev->angles.y * (3.14192653 / 180.0) ), sin( pev->angles.y * (M_PI / 180.0) ), 0.0 );
+			// Vector vecSrc = GetAbsOrigin() + m_flTapRadius * Vector( cos( GetAbsAngles().y * (3.14192653 / 180.0) ), sin( GetAbsAngles().y * (M_PI / 180.0) ), 0.0 );
 
 			// vecSrc.z += MyHeight( );
 
@@ -704,7 +706,7 @@ void CTentacle :: HandleAnimEvent( AnimEvent_t& event )
 	case 2:	// tap scrape
 	case 6: // light tap
 		{
-			Vector vecSrc = GetAbsOrigin() + m_flTapRadius * Vector( cos( pev->angles.y * (M_PI / 180.0) ), sin( pev->angles.y * (M_PI / 180.0) ), 0.0 );
+			Vector vecSrc = GetAbsOrigin() + m_flTapRadius * Vector( cos( GetAbsAngles().y * (M_PI / 180.0) ), sin( GetAbsAngles().y * (M_PI / 180.0) ), 0.0 );
 
 			vecSrc.z += MyHeight( );
 
@@ -820,7 +822,7 @@ void CTentacle :: HitTouch( CBaseEntity *pOther )
 
 	// ALERT( at_console, "%s : ", STRING( tr.pHit->v.classname ) );
 
-	// ALERT( at_console, "%.0f : %s : %d\n", pev->angles.y, pOther->GetClassname(), tr.iHitgroup );
+	// ALERT( at_console, "%.0f : %s : %d\n", GetAbsAngles().y, pOther->GetClassname(), tr.iHitgroup );
 }
 
 void CTentacle::OnTakeDamage( const CTakeDamageInfo& info )

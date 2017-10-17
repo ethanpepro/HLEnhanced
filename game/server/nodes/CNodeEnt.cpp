@@ -44,7 +44,7 @@ void CNodeEnt::Spawn( void )
 
 	WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_vecOriginPeek =
 		WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_vecOrigin = GetAbsOrigin();
-	WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_flHintYaw = pev->angles.y;
+	WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_flHintYaw = GetAbsAngles().y;
 	WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_sHintType = m_sHintType;
 	WorldGraph.m_pNodes[ WorldGraph.m_cNodes ].m_sHintActivity = m_sHintActivity;
 

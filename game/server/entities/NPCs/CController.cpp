@@ -238,7 +238,7 @@ void CController :: HandleAnimEvent( AnimEvent_t& event )
 				WRITE_COORD( 32 ); // decay
 			MESSAGE_END();
 
-			CBaseMonster *pBall = (CBaseMonster*)Create( "controller_head_ball", vecStart, pev->angles, edict() );
+			CBaseMonster *pBall = (CBaseMonster*)Create( "controller_head_ball", vecStart, GetAbsAngles(), edict() );
 
 			pBall->SetAbsVelocity( Vector( 0, 0, 32 ) );
 			pBall->m_hEnemy = m_hEnemy;
@@ -528,7 +528,7 @@ int CController::LookupFloat( )
 		return LookupSequence( "up" );
 	}
 
-	UTIL_MakeAimVectors( pev->angles );
+	UTIL_MakeAimVectors( GetAbsAngles() );
 	float x = DotProduct( gpGlobals->v_forward, m_velocity );
 	float y = DotProduct( gpGlobals->v_right, m_velocity );
 	float z = DotProduct( gpGlobals->v_up, m_velocity );
@@ -589,7 +589,7 @@ void CController :: RunTask ( const Task_t* pTask )
 				vecDir = vecDir + Vector( RANDOM_FLOAT( -delta, delta ), RANDOM_FLOAT( -delta, delta ), RANDOM_FLOAT( -delta, delta ) ) * gSkillData.GetControllerSpeedBall();
 
 				vecSrc = vecSrc + vecDir * (gpGlobals->time - m_flShootTime);
-				CBaseMonster *pBall = (CBaseMonster*)Create( "controller_energy_ball", vecSrc, pev->angles, edict() );
+				CBaseMonster *pBall = (CBaseMonster*)Create( "controller_energy_ball", vecSrc, GetAbsAngles(), edict() );
 				pBall->SetAbsVelocity( vecDir );
 			}
 			m_flShootTime += 0.2;

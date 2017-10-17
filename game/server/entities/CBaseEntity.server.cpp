@@ -278,7 +278,7 @@ CBaseEntity* CBaseEntity::Create( const char* const pszName, const Vector& vecOr
 	pEntity = Instance( pent );
 	pEntity->pev->owner = pentOwner;
 	pEntity->SetAbsOrigin( vecOrigin );
-	pEntity->pev->angles = vecAngles;
+	pEntity->SetAbsAngles( vecAngles );
 
 	if( bSpawnEntity )
 	{

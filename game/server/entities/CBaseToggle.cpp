@@ -118,14 +118,14 @@ void CBaseToggle::AngularMove( Vector vecDestAngle, float flSpeed )
 	m_vecFinalAngle = vecDestAngle;
 
 	// Already there?
-	if( vecDestAngle == pev->angles )
+	if( vecDestAngle == GetAbsAngles() )
 	{
 		AngularMoveDone();
 		return;
 	}
 
 	// set destdelta to the vector needed to move
-	Vector vecDestDelta = vecDestAngle - pev->angles;
+	Vector vecDestDelta = vecDestAngle - GetAbsAngles();
 
 	// divide by speed to get time to reach dest
 	float flTravelTime = vecDestDelta.Length() / flSpeed;
@@ -146,7 +146,7 @@ After rotating, set angle to exact final angle, call "move done" function
 */
 void CBaseToggle::AngularMoveDone( void )
 {
-	pev->angles = m_vecFinalAngle;
+	SetAbsAngles( m_vecFinalAngle );
 	pev->avelocity = g_vecZero;
 	SetNextThink( -1 );
 	if( m_pfnCallWhenMoveDone )

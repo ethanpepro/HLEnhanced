@@ -143,7 +143,7 @@ void CISlave :: IdleSound( void )
 	ClearBeams( );
 	ArmBeam( side );
 
-	UTIL_MakeAimVectors( pev->angles );
+	UTIL_MakeAimVectors( GetAbsAngles() );
 	Vector vecSrc = GetAbsOrigin() + gpGlobals->v_right * 2 * side;
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecSrc );
 		WRITE_BYTE(TE_DLIGHT);
@@ -291,7 +291,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 			if (gSkillData.GetSkillLevel() == SKILL_HARD)
 				pev->framerate = 1.5;
 
-			UTIL_MakeAimVectors( pev->angles );
+			UTIL_MakeAimVectors( GetAbsAngles() );
 
 			if (m_iBeams == 0)
 			{
@@ -339,7 +339,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 
 				if ( !trace.fStartSolid )
 				{
-					CBaseEntity *pNew = Create( "monster_alien_slave", m_hDead->GetAbsOrigin(), m_hDead->pev->angles );
+					CBaseEntity *pNew = Create( "monster_alien_slave", m_hDead->GetAbsOrigin(), m_hDead->GetAbsAngles() );
 					pNew->pev->spawnflags |= SF_MONSTER_WAIT_TILL_SEEN;
 					WackBeam( -1, pNew );
 					WackBeam( 1, pNew );
@@ -350,7 +350,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 			}
 			g_MultiDamage.Clear();
 
-			UTIL_MakeAimVectors( pev->angles );
+			UTIL_MakeAimVectors( GetAbsAngles() );
 
 			ZapBeam( -1 );
 			ZapBeam( 1 );
@@ -658,7 +658,7 @@ void CISlave :: ArmBeam( int side )
 	if (m_iBeams >= ISLAVE_MAX_BEAMS)
 		return;
 
-	UTIL_MakeAimVectors( pev->angles );
+	UTIL_MakeAimVectors( GetAbsAngles() );
 	Vector vecSrc = GetAbsOrigin() + gpGlobals->v_up * 36 + gpGlobals->v_right * side * 16 + gpGlobals->v_forward * 32;
 
 	for (int i = 0; i < 3; i++)

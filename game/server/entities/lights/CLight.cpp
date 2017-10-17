@@ -50,7 +50,9 @@ void CLight :: KeyValue( KeyValueData* pkvd)
 	}
 	else if (FStrEq(pkvd->szKeyName, "pitch"))
 	{
-		pev->angles.x = atof(pkvd->szValue);
+		Vector vecAngles = GetAbsAngles();
+		vecAngles.x = atof(pkvd->szValue);
+		SetAbsAngles( vecAngles );
 		pkvd->fHandled = true;
 	}
 	else if (FStrEq(pkvd->szKeyName, "pattern"))

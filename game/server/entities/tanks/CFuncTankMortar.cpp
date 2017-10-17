@@ -29,7 +29,7 @@ void CFuncTankMortar::Fire( const Vector &barrelEnd, const Vector &forward, CBas
 			TraceResult tr;
 
 			// TankTrace needs gpGlobals->v_up, etc.
-			UTIL_MakeAimVectors( pev->angles );
+			UTIL_MakeAimVectors( GetAbsAngles() );
 
 			TankTrace( barrelEnd, forward, gTankSpread[ m_spread ], tr );
 

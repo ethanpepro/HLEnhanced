@@ -12,7 +12,7 @@ LINK_ENTITY_TO_CLASS( spray_can, CSprayCan );
 void CSprayCan::Spawn( CBaseEntity* pOwner )
 {
 	SetAbsOrigin( pOwner->GetAbsOrigin() + Vector( 0, 0, 32 ) );
-	pev->angles = pOwner->GetViewAngle();
+	SetAbsAngles( pOwner->GetViewAngle() );
 	SetOwner( pOwner );
 	pev->frame = 0;
 
@@ -35,7 +35,7 @@ void CSprayCan::Think()
 
 	// ALERT(at_console, "Spray by player %i, %i of %i\n", playernum, (int)(pev->frame + 1), nFrames);
 
-	UTIL_MakeVectors( pev->angles );
+	UTIL_MakeVectors( GetAbsAngles() );
 	UTIL_TraceLine( GetAbsOrigin(), GetAbsOrigin() + gpGlobals->v_forward * 128, ignore_monsters, pev->owner, &tr );
 
 	// No customization present.

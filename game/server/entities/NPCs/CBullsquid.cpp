@@ -334,7 +334,7 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 			Vector	vecSpitOffset;
 			Vector	vecSpitDir;
 
-			UTIL_MakeVectors ( pev->angles );
+			UTIL_MakeVectors ( GetAbsAngles() );
 
 			// !!!HACKHACK - the spot at which the spit originates (in front of the mouth) was measured in 3ds and hardcoded here.
 			// we should be able to read the position of bones at runtime for this info.
@@ -463,7 +463,7 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 
 					if ( pHurt->IsPlayer() )
 					{
-						UTIL_MakeVectors( pev->angles );
+						UTIL_MakeVectors( GetAbsAngles() );
 						pHurt->SetAbsVelocity( pHurt->GetAbsVelocity() + gpGlobals->v_forward * 300 + gpGlobals->v_up * 300 );
 					}
 				}

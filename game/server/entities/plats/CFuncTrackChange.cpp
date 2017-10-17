@@ -37,14 +37,14 @@ void CFuncTrackChange::Spawn( void )
 	{
 		SetAbsOrigin( m_vecPosition2 );
 		m_toggle_state = TS_AT_BOTTOM;
-		pev->angles = m_start;
+		SetAbsAngles( m_start );
 		m_targetState = TS_AT_TOP;
 	}
 	else
 	{
 		SetAbsOrigin( m_vecPosition1 );
 		m_toggle_state = TS_AT_TOP;
-		pev->angles = m_end;
+		SetAbsAngles( m_end );
 		m_targetState = TS_AT_BOTTOM;
 	}
 
@@ -262,7 +262,7 @@ void CFuncTrackChange::UpdateTrain( Vector &dest )
 		return;
 
 	Vector offset = m_train->GetAbsOrigin() - GetAbsOrigin();
-	Vector delta = dest - pev->angles;
+	Vector delta = dest - GetAbsAngles();
 	// Transform offset into local coordinates
 	UTIL_MakeInvVectors( delta, gpGlobals );
 	Vector local;

@@ -513,7 +513,7 @@ void CEgon::EndAttack( void )
 	if ( m_fireState != FIRE_OFF ) //Checking the button just in case!.
 		 bMakeNoise = true;
 
-	PLAYBACK_EVENT_FULL( FEV_GLOBAL | FEV_RELIABLE, m_pPlayer->edict(), m_usEgonStop, 0, m_pPlayer->GetAbsOrigin(), m_pPlayer->pev->angles, 0.0, 0.0, bMakeNoise, 0, 0, 0 );
+	PLAYBACK_EVENT_FULL( FEV_GLOBAL | FEV_RELIABLE, m_pPlayer->edict(), m_usEgonStop, 0, m_pPlayer->GetAbsOrigin(), m_pPlayer->GetAbsAngles(), 0.0, 0.0, bMakeNoise, 0, 0, 0 );
 
 	m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 2.0;
 	m_flNextPrimaryAttack = m_flNextSecondaryAttack = UTIL_WeaponTimeBase() + 0.5;

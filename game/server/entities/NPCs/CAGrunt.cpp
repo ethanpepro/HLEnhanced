@@ -344,7 +344,7 @@ void CAGrunt :: HandleAnimEvent( AnimEvent_t& event )
 			}
 			else
 			{
-				angDir = pev->angles;
+				angDir = GetAbsAngles();
 				UTIL_MakeAimVectors( angDir );
 				vecDirToEnemy = gpGlobals->v_forward;
 			}
@@ -372,7 +372,7 @@ void CAGrunt :: HandleAnimEvent( AnimEvent_t& event )
 			MESSAGE_END();
 
 			CBaseEntity *pHornet = CBaseEntity::Create( "hornet", vecArmPos, UTIL_VecToAngles( vecDirToEnemy ), edict() );
-			UTIL_MakeVectors ( pHornet->pev->angles );
+			UTIL_MakeVectors ( pHornet->GetAbsAngles() );
 			pHornet->SetAbsVelocity( gpGlobals->v_forward * 300 );
 			
 			
@@ -845,7 +845,7 @@ bool CAGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 
 		// verify that a shot fired from the gun will hit the enemy before the world.
 		// !!!LATER - we may wish to do something different for projectile weapons as opposed to instant-hit
-		UTIL_MakeVectors( pev->angles );
+		UTIL_MakeVectors( GetAbsAngles() );
 		GetAttachment( 0, vecArmPos, vecArmDir );
 //		UTIL_TraceLine( vecArmPos, vecArmPos + gpGlobals->v_forward * 256, ignore_monsters, ENT(pev), &tr);
 		UTIL_TraceLine( vecArmPos, m_hEnemy->BodyTarget(vecArmPos), dont_ignore_monsters, ENT(pev), &tr);
@@ -872,7 +872,7 @@ void CAGrunt :: StartTask ( const Task_t* pTask )
 	{
 	case TASK_AGRUNT_GET_PATH_TO_ENEMY_CORPSE:
 		{
-			UTIL_MakeVectors( pev->angles );
+			UTIL_MakeVectors( GetAbsAngles() );
 			if ( BuildRoute ( m_vecEnemyLKP - gpGlobals->v_forward * 50, bits_MF_TO_LOCATION, NULL ) )
 			{
 				TaskComplete();
