@@ -158,7 +158,7 @@ void CApache :: DyingThink( void )
 	StudioFrameAdvance( );
 	SetNextThink( gpGlobals->time + 0.1 );
 
-	pev->avelocity = pev->avelocity * 1.02;
+	SetAngularVelocity( GetAngularVelocity() * 1.02 );
 
 	// still falling?
 	if (m_flNextRocket > gpGlobals->time )
@@ -529,30 +529,32 @@ void CApache :: Flight( void )
 	Vector vecAdj = Vector( 5.0, 0, 0 );
 
 	// estimate where I'll be facing in one seconds
-	UTIL_MakeAimVectors( GetAbsAngles() + pev->avelocity * 2 + vecAdj);
+	UTIL_MakeAimVectors( GetAbsAngles() + GetAngularVelocity() * 2 + vecAdj);
 	// Vector vecEst1 = GetAbsOrigin() + GetAbsVelocity() + gpGlobals->v_up * m_flForce - Vector( 0, 0, 384 );
 	// float flSide = DotProduct( m_posDesired - vecEst1, gpGlobals->v_right );
 	
 	float flSide = DotProduct( m_vecDesired, gpGlobals->v_right );
 
+	Vector vecAVelocity = GetAngularVelocity();
+
 	if (flSide < 0)
 	{
-		if (pev->avelocity.y < 60)
+		if( vecAVelocity.y < 60 )
 		{
-			pev->avelocity.y += 8; // 9 * (3.0/2.0);
+			vecAVelocity.y += 8; // 9 * (3.0/2.0);
 		}
 	}
 	else
 	{
-		if (pev->avelocity.y > -60)
+		if( vecAVelocity.y > -60 )
 		{
-			pev->avelocity.y -= 8; // 9 * (3.0/2.0);
+			vecAVelocity.y -= 8; // 9 * (3.0/2.0);
 		}
 	}
-	pev->avelocity.y *= 0.98;
+	vecAVelocity.y *= 0.98;
 
 	// estimate where I'll be in two seconds
-	UTIL_MakeAimVectors( GetAbsAngles() + pev->avelocity * 1 + vecAdj);
+	UTIL_MakeAimVectors( GetAbsAngles() + vecAVelocity * 1 + vecAdj);
 	Vector vecEst = GetAbsOrigin() + GetAbsVelocity() * 2.0 + gpGlobals->v_up * m_flForce * 20 - Vector( 0, 0, 384 * 2 );
 
 	// add immediate force
@@ -581,18 +583,18 @@ void CApache :: Flight( void )
 	// fly sideways
 	if (flSlip > 0)
 	{
-		if ( GetAbsAngles().z > -30 && pev->avelocity.z > -15)
-			pev->avelocity.z -= 4;
+		if ( GetAbsAngles().z > -30 && vecAVelocity.z > -15)
+			vecAVelocity.z -= 4;
 		else
-			pev->avelocity.z += 2;
+			vecAVelocity.z += 2;
 	}
 	else
 	{
 
-		if ( GetAbsAngles().z < 30 && pev->avelocity.z < 15)
-			pev->avelocity.z += 4;
+		if ( GetAbsAngles().z < 30 && vecAVelocity.z < 15)
+			vecAVelocity.z += 4;
 		else
-			pev->avelocity.z -= 2;
+			vecAVelocity.z -= 2;
 	}
 
 	// sideways drag
@@ -620,30 +622,32 @@ void CApache :: Flight( void )
 	}
 
 	// pitch forward or back to get to target
-	if (flDist > 0 && flSpeed < m_flGoalSpeed /* && flSpeed < flDist */ && GetAbsAngles().x + pev->avelocity.x > -40)
+	if (flDist > 0 && flSpeed < m_flGoalSpeed /* && flSpeed < flDist */ && GetAbsAngles().x + vecAVelocity.x > -40)
 	{
 		// ALERT( at_console, "F " );
 		// lean forward
-		pev->avelocity.x -= 12.0;
+		vecAVelocity.x -= 12.0;
 	}
-	else if (flDist < 0 && flSpeed > -50 && GetAbsAngles().x + pev->avelocity.x  < 20)
+	else if (flDist < 0 && flSpeed > -50 && GetAbsAngles().x + vecAVelocity.x  < 20)
 	{
 		// ALERT( at_console, "B " );
 		// lean backward
-		pev->avelocity.x += 12.0;
+		vecAVelocity.x += 12.0;
 	}
-	else if ( GetAbsAngles().x + pev->avelocity.x > 0)
+	else if ( GetAbsAngles().x + vecAVelocity.x > 0)
 	{
 		// ALERT( at_console, "f " );
-		pev->avelocity.x -= 4.0;
+		vecAVelocity.x -= 4.0;
 	}
-	else if ( GetAbsAngles().x + pev->avelocity.x < 0)
+	else if ( GetAbsAngles().x + vecAVelocity.x < 0)
 	{
 		// ALERT( at_console, "b " );
-		pev->avelocity.x += 4.0;
+		vecAVelocity.x += 4.0;
 	}
 
-	// ALERT( at_console, "%.0f %.0f : %.0f %.0f : %.0f %.0f : %.0f\n", GetAbsOrigin().x, GetAbsVelocity().x, flDist, flSpeed, GetAbsAngles().x, pev->avelocity.x, m_flForce ); 
+	SetAngularVelocity( vecAVelocity );
+
+	// ALERT( at_console, "%.0f %.0f : %.0f %.0f : %.0f %.0f : %.0f\n", GetAbsOrigin().x, GetAbsVelocity().x, flDist, flSpeed, GetAbsAngles().x, GetAngularVelocity().x, m_flForce ); 
 	// ALERT( at_console, "%.0f %.0f : %.0f %0.f : %.0f\n", GetAbsOrigin().z, GetAbsVelocity().z, vecEst.z, m_posDesired.z, m_flForce ); 
 
 	// make rotor, engine sounds

@@ -87,11 +87,13 @@ void CFlockingFlyer::BoidAdvanceFrame()
 
 	pev->framerate = flapspeed;
 
+	Vector vecAVelocity = GetAngularVelocity();
 	// lean
-	pev->avelocity.x = -( GetAbsAngles().x + flapspeed * 5 );
+	vecAVelocity.x = -( GetAbsAngles().x + flapspeed * 5 );
 
 	// bank
-	pev->avelocity.z = -( GetAbsAngles().z + pev->avelocity.y );
+	vecAVelocity.z = -( GetAbsAngles().z + vecAVelocity.y );
+	SetAngularVelocity( vecAVelocity );
 
 	// pev->framerate		= flapspeed;
 	StudioFrameAdvance( 0.1 );
@@ -192,7 +194,9 @@ void CFlockingFlyer::FlockLeaderThink( void )
 		if( m_fTurning )
 		{
 			m_fTurning = false;
-			pev->avelocity.y = 0;
+			Vector vecAVelocity = GetAngularVelocity();
+			vecAVelocity.y = 0;
+			SetAngularVelocity( vecAVelocity );
 		}
 
 		m_fPathBlocked = false;
@@ -221,16 +225,17 @@ void CFlockingFlyer::FlockLeaderThink( void )
 		vecDist = ( tr.vecEndPos - GetAbsOrigin() );
 		flLeftSide = vecDist.Length();
 
+		Vector vecAVelocity = GetAngularVelocity();
 		// turn right if more clearance on right side
 		if( flRightSide > flLeftSide )
 		{
-			pev->avelocity.y = -AFLOCK_TURN_RATE;
+			vecAVelocity.y = -AFLOCK_TURN_RATE;
 			m_fTurning = true;
 		}
 		// default to left turn :)
 		else if( flLeftSide > flRightSide )
 		{
-			pev->avelocity.y = AFLOCK_TURN_RATE;
+			vecAVelocity.y = AFLOCK_TURN_RATE;
 			m_fTurning = true;
 		}
 		else
@@ -240,13 +245,14 @@ void CFlockingFlyer::FlockLeaderThink( void )
 
 			if( RANDOM_LONG( 0, 1 ) == 0 )
 			{
-				pev->avelocity.y = AFLOCK_TURN_RATE;
+				vecAVelocity.y = AFLOCK_TURN_RATE;
 			}
 			else
 			{
-				pev->avelocity.y = -AFLOCK_TURN_RATE;
+				vecAVelocity.y = -AFLOCK_TURN_RATE;
 			}
 		}
+		SetAngularVelocity( vecAVelocity );
 	}
 	SpreadFlock();
 

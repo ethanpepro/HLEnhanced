@@ -108,7 +108,7 @@ void CPendulum::Swing( void )
 	else if( GetSpeed() < -m_maxSpeed )
 		SetSpeed( -m_maxSpeed );
 	// scale the destdelta vector by the time spent traveling to get velocity
-	pev->avelocity = GetSpeed() * pev->movedir;
+	SetAngularVelocity( GetSpeed() * pev->movedir );
 
 	// Call this again
 	SetNextThink( GetLastThink() + 0.1 );
@@ -121,7 +121,7 @@ void CPendulum::Swing( void )
 			SetAbsAngles( m_center );
 			SetSpeed( 0 );
 			SetThink( NULL );
-			pev->avelocity = g_vecZero;
+			SetAngularVelocity( g_vecZero );
 		}
 		else if( GetSpeed() > m_dampSpeed )
 			SetSpeed( m_dampSpeed );
@@ -141,7 +141,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 
 			delta = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_start );
 
-			pev->avelocity = m_maxSpeed * pev->movedir;
+			SetAngularVelocity( m_maxSpeed * pev->movedir );
 			SetNextThink( GetLastThink() + ( delta / m_maxSpeed ) );
 			SetThink( &CPendulum::Stop );
 		}
@@ -149,7 +149,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 		{
 			SetSpeed( 0 );		// Dead stop
 			SetThink( NULL );
-			pev->avelocity = g_vecZero;
+			SetAngularVelocity( g_vecZero );
 		}
 	}
 	else
@@ -166,7 +166,7 @@ void CPendulum::Stop( void )
 	SetAbsAngles( m_start );
 	SetSpeed( 0 );
 	SetThink( NULL );
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 }
 
 void CPendulum::Touch( CBaseEntity *pOther )

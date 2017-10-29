@@ -84,7 +84,7 @@ void CCineAI::PossessEntity( void )
 				// zap the monster instantly to the site of the script entity.
 				pTarget->SetAbsOrigin( GetAbsOrigin() );
 				pTarget->pev->ideal_yaw = GetAbsAngles().y;
-				pTarget->pev->avelocity = Vector( 0, 0, 0 );
+				pTarget->SetAngularVelocity( g_vecZero );
 				pTarget->SetAbsVelocity( Vector( 0, 0, 0 ) );
 				pTarget->GetEffects() |= EF_NOINTERP;
 				Vector vecAngles = pTarget->GetAbsAngles();

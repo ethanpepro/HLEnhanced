@@ -241,7 +241,7 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 		m_flNextAttack = gpGlobals->time + 1.0; // debounce
 	}
 
-	// pev->avelocity = Vector (300, 300, 300);
+	// SetAngularVelocity( Vector (300, 300, 300) );
 
 	// this is my heuristic for modulating the grenade velocity because grenades dropped purely vertical
 	// or thrown very far tend to slow down too quickly for me to always catch just by testing velocity. 
@@ -289,7 +289,7 @@ void CGrenade::SlideTouch( CBaseEntity *pOther )
 	if ( pOther == GetOwner() )
 		return;
 
-	// pev->avelocity = Vector (300, 300, 300);
+	// SetAngularVelocity( Vector (300, 300, 300) );
 
 	if( GetFlags().Any( FL_ONGROUND ) )
 	{
@@ -381,7 +381,7 @@ CGrenade* CGrenade::ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector v
 	pGrenade->SetNextThink( gpGlobals->time );
 	
 	// Tumble in air
-	pGrenade->pev->avelocity.x = RANDOM_FLOAT ( -100, -500 );
+	pGrenade->SetAngularVelocity( Vector( RANDOM_FLOAT( -100, -500 ), 0, 0 ) );
 	
 	// Explode on contact
 	pGrenade->SetTouch( &CGrenade::ExplodeTouch );
@@ -420,7 +420,7 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 	pGrenade->pev->framerate = 1.0;
 
 	// Tumble through the air
-	// pGrenade->pev->avelocity.x = -400;
+	// pGrenade->SetAngularVelocity( Vector( -400, 0, 0 ) );
 
 	pGrenade->SetGravity( 0.5 );
 	pGrenade->pev->friction = 0.8;

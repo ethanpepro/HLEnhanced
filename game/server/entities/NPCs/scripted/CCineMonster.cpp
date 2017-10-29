@@ -395,7 +395,7 @@ void CCineMonster::PossessEntity( void )
 		case 4:
 			pTarget->SetAbsOrigin( GetAbsOrigin() );
 			pTarget->pev->ideal_yaw = GetAbsAngles().y;
-			pTarget->pev->avelocity = Vector( 0, 0, 0 );
+			pTarget->SetAngularVelocity( g_vecZero );
 			pTarget->SetAbsVelocity( Vector( 0, 0, 0 ) );
 			pTarget->GetEffects() |= EF_NOINTERP;
 			Vector vecAngles = pTarget->GetAbsAngles();

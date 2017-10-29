@@ -57,7 +57,7 @@ void CFuncPlatRot::GoDown( void )
 void CFuncPlatRot::HitTop( void )
 {
 	CFuncPlat::HitTop();
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	SetAbsAngles( m_end );
 }
 
@@ -67,7 +67,7 @@ void CFuncPlatRot::HitTop( void )
 void CFuncPlatRot::HitBottom( void )
 {
 	CFuncPlat::HitBottom();
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	SetAbsAngles( m_start );
 }
 
@@ -78,10 +78,10 @@ void CFuncPlatRot::RotMove( Vector &destAngle, float time )
 
 	// Travel time is so short, we're practically there already;  so make it so.
 	if( time >= 0.1 )
-		pev->avelocity = vecDestDelta / time;
+		SetAngularVelocity( vecDestDelta / time );
 	else
 	{
-		pev->avelocity = vecDestDelta;
+		SetAngularVelocity( vecDestDelta );
 		SetNextThink( GetLastThink() + 1 );
 	}
 }

@@ -266,7 +266,10 @@ bool CNihilanthHVR::CircleTarget( Vector vecTarget )
 		// ALERT( at_console, "too far\n");
 		m_vecIdeal = m_vecIdeal + ( vecDest - vecSrc ).Normalize() * 50;
 	}
-	pev->avelocity.z = d1 * 20;
+
+	Vector vecAVelocity = GetAngularVelocity();
+	vecAVelocity.z = d1 * 20;
+	SetAngularVelocity( vecAVelocity );
 
 	if( d1 < 32 )
 	{

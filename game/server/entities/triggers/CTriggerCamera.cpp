@@ -179,7 +179,7 @@ void CTriggerCamera::FollowTarget()
 			pPlayer->m_hCamera = nullptr;
 		}
 		SUB_UseTargets( this, USE_TOGGLE, 0 );
-		pev->avelocity = Vector( 0, 0, 0 );
+		SetAngularVelocity( g_vecZero );
 		m_state = false;
 		return;
 	}
@@ -210,9 +210,10 @@ void CTriggerCamera::FollowTarget()
 	if( dy > 180 )
 		dy = dy - 360;
 
-	pev->avelocity.x = dx * 40 * gpGlobals->frametime;
-	pev->avelocity.y = dy * 40 * gpGlobals->frametime;
-
+	Vector vecAVelocity = GetAngularVelocity();
+	vecAVelocity.x = dx * 40 * gpGlobals->frametime;
+	vecAVelocity.y = dy * 40 * gpGlobals->frametime;
+	SetAngularVelocity( vecAVelocity );
 
 	if( !( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_TAKECONTROL ) ) )
 	{

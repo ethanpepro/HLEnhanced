@@ -99,8 +99,12 @@ void CGibShooter::ShootThink( void )
 		pGib->SetAbsOrigin( GetAbsOrigin() );
 		pGib->SetAbsVelocity( vecShootDir * m_flGibVelocity );
 
-		pGib->pev->avelocity.x = RANDOM_FLOAT( 100, 200 );
-		pGib->pev->avelocity.y = RANDOM_FLOAT( 100, 300 );
+		Vector vecAVelocity = pGib->GetAngularVelocity();
+
+		vecAVelocity.x = RANDOM_FLOAT( 100, 200 );
+		vecAVelocity.y = RANDOM_FLOAT( 100, 300 );
+
+		pGib->SetAngularVelocity( vecAVelocity );
 
 		float thinkTime = pGib->GetNextThink() - gpGlobals->time;
 

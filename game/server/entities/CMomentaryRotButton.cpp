@@ -94,7 +94,7 @@ void CMomentaryRotButton::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, US
 	UpdateAllButtons( pev->ideal_yaw, 1 );
 
 	// Calculate destination angle and use it to predict value, this prevents sending target in wrong direction on retriggering
-	Vector dest = GetAbsAngles() + pev->avelocity * ( GetNextThink() - GetLastThink() );
+	Vector dest = GetAbsAngles() + GetAngularVelocity() * ( GetNextThink() - GetLastThink() );
 	float value1 = CBaseToggle::AxisDelta( pev->spawnflags, dest, m_start ) / m_flMoveDistance;
 	UpdateTarget( value1 );
 
@@ -102,7 +102,7 @@ void CMomentaryRotButton::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, US
 
 void CMomentaryRotButton::Off( void )
 {
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	m_lastUsed = 0;
 	if( FBitSet( pev->spawnflags, SF_PENDULUM_AUTO_RETURN ) && m_returnSpeed > 0 )
 	{
@@ -137,13 +137,13 @@ void CMomentaryRotButton::UpdateSelf( float value )
 	SetNextThink( GetLastThink() + 0.1 );
 	if( m_direction > 0 && value >= 1.0 )
 	{
-		pev->avelocity = g_vecZero;
+		SetAngularVelocity( g_vecZero );
 		SetAbsAngles( m_end );
 		return;
 	}
 	else if( m_direction < 0 && value <= 0 )
 	{
-		pev->avelocity = g_vecZero;
+		SetAngularVelocity( g_vecZero );
 		SetAbsAngles( m_start );
 		return;
 	}
@@ -157,7 +157,7 @@ void CMomentaryRotButton::UpdateSelf( float value )
 	else
 		SetNextThink( GetNextThink() + 0.1 );
 
-	pev->avelocity = ( m_direction * GetSpeed() ) * pev->movedir;
+	SetAngularVelocity( ( m_direction * GetSpeed() ) * pev->movedir );
 	SetThink( &CMomentaryRotButton::Off );
 }
 
@@ -165,14 +165,14 @@ void CMomentaryRotButton::UpdateSelfReturn( float value )
 {
 	if( value <= 0 )
 	{
-		pev->avelocity = g_vecZero;
+		SetAngularVelocity( g_vecZero );
 		SetAbsAngles( m_start );
 		SetNextThink( -1 );
 		SetThink( NULL );
 	}
 	else
 	{
-		pev->avelocity = -m_returnSpeed * pev->movedir;
+		SetAngularVelocity( -m_returnSpeed * pev->movedir );
 		SetNextThink( GetLastThink() + 0.1 );
 	}
 }

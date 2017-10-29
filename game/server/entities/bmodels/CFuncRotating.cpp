@@ -174,7 +174,7 @@ void CFuncRotating::Precache( void )
 		}
 	}
 
-	if( pev->avelocity != g_vecZero )
+	if( GetAngularVelocity() != g_vecZero )
 	{
 		// if fan was spinning, and we went through transition or save/restore,
 		// make sure we restart the sound.  1.5 sec delay is magic number. KDB
@@ -192,16 +192,16 @@ void CFuncRotating::SpinUp( void )
 	Vector	vecAVel;//rotational velocity
 
 	SetNextThink( GetLastThink() + 0.1 );
-	pev->avelocity = pev->avelocity + ( pev->movedir * ( GetSpeed() * m_flFanFriction ) );
+	SetAngularVelocity( GetAngularVelocity() + ( pev->movedir * ( GetSpeed() * m_flFanFriction ) ) );
 
-	vecAVel = pev->avelocity;// cache entity's rotational velocity
+	vecAVel = GetAngularVelocity();// cache entity's rotational velocity
 
 							 // if we've met or exceeded target speed, set target speed and stop thinking
 	if( fabs( vecAVel.x ) >= fabs( pev->movedir.x * GetSpeed() ) &&
 		fabs( vecAVel.y ) >= fabs( pev->movedir.y * GetSpeed() ) &&
 		fabs( vecAVel.z ) >= fabs( pev->movedir.z * GetSpeed() ) )
 	{
-		pev->avelocity = pev->movedir * GetSpeed();// set speed in case we overshot
+		SetAngularVelocity( pev->movedir * GetSpeed() );// set speed in case we overshot
 		EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 						m_flVolume, m_flAttenuation, SND_CHANGE_PITCH | SND_CHANGE_VOL, FANPITCHMAX );
 
@@ -224,9 +224,9 @@ void CFuncRotating::SpinDown( void )
 
 	SetNextThink( GetLastThink() + 0.1 );
 
-	pev->avelocity = pev->avelocity - ( pev->movedir * ( GetSpeed() * m_flFanFriction ) );//spin down slower than spinup
+	SetAngularVelocity( GetAngularVelocity() - ( pev->movedir * ( GetSpeed() * m_flFanFriction ) ) );//spin down slower than spinup
 
-	vecAVel = pev->avelocity;// cache entity's rotational velocity
+	vecAVel = GetAngularVelocity();// cache entity's rotational velocity
 
 	if( pev->movedir.x != 0 )
 		vecdir = pev->movedir.x;
@@ -240,7 +240,7 @@ void CFuncRotating::SpinDown( void )
 	if( ( ( vecdir > 0 ) && ( vecAVel.x <= 0 && vecAVel.y <= 0 && vecAVel.z <= 0 ) ) ||
 		( ( vecdir < 0 ) && ( vecAVel.x >= 0 && vecAVel.y >= 0 && vecAVel.z >= 0 ) ) )
 	{
-		pev->avelocity = g_vecZero;// set speed in case we overshot
+		SetAngularVelocity( g_vecZero );// set speed in case we overshot
 
 								   // stop sound, we're done
 		EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning /* Stop */ ),
@@ -298,7 +298,7 @@ void CFuncRotating::HurtTouch( CBaseEntity *pOther )
 		return;
 
 	// calculate damage based on rotation speed
-	pev->dmg = pev->avelocity.Length() / 10;
+	pev->dmg = GetAngularVelocity().Length() / 10;
 
 	pOther->TakeDamage( this, this, pev->dmg, DMG_CRUSH );
 
@@ -314,7 +314,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 	if( FBitSet( pev->spawnflags, SF_BRUSH_ACCDCC ) )
 	{
 		// fan is spinning, so stop it.
-		if( pev->avelocity != g_vecZero )
+		if( GetAngularVelocity() != g_vecZero )
 		{
 			SetThink( &CFuncRotating::SpinDown );
 			//EMIT_SOUND_DYN( this, CHAN_WEAPON, (char *)STRING(pev->noiseStop), 
@@ -333,7 +333,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 	}
 	else if( !FBitSet( pev->spawnflags, SF_BRUSH_ACCDCC ) )//this is a normal start/stop brush.
 	{
-		if( pev->avelocity != g_vecZero )
+		if( GetAngularVelocity() != g_vecZero )
 		{
 			// play stopping sound here
 			SetThink( &CFuncRotating::SpinDown );
@@ -342,13 +342,13 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 			//	m_flVolume, m_flAttenuation, 0, m_pitch);
 
 			SetNextThink( GetLastThink() + 0.1 );
-			// pev->avelocity = g_vecZero;
+			// SetAngularVelocity( g_vecZero );
 		}
 		else
 		{
 			EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 							m_flVolume, m_flAttenuation, 0, FANPITCHMAX );
-			pev->avelocity = pev->movedir * GetSpeed();
+			SetAngularVelocity( pev->movedir * GetSpeed() );
 
 			SetThink( &CFuncRotating::Rotate );
 			Rotate();
@@ -367,7 +367,7 @@ void CFuncRotating::Rotate( void )
 //
 void CFuncRotating::RampPitchVol( const bool bUp )
 {
-	Vector vecAVel = pev->avelocity;
+	Vector vecAVel = GetAngularVelocity();
 	vec_t vecCur;
 	vec_t vecFinal;
 	float fpct;

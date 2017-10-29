@@ -133,7 +133,9 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 			SetSolidType( SOLID_NOT );
 			SetMoveType( MOVETYPE_FLY );
 			SetAbsVelocity( Vector( 0, 0, 0 ) );
-			pev->avelocity.z = 0;
+			Vector vecAVelocity = GetAngularVelocity();
+			vecAVelocity.z = 0;
+			SetAngularVelocity( vecAVelocity );
 			SetNextThink( gpGlobals->time + 10.0 );
 		}
 

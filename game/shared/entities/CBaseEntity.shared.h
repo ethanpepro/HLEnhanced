@@ -366,11 +366,6 @@ public:
 	const Vector& GetAngularVelocity() const { return pev->avelocity; }
 
 	/**
-	*	@return The angular velocity, in mutable form.
-	*/
-	Vector& GetMutableAVelocity() { return pev->avelocity; }
-
-	/**
 	*	Sets the angular velocity.
 	*	@param vecAVelocity Angular velocity to set.
 	*/

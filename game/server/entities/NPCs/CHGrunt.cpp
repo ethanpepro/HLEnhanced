@@ -124,7 +124,7 @@ void CHGrunt :: GibMonster ( void )
 		if ( pGun )
 		{
 			pGun->SetAbsVelocity( Vector (RANDOM_FLOAT(-100,100), RANDOM_FLOAT(-100,100), RANDOM_FLOAT(200,300)) );
-			pGun->pev->avelocity = Vector ( 0, RANDOM_FLOAT( 200, 400 ), 0 );
+			pGun->SetAngularVelocity( Vector ( 0, RANDOM_FLOAT( 200, 400 ), 0 ) );
 		}
 	
 		if (FBitSet( pev->weapons, HGRUNT_GRENADELAUNCHER ))
@@ -133,7 +133,7 @@ void CHGrunt :: GibMonster ( void )
 			if ( pGun )
 			{
 				pGun->SetAbsVelocity( Vector (RANDOM_FLOAT(-100,100), RANDOM_FLOAT(-100,100), RANDOM_FLOAT(200,300)) );
-				pGun->pev->avelocity = Vector ( 0, RANDOM_FLOAT( 200, 400 ), 0 );
+				pGun->SetAngularVelocity( Vector ( 0, RANDOM_FLOAT( 200, 400 ), 0 ) );
 			}
 		}
 	}

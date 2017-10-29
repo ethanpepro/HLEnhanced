@@ -303,11 +303,16 @@ void CNihilanth :: DyingThink( void )
 
 	if (m_fSequenceFinished)
 	{
-		pev->avelocity.y += RANDOM_FLOAT( -100, 100 );
-		if (pev->avelocity.y < -100)
-			pev->avelocity.y = -100;
-		if (pev->avelocity.y > 100)
-			pev->avelocity.y = 100;
+		Vector vecAVelocity = GetAngularVelocity();
+
+		vecAVelocity.y += RANDOM_FLOAT( -100, 100 );
+
+		if ( vecAVelocity.y < -100 )
+			vecAVelocity.y = -100;
+		if ( vecAVelocity.y > 100 )
+			vecAVelocity.y = 100;
+
+		SetAngularVelocity( vecAVelocity );
 
 		pev->sequence = LookupSequence( "die1" );
 	}

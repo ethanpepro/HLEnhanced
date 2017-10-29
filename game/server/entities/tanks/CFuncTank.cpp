@@ -230,10 +230,10 @@ void CFuncTank::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 
 void CFuncTank::Think( void )
 {
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	TrackTarget();
 
-	if( fabs( pev->avelocity.x ) > 1 || fabs( pev->avelocity.y ) > 1 )
+	if( fabs( GetAngularVelocity().x ) > 1 || fabs( GetAngularVelocity().y ) > 1 )
 		StartRotSound();
 	else
 		StopRotSound();
@@ -332,11 +332,14 @@ void CFuncTank::TrackTarget( void )
 
 	// Move toward target at rate or less
 	float distY = UTIL_AngleDistance( angles.y, GetAbsAngles().y );
-	pev->avelocity.y = distY * 10;
-	if( pev->avelocity.y > m_yawRate )
-		pev->avelocity.y = m_yawRate;
-	else if( pev->avelocity.y < -m_yawRate )
-		pev->avelocity.y = -m_yawRate;
+
+	Vector vecAVelocity = GetAngularVelocity();
+
+	vecAVelocity.y = distY * 10;
+	if( vecAVelocity.y > m_yawRate )
+		vecAVelocity.y = m_yawRate;
+	else if( vecAVelocity.y < -m_yawRate )
+		vecAVelocity.y = -m_yawRate;
 
 	// Limit against range in x
 	if( angles.x > m_pitchCenter + m_pitchRange )
@@ -346,12 +349,14 @@ void CFuncTank::TrackTarget( void )
 
 	// Move toward target at rate or less
 	float distX = UTIL_AngleDistance( angles.x, GetAbsAngles().x );
-	pev->avelocity.x = distX * 10;
+	vecAVelocity.x = distX * 10;
 
-	if( pev->avelocity.x > m_pitchRate )
-		pev->avelocity.x = m_pitchRate;
-	else if( pev->avelocity.x < -m_pitchRate )
-		pev->avelocity.x = -m_pitchRate;
+	if( vecAVelocity.x > m_pitchRate )
+		vecAVelocity.x = m_pitchRate;
+	else if( vecAVelocity.x < -m_pitchRate )
+		vecAVelocity.x = -m_pitchRate;
+
+	SetAngularVelocity( vecAVelocity );
 
 	if( m_pController )
 		return;

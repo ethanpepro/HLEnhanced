@@ -138,7 +138,7 @@ void CBaseEntity::SUB_StartFadeOut( void )
 	}
 
 	SetSolidType( SOLID_NOT );
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 
 	SetNextThink( gpGlobals->time + 0.1 );
 	SetThink( &CBaseEntity::SUB_FadeOut );

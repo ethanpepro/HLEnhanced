@@ -38,7 +38,7 @@ void CFuncTrackTrain::Spawn( void )
 
 	SetSpeed( 0 );
 	SetAbsVelocity( g_vecZero );
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	pev->impulse = m_speed;
 
 	m_dir = 1;
@@ -138,7 +138,7 @@ void CFuncTrackTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 		{
 			SetSpeed( 0 );
 			SetAbsVelocity( g_vecZero );
-			pev->avelocity = g_vecZero;
+			SetAngularVelocity( g_vecZero );
 			StopSound();
 			SetThink( NULL );
 		}
@@ -257,18 +257,21 @@ void CFuncTrackTrain::Next( void )
 		vx = 0;
 	vy = UTIL_AngleDistance( angles.y, GetAbsAngles().y );
 
-	pev->avelocity.y = vy * 10;
-	pev->avelocity.x = vx * 10;
+	Vector vecAVelocity = GetAngularVelocity();
+	vecAVelocity.y = vy * 10;
+	vecAVelocity.x = vx * 10;
 
 	if( m_flBank != 0 )
 	{
-		if( pev->avelocity.y < -5 )
-			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( -m_flBank, GetAbsAngles().z, m_flBank * 2 ), GetAbsAngles().z );
-		else if( pev->avelocity.y > 5 )
-			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( m_flBank, GetAbsAngles().z, m_flBank * 2 ), GetAbsAngles().z );
+		if( vecAVelocity.y < -5 )
+			vecAVelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( -m_flBank, GetAbsAngles().z, m_flBank * 2 ), GetAbsAngles().z );
+		else if( vecAVelocity.y > 5 )
+			vecAVelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( m_flBank, GetAbsAngles().z, m_flBank * 2 ), GetAbsAngles().z );
 		else
-			pev->avelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( 0, GetAbsAngles().z, m_flBank * 4 ), GetAbsAngles().z ) * 4;
+			vecAVelocity.z = UTIL_AngleDistance( UTIL_ApproachAngle( 0, GetAbsAngles().z, m_flBank * 4 ), GetAbsAngles().z ) * 4;
 	}
+
+	SetAngularVelocity( vecAVelocity );
 
 	if( pnext )
 	{
@@ -310,7 +313,7 @@ void CFuncTrackTrain::Next( void )
 	{
 		StopSound();
 		SetAbsVelocity( nextPos - GetAbsOrigin() );
-		pev->avelocity = g_vecZero;
+		SetAngularVelocity( g_vecZero );
 		float distance = GetAbsVelocity().Length();
 		m_oldSpeed = GetSpeed();
 
@@ -455,7 +458,7 @@ void CFuncTrackTrain::DeadEnd( void )
 	}
 
 	SetAbsVelocity( g_vecZero );
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	if( pTrack )
 	{
 		ALERT( at_aiconsole, "at %s\n", pTrack->GetTargetname() );

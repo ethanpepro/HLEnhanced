@@ -67,7 +67,7 @@ void CBaseMonster::FadeMonster( void )
 	StopAnimation();
 	SetAbsVelocity( g_vecZero );
 	SetMoveType( MOVETYPE_NONE );
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	pev->animtime = gpGlobals->time;
 	GetEffects() |= EF_NOINTERP;
 	SUB_StartFadeOut();

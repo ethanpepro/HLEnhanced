@@ -247,14 +247,16 @@ void CSqueakGrenade::HuntThink( void )
 
 	if( pev->flags & FL_ONGROUND )
 	{
-		pev->avelocity = Vector( 0, 0, 0 );
+		SetAngularVelocity( g_vecZero );
 	}
 	else
 	{
-		if( pev->avelocity == Vector( 0, 0, 0 ) )
+		if( GetAngularVelocity() == g_vecZero )
 		{
-			pev->avelocity.x = RANDOM_FLOAT( -100, 100 );
-			pev->avelocity.z = RANDOM_FLOAT( -100, 100 );
+			Vector vecAVelocity = GetAngularVelocity();
+			vecAVelocity.x = RANDOM_FLOAT( -100, 100 );
+			vecAVelocity.z = RANDOM_FLOAT( -100, 100 );
+			SetAngularVelocity( vecAVelocity );
 		}
 	}
 

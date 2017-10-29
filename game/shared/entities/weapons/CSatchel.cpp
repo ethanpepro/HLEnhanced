@@ -89,7 +89,7 @@ void CSatchelCharge::SatchelSlide( CBaseEntity *pOther )
 	if ( pOther == GetOwner() )
 		return;
 
-	// pev->avelocity = Vector (300, 300, 300);
+	// SetAngularVelocity( Vector (300, 300, 300) );
 	SetGravity( 1 );// normal gravity now
 
 	// HACKHACK - On ground isn't always set, so look for ground underneath
@@ -100,7 +100,7 @@ void CSatchelCharge::SatchelSlide( CBaseEntity *pOther )
 	{
 		// add a bit of static friction
 		SetAbsVelocity( GetAbsVelocity() * 0.95 );
-		pev->avelocity = pev->avelocity * 0.9;
+		SetAngularVelocity( GetAngularVelocity() * 0.9 );
 		// play sliding sound, volume based on velocity
 	}
 	if ( !(pev->flags & FL_ONGROUND) && GetAbsVelocity().Length2D() > 10 )
@@ -126,7 +126,7 @@ void CSatchelCharge :: SatchelThink( void )
 	{
 		SetMoveType( MOVETYPE_FLY );
 		Vector vecVelocity = GetAbsVelocity() * 0.8;
-		pev->avelocity = pev->avelocity * 0.9;
+		SetAngularVelocity( GetAngularVelocity() * 0.9 );
 		vecVelocity.z += 8;
 		SetAbsVelocity( vecVelocity );
 	}
@@ -361,7 +361,7 @@ void CSatchel::Throw( void )
 
 		CBaseEntity *pSatchel = Create( "monster_satchel", vecSrc, Vector( 0, 0, 0), m_pPlayer->edict() );
 		pSatchel->SetAbsVelocity( vecThrow );
-		pSatchel->pev->avelocity.y = 400;
+		pSatchel->SetAngularVelocity( Vector( 0, 400, 0 ) );
 
 		m_pPlayer->SetViewModelName( "models/v_satchel_radio.mdl" );
 		m_pPlayer->SetWeaponModelName( "models/p_satchel_radio.mdl" );

@@ -135,7 +135,7 @@ void CBaseToggle::AngularMove( Vector vecDestAngle, float flSpeed )
 	SetThink( &CBaseToggle::AngularMoveDone );
 
 	// scale the destdelta vector by the time spent traveling to get velocity
-	pev->avelocity = vecDestDelta / flTravelTime;
+	SetAngularVelocity( vecDestDelta / flTravelTime );
 }
 
 
@@ -147,7 +147,7 @@ After rotating, set angle to exact final angle, call "move done" function
 void CBaseToggle::AngularMoveDone( void )
 {
 	SetAbsAngles( m_vecFinalAngle );
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	SetNextThink( -1 );
 	if( m_pfnCallWhenMoveDone )
 		( this->*m_pfnCallWhenMoveDone )( );

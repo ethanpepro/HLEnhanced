@@ -434,7 +434,7 @@ void COsprey::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetMoveType( MOVETYPE_TOSS );
 	SetGravity( 0.3 );
 	SetAbsVelocity( m_velocity );
-	pev->avelocity = Vector( RANDOM_FLOAT( -20, 20 ), 0, RANDOM_FLOAT( -50, 50 ) );
+	SetAngularVelocity( Vector( RANDOM_FLOAT( -20, 20 ), 0, RANDOM_FLOAT( -50, 50 ) ) );
 	STOP_SOUND( this, CHAN_STATIC, "apache/ap_rotor4.wav" );
 
 	SetSize( Vector( -32, -32, -64), Vector( 32, 32, 0) );
@@ -465,7 +465,7 @@ void COsprey :: DyingThink( void )
 	StudioFrameAdvance( );
 	SetNextThink( gpGlobals->time + 0.1 );
 
-	pev->avelocity = pev->avelocity * 1.02;
+	SetAngularVelocity( GetAngularVelocity() * 1.02 );
 
 	// still falling?
 	if (m_startTime > gpGlobals->time )

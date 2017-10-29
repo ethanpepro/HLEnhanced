@@ -254,7 +254,7 @@ void CFuncTrackChange::UpdateTrain( Vector &dest )
 	float time = ( GetNextThink() - GetLastThink() );
 
 	m_train->SetAbsVelocity( GetAbsVelocity() );
-	m_train->pev->avelocity = pev->avelocity;
+	m_train->SetAngularVelocity( GetAngularVelocity() );
 	m_train->NextThink( m_train->GetLastThink() + time, false );
 
 	// Attempt at getting the train to rotate properly around the origin of the trackchange

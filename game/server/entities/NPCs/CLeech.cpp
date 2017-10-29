@@ -360,14 +360,16 @@ void CLeech::UpdateMotion( void )
 
 	pev->framerate = flapspeed;
 
-	if ( !m_fPathBlocked )
-		pev->avelocity.y = pev->ideal_yaw;
-	else
-		pev->avelocity.y = pev->ideal_yaw * m_obstacle;
+	Vector vecAVelocity = GetAngularVelocity();	
 
-	if ( pev->avelocity.y > 150 )
+	if ( !m_fPathBlocked )
+		vecAVelocity.y = pev->ideal_yaw;
+	else
+		vecAVelocity.y = pev->ideal_yaw * m_obstacle;
+
+	if ( vecAVelocity.y > 150 )
 		m_IdealActivity = ACT_TURN_LEFT;
-	else if ( pev->avelocity.y < -150 )
+	else if ( vecAVelocity.y < -150 )
 		m_IdealActivity = ACT_TURN_RIGHT;
 	else
 		m_IdealActivity = ACT_SWIM;
@@ -390,7 +392,9 @@ void CLeech::UpdateMotion( void )
 	}
 
 	// bank
-	pev->avelocity.z = - ( GetAbsAngles().z + (pev->avelocity.y * 0.25));
+	vecAVelocity.z = - ( GetAbsAngles().z + ( vecAVelocity.y * 0.25));
+
+	SetAngularVelocity( vecAVelocity );
 
 	if ( m_MonsterState == MONSTERSTATE_COMBAT && HasConditions( bits_COND_CAN_MELEE_ATTACK1 ) )
 		m_IdealActivity = ACT_MELEE_ATTACK1;
@@ -432,7 +436,7 @@ void CLeech::UpdateMotion( void )
 	if ( !m_pt )
 		m_pt = CBeam::BeamCreate( "sprites/laserbeam.spr", 5 );
 	m_pb->PointsInit( GetAbsOrigin(), GetAbsOrigin() + gpGlobals->v_forward * LEECH_CHECK_DIST );
-	m_pt->PointsInit( GetAbsOrigin(), GetAbsOrigin() - gpGlobals->v_right * (pev->avelocity.y*0.25) );
+	m_pt->PointsInit( GetAbsOrigin(), GetAbsOrigin() - gpGlobals->v_right * (GetAngularVelocity().y*0.25) );
 	if ( m_fPathBlocked )
 	{
 		float color = m_obstacle * 30;
@@ -601,9 +605,13 @@ void CLeech::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 		Vector vecOrigin = GetAbsOrigin();
 		vecOrigin.z += 1;
 		SetAbsOrigin( vecOrigin );
-		pev->avelocity = g_vecZero;
+		SetAngularVelocity( g_vecZero );
 		if ( RANDOM_LONG( 0, 99 ) < 70 )
-			pev->avelocity.y = RANDOM_LONG( -720, 720 );
+		{
+			Vector vecAVelocity = GetAngularVelocity();
+			vecAVelocity.y = RANDOM_LONG( -720, 720 );
+			SetAngularVelocity( vecAVelocity );
+		}
 
 		SetGravity( 0.02 );
 		ClearBits(pev->flags, FL_ONGROUND);

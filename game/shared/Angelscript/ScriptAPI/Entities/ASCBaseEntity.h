@@ -242,10 +242,6 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, GetAngularVelocity ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "Vector& GetMutableAVelocity()",
-		asMETHOD( CLASS, GetMutableAVelocity ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
 		pszObjectName, "void SetAngularVelocity(const Vector& in vecVelocity)",
 		asMETHOD( CLASS, SetAngularVelocity ), asCALL_THISCALL );
 

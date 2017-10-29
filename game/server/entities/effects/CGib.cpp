@@ -75,8 +75,10 @@ void CGib::BounceGibTouch( CBaseEntity *pOther )
 		vecAngles.x = 0;
 		vecAngles.z = 0;
 		SetAbsAngles( vecAngles );
-		pev->avelocity.x = 0;
-		pev->avelocity.z = 0;
+		Vector vecAVelocity = GetAngularVelocity();
+		vecAVelocity.x = 0;
+		vecAVelocity.z = 0;
+		SetAngularVelocity( vecAVelocity );
 	}
 	else
 	{
@@ -125,7 +127,7 @@ void CGib::StickyGibTouch( CBaseEntity *pOther )
 
 	SetAbsAngles( UTIL_VecToAngles( tr.vecPlaneNormal * -1 ) );
 	SetAbsVelocity( g_vecZero );
-	pev->avelocity = g_vecZero;
+	SetAngularVelocity( g_vecZero );
 	SetMoveType( MOVETYPE_NONE );
 }
 
@@ -208,9 +210,10 @@ void CGib::SpawnHeadGib( CBaseEntity* pVictim )
 			pGib->SetAbsVelocity( Vector( RANDOM_FLOAT( -100, 100 ), RANDOM_FLOAT( -100, 100 ), RANDOM_FLOAT( 200, 300 ) ) );
 		}
 
-
-		pGib->pev->avelocity.x = RANDOM_FLOAT( 100, 200 );
-		pGib->pev->avelocity.y = RANDOM_FLOAT( 100, 300 );
+		Vector vecAVelocity = pGib->GetAngularVelocity();
+		vecAVelocity.x = RANDOM_FLOAT( 100, 200 );
+		vecAVelocity.y = RANDOM_FLOAT( 100, 300 );
+		pGib->SetAngularVelocity( vecAVelocity );
 
 		// copy owner's blood color
 		pGib->m_bloodColor = pVictim->BloodColor();
@@ -280,8 +283,10 @@ void CGib::SpawnRandomGibs( CBaseEntity* pVictim, int cGibs, int human )
 
 			vecVelocity = vecVelocity * RANDOM_FLOAT( 300, 400 );
 
-			pGib->pev->avelocity.x = RANDOM_FLOAT( 100, 200 );
-			pGib->pev->avelocity.y = RANDOM_FLOAT( 100, 300 );
+			Vector vecAVelocity = pGib->GetAngularVelocity();
+			vecAVelocity.x = RANDOM_FLOAT( 100, 200 );
+			vecAVelocity.y = RANDOM_FLOAT( 100, 300 );
+			pGib->SetAngularVelocity( vecAVelocity );
 
 			// copy owner's blood color
 			pGib->m_bloodColor = pVictim->BloodColor();
@@ -349,9 +354,10 @@ void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 			vecVelocity = vecVelocity * 900;
 
 
-
-			pGib->pev->avelocity.x = RANDOM_FLOAT( 250, 400 );
-			pGib->pev->avelocity.y = RANDOM_FLOAT( 250, 400 );
+			Vector vecAVelocity = pGib->GetAngularVelocity();
+			vecAVelocity.x = RANDOM_FLOAT( 250, 400 );
+			vecAVelocity.y = RANDOM_FLOAT( 250, 400 );
+			pGib->SetAngularVelocity( vecAVelocity );
 
 			// copy owner's blood color
 			pGib->m_bloodColor = pVictim->BloodColor();
