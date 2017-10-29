@@ -522,10 +522,6 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, GetFriction ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "float& GetMutableFriction()",
-		asMETHOD( CLASS, GetMutableFriction ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
 		pszObjectName, "void SetFriction(const float flFriction)",
 		asMETHOD( CLASS, SetFriction ), asCALL_THISCALL );
 

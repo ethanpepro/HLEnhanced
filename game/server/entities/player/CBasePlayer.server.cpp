@@ -145,7 +145,7 @@ void CBasePlayer::Spawn()
 	SetDeadFlag( DEAD_NO );
 	pev->dmg_take		= 0;
 	pev->dmg_save		= 0;
-	pev->friction		= 1.0;
+	SetFriction( 1.0 );
 	SetGravity( 1.0 );
 	m_bitsHUDDamage		= -1;
 	m_bitsDamageType	= 0;

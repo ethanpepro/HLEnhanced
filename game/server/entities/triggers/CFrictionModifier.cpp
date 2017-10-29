@@ -37,5 +37,5 @@ void CFrictionModifier::KeyValue( KeyValueData *pkvd )
 void CFrictionModifier::ChangeFriction( CBaseEntity *pOther )
 {
 	if( pOther->GetMoveType() != MOVETYPE_BOUNCEMISSILE && pOther->GetMoveType() != MOVETYPE_BOUNCE )
-		pOther->pev->friction = m_frictionFraction;
+		pOther->SetFriction( m_frictionFraction );
 }

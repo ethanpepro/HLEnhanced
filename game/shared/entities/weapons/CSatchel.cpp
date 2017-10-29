@@ -75,7 +75,7 @@ void CSatchelCharge :: Spawn( void )
 	SetNextThink( gpGlobals->time + 0.1 );
 
 	SetGravity( 0.5 );
-	pev->friction = 0.8;
+	SetFriction( 0.8 );
 
 	pev->dmg = gSkillData.GetPlrDmgSatchel();
 	// ResetSequenceInfo( );

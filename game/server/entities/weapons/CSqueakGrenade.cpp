@@ -82,7 +82,7 @@ void CSqueakGrenade::Spawn( void )
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetHealth( gSkillData.GetSnarkHealth() );
 	SetGravity( 0.5 );
-	pev->friction = 0.5;
+	SetFriction( 0.5 );
 
 	pev->dmg = gSkillData.GetSnarkDmgPop();
 

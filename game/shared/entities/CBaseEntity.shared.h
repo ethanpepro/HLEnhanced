@@ -944,11 +944,6 @@ public:
 	float GetFriction() const { return pev->friction; }
 
 	/**
-	*	@return The friction, in mutable form.
-	*/
-	float& GetMutableFriction() { return pev->friction; }
-
-	/**
 	*	Sets the friction.
 	*	@param flFriction Friction to set.
 	*/

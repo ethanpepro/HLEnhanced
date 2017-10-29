@@ -423,7 +423,7 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 	// pGrenade->SetAngularVelocity( Vector( -400, 0, 0 ) );
 
 	pGrenade->SetGravity( 0.5 );
-	pGrenade->pev->friction = 0.8;
+	pGrenade->SetFriction( 0.8 );
 
 	pGrenade->SetModel( "models/w_grenade.mdl");
 	pGrenade->pev->dmg = 100;

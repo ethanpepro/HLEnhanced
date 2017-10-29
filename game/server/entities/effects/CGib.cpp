@@ -35,7 +35,7 @@ CGib* CGib::GibCreate( const char* szGibModel )
 void CGib::Spawn( const char *szGibModel )
 {
 	SetMoveType( MOVETYPE_BOUNCE );
-	pev->friction = 0.55; // deading the bounce a bit
+	SetFriction( 0.55 ); // deading the bounce a bit
 
 						  // sometimes an entity inherits the edict from a former piece of glass,
 						  // and will spawn using the same render FX or rendermode! bad!

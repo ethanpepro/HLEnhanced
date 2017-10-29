@@ -41,12 +41,12 @@ void CPushable::Spawn( void )
 	SetSolidType( SOLID_BBOX );
 	SetModel( GetModelName() );
 
-	if( pev->friction > 399 )
-		pev->friction = 399;
+	if( GetFriction() > 399 )
+		SetFriction( 399 );
 
-	m_maxSpeed = 400 - pev->friction;
+	m_maxSpeed = 400 - GetFriction();
 	GetFlags() |= FL_FLOAT;
-	pev->friction = 0;
+	SetFriction( 0 );
 
 	Vector vecOrigin = GetAbsOrigin();
 	vecOrigin.z += 1;	// Pick up off of the floor
