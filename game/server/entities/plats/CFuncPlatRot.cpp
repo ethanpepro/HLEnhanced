@@ -23,7 +23,7 @@ void CFuncPlatRot::SetupRotation( void )
 	{
 		CBaseToggle::AxisDir( this );
 		m_start = GetAbsAngles();
-		m_end = GetAbsAngles() + pev->movedir * m_vecFinalAngle.x;
+		m_end = GetAbsAngles() + GetMoveDir() * m_vecFinalAngle.x;
 	}
 	else
 	{

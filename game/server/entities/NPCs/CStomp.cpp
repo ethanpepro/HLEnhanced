@@ -43,7 +43,7 @@ void CStomp::Think( void )
 	// Do damage for this frame
 	Vector vecStart = GetAbsOrigin();
 	vecStart.z += 30;
-	Vector vecEnd = vecStart + ( pev->movedir * GetSpeed() * gpGlobals->frametime );
+	Vector vecEnd = vecStart + ( GetMoveDir() * GetSpeed() * gpGlobals->frametime );
 
 	UTIL_TraceHull( vecStart, vecEnd, dont_ignore_monsters, Hull::HEAD, ENT( pev ), &tr );
 
@@ -67,7 +67,7 @@ void CStomp::Think( void )
 	// Move and spawn trails
 	while( gpGlobals->time - pev->dmgtime > STOMP_INTERVAL )
 	{
-		SetAbsOrigin( GetAbsOrigin() + pev->movedir * GetSpeed() * STOMP_INTERVAL );
+		SetAbsOrigin( GetAbsOrigin() + GetMoveDir() * GetSpeed() * STOMP_INTERVAL );
 		for( int i = 0; i < 2; i++ )
 		{
 			CSprite *pSprite = CSprite::SpriteCreate( GARG_STOMP_SPRITE_NAME, GetAbsOrigin(), true );
@@ -102,7 +102,7 @@ CStomp *CStomp::StompCreate( const Vector &origin, const Vector &end, float spee
 	pStomp->SetAbsOrigin( origin );
 	Vector dir = ( end - origin );
 	pStomp->SetScale( dir.Length() );
-	pStomp->pev->movedir = dir.Normalize();
+	pStomp->SetMoveDir( dir.Normalize() );
 	pStomp->SetSpeed( speed );
 	pStomp->Spawn();
 

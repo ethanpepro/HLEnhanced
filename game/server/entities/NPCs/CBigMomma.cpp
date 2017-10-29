@@ -373,7 +373,7 @@ void CBigMomma::LaunchMortar( void )
 	startPos.z += 180;
 
 	EMIT_SOUND_DYN( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY(pSackSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
-	CBMortar *pBomb = CBMortar::Shoot( this, startPos, pev->movedir );
+	CBMortar *pBomb = CBMortar::Shoot( this, startPos, GetMoveDir() );
 	pBomb->SetGravity( 1.0 );
 	SpriteSpray( startPos, Vector(0,0,1), gSpitSprite, 24 );
 }
@@ -517,8 +517,8 @@ bool CBigMomma::CheckRangeAttack1( float flDot, float flDist )
 		{
 			Vector startPos = GetAbsOrigin();
 			startPos.z += 180;
-			pev->movedir = VecCheckSplatToss( this, startPos, pEnemy->BodyTarget( GetAbsOrigin() ), RANDOM_FLOAT( 150, 500 ) );
-			if ( pev->movedir != g_vecZero )
+			SetMoveDir( VecCheckSplatToss( this, startPos, pEnemy->BodyTarget( GetAbsOrigin() ), RANDOM_FLOAT( 150, 500 ) ) );
+			if ( GetMoveDir() != g_vecZero )
 				return true;
 		}
 	}

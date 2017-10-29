@@ -261,7 +261,7 @@ void CTriggerCamera::Move()
 
 			Vector delta = m_pentPath->GetAbsOrigin() - GetAbsOrigin();
 			m_moveDistance = delta.Length();
-			pev->movedir = delta.Normalize();
+			SetMoveDir( delta.Normalize() );
 			m_flStopTime = gpGlobals->time + m_pentPath->GetDelay();
 		}
 	}
@@ -272,5 +272,5 @@ void CTriggerCamera::Move()
 		SetSpeed( UTIL_Approach( m_targetSpeed, GetSpeed(), m_acceleration * gpGlobals->frametime ) );
 
 	float fraction = 2 * gpGlobals->frametime;
-	SetAbsVelocity( ( ( pev->movedir * GetSpeed() ) * fraction ) + ( GetAbsVelocity() * ( 1 - fraction ) ) );
+	SetAbsVelocity( ( ( GetMoveDir() * GetSpeed() ) * fraction ) + ( GetAbsVelocity() * ( 1 - fraction ) ) );
 }

@@ -65,7 +65,7 @@ Vector CBlood::Direction( void )
 	if( pev->spawnflags & SF_BLOOD_RANDOM )
 		return UTIL_RandomBloodVector();
 
-	return pev->movedir;
+	return GetMoveDir();
 }
 
 

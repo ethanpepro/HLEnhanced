@@ -125,7 +125,7 @@ void CBaseDoor::Spawn()
 
 	m_vecPosition1 = GetAbsOrigin();
 	// Subtract 2 from size because the engine expands bboxes by 1 in all directions making the size too big
-	m_vecPosition2 = m_vecPosition1 + ( pev->movedir * ( fabs( pev->movedir.x * ( GetBounds().x - 2 ) ) + fabs( pev->movedir.y * ( GetBounds().y - 2 ) ) + fabs( pev->movedir.z * ( GetBounds().z - 2 ) ) - m_flLip ) );
+	m_vecPosition2 = m_vecPosition1 + ( GetMoveDir() * ( fabs( GetMoveDir().x * ( GetBounds().x - 2 ) ) + fabs( GetMoveDir().y * ( GetBounds().y - 2 ) ) + fabs( GetMoveDir().z * ( GetBounds().z - 2 ) ) - m_flLip ) );
 	ASSERTSZ( m_vecPosition1 != m_vecPosition2, "door start/end positions are equal" );
 	if( FBitSet( pev->spawnflags, SF_DOOR_START_OPEN ) )
 	{	// swap pos1 and pos2, put door at pos2
@@ -307,7 +307,7 @@ void CBaseDoor::DoorGoUp( void )
 		{
 			pevActivator = m_hActivator->pev;
 
-			if( !FBitSet( pev->spawnflags, SF_DOOR_ONEWAY ) && pev->movedir.y ) 		// Y axis rotation, move away from the player
+			if( !FBitSet( pev->spawnflags, SF_DOOR_ONEWAY ) && GetMoveDir().y ) 		// Y axis rotation, move away from the player
 			{
 				Vector vec = pevActivator->origin - GetAbsOrigin();
 				Vector angles = pevActivator->angles;

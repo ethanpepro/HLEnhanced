@@ -38,7 +38,7 @@ void CRotButton::Spawn( void )
 
 	// check for clockwise rotation
 	if( FBitSet( pev->spawnflags, SF_DOOR_ROTATE_BACKWARDS ) )
-		pev->movedir = pev->movedir * -1;
+		SetMoveDir( GetMoveDir() * -1 );
 
 	SetMoveType( MOVETYPE_PUSH );
 
@@ -62,7 +62,7 @@ void CRotButton::Spawn( void )
 
 	m_toggle_state = TS_AT_BOTTOM;
 	m_vecAngle1 = GetAbsAngles();
-	m_vecAngle2 = GetAbsAngles() + pev->movedir * m_flMoveDistance;
+	m_vecAngle2 = GetAbsAngles() + GetMoveDir() * m_flMoveDistance;
 	ASSERTSZ( m_vecAngle1 != m_vecAngle2, "rotating button start/end positions are equal" );
 
 	m_fStayPushed = m_flWait == -1;

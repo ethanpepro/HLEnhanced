@@ -30,11 +30,11 @@ void CRotDoor::Spawn( void )
 
 	// check for clockwise rotation
 	if( FBitSet( pev->spawnflags, SF_DOOR_ROTATE_BACKWARDS ) )
-		pev->movedir = pev->movedir * -1;
+		SetMoveDir( GetMoveDir() * -1 );
 
 	//m_flWait			= 2; who the hell did this? (sjb)
 	m_vecAngle1 = GetAbsAngles();
-	m_vecAngle2 = GetAbsAngles() + pev->movedir * m_flMoveDistance;
+	m_vecAngle2 = GetAbsAngles() + GetMoveDir() * m_flMoveDistance;
 
 	ASSERTSZ( m_vecAngle1 != m_vecAngle2, "rotating door start/end positions are equal" );
 
@@ -58,7 +58,7 @@ void CRotDoor::Spawn( void )
 		Vector vecSav = m_vecAngle1;
 		m_vecAngle2 = m_vecAngle1;
 		m_vecAngle1 = vecSav;
-		pev->movedir = pev->movedir * -1;
+		SetMoveDir( GetMoveDir() * -1 );
 	}
 
 	m_toggle_state = TS_AT_BOTTOM;

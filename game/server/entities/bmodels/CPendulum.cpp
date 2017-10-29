@@ -58,7 +58,7 @@ void CPendulum::Spawn( void )
 	m_accel = ( GetSpeed() * GetSpeed() ) / ( 2 * fabs( m_distance ) );	// Calculate constant acceleration from speed and distance
 	m_maxSpeed = GetSpeed();
 	m_start = GetAbsAngles();
-	m_center = GetAbsAngles() + ( m_distance * 0.5 ) * pev->movedir;
+	m_center = GetAbsAngles() + ( m_distance * 0.5 ) * GetMoveDir();
 
 	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_INSTANT ) )
 	{
@@ -108,7 +108,7 @@ void CPendulum::Swing( void )
 	else if( GetSpeed() < -m_maxSpeed )
 		SetSpeed( -m_maxSpeed );
 	// scale the destdelta vector by the time spent traveling to get velocity
-	SetAngularVelocity( GetSpeed() * pev->movedir );
+	SetAngularVelocity( GetSpeed() * GetMoveDir() );
 
 	// Call this again
 	SetNextThink( GetLastThink() + 0.1 );
@@ -141,7 +141,7 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 
 			delta = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_start );
 
-			SetAngularVelocity( m_maxSpeed * pev->movedir );
+			SetAngularVelocity( m_maxSpeed * GetMoveDir() );
 			SetNextThink( GetLastThink() + ( delta / m_maxSpeed ) );
 			SetThink( &CPendulum::Stop );
 		}

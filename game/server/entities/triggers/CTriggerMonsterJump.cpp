@@ -49,7 +49,7 @@ void CTriggerMonsterJump::Touch( CBaseEntity *pOther )
 	}
 
 	// toss the monster!
-	Vector vecVelocity = pev->movedir * GetSpeed();
+	Vector vecVelocity = GetMoveDir() * GetSpeed();
 	vecVelocity.z += m_flHeight;
 	pOther->SetAbsVelocity( vecVelocity );
 	SetNextThink( gpGlobals->time );

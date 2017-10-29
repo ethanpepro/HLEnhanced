@@ -41,7 +41,7 @@ void CMomentaryRotButton::Spawn( void )
 
 	if( m_flMoveDistance < 0 )
 	{
-		m_start = GetAbsAngles() + pev->movedir * m_flMoveDistance;
+		m_start = GetAbsAngles() + GetMoveDir() * m_flMoveDistance;
 		m_end = GetAbsAngles();
 		m_direction = 1;		// This will toggle to -1 on the first use()
 		m_flMoveDistance = -m_flMoveDistance;
@@ -49,7 +49,7 @@ void CMomentaryRotButton::Spawn( void )
 	else
 	{
 		m_start = GetAbsAngles();
-		m_end = GetAbsAngles() + pev->movedir * m_flMoveDistance;
+		m_end = GetAbsAngles() + GetMoveDir() * m_flMoveDistance;
 		m_direction = -1;		// This will toggle to +1 on the first use()
 	}
 
@@ -157,7 +157,7 @@ void CMomentaryRotButton::UpdateSelf( float value )
 	else
 		SetNextThink( GetNextThink() + 0.1 );
 
-	SetAngularVelocity( ( m_direction * GetSpeed() ) * pev->movedir );
+	SetAngularVelocity( ( m_direction * GetSpeed() ) * GetMoveDir() );
 	SetThink( &CMomentaryRotButton::Off );
 }
 
@@ -172,7 +172,7 @@ void CMomentaryRotButton::UpdateSelfReturn( float value )
 	}
 	else
 	{
-		SetAngularVelocity( -m_returnSpeed * pev->movedir );
+		SetAngularVelocity( -m_returnSpeed * GetMoveDir() );
 		SetNextThink( GetLastThink() + 0.1 );
 	}
 }

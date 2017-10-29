@@ -67,15 +67,15 @@ void CFuncRotating::Spawn()
 	}
 
 	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_Z_AXIS ) )
-		pev->movedir = Vector( 0, 0, 1 );
+		SetMoveDir( Vector( 0, 0, 1 ) );
 	else if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_X_AXIS ) )
-		pev->movedir = Vector( 1, 0, 0 );
+		SetMoveDir( Vector( 1, 0, 0 ) );
 	else
-		pev->movedir = Vector( 0, 1, 0 );	// y-axis
+		SetMoveDir( Vector( 0, 1, 0 ) );	// y-axis
 
 											// check for reverse rotation
 	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_BACKWARDS ) )
-		pev->movedir = pev->movedir * -1;
+		SetMoveDir( GetMoveDir() * -1 );
 
 	// some rotating objects like fake volumetric lights will not be solid.
 	if( FBitSet( pev->spawnflags, SF_ROTATING_NOT_SOLID ) )
@@ -192,16 +192,16 @@ void CFuncRotating::SpinUp( void )
 	Vector	vecAVel;//rotational velocity
 
 	SetNextThink( GetLastThink() + 0.1 );
-	SetAngularVelocity( GetAngularVelocity() + ( pev->movedir * ( GetSpeed() * m_flFanFriction ) ) );
+	SetAngularVelocity( GetAngularVelocity() + ( GetMoveDir() * ( GetSpeed() * m_flFanFriction ) ) );
 
 	vecAVel = GetAngularVelocity();// cache entity's rotational velocity
 
 							 // if we've met or exceeded target speed, set target speed and stop thinking
-	if( fabs( vecAVel.x ) >= fabs( pev->movedir.x * GetSpeed() ) &&
-		fabs( vecAVel.y ) >= fabs( pev->movedir.y * GetSpeed() ) &&
-		fabs( vecAVel.z ) >= fabs( pev->movedir.z * GetSpeed() ) )
+	if( fabs( vecAVel.x ) >= fabs( GetMoveDir().x * GetSpeed() ) &&
+		fabs( vecAVel.y ) >= fabs( GetMoveDir().y * GetSpeed() ) &&
+		fabs( vecAVel.z ) >= fabs( GetMoveDir().z * GetSpeed() ) )
 	{
-		SetAngularVelocity( pev->movedir * GetSpeed() );// set speed in case we overshot
+		SetAngularVelocity( GetMoveDir() * GetSpeed() );// set speed in case we overshot
 		EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 						m_flVolume, m_flAttenuation, SND_CHANGE_PITCH | SND_CHANGE_VOL, FANPITCHMAX );
 
@@ -224,16 +224,16 @@ void CFuncRotating::SpinDown( void )
 
 	SetNextThink( GetLastThink() + 0.1 );
 
-	SetAngularVelocity( GetAngularVelocity() - ( pev->movedir * ( GetSpeed() * m_flFanFriction ) ) );//spin down slower than spinup
+	SetAngularVelocity( GetAngularVelocity() - ( GetMoveDir() * ( GetSpeed() * m_flFanFriction ) ) );//spin down slower than spinup
 
 	vecAVel = GetAngularVelocity();// cache entity's rotational velocity
 
-	if( pev->movedir.x != 0 )
-		vecdir = pev->movedir.x;
-	else if( pev->movedir.y != 0 )
-		vecdir = pev->movedir.y;
+	if( GetMoveDir().x != 0 )
+		vecdir = GetMoveDir().x;
+	else if( GetMoveDir().y != 0 )
+		vecdir = GetMoveDir().y;
 	else
-		vecdir = pev->movedir.z;
+		vecdir = GetMoveDir().z;
 
 	// if we've met or exceeded target speed, set target speed and stop thinking
 	// (note: must check for movedir > 0 or < 0)
@@ -348,7 +348,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 		{
 			EMIT_SOUND_DYN( this, CHAN_STATIC, ( char * ) STRING( pev->noiseRunning ),
 							m_flVolume, m_flAttenuation, 0, FANPITCHMAX );
-			SetAngularVelocity( pev->movedir * GetSpeed() );
+			SetAngularVelocity( GetMoveDir() * GetSpeed() );
 
 			SetThink( &CFuncRotating::Rotate );
 			Rotate();
@@ -381,7 +381,7 @@ void CFuncRotating::RampPitchVol( const bool bUp )
 
 	// get target angular velocity
 
-	vecFinal = ( pev->movedir.x != 0 ? pev->movedir.x : ( pev->movedir.y != 0 ? pev->movedir.y : pev->movedir.z ) );
+	vecFinal = ( GetMoveDir().x != 0 ? GetMoveDir().x : ( GetMoveDir().y != 0 ? GetMoveDir().y : GetMoveDir().z ) );
 	vecFinal *= GetSpeed();
 	vecFinal = fabs( vecFinal );
 

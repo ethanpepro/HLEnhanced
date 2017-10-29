@@ -113,16 +113,16 @@ void SetMovedir( CBaseEntity* pEntity )
 {
 	if ( pEntity->GetAbsAngles() == Vector(0, -1, 0))
 	{
-		pEntity->pev->movedir = Vector(0, 0, 1);
+		pEntity->SetMoveDir( Vector(0, 0, 1) );
 	}
 	else if ( pEntity->GetAbsAngles() == Vector(0, -2, 0))
 	{
-		pEntity->pev->movedir = Vector(0, 0, -1);
+		pEntity->SetMoveDir( Vector(0, 0, -1) );
 	}
 	else
 	{
 		UTIL_MakeVectors( pEntity->GetAbsAngles() );
-		pEntity->pev->movedir = gpGlobals->v_forward;
+		pEntity->SetMoveDir( gpGlobals->v_forward );
 	}
 	
 	pEntity->SetAbsAngles( g_vecZero );
