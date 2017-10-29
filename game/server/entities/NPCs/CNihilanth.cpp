@@ -491,7 +491,7 @@ void CNihilanth :: MakeFriend( Vector vecStart )
 	{
 		if (m_hFriend[i] != NULL && !m_hFriend[i]->IsAlive())
 		{
-			if (pev->rendermode == kRenderNormal) // don't do it if they are already fading
+			if (GetRenderMode() == kRenderNormal) // don't do it if they are already fading
 				m_hFriend[i]->MyMonsterPointer()->FadeMonster( );
 			m_hFriend[i] = NULL;
 		}

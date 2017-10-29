@@ -40,7 +40,7 @@ void CGib::Spawn( const char *szGibModel )
 						  // sometimes an entity inherits the edict from a former piece of glass,
 						  // and will spawn using the same render FX or rendermode! bad!
 	pev->renderamt = 255;
-	pev->rendermode = kRenderNormal;
+	SetRenderMode( kRenderNormal );
 	pev->renderfx = kRenderFxNone;
 	SetSolidType( SOLID_SLIDEBOX );/// hopefully this will fix the VELOCITY TOO LOW crap
 

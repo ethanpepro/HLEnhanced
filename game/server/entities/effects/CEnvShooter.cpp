@@ -68,7 +68,7 @@ CGib *CEnvShooter::CreateGib( void )
 	pGib->m_bloodColor = DONT_BLEED;
 	pGib->m_material = m_iGibMaterial;
 
-	pGib->pev->rendermode = pev->rendermode;
+	pGib->SetRenderMode( GetRenderMode() );
 	pGib->pev->renderamt = pev->renderamt;
 	pGib->pev->rendercolor = pev->rendercolor;
 	pGib->pev->renderfx = pev->renderfx;

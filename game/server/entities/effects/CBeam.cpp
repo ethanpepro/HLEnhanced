@@ -167,7 +167,7 @@ void CBeam::BeamInit( const char *pSpriteName, int width )
 	SetWidth( width );
 	pev->skin = 0;
 	pev->sequence = 0;
-	pev->rendermode = 0;
+	SetRenderMode( kRenderNormal );
 }
 
 void CBeam::PointsInit( const Vector &start, const Vector &end )

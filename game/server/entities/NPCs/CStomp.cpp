@@ -29,7 +29,7 @@ void CStomp::Spawn( void )
 
 	pev->framerate = 30;
 	SetModelName( GARG_STOMP_SPRITE_NAME );
-	pev->rendermode = kRenderTransTexture;
+	SetRenderMode( kRenderTransTexture );
 	pev->renderamt = 0;
 	EMIT_SOUND_DYN( this, CHAN_BODY, GARG_STOMP_BUZZ_SOUND, 1, ATTN_NORM, 0, PITCH_NORM * 0.55 );
 }

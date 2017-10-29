@@ -22,7 +22,7 @@ void CBubbling::Spawn( void )
 
 	SetSolidType( SOLID_NOT );							// Remove model & collisions
 	pev->renderamt = 0;								// The engine won't draw this model if this is set to 0 and blending is on
-	pev->rendermode = kRenderTransTexture;
+	SetRenderMode( kRenderTransTexture );
 	int speed = fabs( GetSpeed() );
 
 	// HACKHACK!!! - Speed in rendercolor

@@ -217,7 +217,7 @@ void CHAssassin :: Spawn()
 
 	m_iTargetRanderamt	= 20;
 	pev->renderamt		= 20;
-	pev->rendermode		= kRenderTransTexture;
+	SetRenderMode( kRenderTransTexture );
 
 	MonsterInit();
 }
@@ -644,13 +644,13 @@ void CHAssassin :: RunAI( void )
 		}
 
 		pev->renderamt = max( pev->renderamt - 50, static_cast<float>( m_iTargetRanderamt ) );
-		pev->rendermode = kRenderTransTexture;
+		SetRenderMode( kRenderTransTexture );
 	}
 	else if (pev->renderamt < m_iTargetRanderamt)
 	{
 		pev->renderamt = min( pev->renderamt + 50, static_cast<float>( m_iTargetRanderamt ) );
 		if (pev->renderamt == 255)
-			pev->rendermode = kRenderNormal;
+			SetRenderMode( kRenderNormal );
 	}
 
 	if (m_Activity == ACT_RUN || m_Activity == ACT_WALK)

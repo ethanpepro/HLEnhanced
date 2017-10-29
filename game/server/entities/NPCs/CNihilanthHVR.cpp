@@ -45,7 +45,7 @@ void CNihilanthHVR::Spawn( void )
 {
 	Precache();
 
-	pev->rendermode = kRenderTransAdd;
+	SetRenderMode( kRenderTransAdd );
 	pev->renderamt = 255;
 	SetScale( 3.0 );
 }

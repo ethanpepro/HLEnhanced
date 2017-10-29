@@ -250,10 +250,10 @@ bool CBaseEntity::ShouldToggle( USE_TYPE useType, const bool currentState ) cons
 
 int	CBaseEntity::DamageDecal( int bitsDamageType ) const
 {
-	if( pev->rendermode == kRenderTransAlpha )
+	if( GetRenderMode() == kRenderTransAlpha )
 		return -1;
 
-	if( pev->rendermode != kRenderNormal )
+	if( GetRenderMode() != kRenderNormal )
 		return DECAL_BPROOF1;
 
 	return DECAL_GUNSHOT1 + RANDOM_LONG( 0, 4 );

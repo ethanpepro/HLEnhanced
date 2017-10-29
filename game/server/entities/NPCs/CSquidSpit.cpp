@@ -34,7 +34,7 @@ void CSquidSpit::Spawn( void )
 	SetMoveType( MOVETYPE_FLY );
 
 	SetSolidType( SOLID_BBOX );
-	pev->rendermode = kRenderTransAlpha;
+	SetRenderMode( kRenderTransAlpha );
 	pev->renderamt = 255;
 
 	SetModel( "sprites/bigspit.spr" );

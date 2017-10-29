@@ -55,9 +55,9 @@ public:
 	void TurnOff( void );
 	void TurnOn( void );
 	inline float Frames( void ) { return m_maxFrame; }
-	inline void SetTransparency( int rendermode, int r, int g, int b, int a, int fx )
+	inline void SetTransparency( RenderMode rendermode, int r, int g, int b, int a, int fx )
 	{
-		pev->rendermode = rendermode;
+		SetRenderMode( rendermode );
 		pev->rendercolor.x = r;
 		pev->rendercolor.y = g;
 		pev->rendercolor.z = b;

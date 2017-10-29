@@ -35,7 +35,7 @@ void CControllerZapBall::Spawn( void )
 	SetSolidType( SOLID_BBOX );
 
 	SetModel( "sprites/xspark4.spr" );
-	pev->rendermode = kRenderTransAdd;
+	SetRenderMode( kRenderTransAdd );
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;
 	pev->rendercolor.z = 255;

@@ -169,7 +169,7 @@ void CBreakable::Spawn( void )
 		SetTouch( NULL );
 
 	// Flag unbreakable glass as "worldbrush" so it will block ALL tracelines
-	if ( !IsBreakable() && pev->rendermode != kRenderNormal )
+	if ( !IsBreakable() && GetRenderMode() != kRenderNormal )
 		GetFlags() |= FL_WORLDBRUSH;
 }
 

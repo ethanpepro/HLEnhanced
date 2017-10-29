@@ -26,7 +26,7 @@ void CLadder::Precache( void )
 	pev->skin = CONTENTS_LADDER;
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )
 	{
-		pev->rendermode = kRenderTransTexture;
+		SetRenderMode( kRenderTransTexture );
 		pev->renderamt = 0;
 	}
 	GetEffects().ClearFlags( EF_NODRAW );

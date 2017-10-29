@@ -217,7 +217,7 @@ CBaseMonster *COsprey :: MakeGrunt( Vector vecSrc )
 	{
 		if (m_hGrunt[i] == NULL || !m_hGrunt[i]->IsAlive())
 		{
-			if (m_hGrunt[i] != NULL && m_hGrunt[i]->pev->rendermode == kRenderNormal)
+			if (m_hGrunt[i] != NULL && m_hGrunt[i]->GetRenderMode() == kRenderNormal)
 			{
 				m_hGrunt[i]->SUB_StartFadeOut( );
 			}

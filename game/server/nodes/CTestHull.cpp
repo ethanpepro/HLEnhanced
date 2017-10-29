@@ -49,7 +49,7 @@ void CTestHull::Spawn()
 
 	// Make this invisible
 	// UNDONE: Shouldn't we just use EF_NODRAW?  This doesn't need to go to the client.
-	pev->rendermode = kRenderTransTexture;
+	SetRenderMode( kRenderTransTexture );
 	pev->renderamt = 0;
 }
 

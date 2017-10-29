@@ -44,10 +44,12 @@ public:
 
 	void TriggerTouch( CBaseEntity *pOther );
 
+	//TODO: try to remove the repurposing of unrelated variables, this might be possible using another way - Solokiller
+
 	// These functions are here to show the way beams are encoded as entities.
 	// Encoding beams as entities simplifies their management in the client/server architecture
-	inline void	SetType( int type ) { pev->rendermode = ( pev->rendermode & 0xF0 ) | ( type & 0x0F ); }
-	inline void	SetFlags( int flags ) { pev->rendermode = ( pev->rendermode & 0x0F ) | ( flags & 0xF0 ); }
+	inline void	SetType( int type ) { SetRenderMode( static_cast<RenderMode>( ( static_cast<int>( GetRenderMode() ) & 0xF0 ) | ( type & 0x0F ) ) ); }
+	inline void	SetFlags( int flags ) { SetRenderMode( static_cast<RenderMode>( ( static_cast<int>( GetRenderMode() ) & 0x0F ) | ( flags & 0xF0 ) ) ); }
 	//TODO: can't use SetAbsOrigin since it calls into the engine, but can't keep pev exposed either - Solokiller
 	inline void SetStartPos( const Vector& pos ) { pev->origin = pos; }
 	inline void SetEndPos( const Vector& pos ) { SetAbsAngles( pos ); }
@@ -65,8 +67,8 @@ public:
 	inline void SetFrame( float frame ) { pev->frame = frame; }
 	inline void SetScrollRate( int speed ) { pev->animtime = speed; }
 
-	inline int	GetType() const { return pev->rendermode & 0x0F; }
-	inline int	GetFlags() const { return pev->rendermode & 0xF0; }
+	inline int	GetType() const { return static_cast<int>( GetRenderMode() ) & 0x0F; }
+	inline int	GetFlags() const { return static_cast<int>( GetRenderMode() ) & 0xF0; }
 	inline int	GetStartEntity() const { return pev->sequence & 0xFFF; }
 	inline int	GetEndEntity() const { return pev->skin & 0xFFF; }
 

@@ -131,10 +131,10 @@ void CBaseEntity::SUB_FadeOut( void )
 // SET A FUTURE THINK AND A RENDERMODE!!
 void CBaseEntity::SUB_StartFadeOut( void )
 {
-	if( pev->rendermode == kRenderNormal )
+	if( GetRenderMode() == kRenderNormal )
 	{
 		pev->renderamt = 255;
-		pev->rendermode = kRenderTransTexture;
+		SetRenderMode( kRenderTransTexture );
 	}
 
 	SetSolidType( SOLID_NOT );
