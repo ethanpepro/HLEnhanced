@@ -29,12 +29,12 @@ void CFade::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType
 	{
 		if( pActivator->IsNetClient() )
 		{
-			UTIL_ScreenFade( pActivator, pev->rendercolor, Duration(), HoldTime(), pev->renderamt, fadeFlags );
+			UTIL_ScreenFade( pActivator, pev->rendercolor, Duration(), HoldTime(), GetRenderAmount(), fadeFlags );
 		}
 	}
 	else
 	{
-		UTIL_ScreenFadeAll( pev->rendercolor, Duration(), HoldTime(), pev->renderamt, fadeFlags );
+		UTIL_ScreenFadeAll( pev->rendercolor, Duration(), HoldTime(), GetRenderAmount(), fadeFlags );
 	}
 	SUB_UseTargets( this, USE_TOGGLE, 0 );
 }

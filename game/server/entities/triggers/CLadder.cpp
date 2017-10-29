@@ -27,7 +27,7 @@ void CLadder::Precache( void )
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )
 	{
 		SetRenderMode( kRenderTransTexture );
-		pev->renderamt = 0;
+		SetRenderAmount( 0 );
 	}
 	GetEffects().ClearFlags( EF_NODRAW );
 }

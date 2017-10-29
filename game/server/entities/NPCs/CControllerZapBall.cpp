@@ -39,7 +39,7 @@ void CControllerZapBall::Spawn( void )
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;
 	pev->rendercolor.z = 255;
-	pev->renderamt = 255;
+	SetRenderAmount( 255 );
 	SetScale( 0.5 );
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );

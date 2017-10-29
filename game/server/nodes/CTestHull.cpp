@@ -50,7 +50,7 @@ void CTestHull::Spawn()
 	// Make this invisible
 	// UNDONE: Shouldn't we just use EF_NODRAW?  This doesn't need to go to the client.
 	SetRenderMode( kRenderTransTexture );
-	pev->renderamt = 0;
+	SetRenderAmount( 0 );
 }
 
 extern bool gTouchDisabled;

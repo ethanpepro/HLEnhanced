@@ -63,7 +63,7 @@ public:
 	inline void SetWidth( int width ) { SetScale( width ); }
 	inline void SetNoise( int amplitude ) { pev->body = amplitude; }
 	inline void SetColor( int r, int g, int b ) { pev->rendercolor.x = r; pev->rendercolor.y = g; pev->rendercolor.z = b; }
-	inline void SetBrightness( int brightness ) { pev->renderamt = brightness; }
+	inline void SetBrightness( int brightness ) { SetRenderAmount( brightness ); }
 	inline void SetFrame( float frame ) { pev->frame = frame; }
 	inline void SetScrollRate( int speed ) { pev->animtime = speed; }
 
@@ -81,7 +81,7 @@ public:
 	inline int  GetWidth( void ) { return GetScale(); }
 	inline int  GetNoise( void ) { return pev->body; }
 	// inline void GetColor( int r, int g, int b ) { pev->rendercolor.x = r; pev->rendercolor.y = g; pev->rendercolor.z = b; }
-	inline int  GetBrightness( void ) { return pev->renderamt; }
+	inline int  GetBrightness( void ) { return GetRenderAmount(); }
 	inline int  GetFrame( void ) { return pev->frame; }
 	inline int  GetScrollRate( void ) { return pev->animtime; }
 

@@ -26,7 +26,7 @@ void CBabyCrab::Spawn( void )
 	CHeadCrab::Spawn();
 	SetModel( "models/baby_headcrab.mdl" );
 	SetRenderMode( kRenderTransTexture );
-	pev->renderamt = 192;
+	SetRenderAmount( 192 );
 	SetSize( Vector( -12, -12, 0 ), Vector( 12, 12, 24 ) );
 
 	SetHealth( gSkillData.GetHeadcrabHealth() * 0.25 );	// less health than full grown

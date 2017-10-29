@@ -46,7 +46,7 @@ void CNihilanthHVR::Spawn( void )
 	Precache();
 
 	SetRenderMode( kRenderTransAdd );
-	pev->renderamt = 255;
+	SetRenderAmount( 255 );
 	SetScale( 3.0 );
 }
 
@@ -78,7 +78,7 @@ void CNihilanthHVR::CircleInit( CBaseEntity *pTarget )
 	pev->rendercolor.z = 192;
 	SetScale( 2.0 );
 	m_nFrames = 1;
-	pev->renderamt = 255;
+	SetRenderAmount( 255 );
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 	SetAbsOrigin( GetAbsOrigin() );
@@ -93,7 +93,7 @@ void CNihilanthHVR::CircleInit( CBaseEntity *pTarget )
 void CNihilanthHVR::AbsorbInit( void )
 {
 	SetThink( &CNihilanthHVR::DissipateThink );
-	pev->renderamt = 255;
+	SetRenderAmount( 255 );
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_BEAMENTS );
@@ -302,7 +302,7 @@ void CNihilanthHVR::DissipateThink( void )
 	if( GetScale() > 5.0 )
 		UTIL_Remove( this );
 
-	pev->renderamt -= 2;
+	SetRenderAmount( GetRenderAmount() - 2 );
 	SetScale( GetScale() + 0.1 );
 
 	if( m_hTargetEnt != NULL )
@@ -320,7 +320,7 @@ void CNihilanthHVR::DissipateThink( void )
 	WRITE_COORD( GetAbsOrigin().x );		// origin
 	WRITE_COORD( GetAbsOrigin().y );
 	WRITE_COORD( GetAbsOrigin().z );
-	WRITE_COORD( pev->renderamt );	// radius
+	WRITE_COORD( GetRenderAmount() );	// radius
 	WRITE_BYTE( 255 );	// R
 	WRITE_BYTE( 192 );	// G
 	WRITE_BYTE( 64 );	// B

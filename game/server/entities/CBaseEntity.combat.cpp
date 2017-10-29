@@ -111,14 +111,14 @@ void CBaseEntity::TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceR
 
 void CBaseEntity::SUB_FadeOut( void )
 {
-	if( pev->renderamt > 7 )
+	if( GetRenderAmount() > 7 )
 	{
-		pev->renderamt -= 7;
+		SetRenderAmount( GetRenderAmount() - 7 );
 		SetNextThink( gpGlobals->time + 0.1 );
 	}
 	else
 	{
-		pev->renderamt = 0;
+		SetRenderAmount( 0 );
 		SetNextThink( gpGlobals->time + 0.2 );
 		SetThink( &CBaseEntity::SUB_Remove );
 	}
@@ -133,7 +133,7 @@ void CBaseEntity::SUB_StartFadeOut( void )
 {
 	if( GetRenderMode() == kRenderNormal )
 	{
-		pev->renderamt = 255;
+		SetRenderAmount( 255 );
 		SetRenderMode( kRenderTransTexture );
 	}
 

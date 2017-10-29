@@ -67,10 +67,10 @@ void CSprite::ExpandThink( void )
 {
 	float frametime = gpGlobals->time - m_lastTime;
 	SetScale( GetScale() + ( GetSpeed() * frametime ) );
-	pev->renderamt -= GetHealth() * frametime;
-	if( pev->renderamt <= 0 )
+	SetRenderAmount( GetRenderAmount() - ( GetHealth() * frametime ) );
+	if( GetRenderAmount() <= 0 )
 	{
-		pev->renderamt = 0;
+		SetRenderAmount( 0 );
 		UTIL_Remove( this );
 	}
 	else

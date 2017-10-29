@@ -123,7 +123,7 @@ CXenHull *CXenHull::CreateHull( CBaseEntity *source, const Vector &mins, const V
 	pHull->SetMoveType( MOVETYPE_NONE );
 	pHull->SetOwner( source );
 	pHull->SetSize( mins, maxs );
-	pHull->pev->renderamt = 0;
+	pHull->SetRenderAmount( 0 );
 	pHull->SetRenderMode( kRenderTransTexture );
 	//	pHull->GetEffects() = EF_NODRAW;
 

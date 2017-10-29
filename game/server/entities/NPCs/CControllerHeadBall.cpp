@@ -40,7 +40,7 @@ void CControllerHeadBall::Spawn( void )
 	pev->rendercolor.x = 255;
 	pev->rendercolor.y = 255;
 	pev->rendercolor.z = 255;
-	pev->renderamt = 255;
+	SetRenderAmount( 255 );
 	SetScale( 2.0 );
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
@@ -68,7 +68,7 @@ void CControllerHeadBall::HuntThink( void )
 {
 	SetNextThink( gpGlobals->time + 0.1 );
 
-	pev->renderamt -= 5;
+	SetRenderAmount( GetRenderAmount() - 5 );
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_ELIGHT );
@@ -76,7 +76,7 @@ void CControllerHeadBall::HuntThink( void )
 	WRITE_COORD( GetAbsOrigin().x );		// origin
 	WRITE_COORD( GetAbsOrigin().y );
 	WRITE_COORD( GetAbsOrigin().z );
-	WRITE_COORD( pev->renderamt / 16 );	// radius
+	WRITE_COORD( GetRenderAmount() / 16 );	// radius
 	WRITE_BYTE( 255 );	// R
 	WRITE_BYTE( 255 );	// G
 	WRITE_BYTE( 255 );	// B
@@ -85,7 +85,8 @@ void CControllerHeadBall::HuntThink( void )
 	MESSAGE_END();
 
 	// check world boundaries
-	if( gpGlobals->time - pev->dmgtime > 5 || pev->renderamt < 64 || m_hEnemy == NULL || m_hOwner == NULL || GetAbsOrigin().x < -4096 || GetAbsOrigin().x > 4096 || GetAbsOrigin().y < -4096 || GetAbsOrigin().y > 4096 || GetAbsOrigin().z < -4096 || GetAbsOrigin().z > 4096 )
+	//TODO: use constants - Solokiller
+	if( gpGlobals->time - pev->dmgtime > 5 || GetRenderAmount() < 64 || m_hEnemy == NULL || m_hOwner == NULL || GetAbsOrigin().x < -4096 || GetAbsOrigin().x > 4096 || GetAbsOrigin().y < -4096 || GetAbsOrigin().y > 4096 || GetAbsOrigin().z < -4096 || GetAbsOrigin().z > 4096 )
 	{
 		SetTouch( NULL );
 		UTIL_Remove( this );

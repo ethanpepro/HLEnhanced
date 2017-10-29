@@ -216,7 +216,7 @@ void CHAssassin :: Spawn()
 	m_HackedGunPos		= Vector( 0, 24, 48 );
 
 	m_iTargetRanderamt	= 20;
-	pev->renderamt		= 20;
+	SetRenderAmount( 20 );
 	SetRenderMode( kRenderTransTexture );
 
 	MonsterInit();
@@ -636,20 +636,20 @@ void CHAssassin :: RunAI( void )
 	else
 		m_iTargetRanderamt = 20;
 
-	if (pev->renderamt > m_iTargetRanderamt)
+	if ( GetRenderAmount() > m_iTargetRanderamt)
 	{
-		if (pev->renderamt == 255)
+		if ( GetRenderAmount() == 255)
 		{
 			EMIT_SOUND ( this, CHAN_BODY, "debris/beamstart1.wav", 0.2, ATTN_NORM );
 		}
 
-		pev->renderamt = max( pev->renderamt - 50, static_cast<float>( m_iTargetRanderamt ) );
+		SetRenderAmount( max( GetRenderAmount() - 50, static_cast<float>( m_iTargetRanderamt ) ) );
 		SetRenderMode( kRenderTransTexture );
 	}
-	else if (pev->renderamt < m_iTargetRanderamt)
+	else if ( GetRenderAmount() < m_iTargetRanderamt)
 	{
-		pev->renderamt = min( pev->renderamt + 50, static_cast<float>( m_iTargetRanderamt ) );
-		if (pev->renderamt == 255)
+		SetRenderAmount( min( GetRenderAmount() + 50, static_cast<float>( m_iTargetRanderamt ) ) );
+		if ( GetRenderAmount() == 255)
 			SetRenderMode( kRenderNormal );
 	}
 

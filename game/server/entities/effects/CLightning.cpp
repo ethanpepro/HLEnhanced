@@ -245,7 +245,7 @@ void CLightning::StrikeThink( void )
 			WRITE_BYTE( ( int ) pev->rendercolor.x );   // r, g, b
 			WRITE_BYTE( ( int ) pev->rendercolor.y );   // r, g, b
 			WRITE_BYTE( ( int ) pev->rendercolor.z );   // r, g, b
-			WRITE_BYTE( pev->renderamt );	// brightness
+			WRITE_BYTE( GetRenderAmount() );	// brightness
 			WRITE_BYTE( m_speed );		// speed
 		MESSAGE_END();
 		DoSparks( pStart->GetAbsOrigin(), pEnd->GetAbsOrigin() );
@@ -350,7 +350,7 @@ void CLightning::Zap( const Vector &vecSrc, const Vector &vecDest )
 		WRITE_BYTE( ( int ) pev->rendercolor.x );   // r, g, b
 		WRITE_BYTE( ( int ) pev->rendercolor.y );   // r, g, b
 		WRITE_BYTE( ( int ) pev->rendercolor.z );   // r, g, b
-		WRITE_BYTE( pev->renderamt );	// brightness
+		WRITE_BYTE( GetRenderAmount() );	// brightness
 		WRITE_BYTE( m_speed );		// speed
 	MESSAGE_END();
 #else

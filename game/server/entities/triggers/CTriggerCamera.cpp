@@ -32,7 +32,7 @@ void CTriggerCamera::Spawn( void )
 {
 	SetMoveType( MOVETYPE_NOCLIP );
 	SetSolidType( SOLID_NOT );							// Remove model & collisions
-	pev->renderamt = 0;								// The engine won't draw this model if this is set to 0 and blending is on
+	SetRenderAmount( 0 );								// The engine won't draw this model if this is set to 0 and blending is on
 	SetRenderMode( kRenderTransTexture );
 
 	m_initialSpeed = GetSpeed();

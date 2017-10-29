@@ -319,9 +319,9 @@ void CNihilanth :: DyingThink( void )
 
 	if (m_pBall)
 	{
-		if (m_pBall->pev->renderamt > 0)
+		if (m_pBall->GetRenderAmount() > 0)
 		{
-			m_pBall->pev->renderamt = max( 0.0f, m_pBall->pev->renderamt - 2);
+			m_pBall->SetRenderAmount( max( 0.0f, m_pBall->GetRenderAmount() - 2) );
 		}
 		else
 		{

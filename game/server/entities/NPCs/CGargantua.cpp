@@ -222,8 +222,8 @@ void CGargantua::EyeUpdate( void )
 {
 	if ( m_pEyeGlow )
 	{
-		m_pEyeGlow->pev->renderamt = UTIL_Approach( m_eyeBrightness, m_pEyeGlow->pev->renderamt, 26 );
-		if ( m_pEyeGlow->pev->renderamt == 0 )
+		m_pEyeGlow->SetRenderAmount( UTIL_Approach( m_eyeBrightness, m_pEyeGlow->GetRenderAmount(), 26 ) );
+		if ( m_pEyeGlow->GetRenderAmount() == 0 )
 			m_pEyeGlow->GetEffects() |= EF_NODRAW;
 		else
 			m_pEyeGlow->GetEffects().ClearFlags( EF_NODRAW );

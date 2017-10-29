@@ -61,12 +61,12 @@ public:
 		pev->rendercolor.x = r;
 		pev->rendercolor.y = g;
 		pev->rendercolor.z = b;
-		pev->renderamt = a;
+		SetRenderAmount( a );
 		pev->renderfx = fx;
 	}
 	inline void SetTexture( int spriteIndex ) { SetModelIndex( spriteIndex ); }
 	inline void SetColor( int r, int g, int b ) { pev->rendercolor.x = r; pev->rendercolor.y = g; pev->rendercolor.z = b; }
-	inline void SetBrightness( int brightness ) { pev->renderamt = brightness; }
+	inline void SetBrightness( int brightness ) { SetRenderAmount( brightness ); }
 
 	inline void AnimateAndDie( float framerate )
 	{
