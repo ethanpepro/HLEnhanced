@@ -480,7 +480,7 @@ void CLightning::BeamUpdateVars( void )
 	SetFrame( m_frameStart );
 	SetScrollRate( m_speed );
 	if( pev->spawnflags & SF_BEAM_SHADEIN )
-		SetFlags( BEAM_FSHADEIN );
+		SetBeamFlags( BEAM_FSHADEIN );
 	else if( pev->spawnflags & SF_BEAM_SHADEOUT )
-		SetFlags( BEAM_FSHADEOUT );
+		SetBeamFlags( BEAM_FSHADEOUT );
 }

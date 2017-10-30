@@ -229,7 +229,7 @@ CBaseMonster *COsprey :: MakeGrunt( Vector vecSrc )
 
 			CBeam *pBeam = CBeam::BeamCreate( "sprites/rope.spr", 10 );
 			pBeam->PointEntInit( vecSrc + Vector(0,0,112), pGrunt->entindex() );
-			pBeam->SetFlags( BEAM_FSOLID );
+			pBeam->SetBeamFlags( BEAM_FSOLID );
 			pBeam->SetColor( 255, 255, 255 );
 			pBeam->SetThink( &CBeam::SUB_Remove );
 			pBeam->SetNextThink( gpGlobals->time + -4096.0 * tr.flFraction / pGrunt->GetAbsVelocity().z + 0.5 );

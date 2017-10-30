@@ -281,7 +281,7 @@ void CGargantua :: FlameCreate( void )
 			else
 				m_pFlame[i]->SetColor( 0, 120, 255 );
 			m_pFlame[i]->SetBrightness( 190 );
-			m_pFlame[i]->SetFlags( BEAM_FSHADEIN );
+			m_pFlame[i]->SetBeamFlags( BEAM_FSHADEIN );
 			m_pFlame[i]->SetScrollRate( 20 );
 			// attachment is 1 based in SetEndAttachment
 			m_pFlame[i]->SetEndAttachment( attach + 2 );

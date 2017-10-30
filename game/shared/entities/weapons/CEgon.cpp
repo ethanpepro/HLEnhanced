@@ -406,7 +406,7 @@ void CEgon::CreateEffect( void )
 
 	m_pBeam = CBeam::BeamCreate( EGON_BEAM_SPRITE, 40 );
 	m_pBeam->PointEntInit( GetAbsOrigin(), m_pPlayer->entindex() );
-	m_pBeam->SetFlags( BEAM_FSINE );
+	m_pBeam->SetBeamFlags( BEAM_FSINE );
 	m_pBeam->SetEndAttachment( 1 );
 	m_pBeam->pev->spawnflags |= SF_BEAM_TEMPORARY;	// Flag these to be destroyed on save/restore or level transition
 	m_pBeam->pev->flags |= FL_SKIPLOCALHOST;

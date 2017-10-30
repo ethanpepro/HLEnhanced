@@ -84,7 +84,7 @@ void CShockBeam::Spawn()
 
 		m_pBeam1->SetRenderColor( Vector( 0, 253, 253 ) );
 
-		m_pBeam1->SetFlags( BEAM_FSHADEOUT );
+		m_pBeam1->SetBeamFlags( BEAM_FSHADEOUT );
 		m_pBeam1->SetBrightness( 180 );
 		m_pBeam1->SetNoise( 0 );
 
@@ -109,7 +109,7 @@ void CShockBeam::Spawn()
 
 			m_pBeam2->SetRenderColor( Vector( 255, 255, 157 ) );
 
-			m_pBeam2->SetFlags( BEAM_FSHADEOUT );
+			m_pBeam2->SetBeamFlags( BEAM_FSHADEOUT );
 			m_pBeam2->SetBrightness( 180 );
 			m_pBeam2->SetNoise( 30 );
 

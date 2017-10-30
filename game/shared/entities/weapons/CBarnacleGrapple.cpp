@@ -546,7 +546,7 @@ void CBarnacleGrapple::CreateEffect()
 
 		m_pBeam->EntsInit( m_pTip->entindex(), m_pPlayer->entindex() );
 
-		m_pBeam->SetFlags( BEAM_FSOLID );
+		m_pBeam->SetBeamFlags( BEAM_FSOLID );
 
 		m_pBeam->SetBrightness( 100.0 );
 
