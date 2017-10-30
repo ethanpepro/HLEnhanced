@@ -72,9 +72,9 @@ void CCycler::OnTakeDamage( const CTakeDamageInfo& info )
 	}
 	else
 	{
-		pev->framerate = 1.0;
+		SetFrameRate( 1.0 );
 		StudioFrameAdvance( 0.1 );
-		pev->framerate = 0;
+		SetFrameRate( 0 );
 		ALERT( at_console, "sequence: %d, frame %.0f\n", pev->sequence, GetFrame() );
 	}
 }
@@ -101,7 +101,7 @@ void CCycler :: Spawn( )
 	if (pev->sequence != 0 || GetFrame() != 0)
 	{
 		m_animate = 0;
-		pev->framerate = 0;
+		SetFrameRate( 0 );
 	}
 	else
 	{
@@ -125,12 +125,12 @@ void CCycler :: Think( void )
 		// ResetSequenceInfo();
 		// hack to avoid reloading model every frame
 		pev->animtime = gpGlobals->time;
-		pev->framerate = 1.0;
+		SetFrameRate( 1.0 );
 		m_fSequenceFinished = false;
 		m_flLastEventCheck = gpGlobals->time;
 		SetFrame( 0 );
 		if (!m_animate)
-			pev->framerate = 0.0;	// FIX: don't reset framerate
+			SetFrameRate( 0.0 );	// FIX: don't reset framerate
 	}
 }
 
@@ -141,7 +141,7 @@ void CCycler :: Use ( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 {
 	m_animate = !m_animate;
 	if (m_animate)
-		pev->framerate = 1.0;
+		SetFrameRate( 1.0 );
 	else
-		pev->framerate = 0.0;
+		SetFrameRate( 0.0 );
 }

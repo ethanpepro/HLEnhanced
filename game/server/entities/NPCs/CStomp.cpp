@@ -27,7 +27,7 @@ void CStomp::Spawn( void )
 	SetNextThink( gpGlobals->time );
 	pev->dmgtime = gpGlobals->time;
 
-	pev->framerate = 30;
+	SetFrameRate( 30 );
 	SetModelName( GARG_STOMP_SPRITE_NAME );
 	SetRenderMode( kRenderTransTexture );
 	SetRenderAmount( 0 );
@@ -61,8 +61,8 @@ void CStomp::Think( void )
 	}
 
 	// Accelerate the effect
-	SetSpeed( GetSpeed() + ( gpGlobals->frametime ) * pev->framerate );
-	pev->framerate = pev->framerate + ( gpGlobals->frametime ) * 1500;
+	SetSpeed( GetSpeed() + ( gpGlobals->frametime ) * GetFrameRate() );
+	SetFrameRate( GetFrameRate() + ( gpGlobals->frametime ) * 1500 );
 
 	// Move and spawn trails
 	while( gpGlobals->time - pev->dmgtime > STOMP_INTERVAL )

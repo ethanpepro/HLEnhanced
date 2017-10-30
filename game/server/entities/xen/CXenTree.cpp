@@ -54,7 +54,7 @@ void CXenTree::Spawn( void )
 	SetActivity( ACT_IDLE );
 	SetNextThink( gpGlobals->time + 0.1 );
 	SetFrame( RANDOM_FLOAT( 0, 255 ) );
-	pev->framerate = RANDOM_FLOAT( 0.7, 1.4 );
+	SetFrameRate( RANDOM_FLOAT( 0.7, 1.4 ) );
 
 	Vector triggerPosition;
 	UTIL_MakeVectorsPrivate( GetAbsAngles(), &triggerPosition, nullptr, nullptr );
@@ -92,7 +92,7 @@ void CXenTree::Think( void )
 		if( m_fSequenceFinished )
 		{
 			SetActivity( ACT_IDLE );
-			pev->framerate = RANDOM_FLOAT( 0.6, 1.4 );
+			SetFrameRate( RANDOM_FLOAT( 0.6, 1.4 ) );
 		}
 		break;
 
@@ -148,7 +148,7 @@ void CXenTree::Attack( void )
 	if( GetActivity() == ACT_IDLE )
 	{
 		SetActivity( ACT_MELEE_ATTACK1 );
-		pev->framerate = RANDOM_FLOAT( 1.0, 1.4 );
+		SetFrameRate( RANDOM_FLOAT( 1.0, 1.4 ) );
 		EMIT_SOUND_ARRAY_DYN( CHAN_WEAPON, pAttackMissSounds );
 	}
 }

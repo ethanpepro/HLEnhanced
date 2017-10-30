@@ -81,7 +81,7 @@ bool CBaseMonster::CineCleanup()
 	{
 		// last frame of death animation?
 		SetHealth( 0 );
-		pev->framerate		= 0.0;
+		SetFrameRate( 0.0 );
 		SetSolidType( SOLID_NOT );
 		SetState( MONSTERSTATE_DEAD );
 		SetDeadFlag( DEAD_DEAD );

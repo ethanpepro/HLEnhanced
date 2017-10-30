@@ -164,7 +164,7 @@ void CSentry::SentryDeath( void )
 
 	if( m_fSequenceFinished && pev->dmgtime + 5 < gpGlobals->time )
 	{
-		pev->framerate = 0;
+		SetFrameRate( 0 );
 		SetThink( NULL );
 	}
 }

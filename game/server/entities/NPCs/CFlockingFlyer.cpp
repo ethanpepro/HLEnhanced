@@ -85,7 +85,7 @@ void CFlockingFlyer::BoidAdvanceFrame()
 	if( flapspeed < 0.25 ) flapspeed = 0.25;
 	if( flapspeed > 1.9 ) flapspeed = 1.9;
 
-	pev->framerate = flapspeed;
+	SetFrameRate( flapspeed );
 
 	Vector vecAVelocity = GetAngularVelocity();
 	// lean
@@ -95,7 +95,7 @@ void CFlockingFlyer::BoidAdvanceFrame()
 	vecAVelocity.z = -( GetAbsAngles().z + vecAVelocity.y );
 	SetAngularVelocity( vecAVelocity );
 
-	// pev->framerate		= flapspeed;
+	// SetFrameRate( flapspeed );
 	StudioFrameAdvance( 0.1 );
 }
 
@@ -529,7 +529,7 @@ void CFlockingFlyer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 	SetDeadFlag( DEAD_DEAD );
 
-	pev->framerate = 0;
+	SetFrameRate( 0 );
 	GetEffects() = EF_NOINTERP;
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );

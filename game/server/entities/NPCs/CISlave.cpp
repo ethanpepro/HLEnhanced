@@ -289,7 +289,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 		{
 			// speed up attack when on hard
 			if (gSkillData.GetSkillLevel() == SKILL_HARD)
-				pev->framerate = 1.5;
+				SetFrameRate( 1.5 );
 
 			UTIL_MakeAimVectors( GetAbsAngles() );
 
@@ -305,7 +305,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 					WRITE_BYTE( 255 );		// r
 					WRITE_BYTE( 180 );		// g
 					WRITE_BYTE( 96 );		// b
-					WRITE_BYTE( 20 / pev->framerate );		// time * 10
+					WRITE_BYTE( 20 / GetFrameRate() );		// time * 10
 					WRITE_BYTE( 0 );		// decay * 0.1
 				MESSAGE_END( );
 

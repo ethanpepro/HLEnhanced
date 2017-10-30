@@ -464,7 +464,7 @@ void CBaseTurret::Deploy(void)
 		}
 
 		SetTurretAnim(TURRET_ANIM_SPIN);
-		pev->framerate = 0;
+		SetFrameRate( 0 );
 		SetThink(&CBaseTurret::SearchThink);
 	}
 
@@ -551,10 +551,10 @@ void CBaseTurret::SetTurretAnim(TURRET_ANIM anim)
 
 		case TURRET_ANIM_RETIRE:
 			SetFrame( 255 );
-			pev->framerate		= -1.0;
+			SetFrameRate( -1.0 );
 			break;
 		case TURRET_ANIM_DIE:
-			pev->framerate		= 1.0;
+			SetFrameRate( 1.0 );
 			break;
 		}
 		//ALERT(at_console, "Turret anim #%d\n", anim);
@@ -719,7 +719,7 @@ void CBaseTurret ::	TurretDeath( void )
 
 	if (m_fSequenceFinished && !MoveTurret( ) && pev->dmgtime + 5 < gpGlobals->time)
 	{
-		pev->framerate = 0;
+		SetFrameRate( 0 );
 		SetThink( NULL );
 	}
 }

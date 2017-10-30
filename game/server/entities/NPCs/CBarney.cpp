@@ -161,7 +161,7 @@ void CBarney :: RunTask( const Task_t* pTask )
 	case TASK_RANGE_ATTACK1:
 		if (m_hEnemy != NULL && (m_hEnemy->IsPlayer()))
 		{
-			pev->framerate = 1.5;
+			SetFrameRate( 1.5 );
 		}
 		CTalkMonster::RunTask( pTask );
 		break;

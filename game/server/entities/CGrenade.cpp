@@ -273,11 +273,11 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 		// play bounce sound
 		BounceSound();
 	}
-	pev->framerate = GetAbsVelocity().Length() / 200.0;
-	if (pev->framerate > 1.0)
-		pev->framerate = 1;
-	else if (pev->framerate < 0.5)
-		pev->framerate = 0;
+	SetFrameRate( GetAbsVelocity().Length() / 200.0 );
+	if( GetFrameRate() > 1.0 )
+		SetFrameRate( 1 );
+	else if( GetFrameRate() < 0.5 )
+		SetFrameRate( 0 );
 
 }
 
@@ -340,7 +340,7 @@ void CGrenade :: TumbleThink( void )
 	if ( GetWaterLevel() != WATERLEVEL_DRY )
 	{
 		SetAbsVelocity( GetAbsVelocity() * 0.5 );
-		pev->framerate = 0.2;
+		SetFrameRate( 0.2 );
 	}
 }
 
@@ -417,7 +417,7 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 	}
 		
 	pGrenade->pev->sequence = RANDOM_LONG( 3, 6 );
-	pGrenade->pev->framerate = 1.0;
+	pGrenade->SetFrameRate( 1.0 );
 
 	// Tumble through the air
 	// pGrenade->SetAngularVelocity( Vector( -400, 0, 0 ) );

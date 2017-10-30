@@ -734,7 +734,7 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 			ChangeYaw ( GetYawSpeed() );
 			
 			float life;
-			life = (( 255 - GetFrame() ) / (pev->framerate * m_flFrameRate));
+			life = (( 255 - GetFrame() ) / ( GetFrameRate() * m_flFrameRate));
 			if (life < 0.1) life = 0.1;
 
 			MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );

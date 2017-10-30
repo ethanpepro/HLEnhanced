@@ -605,7 +605,7 @@ void CBullsquid :: RunAI ( void )
 		// chasing enemy. Sprint for last bit
 		if ( (GetAbsOrigin() - m_hEnemy->GetAbsOrigin()).Length2D() < SQUID_SPRINT_DIST )
 		{
-			pev->framerate = 1.25;
+			SetFrameRate( 1.25 );
 		}
 	}
 

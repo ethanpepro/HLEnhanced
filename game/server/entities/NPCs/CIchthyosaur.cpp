@@ -842,16 +842,16 @@ void CIchthyosaur::Swim( )
 		if (m_IdealActivity == ACT_RUN)
 			SetActivity( ACT_WALK );
 		if (m_IdealActivity == ACT_WALK)
-			pev->framerate = m_flightSpeed / 150.0;
-		// ALERT( at_console, "walk %.2f\n", pev->framerate );
+			SetFrameRate( m_flightSpeed / 150.0 );
+		// ALERT( at_console, "walk %.2f\n", GetFrameRate() );
 	}
 	else
 	{
 		if (m_IdealActivity == ACT_WALK)
 			SetActivity( ACT_RUN );
 		if (m_IdealActivity == ACT_RUN)
-			pev->framerate = m_flightSpeed / 150.0;
-		// ALERT( at_console, "run  %.2f\n", pev->framerate );
+			SetFrameRate( m_flightSpeed / 150.0 );
+		// ALERT( at_console, "run  %.2f\n", GetFrameRate() );
 	}
 
 /*

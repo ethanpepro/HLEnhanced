@@ -415,7 +415,7 @@ void CCineMonster::PossessEntity( void )
 			StartSequence( pTarget, m_iszIdle, false );
 			if( FStrEq( STRING( m_iszIdle ), STRING( m_iszPlay ) ) )
 			{
-				pTarget->pev->framerate = 0;
+				pTarget->SetFrameRate( 0 );
 			}
 		}
 	}

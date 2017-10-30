@@ -57,7 +57,7 @@ void CSprite::Precache( void )
 
 void CSprite::AnimateThink( void )
 {
-	Animate( pev->framerate * ( gpGlobals->time - m_lastTime ) );
+	Animate( GetFrameRate() * ( gpGlobals->time - m_lastTime ) );
 
 	SetNextThink( gpGlobals->time + 0.1 );
 	m_lastTime = gpGlobals->time;
@@ -140,7 +140,7 @@ void CSprite::TurnOff( void )
 void CSprite::TurnOn( void )
 {
 	GetEffects().ClearAll();
-	if( ( pev->framerate && m_maxFrame > 1.0 ) || ( pev->spawnflags & SF_SPRITE_ONCE ) )
+	if( ( GetFrameRate() && m_maxFrame > 1.0 ) || ( pev->spawnflags & SF_SPRITE_ONCE ) )
 	{
 		SetThink( &CSprite::AnimateThink );
 		SetNextThink( gpGlobals->time );

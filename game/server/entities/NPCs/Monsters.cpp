@@ -1906,7 +1906,7 @@ void CBaseMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, f
 	if ( m_IdealActivity != m_movementActivity )
 		m_IdealActivity = m_movementActivity;
 
-	float flTotal = m_flGroundSpeed * pev->framerate * flInterval;
+	float flTotal = m_flGroundSpeed * GetFrameRate() * flInterval;
 	float flStep;
 	while (flTotal > 0.001)
 	{
@@ -1915,7 +1915,7 @@ void CBaseMonster::MoveExecute( CBaseEntity *pTargetEnt, const Vector &vecDir, f
 		UTIL_MoveToOrigin( this, m_Route[ m_iRouteIndex ].vecLocation, flStep, MOVE_NORMAL );
 		flTotal -= flStep;
 	}
-	// ALERT( at_console, "dist %f\n", m_flGroundSpeed * pev->framerate * flInterval );
+	// ALERT( at_console, "dist %f\n", m_flGroundSpeed * GetFrameRate() * flInterval );
 }
 
 
@@ -3184,7 +3184,7 @@ void CBaseMonster :: MonsterInitDead( void )
 
 	SetFrame( 0 );
 	ResetSequenceInfo( );
-	pev->framerate = 0;
+	SetFrameRate( 0 );
 	
 	// Copy health
 	SetMaxHealth( GetHealth() );

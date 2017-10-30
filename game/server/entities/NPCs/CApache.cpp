@@ -296,7 +296,7 @@ void CApache :: DyingThink( void )
 			pWreckage->SetSize( Vector( -200, -200, -128 ), Vector( 200, 200, -32 ) );
 			pWreckage->SetFrame( GetFrame() );
 			pWreckage->pev->sequence = pev->sequence;
-			pWreckage->pev->framerate = 0;
+			pWreckage->SetFrameRate( 0 );
 			pWreckage->pev->dmgtime = gpGlobals->time + 5;
 		}
 

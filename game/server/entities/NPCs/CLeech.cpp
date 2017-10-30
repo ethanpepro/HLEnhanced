@@ -358,7 +358,7 @@ void CLeech::UpdateMotion( void )
 	if (flapspeed > 1.9) 
 		flapspeed = 1.9;
 
-	pev->framerate = flapspeed;
+	SetFrameRate( flapspeed );
 
 	Vector vecAVelocity = GetAngularVelocity();	
 
@@ -412,8 +412,8 @@ void CLeech::UpdateMotion( void )
 		vecAngles.x = 0;
 		SetAbsAngles( vecAngles );
 
-		if ( pev->framerate < 1.0 )
-			pev->framerate = 1.0;
+		if ( GetFrameRate() < 1.0 )
+			SetFrameRate( 1.0 );
 	}
 	else if ( GetMoveType() == MOVETYPE_TOSS )
 	{

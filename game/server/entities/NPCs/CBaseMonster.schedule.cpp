@@ -528,7 +528,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 				m_pCine->StartSequence( (CBaseMonster *)this, m_pCine->m_iszPlay, true );
 				if ( m_fSequenceFinished )
 					ClearSchedule();
-				pev->framerate = 1.0;
+				SetFrameRate( 1.0 );
 				//ALERT( at_aiconsole, "Script %s has begun for %s\n", STRING( m_pCine->m_iszPlay ), GetClassname() );
 			}
 			break;
@@ -1256,7 +1256,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 				m_pCine->StartSequence( (CBaseMonster *)this, m_pCine->m_iszIdle, false );
 				if (FStrEq( STRING(m_pCine->m_iszIdle), STRING(m_pCine->m_iszPlay)))
 				{
-					pev->framerate = 0;
+					SetFrameRate( 0 );
 				}
 			}
 			else

@@ -293,7 +293,7 @@ int CTentacle :: MyLevel( )
 void CTentacle :: Test( void )
 {
 	pev->sequence = TENTACLE_ANIM_Floor_Strike;
-	pev->framerate = 0;
+	SetFrameRate( 0 );
 	StudioFrameAdvance( );
 	SetNextThink( gpGlobals->time + 0.1 );
 }
@@ -306,7 +306,7 @@ void CTentacle :: Cycle( void )
 	// ALERT( at_console, "%s %.2f %d %d\n", GetTargetname(), GetAbsOrigin().z, m_MonsterState, m_IdealMonsterState );
 	SetNextThink( gpGlobals-> time + 0.1 );
 
-	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), pev->sequence, m_iGoalAnim, m_iDir, pev->framerate, GetHealth() );
+	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), pev->sequence, m_iGoalAnim, m_iDir, GetFrameRate(), GetHealth() );
 
 	if (m_MonsterState == MONSTERSTATE_SCRIPT || m_IdealMonsterState == MONSTERSTATE_SCRIPT)
 	{
@@ -509,7 +509,7 @@ void CTentacle :: Cycle( void )
 		ResetSequenceInfo( );
 
 		m_flFramerateAdj = RANDOM_FLOAT( -0.2, 0.2 );
-		pev->framerate = m_iDir * 1.0 + m_flFramerateAdj;
+		SetFrameRate( m_iDir * 1.0 + m_flFramerateAdj );
 
 		switch( pev->sequence)
 		{
@@ -547,12 +547,12 @@ void CTentacle :: Cycle( void )
 	if (m_flPrevSoundTime + 2.0 > gpGlobals->time)
 	{
 		// 1.5 normal speed if hears sounds
-		pev->framerate = m_iDir * 1.5 + m_flFramerateAdj;
+		SetFrameRate( m_iDir * 1.5 + m_flFramerateAdj );
 	}
 	else if (m_flPrevSoundTime + 5.0 > gpGlobals->time)
 	{
 		// slowdown to normal
-		pev->framerate = m_iDir + m_iDir * (5 - (gpGlobals->time - m_flPrevSoundTime)) / 2 + m_flFramerateAdj;
+		SetFrameRate( m_iDir + m_iDir * (5 - (gpGlobals->time - m_flPrevSoundTime)) / 2 + m_flFramerateAdj );
 	}
 }
 
@@ -645,11 +645,11 @@ void CTentacle :: DieThink( void )
 		case TENTACLE_ANIM_Engine_Death1:
 		case TENTACLE_ANIM_Engine_Death2:
 		case TENTACLE_ANIM_Engine_Death3:
-			pev->framerate = RANDOM_FLOAT( m_iDir - 0.2, m_iDir + 0.2 );
+			SetFrameRate( RANDOM_FLOAT( m_iDir - 0.2, m_iDir + 0.2 ) );
 			dy = 180;
 			break;
 		default:
-			pev->framerate = 1.5;
+			SetFrameRate( 1.5 );
 			dy = 0;
 			break;
 		}

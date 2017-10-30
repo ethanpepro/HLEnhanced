@@ -47,7 +47,7 @@ void CCyclerSprite::Spawn( void )
 void CCyclerSprite::Think( void )
 {
 	if( ShouldAnimate() )
-		Animate( pev->framerate * ( gpGlobals->time - m_lastTime ) );
+		Animate( GetFrameRate() * ( gpGlobals->time - m_lastTime ) );
 
 	SetNextThink( gpGlobals->time + 0.1 );
 	m_lastTime = gpGlobals->time;

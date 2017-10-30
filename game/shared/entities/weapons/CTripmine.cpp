@@ -40,7 +40,7 @@ void CTripmine::Spawn( )
 	pev->body = 3;
 	pev->sequence = TRIPMINE_GROUND;
 	// ResetSequenceInfo( );
-	pev->framerate = 0;
+	SetFrameRate( 0 );
 
 	FallInit();// get ready to fall down
 

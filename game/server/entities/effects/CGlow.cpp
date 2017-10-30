@@ -24,7 +24,7 @@ void CGlow::Spawn( void )
 	SetModel( GetModelName() );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( GetModelIndex() ) - 1;
-	if( m_maxFrame > 1.0 && pev->framerate != 0 )
+	if( m_maxFrame > 1.0 && GetFrameRate() != 0 )
 		SetNextThink( gpGlobals->time + 0.1 );
 
 	m_lastTime = gpGlobals->time;
@@ -33,7 +33,7 @@ void CGlow::Spawn( void )
 
 void CGlow::Think( void )
 {
-	Animate( pev->framerate * ( gpGlobals->time - m_lastTime ) );
+	Animate( GetFrameRate() * ( gpGlobals->time - m_lastTime ) );
 
 	SetNextThink( gpGlobals->time + 0.1 );
 	m_lastTime = gpGlobals->time;

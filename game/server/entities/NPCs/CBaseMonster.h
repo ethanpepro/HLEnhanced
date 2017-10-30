@@ -284,7 +284,7 @@ public:
 		virtual void Stop( void ) { m_IdealActivity = GetStoppedActivity(); }
 
 		// This will stop animation until you call ResetSequenceInfo() at some point in the future
-		inline void StopAnimation( void ) { pev->framerate = 0; }
+		inline void StopAnimation( void ) { SetFrameRate( 0 ); }
 
 		// these functions will survey conditions and set appropriate conditions bits for attack types.
 		virtual bool CheckRangeAttack1( float flDot, float flDist );

@@ -77,10 +77,10 @@ void CTurret::SpinUpCall( void )
 			SetNextThink( gpGlobals->time + 1.0 ); // spinup delay
 			EMIT_SOUND( this, CHAN_BODY, "turret/tu_spinup.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
 			m_iStartSpin = 1;
-			pev->framerate = 0.1;
+			SetFrameRate( 0.1 );
 		}
 		// after the barrel is spun up, turn on the hum
-		else if( pev->framerate >= 1.0 )
+		else if( GetFrameRate() >= 1.0 )
 		{
 			SetNextThink( gpGlobals->time + 0.1 ); // retarget delay
 			EMIT_SOUND( this, CHAN_STATIC, "turret/tu_active2.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
@@ -90,7 +90,7 @@ void CTurret::SpinUpCall( void )
 		}
 		else
 		{
-			pev->framerate += 0.075;
+			SetFrameRate( GetFrameRate() + 0.075 );
 		}
 	}
 
@@ -105,15 +105,15 @@ void CTurret::SpinDownCall( void )
 	if( m_iSpin )
 	{
 		SetTurretAnim( TURRET_ANIM_SPIN );
-		if( pev->framerate == 1.0 )
+		if( GetFrameRate() == 1.0 )
 		{
 			EMIT_SOUND_DYN( this, CHAN_STATIC, "turret/tu_active2.wav", 0, 0, SND_STOP, 100 );
 			EMIT_SOUND( this, CHAN_ITEM, "turret/tu_spindown.wav", TURRET_MACHINE_VOLUME, ATTN_NORM );
 		}
-		pev->framerate -= 0.02;
-		if( pev->framerate <= 0 )
+		SetFrameRate( GetFrameRate() - 0.02 );
+		if( GetFrameRate() <= 0 )
 		{
-			pev->framerate = 0;
+			SetFrameRate( 0 );
 			m_iSpin = 0;
 		}
 	}

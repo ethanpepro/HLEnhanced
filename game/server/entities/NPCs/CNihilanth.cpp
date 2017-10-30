@@ -547,7 +547,7 @@ void CNihilanth :: NextActivity( )
 				m_pBall->SetTransparency( kRenderTransAdd, 255, 255, 255, 255, kRenderFxNoDissipation );
 				m_pBall->SetAttachment( edict(), 1 );
 				m_pBall->SetScale( 4.0 );
-				m_pBall->pev->framerate = 10.0;
+				m_pBall->SetFrameRate( 10.0 );
 				m_pBall->TurnOn( );
 			}
 		}
@@ -725,7 +725,7 @@ void CNihilanth :: HuntThink( void )
 		SetFrame( 0 );
 		NextActivity( );
 		ResetSequenceInfo( );
-		pev->framerate = 2.0 - 1.0 * ( GetHealth() / gSkillData.GetNihilanthHealth() );
+		SetFrameRate( 2.0 - 1.0 * ( GetHealth() / gSkillData.GetNihilanthHealth() ) );
 	}
 
 	// look for current enemy	

@@ -50,7 +50,7 @@ void CTripmineGrenade::Spawn()
 	pev->body = 3;
 	pev->sequence = TRIPMINE_WORLD;
 	ResetSequenceInfo();
-	pev->framerate = 0;
+	SetFrameRate( 0 );
 
 	SetSize( Vector( -8, -8, -8 ), Vector( 8, 8, 8 ) );
 	SetAbsOrigin( GetAbsOrigin() );

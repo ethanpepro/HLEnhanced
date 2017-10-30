@@ -238,7 +238,7 @@ void CLightning::StrikeThink( void )
 
 			WRITE_SHORT( m_spriteTexture );
 			WRITE_BYTE( m_frameStart ); // framestart
-			WRITE_BYTE( ( int ) pev->framerate ); // framerate
+			WRITE_BYTE( ( int ) GetFrameRate() ); // framerate
 			WRITE_BYTE( ( int ) ( m_life*10.0 ) ); // life
 			WRITE_BYTE( m_boltWidth );  // width
 			WRITE_BYTE( m_noiseAmplitude );   // noise
@@ -343,7 +343,7 @@ void CLightning::Zap( const Vector &vecSrc, const Vector &vecDest )
 		WRITE_COORD( vecDest.z );
 		WRITE_SHORT( m_spriteTexture );
 		WRITE_BYTE( m_frameStart ); // framestart
-		WRITE_BYTE( ( int ) pev->framerate ); // framerate
+		WRITE_BYTE( ( int ) GetFrameRate() ); // framerate
 		WRITE_BYTE( ( int ) ( m_life*10.0 ) ); // life
 		WRITE_BYTE( m_boltWidth );  // width
 		WRITE_BYTE( m_noiseAmplitude );   // noise
