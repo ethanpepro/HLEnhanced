@@ -602,10 +602,6 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, GetRenderColor ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "Vector& GetMutableRenderColor()",
-		asMETHOD( CLASS, GetMutableRenderColor ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
 		pszObjectName, "void SetRenderColor(const Vector& in vecColor)",
 		asMETHOD( CLASS, SetRenderColor ), asCALL_THISCALL );
 

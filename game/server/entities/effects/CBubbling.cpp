@@ -26,9 +26,7 @@ void CBubbling::Spawn( void )
 	int speed = fabs( GetSpeed() );
 
 	// HACKHACK!!! - Speed in rendercolor
-	pev->rendercolor.x = speed >> 8;
-	pev->rendercolor.y = speed & 255;
-	pev->rendercolor.z = ( GetSpeed() < 0 ) ? 1 : 0;
+	SetRenderColor( Vector( speed >> 8, speed & 255, ( GetSpeed() < 0 ) ? 1 : 0 ) );
 
 
 	if( !( pev->spawnflags & SF_BUBBLES_STARTOFF ) )

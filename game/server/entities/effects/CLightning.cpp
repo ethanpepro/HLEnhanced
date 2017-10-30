@@ -242,9 +242,9 @@ void CLightning::StrikeThink( void )
 			WRITE_BYTE( ( int ) ( m_life*10.0 ) ); // life
 			WRITE_BYTE( m_boltWidth );  // width
 			WRITE_BYTE( m_noiseAmplitude );   // noise
-			WRITE_BYTE( ( int ) pev->rendercolor.x );   // r, g, b
-			WRITE_BYTE( ( int ) pev->rendercolor.y );   // r, g, b
-			WRITE_BYTE( ( int ) pev->rendercolor.z );   // r, g, b
+			WRITE_BYTE( ( int ) GetRenderColor().x );   // r, g, b
+			WRITE_BYTE( ( int ) GetRenderColor().y );   // r, g, b
+			WRITE_BYTE( ( int ) GetRenderColor().z );   // r, g, b
 			WRITE_BYTE( GetRenderAmount() );	// brightness
 			WRITE_BYTE( m_speed );		// speed
 		MESSAGE_END();
@@ -347,9 +347,9 @@ void CLightning::Zap( const Vector &vecSrc, const Vector &vecDest )
 		WRITE_BYTE( ( int ) ( m_life*10.0 ) ); // life
 		WRITE_BYTE( m_boltWidth );  // width
 		WRITE_BYTE( m_noiseAmplitude );   // noise
-		WRITE_BYTE( ( int ) pev->rendercolor.x );   // r, g, b
-		WRITE_BYTE( ( int ) pev->rendercolor.y );   // r, g, b
-		WRITE_BYTE( ( int ) pev->rendercolor.z );   // r, g, b
+		WRITE_BYTE( ( int ) GetRenderColor().x );   // r, g, b
+		WRITE_BYTE( ( int ) GetRenderColor().y );   // r, g, b
+		WRITE_BYTE( ( int ) GetRenderColor().z );   // r, g, b
 		WRITE_BYTE( GetRenderAmount() );	// brightness
 		WRITE_BYTE( m_speed );		// speed
 	MESSAGE_END();

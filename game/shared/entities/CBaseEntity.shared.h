@@ -1089,11 +1089,6 @@ public:
 	const Vector& GetRenderColor() const { return pev->rendercolor; }
 
 	/**
-	*	@return The render color, in mutable form.
-	*/
-	Vector& GetMutableRenderColor() { return pev->rendercolor; }
-
-	/**
 	*	Sets the render color.
 	*	@param vecColor Render color to set.
 	*/

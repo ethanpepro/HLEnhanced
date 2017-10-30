@@ -73,9 +73,7 @@ void CNihilanthHVR::CircleInit( CBaseEntity *pTarget )
 	// SetScale( 3.0 );
 	// SetModel( "sprites/xspark4.spr");
 	SetModel( "sprites/muzzleflash3.spr" );
-	pev->rendercolor.x = 255;
-	pev->rendercolor.y = 224;
-	pev->rendercolor.z = 192;
+	SetRenderColor( Vector( 255, 224, 192 ) );
 	SetScale( 2.0 );
 	m_nFrames = 1;
 	SetRenderAmount( 255 );
@@ -118,9 +116,7 @@ void CNihilanthHVR::TeleportInit( CNihilanth *pOwner, CBaseEntity *pEnemy, CBase
 	SetMoveType( MOVETYPE_FLY );
 	SetSolidType( SOLID_BBOX );
 
-	pev->rendercolor.x = 255;
-	pev->rendercolor.y = 255;
-	pev->rendercolor.z = 255;
+	SetRenderColor( Vector( 255, 255, 255 ) );
 	Vector vecVelocity = GetAbsVelocity();
 	vecVelocity.z *= 0.2;
 	SetAbsVelocity( vecVelocity );
@@ -144,9 +140,7 @@ void CNihilanthHVR::GreenBallInit()
 	SetMoveType( MOVETYPE_FLY );
 	SetSolidType( SOLID_BBOX );
 
-	pev->rendercolor.x = 255;
-	pev->rendercolor.y = 255;
-	pev->rendercolor.z = 255;
+	SetRenderColor( Vector( 255, 255, 255 ) );
 	SetScale( 1.0 );
 
 	SetModel( "sprites/exit1.spr" );
@@ -161,9 +155,7 @@ void CNihilanthHVR::ZapInit( CBaseEntity *pEnemy )
 
 	SetModel( "sprites/nhth1.spr" );
 
-	pev->rendercolor.x = 255;
-	pev->rendercolor.y = 255;
-	pev->rendercolor.z = 255;
+	SetRenderColor( Vector( 255, 255, 255 ) );
 	SetScale( 2.0 );
 
 	SetAbsVelocity( ( pEnemy->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * 200 );

@@ -58,14 +58,12 @@ public:
 	inline void SetTransparency( RenderMode rendermode, int r, int g, int b, int a, RenderFX fx )
 	{
 		SetRenderMode( rendermode );
-		pev->rendercolor.x = r;
-		pev->rendercolor.y = g;
-		pev->rendercolor.z = b;
+		SetRenderColor( Vector( r, g, b ) );
 		SetRenderAmount( a );
 		SetRenderFX( fx );
 	}
 	inline void SetTexture( int spriteIndex ) { SetModelIndex( spriteIndex ); }
-	inline void SetColor( int r, int g, int b ) { pev->rendercolor.x = r; pev->rendercolor.y = g; pev->rendercolor.z = b; }
+	inline void SetColor( int r, int g, int b ) { SetRenderColor( Vector( r, g, b ) ); }
 	inline void SetBrightness( int brightness ) { SetRenderAmount( brightness ); }
 
 	inline void AnimateAndDie( float framerate )

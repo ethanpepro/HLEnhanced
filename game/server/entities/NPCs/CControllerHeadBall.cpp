@@ -37,9 +37,7 @@ void CControllerHeadBall::Spawn( void )
 
 	SetModel( "sprites/xspark4.spr" );
 	SetRenderMode( kRenderTransAdd );
-	pev->rendercolor.x = 255;
-	pev->rendercolor.y = 255;
-	pev->rendercolor.z = 255;
+	SetRenderColor( Vector( 255, 255, 255 ) );
 	SetRenderAmount( 255 );
 	SetScale( 2.0 );
 

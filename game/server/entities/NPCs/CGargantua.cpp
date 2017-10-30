@@ -901,9 +901,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 		if ( gpGlobals->time > m_flWaitFinished )
 		{
 			SetRenderFX( kRenderFxExplode );
-			pev->rendercolor.x = 255;
-			pev->rendercolor.y = 0;
-			pev->rendercolor.z = 0;
+			SetRenderColor( Vector( 255, 0, 0 ) );
 			StopAnimation();
 			SetNextThink( gpGlobals->time + 0.15 );
 			SetThink( &CGargantua::SUB_Remove );
