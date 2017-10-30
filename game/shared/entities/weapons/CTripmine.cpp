@@ -75,7 +75,7 @@ void CTripmine::Holster()
 	if (!m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ])
 	{
 		// out of mines
-		m_pPlayer->pev->weapons &= ~(1<<m_iId);
+		m_pPlayer->GetWeapons().ClearFlags( 1 << m_iId );
 		SetThink( &CTripmine::DestroyItem );
 		SetNextThink( gpGlobals->time + 0.1 );
 	}

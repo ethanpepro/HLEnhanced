@@ -76,7 +76,8 @@ void CHandGrenade::Holster()
 	else
 	{
 		// no more grenades!
-		m_pPlayer->pev->weapons &= ~(1<<m_iId);
+		//TODO: should do this through a CBasePlayer method - Solokiller
+		m_pPlayer->GetWeapons().ClearFlags( 1 << m_iId );
 		SetThink( &CHandGrenade::DestroyItem );
 		SetNextThink( gpGlobals->time + 0.1 );
 	}

@@ -75,7 +75,7 @@ void CSqueak::Holster()
 	
 	if ( !m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] )
 	{
-		m_pPlayer->pev->weapons &= ~(1<<m_iId);
+		m_pPlayer->GetWeapons().ClearFlags( 1 << m_iId );
 		SetThink( &CSqueak::DestroyItem );
 		SetNextThink( gpGlobals->time + 0.1 );
 		return;

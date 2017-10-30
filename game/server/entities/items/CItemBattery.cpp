@@ -32,7 +32,7 @@ bool CItemBattery::MyTouch( CBasePlayer *pPlayer )
 	}
 
 	if( ( pPlayer->pev->armorvalue < MAX_NORMAL_BATTERY ) &&
-		( pPlayer->pev->weapons & ( 1 << WEAPON_SUIT ) ) )
+		( pPlayer->GetWeapons().Any( 1 << WEAPON_SUIT ) ) )
 	{
 		int pct;
 		char szcharge[ 64 ];

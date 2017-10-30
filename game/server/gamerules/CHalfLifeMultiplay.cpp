@@ -520,7 +520,7 @@ void CHalfLifeMultiplay :: PlayerSpawn( CBasePlayer *pPlayer )
 	bool addDefault = true;
 	CBaseEntity	*pWeaponEntity = nullptr;
 
-	pPlayer->pev->weapons |= (1<<WEAPON_SUIT);
+	pPlayer->GetWeapons().AddFlags( 1 << WEAPON_SUIT );
 
 	while( ( pWeaponEntity = UTIL_FindEntityByClassname( pWeaponEntity, "game_player_equip" ) ) != nullptr )
 	{

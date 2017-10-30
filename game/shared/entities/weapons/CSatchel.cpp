@@ -201,8 +201,10 @@ bool CSatchel::AddToPlayer( CBasePlayer *pPlayer )
 {
 	int bResult = CBasePlayerWeapon::AddToPlayer( pPlayer );
 	
-	//TODO: why is this here? - Solokiller
-	pPlayer->pev->weapons |= (1<<m_iId);
+	//TODO: if the player had no satchels left, this adds it back to the Hud weapon list. replace with CBasePlayer method - Solokiller
+	pPlayer->GetWeapons() |= ( 1 << m_iId );
+	//TODO: maybe do this when the satchel is dropped so it doesn't have invalid state until picked up again? - Solokiller
+	//TODO: Could probably re-check if the current player has any deployed satchels on pick-up, would be more robust anyway - Solokiller
 	m_chargeReady = ChargeState::NONE;// this satchel charge weapon now forgets that any satchels are deployed by it.
 
 	if ( bResult )
@@ -302,7 +304,7 @@ void CSatchel::Holster()
 
 	if ( !m_pPlayer->m_rgAmmo[ PrimaryAmmoIndex() ] && m_chargeReady == ChargeState::NONE )
 	{
-		m_pPlayer->pev->weapons &= ~(1<<m_iId);
+		m_pPlayer->GetWeapons().ClearFlags( 1 << m_iId );
 		SetThink( &CSatchel::DestroyItem );
 		SetNextThink( gpGlobals->time + 0.1 );
 	}

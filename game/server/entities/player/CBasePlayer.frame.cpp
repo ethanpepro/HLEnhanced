@@ -1123,8 +1123,9 @@ void CBasePlayer::CheckSuitUpdate()
 	int isentence = 0;
 	int isearch = m_iSuitPlayNext;
 
+	//TODO: remove direct references to this flag, use members for checking/setting - Solokiller
 	// Ignore suit updates if no suit
-	if( !( pev->weapons & ( 1 << WEAPON_SUIT ) ) )
+	if( !( GetWeapons().Any( 1 << WEAPON_SUIT ) ) )
 		return;
 
 	// if in range of radiation source, ping geiger counter
@@ -1187,7 +1188,7 @@ void CBasePlayer::SetSuitUpdate( const char* const pszName, const SuitUpdateType
 
 
 	// Ignore suit updates if no suit
-	if( !( pev->weapons & ( 1 << WEAPON_SUIT ) ) )
+	if( !( GetWeapons().Any( 1 << WEAPON_SUIT ) ) )
 		return;
 
 	if( g_pGameRules->IsMultiplayer() )

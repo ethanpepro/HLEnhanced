@@ -264,7 +264,7 @@ void CBasePlayer::FlashlightTurnOn()
 		return;
 	}
 
-	if( ( pev->weapons & ( 1 << WEAPON_SUIT ) ) )
+	if( GetWeapons().Any( 1 << WEAPON_SUIT ) )
 	{
 		EMIT_SOUND_DYN( this, CHAN_WEAPON, SOUND_FLASHLIGHT_ON, 1.0, ATTN_NORM, 0, PITCH_NORM );
 		GetEffects() |= EF_DIMLIGHT;

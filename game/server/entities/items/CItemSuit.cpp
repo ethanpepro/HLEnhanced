@@ -24,7 +24,7 @@ void CItemSuit::Precache( void )
 
 bool CItemSuit::MyTouch( CBasePlayer *pPlayer )
 {
-	if( pPlayer->pev->weapons & ( 1 << WEAPON_SUIT ) )
+	if( pPlayer->GetWeapons().Any( 1 << WEAPON_SUIT ) )
 		return false;
 
 	if( pev->spawnflags & SF_SUIT_SHORTLOGON )
@@ -32,6 +32,6 @@ bool CItemSuit::MyTouch( CBasePlayer *pPlayer )
 	else
 		EMIT_SOUND_SUIT( pPlayer, "!HEV_AAx" );	// long version of suit logon
 
-	pPlayer->pev->weapons |= ( 1 << WEAPON_SUIT );
+	pPlayer->GetWeapons().AddFlags( 1 << WEAPON_SUIT );
 	return true;
 }

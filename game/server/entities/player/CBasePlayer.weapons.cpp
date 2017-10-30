@@ -209,9 +209,9 @@ void CBasePlayer::RemoveAllItems( const bool removeSuit )
 	ClearWeaponModelName();
 
 	if( removeSuit )
-		pev->weapons = 0;
+		GetWeapons().ClearAll();
 	else
-		pev->weapons &= ~WEAPON_ALLWEAPONS;
+		GetWeapons().ClearFlags( WEAPON_ALLWEAPONS );
 
 	for( i = 0; i < CAmmoTypes::MAX_AMMO_TYPES; i++ )
 		m_rgAmmo[ i ] = 0;
@@ -408,7 +408,7 @@ void CBasePlayer::DropPlayerItem( char *pszItemName )
 
 			UTIL_MakeVectors( GetAbsAngles() );
 
-			pev->weapons &= ~( 1 << pWeapon->m_iId );// take item off hud
+			GetWeapons().ClearFlags( 1 << pWeapon->m_iId );// take item off hud
 
 			CWeaponBox *pWeaponBox = ( CWeaponBox * ) CBaseEntity::Create( "weaponbox", GetAbsOrigin() + gpGlobals->v_forward * 10, GetAbsAngles(), edict() );
 			Vector vecAngles = pWeaponBox->GetAbsAngles();

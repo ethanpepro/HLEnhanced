@@ -954,7 +954,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 
 	cd->waterlevel		= pl->GetWaterLevel();
 	cd->watertype		= pl->GetWaterType();
-	cd->weapons			= pev->weapons;
+	cd->weapons			= pl->GetWeapons().Get();
 
 	// Vectors
 	cd->origin			= pl->GetAbsOrigin();
