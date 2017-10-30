@@ -964,7 +964,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 
 	//This is only touched in pm_shared code, but it gets synced in the engine during SV_RunCmd - Solokiller
 	cd->bInDuck			= pl->IsDucking();
-	cd->flTimeStepSound = pev->flTimeStepSound;
+	cd->flTimeStepSound = pl->GetStepSoundTime();
 	cd->flDuckTime		= pev->flDuckTime;
 	cd->flSwimTime		= pev->flSwimTime;
 	cd->waterjumptime	= pev->teleport_time;
