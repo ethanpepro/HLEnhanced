@@ -84,7 +84,7 @@ void CSqueakGrenade::Spawn( void )
 	SetGravity( 0.5 );
 	SetFriction( 0.5 );
 
-	pev->dmg = gSkillData.GetSnarkDmgPop();
+	SetDamage( gSkillData.GetSnarkDmgPop() );
 
 	m_flDie = gpGlobals->time + SQUEEK_DETONATE_DELAY;
 
@@ -132,9 +132,9 @@ void CSqueakGrenade::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	UTIL_BloodDrips( GetAbsOrigin(), g_vecZero, BloodColor(), 80 );
 
 	if( m_hOwner != NULL )
-		RadiusDamage( this, m_hOwner, pev->dmg, EntityClassifications().GetNoneId(), DMG_BLAST );
+		RadiusDamage( this, m_hOwner, GetDamage(), EntityClassifications().GetNoneId(), DMG_BLAST );
 	else
-		RadiusDamage( this, this, pev->dmg, EntityClassifications().GetNoneId(), DMG_BLAST );
+		RadiusDamage( this, this, GetDamage(), EntityClassifications().GetNoneId(), DMG_BLAST );
 
 	// reset owner so death message happens
 	if( m_hOwner != NULL )
@@ -320,7 +320,7 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 				else
 					g_MultiDamage.ApplyMultiDamage( this, this );
 
-				pev->dmg += gSkillData.GetSnarkDmgPop(); // add more explosion damage
+				SetDamage( GetDamage() + gSkillData.GetSnarkDmgPop() ); // add more explosion damage
 														 // m_flDie += 2.0; // add more life
 
 														 // make bite sound

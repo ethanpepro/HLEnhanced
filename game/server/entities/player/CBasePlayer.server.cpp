@@ -140,7 +140,7 @@ void CBasePlayer::Spawn()
 	pev->flags			&= FL_PROXY;	// keep proxy flag sey by engine
 	pev->flags			|= FL_CLIENT;
 	pev->air_finished	= gpGlobals->time + 12;
-	pev->dmg			= 2;				// initial water damage
+	SetDamage( 2 );				// initial water damage
 	GetEffects().ClearAll();
 	SetDeadFlag( DEAD_NO );
 	pev->dmg_take		= 0;

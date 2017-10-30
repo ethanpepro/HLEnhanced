@@ -45,7 +45,7 @@ void CSpiral::Think( void )
 
 		float radius = ( GetScale() * GetHealth() ) * fraction;
 
-		position.z += ( GetHealth() * pev->dmg ) * fraction;
+		position.z += ( GetHealth() * GetDamage() ) * fraction;
 		Vector vecAngles = GetAbsAngles();
 		vecAngles.y = ( GetHealth() * 360 * 8 ) * fraction;
 		SetAbsAngles( vecAngles );
@@ -77,7 +77,7 @@ CSpiral *CSpiral::Create( const Vector &origin, float height, float radius, floa
 	pSpiral->pev->dmgtime = pSpiral->GetNextThink();
 	pSpiral->SetAbsOrigin( origin );
 	pSpiral->SetScale( radius );
-	pSpiral->pev->dmg = height;
+	pSpiral->SetDamage( height );
 	pSpiral->SetSpeed( duration );
 	pSpiral->SetHealth( 0 );
 	pSpiral->SetAbsAngles( g_vecZero );

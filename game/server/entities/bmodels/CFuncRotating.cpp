@@ -99,8 +99,8 @@ void CFuncRotating::Spawn()
 		SetSpeed( 0 );
 
 	// Removed this per level designers request.  -- JAY
-	//	if (pev->dmg == 0)
-	//		pev->dmg = 2;
+	//	if (GetDamage() == 0)
+	//		SetDamage( 2 );
 
 	// instant-use brush?
 	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_INSTANT ) )
@@ -298,11 +298,11 @@ void CFuncRotating::HurtTouch( CBaseEntity *pOther )
 		return;
 
 	// calculate damage based on rotation speed
-	pev->dmg = GetAngularVelocity().Length() / 10;
+	SetDamage( GetAngularVelocity().Length() / 10 );
 
-	pOther->TakeDamage( this, this, pev->dmg, DMG_CRUSH );
+	pOther->TakeDamage( this, this, GetDamage(), DMG_CRUSH );
 
-	pOther->SetAbsVelocity( ( pOther->GetAbsOrigin() - VecBModelOrigin( this ) ).Normalize() * pev->dmg );
+	pOther->SetAbsVelocity( ( pOther->GetAbsOrigin() - VecBModelOrigin( this ) ).Normalize() * GetDamage() );
 }
 
 //=========================================================
@@ -411,5 +411,5 @@ void CFuncRotating::RampPitchVol( const bool bUp )
 //
 void CFuncRotating::Blocked( CBaseEntity *pOther )
 {
-	pOther->TakeDamage( this, this, pev->dmg, DMG_CRUSH );
+	pOther->TakeDamage( this, this, GetDamage(), DMG_CRUSH );
 }

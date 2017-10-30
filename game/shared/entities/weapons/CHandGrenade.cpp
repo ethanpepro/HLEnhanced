@@ -37,7 +37,7 @@ void CHandGrenade::Spawn( )
 	SetModel( "models/w_grenade.mdl");
 
 #ifndef CLIENT_DLL
-	pev->dmg = gSkillData.GetPlrDmgHandGrenade();
+	SetDamage( gSkillData.GetPlrDmgHandGrenade() );
 #endif
 
 	FallInit();// get ready to fall down.

@@ -107,12 +107,12 @@ void CHornet :: Spawn( void )
 
 	if ( !FNullEnt( GetOwner() ) && ( GetOwner()->pev->flags & FL_CLIENT) )
 	{
-		pev->dmg = gSkillData.GetPlrDmgHornet();
+		SetDamage( gSkillData.GetPlrDmgHornet() );
 	}
 	else
 	{
 		// no real owner, or owner isn't a client. 
-		pev->dmg = gSkillData.GetMonDmgHornet();
+		SetDamage( gSkillData.GetMonDmgHornet() );
 	}
 	
 	SetNextThink( gpGlobals->time + 0.1 );
@@ -421,7 +421,7 @@ void CHornet::DieTouch ( CBaseEntity *pOther )
 		if( !pOwner )
 			pOwner = this;
 			
-		pOther->TakeDamage( this, pOwner, pev->dmg, DMG_BULLET );
+		pOther->TakeDamage( this, pOwner, GetDamage(), DMG_BULLET );
 	}
 
 	SetModelIndex( 0 );// so will disappear for the 0.1 secs we wait until NEXTTHINK gets rid

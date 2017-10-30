@@ -166,12 +166,12 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 
 
 
-	// If this is time_based damage (poison, radiation), override the pev->dmg with a 
+	// If this is time_based damage (poison, radiation), override the GetDamage() with a 
 	// default for the given damage type.  Monsters only take time-based damage
 	// while touching the trigger.  Player continues taking damage for a while after
 	// leaving the trigger
 
-	fldmg = pev->dmg * 0.5;	// 0.5 seconds worth of damage, pev->dmg is damage/second
+	fldmg = GetDamage() * 0.5;	// 0.5 seconds worth of damage, GetDamage() is damage/second
 
 
 							// JAY: Cut this because it wasn't fully realized.  Damage is simpler now.

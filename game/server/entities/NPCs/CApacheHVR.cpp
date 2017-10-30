@@ -48,7 +48,7 @@ void CApacheHVR::Spawn( void )
 
 	SetNextThink( gpGlobals->time + 0.1 );
 
-	pev->dmg = 150;
+	SetDamage( 150 );
 }
 
 void CApacheHVR::Precache( void )

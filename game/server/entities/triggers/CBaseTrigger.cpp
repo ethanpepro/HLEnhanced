@@ -196,7 +196,7 @@ void CBaseTrigger::KeyValue( KeyValueData *pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "damage" ) )
 	{
-		pev->dmg = atof( pkvd->szValue );
+		SetDamage( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "count" ) )

@@ -77,7 +77,7 @@ void CSatchelCharge :: Spawn( void )
 	SetGravity( 0.5 );
 	SetFriction( 0.8 );
 
-	pev->dmg = gSkillData.GetPlrDmgSatchel();
+	SetDamage( gSkillData.GetPlrDmgSatchel() );
 	// ResetSequenceInfo( );
 	pev->sequence = 1;
 }

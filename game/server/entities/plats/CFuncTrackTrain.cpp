@@ -112,13 +112,13 @@ void CFuncTrackTrain::Blocked( CBaseEntity *pOther )
 		return;
 	}
 	else
-		pOther->SetAbsVelocity( ( pOther->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * pev->dmg );
+		pOther->SetAbsVelocity( ( pOther->GetAbsOrigin() - GetAbsOrigin() ).Normalize() * GetDamage() );
 
-	ALERT( at_aiconsole, "TRAIN(%s): Blocked by %s (dmg:%.2f)\n", GetTargetname(), pOther->GetClassname(), pev->dmg );
-	if( pev->dmg <= 0 )
+	ALERT( at_aiconsole, "TRAIN(%s): Blocked by %s (dmg:%.2f)\n", GetTargetname(), pOther->GetClassname(), GetDamage() );
+	if( GetDamage() <= 0 )
 		return;
 	// we can't hurt this thing, so we're not concerned with it
-	pOther->TakeDamage( this, this, pev->dmg, DMG_CRUSH );
+	pOther->TakeDamage( this, this, GetDamage(), DMG_CRUSH );
 }
 
 void CFuncTrackTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

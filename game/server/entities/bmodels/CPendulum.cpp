@@ -171,7 +171,7 @@ void CPendulum::Stop( void )
 
 void CPendulum::Touch( CBaseEntity *pOther )
 {
-	if( pev->dmg <= 0 )
+	if( GetDamage() <= 0 )
 		return;
 
 	// we can't hurt this thing, so we're not concerned with it
@@ -179,7 +179,7 @@ void CPendulum::Touch( CBaseEntity *pOther )
 		return;
 
 	// calculate damage based on rotation speed
-	float damage = pev->dmg * GetSpeed() * 0.01;
+	float damage = GetDamage() * GetSpeed() * 0.01;
 
 	if( damage < 0 )
 		damage = -damage;

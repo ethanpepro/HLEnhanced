@@ -36,7 +36,7 @@ public:
 
 	inline void CountUp() { pev->frags++; }
 	inline void CountDown() { pev->frags--; }
-	inline void ResetCount() { pev->frags = pev->dmg; }
+	inline void ResetCount() { pev->frags = GetDamage(); }
 	inline int  CountValue() const { return pev->frags; }
 	inline int	LimitValue() const { return GetHealth(); }
 
@@ -45,7 +45,7 @@ public:
 private:
 
 	inline void SetCountValue( int value ) { pev->frags = value; }
-	inline void SetInitialValue( int value ) { pev->dmg = value; }
+	inline void SetInitialValue( int value ) { SetDamage( value ); }
 };
 
 #endif //GAME_SERVER_ENTITIES_MAPRULES_CGAMECOUNTER_H

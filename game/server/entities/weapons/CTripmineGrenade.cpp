@@ -70,7 +70,7 @@ void CTripmineGrenade::Spawn()
 	SetNextThink( gpGlobals->time + 0.2 );
 
 	SetTakeDamageMode( DAMAGE_YES );
-	pev->dmg = gSkillData.GetPlrDmgTripmine();
+	SetDamage( gSkillData.GetPlrDmgTripmine() );
 	SetHealth( 1 ); // don't let die normally
 
 	if( GetOwner() )

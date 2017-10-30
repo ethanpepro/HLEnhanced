@@ -25,8 +25,8 @@ void CFuncTrain::Spawn( void )
 	if( !HasTarget() )
 		ALERT( at_console, "FuncTrain with no target" );
 
-	if( pev->dmg == 0 )
-		pev->dmg = 2;
+	if( GetDamage() == 0 )
+		SetDamage( 2 );
 
 	SetMoveType( MOVETYPE_PUSH );
 
@@ -137,7 +137,7 @@ void CFuncTrain::Blocked( CBaseEntity *pOther )
 
 	m_flActivateFinished = gpGlobals->time + 0.5;
 
-	pOther->TakeDamage( this, this, pev->dmg, DMG_CRUSH );
+	pOther->TakeDamage( this, this, GetDamage(), DMG_CRUSH );
 }
 
 void CFuncTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

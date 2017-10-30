@@ -14,7 +14,7 @@ void CShake::Spawn( void )
 	pev->frame = 0;
 
 	if( pev->spawnflags & SF_SHAKE_EVERYONE )
-		pev->dmg = 0;
+		SetDamage( 0 );
 }
 
 void CShake::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

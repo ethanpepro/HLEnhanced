@@ -61,7 +61,7 @@ void CRpgRocket::Spawn( void )
 
 	SetNextThink( gpGlobals->time + 0.4 );
 
-	pev->dmg = gSkillData.GetPlrDmgRPG();
+	SetDamage( gSkillData.GetPlrDmgRPG() );
 }
 
 //=========================================================

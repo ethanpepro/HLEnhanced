@@ -69,7 +69,7 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 	// Pull out of the wall a bit
 	if ( pTrace->flFraction != 1.0 )
 	{
-		SetAbsOrigin( pTrace->vecEndPos + (pTrace->vecPlaneNormal * (pev->dmg - 24) * 0.6) );
+		SetAbsOrigin( pTrace->vecEndPos + (pTrace->vecPlaneNormal * ( GetDamage() - 24 ) * 0.6) );
 	}
 
 	int iContents = UTIL_PointContents ( GetAbsOrigin() );
@@ -87,7 +87,7 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 		{
 			WRITE_SHORT( g_sModelIndexWExplosion );
 		}
-		WRITE_BYTE( (pev->dmg - 50) * .60  ); // scale * 10
+		WRITE_BYTE( ( GetDamage() - 50 ) * .60  ); // scale * 10
 		WRITE_BYTE( 15  ); // framerate
 		WRITE_BYTE( TE_EXPLFLAG_NONE );
 	MESSAGE_END();
@@ -98,7 +98,7 @@ void CGrenade::Explode( TraceResult *pTrace, int bitsDamageType )
 
 	SetOwner( nullptr ); // can't traceline attack owner if this is set
 
-	RadiusDamage( this, pOwner, pev->dmg, EntityClassifications().GetNoneId(), bitsDamageType );
+	RadiusDamage( this, pOwner, GetDamage(), EntityClassifications().GetNoneId(), bitsDamageType );
 
 	if ( RANDOM_FLOAT( 0 , 1 ) < 0.5 )
 	{
@@ -146,7 +146,7 @@ void CGrenade::Smoke( void )
 			WRITE_COORD( GetAbsOrigin().y );
 			WRITE_COORD( GetAbsOrigin().z );
 			WRITE_SHORT( g_sModelIndexSmoke );
-			WRITE_BYTE( (pev->dmg - 50) * 0.80 ); // scale * 10
+			WRITE_BYTE( ( GetDamage() - 50 ) * 0.80 ); // scale * 10
 			WRITE_BYTE( 12  ); // framerate
 		MESSAGE_END();
 	}
@@ -257,7 +257,7 @@ void CGrenade::BounceTouch( CBaseEntity *pOther )
 		// go ahead and emit the danger sound.
 		
 		// register a radius louder than the explosion, so we make sure everyone gets out of the way
-		CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin(), pev->dmg / 0.4, 0.3 );
+		CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin(), GetDamage() / 0.4, 0.3 );
 		m_fRegisteredSound = true;
 	}
 
@@ -354,7 +354,7 @@ void CGrenade:: Spawn( void )
 	SetModel( "models/grenade.mdl");
 	SetSize( Vector( 0, 0, 0), Vector(0, 0, 0) );
 
-	pev->dmg = 100;
+	SetDamage( 100 );
 	m_fRegisteredSound = false;
 }
 
@@ -386,7 +386,7 @@ CGrenade* CGrenade::ShootContact( CBaseEntity* pOwner, Vector vecStart, Vector v
 	// Explode on contact
 	pGrenade->SetTouch( &CGrenade::ExplodeTouch );
 
-	pGrenade->pev->dmg = gSkillData.GetPlrDmgM203Grenade();
+	pGrenade->SetDamage( gSkillData.GetPlrDmgM203Grenade() );
 
 	return pGrenade;
 }
@@ -426,7 +426,7 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 	pGrenade->SetFriction( 0.8 );
 
 	pGrenade->SetModel( "models/w_grenade.mdl");
-	pGrenade->pev->dmg = 100;
+	pGrenade->SetDamage( 100 );
 
 	return pGrenade;
 }

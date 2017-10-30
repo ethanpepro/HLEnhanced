@@ -36,8 +36,8 @@ void CSmoker::Think( void )
 	// lots of smoke
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );
 	WRITE_BYTE( TE_SMOKE );
-	WRITE_COORD( GetAbsOrigin().x + RANDOM_FLOAT( -pev->dmg, pev->dmg ) );
-	WRITE_COORD( GetAbsOrigin().y + RANDOM_FLOAT( -pev->dmg, pev->dmg ) );
+	WRITE_COORD( GetAbsOrigin().x + RANDOM_FLOAT( -GetDamage(), GetDamage() ) );
+	WRITE_COORD( GetAbsOrigin().y + RANDOM_FLOAT( -GetDamage(), GetDamage() ) );
 	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_SHORT( g_sModelIndexSmoke );
 	WRITE_BYTE( RANDOM_LONG( GetScale(), GetScale() * 1.1 ) );

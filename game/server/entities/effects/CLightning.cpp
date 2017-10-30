@@ -46,7 +46,7 @@ void CLightning::Spawn( void )
 	if( ServerSide() )
 	{
 		SetThink( NULL );
-		if( pev->dmg > 0 )
+		if( GetDamage() > 0 )
 		{
 			SetThink( &CLightning::DamageThink );
 			SetNextThink( gpGlobals->time + 0.1 );
@@ -140,7 +140,7 @@ void CLightning::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "damage" ) )
 	{
-		pev->dmg = atof( pkvd->szValue );
+		SetDamage( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else
@@ -249,11 +249,11 @@ void CLightning::StrikeThink( void )
 			WRITE_BYTE( m_speed );		// speed
 		MESSAGE_END();
 		DoSparks( pStart->GetAbsOrigin(), pEnd->GetAbsOrigin() );
-		if( pev->dmg > 0 )
+		if( GetDamage() > 0 )
 		{
 			TraceResult tr;
 			UTIL_TraceLine( pStart->GetAbsOrigin(), pEnd->GetAbsOrigin(), dont_ignore_monsters, NULL, &tr );
-			BeamDamageInstant( &tr, pev->dmg );
+			BeamDamageInstant( &tr, GetDamage() );
 		}
 	}
 }
@@ -406,7 +406,7 @@ void CLightning::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 		m_active = true;
 		GetEffects().ClearFlags( EF_NODRAW );
 		DoSparks( GetStartPos(), GetEndPos() );
-		if( pev->dmg > 0 )
+		if( GetDamage() > 0 )
 		{
 			SetNextThink( gpGlobals->time );
 			pev->dmgtime = gpGlobals->time;

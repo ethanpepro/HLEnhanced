@@ -30,7 +30,7 @@ void CMortar::Spawn()
 	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_NOT );
 
-	pev->dmg = 200;
+	SetDamage( 200 );
 
 	SetThink( &CMortar::MortarExplode );
 	SetNextThink( 0 );
@@ -78,7 +78,7 @@ void CMortar::MortarExplode( void )
 	WRITE_COORD( GetAbsOrigin().z + 32 );
 	WRITE_COORD( GetAbsOrigin().x );
 	WRITE_COORD( GetAbsOrigin().y );
-	WRITE_COORD( GetAbsOrigin().z + 32 + pev->dmg * 2 / .2 ); // reach damage radius over .3 seconds
+	WRITE_COORD( GetAbsOrigin().z + 32 + GetDamage() * 2 / .2 ); // reach damage radius over .3 seconds
 	WRITE_SHORT( m_spriteTexture );
 	WRITE_BYTE( 0 ); // startframe
 	WRITE_BYTE( 0 ); // framerate
@@ -107,7 +107,7 @@ void CMortar::MortarExplode( void )
 
 	// ExplodeModel( GetAbsOrigin(), 400, g_sModelIndexShrapnel, 30 );
 
-	RadiusDamage( this, GetOwner(), pev->dmg, EntityClassifications().GetNoneId(), DMG_BLAST );
+	RadiusDamage( this, GetOwner(), GetDamage(), EntityClassifications().GetNoneId(), DMG_BLAST );
 
 	/*
 	if ( RANDOM_FLOAT ( 0 , 1 ) < 0.5 )

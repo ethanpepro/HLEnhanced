@@ -167,7 +167,7 @@ void CCrossbowBolt::ExplodeThink()
 	int iContents = UTIL_PointContents( GetAbsOrigin() );
 	int iScale;
 
-	pev->dmg = 40;
+	SetDamage( 40 );
 	iScale = 10;
 
 	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, GetAbsOrigin() );
@@ -192,7 +192,7 @@ void CCrossbowBolt::ExplodeThink()
 
 	SetOwner( nullptr ); // can't traceline attack owner if this is set
 
-	::RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, pev->dmg, DMG_BLAST | DMG_ALWAYSGIB ), 128, EntityClassifications().GetNoneId() );
+	::RadiusDamage( GetAbsOrigin(), CTakeDamageInfo( this, pOwner, GetDamage(), DMG_BLAST | DMG_ALWAYSGIB ), 128, EntityClassifications().GetNoneId() );
 
 	UTIL_Remove( this );
 }

@@ -104,7 +104,7 @@ public:
 	inline void LiveForTime( float time ) { SetThink( &CBeam::SUB_Remove ); SetNextThink( gpGlobals->time + time ); }
 	inline void	BeamDamageInstant( TraceResult *ptr, float damage )
 	{
-		pev->dmg = damage;
+		SetDamage( damage );
 		pev->dmgtime = gpGlobals->time - 1;
 		BeamDamage( ptr );
 	}

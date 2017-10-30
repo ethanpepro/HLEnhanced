@@ -731,7 +731,7 @@ void CBasePlayer::WaterMove()
 			EMIT_SOUND( this, CHAN_VOICE, "player/pl_wade2.wav", 1, ATTN_NORM );
 
 		pev->air_finished = gpGlobals->time + PLAYER_SWIM_AIRTIME;
-		pev->dmg = 2;
+		SetDamage( 2 );
 
 		// if we took drowning damage, give it back slowly
 		if( m_idrowndmg > m_idrownrestored )
@@ -760,16 +760,16 @@ void CBasePlayer::WaterMove()
 			if( pev->pain_finished < gpGlobals->time )
 			{
 				// take drowning damage
-				pev->dmg += 1;
-				if( pev->dmg > 5 )
-					pev->dmg = 5;
-				TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), pev->dmg, DMG_DROWN );
+				SetDamage( GetDamage() + 1 );
+				if( GetDamage() > 5 )
+					SetDamage( 5 );
+				TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), GetDamage(), DMG_DROWN );
 				pev->pain_finished = gpGlobals->time + 1;
 
 				// track drowning damage, give it back when
 				// player finally takes a breath
 
-				m_idrowndmg += pev->dmg;
+				m_idrowndmg += GetDamage();
 			}
 		}
 		else

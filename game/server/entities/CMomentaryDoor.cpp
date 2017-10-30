@@ -39,8 +39,8 @@ void CMomentaryDoor::Spawn( void )
 
 	if( GetSpeed() == 0 )
 		SetSpeed( 100 );
-	if( pev->dmg == 0 )
-		pev->dmg = 2;
+	if( GetDamage() == 0 )
+		SetDamage( 2 );
 
 	m_vecPosition1 = GetAbsOrigin();
 	// Subtract 2 from size because the engine expands bboxes by 1 in all directions making the size too big
