@@ -26,18 +26,18 @@ float CBaseAnimating::StudioFrameAdvance( float flInterval )
 {
 	if( flInterval == 0.0 )
 	{
-		flInterval = ( gpGlobals->time - pev->animtime );
+		flInterval = ( gpGlobals->time - GetAnimTime() );
 		if( flInterval <= 0.001 )
 		{
-			pev->animtime = gpGlobals->time;
+			SetAnimTime( gpGlobals->time );
 			return 0.0;
 		}
 	}
-	if( !pev->animtime )
+	if( !GetAnimTime() )
 		flInterval = 0.0;
 
 	SetFrame( GetFrame() + ( flInterval * m_flFrameRate * GetFrameRate() ) );
-	pev->animtime = gpGlobals->time;
+	SetAnimTime( gpGlobals->time );
 
 	if( GetFrame() < 0.0 || GetFrame() >= 256.0 )
 	{
@@ -102,7 +102,7 @@ void CBaseAnimating::ResetSequenceInfo()
 
 	GetSequenceInfo( pmodel, pev, m_flFrameRate, m_flGroundSpeed );
 	m_fSequenceLoops = ( ( GetSequenceFlags() & STUDIO_LOOPING ) != 0 );
-	pev->animtime = gpGlobals->time;
+	SetAnimTime( gpGlobals->time );
 	SetFrameRate( 1.0 );
 	m_fSequenceFinished = false;
 	m_flLastEventCheck = gpGlobals->time;
@@ -127,9 +127,9 @@ void CBaseAnimating::DispatchAnimEvents( float flInterval )
 	flInterval = 0.1;
 
 	// FIX: this still sometimes hits events twice
-	float flStart = GetFrame() + ( m_flLastEventCheck - pev->animtime ) * m_flFrameRate * GetFrameRate();
+	float flStart = GetFrame() + ( m_flLastEventCheck - GetAnimTime() ) * m_flFrameRate * GetFrameRate();
 	float flEnd = GetFrame() + flInterval * m_flFrameRate * GetFrameRate();
-	m_flLastEventCheck = pev->animtime + flInterval;
+	m_flLastEventCheck = GetAnimTime() + flInterval;
 
 	m_fSequenceFinished = false;
 	if( flEnd >= 256 || flEnd <= 0.0 )

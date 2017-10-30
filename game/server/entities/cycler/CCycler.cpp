@@ -124,7 +124,7 @@ void CCycler :: Think( void )
 	{
 		// ResetSequenceInfo();
 		// hack to avoid reloading model every frame
-		pev->animtime = gpGlobals->time;
+		SetAnimTime( gpGlobals->time );
 		SetFrameRate( 1.0 );
 		m_fSequenceFinished = false;
 		m_flLastEventCheck = gpGlobals->time;

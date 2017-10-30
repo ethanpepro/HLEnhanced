@@ -64,7 +64,7 @@ public:
 	inline void SetNoise( int amplitude ) { pev->body = amplitude; }
 	inline void SetColor( int r, int g, int b ) { SetRenderColor( Vector( r, g, b ) ); }
 	inline void SetBrightness( int brightness ) { SetRenderAmount( brightness ); }
-	inline void SetScrollRate( int speed ) { pev->animtime = speed; }
+	inline void SetScrollRate( int speed ) { SetAnimTime( speed ); }
 
 	inline int	GetType() const { return static_cast<int>( GetRenderMode() ) & 0x0F; }
 	inline int	GetBeamFlags() const { return static_cast<int>( GetRenderMode() ) & 0xF0; }
@@ -82,7 +82,7 @@ public:
 	//TODO: this method is completely wrong, don't uncomment without fixing! - Solokiller
 	// inline void GetColor( int r, int g, int b ) { SetRenderColor( Vector( r, g, b ) ); }
 	inline int  GetBrightness( void ) { return GetRenderAmount(); }
-	inline int  GetScrollRate( void ) { return pev->animtime; }
+	inline int  GetScrollRate( void ) { return GetAnimTime(); }
 
 	// Call after you change start/end positions
 	void		RelinkBeam( void );

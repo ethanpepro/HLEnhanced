@@ -34,7 +34,7 @@ void CSqueak::Spawn( )
 	FallInit();//get ready to fall down.
 		
 	pev->sequence = 1;
-	pev->animtime = gpGlobals->time;
+	SetAnimTime( gpGlobals->time );
 	SetFrameRate( 1.0 );
 }
 
