@@ -29,7 +29,7 @@ void CLaserSpot::Spawn()
 	SetSolidType( SOLID_NOT );
 
 	SetRenderMode( kRenderGlow );
-	pev->renderfx = kRenderFxNoDissipation;
+	SetRenderFX( kRenderFxNoDissipation );
 	SetRenderAmount( 255 );
 
 	SetModel( "sprites/laserdot.spr" );

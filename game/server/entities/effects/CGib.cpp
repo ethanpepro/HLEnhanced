@@ -41,7 +41,7 @@ void CGib::Spawn( const char *szGibModel )
 						  // and will spawn using the same render FX or rendermode! bad!
 	SetRenderAmount( 255 );
 	SetRenderMode( kRenderNormal );
-	pev->renderfx = kRenderFxNone;
+	SetRenderFX( kRenderFxNone );
 	SetSolidType( SOLID_SLIDEBOX );/// hopefully this will fix the VELOCITY TOO LOW crap
 
 	SetModel( szGibModel );

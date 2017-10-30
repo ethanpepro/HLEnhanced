@@ -900,7 +900,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 	case TASK_DIE:
 		if ( gpGlobals->time > m_flWaitFinished )
 		{
-			pev->renderfx = kRenderFxExplode;
+			SetRenderFX( kRenderFxExplode );
 			pev->rendercolor.x = 255;
 			pev->rendercolor.y = 0;
 			pev->rendercolor.z = 0;

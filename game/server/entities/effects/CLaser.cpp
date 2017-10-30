@@ -37,7 +37,7 @@ void CLaser::Spawn( void )
 		m_pSprite = NULL;
 
 	if( m_pSprite )
-		m_pSprite->SetTransparency( kRenderGlow, pev->rendercolor.x, pev->rendercolor.y, pev->rendercolor.z, GetRenderAmount(), pev->renderfx );
+		m_pSprite->SetTransparency( kRenderGlow, pev->rendercolor.x, pev->rendercolor.y, pev->rendercolor.z, GetRenderAmount(), GetRenderFX() );
 
 	if( HasTargetname() && !( pev->spawnflags & SF_BEAM_STARTON ) )
 		TurnOff();

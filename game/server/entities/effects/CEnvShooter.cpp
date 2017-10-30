@@ -71,7 +71,7 @@ CGib *CEnvShooter::CreateGib( void )
 	pGib->SetRenderMode( GetRenderMode() );
 	pGib->SetRenderAmount( GetRenderAmount() );
 	pGib->pev->rendercolor = pev->rendercolor;
-	pGib->pev->renderfx = pev->renderfx;
+	pGib->SetRenderFX( GetRenderFX() );
 	pGib->SetScale( GetScale() );
 	pGib->pev->skin = pev->skin;
 
