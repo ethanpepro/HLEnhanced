@@ -386,12 +386,12 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, SetSwimSoundTime ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "int GetDuckSoundTime() const",
-		asMETHOD( CLASS, GetDuckSoundTime ), asCALL_THISCALL );
+		pszObjectName, "int GetDuckTime() const",
+		asMETHOD( CLASS, GetDuckTime ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "void SetDuckSoundTime(const int iTime)",
-		asMETHOD( CLASS, SetDuckSoundTime ), asCALL_THISCALL );
+		pszObjectName, "void SetDuckTime(const int iTime)",
+		asMETHOD( CLASS, SetDuckTime ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "bool IsStepLeft() const",
