@@ -966,7 +966,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	cd->bInDuck			= pl->IsDucking();
 	cd->flTimeStepSound = pl->GetStepSoundTime();
 	cd->flDuckTime		= pl->GetDuckTime();
-	cd->flSwimTime		= pev->flSwimTime;
+	cd->flSwimTime		= pl->GetSwimSoundTime();
 	cd->waterjumptime	= pev->teleport_time;
 
 	strcpy( cd->physinfo, ENGINE_GETPHYSINFO( pClient ) );
