@@ -62,7 +62,7 @@ void CApache :: Spawn( void )
 	SetSize( Vector( -32, -32, -64 ), Vector( 32, 32, 0 ) );
 	SetAbsOrigin( GetAbsOrigin() );
 
-	pev->flags |= FL_MONSTER;
+	GetFlags() |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetHealth( gSkillData.GetApacheHealth() );
 
@@ -221,7 +221,7 @@ void CApache :: DyingThink( void )
 		MESSAGE_END();
 
 		// don't stop it we touch a entity
-		pev->flags &= ~FL_ONGROUND;
+		GetFlags().ClearFlags( FL_ONGROUND );
 		SetNextThink( gpGlobals->time + 0.2 );
 		return;
 	}
@@ -289,7 +289,7 @@ void CApache :: DyingThink( void )
 
 		RadiusDamage( GetAbsOrigin(), this, this, 300, EntityClassifications().GetNoneId(), DMG_BLAST );
 
-		if (/*!(pev->spawnflags & SF_NOWRECKAGE) && */(pev->flags & FL_ONGROUND))
+		if (/*!(pev->spawnflags & SF_NOWRECKAGE) && */GetFlags().Any( FL_ONGROUND ) )
 		{
 			CBaseEntity *pWreckage = Create( "cycler_wreckage", GetAbsOrigin(), GetAbsAngles() );
 			// pWreckage->SetModel( GetModelName() );

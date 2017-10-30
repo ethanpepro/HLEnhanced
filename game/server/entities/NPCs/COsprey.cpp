@@ -76,7 +76,7 @@ void COsprey :: Spawn( void )
 	SetSize( Vector( -400, -400, -100), Vector(400, 400, 32));
 	SetAbsOrigin( GetAbsOrigin() );
 
-	pev->flags |= FL_MONSTER;
+	GetFlags() |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_YES );
 	m_flRightHealth		= 200;
 	m_flLeftHealth		= 200;
@@ -251,7 +251,7 @@ void COsprey :: HoverThink( void )
 	int i;
 	for (i = 0; i < 4; i++)
 	{
-		if (m_hRepel[i] != NULL && m_hRepel[i]->GetHealth() > 0 && !(m_hRepel[i]->pev->flags & FL_ONGROUND))
+		if (m_hRepel[i] != NULL && m_hRepel[i]->GetHealth() > 0 && !m_hRepel[i]->GetFlags().Any( FL_ONGROUND ) )
 		{
 			break;
 		}
@@ -536,7 +536,7 @@ void COsprey :: DyingThink( void )
 
 
 		// don't stop it we touch a entity
-		pev->flags &= ~FL_ONGROUND;
+		GetFlags().ClearFlags( FL_ONGROUND );
 		SetNextThink( gpGlobals->time + 0.2 );
 		return;
 	}

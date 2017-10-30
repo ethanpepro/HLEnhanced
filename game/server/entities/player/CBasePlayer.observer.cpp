@@ -387,7 +387,7 @@ void CBasePlayer::StartObserver( Vector vecPosition, Vector vecViewAngle )
 	SetTakeDamageMode( DAMAGE_NO );
 	SetMoveType( MOVETYPE_NONE );
 	ClearBits( m_afPhysicsFlags, PFLAG_DUCKING );
-	ClearBits( pev->flags, FL_DUCKING );
+	GetFlags().ClearFlags( FL_DUCKING );
 	SetDeadFlag( DEAD_RESPAWNABLE );
 	SetHealth( 1 );
 

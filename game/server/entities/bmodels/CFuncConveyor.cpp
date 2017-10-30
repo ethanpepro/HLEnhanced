@@ -26,7 +26,7 @@ void CFuncConveyor::Spawn( void )
 	CFuncWall::Spawn();
 
 	if( !( pev->spawnflags & SF_CONVEYOR_VISUAL ) )
-		SetBits( pev->flags, FL_CONVEYOR );
+		GetFlags().AddFlags( FL_CONVEYOR );
 
 	// HACKHACK - This is to allow for some special effects
 	if( pev->spawnflags & SF_CONVEYOR_NOTSOLID )

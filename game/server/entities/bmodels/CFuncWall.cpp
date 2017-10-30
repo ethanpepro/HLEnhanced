@@ -28,7 +28,7 @@ void CFuncWall::Spawn( void )
 	SetModel( GetModelName() );
 
 	// If it can't move/go away, it's really part of the world
-	pev->flags |= FL_WORLDBRUSH;
+	GetFlags() |= FL_WORLDBRUSH;
 }
 
 void CFuncWall::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

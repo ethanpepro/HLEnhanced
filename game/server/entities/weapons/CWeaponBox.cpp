@@ -49,7 +49,7 @@ void CWeaponBox::Spawn()
 //=========================================================
 void CWeaponBox::Touch( CBaseEntity *pOther )
 {
-	if( !( pev->flags & FL_ONGROUND ) )
+	if( !GetFlags().Any( FL_ONGROUND ) )
 	{
 		return;
 	}

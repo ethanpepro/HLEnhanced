@@ -763,7 +763,7 @@ void CGargantua::HandleAnimEvent(AnimEvent_t& event)
 			CBaseEntity *pHurt = GargantuaCheckTraceHullAttack( GARG_ATTACKDIST + 10.0, gSkillData.GetGargantuaDmgSlash(), DMG_SLASH );
 			if (pHurt)
 			{
-				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
+				if ( pHurt->GetFlags().Any( FL_MONSTER | FL_CLIENT ) )
 				{
 					pHurt->SetPunchAngle( Vector(
 						-30, // pitch

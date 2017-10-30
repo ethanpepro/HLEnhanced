@@ -198,7 +198,7 @@ bool CBaseEntity::Intersects( const CBaseEntity* const pOther ) const
 
 void CBaseEntity::MakeDormant( void )
 {
-	SetBits( pev->flags, FL_DORMANT );
+	GetFlags() |= FL_DORMANT;
 
 	// Don't touch
 	SetSolidType( SOLID_NOT );
@@ -214,7 +214,7 @@ void CBaseEntity::MakeDormant( void )
 
 bool CBaseEntity::IsDormant() const
 {
-	return FBitSet( pev->flags, FL_DORMANT ) != 0;
+	return GetFlags().Any( FL_DORMANT );
 }
 
 bool CBaseEntity::IsInWorld() const

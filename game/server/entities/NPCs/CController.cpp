@@ -289,7 +289,7 @@ void CController :: Spawn()
 
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_FLY );
-	pev->flags			|= FL_FLY;
+	GetFlags() |= FL_FLY;
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	SetHealth( gSkillData.GetControllerHealth() );
 	SetViewOffset( Vector( 0, 0, -2 ) );// position of the eyes relative to monster's origin.

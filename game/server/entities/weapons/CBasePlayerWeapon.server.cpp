@@ -81,7 +81,7 @@ void CBasePlayerWeapon::FallThink( void )
 {
 	SetNextThink( gpGlobals->time + 0.1 );
 
-	if( pev->flags & FL_ONGROUND )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		// clatter if we have an owner (i.e., dropped by someone)
 		// don't clatter if the gun is waiting to respawn (if it's waiting, it is invisible!)

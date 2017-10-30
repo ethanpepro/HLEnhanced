@@ -45,7 +45,7 @@ void CBabyCrab::UpdateYawSpeed()
 
 bool CBabyCrab::CheckRangeAttack1( float flDot, float flDist )
 {
-	if( pev->flags & FL_ONGROUND )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		if( pev->groundentity && ( pev->groundentity->v.flags & ( FL_CLIENT | FL_MONSTER ) ) )
 			return true;

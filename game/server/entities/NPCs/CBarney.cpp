@@ -447,7 +447,7 @@ void CBarney::OnTakeDamage( const CTakeDamageInfo& info )
 	if ( !IsAlive() || GetDeadFlag() == DEAD_DYING )
 		return;
 
-	if ( m_MonsterState != MONSTERSTATE_PRONE && (info.GetAttacker()->pev->flags & FL_CLIENT) )
+	if ( m_MonsterState != MONSTERSTATE_PRONE && (info.GetAttacker()->GetFlags().Any( FL_CLIENT ) ) )
 	{
 		m_flPlayerDamage += info.GetDamage();
 

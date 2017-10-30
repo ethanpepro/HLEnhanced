@@ -142,7 +142,7 @@ void CPenguin::PrimaryAttack()
 		// HACK HACK:  Ugly hacks to handle change in origin based on new physics code for players
 		// Move origin up if crouched and start trace a bit outside of body ( 20 units instead of 16 )
 		Vector trace_origin = m_pPlayer->GetAbsOrigin();
-		if( m_pPlayer->pev->flags & FL_DUCKING )
+		if( m_pPlayer->GetFlags().Any( FL_DUCKING ) )
 		{
 			trace_origin = trace_origin - ( VEC_HULL_MIN - VEC_DUCK_HULL_MIN );
 		}

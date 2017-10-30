@@ -48,7 +48,7 @@ public:
 			if( gpGlobals->trace_ent && gpGlobals->trace_ent == edict() )
 			{
 				pev->basevelocity = pOther->GetAbsVelocity();
-				pev->flags |= FL_BASEVELOCITY;
+				GetFlags() |= FL_BASEVELOCITY;
 			}
 		}
 	}

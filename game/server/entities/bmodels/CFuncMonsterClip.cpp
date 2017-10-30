@@ -25,5 +25,5 @@ void CFuncMonsterClip::Spawn( void )
 	CFuncWall::Spawn();
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )
 		GetEffects() = EF_NODRAW;
-	pev->flags |= FL_MONSTERCLIP;
+	GetFlags() |= FL_MONSTERCLIP;
 }

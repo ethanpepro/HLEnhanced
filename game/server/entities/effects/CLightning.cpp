@@ -434,7 +434,7 @@ void CLightning::BeamUpdateVars( void )
 	pev->skin = 0;
 	pev->sequence = 0;
 	SetRenderMode( kRenderNormal );
-	pev->flags |= FL_CUSTOMENTITY;
+	GetFlags() |= FL_CUSTOMENTITY;
 	SetModelName( m_iszSpriteName );
 	SetTexture( m_spriteTexture );
 

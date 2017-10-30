@@ -163,7 +163,7 @@ void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.GetZombieDmgOneSlash(), DMG_SLASH );
 			if ( pHurt )
 			{
-				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
+				if ( pHurt->GetFlags().Any( FL_MONSTER | FL_CLIENT ) )
 				{
 					Vector vecPunchAngle = pHurt->GetPunchAngle();
 					vecPunchAngle.z = -18;
@@ -189,7 +189,7 @@ void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.GetZombieDmgOneSlash(), DMG_SLASH );
 			if ( pHurt )
 			{
-				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
+				if ( pHurt->GetFlags().Any( FL_MONSTER | FL_CLIENT ) )
 				{
 					Vector vecPunchAngle = pHurt->GetPunchAngle();
 					vecPunchAngle.z = 18;
@@ -213,7 +213,7 @@ void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.GetZombieDmgBothSlash(), DMG_SLASH );
 			if ( pHurt )
 			{
-				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
+				if ( pHurt->GetFlags().Any( FL_MONSTER | FL_CLIENT ) )
 				{
 					Vector vecPunchAngle = pHurt->GetPunchAngle();
 					vecPunchAngle.x = 5;

@@ -318,7 +318,7 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 		return m_fThrowGrenade;
 	}
 
-	if ( !FBitSet ( m_hEnemy->pev->flags, FL_ONGROUND ) && m_hEnemy->GetWaterLevel() == WATERLEVEL_DRY && m_vecEnemyLKP.z > GetAbsMax().z  )
+	if ( !m_hEnemy->GetFlags().Any( FL_ONGROUND ) && m_hEnemy->GetWaterLevel() == WATERLEVEL_DRY && m_vecEnemyLKP.z > GetAbsMax().z  )
 	{
 		//!!!BUGBUG - we should make this check movetype and make sure it isn't FLY? Players who jump a lot are unlikely to 
 		// be grenaded.
@@ -1809,7 +1809,7 @@ Schedule_t *CHGrunt :: GetSchedule( void )
 	// flying? If PRONE, barnacle has me. IF not, it's assumed I am rapelling. 
 	if ( GetMoveType() == MOVETYPE_FLY && m_MonsterState != MONSTERSTATE_PRONE )
 	{
-		if (pev->flags & FL_ONGROUND)
+		if( GetFlags().Any( FL_ONGROUND ) )
 		{
 			// just landed
 			SetMoveType( MOVETYPE_STEP );
@@ -1885,7 +1885,7 @@ Schedule_t *CHGrunt :: GetSchedule( void )
 					{
 						//!!!KELLY - the leader of a squad of grunts has just seen the player or a 
 						// monster and has made it the squad's enemy. You
-						// can check pev->flags for FL_CLIENT to determine whether this is the player
+						// can check GetFlags() for FL_CLIENT to determine whether this is the player
 						// or a monster. He's going to immediately start
 						// firing, though. If you'd like, we can make an alternate "first sight" 
 						// schedule where the leader plays a handsign anim

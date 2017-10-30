@@ -137,8 +137,8 @@ void CBasePlayer::Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_WALK );
 	SetMaxHealth( GetHealth() );
-	pev->flags			&= FL_PROXY;	// keep proxy flag sey by engine
-	pev->flags			|= FL_CLIENT;
+	GetFlags().ClearFlags( ~FL_PROXY );	// keep proxy flag sey by engine
+	GetFlags() |= FL_CLIENT;
 	pev->air_finished	= gpGlobals->time + 12;
 	SetDamage( 2 );				// initial water damage
 	GetEffects().ClearAll();
@@ -184,7 +184,7 @@ void CBasePlayer::Spawn()
 	g_ulModelIndexPlayer = GetModelIndex();
 	pev->sequence = LookupActivity( ACT_IDLE );
 
-	if( FBitSet( pev->flags, FL_DUCKING ) )
+	if( GetFlags().Any( FL_DUCKING ) )
 		SetSize( VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX );
 	else
 		SetSize( VEC_HULL_MIN, VEC_HULL_MAX );
@@ -542,7 +542,7 @@ void CBasePlayer::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 
 	SetDeadFlag( DEAD_DYING );
 	SetMoveType( MOVETYPE_TOSS );
-	ClearBits( pev->flags, FL_ONGROUND );
+	GetFlags().ClearFlags( FL_ONGROUND );
 	if ( GetAbsVelocity().z < 10)
 	{
 		Vector vecVelocity = GetAbsVelocity();
@@ -634,7 +634,7 @@ bool CBasePlayer::Restore( CRestore &restore )
 
 	g_ulModelIndexPlayer = GetModelIndex();
 
-	if( FBitSet( pev->flags, FL_DUCKING ) )
+	if( GetFlags().Any( FL_DUCKING ) )
 	{
 		// Use the crouch HACK
 		//FixPlayerCrouchStuck( edict() );

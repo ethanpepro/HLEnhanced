@@ -246,7 +246,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.GetSlaveDmgClaw(), DMG_SLASH );
 			if ( pHurt )
 			{
-				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
+				if( pHurt->GetFlags().Any( FL_MONSTER | FL_CLIENT ) )
 				{
 					Vector vecPunchAngle = pHurt->GetPunchAngle();
 					vecPunchAngle.z = -18;
@@ -269,7 +269,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 			CBaseEntity *pHurt = CheckTraceHullAttack( 70, gSkillData.GetSlaveDmgClawrake(), DMG_SLASH );
 			if ( pHurt )
 			{
-				if ( pHurt->pev->flags & (FL_MONSTER|FL_CLIENT) )
+				if( pHurt->GetFlags().Any( FL_MONSTER | FL_CLIENT ) )
 				{
 					Vector vecPunchAngle = pHurt->GetPunchAngle();
 					vecPunchAngle.z = -18;

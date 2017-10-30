@@ -103,7 +103,7 @@ void CSatchelCharge::SatchelSlide( CBaseEntity *pOther )
 		SetAngularVelocity( GetAngularVelocity() * 0.9 );
 		// play sliding sound, volume based on velocity
 	}
-	if ( !(pev->flags & FL_ONGROUND) && GetAbsVelocity().Length2D() > 10 )
+	if ( !GetFlags().Any( FL_ONGROUND ) && GetAbsVelocity().Length2D() > 10 )
 	{
 		BounceSound();
 	}

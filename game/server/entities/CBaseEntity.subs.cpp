@@ -36,7 +36,7 @@ void CBaseEntity::UpdateOnRemove( void )
 {
 	int	i;
 
-	if ( FBitSet( pev->flags, FL_GRAPHED ) )
+	if ( GetFlags().Any( FL_GRAPHED ) )
 	{
 	// this entity was a LinkEnt in the world node graph, so we must remove it from
 	// the graph since we are removing it from the world.
@@ -97,7 +97,7 @@ void FireTargets( const char *targetName, CBaseEntity *pActivator, CBaseEntity *
 
 	while( ( pTarget = UTIL_FindEntityByTargetname( pTarget, targetName ) ) != nullptr )
 	{
-		if( !(pTarget->pev->flags & FL_KILLME) ) // Don't use dying ents
+		if( !pTarget->GetFlags().Any( FL_KILLME ) ) // Don't use dying ents
 		{
 			ALERT( at_aiconsole, "Found: %s, firing (%s)\n", pTarget->GetClassname(), targetName );
 			pTarget->Use( pActivator, pCaller, useType, value );

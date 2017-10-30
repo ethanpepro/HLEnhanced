@@ -179,7 +179,7 @@ void CHeadCrab :: HandleAnimEvent( AnimEvent_t& event )
 	{
 		case HC_AE_JUMPATTACK:
 		{
-			ClearBits( pev->flags, FL_ONGROUND );
+			GetFlags().ClearFlags( FL_ONGROUND );
 
 			SetAbsOrigin( GetAbsOrigin() + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
 			UTIL_MakeVectors ( GetAbsAngles() );
@@ -315,7 +315,7 @@ void CHeadCrab :: LeapTouch ( CBaseEntity *pOther )
 	}
 
 	// Don't hit if back on ground
-	if ( !FBitSet( pev->flags, FL_ONGROUND ) )
+	if ( !GetFlags().Any( FL_ONGROUND ) )
 	{
 		EMIT_SOUND_DYN( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY(pBiteSounds), GetSoundVolume(), ATTN_IDLE, 0, GetVoicePitch() );
 		
@@ -363,7 +363,7 @@ void CHeadCrab :: StartTask ( const Task_t* pTask )
 //=========================================================
 bool CHeadCrab :: CheckRangeAttack1 ( float flDot, float flDist )
 {
-	if ( FBitSet( pev->flags, FL_ONGROUND ) && flDist <= 256 && flDot >= 0.65 )
+	if ( GetFlags().Any( FL_ONGROUND ) && flDist <= 256 && flDot >= 0.65 )
 	{
 		return true;
 	}
@@ -378,7 +378,7 @@ bool CHeadCrab :: CheckRangeAttack2 ( float flDot, float flDist )
 	return false;
 	// BUGBUG: Why is this code here?  There is no ACT_RANGE_ATTACK2 animation.  I've disabled it for now.
 #if 0
-	if ( FBitSet( pev->flags, FL_ONGROUND ) && flDist > 64 && flDist <= 256 && flDot >= 0.5 )
+	if ( GetFlags().Any( FL_ONGROUND ) && flDist > 64 && flDist <= 256 && flDot >= 0.5 )
 	{
 		return true;
 	}

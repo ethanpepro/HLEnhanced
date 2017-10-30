@@ -93,7 +93,7 @@ void CLeech::Spawn( void )
 	// Don't push the minz down too much or the water check will fail because this entity is really point-sized
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_FLY );
-	SetBits(pev->flags, FL_SWIM);
+	GetFlags() |= FL_SWIM;
 	SetHealth( gSkillData.GetLeechHealth() );
 
 	m_flFieldOfView		= -0.5;	// 180 degree FOV
@@ -319,7 +319,7 @@ void CLeech::DeadThink( void )
 			StopAnimation();
 			return;
 		}
-		else if ( pev->flags & FL_ONGROUND )
+		else if( GetFlags().Any( FL_ONGROUND ) )
 		{
 			SetSolidType( SOLID_NOT );
 			SetActivity(ACT_DIEFORWARD);
@@ -418,7 +418,7 @@ void CLeech::UpdateMotion( void )
 	else if ( GetMoveType() == MOVETYPE_TOSS )
 	{
 		SetMoveType( MOVETYPE_FLY );
-		pev->flags &= ~FL_ONGROUND;
+		GetFlags().ClearFlags( FL_ONGROUND );
 		RecalculateWaterlevel();
 		m_waterTime = gpGlobals->time + 2;	// Recalc again soon, water may be rising
 	}
@@ -614,7 +614,7 @@ void CLeech::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 		}
 
 		SetGravity( 0.02 );
-		ClearBits(pev->flags, FL_ONGROUND);
+		GetFlags().ClearFlags( FL_ONGROUND );
 		SetActivity( ACT_DIESIMPLE );
 	}
 	else

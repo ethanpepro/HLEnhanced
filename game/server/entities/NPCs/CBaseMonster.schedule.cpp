@@ -1266,7 +1266,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 	case TASK_PLAY_SCRIPT:
 		{
 			SetMoveType( MOVETYPE_FLY );
-			ClearBits(pev->flags, FL_ONGROUND);
+			GetFlags().ClearFlags( FL_ONGROUND );
 			m_scriptState = SCRIPT_PLAYING;
 			break;
 		}

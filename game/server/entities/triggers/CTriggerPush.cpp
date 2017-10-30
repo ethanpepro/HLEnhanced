@@ -53,18 +53,18 @@ void CTriggerPush::Touch( CBaseEntity *pOther )
 		{
 			pOther->SetAbsVelocity( pOther->GetAbsVelocity() + ( GetSpeed() * GetMoveDir() ) );
 			if( pOther->GetAbsVelocity().z > 0 )
-				pOther->pev->flags &= ~FL_ONGROUND;
+				pOther->GetFlags().ClearFlags( FL_ONGROUND );
 			UTIL_Remove( this );
 		}
 		else
 		{	// Push field, transfer to base velocity
 			Vector vecPush = ( GetSpeed() * GetMoveDir() );
-			if( pOther->pev->flags & FL_BASEVELOCITY )
+			if( pOther->GetFlags().Any( FL_BASEVELOCITY ) )
 				vecPush = vecPush + pOther->pev->basevelocity;
 
 			pOther->pev->basevelocity = vecPush;
 
-			pOther->pev->flags |= FL_BASEVELOCITY;
+			pOther->GetFlags() |= FL_BASEVELOCITY;
 			//			ALERT( at_console, "Vel %f, base %f\n", pevToucher->velocity.z, pevToucher->basevelocity.z );
 		}
 	}

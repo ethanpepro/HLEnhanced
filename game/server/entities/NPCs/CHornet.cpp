@@ -69,7 +69,7 @@ void CHornet :: Spawn( void )
 	SetMoveType( MOVETYPE_FLY );
 	SetSolidType( SOLID_BBOX );
 	SetTakeDamageMode( DAMAGE_YES );
-	pev->flags		|= FL_MONSTER;
+	GetFlags() |= FL_MONSTER;
 	SetHealth( 1 );// weak!
 	
 	if ( g_pGameRules->IsMultiplayer() )
@@ -105,7 +105,7 @@ void CHornet :: Spawn( void )
 	if ( !pSoundEnt )
 		pSoundEnt = this;
 
-	if ( !FNullEnt( GetOwner() ) && ( GetOwner()->pev->flags & FL_CLIENT) )
+	if ( !FNullEnt( GetOwner() ) && GetOwner()->GetFlags().Any( FL_CLIENT ) )
 	{
 		SetDamage( gSkillData.GetPlrDmgHornet() );
 	}
@@ -310,7 +310,7 @@ void CHornet :: TrackTarget ( void )
 
 	SetAbsVelocity( ( vecFlightDir + vecDirToEnemy).Normalize() );
 
-	if ( GetOwner() && ( GetOwner()->pev->flags & FL_MONSTER) )
+	if ( GetOwner() && GetOwner()->GetFlags().Any( FL_MONSTER ) )
 	{
 		// random pattern only applies to hornets fired by monsters, not players. 
 		Vector vecVelocity = GetAbsVelocity();

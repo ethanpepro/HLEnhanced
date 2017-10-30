@@ -27,7 +27,7 @@ void CLaser::Spawn( void )
 	Precache();
 
 	SetThink( &CLaser::StrikeThink );
-	pev->flags |= FL_CUSTOMENTITY;
+	GetFlags() |= FL_CUSTOMENTITY;
 
 	PointsInit( GetAbsOrigin(), GetAbsOrigin() );
 

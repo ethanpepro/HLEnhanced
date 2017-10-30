@@ -281,7 +281,7 @@ void CTripmineGrenade::Killed( const CTakeDamageInfo& info, GibAction gibAction 
 {
 	SetTakeDamageMode( DAMAGE_NO );
 
-	if( info.GetAttacker() && ( info.GetAttacker()->pev->flags & FL_CLIENT ) )
+	if( info.GetAttacker() && info.GetAttacker()->GetFlags().Any( FL_CLIENT ) )
 	{
 		// some client has destroyed this mine, he'll get credit for any kills
 		SetOwner( info.GetAttacker() );

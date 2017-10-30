@@ -68,7 +68,7 @@ void CBasePlayer::PlayerUse()
 			{	// Start controlling the train!
 				CBaseEntity *pTrain = CBaseEntity::Instance( pev->groundentity );
 
-				if( pTrain && !GetButtons().Any( IN_JUMP ) && FBitSet( pev->flags, FL_ONGROUND ) && ( pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE ) && pTrain->OnControls( this ) )
+				if( pTrain && !GetButtons().Any( IN_JUMP ) && GetFlags().Any( FL_ONGROUND ) && ( pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE ) && pTrain->OnControls( this ) )
 				{
 					m_afPhysicsFlags |= PFLAG_ONTRAIN;
 					m_iTrain = TrainSpeed( pTrain->GetSpeed(), pTrain->pev->impulse );
@@ -146,7 +146,7 @@ void CBasePlayer::PlayerUse()
 
 void CBasePlayer::Jump()
 {
-	if( FBitSet( pev->flags, FL_WATERJUMP ) )
+	if( GetFlags().Any( FL_WATERJUMP ) )
 		return;
 
 	if( GetWaterLevel() >= WATERLEVEL_WAIST )
@@ -160,7 +160,7 @@ void CBasePlayer::Jump()
 	if( !FBitSet( m_afButtonPressed, IN_JUMP ) )
 		return;         // don't pogo stick
 
-	if( !( pev->flags & FL_ONGROUND ) || !pev->groundentity )
+	if( !GetFlags().Any( FL_ONGROUND ) || !pev->groundentity )
 	{
 		return;
 	}
@@ -168,7 +168,7 @@ void CBasePlayer::Jump()
 	// many features in this function use v_forward, so makevectors now.
 	UTIL_MakeVectors( GetAbsAngles() );
 
-	// ClearBits(pev->flags, FL_ONGROUND);		// don't stairwalk
+	// GetFlags().ClearFlags( FL_ONGROUND );		// don't stairwalk
 
 	SetAnimation( PLAYER_JUMP );
 
@@ -186,7 +186,7 @@ void CBasePlayer::Jump()
 		SetAbsVelocity( GetAbsVelocity() + pGround->GetAbsVelocity() );
 
 		// If you're standing on a conveyor, add it's velocity to yours (for momentum)
-		if( ( pGround->pev->flags & FL_CONVEYOR ) )
+		if( pGround->GetFlags().Any( FL_CONVEYOR ) )
 		{
 			//Note: basevelocity is set by the physics code. It accounts for conveyors. - Solokiller
 			SetAbsVelocity( GetAbsVelocity() + pev->basevelocity );
@@ -350,9 +350,9 @@ void CBasePlayer::AddPointsToTeam( int score, const bool bAllowNegativeScore )
 void CBasePlayer::EnableControl( const bool fControl )
 {
 	if( !fControl )
-		pev->flags |= FL_FROZEN;
+		GetFlags() |= FL_FROZEN;
 	else
-		pev->flags &= ~FL_FROZEN;
+		GetFlags().ClearFlags( FL_FROZEN );
 }
 
 // Set the activity based on an event or current state
@@ -364,7 +364,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 	speed = GetAbsVelocity().Length2D();
 
-	if( pev->flags & FL_FROZEN )
+	if( GetFlags().Any( FL_FROZEN ) )
 	{
 		speed = 0;
 		playerAnim = PLAYER_IDLE;
@@ -402,7 +402,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 		break;
 	case PLAYER_IDLE:
 	case PLAYER_WALK:
-		if( !FBitSet( pev->flags, FL_ONGROUND ) && ( m_Activity == ACT_HOP || m_Activity == ACT_LEAP ) )	// Still jumping
+		if( !GetFlags().Any( FL_ONGROUND ) && ( m_Activity == ACT_HOP || m_Activity == ACT_LEAP ) )	// Still jumping
 		{
 			m_IdealActivity = m_Activity;
 		}
@@ -463,7 +463,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 		return;
 
 	case ACT_RANGE_ATTACK1:
-		if( FBitSet( pev->flags, FL_DUCKING ) )	// crouching
+		if( GetFlags().Any( FL_DUCKING ) )	// crouching
 			strcpy( szAnim, "crouch_shoot_" );
 		else
 			strcpy( szAnim, "ref_shoot_" );
@@ -491,7 +491,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 	case ACT_WALK:
 		if( m_Activity != ACT_RANGE_ATTACK1 || m_fSequenceFinished )
 		{
-			if( FBitSet( pev->flags, FL_DUCKING ) )	// crouching
+			if( GetFlags().Any( FL_DUCKING ) )	// crouching
 				strcpy( szAnim, "crouch_aim_" );
 			else
 				strcpy( szAnim, "ref_aim_" );
@@ -507,7 +507,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 		}
 	}
 
-	if( FBitSet( pev->flags, FL_DUCKING ) )
+	if( GetFlags().Any( FL_DUCKING ) )
 	{
 		if( speed == 0 )
 		{

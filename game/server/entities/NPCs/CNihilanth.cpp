@@ -124,7 +124,7 @@ void CNihilanth :: Spawn( void )
 	SetSize( Vector( -32, -32, 0), Vector(32, 32, 64) );
 	SetAbsOrigin( GetAbsOrigin() );
 
-	pev->flags			|= FL_MONSTER;
+	GetFlags() |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetHealth( gSkillData.GetNihilanthHealth() );
 	SetViewOffset( Vector( 0, 0, 300 ) );

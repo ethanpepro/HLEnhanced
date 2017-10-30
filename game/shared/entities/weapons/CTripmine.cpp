@@ -109,7 +109,7 @@ void CTripmine::PrimaryAttack( void )
 	if (tr.flFraction < 1.0)
 	{
 		CBaseEntity *pEntity = CBaseEntity::Instance( tr.pHit );
-		if ( pEntity && !(pEntity->pev->flags & FL_CONVEYOR) )
+		if ( pEntity && !pEntity->GetFlags().Any( FL_CONVEYOR ) )
 		{
 			Vector angles = UTIL_VecToAngles( tr.vecPlaneNormal );
 

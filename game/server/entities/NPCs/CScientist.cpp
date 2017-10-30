@@ -685,7 +685,7 @@ void CScientist :: TalkInit()
 
 void CScientist::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if ( info.GetInflictor() && info.GetInflictor()->pev->flags & FL_CLIENT )
+	if ( info.GetInflictor() && info.GetInflictor()->GetFlags().Any( FL_CLIENT ) )
 	{
 		Remember( bits_MEMORY_PROVOKED );
 		StopFollowing( true );

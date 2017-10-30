@@ -182,7 +182,7 @@ void CHAssassin :: HandleAnimEvent( AnimEvent_t& event )
 			// ALERT( at_console, "jumping");
 			UTIL_MakeAimVectors( GetAbsAngles() );
 			SetMoveType( MOVETYPE_TOSS );
-			pev->flags &= ~FL_ONGROUND;
+			GetFlags().ClearFlags( FL_ONGROUND );
 			SetAbsVelocity( m_vecJumpVelocity );
 			m_flNextJump = gpGlobals->time + 3.0;
 		}
@@ -593,7 +593,7 @@ bool CHAssassin :: CheckRangeAttack1 ( float flDot, float flDist )
 bool CHAssassin :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	m_fThrowGrenade = false;
-	if ( !FBitSet ( m_hEnemy->pev->flags, FL_ONGROUND ) )
+	if ( !m_hEnemy->GetFlags().Any( FL_ONGROUND ) )
 	{
 		// don't throw grenades at anything that isn't on the ground!
 		return false;
@@ -631,7 +631,7 @@ void CHAssassin :: RunAI( void )
 
 	// always visible if moving
 	// always visible is not on hard
-	if (gSkillData.GetSkillLevel() != SKILL_HARD || m_hEnemy == NULL || GetDeadFlag() != DEAD_NO || m_Activity == ACT_RUN || m_Activity == ACT_WALK || !(pev->flags & FL_ONGROUND))
+	if (gSkillData.GetSkillLevel() != SKILL_HARD || m_hEnemy == NULL || GetDeadFlag() != DEAD_NO || m_Activity == ACT_RUN || m_Activity == ACT_WALK || !GetFlags().Any( FL_ONGROUND ) )
 		m_iTargetRanderamt = 255;
 	else
 		m_iTargetRanderamt = 20;
@@ -728,7 +728,7 @@ void CHAssassin :: RunTask ( const Task_t* pTask )
 			ResetSequenceInfo( );
 			UpdateYawSpeed();
 		}
-		if (pev->flags & FL_ONGROUND)
+		if( GetFlags().Any( FL_ONGROUND ) )
 		{
 			// ALERT( at_console, "on ground\n");
 			TaskComplete( );
@@ -783,7 +783,7 @@ Schedule_t *CHAssassin :: GetSchedule ( void )
 			// flying?
 			if ( GetMoveType() == MOVETYPE_TOSS)
 			{
-				if (pev->flags & FL_ONGROUND)
+				if( GetFlags().Any( FL_ONGROUND ) )
 				{
 					// ALERT( at_console, "landed\n");
 					// just landed
@@ -903,7 +903,7 @@ Schedule_t* CHAssassin :: GetScheduleOfType ( int Type )
 	case SCHED_CHASE_ENEMY:
 		return slAssassinHunt;
 	case SCHED_MELEE_ATTACK1:
-		if (pev->flags & FL_ONGROUND)
+		if( GetFlags().Any( FL_ONGROUND ) )
 		{
 			if (m_flNextJump > gpGlobals->time)
 			{

@@ -268,7 +268,7 @@ void CFlockingFlyer::FlockLeaderThink( void )
 	}
 
 	// maybe it did, though.
-	if( FBitSet( pev->flags, FL_ONGROUND ) )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		SetAbsOrigin( GetAbsOrigin() + Vector( 0, 0, 1 ) );
 		Vector vecVelocity = GetAbsVelocity();
@@ -418,11 +418,11 @@ m_fCourseAdjust = false;
 
 void CFlockingFlyer::FallHack( void )
 {
-	if( pev->flags & FL_ONGROUND )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		if( !GetGroundEntity()->ClassnameIs( "worldspawn" ) )
 		{
-			pev->flags &= ~FL_ONGROUND;
+			GetFlags().ClearFlags( FL_ONGROUND );
 			SetNextThink( gpGlobals->time + 0.1 );
 		}
 		else

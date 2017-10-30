@@ -93,7 +93,7 @@ void CCineAI::PossessEntity( void )
 				pTarget->m_scriptState = SCRIPT_WAIT;
 				m_startTime = gpGlobals->time + 1E6;
 				// UNDONE: Add a flag to do this so people can fixup physics after teleporting monsters
-				pTarget->pev->flags &= ~FL_ONGROUND;
+				pTarget->GetFlags().ClearFlags( FL_ONGROUND );
 				break;
 			}
 		default:

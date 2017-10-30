@@ -53,12 +53,12 @@ void CShower::Think( void )
 		SetNextThink( gpGlobals->time + 0.1 );
 	else
 		UTIL_Remove( this );
-	pev->flags &= ~FL_ONGROUND;
+	GetFlags().ClearFlags( FL_ONGROUND );
 }
 
 void CShower::Touch( CBaseEntity *pOther )
 {
-	if( pev->flags & FL_ONGROUND )
+	if( GetFlags().Any( FL_ONGROUND ) )
 		SetAbsVelocity( GetAbsVelocity() * 0.1 );
 	else
 		SetAbsVelocity( GetAbsVelocity() * 0.6 );

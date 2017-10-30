@@ -175,7 +175,7 @@ void CCineMonster::Touch( CBaseEntity *pOther )
 }
 
 /*
-if( !FBitSet( pOther->pev->flags, FL_MONSTER ) )
+if( !pOther->GetFlags().Any( FL_MONSTER ) )
 {
 	// touched by a non-monster.
 	return;
@@ -183,10 +183,10 @@ if( !FBitSet( pOther->pev->flags, FL_MONSTER ) )
 
 pOther->GetAbsOrigin().z += 1;
 
-if( FBitSet ( pOther->pev->flags, FL_ONGROUND ) )
+if( pOther->GetFlags().Any( FL_ONGROUND ) )
 {
 	// clear the onground so physics don't bitch
-	pOther->pev->flags -= FL_ONGROUND;
+	pOther->GetFlags().ClearFlags( FL_ONGROUND );
 }
 
 // toss the monster!
@@ -404,7 +404,7 @@ void CCineMonster::PossessEntity( void )
 			pTarget->m_scriptState = SCRIPT_WAIT;
 			m_startTime = gpGlobals->time + 1E6;
 			// UNDONE: Add a flag to do this so people can fixup physics after teleporting monsters
-			//			pTarget->pev->flags &= ~FL_ONGROUND;
+			//			pTarget->GetFlags().ClearFlags( FL_ONGROUND );
 			break;
 		}
 		//		ALERT( at_aiconsole, "\"%s\" found and used (INT: %s)\n", pTarget->GetTargetname(), FBitSet(pev->spawnflags, SF_SCRIPT_NOINTERRUPT)?"No":"Yes" );

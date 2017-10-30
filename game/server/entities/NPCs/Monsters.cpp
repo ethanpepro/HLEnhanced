@@ -259,7 +259,7 @@ void CBaseMonster :: Look ( int iDistance )
 			{
 				// the looker will want to consider this entity
 				// don't check anything else about an entity that can't be seen, or an entity that you don't care about.
-				if ( IRelationship( pSightEnt ) != R_NO && FInViewCone( pSightEnt ) && !FBitSet( pSightEnt->pev->flags, FL_NOTARGET ) && FVisible( pSightEnt ) )
+				if ( IRelationship( pSightEnt ) != R_NO && FInViewCone( pSightEnt ) && !pSightEnt->GetFlags().Any( FL_NOTARGET ) && FVisible( pSightEnt ) )
 				{
 					if ( pSightEnt->IsPlayer() )
 					{
@@ -861,9 +861,9 @@ void CBaseMonster::RouteSimplify( const CBaseEntity* const pTargetEnt )
 
 bool CBaseMonster::BarnacleVictimGrabbed( CBaseEntity* pBarnacle )
 {
-	if ( FBitSet ( pev->flags, FL_ONGROUND ) )
+	if ( GetFlags().Any( FL_ONGROUND ) )
 	{
-		pev->flags -= FL_ONGROUND;
+		GetFlags().ClearFlags( FL_ONGROUND );
 	}
 
 	m_IdealMonsterState = MONSTERSTATE_PRONE;
@@ -900,7 +900,7 @@ bool CBaseMonster :: CheckRangeAttack2 ( float flDot, float flDist )
 bool CBaseMonster :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
 	// Decent fix to keep folks from kicking/punching hornets and snarks is to check the onground flag(sjb)
-	if ( flDist <= 64 && flDot >= 0.7 && m_hEnemy != NULL && FBitSet ( m_hEnemy->pev->flags, FL_ONGROUND ) )
+	if ( flDist <= 64 && flDot >= 0.7 && m_hEnemy != NULL && m_hEnemy->GetFlags().Any( FL_ONGROUND ) )
 	{
 		return true;
 	}
@@ -1243,7 +1243,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 	// move the monster to the start of the local move that's to be checked.
 	SetAbsOrigin( vecStart );// !!!BUGBUG - won't this fire triggers? - nope, SetOrigin doesn't fire
 
-	if ( !(pev->flags & (FL_FLY|FL_SWIM)) )
+	if ( !GetFlags().Any( FL_FLY | FL_SWIM ) )
 	{
 		UTIL_DropToFloor( this );//make sure monster is on the floor!
 	}
@@ -1300,7 +1300,7 @@ int CBaseMonster::CheckLocalMove( const Vector &vecStart, const Vector &vecEnd, 
 		}
 	}
 
-	if ( iReturn == LOCALMOVE_VALID && 	!(pev->flags & (FL_FLY|FL_SWIM) ) && (!pTarget || (pTarget->pev->flags & FL_ONGROUND)) )
+	if ( iReturn == LOCALMOVE_VALID && 	!GetFlags().Any( FL_FLY | FL_SWIM ) && (!pTarget || pTarget->GetFlags().Any( FL_ONGROUND ) ) )
 	{
 		// The monster can move to a spot UNDER the target, but not to it. Don't try to triangulate, go directly to the node graph.
 		// UNDONE: Magic # 64 -- this used to be GetBounds().z but that won't work for small creatures like the headcrab
@@ -1931,7 +1931,7 @@ void CBaseMonster :: MonsterInit ( void )
 {
 	if (!g_pGameRules->FAllowMonsters())
 	{
-		pev->flags |= FL_KILLME;		// Post this because some monster code modifies class data after calling this function
+		GetFlags() |= FL_KILLME;		// Post this because some monster code modifies class data after calling this function
 //		UTIL_RemoveNow( this );
 		return;
 	}
@@ -1946,9 +1946,9 @@ void CBaseMonster :: MonsterInit ( void )
 
 	m_IdealActivity = ACT_IDLE;
 
-	SetBits (pev->flags, FL_MONSTER);
+	GetFlags() |= FL_MONSTER;
 	if ( pev->spawnflags & SF_MONSTER_HITMONSTERCLIP )
-		pev->flags |= FL_MONSTERCLIP;
+		GetFlags() |= FL_MONSTERCLIP;
 	
 	ClearSchedule();
 	RouteClear();
@@ -2020,7 +2020,7 @@ void CBaseMonster :: StartMonster ( void )
 	}
 	else 
 	{
-		pev->flags &= ~FL_ONGROUND;
+		GetFlags().ClearFlags( FL_ONGROUND );
 	}
 	
 	if ( HasTarget() )// this monster has a target
@@ -2590,7 +2590,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 #endif
 
 	case MONSTER_EVENT_BODYDROP_HEAVY:
-		if ( pev->flags & FL_ONGROUND )
+		if ( GetFlags().Any( FL_ONGROUND ) )
 		{
 			if ( RANDOM_LONG( 0, 1 ) == 0 )
 			{
@@ -2604,7 +2604,7 @@ void CBaseMonster :: HandleAnimEvent( AnimEvent_t& event )
 		break;
 
 	case MONSTER_EVENT_BODYDROP_LIGHT:
-		if ( pev->flags & FL_ONGROUND )
+		if ( GetFlags().Any( FL_ONGROUND ) )
 		{
 			if ( RANDOM_LONG( 0, 1 ) == 0 )
 			{
@@ -3163,7 +3163,7 @@ void CBaseMonster::SentenceStop( void )
 
 void CBaseMonster::CorpseFallThink( void )
 {
-	if ( pev->flags & FL_ONGROUND )
+	if ( GetFlags().Any( FL_ONGROUND ) )
 	{
 		SetThink ( NULL );
 
@@ -3288,7 +3288,7 @@ bool CBaseMonster::GetEnemy()
 					if( CBaseEntity* pOwnerEnt = pNewEnemy->GetOwner() )
 					{
 						CBaseEntity* pOwner = pOwnerEnt->MyMonsterPointer();
-						if ( pOwner && (pOwner->pev->flags & FL_MONSTER) && IRelationship( pOwner ) != R_NO )
+						if ( pOwner && pOwner->GetFlags().Any( FL_MONSTER ) && IRelationship( pOwner ) != R_NO )
 							PushEnemy( pOwner, m_vecEnemyLKP );
 					}
 				}

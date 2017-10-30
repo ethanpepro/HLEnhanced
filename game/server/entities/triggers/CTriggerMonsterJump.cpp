@@ -33,7 +33,7 @@ void CTriggerMonsterJump::Think( void )
 
 void CTriggerMonsterJump::Touch( CBaseEntity *pOther )
 {
-	if( !FBitSet( pOther->pev->flags, FL_MONSTER ) )
+	if( !pOther->GetFlags().Any( FL_MONSTER ) )
 	{// touched by a non-monster.
 		return;
 	}
@@ -42,10 +42,10 @@ void CTriggerMonsterJump::Touch( CBaseEntity *pOther )
 	vecOrigin.z += 1;
 	pOther->SetAbsOrigin( vecOrigin );
 
-	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) )
+	if( pOther->GetFlags().Any( FL_ONGROUND ) )
 	{
 		// clear the onground so physics don't bitch
-		pOther->pev->flags &= ~FL_ONGROUND;
+		pOther->GetFlags().ClearFlags( FL_ONGROUND );
 	}
 
 	// toss the monster!

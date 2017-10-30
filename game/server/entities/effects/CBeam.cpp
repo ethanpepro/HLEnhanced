@@ -30,7 +30,7 @@ void CBeam::Precache( void )
 
 void CBeam::TriggerTouch( CBaseEntity *pOther )
 {
-	if( pOther->pev->flags & ( FL_CLIENT | FL_MONSTER ) )
+	if( pOther->GetFlags().Any( FL_CLIENT | FL_MONSTER ) )
 	{
 		if( GetOwner() )
 		{
@@ -156,7 +156,7 @@ void CBeam::BeamDamage( TraceResult *ptr )
 
 void CBeam::BeamInit( const char *pSpriteName, int width )
 {
-	pev->flags |= FL_CUSTOMENTITY;
+	GetFlags() |= FL_CUSTOMENTITY;
 	SetColor( 255, 255, 255 );
 	SetBrightness( 255 );
 	SetNoise( 0 );

@@ -217,7 +217,7 @@ void CClientPrediction::WeaponsPostThink( local_state_t *from, local_state_t *to
 	m_pPlayer->GetButtons().Set( cmd->buttons );
 
 	m_pPlayer->SetAbsVelocity( from->client.velocity );
-	m_pPlayer->pev->flags = from->client.flags;
+	m_pPlayer->GetFlags().Set( from->client.flags );
 
 	m_pPlayer->SetDeadFlag( static_cast<DeadFlag>( from->client.deadflag ) );
 	m_pPlayer->SetWaterLevel( static_cast<WaterLevel>( from->client.waterlevel ) );

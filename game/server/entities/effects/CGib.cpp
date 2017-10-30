@@ -67,7 +67,7 @@ void CGib::BounceGibTouch( CBaseEntity *pOther )
 	//if ( RANDOM_LONG(0,1) )
 	//	return;// don't bleed everytime
 
-	if( pev->flags & FL_ONGROUND )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		SetAbsVelocity( GetAbsVelocity() * 0.9 );
 		SetAbsAngles( Vector( 0, GetAbsAngles().y, 0 ) );

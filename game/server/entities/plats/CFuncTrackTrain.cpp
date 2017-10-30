@@ -98,7 +98,7 @@ void CFuncTrackTrain::Precache( void )
 void CFuncTrackTrain::Blocked( CBaseEntity *pOther )
 {
 	// Blocker is on-ground on the train
-	if( FBitSet( pOther->pev->flags, FL_ONGROUND ) && GET_PRIVATE( pOther->pev->groundentity ) == this )
+	if( pOther->GetFlags().Any( FL_ONGROUND ) && GET_PRIVATE( pOther->pev->groundentity ) == this )
 	{
 		float deltaSpeed = fabs( GetSpeed() );
 		if( deltaSpeed > 50 )
@@ -386,7 +386,7 @@ void CFuncTrackTrain::NearestPath( void )
 	while( ( pTrack = UTIL_FindEntityInSphere( pTrack, GetAbsOrigin(), 1024 ) ) != NULL )
 	{
 		// filter out non-tracks
-		if( !( pTrack->pev->flags & ( FL_CLIENT | FL_MONSTER ) ) && pTrack->ClassnameIs( "path_track" ) )
+		if( !pTrack->GetFlags().Any( FL_CLIENT | FL_MONSTER ) && pTrack->ClassnameIs( "path_track" ) )
 		{
 			dist = ( GetAbsOrigin() - pTrack->GetAbsOrigin() ).Length();
 			if( dist < closest )
@@ -472,9 +472,9 @@ void CFuncTrackTrain::DeadEnd( void )
 void CFuncTrackTrain::NextThink( float thinkTime, const bool alwaysThink )
 {
 	if( alwaysThink )
-		pev->flags |= FL_ALWAYSTHINK;
+		GetFlags() |= FL_ALWAYSTHINK;
 	else
-		pev->flags &= ~FL_ALWAYSTHINK;
+		GetFlags().ClearFlags( FL_ALWAYSTHINK );
 
 	SetNextThink( thinkTime );
 }

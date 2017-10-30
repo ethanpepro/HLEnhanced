@@ -204,7 +204,7 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 					break;
 				}
 
-				pHurt->pev->flags &= ~FL_ONGROUND;
+				pHurt->GetFlags().ClearFlags( FL_ONGROUND );
 				EMIT_SOUND_DYN( this, CHAN_WEAPON, RANDOM_SOUND_ARRAY(pAttackHitSounds), 1.0, ATTN_NORM, 0, 100 + RANDOM_LONG(-5,5) );
 			}
 		}
@@ -254,7 +254,7 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 			break;
 
 		case BIG_AE_JUMP_FORWARD:
-			ClearBits( pev->flags, FL_ONGROUND );
+			GetFlags().ClearFlags( FL_ONGROUND );
 
 			SetAbsOrigin( GetAbsOrigin() + Vector ( 0 , 0 , 1) );// take him off ground so engine doesn't instantly reset onground 
 			UTIL_MakeVectors( GetAbsAngles() );

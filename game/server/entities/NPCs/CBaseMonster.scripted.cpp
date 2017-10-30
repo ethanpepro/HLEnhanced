@@ -135,7 +135,7 @@ bool CBaseMonster::CineCleanup()
 			vecOrigin.y = new_origin.y;
 			vecOrigin.z += 1;
 
-			pev->flags |= FL_ONGROUND;
+			GetFlags() |= FL_ONGROUND;
 			const DropToFloor drop = UTIL_DropToFloor( this );
 			
 			// Origin in solid?  Set to org at the end of the sequence
@@ -144,7 +144,7 @@ bool CBaseMonster::CineCleanup()
 			else if ( drop == DropToFloor::TOOFAR ) // Hanging in air?
 			{
 				vecOrigin.z = new_origin.z;
-				pev->flags &= ~FL_ONGROUND;
+				GetFlags().ClearFlags( FL_ONGROUND );
 			}
 			// else entity hit floor, leave there
 

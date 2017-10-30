@@ -78,7 +78,7 @@ void CSqueakGrenade::Spawn( void )
 	SetNextThink( gpGlobals->time + 0.1 );
 	m_flNextHunt = gpGlobals->time + 1E6;
 
-	pev->flags |= FL_MONSTER;
+	GetFlags() |= FL_MONSTER;
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetHealth( gSkillData.GetSnarkHealth() );
 	SetGravity( 0.5 );
@@ -245,7 +245,7 @@ void CSqueakGrenade::HuntThink( void )
 		SetAbsVelocity( GetAbsVelocity() * flAdj + m_vecTarget * 300 );
 	}
 
-	if( pev->flags & FL_ONGROUND )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		SetAngularVelocity( g_vecZero );
 	}
@@ -347,7 +347,7 @@ void CSqueakGrenade::SuperBounceTouch( CBaseEntity *pOther )
 		}
 	}
 
-	if( !( pev->flags & FL_ONGROUND ) )
+	if( !GetFlags().Any( FL_ONGROUND ) )
 	{
 		// play bounce sound
 		float flRndSound = RANDOM_FLOAT( 0, 1 );

@@ -119,9 +119,9 @@ void CBasePlayer::PreThink()
 	// So the correct flags get sent to client asap.
 	//
 	if( m_afPhysicsFlags & PFLAG_ONTRAIN )
-		pev->flags |= FL_ONTRAIN;
+		GetFlags() |= FL_ONTRAIN;
 	else
-		pev->flags &= ~FL_ONTRAIN;
+		GetFlags().ClearFlags( FL_ONTRAIN );
 
 	if( bCheckVehicles )
 	{
@@ -284,7 +284,7 @@ void CBasePlayer::PreThink()
 					return;
 				}
 			}
-			else if( !FBitSet( pev->flags, FL_ONGROUND ) || FBitSet( pTrain->pev->spawnflags, SF_TRACKTRAIN_NOCONTROL ) || ( GetButtons().Any( IN_MOVELEFT | IN_MOVERIGHT ) ) )
+			else if( !GetFlags().Any( FL_ONGROUND ) || FBitSet( pTrain->pev->spawnflags, SF_TRACKTRAIN_NOCONTROL ) || ( GetButtons().Any( IN_MOVELEFT | IN_MOVERIGHT ) ) )
 			{
 				// Turn off the train if you jump, strafe, or the train controls go dead
 				m_afPhysicsFlags &= ~PFLAG_ONTRAIN;
@@ -325,10 +325,10 @@ void CBasePlayer::PreThink()
 
 
 	// If trying to duck, already ducked, or in the process of ducking
-	if( GetButtons().Any( IN_DUCK ) || FBitSet( pev->flags, FL_DUCKING ) || ( m_afPhysicsFlags & PFLAG_DUCKING ) )
+	if( GetButtons().Any( IN_DUCK ) || GetFlags().Any( FL_DUCKING ) || ( m_afPhysicsFlags & PFLAG_DUCKING ) )
 		Duck();
 
-	if( !FBitSet( pev->flags, FL_ONGROUND ) )
+	if( !GetFlags().Any( FL_ONGROUND ) )
 	{
 		m_flFallVelocity = -GetAbsVelocity().z;
 	}
@@ -376,7 +376,7 @@ void CBasePlayer::PostThink()
 	// of maximum safe distance will make no sound. Falling farther than max safe distance will play a 
 	// fallpain sound, and damage will be inflicted based on how far the player fell
 
-	if( ( FBitSet( pev->flags, FL_ONGROUND ) ) && ( GetHealth() > 0 ) && m_flFallVelocity >= PLAYER_FALL_PUNCH_THRESHHOLD )
+	if( GetFlags().Any( FL_ONGROUND ) && ( GetHealth() > 0 ) && m_flFallVelocity >= PLAYER_FALL_PUNCH_THRESHHOLD )
 	{
 		// ALERT ( at_console, "%f\n", m_flFallVelocity );
 
@@ -416,7 +416,7 @@ void CBasePlayer::PostThink()
 		}
 	}
 
-	if( FBitSet( pev->flags, FL_ONGROUND ) )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		if( m_flFallVelocity > 64 && !g_pGameRules->IsMultiplayer() )
 		{
@@ -431,7 +431,7 @@ void CBasePlayer::PostThink()
 	{
 		if( !GetAbsVelocity().x && !GetAbsVelocity().y )
 			SetAnimation( PLAYER_IDLE );
-		else if( ( GetAbsVelocity().x || GetAbsVelocity().y ) && ( FBitSet( pev->flags, FL_ONGROUND ) ) )
+		else if( ( GetAbsVelocity().x || GetAbsVelocity().y ) && ( GetFlags().Any( FL_ONGROUND ) ) )
 			SetAnimation( PLAYER_WALK );
 		else if( GetWaterLevel() > WATERLEVEL_FEET )
 			SetAnimation( PLAYER_WALK );
@@ -511,7 +511,7 @@ pt_end:
 
 void CBasePlayer::PlayerDeathThink()
 {
-	if( FBitSet( pev->flags, FL_ONGROUND ) )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		const float flForward = GetAbsVelocity().Length() - 20;
 		if( flForward <= 0 )
@@ -541,7 +541,7 @@ void CBasePlayer::PlayerDeathThink()
 
 	// once we're done animating our death and we're on the ground, we want to set movetype to None so our dead body won't do collisions and stuff anymore
 	// this prevents a bug where the dead body would go to a player's head if he walked over it while the dead player was clicking their button to respawn
-	if( GetMoveType() != MOVETYPE_NONE && FBitSet( pev->flags, FL_ONGROUND ) )
+	if( GetMoveType() != MOVETYPE_NONE && GetFlags().Any( FL_ONGROUND ) )
 		SetMoveType( MOVETYPE_NONE );
 
 	if( GetDeadFlag() == DEAD_DYING )
@@ -616,7 +616,7 @@ void CBasePlayer::UpdatePlayerSound()
 	// now calculate the best target volume for the sound. If the player's weapon
 	// is louder than his body/movement, use the weapon volume, else, use the body volume.
 
-	if( FBitSet( pev->flags, FL_ONGROUND ) )
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		iBodyVolume = GetAbsVelocity().Length();
 
@@ -780,9 +780,9 @@ void CBasePlayer::WaterMove()
 
 	if( !GetWaterLevel() )
 	{
-		if( FBitSet( pev->flags, FL_INWATER ) )
+		if( GetFlags().Any( FL_INWATER ) )
 		{
-			ClearBits( pev->flags, FL_INWATER );
+			GetFlags().ClearFlags( FL_INWATER );
 		}
 		return;
 	}
@@ -812,9 +812,9 @@ void CBasePlayer::WaterMove()
 		TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), 4 * GetWaterLevel(), DMG_ACID );
 	}
 
-	if( !FBitSet( pev->flags, FL_INWATER ) )
+	if( !GetFlags().Any( FL_INWATER ) )
 	{
-		SetBits( pev->flags, FL_INWATER );
+		GetFlags() |= FL_INWATER;
 		pev->dmgtime = 0;
 	}
 }

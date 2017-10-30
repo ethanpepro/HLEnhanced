@@ -403,7 +403,7 @@ void CIchthyosaur :: Spawn()
 	SetViewOffset( Vector ( 0, 0, 16 ) );
 	m_flFieldOfView		= VIEW_FIELD_WIDE;
 	m_MonsterState		= MONSTERSTATE_NONE;
-	SetBits(pev->flags, FL_SWIM);
+	GetFlags() |= FL_SWIM;
 	SetFlyingSpeed( ICHTHYOSAUR_SPEED );
 	SetFlyingMomentum( 2.5 );	// Set momentum constant
 
@@ -817,13 +817,13 @@ void CIchthyosaur::Swim( )
 	Vector Angles;
 	Vector Forward, Right, Up;
 
-	if (FBitSet( pev->flags, FL_ONGROUND))
+	if( GetFlags().Any( FL_ONGROUND ) )
 	{
 		Vector vecAngles = GetAbsAngles();
 		vecAngles.x = 0;
 		vecAngles.y += RANDOM_FLOAT( -45, 45 );
 		SetAbsAngles( vecAngles );
-		ClearBits( pev->flags, FL_ONGROUND );
+		GetFlags().ClearFlags( FL_ONGROUND );
 
 		Angles = Vector( -GetAbsAngles().x, GetAbsAngles().y, GetAbsAngles().z );
 		UTIL_MakeVectorsPrivate(Angles, &Forward, &Right, &Up);

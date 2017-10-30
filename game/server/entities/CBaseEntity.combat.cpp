@@ -393,7 +393,7 @@ bool CBaseEntity::FVisible( const CBaseEntity *pEntity ) const
 	Vector		vecLookerOrigin;
 	Vector		vecTargetOrigin;
 
-	if( FBitSet( pEntity->pev->flags, FL_NOTARGET ) )
+	if( pEntity->GetFlags().Any( FL_NOTARGET ) )
 		return false;
 
 	// don't look through water

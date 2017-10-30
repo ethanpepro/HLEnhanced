@@ -121,7 +121,7 @@ void CBaseTurret::Spawn()
 	SetSolidType( SOLID_SLIDEBOX );
 	SetTakeDamageMode( DAMAGE_AIM );
 
-	SetBits (pev->flags, FL_MONSTER);
+	GetFlags() |= FL_MONSTER;
 	SetUse( &CBaseTurret::TurretUse );
 
 	if (( pev->spawnflags & SF_MONSTER_TURRET_AUTOACTIVATE ) 
@@ -767,7 +767,7 @@ void CBaseTurret::OnTakeDamage( const CTakeDamageInfo& info )
 		SetTakeDamageMode( DAMAGE_NO );
 		pev->dmgtime = gpGlobals->time;
 
-		ClearBits (pev->flags, FL_MONSTER); // why are they set in the first place???
+		GetFlags().ClearFlags( FL_MONSTER ); // why are they set in the first place???
 
 		SetUse(NULL);
 		SetThink(&CBaseTurret::TurretDeath);

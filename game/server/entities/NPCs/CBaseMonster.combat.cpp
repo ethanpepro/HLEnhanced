@@ -300,7 +300,7 @@ void CBaseMonster::BecomeDead( void )
 
 	// make the corpse fly away from the attack vector
 	SetMoveType( MOVETYPE_TOSS );
-	//pev->flags &= ~FL_ONGROUND;
+	//GetFlags().ClearFlags(FL_ONGROUND );
 	//GetAbsOrigin().z += 2;
 	//SetAbsVelocity( g_vecAttackDir * -1 );
 	//SetAbsVelocity( GetAbsVelocity() * RANDOM_FLOAT( 300, 400 ) );
@@ -392,7 +392,7 @@ void CBaseMonster::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 		CallGibMonster();
 		return;
 	}
-	else if ( pev->flags & FL_MONSTER )
+	else if ( GetFlags().Any( FL_MONSTER ) )
 	{
 		SetTouch( NULL );
 		BecomeDead();
@@ -470,7 +470,7 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 		pev->dmg_take += flTake;
 
 		// check for godmode or invincibility
-		if ( pev->flags & FL_GODMODE )
+		if ( GetFlags().Any( FL_GODMODE ) )
 		{
 			return;
 		}
@@ -512,9 +512,9 @@ void CBaseMonster::OnTakeDamage( const CTakeDamageInfo& info )
 	}
 
 	// react to the damage (get mad)
-	if ( (pev->flags & FL_MONSTER) && !FNullEnt( info.GetAttacker() ) )
+	if ( GetFlags().Any( FL_MONSTER ) && !FNullEnt( info.GetAttacker() ) )
 	{
-		if ( info.GetAttacker()->pev->flags & (FL_MONSTER | FL_CLIENT) )
+		if ( info.GetAttacker()->GetFlags().Any( FL_MONSTER | FL_CLIENT ) )
 		{// only if the attack was a monster or client!
 			
 			// enemy's last known position is somewhere down the vector that the attack came from.
@@ -566,7 +566,7 @@ void CBaseMonster::DeadTakeDamage( const CTakeDamageInfo& info )
 
 #if 0// turn this back on when the bounding box issues are resolved.
 
-	pev->flags &= ~FL_ONGROUND;
+	GetFlags().ClearFlags( FL_ONGROUND );
 	GetAbsOrigin().z += 1;
 	
 	// let the damage scoot the corpse around a bit.

@@ -33,7 +33,7 @@ void CPathCorner::KeyValue( KeyValueData *pkvd )
 #if 0
 void CPathCorner::Touch( CBaseEntity *pOther )
 {
-	if( FBitSet( pOther->pev->flags, FL_MONSTER ) )
+	if( pOther->GetFlags().Any( FL_MONSTER ) )
 	{// monsters don't navigate path corners based on touch anymore
 		return;
 	}

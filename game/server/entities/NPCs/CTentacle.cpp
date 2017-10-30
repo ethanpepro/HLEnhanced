@@ -114,7 +114,7 @@ void CTentacle :: Spawn( )
 	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
 
 	SetTakeDamageMode( DAMAGE_AIM );
-	pev->flags			|= FL_MONSTER;
+	GetFlags() |= FL_MONSTER;
 	
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 

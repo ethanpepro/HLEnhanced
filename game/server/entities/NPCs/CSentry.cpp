@@ -88,7 +88,7 @@ void CSentry::OnTakeDamage( const CTakeDamageInfo& info )
 		SetTakeDamageMode( DAMAGE_NO );
 		pev->dmgtime = gpGlobals->time;
 
-		ClearBits( pev->flags, FL_MONSTER ); // why are they set in the first place???
+		GetFlags().ClearFlags( FL_MONSTER ); // why are they set in the first place???
 
 		SetUse( NULL );
 		SetThink( &CSentry::SentryDeath );
@@ -99,7 +99,7 @@ void CSentry::OnTakeDamage( const CTakeDamageInfo& info )
 
 void CSentry::SentryTouch( CBaseEntity *pOther )
 {
-	if( pOther && ( pOther->IsPlayer() || ( pOther->pev->flags & FL_MONSTER ) ) )
+	if( pOther && ( pOther->IsPlayer() || pOther->GetFlags().Any( FL_MONSTER ) ) )
 	{
 		TakeDamage( pOther, pOther, 0, 0 );
 	}

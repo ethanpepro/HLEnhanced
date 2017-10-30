@@ -209,7 +209,7 @@ void CHoundeye :: HandleAnimEvent( AnimEvent_t& event )
 			{
 				float flGravity = g_psv_gravity->value;
 
-				pev->flags &= ~FL_ONGROUND;
+				GetFlags().ClearFlags( FL_ONGROUND );
 
 				Vector vecVelocity = GetAbsVelocity();
 				vecVelocity = gpGlobals->v_forward * -200;

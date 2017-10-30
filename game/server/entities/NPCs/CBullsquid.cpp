@@ -417,9 +417,9 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 			float flGravity = g_psv_gravity->value;
 
 			// throw the squid up into the air on this frame.
-			if ( FBitSet ( pev->flags, FL_ONGROUND ) )
+			if ( GetFlags().Any( FL_ONGROUND ) )
 			{
-				pev->flags -= FL_ONGROUND;
+				GetFlags().ClearFlags( FL_ONGROUND );
 			}
 
 			// jump into air for 0.8 (24/30) seconds
