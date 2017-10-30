@@ -962,7 +962,8 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	cd->view_ofs		= pl->GetViewOffset();
 	cd->punchangle		= pl->GetPunchAngle();
 
-	cd->bInDuck			= pev->bInDuck;
+	//This is only touched in pm_shared code, but it gets synced in the engine during SV_RunCmd - Solokiller
+	cd->bInDuck			= pl->IsDucking();
 	cd->flTimeStepSound = pev->flTimeStepSound;
 	cd->flDuckTime		= pev->flDuckTime;
 	cd->flSwimTime		= pev->flSwimTime;
