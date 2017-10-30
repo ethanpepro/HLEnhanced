@@ -458,7 +458,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 		pev->gaitsequence = 0;
 		pev->sequence = animDesired;
-		pev->frame = 0;
+		SetFrame( 0 );
 		ResetSequenceInfo();
 		return;
 
@@ -474,7 +474,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 		if( pev->sequence != animDesired || !m_fSequenceLoops )
 		{
-			pev->frame = 0;
+			SetFrame( 0 );
 		}
 
 		if( !m_fSequenceLoops )
@@ -541,6 +541,6 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 	//ALERT( at_console, "Set animation to %d\n", animDesired );
 	// Reset to first frame of desired animation
 	pev->sequence = animDesired;
-	pev->frame = 0;
+	SetFrame( 0 );
 	ResetSequenceInfo();
 }

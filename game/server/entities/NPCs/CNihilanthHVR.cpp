@@ -227,7 +227,7 @@ void CNihilanthHVR::HoverThink( void )
 		*/
 	}
 
-	pev->frame = ( ( int ) pev->frame + 1 ) % m_nFrames;
+	SetFrame( ( ( int ) GetFrame() + 1 ) % m_nFrames );
 }
 
 bool CNihilanthHVR::CircleTarget( Vector vecTarget )
@@ -382,7 +382,7 @@ void CNihilanthHVR::ZapThink( void )
 		return;
 	}
 
-	pev->frame = ( int ) ( pev->frame + 1 ) % 11;
+	SetFrame( ( int ) ( GetFrame() + 1 ) % 11 );
 
 	MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
 	WRITE_BYTE( TE_ELIGHT );
@@ -443,7 +443,7 @@ void CNihilanthHVR::TeleportThink( void )
 	WRITE_COORD( 256 ); // decay
 	MESSAGE_END();
 
-	pev->frame = ( int ) ( pev->frame + 1 ) % 20;
+	SetFrame( ( int ) ( GetFrame() + 1 ) % 20 );
 }
 
 void CNihilanthHVR::TeleportTouch( CBaseEntity *pOther )

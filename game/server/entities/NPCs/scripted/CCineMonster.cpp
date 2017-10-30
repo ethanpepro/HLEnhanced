@@ -467,7 +467,7 @@ bool CCineMonster::StartSequence( CBaseMonster *pTarget, int iszSeq, const bool 
 	ALERT( at_console, "%s (%s): started \"%s\":INT:%s\n", pTarget->GetTargetname(), pTarget->GetClassname(), STRING( iszSeq ), s );
 #endif
 
-	pTarget->pev->frame = 0;
+	pTarget->SetFrame( 0 );
 	pTarget->ResetSequenceInfo();
 	return true;
 }

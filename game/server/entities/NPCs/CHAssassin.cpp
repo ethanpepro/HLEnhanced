@@ -717,12 +717,12 @@ void CHAssassin :: RunTask ( const Task_t* pTask )
 			else if (HasConditions ( bits_COND_SEE_ENEMY ))
 			{
 				pev->sequence = LookupSequence( "fly_attack" );
-				pev->frame = 0;
+				SetFrame( 0 );
 			}
 			else
 			{
 				pev->sequence = LookupSequence( "fly_down" );
-				pev->frame = 0;
+				SetFrame( 0 );
 			}
 			
 			ResetSequenceInfo( );

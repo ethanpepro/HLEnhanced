@@ -34,7 +34,7 @@ void CFlockingFlyer::Spawn()
 	Precache();
 	SpawnCommonCode();
 
-	pev->frame = 0;
+	SetFrame( 0 );
 	SetNextThink( gpGlobals->time + 0.1 );
 	SetThink( &CFlockingFlyer::IdleThink );
 }

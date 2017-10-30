@@ -499,12 +499,12 @@ void CTentacle :: Cycle( void )
 
 		if (m_iDir > 0)
 		{
-			pev->frame = 0;
+			SetFrame( 0 );
 		}
 		else
 		{
 			m_iDir = -1; // just to safe
-			pev->frame = 255;
+			SetFrame( 255 );
 		}
 		ResetSequenceInfo( );
 
@@ -619,11 +619,11 @@ void CTentacle :: DieThink( void )
 
 		if (m_iDir > 0)
 		{
-			pev->frame = 0;
+			SetFrame( 0 );
 		}
 		else
 		{
-			pev->frame = 255;
+			SetFrame( 255 );
 		}
 		ResetSequenceInfo( );
 

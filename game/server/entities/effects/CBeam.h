@@ -64,7 +64,6 @@ public:
 	inline void SetNoise( int amplitude ) { pev->body = amplitude; }
 	inline void SetColor( int r, int g, int b ) { SetRenderColor( Vector( r, g, b ) ); }
 	inline void SetBrightness( int brightness ) { SetRenderAmount( brightness ); }
-	inline void SetFrame( float frame ) { pev->frame = frame; }
 	inline void SetScrollRate( int speed ) { pev->animtime = speed; }
 
 	inline int	GetType() const { return static_cast<int>( GetRenderMode() ) & 0x0F; }
@@ -83,7 +82,6 @@ public:
 	//TODO: this method is completely wrong, don't uncomment without fixing! - Solokiller
 	// inline void GetColor( int r, int g, int b ) { SetRenderColor( Vector( r, g, b ) ); }
 	inline int  GetBrightness( void ) { return GetRenderAmount(); }
-	inline int  GetFrame( void ) { return pev->frame; }
 	inline int  GetScrollRate( void ) { return pev->animtime; }
 
 	// Call after you change start/end positions

@@ -11,7 +11,7 @@ void CShake::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NONE );
 	GetEffects().ClearAll();
-	pev->frame = 0;
+	SetFrame( 0 );
 
 	if( pev->spawnflags & SF_SHAKE_EVERYONE )
 		SetDamage( 0 );

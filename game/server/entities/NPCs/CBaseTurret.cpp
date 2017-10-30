@@ -117,7 +117,7 @@ void CBaseTurret::Spawn()
 	SetNextThink( gpGlobals->time + 1 );
 	SetMoveType( MOVETYPE_FLY );
 	pev->sequence		= 0;
-	pev->frame			= 0;
+	SetFrame( 0 );
 	SetSolidType( SOLID_SLIDEBOX );
 	SetTakeDamageMode( DAMAGE_AIM );
 
@@ -530,11 +530,11 @@ void CBaseTurret::SetTurretAnim(TURRET_ANIM anim)
 		case TURRET_ANIM_SPIN:
 			if (pev->sequence != TURRET_ANIM_FIRE && pev->sequence != TURRET_ANIM_SPIN)
 			{
-				pev->frame = 0;
+				SetFrame( 0 );
 			}
 			break;
 		default:
-			pev->frame = 0;
+			SetFrame( 0 );
 			break;
 		}
 
@@ -550,7 +550,7 @@ void CBaseTurret::SetTurretAnim(TURRET_ANIM anim)
 		case TURRET_ANIM_DEPLOY: break;
 
 		case TURRET_ANIM_RETIRE:
-			pev->frame			= 255;
+			SetFrame( 255 );
 			pev->framerate		= -1.0;
 			break;
 		case TURRET_ANIM_DIE:

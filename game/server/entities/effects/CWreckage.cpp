@@ -32,7 +32,7 @@ void CWreckage::Spawn( void )
 	SetTakeDamageMode( DAMAGE_NO );
 	GetEffects().ClearAll();
 
-	pev->frame = 0;
+	SetFrame( 0 );
 	SetNextThink( gpGlobals->time + 0.1 );
 
 	if( HasModel() )

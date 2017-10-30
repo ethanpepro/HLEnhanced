@@ -51,7 +51,7 @@ void CXenSpore::Spawn( void )
 
 	//	SetActivity( ACT_IDLE );
 	pev->sequence = 0;
-	pev->frame = RANDOM_FLOAT( 0, 255 );
+	SetFrame( RANDOM_FLOAT( 0, 255 ) );
 	pev->framerate = RANDOM_FLOAT( 0.7, 1.4 );
 	ResetSequenceInfo();
 	SetNextThink( gpGlobals->time + RANDOM_FLOAT( 0.1, 0.4 ) );	// Load balance these a bit

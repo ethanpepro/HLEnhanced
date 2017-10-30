@@ -70,7 +70,7 @@ void CApache :: Spawn( void )
 
 	pev->sequence = 0;
 	ResetSequenceInfo( );
-	pev->frame = RANDOM_LONG(0, 0xFF);
+	SetFrame( RANDOM_LONG( 0, 0xFF ) );
 
 	InitBoneControllers();
 
@@ -294,7 +294,7 @@ void CApache :: DyingThink( void )
 			CBaseEntity *pWreckage = Create( "cycler_wreckage", GetAbsOrigin(), GetAbsAngles() );
 			// pWreckage->SetModel( GetModelName() );
 			pWreckage->SetSize( Vector( -200, -200, -128 ), Vector( 200, 200, -32 ) );
-			pWreckage->pev->frame = pev->frame;
+			pWreckage->SetFrame( GetFrame() );
 			pWreckage->pev->sequence = pev->sequence;
 			pWreckage->pev->framerate = 0;
 			pWreckage->pev->dmgtime = gpGlobals->time + 5;

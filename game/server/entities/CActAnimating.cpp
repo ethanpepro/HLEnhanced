@@ -31,7 +31,7 @@ void CActAnimating::SetActivity( Activity act )
 	{
 		pev->sequence = sequence;
 		m_Activity = act; 
-		pev->frame = 0;
+		SetFrame( 0 );
 		ResetSequenceInfo( );
 	}
 }

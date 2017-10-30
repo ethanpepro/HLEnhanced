@@ -86,7 +86,7 @@ void CLaser::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "framestart" ) )
 	{
-		pev->frame = atoi( pkvd->szValue );
+		SetFrame( atoi( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "damage" ) )

@@ -12,7 +12,7 @@ void CFade::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NONE );
 	GetEffects().ClearAll();
-	pev->frame = 0;
+	SetFrame( 0 );
 }
 
 void CFade::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )

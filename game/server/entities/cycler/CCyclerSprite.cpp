@@ -33,7 +33,7 @@ void CCyclerSprite::Spawn( void )
 	SetTakeDamageMode( DAMAGE_YES );
 	GetEffects().ClearAll();
 
-	pev->frame = 0;
+	SetFrame( 0 );
 	SetNextThink( gpGlobals->time + 0.1 );
 	m_animate = 1;
 	m_lastTime = gpGlobals->time;
@@ -69,7 +69,7 @@ void CCyclerSprite::OnTakeDamage( const CTakeDamageInfo& info )
 
 void CCyclerSprite::Animate( float frames )
 {
-	pev->frame += frames;
+	SetFrame( GetFrame() + frames );
 	if( m_maxFrame > 0 )
-		pev->frame = fmod( pev->frame, m_maxFrame );
+		SetFrame( fmod( GetFrame(), m_maxFrame ) );
 }

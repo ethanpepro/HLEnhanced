@@ -38,7 +38,7 @@ void CSquidSpit::Spawn( void )
 	SetRenderAmount( 255 );
 
 	SetModel( "sprites/bigspit.spr" );
-	pev->frame = 0;
+	SetFrame( 0 );
 	SetScale( 0.5 );
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
@@ -114,11 +114,13 @@ void CSquidSpit::Animate( void )
 {
 	SetNextThink( gpGlobals->time + 0.1 );
 
-	if( pev->frame++ )
+	const bool bWasAnimated = GetFrame() != 0;
+	SetFrame( GetFrame() + 1 );
+	if( bWasAnimated )
 	{
-		if( pev->frame > m_maxFrame )
+		if( GetFrame() > m_maxFrame )
 		{
-			pev->frame = 0;
+			SetFrame( 0 );
 		}
 	}
 }

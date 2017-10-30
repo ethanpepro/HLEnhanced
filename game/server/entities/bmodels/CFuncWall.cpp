@@ -33,6 +33,6 @@ void CFuncWall::Spawn( void )
 
 void CFuncWall::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( ShouldToggle( useType, static_cast<int>( pev->frame ) != 0 ) )
-		pev->frame = 1 - pev->frame;
+	if( ShouldToggle( useType, static_cast<int>( GetFrame() ) != 0 ) )
+		SetFrame( 1 - GetFrame() );
 }

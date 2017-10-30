@@ -29,7 +29,7 @@ void CXenHair::Spawn( void )
 
 	if( !( pev->spawnflags & SF_HAIR_SYNC ) )
 	{
-		pev->frame = RANDOM_FLOAT( 0, 255 );
+		SetFrame( RANDOM_FLOAT( 0, 255 ) );
 		pev->framerate = RANDOM_FLOAT( 0.7, 1.4 );
 	}
 	ResetSequenceInfo();

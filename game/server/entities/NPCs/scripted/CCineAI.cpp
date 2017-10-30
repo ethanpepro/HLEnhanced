@@ -31,7 +31,7 @@ bool CCineAI::StartSequence( CBaseMonster *pTarget, int iszSeq, const bool compl
 		// return false;
 	}
 
-	pTarget->pev->frame = 0;
+	pTarget->SetFrame( 0 );
 	pTarget->ResetSequenceInfo();
 	return true;
 }

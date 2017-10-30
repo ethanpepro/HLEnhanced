@@ -46,7 +46,7 @@ void CTripmineGrenade::Spawn()
 	SetSolidType( SOLID_NOT );
 
 	SetModel( "models/v_tripmine.mdl" );
-	pev->frame = 0;
+	SetFrame( 0 );
 	pev->body = 3;
 	pev->sequence = TRIPMINE_WORLD;
 	ResetSequenceInfo();

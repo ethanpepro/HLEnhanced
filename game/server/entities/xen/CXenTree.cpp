@@ -53,7 +53,7 @@ void CXenTree::Spawn( void )
 	SetSize( Vector( -30, -30, 0 ), Vector( 30, 30, 188 ) );
 	SetActivity( ACT_IDLE );
 	SetNextThink( gpGlobals->time + 0.1 );
-	pev->frame = RANDOM_FLOAT( 0, 255 );
+	SetFrame( RANDOM_FLOAT( 0, 255 ) );
 	pev->framerate = RANDOM_FLOAT( 0.7, 1.4 );
 
 	Vector triggerPosition;

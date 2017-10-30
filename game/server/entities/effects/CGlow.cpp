@@ -11,12 +11,14 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( env_glow, CGlow );
 
+//TODO: is this entity any different from CSprite? - Solokiller
+
 void CGlow::Spawn( void )
 {
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NONE );
 	GetEffects().ClearAll();
-	pev->frame = 0;
+	SetFrame( 0 );
 
 	PRECACHE_MODEL( GetModelName() );
 	SetModel( GetModelName() );
@@ -41,5 +43,5 @@ void CGlow::Think( void )
 void CGlow::Animate( float frames )
 {
 	if( m_maxFrame > 0 )
-		pev->frame = fmod( pev->frame + frames, m_maxFrame );
+		SetFrame( fmod( GetFrame() + frames, m_maxFrame ) );
 }

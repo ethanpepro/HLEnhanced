@@ -22,13 +22,13 @@ void CFurniture::Spawn()
 	GetEffects().ClearAll();
 	SetYawSpeed( 0 );
 	pev->sequence = 0;
-	pev->frame = 0;
+	SetFrame( 0 );
 
 	//	SetNextThink( GetNextThink() + 1.0 );
 	//	SetThink (WalkMonsterDelay);
 
 	ResetSequenceInfo();
-	pev->frame = 0;
+	SetFrame( 0 );
 	MonsterInit();
 }
 

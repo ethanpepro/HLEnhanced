@@ -42,7 +42,7 @@ void CBMortar::Spawn( void )
 	SetRenderAmount( 255 );
 
 	SetModel( "sprites/mommaspit.spr" );
-	pev->frame = 0;
+	SetFrame( 0 );
 	SetScale( 0.5 );
 
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
@@ -116,11 +116,14 @@ void CBMortar::Animate( void )
 		pev->dmgtime = gpGlobals->time + 0.2;
 		SpriteSpray( GetAbsOrigin(), -GetAbsVelocity().Normalize(), gSpitSprite, 3 );
 	}
-	if( pev->frame++ )
+
+	const bool bWasAnimated = GetFrame() != 0;
+	SetFrame( GetFrame() + 1 );
+	if( bWasAnimated )
 	{
-		if( pev->frame > m_maxFrame )
+		if( GetFrame() > m_maxFrame )
 		{
-			pev->frame = 0;
+			SetFrame( 0 );
 		}
 	}
 }

@@ -19,7 +19,7 @@ void CSprite::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NONE );
 	GetEffects().ClearAll();
-	pev->frame = 0;
+	SetFrame( 0 );
 
 	Precache();
 	SetModel( GetModelName() );
@@ -99,8 +99,8 @@ void CSprite::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useTy
 
 void CSprite::Animate( float frames )
 {
-	pev->frame += frames;
-	if( pev->frame > m_maxFrame )
+	SetFrame( GetFrame() + frames );
+	if( GetFrame() > m_maxFrame )
 	{
 		if( pev->spawnflags & SF_SPRITE_ONCE )
 		{
@@ -109,7 +109,7 @@ void CSprite::Animate( float frames )
 		else
 		{
 			if( m_maxFrame > 0 )
-				pev->frame = fmod( pev->frame, m_maxFrame );
+				SetFrame( fmod( GetFrame(), m_maxFrame ) );
 		}
 	}
 }
@@ -146,7 +146,7 @@ void CSprite::TurnOn( void )
 		SetNextThink( gpGlobals->time );
 		m_lastTime = gpGlobals->time;
 	}
-	pev->frame = 0;
+	SetFrame( 0 );
 }
 
 void CSprite::AnimateUntilDead( void )

@@ -102,7 +102,7 @@ void CSittingScientist::SittingThink( void )
 				pev->sequence = m_baseSequence + SITTING_ANIM_sitlookright;
 
 			ResetSequenceInfo();
-			pev->frame = 0;
+			SetFrame( 0 );
 			SetBoneController( 0, 0 );
 		}
 	}
@@ -170,7 +170,7 @@ void CSittingScientist::SittingThink( void )
 		}
 
 		ResetSequenceInfo();
-		pev->frame = 0;
+		SetFrame( 0 );
 		SetBoneController( 0, m_headTurn );
 	}
 	SetNextThink( gpGlobals->time + 0.1 );

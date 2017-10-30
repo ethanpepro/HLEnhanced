@@ -177,7 +177,7 @@ void CHoundeye :: SetActivity ( Activity NewActivity )
 		if ( iSequence > ACTIVITY_NOT_AVAILABLE )
 		{
 			pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
-			pev->frame			= 0;		// FIX: frame counter shouldn't be reset when its the same activity as before
+			SetFrame( 0 );		// FIX: frame counter shouldn't be reset when its the same activity as before TODO - Solokiller
 			ResetSequenceInfo();
 			UpdateYawSpeed();
 		}
@@ -734,7 +734,7 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 			ChangeYaw ( GetYawSpeed() );
 			
 			float life;
-			life = ((255 - pev->frame) / (pev->framerate * m_flFrameRate));
+			life = (( 255 - GetFrame() ) / (pev->framerate * m_flFrameRate));
 			if (life < 0.1) life = 0.1;
 
 			MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
@@ -743,7 +743,7 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 				WRITE_COORD( GetAbsOrigin().y);
 				WRITE_COORD( GetAbsOrigin().z + 16);
 				WRITE_BYTE( 50 * life + 100);  // radius
-				WRITE_BYTE( pev->frame / 25.0 ); // count
+				WRITE_BYTE( GetFrame() / 25.0 ); // count
 				WRITE_BYTE( life * 10 ); // life
 			MESSAGE_END();
 			

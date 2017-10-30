@@ -1160,7 +1160,7 @@ void CBaseMonster :: SetActivity ( Activity NewActivity )
 		{
 			// don't reset frame between walk and run
 			if ( !(m_Activity == ACT_WALK || m_Activity == ACT_RUN) || !(NewActivity == ACT_WALK || NewActivity == ACT_RUN))
-				pev->frame = 0;
+				SetFrame( 0 );
 		}
 
 		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
@@ -1196,7 +1196,7 @@ void CBaseMonster::SetSequenceByName( const char* const pszSequence )
 	{
 		if ( pev->sequence != iSequence || !m_fSequenceLoops )
 		{
-			pev->frame = 0;
+			SetFrame( 0 );
 		}
 
 		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
@@ -3182,7 +3182,7 @@ void CBaseMonster :: MonsterInitDead( void )
 	SetSolidType( SOLID_BBOX );
 	SetMoveType( MOVETYPE_TOSS );// so he'll fall to ground
 
-	pev->frame = 0;
+	SetFrame( 0 );
 	ResetSequenceInfo( );
 	pev->framerate = 0;
 	

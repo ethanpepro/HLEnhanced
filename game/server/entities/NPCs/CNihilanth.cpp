@@ -722,7 +722,7 @@ void CNihilanth :: HuntThink( void )
 	if (m_fSequenceFinished)
 	{
 		// if (!m_fSequenceLoops)
-		pev->frame = 0;
+		SetFrame( 0 );
 		NextActivity( );
 		ResetSequenceInfo( );
 		pev->framerate = 2.0 - 1.0 * ( GetHealth() / gSkillData.GetNihilanthHealth() );

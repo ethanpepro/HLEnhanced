@@ -237,7 +237,7 @@ void CISlave ::UpdateYawSpeed()
 //=========================================================
 void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 {
-	// ALERT( at_console, "event %d : %f\n", pEvent->event, pev->frame );
+	// ALERT( at_console, "event %d : %f\n", pEvent->event, GetFrame() );
 	switch( event.event )
 	{
 		case ISLAVE_AE_CLAW:

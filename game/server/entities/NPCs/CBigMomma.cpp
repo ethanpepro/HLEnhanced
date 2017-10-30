@@ -684,7 +684,7 @@ void CBigMomma::StartTask( const Task_t* pTask )
 				if ( sequence != -1 )
 				{
 					pev->sequence = sequence;
-					pev->frame = 0;
+					SetFrame( 0 );
 					ResetSequenceInfo( );
 					ALERT( at_aiconsole, "BM: Sequence %s\n", STRING(GetNodeSequence()) );
 					return;

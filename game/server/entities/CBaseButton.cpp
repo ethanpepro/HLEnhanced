@@ -292,7 +292,7 @@ void CBaseButton::TriggerAndWait( void )
 		SetThink( &CBaseButton::ButtonReturn );
 	}
 
-	pev->frame = 1;			// use alternate textures
+	SetFrame( 1 );		// use alternate textures
 
 
 	SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 );
@@ -312,7 +312,7 @@ void CBaseButton::ButtonReturn( void )
 	else
 		AngularMove( m_vecAngle1, GetSpeed() );
 
-	pev->frame = 0;			// use normal textures
+	SetFrame( 0 );			// use normal textures
 }
 
 //

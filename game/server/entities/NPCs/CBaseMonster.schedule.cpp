@@ -450,7 +450,8 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 		}
 	case TASK_DIE:
 		{
-			if ( m_fSequenceFinished && pev->frame >= 255 )
+			//TODO: define constant - Solokiller
+			if ( m_fSequenceFinished && GetFrame() >= 255 )
 			{
 				SetDeadFlag( DEAD_DEAD );
 				

@@ -1782,7 +1782,7 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 	{
 		if ( pev->sequence != iSequence || !m_fSequenceLoops )
 		{
-			pev->frame = 0;
+			SetFrame( 0 );
 		}
 
 		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)

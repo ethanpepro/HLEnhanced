@@ -63,7 +63,7 @@ void CControllerZapBall::AnimateThink( void )
 	SetNextThink( gpGlobals->time + 0.1 );
 
 	//TODO: hardcoded sprite frame count? - Solokiller
-	pev->frame = ( ( int ) pev->frame + 1 ) % 11;
+	SetFrame( ( ( int ) GetFrame() + 1 ) % 11 );
 
 	if( gpGlobals->time - pev->dmgtime > 5 || GetAbsVelocity().Length() < 10 )
 	{

@@ -86,7 +86,7 @@ void COsprey :: Spawn( void )
 
 	pev->sequence = 0;
 	ResetSequenceInfo( );
-	pev->frame = RANDOM_LONG(0,0xFF);
+	SetFrame( RANDOM_LONG( 0, 0xFF ) );
 
 	InitBoneControllers();
 

@@ -36,7 +36,7 @@ void CXenPLight::Spawn( void )
 	SetSize( Vector( -80, -80, 0 ), Vector( 80, 80, 32 ) );
 	SetActivity( ACT_IDLE );
 	SetNextThink( gpGlobals->time + 0.1 );
-	pev->frame = RANDOM_FLOAT( 0, 255 );
+	SetFrame( RANDOM_FLOAT( 0, 255 ) );
 
 	m_pGlow = CSprite::SpriteCreate( XEN_PLANT_GLOW_SPRITE, GetAbsOrigin() + Vector( 0, 0, ( GetRelMin().z + GetRelMax().z )*0.5 ), false );
 	m_pGlow->SetTransparency( kRenderGlow, GetRenderColor().x, GetRenderColor().y, GetRenderColor().z, GetRenderAmount(), GetRenderFX() );

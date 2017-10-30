@@ -36,15 +36,15 @@ float CBaseAnimating::StudioFrameAdvance( float flInterval )
 	if( !pev->animtime )
 		flInterval = 0.0;
 
-	pev->frame += flInterval * m_flFrameRate * pev->framerate;
+	SetFrame( GetFrame() + ( flInterval * m_flFrameRate * pev->framerate ) );
 	pev->animtime = gpGlobals->time;
 
-	if( pev->frame < 0.0 || pev->frame >= 256.0 )
+	if( GetFrame() < 0.0 || GetFrame() >= 256.0 )
 	{
 		if( m_fSequenceLoops )
-			pev->frame -= ( int ) ( pev->frame / 256.0 ) * 256.0;
+			SetFrame( GetFrame() - ( ( int ) ( GetFrame() / 256.0 ) * 256.0 ) );
 		else
-			pev->frame = ( pev->frame < 0.0 ) ? 0 : 255;
+			SetFrame( ( GetFrame() < 0.0 ) ? 0 : 255 );
 		m_fSequenceFinished = true;	// just in case it wasn't caught in GetEvents
 	}
 
@@ -127,8 +127,8 @@ void CBaseAnimating::DispatchAnimEvents( float flInterval )
 	flInterval = 0.1;
 
 	// FIX: this still sometimes hits events twice
-	float flStart = pev->frame + ( m_flLastEventCheck - pev->animtime ) * m_flFrameRate * pev->framerate;
-	float flEnd = pev->frame + flInterval * m_flFrameRate * pev->framerate;
+	float flStart = GetFrame() + ( m_flLastEventCheck - pev->animtime ) * m_flFrameRate * pev->framerate;
+	float flEnd = GetFrame() + flInterval * m_flFrameRate * pev->framerate;
 	m_flLastEventCheck = pev->animtime + flInterval;
 
 	m_fSequenceFinished = false;

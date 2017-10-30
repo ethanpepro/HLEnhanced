@@ -550,10 +550,6 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHOD( CLASS, GetFrame ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "float& GetMutableFrame()",
-		asMETHOD( CLASS, GetMutableFrame ), asCALL_THISCALL );
-
-	engine.RegisterObjectMethod(
 		pszObjectName, "void SetFrame(const float flFrame)",
 		asMETHOD( CLASS, SetFrame ), asCALL_THISCALL );
 

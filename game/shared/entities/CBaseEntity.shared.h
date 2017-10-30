@@ -1010,11 +1010,6 @@ public:
 	float GetFrame() const { return pev->frame; }
 
 	/**
-	*	@return The frame number, as a mutable float.
-	*/
-	float& GetMutableFrame() { return pev->frame; }
-
-	/**
 	*	Sets the frame number.
 	*	@param flFrame Frame to set.
 	*/

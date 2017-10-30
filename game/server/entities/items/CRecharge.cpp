@@ -72,7 +72,7 @@ void CRecharge::Spawn()
 	SetSize( GetRelMin(), GetRelMax() );
 	SetModel( GetModelName() );
 	m_iJuice = gSkillData.GetSuitChargerCapacity();
-	pev->frame = 0;			
+	SetFrame( 0 );
 }
 
 void CRecharge::Precache()
@@ -92,7 +92,7 @@ void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 	// if there is no juice left, turn it off
 	if (m_iJuice <= 0)
 	{
-		pev->frame = 1;			
+		SetFrame( 1 );
 		Off();
 	}
 
@@ -157,7 +157,7 @@ void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 void CRecharge::Recharge(void)
 {
 	m_iJuice = gSkillData.GetSuitChargerCapacity();
-	pev->frame = 0;			
+	SetFrame( 0 );
 	SetThink( &CRecharge::SUB_DoNothing );
 }
 

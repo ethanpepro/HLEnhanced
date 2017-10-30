@@ -388,9 +388,9 @@ void CEgon::UpdateEffect( const Vector &startPoint, const Vector &endPoint, floa
 
 
 	m_pSprite->SetAbsOrigin( endPoint );
-	m_pSprite->pev->frame += 8 * gpGlobals->frametime;
-	if ( m_pSprite->pev->frame > m_pSprite->Frames() )
-		m_pSprite->pev->frame = 0;
+	m_pSprite->SetFrame( m_pSprite->GetFrame() + 8 * gpGlobals->frametime );
+	if ( m_pSprite->GetFrame() > m_pSprite->Frames() )
+		m_pSprite->SetFrame( 0 );
 
 	m_pNoise->SetStartPos( endPoint );
 

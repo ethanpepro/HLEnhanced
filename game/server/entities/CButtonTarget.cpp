@@ -14,15 +14,15 @@ void CButtonTarget::Spawn( void )
 	SetTakeDamageMode( DAMAGE_YES );
 
 	if( FBitSet( pev->spawnflags, SF_BTARGET_ON ) )
-		pev->frame = 1;
+		SetFrame( 1 );
 }
 
 void CButtonTarget::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( !ShouldToggle( useType, static_cast<int>( pev->frame ) != 0 ) )
+	if( !ShouldToggle( useType, static_cast<int>( GetFrame() ) != 0 ) )
 		return;
-	pev->frame = 1 - pev->frame;
-	if( pev->frame )
+	SetFrame( 1 - GetFrame() );
+	if( GetFrame() )
 		SUB_UseTargets( pActivator, USE_ON, 0 );
 	else
 		SUB_UseTargets( pActivator, USE_OFF, 0 );
