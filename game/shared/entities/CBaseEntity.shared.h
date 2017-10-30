@@ -711,6 +711,19 @@ public:
 	}
 
 	/**
+	*	@brief Whether the player is currently jumping out of water, and how much time is left until the jump completes (in milliseconds)
+	*/
+	float GetWaterJumpTime() const { return pev->teleport_time; }
+
+	/**
+	*	@see GetWaterJumpTime
+	*/
+	void SetWaterJumpTime( const float flTime )
+	{
+		pev->teleport_time = flTime;
+	}
+
+	/**
 	*	@return Whether the last step was a left step sound.
 	*/
 	bool IsStepLeft() const
