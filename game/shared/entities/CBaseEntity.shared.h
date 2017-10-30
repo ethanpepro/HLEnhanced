@@ -697,15 +697,15 @@ public:
 	}
 
 	/**
-	*	@return The time at which a duck sound was last played.
+	*	@return The time at which a duck was last initiated
 	*/
-	int GetDuckSoundTime() const { return pev->flDuckTime; }
+	int GetDuckTime() const { return pev->flDuckTime; }
 
 	/**
-	*	Sets the time at which a duck sound was last played.
-	*	@param iTime Time to set.
+	*	Sets the time at which a duck was last initiated
+	*	@param iTime Time to set
 	*/
-	void SetDuckSoundTime( const int iTime )
+	void SetDuckTime( const int iTime )
 	{
 		pev->flDuckTime = iTime;
 	}
