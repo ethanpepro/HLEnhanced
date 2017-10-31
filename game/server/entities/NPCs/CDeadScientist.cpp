@@ -46,9 +46,9 @@ void CDeadScientist::Spawn()
 	}
 	// Luther is black, make his hands black
 	if( pev->body == HEAD_LUTHER )
-		pev->skin = 1;
+		SetSkin( 1 );
 	else
-		pev->skin = 0;
+		SetSkin( 0 );
 
 	pev->sequence = LookupSequence( m_szPoses[ m_iPose ] );
 	if( pev->sequence == -1 )
@@ -56,7 +56,7 @@ void CDeadScientist::Spawn()
 		ALERT( at_console, "Dead scientist with bad pose\n" );
 	}
 
-	//	pev->skin += 2; // use bloody skin -- UNDONE: Turn this back on when we have a bloody skin again!
+	//	SetSkin( GetSkin() + 2 ); // use bloody skin -- UNDONE: Turn this back on when we have a bloody skin again!
 	MonsterInitDead();
 }
 

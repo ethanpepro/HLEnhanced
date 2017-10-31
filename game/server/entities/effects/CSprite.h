@@ -46,7 +46,7 @@ public:
 	{
 		if( pEntity )
 		{
-			pev->skin = ENTINDEX( pEntity );
+			SetSkin( ENTINDEX( pEntity ) );
 			pev->body = attachment;
 			pev->aiment = pEntity;
 			SetMoveType( MOVETYPE_FOLLOW );

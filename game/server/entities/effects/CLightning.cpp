@@ -431,7 +431,7 @@ void CLightning::BeamUpdateVars( void )
 	pointStart = UTIL_IsPointEntity( pStart );
 	pointEnd = UTIL_IsPointEntity( pEnd );
 
-	pev->skin = 0;
+	SetSkin( 0 );
 	pev->sequence = 0;
 	SetRenderMode( kRenderNormal );
 	GetFlags() |= FL_CUSTOMENTITY;

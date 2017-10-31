@@ -23,7 +23,7 @@ void CLadder::Precache( void )
 {
 	// Do all of this in here because we need to 'convert' old saved games
 	SetSolidType( SOLID_NOT );
-	pev->skin = CONTENTS_LADDER;
+	SetSkin( CONTENTS_LADDER );
 	if( CVAR_GET_FLOAT( "showtriggers" ) == 0 )
 	{
 		SetRenderMode( kRenderTransTexture );

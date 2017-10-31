@@ -28,7 +28,7 @@ LINK_ENTITY_TO_CLASS( infodecal, CDecal );
 // UNDONE:  These won't get sent to joining players in multi-player
 void CDecal::Spawn( void )
 {
-	if( pev->skin < 0 || ( gpGlobals->deathmatch && FBitSet( pev->spawnflags, SF_DECAL_NOTINDEATHMATCH ) ) )
+	if( GetSkin() < 0 || ( gpGlobals->deathmatch && FBitSet( pev->spawnflags, SF_DECAL_NOTINDEATHMATCH ) ) )
 	{
 		UTIL_RemoveNow( this );
 		return;
@@ -69,7 +69,7 @@ void CDecal::TriggerDecal( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 	WRITE_COORD( GetAbsOrigin().x );
 	WRITE_COORD( GetAbsOrigin().y );
 	WRITE_COORD( GetAbsOrigin().z );
-	WRITE_SHORT( ( int ) pev->skin );
+	WRITE_SHORT( ( int ) GetSkin() );
 	WRITE_SHORT( entityIndex );
 	if( entityIndex )
 		WRITE_SHORT( ( int ) pEntity->GetModelIndex() );
@@ -96,7 +96,7 @@ void CDecal::StaticDecal( void )
 
 	const int modelIndex = entityIndex ? ( int ) pEntity->GetModelIndex() : 0;
 
-	g_engfuncs.pfnStaticDecal( GetAbsOrigin(), ( int ) pev->skin, entityIndex, modelIndex );
+	g_engfuncs.pfnStaticDecal( GetAbsOrigin(), ( int ) GetSkin(), entityIndex, modelIndex );
 
 	SUB_Remove();
 }
@@ -106,10 +106,10 @@ void CDecal::KeyValue( KeyValueData *pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "texture" ) )
 	{
-		pev->skin = DECAL_INDEX( pkvd->szValue );
+		SetSkin( DECAL_INDEX( pkvd->szValue ) );
 
 		// Found
-		if( pev->skin >= 0 )
+		if( GetSkin() >= 0 )
 			return;
 		ALERT( at_console, "Can't find decal %s\n", pkvd->szValue );
 	}

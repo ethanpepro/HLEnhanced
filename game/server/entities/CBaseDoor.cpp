@@ -51,7 +51,7 @@ void CBaseDoor::KeyValue( KeyValueData *pkvd )
 
 	if( FStrEq( pkvd->szKeyName, "skin" ) )//skin is used for content type
 	{
-		pev->skin = atof( pkvd->szValue );
+		SetSkin( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "movesnd" ) )
@@ -103,7 +103,7 @@ void CBaseDoor::Spawn()
 	Precache();
 	SetMovedir( this );
 
-	if( pev->skin == 0 )
+	if( GetSkin() == 0 )
 	{//normal door
 		if( FBitSet( pev->spawnflags, SF_DOOR_PASSABLE ) )
 			SetSolidType( SOLID_NOT );

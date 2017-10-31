@@ -49,7 +49,7 @@ void CBeam::SetStartEntity( int entityIndex )
 
 void CBeam::SetEndEntity( int entityIndex )
 {
-	pev->skin = ( entityIndex & 0x0FFF ) | ( ( pev->skin & 0xF000 ) << 12 );
+	SetSkin( ( entityIndex & 0x0FFF ) | ( ( GetSkin() & 0xF000 ) << 12 ) );
 	pev->aiment = g_engfuncs.pfnPEntityOfEntIndex( entityIndex );
 }
 
@@ -165,7 +165,7 @@ void CBeam::BeamInit( const char *pSpriteName, int width )
 	SetModelName( pSpriteName );
 	SetTexture( PRECACHE_MODEL( pSpriteName ) );
 	SetWidth( width );
-	pev->skin = 0;
+	SetSkin( 0 );
 	pev->sequence = 0;
 	SetRenderMode( kRenderNormal );
 }

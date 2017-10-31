@@ -602,7 +602,7 @@ void CScientist :: Spawn( void )
 	m_afCapability		= bits_CAP_HEAR | bits_CAP_TURN_HEAD | bits_CAP_OPEN_DOORS | bits_CAP_AUTO_DOORS | bits_CAP_USE;
 
 	// White hands
-	pev->skin = 0;
+	SetSkin( 0 );
 
 	if ( pev->body == -1 )
 	{// -1 chooses a random head
@@ -611,7 +611,7 @@ void CScientist :: Spawn( void )
 
 	// Luther is black, make his hands black
 	if ( pev->body == HEAD_LUTHER )
-		pev->skin = 1;
+		SetSkin( 1 );
 	
 	MonsterInit();
 	SetUse( &CScientist::FollowerUse );

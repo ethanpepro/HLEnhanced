@@ -235,7 +235,7 @@ void CHoundeye :: HandleAnimEvent( AnimEvent_t& event )
 		case HOUND_AE_CLOSE_EYE:
 			if ( !m_fDontBlink )
 			{
-				pev->skin = HOUNDEYE_EYE_FRAMES - 1;
+				SetSkin( HOUNDEYE_EYE_FRAMES - 1 );
 			}
 			break;
 
@@ -618,7 +618,7 @@ void CHoundeye :: StartTask ( const Task_t* pTask )
 		}
 	case TASK_HOUND_CLOSE_EYE:
 		{
-			pev->skin = 0;
+			SetSkin( 0 );
 			m_fDontBlink = true; // tell blink code to leave the eye alone.
 			break;
 		}
@@ -712,9 +712,9 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 		}
 	case TASK_HOUND_CLOSE_EYE:
 		{
-			if ( pev->skin < HOUNDEYE_EYE_FRAMES - 1 )
+			if ( GetSkin() < HOUNDEYE_EYE_FRAMES - 1 )
 			{
-				pev->skin++;
+				SetSkin( GetSkin() + 1 );
 			}
 			break;
 		}
@@ -728,7 +728,7 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 		}
 	case TASK_SPECIAL_ATTACK1:
 		{
-			pev->skin = RANDOM_LONG(0, HOUNDEYE_EYE_FRAMES - 1);
+			SetSkin( RANDOM_LONG(0, HOUNDEYE_EYE_FRAMES - 1) );
 
 			MakeIdealYaw ( m_vecEnemyLKP );
 			ChangeYaw ( GetYawSpeed() );
@@ -777,13 +777,13 @@ void CHoundeye::PrescheduleThink ( void )
 	// at random, initiate a blink if not already blinking or sleeping
 	if ( !m_fDontBlink )
 	{
-		if ( ( pev->skin == 0 ) && RANDOM_LONG(0,0x7F) == 0 )
+		if ( ( GetSkin() == 0 ) && RANDOM_LONG(0,0x7F) == 0 )
 		{// start blinking!
-			pev->skin = HOUNDEYE_EYE_FRAMES - 1;
+			SetSkin( HOUNDEYE_EYE_FRAMES - 1 );
 		}
-		else if ( pev->skin != 0 )
+		else if ( GetSkin() != 0 )
 		{// already blinking
-			pev->skin--;
+			SetSkin( GetSkin() - 1 );
 		}
 	}
 

@@ -37,7 +37,7 @@ void CFuncIllusionary::KeyValue( KeyValueData *pkvd )
 {
 	if( FStrEq( pkvd->szKeyName, "skin" ) )//skin is used for content type
 	{
-		pev->skin = atof( pkvd->szValue );
+		SetSkin( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else

@@ -408,7 +408,7 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 		case BSQUID_AE_BLINK:
 		{
 			// close eye. 
-			pev->skin = 1;
+				SetSkin( 1 );
 		}
 		break;
 
@@ -589,15 +589,15 @@ void CBullsquid :: RunAI ( void )
 	// first, do base class stuff
 	CBaseMonster :: RunAI();
 
-	if ( pev->skin != 0 )
+	if ( GetSkin() != 0 )
 	{
 		// close eye if it was open.
-		pev->skin = 0; 
+		SetSkin( 0 );
 	}
 
 	if ( RANDOM_LONG(0,39) == 0 )
 	{
-		pev->skin = 1;
+		SetSkin( 1 );
 	}
 
 	if ( m_hEnemy != NULL && m_Activity == ACT_RUN )

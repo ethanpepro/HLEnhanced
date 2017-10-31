@@ -323,7 +323,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 			}
 
 			EMIT_SOUND_DYN( this, CHAN_WEAPON, "debris/zap4.wav", 1, ATTN_NORM, 0, 100 + m_iBeams * 10 );
-			pev->skin = m_iBeams / 2;
+			SetSkin( m_iBeams / 2 );
 		}
 		break;
 
@@ -789,7 +789,7 @@ void CISlave :: ClearBeams( )
 		}
 	}
 	m_iBeams = 0;
-	pev->skin = 0;
+	SetSkin( 0 );
 
 	STOP_SOUND( this, CHAN_WEAPON, "debris/zap4.wav" );
 }

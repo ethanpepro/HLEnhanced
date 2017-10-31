@@ -44,7 +44,7 @@ void CXenSpore::Spawn( void )
 {
 	Precache();
 
-	SetModel( pModelNames[ pev->skin ] );
+	SetModel( pModelNames[ GetSkin() ] );
 	SetMoveType( MOVETYPE_NONE );
 	SetSolidType( SOLID_BBOX );
 	SetTakeDamageMode( DAMAGE_YES );
@@ -59,7 +59,7 @@ void CXenSpore::Spawn( void )
 
 void CXenSpore::Precache( void )
 {
-	PRECACHE_MODEL( ( char * ) pModelNames[ pev->skin ] );
+	PRECACHE_MODEL( ( char * ) pModelNames[ GetSkin() ] );
 }
 
 void CXenSpore::Touch( CBaseEntity *pOther )
@@ -86,21 +86,21 @@ void CXenSpore::Think( void )
 
 void CXenSporeSmall::Spawn( void )
 {
-	pev->skin = 0;
+	SetSkin( 0 );
 	CXenSpore::Spawn();
 	SetSize( Vector( -16, -16, 0 ), Vector( 16, 16, 64 ) );
 }
 
 void CXenSporeMed::Spawn( void )
 {
-	pev->skin = 1;
+	SetSkin( 1 );
 	CXenSpore::Spawn();
 	SetSize( Vector( -40, -40, 0 ), Vector( 40, 40, 120 ) );
 }
 
 void CXenSporeLarge::Spawn( void )
 {
-	pev->skin = 2;
+	SetSkin( 2 );
 	CXenSpore::Spawn();
 	SetSize( Vector( -48, -48, 110 ), Vector( 48, 48, 240 ) );
 

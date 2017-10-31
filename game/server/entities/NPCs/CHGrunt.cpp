@@ -853,9 +853,9 @@ void CHGrunt :: Spawn()
 	m_cAmmoLoaded		= m_cClipSize;
 
 	if (RANDOM_LONG( 0, 99 ) < 80)
-		pev->skin = 0;	// light skin
+		SetSkin( 0 );	// light skin
 	else
-		pev->skin = 1;	// dark skin
+		SetSkin( 1 );	// dark skin
 
 	if( GetWeapons().Any( HGRUNT_SHOTGUN ) )
 	{
@@ -864,7 +864,7 @@ void CHGrunt :: Spawn()
 	else if ( GetWeapons().Any( HGRUNT_GRENADELAUNCHER ) )
 	{
 		SetBodygroup( HEAD_GROUP, HEAD_M203 );
-		pev->skin = 1; // alway dark skin
+		SetSkin( 1 ); // alway dark skin
 	}
 
 	CTalkMonster::g_talkWaitTime = 0;

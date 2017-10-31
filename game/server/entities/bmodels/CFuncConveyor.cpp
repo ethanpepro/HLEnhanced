@@ -32,7 +32,7 @@ void CFuncConveyor::Spawn( void )
 	if( pev->spawnflags & SF_CONVEYOR_NOTSOLID )
 	{
 		SetSolidType( SOLID_NOT );
-		pev->skin = 0;		// Don't want the engine thinking we've got special contents on this brush
+		SetSkin( 0 );		// Don't want the engine thinking we've got special contents on this brush
 	}
 
 	if( GetSpeed() == 0 )

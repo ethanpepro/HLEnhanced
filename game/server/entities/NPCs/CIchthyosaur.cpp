@@ -537,7 +537,7 @@ void CIchthyosaur::StartTask( const Task_t* pTask )
 		break;
 
 	case TASK_ICHTHYOSAUR_FLOAT:
-		pev->skin = EYE_BASE;
+		SetSkin( EYE_BASE );
 		SetSequenceByName( "bellyup" );
 		break;
 
@@ -790,14 +790,14 @@ void CIchthyosaur::MonsterThink ( void )
 			// blink the eye
 			if (m_flBlink < gpGlobals->time)
 			{
-				pev->skin = EYE_CLOSED;
+				SetSkin( EYE_CLOSED );
 				if (m_flBlink + 0.2 < gpGlobals->time)
 				{
 					m_flBlink = gpGlobals->time + RANDOM_FLOAT( 3, 4 );
 					if (m_bOnAttack)
-						pev->skin = EYE_MAD;
+						SetSkin( EYE_MAD );
 					else
-						pev->skin = EYE_BASE;
+						SetSkin( EYE_BASE );
 				}
 			}
 		}

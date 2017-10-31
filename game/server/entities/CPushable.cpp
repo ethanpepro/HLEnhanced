@@ -53,7 +53,7 @@ void CPushable::Spawn( void )
 	SetAbsOrigin( vecOrigin );
 
 	// Multiply by area of the box's cross-section (assume 1000 units^3 standard volume)
-	pev->skin = ( pev->skin * ( GetRelMax().x - GetRelMin().x ) * ( GetRelMax().y - GetRelMin().y ) ) * 0.0005;
+	SetSkin( ( GetSkin() * ( GetRelMax().x - GetRelMin().x ) * ( GetRelMax().y - GetRelMin().y ) ) * 0.0005 );
 	m_soundTime = 0;
 }
 
@@ -186,7 +186,7 @@ void CPushable::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "buoyancy" ) )
 	{
-		pev->skin = atof( pkvd->szValue );
+		SetSkin( atof( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else

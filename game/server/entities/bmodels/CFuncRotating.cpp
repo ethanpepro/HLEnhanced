@@ -81,7 +81,7 @@ void CFuncRotating::Spawn()
 	if( FBitSet( pev->spawnflags, SF_ROTATING_NOT_SOLID ) )
 	{
 		SetSolidType( SOLID_NOT );
-		pev->skin = CONTENTS_EMPTY;
+		SetSkin( CONTENTS_EMPTY );
 		SetMoveType( MOVETYPE_PUSH );
 	}
 	else

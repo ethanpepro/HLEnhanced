@@ -58,7 +58,7 @@ void CSittingScientist::Spawn()
 	}
 	// Luther is black, make his hands black
 	if( pev->body == HEAD_LUTHER )
-		pev->skin = 1;
+		SetSkin( 1 );
 
 	m_baseSequence = LookupSequence( "sitlookleft" );
 	pev->sequence = m_baseSequence + RANDOM_LONG( 0, 4 );

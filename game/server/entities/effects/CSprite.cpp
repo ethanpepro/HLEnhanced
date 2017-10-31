@@ -50,7 +50,7 @@ void CSprite::Precache( void )
 	else
 	{
 		// Clear attachment
-		pev->skin = 0;
+		SetSkin( 0 );
 		pev->body = 0;
 	}
 }

@@ -73,7 +73,7 @@ CGib *CEnvShooter::CreateGib( void )
 	pGib->SetRenderColor( GetRenderColor() );
 	pGib->SetRenderFX( GetRenderFX() );
 	pGib->SetScale( GetScale() );
-	pGib->pev->skin = pev->skin;
+	pGib->SetSkin( GetSkin() );
 
 	return pGib;
 }

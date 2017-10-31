@@ -35,14 +35,14 @@ void CEnvBeverage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 
 	CBaseEntity *pCan = CBaseEntity::Create( "item_sodacan", GetAbsOrigin(), GetAbsAngles(), edict() );
 
-	if( pev->skin == 6 )
+	if( GetSkin() == 6 )
 	{
 		// random
-		pCan->pev->skin = RANDOM_LONG( 0, 5 );
+		pCan->SetSkin( RANDOM_LONG( 0, 5 ) );
 	}
 	else
 	{
-		pCan->pev->skin = pev->skin;
+		pCan->SetSkin( GetSkin() );
 	}
 
 	pev->frags = 1;
