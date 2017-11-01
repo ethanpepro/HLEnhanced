@@ -329,7 +329,7 @@ void CBigMomma :: LayHeadcrab( void )
 {
 	CBaseEntity *pChild = CBaseEntity::Create( BIG_CHILDCLASS, GetAbsOrigin(), GetAbsAngles(), edict() );
 
-	pChild->pev->spawnflags |= SF_MONSTER_FALL_TO_GROUND;
+	pChild->GetSpawnFlags() |= SF_MONSTER_FALL_TO_GROUND;
 
 	// Is this the second crab in a pair?
 	if ( HasMemory( bits_MEMORY_CHILDPAIR ) )
@@ -701,7 +701,7 @@ void CBigMomma::StartTask( const Task_t* pTask )
 
 	case TASK_WAIT_NODE:
 		m_flWait = gpGlobals->time + GetNodeDelay();
-		if ( m_hTargetEnt->pev->spawnflags & SF_INFOBM_WAIT )
+		if ( m_hTargetEnt->GetSpawnFlags().Any( SF_INFOBM_WAIT ) )
 			ALERT( at_aiconsole, "BM: Wait at node %s forever\n", GetNetName() );
 		else
 			ALERT( at_aiconsole, "BM: Wait at node %s for %.2f\n", GetNetName(), GetNodeDelay() );
@@ -720,7 +720,7 @@ void CBigMomma::StartTask( const Task_t* pTask )
 				else
 				{
 					Activity act = ACT_WALK;
-					if ( pTarget->pev->spawnflags & SF_INFOBM_RUN )
+					if ( pTarget->GetSpawnFlags().Any( SF_INFOBM_RUN ) )
 						act = ACT_RUN;
 
 					m_vecMoveGoal = pTarget->GetAbsOrigin();
@@ -777,7 +777,7 @@ void CBigMomma::RunTask( const Task_t* pTask )
 		break;
 
 	case TASK_WAIT_NODE:
-		if ( m_hTargetEnt != NULL && (m_hTargetEnt->pev->spawnflags & SF_INFOBM_WAIT) )
+		if ( m_hTargetEnt != NULL && m_hTargetEnt->GetSpawnFlags().Any( SF_INFOBM_WAIT ) )
 			return;
 
 		if ( gpGlobals->time > m_flWaitFinished )

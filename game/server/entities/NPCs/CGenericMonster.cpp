@@ -105,7 +105,7 @@ void CGenericMonster :: Spawn()
 
 	MonsterInit();
 
-	if ( pev->spawnflags & SF_GENERICMONSTER_NOTSOLID )
+	if ( GetSpawnFlags().Any( SF_GENERICMONSTER_NOTSOLID ) )
 	{
 		SetSolidType( SOLID_NOT );
 		SetTakeDamageMode( DAMAGE_NO );

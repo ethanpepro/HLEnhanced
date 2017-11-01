@@ -29,7 +29,7 @@ void CRotDoor::Spawn( void )
 	CBaseToggle::AxisDir( this );
 
 	// check for clockwise rotation
-	if( FBitSet( pev->spawnflags, SF_DOOR_ROTATE_BACKWARDS ) )
+	if( GetSpawnFlags().Any( SF_DOOR_ROTATE_BACKWARDS ) )
 		SetMoveDir( GetMoveDir() * -1 );
 
 	//m_flWait			= 2; who the hell did this? (sjb)
@@ -38,7 +38,7 @@ void CRotDoor::Spawn( void )
 
 	ASSERTSZ( m_vecAngle1 != m_vecAngle2, "rotating door start/end positions are equal" );
 
-	if( FBitSet( pev->spawnflags, SF_DOOR_PASSABLE ) )
+	if( GetSpawnFlags().Any( SF_DOOR_PASSABLE ) )
 		SetSolidType( SOLID_NOT );
 	else
 		SetSolidType( SOLID_BSP );
@@ -52,7 +52,7 @@ void CRotDoor::Spawn( void )
 
 	// DOOR_START_OPEN is to allow an entity to be lighted in the closed position
 	// but spawn in the open position
-	if( FBitSet( pev->spawnflags, SF_DOOR_START_OPEN ) )
+	if( GetSpawnFlags().Any( SF_DOOR_START_OPEN ) )
 	{	// swap pos1 and pos2, put door at pos2, invert movement direction
 		SetAbsAngles( m_vecAngle2 );
 		Vector vecSav = m_vecAngle1;
@@ -63,7 +63,7 @@ void CRotDoor::Spawn( void )
 
 	m_toggle_state = TS_AT_BOTTOM;
 
-	if( FBitSet( pev->spawnflags, SF_DOOR_USE_ONLY ) )
+	if( GetSpawnFlags().Any( SF_DOOR_USE_ONLY ) )
 	{
 		SetTouch( NULL );
 	}

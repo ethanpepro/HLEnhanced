@@ -13,7 +13,7 @@ void CShake::Spawn( void )
 	GetEffects().ClearAll();
 	SetFrame( 0 );
 
-	if( pev->spawnflags & SF_SHAKE_EVERYONE )
+	if( GetSpawnFlags().Any( SF_SHAKE_EVERYONE ) )
 		SetDamage( 0 );
 }
 

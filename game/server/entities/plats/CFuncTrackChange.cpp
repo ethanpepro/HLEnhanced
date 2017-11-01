@@ -28,12 +28,12 @@ LINK_ENTITY_TO_CLASS( func_trackchange, CFuncTrackChange );
 void CFuncTrackChange::Spawn( void )
 {
 	Setup();
-	if( FBitSet( pev->spawnflags, SF_TRACK_DONT_MOVE ) )
+	if( GetSpawnFlags().Any( SF_TRACK_DONT_MOVE ) )
 		m_vecPosition2.z = GetAbsOrigin().z;
 
 	SetupRotation();
 
-	if( FBitSet( pev->spawnflags, SF_TRACK_STARTBOTTOM ) )
+	if( GetSpawnFlags().Any( SF_TRACK_STARTBOTTOM ) )
 	{
 		SetAbsOrigin( m_vecPosition2 );
 		m_toggle_state = TS_AT_BOTTOM;
@@ -74,7 +74,7 @@ void CFuncTrackChange::GoUp( void )
 	// before you call GoUp();
 
 	UpdateAutoTargets( TS_GOING_UP );
-	if( FBitSet( pev->spawnflags, SF_TRACK_DONT_MOVE ) )
+	if( GetSpawnFlags().Any( SF_TRACK_DONT_MOVE ) )
 	{
 		m_toggle_state = TS_GOING_UP;
 		SetMoveDone( &CFuncTrackChange::CallHitTop );
@@ -108,7 +108,7 @@ void CFuncTrackChange::GoDown( void )
 
 	UpdateAutoTargets( TS_GOING_DOWN );
 	// If ROTMOVE, move & rotate
-	if( FBitSet( pev->spawnflags, SF_TRACK_DONT_MOVE ) )
+	if( GetSpawnFlags().Any( SF_TRACK_DONT_MOVE ) )
 	{
 		SetMoveDone( &CFuncTrackChange::CallHitBottom );
 		m_toggle_state = TS_GOING_DOWN;
@@ -327,14 +327,14 @@ void CFuncTrackChange::UpdateAutoTargets( int toggleState )
 		return;
 
 	if( toggleState == TS_AT_TOP )
-		ClearBits( m_trackTop->pev->spawnflags, SF_PATH_DISABLED );
+		m_trackTop->GetSpawnFlags().ClearFlags( SF_PATH_DISABLED );
 	else
-		SetBits( m_trackTop->pev->spawnflags, SF_PATH_DISABLED );
+		m_trackTop->GetSpawnFlags().AddFlags( SF_PATH_DISABLED );
 
 	if( toggleState == TS_AT_BOTTOM )
-		ClearBits( m_trackBottom->pev->spawnflags, SF_PATH_DISABLED );
+		m_trackBottom->GetSpawnFlags().ClearFlags( SF_PATH_DISABLED );
 	else
-		SetBits( m_trackBottom->pev->spawnflags, SF_PATH_DISABLED );
+		m_trackBottom->GetSpawnFlags().AddFlags( SF_PATH_DISABLED );
 }
 
 void CFuncTrackChange::OverrideReset( void )

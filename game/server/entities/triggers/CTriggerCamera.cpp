@@ -93,7 +93,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	SetSpeed( m_initialSpeed );
 	m_targetSpeed = m_initialSpeed;
 
-	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_TARGET ) )
+	if( GetSpawnFlags().Any( SF_CAMERA_PLAYER_TARGET ) )
 	{
 		m_hTarget = m_hPlayer;
 	}
@@ -109,7 +109,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	}
 
 
-	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_TAKECONTROL ) )
+	if( GetSpawnFlags().Any( SF_CAMERA_PLAYER_TAKECONTROL ) )
 	{
 		pPlayer->EnableControl( false );
 	}
@@ -134,7 +134,7 @@ void CTriggerCamera::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYP
 	}
 
 	// copy over player information
-	if( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_POSITION ) )
+	if( GetSpawnFlags().Any( SF_CAMERA_PLAYER_POSITION ) )
 	{
 		SetAbsOrigin( pPlayer->GetAbsOrigin() + pPlayer->GetViewOffset() );
 		SetAbsAngles( Vector(
@@ -215,7 +215,7 @@ void CTriggerCamera::FollowTarget()
 	vecAVelocity.y = dy * 40 * gpGlobals->frametime;
 	SetAngularVelocity( vecAVelocity );
 
-	if( !( FBitSet( pev->spawnflags, SF_CAMERA_PLAYER_TAKECONTROL ) ) )
+	if( !GetSpawnFlags().Any( SF_CAMERA_PLAYER_TAKECONTROL ) )
 	{
 		SetAbsVelocity( GetAbsVelocity() * 0.8 );
 		if( GetAbsVelocity().Length() < 10.0 )
@@ -243,7 +243,7 @@ void CTriggerCamera::Move()
 		if( m_pentPath->HasMessage() )
 		{
 			FireTargets( m_pentPath->GetMessage(), this, this, USE_TOGGLE, 0 );
-			if( FBitSet( m_pentPath->pev->spawnflags, SF_CORNER_FIREONCE ) )
+			if( m_pentPath->GetSpawnFlags().Any( SF_CORNER_FIREONCE ) )
 				m_pentPath->ClearMessage();
 		}
 		// Time to go to the next target

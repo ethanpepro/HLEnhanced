@@ -37,7 +37,7 @@ public:
 	int ObjectCaps() const override
 	{
 		int flags = 0;
-		if( pev->spawnflags & SF_BEAM_TEMPORARY )
+		if( GetSpawnFlags().Any( SF_BEAM_TEMPORARY ) )
 			flags = FCAP_DONT_SAVE;
 		return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ) | flags;
 	}

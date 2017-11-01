@@ -120,13 +120,13 @@ void CBeam::SetObjectCollisionBox( void )
 
 void CBeam::DoSparks( const Vector &start, const Vector &end )
 {
-	if( pev->spawnflags & ( SF_BEAM_SPARKSTART | SF_BEAM_SPARKEND ) )
+	if( GetSpawnFlags().Any( SF_BEAM_SPARKSTART | SF_BEAM_SPARKEND ) )
 	{
-		if( pev->spawnflags & SF_BEAM_SPARKSTART )
+		if( GetSpawnFlags().Any( SF_BEAM_SPARKSTART ) )
 		{
 			UTIL_Sparks( start );
 		}
-		if( pev->spawnflags & SF_BEAM_SPARKEND )
+		if( GetSpawnFlags().Any( SF_BEAM_SPARKEND ) )
 		{
 			UTIL_Sparks( end );
 		}
@@ -144,7 +144,7 @@ void CBeam::BeamDamage( TraceResult *ptr )
 			g_MultiDamage.Clear();
 			pHit->TraceAttack( CTakeDamageInfo( this, GetDamage() * ( gpGlobals->time - pev->dmgtime ), DMG_ENERGYBEAM ), ( ptr->vecEndPos - GetAbsOrigin() ).Normalize(), ptr );
 			g_MultiDamage.ApplyMultiDamage( this, this );
-			if( pev->spawnflags & SF_BEAM_DECALS )
+			if( GetSpawnFlags().Any( SF_BEAM_DECALS ) )
 			{
 				if( pHit->IsBSPModel() )
 					UTIL_DecalTrace( ptr, DECAL_BIGSHOT1 + RANDOM_LONG( 0, 4 ) );

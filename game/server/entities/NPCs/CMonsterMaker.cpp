@@ -77,7 +77,7 @@ void CMonsterMaker :: Spawn( )
 	Precache();
 	if ( HasTargetname() )
 	{
-		if ( pev->spawnflags & SF_MONSTERMAKER_CYCLIC )
+		if ( GetSpawnFlags().Any( SF_MONSTERMAKER_CYCLIC ) )
 		{
 			SetUse ( &CMonsterMaker::CyclicUse );// drop one monster each time we fire
 		}
@@ -86,7 +86,7 @@ void CMonsterMaker :: Spawn( )
 			SetUse ( &CMonsterMaker::ToggleUse );// so can be turned on/off
 		}
 
-		if ( FBitSet ( pev->spawnflags, SF_MONSTERMAKER_START_ON ) )
+		if ( GetSpawnFlags().Any( SF_MONSTERMAKER_START_ON ) )
 		{// start making monsters as soon as monstermaker spawns
 			m_fActive = true;
 			SetThink ( &CMonsterMaker::MakerThink );

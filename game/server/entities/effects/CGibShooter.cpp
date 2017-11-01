@@ -117,7 +117,7 @@ void CGibShooter::ShootThink( void )
 
 	if( --m_iGibs <= 0 )
 	{
-		if( pev->spawnflags & SF_GIBSHOOTER_REPEATABLE )
+		if( GetSpawnFlags().Any( SF_GIBSHOOTER_REPEATABLE ) )
 		{
 			m_iGibs = m_iGibCapacity;
 			SetThink( NULL );

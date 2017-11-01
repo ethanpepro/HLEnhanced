@@ -71,7 +71,7 @@ void CSpeaker::Spawn( void )
 
 void CSpeaker::Precache( void )
 {
-	if( !FBitSet( pev->spawnflags, SPEAKER_START_SILENT ) )
+	if( !GetSpawnFlags().Any( SPEAKER_START_SILENT ) )
 		// set first announcement time for random n second
 		SetNextThink( gpGlobals->time + RANDOM_FLOAT( 5.0, 15.0 ) );
 }

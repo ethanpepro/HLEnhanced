@@ -240,19 +240,19 @@ void CAmbientGeneric::Spawn( void )
 	80  : "Large Radius"
 	*/
 
-	if( FBitSet( pev->spawnflags, AMBIENT_SOUND_EVERYWHERE ) )
+	if( GetSpawnFlags().Any( AMBIENT_SOUND_EVERYWHERE ) )
 	{
 		m_flAttenuation = ATTN_NONE;
 	}
-	else if( FBitSet( pev->spawnflags, AMBIENT_SOUND_SMALLRADIUS ) )
+	else if( GetSpawnFlags().Any( AMBIENT_SOUND_SMALLRADIUS ) )
 	{
 		m_flAttenuation = ATTN_IDLE;
 	}
-	else if( FBitSet( pev->spawnflags, AMBIENT_SOUND_MEDIUMRADIUS ) )
+	else if( GetSpawnFlags().Any( AMBIENT_SOUND_MEDIUMRADIUS ) )
 	{
 		m_flAttenuation = ATTN_STATIC;
 	}
-	else if( FBitSet( pev->spawnflags, AMBIENT_SOUND_LARGERADIUS ) )
+	else if( GetSpawnFlags().Any( AMBIENT_SOUND_LARGERADIUS ) )
 	{
 		m_flAttenuation = ATTN_NORM;
 	}
@@ -286,7 +286,7 @@ void CAmbientGeneric::Spawn( void )
 
 	m_fActive = false;
 
-	if( FBitSet( pev->spawnflags, AMBIENT_SOUND_NOT_LOOPING ) )
+	if( GetSpawnFlags().Any( AMBIENT_SOUND_NOT_LOOPING ) )
 		m_fLooping = false;
 	else
 		m_fLooping = true;
@@ -305,7 +305,7 @@ void CAmbientGeneric::Precache( void )
 	// init all dynamic modulation parms
 	InitModulationParms();
 
-	if( !FBitSet( pev->spawnflags, AMBIENT_SOUND_START_SILENT ) )
+	if( !GetSpawnFlags().Any( AMBIENT_SOUND_START_SILENT ) )
 	{
 		// start the sound ASAP
 		if( m_fLooping )
@@ -392,7 +392,7 @@ void CAmbientGeneric::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 			m_fActive = false;
 
 			// HACKHACK - this makes the code in Precache() work properly after a save/restore
-			pev->spawnflags |= AMBIENT_SOUND_START_SILENT;
+			GetSpawnFlags() |= AMBIENT_SOUND_START_SILENT;
 
 			if( m_dpv.spindownsav || m_dpv.fadeoutsav )
 			{

@@ -32,7 +32,7 @@ LINK_ENTITY_TO_CLASS( func_pushable, CPushable );
 
 void CPushable::Spawn( void )
 {
-	if( pev->spawnflags & SF_PUSH_BREAKABLE )
+	if( GetSpawnFlags().Any( SF_PUSH_BREAKABLE ) )
 		CBreakable::Spawn();
 	else
 		Precache();
@@ -62,7 +62,7 @@ void CPushable::Precache( void )
 	for( int i = 0; i < 3; i++ )
 		PRECACHE_SOUND( m_soundNames[ i ] );
 
-	if( pev->spawnflags & SF_PUSH_BREAKABLE )
+	if( GetSpawnFlags().Any( SF_PUSH_BREAKABLE ) )
 		CBreakable::Precache();
 }
 
@@ -198,7 +198,7 @@ void CPushable::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 {
 	if( !pActivator || !pActivator->IsPlayer() )
 	{
-		if( pev->spawnflags & SF_PUSH_BREAKABLE )
+		if( GetSpawnFlags().Any( SF_PUSH_BREAKABLE ) )
 			this->CBreakable::Use( pActivator, pCaller, useType, value );
 		return;
 	}
@@ -218,6 +218,6 @@ void CPushable::StopSound( void )
 
 void CPushable::OnTakeDamage( const CTakeDamageInfo& info )
 {
-	if( pev->spawnflags & SF_PUSH_BREAKABLE )
+	if( GetSpawnFlags().Any( SF_PUSH_BREAKABLE ) )
 		CBreakable::OnTakeDamage( info );
 }

@@ -31,7 +31,7 @@ void CFuncTrain::Spawn( void )
 	SetMoveType( MOVETYPE_PUSH );
 
 	//Remove tracktrain include when changed
-	if( FBitSet( pev->spawnflags, SF_TRAIN_PASSABLE ) )
+	if( GetSpawnFlags().Any( SF_TRAIN_PASSABLE ) )
 		SetSolidType( SOLID_NOT );
 	else
 		SetSolidType( SOLID_BSP );
@@ -103,7 +103,7 @@ void CFuncTrain::Activate( void )
 			SetThink( &CFuncTrain::Next );
 		}
 		else
-			pev->spawnflags |= SF_TRAIN_WAIT_RETRIGGER;
+			GetSpawnFlags() |= SF_TRAIN_WAIT_RETRIGGER;
 	}
 }
 
@@ -142,15 +142,15 @@ void CFuncTrain::Blocked( CBaseEntity *pOther )
 
 void CFuncTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( pev->spawnflags & SF_TRAIN_WAIT_RETRIGGER )
+	if( GetSpawnFlags().Any( SF_TRAIN_WAIT_RETRIGGER ) )
 	{
 		// Move toward my target
-		pev->spawnflags &= ~SF_TRAIN_WAIT_RETRIGGER;
+		GetSpawnFlags().ClearFlags( SF_TRAIN_WAIT_RETRIGGER );
 		Next();
 	}
 	else
 	{
-		pev->spawnflags |= SF_TRAIN_WAIT_RETRIGGER;
+		GetSpawnFlags() |= SF_TRAIN_WAIT_RETRIGGER;
 		// Pop back to last target if it's available
 		if( pev->enemy )
 			pev->target = pev->enemy->v.targetname;
@@ -183,9 +183,9 @@ void CFuncTrain::Wait( void )
 	}
 
 	// need pointer to LAST target.
-	if( FBitSet( m_pevCurrentTarget->spawnflags, SF_TRAIN_WAIT_RETRIGGER ) || ( pev->spawnflags & SF_TRAIN_WAIT_RETRIGGER ) )
+	if( FBitSet( m_pevCurrentTarget->spawnflags, SF_TRAIN_WAIT_RETRIGGER ) || GetSpawnFlags().Any( SF_TRAIN_WAIT_RETRIGGER ) )
 	{
-		pev->spawnflags |= SF_TRAIN_WAIT_RETRIGGER;
+		GetSpawnFlags() |= SF_TRAIN_WAIT_RETRIGGER;
 		// clear the sound channel.
 		if( pev->noiseMovement )
 			STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMovement ) );

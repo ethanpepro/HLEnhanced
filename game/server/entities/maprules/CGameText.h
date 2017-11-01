@@ -32,7 +32,7 @@ public:
 	void	Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
 	void	KeyValue( KeyValueData *pkvd ) override;
 
-	inline	bool	MessageToAll() const { return ( pev->spawnflags & SF_ENVTEXT_ALLPLAYERS ) != 0; }
+	inline	bool	MessageToAll() const { return GetSpawnFlags().Any( SF_ENVTEXT_ALLPLAYERS ); }
 	inline	void	MessageSet( const char *pMessage ) { SetMessage( ALLOC_STRING( pMessage ) ); }
 	inline	const char *MessageGet() const { return GetMessage(); }
 

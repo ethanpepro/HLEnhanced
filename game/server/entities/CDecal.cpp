@@ -28,7 +28,7 @@ LINK_ENTITY_TO_CLASS( infodecal, CDecal );
 // UNDONE:  These won't get sent to joining players in multi-player
 void CDecal::Spawn( void )
 {
-	if( GetSkin() < 0 || ( gpGlobals->deathmatch && FBitSet( pev->spawnflags, SF_DECAL_NOTINDEATHMATCH ) ) )
+	if( GetSkin() < 0 || ( gpGlobals->deathmatch && GetSpawnFlags().Any( SF_DECAL_NOTINDEATHMATCH ) ) )
 	{
 		UTIL_RemoveNow( this );
 		return;

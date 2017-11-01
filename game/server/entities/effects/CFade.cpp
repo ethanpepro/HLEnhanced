@@ -19,13 +19,13 @@ void CFade::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType
 {
 	int fadeFlags = 0;
 
-	if( !( pev->spawnflags & SF_FADE_IN ) )
+	if( !GetSpawnFlags().Any( SF_FADE_IN ) )
 		fadeFlags |= FFADE_OUT;
 
-	if( pev->spawnflags & SF_FADE_MODULATE )
+	if( GetSpawnFlags().Any( SF_FADE_MODULATE ) )
 		fadeFlags |= FFADE_MODULATE;
 
-	if( pev->spawnflags & SF_FADE_ONLYONE )
+	if( GetSpawnFlags().Any( SF_FADE_ONLYONE ) )
 	{
 		if( pActivator->IsNetClient() )
 		{

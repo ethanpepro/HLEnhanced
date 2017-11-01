@@ -119,7 +119,7 @@ void CScriptedSentence::FindThink( void )
 	if( pMonster )
 	{
 		StartSentence( pMonster );
-		if( pev->spawnflags & SF_SENTENCE_ONCE )
+		if( GetSpawnFlags().Any( SF_SENTENCE_ONCE ) )
 			UTIL_Remove( this );
 		SetThink( &CScriptedSentence::DelayThink );
 		SetNextThink( gpGlobals->time + m_flDuration + m_flRepeat );
@@ -181,16 +181,12 @@ bool CScriptedSentence::AcceptableSpeaker( const CBaseMonster *pMonster ) const
 {
 	if( pMonster )
 	{
-		if( pev->spawnflags & SF_SENTENCE_FOLLOWERS )
+		if( GetSpawnFlags().Any( SF_SENTENCE_FOLLOWERS ) )
 		{
 			if( pMonster->m_hTargetEnt == NULL || !pMonster->m_hTargetEnt->IsPlayer() )
 				return false;
 		}
-		bool override;
-		if( pev->spawnflags & SF_SENTENCE_INTERRUPT )
-			override = true;
-		else
-			override = false;
+		const bool override = GetSpawnFlags().Any( SF_SENTENCE_INTERRUPT );
 		if( pMonster->CanPlaySentence( override ) )
 			return true;
 	}
@@ -205,9 +201,7 @@ bool CScriptedSentence::StartSentence( CBaseMonster *pTarget )
 		return false;
 	}
 
-	bool bConcurrent = false;
-	if( !( pev->spawnflags & SF_SENTENCE_CONCURRENT ) )
-		bConcurrent = true;
+	bool bConcurrent = !GetSpawnFlags().Any( SF_SENTENCE_CONCURRENT );
 
 	CBaseEntity *pListener = NULL;
 	if( !FStringNull( m_iszListener ) )

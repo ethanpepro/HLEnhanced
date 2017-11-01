@@ -38,7 +38,7 @@ void CTriggerHurt::Spawn( void )
 		SetNextThink( gpGlobals->time + RANDOM_FLOAT( 0.0, 0.5 ) );
 	}
 
-	if( FBitSet( pev->spawnflags, SF_TRIGGER_HURT_START_OFF ) )// if flagged to Start Turned Off, make trigger nonsolid.
+	if( GetSpawnFlags().Any( SF_TRIGGER_HURT_START_OFF ) )// if flagged to Start Turned Off, make trigger nonsolid.
 		SetSolidType( SOLID_NOT );
 
 	SetAbsOrigin( GetAbsOrigin() );		// Link into the list
@@ -106,13 +106,13 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 	if( pOther->GetTakeDamageMode() == DAMAGE_NO )
 		return;
 
-	if( ( pev->spawnflags & SF_TRIGGER_HURT_CLIENTONLYTOUCH ) && !pOther->IsPlayer() )
+	if( GetSpawnFlags().Any( SF_TRIGGER_HURT_CLIENTONLYTOUCH ) && !pOther->IsPlayer() )
 	{
 		// this trigger is only allowed to touch clients, and this ain't a client.
 		return;
 	}
 
-	if( ( pev->spawnflags & SF_TRIGGER_HURT_NO_CLIENTS ) && pOther->IsPlayer() )
+	if( GetSpawnFlags().Any( SF_TRIGGER_HURT_NO_CLIENTS ) && pOther->IsPlayer() )
 		return;
 
 	// HACKHACK -- In multiplayer, players touch this based on packet receipt.
@@ -205,7 +205,7 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 	if( HasTarget() )
 	{
 		// trigger has a target it wants to fire. 
-		if( pev->spawnflags & SF_TRIGGER_HURT_CLIENTONLYFIRE )
+		if( GetSpawnFlags().Any( SF_TRIGGER_HURT_CLIENTONLYFIRE ) )
 		{
 			// if the toucher isn't a client, don't fire the target!
 			if( !pOther->IsPlayer() )
@@ -215,7 +215,7 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 		}
 
 		SUB_UseTargets( pOther, USE_TOGGLE, 0 );
-		if( pev->spawnflags & SF_TRIGGER_HURT_TARGETONCE )
+		if( GetSpawnFlags().Any( SF_TRIGGER_HURT_TARGETONCE ) )
 			pev->target = 0;
 	}
 }

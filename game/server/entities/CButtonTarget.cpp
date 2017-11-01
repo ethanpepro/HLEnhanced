@@ -13,7 +13,7 @@ void CButtonTarget::Spawn( void )
 	SetModel( GetModelName() );
 	SetTakeDamageMode( DAMAGE_YES );
 
-	if( FBitSet( pev->spawnflags, SF_BTARGET_ON ) )
+	if( GetSpawnFlags().Any( SF_BTARGET_ON ) )
 		SetFrame( 1 );
 }
 
@@ -37,7 +37,7 @@ int	CButtonTarget::ObjectCaps() const
 {
 	int caps = CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION;
 
-	if( FBitSet( pev->spawnflags, SF_BTARGET_USE ) )
+	if( GetSpawnFlags().Any( SF_BTARGET_USE ) )
 		return caps | FCAP_IMPULSE_USE;
 	else
 		return caps;

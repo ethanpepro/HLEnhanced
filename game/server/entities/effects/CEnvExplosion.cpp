@@ -99,7 +99,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	}
 
 	// draw decal
-	if (! ( pev->spawnflags & SF_ENVEXPLOSION_NODECAL))
+	if( !GetSpawnFlags().Any( SF_ENVEXPLOSION_NODECAL ) )
 	{
 		if ( RANDOM_FLOAT( 0 , 1 ) < 0.5 )
 		{
@@ -112,7 +112,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	}
 
 	// draw fireball
-	if ( !( pev->spawnflags & SF_ENVEXPLOSION_NOFIREBALL ) )
+	if( !GetSpawnFlags().Any( SF_ENVEXPLOSION_NOFIREBALL ) )
 	{
 		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 			WRITE_BYTE( TE_EXPLOSION);
@@ -140,7 +140,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	}
 
 	// do damage
-	if ( !( pev->spawnflags & SF_ENVEXPLOSION_NODAMAGE ) )
+	if ( !GetSpawnFlags().Any( SF_ENVEXPLOSION_NODAMAGE ) )
 	{
 		RadiusDamage( this, this, m_iMagnitude, EntityClassifications().GetNoneId(), DMG_BLAST );
 	}
@@ -149,7 +149,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 	SetNextThink( gpGlobals->time + 0.3 );
 
 	// draw sparks
-	if ( !( pev->spawnflags & SF_ENVEXPLOSION_NOSPARKS ) )
+	if ( !GetSpawnFlags().Any( SF_ENVEXPLOSION_NOSPARKS ) )
 	{
 		int sparkCount = RANDOM_LONG(0,3);
 
@@ -162,7 +162,7 @@ void CEnvExplosion::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE
 
 void CEnvExplosion::Smoke( void )
 {
-	if ( !( pev->spawnflags & SF_ENVEXPLOSION_NOSMOKE ) )
+	if ( !GetSpawnFlags().Any( SF_ENVEXPLOSION_NOSMOKE ) )
 	{
 		MESSAGE_BEGIN( MSG_PAS, SVC_TEMPENTITY, GetAbsOrigin() );
 			WRITE_BYTE( TE_SMOKE );
@@ -175,7 +175,7 @@ void CEnvExplosion::Smoke( void )
 		MESSAGE_END();
 	}
 	
-	if ( !(pev->spawnflags & SF_ENVEXPLOSION_REPEATABLE) )
+	if ( !GetSpawnFlags().Any( SF_ENVEXPLOSION_REPEATABLE ) )
 	{
 		UTIL_Remove( this );
 	}
@@ -194,7 +194,7 @@ void UTIL_CreateExplosion( Vector vecCenter, const Vector& vecAngles, CBaseEntit
 	pExplosion->SetMagnitude( iMagnitude );
 
 	if( !bDoDamage )
-		pExplosion->pev->spawnflags |= SF_ENVEXPLOSION_NODAMAGE;
+		pExplosion->GetSpawnFlags() |= SF_ENVEXPLOSION_NODAMAGE;
 
 	pExplosion->Spawn();
 

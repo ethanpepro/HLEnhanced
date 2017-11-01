@@ -53,7 +53,7 @@ void CMomentaryRotButton::Spawn( void )
 		m_direction = -1;		// This will toggle to +1 on the first use()
 	}
 
-	if( pev->spawnflags & SF_MOMENTARY_DOOR )
+	if( GetSpawnFlags().Any( SF_MOMENTARY_DOOR ) )
 		SetSolidType( SOLID_BSP );
 	else
 		SetSolidType( SOLID_NOT );
@@ -89,13 +89,13 @@ void CMomentaryRotButton::KeyValue( KeyValueData *pkvd )
 // current, not future position.
 void CMomentaryRotButton::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	pev->ideal_yaw = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_start ) / m_flMoveDistance;
+	pev->ideal_yaw = CBaseToggle::AxisDelta( GetSpawnFlags().Get(), GetAbsAngles(), m_start ) / m_flMoveDistance;
 
 	UpdateAllButtons( pev->ideal_yaw, 1 );
 
 	// Calculate destination angle and use it to predict value, this prevents sending target in wrong direction on retriggering
 	Vector dest = GetAbsAngles() + GetAngularVelocity() * ( GetNextThink() - GetLastThink() );
-	float value1 = CBaseToggle::AxisDelta( pev->spawnflags, dest, m_start ) / m_flMoveDistance;
+	float value1 = CBaseToggle::AxisDelta( GetSpawnFlags().Get(), dest, m_start ) / m_flMoveDistance;
 	UpdateTarget( value1 );
 
 }
@@ -104,7 +104,7 @@ void CMomentaryRotButton::Off( void )
 {
 	SetAngularVelocity( g_vecZero );
 	m_lastUsed = 0;
-	if( FBitSet( pev->spawnflags, SF_PENDULUM_AUTO_RETURN ) && m_returnSpeed > 0 )
+	if( GetSpawnFlags().Any( SF_PENDULUM_AUTO_RETURN ) && m_returnSpeed > 0 )
 	{
 		SetThink( &CMomentaryRotButton::Return );
 		SetNextThink( GetLastThink() + 0.1 );
@@ -116,7 +116,7 @@ void CMomentaryRotButton::Off( void )
 
 void CMomentaryRotButton::Return( void )
 {
-	float value = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_start ) / m_flMoveDistance;
+	float value = CBaseToggle::AxisDelta( GetSpawnFlags().Get(), GetAbsAngles(), m_start ) / m_flMoveDistance;
 
 	UpdateAllButtons( value, 0 );	// This will end up calling UpdateSelfReturn() n times, but it still works right
 	if( value > 0 )

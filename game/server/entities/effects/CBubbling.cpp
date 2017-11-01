@@ -29,7 +29,7 @@ void CBubbling::Spawn( void )
 	SetRenderColor( Vector( speed >> 8, speed & 255, ( GetSpeed() < 0 ) ? 1 : 0 ) );
 
 
-	if( !( pev->spawnflags & SF_BUBBLES_STARTOFF ) )
+	if( !GetSpawnFlags().Any( SF_BUBBLES_STARTOFF ) )
 	{
 		SetThink( &CBubbling::FizzThink );
 		SetNextThink( gpGlobals->time + 2.0 );

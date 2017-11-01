@@ -25,11 +25,11 @@ void CFuncConveyor::Spawn( void )
 	SetMovedir( this );
 	CFuncWall::Spawn();
 
-	if( !( pev->spawnflags & SF_CONVEYOR_VISUAL ) )
+	if( !GetSpawnFlags().Any( SF_CONVEYOR_VISUAL ) )
 		GetFlags().AddFlags( FL_CONVEYOR );
 
 	// HACKHACK - This is to allow for some special effects
-	if( pev->spawnflags & SF_CONVEYOR_NOTSOLID )
+	if( GetSpawnFlags().Any( SF_CONVEYOR_NOTSOLID ) )
 	{
 		SetSolidType( SOLID_NOT );
 		SetSkin( 0 );		// Don't want the engine thinking we've got special contents on this brush

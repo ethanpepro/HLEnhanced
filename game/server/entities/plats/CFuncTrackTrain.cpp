@@ -46,7 +46,7 @@ void CFuncTrackTrain::Spawn( void )
 	if( !HasTarget() )
 		ALERT( at_console, "FuncTrain with no target" );
 
-	if( pev->spawnflags & SF_TRACKTRAIN_PASSABLE )
+	if( GetSpawnFlags().Any( SF_TRACKTRAIN_PASSABLE ) )
 		SetSolidType( SOLID_NOT );
 	else
 		SetSolidType( SOLID_BSP );
@@ -150,7 +150,7 @@ void CFuncTrackTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TY
 			delta = 1;
 		else if( delta < -1 )
 			delta = -1;
-		if( pev->spawnflags & SF_TRACKTRAIN_FORWARDONLY )
+		if( GetSpawnFlags().Any( SF_TRACKTRAIN_FORWARDONLY ) )
 		{
 			if( delta < 0 )
 				delta = 0;
@@ -251,7 +251,7 @@ void CFuncTrackTrain::Next( void )
 		angles = GetAbsAngles();
 
 	float vy, vx;
-	if( !( pev->spawnflags & SF_TRACKTRAIN_NOPITCH ) )
+	if( !GetSpawnFlags().Any( SF_TRACKTRAIN_NOPITCH ) )
 		vx = UTIL_AngleDistance( angles.x, GetAbsAngles().x );
 	else
 		vx = 0;
@@ -288,15 +288,15 @@ void CFuncTrackTrain::Next( void )
 			if( pFire->HasMessage() )
 			{
 				FireTargets( pFire->GetMessage(), this, this, USE_TOGGLE, 0 );
-				if( FBitSet( pFire->pev->spawnflags, SF_PATH_FIREONCE ) )
+				if( pFire->GetSpawnFlags().Any( SF_PATH_FIREONCE ) )
 					pFire->ClearMessage();
 			}
 
-			if( pFire->pev->spawnflags & SF_PATH_DISABLE_TRAIN )
-				pev->spawnflags |= SF_TRACKTRAIN_NOCONTROL;
+			if( pFire->GetSpawnFlags().Any( SF_PATH_DISABLE_TRAIN ) )
+				GetSpawnFlags() |= SF_TRACKTRAIN_NOCONTROL;
 
 			// Don't override speed if under user control
-			if( pev->spawnflags & SF_TRACKTRAIN_NOCONTROL )
+			if( GetSpawnFlags().Any( SF_TRACKTRAIN_NOCONTROL ) )
 			{
 				if( pFire->GetSpeed() != 0 )
 				{// don't copy speed from target if it is 0 (uninitialized)
@@ -363,7 +363,7 @@ void CFuncTrackTrain::Find( void )
 	// The train actually points west
 	vecAngles.y += 180;
 
-	if( pev->spawnflags & SF_TRACKTRAIN_NOPITCH )
+	if( GetSpawnFlags().Any( SF_TRACKTRAIN_NOPITCH ) )
 		vecAngles.x = 0;
 	SetAbsAngles( vecAngles );
 
@@ -496,7 +496,7 @@ bool CFuncTrackTrain::OnControls( const CBaseEntity* const pTest ) const
 {
 	const Vector offset = pTest->GetAbsOrigin() - GetAbsOrigin();
 
-	if( pev->spawnflags & SF_TRACKTRAIN_NOCONTROL )
+	if( GetSpawnFlags().Any( SF_TRACKTRAIN_NOCONTROL ) )
 		return false;
 
 	// Transform offset into local coordinates

@@ -21,7 +21,7 @@ void CTriggerPush::Spawn()
 	if( GetSpeed() == 0 )
 		SetSpeed( 100 );
 
-	if( FBitSet( pev->spawnflags, SF_TRIGGER_PUSH_START_OFF ) )// if flagged to Start Turned Off, make trigger nonsolid.
+	if( GetSpawnFlags().Any( SF_TRIGGER_PUSH_START_OFF ) )// if flagged to Start Turned Off, make trigger nonsolid.
 		SetSolidType( SOLID_NOT );
 
 	SetUse( &CTriggerPush::ToggleUse );
@@ -49,7 +49,7 @@ void CTriggerPush::Touch( CBaseEntity *pOther )
 	if( pOther->GetSolidType() != SOLID_NOT && pOther->GetSolidType() != SOLID_BSP )
 	{
 		// Instant trigger, just transfer velocity and remove
-		if( FBitSet( pev->spawnflags, SF_TRIG_PUSH_ONCE ) )
+		if( GetSpawnFlags().Any( SF_TRIG_PUSH_ONCE ) )
 		{
 			pOther->SetAbsVelocity( pOther->GetAbsVelocity() + ( GetSpeed() * GetMoveDir() ) );
 			if( pOther->GetAbsVelocity().z > 0 )

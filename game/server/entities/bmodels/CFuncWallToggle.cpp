@@ -23,7 +23,7 @@ LINK_ENTITY_TO_CLASS( func_wall_toggle, CFuncWallToggle );
 void CFuncWallToggle::Spawn( void )
 {
 	CFuncWall::Spawn();
-	if( pev->spawnflags & SF_WALL_START_OFF )
+	if( GetSpawnFlags().Any( SF_WALL_START_OFF ) )
 		TurnOff();
 }
 

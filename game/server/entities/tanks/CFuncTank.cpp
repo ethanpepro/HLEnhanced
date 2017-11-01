@@ -196,7 +196,7 @@ void CFuncTank::KeyValue( KeyValueData *pkvd )
 
 void CFuncTank::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( pev->spawnflags & SF_TANK_CANCONTROL )
+	if( GetSpawnFlags().Any( SF_TANK_CANCONTROL ) )
 	{  // player controlled turret
 
 		if( pActivator->Classify() != EntityClassifications().GetClassificationId( classify::PLAYER ) )
@@ -361,13 +361,13 @@ void CFuncTank::TrackTarget( void )
 	if( m_pController )
 		return;
 
-	if( CanFire() && ( ( fabs( distX ) < m_pitchTolerance && fabs( distY ) < m_yawTolerance ) || ( pev->spawnflags & SF_TANK_LINEOFSIGHT ) ) )
+	if( CanFire() && ( ( fabs( distX ) < m_pitchTolerance && fabs( distY ) < m_yawTolerance ) || GetSpawnFlags().Any( SF_TANK_LINEOFSIGHT ) ) )
 	{
 		bool fire = false;
 		Vector forward;
 		UTIL_MakeVectorsPrivate( GetAbsAngles(), &forward, nullptr, nullptr );
 
-		if( pev->spawnflags & SF_TANK_LINEOFSIGHT )
+		if( GetSpawnFlags().Any( SF_TANK_LINEOFSIGHT ) )
 		{
 			float length = direction.Length();
 			UTIL_TraceLine( barrelEnd, barrelEnd + forward * length, dont_ignore_monsters, edict(), &tr );
@@ -420,17 +420,17 @@ void CFuncTank::Fire( const Vector &barrelEnd, const Vector &forward, CBaseEntit
 
 void CFuncTank::StartRotSound( void )
 {
-	if( !pev->noise || ( pev->spawnflags & SF_TANK_SOUNDON ) )
+	if( !pev->noise || GetSpawnFlags().Any( SF_TANK_SOUNDON ) )
 		return;
-	pev->spawnflags |= SF_TANK_SOUNDON;
+	GetSpawnFlags() |= SF_TANK_SOUNDON;
 	EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noise ), 0.85, ATTN_NORM );
 }
 
 void CFuncTank::StopRotSound( void )
 {
-	if( pev->spawnflags & SF_TANK_SOUNDON )
+	if( GetSpawnFlags().Any( SF_TANK_SOUNDON ) )
 		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noise ) );
-	pev->spawnflags &= ~SF_TANK_SOUNDON;
+	GetSpawnFlags().ClearFlags( SF_TANK_SOUNDON );
 }
 
 bool CFuncTank::InRange( float range ) const
@@ -492,7 +492,7 @@ void CFuncTank::AdjustAnglesForBarrel( Vector &angles, float distance )
 // TANK CONTROLLING
 bool CFuncTank::OnControls( const CBaseEntity* const pTest ) const
 {
-	if( !( pev->spawnflags & SF_TANK_CANCONTROL ) )
+	if( !GetSpawnFlags().Any( SF_TANK_CANCONTROL ) )
 		return false;
 
 	if( ( m_vecControllerUsePos - pTest->GetAbsOrigin() ).Length() < 30 )

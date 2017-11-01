@@ -80,7 +80,7 @@ EntityClassification_t CISlave::GetClassification()
 Relationship CISlave::IRelationship( CBaseEntity *pTarget )
 {
 	if ( (pTarget->IsPlayer()) )
-		if ( (pev->spawnflags & SF_MONSTER_WAIT_UNTIL_PROVOKED ) && ! (m_afMemory & bits_MEMORY_PROVOKED ))
+		if ( GetSpawnFlags().Any( SF_MONSTER_WAIT_UNTIL_PROVOKED ) && ! (m_afMemory & bits_MEMORY_PROVOKED ))
 			return R_NO;
 	return CBaseMonster::IRelationship( pTarget );
 }
@@ -340,7 +340,7 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 				if ( !trace.fStartSolid )
 				{
 					CBaseEntity *pNew = Create( "monster_alien_slave", m_hDead->GetAbsOrigin(), m_hDead->GetAbsAngles() );
-					pNew->pev->spawnflags |= SF_MONSTER_WAIT_TILL_SEEN;
+					pNew->GetSpawnFlags() |= SF_MONSTER_WAIT_TILL_SEEN;
 					WackBeam( -1, pNew );
 					WackBeam( 1, pNew );
 					UTIL_Remove( m_hDead );
@@ -573,9 +573,9 @@ Schedule_t *CISlave :: GetSchedule( void )
 	ClearBeams( );
 
 /*
-	if (pev->spawnflags)
+	if ( !GetSpawnFlags().None() )
 	{
-		pev->spawnflags = 0;
+		GetSpawnFlags().ClearAll();
 		return GetScheduleOfType( SCHED_RELOAD );
 	}
 */

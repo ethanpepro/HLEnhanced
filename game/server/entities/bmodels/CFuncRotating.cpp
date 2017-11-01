@@ -47,15 +47,15 @@ void CFuncRotating::Spawn()
 	// if the designer didn't set a sound attenuation, default to one.
 	m_flAttenuation = ATTN_NORM;
 
-	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_SMALLRADIUS ) )
+	if( GetSpawnFlags().Any( SF_BRUSH_ROTATE_SMALLRADIUS ) )
 	{
 		m_flAttenuation = ATTN_IDLE;
 	}
-	else if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_MEDIUMRADIUS ) )
+	else if( GetSpawnFlags().Any( SF_BRUSH_ROTATE_MEDIUMRADIUS ) )
 	{
 		m_flAttenuation = ATTN_STATIC;
 	}
-	else if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_LARGERADIUS ) )
+	else if( GetSpawnFlags().Any( SF_BRUSH_ROTATE_LARGERADIUS ) )
 	{
 		m_flAttenuation = ATTN_NORM;
 	}
@@ -66,19 +66,19 @@ void CFuncRotating::Spawn()
 		m_flFanFriction = 1;
 	}
 
-	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_Z_AXIS ) )
+	if( GetSpawnFlags().Any( SF_BRUSH_ROTATE_Z_AXIS ) )
 		SetMoveDir( Vector( 0, 0, 1 ) );
-	else if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_X_AXIS ) )
+	else if( GetSpawnFlags().Any( SF_BRUSH_ROTATE_X_AXIS ) )
 		SetMoveDir( Vector( 1, 0, 0 ) );
 	else
 		SetMoveDir( Vector( 0, 1, 0 ) );	// y-axis
 
 											// check for reverse rotation
-	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_BACKWARDS ) )
+	if( GetSpawnFlags().Any( SF_BRUSH_ROTATE_BACKWARDS ) )
 		SetMoveDir( GetMoveDir() * -1 );
 
 	// some rotating objects like fake volumetric lights will not be solid.
-	if( FBitSet( pev->spawnflags, SF_ROTATING_NOT_SOLID ) )
+	if( GetSpawnFlags().Any( SF_ROTATING_NOT_SOLID ) )
 	{
 		SetSolidType( SOLID_NOT );
 		SetSkin( CONTENTS_EMPTY );
@@ -103,13 +103,13 @@ void CFuncRotating::Spawn()
 	//		SetDamage( 2 );
 
 	// instant-use brush?
-	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_INSTANT ) )
+	if( GetSpawnFlags().Any( SF_BRUSH_ROTATE_INSTANT ) )
 	{
 		SetThink( &CFuncRotating::SUB_CallUseToggle );
 		SetNextThink( GetLastThink() + 1.5 );	// leave a magic delay for client to start up
 	}
 	// can this brush inflict pain?
-	if( FBitSet( pev->spawnflags, SF_BRUSH_HURT ) )
+	if( GetSpawnFlags().Any( SF_BRUSH_HURT ) )
 	{
 		SetTouch( &CFuncRotating::HurtTouch );
 	}
@@ -311,7 +311,7 @@ void CFuncRotating::HurtTouch( CBaseEntity *pOther )
 void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
 	// is this a brush that should accelerate and decelerate when turned on/off (fan)?
-	if( FBitSet( pev->spawnflags, SF_BRUSH_ACCDCC ) )
+	if( GetSpawnFlags().Any( SF_BRUSH_ACCDCC ) )
 	{
 		// fan is spinning, so stop it.
 		if( GetAngularVelocity() != g_vecZero )
@@ -331,7 +331,7 @@ void CFuncRotating::RotatingUse( CBaseEntity *pActivator, CBaseEntity *pCaller, 
 			SetNextThink( GetLastThink() + 0.1 );
 		}
 	}
-	else if( !FBitSet( pev->spawnflags, SF_BRUSH_ACCDCC ) )//this is a normal start/stop brush.
+	else if( !GetSpawnFlags().Any( SF_BRUSH_ACCDCC ) )//this is a normal start/stop brush.
 	{
 		if( GetAngularVelocity() != g_vecZero )
 		{

@@ -27,7 +27,7 @@ void CXenHair::Spawn( void )
 	SetSize( Vector( -4, -4, 0 ), Vector( 4, 4, 32 ) );
 	pev->sequence = 0;
 
-	if( !( pev->spawnflags & SF_HAIR_SYNC ) )
+	if( !GetSpawnFlags().Any( SF_HAIR_SYNC ) )
 	{
 		SetFrame( RANDOM_FLOAT( 0, 255 ) );
 		SetFrameRate( RANDOM_FLOAT( 0.7, 1.4 ) );

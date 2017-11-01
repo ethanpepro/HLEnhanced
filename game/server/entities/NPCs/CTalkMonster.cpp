@@ -944,7 +944,7 @@ bool CTalkMonster::FOkToSpeak() const
 	if (gpGlobals->time <= CTalkMonster::g_talkWaitTime)
 		return false;
 
-	if ( pev->spawnflags & SF_MONSTER_GAG )
+	if ( GetSpawnFlags().Any( SF_MONSTER_GAG ) )
 		return false;
 
 	// if player is not in pvs, don't speak
@@ -1001,7 +1001,7 @@ bool CTalkMonster::FIdleHello()
 			{
 				m_hTalkTarget = pPlayer;
 
-				if (FBitSet(pev->spawnflags, SF_MONSTER_PREDISASTER))
+				if ( GetSpawnFlags().Any( SF_MONSTER_PREDISASTER ) )
 					PlaySentence( m_szGrp[TLK_PHELLO], RANDOM_FLOAT(3, 3.5), VOL_NORM,  ATTN_IDLE );
 				else
 					PlaySentence( m_szGrp[TLK_HELLO], RANDOM_FLOAT(3, 3.5), VOL_NORM,  ATTN_IDLE );
@@ -1047,7 +1047,7 @@ bool CTalkMonster::FIdleSpeak()
 		return false;
 
 	// set idle groups based on pre/post disaster
-	if (FBitSet(pev->spawnflags, SF_MONSTER_PREDISASTER))
+	if ( GetSpawnFlags().Any( SF_MONSTER_PREDISASTER ) )
 	{
 		szIdleGroup = m_szGrp[TLK_PIDLE];
 		szQuestionGroup = m_szGrp[TLK_PQUESTION];
@@ -1436,7 +1436,7 @@ void CTalkMonster :: FollowerUse( CBaseEntity *pActivator, CBaseEntity *pCaller,
 	if ( pCaller != NULL && pCaller->IsPlayer() )
 	{
 		// Pre-disaster followers can't be used
-		if ( pev->spawnflags & SF_MONSTER_PREDISASTER )
+		if ( GetSpawnFlags().Any( SF_MONSTER_PREDISASTER ) )
 		{
 			DeclineFollowing();
 		}

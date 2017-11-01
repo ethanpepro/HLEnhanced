@@ -27,7 +27,7 @@ void CEnvFunnel::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 	WRITE_COORD( GetAbsOrigin().z );
 	WRITE_SHORT( m_iSprite );
 
-	if( pev->spawnflags & SF_FUNNEL_REVERSE )// funnel flows in reverse?
+	if( GetSpawnFlags().Any( SF_FUNNEL_REVERSE ) )// funnel flows in reverse?
 	{
 		WRITE_SHORT( 1 );
 	}

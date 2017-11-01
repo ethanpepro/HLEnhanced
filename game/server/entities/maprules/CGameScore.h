@@ -34,8 +34,8 @@ public:
 	void	KeyValue( KeyValueData *pkvd ) override;
 
 	inline	int		Points() const { return pev->frags; }
-	inline	bool	AllowNegativeScore() const { return ( pev->spawnflags & SF_SCORE_NEGATIVE ) != 0; }
-	inline	bool	AwardToTeam() const { return ( pev->spawnflags & SF_SCORE_TEAM ) != 0; }
+	inline	bool	AllowNegativeScore() const { return GetSpawnFlags().Any( SF_SCORE_NEGATIVE ); }
+	inline	bool	AwardToTeam() const { return GetSpawnFlags().Any( SF_SCORE_TEAM ); }
 
 	inline	void	SetPoints( int points ) { pev->frags = points; }
 

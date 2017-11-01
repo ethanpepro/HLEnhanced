@@ -27,7 +27,7 @@ bool CItemSuit::MyTouch( CBasePlayer *pPlayer )
 	if( pPlayer->GetWeapons().Any( 1 << WEAPON_SUIT ) )
 		return false;
 
-	if( pev->spawnflags & SF_SUIT_SHORTLOGON )
+	if( GetSpawnFlags().Any( SF_SUIT_SHORTLOGON ) )
 		EMIT_SOUND_SUIT( pPlayer, "!HEV_A0" );	// short version of suit logon,
 	else
 		EMIT_SOUND_SUIT( pPlayer, "!HEV_AAx" );	// long version of suit logon

@@ -55,7 +55,7 @@ void CTripmineGrenade::Spawn()
 	SetSize( Vector( -8, -8, -8 ), Vector( 8, 8, 8 ) );
 	SetAbsOrigin( GetAbsOrigin() );
 
-	if( pev->spawnflags & SF_TRIPMINE_INSTANT_ON )
+	if( GetSpawnFlags().Any( SF_TRIPMINE_INSTANT_ON ) )
 	{
 		// power up quickly
 		m_flPowerUp = gpGlobals->time + 1.0;
@@ -156,7 +156,7 @@ void CTripmineGrenade::PowerupThink()
 		STOP_SOUND( this, CHAN_VOICE, "weapons/mine_deploy.wav" );
 		STOP_SOUND( this, CHAN_BODY, "weapons/mine_charge.wav" );
 		CBaseEntity *pMine = Create( "weapon_tripmine", GetAbsOrigin() + m_vecDir * 24, GetAbsAngles() );
-		pMine->pev->spawnflags |= SF_NORESPAWN;
+		pMine->GetSpawnFlags() |= SF_NORESPAWN;
 
 		SetThink( &CTripmineGrenade::SUB_Remove );
 		KillBeam();

@@ -47,7 +47,7 @@ void CChangeLevel::Spawn( void )
 		SetUse( &CChangeLevel::UseChangeLevel );
 	}
 	InitTrigger();
-	if( !( pev->spawnflags & SF_CHANGELEVEL_USEONLY ) )
+	if( !GetSpawnFlags().Any( SF_CHANGELEVEL_USEONLY ) )
 		SetTouch( &CChangeLevel::TouchChangeLevel );
 	//	ALERT( at_console, "TRANSITION: %s (%s)\n", m_szMapName, m_szLandmarkName );
 }

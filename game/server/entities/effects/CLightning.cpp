@@ -53,7 +53,7 @@ void CLightning::Spawn( void )
 		}
 		if( HasTargetname() )
 		{
-			if( !( pev->spawnflags & SF_BEAM_STARTON ) )
+			if( !GetSpawnFlags().Any( SF_BEAM_STARTON ) )
 			{
 				GetEffects() = EF_NODRAW;
 				m_active = false;
@@ -72,7 +72,7 @@ void CLightning::Spawn( void )
 		{
 			SetUse( &CLightning::StrikeUse );
 		}
-		if( !HasTargetname() || FBitSet( pev->spawnflags, SF_BEAM_STARTON ) )
+		if( !HasTargetname() || GetSpawnFlags().Any( SF_BEAM_STARTON ) )
 		{
 			SetThink( &CLightning::StrikeThink );
 			SetNextThink( gpGlobals->time + 1.0 );
@@ -157,7 +157,7 @@ void CLightning::StrikeThink( void )
 {
 	if( m_life != 0 )
 	{
-		if( pev->spawnflags & SF_BEAM_RANDOM )
+		if( GetSpawnFlags().Any( SF_BEAM_RANDOM ) )
 			SetNextThink( gpGlobals->time + m_life + RANDOM_FLOAT( 0, m_restrike ) );
 		else
 			SetNextThink( gpGlobals->time + m_life + m_restrike );
@@ -188,7 +188,7 @@ void CLightning::StrikeThink( void )
 	{
 		if( UTIL_IsPointEntity( pStart ) || UTIL_IsPointEntity( pEnd ) )
 		{
-			if( pev->spawnflags & SF_BEAM_RING )
+			if( GetSpawnFlags().Any( SF_BEAM_RING ) )
 			{
 				// don't work
 				return;
@@ -228,7 +228,7 @@ void CLightning::StrikeThink( void )
 		}
 		else
 		{
-			if( pev->spawnflags & SF_BEAM_RING )
+			if( GetSpawnFlags().Any( SF_BEAM_RING ) )
 				WRITE_BYTE( TE_BEAMRING );
 			else
 				WRITE_BYTE( TE_BEAMENTS );
@@ -387,7 +387,7 @@ void CLightning::StrikeUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 		SetNextThink( gpGlobals->time + 0.1 );
 	}
 
-	if( !FBitSet( pev->spawnflags, SF_BEAM_TOGGLE ) )
+	if( !GetSpawnFlags().Any( SF_BEAM_TOGGLE ) )
 		SetUse( NULL );
 }
 
@@ -479,8 +479,8 @@ void CLightning::BeamUpdateVars( void )
 	SetNoise( m_noiseAmplitude );
 	SetFrame( m_frameStart );
 	SetScrollRate( m_speed );
-	if( pev->spawnflags & SF_BEAM_SHADEIN )
+	if( GetSpawnFlags().Any( SF_BEAM_SHADEIN ) )
 		SetBeamFlags( BEAM_FSHADEIN );
-	else if( pev->spawnflags & SF_BEAM_SHADEOUT )
+	else if( GetSpawnFlags().Any( SF_BEAM_SHADEOUT ) )
 		SetBeamFlags( BEAM_FSHADEOUT );
 }

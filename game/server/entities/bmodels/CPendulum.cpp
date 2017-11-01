@@ -41,7 +41,7 @@ void CPendulum::Spawn( void )
 	// set the axis of rotation
 	CBaseToggle::AxisDir( this );
 
-	if( FBitSet( pev->spawnflags, SF_DOOR_PASSABLE ) )
+	if( GetSpawnFlags().Any( SF_DOOR_PASSABLE ) )
 		SetSolidType( SOLID_NOT );
 	else
 		SetSolidType( SOLID_BSP );
@@ -60,7 +60,7 @@ void CPendulum::Spawn( void )
 	m_start = GetAbsAngles();
 	m_center = GetAbsAngles() + ( m_distance * 0.5 ) * GetMoveDir();
 
-	if( FBitSet( pev->spawnflags, SF_BRUSH_ROTATE_INSTANT ) )
+	if( GetSpawnFlags().Any( SF_BRUSH_ROTATE_INSTANT ) )
 	{
 		SetThink( &CPendulum::SUB_CallUseToggle );
 		SetNextThink( gpGlobals->time + 0.1 );
@@ -68,7 +68,7 @@ void CPendulum::Spawn( void )
 	SetSpeed( 0 );
 	SetUse( &CPendulum::PendulumUse );
 
-	if( FBitSet( pev->spawnflags, SF_PENDULUM_SWING ) )
+	if( GetSpawnFlags().Any( SF_PENDULUM_SWING ) )
 	{
 		SetTouch( &CPendulum::RopeTouch );
 	}
@@ -94,7 +94,7 @@ void CPendulum::Swing( void )
 {
 	float delta, dt;
 
-	delta = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_center );
+	delta = CBaseToggle::AxisDelta( GetSpawnFlags().Get(), GetAbsAngles(), m_center );
 	dt = gpGlobals->time - m_time;	// How much time has passed?
 	m_time = gpGlobals->time;		// Remember the last time called
 
@@ -135,11 +135,11 @@ void CPendulum::PendulumUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 {
 	if( GetSpeed() )		// Pendulum is moving, stop it and auto-return if necessary
 	{
-		if( FBitSet( pev->spawnflags, SF_PENDULUM_AUTO_RETURN ) )
+		if( GetSpawnFlags().Any( SF_PENDULUM_AUTO_RETURN ) )
 		{
 			float	delta;
 
-			delta = CBaseToggle::AxisDelta( pev->spawnflags, GetAbsAngles(), m_start );
+			delta = CBaseToggle::AxisDelta( GetSpawnFlags().Get(), GetAbsAngles(), m_start );
 
 			SetAngularVelocity( m_maxSpeed * GetMoveDir() );
 			SetNextThink( GetLastThink() + ( delta / m_maxSpeed ) );

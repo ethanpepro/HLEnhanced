@@ -241,7 +241,7 @@ void CBaseMonster :: Look ( int iDistance )
 	CBaseEntity	*pSightEnt = NULL;// the current visible entity that we're dealing with
 
 	// See no evil if prisoner is set
-	if ( !FBitSet( pev->spawnflags, SF_MONSTER_PRISONER ) )
+	if ( !GetSpawnFlags().Any( SF_MONSTER_PRISONER ) )
 	{
 		CBaseEntity *pList[100];
 
@@ -253,8 +253,8 @@ void CBaseMonster :: Look ( int iDistance )
 		{
 			pSightEnt = pList[i];
 			// !!!temporarily only considering other monsters and clients, don't see prisoners
-			if ( pSightEnt != this												&& 
-				 !FBitSet( pSightEnt->pev->spawnflags, SF_MONSTER_PRISONER )	&& 
+			if ( pSightEnt != this										&& 
+				 !pSightEnt->GetSpawnFlags().Any( SF_MONSTER_PRISONER )	&&
 				 pSightEnt->GetHealth() > 0 )
 			{
 				// the looker will want to consider this entity
@@ -263,7 +263,7 @@ void CBaseMonster :: Look ( int iDistance )
 				{
 					if ( pSightEnt->IsPlayer() )
 					{
-						if ( pev->spawnflags & SF_MONSTER_WAIT_TILL_SEEN )
+						if ( GetSpawnFlags().Any( SF_MONSTER_WAIT_TILL_SEEN ) )
 						{
 							CBaseMonster* pClient = pSightEnt->MyMonsterPointer();
 
@@ -276,7 +276,7 @@ void CBaseMonster :: Look ( int iDistance )
 							else
 							{
 								// player sees us, become normal now.
-								pev->spawnflags &= ~SF_MONSTER_WAIT_TILL_SEEN;
+								GetSpawnFlags().ClearFlags( SF_MONSTER_WAIT_TILL_SEEN );
 							}
 						}
 
@@ -1947,7 +1947,7 @@ void CBaseMonster :: MonsterInit ( void )
 	m_IdealActivity = ACT_IDLE;
 
 	GetFlags() |= FL_MONSTER;
-	if ( pev->spawnflags & SF_MONSTER_HITMONSTERCLIP )
+	if ( GetSpawnFlags().Any( SF_MONSTER_HITMONSTERCLIP ) )
 		GetFlags() |= FL_MONSTERCLIP;
 	
 	ClearSchedule();
@@ -2005,7 +2005,7 @@ void CBaseMonster :: StartMonster ( void )
 	}
 
 	// Raise monster off the floor one unit, then drop to floor
-	if ( GetMoveType() != MOVETYPE_FLY && !FBitSet( pev->spawnflags, SF_MONSTER_FALL_TO_GROUND ) )
+	if ( GetMoveType() != MOVETYPE_FLY && !GetSpawnFlags().Any( SF_MONSTER_FALL_TO_GROUND ) )
 	{
 		Vector vecOrigin = GetAbsOrigin();
 		vecOrigin.z += 1;
@@ -2863,9 +2863,9 @@ void CBaseMonster::ReportAIState( void )
 
 	ALERT( level, "\n" );
 	ALERT( level, "Yaw speed:%3.1f,Health: %3.1f\n", GetYawSpeed(), GetHealth() );
-	if ( pev->spawnflags & SF_MONSTER_PRISONER )
+	if ( GetSpawnFlags().Any( SF_MONSTER_PRISONER ) )
 		ALERT( level, " PRISONER! " );
-	if ( pev->spawnflags & SF_MONSTER_PREDISASTER )
+	if ( GetSpawnFlags().Any( SF_MONSTER_PREDISASTER ) )
 		ALERT( level, " Pre-Disaster! " );
 	ALERT( level, "\n" );
 }

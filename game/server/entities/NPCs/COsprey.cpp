@@ -93,7 +93,7 @@ void COsprey :: Spawn( void )
 	SetThink( &COsprey::FindAllThink );
 	SetUse( &COsprey::CommandUse );
 
-	if (!(pev->spawnflags & SF_OSPREY_WAITFORTRIGGER ))
+	if ( !GetSpawnFlags().Any( SF_OSPREY_WAITFORTRIGGER ) )
 	{
 		SetNextThink( gpGlobals->time + 1.0 );
 	}

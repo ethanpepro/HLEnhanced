@@ -163,7 +163,7 @@ bool CHGrunt::FOkToSpeak() const
 	if (gpGlobals->time <= CTalkMonster::g_talkWaitTime)
 		return false;
 
-	if ( pev->spawnflags & SF_MONSTER_GAG )
+	if ( GetSpawnFlags().Any( SF_MONSTER_GAG ) )
 	{
 		if ( m_MonsterState != MONSTERSTATE_COMBAT )
 		{

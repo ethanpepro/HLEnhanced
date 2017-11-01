@@ -62,9 +62,9 @@ public:
 	// Bmodels don't go across transitions
 	virtual int	ObjectCaps() const override { return CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION; }
 
-	inline bool IsActive() const { return ( pev->spawnflags & SF_TANK_ACTIVE ) != 0; }
-	inline void TankActivate( void ) { pev->spawnflags |= SF_TANK_ACTIVE; SetNextThink( GetLastThink() + 0.1 ); m_fireLast = 0; }
-	inline void TankDeactivate( void ) { pev->spawnflags &= ~SF_TANK_ACTIVE; m_fireLast = 0; StopRotSound(); }
+	inline bool IsActive() const { return GetSpawnFlags().Any( SF_TANK_ACTIVE ); }
+	inline void TankActivate( void ) { GetSpawnFlags() |= SF_TANK_ACTIVE; SetNextThink( GetLastThink() + 0.1 ); m_fireLast = 0; }
+	inline void TankDeactivate( void ) { GetSpawnFlags().ClearFlags( SF_TANK_ACTIVE ); m_fireLast = 0; StopRotSound(); }
 	inline bool CanFire() const { return ( gpGlobals->time - m_lastSightTime ) < m_persist; }
 	bool		InRange( float range ) const;
 

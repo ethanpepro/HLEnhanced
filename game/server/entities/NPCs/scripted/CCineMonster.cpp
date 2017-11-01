@@ -77,7 +77,7 @@ void CCineMonster::Spawn( void )
 		if( HasTargetname() )
 			m_startTime = gpGlobals->time + 1E6;
 	}
-	if( pev->spawnflags & SF_SCRIPT_NOINTERRUPT )
+	if( GetSpawnFlags().Any( SF_SCRIPT_NOINTERRUPT ) )
 		m_interruptable = false;
 	else
 		m_interruptable = true;
@@ -407,7 +407,7 @@ void CCineMonster::PossessEntity( void )
 			//			pTarget->GetFlags().ClearFlags( FL_ONGROUND );
 			break;
 		}
-		//		ALERT( at_aiconsole, "\"%s\" found and used (INT: %s)\n", pTarget->GetTargetname(), FBitSet(pev->spawnflags, SF_SCRIPT_NOINTERRUPT)?"No":"Yes" );
+		//		ALERT( at_aiconsole, "\"%s\" found and used (INT: %s)\n", pTarget->GetTargetname(), GetSpawnFlags().Any( SF_SCRIPT_NOINTERRUPT ) ?"No":"Yes" );
 
 		pTarget->m_IdealMonsterState = MONSTERSTATE_SCRIPT;
 		if( m_iszIdle )
@@ -459,7 +459,7 @@ bool CCineMonster::StartSequence( CBaseMonster *pTarget, int iszSeq, const bool 
 
 #if 0
 	char *s;
-	if( pev->spawnflags & SF_SCRIPT_NOINTERRUPT )
+	if( GetSpawnFlags().Any( SF_SCRIPT_NOINTERRUPT ) )
 		s = "No";
 	else
 		s = "Yes";
@@ -478,7 +478,7 @@ bool CCineMonster::StartSequence( CBaseMonster *pTarget, int iszSeq, const bool 
 //=========================================================
 bool CCineMonster::FCanOverrideState() const
 {
-	if( pev->spawnflags & SF_SCRIPT_OVERRIDESTATE )
+	if( GetSpawnFlags().Any( SF_SCRIPT_OVERRIDESTATE ) )
 		return true;
 	return false;
 }
@@ -494,7 +494,7 @@ void CCineMonster::SequenceDone( CBaseMonster *pMonster )
 {
 	//ALERT( at_aiconsole, "Sequence %s finished\n", STRING( m_pCine->m_iszPlay ) );
 
-	if( !( pev->spawnflags & SF_SCRIPT_REPEATABLE ) )
+	if( !GetSpawnFlags().Any( SF_SCRIPT_REPEATABLE ) )
 	{
 		SetThink( &CCineMonster::SUB_Remove );
 		SetNextThink( gpGlobals->time + 0.1 );
@@ -541,7 +541,7 @@ bool CCineMonster::CanInterrupt() const
 
 void CCineMonster::AllowInterrupt( const bool fAllow )
 {
-	if( pev->spawnflags & SF_SCRIPT_NOINTERRUPT )
+	if( GetSpawnFlags().Any( SF_SCRIPT_NOINTERRUPT ) )
 		return;
 	m_interruptable = fAllow;
 }

@@ -124,8 +124,8 @@ void CBaseTurret::Spawn()
 	GetFlags() |= FL_MONSTER;
 	SetUse( &CBaseTurret::TurretUse );
 
-	if (( pev->spawnflags & SF_MONSTER_TURRET_AUTOACTIVATE ) 
-		 && !( pev->spawnflags & SF_MONSTER_TURRET_STARTINACTIVE ))
+	if ( GetSpawnFlags().Any( SF_MONSTER_TURRET_AUTOACTIVATE )
+		 && !GetSpawnFlags().Any( SF_MONSTER_TURRET_STARTINACTIVE ) )
 	{
 		m_bAutoStart = true;
 	}
@@ -222,7 +222,7 @@ void CBaseTurret::TurretUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 		SetNextThink( gpGlobals->time + 0.1 ); // turn on delay
 
 		// if the turret is flagged as an autoactivate turret, re-enable it's ability open self.
-		if ( pev->spawnflags & SF_MONSTER_TURRET_AUTOACTIVATE )
+		if ( GetSpawnFlags().Any( SF_MONSTER_TURRET_AUTOACTIVATE ) )
 		{
 			m_bAutoStart = true;
 		}

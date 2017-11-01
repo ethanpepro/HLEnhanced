@@ -24,7 +24,7 @@ void CTriggerEndSection::Spawn( void )
 
 	SetUse( &CTriggerEndSection::EndSectionUse );
 	// If it is a "use only" trigger, then don't set the touch function.
-	if( !( pev->spawnflags & SF_ENDSECTION_USEONLY ) )
+	if( !GetSpawnFlags().Any( SF_ENDSECTION_USEONLY ) )
 		SetTouch( &CTriggerEndSection::EndSectionTouch );
 }
 

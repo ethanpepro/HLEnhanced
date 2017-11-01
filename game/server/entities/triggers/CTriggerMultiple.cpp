@@ -18,7 +18,7 @@ void CTriggerMultiple::Spawn( void )
 	//	SetModel( GetModelName() );
 	//	if (GetHealth() > 0)
 	//		{
-	//		if (FBitSet(pev->spawnflags, SPAWNFLAG_NOTOUCH))
+	//		if ( GetSpawnFlags().Any( SPAWNFLAG_NOTOUCH ) )
 	//			ALERT(at_error, "trigger_multiple spawn: health and notouch don't make sense");
 	//		SetMaxHealth( GetHealth() );
 	//UNDONE: where to get pfnDie from?

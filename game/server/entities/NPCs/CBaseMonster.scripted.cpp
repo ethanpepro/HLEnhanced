@@ -87,7 +87,7 @@ bool CBaseMonster::CineCleanup()
 		SetDeadFlag( DEAD_DEAD );
 		SetSize( GetRelMin(), Vector( GetRelMax().x, GetRelMax().y, GetRelMin().z + 2) );
 
-		if ( pOldCine && FBitSet( pOldCine->pev->spawnflags, SF_SCRIPT_LEAVECORPSE ) )
+		if ( pOldCine && pOldCine->GetSpawnFlags().Any( SF_SCRIPT_LEAVECORPSE ) )
 		{
 			SetUse( NULL );		// BUGBUG -- This doesn't call Killed()
 			SetThink( NULL );	// This will probably break some stuff
@@ -105,7 +105,7 @@ bool CBaseMonster::CineCleanup()
 	// If we actually played a sequence
 	if ( pOldCine && pOldCine->m_iszPlay )
 	{
-		if ( !(pOldCine->pev->spawnflags & SF_SCRIPT_NOSCRIPTMOVEMENT) )
+		if ( !GetSpawnFlags().Any( SF_SCRIPT_NOSCRIPTMOVEMENT ) )
 		{
 			// reset position
 			Vector new_origin, new_angle;
@@ -179,7 +179,7 @@ bool CBaseMonster::CineCleanup()
 
 
 	//	SetAnimation( m_MonsterState );
-	ClearBits(pev->spawnflags, SF_MONSTER_WAIT_FOR_SCRIPT );
+	GetSpawnFlags().ClearFlags( SF_MONSTER_WAIT_FOR_SCRIPT );
 
 	return true;
 }

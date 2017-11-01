@@ -19,9 +19,9 @@ void CEnvSpark::Spawn( void )
 	SetThink( NULL );
 	SetUse( NULL );
 
-	if( FBitSet( pev->spawnflags, SF_SPARK_TOGGLE ) ) // Use for on/off
+	if( GetSpawnFlags().Any( SF_SPARK_TOGGLE ) ) // Use for on/off
 	{
-		if( FBitSet( pev->spawnflags, SF_SPARK_START_ON ) ) // Start on
+		if( GetSpawnFlags().Any( SF_SPARK_START_ON ) ) // Start on
 		{
 			SetThink( &CEnvSpark::SparkThink );	// start sparking
 			SetUse( &CEnvSpark::SparkStop );		// set up +USE to stop sparking

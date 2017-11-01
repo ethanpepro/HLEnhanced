@@ -31,8 +31,8 @@ public:
 
 	void		Spawn() override;
 	void		Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value ) override;
-	inline bool RemoveOnFire() const { return ( pev->spawnflags & SF_GAMECOUNT_FIREONCE ) != 0; }
-	inline bool ResetOnFire() const { return ( pev->spawnflags & SF_GAMECOUNT_RESET ) != 0; }
+	inline bool RemoveOnFire() const { return GetSpawnFlags().Any( SF_GAMECOUNT_FIREONCE ); }
+	inline bool ResetOnFire() const { return GetSpawnFlags().Any( SF_GAMECOUNT_RESET ); }
 
 	inline void CountUp() { pev->frags++; }
 	inline void CountDown() { pev->frags--; }

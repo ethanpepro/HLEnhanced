@@ -284,7 +284,7 @@ void CBasePlayer::PreThink()
 					return;
 				}
 			}
-			else if( !GetFlags().Any( FL_ONGROUND ) || FBitSet( pTrain->pev->spawnflags, SF_TRACKTRAIN_NOCONTROL ) || ( GetButtons().Any( IN_MOVELEFT | IN_MOVERIGHT ) ) )
+			else if( !GetFlags().Any( FL_ONGROUND ) || pTrain->GetSpawnFlags().Any( SF_TRACKTRAIN_NOCONTROL ) || ( GetButtons().Any( IN_MOVELEFT | IN_MOVERIGHT ) ) )
 			{
 				// Turn off the train if you jump, strafe, or the train controls go dead
 				m_afPhysicsFlags &= ~PFLAG_ONTRAIN;

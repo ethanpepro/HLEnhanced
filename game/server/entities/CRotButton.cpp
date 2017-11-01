@@ -37,12 +37,12 @@ void CRotButton::Spawn( void )
 	CBaseToggle::AxisDir( this );
 
 	// check for clockwise rotation
-	if( FBitSet( pev->spawnflags, SF_DOOR_ROTATE_BACKWARDS ) )
+	if( GetSpawnFlags().Any( SF_DOOR_ROTATE_BACKWARDS ) )
 		SetMoveDir( GetMoveDir() * -1 );
 
 	SetMoveType( MOVETYPE_PUSH );
 
-	if( pev->spawnflags & SF_ROTBUTTON_NOTSOLID )
+	if( GetSpawnFlags().Any( SF_ROTBUTTON_NOTSOLID ) )
 		SetSolidType( SOLID_NOT );
 	else
 		SetSolidType( SOLID_BSP );
@@ -69,7 +69,7 @@ void CRotButton::Spawn( void )
 	m_fRotating = true;
 
 	// if the button is flagged for USE button activation only, take away it's touch function and add a use function
-	if( !FBitSet( pev->spawnflags, SF_BUTTON_TOUCH_ONLY ) )
+	if( !GetSpawnFlags().Any( SF_BUTTON_TOUCH_ONLY ) )
 	{
 		SetTouch( NULL );
 		SetUse( &CRotButton::ButtonUse );

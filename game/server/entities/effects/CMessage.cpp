@@ -49,7 +49,7 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 {
 	CBaseEntity *pPlayer = NULL;
 
-	if( pev->spawnflags & SF_MESSAGE_ALL )
+	if( GetSpawnFlags().Any( SF_MESSAGE_ALL ) )
 		UTIL_ShowMessageAll( GetMessage() );
 	else
 	{
@@ -66,7 +66,7 @@ void CMessage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useT
 	{
 		EMIT_SOUND( this, CHAN_BODY, STRING( pev->noise ), GetScale(), GetSpeed() );
 	}
-	if( pev->spawnflags & SF_MESSAGE_ONCE )
+	if( GetSpawnFlags().Any( SF_MESSAGE_ONCE ) )
 		UTIL_Remove( this );
 
 	SUB_UseTargets( this, USE_TOGGLE, 0 );

@@ -170,7 +170,7 @@ void CBloater :: Spawn()
 
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_FLY );
-	pev->spawnflags		|= FL_FLY;
+	GetSpawnFlags() |= FL_FLY;
 	m_bloodColor		= BLOOD_COLOR_GREEN;
 	SetHealth( 40 );
 	SetViewOffset( VEC_VIEW );// position of the eyes relative to monster's origin.

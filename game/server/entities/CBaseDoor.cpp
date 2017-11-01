@@ -105,7 +105,7 @@ void CBaseDoor::Spawn()
 
 	if( GetSkin() == 0 )
 	{//normal door
-		if( FBitSet( pev->spawnflags, SF_DOOR_PASSABLE ) )
+		if( GetSpawnFlags().Any( SF_DOOR_PASSABLE ) )
 			SetSolidType( SOLID_NOT );
 		else
 			SetSolidType( SOLID_BSP );
@@ -113,7 +113,7 @@ void CBaseDoor::Spawn()
 	else
 	{// special contents
 		SetSolidType( SOLID_NOT );
-		SetBits( pev->spawnflags, SF_DOOR_SILENT );	// water is silent for now
+		GetSpawnFlags().AddFlags( SF_DOOR_SILENT );	// water is silent for now
 	}
 
 	SetMoveType( MOVETYPE_PUSH );
@@ -127,7 +127,7 @@ void CBaseDoor::Spawn()
 	// Subtract 2 from size because the engine expands bboxes by 1 in all directions making the size too big
 	m_vecPosition2 = m_vecPosition1 + ( GetMoveDir() * ( fabs( GetMoveDir().x * ( GetBounds().x - 2 ) ) + fabs( GetMoveDir().y * ( GetBounds().y - 2 ) ) + fabs( GetMoveDir().z * ( GetBounds().z - 2 ) ) - m_flLip ) );
 	ASSERTSZ( m_vecPosition1 != m_vecPosition2, "door start/end positions are equal" );
-	if( FBitSet( pev->spawnflags, SF_DOOR_START_OPEN ) )
+	if( GetSpawnFlags().Any( SF_DOOR_START_OPEN ) )
 	{	// swap pos1 and pos2, put door at pos2
 		SetAbsOrigin( m_vecPosition2 );
 		m_vecPosition2 = m_vecPosition1;
@@ -137,7 +137,7 @@ void CBaseDoor::Spawn()
 	m_toggle_state = TS_AT_BOTTOM;
 
 	// if the door is flagged for USE button activation only, use NULL touch function
-	if( FBitSet( pev->spawnflags, SF_DOOR_USE_ONLY ) )
+	if( GetSpawnFlags().Any( SF_DOOR_USE_ONLY ) )
 	{
 		SetTouch( NULL );
 	}
@@ -244,7 +244,7 @@ void CBaseDoor::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 {
 	m_hActivator = pActivator;
 	// if not ready to be used, ignore "use" command.
-	if( m_toggle_state == TS_AT_BOTTOM || ( FBitSet( pev->spawnflags, SF_DOOR_NO_AUTO_RETURN ) && m_toggle_state == TS_AT_TOP ) )
+	if( m_toggle_state == TS_AT_BOTTOM || ( GetSpawnFlags().Any( SF_DOOR_NO_AUTO_RETURN ) && m_toggle_state == TS_AT_TOP ) )
 		DoorActivate();
 }
 
@@ -256,7 +256,7 @@ int CBaseDoor::DoorActivate()
 	if( !UTIL_IsMasterTriggered( m_sMaster, m_hActivator ) )
 		return 0;
 
-	if( FBitSet( pev->spawnflags, SF_DOOR_NO_AUTO_RETURN ) && m_toggle_state == TS_AT_TOP )
+	if( GetSpawnFlags().Any( SF_DOOR_NO_AUTO_RETURN ) && m_toggle_state == TS_AT_TOP )
 	{// door should close
 		DoorGoDown();
 	}
@@ -290,7 +290,7 @@ void CBaseDoor::DoorGoUp( void )
 
 	// emit door moving and stop sounds on CHAN_STATIC so that the multicast doesn't
 	// filter them out and leave a client stuck with looping door sounds!
-	if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
+	if( !GetSpawnFlags().Any( SF_DOOR_SILENT ) )
 	{
 		if( m_toggle_state != TS_GOING_UP && m_toggle_state != TS_GOING_DOWN )
 			EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ), 1, ATTN_NORM );
@@ -307,7 +307,7 @@ void CBaseDoor::DoorGoUp( void )
 		{
 			pevActivator = m_hActivator->pev;
 
-			if( !FBitSet( pev->spawnflags, SF_DOOR_ONEWAY ) && GetMoveDir().y ) 		// Y axis rotation, move away from the player
+			if( !GetSpawnFlags().Any( SF_DOOR_ONEWAY ) && GetMoveDir().y ) 		// Y axis rotation, move away from the player
 			{
 				Vector vec = pevActivator->origin - GetAbsOrigin();
 				Vector angles = pevActivator->angles;
@@ -333,7 +333,7 @@ void CBaseDoor::DoorGoUp( void )
 //
 void CBaseDoor::DoorHitTop( void )
 {
-	if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
+	if( !GetSpawnFlags().Any( SF_DOOR_SILENT ) )
 	{
 		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ) );
 		EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseArrived ), 1, ATTN_NORM );
@@ -343,10 +343,10 @@ void CBaseDoor::DoorHitTop( void )
 	m_toggle_state = TS_AT_TOP;
 
 	// toggle-doors don't come down automatically, they wait for refire.
-	if( FBitSet( pev->spawnflags, SF_DOOR_NO_AUTO_RETURN ) )
+	if( GetSpawnFlags().Any( SF_DOOR_NO_AUTO_RETURN ) )
 	{
 		// Re-instate touch method, movement is complete
-		if( !FBitSet( pev->spawnflags, SF_DOOR_USE_ONLY ) )
+		if( !GetSpawnFlags().Any( SF_DOOR_USE_ONLY ) )
 			SetTouch( &CBaseDoor::DoorTouch );
 	}
 	else
@@ -362,7 +362,7 @@ void CBaseDoor::DoorHitTop( void )
 	}
 
 	// Fire the close target (if startopen is set, then "top" is closed) - netname is the close target
-	if( HasNetName() && ( pev->spawnflags & SF_DOOR_START_OPEN ) )
+	if( HasNetName() && GetSpawnFlags().Any( SF_DOOR_START_OPEN ) )
 		FireTargets( GetNetName(), m_hActivator, this, USE_TOGGLE, 0 );
 
 	SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 ); // this isn't finished
@@ -374,7 +374,7 @@ void CBaseDoor::DoorHitTop( void )
 //
 void CBaseDoor::DoorGoDown( void )
 {
-	if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
+	if( !GetSpawnFlags().Any( SF_DOOR_SILENT ) )
 	{
 		if( m_toggle_state != TS_GOING_UP && m_toggle_state != TS_GOING_DOWN )
 			EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ), 1, ATTN_NORM );
@@ -397,7 +397,7 @@ void CBaseDoor::DoorGoDown( void )
 //
 void CBaseDoor::DoorHitBottom( void )
 {
-	if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
+	if( !GetSpawnFlags().Any( SF_DOOR_SILENT ) )
 	{
 		STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ) );
 		EMIT_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseArrived ), 1, ATTN_NORM );
@@ -407,7 +407,7 @@ void CBaseDoor::DoorHitBottom( void )
 	m_toggle_state = TS_AT_BOTTOM;
 
 	// Re-instate touch method, cycle is complete
-	if( FBitSet( pev->spawnflags, SF_DOOR_USE_ONLY ) )
+	if( GetSpawnFlags().Any( SF_DOOR_USE_ONLY ) )
 	{// use only door
 		SetTouch( NULL );
 	}
@@ -417,7 +417,7 @@ void CBaseDoor::DoorHitBottom( void )
 	SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 ); // this isn't finished
 
 												   // Fire the close target (if startopen is set, then "top" is closed) - netname is the close target
-	if( HasNetName() && !( pev->spawnflags & SF_DOOR_START_OPEN ) )
+	if( HasNetName() && !GetSpawnFlags().Any( SF_DOOR_START_OPEN ) )
 		FireTargets( GetNetName(), m_hActivator, this, USE_TOGGLE, 0 );
 }
 
@@ -475,7 +475,7 @@ void CBaseDoor::Blocked( CBaseEntity *pOther )
 							}
 						}
 
-						if( !FBitSet( pev->spawnflags, SF_DOOR_SILENT ) )
+						if( !GetSpawnFlags().Any( SF_DOOR_SILENT ) )
 							STOP_SOUND( this, CHAN_STATIC, ( char* ) STRING( pev->noiseMoving ) );
 
 						if( pDoor->m_toggle_state == TS_GOING_DOWN )

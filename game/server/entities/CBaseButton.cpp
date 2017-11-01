@@ -52,7 +52,7 @@ void CBaseButton::Spawn()
 
 	Precache();
 
-	if( FBitSet( pev->spawnflags, SF_BUTTON_SPARK_IF_OFF ) )// this button should spark in OFF state
+	if( GetSpawnFlags().Any( SF_BUTTON_SPARK_IF_OFF ) )// this button should spark in OFF state
 	{
 		SetThink( &CBaseButton::ButtonSpark );
 		SetNextThink( gpGlobals->time + 0.5 );// no hurry, make sure everything else spawns
@@ -84,7 +84,7 @@ void CBaseButton::Spawn()
 
 
 	// Is this a non-moving button?
-	if( ( ( m_vecPosition2 - m_vecPosition1 ).Length() < 1 ) || ( pev->spawnflags & SF_BUTTON_DONTMOVE ) )
+	if( ( ( m_vecPosition2 - m_vecPosition1 ).Length() < 1 ) || GetSpawnFlags().Any( SF_BUTTON_DONTMOVE ) )
 		m_vecPosition2 = m_vecPosition1;
 
 	m_fStayPushed = m_flWait == -1;
@@ -92,7 +92,7 @@ void CBaseButton::Spawn()
 
 	// if the button is flagged for USE button activation only, take away it's touch function and add a use function
 
-	if( FBitSet( pev->spawnflags, SF_BUTTON_TOUCH_ONLY ) ) // touchable button
+	if( GetSpawnFlags().Any( SF_BUTTON_TOUCH_ONLY ) ) // touchable button
 	{
 		SetTouch( &CBaseButton::ButtonTouch );
 	}
@@ -107,7 +107,7 @@ void CBaseButton::Precache( void )
 {
 	const char* pszSound;
 
-	if( FBitSet( pev->spawnflags, SF_BUTTON_SPARK_IF_OFF ) )// this button should spark in OFF state
+	if( GetSpawnFlags().Any( SF_BUTTON_SPARK_IF_OFF ) )// this button should spark in OFF state
 	{
 		PRECACHE_SOUND( "buttons/spark1.wav" );
 		PRECACHE_SOUND( "buttons/spark2.wav" );
@@ -276,9 +276,9 @@ void CBaseButton::TriggerAndWait( void )
 
 	// If button automatically comes back out, start it moving out.
 	// Else re-instate touch method
-	if( m_fStayPushed || FBitSet( pev->spawnflags, SF_BUTTON_TOGGLE ) )
+	if( m_fStayPushed || GetSpawnFlags().Any( SF_BUTTON_TOGGLE ) )
 	{
-		if( !FBitSet( pev->spawnflags, SF_BUTTON_TOUCH_ONLY ) ) // this button only works if USED, not touched!
+		if( !GetSpawnFlags().Any( SF_BUTTON_TOUCH_ONLY ) ) // this button only works if USED, not touched!
 		{
 			// ALL buttons are now use only
 			SetTouch( NULL );
@@ -323,7 +323,7 @@ void CBaseButton::ButtonBackHome( void )
 	ASSERT( m_toggle_state == TS_GOING_DOWN );
 	m_toggle_state = TS_AT_BOTTOM;
 
-	if( FBitSet( pev->spawnflags, SF_BUTTON_TOGGLE ) )
+	if( GetSpawnFlags().Any( SF_BUTTON_TOGGLE ) )
 	{
 		//EMIT_SOUND( this, CHAN_VOICE, (char*)STRING(pev->noise), 1, ATTN_NORM);
 
@@ -344,7 +344,7 @@ void CBaseButton::ButtonBackHome( void )
 	}
 
 	// Re-instate touch method, movement cycle is complete.
-	if( !FBitSet( pev->spawnflags, SF_BUTTON_TOUCH_ONLY ) ) // this button only works if USED, not touched!
+	if( !GetSpawnFlags().Any( SF_BUTTON_TOUCH_ONLY ) ) // this button only works if USED, not touched!
 	{
 		// All buttons are now use only	
 		SetTouch( NULL );
@@ -353,7 +353,7 @@ void CBaseButton::ButtonBackHome( void )
 		SetTouch( &CBaseButton::ButtonTouch );
 
 	// reset think for a sparking button
-	if( FBitSet( pev->spawnflags, SF_BUTTON_SPARK_IF_OFF ) )
+	if( GetSpawnFlags().Any( SF_BUTTON_SPARK_IF_OFF ) )
 	{
 		SetThink( &CBaseButton::ButtonSpark );
 		SetNextThink( gpGlobals->time + 0.5 );// no hurry.
@@ -373,7 +373,7 @@ void CBaseButton::ButtonUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_
 	m_hActivator = pActivator;
 	if( m_toggle_state == TS_AT_TOP )
 	{
-		if( !m_fStayPushed && FBitSet( pev->spawnflags, SF_BUTTON_TOGGLE ) )
+		if( !m_fStayPushed && GetSpawnFlags().Any( SF_BUTTON_TOGGLE ) )
 		{
 			EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
 
@@ -406,7 +406,7 @@ void CBaseButton::OnTakeDamage( const CTakeDamageInfo& info )
 		EMIT_SOUND( this, CHAN_VOICE, ( char* ) STRING( pev->noise ), 1, ATTN_NORM );
 
 		// Toggle buttons fire when they get back to their "home" position
-		if( !( pev->spawnflags & SF_BUTTON_TOGGLE ) )
+		if( !GetSpawnFlags().Any( SF_BUTTON_TOGGLE ) )
 			SUB_UseTargets( m_hActivator, USE_TOGGLE, 0 );
 		ButtonReturn();
 	}
@@ -419,12 +419,12 @@ CBaseButton::BUTTON_CODE CBaseButton::ButtonResponseToTouch( void )
 	// Ignore touches if button is moving, or pushed-in and waiting to auto-come-out.
 	if( m_toggle_state == TS_GOING_UP ||
 		m_toggle_state == TS_GOING_DOWN ||
-		( m_toggle_state == TS_AT_TOP && !m_fStayPushed && !FBitSet( pev->spawnflags, SF_BUTTON_TOGGLE ) ) )
+		( m_toggle_state == TS_AT_TOP && !m_fStayPushed && !GetSpawnFlags().Any( SF_BUTTON_TOGGLE ) ) )
 		return BUTTON_NOTHING;
 
 	if( m_toggle_state == TS_AT_TOP )
 	{
-		if( ( FBitSet( pev->spawnflags, SF_BUTTON_TOGGLE ) ) && !m_fStayPushed )
+		if( ( GetSpawnFlags().Any( SF_BUTTON_TOGGLE ) ) && !m_fStayPushed )
 		{
 			return BUTTON_RETURN;
 		}

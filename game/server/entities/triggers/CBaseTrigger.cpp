@@ -23,7 +23,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 	if( !UTIL_IsMasterTriggered( m_sMaster, pOther ) )
 		return;
 
-	if( !( pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS ) )
+	if( !GetSpawnFlags().Any( SF_TRIGGER_ALLOWMONSTERS ) )
 	{// no monsters allowed!
 		if( pOther->GetFlags().Any( FL_MONSTER ) )
 		{
@@ -31,7 +31,7 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 		}
 	}
 
-	if( ( pev->spawnflags & SF_TRIGGER_NOCLIENTS ) )
+	if( GetSpawnFlags().Any( SF_TRIGGER_NOCLIENTS ) )
 	{// no clients allowed
 		if( pOther->IsPlayer() )
 		{
@@ -71,9 +71,9 @@ void CBaseTrigger::TeleportTouch( CBaseEntity *pOther )
 void CBaseTrigger::MultiTouch( CBaseEntity *pOther )
 {
 	// Only touch clients, monsters, or pushables (depending on flags)
-	if( ( pOther->GetFlags().Any( FL_CLIENT ) && !( pev->spawnflags & SF_TRIGGER_NOCLIENTS ) ) ||
-		( pOther->GetFlags().Any( FL_MONSTER ) && ( pev->spawnflags & SF_TRIGGER_ALLOWMONSTERS ) ) ||
-		( ( pev->spawnflags & SF_TRIGGER_PUSHABLES ) && pOther->ClassnameIs( "func_pushable" ) ) )
+	if( ( pOther->GetFlags().Any( FL_CLIENT ) && !GetSpawnFlags().Any( SF_TRIGGER_NOCLIENTS ) ) ||
+		( pOther->GetFlags().Any( FL_MONSTER ) && GetSpawnFlags().Any( SF_TRIGGER_ALLOWMONSTERS ) ) ||
+		( GetSpawnFlags().Any( SF_TRIGGER_PUSHABLES ) && pOther->ClassnameIs( "func_pushable" ) ) )
 	{
 
 #if 0
@@ -164,7 +164,7 @@ void CBaseTrigger::CounterUse( CBaseEntity *pActivator, CBaseEntity *pCaller, US
 	const bool fTellActivator =
 		( m_hActivator != nullptr ) &&
 		m_hActivator->IsPlayer() &&
-		!FBitSet( pev->spawnflags, SPAWNFLAG_NOMESSAGE );
+		!GetSpawnFlags().Any( SPAWNFLAG_NOMESSAGE );
 
 	if( m_cTriggersLeft != 0 )
 	{

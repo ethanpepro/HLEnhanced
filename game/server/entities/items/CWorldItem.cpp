@@ -45,7 +45,7 @@ void CWorldItem::Spawn( void )
 	{
 		pEntity->pev->target = pev->target;
 		pEntity->pev->targetname = pev->targetname;
-		pEntity->pev->spawnflags = pev->spawnflags;
+		pEntity->GetSpawnFlags() = GetSpawnFlags();
 	}
 
 	UTIL_RemoveNow( this );

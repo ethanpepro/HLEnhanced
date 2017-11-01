@@ -25,7 +25,7 @@ void CSprite::Spawn( void )
 	SetModel( GetModelName() );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( GetModelIndex() ) - 1;
-	if( HasTargetname() && !( pev->spawnflags & SF_SPRITE_STARTON ) )
+	if( HasTargetname() && !GetSpawnFlags().Any( SF_SPRITE_STARTON ) )
 		TurnOff();
 	else
 		TurnOn();
@@ -102,7 +102,7 @@ void CSprite::Animate( float frames )
 	SetFrame( GetFrame() + frames );
 	if( GetFrame() > m_maxFrame )
 	{
-		if( pev->spawnflags & SF_SPRITE_ONCE )
+		if( GetSpawnFlags().Any( SF_SPRITE_ONCE ) )
 		{
 			TurnOff();
 		}
@@ -140,7 +140,7 @@ void CSprite::TurnOff( void )
 void CSprite::TurnOn( void )
 {
 	GetEffects().ClearAll();
-	if( ( GetFrameRate() && m_maxFrame > 1.0 ) || ( pev->spawnflags & SF_SPRITE_ONCE ) )
+	if( ( GetFrameRate() && m_maxFrame > 1.0 ) || GetSpawnFlags().Any( SF_SPRITE_ONCE ) )
 	{
 		SetThink( &CSprite::AnimateThink );
 		SetNextThink( gpGlobals->time );

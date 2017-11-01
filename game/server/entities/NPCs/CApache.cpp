@@ -74,7 +74,7 @@ void CApache :: Spawn( void )
 
 	InitBoneControllers();
 
-	if (pev->spawnflags & SF_WAITFORTRIGGER)
+	if ( GetSpawnFlags().Any( SF_WAITFORTRIGGER ) )
 	{
 		SetUse( &CApache::StartupUse );
 	}
@@ -143,7 +143,7 @@ void CApache::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	SetHealth( 0 );
 	SetTakeDamageMode( DAMAGE_NO );
 
-	if (pev->spawnflags & SF_NOWRECKAGE)
+	if ( GetSpawnFlags().Any( SF_NOWRECKAGE ) )
 	{
 		m_flNextRocket = gpGlobals->time + 4.0;
 	}
@@ -289,7 +289,7 @@ void CApache :: DyingThink( void )
 
 		RadiusDamage( GetAbsOrigin(), this, this, 300, EntityClassifications().GetNoneId(), DMG_BLAST );
 
-		if (/*!(pev->spawnflags & SF_NOWRECKAGE) && */GetFlags().Any( FL_ONGROUND ) )
+		if (/*!GetSpawnFlags().Any( SF_NOWRECKAGE ) && */GetFlags().Any( FL_ONGROUND ) )
 		{
 			CBaseEntity *pWreckage = Create( "cycler_wreckage", GetAbsOrigin(), GetAbsAngles() );
 			// pWreckage->SetModel( GetModelName() );

@@ -47,7 +47,7 @@ void CMomentaryDoor::Spawn( void )
 	m_vecPosition2 = m_vecPosition1 + ( GetMoveDir() * ( fabs( GetMoveDir().x * ( GetBounds().x - 2 ) ) + fabs( GetMoveDir().y * ( GetBounds().y - 2 ) ) + fabs( GetMoveDir().z * ( GetBounds().z - 2 ) ) - m_flLip ) );
 	ASSERTSZ( m_vecPosition1 != m_vecPosition2, "door start/end positions are equal" );
 
-	if( FBitSet( pev->spawnflags, SF_DOOR_START_OPEN ) )
+	if( GetSpawnFlags().Any( SF_DOOR_START_OPEN ) )
 	{	// swap pos1 and pos2, put door at pos2
 		SetAbsOrigin( m_vecPosition2 );
 		m_vecPosition2 = m_vecPosition1;

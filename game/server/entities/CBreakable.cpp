@@ -142,7 +142,7 @@ void CBreakable::Spawn( void )
 {
     Precache( );    
 
-	if ( FBitSet( pev->spawnflags, SF_BREAK_TRIGGER_ONLY ) )
+	if ( GetSpawnFlags().Any( SF_BREAK_TRIGGER_ONLY ) )
 		SetTakeDamageMode( DAMAGE_NO );
 	else
 		SetTakeDamageMode( DAMAGE_YES );
@@ -165,7 +165,7 @@ void CBreakable::Spawn( void )
 	SetModel( GetModelName() );//set size and link into world.
 
 	SetTouch( &CBreakable::BreakTouch );
-	if ( FBitSet( pev->spawnflags, SF_BREAK_TRIGGER_ONLY ) )		// Only break on trigger
+	if ( GetSpawnFlags().Any( SF_BREAK_TRIGGER_ONLY ) )		// Only break on trigger
 		SetTouch( NULL );
 
 	// Flag unbreakable glass as "worldbrush" so it will block ALL tracelines
@@ -437,7 +437,7 @@ void CBreakable::BreakTouch( CBaseEntity *pOther )
         return;
 	}
 
-	if ( FBitSet ( pev->spawnflags, SF_BREAK_TOUCH ) )
+	if ( GetSpawnFlags().Any( SF_BREAK_TOUCH ) )
 	{// can be broken when run into 
 		flDamage = pevToucher->velocity.Length() * 0.01;
 
@@ -451,7 +451,7 @@ void CBreakable::BreakTouch( CBaseEntity *pOther )
 		}
 	}
 
-	if ( FBitSet ( pev->spawnflags, SF_BREAK_PRESSURE ) && pevToucher->absmin.z >= GetRelMax().z - 2 )
+	if ( GetSpawnFlags().Any( SF_BREAK_PRESSURE ) && pevToucher->absmin.z >= GetRelMax().z - 2 )
 	{// can be broken when stood upon
 		
 		// play creaking sound here.
@@ -542,7 +542,7 @@ void CBreakable::OnTakeDamage( const CTakeDamageInfo& info )
 		
 		// if a client hit the breakable with a crowbar, and breakable is crowbar-sensitive, break it now.
 		if ( newInfo.GetAttacker()->GetFlags().Any( FL_CLIENT ) &&
-				 FBitSet ( pev->spawnflags, SF_BREAK_CROWBAR ) && ( newInfo.GetDamageTypes() & DMG_CLUB))
+			 GetSpawnFlags().Any( SF_BREAK_CROWBAR ) && ( newInfo.GetDamageTypes() & DMG_CLUB))
 			newInfo.GetMutableDamage() = GetHealth();
 	}
 	else

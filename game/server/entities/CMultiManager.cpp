@@ -141,7 +141,7 @@ CMultiManager *CMultiManager::Clone( void )
 	memcpy( pMulti->pev, pev, sizeof( *pev ) );
 	pMulti->pev->pContainingEntity = pEdict;
 
-	pMulti->pev->spawnflags |= SF_MULTIMAN_CLONE;
+	pMulti->GetSpawnFlags() |= SF_MULTIMAN_CLONE;
 	pMulti->m_cTargets = m_cTargets;
 	memcpy( pMulti->m_iTargetName, m_iTargetName, sizeof( m_iTargetName ) );
 	memcpy( pMulti->m_flTargetDelay, m_flTargetDelay, sizeof( m_flTargetDelay ) );
