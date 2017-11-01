@@ -46,12 +46,12 @@ void CSprite::Precache( void )
 
 	// Reset attachment after save/restore
 	if( pev->aiment )
-		SetAttachment( pev->aiment, pev->body );
+		SetAttachment( pev->aiment, GetBody() );
 	else
 	{
 		// Clear attachment
 		SetSkin( 0 );
-		pev->body = 0;
+		SetBody( 0 );
 	}
 }
 

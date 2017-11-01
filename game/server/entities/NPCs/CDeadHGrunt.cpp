@@ -50,28 +50,28 @@ void CDeadHGrunt::Spawn( void )
 	SetHealth( 8 );
 
 	// map old bodies onto new bodies
-	switch( pev->body )
+	switch( GetBody() )
 	{
 	case 0: // Grunt with Gun
-		pev->body = 0;
+		SetBody( 0 );
 		SetSkin( 0 );
 		SetBodygroup( HEAD_GROUP, HEAD_GRUNT );
 		SetBodygroup( GUN_GROUP, GUN_MP5 );
 		break;
 	case 1: // Commander with Gun
-		pev->body = 0;
+		SetBody( 0 );
 		SetSkin( 0 );
 		SetBodygroup( HEAD_GROUP, HEAD_COMMANDER );
 		SetBodygroup( GUN_GROUP, GUN_MP5 );
 		break;
 	case 2: // Grunt no Gun
-		pev->body = 0;
+		SetBody( 0 );
 		SetSkin( 0 );
 		SetBodygroup( HEAD_GROUP, HEAD_GRUNT );
 		SetBodygroup( GUN_GROUP, GUN_NONE );
 		break;
 	case 3: // Commander no Gun
-		pev->body = 0;
+		SetBody( 0 );
 		SetSkin( 0 );
 		SetBodygroup( HEAD_GROUP, HEAD_COMMANDER );
 		SetBodygroup( GUN_GROUP, GUN_NONE );

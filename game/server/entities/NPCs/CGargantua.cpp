@@ -913,9 +913,9 @@ void CGargantua::RunTask( const Task_t* pTask )
 				
 				int bodyPart = 0;
 				if ( parts > 1 )
-					bodyPart = RANDOM_LONG( 0, pev->body-1 );
+					bodyPart = RANDOM_LONG( 0, GetBody() -1 );
 
-				pGib->pev->body = bodyPart;
+				pGib->SetBody( bodyPart );
 				pGib->m_bloodColor = BLOOD_COLOR_YELLOW;
 				pGib->m_material = matNone;
 				pGib->SetAbsOrigin( GetAbsOrigin() );

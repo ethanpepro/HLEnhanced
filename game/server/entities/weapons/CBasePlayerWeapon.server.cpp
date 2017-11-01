@@ -316,7 +316,7 @@ void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int body )
 
 	MESSAGE_BEGIN( MSG_ONE, SVC_WEAPONANIM, NULL, m_pPlayer );
 	WRITE_BYTE( iAnim );						// sequence number
-	WRITE_BYTE( pev->body );					// weaponmodel bodygroup.
+	WRITE_BYTE( GetBody() );					// weaponmodel bodygroup.
 	MESSAGE_END();
 }
 

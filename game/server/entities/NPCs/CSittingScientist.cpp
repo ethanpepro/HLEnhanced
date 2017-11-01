@@ -52,12 +52,12 @@ void CSittingScientist::Spawn()
 
 	GetSpawnFlags().AddFlags( SF_MONSTER_PREDISASTER ); // predisaster only!
 
-	if( pev->body == -1 )
+	if( GetBody() == -1 )
 	{// -1 chooses a random head
-		pev->body = RANDOM_LONG( 0, NUM_SCIENTIST_HEADS - 1 );// pick a head, any head
+		SetBody( RANDOM_LONG( 0, NUM_SCIENTIST_HEADS - 1 ) );// pick a head, any head
 	}
 	// Luther is black, make his hands black
-	if( pev->body == HEAD_LUTHER )
+	if( GetBody() == HEAD_LUTHER )
 		SetSkin( 1 );
 
 	m_baseSequence = LookupSequence( "sitlookleft" );

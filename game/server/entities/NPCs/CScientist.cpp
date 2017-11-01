@@ -561,16 +561,17 @@ void CScientist :: HandleAnimEvent( AnimEvent_t& event )
 	case SCIENTIST_AE_HEAL:		// Heal my target (if within range)
 		Heal();
 		break;
+		//TODO: these are obsoleted by SetBodygroup - Solokiller
 	case SCIENTIST_AE_NEEDLEON:
 		{
-		int oldBody = pev->body;
-		pev->body = (oldBody % NUM_SCIENTIST_HEADS) + NUM_SCIENTIST_HEADS * 1;
+		int oldBody = GetBody();
+		SetBody( (oldBody % NUM_SCIENTIST_HEADS) + NUM_SCIENTIST_HEADS * 1 );
 		}
 		break;
 	case SCIENTIST_AE_NEEDLEOFF:
 		{
-		int oldBody = pev->body;
-		pev->body = (oldBody % NUM_SCIENTIST_HEADS) + NUM_SCIENTIST_HEADS * 0;
+		int oldBody = GetBody();
+		SetBody( (oldBody % NUM_SCIENTIST_HEADS) + NUM_SCIENTIST_HEADS * 0 );
 		}
 		break;
 
@@ -604,13 +605,13 @@ void CScientist :: Spawn( void )
 	// White hands
 	SetSkin( 0 );
 
-	if ( pev->body == -1 )
+	if ( GetBody() == -1 )
 	{// -1 chooses a random head
-		pev->body = RANDOM_LONG(0, NUM_SCIENTIST_HEADS-1);// pick a head, any head
+		SetBody( RANDOM_LONG(0, NUM_SCIENTIST_HEADS-1) );// pick a head, any head
 	}
 
 	// Luther is black, make his hands black
-	if ( pev->body == HEAD_LUTHER )
+	if ( GetBody() == HEAD_LUTHER )
 		SetSkin( 1 );
 	
 	MonsterInit();
@@ -673,7 +674,7 @@ void CScientist :: TalkInit()
 	m_szGrp[TLK_MORTAL] =	"SC_MORTAL";
 
 	// get voice for head
-	switch (pev->body % 3)
+	switch ( GetBody() % 3 )
 	{
 	default:
 	case HEAD_GLASSES:	m_voicePitch = 105; break;	//glasses

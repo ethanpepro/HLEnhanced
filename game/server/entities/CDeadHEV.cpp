@@ -19,7 +19,7 @@ void CDeadHEV::Spawn( void )
 	GetEffects().ClearAll();
 	SetYawSpeed( 8 );
 	pev->sequence = 0;
-	pev->body = 1;
+	SetBody( 1 );
 	m_bloodColor = BLOOD_COLOR_RED;
 
 	pev->sequence = LookupSequence( m_szPoses[ m_iPose ] );

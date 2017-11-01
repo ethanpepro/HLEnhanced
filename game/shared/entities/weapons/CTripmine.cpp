@@ -37,7 +37,7 @@ void CTripmine::Spawn( )
 	Precache( );
 	SetModel( "models/v_tripmine.mdl");
 	SetFrame( 0 );
-	pev->body = 3;
+	SetBody( 3 );
 	pev->sequence = TRIPMINE_GROUND;
 	// ResetSequenceInfo( );
 	SetFrameRate( 0 );

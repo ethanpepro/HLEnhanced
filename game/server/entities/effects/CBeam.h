@@ -61,7 +61,7 @@ public:
 
 	inline void SetTexture( int spriteIndex ) { SetModelIndex( spriteIndex ); }
 	inline void SetWidth( int width ) { SetScale( width ); }
-	inline void SetNoise( int amplitude ) { pev->body = amplitude; }
+	inline void SetNoise( int amplitude ) { SetBody( amplitude ); }
 	inline void SetColor( int r, int g, int b ) { SetRenderColor( Vector( r, g, b ) ); }
 	inline void SetBrightness( int brightness ) { SetRenderAmount( brightness ); }
 	inline void SetScrollRate( int speed ) { SetAnimTime( speed ); }
@@ -78,7 +78,7 @@ public:
 
 	inline int  GetTexture( void ) { return GetModelIndex(); }
 	inline int  GetWidth( void ) { return GetScale(); }
-	inline int  GetNoise( void ) { return pev->body; }
+	inline int  GetNoise( void ) { return GetBody(); }
 	//TODO: this method is completely wrong, don't uncomment without fixing! - Solokiller
 	// inline void GetColor( int r, int g, int b ) { SetRenderColor( Vector( r, g, b ) ); }
 	inline int  GetBrightness( void ) { return GetRenderAmount(); }

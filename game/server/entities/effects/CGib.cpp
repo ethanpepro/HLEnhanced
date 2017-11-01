@@ -327,7 +327,7 @@ void CGib::SpawnStickyGibs( CBaseEntity* pVictim, Vector vecOrigin, int cGibs )
 	for( i = 0; i < cGibs; i++ )
 	{
 		auto pGib = CGib::GibCreate( "models/stickygib.mdl" );
-		pGib->pev->body = RANDOM_LONG( 0, 2 );
+		pGib->SetBody( RANDOM_LONG( 0, 2 ) );
 
 		if( pVictim )
 		{

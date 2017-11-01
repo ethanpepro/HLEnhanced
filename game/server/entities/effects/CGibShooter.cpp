@@ -36,7 +36,7 @@ void CGibShooter::Spawn( void )
 	}
 
 	SetMovedir( this );
-	pev->body = MODEL_FRAMES( m_iGibModelIndex );
+	SetBody( MODEL_FRAMES( m_iGibModelIndex ) );
 }
 
 void CGibShooter::Precache( void )
@@ -145,12 +145,12 @@ CGib *CGibShooter::CreateGib( void )
 	auto pGib = CGib::GibCreate( "models/hgibs.mdl" );
 	pGib->m_bloodColor = BLOOD_COLOR_RED;
 
-	if( pev->body <= 1 )
+	if( GetBody() <= 1 )
 	{
 		ALERT( at_aiconsole, "GibShooter Body is <= 1!\n" );
 	}
 
-	pGib->pev->body = RANDOM_LONG( 1, pev->body - 1 );// avoid throwing random amounts of the 0th gib. (skull).
+	pGib->SetBody( RANDOM_LONG( 1, GetBody() - 1 ) );// avoid throwing random amounts of the 0th gib. (skull).
 
 	return pGib;
 }

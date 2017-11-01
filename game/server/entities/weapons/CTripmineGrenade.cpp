@@ -47,7 +47,7 @@ void CTripmineGrenade::Spawn()
 
 	SetModel( "models/v_tripmine.mdl" );
 	SetFrame( 0 );
-	pev->body = 3;
+	SetBody( 3 );
 	pev->sequence = TRIPMINE_WORLD;
 	ResetSequenceInfo();
 	SetFrameRate( 0 );
