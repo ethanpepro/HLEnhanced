@@ -60,9 +60,9 @@ void CTriggerPush::Touch( CBaseEntity *pOther )
 		{	// Push field, transfer to base velocity
 			Vector vecPush = ( GetSpeed() * GetMoveDir() );
 			if( pOther->GetFlags().Any( FL_BASEVELOCITY ) )
-				vecPush = vecPush + pOther->pev->basevelocity;
+				vecPush = vecPush + pOther->GetBaseVelocity();
 
-			pOther->pev->basevelocity = vecPush;
+			pOther->SetBaseVelocity( vecPush );
 
 			pOther->GetFlags() |= FL_BASEVELOCITY;
 			//			ALERT( at_console, "Vel %f, base %f\n", pevToucher->velocity.z, pevToucher->basevelocity.z );

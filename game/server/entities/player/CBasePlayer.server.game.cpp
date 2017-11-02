@@ -193,7 +193,7 @@ void CBasePlayer::Jump()
 		if( pGround->GetFlags().Any( FL_CONVEYOR ) )
 		{
 			//Note: basevelocity is set by the physics code. It accounts for conveyors. - Solokiller
-			SetAbsVelocity( GetAbsVelocity() + pev->basevelocity );
+			SetAbsVelocity( GetAbsVelocity() + GetBaseVelocity() );
 		}
 	}
 }

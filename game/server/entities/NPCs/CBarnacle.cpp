@@ -252,7 +252,7 @@ void CBarnacle :: BarnacleThink ( void )
 
 				pTouchEnt->SetMoveType( MOVETYPE_FLY );
 				pTouchEnt->SetAbsVelocity( g_vecZero );
-				pTouchEnt->pev->basevelocity = g_vecZero;
+				pTouchEnt->SetBaseVelocity( g_vecZero );
 				Vector vecOrigin = pTouchEnt->GetAbsOrigin();
 				vecOrigin.x = GetAbsOrigin().x;
 				vecOrigin.y = GetAbsOrigin().y;
