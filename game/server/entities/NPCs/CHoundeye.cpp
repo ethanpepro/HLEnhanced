@@ -763,9 +763,6 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 	}
 }
 
-//=========================================================
-// PrescheduleThink
-//=========================================================
 void CHoundeye::PrescheduleThink ( void )
 {
 	// if the hound is mad and is running, make hunt noises.

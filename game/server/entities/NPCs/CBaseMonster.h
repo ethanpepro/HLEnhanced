@@ -421,8 +421,10 @@ public:
 
 		bool BBoxFlat() const;
 
-		// PrescheduleThink 
-		virtual void PrescheduleThink( void ) { return; };
+		/**
+		*	@brief this function runs after conditions are collected and before scheduling code is run
+		*/
+		virtual void PrescheduleThink() {}
 
 		bool GetEnemy();
 		void MakeDamageBloodDecal ( int cCount, float flNoise, TraceResult *ptr, const Vector &vecDir );

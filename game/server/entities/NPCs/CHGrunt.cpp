@@ -182,10 +182,6 @@ void CHGrunt :: JustSpoke( void )
 	m_iSentence = HGRUNT_SENT_NONE;
 }
 
-//=========================================================
-// PrescheduleThink - this function runs after conditions
-// are collected and before scheduling code is run.
-//=========================================================
 void CHGrunt :: PrescheduleThink ( void )
 {
 	if ( InSquad() && m_hEnemy != NULL )

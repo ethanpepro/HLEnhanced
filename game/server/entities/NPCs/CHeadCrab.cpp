@@ -325,9 +325,6 @@ void CHeadCrab :: LeapTouch ( CBaseEntity *pOther )
 	SetTouch( NULL );
 }
 
-//=========================================================
-// PrescheduleThink
-//=========================================================
 void CHeadCrab :: PrescheduleThink ( void )
 {
 	// make the crab coo a little bit in combat state

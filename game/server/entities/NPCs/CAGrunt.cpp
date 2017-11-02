@@ -201,9 +201,6 @@ bool CAGrunt::ShouldSpeak()
 	return true;
 }
 
-//=========================================================
-// PrescheduleThink 
-//=========================================================
 void CAGrunt :: PrescheduleThink ( void )
 {
 	if ( ShouldSpeak() )
