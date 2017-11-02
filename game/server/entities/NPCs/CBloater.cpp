@@ -26,10 +26,6 @@
 
 LINK_ENTITY_TO_CLASS( monster_bloater, CBloater );
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CBloater::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );

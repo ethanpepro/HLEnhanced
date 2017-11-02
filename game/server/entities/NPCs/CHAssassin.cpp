@@ -67,11 +67,6 @@ int CHAssassin :: ISoundMask ( void)
 			bits_SOUND_PLAYER;
 }
 
-
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CHAssassin::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::HUMAN_MILITARY );

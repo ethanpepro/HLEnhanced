@@ -112,10 +112,6 @@ const char *CHeadCrab::pBiteSounds[] =
 	"headcrab/hc_headbite.wav",
 };
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CHeadCrab::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_PREY );

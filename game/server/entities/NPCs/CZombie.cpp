@@ -68,10 +68,6 @@ const char *CZombie::pPainSounds[] =
 	"zombie/zo_pain2.wav",
 };
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CZombie::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );

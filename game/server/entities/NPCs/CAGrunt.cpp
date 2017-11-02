@@ -273,10 +273,6 @@ void CAGrunt :: PainSound ( void )
 	EMIT_SOUND ( this, CHAN_VOICE, pPainSounds[RANDOM_LONG(0,ARRAYSIZE(pPainSounds)-1)], 1.0, ATTN_NORM );
 }
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CAGrunt::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MILITARY );

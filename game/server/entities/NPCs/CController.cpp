@@ -73,11 +73,6 @@ const char *CController::pDeathSounds[] =
 	"controller/con_die2.wav",
 };
 
-
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CController::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MILITARY );

@@ -88,10 +88,6 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_tentacle, CTentacle );
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CTentacle::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );

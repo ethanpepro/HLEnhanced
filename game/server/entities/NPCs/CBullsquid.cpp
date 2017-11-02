@@ -211,10 +211,6 @@ int CBullsquid :: ISoundMask ( void )
 			bits_SOUND_PLAYER;
 }
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CBullsquid::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_PREDATOR );

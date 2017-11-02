@@ -546,10 +546,6 @@ void CHGrunt :: CheckAmmo ( void )
 	}
 }
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CHGrunt::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::HUMAN_MILITARY );

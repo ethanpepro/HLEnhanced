@@ -466,11 +466,6 @@ void CGargantua :: PrescheduleThink( void )
 	EyeUpdate();
 }
 
-
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CGargantua::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );

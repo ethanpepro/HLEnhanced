@@ -508,10 +508,6 @@ void CScientist :: RunTask( const Task_t* pTask )
 	}
 }
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CScientist::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::HUMAN_PASSIVE );

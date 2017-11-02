@@ -37,10 +37,6 @@ int CRoach :: ISoundMask ( void )
 	return	bits_SOUND_CARCASS | bits_SOUND_MEAT;
 }
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CRoach::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::INSECT );

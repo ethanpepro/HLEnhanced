@@ -182,10 +182,6 @@ int CBarney :: ISoundMask ( void)
 			bits_SOUND_PLAYER;
 }
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CBarney::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::PLAYER_ALLY );

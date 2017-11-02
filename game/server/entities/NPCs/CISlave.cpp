@@ -67,10 +67,6 @@ END_DATADESC()
 LINK_ENTITY_TO_CLASS( monster_alien_slave, CISlave );
 LINK_ENTITY_TO_CLASS( monster_vortigaunt, CISlave );
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CISlave::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MILITARY );

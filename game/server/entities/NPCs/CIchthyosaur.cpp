@@ -233,10 +233,6 @@ BEGIN_SCHEDULES(CIchthyosaur)
 	slTwitchDie,
 END_SCHEDULES()
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CIchthyosaur::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );

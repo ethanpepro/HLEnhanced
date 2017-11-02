@@ -31,10 +31,6 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_gman, CGMan );
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CGMan::GetClassification()
 {
 	return EntityClassifications().GetNoneId();

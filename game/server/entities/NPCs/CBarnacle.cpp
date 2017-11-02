@@ -38,10 +38,6 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_barnacle, CBarnacle );
 
-//=========================================================
-// Classify - indicates this monster's place in the 
-// relationship table.
-//=========================================================
 EntityClassification_t CBarnacle::GetClassification()
 {
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );
