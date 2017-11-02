@@ -363,9 +363,9 @@ void CLeech::UpdateMotion( void )
 	Vector vecAVelocity = GetAngularVelocity();	
 
 	if ( !m_fPathBlocked )
-		vecAVelocity.y = pev->ideal_yaw;
+		vecAVelocity.y = GetIdealYaw();
 	else
-		vecAVelocity.y = pev->ideal_yaw * m_obstacle;
+		vecAVelocity.y = GetIdealYaw() * m_obstacle;
 
 	if ( vecAVelocity.y > 150 )
 		m_IdealActivity = ACT_TURN_LEFT;
@@ -580,7 +580,7 @@ void CLeech::SwimThink( void )
 		SetSpeed( UTIL_Approach( -(LEECH_SWIM_SPEED*0.5), GetSpeed(), LEECH_SWIM_DECEL * LEECH_FRAMETIME * m_obstacle ) );
 		SetAbsVelocity( gpGlobals->v_forward * GetSpeed() );
 	}
-	pev->ideal_yaw = m_flTurning + targetYaw;
+	SetIdealYaw( m_flTurning + targetYaw );
 	UpdateMotion();
 }
 

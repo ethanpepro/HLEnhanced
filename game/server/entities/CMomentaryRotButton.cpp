@@ -89,9 +89,9 @@ void CMomentaryRotButton::KeyValue( KeyValueData *pkvd )
 // current, not future position.
 void CMomentaryRotButton::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	pev->ideal_yaw = CBaseToggle::AxisDelta( GetSpawnFlags().Get(), GetAbsAngles(), m_start ) / m_flMoveDistance;
+	SetIdealYaw( CBaseToggle::AxisDelta( GetSpawnFlags().Get(), GetAbsAngles(), m_start ) / m_flMoveDistance );
 
-	UpdateAllButtons( pev->ideal_yaw, 1 );
+	UpdateAllButtons( GetIdealYaw(), 1 );
 
 	// Calculate destination angle and use it to predict value, this prevents sending target in wrong direction on retriggering
 	Vector dest = GetAbsAngles() + GetAngularVelocity() * ( GetNextThink() - GetLastThink() );

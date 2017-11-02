@@ -88,7 +88,7 @@ void CCycler :: Spawn( )
 	GetEffects().ClearAll();
 	SetHealth( 80000 );// no cycler should die
 	SetYawSpeed( 5 );
-	pev->ideal_yaw		= GetAbsAngles().y;
+	SetIdealYaw( GetAbsAngles().y );
 	ChangeYaw( 360 );
 	
 	m_flFrameRate		= 75;

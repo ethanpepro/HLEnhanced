@@ -1939,7 +1939,7 @@ void CBaseMonster :: MonsterInit ( void )
 	// Set fields common to all monsters
 	GetEffects().ClearAll();
 	SetTakeDamageMode( DAMAGE_AIM );
-	pev->ideal_yaw		= GetAbsAngles().y;
+	SetIdealYaw( GetAbsAngles().y );
 	SetMaxHealth( GetHealth() );
 	SetDeadFlag( DEAD_NO );
 	m_IdealMonsterState	= MONSTERSTATE_IDLE;// Assume monster will be idle, until proven otherwise
@@ -2397,18 +2397,18 @@ void CBaseMonster :: MakeIdealYaw( Vector vecTarget )
 		vecProjection.x = -vecTarget.y;
 		vecProjection.y = vecTarget.x;
 
-		pev->ideal_yaw = UTIL_VecToYaw( vecProjection - GetAbsOrigin() );
+		SetIdealYaw( UTIL_VecToYaw( vecProjection - GetAbsOrigin() ) );
 	}
 	else if ( m_movementActivity == ACT_STRAFE_RIGHT )
 	{
 		vecProjection.x = vecTarget.y;
 		vecProjection.y = vecTarget.x;
 
-		pev->ideal_yaw = UTIL_VecToYaw( vecProjection - GetAbsOrigin() );
+		SetIdealYaw( UTIL_VecToYaw( vecProjection - GetAbsOrigin() ) );
 	}
 	else
 	{
-		pev->ideal_yaw = UTIL_VecToYaw ( vecTarget - GetAbsOrigin() );
+		SetIdealYaw( UTIL_VecToYaw ( vecTarget - GetAbsOrigin() ) );
 	}
 }
 
@@ -2424,13 +2424,13 @@ float CBaseMonster::FlYawDiff() const
 
 	flCurrentYaw = UTIL_AngleMod( GetAbsAngles().y );
 
-	if ( flCurrentYaw == pev->ideal_yaw )
+	if ( flCurrentYaw == GetIdealYaw() )
 	{
 		return 0;
 	}
 
 
-	return UTIL_AngleDiff( pev->ideal_yaw, flCurrentYaw );
+	return UTIL_AngleDiff( GetIdealYaw(), flCurrentYaw );
 }
 
 
@@ -2442,7 +2442,7 @@ float CBaseMonster::ChangeYaw ( int yawSpeed )
 	float		ideal, current, move, speed;
 
 	current = UTIL_AngleMod( GetAbsAngles().y );
-	ideal = pev->ideal_yaw;
+	ideal = GetIdealYaw();
 	if (current != ideal)
 	{
 		speed = (float)yawSpeed * gpGlobals->frametime * 10;
@@ -2477,7 +2477,7 @@ float CBaseMonster::ChangeYaw ( int yawSpeed )
 		// turn head in desired direction only if they have a turnable head
 		if (m_afCapability & bits_CAP_TURN_HEAD)
 		{
-			float yaw = pev->ideal_yaw - GetAbsAngles().y;
+			float yaw = GetIdealYaw() - GetAbsAngles().y;
 			if (yaw > 180) yaw -= 360;
 			if (yaw < -180) yaw += 360;
 			// yaw *= 0.8;

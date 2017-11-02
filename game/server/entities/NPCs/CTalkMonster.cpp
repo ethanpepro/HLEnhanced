@@ -419,11 +419,11 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 
 			if (yaw < 0)
 			{
-				pev->ideal_yaw = min( yaw + 45, 0.0f ) + GetAbsAngles().y;
+				SetIdealYaw( min( yaw + 45, 0.0f ) + GetAbsAngles().y );
 			}
 			else
 			{
-				pev->ideal_yaw = max( yaw - 45, 0.0f ) + GetAbsAngles().y;
+				SetIdealYaw( max( yaw - 45, 0.0f ) + GetAbsAngles().y );
 			}
 		}
 		TaskComplete();
@@ -454,7 +454,7 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 	case TASK_MOVE_AWAY_PATH:
 		{
 			Vector dir = GetAbsAngles();
-			dir.y = pev->ideal_yaw + 180;
+			dir.y = GetIdealYaw() + 180;
 			Vector move;
 
 			UTIL_MakeVectorsPrivate( dir, &move, nullptr, nullptr );

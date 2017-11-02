@@ -129,7 +129,7 @@ void CTentacle :: Spawn( )
 
 	SetYawSpeed( 18 );
 	m_flInitialYaw = GetAbsAngles().y;
-	pev->ideal_yaw = m_flInitialYaw;
+	SetIdealYaw( m_flInitialYaw );
 
 	g_fFlySound = false;
 	g_fSquirmSound = false;
@@ -313,7 +313,7 @@ void CTentacle :: Cycle( void )
 		Vector vecAngles = GetAbsAngles();
 		vecAngles.y = m_flInitialYaw;
 		SetAbsAngles( vecAngles );
-		pev->ideal_yaw = m_flInitialYaw;	
+		SetIdealYaw( m_flInitialYaw );
 		ClearConditions( IgnoreConditions() );
 		MonsterThink( );
 		m_iGoalAnim = TENTACLE_ANIM_Pit_Idle;
@@ -400,7 +400,7 @@ void CTentacle :: Cycle( void )
 		if (dy > m_flMaxYaw)
 			dy = m_flMaxYaw;
 	}
-	pev->ideal_yaw = m_flInitialYaw + dy;
+	SetIdealYaw( m_flInitialYaw + dy );
 
 	if (m_fSequenceFinished)
 	{
@@ -653,7 +653,7 @@ void CTentacle :: DieThink( void )
 			dy = 0;
 			break;
 		}
-		pev->ideal_yaw = m_flInitialYaw + dy;
+		SetIdealYaw( m_flInitialYaw + dy );
 	}
 }
 

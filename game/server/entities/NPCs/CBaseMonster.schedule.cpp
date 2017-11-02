@@ -329,7 +329,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 				pTarget = m_hEnemy;
 			if ( pTarget )
 			{
-				pev->ideal_yaw = UTIL_VecToYaw( pTarget->GetAbsOrigin() - GetAbsOrigin() );
+				SetIdealYaw( UTIL_VecToYaw( pTarget->GetAbsOrigin() - GetAbsOrigin() ) );
 				ChangeYaw( GetYawSpeed() );
 			}
 			if ( m_fSequenceFinished )
@@ -578,7 +578,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			float flCurrentYaw;
 			
 			flCurrentYaw = UTIL_AngleMod( GetAbsAngles().y );
-			pev->ideal_yaw = UTIL_AngleMod( flCurrentYaw - pTask->flData );
+			SetIdealYaw( UTIL_AngleMod( flCurrentYaw - pTask->flData ) );
 			SetTurnActivity();
 			break;
 		}
@@ -587,7 +587,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			float flCurrentYaw;
 			
 			flCurrentYaw = UTIL_AngleMod( GetAbsAngles().y );
-			pev->ideal_yaw = UTIL_AngleMod( flCurrentYaw + pTask->flData );
+			SetIdealYaw( UTIL_AngleMod( flCurrentYaw + pTask->flData ) );
 			SetTurnActivity();
 			break;
 		}
@@ -816,7 +816,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 		}
 	case TASK_FACE_HINTNODE:
 		{
-			pev->ideal_yaw = WorldGraph.m_pNodes[ m_iHintNode ].m_flHintYaw;
+			SetIdealYaw( WorldGraph.m_pNodes[ m_iHintNode ].m_flHintYaw );
 			SetTurnActivity();
 			break;
 		}
@@ -1291,7 +1291,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 		{
 			if ( m_hTargetEnt != NULL )
 			{
-				pev->ideal_yaw = UTIL_AngleMod( m_hTargetEnt->GetAbsAngles().y );
+				SetIdealYaw( UTIL_AngleMod( m_hTargetEnt->GetAbsAngles().y ) );
 			}
 
 			TaskComplete();

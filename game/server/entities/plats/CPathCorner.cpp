@@ -72,6 +72,6 @@ void CPathCorner::Touch( CBaseEntity *pOther )
 	}
 
 	// Turn towards the next stop in the path.
-	pOther->pev->ideal_yaw = UTIL_VecToYaw( pOther->m_hGoalEnt->GetAbsOrigin() - pOther->GetAbsOrigin() );
+	pOther->SetIdealYaw( UTIL_VecToYaw( pOther->m_hGoalEnt->GetAbsOrigin() - pOther->GetAbsOrigin() ) );
 }
 #endif

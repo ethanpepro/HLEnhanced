@@ -114,7 +114,7 @@ void CFuncMortarField :: FieldUse( CBaseEntity *pActivator, CBaseEntity *pCaller
 				pController = UTIL_FindEntityByTargetname( NULL, STRING(m_iszXController));
 				if (pController != NULL)
 				{
-					vecStart.x = GetRelMin().x + pController->pev->ideal_yaw * ( GetBounds().x);
+					vecStart.x = GetRelMin().x + pController->GetIdealYaw() * ( GetBounds().x);
 				}
 			}
 			if (!FStringNull(m_iszYController))
@@ -122,7 +122,7 @@ void CFuncMortarField :: FieldUse( CBaseEntity *pActivator, CBaseEntity *pCaller
 				pController = UTIL_FindEntityByTargetname( NULL, STRING(m_iszYController));
 				if (pController != NULL)
 				{
-					vecStart.y = GetRelMin().y + pController->pev->ideal_yaw * ( GetBounds().y);
+					vecStart.y = GetRelMin().y + pController->GetIdealYaw() * ( GetBounds().y);
 				}
 			}
 		}

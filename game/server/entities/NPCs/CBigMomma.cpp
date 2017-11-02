@@ -695,7 +695,7 @@ void CBigMomma::StartTask( const Task_t* pTask )
 		break;
 
 	case TASK_NODE_YAW:
-		pev->ideal_yaw = GetNodeYaw();
+		SetIdealYaw( GetNodeYaw() );
 		TaskComplete();
 		break;
 
