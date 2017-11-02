@@ -78,8 +78,8 @@ void CFlockingFlyer::IdleThink( void )
 
 void CFlockingFlyer::BoidAdvanceFrame()
 {
-	float flapspeed = ( GetSpeed() - pev->armorvalue ) / AFLOCK_ACCELERATE;
-	pev->armorvalue = pev->armorvalue * .8 + GetSpeed() * .2;
+	float flapspeed = ( GetSpeed() - GetArmorAmount() ) / AFLOCK_ACCELERATE;
+	SetArmorAmount( GetArmorAmount() * .8 + GetSpeed() * .2 );
 
 	if( flapspeed < 0 ) flapspeed = -flapspeed;
 	if( flapspeed < 0.25 ) flapspeed = 0.25;

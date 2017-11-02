@@ -31,14 +31,15 @@ bool CItemBattery::MyTouch( CBasePlayer *pPlayer )
 		return false;
 	}
 
-	if( ( pPlayer->pev->armorvalue < MAX_NORMAL_BATTERY ) &&
+	if( ( pPlayer->GetArmorAmount() < MAX_NORMAL_BATTERY ) &&
 		( pPlayer->GetWeapons().Any( 1 << WEAPON_SUIT ) ) )
 	{
 		int pct;
 		char szcharge[ 64 ];
 
-		pPlayer->pev->armorvalue += gSkillData.GetBatteryCapacity();
-		pPlayer->pev->armorvalue = min( pPlayer->pev->armorvalue, static_cast<float>( MAX_NORMAL_BATTERY ) );
+		//TODO: make configurable - Solokiller
+		pPlayer->SetArmorAmount( pPlayer->GetArmorAmount() + gSkillData.GetBatteryCapacity() );
+		pPlayer->SetArmorAmount( min( pPlayer->GetArmorAmount(), static_cast<float>( MAX_NORMAL_BATTERY ) ) );
 
 		EMIT_SOUND( pPlayer, CHAN_ITEM, "items/gunpickup2.wav", 1, ATTN_NORM );
 
@@ -49,7 +50,7 @@ bool CItemBattery::MyTouch( CBasePlayer *pPlayer )
 
 		// Suit reports new power level
 		// For some reason this wasn't working in release build -- round it.
-		pct = ( int ) ( ( float ) ( pPlayer->pev->armorvalue * 100.0 ) * ( 1.0 / MAX_NORMAL_BATTERY ) + 0.5 );
+		pct = ( int ) ( ( float ) ( pPlayer->GetArmorAmount() * 100.0 ) * ( 1.0 / MAX_NORMAL_BATTERY ) + 0.5 );
 		pct = ( pct / 5 );
 		if( pct > 0 )
 			pct--;

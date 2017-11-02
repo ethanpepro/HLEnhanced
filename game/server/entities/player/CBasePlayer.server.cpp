@@ -132,7 +132,7 @@ void CBasePlayer::Spawn()
 {
 	SetClassname( "player" );
 	SetHealth( 100 );
-	pev->armorvalue		= 0;
+	SetArmorAmount( 0 );
 	SetTakeDamageMode( DAMAGE_AIM );
 	SetSolidType( SOLID_SLIDEBOX );
 	SetMoveType( MOVETYPE_WALK );
@@ -691,7 +691,7 @@ bool CBasePlayer::BarnacleVictimGrabbed( CBaseEntity* pBarnacle )
 //=========================================================
 void CBasePlayer::BarnacleVictimBitten( CBaseEntity* pBarnacle )
 {
-	TakeDamage( pBarnacle, pBarnacle, GetHealth() + pev->armorvalue, DMG_SLASH | DMG_ALWAYSGIB );
+	TakeDamage( pBarnacle, pBarnacle, GetHealth() + GetArmorAmount(), DMG_SLASH | DMG_ALWAYSGIB );
 }
 
 //=========================================================
@@ -790,7 +790,7 @@ void CBasePlayer::UpdateStatusBar()
 				if ( g_pGameRules->PlayerRelationship( this, pEntity ) == GR_TEAMMATE )
 				{
 					newSBarState[ SBAR_ID_TARGETHEALTH ] = 100 * (pEntity->GetHealth() / pEntity->GetMaxHealth() );
-					newSBarState[ SBAR_ID_TARGETARMOR ] = pEntity->pev->armorvalue; //No need to get it % based since 100 it's the max. TODO unless you're a modder - Solokiller
+					newSBarState[ SBAR_ID_TARGETARMOR ] = pEntity->GetArmorAmount(); //No need to get it % based since 100 it's the max. TODO unless you're a modder - Solokiller
 				}
 
 				m_flStatusBarDisappearDelay = gpGlobals->time + 1.0;

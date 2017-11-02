@@ -161,14 +161,14 @@ void CBasePlayer::UpdateClientData()
 	}
 
 
-	if( pev->armorvalue != m_iClientBattery )
+	if( GetArmorAmount() != m_iClientBattery )
 	{
-		m_iClientBattery = pev->armorvalue;
+		m_iClientBattery = GetArmorAmount();
 
 		ASSERT( gmsgBattery > 0 );
 		// send "health" update message
 		MESSAGE_BEGIN( MSG_ONE, gmsgBattery, NULL, this );
-			WRITE_SHORT( ( int ) pev->armorvalue );
+			WRITE_SHORT( ( int ) GetArmorAmount() );
 		MESSAGE_END();
 	}
 

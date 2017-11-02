@@ -141,13 +141,14 @@ void CRecharge::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE use
 
 
 	// charge the player
-	if (m_hActivator->pev->armorvalue < 100)
+	//TODO: constant for this is used by battery, make configurable - Solokiller
+	if (m_hActivator->GetArmorAmount() < 100)
 	{
 		m_iJuice--;
-		m_hActivator->pev->armorvalue += 1;
+		m_hActivator->SetArmorAmount( m_hActivator->GetArmorAmount() + 1 );
 
-		if (m_hActivator->pev->armorvalue > 100)
-			m_hActivator->pev->armorvalue = 100;
+		if (m_hActivator->GetArmorAmount() > 100)
+			m_hActivator->SetArmorAmount( 100 );
 	}
 
 	// govern the rate of charge
