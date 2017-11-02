@@ -148,6 +148,10 @@ public:
 	CBaseEntity	*Kick( void );
 	Schedule_t	*GetSchedule( void ) override;
 	Schedule_t  *GetScheduleOfType( int Type ) override;
+
+	/**
+	*	@brief make sure we're not taking it in the helmet
+	*/
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 

@@ -794,9 +794,6 @@ bool CBaseMonster::FInViewCone( const Vector& vecOrigin ) const
 }
 
 /*
-//=========================================================
-// TraceAttack
-//=========================================================
 void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	Vector vecOrigin = ptr->vecEndPos - vecDir * 4;
@@ -818,9 +815,6 @@ void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trac
 }
 */
 
-//=========================================================
-// TraceAttack
-//=========================================================
 void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	CTakeDamageInfo newInfo = info;

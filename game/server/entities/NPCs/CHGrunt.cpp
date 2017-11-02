@@ -411,10 +411,6 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 	return m_fThrowGrenade;
 }
 
-
-//=========================================================
-// TraceAttack - make sure we're not taking it in the helmet
-//=========================================================
 void CHGrunt::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	CTakeDamageInfo newInfo = info;

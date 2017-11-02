@@ -227,9 +227,6 @@ Vector CBasePlayer::GetGunPosition()
 	return GetAbsOrigin() + GetViewOffset();
 }
 
-//=========================================================
-// TraceAttack
-//=========================================================
 void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	CTakeDamageInfo newInfo = info;

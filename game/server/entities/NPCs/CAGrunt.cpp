@@ -111,9 +111,6 @@ int CAGrunt :: ISoundMask ( void )
 			bits_SOUND_DANGER;
 }
 
-//=========================================================
-// TraceAttack
-//=========================================================
 void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	CTakeDamageInfo newInfo = info;

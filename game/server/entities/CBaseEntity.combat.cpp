@@ -19,11 +19,6 @@
 #include "cbase.h"
 #include "Weapons.h"
 
-/*
-================
-TraceAttack
-================
-*/
 void CBaseEntity::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
 {
 	Vector vecOrigin = ptr->vecEndPos - vecDir * 4;
