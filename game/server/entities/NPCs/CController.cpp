@@ -781,7 +781,7 @@ void CController :: RunAI( void )
 		{
 			m_pBall[i] = CSprite::SpriteCreate( "sprites/xspark4.spr", GetAbsOrigin(), true );
 			m_pBall[i]->SetTransparency( kRenderGlow, 255, 255, 255, 255, kRenderFxNoDissipation );
-			m_pBall[i]->SetAttachment( edict(), (i + 3) );
+			m_pBall[i]->SetAttachment( this, (i + 3) );
 			m_pBall[i]->SetScale( 1.0 );
 		}
 

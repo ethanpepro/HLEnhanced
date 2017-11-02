@@ -529,7 +529,7 @@ void CGargantua :: Spawn()
 
 	m_pEyeGlow = CSprite::SpriteCreate( GARG_EYE_SPRITE_NAME, GetAbsOrigin(), false );
 	m_pEyeGlow->SetTransparency( kRenderGlow, 255, 255, 255, 0, kRenderFxNoDissipation );
-	m_pEyeGlow->SetAttachment( edict(), 1 );
+	m_pEyeGlow->SetAttachment( this, 1 );
 	EyeOff();
 	m_seeTime = gpGlobals->time + 5;
 	m_flameTime = gpGlobals->time + 2;

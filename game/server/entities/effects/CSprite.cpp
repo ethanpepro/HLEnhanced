@@ -45,8 +45,8 @@ void CSprite::Precache( void )
 	PRECACHE_MODEL( GetModelName() );
 
 	// Reset attachment after save/restore
-	if( pev->aiment )
-		SetAttachment( pev->aiment, GetBody() );
+	if( auto pAimEnt = GetAimEntity() )
+		SetAttachment( pAimEnt, GetBody() );
 	else
 	{
 		// Clear attachment

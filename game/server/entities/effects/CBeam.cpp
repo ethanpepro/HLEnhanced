@@ -24,8 +24,9 @@ void CBeam::Precache( void )
 {
 	if( GetOwner() )
 		SetStartEntity( GetOwner()->entindex() );
-	if( pev->aiment )
-		SetEndEntity( ENTINDEX( pev->aiment ) );
+
+	if( auto pAimEnt = GetAimEntity() )
+		SetEndEntity( pAimEnt->entindex() );
 }
 
 void CBeam::TriggerTouch( CBaseEntity *pOther )
@@ -50,7 +51,7 @@ void CBeam::SetStartEntity( int entityIndex )
 void CBeam::SetEndEntity( int entityIndex )
 {
 	SetSkin( ( entityIndex & 0x0FFF ) | ( ( GetSkin() & 0xF000 ) << 12 ) );
-	pev->aiment = g_engfuncs.pfnPEntityOfEntIndex( entityIndex );
+	SetAimEntity( UTIL_EntityByIndex( entityIndex ) );
 }
 
 // These don't take attachments into account

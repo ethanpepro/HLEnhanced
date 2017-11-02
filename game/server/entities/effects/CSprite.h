@@ -42,13 +42,13 @@ public:
 	void Expand( float scaleSpeed, float fadeSpeed );
 	void SpriteInit( const char *pSpriteName, const Vector &origin );
 
-	inline void SetAttachment( edict_t *pEntity, int attachment )
+	inline void SetAttachment( CBaseEntity* pEntity, int attachment )
 	{
 		if( pEntity )
 		{
-			SetSkin( ENTINDEX( pEntity ) );
+			SetSkin( pEntity->entindex() );
 			SetBody( attachment );
-			pev->aiment = pEntity;
+			SetAimEntity( pEntity );
 			SetMoveType( MOVETYPE_FOLLOW );
 		}
 	}

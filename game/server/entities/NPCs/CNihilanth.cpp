@@ -545,7 +545,7 @@ void CNihilanth :: NextActivity( )
 			if (m_pBall)
 			{
 				m_pBall->SetTransparency( kRenderTransAdd, 255, 255, 255, 255, kRenderFxNoDissipation );
-				m_pBall->SetAttachment( edict(), 1 );
+				m_pBall->SetAttachment( this, 1 );
 				m_pBall->SetScale( 4.0 );
 				m_pBall->SetFrameRate( 10.0 );
 				m_pBall->TurnOn( );

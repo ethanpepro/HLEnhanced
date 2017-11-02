@@ -338,7 +338,7 @@ void CBasePlayerWeapon::AttachToPlayer( CBasePlayer *pPlayer )
 {
 	SetMoveType( MOVETYPE_FOLLOW );
 	SetSolidType( SOLID_NOT );
-	pev->aiment = pPlayer->edict();
+	SetAimEntity( pPlayer );
 	GetEffects() = EF_NODRAW; // ??
 	SetModelIndex( 0 );// server won't send down to clients if modelindex == 0
 	SetModelName( iStringNull );

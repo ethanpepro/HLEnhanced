@@ -1577,6 +1577,31 @@ public:
 	}
 
 	/**
+	*	@return The entity that this entity is following, if any
+	*/
+	CBaseEntity* GetAimEntity() const
+	{
+		return pev->aiment ? Instance( pev->aiment ) : nullptr;
+	}
+
+	/**
+	*	@copydoc GetAimEntity() const
+	*/
+	CBaseEntity* GetAimEntity()
+	{
+		return pev->aiment ? Instance( pev->aiment ) : nullptr;
+	}
+
+	/**
+	*	Sets this entity's aim entity
+	*	@param pAimEntity Aim entity to set. Can be null
+	*/
+	void SetAimEntity( CBaseEntity* pAimEntity )
+	{
+		pev->aiment = pAimEntity ? pAimEntity->edict() : nullptr;
+	}
+
+	/**
 	*	@return This entity's owner
 	*/
 	CBaseEntity* GetOwner() const

@@ -69,7 +69,7 @@ void CShockBeam::Spawn()
 
 	m_pSprite->SetScale( 0.35 );
 
-	m_pSprite->SetAttachment( edict(), 0 );
+	m_pSprite->SetAttachment( this, 0 );
 
 	m_pBeam1 = CBeam::BeamCreate( "sprites/lgtning.spr", 60 );
 
