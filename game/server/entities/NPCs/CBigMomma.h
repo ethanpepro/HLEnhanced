@@ -38,7 +38,7 @@
 #define BIG_AE_EARLY_TARGET			50		// Fire target early
 
 // User defined conditions
-#define bits_COND_NODE_SEQUENCE			( bits_COND_SPECIAL1 )		// pev->netname contains the name of a sequence to play
+#define bits_COND_NODE_SEQUENCE			( bits_COND_SPECIAL1 )		// GetNetname() contains the name of a sequence to play
 
 // Attack distance constants
 #define	BIG_ATTACKDIST		170
@@ -68,7 +68,7 @@ public:
 	Schedule_t	*GetScheduleOfType( int Type ) override;
 	void		TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 
-	void NodeStart( int iszNextNode );
+	void NodeStart( string_t iszNextNode );
 	void NodeReach( void );
 	bool ShouldGoToNode() const;
 
@@ -77,14 +77,14 @@ public:
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 	void LayHeadcrab( void );
 
-	int GetNodeSequence( void )
+	string_t GetNodeSequence( void )
 	{
 		CBaseEntity *pTarget = m_hTargetEnt;
 		if( pTarget )
 		{
-			return pTarget->pev->netname;	// netname holds node sequence
+			return MAKE_STRING( pTarget->GetNetName() );	// netname holds node sequence
 		}
-		return 0;
+		return iStringNull;
 	}
 
 

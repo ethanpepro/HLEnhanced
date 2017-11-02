@@ -76,7 +76,7 @@ void CBaseDelay::SUB_UseTargets( CBaseEntity *pActivator, USE_TYPE useType, floa
 		pTemp->GetButtons().Set( ( int ) useType );
 		pTemp->m_iszKillTarget = m_iszKillTarget;
 		pTemp->m_flDelay = 0; // prevent "recursion"
-		pTemp->pev->target = pev->target;
+		pTemp->SetTarget( GetTarget() );
 
 		// HACKHACK
 		// This wasn't in the release build of Half-Life.  We should have moved m_hActivator into this class

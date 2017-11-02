@@ -28,13 +28,14 @@ public:
 	void Spawn( void ) override;
 	void KeyValue( KeyValueData* pkvd ) override;
 
-	// name in pev->targetname
-	// next in pev->target
+	//TODO: use actual vars - Solokiller
+	// name in GetTargetname()
+	// next in GetTarget()
 	// radius in GetScale()
 	// health in GetHealth()
 	// Reach target in GetMessage()
 	// Reach delay in GetSpeed()
-	// Reach sequence in pev->netname
+	// Reach sequence in GetNetname()
 
 	int		m_preSequence;
 };

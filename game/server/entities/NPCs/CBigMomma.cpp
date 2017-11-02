@@ -436,9 +436,9 @@ void CBigMomma::Activate( void )
 }
 
 
-void CBigMomma::NodeStart( int iszNextNode )
+void CBigMomma::NodeStart( string_t iszNextNode )
 {
-	pev->netname = iszNextNode;
+	SetNetName( iszNextNode );
 
 	CBaseEntity* pTarget = nullptr;
 
@@ -481,7 +481,7 @@ void CBigMomma::NodeReach( void )
 	}
 	Forget( bits_MEMORY_FIRED_NODE );
 
-	pev->netname = pTarget->pev->target;
+	SetNetName( pTarget->GetTarget() );
 	if ( pTarget->GetHealth() == 0 )
 		Remember( bits_MEMORY_ADVANCE_NODE );	// Move on if no health at this node
 }
@@ -648,9 +648,9 @@ void CBigMomma::StartTask( const Task_t* pTask )
 			if ( !HasMemory( bits_MEMORY_ADVANCE_NODE ) )
 			{
 				if ( pTarget )
-					pev->netname = m_hTargetEnt->pev->target;
+					SetNetName( m_hTargetEnt->GetTarget() );
 			}
-			NodeStart( pev->netname );
+			NodeStart( MAKE_STRING( GetNetName() ) );
 			TaskComplete();
 			ALERT( at_aiconsole, "BM: Found node %s\n", GetNetName() );
 		}
@@ -671,7 +671,7 @@ void CBigMomma::StartTask( const Task_t* pTask )
 	case TASK_PLAY_NODE_PRESEQUENCE:
 	case TASK_PLAY_NODE_SEQUENCE:
 		{
-			int sequence;
+			string_t sequence;
 			if ( pTask->iTask == TASK_PLAY_NODE_SEQUENCE )
 				sequence = GetNodeSequence();
 			else

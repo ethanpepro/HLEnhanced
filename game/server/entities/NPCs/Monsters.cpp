@@ -1337,10 +1337,10 @@ float CBaseMonster::OpenDoorAndWait( CBaseEntity* pDoor )
 	{
 		//ALERT(at_aiconsole, "unlocked! ");
 		pDoor->Use(this, this, USE_ON, 0.0);
-		//ALERT(at_aiconsole, "pevDoor->nextthink = %d ms\n", (int)(1000*pevDoor->nextthink));
-		//ALERT(at_aiconsole, "pevDoor->ltime = %d ms\n", (int)(1000*pevDoor->ltime));
-		//ALERT(at_aiconsole, "pev-> nextthink = %d ms\n", (int)(1000*GetNextThink()));
-		//ALERT(at_aiconsole, "ltime = %d ms\n", (int)(1000*GetLastThink()));
+		//ALERT( at_aiconsole, "pDoor->GetNextThink() = %d ms\n", ( int ) ( 1000 * pDoor->GetNextThink() ) );
+		//ALERT( at_aiconsole, "pDoor->GetLastThink() = %d ms\n", ( int ) ( 1000 * pDoor->GetLastThink() ) );
+		//ALERT( at_aiconsole, "this-> GetNextThink() = %d ms\n", ( int ) ( 1000 * GetNextThink() ) );
+		//ALERT( at_aiconsole, "this-> GetLastThink() = %d ms\n", ( int ) ( 1000 * GetLastThink() ) );
 		flTravelTime = pDoor->GetNextThink() - pDoor->GetLastThink();
 		//ALERT(at_aiconsole, "Waiting %d ms\n", (int)(1000*flTravelTime));
 		if( pDoor->HasTargetname() )

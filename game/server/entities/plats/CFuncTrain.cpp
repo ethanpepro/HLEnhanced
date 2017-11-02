@@ -91,7 +91,7 @@ void CFuncTrain::Activate( void )
 			pTarg = CWorld::GetInstance();
 		}
 
-		pev->target = MAKE_STRING( pTarg->GetTarget() );
+		SetTarget( pTarg->GetTarget() );
 		//TODO change to EHANDLE - Solokiller
 		m_pevCurrentTarget = pTarg->pev;// keep track of this since path corners change our target for us.
 
@@ -109,14 +109,12 @@ void CFuncTrain::Activate( void )
 
 void CFuncTrain::OverrideReset( void )
 {
-	CBaseEntity	*pTarg;
-
 	// Are we moving?
 	if( GetAbsVelocity() != g_vecZero && GetNextThink() != 0 )
 	{
-		pev->target = MAKE_STRING( GetMessage() );
+		SetTarget( GetMessage() );
 		// now find our next target
-		pTarg = GetNextTarget();
+		CBaseEntity* pTarg = GetNextTarget();
 		if( !pTarg )
 		{
 			SetNextThink( 0 );
@@ -153,7 +151,7 @@ void CFuncTrain::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE us
 		GetSpawnFlags() |= SF_TRAIN_WAIT_RETRIGGER;
 		// Pop back to last target if it's available
 		if( pev->enemy )
-			pev->target = pev->enemy->v.targetname;
+			SetTarget( pev->enemy->v.targetname );
 		SetNextThink( 0 );
 		SetAbsVelocity( g_vecZero );
 		if( pev->noiseStopMoving )
@@ -236,9 +234,9 @@ void CFuncTrain::Next( void )
 	}
 
 	// Save last target in case we need to find it again
-	SetMessage( pev->target );
+	SetMessage( GetTarget() );
 
-	pev->target = pTarg->pev->target;
+	SetTarget( pTarg->GetTarget() );
 	m_flWait = pTarg->GetDelay();
 
 	if( m_pevCurrentTarget && m_pevCurrentTarget->speed != 0 )

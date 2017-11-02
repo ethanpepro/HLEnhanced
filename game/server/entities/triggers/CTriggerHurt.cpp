@@ -216,6 +216,6 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 
 		SUB_UseTargets( pOther, USE_TOGGLE, 0 );
 		if( GetSpawnFlags().Any( SF_TRIGGER_HURT_TARGETONCE ) )
-			pev->target = 0;
+			ClearTarget();
 	}
 }

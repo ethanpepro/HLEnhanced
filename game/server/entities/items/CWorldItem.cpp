@@ -43,8 +43,8 @@ void CWorldItem::Spawn( void )
 	}
 	else
 	{
-		pEntity->pev->target = pev->target;
-		pEntity->pev->targetname = pev->targetname;
+		pEntity->SetTarget( GetTarget() );
+		pEntity->SetTargetname( GetTargetname() );
 		pEntity->GetSpawnFlags() = GetSpawnFlags();
 	}
 
