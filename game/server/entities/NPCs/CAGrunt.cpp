@@ -128,10 +128,10 @@ void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceRe
 	if ( ptr->iHitgroup == 10 && (newInfo.GetDamageTypes() & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
 	{
 		// hit armor
-		if ( pev->dmgtime != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
+		if ( GetDamageTime() != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
 		{
 			UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT( 1, 2) );
-			pev->dmgtime = gpGlobals->time;
+			SetDamageTime( gpGlobals->time );
 		}
 
 		if ( RANDOM_LONG( 0, 1 ) == 0 )

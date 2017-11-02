@@ -103,7 +103,7 @@ public:
 	inline void	BeamDamageInstant( TraceResult *ptr, float damage )
 	{
 		SetDamage( damage );
-		pev->dmgtime = gpGlobals->time - 1;
+		SetDamageTime( gpGlobals->time - 1 );
 		BeamDamage( ptr );
 	}
 };

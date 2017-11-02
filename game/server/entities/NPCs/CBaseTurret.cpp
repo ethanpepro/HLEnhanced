@@ -692,7 +692,7 @@ void CBaseTurret ::	TurretDeath( void )
 
 	EyeOff( );
 
-	if (pev->dmgtime + RANDOM_FLOAT( 0, 2 ) > gpGlobals->time)
+	if ( GetDamageTime() + RANDOM_FLOAT( 0, 2 ) > gpGlobals->time)
 	{
 		// lots of smoke
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
@@ -706,7 +706,7 @@ void CBaseTurret ::	TurretDeath( void )
 		MESSAGE_END();
 	}
 	
-	if (pev->dmgtime + RANDOM_FLOAT( 0, 5 ) > gpGlobals->time)
+	if( GetDamageTime() + RANDOM_FLOAT( 0, 5 ) > gpGlobals->time)
 	{
 		Vector vecSrc = Vector( RANDOM_FLOAT( GetAbsMin().x, GetAbsMax().x ), RANDOM_FLOAT( GetAbsMin().y, GetAbsMax().y ), 0 );
 		if (m_iOrientation == 0)
@@ -717,7 +717,7 @@ void CBaseTurret ::	TurretDeath( void )
 		UTIL_Sparks( vecSrc );
 	}
 
-	if (m_fSequenceFinished && !MoveTurret( ) && pev->dmgtime + 5 < gpGlobals->time)
+	if (m_fSequenceFinished && !MoveTurret( ) && GetDamageTime() + 5 < gpGlobals->time)
 	{
 		SetFrameRate( 0 );
 		SetThink( NULL );
@@ -733,10 +733,10 @@ void CBaseTurret::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 	if ( ptr->iHitgroup == 10 )
 	{
 		// hit armor
-		if ( pev->dmgtime != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
+		if ( GetDamageTime() != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
 		{
 			UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT( 1, 2) );
-			pev->dmgtime = gpGlobals->time;
+			SetDamageTime( gpGlobals->time );
 		}
 
 		newInfo.GetMutableDamage() = 0.1;// don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated
@@ -765,7 +765,7 @@ void CBaseTurret::OnTakeDamage( const CTakeDamageInfo& info )
 	{
 		SetHealth( 0 );
 		SetTakeDamageMode( DAMAGE_NO );
-		pev->dmgtime = gpGlobals->time;
+		SetDamageTime( gpGlobals->time );
 
 		GetFlags().ClearFlags( FL_MONSTER ); // why are they set in the first place???
 

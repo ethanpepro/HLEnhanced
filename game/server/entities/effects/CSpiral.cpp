@@ -34,7 +34,7 @@ void CSpiral::Spawn( void )
 
 void CSpiral::Think( void )
 {
-	float time = gpGlobals->time - pev->dmgtime;
+	float time = gpGlobals->time - GetDamageTime();
 
 	while( time > SPIRAL_INTERVAL )
 	{
@@ -56,7 +56,7 @@ void CSpiral::Think( void )
 		StreakSplash( position, Vector( 0, 0, 1 ), RANDOM_LONG( 8, 11 ), 20, RANDOM_LONG( 50, 150 ), 400 );
 
 		// Jeez, how many counters should this take ? :)
-		pev->dmgtime += SPIRAL_INTERVAL;
+		SetDamageTime( GetDamageTime() + SPIRAL_INTERVAL );
 		SetHealth( GetHealth() + SPIRAL_INTERVAL );
 		time -= SPIRAL_INTERVAL;
 	}
@@ -74,7 +74,7 @@ CSpiral *CSpiral::Create( const Vector &origin, float height, float radius, floa
 
 	auto pSpiral = static_cast<CSpiral*>( UTIL_CreateNamedEntity( "streak_spiral" ) );
 	pSpiral->Spawn();
-	pSpiral->pev->dmgtime = pSpiral->GetNextThink();
+	pSpiral->SetDamageTime( pSpiral->GetNextThink() );
 	pSpiral->SetAbsOrigin( origin );
 	pSpiral->SetScale( radius );
 	pSpiral->SetDamage( height );

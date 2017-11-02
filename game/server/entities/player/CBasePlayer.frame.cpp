@@ -803,19 +803,19 @@ void CBasePlayer::WaterMove()
 
 	if( GetWaterType() == CONTENTS_LAVA )		// do damage
 	{
-		if( pev->dmgtime < gpGlobals->time )
+		if( GetDamageTime() < gpGlobals->time )
 			TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), 10 * GetWaterLevel(), DMG_BURN );
 	}
 	else if( GetWaterType() == CONTENTS_SLIME )		// do damage
 	{
-		pev->dmgtime = gpGlobals->time + 1;
+		SetDamageTime( gpGlobals->time + 1 );
 		TakeDamage( CWorld::GetInstance(), CWorld::GetInstance(), 4 * GetWaterLevel(), DMG_ACID );
 	}
 
 	if( !GetFlags().Any( FL_INWATER ) )
 	{
 		GetFlags() |= FL_INWATER;
-		pev->dmgtime = 0;
+		SetDamageTime( 0 );
 	}
 }
 

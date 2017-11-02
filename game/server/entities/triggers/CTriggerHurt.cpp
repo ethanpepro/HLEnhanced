@@ -120,7 +120,7 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 	// how much time has passed and whether or not you've touched that player
 	if( g_pGameRules->IsMultiplayer() )
 	{
-		if( pev->dmgtime > gpGlobals->time )
+		if( GetDamageTime() > gpGlobals->time )
 		{
 			if( gpGlobals->time != pev->pain_finished )
 			{// too early to hurt again, and not same frame with a different entity
@@ -158,7 +158,7 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 	}
 	else	// Original code -- single player
 	{
-		if( pev->dmgtime > gpGlobals->time && gpGlobals->time != pev->pain_finished )
+		if( GetDamageTime() > gpGlobals->time && gpGlobals->time != pev->pain_finished )
 		{// too early to hurt again, and not same frame with a different entity
 			return;
 		}
@@ -198,7 +198,7 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 	pev->pain_finished = gpGlobals->time;
 
 	// Apply damage every half second
-	pev->dmgtime = gpGlobals->time + 0.5;// half second delay until this trigger can hurt toucher again
+	SetDamageTime( gpGlobals->time + 0.5 );// half second delay until this trigger can hurt toucher again
 
 
 

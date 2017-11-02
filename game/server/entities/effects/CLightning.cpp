@@ -41,7 +41,7 @@ void CLightning::Spawn( void )
 	SetSolidType( SOLID_NOT );							// Remove model & collisions
 	Precache();
 
-	pev->dmgtime = gpGlobals->time;
+	SetDamageTime( gpGlobals->time );
 
 	if( ServerSide() )
 	{
@@ -409,7 +409,7 @@ void CLightning::ToggleUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_T
 		if( GetDamage() > 0 )
 		{
 			SetNextThink( gpGlobals->time );
-			pev->dmgtime = gpGlobals->time;
+			SetDamageTime( gpGlobals->time );
 		}
 	}
 }

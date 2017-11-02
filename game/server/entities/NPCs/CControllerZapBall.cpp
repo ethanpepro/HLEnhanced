@@ -47,7 +47,7 @@ void CControllerZapBall::Spawn( void )
 	SetTouch( &CControllerZapBall::ExplodeTouch );
 
 	m_hOwner = GetOwner();
-	pev->dmgtime = gpGlobals->time; // keep track of when ball spawned
+	SetDamageTime( gpGlobals->time ); // keep track of when ball spawned
 	SetNextThink( gpGlobals->time + 0.1 );
 }
 
@@ -65,7 +65,7 @@ void CControllerZapBall::AnimateThink( void )
 	//TODO: hardcoded sprite frame count? - Solokiller
 	SetFrame( ( ( int ) GetFrame() + 1 ) % 11 );
 
-	if( gpGlobals->time - pev->dmgtime > 5 || GetAbsVelocity().Length() < 10 )
+	if( gpGlobals->time - GetDamageTime() > 5 || GetAbsVelocity().Length() < 10 )
 	{
 		SetTouch( NULL );
 		UTIL_Remove( this );

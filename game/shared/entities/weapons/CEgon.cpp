@@ -195,7 +195,7 @@ void CEgon::Attack( void )
 			m_flTimeWeaponIdle = UTIL_WeaponTimeBase() + 0.1;
 			pev->fuser1	= UTIL_WeaponTimeBase() + 2;
 
-			pev->dmgtime = gpGlobals->time + GetPulseInterval();
+			SetDamageTime( gpGlobals->time + GetPulseInterval() );
 			m_fireState = FIRE_CHARGE;
 		}
 		break;
@@ -272,7 +272,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 	{
 	case FIRE_NARROW:
 #ifndef CLIENT_DLL
-		if ( pev->dmgtime < gpGlobals->time )
+		if ( GetDamageTime() < gpGlobals->time )
 		{
 			// Narrow mode only does damage to the entity it hits
 			g_MultiDamage.Clear();
@@ -301,15 +301,15 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 				}
 			}
 
-			pev->dmgtime = gpGlobals->time + GetPulseInterval();
+			SetDamageTime( gpGlobals->time + GetPulseInterval() );
 		}
 #endif
-		timedist = ( pev->dmgtime - gpGlobals->time ) / GetPulseInterval();
+		timedist = ( GetDamageTime() - gpGlobals->time ) / GetPulseInterval();
 		break;
 	
 	case FIRE_WIDE:
 #ifndef CLIENT_DLL
-		if ( pev->dmgtime < gpGlobals->time )
+		if ( GetDamageTime() < gpGlobals->time )
 		{
 			// wide mode does damage to the ent, and radius damage
 			g_MultiDamage.Clear();
@@ -347,7 +347,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 				}
 			}
 
-			pev->dmgtime = gpGlobals->time + GetDischargeInterval();
+			SetDamageTime( gpGlobals->time + GetDischargeInterval() );
 			if ( m_shakeTime < gpGlobals->time )
 			{
 				UTIL_ScreenShake( tr.vecEndPos, 5.0, 150.0, 0.75, 250.0 );
@@ -355,7 +355,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 			}
 		}
 #endif
-		timedist = ( pev->dmgtime - gpGlobals->time ) / GetDischargeInterval();
+		timedist = ( GetDamageTime() - gpGlobals->time ) / GetDischargeInterval();
 		break;
 	}
 

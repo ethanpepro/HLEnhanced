@@ -25,7 +25,7 @@ LINK_ENTITY_TO_CLASS( garg_stomp, CStomp );
 void CStomp::Spawn( void )
 {
 	SetNextThink( gpGlobals->time );
-	pev->dmgtime = gpGlobals->time;
+	SetDamageTime( gpGlobals->time );
 
 	SetFrameRate( 30 );
 	SetModelName( GARG_STOMP_SPRITE_NAME );
@@ -65,7 +65,7 @@ void CStomp::Think( void )
 	SetFrameRate( GetFrameRate() + ( gpGlobals->frametime ) * 1500 );
 
 	// Move and spawn trails
-	while( gpGlobals->time - pev->dmgtime > STOMP_INTERVAL )
+	while( gpGlobals->time - GetDamageTime() > STOMP_INTERVAL )
 	{
 		SetAbsOrigin( GetAbsOrigin() + GetMoveDir() * GetSpeed() * STOMP_INTERVAL );
 		for( int i = 0; i < 2; i++ )
@@ -82,7 +82,7 @@ void CStomp::Think( void )
 				pSprite->SetTransparency( kRenderTransAdd, 255, 255, 255, 255, kRenderFxFadeFast );
 			}
 		}
-		pev->dmgtime += STOMP_INTERVAL;
+		SetDamageTime( GetDamageTime() + STOMP_INTERVAL );
 		// Scale has the "life" of this effect
 		SetScale( GetScale() - ( STOMP_INTERVAL * GetSpeed() ) );
 		if( GetScale() <= 0 )

@@ -48,7 +48,7 @@ void CBMortar::Spawn( void )
 	SetSize( Vector( 0, 0, 0 ), Vector( 0, 0, 0 ) );
 
 	m_maxFrame = ( float ) MODEL_FRAMES( GetModelIndex() ) - 1;
-	pev->dmgtime = gpGlobals->time + 0.4;
+	SetDamageTime( gpGlobals->time + 0.4 );
 }
 
 CBMortar *CBMortar::Shoot( CBaseEntity* pOwner, Vector vecStart, Vector vecVelocity )
@@ -111,9 +111,9 @@ void CBMortar::Animate( void )
 {
 	SetNextThink( gpGlobals->time + 0.1 );
 
-	if( gpGlobals->time > pev->dmgtime )
+	if( gpGlobals->time > GetDamageTime() )
 	{
-		pev->dmgtime = gpGlobals->time + 0.2;
+		SetDamageTime( gpGlobals->time + 0.2 );
 		SpriteSpray( GetAbsOrigin(), -GetAbsVelocity().Normalize(), gSpitSprite, 3 );
 	}
 

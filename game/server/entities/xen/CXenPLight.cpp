@@ -53,7 +53,7 @@ void CXenPLight::Touch( CBaseEntity *pOther )
 {
 	if( pOther->IsPlayer() )
 	{
-		pev->dmgtime = gpGlobals->time + XEN_PLANT_HIDE_TIME;
+		SetDamageTime( gpGlobals->time + XEN_PLANT_HIDE_TIME );
 		if( GetActivity() == ACT_IDLE || GetActivity() == ACT_STAND )
 		{
 			SetActivity( ACT_CROUCH );
@@ -77,7 +77,7 @@ void CXenPLight::Think( void )
 		break;
 
 	case ACT_CROUCHIDLE:
-		if( gpGlobals->time > pev->dmgtime )
+		if( gpGlobals->time > GetDamageTime() )
 		{
 			SetActivity( ACT_STAND );
 			LightOn();

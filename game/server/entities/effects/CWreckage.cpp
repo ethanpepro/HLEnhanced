@@ -56,14 +56,14 @@ void CWreckage::Think( void )
 	StudioFrameAdvance();
 	SetNextThink( gpGlobals->time + 0.2 );
 
-	if( pev->dmgtime )
+	if( GetDamageTime() )
 	{
-		if( pev->dmgtime < gpGlobals->time )
+		if( GetDamageTime() < gpGlobals->time )
 		{
 			UTIL_Remove( this );
 			return;
 		}
-		else if( RANDOM_FLOAT( 0, pev->dmgtime - m_flStartTime ) > pev->dmgtime - gpGlobals->time )
+		else if( RANDOM_FLOAT( 0, GetDamageTime() - m_flStartTime ) > GetDamageTime() - gpGlobals->time )
 		{
 			return;
 		}

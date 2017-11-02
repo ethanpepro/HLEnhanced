@@ -86,7 +86,7 @@ void CSentry::OnTakeDamage( const CTakeDamageInfo& info )
 	{
 		SetHealth( 0 );
 		SetTakeDamageMode( DAMAGE_NO );
-		pev->dmgtime = gpGlobals->time;
+		SetDamageTime( gpGlobals->time );
 
 		GetFlags().ClearFlags( FL_MONSTER ); // why are they set in the first place???
 
@@ -143,7 +143,7 @@ void CSentry::SentryDeath( void )
 	Vector vecSrc, vecAng;
 	GetAttachment( 1, vecSrc, vecAng );
 
-	if( pev->dmgtime + RANDOM_FLOAT( 0, 2 ) > gpGlobals->time )
+	if( GetDamageTime() + RANDOM_FLOAT( 0, 2 ) > gpGlobals->time )
 	{
 		// lots of smoke
 		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
@@ -157,12 +157,12 @@ void CSentry::SentryDeath( void )
 		MESSAGE_END();
 	}
 
-	if( pev->dmgtime + RANDOM_FLOAT( 0, 8 ) > gpGlobals->time )
+	if( GetDamageTime() + RANDOM_FLOAT( 0, 8 ) > gpGlobals->time )
 	{
 		UTIL_Sparks( vecSrc );
 	}
 
-	if( m_fSequenceFinished && pev->dmgtime + 5 < gpGlobals->time )
+	if( m_fSequenceFinished && GetDamageTime() + 5 < gpGlobals->time )
 	{
 		SetFrameRate( 0 );
 		SetThink( NULL );

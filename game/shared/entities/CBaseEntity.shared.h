@@ -1564,6 +1564,19 @@ public:
 	}
 
 	/**
+	*	@brief Gets the entity's damage time
+	*/
+	float GetDamageTime() const { return pev->dmgtime; }
+
+	/**
+	*	@see GetDamageTime
+	*/
+	void SetDamageTime( const float flDamageTime )
+	{
+		pev->dmgtime = flDamageTime;
+	}
+
+	/**
 	*	@return This entity's owner
 	*/
 	CBaseEntity* GetOwner() const

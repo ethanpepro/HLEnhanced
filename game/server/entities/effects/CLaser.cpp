@@ -103,7 +103,7 @@ void CLaser::TurnOn( void )
 	GetEffects().ClearFlags( EF_NODRAW );
 	if( m_pSprite )
 		m_pSprite->TurnOn();
-	pev->dmgtime = gpGlobals->time;
+	SetDamageTime( gpGlobals->time );
 	SetNextThink( gpGlobals->time );
 }
 

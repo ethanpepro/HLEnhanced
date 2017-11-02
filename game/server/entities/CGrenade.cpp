@@ -328,12 +328,12 @@ void CGrenade :: TumbleThink( void )
 	StudioFrameAdvance( );
 	SetNextThink( gpGlobals->time + 0.1 );
 
-	if (pev->dmgtime - 1 < gpGlobals->time)
+	if ( GetDamageTime() - 1 < gpGlobals->time)
 	{
-		CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin() + GetAbsVelocity() * (pev->dmgtime - gpGlobals->time), 400, 0.1 );
+		CSoundEnt::InsertSound ( bits_SOUND_DANGER, GetAbsOrigin() + GetAbsVelocity() * ( GetDamageTime() - gpGlobals->time), 400, 0.1 );
 	}
 
-	if (pev->dmgtime <= gpGlobals->time)
+	if ( GetDamageTime() <= gpGlobals->time)
 	{
 		SetThink( &CGrenade::Detonate );
 	}
@@ -407,7 +407,7 @@ CGrenade* CGrenade::ShootTimed( CBaseEntity* pOwner, Vector vecStart, Vector vec
 	// will insert a DANGER sound into the world sound list and delay detonation for one second so that 
 	// the grenade explodes after the exact amount of time specified in the call to ShootTimed(). 
 
-	pGrenade->pev->dmgtime = gpGlobals->time + time;
+	pGrenade->SetDamageTime( gpGlobals->time + time );
 	pGrenade->SetThink( &CGrenade::TumbleThink );
 	pGrenade->SetNextThink( gpGlobals->time + 0.1 );
 	if (time < 0.1)

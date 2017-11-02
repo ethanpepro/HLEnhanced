@@ -70,7 +70,7 @@ public:
 	{
 		SetThink( &CSprite::AnimateUntilDead );
 		SetFrameRate( framerate );
-		pev->dmgtime = gpGlobals->time + ( m_maxFrame / framerate );
+		SetDamageTime( gpGlobals->time + ( m_maxFrame / framerate ) );
 		SetNextThink( gpGlobals->time );
 	}
 

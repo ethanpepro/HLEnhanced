@@ -52,7 +52,7 @@ void CControllerHeadBall::Spawn( void )
 	SetNextThink( gpGlobals->time + 0.1 );
 
 	m_hOwner = GetOwner();
-	pev->dmgtime = gpGlobals->time;
+	SetDamageTime( gpGlobals->time );
 }
 
 void CControllerHeadBall::Precache( void )
@@ -84,7 +84,7 @@ void CControllerHeadBall::HuntThink( void )
 
 	// check world boundaries
 	//TODO: use constants - Solokiller
-	if( gpGlobals->time - pev->dmgtime > 5 || GetRenderAmount() < 64 || m_hEnemy == NULL || m_hOwner == NULL || GetAbsOrigin().x < -4096 || GetAbsOrigin().x > 4096 || GetAbsOrigin().y < -4096 || GetAbsOrigin().y > 4096 || GetAbsOrigin().z < -4096 || GetAbsOrigin().z > 4096 )
+	if( gpGlobals->time - GetDamageTime() > 5 || GetRenderAmount() < 64 || m_hEnemy == NULL || m_hOwner == NULL || GetAbsOrigin().x < -4096 || GetAbsOrigin().x > 4096 || GetAbsOrigin().y < -4096 || GetAbsOrigin().y > 4096 || GetAbsOrigin().z < -4096 || GetAbsOrigin().z > 4096 )
 	{
 		SetTouch( NULL );
 		UTIL_Remove( this );

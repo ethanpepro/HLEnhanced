@@ -285,10 +285,10 @@ void CBigMomma::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceRe
 	{
 		// didn't hit the sack?
 		
-		if ( pev->dmgtime != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
+		if ( GetDamageTime() != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
 		{
 			UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT( 1, 2) );
-			pev->dmgtime = gpGlobals->time;
+			SetDamageTime( gpGlobals->time );
 		}
 
 		newInfo.GetMutableDamage() = 0.1;// don't hurt the monster much, but allow bits_COND_LIGHT_DAMAGE to be generated

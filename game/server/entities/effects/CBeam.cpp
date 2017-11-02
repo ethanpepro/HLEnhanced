@@ -142,7 +142,7 @@ void CBeam::BeamDamage( TraceResult *ptr )
 		if( pHit )
 		{
 			g_MultiDamage.Clear();
-			pHit->TraceAttack( CTakeDamageInfo( this, GetDamage() * ( gpGlobals->time - pev->dmgtime ), DMG_ENERGYBEAM ), ( ptr->vecEndPos - GetAbsOrigin() ).Normalize(), ptr );
+			pHit->TraceAttack( CTakeDamageInfo( this, GetDamage() * ( gpGlobals->time - GetDamageTime() ), DMG_ENERGYBEAM ), ( ptr->vecEndPos - GetAbsOrigin() ).Normalize(), ptr );
 			g_MultiDamage.ApplyMultiDamage( this, this );
 			if( GetSpawnFlags().Any( SF_BEAM_DECALS ) )
 			{
@@ -151,7 +151,7 @@ void CBeam::BeamDamage( TraceResult *ptr )
 			}
 		}
 	}
-	pev->dmgtime = gpGlobals->time;
+	SetDamageTime( gpGlobals->time );
 }
 
 void CBeam::BeamInit( const char *pSpriteName, int width )

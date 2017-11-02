@@ -151,7 +151,7 @@ void CSprite::TurnOn( void )
 
 void CSprite::AnimateUntilDead( void )
 {
-	if( gpGlobals->time > pev->dmgtime )
+	if( gpGlobals->time > GetDamageTime() )
 		UTIL_Remove( this );
 	else
 	{

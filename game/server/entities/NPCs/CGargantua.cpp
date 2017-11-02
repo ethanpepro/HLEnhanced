@@ -624,10 +624,10 @@ void CGargantua::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceR
 
 	if ( newInfo.GetDamageTypes() == 0)
 	{
-		if ( pev->dmgtime != gpGlobals->time || (RANDOM_LONG(0,100) < 20) )
+		if ( GetDamageTime() != gpGlobals->time || (RANDOM_LONG(0,100) < 20) )
 		{
 			UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT(0.5,1.5) );
-			pev->dmgtime = gpGlobals->time;
+			SetDamageTime( gpGlobals->time );
 //			if ( RANDOM_LONG(0,100) < 25 )
 //				EMIT_SOUND_DYN( this, CHAN_BODY, pRicSounds[ RANDOM_LONG(0,ARRAYSIZE(pRicSounds)-1) ], 1.0, ATTN_NORM, 0, PITCH_NORM );
 		}

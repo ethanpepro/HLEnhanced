@@ -126,10 +126,10 @@ void CChangeLevel::ChangeLevelNow( CBaseEntity *pActivator )
 		return;
 
 	// Some people are firing these multiple times in a frame, disable
-	if( gpGlobals->time == pev->dmgtime )
+	if( gpGlobals->time == GetDamageTime() )
 		return;
 
-	pev->dmgtime = gpGlobals->time;
+	SetDamageTime( gpGlobals->time );
 
 
 	CBaseEntity *pPlayer = CBaseEntity::Instance( g_engfuncs.pfnPEntityOfEntIndex( 1 ) );

@@ -297,7 +297,7 @@ void CApache :: DyingThink( void )
 			pWreckage->SetFrame( GetFrame() );
 			pWreckage->pev->sequence = pev->sequence;
 			pWreckage->SetFrameRate( 0 );
-			pWreckage->pev->dmgtime = gpGlobals->time + 5;
+			pWreckage->SetDamageTime( gpGlobals->time + 5 );
 		}
 
 		// gibs
