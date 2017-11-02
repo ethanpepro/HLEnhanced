@@ -122,6 +122,9 @@ public:
 	void Precache( void ) override;
 	void UpdateYawSpeed() override;
 	EntityClassification_t GetClassification() override;
+	/**
+	*	@brief Overidden for human grunts because they hear the DANGER sound that is made by hand grenades and other dangerous items.
+	*/
 	int ISoundMask( void ) override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 	bool FCanCheckAttacks() const override;

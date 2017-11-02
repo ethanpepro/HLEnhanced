@@ -182,11 +182,6 @@ void CISlave :: DeathSound( void )
 	EMIT_SOUND_DYN ( this, CHAN_WEAPON, pDeathSounds[ RANDOM_LONG(0,ARRAYSIZE(pDeathSounds)-1) ], 1.0, ATTN_NORM, 0, m_voicePitch );
 }
 
-
-//=========================================================
-// ISoundMask - returns a bit mask indicating which types
-// of sounds this monster regards. 
-//=========================================================
 int CISlave :: ISoundMask ( void) 
 {
 	return	bits_SOUND_WORLD	|

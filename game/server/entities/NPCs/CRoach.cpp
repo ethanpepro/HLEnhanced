@@ -32,11 +32,6 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_cockroach, CRoach );
 
-//=========================================================
-// ISoundMask - returns a bit mask indicating which types
-// of sounds this monster regards. In the base class implementation,
-// monsters care about all sounds, but no scents.
-//=========================================================
 int CRoach :: ISoundMask ( void )
 {
 	return	bits_SOUND_CARCASS | bits_SOUND_MEAT;

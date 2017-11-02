@@ -73,11 +73,9 @@ void CGMan :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// ISoundMask - generic monster can't hear.
-//=========================================================
 int CGMan :: ISoundMask ( void )
 {
+	//generic monster can't hear.
 	return 0;
 }
 

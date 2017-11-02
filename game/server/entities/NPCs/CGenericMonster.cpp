@@ -67,11 +67,9 @@ void CGenericMonster :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// ISoundMask - generic monster can't hear.
-//=========================================================
 int CGenericMonster :: ISoundMask ( void )
 {
+	//generic monster can't hear.
 	return 0;
 }
 

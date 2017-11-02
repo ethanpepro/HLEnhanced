@@ -390,6 +390,10 @@ public:
 		// Returns the time when the door will be open
 		float	OpenDoorAndWait( CBaseEntity* pDoor );
 
+		/**
+		*	@brief returns a bit mask indicating which types of sounds this monster regards.
+		*	In the base class implementation, monsters care about all sounds, but no scents.
+		*/
 		virtual int ISoundMask( void );
 		virtual CSound* PBestSound ( void );
 		virtual CSound* PBestScent ( void );

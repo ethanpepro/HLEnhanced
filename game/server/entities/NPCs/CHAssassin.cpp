@@ -59,10 +59,6 @@ void CHAssassin :: IdleSound ( void )
 {
 }
 
-//=========================================================
-// ISoundMask - returns a bit mask indicating which types
-// of sounds this monster regards. 
-//=========================================================
 int CHAssassin :: ISoundMask ( void) 
 {
 	return	bits_SOUND_WORLD	|

@@ -171,13 +171,6 @@ void CBarney :: RunTask( const Task_t* pTask )
 	}
 }
 
-
-
-
-//=========================================================
-// ISoundMask - returns a bit mask indicating which types
-// of sounds this monster regards. 
-//=========================================================
 int CBarney :: ISoundMask ( void) 
 {
 	return	bits_SOUND_WORLD	|

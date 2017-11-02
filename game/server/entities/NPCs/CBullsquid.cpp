@@ -205,11 +205,6 @@ bool CBullsquid::FValidateHintType( short sHint ) const
 	return false;
 }
 
-//=========================================================
-// ISoundMask - returns a bit mask indicating which types
-// of sounds this monster regards. In the base class implementation,
-// monsters care about all sounds, but no scents.
-//=========================================================
 int CBullsquid :: ISoundMask ( void )
 {
 	return	bits_SOUND_WORLD	|

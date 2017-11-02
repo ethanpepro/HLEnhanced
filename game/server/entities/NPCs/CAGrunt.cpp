@@ -107,9 +107,6 @@ Relationship CAGrunt::IRelationship ( CBaseEntity *pTarget )
 	return CSquadMonster :: IRelationship( pTarget );
 }
 
-//=========================================================
-// ISoundMask 
-//=========================================================
 int CAGrunt :: ISoundMask ( void )
 {
 	return	bits_SOUND_WORLD	|

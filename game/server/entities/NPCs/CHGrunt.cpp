@@ -141,11 +141,6 @@ void CHGrunt :: GibMonster ( void )
 	CBaseMonster :: GibMonster();
 }
 
-//=========================================================
-// ISoundMask - Overidden for human grunts because they 
-// hear the DANGER sound that is made by hand grenades and
-// other dangerous items.
-//=========================================================
 int CHGrunt :: ISoundMask ( void )
 {
 	return	bits_SOUND_WORLD	|
