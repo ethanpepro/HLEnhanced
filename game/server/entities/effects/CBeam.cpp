@@ -43,7 +43,7 @@ void CBeam::TriggerTouch( CBaseEntity *pOther )
 
 void CBeam::SetStartEntity( int entityIndex )
 {
-	pev->sequence = ( entityIndex & 0x0FFF ) | ( ( pev->sequence & 0xF000 ) << 12 );
+	SetSequence( ( entityIndex & 0x0FFF ) | ( ( GetSequence() & 0xF000 ) << 12 ) );
 	SetOwner( UTIL_EntityByIndex( entityIndex ) );
 }
 
@@ -166,7 +166,7 @@ void CBeam::BeamInit( const char *pSpriteName, int width )
 	SetTexture( PRECACHE_MODEL( pSpriteName ) );
 	SetWidth( width );
 	SetSkin( 0 );
-	pev->sequence = 0;
+	SetSequence( 0 );
 	SetRenderMode( kRenderNormal );
 }
 

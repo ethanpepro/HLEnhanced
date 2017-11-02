@@ -46,7 +46,7 @@ void CWeaponCycler::Spawn()
 void CWeaponCycler::PrimaryAttack()
 {
 
-	SendWeaponAnim( pev->sequence );
+	SendWeaponAnim( GetSequence() );
 
 	m_flNextPrimaryAttack = gpGlobals->time + 0.3;
 }
@@ -55,7 +55,7 @@ void CWeaponCycler::SecondaryAttack( void )
 {
 	float flFrameRate, flGroundSpeed;
 
-	pev->sequence = ( pev->sequence + 1 ) % 8;
+	SetSequence( ( GetSequence() + 1 ) % 8 );
 
 	SetModelIndex( m_iModel );
 	void *pmodel = GET_MODEL_PTR( ENT( pev ) );
@@ -64,10 +64,10 @@ void CWeaponCycler::SecondaryAttack( void )
 
 	if( flFrameRate == 0.0 )
 	{
-		pev->sequence = 0;
+		SetSequence( 0 );
 	}
 
-	SendWeaponAnim( pev->sequence );
+	SendWeaponAnim( GetSequence() );
 
 	m_flNextSecondaryAttack = gpGlobals->time + 0.3;
 }

@@ -432,7 +432,7 @@ void CLightning::BeamUpdateVars( void )
 	pointEnd = UTIL_IsPointEntity( pEnd );
 
 	SetSkin( 0 );
-	pev->sequence = 0;
+	SetSequence( 0 );
 	SetRenderMode( kRenderNormal );
 	GetFlags() |= FL_CUSTOMENTITY;
 	SetModelName( m_iszSpriteName );

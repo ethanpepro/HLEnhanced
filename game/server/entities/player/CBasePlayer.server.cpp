@@ -182,7 +182,7 @@ void CBasePlayer::Spawn()
 
 	SetModel( "models/player.mdl" );
 	g_ulModelIndexPlayer = GetModelIndex();
-	pev->sequence = LookupActivity( ACT_IDLE );
+	SetSequence( LookupActivity( ACT_IDLE ) );
 
 	if( GetFlags().Any( FL_DUCKING ) )
 		SetSize( VEC_DUCK_HULL_MIN, VEC_DUCK_HULL_MAX );

@@ -61,7 +61,7 @@ void CSittingScientist::Spawn()
 		SetSkin( 1 );
 
 	m_baseSequence = LookupSequence( "sitlookleft" );
-	pev->sequence = m_baseSequence + RANDOM_LONG( 0, 4 );
+	SetSequence( m_baseSequence + RANDOM_LONG( 0, 4 ) );
 	ResetSequenceInfo();
 
 	SetThink( &CSittingScientist::SittingThink );
@@ -97,9 +97,9 @@ void CSittingScientist::SittingThink( void )
 			if( yaw < -180 ) yaw += 360;
 
 			if( yaw > 0 )
-				pev->sequence = m_baseSequence + SITTING_ANIM_sitlookleft;
+				SetSequence( m_baseSequence + SITTING_ANIM_sitlookleft );
 			else
-				pev->sequence = m_baseSequence + SITTING_ANIM_sitlookright;
+				SetSequence( m_baseSequence + SITTING_ANIM_sitlookright );
 
 			ResetSequenceInfo();
 			SetFrame( 0 );
@@ -115,12 +115,12 @@ void CSittingScientist::SittingThink( void )
 		{
 			// respond to question
 			IdleRespond();
-			pev->sequence = m_baseSequence + SITTING_ANIM_sitscared;
+			SetSequence( m_baseSequence + SITTING_ANIM_sitscared );
 			m_flResponseDelay = 0;
 		}
 		else if( i < 30 )
 		{
-			pev->sequence = m_baseSequence + SITTING_ANIM_sitting3;
+			SetSequence( m_baseSequence + SITTING_ANIM_sitting3 );
 
 			// turn towards player or nearest friend and speak
 
@@ -132,7 +132,7 @@ void CSittingScientist::SittingThink( void )
 			if( !FIdleSpeak() || !pent )
 			{
 				m_headTurn = RANDOM_LONG( 0, 8 ) * 10 - 40;
-				pev->sequence = m_baseSequence + SITTING_ANIM_sitting3;
+				SetSequence( m_baseSequence + SITTING_ANIM_sitting3 );
 			}
 			else
 			{
@@ -143,16 +143,16 @@ void CSittingScientist::SittingThink( void )
 				if( yaw < -180 ) yaw += 360;
 
 				if( yaw > 0 )
-					pev->sequence = m_baseSequence + SITTING_ANIM_sitlookleft;
+					SetSequence( m_baseSequence + SITTING_ANIM_sitlookleft );
 				else
-					pev->sequence = m_baseSequence + SITTING_ANIM_sitlookright;
+					SetSequence( m_baseSequence + SITTING_ANIM_sitlookright );
 
 				//ALERT(at_console, "sitting speak\n");
 			}
 		}
 		else if( i < 60 )
 		{
-			pev->sequence = m_baseSequence + SITTING_ANIM_sitting3;
+			SetSequence( m_baseSequence + SITTING_ANIM_sitting3 );
 			m_headTurn = RANDOM_LONG( 0, 8 ) * 10 - 40;
 			if( RANDOM_LONG( 0, 99 ) < 5 )
 			{
@@ -162,11 +162,11 @@ void CSittingScientist::SittingThink( void )
 		}
 		else if( i < 80 )
 		{
-			pev->sequence = m_baseSequence + SITTING_ANIM_sitting2;
+			SetSequence( m_baseSequence + SITTING_ANIM_sitting2 );
 		}
 		else if( i < 100 )
 		{
-			pev->sequence = m_baseSequence + SITTING_ANIM_sitscared;
+			SetSequence( m_baseSequence + SITTING_ANIM_sitscared );
 		}
 
 		ResetSequenceInfo();

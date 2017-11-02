@@ -683,7 +683,7 @@ void CBigMomma::StartTask( const Task_t* pTask )
 				sequence = LookupSequence( STRING( sequence ) );
 				if ( sequence != -1 )
 				{
-					pev->sequence = sequence;
+					SetSequence( sequence );
 					SetFrame( 0 );
 					ResetSequenceInfo( );
 					ALERT( at_aiconsole, "BM: Sequence %s\n", STRING(GetNodeSequence()) );

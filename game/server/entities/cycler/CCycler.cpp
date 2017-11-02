@@ -59,13 +59,13 @@ void CCycler::OnTakeDamage( const CTakeDamageInfo& info )
 {
 	if( m_animate )
 	{
-		pev->sequence++;
+		SetSequence( GetSequence() + 1 );
 
 		ResetSequenceInfo();
 
 		if( m_flFrameRate == 0.0 )
 		{
-			pev->sequence = 0;
+			SetSequence( 0 );
 			ResetSequenceInfo();
 		}
 		SetFrame( 0 );
@@ -75,7 +75,7 @@ void CCycler::OnTakeDamage( const CTakeDamageInfo& info )
 		SetFrameRate( 1.0 );
 		StudioFrameAdvance( 0.1 );
 		SetFrameRate( 0 );
-		ALERT( at_console, "sequence: %d, frame %.0f\n", pev->sequence, GetFrame() );
+		ALERT( at_console, "sequence: %d, frame %.0f\n", GetSequence(), GetFrame() );
 	}
 }
 
@@ -98,7 +98,7 @@ void CCycler :: Spawn( )
 
 	ResetSequenceInfo( );
 
-	if (pev->sequence != 0 || GetFrame() != 0)
+	if( GetSequence() != 0 || GetFrame() != 0)
 	{
 		m_animate = 0;
 		SetFrameRate( 0 );

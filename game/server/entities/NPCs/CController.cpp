@@ -625,14 +625,14 @@ void CController :: RunTask ( const Task_t* pTask )
 		{
 			if (HasConditions ( bits_COND_CAN_RANGE_ATTACK1 ))
 			{
-				pev->sequence = LookupActivity( ACT_RANGE_ATTACK1 );
+				SetSequence( LookupActivity( ACT_RANGE_ATTACK1 ) );
 				SetFrame( 0 );
 				ResetSequenceInfo( );
 				m_fInCombat = true;
 			}
 			else if (HasConditions ( bits_COND_CAN_RANGE_ATTACK2 ))
 			{
-				pev->sequence = LookupActivity( ACT_RANGE_ATTACK2 );
+				SetSequence( LookupActivity( ACT_RANGE_ATTACK2 ) );
 				SetFrame( 0 );
 				ResetSequenceInfo( );
 				m_fInCombat = true;
@@ -640,9 +640,9 @@ void CController :: RunTask ( const Task_t* pTask )
 			else
 			{
 				int iFloat = LookupFloat( );
-				if (m_fSequenceFinished || iFloat != pev->sequence)
+				if (m_fSequenceFinished || iFloat != GetSequence() )
 				{
-					pev->sequence = iFloat;
+					SetSequence( iFloat );
 					SetFrame( 0 );
 					ResetSequenceInfo( );
 				}

@@ -34,7 +34,7 @@ void CDeadScientist::Spawn()
 	SetModel( "models/scientist.mdl" );
 
 	GetEffects().ClearAll();
-	pev->sequence = 0;
+	SetSequence( 0 );
 	// Corpses have less health
 	SetHealth( 8 );//gSkillData.GetScientistHealth();
 
@@ -50,8 +50,8 @@ void CDeadScientist::Spawn()
 	else
 		SetSkin( 0 );
 
-	pev->sequence = LookupSequence( m_szPoses[ m_iPose ] );
-	if( pev->sequence == -1 )
+	SetSequence( LookupSequence( m_szPoses[ m_iPose ] ) );
+	if( GetSequence() == -1 )
 	{
 		ALERT( at_console, "Dead scientist with bad pose\n" );
 	}

@@ -146,7 +146,7 @@ void CGMan :: RunTask( const Task_t* pTask )
 			SetBoneController( 0, yaw );
 		}
 		// look at player, but only if playing a "safe" idle animation
-		else if (m_hPlayer != NULL && pev->sequence == 0)
+		else if (m_hPlayer != NULL && GetSequence() == 0)
 		{
 			float yaw = VecToYaw(m_hPlayer->GetAbsOrigin() - GetAbsOrigin()) - GetAbsAngles().y;
 

@@ -79,7 +79,7 @@ void CSatchelCharge :: Spawn( void )
 
 	SetDamage( gSkillData.GetPlrDmgSatchel() );
 	// ResetSequenceInfo( );
-	pev->sequence = 1;
+	SetSequence( 1 );
 }
 
 

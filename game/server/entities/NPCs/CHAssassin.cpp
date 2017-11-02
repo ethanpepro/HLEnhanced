@@ -712,16 +712,16 @@ void CHAssassin :: RunTask ( const Task_t* pTask )
 		{
 			if ( GetAbsVelocity().z > 0)
 			{
-				pev->sequence = LookupSequence( "fly_up" );
+				SetSequence( LookupSequence( "fly_up" ) );
 			}
 			else if (HasConditions ( bits_COND_SEE_ENEMY ))
 			{
-				pev->sequence = LookupSequence( "fly_attack" );
+				SetSequence( LookupSequence( "fly_attack" ) );
 				SetFrame( 0 );
 			}
 			else
 			{
-				pev->sequence = LookupSequence( "fly_down" );
+				SetSequence( LookupSequence( "fly_down" ) );
 				SetFrame( 0 );
 			}
 			

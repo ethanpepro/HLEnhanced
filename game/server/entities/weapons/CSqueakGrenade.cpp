@@ -95,7 +95,7 @@ void CSqueakGrenade::Spawn( void )
 
 	m_flNextBounceSoundTime = gpGlobals->time;// reset each time a snark is spawned.
 
-	pev->sequence = WSQUEAK_RUN;
+	SetSequence( WSQUEAK_RUN );
 	ResetSequenceInfo();
 }
 

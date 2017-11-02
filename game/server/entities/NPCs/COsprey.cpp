@@ -84,7 +84,7 @@ void COsprey :: Spawn( void )
 
 	m_flFieldOfView = 0; // 180 degrees
 
-	pev->sequence = 0;
+	SetSequence( 0 );
 	ResetSequenceInfo( );
 	SetFrame( RANDOM_LONG( 0, 0xFF ) );
 

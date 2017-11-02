@@ -32,11 +32,11 @@ void CDeadBarney::Spawn()
 
 	GetEffects().ClearAll();
 	SetYawSpeed( 8 );
-	pev->sequence = 0;
+	SetSequence( 0 );
 	m_bloodColor = BLOOD_COLOR_RED;
 
-	pev->sequence = LookupSequence( m_szPoses[ m_iPose ] );
-	if( pev->sequence == -1 )
+	SetSequence( LookupSequence( m_szPoses[ m_iPose ] ) );
+	if( GetSequence() == -1 )
 	{
 		ALERT( at_console, "Dead barney with bad pose\n" );
 	}

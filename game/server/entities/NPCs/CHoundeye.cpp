@@ -176,7 +176,7 @@ void CHoundeye :: SetActivity ( Activity NewActivity )
 		// Set to the desired anim, or default anim if the desired is not present
 		if ( iSequence > ACTIVITY_NOT_AVAILABLE )
 		{
-			pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
+			SetSequence( iSequence );	// Set to the reset anim (if it's there)
 			SetFrame( 0 );		// FIX: frame counter shouldn't be reset when its the same activity as before TODO - Solokiller
 			ResetSequenceInfo();
 			UpdateYawSpeed();

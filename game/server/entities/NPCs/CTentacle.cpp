@@ -108,7 +108,7 @@ void CTentacle :: Spawn( )
 	SetMoveType( MOVETYPE_FLY );
 	GetEffects().ClearAll();
 	SetHealth( 75 );
-	pev->sequence		= 0;
+	SetSequence( 0 );
 
 	SetModel( "models/tentacle2.mdl");
 	SetSize( Vector( -32, -32, 0 ), Vector( 32, 32, 64 ) );
@@ -224,7 +224,7 @@ float CTentacle :: MyHeight( )
 
 int CTentacle :: MyLevel( )
 {
-	switch( pev->sequence )
+	switch( GetSequence() )
 	{
 	case TENTACLE_ANIM_Pit_Idle: 
 		return -1;
@@ -292,7 +292,7 @@ int CTentacle :: MyLevel( )
 
 void CTentacle :: Test( void )
 {
-	pev->sequence = TENTACLE_ANIM_Floor_Strike;
+	SetSequence( TENTACLE_ANIM_Floor_Strike );
 	SetFrameRate( 0 );
 	StudioFrameAdvance( );
 	SetNextThink( gpGlobals->time + 0.1 );
@@ -306,7 +306,7 @@ void CTentacle :: Cycle( void )
 	// ALERT( at_console, "%s %.2f %d %d\n", GetTargetname(), GetAbsOrigin().z, m_MonsterState, m_IdealMonsterState );
 	SetNextThink( gpGlobals-> time + 0.1 );
 
-	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), pev->sequence, m_iGoalAnim, m_iDir, GetFrameRate(), GetHealth() );
+	// ALERT( at_console, "%s %d %d %d %f %f\n", GetTargetname(), GetSequence(), m_iGoalAnim, m_iDir, GetFrameRate(), GetHealth() );
 
 	if (m_MonsterState == MONSTERSTATE_SCRIPT || m_IdealMonsterState == MONSTERSTATE_SCRIPT)
 	{
@@ -379,7 +379,7 @@ void CTentacle :: Cycle( void )
 
 	// clip ideal_yaw
 	float dy = m_flSoundYaw;
-	switch( pev->sequence )
+	switch( GetSequence() )
 	{
 	case TENTACLE_ANIM_Floor_Rear:
 	case TENTACLE_ANIM_Floor_Rear_Idle:
@@ -404,11 +404,11 @@ void CTentacle :: Cycle( void )
 
 	if (m_fSequenceFinished)
 	{
-		// ALERT( at_console, "%s done %d %d\n", GetTargetname(), pev->sequence, m_iGoalAnim );
+		// ALERT( at_console, "%s done %d %d\n", GetTargetname(), GetSequence(), m_iGoalAnim );
 		if ( GetHealth() <= 1)
 		{
 			m_iGoalAnim = TENTACLE_ANIM_Pit_Idle;
-			if (pev->sequence == TENTACLE_ANIM_Pit_Idle)
+			if ( GetSequence() == TENTACLE_ANIM_Pit_Idle)
 			{
 				SetHealth( 75 );
 			}
@@ -431,12 +431,12 @@ void CTentacle :: Cycle( void )
 				m_iGoalAnim = LookupActivity( ACT_T_REARIDLE + m_iSoundLevel );
 			}
 		}
-		else if (pev->sequence == TENTACLE_ANIM_Pit_Idle)
+		else if ( GetSequence() == TENTACLE_ANIM_Pit_Idle)
 		{
 			// stay in pit until hear noise
 			m_iGoalAnim = TENTACLE_ANIM_Pit_Idle;
 		}
-		else if (pev->sequence == m_iGoalAnim)
+		else if ( GetSequence() == m_iGoalAnim)
 		{
 			if (MyLevel() >= 0 && gpGlobals->time < m_flSoundTime)
 			{
@@ -495,7 +495,7 @@ void CTentacle :: Cycle( void )
 				m_flSoundYaw -= RANDOM_FLOAT( 2, 8 );
 		}
 
-		pev->sequence = FindTransition( pev->sequence, m_iGoalAnim, &m_iDir );
+		SetSequence( FindTransition( GetSequence(), m_iGoalAnim, &m_iDir ) );
 
 		if (m_iDir > 0)
 		{
@@ -511,7 +511,7 @@ void CTentacle :: Cycle( void )
 		m_flFramerateAdj = RANDOM_FLOAT( -0.2, 0.2 );
 		SetFrameRate( m_iDir * 1.0 + m_flFramerateAdj );
 
-		switch( pev->sequence)
+		switch( GetSequence() )
 		{
 		case TENTACLE_ANIM_Floor_Tap:
 		case TENTACLE_ANIM_Lev1_Tap:
@@ -541,7 +541,7 @@ void CTentacle :: Cycle( void )
 		Vector vecView = GetViewOffset();
 		vecView.z = MyHeight();
 		SetViewOffset( vecView );
-		// ALERT( at_console, "seq %d\n", pev->sequence );
+		// ALERT( at_console, "seq %d\n", GetSequence() );
 	}
 
 	if (m_flPrevSoundTime + 2.0 > gpGlobals->time)
@@ -595,7 +595,7 @@ void CTentacle :: DieThink( void )
 
 	if (m_fSequenceFinished)
 	{
-		if (pev->sequence == m_iGoalAnim)
+		if ( GetSequence() == m_iGoalAnim)
 		{
 			switch( m_iGoalAnim )
 			{
@@ -613,9 +613,9 @@ void CTentacle :: DieThink( void )
 			}
 		}
 
-		// ALERT( at_console, "%d : %d => ", pev->sequence, m_iGoalAnim );
-		pev->sequence = FindTransition( pev->sequence, m_iGoalAnim, &m_iDir );
-		// ALERT( at_console, "%d\n", pev->sequence );
+		// ALERT( at_console, "%d : %d => ", GetSequence(), m_iGoalAnim );
+		SetSequence( FindTransition( GetSequence(), m_iGoalAnim, &m_iDir ) );
+		// ALERT( at_console, "%d\n", GetSequence() );
 
 		if (m_iDir > 0)
 		{
@@ -628,7 +628,7 @@ void CTentacle :: DieThink( void )
 		ResetSequenceInfo( );
 
 		float dy;
-		switch( pev->sequence )
+		switch( GetSequence() )
 		{
 		case TENTACLE_ANIM_Floor_Rear:
 		case TENTACLE_ANIM_Floor_Rear_Idle:

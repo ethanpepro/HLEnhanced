@@ -18,16 +18,16 @@ void CDeadHEV::Spawn( void )
 
 	GetEffects().ClearAll();
 	SetYawSpeed( 8 );
-	pev->sequence = 0;
+	SetSequence( 0 );
 	SetBody( 1 );
 	m_bloodColor = BLOOD_COLOR_RED;
 
-	pev->sequence = LookupSequence( m_szPoses[ m_iPose ] );
+	SetSequence( LookupSequence( m_szPoses[ m_iPose ] ) );
 
-	if( pev->sequence == -1 )
+	if( GetSequence() == -1 )
 	{
 		ALERT( at_console, "Dead hevsuit with bad pose\n" );
-		pev->sequence = 0;
+		SetSequence( 0 );
 		GetEffects() = EF_BRIGHTFIELD;
 	}
 

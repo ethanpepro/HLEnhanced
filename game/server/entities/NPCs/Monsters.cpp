@@ -481,7 +481,7 @@ void CBaseMonster :: MonsterThink ( void )
 		}
 		if ( iSequence != ACTIVITY_NOT_AVAILABLE )
 		{
-			pev->sequence = iSequence;	// Set to new anim (if it's there)
+			SetSequence( iSequence );	// Set to new anim (if it's there)
 			ResetSequenceInfo( );
 		}
 	}
@@ -1156,14 +1156,14 @@ void CBaseMonster :: SetActivity ( Activity NewActivity )
 	// Set to the desired anim, or default anim if the desired is not present
 	if ( iSequence > ACTIVITY_NOT_AVAILABLE )
 	{
-		if ( pev->sequence != iSequence || !m_fSequenceLoops )
+		if ( GetSequence() != iSequence || !m_fSequenceLoops )
 		{
 			// don't reset frame between walk and run
 			if ( !(m_Activity == ACT_WALK || m_Activity == ACT_RUN) || !(NewActivity == ACT_WALK || NewActivity == ACT_RUN))
 				SetFrame( 0 );
 		}
 
-		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
+		SetSequence( iSequence );	// Set to the reset anim (if it's there)
 		ResetSequenceInfo( );
 		UpdateYawSpeed();
 	}
@@ -1171,7 +1171,7 @@ void CBaseMonster :: SetActivity ( Activity NewActivity )
 	{
 		// Not available try to get default anim
 		ALERT ( at_aiconsole, "%s has no sequence for act:%d\n", GetClassname(), NewActivity );
-		pev->sequence		= 0;	// Set to the reset anim (if it's there)
+		SetSequence( 0 );	// Set to the reset anim (if it's there)
 	}
 
 	m_Activity = NewActivity; // Go ahead and set this so it doesn't keep trying when the anim is not present
@@ -1194,12 +1194,12 @@ void CBaseMonster::SetSequenceByName( const char* const pszSequence )
 	// Set to the desired anim, or default anim if the desired is not present
 	if ( iSequence > ACTIVITY_NOT_AVAILABLE )
 	{
-		if ( pev->sequence != iSequence || !m_fSequenceLoops )
+		if ( GetSequence() != iSequence || !m_fSequenceLoops )
 		{
 			SetFrame( 0 );
 		}
 
-		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
+		SetSequence( iSequence );	// Set to the reset anim (if it's there)
 		ResetSequenceInfo( );
 		UpdateYawSpeed();
 	}
@@ -1207,7 +1207,7 @@ void CBaseMonster::SetSequenceByName( const char* const pszSequence )
 	{
 		// Not available try to get default anim
 		ALERT ( at_aiconsole, "%s has no sequence named:%f\n", GetClassname(), pszSequence );
-		pev->sequence		= 0;	// Set to the reset anim (if it's there)
+		SetSequence( 0 );	// Set to the reset anim (if it's there)
 	}
 }
 

@@ -161,7 +161,7 @@ void CFlockingFlyer::Start( void )
 
 
 	SetSpeed( GetAbsVelocity().Length() );
-	pev->sequence = 0;
+	SetSequence( 0 );
 	*/
 	SetActivity( ACT_FLY );
 	ResetSequenceInfo();

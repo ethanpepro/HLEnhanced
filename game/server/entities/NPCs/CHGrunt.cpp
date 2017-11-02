@@ -1780,12 +1780,12 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 	// Set to the desired anim, or default anim if the desired is not present
 	if ( iSequence > ACTIVITY_NOT_AVAILABLE )
 	{
-		if ( pev->sequence != iSequence || !m_fSequenceLoops )
+		if ( GetSequence() != iSequence || !m_fSequenceLoops )
 		{
 			SetFrame( 0 );
 		}
 
-		pev->sequence		= iSequence;	// Set to the reset anim (if it's there)
+		SetSequence( iSequence );	// Set to the reset anim (if it's there)
 		ResetSequenceInfo( );
 		UpdateYawSpeed();
 	}
@@ -1793,7 +1793,7 @@ void CHGrunt :: SetActivity ( Activity NewActivity )
 	{
 		// Not available try to get default anim
 		ALERT ( at_console, "%s has no sequence for act:%d\n", GetClassname(), NewActivity );
-		pev->sequence		= 0;	// Set to the reset anim (if it's there)
+		SetSequence( 0 );	// Set to the reset anim (if it's there)
 	}
 }
 

@@ -453,11 +453,11 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 		animDesired = LookupActivity( m_Activity );
 		// Already using the desired animation?
-		if( pev->sequence == animDesired )
+		if( GetSequence() == animDesired )
 			return;
 
 		pev->gaitsequence = 0;
-		pev->sequence = animDesired;
+		SetSequence( animDesired );
 		SetFrame( 0 );
 		ResetSequenceInfo();
 		return;
@@ -472,7 +472,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 		if( animDesired == -1 )
 			animDesired = 0;
 
-		if( pev->sequence != animDesired || !m_fSequenceLoops )
+		if( GetSequence() != animDesired || !m_fSequenceLoops )
 		{
 			SetFrame( 0 );
 		}
@@ -484,7 +484,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 		m_Activity = m_IdealActivity;
 
-		pev->sequence = animDesired;
+		SetSequence( animDesired );
 		ResetSequenceInfo();
 		break;
 
@@ -503,7 +503,7 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 		}
 		else
 		{
-			animDesired = pev->sequence;
+			animDesired = GetSequence();
 		}
 	}
 
@@ -535,12 +535,12 @@ void CBasePlayer::SetAnimation( PLAYER_ANIM playerAnim )
 
 
 	// Already using the desired animation?
-	if( pev->sequence == animDesired )
+	if( GetSequence() == animDesired )
 		return;
 
 	//ALERT( at_console, "Set animation to %d\n", animDesired );
 	// Reset to first frame of desired animation
-	pev->sequence = animDesired;
+	SetSequence( animDesired );
 	SetFrame( 0 );
 	ResetSequenceInfo();
 }

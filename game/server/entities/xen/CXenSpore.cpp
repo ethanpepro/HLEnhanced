@@ -50,7 +50,7 @@ void CXenSpore::Spawn( void )
 	SetTakeDamageMode( DAMAGE_YES );
 
 	//	SetActivity( ACT_IDLE );
-	pev->sequence = 0;
+	SetSequence( 0 );
 	SetFrame( RANDOM_FLOAT( 0, 255 ) );
 	SetFrameRate( RANDOM_FLOAT( 0.7, 1.4 ) );
 	ResetSequenceInfo();

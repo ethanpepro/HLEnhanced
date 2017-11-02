@@ -22,12 +22,12 @@ bool CCineAI::StartSequence( CBaseMonster *pTarget, int iszSeq, const bool compl
 		return true;
 	}
 
-	pTarget->pev->sequence = pTarget->LookupSequence( STRING( iszSeq ) );
+	pTarget->SetSequence( pTarget->LookupSequence( STRING( iszSeq ) ) );
 
-	if( pTarget->pev->sequence == -1 )
+	if( pTarget->GetSequence() == -1 )
 	{
 		ALERT( at_error, "%s: unknown aiscripted sequence \"%s\"\n", pTarget->GetTargetname(), STRING( iszSeq ) );
-		pTarget->pev->sequence = 0;
+		pTarget->SetSequence( 0 );
 		// return false;
 	}
 

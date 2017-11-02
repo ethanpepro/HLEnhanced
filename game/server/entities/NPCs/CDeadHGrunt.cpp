@@ -36,12 +36,12 @@ void CDeadHGrunt::Spawn( void )
 
 	GetEffects().ClearAll();
 	SetYawSpeed( 8 );
-	pev->sequence = 0;
+	SetSequence( 0 );
 	m_bloodColor = BLOOD_COLOR_RED;
 
-	pev->sequence = LookupSequence( m_szPoses[ m_iPose ] );
+	SetSequence( LookupSequence( m_szPoses[ m_iPose ] ) );
 
-	if( pev->sequence == -1 )
+	if( GetSequence() == -1 )
 	{
 		ALERT( at_console, "Dead hgrunt with bad pose\n" );
 	}

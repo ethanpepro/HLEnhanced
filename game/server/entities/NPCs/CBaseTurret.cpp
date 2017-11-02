@@ -116,7 +116,7 @@ void CBaseTurret::Spawn()
 	Precache( );
 	SetNextThink( gpGlobals->time + 1 );
 	SetMoveType( MOVETYPE_FLY );
-	pev->sequence		= 0;
+	SetSequence( 0 );
 	SetFrame( 0 );
 	SetSolidType( SOLID_SLIDEBOX );
 	SetTakeDamageMode( DAMAGE_AIM );
@@ -436,7 +436,7 @@ void CBaseTurret::Deploy(void)
 	SetNextThink( gpGlobals->time + 0.1 );
 	StudioFrameAdvance( );
 
-	if (pev->sequence != TURRET_ANIM_DEPLOY)
+	if ( GetSequence() != TURRET_ANIM_DEPLOY)
 	{
 		m_bOn = true;
 		SetTurretAnim(TURRET_ANIM_DEPLOY);
@@ -489,7 +489,7 @@ void CBaseTurret::Retire(void)
 		{
 			SpinDownCall();
 		}
-		else if (pev->sequence != TURRET_ANIM_RETIRE)
+		else if ( GetSequence() != TURRET_ANIM_RETIRE)
 		{
 			SetTurretAnim(TURRET_ANIM_RETIRE);
 			EMIT_SOUND_DYN( this, CHAN_BODY, "turret/tu_deploy.wav", TURRET_MACHINE_VOLUME, ATTN_NORM, 0, 120);
@@ -522,13 +522,13 @@ void CBaseTurret::Retire(void)
 
 void CBaseTurret::SetTurretAnim(TURRET_ANIM anim)
 {
-	if (pev->sequence != anim)
+	if ( GetSequence() != anim)
 	{
 		switch(anim)
 		{
 		case TURRET_ANIM_FIRE:
 		case TURRET_ANIM_SPIN:
-			if (pev->sequence != TURRET_ANIM_FIRE && pev->sequence != TURRET_ANIM_SPIN)
+			if ( GetSequence() != TURRET_ANIM_FIRE && GetSequence() != TURRET_ANIM_SPIN)
 			{
 				SetFrame( 0 );
 			}
@@ -538,7 +538,7 @@ void CBaseTurret::SetTurretAnim(TURRET_ANIM anim)
 			break;
 		}
 
-		pev->sequence = anim;
+		SetSequence( anim );
 		ResetSequenceInfo( );
 
 		switch(anim)

@@ -131,7 +131,7 @@ void CNihilanth :: Spawn( void )
 
 	m_flFieldOfView = -1; // 360 degrees
 
-	pev->sequence = 0;
+	SetSequence( 0 );
 	ResetSequenceInfo( );
 
 	InitBoneControllers();
@@ -314,7 +314,7 @@ void CNihilanth :: DyingThink( void )
 
 		SetAngularVelocity( vecAVelocity );
 
-		pev->sequence = LookupSequence( "die1" );
+		SetSequence( LookupSequence( "die1" ) );
 	}
 
 	if (m_pBall)
@@ -421,27 +421,27 @@ void CNihilanth :: FloatSequence( void )
 {
 	if (m_irritation >= 2)
 	{
-		pev->sequence = LookupSequence( "float_open" );
+		SetSequence( LookupSequence( "float_open" ) );
 	}
 	else if (m_avelocity.y > 30)
 	{
-		pev->sequence = LookupSequence( "walk_r" );
+		SetSequence( LookupSequence( "walk_r" ) );
 	}
 	else if (m_avelocity.y < -30)
 	{
-		pev->sequence = LookupSequence( "walk_l" );
+		SetSequence( LookupSequence( "walk_l" ) );
 	}
 	else if (m_velocity.z > 30)
 	{
-		pev->sequence = LookupSequence( "walk_u" );
+		SetSequence( LookupSequence( "walk_u" ) );
 	} 
 	else if (m_velocity.z < -30)
 	{
-		pev->sequence = LookupSequence( "walk_d" );
+		SetSequence( LookupSequence( "walk_d" ) );
 	}
 	else
 	{
-		pev->sequence = LookupSequence( "float" );
+		SetSequence( LookupSequence( "float" ) );
 	}
 }
 
@@ -618,7 +618,7 @@ void CNihilanth :: NextActivity( )
 		{
 			int iseq = LookupSequence( "recharge" );
 
-			if (iseq != pev->sequence)
+			if (iseq != GetSequence() )
 			{
 				char szText[64];
 
@@ -627,7 +627,7 @@ void CNihilanth :: NextActivity( )
 
 				ALERT( at_console, "fireing %s\n", szText );
 			}
-			pev->sequence = LookupSequence( "recharge" );
+			SetSequence( LookupSequence( "recharge" ) );
 		}
 		else
 		{
@@ -658,13 +658,13 @@ void CNihilanth :: NextActivity( )
 		{
 			if (m_irritation >= 2 && GetHealth() < gSkillData.GetNihilanthHealth() / 2.0)
 			{
-				pev->sequence = LookupSequence( "attack1_open" );
+				SetSequence( LookupSequence( "attack1_open" ) );
 			}
 			else 
 			{
 				if (RANDOM_LONG(0, 1 ) == 0)
 				{
-					pev->sequence = LookupSequence( "attack1" ); // zap
+					SetSequence( LookupSequence( "attack1" ) ); // zap
 				}
 				else
 				{
@@ -678,12 +678,12 @@ void CNihilanth :: NextActivity( )
 
 					if (pTrigger != NULL || pTouch != NULL)
 					{
-						pev->sequence = LookupSequence( "attack2" ); // teleport
+						SetSequence( LookupSequence( "attack2" ) ); // teleport
 					}
 					else
 					{
 						m_iTeleport++;
-						pev->sequence = LookupSequence( "attack1" ); // zap
+						SetSequence( LookupSequence( "attack1" ) ); // zap
 					}
 				}
 			}

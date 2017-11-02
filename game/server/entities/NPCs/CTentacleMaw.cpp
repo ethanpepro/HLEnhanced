@@ -20,7 +20,7 @@ void CTentacleMaw::Spawn()
 	GetEffects().ClearAll();
 	SetHealth( 75 );
 	SetYawSpeed( 8 );
-	pev->sequence = 0;
+	SetSequence( 0 );
 
 	Vector vecAngles = GetAbsAngles();
 	vecAngles.x = 90;

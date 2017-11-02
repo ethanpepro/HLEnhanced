@@ -68,7 +68,7 @@ void CApache :: Spawn( void )
 
 	m_flFieldOfView = -0.707; // 270 degrees
 
-	pev->sequence = 0;
+	SetSequence( 0 );
 	ResetSequenceInfo( );
 	SetFrame( RANDOM_LONG( 0, 0xFF ) );
 
@@ -295,7 +295,7 @@ void CApache :: DyingThink( void )
 			// pWreckage->SetModel( GetModelName() );
 			pWreckage->SetSize( Vector( -200, -200, -128 ), Vector( 200, 200, -32 ) );
 			pWreckage->SetFrame( GetFrame() );
-			pWreckage->pev->sequence = pev->sequence;
+			pWreckage->SetSequence( GetSequence() );
 			pWreckage->SetFrameRate( 0 );
 			pWreckage->SetDamageTime( gpGlobals->time + 5 );
 		}

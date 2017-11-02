@@ -230,7 +230,7 @@ void CBaseAnimating::SetSequenceBox( void )
 	Vector mins, maxs;
 
 	// Get sequence bbox
-	if( ExtractBbox( pev->sequence, mins, maxs ) )
+	if( ExtractBbox( GetSequence(), mins, maxs ) )
 	{
 		// expand box for rotation
 		// find min / max for rotations

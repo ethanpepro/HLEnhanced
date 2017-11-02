@@ -56,7 +56,7 @@ public:
 	void SetStartEntity( int entityIndex );
 	void SetEndEntity( int entityIndex );
 
-	inline void SetStartAttachment( int attachment ) { pev->sequence = ( pev->sequence & 0x0FFF ) | ( ( attachment & 0xF ) << 12 ); }
+	inline void SetStartAttachment( int attachment ) { SetSequence( ( GetSequence() & 0x0FFF ) | ( ( attachment & 0xF ) << 12 ) ); }
 	inline void SetEndAttachment( int attachment ) { SetSkin( ( GetSkin() & 0x0FFF ) | ( ( attachment & 0xF ) << 12 ) ); }
 
 	inline void SetTexture( int spriteIndex ) { SetModelIndex( spriteIndex ); }
@@ -68,7 +68,7 @@ public:
 
 	inline int	GetType() const { return static_cast<int>( GetRenderMode() ) & 0x0F; }
 	inline int	GetBeamFlags() const { return static_cast<int>( GetRenderMode() ) & 0xF0; }
-	inline int	GetStartEntity() const { return pev->sequence & 0xFFF; }
+	inline int	GetStartEntity() const { return GetSequence() & 0xFFF; }
 	inline int	GetEndEntity() const { return GetSkin() & 0xFFF; }
 
 	const Vector& GetStartPos() const;
