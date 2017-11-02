@@ -133,7 +133,7 @@ BEGIN_DATADESC( CBreakable )
 	DEFINE_TOUCHFUNC( BreakTouch ),
 	DEFINE_THINKFUNC( Die ),
 
-	// Explosion magnitude is stored in pev->impulse
+	// Explosion magnitude is stored in GetImpulse()
 END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( func_breakable, CBreakable );

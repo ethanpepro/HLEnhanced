@@ -39,7 +39,7 @@ void CFuncTrackTrain::Spawn( void )
 	SetSpeed( 0 );
 	SetAbsVelocity( g_vecZero );
 	SetAngularVelocity( g_vecZero );
-	pev->impulse = m_speed;
+	SetImpulse( m_speed );
 
 	m_dir = 1;
 

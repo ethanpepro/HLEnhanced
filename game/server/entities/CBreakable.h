@@ -74,8 +74,8 @@ public:
 	virtual int		ObjectCaps() const override { return ( CBaseEntity::ObjectCaps() & ~FCAP_ACROSS_TRANSITION ); }
 
 	inline bool		Explodable() const { return ExplosionMagnitude() > 0; }
-	inline int		ExplosionMagnitude() const { return pev->impulse; }
-	inline void		ExplosionSetMagnitude( int magnitude ) { pev->impulse = magnitude; }
+	inline int		ExplosionMagnitude() const { return GetImpulse(); }
+	inline void		ExplosionSetMagnitude( int magnitude ) { SetImpulse( magnitude ); }
 
 	static void MaterialSoundPrecache( Materials precacheMaterial );
 	static void MaterialSoundRandom( CBaseEntity* pEntity, Materials soundMaterial, float volume );

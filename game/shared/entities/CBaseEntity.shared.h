@@ -1297,19 +1297,19 @@ public:
 	}
 
 	/**
-	*	@return The entity's impulse flags.
+	*	@return The entity's impulse value
 	*/
-	const CBitSet<int>& GetImpulse() const
+	int GetImpulse() const
 	{
-		return *reinterpret_cast<const CBitSet<int>*>( &pev->impulse );
+		return pev->impulse;
 	}
 
 	/**
-	*	@copydoc GetImpulse() const
+	*	@see GetImpulse
 	*/
-	CBitSet<int>& GetImpulse()
+	void SetImpulse( const int iImpulse )
 	{
-		return *reinterpret_cast<CBitSet<int>*>( &pev->impulse );
+		pev->impulse = iImpulse;
 	}
 
 	/**

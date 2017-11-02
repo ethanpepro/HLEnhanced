@@ -71,7 +71,7 @@ void CBasePlayer::PlayerUse()
 				if( pTrain && !GetButtons().Any( IN_JUMP ) && GetFlags().Any( FL_ONGROUND ) && ( pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE ) && pTrain->OnControls( this ) )
 				{
 					m_afPhysicsFlags |= PFLAG_ONTRAIN;
-					m_iTrain = TrainSpeed( pTrain->GetSpeed(), pTrain->pev->impulse );
+					m_iTrain = TrainSpeed( pTrain->GetSpeed(), pTrain->GetImpulse() );
 					m_iTrain |= TRAIN_NEW;
 					EMIT_SOUND( this, CHAN_ITEM, "plats/train_use1.wav", 0.8, ATTN_NORM );
 					return;

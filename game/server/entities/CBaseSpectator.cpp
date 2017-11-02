@@ -107,7 +107,7 @@ void CBaseSpectator::SpectatorImpulseCommand()
 		break;
 	}
 
-	GetImpulse().Set( 0 );
+	SetImpulse( 0 );
 }
 
 /*

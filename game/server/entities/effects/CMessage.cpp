@@ -13,7 +13,7 @@ void CMessage::Spawn( void )
 	SetSolidType( SOLID_NOT );
 	SetMoveType( MOVETYPE_NONE );
 
-	switch( pev->impulse )
+	switch( GetImpulse() )
 	{
 	case 1: // Medium radius
 		SetSpeed( ATTN_STATIC );
@@ -32,7 +32,7 @@ void CMessage::Spawn( void )
 		SetSpeed( ATTN_IDLE );
 		break;
 	}
-	pev->impulse = 0;
+	SetImpulse( 0 );
 
 	// No volume, use normal
 	if( GetScale() <= 0 )
@@ -86,7 +86,7 @@ void CMessage::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "messageattenuation" ) )
 	{
-		pev->impulse = atoi( pkvd->szValue );
+		SetImpulse( atoi( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else

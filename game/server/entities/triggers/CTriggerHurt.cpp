@@ -129,12 +129,12 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 					int playerMask = 1 << ( pOther->entindex() - 1 );
 
 					// If I've already touched this player (this time), then bail out
-					if( pev->impulse & playerMask )
+					if( GetImpulse() & playerMask )
 						return;
 
 					// Mark this player as touched
-					// BUGBUG - There can be only 32 players!
-					pev->impulse |= playerMask;
+					// BUGBUG - There can be only 32 players! TODO - Solokiller
+					SetImpulse( GetImpulse() | playerMask );
 				}
 				else
 				{
@@ -145,14 +145,14 @@ void CTriggerHurt::HurtTouch( CBaseEntity *pOther )
 		else
 		{
 			// New clock, "un-touch" all players
-			pev->impulse = 0;
+			SetImpulse( 0 );
 			if( pOther->IsPlayer() )
 			{
 				int playerMask = 1 << ( pOther->entindex() - 1 );
 
 				// Mark this player as touched
 				// BUGBUG - There can be only 32 players!
-				pev->impulse |= playerMask;
+				SetImpulse( GetImpulse() | playerMask );
 			}
 		}
 	}

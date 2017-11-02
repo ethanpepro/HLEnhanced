@@ -702,12 +702,12 @@ inline void RegisterScriptCBaseEntity( asIScriptEngine& engine, const char* cons
 		asMETHODPR( CLASS, GetOldButtons, (), CEntBitSet& ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "const CEntBitSet& GetImpulse() const",
-		asMETHODPR( CLASS, GetImpulse, () const, const CEntBitSet& ), asCALL_THISCALL );
+		pszObjectName, "int GetImpulse() const",
+		asMETHODPR( CLASS, GetImpulse, () const, int ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
-		pszObjectName, "CEntBitSet& GetImpulse()",
-		asMETHODPR( CLASS, GetImpulse, (), CEntBitSet& ), asCALL_THISCALL );
+		pszObjectName, "void SetImpulse(const int iImpulse)",
+		asMETHODPR( CLASS, SetImpulse, ( const int ), void ), asCALL_THISCALL );
 
 	engine.RegisterObjectMethod(
 		pszObjectName, "const CEntBitSet& GetSpawnFlags() const",

@@ -106,7 +106,7 @@ void CBasePlayer::PreThink()
 		Observer_HandleButtons();
 		Observer_CheckTarget();
 		Observer_CheckProperties();
-		pev->impulse = 0;
+		SetImpulse( 0 );
 		return;
 	}
 
@@ -307,7 +307,7 @@ void CBasePlayer::PreThink()
 
 			if( vel )
 			{
-				m_iTrain = TrainSpeed( pTrain->GetSpeed(), pTrain->pev->impulse );
+				m_iTrain = TrainSpeed( pTrain->GetSpeed(), pTrain->GetImpulse() );
 				m_iTrain |= TRAIN_ACTIVE | TRAIN_NEW;
 			}
 
@@ -831,7 +831,7 @@ void CBasePlayer::ImpulseCommands()
 				   // Handle use events
 	PlayerUse();
 
-	int iImpulse = ( int ) pev->impulse;
+	int iImpulse = GetImpulse();
 	switch( iImpulse )
 	{
 	case 99:
@@ -898,7 +898,7 @@ void CBasePlayer::ImpulseCommands()
 		break;
 	}
 
-	pev->impulse = 0;
+	SetImpulse( 0 );
 }
 
 //=========================================================

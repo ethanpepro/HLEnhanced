@@ -32,7 +32,7 @@ void CScriptedSentence::Spawn( void )
 		SetNextThink( gpGlobals->time + 1.0 );
 	}
 
-	switch( static_cast<SoundRadius>( pev->impulse ) )
+	switch( static_cast<SoundRadius>( GetImpulse() ) )
 	{
 	case SoundRadius::MEDIUM:			// Medium radius
 		m_flAttenuation = ATTN_STATIC;
@@ -51,7 +51,7 @@ void CScriptedSentence::Spawn( void )
 		m_flAttenuation = ATTN_IDLE;
 		break;
 	}
-	pev->impulse = 0;
+	SetImpulse( 0 );
 
 	// No volume, use normal
 	if( m_flVolume <= 0 )
@@ -87,7 +87,7 @@ void CScriptedSentence::KeyValue( KeyValueData *pkvd )
 	}
 	else if( FStrEq( pkvd->szKeyName, "attenuation" ) )
 	{
-		pev->impulse = atoi( pkvd->szValue );
+		SetImpulse( atoi( pkvd->szValue ) );
 		pkvd->fHandled = true;
 	}
 	else if( FStrEq( pkvd->szKeyName, "volume" ) )
