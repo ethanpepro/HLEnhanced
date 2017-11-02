@@ -262,6 +262,10 @@ public:
 // stuff written for new state machine
 		virtual void MonsterThink( void );
 		void CallMonsterThink( void ) { this->MonsterThink(); }
+
+		/**
+		*	@brief Returns an integer that describes the relationship between two types of monster
+		*/
 		virtual Relationship IRelationship( CBaseEntity *pTarget );
 		virtual void MonsterInit ( void );
 		virtual void MonsterInitDead( void );	// Call after animation/pose is set up

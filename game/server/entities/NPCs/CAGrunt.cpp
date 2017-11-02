@@ -93,10 +93,6 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_alien_grunt, CAGrunt );
 
-//=========================================================
-// IRelationship - overridden because Human Grunts are 
-// Alien Grunt's nemesis.
-//=========================================================
 Relationship CAGrunt::IRelationship ( CBaseEntity *pTarget )
 {
 	if ( pTarget->ClassnameIs( "monster_human_grunt" ) )

@@ -83,6 +83,10 @@ public:
 	void AttackSound( void );
 	void PrescheduleThink( void ) override;
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+
+	/**
+	*	@brief Overridden because Human Grunts are Alien Grunt's nemesis
+	*/
 	Relationship IRelationship( CBaseEntity *pTarget ) override;
 	void StopTalking( void );
 	bool ShouldSpeak();

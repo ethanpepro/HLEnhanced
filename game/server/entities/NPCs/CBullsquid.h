@@ -75,6 +75,10 @@ public:
 	Schedule_t *GetSchedule( void ) override;
 	Schedule_t *GetScheduleOfType( int Type ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
+
+	/**
+	*	@brief Overridden for bullsquid so that it can be made to ignore its love of headcrabs for a while
+	*/
 	Relationship IRelationship( CBaseEntity *pTarget ) override;
 	int IgnoreConditions( void ) override;
 	MONSTERSTATE GetIdealState( void ) override;

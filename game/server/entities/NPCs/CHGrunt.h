@@ -151,6 +151,9 @@ public:
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
+	/**
+	*	@brief overridden because Alien Grunts are Human Grunt's nemesis
+	*/
 	Relationship IRelationship( CBaseEntity *pTarget ) override;
 
 	bool FOkToSpeak() const;

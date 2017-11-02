@@ -65,10 +65,6 @@ int CBullsquid::IgnoreConditions ( void )
 	return iIgnore;
 }
 
-//=========================================================
-// IRelationship - overridden for bullsquid so that it can
-// be made to ignore its love of headcrabs for a while.
-//=========================================================
 Relationship CBullsquid::IRelationship ( CBaseEntity *pTarget )
 {
 	if ( gpGlobals->time - m_flLastHurtTime < 5 && pTarget->ClassnameIs( "monster_headcrab" ) )

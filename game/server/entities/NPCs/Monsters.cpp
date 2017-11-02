@@ -2111,10 +2111,6 @@ bool CBaseMonster::TaskIsRunning() const
 	return false;
 }
 
-//=========================================================
-// IRelationship - returns an integer that describes the 
-// relationship between two types of monster.
-//=========================================================
 Relationship CBaseMonster::IRelationship( CBaseEntity *pTarget )
 {
 	ASSERT( pTarget );

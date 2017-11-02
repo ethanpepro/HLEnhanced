@@ -86,10 +86,6 @@ void CHGrunt :: SpeakSentence( void )
 	}
 }
 
-//=========================================================
-// IRelationship - overridden because Alien Grunts are 
-// Human Grunt's nemesis.
-//=========================================================
 Relationship CHGrunt::IRelationship ( CBaseEntity *pTarget )
 {
 	if ( pTarget->ClassnameIs( "monster_alien_grunt" ) || ( pTarget->ClassnameIs( "monster_gargantua" ) ) )
