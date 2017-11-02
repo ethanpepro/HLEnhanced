@@ -311,21 +311,21 @@ void CBasePlayer::AddPoints( int score, const bool bAllowNegativeScore )
 	{
 		if( !bAllowNegativeScore )
 		{
-			if( pev->frags < 0 )		// Can't go more negative
+			if( GetFrags() < 0 )		// Can't go more negative
 				return;
 
-			if( -score > pev->frags )	// Will this go negative?
+			if( -score > GetFrags() )	// Will this go negative?
 			{
-				score = -pev->frags;		// Sum will be 0
+				score = -GetFrags();		// Sum will be 0
 			}
 		}
 	}
 
-	pev->frags += score;
+	SetFrags( GetFrags() + score );
 
 	MESSAGE_BEGIN( MSG_ALL, gmsgScoreInfo );
 	WRITE_BYTE( entindex() );
-		WRITE_SHORT( pev->frags );
+		WRITE_SHORT( GetFrags() );
 		WRITE_SHORT( m_iDeaths );
 		WRITE_SHORT( 0 );
 		WRITE_SHORT( g_pGameRules->GetTeamIndex( m_szTeamName ) + 1 );

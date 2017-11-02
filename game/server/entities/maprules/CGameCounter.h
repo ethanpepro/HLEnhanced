@@ -34,17 +34,17 @@ public:
 	inline bool RemoveOnFire() const { return GetSpawnFlags().Any( SF_GAMECOUNT_FIREONCE ); }
 	inline bool ResetOnFire() const { return GetSpawnFlags().Any( SF_GAMECOUNT_RESET ); }
 
-	inline void CountUp() { pev->frags++; }
-	inline void CountDown() { pev->frags--; }
-	inline void ResetCount() { pev->frags = GetDamage(); }
-	inline int  CountValue() const { return pev->frags; }
+	inline void CountUp() { SetFrags( GetFrags() + 1 ); }
+	inline void CountDown() { SetFrags( GetFrags() - 1 ); }
+	inline void ResetCount() { SetFrags( GetDamage() ); }
+	inline int  CountValue() const { return GetFrags(); }
 	inline int	LimitValue() const { return GetHealth(); }
 
 	inline bool HitLimit() const { return CountValue() == LimitValue(); }
 
 private:
 
-	inline void SetCountValue( int value ) { pev->frags = value; }
+	inline void SetCountValue( int value ) { SetFrags( value ); }
 	inline void SetInitialValue( int value ) { SetDamage( value ); }
 };
 

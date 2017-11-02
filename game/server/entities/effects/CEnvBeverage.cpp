@@ -11,7 +11,7 @@ void CEnvBeverage::Spawn( void )
 	Precache();
 	SetSolidType( SOLID_NOT );
 	GetEffects() = EF_NODRAW;
-	pev->frags = 0;
+	SetFrags( 0 );
 
 	if( GetHealth() == 0 )
 	{
@@ -27,7 +27,7 @@ void CEnvBeverage::Precache( void )
 
 void CEnvBeverage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
 {
-	if( pev->frags != 0 || GetHealth() <= 0 )
+	if( GetFrags() != 0 || GetHealth() <= 0 )
 	{
 		// no more cans while one is waiting in the dispenser, or if I'm out of cans.
 		return;
@@ -45,7 +45,7 @@ void CEnvBeverage::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE 
 		pCan->SetSkin( GetSkin() );
 	}
 
-	pev->frags = 1;
+	SetFrags( 1 );
 	SetHealth( GetHealth() - 1 );
 
 	//SetThink (SUB_Remove);

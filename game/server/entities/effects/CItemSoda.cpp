@@ -52,7 +52,7 @@ void CItemSoda::CanTouch( CBaseEntity *pOther )
 	if( !FNullEnt( GetOwner() ) )
 	{
 		// tell the machine the can was taken
-		GetOwner()->pev->frags = 0;
+		GetOwner()->SetFrags( 0 );
 	}
 
 	SetSolidType( SOLID_NOT );
