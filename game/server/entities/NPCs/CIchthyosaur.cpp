@@ -702,14 +702,14 @@ float CIchthyosaur::FlPitchDiff( void )
 
 	flCurrentPitch = UTIL_AngleMod( GetAbsAngles().z );
 
-	if ( flCurrentPitch == pev->idealpitch )
+	if ( flCurrentPitch == GetIdealPitch() )
 	{
 		return 0;
 	}
 
-	flPitchDiff = pev->idealpitch - flCurrentPitch;
+	flPitchDiff = GetIdealPitch() - flCurrentPitch;
 
-	if ( pev->idealpitch > flCurrentPitch )
+	if ( GetIdealPitch() > flCurrentPitch )
 	{
 		if (flPitchDiff >= 180)
 			flPitchDiff = flPitchDiff - 360;

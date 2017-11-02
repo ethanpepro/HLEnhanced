@@ -179,7 +179,7 @@ void CBaseTurret::Initialize(void)
 	m_flStartYaw = GetAbsAngles().y;
 	if (m_iOrientation == 1)
 	{
-		pev->idealpitch = 180;
+		SetIdealPitch( 180 );
 		Vector vecAngles = GetAbsAngles();
 		vecAngles.x = 180;
 		vecAngles.y = vecAngles.y + 180;
