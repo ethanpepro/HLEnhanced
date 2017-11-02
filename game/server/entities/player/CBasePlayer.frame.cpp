@@ -583,7 +583,7 @@ void CBasePlayer::PlayerDeathThink()
 		StartDeathCam();
 	}
 
-	if( pev->iuser1 )	// player is in spectator mode
+	if( IsObserver() )	// player is in spectator mode
 		return;
 
 	// wait for any button down,  or mp_forcerespawn is set and the respawn time is up

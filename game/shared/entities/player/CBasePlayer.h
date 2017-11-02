@@ -158,7 +158,28 @@ public:
 	float	m_flNextObserverInput;
 	int		m_iObserverWeapon;	// weapon of current tracked target
 	int		m_iObserverLastMode;// last used observer mode
+
 	bool	IsObserver() const { return pev->iuser1 != 0; }
+
+	int GetObserverMode() const { return pev->iuser1; }
+
+private:
+	void InternalSetObserverMode( const int iMode )
+	{
+		pev->iuser1 = iMode;
+	}
+
+public:
+
+	int GetObserverTargetIndex()
+	{
+		return pev->iuser2;
+	}
+
+	void SetObserverTargetIndex( const int iIndex )
+	{
+		pev->iuser2 = iIndex;
+	}
 
 	void StartDeathCam();
 	void StartObserver( Vector vecPosition, Vector vecViewAngle );

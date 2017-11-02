@@ -119,8 +119,8 @@ void CBasePlayer::InitialSpawn()
 	// Reset interpolation during first frame
 	GetEffects() |= EF_NOINTERP;
 
-	pev->iuser1 = 0;	// disable any spec modes
-	pev->iuser2 = 0;
+	InternalSetObserverMode( 0 );	// disable any spec modes
+	SetObserverTargetIndex( 0 );
 
 	SetConnectTime( gpGlobals->time );
 	SetConnectState( ConnectState::CONNECTED );

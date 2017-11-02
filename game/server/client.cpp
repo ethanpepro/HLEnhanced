@@ -937,7 +937,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	entvars_t*		pevOrg = nullptr;
 
 	// if user is spectating different player in First person, override some vars
-	if ( pl && pl->pev->iuser1 == OBS_IN_EYE )
+	if ( pl && pl->GetObserverMode() == OBS_IN_EYE )
 	{
 		if ( pl->m_hObserverTarget )
 		{
@@ -978,6 +978,7 @@ void UpdateClientData( const edict_t* pClient, int sendweapons, clientdata_t* cd
 	cd->pushmsec		= pev->pushmsec;
 
 	//Spectator mode
+	//TODO: this is kinda stupid, just always set pevOrg and use it for this - Solokiller
 	if ( pevOrg != NULL )
 	{
 		// don't use spec vars from chased player
