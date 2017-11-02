@@ -741,7 +741,7 @@ void CBreakable::Die( void )
 		for ( int i = 0; i < count; i++ )
 		{
 			pList[i]->GetFlags().ClearFlags( FL_ONGROUND );
-			pList[i]->pev->groundentity = NULL;
+			pList[i]->SetGroundEntity( nullptr );
 		}
 	}
 

@@ -262,7 +262,12 @@ void CBasePlayer::PreThink()
 		// Train speed control
 		if( m_afPhysicsFlags & PFLAG_ONTRAIN )
 		{
-			CBaseEntity *pTrain = CBaseEntity::Instance( pev->groundentity );
+			CBaseEntity *pTrain = GetGroundEntity();
+
+			//To match original behavior, Instance returns the world if entity is null - Solokiller
+			if( !pTrain )
+				pTrain = CWorld::GetInstance();
+
 			float vel;
 
 			if( !pTrain )

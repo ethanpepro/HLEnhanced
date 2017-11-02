@@ -66,7 +66,11 @@ void CBasePlayer::PlayerUse()
 			}
 			else
 			{	// Start controlling the train!
-				CBaseEntity *pTrain = CBaseEntity::Instance( pev->groundentity );
+				CBaseEntity *pTrain = GetGroundEntity();
+
+				//To match original behavior, Instance returns the world if entity is null - Solokiller
+				if( !pTrain )
+					pTrain = CWorld::GetInstance();
 
 				if( pTrain && !GetButtons().Any( IN_JUMP ) && GetFlags().Any( FL_ONGROUND ) && ( pTrain->ObjectCaps() & FCAP_DIRECTIONAL_USE ) && pTrain->OnControls( this ) )
 				{
@@ -160,7 +164,7 @@ void CBasePlayer::Jump()
 	if( !FBitSet( m_afButtonPressed, IN_JUMP ) )
 		return;         // don't pogo stick
 
-	if( !GetFlags().Any( FL_ONGROUND ) || !pev->groundentity )
+	if( !GetFlags().Any( FL_ONGROUND ) || !GetGroundEntity() )
 	{
 		return;
 	}
@@ -180,7 +184,7 @@ void CBasePlayer::Jump()
 		SetAnimation( PLAYER_SUPERJUMP );
 	}
 
-	if( CBaseEntity* pGround = Instance( pev->groundentity ) )
+	if( CBaseEntity* pGround = GetGroundEntity() )
 	{
 		//Add ground entity velocity to yourself. Maintains intertia. - Solokiller
 		SetAbsVelocity( GetAbsVelocity() + pGround->GetAbsVelocity() );

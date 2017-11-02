@@ -47,7 +47,9 @@ bool CBabyCrab::CheckRangeAttack1( float flDot, float flDist )
 {
 	if( GetFlags().Any( FL_ONGROUND ) )
 	{
-		if( pev->groundentity && ( pev->groundentity->v.flags & ( FL_CLIENT | FL_MONSTER ) ) )
+		auto pGroundEntity = GetGroundEntity();
+
+		if( pGroundEntity && pGroundEntity->GetFlags().Any( FL_CLIENT | FL_MONSTER ) )
 			return true;
 
 		// A little less accurate, but jump from closer
