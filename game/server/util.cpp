@@ -31,24 +31,24 @@
 #include "Weapons.h"
 #include "gamerules/GameRules.h"
 
-void UTIL_ParametricRocket( entvars_t *pev, Vector vecOrigin, Vector vecAngles, edict_t *owner )
+void UTIL_ParametricRocket( CBaseEntity* pEntity, Vector vecOrigin, Vector vecAngles, CBaseEntity* pOwner )
 {	
-	pev->startpos = vecOrigin;
+	pEntity->pev->startpos = vecOrigin;
 	// Trace out line to end pos
 	TraceResult tr;
 	UTIL_MakeVectors( vecAngles );
-	UTIL_TraceLine( pev->startpos, pev->startpos + gpGlobals->v_forward * 8192, ignore_monsters, owner, &tr);
-	pev->endpos = tr.vecEndPos;
+	UTIL_TraceLine( pEntity->pev->startpos, pEntity->pev->startpos + gpGlobals->v_forward * 8192, ignore_monsters, pOwner ? pOwner->edict() : nullptr, &tr);
+	pEntity->pev->endpos = tr.vecEndPos;
 
 	// Now compute how long it will take based on current velocity
-	Vector vecTravel = pev->endpos - pev->startpos;
+	Vector vecTravel = pEntity->pev->endpos - pEntity->pev->startpos;
 	float travelTime = 0.0;
-	if ( pev->velocity.Length() > 0 )
+	if ( pEntity->GetAbsVelocity().Length() > 0 )
 	{
-		travelTime = vecTravel.Length() / pev->velocity.Length();
+		travelTime = vecTravel.Length() / pEntity->GetAbsVelocity().Length();
 	}
-	pev->starttime = gpGlobals->time;
-	pev->impacttime = gpGlobals->time + travelTime;
+	pEntity->pev->starttime = gpGlobals->time;
+	pEntity->pev->impacttime = gpGlobals->time + travelTime;
 }
 
 int g_groupmask = 0;
