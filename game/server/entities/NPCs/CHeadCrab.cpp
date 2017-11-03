@@ -254,10 +254,6 @@ void CHeadCrab :: Precache()
 	PRECACHE_MODEL("models/headcrab.mdl");
 }	
 
-
-//=========================================================
-// RunTask 
-//=========================================================
 void CHeadCrab :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

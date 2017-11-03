@@ -727,9 +727,6 @@ void CBigMomma::StartTask( const Task_t* pTask )
 	}
 }
 
-//=========================================================
-// RunTask
-//=========================================================
 void CBigMomma::RunTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

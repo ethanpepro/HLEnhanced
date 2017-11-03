@@ -851,9 +851,6 @@ void CGargantua::StartTask( const Task_t* pTask )
 	}
 }
 
-//=========================================================
-// RunTask
-//=========================================================
 void CGargantua::RunTask( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

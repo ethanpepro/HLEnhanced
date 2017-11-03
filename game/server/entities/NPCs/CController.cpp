@@ -534,10 +534,6 @@ int CController::LookupFloat( )
 	}
 }
 
-
-//=========================================================
-// RunTask 
-//=========================================================
 void CController :: RunTask ( const Task_t* pTask )
 {
 

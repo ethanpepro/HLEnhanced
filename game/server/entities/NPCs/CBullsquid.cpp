@@ -969,9 +969,6 @@ void CBullsquid :: StartTask ( const Task_t* pTask )
 	}
 }
 
-//=========================================================
-// RunTask
-//=========================================================
 void CBullsquid :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

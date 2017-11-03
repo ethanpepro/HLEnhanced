@@ -898,9 +898,6 @@ void CHGrunt :: StartTask ( const Task_t* pTask )
 	}
 }
 
-//=========================================================
-// RunTask
-//=========================================================
 void CHGrunt :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

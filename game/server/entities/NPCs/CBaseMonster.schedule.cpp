@@ -299,9 +299,6 @@ void CBaseMonster :: MaintainSchedule ( void )
 	}
 }
 
-//=========================================================
-// RunTask 
-//=========================================================
 void CBaseMonster :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

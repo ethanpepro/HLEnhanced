@@ -653,10 +653,6 @@ void CHAssassin :: StartTask ( const Task_t* pTask )
 	}
 }
 
-
-//=========================================================
-// RunTask 
-//=========================================================
 void CHAssassin :: RunTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )
