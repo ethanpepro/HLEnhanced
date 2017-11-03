@@ -63,7 +63,7 @@ public:
 
 	void TalkInit( void );
 
-	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 	void Killed( const CTakeDamageInfo& info, GibAction gibAction ) override;
 
 	bool	m_fGunDrawn;

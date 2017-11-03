@@ -1293,7 +1293,7 @@ int BaseEntity_BloodColor( const CLASS* pThis )
 template<typename CLASS>
 void BaseEntity_TraceAttack( CLASS* pThis, const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
-	pThis->CLASS::TraceAttack( info, vecDir, &tr );
+	pThis->CLASS::TraceAttack( info, vecDir, tr );
 }
 
 template<typename CLASS>

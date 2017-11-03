@@ -54,7 +54,7 @@ public:
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
 
 	void CallForHelp( const char* const pszClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation );
-	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	void DeathSound( void ) override;

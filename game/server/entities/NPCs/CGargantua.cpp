@@ -424,7 +424,7 @@ void CGargantua::FlameDamage( Vector vecStart, Vector vecEnd, CBaseEntity* pInfl
 				if (tr.flFraction != 1.0)
 				{
 					g_MultiDamage.Clear( );
-					pEntity->TraceAttack( CTakeDamageInfo( pInflictor, flAdjustedDamage, bitsDamageType ), (tr.vecEndPos - vecSrc).Normalize( ), &tr );
+					pEntity->TraceAttack( CTakeDamageInfo( pInflictor, flAdjustedDamage, bitsDamageType ), (tr.vecEndPos - vecSrc).Normalize( ), tr );
 					g_MultiDamage.ApplyMultiDamage( pInflictor, pAttacker );
 				}
 				else
@@ -581,13 +581,13 @@ void CGargantua::UpdateOnRemove()
 	FlameDestroy();
 }
 
-void CGargantua::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CGargantua::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	ALERT( at_aiconsole, "CGargantua::TraceAttack\n");
 
 	if ( !IsAlive() )
 	{
-		CBaseMonster::TraceAttack( info, vecDir, ptr );
+		CBaseMonster::TraceAttack( info, vecDir, tr );
 		return;
 	}
 
@@ -609,7 +609,7 @@ void CGargantua::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceR
 	{
 		if ( GetDamageTime() != gpGlobals->time || (RANDOM_LONG(0,100) < 20) )
 		{
-			UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT(0.5,1.5) );
+			UTIL_Ricochet( tr.vecEndPos, RANDOM_FLOAT(0.5,1.5) );
 			SetDamageTime( gpGlobals->time );
 //			if ( RANDOM_LONG(0,100) < 25 )
 //				EMIT_SOUND_DYN( this, CHAN_BODY, pRicSounds[ RANDOM_LONG(0,ARRAYSIZE(pRicSounds)-1) ], 1.0, ATTN_NORM, 0, PITCH_NORM );
@@ -617,7 +617,7 @@ void CGargantua::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceR
 		newInfo.GetMutableDamage() = 0;
 	}
 
-	CBaseMonster::TraceAttack( newInfo, vecDir, ptr );
+	CBaseMonster::TraceAttack( newInfo, vecDir, tr );
 
 }
 

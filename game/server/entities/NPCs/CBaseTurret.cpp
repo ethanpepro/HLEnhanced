@@ -726,16 +726,16 @@ void CBaseTurret ::	TurretDeath( void )
 
 
 
-void CBaseTurret::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CBaseTurret::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	CTakeDamageInfo newInfo = info;
 
-	if ( ptr->iHitgroup == 10 )
+	if ( tr.iHitgroup == 10 )
 	{
 		// hit armor
 		if ( GetDamageTime() != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
 		{
-			UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT( 1, 2) );
+			UTIL_Ricochet( tr.vecEndPos, RANDOM_FLOAT( 1, 2) );
 			SetDamageTime( gpGlobals->time );
 		}
 

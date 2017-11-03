@@ -227,15 +227,15 @@ Vector CBasePlayer::GetGunPosition()
 	return GetAbsOrigin() + GetViewOffset();
 }
 
-void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	CTakeDamageInfo newInfo = info;
 
 	if ( GetTakeDamageMode() != DAMAGE_NO )
 	{
-		m_LastHitGroup = ptr->iHitgroup;
+		m_LastHitGroup = tr.iHitgroup;
 
-		switch ( ptr->iHitgroup )
+		switch ( tr.iHitgroup )
 		{
 		case HITGROUP_GENERIC:
 			break;
@@ -260,8 +260,8 @@ void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 			break;
 		}
 
-		SpawnBlood(ptr->vecEndPos, BloodColor(), newInfo .GetDamage());// a little surface blood.
-		TraceBleed( newInfo, vecDir, ptr );
+		SpawnBlood( tr.vecEndPos, BloodColor(), newInfo .GetDamage());// a little surface blood.
+		TraceBleed( newInfo, vecDir, &tr );
 		g_MultiDamage.AddMultiDamage( newInfo, this );
 	}
 }

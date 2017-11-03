@@ -51,7 +51,7 @@ public:
 	void UpdateYawSpeed() override;
 	EntityClassification_t GetClassification() override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 
 	/**

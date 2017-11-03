@@ -89,11 +89,11 @@ void CCrossbowBolt::BoltTouch( CBaseEntity *pOther )
 
 		if( pOther->IsPlayer() )
 		{
-			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetPlrDmgCrossbowClient(), DMG_NEVERGIB ), GetAbsVelocity().Normalize(), &tr );
+			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetPlrDmgCrossbowClient(), DMG_NEVERGIB ), GetAbsVelocity().Normalize(), tr );
 		}
 		else
 		{
-			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetPlrDmgCrossbowMonster(), DMG_BULLET | DMG_NEVERGIB ), GetAbsVelocity().Normalize(), &tr );
+			pOther->TraceAttack( CTakeDamageInfo( pOwner, gSkillData.GetPlrDmgCrossbowMonster(), DMG_BULLET | DMG_NEVERGIB ), GetAbsVelocity().Normalize(), tr );
 		}
 
 		g_MultiDamage.ApplyMultiDamage( this, pOwner );

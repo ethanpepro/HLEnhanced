@@ -276,7 +276,7 @@ public:
 		CALL_EXTEND_FUNC_RET( int, BloodColor, "() const" );
 	}
 
-	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult* ptr ) override
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override
 	{
 		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "void TraceAttack(const CTakeDamageInfo& in, Vector, TraceResult& in)" ) )
 		{
@@ -284,11 +284,11 @@ public:
 
 			CASMethod method( *pFunction, ctx, GetObject().Get() );
 
-			method.Call( CallFlag::NONE, &info, &vecDir, &ptr );
+			method.Call( CallFlag::NONE, &info, &vecDir, &tr );
 		}
 		else
 		{
-			BaseClass::TraceAttack( info, vecDir, ptr );
+			BaseClass::TraceAttack( info, vecDir, tr );
 		}
 	}
 

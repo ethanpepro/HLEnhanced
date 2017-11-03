@@ -675,7 +675,7 @@ void RadiusDamage( Vector vecSrc, const CTakeDamageInfo& info, float flRadius, E
 				{
 					g_MultiDamage.Clear( );
 					pEntity->TraceAttack( CTakeDamageInfo( newInfo.GetInflictor(), newInfo.GetAttacker(), flAdjustedDamage, newInfo.GetDamageTypes() ), 
-						(tr.vecEndPos - vecSrc).Normalize( ), &tr );
+						(tr.vecEndPos - vecSrc).Normalize( ), tr );
 					g_MultiDamage.ApplyMultiDamage( newInfo.GetInflictor(), newInfo.GetAttacker() );
 				}
 				else
@@ -815,15 +815,15 @@ void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trac
 }
 */
 
-void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	CTakeDamageInfo newInfo = info;
 
 	if ( GetTakeDamageMode() != DAMAGE_NO )
 	{
-		m_LastHitGroup = ptr->iHitgroup;
+		m_LastHitGroup = tr.iHitgroup;
 
-		switch ( ptr->iHitgroup )
+		switch ( tr.iHitgroup )
 		{
 		case HITGROUP_GENERIC:
 			break;
@@ -848,8 +848,8 @@ void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trac
 			break;
 		}
 
-		SpawnBlood(ptr->vecEndPos, BloodColor(), newInfo.GetDamage());// a little surface blood.
-		TraceBleed( newInfo, vecDir, ptr );
+		SpawnBlood( tr.vecEndPos, BloodColor(), newInfo.GetDamage());// a little surface blood.
+		TraceBleed( newInfo, vecDir, &tr );
 		g_MultiDamage.AddMultiDamage( newInfo, this );
 	}
 }

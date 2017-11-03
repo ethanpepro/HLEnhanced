@@ -52,7 +52,7 @@ Vector CBasePlayer::GetGunPosition( void )
 	return g_vecZero;
 }
 
-void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 }
 

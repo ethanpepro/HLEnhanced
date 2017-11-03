@@ -682,12 +682,12 @@ void COsprey :: ShowDamage( void )
 }
 
 
-void COsprey::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void COsprey::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	// ALERT( at_console, "%d %.0f\n", ptr->iHitgroup, flDamage );
 
 	// only so much per engine
-	if (ptr->iHitgroup == 3)
+	if ( tr.iHitgroup == 3)
 	{
 		if (m_flRightHealth < 0)
 			return;
@@ -696,7 +696,7 @@ void COsprey::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResu
 		m_iDoLeftSmokePuff = 3 + (info.GetDamage()/ 5.0);
 	}
 
-	if (ptr->iHitgroup == 2)
+	if ( tr.iHitgroup == 2)
 	{
 		if (m_flLeftHealth < 0)
 			return;
@@ -706,14 +706,14 @@ void COsprey::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResu
 	}
 
 	// hit hard, hits cockpit, hits engines
-	if (info.GetDamage() > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2 || ptr->iHitgroup == 3)
+	if (info.GetDamage() > 50 || tr.iHitgroup == 1 || tr.iHitgroup == 2 || tr.iHitgroup == 3)
 	{
 		// ALERT( at_console, "%.0f\n", flDamage );
 		g_MultiDamage.AddMultiDamage( info, this );
 	}
 	else
 	{
-		UTIL_Sparks( ptr->vecEndPos );
+		UTIL_Sparks( tr.vecEndPos );
 	}
 }
 

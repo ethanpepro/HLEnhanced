@@ -466,7 +466,7 @@ public:
 
 		bool GetEnemy();
 		void MakeDamageBloodDecal ( int cCount, float flNoise, TraceResult *ptr, const Vector &vecDir );
-		void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+		void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 
 	// combat functions
 	virtual Activity GetDeathActivity ( void );

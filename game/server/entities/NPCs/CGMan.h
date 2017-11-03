@@ -35,7 +35,7 @@ public:
 	void StartTask( const Task_t& task ) override;
 	void RunTask( const Task_t& task ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
-	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 
 	void PlayScriptedSentence( const char *pszSentence, float duration, float volume, float attenuation, const bool bConcurrent, CBaseEntity *pListener ) override;
 

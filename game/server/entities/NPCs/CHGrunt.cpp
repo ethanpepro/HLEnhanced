@@ -383,12 +383,12 @@ bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 	return m_fThrowGrenade;
 }
 
-void CHGrunt::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CHGrunt::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	CTakeDamageInfo newInfo = info;
 
 	// check for helmet shot
-	if (ptr->iHitgroup == 11)
+	if ( tr.iHitgroup == 11)
 	{
 		// make sure we're wearing one
 		if (GetBodygroup( 1 ) == HEAD_GRUNT && (newInfo.GetDamageTypes() & (DMG_BULLET | DMG_SLASH | DMG_BLAST | DMG_CLUB)))
@@ -397,14 +397,14 @@ void CHGrunt::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResu
 			newInfo.GetMutableDamage() -= 20;
 			if (newInfo.GetDamage() <= 0)
 			{
-				UTIL_Ricochet( ptr->vecEndPos, 1.0 );
+				UTIL_Ricochet( tr.vecEndPos, 1.0 );
 				newInfo.GetMutableDamage() = 0.01;
 			}
 		}
 		// it's head shot anyways
-		ptr->iHitgroup = HITGROUP_HEAD;
+		tr.iHitgroup = HITGROUP_HEAD;
 	}
-	CSquadMonster::TraceAttack( newInfo, vecDir, ptr );
+	CSquadMonster::TraceAttack( newInfo, vecDir, tr );
 }
 
 

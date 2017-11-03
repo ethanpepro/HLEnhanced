@@ -306,7 +306,7 @@ public:
 	
 	Vector GetGunPosition() override;
 
-	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 

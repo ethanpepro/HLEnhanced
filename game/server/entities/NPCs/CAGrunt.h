@@ -92,7 +92,7 @@ public:
 	void PainSound( void ) override;
 	void AttackSound( void );
 	void PrescheduleThink( void ) override;
-	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 
 	/**
 	*	@brief Overridden because Human Grunts are Alien Grunt's nemesis

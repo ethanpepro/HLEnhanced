@@ -143,7 +143,7 @@ void CCrossbow::FireSniperBolt()
 	if ( tr.pHit->v.takedamage )
 	{
 		g_MultiDamage.Clear( );
-		CBaseEntity::Instance(tr.pHit)->TraceAttack( CTakeDamageInfo( m_pPlayer, 120, DMG_BULLET | DMG_NEVERGIB ), vecDir, &tr ); 
+		CBaseEntity::Instance(tr.pHit)->TraceAttack( CTakeDamageInfo( m_pPlayer, 120, DMG_BULLET | DMG_NEVERGIB ), vecDir, tr ); 
 		g_MultiDamage.ApplyMultiDamage( this, m_pPlayer );
 	}
 #endif

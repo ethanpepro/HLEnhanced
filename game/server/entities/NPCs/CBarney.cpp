@@ -471,11 +471,11 @@ void CBarney :: DeathSound ( void )
 }
 
 
-void CBarney::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CBarney::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	CTakeDamageInfo newInfo = info;
 
-	switch( ptr->iHitgroup)
+	switch( tr.iHitgroup)
 	{
 	case HITGROUP_CHEST:
 	case HITGROUP_STOMACH:
@@ -490,16 +490,16 @@ void CBarney::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResu
 			newInfo.GetMutableDamage() -= 20;
 			if (newInfo.GetDamage() <= 0)
 			{
-				UTIL_Ricochet( ptr->vecEndPos, 1.0 );
+				UTIL_Ricochet( tr.vecEndPos, 1.0 );
 				newInfo.GetMutableDamage() = 0.01;
 			}
 		}
 		// always a head shot
-		ptr->iHitgroup = HITGROUP_HEAD;
+		tr.iHitgroup = HITGROUP_HEAD;
 		break;
 	}
 
-	CTalkMonster::TraceAttack( newInfo, vecDir, ptr );
+	CTalkMonster::TraceAttack( newInfo, vecDir, tr );
 }
 
 

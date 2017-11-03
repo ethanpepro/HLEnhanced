@@ -184,7 +184,7 @@ void CShockBeam::BallTouch( CBaseEntity* pOther )
 				bIsMultiplayer() ? gSkillData.GetPlrDmgShockRoachM() : gSkillData.GetPlrDmgShockRoachS(),
 				bitsDamageTypes ), 
 			GetAbsVelocity().Normalize(),
-			&tr );
+			tr );
 
 		g_MultiDamage.ApplyMultiDamage( this, pOwner );
 

@@ -393,7 +393,7 @@ void CBarnacleGrapple::PrimaryAttack()
 
 							pHit->TraceAttack( 
 								CTakeDamageInfo( this, m_pPlayer, flDamage, DMG_ALWAYSGIB | DMG_CLUB ), 
-								gpGlobals->v_forward, &tr );
+								gpGlobals->v_forward, tr );
 
 							g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 #endif

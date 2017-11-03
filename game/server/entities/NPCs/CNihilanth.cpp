@@ -1107,19 +1107,19 @@ void CNihilanth::OnTakeDamage( const CTakeDamageInfo& info )
 
 
 
-void CNihilanth::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CNihilanth::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	if (m_irritation == 3)
 		m_irritation = 2;
 
-	if (m_irritation == 2 && ptr->iHitgroup == 2 && info.GetDamage() > 2)
+	if (m_irritation == 2 && tr.iHitgroup == 2 && info.GetDamage() > 2)
 		m_irritation = 3;
 
 	if (m_irritation != 3)
 	{
-		Vector vecBlood = (ptr->vecEndPos - GetAbsOrigin()).Normalize( );
+		Vector vecBlood = ( tr.vecEndPos - GetAbsOrigin()).Normalize( );
 
-		UTIL_BloodStream( ptr->vecEndPos, vecBlood, BloodColor(), info.GetDamage() + (100 - 100 * ( GetHealth() / gSkillData.GetNihilanthHealth() )));
+		UTIL_BloodStream( tr.vecEndPos, vecBlood, BloodColor(), info.GetDamage() + (100 - 100 * ( GetHealth() / gSkillData.GetNihilanthHealth() )));
 	}
 
 	// SpawnBlood(ptr->vecEndPos, BloodColor(), flDamage * 5.0);// a little surface blood.

@@ -476,12 +476,12 @@ void CISlave::OnTakeDamage( const CTakeDamageInfo& info )
 }
 
 
-void CISlave::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CISlave::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	if (info.GetDamageTypes() & DMG_SHOCK)
 		return;
 
-	CSquadMonster::TraceAttack( info, vecDir, ptr );
+	CSquadMonster::TraceAttack( info, vecDir, tr );
 }
 
 
@@ -722,7 +722,7 @@ void CISlave :: ZapBeam( int side )
 	pEntity = CBaseEntity::Instance(tr.pHit);
 	if (pEntity != NULL && pEntity->GetTakeDamageMode() != DAMAGE_NO )
 	{
-		pEntity->TraceAttack( CTakeDamageInfo( this, gSkillData.GetSlaveDmgZap(), DMG_SHOCK ), vecAim, &tr );
+		pEntity->TraceAttack( CTakeDamageInfo( this, gSkillData.GetSlaveDmgZap(), DMG_SHOCK ), vecAim, tr );
 	}
 	UTIL_EmitAmbientSound( this, tr.vecEndPos, "weapons/electro4.wav", 0.5, ATTN_NORM, 0, RANDOM_LONG( 140, 160 ) );
 }

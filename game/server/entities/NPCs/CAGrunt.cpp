@@ -111,16 +111,16 @@ int CAGrunt :: ISoundMask ( void )
 			bits_SOUND_DANGER;
 }
 
-void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	CTakeDamageInfo newInfo = info;
 
-	if ( ptr->iHitgroup == 10 && (newInfo.GetDamageTypes() & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
+	if ( tr.iHitgroup == 10 && (newInfo.GetDamageTypes() & (DMG_BULLET | DMG_SLASH | DMG_CLUB)))
 	{
 		// hit armor
 		if ( GetDamageTime() != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
 		{
-			UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT( 1, 2) );
+			UTIL_Ricochet( tr.vecEndPos, RANDOM_FLOAT( 1, 2) );
 			SetDamageTime( gpGlobals->time );
 		}
 
@@ -134,11 +134,11 @@ void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceRe
 
 			vecTracerDir = vecTracerDir * -512;
 
-			MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, ptr->vecEndPos );
+			MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, tr.vecEndPos );
 			WRITE_BYTE( TE_TRACER );
-				WRITE_COORD( ptr->vecEndPos.x );
-				WRITE_COORD( ptr->vecEndPos.y );
-				WRITE_COORD( ptr->vecEndPos.z );
+				WRITE_COORD( tr.vecEndPos.x );
+				WRITE_COORD( tr.vecEndPos.y );
+				WRITE_COORD( tr.vecEndPos.z );
 
 				WRITE_COORD( vecTracerDir.x );
 				WRITE_COORD( vecTracerDir.y );
@@ -152,8 +152,8 @@ void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceRe
 	}
 	else
 	{
-		SpawnBlood(ptr->vecEndPos, BloodColor(), newInfo.GetDamage());// a little surface blood.
-		TraceBleed( newInfo, vecDir, ptr );
+		SpawnBlood( tr.vecEndPos, BloodColor(), newInfo.GetDamage());// a little surface blood.
+		TraceBleed( newInfo, vecDir, &tr );
 	}
 
 	g_MultiDamage.AddMultiDamage( info, this );

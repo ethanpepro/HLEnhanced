@@ -416,7 +416,7 @@ void CGauss::Fire( Vector vecOrigSrc, Vector vecDir, float flDamage )
 		if (pEntity->GetTakeDamageMode() != DAMAGE_NO )
 		{
 			g_MultiDamage.Clear();
-			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, flDamage, DMG_BULLET ), vecDir, &tr );
+			pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, flDamage, DMG_BULLET ), vecDir, tr );
 			g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 		}
 

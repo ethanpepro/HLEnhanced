@@ -263,17 +263,17 @@ void CBigMomma :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-void CBigMomma::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CBigMomma::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	CTakeDamageInfo newInfo = info;
 
-	if ( ptr->iHitgroup != 1 )
+	if ( tr.iHitgroup != 1 )
 	{
 		// didn't hit the sack?
 		
 		if ( GetDamageTime() != gpGlobals->time || (RANDOM_LONG(0,10) < 1) )
 		{
-			UTIL_Ricochet( ptr->vecEndPos, RANDOM_FLOAT( 1, 2) );
+			UTIL_Ricochet( tr.vecEndPos, RANDOM_FLOAT( 1, 2) );
 			SetDamageTime( gpGlobals->time );
 		}
 
@@ -286,7 +286,7 @@ void CBigMomma::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceRe
 	}
 
 
-	CBaseMonster::TraceAttack( newInfo, vecDir, ptr );
+	CBaseMonster::TraceAttack( newInfo, vecDir, tr );
 }
 
 

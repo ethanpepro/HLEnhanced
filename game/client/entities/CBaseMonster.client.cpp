@@ -380,7 +380,7 @@ bool CBaseMonster::GetEnemy()
 	return false;
 }
 
-void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 }
 

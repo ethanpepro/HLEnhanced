@@ -278,7 +278,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 			g_MultiDamage.Clear();
 			if (pEntity->GetTakeDamageMode() != DAMAGE_NO )
 			{
-				pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgEgonNarrow(), DMG_ENERGYBEAM ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgEgonNarrow(), DMG_ENERGYBEAM ), vecDir, tr );
 			}
 			g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 
@@ -315,7 +315,7 @@ void CEgon::Fire( const Vector &vecOrigSrc, const Vector &vecDir )
 			g_MultiDamage.Clear();
 			if (pEntity->GetTakeDamageMode() != DAMAGE_NO )
 			{
-				pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgEgonWide(), DMG_ENERGYBEAM | DMG_ALWAYSGIB ), vecDir, &tr );
+				pEntity->TraceAttack( CTakeDamageInfo( m_pPlayer, gSkillData.GetPlrDmgEgonWide(), DMG_ENERGYBEAM | DMG_ALWAYSGIB ), vecDir, tr );
 			}
 			g_MultiDamage.ApplyMultiDamage( m_pPlayer, m_pPlayer );
 

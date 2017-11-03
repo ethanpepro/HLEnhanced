@@ -176,7 +176,7 @@ public:
 	/**
 	*	@brief make sure we're not taking it in the helmet
 	*/
-	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
 	/**

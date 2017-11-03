@@ -206,7 +206,7 @@ void CPenguinGrenade::SuperBounceTouch( CBaseEntity *pOther )
 			{
 				// ALERT( at_console, "hit enemy\n");
 				g_MultiDamage.Clear();
-				pOther->TraceAttack( CTakeDamageInfo( this, gSkillData.GetSnarkDmgBite(), DMG_SLASH ), gpGlobals->v_forward, &tr );
+				pOther->TraceAttack( CTakeDamageInfo( this, gSkillData.GetSnarkDmgBite(), DMG_SLASH ), gpGlobals->v_forward, tr );
 				if( pRealOwner )
 					g_MultiDamage.ApplyMultiDamage( this, pRealOwner );
 				else

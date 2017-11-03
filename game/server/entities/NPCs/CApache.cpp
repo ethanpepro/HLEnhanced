@@ -860,16 +860,16 @@ void CApache::OnTakeDamage( const CTakeDamageInfo& info )
 
 
 
-void CApache::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CApache::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	// ALERT( at_console, "%d %.0f\n", ptr->iHitgroup, flDamage );
 
 	// ignore blades
-	if (ptr->iHitgroup == 6 && (info.GetDamageTypes() & (DMG_ENERGYBEAM|DMG_BULLET|DMG_CLUB)))
+	if ( tr.iHitgroup == 6 && (info.GetDamageTypes() & (DMG_ENERGYBEAM|DMG_BULLET|DMG_CLUB)))
 		return;
 
 	// hit hard, hits cockpit, hits engines
-	if (info.GetDamage() > 50 || ptr->iHitgroup == 1 || ptr->iHitgroup == 2)
+	if (info.GetDamage() > 50 || tr.iHitgroup == 1 || tr.iHitgroup == 2)
 	{
 		// ALERT( at_console, "%.0f\n", flDamage );
 		g_MultiDamage.AddMultiDamage( info, this );
@@ -879,6 +879,6 @@ void CApache::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResu
 	{
 		// do half damage in the body
 		// g_MultiDamage.AddMultiDamage( info.GetAttacker(), this, info.GetDamage() / 2.0, info.GetDamageTypes() );
-		UTIL_Ricochet( ptr->vecEndPos, 2.0 );
+		UTIL_Ricochet( tr.vecEndPos, 2.0 );
 	}
 }

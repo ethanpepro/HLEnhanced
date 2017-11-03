@@ -2085,10 +2085,10 @@ public:
 	*	This is where blood, ricochets, and other effects should be handled.
 	*	@param info Damage info.
 	*	@param vecDir Direction of the attack.
-	*	@param ptr Traceline that represents the attack.
+	*	@param tr Traceline that represents the attack.
 	*	@see g_MultiDamage
 	*/
-	virtual void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult* ptr );
+	virtual void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr );
 
 	/**
 	*	Projects blood decals based on the given damage and traceline.

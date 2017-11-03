@@ -66,7 +66,7 @@ public:
 	void		StartTask( const Task_t& task ) override;
 	Schedule_t	*GetSchedule( void ) override;
 	Schedule_t	*GetScheduleOfType( int Type ) override;
-	void		TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
+	void		TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override;
 
 	void NodeStart( string_t iszNextNode );
 	void NodeReach( void );

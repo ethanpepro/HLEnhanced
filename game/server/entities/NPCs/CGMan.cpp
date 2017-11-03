@@ -169,9 +169,9 @@ void CGMan::OnTakeDamage( const CTakeDamageInfo& info )
 }
 
 
-void CGMan::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CGMan::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
-	UTIL_Ricochet( ptr->vecEndPos, 1.0 );
+	UTIL_Ricochet( tr.vecEndPos, 1.0 );
 	g_MultiDamage.AddMultiDamage( info, this );
 }
 
