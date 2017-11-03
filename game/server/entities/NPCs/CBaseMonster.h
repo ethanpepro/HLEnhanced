@@ -325,7 +325,13 @@ public:
 		virtual void StartTask( const Task_t* pTask );
 		virtual void RunTask( const Task_t* pTask );
 		virtual Schedule_t *GetScheduleOfType( int Type );
+
+		/**
+		*	@brief Decides which type of schedule best suits the monster's current state and conditions
+		*	Then calls monster's member function to get a pointer to a schedule of the proper type
+		*/
 		virtual Schedule_t *GetSchedule( void );
+
 		virtual void ScheduleChange( void ) {}
 		// virtual bool CanPlaySequence() const { return ((m_pCine == NULL) && (m_MonsterState == MONSTERSTATE_NONE || m_MonsterState == MONSTERSTATE_IDLE || m_IdealMonsterState == MONSTERSTATE_IDLE)); }
 		virtual bool CanPlaySequence( const bool fDisregardState, int interruptLevel ) const;

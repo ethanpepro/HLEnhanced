@@ -633,13 +633,6 @@ void CController :: RunTask ( const Task_t* pTask )
 	}
 }
 
-
-//=========================================================
-// GetSchedule - Decides which type of schedule best suits
-// the monster's current state and conditions. Then calls
-// monster's member function to get a pointer to a schedule
-// of the proper type.
-//=========================================================
 Schedule_t *CController :: GetSchedule ( void )
 {
 	switch	( m_MonsterState )

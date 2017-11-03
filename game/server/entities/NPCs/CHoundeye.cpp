@@ -1142,9 +1142,6 @@ Schedule_t* CHoundeye :: GetScheduleOfType ( int Type )
 	}
 }
 
-//=========================================================
-// GetSchedule 
-//=========================================================
 Schedule_t *CHoundeye :: GetSchedule( void )
 {
 	switch	( m_MonsterState )

@@ -421,9 +421,6 @@ void CIchthyosaur :: Precache()
 	PRECACHE_SOUND_ARRAY( pPainSounds );
 }
 
-//=========================================================
-// GetSchedule
-//=========================================================
 Schedule_t* CIchthyosaur::GetSchedule()
 {
 	// ALERT( at_console, "GetSchedule( )\n" );

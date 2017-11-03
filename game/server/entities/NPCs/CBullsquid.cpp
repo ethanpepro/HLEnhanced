@@ -786,9 +786,6 @@ BEGIN_SCHEDULES( CBullsquid )
 	slSquidWallow
 END_SCHEDULES()
 
-//=========================================================
-// GetSchedule 
-//=========================================================
 Schedule_t *CBullsquid :: GetSchedule( void )
 {
 	switch	( m_MonsterState )
