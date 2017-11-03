@@ -73,7 +73,13 @@ public:
 
 	Schedule_t* GetSchedule( void ) override;
 	Schedule_t* GetScheduleOfType( int Type ) override;
+
+	/**
+	*	@brief this is overridden for alien grunts because they can use their smart weapons against unseen enemies
+	*	Base class doesn't attack anyone it can't see
+	*/
 	bool FCanCheckAttacks() const override;
+
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	void StartTask( const Task_t* pTask ) override;

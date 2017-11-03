@@ -198,18 +198,6 @@ void CHGrunt :: PrescheduleThink ( void )
 	}
 }
 
-//=========================================================
-// FCanCheckAttacks - this is overridden for human grunts
-// because they can throw/shoot grenades when they can't see their
-// target and the base class doesn't check attacks if the monster
-// cannot see its enemy.
-//
-// !!!BUGBUG - this gets called before a 3-round burst is fired
-// which means that a friendly can still be hit with up to 2 rounds. 
-// ALSO, grenades will not be tossed if there is a friendly in front,
-// this is a bad bug. Friendly machine gun fire avoidance
-// will unecessarily prevent the throwing of a grenade as well.
-//=========================================================
 bool CHGrunt::FCanCheckAttacks() const
 {
 	if ( !HasConditions( bits_COND_ENEMY_TOOFAR ) )

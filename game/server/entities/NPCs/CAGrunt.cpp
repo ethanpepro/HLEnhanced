@@ -749,11 +749,6 @@ BEGIN_SCHEDULES( CAGrunt )
 	slAGruntThreatDisplay,
 END_SCHEDULES()
 
-//=========================================================
-// FCanCheckAttacks - this is overridden for alien grunts
-// because they can use their smart weapons against unseen
-// enemies. Base class doesn't attack anyone it can't see.
-//=========================================================
 bool CAGrunt::FCanCheckAttacks() const
 {
 	if ( !HasConditions( bits_COND_ENEMY_TOOFAR ) )
