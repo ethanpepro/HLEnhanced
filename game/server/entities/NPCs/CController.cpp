@@ -411,9 +411,6 @@ BEGIN_SCHEDULES( CController )
 	slControllerFail,
 END_SCHEDULES()
 
-//=========================================================
-// StartTask
-//=========================================================
 void CController :: StartTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

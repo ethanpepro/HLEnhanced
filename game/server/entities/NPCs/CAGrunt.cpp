@@ -813,9 +813,6 @@ bool CAGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 	return m_fCanHornetAttack;
 }
 
-//=========================================================
-// StartTask
-//=========================================================
 void CAGrunt :: StartTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

@@ -403,10 +403,6 @@ bool CISlave :: CheckRangeAttack2 ( float flDot, float flDist )
 		return false;
 }
 
-
-//=========================================================
-// StartTask
-//=========================================================
 void CISlave :: StartTask ( const Task_t* pTask )
 {
 	ClearBeams( );
