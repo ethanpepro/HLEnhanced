@@ -699,10 +699,7 @@ int CScientist :: ISoundMask ( void )
 			bits_SOUND_DANGER	|
 			bits_SOUND_PLAYER;
 }
-	
-//=========================================================
-// PainSound
-//=========================================================
+
 void CScientist :: PainSound ( void )
 {
 	if (gpGlobals->time < m_painTime )
@@ -720,9 +717,6 @@ void CScientist :: PainSound ( void )
 	}
 }
 
-//=========================================================
-// DeathSound 
-//=========================================================
 void CScientist :: DeathSound ( void )
 {
 	PainSound();

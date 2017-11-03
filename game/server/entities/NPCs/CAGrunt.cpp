@@ -226,9 +226,6 @@ void CAGrunt :: PrescheduleThink ( void )
 	}
 }
 
-//=========================================================
-// DieSound
-//=========================================================
 void CAGrunt :: DeathSound ( void )
 {
 	StopTalking();
@@ -236,9 +233,6 @@ void CAGrunt :: DeathSound ( void )
 	EMIT_SOUND ( this, CHAN_VOICE, pDieSounds[RANDOM_LONG(0,ARRAYSIZE(pDieSounds)-1)], 1.0, ATTN_NORM );
 }
 
-//=========================================================
-// AlertSound
-//=========================================================
 void CAGrunt :: AlertSound ( void )
 {
 	StopTalking();
@@ -246,9 +240,6 @@ void CAGrunt :: AlertSound ( void )
 	EMIT_SOUND ( this, CHAN_VOICE, pAlertSounds[RANDOM_LONG(0,ARRAYSIZE(pAlertSounds)-1)], 1.0, ATTN_NORM );
 }
 
-//=========================================================
-// AttackSound
-//=========================================================
 void CAGrunt :: AttackSound ( void )
 {
 	StopTalking();
@@ -256,9 +247,6 @@ void CAGrunt :: AttackSound ( void )
 	EMIT_SOUND ( this, CHAN_VOICE, pAttackSounds[RANDOM_LONG(0,ARRAYSIZE(pAttackSounds)-1)], 1.0, ATTN_NORM );
 }
 
-//=========================================================
-// PainSound
-//=========================================================
 void CAGrunt :: PainSound ( void )
 {
 	if ( m_flNextPainTime > gpGlobals->time )

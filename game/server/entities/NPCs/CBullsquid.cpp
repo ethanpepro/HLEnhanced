@@ -242,9 +242,6 @@ void CBullsquid :: IdleSound ( void )
 	}
 }
 
-//=========================================================
-// PainSound 
-//=========================================================
 void CBullsquid :: PainSound ( void )
 {
 	int iPitch = RANDOM_LONG( 85, 120 );
@@ -266,9 +263,6 @@ void CBullsquid :: PainSound ( void )
 	}
 }
 
-//=========================================================
-// AlertSound
-//=========================================================
 void CBullsquid :: AlertSound ( void )
 {
 	int iPitch = RANDOM_LONG( 140, 160 );
@@ -531,9 +525,6 @@ void CBullsquid :: Precache()
 
 }	
 
-//=========================================================
-// DeathSound
-//=========================================================
 void CBullsquid :: DeathSound ( void )
 {
 	switch ( RANDOM_LONG(0,2) )
@@ -550,9 +541,6 @@ void CBullsquid :: DeathSound ( void )
 	}
 }
 
-//=========================================================
-// AttackSound
-//=========================================================
 void CBullsquid :: AttackSound ( void )
 {
 	switch ( RANDOM_LONG(0,1) )

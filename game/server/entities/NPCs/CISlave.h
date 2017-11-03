@@ -50,6 +50,9 @@ public:
 
 	void DeathSound( void ) override;
 	void PainSound( void ) override;
+	/**
+	*	@brief scream
+	*/
 	void AlertSound( void ) override;
 	void IdleSound( void ) override;
 

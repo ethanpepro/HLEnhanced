@@ -109,10 +109,6 @@ void CISlave::CallForHelp( const char* const pszClassname, float flDist, EHANDLE
 	}
 }
 
-
-//=========================================================
-// ALertSound - scream
-//=========================================================
 void CISlave :: AlertSound( void )
 {
 	if ( m_hEnemy != NULL )
@@ -158,9 +154,6 @@ void CISlave :: IdleSound( void )
 #endif
 }
 
-//=========================================================
-// PainSound
-//=========================================================
 void CISlave :: PainSound( void )
 {
 	if (RANDOM_LONG( 0, 2 ) == 0)
@@ -168,10 +161,6 @@ void CISlave :: PainSound( void )
 		EMIT_SOUND_DYN ( this, CHAN_WEAPON, pPainSounds[ RANDOM_LONG(0,ARRAYSIZE(pPainSounds)-1) ], 1.0, ATTN_NORM, 0, m_voicePitch );
 	}
 }
-
-//=========================================================
-// DieSound
-//=========================================================
 
 void CISlave :: DeathSound( void )
 {

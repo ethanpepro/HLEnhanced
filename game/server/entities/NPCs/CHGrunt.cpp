@@ -967,9 +967,6 @@ void CHGrunt :: RunTask ( const Task_t* pTask )
 	}
 }
 
-//=========================================================
-// PainSound
-//=========================================================
 void CHGrunt :: PainSound ( void )
 {
 	if ( gpGlobals->time > m_flNextPainTime )
@@ -1009,9 +1006,6 @@ void CHGrunt :: PainSound ( void )
 	}
 }
 
-//=========================================================
-// DeathSound 
-//=========================================================
 void CHGrunt :: DeathSound ( void )
 {
 	switch ( RANDOM_LONG(0,2) )

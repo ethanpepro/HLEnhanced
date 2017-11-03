@@ -45,9 +45,6 @@ END_DATADESC()
 
 LINK_ENTITY_TO_CLASS( monster_human_assassin, CHAssassin );
 
-//=========================================================
-// DieSound
-//=========================================================
 void CHAssassin :: DeathSound ( void )
 {
 }

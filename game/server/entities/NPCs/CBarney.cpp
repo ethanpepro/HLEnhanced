@@ -187,9 +187,6 @@ EntityClassification_t CBarney::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::PLAYER_ALLY );
 }
 
-//=========================================================
-// ALertSound - barney says "Freeze!"
-//=========================================================
 void CBarney :: AlertSound( void )
 {
 	if ( m_hEnemy != NULL )
@@ -467,10 +464,6 @@ void CBarney::OnTakeDamage( const CTakeDamageInfo& info )
 	}
 }
 
-	
-//=========================================================
-// PainSound
-//=========================================================
 void CBarney :: PainSound ( void )
 {
 	if (gpGlobals->time < m_painTime)
@@ -486,9 +479,6 @@ void CBarney :: PainSound ( void )
 	}
 }
 
-//=========================================================
-// DeathSound 
-//=========================================================
 void CBarney :: DeathSound ( void )
 {
 	switch (RANDOM_LONG(0,2))

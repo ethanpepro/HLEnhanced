@@ -399,25 +399,16 @@ void CHeadCrab :: IdleSound ( void )
 	EMIT_SOUND_DYN( this, CHAN_VOICE, RANDOM_SOUND_ARRAY(pIdleSounds), GetSoundVolume(), ATTN_IDLE, 0, GetVoicePitch() );
 }
 
-//=========================================================
-// AlertSound 
-//=========================================================
 void CHeadCrab :: AlertSound ( void )
 {
 	EMIT_SOUND_DYN( this, CHAN_VOICE, RANDOM_SOUND_ARRAY(pAlertSounds), GetSoundVolume(), ATTN_IDLE, 0, GetVoicePitch() );
 }
 
-//=========================================================
-// AlertSound 
-//=========================================================
 void CHeadCrab :: PainSound ( void )
 {
 	EMIT_SOUND_DYN( this, CHAN_VOICE, RANDOM_SOUND_ARRAY(pPainSounds), GetSoundVolume(), ATTN_IDLE, 0, GetVoicePitch() );
 }
 
-//=========================================================
-// DeathSound 
-//=========================================================
 void CHeadCrab :: DeathSound ( void )
 {
 	EMIT_SOUND_DYN( this, CHAN_VOICE, RANDOM_SOUND_ARRAY(pDeathSounds), GetSoundVolume(), ATTN_IDLE, 0, GetVoicePitch() );

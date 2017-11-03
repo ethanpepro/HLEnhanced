@@ -38,6 +38,9 @@ public:
 	void UpdateYawSpeed() override;
 	int  ISoundMask( void ) override;
 	void BarneyFirePistol( void );
+	/**
+	*	@brief barney says "Freeze!"
+	*/
 	void AlertSound( void ) override;
 	EntityClassification_t GetClassification() override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;

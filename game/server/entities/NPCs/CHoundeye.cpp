@@ -358,9 +358,6 @@ void CHoundeye :: WarnSound ( void )
 	}
 }
 
-//=========================================================
-// AlertSound 
-//=========================================================
 void CHoundeye :: AlertSound ( void )
 {
 
@@ -383,9 +380,6 @@ void CHoundeye :: AlertSound ( void )
 	}
 }
 
-//=========================================================
-// DeathSound 
-//=========================================================
 void CHoundeye :: DeathSound ( void )
 {
 	switch ( RANDOM_LONG(0,2) )
@@ -402,9 +396,6 @@ void CHoundeye :: DeathSound ( void )
 	}
 }
 
-//=========================================================
-// PainSound 
-//=========================================================
 void CHoundeye :: PainSound ( void )
 {
 	switch ( RANDOM_LONG(0,2) )
