@@ -375,9 +375,9 @@ Activity CScientist::GetStoppedActivity( void )
 }
 
 
-void CScientist :: StartTask( const Task_t* pTask )
+void CScientist :: StartTask( const Task_t& task )
 {
-	switch( pTask->iTask )
+	switch( task.iTask )
 	{
 	case TASK_SAY_HEAL:
 //		if ( FOkToSpeak() )
@@ -394,7 +394,7 @@ void CScientist :: StartTask( const Task_t* pTask )
 		break;
 
 	case TASK_RANDOM_SCREAM:
-		if ( RANDOM_FLOAT( 0, 1 ) < pTask->flData )
+		if ( RANDOM_FLOAT( 0, 1 ) < task.flData )
 			Scream();
 		TaskComplete();
 		break;
@@ -436,14 +436,14 @@ void CScientist :: StartTask( const Task_t* pTask )
 		break;
 
 	default:
-		CTalkMonster::StartTask( pTask );
+		CTalkMonster::StartTask( task );
 		break;
 	}
 }
 
-void CScientist :: RunTask( const Task_t* pTask )
+void CScientist :: RunTask( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_RUN_PATH_SCARED:
 		if ( MovementIsComplete() )
@@ -467,7 +467,7 @@ void CScientist :: RunTask( const Task_t* pTask )
 
 				distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
 				// Re-evaluate when you think your finished, or the target has moved too far
-				if ( (distance < pTask->flData) || (m_vecMoveGoal - m_hTargetEnt->GetAbsOrigin()).Length() > pTask->flData * 0.5 )
+				if ( (distance < task.flData) || (m_vecMoveGoal - m_hTargetEnt->GetAbsOrigin()).Length() > task.flData * 0.5 )
 				{
 					m_vecMoveGoal = m_hTargetEnt->GetAbsOrigin();
 					distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
@@ -476,7 +476,7 @@ void CScientist :: RunTask( const Task_t* pTask )
 
 				// Set the appropriate activity based on an overlapping range
 				// overlap the range to prevent oscillation
-				if ( distance < pTask->flData )
+				if ( distance < task.flData )
 				{
 					TaskComplete();
 					RouteClear();		// Stop moving
@@ -503,7 +503,7 @@ void CScientist :: RunTask( const Task_t* pTask )
 		}
 		break;
 	default:
-		CTalkMonster::RunTask( pTask );
+		CTalkMonster::RunTask( task );
 		break;
 	}
 }

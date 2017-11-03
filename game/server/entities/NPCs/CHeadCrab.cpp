@@ -254,9 +254,9 @@ void CHeadCrab :: Precache()
 	PRECACHE_MODEL("models/headcrab.mdl");
 }	
 
-void CHeadCrab :: RunTask ( const Task_t* pTask )
+void CHeadCrab :: RunTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_RANGE_ATTACK1:
 	case TASK_RANGE_ATTACK2:
@@ -271,7 +271,7 @@ void CHeadCrab :: RunTask ( const Task_t* pTask )
 		}
 	default:
 		{
-			CBaseMonster :: RunTask(pTask);
+			CBaseMonster :: RunTask( task );
 		}
 	}
 }
@@ -312,11 +312,11 @@ void CHeadCrab :: PrescheduleThink ( void )
 	}
 }
 
-void CHeadCrab :: StartTask ( const Task_t* pTask )
+void CHeadCrab :: StartTask ( const Task_t& task )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;
 
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_RANGE_ATTACK1:
 		{
@@ -327,7 +327,7 @@ void CHeadCrab :: StartTask ( const Task_t* pTask )
 		}
 	default:
 		{
-			CBaseMonster :: StartTask( pTask );
+			CBaseMonster :: StartTask( task );
 		}
 	}
 }

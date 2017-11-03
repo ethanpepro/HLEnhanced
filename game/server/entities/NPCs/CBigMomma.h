@@ -62,8 +62,8 @@ public:
 	void Activate( void ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 
-	void		RunTask( const Task_t* pTask ) override;
-	void		StartTask( const Task_t* pTask ) override;
+	void		RunTask( const Task_t& task ) override;
+	void		StartTask( const Task_t& task ) override;
 	Schedule_t	*GetSchedule( void ) override;
 	Schedule_t	*GetScheduleOfType( int Type ) override;
 	void		TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;

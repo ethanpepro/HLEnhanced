@@ -435,11 +435,11 @@ Schedule_t *CBaseMonster::GetSchedule()
 	return nullptr;
 }
 
-void CBaseMonster::RunTask( const Task_t* pTask )
+void CBaseMonster::RunTask( const Task_t& task )
 {
 }
 
-void CBaseMonster::StartTask( const Task_t* pTask )
+void CBaseMonster::StartTask( const Task_t& task )
 {
 }
 

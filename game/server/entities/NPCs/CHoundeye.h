@@ -76,8 +76,8 @@ public:
 	void WarnSound( void );
 	void PainSound( void ) override;
 	void IdleSound( void ) override;
-	void StartTask( const Task_t* pTask ) override;
-	void RunTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t& task ) override;
+	void RunTask( const Task_t& task ) override;
 	void SonicAttack( void );
 	void PrescheduleThink( void ) override;
 	void SetActivity( Activity NewActivity ) override;

@@ -69,8 +69,8 @@ public:
 	/**
 	*	@brief OVERRIDDEN for bullsquid because it needs to know explicitly when the last attempt to chase the enemy failed, since that impacts its attack choices.
 	*/
-	void StartTask( const Task_t* pTask ) override;
-	void RunTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t& task ) override;
+	void RunTask( const Task_t& task ) override;
 
 	/**
 	*	@brief bullsquid is a big guy, so has a longer melee range than most monsters. This is the tailwhip attack

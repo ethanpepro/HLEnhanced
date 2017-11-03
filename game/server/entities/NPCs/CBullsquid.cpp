@@ -911,11 +911,11 @@ Schedule_t* CBullsquid :: GetScheduleOfType ( int Type )
 	return CBaseMonster :: GetScheduleOfType ( Type );
 }
 
-void CBullsquid :: StartTask ( const Task_t* pTask )
+void CBullsquid :: StartTask ( const Task_t& task )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;
 
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_MELEE_ATTACK2:
 		{
@@ -932,7 +932,7 @@ void CBullsquid :: StartTask ( const Task_t* pTask )
 				break;
 			}
 
-			CBaseMonster :: StartTask ( pTask );
+			CBaseMonster :: StartTask ( task );
 			break;
 		}
 	case TASK_SQUID_HOPTURN:
@@ -956,15 +956,15 @@ void CBullsquid :: StartTask ( const Task_t* pTask )
 		}
 	default:
 		{
-			CBaseMonster :: StartTask ( pTask );
+			CBaseMonster :: StartTask ( task );
 			break;
 		}
 	}
 }
 
-void CBullsquid :: RunTask ( const Task_t* pTask )
+void CBullsquid :: RunTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_SQUID_HOPTURN:
 		{
@@ -979,7 +979,7 @@ void CBullsquid :: RunTask ( const Task_t* pTask )
 		}
 	default:
 		{
-			CBaseMonster :: RunTask( pTask );
+			CBaseMonster :: RunTask( task );
 			break;
 		}
 	}

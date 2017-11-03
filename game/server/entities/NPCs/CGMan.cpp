@@ -95,9 +95,9 @@ void CGMan :: Precache()
 //=========================================================
 
 
-void CGMan :: StartTask( const Task_t* pTask )
+void CGMan :: StartTask( const Task_t& task )
 {
-	switch( pTask->iTask )
+	switch( task.iTask )
 	{
 	case TASK_WAIT:
 		if (m_hPlayer == NULL)
@@ -106,12 +106,12 @@ void CGMan :: StartTask( const Task_t* pTask )
 		}
 		break;
 	}
-	CBaseMonster::StartTask( pTask );
+	CBaseMonster::StartTask( task );
 }
 
-void CGMan :: RunTask( const Task_t* pTask )
+void CGMan :: RunTask( const Task_t& task )
 {
-	switch( pTask->iTask )
+	switch( task.iTask )
 	{
 	case TASK_WAIT:
 		// look at who I'm talking to
@@ -140,11 +140,11 @@ void CGMan :: RunTask( const Task_t* pTask )
 		{
 			SetBoneController( 0, 0 );
 		}
-		CBaseMonster::RunTask( pTask );
+		CBaseMonster::RunTask( task );
 		break;
 	default:
 		SetBoneController( 0, 0 );
-		CBaseMonster::RunTask( pTask );
+		CBaseMonster::RunTask( task );
 		break;
 	}
 }

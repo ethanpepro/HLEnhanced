@@ -397,11 +397,11 @@ bool CISlave :: CheckRangeAttack2 ( float flDot, float flDist )
 		return false;
 }
 
-void CISlave :: StartTask ( const Task_t* pTask )
+void CISlave :: StartTask ( const Task_t& task )
 {
 	ClearBeams( );
 
-	CSquadMonster :: StartTask ( pTask );
+	CSquadMonster :: StartTask ( task );
 }
 
 void CISlave :: Spawn()

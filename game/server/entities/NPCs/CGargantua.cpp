@@ -823,13 +823,13 @@ Schedule_t *CGargantua::GetScheduleOfType( int Type )
 }
 
 
-void CGargantua::StartTask( const Task_t* pTask )
+void CGargantua::StartTask( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_FLAME_SWEEP:
 		FlameCreate();
-		m_flWaitFinished = gpGlobals->time + pTask->flData;
+		m_flWaitFinished = gpGlobals->time + task.flData;
 		m_flameTime = gpGlobals->time + 6;
 		m_flameX = 0;
 		m_flameY = 0;
@@ -846,14 +846,14 @@ void CGargantua::StartTask( const Task_t* pTask )
 		DeathEffect();
 		// FALL THROUGH
 	default: 
-		CBaseMonster::StartTask( pTask );
+		CBaseMonster::StartTask( task );
 		break;
 	}
 }
 
-void CGargantua::RunTask( const Task_t* pTask )
+void CGargantua::RunTask( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_DIE:
 		if ( gpGlobals->time > m_flWaitFinished )
@@ -919,7 +919,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 			return;
 		}
 		else
-			CBaseMonster::RunTask(pTask);
+			CBaseMonster::RunTask( task );
 		break;
 
 	case TASK_FLAME_SWEEP:
@@ -964,7 +964,7 @@ void CGargantua::RunTask( const Task_t* pTask )
 		break;
 
 	default:
-		CBaseMonster::RunTask( pTask );
+		CBaseMonster::RunTask( task );
 		break;
 	}
 }

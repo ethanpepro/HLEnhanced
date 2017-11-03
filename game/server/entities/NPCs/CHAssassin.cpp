@@ -631,9 +631,9 @@ void CHAssassin :: RunAI( void )
 	}
 }
 
-void CHAssassin :: StartTask ( const Task_t* pTask )
+void CHAssassin :: StartTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_RANGE_ATTACK2:
 		if (!m_fThrowGrenade)
@@ -642,20 +642,20 @@ void CHAssassin :: StartTask ( const Task_t* pTask )
 		}
 		else
 		{
-			CBaseMonster :: StartTask ( pTask );
+			CBaseMonster :: StartTask ( task );
 		}
 		break;
 	case TASK_ASSASSIN_FALL_TO_GROUND:
 		break;
 	default:
-		CBaseMonster :: StartTask ( pTask );
+		CBaseMonster :: StartTask ( task );
 		break;
 	}
 }
 
-void CHAssassin :: RunTask ( const Task_t* pTask )
+void CHAssassin :: RunTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_ASSASSIN_FALL_TO_GROUND:
 		MakeIdealYaw( m_vecEnemyLKP );
@@ -688,7 +688,7 @@ void CHAssassin :: RunTask ( const Task_t* pTask )
 		}
 		break;
 	default: 
-		CBaseMonster :: RunTask ( pTask );
+		CBaseMonster :: RunTask ( task );
 		break;
 	}
 }

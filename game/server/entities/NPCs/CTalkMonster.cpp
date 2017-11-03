@@ -369,9 +369,9 @@ void CTalkMonster :: SetActivity ( Activity newActivity )
 }
 
 
-void CTalkMonster :: StartTask( const Task_t* pTask )
+void CTalkMonster :: StartTask( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_TLK_SPEAK:
 		// ask question or make statement
@@ -402,7 +402,7 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 	case TASK_TLK_LOOK_AT_CLIENT:
 	case TASK_TLK_CLIENT_STARE:
 		// track head to the client for a while.
-		m_flWaitFinished = gpGlobals->time + pTask->flData;
+		m_flWaitFinished = gpGlobals->time + task.flData;
 		break;
 
 	case TASK_TLK_EYECONTACT:
@@ -458,7 +458,7 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 			Vector move;
 
 			UTIL_MakeVectorsPrivate( dir, &move, nullptr, nullptr );
-			dir = GetAbsOrigin() + move * pTask->flData;
+			dir = GetAbsOrigin() + move * task.flData;
 			if ( MoveToLocation( ACT_WALK, 2, dir ) )
 			{
 				TaskComplete();
@@ -479,18 +479,18 @@ void CTalkMonster :: StartTask( const Task_t* pTask )
 
 	case TASK_PLAY_SCRIPT:
 		m_hTalkTarget = NULL;
-		CBaseMonster::StartTask( pTask );
+		CBaseMonster::StartTask( task );
 		break;
 
 	default:
-		CBaseMonster::StartTask( pTask );
+		CBaseMonster::StartTask( task );
 	}
 }
 
 
-void CTalkMonster :: RunTask( const Task_t* pTask )
+void CTalkMonster :: RunTask( const Task_t& task )
 {
-	switch( pTask->iTask )
+	switch( task.iTask )
 	{
 	case TASK_TLK_CLIENT_STARE:
 	case TASK_TLK_LOOK_AT_CLIENT:
@@ -519,7 +519,7 @@ void CTalkMonster :: RunTask( const Task_t* pTask )
 
 			if( pPlayer )
 			{
-				if( pTask->iTask == TASK_TLK_CLIENT_STARE )
+				if( task.iTask == TASK_TLK_CLIENT_STARE )
 				{
 					// fail out if the player looks away or moves away.
 					if( ( pPlayer->v.origin - GetAbsOrigin() ).Length2D() > TLK_STARE_DIST )
@@ -592,7 +592,7 @@ void CTalkMonster :: RunTask( const Task_t* pTask )
 			distance = (m_vecLastPosition - GetAbsOrigin()).Length2D();
 
 			// Walk path until far enough away
-			if ( distance > pTask->flData || MovementIsComplete() )
+			if ( distance > task.flData || MovementIsComplete() )
 			{
 				TaskComplete();
 				RouteClear();		// Stop moving
@@ -619,7 +619,7 @@ void CTalkMonster :: RunTask( const Task_t* pTask )
 				}
 			}
 
-			CBaseMonster::RunTask( pTask );
+			CBaseMonster::RunTask( task );
 			if( TaskIsComplete() )
 				IdleHeadTurn( GetAbsOrigin() );
 			break;
@@ -635,7 +635,7 @@ void CTalkMonster :: RunTask( const Task_t* pTask )
 			{
 				SetBoneController( 0, 0 );
 			}
-			CBaseMonster::RunTask( pTask );
+			CBaseMonster::RunTask( task );
 
 			break;
 		}

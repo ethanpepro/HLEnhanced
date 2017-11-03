@@ -847,11 +847,11 @@ void CHGrunt :: Precache()
 	m_iShotgunShell = PRECACHE_MODEL ("models/shotgunshell.mdl");
 }	
 
-void CHGrunt :: StartTask ( const Task_t* pTask )
+void CHGrunt :: StartTask ( const Task_t& task )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;
 
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_GRUNT_CHECK_FIRE:
 		if ( !NoFriendlyFire() )
@@ -870,7 +870,7 @@ void CHGrunt :: StartTask ( const Task_t* pTask )
 	case TASK_RUN_PATH:
 		// grunt no longer assumes he is covered if he moves
 		Forget( bits_MEMORY_INCOVER );
-		CSquadMonster ::StartTask( pTask );
+		CSquadMonster ::StartTask( task );
 		break;
 
 	case TASK_RELOAD:
@@ -882,7 +882,7 @@ void CHGrunt :: StartTask ( const Task_t* pTask )
 
 	case TASK_FACE_IDEAL:
 	case TASK_FACE_ENEMY:
-		CSquadMonster :: StartTask( pTask );
+		CSquadMonster :: StartTask( task );
 		if ( GetMoveType() == MOVETYPE_FLY)
 		{
 			m_IdealActivity = ACT_GLIDE;
@@ -890,14 +890,14 @@ void CHGrunt :: StartTask ( const Task_t* pTask )
 		break;
 
 	default: 
-		CSquadMonster :: StartTask( pTask );
+		CSquadMonster :: StartTask( task );
 		break;
 	}
 }
 
-void CHGrunt :: RunTask ( const Task_t* pTask )
+void CHGrunt :: RunTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_GRUNT_FACE_TOSS_DIR:
 		{
@@ -913,7 +913,7 @@ void CHGrunt :: RunTask ( const Task_t* pTask )
 		}
 	default:
 		{
-			CSquadMonster :: RunTask( pTask );
+			CSquadMonster :: RunTask( task );
 			break;
 		}
 	}

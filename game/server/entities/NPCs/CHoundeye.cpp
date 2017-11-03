@@ -556,11 +556,11 @@ void CHoundeye :: SonicAttack ( void )
 	}
 }
 
-void CHoundeye :: StartTask ( const Task_t* pTask )
+void CHoundeye :: StartTask ( const Task_t& task )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;
 
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_HOUND_FALL_ASLEEP:
 		{
@@ -649,15 +649,15 @@ void CHoundeye :: StartTask ( const Task_t* pTask )
 		}
 	default: 
 		{
-			CSquadMonster :: StartTask(pTask);
+			CSquadMonster :: StartTask( task );
 			break;
 		}
 	}
 }
 
-void CHoundeye :: RunTask ( const Task_t* pTask )
+void CHoundeye :: RunTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_HOUND_THREAT_DISPLAY:
 		{
@@ -718,7 +718,7 @@ void CHoundeye :: RunTask ( const Task_t* pTask )
 		}
 	default:
 		{
-			CSquadMonster :: RunTask(pTask);
+			CSquadMonster :: RunTask( task );
 			break;
 		}
 	}

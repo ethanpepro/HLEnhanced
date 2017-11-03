@@ -44,8 +44,8 @@ public:
 	void CombatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
 	void BiteTouch( CBaseEntity *pOther );
 
-	void  StartTask( const Task_t* pTask ) override;
-	void  RunTask( const Task_t* pTask ) override;
+	void  StartTask( const Task_t& task ) override;
+	void  RunTask( const Task_t& task ) override;
 
 	bool  CheckMeleeAttack1( float flDot, float flDist ) override;
 

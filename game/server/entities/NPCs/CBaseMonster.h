@@ -337,12 +337,12 @@ public:
 		const Schedule_t* ScheduleFromName( const char* const pszName ) const;
 		
 		void MaintainSchedule ( void );
-		virtual void StartTask( const Task_t* pTask );
-		virtual void RunTask( const Task_t* pTask );
 
 		/**
 		*	@brief selects the correct activity and performs any necessary calculations to start the next task on the schedule
 		*/
+		virtual void StartTask( const Task_t& task );
+		virtual void RunTask( const Task_t& task );
 		virtual Schedule_t *GetScheduleOfType( int Type );
 
 		/**

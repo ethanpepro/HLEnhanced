@@ -149,24 +149,24 @@ BEGIN_SCHEDULES( CBarney )
 	slIdleBaStand,
 END_SCHEDULES()
 
-void CBarney :: StartTask( const Task_t* pTask )
+void CBarney :: StartTask( const Task_t& task )
 {
-	CTalkMonster::StartTask( pTask );	
+	CTalkMonster::StartTask( task );	
 }
 
-void CBarney :: RunTask( const Task_t* pTask )
+void CBarney :: RunTask( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_RANGE_ATTACK1:
 		if (m_hEnemy != NULL && (m_hEnemy->IsPlayer()))
 		{
 			SetFrameRate( 1.5 );
 		}
-		CTalkMonster::RunTask( pTask );
+		CTalkMonster::RunTask( task );
 		break;
 	default:
-		CTalkMonster::RunTask( pTask );
+		CTalkMonster::RunTask( task );
 		break;
 	}
 }

@@ -45,8 +45,8 @@ public:
 	EntityClassification_t GetClassification() override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 
-	void RunTask( const Task_t* pTask ) override;
-	void StartTask( const Task_t* pTask ) override;
+	void RunTask( const Task_t& task ) override;
+	void StartTask( const Task_t& task ) override;
 	virtual int	ObjectCaps() const override { return CTalkMonster::ObjectCaps() | FCAP_IMPULSE_USE; }
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;

@@ -618,9 +618,9 @@ Schedule_t *CBigMomma::GetSchedule( void )
 }
 
 
-void CBigMomma::StartTask( const Task_t* pTask )
+void CBigMomma::StartTask( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_FIND_NODE:
 		{
@@ -637,9 +637,9 @@ void CBigMomma::StartTask( const Task_t* pTask )
 		break;
 
 	case TASK_NODE_DELAY:
-		m_nodeTime = gpGlobals->time + pTask->flData;
+		m_nodeTime = gpGlobals->time + task.flData;
 		TaskComplete();
-		ALERT( at_aiconsole, "BM: FAIL! Delay %.2f\n", pTask->flData );
+		ALERT( at_aiconsole, "BM: FAIL! Delay %.2f\n", task.flData );
 		break;
 
 	case TASK_PROCESS_NODE:
@@ -652,7 +652,7 @@ void CBigMomma::StartTask( const Task_t* pTask )
 	case TASK_PLAY_NODE_SEQUENCE:
 		{
 			string_t sequence;
-			if ( pTask->iTask == TASK_PLAY_NODE_SEQUENCE )
+			if ( task.iTask == TASK_PLAY_NODE_SEQUENCE )
 				sequence = GetNodeSequence();
 			else
 				sequence = GetNodePresequence();
@@ -718,18 +718,18 @@ void CBigMomma::StartTask( const Task_t* pTask )
 	case TASK_MELEE_ATTACK1:
 		// Play an attack sound here
 		EMIT_SOUND_DYN( this, CHAN_VOICE, RANDOM_SOUND_ARRAY(pAttackSounds), 1.0, ATTN_NORM, 0, PITCH_NORM );
-		CBaseMonster::StartTask( pTask );
+		CBaseMonster::StartTask( task );
 		break;
 
 	default: 
-		CBaseMonster::StartTask( pTask );
+		CBaseMonster::StartTask( task );
 		break;
 	}
 }
 
-void CBigMomma::RunTask( const Task_t* pTask )
+void CBigMomma::RunTask( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_MOVE_TO_NODE_RANGE:
 		{
@@ -772,7 +772,7 @@ void CBigMomma::RunTask( const Task_t* pTask )
 		break;
 
 	default:
-		CBaseMonster::RunTask( pTask );
+		CBaseMonster::RunTask( task );
 		break;
 	}
 }

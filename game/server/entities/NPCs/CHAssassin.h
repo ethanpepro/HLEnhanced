@@ -79,9 +79,9 @@ public:
 	*/
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
 
-	void StartTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t& task ) override;
 	void RunAI( void ) override;
-	void RunTask( const Task_t* pTask ) override;
+	void RunTask( const Task_t& task ) override;
 	void DeathSound( void ) override;
 	void IdleSound( void ) override;
 	DECLARE_SCHEDULES() override;

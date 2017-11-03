@@ -270,7 +270,7 @@ void CBaseMonster :: MaintainSchedule ( void )
 			const Task_t* pTask = GetTask();
 			ASSERT( pTask != nullptr );
 			TaskBegin();
-			StartTask( pTask );
+			StartTask( *pTask );
 		}
 
 		// UNDONE: Twice?!!!
@@ -287,7 +287,7 @@ void CBaseMonster :: MaintainSchedule ( void )
 	{
 		const Task_t* pTask = GetTask();
 		ASSERT( pTask != nullptr );
-		RunTask( pTask );
+		RunTask( *pTask );
 	}
 
 	// UNDONE: We have to do this so that we have an animation set to blend to if RunTask changes the animation
@@ -299,9 +299,9 @@ void CBaseMonster :: MaintainSchedule ( void )
 	}
 }
 
-void CBaseMonster :: RunTask ( const Task_t* pTask )
+void CBaseMonster :: RunTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_TURN_RIGHT:
 	case TASK_TURN_LEFT:
@@ -320,7 +320,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 		{
 			CBaseEntity *pTarget;
 
-			if ( pTask->iTask == TASK_PLAY_SEQUENCE_FACE_TARGET )
+			if ( task.iTask == TASK_PLAY_SEQUENCE_FACE_TARGET )
 				pTarget = m_hTargetEnt;
 			else
 				pTarget = m_hEnemy;
@@ -414,7 +414,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 			{
 				distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
 				// Re-evaluate when you think your finished, or the target has moved too far
-				if ( (distance < pTask->flData) || (m_vecMoveGoal - m_hTargetEnt->GetAbsOrigin()).Length() > pTask->flData * 0.5 )
+				if ( (distance < task.flData) || (m_vecMoveGoal - m_hTargetEnt->GetAbsOrigin()).Length() > task.flData * 0.5 )
 				{
 					m_vecMoveGoal = m_hTargetEnt->GetAbsOrigin();
 					distance = ( m_vecMoveGoal - GetAbsOrigin() ).Length2D();
@@ -423,7 +423,7 @@ void CBaseMonster :: RunTask ( const Task_t* pTask )
 
 				// Set the appropriate activity based on an overlapping range
 				// overlap the range to prevent oscillation
-				if ( distance < pTask->flData )
+				if ( distance < task.flData )
 				{
 					TaskComplete();
 					RouteClear();		// Stop moving
@@ -561,16 +561,16 @@ void CBaseMonster :: SetTurnActivity ( void )
 	}
 }
 
-void CBaseMonster :: StartTask ( const Task_t* pTask )
+void CBaseMonster :: StartTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_TURN_RIGHT:
 		{
 			float flCurrentYaw;
 			
 			flCurrentYaw = UTIL_AngleMod( GetAbsAngles().y );
-			SetIdealYaw( UTIL_AngleMod( flCurrentYaw - pTask->flData ) );
+			SetIdealYaw( UTIL_AngleMod( flCurrentYaw - task.flData ) );
 			SetTurnActivity();
 			break;
 		}
@@ -579,19 +579,19 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			float flCurrentYaw;
 			
 			flCurrentYaw = UTIL_AngleMod( GetAbsAngles().y );
-			SetIdealYaw( UTIL_AngleMod( flCurrentYaw + pTask->flData ) );
+			SetIdealYaw( UTIL_AngleMod( flCurrentYaw + task.flData ) );
 			SetTurnActivity();
 			break;
 		}
 	case TASK_REMEMBER:
 		{
-			Remember ( (int)pTask->flData );
+			Remember ( (int)task.flData );
 			TaskComplete();
 			break;
 		}
 	case TASK_FORGET:
 		{
-			Forget ( (int)pTask->flData );
+			Forget ( (int)task.flData );
 			TaskComplete();
 			break;
 		}
@@ -642,7 +642,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 	case TASK_PLAY_SEQUENCE_FACE_TARGET:
 	case TASK_PLAY_SEQUENCE:
 		{
-			m_IdealActivity = ( Activity )( int )pTask->flData;
+			m_IdealActivity = ( Activity )( int )task.flData;
 			break;
 		}
 	case TASK_PLAY_ACTIVE_IDLE:
@@ -656,7 +656,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 		{
 			Schedule_t *pNewSchedule;
 
-			pNewSchedule = GetScheduleOfType( (int)pTask->flData );
+			pNewSchedule = GetScheduleOfType( (int)task.flData );
 			
 			if ( pNewSchedule )
 			{
@@ -677,7 +677,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 				return;
 			}
 
-			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->GetViewOffset(), 0, pTask->flData ) )
+			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->GetViewOffset(), 0, task.flData ) )
 			{
 				// try for cover farther than the FLData from the schedule.
 				TaskComplete();
@@ -697,7 +697,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 				return;
 			}
 
-			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->GetViewOffset(), pTask->flData, CoverRadius() ) )
+			if ( FindCover( m_hEnemy->GetAbsOrigin(), m_hEnemy->GetViewOffset(), task.flData, CoverRadius() ) )
 			{
 				// try for cover farther than the FLData from the schedule.
 				TaskComplete();
@@ -746,13 +746,13 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			if ( FindLateralCover( pCover->GetAbsOrigin(), pCover->GetViewOffset() ) )
 			{
 				// try lateral first
-				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
+				m_flMoveWaitFinished = gpGlobals->time + task.flData;
 				TaskComplete();
 			}
 			else if ( FindCover( pCover->GetAbsOrigin(), pCover->GetViewOffset(), 0, CoverRadius() ) )
 			{
 				// then try for plain ole cover
-				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
+				m_flMoveWaitFinished = gpGlobals->time + task.flData;
 				TaskComplete();
 			}
 			else
@@ -767,7 +767,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			if ( FindCover( GetAbsOrigin(), GetViewOffset(), 0, CoverRadius() ) )
 			{
 				// then try for plain ole cover
-				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
+				m_flMoveWaitFinished = gpGlobals->time + task.flData;
 				TaskComplete();
 			}
 			else
@@ -788,7 +788,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			if ( pBestSound && FindLateralCover( pBestSound->m_vecOrigin, g_vecZero ) )
 			{
 				// try lateral first
-				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
+				m_flMoveWaitFinished = gpGlobals->time + task.flData;
 				TaskComplete();
 			}
 			*/
@@ -796,7 +796,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 			if ( pBestSound && FindCover( pBestSound->m_vecOrigin, g_vecZero, pBestSound->m_iVolume, CoverRadius() ) )
 			{
 				// then try for plain ole cover
-				m_flMoveWaitFinished = gpGlobals->time + pTask->flData;
+				m_flMoveWaitFinished = gpGlobals->time + task.flData;
 				TaskComplete();
 			}
 			else
@@ -861,12 +861,12 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 	case TASK_WAIT:
 	case TASK_WAIT_FACE_ENEMY:
 		{// set a future time that tells us when the wait is over.
-			m_flWaitFinished = gpGlobals->time + pTask->flData;	
+			m_flWaitFinished = gpGlobals->time + task.flData;	
 			break;
 		}
 	case TASK_WAIT_RANDOM:
 		{// set a future time that tells us when the wait is over.
-			m_flWaitFinished = gpGlobals->time + RANDOM_FLOAT( 0.1, pTask->flData );
+			m_flWaitFinished = gpGlobals->time + RANDOM_FLOAT( 0.1, task.flData );
 			break;
 		}
 	case TASK_MOVE_TO_TARGET_RANGE:
@@ -890,7 +890,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 				TaskComplete();
 			else
 			{
-				if ( pTask->iTask == TASK_WALK_TO_TARGET )
+				if ( task.iTask == TASK_WALK_TO_TARGET )
 					newActivity = ACT_WALK;
 				else
 					newActivity = ACT_RUN;
@@ -958,7 +958,7 @@ void CBaseMonster :: StartTask ( const Task_t* pTask )
 		}
 	case TASK_SET_ACTIVITY:
 		{
-			m_IdealActivity = (Activity)(int)pTask->flData;
+			m_IdealActivity = (Activity)(int)task.flData;
 			TaskComplete();
 			break;
 		}
@@ -1186,7 +1186,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 
 	case TASK_EAT:
 		{
-			Eat( pTask->flData );
+			Eat( task.flData );
 			TaskComplete();
 			break;
 		}
@@ -1294,13 +1294,13 @@ case TASK_GET_PATH_TO_BESTSCENT:
 
 	case TASK_SUGGEST_STATE:
 		{
-			m_IdealMonsterState = (MONSTERSTATE)(int)pTask->flData;
+			m_IdealMonsterState = (MONSTERSTATE)(int)task.flData;
 			TaskComplete();
 			break;
 		}
 
 	case TASK_SET_FAIL_SCHEDULE:
-		m_failSchedule = (int)pTask->flData;
+		m_failSchedule = (int)task.flData;
 		TaskComplete();
 		break;
 
@@ -1311,7 +1311,7 @@ case TASK_GET_PATH_TO_BESTSCENT:
 
 	default:
 		{
-			ALERT ( at_aiconsole, "No StartTask entry for %d\n", (SHARED_TASKS)pTask->iTask );
+			ALERT ( at_aiconsole, "No StartTask entry for %d\n", (SHARED_TASKS)task.iTask );
 			break;
 		}
 	}

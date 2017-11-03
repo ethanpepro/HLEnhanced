@@ -806,9 +806,9 @@ bool CAGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 	return m_fCanHornetAttack;
 }
 
-void CAGrunt :: StartTask ( const Task_t* pTask )
+void CAGrunt :: StartTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_AGRUNT_GET_PATH_TO_ENEMY_CORPSE:
 		{
@@ -898,7 +898,7 @@ void CAGrunt :: StartTask ( const Task_t* pTask )
 		break;
 
 	default:
-		CSquadMonster :: StartTask ( pTask );
+		CSquadMonster :: StartTask ( task );
 		break;
 	}
 }

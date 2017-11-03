@@ -157,8 +157,8 @@ public:
 
 	void CheckAmmo( void ) override;
 	void SetActivity( Activity NewActivity ) override;
-	void StartTask( const Task_t* pTask ) override;
-	void RunTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t& task ) override;
+	void RunTask( const Task_t& task ) override;
 	void DeathSound( void ) override;
 	void PainSound( void ) override;
 	void IdleSound( void ) override;

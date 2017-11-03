@@ -478,9 +478,9 @@ Schedule_t* CIchthyosaur :: GetScheduleOfType ( int Type )
 	return CBaseMonster :: GetScheduleOfType( Type );
 }
 
-void CIchthyosaur::StartTask( const Task_t* pTask )
+void CIchthyosaur::StartTask( const Task_t& task )
 {
-	switch (pTask->iTask)
+	switch (task.iTask)
 	{
 	case TASK_ICHTHYOSAUR_CIRCLE_ENEMY:
 		break;
@@ -496,7 +496,7 @@ void CIchthyosaur::StartTask( const Task_t* pTask )
 		{
 			m_bOnAttack = true;
 		}
-		CFlyingMonster::StartTask(pTask);
+		CFlyingMonster::StartTask( task );
 		break;
 
 	case TASK_ICHTHYOSAUR_FLOAT:
@@ -505,14 +505,14 @@ void CIchthyosaur::StartTask( const Task_t* pTask )
 		break;
 
 	default:
-		CFlyingMonster::StartTask(pTask);
+		CFlyingMonster::StartTask( task );
 		break;
 	}
 }
 
-void CIchthyosaur :: RunTask ( const Task_t* pTask )
+void CIchthyosaur :: RunTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_ICHTHYOSAUR_CIRCLE_ENEMY:
 		if (m_hEnemy == NULL)
@@ -631,7 +631,7 @@ void CIchthyosaur :: RunTask ( const Task_t* pTask )
 		}
 
 	default: 
-		CFlyingMonster :: RunTask ( pTask );
+		CFlyingMonster :: RunTask ( task );
 		break;
 	}
 }

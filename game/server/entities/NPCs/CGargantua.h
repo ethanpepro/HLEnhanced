@@ -73,8 +73,8 @@ public:
 	}
 
 	Schedule_t *GetScheduleOfType( int Type ) override;
-	void StartTask( const Task_t* pTask ) override;
-	void RunTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t& task ) override;
+	void RunTask( const Task_t& task ) override;
 
 	void PrescheduleThink( void ) override;
 

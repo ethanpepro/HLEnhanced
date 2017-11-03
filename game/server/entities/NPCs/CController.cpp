@@ -411,16 +411,16 @@ BEGIN_SCHEDULES( CController )
 	slControllerFail,
 END_SCHEDULES()
 
-void CController :: StartTask ( const Task_t* pTask )
+void CController :: StartTask ( const Task_t& task )
 {
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_RANGE_ATTACK1:
-		CSquadMonster :: StartTask ( pTask );
+		CSquadMonster :: StartTask ( task );
 		break;
 	case TASK_GET_PATH_TO_ENEMY_LKP:
 		{
-			if (BuildNearestRoute( m_vecEnemyLKP, GetViewOffset(), pTask->flData, (m_vecEnemyLKP - GetAbsOrigin()).Length() + 1024 ))
+			if (BuildNearestRoute( m_vecEnemyLKP, GetViewOffset(), task.flData, (m_vecEnemyLKP - GetAbsOrigin()).Length() + 1024 ))
 			{
 				TaskComplete();
 			}
@@ -442,7 +442,7 @@ void CController :: StartTask ( const Task_t* pTask )
 				return;
 			}
 
-			if (BuildNearestRoute( pEnemy->GetAbsOrigin(), pEnemy->GetViewOffset(), pTask->flData, (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() + 1024 ))
+			if (BuildNearestRoute( pEnemy->GetAbsOrigin(), pEnemy->GetViewOffset(), task.flData, (pEnemy->GetAbsOrigin() - GetAbsOrigin()).Length() + 1024 ))
 			{
 				TaskComplete();
 			}
@@ -455,7 +455,7 @@ void CController :: StartTask ( const Task_t* pTask )
 			break;
 		}
 	default:
-		CSquadMonster :: StartTask ( pTask );
+		CSquadMonster :: StartTask ( task );
 		break;
 	}
 }
@@ -534,7 +534,7 @@ int CController::LookupFloat( )
 	}
 }
 
-void CController :: RunTask ( const Task_t* pTask )
+void CController :: RunTask ( const Task_t& task )
 {
 
 	if (m_flShootEnd > gpGlobals->time)
@@ -579,7 +579,7 @@ void CController :: RunTask ( const Task_t* pTask )
 		}
 	}
 
-	switch ( pTask->iTask )
+	switch ( task.iTask )
 	{
 	case TASK_WAIT_FOR_MOVEMENT:
 	case TASK_WAIT:
@@ -593,7 +593,7 @@ void CController :: RunTask ( const Task_t* pTask )
 			m_fInCombat = false;
 		}
 
-		CSquadMonster :: RunTask ( pTask );
+		CSquadMonster :: RunTask ( task );
 
 		if (!m_fInCombat)
 		{
@@ -624,7 +624,7 @@ void CController :: RunTask ( const Task_t* pTask )
 		}
 		break;
 	default: 
-		CSquadMonster :: RunTask ( pTask );
+		CSquadMonster :: RunTask ( task );
 		break;
 	}
 }

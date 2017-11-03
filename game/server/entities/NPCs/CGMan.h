@@ -32,8 +32,8 @@ public:
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 	int ISoundMask( void ) override;
 
-	void StartTask( const Task_t* pTask ) override;
-	void RunTask( const Task_t* pTask ) override;
+	void StartTask( const Task_t& task ) override;
+	void RunTask( const Task_t& task ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 
