@@ -335,9 +335,6 @@ void CBarney :: Spawn()
 	SetUse( &CBarney::FollowerUse );
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CBarney :: Precache()
 {
 	PRECACHE_MODEL("models/barney.mdl");

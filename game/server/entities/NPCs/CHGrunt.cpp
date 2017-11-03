@@ -840,9 +840,6 @@ void CHGrunt :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CHGrunt :: Precache()
 {
 	PRECACHE_MODEL("models/hgrunt.mdl");

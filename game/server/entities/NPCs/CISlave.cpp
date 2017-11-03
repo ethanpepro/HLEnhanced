@@ -436,9 +436,6 @@ void CISlave :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CISlave :: Precache()
 {
 	size_t i;

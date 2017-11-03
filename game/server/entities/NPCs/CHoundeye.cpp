@@ -255,9 +255,6 @@ void CHoundeye :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CHoundeye :: Precache()
 {
 	PRECACHE_MODEL("models/houndeye.mdl");

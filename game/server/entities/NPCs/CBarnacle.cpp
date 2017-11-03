@@ -329,9 +329,6 @@ void CBarnacle :: WaitTillDead ( void )
 	}
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CBarnacle :: Precache()
 {
 	PRECACHE_MODEL("models/barnacle.mdl");

@@ -99,9 +99,6 @@ void CRoach :: Spawn()
 	m_flNextSmellTime	= gpGlobals->time;
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CRoach :: Precache()
 {
 	PRECACHE_MODEL("models/roach.mdl");

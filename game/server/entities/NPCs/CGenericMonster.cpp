@@ -95,9 +95,6 @@ void CGenericMonster :: Spawn()
 	}
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CGenericMonster :: Precache()
 {
 	PRECACHE_MODEL( GetModelName() );

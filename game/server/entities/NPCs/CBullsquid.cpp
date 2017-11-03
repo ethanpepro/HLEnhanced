@@ -469,9 +469,6 @@ void CBullsquid :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CBullsquid :: Precache()
 {
 	PRECACHE_MODEL("models/bullsquid.mdl");

@@ -242,9 +242,6 @@ void CHeadCrab :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CHeadCrab :: Precache()
 {
 	PRECACHE_SOUND_ARRAY(pIdleSounds);

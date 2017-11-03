@@ -409,9 +409,6 @@ void CIchthyosaur :: Spawn()
 	m_SaveVelocity = GetAbsVelocity();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CIchthyosaur :: Precache()
 {
 	PRECACHE_MODEL("models/icky.mdl");

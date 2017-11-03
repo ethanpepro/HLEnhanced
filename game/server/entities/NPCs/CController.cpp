@@ -283,9 +283,6 @@ void CController :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CController :: Precache()
 {
 	PRECACHE_MODEL("models/controller.mdl");

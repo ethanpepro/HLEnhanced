@@ -602,9 +602,6 @@ void CScientist :: Spawn( void )
 	SetUse( &CScientist::FollowerUse );
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CScientist :: Precache( void )
 {
 	PRECACHE_MODEL("models/scientist.mdl");

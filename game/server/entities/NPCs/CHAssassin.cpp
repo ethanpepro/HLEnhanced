@@ -196,9 +196,6 @@ void CHAssassin :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CHAssassin :: Precache()
 {
 	PRECACHE_MODEL("models/hassassin.mdl");

@@ -522,10 +522,6 @@ void CGargantua :: Spawn()
 	m_flameTime = gpGlobals->time + 2;
 }
 
-
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CGargantua :: Precache()
 {
 	size_t i;

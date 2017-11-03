@@ -164,9 +164,6 @@ void CBloater :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CBloater :: Precache()
 {
 	PRECACHE_MODEL("models/floater.mdl");

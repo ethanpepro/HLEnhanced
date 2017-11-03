@@ -466,9 +466,6 @@ void CAGrunt :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CAGrunt :: Precache()
 {
 	size_t i;

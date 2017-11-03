@@ -84,9 +84,6 @@ void CGMan :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CGMan :: Precache()
 {
 	PRECACHE_MODEL( "models/gman.mdl" );

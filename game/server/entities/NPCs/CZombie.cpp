@@ -242,9 +242,6 @@ void CZombie :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CZombie :: Precache()
 {
 	size_t i;

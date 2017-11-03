@@ -382,9 +382,6 @@ void CBigMomma :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CBigMomma :: Precache()
 {
 	PRECACHE_MODEL("models/big_mom.mdl");

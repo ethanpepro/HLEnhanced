@@ -64,9 +64,6 @@ void CRat :: Spawn()
 	MonsterInit();
 }
 
-//=========================================================
-// Precache - precaches all resources this monster needs
-//=========================================================
 void CRat :: Precache()
 {
 	PRECACHE_MODEL("models/bigrat.mdl");
