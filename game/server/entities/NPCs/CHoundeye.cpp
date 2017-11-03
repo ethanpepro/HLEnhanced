@@ -555,10 +555,7 @@ void CHoundeye :: SonicAttack ( void )
 		}
 	}
 }
-		
-//=========================================================
-// start task
-//=========================================================
+
 void CHoundeye :: StartTask ( const Task_t* pTask )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;

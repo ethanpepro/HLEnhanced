@@ -911,13 +911,6 @@ Schedule_t* CBullsquid :: GetScheduleOfType ( int Type )
 	return CBaseMonster :: GetScheduleOfType ( Type );
 }
 
-//=========================================================
-// Start task - selects the correct activity and performs
-// any necessary calculations to start the next task on the
-// schedule.  OVERRIDDEN for bullsquid because it needs to
-// know explicitly when the last attempt to chase the enemy
-// failed, since that impacts its attack choices.
-//=========================================================
 void CBullsquid :: StartTask ( const Task_t* pTask )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;

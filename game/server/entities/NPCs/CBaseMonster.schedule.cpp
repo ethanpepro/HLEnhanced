@@ -561,11 +561,6 @@ void CBaseMonster :: SetTurnActivity ( void )
 	}
 }
 
-//=========================================================
-// Start task - selects the correct activity and performs
-// any necessary calculations to start the next task on the
-// schedule. 
-//=========================================================
 void CBaseMonster :: StartTask ( const Task_t* pTask )
 {
 	switch ( pTask->iTask )

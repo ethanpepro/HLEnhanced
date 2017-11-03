@@ -339,6 +339,10 @@ public:
 		void MaintainSchedule ( void );
 		virtual void StartTask( const Task_t* pTask );
 		virtual void RunTask( const Task_t* pTask );
+
+		/**
+		*	@brief selects the correct activity and performs any necessary calculations to start the next task on the schedule
+		*/
 		virtual Schedule_t *GetScheduleOfType( int Type );
 
 		/**

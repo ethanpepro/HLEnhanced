@@ -65,6 +65,10 @@ public:
 	void DeathSound( void ) override;
 	void AlertSound( void ) override;
 	void AttackSound( void );
+
+	/**
+	*	@brief OVERRIDDEN for bullsquid because it needs to know explicitly when the last attempt to chase the enemy failed, since that impacts its attack choices.
+	*/
 	void StartTask( const Task_t* pTask ) override;
 	void RunTask( const Task_t* pTask ) override;
 

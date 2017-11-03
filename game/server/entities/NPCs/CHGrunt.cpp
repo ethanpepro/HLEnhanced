@@ -847,9 +847,6 @@ void CHGrunt :: Precache()
 	m_iShotgunShell = PRECACHE_MODEL ("models/shotgunshell.mdl");
 }	
 
-//=========================================================
-// start task
-//=========================================================
 void CHGrunt :: StartTask ( const Task_t* pTask )
 {
 	m_iTaskStatus = TASKSTATUS_RUNNING;

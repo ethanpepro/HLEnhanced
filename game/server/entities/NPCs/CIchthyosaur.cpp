@@ -478,13 +478,6 @@ Schedule_t* CIchthyosaur :: GetScheduleOfType ( int Type )
 	return CBaseMonster :: GetScheduleOfType( Type );
 }
 
-
-
-//=========================================================
-// Start task - selects the correct activity and performs
-// any necessary calculations to start the next task on the
-// schedule.
-//=========================================================
 void CIchthyosaur::StartTask( const Task_t* pTask )
 {
 	switch (pTask->iTask)
