@@ -99,12 +99,6 @@ bool CHoundeye::FCanActiveIdle() const
 	return true;
 }
 
-
-//=========================================================
-// CheckRangeAttack1 - overridden for houndeyes so that they
-// try to get within half of their max attack radius before
-// attacking, so as to increase their chances of doing damage.
-//=========================================================
 bool CHoundeye :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( flDist <= ( HOUNDEYE_MAX_ATTACK_RADIUS * 0.5 ) && flDot >= 0.3 )

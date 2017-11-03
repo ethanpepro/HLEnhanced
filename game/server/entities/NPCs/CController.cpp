@@ -684,14 +684,6 @@ Schedule_t* CController :: GetScheduleOfType ( int Type )
 	return CBaseMonster :: GetScheduleOfType( Type );
 }
 
-
-
-
-
-//=========================================================
-// CheckRangeAttack1  - shoot a bigass energy ball out of their head
-//
-//=========================================================
 bool CController :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( flDot > 0.5 && flDist > 256 && flDist <= 2048 )

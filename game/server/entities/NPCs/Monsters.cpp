@@ -865,9 +865,6 @@ bool CBaseMonster::BarnacleVictimGrabbed( CBaseEntity* pBarnacle )
 	return true;
 }
 
-//=========================================================
-// CheckRangeAttack1
-//=========================================================
 bool CBaseMonster :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( flDist > 64 && flDist <= 784 && flDot >= 0.5 )
@@ -877,9 +874,6 @@ bool CBaseMonster :: CheckRangeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckRangeAttack2
-//=========================================================
 bool CBaseMonster :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	if ( flDist > 64 && flDist <= 512 && flDot >= 0.5 )
@@ -889,9 +883,6 @@ bool CBaseMonster :: CheckRangeAttack2 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckMeleeAttack1
-//=========================================================
 bool CBaseMonster :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
 	// Decent fix to keep folks from kicking/punching hornets and snarks is to check the onground flag(sjb)
@@ -902,9 +893,6 @@ bool CBaseMonster :: CheckMeleeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckMeleeAttack2
-//=========================================================
 bool CBaseMonster :: CheckMeleeAttack2 ( float flDot, float flDist )
 {
 	if ( flDist <= 64 && flDot >= 0.7 )

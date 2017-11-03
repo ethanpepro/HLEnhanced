@@ -82,6 +82,11 @@ public:
 	void PrescheduleThink( void ) override;
 	void SetActivity( Activity NewActivity ) override;
 	void WriteBeamColor( void );
+
+	/**
+	*	@brief overridden for houndeyes so that they try to get within half of their max attack radius before attacking,
+	*	so as to increase their chances of doing damage.
+	*/
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	bool FValidateHintType( short sHint ) const override;
 	bool FCanActiveIdle() const override;

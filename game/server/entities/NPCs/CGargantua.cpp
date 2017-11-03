@@ -673,11 +673,6 @@ void CGargantua::Killed( const CTakeDamageInfo& info, GibAction gibAction )
 	CBaseMonster::Killed( info, GIB_NEVER );
 }
 
-//=========================================================
-// CheckMeleeAttack1
-// Garg swipe attack
-// 
-//=========================================================
 bool CGargantua::CheckMeleeAttack1( float flDot, float flDist )
 {
 //	ALERT(at_aiconsole, "CheckMelee(%f, %f)\n", flDot, flDist);
@@ -707,16 +702,6 @@ bool CGargantua::CheckMeleeAttack2( float flDot, float flDist )
 	return false;
 }
 
-
-//=========================================================
-// CheckRangeAttack1
-// flDot is the cos of the angle of the cone within which
-// the attack can occur.
-//=========================================================
-//
-// Stomp attack
-//
-//=========================================================
 bool CGargantua::CheckRangeAttack1( float flDot, float flDist )
 {
 	if ( gpGlobals->time > m_seeTime )

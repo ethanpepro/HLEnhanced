@@ -238,10 +238,6 @@ EntityClassification_t CIchthyosaur::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );
 }
 
-
-//=========================================================
-// CheckMeleeAttack1
-//=========================================================
 bool CIchthyosaur :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
 	if ( flDot >= 0.7 && m_flEnemyTouched > gpGlobals->time - 0.2 )
@@ -276,10 +272,6 @@ void CIchthyosaur::CombatUse( CBaseEntity *pActivator, CBaseEntity *pCaller, USE
 	}
 }
 
-//=========================================================
-// CheckRangeAttack1  - swim in for a chomp
-//
-//=========================================================
 bool CIchthyosaur :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( flDot > -0.7 && (m_bOnAttack || ( flDist <= 192 && m_idealDist <= 192)))

@@ -345,9 +345,6 @@ void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// CheckRangeAttack1 - normal beam attack 
-//=========================================================
 bool CISlave :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if (m_flNextAttack > gpGlobals->time)
@@ -358,9 +355,6 @@ bool CISlave :: CheckRangeAttack1 ( float flDot, float flDist )
 	return CSquadMonster::CheckRangeAttack1( flDot, flDist );
 }
 
-//=========================================================
-// CheckRangeAttack2 - check bravery and try to resurect dead comrades
-//=========================================================
 bool CISlave :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	return false;

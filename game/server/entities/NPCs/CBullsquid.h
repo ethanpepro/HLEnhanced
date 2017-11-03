@@ -67,7 +67,17 @@ public:
 	void AttackSound( void );
 	void StartTask( const Task_t* pTask ) override;
 	void RunTask( const Task_t* pTask ) override;
+
+	/**
+	*	@brief bullsquid is a big guy, so has a longer melee range than most monsters. This is the tailwhip attack
+	*/
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;
+
+	/**
+	*	@brief bullsquid is a big guy, so has a longer melee range than most monsters.
+	*	This is the bite attack.
+	*	This attack will not be performed if the tailwhip attack is valid
+	*/
 	bool CheckMeleeAttack2( float flDot, float flDist ) override;
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	void RunAI( void ) override;

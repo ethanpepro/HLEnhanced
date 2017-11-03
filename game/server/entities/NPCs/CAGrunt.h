@@ -80,7 +80,11 @@ public:
 	*/
 	bool FCanCheckAttacks() const override;
 
+	/**
+	*	@brief alien grunts zap the crap out of any enemy that gets too close
+	*/
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;
+
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
 	void StartTask( const Task_t* pTask ) override;
 	void AlertSound( void ) override;

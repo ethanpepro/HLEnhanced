@@ -506,9 +506,6 @@ BEGIN_SCHEDULES( CHAssassin )
 	slAssassinJumpLand,
 END_SCHEDULES()
 
-//=========================================================
-// CheckMeleeAttack1 - jump like crazy if the enemy gets too close. 
-//=========================================================
 bool CHAssassin :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
 	if ( m_flNextJump < gpGlobals->time && (flDist <= 128 || HasMemory( bits_MEMORY_BADJUMP )) && m_hEnemy != NULL )
@@ -535,10 +532,6 @@ bool CHAssassin :: CheckMeleeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckRangeAttack1  - drop a cap in their ass
-//
-//=========================================================
 bool CHAssassin :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( !HasConditions( bits_COND_ENEMY_OCCLUDED ) && flDist > 64 && flDist <= 2048 /* && flDot >= 0.5 */ /* && NoFriendlyFire() */ )
@@ -558,9 +551,6 @@ bool CHAssassin :: CheckRangeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckRangeAttack2 - toss grenade is enemy gets in the way and is too close. 
-//=========================================================
 bool CHAssassin :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	m_fThrowGrenade = false;

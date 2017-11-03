@@ -42,7 +42,12 @@ public:
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 
 	void RunAI( void ) override;
-	bool CheckRangeAttack1( float flDot, float flDist ) override;	// balls
+
+	/**
+	*	@brief shoot a bigass energy ball out of their head
+	*/
+	bool CheckRangeAttack1( float flDot, float flDist ) override;
+
 	bool CheckRangeAttack2( float flDot, float flDist ) override;	// head
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;	// block, throw
 	Schedule_t* GetSchedule( void ) override;

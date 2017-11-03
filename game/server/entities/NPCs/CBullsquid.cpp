@@ -112,9 +112,6 @@ void CBullsquid::OnTakeDamage( const CTakeDamageInfo& info )
 	CBaseMonster::OnTakeDamage( info );
 }
 
-//=========================================================
-// CheckRangeAttack1
-//=========================================================
 bool CBullsquid :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( IsMoving() && flDist >= 512 )
@@ -151,10 +148,6 @@ bool CBullsquid :: CheckRangeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckMeleeAttack1 - bullsquid is a big guy, so has a longer
-// melee range than most monsters. This is the tailwhip attack
-//=========================================================
 bool CBullsquid :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
 	if ( m_hEnemy->GetHealth() <= gSkillData.GetBullsquidDmgWhip() && flDist <= 85 && flDot >= 0.7 )
@@ -164,14 +157,9 @@ bool CBullsquid :: CheckMeleeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckMeleeAttack2 - bullsquid is a big guy, so has a longer
-// melee range than most monsters. This is the bite attack.
-// this attack will not be performed if the tailwhip attack
-// is valid.
-//=========================================================
 bool CBullsquid :: CheckMeleeAttack2 ( float flDot, float flDist )
 {
+	//TODO: compute distance based on target size - Solokiller
 	if ( flDist <= 85 && flDot >= 0.7 && !HasConditions( bits_COND_CAN_MELEE_ATTACK1 ) )		// The player & bullsquid can be as much as their bboxes 
 	{										// apart (48 * sqrt(3)) and he can still attack (85 is a little more than 48*sqrt(3))
 		return true;

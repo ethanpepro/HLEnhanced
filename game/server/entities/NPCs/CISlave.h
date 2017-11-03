@@ -42,8 +42,17 @@ public:
 	EntityClassification_t GetClassification() override;
 	Relationship  IRelationship( CBaseEntity *pTarget ) override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;
+
+	/**
+	*	@brief normal beam attack
+	*/
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
+
+	/**
+	*	@brief check bravery and try to resurect dead comrades
+	*/
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
+
 	void CallForHelp( const char* const pszClassname, float flDist, EHANDLE hEnemy, Vector &vecLocation );
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	void OnTakeDamage( const CTakeDamageInfo& info ) override;

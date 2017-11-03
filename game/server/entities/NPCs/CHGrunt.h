@@ -141,8 +141,20 @@ public:
 	bool FCanCheckAttacks() const override;
 
 	bool CheckMeleeAttack1( float flDot, float flDist ) override;
+
+	/**
+	*	@brief overridden for HGrunt, cause FCanCheckAttacks() doesn't disqualify all attacks based
+	*	on whether or not the enemy is occluded because unlike the base class,
+	*	the HGrunt can attack when the enemy is occluded (throw grenade over wall, etc).
+	*	We must disqualify the machine gun attack if the enemy is occluded.
+	*/
 	bool CheckRangeAttack1( float flDot, float flDist ) override;
+
+	/**
+	*	@brief this checks the Grunt's grenade attack
+	*/
 	bool CheckRangeAttack2( float flDot, float flDist ) override;
+
 	void CheckAmmo( void ) override;
 	void SetActivity( Activity NewActivity ) override;
 	void StartTask( const Task_t* pTask ) override;

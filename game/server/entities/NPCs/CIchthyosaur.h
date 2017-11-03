@@ -48,6 +48,10 @@ public:
 	void  RunTask( const Task_t* pTask ) override;
 
 	bool  CheckMeleeAttack1( float flDot, float flDist ) override;
+
+	/**
+	*	@brief swim in for a chomp
+	*/
 	bool  CheckRangeAttack1( float flDot, float flDist ) override;
 
 	float ChangeYaw( int speed ) override;

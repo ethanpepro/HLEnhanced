@@ -336,10 +336,6 @@ void CHeadCrab :: StartTask ( const Task_t* pTask )
 	}
 }
 
-
-//=========================================================
-// CheckRangeAttack1
-//=========================================================
 bool CHeadCrab :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( GetFlags().Any( FL_ONGROUND ) && flDist <= 256 && flDot >= 0.65 )
@@ -349,9 +345,6 @@ bool CHeadCrab :: CheckRangeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckRangeAttack2
-//=========================================================
 bool CHeadCrab :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	return false;

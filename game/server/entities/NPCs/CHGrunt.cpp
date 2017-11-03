@@ -210,10 +210,6 @@ bool CHGrunt::FCanCheckAttacks() const
 	}
 }
 
-
-//=========================================================
-// CheckMeleeAttack1
-//=========================================================
 bool CHGrunt :: CheckMeleeAttack1 ( float flDot, float flDist )
 {
 	if( !m_hEnemy )
@@ -235,14 +231,6 @@ bool CHGrunt :: CheckMeleeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckRangeAttack1 - overridden for HGrunt, cause 
-// FCanCheckAttacks() doesn't disqualify all attacks based
-// on whether or not the enemy is occluded because unlike
-// the base class, the HGrunt can attack when the enemy is
-// occluded (throw grenade over wall, etc). We must 
-// disqualify the machine gun attack if the enemy is occluded.
-//=========================================================
 bool CHGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 {
 	if ( !HasConditions( bits_COND_ENEMY_OCCLUDED ) && flDist <= 2048 && flDot >= 0.5 && NoFriendlyFire() )
@@ -269,10 +257,6 @@ bool CHGrunt :: CheckRangeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// CheckRangeAttack2 - this checks the Grunt's grenade
-// attack. 
-//=========================================================
 bool CHGrunt :: CheckRangeAttack2 ( float flDot, float flDist )
 {
 	if( !GetWeapons().Any( HGRUNT_HANDGRENADE | HGRUNT_GRENADELAUNCHER ) )

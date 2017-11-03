@@ -224,10 +224,6 @@ void CBarney::UpdateYawSpeed()
 	SetYawSpeed( ys );
 }
 
-
-//=========================================================
-// CheckRangeAttack1
-//=========================================================
 bool CBarney::CheckRangeAttack1( float flDot, float flDist )
 {
 	if ( flDist <= 1024 && flDot >= 0.5 )

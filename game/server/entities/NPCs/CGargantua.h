@@ -54,9 +54,18 @@ public:
 	void TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr ) override;
 	void HandleAnimEvent( AnimEvent_t& event ) override;
 
-	bool CheckMeleeAttack1( float flDot, float flDist ) override;		// Swipe
+	/**
+	*	@brief Garg swipe attack
+	*/
+	bool CheckMeleeAttack1( float flDot, float flDist ) override;
+
 	bool CheckMeleeAttack2( float flDot, float flDist ) override;		// Flames
-	bool CheckRangeAttack1( float flDot, float flDist ) override;		// Stomp attack
+
+	/**
+	*	@brief Stomp attack
+	*/
+	bool CheckRangeAttack1( float flDot, float flDist ) override;
+
 	void SetObjectCollisionBox( void ) override
 	{
 		SetAbsMin( GetAbsOrigin() + Vector( -80, -80, 0 ) );

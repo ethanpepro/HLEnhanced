@@ -294,10 +294,25 @@ public:
 		// This will stop animation until you call ResetSequenceInfo() at some point in the future
 		inline void StopAnimation( void ) { SetFrameRate( 0 ); }
 
-		// these functions will survey conditions and set appropriate conditions bits for attack types.
+		/**
+		*	@brief these functions will survey conditions and set appropriate conditions bits for attack types
+		*	@param flDot The cos of the angle of the cone within which the attack can occur
+		*/
 		virtual bool CheckRangeAttack1( float flDot, float flDist );
+
+		/**
+		*	@see CheckRangeAttack1
+		*/
 		virtual bool CheckRangeAttack2( float flDot, float flDist );
+
+		/**
+		*	@see CheckRangeAttack1
+		*/
 		virtual bool CheckMeleeAttack1( float flDot, float flDist );
+
+		/**
+		*	@see CheckRangeAttack1
+		*/
 		virtual bool CheckMeleeAttack2( float flDot, float flDist );
 
 		bool FHaveSchedule() const;
