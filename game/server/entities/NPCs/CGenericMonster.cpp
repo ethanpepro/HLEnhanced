@@ -30,10 +30,6 @@ EntityClassification_t CGenericMonster::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::PLAYER_ALLY );
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CGenericMonster::UpdateYawSpeed()
 {
 	int ys;

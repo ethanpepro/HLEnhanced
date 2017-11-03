@@ -36,10 +36,6 @@ EntityClassification_t CGMan::GetClassification()
 	return EntityClassifications().GetNoneId();
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CGMan::UpdateYawSpeed()
 {
 	int ys;

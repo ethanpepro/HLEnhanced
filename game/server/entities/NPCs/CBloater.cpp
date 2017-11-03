@@ -31,10 +31,6 @@ EntityClassification_t CBloater::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CBloater::UpdateYawSpeed()
 {
 	int ys;

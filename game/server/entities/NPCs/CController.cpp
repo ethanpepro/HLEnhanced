@@ -78,10 +78,6 @@ EntityClassification_t CController::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MILITARY );
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CController::UpdateYawSpeed()
 {
 	int ys;

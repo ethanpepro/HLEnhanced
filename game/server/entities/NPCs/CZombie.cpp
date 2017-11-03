@@ -73,10 +73,6 @@ EntityClassification_t CZombie::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CZombie::UpdateYawSpeed()
 {
 	int ys;

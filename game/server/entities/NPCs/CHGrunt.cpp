@@ -448,10 +448,6 @@ void CHGrunt::OnTakeDamage( const CTakeDamageInfo& info )
 	CSquadMonster::OnTakeDamage( info );
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CHGrunt::UpdateYawSpeed()
 {
 	int ys;

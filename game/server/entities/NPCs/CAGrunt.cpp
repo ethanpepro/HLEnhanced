@@ -266,10 +266,6 @@ EntityClassification_t CAGrunt::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MILITARY );
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CAGrunt::UpdateYawSpeed()
 {
 	int ys;

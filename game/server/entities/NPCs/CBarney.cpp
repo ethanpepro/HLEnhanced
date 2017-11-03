@@ -198,10 +198,7 @@ void CBarney :: AlertSound( void )
 	}
 
 }
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
+
 void CBarney::UpdateYawSpeed()
 {
 	int ys;

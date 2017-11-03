@@ -69,10 +69,6 @@ EntityClassification_t CHAssassin::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::HUMAN_MILITARY );
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CHAssassin::UpdateYawSpeed()
 {
 	int ys;

@@ -278,10 +278,6 @@ void CBullsquid :: AlertSound ( void )
 	}
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CBullsquid::UpdateYawSpeed()
 {
 	int ys;

@@ -31,10 +31,6 @@ EntityClassification_t CRat::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::INSECT );
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CRat::UpdateYawSpeed()
 {
 	int ys;

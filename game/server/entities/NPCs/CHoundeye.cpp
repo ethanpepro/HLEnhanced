@@ -114,10 +114,6 @@ bool CHoundeye :: CheckRangeAttack1 ( float flDot, float flDist )
 	return false;
 }
 
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CHoundeye ::UpdateYawSpeed()
 {
 	int ys;

@@ -513,11 +513,6 @@ EntityClassification_t CScientist::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::HUMAN_PASSIVE );
 }
 
-
-//=========================================================
-// UpdateYawSpeed - allows each sequence to have a different
-// turn rate associated with it.
-//=========================================================
 void CScientist::UpdateYawSpeed()
 {
 	int ys;
