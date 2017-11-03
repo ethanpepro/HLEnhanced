@@ -50,10 +50,6 @@ void CGMan::UpdateYawSpeed()
 	SetYawSpeed( ys );
 }
 
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//=========================================================
 void CGMan :: HandleAnimEvent( AnimEvent_t& event )
 {
 	switch( event.event )

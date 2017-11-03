@@ -139,11 +139,6 @@ void CZombie :: AttackSound( void )
 	EMIT_SOUND_DYN ( this, CHAN_VOICE, pAttackSounds[ RANDOM_LONG(0,ARRAYSIZE(pAttackSounds)-1) ], 1.0, ATTN_NORM, 0, pitch );
 }
 
-
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//=========================================================
 void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 {
 	switch( event.event )

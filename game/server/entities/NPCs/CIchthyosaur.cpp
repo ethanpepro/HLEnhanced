@@ -318,11 +318,6 @@ void CIchthyosaur::BecomeDead( void )
 #define ICHTHYOSAUR_AE_SHAKE_RIGHT 1
 #define ICHTHYOSAUR_AE_SHAKE_LEFT  2
 
-
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//=========================================================
 void CIchthyosaur :: HandleAnimEvent( AnimEvent_t& event )
 {
 	bool bDidAttack = false;

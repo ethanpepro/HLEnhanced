@@ -541,10 +541,6 @@ void CScientist::UpdateYawSpeed()
 	SetYawSpeed( ys );
 }
 
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//=========================================================
 void CScientist :: HandleAnimEvent( AnimEvent_t& event )
 {
 	switch( event.event )

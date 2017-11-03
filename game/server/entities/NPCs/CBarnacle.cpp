@@ -43,12 +43,6 @@ EntityClassification_t CBarnacle::GetClassification()
 	return EntityClassifications().GetClassificationId( classify::ALIEN_MONSTER );
 }
 
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//
-// Returns number of events handled, 0 if none.
-//=========================================================
 void CBarnacle :: HandleAnimEvent( AnimEvent_t& event )
 {
 	switch( event.event )

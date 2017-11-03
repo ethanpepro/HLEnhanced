@@ -277,6 +277,10 @@ public:
 		virtual CBaseEntity* BestVisibleEnemy ( void );// finds best visible enemy for attack
 		virtual bool FInViewCone( const CBaseEntity *pEntity ) const;// see if pEntity is in monster's view cone
 		virtual bool FInViewCone( const Vector& vecOrigin ) const;// see if given location is in monster's view cone
+
+		/**
+		*	@brief catches the monster-specific messages that occur when tagged animation frames are played
+		*/
 		virtual void HandleAnimEvent( AnimEvent_t& event ) override;
 
 		virtual int CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, const CBaseEntity* const pTarget, float *pflDist );// check validity of a straight move through space

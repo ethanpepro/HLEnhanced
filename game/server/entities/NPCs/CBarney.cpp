@@ -285,13 +285,7 @@ void CBarney :: BarneyFirePistol ( void )
 	// UNDONE: Reload?
 	m_cAmmoLoaded--;// take away a bullet!
 }
-		
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//
-// Returns number of events handled, 0 if none.
-//=========================================================
+
 void CBarney :: HandleAnimEvent( AnimEvent_t& event )
 {
 	switch( event.event )

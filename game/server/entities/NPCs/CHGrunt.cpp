@@ -639,10 +639,6 @@ void CHGrunt :: Shotgun ( void )
 	SetBlending( 0, angDir.x );
 }
 
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//=========================================================
 void CHGrunt :: HandleAnimEvent( AnimEvent_t& event )
 {
 	Vector	vecShootDir;

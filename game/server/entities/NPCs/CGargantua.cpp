@@ -737,13 +737,6 @@ bool CGargantua::CheckRangeAttack1( float flDot, float flDist )
 	return false;
 }
 
-
-
-
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//=========================================================
 void CGargantua::HandleAnimEvent(AnimEvent_t& event)
 {
 	switch( event.event )

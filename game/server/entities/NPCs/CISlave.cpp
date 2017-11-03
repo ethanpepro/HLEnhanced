@@ -205,12 +205,6 @@ void CISlave ::UpdateYawSpeed()
 	SetYawSpeed( ys );
 }
 
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//
-// Returns number of events handled, 0 if none.
-//=========================================================
 void CISlave :: HandleAnimEvent( AnimEvent_t& event )
 {
 	// ALERT( at_console, "event %d : %f\n", pEvent->event, GetFrame() );

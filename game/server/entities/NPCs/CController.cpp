@@ -173,10 +173,6 @@ void CController :: DeathSound( void )
 	EMIT_SOUND_ARRAY_DYN( CHAN_VOICE, pDeathSounds ); 
 }
 
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//=========================================================
 void CController :: HandleAnimEvent( AnimEvent_t& event )
 {
 	switch( event.event )

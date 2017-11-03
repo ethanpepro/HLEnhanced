@@ -137,13 +137,6 @@ void CHAssassin :: Shoot ( void )
 	m_cAmmoLoaded--;
 }
 
-
-//=========================================================
-// HandleAnimEvent - catches the monster-specific messages
-// that occur when tagged animation frames are played.
-//
-// Returns number of events handled, 0 if none.
-//=========================================================
 void CHAssassin :: HandleAnimEvent( AnimEvent_t& event )
 {
 	switch( event.event )
