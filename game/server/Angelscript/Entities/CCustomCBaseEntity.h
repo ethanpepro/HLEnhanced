@@ -292,7 +292,7 @@ public:
 		}
 	}
 
-	void TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult* ptr ) override
+	void TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr ) override
 	{
 		if( auto pFunction = GetObject().GetTypeInfo()->GetMethodByDecl( "void TraceBleed(const CTakeDamageInfo& in, Vector, TraceResult& in)" ) )
 		{
@@ -300,11 +300,11 @@ public:
 
 			CASMethod method( *pFunction, ctx, GetObject().Get() );
 
-			method.Call( CallFlag::NONE, &info, &vecDir, &ptr );
+			method.Call( CallFlag::NONE, &info, &vecDir, &tr );
 		}
 		else
 		{
-			BaseClass::TraceBleed( info, vecDir, ptr );
+			BaseClass::TraceBleed( info, vecDir, tr );
 		}
 	}
 

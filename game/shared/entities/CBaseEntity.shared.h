@@ -2094,10 +2094,10 @@ public:
 	*	Projects blood decals based on the given damage and traceline.
 	*	@param info Damage info.
 	*	@param vecDir attack direction.
-	*	@param ptr Attack traceline.
+	*	@param tr Attack traceline.
 	*	@see Damage
 	*/
-	virtual void TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult* ptr );
+	virtual void TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr );
 
 	/**
 	*	Deals damage to this entity.

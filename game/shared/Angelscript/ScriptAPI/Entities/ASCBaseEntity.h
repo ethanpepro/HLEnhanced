@@ -1299,7 +1299,7 @@ void BaseEntity_TraceAttack( CLASS* pThis, const CTakeDamageInfo& info, Vector v
 template<typename CLASS>
 void BaseEntity_TraceBleed( CLASS* pThis, const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
-	pThis->CLASS::TraceBleed( info, vecDir, &tr );
+	pThis->CLASS::TraceBleed( info, vecDir, tr );
 }
 
 template<typename CLASS>

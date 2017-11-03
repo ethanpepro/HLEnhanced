@@ -261,7 +261,7 @@ void CBasePlayer::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 		}
 
 		SpawnBlood( tr.vecEndPos, BloodColor(), newInfo .GetDamage());// a little surface blood.
-		TraceBleed( newInfo, vecDir, &tr );
+		TraceBleed( newInfo, vecDir, tr );
 		g_MultiDamage.AddMultiDamage( newInfo, this );
 	}
 }

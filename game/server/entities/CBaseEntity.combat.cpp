@@ -32,12 +32,12 @@ void CBaseEntity::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trace
 		if( blood != DONT_BLEED )
 		{
 			SpawnBlood( vecOrigin, blood, info.GetDamage() );// a little surface blood.
-			TraceBleed( info, vecDir, &tr );
+			TraceBleed( info, vecDir, tr );
 		}
 	}
 }
 
-void CBaseEntity::TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult *ptr )
+void CBaseEntity::TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceResult& tr )
 {
 	if( BloodColor() == DONT_BLEED )
 		return;
@@ -95,7 +95,7 @@ void CBaseEntity::TraceBleed( const CTakeDamageInfo& info, Vector vecDir, TraceR
 		vecTraceDir.y += RANDOM_FLOAT( -flNoise, flNoise );
 		vecTraceDir.z += RANDOM_FLOAT( -flNoise, flNoise );
 
-		UTIL_TraceLine( ptr->vecEndPos, ptr->vecEndPos + vecTraceDir * -172, ignore_monsters, ENT( pev ), &Bloodtr );
+		UTIL_TraceLine( tr.vecEndPos, tr.vecEndPos + vecTraceDir * -172, ignore_monsters, ENT( pev ), &Bloodtr );
 
 		if( Bloodtr.flFraction != 1.0 )
 		{

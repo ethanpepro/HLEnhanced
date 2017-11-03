@@ -849,7 +849,7 @@ void CBaseMonster::TraceAttack( const CTakeDamageInfo& info, Vector vecDir, Trac
 		}
 
 		SpawnBlood( tr.vecEndPos, BloodColor(), newInfo.GetDamage());// a little surface blood.
-		TraceBleed( newInfo, vecDir, &tr );
+		TraceBleed( newInfo, vecDir, tr );
 		g_MultiDamage.AddMultiDamage( newInfo, this );
 	}
 }

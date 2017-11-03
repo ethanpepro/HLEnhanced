@@ -153,7 +153,7 @@ void CAGrunt :: TraceAttack( const CTakeDamageInfo& info, Vector vecDir, TraceRe
 	else
 	{
 		SpawnBlood( tr.vecEndPos, BloodColor(), newInfo.GetDamage());// a little surface blood.
-		TraceBleed( newInfo, vecDir, &tr );
+		TraceBleed( newInfo, vecDir, tr );
 	}
 
 	g_MultiDamage.AddMultiDamage( info, this );
