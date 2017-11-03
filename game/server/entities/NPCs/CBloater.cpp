@@ -145,9 +145,6 @@ void CBloater :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CBloater :: Spawn()
 {
 	Precache( );

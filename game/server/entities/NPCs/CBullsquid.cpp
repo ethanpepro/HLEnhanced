@@ -448,9 +448,6 @@ void CBullsquid :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CBullsquid :: Spawn()
 {
 	Precache( );

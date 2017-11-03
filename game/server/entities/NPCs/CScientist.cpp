@@ -567,9 +567,6 @@ void CScientist :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CScientist :: Spawn( void )
 {
 	Precache( );

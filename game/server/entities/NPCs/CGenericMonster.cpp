@@ -61,9 +61,6 @@ int CGenericMonster :: ISoundMask ( void )
 	return 0;
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CGenericMonster :: Spawn()
 {
 	Precache();

@@ -233,9 +233,6 @@ void CHoundeye :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CHoundeye :: Spawn()
 {
 	Precache( );

@@ -414,10 +414,6 @@ void CISlave :: StartTask ( const Task_t* pTask )
 	CSquadMonster :: StartTask ( pTask );
 }
 
-
-//=========================================================
-// Spawn
-//=========================================================
 void CISlave :: Spawn()
 {
 	Precache( );

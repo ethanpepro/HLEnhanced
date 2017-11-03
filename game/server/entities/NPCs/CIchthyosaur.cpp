@@ -373,9 +373,6 @@ void CIchthyosaur :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CIchthyosaur :: Spawn()
 {
 	Precache( );

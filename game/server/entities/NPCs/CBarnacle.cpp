@@ -56,9 +56,6 @@ void CBarnacle :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CBarnacle :: Spawn()
 {
 	Precache( );

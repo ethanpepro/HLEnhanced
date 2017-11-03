@@ -311,9 +311,6 @@ void CBarney :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CBarney :: Spawn()
 {
 	Precache( );

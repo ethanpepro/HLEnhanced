@@ -364,9 +364,6 @@ void CBigMomma::LaunchMortar( void )
 	SpriteSpray( startPos, Vector(0,0,1), gSpitSprite, 24 );
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CBigMomma :: Spawn()
 {
 	Precache( );

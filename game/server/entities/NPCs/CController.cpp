@@ -264,9 +264,6 @@ void CController :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CController :: Spawn()
 {
 	Precache( );

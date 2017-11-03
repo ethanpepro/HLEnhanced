@@ -75,9 +75,6 @@ bool CSound::FIsScent() const
 	return false;
 }
 
-//=========================================================
-// Spawn 
-//=========================================================
 void CSoundEnt::Spawn()
 {
 	SetSolidType( SOLID_NOT );

@@ -497,10 +497,6 @@ void CGargantua::UpdateYawSpeed()
 	SetYawSpeed( ys );
 }
 
-
-//=========================================================
-// Spawn
-//=========================================================
 void CGargantua :: Spawn()
 {
 	Precache( );

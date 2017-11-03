@@ -441,9 +441,6 @@ void CAGrunt :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CAGrunt :: Spawn()
 {
 	Precache( );

@@ -222,9 +222,6 @@ void CHeadCrab :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CHeadCrab :: Spawn()
 {
 	Precache( );

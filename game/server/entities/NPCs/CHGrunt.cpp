@@ -776,9 +776,6 @@ void CHGrunt :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CHGrunt :: Spawn()
 {
 	Precache( );

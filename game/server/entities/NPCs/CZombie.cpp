@@ -223,9 +223,6 @@ void CZombie :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CZombie :: Spawn()
 {
 	Precache( );

@@ -170,9 +170,6 @@ void CHAssassin :: HandleAnimEvent( AnimEvent_t& event )
 	}
 }
 
-//=========================================================
-// Spawn
-//=========================================================
 void CHAssassin :: Spawn()
 {
 	Precache( );
