@@ -110,5 +110,5 @@ std::unique_ptr<CReplacementMap> CReplacementCache::LoadMap( const char* const p
 		++uiLine;
 	}
 
-	return std::move( map );
+	return map;
 }
