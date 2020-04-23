@@ -1,11 +1,3 @@
-###################################################
-#                                                 #
-#                                                 #
-#	Tier1 CMake build file                        #
-#                                                 #
-#                                                 #
-###################################################
-
 add_sources(
 	bitbuf.cpp
 	byteswap.cpp
@@ -34,43 +26,28 @@ add_sources(
 	xboxstubs.cpp
 )
 
-#Included by processor_detect.cpp
-#if( UNIX )
-#	add_sources(
-#		processor_detect_linux.cpp
-#	)
-#endif()
-
-add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/common source_sdk/common )
-add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/public source_sdk/public )
+add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/common source_sdk/common)
+add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/public source_sdk/public)
 
 preprocess_sources()
 
-include_directories(
+add_library(tier1 STATIC ${PREP_SRCS})
+
+set_common_subproject_properties(tier1)
+
+target_include_directories(tier1 PRIVATE
+	${CMAKE_SOURCE_DIR}/source_sdk/common
 	${CMAKE_SOURCE_DIR}/source_sdk/public
 	${CMAKE_SOURCE_DIR}/source_sdk/public/tier1
-	${CMAKE_SOURCE_DIR}/source_sdk/common
 	${CMAKE_SOURCE_DIR}/common
 	${CMAKE_SOURCE_DIR}/public
-	${CMAKE_SOURCE_DIR}
-)
+	${CMAKE_SOURCE_DIR})
 
-add_library( tier1 STATIC ${PREP_SRCS} )
-
-target_compile_definitions( tier1 PRIVATE
-	${SHARED_DEFS}
-	TIER1_STATIC_LIB
-	NO_MALLOC_OVERRIDE
-)
-
-set_target_properties( tier1 
-	PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG} ${WARNING_LEVEL_STRICTEST}" 
-	LINK_FLAGS "${LINUX_32BIT_FLAG}" )
-	
-	#No lib prefix
-SET_TARGET_PROPERTIES( tier1 PROPERTIES PREFIX "" )
-
-#Create filters
-create_source_groups( "${CMAKE_SOURCE_DIR}" )
+target_compile_definitions(tier1 PRIVATE
+	TIER1_STATIC_LIB)
 
 clear_sources()
+
+get_target_property(TIER1_SOURCES tier1 SOURCES)
+
+source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${TIER1_SOURCES})

@@ -1,11 +1,3 @@
-###################################################
-#                                                 #
-#                                                 #
-#	VGUI2 Controls CMake build file               #
-#                                                 #
-#                                                 #
-###################################################
-
 add_sources(
 	AnimatingImagePanel.cpp
 	AnimationController.cpp
@@ -68,37 +60,27 @@ add_sources(
 	WizardSubPanel.cpp
 )
 
-add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/common source_sdk/common )
-add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/public source_sdk/public )
-add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/vgui2/src source_sdk/vgui2/src )
+add_subdirectory(${CMAKE_SOURCE_DIR}/source_sdk/common source_sdk/common)
+add_subdirectory(${CMAKE_SOURCE_DIR}/source_sdk/public source_sdk/public)
+add_subdirectory(${CMAKE_SOURCE_DIR}/source_sdk/vgui2/src source_sdk/vgui2/src)
 
 preprocess_sources()
 
-include_directories(
+add_library(vgui2_controls STATIC ${PREP_SRCS})
+
+set_common_subproject_properties(vgui2_controls)
+
+target_include_directories(vgui2_controls PRIVATE
 	${CMAKE_SOURCE_DIR}/source_sdk/common
 	${CMAKE_SOURCE_DIR}/source_sdk/public
 	${CMAKE_SOURCE_DIR}/source_sdk/public/html
 	${CMAKE_SOURCE_DIR}/source_sdk/public/tier1
 	${CMAKE_SOURCE_DIR}/common
 	${CMAKE_SOURCE_DIR}/public
-	${CMAKE_SOURCE_DIR}
-)
-
-add_library( vgui2_controls STATIC ${PREP_SRCS} )
-
-target_compile_definitions( vgui2_controls PRIVATE
-	${SHARED_DEFS}
-	NO_MALLOC_OVERRIDE
-)
-
-set_target_properties( vgui2_controls 
-	PROPERTIES COMPILE_FLAGS "${LINUX_32BIT_FLAG} ${WARNING_LEVEL_STRICTEST}" 
-	LINK_FLAGS "${LINUX_32BIT_FLAG}" )
-	
-	#No lib prefix
-SET_TARGET_PROPERTIES( vgui2_controls PROPERTIES PREFIX "" )
-
-#Create filters
-create_source_groups( "${CMAKE_SOURCE_DIR}" )
+	${CMAKE_SOURCE_DIR})
 
 clear_sources()
+
+get_target_property(VGUI2_CONTROLS_SOURCES vgui2_controls SOURCES)
+
+source_group(TREE ${CMAKE_SOURCE_DIR} FILES ${VGUI2_CONTROLS_SOURCES})
