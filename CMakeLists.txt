@@ -18,6 +18,10 @@ if(WIN32 AND NOT MSVC)
 	message(FATAL_ERROR "Windows must have MSVC compilers installed.")
 endif()
 
+if(WIN32 AND CMAKE_CL_64)
+	message(FATAL_ERROR "Windows compilers must be 32-bit only.") # TODO: Robust way to ensure 32-bit compilers
+endif()
+
 # Platform-specific CMake settings
 
 if(APPLE)
@@ -128,16 +132,16 @@ function(set_common_properties TARGET_NAME)
 		CLIENT_WEAPONS)
 
 	target_compile_options(${TARGET_NAME} PRIVATE
-#		$<$<CXX_COMPILER_ID:MSVC>:
-#			/W4 /WX>
+		$<$<CXX_COMPILER_ID:MSVC>:
+#			/W4 /WX
+			/std:c++14>
 
 		$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
 #			-Wall -Werror
 			-m32 -arch i386
 			-mfpmath=387 -mno-sse
-			-fvisibility=hidden>
-
-		-std=c++14)
+			-fvisibility=hidden
+			-std=c++14>)
 
 	target_link_options(${TARGET_NAME} PRIVATE
 		$<$<CXX_COMPILER_ID:MSVC>:
@@ -162,6 +166,10 @@ endfunction()
 function(set_common_subproject_properties TARGET_NAME)
 	set_target_properties(${TARGET_NAME} PROPERTIES PREFIX "")
 
+	if(MSVC)
+		set_target_properties(${TARGET_NAME} PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+	endif()
+
 	target_compile_definitions(${TARGET_NAME} PRIVATE
 		$<$<PLATFORM_ID:Windows>:
 			_CRT_SECURE_NO_WARNINGS
@@ -179,16 +187,16 @@ function(set_common_subproject_properties TARGET_NAME)
 		NO_MALLOC_OVERRIDE)
 
 	target_compile_options(${TARGET_NAME} PRIVATE
-#		$<$<CXX_COMPILER_ID:MSVC>:
-#			/W4 /WX>
+		$<$<CXX_COMPILER_ID:MSVC>:
+#			/W4 /WX
+			/std:c++14>
 
 		$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
 #			-Wall -Werror
 			-m32 -arch i386
 			-mfpmath=387 -mno-sse
-			-fvisibility=hidden>
-
-		-std=c++14)
+			-fvisibility=hidden
+			-std=c++14>)
 
 	target_link_options(${TARGET_NAME} PRIVATE
 		$<$<CXX_COMPILER_ID:MSVC>:
@@ -246,6 +254,8 @@ target_compile_definitions(client PRIVATE
 	USE_VGUI2=1)
 
 target_link_libraries(client PRIVATE
+	$<$<PLATFORM_ID:Windows>:wsock32>
+
 	SDL2
 	vgui
 	vgui2_controls)
@@ -266,6 +276,10 @@ set_common_properties(server)
 
 target_compile_definitions(server PRIVATE
 	SERVER_DLL)
+
+target_link_libraries(server PRIVATE
+	$<$<PLATFORM_ID:Windows>:Ws2_32>
+	$<$<PLATFORM_ID:Windows>:Shlwapi>)
 
 clear_sources()
 
