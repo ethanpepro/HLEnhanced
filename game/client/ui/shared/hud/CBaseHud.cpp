@@ -10,9 +10,7 @@ extern IParticleMan *g_pParticleMan;
 
 #include "effects/CEnvironment.h"
 
-#if USE_VGUI2
 #include <vgui_controls/Panel.h>
-#endif
 
 #include "CBaseHud.h"
 
@@ -197,7 +195,6 @@ void CBaseHud::DrawHudElements( float flTime, HudElementEvaluatorFn evaluatorFn,
 	{
 		auto pElem = HudList().GetElementByIndex( index );
 
-#if USE_VGUI2
 		// Visible?
 		bool visible = pElem->ShouldDraw();
 
@@ -220,7 +217,6 @@ void CBaseHud::DrawHudElements( float flTime, HudElementEvaluatorFn evaluatorFn,
 		{
 			pElem->ProcessInput();
 		}
-#endif
 
 		if( evaluatorFn( pElem, pUserData ) )
 			pElem->Draw( flTime );

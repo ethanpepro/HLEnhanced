@@ -3,7 +3,6 @@
 
 #include "tier0/dbg.h"
 
-#if USE_VGUI2
 #include <vgui/VGUI2.h>
 #include <vgui/IVGui.h>
 #include <vgui/IScheme.h>
@@ -17,7 +16,6 @@
 #include "IBaseUI.h"
 
 #include "hud/CHudViewport.h"
-#endif
 
 #include "KeyValuesCompat.h"
 
@@ -75,13 +73,11 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 		m_FactoryList[ uiIndex + 1 ] = pFactories[ uiIndex ];
 	}
 
-#if USE_VGUI2
 	if( !vgui2::VGui_InitInterfacesList( "CLIENT", m_FactoryList, NUM_FACTORIES ) )
 	{
 		Msg( "Failed to initialize VGUI2\n" );
 		return;
 	}
-#endif
 
 	if( !KV_InitKeyValuesSystem( m_FactoryList, NUM_FACTORIES ) )
 	{
@@ -89,7 +85,6 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 		return;
 	}
 
-#if USE_VGUI2
 	g_GameUIFuncs = ( IGameUIFuncs* ) pFactories[ 0 ]( IGAMEUIFUNCS_NAME, nullptr );
 	g_pBaseUI = ( IBaseUI* ) pFactories[ 0 ]( IBASEUI_NAME, nullptr );
 
@@ -97,65 +92,46 @@ void CClientVGUI::Initialize( CreateInterfaceFn* pFactories, int iNumFactories )
 	new CHudViewport();
 
 	g_pViewport->Initialize( pFactories, iNumFactories );
-#endif
 }
 
 void CClientVGUI::Start()
 {
-#if USE_VGUI2
 	g_pViewport->Start();
-#endif
 }
 
 void CClientVGUI::SetParent( vgui2::VPANEL parent )
 {
 	m_vRootPanel = parent;
 
-#if USE_VGUI2
 	g_pViewport->SetParent( parent );
-#endif
 }
 
 int CClientVGUI::UseVGUI1()
 {
-#if USE_VGUI2
 	return g_pViewport->UseVGUI1();
-#else
-	return true;
-#endif
 }
 
 void CClientVGUI::HideScoreBoard()
 {
-#if USE_VGUI2
 	g_pViewport->HideScoreBoard();
-#endif
 }
 
 void CClientVGUI::HideAllVGUIMenu()
 {
-#if USE_VGUI2
 	g_pViewport->HideAllVGUIMenu();
-#endif
 }
 
 void CClientVGUI::ActivateClientUI()
 {
-#if USE_VGUI2
 	g_pViewport->ActivateClientUI();
-#endif
 }
 
 void CClientVGUI::HideClientUI()
 {
-#if USE_VGUI2
 	g_pViewport->HideClientUI();
-#endif
 }
 
 void CClientVGUI::Shutdown()
 {
-#if USE_VGUI2
 	g_pViewport->Shutdown();
-#endif
 }

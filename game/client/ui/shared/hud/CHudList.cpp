@@ -3,12 +3,10 @@
 
 #include "CHudElement.h"
 
-#if USE_VGUI2
 #include <KeyValues.h>
 #include <vgui_controls/Panel.h>
 #include "vgui2/VGUI2Paths.h"
 #include "vgui2/CBaseViewport.h"
-#endif
 
 #include "CHudList.h"
 
@@ -32,7 +30,6 @@ void CHudList::InitHudElements()
 {
 	ForEachHudElem( &CHudElement::Init );
 
-#if USE_VGUI2
 	KeyValues *kv = new KeyValues( "layout" );
 	if( kv )
 	{
@@ -71,7 +68,6 @@ void CHudList::InitHudElements()
 
 	g_pViewport->LoadControlSettings( UI_HUDLAYOUT_FILENAME );
 	g_pViewport->InvalidateLayout( true, true );
-#endif
 }
 
 void CHudList::GameShutdown()

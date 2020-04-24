@@ -141,6 +141,7 @@ function(set_common_properties TARGET_NAME)
 			-m32 -arch i386
 			-mfpmath=387 -mno-sse
 			-fvisibility=hidden
+			-Wno-inconsistent-missing-override
 			-std=c++14>)
 
 	target_link_options(${TARGET_NAME} PRIVATE
@@ -196,6 +197,7 @@ function(set_common_subproject_properties TARGET_NAME)
 			-m32 -arch i386
 			-mfpmath=387 -mno-sse
 			-fvisibility=hidden
+			-Wno-inconsistent-missing-override
 			-std=c++14>)
 
 	target_link_options(${TARGET_NAME} PRIVATE
@@ -223,8 +225,6 @@ clear_sources()
 
 # Client library
 
-set(USE_VGUI2 1)
-
 add_subdirectory(source_sdk)
 
 add_sources("${SHARED_SRCS}")
@@ -250,8 +250,7 @@ target_include_directories(client PRIVATE
 	vgui_utils)
 
 target_compile_definitions(client PRIVATE
-	CLIENT_DLL
-	USE_VGUI2=1)
+	CLIENT_DLL)
 
 target_link_libraries(client PRIVATE
 	$<$<PLATFORM_ID:Windows>:wsock32>

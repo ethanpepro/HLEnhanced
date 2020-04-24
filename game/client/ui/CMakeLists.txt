@@ -8,7 +8,4 @@ add_sources(
 add_subdirectory( hud )
 add_subdirectory( shared )
 add_subdirectory( vgui )
-
-if( USE_VGUI2 )
-	add_subdirectory( vgui2 )
-endif()
+add_subdirectory( vgui2 )

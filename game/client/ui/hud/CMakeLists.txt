@@ -34,6 +34,8 @@ add_sources(
 	CHudTextMessage.cpp
 	CHudTrain.h
 	CHudTrain.cpp
+	CHudViewport.h
+	CHudViewport.cpp
 	hud.h
 	hud.cpp
 	hud_benchtrace.h
@@ -43,10 +45,3 @@ add_sources(
 	hud_update.cpp
 	wrect.h
 )
-
-if( USE_VGUI2 )
-add_sources(
-	CHudViewport.h
-	CHudViewport.cpp
-)
-endif()
