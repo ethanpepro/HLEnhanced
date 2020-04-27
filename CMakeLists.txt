@@ -4,7 +4,7 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-project(HLEnhanced LANGUAGES CXX)
+project(HLEnhanced VERSION 1.0.0 LANGUAGES CXX)
 
 # CMake
 
@@ -25,6 +25,7 @@ endif()
 # Platform-specific CMake settings
 
 if(APPLE)
+	set(CMAKE_OSX_DEPLOYMENT_TARGET "10.10" CACHE STRING "..." FORCE)
 	set(CMAKE_OSX_SYSROOT "${CMAKE_OSX_SYSROOT}" CACHE PATH "..." FORCE) # TODO: Ensure SDK is 10.13
 endif()
 
@@ -45,11 +46,11 @@ find_package(Threads REQUIRED)
 add_library(SDL2 SHARED IMPORTED)
 
 if(WIN32)
-	set_target_properties(SDL2 PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/SDL2.lib")
-elseif(LINUX)
-	set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libSDL2-2.0.so.0")
-else(APPLE)
-	set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libSDL2-2.0.0.dylib")
+	set_target_properties(SDL2 PROPERTIES IMPORTED_IMPLIB "${GAME_DIRECTORY}/SDL2.lib")
+elseif(APPLE)
+	set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libSDL2.dylib")
+else()
+	set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libSDL2.so")
 endif()
 
 target_include_directories(SDL2 INTERFACE ${CMAKE_SOURCE_DIR}/external/SDL2)
@@ -57,11 +58,11 @@ target_include_directories(SDL2 INTERFACE ${CMAKE_SOURCE_DIR}/external/SDL2)
 add_library(vgui SHARED IMPORTED)
 
 if(WIN32)
-	set_target_properties(vgui PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/vgui.lib")
-elseif(LINUX)
-	set_target_properties(vgui PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/vgui.so")
-else(APPLE)
-	set_target_properties(vgui PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/vgui.dylib")
+	set_target_properties(vgui PROPERTIES IMPORTED_IMPLIB "${GAME_DIRECTORY}/vgui.lib")
+elseif(APPLE)
+	set_target_properties(vgui PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/vgui.dylib")
+else()
+	set_target_properties(vgui PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/vgui.so")
 endif()
 
 target_include_directories(vgui INTERFACE ${CMAKE_SOURCE_DIR}/utils/vgui/include)
@@ -69,26 +70,24 @@ target_include_directories(vgui INTERFACE ${CMAKE_SOURCE_DIR}/utils/vgui/include
 add_library(tier0 SHARED IMPORTED)
 
 if(WIN32)
-	set_target_properties(tier0 PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/tier0.lib")
-elseif(LINUX)
-	set_target_properties(tier0 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libtier0.so")
-else(APPLE)
-	set_target_properties(tier0 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libtier0.dylib")
+	set_target_properties(tier0 PROPERTIES IMPORTED_IMPLIB "${GAME_DIRECTORY}/tier0.lib")
+elseif(APPLE)
+	set_target_properties(tier0 PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libtier0.dylib")
+else()
+	set_target_properties(tier0 PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libtier0.so")
 endif()
 
 add_library(vstdlib SHARED IMPORTED)
 
 if(WIN32)
-	set_target_properties(vstdlib PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/vstdlib.lib")
-elseif(LINUX)
-	set_target_properties(vstdlib PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libvstdlib.so")
-else(APPLE)
-	set_target_properties(vstdlib PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libvstdlib.dylib")
+	set_target_properties(vstdlib PROPERTIES IMPORTED_IMPLIB "${GAME_DIRECTORY}/vstdlib.lib")
+elseif(APPLE)
+	set_target_properties(vstdlib PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libvstdlib.dylib")
+else()
+	set_target_properties(vstdlib PROPERTIES IIMPORTED_LOCATION "${GAME_DIRECTORY}/libvstdlib.so")
 endif()
 
 # Cross-project flags
-
-# TODO: Refactor
 
 function(set_common_properties TARGET_NAME)
 	set_target_properties(${TARGET_NAME} PROPERTIES PREFIX "")
@@ -97,81 +96,9 @@ function(set_common_properties TARGET_NAME)
 		set_target_properties(${TARGET_NAME} PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 	endif()
 
-	target_include_directories(${TARGET_NAME} PRIVATE
-		${CMAKE_SOURCE_DIR}
-		common
-		engine
-		external
-		game/server
-		game/shared
-		game/shared/entities/player
-		game_shared
-		pm_shared
-		public
-		public/math
-		shared/engine
-		source_sdk/public/tier1
-		source_sdk/public
-		source_sdk/common)
-
 	target_compile_definitions(${TARGET_NAME} PRIVATE
-		$<$<PLATFORM_ID:Windows>:
-			_CRT_SECURE_NO_WARNINGS
-			_SCL_SECURE_NO_WARNINGS>
+		$<$<CONFIG:DEBUG>:_DEBUG>
 
-		$<$<PLATFORM_ID:Linux,Darwin>:
-			GNUC
-			POSIX
-			LINUX
-			_LINUX>
-
-		$<$<PLATFORM_ID:Darwin>:
-			OSX>
-
-		NO_MALLOC_OVERRIDE
-		CLIENT_WEAPONS)
-
-	target_compile_options(${TARGET_NAME} PRIVATE
-		$<$<CXX_COMPILER_ID:MSVC>:
-#			/W4 /WX
-			/std:c++14>
-
-		$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
-#			-Wall -Werror
-			-m32 -arch i386
-			-mfpmath=387 -mno-sse
-			-fvisibility=hidden
-			-Wno-inconsistent-missing-override
-			-std=c++14>)
-
-	target_link_options(${TARGET_NAME} PRIVATE
-		$<$<CXX_COMPILER_ID:MSVC>:
-			/SUBSYSTEM:WINDOWS>
-
-		$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
-			-m32 -arch i386>
-
-		$<$<PLATFORM_ID:Linux>:
-			-Wl,-Map,${TARGET_NAME}_map.txt>)
-
-	target_link_libraries(${TARGET_NAME} PRIVATE
-		$<$<PLATFORM_ID:Linux,Darwin>:dl>
-
-		Threads::Threads
-
-		tier0
-		vstdlib
-		tier1)
-endfunction()
-
-function(set_common_subproject_properties TARGET_NAME)
-	set_target_properties(${TARGET_NAME} PROPERTIES PREFIX "")
-
-	if(MSVC)
-		set_target_properties(${TARGET_NAME} PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-	endif()
-
-	target_compile_definitions(${TARGET_NAME} PRIVATE
 		$<$<PLATFORM_ID:Windows>:
 			_CRT_SECURE_NO_WARNINGS
 			_SCL_SECURE_NO_WARNINGS>
@@ -194,18 +121,70 @@ function(set_common_subproject_properties TARGET_NAME)
 
 		$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
 #			-Wall -Werror
-			-m32 -arch i386
+			-m32
 			-mfpmath=387 -mno-sse
 			-fvisibility=hidden
 			-Wno-inconsistent-missing-override
-			-std=c++14>)
+			-std=c++14>
+
+		$<$<CXX_COMPILER_ID:Clang,AppleClang>:
+			-arch i386>)
 
 	target_link_options(${TARGET_NAME} PRIVATE
 		$<$<CXX_COMPILER_ID:MSVC>:
 			/SUBSYSTEM:WINDOWS>
 
 		$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
-			-m32 -arch i386>)
+			-m32>
+
+		$<$<CXX_COMPILER_ID:Clang,AppleClang>:
+			-arch i386>)
+endfunction()
+
+function(set_common_game_properties TARGET_NAME)
+	if(UNIX)
+		set_target_properties(${TARGET_NAME} PROPERTIES BUILD_WITH_INSTALL_RPATH ON)
+
+		if(APPLE)
+			set_target_properties(${TARGET_NAME} PROPERTIES INSTALL_RPATH "@rpath")
+		else()
+			set_target_properties(${TARGET_NAME} PROPERTIES INSTALL_RPATH "$ORIGIN")
+		endif()
+	endif()
+
+	target_include_directories(${TARGET_NAME} PRIVATE
+		${CMAKE_SOURCE_DIR}
+		common
+		engine
+		external
+		game/server
+		game/shared
+		game/shared/entities/player
+		game_shared
+		pm_shared
+		public
+		public/math
+		shared/engine
+		source_sdk/public/tier1
+		source_sdk/public
+		source_sdk/common)
+
+	target_compile_definitions(${TARGET_NAME} PRIVATE
+		CLIENT_WEAPONS)
+
+	target_link_options(${TARGET_NAME} PRIVATE
+		$<$<PLATFORM_ID:Linux>:
+			-Wl,-Map,${TARGET_NAME}_map.txt>)
+
+	target_link_libraries(${TARGET_NAME} PRIVATE
+		$<$<PLATFORM_ID:Windows>:ws2_32>
+		$<$<PLATFORM_ID:Linux,Darwin>:dl>
+
+		Threads::Threads
+
+		tier0
+		vstdlib
+		tier1)
 endfunction()
 
 # Shared setup
@@ -227,7 +206,7 @@ clear_sources()
 
 add_subdirectory(source_sdk)
 
-add_sources("${SHARED_SRCS}")
+add_sources(${SHARED_SRCS})
 
 add_subdirectory(game/client)
 add_subdirectory(shared/engine/client)
@@ -240,6 +219,7 @@ preprocess_sources()
 add_library(client SHARED ${PREP_SRCS})
 
 set_common_properties(client)
+set_common_game_properties(client)
 
 target_include_directories(client PRIVATE
 	game/client
@@ -253,8 +233,6 @@ target_compile_definitions(client PRIVATE
 	CLIENT_DLL)
 
 target_link_libraries(client PRIVATE
-	$<$<PLATFORM_ID:Windows>:wsock32>
-
 	SDL2
 	vgui
 	vgui2_controls)
@@ -263,7 +241,7 @@ clear_sources()
 
 # Server library
 
-add_sources("${SHARED_SRCS}")
+add_sources(${SHARED_SRCS})
 
 add_subdirectory(game/server)
 
@@ -272,13 +250,10 @@ preprocess_sources()
 add_library(server SHARED ${PREP_SRCS} server.def)
 
 set_common_properties(server)
+set_common_game_properties(server)
 
 target_compile_definitions(server PRIVATE
 	SERVER_DLL)
-
-target_link_libraries(server PRIVATE
-	$<$<PLATFORM_ID:Windows>:Ws2_32>
-	$<$<PLATFORM_ID:Windows>:Shlwapi>)
 
 clear_sources()
 

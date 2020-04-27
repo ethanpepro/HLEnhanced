@@ -26,14 +26,14 @@ add_sources(
 	xboxstubs.cpp
 )
 
-add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/common source_sdk/common)
-add_subdirectory( ${CMAKE_SOURCE_DIR}/source_sdk/public source_sdk/public)
+add_subdirectory(${CMAKE_SOURCE_DIR}/source_sdk/common source_sdk/common)
+add_subdirectory(${CMAKE_SOURCE_DIR}/source_sdk/public source_sdk/public)
 
 preprocess_sources()
 
 add_library(tier1 STATIC ${PREP_SRCS})
 
-set_common_subproject_properties(tier1)
+set_common_properties(tier1)
 
 target_include_directories(tier1 PRIVATE
 	${CMAKE_SOURCE_DIR}/source_sdk/common
@@ -41,7 +41,7 @@ target_include_directories(tier1 PRIVATE
 	${CMAKE_SOURCE_DIR}/source_sdk/public/tier1
 	${CMAKE_SOURCE_DIR}/common
 	${CMAKE_SOURCE_DIR}/public
-	${CMAKE_SOURCE_DIR})
+	${CMAKE_SOURCE_DIR}) # Reverse order
 
 target_compile_definitions(tier1 PRIVATE
 	TIER1_STATIC_LIB)

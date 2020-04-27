@@ -68,7 +68,7 @@ preprocess_sources()
 
 add_library(vgui2_controls STATIC ${PREP_SRCS})
 
-set_common_subproject_properties(vgui2_controls)
+set_common_properties(vgui2_controls)
 
 target_include_directories(vgui2_controls PRIVATE
 	${CMAKE_SOURCE_DIR}/source_sdk/common
@@ -77,7 +77,7 @@ target_include_directories(vgui2_controls PRIVATE
 	${CMAKE_SOURCE_DIR}/source_sdk/public/tier1
 	${CMAKE_SOURCE_DIR}/common
 	${CMAKE_SOURCE_DIR}/public
-	${CMAKE_SOURCE_DIR})
+${CMAKE_SOURCE_DIR}) # Reverse order
 
 clear_sources()
 
