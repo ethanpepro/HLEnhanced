@@ -14,6 +14,8 @@ include(InputFilesList)
 
 # Sanity?
 
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 if(WIN32 AND NOT MSVC)
 	message(FATAL_ERROR "Windows must have MSVC compilers installed.")
 endif()
@@ -48,9 +50,9 @@ add_library(SDL2 SHARED IMPORTED)
 if(WIN32)
 	set_target_properties(SDL2 PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/SDL2.lib")
 elseif(APPLE)
-	set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libSDL2.dylib")
+	set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libSDL2.dylib")
 else()
-	set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libSDL2.so")
+	set_target_properties(SDL2 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libSDL2.so")
 endif()
 
 target_include_directories(SDL2 INTERFACE ${CMAKE_SOURCE_DIR}/external/SDL2)
@@ -60,9 +62,9 @@ add_library(vgui SHARED IMPORTED)
 if(WIN32)
 	set_target_properties(vgui PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/vgui.lib")
 elseif(APPLE)
-	set_target_properties(vgui PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/vgui.dylib")
+	set_target_properties(vgui PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/vgui.dylib")
 else()
-	set_target_properties(vgui PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/vgui.so")
+	set_target_properties(vgui PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/vgui.so")
 endif()
 
 target_include_directories(vgui INTERFACE ${CMAKE_SOURCE_DIR}/utils/vgui/include)
@@ -72,9 +74,9 @@ add_library(tier0 SHARED IMPORTED)
 if(WIN32)
 	set_target_properties(tier0 PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/tier0.lib")
 elseif(APPLE)
-	set_target_properties(tier0 PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libtier0.dylib")
+	set_target_properties(tier0 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libtier0.dylib")
 else()
-	set_target_properties(tier0 PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libtier0.so")
+	set_target_properties(tier0 PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libtier0.so")
 endif()
 
 add_library(vstdlib SHARED IMPORTED)
@@ -82,9 +84,9 @@ add_library(vstdlib SHARED IMPORTED)
 if(WIN32)
 	set_target_properties(vstdlib PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/vstdlib.lib")
 elseif(APPLE)
-	set_target_properties(vstdlib PROPERTIES IMPORTED_LOCATION "${GAME_DIRECTORY}/libvstdlib.dylib")
+	set_target_properties(vstdlib PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libvstdlib.dylib")
 else()
-	set_target_properties(vstdlib PROPERTIES IIMPORTED_LOCATION "${GAME_DIRECTORY}/libvstdlib.so")
+	set_target_properties(vstdlib PROPERTIES IIMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libvstdlib.so")
 endif()
 
 # Cross-project flags
@@ -142,16 +144,6 @@ function(set_common_properties TARGET_NAME)
 endfunction()
 
 function(set_common_game_properties TARGET_NAME)
-	if(UNIX)
-		set_target_properties(${TARGET_NAME} PROPERTIES BUILD_WITH_INSTALL_RPATH ON)
-
-		if(APPLE)
-			set_target_properties(${TARGET_NAME} PROPERTIES INSTALL_RPATH "@rpath")
-		else()
-			set_target_properties(${TARGET_NAME} PROPERTIES INSTALL_RPATH "$ORIGIN")
-		endif()
-	endif()
-
 	target_include_directories(${TARGET_NAME} PRIVATE
 		${CMAKE_SOURCE_DIR}
 		common
