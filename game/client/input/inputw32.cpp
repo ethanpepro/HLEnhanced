@@ -241,6 +241,7 @@ void DLLEXPORT IN_ActivateMouse (void)
 			restore_spi = SystemParametersInfo (SPI_SETMOUSE, 0, newmouseparms, 0);
 
 #endif
+		SDL_SetRelativeMouseMode(SDL_TRUE);
 		mouseactive = 1;
 	}
 }
@@ -260,7 +261,7 @@ void DLLEXPORT IN_DeactivateMouse (void)
 			SystemParametersInfo (SPI_SETMOUSE, 0, originalmouseparms, 0);
 
 #endif
-
+		SDL_SetRelativeMouseMode(SDL_FALSE);
 		mouseactive = 0;
 	}
 }
