@@ -43,6 +43,8 @@ endif()
 
 find_package(Threads REQUIRED)
 
+find_package(OpenGL REQUIRED)
+
 # Get local dependencies
 
 add_library(SDL2 SHARED IMPORTED)
@@ -226,6 +228,7 @@ target_compile_definitions(client PRIVATE
 
 target_link_libraries(client PRIVATE
 	SDL2
+	OpenGL::GL
 	vgui
 	vgui2_controls)
 
