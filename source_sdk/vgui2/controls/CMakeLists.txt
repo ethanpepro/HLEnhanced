@@ -79,6 +79,12 @@ target_include_directories(vgui2_controls PRIVATE
 	${CMAKE_SOURCE_DIR}/public
 ${CMAKE_SOURCE_DIR}) # Reverse order
 
+# TODO: Ignoring errors
+target_compile_options(vgui2_controls PRIVATE
+	$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
+		-Wno-unused-private-field
+		-Wno-unused-const-variable>)
+
 clear_sources()
 
 get_target_property(VGUI2_CONTROLS_SOURCES vgui2_controls SOURCES)

@@ -14,7 +14,8 @@ include(InputFilesList)
 
 # Sanity?
 
-set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+# set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+set(CMAKE_SKIP_BUILD_RPATH TRUE)
 
 if(WIN32 AND NOT MSVC)
 	message(FATAL_ERROR "Windows must have MSVC compilers installed.")
@@ -120,19 +121,24 @@ function(set_common_properties TARGET_NAME)
 
 	target_compile_options(${TARGET_NAME} PRIVATE
 		$<$<CXX_COMPILER_ID:MSVC>:
-#			/W4 /WX
+			/W4 /WX
 			/std:c++14>
 
+		# TODO: Windows math precision
 		$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
-#			-Wall -Werror
+			-Wall -Werror
+			-Wno-overloaded-virtual -Wno-inconsistent-missing-override
 			-m32
-			-mfpmath=387 -mno-sse
+			-mfpmath=sse -msse2
 			-fvisibility=hidden
-			-Wno-inconsistent-missing-override
 			-std=c++14>
 
 		$<$<CXX_COMPILER_ID:Clang,AppleClang>:
-			-arch i386>)
+			-arch i386>
+
+		$<$<PLATFORM_ID:Darwin>:
+			-momit-leaf-frame-pointer
+			-mtune=core2>)
 
 	target_link_options(${TARGET_NAME} PRIVATE
 		$<$<CXX_COMPILER_ID:MSVC>:
@@ -216,6 +222,7 @@ set_common_properties(client)
 set_common_game_properties(client)
 
 target_include_directories(client PRIVATE
+	${OPENGL_INCLUDE_DIR}
 	game/client
 	game/client/ui
 	game/client/ui/hud

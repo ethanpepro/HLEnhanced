@@ -84,7 +84,7 @@ private:
 
 	vgui2::HTML* m_pMessage;
 	vgui2::Label* m_pServerName;
-	bool m_bFileWritten;
+	__unused bool m_bFileWritten;
 	char m_szTempFileName[ MAX_HTML_FILENAME_LENGTH ];
 	int m_iScoreBoardKey;
 };
