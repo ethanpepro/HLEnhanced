@@ -24,6 +24,8 @@ void ResetMaterials() {
 
 // TODO: Error handling
 static void PrecacheMaterial(const std::string& material_file) {
+	// TODO: Redundancy
+	
 	VTFLib::CVMTFile vmt;
 	
 	char material_path[MAX_PATH] = {};
@@ -31,7 +33,7 @@ static void PrecacheMaterial(const std::string& material_file) {
 	g_pFileSystem->GetLocalPath(material_file.c_str(), material_path, sizeof(material_path));
 	
 	if (!vmt.Load(material_path)) {
-		logging::log->error("Bad .vmt!");
+		logging::log->error("Bad .vmt! {}", vlGetLastError());
 	}
 	
 	// TODO: Make robust parsing of all used members, also parse shader type
@@ -39,11 +41,20 @@ static void PrecacheMaterial(const std::string& material_file) {
 	
 	VTFLib::Nodes::CVMTGroupNode *root = vmt.GetRoot();
 	
+	logging::log->info("{} uses {}", material_file, root->GetName());
+	
 	for (unsigned int i = 0; i < root->GetNodeCount(); i++) {
 		VTFLib::Nodes::CVMTNode *node = root->GetNode(i);
+		const char *name = node->GetName();
 		
-		if (strcmp(node->GetName(), "$basetexture") == 0) {
-			texture = static_cast<VTFLib::Nodes::CVMTStringNode *>(node)->GetValue();
+		switch (node->GetType()) {
+			case NODE_TYPE_STRING:
+				if (strcmp(name, "$basetexture") == 0) {
+					texture = static_cast<VTFLib::Nodes::CVMTStringNode *>(node)->GetValue();
+				}
+				break;
+			default:
+				break;
 		}
 	}
 	
@@ -56,7 +67,7 @@ static void PrecacheMaterial(const std::string& material_file) {
 	g_pFileSystem->GetLocalPath(texture_file.c_str(), texture_path, sizeof(texture_path));
 	
 	if (!vtf.Load(texture_path)) {
-		logging::log->error("Bad .vtf!");
+		logging::log->error("Bad .vtf! {}", vlGetLastError());
 	}
 	
 	unsigned int width = vtf.GetWidth();
@@ -67,7 +78,7 @@ static void PrecacheMaterial(const std::string& material_file) {
 	uint8_t *data = new uint8_t[data_size];
 	
 	if (!vtf.ConvertToRGBA8888(vtf.GetData(0, 0, 0, 0), data, width, height, vtf.GetFormat())) {
-		logging::log->error("Bad conversion!");
+		logging::log->error("Bad conversion! {}", vlGetLastError());
 	}
 	
 	GLint old_handle = 0;
@@ -91,7 +102,7 @@ static void PrecacheMaterial(const std::string& material_file) {
 	
 	textures.emplace(material_file, handle);
 	
-	logging::log->debug("Adding {} ({})", material_file, handle);
+	logging::log->info("Adding {} ({})", material_file, handle);
 }
 
 // The rationale for calling this in MapInit is to (possibly) transfer materials in a map when connecting to a server, or
@@ -100,5 +111,8 @@ void PrecacheMaterials() {
 	ResetMaterials();
 	
 	// TODO: Iterate over .vmt files in materials/ (dev-only) and parse needed extra textures in maps/ (regular, work on format)
+	PrecacheMaterial("materials/Brick/brickfloor001a.vmt");
+	PrecacheMaterial("materials/Brick/brickfloor002a.vmt");
+	PrecacheMaterial("materials/Brick/brickwall001a.vmt");
 	PrecacheMaterial("materials/orange.vmt");
 }
