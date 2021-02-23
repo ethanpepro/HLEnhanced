@@ -18,6 +18,10 @@
 
 #include "hl/CClientPrediction.h"
 
+#include <VTFLib.h>
+
+#include "renderer/custom/CTextureManager.h"
+
 #include "CClientGameInterface.h"
 
 CClientGameInterface g_Client;
@@ -67,6 +71,10 @@ bool CClientGameInterface::Initialize()
 
 	//Init ASAP so functions like AlertMessage get set up.
 	CL_SetupServerSupport();
+	
+	if (!vlInitialize()) {
+		return false;
+	}
 
 	return true;
 }
@@ -76,6 +84,8 @@ void CClientGameInterface::Shutdown()
 	Hud().GameShutdown();
 
 	ShutdownCommon();
+	
+	vlShutdown();
 }
 
 bool CClientGameInterface::ConnectionEstablished()
@@ -132,6 +142,8 @@ void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
 	const size_t uiClientWeaponHash = g_WeaponInfoCache.GenerateHash();
 
 	gEngfuncs.pfnServerCmd( UTIL_VarArgs( "WpnInfo %u %u %u %u\n", g_AmmoTypes.GetAmmoTypesCount(), uiClientAmmoHash, g_WeaponInfoCache.GetWeaponCount(), uiClientWeaponHash ) );
+	
+	PrecacheMaterials();
 }
 
 void CClientGameInterface::CheckNewMapStarted()

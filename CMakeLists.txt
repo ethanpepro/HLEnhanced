@@ -92,6 +92,18 @@ else()
 	set_target_properties(vstdlib PROPERTIES IIMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libvstdlib.so")
 endif()
 
+add_library(VTFLib SHARED IMPORTED)
+
+if(WIN32)
+	set_target_properties(VTFLib PROPERTIES IMPORTED_IMPLIB "${CMAKE_SOURCE_DIR}/lib/public/VTFLib13.lib")
+elseif(APPLE)
+	set_target_properties(VTFLib PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libVTFLib13.dylib")
+else()
+	set_target_properties(VTFLib PROPERTIES IMPORTED_LOCATION "${CMAKE_SOURCE_DIR}/lib/public/libVTFLib13.so")
+endif()
+
+target_include_directories(VTFLib INTERFACE ${CMAKE_SOURCE_DIR}/external/VTFLib13)
+
 # Cross-project flags
 
 function(set_common_properties TARGET_NAME)
@@ -237,7 +249,8 @@ target_link_libraries(client PRIVATE
 	SDL2
 	OpenGL::GL
 	vgui
-	vgui2_controls)
+	vgui2_controls
+	VTFLib)
 
 clear_sources()
 
