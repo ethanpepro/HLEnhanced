@@ -22,6 +22,7 @@ void ResetMaterials() {
 	textures.clear();
 }
 
+// TODO: Error handling
 static void PrecacheMaterial(const std::string& material_file) {
 	VTFLib::CVMTFile vmt;
 	
@@ -62,7 +63,8 @@ static void PrecacheMaterial(const std::string& material_file) {
 	unsigned int height = vtf.GetHeight();
 	
 	// TODO: Image formats
-	uint8_t *data = new uint8_t[vtf.ComputeImageSize(width, height, 1, IMAGE_FORMAT_RGBA8888)];
+	unsigned int data_size = vtf.ComputeImageSize(width, height, 1, IMAGE_FORMAT_RGBA8888);
+	uint8_t *data = new uint8_t[data_size];
 	
 	if (!vtf.ConvertToRGBA8888(vtf.GetData(0, 0, 0, 0), data, width, height, vtf.GetFormat())) {
 		logging::log->error("Bad conversion!");
@@ -82,6 +84,8 @@ static void PrecacheMaterial(const std::string& material_file) {
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+	
+	delete[] data;
 	
 	glBindTexture(GL_TEXTURE_2D, old_handle);
 	
