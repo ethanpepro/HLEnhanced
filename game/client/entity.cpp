@@ -12,7 +12,6 @@
 #include "pm_defs.h"
 #include "pmtrace.h"	
 #include "pm_shared.h"
-#include "bench.h"
 #include "Exports.h"
 #include "com_weapons.h"
 
@@ -42,8 +41,6 @@ int DLLEXPORT HUD_AddEntity( int type, cl_entity_t *ent, const char *modelname )
 	switch ( type )
 	{
 	case ET_NORMAL:
-		Bench_CheckEntity( type, ent, modelname );
-		break;
 	case ET_PLAYER:
 	case ET_BEAM:
 	case ET_TEMPENTITY:
@@ -310,8 +307,6 @@ void DLLEXPORT HUD_CreateEntities( void )
 #if defined( BEAM_TEST )
 	Beams();
 #endif
-
-	Bench_AddObjects();
 
 	// Add in any game specific objects
 	Game_AddObjects();

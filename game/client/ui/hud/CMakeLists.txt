@@ -1,15 +1,12 @@
 add_sources(
 	ammohistory.h
 	ammohistory.cpp
-	bench.h
 	CHudAmmo.h
 	CHudAmmo.cpp
 	CHudAmmoSecondary.h
 	CHudAmmoSecondary.cpp
 	CHudBattery.h
 	CHudBattery.cpp
-	CHudBenchmark.h
-	CHudBenchmark.cpp
 	CHudDeathNotice.h
 	CHudDeathNotice.cpp
 	CHudFlashlight.h
@@ -38,8 +35,6 @@ add_sources(
 	CHudViewport.cpp
 	hud.h
 	hud.cpp
-	hud_benchtrace.h
-	hud_benchtrace.cpp
 	hud_msg.cpp
 	hud_redraw.cpp
 	hud_update.cpp

@@ -16,7 +16,6 @@ extern "C"
 #include "const.h"
 #include "mathlib.h"
 #include "renderer/view.h"
-#include "bench.h"
 #include <string.h>
 #include "Exports.h"
 
@@ -676,7 +675,7 @@ void DLLEXPORT CL_CreateMove ( float frametime, usercmd_t *cmd, int active )
 	Vector viewangles;
 	static Vector oldangles;
 
-	if ( active && !Bench_Active() )
+	if ( active )
 	{
 		//memset( viewangles, 0, sizeof( Vector ) );
 		//viewangles[ 0 ] = viewangles[ 1 ] = viewangles[ 2 ] = 0.0;
@@ -773,8 +772,6 @@ void DLLEXPORT CL_CreateMove ( float frametime, usercmd_t *cmd, int active )
 	{
 		cmd->viewangles = oldangles;
 	}
-
-	Bench_SetViewAngles( 1, cmd->viewangles, frametime, cmd );
 }
 
 /*

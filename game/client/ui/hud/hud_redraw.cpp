@@ -18,7 +18,6 @@
 #include <math.h>
 #include "hud.h"
 #include "cl_util.h"
-#include "bench.h"
 #include "strtools.h"
 
 #include "vgui_TeamFortressViewport.h"
@@ -72,27 +71,15 @@ bool CHLHud::DoDraw( float flTime, bool intermission )
 			{
 				const auto& info = *reinterpret_cast<const CDrawInfo*>( pUserData );
 
-				if( !Bench_Active() )
+				if( !info.bIntermission )
 				{
-					if( !info.bIntermission )
-					{
-						if( ( pElem->GetFlags() & HUD_ACTIVE ) && !( info.hud.GetHideHudBits().Any( HIDEHUD_ALL ) ) )
-							return true;
-					}
-					else
-					{  // it's an intermission,  so only draw hud elements that are set to draw during intermissions
-						if( pElem->GetFlags() & HUD_INTERMISSION )
-							return true;
-					}
+					if( ( pElem->GetFlags() & HUD_ACTIVE ) && !( info.hud.GetHideHudBits().Any( HIDEHUD_ALL ) ) )
+						return true;
 				}
 				else
-				{
-					if( ( Q_strcmp( pElem->GetName(), "CHudBenckmark" ) == 0 ) &&
-						( pElem->GetFlags() & HUD_ACTIVE ) &&
-						!( info.hud.GetHideHudBits().Any( HIDEHUD_ALL ) ) )
-					{
+				{  // it's an intermission,  so only draw hud elements that are set to draw during intermissions
+					if( pElem->GetFlags() & HUD_INTERMISSION )
 						return true;
-					}
 				}
 
 				return false;
