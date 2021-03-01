@@ -43,6 +43,13 @@ target_include_directories(tier1 PRIVATE
 	${CMAKE_SOURCE_DIR}/public
 	${CMAKE_SOURCE_DIR}) # Reverse order
 
+# TODO: Ignoring errors
+target_compile_options(tier1 PRIVATE
+	$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
+		-Wno-unused-private-field
+		-Wno-unused-const-variable
+		-Wno-return-type>)
+
 target_compile_definitions(tier1 PRIVATE
 	TIER1_STATIC_LIB)
 

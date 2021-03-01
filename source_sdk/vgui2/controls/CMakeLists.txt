@@ -83,7 +83,8 @@ ${CMAKE_SOURCE_DIR}) # Reverse order
 target_compile_options(vgui2_controls PRIVATE
 	$<$<CXX_COMPILER_ID:Clang,AppleClang,GNU>:
 		-Wno-unused-private-field
-		-Wno-unused-const-variable>)
+		-Wno-unused-const-variable
+		-Wno-return-type>)
 
 clear_sources()
 

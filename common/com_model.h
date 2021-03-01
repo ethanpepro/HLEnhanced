@@ -89,12 +89,21 @@ struct mvertex_t
 	Vector		position;
 };
 
+#define SURF_PLANEBACK 2
+#define SURF_DRAWSKY 4
+#define SURF_DRAWSPRITE 8
+#define SURF_DRAWTURB 0x10
+#define SURF_DRAWTILED 0x20
+#define SURF_DRAWBACKGROUND 0x40
+#define SURF_UNDERWATER 0x80
+
 struct medge_t
 {
 	unsigned short	v[2];
 	unsigned int	cachededgeoffset;
 };
 
+#if 0
 struct texture_t
 {
 	char		name[16];
@@ -106,6 +115,21 @@ struct texture_t
 	unsigned	offsets[MIPLEVELS];		// four mip maps stored
 	unsigned	paloffset;
 };
+#else
+struct texture_t {
+	char name[16];
+	unsigned width;
+	unsigned height;
+	int gl_texturenum;
+	msurface_t *texturechain;
+	int anim_total;
+	int anim_min;
+	int anim_max;
+	texture_t *anim_next;
+	texture_t *alternate_anims;
+	unsigned offsets[MIPLEVELS];
+};
+#endif
 
 struct mtexinfo_t
 {
@@ -117,6 +141,21 @@ struct mtexinfo_t
 	int			flags;			// sky or slime, no lightmap or 256 subdivision
 };
 
+#if 0
+
+#else
+#define VERTEXSIZE 7
+
+struct glpoly_t {
+	glpoly_t *next;
+	glpoly_t *chain;
+	int numverts;
+	int flags;
+	float verts[4][VERTEXSIZE];
+};
+#endif
+
+#if 0
 struct mnode_t
 {
 // common with leaf
@@ -134,6 +173,23 @@ struct mnode_t
 	unsigned short		firstsurface;
 	unsigned short		numsurfaces;
 };
+#else
+struct mnode_t {
+	int contents;
+	int visframe;
+#if 0
+	float minmaxs[6];
+#else
+	Vector mins;
+	Vector maxs;
+#endif
+	mnode_t *parent;
+	mplane_t *plane;
+	mnode_t *children[2];
+	unsigned short firstsurface;
+	unsigned short numsurfaces;
+};
+#endif
 
 // JAY: Compress this as much as possible
 struct decal_t
@@ -149,6 +205,7 @@ struct decal_t
 	short		entityIndex;	// Entity this is attached to
 };
 
+#if 0
 struct mleaf_t
 {
 // common with node
@@ -168,7 +225,27 @@ struct mleaf_t
 	int			key;			// BSP sequence number for leaf's contents
 	byte		ambient_sound_level[NUM_AMBIENTS];
 };
+#else
+struct mleaf_t {
+	int contents;
+	int visframe;
+#if 0
+	float minmaxs[6];
+#else
+	Vector mins;
+	Vector maxs;
+#endif
+	mnode_t *parent;
+	byte *compressed_vis;
+	efrag_t *efrags;
+	msurface_t **firstmarksurface;
+	int nummarksurfaces;
+	int key;
+	byte ambient_sound_level[NUM_AMBIENTS];
+};
+#endif
 
+#if 0
 struct msurface_t
 {
 	int			visframe;		// should be drawn when node is crossed
@@ -199,6 +276,30 @@ struct msurface_t
 	
 	decal_t		*pdecals;
 };
+#else
+struct msurface_t {
+	int visframe;
+	mplane_t *plane;
+	int flags;
+	int firstedge;
+	int numedges;
+	short texturemins[2];
+	short extents[2];
+	int light_s;
+	int light_t;
+	glpoly_t *polys;
+	msurface_t *texturechain;
+	mtexinfo_t *texinfo;
+	int dlightframe;
+	int dlightbits;
+	int lightmaptexturenum;
+	byte styles[MAXLIGHTMAPS];
+	int cached_light[MAXLIGHTMAPS];
+	qboolean cached_dlight;
+	color24 *samples;
+	decal_t *pdecals;
+};
+#endif
 
 struct dclipnode_t
 {

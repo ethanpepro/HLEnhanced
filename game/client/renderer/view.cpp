@@ -23,6 +23,8 @@
 #include "Exports.h"
 #include "CHudSpectator.h"
 
+#include "renderer/custom/Renderer.h"
+
 int CL_IsThirdPerson();
 extern "C" void CL_CameraOffset( Vector& ofs );
 
@@ -1648,6 +1650,7 @@ void V_CalcSpectatorRefdef ( ref_params_t * pparams )
 
 void DLLEXPORT V_CalcRefdef( ref_params_t *pparams )
 {
+#if 0
 	// intermission / finale rendering
 	if ( pparams->intermission )
 	{	
@@ -1661,25 +1664,14 @@ void DLLEXPORT V_CalcRefdef( ref_params_t *pparams )
 	{
 		V_CalcNormalRefdef ( pparams );
 	}
-
-/*
-// Example of how to overlay the whole screen with red at 50 % alpha
-#define SF_TEST
-#if defined SF_TEST
-	{
-		screenfade_t sf;
-		gEngfuncs.pfnGetScreenFade( &sf );
-
-		sf.fader = 255;
-		sf.fadeg = 0;
-		sf.fadeb = 0;
-		sf.fadealpha = 128;
-		sf.fadeFlags = FFADE_STAYOUT | FFADE_OUT;
-
-		gEngfuncs.pfnSetScreenFade( &sf );
+#else
+	// TODO: Finalize call order, workout spectator/intermission rendering
+	if (!pparams->paused) {
+		V_CalcNormalRefdef(pparams);
 	}
+	
+	Renderer_V_CalcRefdef(pparams);
 #endif
-*/
 }
 
 /*

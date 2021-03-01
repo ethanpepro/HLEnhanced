@@ -7,23 +7,30 @@
 
 #include "logging/Logging.h"
 
+// TODO: Sort OpenGL headers by platform
 #include <OpenGL/gl.h>
 #include <VTFLib.h>
 
-#include "CTextureManager.h"
+#include "TextureManager.h"
 
 std::map<std::string, GLuint> textures;
 
 void ResetMaterials() {
-	for (auto& texture : textures) {
+	for (auto &texture : textures) {
 		glDeleteTextures(1, &texture.second);
+		texture.second = 0;
 	}
 	
 	textures.clear();
 }
 
+// TODO: Sort into engine-necessary textures (that are loaded once) and
+// then get map-specific textures on map load (once name is known)
+
+// TODO: See how Source does this, this can't be remotely right
+
 // TODO: Error handling
-static void PrecacheMaterial(const std::string& material_file) {
+static void PrecacheMaterial(const std::string &material_file) {
 	// TODO: Redundancy
 	
 	VTFLib::CVMTFile vmt;
@@ -41,7 +48,9 @@ static void PrecacheMaterial(const std::string& material_file) {
 	
 	VTFLib::Nodes::CVMTGroupNode *root = vmt.GetRoot();
 	
+#if 0
 	logging::log->info("{} uses {}", material_file, root->GetName());
+#endif
 	
 	for (unsigned int i = 0; i < root->GetNodeCount(); i++) {
 		VTFLib::Nodes::CVMTNode *node = root->GetNode(i);
@@ -107,8 +116,10 @@ static void PrecacheMaterial(const std::string& material_file) {
 
 // The rationale for calling this in MapInit is to (possibly) transfer materials in a map when connecting to a server, or
 // to refresh and load materials only needed in that map
-void PrecacheMaterials() {
+void PrecacheMaterialsForMap(const char *map_name) {
 	ResetMaterials();
+	
+	logging::log->info("Processing materials for {}", map_name);
 	
 	// TODO: Iterate over .vmt files in materials/ (dev-only) and parse needed extra textures in maps/ (regular, work on format)
 	PrecacheMaterial("materials/Brick/brickfloor001a.vmt");

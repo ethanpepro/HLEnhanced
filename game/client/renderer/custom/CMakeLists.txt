@@ -1,3 +1,6 @@
 add_sources(
-	CTextureManager.cpp
+	TextureManager.cpp
+	TextureManager.h
+	Renderer.cpp
+	Renderer.h
 )
