@@ -12,5 +12,3 @@ add_sources(
 	view.h
 	view.cpp
 )
-
-add_subdirectory( custom )
