@@ -3029,8 +3029,31 @@ int PM_GetPhysEntInfo( int ent )
 	return -1;
 }
 
+// FIXME: Changing any settings that require a restart (even before joining a map) (also including _restart) will cause an assertion failure because of pm_shared_initialized
+// Granted, this doesn't occur on the stock game
+
+#if 0
+(lldb) bt
+* thread #1, name = 'MainThrd', queue = 'com.apple.main-thread', stop reason = signal SIGABRT
+* frame #0: 0xa73e8ed6 libsystem_kernel.dylib`__pthread_kill + 10
+frame #1: 0xa75a1427 libsystem_pthread.dylib`pthread_kill + 363
+frame #2: 0xa7337956 libsystem_c.dylib`abort + 133
+frame #3: 0xa7301ead libsystem_c.dylib`__assert_rtn + 305
+frame #4: 0x10962c5a client.dylib`PM_Init(playermove_t*) + 90
+frame #5: 0x10974a07 client.dylib`HUD_PlayerMoveInit + 23
+frame #6: 0x033ea251 hw.dylib`ClientDLL_Init + 337
+frame #7: 0x033518f1 hw.dylib`Host_Init + 785
+frame #8: 0x0337b1b9 hw.dylib`Sys_InitGame(char*, char*, void*, int) + 457
+frame #9: 0x0337ebe2 hw.dylib`CEngine::Load(bool, char*, char*) + 82
+frame #10: 0x0337b657 hw.dylib`RunListenServer(void*, char*, char*, char*, IBaseInterface* (*)(char const*, int*), IBaseInterface* (*)(char const*, int*)) + 583
+frame #11: 0x0337b7b7 hw.dylib`CEngineAPI::Run(void*, char*, char*, char*, IBaseInterface* (*)(char const*, int*), IBaseInterface* (*)(char const*, int*)) + 151
+frame #12: 0x00097b5e hl_osx`main + 910
+frame #13: 0x000976b5 hl_osx`start + 53
+#endif
+
 void PM_Init( playermove_t *ppmove )
 {
+#if 0
 	assert( !pm_shared_initialized );
 
 	pmove = ppmove;
@@ -3040,4 +3063,16 @@ void PM_Init( playermove_t *ppmove )
 	g_MaterialsList.LoadFromFile( "sound/materials.txt" );
 
 	pm_shared_initialized = true;
+#else
+	// If we're already initialized, why have an odd assertion check? This won't cause any issues down the line, right?
+	if (!pm_shared_initialized) {
+		pmove = ppmove;
+		
+		PM_CreateStuckTable();
+		
+		g_MaterialsList.LoadFromFile("sound/materials.txt");
+		
+		pm_shared_initialized = true;
+	}
+#endif
 }

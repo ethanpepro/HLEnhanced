@@ -29,7 +29,11 @@ void CHud::Init()
 
 	m_iFOV = 0;
 
+#if 0
 	default_fov = CVAR_CREATE( "default_fov", "90", 0 );
+#else
+	default_fov = CVAR_CREATE("default_fov", "75", FCVAR_ARCHIVE);
+#endif
 	hud_takesshots = CVAR_CREATE( "hud_takesshots", "0", FCVAR_ARCHIVE );	// controls whether or not to automatically take screenshots at the end of a round
 	cl_lw = gEngfuncs.pfnGetCvarPointer( "cl_lw" );
 	CVAR_CREATE( "zoom_sensitivity_ratio", "1.2", 0 );

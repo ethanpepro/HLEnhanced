@@ -1,6 +1,7 @@
 #ifndef GAME_CLIENT_UI_VGUI2_CCLIENTMOTD_H
 #define GAME_CLIENT_UI_VGUI2_CCLIENTMOTD_H
 
+#if 0
 #include <vgui_controls/Frame.h>
 #include "IViewportPanel.h"
 #include "ViewportPanelNames.h"
@@ -88,5 +89,6 @@ private:
 	char m_szTempFileName[ MAX_HTML_FILENAME_LENGTH ];
 	int m_iScoreBoardKey;
 };
+#endif
 
 #endif //GAME_CLIENT_UI_VGUI2_CCLIENTMOTD_H

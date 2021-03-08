@@ -68,6 +68,12 @@ int gmsgWpnBody = 0;
 */
 int gmsgGameState = 0;
 
+#if 0
+??? calls GetCmdName
+core.dylib contains GetCmdName
+
+#endif
+
 void LinkUserMessages()
 {
 	// Already taken care of?

@@ -18,10 +18,8 @@
 
 #include "hl/CClientPrediction.h"
 
-#include <SDL.h>
 #include <VTFLib.h>
 
-#include "renderer/custom/TextureManager.h"
 #include "renderer/custom/Renderer.h"
 
 #include "CClientGameInterface.h"
@@ -74,31 +72,11 @@ bool CClientGameInterface::Initialize()
 	//Init ASAP so functions like AlertMessage get set up.
 	CL_SetupServerSupport();
 	
-#if 0
-	SDL_Window *window = SDL_GetWindowFromID(0);
-	if (!window) {
-		return false;
-	}
-	
-	SDL_GLContext context = SDL_GL_CreateContext(window);
-	if (!context) {
-		return false;
-	}
-	
-#if 0
-	SDL_GLContext new_context = context;
-	
-	// TODO: Modify new_context to our needs (has to be platform-specific, SDL_GLContext is a generic void *)
-	
-	SDL_GL_MakeCurrent(window, new_context);
-	
-	SDL_GL_DeleteContext(context);
-#endif
-#endif
-	
 	if (!vlInitialize()) {
 		return false;
 	}
+	
+	Renderer_Initialize();
 
 	return true;
 }
@@ -110,6 +88,8 @@ void CClientGameInterface::Shutdown()
 	ShutdownCommon();
 	
 	vlShutdown();
+	
+	Renderer_Shutdown();
 }
 
 bool CClientGameInterface::ConnectionEstablished()
@@ -148,8 +128,7 @@ void CClientGameInterface::NewMapStarted( const char* const pszMapName, const ch
 
 	g_Prediction.NewMapStarted();
 	
-	// TODO: Use map name
-	PrecacheMaterialsForMap(pszMapName);
+	Renderer_NewMapStarted(pszMapName);
 }
 
 void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
@@ -170,7 +149,7 @@ void CClientGameInterface::MapInit( cl_entity_t* pWorldModel )
 
 	gEngfuncs.pfnServerCmd( UTIL_VarArgs( "WpnInfo %u %u %u %u\n", g_AmmoTypes.GetAmmoTypesCount(), uiClientAmmoHash, g_WeaponInfoCache.GetWeaponCount(), uiClientWeaponHash ) );
 	
-	GenerateVertexDataForMap(pWorldModel);
+	Renderer_MapInit(pWorldModel);
 }
 
 void CClientGameInterface::CheckNewMapStarted()

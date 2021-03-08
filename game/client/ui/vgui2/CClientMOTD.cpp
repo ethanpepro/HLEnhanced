@@ -1,3 +1,4 @@
+#if 0
 #include <vgui/ILocalize.h>
 #include <vgui_controls/HTML.h>
 #include <vgui_controls/Label.h>
@@ -233,3 +234,4 @@ void CClientMOTD::RemoveTempFile()
 		filesystem()->RemoveFile( m_szTempFileName, "GAMECONFIG" );
 	}
 }
+#endif

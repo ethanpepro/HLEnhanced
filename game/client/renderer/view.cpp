@@ -1666,9 +1666,7 @@ void DLLEXPORT V_CalcRefdef( ref_params_t *pparams )
 	}
 #else
 	// TODO: Finalize call order, workout spectator/intermission rendering
-	if (!pparams->paused) {
-		V_CalcNormalRefdef(pparams);
-	}
+	V_CalcNormalRefdef(pparams);
 	
 	Renderer_V_CalcRefdef(pparams);
 #endif

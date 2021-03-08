@@ -1,6 +1,12 @@
 add_sources(
-	TextureManager.cpp
-	TextureManager.h
+	GLHelper.cpp
+	GLHelper.h
+	Logging.cpp
+	Logging.h
+	Material.cpp
+	Material.h
+	MaterialRegistry.cpp
+	MaterialRegistry.h
 	Renderer.cpp
 	Renderer.h
 )

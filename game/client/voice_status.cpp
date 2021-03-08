@@ -155,6 +155,32 @@ CVoiceStatus::~CVoiceStatus()
 	}
 }
 
+// FIXME: Changing any settings that require a restart (even before joining a map) (also including _restart) will cause an assertion failure because of g_pInternalVoiceStatus
+// Granted, this doesn't occur on the stock game
+
+#if 0
+(lldb) bt
+* thread #1, name = 'MainThrd', queue = 'com.apple.main-thread', stop reason = signal SIGABRT
+* frame #0: 0xa73e8ed6 libsystem_kernel.dylib`__pthread_kill + 10
+frame #1: 0xa75a1427 libsystem_pthread.dylib`pthread_kill + 363
+frame #2: 0xa7337956 libsystem_c.dylib`abort + 133
+frame #3: 0xa7301ead libsystem_c.dylib`__assert_rtn + 305
+frame #4: 0x100265e1 client.dylib`CVoiceStatus::Init(IVoiceStatusHelper*, vgui::Panel**) + 337
+frame #5: 0x100ffa56 client.dylib`CHLHud::PostInit() + 70
+frame #6: 0x1010e033 client.dylib`CBaseHud::Init() + 67
+frame #7: 0x10111bda client.dylib`CHud::Init() + 298
+frame #8: 0x0fffee16 client.dylib`HUD_Init + 38
+frame #9: 0x03431167 hw.dylib`ClientDLL_HudInit + 55
+frame #10: 0x034175c2 hw.dylib`CL_Init + 978
+frame #11: 0x03397941 hw.dylib`Host_Init + 865
+frame #12: 0x033c11b9 hw.dylib`Sys_InitGame(char*, char*, void*, int) + 457
+frame #13: 0x033c4be2 hw.dylib`CEngine::Load(bool, char*, char*) + 82
+frame #14: 0x033c1657 hw.dylib`RunListenServer(void*, char*, char*, char*, IBaseInterface* (*)(char const*, int*), IBaseInterface* (*)(char const*, int*)) + 583
+frame #15: 0x033c17b7 hw.dylib`CEngineAPI::Run(void*, char*, char*, char*, IBaseInterface* (*)(char const*, int*), IBaseInterface* (*)(char const*, int*)) + 151
+frame #16: 0x000ddb5e hl_osx`main + 910
+frame #17: 0x000dd6b5 hl_osx`start + 53
+#endif
+
 int CVoiceStatus::Init(
 	IVoiceStatusHelper *pHelper,
 	Panel **pParentPanel)
@@ -172,8 +198,15 @@ int CVoiceStatus::Init(
 		m_bBanMgrInitialized = true;
 	}
 
+#if 0
 	assert(!g_pInternalVoiceStatus);
 	g_pInternalVoiceStatus = this;
+#else
+	// If we're already initialized, why have an odd assertion check? This won't cause any issues down the line, right?
+	if (!g_pInternalVoiceStatus) {
+		g_pInternalVoiceStatus = this;
+	}
+#endif
 
 	m_BlinkTimer = 0;
 	m_VoiceHeadModel = INVALID_HSPRITE;
